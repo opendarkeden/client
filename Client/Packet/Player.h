@@ -2,7 +2,7 @@
 // 
 // Filename    : Player.h 
 // Written by  : reiot@ewestsoft.com
-// Description : ฐิภำผญน๖/ทฮฑืภฮผญน๖/ลืฝบฦฎ ลฌถ๓ภฬพ๐ฦฎฟ๋ วรทนภฬพ๎ ลฌทกฝบ
+// Description : ยฐร”ร€ร“ยผยญยนรถ/ยทรยฑร—ร€รยผยญยนรถ/ร…ร—ยฝยบรยฎ ร…ยฌยถรณร€รยพรฐรยฎยฟรซ รรยทยนร€รยพรฎ ร…ยฌยทยกยฝยบ
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -23,16 +23,16 @@ class Packet;
 //
 // class Player
 //
-// วรทนภฬพ๎ดย ฝรฝบลÛ ฐดรผทฮ, ฟฌฐแตศ วฯณชภว ลฌถ๓ภฬพ๐ฦฎฟอ ด๋ภภตศดู.
-// TCP ผาฤฯฐ๚ ผาฤฯภิรโทยฝบฦฎธฒภป ณปบฮฟก ฐกม๖ธ็, ฦะลถ ภิรโทย/รณธฎ ธÞฝ๎ตๅธฆ
-// ฐฎฐํ ภึดู. ฐิภำผญน๖/ทฮฑืภฮผญน๖/ลืฝบฦฎลฌถ๓ภฬพ๐ฦฎฟกผญดย ภฬ ลฌทกฝบธฆ
-// ป๓ผำนÞพฦผญ ป็ฟ๋วฯฐิ ตศดู.ภ
+// รรยทยนร€รยพรฎยดร ยฝรยฝยบร…ร ยฐยดรยผยทร, ยฟยฌยฐรกยตร รรยณยชร€ร ร…ยฌยถรณร€รยพรฐรยฎยฟร ยดรซร€ร€ยตรยดร.
+// TCP ยผร’รรยฐรบ ยผร’รรร€ร”รรขยทรยฝยบรยฎยธยฒร€ยป ยณยปยบรยฟยก ยฐยกรรถยธรง, รรร…ยถ ร€ร”รรขยทร/รยณยธยฎ ยธรยฝรฎยตรฅยธยฆ
+// ยฐยฎยฐรญ ร€ร–ยดร. ยฐร”ร€ร“ยผยญยนรถ/ยทรยฑร—ร€รยผยญยนรถ/ร…ร—ยฝยบรยฎร…ยฌยถรณร€รยพรฐรยฎยฟยกยผยญยดร ร€ร ร…ยฌยทยกยฝยบยธยฆ
+// ยปรณยผร“ยนรยพรยผยญ ยปรงยฟรซรรยฐร” ยตรยดร.ร€
 
 //
 // *CAUTION*
 //
-// ฦฏศ๗ ฐิภำผญน๖ณช ทฮฑืภฮผญน๖ภว ฐๆฟ์, ภฬ ลฌทกฝบธฆ ป๓ผำนÞภบ ลฌทกฝบฟกผญ
-// ตฟฑโศญ(Mutex Lock/Unlock)ธฆ วุมเพ฿ วัดู.
+// รยฏรรท ยฐร”ร€ร“ยผยญยนรถยณยช ยทรยฑร—ร€รยผยญยนรถร€ร ยฐรฆยฟรฌ, ร€ร ร…ยฌยทยกยฝยบยธยฆ ยปรณยผร“ยนรร€ยบ ร…ยฌยทยกยฝยบยฟยกยผยญ
+// ยตยฟยฑรขรยญ(Mutex Lock/Unlock)ยธยฆ รรรร ยพร รร‘ยดร.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -45,10 +45,10 @@ public :
 
 	// constructor
 	Player() throw (Error);
-	Player ( Socket * pSocket ) throw ( Error );
+	Player ( Socket * pSocket ) throw ( ProtocolException , Error );
 	
 	// destructor
-	virtual ~Player () throw ( Error );
+	virtual ~Player () throw ( ProtocolException , Error );
 
 	// read socket's receive buffer and fill input buffer
 	virtual void processInput () throw ( IOException , Error );
@@ -63,10 +63,10 @@ public :
 	virtual void sendPacket ( Packet * pPacket ) throw ( ProtocolException , Error );
 
 	// disconnect
-	// วรทนภฬพ๎ภว ฟฌฐแภป มพทแวา ถง, ป๓ด๋ฦํภฬ ภ๛ภýวฯฐิ ทฮฑืพฦฟ๔วฯม๖ พสภป ฐๆฟ์ ผาฤฯภว ฟฌฐแภฬ 
-	// ภฬนฬ ฒ๗ฐÜ ภึภธนวทฮ disconnect(DISCONNECTED) ธฆ ป็ฟ๋วุผญ ฟฌฐแภป มพทแวุพ฿ วัดู. นÝธ้, 
-	// มคด็วฯฐิ ทฮฑืพฦฟ๔ภป วั ฐๆฟ์ฟกดย disconnect(UNDISCONNECTED) ธฆ ป็ฟ๋วุพ฿ วัดู.
-	virtual void disconnect ( bool bDisconnected = DISCONNECTED ) throw ( Error );
+	// รรยทยนร€รยพรฎร€ร ยฟยฌยฐรกร€ยป รยพยทรกรร’ ยถยง, ยปรณยดรซรรญร€ร ร€รปร€รฝรรยฐร” ยทรยฑร—ยพรยฟรดรรรรถ ยพรร€ยป ยฐรฆยฟรฌ ยผร’รรร€ร ยฟยฌยฐรกร€ร 
+	// ร€รยนร ยฒรทยฐร ร€ร–ร€ยธยนรยทร disconnect(DISCONNECTED) ยธยฆ ยปรงยฟรซรรยผยญ ยฟยฌยฐรกร€ยป รยพยทรกรรยพร รร‘ยดร. ยนรยธรฉ, 
+	// รยคยดรงรรยฐร” ยทรยฑร—ยพรยฟรดร€ยป รร‘ ยฐรฆยฟรฌยฟยกยดร disconnect(UNDISCONNECTED) ยธยฆ ยปรงยฟรซรรยพร รร‘ยดร.
+	virtual void disconnect ( bool bDisconnected = DISCONNECTED ) throw ( ProtocolException , Error );
 	
 	// get/set socket
 	Socket * getSocket () throw () { return m_pSocket; }
@@ -77,7 +77,7 @@ public :
 	void setID ( const std::string & id ) throw () { m_ID = id; }
 
 	// get debug std::string
-	virtual std::string toString () const throw ( Error );
+	virtual std::string toString () const throw ( ProtocolException , Error );
 
 	//add by viva
 	void setKey(WORD EncryptKey, WORD HashKey) throw();

@@ -1,5 +1,5 @@
 // RarFile.h: interface for the CRarFile class.
-// Made by ¾¦°« 2001. 7. 24
+// Modified for cross-platform support without RAR dependency
 //////////////////////////////////////////////////////////////////////
 
 #ifndef _RAR_FILE_HEADER_
@@ -7,99 +7,70 @@
 
 #pragma warning(disable:4786)
 
+#ifdef PLATFORM_WINDOWS
 #include <windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include <string>
 #include <vector>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-///////////////////////////////////////////////////////////////////////////////
-// urarlib.h
-///////////////////////////////////////////////////////////////////////////////
-#define _DO_CRC32_CHECK                     /* perform cyclical redundancy  */
-                                            /* check (CRC32) - disable this */
-                                            /* for a little speed-up        */
-#define _USE_ASM                            /*
-                                             * enable assembly extensions
-                                             * x86 cpus.
-                                             */
+/**
+ * CRarFile - Cross-platform file reader that works with extracted RAR content
+ *
+ * RAR files are mapped to directories with the same name:
+ * - Data/Info/infodata.rpk  â†’ Data/Info/infodata/
+ * - Data/Ui/txt/Item.rpk    â†’ Data/Ui/txt/Item/
+ *
+ * This avoids dependency on unrar library and improves cross-platform compatibility
+ */
 
-#define _WIN_32                             /* Win32 with VisualC           */
-
-typedef unsigned char    UBYTE;             /* WIN32 definitions            */
-typedef unsigned short   UWORD;
-typedef unsigned long    UDWORD;
-
-/* This structure is used for listing archive content                       */
-struct RAR20_archive_entry                  /* These infos about files are  */
-{                                           /* stored in RAR v2.0 archives  */
-  char *Name;
-  UWORD NameSize;
-  UDWORD PackSize;
-  UDWORD UnpSize;
-  UBYTE HostOS;                             /* MSDOS=0,OS2=1,WIN32=2,UNIX=3 */
-  UDWORD FileCRC;
-  UDWORD FileTime;
-  UBYTE UnpVer;
-  UBYTE Method;
-  UDWORD FileAttr;
-};
-
-struct ArchiveList_struct
-{
-  struct RAR20_archive_entry item;
-  struct ArchiveList_struct *next;
-};
-/*typedef struct
-{
-  struct RAR20_archive_entry item;
-  struct ArchiveList_struct *next;
-} ArchiveList_struct;*/
-
-////////////////////////////////////////////////////////////////////////////////////
-
-class CRarFile  
+class CRarFile
 {
 private:
 	std::string m_rar_filename;
 	std::string m_password;
+	std::string m_base_dir;      // Extracted directory path
 
 	char *m_data;
 	char *m_file_pointer;
 	int m_size;
 
 public:
-	// »ý¼ºÀÚ
+	// Constructor
 	CRarFile();
 	CRarFile(const char *rar_filename, const char *pass);
 
-	// ¼Ò¸êÀÚ
+	// Destructor
 	~CRarFile();
 
-	// ÀÐ¾î¿Â rarÀ» ÇØÁ¦ÇÑ´Ù.
+	// Release resources
 	void Release();
 
-	// rarÆÄÀÏ ÀÌ¸§ & ÆÐ½º ¼¼ÆÃ
+	// Set RAR file path (converted to directory path)
 	void SetRAR(const char *rar_filename, const char *pass);
 
-	// ÆÄÀÏ ¿­±â
+	// Open a file from the extracted directory
 	bool Open(const char *in_filename);
 
-	// ÆÄÀÏ¿¡¼­ ÀÐ±â
+	// Read data
 	char*	Read(char *buf, int size);
 	char*	Read(int size);
 	bool	GetString(char* buf, int size);
 
-	// ÆÄÀÏÀÌ ¿­·È³ª?
-	bool	IsSet()	{ return (m_rar_filename !=""); }
+	// Check if file is ready
+	bool	IsSet()	{ return (m_data != NULL); }
 
-	//	ÆÄÀÏÀÇ ³¡ÀÌ¸é true else false
+	// Check if EOF
 	bool	IsEOF(int plus = 0);
 
+	// Get file list (stub for compatibility)
 	std::vector<std::string> *GetList(char *filter = NULL);
 
 	char* GetFilePointer(){return m_file_pointer;};
-
-
-
 };
 
 #endif

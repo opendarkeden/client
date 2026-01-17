@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 // CWaitUIUpdate.cpp
 //---------------------------------------------------------------------------
-// UIø°º≠ ∏ﬁΩ√¡ˆ∞° ø¿±‚∏¶ ±‚¥Ÿ∏Æ¥¬ loop
+// UIÏóêÏÑú Î©îÏãúÏßÄÍ∞Ä Ïò§Í∏∞Î•º Í∏∞Îã§Î¶¨Îäî loop
 //---------------------------------------------------------------------------
 #include "Client_PCH.h"
 #pragma warning(disable:4786)
@@ -9,8 +9,12 @@
 //-----------------------------------------------------------------------------
 // Include files
 //-----------------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
 #include <MMSystem.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include <string>
 #include "Client.h"
 #include "GameObject.h"
@@ -18,8 +22,8 @@
 #include "PacketDef.h"
 #include "VS_UI.h"
 #include "ServerInformation.h"
-#include "packet\cpackets\CLGetServerList.h"
-#include "packet\cpackets\CLChangeServer.h"
+#include "packet/cpackets/CLGetServerList.h"
+#include "packet/cpackets/CLChangeServer.h"
 #include "CWaitUIUpdate.h"
 #include "MTestDef.h"
 
@@ -52,10 +56,10 @@ extern DWORD g_double_click_time;
 void
 CWaitUIUpdate::Init()
 {
-	// mouse event √≥∏Æ
+	// mouse event Ï≤òÎ¶¨
 	g_pDXInput->SetMouseEventReceiver( DXMouseEvent );
 
-	// keyboard event √≥∏Æ
+	// keyboard event Ï≤òÎ¶¨
 	g_pDXInput->SetKeyboardEventReceiver( DXKeyboardEvent );
 }
 
@@ -93,7 +97,7 @@ CWaitUIUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				break;
 
 				//-----------------------------------------------------
-				// Server List πﬁ±‚
+				// Server List Î∞õÍ∏∞
 				//-----------------------------------------------------
 				case DIK_SPACE :
 				{
@@ -101,7 +105,7 @@ CWaitUIUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				break;
 
 				//-----------------------------------------------------
-				// Server º±≈√«œ±‚
+				// Server ÏÑ†ÌÉùÌïòÍ∏∞
 				//-----------------------------------------------------
 				case DIK_C :
 				{
@@ -127,7 +131,7 @@ CWaitUIUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int
 	{
 		case CDirectInput::LEFTDOWN:
 			//  double-click interval?
-			if ((DWORD)abs(GetTickCount() - last_click_time) <= g_double_click_time)
+			if ((DWORD)labs((long)(GetTickCount() - last_click_time)) <= g_double_click_time)
 			{
 				if (g_x>= double_click_x-1 && g_x <= double_click_x+1 &&
 					 g_y>= double_click_y-1 && g_y <= double_click_y+1)
@@ -166,7 +170,7 @@ CWaitUIUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int
 //-----------------------------------------------------------------------------
 // Update
 //-----------------------------------------------------------------------------
-// ¡¢º” ¿¸..
+// Ï†ëÏÜç Ï†Ñ..
 //-----------------------------------------------------------------------------
 void		
 CWaitUIUpdate::Update()
@@ -186,7 +190,7 @@ CWaitUIUpdate::Update()
 
 	CheckInvalidProcess();
 	//------------------------------------------
-	// ¿œ¡§Ω√∞£∏∂¥Ÿ «—π¯æø update
+	// ÏùºÏ†ïÏãúÍ∞ÑÎßàÎã§ ÌïúÎ≤àÏî© update
 	//------------------------------------------
 	if (g_CurrentTime - lastTime >= g_UpdateDelay)
 	{
@@ -199,7 +203,7 @@ CWaitUIUpdate::Update()
 //		}
 
 		//------------------------------------------
-		// Socket ¿‘∑¬ √≥∏Æ
+		// Socket ÏûÖÎ†• Ï≤òÎ¶¨
 		//------------------------------------------
 		if (!UpdateSocketInput())
 		{
@@ -209,7 +213,7 @@ CWaitUIUpdate::Update()
 		//------------------------------------------
 		// Input
 		//------------------------------------------	
-		// edit by coffee –ﬁ’˝Œ™¥∞ø⁄ªØ“≤’˝≥£œ‘ æ
+		// edit by coffee Èå¶Êî£Êß®ÎàóÏôØÎ∫èÔ§ÆÊî£ÎÅΩÈû´Âàª
 		extern bool	g_bTestMode;
 		if (g_bActiveGame
 #ifdef OUTPUT_DEBUG
@@ -235,7 +239,7 @@ CWaitUIUpdate::Update()
 			return;
 
 		//------------------------------------------
-		// Socket Output∫Œ∫– √≥∏Æ
+		// Socket OutputÎ∂ÄÎ∂Ñ Ï≤òÎ¶¨
 		//------------------------------------------	
 		if (!UpdateSocketOutput())
 		{
@@ -245,7 +249,7 @@ CWaitUIUpdate::Update()
 		//------------------------------------------	
 		// [ TEST CODE]
 		//------------------------------------------	
-		// UI ±‚¥Ÿ∏Æ¥¬ ∏µÂ∞° æ∆¥“ ∞ÊøÏ...
+		// UI Í∏∞Îã§Î¶¨Îäî Î™®ÎìúÍ∞Ä ÏïÑÎãê Í≤ΩÏö∞...
 		//------------------------------------------	
 		if (g_Mode!=MODE_MAINMENU &&
 			g_Mode!=MODE_NEWUSER &&
@@ -285,14 +289,14 @@ CWaitUIUpdate::Update()
 
 		lastTime = g_CurrentTime;
 
-		// Frame¡ı∞°
+		// FrameÏ¶ùÍ∞Ä
 		g_FrameCount++;
 	}
 
 	//------------------------------------------------------------
 	// Test 2001.8.20
 	//------------------------------------------------------------
-	// Ω««‡ ¡ﬂø° loading«œ¥¬ ∞…∑Œ πŸ≤„º≠ ª´¥Ÿ..
+	// Ïã§Ìñâ Ï§ëÏóê loadingÌïòÎäî Í±∏Î°ú Î∞îÍøîÏÑú Î∫ÄÎã§..
 	/*
 	bool bLoad = false;
 	if (g_Mode==MODE_MAINMENU)
@@ -301,8 +305,8 @@ CWaitUIUpdate::Update()
 			DEBUG_ADD("Lo1");
 		#endif
 
-		// main menuø°º≠
-		// ≥≤¿⁄ πÏ∆ƒ¿ÃæÓ ∑Œµ˘
+		// main menuÏóêÏÑú
+		// ÎÇ®Ïûê Î±ÄÌååÏù¥Ïñ¥ Î°úÎî©
 		if (!(*g_pCreatureSpriteTable)[2].bLoad)
 		{
 			LoadCreature( 2 );
@@ -319,8 +323,8 @@ CWaitUIUpdate::Update()
 			DEBUG_ADD("Lo3");
 		#endif
 
-		// main menuø°º≠
-		// ø©¿⁄ πÏ∆ƒ¿ÃæÓ ∑Œµ˘
+		// main menuÏóêÏÑú
+		// Ïó¨Ïûê Î±ÄÌååÏù¥Ïñ¥ Î°úÎî©
 		if (!(*g_pCreatureSpriteTable)[3].bLoad)
 		{
 			LoadCreature( 3 );	
@@ -333,19 +337,19 @@ CWaitUIUpdate::Update()
 	}
 
 	//-------------------------------------------------------------
-	// ∆¥∆¥»˜(-_-;) ΩΩ∑π¿ÃæÓ ±◊∏≤ loading«œ±‚
+	// ÌãàÌãàÌûà(-_-;) Ïä¨Î†àÏù¥Ïñ¥ Í∑∏Î¶º loadingÌïòÍ∏∞
 	//-------------------------------------------------------------
 	static DWORD lastLoadingTime = 0;
 		
 	if (!bLoad && !g_AddonSPKAllLoaded
-		// 5√ ø° «—π¯æø ∑Œµ˘«—¥Ÿ.
+		// 5Ï¥àÏóê ÌïúÎ≤àÏî© Î°úÎî©ÌïúÎã§.
 		&& g_CurrentTime - lastLoadingTime > 5000)
 	{
 		#ifdef OUTPUT_DEBUG_UPDATE_LOOP
 			DEBUG_ADD("Lo5");
 		#endif
 
-		// ΩΩ∑π¿ÃæÓ ±◊∏≤ ¿œ∫Œ ∑Œµ˘ - 2001.8.20
+		// Ïä¨Î†àÏù¥Ïñ¥ Í∑∏Î¶º ÏùºÎ∂Ä Î°úÎî© - 2001.8.20
 		LoadingAddonSPK( false );
 
 		lastLoadingTime = timeGetTime();
@@ -585,7 +589,7 @@ CWaitUIUpdate::UpdateDraw()
 //
 //			if (first)
 //			{
-//				class ifstream file("fog.aspk", ios::binary);
+//				std::ifstream file("fog.aspk", ios::binary);
 //				ASPK.LoadFromFile(file);
 //				file.close();
 //
@@ -612,7 +616,7 @@ CWaitUIUpdate::UpdateDraw()
 //		}
 //		*/
 //		//-----------------------------------------------------------------
-//		// º≠πˆ ¿Ã∏ß √‚∑¬
+//		// ÏÑúÎ≤Ñ Ïù¥Î¶Ñ Ï∂úÎ†•
 //		//-----------------------------------------------------------------
 //		/*
 //		#ifdef OUTPUT_DEBUG
@@ -670,7 +674,7 @@ CWaitUIUpdate::UpdateDraw()
 //		*/
 //
 //		//-----------------------------------------------------------------
-//		// Mouse ±◊∏Æ±‚
+//		// Mouse Í∑∏Î¶¨Í∏∞
 //		//-----------------------------------------------------------------
 //		gC_vs_ui.DrawMousePointer();
 //
@@ -697,7 +701,8 @@ CWaitUIUpdate::UpdateDraw()
 
 		if(g_TitleSpriteAlpha > 0)
 		{
-			g_TitleSpriteAlpha = max(0, 31-(timeGetTime()-oldTime)*16/1000);
+			int alpha = (int)(31-(timeGetTime()-oldTime)*16/1000);
+			g_TitleSpriteAlpha = (alpha > 0) ? alpha : 0;
 			DrawTitleLoading();
 
 			if(g_TitleSpriteAlpha <= 0)
@@ -707,7 +712,7 @@ CWaitUIUpdate::UpdateDraw()
 		}
 				
 		//-----------------------------------------------------------------
-		// º≠πˆ ¿Ã∏ß √‚∑¬
+		// ÏÑúÎ≤Ñ Ïù¥Î¶Ñ Ï∂úÎ†•
 		//-----------------------------------------------------------------
 		/*
 		#ifdef OUTPUT_DEBUG
@@ -824,8 +829,8 @@ CWaitUIUpdate::UpdateDraw()
 						lpDestSurfaceTemp2++;
 					}
 
-					lpSrcSurfaceTemp += pitch;		// ¥Ÿ¿Ω¡Ÿ
-					lpDestSurfaceTemp += wavePitch;		// ¥Ÿ¿Ω¡Ÿ
+					lpSrcSurfaceTemp += pitch;		// Îã§ÏùåÏ§Ñ
+					lpDestSurfaceTemp += wavePitch;		// Îã§ÏùåÏ§Ñ
 				}
                 
 			}
@@ -843,7 +848,7 @@ CWaitUIUpdate::UpdateDraw()
 		g_pLast->BltNoColorkey( &point, pWaveSurface, &rectWave );	
 		*/
 		//-----------------------------------------------------------------
-		// Mouse ±◊∏Æ±‚
+		// Mouse Í∑∏Î¶¨Í∏∞
 		//-----------------------------------------------------------------
 		gC_vs_ui.DrawMousePointer();
 
@@ -860,15 +865,15 @@ CWaitUIUpdate::UpdateDraw()
 		#endif
 
 		//-----------------------------------------------------------------
-		// Last∏¶ Back¿∏∑Œ copy - 3D HAL¿Ã æ∆¥— ∞ÊøÏ∏∏..
+		// LastÎ•º BackÏúºÎ°ú copy - 3D HALÏù¥ ÏïÑÎãå Í≤ΩÏö∞Îßå..
 		//-----------------------------------------------------------------		
 		point.x = 0;
 		point.y = 0;
 		RECT rect = { 0, 0, g_GameRect.right, g_GameRect.bottom };
 		g_pBack->BltNoColorkey( &point, g_pLast, &rect );	
 
-		// √¢∏µÂø°º≠ 3D∞°º” æ»«— ∞ÊøÏø°..
-		// ø÷ ¿Ã∞≈ «œ¥œ±Ó ª°∂Û¡ˆ¡ˆ? - -;
+		// Ï∞ΩÎ™®ÎìúÏóêÏÑú 3DÍ∞ÄÏÜç ÏïàÌïú Í≤ΩÏö∞Ïóê..
+		// Ïôú Ïù¥Í±∞ ÌïòÎãàÍπå Îπ®ÎùºÏßÄÏßÄ? - -;
 		//HDC hdc;
 		//g_pBack->GetSurface()->GetDC(&hdc);
 		//g_pBack->GetSurface()->ReleaseDC(hdc);
@@ -880,7 +885,7 @@ CWaitUIUpdate::UpdateDraw()
 	{
 		char str[256];
 		//-----------------------------------------------------------------
-		// FPS ¬Ô±‚	
+		// FPS Ï∞çÍ∏∞	
 		//-----------------------------------------------------------------
 		if (CDirect3D::IsHAL())
 		{
@@ -903,7 +908,7 @@ CWaitUIUpdate::UpdateDraw()
 	}
 #endif
 	*/
-	// FPS ¬Ô±‚	
+	// FPS Ï∞çÍ∏∞	
 //	sprintf(str, "%d Updates", g_FrameRate);	
 	//g_pBack->GDI_Text(11,11, str, RGB(20,20,20));
 //	g_pBack->GDI_Text(1,1, str, 0xFFFFFF);

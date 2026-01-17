@@ -17,14 +17,15 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCLearnSkillOKHandler::execute ( GCLearnSkillOK * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-#if __GAME_CLIENT__
+#ifdef __GAME_CLIENT__
 		
-	// mode Á¦°Å
-	// Á¦°Å¾ÈÇÏ¸é °è¼Ó ¹è¿ï ¼ö ÀÖ´Ù.- -;
+	// mode ì œê±°
+	// ì œê±°ì•ˆí•˜ë©´ ê³„ì† ë°°ìš¸ ìˆ˜ ìˆë‹¤.- -;
 	//g_TempInformation.Mode = TempInformation::MODE_NULL;
 	g_pTempInformation->SetMode(TempInformation::MODE_NULL);
 						
@@ -33,7 +34,7 @@ void GCLearnSkillOKHandler::execute ( GCLearnSkillOK * pPacket , Player * pPlaye
 	int skillType	= pPacket->getSkillType();
 
 
-	// ¹è¿î´Ù.
+	// ë°°ìš´ë‹¤.
 	MSkillDomain& swordDomain = (*g_pSkillManager)[domainType];
 
 	swordDomain.SetNewSkill();
@@ -41,7 +42,7 @@ void GCLearnSkillOKHandler::execute ( GCLearnSkillOK * pPacket , Player * pPlaye
 	
 	if(bLearn == true || !g_pPlayer->IsOusters())
 	{
-		// ÇöÀç »ç¿ë°¡´ÉÇÑ skill¿¡ Ãß°¡
+		// í˜„ì¬ ì‚¬ìš©ê°€ëŠ¥í•œ skillì— ì¶”ê°€
 		g_pSkillAvailable->AddSkill( (ACTIONINFO)skillType );
 		
 		SKILLINFO_NODE& skillInfo = (*g_pSkillInfoTable)[skillType];
@@ -56,7 +57,7 @@ void GCLearnSkillOKHandler::execute ( GCLearnSkillOK * pPacket , Player * pPlaye
 	}
 	else if( g_pPlayer->IsOusters() )
 	{
-		// ¾Æ¿ì½ºÅÍÁîÀÎ°æ¿ì ÀÌ¹Ì ¹è¿î ½ºÅ³ÀÌ¸é
+		// ì•„ìš°ìŠ¤í„°ì¦ˆì¸ê²½ìš° ì´ë¯¸ ë°°ìš´ ìŠ¤í‚¬ì´ë©´
 		SKILLINFO_NODE& skillInfo = (*g_pSkillInfoTable)[skillType];
 		skillInfo.SetExpLevel( skillInfo.GetExpLevel()+1 );
 		
@@ -65,16 +66,16 @@ void GCLearnSkillOKHandler::execute ( GCLearnSkillOK * pPacket , Player * pPlaye
 	// DEBUG_ADD_FORMAT( "[Error] TempInformation Mode is Not SKILL_LEARN : %d", (int)g_TempInformation.Mode);
 
 	//------------------------------------------------------------
-	// »ç¿ëÇÒ ¼ö ÀÖ´Â skill ´Ù½Ã Ã¼Å©
+	// ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” skill ë‹¤ì‹œ ì²´í¬
 	//------------------------------------------------------------
 	g_pSkillAvailable->SetAvailableSkills();
 	
 	//------------------------------------------------------------
-	// ±â¼ú ¹è¿ü´Ù´Â message Ãß°¡
+	// ê¸°ìˆ  ë°°ì› ë‹¤ëŠ” message ì¶”ê°€
 	//------------------------------------------------------------
 	g_pGameMessage->AddFormat((*g_pGameStringTable)[STRING_LEARN_SKILL].GetString(), (*g_pSkillInfoTable)[skillType].GetHName());
 
-	// [µµ¿ò¸»] Skill¹è¿üÀ»¶§
+	// [ë„ì›€ë§] Skillë°°ì› ì„ë•Œ
 //	__BEGIN_HELP_EVENT
 ////		ExecuteHelpEvent( HE_SKILL_LEARNED );
 //	__END_HELP_EVENT

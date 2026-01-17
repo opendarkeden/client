@@ -1,9 +1,9 @@
 //----------------------------------------------------------------------
 // MJusticeAttackManager.h
 //----------------------------------------------------------------------
-// ³»°¡ Á¤´ç¹æÀ§·Î °ø°İÇÒ ¼ö ÀÖ´Â ¾Ö´úÀÌ´Ù.
+// ë‚´ê°€ ì •ë‹¹ë°©ìœ„ë¡œ ê³µê²©í•  ìˆ˜ ìˆëŠ” ì• ëœì´ë‹¤.
 //
-// ¼­¹ö¿¡¼­ Add/Remove packetÀ» ³¯·ÁÁÖ±â ¶§¹®¿¡.. °Á... ³È³È..
+// ì„œë²„ì—ì„œ Add/Remove packetì„ ë‚ ë ¤ì£¼ê¸° ë•Œë¬¸ì—.. ê±... ëƒ ëƒ ..
 //----------------------------------------------------------------------
 
 #ifndef __MJUSTICE_ATTACK_MANAGER_H__
@@ -11,9 +11,12 @@
 
 #pragma warning(disable:4786)
 
+#include <map>
+#include <string>
+
 class MJusticeAttackManager {
 	public :
-		// <ÀÌ¸§, ÃÖÃÊÀÇ½Ã°£>		½Ã°£Àº ÀÇ¹Ì¾øÁö ½ÍÀºµ¥.. °Á..
+		// <ì´ë¦„, ìµœì´ˆì˜ì‹œê°„>		ì‹œê°„ì€ ì˜ë¯¸ì—†ì§€ ì‹¶ì€ë°.. ê±..
 		typedef std::map<std::string, DWORD>		TIME_MAP;
 
 	public :
@@ -27,7 +30,7 @@ class MJusticeAttackManager {
 		bool		HasCreature(const char* pName) const;
 
 	private :
-		TIME_MAP	m_Creatures;		// ³ª¸¦ ¶§¸° ¾ÖµéÀÌ´ç.. ³ª»Û ¾Öµé~
+		TIME_MAP	m_Creatures;		// ë‚˜ë¥¼ ë•Œë¦° ì• ë“¤ì´ë‹¹.. ë‚˜ìœ ì• ë“¤~
 };
 
 extern MJusticeAttackManager* g_pJusticeAttackManager;

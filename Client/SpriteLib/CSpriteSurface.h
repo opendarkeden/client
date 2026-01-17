@@ -1,39 +1,40 @@
+#include <fstream>
 //----------------------------------------------------------------------
 // CDirectDrawSurface.h
 //----------------------------------------------------------------------
 //
 //
-// 5:6:5 ¿Í  5:5:5ÀÇ Â÷ÀÌ´Â 
-// Bit Mask¿¡ ÀÇÇØ Ã³¸®µÇ´Â ºÎºÐ¿¡¼­ ¹ß»ýÇÏ´Âµ¥
-// CDirectDraw classÀÇ InitMask()¿¡¼­ Video Card¿¡ ¸Â´Â
-// ÀûÀýÇÑ Mask¸¦ »ý¼ºÇÏ¹Ç·Î ±×³É~ CDirectDrawÀÇ Mask¸¦ »ç¿ëÇÏ¸é µÈ´Ù.
+// 5:6:5 ï¿½ï¿½  5:5:5ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ 
+// Bit Maskï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ÎºÐ¿ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½Ï´Âµï¿½
+// CDirectDraw classï¿½ï¿½ InitMask()ï¿½ï¿½ï¿½ï¿½ Video Cardï¿½ï¿½ ï¿½Â´ï¿½
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Maskï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½ ï¿½×³ï¿½~ CDirectDrawï¿½ï¿½ Maskï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½È´ï¿½.
 //
 //
 //
 //----------------------------------------------------------------------
 /*
 
-  < DDSurface°¡ »ý¼ºµÇ´Â MEMORY >
+  < DDSurfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ MEMORY >
 
-	- DDSCAPS_SYSTEMMEMORY´Â LockÀ» »ç¿ëÇÒ ¶§ ºü¸£´Ù.
-	- DDSCAPS_VIDEOMEMORY´Â Blt¸¦ »ç¿ëÇÒ ¶§ ºü¸£´Ù.
-	  ´Ü, VIDEOMEMORY°¡ ºÎÁ·ÇÏ¸é Surface¸¦ »ý¼ºÇÏÁö ¾ÊÀ¸¹Ç·Î error!
-	- ÁöÁ¤À» ¾È ÇØ ÁÖ¸é VIDEOMEMORY°¡ »ç¿ë°¡´ÉÇÏ¸é »ç¿ëÇÏ°í 
-   	  ¾Æ´Ï¸é SYSTEMMEMORY¸¦ »ç¿ëÇÑ´Ù.
+	- DDSCAPS_SYSTEMMEMORYï¿½ï¿½ Lockï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+	- DDSCAPS_VIDEOMEMORYï¿½ï¿½ Bltï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+	  ï¿½ï¿½, VIDEOMEMORYï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ error!
+	- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö¸ï¿½ VIDEOMEMORYï¿½ï¿½ ï¿½ï¿½ë°¡ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ 
+   	  ï¿½Æ´Ï¸ï¿½ SYSTEMMEMORYï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	
   < Alpha Blending >
-    - »ç¿ëÇÏ·Á¸é DDSCAPS_SYSTEMMEMORY¸¦ »ç¿ëÇÏ´Â°Ô ÁÁ´Ù.
-	- Surface --> Surface·ÎÀÇ Alpha Blendingº¸´Ù
-	  Memory(SpriteFile) --> Surface·ÎÀÇ Alpha BlendingÀÌ ºü¸£´Ù.
+    - ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ DDSCAPS_SYSTEMMEMORYï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Â°ï¿½ ï¿½ï¿½ï¿½ï¿½.
+	- Surface --> Surfaceï¿½ï¿½ï¿½ï¿½ Alpha Blendingï¿½ï¿½ï¿½ï¿½
+	  Memory(SpriteFile) --> Surfaceï¿½ï¿½ï¿½ï¿½ Alpha Blendingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 
   < Sprite File >
-    - 0¹ø ¾ÐÃà µÈ °Í°ú ¾È µÈ °Í µÎ°¡ÁöÀÇ °æ¿ì°¡ ÀÖ´Ù.
-	- 0¹ø ¾ÐÃà µÈ °ÍÀº Åõ¸í»öÀÌ ÀÖ´Â ¸ðµç °æ¿ì¿¡ ºü¸£´Ù.
-	  ´Ü, MMX instructionÀ¸·Î Åõ¸í»öÀ» Á¦°ÅÇÒ °æ¿ì°¡ ´õ ºü¸£°ÚÁö...
+    - 0ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Í°ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Î°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½Ö´ï¿½.
+	- 0ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+	  ï¿½ï¿½, MMX instructionï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 
-  < »ç¿ë½Ã ÁÖÀÇ »çÇ× >
-    - ClippingÀÌ µÇ´Â ÇÔ¼ö¿Í ¾È µÇ´Â ÇÔ¼ö°¡ ÀÖ´Âµ¥
-	  ÀûÀýÇÑ °æ¿ì¿¡ ¸ÂÃç¼­ »ç¿ëÇØ¾ßÇÒ °ÍÀÌ´Ù. ¼Óµµ ¹®Á¦°¡ ÀÖÀ¸´Ï±î!
+  < ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ >
+    - Clippingï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½Ö´Âµï¿½
+	  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ ï¿½ï¿½ï¿½ç¼­ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½. ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½!
 
 
 */
@@ -42,8 +43,14 @@
 #ifndef	__CSPRITESURFACE_H__
 #define	__CSPRITESURFACE_H__
 
+/* Backend selection */
+#ifdef SPRITELIB_BACKEND_SDL
+	#include "SpriteLibBackend.h"
+	/* SDL backend: Independent class, not inheriting from CDirectDrawSurface */
+	#define SPRITESURFACE_STANDALONE
+	#include "../../basic/2d.h"  // For S_SURFACEINFO
+#endif
 
-#include "CDirectDrawSurface.h"
 #include "CSpritePal.h"
 #include "CAlphaSpritePal.h"
 #include "MPalettePack.h"
@@ -56,6 +63,285 @@ class CSpriteOutlineManager;
 
 typedef void (*FUNCTION_MEMCPYEFFECT)(WORD*, WORD*, WORD);
 typedef void (*FUNCTION_MEMCPYPALEFFECT)(WORD*, BYTE*, WORD, MPalette &);
+
+#ifdef SPRITESURFACE_STANDALONE
+
+/* ============================================================================
+ * SDL Backend: Standalone CSpriteSurface (not inheriting from CDirectDrawSurface)
+ * ============================================================================ */
+
+class CSpriteSurface {
+	public :
+		CSpriteSurface();
+		~CSpriteSurface();
+
+		//------------------------------------------------------------
+		// Surface Initialization
+		//------------------------------------------------------------
+		bool Init(int width, int height);
+		bool InitFromFile(const char* filename);
+		void Release();
+
+		//------------------------------------------------------------
+		// Drawing Functions
+		//------------------------------------------------------------
+		void	DrawRect(RECT* rect, WORD color);
+		void	HLine(int x, int y, int length, WORD color);
+		void	VLine(int x, int y, int length, WORD color);
+		void	Line(int x1, int y1, int x2, int y2, WORD color);
+		void	FillRect(RECT* rect, WORD color);
+
+		//------------------------------------------------------------
+		// BltFast methods (stubs for compatibility)
+		// Note: In SDL backend, use CSpriteSurface* instead of CDirectDrawSurface*
+		//------------------------------------------------------------
+		void	BltHalf(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect);
+		void	BltNoColorkey(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect);
+		void	BltDarkness(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect, BYTE DarkBits);
+		void	BltBrightness(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect, BYTE BrightBits);
+		void	BltDarknessFilter(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect, WORD TransColor=0);
+
+		// Change brightness
+		void	ChangeBrightnessBit(RECT* pRect, BYTE DarkBits);
+		void	BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2);
+
+		//------------------------------------------------------------
+		// Sprite Blitting Methods
+		//------------------------------------------------------------
+		// Sprite
+		void	BltSprite(POINT* pPoint, CSprite* pSprite);
+		void	BltSpriteNoClip(POINT* pPoint, CSprite* pSprite);
+		void	BltSpriteHalf(POINT* pPoint, CSprite* pSprite);
+		void	BltSpriteAlpha(POINT* pPoint, CSprite* pSprite, BYTE alphaDepth);
+		void	BltSpriteColor(POINT* pPoint, CSprite* pSprite, BYTE rgb);
+		void	BltSpriteDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits);
+		void	BltSpriteColorSet(POINT* pPoint, CSprite* pSprite, WORD colorSet);
+		void	BltSpriteEffect(POINT* pPoint, CSprite* pSprite);
+		void	BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale=1);
+		void	BltSpriteAlpha4444SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE alpha, BYTE shift);
+		void	BltSpriteAlpha4444NotTrans(POINT* pPoint, CSprite* pSprite, BYTE alpha);
+		void	BltSprite1555SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE shift);
+		void	BltSprite1555NotTrans(POINT* pPoint, CSprite* pSprite);
+
+		void	BltSpritePalEffect(POINT* pPoint, CSpritePal* pSprite, MPalette &pal);
+		void	BltSpritePal1555SmallNotTrans(POINT* pPoint, CSpritePal* pSprite, BYTE shift, MPalette &pal);
+		void	BltSpritePal1555NotTrans(POINT* pPoint, CSpritePal* pSprite, MPalette &pal);
+
+		// Filter
+		void	BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite);
+		void	BltSpriteAlphaFilterDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits);
+		void	BltSpriteDarkerFilter(POINT* pPoint, CSprite* pSprite);
+
+		// AlphaSprite
+		void	BltAlphaSprite(POINT* pPoint, CAlphaSprite* pSprite);
+		void	BltAlphaSpriteAlpha(POINT* pPoint, CAlphaSprite* pSprite, BYTE alpha);
+		void	BltAlphaSprite4444(POINT* pPoint, CAlphaSprite* pSprite);
+		void	BltAlphaSprite4444NotTrans(POINT* pPoint, CAlphaSprite* pSprite);
+		void	BltAlphaSprite4444SmallNotTrans(POINT* pPoint, CAlphaSprite* pSprite, BYTE shift);
+
+		void	BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, MPalette &pal);
+		void	BltAlphaSpritePalAlpha(POINT* pPoint, CAlphaSpritePal* pSprite, BYTE alpha, MPalette &pal);
+		void	BltAlphaSpritePal4444(POINT* pPoint, CAlphaSpritePal* pSprite, MPalette &pal);
+		void	BltAlphaSpritePal4444NotTrans(POINT* pPoint, CAlphaSpritePal* pSprite, MPalette &pal);
+		void	BltAlphaSpritePal4444SmallNotTrans(POINT* pPoint, CAlphaSpritePal* pSprite, BYTE shift, MPalette &pal);
+
+		// IndexSprite
+		void	BltIndexSprite(POINT* pPoint, CIndexSprite* pSprite);
+		void	BltIndexSpriteDarkness(POINT* pPoint, CIndexSprite* pSprite, BYTE DarkBits);
+		void	BltIndexSpriteAlpha(POINT* pPoint, CIndexSprite* pSprite, BYTE alpha);
+		void	BltIndexSpriteColor(POINT* pPoint, CIndexSprite* pSprite, BYTE rgb);
+		void	BltIndexSpriteColorSet(POINT* pPoint, CIndexSprite* pSprite, WORD colorSet);
+		void	BltIndexSpriteEffect(POINT* pPoint, CIndexSprite* pSprite);
+		void	BltIndexSpriteBrightness(POINT* pPoint, CIndexSprite* pSprite, BYTE BrightBits);
+
+		// Sprite Outline
+		void	BltSpriteOutline(CSpriteOutlineManager *pSOM, WORD color);
+		void	BltSpriteOutlineOnly(CSpriteOutlineManager* pSOM, WORD color);
+		void	BltSpriteOutlineDarkness(CSpriteOutlineManager* pSOM, WORD color, BYTE DarkBits);
+
+		// ShadowSprite
+		void	BltShadowSprite(POINT* pPoint, CShadowSprite* pSprite);
+		void	BltShadowSpriteSmall(POINT* pPoint, CShadowSprite* pSprite, BYTE shift);
+		void	BltShadowSpriteDarkness(POINT* pPoint, CShadowSprite* pSprite, BYTE DarkBits);
+		void	BltShadowSprite4444(POINT* pPoint, CShadowSprite* pSprite, WORD pixel);
+		void	BltShadowSpriteSmall4444(POINT* pPoint, CShadowSprite* pSprite, WORD pixel, BYTE shift);
+
+		//------------------------------------------------------------
+		// Static Effect Functions (stubs for compatibility)
+		//------------------------------------------------------------
+		static void		InitEffectTable();
+		static void		memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyColor(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyScale(WORD* pDest, WORD destPitch, WORD* pSource, WORD pixels);
+		static void		memcpyDarkness(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyBrightness(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		Gamma4Pixel565(void *pDest, int len, int p);
+		static void		Gamma4Pixel555(void *pDest, int len, int p);
+		static WORD		memcpyAlpha1Pixel(WORD pDest, WORD pSource) { return 0; }
+
+		static int		s_Value1;
+		static int		s_Value2;
+		static int		s_Value3;
+
+	public:
+		enum FUNCTION_EFFECT
+		{
+			EFFECT_DARKER = 0,
+			EFFECT_GRAY_SCALE,
+			EFFECT_LIGHTEN,
+			EFFECT_DARKEN,
+			EFFECT_COLOR_DODGE,
+			EFFECT_SCREEN,
+			EFFECT_DODGE_BURN,
+			EFFECT_DIFFERENT,
+			EFFECT_GRADATION,
+			EFFECT_SIMPLE_OUTLINE,
+			EFFECT_WIPE_OUT,
+			EFFECT_NET,
+			EFFECT_GRAY_SCALE_VARIOUS,
+			EFFECT_SCREEN_ALPHA,
+			MAX_EFFECT
+		};
+
+		static void		SetEffect(enum FUNCTION_EFFECT func);
+		static void		SetPalEffect(enum FUNCTION_EFFECT func);
+		static void		memcpyEffect(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyPalEffect(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+
+		// Effect functions - implemented in CSpriteSurface.cpp
+		static void		memcpyEffectDarker(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectLighten(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectDarken(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectColorDodge(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectScreen(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectDodgeBurn(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectDifferent(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectGrayScale(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectSimpleOutline(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectWipeOut(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectNet(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectGrayScaleVarious(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectScreenAlpha(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectGradation(WORD* pDest, WORD* pSource, WORD pixels);
+
+		static void		memcpyPalEffectDarker(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectGrayScale(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectLighten(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectDarken(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectColorDodge(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectScreen(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectDodgeBurn(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectDifferent(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectGradation(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectSimpleOutline(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectWipeOut(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectNet(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectGrayScaleVarious(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectScreenAlpha(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+
+		static FUNCTION_MEMCPYEFFECT		s_pMemcpyEffectFunction;
+		static FUNCTION_MEMCPYPALEFFECT		s_pMemcpyPalEffectFunction;
+		static FUNCTION_MEMCPYEFFECT		s_pMemcpyEffectFunctionTable[MAX_EFFECT];
+		static FUNCTION_MEMCPYPALEFFECT		s_pMemcpyPalEffectFunctionTable[MAX_EFFECT];
+
+		static WORD		s_EffectScreenTableR[32][32];
+		static WORD		s_EffectScreenTableG[32][32];
+		static WORD		s_EffectScreenTableB[32][32];
+
+		//------------------------------------------------------------
+		// DirectX Compatibility Methods (Stubs for SDL backend)
+		//------------------------------------------------------------
+		bool				Restore();
+		void*				Lock(RECT* rect = NULL, DWORD* pitch = NULL);
+		void				Unlock();
+		int					GetSurfacePitch() const;
+		void*				GetSurfacePointer();
+		int					GetWidth() const;
+		int					GetHeight() const;
+
+#ifdef SPRITELIB_BACKEND_SDL
+		// Lock/Unlock methods for SDL backend compatibility (different signatures from Windows)
+		bool				LockSDL();  // Renamed to avoid conflict with Lock()
+		void				UnlockSDL();
+		bool				IsLock();
+
+#ifdef SPRITELIB_BACKEND_SDL
+		// NEW: Query actual lock state (for debugging)
+		bool				IsLocked() const { return m_lock_count > 0; }
+		int					GetLockCount() const { return m_lock_count; }
+#endif
+
+		void				GetSurfaceInfo(S_SURFACEINFO* info);
+		// GetDDSD compatibility wrapper - returns pointer to internal surface info
+		S_SURFACEINFO*		GetDDSD();
+
+		// Get backend surface handle (for presenting to SDL renderer)
+		spritectl_surface_t	GetBackendSurface() const { return m_backend_surface; }
+#endif
+		bool				InitTextureSurface(int width, int height, void* pixels = NULL, void* pixelFormat = NULL);
+
+		// Off-screen surface initialization (compatibility with CDirectDrawSurface)
+		bool				InitOffsurface(int width, int height);
+		void				SetTransparency(int value);
+		int					GetTransparency() const;
+
+		// GDI text rendering (stub for SDL backend - text rendering not implemented)
+		void				GDI_Text(int x, int y, const char* text, DWORD color);
+
+		// FillSurface (compatibility with CDirectDrawSurface)
+		void				FillSurface(WORD color);
+
+		// Clipping methods (compatibility with CDirectDrawSurface)
+		void				SetClip(RECT* rect);
+		void				SetClipNULL();
+
+		// Blt method (compatibility with CDirectDrawSurface)
+		void				Blt(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect);
+
+		//------------------------------------------------------------
+		// Clip methods (compatibility with CDirectDrawSurface)
+		//------------------------------------------------------------
+		inline int		GetClipRight() const		{ return m_width; }  // Stub: return full width
+		inline int		GetClipBottom() const		{ return m_height; } // Stub: return full height
+		inline void		SetClipRight(int Right)		{ /* Stub: no-op */ }
+		inline void		SetClipRightBottom(int Right, int Bottom) { /* Stub: no-op */ }
+		inline void		SetClipLeftTop(int Left, int Top) { /* Stub: no-op */ }
+
+		// GetSurface method (stub for compatibility - returns nullptr)
+		inline void*		GetSurface()				{ return nullptr; }
+
+	protected:
+		bool	ClippingRectToPoint(RECT*& pRect, POINT*& pPoint);
+
+#ifdef SPRITELIB_BACKEND_SDL
+		/* Backend surface handle */
+		spritectl_surface_t m_backend_surface;
+		int m_width;
+		int m_height;
+		int m_transparency;  // Transparency value for compatibility
+
+		// Lock state tracking to prevent double-locking
+		int m_lock_count;    // Number of times Lock() was called
+
+		// Clipping rectangles (compatibility with CDirectDrawSurface)
+		int m_ClipLeft;
+		int m_ClipTop;
+		int m_ClipRight;
+		int m_ClipBottom;
+
+		// Surface description (compatibility with CDirectDrawSurface)
+		S_SURFACEINFO m_ddsd;  // Using SDL-compatible surface info structure
+#endif
+};
+
+#else
+
+/* ============================================================================
+ * Windows Backend: Original implementation inheriting from CDirectDrawSurface
+ * ============================================================================ */
+
+#include "CDirectDrawSurface.h"
 
 class CSpriteSurface : public CDirectDrawSurface {
 	public :
@@ -71,12 +357,12 @@ class CSpriteSurface : public CDirectDrawSurface {
 		void	BltDarknessFilter(POINT* pPoint, CDirectDrawSurface* SourceSurface, RECT*  pRect, WORD TransColor=0);
 
 		//------------------------------------------------------------
-		// Drawing ÇÔ¼ö
+		// Drawing ï¿½Ô¼ï¿½
 		//------------------------------------------------------------
 		void	DrawRect(RECT* rect, WORD color);
-		void	HLine(int x, int y, int length, WORD color);		// °¡·Î
-		void	VLine(int x, int y, int length, WORD color);		// ¼¼·Î
-		void	Line(int x1, int y1, int x2, int y2, WORD color);	// Á÷¼±
+		void	HLine(int x, int y, int length, WORD color);		// ï¿½ï¿½ï¿½ï¿½
+		void	VLine(int x, int y, int length, WORD color);		// ï¿½ï¿½ï¿½ï¿½
+		void	Line(int x1, int y1, int x2, int y2, WORD color);	// ï¿½ï¿½ï¿½ï¿½
 		
 	
 		//------------------------------------------------------------
@@ -86,13 +372,13 @@ class CSpriteSurface : public CDirectDrawSurface {
 		//------------------------------------------------------------
 
 		//------------------------------------------------------------
-		// ¾îµÓ°Ô ÇÏ±â
+		// ï¿½ï¿½Ó°ï¿½ ï¿½Ï±ï¿½
 		//------------------------------------------------------------
 		void	ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits);
 		
 		//------------------------------------------------------------
-		// ´Ü»ö Alpha blending (È­¸éÀÇ pRect¸¦ color¿Í alpha·Î..)
-		// alpha2°¡ 0ÀÌ¸é color·Î.. 31ÀÌ¸é.. ¿ø·¡ surface
+		// ï¿½Ü»ï¿½ Alpha blending (È­ï¿½ï¿½ï¿½ï¿½ pRectï¿½ï¿½ colorï¿½ï¿½ alphaï¿½ï¿½..)
+		// alpha2ï¿½ï¿½ 0ï¿½Ì¸ï¿½ colorï¿½ï¿½.. 31ï¿½Ì¸ï¿½.. ï¿½ï¿½ï¿½ï¿½ surface
 		//------------------------------------------------------------
 		void	BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2);
 
@@ -100,13 +386,13 @@ class CSpriteSurface : public CDirectDrawSurface {
 		//virtual void	BltDarkness(POINT* pPoint, CDirectDrawSurface* SourceSurface, RECT*  pRect, BYTE bits, WORD ColorKey=0);		
 
 		//------------------------------------------------------------
-		// AlphaDepth´Â 1~32ÀÌ´Ù.
+		// AlphaDepthï¿½ï¿½ 1~32ï¿½Ì´ï¿½.
 		//------------------------------------------------------------		
 		//virtual void	BltTransAlpha(POINT* pPoint, CDirectDrawSurface* SourceSurface, RECT*  pRect, int alphaDepth, DWORD ColorKey=0);
 
 		//------------------------------------------------------------
 		//
-		// CSprite °ü·Ã ÇÔ¼ö
+		// CSprite ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 		//
 		//------------------------------------------------------------
 		// Sprite
@@ -168,9 +454,14 @@ class CSpriteSurface : public CDirectDrawSurface {
 		void	BltShadowSprite4444(POINT* pPoint, CShadowSprite* pSprite, WORD pixel);
 		void	BltShadowSpriteSmall4444(POINT* pPoint, CShadowSprite* pSprite, WORD pixel, BYTE shift);
 
-	// class ³»ºÎ¿¡¼­ ¾²´Â ÇÔ¼ö
-	protected :	
+	// class ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
+	protected :
 		bool	ClippingRectToPoint(RECT*& pRect, POINT*& pPoint);
+
+#ifdef SPRITELIB_BACKEND_SDL
+		/* Backend surface handle for SDL2 implementation */
+		spritectl_surface_t m_backend_surface;
+#endif
 
 	public :
 		static void		InitEffectTable();
@@ -184,7 +475,7 @@ class CSpriteSurface : public CDirectDrawSurface {
 		{
 			int sr,sg,sb, dr,dg,db;
 
-			// ÇÑÁ¡ Âï±â
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			sr = CDirectDraw::Red(pSource);
 			sg = CDirectDraw::Green(pSource);
 			sb = CDirectDraw::Blue(pSource);
@@ -198,13 +489,13 @@ class CSpriteSurface : public CDirectDrawSurface {
 						((s_Value1 * (sr - dr) >> 5) + dr) << CDirectDraw::s_bSHIFT_R);
 		}
 
-		// memcpy..()¿¡¼­ ÀÌ¿ëÇÏ´Â °ªµé
+		// memcpy..()ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
 		static int		s_Value1;	// DarkBits, Alpha
 		static int		s_Value2;	// 32-Alpha
 		static int		s_Value3;
 
 	public :
-		// memcpyEffectÀÇ Á¾·ù
+		// memcpyEffectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		enum FUNCTION_EFFECT
 		{
 			EFFECT_DARKER = 0,
@@ -225,7 +516,7 @@ class CSpriteSurface : public CDirectDrawSurface {
 		};
 
 	public :
-		// Æ¯¼öÈ¿°ú Ãâ·Â¿ë
+		// Æ¯ï¿½ï¿½È¿ï¿½ï¿½ ï¿½ï¿½Â¿ï¿½
 		static void		SetEffect(enum FUNCTION_EFFECT func)	{ s_pMemcpyEffectFunction = s_pMemcpyEffectFunctionTable[func]; }
 		static void		SetPalEffect(enum FUNCTION_EFFECT func)	{ s_pMemcpyPalEffectFunction = s_pMemcpyPalEffectFunctionTable[func]; }
 		static void		memcpyEffect(WORD* pDest, WORD* pSource, WORD pixels)
@@ -282,5 +573,7 @@ class CSpriteSurface : public CDirectDrawSurface {
 		static WORD		s_EffectScreenTableB[32][32];
 };
 
-#endif
+#endif /* SPRITESURFACE_STANDALONE */
+
+#endif /* __CSPRITESURFACE_H__ */
 

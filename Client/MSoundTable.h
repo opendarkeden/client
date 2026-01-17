@@ -1,12 +1,12 @@
 //----------------------------------------------------------------------
 // MSoundTable.h
 //----------------------------------------------------------------------
-// Sound Loading½Ã¿¡ Sound¸¶´Ù ÇÊ¿äÇÑ Á¤º¸¸¦ ÀúÀåÇÏ´Â class
+// Sound Loadingì‹œì— Soundë§ˆë‹¤ í•„ìš”í•œ ì •ë³´ë¥¼ ì €ì¥í•˜ëŠ” class
 //----------------------------------------------------------------------
 //
-// [ Soundº°·Î Loadind¿¡ ÇÊ¿äÇÑ Á¤º¸ ] 
+// [ Soundë³„ë¡œ Loadindì— í•„ìš”í•œ ì •ë³´ ] 
 //
-// - fileÀÌ¸§
+// - fileì´ë¦„
 // 
 //----------------------------------------------------------------------
 
@@ -17,11 +17,14 @@
 #include "CTypeTable.h"
 #include "MString.h"
 #include "SoundDef.h"
+#include <fstream>
+
+using namespace std;
 
 
 //----------------------------------------------------------------------
 //
-// ÇÑ Á¾·ùÀÇ Sound¿¡ ´ëÇÑ Á¤º¸
+// í•œ ì¢…ë¥˜ì˜ Soundì— ëŒ€í•œ ì •ë³´
 //
 //----------------------------------------------------------------------
 class SOUNDTABLE_INFO {
@@ -40,15 +43,15 @@ class SOUNDTABLE_INFO {
 		}
 
 	public :
-		MString						Filename;	// Sound FileÀÌ¸§
-		//LPDIRECTSOUNDBUFFER		pDSBuffer;		// loadµÈ wav
+		MString						Filename;	// Sound Fileì´ë¦„
+		//LPDIRECTSOUNDBUFFER		pDSBuffer;		// loadëœ wav
 
 	public :
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void			SaveToFile(class ofstream& file);		
-		void			LoadFromFile(class ifstream& file);		
+		void			SaveToFile(std::ofstream& file);		
+		void			LoadFromFile(std::ifstream& file);		
 };
 
 typedef CTypeTable<SOUNDTABLE_INFO>		SOUND_TABLE;

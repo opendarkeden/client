@@ -20,7 +20,8 @@ extern void SetPetInfo(PetInfo* pPetInfo, TYPE_OBJECTID objectID);
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCAddSlayerHandler::execute ( GCAddSlayer * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -28,7 +29,7 @@ void GCAddSlayerHandler::execute ( GCAddSlayer * pPacket , Player * pPlayer )
 
 	
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -37,7 +38,7 @@ void GCAddSlayerHandler::execute ( GCAddSlayer * pPacket , Player * pPlayer )
 		
 	}	
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
@@ -48,8 +49,8 @@ void GCAddSlayerHandler::execute ( GCAddSlayer * pPacket , Player * pPlayer )
 		MCreature* pCreature = g_pZone->GetCreature(si.getObjectID());
 
 		//--------------------------------------------------
-		// »õ·Î¿î CreatureÀÌ¸é Ãß°¡
-		// º¹ÀåÀÌ ÀÖ´Â CreatureÀÌ´Ù.
+		// ìƒˆë¡œìš´ Creatureì´ë©´ ì¶”ê°€
+		// ë³µì¥ì´ ìˆëŠ” Creatureì´ë‹¤.
 		//--------------------------------------------------
 		if (pCreature==NULL)
 		{
@@ -83,7 +84,7 @@ void GCAddSlayerHandler::execute ( GCAddSlayer * pPacket , Player * pPlayer )
 			pCreatureWear->SetCurrentDirection( si.getDir() );
 			pCreatureWear->SetAction( ACTION_STAND );
 
-			// ÇÇºÎ»ö
+			// í”¼ë¶€ìƒ‰
 			pCreatureWear->SetBodyColor1( si.getSkinColor() );
 
 			pCreature->SetMasterEffectType(si.getMasterEffectColor());
@@ -93,14 +94,14 @@ void GCAddSlayerHandler::execute ( GCAddSlayer * pPacket , Player * pPlayer )
 			pCreatureWear->SetStatus( MODIFY_ALIGNMENT, si.getAlignment() );
 			pCreatureWear->SetStatus( MODIFY_RANK, si.getRank() );
 
-			// ÀÌ¸§
+			// ì´ë¦„
 			pCreatureWear->SetName( si.getName().c_str() );
 
-			// »ö±ò Á¤º¸
+			// ìƒ‰ê¹” ì •ë³´
 
-			// º¹Àå Á¤º¸ --> ÀÏ´Ü ±âº» ¿ÊÀ» ÀÔ°í ÀÖ°Ô ÇÑ´Ù.
+			// ë³µì¥ ì •ë³´ --> ì¼ë‹¨ ê¸°ë³¸ ì˜·ì„ ì…ê³  ìˆê²Œ í•œë‹¤.
 			//----------------------------------------	
-			// º¹ÀåÀ» Âø¿ëÇÑ´Ù.
+			// ë³µì¥ì„ ì°©ìš©í•œë‹¤.
 			//----------------------------------------	
 			SetAddonToSlayer( pCreatureWear, &si );
 			if(pCreature->IsNPC() == false)
@@ -123,7 +124,7 @@ void GCAddSlayerHandler::execute ( GCAddSlayer * pPacket , Player * pPlayer )
 			}
 		}
 		//--------------------------------------------------
-		// ÀÌ¹Ì ÀÖ´Â CreatureÀÎ °æ¿ì
+		// ì´ë¯¸ ìˆëŠ” Creatureì¸ ê²½ìš°
 		//--------------------------------------------------
 		else
 		{
@@ -140,7 +141,7 @@ void GCAddSlayerHandler::execute ( GCAddSlayer * pPacket , Player * pPlayer )
 			pCreature->SetCurrentDirection( si.getDir() );
 			pCreature->SetAction( ACTION_STAND );
 
-			// ÇÇºÎ»ö
+			// í”¼ë¶€ìƒ‰
 			pCreature->SetBodyColor1( si.getSkinColor() );
 			pCreature->SetMasterEffectType(si.getMasterEffectColor());
 
@@ -166,24 +167,24 @@ void GCAddSlayerHandler::execute ( GCAddSlayer * pPacket , Player * pPlayer )
 		if (pCreature!=NULL)
 		{
 			//--------------------------------------------------
-			// Effect ºÙÀÌ±â..
+			// Effect ë¶™ì´ê¸°..
 			//--------------------------------------------------
 			SetEffectInfo( pCreature, pPacket->getEffectInfo() );
 			
-			// Æê Ã³¸®
+			// í« ì²˜ë¦¬
 			if(pPacket->getPetInfo() != NULL)
 				SetPetInfo(pPacket->getPetInfo(), pCreature->GetID());
 			NicknameInfo* _tempNick = pPacket->getNicknameInfo();
 			if(_tempNick != NULL)
 			{
-				// Ä¿½ºÅÒ ´Ğ³×ÀÓ ÀÏ¶§
+				// ì»¤ìŠ¤í…€ ë‹‰ë„¤ì„ ì¼ë•Œ
 				if(_tempNick->getNicknameType() == NicknameInfo::NICK_CUSTOM_FORCED ||
 				   _tempNick->getNicknameType() == NicknameInfo::NICK_CUSTOM)
 				{
 					pCreature->SetNickName(_tempNick->getNicknameType(), (char*)_tempNick->getNickname().c_str());
 					
 				}
-				else // ´Ğ³×ÀÓ ÀÎµ¦½º°¡ ÀÖÀ» ¶§
+				else // ë‹‰ë„¤ì„ ì¸ë±ìŠ¤ê°€ ìˆì„ ë•Œ
 				{
 					int TempIndex = _tempNick->getNicknameIndex();
 					if(TempIndex >= g_pNickNameStringTable->GetSize())
@@ -194,7 +195,7 @@ void GCAddSlayerHandler::execute ( GCAddSlayer * pPacket , Player * pPlayer )
 		}
 	}
 
-	// [µµ¿ò¸»] Slayer°¡ ³ªÅ¸³¯¶§
+	// [ë„ì›€ë§] Slayerê°€ ë‚˜íƒ€ë‚ ë•Œ
 //	__BEGIN_HELP_EVENT
 ////		ExecuteHelpEvent( HE_CREATURE_APPEAR_SLAYER );
 //	__END_HELP_EVENT

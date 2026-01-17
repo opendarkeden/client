@@ -1,13 +1,22 @@
+#include <fstream>
 #ifndef __CALPHASPRITEPAL_H__
 #define __CALPHASPRITEPAL_H__
 
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+	#include <windows.h>
+#else
+	#include "../basic/Platform.h"
+#endif
 #include "CTypePack.h"
 #include "CSpritePalBase.h"
 
 class CAlphaSpritePal : public CSpritePalBase
 {
 public:
+	// Constructor and destructor (for vtable)
+	CAlphaSpritePal();
+	virtual ~CAlphaSpritePal();
+
 	void SetPixel(BYTE *pSource, WORD pitch, BYTE *pSourceAlpha, WORD alphaPitch, WORD width, WORD height);
 	
 	//---------------------------------------------------------
@@ -16,7 +25,7 @@ public:
 	void		Blt(int x, int y, WORD* pDest, int pitch, MPalette &pal);
 
 	//---------------------------------------------------------
-	// Á¤»óÀûÀÎ Blt
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Blt
 	//---------------------------------------------------------
 	void		Blt(WORD *pDest, WORD pitch, MPalette &pal);				
 	void		BltClip(WORD* pDest, WORD pitch, RECT* pRect, MPalette &pal);
@@ -35,7 +44,7 @@ public:
 	void		Blt4444ClipHeight(WORD *pDest, WORD pitch, RECT* pRect, MPalette &pal);
 	
 	//---------------------------------------------------------
-	// Blt 4444 NotTrans for Texture (Åõ¸íºÎºÐµµ °Ë°Ô Ä¥ÇÑ´Ù)
+	// Blt 4444 NotTrans for Texture (ï¿½ï¿½ï¿½ï¿½ï¿½ÎºÐµï¿½ ï¿½Ë°ï¿½ Ä¥ï¿½Ñ´ï¿½)
 	//---------------------------------------------------------
 	void		Blt4444NotTrans(WORD *pDest, WORD pitch, MPalette &pal);				
 	void		Blt4444NotTransClipLeft(WORD *pDest, WORD pitch, RECT* pRect, MPalette &pal);
@@ -44,7 +53,7 @@ public:
 	void		Blt4444NotTransClipHeight(WORD *pDest, WORD pitch, RECT* pRect, MPalette &pal);
 	
 	//---------------------------------------------------------
-	// shift¸¸Å­ shiftÇØ¼­ Å©±â¸¦ ÀÛ°Ô Ãâ·Â½ÃÅ²´Ù.
+	// shiftï¿½ï¿½Å­ shiftï¿½Ø¼ï¿½ Å©ï¿½â¸¦ ï¿½Û°ï¿½ ï¿½ï¿½Â½ï¿½Å²ï¿½ï¿½.
 	//---------------------------------------------------------
 	void		Blt4444SmallNotTrans(WORD *pDest, WORD pitch, BYTE shift, MPalette &pal);
 	

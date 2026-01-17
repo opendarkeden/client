@@ -7,7 +7,11 @@
 //    (C) Copyright 1995-1997 Microsoft Corp.  All rights reserved.
 //-----------------------------------------------------------------------------
 
-#include <windows.h>
+// Only compile on Windows platforms
+// On non-Windows platforms (macOS/Linux), DirectX version detection is not needed
+#ifdef PLATFORM_WINDOWS
+
+#include <Windows.h>
 #include <windowsx.h>
 #include <ddraw.h>
 #include <dinput.h>
@@ -37,17 +41,17 @@ typedef HRESULT(WINAPI * DIRECTINPUTCREATE)( HINSTANCE, DWORD, LPDIRECTINPUT*,
 //            0                          = Unknown (This is a failure case)
 //            VER_PLATFORM_WIN32_WINDOWS = Windows 9X platform
 //            VER_PLATFORM_WIN32_NT      = Windows NT platform
-// 
+//
 //          Please note that this code is intended as a general guideline. Your
 //          app will probably be able to simply query for functionality (via
 //          QueryInterface) for one or two components.
 //
 //          Please also note:
-//            "if (dxVer != 0x500) return FALSE;" is BAD. 
+//            "if (dxVer != 0x500) return FALSE;" is BAD.
 //            "if (dxVer < 0x500) return FALSE;" is MUCH BETTER.
 //          to ensure your app will run on future releases of DirectX.
 //-----------------------------------------------------------------------------
-VOID 
+VOID
 CDirectSetup::GetVersion( DWORD* pdwDXVersion, DWORD* pdwDXPlatform )
 {
     HRESULT              hr;
@@ -293,7 +297,7 @@ CDirectSetup::GetVersion( DWORD* pdwDXVersion, DWORD* pdwDXPlatform )
     (*pdwDXVersion) = 0x601;
     pDMusic->Release();
     CoUninitialize();
-    
+
 
     ///////////////////////////////////////////////////////////////////////////
     // DirectX 7.0 Checks
@@ -320,13 +324,15 @@ CDirectSetup::GetVersion( DWORD* pdwDXVersion, DWORD* pdwDXPlatform )
     (*pdwDXVersion) = 0x700;
     pDD7->Release();
 
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // End of checks
     ///////////////////////////////////////////////////////////////////////////
 
     // Close open libraries and return
     FreeLibrary( DDHinst );
-    
+
     return;
 }
+
+#endif /* PLATFORM_WINDOWS */

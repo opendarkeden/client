@@ -18,14 +18,19 @@
 //	#include <xercesc/sax2/DefaultHandler.hpp>
 //#pragma warning (pop)
 
+
 #pragma warning(disable:4786)
 
+#ifdef PLATFORM_WINDOWS
 #include <windows.h>
+#else
+#include "../../basic/Platform.h"
+#include <unistd.h>
+#endif
 #include <map>
 #include <vector>
 #include <string>
 #include <fstream>
-
 using std::map;
 using std::vector;
 using std::string;
@@ -54,7 +59,7 @@ public:
 //class StrX
 //{
 //private:
-//	char* m_pCSTR; ///< ³»ºÎ ¹®ÀÚ¿­ ¹öÆÛ
+//	char* m_pCSTR; ///< ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½
 //
 //public:
 //	StrX(const XMLCh* const toTranscode) { m_pCSTR = XMLString::transcode(toTranscode); }
@@ -99,14 +104,14 @@ private:
 	typedef map<string, XMLTree*> CHILDREN_MAP;
 	typedef vector<XMLTree *> CHILDREN_VECTOR;
 
-	string     m_Name;        ///< ³ëµåÀÇ ÀÌ¸§
-	string     m_Text;        ///< ³ëµå¿¡ ¼ÓÇÑ ÅØ½ºÆ®
-	XMLTree*   m_pParent;     ///< ºÎ¸ð ³ëµåÀÇ Æ÷ÀÎÅÍ
+	string     m_Name;        ///< ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+	string     m_Text;        ///< ï¿½ï¿½å¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ®
+	XMLTree*   m_pParent;     ///< ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	ATTRIBUTES_MAP m_AttributesMap;  ///< °¡Áö°í ÀÖ´Â ¼Ó¼º°ªµé
-	ATTRIBUTES_VECTOR m_AttributesVector;  ///< °¡Áö°í ÀÖ´Â ¼Ó¼º°ªµé
-	CHILDREN_MAP   m_ChildrenMap;    ///< ÀÚ½Ä ³ëµåµé
-	CHILDREN_VECTOR   m_ChildrenVector;    ///< ÀÚ½Ä ³ëµåµé
+	ATTRIBUTES_MAP m_AttributesMap;  ///< ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½
+	ATTRIBUTES_VECTOR m_AttributesVector;  ///< ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½
+	CHILDREN_MAP   m_ChildrenMap;    ///< ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	CHILDREN_VECTOR   m_ChildrenVector;    ///< ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 public:
 	XMLTree();
@@ -151,8 +156,8 @@ private:
 //class XMLTreeGenerator : public DefaultHandler
 //{
 //private:
-//	XMLTree* m_pRoot;   ///< ÃÖ»óÀ§ ³ëµå
-//	XMLTree* m_pBuffer; ///< XML ÆÄ½Ì¿ë ÀÓ½Ã ³ëµå
+//	XMLTree* m_pRoot;   ///< ï¿½Ö»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+//	XMLTree* m_pBuffer; ///< XML ï¿½Ä½Ì¿ï¿½ ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½
 //
 //
 //public:
@@ -196,10 +201,10 @@ public:
 
 
 public:
-	/// \brief ÁöÁ¤µÈ À§Ä¡¿¡ ÀÖ´Â ÆÄÀÏ ¶Ç´Â À¥ ¹®¼­¸¦ ÆÄ½ÌÇÑ´Ù.
+	/// \brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä½ï¿½ï¿½Ñ´ï¿½.
 //	void parseURL(const char* pURL);
 
-	/// \brief ÀÎ¼ö·Î ³Ñ°ÜÁö´Â ¹®ÀÚ¿­À» XML ¹®¼­·Î °¡Á¤ÇÏ°í ÆÄ½ÌÇÑ´Ù.
+	/// \brief ï¿½Î¼ï¿½ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ XML ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ä½ï¿½ï¿½Ñ´ï¿½.
 	char* parse(char* buffer, XMLTree *pTree, bool IsUseOnlyVector = false);
 };
 

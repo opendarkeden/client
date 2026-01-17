@@ -8,13 +8,13 @@
 //
 // *Reiot's Notes*
 //
-// ½Ã½ºÅÛ¿¡¼­ °¡Àå ºó¹øÇÏ°Ô »ç¿ëµÇ´Â Å¬·¡½ºÁßÀÇ ÇÏ³ªÀÌ´Ù.
-// ¼Óµµ¿¡ ¹«Áö¸·ÁöÇÑ ¿µÇâÀ» ¹ÌÄ¡¹Ç·Î, ¸¸ÀÏ Á»´õ ¼Óµµ¸¦ º¸°­ÇÏ°í
-// ½Í´Ù¸é, exceptionÀ» »©°í re-write ÇÏ¶ó. 
+// ì‹œìŠ¤í…œì—ì„œ ê°€ì¥ ë¹ˆë²ˆí•˜ê²Œ ì‚¬ìš©ë˜ëŠ” í´ë˜ìŠ¤ì¤‘ì˜ í•˜ë‚˜ì´ë‹¤.
+// ì†ë„ì— ë¬´ì§€ë§‰ì§€í•œ ì˜í–¥ì„ ë¯¸ì¹˜ë¯€ë¡œ, ë§Œì¼ ì¢€ë” ì†ë„ë¥¼ ë³´ê°•í•˜ê³ 
+// ì‹¶ë‹¤ë©´, exceptionì„ ë¹¼ê³  re-write í•˜ë¼. 
 //
-// ÇöÀç nonblocking ÀÌ ±²ÀåÈ÷-¾ï¼ö·Î-Á¹¶ó ¸¹ÀÌ ¹ß»ıÇÑ´Ù°í ÇßÀ»¶§,
-// ÀÌ°ÍÀÌ NonBlockingIOExceptionÀ¸·Î wrappingµÉ¶§ overhead°¡ ¹ß»ıÇÒ
-// È®·üÀÌ ³ô´Ù°í ÃßÃøµÈ´Ù.
+// í˜„ì¬ nonblocking ì´ êµ‰ì¥íˆ-ì–µìˆ˜ë¡œ-ì¡¸ë¼ ë§ì´ ë°œìƒí•œë‹¤ê³  í–ˆì„ë•Œ,
+// ì´ê²ƒì´ NonBlockingIOExceptionìœ¼ë¡œ wrappingë ë•Œ overheadê°€ ë°œìƒí• 
+// í™•ë¥ ì´ ë†’ë‹¤ê³  ì¶”ì¸¡ëœë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -46,10 +46,10 @@ class SocketInputStream {
 public :
 	
 	// constructor
-	SocketInputStream ( Socket * sock , uint BufferSize = DefaultSocketInputBufferSize ) throw ( Error );
+	SocketInputStream ( Socket * sock , uint BufferSize = DefaultSocketInputBufferSize ) throw ( ProtocolException , Error );
 	
 	// destructor
-	virtual ~SocketInputStream () throw ( Error );
+	virtual ~SocketInputStream () throw ( ProtocolException , Error );
 
 	
 //////////////////////////////////////////////////

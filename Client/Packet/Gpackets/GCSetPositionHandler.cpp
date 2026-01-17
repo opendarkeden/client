@@ -21,7 +21,8 @@
 //
 //----------------------------------------------------------------------
 void GCSetPositionHandler::execute ( GCSetPosition * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -37,14 +38,14 @@ void GCSetPositionHandler::execute ( GCSetPosition * pPacket , Player * pPlayer 
 
 
 	//--------------------------------------------------------
-	// PlayerÀÇ À§Ä¡ ÁöÁ¤
+	// Playerì˜ ìœ„ì¹˜ ì§€ì •
 	//--------------------------------------------------------
 	InitPlayer(	pPacket->getX(), 
 				pPacket->getY(),
 				pPacket->getDir());
 
 	//--------------------------------------------------------
-	// °ÔÀÓ ½ÃÀÛ..
+	// ê²Œìž„ ì‹œìž‘..
 	//--------------------------------------------------------
 	SetMode( MODE_GAME );
 

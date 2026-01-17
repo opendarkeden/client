@@ -35,7 +35,7 @@ public:
 	void setEffectObjectID(ObjectID_t id) { m_EffectObjectID = id; }
 
 private:
-	ObjectID_t m_EffectObjectID; // º±≈√«— ¿Ã∆Â∆Æ¿« ø¿∫Í¡ß∆Æ ID
+	ObjectID_t m_EffectObjectID; // ÏÑ†ÌÉùÌïú Ïù¥ÌéôÌä∏Ïùò Ïò§Î∏åÏ†ùÌä∏ ID
 };
 
 
@@ -65,8 +65,8 @@ class Effect;
 	class CGSelectTileEffectHandler 
 	{
 	public:
-		static void execute(CGSelectTileEffect* pCGSelectTileEffect, Player* pPlayer) throw(Error);
-		static void executeVampirePortal(CGSelectTileEffect* pCGSelectTileEffect, Player* pPlayer, Effect* pEffect) throw(Error);
+		static void execute(CGSelectTileEffect* pCGSelectTileEffect, Player* pPlayer) throw ( ProtocolException , Error );
+		static void executeVampirePortal(CGSelectTileEffect* pCGSelectTileEffect, Player* pPlayer, Effect* pEffect) throw ( ProtocolException , Error );
 	};
 #endif
 

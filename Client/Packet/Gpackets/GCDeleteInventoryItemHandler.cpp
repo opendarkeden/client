@@ -19,7 +19,8 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCDeleteInventoryItemHandler::execute ( GCDeleteInventoryItem * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -27,7 +28,7 @@ void GCDeleteInventoryItemHandler::execute ( GCDeleteInventoryItem * pPacket , P
 
 	MItem* pItem = UI_GetMouseItem();
 
-	// mouse¿¡ ÀÖ´Â °Íµµ ÇÔ Ã¼Å©ÇØÁØ´Ù. by sigi. 2002.7.8
+	// mouseì— ìžˆëŠ” ê²ƒë„ í•¨ ì²´í¬í•´ì¤€ë‹¤. by sigi. 2002.7.8
 	if (pItem!=NULL
 		&& pItem->GetID()==pPacket->getObjectID())
 	{
@@ -51,7 +52,7 @@ void GCDeleteInventoryItemHandler::execute ( GCDeleteInventoryItem * pPacket , P
 		if (g_pPlayer->IsItemCheckBufferDropToRelicTable() || g_pPlayer->IsItemCheckBufferDropToCreature())
 		{
 			//---------------------------------------------
-			// ¶³¾î¶ß¸±·Á´Â item
+			// ë–¨ì–´ëœ¨ë¦´ë ¤ëŠ” item
 			//---------------------------------------------
 			MItem* pCheckItem = g_pPlayer->GetItemCheckBuffer();
 

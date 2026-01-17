@@ -16,18 +16,18 @@ class MGuidanceEffect : public MLinearEffect {
 		virtual EFFECT_TYPE		GetEffectType()	const	{ return EFFECT_GUIDANCE; }
 
 		//--------------------------------------------------------
-		// ¸ñÇ¥ ¼³Á¤
+		// ëª©í‘œ ì„¤ì •
 		//--------------------------------------------------------
 		void				SetTraceCreatureID(TYPE_OBJECTID id);
 		TYPE_OBJECTID		GetTraceCreatureID()					{ return m_CreatureID; }
 		
 		//--------------------------------------------------------
-		// ÇÑ ¹øÀÇ Update¿¡ È£ÃâµÉ ÇÔ¼ö..
+		// í•œ ë²ˆì˜ Updateì— í˜¸ì¶œë  í•¨ìˆ˜..
 		//--------------------------------------------------------
 		virtual bool		Update();
 
 	protected :
-		virtual bool		TraceCreature();		// ÃßÀû ÁÂÇ¥ ¼³Á¤
+		virtual bool		TraceCreature();		// ì¶”ì  ì¢Œí‘œ ì„¤ì •
 
 	protected :
 		TYPE_OBJECTID	m_CreatureID;

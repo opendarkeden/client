@@ -2,56 +2,56 @@
 // MSector.h
 //----------------------------------------------------------------------
 //
-// - Object MapÀ» »ç¿ëÇÑ´Ù.
+// - Object Mapì„ ì‚¬ìš©í•œë‹¤.
 //
-// - Effect´Â ObjectÀÌ±ä ÇÏÁö¸¸, ±¸Á¶»ó..
-//   Effect¸¸ List·Î µû·Î °ü¸®ÇÏ´Â°Ô ³´´Ù..
-//
-//----------------------------------------------------------------------
-// Flag¸¦ ÀÌ¿ëÇØ¼­ Sector¿¡ ÇöÀç Á¸ÀçÇÏ´Â ObjectµéÀÇ Á¤º¸¸¦ ÀúÀåÇØµÎ¸é,
-// ¼Óµµ°¡ ºü¸¦ °ÍÀÌ´Ù!
-//----------------------------------------------------------------------
-// ÇÑ Sector¿¡´Â ¿©·¯°³ÀÇ ImageObject°¡ Á¸ÀçÇÒ ¼ö ÀÖ´Ù.
-// ´Ü, MapÀÇ ±¸Á¶»ó.. °ÔÀÓ ½ÇÇà½Ã¿¡ Ãß°¡µÈ °ÍÀÌ »èÁ¦°¡ µÇ¸é ¾ÈµÈ´Ù.
-// 
-// 
-// listº¸´Ù´Â mapÀÌ ³´Áö ¾ÊÀ»±î??
-//
-// Æ¯Á¤ key°ªÀ» ÅëÇØ¼­ map¿¡ Ãß°¡/»èÁ¦°¡ °¡´ÉÇÏ´Ù.
-//----------------------------------------------------------------------
-//
-// Map¿¡¼­ »ç¿ëµÉ Key°ªÀº ´ÙÀ½°ú °°ÀÌ Á¤ÀÇÇÑ´Ù.
-//
-//	1			POSITION_ITEM = 1,					// ItemÀÌ ÀÖ´Â Node
-//	2			POSITION_UNDERGROUNDCREATURE,		// ÁöÇÏ Ä³¸¯ÅÍ°¡ ÀÖ´Â Node
-//	3			POSITION_GROUNDCREATURE,			// Áö»ó Ä³¸¯ÅÍ°¡ ÀÖ´Â Node
-//	4			POSITION_FLYINGCREATURE,			// °øÁß Ä³¸¯ÅÍ°¡ ÀÖ´Â Node
-//	5			POSITION_PORTAL,					// Zone ÀÌµ¿ÀÌ µÇ´Â °÷ÀÌ´Ù.
-//	100 ~255	POSITION_IMAGEOBJECT				// ImageObjectµéÀÌ ÀÖ´Â °÷
-//
+// - EffectëŠ” Objectì´ê¸´ í•˜ì§€ë§Œ, êµ¬ì¡°ìƒ..
+//   Effectë§Œ Listë¡œ ë”°ë¡œ ê´€ë¦¬í•˜ëŠ”ê²Œ ë‚«ë‹¤..
 //
 //----------------------------------------------------------------------
+// Flagë¥¼ ì´ìš©í•´ì„œ Sectorì— í˜„ì¬ ì¡´ì¬í•˜ëŠ” Objectë“¤ì˜ ì •ë³´ë¥¼ ì €ì¥í•´ë‘ë©´,
+// ì†ë„ê°€ ë¹ ë¥¼ ê²ƒì´ë‹¤!
+//----------------------------------------------------------------------
+// í•œ Sectorì—ëŠ” ì—¬ëŸ¬ê°œì˜ ImageObjectê°€ ì¡´ì¬í•  ìˆ˜ ìˆë‹¤.
+// ë‹¨, Mapì˜ êµ¬ì¡°ìƒ.. ê²Œì„ ì‹¤í–‰ì‹œì— ì¶”ê°€ëœ ê²ƒì´ ì‚­ì œê°€ ë˜ë©´ ì•ˆëœë‹¤.
 // 
-// [½Ã¾ßÃ³¸®¿¡ °ü·ÃµÈ °Í]
-//
-// m_Light´Â ÀÌ Sector¿¡ Ç¥ÇöµÇ´Â ºûÀÇ ¹à±â¸¦ ÀÇ¹ÌÇÑ´Ù.
-// m_Light°¡ 0ÀÌ¸é m_FilterSpriteID¸¦ ÀÌ¿ëÇØ¼­ Fog¸¦ Ç¥ÇöÇØ¾ßÇÑ´Ù.
-// m_Light°¡ 1 ÀÌ»óÀÏ¶§´Â Fog°¡ ¾ø¾î¾ß ÇÑ´Ù.
-//
-// m_Light°¡ ´Ü¼øÈ÷ true/false°¡ ¾Æ´Ñ ÀÌÀ¯´Â..
-// ÇÑ Sector¿¡´Â ¿©·¯°³ÀÇ ºûÀÌ µ¿½Ã¿¡ Á¸ÀçÇÒ ¼ö ÀÖÀ¸¹Ç·Î 
-// ÁßÃ¸µÆ´Ù°¡ Á¦°ÅÇÒ ¶§.. ¿©·¯¹ø Á¦°ÅÇÏ°Ô µÇ¸é.. 
-// ¾ÆÁ÷ ºûÀÌ Á¸ÀçÇÏ´Âµ¥µµ 0ÀÌ µÉ ¼ö°¡ ÀÖ±â ¶§¹®ÀÌ´Ù.
 // 
-// ¿¹) [Ãß°¡]°íÁ¤µÈ »ç¹° + Player½Ã¾ß + ¸¶¹ıEffect  = 3°³ÀÇ ºû
-//     1. °íÁ¤µÈ »ç¹° Á¦°Å = 2°³ÀÇ ºû
-//     2. ¸¶¹ıEffect Á¦°Å = 1°³ÀÇ ºû
-//     3. Player½Ã¾ß Á¦°Å = 0°³ÀÇ ºû
-//     4. ÀÌÁ¦ºÎÅÍ´Â FilterSpriteID¸¦ »ç¿ëÇØ¼­ Fog¸¦ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+// listë³´ë‹¤ëŠ” mapì´ ë‚«ì§€ ì•Šì„ê¹Œ??
+//
+// íŠ¹ì • keyê°’ì„ í†µí•´ì„œ mapì— ì¶”ê°€/ì‚­ì œê°€ ê°€ëŠ¥í•˜ë‹¤.
+//----------------------------------------------------------------------
+//
+// Mapì—ì„œ ì‚¬ìš©ë  Keyê°’ì€ ë‹¤ìŒê³¼ ê°™ì´ ì •ì˜í•œë‹¤.
+//
+//	1			POSITION_ITEM = 1,					// Itemì´ ìˆëŠ” Node
+//	2			POSITION_UNDERGROUNDCREATURE,		// ì§€í•˜ ìºë¦­í„°ê°€ ìˆëŠ” Node
+//	3			POSITION_GROUNDCREATURE,			// ì§€ìƒ ìºë¦­í„°ê°€ ìˆëŠ” Node
+//	4			POSITION_FLYINGCREATURE,			// ê³µì¤‘ ìºë¦­í„°ê°€ ìˆëŠ” Node
+//	5			POSITION_PORTAL,					// Zone ì´ë™ì´ ë˜ëŠ” ê³³ì´ë‹¤.
+//	100 ~255	POSITION_IMAGEOBJECT				// ImageObjectë“¤ì´ ìˆëŠ” ê³³
 //
 //
-// = Sector¿Í MTopView¿Í creatureÀÇ light°ü·Ã ºÎºĞÀ» BYTE¿¡¼­ short·Î °íÃÄ¾ßÇÒ±î?
-//   - ÇÑ Sector¿¡ ³Ê¹« ¸¹Àº ºûÀÌ °ãÃÄÁö°Ô µÇ¸é ¹®Á¦°¡ »ı±ä´Ù.
+//----------------------------------------------------------------------
+// 
+// [ì‹œì•¼ì²˜ë¦¬ì— ê´€ë ¨ëœ ê²ƒ]
+//
+// m_LightëŠ” ì´ Sectorì— í‘œí˜„ë˜ëŠ” ë¹›ì˜ ë°ê¸°ë¥¼ ì˜ë¯¸í•œë‹¤.
+// m_Lightê°€ 0ì´ë©´ m_FilterSpriteIDë¥¼ ì´ìš©í•´ì„œ Fogë¥¼ í‘œí˜„í•´ì•¼í•œë‹¤.
+// m_Lightê°€ 1 ì´ìƒì¼ë•ŒëŠ” Fogê°€ ì—†ì–´ì•¼ í•œë‹¤.
+//
+// m_Lightê°€ ë‹¨ìˆœíˆ true/falseê°€ ì•„ë‹Œ ì´ìœ ëŠ”..
+// í•œ Sectorì—ëŠ” ì—¬ëŸ¬ê°œì˜ ë¹›ì´ ë™ì‹œì— ì¡´ì¬í•  ìˆ˜ ìˆìœ¼ë¯€ë¡œ 
+// ì¤‘ì²©ëë‹¤ê°€ ì œê±°í•  ë•Œ.. ì—¬ëŸ¬ë²ˆ ì œê±°í•˜ê²Œ ë˜ë©´.. 
+// ì•„ì§ ë¹›ì´ ì¡´ì¬í•˜ëŠ”ë°ë„ 0ì´ ë  ìˆ˜ê°€ ìˆê¸° ë•Œë¬¸ì´ë‹¤.
+// 
+// ì˜ˆ) [ì¶”ê°€]ê³ ì •ëœ ì‚¬ë¬¼ + Playerì‹œì•¼ + ë§ˆë²•Effect  = 3ê°œì˜ ë¹›
+//     1. ê³ ì •ëœ ì‚¬ë¬¼ ì œê±° = 2ê°œì˜ ë¹›
+//     2. ë§ˆë²•Effect ì œê±° = 1ê°œì˜ ë¹›
+//     3. Playerì‹œì•¼ ì œê±° = 0ê°œì˜ ë¹›
+//     4. ì´ì œë¶€í„°ëŠ” FilterSpriteIDë¥¼ ì‚¬ìš©í•´ì„œ Fogë¥¼ ì¶œë ¥í•´ì•¼ í•œë‹¤.
+//
+//
+// = Sectorì™€ MTopViewì™€ creatureì˜ lightê´€ë ¨ ë¶€ë¶„ì„ BYTEì—ì„œ shortë¡œ ê³ ì³ì•¼í• ê¹Œ?
+//   - í•œ Sectorì— ë„ˆë¬´ ë§ì€ ë¹›ì´ ê²¹ì³ì§€ê²Œ ë˜ë©´ ë¬¸ì œê°€ ìƒê¸´ë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -61,12 +61,15 @@
 
 #pragma warning(disable:4786)
 
-class ofstream;
-class ifstream;
 #include "DrawTypeDef.h"
 #include "MTypeDef.h"
 #include "MObject.h"
 #include "SectorSoundInfo.h"
+
+#include <fstream>
+#include <map>
+using namespace std;
+using namespace std;
 
 class MItem;
 class MCreature;
@@ -76,26 +79,26 @@ class MEffect;
 //----------------------------------------------------------------------
 // Flag
 //----------------------------------------------------------------------
-#define	FLAG_SECTOR_BLOCK_UNDERGROUND		0x01	// ÁöÇÏ·Î Áö³ª°¥ ¼ö ¾ø´Â SectorÀÎ°¡?
-#define	FLAG_SECTOR_BLOCK_GROUND			0x02	// Áö»óÀ¸·Î Áö³ª°¥ ¼ö ¾ø´Â SectorÀÎ°¡?
-#define	FLAG_SECTOR_BLOCK_FLYING			0x04	// °øÁßÀ¸·Î Áö³ª°¥ ¼ö ¾ø´Â SectorÀÎ°¡?
+#define	FLAG_SECTOR_BLOCK_UNDERGROUND		0x01	// ì§€í•˜ë¡œ ì§€ë‚˜ê°ˆ ìˆ˜ ì—†ëŠ” Sectorì¸ê°€?
+#define	FLAG_SECTOR_BLOCK_GROUND			0x02	// ì§€ìƒìœ¼ë¡œ ì§€ë‚˜ê°ˆ ìˆ˜ ì—†ëŠ” Sectorì¸ê°€?
+#define	FLAG_SECTOR_BLOCK_FLYING			0x04	// ê³µì¤‘ìœ¼ë¡œ ì§€ë‚˜ê°ˆ ìˆ˜ ì—†ëŠ” Sectorì¸ê°€?
 #define	FLAG_SECTOR_BLOCK_ALL				0x07	// Block ALL
-#define	FLAG_SECTOR_ITEM					0x08	// ItemÀÌ Á¸ÀçÇÑ´Ù.
-#define	FLAG_SECTOR_UNDERGROUNDCREATURE		0x10	// ÁöÇÏ Ä³¸¯ÅÍ°¡ Á¸ÀçÇÑ´Ù.
-#define	FLAG_SECTOR_GROUNDCREATURE			0x20	// Áö»ó Ä³¸¯ÅÍ°¡ Á¸ÀçÇÑ´Ù.
-#define	FLAG_SECTOR_FLYINGCREATURE			0x40	// °øÁß Ä³¸¯ÅÍ°¡ Á¸ÀçÇÑ´Ù.
-#define	FLAG_SECTOR_PORTAL					0x80	// Zone ÀÌµ¿ÀÌ µÇ´Â °÷ÀÌ´Ù.
+#define	FLAG_SECTOR_ITEM					0x08	// Itemì´ ì¡´ì¬í•œë‹¤.
+#define	FLAG_SECTOR_UNDERGROUNDCREATURE		0x10	// ì§€í•˜ ìºë¦­í„°ê°€ ì¡´ì¬í•œë‹¤.
+#define	FLAG_SECTOR_GROUNDCREATURE			0x20	// ì§€ìƒ ìºë¦­í„°ê°€ ì¡´ì¬í•œë‹¤.
+#define	FLAG_SECTOR_FLYINGCREATURE			0x40	// ê³µì¤‘ ìºë¦­í„°ê°€ ì¡´ì¬í•œë‹¤.
+#define	FLAG_SECTOR_PORTAL					0x80	// Zone ì´ë™ì´ ë˜ëŠ” ê³³ì´ë‹¤.
 
 //----------------------------------------------------------------------
 // Flag2
 //----------------------------------------------------------------------
-#define	FLAG_SECTOR_SAFE_COMMON				0x01	// ÀüºÎ ´Ù ¾ÈÀüÇÑ °÷
-#define	FLAG_SECTOR_SAFE_SLAYER				0x02	// slayer¸¸ ¾ÈÀüÇÑ °÷
-#define	FLAG_SECTOR_SAFE_VAMPIRE			0x04	// vampire¸¸ ¾ÈÀüÇÑ °÷
-#define FLAG_SECTOR_SAFE_NO_PK_ZONE			0x08	// ³ë ÇÇÄÉÁ¸ 
-#define	FLAG_SECTOR_SAFE_OUSTERS			0x10	// ousters¸¸ ¾ÈÀüÇÑ °÷
+#define	FLAG_SECTOR_SAFE_COMMON				0x01	// ì „ë¶€ ë‹¤ ì•ˆì „í•œ ê³³
+#define	FLAG_SECTOR_SAFE_SLAYER				0x02	// slayerë§Œ ì•ˆì „í•œ ê³³
+#define	FLAG_SECTOR_SAFE_VAMPIRE			0x04	// vampireë§Œ ì•ˆì „í•œ ê³³
+#define FLAG_SECTOR_SAFE_NO_PK_ZONE			0x08	// ë…¸ í”¼ì¼€ì¡´ 
+#define	FLAG_SECTOR_SAFE_OUSTERS			0x10	// oustersë§Œ ì•ˆì „í•œ ê³³
 #define FLAG_SECTOR_SAFE_ZONE				0x17
-// server¿¡ blockµÈ °Í
+// serverì— blockëœ ê²ƒ
 #define FLAG_SECTOR_BLOCK_SERVER_UNDERGROUND	0x10
 #define FLAG_SECTOR_BLOCK_SERVER_GROUND			0x20
 #define FLAG_SECTOR_BLOCK_SERVER_FLYING			0x40
@@ -113,7 +116,7 @@ typedef std::list<MEffect*>		EFFECT_LIST;
 //----------------------------------------------------------------------
 class PORTAL_INFO
 {
-	// typeÀº MPortalÀÇ TypeÀ» »ç¿ëÇÑ´Ù.
+	// typeì€ MPortalì˜ Typeì„ ì‚¬ìš©í•œë‹¤.
 	public :
 		int		Type;
 		int		ZoneID;	
@@ -138,9 +141,9 @@ typedef std::list<PORTAL_INFO>			PORTAL_LIST;
 
 //----------------------------------------------------------------------
 // 
-// MSector class´Â ÇÏ³ªÀÇ Object°¡ Á¸ÀçÇÒ ¼ö ÀÖ´Â
-//                 ÇÑ ¿µ¿ª¿¡ ´ëÇÑ Á¤º¸¸¦ °¡Áö°í ÀÖ´Â´Ù.
-//                 Sector´Â ÇÏ³ªÀÇ ¹Ù´Ú Å¸ÀÏ·Î¼­ Ç¥ÇöµÈ´Ù.
+// MSector classëŠ” í•˜ë‚˜ì˜ Objectê°€ ì¡´ì¬í•  ìˆ˜ ìˆëŠ”
+//                 í•œ ì˜ì—­ì— ëŒ€í•œ ì •ë³´ë¥¼ ê°€ì§€ê³  ìˆëŠ”ë‹¤.
+//                 SectorëŠ” í•˜ë‚˜ì˜ ë°”ë‹¥ íƒ€ì¼ë¡œì„œ í‘œí˜„ëœë‹¤.
 //
 //----------------------------------------------------------------------
 class MSector {
@@ -154,8 +157,8 @@ class MSector {
 		// file I/O
 		//
 		//------------------------------------------------
-		void	SaveToFile(class ofstream& file);
-		void	LoadFromFile(class ifstream& file);
+		void	SaveToFile(std::ofstream& file);
+		void	LoadFromFile(std::ifstream& file);
 
 		//------------------------------------------------
 		//
@@ -214,7 +217,7 @@ class MSector {
 		
 		//------------------------------------------------
 		//
-		// Sector¿¡ Object°¡ Á¸ÀçÇÏ´Â°¡?
+		// Sectorì— Objectê°€ ì¡´ì¬í•˜ëŠ”ê°€?
 		//
 		//------------------------------------------------
 		BYTE	IsExistObject() const	{ return !m_mapObject.empty(); }
@@ -229,7 +232,7 @@ class MSector {
 																(m_fProperty & FLAG_SECTOR_GROUNDCREATURE) ||
 																(m_fProperty & FLAG_SECTOR_FLYINGCREATURE); }
 
-		// ImageObject°¡ º¸ÀÌ±â´Â ÇÏ´Â °÷ÀÎµ¥ BlockÀÌ ¾Æ´Ñ °÷ÀÎ°¡? (¹İÅõ¸í Ã³¸®)
+		// ImageObjectê°€ ë³´ì´ê¸°ëŠ” í•˜ëŠ” ê³³ì¸ë° Blockì´ ì•„ë‹Œ ê³³ì¸ê°€? (ë°˜íˆ¬ëª… ì²˜ë¦¬)
 		//BYTE	IsImageObjectAndNotBlock()	const	{ return (m_nImageObject && (m_fProperty & FLAG_SECTOR_BLOCK)); }
 		
 
@@ -311,10 +314,10 @@ class MSector {
 		MCreature* const		GetFlyingCreature() const;
 		MImageObject* const		GetImageObject(TYPE_OBJECTID id) const;		
 
-		// °³¼ö		
+		// ê°œìˆ˜		
 		BYTE			GetImageObjectSize() const		{ return m_nImageObject; }
 
-		// iterator¸¦ ³Ñ°ÜÁØ´Ù.
+		// iteratorë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 		OBJECT_MAP::const_iterator	GetImageObjectIterator() const;		
 		
 
@@ -323,14 +326,14 @@ class MSector {
 
 		//------------------------------------------------
 		//
-		// Effect °ü·Ã...
+		// Effect ê´€ë ¨...
 		//
 		//------------------------------------------------
 		bool		IsExistEffect() const		{ return !m_listEffect.empty(); }
 		void		ClearEffect()				{ m_listEffect.clear(); }
 		int			GetEffectSize() const		{ return m_listEffect.size(); }
 
-		// ¿ÜºÎ¿¡¼­ iterator·Î ÀÛ¾÷À» ÇÒ ¼ö ÀÖµµ·Ï..
+		// ì™¸ë¶€ì—ì„œ iteratorë¡œ ì‘ì—…ì„ í•  ìˆ˜ ìˆë„ë¡..
 		EFFECT_LIST::const_iterator GetEffectIterator() const { return m_listEffect.begin(); }
 
 		// Add/Get/Remove
@@ -339,22 +342,22 @@ class MSector {
 		bool		RemoveEffect(TYPE_OBJECTID id, MEffect*& pEffect);
 		bool		RemoveEffect(TYPE_OBJECTID id);
 		
-		// °è»êÀ» »¡¸® ÇÒ·Á°í darkness¸¸ µû·Î Ã³¸®ÇÑ´Ù.
+		// ê³„ì‚°ì„ ë¹¨ë¦¬ í• ë ¤ê³  darknessë§Œ ë”°ë¡œ ì²˜ë¦¬í•œë‹¤.
 		bool		HasDarkness() const			{ return m_bDarkness; }
 		void		SetDarkness()				{ m_bDarkness = true; }
 		void		UnSetDarkness()				{ m_bDarkness = false; }
 		
-		// °è»êÀ» »¡¸® ÇÒ·Á°í ´ëÁöÁ¤·Éµµ µû·Î Ã³¸®ÇÑ´Ù.-¤µ-;;;
+		// ê³„ì‚°ì„ ë¹¨ë¦¬ í• ë ¤ê³  ëŒ€ì§€ì •ë ¹ë„ ë”°ë¡œ ì²˜ë¦¬í•œë‹¤.-ã……-;;;
 		bool		HasGroundElemental() const			{ return m_bGroundElemental; }
 		void		SetGroundElemental()				{ m_bGroundElemental = true; }
 		void		UnSetGroundElemental()				{ m_bGroundElemental = false; }
 		
-		// °è»êÀ» »¡¸® ÇÒ·Á°í DARKNESS_FORBIDDEN¸¶Àú µû·Î Ã³¸®ÇÑ´Ù.-¤µ-;;;
+		// ê³„ì‚°ì„ ë¹¨ë¦¬ í• ë ¤ê³  DARKNESS_FORBIDDENë§ˆì € ë”°ë¡œ ì²˜ë¦¬í•œë‹¤.-ã……-;;;
 		bool		HasDarknessForbidden() const			{ return m_bDarknessForbidden; }
 		void		SetDarknessForbidden()				{ m_bDarknessForbidden = true; }
 		void		UnSetDarknessForbidden()				{ m_bDarknessForbidden = false; }
 		
-		// [»õ±â¼ú] sanctuaryµµ Ãß°¡ --;
+		// [ìƒˆê¸°ìˆ ] sanctuaryë„ ì¶”ê°€ --;
 		bool		HasSanctuary() const		{ return m_bSanctuary; }
 		void		SetSanctuary()				{ m_bSanctuary = true; }
 		void		UnSetSanctuary()			{ m_bSanctuary = false; }
@@ -369,13 +372,13 @@ class MSector {
 
 		//------------------------------------------------
 		//
-		// ½Ã¾ß/Filter °ü·Ã
+		// ì‹œì•¼/Filter ê´€ë ¨
 		//
 		//------------------------------------------------
 		//void			SetFilterSpriteID(TYPE_SPRITEID id)	{ m_FilterSpriteID = id; }
 		//TYPE_SPRITEID	GetFilterSpriteID() const			{ return m_FilterSpriteID; }
 
-		// ºû °ü·Ã..
+		// ë¹› ê´€ë ¨..
 		BYTE			GetLight() const					{ return m_Light; }
 		void			AddLight()							{ if (m_Light<0xFF) m_Light++; }
 		void			RemoveLight() 						{ if (m_Light>0) m_Light--; }
@@ -407,7 +410,7 @@ class MSector {
 
 		//------------------------------------------------
 		//
-		// Safe - ¾ÈÀüÁö´ë
+		// Safe - ì•ˆì „ì§€ëŒ€
 		//
 		//------------------------------------------------
 		void				SetSafe(BYTE flag)		{ m_fProperty2 = flag; }
@@ -421,7 +424,7 @@ class MSector {
 
 		//------------------------------------------------
 		//
-		// Visited Flag - ±æÃ£±â¿ë
+		// Visited Flag - ê¸¸ì°¾ê¸°ìš©
 		//
 		//------------------------------------------------
 		void				SetVisitedFlag()		{ m_bVisitedFlag = true; }
@@ -429,12 +432,12 @@ class MSector {
 		const bool			IsVisitedFlag() const	{ return m_bVisitedFlag; }
 
 
-		// ´ëÁö ¾Æ¿ì 140 ½ºÅ³ Ç»¸® ¿Àºê ³ğ °ü·Ã fury of gnome
+		// ëŒ€ì§€ ì•„ìš° 140 ìŠ¤í‚¬ í“¨ë¦¬ ì˜¤ë¸Œ ë†ˆ ê´€ë ¨ fury of gnome
 		bool		HasFuryOfGnome() const			{ return m_bFuryOfGnome; }
 		void		SetFuryOfGnome()				{ m_bFuryOfGnome = true; }
 		void		UnSetFuryOfGnome()				{ m_bFuryOfGnome = false; }
 
-		// Äù½ºÆ® °ü·Ã - Å¸ÀÏ º¸¿©ÁÙÁö ¾Èº¸¿©ÁÙÁö..-_-
+		// í€˜ìŠ¤íŠ¸ ê´€ë ¨ - íƒ€ì¼ ë³´ì—¬ì¤„ì§€ ì•ˆë³´ì—¬ì¤„ì§€..-_-
 		bool		HasDisableTileImage() const			{ return m_bDisableTileImage; }
 		void		SetDisableTileImage()				{ m_bDisableTileImage = true; }
 		void		UnSetDisableTileImage()				{ m_bDisableTileImage = false; }
@@ -442,66 +445,66 @@ class MSector {
 		//----------------------------------------------------------------------
 		// Key Value of Map
 		//----------------------------------------------------------------------
-		// °ªÀÌ ¾à°£ ºÒ¾ÈÇÑµ¥.. ¤Ñ.¤Ñ;;
+		// ê°’ì´ ì•½ê°„ ë¶ˆì•ˆí•œë°.. ã…¡.ã…¡;;
 		enum POSITION_VALUE 
 		{				
-			POSITION_ITEM = 1,					// ItemÀÌ ÀÖ´Â Node
+			POSITION_ITEM = 1,					// Itemì´ ìˆëŠ” Node
 
-			POSITION_UNDERGROUNDCREATURE=2,		// ÁöÇÏ Ä³¸¯ÅÍ°¡ ÀÖ´Â Node (2~14)
+			POSITION_UNDERGROUNDCREATURE=2,		// ì§€í•˜ ìºë¦­í„°ê°€ ìˆëŠ” Node (2~14)
 			POSITION_UNDERGROUNDCREATURE_MAX=14,
 
-			POSITION_GROUNDCREATURE=15,			// Áö»ó Ä³¸¯ÅÍ°¡ ÀÖ´Â Node (15~49)
+			POSITION_GROUNDCREATURE=15,			// ì§€ìƒ ìºë¦­í„°ê°€ ìˆëŠ” Node (15~49)
 			POSITION_GROUNDCREATURE_MAX=49,
 
-			POSITION_FLYINGCREATURE=50,			// °øÁß Ä³¸¯ÅÍ°¡ ÀÖ´Â Node (50~79)
+			POSITION_FLYINGCREATURE=50,			// ê³µì¤‘ ìºë¦­í„°ê°€ ìˆëŠ” Node (50~79)
 			POSITION_FLYINGCREATURE_MAX=79,
 
-			POSITION_PORTAL=80,					// Zone ÀÌµ¿ÀÌ µÇ´Â °÷ÀÌ´Ù.
-			POSITION_IMAGEOBJECT = 81,			// ImageObjectµéÀÌ Á¸ÀçÇÏ´Â Node(81~149)
-			POSITION_EFFECT	= 150				// EffectµéÀÌ Á¸ÀçÇÏ´Â Node (150~255)	// ¾È¾²³× - -;
+			POSITION_PORTAL=80,					// Zone ì´ë™ì´ ë˜ëŠ” ê³³ì´ë‹¤.
+			POSITION_IMAGEOBJECT = 81,			// ImageObjectë“¤ì´ ì¡´ì¬í•˜ëŠ” Node(81~149)
+			POSITION_EFFECT	= 150				// Effectë“¤ì´ ì¡´ì¬í•˜ëŠ” Node (150~255)	// ì•ˆì“°ë„¤ - -;
 		};
 
 
 
 
 	protected :
-		// tile sprite¿¡ ´ëÇÑ Á¤º¸
+		// tile spriteì— ëŒ€í•œ ì •ë³´
 		TYPE_SPRITEID		m_SpriteID;
 
-		// ÇÑ Sector¿¡ ÀÖÀ» ¼ö ÀÖ´Â Objectµé¿¡ ´ëÇÑ pointer
+		// í•œ Sectorì— ìˆì„ ìˆ˜ ìˆëŠ” Objectë“¤ì— ëŒ€í•œ pointer
 		OBJECT_MAP			m_mapObject;
 
-		// ÇÑ Sector¿¡ ÀÖÀ» ¼ö ÀÖ´Â Effectµé¿¡ ´ëÇÑ pointer
+		// í•œ Sectorì— ìˆì„ ìˆ˜ ìˆëŠ” Effectë“¤ì— ëŒ€í•œ pointer
 		EFFECT_LIST			m_listEffect;
 
-		// Filer·Î »ç¿ëÇÒ SpriteID
+		// Filerë¡œ ì‚¬ìš©í•  SpriteID
 		//TYPE_SPRITEID	m_FilterSpriteID;
 	
 		PORTAL_LIST			m_listPortal;
 
 		SECTORSOUND_LIST	m_listSectorSound;
 
-		// Ä³¸¯ÅÍ ¸¶¸®¼ö
+		// ìºë¦­í„° ë§ˆë¦¬ìˆ˜
 		BYTE				m_nGroundCreature;
 		BYTE				m_nUndergroundCreature;
 		BYTE				m_nFlyingCreature;
 
-		// Á¸ÀçÇÏ´Â ImageObject °³¼ö¿¡ ´ëÇÑ Á¤º¸
+		// ì¡´ì¬í•˜ëŠ” ImageObject ê°œìˆ˜ì— ëŒ€í•œ ì •ë³´
 		BYTE				m_nImageObject;			
 
-		// Á¤º¸ Flag
+		// ì •ë³´ Flag
 		BYTE				m_fProperty;
 
-		// ¾ÈÀüÁö´ë
+		// ì•ˆì „ì§€ëŒ€
 		BYTE				m_fProperty2;
 
-		// ºû¿¡ ´ëÇÑ °ª
+		// ë¹›ì— ëŒ€í•œ ê°’
 		BYTE				m_Light;
 
 
 		bool				m_bDarkness;
-		bool				m_bSanctuary;		// [»õ±â¼ú]
-		bool				m_bGroundElemental;		// [»õ±â¼ú]
+		bool				m_bSanctuary;		// [ìƒˆê¸°ìˆ ]
+		bool				m_bGroundElemental;		// [ìƒˆê¸°ìˆ ]
 		bool				m_bDarknessForbidden;
 		bool				m_bVisitedFlag;
 

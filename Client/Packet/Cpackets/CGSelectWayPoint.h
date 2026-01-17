@@ -2,7 +2,7 @@
 // Filename    : CGSelectWayPoint.h 
 // Written By  : excel96
 // Description : 
-// ½½·¹ÀÌ¾î°¡ °³ÀÎ¿ë Æ÷Å»À» ÀÌ¿ëÇØ ´Ù¸¥ °÷À¸·Î ÀÌµ¿ÇÏ°íÀÚ ÇÒ ¶§ º¸³»´Â ÆĞÅ¶
+// ìŠ¬ë ˆì´ì–´ê°€ ê°œì¸ìš© í¬íƒˆì„ ì´ìš©í•´ ë‹¤ë¥¸ ê³³ìœ¼ë¡œ ì´ë™í•˜ê³ ì í•  ë•Œ ë³´ë‚´ëŠ” íŒ¨í‚·
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_SELECT_WAYPOINT_H__
@@ -42,9 +42,9 @@ public:
 	void setY(Coord_t Y) { m_Y = Y; }
 
 private:
-	ZoneID_t   m_ZoneID;       // °¡°íÀÚ ÇÏ´Â Á¸ÀÇ ID
-	Coord_t    m_X;            // °¡°íÀÚ ÇÏ´Â Á¸ÀÇ ÁÂÇ¥ X
-	Coord_t    m_Y;            // °¡°íÀÚ ÇÏ´Â Á¸ÀÇ ÁÂÇ¥ Y
+	ZoneID_t   m_ZoneID;       // ê°€ê³ ì í•˜ëŠ” ì¡´ì˜ ID
+	Coord_t    m_X;            // ê°€ê³ ì í•˜ëŠ” ì¡´ì˜ ì¢Œí‘œ X
+	Coord_t    m_Y;            // ê°€ê³ ì í•˜ëŠ” ì¡´ì˜ ì¢Œí‘œ Y
 
 };
 
@@ -72,7 +72,7 @@ class CGSelectWayPointFactory : public PacketFactory
 		class CGSelectWayPointHandler 
 		{
 		public:
-			static void execute(CGSelectWayPoint* pCGSelectWayPoint, Player* pPlayer) throw(Error);
+			static void execute(CGSelectWayPoint* pCGSelectWayPoint, Player* pPlayer) throw ( ProtocolException , Error );
 		};
 	#endif
 

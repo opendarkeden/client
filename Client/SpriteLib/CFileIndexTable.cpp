@@ -17,7 +17,7 @@ CFileIndexTable::CFileIndexTable()
 
 CFileIndexTable::~CFileIndexTable()
 {
-	// array¸¦ ¸Ş¸ğ¸®¿¡¼­ Á¦°ÅÇÑ´Ù.
+	// arrayë¥¼ ë©”ëª¨ë¦¬ì—ì„œ ì œê±°í•œë‹¤.
 	Release();
 }
 
@@ -33,14 +33,14 @@ CFileIndexTable::~CFileIndexTable()
 void
 CFileIndexTable::Init(WORD count)
 {
-	// °³¼ö°¡ ¾øÀ» °æ¿ì 
+	// ê°œìˆ˜ê°€ ì—†ì„ ê²½ìš° 
 	if (count==0) 
 		return;
 
-	// ÀÏ´Ü ÇØÁ¦
+	// ì¼ë‹¨ í•´ì œ
 	Release();
 
-	// ¸Ş¸ğ¸® Àâ±â
+	// ë©”ëª¨ë¦¬ ì¡ê¸°
 	m_Size = count;
 
 	m_pIndex = new long [m_Size];
@@ -55,7 +55,7 @@ CFileIndexTable::Release()
 {
 	if (m_pIndex != NULL)
 	{
-		// ¸ğµç index¸¦ Áö¿î´Ù.
+		// ëª¨ë“  indexë¥¼ ì§€ìš´ë‹¤.
 		delete [] m_pIndex;
 		m_pIndex = NULL;
 
@@ -70,14 +70,14 @@ bool
 CFileIndexTable::LoadFromFile(ifstream& indexFile)
 {
 	//------------------------------------------------------
-	// index°³¼ö¸¦ ÀĞ¾îµéÀÎ´Ù.
+	// indexê°œìˆ˜ë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
 	//------------------------------------------------------
 	indexFile.read((char*)&m_Size, 2);
 
 	Init(m_Size);
 
 	//------------------------------------------------------
-	// IndexFileÀ» ¸ğµÎ ÀĞ¾îµéÀÎ´Ù.
+	// IndexFileì„ ëª¨ë‘ ì½ì–´ë“¤ì¸ë‹¤.
 	//------------------------------------------------------
 	for (int i=0; i<m_Size; i++)
 	{		

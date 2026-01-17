@@ -26,14 +26,14 @@ DWORD FameInfo::GetFame( SKILLDOMAIN type )
 	return 0;
 }
 
-void FameInfo::LoadFromFile(class ifstream &file)
+void FameInfo::LoadFromFile(std::ifstream &file)
 {
 	file.read((char*)&m_domaintype, 1);
 	file.read((char*)&m_level, 1);
 	file.read((char*)&m_fame, sizeof(DWORD));
 }
 
-void FameInfo::SaveToFile(class ofstream &file)
+void FameInfo::SaveToFile(std::ofstream &file)
 {
 	file.write((const char*)&m_domaintype, 1);
 	file.write((const char*)&m_level, 1);

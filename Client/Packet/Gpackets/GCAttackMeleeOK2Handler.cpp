@@ -16,7 +16,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCAttackMeleeOK2Handler::execute ( GCAttackMeleeOK2 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -25,7 +26,7 @@ void GCAttackMeleeOK2Handler::execute ( GCAttackMeleeOK2 * pPacket , Player * pP
 	// message
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -36,17 +37,17 @@ void GCAttackMeleeOK2Handler::execute ( GCAttackMeleeOK2 * pPacket , Player * pP
 	}	
 
 	//------------------------------------------------------
-	// ´ë»óÀÌ µÇ´Â creature¸¦ ¾ò´Â´Ù.
+	// ëŒ€ìƒì´ ë˜ëŠ” creatureë¥¼ ì–»ëŠ”ë‹¤.
 	//------------------------------------------------------
 	MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 
 	if (pCreature==NULL)
 	{
-		// ±×·± creature°¡ ¾øÀ» °æ¿ì
+		// ê·¸ëŸ° creatureê°€ ì—†ì„ ê²½ìš°
 		DEBUG_ADD_FORMAT("There's no such creature : ID=%d", pPacket->getObjectID());				
 		
 		//------------------------------------------------------------------
-		// ¹Ù·Î ¸Â´Â ¸ð½À
+		// ë°”ë¡œ ë§žëŠ” ëª¨ìŠµ
 		//------------------------------------------------------------------
 		g_pPlayer->PacketSpecialActionResult( 
 								RESULT_SKILL_ATTACK_MELEE,//pCreature->GetBasicActionInfo(),
@@ -58,12 +59,12 @@ void GCAttackMeleeOK2Handler::execute ( GCAttackMeleeOK2 * pPacket , Player * pP
 	else
 	{
 		//------------------------------------------------------
-		// Çàµ¿ÇÏ´Â Creature°¡ TargetCreature¸¦ ¹Ù¶óº¸µµ·Ï ÇÑ´Ù.
+		// í–‰ë™í•˜ëŠ” Creatureê°€ TargetCreatureë¥¼ ë°”ë¼ë³´ë„ë¡ í•œë‹¤.
 		//------------------------------------------------------
 		pCreature->SetDirectionToPosition( g_pPlayer->GetX(), g_pPlayer->GetY() );
 
 		//------------------------------------------------------
-		// Creature°¡ Player¸¦ °ø°ÝÇÏ´Â ¸ð½À
+		// Creatureê°€ Playerë¥¼ ê³µê²©í•˜ëŠ” ëª¨ìŠµ
 		//------------------------------------------------------
 		//g_pPlayer->PacketSpecialActionResult( SKILL_ATTACK_MELEE + g_ActionInfoTable.GetMinResultActionInfo() );
 		MActionResult* pResult = new MActionResult;
@@ -77,7 +78,7 @@ void GCAttackMeleeOK2Handler::execute ( GCAttackMeleeOK2 * pPacket , Player * pP
 					);
 
 		//------------------------------------------------------
-		// Creature°¡ Çàµ¿À» ÃëÇÏµµ·Ï ÇÑ´Ù.
+		// Creatureê°€ í–‰ë™ì„ ì·¨í•˜ë„ë¡ í•œë‹¤.
 		//------------------------------------------------------
 		pCreature->PacketSpecialActionToOther(
 						pCreature->GetBasicActionInfo(), 
@@ -87,13 +88,13 @@ void GCAttackMeleeOK2Handler::execute ( GCAttackMeleeOK2 * pPacket , Player * pP
 	}
 
 	//------------------------------------------------------------------
-	// »óÅÂ°ªÀ» ¹Ù²Û´Ù.
+	// ìƒíƒœê°’ì„ ë°”ê¾¼ë‹¤.
 	//------------------------------------------------------------------
 	AffectModifyInfo(g_pPlayer, pPacket);
 
 	//------------------------------------------------------------------
-	// UI¿¡ º¸ÀÌ´Â °ÍÀ» ¹Ù²ãÁØ´Ù.
-	// ºñ±³¿¬»êÇÏ´Â°Åº¸´Ù ÀÌ°Ô ´õ ºü¸£Áö ¾ÊÀ»±î.. À½.. - -;
+	// UIì— ë³´ì´ëŠ” ê²ƒì„ ë°”ê¿”ì¤€ë‹¤.
+	// ë¹„êµì—°ì‚°í•˜ëŠ”ê±°ë³´ë‹¤ ì´ê²Œ ë” ë¹ ë¥´ì§€ ì•Šì„ê¹Œ.. ìŒ.. - -;
 	//------------------------------------------------------------------
 	//UI_SetHP( g_pPlayer->GetHP(), g_pPlayer->GetMAX_HP() );
 	//UI_SetMP( g_pPlayer->GetMP(), g_pPlayer->GetMAX_MP() );

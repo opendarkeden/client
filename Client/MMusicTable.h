@@ -1,12 +1,12 @@
 //----------------------------------------------------------------------
 // MMusicTable.h
 //----------------------------------------------------------------------
-// Music Loading½Ã¿¡ Music¸¶´Ù ÇÊ¿äÇÑ Á¤º¸¸¦ ÀúÀåÇÏ´Â class
+// Music Loadingì‹œì— Musicë§ˆë‹¤ í•„ìš”í•œ ì •ë³´ë¥¼ ì €ì¥í•˜ëŠ” class
 //----------------------------------------------------------------------
 //
-// [ Musicº°·Î Loadind¿¡ ÇÊ¿äÇÑ Á¤º¸ ] 
+// [ Musicë³„ë¡œ Loadindì— í•„ìš”í•œ ì •ë³´ ] 
 //
-// - fileÀÌ¸§
+// - fileì´ë¦„
 // 
 //----------------------------------------------------------------------
 
@@ -19,20 +19,20 @@
 
 //----------------------------------------------------------------------
 //
-// ÇÑ Á¾·ùÀÇ Music¿¡ ´ëÇÑ Á¤º¸
+// í•œ ì¢…ë¥˜ì˜ Musicì— ëŒ€í•œ ì •ë³´
 //
 //----------------------------------------------------------------------
 class MUSICTABLE_INFO {
 	public :
-		MString					Filename;		// Music FileÀÌ¸§(MID)
-		MString					FilenameWav;	// wave Music FileÀÌ¸§
+		MString					Filename;		// Music Fileì´ë¦„(MID)
+		MString					FilenameWav;	// wave Music Fileì´ë¦„
 
 	public :
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void			SaveToFile(class ofstream& file);		
-		void			LoadFromFile(class ifstream& file);		
+		void			SaveToFile(std::ofstream& file);
+		void			LoadFromFile(std::ifstream& file);
 };
 
 typedef CTypeTable<MUSICTABLE_INFO>	MUSIC_TABLE;

@@ -15,7 +15,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void CRDisconnectHandler::execute ( CRDisconnect * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -25,7 +26,7 @@ void CRDisconnectHandler::execute ( CRDisconnect * pPacket , Player * pPlayer )
 
 	if (pRequestServerPlayer!=NULL)
 	{
-		// Á¢¼ÓµÈ »ç¿ëÀÚ¸¦ Á¢¼ÓÇØÁ¦ ½ÃÅ²´Ù.
+		// ì ‘ì†ëœ ì‚¬ìš©ìžë¥¼ ì ‘ì†í•´ì œ ì‹œí‚¨ë‹¤.
 		RequestDisconnect( pRequestServerPlayer->getName().c_str() );
 	}
 

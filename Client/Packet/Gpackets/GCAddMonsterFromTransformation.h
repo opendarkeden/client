@@ -18,8 +18,8 @@
 class GCAddMonsterFromTransformation : public Packet 
 {
 public:
-	GCAddMonsterFromTransformation() throw( Error );
-	virtual ~GCAddMonsterFromTransformation() throw( Error );
+	GCAddMonsterFromTransformation();
+	virtual ~GCAddMonsterFromTransformation();
 	
 public:
     void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
@@ -131,7 +131,7 @@ public:
 class GCAddMonsterFromTransformationHandler 
 {
 public:
-	static void execute ( GCAddMonsterFromTransformation * pPacket , Player * pPlayer ) throw ( Error );
+	static void execute ( GCAddMonsterFromTransformation * pPacket , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

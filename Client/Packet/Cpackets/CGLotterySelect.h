@@ -17,9 +17,9 @@
 
 enum
 {
-	TYPE_SELECT_LOTTERY = 0,					// º¹±Ç ¼±ÅÃ
-	TYPE_FINISH_SCRATCH,				// º¹±Ç ±ÜÀ½ ¿Ï·á
-	TYPE_OVER_ENDING,					// ¿£µù Á¾·á
+	TYPE_SELECT_LOTTERY = 0,					// ë³µê¶Œ ì„ íƒ
+	TYPE_FINISH_SCRATCH,				// ë³µê¶Œ ê¸ìŒ ì™„ë£Œ
+	TYPE_OVER_ENDING,					// ì—”ë”© ì¢…ë£Œ
 
 	TYPE_MAX,
 };
@@ -35,10 +35,10 @@ class CGLotterySelect : public Packet
 {
 public:
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream & iStream) throw(ProtocolException, Error);
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
 
 	// execute packet's handler
@@ -120,7 +120,7 @@ class CGLotterySelectHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGLotterySelect* pCGLotterySelect, Player* pPlayer) throw(Error);
+	static void execute(CGLotterySelect* pCGLotterySelect, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

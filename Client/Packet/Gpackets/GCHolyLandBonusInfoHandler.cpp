@@ -14,7 +14,8 @@
 //
 //////////////////////////////////////////////////////////////////////
 void GCHolyLandBonusInfoHandler::execute ( GCHolyLandBonusInfo * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	
@@ -37,7 +38,7 @@ void GCHolyLandBonusInfoHandler::execute ( GCHolyLandBonusInfo * pPacket , Playe
 		}
 		else
 		{
-			// ½ºÅ³ ¸®½ºÆ®¿¡¼­ »©ÁØ´Ù?		¼ø¼­ Æ²¸®¸é ¹Ùº¸ µÈ´Ù
+			// ìŠ¤í‚¬ ë¦¬ìŠ¤íŠ¸ì—ì„œ ë¹¼ì¤€ë‹¤?		ìˆœì„œ í‹€ë¦¬ë©´ ë°”ë³´ ëœë‹¤
 			g_abHolyLandBonusSkills[i] = false;
 		}
 		
@@ -48,7 +49,7 @@ void GCHolyLandBonusInfoHandler::execute ( GCHolyLandBonusInfo * pPacket , Playe
 	}
 
 	//--------------------------------------------------
-	// ÇöÀç »ç¿ë °¡´ÉÇÑ skillµéÀ» ´Ù½Ã Ã¼Å©ÇÑ´Ù.
+	// í˜„ìž¬ ì‚¬ìš© ê°€ëŠ¥í•œ skillë“¤ì„ ë‹¤ì‹œ ì²´í¬í•œë‹¤.
 	//--------------------------------------------------
 	g_pSkillAvailable->SetAvailableSkills();
 

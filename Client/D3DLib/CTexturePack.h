@@ -30,8 +30,8 @@ class CTexturePack {
 		//--------------------------------------------------------
 		// file I/O
 		//--------------------------------------------------------
-		//void			SaveToFile(class ofstream& spkFile, class ofstream& indexFile);
-		//void			LoadFromFile(class ifstream& file);		
+		//void			SaveToFile(std::ofstream& spkFile, ofstream& indexFile);
+		//void			LoadFromFile(std::ifstream& file);		
 		
 		//--------------------------------------------------------
 		// size
@@ -44,8 +44,8 @@ class CTexturePack {
 		CSpriteSurface&		operator [] (int n) { return m_pTextures[n]; }
 
 	protected :
-		int					m_nTextures;		// TextureÀÇ °³¼ö
-		CSpriteSurface*		m_pTextures;		// TextureµéÀ» ÀúÀåÇØµĞ´Ù.		
+		int					m_nTextures;		// Textureì˜ ê°œìˆ˜
+		CSpriteSurface*		m_pTextures;		// Textureë“¤ì„ ì €ì¥í•´ë‘”ë‹¤.		
 };
 
 #endif

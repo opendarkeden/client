@@ -25,18 +25,18 @@ CSpriteSetManager::~CSpriteSetManager()
 //----------------------------------------------------------------------
 // Save FilePosition
 //----------------------------------------------------------------------				
-// SpritePack IndexFile·ÎºÎÅÍ SpriteSet IndexFileÀ» »ı¼ºÇÑ´Ù.
+// SpritePack IndexFileë¡œë¶€í„° SpriteSet IndexFileì„ ìƒì„±í•œë‹¤.
 //
-// spkIndex´Â SpritePack IndexFileÀÌ°í,
-// SpritePack¿¡ ÀÖ´Â °¢°¢ÀÇ Sprite¿¡ ´ëÇÑ File PositionÀ» ÀúÀåÇÏ°í ÀÖ´Ù.
+// spkIndexëŠ” SpritePack IndexFileì´ê³ ,
+// SpritePackì— ìˆëŠ” ê°ê°ì˜ Spriteì— ëŒ€í•œ File Positionì„ ì €ì¥í•˜ê³  ìˆë‹¤.
 //
-// setIndex´Â SpriteSet IndexFileÀÌ°í, m_List¿¡¼­ SpriteID¸¦ ÀĞ¾î¼­
-// ÀÌ ÇÔ¼ö¿¡¼­ ÀúÀåÇÏ´Âµ¥ ÀÌ¿ëÇÒ °ÍÀÌ´Ù.
+// setIndexëŠ” SpriteSet IndexFileì´ê³ , m_Listì—ì„œ SpriteIDë¥¼ ì½ì–´ì„œ
+// ì´ í•¨ìˆ˜ì—ì„œ ì €ì¥í•˜ëŠ”ë° ì´ìš©í•  ê²ƒì´ë‹¤.
 //----------------------------------------------------------------------
 bool		
 CSpriteSetManager::SaveSpriteSetIndex(ofstream& setIndex, ifstream& spkIndex)
 {
-	// m_List¿¡ ¾Æ¹«°Íµµ ¾øÀ¸¸é..
+	// m_Listì— ì•„ë¬´ê²ƒë„ ì—†ìœ¼ë©´..
 	if (m_List.size() == 0)
 		return false;
 
@@ -44,15 +44,15 @@ CSpriteSetManager::SaveSpriteSetIndex(ofstream& setIndex, ifstream& spkIndex)
 	TYPE_SPRITEID	count;
 
 	//---------------------------------------------------------------
-	// SpritePack IndexFileÀÇ Sprite°³¼ö¸¦ ÀĞ´Â´Ù.
+	// SpritePack IndexFileì˜ Spriteê°œìˆ˜ë¥¼ ì½ëŠ”ë‹¤.
 	//---------------------------------------------------------------
 	spkIndex.read((char*)&count, SIZE_SPRITEID);
 
-	// SpritePack Index¸¦ ÀúÀåÇØµÑ memoryÀâ±â
+	// SpritePack Indexë¥¼ ì €ì¥í•´ë‘˜ memoryì¡ê¸°
 	long* pIndex = new long [count];
 
 	//---------------------------------------------------------------
-	// ¸ğµç SpritePack IndexFileÀ» LoadÇÑ´Ù.
+	// ëª¨ë“  SpritePack IndexFileì„ Loadí•œë‹¤.
 	//---------------------------------------------------------------
 	for (TYPE_SPRITEID i=0; i<count; i++)
 	{
@@ -60,19 +60,19 @@ CSpriteSetManager::SaveSpriteSetIndex(ofstream& setIndex, ifstream& spkIndex)
 	}
 
 	//---------------------------------------------------------------
-	// m_ListÀÇ ¼ø¼­´ë·Î SpritePack Index¿¡¼­ 
-	// ÇØ´çÇÏ´Â SpriteIDÀÇ File PositionÀ» ÀĞ¾î¼­ ÀúÀåÇÑ´Ù.
+	// m_Listì˜ ìˆœì„œëŒ€ë¡œ SpritePack Indexì—ì„œ 
+	// í•´ë‹¹í•˜ëŠ” SpriteIDì˜ File Positionì„ ì½ì–´ì„œ ì €ì¥í•œë‹¤.
 	//---------------------------------------------------------------
 	DATA_LIST::iterator iData = m_List.begin();
 
-	// SpriteSetÀÇ Sprite°³¼ö ÀúÀå
+	// SpriteSetì˜ Spriteê°œìˆ˜ ì €ì¥
 	count = m_List.size();
 	setIndex.write((const char*)&count, SIZE_SPRITEID);
 
-	// ListÀÇ ¸ğµç node¿¡ ´ëÇØ¼­..
+	// Listì˜ ëª¨ë“  nodeì— ëŒ€í•´ì„œ..
 	while (iData != m_List.end())
 	{
-		// Sprite ID¿¡ ´ëÇÑ SpritePack File¿¡¼­ÀÇ File Position
+		// Sprite IDì— ëŒ€í•œ SpritePack Fileì—ì„œì˜ File Position
 		setIndex.write((const char*)&pIndex[(*iData)], 4);
 
 		iData ++;

@@ -2,42 +2,42 @@
 // MTopView.h
 //----------------------------------------------------------------------
 //
-// ÇÑ ZoneÀÇ Æ¯Á¤ À§Ä¡¸¦ Ãâ·ÂÇØÁÖ´Â classÀÌ´Ù.
+// í•œ Zoneì˜ íŠ¹ì • ìœ„ì¹˜ë¥¼ ì¶œë ¥í•´ì£¼ëŠ” classì´ë‹¤.
 //
 //----------------------------------------------------------------------
 //
-// DrawTile()     : ÇöÀçSurfaceÀÇ Tile¸¸ ±×¸°´Ù.
-//                  m_pTileSurface¿¡ ±×·ÁµĞ´Ù.
+// DrawTile()     : í˜„ì¬Surfaceì˜ Tileë§Œ ê·¸ë¦°ë‹¤.
+//                  m_pTileSurfaceì— ê·¸ë ¤ë‘”ë‹¤.
 //
-// DrawZone()	  : ÀÌÀü TileÀ» ÀÌ¿ëÇØ¼­ ÇöÀçSurface¿¡ TileÀ» ±×¸®°í
-//                  ZoneÀÇ ¸ğµç °ÍµéÀ» Ç¥ÇöÇØÁØ´Ù.
+// DrawZone()	  : ì´ì „ Tileì„ ì´ìš©í•´ì„œ í˜„ì¬Surfaceì— Tileì„ ê·¸ë¦¬ê³ 
+//                  Zoneì˜ ëª¨ë“  ê²ƒë“¤ì„ í‘œí˜„í•´ì¤€ë‹¤.
 //
-// * ÇöÀç TileÀÌ °©ÀÚ±â º¯È­ÇÒ¶§(ZoneÀÌµ¿ ½Ã, Teleport½Ã)´Â 
-//   SetFirstDraw()¸¦ »ç¿ëÇØ¼­ m_bFirstTileDraw = true·Î ¼³Á¤ÇÏ¸é 
-//   Draw()¿¡¼­ ÇÑ¹øÀº DrawTile()À» ¼±ÅÃÇÏ°í 
-//                     ´ÙÀ½ºÎÅÍ´Â DrawZone()À» ¼±ÅÃÇÑ´Ù.
+// * í˜„ì¬ Tileì´ ê°‘ìê¸° ë³€í™”í• ë•Œ(Zoneì´ë™ ì‹œ, Teleportì‹œ)ëŠ” 
+//   SetFirstDraw()ë¥¼ ì‚¬ìš©í•´ì„œ m_bFirstTileDraw = trueë¡œ ì„¤ì •í•˜ë©´ 
+//   Draw()ì—ì„œ í•œë²ˆì€ DrawTile()ì„ ì„ íƒí•˜ê³  
+//                     ë‹¤ìŒë¶€í„°ëŠ” DrawZone()ì„ ì„ íƒí•œë‹¤.
 //
 //---------------------------------------------------------------------- 
 //
-// - ÀÌÀüÀÇ TileÀ» ÀúÀåÇØµÎ´Â Surface´Â ½ÇÁ¦ È­¸é Å©±âº¸´Ù Å©´Ù.
-//   (800,600)ÀÌ ½ÇÁ¦È­¸éÀÌ¹Ç·Î,
-//   »óÇÏÁÂ¿ì·Î 3 Tile¾¿  (1152,768)À¸·Î Surface¸¦ »ı¼ºÇÑ´Ù.
+// - ì´ì „ì˜ Tileì„ ì €ì¥í•´ë‘ëŠ” SurfaceëŠ” ì‹¤ì œ í™”ë©´ í¬ê¸°ë³´ë‹¤ í¬ë‹¤.
+//   (800,600)ì´ ì‹¤ì œí™”ë©´ì´ë¯€ë¡œ,
+//   ìƒí•˜ì¢Œìš°ë¡œ 3 Tileì”©  (1152,768)ìœ¼ë¡œ Surfaceë¥¼ ìƒì„±í•œë‹¤.
 //
-// - ÀÌ·¸°Ô ÇØµÎ¸é ÀÌÀüÀÇ Tile Surface¿¡¼­ ÇöÀç ÇÊ¿äÇÑ ¿µ¿ª¸¸
-//   ÀĞ¾î¿Ã¶§, ÀĞ¾î¿À´Â ¹üÀ§°¡ ÀÌÀüÀÇ Tile Surface¿¡ ¼ÓÇÏ¸é 
-//   ´Ù½Ã ±×·ÁÁà¾ß ÇÏ´Â ºÎºĞÀÌ ¾øÀ» ¼ö ÀÖ´Ù.
-//   ¶ÇÇÑ, ÀÌ·± °æ¿ì Tile Surface¸¦ °»½ÅÇÒ ÇÊ¿äµµ ¾ø´Ù.
+// - ì´ë ‡ê²Œ í•´ë‘ë©´ ì´ì „ì˜ Tile Surfaceì—ì„œ í˜„ì¬ í•„ìš”í•œ ì˜ì—­ë§Œ
+//   ì½ì–´ì˜¬ë•Œ, ì½ì–´ì˜¤ëŠ” ë²”ìœ„ê°€ ì´ì „ì˜ Tile Surfaceì— ì†í•˜ë©´ 
+//   ë‹¤ì‹œ ê·¸ë ¤ì¤˜ì•¼ í•˜ëŠ” ë¶€ë¶„ì´ ì—†ì„ ìˆ˜ ìˆë‹¤.
+//   ë˜í•œ, ì´ëŸ° ê²½ìš° Tile Surfaceë¥¼ ê°±ì‹ í•  í•„ìš”ë„ ì—†ë‹¤.
 // 
-// - ´ÜÁ¡ÀÌ¶ó¸é, ´Ù½Ã ±×·ÁÁÙ ¶§ ±×·ÁÁà¾ßÇÏ´Â ºÎºĞÀÌ Á¶±İ~ ´õ Å©Áö¸¸
-//   Æò±ÕÀûÀÎ ¼Óµµ°¡ Çâ»óµÇ¹Ç·Î ±×¸® ¹®Á¦´Â ¾øÀ» °ÍÀÌ´Ù.
+// - ë‹¨ì ì´ë¼ë©´, ë‹¤ì‹œ ê·¸ë ¤ì¤„ ë•Œ ê·¸ë ¤ì¤˜ì•¼í•˜ëŠ” ë¶€ë¶„ì´ ì¡°ê¸ˆ~ ë” í¬ì§€ë§Œ
+//   í‰ê· ì ì¸ ì†ë„ê°€ í–¥ìƒë˜ë¯€ë¡œ ê·¸ë¦¬ ë¬¸ì œëŠ” ì—†ì„ ê²ƒì´ë‹¤.
 //
-// * Å×½ºÆ®ÈÄ Å©±â¸¦ Á¶ÀıÇØºÁ¾ßÁö...
+// * í…ŒìŠ¤íŠ¸í›„ í¬ê¸°ë¥¼ ì¡°ì ˆí•´ë´ì•¼ì§€...
 //
 //---------------------------------------------------------------------- 
 //
-// * SpriteSet / FrameSetÀÇ Á¤º¸¸¦ ÀĞ¾î¿Í¾ß ÇÑ´Ù.
+// * SpriteSet / FrameSetì˜ ì •ë³´ë¥¼ ì½ì–´ì™€ì•¼ í•œë‹¤.
 //
-// [ MapView : Filename.MV ]   - View¿¡¼­ LoadÇÑ´Ù.
+// [ MapView : Filename.MV ]   - Viewì—ì„œ Loadí•œë‹¤.
 //   Tile SpriteSet
 //   Obstacle SpriteSet 
 //   Obstacle FrameSet
@@ -47,8 +47,8 @@
 //
 // ImageObject Map...
 //
-// ÃÖÃÊ¿¡... ¸ğµÎ Tile Scan
-// ±×¸®°í.. ÀÌÀü Tile°úÀÇ º¯È­°ª ¸¸Å­¸¸ Tile Scan
+// ìµœì´ˆì—... ëª¨ë‘ Tile Scan
+// ê·¸ë¦¬ê³ .. ì´ì „ Tileê³¼ì˜ ë³€í™”ê°’ ë§Œí¼ë§Œ Tile Scan
 //
 //---------------------------------------------------------------------- 
 
@@ -57,10 +57,15 @@
 
 #pragma warning(disable:4786)
 
+#ifdef PLATFORM_WINDOWS
 #include "DX3D.h"
+#endif
 #include "MViewDef.h"
+#include <fstream>
 #include <map>
 #include <queue>
+
+using namespace std;
 
 //----------------------------------------------------------------------
 //
@@ -84,38 +89,42 @@ class MEffect;
 #include "DrawItemNameNode.h"
 #include "COrderedList.h"
 #include "MRequestMode.h"
+#include "CIndexSpritePack.h"
+#include "CFilter.h"
+#include "CFilterPack.h"
+#include "CSpriteOutlineManager.h"
 
 
 //class MZoneInfo;
 class TextComparison {
 	public :
-		// ½Ã°£ÀÌ ¿À·¡µÈ°É ¼±ÅÃÇØ¾ß ÇÑ´Ù.		
-		// true : right¸¦ ¼±ÅÃÇÑ´Ù.
-		// false : left¸¦ ¼±ÅÃÇÑ´Ù.
+		// ì‹œê°„ì´ ì˜¤ë˜ëœê±¸ ì„ íƒí•´ì•¼ í•œë‹¤.		
+		// true : rightë¥¼ ì„ íƒí•œë‹¤.
+		// false : leftë¥¼ ì„ íƒí•œë‹¤.
 		bool operator () (DRAWTEXT_NODE * left, DRAWTEXT_NODE * right) const;
 };
 
 typedef void (*DrawCreatureExceptionProc)( MCreature* pCreature, int& action, int& frame, int& direction );
 
 //----------------------------------------------------------------------
-// ÇÑ Surface¿¡ Æ¯Á¤ÇÑ Zone¿¡ ´ëÇÑ ±×¸²À» ±×·ÁÁÖ´Â class
+// í•œ Surfaceì— íŠ¹ì •í•œ Zoneì— ëŒ€í•œ ê·¸ë¦¼ì„ ê·¸ë ¤ì£¼ëŠ” class
 //----------------------------------------------------------------------
 class MTopView : public MRequestMode {
 	public :	
-		// Ãâ·Â¿¡ ÀÌ¿ëÇÒ ImageObject map
+		// ì¶œë ¥ì— ì´ìš©í•  ImageObject map
 		typedef std::map<QWORD, MImageObject*>			IMAGEOBJECT_OUTPUT_MAP;
 
-		// Ãâ·Â¿¡ ÀÌ¿ëÇÒ Creature map
+		// ì¶œë ¥ì— ì´ìš©í•  Creature map
 		typedef std::map<QWORD, MCreature*>				CREATURE_OUTPUT_MAP;
 
-		// Ãâ·Â¿¡ ÀÌ¿ëÇÒ Item map
+		// ì¶œë ¥ì— ì´ìš©í•  Item map
 		typedef std::map<QWORD, MItem*>					ITEM_OUTPUT_MAP;
 
-		// Ãâ·ÂÇÒ stringÀ» ±â¾ïÇØ ³õÀ» °÷..
+		// ì¶œë ¥í•  stringì„ ê¸°ì–µí•´ ë†“ì„ ê³³..
 		//typedef	std::list<DRAWTEXT_NODE*>				DRAWTEXT_LIST;
 		typedef std::priority_queue<DRAWTEXT_NODE*, std::vector<DRAWTEXT_NODE*>, TextComparison>	DRAWTEXT_PQ;
 
-		// itemÀÌ¸§ Ãâ·Â
+		// itemì´ë¦„ ì¶œë ¥
 		typedef	std::list<DRAWITEMNAME_NODE*>			DRAWITEMNAME_LIST;
 
 		// int ordered list
@@ -131,7 +140,7 @@ class MTopView : public MRequestMode {
 		//
 		//------------------------------------------------------
 		bool		Init();
-		bool		InitChanges();	// 2D <--> 3D ¹Ù²ğ¶§.. À½³Ä - -;
+		bool		InitChanges();	// 2D <--> 3D ë°”ë€”ë•Œ.. ìŒëƒ - -;
 		bool		IsInit() const		{ return m_bInit; }
 		void		Release();
 		void		SetSurface(CSpriteSurface*& pSurface);
@@ -143,14 +152,14 @@ class MTopView : public MRequestMode {
 
 		//------------------------------------------------------
 		//
-		// Zone¸¶´Ù LoadÇØ¾ß ÇÏ´Â °Í
+		// Zoneë§ˆë‹¤ Loadí•´ì•¼ í•˜ëŠ” ê²ƒ
 		//
 		//------------------------------------------------------		
 		void		LoadMinimap(const char* filename);//, MZoneInfo* pZoneInfo=NULL);
-		bool		LoadFromFileTileSPKLargeZone(class ifstream & file);	// zone°ü·Ã spk load
-		bool		LoadFromFileImageObjectSPKLargeZone(class ifstream & file);	// zone°ü·Ã spk load
-		bool		LoadFromFileTileSPKSmallZone(class ifstream & file);	// zone°ü·Ã spk load
-		bool		LoadFromFileImageObjectSPKSmallZone(class ifstream & file);	// zone°ü·Ã spk load
+		bool		LoadFromFileTileSPKLargeZone(ifstream & file);	// zoneê´€ë ¨ spk load
+		bool		LoadFromFileImageObjectSPKLargeZone(ifstream & file);	// zoneê´€ë ¨ spk load
+		bool		LoadFromFileTileSPKSmallZone(ifstream & file);	// zoneê´€ë ¨ spk load
+		bool		LoadFromFileImageObjectSPKSmallZone(ifstream & file);	// zoneê´€ë ¨ spk load
 		void		LoadFromFileCreatureSPK(int n);			// creature load		
 // 		void		LoadFromFileAddonSPK(int frame, int action);		// addon load		
 //		void		LoadFromFileCreatureActionSPK(int frame, int action);		// addon load		
@@ -169,7 +178,7 @@ class MTopView : public MRequestMode {
 //		void		StopLoadImageObjectSPK()	{ m_ImageObjectSPK.SetLoadingStop(); }
 //		void		StopLoadTileSPK()			{ m_TileSPK.SetLoadingStop(); }
 
-		// TileÀ» ¸ğµÎ ´Ù½Ã ±×·ÁÁà¾ßÇÒ¶§
+		// Tileì„ ëª¨ë‘ ë‹¤ì‹œ ê·¸ë ¤ì¤˜ì•¼í• ë•Œ
 		void		SetFirstDraw()			{ m_bFirstTileDraw = true; }
 		
 		//------------------------------------------------------
@@ -179,17 +188,8 @@ class MTopView : public MRequestMode {
 		//------------------------------------------------------
 		void		Draw(int firstPointX, int firstPointY);
 
-		// Test¿ë µµ¿ò¸»
-		void		DrawDebugInfo(CDirectDrawSurface* pSurface);			
-		void		DrawTestHelp();
-		
-		void		DrawMinimap(int x, int y, BYTE scale);
-
-		void		DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha);
-
-		void		DrawEffect(POINT* pPoint, EFFECT_LIST::const_iterator iEffect, BYTE size);
-		
-		void		DrawInventoryEffect(POINT* pPoint);
+		// Testìš© ë„ì›€ë§
+		void		DrawDebugInfo(void* pSurface);
 
 		void		DrawTitleEffect(POINT* pPoint);
 
@@ -206,7 +206,7 @@ class MTopView : public MRequestMode {
 		
 		//------------------------------------------------------
 		//
-		// ÁÂÇ¥ º¯È¯		
+		// ì¢Œí‘œ ë³€í™˜		
 		//
 		//------------------------------------------------------
 		static POINT	PixelToMap(const int& Xp, const int& Yp)	{ POINT p; p.x=Xp/TILE_X; p.y=Yp/TILE_Y; return p; }//{ POINT p; p.x=Xp>>6; p.y=Yp>>5; return p; }
@@ -221,7 +221,7 @@ class MTopView : public MRequestMode {
 		static POINT	GetChangeValueToDirection(int direction);
 
 		//------------------------------------------------------
-		// TileSize°¡ 64*32ÀÏ °æ¿ì.. ÃÖÀûÈ­µÈ ÁÂÇ¥ °è»ê(ShiftÀÌ¿ë)
+		// TileSizeê°€ 64*32ì¼ ê²½ìš°.. ìµœì í™”ëœ ì¢Œí‘œ ê³„ì‚°(Shiftì´ìš©)
 		//------------------------------------------------------
 		//static POINT	PixelToMap(const int& Xp, const int& Yp)	{ POINT p; p.x=Xp>>6; p.y=Yp>>5; return p; }
 		//static POINT	MapToPixel(const int& Xm, const int& Ym)	{ POINT p; p.x=Xm<<6; p.y=Ym<<5; return p; }
@@ -234,13 +234,13 @@ class MTopView : public MRequestMode {
 
 		//------------------------------------------------------
 		//
-		// View¿Í È­¸é°úÀÇ ¿¬°ü
+		// Viewì™€ í™”ë©´ê³¼ì˜ ì—°ê´€
 		//
 		//------------------------------------------------------
-		// È­¸é »óÀÇ ÁÂÇ¥ (x,y)´Â Zone¿¡¼­ÀÇ pixelÁÂÇ¥·Î´Â ¾î´À Á¡ÀÎ°¡?
+		// í™”ë©´ ìƒì˜ ì¢Œí‘œ (x,y)ëŠ” Zoneì—ì„œì˜ pixelì¢Œí‘œë¡œëŠ” ì–´ëŠ ì ì¸ê°€?
 		POINT			ScreenToPixel(int x, int y);
 
-		// ZoneÀÇ pixelÁÂÇ¥´Â È­¸é »óÀÇ ¾î´À Á¡ÀÎ°¡?
+		// Zoneì˜ pixelì¢Œí‘œëŠ” í™”ë©´ ìƒì˜ ì–´ëŠ ì ì¸ê°€?
 		POINT			MapToScreen(int sX, int sY);
 		POINT			PixelToScreen(int x, int y);
 		POINT			GetFirstZonePixel()	const		{ return m_FirstZonePixel; }		
@@ -248,7 +248,7 @@ class MTopView : public MRequestMode {
 
 		//------------------------------------------------------
 		//
-		// Mouse·Î ¼±ÅÃÇÏ´Â Object
+		// Mouseë¡œ ì„ íƒí•˜ëŠ” Object
 		//
 		//------------------------------------------------------
 		// Selected Sector
@@ -257,58 +257,58 @@ class MTopView : public MRequestMode {
 		void			SetSelectedSectorNULL()		{ m_SelectSector.x = m_SelectSector.y = SECTORPOSITION_NULL; }
 		POINT			GetSelectedSector(int x, int y);// const;
 
-		// °ø°İÇÒ ¶§ÀÇ ¼±ÅÃ ¸ğµå
+		// ê³µê²©í•  ë•Œì˜ ì„ íƒ ëª¨ë“œ
 		//void			SetSelectModeAttack()				{ m_bSelectModeAttack = true; }
 		//void			SetSelectModeNormal()				{ m_bSelectModeAttack = false; }
 
 
-		// È­¸é»óÀÇ (x,y)¸¦ ¼±ÅÃÇßÀ» °æ¿ì ¼±ÅÃµÈ Object¸¦ returnÇÑ´Ù.
+		// í™”ë©´ìƒì˜ (x,y)ë¥¼ ì„ íƒí–ˆì„ ê²½ìš° ì„ íƒëœ Objectë¥¼ returní•œë‹¤.
 		MObject*		GetSelectedObject(int x, int y);
 		MObject*		GetSelectedObjectSprite(int x, int y);
 
-		// Creature ¼±ÅÃ
+		// Creature ì„ íƒ
 //		void			SetSelectedCreature(TYPE_OBJECTID id)	{ m_SelectCreatureID = id; m_SelectItemID = m_SelectInteractionObjectID = m_SelectEffectID = OBJECTID_NULL; }		
 		void			SetSelectedCreature(TYPE_OBJECTID id)	{ m_SelectCreatureID = id; m_SelectItemID = m_SelectEffectID = OBJECTID_NULL; }		
 		TYPE_OBJECTID	GetSelectedCreature() const				{ return m_SelectCreatureID; }
 
-		// Item ¼±ÅÃ
+		// Item ì„ íƒ
 //		void			SetSelectedItem(TYPE_OBJECTID id)	{ m_SelectItemID = id;  m_SelectCreatureID = m_SelectInteractionObjectID = m_SelectEffectID = OBJECTID_NULL; }
 		void			SetSelectedItem(TYPE_OBJECTID id)	{ m_SelectItemID = id;  m_SelectCreatureID = m_SelectEffectID = OBJECTID_NULL; }
 		TYPE_OBJECTID	GetSelectedItemID()					{ return m_SelectItemID; }
 		
-		// InteractionObject ¼±ÅÃ
+		// InteractionObject ì„ íƒ
 //		void			SetSelectedInteractionObject(TYPE_OBJECTID id)	{ m_SelectInteractionObjectID = id; m_SelectItemID = m_SelectCreatureID = m_SelectEffectID = OBJECTID_NULL; }
 
-		// Effect ¼±ÅÃ
+		// Effect ì„ íƒ
 //		void			SetSelectedEffect(TYPE_OBJECTID id)		{ m_SelectEffectID = id; m_SelectItemID = m_SelectCreatureID = m_SelectInteractionObjectID = OBJECTID_NULL; }
 		void			SetSelectedEffect(TYPE_OBJECTID id)		{ m_SelectEffectID = id; m_SelectItemID = m_SelectCreatureID =  OBJECTID_NULL; }
 		
-		// ¼±ÅÃµÈ °ÍÀÌ ¾ø°Ô ÇÑ´Ù.
+		// ì„ íƒëœ ê²ƒì´ ì—†ê²Œ í•œë‹¤.
 //		void			SetSelectedNULL()				{ m_SelectCreatureID = m_SelectItemID = m_SelectInteractionObjectID = m_SelectEffectID = OBJECTID_NULL;}
 		void			SetSelectedNULL()				{ m_SelectCreatureID = m_SelectItemID = m_SelectEffectID = OBJECTID_NULL;}
 
 
 		//------------------------------------------------------
 		//
-		// ½Ã¾ß °ü·Ã..
+		// ì‹œì•¼ ê´€ë ¨..
 		//
 		//------------------------------------------------------		
 		BYTE			GetDarkBits() const				{ return m_DarkBits; }
 		void			SetDarkBits(BYTE DarkBits)		{ if (DarkBits<16) m_DarkBits = DarkBits; }
 
-		// 3D ½Ã¾ß°ü·Ã
+		// 3D ì‹œì•¼ê´€ë ¨
 		void			ClearLightBufferFilter3D();
 		void			AddLightFilter3D(int x, int y, BYTE range, bool bMapPixel=true, bool bForceLight=false);
 		void			DrawLightBuffer3D();
 
-		// 2D ½Ã¾ß°ü·Ã
+		// 2D ì‹œì•¼ê´€ë ¨
 		void			ClearLightBufferFilter2D();
 		void			AddLightFilter2D(int x, int y, BYTE range, bool bMapPixel=true, bool bForceLight=false);
 		void			DrawLightBuffer2D();		
 
 		//------------------------------------------------------
 		//
-		// Creature Output¿¡ °ü·ÃµÈ °Íµé
+		// Creature Outputì— ê´€ë ¨ëœ ê²ƒë“¤
 		//
 		//------------------------------------------------------
 		QWORD			GetOutputImageObjectID(const MImageObject* pImageObject) const
@@ -316,35 +316,35 @@ class MTopView : public MRequestMode {
 
 		//------------------------------------------------------
 		//
-		// Creature Output¿¡ °ü·ÃµÈ °Íµé
+		// Creature Outputì— ê´€ë ¨ëœ ê²ƒë“¤
 		//
 		//------------------------------------------------------		
-		// [pixel yÁÂÇ¥][object id] ,  4 bytes  +  4 bytes  = 8 bytes ·Î ±¸¼ºµÇ¾î ÀÖ´Ù.
+		// [pixel yì¢Œí‘œ][object id] ,  4 bytes  +  4 bytes  = 8 bytes ë¡œ êµ¬ì„±ë˜ì–´ ìˆë‹¤.
 		QWORD			GetOutputCreatureID(const MCreature* pCreature) const	
 											{ return ((QWORD)pCreature->GetPixelY() << 32) | pCreature->GetID(); }
 
 		QWORD			GetOutputCreatureID(TYPE_OBJECTID id, int y) const	
 											{ return ((QWORD)y << 32) | id; }
 
-		// m_pZoneÀÇ Creature mapÀ» ÅëÂ°·Î~ Ãß°¡
+		// m_pZoneì˜ Creature mapì„ í†µì§¸ë¡œ~ ì¶”ê°€
 		void			AddOutputCreatureAll();
 
-		// pCreature¸¦ Ãß°¡ÇÑ´Ù.
+		// pCreatureë¥¼ ì¶”ê°€í•œë‹¤.
 		bool			AddOutputCreature(MCreature* pCreature);
 
-		// Creature OutputMapÀ» clearÇÑ´Ù.
+		// Creature OutputMapì„ clearí•œë‹¤.
 		void			ClearOutputCreature()	{ m_mapCreature.clear(); }
 
-		// id¿Í °ü·ÃÀÖ´Â creature¸¦ Á¦°ÅÇÑ´Ù.
+		// idì™€ ê´€ë ¨ìˆëŠ” creatureë¥¼ ì œê±°í•œë‹¤.
 		bool			RemoveOutputCreature(MCreature* pCreature);
 
-		// id¿Í °ü·ÃÀÖ´Â creatureÀÇ Á¤º¸(Ãâ·ÂÁÂÇ¥°ü·Ãid)¸¦ UpdateÇÑ´Ù.
+		// idì™€ ê´€ë ¨ìˆëŠ” creatureì˜ ì •ë³´(ì¶œë ¥ì¢Œí‘œê´€ë ¨id)ë¥¼ Updateí•œë‹¤.
 		bool			UpdateOutputCreature(TYPE_OBJECTID id, int y0, int y1);
 
 
 		//------------------------------------------------------		
 		//
-		// Ã¤ÆÃ string µî Ãâ·Â..
+		// ì±„íŒ… string ë“± ì¶œë ¥..
 		//
 		//------------------------------------------------------		
 		void			ClearTextList();
@@ -353,7 +353,7 @@ class MTopView : public MRequestMode {
 
 		//------------------------------------------------------		
 		//
-		// ItemName  Ãâ·Â..
+		// ItemName  ì¶œë ¥..
 		//
 		//------------------------------------------------------		
 		bool			IsDrawItemNameList() const		{ return m_bDrawItemNameList; }
@@ -379,35 +379,35 @@ class MTopView : public MRequestMode {
 		int				GetEffectSpriteType(BLT_TYPE bltType, TYPE_FRAMEID frameID) const;
 
 		//------------------------------------------------------		
-		// ±âÅ¸..
+		// ê¸°íƒ€..
 		//------------------------------------------------------		
 		int				GetRandomMonsterTypeInZone() const;
 
-//		void			InitMinimapTexture(CSpriteSurface *minimap_surface);			// minimap textureÃÊ±âÈ­
+//		void			InitMinimapTexture(CSpriteSurface *minimap_surface);			// minimap textureì´ˆê¸°í™”
 
 	protected :
 		//------------------------------------------------------
 		//
-		// ³»ºÎÀûÀ¸·Î ÃÊ±âÈ­ÇÏ´Â ÇÔ¼öµé..
+		// ë‚´ë¶€ì ìœ¼ë¡œ ì´ˆê¸°í™”í•˜ëŠ” í•¨ìˆ˜ë“¤..
 		//
 		//------------------------------------------------------
-		bool			InitCreatureFrames();		// character Á¤º¸ ÃÊ±âÈ­
-		bool			InitImageFrames();			// ImageFrames Á¤º¸ ÃÊ±âÈ­
-		bool			InitAnimationFrames();		// AnimationFrames ÃÊ±âÈ­
-		bool			InitEffectFrames();			// EffectFrames ÃÊ±âÈ­
-		bool			InitSprites();				// Sprites ÃÊ±âÈ­
-		bool			InitSurfaces();				// Surfaces ÃÊ±âÈ­
-		bool			InitFilters();				// FilterÃÊ±âÈ­
-		//bool	InitSpriteSurfaces();		// SpriteSurfaces ÃÊ±âÈ­ 
-		bool			InitColors();				// »ö±òµé ÃÊ±âÈ­
+		bool			InitCreatureFrames();		// character ì •ë³´ ì´ˆê¸°í™”
+		bool			InitImageFrames();			// ImageFrames ì •ë³´ ì´ˆê¸°í™”
+		bool			InitAnimationFrames();		// AnimationFrames ì´ˆê¸°í™”
+		bool			InitEffectFrames();			// EffectFrames ì´ˆê¸°í™”
+		bool			InitSprites();				// Sprites ì´ˆê¸°í™”
+		bool			InitSurfaces();				// Surfaces ì´ˆê¸°í™”
+		bool			InitFilters();				// Filterì´ˆê¸°í™”
+		//bool	InitSpriteSurfaces();		// SpriteSurfaces ì´ˆê¸°í™” 
+		bool			InitColors();				// ìƒ‰ê¹”ë“¤ ì´ˆê¸°í™”
 // 		bool			Init3DBoxSurface();
-		bool			InitFonts();				// fontÁ¤º¸ ÃÊ±âÈ­
+		bool			InitFonts();				// fontì •ë³´ ì´ˆê¸°í™”
 
-		// box surfaceÀÇ »ö±ò ¼³Á¤
+		// box surfaceì˜ ìƒ‰ê¹” ì„¤ì •
 // 		void			Set3DBoxColor(WORD pixel);
 
 		//------------------------------------------------------
-		// È­¸é¿¡ º¸ÀÌ´Â ImageObject º¯°æ
+		// í™”ë©´ì— ë³´ì´ëŠ” ImageObject ë³€ê²½
 		//------------------------------------------------------
 		void			DetermineImageObject();
 		void			UpdateImageObject(const POINT &newFirstSector);
@@ -420,12 +420,12 @@ class MTopView : public MRequestMode {
 		//void			SurfaceLockRestore( BOOL bOldLock );
 
 		//------------------------------------------------------
-		// Draw ÇÔ¼öµé..
+		// Draw í•¨ìˆ˜ë“¤..
 		//------------------------------------------------------
 		void		DrawTileSurface();
 		void		DrawZone(int X,int Y);
 		void		DrawInformation();		
-		void		DrawEventString(int &strX, int &strY);			// ÀÌº¥Æ® ¸Ş´ÏÀú¿¡¼­ ½ºÆ®¸µÀ¸·Î ÂïÈ÷´Â ºÎºĞÀ» °¡Á®¿Í È­¸é¿¡ Âï¾îÁÖ´Â ÇÔ¼ö
+		void		DrawEventString(int &strX, int &strY);			// ì´ë²¤íŠ¸ ë©”ë‹ˆì €ì—ì„œ ìŠ¤íŠ¸ë§ìœ¼ë¡œ ì°íˆëŠ” ë¶€ë¶„ì„ ê°€ì ¸ì™€ í™”ë©´ì— ì°ì–´ì£¼ëŠ” í•¨ìˆ˜
 		int			DrawChatString(POINT* pPoint, MCreature* pCreature, COLORREF color, BYTE flag=0);
 		void		DrawItem(POINT* pPoint, MItem* pItem);
 		void		DrawItemShadow(POINT* pPoint, MItem* pItem);
@@ -433,13 +433,18 @@ class MTopView : public MRequestMode {
 		void		DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEffect, BYTE size, MCreature* pCreature, int type=0);
 		void		DrawGroundEffect();
 		void		DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSeletable);
+		void		DrawEffect(POINT* pPoint, EFFECT_LIST::const_iterator iEffect, BYTE size);
+		void		DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha);
+		void		DrawTestHelp();
+		void		DrawInventoryEffect(POINT* pPoint);
+		void		DrawMinimap(int x, int y, BYTE scale);
 		void		DrawItemBroken(int x, int y);
 		void		DrawPartyHP(POINT* pPoint, MCreature* pCreature);
 // 		void		DrawBox3D(RECT* pRect, WORD pixel);			
 		void		DrawFade();
 
 		//------------------------------------------------------
-		// Character Draw ÇÔ¼öµé... by sonee   2003.6
+		// Character Draw í•¨ìˆ˜ë“¤... by sonee   2003.6
 		//------------------------------------------------------
 		void		DrawCreature(POINT* pPoint, MCreature* pCreature);		
 		void		DrawCreatureShadow(POINT* pPoint, MCreature* pCreature);
@@ -448,20 +453,20 @@ class MTopView : public MRequestMode {
 		void		DrawCreatureHPModify(POINT *point, MCreature* pCreature);
 		void		DrawUndergroundCreature(POINT *pPoint, MCreature *pCreature);
 
-		void		DrawGuildMarkInSiegeWar(MCreature* pCreature, int YPos); // ±æµå¸¶Å© Å«³ğÀ¸·Î »Ñ·ÁÁÖÀÚ..¤»
+		void		DrawGuildMarkInSiegeWar(MCreature* pCreature, int YPos); // ê¸¸ë“œë§ˆí¬ í°ë†ˆìœ¼ë¡œ ë¿Œë ¤ì£¼ì..ã…‹
 
 	protected :		
 		bool				m_bInit;
 
 		//------------------------------------------------------
-		// Ãâ·Â ´ë»óÀÌ µÇ´Â Surface
+		// ì¶œë ¥ ëŒ€ìƒì´ ë˜ëŠ” Surface
 		//------------------------------------------------------
 		CSpriteSurface*		m_pSurface;
 		//S_SURFACEINFO		m_SurfaceInfo;
 	
 
 		// SpriteSurfacePack
-		//CSpriteSurfacePack	m_SpriteSurfacePack;	// ±×¸²µé		
+		//CSpriteSurfacePack	m_SpriteSurfacePack;	// ê·¸ë¦¼ë“¤		
 		//CSpriteSurface**			m_ppSurface;			// SpriteSurfaces
 
 		//------------------------------------------------------
@@ -488,15 +493,15 @@ class MTopView : public MRequestMode {
 		CCreatureFramePack		m_NewSlayerWomanFPK;
 		//end
 
-		CImageFramePack			m_ItemTileFPK;			// Tile¿¡ ÀÖ´Â Item¿¡ ´ëÇÑ..
-		CAnimationFramePack		m_ItemDropFPK;			// ¹Ù´ÚÀ¸·Î ¶³¾îÁö´Â Item¿¡ ´ëÇÑ..
-		CAnimationFramePack		m_ItemBrokenFPK;		// ºÎ¼­Áö´Â Item¿¡ ´ëÇÑ..
-		CAnimationFramePack		m_ImageObjectFPK;		// ImageObject¿¡ ´ëÇÑ frames
-		CAnimationFramePack		m_ImageObjectShadowFPK;		// ImageObject¿¡ ´ëÇÑ frames
-//		CAnimationFramePack		m_InteractionObjectFPK;		// ImageObject¿¡ ´ëÇÑ frames
-		CEffectFramePack		m_EffectAlphaFPK;		// Effect¿¡ ´ëÇÑ frames
-		CEffectFramePack		m_EffectNormalFPK;		// Effect¿¡ ´ëÇÑ frames
-		CEffectFramePack		m_EffectShadowFPK;		// Effect¿¡ ´ëÇÑ frames
+		CImageFramePack			m_ItemTileFPK;			// Tileì— ìˆëŠ” Itemì— ëŒ€í•œ..
+		CAnimationFramePack		m_ItemDropFPK;			// ë°”ë‹¥ìœ¼ë¡œ ë–¨ì–´ì§€ëŠ” Itemì— ëŒ€í•œ..
+		CAnimationFramePack		m_ItemBrokenFPK;		// ë¶€ì„œì§€ëŠ” Itemì— ëŒ€í•œ..
+		CAnimationFramePack		m_ImageObjectFPK;		// ImageObjectì— ëŒ€í•œ frames
+		CAnimationFramePack		m_ImageObjectShadowFPK;		// ImageObjectì— ëŒ€í•œ frames
+//		CAnimationFramePack		m_InteractionObjectFPK;		// ImageObjectì— ëŒ€í•œ frames
+		CEffectFramePack		m_EffectAlphaFPK;		// Effectì— ëŒ€í•œ frames
+		CEffectFramePack		m_EffectNormalFPK;		// Effectì— ëŒ€í•œ frames
+		CEffectFramePack		m_EffectShadowFPK;		// Effectì— ëŒ€í•œ frames
 		CEffectFramePack		m_EffectScreenFPK;
 		
 		CCreatureFramePack		m_CreatureShadowFPK;			// Creature frames
@@ -525,17 +530,17 @@ class MTopView : public MRequestMode {
 		// SpritePack
 		//------------------------------------------------------		
 		CSpritePack				m_TileSPK;				// Tile
-		CSpritePack				m_ImageObjectSPK;		// ImageObject Spriteµé
-//		CSpritePack				m_InteractionObjectSPK;		// ImageObject Spriteµé
-		CIndexSpritePack		m_CreatureSPK;			// Creature Spriteµé
-		CIndexSpritePack		m_AddonSPK;		// Spriteµé		
-		CIndexSpritePack		m_OustersSPK;		// Spriteµé		
+		CSpritePack				m_ImageObjectSPK;		// ImageObject Spriteë“¤
+//		CSpritePack				m_InteractionObjectSPK;		// ImageObject Spriteë“¤
+		CIndexSpritePack		m_CreatureSPK;			// Creature Spriteë“¤
+		CIndexSpritePack		m_AddonSPK;		// Spriteë“¤		
+		CIndexSpritePack		m_OustersSPK;		// Spriteë“¤		
 
-		CIndexSpritePack		m_AdvancementSlayerManSPK;			// Creature Spriteµé
-		CIndexSpritePack		m_AdvancementSlayerWomanSPK;			// Creature Spriteµé
-		CIndexSpritePack		m_AdvancementVampireManSPK;		// Spriteµé		
-		CIndexSpritePack		m_AdvancementVampireWomanSPK;		// Spriteµé		
-		CIndexSpritePack		m_AdvancementOustersSPK;		// Spriteµé	
+		CIndexSpritePack		m_AdvancementSlayerManSPK;			// Creature Spriteë“¤
+		CIndexSpritePack		m_AdvancementSlayerWomanSPK;			// Creature Spriteë“¤
+		CIndexSpritePack		m_AdvancementVampireManSPK;		// Spriteë“¤		
+		CIndexSpritePack		m_AdvancementVampireWomanSPK;		// Spriteë“¤		
+		CIndexSpritePack		m_AdvancementOustersSPK;		// Spriteë“¤	
 		
 		//add by viva
 		CIndexSpritePack		m_NewVampireSPK;
@@ -543,36 +548,36 @@ class MTopView : public MRequestMode {
 		CIndexSpritePack		m_NewSlayerWomanSPK;
 		//end
 		
-		//CSpritePack				m_ItemTileSPK;			// Spriteµé		
-		CIndexSpritePack		m_ItemTileISPK;			// Spriteµé		
+		//CSpritePack				m_ItemTileSPK;			// Spriteë“¤		
+		CIndexSpritePack		m_ItemTileISPK;			// Spriteë“¤		
 		CIndexSpritePack		m_ItemDropISPK;			//
-		CSpritePack				m_ItemBrokenSPK;		// ºÎ¼­Áö´Â ¾ÆÀÌÅÛ
-		CSpritePack				m_ItemRealSPK;			// Spriteµé				
-		CAlphaSpritePalPack		m_EffectAlphaSPK;		// AlphaSpriteµé
+		CSpritePack				m_ItemBrokenSPK;		// ë¶€ì„œì§€ëŠ” ì•„ì´í…œ
+		CSpritePack				m_ItemRealSPK;			// Spriteë“¤				
+		CAlphaSpritePalPack		m_EffectAlphaSPK;		// AlphaSpriteë“¤
 		CSpritePalPack			m_EffectScreenSPK;		// ScreenEffect
 		MPalettePack			m_EffectAlphaPPK;		// AlphaEffect
 		MPalettePack			m_EffectScreenPPK;		// ScreenEffect
-		CSpritePack				m_EffectNormalSPK;		// NormalSpriteµé
-		CShadowSpritePack		m_EffectShadowSPK;		// ShadowSpriteµé
-		CSpritePack				m_WeatherSPK;			// WeatherSpriteµé
+		CSpritePack				m_EffectNormalSPK;		// NormalSpriteë“¤
+		CShadowSpritePack		m_EffectShadowSPK;		// ShadowSpriteë“¤
+		CSpritePack				m_WeatherSPK;			// WeatherSpriteë“¤
 		CSpritePack				m_GuildSPK;				// GuildMark
 
 		
 
-		CSpritePack				m_EtcSPK;				// ±âÅ¸...
-		CSpritePack				m_OustersFinSPK;				// ±âÅ¸...
-		CSpritePack				m_AdvacementQuestEnding;				// ±âÅ¸...
+		CSpritePack				m_EtcSPK;				// ê¸°íƒ€...
+		CSpritePack				m_OustersFinSPK;				// ê¸°íƒ€...
+		CSpritePack				m_AdvacementQuestEnding;				// ê¸°íƒ€...
 
 
 		//------------------------------------------------------		
 		// Shadow SpritePack
 		//------------------------------------------------------
-		CShadowSpritePack		m_AddonSSPK;			// Spriteµé		
+		CShadowSpritePack		m_AddonSSPK;			// Spriteë“¤		
 		CShadowSpritePack		m_CreatureSSPK;
 		CShadowSpritePack		m_OustersSSPK;
 
-		CShadowSpritePack		m_AdvancementSlayerManSSPK;			// Spriteµé		
-		CShadowSpritePack		m_AdvancementSlayerWomanSSPK;			// Spriteµé		
+		CShadowSpritePack		m_AdvancementSlayerManSSPK;			// Spriteë“¤		
+		CShadowSpritePack		m_AdvancementSlayerWomanSSPK;			// Spriteë“¤		
 		CShadowSpritePack		m_AdvancementVampireManSSPK;
 		CShadowSpritePack		m_AdvancementVampireWomanSSPK;
 		CShadowSpritePack		m_AdvancementOustersSSPK;
@@ -614,14 +619,14 @@ class MTopView : public MRequestMode {
 		//                  Sprite File
 		//
 		//------------------------------------------------------
-//		class ifstream			m_TileSPKFile;
-//		class ifstream			m_ImageObjectSPKFile;
-//		class ifstream			m_EffectAlphaSPKFile;
-//		class ifstream			m_EffectScreenSPKFile;
-//		class ifstream			m_AddonSPKFile;
-//		class ifstream			m_AddonSSPKFile;
-//		class ifstream			m_CreatureSPKFile;
-//		class ifstream			m_CreatureSSPKFile;
+//		std::ifstream			m_TileSPKFile;
+//		std::ifstream			m_ImageObjectSPKFile;
+//		std::ifstream			m_EffectAlphaSPKFile;
+//		std::ifstream			m_EffectScreenSPKFile;
+//		std::ifstream			m_AddonSPKFile;
+//		std::ifstream			m_AddonSSPKFile;
+//		std::ifstream			m_CreatureSPKFile;
+//		std::ifstream			m_CreatureSSPKFile;
 
 		//------------------------------------------------------
 		//
@@ -648,7 +653,7 @@ class MTopView : public MRequestMode {
 
 
 		//------------------------------------------------------
-		// Zone¸¶´Ù µ¶¸³ÀûÀ¸·Î LoadµÈ °Íµé¿¡ ´ëÇÑ Á¤º¸
+		// Zoneë§ˆë‹¤ ë…ë¦½ì ìœ¼ë¡œ Loadëœ ê²ƒë“¤ì— ëŒ€í•œ ì •ë³´
 		//------------------------------------------------------
 		CSpriteFilePositionArray*	m_pTileSFPArrayLargeZone;
 		CSpriteFilePositionArray*	m_pImageObjectSFPArrayLargeZone;
@@ -665,15 +670,15 @@ class MTopView : public MRequestMode {
 		//------------------------------------------------------
 		// Zone
 		//------------------------------------------------------
-		MZone*				m_pZone;				// ÇöÀç Ãâ·ÂÇÏ·Á´Â Zone
+		MZone*				m_pZone;				// í˜„ì¬ ì¶œë ¥í•˜ë ¤ëŠ” Zone
 
-		static int			m_MiddleX;				// zoneÀÇ Áß°£(pixel X ÁÂÇ¥)
-		POINT				m_FirstSector;			// È­¸é »óÀÇ Ã¹ Á¡ÀÇ Zone¿¡¼­ÀÇ ÁÂÇ¥(sector)
-		POINT				m_PlusPoint;			// FirstSectorÀÇ pixel´ÜÀ§ÀÇ ÁÂÇ¥º¸Á¤°ª
-		POINT				m_FirstZonePixel;		// È­¸é(0,0)ÀÌ ³ªÅ¸³»´Â Zone»óÀÇ PixelÁÂÇ¥
+		static int			m_MiddleX;				// zoneì˜ ì¤‘ê°„(pixel X ì¢Œí‘œ)
+		POINT				m_FirstSector;			// í™”ë©´ ìƒì˜ ì²« ì ì˜ Zoneì—ì„œì˜ ì¢Œí‘œ(sector)
+		POINT				m_PlusPoint;			// FirstSectorì˜ pixelë‹¨ìœ„ì˜ ì¢Œí‘œë³´ì •ê°’
+		POINT				m_FirstZonePixel;		// í™”ë©´(0,0)ì´ ë‚˜íƒ€ë‚´ëŠ” Zoneìƒì˜ Pixelì¢Œí‘œ
 
 		//------------------------------------------------------
-		// Mouse·Î ¼±ÅÃµÈ È­¸é »óÀÇ °Íµé..
+		// Mouseë¡œ ì„ íƒëœ í™”ë©´ ìƒì˜ ê²ƒë“¤..
 		//------------------------------------------------------
 		POINT				m_SelectSector;		
 		TYPE_OBJECTID		m_SelectCreatureID;
@@ -683,16 +688,16 @@ class MTopView : public MRequestMode {
 		//bool				m_bSelectModeAttack;
 
 		WORD					m_SOMOutlineColor;
-		CSpriteOutlineManager	m_SOM;	// ¼±ÅÃµÈ °ÍÀÇ ¿Ü°û¼± Ãâ·Â
+		CSpriteOutlineManager	m_SOM;	// ì„ íƒëœ ê²ƒì˜ ì™¸ê³½ì„  ì¶œë ¥
 
 		//------------------------------------------------------
-		// ½Ã¾ß Ã³¸®
+		// ì‹œì•¼ ì²˜ë¦¬
 		//------------------------------------------------------		
-		POINT					m_FilterPosition;	// Player¸¦ °¡¸®´Â ½Ã¾ß Ã³¸®		
+		POINT					m_FilterPosition;	// Playerë¥¼ ê°€ë¦¬ëŠ” ì‹œì•¼ ì²˜ë¦¬		
 		BYTE					m_DarkBits;
 		
 
-		// ½Ã¾ßÃ³¸® °ü·Ã - ºûÀÌ ÀÖ´Â ½Ã¾ßºÎºĞ
+		// ì‹œì•¼ì²˜ë¦¬ ê´€ë ¨ - ë¹›ì´ ìˆëŠ” ì‹œì•¼ë¶€ë¶„
 		CFilterPack				m_LightFTP;
 		CFilter					m_LightBufferFilter;
 		CSpriteSurface*			m_pLightBufferTexture;
@@ -700,17 +705,17 @@ class MTopView : public MRequestMode {
 
 
 		//------------------------------------------------------
-		// Fade In/Out °ü·Ã
+		// Fade In/Out ê´€ë ¨
 		//------------------------------------------------------		
-		char				m_FadeValue;	// ÇöÀç fade°ª
-		char				m_FadeEnd;		// ³¡ °ª
-		char				m_FadeInc;		// º¯È­°ª
-		bool				m_bFade;		// fade ÁßÀÎ°¡?
-		WORD				m_FadeColor;	// fade »ö
-		WORD				m_delayFrame;	// º¯È­°ªÀ» ¹Ù²Ü ½ÃÁ¡¿¡ ´ëÇÑ ÇÁ·¹ÀÓ
+		char				m_FadeValue;	// í˜„ì¬ fadeê°’
+		char				m_FadeEnd;		// ë ê°’
+		char				m_FadeInc;		// ë³€í™”ê°’
+		bool				m_bFade;		// fade ì¤‘ì¸ê°€?
+		WORD				m_FadeColor;	// fade ìƒ‰
+		WORD				m_delayFrame;	// ë³€í™”ê°’ì„ ë°”ê¿€ ì‹œì ì— ëŒ€í•œ í”„ë ˆì„
 		
 		//------------------------------------------------------
-		// ÇöÀç È­¸éÀÇ TileÀ» ÀúÀåÇØ¼­ ´ÙÀ½¿¡ Ãâ·ÂÇÒ¶§ ÀÌ¿ëÇÑ´Ù.
+		// í˜„ì¬ í™”ë©´ì˜ Tileì„ ì €ì¥í•´ì„œ ë‹¤ìŒì— ì¶œë ¥í• ë•Œ ì´ìš©í•œë‹¤.
 		//------------------------------------------------------
 		CSpriteSurface*				m_pTileSurface;
 		bool						m_bFirstTileDraw;
@@ -720,18 +725,18 @@ class MTopView : public MRequestMode {
 									m_TileSurfaceFirstSectorY;
 
 		//------------------------------------------------------
-		// ÇöÀç È­¸é¿¡¼­ Á¸ÀçÇÏ´Â ImageObjectµéÀÇ Á¤º¸
+		// í˜„ì¬ í™”ë©´ì—ì„œ ì¡´ì¬í•˜ëŠ” ImageObjectë“¤ì˜ ì •ë³´
 		//------------------------------------------------------
 		IMAGEOBJECT_OUTPUT_MAP				m_mapImageObject;
 
 		//------------------------------------------------------
-		// Creature OutputMap - Ãâ·Â ¼ø¼­¿¡ °ü°èµÈ´Ù.
+		// Creature OutputMap - ì¶œë ¥ ìˆœì„œì— ê´€ê³„ëœë‹¤.
 		//------------------------------------------------------
 		CREATURE_OUTPUT_MAP					m_mapCreature;
 		bool								m_bTileSearchForCreature;
 
 		//------------------------------------------------------
-		// Mouse·Î ¼±ÅÃµÈ CreatureÀÇ Ã¤ÆÃÀ» Ãâ·ÂÇÏ±â À§ÇÑ Á¤º¸
+		// Mouseë¡œ ì„ íƒëœ Creatureì˜ ì±„íŒ…ì„ ì¶œë ¥í•˜ê¸° ìœ„í•œ ì •ë³´
 		//------------------------------------------------------
 		POINT						m_pointChatString;
 		MCreature*					m_pSelectedCreature;
@@ -743,16 +748,18 @@ class MTopView : public MRequestMode {
 		//CTexturePack				m_EffectTPK;
 		//CTexturePack				m_CreatureTPK;
 		//CTexturePack				m_ShadowTPK;	// for test
-	
+
+#ifdef PLATFORM_WINDOWS
 		CD3DTextureEffect			m_TextureEffect;
+#endif
 		
 		//------------------------------------------------------
-		// Ãâ·ÂÇÒ StringÀ» ±â¾ï..
+		// ì¶œë ¥í•  Stringì„ ê¸°ì–µ..
 		//------------------------------------------------------
 		DRAWTEXT_PQ					m_pqDrawText;
 
 		//------------------------------------------------------
-		// ItemName Ãâ·Â
+		// ItemName ì¶œë ¥
 		//------------------------------------------------------
 		bool						m_bDrawItemNameList;
 		DRAWITEMNAME_LIST			m_listDrawItemName;
@@ -763,7 +770,7 @@ class MTopView : public MRequestMode {
 		bool						m_bDrawRequest;
 
 		//------------------------------------------------------
-		// 3D °ü·Ã..
+		// 3D ê´€ë ¨..
 		//------------------------------------------------------
 //		CSpriteSurface*				m_p3DBoxSurface;
 //		WORD						m_3DBoxCurrentPixel;
@@ -773,7 +780,7 @@ class MTopView : public MRequestMode {
 		
 
 		//------------------------------------------------------
-		// »ö±òµé..
+		// ìƒ‰ê¹”ë“¤..
 		//------------------------------------------------------
 		// interactionObject
 //		WORD		m_ColorOutlineInteractionObject;
@@ -783,54 +790,54 @@ class MTopView : public MRequestMode {
 		COLORREF	m_ColorNameItemOption;
 		WORD		m_ColorOutlineItem;
 
-		// Á¾Á·º°
+		// ì¢…ì¡±ë³„
 		COLORREF	m_ColorNameVampire;
 		COLORREF	m_ColorNameSlayer;
 		COLORREF	m_ColorNameNPC;
 
-		COLORREF	m_ColorNameAlignment[5];	// À½³Ä..
+		COLORREF	m_ColorNameAlignment[5];	// ìŒëƒ..
 
-		// °ø°İ °¡´É?
+		// ê³µê²© ê°€ëŠ¥?
 		WORD		m_ColorOutlineNPC;
 		WORD		m_ColorOutlineAttackPossible;
 		WORD		m_ColorOutlineAttackImpossible;
 
-		// hp barÀÇ »ö±ò
+		// hp barì˜ ìƒ‰ê¹”
 		WORD		m_ColorHPBar;
 
-		// ¹İÅõ¸í °ËÁ¤»ö
+		// ë°˜íˆ¬ëª… ê²€ì •ìƒ‰
 		WORD		m_ColorBlackHalf;
 
 
 		//------------------------------------------------------
-		// 2D light¿¡¼­ ÇÑ Á¡ÀÌ Â÷ÁöÇÏ´Â È­¸éÀÇ pixelÅ©±â
+		// 2D lightì—ì„œ í•œ ì ì´ ì°¨ì§€í•˜ëŠ” í™”ë©´ì˜ pixelí¬ê¸°
 		//------------------------------------------------------
 		int*		m_p2DLightPixelWidth;
 		int*		m_p2DLightPixelHeight;
 
 		//------------------------------------------------------
-		// LoadµÈ °Í Á¤º¸
+		// Loadëœ ê²ƒ ì •ë³´
 		//------------------------------------------------------
 		INT_ORDERED_LIST	m_listLoadedCreatureSprite;
 		INT_ORDERED_LIST	m_listLoadedMonsterSprite;
 		
 	public :
-		// ÇÑLightÁÂÇ¥ÀÇ È­¸é¿¡¼­ÀÇ Å©±â
+		// í•œLightì¢Œí‘œì˜ í™”ë©´ì—ì„œì˜ í¬ê¸°
 		static float				s_LightWidth;
 		static float				s_LightHeight;
 		
-		// 2004, 8, 18 sobeit add start - °ø¼ºÀü ¼º¹® Å¸°ÙÆÃ¶§¹®¿¡ ¿©Â÷¿©Â÷ Ãß°¡..
+		// 2004, 8, 18 sobeit add start - ê³µì„±ì „ ì„±ë¬¸ íƒ€ê²ŸíŒ…ë•Œë¬¸ì— ì—¬ì°¨ì—¬ì°¨ ì¶”ê°€..
 		enum GENERATE_OPTION{
 			GENERATE_ALL = 0,
-			GENERATE_EXCEPT_LEFT,	// ¿ŞÂÊ ¾Æ¿ô¶óÀÎÀº Á¦¿Ü
-			GENERATE_EXCEPT_RIGHT,  // ¿À¸¥ÂÊ ¾Æ¿ô¶óÀÎÀº Á¦¿Ü
-			GENERATE_EXCEPT_SIDE,	// ¾ç »çÀÌµå ¾Æ¿ô¶óÀÎÀº Á¦¿Ü
-			// -_- À§,¾Æ·¡µµ ¸¸µé¾î ³ö¾ß ÇÏ³ª..-_-;
+			GENERATE_EXCEPT_LEFT,	// ì™¼ìª½ ì•„ì›ƒë¼ì¸ì€ ì œì™¸
+			GENERATE_EXCEPT_RIGHT,  // ì˜¤ë¥¸ìª½ ì•„ì›ƒë¼ì¸ì€ ì œì™¸
+			GENERATE_EXCEPT_SIDE,	// ì–‘ ì‚¬ì´ë“œ ì•„ì›ƒë¼ì¸ì€ ì œì™¸
+			// -_- ìœ„,ì•„ë˜ë„ ë§Œë“¤ì–´ ë†”ì•¼ í•˜ë‚˜..-_-;
 		};
 		// 2004, 8, 18 sobeit add start
 
 	private :
-		// -_- ¿¹¿ÜÃ³¸® ÇÔ¼ö Æ÷ÀÎÅÍ·Î »­.
+		// -_- ì˜ˆì™¸ì²˜ë¦¬ í•¨ìˆ˜ í¬ì¸í„°ë¡œ ëºŒ.
 		//DrawCreatureExecptionProc*	m_pExceptionProc;
 		void	InitMapingExceptionProc();
 		void	RegistExceptionProcFunction( DWORD objectID, DrawCreatureExceptionProc proc );

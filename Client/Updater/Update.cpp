@@ -115,7 +115,7 @@ Update::getFilename(uint i)
 {
 	if ( m_Params[i] != "" ) {
 
-		// Ã¹¹øÂ°¿Í ¸¶Áö¸· ½ºÆäÀÌ½ºÀÇ ÀÎµ¦½º¸¦ ±¸ÇÑ´Ù.
+		// ì²«ë²ˆì§¸ì™€ ë§ˆì§€ë§‰ ìŠ¤í˜ì´ìŠ¤ì˜ ì¸ë±ìŠ¤ë¥¼ êµ¬í•œë‹¤.
 		uint firstspace = m_Params[i].find_first_of(' ');
 
 		if ( firstspace == std::string::npos )
@@ -141,7 +141,7 @@ Update::getFileSize(uint i)
 {
 	if ( m_Params[i] != "" ) {
 
-		// Ã¹¹øÂ°¿Í ¸¶Áö¸· ½ºÆäÀÌ½ºÀÇ ÀÎµ¦½º¸¦ ±¸ÇÑ´Ù.
+		// ì²«ë²ˆì§¸ì™€ ë§ˆì§€ë§‰ ìŠ¤í˜ì´ìŠ¤ì˜ ì¸ë±ìŠ¤ë¥¼ êµ¬í•œë‹¤.
 		uint firstspace = m_Params[i].find_first_of(' ');
 
 		if ( firstspace == std::string::npos )

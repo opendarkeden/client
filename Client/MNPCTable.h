@@ -9,14 +9,14 @@
 		int numberOfShopTemplate
 		{
 			int eachShopTemplateID
-		} // ¹İº¹
+		} // ë°˜ë³µ
 		
-		int DescriptionLength; // ¼³¸íÀÇ ±æÀÌ
-		string Description; // ¼³¸í ³»¿ë
+		int DescriptionLength; // ì„¤ëª…ì˜ ê¸¸ì´
+		string Description; // ì„¤ëª… ë‚´ìš©
 		
-	} // ¹İº¹
+	} // ë°˜ë³µ
 
-	Âü°í·Î »óÁ¡ÀÌ ¾ø´Â ³ğµéÀº numberOfShopTemplate°¡ 0ÀÌ´Ù.
+	ì°¸ê³ ë¡œ ìƒì ì´ ì—†ëŠ” ë†ˆë“¤ì€ numberOfShopTemplateê°€ 0ì´ë‹¤.
 */
 //----------------------------------------------------------------------
 
@@ -25,11 +25,12 @@
 
 #pragma warning(disable:4786)
 
-#include "CtypeMap.h"
+#include "CTypeMap.h"
 #include <list>
-class ofstream;
-class ifstream;
 #include "MString.h"
+
+#include <fstream>
+using namespace std;
 
 //----------------------------------------------------------------------
 // NPC_INFO
@@ -53,12 +54,12 @@ class NPC_INFO {
 		//-----------------------------------------------------
 		// File I/O
 		//-----------------------------------------------------
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);
 };
 
 //----------------------------------------------------------------------
-// MNPCTable (NPCID, NPC_INFO*)ÀÇ map
+// MNPCTable (NPCID, NPC_INFO*)ì˜ map
 //----------------------------------------------------------------------
 class MNPCTable : public CTypeMap<NPC_INFO> {
 	public :
@@ -86,8 +87,8 @@ class	SERVERNPC_INFO {
 		//-----------------------------------------------------
 		// File I/O
 		//-----------------------------------------------------
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);
 };
 
 

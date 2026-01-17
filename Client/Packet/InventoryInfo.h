@@ -2,7 +2,7 @@
 // 
 // Filename    : InventoryInfo.h 
 // Written By  : elca@ewestsoft.com
-// Description : ÀÎº¥Åä¸® ¾ÆÀÌÅÛÀÇ Á¤º¸µé
+// Description : ì¸ë²¤í† ë¦¬ ì•„ì´í…œì˜ ì •ë³´ë“¤
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -19,7 +19,7 @@
 //
 // class InventoryInfo;
 //
-// °ÔÀÓ¼­¹ö¿¡¼­ Å¬¶óÀÌ¾ðÆ®·Î ÀÚ½ÅÀÇ ±â¼úÀÌ ¼º°øÀ» ¾Ë·ÁÁÖ±â À§ÇÑ Å¬·¡½º
+// ê²Œìž„ì„œë²„ì—ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ìžì‹ ì˜ ê¸°ìˆ ì´ ì„±ê³µì„ ì•Œë ¤ì£¼ê¸° ìœ„í•œ í´ëž˜ìŠ¤
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -37,14 +37,14 @@ public :
 public :
 	
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write ( SocketOutputStream & oStream ) const throw ( ProtocolException , Error );
 
 	// get packet's body size
-	// ÃÖÀûÈ­½Ã, ¹Ì¸® °è»êµÈ Á¤¼ö¸¦ »ç¿ëÇÑ´Ù.
+	// ìµœì í™”ì‹œ, ë¯¸ë¦¬ ê³„ì‚°ëœ ì •ìˆ˜ë¥¼ ì‚¬ìš©í•œë‹¤.
 	PacketSize_t getSize () throw ();
 
 	static uint getMaxSize() throw() {

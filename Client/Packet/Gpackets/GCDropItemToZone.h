@@ -82,7 +82,7 @@ public :
 
 	// get packet's body size
 	// *OPTIMIZATION HINT*
-	// const static GCDropItemToZonePacketSize ∏¶ ¡§¿«, ∏Æ≈œ«œ∂Û.
+	// const static GCDropItemToZonePacketSize Î•º Ï†ïÏùò, Î¶¨ÌÑ¥ÌïòÎùº.
 	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + szCoord + szCoord + szBYTE + szItemType + szBYTE + 255 + szDurability + szItemNum + szBYTE +(szObjectID + szBYTE + szItemType + szItemNum + szSlotID)* 12 + szObjectID; }
 
 };
@@ -99,7 +99,7 @@ class GCDropItemToZoneHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCDropItemToZone* pPacket, Player* pPlayer) throw(Error);
+	static void execute(GCDropItemToZone* pPacket, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

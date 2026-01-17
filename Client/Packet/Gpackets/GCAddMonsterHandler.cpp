@@ -18,7 +18,8 @@ extern void Add_Race_OustersMonster(GCAddMonster * pPacket);
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCAddMonsterHandler::execute ( GCAddMonster * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -28,7 +29,7 @@ void GCAddMonsterHandler::execute ( GCAddMonster * pPacket , Player * pPlayer )
 
 	//AfxMessageBox( pPacket->toString().c_str() );
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -37,7 +38,7 @@ void GCAddMonsterHandler::execute ( GCAddMonster * pPacket , Player * pPlayer )
 		
 	}	
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
@@ -51,7 +52,7 @@ void GCAddMonsterHandler::execute ( GCAddMonster * pPacket , Player * pPlayer )
 
 		//AfxMessageBox( pPacket->toString().c_str() );
 		WORD wMonsterType = pPacket->getMonsterType();
-		// °¢Á¾Á·¸ğ½ÀÀÇ ¸ó½ºÅÍ(¹ìÆÄÀÌ¾î ¸ğ½À ¸ó½ºÅÍ´Â µû·Î Ã³¸® ¾ÈÇØµµ µÇ³×..¤¾¤¾)
+		// ê°ì¢…ì¡±ëª¨ìŠµì˜ ëª¬ìŠ¤í„°(ë±€íŒŒì´ì–´ ëª¨ìŠµ ëª¬ìŠ¤í„°ëŠ” ë”°ë¡œ ì²˜ë¦¬ ì•ˆí•´ë„ ë˜ë„¤..ã…ã…)
 
 		if(wMonsterType == 735 || wMonsterType == 793 || wMonsterType == 796 || wMonsterType == 797)
 		{
@@ -64,7 +65,7 @@ void GCAddMonsterHandler::execute ( GCAddMonster * pPacket , Player * pPlayer )
 			Add_Race_OustersMonster(pPacket);
 			return;
 		}
-		// 2004, 9, 1, sobeit add start - °ø¼ºÀü½Ã Æ®·¦ÀÏ °æ¿ì °ø°İÃø¿¡¼­´Â º¸ÀÌÁö ¾Ê´Â´Ù.
+		// 2004, 9, 1, sobeit add start - ê³µì„±ì „ì‹œ íŠ¸ë©ì¼ ê²½ìš° ê³µê²©ì¸¡ì—ì„œëŠ” ë³´ì´ì§€ ì•ŠëŠ”ë‹¤.
 		else if( wMonsterType == 738 ||
 			wMonsterType == 739 ||
 			wMonsterType == 740 ||
@@ -104,10 +105,10 @@ void GCAddMonsterHandler::execute ( GCAddMonster * pPacket , Player * pPlayer )
 
 			}
 		}
-		// 2004, 9, 1, sobeit add end - °ø¼ºÀü½Ã Æ®·¦ÀÏ °æ¿ì °ø°İÃø¿¡¼­´Â º¸ÀÌÁö ¾Ê´Â´Ù.
+		// 2004, 9, 1, sobeit add end - ê³µì„±ì „ì‹œ íŠ¸ë©ì¼ ê²½ìš° ê³µê²©ì¸¡ì—ì„œëŠ” ë³´ì´ì§€ ì•ŠëŠ”ë‹¤.
 		MCreature* pCreature = g_pZone->GetCreature(pPacket->getObjectID());
 		//--------------------------------------------------
-		// »õ·Î¿î CreatureÀÌ¸é Ãß°¡
+		// ìƒˆë¡œìš´ Creatureì´ë©´ ì¶”ê°€
 		//--------------------------------------------------
 		if (pCreature==NULL)
 		{
@@ -130,19 +131,19 @@ void GCAddMonsterHandler::execute ( GCAddMonster * pPacket , Player * pPlayer )
 			pCreature->SetStatus( MODIFY_CURRENT_HP, pPacket->getCurrentHP() );
 
 			// [ TEST CODE ]
-			// ÀÌ¸§ ¼³Á¤
+			// ì´ë¦„ ì„¤ì •
 			//char str[20];
 			//sprintf(str, "ID=%d", pCreature->GetID());
 			//pCreature->SetName( (*g_pCreatureTable)[pPacket->getMonsterType()].Name.GetString() );
 			pCreature->SetName( pPacket->getMonsterName().c_str() );
 	
-			// ÀÓ½Ã·Î..
+			// ì„ì‹œë¡œ..
 			pCreature->SetGuildNumber( 1 );
 
-			// ÀÌ¸§
+			// ì´ë¦„
 			//pCreature->SetName( pPacket->getName().toString().c_str() );
 
-			// »ö±ò Á¤º¸			
+			// ìƒ‰ê¹” ì •ë³´			
 
 			if (!g_pZone->AddCreature( pCreature ))
 			{
@@ -152,7 +153,7 @@ void GCAddMonsterHandler::execute ( GCAddMonster * pPacket , Player * pPlayer )
 			else
 			{			
 				//------------------------------------------------------------
-				// LoadµÇÁö ¾Ê¾ÒÀ¸¸é loadÇÑ´Ù.
+				// Loadë˜ì§€ ì•Šì•˜ìœ¼ë©´ loadí•œë‹¤.
 				//------------------------------------------------------------
 //				LoadCreatureType( pPacket->getMonsterType() );			
 			}
@@ -176,31 +177,31 @@ void GCAddMonsterHandler::execute ( GCAddMonster * pPacket , Player * pPlayer )
 			pCreature->SetStatus( MODIFY_MAX_HP, pPacket->getMaxHP() );
 			pCreature->SetStatus( MODIFY_CURRENT_HP, pPacket->getCurrentHP() );
 
-			// ÀÓ½Ã·Î..
+			// ì„ì‹œë¡œ..
 			pCreature->SetGuildNumber( 1 );
 		}
 
 		if (pCreature!=NULL)
 		{
 			//--------------------------------------------------
-			// Effect ºÙÀÌ±â..
+			// Effect ë¶™ì´ê¸°..
 			//--------------------------------------------------
 			bool bShowComeFromPotal = true;
 			SetEffectInfo( pCreature, pPacket->getEffectInfo() );
-			// 2004, 6, 25, sobeit add start - Áúµå·¹ °ü·Ã ¸Ê È¿°ú 
+			// 2004, 6, 25, sobeit add start - ì§ˆë“œë ˆ ê´€ë ¨ ë§µ íš¨ê³¼ 
 			switch(pCreature->GetCreatureType())
 			{
-				case 724: // ¹ìÆÄÀÌ¾î ¼ÒÈ¯Ã¼ 1
+				case 724: // ë±€íŒŒì´ì–´ ì†Œí™˜ì²´ 1
 					Add_GDR_Effect(1, true);
 					break;
-				case 725: // // ¹ìÆÄÀÌ¾î ¼ÒÈ¯Ã¼ 2
+				case 725: // // ë±€íŒŒì´ì–´ ì†Œí™˜ì²´ 2
 					Add_GDR_Effect(2, true);
 					break;
-				case 739: // Æ®·¦ - ·£µå ¸¶ÀÎ
+				case 739: // íŠ¸ë© - ëœë“œ ë§ˆì¸
 					ExecuteActionInfoFromMainNode(SKILL_CLIENT_LAND_MINE_LIGHT,pCreature->GetX(), pCreature->GetY(), 0,pCreature->GetDirection(),	pCreature->GetID(),	
 								pCreature->GetX(), pCreature->GetY(), 0, 0xffff, NULL, false);			
 					break;
-				case 738: // Æ®·¦ - ÇÃ·¹Á® ½ºÅ×ÀÌ¼Ç
+				case 738: // íŠ¸ë© - í”Œë ˆì ¸ ìŠ¤í…Œì´ì…˜
 					ExecuteActionInfoFromMainNode(SKILL_CLIENT_PLEASUER_STATION_LIGHT,pCreature->GetX(), pCreature->GetY(), 0,pCreature->GetDirection(),	pCreature->GetID(),	
 								pCreature->GetX(), pCreature->GetY(), 0, 0xffff, NULL, false);			
 					break;
@@ -208,7 +209,7 @@ void GCAddMonsterHandler::execute ( GCAddMonster * pPacket , Player * pPlayer )
 					bShowComeFromPotal = false;
 					pCreature->SetAction(ACTION_VAMPIRE_DRAIN);  
 					break;
-				case 765: // ±×·¹ÀÌÆ® ·¯ÇÇ¾ğ ¸ö¿¡ ºÙ´Â ÀÌÆåÆ®
+				case 765: // ê·¸ë ˆì´íŠ¸ ëŸ¬í”¼ì–¸ ëª¸ì— ë¶™ëŠ” ì´í™íŠ¸
 					ExecuteActionInfoFromMainNode(SKILL_CLIENT_GREAT_RUFFIAN_BODY,pCreature->GetX(), pCreature->GetY(), 0,pCreature->GetDirection(),	pCreature->GetID(),	
 								pCreature->GetX(), pCreature->GetY(), 0, 0xffff, NULL, false);			
 					break;
@@ -216,7 +217,7 @@ void GCAddMonsterHandler::execute ( GCAddMonster * pPacket , Player * pPlayer )
 					bShowComeFromPotal = false;
 					pCreature->AddEffectStatus((EFFECTSTATUS)(EFFECTSTATUS_SUMMON_MIGA_FIRE), 0xFFFF);
 					break;
-				case 786: // Àå±³
+				case 786: // ì¥êµ
 					pCreature->AddEffectStatus((EFFECTSTATUS)(EFFECTSTATUS_GRAND_MASTER_VAMPIRE), 0xFFFF);
 					break;
 				case 788: // 
@@ -229,7 +230,7 @@ void GCAddMonsterHandler::execute ( GCAddMonster * pPacket , Player * pPlayer )
 					break;
 				case 793:
 				case 794:
-				case 795: // Á¦¹°µé
+				case 795: // ì œë¬¼ë“¤
 					bShowComeFromPotal = false;
 					pCreature->AddEffectStatus(EFFECTSTATUS_CAUSE_CRITICAL_WOUNDS, 0xffff);
 					ExecuteActionInfoFromMainNode(RESULT_MAGIC_CAUSE_CRITICAL_WOUNDS,pCreature->GetX(), pCreature->GetY(), 0,2,	pCreature->GetID(),	
@@ -237,9 +238,9 @@ void GCAddMonsterHandler::execute ( GCAddMonster * pPacket , Player * pPlayer )
 					break;
 			
 			}
-			// 2004, 6, 25, sobeit add end - Áúµå·¹ °ü·Ã 
+			// 2004, 6, 25, sobeit add end - ì§ˆë“œë ˆ ê´€ë ¨ 
 			//--------------------------------------------------
-			// Á¤»óÀÏ °æ¿ì¿¡´Â 0, Æ÷Å»À» ÅëÇßÀ» °æ¿ì¿¡´Â 1
+			// ì •ìƒì¼ ê²½ìš°ì—ëŠ” 0, í¬íƒˆì„ í†µí–ˆì„ ê²½ìš°ì—ëŠ” 1
 			//--------------------------------------------------
 			if (pPacket->getFromFlag()==1 && bShowComeFromPotal)
 			{
@@ -251,13 +252,13 @@ void GCAddMonsterHandler::execute ( GCAddMonster * pPacket , Player * pPlayer )
 //				{
 					ComeFromPortal( pCreature );
 					
-					// ¹Ù´Ú ÀÌÆåÆ® ºÙÀÌ±â
+					// ë°”ë‹¥ ì´í™íŠ¸ ë¶™ì´ê¸°
 					int x			= pCreature->GetX();
 					int y			= pCreature->GetY();
 					int delayFrame	= ConvertDurationToFrame( 18 );
 					
 					ExecuteActionInfoFromMainNode(
-						RESULT_MAGIC_BLOODY_TUNNEL,		// °ª ÀÚÃ¼°¡ RESULT_ACTIONINFOÀÌ´Ù.
+						RESULT_MAGIC_BLOODY_TUNNEL,		// ê°’ ìì²´ê°€ RESULT_ACTIONINFOì´ë‹¤.
 						
 						x, y, 0,
 						DIRECTION_DOWN,
@@ -276,7 +277,7 @@ void GCAddMonsterHandler::execute ( GCAddMonster * pPacket , Player * pPlayer )
 		}
 	}
 	
-	// [µµ¿ò¸»] ¸÷ÀÌ ³ªÅ¸³¯¶§
+	// [ë„ì›€ë§] ëª¹ì´ ë‚˜íƒ€ë‚ ë•Œ
 //	__BEGIN_HELP_EVENT
 ////		ExecuteHelpEvent( HE_CREATURE_APPEAR_MONSTER );
 //	__END_HELP_EVENT

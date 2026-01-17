@@ -14,7 +14,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCKnocksTargetBackOK4Handler::execute ( GCKnocksTargetBackOK4 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -22,7 +23,7 @@ void GCKnocksTargetBackOK4Handler::execute ( GCKnocksTargetBackOK4 * pPacket , P
 
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -30,28 +31,28 @@ void GCKnocksTargetBackOK4Handler::execute ( GCKnocksTargetBackOK4 * pPacket , P
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature( pPacket->getTargetObjectID() );
 
-		// Creature°¡ knockback´çÇÔ
+		// Creatureê°€ knockbackë‹¹í•¨
 		if (pCreature != NULL)
 		{			
 			unsigned short x = pPacket->getX();
 			unsigned short y = pPacket->getY();
 
-			// ¹°·¯³ª´Â¹æÇâ(direction)Àû¿ë..
-			// ÀÌµ¿ÇÑ ÈÄÀÇ ÁÂÇ¥°¡ ¿Â´Ù.
+			// ë¬¼ëŸ¬ë‚˜ëŠ”ë°©í–¥(direction)ì ìš©..
+			// ì´ë™í•œ í›„ì˜ ì¢Œí‘œê°€ ì˜¨ë‹¤.
 			//MCreature::GetPositionToDirection(x, y, pPacket->getDir());
 
-			// CreatureÀÇ ÁÂÇ¥¸¦ ¹Ù·Î ¹Ù²Û´Ù.
+			// Creatureì˜ ì¢Œí‘œë¥¼ ë°”ë¡œ ë°”ê¾¼ë‹¤.
 			pCreature->MovePosition( x, y );
 			pCreature->SetServerPosition( x, y );
 			pCreature->SetStop();
 
-			// °á°ú ¹Ù·Î Ç¥Çö
+			// ê²°ê³¼ ë°”ë¡œ í‘œí˜„
 			pCreature->PacketSpecialActionResult( 
 								pPacket->getSkillType() + (*g_pActionInfoTable).GetMinResultActionInfo(),
 								pCreature->GetID(),

@@ -2,7 +2,7 @@
 // 
 // Filename    :  GCLearnSkillFailed.h 
 // Written By  :  elca@ewestsoft.com
-// Description :  Å
+// Description :  Ã…
 //                
 // 
 //////////////////////////////////////////////////////////////////////
@@ -33,10 +33,10 @@ public:
 	
 public:
 	
-	// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+	// Ã€Ã”Â·Ã‚Â½ÂºÃ†Â®Â¸Â²(Â¹Ã¶Ã†Ã›)Ã€Â¸Â·ÃÂºÃÃ…Ã ÂµÂ¥Ã€ÃŒÃ…Â¸Â¸Â¦ Ã€ÃÂ¾Ã®Â¼Â­ Ã†ÃÃ…Â¶Ã€Â» ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡Ã‘Â´Ã™.
 	void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
 			
-	// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+	// ÃƒÃ¢Â·Ã‚Â½ÂºÃ†Â®Â¸Â²(Â¹Ã¶Ã†Ã›)Ã€Â¸Â·Ã Ã†ÃÃ…Â¶Ã€Ã‡ Â¹Ã™Ã€ÃŒÂ³ÃŠÂ¸Â® Ã€ÃŒÂ¹ÃŒÃÃ¶Â¸Â¦ ÂºÂ¸Â³Â½Â´Ã™.
 	void write ( SocketOutputStream & oStream ) const throw ( ProtocolException , Error );
 
 	// execute packet's handler
@@ -121,7 +121,7 @@ class  GCLearnSkillFailedHandler {
 public :
 
 	// execute packet's handler
-	static void execute (  GCLearnSkillFailed * pGCLearnSkillFailed , Player * pPlayer ) throw ( Error );
+	static void execute (  GCLearnSkillFailed * pGCLearnSkillFailed , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

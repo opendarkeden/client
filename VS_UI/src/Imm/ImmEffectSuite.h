@@ -59,6 +59,7 @@ typedef enum {
 // CEffectList, CEffectListElement
 //================================================================
 
+#ifdef PLATFORM_WINDOWS
 class DLLIFC CEffectListElement
 {
 public:
@@ -79,6 +80,7 @@ public:
 
 	CEffectListElement *m_pFirstEffect;
 };
+#endif
 
 
 //================================================================

@@ -13,28 +13,28 @@
 //----------------------------------------------------------------------
 //
 //
-// 5:6:5 ¿Í  5:5:5ÀÇ Â÷ÀÌ´Â 
-// Bit Mask¿¡ ÀÇÇØ Ã³¸®µÇ´Â ºÎºĞ¿¡¼­ ¹ß»ıÇÏ´Âµ¥
-// CDirectDraw classÀÇ InitMask()¿¡¼­ Video Card¿¡ ¸Â´Â
-// ÀûÀıÇÑ Mask¸¦ »ı¼ºÇÏ¹Ç·Î ±×³É~ CDirectDrawÀÇ Mask¸¦ »ç¿ëÇÏ¸é µÈ´Ù.
+// 5:6:5 ì™€  5:5:5ì˜ ì°¨ì´ëŠ” 
+// Bit Maskì— ì˜í•´ ì²˜ë¦¬ë˜ëŠ” ë¶€ë¶„ì—ì„œ ë°œìƒí•˜ëŠ”ë°
+// CDirectDraw classì˜ InitMask()ì—ì„œ Video Cardì— ë§ëŠ”
+// ì ì ˆí•œ Maskë¥¼ ìƒì„±í•˜ë¯€ë¡œ ê·¸ëƒ¥~ CDirectDrawì˜ Maskë¥¼ ì‚¬ìš©í•˜ë©´ ëœë‹¤.
 //
 //
 //
 //----------------------------------------------------------------------
 /*
 
-  < DDSurface°¡ »ı¼ºµÇ´Â MEMORY >
+  < DDSurfaceê°€ ìƒì„±ë˜ëŠ” MEMORY >
 
-	- DDSCAPS_SYSTEMMEMORY´Â LockÀ» »ç¿ëÇÒ ¶§ ºü¸£´Ù.
-	- DDSCAPS_VIDEOMEMORY´Â Blt¸¦ »ç¿ëÇÒ ¶§ ºü¸£´Ù.
-	  ´Ü, VIDEOMEMORY°¡ ºÎÁ·ÇÏ¸é Surface¸¦ »ı¼ºÇÏÁö ¾ÊÀ¸¹Ç·Î error!
-	- ÁöÁ¤À» ¾È ÇØ ÁÖ¸é VIDEOMEMORY°¡ »ç¿ë°¡´ÉÇÏ¸é »ç¿ëÇÏ°í 
-   	  ¾Æ´Ï¸é SYSTEMMEMORY¸¦ »ç¿ëÇÑ´Ù.
+	- DDSCAPS_SYSTEMMEMORYëŠ” Lockì„ ì‚¬ìš©í•  ë•Œ ë¹ ë¥´ë‹¤.
+	- DDSCAPS_VIDEOMEMORYëŠ” Bltë¥¼ ì‚¬ìš©í•  ë•Œ ë¹ ë¥´ë‹¤.
+	  ë‹¨, VIDEOMEMORYê°€ ë¶€ì¡±í•˜ë©´ Surfaceë¥¼ ìƒì„±í•˜ì§€ ì•Šìœ¼ë¯€ë¡œ error!
+	- ì§€ì •ì„ ì•ˆ í•´ ì£¼ë©´ VIDEOMEMORYê°€ ì‚¬ìš©ê°€ëŠ¥í•˜ë©´ ì‚¬ìš©í•˜ê³  
+   	  ì•„ë‹ˆë©´ SYSTEMMEMORYë¥¼ ì‚¬ìš©í•œë‹¤.
 	
   < Alpha Blending >
-    - »ç¿ëÇÏ·Á¸é DDSCAPS_SYSTEMMEMORY¸¦ »ç¿ëÇÏ´Â°Ô ÁÁ´Ù.
-	- Surface --> Surface·ÎÀÇ Alpha Blendingº¸´Ù
-	  Memory(SpriteFile) --> Surface·ÎÀÇ Alpha BlendingÀÌ ºü¸£´Ù.
+    - ì‚¬ìš©í•˜ë ¤ë©´ DDSCAPS_SYSTEMMEMORYë¥¼ ì‚¬ìš©í•˜ëŠ”ê²Œ ì¢‹ë‹¤.
+	- Surface --> Surfaceë¡œì˜ Alpha Blendingë³´ë‹¤
+	  Memory(SpriteFile) --> Surfaceë¡œì˜ Alpha Blendingì´ ë¹ ë¥´ë‹¤.
 
 */
 //----------------------------------------------------------------------
@@ -58,7 +58,7 @@ public :
 	void	GDI_Text(int x, int y, const char *str, COLORREF fcolor, 
 																 COLORREF bcolor = 0, 
 																 bool option = true);
-	void	ShowFPS(int x, int y, COLORREF bcolor, COLORREF fcolor); // FPS¸¦ Ãâ·ÂÇÑ´Ù.
+	void	ShowFPS(int x, int y, COLORREF bcolor, COLORREF fcolor); // FPSë¥¼ ì¶œë ¥í•œë‹¤.
 
 
 	//------------------------------------------------------------
@@ -99,7 +99,7 @@ public :
 
 	//------------------------------------------------------------
 	// Set Transparency color
-	// `BltÇÒ ¶§ ¹İµå½Ã ÇØÁà¾ß ÇÑ´Ù.
+	// `Bltí•  ë•Œ ë°˜ë“œì‹œ í•´ì¤˜ì•¼ í•œë‹¤.
 	//------------------------------------------------------------
 	void	SetTransparency(DWORD dwValue);
 
@@ -110,11 +110,11 @@ public :
 	void	BltNoColorkey(POINT* pPoint, CDirectDrawSurface* SourceSurface, RECT*  pRect);
 	void	Blt(RECT* pDestRect, CDirectDrawSurface* SourceSurface, RECT* pSourceRect);	
 
-	// ÇöÀç surfaceÀÇ pPoint¿¡ PrimarySurfaceÀÇ pRect¸¦ bltÇÑ´Ù.
+	// í˜„ì¬ surfaceì˜ pPointì— PrimarySurfaceì˜ pRectë¥¼ bltí•œë‹¤.
 	void	BltPrimarySurface(POINT* pPoint, RECT* pRect);
 
 	//------------------------------------------------------------
-	// DirectDraw Á¦°ø Drawing ÇÔ¼öµé...
+	// DirectDraw ì œê³µ Drawing í•¨ìˆ˜ë“¤...
 	//------------------------------------------------------------
 	void	FillSurface(WORD color);
 	void	FillRect(RECT* rect, WORD Color);
@@ -130,7 +130,7 @@ public :
 	inline int		GetHeight() const	{ return m_Height; } // no const...
 
 	//------------------------------------------------------------
-	// Clip ¿µ¿ª
+	// Clip ì˜ì—­
 	//------------------------------------------------------------
 	///*
 	inline void		SetClipLeft(int Left)				{ if (Left>=0) m_ClipLeft = Left; }
@@ -155,7 +155,7 @@ public :
 	//*/
 
 	//
-	// ! Pitch¿Í Surface pointer¸¦ ¾òÀ¸·Á¸é, CDirectDrawÀÇ GetDDDesc()¸¦ ÀÌ¿ëÇÑ´Ù.
+	// ! Pitchì™€ Surface pointerë¥¼ ì–»ìœ¼ë ¤ë©´, CDirectDrawì˜ GetDDDesc()ë¥¼ ì´ìš©í•œë‹¤.
 	//
 
 	//------------------------------------------------------------
@@ -165,7 +165,7 @@ public :
 	bool		Unlock();
 	bool		IsLock() const		{ return m_bLock; }
 
-	// À½... ±×³É castÇØ¼­ ¾²´Â°Ô...
+	// ìŒ... ê·¸ëƒ¥ castí•´ì„œ ì“°ëŠ”ê²Œ...
 	void	LockW(WORD*& lpSurface, WORD& lPitch);
 	//void	LockDW(DWORD*& lpSurface, WORD& lPitch);
 	//void	LockQW(QWORD*& lpSurface, WORD& lPitch);
@@ -175,28 +175,35 @@ public :
 	//------------------------------------------------------------		
 	operator const LPDIRECTDRAWSURFACE7&()	{ return m_pDDSurface; }
 	
-	// class ³»ºÎ¿¡¼­ ¾²´Â ÇÔ¼ö
+	// class ë‚´ë¶€ì—ì„œ ì“°ëŠ” í•¨ìˆ˜
 protected :
 	bool	CopyBitmap(HBITMAP hbm, int x, int y, int dx, int dy);
 
 protected :
 	LPDIRECTDRAWSURFACE7	m_pDDSurface;
 
-	// SurfaceÀÇ Å©±â, ¾²ÀÓ»õ°¡ ¸¹À¸¹Ç·Î member·Î °¡Áö°í ÀÖ´Â´Ù.
+	// Surfaceì˜ í¬ê¸°, ì“°ì„ìƒˆê°€ ë§ìœ¼ë¯€ë¡œ memberë¡œ ê°€ì§€ê³  ìˆëŠ”ë‹¤.
 	int					m_Width;
 	int					m_Height;
 
-	// surface°¡ back surfaceÀÎ°¡¸¦ ³ªÅ¸³»´Â flag.
-	bool					m_bBackSurface;	
+	// surfaceê°€ back surfaceì¸ê°€ë¥¼ ë‚˜íƒ€ë‚´ëŠ” flag.
+	bool					m_bBackSurface;
 
-	// LockÀÌ µÈ »óÅÂÀÎ°¡?
-	bool					m_bLock;	
+	// Lockì´ ëœ ìƒíƒœì¸ê°€?
+	bool					m_bLock;
 
-	// ½ÇÁ¦ Å©±âº¸´Ù ÀÛÀº.. ClipÀÌ µÇ¾î¼­ º¸¿©Áö´Â ¿µ¿ªÀ» ¼³Á¤	
+	// ì‹¤ì œ í¬ê¸°ë³´ë‹¤ ì‘ì€.. Clipì´ ë˜ì–´ì„œ ë³´ì—¬ì§€ëŠ” ì˜ì—­ì„ ì„¤ì •
 	int					m_ClipRight;
 	int					m_ClipBottom;
 	int					m_ClipLeft;
 	int					m_ClipTop;
+
+	// Surface descriptor (used by Lock/Unlock)
+#ifdef PLATFORM_WINDOWS
+	DDSURFACEDESC2		m_ddsd;
+#else
+	DDSURFACEDESC2		m_ddsd;  // Stub for macOS - minimal implementation
+#endif
 
 	static	void		(*s_GammaFunction)(void *pDest, int len, int p);
 };

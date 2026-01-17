@@ -86,7 +86,7 @@ PacketSize_t GCTimeLimitItemInfo::getPacketSize() const
 }
 
 DWORD GCTimeLimitItemInfo::getTimeLimit(ObjectID_t objectID) const
-	throw(Error)
+	throw(ProtocolException, Error)
 {
 	__BEGIN_TRY
 
@@ -100,13 +100,13 @@ DWORD GCTimeLimitItemInfo::getTimeLimit(ObjectID_t objectID) const
 }
 
 void GCTimeLimitItemInfo::addTimeLimit(ObjectID_t objectID, DWORD time)
-	throw(Error)
+	throw(ProtocolException, Error)
 {
 	__BEGIN_TRY
 
 	ItemTimeLimitMap::const_iterator	itr = m_TimeLimitItemInfos.find(objectID);
 
-	if ( itr != m_TimeLimitItemInfos.end() ) throw Error( "¾ÆÀÌÅÛ ¿ÀºêÁ§Æ® ¾ÆÀÌµğ°¡ °ãÄ¡³×¿ë.");
+	if ( itr != m_TimeLimitItemInfos.end() ) throw Error( "ì•„ì´í…œ ì˜¤ë¸Œì íŠ¸ ì•„ì´ë””ê°€ ê²¹ì¹˜ë„¤ìš©.");
 
 	m_TimeLimitItemInfos[ objectID ] = time;
 

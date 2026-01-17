@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 ZONESOUND_INFO::ZONESOUND_INFO()
 {
-	ID = 0;				// ZoneSound¿« ID
+	ID = 0;				// ZoneSoundÏùò ID
 	SoundID = 0;		// SoundID
 }
 
@@ -24,9 +24,9 @@ ZONESOUND_INFO::~ZONESOUND_INFO()
 // Save To File
 //-----------------------------------------------------------------------------
 void					
-ZONESOUND_INFO::SaveToFile(class ofstream& file)
+ZONESOUND_INFO::SaveToFile(std::ofstream& file)
 {
-	file.write((const char*)&ID, 2);				// ZoneSound¿« ID
+	file.write((const char*)&ID, 2);				// ZoneSoundÏùò ID
 	file.write((const char*)&SoundID, SIZE_SOUNDID);		// SoundID
 	
 	ShowTimeChecker::SaveToFile( file );
@@ -36,9 +36,9 @@ ZONESOUND_INFO::SaveToFile(class ofstream& file)
 // Load From File
 //-----------------------------------------------------------------------------
 void					
-ZONESOUND_INFO::LoadFromFile(class ifstream& file)
+ZONESOUND_INFO::LoadFromFile(std::ifstream& file)
 {
-	file.read((char*)&ID, 2);				// ZoneSound¿« ID
+	file.read((char*)&ID, 2);				// ZoneSoundÏùò ID
 	file.read((char*)&SoundID, SIZE_SOUNDID);		// SoundID
 	
 	ShowTimeChecker::LoadFromFile( file );

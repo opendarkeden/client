@@ -15,7 +15,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCFlagWarStatusHandler::execute ( GCFlagWarStatus * pGCFlagWarStatus , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 #ifdef __GAME_CLIENT__
 	DWORD endTime = pGCFlagWarStatus->getTimeRemain() * 1000 + timeGetTime();
@@ -23,7 +24,7 @@ void GCFlagWarStatusHandler::execute ( GCFlagWarStatus * pGCFlagWarStatus , Play
 	int		flag_v = (int)pGCFlagWarStatus->getFlagCount( RACE_VAMPIRE );
 	int		flag_o = (int)pGCFlagWarStatus->getFlagCount( RACE_OUSTERS );
 	
-	// ½Ã°£ÀÌ 3½Ã°£ ÀÌ»óÀÌ¸é ¹«Á¶°Ç ¹«½Ã!
+	// ì‹œê°„ì´ 3ì‹œê°„ ì´ìƒì´ë©´ ë¬´ì¡°ê±´ ë¬´ì‹œ!
 	if( ((endTime-timeGetTime())/1000)/60/60 > 3 )
 		return;
 

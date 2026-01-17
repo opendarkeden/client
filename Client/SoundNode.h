@@ -1,19 +1,23 @@
 //----------------------------------------------------------------------
 // SoundNode.h
 //----------------------------------------------------------------------
-// ¾î´À ½ÃÁ¡¿¡¼­ ³ª´Â ¼Ò¸®
+// ì–´ëŠ ì‹œì ì—ì„œ ë‚˜ëŠ” ì†Œë¦¬
 //----------------------------------------------------------------------
 
 #ifndef	__SOUNDNODE_H__
 #define	__SOUNDNODE_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "MTypeDef.h"
 
 class SOUND_NODE {
 	public :
 		//------------------------------------------------------
-		// delay½Ã°£ ÈÄ¿¡ sid¸¦ playÇÏ°Ô ÇÑ´Ù´Â ÀÇ¹Ì.
+		// delayì‹œê°„ í›„ì— sidë¥¼ playí•˜ê²Œ í•œë‹¤ëŠ” ì˜ë¯¸.
 		//------------------------------------------------------
 		SOUND_NODE(TYPE_SOUNDID sid, DWORD delay, int x, int y)	{ Set(sid, delay, x,y); }
 
@@ -34,7 +38,7 @@ class SOUND_NODE {
 		DWORD			m_PlayTime;
 		TYPE_SOUNDID	m_SoundID;
 		
-		// ¼Ò¸®°¡ ³ª´Â À§Ä¡
+		// ì†Œë¦¬ê°€ ë‚˜ëŠ” ìœ„ì¹˜
 		int				m_X;
 		int				m_Y;
 };

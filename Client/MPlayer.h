@@ -1,8 +1,8 @@
 //----------------------------------------------------------------------
 // MPlayer.h
 //----------------------------------------------------------------------
-// Æ¯º°È÷ Player¸¸ ´Ù·ç´Â class
-// ±æÃ£±â algorithm ±¸Çö
+// íŠ¹ë³„íˆ Playerë§Œ ë‹¤ë£¨ëŠ” class
+// ê¸¸ì°¾ê¸° algorithm êµ¬í˜„
 //----------------------------------------------------------------------
 
 #ifndef	__MPLAYER_H__
@@ -16,7 +16,7 @@
 //----------------------------------------------------------------------
 // define
 //----------------------------------------------------------------------
-// ÃßÀûÇÏ´Â °Í¿¡ ´ëÇÑ flag
+// ì¶”ì í•˜ëŠ” ê²ƒì— ëŒ€í•œ flag
 #define	FLAG_TRACE_NULL					0
 #define	FLAG_TRACE_CREATURE_BASIC		0x0001
 #define	FLAG_TRACE_CREATURE_SPECIAL		0x0002
@@ -30,7 +30,7 @@
 
 
 //----------------------------------------------------------------------
-// class ¼±¾ğ
+// class ì„ ì–¸
 //----------------------------------------------------------------------
 class MCreature;
 class MItem;
@@ -55,7 +55,7 @@ extern DWORD	g_CurrentTime;
 
 //----------------------------------------------------------------------
 //
-// ±æÃ£±â¿¡ ÀÌ¿ëÇÒ Direction Node
+// ê¸¸ì°¾ê¸°ì— ì´ìš©í•  Direction Node
 //
 //----------------------------------------------------------------------
 class DNode {
@@ -83,39 +83,39 @@ class DNode {
 
 //----------------------------------------------------------------------
 //
-// ±æÃ£±âÇÒ ¶§ ´õ ³ªÀº Node¸¦ ¼±ÅÃÇÏ´Â ºñ±³ ¿¬»ê
+// ê¸¸ì°¾ê¸°í•  ë•Œ ë” ë‚˜ì€ Nodeë¥¼ ì„ íƒí•˜ëŠ” ë¹„êµ ì—°ì‚°
 //
 //----------------------------------------------------------------------
-// [1] °Å¸®°¡ °¡±î¿î °Í
-// [2] ¿òÁ÷ÀÎ È¸¼ö°¡ ÀûÀº °Í
-// [3] ÀÌÀü ¹æÇâ°ú °°Àº °Í
+// [1] ê±°ë¦¬ê°€ ê°€ê¹Œìš´ ê²ƒ
+// [2] ì›€ì§ì¸ íšŒìˆ˜ê°€ ì ì€ ê²ƒ
+// [3] ì´ì „ ë°©í–¥ê³¼ ê°™ì€ ê²ƒ
 class Comparison {
 	public :
-		// distance°¡ ÀûÀ» °É ¼±ÅÃÇØ¾ß ÇÑ´Ù.		
-		// true : right¸¦ ¼±ÅÃÇÑ´Ù.
-		// false : left¸¦ ¼±ÅÃÇÑ´Ù.
+		// distanceê°€ ì ì„ ê±¸ ì„ íƒí•´ì•¼ í•œë‹¤.		
+		// true : rightë¥¼ ì„ íƒí•œë‹¤.
+		// false : leftë¥¼ ì„ íƒí•œë‹¤.
 		bool operator () (DNode * left, DNode * right) const
 		{ 
 			int diff = left->distance - right->distance;			
 			int s = left->step - right->step;
 
-			// °Å¸®°¡(diff) °°Àº °æ¿ì..
+			// ê±°ë¦¬ê°€(diff) ê°™ì€ ê²½ìš°..
 			if (diff==0)
 			{			
-				// ¿òÁ÷ÀÎ È¸¼ö°¡ °°Àº °æ¿ì
+				// ì›€ì§ì¸ íšŒìˆ˜ê°€ ê°™ì€ ê²½ìš°
 				if (s==0)
 				{
 					if (left->pParent!=NULL && right->pParent!=NULL)
 					{
 						if (right->pParent->direction == right->direction)
 						{
-							return true;	// right¼±ÅÃ
+							return true;	// rightì„ íƒ
 						}
 						
-						return false;	// left¼±ÅÃ						
+						return false;	// leftì„ íƒ						
 					}
 				}
-				// ¿òÁ÷ÀÎ È¸¼ö°¡ ÀûÀº °Í
+				// ì›€ì§ì¸ íšŒìˆ˜ê°€ ì ì€ ê²ƒ
 				else if (s>0) 
 				{
 					return true;
@@ -123,7 +123,7 @@ class Comparison {
 				
 				return false;				
 			}			
-			// °Å¸®°¡ ÀûÀº °Í
+			// ê±°ë¦¬ê°€ ì ì€ ê²ƒ
 			else if (diff>0) return true; 
 
 			return false;
@@ -149,27 +149,27 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 
 		enum ATTACK_MODE 
 		{
-			ATTACK_MODE_PEACE,		// ¾Æ¹«µµ °ø°İ ¾È ÇÔ
-			ATTACK_MODE_NORMAL,		// Àû(!)¸¸ °ø°İÇÔ
-			ATTACK_MODE_AGGRESS,	// ¾Æ¹«³ª °ø°İÇÔ
-			ATTACK_MODE_GUILD,		// ¿ì¸® ±æµå¸¸ ¿ì¸®Æí
+			ATTACK_MODE_PEACE,		// ì•„ë¬´ë„ ê³µê²© ì•ˆ í•¨
+			ATTACK_MODE_NORMAL,		// ì (!)ë§Œ ê³µê²©í•¨
+			ATTACK_MODE_AGGRESS,	// ì•„ë¬´ë‚˜ ê³µê²©í•¨
+			ATTACK_MODE_GUILD,		// ìš°ë¦¬ ê¸¸ë“œë§Œ ìš°ë¦¬í¸
 		};
 
 		enum ITEM_CHECK_BUFFER
 		{
 			ITEM_CHECK_BUFFER_NULL = 0,
 
-			// itemÁİ±â
+			// itemì¤ê¸°
 			ITEM_CHECK_BUFFER_PICKUP_TO_INVENTORY,
 			ITEM_CHECK_BUFFER_PICKUP_TO_MOUSE,
 			ITEM_CHECK_BUFFER_PICKUP_TO_QUICKSLOT,
 			ITEM_CHECK_BUFFER_PICKUP_MONEY,
 
-			// item »ç¿ë 
+			// item ì‚¬ìš© 
 			ITEM_CHECK_BUFFER_USE_FROM_INVENTORY,
 			ITEM_CHECK_BUFFER_USE_FROM_QUICKSLOT,
 			
-			// itemÀ» ´Ù¸¥ item¿¡ Ãß°¡
+			// itemì„ ë‹¤ë¥¸ itemì— ì¶”ê°€
 			ITEM_CHECK_BUFFER_INSERT_FROM_INVENTORY,	
 			ITEM_CHECK_BUFFER_INSERT_FROM_GEAR,	
 			ITEM_CHECK_BUFFER_INSERT_FROM_QUICKSLOT,			
@@ -177,27 +177,27 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 			ITEM_CHECK_BUFFER_DROP_TO_INVENTORY,
 			ITEM_CHECK_BUFFER_PICKUP_FROM_INVENTORY,
 
-			ITEM_CHECK_BUFFER_PICKUP_SOME_FROM_INVENTORY,	// ¾ÆÀÌÅÛ ¸î°³¸¸ µé±â
+			ITEM_CHECK_BUFFER_PICKUP_SOME_FROM_INVENTORY,	// ì•„ì´í…œ ëª‡ê°œë§Œ ë“¤ê¸°
 
-			// tradeÇÒ ¶§
+			// tradeí•  ë•Œ
 			ITEM_CHECK_BUFFER_TRADE_ADD,
 			ITEM_CHECK_BUFFER_TRADE_REMOVE,
 
-			// item¿¡ ±â¼ú »ç¿ë
+			// itemì— ê¸°ìˆ  ì‚¬ìš©
 			ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY,
 
-			// itemÀ¸·Î ±â¼ú »ç¿ë
+			// itemìœ¼ë¡œ ê¸°ìˆ  ì‚¬ìš©
 			ITEM_CHECK_BUFFER_SKILL_FROM_ITEM,
 
-			// mouse¿¡¼­ zoneÀ¸·Î ¹ö¸°´Ù.
+			// mouseì—ì„œ zoneìœ¼ë¡œ ë²„ë¦°ë‹¤.
 			ITEM_CHECK_BUFFER_DROP_TO_ZONE,			
 
 			ITEM_CHECK_BUFFER_DROP_TO_RELICTABLE,			
 
-			// itemÀ» ´Ù¸¥ ¾ÆÀÌÅÛ¿¡ ´õÇÏ±â
+			// itemì„ ë‹¤ë¥¸ ì•„ì´í…œì— ë”í•˜ê¸°
 			ITEM_CHECK_BUFFER_ITEM_TO_ITEM,
 
-			// Æ®¸® ÇÕÃ¼
+			// íŠ¸ë¦¬ í•©ì²´
 			ITEM_CHECK_BUFFER_TREE_MERGE,
 			ITEM_CHECK_BUFFER_USE_FROM_GEAR,
 			
@@ -207,7 +207,7 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 			ITEM_CHECK_BUFFER_USE_FROM_GQUEST_INVENTORY,
 		};
 
-		// server¿¡¼­ °ËÁõ¹Ş±â..
+		// serverì—ì„œ ê²€ì¦ë°›ê¸°..
 		enum WAIT_VERIFY
 		{
 			WAIT_VERIFY_NULL,
@@ -258,7 +258,7 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 			return NULL;
 		}
 
-		// ZoneÀ» setÇÑ´Ù.
+		// Zoneì„ setí•œë‹¤.
 		void	SetZone(MZone* pZone);
 
 		virtual void	SetCreatureType(TYPE_CREATURETYPE type);		
@@ -266,7 +266,7 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		// 
 		virtual void		SetServerPosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY);
 
-		// ½Ã¾ß °ü·Ã
+		// ì‹œì•¼ ê´€ë ¨
 		void	CalculateLightSight();
 		const int	GetLightSight() const			{ return m_LightSight; }
 		char	GetTimeLightSight()	const		{ return m_TimeLightSight; }
@@ -276,19 +276,19 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		void	SetSight(char s)				{ m_Sight = s; }
 		char	GetSight()	const			{ return m_Sight; }
 		
-		// ÇÑ Çàµ¿~
+		// í•œ í–‰ë™~
 		void	Action();
 
-		// ´ÙÀ½¿¡ ÇÒ Çàµ¿ ¼³Á¤.. 
+		// ë‹¤ìŒì— í•  í–‰ë™ ì„¤ì •.. 
 		void	SetNextAction(BYTE action);	
 		void	SetNextActionToMove();
 
 		// 
 		void	SetAction(BYTE action);
 
-		// ÈíÇ÷ delay¸¦ ¾ø¾Ö±â À§ÇØ¼­ ÀÓ½Ã·Î..
+		// í¡í˜ˆ delayë¥¼ ì—†ì• ê¸° ìœ„í•´ì„œ ì„ì‹œë¡œ..
 		void	StopBloodDrain();
-		void	StopAbsorbSoul();	// Èí¿µ
+		void	StopAbsorbSoul();	// í¡ì˜
 
 		//----------------------------------------------------------
 		// EffectStatus
@@ -297,7 +297,7 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		bool	RemoveEffectStatus(EFFECTSTATUS status);		
 
 		//----------------------------------------------------------
-		// »óÅÂ °ª ¹Ù²Ù±â
+		// ìƒíƒœ ê°’ ë°”ê¾¸ê¸°
 		//----------------------------------------------------------
 		void	SetStatus(DWORD n, DWORD value);
 		void	CalculateStatus();
@@ -305,46 +305,46 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		void	CalculateSight();
 		
 		//----------------------------------------------------------
-		// º¯½Å
+		// ë³€ì‹ 
 		//----------------------------------------------------------
 		bool	ChangeToSlayer();
 		bool	ChangeToVampire();
 
 //		//----------------------------------------------------------
-//		// ½Ã¾ß
+//		// ì‹œì•¼
 //		//----------------------------------------------------------
 //		void	SetLightSight(char LightSight);
 //		void	UnSetLightSight();	
 		
 		//----------------------------------------------------------
-		// ¾ÈÀüÁö´ë¿¡ ÀÖ³ª?
+		// ì•ˆì „ì§€ëŒ€ì— ìˆë‚˜?
 		//----------------------------------------------------------
 		BOOL	IsInSafeSector() const;
 		
 		//----------------------------------------------------------
-		// »ì±â/Á×±â
+		// ì‚´ê¸°/ì£½ê¸°
 		//----------------------------------------------------------
-		void	SetAlive();		// »ì¾Æ³­´Ù? - -;
-		void	SetDead();		// Á×´Â´Ù.
+		void	SetAlive();		// ì‚´ì•„ë‚œë‹¤? - -;
+		void	SetDead();		// ì£½ëŠ”ë‹¤.
 
 		//----------------------------------------------------------
-		// º¹Àå ¹Ù²Ù±â
+		// ë³µì¥ ë°”ê¾¸ê¸°
 		//----------------------------------------------------------
 		bool	SetAddonItem( MItem* pItem );
 		bool	RemoveAddonItem( MItem* pItem );
 
 		//----------------------------------------------------------
-		// SoulChain ½ÇÆĞ
+		// SoulChain ì‹¤íŒ¨
 		//----------------------------------------------------------
 		void	SetCannotTrace();
 		
 
 		//----------------------------------------------------------
 		//
-		//			 Item Ã³¸®
+		//			 Item ì²˜ë¦¬
 		//
 		//----------------------------------------------------------
-		void	PickupItem(MItem* pItem);	// item Áİ±â Ã³¸®
+		void	PickupItem(MItem* pItem);	// item ì¤ê¸° ì²˜ë¦¬
 		void	PickupItemToInventory(MItem* pItem);
 		void	PickupItemToMouse(MItem* pItem);
 		bool	PickupItemToQuickslot(MItem* pItem);
@@ -353,15 +353,15 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 
 		//----------------------------------------------------------
 		//
-		//            Server Packet°ú °ü·Ã
+		//            Server Packetê³¼ ê´€ë ¨
 		//
 		//----------------------------------------------------------
-		// ±â´Ù¸®´Â Move PacketÀº ¾ø´Ù.
+		// ê¸°ë‹¤ë¦¬ëŠ” Move Packetì€ ì—†ë‹¤.
 		BYTE	GetSendMove() const		{ return m_SendMove; }
 		void	ResetSendMove();
 		
 		//----------------------------------------------------------
-		// server·ÎºÎÅÍ °ËÁõÀ» ±â´Ù¸®´Â »óÅÂ
+		// serverë¡œë¶€í„° ê²€ì¦ì„ ê¸°ë‹¤ë¦¬ëŠ” ìƒíƒœ
 		//----------------------------------------------------------
 		BOOL	IsWaitVerifyNULL() const	{ return m_WaitVerify==WAIT_VERIFY_NULL; }
 		BOOL	IsWaitVerify() const		{ return m_WaitVerify!=WAIT_VERIFY_NULL; }
@@ -371,25 +371,25 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		void	SetWaitVerify(WAIT_VERIFY wv, TYPE_ACTIONINFO ai=ACTIONINFO_NULL)	{ m_WaitVerify=wv; m_WaitVerifyActionInfo=ai; }
 
 		//----------------------------------------------------------
-		// packetÃ³¸®
+		// packetì²˜ë¦¬
 		//----------------------------------------------------------
 		//void	PacketBack();
 		void	PacketMoveOK(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, BYTE direction);
 		void	PacketMoveNO();
 		void	PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJECTID id, TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, BYTE temp=0);
-		bool	PacketAddActionResult(WORD effectID, MActionResult* pResult);	// °á°ú ¼³Á¤
+		bool	PacketAddActionResult(WORD effectID, MActionResult* pResult);	// ê²°ê³¼ ì„¤ì •
 
-		bool	FastMovePosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, bool server = false);	// ZoneÀÇ Sector¿¡¼­µµ »¡¸®(-_-;) ÀÌµ¿ÇÑ´Ù.
+		bool	FastMovePosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, bool server = false);	// Zoneì˜ Sectorì—ì„œë„ ë¹¨ë¦¬(-_-;) ì´ë™í•œë‹¤.
 
 		bool	KnockBackPosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY);
 
 		//----------------------------------------------------------
 		//
-		//           ÃßÀû 
+		//           ì¶”ì  
 		//
 		//----------------------------------------------------------
 		bool	SelfSpecialAction();
-		// ´Ù¸¥ Creature¸¦ ÃßÀûÇØ¼­ ActionÀ» ÃëÇÑ´Ù.
+		// ë‹¤ë¥¸ Creatureë¥¼ ì¶”ì í•´ì„œ Actionì„ ì·¨í•œë‹¤.
 		bool	TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack=false, bool	bClick = false);
 		bool	TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack=false);
 		bool	TraceSectorToBasicAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY);
@@ -399,22 +399,22 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		bool	TraceEffect(TYPE_OBJECTID id);
 		bool	TraceInventoryItem(TYPE_OBJECTID id);
 
-		// creature°è¼Ó ÃßÀû
+		// creatureê³„ì† ì¶”ì 
 		void	KeepTraceCreature();
 
-		// ¸ğµç ÃßÀû ÁßÁö
+		// ëª¨ë“  ì¶”ì  ì¤‘ì§€
 		void	TraceNULL()				{ m_fTrace=FLAG_TRACE_NULL; m_fNextTrace=FLAG_TRACE_NULL; }
 		void	TraceNextNULL()			{ m_fNextTrace=FLAG_TRACE_NULL; } 
 
-		// nActionInfoÀÇ »ç¿ë °¡´É °Å¸®´Â?
+		// nActionInfoì˜ ì‚¬ìš© ê°€ëŠ¥ ê±°ë¦¬ëŠ”?
 		int		GetActionInfoRange(TYPE_ACTIONINFO nActionInfo);
 		
 		//----------------------------------------------------------
 		//
-		//         ±æÃ£±â
+		//         ê¸¸ì°¾ê¸°
 		//
 		//----------------------------------------------------------
-		// Zone»ó¿¡¼­ÀÇ ¸ñÇ¥À§Ä¡¸¦ ¼³Á¤
+		// Zoneìƒì—ì„œì˜ ëª©í‘œìœ„ì¹˜ë¥¼ ì„¤ì •
 		bool	SetMovePosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY);
 		bool	SetNextDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY);
 		bool	SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY);		
@@ -428,7 +428,7 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		BYTE	GetNextDirection()	const			{ return m_listDirection.front(); }
 
 		//----------------------------------------------------------
-		// ÃßÀû
+		// ì¶”ì 
 		//----------------------------------------------------------
 		BYTE			GetBasicAttackDistance() const	{ return m_BasicAttackDistance; }
 		void			SetBasicAttackDistance(BYTE bad) { m_BasicAttackDistance = (bad==0)?1:bad; }
@@ -441,27 +441,27 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		BOOL			IsTraceEffect() const			{ return m_fTrace & FLAG_TRACE_EFFECT; }
 
 		//----------------------------------------------------------
-		// °è¼Ó Creature¸¦ ÃßÀûÇÏ´Â°¡?
+		// ê³„ì† Creatureë¥¼ ì¶”ì í•˜ëŠ”ê°€?
 		//----------------------------------------------------------
 		bool			IsKeepTraceCreature() const		{ return m_bKeepTraceCreature; }
 		void			SetKeepTraceCreature()			{ m_bKeepTraceCreature = true; }
 		void			UnSetKeepTraceCreature()		{ m_bKeepTraceCreature = false; }
 
 		//----------------------------------------------------------
-		// Çàµ¿ ¹İº¹ÇÏ±â
+		// í–‰ë™ ë°˜ë³µí•˜ê¸°
 		//----------------------------------------------------------
 		BOOL			IsRepeatAction() const			{ return m_bRepeatAction; }
 		void			SetRepeatAction()				{ m_bRepeatAction = TRUE; m_RepeatCount = 0; m_RepeatTimer = GetTickCount(); }		
 		void			UnSetRepeatAction();
 
-		// ±â¼ú º¯°æ
+		// ê¸°ìˆ  ë³€ê²½
 		void			SetSpecialActionInfo( TYPE_ACTIONINFO n );
 
-		// °ø°İ ÁßÀÎ°¡?
+		// ê³µê²© ì¤‘ì¸ê°€?
 		bool			OnAttacking() const;
 				
 		//----------------------------------------------------------
-		// Delay½Ã°£À» Áö³ª¼­ delay°¡ ³¡³µ´Â°¡?
+		// Delayì‹œê°„ì„ ì§€ë‚˜ì„œ delayê°€ ëë‚¬ëŠ”ê°€?
 		//----------------------------------------------------------
 		bool			IsNotDelay() const		{ return m_DelayTime==0 || m_DelayTime <= g_CurrentTime; }
 		bool			IsNotDeadDelay() const	{ return m_DeadDelayTime <= g_CurrentTime; }
@@ -469,7 +469,7 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		DWORD			GetDeadDelayLast() const;
 
 		//----------------------------------------------------------
-		// ¹ìÆÄÀÌ¾î·Î º¯ÇÏ´Âµ¥ ³²Àº ½Ã°£
+		// ë±€íŒŒì´ì–´ë¡œ ë³€í•˜ëŠ”ë° ë‚¨ì€ ì‹œê°„
 		//----------------------------------------------------------
 		void			SetConversionDelay(DWORD last)		{ m_ConversionDelayTime = g_CurrentTime + last; }
 		DWORD			GetConversionDelayTime() const		{ return m_ConversionDelayTime; }
@@ -477,13 +477,13 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		void			UpdateConversionTime();
 
 		//----------------------------------------------------------
-		// ÁøÇàÁßÀÎ ±â¼ú..
+		// ì§„í–‰ì¤‘ì¸ ê¸°ìˆ ..
 		//----------------------------------------------------------
 		void			RemoveEffectTarget(BYTE id);
 		void			AddEffectTarget(MEffectTarget* pEffectTarget);
 		
 		//----------------------------------------------------------
-		// PlayerÀÇ Attack Mode
+		// Playerì˜ Attack Mode
 		//----------------------------------------------------------
 		ATTACK_MODE	GetAttackMode() const	{ return m_AttackMode; }
 		bool	IsAttackModePeace() const	{ return m_AttackMode == ATTACK_MODE_PEACE; }
@@ -495,7 +495,7 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		void	SetAttackModeAggress()		{ m_AttackMode = ATTACK_MODE_AGGRESS; }
 		void	SetAttackModeGuild()		{ m_AttackMode = ATTACK_MODE_GUILD; }
 
-		// toÁ¾Á·À» °ø°İÇÒ ¼ö ÀÖ´Â AttackModeÀÎ°¡?
+		// toì¢…ì¡±ì„ ê³µê²©í•  ìˆ˜ ìˆëŠ” AttackModeì¸ê°€?
 		bool	CanAttackTribe( enum CREATURETRIBE to ) const;
 		bool	CanAttackTribe( const MCreature* pCreature ) const	{ return CanAttackTribe( pCreature->GetCreatureTribe() ); }
 		bool	CanAttackGuild( const MCreature* pCreature ) const;
@@ -505,20 +505,20 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		//----------------------------------------------------------
 		bool	IsItemCheckBufferNULL()				{ return m_pItemCheckBuffer==NULL; }
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void	SetItemCheckBuffer(MItem* pItem, enum ITEM_CHECK_BUFFER status, TYPE_OBJECTID SubItem = OBJECTID_NULL);
 	#else
 		void	SetItemCheckBuffer(MItem* pItem, enum ITEM_CHECK_BUFFER status);
 	#endif
 		
-		void	ClearItemCheckBuffer();		// Á¦°Å
+		void	ClearItemCheckBuffer();		// ì œê±°
 		MItem*	GetItemCheckBuffer() const				{ return m_pItemCheckBuffer; }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		TYPE_OBJECTID	GetItemIDCheckBufferSubInventory() const	{ return m_dwSubItemIDCheckBuffer; }
 	#endif
 		enum ITEM_CHECK_BUFFER	GetItemCheckBufferStatus() const	{ return m_ItemCheckBufferStatus; }
 
-		// ±¦È÷ ¸¸µé¾îº» ÇÔ¼öµé - -;
+		// ê´œíˆ ë§Œë“¤ì–´ë³¸ í•¨ìˆ˜ë“¤ - -;
 		bool	IsItemCheckBufferPickupToInventory() const		{ return m_ItemCheckBufferStatus==ITEM_CHECK_BUFFER_PICKUP_TO_INVENTORY; }
 		bool	IsItemCheckBufferPickupToMouse() const			{ return m_ItemCheckBufferStatus==ITEM_CHECK_BUFFER_PICKUP_TO_MOUSE; }
 		bool	IsItemCheckBufferPickupToQuickslot() const		{ return m_ItemCheckBufferStatus==ITEM_CHECK_BUFFER_PICKUP_TO_QUICKSLOT; }
@@ -548,8 +548,8 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		int		FindEnemy();
 
 		//----------------------------------------------------------
-		// player°¡ Darkness¾È¿¡ ÀÖ´Â°¡?
-		// DarknessCount´Â ¸îÅ¸ÀÏÀÌ º¸ÀÌ´Â°¡?ÀÌ´Ù.
+		// playerê°€ Darknessì•ˆì— ìˆëŠ”ê°€?
+		// DarknessCountëŠ” ëª‡íƒ€ì¼ì´ ë³´ì´ëŠ”ê°€?ì´ë‹¤.
 		//----------------------------------------------------------
 		void	CheckInDarkness();
 
@@ -582,24 +582,24 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 	protected :				
 		void	ActionMove();			// move
 		void	ActionEffect();			// effect
-		void	ActionToSendPacket();		// packetÀ» º¸³½´Ù..
-		bool	ActionInTraceDistance();	// Çàµ¿ °¡´É °Å¸®¿¡ ÀÖÀ» ¶§
-		void	AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo);		// m_nUsedActionInfo¸¦ Àû¿ë½ÃÅ²´Ù.
+		void	ActionToSendPacket();		// packetì„ ë³´ë‚¸ë‹¤..
+		bool	ActionInTraceDistance();	// í–‰ë™ ê°€ëŠ¥ ê±°ë¦¬ì— ìˆì„ ë•Œ
+		void	AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo);		// m_nUsedActionInfoë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		void	AttachCastingEffect(TYPE_ACTIONINFO nUsedActionInfo, BOOL bForceAttach=FALSE);
 
-		// ÃßÀûÇÑ creature¿¡°Ô ±âº» action Àû¿ë
+		// ì¶”ì í•œ creatureì—ê²Œ ê¸°ë³¸ action ì ìš©
 		void	BasicActionToCreature();
 
-		// ´ÙÀ½ Çàµ¿À» °áÁ¤
+		// ë‹¤ìŒ í–‰ë™ì„ ê²°ì •
 		bool	CheckBufferAction();
 
-		// ¹İº¹ Çàµ¿ °áÁ¤
+		// ë°˜ë³µ í–‰ë™ ê²°ì •
 		bool	CheckRepeatAction();
 
-		// list node¸¦ Áö¿î´Ù.
+		// list nodeë¥¼ ì§€ìš´ë‹¤.
 		void	RemoveNodes();
 
-		// ¸ñÇ¥À§Ä¡±îÁöÀÇ °Å¸® °è»ê
+		// ëª©í‘œìœ„ì¹˜ê¹Œì§€ì˜ ê±°ë¦¬ ê³„ì‚°
 		int		CalculateDistance(int x, int y);
 		
 		// sweep vice update
@@ -608,34 +608,34 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		bool	UpDateInstallTurret();
 
 	protected :		
-		DWORD						m_RepeatTimer;				// Repeat¸ğµå Á¦ÇÑ½Ã°£
-		DWORD						m_LockTimer;				// Lock¸ğµå Á¦ÇÑ½Ã°£		
+		DWORD						m_RepeatTimer;				// Repeatëª¨ë“œ ì œí•œì‹œê°„
+		DWORD						m_LockTimer;				// Lockëª¨ë“œ ì œí•œì‹œê°„		
 
 		TYPE_SECTORPOSITION			m_DestX;
-		TYPE_SECTORPOSITION			m_DestY;					// ¸ñÇ¥À§Ä¡(Sector)
+		TYPE_SECTORPOSITION			m_DestY;					// ëª©í‘œìœ„ì¹˜(Sector)
 
 		TYPE_SECTORPOSITION			m_NextDestX; 
-		TYPE_SECTORPOSITION			m_NextDestY;				// ´ÙÀ½ ¸ñÇ¥À§Ä¡(Sector)
+		TYPE_SECTORPOSITION			m_NextDestY;				// ë‹¤ìŒ ëª©í‘œìœ„ì¹˜(Sector)
 
-		TYPE_SECTORPOSITION			m_BlockDestX;				// ¸ø °¬´ø °÷.. 
+		TYPE_SECTORPOSITION			m_BlockDestX;				// ëª» ê°”ë˜ ê³³.. 
 		TYPE_SECTORPOSITION			m_BlockDestY;				// 
 
-		// ±â´Ù¸®´Â move packet¼ö
+		// ê¸°ë‹¤ë¦¬ëŠ” move packetìˆ˜
 		BYTE					m_SendMove;
 
-		// Basic°ø°İÀÇ °ø°İ °¡´É °Å¸® : 0ÀÌ µÇ¾î¼­´Â ¾ÈµÈ´Ù. ÃÖ¼Ò 1ÀÌ´Ù.
+		// Basicê³µê²©ì˜ ê³µê²© ê°€ëŠ¥ ê±°ë¦¬ : 0ì´ ë˜ì–´ì„œëŠ” ì•ˆëœë‹¤. ìµœì†Œ 1ì´ë‹¤.
 		BYTE					m_BasicAttackDistance;	
 
-		// ÃßÀûÇÏ±â
-		WORD					m_fTrace;				// ÃßÀûÀÇ Á¾·ù		
-		WORD					m_fTraceBuffer;			// ÃßÀûÀÇ Á¾·ù(Àá½Ã ±â¾ïÇØµÎ´Â °Í)
+		// ì¶”ì í•˜ê¸°
+		WORD					m_fTrace;				// ì¶”ì ì˜ ì¢…ë¥˜		
+		WORD					m_fTraceBuffer;			// ì¶”ì ì˜ ì¢…ë¥˜(ì ì‹œ ê¸°ì–µí•´ë‘ëŠ” ê²ƒ)
 		TYPE_OBJECTID			m_TraceIDBuffer;		//
-		BYTE					m_TraceDistance;		// »çÁ¤ °Å¸®		
-		BYTE					m_TraceObjectAction;	// ÃßÀûÇÏ´Â ObjectÀÇ »óÅÂ
+		BYTE					m_TraceDistance;		// ì‚¬ì • ê±°ë¦¬		
+		BYTE					m_TraceObjectAction;	// ì¶”ì í•˜ëŠ” Objectì˜ ìƒíƒœ
 		bool					m_bTraceCreatureToForceAttack;
 		bool					m_bNextForceAttack;
 
-		// ´ÙÀ½ ÃßÀû - Buffering
+		// ë‹¤ìŒ ì¶”ì  - Buffering
 		WORD					m_fNextTrace;
 		TYPE_OBJECTID			m_NextTraceID;
 		TYPE_SECTORPOSITION		m_NextTraceX;
@@ -643,13 +643,13 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		short					m_NextTraceZ;
 		BYTE					m_NextTraceObjectAction;
 
-		// Çàµ¿À» ¹İº¹ÇÏ´Â°¡?
+		// í–‰ë™ì„ ë°˜ë³µí•˜ëŠ”ê°€?
 		BOOL					m_bRepeatAction;
 		
-		// ¾î¶² Creature¸¦ °è¼Ó ÃßÀûÇÏ´Â°¡?
+		// ì–´ë–¤ Creatureë¥¼ ê³„ì† ì¶”ì í•˜ëŠ”ê°€?
 		bool					m_bKeepTraceCreature;
 
-		// ¿òÁ÷ÀÌ´Âµ¥ ÇÊ¿äÇÑ °Íµé..
+		// ì›€ì§ì´ëŠ”ë° í•„ìš”í•œ ê²ƒë“¤..
 		typedef std::priority_queue<DNode*, std::vector<DNode*>, Comparison>	DNODE_PQ;
 		typedef	std::list<DNode*>												DNODE_LIST;
 
@@ -659,63 +659,63 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		DIRECTION_LIST	m_listDirection;
 		DIRECTION_LIST	m_listSendDirection;
 
-		// ±â¼ú »ç¿ë ÈÄÀÇ delay
+		// ê¸°ìˆ  ì‚¬ìš© í›„ì˜ delay
 		DWORD						m_DelayTime;
 
-		// Æê ·çÆÃ »ç¿ëÈÄÀÇ delay
+		// í« ë£¨íŒ… ì‚¬ìš©í›„ì˜ delay
 		DWORD						m_PetDelayTime;
 
-		// ÇöÀç ÁøÇà ÁßÀÎ »ç¿ë ±â¼ú
+		// í˜„ì¬ ì§„í–‰ ì¤‘ì¸ ì‚¬ìš© ê¸°ìˆ 
 		EFFECTTARGET_LIST			m_listEffectTarget;
 
-		// ÇöÀç ÀüÅõ Mode
+		// í˜„ì¬ ì „íˆ¬ Mode
 		ATTACK_MODE					m_AttackMode;
 
-		// Á×°í ³ª¼­ÀÇ delay½Ã°£ - ¾ğÁ¦±îÁö..
+		// ì£½ê³  ë‚˜ì„œì˜ delayì‹œê°„ - ì–¸ì œê¹Œì§€..
 		DWORD						m_DeadDelayTime;
 
-		// ItemÀ» ±â¾ïÇÏ°í ÀÖÀÚ..
+		// Itemì„ ê¸°ì–µí•˜ê³  ìˆì..
 		ITEM_CHECK_BUFFER			m_ItemCheckBufferStatus;
 		MItem*						m_pItemCheckBuffer;
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
-		DWORD						m_dwSubItemIDCheckBuffer; // add 2005, 3, 2, sobeit added  - ¾î¶² subinventory ¿¡¼­ »ç¿ë Çß´ÂÁö
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
+		DWORD						m_dwSubItemIDCheckBuffer; // add 2005, 3, 2, sobeit added  - ì–´ë–¤ subinventory ì—ì„œ ì‚¬ìš© í–ˆëŠ”ì§€
 	#endif
 
-		// ±â¼ú »ç¿ëÀÇ ¸ñÇ¥ : effect target
+		// ê¸°ìˆ  ì‚¬ìš©ì˜ ëª©í‘œ : effect target
 		MEffectTarget*				m_pEffectTarget;
 
-		// server¿¡¼­ °ËÁõÀ» ±â´Ù¸®´Â »óÅÂ
+		// serverì—ì„œ ê²€ì¦ì„ ê¸°ë‹¤ë¦¬ëŠ” ìƒíƒœ
 		WAIT_VERIFY					m_WaitVerify;
 		TYPE_ACTIONINFO				m_WaitVerifyActionInfo;
 
-		// ¹ìÆÄÀÌ¾î·Î º¯ÇÏ´Âµ¥ ³²Àº delay frame - ¾ğÁ¦±îÁö
+		// ë±€íŒŒì´ì–´ë¡œ ë³€í•˜ëŠ”ë° ë‚¨ì€ delay frame - ì–¸ì œê¹Œì§€
 		DWORD						m_ConversionDelayTime;
 
-		// packetÀ» º¸³»Áö ¾Ê´Â actioninfo 
-		// flash sliding¶§¹®¿¡ Ãß°¡µÆ´Ù. - -;;
+		// packetì„ ë³´ë‚´ì§€ ì•ŠëŠ” actioninfo 
+		// flash slidingë•Œë¬¸ì— ì¶”ê°€ëë‹¤. - -;;
 		TYPE_ACTIONINFO					m_nNoPacketUsedActionInfo;
 
 		//----------------------------------------------------
 		// Lock Mode
 		//----------------------------------------------------
-		// Á¦ÀÚ¸®¿¡ Á¤ÁöÇØ¼­ ±ÙÃ³¿¡ ÀÖ´Â ÀûÀ» °ø°İÇÑ´Ù.
+		// ì œìë¦¬ì— ì •ì§€í•´ì„œ ê·¼ì²˜ì— ìˆëŠ” ì ì„ ê³µê²©í•œë‹¤.
 		bool						m_bLockMode;
 
-		// ºûÀÇ Å©±â 
+		// ë¹›ì˜ í¬ê¸° 
 		char					m_TimeLightSight;
-//		TYPE_SECTORPOSITION		m_TimeLightSightX;	// ÃÖ±Ù¿¡ ½Ã¾ß¸¦ SetÇÑ À§Ä¡
+//		TYPE_SECTORPOSITION		m_TimeLightSightX;	// ìµœê·¼ì— ì‹œì•¼ë¥¼ Setí•œ ìœ„ì¹˜
 //		TYPE_SECTORPOSITION		m_TimeLightSightY;		
 		int						m_ItemLightSight;
 		int						m_LightSight;
 
-		// ½Ã¾ßÀÇ Å©±â
+		// ì‹œì•¼ì˜ í¬ê¸°
 		char					m_Sight;		
 
 		// 2004, 8, 21, sobeit add start
-		// ÀÎÃ¦ 130 ½ºÅ³ °ü·Ã
+		// ì¸ì±ˆ 130 ìŠ¤í‚¬ ê´€ë ¨
 		BYTE					m_SweepVice_Value;
-		TYPE_SECTORPOSITION		m_TempSelectPosX; // Temporary ÇÏ°Ô ¾²·Á°í..-_-
+		TYPE_SECTORPOSITION		m_TempSelectPosX; // Temporary í•˜ê²Œ ì“°ë ¤ê³ ..-_-
 		TYPE_SECTORPOSITION		m_TempSelectPosY;
 		TYPE_SECTORPOSITION		m_SweepViceX;
 		TYPE_SECTORPOSITION		m_SweepViceY;

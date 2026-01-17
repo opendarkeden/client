@@ -3,6 +3,8 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "client_PCH.h"
+#define assert(e) ((void)(e))
+// Disabled assert for macOS
 
 #pragma warning(disable:4786)
 

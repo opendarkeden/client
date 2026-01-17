@@ -19,7 +19,8 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void UCRequestLoginModeHandler::execute ( UCRequestLoginMode * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY 
 	__END_CATCH  

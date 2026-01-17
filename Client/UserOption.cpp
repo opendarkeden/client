@@ -5,7 +5,9 @@
 #include "Client_PCH.h"
 #include "UserOption.h"
 #include "KeyAccelerator.h"
+#ifdef PLATFORM_WINDOWS
 #include <DInput.h>
+#endif
 #include <cstdio>
 
 
@@ -23,20 +25,20 @@ UserOption::UserOption()
 {	
 	Use3DHAL			= FALSE;
 	UseSmoothCursor		= FALSE;//TRUE;
-	DrawMinimap			= TRUE;		// minimapÀ» ±×¸±±î?
-	DrawZoneName		= TRUE;		// ZoneÀÌ¸§ Ãâ·Â
-	DrawGameTime		= TRUE;		// °ÔÀÓ ½Ã°£ Ãâ·Â
+	DrawMinimap			= TRUE;		// minimapì„ ê·¸ë¦´ê¹Œ?
+	DrawZoneName		= TRUE;		// Zoneì´ë¦„ ì¶œë ¥
+	DrawGameTime		= TRUE;		// ê²Œì„ ì‹œê°„ ì¶œë ¥
 	DrawInterface		= FALSE;		// interface
 	DrawFPS				= FALSE;		// FPS
-	BlendingShadow		= FALSE;//TRUE;			// ±×¸²ÀÚ ¹İÅõ¸í
-	FilteringCurse		= TRUE;		// ³ª»Û ¸» Á¦°Å
-	PlayMusic			= TRUE;		// À½¾Ç Ãâ·Â
-	PlaySound			= TRUE;		// È¿°úÀ½ Ãâ·Â
-	VolumeMusic			= 15;		// À½¾Ç ¼Ò¸®Å©±â
-	VolumeSound			= 15;		// È¿°úÀ½ ¼Ò¸® Å©±â
-	UseHelpEvent		= TRUE;		// µµ¿ò¸» »ç¿ë
-	PlayWaveMusic		= TRUE;		// Wav·Î À½¾Ç Ãâ·ÂÇÏ±â(¾Æ´Ï¸é MID·Î)
-	BloodDrop			= TRUE;		// HP ³·À» ¶§ ÇÇ Èê¸®±â
+	BlendingShadow		= FALSE;//TRUE;			// ê·¸ë¦¼ì ë°˜íˆ¬ëª…
+	FilteringCurse		= TRUE;		// ë‚˜ìœ ë§ ì œê±°
+	PlayMusic			= TRUE;		// ìŒì•… ì¶œë ¥
+	PlaySound			= TRUE;		// íš¨ê³¼ìŒ ì¶œë ¥
+	VolumeMusic			= 15;		// ìŒì•… ì†Œë¦¬í¬ê¸°
+	VolumeSound			= 15;		// íš¨ê³¼ìŒ ì†Œë¦¬ í¬ê¸°
+	UseHelpEvent		= TRUE;		// ë„ì›€ë§ ì‚¬ìš©
+	PlayWaveMusic		= TRUE;		// Wavë¡œ ìŒì•… ì¶œë ¥í•˜ê¸°(ì•„ë‹ˆë©´ MIDë¡œ)
+	BloodDrop			= TRUE;		// HP ë‚®ì„ ë•Œ í”¼ í˜ë¦¬ê¸°
 	OpenQuickSlot		= FALSE;
 	UseHalfFrame		= FALSE;
 	DrawTransHPBar		= TRUE;
@@ -61,8 +63,8 @@ UserOption::UserOption()
 	DefaultAlpha		= FALSE;
 	IsPreLoadMonster	= TRUE;
 	ChatWhite			= FALSE;
-	UseTeenVersion		= FALSE;				// Æ¾¹öÀüÀ¸·Î °ÔÀÓÇÏ±â
-	PopupChatByWhisper	= TRUE;			// ±Ó¼Ó¸» ¿ÔÀ»¶§ Ã¤ÆÃÃ¢ Àá±ñ º¸ÀÌ±â
+	UseTeenVersion		= FALSE;				// í‹´ë²„ì „ìœ¼ë¡œ ê²Œì„í•˜ê¸°
+	PopupChatByWhisper	= TRUE;			// ê·“ì†ë§ ì™”ì„ë•Œ ì±„íŒ…ì°½ ì ê¹ ë³´ì´ê¸°
 	NotSendMyInfo = FALSE;
 	DoNotShowWarMsg = FALSE;
 	DoNotShowLairMsg = FALSE;
@@ -93,7 +95,7 @@ UserOption::~UserOption()
 void	
 UserOption::SaveToFile(const char* filename)
 {
-	// class ofstream file(filename, ios::binary);	
+	// std::ofstream file(filename, ios::binary);	
 	FILE* file = fopen(filename, "w");
 
 	DWORD flag = 0;

@@ -33,7 +33,7 @@ MPlayerGear::~MPlayerGear()
 //
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
-// Init ItemStatus ( n°³ )
+// Init ItemStatus ( nê°œ )
 //----------------------------------------------------------------------
 void			
 MPlayerGear::Init(BYTE size)
@@ -41,7 +41,7 @@ MPlayerGear::Init(BYTE size)
 	MSlotItemManager::Init( size );
 
 	//--------------------------------------------------------
-	// Item »óÅÂ¸¦ ¸ğµÎ OK·Î ¼³Á¤ÇÑ´Ù.
+	// Item ìƒíƒœë¥¼ ëª¨ë‘ OKë¡œ ì„¤ì •í•œë‹¤.
 	//--------------------------------------------------------
 	if (m_pItemStatus!=NULL)
 	{
@@ -98,7 +98,7 @@ MPlayerGear::AddItem(MItem* pItem, BYTE n)
 MItem*
 MPlayerGear::GetItem(BYTE n) const
 {
-	return MSlotItemManager::GetItem( n );	// À½³Ä ÇÏÇÏ..
+	return MSlotItemManager::GetItem( n );	// ìŒëƒ í•˜í•˜..
 }
 
 //----------------------------------------------------------------------
@@ -111,7 +111,7 @@ MPlayerGear::RemoveItem(BYTE n)
 
 	if (pItem!=NULL)
 	{
-		// Á¦°ÅÇÑ´Ù´Â ÀÇ¹ÌÀÌ´Ù.
+		// ì œê±°í•œë‹¤ëŠ” ì˜ë¯¸ì´ë‹¤.
 		SetItemStatusOK( n );
 	}
 
@@ -128,7 +128,7 @@ MPlayerGear::RemoveItem(TYPE_OBJECTID id)
 
 	if (pItem!=NULL)
 	{
-		// Á¦°ÅÇÑ´Ù´Â ÀÇ¹ÌÀÌ´Ù.
+		// ì œê±°í•œë‹¤ëŠ” ì˜ë¯¸ì´ë‹¤.
 		SetItemStatusOK( pItem->GetItemSlot() );
 	}
 
@@ -147,11 +147,11 @@ MPlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 	{
 		if (pOldItem!=NULL)
 		{
-			SetItemStatusOK( pOldItem->GetItemSlot() );		// ÀÏ´Ü OK»óÅÂ·Î..
+			SetItemStatusOK( pOldItem->GetItemSlot() );		// ì¼ë‹¨ OKìƒíƒœë¡œ..
 		}
 		
-		// Replace´Â ¹®Á¦°¡ Á» ¸¹¾Æ¼­ »ó¼Ó¹ŞÀºµ¥¼­ Ã³¸®ÇØ¾ß ÇÑ´Ù.
-		//CheckItemStatus( pItem, n );	// »õ·Î¿î item¿¡ ´ëÇÑ Ã¼Å©				
+		// ReplaceëŠ” ë¬¸ì œê°€ ì¢€ ë§ì•„ì„œ ìƒì†ë°›ì€ë°ì„œ ì²˜ë¦¬í•´ì•¼ í•œë‹¤.
+		//CheckItemStatus( pItem, n );	// ìƒˆë¡œìš´ itemì— ëŒ€í•œ ì²´í¬				
 	}
 
 	return bAdded;
@@ -160,14 +160,14 @@ MPlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 //----------------------------------------------------------------------
 // Set ItemStatus OK ( slot )
 //----------------------------------------------------------------------
-// slot¹øÂ°´Â ÁÁÀº »óÅÂÀÇ ¾ÆÀÌÅÛÀÌ´Ù..¶ó°í ÇÑ´Ù. - -;
-// RemoveµÈ °æ¿ì... ±×³É OK¶ó°í ÇÏ±â À§ÇØ¼­´Ù.
+// slotë²ˆì§¸ëŠ” ì¢‹ì€ ìƒíƒœì˜ ì•„ì´í…œì´ë‹¤..ë¼ê³  í•œë‹¤. - -;
+// Removeëœ ê²½ìš°... ê·¸ëƒ¥ OKë¼ê³  í•˜ê¸° ìœ„í•´ì„œë‹¤.
 //----------------------------------------------------------------------
 void			
 MPlayerGear::SetItemStatusOK(int slot)
 {
 	//----------------------------------------------------------
-	// ºÎ¼­Á³´ø itemÀÎ °æ¿ì...
+	// ë¶€ì„œì¡Œë˜ itemì¸ ê²½ìš°...
 	//----------------------------------------------------------
 	if (m_pItemStatus[slot]!=ITEM_STATUS_OK)
 	{
@@ -183,7 +183,7 @@ MPlayerGear::SetItemStatusOK(int slot)
 //----------------------------------------------------------------------
 // Check ItemStatus
 //----------------------------------------------------------------------
-// pItemÀÇ »óÅÂ¸¦ slot¿¡ ¼³Á¤ÇÑ´Ù.
+// pItemì˜ ìƒíƒœë¥¼ slotì— ì„¤ì •í•œë‹¤.
 //----------------------------------------------------------------------
 void			
 MPlayerGear::CheckItemStatus(const MItem* pItem, int slot)
@@ -193,7 +193,7 @@ MPlayerGear::CheckItemStatus(const MItem* pItem, int slot)
 	TYPE_ITEM_DURATION	maxDur = pItem->GetMaxDurability();
 	TYPE_ITEM_DURATION	curDur = pItem->GetCurrentDurability();
 
-	// ³»±¸¼º »óÅÂ.. % 
+	// ë‚´êµ¬ì„± ìƒíƒœ.. % 
 	TYPE_ITEM_DURATION	itemStatusPer = 0;
 
 	if(maxDur <= 0 ||pItem->IsSpecialColorItem() || pItem->IsDurationAlwaysOkay())
@@ -203,7 +203,7 @@ MPlayerGear::CheckItemStatus(const MItem* pItem, int slot)
 
 
 	//----------------------------------------------------------
-	// Á¤»óÀûÀÎ »óÅÂ		
+	// ì •ìƒì ì¸ ìƒíƒœ		
 	//----------------------------------------------------------
 	if (itemStatusPer > 
 #ifdef __GAME_CLIENT__
@@ -216,7 +216,7 @@ MPlayerGear::CheckItemStatus(const MItem* pItem, int slot)
 		m_pItemStatus[slot] = ITEM_STATUS_OK;
 
 		//----------------------------------------------------------
-		// ºÎ¼­Á³´Ù°¡ ÁÁ¾ÆÁø »óÅÂÀÌ´Ù.
+		// ë¶€ì„œì¡Œë‹¤ê°€ ì¢‹ì•„ì§„ ìƒíƒœì´ë‹¤.
 		//----------------------------------------------------------
 		if (oldStatus!=ITEM_STATUS_OK)
 		{
@@ -227,12 +227,12 @@ MPlayerGear::CheckItemStatus(const MItem* pItem, int slot)
 		}
 	}
 	//----------------------------------------------------------
-	// ºÎ¼­Áø °æ¿ì..
+	// ë¶€ì„œì§„ ê²½ìš°..
 	//----------------------------------------------------------
 	else
 	{
 		//----------------------------------------------------------
-		// °ÅÀÇ ºÎ¼­Á®°¡´Â »óÅÂ --> »¡°£»ö
+		// ê±°ì˜ ë¶€ì„œì ¸ê°€ëŠ” ìƒíƒœ --> ë¹¨ê°„ìƒ‰
 		//----------------------------------------------------------
 		if (itemStatusPer <= 
 #ifdef __GAME_CLIENT__
@@ -245,7 +245,7 @@ MPlayerGear::CheckItemStatus(const MItem* pItem, int slot)
 			m_pItemStatus[slot] = ITEM_STATUS_ALMOST_BROKEN;
 		}
 		//----------------------------------------------------------
-		// ¾à°£? ºÎ¼­Áø »óÅÂ			
+		// ì•½ê°„? ë¶€ì„œì§„ ìƒíƒœ			
 		//----------------------------------------------------------
 		else
 		{
@@ -253,26 +253,26 @@ MPlayerGear::CheckItemStatus(const MItem* pItem, int slot)
 		}
 
 		//----------------------------------------------------------
-		// ÁÁ¾ÆÁ³´Ù°¡ ºÎ¼­Á³À¸¸é..
+		// ì¢‹ì•„ì¡Œë‹¤ê°€ ë¶€ì„œì¡Œìœ¼ë©´..
 		//----------------------------------------------------------
 		if (oldStatus==ITEM_STATUS_OK)
 		{
-			m_nBrokenItem++;	// ÇÑ°è¸¦ ³ÑÀ» ¼ö ÀÖÀ»±î? - -;			
+			m_nBrokenItem++;	// í•œê³„ë¥¼ ë„˜ì„ ìˆ˜ ìˆì„ê¹Œ? - -;			
 		}
 	}		
 }
 
 
 //----------------------------------------------------------------------
-// Modify Durability ( slot, ÇöÀç°ª )
+// Modify Durability ( slot, í˜„ì¬ê°’ )
 //----------------------------------------------------------------------
-// ¿ø·¡´Â 'º¯È­°ª'ÀÌ¾ú´Âµ¥.. 'ÇöÀç°ª'À¸·Î ¼³Á¤ÇÑ´Ù.
+// ì›ë˜ëŠ” 'ë³€í™”ê°’'ì´ì—ˆëŠ”ë°.. 'í˜„ì¬ê°’'ìœ¼ë¡œ ì„¤ì •í•œë‹¤.
 //----------------------------------------------------------------------
 bool			
 MPlayerGear::ModifyDurability(BYTE n, int changeValue)
 {
 	//---------------------------------------------------------
-	// ItemSlot ¹üÀ§¸¦ ³Ñ¾î°¡´Â °æ¿ì..
+	// ItemSlot ë²”ìœ„ë¥¼ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 	//---------------------------------------------------------	
 	if (n>=m_Size)
 	{
@@ -292,21 +292,21 @@ MPlayerGear::ModifyDurability(BYTE n, int changeValue)
 	int modifyDurability = changeValue;//currentDurability + changeValue;
 
 	//---------------------------------------------------------	
-	// max¸¦ ³Ñ¾î°¡´Â °æ¿ì
+	// maxë¥¼ ë„˜ì–´ê°€ëŠ” ê²½ìš°
 	//---------------------------------------------------------	
 	if ( modifyDurability > maxDurability)
 	{
 		pItem->SetCurrentDurability( maxDurability );
 	}
 	//---------------------------------------------------------	
-	// 0º¸´Ù ÀûÀº °æ¿ì
+	// 0ë³´ë‹¤ ì ì€ ê²½ìš°
 	//---------------------------------------------------------	
 	else if (modifyDurability < 0)
 	{
 		pItem->SetCurrentDurability( 0 );
 	}
 	//---------------------------------------------------------	
-	// Á¤»óÀûÀ¸·Î ¹Ù²î´Â °æ¿ì
+	// ì •ìƒì ìœ¼ë¡œ ë°”ë€ŒëŠ” ê²½ìš°
 	//---------------------------------------------------------	
 	else
 	{
@@ -314,7 +314,7 @@ MPlayerGear::ModifyDurability(BYTE n, int changeValue)
 	}
 
 	//---------------------------------------------------------	
-	// Item»óÅÂ Ã¼Å©
+	// Itemìƒíƒœ ì²´í¬
 	//---------------------------------------------------------	
 	ITEM_STATUS oldStatus = m_pItemStatus[n];
 	
@@ -322,10 +322,10 @@ MPlayerGear::ModifyDurability(BYTE n, int changeValue)
 #ifdef __GAME_CLIENT__
 //#ifdef __USE_HELP_EVENT
 //	__BEGIN_HELP_EVENT	
-//		// OK¿´´Âµ¥.. OK°¡ ¾Æ´Ï°Ô µÇ´Â °æ¿ì
+//		// OKì˜€ëŠ”ë°.. OKê°€ ì•„ë‹ˆê²Œ ë˜ëŠ” ê²½ìš°
 		if (oldStatus==ITEM_STATUS_OK && m_pItemStatus[n]!=ITEM_STATUS_OK)
 		{
-			// [µµ¿ò¸»] ¾ÆÀÌÅÛÀÌ ºÎ¼­Á®°¡´Â °æ¿ì
+			// [ë„ì›€ë§] ì•„ì´í…œì´ ë¶€ì„œì ¸ê°€ëŠ” ê²½ìš°
 			ExecuteHelpEvent( HELP_EVENT_ITEM_REPAIR );
 		}
 //	__END_HELP_EVENT
@@ -337,12 +337,13 @@ MPlayerGear::ModifyDurability(BYTE n, int changeValue)
 //----------------------------------------------------------------------
 // Check ItemStatus All
 //----------------------------------------------------------------------
-// ¸ğµç itemÀÇ item»óÅÂ¸¦ Ã¼Å©ÇÑ´Ù.
+// ëª¨ë“  itemì˜ itemìƒíƒœë¥¼ ì²´í¬í•œë‹¤.
 //----------------------------------------------------------------------
-void			
+void
 MPlayerGear::CheckItemStatusAll()
 {
-	for (BYTE i=0; i<m_Size; i++)
+	BYTE i;
+	for (i=0; i<m_Size; i++)
 	{
 		m_pItemStatus[i] = ITEM_STATUS_OK;
 	}
@@ -350,7 +351,7 @@ MPlayerGear::CheckItemStatusAll()
 	m_nBrokenItem = 0;
 
 	//---------------------------------------------------
-	// ¸ğµÎ Ã¼Å©
+	// ëª¨ë‘ ì²´í¬
 	//---------------------------------------------------
 	for (i=0; i<m_Size; i++)
 	{

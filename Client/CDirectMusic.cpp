@@ -8,11 +8,13 @@
 //----------------------------------------------------------------------
 // Global
 //----------------------------------------------------------------------
- 
+
+// Global instance - defined in platform-specific files
+#ifdef PLATFORM_WINDOWS
 CDirectMusic		g_DXMusic;
 
 //----------------------------------------------------------------------
-// 
+//
 // constructor / destructor
 //
 //----------------------------------------------------------------------
@@ -176,7 +178,7 @@ CDirectMusic::Release()
 //----------------------------------------------------------------------
 // Add Volume
 //----------------------------------------------------------------------
-// hdec¸¸Å­ volumeÀ» Áõ°¡½ÃÅ²´Ù.
+// hdecë§Œí¼ volumeì„ ì¦ê°€ì‹œí‚¨ë‹¤.
 //----------------------------------------------------------------------
 /*
 void		
@@ -219,7 +221,7 @@ CDirectMusic::AddVolume(long hdec)
 //----------------------------------------------------------------------
 // Sub Volume
 //----------------------------------------------------------------------
-// hdec¸¸Å­ volumeÀ» °¨¼Ò½ÃÅ²´Ù.
+// hdecë§Œí¼ volumeì„ ê°ì†Œì‹œí‚¨ë‹¤.
 //----------------------------------------------------------------------
 void		
 CDirectMusic::SubVolume(long hdec)
@@ -233,7 +235,7 @@ CDirectMusic::SubVolume(long hdec)
 bool 
 CDirectMusic::Play(const char* filename, WORD repeat)
 {	
-	// fileÀÌ¸§ÀÌ ¾ø´Â °æ¿ì
+	// fileì´ë¦„ì´ ì—†ëŠ” ê²½ìš°
 	if (!m_bInit || filename==NULL) 
 	{
 		return false;
@@ -274,7 +276,7 @@ CDirectMusic::Play(const char* filename, WORD repeat)
 
     m_pDMLoader->GetObject(&ObjDesc, IID_IDirectMusicSegment2, (VOID **) &m_pDMSegment);
 
-	// ¾ø´Â °æ¿ì...
+	// ì—†ëŠ” ê²½ìš°...
 	if (!m_pDMSegment) 
 	{
 		return false;
@@ -284,10 +286,10 @@ CDirectMusic::Play(const char* filename, WORD repeat)
 
 	m_pDMSegment->SetParam(GUID_Download, -1, 0, 0, (void*)m_pDMPerformance);
 
-	// ¹İº¹ È¸¼ö ¼³Á¤
+	// ë°˜ë³µ íšŒìˆ˜ ì„¤ì •
 	m_pDMSegment->SetRepeats(repeat);	
 
-	// ¿¬ÁÖÇÑ´Ù.
+	// ì—°ì£¼í•œë‹¤.
 	if SUCCEEDED(m_pDMPort->Activate(TRUE))
 	{
 		if (m_pDMSegmentState)
@@ -313,7 +315,7 @@ CDirectMusic::Play(const char* filename, WORD repeat)
 			m_bPlay = true;	
 			
 			//----------------------------------------------------
-			// original tempo¸¦ ¾ò¾î³½´Ù.
+			// original tempoë¥¼ ì–»ì–´ë‚¸ë‹¤.
 			//----------------------------------------------------
 			DMUS_TEMPO_PARAM tempoParams;
 			
@@ -336,7 +338,7 @@ CDirectMusic::Play(const char* filename, WORD repeat)
 	}
 	else
 	{
-		//MessageBox(NULL,"¼ÒÇÁÆ®¿ş¾î ½ÅµğÆ÷Æ® È°¼ºÈ­ ¿¡·¯ ","DMusic Error",MB_OK);
+		//MessageBox(NULL,"ì†Œí”„íŠ¸ì›¨ì–´ ì‹ ë””í¬íŠ¸ í™œì„±í™” ì—ëŸ¬ ","DMusic Error",MB_OK);
 		return false;
 	}
 
@@ -346,12 +348,12 @@ CDirectMusic::Play(const char* filename, WORD repeat)
 //----------------------------------------------------------------------
 // Pause
 //----------------------------------------------------------------------
-// Àá½Ã Áß´Ü½ÃÅ²´Ù.
+// ì ì‹œ ì¤‘ë‹¨ì‹œí‚¨ë‹¤.
 //----------------------------------------------------------------------
 void 
 CDirectMusic::Pause()
 {
-	// È­ÀÏÀÌ LoadµÇ¾î¼­ ¿¬ÁÖ ÁßÀÎ °æ¿ì...
+	// í™”ì¼ì´ Loadë˜ì–´ì„œ ì—°ì£¼ ì¤‘ì¸ ê²½ìš°...
 	if (m_bInit && m_bLoad && m_bPlay)
 	{	
 		MUSIC_TIME          mtNow;
@@ -381,7 +383,7 @@ CDirectMusic::Pause()
 //----------------------------------------------------------------------
 // Resume
 //----------------------------------------------------------------------
-// Á¤ÁöµÇ¾ú´ø À½¾ÇÀ» ´Ù½Ã ¿¬ÁÖÇÑ´Ù.
+// ì •ì§€ë˜ì—ˆë˜ ìŒì•…ì„ ë‹¤ì‹œ ì—°ì£¼í•œë‹¤.
 //----------------------------------------------------------------------
 void 
 CDirectMusic::Resume()
@@ -462,7 +464,7 @@ CDirectMusic::SetCurrentTempo(int tempo)
 
 			m_pDMPerformance->FreePMsg((DMUS_PMSG*)pTempo);
 
-			// ÇöÀç ÅÛÆ÷¸¦ ±â¾ïÇØµĞ´Ù.
+			// í˜„ì¬ í…œí¬ë¥¼ ê¸°ì–µí•´ë‘”ë‹¤.
 			m_CurrentTempo = tempo;
 		}
 
@@ -539,8 +541,8 @@ CDirectMusic::CreatePerformance()
 //----------------------------------------------------------------------
 // Create Port
 //----------------------------------------------------------------------
-// dmpc.dwTypeÀÌ WINMMÀÌ°í EXTERNALÀÌ ¾Æ´Ñ°ÍÀ» ÀÏ´Ü Ã£´Â´Ù.
-// ¾øÀ¸¸é.. --> SoftwareSynth(Default)¸¦ »ç¿ëÇÑ´Ù.
+// dmpc.dwTypeì´ WINMMì´ê³  EXTERNALì´ ì•„ë‹Œê²ƒì„ ì¼ë‹¨ ì°¾ëŠ”ë‹¤.
+// ì—†ìœ¼ë©´.. --> SoftwareSynth(Default)ë¥¼ ì‚¬ìš©í•œë‹¤.
 //----------------------------------------------------------------------
 bool 
 CDirectMusic::CreatePort(DIRECTMUSIC_TYPE type)
@@ -564,7 +566,7 @@ CDirectMusic::CreatePort(DIRECTMUSIC_TYPE type)
 	//----------------------------------------------------
 	// Find a output port.
 	//----------------------------------------------------
-	// Hardware Midi¸¦ »ç¿ëÇÏ´Â °æ¿ì
+	// Hardware Midië¥¼ ì‚¬ìš©í•˜ëŠ” ê²½ìš°
 	//----------------------------------------------------
 	if (type==DIRECTMUSIC_TYPE_HW)
 	{
@@ -576,23 +578,23 @@ CDirectMusic::CreatePort(DIRECTMUSIC_TYPE type)
 			hr = m_pDM->EnumPort(index, &dmpc);
 
 			//----------------------------------------------------
-			// Á¸ÀçÇÏ´Â PortÀÎ °æ¿ì...
+			// ì¡´ì¬í•˜ëŠ” Portì¸ ê²½ìš°...
 			//----------------------------------------------------
 			if (SUCCEEDED(hr) && hr!=S_FALSE)
 			{		
 				//----------------------------------------------------
-				// ÀûÀıÇÑ portÀÎÁö ¾Ë¾Æº»´Ù.
+				// ì ì ˆí•œ portì¸ì§€ ì•Œì•„ë³¸ë‹¤.
 				//----------------------------------------------------
-				// class°¡ DMUS_PC_OUTPUTCLASSÀÌ¾î¾ß ÇÑ´Ù.
-				// flag¿¡ DMUS_PC_EXTERNALÀÌ ÀÖÀ¸¸é ¾ÈµÈ´Ù.
-				// typeÀÌ DMUS_PORT_WINMM_DRIVER¿©¾ß ÇÑ´Ù.
+				// classê°€ DMUS_PC_OUTPUTCLASSì´ì–´ì•¼ í•œë‹¤.
+				// flagì— DMUS_PC_EXTERNALì´ ìˆìœ¼ë©´ ì•ˆëœë‹¤.
+				// typeì´ DMUS_PORT_WINMM_DRIVERì—¬ì•¼ í•œë‹¤.
 				if ((dmpc.dwClass == DMUS_PC_OUTPUTCLASS) &&
 					!(dmpc.dwFlags & DMUS_PC_EXTERNAL) &&
 					(dmpc.dwType == DMUS_PORT_WINMM_DRIVER))
 				{	
 					/*
 					//----------------------------------------------------
-					// Port¿¡ ´ëÇÑ Á¤º¸¸¦ checkÇÏ´Â test code
+					// Portì— ëŒ€í•œ ì •ë³´ë¥¼ checkí•˜ëŠ” test code
 					//----------------------------------------------------
 					if (portIndex!=3)
 					{						
@@ -631,7 +633,7 @@ CDirectMusic::CreatePort(DIRECTMUSIC_TYPE type)
 					dmos.dwValidParams   = DMUS_PORTPARAMS_CHANNELGROUPS;						
 
 					//----------------------------------------------------
-					// m_pPort¿¡ Ã£Àº Port¸¦ »ı¼º
+					// m_pPortì— ì°¾ì€ Portë¥¼ ìƒì„±
 					//----------------------------------------------------
 					if (FAILED(m_pDM->CreatePort(guidPortGUID, &dmos, &m_pDMPort, NULL)))
 					{
@@ -639,16 +641,16 @@ CDirectMusic::CreatePort(DIRECTMUSIC_TYPE type)
 						break;
 					}
 
-					// WinMM»ç¿ë °¡´ÉÇÑ °æ¿ì...
+					// WinMMì‚¬ìš© ê°€ëŠ¥í•œ ê²½ìš°...
 					m_bSoftwareSynth	= false;
 
 					break;
 				}
 
-				// ´Ù¸¥ °æ¿ì´Â ¹«½ÃÇÑ´Ù.
+				// ë‹¤ë¥¸ ê²½ìš°ëŠ” ë¬´ì‹œí•œë‹¤.
 			}
 			//----------------------------------------------------
-			// ´õ ÀÌ»ó Ã¼Å©ÇÒ port°¡ ¾ø´Â °æ¿ì
+			// ë” ì´ìƒ ì²´í¬í•  portê°€ ì—†ëŠ” ê²½ìš°
 			//----------------------------------------------------
 			else
 			{
@@ -658,8 +660,8 @@ CDirectMusic::CreatePort(DIRECTMUSIC_TYPE type)
 	}
 
 	//----------------------------------------------------
-	// ÀûÀıÇÑ Port¸¦ ¸øÃ£Àº °æ¿ì... 
-	// default port¸¦ »ç¿ëÇÑ´Ù.
+	// ì ì ˆí•œ Portë¥¼ ëª»ì°¾ì€ ê²½ìš°... 
+	// default portë¥¼ ì‚¬ìš©í•œë‹¤.
 	//----------------------------------------------------
 	if (m_bSoftwareSynth)
 	{	
@@ -760,8 +762,12 @@ CDirectMusic::CreateLoader()
 
 		return false;
     }
-    
+
 
     return true;
 }
 
+#else
+// Non-Windows platforms: Use SDL backend implementation from CDirectMusic_Adapter.cpp
+// DirectMusic methods are implemented there
+#endif

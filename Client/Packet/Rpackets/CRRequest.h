@@ -2,7 +2,7 @@
 // 
 // Filename    : CRRequest.h 
 // Written By  : crazydog
-// Description : Effect Á¦°Å.
+// Description : Effect ì œê±°.
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -19,7 +19,7 @@ enum CR_REQUEST_CODE
 {
 	CR_REQUEST_NULL,
 
-	// Á¶¸¸°£ ±¸Çö ¿¹Á¤.. °ú¿¬.. - -;
+	// ì¡°ë§Œê°„ êµ¬í˜„ ì˜ˆì •.. ê³¼ì—°.. - -;
 	CR_REQUEST_FILE_GUILD_MARK,
 	CR_REQUEST_FILE_PROFILE,
 };
@@ -28,8 +28,8 @@ enum CR_REQUEST_CODE
 //
 // class CRRequest;
 //
-// °ÔÀÓ¼­¹ö¿¡¼­ Å¬¶óÀÌ¾ğÆ®·Î ÀÚ½ÅÀÇ º¯ÇüµÈ µ¥ÀÌÅÍ¸¦ ¾Ë·ÁÁÖ±â À§ÇÑ °´Ã¤
-// RemoveEffectrmation, SkillToObjectOK µî¿¡ ½Ç·Á¼­ ³¯¾Æ°£´Ù.
+// ê²Œì„ì„œë²„ì—ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ìì‹ ì˜ ë³€í˜•ëœ ë°ì´í„°ë¥¼ ì•Œë ¤ì£¼ê¸° ìœ„í•œ ê°ì±„
+// RemoveEffectrmation, SkillToObjectOK ë“±ì— ì‹¤ë ¤ì„œ ë‚ ì•„ê°„ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 class CRRequest : public Packet
@@ -54,16 +54,16 @@ public :
 	#endif
 
 
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write ( SocketOutputStream & oStream ) const throw ( ProtocolException , Error );
 	// execute packet's handler
 	void execute ( Player * pPlayer ) throw ( ProtocolException , Error );
 
 	// get packet's body size
-	// ÃÖÀûÈ­½Ã, ¹Ì¸® °è»êµÈ Á¤¼ö¸¦ »ç¿ëÇÑ´Ù.
+	// ìµœì í™”ì‹œ, ë¯¸ë¦¬ ê³„ì‚°ëœ ì •ìˆ˜ë¥¼ ì‚¬ìš©í•œë‹¤.
 	PacketSize_t getPacketSize () const throw () { return szBYTE + szBYTE + m_RequestName.size(); }
 	static PacketSize_t getPacketMaxSize() throw() { return szBYTE + szBYTE + 20;}
 
@@ -130,7 +130,7 @@ class CRRequestHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( CRRequest * pCRRequest , Player * pPlayer ) throw ( Error );
+	static void execute ( CRRequest * pCRRequest , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

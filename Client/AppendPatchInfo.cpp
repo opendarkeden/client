@@ -18,36 +18,36 @@ bool
 APPEND_PATCH_NODE::Append(const char* orgFilename) const
 {	
 	//-------------------------------------------------------------
-	// append»≠¿œ √º≈©..
+	// appendÌôîÏùº Ï≤¥ÌÅ¨..
 	//-------------------------------------------------------------
-	class ifstream appendFile(appendFilename.GetString(), ios::binary | ios::nocreate);		
+	std::ifstream appendFile(appendFilename.GetString(), std::ios::binary );		
 
 	int n;
 	char buffer[4096];
 
-	// øÏ» .. - -;;
+	// Ïö∞Ìõó.. - -;;
 	#ifdef __GAME_CLIENT__
 		UpdateProgressBar();
 	#endif
 
 	//-------------------------------------------------------------
-	// ∆–ƒ° »≠¿œ¿Ã ¿÷¿∏∏È ∞¡ ∆–ƒ°..
+	// Ìå®Ïπò ÌôîÏùºÏù¥ ÏûàÏúºÎ©¥ Í±ç Ìå®Ïπò..
 	//-------------------------------------------------------------
 	if (appendFile.is_open())
 	{
 		#ifdef __GAME_CLIENT__
-			SetProgressBarText("∆–ƒ° »≠¿œ¿ª ¿˚øÎΩ√≈∞∞Ì ¿÷Ω¿¥œ¥Ÿ.");
+			SetProgressBarText("Ìå®Ïπò ÌôîÏùºÏùÑ Ï†ÅÏö©ÏãúÌÇ§Í≥† ÏûàÏäµÎãàÎã§.");
 		#endif
 
-		class fstream orgFile(orgFilename, ios::binary | ios::ate | ios::in | ios::out);
+		std::fstream orgFile(orgFilename, std::ios::binary | std::ios::ate | std::ios::in | std::ios::out);
 		
 		if (orgFile.is_open())
 		{
 			WORD orgSpkSize;
 			orgFile.seekg( 0 );
-			orgFile.read((char*)&orgSpkSize, 2);	// Sprite¿« ∞≥ºˆ
+			orgFile.read((char*)&orgSpkSize, 2);	// SpriteÏùò Í∞úÏàò
 
-			appendFile.seekg( 2 );	// size∫Œ∫– ¡¶ø‹
+			appendFile.seekg( 2 );	// sizeÎ∂ÄÎ∂Ñ Ï†úÏô∏
 			orgFile.seekp( writePosition );		
 			
 			while (1)
@@ -67,14 +67,14 @@ APPEND_PATCH_NODE::Append(const char* orgFilename) const
 
 			appendFile.close();
 			
-			// ∞≥ºˆ ∫Ø∞Ê
-			orgFile.seekp( 0, ios::beg );
-			WORD afterNum = max(afterSpkSize, orgSpkSize);	// ≈´ ∞≥ºˆ∑Œ º≥¡§ - -;
+			// Í∞úÏàò Î≥ÄÍ≤Ω
+			orgFile.seekp( 0, std::ios::beg );
+			WORD afterNum = max(afterSpkSize, orgSpkSize);	// ÌÅ∞ Í∞úÏàòÎ°ú ÏÑ§Ï†ï - -;
 
 			orgFile.write((const char*)&afterSpkSize, 2);
 			orgFile.close();
 
-			// ∆–ƒ°»≠¿œ¿ª ¡ˆøÓ¥Ÿ.
+			// Ìå®ÏπòÌôîÏùºÏùÑ ÏßÄÏö¥Îã§.
 			remove( appendFilename.GetString() );
 		}
 		else
@@ -90,7 +90,7 @@ APPEND_PATCH_NODE::Append(const char* orgFilename) const
 // Save To File
 //-----------------------------------------------------------------------------
 void		
-APPEND_PATCH_NODE::SaveToFile(class ofstream& file)
+APPEND_PATCH_NODE::SaveToFile(std::ofstream& file)
 {
 	appendFilename.SaveToFile( file );
 	file.write((const char*)&appendFilesize, 4);
@@ -104,7 +104,7 @@ APPEND_PATCH_NODE::SaveToFile(class ofstream& file)
 // Load From File
 //-----------------------------------------------------------------------------
 void		
-APPEND_PATCH_NODE::LoadFromFile(class ifstream& file)
+APPEND_PATCH_NODE::LoadFromFile(std::ifstream& file)
 {
 	appendFilename.LoadFromFile( file );
 	file.read((char*)&appendFilesize, 4);
@@ -183,23 +183,23 @@ AppendPatch::SetFinalInfo(long finalFilesize, WORD finalSpkSize)
 //-----------------------------------------------------------------------------
 // Set FinalInfo
 //-----------------------------------------------------------------------------
-// currentFilenameø°º≠ ¡§∫∏∏¶ ¿–æÓµÈ¿Œ¥Ÿ.
+// currentFilenameÏóêÏÑú Ï†ïÎ≥¥Î•º ÏùΩÏñ¥Îì§Ïù∏Îã§.
 //-----------------------------------------------------------------------------
 bool		
 AppendPatch::SetFinalInfo(const char* currentFilename)
 {
-	class ifstream file(currentFilename, ios::binary | ios::nocreate);
+	std::ifstream file(currentFilename, std::ios::binary );
 
 	if (!file.is_open())
 	{
 		return false;
 	}
 
-	// appSpkSize - Pack ∞≥ºˆ
+	// appSpkSize - Pack Í∞úÏàò
 	file.read((char*)&m_finalSpkSize, 2);
-	file.seekg( 0, ios::end );
+	file.seekg( 0, std::ios::end );
 
-	// appendFilesize - AppendPack ≈©±‚
+	// appendFilesize - AppendPack ÌÅ¨Í∏∞
 	m_finalFilesize = file.tellg();	
 	
 	file.close();
@@ -217,7 +217,7 @@ AppendPatch::AddAppendInfo(const char* appendFilename, long appendFilesize, WORD
 	WORD previousSpkSize;
 
 	//------------------------------------------------------------
-	// πŸ∑Œ ¿¸ ªÛ≈¬¿« ¡§∫∏
+	// Î∞îÎ°ú Ï†Ñ ÏÉÅÌÉúÏùò Ï†ïÎ≥¥
 	//------------------------------------------------------------
 	if (m_AppendPatch.size()==0)
 	{
@@ -233,7 +233,7 @@ AppendPatch::AddAppendInfo(const char* appendFilename, long appendFilesize, WORD
 	}
 
 	//------------------------------------------------------------
-	// «ˆ¿Á ¡§∫∏ º≥¡§
+	// ÌòÑÏû¨ Ï†ïÎ≥¥ ÏÑ§Ï†ï
 	//------------------------------------------------------------
 	APPEND_PATCH_NODE* pNode = new APPEND_PATCH_NODE;
 
@@ -241,7 +241,7 @@ AppendPatch::AddAppendInfo(const char* appendFilename, long appendFilesize, WORD
 	pNode->appendFilesize	= appendFilesize;
 	pNode->appSpkSize		= appSpkSize;		
 	pNode->writePosition	= previousFilesize;
-	pNode->afterFilesize	= previousFilesize + appendFilesize-2;	// SPK¿« ∞≥ºˆ ∫Œ∫– 2 bytes
+	pNode->afterFilesize	= previousFilesize + appendFilesize-2;	// SPKÏùò Í∞úÏàò Î∂ÄÎ∂Ñ 2 bytes
 	pNode->afterSpkSize		= previousSpkSize + appSpkSize;
 
 	m_AppendPatch.push_back( pNode );
@@ -250,31 +250,31 @@ AppendPatch::AddAppendInfo(const char* appendFilename, long appendFilesize, WORD
 //-----------------------------------------------------------------------------
 // Add AppendInfo
 //-----------------------------------------------------------------------------
-// currentFilename¿∫ «ˆ¿Á »≠¿œ¿« ¿ßƒ°¿Ã¥Ÿ.
-// appendPatch∏¶ «“ ¿ßƒ°¥¬ m_orgFilename¿ª ¬¸∞Ì«ÿæﬂ «—¥Ÿ.
+// currentFilenameÏùÄ ÌòÑÏû¨ ÌôîÏùºÏùò ÏúÑÏπòÏù¥Îã§.
+// appendPatchÎ•º Ìï† ÏúÑÏπòÎäî m_orgFilenameÏùÑ Ï∞∏Í≥†Ìï¥Ïïº ÌïúÎã§.
 //-----------------------------------------------------------------------------
 bool
 AppendPatch::AddAppendInfo(const char* currentFilename)
 {
 	//------------------------------------------------------------
-	// « ø‰«— ¡§∫∏
+	// ÌïÑÏöîÌïú Ï†ïÎ≥¥
 	//------------------------------------------------------------
 	char appendFilename[256];
 	long appendFilesize;
 	WORD appSpkSize;
 
-	class ifstream file(currentFilename, ios::binary | ios::nocreate);
+	std::ifstream file(currentFilename, std::ios::binary );
 
 	if (!file.is_open())
 	{
 		return false;
 	}
 
-	// appSpkSize - Pack ∞≥ºˆ
+	// appSpkSize - Pack Í∞úÏàò
 	file.read((char*)&appSpkSize, 2);
-	file.seekg( 0, ios::end );
+	file.seekg( 0, std::ios::end );
 
-	// appendFilesize - AppendPack ≈©±‚
+	// appendFilesize - AppendPack ÌÅ¨Í∏∞
 	appendFilesize = file.tellg();
 	
 	file.close();
@@ -289,10 +289,10 @@ AppendPatch::AddAppendInfo(const char* currentFilename)
 	}
 	else
 	{
-		*(pBS+1) = '\0';		// 'Data\\Image\\' ±Ó¡ˆ
+		*(pBS+1) = '\0';		// 'Data\\Image\\' ÍπåÏßÄ
 	}
 
-	pBS = strrchr(currentFilename, '\\');	// '\\NewXX.spk'
+	pBS = (char*)strrchr(currentFilename, '\\');	// '\\NewXX.spk'
 	if (pBS==NULL)
 	{
 		strcat(appendFilename, currentFilename);
@@ -306,7 +306,7 @@ AppendPatch::AddAppendInfo(const char* currentFilename)
 	WORD previousSpkSize;
 
 	//------------------------------------------------------------
-	// πŸ∑Œ ¿¸ ªÛ≈¬¿« ¡§∫∏
+	// Î∞îÎ°ú Ï†Ñ ÏÉÅÌÉúÏùò Ï†ïÎ≥¥
 	//------------------------------------------------------------
 	if (m_AppendPatch.size()==0)
 	{
@@ -322,7 +322,7 @@ AppendPatch::AddAppendInfo(const char* currentFilename)
 	}
 
 	//------------------------------------------------------------
-	// «ˆ¿Á ¡§∫∏ º≥¡§
+	// ÌòÑÏû¨ Ï†ïÎ≥¥ ÏÑ§Ï†ï
 	//------------------------------------------------------------
 	APPEND_PATCH_NODE* pNode = new APPEND_PATCH_NODE;
 
@@ -330,7 +330,7 @@ AppendPatch::AddAppendInfo(const char* currentFilename)
 	pNode->appendFilesize	= appendFilesize;
 	pNode->appSpkSize		= appSpkSize;		
 	pNode->writePosition	= previousFilesize;
-	pNode->afterFilesize	= previousFilesize + appendFilesize-2;	// SPK¿« ∞≥ºˆ ∫Œ∫– 2 bytes
+	pNode->afterFilesize	= previousFilesize + appendFilesize-2;	// SPKÏùò Í∞úÏàò Î∂ÄÎ∂Ñ 2 bytes
 	pNode->afterSpkSize		= previousSpkSize + appSpkSize;
 
 	m_AppendPatch.push_back( pNode );
@@ -367,19 +367,19 @@ AppendPatch::ExecutePatch() const
 bool
 AppendPatch::CheckFinalInfo() const
 {
-	class ifstream orgFile(m_orgFilename.GetString(), ios::binary | ios::nocreate);
+	std::ifstream orgFile(m_orgFilename.GetString(), std::ios::binary );
 		
 	if (orgFile.is_open())
 	{
 		WORD spkSize;
-		orgFile.read((char*)&spkSize, 2);	// Sprite¿« ∞≥ºˆ
+		orgFile.read((char*)&spkSize, 2);	// SpriteÏùò Í∞úÏàò
 
 		if (spkSize != m_finalSpkSize)
 		{
 			return false;
 		}
 
-		orgFile.seekg( 0, ios::end );
+		orgFile.seekg( 0, std::ios::end );
 		long fpEnd = orgFile.tellg();
 
 		if (fpEnd != m_finalFilesize)
@@ -396,7 +396,7 @@ AppendPatch::CheckFinalInfo() const
 //-----------------------------------------------------------------------------
 // Calculate FinalInfo 
 //-----------------------------------------------------------------------------
-// ∞ËªÍªÛ¿∏∑Œ ∏¬¥¬¡ˆ √º≈©«—¥Ÿ.
+// Í≥ÑÏÇ∞ÏÉÅÏúºÎ°ú ÎßûÎäîÏßÄ Ï≤¥ÌÅ¨ÌïúÎã§.
 //-----------------------------------------------------------------------------
 bool
 AppendPatch::CalculateFinalInfo() const
@@ -429,7 +429,7 @@ AppendPatch::CalculateFinalInfo() const
 // Save To File
 //-----------------------------------------------------------------------------
 void		
-AppendPatch::SaveToFile(class ofstream& file)
+AppendPatch::SaveToFile(std::ofstream& file)
 {	
 	m_orgFilename.SaveToFile( file );
 	file.write((const char*)&m_orgFilesize, 4);
@@ -456,7 +456,7 @@ AppendPatch::SaveToFile(class ofstream& file)
 // Load From File
 //-----------------------------------------------------------------------------
 void		
-AppendPatch::LoadFromFile(class ifstream& file)
+AppendPatch::LoadFromFile(std::ifstream& file)
 {
 	Release();
 

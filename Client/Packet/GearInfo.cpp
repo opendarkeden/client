@@ -2,8 +2,8 @@
 // 
 // Filename    : GearInfo.cpp 
 // Written By  : elca@ewestsoft.com
-// Description : ÀÚ½Å¿¡°Ô ¾²´Â ±â¼úÀÇ ¼º°øÀ» ¾Ë¸®±â À§ÇÑ ÆĞÅ¶ Å¬·¡½ºÀÇ
-//               ¸â¹ö Á¤ÀÇ.
+// Description : ìì‹ ì—ê²Œ ì“°ëŠ” ê¸°ìˆ ì˜ ì„±ê³µì„ ì•Œë¦¬ê¸° ìœ„í•œ íŒ¨í‚· í´ë˜ìŠ¤ì˜
+//               ë©¤ë²„ ì •ì˜.
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -37,7 +37,7 @@ GearInfo::~GearInfo ()
 {
 	__BEGIN_TRY
 
-	// ¼Ò¼ÓµÈ ¸ğµç °´Ã¼µéÀ» »èÁ¦ÇÑ´Ù.
+	// ì†Œì†ëœ ëª¨ë“  ê°ì²´ë“¤ì„ ì‚­ì œí•œë‹¤.
 	while ( !m_GearSlotInfoList.empty() ) {
 		GearSlotInfo * pGearSlotInfo = m_GearSlotInfoList.front();
 		delete pGearSlotInfo;
@@ -49,14 +49,14 @@ GearInfo::~GearInfo ()
 
 
 //////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void GearInfo::read ( SocketInputStream & iStream ) 
 	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-	// ÃÖÀûÈ­ ÀÛ¾÷½Ã ½ÇÁ¦ Å©±â¸¦ ¸í½ÃÇÏµµ·Ï ÇÑ´Ù.
+	// ìµœì í™” ì‘ì—…ì‹œ ì‹¤ì œ í¬ê¸°ë¥¼ ëª…ì‹œí•˜ë„ë¡ í•œë‹¤.
 	iStream.read( m_ListNum );
 
 	for( int i = 0; i < m_ListNum; i++ ) {
@@ -71,14 +71,14 @@ void GearInfo::read ( SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////
 void GearInfo::write ( SocketOutputStream & oStream ) 
      const throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-	// ÃÖÀûÈ­ ÀÛ¾÷½Ã ½ÇÁ¦ Å©±â¸¦ ¸í½ÃÇÏµµ·Ï ÇÑ´Ù.
+	// ìµœì í™” ì‘ì—…ì‹œ ì‹¤ì œ í¬ê¸°ë¥¼ ëª…ì‹œí•˜ë„ë¡ í•œë‹¤.
 	oStream.write( m_ListNum );
 
     for ( std::list<GearSlotInfo*>:: const_iterator itr = m_GearSlotInfoList.begin(); itr!= m_GearSlotInfoList.end(); itr++) {

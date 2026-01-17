@@ -5,11 +5,16 @@
 #ifndef	__ZONEFILEHEADER_H__
 #define	__ZONEFILEHEADER_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "MString.h"
 #include "MZoneDef.h"
-class ifstream;
-class ofstream;
+
+#include <fstream>
+using namespace std;
 
 //----------------------------------------------------------------------
 // FILEINFO_ZONE_HEADER
@@ -29,15 +34,15 @@ public:
 	};
 
 public :
-	MString		ZoneVersion;	// ÃÖÁ¾ ¾÷µ¥ÀÌÆ®µÈ ³¯Â¥
-	WORD		ZoneID;			//	Á¸ ¾ÆÀÌµğ
-	WORD		ZoneGroupID;	//	Á¸ ±×·ì ¾ÆÀÌµğ
-	MString		ZoneName;		// Á¸ ÀÌ¸§
+	MString		ZoneVersion;	// ìµœì¢… ì—…ë°ì´íŠ¸ëœ ë‚ ì§œ
+	WORD		ZoneID;			//	ì¡´ ì•„ì´ë””
+	WORD		ZoneGroupID;	//	ì¡´ ê·¸ë£¹ ì•„ì´ë””
+	MString		ZoneName;		// ì¡´ ì´ë¦„
 
 
-	BYTE		ZoneType;		//	Á¸ÀÇ Å¸ÀÔ
-	BYTE		ZoneLevel;		//	Á¸¿¡ ³ª¿À´Â ¸ó½ºÅÍÀÇ ·¹º§. 1-10 »çÀÌ.
-	MString		Description;	//	Á¸¿¡ ´ëÇÑ ¼³¸í
+	BYTE		ZoneType;		//	ì¡´ì˜ íƒ€ì…
+	BYTE		ZoneLevel;		//	ì¡´ì— ë‚˜ì˜¤ëŠ” ëª¬ìŠ¤í„°ì˜ ë ˆë²¨. 1-10 ì‚¬ì´.
+	MString		Description;	//	ì¡´ì— ëŒ€í•œ ì„¤ëª…
 
 public :
 	FILEINFO_ZONE_HEADER()
@@ -45,8 +50,8 @@ public :
 		ZoneVersion = MAP_VERSION_2000_05_10;
 	}
 
-	void		SaveToFile(class ofstream& file);
-	void		LoadFromFile(class ifstream& file);
+	void		SaveToFile(std::ofstream& file);
+	void		LoadFromFile(std::ifstream& file);
 
 };
 

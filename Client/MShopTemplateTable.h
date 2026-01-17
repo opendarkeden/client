@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // MShopTemplateTable.h
 //-----------------------------------------------------------------------------
-// ShopTemplateTableÀº ShopTemplateÀÇ array - mapÀ» »ç¿ëÇÏÀÚ...
+// ShopTemplateTableì€ ShopTemplateì˜ array - mapì„ ì‚¬ìš©í•˜ì...
 //-----------------------------------------------------------------------------
 
 #ifndef __MSHOPTEMPLATE_H__
@@ -17,13 +17,13 @@ class MShopTemplate {
 		MShopTemplate();
 		~MShopTemplate();
 
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);
 
 	public :
 		//UINT				m_ID;
 
-		BYTE				Type;				// »óÁ¡ type
+		BYTE				Type;				// ìƒì  type
 
 		// item class
 		int					Class;

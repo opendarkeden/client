@@ -27,7 +27,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef __GAME_CLIENT__
 void CGRangerSayHandler::execute (CGRangerSay* pPacket , Player* pPlayer)
-	 throw (ProtocolException , Error)
+	 
+throw ( ProtocolException , Error )
 {
 }
 #endif

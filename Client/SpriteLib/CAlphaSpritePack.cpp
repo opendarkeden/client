@@ -6,7 +6,7 @@
 #include "CAlphaSprite555.h"
 #include "CAlphaSprite565.h"
 #include "CAlphaSpritePack.h"
-#include <fstream.h>
+#include <fstream>
 
 //----------------------------------------------------------------------
 //
@@ -22,7 +22,7 @@ CAlphaSpritePack::CAlphaSpritePack()
 
 CAlphaSpritePack::~CAlphaSpritePack()
 {
-	// array¸¦ ¸Ş¸ğ¸®¿¡¼­ Á¦°ÅÇÑ´Ù.
+	// arrayë¥¼ ë©”ëª¨ë¦¬ì—ì„œ ì œê±°í•œë‹¤.
 	Release();
 }
 
@@ -38,14 +38,14 @@ CAlphaSpritePack::~CAlphaSpritePack()
 void
 CAlphaSpritePack::Init(TYPE_SPRITEID count, bool b565)
 {
-	// °³¼ö°¡ ¾øÀ» °æ¿ì 
+	// ê°œìˆ˜ê°€ ì—†ì„ ê²½ìš° 
 	if (count==0) 
 		return;
 
-	// ÀÏ´Ü ÇØÁ¦
+	// ì¼ë‹¨ í•´ì œ
 	Release();
 
-	// ¸Ş¸ğ¸® Àâ±â
+	// ë©”ëª¨ë¦¬ ì¡ê¸°
 	m_nSprites = count;
 
 	if (b565)
@@ -67,7 +67,7 @@ CAlphaSpritePack::Release()
 {
 	if (m_pSprites != NULL)
 	{
-		// ¸ğµç CAlphaSprite¸¦ Áö¿î´Ù.
+		// ëª¨ë“  CAlphaSpriteë¥¼ ì§€ìš´ë‹¤.
 		delete [] m_pSprites;
 		m_pSprites = NULL;
 		
@@ -78,12 +78,12 @@ CAlphaSpritePack::Release()
 //----------------------------------------------------------------------
 // Release Part
 //----------------------------------------------------------------------
-// firstSpriteID ~ lastSpriteID±îÁö¸¸ ¸Ş¸ğ¸®¿¡¼­ Á¦°ÅÇÑ´Ù.
+// firstSpriteID ~ lastSpriteIDê¹Œì§€ë§Œ ë©”ëª¨ë¦¬ì—ì„œ ì œê±°í•œë‹¤.
 //----------------------------------------------------------------------
 void			
 CAlphaSpritePack::ReleasePart(TYPE_SPRITEID firstSpriteID, TYPE_SPRITEID lastSpriteID)
 {
-	// SpritePackÀÇ memory°¡ ÀâÇôÀÖÁö ¾ÊÀ¸¸é ±×³É returnÇÑ´Ù.	
+	// SpritePackì˜ memoryê°€ ì¡í˜€ìˆì§€ ì•Šìœ¼ë©´ ê·¸ëƒ¥ returní•œë‹¤.	
 	if (m_pSprites==NULL
 		|| firstSpriteID >= m_nSprites)
 		return;
@@ -99,48 +99,48 @@ CAlphaSpritePack::ReleasePart(TYPE_SPRITEID firstSpriteID, TYPE_SPRITEID lastSpr
 //----------------------------------------------------------------------
 // Save To File
 //----------------------------------------------------------------------
-// map ÀüÃ¼¸¦ µû¶ó°¡¸é¼­ file¿¡ ÀúÀåÇØ¾ßÇÑ´Ù.
+// map ì „ì²´ë¥¼ ë”°ë¼ê°€ë©´ì„œ fileì— ì €ì¥í•´ì•¼í•œë‹¤.
 //----------------------------------------------------------------------
 bool		
 CAlphaSpritePack::SaveToFile(ofstream& spkFile, ofstream& indexFile)
 {
-	// ÃÊ±âÈ­µÇÁö ¾Ê¾ÒÀ¸¸é 
+	// ì´ˆê¸°í™”ë˜ì§€ ì•Šì•˜ìœ¼ë©´ 
 	if (m_nSprites==0 || m_pSprites==NULL)
 		return false;
 	
 	//--------------------------------------------------
-	// index fileÀ» »ı¼ºÇÏ±â À§ÇÑ Á¤º¸
+	// index fileì„ ìƒì„±í•˜ê¸° ìœ„í•œ ì •ë³´
 	//--------------------------------------------------
 	long*	pIndex = new long [m_nSprites];
 
 
 	//--------------------------------------------------
-	// Size ÀúÀå
+	// Size ì €ì¥
 	//--------------------------------------------------
 	spkFile.write((const char *)&m_nSprites, SIZE_SPRITEID); 
 	indexFile.write((const char *)&m_nSprites, SIZE_SPRITEID); 
 
 	//--------------------------------------------------
 	//
-	// SpritePack¿¡ ArrayÀÇ ¸ğµç Sprite¸¦ ÀúÀåÇÑ´Ù.
+	// SpritePackì— Arrayì˜ ëª¨ë“  Spriteë¥¼ ì €ì¥í•œë‹¤.
 	//
 	//--------------------------------------------------
 	for (TYPE_SPRITEID i=0; i<m_nSprites; i++)
 	{
-		// SpritePack file¿¡ ¾²¿©Áö´Â index¸¦ ÀúÀå
+		// SpritePack fileì— ì“°ì—¬ì§€ëŠ” indexë¥¼ ì €ì¥
 		pIndex[i] = spkFile.tellp();
 
-		// m_pSprites[i]¿¡ ÀúÀåµÈ pixelÀÌ ¾ø¾îµµ
-		// CAlphaSprite ³»ºÎÀûÀ¸·Î ±æÀÌ¸¸ ÀúÀåÇÏ¹Ç·Î 
-		// ´ÙÀ½¿¡ LoadÇÒ ¶§ ¹®Á¦°¡ ¾øÀ» °ÍÀÌ´Ù.
+		// m_pSprites[i]ì— ì €ì¥ëœ pixelì´ ì—†ì–´ë„
+		// CAlphaSprite ë‚´ë¶€ì ìœ¼ë¡œ ê¸¸ì´ë§Œ ì €ì¥í•˜ë¯€ë¡œ 
+		// ë‹¤ìŒì— Loadí•  ë•Œ ë¬¸ì œê°€ ì—†ì„ ê²ƒì´ë‹¤.
 
-		m_pSprites[i].SaveToFile(spkFile);		// CAlphaSpriteÀúÀå	
+		m_pSprites[i].SaveToFile(spkFile);		// CAlphaSpriteì €ì¥	
 	}
 
 	//--------------------------------------------------
-	// index ÀúÀå
+	// index ì €ì¥
 	//--------------------------------------------------
-	for (i=0; i<m_nSprites; i++)
+	for (int i=0; i<m_nSprites; i++)
 	{
 		indexFile.write((const char*)&pIndex[i], 4);
 	}
@@ -153,30 +153,30 @@ CAlphaSpritePack::SaveToFile(ofstream& spkFile, ofstream& indexFile)
 //----------------------------------------------------------------------
 // Save To File
 //----------------------------------------------------------------------
-// map ÀüÃ¼¸¦ µû¶ó°¡¸é¼­ file¿¡ ÀúÀåÇØ¾ßÇÑ´Ù.
+// map ì „ì²´ë¥¼ ë”°ë¼ê°€ë©´ì„œ fileì— ì €ì¥í•´ì•¼í•œë‹¤.
 //----------------------------------------------------------------------
 bool
 CAlphaSpritePack::SaveToFileSpriteOnly(ofstream& spkFile, long &filePosition)
 {
-	// ÃÊ±âÈ­µÇÁö ¾Ê¾ÒÀ¸¸é 
+	// ì´ˆê¸°í™”ë˜ì§€ ì•Šì•˜ìœ¼ë©´ 
 	if (m_nSprites==0 || m_pSprites==NULL)
 		return false;
 
-	// SpritePack file¿¡ ¾²¿©Áö´Â index¸¦ ÀúÀå
+	// SpritePack fileì— ì“°ì—¬ì§€ëŠ” indexë¥¼ ì €ì¥
 	filePosition = spkFile.tellp();
 	
 	//--------------------------------------------------
 	//
-	// SpritePack¿¡ ArrayÀÇ ¸ğµç Sprite¸¦ ÀúÀåÇÑ´Ù.
+	// SpritePackì— Arrayì˜ ëª¨ë“  Spriteë¥¼ ì €ì¥í•œë‹¤.
 	//
 	//--------------------------------------------------
 	for (TYPE_SPRITEID i=0; i<m_nSprites; i++)
 	{
-		// m_pSprites[i]¿¡ ÀúÀåµÈ pixelÀÌ ¾ø¾îµµ
-		// CSprite ³»ºÎÀûÀ¸·Î ±æÀÌ¸¸ ÀúÀåÇÏ¹Ç·Î 
-		// ´ÙÀ½¿¡ LoadÇÒ ¶§ ¹®Á¦°¡ ¾øÀ» °ÍÀÌ´Ù.
+		// m_pSprites[i]ì— ì €ì¥ëœ pixelì´ ì—†ì–´ë„
+		// CSprite ë‚´ë¶€ì ìœ¼ë¡œ ê¸¸ì´ë§Œ ì €ì¥í•˜ë¯€ë¡œ 
+		// ë‹¤ìŒì— Loadí•  ë•Œ ë¬¸ì œê°€ ì—†ì„ ê²ƒì´ë‹¤.
 
-		m_pSprites[i].SaveToFile(spkFile);		// CSpriteÀúÀå	
+		m_pSprites[i].SaveToFile(spkFile);		// CSpriteì €ì¥	
 	}
 
 	return true;
@@ -185,24 +185,24 @@ CAlphaSpritePack::SaveToFileSpriteOnly(ofstream& spkFile, long &filePosition)
 //----------------------------------------------------------------------
 // Load From File
 //----------------------------------------------------------------------
-// file¿¡¼­ ID¿Í Sprite¸¦ ÀĞ¾î¿Í¼­ map¿¡ ÇÏ³ª¾¿ ÀúÀåÇÑ´Ù.
+// fileì—ì„œ IDì™€ Spriteë¥¼ ì½ì–´ì™€ì„œ mapì— í•˜ë‚˜ì”© ì €ì¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CAlphaSpritePack::LoadFromFile(ifstream& file)
 {
-	// memory¿¡¼­ mapÁ¦°Å
+	// memoryì—ì„œ mapì œê±°
 	Release();
 
-	// file¿¡¼­ sprite °³¼ö¸¦ ÀĞ¾î¿Â´Ù.	
+	// fileì—ì„œ sprite ê°œìˆ˜ë¥¼ ì½ì–´ì˜¨ë‹¤.	
 	file.read((char*)&m_nSprites, SIZE_SPRITEID);
 
-	// memoryÀâ´Â´Ù.
+	// memoryì¡ëŠ”ë‹¤.
 	Init(m_nSprites, CDirectDraw::Is565());
 
-	// file¿¡ ÀÖ´Â SpriteµéÀ» Load	
+	// fileì— ìˆëŠ” Spriteë“¤ì„ Load	
 	for (TYPE_SPRITEID i=0; i<m_nSprites; i++)
 	{			
-		m_pSprites[i].LoadFromFile(file);	// Sprite ÀĞ¾î¿À±â
+		m_pSprites[i].LoadFromFile(file);	// Sprite ì½ì–´ì˜¤ê¸°
 	}
 }
 
@@ -210,10 +210,10 @@ CAlphaSpritePack::LoadFromFile(ifstream& file)
 //----------------------------------------------------------------------
 // Load From File Part
 //----------------------------------------------------------------------
-// file¿¡¼­ ÀÏºÎÀÇ Spriteµé¸¸ ÀĞ¾îµéÀÎ´Ù.
+// fileì—ì„œ ì¼ë¶€ì˜ Spriteë“¤ë§Œ ì½ì–´ë“¤ì¸ë‹¤.
 // 
-// fileÀÇ filePosition¿¡¼­ºÎÅÍ ÀĞ¾îµéÀÌ°í..
-// FirstSpriteIDºÎÅÍ SpriteSize°³¸¸Å­¸¸ ÀĞ¾îµéÀÎ´Ù.
+// fileì˜ filePositionì—ì„œë¶€í„° ì½ì–´ë“¤ì´ê³ ..
+// FirstSpriteIDë¶€í„° SpriteSizeê°œë§Œí¼ë§Œ ì½ì–´ë“¤ì¸ë‹¤.
 //----------------------------------------------------------------------
 void			
 CAlphaSpritePack::LoadFromFilePart(ifstream& file, long filePosition,
@@ -222,20 +222,20 @@ CAlphaSpritePack::LoadFromFilePart(ifstream& file, long filePosition,
 	if (firstSpriteID==SPRITEID_NULL || lastSpriteID==SPRITEID_NULL)
 		return;
 
-	// SpritePackÀÇ memory°¡ ÀâÇôÀÖÁö ¾ÊÀ¸¸é ±×³É returnÇÑ´Ù.	
+	// SpritePackì˜ memoryê°€ ì¡í˜€ìˆì§€ ì•Šìœ¼ë©´ ê·¸ëƒ¥ returní•œë‹¤.	
 	if (m_pSprites==NULL)
 		return;
 
-	// LoadÇÒ·Á´Â À§Ä¡±îÁö FilePositionÀ» ÀÌµ¿ÇÑ´Ù.
+	// Loadí• ë ¤ëŠ” ìœ„ì¹˜ê¹Œì§€ FilePositionì„ ì´ë™í•œë‹¤.
 	file.seekg( filePosition, ios::beg );
 
-	// firstSpriteID ~ lastSpriteID±îÁöÀÇ Sprite¸¦ LoadÇÑ´Ù.
+	// firstSpriteID ~ lastSpriteIDê¹Œì§€ì˜ Spriteë¥¼ Loadí•œë‹¤.
 	for (TYPE_SPRITEID id=firstSpriteID; id<=lastSpriteID; id++)
 	{
-		// ¾ÆÁ÷ LoadµÇÁö ¾ÊÀº °æ¿ì¿¡¸¸ LoadÇÑ´Ù.
+		// ì•„ì§ Loadë˜ì§€ ì•Šì€ ê²½ìš°ì—ë§Œ Loadí•œë‹¤.
 		//if (m_pSprites[id].IsInit())
 		//	continue;
-		// file positionÀ» ÀÌµ¿½ÃÄÑÁà¾ß ÇÏ¹Ç·Î ¹«Á¶°Ç loadingÇØ¾ß ÇÑ´Ù.
+		// file positionì„ ì´ë™ì‹œì¼œì¤˜ì•¼ í•˜ë¯€ë¡œ ë¬´ì¡°ê±´ loadingí•´ì•¼ í•œë‹¤.
 
 		m_pSprites[id].LoadFromFile( file );
 	}
@@ -244,10 +244,10 @@ CAlphaSpritePack::LoadFromFilePart(ifstream& file, long filePosition,
 //----------------------------------------------------------------------
 // LoadFromFile Sprite
 //----------------------------------------------------------------------
-// indexFileÀ» ÀÌ¿ëÇØ¼­ spkFile¿¡¼­ spriteID¹øÂ° sprite¸¦ ÀĞ¾î¿Â´Ù.
+// indexFileì„ ì´ìš©í•´ì„œ spkFileì—ì„œ spriteIDë²ˆì§¸ spriteë¥¼ ì½ì–´ì˜¨ë‹¤.
 //----------------------------------------------------------------------
 bool
-CAlphaSpritePack::LoadFromFileSprite(int spriteID, int fileSpriteID, class ifstream& spkFile, class ifstream& indexFile)
+CAlphaSpritePack::LoadFromFileSprite(int spriteID, int fileSpriteID, std::ifstream& spkFile, std::ifstream& indexFile)
 {
 	if (spriteID < 0 || spriteID >= m_nSprites)
 	{
@@ -255,7 +255,7 @@ CAlphaSpritePack::LoadFromFileSprite(int spriteID, int fileSpriteID, class ifstr
 	}
 
 	//-------------------------------------------------------------------
-	// indexÀÇ °³¼ö¸¦ Ã¼Å©ÇÑ´Ù. fileSpriteID°¡ ÀÖ´ÂÁö..?
+	// indexì˜ ê°œìˆ˜ë¥¼ ì²´í¬í•œë‹¤. fileSpriteIDê°€ ìˆëŠ”ì§€..?
 	//-------------------------------------------------------------------
 	TYPE_SPRITEID num;
 	indexFile.read((char*)&num, SIZE_SPRITEID);
@@ -266,7 +266,7 @@ CAlphaSpritePack::LoadFromFileSprite(int spriteID, int fileSpriteID, class ifstr
 	}
 
 	//-------------------------------------------------------------------
-	// loadÇÒ spriteÀÇ file pointer¸¦ ÀĞ´Â´Ù.
+	// loadí•  spriteì˜ file pointerë¥¼ ì½ëŠ”ë‹¤.
 	//-------------------------------------------------------------------
 	long fp;	
 	indexFile.seekg( 2 + fileSpriteID*4 );		// 2(num) + spriteID * (4 bytes)
@@ -285,7 +285,7 @@ CAlphaSpritePack::LoadFromFileSprite(int spriteID, int fileSpriteID, class ifstr
 //----------------------------------------------------------------------
 // LoadFromFile Sprite
 //----------------------------------------------------------------------
-// indexFileÀ» ÀÌ¿ëÇØ¼­ spkFile¿¡¼­ spriteID¹øÂ° sprite¸¦ ÀĞ¾î¿Â´Ù.
+// indexFileì„ ì´ìš©í•´ì„œ spkFileì—ì„œ spriteIDë²ˆì§¸ spriteë¥¼ ì½ì–´ì˜¨ë‹¤.
 //----------------------------------------------------------------------
 bool
 CAlphaSpritePack::LoadFromFileSprite(int spriteID, int fileSpriteID, const char* spkFilename, const char* indexFilename)
@@ -295,14 +295,14 @@ CAlphaSpritePack::LoadFromFileSprite(int spriteID, int fileSpriteID, const char*
 		return false;
 	}
 
-	class ifstream spkFile(spkFilename, ios::binary | ios::nocreate);
+	std::ifstream spkFile(spkFilename, ios::binary);
 
 	if (!spkFile.is_open())
 	{
 		return false;
 	}
 
-	class ifstream indexFile(indexFilename, ios::binary | ios::nocreate);
+	std::ifstream indexFile(indexFilename, ios::binary);
 
 	if (!indexFile.is_open())
 	{

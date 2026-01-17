@@ -12,7 +12,6 @@
 // Constructor
 //--------------------------------------------------------------------
 GCHPRecoveryEndToOthers::GCHPRecoveryEndToOthers()
-	throw( Error )
 {
 	__BEGIN_TRY
 	m_CurrentHP = 0;
@@ -24,14 +23,13 @@ GCHPRecoveryEndToOthers::GCHPRecoveryEndToOthers()
 // Destructor
 //--------------------------------------------------------------------
 GCHPRecoveryEndToOthers::~GCHPRecoveryEndToOthers()
-	throw( Error )
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void GCHPRecoveryEndToOthers::read ( SocketInputStream & iStream ) 
 	 throw ( ProtocolException , Error )
@@ -46,7 +44,7 @@ void GCHPRecoveryEndToOthers::read ( SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////
 void GCHPRecoveryEndToOthers::write ( SocketOutputStream & oStream ) const 
      throw ( ProtocolException , Error )

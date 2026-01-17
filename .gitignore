@@ -1,50 +1,27 @@
-xerces
-Debug/
-Release/
-CVS/
-.obj
-.sln
-.sbr
-.suo
-.vcxproj.user
-.vcxproj.filters
-*.exe
-*.obj
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# Build directory
+build/
+
+# macOS
+.DS_Store
+*.dSYM
+*.dSYM/
+
+# Backup files
+*.bak
+*_bak*
+*.old
+
+# Temporary files
 *.o
-*.pcb
-*.pch
-*.ilk
-*.m4
-*.map
-*.opt
-Debug/*
-Release/*
-ReleaseLog/*
-*.pdb
-*.sym
-*.gch
-*.cache
-*.ncb
-*.com
-*.COM
-*.OBJ
-*~
-.*~
-*.lib
-*.dll
-Darkeden
-*.plg
-*.exp
-*.scc
-*.meta
-
-# vc++ cache files
-
-ipch/
-*.aps
-*.ncb
-*.opendb
-*.opensdf
-*.sdf
-*.cachefile
-*.VC.db
+*.a
+*.so
+*.dylib

@@ -13,16 +13,17 @@
 
 //////////////////////////////////////////////////////////////////////
 //
-// Å¬¶óÀÌ¾ðÆ®¿¡¼­ ¼­¹ö·ÎºÎÅÍ ¸Þ½ÃÁö¸¦ ¹Þ¾ÒÀ»¶§ ½ÇÇàµÇ´Â ¸Þ½îµåÀÌ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì„œë²„ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ë°›ì•˜ì„ë•Œ ì‹¤í–‰ë˜ëŠ” ë©”ì˜ë“œì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void GCNotifyWinHandler::execute ( GCNotifyWin * pPacket , Player * pPlayer )
 	 throw ( ProtocolException , Error )
 {
-	__BEGIN_TRY 
-	
+	__BEGIN_TRY
+
 #ifdef __GAME_CLIENT__
-	UI_RunImageNotice( pPacket->getName().c_str(), pPacket->getGiftID() );
+	// UI_RunImageNotice not implemented in SDL backend
+	// UI_RunImageNotice( pPacket->getName().c_str(), pPacket->getGiftID() );
 #endif
 
 	__END_CATCH

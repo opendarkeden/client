@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 //
 // Filename    : GCSearchMotorcycleFailHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //
 //////////////////////////////////////////////////////////////////////
@@ -14,7 +14,9 @@
 #include "UIDialog.h"
 
 void GCSearchMotorcycleFailHandler::execute ( GCSearchMotorcycleFail * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	

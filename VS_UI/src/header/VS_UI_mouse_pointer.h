@@ -2,7 +2,7 @@
 
 	VS_UI_mouse_pointer.h
 
-	Mouse pointer °ü·Ã.
+	Mouse pointer ï¿½ï¿½ï¿½ï¿½.
 
 	2000.3.30. KJTINC
 
@@ -16,6 +16,8 @@
 #include "MItem.h"
 #include <limits.h>
 
+// Forward declaration for Window class (defined in u_window.h)
+class Window;
 
 /*-----------------------------------------------------------------------------
   Class Mouse Pointer
@@ -43,7 +45,7 @@ private:
 	bool						Timer();
 
 	//
-	// ÇöÀç ÁýÀº(Mouse pointer¿¡ ºÙÀº) Item.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(Mouse pointerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½) Item.
 	//
 	MItem *						m_p_current_pickup_item;
 

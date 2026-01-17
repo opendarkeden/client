@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MAttachCreatureEffectGroundGenerator.h
 //----------------------------------------------------------------------
-// Creature¿¡ ºÙ¾î¹ö¸®´Â Effect
+// Creatureì— ë¶™ì–´ë²„ë¦¬ëŠ” Effect
 //----------------------------------------------------------------------
 
 #ifndef	__MATTACHCREATUREEFFECTGROUNDGENERATOR_H__
@@ -16,7 +16,7 @@ class MAttachCreatureEffectGroundGenerator : public MEffectGenerator {
 
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_ATTACH_CREATURE_GROUND; }
 
-		// Effect»ı¼º
+		// Effectìƒì„±
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

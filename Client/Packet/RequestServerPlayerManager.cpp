@@ -9,7 +9,70 @@
 #include "DebugInfo.h"
 #include "ServerInfo.h"
 
-//#include "Rpackets\RCPositionInfo.h"
+// Platform-specific threading includes
+#ifdef PLATFORM_WINDOWS
+	#include <windows.h>
+	#include <process.h>
+#elif defined(__APPLE__) || defined(__linux__)
+	#include <pthread.h>
+	#include <unistd.h>
+
+	// Additional Windows type definitions
+	typedef DWORD* LPDWORD;
+	typedef void* (*LPTHREAD_START_ROUTINE)(void*);
+	typedef void* LPVOID;
+
+	// Undefine macros that conflict with our stub functions
+	#undef CloseHandle
+
+	// Stub constants
+	#define STILL_ACTIVE ((DWORD)-1)
+	#define THREAD_PRIORITY_NORMAL 0
+	#define THREAD_PRIORITY_LOWEST -2
+
+	// Stub functions
+	static inline BOOL TerminateThread(HANDLE thread, DWORD exitCode) {
+		return (pthread_cancel((pthread_t)(size_t)thread) == 0);
+	}
+
+	static inline BOOL CloseHandle(HANDLE handle) {
+		return TRUE;
+	}
+
+	static inline HANDLE GetCurrentThread() {
+		return (HANDLE)pthread_self();
+	}
+
+	static inline BOOL SetThreadPriority(HANDLE thread, int priority) {
+		return TRUE;
+	}
+
+	// Stub thread creation
+	static inline HANDLE _beginthreadex(void* security, unsigned stack_size,
+		LPTHREAD_START_ROUTINE start_proc, LPVOID arg,
+		unsigned flags, DWORD* thread_id) {
+		pthread_t thread;
+		if (pthread_create(&thread, NULL, (void*(*)(void*))start_proc, arg) == 0) {
+			if (thread_id) *thread_id = (unsigned long)thread;
+			return (HANDLE)(size_t)thread;
+		}
+		return (HANDLE)0;
+	}
+
+	// Stub CreateThread (Windows API)
+	static inline HANDLE CreateThread(void* security, unsigned stack_size,
+		LPTHREAD_START_ROUTINE start_proc, LPVOID arg,
+		unsigned flags, DWORD* thread_id) {
+		pthread_t thread;
+		if (pthread_create(&thread, NULL, (void*(*)(void*))start_proc, arg) == 0) {
+			if (thread_id) *thread_id = (unsigned long)thread;
+			return (HANDLE)(size_t)thread;
+		}
+		return (HANDLE)0;
+	}
+#endif
+
+//#include "Rpackets/RCPositionInfo.h"
 
 #if defined(_DEBUG) && defined(OUTPUT_DEBUG)
 	extern CMessageArray*		g_pGameMessage;
@@ -53,7 +116,7 @@ RequestServerPlayerManager::~RequestServerPlayerManager()
 void
 RequestServerPlayerManager::Release()
 {
-	// thread ¡æ∑·
+	// thread Ï¢ÖÎ£å
 	TerminateThread(m_hRequestThread, 0);
 	CloseHandle( m_hRequestThread );
 	m_hRequestThread = NULL;
@@ -98,10 +161,10 @@ RequestServerPlayerManager::AddRequestServerPlayer(RequestServerPlayer* pRequest
 	{
 		Lock();
 
-		// ≥— ∏π¿ª ∞ÊøÏ¥¬ ¥ı ¿ÃªÛ ø‰√ª¿ª æ» πﬁµµ∑œ «ÿæﬂ«—¥Ÿ.
+		// ÎÑò ÎßéÏùÑ Í≤ΩÏö∞Îäî Îçî Ïù¥ÏÉÅ ÏöîÏ≤≠ÏùÑ Ïïà Î∞õÎèÑÎ°ù Ìï¥ÏïºÌïúÎã§.
 		if (m_listRequestServerPlayer.size() < g_pClientConfig->MAX_REQUEST_SERVICE)
 		{
-			// ¿œ¥‹ listø° ≥÷æÓµ–¥Ÿ.
+			// ÏùºÎã® listÏóê ÎÑ£Ïñ¥ÎëîÎã§.
 			m_listRequestServerPlayer.push_back( pRequestServerPlayer );
 
 			#if defined(_DEBUG) && defined(OUTPUT_DEBUG)
@@ -163,7 +226,7 @@ RequestServerPlayerManager::Disconnect(const char* pName)
 	{
 		RequestServerPlayer* pPlayer = *iPlayer;
 
-		// ∞∞¿∫ ¿Ã∏ß¿« player¿« ¡¢º”¿ª «ÿ¡¶Ω√≈≤¥Ÿ.
+		// Í∞ôÏùÄ Ïù¥Î¶ÑÏùò playerÏùò Ï†ëÏÜçÏùÑ Ìï¥Ï†úÏãúÌÇ®Îã§.
 		if (pPlayer->getName()==pName)
 		{
 			pPlayer->disconnect(UNDISCONNECTED);
@@ -190,7 +253,7 @@ RequestServerPlayerManager::Broadcast(Packet* pPacket)
 {
 	Lock();
 
-	// ≥™ø°∞‘ ¡¢º”«— ∏µÁ playerµÈø°∞‘ packet¿ª ¿¸º€«—¥Ÿ.
+	// ÎÇòÏóêÍ≤å Ï†ëÏÜçÌïú Î™®Îì† playerÎì§ÏóêÍ≤å packetÏùÑ Ï†ÑÏÜ°ÌïúÎã§.
 	RequestServerPlayer_LIST::iterator iPlayer = m_listRequestServerPlayer.begin();
 		
 	while (iPlayer != m_listRequestServerPlayer.end())
@@ -216,7 +279,7 @@ RequestServerPlayerManager::ProcessMode(RequestServerPlayer* pPlayer)
 	switch (pPlayer->getRequestMode())
 	{		
 		//------------------------------------------------------
-		// ¡ˆº”¿˚¿∏∑Œ ¡¬«•∏¶ ∫∏≥ª¥¬ ∞ÊøÏ
+		// ÏßÄÏÜçÏ†ÅÏúºÎ°ú Ï¢åÌëúÎ•º Î≥¥ÎÇ¥Îäî Í≤ΩÏö∞
 		//------------------------------------------------------		
 		case REQUEST_CLIENT_MODE_POSITION_REPEATLY :
 		{
@@ -233,7 +296,7 @@ RequestServerPlayerManager::ProcessMode(RequestServerPlayer* pPlayer)
 				int y		= g_pPlayer->GetY();
 				int zoneID	= (g_bZonePlayerInLarge?g_nZoneLarge : g_nZoneSmall);
 
-				// ¡¬«•∞° ¥ﬁ∂Û¡≥¿∏∏È ∫∏≥Ω¥Ÿ.
+				// Ï¢åÌëúÍ∞Ä Îã¨ÎùºÏ°åÏúºÎ©¥ Î≥¥ÎÇ∏Îã§.
 				if (oldX!=x || oldY!=y || oldZoneID!=zoneID
 					|| g_CurrentTime >= sendTime)
 				{
@@ -245,15 +308,15 @@ RequestServerPlayerManager::ProcessMode(RequestServerPlayer* pPlayer)
 
 					pPlayer->sendPacket( &_RCPositionInfo );
 
-					// ∫∏≥Ω ¡§∫∏ ±‚æÔ
+					// Î≥¥ÎÇ∏ Ï†ïÎ≥¥ Í∏∞Ïñµ
 					oldX = x;
 					oldY = y;
 					oldZoneID = zoneID;
 
-					sendTime = g_CurrentTime + 30000;	// 30*1000;  // 30√ 
+					sendTime = g_CurrentTime + 30000;	// 30*1000;  // 30Ï¥à
 				}
 
-				// 1√ ø° «—π¯ ∞ªΩ≈
+				// 1Ï¥àÏóê ÌïúÎ≤à Í∞±Ïã†
 				nextTime = g_CurrentTime + 1000;				
 			}
 		}
@@ -299,20 +362,20 @@ RequestServerPlayerManager::Update()
 
 			} catch (NonBlockingIOException& t) {
 
-				// π´Ω√..
+				// Î¨¥Ïãú..
 				DEBUG_ADD_ERR( t.toString().c_str() );
 
 			} catch (Throwable &t) 	{
 				
 				DEBUG_ADD_ERR( t.toString().c_str() );
 
-				// ≥ª∞° ø‰√ª«œ∞Ì ¿÷¥¬∞Õµµ ¬•∏•¥Ÿ.
+				// ÎÇ¥Í∞Ä ÏöîÏ≤≠ÌïòÍ≥† ÏûàÎäîÍ≤ÉÎèÑ ÏßúÎ•∏Îã§.
 				//if (g_pRequestClientPlayerManager!=NULL)
 				{
 				//	g_pRequestClientPlayerManager->Disconnect( pPlayer->getName().c_str() );
 				}
 
-				// exception¿Ã ≥™∏È π´¡∂∞« ¿ﬂ∂Ûπˆ∏∞¥Ÿ. --;
+				// exceptionÏù¥ ÎÇòÎ©¥ Î¨¥Ï°∞Í±¥ ÏûòÎùºÎ≤ÑÎ¶∞Îã§. --;
 				pPlayer->disconnect(UNDISCONNECTED);
 				delete pPlayer;
 
@@ -347,7 +410,7 @@ RequestServerPlayerManager::Init(int port)
 
 	m_pServerSocket = new ServerSocket( port );
 
-	DWORD dwChildThreadID;	// ¿«πÃ æ¯¥Á -- ;
+	DWORD dwChildThreadID;	// ÏùòÎØ∏ ÏóÜÎãπ -- ;
 
 	m_hRequestThread = CreateThread(NULL, 
 								0,	// default stack size
@@ -356,7 +419,7 @@ RequestServerPlayerManager::Init(int port)
 								NULL,
 								&dwChildThreadID);
 
-	// priority¥¬ ≥∑∞‘
+	// priorityÎäî ÎÇÆÍ≤å
 	SetThreadPriority(m_hRequestThread, THREAD_PRIORITY_LOWEST);
 }
 
@@ -368,7 +431,7 @@ RequestServerPlayerManager::WaitRequest()
 {
 	Socket* pSocket = m_pServerSocket->accept();
 
-	// requestø° µÓ∑œ
+	// requestÏóê Îì±Î°ù
 	RequestServerPlayer* pRequestServerPlayer = new RequestServerPlayer( pSocket );
 
 	pRequestServerPlayer->setPlayerStatus( CPS_REQUEST_SERVER_BEGIN_SESSION );
@@ -379,7 +442,7 @@ RequestServerPlayerManager::WaitRequest()
 	
 	if (AddRequestServerPlayer( pRequestServerPlayer ))
 	{
-		// g_pDebugMessageø° lock∞…æÓæﬂ «—¥Ÿ. - -;
+		// g_pDebugMessageÏóê lockÍ±∏Ïñ¥Ïïº ÌïúÎã§. - -;
 		//DEBUG_ADD_FORMAT("[Request] New Connection from %s:%d", pSocket->getHost().c_str(), pSocket->getPort());
 	}
 

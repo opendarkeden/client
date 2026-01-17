@@ -22,9 +22,9 @@
 //
 // class GCSkillInfo;
 //
-// Å¬¶óÀÌ¾ðÆ®°¡ °ÔÀÓ ¼­¹ö¿¡ Á¢¼ÓÇØ¼­ CGConnect ÆÐÅ¶À» º¸³»¸é, °ÔÀÓ ¼­¹ö´Â Å©¸®Ã³¿Í
-// ¼ÒÀ¯ ¾ÆÀÌÅÛÀ» ·ÎµùÇØ¼­ Á¸¿¡ µé¾î°¥ ÁØºñ¸¦ ÇÏ°Ô µÈ´Ù. ±×´ÙÀ½ PC¿Í ¾ÆÀÌÅÛ Á¤º¸,
-// ±×¸®°í Á¸ Á¤º¸¸¦ GCSkillInfo¿¡ ´ã¾Æ¼­ Å¬¶óÀÌ¾ðÆ®·Î Àü¼ÛÇÏ°Ô µÈ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ê°€ ê²Œìž„ ì„œë²„ì— ì ‘ì†í•´ì„œ CGConnect íŒ¨í‚·ì„ ë³´ë‚´ë©´, ê²Œìž„ ì„œë²„ëŠ” í¬ë¦¬ì²˜ì™€
+// ì†Œìœ  ì•„ì´í…œì„ ë¡œë”©í•´ì„œ ì¡´ì— ë“¤ì–´ê°ˆ ì¤€ë¹„ë¥¼ í•˜ê²Œ ëœë‹¤. ê·¸ë‹¤ìŒ PCì™€ ì•„ì´í…œ ì •ë³´,
+// ê·¸ë¦¬ê³  ì¡´ ì •ë³´ë¥¼ GCSkillInfoì— ë‹´ì•„ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡í•˜ê²Œ ëœë‹¤.
 //
 //--------------------------------------------------------------------------------
 
@@ -38,10 +38,10 @@ public :
 	// destructor
 	~GCSkillInfo () throw ();
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write ( SocketOutputStream & oStream ) const throw ( ProtocolException , Error );
 
 	// execute packet's handler
@@ -91,7 +91,7 @@ private :
 
 	//---------------------------------------------------------
 	// PC Skill Information
-	// SlayerSkillInfo ¶Ç´Â VampireSkillInfo ¸¦ »ç¿ëÇÑ´Ù.
+	// SlayerSkillInfo ë˜ëŠ” VampireSkillInfo ë¥¼ ì‚¬ìš©í•œë‹¤.
 	//---------------------------------------------------------
 	std::list<PCSkillInfo *> m_pPCSkillInfoList;
 
@@ -123,7 +123,7 @@ public :
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static GCSkillInfoPacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+	// const static GCSkillInfoPacketMaxSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
 	PacketSize_t getPacketMaxSize () const throw () 
 	{ 
 		return SlayerSkillInfo::getMaxSize();

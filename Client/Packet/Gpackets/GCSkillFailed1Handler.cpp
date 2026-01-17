@@ -19,13 +19,14 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCSkillFailed1Handler::execute ( GCSkillFailed1 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 
 	//------------------------------------------------------------------
-	// Player°¡ ±â´Ù¸®´ø skillÀÇ ¼º°øÀ¯¹«¸¦ °ËÁõ¹Þ¾Ò´Ù.
+	// Playerê°€ ê¸°ë‹¤ë¦¬ë˜ skillì˜ ì„±ê³µìœ ë¬´ë¥¼ ê²€ì¦ë°›ì•˜ë‹¤.
 	//------------------------------------------------------------------	
 	if (g_pPlayer->GetWaitVerify()==MPlayer::WAIT_VERIFY_SKILL_SUCCESS)
 	{		
@@ -37,7 +38,7 @@ void GCSkillFailed1Handler::execute ( GCSkillFailed1 * pPacket , Player * pPlaye
 	}
 
 	//------------------------------------------------------------------
-	// ½ÇÆÐÇßÀ¸´Ï±î °ü·ÃµÈ SkillÀÇ delay¸¦ ¾ø¾Ø´Ù.
+	// ì‹¤íŒ¨í–ˆìœ¼ë‹ˆê¹Œ ê´€ë ¨ëœ Skillì˜ delayë¥¼ ì—†ì•¤ë‹¤.
 	//------------------------------------------------------------------
 	int skillID = pPacket->getSkillType();
 	
@@ -45,7 +46,7 @@ void GCSkillFailed1Handler::execute ( GCSkillFailed1 * pPacket , Player * pPlaye
 		return;
 
 	//------------------------------------------------------------------
-	// Item LockÀ» Ç¬´Ù.
+	// Item Lockì„ í‘¼ë‹¤.
 	//------------------------------------------------------------------
 	if (g_pPlayer->GetItemCheckBufferStatus()==MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY)
 	{
@@ -53,7 +54,7 @@ void GCSkillFailed1Handler::execute ( GCSkillFailed1 * pPacket , Player * pPlaye
 	}
 	else if(g_pPlayer->IsOusters() && skillID == SKILL_ABSORB_SOUL)
 	{
-//		_MinTrace(" -_-a ½ÇÆÐ\n");
+//		_MinTrace(" -_-a ì‹¤íŒ¨\n");
 		g_pPlayer->SetStopAbsorbSoul();
 	} else if (g_pPlayer->IsSlayer() && skillID == SKILL_ETERNITY )
 	{
@@ -64,9 +65,9 @@ void GCSkillFailed1Handler::execute ( GCSkillFailed1 * pPacket , Player * pPlaye
 		
 	if (g_pSkillInfoTable!=NULL)
 	{
-		// ¸¶ºñ ¸¶¹ýÀÌ ¾Æ´Ñ °æ¿ì¸¸ delay¸¦ ¾ø¾ÖÁØ´Ù.
-		// ÀÌ°Å ActionInfoTable¿¡ ³Ö¾î¾ß ÇÑ´Ù.
-		// ½ºÅ³ ½ÇÆÐÇÏ¸é µô·¹ÀÌ ¾ø¾ÖÁÖ´Â ½ºÅ³¸¸ SetAvailableTimeÇÑ´Ù.
+		// ë§ˆë¹„ ë§ˆë²•ì´ ì•„ë‹Œ ê²½ìš°ë§Œ delayë¥¼ ì—†ì• ì¤€ë‹¤.
+		// ì´ê±° ActionInfoTableì— ë„£ì–´ì•¼ í•œë‹¤.
+		// ìŠ¤í‚¬ ì‹¤íŒ¨í•˜ë©´ ë”œë ˆì´ ì—†ì• ì£¼ëŠ” ìŠ¤í‚¬ë§Œ SetAvailableTimeí•œë‹¤.
 		if(false == (*g_pActionInfoTable)[skillID].IsIgnoreSkillFailDelay())
 //		if (skillID != MAGIC_PARALYZE
 //			&& skillID != MAGIC_CAUSE_CRITICAL_WOUNDS
@@ -93,14 +94,14 @@ void GCSkillFailed1Handler::execute ( GCSkillFailed1 * pPacket , Player * pPlaye
 	}
 
 	//------------------------------------------------------------------
-	// skill Á¾·ù¿¡ µû¶ó¼­
+	// skill ì¢…ë¥˜ì— ë”°ë¼ì„œ
 	//------------------------------------------------------------------
 	switch (skillID)
 	{
 		case SKILL_BITE_OF_DEATH :
 		case SKILL_BLOOD_DRAIN :
 			g_pPlayer->SetStopBloodDrain();
-//			DEBUG_ADD("ÈíÇ÷ ½ÇÆÐ¤»¤»");
+//			DEBUG_ADD("í¡í˜ˆ ì‹¤íŒ¨ã…‹ã…‹");
 //			g_pPlayer->StopBloodDrain();
 			break;
 		case SKILL_SOUL_CHAIN :
@@ -113,13 +114,13 @@ void GCSkillFailed1Handler::execute ( GCSkillFailed1 * pPacket , Player * pPlaye
 	}
 
 	//------------------------------------------------------------------
-	// »óÅÂ°ªÀ» ¹Ù²Û´Ù.
+	// ìƒíƒœê°’ì„ ë°”ê¾¼ë‹¤.
 	//------------------------------------------------------------------
 	AffectModifyInfo(g_pPlayer, pPacket);
 
 	//------------------------------------------------------------------
-	// UI¿¡ º¸ÀÌ´Â °ÍÀ» ¹Ù²ãÁØ´Ù.
-	// ºñ±³¿¬»êÇÏ´Â°Åº¸´Ù ÀÌ°Ô ´õ ºü¸£Áö ¾ÊÀ»±î.. À½.. - -;
+	// UIì— ë³´ì´ëŠ” ê²ƒì„ ë°”ê¿”ì¤€ë‹¤.
+	// ë¹„êµì—°ì‚°í•˜ëŠ”ê±°ë³´ë‹¤ ì´ê²Œ ë” ë¹ ë¥´ì§€ ì•Šì„ê¹Œ.. ìŒ.. - -;
 	//------------------------------------------------------------------
 	//UI_SetHP( g_pPlayer->GetHP(), g_pPlayer->GetMAX_HP() );
 	//UI_SetMP( g_pPlayer->GetMP(), g_pPlayer->GetMAX_MP() );

@@ -16,14 +16,15 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCGetDamageHandler::execute ( GCGetDamage * pGCGetDamage , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 	// message
 
 	//------------------------------------------------------
-	// Player°¡ Damage¸¦ ¹Þ¾ÒÀ¸¸é..
+	// Playerê°€ Damageë¥¼ ë°›ì•˜ìœ¼ë©´..
 	//------------------------------------------------------
 	if (pGCGetDamage->getObjectID()==g_pPlayer->GetID())
 	{
@@ -37,7 +38,7 @@ void GCGetDamageHandler::execute ( GCGetDamage * pGCGetDamage , Player * pPlayer
 	else
 	{
 		//------------------------------------------------------
-		// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+		// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 		//------------------------------------------------------
 		if (g_pZone==NULL)
 		{
@@ -45,16 +46,16 @@ void GCGetDamageHandler::execute ( GCGetDamage * pGCGetDamage , Player * pPlayer
 			DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 		}
 		//------------------------------------------------------
-		// Á¤»ó.. 
+		// ì •ìƒ.. 
 		//------------------------------------------------------
 		else
 		{
 			MCreature* pCreature = g_pZone->GetCreature( pGCGetDamage->getObjectID() );
 
-			// Creature¿¡°Ô Damage ÀÔÈû
+			// Creatureì—ê²Œ Damage ìž…íž˜
 			if (pCreature != NULL)
 			{
-				// SKILL_ATTACK_MELEE¿¡ ´ëÇÑ °á°ú¸¦ Ç¥ÇöÇØÁØ´Ù.
+				// SKILL_ATTACK_MELEEì— ëŒ€í•œ ê²°ê³¼ë¥¼ í‘œí˜„í•´ì¤€ë‹¤.
 				pCreature->PacketSpecialActionResult( 
 								SKILL_ATTACK_MELEE + (*g_pActionInfoTable).GetMinResultActionInfo(),
 								pCreature->GetID(),

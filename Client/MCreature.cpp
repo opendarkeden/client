@@ -29,7 +29,7 @@
 //#include "RequestClientPlayerManager.h"
 //#include "packet\Rpackets\CRRequest.h"
 #include "VS_UI_base.h"
-#include "MSkillManager.h"	// [»õ±â¼ú3]
+#include "MSkillManager.h"	// [Â»ÃµÂ±Ã¢Â¼Ãº3]
 #include "UIFunction.h"
 #include "MEventManager.h"
 #include "PacketFunction2.h"
@@ -37,7 +37,9 @@
 #include "RankBonusDef.h"
 #include "MTestDef.h"
 #include "MTimeItemManager.h"
+#ifdef PLATFORM_WINDOWS
 #include "MinTr.h"
+#endif
 #include "MFakeCreature.h"
 #include "SystemAvailabilities.h"
 #include "MGameStringTable.h"
@@ -55,7 +57,7 @@ extern bool					g_bZonePlayerInLarge;
 extern WORD					g_ZoneCreatureColorSet;
 
 #ifdef OUTPUT_DEBUG	
-	bool g_bCheckError = false;	// Å×½ºÆ®¸¦ À§ÇØ¼­ ÀÓ½Ã·Î..
+	bool g_bCheckError = false;	// Ã…Ã—Â½ÂºÃ†Â®Â¸Â¦ Ã€Â§Ã‡Ã˜Â¼Â­ Ã€Ã“Â½ÃƒÂ·Ã..
 #endif
 
 //#define	new			DEBUG_NEW
@@ -68,7 +70,7 @@ extern WORD					g_ZoneCreatureColorSet;
 //----------------------------------------------------------------------
 // Get ArmageddonSprite
 //----------------------------------------------------------------------
-// ÀÌ°Åµµ member functionÀ¸·Î ³Ö¾î¾ß µÇ´Âµ¥.. ÄÄÆÄÀÏ ½Ã°£¶§¹®¿¡ ÀÏ´Ü -_-;
+// Ã€ÃŒÂ°Ã…ÂµÂµ member functionÃ€Â¸Â·Ã Â³Ã–Â¾Ã®Â¾ÃŸ ÂµÃ‡Â´Ã‚ÂµÂ¥.. Ã„Ã„Ã†Ã„Ã€Ã Â½ÃƒÂ°Â£Â¶Â§Â¹Â®Â¿Â¡ Ã€ÃÂ´Ãœ -_-;
 //----------------------------------------------------------------------
 //TYPE_EFFECTSPRITETYPE
 //GetArmageddonSprite(MCreature* pCreature)
@@ -133,7 +135,7 @@ extern WORD					g_ZoneCreatureColorSet;
 //----------------------------------------------------------------------
 // define
 //----------------------------------------------------------------------
-// °Á ÇÔ¼ö·Î ¸¸µé¾î¾ß µÇ´Âµ¥.. Çì´õ¹Ù²Ù°í ÄÄÆÄÀÏÇÏ±â ½È¾î¼­ ÀÓ½Ã·Î - -;
+// Â°Ã Ã‡Ã”Â¼Ã¶Â·Ã Â¸Â¸ÂµÃ©Â¾Ã®Â¾ÃŸ ÂµÃ‡Â´Ã‚ÂµÂ¥.. Ã‡Ã¬Â´ÃµÂ¹Ã™Â²Ã™Â°Ã­ Ã„Ã„Ã†Ã„Ã€ÃÃ‡ÃÂ±Ã¢ Â½ÃˆÂ¾Ã®Â¼Â­ Ã€Ã“Â½ÃƒÂ·Ã - -;
 //DEBUG_ADD_FORMAT("[ Apply Buffering Move ] [ID=%d] Current(%d, %d) Dir(%d) --> Next(%d, %d) Dir(%d)",	\
 //															m_ID,												\
 //															m_X, m_Y, m_Direction,								\
@@ -189,9 +191,9 @@ extern WORD					g_ZoneCreatureColorSet;
 		}
 
 //----------------------------------------------------------------------
-// ÇÑ¹ø¿¡ ÀÌµ¿ÇÏ´Â pixel¿¡ ´ëÇÑ Á¤º¸ 
-// ACTIONCOUNT_MOVE¸¸Å­ sXTableÀÇ ¹æÇâ¿¡ ´õÇØÁÖ¸é sXTable°ªÀÌ 0ÀÌ µÈ´Ù.
-// 8¹æÇâ¿¡ ¹æÇâ¸¶´Ù Move¼ö¸¸Å­..
+// Ã‡Ã‘Â¹Ã¸Â¿Â¡ Ã€ÃŒÂµÂ¿Ã‡ÃÂ´Ã‚ pixelÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸ 
+// ACTIONCOUNT_MOVEÂ¸Â¸Ã…Â­ sXTableÃ€Ã‡ Â¹Ã¦Ã‡Ã¢Â¿Â¡ Â´ÃµÃ‡Ã˜ÃÃ–Â¸Ã© sXTableÂ°ÂªÃ€ÃŒ 0Ã€ÃŒ ÂµÃˆÂ´Ã™.
+// 8Â¹Ã¦Ã‡Ã¢Â¿Â¡ Â¹Ã¦Ã‡Ã¢Â¸Â¶Â´Ã™ MoveÂ¼Ã¶Â¸Â¸Ã…Â­..
 //----------------------------------------------------------------------
 /*
 int MCreature::m_cXTableFrame8[8][8] = 
@@ -244,7 +246,7 @@ int MCreature::m_cXTableFrame4[8][4] =
 */
 
 //------------------------------------------------------------------
-// Slayer action ¼Óµµ
+// Slayer action Â¼Ã“ÂµÂµ
 //------------------------------------------------------------------
 int MCreature::s_SlayerActionSpeed[ACTION_MAX_SLAYER][3] =
 {
@@ -271,7 +273,7 @@ int MCreature::s_SlayerActionSpeed[ACTION_MAX_SLAYER][3] =
 };
 
 //------------------------------------------------------------------
-// vampire action ¼Óµµ
+// vampire action Â¼Ã“ÂµÂµ
 //------------------------------------------------------------------
 int MCreature::s_VampireActionSpeed[ACTION_MAX_SLAYER][3] = //ACTION_MAX_VAMPIRE][3] =
 {
@@ -298,7 +300,7 @@ int MCreature::s_VampireActionSpeed[ACTION_MAX_SLAYER][3] = //ACTION_MAX_VAMPIRE
 };
 
 //------------------------------------------------------------------
-// ousters action ¼Óµµ
+// ousters action Â¼Ã“ÂµÂµ
 //------------------------------------------------------------------
 int MCreature::s_OustersActionSpeed[ACTION_MAX_SLAYER][3] = //ACTION_MAX_OUSTERS][3] =
 {
@@ -325,7 +327,7 @@ int MCreature::s_OustersActionSpeed[ACTION_MAX_SLAYER][3] = //ACTION_MAX_OUSTERS
 };
 
 //----------------------------------------------------------------------
-// ÇÑ Tile ÀÌµ¿ÀÇ Pixel¼ö
+// Ã‡Ã‘ Tile Ã€ÃŒÂµÂ¿Ã€Ã‡ PixelÂ¼Ã¶
 //----------------------------------------------------------------------
 int MCreature::m_sXTable[MAX_DIRECTION] = 
 {
@@ -341,7 +343,7 @@ int *MCreature::m_cXTable[MAX_FRAME_MOVE][MAX_DIRECTION] = { NULL, };
 int *MCreature::m_cYTable[MAX_FRAME_MOVE][MAX_DIRECTION] = { NULL, };
 
 //----------------------------------------------------------------------
-// ¹æÇâ¿¡ µû¸¥ º¯È­°ª
+// Â¹Ã¦Ã‡Ã¢Â¿Â¡ ÂµÃ»Â¸Â¥ ÂºÂ¯ÃˆÂ­Â°Âª
 //----------------------------------------------------------------------
 POINT g_DirectionValue[MAX_DIRECTION] =
 {
@@ -502,8 +504,8 @@ void			RemoveEffectStatusSummonSylph( MCreature* pCreature )
 //----------------------------------------------------------------------
 // Init MoveTable
 //----------------------------------------------------------------------
-// cX,cYtableÀ» ÃÊ±âÈ­ÇÑ´Ù.
-// [maxFrameÁ¾·ù8][8¹æÇâ][maxFrame°³ ¸¸Å­ÀÇ frameµé]
+// cX,cYtableÃ€Â» ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡Ã‘Â´Ã™.
+// [maxFrameÃÂ¾Â·Ã¹8][8Â¹Ã¦Ã‡Ã¢][maxFrameÂ°Â³ Â¸Â¸Ã…Â­Ã€Ã‡ frameÂµÃ©]
 //----------------------------------------------------------------------
 void
 MCreature::InitMoveTable()
@@ -514,7 +516,7 @@ MCreature::InitMoveTable()
 
 		for (int d=0; d<MAX_DIRECTION; d++)
 		{			
-			// maxFrame°³ ¸¸Å­ÀÇ frameµé
+			// maxFrameÂ°Â³ Â¸Â¸Ã…Â­Ã€Ã‡ frameÂµÃ©
 			if (m_cXTable[maxFrame][d]!=NULL)
 			{
 				delete [] m_cXTable[maxFrame][d];			
@@ -527,29 +529,29 @@ MCreature::InitMoveTable()
 			}
 			m_cYTable[maxFrame][d] = new int [maxFrame_plus_1];
 			
-												// maxFrameÀÌ 8ÀÏ °æ¿ì..
+												// maxFrameÃ€ÃŒ 8Ã€Ã Â°Ã¦Â¿Ã¬..
 			int totalX	= -m_sXTable[d];				// 48
 			int totalY	= -m_sYTable[d];				// 24
 
-			int		pX	= 0, pY = 0;			// ¹Ù·ÎÀüÀÇ x,y°ª
-			float	fX	= 0, fY = 0;			// ÇöÀç±îÁö ´õÇÑ x,y°ª
+			int		pX	= 0, pY = 0;			// Â¹Ã™Â·ÃÃ€Ã¼Ã€Ã‡ x,yÂ°Âª
+			float	fX	= 0, fY = 0;			// Ã‡Ã¶Ã€Ã§Â±Ã®ÃÃ¶ Â´ÃµÃ‡Ã‘ x,yÂ°Âª
 			float	cX	= (float)totalX / maxFrame_plus_1;	// 6
 			float	cY	= (float)totalY / maxFrame_plus_1;	// 3
 
-			// °¢ FrameÀ» ÃÊ±âÈ­ ½ÃÅ²´Ù.
-			// maxFrame°³¸¦ ´õÇÏ¸é totalX, totalY°¡ µÇ¾î¾ß ÇÑ´Ù.			
+			// Â°Â¢ FrameÃ€Â» ÃƒÃŠÂ±Ã¢ÃˆÂ­ Â½ÃƒÃ…Â²Â´Ã™.
+			// maxFrameÂ°Â³Â¸Â¦ Â´ÃµÃ‡ÃÂ¸Ã© totalX, totalYÂ°Â¡ ÂµÃ‡Â¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™.			
 			for (int f=0; f<maxFrame; f++)
 			{
-				// ÇöÀç±îÁö ´õÇÑ x, y°ª
+				// Ã‡Ã¶Ã€Ã§Â±Ã®ÃÃ¶ Â´ÃµÃ‡Ã‘ x, yÂ°Âª
 				fX += cX;
 				fY += cY;
 
-				// ÇöÀç °ª¿¡¼­ ÀÌÀü °ªÀ» »©¼­ Â÷ÀÌ¸¦ ±¸ÇÑ´Ù.
-				// fX¸¦ ¹İ¿Ã¸² ÇÏ´Â°Íµµ ±¦ÂúÁö ½Í´Ù.
+				// Ã‡Ã¶Ã€Ã§ Â°ÂªÂ¿Â¡Â¼Â­ Ã€ÃŒÃ€Ã¼ Â°ÂªÃ€Â» Â»Â©Â¼Â­ Ã‚Ã·Ã€ÃŒÂ¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
+				// fXÂ¸Â¦ Â¹ÃÂ¿ÃƒÂ¸Â² Ã‡ÃÂ´Ã‚Â°ÃÂµÂµ Â±Â¦Ã‚ÃºÃÃ¶ Â½ÃÂ´Ã™.
 				m_cXTable[maxFrame][d][f] = fX - pX;
 				m_cYTable[maxFrame][d][f] = fY - pY;
 
-				// ÇöÀçÀÇ °ªÀ» ±â¾ïÇØµĞ´Ù.
+				// Ã‡Ã¶Ã€Ã§Ã€Ã‡ Â°ÂªÃ€Â» Â±Ã¢Â¾Ã¯Ã‡Ã˜ÂµÃÂ´Ã™.
 				pX = fX;
 				pY = fY;
 			}
@@ -563,7 +565,7 @@ MCreature::InitMoveTable()
 //----------------------------------------------------------------------
 // Release MoveTable
 //----------------------------------------------------------------------
-// cX,cYTableÀ» Á¦°ÅÇÑ´Ù.	
+// cX,cYTableÃ€Â» ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.	
 //----------------------------------------------------------------------
 void
 MCreature::ReleaseMoveTable()
@@ -607,7 +609,7 @@ MCreature::MCreature()
 
 	m_MoveType = CREATURE_GROUND;
 
-	// ¿òÁ÷ÀÌ´Â ¹æ¹ı°ú ±×¿¡ µû¸¥ ÀÌµ¿ ´ÜÀ§
+	// Â¿Ã²ÃÃ·Ã€ÃŒÂ´Ã‚ Â¹Ã¦Â¹Ã½Â°Ãº Â±Ã—Â¿Â¡ ÂµÃ»Â¸Â¥ Ã€ÃŒÂµÂ¿ Â´ÃœÃ€Â§
 	m_MoveDevice = MOVE_DEVICE_WALK;
 	m_MoveAction = ACTION_MOVE;
 
@@ -616,7 +618,7 @@ MCreature::MCreature()
 
 	m_ColorBody1 = 0;
 	m_ColorBody2 = 0;
-	m_ChangeColorSet = ATTACHEFFECTCOLOR_NULL;	// ±âº»ÀûÀ¸·Î »ç¿ëÇÏÁö ¾Ê´Â´Ù.
+	m_ChangeColorSet = ATTACHEFFECTCOLOR_NULL;	// Â±Ã¢ÂºÂ»Ã€Ã»Ã€Â¸Â·Ã Â»Ã§Â¿Ã«Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 
 	m_ID = OBJECTID_NULL;
 
@@ -631,13 +633,13 @@ MCreature::MCreature()
 	m_cX = 0;
 	m_cY = 0;
 
-	m_Action = ACTION_STAND;				// Action¿¡ ´ëÇÑ ID
-	m_Direction = DIRECTION_LEFTDOWN;			// ¹Ù¶óºÁ¾ßÇÒ ¹æÇâ
+	m_Action = ACTION_STAND;				// ActionÂ¿Â¡ Â´Ã«Ã‡Ã‘ ID
+	m_Direction = DIRECTION_LEFTDOWN;			// Â¹Ã™Â¶Ã³ÂºÃÂ¾ÃŸÃ‡Ã’ Â¹Ã¦Ã‡Ã¢
 	m_DirectionMove = m_Direction;
 	m_DirectionMoved = m_Direction;
-	m_CurrentDirection = DIRECTION_LEFTDOWN;	// ÇöÀç¹Ù¶óº¸´Â ¹æÇâ
+	m_CurrentDirection = DIRECTION_LEFTDOWN;	// Ã‡Ã¶Ã€Ã§Â¹Ã™Â¶Ã³ÂºÂ¸Â´Ã‚ Â¹Ã¦Ã‡Ã¢
 
-	//  Çàµ¿	
+	//  Ã‡Ã ÂµÂ¿	
 	m_NextAction		= ACTION_STAND;
 
 
@@ -648,18 +650,18 @@ MCreature::MCreature()
 	m_MoveCountMax		= 0;
 	m_NextMoveCount		= 0;
 
-	// ³ôÀÌ
+	// Â³Ã´Ã€ÃŒ
 	m_Z		= 0;
 	
 	//-------------------------------------------------------
-	// ´ÙÀ½ ¿òÁ÷ÀÏ ¹æÇâ	
+	// Â´Ã™Ã€Â½ Â¿Ã²ÃÃ·Ã€Ã Â¹Ã¦Ã‡Ã¢	
 	//-------------------------------------------------------
 	m_NextX			= SECTORPOSITION_NULL;
 	m_NextY			= SECTORPOSITION_NULL;
 	m_NextDirection	= DIRECTION_NULL;
 
 	//-------------------------------------------------------
-	// ¸¶Áö¸·À¸·Î °ËÁõµÈ SectorÀÇ ÁÂÇ¥
+	// Â¸Â¶ÃÃ¶Â¸Â·Ã€Â¸Â·Ã Â°Ã‹ÃÃµÂµÃˆ SectorÃ€Ã‡ ÃÃ‚Ã‡Â¥
 	//-------------------------------------------------------
 	m_ServerX	= SECTORPOSITION_NULL;
 	m_ServerY	= SECTORPOSITION_NULL;
@@ -668,12 +670,13 @@ MCreature::MCreature()
 	//-------------------------------------------------------
 	// Chatting String
 	//-------------------------------------------------------
+	int i;
 	m_ChatString = new char* [g_pClientConfig->MAX_CHATSTRING];
-	for (int i=0; i<g_pClientConfig->MAX_CHATSTRING; i++)
+	for (i=0; i<g_pClientConfig->MAX_CHATSTRING; i++)
 	{
 		m_ChatString[i] = new char [g_pClientConfig->MAX_CHATSTRINGLENGTH_PLUS1];
 	}
-	
+
 	m_ChatStringCurrent = 0;
 	for (i=0; i<g_pClientConfig->MAX_CHATSTRING; i++)
 	{
@@ -685,14 +688,14 @@ MCreature::MCreature()
 	m_ChatTime = 0;
 
 	//-------------------------------------------------------
-	// ±â¼ú Á¾·ù
+	// Â±Ã¢Â¼Ãº ÃÂ¾Â·Ã¹
 	//-------------------------------------------------------
 	m_nBasicActionInfo		= SKILL_ATTACK_MELEE;
 	m_nSpecialActionInfo	= ACTIONINFO_NULL;
 	m_nUsedActionInfo		= ACTIONINFO_NULL;
 
 	//-------------------------------------------------------
-	// Ä³¸¯ÅÍ¿¡ ºÙ¾î ÀÖ´Â EffectÁ¾·ù
+	// Ã„Â³Â¸Â¯Ã…ÃÂ¿Â¡ ÂºÃ™Â¾Ã® Ã€Ã–Â´Ã‚ EffectÃÂ¾Â·Ã¹
 	//-------------------------------------------------------
 	m_bAttachEffect = new bool [(*g_pEffectSpriteTypeTable).GetSize()];
 	for (i=0; i<(*g_pEffectSpriteTypeTable).GetSize(); i++)
@@ -708,20 +711,20 @@ MCreature::MCreature()
 
 	m_AttachEffectColor = ATTACHEFFECTCOLOR_NULL;
 
-//	m_MaxEffectLight = 0;	// ÃÖ°í ¹à±â
+//	m_MaxEffectLight = 0;	// ÃƒÃ–Â°Ã­ Â¹Ã Â±Ã¢
 
 	//-------------------------------------------------------
-	// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+	// Â¸Ã±Ã‡Â¥Â¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸
 	//-------------------------------------------------------
 	SetTraceID( OBJECTID_NULL );
 	m_TraceX				= SECTORPOSITION_NULL;
 	m_TraceY				= SECTORPOSITION_NULL;
 	m_TraceZ				= 0;
 
-	// ºû³ª´Â Effectµé
+	// ÂºÃ»Â³ÂªÂ´Ã‚ EffectÂµÃ©
 	//m_nAlphaEffect = 0;
 
-	// ÃÖ±Ù¿¡ Ã¤ÆÃ StringÀÌ Ãß°¡µÈ ½ÃÁ¡
+	// ÃƒÃ–Â±Ã™Â¿Â¡ ÃƒÂ¤Ã†Ãƒ StringÃ€ÃŒ ÃƒÃŸÂ°Â¡ÂµÃˆ Â½ÃƒÃÂ¡
 	m_NextChatFadeTime = g_CurrentTime;
 
 	m_pActionResult = NULL;
@@ -795,7 +798,7 @@ MCreature::MCreature()
 	m_bStopBloodDrain = 0;
 	m_bStopAbsorbSoul = 0;
 
-	// -1ÀÌ¸é darkness¿¡ ÀÖ´Â°Ô ¾Æ´Ï´Ù.
+	// -1Ã€ÃŒÂ¸Ã© darknessÂ¿Â¡ Ã€Ã–Â´Ã‚Â°Ã” Â¾Ã†Â´ÃÂ´Ã™.
 	m_DarknessCount = -1;
 	m_DarknessCountInc = 0;
 
@@ -853,7 +856,7 @@ MCreature::MCreature()
 MCreature::~MCreature()
 {
 	//----------------------------------------
-	// Æê Á¦°Å
+	// Ã†Ãª ÃÂ¦Â°Ã…
 	//----------------------------------------
 	if(GetPetID() != OBJECTID_NULL && g_pZone != NULL)
 	{
@@ -861,7 +864,7 @@ MCreature::~MCreature()
 	}
 
 	//----------------------------------------
-	// Á¤·É Á¦°Å
+	// ÃÂ¤Â·Ã‰ ÃÂ¦Â°Ã…
 	//----------------------------------------
 	if(GetElementalID() != OBJECTID_NULL && g_pZone != NULL)
 	{
@@ -871,7 +874,7 @@ MCreature::~MCreature()
 	ClearAttachEffect();
 
 	//-------------------------------------------------------
-	// ÀÌ¸§ Á¦°Å
+	// Ã€ÃŒÂ¸Â§ ÃÂ¦Â°Ã…
 	//-------------------------------------------------------
 	if (m_pName!=NULL)
 	{
@@ -926,7 +929,7 @@ bool IsCreatureTypeVampirePC(int type)
 		type == CREATURETYPE_VAMPIRE_FEMALE2 ||
 		type == CREATURETYPE_VAMPIRE_FEMALE3 ||
 		type == CREATURETYPE_WER_WOLF	||	
-				// add by Coffee 2006.11.24  Ôö¼Ó¹í×åÑÇÂéĞÎÏó
+				// add by Coffee 2006.11.24  Ã”Ã¶Â¼Ã“Â¹Ã­Ã—Ã¥Ã‘Ã‡Ã‚Ã©ÃÃÃÃ³
 		type == CREATURETYPE_VAMPIRE_FEMALE4 ||
 		type == CREATURETYPE_VAMPIRE_MALE4	||
 		//add by viva
@@ -969,7 +972,7 @@ MCreature::SetCreatureType(TYPE_CREATURETYPE type)
 	m_sX=0; 
 	m_sY=0;
 	
-	// ´ÙÀ½ µ¿ÀÛµµ ¾ø¾Ú
+	// Â´Ã™Ã€Â½ ÂµÂ¿Ã€Ã›ÂµÂµ Â¾Ã¸Â¾Ãš
 	m_bNextAction = false;
 	m_NextX = SECTORPOSITION_NULL;
 	m_NextY = SECTORPOSITION_NULL;
@@ -993,27 +996,27 @@ MCreature::SetCreatureType(TYPE_CREATURETYPE type)
 
 
 	
-	// »ö±ò - ¸÷ÀÎ °æ¿ì¸¸.. ¼³Á¤ÇØÁØ´Ù.
+	// Â»Ã¶Â±Ã² - Â¸Ã·Ã€Ã Â°Ã¦Â¿Ã¬Â¸Â¸.. Â¼Â³ÃÂ¤Ã‡Ã˜ÃÃ˜Â´Ã™.
 	if(!IsCreatureTypeVampirePC(m_CreatureType))
 	{
 		m_ColorBody1		= (*g_pCreatureTable)[m_CreatureType].ColorSet;
 		m_ColorBody2		= m_ColorBody1;
 	}
 	
-	// ¾îµÓ°Ô Âï±â Á¦°Å
+	// Â¾Ã®ÂµÃ“Â°Ã” Ã‚Ã¯Â±Ã¢ ÃÂ¦Â°Ã…
 	m_bFade				= false;
 
-	// ¿ø·¡ Å©¸®ÃÄ Å¸ÀÔÀÌ ¹Ù²ğ¶§ ÀÌÆåÆ®¸¦ ³¯¸®µµ·Ï Çß´Ù.
-	// ÀÌ´Â ½½·¹ÀÌ¾î<->¹ìÆÄÀÌ¾îÀÇ º¯½Å½Ã¸¸ ÇÏµµ·Ï ÇÏÀğ
-	// ºÙÀº effect Á¦°Å
+	// Â¿Ã¸Â·Â¡ Ã…Â©Â¸Â®ÃƒÃ„ Ã…Â¸Ã€Ã”Ã€ÃŒ Â¹Ã™Â²Ã°Â¶Â§ Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ Â³Â¯Â¸Â®ÂµÂµÂ·Ã Ã‡ÃŸÂ´Ã™.
+	// Ã€ÃŒÂ´Ã‚ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®<->Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Ã€Ã‡ ÂºÂ¯Â½Ã…Â½ÃƒÂ¸Â¸ Ã‡ÃÂµÂµÂ·Ã Ã‡ÃÃ€Ã°
+	// ÂºÃ™Ã€Âº effect ÃÂ¦Â°Ã…
 //	ClearAttachEffect();
 
 	//by csm
 	spriteType = (*g_pCreatureTable)[m_CreatureType].SpriteTypes[0];
 	//---------------------------------------------------------------------------
-	// ±â¼ú ¼³Á¤
+	// Â±Ã¢Â¼Ãº Â¼Â³ÃÂ¤
 	//---------------------------------------------------------------------------
-	// ±âº» °ø°İ µ¿ÀÛÀÌ ¾ø´Â °æ¿ì..
+	// Â±Ã¢ÂºÂ» Â°Ã¸Â°Ã ÂµÂ¿Ã€Ã›Ã€ÃŒ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬..
 	if (!(*g_pCreatureSpriteTable)[spriteType].IsPlayerSprite()
 		//&& (*g_pCreatureTable)[m_CreatureType].GetActionCount( ACTION_ATTACK )==0)
 		&& GetCreatureActionCountMax( this, ACTION_ATTACK )==0)
@@ -1031,7 +1034,7 @@ MCreature::SetCreatureType(TYPE_CREATURETYPE type)
 	//m_WeaponSpeed			= WEAPON_SPEED_NORMAL;
 
 	//---------------------------------------------------------------------------
-	// ¿ÏÀüÈ÷ »ö±òÀÌ ¹Ù²î´Â ¸÷ÀÎ °æ¿ì
+	// Â¿ÃÃ€Ã¼ÃˆÃ· Â»Ã¶Â±Ã²Ã€ÃŒ Â¹Ã™Â²Ã®Â´Ã‚ Â¸Ã·Ã€Ã Â°Ã¦Â¿Ã¬
 	//---------------------------------------------------------------------------
 	int changeColor = (*g_pCreatureTable)[m_CreatureType].ChangeColorSet;
 	if (changeColor < MAX_COLORSET)
@@ -1041,7 +1044,7 @@ MCreature::SetCreatureType(TYPE_CREATURETYPE type)
 	}
 	else
 	{
-		// ATTACHEFFECTCOLOR_NULLÀÌ¸é Á¤»óÀûÀÎ »ö±òÀÌ´Ù.
+		// ATTACHEFFECTCOLOR_NULLÃ€ÃŒÂ¸Ã© ÃÂ¤Â»Ã³Ã€Ã»Ã€Ã Â»Ã¶Â±Ã²Ã€ÃŒÂ´Ã™.
 
 		if ((*g_pCreatureSpriteTable)[spriteType].IsMonsterSprite())
 		{
@@ -1056,14 +1059,14 @@ MCreature::SetCreatureType(TYPE_CREATURETYPE type)
 	}
 
 	//---------------------------------------------------------------------------
-	// ±âº»(?)ÀûÀ¸·Î ¼ºº° ¼³Á¤..
-	// ´Á´ë³ª ¹ÚÁãÀÎ °æ¿ì´Â creaturetypeÀ¸·Î ¼ºº°À» ¾Ë ¼ö°¡ ¾ø¾î¼­¸®..
+	// Â±Ã¢ÂºÂ»(?)Ã€Ã»Ã€Â¸Â·Ã Â¼ÂºÂºÂ° Â¼Â³ÃÂ¤..
+	// Â´ÃÂ´Ã«Â³Âª Â¹ÃšÃÃ£Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ creaturetypeÃ€Â¸Â·Ã Â¼ÂºÂºÂ°Ã€Â» Â¾Ã‹ Â¼Ã¶Â°Â¡ Â¾Ã¸Â¾Ã®Â¼Â­Â¸Â®..
 	//---------------------------------------------------------------------------
 	if( m_CreatureType != CREATURETYPE_WER_WOLF )
 		m_bMale = (*g_pCreatureTable)[m_CreatureType].bMale;
 
 	//---------------------------------------------------------------------------
-	// ¸ö ÀÜ»ó
+	// Â¸Ã¶ Ã€ÃœÂ»Ã³
 	//---------------------------------------------------------------------------
 	m_ShadowCount = (*g_pCreatureTable)[m_CreatureType].ShadowCount;
 
@@ -1071,7 +1074,7 @@ MCreature::SetCreatureType(TYPE_CREATURETYPE type)
 	m_CasketCount = 0;
 
 	//---------------------------------------------------------------------------
-	// Effect Á¦°Å
+	// Effect ÃÂ¦Â°Ã…
 	//---------------------------------------------------------------------------
 	if (HasEffectStatus(EFFECTSTATUS_TRANSFORM_TO_BAT)
 		&& m_CreatureType!=CREATURETYPE_BAT)
@@ -1091,18 +1094,18 @@ MCreature::SetCreatureType(TYPE_CREATURETYPE type)
 		RemoveEffectStatus(EFFECTSTATUS_TRANSFORM_TO_WERWOLF);
 	}
 
-	// 2004, 9, 13, sobeit add start - ÃÑ½½ 130 ½ºÅ³
+	// 2004, 9, 13, sobeit add start - ÃƒÃ‘Â½Â½ 130 Â½ÂºÃ…Â³
 	if (HasEffectStatus(EFFECTSTATUS_INSTALL_TURRET)
 		&& m_CreatureType != CREATURETYPE_INSTALL_TURRET)
 	{
 		RemoveEffectStatus(EFFECTSTATUS_INSTALL_TURRET);
 	}
-	// 2004, 9, 13, sobeit add end - ÃÑ½½ 130 ½ºÅ³
+	// 2004, 9, 13, sobeit add end - ÃƒÃ‘Â½Â½ 130 Â½ÂºÃ…Â³
 	
-	// Weapon Speed¸¦ ´Ù½Ã ¼³Á¤ÇØÁØ´Ù.
+	// Weapon SpeedÂ¸Â¦ Â´Ã™Â½Ãƒ Â¼Â³ÃÂ¤Ã‡Ã˜ÃÃ˜Â´Ã™.
 	int attackSpeed = m_Status[MODIFY_ATTACK_SPEED];
 
-	// 0ÀÌ¸é °ªÀÌ ¼³Á¤ÀÌ ¾ÈµÆ´Ù°í °¡Á¤ÇÑ´Ù. Æ¯È÷, ¸÷ÀÎ °æ¿ìÀÌ´Ù.
+	// 0Ã€ÃŒÂ¸Ã© Â°ÂªÃ€ÃŒ Â¼Â³ÃÂ¤Ã€ÃŒ Â¾ÃˆÂµÃ†Â´Ã™Â°Ã­ Â°Â¡ÃÂ¤Ã‡Ã‘Â´Ã™. Ã†Â¯ÃˆÃ·, Â¸Ã·Ã€Ã Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™.
 	if (attackSpeed!=0)	
 	{
 		SetWeaponSpeed( attackSpeed );
@@ -1143,7 +1146,7 @@ void
 MCreature::ClearAttachEffect()
 {
 	//-------------------------------------------------------
-	// Creature¿¡ ºÙ¾î ÀÖ´Â Effect¸¦ ¸Ş¸ğ¸®¿¡¼­ Á¦°ÅÇÑ´Ù.
+	// CreatureÂ¿Â¡ ÂºÃ™Â¾Ã® Ã€Ã–Â´Ã‚ EffectÂ¸Â¦ Â¸ÃÂ¸Ã°Â¸Â®Â¿Â¡Â¼Â­ ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 	//-------------------------------------------------------
 	ATTACHEFFECT_LIST::iterator iEffect = m_listEffect.begin();
 
@@ -1158,7 +1161,7 @@ MCreature::ClearAttachEffect()
 	m_listEffect.clear();
 
 	//-------------------------------------------------------
-	// ¸ö¿¡ ºÙ´Â Effect
+	// Â¸Ã¶Â¿Â¡ ÂºÃ™Â´Ã‚ Effect
 	//-------------------------------------------------------
 	iEffect = m_listGroundEffect.begin();
 
@@ -1173,7 +1176,7 @@ MCreature::ClearAttachEffect()
 	m_listGroundEffect.clear();
 
 	//-------------------------------------------------------
-	// Ã¼Å© °ª Á¦°Å
+	// ÃƒÂ¼Ã…Â© Â°Âª ÃÂ¦Â°Ã…
 	//-------------------------------------------------------
 	if (g_pEffectSpriteTypeTable!=NULL)
 	{
@@ -1221,13 +1224,13 @@ MCreature::RemoveGlacierEffect()
 			||EFFECTSPRITETYPE_CAUSE_CRITICAL_WOUND_4 == Type 
 			)
 		{
-			// ¸Ş¸ğ¸® Á¦°Å
+			// Â¸ÃÂ¸Ã°Â¸Â® ÃÂ¦Â°Ã…
 			delete pEffect;
 
 			ATTACHEFFECT_LIST::iterator dEffect = iEffect;
 			iEffect--;
 
-			// list¿¡¼­ Á¦°Å
+			// listÂ¿Â¡Â¼Â­ ÃÂ¦Â°Ã…
 			m_listEffect.erase( dEffect );
 
 			m_bAttachEffect[Type] = false;
@@ -1260,7 +1263,7 @@ MCreature::Remove_Curse_Paralsis_Effect()
 //----------------------------------------------------------------------
 // Remove EffectStatus
 //----------------------------------------------------------------------
-// Æ¯Á¤ÇÑ EffectSpriteTypeÀ» Á¦°ÅÇÑ´Ù.
+// Ã†Â¯ÃÂ¤Ã‡Ã‘ EffectSpriteTypeÃ€Â» ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool
 MCreature::RemoveEffectStatus(EFFECTSTATUS status)
@@ -1276,7 +1279,7 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 
 	if (!m_bEffectStatus[status])
 	{
-		// [»õ±â¼ú7]
+		// [Â»ÃµÂ±Ã¢Â¼Ãº7]
 		DEBUG_ADD_FORMAT("NotEffectStatus(%d)", (int)status);
 		return false;
 	}
@@ -1287,7 +1290,7 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 
 	int pTypes = (*g_pEffectStatusTable)[status].EffectSpriteType;
 	//------------------------------------------------------------
-	// effectStatus¿¡ µû¶ó¼­.
+	// effectStatusÂ¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­.
 	//------------------------------------------------------------
 	switch (status)
 	{
@@ -1314,7 +1317,7 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 		break;
 
 		//------------------------------------------------------------
-		// ¸¶ºñ Ç®¸± ¶§
+		// Â¸Â¶ÂºÃ± Ã‡Â®Â¸Â± Â¶Â§
 		//------------------------------------------------------------
 		case EFFECTSTATUS_CAUSE_CRITICAL_WOUNDS :
 		case EFFECTSTATUS_EXPLOSION_WATER :
@@ -1337,7 +1340,7 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 		break;
 
 		//------------------------------------------------------------
-		// ¸¶ºñ Ç®¸± ¶§
+		// Â¸Â¶ÂºÃ± Ã‡Â®Â¸Â± Â¶Â§
 		//------------------------------------------------------------
 		// add by Coffee 2007-3-21
 		case EFFECTSTATUS_SATELLITE_BOMB_AIM :
@@ -1354,37 +1357,37 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 		break;
 
 		//------------------------------------------------------------
-		// EFFECTSTATUS_SUMMON_CASKET [»õ±â¼ú]
+		// EFFECTSTATUS_SUMMON_CASKET [Â»ÃµÂ±Ã¢Â¼Ãº]
 		//------------------------------------------------------------
 		case EFFECTSTATUS_CASKET :
-			// ¹Ù·Î invisible·Î ¸¸µç´Ù.
+			// Â¹Ã™Â·Ã invisibleÂ·Ã Â¸Â¸ÂµÃ§Â´Ã™.
 			RemoveCasket();
 		break;
 
 
 		//------------------------------------------------------------
-		// Invisible Á¦°Å
+		// Invisible ÃÂ¦Â°Ã…
 		//------------------------------------------------------------
 		case EFFECTSTATUS_INVISIBILITY :
 		case EFFECTSTATUS_SNIPPING_MODE :	
-			// invisibleÀ» Á¦°ÅÇÑ´Ù.
+			// invisibleÃ€Â» ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 			SetVisible();
 		break;
 
 		//------------------------------------------------------------
-		// COMA Á¦°Å
+		// COMA ÃÂ¦Â°Ã…
 		//------------------------------------------------------------
 		case EFFECTSTATUS_COMA :
 			SetAlive();
 			if(IsVampire())
 			{
 				ExecuteActionInfoFromMainNode(
-							BLOOD_RESURRECT,										// »ç¿ë ±â¼ú ¹øÈ£
+							BLOOD_RESURRECT,										// Â»Ã§Â¿Ã« Â±Ã¢Â¼Ãº Â¹Ã¸ÃˆÂ£
 						
 							m_X, m_Y, 0,
-							(int)m_Direction,														// »ç¿ë ¹æÇâ
+							(int)m_Direction,														// Â»Ã§Â¿Ã« Â¹Ã¦Ã‡Ã¢
 							
-							m_ID,												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+							m_ID,												// Â¸Ã±Ã‡Â¥Â¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸
 							m_X, m_Y, 0,
 							
 							2*16, //5*16, 
@@ -1398,7 +1401,7 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 		break;
 
 		case EFFECTSTATUS_GHOST:
-			if (!(*g_pCreatureTable)[m_CreatureType].bFlyingCreature)	// ¹ÚÁãÀÎ °æ¿ì
+			if (!(*g_pCreatureTable)[m_CreatureType].bFlyingCreature)	// Â¹ÃšÃÃ£Ã€Ã Â°Ã¦Â¿Ã¬
 				SetGroundCreature();
 			break;
 		case EFFECTSTATUS_WILL_OF_LIFE :
@@ -1452,7 +1455,7 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 
 	//------------------------------------------------------------
 	//
-	//			EffectSprite·Î Ç¥ÇöÇÏ´Â °æ¿ì
+	//			EffectSpriteÂ·Ã Ã‡Â¥Ã‡Ã¶Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 	//
 	//------------------------------------------------------------
 	if (bUseEffectSprite)
@@ -1508,8 +1511,8 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 				type2 = type - 1;
 
 			//-------------------------------------------------------
-			// Creature¿¡ ºÙ¾î ÀÖ´Â EffectÁß¿¡¼­
-			// EffectSpriteTypeÀÌ typeÀÎ °ÍÀ» Á¦°ÅÇÑ´Ù.
+			// CreatureÂ¿Â¡ ÂºÃ™Â¾Ã® Ã€Ã–Â´Ã‚ EffectÃÃŸÂ¿Â¡Â¼Â­
+			// EffectSpriteTypeÃ€ÃŒ typeÃ€Ã Â°ÃÃ€Â» ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 			//-------------------------------------------------------
 			if (type < g_pEffectSpriteTypeTable->GetSize())
 			{
@@ -1523,7 +1526,7 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 				if (m_bAttachEffect[type])
 				{
 					//-------------------------------------------------------
-					// ¸ö¿¡ ºÙÀº°Å
+					// Â¸Ã¶Â¿Â¡ ÂºÃ™Ã€ÂºÂ°Ã…
 					//-------------------------------------------------------
 					ATTACHEFFECT_LIST::iterator iEffect = m_listEffect.begin();
 
@@ -1533,19 +1536,19 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 						MAttachEffect* pEffect = *iEffect;
 						
 						//-------------------------------------------------------
-						// °°Àº typeÀ» Ã£´Â´Ù.
+						// Â°Â°Ã€Âº typeÃ€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 						//-------------------------------------------------------
 						if (pEffect->IsEffectSprite() 
 							&& (pEffect->GetEffectSpriteType() == type || type2 != EFFECTSPRITETYPE_NULL &&
 							type2 == pEffect->GetEffectSpriteType()) )
 						{
-							// ¸Ş¸ğ¸® Á¦°Å
+							// Â¸ÃÂ¸Ã°Â¸Â® ÃÂ¦Â°Ã…
 							delete pEffect;
 
 							ATTACHEFFECT_LIST::iterator dEffect = iEffect;
 							iEffect--;
 
-							// list¿¡¼­ Á¦°Å
+							// listÂ¿Â¡Â¼Â­ ÃÂ¦Â°Ã…
 							m_listEffect.erase( dEffect );
 
 							m_bAttachEffect[type] = false;
@@ -1564,7 +1567,7 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 					}
 
 					//-------------------------------------------------------
-					// ¹Ù´Ú¿¡ ºÙÀº °Å
+					// Â¹Ã™Â´ÃšÂ¿Â¡ ÂºÃ™Ã€Âº Â°Ã…
 					//-------------------------------------------------------
 					iEffect = m_listGroundEffect.begin();
 
@@ -1573,15 +1576,15 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 						MAttachEffect* pEffect = *iEffect;
 						
 						//-------------------------------------------------------
-						// °°Àº typeÀ» Ã£´Â´Ù.
+						// Â°Â°Ã€Âº typeÃ€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 						//-------------------------------------------------------
 						if (pEffect->IsEffectSprite() && pEffect->GetEffectSpriteType() == type
 							|| type2 != EFFECTSPRITETYPE_NULL && type2 == pEffect->GetEffectSpriteType() )
 						{
-							// ¸Ş¸ğ¸® Á¦°Å
+							// Â¸ÃÂ¸Ã°Â¸Â® ÃÂ¦Â°Ã…
 							delete pEffect;
 
-							// list¿¡¼­ Á¦°Å
+							// listÂ¿Â¡Â¼Â­ ÃÂ¦Â°Ã…
 							m_listGroundEffect.erase( iEffect );
 
 							m_bAttachEffect[type] = false;
@@ -1600,7 +1603,7 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 	}
 	//------------------------------------------------------------
 	//
-	//			EffectColor·Î Ç¥ÇöÇÏ´Â °æ¿ì
+	//			EffectColorÂ·Ã Ã‡Â¥Ã‡Ã¶Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 	//
 	//------------------------------------------------------------
 	else
@@ -1608,8 +1611,8 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 		WORD colorSet = (*g_pEffectStatusTable)[status].EffectColor;
 
 		//-------------------------------------------------------
-		// Creature¿¡ ºÙ¾î ÀÖ´Â EffectÁß¿¡¼­
-		// EffectColor°¡ colorÀÎ °ÍÀ» Á¦°ÅÇÑ´Ù.
+		// CreatureÂ¿Â¡ ÂºÃ™Â¾Ã® Ã€Ã–Â´Ã‚ EffectÃÃŸÂ¿Â¡Â¼Â­
+		// EffectColorÂ°Â¡ colorÃ€Ã Â°ÃÃ€Â» ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 		//-------------------------------------------------------
 		ATTACHEFFECT_LIST::iterator iEffect = m_listEffect.begin();
 
@@ -1618,14 +1621,14 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 			MAttachEffect* pEffect = *iEffect;
 			
 			//-------------------------------------------------------
-			// °°Àº typeÀ» Ã£´Â´Ù.
+			// Â°Â°Ã€Âº typeÃ€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 			//-------------------------------------------------------
 			if (pEffect->IsEffectColor() && pEffect->GetEffectColor() == colorSet)
 			{
-				// ¸Ş¸ğ¸® Á¦°Å
+				// Â¸ÃÂ¸Ã°Â¸Â® ÃÂ¦Â°Ã…
 				delete pEffect;
 
-				// list¿¡¼­ Á¦°Å
+				// listÂ¿Â¡Â¼Â­ ÃÂ¦Â°Ã…
 				m_listEffect.erase( iEffect );
 
 				return true;
@@ -1634,7 +1637,7 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 			iEffect++;
 		}		
 
-		// GroundEffect´Â ¾ø´Ù°í º»´Ù.
+		// GroundEffectÂ´Ã‚ Â¾Ã¸Â´Ã™Â°Ã­ ÂºÂ»Â´Ã™.
 	}
 	
 	return false;
@@ -1644,14 +1647,14 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 // Add EffectStatus
 //----------------------------------------------------------------------
 // 
-// Æ¯º°ÇÑ »óÅÂ¸¦ ³ªÅ¸³»´Â effect
+// Ã†Â¯ÂºÂ°Ã‡Ã‘ Â»Ã³Ã…Ã‚Â¸Â¦ Â³ÂªÃ…Â¸Â³Â»Â´Ã‚ effect
 //
-// Creature¿¡ ´Ş¶óºÙ¾î¼­ Ç¥ÇöµÇ´Â Effect Ç¥Çö
+// CreatureÂ¿Â¡ Â´ÃÂ¶Ã³ÂºÃ™Â¾Ã®Â¼Â­ Ã‡Â¥Ã‡Ã¶ÂµÃ‡Â´Ã‚ Effect Ã‡Â¥Ã‡Ã¶
 //
-// ÁßÃ¸À» Çã¿ëÇÏÁö ¾ÊÀ¸¹Ç·Î.. 
-// ¾ÆÁ÷ ºÙ¾î¼­ Ç¥ÇöµÇÁö ¾ÊÀº Effect¸¸ »õ·Î Ãß°¡ÇÑ´Ù.
+// ÃÃŸÃƒÂ¸Ã€Â» Ã‡Ã£Â¿Ã«Ã‡ÃÃÃ¶ Â¾ÃŠÃ€Â¸Â¹Ã‡Â·Ã.. 
+// Â¾Ã†ÃÃ· ÂºÃ™Â¾Ã®Â¼Â­ Ã‡Â¥Ã‡Ã¶ÂµÃ‡ÃÃ¶ Â¾ÃŠÃ€Âº EffectÂ¸Â¸ Â»ÃµÂ·Ã ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 //
-// ±×·¯³ª, ½Ã°£ È®ÀåÀ» ÇØ¾ßÇÏ´Â °æ¿ì°¡ »ı±ä´Ù.
+// Â±Ã—Â·Â¯Â³Âª, Â½ÃƒÂ°Â£ ÃˆÂ®Ã€Ã¥Ã€Â» Ã‡Ã˜Â¾ÃŸÃ‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬Â°Â¡ Â»Ã½Â±Ã¤Â´Ã™.
 //----------------------------------------------------------------------
 bool
 MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
@@ -1663,14 +1666,14 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 //	}
 	
 	//----------------------------------------------------------
-	// ÀÌ¹Ì Á×Àº °æ¿ì
+	// Ã€ÃŒÂ¹ÃŒ ÃÃ—Ã€Âº Â°Ã¦Â¿Ã¬
 	//----------------------------------------------------------
 	if (IsDead() && status != EFFECTSTATUS_COMA && 
 		!(
 		GetCreatureType() >= 371 && GetCreatureType() <= 376 || GetCreatureType() >= 560 && GetCreatureType() <= 563) && 
 		GetCreatureType() != 482 && GetCreatureType() != 650 && !(GetCreatureType() >= 526 && GetCreatureType() <= 549) &&
 		GetCreatureType() != 670 && GetCreatureType() != 672 && GetCreatureType() != 673
-		)	// ¼º¹°ÀÎ °æ¿ì´Â ÀÌÆåÆ® ºÙÀÓ
+		)	// Â¼ÂºÂ¹Â°Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ Ã€ÃŒÃ†Ã¥Ã†Â® ÂºÃ™Ã€Ã“
 	{
 		DEBUG_ADD("Don't AddEffectStatus : Already Dead");
 		
@@ -1684,11 +1687,11 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 		return false;
 	}
 
-	int eCount = 0; // ÀÌÆåÆ®ÀÇ °³¼ö
+	int eCount = 0; // Ã€ÃŒÃ†Ã¥Ã†Â®Ã€Ã‡ Â°Â³Â¼Ã¶
 	int orbit_type = 0;
 
 	//------------------------------------------------------------
-	// effectStatus¿¡ µû¶ó¼­.
+	// effectStatusÂ¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­.
 	//------------------------------------------------------------
 	MEffect::EFFECT_TYPE eType = MEffect::EFFECT_ATTACH;
 	TYPE_EFFECTSPRITETYPE type = (*g_pEffectStatusTable)[status].EffectSpriteType;
@@ -1705,7 +1708,7 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 	case EFFECTSTATUS_SUMMON_SYLPH:
 		{
 			SetMoveDevice(MOVE_DEVICE_SUMMON_SYLPH);
-			/********  Edit By sonic È¥³ıÄ§Áé¶ş×ªºó±äÇòĞ§¹û********/
+			/********  Edit By sonic ÃˆÂ¥Â³Ã½Ã„Â§ÃÃ©Â¶Ã¾Ã—ÂªÂºÃ³Â±Ã¤Ã‡Ã²ÃÂ§Â¹Ã»********/
 			
 			if(IsAdvancementClass() && status==EFFECTSTATUS_SUMMON_SYLPH)
 			{
@@ -1721,15 +1724,15 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 		// EFFECTSTATUS_INVISIBILITY
 		//------------------------------------------------------------
 		case EFFECTSTATUS_INVISIBILITY :
-			// ¹Ù·Î invisible·Î ¸¸µç´Ù.
+			// Â¹Ã™Â·Ã invisibleÂ·Ã Â¸Â¸ÂµÃ§Â´Ã™.
 			SetInvisibleSoon();
 		break;
 
 		//------------------------------------------------------------
-		// EFFECTSTATUS_SUMMON_CASKET [»õ±â¼ú]
+		// EFFECTSTATUS_SUMMON_CASKET [Â»ÃµÂ±Ã¢Â¼Ãº]
 		//------------------------------------------------------------
 		case EFFECTSTATUS_CASKET :
-			// ¹Ù·Î invisible·Î ¸¸µç´Ù.
+			// Â¹Ã™Â·Ã invisibleÂ·Ã Â¸Â¸ÂµÃ§Â´Ã™.
 			AddCasketSoon(0);
 		break;
 
@@ -1767,8 +1770,8 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 #endif
 //				AffectMoveBufferAll();
 //				ActionMoveNextPosition();
-			// CauseCriticalWoundsÀÎ °æ¿ì ½½·¹ÀÌ¾î´Â AddEffect¸¦ ÇÏÁö ¾Ê´Â´Ù. ÀÌÆåÆ® ºÙÀÌÁö ¾Ê°í µ¥¹ÌÁö¸¸
-			// 2005, 1, 18, sobeit modify start // g_pZone->GetID() == 4002 Ãß°¡ - Äù½ºÆ® cause_critical_wounds°É·ÁÀÖ´Â ½½·¹ÀÌ¾î npc
+			// CauseCriticalWoundsÃ€Ã Â°Ã¦Â¿Ã¬ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â´Ã‚ AddEffectÂ¸Â¦ Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™. Ã€ÃŒÃ†Ã¥Ã†Â® ÂºÃ™Ã€ÃŒÃÃ¶ Â¾ÃŠÂ°Ã­ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¸
+			// 2005, 1, 18, sobeit modify start // g_pZone->GetID() == 4002 ÃƒÃŸÂ°Â¡ - Ã„Ã¹Â½ÂºÃ†Â® cause_critical_woundsÂ°Ã‰Â·ÃÃ€Ã–Â´Ã‚ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® npc
 			if(!IsSlayer() || GetCreatureType() == 793) 
 			// 2005, 1, 18, sobeit modify end
 			{
@@ -1790,7 +1793,7 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 			break;
 			
 		case EFFECTSTATUS_CURSE_PARALYSIS :
-			// ´Ù ÀÌµ¿½ÃÅ²´Ù.
+			// Â´Ã™ Ã€ÃŒÂµÂ¿Â½ÃƒÃ…Â²Â´Ã™.
 			AffectMoveBufferAll();
 			
 			ActionMoveNextPosition();
@@ -1817,12 +1820,12 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 //				ClearAttachEffect();
 				delayFrame = 0;
 				ExecuteActionInfoFromMainNode(
-							SKILL_CLIENT_FIRE_ELEMENTAL_ATTACK,										// »ç¿ë ±â¼ú ¹øÈ£
+							SKILL_CLIENT_FIRE_ELEMENTAL_ATTACK,										// Â»Ã§Â¿Ã« Â±Ã¢Â¼Ãº Â¹Ã¸ÃˆÂ£
 						
 							m_X, m_Y, 0,
-							(int)m_Direction,														// »ç¿ë ¹æÇâ
+							(int)m_Direction,														// Â»Ã§Â¿Ã« Â¹Ã¦Ã‡Ã¢
 							
-							m_ID,												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+							m_ID,												// Â¸Ã±Ã‡Â¥Â¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸
 							m_X, m_Y, 0,
 							
 							0xFFFF, //5*16, 
@@ -1865,12 +1868,12 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 //				ClearAttachEffect();
 				delayFrame = 0;
 				ExecuteActionInfoFromMainNode(
-							SKILL_CLIENT_WATER_ELEMENTAL_HEAL,										// »ç¿ë ±â¼ú ¹øÈ£
+							SKILL_CLIENT_WATER_ELEMENTAL_HEAL,										// Â»Ã§Â¿Ã« Â±Ã¢Â¼Ãº Â¹Ã¸ÃˆÂ£
 						
 							m_X, m_Y, 0,
-							(int)m_Direction,														// »ç¿ë ¹æÇâ
+							(int)m_Direction,														// Â»Ã§Â¿Ã« Â¹Ã¦Ã‡Ã¢
 							
-							m_ID,												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+							m_ID,												// Â¸Ã±Ã‡Â¥Â¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸
 							m_X, m_Y, 0,
 							
 							0xFFFF, //5*16, 
@@ -1938,11 +1941,11 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 		//------------------------------------------------------------
 		case EFFECTSTATUS_ARMAGEDDON :
 		case EFFECTSTATUS_GROUND_ELEMENTAL_CENTER:
-			delayFrame = 0xFFFF;		// ¹«ÇÑ..
+			delayFrame = 0xFFFF;		// Â¹Â«Ã‡Ã‘..
 		break;
 
 		//------------------------------------------------------------
-		// ¼º¹° °ü·Ã
+		// Â¼ÂºÂ¹Â° Â°Ã¼Â·Ãƒ
 		//------------------------------------------------------------
 		case EFFECTSTATUS_HAS_BLOOD_BIBLE_GREGORI :         // 151			
 		case EFFECTSTATUS_HAS_BLOOD_BIBLE_NEMA :         // 152				
@@ -1984,7 +1987,7 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 		case EFFECTSTATUS_SLAYER_RELIC:
 //		case EFFECTSTATUS_DROP_BLOOD_BIBLE:			
 		case EFFECTSTATUS_VAMPIRE_RELIC:
-			delayFrame = 0xFFFF;		// ¹«ÇÑ..
+			delayFrame = 0xFFFF;		// Â¹Â«Ã‡Ã‘..
 			break;
 
 		//------------------------------------------------------------
@@ -2058,10 +2061,10 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 			delayFrame = 12;
 			break;
 
-		case EFFECTSTATUS_WARP_BLOOD_BIBLE_FROM_ME :// 195 ³»°¡ °¡Áö°íÀÖ´ø ÇÇÀÇ¼º¼­°¡ ¿öÇÁµÉ¶§ ¸Ó¸®¿¡ Âï¾îÁÖ´Â-_- ÀÌÆåÆ®			
-		case EFFECTSTATUS_WARP_BLOOD_BIBLE_FROM_TILE :		// 196 ¶¥¿¡ ¶³¾îÁ®ÀÖ´ø ÇÇÀÇ¼º¼­°¡ ¿öÇÁµÉ¶§ ±× Å¸ÀÏ¿¡ Âï¾îÁÖ´Â ÀÌÆåÆ®
-		case EFFECTSTATUS_SHRINE_GUARD_WARP :			// 187		¼öÈ£¼º´Ü¿¡¼­ ¿öÇÁµÉ¶§
-		case EFFECTSTATUS_SHRINE_HOLY_WARP :			// 188		¼ºÁö¼º´Ü¿¡¼­ ¿öÇÁµÉ¶§
+		case EFFECTSTATUS_WARP_BLOOD_BIBLE_FROM_ME :// 195 Â³Â»Â°Â¡ Â°Â¡ÃÃ¶Â°Ã­Ã€Ã–Â´Ã¸ Ã‡Ã‡Ã€Ã‡Â¼ÂºÂ¼Â­Â°Â¡ Â¿Ã¶Ã‡ÃÂµÃ‰Â¶Â§ Â¸Ã“Â¸Â®Â¿Â¡ Ã‚Ã¯Â¾Ã®ÃÃ–Â´Ã‚-_- Ã€ÃŒÃ†Ã¥Ã†Â®			
+		case EFFECTSTATUS_WARP_BLOOD_BIBLE_FROM_TILE :		// 196 Â¶Â¥Â¿Â¡ Â¶Â³Â¾Ã®ÃÂ®Ã€Ã–Â´Ã¸ Ã‡Ã‡Ã€Ã‡Â¼ÂºÂ¼Â­Â°Â¡ Â¿Ã¶Ã‡ÃÂµÃ‰Â¶Â§ Â±Ã— Ã…Â¸Ã€ÃÂ¿Â¡ Ã‚Ã¯Â¾Ã®ÃÃ–Â´Ã‚ Ã€ÃŒÃ†Ã¥Ã†Â®
+		case EFFECTSTATUS_SHRINE_GUARD_WARP :			// 187		Â¼Ã¶ÃˆÂ£Â¼ÂºÂ´ÃœÂ¿Â¡Â¼Â­ Â¿Ã¶Ã‡ÃÂµÃ‰Â¶Â§
+		case EFFECTSTATUS_SHRINE_HOLY_WARP :			// 188		Â¼ÂºÃÃ¶Â¼ÂºÂ´ÃœÂ¿Â¡Â¼Â­ Â¿Ã¶Ã‡ÃÂµÃ‰Â¶Â§
 		case EFFECTSTATUS_WARP_BLOOD_BIBLE_SLAYER:
 		case EFFECTSTATUS_WARP_BLOOD_BIBLE_VAMPIRE:
 			delayFrame = 14;				
@@ -2137,7 +2140,7 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 			delayFrame = 36;
 			break;
 
-		// 2004, 6 ,12 sobeit add start - 130,150 ¸¶½ºÅÍ ÀÌÆåÆ®½Ã ±×Àü ¸¶½ºÅÍ ÀÌÆåÆ® Áö¿öÁØ´Ù.
+		// 2004, 6 ,12 sobeit add start - 130,150 Â¸Â¶Â½ÂºÃ…Ã Ã€ÃŒÃ†Ã¥Ã†Â®Â½Ãƒ Â±Ã—Ã€Ã¼ Â¸Â¶Â½ÂºÃ…Ã Ã€ÃŒÃ†Ã¥Ã†Â® ÃÃ¶Â¿Ã¶ÃÃ˜Â´Ã™.
 		case EFFECTSTATUS_GRAND_MASTER_SLAYER:
 		case EFFECTSTATUS_GRAND_MASTER_VAMPIRE:
 		case EFFECTSTATUS_GRAND_MASTER_OUSTERS:
@@ -2154,11 +2157,11 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 					return false;
 			}
 			break;
-		// 2004, 6 ,12 sobeit add end - 130,150 ¸¶½ºÅÍ ÀÌÆåÆ®½Ã ±×Àü ¸¶½ºÅÍ ÀÌÆåÆ® Áö¿öÁØ´Ù.
+		// 2004, 6 ,12 sobeit add end - 130,150 Â¸Â¶Â½ÂºÃ…Ã Ã€ÃŒÃ†Ã¥Ã†Â®Â½Ãƒ Â±Ã—Ã€Ã¼ Â¸Â¶Â½ÂºÃ…Ã Ã€ÃŒÃ†Ã¥Ã†Â® ÃÃ¶Â¿Ã¶ÃÃ˜Â´Ã™.
 //		case EFFECTSTATUS_GDR_FLOATING:
 //			//SetAction(ACTION_DRAINED);
 //		//	m_MoveAction = ACTION_DRAINED;
-//			if(GetCreatureType() == 717) // Áúµå·¹ ÀÏ¶§
+//			if(GetCreatureType() == 717) // ÃÃºÂµÃ¥Â·Â¹ Ã€ÃÂ¶Â§
 //			{ 
 //				
 //			}
@@ -2267,7 +2270,7 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 				SetBurningSol(0);
 			}
 			break;
-		case EFFECTSTATUS_INSTALL_TURRET: // ÃÑ½½ 130 ÀÎ½ºÅç ÅÍ·¿
+		case EFFECTSTATUS_INSTALL_TURRET: // ÃƒÃ‘Â½Â½ 130 Ã€ÃÂ½ÂºÃ…Ã§ Ã…ÃÂ·Â¿
 			{
 				SetAction( ACTION_STAND );
 				SetInstallTurretCount(0);
@@ -2278,7 +2281,7 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 				SetDirection( 2 );
 				SetCurrentDirection( 2 );
 //				//--------------------------------------------------
-//				// ´Á´ë·Î º¯½ÅÇÏ´Â °á°ú
+//				// Â´ÃÂ´Ã«Â·Ã ÂºÂ¯Â½Ã…Ã‡ÃÂ´Ã‚ Â°Ã¡Â°Ãº
 //				//--------------------------------------------------
 //				MActionResult* pResult = new MActionResult;
 //
@@ -2286,19 +2289,19 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 
 //					
 //				ExecuteActionInfoFromMainNode(
-//					RESULT_SKILL_INSTALL_TURRET,										// »ç¿ë ±â¼ú ¹øÈ£
+//					RESULT_SKILL_INSTALL_TURRET,										// Â»Ã§Â¿Ã« Â±Ã¢Â¼Ãº Â¹Ã¸ÃˆÂ£
 //				
 //					GetX(), GetY(), 0,
-//					GetDirection(),														// »ç¿ë ¹æÇâ
+//					GetDirection(),														// Â»Ã§Â¿Ã« Â¹Ã¦Ã‡Ã¢
 //					
-//					OBJECTID_NULL,												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+//					OBJECTID_NULL,												// Â¸Ã±Ã‡Â¥Â¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸
 //					GetX(), GetY(), 0, 
 //					
-//					0,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+//					0,													// Â±Ã¢Â¼ÃºÃ€Ã‡ (Â³Â²Ã€Âº) ÃÃ¶Â¼Ã“ Â½ÃƒÂ°Â£		
 //					
 //					NULL, //NULL,
 //					
-//					false);			// ±â¼ú Ã·ºÎÅÍ ½ÃÀÛÇÑ´Ù.
+//					false);			// Â±Ã¢Â¼Ãº ÃƒÂ·ÂºÃÃ…Ã Â½ÃƒÃ€Ã›Ã‡Ã‘Â´Ã™.
 			}
 			break;
 			// 2004, 10, 25, sobeit add start
@@ -2319,20 +2322,20 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 			ExecuteActionInfoFromMainNode(SKILL_CLIENT_FIERCE_FLAME,GetX(), GetY(), 0,GetDirection(),	GetID(),	
 					GetX(), GetY(), 0, delayFrame, NULL, false);
 			break;
-		// add by Coffee 2007-5-3 »ğ·¨	
+		// add by Coffee 2007-5-3 Â»Ã°Â·Â¨	
 		case EFFECTSTATUS_DUMMY_DRAKE:
 			ExecuteActionInfoFromMainNode(SKILL_CLIENT_DUMMY_DRAKE,GetX(), GetY(), 0,GetDirection(),	GetID(),	
 					GetX(), GetY(), 0, delayFrame, NULL, false);
 			break;
-		case EFFECTSTATUS_HYDRO_CONVERGENCE: //Ë®·¨
+		case EFFECTSTATUS_HYDRO_CONVERGENCE: //Ã‹Â®Â·Â¨
 			ExecuteActionInfoFromMainNode(SKILL_CLIENT_HYDRO_CONVERGENCE,GetX(), GetY(), 0,GetDirection(),	GetID(),	
 					GetX(), GetY(), 0, delayFrame, NULL, false);
 			break;
-		case EFFECTSTATUS_HETER_CHAKRAM: //ÃôÕ½
+		case EFFECTSTATUS_HETER_CHAKRAM: //ÃƒÃ´Ã•Â½
 			ExecuteActionInfoFromMainNode(SKILL_CLIENT_SKILL_DUMMY_DRAKE,GetX(), GetY(), 0,GetDirection(),	GetID(),	
 					GetX(), GetY(), 0, delayFrame, NULL, false);
 			break;	
-		case EFFECTSTATUS_BLOOD_CURSE: // ÎüÑª¹í¼¼ÄÜ
+		case EFFECTSTATUS_BLOOD_CURSE: // ÃÃ¼Ã‘ÂªÂ¹Ã­Â¼Â¼Ã„Ãœ
 			ExecuteActionInfoFromMainNode(SKILL_CLIENT_BLOOD_CURSE,GetX(), GetY(), 0,GetDirection(),	GetID(),	
 					GetX(), GetY(), 0, delayFrame, NULL, false);
 			break;
@@ -2353,7 +2356,7 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 
 	//------------------------------------------------------------
 	//
-	//			EffectSprite·Î Ç¥ÇöÇÏ´Â °æ¿ì
+	//			EffectSpriteÂ·Ã Ã‡Â¥Ã‡Ã¶Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 	//
 	//------------------------------------------------------------		
 	if (bUseEffectSprite)
@@ -2399,24 +2402,24 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 		}
 
 		//------------------------------------------------------------
-		// ÀÌ¹Ì ÀÖ´Â °æ¿ì 
+		// Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬ 
 		//------------------------------------------------------------
 		if (m_bAttachEffect[type])
 		{		
 			ATTACHEFFECT_LIST::iterator iEffect = m_listEffect.begin();
 
 			//------------------------------------------------------
-			// ¸ö¿¡ ºÙ´Â°Å
+			// Â¸Ã¶Â¿Â¡ ÂºÃ™Â´Ã‚Â°Ã…
 			//------------------------------------------------------
-			// °°Àº Effect¸¦ Ã£´Â´Ù. 
+			// Â°Â°Ã€Âº EffectÂ¸Â¦ ÃƒÂ£Â´Ã‚Â´Ã™. 
 			while (iEffect != m_listEffect.end())
 			{
 				MAttachEffect*	pEffect = *iEffect;
 				
-				// °°Àº typeÀ» Ã£´Â´Ù.
+				// Â°Â°Ã€Âº typeÃ€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 				if (pEffect->IsEffectSprite() && pEffect->GetEffectSpriteType() == type)
 				{
-					// Ãß°¡ÇÒ·Á´Â °ÍÀÌ ´õ ´Ê°Ô ³¡³¯ °æ¿ì¿¡¸¸ ½Ã°£À» È®ÀåÇÑ´Ù.
+					// ÃƒÃŸÂ°Â¡Ã‡Ã’Â·ÃÂ´Ã‚ Â°ÃÃ€ÃŒ Â´Ãµ Â´ÃŠÂ°Ã” Â³Â¡Â³Â¯ Â°Ã¦Â¿Ã¬Â¿Â¡Â¸Â¸ Â½ÃƒÂ°Â£Ã€Â» ÃˆÂ®Ã€Ã¥Ã‡Ã‘Â´Ã™.
 					if (g_CurrentFrame+delayFrame > pEffect->GetEndFrame()) 
 					{
 						pEffect->SetCount( delayFrame );
@@ -2429,19 +2432,19 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 			}
 
 			//------------------------------------------------------
-			// ¹Ù´Ú¿¡ ºÙ´Â °Å
+			// Â¹Ã™Â´ÃšÂ¿Â¡ ÂºÃ™Â´Ã‚ Â°Ã…
 			//------------------------------------------------------
 			iEffect = m_listGroundEffect.begin();
 
-			// °°Àº Effect¸¦ Ã£´Â´Ù. 
+			// Â°Â°Ã€Âº EffectÂ¸Â¦ ÃƒÂ£Â´Ã‚Â´Ã™. 
 			while (iEffect != m_listGroundEffect.end())
 			{
 				MAttachEffect*	pEffect = *iEffect;
 				
-				// °°Àº typeÀ» Ã£´Â´Ù.
+				// Â°Â°Ã€Âº typeÃ€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 				if (pEffect->IsEffectSprite() && pEffect->GetEffectSpriteType() == type)
 				{
-					// Ãß°¡ÇÒ·Á´Â °ÍÀÌ ´õ ´Ê°Ô ³¡³¯ °æ¿ì¿¡¸¸ ½Ã°£À» È®ÀåÇÑ´Ù.
+					// ÃƒÃŸÂ°Â¡Ã‡Ã’Â·ÃÂ´Ã‚ Â°ÃÃ€ÃŒ Â´Ãµ Â´ÃŠÂ°Ã” Â³Â¡Â³Â¯ Â°Ã¦Â¿Ã¬Â¿Â¡Â¸Â¸ Â½ÃƒÂ°Â£Ã€Â» ÃˆÂ®Ã€Ã¥Ã‡Ã‘Â´Ã™.
 					if (g_CurrentFrame+delayFrame > pEffect->GetEndFrame()) 
 					{
 						pEffect->SetCount( delayFrame );
@@ -2457,7 +2460,7 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 		}
 
 		//------------------------------------------------------------
-		// ¾ø´Â °æ¿ì Ãß°¡ÇÑ´Ù.
+		// Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 		//------------------------------------------------------------
 		MAttachEffect*	pEffect = NULL;
 		
@@ -2478,10 +2481,10 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 				
 				pEffect->SetAttachCreature( this );
 				
-				// ºû³ª´Â EffectÀÇ °³¼ö¸¦ Áõ°¡?
+				// ÂºÃ»Â³ÂªÂ´Ã‚ EffectÃ€Ã‡ Â°Â³Â¼Ã¶Â¸Â¦ ÃÃµÂ°Â¡?
 				if (pEffect->GetBltType()==BLT_EFFECT)
 				{
-					// ÃÖÃÊ·Î Ãß°¡µÇ´Â ºû³ª´ÂEffectÀÌ¸é ½Ã¾ß¸¦ Ãß°¡½ÃÅ²´Ù.
+					// ÃƒÃ–ÃƒÃŠÂ·Ã ÃƒÃŸÂ°Â¡ÂµÃ‡Â´Ã‚ ÂºÃ»Â³ÂªÂ´Ã‚EffectÃ€ÃŒÂ¸Ã© Â½ÃƒÂ¾ÃŸÂ¸Â¦ ÃƒÃŸÂ°Â¡Â½ÃƒÃ…Â²Â´Ã™.
 					//if (m_nAlphaEffect==0)
 					{
 						pEffect->SetPosition( m_X, m_Y );
@@ -2492,14 +2495,14 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 				}
 				
 				//------------------------------------------------------------
-				// ¹Ù´Ú¿¡ ºÙ´Â °Å¶ó¸é..
+				// Â¹Ã™Â´ÃšÂ¿Â¡ ÂºÃ™Â´Ã‚ Â°Ã…Â¶Ã³Â¸Ã©..
 				//------------------------------------------------------------
 				if ((*g_pEffectStatusTable)[status].bAttachGround)
 				{
 					m_listGroundEffect.push_back( pEffect );
 				}
 				//------------------------------------------------------------
-				// ¸ö¿¡ ºÙ´Â °Å..
+				// Â¸Ã¶Â¿Â¡ ÂºÃ™Â´Ã‚ Â°Ã…..
 				//------------------------------------------------------------
 				else
 				{
@@ -2516,10 +2519,10 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 			
 			pEffect->SetAttachCreature( this );
 			
-			// ºû³ª´Â EffectÀÇ °³¼ö¸¦ Áõ°¡?
+			// ÂºÃ»Â³ÂªÂ´Ã‚ EffectÃ€Ã‡ Â°Â³Â¼Ã¶Â¸Â¦ ÃÃµÂ°Â¡?
 			if (pEffect->GetBltType()==BLT_EFFECT)
 			{
-				// ÃÖÃÊ·Î Ãß°¡µÇ´Â ºû³ª´ÂEffectÀÌ¸é ½Ã¾ß¸¦ Ãß°¡½ÃÅ²´Ù.
+				// ÃƒÃ–ÃƒÃŠÂ·Ã ÃƒÃŸÂ°Â¡ÂµÃ‡Â´Ã‚ ÂºÃ»Â³ÂªÂ´Ã‚EffectÃ€ÃŒÂ¸Ã© Â½ÃƒÂ¾ÃŸÂ¸Â¦ ÃƒÃŸÂ°Â¡Â½ÃƒÃ…Â²Â´Ã™.
 				//if (m_nAlphaEffect==0)
 				{
 					pEffect->SetPosition( m_X, m_Y );
@@ -2530,14 +2533,14 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 			}
 			
 			//------------------------------------------------------------
-			// ¹Ù´Ú¿¡ ºÙ´Â °Å¶ó¸é..
+			// Â¹Ã™Â´ÃšÂ¿Â¡ ÂºÃ™Â´Ã‚ Â°Ã…Â¶Ã³Â¸Ã©..
 			//------------------------------------------------------------
 			if ((*g_pEffectStatusTable)[status].bAttachGround)
 			{
 				m_listGroundEffect.push_back( pEffect );
 			}
 			//------------------------------------------------------------
-			// ¸ö¿¡ ºÙ´Â °Å..
+			// Â¸Ã¶Â¿Â¡ ÂºÃ™Â´Ã‚ Â°Ã…..
 			//------------------------------------------------------------
 			else
 			{
@@ -2559,7 +2562,7 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 	}
 	//------------------------------------------------------------
 	//
-	//			EffectColor·Î Ç¥ÇöÇÏ´Â °æ¿ì
+	//			EffectColorÂ·Ã Ã‡Â¥Ã‡Ã¶Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 	//
 	//------------------------------------------------------------
 //	else
@@ -2577,25 +2580,25 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 		}
 
 		//------------------------------------------------------------
-		// ÀÌ¹Ì ÀÖ´ÂÁö Ã¼Å©ÇÑ´Ù.
-		// »ö±ò·Î Ã¼Å©ÇØ¾ßµÇ¹Ç·Î.. list¸¦ ´Ù °Ë»öÇØ¾ß ÇÑ´Ù. T_T;
+		// Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
+		// Â»Ã¶Â±Ã²Â·Ã ÃƒÂ¼Ã…Â©Ã‡Ã˜Â¾ÃŸÂµÃ‡Â¹Ã‡Â·Ã.. listÂ¸Â¦ Â´Ã™ Â°Ã‹Â»Ã¶Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™. T_T;
 		//------------------------------------------------------------
 		DEBUG_ADD_FORMAT("listEffect size = %d", m_listEffect.size());
 		
 		ATTACHEFFECT_LIST::iterator iEffect = m_listEffect.begin();
 
 		//----------------------------------------------------------------
-		// ¸ö¿¡ ºÙ´Â°Å
+		// Â¸Ã¶Â¿Â¡ ÂºÃ™Â´Ã‚Â°Ã…
 		//----------------------------------------------------------------
-		// °°Àº Effect¸¦ Ã£´Â´Ù. 
+		// Â°Â°Ã€Âº EffectÂ¸Â¦ ÃƒÂ£Â´Ã‚Â´Ã™. 
 		while (iEffect != m_listEffect.end())
 		{
 			MAttachEffect*	pEffect = *iEffect;
 			
-			// °°Àº »ö±òÀ» Ã£´Â´Ù.
+			// Â°Â°Ã€Âº Â»Ã¶Â±Ã²Ã€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 			if (pEffect->IsEffectColor() && pEffect->GetEffectColor() == colorSet)
 			{
-				// Ãß°¡ÇÒ·Á´Â °ÍÀÌ ´õ ´Ê°Ô ³¡³¯ °æ¿ì¿¡¸¸ ½Ã°£À» È®ÀåÇÑ´Ù.
+				// ÃƒÃŸÂ°Â¡Ã‡Ã’Â·ÃÂ´Ã‚ Â°ÃÃ€ÃŒ Â´Ãµ Â´ÃŠÂ°Ã” Â³Â¡Â³Â¯ Â°Ã¦Â¿Ã¬Â¿Â¡Â¸Â¸ Â½ÃƒÂ°Â£Ã€Â» ÃˆÂ®Ã€Ã¥Ã‡Ã‘Â´Ã™.
 				if (g_CurrentFrame+delayFrame > pEffect->GetEndFrame()) 
 				{
 					pEffect->SetCount( delayFrame );
@@ -2608,14 +2611,14 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 		}
 
 		//----------------------------------------------------------------
-		// ¹Ù´Ú¿¡ ºÙ´Â°Å
+		// Â¹Ã™Â´ÃšÂ¿Â¡ ÂºÃ™Â´Ã‚Â°Ã…
 		//----------------------------------------------------------------
-		// ¾ø´Ù°í º»´Ù.
+		// Â¾Ã¸Â´Ã™Â°Ã­ ÂºÂ»Â´Ã™.
 
 		DEBUG_ADD("[Create New AttachEffect]");
 		
 		//------------------------------------------------------------
-		// ¾ø´Â °æ¿ì Ãß°¡ÇÑ´Ù.
+		// Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 		//------------------------------------------------------------
 		MAttachEffect*	pEffect = new MAttachEffect(EFFECTSPRITETYPE_NULL, delayFrame);
 
@@ -2625,13 +2628,13 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 
 		DEBUG_ADD("[Set AttachCreature]");
 		
-		// »ö±ò ¼³Á¤
+		// Â»Ã¶Â±Ã² Â¼Â³ÃÂ¤
 		pEffect->SetEffectColor( colorSet );
 
 		ADDON	part = (*g_pEffectStatusTable)[status].EffectColorPart;
 
 		//------------------------------------------------------------
-		// Æ¯Á¤ÇÑ ºÎÀ§¸¸ »ö±òÀÌ ¹Ù²î´Â °æ¿ìµµ ÀÖ´Ù.
+		// Ã†Â¯ÃÂ¤Ã‡Ã‘ ÂºÃÃ€Â§Â¸Â¸ Â»Ã¶Â±Ã²Ã€ÃŒ Â¹Ã™Â²Ã®Â´Ã‚ Â°Ã¦Â¿Ã¬ÂµÂµ Ã€Ã–Â´Ã™.
 		//------------------------------------------------------------
 		//if (part<ADDON_MAX)
 		//{
@@ -2640,10 +2643,10 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 
 		DEBUG_ADD("[if (pEffect->GetBltType()==BLT_EFFECT)]");
 		
-		// ºû³ª´Â EffectÀÇ °³¼ö¸¦ Áõ°¡?
+		// ÂºÃ»Â³ÂªÂ´Ã‚ EffectÃ€Ã‡ Â°Â³Â¼Ã¶Â¸Â¦ ÃÃµÂ°Â¡?
 		if (pEffect->GetBltType()==BLT_EFFECT)
 		{
-			// ÃÖÃÊ·Î Ãß°¡µÇ´Â ºû³ª´ÂEffectÀÌ¸é ½Ã¾ß¸¦ Ãß°¡½ÃÅ²´Ù.
+			// ÃƒÃ–ÃƒÃŠÂ·Ã ÃƒÃŸÂ°Â¡ÂµÃ‡Â´Ã‚ ÂºÃ»Â³ÂªÂ´Ã‚EffectÃ€ÃŒÂ¸Ã© Â½ÃƒÂ¾ÃŸÂ¸Â¦ ÃƒÃŸÂ°Â¡Â½ÃƒÃ…Â²Â´Ã™.
 			//if (m_nAlphaEffect==0)
 			{
 				pEffect->SetPosition( m_X, m_Y );
@@ -2654,7 +2657,7 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 		}
 
 		//------------------------------------------------------
-		// »ö±ò º¯ÇÏ´Â°Å´Â ±×³É ¸ö¿¡ ºÙÀÌ´Â°Å¿¡ Ãß°¡ÇÑ´Ù.
+		// Â»Ã¶Â±Ã² ÂºÂ¯Ã‡ÃÂ´Ã‚Â°Ã…Â´Ã‚ Â±Ã—Â³Ã‰ Â¸Ã¶Â¿Â¡ ÂºÃ™Ã€ÃŒÂ´Ã‚Â°Ã…Â¿Â¡ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 		//------------------------------------------------------
 		m_listEffect.push_back( pEffect );				
 	}
@@ -2665,7 +2668,7 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 }
 
 //----------------------------------------------------------------------
-// Set Name - Ä³¸¯ÅÍ ÀÌ¸§ ¼³Á¤
+// Set Name - Ã„Â³Â¸Â¯Ã…Ã Ã€ÃŒÂ¸Â§ Â¼Â³ÃÂ¤
 //----------------------------------------------------------------------
 void	
 MCreature::SetName(const char* pName)
@@ -2700,7 +2703,7 @@ void
 MCreature::SetServerPosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)	
 { 
 	//------------------------------------------------
-	// ±âÁ¸ÀÇ MoveBuffer¸¦ ´Ù Áö¿ò
+	// Â±Ã¢ÃÂ¸Ã€Ã‡ MoveBufferÂ¸Â¦ Â´Ã™ ÃÃ¶Â¿Ã²
 	//------------------------------------------------
 	ReleaseMoveBuffer();
 
@@ -2710,7 +2713,7 @@ MCreature::SetServerPosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 //----------------------------------------------------------------------
 // Is Slayer Character
 //----------------------------------------------------------------------
-// slayer ±×¸²À» »ç¿ëÇß³ª?
+// slayer Â±Ã—Â¸Â²Ã€Â» Â»Ã§Â¿Ã«Ã‡ÃŸÂ³Âª?
 //----------------------------------------------------------------------
 bool			
 MCreature::IsSlayerCharacter() const
@@ -2721,18 +2724,18 @@ MCreature::IsSlayerCharacter() const
 }
 
 //----------------------------------------------------------------------
-// ¿òÁ÷ÀÌ´Â ¹æ¹ı°ú ±×¿¡ µû¸¥ ÀÌµ¿´ÜÀ§¸¦ °áÁ¤ÇÑ´Ù.
+// Â¿Ã²ÃÃ·Ã€ÃŒÂ´Ã‚ Â¹Ã¦Â¹Ã½Â°Ãº Â±Ã—Â¿Â¡ ÂµÃ»Â¸Â¥ Ã€ÃŒÂµÂ¿Â´ÃœÃ€Â§Â¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void		
 MCreature::SetMoveDevice(MOVE_DEVICE md)
 {	
 	//--------------------------------------------------------
-	// ¸ğµÎ Àû¿ë
+	// Â¸Ã°ÂµÃ Ã€Ã»Â¿Ã«
 	//--------------------------------------------------------
 	AffectMoveBufferAll();
 
 	//--------------------------------------------------
-	// SlayerÀÎ °æ¿ì¸¸ º¯°æÀÌ °¡´ÉÇÏ´Ù.
+	// SlayerÃ€Ã Â°Ã¦Â¿Ã¬Â¸Â¸ ÂºÂ¯Â°Ã¦Ã€ÃŒ Â°Â¡Â´Ã‰Ã‡ÃÂ´Ã™.
 	//--------------------------------------------------
 	if (IsSlayer())
 	{
@@ -2765,7 +2768,7 @@ MCreature::SetMoveDevice(MOVE_DEVICE md)
 		}	
 	}
 	//--------------------------------------------------
-	// ¾Æ´Ñ °æ¿ì..
+	// Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬..
 	//--------------------------------------------------
 	else if( IsOusters() )
 	{
@@ -2788,13 +2791,13 @@ MCreature::SetMoveDevice(MOVE_DEVICE md)
 }
 
 //----------------------------------------------------------------------
-// CreatureÀÇ À§Ä¡¸¦ SetÇÏ°í ¿òÁ÷ÀÌ´ø µ¿ÀÛÀ» ¸ØÃá´Ù.
+// CreatureÃ€Ã‡ Ã€Â§Ã„Â¡Â¸Â¦ SetÃ‡ÃÂ°Ã­ Â¿Ã²ÃÃ·Ã€ÃŒÂ´Ã¸ ÂµÂ¿Ã€Ã›Ã€Â» Â¸Ã˜ÃƒÃ¡Â´Ã™.
 //----------------------------------------------------------------------
 void	
 MCreature::SetPosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y)	
 { 
 	//------------------------------------------------
-	// ±âÁ¸ÀÇ MoveBuffer¸¦ ´Ù Áö¿ò
+	// Â±Ã¢ÃÂ¸Ã€Ã‡ MoveBufferÂ¸Â¦ Â´Ã™ ÃÃ¶Â¿Ã²
 	//------------------------------------------------
 	ReleaseMoveBuffer();
 
@@ -2826,7 +2829,7 @@ void
 MCreature::SetWeaponSpeed(int speed)
 {
 	//-----------------------------------------------------------
-	// ¹ÚÁã³ª ´Á´ë¸é °ø°İ¼Óµµ µû·Î ¾ø´ç..
+	// Â¹ÃšÃÃ£Â³Âª Â´ÃÂ´Ã«Â¸Ã© Â°Ã¸Â°ÃÂ¼Ã“ÂµÂµ ÂµÃ»Â·Ã Â¾Ã¸Â´Ã§..
 	//-----------------------------------------------------------
 	if (m_CreatureType==CREATURETYPE_BAT ||
 		m_CreatureType==CREATURETYPE_WOLF ||
@@ -2835,7 +2838,7 @@ MCreature::SetWeaponSpeed(int speed)
 		m_WeaponSpeed = WEAPON_SPEED_NORMAL;
 	}
 	//-----------------------------------------------------------
-	// °ø°İ ¼Óµµ °è»ê..
+	// Â°Ã¸Â°Ã Â¼Ã“ÂµÂµ Â°Ã¨Â»Ãª..
 	//-----------------------------------------------------------
 	else
 	{
@@ -2859,7 +2862,7 @@ MCreature::SetWeaponSpeed(int speed)
 }
 
 //----------------------------------------------------------------------
-// Creature¸¦ ¸ØÃß°Ô ÇÑ´Ù.
+// CreatureÂ¸Â¦ Â¸Ã˜ÃƒÃŸÂ°Ã” Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void
 MCreature::SetStop()
@@ -2869,15 +2872,15 @@ MCreature::SetStop()
 	m_bKnockBack = 0;	
 
 	//------------------------------------------------
-	// ±âÁ¸ÀÇ MoveBuffer¸¦ ´Ù Áö¿ò
+	// Â±Ã¢ÃÂ¸Ã€Ã‡ MoveBufferÂ¸Â¦ Â´Ã™ ÃÃ¶Â¿Ã²
 	//------------------------------------------------
 	AffectMoveBufferAll();
 	//ReleaseMoveBuffer();
 
-	// 2001.11.8 - Á¤ÁöÇÒ¶§ ÁÂÇ¥ º¸Á¤ È®½ÇÈ÷..
+	// 2001.11.8 - ÃÂ¤ÃÃ¶Ã‡Ã’Â¶Â§ ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤ ÃˆÂ®Â½Ã‡ÃˆÃ·..
 	ActionMoveNextPosition();
 
-	// Action ÁßÁö
+	// Action ÃÃŸÃÃ¶
 	m_sX=0; 
 	m_sY=0;
 
@@ -2894,13 +2897,13 @@ MCreature::SetStop()
 		}
 	}
 	m_Action		= action;
-	// 2004, 11, 3, sobeit modify start - m_ActionCount¸¦ ¹Ù²ï ¾×¼ÇÀÇ ¸Æ½º Ä«¿îÆ®·Î ¼¼ÆÃ ÇßÀ½ - ¾Æ¿ì½ºÅÍÁî °í½ºÆ® ¹ö±× ¶«½Ã..¤Ñ¤Ñ;
+	// 2004, 11, 3, sobeit modify start - m_ActionCountÂ¸Â¦ Â¹Ã™Â²Ã¯ Â¾Ã—Â¼Ã‡Ã€Ã‡ Â¸Ã†Â½Âº Ã„Â«Â¿Ã®Ã†Â®Â·Ã Â¼Â¼Ã†Ãƒ Ã‡ÃŸÃ€Â½ - Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÃÃ® Â°Ã­Â½ÂºÃ†Â® Â¹Ã¶Â±Ã— Â¶Â«Â½Ãƒ..Â¤Ã‘Â¤Ã‘;
 	m_ActionCount	= GetActionCountMax(); 
 	//m_ActionCount	= (*g_pCreatureTable)[m_CreatureType].GetActionCount( m_Action );
 	// 2004, 11, 3, sobeit modify end
 	m_MoveCount		= m_MoveCountMax;
 
-	// ´ÙÀ½ µ¿ÀÛµµ ¾ø¾Ú
+	// Â´Ã™Ã€Â½ ÂµÂ¿Ã€Ã›ÂµÂµ Â¾Ã¸Â¾Ãš
 	m_bNextAction = false;
 	m_NextX = SECTORPOSITION_NULL;
 	m_NextY = SECTORPOSITION_NULL;
@@ -2910,7 +2913,7 @@ MCreature::SetStop()
 }
 
 //----------------------------------------------------------------------
-// Get PixelX - CreatureÀÇ PixelXÁÂÇ¥
+// Get PixelX - CreatureÃ€Ã‡ PixelXÃÃ‚Ã‡Â¥
 //----------------------------------------------------------------------
 int			
 MCreature::GetPixelX() const
@@ -2919,7 +2922,7 @@ MCreature::GetPixelX() const
 }
 
 //----------------------------------------------------------------------
-// Get PixelY - CreatureÀÇ PixelYÁÂÇ¥
+// Get PixelY - CreatureÃ€Ã‡ PixelYÃÃ‚Ã‡Â¥
 //----------------------------------------------------------------------
 int			
 MCreature::GetPixelY() const			
@@ -2933,9 +2936,9 @@ MCreature::GetPixelY() const
 void				
 MCreature::SetLevelName(int ln)
 {
-	// slayerÀÌ¸é ±â¼ú ·¹º§¿¡ µû¶ó¼­...
+	// slayerÃ€ÃŒÂ¸Ã© Â±Ã¢Â¼Ãº Â·Â¹ÂºÂ§Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­...
 
-	// vampireÀÌ¸é ·¹º§¿¡ µû¶ó¼­?
+	// vampireÃ€ÃŒÂ¸Ã© Â·Â¹ÂºÂ§Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­?
 
 	// 
 	m_LevelName = rand() % g_pLevelNameTable->GetSize();
@@ -2953,8 +2956,8 @@ MCreature::GetLevelName() const
 //----------------------------------------------------------------------
 // Move Position
 //----------------------------------------------------------------------
-// Zone¿¡¼­ (m_X, m_Y) Sector¿¡ ÀÖ´Â 
-// this Creature¸¦ (x, y)·Î ¿Å°Ü¾ß ÇÑ´Ù.
+// ZoneÂ¿Â¡Â¼Â­ (m_X, m_Y) SectorÂ¿Â¡ Ã€Ã–Â´Ã‚ 
+// this CreatureÂ¸Â¦ (x, y)Â·Ã Â¿Ã…Â°ÃœÂ¾ÃŸ Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool
 MCreature::MovePosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y)
@@ -2964,24 +2967,24 @@ MCreature::MovePosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y)
 		return false;
 	}
 
-	// Creature Type¿¡ µû¶ó¼­ ´Ù¸£´Ù.			
+	// Creature TypeÂ¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ Â´Ã™Â¸Â£Â´Ã™.			
 	switch (m_MoveType)
 	{
 		case CREATURE_UNDERGROUND : 
 			if (m_pZone->MoveUndergroundCreature(this, m_X, m_Y, x, y))
 			{
-				// Effect°¡ ÀÖÀ» °æ¿ì
+				// EffectÂ°Â¡ Ã€Ã–Ã€Â» Â°Ã¦Â¿Ã¬
 				/*
 				if (m_nAlphaEffect)
 				{
-					// ½Ã¾ß¸¦ ¹Ù²ãÁØ´Ù.
+					// Â½ÃƒÂ¾ÃŸÂ¸Â¦ Â¹Ã™Â²Ã£ÃÃ˜Â´Ã™.
 					g_pZone->UnSetLightSight(m_X, m_Y, 0);
-					// ½Ã¾ß¸¦ ¹Ù²ãÁØ´Ù.
+					// Â½ÃƒÂ¾ÃŸÂ¸Â¦ Â¹Ã™Â²Ã£ÃÃ˜Â´Ã™.
 					g_pZone->SetLightSight(x, y, 0);
 				}
 				*/
 
-				// ÀÌµ¿ÇßÀ¸¸é »õ·Î¿î ÁÂÇ¥ ¼³Á¤
+				// Ã€ÃŒÂµÂ¿Ã‡ÃŸÃ€Â¸Â¸Ã© Â»ÃµÂ·ÃÂ¿Ã® ÃÃ‚Ã‡Â¥ Â¼Â³ÃÂ¤
 				m_X	= x;
 				m_Y	= y;		
 				
@@ -2994,18 +2997,18 @@ MCreature::MovePosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y)
 		case CREATURE_GROUND : 
 			if (m_pZone->MoveGroundCreature(this, m_X, m_Y, x, y))
 			{
-				// Effect°¡ ÀÖÀ» °æ¿ì
+				// EffectÂ°Â¡ Ã€Ã–Ã€Â» Â°Ã¦Â¿Ã¬
 				/*
 				if (m_nAlphaEffect)
 				{
-					// ½Ã¾ß¸¦ ¹Ù²ãÁØ´Ù.
+					// Â½ÃƒÂ¾ÃŸÂ¸Â¦ Â¹Ã™Â²Ã£ÃÃ˜Â´Ã™.
 					g_pZone->UnSetLightSight(m_X, m_Y, 0);
-					// ½Ã¾ß¸¦ ¹Ù²ãÁØ´Ù.
+					// Â½ÃƒÂ¾ÃŸÂ¸Â¦ Â¹Ã™Â²Ã£ÃÃ˜Â´Ã™.
 					g_pZone->SetLightSight(x, y, 0);
 				}
 				*/
 
-				// ÀÌµ¿ÇßÀ¸¸é »õ·Î¿î ÁÂÇ¥ ¼³Á¤
+				// Ã€ÃŒÂµÂ¿Ã‡ÃŸÃ€Â¸Â¸Ã© Â»ÃµÂ·ÃÂ¿Ã® ÃÃ‚Ã‡Â¥ Â¼Â³ÃÂ¤
 				m_X	= x;
 				m_Y	= y;
 
@@ -3018,18 +3021,18 @@ MCreature::MovePosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y)
 		case CREATURE_FLYING : 
 			if (m_pZone->MoveFlyingCreature(this, m_X, m_Y, x, y))
 			{
-				// Effect°¡ ÀÖÀ» °æ¿ì
+				// EffectÂ°Â¡ Ã€Ã–Ã€Â» Â°Ã¦Â¿Ã¬
 				/*
 				if (m_nAlphaEffect)
 				{
-					// ½Ã¾ß¸¦ ¹Ù²ãÁØ´Ù.
+					// Â½ÃƒÂ¾ÃŸÂ¸Â¦ Â¹Ã™Â²Ã£ÃÃ˜Â´Ã™.
 					g_pZone->UnSetLightSight(m_X, m_Y, 0);
-					// ½Ã¾ß¸¦ ¹Ù²ãÁØ´Ù.
+					// Â½ÃƒÂ¾ÃŸÂ¸Â¦ Â¹Ã™Â²Ã£ÃÃ˜Â´Ã™.
 					g_pZone->SetLightSight(x, y, 0);
 				}
 				*/
 
-				// ÀÌµ¿ÇßÀ¸¸é »õ·Î¿î ÁÂÇ¥ ¼³Á¤
+				// Ã€ÃŒÂµÂ¿Ã‡ÃŸÃ€Â¸Â¸Ã© Â»ÃµÂ·ÃÂ¿Ã® ÃÃ‚Ã‡Â¥ Â¼Â³ÃÂ¤
 				m_X	= x;
 				m_Y	= y;
 
@@ -3039,7 +3042,7 @@ MCreature::MovePosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y)
 			}
 		break;
 
-		// fake´Â ±×³É ¿òÁ÷ÀÎ´Ù.
+		// fakeÂ´Ã‚ Â±Ã—Â³Ã‰ Â¿Ã²ÃÃ·Ã€ÃÂ´Ã™.
 		case CREATURE_FAKE_NO_BLOCK :
 		case CREATURE_FAKE_UNDERGROUND :
 		case CREATURE_FAKE_GROUND :
@@ -3054,7 +3057,7 @@ MCreature::MovePosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y)
 }
 
 //----------------------------------------------------------------------
-// (x,y)¿¡¼­ ¹æÇâÀ¸·Î ÀÌµ¿ÇÑ À§Ä¡¸¦ ¾ò´Â´Ù.
+// (x,y)Â¿Â¡Â¼Â­ Â¹Ã¦Ã‡Ã¢Ã€Â¸Â·Ã Ã€ÃŒÂµÂ¿Ã‡Ã‘ Ã€Â§Ã„Â¡Â¸Â¦ Â¾Ã²Â´Ã‚Â´Ã™.
 //----------------------------------------------------------------------
 void
 MCreature::GetPositionToDirection(TYPE_SECTORPOSITION &x, TYPE_SECTORPOSITION &y, BYTE direction)
@@ -3075,12 +3078,12 @@ MCreature::GetPositionToDirection(TYPE_SECTORPOSITION &x, TYPE_SECTORPOSITION &y
 //----------------------------------------------------------------------
 // Add Effect
 //----------------------------------------------------------------------
-// Creature¿¡ ´Ş¶óºÙ¾î¼­ Ç¥ÇöµÇ´Â Effect Ç¥Çö
+// CreatureÂ¿Â¡ Â´ÃÂ¶Ã³ÂºÃ™Â¾Ã®Â¼Â­ Ã‡Â¥Ã‡Ã¶ÂµÃ‡Â´Ã‚ Effect Ã‡Â¥Ã‡Ã¶
 //
-// ÁßÃ¸À» Çã¿ëÇÏÁö ¾ÊÀ¸¹Ç·Î.. 
-// ¾ÆÁ÷ ºÙ¾î¼­ Ç¥ÇöµÇÁö ¾ÊÀº Effect¸¸ »õ·Î Ãß°¡ÇÑ´Ù.
+// ÃÃŸÃƒÂ¸Ã€Â» Ã‡Ã£Â¿Ã«Ã‡ÃÃÃ¶ Â¾ÃŠÃ€Â¸Â¹Ã‡Â·Ã.. 
+// Â¾Ã†ÃÃ· ÂºÃ™Â¾Ã®Â¼Â­ Ã‡Â¥Ã‡Ã¶ÂµÃ‡ÃÃ¶ Â¾ÃŠÃ€Âº EffectÂ¸Â¸ Â»ÃµÂ·Ã ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 //
-// ±×·¯³ª, ½Ã°£ È®ÀåÀ» ÇØ¾ßÇÏ´Â °æ¿ì°¡ »ı±ä´Ù.
+// Â±Ã—Â·Â¯Â³Âª, Â½ÃƒÂ°Â£ ÃˆÂ®Ã€Ã¥Ã€Â» Ã‡Ã˜Â¾ÃŸÃ‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬Â°Â¡ Â»Ã½Â±Ã¤Â´Ã™.
 //----------------------------------------------------------------------
 MAttachEffect*		
 MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type, 
@@ -3091,7 +3094,7 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 {
 	DEBUG_ADD_FORMAT("CreateAttachEffect. type=%d, delayf=%d", type, delayFrame);
 
-	// Á×Àº °æ¿ì... delay¸¦ ¾ø¾Ø´Ù. 
+	// ÃÃ—Ã€Âº Â°Ã¦Â¿Ã¬... delayÂ¸Â¦ Â¾Ã¸Â¾Ã˜Â´Ã™. 
 	if (!m_bAlive)
 	{
 		// - -;;
@@ -3099,16 +3102,16 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 	}
 	bool	IsMulti = false;
 	int		orbitType = 0;
-	// 2004, 08, 05 sobeit add start - ¼º¹®, ±æµå Å¸¿ö ÆÄÆíÆ¢±â
+	// 2004, 08, 05 sobeit add start - Â¼ÂºÂ¹Â®, Â±Ã¦ÂµÃ¥ Ã…Â¸Â¿Ã¶ Ã†Ã„Ã†Ã­Ã†Â¢Â±Ã¢
 	if(GetCreatureType() >= 726 && GetCreatureType() <= 729)
 	{	
 		if(type < EFFECTSPRITETYPE_CASTLE_GATE_DUST_1 ||
-		   type > EFFECTSPRITETYPE_CASTLE_GATE_DAMAGED) // ¼º¹® °ü·Ã ÀÌÆåÆ®°¡ ¾Æ´Ï¸é ¹«Àú°Ç ÆÄÆíÆ¢±â..¤¾¤¾
+		   type > EFFECTSPRITETYPE_CASTLE_GATE_DAMAGED) // Â¼ÂºÂ¹Â® Â°Ã¼Â·Ãƒ Ã€ÃŒÃ†Ã¥Ã†Â®Â°Â¡ Â¾Ã†Â´ÃÂ¸Ã© Â¹Â«Ã€ÃºÂ°Ã‡ Ã†Ã„Ã†Ã­Ã†Â¢Â±Ã¢..Â¤Â¾Â¤Â¾
 		{
 			int currentHP		= max(0,int(GetHP()));
 			int frame = 4 -(currentHP*5/GetMAX_HP());
 			
-			if(m_NickNameType != frame) // º¯¼ö Ãß°¡ÇÏ±ä ±×·¸°í..¼º¹®Àº m_NickNameTypeÀ» ¾È¾²±â ¶§¹®¿¡ ¿ä±â¼­ TemporaryÇÏ°Ô ¾²ÀÚ-_-; 
+			if(m_NickNameType != frame) // ÂºÂ¯Â¼Ã¶ ÃƒÃŸÂ°Â¡Ã‡ÃÂ±Ã¤ Â±Ã—Â·Â¸Â°Ã­..Â¼ÂºÂ¹Â®Ã€Âº m_NickNameTypeÃ€Â» Â¾ÃˆÂ¾Â²Â±Ã¢ Â¶Â§Â¹Â®Â¿Â¡ Â¿Ã¤Â±Ã¢Â¼Â­ TemporaryÃ‡ÃÂ°Ã” Â¾Â²Ã€Ãš-_-; 
 			{
 				m_NickNameType = frame;
 				if(frame<1) frame = 1;
@@ -3121,7 +3124,7 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 				type = EFFECTSPRITETYPE_CASTLE_GATE_PIECE_1 + rand()%(5-frame);
 				delayFrame = 14;
 			}
-			// ¼º¹® Å¸°İ ÀÌÆåÆ® ÀÎµ¥.. ¾ø´Â°Ô ³ªÀ»µí..¤¾
+			// Â¼ÂºÂ¹Â® Ã…Â¸Â°Ã Ã€ÃŒÃ†Ã¥Ã†Â® Ã€ÃÂµÂ¥.. Â¾Ã¸Â´Ã‚Â°Ã” Â³ÂªÃ€Â»ÂµÃ­..Â¤Â¾
 //			ExecuteActionInfoFromMainNode(SKILL_CLIENT_CASTLE_GATE_DAMAGED,GetX(), GetY(), 0,GetDirection(),	GetID(),	
 //				GetX(), GetY(), 0, 8, NULL, false);
 		}
@@ -3135,10 +3138,10 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 				delayFrame = 32;
 		}
 	}
-	else if(GetCreatureType() == 734) // ±æµå Å¸¿ö
+	else if(GetCreatureType() == 734) // Â±Ã¦ÂµÃ¥ Ã…Â¸Â¿Ã¶
 	{
 		if(type < EFFECTSPRITETYPE_CASTLE_GATE_DAMAGED ||
-		   type > EFFECTSPRITETYPE_GUILD_TOWER_PROTECT) // ±æµå Å¸¿ö°ü·Ã ÀÌÆåÆ®°¡ ¾Æ´Ï¸é ¹«Àú°Ç ÆÄÆíÆ¢±â..¤¾¤¾
+		   type > EFFECTSPRITETYPE_GUILD_TOWER_PROTECT) // Â±Ã¦ÂµÃ¥ Ã…Â¸Â¿Ã¶Â°Ã¼Â·Ãƒ Ã€ÃŒÃ†Ã¥Ã†Â®Â°Â¡ Â¾Ã†Â´ÃÂ¸Ã© Â¹Â«Ã€ÃºÂ°Ã‡ Ã†Ã„Ã†Ã­Ã†Â¢Â±Ã¢..Â¤Â¾Â¤Â¾
 		{
 			type = EFFECTSPRITETYPE_CASTLE_GATE_DAMAGED;
 			delayFrame = 8;
@@ -3150,7 +3153,7 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 			delayFrame = 32;
 		}
 	}
-//	else if(GetCreatureType() == 723) // °¢¼º Áúµå·¹
+//	else if(GetCreatureType() == 723) // Â°Â¢Â¼Âº ÃÃºÂµÃ¥Â·Â¹
 //	{
 //		if(type == EFFECTSPRITETYPE_GDR_DEAD)
 //			delayFrame = 218;
@@ -3158,12 +3161,12 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 //	}
 	else
 	{
-//		if(GetCreatureType() == 734&&type == EFFECTSPRITETYPE_GUILD_TOWER_DESTROY) // ±æµå Å¸¿ö
+//		if(GetCreatureType() == 734&&type == EFFECTSPRITETYPE_GUILD_TOWER_DESTROY) // Â±Ã¦ÂµÃ¥ Ã…Â¸Â¿Ã¶
 //			delayFrame = 32;
-	// 2004, 08, 05 sobeit add end - ¼º¹®, ±æµå Å¸¿ö ÆÄÆíÆ¢±â
+	// 2004, 08, 05 sobeit add end - Â¼ÂºÂ¹Â®, Â±Ã¦ÂµÃ¥ Ã…Â¸Â¿Ã¶ Ã†Ã„Ã†Ã­Ã†Â¢Â±Ã¢
 
 		//------------------------------------------------
-		// ÇÇÀÎ °æ¿ì´Â À§Ä¡¸¦ randomÇÏ°Ô
+		// Ã‡Ã‡Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ Ã€Â§Ã„Â¡Â¸Â¦ randomÃ‡ÃÂ°Ã”
 		//------------------------------------------------
 		if (type==EFFECTSPRITETYPE_BLOOD_GUN_1_1
 			|| type==EFFECTSPRITETYPE_BLOOD_GUN_2_1
@@ -3172,7 +3175,7 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 			|| type==EFFECTSPRITETYPE_GREEN_BLOOD_GUN_2_1
 			|| type==EFFECTSPRITETYPE_GREEN_BLOOD_GUN_3_1)
 		{
-			// Å°¿¡ µû¶ó¼­.. 100³ÑÀ¸¸é... (°ñ·¹¸Ó)
+			// Ã…Â°Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­.. 100Â³Ã‘Ã€Â¸Â¸Ã©... (Â°Ã±Â·Â¹Â¸Ã“)
 			if ((*g_pCreatureTable)[m_CreatureType].Height > 100)
 			{
 				// type + 0~6
@@ -3186,11 +3189,11 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 		}
 
 		//------------------------------------------------
-		// ÇÇÀÎ °æ¿ì´Â À§Ä¡¸¦ randomÇÏ°Ô
+		// Ã‡Ã‡Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ Ã€Â§Ã„Â¡Â¸Â¦ randomÃ‡ÃÂ°Ã”
 		//------------------------------------------------
 		if (type==EFFECTSPRITETYPE_BULLET_OF_LIGHT_START_1)
 		{
-			// Å°¿¡ µû¶ó¼­.. 100³ÑÀ¸¸é... (°ñ·¹¸Ó)
+			// Ã…Â°Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­.. 100Â³Ã‘Ã€Â¸Â¸Ã©... (Â°Ã±Â·Â¹Â¸Ã“)
 			if ((*g_pCreatureTable)[m_CreatureType].Height > 100)
 			{
 				// type + 0~6
@@ -3203,7 +3206,7 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 			}		
 		}
 		//------------------------------------------------
-		// Ä® ¸ÂÀº ÇÇ (¼¼·Î)
+		// Ã„Â® Â¸Ã‚Ã€Âº Ã‡Ã‡ (Â¼Â¼Â·Ã)
 		//------------------------------------------------
 		if (type==EFFECTSPRITETYPE_BLOOD_VERTICAL_1 
 			|| type==EFFECTSPRITETYPE_BLOOD_HORIZONTAL_1)
@@ -3230,7 +3233,7 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 			}		
 		}
 		//------------------------------------------------
-		// »ê¿¡ ¸ÂÀº smokeÀÎ °æ¿ì
+		// Â»ÃªÂ¿Â¡ Â¸Ã‚Ã€Âº smokeÃ€Ã Â°Ã¦Â¿Ã¬
 		//------------------------------------------------
 		else if (type==EFFECTSPRITETYPE_SMOKE)
 		{
@@ -3238,7 +3241,7 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 		}
 		
 		//------------------------------------------------
-		// Typhoon back [»õ±â¼ú]
+		// Typhoon back [Â»ÃµÂ±Ã¢Â¼Ãº]
 		//------------------------------------------------
 		else if (type==EFFECTSPRITETYPE_TYPHOON_BACK)
 		{	
@@ -3254,7 +3257,7 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 		}
 
 		//------------------------------------------------
-		// ¿©ÀÚ¿ë EffectSpriteTypeÀ» »ç¿ëÇÏ´Â °æ¿ì
+		// Â¿Â©Ã€ÃšÂ¿Ã« EffectSpriteTypeÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 		//------------------------------------------------
 		if (IsFemale()
 			&& (*g_pEffectSpriteTypeTable)[type].FemaleEffectSpriteType!=EFFECTSPRITETYPE_NULL)
@@ -3270,7 +3273,7 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 		}
 	
 
-		// °ø°İ ¼Óµµ¿¡ µû¸¥ ÀÌÆåÆ®¸¦ ´Ù¸£°Ô ±¸º°ÇÑ´Ù.
+		// Â°Ã¸Â°Ã Â¼Ã“ÂµÂµÂ¿Â¡ ÂµÃ»Â¸Â¥ Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ Â´Ã™Â¸Â£Â°Ã” Â±Â¸ÂºÂ°Ã‡Ã‘Â´Ã™.
 		switch( type )
 		{
 		case EFFECTSPRITETYPE_FLOURISH_NORMAL :
@@ -3432,24 +3435,24 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 
 
 	//------------------------------
-	// ÀÌ¹Ì ÀÖ´Â °æ¿ì 
+	// Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬ 
 	//------------------------------
 	if (m_bAttachEffect[type] && !IsMulti)
 	{	
 		//------------------------------------------------------
-		// ¸ö¿¡ ºÙÀº°Å Ã¼Å©
+		// Â¸Ã¶Â¿Â¡ ÂºÃ™Ã€ÂºÂ°Ã… ÃƒÂ¼Ã…Â©
 		//------------------------------------------------------
 		ATTACHEFFECT_LIST::iterator iEffect = m_listEffect.begin();
 
-		// °°Àº Effect¸¦ Ã£´Â´Ù. 
+		// Â°Â°Ã€Âº EffectÂ¸Â¦ ÃƒÂ£Â´Ã‚Â´Ã™. 
 		while (iEffect != m_listEffect.end())
 		{
 			MAttachEffect*	pEffect = *iEffect;
 			
-			// °°Àº typeÀ» Ã£´Â´Ù.
+			// Â°Â°Ã€Âº typeÃ€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 			if (pEffect->IsEffectSprite() && pEffect->GetEffectSpriteType() == type)
 			{
-				// Ãß°¡ÇÒ·Á´Â °ÍÀÌ ´õ ´Ê°Ô ³¡³¯ °æ¿ì¿¡¸¸ ½Ã°£À» È®ÀåÇÑ´Ù.
+				// ÃƒÃŸÂ°Â¡Ã‡Ã’Â·ÃÂ´Ã‚ Â°ÃÃ€ÃŒ Â´Ãµ Â´ÃŠÂ°Ã” Â³Â¡Â³Â¯ Â°Ã¦Â¿Ã¬Â¿Â¡Â¸Â¸ Â½ÃƒÂ°Â£Ã€Â» ÃˆÂ®Ã€Ã¥Ã‡Ã‘Â´Ã™.
 				if (g_CurrentFrame+delayFrame > pEffect->GetEndFrame()) 
 				{
 					pEffect->SetCount( delayFrame );
@@ -3463,19 +3466,19 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 		}
 
 		//------------------------------------------------------
-		// ¹Ù´Ú¿¡ ºÙÀº°Å Ã¼Å©
+		// Â¹Ã™Â´ÃšÂ¿Â¡ ÂºÃ™Ã€ÂºÂ°Ã… ÃƒÂ¼Ã…Â©
 		//------------------------------------------------------
 		iEffect = m_listGroundEffect.begin();
 
-		// °°Àº Effect¸¦ Ã£´Â´Ù. 
+		// Â°Â°Ã€Âº EffectÂ¸Â¦ ÃƒÂ£Â´Ã‚Â´Ã™. 
 		while (iEffect != m_listGroundEffect.end())
 		{
 			MAttachEffect*	pEffect = *iEffect;
 			
-			// °°Àº typeÀ» Ã£´Â´Ù.
+			// Â°Â°Ã€Âº typeÃ€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 			if (pEffect->IsEffectSprite() && pEffect->GetEffectSpriteType() == type)
 			{
-				// Ãß°¡ÇÒ·Á´Â °ÍÀÌ ´õ ´Ê°Ô ³¡³¯ °æ¿ì¿¡¸¸ ½Ã°£À» È®ÀåÇÑ´Ù.
+				// ÃƒÃŸÂ°Â¡Ã‡Ã’Â·ÃÂ´Ã‚ Â°ÃÃ€ÃŒ Â´Ãµ Â´ÃŠÂ°Ã” Â³Â¡Â³Â¯ Â°Ã¦Â¿Ã¬Â¿Â¡Â¸Â¸ Â½ÃƒÂ°Â£Ã€Â» ÃˆÂ®Ã€Ã¥Ã‡Ã‘Â´Ã™.
 				if (g_CurrentFrame+delayFrame > pEffect->GetEndFrame()) 
 				{
 					pEffect->SetCount( delayFrame );
@@ -3492,7 +3495,7 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 	}
 
 	//------------------------------
-	// ¾ø´Â °æ¿ì Ãß°¡ÇÑ´Ù.
+	// Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 	//------------------------------
 	MAttachEffect*	pEffect = NULL;
 	
@@ -3507,10 +3510,10 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 
 	pEffect->SetAttachCreatureID( m_ID );
 
-	// ºû³ª´Â EffectÀÇ °³¼ö¸¦ Áõ°¡?
+	// ÂºÃ»Â³ÂªÂ´Ã‚ EffectÃ€Ã‡ Â°Â³Â¼Ã¶Â¸Â¦ ÃÃµÂ°Â¡?
 	if (pEffect->GetBltType()==BLT_EFFECT)
 	{
-		// ÃÖÃÊ·Î Ãß°¡µÇ´Â ºû³ª´ÂEffectÀÌ¸é ½Ã¾ß¸¦ Ãß°¡½ÃÅ²´Ù.
+		// ÃƒÃ–ÃƒÃŠÂ·Ã ÃƒÃŸÂ°Â¡ÂµÃ‡Â´Ã‚ ÂºÃ»Â³ÂªÂ´Ã‚EffectÃ€ÃŒÂ¸Ã© Â½ÃƒÂ¾ÃŸÂ¸Â¦ ÃƒÃŸÂ°Â¡Â½ÃƒÃ…Â²Â´Ã™.
 		//if (m_nAlphaEffect==0)
 		{
 			pEffect->SetPosition( m_X, m_Y );
@@ -3521,14 +3524,14 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 	}
 
 	//------------------------------------------------------
-	// ¹Ù´Ú¿¡ ºÙ´Â°Å
+	// Â¹Ã™Â´ÃšÂ¿Â¡ ÂºÃ™Â´Ã‚Â°Ã…
 	//------------------------------------------------------
 	if (bGroundEffect)
 	{
 		m_listGroundEffect.push_back( pEffect );
 	}
 	//------------------------------------------------------
-	// ¸ö¿¡ ºÙ´Â °Å
+	// Â¸Ã¶Â¿Â¡ ÂºÃ™Â´Ã‚ Â°Ã…
 	//------------------------------------------------------
 	else
 	{
@@ -3546,8 +3549,8 @@ MCreature::CreateAttachEffect(TYPE_EFFECTSPRITETYPE type,
 //----------------------------------------------------------------------
 // Update Effect
 //----------------------------------------------------------------------
-// Creature¿¡ ºÙÀº ¸ğµç EffectÀÇ FrameÀ» ¹Ù²ãÁÖ°í..
-// ³¡³ª´Â°Ô ÀÖÀ¸¸é list¿Í memory¿¡¼­ »èÁ¦ÇÑ´Ù.
+// CreatureÂ¿Â¡ ÂºÃ™Ã€Âº Â¸Ã°ÂµÃ§ EffectÃ€Ã‡ FrameÃ€Â» Â¹Ã™Â²Ã£ÃÃ–Â°Ã­..
+// Â³Â¡Â³ÂªÂ´Ã‚Â°Ã” Ã€Ã–Ã€Â¸Â¸Ã© listÂ¿Ã memoryÂ¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void		
 MCreature::UpdateAttachEffect()
@@ -3555,20 +3558,20 @@ MCreature::UpdateAttachEffect()
 	ATTACHEFFECT_LIST::iterator iEffect = m_listEffect.begin();
 	ATTACHEFFECT_LIST::iterator iEffectTemp;
 
-	// ¹à±â´Â 0
+	// Â¹Ã Â±Ã¢Â´Ã‚ 0
 	//m_MaxEffectLight = 0;
 
 	//---------------------------------------------------------------------
-	// Ä³¸¯ÅÍ »ö±ò ¹Ù²Ù´Â »ö..
+	// Ã„Â³Â¸Â¯Ã…Ã Â»Ã¶Â±Ã² Â¹Ã™Â²Ã™Â´Ã‚ Â»Ã¶..
 	//---------------------------------------------------------------------
-	// NULL°ªÀÌ´ç.. ¿ÜºÎ¿¡¼­ Ã¼Å©ÇØ¾ßÇÔ..
+	// NULLÂ°ÂªÃ€ÃŒÂ´Ã§.. Â¿ÃœÂºÃÂ¿Â¡Â¼Â­ ÃƒÂ¼Ã…Â©Ã‡Ã˜Â¾ÃŸÃ‡Ã”..
 	m_AttachEffectColor = m_ChangeColorSet;	//ATTACHEFFECTCOLOR_NULL;
 	int bShowColor =  (HasEffectStatus(EFFECTSTATUS_CURSE_PARALYSIS)
-						|| g_CurrentFrame % g_pClientConfig->FRAME_DRAW_ORIGINAL_SPRITE);	// ¸î frame¸¶´Ù ÇÑ¹ø¾¿Àº ¿ø·¡ »ö±òÀ» º¸¿©ÁØ´Ù.
+						|| g_CurrentFrame % g_pClientConfig->FRAME_DRAW_ORIGINAL_SPRITE);	// Â¸Ã® frameÂ¸Â¶Â´Ã™ Ã‡Ã‘Â¹Ã¸Â¾Â¿Ã€Âº Â¿Ã¸Â·Â¡ Â»Ã¶Â±Ã²Ã€Â» ÂºÂ¸Â¿Â©ÃÃ˜Â´Ã™.
 	int numColors = 0;
 	
 	//---------------------------------------------------------------------
-	// ¸ğµç Effect¸¦ UpdateÇÑ´Ù.
+	// Â¸Ã°ÂµÃ§ EffectÂ¸Â¦ UpdateÃ‡Ã‘Â´Ã™.
 	//---------------------------------------------------------------------
 	while (iEffect != m_listEffect.end())
 	{
@@ -3589,7 +3592,7 @@ MCreature::UpdateAttachEffect()
 		//#endif
 
 
-		// ºü¸¥ ÀÌµ¿ÀÏ °æ¿ì ÀÌµ¿°ú Á¤ÁöÀÇ ÀÌÆåÆ®°¡ ´Ù¸£´Ù.... ÇÏµåÄÚµù..¤Ñ.¤Ì
+		// ÂºÃ¼Â¸Â¥ Ã€ÃŒÂµÂ¿Ã€Ã Â°Ã¦Â¿Ã¬ Ã€ÃŒÂµÂ¿Â°Ãº ÃÂ¤ÃÃ¶Ã€Ã‡ Ã€ÃŒÃ†Ã¥Ã†Â®Â°Â¡ Â´Ã™Â¸Â£Â´Ã™.... Ã‡ÃÂµÃ¥Ã„ÃšÂµÃ¹..Â¤Ã‘.Â¤ÃŒ
 		if( pEffect->GetEffectSpriteType() == EFFECTSPRITETYPE_FAST_MOVE_FLY ||
 			pEffect->GetEffectSpriteType() == EFFECTSPRITETYPE_FAST_MOVE_STOP ||
 			(
@@ -3672,29 +3675,29 @@ MCreature::UpdateAttachEffect()
 
 		if (bErase == false && pEffect->Update())
 		{
-			// Èí¿µÀÎ °æ¿ì¿¡´Â ¹æÇâÀ» ¹Ù²ÙÁö ¾Ê´Â´Ù.
+			// ÃˆÃ­Â¿ÂµÃ€Ã Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ Â¹Ã¦Ã‡Ã¢Ã€Â» Â¹Ã™Â²Ã™ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 			if( pEffect->GetEffectSpriteType() != EFFECTSPRITETYPE_ABSORB_SOUL &&
 				pEffect->GetEffectSpriteType() != EFFECTSPRITETYPE_PIERCING_FRONT &&
 				pEffect->GetEffectSpriteType() != EFFECTSPRITETYPE_PIERCING_BACK )
 				pEffect->SetDirection( m_CurrentDirection );
 
-			// ÃÖ°í ¹à±â¸¦ °¡Áø EffectÀÇ ¹à±â¸¦ ÀúÀåÇÑ´Ù.
+			// ÃƒÃ–Â°Ã­ Â¹Ã Â±Ã¢Â¸Â¦ Â°Â¡ÃÃ¸ EffectÃ€Ã‡ Â¹Ã Â±Ã¢Â¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
 //			if (m_MaxEffectLight < pEffect->GetLight())
 //			{
 //				m_MaxEffectLight = pEffect->GetLight();
 //			}
 
-			// À§Ä¡ ¼³Á¤
+			// Ã€Â§Ã„Â¡ Â¼Â³ÃÂ¤
 			pEffect->SetPosition(m_X, m_Y);
 
 			//---------------------------------------------------------------------
-			// À§Ä¡°¡ ¹Ù²î¾ú°Å³ª
-			// ºûÀÇ Å©±â(½Ã¾ß)°¡ ¹Ù²ï °æ¿ì
+			// Ã€Â§Ã„Â¡Â°Â¡ Â¹Ã™Â²Ã®Â¾ÃºÂ°Ã…Â³Âª
+			// ÂºÃ»Ã€Ã‡ Ã…Â©Â±Ã¢(Â½ÃƒÂ¾ÃŸ)Â°Â¡ Â¹Ã™Â²Ã¯ Â°Ã¦Â¿Ã¬
 			//---------------------------------------------------------------------
 			if (x!=pEffect->GetX() || y!=pEffect->GetY()
 				|| light != pEffect->GetLight())
 			{				
-				// ½Ã¾ß ¹Ù²Ù±â
+				// Â½ÃƒÂ¾ÃŸ Â¹Ã™Â²Ã™Â±Ã¢
 //				g_pZone->UnSetLight(x, y, light);
 //				g_pZone->SetLight(pEffect->GetX(), pEffect->GetY(), pEffect->GetLight());
 
@@ -3714,8 +3717,8 @@ MCreature::UpdateAttachEffect()
 			}
 
 			//---------------------------------------------------------------------
-			// Ä³¸¯ÅÍ »ö±ò ¹Ù²Ù´Â EffectÀÌ¸é
-			// ÇÏ³ª¸¦ ¼±ÅÃÇØ¾ß ÇÑ´Ù.
+			// Ã„Â³Â¸Â¯Ã…Ã Â»Ã¶Â±Ã² Â¹Ã™Â²Ã™Â´Ã‚ EffectÃ€ÃŒÂ¸Ã©
+			// Ã‡ÃÂ³ÂªÂ¸Â¦ Â¼Â±Ã…ÃƒÃ‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			//---------------------------------------------------------------------
 			if (bShowColor && pEffect->IsEffectColor())
 			{
@@ -3729,62 +3732,62 @@ MCreature::UpdateAttachEffect()
 
 			//-----------------------------------------------
 			//
-			// ÀÌ Effect°¡ ³¡³ª±â Àü¿¡ LinkCount¿¡ ÀÇÇØ¼­
-			// ´ÙÀ½ ¿¬°áµÇ´Â Effect°¡ ÀÖÀ¸¸é »ı¼ºÇØ¾ß ÇÑ´Ù.
+			// Ã€ÃŒ EffectÂ°Â¡ Â³Â¡Â³ÂªÂ±Ã¢ Ã€Ã¼Â¿Â¡ LinkCountÂ¿Â¡ Ã€Ã‡Ã‡Ã˜Â¼Â­
+			// Â´Ã™Ã€Â½ Â¿Â¬Â°Ã¡ÂµÃ‡Â´Ã‚ EffectÂ°Â¡ Ã€Ã–Ã€Â¸Â¸Ã© Â»Ã½Â¼ÂºÃ‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			//
-			// ÇöÀçFrameÀÌ EndLinkFrameÀ» ³Ñ¾î°£ °æ¿ì
+			// Ã‡Ã¶Ã€Ã§FrameÃ€ÃŒ EndLinkFrameÃ€Â» Â³Ã‘Â¾Ã®Â°Â£ Â°Ã¦Â¿Ã¬
 			//
 			//-----------------------------------------------
 			if (g_CurrentFrame >= pEffect->GetEndLinkFrame()
 				&& pEffect->GetLinkSize() != 0)
 			{
-				// GenerateNext¿¡¼­ 
-				// pEffectÀÇ EffectTargetÀ» NULL·Î ¸¸µé¾îÁÖ±â ¶§¹®¿¡
-				// ¿©±â¼­ Áö¿ï ÇÊ¿ä ¾ø´Ù.
+				// GenerateNextÂ¿Â¡Â¼Â­ 
+				// pEffectÃ€Ã‡ EffectTargetÃ€Â» NULLÂ·Ã Â¸Â¸ÂµÃ©Â¾Ã®ÃÃ–Â±Ã¢ Â¶Â§Â¹Â®Â¿Â¡
+				// Â¿Â©Â±Ã¢Â¼Â­ ÃÃ¶Â¿Ã¯ Ã‡ÃŠÂ¿Ã¤ Â¾Ã¸Â´Ã™.
 				g_pEffectGeneratorTable->GenerateNext( pEffect );
 
-				// pEffect´Â ¿©ÀüÈ÷ Á¸ÀçÇØ¾ß ÇÏ¹Ç·Î Áö¿ì¸é ¾ÈµÈ´Ù.
+				// pEffectÂ´Ã‚ Â¿Â©Ã€Ã¼ÃˆÃ· ÃÂ¸Ã€Ã§Ã‡Ã˜Â¾ÃŸ Ã‡ÃÂ¹Ã‡Â·Ã ÃÃ¶Â¿Ã¬Â¸Ã© Â¾ÃˆÂµÃˆÂ´Ã™.
 			}
 
-			// Á¦´ë·Î µÈ °æ¿ì
+			// ÃÂ¦Â´Ã«Â·Ã ÂµÃˆ Â°Ã¦Â¿Ã¬
 			iEffect++;
 		}
 		//---------------------------------------------------------------------
-		// ½Ã°£ÀÌ ´Ù µÅ¼­ ³¡³ª´Â °æ¿ì
+		// Â½ÃƒÂ°Â£Ã€ÃŒ Â´Ã™ ÂµÃ…Â¼Â­ Â³Â¡Â³ÂªÂ´Ã‚ Â°Ã¦Â¿Ã¬
 		//---------------------------------------------------------------------
 		else
 		{
 			
 			bool bUseEffectSprite = pEffect->IsEffectSprite();
 
-			// flagÁ¦°Å
+			// flagÃÂ¦Â°Ã…
 			if (bUseEffectSprite)
 			{
-				m_bAttachEffect[pEffect->GetEffectSpriteType()] = false;	// flagÁ¦°Å
+				m_bAttachEffect[pEffect->GetEffectSpriteType()] = false;	// flagÃÂ¦Â°Ã…
 			}
 		
 			//---------------------------------------------------------------------
 			//
-			// ´ÙÀ½ ¿¬°áµÇ´Â Effect°¡ ÀÖÀ¸¸é »ı¼ºÇØ¾ß ÇÑ´Ù.
+			// Â´Ã™Ã€Â½ Â¿Â¬Â°Ã¡ÂµÃ‡Â´Ã‚ EffectÂ°Â¡ Ã€Ã–Ã€Â¸Â¸Ã© Â»Ã½Â¼ÂºÃ‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			//
 			//---------------------------------------------------------------------
-//			// 2004, 8, 16, sobeit add start test - µµ½½ 130 ½ºÅ³
+//			// 2004, 8, 16, sobeit add start test - ÂµÂµÂ½Â½ 130 Â½ÂºÃ…Â³
 //			if(pEffect->GetEffectSpriteType() == EFFECTSPRITETYPE_BURNING_SOL_CHARGING)
 //			{
-//				// 	¾ÆÁ÷ Â÷Â¡ ÁßÀÌ¸é ³¯¶ó°¡´Â°Ô ³ª¿À¸é ¾ÈµÈ´Ù..^^
+//				// 	Â¾Ã†ÃÃ· Ã‚Ã·Ã‚Â¡ ÃÃŸÃ€ÃŒÂ¸Ã© Â³Â¯Â¶Ã³Â°Â¡Â´Ã‚Â°Ã” Â³ÂªÂ¿Ã€Â¸Ã© Â¾ÃˆÂµÃˆÂ´Ã™..^^
 //			}
-//			// 2004, 8, 16, sobeit add end test - µµ½½ 130 ½ºÅ³
+//			// 2004, 8, 16, sobeit add end test - ÂµÂµÂ½Â½ 130 Â½ÂºÃ…Â³
 			if (pEffect->GetLinkSize() != 0)
 			{				
 				(*g_pEffectGeneratorTable).GenerateNext( pEffect );
 			}
 
-			// ºû³ª´Â Effect¸é ½Ã¾ß¸¦ »ç¶óÁö°Ô ÇØ¾ßÇÑ´Ù.
+			// ÂºÃ»Â³ÂªÂ´Ã‚ EffectÂ¸Ã© Â½ÃƒÂ¾ÃŸÂ¸Â¦ Â»Ã§Â¶Ã³ÃÃ¶Â°Ã” Ã‡Ã˜Â¾ÃŸÃ‡Ã‘Â´Ã™.
 			//if (pEffect->GetBltType()==BLT_EFFECT)
 			{
 				//m_nAlphaEffect --;
 
-				// ¸ğµç ºû³ª´ÂEffect°¡ »ç¶óÁ³À¸¸é ½Ã¾ß¸¦ Á¦°Å½ÃÅ²´Ù.
+				// Â¸Ã°ÂµÃ§ ÂºÃ»Â³ÂªÂ´Ã‚EffectÂ°Â¡ Â»Ã§Â¶Ã³ÃÂ³Ã€Â¸Â¸Ã© Â½ÃƒÂ¾ÃŸÂ¸Â¦ ÃÂ¦Â°Ã…Â½ÃƒÃ…Â²Â´Ã™.
 				//if (m_nAlphaEffect==0)
 				{
 //					g_pZone->UnSetLight(x, y, light);
@@ -3801,25 +3804,25 @@ MCreature::UpdateAttachEffect()
 
 			DEBUG_ADD_FORMAT("[DeleteAttachEffect] id=%d, esType=%d", m_ID, pEffect->GetEffectSpriteType());
 			
-			// memory»èÁ¦, list»èÁ¦						
-			delete pEffect;						// memoryÁ¦°Å
+			// memoryÂ»Ã¨ÃÂ¦, listÂ»Ã¨ÃÂ¦						
+			delete pEffect;						// memoryÃÂ¦Â°Ã…
 			
-			// list¿¡¼­ »èÁ¦ÇÏ±â À§ÇØ¼­.. ÀÓ½Ã·Î ÀúÀå
+			// listÂ¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦Ã‡ÃÂ±Ã¢ Ã€Â§Ã‡Ã˜Â¼Â­.. Ã€Ã“Â½ÃƒÂ·Ã Ã€ÃºÃ€Ã¥
 			iEffectTemp = iEffect;
 
 			iEffect++;
-			m_listEffect.erase( iEffectTemp );	// list¿¡¼­ Á¦°Å
+			m_listEffect.erase( iEffectTemp );	// listÂ¿Â¡Â¼Â­ ÃÂ¦Â°Ã…
 		}		
 	}
 
 
 	//---------------------------------------------------------------------
-	// ¹Ù´Ú¿¡ ºÙ´Â effect
+	// Â¹Ã™Â´ÃšÂ¿Â¡ ÂºÃ™Â´Ã‚ effect
 	//---------------------------------------------------------------------
 	iEffect = m_listGroundEffect.begin();
 	
 	//---------------------------------------------------------------------
-	// ¸ğµç Effect¸¦ UpdateÇÑ´Ù.
+	// Â¸Ã°ÂµÃ§ EffectÂ¸Â¦ UpdateÃ‡Ã‘Â´Ã™.
 	//---------------------------------------------------------------------
 	while (iEffect != m_listGroundEffect.end())
 	{
@@ -3840,23 +3843,23 @@ MCreature::UpdateAttachEffect()
 
 		if (pEffect->Update())
 		{
-			// ÃÖ°í ¹à±â¸¦ °¡Áø EffectÀÇ ¹à±â¸¦ ÀúÀåÇÑ´Ù.
+			// ÃƒÃ–Â°Ã­ Â¹Ã Â±Ã¢Â¸Â¦ Â°Â¡ÃÃ¸ EffectÃ€Ã‡ Â¹Ã Â±Ã¢Â¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
 //			if (m_MaxEffectLight < pEffect->GetLight())
 //			{
 //				m_MaxEffectLight = pEffect->GetLight();
 //			}
 
-			// À§Ä¡ ¼³Á¤
+			// Ã€Â§Ã„Â¡ Â¼Â³ÃÂ¤
 			pEffect->SetPosition(m_X, m_Y);
 
 			//---------------------------------------------------------------------
-			// À§Ä¡°¡ ¹Ù²î¾ú°Å³ª
-			// ºûÀÇ Å©±â(½Ã¾ß)°¡ ¹Ù²ï °æ¿ì
+			// Ã€Â§Ã„Â¡Â°Â¡ Â¹Ã™Â²Ã®Â¾ÃºÂ°Ã…Â³Âª
+			// ÂºÃ»Ã€Ã‡ Ã…Â©Â±Ã¢(Â½ÃƒÂ¾ÃŸ)Â°Â¡ Â¹Ã™Â²Ã¯ Â°Ã¦Â¿Ã¬
 			//---------------------------------------------------------------------
 			if (x!=pEffect->GetX() || y!=pEffect->GetY()
 				|| light != pEffect->GetLight())
 			{				
-				// ½Ã¾ß ¹Ù²Ù±â
+				// Â½ÃƒÂ¾ÃŸ Â¹Ã™Â²Ã™Â±Ã¢
 //				g_pZone->UnSetLight(x, y, light);
 //				g_pZone->SetLight(pEffect->GetX(), pEffect->GetY(), pEffect->GetLight());
 
@@ -3876,11 +3879,11 @@ MCreature::UpdateAttachEffect()
 			}
 
 			//---------------------------------------------------------------------
-			// Ä³¸¯ÅÍ »ö±ò ¹Ù²Ù´Â EffectÀÌ¸é
-			// ÇÏ³ª¸¦ ¼±ÅÃÇØ¾ß ÇÑ´Ù.
+			// Ã„Â³Â¸Â¯Ã…Ã Â»Ã¶Â±Ã² Â¹Ã™Â²Ã™Â´Ã‚ EffectÃ€ÃŒÂ¸Ã©
+			// Ã‡ÃÂ³ÂªÂ¸Â¦ Â¼Â±Ã…ÃƒÃ‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			//---------------------------------------------------------------------
 			/*
-			// ¹Ù´Ú¿¡ ±ò¸®´Â °Å´Â »ö±ò ¹Ù²Ù´Â°Ô ¾ø´Ù.
+			// Â¹Ã™Â´ÃšÂ¿Â¡ Â±Ã²Â¸Â®Â´Ã‚ Â°Ã…Â´Ã‚ Â»Ã¶Â±Ã² Â¹Ã™Â²Ã™Â´Ã‚Â°Ã” Â¾Ã¸Â´Ã™.
 			if (bShowColor && pEffect->IsEffectColor())
 			{
 				numColors++;
@@ -3892,42 +3895,42 @@ MCreature::UpdateAttachEffect()
 			*/
 			//-----------------------------------------------
 			//
-			// ÀÌ Effect°¡ ³¡³ª±â Àü¿¡ LinkCount¿¡ ÀÇÇØ¼­
-			// ´ÙÀ½ ¿¬°áµÇ´Â Effect°¡ ÀÖÀ¸¸é »ı¼ºÇØ¾ß ÇÑ´Ù.
+			// Ã€ÃŒ EffectÂ°Â¡ Â³Â¡Â³ÂªÂ±Ã¢ Ã€Ã¼Â¿Â¡ LinkCountÂ¿Â¡ Ã€Ã‡Ã‡Ã˜Â¼Â­
+			// Â´Ã™Ã€Â½ Â¿Â¬Â°Ã¡ÂµÃ‡Â´Ã‚ EffectÂ°Â¡ Ã€Ã–Ã€Â¸Â¸Ã© Â»Ã½Â¼ÂºÃ‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			//
-			// ÇöÀçFrameÀÌ EndLinkFrameÀ» ³Ñ¾î°£ °æ¿ì
+			// Ã‡Ã¶Ã€Ã§FrameÃ€ÃŒ EndLinkFrameÃ€Â» Â³Ã‘Â¾Ã®Â°Â£ Â°Ã¦Â¿Ã¬
 			//
 			//-----------------------------------------------
 			if (g_CurrentFrame >= pEffect->GetEndLinkFrame()
 				&& pEffect->GetLinkSize() != 0)
 			{
-				// GenerateNext¿¡¼­ 
-				// pEffectÀÇ EffectTargetÀ» NULL·Î ¸¸µé¾îÁÖ±â ¶§¹®¿¡
-				// ¿©±â¼­ Áö¿ï ÇÊ¿ä ¾ø´Ù.
+				// GenerateNextÂ¿Â¡Â¼Â­ 
+				// pEffectÃ€Ã‡ EffectTargetÃ€Â» NULLÂ·Ã Â¸Â¸ÂµÃ©Â¾Ã®ÃÃ–Â±Ã¢ Â¶Â§Â¹Â®Â¿Â¡
+				// Â¿Â©Â±Ã¢Â¼Â­ ÃÃ¶Â¿Ã¯ Ã‡ÃŠÂ¿Ã¤ Â¾Ã¸Â´Ã™.
 				g_pEffectGeneratorTable->GenerateNext( pEffect );
 
-				// pEffect´Â ¿©ÀüÈ÷ Á¸ÀçÇØ¾ß ÇÏ¹Ç·Î Áö¿ì¸é ¾ÈµÈ´Ù.
+				// pEffectÂ´Ã‚ Â¿Â©Ã€Ã¼ÃˆÃ· ÃÂ¸Ã€Ã§Ã‡Ã˜Â¾ÃŸ Ã‡ÃÂ¹Ã‡Â·Ã ÃÃ¶Â¿Ã¬Â¸Ã© Â¾ÃˆÂµÃˆÂ´Ã™.
 			}
 
-			// Á¦´ë·Î µÈ °æ¿ì
+			// ÃÂ¦Â´Ã«Â·Ã ÂµÃˆ Â°Ã¦Â¿Ã¬
 			iEffect++;
 		}
 		//---------------------------------------------------------------------
-		// ½Ã°£ÀÌ ´Ù µÅ¼­ ³¡³ª´Â °æ¿ì
+		// Â½ÃƒÂ°Â£Ã€ÃŒ Â´Ã™ ÂµÃ…Â¼Â­ Â³Â¡Â³ÂªÂ´Ã‚ Â°Ã¦Â¿Ã¬
 		//---------------------------------------------------------------------
 		else
 		{
 			bool bUseEffectSprite = pEffect->IsEffectSprite();
 
-			// flagÁ¦°Å
+			// flagÃÂ¦Â°Ã…
 			if (bUseEffectSprite)
 			{
-				m_bAttachEffect[pEffect->GetEffectSpriteType()] = false;	// flagÁ¦°Å
+				m_bAttachEffect[pEffect->GetEffectSpriteType()] = false;	// flagÃÂ¦Â°Ã…
 			}
 		
 			//---------------------------------------------------------------------
 			//
-			// ´ÙÀ½ ¿¬°áµÇ´Â Effect°¡ ÀÖÀ¸¸é »ı¼ºÇØ¾ß ÇÑ´Ù.
+			// Â´Ã™Ã€Â½ Â¿Â¬Â°Ã¡ÂµÃ‡Â´Ã‚ EffectÂ°Â¡ Ã€Ã–Ã€Â¸Â¸Ã© Â»Ã½Â¼ÂºÃ‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			//
 			//---------------------------------------------------------------------
 			if (pEffect->GetLinkSize() != 0)
@@ -3935,12 +3938,12 @@ MCreature::UpdateAttachEffect()
 				(*g_pEffectGeneratorTable).GenerateNext( pEffect );
 			}
 
-			// ºû³ª´Â Effect¸é ½Ã¾ß¸¦ »ç¶óÁö°Ô ÇØ¾ßÇÑ´Ù.
+			// ÂºÃ»Â³ÂªÂ´Ã‚ EffectÂ¸Ã© Â½ÃƒÂ¾ÃŸÂ¸Â¦ Â»Ã§Â¶Ã³ÃÃ¶Â°Ã” Ã‡Ã˜Â¾ÃŸÃ‡Ã‘Â´Ã™.
 			//if (pEffect->GetBltType()==BLT_EFFECT)
 			{
 				//m_nAlphaEffect --;
 
-				// ¸ğµç ºû³ª´ÂEffect°¡ »ç¶óÁ³À¸¸é ½Ã¾ß¸¦ Á¦°Å½ÃÅ²´Ù.
+				// Â¸Ã°ÂµÃ§ ÂºÃ»Â³ÂªÂ´Ã‚EffectÂ°Â¡ Â»Ã§Â¶Ã³ÃÂ³Ã€Â¸Â¸Ã© Â½ÃƒÂ¾ÃŸÂ¸Â¦ ÃÂ¦Â°Ã…Â½ÃƒÃ…Â²Â´Ã™.
 				//if (m_nAlphaEffect==0)
 				{
 //					g_pZone->UnSetLight(x, y, light);
@@ -3958,14 +3961,14 @@ MCreature::UpdateAttachEffect()
 			
 			DEBUG_ADD_FORMAT("[DeleteAttachEffect] id=%d, esType=%d", m_ID, pEffect->GetEffectSpriteType());
 			
-			// memory»èÁ¦, list»èÁ¦						
-			delete pEffect;						// memoryÁ¦°Å
+			// memoryÂ»Ã¨ÃÂ¦, listÂ»Ã¨ÃÂ¦						
+			delete pEffect;						// memoryÃÂ¦Â°Ã…
 			
-			// list¿¡¼­ »èÁ¦ÇÏ±â À§ÇØ¼­.. ÀÓ½Ã·Î ÀúÀå
+			// listÂ¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦Ã‡ÃÂ±Ã¢ Ã€Â§Ã‡Ã˜Â¼Â­.. Ã€Ã“Â½ÃƒÂ·Ã Ã€ÃºÃ€Ã¥
 			iEffectTemp = iEffect;
 
 			iEffect++;
-			m_listGroundEffect.erase( iEffectTemp );	// list¿¡¼­ Á¦°Å
+			m_listGroundEffect.erase( iEffectTemp );	// listÂ¿Â¡Â¼Â­ ÃÂ¦Â°Ã…
 		}		
 	}
 }
@@ -3973,7 +3976,7 @@ MCreature::UpdateAttachEffect()
 //----------------------------------------------------------------------
 // UnSet LightSight AttachEffect
 //----------------------------------------------------------------------
-// Creature¿¡ ºÙÀº ¸ğµç EffectÀÇ ½Ã¾ß¸¦ »èÁ¦ÇÑ´Ù.
+// CreatureÂ¿Â¡ ÂºÃ™Ã€Âº Â¸Ã°ÂµÃ§ EffectÃ€Ã‡ Â½ÃƒÂ¾ÃŸÂ¸Â¦ Â»Ã¨ÃÂ¦Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 /*
 void		
@@ -3981,15 +3984,15 @@ MCreature::UnSetLightSightAttachEffect()
 {
 	ATTACHEFFECT_LIST::iterator iEffect = m_listEffect.begin();
 	
-	// ¸ğµç Effect¸¦ UpdateÇÑ´Ù.
+	// Â¸Ã°ÂµÃ§ EffectÂ¸Â¦ UpdateÃ‡Ã‘Â´Ã™.
 	while (iEffect != m_listEffect.end())
 	{
 		MAttachEffect*	pEffect = *iEffect;
 		
-		// ½Ã¾ß »èÁ¦
+		// Â½ÃƒÂ¾ÃŸ Â»Ã¨ÃÂ¦
 //		g_pZone->UnSetLight(pEffect->GetX(), pEffect->GetY(), pEffect->GetLight());
 
-		// ´ÙÀ½ ²¨
+		// Â´Ã™Ã€Â½ Â²Â¨
 		iEffect++;
 	}
 }
@@ -3998,7 +4001,7 @@ MCreature::UnSetLightSightAttachEffect()
 //----------------------------------------------------------------------
 // Set LightSight AttachEffect
 //----------------------------------------------------------------------
-// Creature¿¡ ºÙÀº ¸ğµç EffectÀÇ ½Ã¾ß¸¦ Ãß°¡ÇÑ´Ù.
+// CreatureÂ¿Â¡ ÂºÃ™Ã€Âº Â¸Ã°ÂµÃ§ EffectÃ€Ã‡ Â½ÃƒÂ¾ÃŸÂ¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 /*
 void		
@@ -4006,15 +4009,15 @@ MCreature::SetLightSightAttachEffect()
 {
 	ATTACHEFFECT_LIST::iterator iEffect = m_listEffect.begin();
 	
-	// ¸ğµç Effect¸¦ UpdateÇÑ´Ù.
+	// Â¸Ã°ÂµÃ§ EffectÂ¸Â¦ UpdateÃ‡Ã‘Â´Ã™.
 	while (iEffect != m_listEffect.end())
 	{
 		MAttachEffect*	pEffect = *iEffect;
 		
-		// ½Ã¾ß »èÁ¦
+		// Â½ÃƒÂ¾ÃŸ Â»Ã¨ÃÂ¦
 //		g_pZone->SetLight(pEffect->GetX(), pEffect->GetY(), pEffect->GetLight());
 
-		// ´ÙÀ½ ²¨
+		// Â´Ã™Ã€Â½ Â²Â¨
 		iEffect++;
 	}
 }
@@ -4024,28 +4027,28 @@ MCreature::SetLightSightAttachEffect()
 //----------------------------------------------------------------------
 // Set Dead
 //----------------------------------------------------------------------
-// Á×´Â actionInfo¸¦ º¸¿©ÁÖ°í Á×´Â´Ù.
+// ÃÃ—Â´Ã‚ actionInfoÂ¸Â¦ ÂºÂ¸Â¿Â©ÃÃ–Â°Ã­ ÃÃ—Â´Ã‚Â´Ã™.
 //----------------------------------------------------------------------
 void
 MCreature::SetDead()
 {
-	// »ì¾Æ ÀÖ´Â °æ¿ì¸¸ Á×ÀÎ´Ù. -_-;;
+	// Â»Ã¬Â¾Ã† Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Â¸Â¸ ÃÃ—Ã€ÃÂ´Ã™. -_-;;
 	if (m_bAlive)
 	{	
 //		if(HasEffectStatus(EFFECTSTATUS_HIDE_TO_ATTACKER))
 //		{
-//			if(GetCreatureType() == 738) // ÇÃ·¡Á® ½ºÅ×ÀÌ¼Ç
+//			if(GetCreatureType() == 738) // Ã‡ÃƒÂ·Â¡ÃÂ® Â½ÂºÃ…Ã—Ã€ÃŒÂ¼Ã‡
 //				ExecuteActionInfoFromMainNode(SKILL_PLEASURE_EXPLOSION,GetX(), GetY(), 0,GetDirection(),	GetID(),	
 //								GetX(), GetY(), 0, 20, NULL, false);			
-//			else if(GetCreatureType() == 739) // ·£µå ¸¶ÀÎ
+//			else if(GetCreatureType() == 739) // Â·Â£ÂµÃ¥ Â¸Â¶Ã€Ã
 //				ExecuteActionInfoFromMainNode(SKILL_LAND_MINE_EXPLOSION,GetX(), GetY(), 0,GetDirection(),	GetID(),	
 //								GetX(), GetY(), 0, 0, NULL, false);	
-//			else if(GetCreatureType() == 740) // Å¬·¹ÀÌ ¸ğ¾î
+//			else if(GetCreatureType() == 740) // Ã…Â¬Â·Â¹Ã€ÃŒ Â¸Ã°Â¾Ã®
 //				ExecuteActionInfoFromMainNode(SKILL_CLAYMORE_EXPLOSION,GetX(), GetY(), 0,GetDirection(),	GetID(),	
 //								GetX(), GetY(), 0, 20, NULL, false);	
 //		}
 		//if(HasEffectStatus( EFFECTSTATUS_SUMMON_SYLPH ) )
-		if(GetCreatureType() == 723) // °¢¼º Áúµå·¹
+		if(GetCreatureType() == 723) // Â°Â¢Â¼Âº ÃÃºÂµÃ¥Â·Â¹
 			ExecuteActionInfoFromMainNode(SKILL_CLIENT_GDR_DEAD, GetX(), GetY(), 0,GetDirection(),	GetID(),	
 								GetX(), GetY(), 0, 20, NULL, false);			
 
@@ -4070,22 +4073,22 @@ MCreature::SetDead()
 		StopAbsorb();
 
 		//-------------------------------------------------------`
-		// server blockÁÂÇ¥ ¾ø¾ÖÁÖ±â
+		// server blockÃÃ‚Ã‡Â¥ Â¾Ã¸Â¾Ã–ÃÃ–Â±Ã¢
 		//-------------------------------------------------------
 		m_pZone->UnSetServerBlock(m_MoveType, m_ServerX, m_ServerY);
 	
-		// 2002.3.22 Ãß°¡
+		// 2002.3.22 ÃƒÃŸÂ°Â¡
 		SetGroundCreature();
 
 		MovePosition( m_ServerX, m_ServerY );
 		SetStop();
 
-		// ´Ù¸¥ °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// Â´Ã™Â¸Â¥ Â°Ã¡Â°ÃºÂ¸Â¦ Ã€Ã»Â¿Ã«Â½ÃƒÃ…Â²Â´Ã™.
 		AffectUsedActionInfo(m_nUsedActionInfo);		
 		m_nUsedActionInfo	= ACTIONINFO_NULL;
 		m_nSpecialActionInfo = ACTIONINFO_NULL;
 
-		// Á×À» ¶§ÀÇ ActionInfo	
+		// ÃÃ—Ã€Â» Â¶Â§Ã€Ã‡ ActionInfo	
 		m_nNextUsedActionInfo	= (*g_pCreatureTable)[m_CreatureType].DeadActionInfo;	
 
 		MActionResultNode* pActionResultNode = CreateActionResultNode(this, m_nNextUsedActionInfo);
@@ -4106,10 +4109,10 @@ MCreature::SetDead()
 		
 		if (m_nNextUsedActionInfo!=ACTIONINFO_NULL)
 		{		
-			// Á×À» ¶§ÀÇ µ¿ÀÛ
+			// ÃÃ—Ã€Â» Â¶Â§Ã€Ã‡ ÂµÂ¿Ã€Ã›
 			SetNextAction( GetActionInfoAction(m_nNextUsedActionInfo) );
 
-			// ³ªÇÑÅ× ÇÏ´Â µ¿ÀÛ
+			// Â³ÂªÃ‡Ã‘Ã…Ã— Ã‡ÃÂ´Ã‚ ÂµÂ¿Ã€Ã›
 			SetTraceID( m_ID );
 			m_TraceX				= m_X;
 			m_TraceY				= m_Y;
@@ -4117,7 +4120,7 @@ MCreature::SetDead()
 		}
 
 		//-------------------------------------------------------
-		// º¸ÀÌ°Ô ÇÏ±â
+		// ÂºÂ¸Ã€ÃŒÂ°Ã” Ã‡ÃÂ±Ã¢
 		//-------------------------------------------------------
 		SetVisibleSoon();
 
@@ -4129,17 +4132,17 @@ MCreature::SetDead()
 		m_Z = 0;
 
 
-		// Á×¾ú´Ù.
+		// ÃÃ—Â¾ÃºÂ´Ã™.
 		m_bAlive = false;	
 		m_bInCasket = false;
 
 		//-------------------------------------------------------
-		// Effect Á¦°Å
+		// Effect ÃÂ¦Â°Ã…
 		//-------------------------------------------------------
 		ClearAttachEffect();
 
 		//-------------------------------------------------------
-		// Effect»óÅÂµé Á¦°Å
+		// EffectÂ»Ã³Ã…Ã‚ÂµÃ© ÃÂ¦Â°Ã…
 		//-------------------------------------------------------
 		if (g_pEffectStatusTable!=NULL)
 		{
@@ -4152,7 +4155,7 @@ MCreature::SetDead()
 			}
 		}
 
-		// ´ÙÅ©´Ï½º ¹ş¾î³ª±â..
+		// Â´Ã™Ã…Â©Â´ÃÂ½Âº Â¹Ã¾Â¾Ã®Â³ÂªÂ±Ã¢..
 		m_DarknessCount = -1;
 		m_DarknessCountInc = 0;
 
@@ -4162,36 +4165,36 @@ MCreature::SetDead()
 //----------------------------------------------------------------------
 // Set Corpse
 //----------------------------------------------------------------------
-// Á×¾î ÀÖ´Â »óÅÂ·Î ¸¸µç´Ù. --> ¹Ù·Î ½ÃÃ¼·Î..
+// ÃÃ—Â¾Ã® Ã€Ã–Â´Ã‚ Â»Ã³Ã…Ã‚Â·Ã Â¸Â¸ÂµÃ§Â´Ã™. --> Â¹Ã™Â·Ã Â½ÃƒÃƒÂ¼Â·Ã..
 //----------------------------------------------------------------------
 void
 MCreature::SetCorpse()
 {	
 	//-------------------------------------------------------
-	// server blockÁÂÇ¥ ¾ø¾ÖÁÖ±â
+	// server blockÃÃ‚Ã‡Â¥ Â¾Ã¸Â¾Ã–ÃÃ–Â±Ã¢
 	//-------------------------------------------------------
 	m_pZone->UnSetServerBlock(m_MoveType, m_ServerX, m_ServerY);
 
-	// Á¤Áö
+	// ÃÂ¤ÃÃ¶
 	SetStop();
 
-	// Á×´Â ¸ğ½À
+	// ÃÃ—Â´Ã‚ Â¸Ã°Â½Ã€
 	ACTIONINFO deadAI = (enum ACTIONINFO)(*g_pCreatureTable)[m_CreatureType].DeadActionInfo;
 	
-	// Á×À» ¶§ÀÇ µ¿ÀÛ
+	// ÃÃ—Ã€Â» Â¶Â§Ã€Ã‡ ÂµÂ¿Ã€Ã›
 	SetAction( GetActionInfoAction(deadAI) );
 
-	// 2002.3.22 Ãß°¡
+	// 2002.3.22 ÃƒÃŸÂ°Â¡
 	SetGroundCreature();
 	
-	// µ¿ÀÛ ¸ğµÎ ¼öÇà..
+	// ÂµÂ¿Ã€Ã› Â¸Ã°ÂµÃ Â¼Ã¶Ã‡Ã ..
 	m_ActionCount	= GetActionCountMax(); 
 	m_MoveCount		= m_MoveCountMax;
 	
-	// Á×¾ú´Ù.
+	// ÃÃ—Â¾ÃºÂ´Ã™.
 	m_bAlive = false;
 
-	// ´ÙÅ©´Ï½º ¹ş¾î³ª±â..
+	// Â´Ã™Ã…Â©Â´ÃÂ½Âº Â¹Ã¾Â¾Ã®Â³ÂªÂ±Ã¢..
 	m_DarknessCount = -1;
 	m_DarknessCountInc = 0;
 }
@@ -4202,7 +4205,7 @@ MCreature::SetCorpse()
 void
 MCreature::SetAlive()
 {
-	// »ì¾Æ³­´Ù. 
+	// Â»Ã¬Â¾Ã†Â³Â­Â´Ã™. 
 	m_bAlive = true;
 
 	m_bHasHead = true;
@@ -4210,7 +4213,7 @@ MCreature::SetAlive()
 	SetAction( ACTION_STAND );
 
 	//-------------------------------------------------------
-	// Effect»óÅÂµé Á¦°Å
+	// EffectÂ»Ã³Ã…Ã‚ÂµÃ© ÃÂ¦Â°Ã…
 	//-------------------------------------------------------
 	/*
 	if (g_pEffectStatusTable!=NULL)
@@ -4222,7 +4225,7 @@ MCreature::SetAlive()
 	}
 	*/
 
-	if ((*g_pCreatureTable)[m_CreatureType].bFlyingCreature)	// ¹ÚÁãÀÎ °æ¿ì¿¡´Â SetGroundCreatureÇß´ø°Å ¶§¸Å ´Ù½Ã m_MoveType¸¦ ¹Ù²ãÁØ´Ù
+	if ((*g_pCreatureTable)[m_CreatureType].bFlyingCreature)	// Â¹ÃšÃÃ£Ã€Ã Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ SetGroundCreatureÃ‡ÃŸÂ´Ã¸Â°Ã… Â¶Â§Â¸Ã… Â´Ã™Â½Ãƒ m_MoveTypeÂ¸Â¦ Â¹Ã™Â²Ã£ÃÃ˜Â´Ã™
 		m_MoveType = CREATURE_FLYING;
 
 	if (m_MoveType == CREATURE_FLYING)
@@ -4234,7 +4237,7 @@ MCreature::SetAlive()
 //----------------------------------------------------------------------
 // Set NextAction
 //----------------------------------------------------------------------
-// ´ÙÀ½¿¡ ÇÒ Çàµ¿À» ¼³Á¤ÇÑ´Ù.
+// Â´Ã™Ã€Â½Â¿Â¡ Ã‡Ã’ Ã‡Ã ÂµÂ¿Ã€Â» Â¼Â³ÃÂ¤Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void			
 MCreature::SetNextAction(BYTE action)
@@ -4245,7 +4248,7 @@ MCreature::SetNextAction(BYTE action)
 //----------------------------------------------------------------------
 // Set NextAction to Move
 //----------------------------------------------------------------------
-// ´ÙÀ½ action¿¡´Â moveÇÑ´Ù.
+// Â´Ã™Ã€Â½ actionÂ¿Â¡Â´Ã‚ moveÃ‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void	
 MCreature::SetNextActionToMove()
@@ -4289,7 +4292,7 @@ MCreature::UpdateCutHeight()
 			m_CutHeightCountInc = 0;
 		}	
 		
-		// ºùºù µ¹¸°´Ù.
+		// ÂºÃ¹ÂºÃ¹ ÂµÂ¹Â¸Â°Â´Ã™.
 		m_Direction = ((m_Direction+1) & 0x07);		
 
 		if( GetCreatureType() == 702 || GetCreatureType() == 703 || GetCreatureType() == 704 )
@@ -4314,7 +4317,7 @@ MCreature::UpdateTurning()
 		}
 		else
 		{
-			// ºùºù µ¹¸°´Ù.
+			// ÂºÃ¹ÂºÃ¹ ÂµÂ¹Â¸Â°Â´Ã™.
 			m_Direction = ((m_Direction+1) & 0x07);
 		}
 	}
@@ -4344,7 +4347,7 @@ MCreature::UpdateCauseCriticalWounds()
 		else if(m_ActionCount < 10)
 			m_ActionCount++;
 
-		if(m_CreatureType == 793) // ½½·¹ÀÌ¾î Á¦¹° -_-;
+		if(m_CreatureType == 793) // Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® ÃÂ¦Â¹Â° -_-;
 			m_ActionCount = 20;
 
 	#ifdef OUTPUT_DEBUG					
@@ -4399,7 +4402,7 @@ MCreature::UpdateBloodyZenith()
 		{
 			StopBloodyZenith();
 //			char TempBuffer[256];
-//			sprintf(TempBuffer,"ºí·¯µğ Á¦´Ï½º ³¡ a:%d, n:%d, n:%d, z:%d,s:%d", m_nUsedActionInfo, m_NextAction, m_nNextUsedActionInfo,MAGIC_BLOODY_ZENITH,SKILL_SET_AFIRE);
+//			sprintf(TempBuffer,"ÂºÃ­Â·Â¯ÂµÃ° ÃÂ¦Â´ÃÂ½Âº Â³Â¡ a:%d, n:%d, n:%d, z:%d,s:%d", m_nUsedActionInfo, m_NextAction, m_nNextUsedActionInfo,MAGIC_BLOODY_ZENITH,SKILL_SET_AFIRE);
 //			
 //			g_pSystemMessage->Add(TempBuffer);
 //			SetStop();
@@ -4527,9 +4530,9 @@ MCreature::SetSameBody(const MCreature* pCreature)
 //----------------------------------------------------------------------
 // Set Action
 //----------------------------------------------------------------------
-// ÇÑ Action¸¶´Ù Frame¼ö°¡ ´Ù¸¦ °ÍÀÌ´Ù.. 
-// ÀÌ°Å´Â file·Î »©¼­ Á¤º¸¸¦ µÎ´Â°Ô ³ªÀ» °ÍÀÎµ¥
-// FRAME_PACK¿¡¼­ ÀĞ¾î¿Í¾ß ÇÑ´Ù.
+// Ã‡Ã‘ ActionÂ¸Â¶Â´Ã™ FrameÂ¼Ã¶Â°Â¡ Â´Ã™Â¸Â¦ Â°ÃÃ€ÃŒÂ´Ã™.. 
+// Ã€ÃŒÂ°Ã…Â´Ã‚ fileÂ·Ã Â»Â©Â¼Â­ ÃÂ¤ÂºÂ¸Â¸Â¦ ÂµÃÂ´Ã‚Â°Ã” Â³ÂªÃ€Â» Â°ÃÃ€ÃÂµÂ¥
+// FRAME_PACKÂ¿Â¡Â¼Â­ Ã€ÃÂ¾Ã®Â¿ÃÂ¾ÃŸ Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void
 MCreature::SetAction(BYTE action)
@@ -4542,7 +4545,7 @@ MCreature::SetAction(BYTE action)
 //		return;
 //	}
 
-	// ¹«Á¶°Ç ²¨ÁØ´Ù.
+	// Â¹Â«ÃÂ¶Â°Ã‡ Â²Â¨ÃÃ˜Â´Ã™.
 	m_bFastMove = false;
 
 	if (!m_bAlive
@@ -4559,13 +4562,13 @@ MCreature::SetAction(BYTE action)
 //	if(action>ACTION_OUSTERS_MAGIC_ATTACK)
 //		int i = 0;
 	//-----------------------------------------------------------------
-	// ÇöÀç ¸ğ½ÀÀÇ action¿¡ ¸Â´Â °æ¿ì. 2001.10.5
+	// Ã‡Ã¶Ã€Ã§ Â¸Ã°Â½Ã€Ã€Ã‡ actionÂ¿Â¡ Â¸Ã‚Â´Ã‚ Â°Ã¦Â¿Ã¬. 2001.10.5
 	//-----------------------------------------------------------------
 	if (action < GetActionMax())
 	{
 		
 		//-----------------------------------------------------
-		// ¿ÀÅä¹ÙÀÌ Å¸°í ÀÖÀ»¶§
+		// Â¿Ã€Ã…Ã¤Â¹Ã™Ã€ÃŒ Ã…Â¸Â°Ã­ Ã€Ã–Ã€Â»Â¶Â§
 		//-----------------------------------------------------
 		if (m_MoveDevice==MOVE_DEVICE_RIDE)
 		{
@@ -4582,7 +4585,7 @@ MCreature::SetAction(BYTE action)
 			}
 		} else
 			//-----------------------------------------------------
-			// °É¾î´Ù´Ò¶§
+			// Â°Ã‰Â¾Ã®Â´Ã™Â´Ã’Â¶Â§
 			//-----------------------------------------------------
 		{
 			if (IsSlayer())
@@ -4612,12 +4615,12 @@ MCreature::SetAction(BYTE action)
 		m_bNextAction = false;
 			
 		//------------------------------------------------
-		// MoveÀÎ °æ¿ì
+		// MoveÃ€Ã Â°Ã¦Â¿Ã¬
 		//------------------------------------------------
 		if (action==m_MoveAction)//ACTION_MOVE || action==ACTION_SLAYER_MOTOR_MOVE)
 		{
-			// ±×³É ¼­ÀÖ´Â °æ¿ì¸é... ³¡µ¿ÀÛÀ¸·Î ¸¸µç´Ù.
-			// ActionÀÌ ³¡³µ´Ù°í Ç¥½ÃÇØÁÖ±â À§ÇØ¼­..
+			// Â±Ã—Â³Ã‰ Â¼Â­Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Â¸Ã©... Â³Â¡ÂµÂ¿Ã€Ã›Ã€Â¸Â·Ã Â¸Â¸ÂµÃ§Â´Ã™.
+			// ActionÃ€ÃŒ Â³Â¡Â³ÂµÂ´Ã™Â°Ã­ Ã‡Â¥Â½ÃƒÃ‡Ã˜ÃÃ–Â±Ã¢ Ã€Â§Ã‡Ã˜Â¼Â­..
 			if (m_Action==ACTION_STAND 
 				|| IsSlayer() && m_Action==ACTION_SLAYER_MOTOR_STAND)
 			{			
@@ -4625,30 +4628,30 @@ MCreature::SetAction(BYTE action)
 				m_ActionCountMax = 0;			
 			}		
 
-			// ActionÀÌ ³¡³­ °æ¿ì¸¸ ActionÀ» Move·Î ÇÑ´Ù.
-			// ¾Æ´Ñ °æ¿ì´Â.. ActionÀÌ ³¡³ª°í Move·Î ¹Ù²ï´Ù.
+			// ActionÃ€ÃŒ Â³Â¡Â³Â­ Â°Ã¦Â¿Ã¬Â¸Â¸ ActionÃ€Â» MoveÂ·Ã Ã‡Ã‘Â´Ã™.
+			// Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â´Ã‚.. ActionÃ€ÃŒ Â³Â¡Â³ÂªÂ°Ã­ MoveÂ·Ã Â¹Ã™Â²Ã¯Â´Ã™.
 			if (m_ActionCount>=GetActionCountMax())
 			{
 				m_Action = action;
 			}		
 
-			// Á¤Áö
+			// ÃÂ¤ÃÃ¶
 			m_sX = 0;
 			m_sY = 0;
 
-			// Server¿¡¼­ °ËÁõµÈ À§Ä¡·Î ÀÌµ¿½ÃÅ²´Ù.
+			// ServerÂ¿Â¡Â¼Â­ Â°Ã‹ÃÃµÂµÃˆ Ã€Â§Ã„Â¡Â·Ã Ã€ÃŒÂµÂ¿Â½ÃƒÃ…Â²Â´Ã™.
 			//MovePosition( m_ServerX, m_ServerY );
 			
 			// [ TEST CODE ]
-			// ActionÀ» ¾ø¾Ø´Ù.
-			// --> ¾È ¾ø¾Ö¸é.. ActionÀÌ ³¡³ª°í Move°¡ ¼öÇàµÈ´Ù. 
-			// ±×·±µ¥, Move°¡ ¾ÈµÅ¼­ ÁÂÇ¥°¡ ºø³ª°¥ È®·üÀÌ ÀÖ´Ù. Èì!!
+			// ActionÃ€Â» Â¾Ã¸Â¾Ã˜Â´Ã™.
+			// --> Â¾Ãˆ Â¾Ã¸Â¾Ã–Â¸Ã©.. ActionÃ€ÃŒ Â³Â¡Â³ÂªÂ°Ã­ MoveÂ°Â¡ Â¼Ã¶Ã‡Ã ÂµÃˆÂ´Ã™. 
+			// Â±Ã—Â·Â±ÂµÂ¥, MoveÂ°Â¡ Â¾ÃˆÂµÃ…Â¼Â­ ÃÃ‚Ã‡Â¥Â°Â¡ ÂºÃ¸Â³ÂªÂ°Â¥ ÃˆÂ®Â·Ã¼Ã€ÃŒ Ã€Ã–Â´Ã™. ÃˆÃ¬!!
 			//m_ActionCount = 0;
 			//m_ActionCountMax = 0;
 
 			m_RepeatCount = 0;
 
-			// Move Ã¹ µ¿ÀÛ
+			// Move ÃƒÂ¹ ÂµÂ¿Ã€Ã›
 			m_MoveCount = 0;
 			m_NextMoveCount = 0;
 			
@@ -4659,12 +4662,12 @@ MCreature::SetAction(BYTE action)
 
 		}
 		//------------------------------------------------
-		// ActionÀÎ °æ¿ì
+		// ActionÃ€Ã Â°Ã¦Â¿Ã¬
 		//------------------------------------------------
 		else
 		{
 			//------------------------------------------------
-			// extremeÀº Æ¯Á¤ µ¿ÀÛ¿¡¼­ Ç®¸°´Ù.
+			// extremeÃ€Âº Ã†Â¯ÃÂ¤ ÂµÂ¿Ã€Ã›Â¿Â¡Â¼Â­ Ã‡Â®Â¸Â°Â´Ã™.
 			//------------------------------------------------
 //			if (HasEffectStatus(EFFECTSTATUS_EXTREME))
 //			{
@@ -4677,15 +4680,15 @@ MCreature::SetAction(BYTE action)
 //				}
 //			}
 
-			if (// ¿ÀÅä¹ÙÀÌ Å¸°í ÀÖÀ»¶§´Â action ¾È º¸¿©ÁØ´Ù.
+			if (// Â¿Ã€Ã…Ã¤Â¹Ã™Ã€ÃŒ Ã…Â¸Â°Ã­ Ã€Ã–Ã€Â»Â¶Â§Â´Ã‚ action Â¾Ãˆ ÂºÂ¸Â¿Â©ÃÃ˜Â´Ã™.
 				m_MoveDevice==MOVE_DEVICE_RIDE && action!=ACTION_SLAYER_MOTOR_STAND
-				// damagedÀÎ °æ¿ì..
+				// damagedÃ€Ã Â°Ã¦Â¿Ã¬..
 				|| action==ACTION_DAMAGED 						
-						&& (// °ø°İ¹Ş´Â ÁßÀÌ ¾Æ´Ï°Å³ª Á¤Áö µ¿ÀÛÀÌ ¾Æ´Ï¸é °ø°İ ¹Ş´Â ¸ğ½À Ç¥Çö ¾È ÇÑ´Ù
+						&& (// Â°Ã¸Â°ÃÂ¹ÃÂ´Ã‚ ÃÃŸÃ€ÃŒ Â¾Ã†Â´ÃÂ°Ã…Â³Âª ÃÂ¤ÃÃ¶ ÂµÂ¿Ã€Ã›Ã€ÃŒ Â¾Ã†Â´ÃÂ¸Ã© Â°Ã¸Â°Ã Â¹ÃÂ´Ã‚ Â¸Ã°Â½Ã€ Ã‡Â¥Ã‡Ã¶ Â¾Ãˆ Ã‡Ã‘Â´Ã™
 							m_Action!=ACTION_DAMAGED && m_Action!=ACTION_STAND && m_Action!=ACTION_MOVE
-						//&& (// ÈíÇ÷ ´çÇÏ´Â µ¿ÀÛ ÁßÀÌ°Å³ª 
+						//&& (// ÃˆÃ­Ã‡Ã· Â´Ã§Ã‡ÃÂ´Ã‚ ÂµÂ¿Ã€Ã› ÃÃŸÃ€ÃŒÂ°Ã…Â³Âª 
 						//	m_Action==ACTION_DRAINED
-							// ¹ìÆÄÀÌ¾îÀÏ¶§, ÈíÇ÷ÇÏ´Â µ¿ÀÛ Áß¿¡´Â damaged¸¦ ¾È º¸¿©ÁØ´Ù.
+							// Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Ã€ÃÂ¶Â§, ÃˆÃ­Ã‡Ã·Ã‡ÃÂ´Ã‚ ÂµÂ¿Ã€Ã› ÃÃŸÂ¿Â¡Â´Ã‚ damagedÂ¸Â¦ Â¾Ãˆ ÂºÂ¸Â¿Â©ÃÃ˜Â´Ã™.
 						//	|| IsVampire() && m_Action==ACTION_VAMPIRE_DRAIN
 							)
 				)
@@ -4695,7 +4698,7 @@ MCreature::SetAction(BYTE action)
 			}
 
 			
-			// 2005, 1, 6, sobeit add start - motor ride move ÇÏ´øÁß stop °¡ ³¯¶ó¿À¸é ÇÑ¹øÀº ¹«½Ã..
+			// 2005, 1, 6, sobeit add start - motor ride move Ã‡ÃÂ´Ã¸ÃÃŸ stop Â°Â¡ Â³Â¯Â¶Ã³Â¿Ã€Â¸Ã© Ã‡Ã‘Â¹Ã¸Ã€Âº Â¹Â«Â½Ãƒ..
 			if (IsAdvancementClass() && m_MoveDevice==MOVE_DEVICE_RIDE && action == ACTION_SLAYER_MOTOR_STAND&& m_Action==ACTION_SLAYER_MOTOR_MOVE)
 			{
 				if(!m_IsSkipMotorStand)
@@ -4712,14 +4715,14 @@ MCreature::SetAction(BYTE action)
 
 			if (m_ActionCountMax==0)
 			{
-				// µ¿ÀÛÀÌ ¾ø´Â °æ¿ì
+				// ÂµÂ¿Ã€Ã›Ã€ÃŒ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 				m_Action = (m_MoveDevice==MOVE_DEVICE_WALK)? ACTION_STAND : ACTION_SLAYER_MOTOR_STAND;
 				m_ActionCount = 0;		
 				m_RepeatCount = 0;
 				//m_ActionCountMax = (*g_pCreatureTable)[m_CreatureType].GetActionCount( m_Action );
 				m_ActionCountMax = GetCreatureActionCountMax( this, m_Action );
 				
-				// ¹Ø¿¡ ÇØ³ù±æ·¡ ÀÏ´Ü ÇØ³õ´Âµ¥.. ¹ºÁö ¸ô°Ú´Ù - -; 2002.1.10
+				// Â¹Ã˜Â¿Â¡ Ã‡Ã˜Â³Ã¹Â±Ã¦Â·Â¡ Ã€ÃÂ´Ãœ Ã‡Ã˜Â³ÃµÂ´Ã‚ÂµÂ¥.. Â¹ÂºÃÃ¶ Â¸Ã´Â°ÃšÂ´Ã™ - -; 2002.1.10
 				m_nSpecialActionInfo = ACTIONINFO_NULL;
 			}
 			else
@@ -4727,11 +4730,11 @@ MCreature::SetAction(BYTE action)
 				m_Action = action;			
 
 				//---------------------------------------------
-				// actionÀ» ¹İº¹ÇÏ´Â °æ¿ì
+				// actionÃ€Â» Â¹ÃÂºÂ¹Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 				//---------------------------------------------
-				// ¹İº¹ actionÀÇ ½ÃÀÛºÎÅÍ º¸¿©ÁØ´Ù.
-				// ±×·¯³ª, ´ÙÀ½ ¹İº¹ packetÀÌ ¾ğÁ¦ ¿ÃÁö ¸ğ¸£±â ¶§¹®¿¡..
-				// ActionCounMax´Â ¹«Á¶°Ç ³¡~frameÀ¸·Î Á¤ÇÑ´Ù.
+				// Â¹ÃÂºÂ¹ actionÃ€Ã‡ Â½ÃƒÃ€Ã›ÂºÃÃ…Ã ÂºÂ¸Â¿Â©ÃÃ˜Â´Ã™.
+				// Â±Ã—Â·Â¯Â³Âª, Â´Ã™Ã€Â½ Â¹ÃÂºÂ¹ packetÃ€ÃŒ Â¾Ã°ÃÂ¦ Â¿ÃƒÃÃ¶ Â¸Ã°Â¸Â£Â±Ã¢ Â¶Â§Â¹Â®Â¿Â¡..
+				// ActionCounMaxÂ´Ã‚ Â¹Â«ÃÂ¶Â°Ã‡ Â³Â¡~frameÃ€Â¸Â·Ã ÃÂ¤Ã‡Ã‘Â´Ã™.
 				//---------------------------------------------
 //				BOOL bSlayer = IsSlayer();
 
@@ -4741,7 +4744,7 @@ MCreature::SetAction(BYTE action)
 					//&& (*g_pActionInfoTable)[m_nUsedActionInfo].IsUseRepeatFrame())
 					)
 				{
-					// count ¼³Á¤..
+					// count Â¼Â³ÃÂ¤..
 					
 					m_ActionCount = GetActionInfoRepeatStartFrame( m_nSpecialActionInfo );
 //					char Msg[128];
@@ -4749,16 +4752,16 @@ MCreature::SetAction(BYTE action)
 //					g_pSystemMessage->Add(Msg);	
 				}
 				//---------------------------------------------
-				// ÀÏ¹İÀûÀÎ °æ¿ì..
+				// Ã€ÃÂ¹ÃÃ€Ã»Ã€Ã Â°Ã¦Â¿Ã¬..
 				//---------------------------------------------
 				else
 				{			
-					// count ¼³Á¤..
+					// count Â¼Â³ÃÂ¤..
 					m_ActionCount = 0;		
 					m_RepeatCount = 0;
 
 					// 2004, 11, 12, sobeit modify start - block
-					// ÀÌ°Å ¹¹Áö? ¿Ö ÇØ³ù´ÂÁö ¸ğ¸£°Ú³×.. - -;; 2002.1.10
+					// Ã€ÃŒÂ°Ã… Â¹Â¹ÃÃ¶? Â¿Ã– Ã‡Ã˜Â³Ã¹Â´Ã‚ÃÃ¶ Â¸Ã°Â¸Â£Â°ÃšÂ³Ã—.. - -;; 2002.1.10
 				//	m_nSpecialActionInfo = ACTIONINFO_NULL;	
 					// 2004, 11, 12, sobeit modify end - block
 				}				
@@ -4770,8 +4773,8 @@ MCreature::SetAction(BYTE action)
 		m_nSpecialActionInfo = ACTIONINFO_NULL;	
 	// 2004, 11, 12, sobeit add end - block
 
-	// µ¿ÀÛÀ» ½ÃÀÛÇÒ¶§ ºÎ°¡ÀûÀ¸·Î ºÙ´Â Effect µé.
-	// ¾îµò°¡·Î »©¾ß ÇÏ´Âµ¥.-_-
+	// ÂµÂ¿Ã€Ã›Ã€Â» Â½ÃƒÃ€Ã›Ã‡Ã’Â¶Â§ ÂºÃÂ°Â¡Ã€Ã»Ã€Â¸Â·Ã ÂºÃ™Â´Ã‚ Effect ÂµÃ©.
+	// Â¾Ã®ÂµÃ²Â°Â¡Â·Ã Â»Â©Â¾ÃŸ Ã‡ÃÂ´Ã‚ÂµÂ¥.-_-
 	if( HasEffectStatus( EFFECTSTATUS_REDIANCE ) )
 	{
 		if( 
@@ -4799,7 +4802,7 @@ MCreature::SetAction(BYTE action)
 		}				
 	}
 
-//	// 2004, 9, 8, sobeit add start - µµ½½ 130 ½ºÅ³ °ü·Ã
+//	// 2004, 9, 8, sobeit add start - ÂµÂµÂ½Â½ 130 Â½ÂºÃ…Â³ Â°Ã¼Â·Ãƒ
 //	else if(HasEffectStatus(EFFECTSTATUS_BURNING_SOL_CHARGE_1)||
 //			HasEffectStatus(EFFECTSTATUS_BURNING_SOL_CHARGE_2)||
 //			HasEffectStatus(EFFECTSTATUS_BURNING_SOL_CHARGE_3)||
@@ -4815,7 +4818,7 @@ MCreature::SetAction(BYTE action)
 //			m_Action = ACTION_SLAYER_BLADE;
 //	
 //	}
-//	// 2004, 9, 8, sobeit add end - µµ½½ 130 ½ºÅ³ °ü·Ã
+//	// 2004, 9, 8, sobeit add end - ÂµÂµÂ½Â½ 130 Â½ÂºÃ…Â³ Â°Ã¼Â·Ãƒ
 	m_NextAction = (m_MoveAction==ACTION_SLAYER_MOTOR_MOVE)? ACTION_SLAYER_MOTOR_STAND : ACTION_STAND;
 }
 
@@ -4871,7 +4874,7 @@ MCreature::SetPersnalString(char *str, COLORREF color)
 	{
 		endIndex = startIndex + g_pClientConfig->MAX_CHATSTRING_LENGTH;
 
-		// Å©¸®½º¸¶½º Æ®¸®¿ë ÇÏµå ÄÚµù
+		// Ã…Â©Â¸Â®Â½ÂºÂ¸Â¶Â½Âº Ã†Â®Â¸Â®Â¿Ã« Ã‡ÃÂµÃ¥ Ã„ÃšÂµÃ¹
 		bool bTree = false;
 		char *find = strchr(str+startIndex, '\n'); 
 		if(find != NULL)
@@ -4881,23 +4884,23 @@ MCreature::SetPersnalString(char *str, COLORREF color)
 			bTree = true;
 		}
 		
-		// lenÀÌ Â¥¸¦¸¸ÇÑ ±æÀÌµµ ¾ÈµÇ¸é...
+		// lenÃ€ÃŒ Ã‚Â¥Â¸Â¦Â¸Â¸Ã‡Ã‘ Â±Ã¦Ã€ÃŒÂµÂµ Â¾ÃˆÂµÃ‡Â¸Ã©...
 		if (endIndex >= len)
 		{
 			endIndex = len;
 
-			// ÀÏÁ¤ °³¼öÀÇ StringÀ» copyÇÑ´Ù.
+			// Ã€ÃÃÂ¤ Â°Â³Â¼Ã¶Ã€Ã‡ StringÃ€Â» copyÃ‡Ã‘Â´Ã™.
 			strcpy(m_ChatString[m_ChatStringCurrent], str+startIndex);					
 		}
 		else
 		{
-			// g_pClientConfig->MAX_CHATSTRING_LENGTH°³¸¦ Â¥¸¦ ¼ö ¾ø´Â°¡?
+			// g_pClientConfig->MAX_CHATSTRING_LENGTHÂ°Â³Â¸Â¦ Ã‚Â¥Â¸Â¦ Â¼Ã¶ Â¾Ã¸Â´Ã‚Â°Â¡?
 			if (!g_PossibleStringCut(str, endIndex))
 			{
 				endIndex --;
 			}			
 			
-			// startIndex ~ endIndex-1 ±îÁö strcpy
+			// startIndex ~ endIndex-1 Â±Ã®ÃÃ¶ strcpy
 			char	*pSource=str+startIndex, 
 					*pDest	=m_ChatString[m_ChatStringCurrent];
 			for (int i=startIndex; i<endIndex; i++)
@@ -4912,19 +4915,19 @@ MCreature::SetPersnalString(char *str, COLORREF color)
 			}
 		}
 
-		// ´ÙÀ½ ÁÙ..
+		// Â´Ã™Ã€Â½ ÃÃ™..
 		m_ChatStringCurrent++;
 		if (m_ChatStringCurrent==g_pClientConfig->MAX_CHATSTRING) m_ChatStringCurrent=0;
 
-		// index¸¦ ¹Ù²Û´Ù.
+		// indexÂ¸Â¦ Â¹Ã™Â²Ã›Â´Ã™.
 		startIndex = endIndex;
 	}
 	
-	// Ã¤ÆÃ StringÀÌ DelayµÉ ½Ã°£À» ÁöÁ¤ÇØÁØ´Ù.	
+	// ÃƒÂ¤Ã†Ãƒ StringÃ€ÃŒ DelayÂµÃ‰ Â½ÃƒÂ°Â£Ã€Â» ÃÃ¶ÃÂ¤Ã‡Ã˜ÃÃ˜Â´Ã™.	
 //	m_NextChatFadeTime = g_CurrentTime + g_pClientConfig->DELAY_CHATSTRING_KEEP;
 //	m_NextChatFadeTime = g_CurrentTime + 0xFFFFFFFF;
 
-	// Ã¤ÆÃ »ö±ò
+	// ÃƒÂ¤Ã†Ãƒ Â»Ã¶Â±Ã²
 //	m_ChatColor = RGB(50, 50, 200);//RGB_WHITE;//0xFFFF;
 //	m_OriChatColor = m_ChatColor;
 	
@@ -4946,7 +4949,7 @@ MCreature::SetPersnalString(char *str, COLORREF color)
 //----------------------------------------------------------------------
 // Set ChatString
 //----------------------------------------------------------------------
-// StringÀ» Ãß°¡ÇÑ´Ù. ³¡¿¡~..
+// StringÃ€Â» ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™. Â³Â¡Â¿Â¡~..
 //----------------------------------------------------------------------
 void		
 MCreature::SetChatString(char *str, COLORREF color)
@@ -4985,7 +4988,7 @@ MCreature::SetChatString(char *str, COLORREF color)
 //
 //	str = (char*)temp.c_str();
 
-	// Å©¸®½º¸¶½º Æ®¸®¿ë ÇÏµåÄÚµù
+	// Ã…Â©Â¸Â®Â½ÂºÂ¸Â¶Â½Âº Ã†Â®Â¸Â®Â¿Ã« Ã‡ÃÂµÃ¥Ã„ÃšÂµÃ¹
 	char *szTreeFrom = NULL;
 	if( GetCreatureType() == 482 || GetCreatureType() == 650 )
 	{
@@ -5026,35 +5029,35 @@ MCreature::SetChatString(char *str, COLORREF color)
 
 	int len = strlen(str);
 	
-	if(strstr(str, "¹èÃ¶¼ü´Ï´Ù") != NULL)
+	if(strstr(str, "Â¹Ã¨ÃƒÂ¶Â¼Ã¼Â´ÃÂ´Ã™") != NULL)
 	{
 		m_HeadSkin = 215;
 	}
-	else if(strstr(str, "ÇØ°ñ¹Ù°¡Áö") != NULL)
+	else if(strstr(str, "Ã‡Ã˜Â°Ã±Â¹Ã™Â°Â¡ÃÃ¶") != NULL)
 	{
 		m_HeadSkin = 149;
 	}
-	else if(strstr(str, "´Á´ëÀÎ°£") != NULL)
+	else if(strstr(str, "Â´ÃÂ´Ã«Ã€ÃÂ°Â£") != NULL)
 	{
 		m_HeadSkin = 397;
 	}
-	else if(strstr(str, "´ß´ë°¡¸®") != NULL)
+	else if(strstr(str, "Â´ÃŸÂ´Ã«Â°Â¡Â¸Â®") != NULL)
 	{
 		m_HeadSkin = 221;
 	}
-	else if(strstr(str, "°¡¸é¶óÀÌ´õ") != NULL)
+	else if(strstr(str, "Â°Â¡Â¸Ã©Â¶Ã³Ã€ÃŒÂ´Ãµ") != NULL)
 	{
 		m_HeadSkin = 316;
 	}
 
 
-	// ÇÑ ¹®ÀåÀÇ StringÀ» ÀûÀıÇÑ ±æÀÌ·Î Àß¶óÁØ´Ù~~
+	// Ã‡Ã‘ Â¹Â®Ã€Ã¥Ã€Ã‡ StringÃ€Â» Ã€Ã»Ã€Ã½Ã‡Ã‘ Â±Ã¦Ã€ÃŒÂ·Ã Ã€ÃŸÂ¶Ã³ÃÃ˜Â´Ã™~~
 	DEBUG_ADD("[SetChatString] before while");
 	while (endIndex < len)
 	{
 		endIndex = startIndex + g_pClientConfig->MAX_CHATSTRING_LENGTH;
 
-		// Å©¸®½º¸¶½º Æ®¸®¿ë ÇÏµå ÄÚµù
+		// Ã…Â©Â¸Â®Â½ÂºÂ¸Â¶Â½Âº Ã†Â®Â¸Â®Â¿Ã« Ã‡ÃÂµÃ¥ Ã„ÃšÂµÃ¹
 		bool bTree = false;
 		if(GetCreatureType() == 482 || GetCreatureType() == 650 )
 		{
@@ -5067,23 +5070,23 @@ MCreature::SetChatString(char *str, COLORREF color)
 			}
 		}
 		
-		// lenÀÌ Â¥¸¦¸¸ÇÑ ±æÀÌµµ ¾ÈµÇ¸é...
+		// lenÃ€ÃŒ Ã‚Â¥Â¸Â¦Â¸Â¸Ã‡Ã‘ Â±Ã¦Ã€ÃŒÂµÂµ Â¾ÃˆÂµÃ‡Â¸Ã©...
 		if (endIndex >= len)
 		{
 			endIndex = len;
 
-			// ÀÏÁ¤ °³¼öÀÇ StringÀ» copyÇÑ´Ù.
+			// Ã€ÃÃÂ¤ Â°Â³Â¼Ã¶Ã€Ã‡ StringÃ€Â» copyÃ‡Ã‘Â´Ã™.
 			strcpy(m_ChatString[m_ChatStringCurrent], str+startIndex);					
 		}
 		else
 		{
-			// g_pClientConfig->MAX_CHATSTRING_LENGTH°³¸¦ Â¥¸¦ ¼ö ¾ø´Â°¡?
+			// g_pClientConfig->MAX_CHATSTRING_LENGTHÂ°Â³Â¸Â¦ Ã‚Â¥Â¸Â¦ Â¼Ã¶ Â¾Ã¸Â´Ã‚Â°Â¡?
 			if (!g_PossibleStringCut(str, endIndex))
 			{
 				endIndex --;
 			}			
 			
-			// startIndex ~ endIndex-1 ±îÁö strcpy
+			// startIndex ~ endIndex-1 Â±Ã®ÃÃ¶ strcpy
 			char	*pSource=str+startIndex, 
 					*pDest	=m_ChatString[m_ChatStringCurrent];
 			for (int i=startIndex; i<endIndex; i++)
@@ -5098,16 +5101,16 @@ MCreature::SetChatString(char *str, COLORREF color)
 			}
 		}
 
-		// ´ÙÀ½ ÁÙ..
+		// Â´Ã™Ã€Â½ ÃÃ™..
 		m_ChatStringCurrent++;
 		if (m_ChatStringCurrent==g_pClientConfig->MAX_CHATSTRING) m_ChatStringCurrent=0;
 
-		// index¸¦ ¹Ù²Û´Ù.
+		// indexÂ¸Â¦ Â¹Ã™Â²Ã›Â´Ã™.
 		startIndex = endIndex;
 	}
 	DEBUG_ADD("[SetChatString] while ok");
 
-	// Å©¸®½º¸¶½º Æ®¸®¿ë ÇÏµåÄÚµù
+	// Ã…Â©Â¸Â®Â½ÂºÂ¸Â¶Â½Âº Ã†Â®Â¸Â®Â¿Ã« Ã‡ÃÂµÃ¥Ã„ÃšÂµÃ¹
 	if(GetCreatureType() == 482 || GetCreatureType() == 650)
 	{
 		DEBUG_ADD("[SetChatString] Tree code");
@@ -5122,21 +5125,21 @@ MCreature::SetChatString(char *str, COLORREF color)
 
 		strcpy(m_ChatString[m_ChatStringCurrent], szTemp);
 
-		// ´ÙÀ½ ÁÙ..
+		// Â´Ã™Ã€Â½ ÃÃ™..
 		m_ChatStringCurrent++;
 
 		DEBUG_ADD("[SetChatString] Tree code ok");
 	}
 	
 
-	// Ã¤ÆÃ StringÀÌ DelayµÉ ½Ã°£À» ÁöÁ¤ÇØÁØ´Ù.	
+	// ÃƒÂ¤Ã†Ãƒ StringÃ€ÃŒ DelayÂµÃ‰ Â½ÃƒÂ°Â£Ã€Â» ÃÃ¶ÃÂ¤Ã‡Ã˜ÃÃ˜Â´Ã™.	
 	m_NextChatFadeTime = g_CurrentTime + g_pClientConfig->DELAY_CHATSTRING_KEEP;
 
-	// Ã¤ÆÃ »ö±ò
+	// ÃƒÂ¤Ã†Ãƒ Â»Ã¶Â±Ã²
 	m_ChatColor = color;//RGB_WHITE;//0xFFFF;
 	m_OriChatColor = m_ChatColor;
 	
-	// Å©¸®½º¸¶½º Æ®¸®¿ë ÇÏµå ÄÚµù
+	// Ã…Â©Â¸Â®Â½ÂºÂ¸Â¶Â½Âº Ã†Â®Â¸Â®Â¿Ã« Ã‡ÃÂµÃ¥ Ã„ÃšÂµÃ¹
 	if(GetCreatureType() == 482 || GetCreatureType() == 650)
 	{
 		m_NextChatFadeTime = 0;
@@ -5146,7 +5149,7 @@ MCreature::SetChatString(char *str, COLORREF color)
 		m_OriChatColor |= 0xFF000000;
 	}
 
-	// ¸»ÇÑ ½Ã°£ ¼³Á¤
+	// Â¸Â»Ã‡Ã‘ Â½ÃƒÂ°Â£ Â¼Â³ÃÂ¤
 	m_ChatTime = g_CurrentFrame;
 	
 
@@ -5161,7 +5164,7 @@ MCreature::SetChatString(char *str, COLORREF color)
 //----------------------------------------------------------------------
 // Fade ChatString
 //----------------------------------------------------------------------
-// ChatStringÀ» ¾îµÓ°Ô ÇÑ´Ù.
+// ChatStringÃ€Â» Â¾Ã®ÂµÃ“Â°Ã” Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void		
 MCreature::FadeChatString()
@@ -5172,7 +5175,7 @@ MCreature::FadeChatString()
 	m_ChatStringCurrent++;
 	if (m_ChatStringCurrent==g_pClientConfig->MAX_CHATSTRING) m_ChatStringCurrent=0;
 
-	// Ã¤ÆÃ StringÀÌ DelayµÉ ½Ã°£À» ÁöÁ¤ÇØÁØ´Ù.	
+	// ÃƒÂ¤Ã†Ãƒ StringÃ€ÃŒ DelayÂµÃ‰ Â½ÃƒÂ°Â£Ã€Â» ÃÃ¶ÃÂ¤Ã‡Ã˜ÃÃ˜Â´Ã™.	
 	m_NextChatFadeTime = g_CurrentTime + DELAY_FADECHATSTRING;
 	*/
 
@@ -5195,12 +5198,12 @@ MCreature::FadeChatString()
 
 	BYTE b = (m_OriChatColor & 0xFF000000) >> 24;
 
-	BYTE color[3] ={ m_OriChatColor & 0xFF, (m_OriChatColor & 0xFF00)>>8, (m_OriChatColor & 0xFF0000)>>16};
+	BYTE color[3] ={ static_cast<BYTE>(m_OriChatColor & 0xFF), static_cast<BYTE>((m_OriChatColor & 0xFF00)>>8), static_cast<BYTE>((m_OriChatColor & 0xFF0000)>>16) };
 
 
 	if (b>=g_pClientConfig->MIN_CHATSTRING_COLOR256)
 	{
-		// Å©¸®½º¸¶½º Æ®¸®¿ë ÇÏµåÄÚµù
+		// Ã…Â©Â¸Â®Â½ÂºÂ¸Â¶Â½Âº Ã†Â®Â¸Â®Â¿Ã« Ã‡ÃÂµÃ¥Ã„ÃšÂµÃ¹
 		if(GetCreatureType() == 482 || GetCreatureType() == 650)
 		{
 			b -= g_pClientConfig->VALUE_CHATSTRING_FADE*4;
@@ -5219,7 +5222,7 @@ MCreature::FadeChatString()
 	}
 	else
 	{
-		// Å©¸®½º¸¶½º Æ®¸®¿ë ÇÏµåÄÚµù
+		// Ã…Â©Â¸Â®Â½ÂºÂ¸Â¶Â½Âº Ã†Â®Â¸Â®Â¿Ã« Ã‡ÃÂµÃ¥Ã„ÃšÂµÃ¹
 		if(GetCreatureType() == 482 || GetCreatureType() == 650)
 		{
 			const int treeColorMax = 18;
@@ -5248,7 +5251,7 @@ MCreature::FadeChatString()
 				RGB(200, 200, 255),
 			};
 
-			// Ã¤ÆÃ »ö±ò
+			// ÃƒÂ¤Ã†Ãƒ Â»Ã¶Â±Ã²
 			COLORREF color = 0;
 			
 			do
@@ -5281,13 +5284,13 @@ MCreature::FadeChatString()
 // Get ChatString
 //----------------------------------------------------------------------
 // 0 ~ g_pClientConfig->MAX_CHATSTRING-1
-// 0ÀÌ °¡Àå ¿À·¡µÈ StringÀÌ°í g_pClientConfig->MAX_CHATSTRING-1ÀÌ °¡Àå ÃÖ±Ù¿¡ °ÍÀ¸·Î
-// returnÇØ¾ß ÇÑ´Ù.
+// 0Ã€ÃŒ Â°Â¡Ã€Ã¥ Â¿Ã€Â·Â¡ÂµÃˆ StringÃ€ÃŒÂ°Ã­ g_pClientConfig->MAX_CHATSTRING-1Ã€ÃŒ Â°Â¡Ã€Ã¥ ÃƒÃ–Â±Ã™Â¿Â¡ Â°ÃÃ€Â¸Â·Ã
+// returnÃ‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 const char*	
 MCreature::GetChatString(BYTE i)
 { 
-	//                          i   = ½ÇÁ¦·Î returnµÇ¾î¾ß ÇÏ´Â °ª
+	//                          i   = Â½Ã‡ÃÂ¦Â·Ã returnÂµÃ‡Â¾Ã®Â¾ÃŸ Ã‡ÃÂ´Ã‚ Â°Âª
 	//m_ChatStringCurrent - (3-[0]) = m_ChatStringCurrent;
 	//m_ChatStringCurrent - (3-[1]) = m_ChatStringCurrent - 2;
 	//m_ChatStringCurrent - (3-[2]) = m_ChatStringCurrent - 1;
@@ -5305,7 +5308,7 @@ MCreature::GetChatString(BYTE i)
 //----------------------------------------------------------------------
 // Check AffectStatus
 //----------------------------------------------------------------------
-// pItemÀ» this Creature°¡ »ç¿ëÇÒ ¼ö ÀÖ´ÂÁöÀÇ ¿©ºÎ¸¦ Ã¼Å©ÇØ¼­ ¼³Á¤ÇÑ´Ù.
+// pItemÃ€Â» this CreatureÂ°Â¡ Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã‚ÃÃ¶Ã€Ã‡ Â¿Â©ÂºÃÂ¸Â¦ ÃƒÂ¼Ã…Â©Ã‡Ã˜Â¼Â­ Â¼Â³ÃÂ¤Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void	
 MCreature::CheckAffectStatus(MItem* pItem)
@@ -5330,7 +5333,7 @@ MCreature::CheckAffectStatus(MItem* pItem)
 		if (pItem->IsSlayerItem())
 		{
 			//-----------------------------------------------------
-			// ½½·¹ÀÌ¾îÀÎ °æ¿ì´Â STR, DEX, INTÃ¼Å©
+			// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ STR, DEX, INTÃƒÂ¼Ã…Â©
 			//-----------------------------------------------------
 			int reqSTR = pItem->GetRequireSTR();
 			int reqDEX = pItem->GetRequireDEX();
@@ -5343,12 +5346,12 @@ MCreature::CheckAffectStatus(MItem* pItem)
 			int sum = str+dex+inte;
 			
 			//-----------------------------------------------------
-			// Á¦ÇÑ ¼öÄ¡°¡ ¾ø°Å³ª 
-			// Æ¯Á¤ ¼öÄ¡¸¦ ÇÏ³ª ¸¸Á·ÇÏ´Â °æ¿ì..
+			// ÃÂ¦Ã‡Ã‘ Â¼Ã¶Ã„Â¡Â°Â¡ Â¾Ã¸Â°Ã…Â³Âª 
+			// Ã†Â¯ÃÂ¤ Â¼Ã¶Ã„Â¡Â¸Â¦ Ã‡ÃÂ³Âª Â¸Â¸ÃÂ·Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬..
 			//-----------------------------------------------------
 			if (
 				//-----------------------------------------------------
-				// ¼ºº° °Ë»ç
+				// Â¼ÂºÂºÂ° Â°Ã‹Â»Ã§
 				//-----------------------------------------------------
 				(pItem->IsGenderForAll() 
 				|| pItem->IsGenderForMale() && IsMale()
@@ -5356,12 +5359,12 @@ MCreature::CheckAffectStatus(MItem* pItem)
 				)
 				
 				//-----------------------------------------------------
-				// ÇÊ¿ä´É·ÂÄ¡°¡ ¾ø°Å³ª..
+				// Ã‡ÃŠÂ¿Ã¤Â´Ã‰Â·Ã‚Ã„Â¡Â°Â¡ Â¾Ã¸Â°Ã…Â³Âª..
 				//-----------------------------------------------------
 				&& (
 				
 				//-----------------------------------------------------
-				// ÀÖ´Â°æ¿ì.. ´Ù ¸¸Á·½ÃÄÑ¾ß ÇÑ´Ù.
+				// Ã€Ã–Â´Ã‚Â°Ã¦Â¿Ã¬.. Â´Ã™ Â¸Â¸ÃÂ·Â½ÃƒÃ„Ã‘Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 				//-----------------------------------------------------
 				(reqSTR==0 || reqSTR!=0 && str >= reqSTR)
 				&&	(reqDEX==0 || reqDEX!=0 && dex >= reqDEX)
@@ -5388,7 +5391,7 @@ MCreature::CheckAffectStatus(MItem* pItem)
 		else
 		{
 			//-----------------------------------------------------
-			// Å¸Á¾Á· ¾ÆÀÌÅÛ »ç¿ë ºÒ°¡
+			// Ã…Â¸ÃÂ¾ÃÂ· Â¾Ã†Ã€ÃŒÃ…Ã› Â»Ã§Â¿Ã« ÂºÃ’Â°Â¡
 			//-----------------------------------------------------
 			pItem->UnSetAffectStatus();
 		}
@@ -5400,11 +5403,11 @@ MCreature::CheckAffectStatus(MItem* pItem)
 			int reqLevel =  pItem->GetRequireLevel();
 
 			//-----------------------------------------------------
-			// ¹ìÆÄÀÌ¾îÀÎ °æ¿ì´Â level·Î Ã¼Å©ÇÑ´Ù.
+			// Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ levelÂ·Ã ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
 			//-----------------------------------------------------
 			if (
 					//-----------------------------------------------------
-					// ¼ºº° °Ë»ç
+					// Â¼ÂºÂºÂ° Â°Ã‹Â»Ã§
 					//-----------------------------------------------------
 					(pItem->IsGenderForAll() 
 						|| pItem->IsGenderForMale() && IsMale()
@@ -5430,11 +5433,11 @@ MCreature::CheckAffectStatus(MItem* pItem)
 			
 
 			//-----------------------------------------------------
-			// item Á¾·ù¿¡ µû¶ó¼­ skill Ã¼Å©ÇÑ´Ù.
+			// item ÃÂ¾Â·Ã¹Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ skill ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
 			//-----------------------------------------------------
-			// g_pSkillAvailableÀº playerÀÇ skillÁ¤º¸ÀÌ´Ù.
-			// ¾îÂ÷ÇÇ ´Ù¸¥ creature°¡ CheckAffectStatus()¸¦ »ç¿ëÇÒ ÀÏÀº ¾øÁö¸¸.. --;
-			// ÀÏ´ÜÀº item levelÃ¼Å©·Î¸¸ ³¡³»µµ·Ï ÇÑ´Ù...
+			// g_pSkillAvailableÃ€Âº playerÃ€Ã‡ skillÃÂ¤ÂºÂ¸Ã€ÃŒÂ´Ã™.
+			// Â¾Ã®Ã‚Ã·Ã‡Ã‡ Â´Ã™Â¸Â¥ creatureÂ°Â¡ CheckAffectStatus()Â¸Â¦ Â»Ã§Â¿Ã«Ã‡Ã’ Ã€ÃÃ€Âº Â¾Ã¸ÃÃ¶Â¸Â¸.. --;
+			// Ã€ÃÂ´ÃœÃ€Âº item levelÃƒÂ¼Ã…Â©Â·ÃÂ¸Â¸ Â³Â¡Â³Â»ÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™...
 			/*
 			switch (pItem->GetItemClass())
 			{
@@ -5499,7 +5502,7 @@ MCreature::CheckAffectStatus(MItem* pItem)
 		else
 		{
 			//-----------------------------------------------------
-			// Å¸Á¾Á· ¾ÆÀÌÅÛ »ç¿ë ºÒ°¡
+			// Ã…Â¸ÃÂ¾ÃÂ· Â¾Ã†Ã€ÃŒÃ…Ã› Â»Ã§Â¿Ã« ÂºÃ’Â°Â¡
 			//-----------------------------------------------------
 			pItem->UnSetAffectStatus();
 		}
@@ -5511,7 +5514,7 @@ MCreature::CheckAffectStatus(MItem* pItem)
 			int reqLevel =  pItem->GetRequireLevel();
 
 			//-----------------------------------------------------
-			// ½½·¹ÀÌ¾îÀÎ °æ¿ì´Â STR, DEX, INTÃ¼Å©
+			// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ STR, DEX, INTÃƒÂ¼Ã…Â©
 			//-----------------------------------------------------
 			int reqSTR = pItem->GetRequireSTR();
 			int reqDEX = pItem->GetRequireDEX();
@@ -5524,7 +5527,7 @@ MCreature::CheckAffectStatus(MItem* pItem)
 			int sum = str+dex+inte;
 
 			//-----------------------------------------------------
-			// ¾Æ¿ì½ºÅÍÁîÀÎ °æ¿ìµµ-_- level·Î Ã¼Å©ÇÑ´Ù.
+			// Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÃÃ®Ã€Ã Â°Ã¦Â¿Ã¬ÂµÂµ-_- levelÂ·Ã ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
 			//-----------------------------------------------------
 			if (
 				(reqLevel==0 || reqLevel!=0 && GetLEVEL() >= reqLevel)
@@ -5549,7 +5552,7 @@ MCreature::CheckAffectStatus(MItem* pItem)
 		else
 		{
 			//-----------------------------------------------------
-			// Å¸Á¾Á· ¾ÆÀÌÅÛ »ç¿ë ºÒ°¡
+			// Ã…Â¸ÃÂ¾ÃÂ· Â¾Ã†Ã€ÃŒÃ…Ã› Â»Ã§Â¿Ã« ÂºÃ’Â°Â¡
 			//-----------------------------------------------------
 			pItem->UnSetAffectStatus();
 		}
@@ -5560,12 +5563,12 @@ MCreature::CheckAffectStatus(MItem* pItem)
 //----------------------------------------------------------------------
 // Set Direction To Creature
 //----------------------------------------------------------------------
-// ´Ù¸¥ Creature¸¦ ÇâÇØ¼­ ¹Ù¶óº»´Ù.
+// Â´Ã™Â¸Â¥ CreatureÂ¸Â¦ Ã‡Ã¢Ã‡Ã˜Â¼Â­ Â¹Ã™Â¶Ã³ÂºÂ»Â´Ã™.
 //----------------------------------------------------------------------
 void	
 MCreature::SetDirectionToPosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 {
-	// °°Àº ÁÂÇ¥¶ó¸é.. ÇöÀç ¹æÇâÀ¸·Î µĞ´Ù.
+	// Â°Â°Ã€Âº ÃÃ‚Ã‡Â¥Â¶Ã³Â¸Ã©.. Ã‡Ã¶Ã€Ã§ Â¹Ã¦Ã‡Ã¢Ã€Â¸Â·Ã ÂµÃÂ´Ã™.
 	if (m_X==sX && m_Y==sY)
 	{
 		m_Direction = m_CurrentDirection;
@@ -5579,49 +5582,49 @@ MCreature::SetDirectionToPosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY
 //----------------------------------------------------------------------
 // Change Near Direction
 //----------------------------------------------------------------------
-// m_CurrentDirectionÀ» m_DirectionÀ¸·Î ÀÚ¿¬½º·´°Ô ¹Ù²Û´Ù.
-// ±×·¯³ª, ÇöÀç ¿òÁ÷ÀÌ´Â ¹æÇâ(m_DirectionMoved)ÀÌ ¿ì¼±ÀÌ´Ù.
+// m_CurrentDirectionÃ€Â» m_DirectionÃ€Â¸Â·Ã Ã€ÃšÂ¿Â¬Â½ÂºÂ·Â´Â°Ã” Â¹Ã™Â²Ã›Â´Ã™.
+// Â±Ã—Â·Â¯Â³Âª, Ã‡Ã¶Ã€Ã§ Â¿Ã²ÃÃ·Ã€ÃŒÂ´Ã‚ Â¹Ã¦Ã‡Ã¢(m_DirectionMoved)Ã€ÃŒ Â¿Ã¬Â¼Â±Ã€ÃŒÂ´Ã™.
 //----------------------------------------------------------------------
 bool	
 MCreature::ChangeNearDirection()
 {
 	int toDir;
 	
-	// actionÀ» º¸¿©ÁÖ´Â ÁßÀÌ¸é.. ¹æÇâ ¼³Á¤
+	// actionÃ€Â» ÂºÂ¸Â¿Â©ÃÃ–Â´Ã‚ ÃÃŸÃ€ÃŒÂ¸Ã©.. Â¹Ã¦Ã‡Ã¢ Â¼Â³ÃÂ¤
 	if (m_ActionCount<GetActionCountMax())
 	{
 		toDir = m_Direction;
 	}
-	// ¿òÁ÷ÀÌ´Â ÁßÀÌ¸é m_DirectionMoved
-	// ´Ü, KnockBackÀÌ³ª FastMoveÀÎ °æ¿ì¿¡´Â... ¹æÇâ ¹«½Ã..
+	// Â¿Ã²ÃÃ·Ã€ÃŒÂ´Ã‚ ÃÃŸÃ€ÃŒÂ¸Ã© m_DirectionMoved
+	// Â´Ãœ, KnockBackÃ€ÃŒÂ³Âª FastMoveÃ€Ã Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚... Â¹Ã¦Ã‡Ã¢ Â¹Â«Â½Ãƒ..
 	else if (m_MoveCount>0 && m_MoveCount<m_MoveCountMax
 		&& !m_bKnockBack
 		&& !m_bFastMove)		
 	{
 		toDir = m_DirectionMoved;
 	}
-	// ¾Æ´Ï¸é.. m_Direction
+	// Â¾Ã†Â´ÃÂ¸Ã©.. m_Direction
 	else
 	{
 		toDir = m_Direction;
 	}
 
-	// °°À¸¸é ¹Ù²Ü ÇÊ¿ä°¡ ¾ø´Ù.
+	// Â°Â°Ã€Â¸Â¸Ã© Â¹Ã™Â²Ãœ Ã‡ÃŠÂ¿Ã¤Â°Â¡ Â¾Ã¸Â´Ã™.
 	if (m_CurrentDirection==toDir)
 	{
 		return false;
 	}
 
-	// ´Ù¸£¸é.. 
-	// ¿ŞÂÊÀ¸·Î µ¹°Å³ª ¿À¸¥ÂÊÀ¸·Î µ¹°Ô ÇØ¾ßÇÑ´Ù.
+	// Â´Ã™Â¸Â£Â¸Ã©.. 
+	// Â¿ÃÃ‚ÃŠÃ€Â¸Â·Ã ÂµÂ¹Â°Ã…Â³Âª Â¿Ã€Â¸Â¥Ã‚ÃŠÃ€Â¸Â·Ã ÂµÂ¹Â°Ã” Ã‡Ã˜Â¾ÃŸÃ‡Ã‘Â´Ã™.
 
-	// ¾ç¼ö·Î ¸¸µé±â À§ÇØ¼­.. ±Û°í.. ¼Óµµ¸¦ À§ÇØ¼­.. &¸¦ »ç¿ëÇß´Ù.
+	// Â¾Ã§Â¼Ã¶Â·Ã Â¸Â¸ÂµÃ©Â±Ã¢ Ã€Â§Ã‡Ã˜Â¼Â­.. Â±Ã›Â°Ã­.. Â¼Ã“ÂµÂµÂ¸Â¦ Ã€Â§Ã‡Ã˜Â¼Â­.. &Â¸Â¦ Â»Ã§Â¿Ã«Ã‡ÃŸÂ´Ã™.
 	int gap = (((m_CurrentDirection+MAX_DIRECTION) - toDir) & 0x07);//% MAX_DIRECTION;
 
 	// 4, 7
 	if (gap==4)
 	{
-		// ¿ŞÂÊÀÌ³ª ¿À¸¥ÂÊÀ¸·Î randomÇÏ°Ô µ·´Ù.
+		// Â¿ÃÃ‚ÃŠÃ€ÃŒÂ³Âª Â¿Ã€Â¸Â¥Ã‚ÃŠÃ€Â¸Â·Ã randomÃ‡ÃÂ°Ã” ÂµÂ·Â´Ã™.
 		if (rand() & 0x01)
 		{
 			m_CurrentDirection ++;			
@@ -5641,7 +5644,7 @@ MCreature::ChangeNearDirection()
 		m_CurrentDirection ++;		
 	}
 
-	// 0~7À» À¯ÁöÇÏµµ·Ï ÇÑ´Ù.
+	// 0~7Ã€Â» Ã€Â¯ÃÃ¶Ã‡ÃÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™.
 	m_CurrentDirection &= 0x07;
 
 	return true;	
@@ -5650,16 +5653,16 @@ MCreature::ChangeNearDirection()
 //----------------------------------------------------------------------
 // Get Counter Direction
 //----------------------------------------------------------------------
-// ÁøÇà ¹æÇâÀÇ ¹İ´ë ¹æÇâÀ» ±¸ÇÑ´Ù.
-// À½ ÀÌ°Å staticÀ¸·Î ¹Ù²ÙµçÁö d¸¦ ¾ø¾ÖµçÁö ÇØ¾ß´Âµ¥... - -
+// ÃÃ¸Ã‡Ã  Â¹Ã¦Ã‡Ã¢Ã€Ã‡ Â¹ÃÂ´Ã« Â¹Ã¦Ã‡Ã¢Ã€Â» Â±Â¸Ã‡Ã‘Â´Ã™.
+// Ã€Â½ Ã€ÃŒÂ°Ã… staticÃ€Â¸Â·Ã Â¹Ã™Â²Ã™ÂµÃ§ÃÃ¶ dÂ¸Â¦ Â¾Ã¸Â¾Ã–ÂµÃ§ÃÃ¶ Ã‡Ã˜Â¾ÃŸÂ´Ã‚ÂµÂ¥... - -
 //----------------------------------------------------------------------
 int
 MCreature::GetCounterDirection( int d )
 {
-	// ¹İ´ë¹æÇâ
+	// Â¹ÃÂ´Ã«Â¹Ã¦Ã‡Ã¢
 	d += 4;
 
-	// 0~7±îÁö¸¸ µÇµµ·Ï ÇÑ´Ù.
+	// 0~7Â±Ã®ÃÃ¶Â¸Â¸ ÂµÃ‡ÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™.
 	while (d < 8)
 	{
 		d -= 8;
@@ -5671,12 +5674,12 @@ MCreature::GetCounterDirection( int d )
 //----------------------------------------------------------------------
 // Get Direction To Creature
 //----------------------------------------------------------------------
-// ÇöÀç À§Ä¡(m_X,m_Y)¿¡¼­ (sX,sY)¸¦ ÇâÇØ¼­ ¹Ù¶óº¸´Â ¹æÇâÀ» °áÁ¤ÇÑ´Ù.
+// Ã‡Ã¶Ã€Ã§ Ã€Â§Ã„Â¡(m_X,m_Y)Â¿Â¡Â¼Â­ (sX,sY)Â¸Â¦ Ã‡Ã¢Ã‡Ã˜Â¼Â­ Â¹Ã™Â¶Ã³ÂºÂ¸Â´Ã‚ Â¹Ã¦Ã‡Ã¢Ã€Â» Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 BYTE	
 MCreature::GetDirectionToPosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 {
-	// °°Àº ÁÂÇ¥¶ó¸é.. ÇöÀç ¹æÇâÀ¸·Î µĞ´Ù.
+	// Â°Â°Ã€Âº ÃÃ‚Ã‡Â¥Â¶Ã³Â¸Ã©.. Ã‡Ã¶Ã€Ã§ Â¹Ã¦Ã‡Ã¢Ã€Â¸Â·Ã ÂµÃÂ´Ã™.
 	if (m_X==sX && m_Y==sY)
 	{
 		return m_CurrentDirection;
@@ -5688,12 +5691,12 @@ MCreature::GetDirectionToPosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY
 //----------------------------------------------------------------------
 // Get NextPosition()
 //----------------------------------------------------------------------
-// ÇöÀç CreatureÀÇ À§Ä¡¿¡¼­ direction¹æÇâÀ¸·Î ÀÌµ¿ÇÑ °æ¿ìÀÇ À§Ä¡
+// Ã‡Ã¶Ã€Ã§ CreatureÃ€Ã‡ Ã€Â§Ã„Â¡Â¿Â¡Â¼Â­ directionÂ¹Ã¦Ã‡Ã¢Ã€Â¸Â·Ã Ã€ÃŒÂµÂ¿Ã‡Ã‘ Â°Ã¦Â¿Ã¬Ã€Ã‡ Ã€Â§Ã„Â¡
 //----------------------------------------------------------------------
 void
 MCreature::GetNextPosition(BYTE direction, POINT &next)
 {
-	// ÇöÀç À§Ä¡¿¡¼­ ´ÙÀ½ ¹æÇâ¿¡ ´ëÇØ¼­ ¸ñÇ¥ ¼³Á¤
+	// Ã‡Ã¶Ã€Ã§ Ã€Â§Ã„Â¡Â¿Â¡Â¼Â­ Â´Ã™Ã€Â½ Â¹Ã¦Ã‡Ã¢Â¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­ Â¸Ã±Ã‡Â¥ Â¼Â³ÃÂ¤
 	next.x = m_X;
 	next.y = m_Y;
 	
@@ -5713,13 +5716,13 @@ MCreature::GetNextPosition(BYTE direction, POINT &next)
 //----------------------------------------------------------------------
 // Get NextPosition()
 //----------------------------------------------------------------------
-// ÇöÀç CreatureÀÇ À§Ä¡¿¡¼­ m_CurrentDirection¹æÇâÀ¸·Î ÀÌµ¿ÇÑ °æ¿ìÀÇ À§Ä¡
+// Ã‡Ã¶Ã€Ã§ CreatureÃ€Ã‡ Ã€Â§Ã„Â¡Â¿Â¡Â¼Â­ m_CurrentDirectionÂ¹Ã¦Ã‡Ã¢Ã€Â¸Â·Ã Ã€ÃŒÂµÂ¿Ã‡Ã‘ Â°Ã¦Â¿Ã¬Ã€Ã‡ Ã€Â§Ã„Â¡
 //----------------------------------------------------------------------
 /*
 void
 MCreature::GetNextPosition(POINT &next)
 {
-	// ÇöÀç À§Ä¡¿¡¼­ ´ÙÀ½ ¹æÇâ¿¡ ´ëÇØ¼­ ¸ñÇ¥ ¼³Á¤
+	// Ã‡Ã¶Ã€Ã§ Ã€Â§Ã„Â¡Â¿Â¡Â¼Â­ Â´Ã™Ã€Â½ Â¹Ã¦Ã‡Ã¢Â¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­ Â¸Ã±Ã‡Â¥ Â¼Â³ÃÂ¤
 	next.x = m_X;
 	next.y = m_Y;
 	
@@ -5740,12 +5743,12 @@ MCreature::GetNextPosition(POINT &next)
 //----------------------------------------------------------------------
 // Get NextPosition()
 //----------------------------------------------------------------------
-// ÇöÀç CreatureÀÇ À§Ä¡¿¡¼­ m_CurrentDirection¹æÇâÀ¸·Î ÀÌµ¿ÇÑ °æ¿ìÀÇ À§Ä¡
+// Ã‡Ã¶Ã€Ã§ CreatureÃ€Ã‡ Ã€Â§Ã„Â¡Â¿Â¡Â¼Â­ m_CurrentDirectionÂ¹Ã¦Ã‡Ã¢Ã€Â¸Â·Ã Ã€ÃŒÂµÂ¿Ã‡Ã‘ Â°Ã¦Â¿Ã¬Ã€Ã‡ Ã€Â§Ã„Â¡
 //----------------------------------------------------------------------
 void
 MCreature::GetNextPosition(TYPE_SECTORPOSITION &sX, TYPE_SECTORPOSITION &sY)
 {
-	// ÇöÀç À§Ä¡¿¡¼­ ´ÙÀ½ ¹æÇâ¿¡ ´ëÇØ¼­ ¸ñÇ¥ ¼³Á¤
+	// Ã‡Ã¶Ã€Ã§ Ã€Â§Ã„Â¡Â¿Â¡Â¼Â­ Â´Ã™Ã€Â½ Â¹Ã¦Ã‡Ã¢Â¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­ Â¸Ã±Ã‡Â¥ Â¼Â³ÃÂ¤
 	sX = m_X;
 	sY = m_Y;
 	
@@ -5766,18 +5769,18 @@ MCreature::GetNextPosition(TYPE_SECTORPOSITION &sX, TYPE_SECTORPOSITION &sY)
 // Move
 //----------------------------------------------------------------------
 //
-// ÇöÀçÀÇ ¹æÇâ(m_CurrentDirection)À¸·Î ÇÑ FrameÀÌµ¿ÇÑ´Ù.
+// Ã‡Ã¶Ã€Ã§Ã€Ã‡ Â¹Ã¦Ã‡Ã¢(m_CurrentDirection)Ã€Â¸Â·Ã Ã‡Ã‘ FrameÃ€ÃŒÂµÂ¿Ã‡Ã‘Â´Ã™.
 //
-// ÇÑ Sector¸¦ ÀÌµ¿ÇÏ´Â°Ô ¾Æ´Ï°í Sector¿Í Sector»çÀÌ¸¦ ÀÌµ¿ÇÏ´Â Áß°£ÀÇ
-// ÇÑ FrameÀ» ÀÌµ¿ÇÏ´Â °ÍÀÌ´Ù. 
+// Ã‡Ã‘ SectorÂ¸Â¦ Ã€ÃŒÂµÂ¿Ã‡ÃÂ´Ã‚Â°Ã” Â¾Ã†Â´ÃÂ°Ã­ SectorÂ¿Ã SectorÂ»Ã§Ã€ÃŒÂ¸Â¦ Ã€ÃŒÂµÂ¿Ã‡ÃÂ´Ã‚ ÃÃŸÂ°Â£Ã€Ã‡
+// Ã‡Ã‘ FrameÃ€Â» Ã€ÃŒÂµÂ¿Ã‡ÃÂ´Ã‚ Â°ÃÃ€ÃŒÂ´Ã™. 
 //
-// Sector --> Sector¿¡¼­ ¸î FrameÀ» ÀÌµ¿ÇÒ±î??°¡ ¹®Á¦ÀÎµ¥...
-//    = cX,cY¿¡ ÇÑ¹ø¿¡ ÀÌµ¿ÇÏ´Â pixel´ÜÀ§¸¦ ´ëÀÔÇÏ°í
-//    = sX,sY¿¡ ÇÑ¹ø¿¡ ÀÌµ¿ÇÏ´Â pixel´ÜÀ§¸¦ ÀÔ·ÂÇÏ¸é µÈ´Ù.
+// Sector --> SectorÂ¿Â¡Â¼Â­ Â¸Ã® FrameÃ€Â» Ã€ÃŒÂµÂ¿Ã‡Ã’Â±Ã®??Â°Â¡ Â¹Â®ÃÂ¦Ã€ÃÂµÂ¥...
+//    = cX,cYÂ¿Â¡ Ã‡Ã‘Â¹Ã¸Â¿Â¡ Ã€ÃŒÂµÂ¿Ã‡ÃÂ´Ã‚ pixelÂ´ÃœÃ€Â§Â¸Â¦ Â´Ã«Ã€Ã”Ã‡ÃÂ°Ã­
+//    = sX,sYÂ¿Â¡ Ã‡Ã‘Â¹Ã¸Â¿Â¡ Ã€ÃŒÂµÂ¿Ã‡ÃÂ´Ã‚ pixelÂ´ÃœÃ€Â§Â¸Â¦ Ã€Ã”Â·Ã‚Ã‡ÃÂ¸Ã© ÂµÃˆÂ´Ã™.
 //
-// Move()¿¡¼­´Â
-//    cX,cY°¡ 0ÀÌ¸é ´Ù½Ã cX,cY, sX,sY °ªÀ» »ı¼ºÇÏ°í
-//    0ÀÌ ¾Æ´Ï¸é sX
+// Move()Â¿Â¡Â¼Â­Â´Ã‚
+//    cX,cYÂ°Â¡ 0Ã€ÃŒÂ¸Ã© Â´Ã™Â½Ãƒ cX,cY, sX,sY Â°ÂªÃ€Â» Â»Ã½Â¼ÂºÃ‡ÃÂ°Ã­
+//    0Ã€ÃŒ Â¾Ã†Â´ÃÂ¸Ã© sX
 //----------------------------------------------------------------------
 void	
 MCreature::ActionMove()
@@ -5806,19 +5809,19 @@ MCreature::ActionMove()
 			RemoveEffectStatus( EFFECTSTATUS_TRYING );
 	}
 
-	// ¸ñÀû Sector¿¡ µµ´ŞÇÑ °æ¿ì	
+	// Â¸Ã±Ã€Ã» SectorÂ¿Â¡ ÂµÂµÂ´ÃÃ‡Ã‘ Â°Ã¦Â¿Ã¬	
 	if (m_MoveCount==0)//m_sX==0 && m_sY==0)// && m_ActionCount==0)
 	{
-		// ÇöÀç ¹æÇâÀ¸·Î ÇÑ Sector¸¦ ÁøÇàÇÏ°í
-		// cX,cY, sX,sY¸¦ ´Ù½Ã ÁöÁ¤ÇØÁà¾ß ÇÑ´Ù.
+		// Ã‡Ã¶Ã€Ã§ Â¹Ã¦Ã‡Ã¢Ã€Â¸Â·Ã Ã‡Ã‘ SectorÂ¸Â¦ ÃÃ¸Ã‡Ã Ã‡ÃÂ°Ã­
+		// cX,cY, sX,sYÂ¸Â¦ Â´Ã™Â½Ãƒ ÃÃ¶ÃÂ¤Ã‡Ã˜ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 
 		//--------------------------------------------
-		// ÀÌµ¿ °¡´ÉÇÑÁö check
+		// Ã€ÃŒÂµÂ¿ Â°Â¡Â´Ã‰Ã‡Ã‘ÃÃ¶ check
 		//--------------------------------------------
 		TYPE_SECTORPOSITION	x, y;
 
 		//--------------------------------------------
-		// fast moveÀÎ °æ¿ì´Â nextX, nextY¿¡ ÁÂÇ¥°¡ ÀÖ´Ù.
+		// fast moveÃ€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ nextX, nextYÂ¿Â¡ ÃÃ‚Ã‡Â¥Â°Â¡ Ã€Ã–Â´Ã™.
 		//--------------------------------------------
 		if (m_bFastMove)
 		{
@@ -5832,18 +5835,18 @@ MCreature::ActionMove()
 		}
 		else
 		{
-			// ÇöÀç ¹æÇâÀ¸·Î ¿òÁ÷¿´À» ¶§ÀÇ ÁÂÇ¥¸¦ °áÁ¤ÇÑ´Ù.
+			// Ã‡Ã¶Ã€Ã§ Â¹Ã¦Ã‡Ã¢Ã€Â¸Â·Ã Â¿Ã²ÃÃ·Â¿Â´Ã€Â» Â¶Â§Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 			x = m_X; 
 			y = m_Y;
 			GetPositionToDirection( x, y, m_DirectionMove );
 		}
 
 		//--------------------------------------------
-		// ¿òÁ÷ÀÏ ¼ö ÀÖÀ» °æ¿ì
+		// Â¿Ã²ÃÃ·Ã€Ã Â¼Ã¶ Ã€Ã–Ã€Â» Â°Ã¦Â¿Ã¬
 		//--------------------------------------------
 		//
-		// ¿òÁ÷ÀÏ ¼ö ¾ø´õ¶óµµ ¿òÁ÷¿©¾ß ÇÑ´Ù.
-		// Server¿¡¼­ ³¯¾Æ¿Â Á¤º¸ÀÌ±â ¶§¹®¿¡..
+		// Â¿Ã²ÃÃ·Ã€Ã Â¼Ã¶ Â¾Ã¸Â´ÃµÂ¶Ã³ÂµÂµ Â¿Ã²ÃÃ·Â¿Â©Â¾ÃŸ Ã‡Ã‘Â´Ã™.
+		// ServerÂ¿Â¡Â¼Â­ Â³Â¯Â¾Ã†Â¿Ã‚ ÃÂ¤ÂºÂ¸Ã€ÃŒÂ±Ã¢ Â¶Â§Â¹Â®Â¿Â¡..
 		// 
 		//--------------------------------------------
 		// [ TEST CODE ]
@@ -5866,8 +5869,8 @@ MCreature::ActionMove()
 		//#endif
 		
 		{
-			// zoneÀÇ sectorÀÇ Á¤º¸¸¦ ¹Ù²ãÁØ´Ù.
-			// m_X¿Í m_Yµµ ¼³Á¤ÇØÁØ´Ù.
+			// zoneÃ€Ã‡ sectorÃ€Ã‡ ÃÂ¤ÂºÂ¸Â¸Â¦ Â¹Ã™Â²Ã£ÃÃ˜Â´Ã™.
+			// m_XÂ¿Ã m_YÂµÂµ Â¼Â³ÃÂ¤Ã‡Ã˜ÃÃ˜Â´Ã™.
 			if (MovePosition( x, y ))
 			{
 				#ifdef OUTPUT_DEBUG
@@ -5883,39 +5886,39 @@ MCreature::ActionMove()
 					}
 				#endif
 				//--------------------------------------------
-				// 5 FrameÀÌ ÀÖ´Ù°í ÇÒ °æ¿ì
+				// 5 FrameÃ€ÃŒ Ã€Ã–Â´Ã™Â°Ã­ Ã‡Ã’ Â°Ã¦Â¿Ã¬
 				//--------------------------------------------
 				//
-				// [1] UP,DOWN,LEFT,RIGHTÀÏ ¶§,
+				// [1] UP,DOWN,LEFT,RIGHTÃ€Ã Â¶Â§,
 				//
-				//     Xº¯È­ : 0 16 32 48 64   (+-16)
-				//     Yº¯È­ : 0  8 16 24 32   (+-8)
+				//     XÂºÂ¯ÃˆÂ­ : 0 16 32 48 64   (+-16)
+				//     YÂºÂ¯ÃˆÂ­ : 0  8 16 24 32   (+-8)
 				// 
 				//
-				// [2] ´ë°¢¼±(LEFTUP,LEFTDOWN,RIGHTUP,RIGHTDOWN)À¸·Î ¿òÁ÷ÀÏ¶§,
+				// [2] Â´Ã«Â°Â¢Â¼Â±(LEFTUP,LEFTDOWN,RIGHTUP,RIGHTDOWN)Ã€Â¸Â·Ã Â¿Ã²ÃÃ·Ã€ÃÂ¶Â§,
 				//
-				//     Xº¯È­ : 0  8 16 24 32   (+-8)
-				//     Yº¯È­ : 0  4  8 12 16   (+-4)
+				//     XÂºÂ¯ÃˆÂ­ : 0  8 16 24 32   (+-8)
+				//     YÂºÂ¯ÃˆÂ­ : 0  4  8 12 16   (+-4)
 				//
 				//--------------------------------------------
-				// sX,sY : ¿òÁ÷¿©¾ßÇÒ ÀüÃ¼ pixel(ÇÑ TILE)
-				// cX,cY : ÀÌµ¿ÇÏ´Â ´ÜÀ§ pixel
+				// sX,sY : Â¿Ã²ÃÃ·Â¿Â©Â¾ÃŸÃ‡Ã’ Ã€Ã¼ÃƒÂ¼ pixel(Ã‡Ã‘ TILE)
+				// cX,cY : Ã€ÃŒÂµÂ¿Ã‡ÃÂ´Ã‚ Â´ÃœÃ€Â§ pixel
 				//--------------------------------------------
 
 				//--------------------------------------------
-				// Fast Move ÀÎ °æ¿ì
+				// Fast Move Ã€Ã Â°Ã¦Â¿Ã¬
 				//--------------------------------------------
 				if (m_bFastMove)
 				{
-					// Á÷¼± °Å¸®·Î ¿òÁ÷ÀÏ¶§ÀÇ pixel°Å¸®
-					// ex) ¿ŞÂÊ 2 --> 1 : ( 2 - 1 ) * TILE_X
-					//     À§ÂÊ 2 --> 1 : ( 2 - 1 ) * TILE_Y
+					// ÃÃ·Â¼Â± Â°Ã…Â¸Â®Â·Ã Â¿Ã²ÃÃ·Ã€ÃÂ¶Â§Ã€Ã‡ pixelÂ°Ã…Â¸Â®
+					// ex) Â¿ÃÃ‚ÃŠ 2 --> 1 : ( 2 - 1 ) * TILE_X
+					//     Ã€Â§Ã‚ÃŠ 2 --> 1 : ( 2 - 1 ) * TILE_Y
 					m_sX = (ox - m_X) * TILE_X;
 					m_sY = (oy - m_Y) * TILE_Y;
 					//------------------------------------------------
-					// ½ÇÁ¦ ÇÑ Å¸ÀÏ ÀÌµ¿ ¼ÓµµÀÇ ¹İÀÇ ¼Óµµ¿¡ ¸ñÀûÁö±îÁö ÀÌµ¿ÇÑ´Ù.
+					// Â½Ã‡ÃÂ¦ Ã‡Ã‘ Ã…Â¸Ã€Ã Ã€ÃŒÂµÂ¿ Â¼Ã“ÂµÂµÃ€Ã‡ Â¹ÃÃ€Ã‡ Â¼Ã“ÂµÂµÂ¿Â¡ Â¸Ã±Ã€Ã»ÃÃ¶Â±Ã®ÃÃ¶ Ã€ÃŒÂµÂ¿Ã‡Ã‘Â´Ã™.
 					//------------------------------------------------
-					// ÇÑ Å¸ÀÏ ÀÌµ¿ÇÒ¶§ÀÇ Frame ¼ö
+					// Ã‡Ã‘ Ã…Â¸Ã€Ã Ã€ÃŒÂµÂ¿Ã‡Ã’Â¶Â§Ã€Ã‡ Frame Â¼Ã¶
 					int moveTimes_div_2 = (*g_pCreatureTable)[m_CreatureType].MoveTimes >> 1;
 
 					// 2005, 1, 5, sobeit add start
@@ -5937,7 +5940,7 @@ MCreature::ActionMove()
 					}
 				}
 				//--------------------------------------------	
-				// Á¤»ó ÀÌµ¿
+				// ÃÂ¤Â»Ã³ Ã€ÃŒÂµÂ¿
 				//--------------------------------------------
 				else
 				{				
@@ -5947,7 +5950,7 @@ MCreature::ActionMove()
 					
 					//????????????????????????????????????????????????????????
 					//???                                                  ???
-					//???   ÇÑ FrameÀ» ÀÌµ¿...ÇØ¾ßÇÏ´Â°¡?? ¸»¾Æ¾ß ÇÏ´Â°¡   ???
+					//???   Ã‡Ã‘ FrameÃ€Â» Ã€ÃŒÂµÂ¿...Ã‡Ã˜Â¾ÃŸÃ‡ÃÂ´Ã‚Â°Â¡?? Â¸Â»Â¾Ã†Â¾ÃŸ Ã‡ÃÂ´Ã‚Â°Â¡   ???
 					//???                                                  ???
 					//????????????????????????????????????????????????????????
 					int moveTimes_1;
@@ -5995,13 +5998,13 @@ MCreature::ActionMove()
 				m_sX += m_cX;
 				m_sY += m_cY;	
 				
-				// ´ÙÀ½¿¡ ÀÌµ¿ÇÒ count¸¦ ÁöÁ¤ÇÑ´Ù.
-				// frame¸¸ ¹Ù²î´Â °æ¿ì¿Í
-				// frameÀÌ ¹Ù²î°í ÀÌµ¿ÇÏ´Â °æ¿ì°¡ ÀÖ´Ù.
+				// Â´Ã™Ã€Â½Â¿Â¡ Ã€ÃŒÂµÂ¿Ã‡Ã’ countÂ¸Â¦ ÃÃ¶ÃÂ¤Ã‡Ã‘Â´Ã™.
+				// frameÂ¸Â¸ Â¹Ã™Â²Ã®Â´Ã‚ Â°Ã¦Â¿Ã¬Â¿Ã
+				// frameÃ€ÃŒ Â¹Ã™Â²Ã®Â°Ã­ Ã€ÃŒÂµÂ¿Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬Â°Â¡ Ã€Ã–Â´Ã™.
 				m_NextMoveCount = (*g_pCreatureTable)[m_CreatureType].MoveRatio;				
 
 				//------------------------------------------------
-				// Ä³¸¯ÅÍÀÇ MoveAction¿¡ ¸Â´Â Sound¸¦ Ãâ·ÂÇØÁØ´Ù.
+				// Ã„Â³Â¸Â¯Ã…ÃÃ€Ã‡ MoveActionÂ¿Â¡ Â¸Ã‚Â´Ã‚ SoundÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡Ã˜ÃÃ˜Â´Ã™.
 				//------------------------------------------------
 				TYPE_SOUNDID soundID = (*g_pCreatureTable)[m_CreatureType].GetActionSound( m_MoveAction );
 
@@ -6015,21 +6018,21 @@ MCreature::ActionMove()
 
 				DEBUG_ADD("[Move] OK");				
 			}
-			// ¸ø ¿òÁ÷ÀÎ °æ¿ì
+			// Â¸Ã¸ Â¿Ã²ÃÃ·Ã€Ã Â°Ã¦Â¿Ã¬
 			else
 			{
-				// ¸ØÃã
+				// Â¸Ã˜ÃƒÃ£
 				SetAction( ACTION_STAND );	
 			}			
 		}
 		//--------------------------------------------
-		// ¿òÁ÷ÀÏ ¼ö ¾øÀ» °æ¿ì
+		// Â¿Ã²ÃÃ·Ã€Ã Â¼Ã¶ Â¾Ã¸Ã€Â» Â°Ã¦Â¿Ã¬
 		//--------------------------------------------
 	}
-	// ¾ÆÁ÷ ´ÙÀ½ Sector±îÁö ´ú µµ´ŞÇÑ °æ¿ì
+	// Â¾Ã†ÃÃ· Â´Ã™Ã€Â½ SectorÂ±Ã®ÃÃ¶ Â´Ãº ÂµÂµÂ´ÃÃ‡Ã‘ Â°Ã¦Â¿Ã¬
 	else
 	{
-		// ÇÑ FrameÀ» ÀÌµ¿ÇÑ´Ù.
+		// Ã‡Ã‘ FrameÃ€Â» Ã€ÃŒÂµÂ¿Ã‡Ã‘Â´Ã™.
 		/*
 		switch (m_MoveDevice)
 		{
@@ -6047,11 +6050,11 @@ MCreature::ActionMove()
 		//m_sX += m_cX;
 		//m_sY += m_cY;
 
-		// ÀÌµ¿ÇÒ count°¡ µÆÀ»¶§¸¸ ÀÌµ¿ÇÑ´Ù.
+		// Ã€ÃŒÂµÂ¿Ã‡Ã’ countÂ°Â¡ ÂµÃ†Ã€Â»Â¶Â§Â¸Â¸ Ã€ÃŒÂµÂ¿Ã‡Ã‘Â´Ã™.
 		if (m_MoveCount>=m_NextMoveCount)
 		{			
 			//--------------------------------------------
-			// Fast Move ÀÎ °æ¿ì
+			// Fast Move Ã€Ã Â°Ã¦Â¿Ã¬
 			//--------------------------------------------
 			if (m_bFastMove)
 			{
@@ -6065,11 +6068,11 @@ MCreature::ActionMove()
 					m_MoveCount = m_MoveCountMax;
 				}
 
-				// ´ÙÀ½¿¡ ÀÌµ¿ÇÒ count¸¦ ÁöÁ¤ÇÑ´Ù.
+				// Â´Ã™Ã€Â½Â¿Â¡ Ã€ÃŒÂµÂ¿Ã‡Ã’ countÂ¸Â¦ ÃÃ¶ÃÂ¤Ã‡Ã‘Â´Ã™.
 				m_NextMoveCount += (*g_pCreatureTable)[m_CreatureType].MoveRatio;
 
 				//----------------------------------------------------------
-				// fast move ÈÄ¿¡ ÇÑ¹ø ¶§¸®±â.. - -
+				// fast move ÃˆÃ„Â¿Â¡ Ã‡Ã‘Â¹Ã¸ Â¶Â§Â¸Â®Â±Ã¢.. - -
 				// Flash Sliding
 				//----------------------------------------------------------
 				if (m_MoveCount+1 >= m_MoveCountMax
@@ -6084,7 +6087,7 @@ MCreature::ActionMove()
 						&& !HasEffectStatus(EFFECTSTATUS_BIKE_CRASH))
 					{
 						//---------------------------------------------------
-						// »ó´ë°¡ ¸Â´Â ¸ğ½À
+						// Â»Ã³Â´Ã«Â°Â¡ Â¸Ã‚Â´Ã‚ Â¸Ã°Â½Ã€
 						//---------------------------------------------------
 						MActionResult* pResult = new MActionResult;
 						
@@ -6108,7 +6111,7 @@ MCreature::ActionMove()
 //							SetBloodyZenith(16);
 //						}						
 
-						// °á°ú Ç¥Çö
+						// Â°Ã¡Â°Ãº Ã‡Â¥Ã‡Ã¶
 						SetDirection( MTopView::GetDirectionToPosition( GetX(), GetY(), pCreature->GetX(), pCreature->GetY() ) );
 						pResult->Add( new MActionResultNodeActionInfo( 
 														ActionInfo,
@@ -6126,7 +6129,7 @@ MCreature::ActionMove()
 				}
 			}
 			//--------------------------------------------
-			// ÀÏ¹İÀûÀÎ ÀÌµ¿ÀÇ °æ¿ì
+			// Ã€ÃÂ¹ÃÃ€Ã»Ã€Ã Ã€ÃŒÂµÂ¿Ã€Ã‡ Â°Ã¦Â¿Ã¬
 			//--------------------------------------------
 			else
 			{
@@ -6160,7 +6163,7 @@ MCreature::ActionMove()
 				m_sX += m_cX;
 				m_sY += m_cY;
 
-				// ´ÙÀ½¿¡ ÀÌµ¿ÇÒ count¸¦ ÁöÁ¤ÇÑ´Ù.
+				// Â´Ã™Ã€Â½Â¿Â¡ Ã€ÃŒÂµÂ¿Ã‡Ã’ countÂ¸Â¦ ÃÃ¶ÃÂ¤Ã‡Ã‘Â´Ã™.
 				m_NextMoveCount += (*g_pCreatureTable)[m_CreatureType].MoveRatio;
 
 				m_MoveCount++;
@@ -6174,7 +6177,7 @@ MCreature::ActionMove()
 		}	
 
 
-		// frameÀ» ¹Ù²ãÁØ´Ù. ¸¶Áö¸· Frame±îÁö °¬À¸¸é 0¹øÂ° FrameÀ¸·Î ¹Ù²Û´Ù.
+		// frameÃ€Â» Â¹Ã™Â²Ã£ÃÃ˜Â´Ã™. Â¸Â¶ÃÃ¶Â¸Â· FrameÂ±Ã®ÃÃ¶ Â°Â¬Ã€Â¸Â¸Ã© 0Â¹Ã¸Ã‚Â° FrameÃ€Â¸Â·Ã Â¹Ã™Â²Ã›Â´Ã™.
 		//if (++m_ActionCount == (*m_pFrames)[m_Action][m_CurrentDirection].GetCount())
 		//	m_ActionCount = 0;
 	}
@@ -6208,13 +6211,13 @@ MCreature::AttachCastingEffect(TYPE_ACTIONINFO nUsedActionInfo, BOOL bForceAttac
 			{
 				int castingFrames = GetActionInfoCastingFrames(nUsedActionInfo);
 			
-				// ¼³Á¤ÀÌ ¾È µÅ ÀÖÀ¸¸é.. action µ¿ÀÛ¿¡ ¸ÂÃá´Ù.
+				// Â¼Â³ÃÂ¤Ã€ÃŒ Â¾Ãˆ ÂµÃ… Ã€Ã–Ã€Â¸Â¸Ã©.. action ÂµÂ¿Ã€Ã›Â¿Â¡ Â¸Ã‚ÃƒÃ¡Â´Ã™.
 				if (castingFrames==0)
 				{
 					int actionInfoAction = GetActionInfoAction(nUsedActionInfo);
 						
 					//-------------------------------------------------
-					// ¿ÀÅä¹ÙÀÌ¸¦ Å¸°í ÀÖ´Â °æ¿ì
+					// Â¿Ã€Ã…Ã¤Â¹Ã™Ã€ÃŒÂ¸Â¦ Ã…Â¸Â°Ã­ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 					//-------------------------------------------------				
 					if (m_MoveDevice==MOVE_DEVICE_RIDE)
 					{
@@ -6224,12 +6227,12 @@ MCreature::AttachCastingEffect(TYPE_ACTIONINFO nUsedActionInfo, BOOL bForceAttac
 					else
 					{	
 						//-------------------------------------------------
-						// ÈíÇ÷ µ¿ÀÛÁß¿¡ °ø°İ¹ŞÀº °æ¿ì
+						// ÃˆÃ­Ã‡Ã· ÂµÂ¿Ã€Ã›ÃÃŸÂ¿Â¡ Â°Ã¸Â°ÃÂ¹ÃÃ€Âº Â°Ã¦Â¿Ã¬
 						//-------------------------------------------------
 						if (actionInfoAction==ACTION_DAMAGED
-							//&& (// ÈíÇ÷ ´çÇÏ´Â µ¿ÀÛ ÁßÀÌ°Å³ª 
+							//&& (// ÃˆÃ­Ã‡Ã· Â´Ã§Ã‡ÃÂ´Ã‚ ÂµÂ¿Ã€Ã› ÃÃŸÃ€ÃŒÂ°Ã…Â³Âª 
 								//m_Action==ACTION_DRAINED
-								// ¹ìÆÄÀÌ¾îÀÏ¶§, ÈíÇ÷ÇÏ´Â µ¿ÀÛ Áß¿¡´Â damaged¸¦ ¾È º¸¿©ÁØ´Ù.
+								// Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Ã€ÃÂ¶Â§, ÃˆÃ­Ã‡Ã·Ã‡ÃÂ´Ã‚ ÂµÂ¿Ã€Ã› ÃÃŸÂ¿Â¡Â´Ã‚ damagedÂ¸Â¦ Â¾Ãˆ ÂºÂ¸Â¿Â©ÃÃ˜Â´Ã™.
 								//|| IsVampire() && m_Action==ACTION_VAMPIRE_DRAIN
 							//	)
 							)
@@ -6241,8 +6244,8 @@ MCreature::AttachCastingEffect(TYPE_ACTIONINFO nUsedActionInfo, BOOL bForceAttac
 						{
 							castingFrames = (int)GetActionCountMax() - (int)castingStartFrame;
 
-							// ÀÓ½Ã·Î..
-							// ¿©±â¼­ À½¼ö°¡ ³ª¿À´Â °æ¿ì.. ¾îÄÉ ÇÏÁö.. - -;
+							// Ã€Ã“Â½ÃƒÂ·Ã..
+							// Â¿Â©Â±Ã¢Â¼Â­ Ã€Â½Â¼Ã¶Â°Â¡ Â³ÂªÂ¿Ã€Â´Ã‚ Â°Ã¦Â¿Ã¬.. Â¾Ã®Ã„Ã‰ Ã‡ÃÃÃ¶.. - -;
 							if (castingFrames < 0)
 							{
 								castingFrames = 16;
@@ -6256,7 +6259,7 @@ MCreature::AttachCastingEffect(TYPE_ACTIONINFO nUsedActionInfo, BOOL bForceAttac
 				MCreature* targetCreature = NULL;
 
 				//-------------------------------------------------
-				// castingÀÌ ´©±¸ÇÑÅ× ºÙ´Â°¡?
+				// castingÃ€ÃŒ Â´Â©Â±Â¸Ã‡Ã‘Ã…Ã— ÂºÃ™Â´Ã‚Â°Â¡?
 				//-------------------------------------------------
 				if(nUsedActionInfo != ACTIONINFO_NULL)
 				{
@@ -6274,7 +6277,7 @@ MCreature::AttachCastingEffect(TYPE_ACTIONINFO nUsedActionInfo, BOOL bForceAttac
 				if (targetCreature!=NULL)
 				{
 					// [ TEST CODE ]
-					// Creature¿¡°Ô ºÙÀÌ´Â Effect¸¦ »ı¼ºÇØ¼­ pointer¸¦ ³Ñ°Ü¹Ş´Â´Ù.
+					// CreatureÂ¿Â¡Â°Ã” ÂºÃ™Ã€ÃŒÂ´Ã‚ EffectÂ¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã˜Â¼Â­ pointerÂ¸Â¦ Â³Ã‘Â°ÃœÂ¹ÃÂ´Ã‚Â´Ã™.
 					MAttachEffect* pEffect = targetCreature->CreateAttachEffect( 
 																effectSpriteType, 
 																//(*g_pActionInfoTable)[nUsedActionInfo].GetDelay() 
@@ -6288,7 +6291,7 @@ MCreature::AttachCastingEffect(TYPE_ACTIONINFO nUsedActionInfo, BOOL bForceAttac
 
 						pEffect->SetLink( nUsedActionInfo, NULL );
 
-						// ºÙ¾î¾ß ÇÏ´Â Ä³¸¯ÅÍ
+						// ÂºÃ™Â¾Ã®Â¾ÃŸ Ã‡ÃÂ´Ã‚ Ã„Â³Â¸Â¯Ã…Ã
 						pEffect->SetAttachCreatureID( targetCreature->GetID() );
 						
 						#ifdef OUTPUT_DEBUG
@@ -6300,7 +6303,7 @@ MCreature::AttachCastingEffect(TYPE_ACTIONINFO nUsedActionInfo, BOOL bForceAttac
 							else
 							{	
 								//-------------------------------------------------
-								// ÈíÇ÷ µ¿ÀÛÁß¿¡ °ø°İ¹ŞÀº °æ¿ì
+								// ÃˆÃ­Ã‡Ã· ÂµÂ¿Ã€Ã›ÃÃŸÂ¿Â¡ Â°Ã¸Â°ÃÂ¹ÃÃ€Âº Â°Ã¦Â¿Ã¬
 								//-------------------------------------------------
 								if (GetActionInfoAction(nUsedActionInfo)==ACTION_DAMAGED)
 								{
@@ -6316,7 +6319,7 @@ MCreature::AttachCastingEffect(TYPE_ACTIONINFO nUsedActionInfo, BOOL bForceAttac
 			}
 
 			//-------------------------------------------------------------
-			// Casting ActionInfo Ç¥Çö
+			// Casting ActionInfo Ã‡Â¥Ã‡Ã¶
 			//-------------------------------------------------------------
 			TYPE_ACTIONINFO castingActionInfo = (*g_pActionInfoTable)[nUsedActionInfo].GetCastingActionInfo();
 			if (castingActionInfo!=ACTIONINFO_NULL)
@@ -6337,7 +6340,7 @@ MCreature::AttachCastingEffect(TYPE_ACTIONINFO nUsedActionInfo, BOOL bForceAttac
 			}
 
 			//-------------------------------------------------------------
-			// casting µ¿ÀÛ¿¡ ¸Â´Â sound
+			// casting ÂµÂ¿Ã€Ã›Â¿Â¡ Â¸Ã‚Â´Ã‚ sound
 			//-------------------------------------------------------------
 			PlaySound( GetCastingSoundID(nUsedActionInfo) ,
 						false,
@@ -6411,7 +6414,7 @@ void
 MCreature::ActionEffect()
 {	
 	//-------------------------------------------------------------
-	// »ç¿ë ±â¼úÀÌ Á¤ÇØÁ® ÀÖ´Â °æ¿ì..
+	// Â»Ã§Â¿Ã« Â±Ã¢Â¼ÃºÃ€ÃŒ ÃÂ¤Ã‡Ã˜ÃÂ® Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬..
 	//-------------------------------------------------------------
 	if (m_nUsedActionInfo!=ACTIONINFO_NULL)
 	{
@@ -6421,9 +6424,9 @@ MCreature::ActionEffect()
 		BOOL	bEndAction		= (m_ActionCount==actionCountMax_1) || bActionStand;
 		int		StartFrame		= (*g_pActionInfoTable)[m_nUsedActionInfo].GetStartFrame( m_WeaponSpeed );
 
-		// Effect°¡ ½ÃÀÛµÇ´Â °æ¿ì´Â..
-		// (1) StartFrameÀÎ °æ¿ì
-		// (2) ¸¶Áö¸· ActionFrameÀÎ °æ¿ì
+		// EffectÂ°Â¡ Â½ÃƒÃ€Ã›ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Â´Ã‚..
+		// (1) StartFrameÃ€Ã Â°Ã¦Â¿Ã¬
+		// (2) Â¸Â¶ÃÃ¶Â¸Â· ActionFrameÃ€Ã Â°Ã¦Â¿Ã¬
 		BOOL bStartEffect = m_ActionCount==StartFrame || 
 							StartFrame >= GetActionCountMax() && bEndAction;
 
@@ -6435,12 +6438,12 @@ MCreature::ActionEffect()
 		//BOOL	bCastingEffect	= GetActionInfoCastingStartFrame(m_nUsedActionInfo)==m_ActionCount;
 
 		//-------------------------------------------------------------
-		// ½ÃÀÛ µ¿ÀÛ
+		// Â½ÃƒÃ€Ã› ÂµÂ¿Ã€Ã›
 		//-------------------------------------------------------------
 		if (bStartAction)
 		{
 			//------------------------------------------------
-			// ±â¼úÀÇ µ¿ÀÛ¿¡ ¸Â´Â sound¸¦ Ãâ·ÂÇØÁØ´Ù.
+			// Â±Ã¢Â¼ÃºÃ€Ã‡ ÂµÂ¿Ã€Ã›Â¿Â¡ Â¸Ã‚Â´Ã‚ soundÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡Ã˜ÃÃ˜Â´Ã™.
 			//------------------------------------------------
 			//g_Sound.Play( g_SoundTable[(*g_pActionInfoTable)[m_nUsedActionInfo].GetSoundID()].pDSBuffer );
 			//PlaySound( (*g_pActionInfoTable)[m_nUsedActionInfo].GetSoundID() ,
@@ -6448,7 +6451,7 @@ MCreature::ActionEffect()
 			//			m_X, m_Y);
 
 			//------------------------------------------------
-			// Ä³¸¯ÅÍÀÇ Action¿¡ ¸Â´Â Sound¸¦ Ãâ·ÂÇØÁØ´Ù.
+			// Ã„Â³Â¸Â¯Ã…ÃÃ€Ã‡ ActionÂ¿Â¡ Â¸Ã‚Â´Ã‚ SoundÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡Ã˜ÃÃ˜Â´Ã™.
 			//------------------------------------------------
 			PlaySound( 
 				(*g_pCreatureTable)[m_CreatureType].GetActionSound( 
@@ -6473,8 +6476,8 @@ MCreature::ActionEffect()
 
 
 		//-------------------------------------------------------------
-		// Á¤Áö µ¿ÀÛÀÌ¸é..
-		// ¹Ù·Î effect¸¦ º¸¿©ÁØ´Ù.
+		// ÃÂ¤ÃÃ¶ ÂµÂ¿Ã€Ã›Ã€ÃŒÂ¸Ã©..
+		// Â¹Ã™Â·Ã effectÂ¸Â¦ ÂºÂ¸Â¿Â©ÃÃ˜Â´Ã™.
 		//-------------------------------------------------------------
 		if (bActionStand)
 		{
@@ -6482,7 +6485,7 @@ MCreature::ActionEffect()
 		}
 
 		//-------------------------------------------------------------
-		// ±â¼úÀ» º¸¿©Áà¾ß ÇÏ´Â °æ¿ì
+		// Â±Ã¢Â¼ÃºÃ€Â» ÂºÂ¸Â¿Â©ÃÃ Â¾ÃŸ Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 		//-------------------------------------------------------------
 		if (bStartEffect)
 		{
@@ -6495,7 +6498,7 @@ MCreature::ActionEffect()
 		//if (m_ActionCount==m_ActionCountMax-1)		
 		{
 			//--------------------------------------------------------
-			// Action³¡
+			// ActionÂ³Â¡
 			//--------------------------------------------------------	
 			//m_Action			= ACTION_STAND;
 		}
@@ -6504,7 +6507,7 @@ MCreature::ActionEffect()
 	m_ActionCount++;
 
 	//--------------------------------------------------------	
-	// ÀÓ½Ã·Î ÈíÇ÷µ¿ÀÛ ÁßÁöÇÏ´Â°Å..
+	// Ã€Ã“Â½ÃƒÂ·Ã ÃˆÃ­Ã‡Ã·ÂµÂ¿Ã€Ã› ÃÃŸÃÃ¶Ã‡ÃÂ´Ã‚Â°Ã…..
 	//--------------------------------------------------------	
 	if (m_bStopBloodDrain)
 	{
@@ -6526,7 +6529,7 @@ MCreature::ActionEffect()
 //----------------------------------------------------------------------
 // Affect Used ActionInfo
 //----------------------------------------------------------------------
-// ±â¼ú »ç¿ëÇÑ°É Ç¥ÇöÇÑ´Ù.
+// Â±Ã¢Â¼Ãº Â»Ã§Â¿Ã«Ã‡Ã‘Â°Ã‰ Ã‡Â¥Ã‡Ã¶Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void
 MCreature::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
@@ -6559,14 +6562,14 @@ MCreature::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 		POINT point;	
 
 		//--------------------------------------------------------
-		// Casting ActionInfoÀÎ°¡?
+		// Casting ActionInfoÃ€ÃÂ°Â¡?
 		//--------------------------------------------------------
 		BOOL bCastingAction = (*g_pActionInfoTable)[nUsedActionInfo].IsCastingAction();
 		DEBUG_ADD_FORMAT("[AffectUsedActionInfo] %d",__LINE__);
 
 
 		//--------------------------------------------------------
-		// ¸ñÇ¥ À§Ä¡ PixelÁÂÇ¥
+		// Â¸Ã±Ã‡Â¥ Ã€Â§Ã„Â¡ PixelÃÃ‚Ã‡Â¥
 		//--------------------------------------------------------
 		point = MTopView::MapToPixel(m_TraceX, m_TraceY);
 		//point.x += m_sX;
@@ -6575,13 +6578,13 @@ MCreature::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 
 		//--------------------------------------------------------
 		//
-		//					Effect ¸ñÇ¥ ¼³Á¤
+		//					Effect Â¸Ã±Ã‡Â¥ Â¼Â³ÃÂ¤
 		//
 		//--------------------------------------------------------
 		MEffectTarget* pEffectTarget = NULL;
 
 		//--------------------------------------------------------
-		// casting actionÀÎ °æ¿ì
+		// casting actionÃ€Ã Â°Ã¦Â¿Ã¬
 		//--------------------------------------------------------
 		if (bCastingAction)
 		{
@@ -6604,10 +6607,10 @@ MCreature::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 
 			DEBUG_ADD_FORMAT("[AffectUsedActionInfo] %d",__LINE__);
 
-			// castingAction¿¡¼­´Â °á°úÃ³¸®°¡ ÇÊ¿ä¾ø´Ù.
+			// castingActionÂ¿Â¡Â¼Â­Â´Ã‚ Â°Ã¡Â°ÃºÃƒÂ³Â¸Â®Â°Â¡ Ã‡ÃŠÂ¿Ã¤Â¾Ã¸Â´Ã™.
 		}
 		//--------------------------------------------------------
-		// casting actionÀÌ ¾Æ´Ñ.. ½ÇÁ¦ ±â¼úÀÎ °æ¿ì..
+		// casting actionÃ€ÃŒ Â¾Ã†Â´Ã‘.. Â½Ã‡ÃÂ¦ Â±Ã¢Â¼ÃºÃ€Ã Â°Ã¦Â¿Ã¬..
 		//--------------------------------------------------------
 		else
 		{
@@ -6643,7 +6646,7 @@ MCreature::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 			DEBUG_ADD_FORMAT("[AffectUsedActionInfo] %d",__LINE__);
 
 			//--------------------------------------------------------
-			// Áö¼Ó ½Ã°£ ¼³Á¤
+			// ÃÃ¶Â¼Ã“ Â½ÃƒÂ°Â£ Â¼Â³ÃÂ¤
 			//--------------------------------------------------------
 
 			if (m_DelayActionInfo==nUsedActionInfo)
@@ -6656,24 +6659,24 @@ MCreature::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 			}
 			
 			DEBUG_ADD_FORMAT("[AffectUsedActionInfo] %d",__LINE__);
-			// °á°ú ¼³Á¤ : °á°ú Ã³¸®´Â EffectGenerator¿¡ ¸Ã±ä´Ù.
+			// Â°Ã¡Â°Ãº Â¼Â³ÃÂ¤ : Â°Ã¡Â°Ãº ÃƒÂ³Â¸Â®Â´Ã‚ EffectGeneratorÂ¿Â¡ Â¸ÃƒÂ±Ã¤Â´Ã™.
 			pEffectTarget->SetResult( m_pActionResult );
 			DEBUG_ADD_FORMAT("[AffectUsedActionInfo] %d",__LINE__);
 			
-			// ¼³Á¤µÈ °á°ú¸¦ ¾ø°Ô ÇÑ´Ù.
+			// Â¼Â³ÃÂ¤ÂµÃˆ Â°Ã¡Â°ÃºÂ¸Â¦ Â¾Ã¸Â°Ã” Ã‡Ã‘Â´Ã™.
 			m_pActionResult = NULL;
 		}
 
 		//--------------------------------------------------------
 		//
-		//					½ÃÀÛ À§Ä¡¸¦ °áÁ¤ÇÑ´Ù.
+		//					Â½ÃƒÃ€Ã› Ã€Â§Ã„Â¡Â¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 		//
 		//--------------------------------------------------------
 		int x,y,z, direction;
 
 		DEBUG_ADD_FORMAT("[AffectUsedActionInfo] %d",__LINE__);
 		//--------------------------------------------------------
-		// User À§Ä¡¿¡¼­ ½ÃÀÛÇÏ´Â °æ¿ì
+		// User Ã€Â§Ã„Â¡Â¿Â¡Â¼Â­ Â½ÃƒÃ€Ã›Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 		//--------------------------------------------------------
 		if ((*g_pActionInfoTable)[nUsedActionInfo].IsStartUser())
 		{
@@ -6688,7 +6691,7 @@ MCreature::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 			z			= m_Z;//+60;			
 		}
 		//--------------------------------------------------------
-		// Target À§Ä¡¿¡¼­ ½ÃÀÛÇÏ´Â °æ¿ì
+		// Target Ã€Â§Ã„Â¡Â¿Â¡Â¼Â­ Â½ÃƒÃ€Ã›Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 		//--------------------------------------------------------
 		else if ((*g_pActionInfoTable)[nUsedActionInfo].IsStartTarget())
 		{
@@ -6699,7 +6702,7 @@ MCreature::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 		}
 
 		//--------------------------------------------------------
-		// °øÁß¿¡¼­ ½ÃÀÛÇÏ´Â °æ¿ì
+		// Â°Ã¸ÃÃŸÂ¿Â¡Â¼Â­ Â½ÃƒÃ€Ã›Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 		//--------------------------------------------------------
 		if ((*g_pActionInfoTable)[nUsedActionInfo].IsStartSky())
 		{
@@ -6709,7 +6712,7 @@ MCreature::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 			direction	= DIRECTION_DOWN;
 		}
 		//--------------------------------------------------------
-		// Áö»ó¿¡¼­ ½ÃÀÛÇÏ´Â °æ¿ì
+		// ÃÃ¶Â»Ã³Â¿Â¡Â¼Â­ Â½ÃƒÃ€Ã›Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 		//--------------------------------------------------------
 		else
 		{
@@ -6719,18 +6722,18 @@ MCreature::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 
 		//--------------------------------------------------------
 		//
-		//                   Effect»ı¼º		
+		//                   EffectÂ»Ã½Â¼Âº		
 		//
 		//--------------------------------------------------------
 		
 		DEBUG_ADD_FORMAT("[AffectUsedActionInfo] %d",__LINE__);
 		(*g_pEffectGeneratorTable).Generate(
-				x,y,z,				// ½ÃÀÛ À§Ä¡
-				direction, 		// ¹æÇâ
+				x,y,z,				// Â½ÃƒÃ€Ã› Ã€Â§Ã„Â¡
+				direction, 		// Â¹Ã¦Ã‡Ã¢
 		//		1,					// power
 				SpecialID ? bMonster ? 2 : 1 : 1,
-				nUsedActionInfo,		//	ActionInfoTableÁ¾·ù,
-				pEffectTarget,		// ¸ñÇ¥ Á¤º¸
+				nUsedActionInfo,		//	ActionInfoTableÃÂ¾Â·Ã¹,
+				pEffectTarget,		// Â¸Ã±Ã‡Â¥ ÃÂ¤ÂºÂ¸
 				GetActionGrade()	
 		);
 		DEBUG_ADD_FORMAT("[AffectUsedActionInfo] %d",__LINE__);
@@ -6741,13 +6744,13 @@ MCreature::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 	else
 	{
 		//------------------------------------------------------------
-		// °á°ú¸¦ Ã³¸®ÇØ¾ßÇÏ´Â ½ÃÁ¡ÀÎ°¡? - ´ç¿¬ÇÏ´Ù°í º»´Ù *_*;
+		// Â°Ã¡Â°ÃºÂ¸Â¦ ÃƒÂ³Â¸Â®Ã‡Ã˜Â¾ÃŸÃ‡ÃÂ´Ã‚ Â½ÃƒÃÂ¡Ã€ÃÂ°Â¡? - Â´Ã§Â¿Â¬Ã‡ÃÂ´Ã™Â°Ã­ ÂºÂ»Â´Ã™ *_*;
 		//------------------------------------------------------------				
 		DEBUG_ADD_FORMAT("[AffectUsedActionInfo] %d",__LINE__);
 		if (m_pActionResult != NULL)
 		{					
-			// (!) m_pActionResult°ªÀÌ Execute¿¡¼­ º¯ÇÒ ¼ö ÀÖ¾î¼­ 
-			//		ÀúÀåÇß´Ù°¡ Áö¿öÁà¾ß ÇÑ´Ù.
+			// (!) m_pActionResultÂ°ÂªÃ€ÃŒ ExecuteÂ¿Â¡Â¼Â­ ÂºÂ¯Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â¾Ã®Â¼Â­ 
+			//		Ã€ÃºÃ€Ã¥Ã‡ÃŸÂ´Ã™Â°Â¡ ÃÃ¶Â¿Ã¶ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			MActionResult* pOldResult = m_pActionResult;
 
 			m_pActionResult = NULL;
@@ -6762,7 +6765,7 @@ MCreature::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 	}
 
 	//--------------------------------------------------------
-	// Action³¡
+	// ActionÂ³Â¡
 	//--------------------------------------------------------	
 	//m_Action			= ACTION_STAND;	
 
@@ -6778,10 +6781,10 @@ MCreature::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 //----------------------------------------------------------------------
 // Affect Buffered ActionInfo
 //----------------------------------------------------------------------
-// NextUsedActionInfo°¡ ÀÖ´Ù¸é
-// UsedActionInfo --> NextUsedActionInfo¸¦ ¸ğµÎ Àû¿ëÇÑ´Ù.
+// NextUsedActionInfoÂ°Â¡ Ã€Ã–Â´Ã™Â¸Ã©
+// UsedActionInfo --> NextUsedActionInfoÂ¸Â¦ Â¸Ã°ÂµÃ Ã€Ã»Â¿Ã«Ã‡Ã‘Â´Ã™.
 //
-// UsedActionInfo¸¸ ÀÖ´Â °æ¿ì´Â Ã³¸® ¾ÈÇÑ´Ù.
+// UsedActionInfoÂ¸Â¸ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Â´Ã‚ ÃƒÂ³Â¸Â® Â¾ÃˆÃ‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void
 MCreature::AffectBufferedActionInfo()
@@ -6789,7 +6792,7 @@ MCreature::AffectBufferedActionInfo()
 	DEBUG_ADD_FORMAT("[AffectBufferedActionInfo] ai=%d, nai=%d, action=%d-%d/%d", m_nUsedActionInfo, m_nNextUsedActionInfo, (int)m_Action, (int)m_ActionCount, (int)GetActionCountMax());
 	
 	//--------------------------------------------------------
-	// ´ÙÀ½¿¡ »ç¿ëÇÒ·Á´Â ±â¼úÀÌ ÀÖ´Ù¸é... ¹Ù·Î Àû¿ë ½ÃÅ²´Ù.
+	// Â´Ã™Ã€Â½Â¿Â¡ Â»Ã§Â¿Ã«Ã‡Ã’Â·ÃÂ´Ã‚ Â±Ã¢Â¼ÃºÃ€ÃŒ Ã€Ã–Â´Ã™Â¸Ã©... Â¹Ã™Â·Ã Ã€Ã»Â¿Ã« Â½ÃƒÃ…Â²Â´Ã™.
 	//--------------------------------------------------------
 	if (m_nNextUsedActionInfo!=ACTIONINFO_NULL)
 	{	
@@ -6797,7 +6800,7 @@ MCreature::AffectBufferedActionInfo()
 		DEBUG_ADD("[AffectBufferedActionInfo] Into Here");
 		
 		//--------------------------------------------------------
-		// ÇöÀç »ç¿ëÇØ¾ßÇÒ ±â¼úÀÌ ÀÖ´Â °æ¿ì 
+		// Ã‡Ã¶Ã€Ã§ Â»Ã§Â¿Ã«Ã‡Ã˜Â¾ÃŸÃ‡Ã’ Â±Ã¢Â¼ÃºÃ€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬ 
 		//--------------------------------------------------------
 		if (m_nUsedActionInfo!=ACTIONINFO_NULL)
 		{
@@ -6805,10 +6808,10 @@ MCreature::AffectBufferedActionInfo()
 			
 			m_nNextUsedActionInfo = ACTIONINFO_NULL;
 		
-			// m_nUsedActionInfo Àû¿ë
-			// --> ³»ºÎ¿¡¼­ m_nNextUsedActionInfo°¡ ¹Ù²ğ ¼ö ÀÖ´Ù.
+			// m_nUsedActionInfo Ã€Ã»Â¿Ã«
+			// --> Â³Â»ÂºÃÂ¿Â¡Â¼Â­ m_nNextUsedActionInfoÂ°Â¡ Â¹Ã™Â²Ã° Â¼Ã¶ Ã€Ã–Â´Ã™.
 
-	// ÀÌ °æ¿ì´Â ¹«Á¶°Ç(!) CastingEffect¸¦ ºÙ¿©¾ß ÇÑ´Ù.
+	// Ã€ÃŒ Â°Ã¦Â¿Ã¬Â´Ã‚ Â¹Â«ÃÂ¶Â°Ã‡(!) CastingEffectÂ¸Â¦ ÂºÃ™Â¿Â©Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			AttachCastingEffect( m_nUsedActionInfo, TRUE );
 
 			#ifdef OUTPUT_DEBUG					
@@ -6829,7 +6832,7 @@ MCreature::AffectBufferedActionInfo()
 
 			m_nUsedActionInfo	= ACTIONINFO_NULL;			
 
-			// affectÇÏ°í ³ª¼­.. »ç¿ëÇØ¾ßÇÒ ±â¼úÀÌ »ı±ä´Ù¸é..
+			// affectÃ‡ÃÂ°Ã­ Â³ÂªÂ¼Â­.. Â»Ã§Â¿Ã«Ã‡Ã˜Â¾ÃŸÃ‡Ã’ Â±Ã¢Â¼ÃºÃ€ÃŒ Â»Ã½Â±Ã¤Â´Ã™Â¸Ã©..
 			if (m_nNextUsedActionInfo!=ACTIONINFO_NULL)
 			{	
 				#ifdef OUTPUT_DEBUG					
@@ -6858,17 +6861,17 @@ MCreature::AffectBufferedActionInfo()
 		}
 		
 		//--------------------------------------------------------
-		// ´ÙÀ½¿¡ »ç¿ëÇØ¾ßÇÒ ±â¼ú Àû¿ë
+		// Â´Ã™Ã€Â½Â¿Â¡ Â»Ã§Â¿Ã«Ã‡Ã˜Â¾ÃŸÃ‡Ã’ Â±Ã¢Â¼Ãº Ã€Ã»Â¿Ã«
 		//--------------------------------------------------------
 		m_nNextUsedActionInfo = ACTIONINFO_NULL;
 
-		// --> ³»ºÎ¿¡¼­ m_nNextUsedActionInfo°¡ ¹Ù²ğ ¼ö ÀÖ´Ù.
+		// --> Â³Â»ÂºÃÂ¿Â¡Â¼Â­ m_nNextUsedActionInfoÂ°Â¡ Â¹Ã™Â²Ã° Â¼Ã¶ Ã€Ã–Â´Ã™.
 		DEBUG_ADD("~~~~~zzzz");
 		AttachCastingEffect( nextActionInfo, TRUE );
 		DEBUG_ADD("~~~~~zzzz2");
 		AffectUsedActionInfo( nextActionInfo );
 			
-		// affectÇÏ°í ³ª¼­.. »ç¿ëÇØ¾ßÇÒ ±â¼úÀÌ »ı±ä´Ù¸é..
+		// affectÃ‡ÃÂ°Ã­ Â³ÂªÂ¼Â­.. Â»Ã§Â¿Ã«Ã‡Ã˜Â¾ÃŸÃ‡Ã’ Â±Ã¢Â¼ÃºÃ€ÃŒ Â»Ã½Â±Ã¤Â´Ã™Â¸Ã©..
 		if (m_nNextUsedActionInfo!=ACTIONINFO_NULL)
 		{	
 			DEBUG_ADD("~~~~~zzzz3");
@@ -6888,17 +6891,17 @@ MCreature::AffectBufferedActionInfo()
 		#endif
 	}
 	//--------------------------------------------------------
-	// ÇöÀç »ç¿ëÇØ¾ßÇÒ ±â¼ú¸¸ ÀÖ´Â °æ¿ìÀÎ°¡?
+	// Ã‡Ã¶Ã€Ã§ Â»Ã§Â¿Ã«Ã‡Ã˜Â¾ÃŸÃ‡Ã’ Â±Ã¢Â¼ÃºÂ¸Â¸ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃÂ°Â¡?
 	//--------------------------------------------------------
 	else if (m_nUsedActionInfo!=ACTIONINFO_NULL)
 	{
 		DEBUG_ADD("[AFFE] USEDACTIONINFO != NULL ");
 		m_nNextUsedActionInfo = ACTIONINFO_NULL;
 	
-		// m_nUsedActionInfo Àû¿ë
-		// --> ³»ºÎ¿¡¼­ m_nNextUsedActionInfo°¡ ¹Ù²ğ ¼ö ÀÖ´Ù.
+		// m_nUsedActionInfo Ã€Ã»Â¿Ã«
+		// --> Â³Â»ÂºÃÂ¿Â¡Â¼Â­ m_nNextUsedActionInfoÂ°Â¡ Â¹Ã™Â²Ã° Â¼Ã¶ Ã€Ã–Â´Ã™.
 
-		// ÀÌ °æ¿ì´Â ¹«Á¶°Ç(!) CastingEffect¸¦ ºÙ¿©¾ß ÇÑ´Ù.
+		// Ã€ÃŒ Â°Ã¦Â¿Ã¬Â´Ã‚ Â¹Â«ÃÂ¶Â°Ã‡(!) CastingEffectÂ¸Â¦ ÂºÃ™Â¿Â©Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 		DEBUG_ADD("[AFFE] CASTING EFF");
 		AttachCastingEffect( m_nUsedActionInfo, TRUE );
 		DEBUG_ADD("[AFFE] AFFECT USED");
@@ -6906,7 +6909,7 @@ MCreature::AffectBufferedActionInfo()
 
 		m_nUsedActionInfo	= ACTIONINFO_NULL;			
 
-		// affectÇÏ°í ³ª¼­.. »ç¿ëÇØ¾ßÇÒ ±â¼úÀÌ »ı±ä´Ù¸é..
+		// affectÃ‡ÃÂ°Ã­ Â³ÂªÂ¼Â­.. Â»Ã§Â¿Ã«Ã‡Ã˜Â¾ÃŸÃ‡Ã’ Â±Ã¢Â¼ÃºÃ€ÃŒ Â»Ã½Â±Ã¤Â´Ã™Â¸Ã©..
 		if (m_nNextUsedActionInfo!=ACTIONINFO_NULL)
 		{			
 			DEBUG_ADD("[AFFE] ZZZZZZ ");
@@ -6915,7 +6918,7 @@ MCreature::AffectBufferedActionInfo()
 		}	
 
 		//--------------------------------------------------------
-		// ´ÙÀ½¿¡ »ç¿ëÇØ¾ßÇÒ ±â¼ú Àû¿ë
+		// Â´Ã™Ã€Â½Â¿Â¡ Â»Ã§Â¿Ã«Ã‡Ã˜Â¾ÃŸÃ‡Ã’ Â±Ã¢Â¼Ãº Ã€Ã»Â¿Ã«
 		//--------------------------------------------------------
 		m_nUsedActionInfo = ACTIONINFO_NULL;
 		m_nNextUsedActionInfo = ACTIONINFO_NULL;
@@ -6945,16 +6948,16 @@ MCreature::IsRecoveryMP()
 //----------------------------------------------------------------------
 // Set Recovery
 //----------------------------------------------------------------------
-// amount¸¸Å­ times¹ø¾¿ delay¸¶´Ù È¸º¹ÇÑ´Ù.
+// amountÂ¸Â¸Ã…Â­ timesÂ¹Ã¸Â¾Â¿ delayÂ¸Â¶Â´Ã™ ÃˆÂ¸ÂºÂ¹Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void				
 MCreature::SetRecoveryHP(int amount, int times, DWORD delay)
 { 
 	if (times > 0)
 	{
-		// ¹Ù·Î ÇÑ¹ø È¸º¹
+		// Â¹Ã™Â·Ã Ã‡Ã‘Â¹Ã¸ ÃˆÂ¸ÂºÂ¹
 
-		if(! IsRecoveryHP() )					// ÇöÀç HP °¡ Â÷°í ÀÖÁö ¾ÊÀ¸¸é
+		if(! IsRecoveryHP() )					// Ã‡Ã¶Ã€Ã§ HP Â°Â¡ Ã‚Ã·Â°Ã­ Ã€Ã–ÃÃ¶ Â¾ÃŠÃ€Â¸Â¸Ã©
 		{
 			SetStatus( MODIFY_CURRENT_HP, GetHP()+amount );
 			m_RecoveryHPTimes = times - 1; 
@@ -6965,7 +6968,7 @@ MCreature::SetRecoveryHP(int amount, int times, DWORD delay)
 		m_RecoveryHPDelayTime = delay;
 		//m_RecoveryHPPart = MODIFY_CURRENT_HP;
 
-		// ´ÙÀ½ È¸º¹ÇÒ ½Ã°£ ¼³Á¤
+		// Â´Ã™Ã€Â½ ÃˆÂ¸ÂºÂ¹Ã‡Ã’ Â½ÃƒÂ°Â£ Â¼Â³ÃÂ¤
 		m_RecoveryHPNextTime = g_CurrentTime + m_RecoveryHPDelayTime;
 	}
 }
@@ -6973,18 +6976,18 @@ MCreature::SetRecoveryHP(int amount, int times, DWORD delay)
 //----------------------------------------------------------------------
 // Set Recovery
 //----------------------------------------------------------------------
-// amount¸¸Å­ times¹ø¾¿ delay¸¶´Ù È¸º¹ÇÑ´Ù.
+// amountÂ¸Â¸Ã…Â­ timesÂ¹Ã¸Â¾Â¿ delayÂ¸Â¶Â´Ã™ ÃˆÂ¸ÂºÂ¹Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void				
 MCreature::SetRecoveryMP(int amount, int times, DWORD delay)
 { 
-	// 2004, 9, 3, sobeit add start - ÇÃ·¹Á® ½ºÅ×ÀÌ¼Ç¿¡ ¸ÂÀ¸¸é MP°¡ ¾ÈÂù´Ù...-_-
+	// 2004, 9, 3, sobeit add start - Ã‡ÃƒÂ·Â¹ÃÂ® Â½ÂºÃ…Ã—Ã€ÃŒÂ¼Ã‡Â¿Â¡ Â¸Ã‚Ã€Â¸Â¸Ã© MPÂ°Â¡ Â¾ÃˆÃ‚Ã¹Â´Ã™...-_-
 	if(HasEffectStatus(EFFECTSTATUS_PLEASURE_EXPLOSION))
 		return;
 	// 2004, 9, 3, sobeit add end
 	if (times > 0)
 	{
-		// ¹Ù·Î ÇÑ¹ø È¸º¹
+		// Â¹Ã™Â·Ã Ã‡Ã‘Â¹Ã¸ ÃˆÂ¸ÂºÂ¹
 		if(! IsRecoveryMP() )
 		{
 			SetStatus( MODIFY_CURRENT_MP, GetMP()+amount );
@@ -6996,7 +6999,7 @@ MCreature::SetRecoveryMP(int amount, int times, DWORD delay)
 		m_RecoveryMPDelayTime = delay;
 		//m_RecoveryMPPart = MODIFY_CURRENT_MP;
 
-		// ´ÙÀ½ È¸º¹ÇÒ ½Ã°£ ¼³Á¤
+		// Â´Ã™Ã€Â½ ÃˆÂ¸ÂºÂ¹Ã‡Ã’ Â½ÃƒÂ°Â£ Â¼Â³ÃÂ¤
 		m_RecoveryMPNextTime = g_CurrentTime + m_RecoveryMPDelayTime;
 	}
 }
@@ -7004,7 +7007,7 @@ MCreature::SetRecoveryMP(int amount, int times, DWORD delay)
 //----------------------------------------------------------------------
 // Check Drop Blood
 //----------------------------------------------------------------------
-// HP ³·À» ¶§.. ÇÇ Èê¸®±â
+// HP Â³Â·Ã€Â» Â¶Â§.. Ã‡Ã‡ ÃˆÃªÂ¸Â®Â±Ã¢
 //----------------------------------------------------------------------
 void				
 MCreature::CheckDropBlood()
@@ -7012,7 +7015,7 @@ MCreature::CheckDropBlood()
 	if (!HasEffectStatus(EFFECTSTATUS_COMA))
 	{
 		//----------------------------------------------------------
-		// ÇÇ Èê¸± ½Ã°£ÀÌ µÇ¾ú´ÂÁö(-_-;) Ã¼Å©..
+		// Ã‡Ã‡ ÃˆÃªÂ¸Â± Â½ÃƒÂ°Â£Ã€ÃŒ ÂµÃ‡Â¾ÃºÂ´Ã‚ÃÃ¶(-_-;) ÃƒÂ¼Ã…Â©..
 		//----------------------------------------------------------
 		if (g_pUserOption->BloodDrop 
 			&& g_CurrentTime > m_NextBloodingTime)
@@ -7023,17 +7026,17 @@ MCreature::CheckDropBlood()
 			int percentHP = ((maxHP==0)? 0 : currentHP*100 / maxHP);
 
 			//----------------------------------------------------------
-			// HP 30% ÀÌÇÏÀÏ¶§ ÇÇ Èê¸°´Ù.
+			// HP 30% Ã€ÃŒÃ‡ÃÃ€ÃÂ¶Â§ Ã‡Ã‡ ÃˆÃªÂ¸Â°Â´Ã™.
 			//----------------------------------------------------------
 			if (percentHP <= g_pClientConfig->BLOOD_DROP_HP_PERCENT)
 			{
 				ExecuteActionInfoFromMainNode(
-							BLOOD_DROP_GROUND,										// »ç¿ë ±â¼ú ¹øÈ£
+							BLOOD_DROP_GROUND,										// Â»Ã§Â¿Ã« Â±Ã¢Â¼Ãº Â¹Ã¸ÃˆÂ£
 						
 							m_X, m_Y, 0,
-							(int)m_Direction,														// »ç¿ë ¹æÇâ
+							(int)m_Direction,														// Â»Ã§Â¿Ã« Â¹Ã¦Ã‡Ã¢
 							
-							m_ID,												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+							m_ID,												// Â¸Ã±Ã‡Â¥Â¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸
 							m_X, m_Y, 0,
 							
 							80, //5*16, 
@@ -7046,18 +7049,18 @@ MCreature::CheckDropBlood()
 			}
 
 			//----------------------------------------------------------
-			// ´ÙÀ½ ÇÇ Èê¸®±â °¡´ÉÇÑ ½Ã°£ ¼³Á¤. 
-			// Á» ´Ê°Ô Ã¼Å©ÇØµµ °ü°è¾øÀ¸¹Ç·Î ÇÇ Èê¸®°Å³ª ¸»°Å³ª..½Ã°£ È®Àå
+			// Â´Ã™Ã€Â½ Ã‡Ã‡ ÃˆÃªÂ¸Â®Â±Ã¢ Â°Â¡Â´Ã‰Ã‡Ã‘ Â½ÃƒÂ°Â£ Â¼Â³ÃÂ¤. 
+			// ÃÂ» Â´ÃŠÂ°Ã” ÃƒÂ¼Ã…Â©Ã‡Ã˜ÂµÂµ Â°Ã¼Â°Ã¨Â¾Ã¸Ã€Â¸Â¹Ã‡Â·Ã Ã‡Ã‡ ÃˆÃªÂ¸Â®Â°Ã…Â³Âª Â¸Â»Â°Ã…Â³Âª..Â½ÃƒÂ°Â£ ÃˆÂ®Ã€Ã¥
 			//----------------------------------------------------------
 			DWORD timeGap = 300 //+ 1000	//g_pClientConfig->BLOOD_DROP_GAP_TIME 
 							+ (percentHP<<2) * rand()%20;//g_pClientConfig->BLOOD_DROP_RANDOM_TIME;
 
 			//----------------------------------------------------------
-			// ÈíÇ÷ ´çÇÑ »óÅÂÀÌ¸é ÇÇ¸¦ Á» ´ú Èê¸°´Ù.
+			// ÃˆÃ­Ã‡Ã· Â´Ã§Ã‡Ã‘ Â»Ã³Ã…Ã‚Ã€ÃŒÂ¸Ã© Ã‡Ã‡Â¸Â¦ ÃÂ» Â´Ãº ÃˆÃªÂ¸Â°Â´Ã™.
 			//----------------------------------------------------------
 			if (HasEffectStatus(EFFECTSTATUS_BLOOD_DRAIN))
 			{
-				// 5¹è Á¤µµ ´ú Èê¸°´Ù.
+				// 5Â¹Ã¨ ÃÂ¤ÂµÂµ Â´Ãº ÃˆÃªÂ¸Â°Â´Ã™.
 				m_NextBloodingTime = g_CurrentTime + timeGap*5;
 			}
 			else
@@ -7081,18 +7084,18 @@ MCreature::AddCasketSoon(int type)
 
 	//SetInvisibleSoon();
 
-	// [»õ±â¼ú3] -_-; virtual·Î ÇÏ´Â°Ô ³ªÀ»ÅÙµ¥.. 
+	// [Â»ÃµÂ±Ã¢Â¼Ãº3] -_-; virtualÂ·Ã Ã‡ÃÂ´Ã‚Â°Ã” Â³ÂªÃ€Â»Ã…Ã™ÂµÂ¥.. 
 	if (GetClassType()==CLASS_PLAYER)
 	{		
 		g_pSkillAvailable->SetAvailableSkills();
 	}
 
-	// [»õ±â¼ú7]
+	// [Â»ÃµÂ±Ã¢Â¼Ãº7]
 	m_bEffectStatus[EFFECTSTATUS_CASKET] = true;
 	
 	CheckRegen();
 
-	if(g_pPlayer == this)	// PlayerÀÎ °æ¿ì °ü¼ÒÈ¯ Áß¿¡´Â ¿Ê ¸ø°¥¾Æ ÀÔ´Â´Ù.
+	if(g_pPlayer == this)	// PlayerÃ€Ã Â°Ã¦Â¿Ã¬ Â°Ã¼Â¼Ã’ÃˆÂ¯ ÃÃŸÂ¿Â¡Â´Ã‚ Â¿ÃŠ Â¸Ã¸Â°Â¥Â¾Ã† Ã€Ã”Â´Ã‚Â´Ã™.
 	{
 		UI_LockGear();
 	}
@@ -7110,12 +7113,12 @@ MCreature::RemoveCasketSoon()
 
 	//SetVisibleSoon();
 
-	// [»õ±â¼ú7]
+	// [Â»ÃµÂ±Ã¢Â¼Ãº7]
 	m_bEffectStatus[EFFECTSTATUS_CASKET] = false;
 	
 	CheckRegen();
 
-	if(g_pPlayer == this)	// PlayerÀÎ °æ¿ì °ü¼ÒÈ¯ Áß¿¡´Â ¿Ê ¸ø°¥¾Æ ÀÔ´Â°É Ç¬´Ù.
+	if(g_pPlayer == this)	// PlayerÃ€Ã Â°Ã¦Â¿Ã¬ Â°Ã¼Â¼Ã’ÃˆÂ¯ ÃÃŸÂ¿Â¡Â´Ã‚ Â¿ÃŠ Â¸Ã¸Â°Â¥Â¾Ã† Ã€Ã”Â´Ã‚Â°Ã‰ Ã‡Â¬Â´Ã™.
 	{
 		UI_UnlockGear();;
 	}
@@ -7124,7 +7127,7 @@ MCreature::RemoveCasketSoon()
 //----------------------------------------------------------------------
 // Add Casket
 //----------------------------------------------------------------------
-// °üÀÌ ¼­¼­È÷ »ı±ä´Ù.
+// Â°Ã¼Ã€ÃŒ Â¼Â­Â¼Â­ÃˆÃ· Â»Ã½Â±Ã¤Â´Ã™.
 //----------------------------------------------------------------------
 void				
 MCreature::AddCasket(int type)
@@ -7137,13 +7140,13 @@ MCreature::AddCasket(int type)
 //
 //	//SetInvisible();
 //
-//	// [»õ±â¼ú3] -_-; virtual·Î ÇÏ´Â°Ô ³ªÀ»ÅÙµ¥.. 
+//	// [Â»ÃµÂ±Ã¢Â¼Ãº3] -_-; virtualÂ·Ã Ã‡ÃÂ´Ã‚Â°Ã” Â³ÂªÃ€Â»Ã…Ã™ÂµÂ¥.. 
 //	if (GetClassType()==CLASS_PLAYER)
 //	{		
 //		g_pSkillAvailable->SetAvailableSkills();
 //	}
 //
-//	// [»õ±â¼ú7]
+//	// [Â»ÃµÂ±Ã¢Â¼Ãº7]
 //	m_bEffectStatus[EFFECTSTATUS_CASKET] = true;
 //	
 //	CheckRegen();
@@ -7152,19 +7155,19 @@ MCreature::AddCasket(int type)
 //----------------------------------------------------------------------
 // Remove Casket
 //----------------------------------------------------------------------
-// °üÀÌ ¼­¼­È÷ »ç¶óÁø´Ù.
+// Â°Ã¼Ã€ÃŒ Â¼Â­Â¼Â­ÃˆÃ· Â»Ã§Â¶Ã³ÃÃ¸Â´Ã™.
 //----------------------------------------------------------------------
 void				
 MCreature::RemoveCasket()
 {
 	RemoveCasketSoon();
-	m_bInCasket = true;		// 64µÇ¸é false·Î ¹Ù²ã¾ß ÇÑ´Ù.
+	m_bInCasket = true;		// 64ÂµÃ‡Â¸Ã© falseÂ·Ã Â¹Ã™Â²Ã£Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 	m_CasketCount = 0;
 	m_CasketCountInc = 2;
 
 	//SetVisible();
 
-//	// [»õ±â¼ú7]
+//	// [Â»ÃµÂ±Ã¢Â¼Ãº7]
 //	m_bEffectStatus[EFFECTSTATUS_CASKET] = false;
 //
 //	CheckRegen();
@@ -7206,7 +7209,7 @@ MCreature::UpdateCasket()
 			m_CasketCount = 64;
 			m_CasketCountInc = 0;
 
-			// [»õ±â¼ú3] - -;;
+			// [Â»ÃµÂ±Ã¢Â¼Ãº3] - -;;
 			if (GetClassType()==CLASS_PLAYER)
 			{		
 				g_pSkillAvailable->SetAvailableSkills();
@@ -7220,13 +7223,13 @@ MCreature::UpdateCasket()
 //----------------------------------------------------------------------
 // Update Status
 //----------------------------------------------------------------------
-// ÀÏ´ÜÀº.. HP / MP º¯È­
+// Ã€ÃÂ´ÃœÃ€Âº.. HP / MP ÂºÂ¯ÃˆÂ­
 //----------------------------------------------------------------------
 void
 MCreature::UpdateStatus()
 {
 	//--------------------------------------------------------
-	// coma »óÅÂ¿¡¼­´Â HP¸¦ ¿Ã¸®Áö ¾Ê´Â´Ù.
+	// coma Â»Ã³Ã…Ã‚Â¿Â¡Â¼Â­Â´Ã‚ HPÂ¸Â¦ Â¿ÃƒÂ¸Â®ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 	//--------------------------------------------------------
 	if (!m_bAlive 
 		|| HasEffectStatus(EFFECTSTATUS_COMA))
@@ -7237,52 +7240,52 @@ MCreature::UpdateStatus()
 	bool bChangedHP = false;
 
 	//--------------------------------------------------------
-	// HP È¸º¹
+	// HP ÃˆÂ¸ÂºÂ¹
 	//--------------------------------------------------------
 	if (m_RecoveryHPTimes > 0 
 		&& g_CurrentTime >= m_RecoveryHPNextTime)
 	{		
 		m_RecoveryHPTimes--;
 
-		// È¸º¹
+		// ÃˆÂ¸ÂºÂ¹
 		SetStatus( MODIFY_CURRENT_HP, GetStatus(MODIFY_CURRENT_HP)+m_RecoveryHPAmount );
 
 		bChangedHP = true;
 		
-		// ´ÙÀ½ È¸º¹ÇÒ ½Ã°£ ¼³Á¤
+		// Â´Ã™Ã€Â½ ÃˆÂ¸ÂºÂ¹Ã‡Ã’ Â½ÃƒÂ°Â£ Â¼Â³ÃÂ¤
 		m_RecoveryHPNextTime += m_RecoveryHPDelayTime;		
 	}
 
 	//--------------------------------------------------------
-	// MP È¸º¹
+	// MP ÃˆÂ¸ÂºÂ¹
 	//--------------------------------------------------------
 	if (m_RecoveryMPTimes > 0 
 		&& g_CurrentTime >= m_RecoveryMPNextTime)
 	{		
 		m_RecoveryMPTimes--;
 
-		// È¸º¹
+		// ÃˆÂ¸ÂºÂ¹
 		SetStatus( MODIFY_CURRENT_MP, GetStatus(MODIFY_CURRENT_MP)+m_RecoveryMPAmount );
 
-		// ´ÙÀ½ È¸º¹ÇÒ ½Ã°£ ¼³Á¤
+		// Â´Ã™Ã€Â½ ÃˆÂ¸ÂºÂ¹Ã‡Ã’ Â½ÃƒÂ°Â£ Â¼Â³ÃÂ¤
 		m_RecoveryMPNextTime += m_RecoveryMPDelayTime;		
 	}
 
 	//--------------------------------------------------------
-	// ¹ìÆÄÀÌ¾îÀÎ °æ¿ì ÀÚµ¿ È¸º¹
+	// Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Ã€Ã Â°Ã¦Â¿Ã¬ Ã€ÃšÂµÂ¿ ÃˆÂ¸ÂºÂ¹
 	//--------------------------------------------------------
 	if (m_RegenAmount > 0)
 	{
 		//--------------------------------------------------------
-		// ±âº»ÀûÀÎ È¸º¹
+		// Â±Ã¢ÂºÂ»Ã€Ã»Ã€Ã ÃˆÂ¸ÂºÂ¹
 		//--------------------------------------------------------
 		if (g_CurrentTime >= m_RegenNextTime)
 		{		
-			// [»õ±â¼ú4] mephisto °É¸®¸é HP regen ¾ÈµÈ´Ù.
+			// [Â»ÃµÂ±Ã¢Â¼Ãº4] mephisto Â°Ã‰Â¸Â®Â¸Ã© HP regen Â¾ÃˆÂµÃˆÂ´Ã™.
 
 			//if ( !m_bEffectStatus[EFFECTSTATUS_MEPHISTO] || !m_bEffectStatus[EFFECTSTATUS_MEPHISTO]&&IsInCasket() )
 			{
-				// °ü¼Ó¿¡ ÀÖÀ» °æ¿ì Àºµ¥¹ÌÁöºÎÅÍ È¸º¹ÇÑ´Ù.
+				// Â°Ã¼Â¼Ã“Â¿Â¡ Ã€Ã–Ã€Â» Â°Ã¦Â¿Ã¬ Ã€ÂºÂµÂ¥Â¹ÃŒÃÃ¶ÂºÃÃ…Ã ÃˆÂ¸ÂºÂ¹Ã‡Ã‘Â´Ã™.
 				if( IsInCasket() )
 				{
 					DWORD SilverDamage = GetStatus( MODIFY_SILVER_DAMAGE );
@@ -7309,7 +7312,7 @@ MCreature::UpdateStatus()
 			
 
 			//--------------------------------------------------------
-			// ºÎ°¡ÀûÀÎ È¸º¹ - -;
+			// ÂºÃÂ°Â¡Ã€Ã»Ã€Ã ÃˆÂ¸ÂºÂ¹ - -;
 			//--------------------------------------------------------
 			if (g_CurrentTime >= m_RegenBonusNextTime)
 			{		
@@ -7326,7 +7329,7 @@ MCreature::UpdateStatus()
 	}
 
 	//--------------------------------------------------------
-	// ÆÄÆ¼ÀÎ °æ¿ì´Â HP ´Ù½Ã ¼³Á¤ÇØÁØ´Ù.
+	// Ã†Ã„Ã†Â¼Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ HP Â´Ã™Â½Ãƒ Â¼Â³ÃÂ¤Ã‡Ã˜ÃÃ˜Â´Ã™.
 	//--------------------------------------------------------
 	if (bChangedHP)
 	{	
@@ -7334,7 +7337,7 @@ MCreature::UpdateStatus()
 		{
 			PARTY_INFO* pInfo = g_pParty->GetMemberInfo( GetName() );
 				
-			// ÁÂÇ¥¸¦ ¼öÁ¤ÇØÁØ´Ù.
+			// ÃÃ‚Ã‡Â¥Â¸Â¦ Â¼Ã¶ÃÂ¤Ã‡Ã˜ÃÃ˜Â´Ã™.
 			if (pInfo!=NULL)
 			{
 				pInfo->HP = m_Status[MODIFY_CURRENT_HP];
@@ -7362,7 +7365,7 @@ MCreature::UpdateInvisible()
 }
 
 //----------------------------------------------------------------------
-// ´ÙÀ½ µ¿ÀÛÀ» ÃëÇÑ´Ù.
+// Â´Ã™Ã€Â½ ÂµÂ¿Ã€Ã›Ã€Â» ÃƒÃ«Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void
 MCreature::Action()
@@ -7378,7 +7381,7 @@ MCreature::Action()
 	#endif
 
 	//--------------------------------------------------------
-	// Ã¤ÆÃ String ¾îµÓ°Ô ÇÒ ½Ã°£
+	// ÃƒÂ¤Ã†Ãƒ String Â¾Ã®ÂµÃ“Â°Ã” Ã‡Ã’ Â½ÃƒÂ°Â£
 	//--------------------------------------------------------
 	if (m_NextChatFadeTime < g_CurrentTime)
 	{
@@ -7386,17 +7389,17 @@ MCreature::Action()
 	}
 	
 	//--------------------------------------------------------
-	// Status »óÅÂ º¯È­	- HP, MP º¯È­
+	// Status Â»Ã³Ã…Ã‚ ÂºÂ¯ÃˆÂ­	- HP, MP ÂºÂ¯ÃˆÂ­
 	//--------------------------------------------------------
 	UpdateStatus();
 	
 //	// 2004, 08, 05 sobeit add start
-//	if( GetCreatureType() == 726 ||  GetCreatureType() == 727 || GetCreatureType() == 728 || GetCreatureType() == 729) // ¼º¹®
-//		return; // ¹ØÀ¸·Î ³»·Á°¡ ºÁ¾ß º°·Î ÇÒ°Ô ¾ø´Ù.
+//	if( GetCreatureType() == 726 ||  GetCreatureType() == 727 || GetCreatureType() == 728 || GetCreatureType() == 729) // Â¼ÂºÂ¹Â®
+//		return; // Â¹Ã˜Ã€Â¸Â·Ã Â³Â»Â·ÃÂ°Â¡ ÂºÃÂ¾ÃŸ ÂºÂ°Â·Ã Ã‡Ã’Â°Ã” Â¾Ã¸Â´Ã™.
 //	// 2004, 08, 05 sobeit add end
 
 	//--------------------------------------------------------
-	// Æ¯¼öÇÑ È¿°úµé
+	// Ã†Â¯Â¼Ã¶Ã‡Ã‘ ÃˆÂ¿Â°ÃºÂµÃ©
 	//--------------------------------------------------------
 //	if(UpDateInstallTurret())
 //		return;
@@ -7460,15 +7463,15 @@ MCreature::Action()
 	//UpdateDarkness();
 	
 	//--------------------------------------------------------
-	// ¹æÇâ ÀüÈ¯À» ÀÚ¿¬½º·´°Ô
+	// Â¹Ã¦Ã‡Ã¢ Ã€Ã¼ÃˆÂ¯Ã€Â» Ã€ÃšÂ¿Â¬Â½ÂºÂ·Â´Â°Ã”
 	//--------------------------------------------------------
 	if (!ChangeNearDirection())
 	{
 			//--------------------------------------------------------
-			// ¹æÇâÀ» ¹Ù²Ü ÇÊ¿ä°¡ ¾ø´ø °æ¿ì¿¡..
-			// ½É½ÉÇÒ¶§¸¶´Ù ÇÑ¹ø¾¿ ¹æÇâ ¹Ù²ãÁÖ±â.. - -;
+			// Â¹Ã¦Ã‡Ã¢Ã€Â» Â¹Ã™Â²Ãœ Ã‡ÃŠÂ¿Ã¤Â°Â¡ Â¾Ã¸Â´Ã¸ Â°Ã¦Â¿Ã¬Â¿Â¡..
+			// Â½Ã‰Â½Ã‰Ã‡Ã’Â¶Â§Â¸Â¶Â´Ã™ Ã‡Ã‘Â¹Ã¸Â¾Â¿ Â¹Ã¦Ã‡Ã¢ Â¹Ã™Â²Ã£ÃÃ–Â±Ã¢.. - -;
 			//--------------------------------------------------------			
-			if (// Player°¡ ¾Æ´Ï°í
+			if (// PlayerÂ°Â¡ Â¾Ã†Â´ÃÂ°Ã­
 //				m_CreatureType >= 4
 				!IsCreatureTypeVampirePC(m_CreatureType)
 				&& m_CreatureType != CREATURETYPE_SLAYER_OPERATOR
@@ -7477,19 +7480,19 @@ MCreature::Action()
 				&& m_CreatureType != CREATURETYPE_SLAYER_MALE
 				&& m_CreatureType != CREATURETYPE_SLAYER_FEMALE
 				&& m_CreatureType != CREATURETYPE_OUSTERS
-				// °øÁß¹ÙÅä¸®°¡ ¾Æ´Ï°í
+				// Â°Ã¸ÃÃŸÂ¹Ã™Ã…Ã¤Â¸Â®Â°Â¡ Â¾Ã†Â´ÃÂ°Ã­
 				&& m_CreatureType != 431
-				// NPC°¡ ¾Æ´Ï°í... (¹æÇâº°·Î ±×¸²ÀÌ ´Ù ¾ø¾î¼­¸® -_-;)
+				// NPCÂ°Â¡ Â¾Ã†Â´ÃÂ°Ã­... (Â¹Ã¦Ã‡Ã¢ÂºÂ°Â·Ã Â±Ã—Â¸Â²Ã€ÃŒ Â´Ã™ Â¾Ã¸Â¾Ã®Â¼Â­Â¸Â® -_-;)
 				&& !IsNPC()
-				// »ì¾Æ ÀÖ°í..
+				// Â»Ã¬Â¾Ã† Ã€Ã–Â°Ã­..
 				&& m_bAlive
-				// Á¤Áö»óÅÂÀÌ°í
+				// ÃÂ¤ÃÃ¶Â»Ã³Ã…Ã‚Ã€ÃŒÂ°Ã­
 				&& m_Action==ACTION_STAND
-				// ¿òÁ÷ÀÏ°÷ÀÌ ¾ø°í
+				// Â¿Ã²ÃÃ·Ã€ÃÂ°Ã·Ã€ÃŒ Â¾Ã¸Â°Ã­
 				&& m_listMoveBuffer.size()==0
-				// Á¤Áöµ¿ÀÛÀÇ ³¡¿¡..
+				// ÃÂ¤ÃÃ¶ÂµÂ¿Ã€Ã›Ã€Ã‡ Â³Â¡Â¿Â¡..
 				&& m_ActionCount>=GetActionCountMax()-1
-				// randomÇÏ°Ô.. - -;
+				// randomÃ‡ÃÂ°Ã”.. - -;
 				&& (rand() % 5)==0
 				&& !HasEffectStatus(EFFECTSTATUS_INSTALL_TURRET)
 				)
@@ -7500,7 +7503,7 @@ MCreature::Action()
 	//m_CurrentDirection = m_Direction;
 
 	//--------------------------------------------------------
-	// ¹«½¼ effect°¡ °É·ÁÀÖ´Ù¸é 2¹è ´À¸®°Ô ¿òÁ÷ÀÎ´Ù.
+	// Â¹Â«Â½Â¼ effectÂ°Â¡ Â°Ã‰Â·ÃÃ€Ã–Â´Ã™Â¸Ã© 2Â¹Ã¨ Â´Ã€Â¸Â®Â°Ã” Â¿Ã²ÃÃ·Ã€ÃÂ´Ã™.
 	//--------------------------------------------------------
 	if (HasEffectStatus( EFFECTSTATUS_HAS_SLAYER_RELIC ) || HasEffectStatus( EFFECTSTATUS_HAS_VAMPIRE_RELIC ) || 
 		HasEffectStatus( EFFECTSTATUS_HAS_BLOOD_BIBLE_GREGORI )|| HasEffectStatus( EFFECTSTATUS_HAS_BLOOD_BIBLE_NEMA ) ||
@@ -7533,14 +7536,14 @@ MCreature::Action()
 //	BOOL bSlayer = IsSlayer();
 
 	//--------------------------------------------------------
-	// KnockBack Ã³¸® 2001.10.9
+	// KnockBack ÃƒÂ³Â¸Â® 2001.10.9
 	//--------------------------------------------------------
 	if (m_bKnockBack > 0)
 	{
 		m_sX += m_cX;
 		m_sY += m_cY;
 
-		// knockBack ´Ùx µÆÀ¸¸é Á¤Áöµ¿ÀÛ.
+		// knockBack Â´Ã™x ÂµÃ†Ã€Â¸Â¸Ã© ÃÂ¤ÃÃ¶ÂµÂ¿Ã€Ã›.
 		if (--m_bKnockBack==0)
 		{
 			m_sX = 0;
@@ -7552,7 +7555,7 @@ MCreature::Action()
 		}			
 	}
 	//--------------------------------------------------------
-	// FastMoveÁß¿¡´Â actionÀ» ÃëÇÏÁö ¾Ê´Â´Ù. 
+	// FastMoveÃÃŸÂ¿Â¡Â´Ã‚ actionÃ€Â» ÃƒÃ«Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™. 
 	//--------------------------------------------------------
 	else if (!m_bFastMove)
 	{
@@ -7560,19 +7563,19 @@ MCreature::Action()
 		{	
 			int bOldNextAction = m_NextAction;
 
-			// affectUsedActionInfo¸¦ ½ÇÇàÇÏ°í ³ª¸é
-			// NextActionInfo°¡ ¹Ù²ğ ¼ö°¡ ÀÖ´Ù.			
+			// affectUsedActionInfoÂ¸Â¦ Â½Ã‡Ã‡Ã Ã‡ÃÂ°Ã­ Â³ÂªÂ¸Ã©
+			// NextActionInfoÂ°Â¡ Â¹Ã™Â²Ã° Â¼Ã¶Â°Â¡ Ã€Ã–Â´Ã™.			
 			TYPE_ACTIONINFO nextUsedActionInfo = m_nNextUsedActionInfo;
 			TYPE_ACTIONINFO nextNextUsedActionInfo = ACTIONINFO_NULL;
 
 			//--------------------------------------------------------
-			// ÀÌÀü¿¡ »ç¿ë ÁßÀÎ ±â¼úÀÌ ÀÖ´Ù¸é... ¹Ù·Î Àû¿ë ½ÃÅ²´Ù.
+			// Ã€ÃŒÃ€Ã¼Â¿Â¡ Â»Ã§Â¿Ã« ÃÃŸÃ€Ã Â±Ã¢Â¼ÃºÃ€ÃŒ Ã€Ã–Â´Ã™Â¸Ã©... Â¹Ã™Â·Ã Ã€Ã»Â¿Ã« Â½ÃƒÃ…Â²Â´Ã™.
 			//--------------------------------------------------------
 			if (m_nUsedActionInfo!=ACTIONINFO_NULL)
 			{	
 				m_nNextUsedActionInfo = ACTIONINFO_NULL;
 
-				// castingEffect°¡ ¾ÆÁ÷ Ãâ·Â ¾ÈµÆÀ¸¸é Ãâ·Â½ÃÅ²´Ù.
+				// castingEffectÂ°Â¡ Â¾Ã†ÃÃ· ÃƒÃ¢Â·Ã‚ Â¾ÃˆÂµÃ†Ã€Â¸Â¸Ã© ÃƒÃ¢Â·Ã‚Â½ÃƒÃ…Â²Â´Ã™.
 				if (GetActionInfoCastingStartFrame(m_nUsedActionInfo) >= m_ActionCount)
 				{
 					AttachCastingEffect( m_nUsedActionInfo, TRUE );
@@ -7587,13 +7590,13 @@ MCreature::Action()
 			m_nUsedActionInfo = nextUsedActionInfo;
 			m_nNextUsedActionInfo = nextNextUsedActionInfo;
 
-			// 2001.9.30ÀÏ Ãß°¡
+			// 2001.9.30Ã€Ã ÃƒÃŸÂ°Â¡
 			if (m_nUsedActionInfo!=ACTIONINFO_NULL)
 			{
 				int actionInfoAction = GetActionInfoAction(m_nUsedActionInfo);
 
-				// ¸Â´Â µ¿ÀÛÀÌ¸é.. ÇÇ Æ¢±è..
-				// 2002.3.19 ÁÖ¼® Á¦°Å.. ¾Æ¹« µ¿ÀÛÀÌ³ª ÀÏ´Ü ÀÌÆåÆ® º¸¿©ÁÖÀÚ
+				// Â¸Ã‚Â´Ã‚ ÂµÂ¿Ã€Ã›Ã€ÃŒÂ¸Ã©.. Ã‡Ã‡ Ã†Â¢Â±Ã¨..
+				// 2002.3.19 ÃÃ–Â¼Â® ÃÂ¦Â°Ã….. Â¾Ã†Â¹Â« ÂµÂ¿Ã€Ã›Ã€ÃŒÂ³Âª Ã€ÃÂ´Ãœ Ã€ÃŒÃ†Ã¥Ã†Â® ÂºÂ¸Â¿Â©ÃÃ–Ã€Ãš
 				//if (actionInfoAction==ACTION_DAMAGED)
 				{
 					if //(m_Action!=ACTION_STAND 
@@ -7605,7 +7608,7 @@ MCreature::Action()
 
 						AffectUsedActionInfo( m_nUsedActionInfo );
 				
-						// ¼Ò¸® Ãâ·Â
+						// Â¼Ã’Â¸Â® ÃƒÃ¢Â·Ã‚
 						PlaySound( 
 							(*g_pCreatureTable)[m_CreatureType].GetActionSound( 
 								GetActionInfoAction(m_nUsedActionInfo)
@@ -7618,8 +7621,8 @@ MCreature::Action()
 					}
 				}
 
-				// 2001.05.21 Ãß°¡
-				// ±â¼ú µ¿ÀÛ¿¡¼­ ACTION_STAND´Â º¸¿©ÁÖÁö ¾Ê´Â´Ù.
+				// 2001.05.21 ÃƒÃŸÂ°Â¡
+				// Â±Ã¢Â¼Ãº ÂµÂ¿Ã€Ã›Â¿Â¡Â¼Â­ ACTION_STANDÂ´Ã‚ ÂºÂ¸Â¿Â©ÃÃ–ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 				if (actionInfoAction!=ACTION_STAND)
 				{
 					SetAction( actionInfoAction );
@@ -7627,9 +7630,9 @@ MCreature::Action()
 			}				
 
 			//--------------------------------------------------------
-			// ÀÌµ¿ÇÒ·Á´Ù°¡ ¸Â°Å³ªÇØ¼­ ´Ù¸¥ actionÀ» ½ÇÇàÇÏ°Ô µÇ´Â °æ¿ì
-			// ÀÌµ¿ÀÌ ¾ÈµÇ´Â °æ¿ì°¡ ÀÖ¾ú´Ù.
-			// ´ëÃ¥ --> NextActionÀ» ±â¾ïÇß´Ù°¡ ÀÌµ¿ÀÌ¸é.. ÀÌµ¿½ÃÅ°±â
+			// Ã€ÃŒÂµÂ¿Ã‡Ã’Â·ÃÂ´Ã™Â°Â¡ Â¸Ã‚Â°Ã…Â³ÂªÃ‡Ã˜Â¼Â­ Â´Ã™Â¸Â¥ actionÃ€Â» Â½Ã‡Ã‡Ã Ã‡ÃÂ°Ã” ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬
+			// Ã€ÃŒÂµÂ¿Ã€ÃŒ Â¾ÃˆÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Â°Â¡ Ã€Ã–Â¾ÃºÂ´Ã™.
+			// Â´Ã«ÃƒÂ¥ --> NextActionÃ€Â» Â±Ã¢Â¾Ã¯Ã‡ÃŸÂ´Ã™Â°Â¡ Ã€ÃŒÂµÂ¿Ã€ÃŒÂ¸Ã©.. Ã€ÃŒÂµÂ¿Â½ÃƒÃ…Â°Â±Ã¢
 			// 2001.9.24
 			//--------------------------------------------------------
 			if (bOldNextAction==m_MoveAction)
@@ -7638,7 +7641,7 @@ MCreature::Action()
 			}	 			
 		}
 		//--------------------------------------------------------
-		// ±â¾ïµÈ ´ÙÀ½ Çàµ¿... 
+		// Â±Ã¢Â¾Ã¯ÂµÃˆ Â´Ã™Ã€Â½ Ã‡Ã ÂµÂ¿... 
 		//--------------------------------------------------------
 		else if (m_bNextAction 
 				|| m_NextAction!=ACTION_STAND 
@@ -7650,12 +7653,12 @@ MCreature::Action()
 	}
 
 	//--------------------------------------------------------
-	// ¸¶ºñ µÆÀ» ¶§..
+	// Â¸Â¶ÂºÃ± ÂµÃ†Ã€Â» Â¶Â§..
 	//--------------------------------------------------------
 	if(HasEffectStatus(EFFECTSTATUS_CAUSE_CRITICAL_WOUNDS) && !IsSlayer())
 	{
 		//--------------------------------------------------------
-		// ±â¼úÀ» »ç¿ëÇÏ·Á´Â °æ¿ì
+		// Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ·ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 		//--------------------------------------------------------
 		if (m_nUsedActionInfo!=ACTIONINFO_NULL)
 		{
@@ -7670,7 +7673,7 @@ MCreature::Action()
 		)
 	{			
 		//--------------------------------------------------------
-		// ±â¼úÀ» »ç¿ëÇÏ·Á´Â °æ¿ì
+		// Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ·ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 		//--------------------------------------------------------
 		if (m_nUsedActionInfo!=ACTIONINFO_NULL)
 		{
@@ -7681,9 +7684,9 @@ MCreature::Action()
 		if (m_ActionCount>=GetActionCountMax())
 		{			
 			//--------------------------------------------------------
-			// ¸ñÇ¥ Å¸ÀÏ¿¡ µµÂøÇÑ »óÅÂ¿¡¼­..
-			// °è¼Ó ¼­ ÀÖ°Å³ª.. ´Ù °ÉÀº °æ¿ì´Â.. 
-			// Á¦ÀÚ¸®¿¡¼­ Èçµé°Å¸®´Â ¸ğ½ÀÀ» Ç¥ÇöÇØÁØ´Ù.
+			// Â¸Ã±Ã‡Â¥ Ã…Â¸Ã€ÃÂ¿Â¡ ÂµÂµÃ‚Ã¸Ã‡Ã‘ Â»Ã³Ã…Ã‚Â¿Â¡Â¼Â­..
+			// Â°Ã¨Â¼Ã“ Â¼Â­ Ã€Ã–Â°Ã…Â³Âª.. Â´Ã™ Â°Ã‰Ã€Âº Â°Ã¦Â¿Ã¬Â´Ã‚.. 
+			// ÃÂ¦Ã€ÃšÂ¸Â®Â¿Â¡Â¼Â­ ÃˆÃ§ÂµÃ©Â°Ã…Â¸Â®Â´Ã‚ Â¸Ã°Â½Ã€Ã€Â» Ã‡Â¥Ã‡Ã¶Ã‡Ã˜ÃÃ˜Â´Ã™.
 			//--------------------------------------------------------
 			if (m_MoveCount>=m_MoveCountMax)
 			{		
@@ -7708,33 +7711,33 @@ MCreature::Action()
 		}
 	}
 	//--------------------------------------------------------
-	// ÀÏ¹İÀûÀÎ °æ¿ì
+	// Ã€ÃÂ¹ÃÃ€Ã»Ã€Ã Â°Ã¦Â¿Ã¬
 	//--------------------------------------------------------
 	else
 	{
 		//--------------------------------------------------------
-		// ÇÇ Èê¸®´Â°Å Ã¼Å©
+		// Ã‡Ã‡ ÃˆÃªÂ¸Â®Â´Ã‚Â°Ã… ÃƒÂ¼Ã…Â©
 		//--------------------------------------------------------
 		CheckDropBlood();
 
 		//--------------------------------------------------------
-		// Action Ã³¸®
+		// Action ÃƒÂ³Â¸Â®
 		//--------------------------------------------------------
 		if (m_ActionCount < GetActionCountMax())
 		{		
 			//--------------------------------------------------------
-			// ±â¼úÀ» »ç¿ëÇÏ·Á´Â °æ¿ì
+			// Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ·ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 			//--------------------------------------------------------
 			if (m_nUsedActionInfo!=ACTIONINFO_NULL)
 			{
 				ActionEffect();
 			}
 			//--------------------------------------------------------
-			// Çàµ¿..
+			// Ã‡Ã ÂµÂ¿..
 			//--------------------------------------------------------
 			else
 			{
-				// ÀûÀıÇÑ Action ¼öÇà
+				// Ã€Ã»Ã€Ã½Ã‡Ã‘ Action Â¼Ã¶Ã‡Ã 
 				//switch (m_Action)
 				if (m_Action==ACTION_STAND 
 					|| IsSlayer() && m_Action==ACTION_SLAYER_MOTOR_STAND)
@@ -7746,7 +7749,7 @@ MCreature::Action()
 				else if (m_Action==ACTION_MOVE
 					|| IsSlayer() && m_Action==ACTION_SLAYER_MOTOR_MOVE)
 				{
-						// °È´Â µ¿ÀÛÀº µû·Î Ã³¸®ÇÑ´Ù.
+						// Â°ÃˆÂ´Ã‚ ÂµÂ¿Ã€Ã›Ã€Âº ÂµÃ»Â·Ã ÃƒÂ³Â¸Â®Ã‡Ã‘Â´Ã™.
 						//ActionMove();
 				}
 				*/
@@ -7760,25 +7763,25 @@ MCreature::Action()
 		}
 		
 		//--------------------------------------------------------
-		// »ì¾Æ ÀÖ´Â °æ¿ì¸¸
+		// Â»Ã¬Â¾Ã† Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Â¸Â¸
 		//--------------------------------------------------------
 		if (m_bAlive)
 		{
 			//--------------------------------------------------------
-			// ActionÀÌ ³¡³­ °æ¿ì...
+			// ActionÃ€ÃŒ Â³Â¡Â³Â­ Â°Ã¦Â¿Ã¬...
 			//--------------------------------------------------------
 			if (m_ActionCount>=GetActionCountMax())
 			{			
 				//--------------------------------------------------------
-				// ¸ñÇ¥ Å¸ÀÏ¿¡ µµÂøÇÑ »óÅÂ¿¡¼­..
-				// °è¼Ó ¼­ ÀÖ°Å³ª.. ´Ù °ÉÀº °æ¿ì´Â.. 
-				// Á¦ÀÚ¸®¿¡¼­ Èçµé°Å¸®´Â ¸ğ½ÀÀ» Ç¥ÇöÇØÁØ´Ù.
+				// Â¸Ã±Ã‡Â¥ Ã…Â¸Ã€ÃÂ¿Â¡ ÂµÂµÃ‚Ã¸Ã‡Ã‘ Â»Ã³Ã…Ã‚Â¿Â¡Â¼Â­..
+				// Â°Ã¨Â¼Ã“ Â¼Â­ Ã€Ã–Â°Ã…Â³Âª.. Â´Ã™ Â°Ã‰Ã€Âº Â°Ã¦Â¿Ã¬Â´Ã‚.. 
+				// ÃÂ¦Ã€ÃšÂ¸Â®Â¿Â¡Â¼Â­ ÃˆÃ§ÂµÃ©Â°Ã…Â¸Â®Â´Ã‚ Â¸Ã°Â½Ã€Ã€Â» Ã‡Â¥Ã‡Ã¶Ã‡Ã˜ÃÃ˜Â´Ã™.
 				//--------------------------------------------------------
 				if (m_MoveCount>=m_MoveCountMax)
 				{		
 					//#ifdef CONNECT_SERVER
 					//--------------------------------------------------------
-					// ´ÙÀ½ ÀÌµ¿ÀÌ ¾ø´Ù¸é.. Á¤Áö½ÃÅ²´Ù.
+					// Â´Ã™Ã€Â½ Ã€ÃŒÂµÂ¿Ã€ÃŒ Â¾Ã¸Â´Ã™Â¸Ã©.. ÃÂ¤ÃÃ¶Â½ÃƒÃ…Â²Â´Ã™.
 					//--------------------------------------------------------
 					AffectMoveBuffer();
 
@@ -7803,8 +7806,8 @@ MCreature::Action()
 					//#endif
 				}
 				//--------------------------------------------------------
-				// °È´Ù°¡ ´Ù¸¥ actionÀ» º¸¿©Áá°Å³ª °è¼Ó °È´ø ÁßÀÌ´Ù.
-				// ´Ù½Ã °È´Â´Ù.
+				// Â°ÃˆÂ´Ã™Â°Â¡ Â´Ã™Â¸Â¥ actionÃ€Â» ÂºÂ¸Â¿Â©ÃÃ¡Â°Ã…Â³Âª Â°Ã¨Â¼Ã“ Â°ÃˆÂ´Ã¸ ÃÃŸÃ€ÃŒÂ´Ã™.
+				// Â´Ã™Â½Ãƒ Â°ÃˆÂ´Ã‚Â´Ã™.
 				//--------------------------------------------------------
 				else 
 				{			
@@ -7814,7 +7817,7 @@ MCreature::Action()
 
 					if (m_MoveCount>=m_MoveCountMax)
 					{
-						// ´ÙÀ½ ÀÌµ¿ÇÒ °÷ÀÌ ÀÖÀ¸¸é..
+						// Â´Ã™Ã€Â½ Ã€ÃŒÂµÂ¿Ã‡Ã’ Â°Ã·Ã€ÃŒ Ã€Ã–Ã€Â¸Â¸Ã©..
 						if (m_NextX != SECTORPOSITION_NULL
 							&& m_NextDirection != DIRECTION_NULL)
 						{		
@@ -7825,7 +7828,7 @@ MCreature::Action()
 							//#ifdef CONNECT_SERVER
 
 							//--------------------------------------------------------
-							// ´ÙÀ½ ÀÌµ¿
+							// Â´Ã™Ã€Â½ Ã€ÃŒÂµÂ¿
 							//--------------------------------------------------------
 							AffectMoveBuffer();
 
@@ -7853,14 +7856,14 @@ MCreature::Action()
 				}
 			}
 			//--------------------------------------------------------
-			// ActionÀ» º¸¿©ÁÖ´Â ÁßÀÌ¶óµµ.. 
-			// ÀÌµ¿ÇÒ ²¨¸®?°¡ ÀÖÀ¸¸é ÀÌµ¿µµ ½ÃÄÑÁØ´Ù. 2001.10.10
+			// ActionÃ€Â» ÂºÂ¸Â¿Â©ÃÃ–Â´Ã‚ ÃÃŸÃ€ÃŒÂ¶Ã³ÂµÂµ.. 
+			// Ã€ÃŒÂµÂ¿Ã‡Ã’ Â²Â¨Â¸Â®?Â°Â¡ Ã€Ã–Ã€Â¸Â¸Ã© Ã€ÃŒÂµÂ¿ÂµÂµ Â½ÃƒÃ„Ã‘ÃÃ˜Â´Ã™. 2001.10.10
 			//--------------------------------------------------------
 			else
 			{		
 				/*
-				// 2001.11.8 - ÁÖ¼®Ã³¸®.. º¸±â ¾È ÁÁ´Ù³ª.. - -;;
-				if (// KnockBackÀÌ³ª FastMove°¡ ¾Æ´Ñ °æ¿ì
+				// 2001.11.8 - ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®.. ÂºÂ¸Â±Ã¢ Â¾Ãˆ ÃÃÂ´Ã™Â³Âª.. - -;;
+				if (// KnockBackÃ€ÃŒÂ³Âª FastMoveÂ°Â¡ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬
 					!m_bFastMove && m_bKnockBack==0	&& m_MoveCount>0)
 				{
 					if (m_MoveCount<m_MoveCountMax)
@@ -7869,7 +7872,7 @@ MCreature::Action()
 					}
 					else if (m_MoveCount>=m_MoveCountMax)
 					{
-						// ´ÙÀ½ ÀÌµ¿ÇÒ °÷ÀÌ ÀÖÀ¸¸é..
+						// Â´Ã™Ã€Â½ Ã€ÃŒÂµÂ¿Ã‡Ã’ Â°Ã·Ã€ÃŒ Ã€Ã–Ã€Â¸Â¸Ã©..
 						if (m_NextX != SECTORPOSITION_NULL)
 						{		
 							MoveNextPosition();
@@ -7892,16 +7895,16 @@ MCreature::Action()
 //----------------------------------------------------------------------
 // Packet Move (x, y, d)
 //----------------------------------------------------------------------
-// this Creature´Â Move¸¦ ¹Ş¾ÒÀ¸¹Ç·Î
+// this CreatureÂ´Ã‚ MoveÂ¸Â¦ Â¹ÃÂ¾Ã’Ã€Â¸Â¹Ã‡Â·Ã
 //
-// //0. Player¿ÍÀÇ ÁÂÇ¥ Ãæµ¹À» °í·ÁÇØ¼­ ¿òÁ÷¿©ÁØ´Ù.
+// //0. PlayerÂ¿ÃÃ€Ã‡ ÃÃ‚Ã‡Â¥ ÃƒÃ¦ÂµÂ¹Ã€Â» Â°Ã­Â·ÃÃ‡Ã˜Â¼Â­ Â¿Ã²ÃÃ·Â¿Â©ÃÃ˜Â´Ã™.
 //
-// (x,y)¿¡¼­ d¹æÇâÀ¸·Î ÇÑ Ä­ ¿òÁ÷ÀÎ´Ù.
+// (x,y)Â¿Â¡Â¼Â­ dÂ¹Ã¦Ã‡Ã¢Ã€Â¸Â·Ã Ã‡Ã‘ Ã„Â­ Â¿Ã²ÃÃ·Ã€ÃÂ´Ã™.
 //----------------------------------------------------------------------
 void		
 MCreature::PacketMove(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE direction)
 {
-//	// 2004, 9, 16, sobeit add start - ÅÍ·¿ ¹æÇâ ¹Ù²Ù±â, »¬±î..¤Ñ¤Ñ;
+//	// 2004, 9, 16, sobeit add start - Ã…ÃÂ·Â¿ Â¹Ã¦Ã‡Ã¢ Â¹Ã™Â²Ã™Â±Ã¢, Â»Â¬Â±Ã®..Â¤Ã‘Â¤Ã‘;
 //	if(HasEffectStatus(EFFECTSTATUS_INSTALL_TURRET))
 //	{
 //		SetCurrentDirection(direction);
@@ -7909,7 +7912,7 @@ MCreature::PacketMove(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE directi
 //	}
 //	// 2004, 9, 16, sobeit add end
 	//---------------------------------------------------
-	// »õ·Î¿î ÀÌµ¿ Á¤º¸¸¦ buffer¿¡ Ãß°¡½ÃÅ²´Ù.
+	// Â»ÃµÂ·ÃÂ¿Ã® Ã€ÃŒÂµÂ¿ ÃÂ¤ÂºÂ¸Â¸Â¦ bufferÂ¿Â¡ ÃƒÃŸÂ°Â¡Â½ÃƒÃ…Â²Â´Ã™.
 	//---------------------------------------------------
 	MoveNode* pNode = new MoveNode;
 	pNode->x = x;
@@ -7920,7 +7923,7 @@ MCreature::PacketMove(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE directi
 	{
 		PARTY_INFO* pInfo = g_pParty->GetMemberInfo( GetName() );		
 			
-		// ÁÂÇ¥¸¦ ¼öÁ¤ÇØÁØ´Ù.
+		// ÃÃ‚Ã‡Â¥Â¸Â¦ Â¼Ã¶ÃÂ¤Ã‡Ã˜ÃÃ˜Â´Ã™.
 		if (pInfo!=NULL)
 		{
 			pInfo->zoneID = (g_bZonePlayerInLarge?g_nZoneLarge : g_nZoneSmall);
@@ -7930,7 +7933,7 @@ MCreature::PacketMove(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE directi
 	}
 
 	//---------------------------------------------------
-	// ServerÁÂÇ¥´Â ¹Ù·Î Àû¿ë½ÃÅ²´Ù.
+	// ServerÃÃ‚Ã‡Â¥Â´Ã‚ Â¹Ã™Â·Ã Ã€Ã»Â¿Ã«Â½ÃƒÃ…Â²Â´Ã™.
 	//---------------------------------------------------
 	///*
 	int oldX = m_X;
@@ -7945,9 +7948,9 @@ MCreature::PacketMove(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE directi
 	m_X = oldX;
 	m_Y = oldY;
 
-	// serverÁÂÇ¥ ±â¾ï
+	// serverÃÃ‚Ã‡Â¥ Â±Ã¢Â¾Ã¯
 	// 2001.8.6
-	// 2002.3.22 ´Ù½Ã »ì·È´Ù.
+	// 2002.3.22 Â´Ã™Â½Ãƒ Â»Ã¬Â·ÃˆÂ´Ã™.
 	//m_ServerX	= next.x;
 	//m_ServerY	= next.y;
 	
@@ -7957,7 +7960,7 @@ MCreature::PacketMove(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE directi
 	m_listMoveBuffer.push_back( pNode );
 
 	//-----------------------------------------------------------
-	// Á¤ÁöµÈ »óÅÂÀÌ¸é ¹Ù·Î Àû¿ëÇÑ´Ù.
+	// ÃÂ¤ÃÃ¶ÂµÃˆ Â»Ã³Ã…Ã‚Ã€ÃŒÂ¸Ã© Â¹Ã™Â·Ã Ã€Ã»Â¿Ã«Ã‡Ã‘Â´Ã™.
 	//-----------------------------------------------------------
 	if (m_Action==ACTION_STAND 
 		|| IsSlayer() && m_Action==ACTION_SLAYER_MOTOR_STAND)
@@ -7967,7 +7970,7 @@ MCreature::PacketMove(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE directi
 	else
 	{
 		//---------------------------------------------------
-		// ÇÑ°è¸¦ ³Ñ´Â MoveBuffer´Â ¸ğµÎ Àû¿ë½ÃÄÑ¹ö¸°´Ù.
+		// Ã‡Ã‘Â°Ã¨Â¸Â¦ Â³Ã‘Â´Ã‚ MoveBufferÂ´Ã‚ Â¸Ã°ÂµÃ Ã€Ã»Â¿Ã«Â½ÃƒÃ„Ã‘Â¹Ã¶Â¸Â°Â´Ã™.
 		//---------------------------------------------------
 		while (m_listMoveBuffer.size() > g_pClientConfig->MAX_CREATURE_MOVE_BUFFER)
 		{
@@ -7979,7 +7982,7 @@ MCreature::PacketMove(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE directi
 //----------------------------------------------------------------------
 // Release MoveBuffer
 //----------------------------------------------------------------------
-// ±âÁ¸ÀÇ MoveBuffer¸¦ ´Ù Áö¿ò
+// Â±Ã¢ÃÂ¸Ã€Ã‡ MoveBufferÂ¸Â¦ Â´Ã™ ÃÃ¶Â¿Ã²
 //----------------------------------------------------------------------
 void
 MCreature::ReleaseMoveBuffer()
@@ -8001,7 +8004,7 @@ MCreature::ReleaseMoveBuffer()
 //----------------------------------------------------------------------
 // Affect MoveBuffer All
 //----------------------------------------------------------------------
-// ¸ğµç MoveBuffer¸¦ Àû¿ë½ÃÅ²´Ù.
+// Â¸Ã°ÂµÃ§ MoveBufferÂ¸Â¦ Ã€Ã»Â¿Ã«Â½ÃƒÃ…Â²Â´Ã™.
 //----------------------------------------------------------------------
 void
 MCreature::AffectMoveBufferAll()
@@ -8015,13 +8018,13 @@ MCreature::AffectMoveBufferAll()
 //----------------------------------------------------------------------
 // Affect Move Buffer
 //----------------------------------------------------------------------
-// BufferingµÈ ´ÙÀ½ÀÇ ÀÌµ¿ Á¤º¸¸¦ ÇÏ³ª ¼³Á¤ÇÑ´Ù.
+// BufferingÂµÃˆ Â´Ã™Ã€Â½Ã€Ã‡ Ã€ÃŒÂµÂ¿ ÃÂ¤ÂºÂ¸Â¸Â¦ Ã‡ÃÂ³Âª Â¼Â³ÃÂ¤Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool	
 MCreature::AffectMoveBuffer()
 {
 	//-------------------------------------------
-	// ÀÌµ¿ÇÒ Á¤º¸°¡ ¾ø´Â °æ¿ì
+	// Ã€ÃŒÂµÂ¿Ã‡Ã’ ÃÂ¤ÂºÂ¸Â°Â¡ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 	//-------------------------------------------
 	if (m_listMoveBuffer.size()==0)
 	{
@@ -8029,17 +8032,17 @@ MCreature::AffectMoveBuffer()
 	}
 
 	//-------------------------------------------
-	// Á© ¾Õ¿¡²¬ ÀĞ¾î¿Â´Ù.
+	// ÃÂ© Â¾Ã•Â¿Â¡Â²Â¬ Ã€ÃÂ¾Ã®Â¿Ã‚Â´Ã™.
 	//-------------------------------------------
 	MoveNode* pNode = m_listMoveBuffer.front();
 	m_listMoveBuffer.pop_front();
 
 	//-------------------------------------------
-	// °ª ¼³Á¤
+	// Â°Âª Â¼Â³ÃÂ¤
 	//-------------------------------------------
-	// ¿ø·¡´Â PacketMove()¿¡ ÀÖ´ø°Çµ¥
-	// move buffering Ãß°¡ÇÏ¸é¼­ cut & paste - -;;
-	// Àß µ¹¾Æ°¥·Á³ª..
+	// Â¿Ã¸Â·Â¡Â´Ã‚ PacketMove()Â¿Â¡ Ã€Ã–Â´Ã¸Â°Ã‡ÂµÂ¥
+	// move buffering ÃƒÃŸÂ°Â¡Ã‡ÃÂ¸Ã©Â¼Â­ cut & paste - -;;
+	// Ã€ÃŸ ÂµÂ¹Â¾Ã†Â°Â¥Â·ÃÂ³Âª..
 	//-------------------------------------------
 	int x = pNode->x;
 	int y = pNode->y;
@@ -8047,7 +8050,7 @@ MCreature::AffectMoveBuffer()
 
 	delete pNode;
 
-	// Á×Àº °æ¿ì
+	// ÃÃ—Ã€Âº Â°Ã¦Â¿Ã¬
 	if (!m_bAlive)
 	{
 		return false;
@@ -8056,19 +8059,19 @@ MCreature::AffectMoveBuffer()
 
 	DEBUG_ADD_FORMAT("AffectMoveBuffer : [ID=%d] From(%d,%d) Direction(%d)", m_ID, x,y, direction);
 
-	// ÀÌÀü ÁÂÇ¥¸¦ ±â¾ïÇØµĞ´Ù.		
+	// Ã€ÃŒÃ€Ã¼ ÃÃ‚Ã‡Â¥Â¸Â¦ Â±Ã¢Â¾Ã¯Ã‡Ã˜ÂµÃÂ´Ã™.		
 	int oldX = m_X;
 	int oldY = m_Y;
 
-	// ÀÓ½Ã·Î.. »õ ÁÂÇ¥¸¦ ¼³Á¤
+	// Ã€Ã“Â½ÃƒÂ·Ã.. Â»Ãµ ÃÃ‚Ã‡Â¥Â¸Â¦ Â¼Â³ÃÂ¤
 	m_X = x;
 	m_Y = y;	// m_X=x; m_Y=y;  and.. Etc...
 		
-	// Server¿¡¼­ ³¯¾Æ¿Â ¹æÇâÀ¸·Î ¿òÁ÷ÀÎ ÁÂÇ¥¸¦ ±¸ÇÑ´Ù.
+	// ServerÂ¿Â¡Â¼Â­ Â³Â¯Â¾Ã†Â¿Ã‚ Â¹Ã¦Ã‡Ã¢Ã€Â¸Â·Ã Â¿Ã²ÃÃ·Ã€Ã ÃÃ‚Ã‡Â¥Â¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
 	POINT next;
 	GetNextPosition( direction, next );
 
-	// ¿µ¿ª ³Ñ¾î°¡´ÂÁö Ã¼Å© . 2001.10.7
+	// Â¿ÂµÂ¿Âª Â³Ã‘Â¾Ã®Â°Â¡Â´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â© . 2001.10.7
 	if (next.x < 0 
 		|| next.y < 0 
 		|| next.x >= g_pZone->GetWidth() 
@@ -8080,37 +8083,37 @@ MCreature::AffectMoveBuffer()
 		return false;
 	}
 
-	// serverÁÂÇ¥ ±â¾ï
+	// serverÃÃ‚Ã‡Â¥ Â±Ã¢Â¾Ã¯
 	// 2001.8.6
-	// ÁÖ¼® 2002.3.22... PacketMove·Î ¿Å°å´Ù.
+	// ÃÃ–Â¼Â® 2002.3.22... PacketMoveÂ·Ã Â¿Ã…Â°Ã¥Â´Ã™.
 	//SetServerPositionWithBlock( next.x, next.y );	
 
-	// ¿ø·¡ ÁÂÇ¥·Î µÇµ¹¸°´Ù.
+	// Â¿Ã¸Â·Â¡ ÃÃ‚Ã‡Â¥Â·Ã ÂµÃ‡ÂµÂ¹Â¸Â°Â´Ã™.
 	m_X = oldX;
 	m_Y = oldY;
 
 	//-----------------------------------------------------
-	// °¥ ¼ö ¾ø´Â °÷ÀÎ °æ¿ì...
+	// Â°Â¥ Â¼Ã¶ Â¾Ã¸Â´Ã‚ Â°Ã·Ã€Ã Â°Ã¦Â¿Ã¬...
 	//-----------------------------------------------------
-	// Server¿¡¼­ Àß¸øµÈ Á¤º¸°¡ ¿Ô´Ù.. - -;;
-	// timing¹®Á¦¶ó°í ÇÒ±î?
+	// ServerÂ¿Â¡Â¼Â­ Ã€ÃŸÂ¸Ã¸ÂµÃˆ ÃÂ¤ÂºÂ¸Â°Â¡ Â¿Ã”Â´Ã™.. - -;;
+	// timingÂ¹Â®ÃÂ¦Â¶Ã³Â°Ã­ Ã‡Ã’Â±Ã®?
 	#ifdef OUTPUT_DEBUG
 		//if (!m_pZone->CanMove(m_MoveType, next.x, next.y))
 		{
 		//	DEBUG_ADD_FORMAT("[ Collide ] Creature[ID=%d] Can't Move to (%d,%d) - But, Go!", m_ID, next.x, next.y);				
 			
-			// ±×·¡µµ ¿òÁ÷¿©º¸ÀÚ~
+			// Â±Ã—Â·Â¡ÂµÂµ Â¿Ã²ÃÃ·Â¿Â©ÂºÂ¸Ã€Ãš~
 			//return;
 		}
 	#endif
 
 	//--------------------------------------------------
-	// Server¿¡¼­ °ËÁõµÈ ÁÂÇ¥¸¦ ¼³Á¤ÇÑ´Ù.
+	// ServerÂ¿Â¡Â¼Â­ Â°Ã‹ÃÃµÂµÃˆ ÃÃ‚Ã‡Â¥Â¸Â¦ Â¼Â³ÃÂ¤Ã‡Ã‘Â´Ã™.
 	//--------------------------------------------------
 	//m_ServerX = x;//next.x;
 	//m_ServerY = y;//next.y;
 
-	// ¾ÆÁ÷ ÀÌÀü Á¤º¸°¡ updateµÇÁö ¾Ê¾ÒÀ¸¸é...
+	// Â¾Ã†ÃÃ· Ã€ÃŒÃ€Ã¼ ÃÂ¤ÂºÂ¸Â°Â¡ updateÂµÃ‡ÃÃ¶ Â¾ÃŠÂ¾Ã’Ã€Â¸Â¸Ã©...
 	if (m_NextX != SECTORPOSITION_NULL)
 		// && m_NextY != SECTORPOSITION_NULL
 	{
@@ -8121,12 +8124,12 @@ MCreature::AffectMoveBuffer()
 							m_NextX, m_NextY, 
 							g_pPlayer->GetX(), g_pPlayer->GetY());			
 		
-		// ÀÌÀü Á¤º¸¸¦ ¹Ù·Î update½ÃÅ²´Ù.
+		// Ã€ÃŒÃ€Ã¼ ÃÂ¤ÂºÂ¸Â¸Â¦ Â¹Ã™Â·Ã updateÂ½ÃƒÃ…Â²Â´Ã™.
 		MovePosition(m_NextX, m_NextY);
 		m_Direction = m_NextDirection;
 		m_DirectionMove = m_NextDirection;
 
-		// (m_X, m_Y)¿¡¼­ m_CurrentDirectionÀ¸·Î ÀÌµ¿½ÃÅ²´Ù.
+		// (m_X, m_Y)Â¿Â¡Â¼Â­ m_CurrentDirectionÃ€Â¸Â·Ã Ã€ÃŒÂµÂ¿Â½ÃƒÃ…Â²Â´Ã™.
 		SetNextAction( m_MoveAction );
 
 		m_NextX = x;
@@ -8137,30 +8140,30 @@ MCreature::AffectMoveBuffer()
 	}
 
 	//--------------------------------------------------
-	// Player°¡ ÀÌ¹Ì °¥ ÀÚ¸®¿¡ ÀÖ´Ù¸é....
+	// PlayerÂ°Â¡ Ã€ÃŒÂ¹ÃŒ Â°Â¥ Ã€ÃšÂ¸Â®Â¿Â¡ Ã€Ã–Â´Ã™Â¸Ã©....
 	//--------------------------------------------------
-	// ¸ø °£´Ù~~
+	// Â¸Ã¸ Â°Â£Â´Ã™~~
 	/*
 	if (g_pPlayer->GetX()==next.x && g_pPlayer->GetY()==next.y)
 	{
-		// ¹æÇâ¸¸ ¼³Á¤..
+		// Â¹Ã¦Ã‡Ã¢Â¸Â¸ Â¼Â³ÃÂ¤..
 		//pCreature->SetDirection( pGCMove->getDir() );	
 		
-		// ÀÌÀü¿¡ ÀÖ´ø ÁÂÇ¥¿¡¼­ ¿òÁ÷ÀÌ·Á°í ÇÑ °æ¿ì..
+		// Ã€ÃŒÃ€Ã¼Â¿Â¡ Ã€Ã–Â´Ã¸ ÃÃ‚Ã‡Â¥Â¿Â¡Â¼Â­ Â¿Ã²ÃÃ·Ã€ÃŒÂ·ÃÂ°Ã­ Ã‡Ã‘ Â°Ã¦Â¿Ã¬..
 		if (oldX==x && oldY==y)
 		{
-			// ±×³É ¼­ ÀÖÀ¸¸é µÈ´Ù.
+			// Â±Ã—Â³Ã‰ Â¼Â­ Ã€Ã–Ã€Â¸Â¸Ã© ÂµÃˆÂ´Ã™.
 		}
 		else
 		{
-			// ÀÌÀü¿¡ ÀÖ´ø ÁÂÇ¥(oldX, oldY)¿¡¼­ »õÁÂÇ¥(x,y)·Î ÀÌµ¿ÇÑ´Ù.
+			// Ã€ÃŒÃ€Ã¼Â¿Â¡ Ã€Ã–Â´Ã¸ ÃÃ‚Ã‡Â¥(oldX, oldY)Â¿Â¡Â¼Â­ Â»ÃµÃÃ‚Ã‡Â¥(x,y)Â·Ã Ã€ÃŒÂµÂ¿Ã‡Ã‘Â´Ã™.
 			m_X = oldX;
 			m_Y = oldY;
 
 			MovePosition( x, y );			
 
-			// »õ ÁÂÇ¥¿¡¼­ ¹æÇâ(direction)À¸·Î ¿òÁ÷¿©¾ß ÇÏÁö¸¸
-			// ±×³É »õ ÁÂÇ¥¿¡ ¼­ ÀÖ¾î¾ß ÇÑ´Ù.
+			// Â»Ãµ ÃÃ‚Ã‡Â¥Â¿Â¡Â¼Â­ Â¹Ã¦Ã‡Ã¢(direction)Ã€Â¸Â·Ã Â¿Ã²ÃÃ·Â¿Â©Â¾ÃŸ Ã‡ÃÃÃ¶Â¸Â¸
+			// Â±Ã—Â³Ã‰ Â»Ãµ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¼Â­ Ã€Ã–Â¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 		}
 
 		// message		
@@ -8171,7 +8174,7 @@ MCreature::AffectMoveBuffer()
 	}
 	*/
 	//--------------------------------------------------
-	// ¸ñÀûÁö¿¡ ÀÌ¹Ì °¡ ÀÖ´Â °æ¿ì´Â ¿òÁ÷ÀÏ ÇÊ¿ä¾ø´Ù.
+	// Â¸Ã±Ã€Ã»ÃÃ¶Â¿Â¡ Ã€ÃŒÂ¹ÃŒ Â°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Â´Ã‚ Â¿Ã²ÃÃ·Ã€Ã Ã‡ÃŠÂ¿Ã¤Â¾Ã¸Â´Ã™.
 	//--------------------------------------------------		
 	//else 
 	if (m_X==next.x && m_Y==next.y)
@@ -8180,16 +8183,16 @@ MCreature::AffectMoveBuffer()
 		DEBUG_ADD_FORMAT("[ Stand ] [ID=%d] : Already Reached (%d, %d) ,  Player=(%d, %d)", m_ID, oldX, oldY, g_pPlayer->GetX(), g_pPlayer->GetY());						
 	}
 	//--------------------------------------------------
-	// ¸ñÀûÁö¿¡ °¡ ÀÖÁö ¾ÊÀº °æ¿ì --> ¿òÁ÷ÀÎ´Ù.
+	// Â¸Ã±Ã€Ã»ÃÃ¶Â¿Â¡ Â°Â¡ Ã€Ã–ÃÃ¶ Â¾ÃŠÃ€Âº Â°Ã¦Â¿Ã¬ --> Â¿Ã²ÃÃ·Ã€ÃÂ´Ã™.
 	//--------------------------------------------------
 	else
 	{		
 		//--------------------------------------------------
-		// ÀÌÀü¿¡ ÀÖ´ø À§Ä¡¿¡¼­ ¿òÁ÷ÀÌ´Â °ÍÀÌ¸é.. 
+		// Ã€ÃŒÃ€Ã¼Â¿Â¡ Ã€Ã–Â´Ã¸ Ã€Â§Ã„Â¡Â¿Â¡Â¼Â­ Â¿Ã²ÃÃ·Ã€ÃŒÂ´Ã‚ Â°ÃÃ€ÃŒÂ¸Ã©.. 
 		//--------------------------------------------------
 		if (m_X==x && m_Y==y)
 		{
-			// ¿òÁ÷ÀÌ´Â µ¿ÀÛÀÌ ³¡³­ »óÅÂÀÌ¸é..
+			// Â¿Ã²ÃÃ·Ã€ÃŒÂ´Ã‚ ÂµÂ¿Ã€Ã›Ã€ÃŒ Â³Â¡Â³Â­ Â»Ã³Ã…Ã‚Ã€ÃŒÂ¸Ã©..
 			if (m_MoveCount>=m_MoveCountMax)
 			{
 				DEBUG_ADD_FORMAT("[ MoveSetting ] [ID=%d] From(%d, %d) to Direction(%d) ,  Player=(%d, %d)", m_ID, x,y, direction, g_pPlayer->GetX(), g_pPlayer->GetY());						
@@ -8199,7 +8202,7 @@ MCreature::AffectMoveBuffer()
 				SetNextAction( m_MoveAction );
 				//m_bNextAction = true;
 			}
-			// ¾ÆÁ÷ ¿òÁ÷ÀÌ°í ÀÖ´Â ÁßÀÌ¸é..
+			// Â¾Ã†ÃÃ· Â¿Ã²ÃÃ·Ã€ÃŒÂ°Ã­ Ã€Ã–Â´Ã‚ ÃÃŸÃ€ÃŒÂ¸Ã©..
 			else
 			{
 				DEBUG_ADD_FORMAT("[ MoveBuffering ][ID=%d] Current(%d, %d), Next(%d, %d) to Direction(%d)", m_ID, m_X, m_Y, x,y, direction);						
@@ -8210,15 +8213,15 @@ MCreature::AffectMoveBuffer()
 			}
 		}
 		//--------------------------------------------------
-		// jumpÇÏ°Ô µÇ´Â °æ¿ì¿¡...
+		// jumpÃ‡ÃÂ°Ã” ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Â¿Â¡...
 		//--------------------------------------------------
-		// ÀÌÀü¿¡ ÀÖ´ø CreatureÀÇ À§Ä¡¸¦ Á¦°ÅÇÑ´Ù.
+		// Ã€ÃŒÃ€Ã¼Â¿Â¡ Ã€Ã–Â´Ã¸ CreatureÃ€Ã‡ Ã€Â§Ã„Â¡Â¸Â¦ ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 		else
 		{
-			// ÀÌÀü¿¡ ÀÖ´ø ÁÂÇ¥(m_X, m_Y)¿¡¼­ »õÁÂÇ¥(x,y)·Î ÀÌµ¿ÇÑ´Ù.			
+			// Ã€ÃŒÃ€Ã¼Â¿Â¡ Ã€Ã–Â´Ã¸ ÃÃ‚Ã‡Â¥(m_X, m_Y)Â¿Â¡Â¼Â­ Â»ÃµÃÃ‚Ã‡Â¥(x,y)Â·Ã Ã€ÃŒÂµÂ¿Ã‡Ã‘Â´Ã™.			
 			MovePosition( x, y );			
 			
-			// »õ ÁÂÇ¥¿¡¼­ ¹æÇâ(direction)À¸·Î ¿òÁ÷¿©¾ß ÇÑ´Ù.
+			// Â»Ãµ ÃÃ‚Ã‡Â¥Â¿Â¡Â¼Â­ Â¹Ã¦Ã‡Ã¢(direction)Ã€Â¸Â·Ã Â¿Ã²ÃÃ·Â¿Â©Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			m_Direction = direction;
 			m_DirectionMove = direction;
 			m_NextDirection = direction;	// 2001.11.6
@@ -8228,7 +8231,7 @@ MCreature::AffectMoveBuffer()
 			DEBUG_ADD_FORMAT("[ Jump ] [ID=%d] : (%d, %d) --> (%d, %d),  Player=(%d, %d)", m_ID, m_X, m_Y, next.x, next.y, g_pPlayer->GetX(), g_pPlayer->GetY());
 		}			
 		
-		// ¹æÇâÀ» Á¤ÇÏ°í ¿òÁ÷ÀÌµµ·Ï ÇÑ´Ù.
+		// Â¹Ã¦Ã‡Ã¢Ã€Â» ÃÂ¤Ã‡ÃÂ°Ã­ Â¿Ã²ÃÃ·Ã€ÃŒÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™.
 		//m_CurrentDirection = direction;
 		//SetNextAction( m_MoveAction );
 	}	
@@ -8239,7 +8242,7 @@ MCreature::AffectMoveBuffer()
 //----------------------------------------------------------------------
 // Get ActionInfo's Action
 //----------------------------------------------------------------------
-// nActionInfo¿¡ ÀûÀıÇÑ ACTIONÀ» Ã£´Â´Ù.
+// nActionInfoÂ¿Â¡ Ã€Ã»Ã€Ã½Ã‡Ã‘ ACTIONÃ€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 //----------------------------------------------------------------------
 int
 MCreature::GetActionInfoAction(TYPE_ACTIONINFO nActionInfo, bool IsSelfAction)
@@ -8258,7 +8261,7 @@ MCreature::GetActionInfoAction(TYPE_ACTIONINFO nActionInfo, bool IsSelfAction)
 //		return ACTION_ATTACK;
 	// 2004, 11, 23, sobeit add end
 	//-------------------------------------------------------------
-	// ±âº» actionÀÇ Àû¿ëÀ» ¹Ş´Â°¡?
+	// Â±Ã¢ÂºÂ» actionÃ€Ã‡ Ã€Ã»Â¿Ã«Ã€Â» Â¹ÃÂ´Ã‚Â°Â¡?
 	//-------------------------------------------------------------
 	if ((*g_pActionInfoTable)[nActionInfo].IsAffectCurrentWeaponAction())
 	{
@@ -8283,7 +8286,7 @@ MCreature::GetActionInfoAction(TYPE_ACTIONINFO nActionInfo, bool IsSelfAction)
 		}
 	}
 	//-------------------------------------------------------------
-	// ¹«±â ¼Óµµ¿¡ µû¶ó¼­ actionÀÌ ´Ş¶óÁø´Ù.
+	// Â¹Â«Â±Ã¢ Â¼Ã“ÂµÂµÂ¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ actionÃ€ÃŒ Â´ÃÂ¶Ã³ÃÃ¸Â´Ã™.
 	//-------------------------------------------------------------
 	if (IsSlayer())
 	{
@@ -8297,7 +8300,7 @@ MCreature::GetActionInfoAction(TYPE_ACTIONINFO nActionInfo, bool IsSelfAction)
 		}
 		
 		//-----------------------------------------------------
-		// Lightning Hand´Â ¹«Á¶°Ç ACTION_SLAYER_SWORD_2ÀÌ´Ù. - -;d
+		// Lightning HandÂ´Ã‚ Â¹Â«ÃÂ¶Â°Ã‡ ACTION_SLAYER_SWORD_2Ã€ÃŒÂ´Ã™. - -;d
 		//-----------------------------------------------------
 		if (nActionInfo==SKILL_LIGHTNING_HAND || nActionInfo == SKILL_LARSLASH )
 		{
@@ -8349,7 +8352,7 @@ MCreature::GetActionInfoAction(TYPE_ACTIONINFO nActionInfo, bool IsSelfAction)
 		}		
 	}
 	// 2004, 7, 27 sobeit add start
-	if (m_CreatureType==717 || m_CreatureType==721 || m_CreatureType==723) // Áúµå·¹, Áúµå·¹ ºĞ½Å, °¢¼º Áúµå·¹
+	if (m_CreatureType==717 || m_CreatureType==721 || m_CreatureType==723) // ÃÃºÂµÃ¥Â·Â¹, ÃÃºÂµÃ¥Â·Â¹ ÂºÃÂ½Ã…, Â°Â¢Â¼Âº ÃÃºÂµÃ¥Â·Â¹
 	{
 		if(action <ACTION_MAX_OUSTERS)
 			return action;
@@ -8379,7 +8382,7 @@ MCreature::GetActionInfoAction(TYPE_ACTIONINFO nActionInfo, bool IsSelfAction)
 //----------------------------------------------------------------------
 // Get ActionInfo's CastingStartFrame
 //----------------------------------------------------------------------
-// nActionInfo¿¡ ÀûÀıÇÑ CastingStartFrameÀ» Ã£´Â´Ù.
+// nActionInfoÂ¿Â¡ Ã€Ã»Ã€Ã½Ã‡Ã‘ CastingStartFrameÃ€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 //----------------------------------------------------------------------
 int			
 MCreature::GetActionInfoCastingStartFrame(TYPE_ACTIONINFO nActionInfo)
@@ -8391,7 +8394,7 @@ MCreature::GetActionInfoCastingStartFrame(TYPE_ACTIONINFO nActionInfo)
 	}
 
 	//-------------------------------------------------------------
-	// ±âº» actionÀÇ Àû¿ëÀ» ¹Ş´Â°¡?
+	// Â±Ã¢ÂºÂ» actionÃ€Ã‡ Ã€Ã»Â¿Ã«Ã€Â» Â¹ÃÂ´Ã‚Â°Â¡?
 	//-------------------------------------------------------------
 	if ((*g_pActionInfoTable)[nActionInfo].IsAffectCurrentWeaponCastingStartFrame())
 	{
@@ -8426,7 +8429,7 @@ MCreature::GetActionInfoCastingStartFrame(TYPE_ACTIONINFO nActionInfo)
 //----------------------------------------------------------------------
 // Get ActionInfo's RepeatStartFrame
 //----------------------------------------------------------------------
-// nActionInfo¿¡ ÀûÀıÇÑ RepeatStartFrameÀ» Ã£´Â´Ù.
+// nActionInfoÂ¿Â¡ Ã€Ã»Ã€Ã½Ã‡Ã‘ RepeatStartFrameÃ€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 //----------------------------------------------------------------------
 int			
 MCreature::GetActionInfoRepeatStartFrame(TYPE_ACTIONINFO nActionInfo)
@@ -8440,7 +8443,7 @@ MCreature::GetActionInfoRepeatStartFrame(TYPE_ACTIONINFO nActionInfo)
 	int repeat;
 
 	//-------------------------------------------------------------
-	// ±âº» actionÀÇ Àû¿ëÀ» ¹Ş´Â°¡?
+	// Â±Ã¢ÂºÂ» actionÃ€Ã‡ Ã€Ã»Â¿Ã«Ã€Â» Â¹ÃÂ´Ã‚Â°Â¡?
 	//-------------------------------------------------------------
 	if ((*g_pActionInfoTable)[nActionInfo].IsAffectCurrentWeaponCastingStartFrame())
 	{
@@ -8492,7 +8495,7 @@ MCreature::GetActionInfoRepeatStartFrame(TYPE_ACTIONINFO nActionInfo)
 //----------------------------------------------------------------------
 // Get ActionInfo's RepeatEndFrame
 //----------------------------------------------------------------------
-// nActionInfo¿¡ ÀûÀıÇÑ RepeatEndFrameÀ» Ã£´Â´Ù.
+// nActionInfoÂ¿Â¡ Ã€Ã»Ã€Ã½Ã‡Ã‘ RepeatEndFrameÃ€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 //----------------------------------------------------------------------
 int			
 MCreature::GetActionInfoRepeatEndFrame(TYPE_ACTIONINFO nActionInfo)
@@ -8505,7 +8508,7 @@ MCreature::GetActionInfoRepeatEndFrame(TYPE_ACTIONINFO nActionInfo)
 
 	int repeat;
 	//-------------------------------------------------------------
-	// ±âº» actionÀÇ Àû¿ëÀ» ¹Ş´Â°¡?
+	// Â±Ã¢ÂºÂ» actionÃ€Ã‡ Ã€Ã»Â¿Ã«Ã€Â» Â¹ÃÂ´Ã‚Â°Â¡?
 	//-------------------------------------------------------------
 	if ((*g_pActionInfoTable)[nActionInfo].IsAffectCurrentWeaponCastingStartFrame())
 	{
@@ -8556,7 +8559,7 @@ MCreature::GetActionInfoRepeatEndFrame(TYPE_ACTIONINFO nActionInfo)
 //----------------------------------------------------------------------
 // Get ActionInfo's CastingFrames
 //----------------------------------------------------------------------
-// nActionInfo¿¡ ÀûÀıÇÑ CastingFramesÀ» Ã£´Â´Ù.
+// nActionInfoÂ¿Â¡ Ã€Ã»Ã€Ã½Ã‡Ã‘ CastingFramesÃ€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 //----------------------------------------------------------------------
 int			
 MCreature::GetActionInfoCastingFrames(TYPE_ACTIONINFO nActionInfo)
@@ -8568,7 +8571,7 @@ MCreature::GetActionInfoCastingFrames(TYPE_ACTIONINFO nActionInfo)
 	}
 
 	//-------------------------------------------------------------
-	// ±âº» actionÀÇ Àû¿ëÀ» ¹Ş´Â°¡?
+	// Â±Ã¢ÂºÂ» actionÃ€Ã‡ Ã€Ã»Â¿Ã«Ã€Â» Â¹ÃÂ´Ã‚Â°Â¡?
 	//-------------------------------------------------------------
 	if ((*g_pActionInfoTable)[nActionInfo].IsAffectCurrentWeaponCastingFrames())
 	{
@@ -8581,7 +8584,7 @@ MCreature::GetActionInfoCastingFrames(TYPE_ACTIONINFO nActionInfo)
 //----------------------------------------------------------------------
 // Get ActionInfo's Delay
 //----------------------------------------------------------------------
-// nActionInfo¿¡ ÀûÀıÇÑ Delay¸¦ Ã£´Â´Ù.
+// nActionInfoÂ¿Â¡ Ã€Ã»Ã€Ã½Ã‡Ã‘ DelayÂ¸Â¦ ÃƒÂ£Â´Ã‚Â´Ã™.
 //----------------------------------------------------------------------
 int
 MCreature::GetActionInfoDelay(TYPE_ACTIONINFO nActionInfo)
@@ -8606,7 +8609,7 @@ MCreature::GetActionInfoDelay(TYPE_ACTIONINFO nActionInfo)
 //		}
 //	} 
 	//-------------------------------------------------------------
-	// ±âº» actionÀÇ Àû¿ëÀ» ¹Ş´Â°¡?
+	// Â±Ã¢ÂºÂ» actionÃ€Ã‡ Ã€Ã»Â¿Ã«Ã€Â» Â¹ÃÂ´Ã‚Â°Â¡?
 	//-------------------------------------------------------------
 	if ((*g_pActionInfoTable)[nActionInfo].IsAffectCurrentWeaponDelay())
 	{
@@ -8619,13 +8622,13 @@ MCreature::GetActionInfoDelay(TYPE_ACTIONINFO nActionInfo)
 //----------------------------------------------------------------------
 // Get Casting SoundID
 //----------------------------------------------------------------------
-// nActionInfo¿¡ ÀûÀıÇÑ ACTIONÀ» Ã£´Â´Ù.
+// nActionInfoÂ¿Â¡ Ã€Ã»Ã€Ã½Ã‡Ã‘ ACTIONÃ€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 //----------------------------------------------------------------------
 TYPE_SOUNDID
 MCreature::GetCastingSoundID(TYPE_ACTIONINFO nActionInfo)
 {
 	//-------------------------------------------------------------
-	// ±âº» ¹«±âÀÇ Àû¿ëÀ» ¹Ş´Â°¡?
+	// Â±Ã¢ÂºÂ» Â¹Â«Â±Ã¢Ã€Ã‡ Ã€Ã»Â¿Ã«Ã€Â» Â¹ÃÂ´Ã‚Â°Â¡?
 	//-------------------------------------------------------------
 	if ((*g_pActionInfoTable)[nActionInfo].IsAffectCurrentWeaponSound())
 	{
@@ -8638,7 +8641,7 @@ MCreature::GetCastingSoundID(TYPE_ACTIONINFO nActionInfo)
 //----------------------------------------------------------------------
 // Get ActionInfo ActionEffectSpriteType
 //----------------------------------------------------------------------
-// nActionInfo¿¡ ÀûÀıÇÑ ActionEffectSpriteTypeÀ» Ã£´Â´Ù.
+// nActionInfoÂ¿Â¡ Ã€Ã»Ã€Ã½Ã‡Ã‘ ActionEffectSpriteTypeÃ€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 //----------------------------------------------------------------------
 int
 MCreature::GetActionInfoActionEffectSpriteType(TYPE_ACTIONINFO nActionInfo)
@@ -8653,7 +8656,7 @@ MCreature::GetActionInfoActionEffectSpriteType(TYPE_ACTIONINFO nActionInfo)
 
 
 	//-------------------------------------------------------------
-	// ±âº» ¹«±âÀÇ Àû¿ëÀ» ¹Ş´Â°¡?
+	// Â±Ã¢ÂºÂ» Â¹Â«Â±Ã¢Ã€Ã‡ Ã€Ã»Â¿Ã«Ã€Â» Â¹ÃÂ´Ã‚Â°Â¡?
 	//-------------------------------------------------------------
 	if ((*g_pActionInfoTable)[nActionInfo].IsAffectCurrentWeaponActionEffectSpriteType())
 	{
@@ -8664,15 +8667,15 @@ MCreature::GetActionInfoActionEffectSpriteType(TYPE_ACTIONINFO nActionInfo)
 		useActionInfo = nActionInfo;
 	}
 
-	// plus¸¸Å­ ´õÇÑ´Ù.
-	// ÀÓ½Ã ¶«»§~~ ±×·¯³ª.. ¾ÕÀ¸·Îµµ °íÄ¡Áö ¾Ê°ÚÁö - -;
+	// plusÂ¸Â¸Ã…Â­ Â´ÃµÃ‡Ã‘Â´Ã™.
+	// Ã€Ã“Â½Ãƒ Â¶Â«Â»Â§~~ Â±Ã—Â·Â¯Â³Âª.. Â¾Ã•Ã€Â¸Â·ÃÂµÂµ Â°Ã­Ã„Â¡ÃÃ¶ Â¾ÃŠÂ°ÃšÃÃ¶ - -;
 	useActionInfo += (*g_pActionInfoTable)[nActionInfo].GetAffectCurrentWeaponActionInfoPlus();
 
 
 	TYPE_EFFECTSPRITETYPE re_est = EFFECTSPRITETYPE_NULL;
 
 	//------------------------------------------------------------
-	// ³²ÀÚÀÎ °æ¿ì
+	// Â³Â²Ã€ÃšÃ€Ã Â°Ã¦Â¿Ã¬
 	//------------------------------------------------------------
 	if (IsMale())
 	{
@@ -8721,7 +8724,7 @@ MCreature::GetActionInfoActionEffectSpriteType(TYPE_ACTIONINFO nActionInfo)
 	}
 	
 	//------------------------------------------------------------
-	// ¿©ÀÚ¿ë Effect check
+	// Â¿Â©Ã€ÃšÂ¿Ã« Effect check
 	//------------------------------------------------------------	
 	TYPE_EFFECTSPRITETYPE effectSpriteTypeFemale = (*g_pActionInfoTable)[useActionInfo].GetActionEffectSpriteTypeFemale();
 
@@ -8771,7 +8774,7 @@ MCreature::GetActionInfoActionEffectSpriteType(TYPE_ACTIONINFO nActionInfo)
 		return re_est;
 	}
 	
-	// ¾ø´Â °æ¿ì´Â ³²ÀÚ²¨ »ç¿ë..
+	// Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬Â´Ã‚ Â³Â²Ã€ÃšÂ²Â¨ Â»Ã§Â¿Ã«..
 	re_est = (*g_pActionInfoTable)[useActionInfo].GetActionEffectSpriteType();
 	if(nActionInfo == SKILL_BULLET_OF_LIGHT)
 	{
@@ -8819,33 +8822,33 @@ MCreature::GetActionInfoActionEffectSpriteType(TYPE_ACTIONINFO nActionInfo)
 //----------------------------------------------------------------------
 // Packet SpecialAction Result
 //----------------------------------------------------------------------
-// this Creature´Â Damage¸¦ ¹Ş¾ÒÀ¸¹Ç·Î
+// this CreatureÂ´Ã‚ DamageÂ¸Â¦ Â¹ÃÂ¾Ã’Ã€Â¸Â¹Ã‡Â·Ã
 //
-// 0. ¸ğµç µ¿ÀÛÀ» ÁßÁöÇÏ°í..
-// 1. Action --> Damage¹Ş´Â µ¿ÀÛ
-// 2. Damage Ç¥½Ã
+// 0. Â¸Ã°ÂµÃ§ ÂµÂ¿Ã€Ã›Ã€Â» ÃÃŸÃÃ¶Ã‡ÃÂ°Ã­..
+// 1. Action --> DamageÂ¹ÃÂ´Ã‚ ÂµÂ¿Ã€Ã›
+// 2. Damage Ã‡Â¥Â½Ãƒ
 //----------------------------------------------------------------------
 void		
 MCreature::PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJECTID id, TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, BYTE temp)
 {
 	//--------------------------------------------------
-	// Á×¾úÀ¸¸é return
+	// ÃÃ—Â¾ÃºÃ€Â¸Â¸Ã© return
 	//--------------------------------------------------
 	/*
-	// ¿©±â¼­ returnÇØ¹ö¸®¸é Á×À»¶§ ¸Â´Â ÀÌÆåÆ®°¡ ¾È º¸ÀÎ´Ù.
+	// Â¿Â©Â±Ã¢Â¼Â­ returnÃ‡Ã˜Â¹Ã¶Â¸Â®Â¸Ã© ÃÃ—Ã€Â»Â¶Â§ Â¸Ã‚Â´Ã‚ Ã€ÃŒÃ†Ã¥Ã†Â®Â°Â¡ Â¾Ãˆ ÂºÂ¸Ã€ÃÂ´Ã™.
 	if (!m_bAlive)
 	{
-		// Á×¾úÀ»¶§´Â Á×´Â effect¸»°í´Â º¸¿©ÁÖ¸é ¾ÈµÈ´Ù.
+		// ÃÃ—Â¾ÃºÃ€Â»Â¶Â§Â´Ã‚ ÃÃ—Â´Ã‚ effectÂ¸Â»Â°Ã­Â´Ã‚ ÂºÂ¸Â¿Â©ÃÃ–Â¸Ã© Â¾ÃˆÂµÃˆÂ´Ã™.
 		if (nResultActionInfo!=(*g_pCreatureTable)[m_CreatureType].DeadActionInfo)
 			return;
 	}
 	*/
 
 	//----------------------------------------------------------------------
-	// °á°ú actionÀÌ ¾Æ´Ñ °æ¿ì..  - ÀÇ¹Ì°¡ ÀÖ³ª?? Èì..
+	// Â°Ã¡Â°Ãº actionÃ€ÃŒ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬..  - Ã€Ã‡Â¹ÃŒÂ°Â¡ Ã€Ã–Â³Âª?? ÃˆÃ¬..
 	//----------------------------------------------------------------------
 	if (nResultActionInfo < (*g_pActionInfoTable).GetMinResultActionInfo()
-		// fast move, knockbackÁß¿¡´Â actionÀ» º¸¿©ÁÖÁö ¾Ê´Â´Ù... // 2001.10.9
+		// fast move, knockbackÃÃŸÂ¿Â¡Â´Ã‚ actionÃ€Â» ÂºÂ¸Â¿Â©ÃÃ–ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™... // 2001.10.9
 		|| m_bFastMove || m_bKnockBack || nResultActionInfo == ACTIONINFO_NULL)
 	{
 		return;
@@ -8853,12 +8856,12 @@ MCreature::PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJ
 
 
 	//----------------------------------------------------------------------
-	// ¹æ¾î¸· È¿°ú.. - -;
+	// Â¹Ã¦Â¾Ã®Â¸Â· ÃˆÂ¿Â°Ãº.. - -;
 	//----------------------------------------------------------------------
 	if (GetActionInfoAction( nResultActionInfo )==ACTION_DAMAGED)
 	{
-		// Á×¾úÀ»¶§ ¸Â´Â µ¿ÀÛ ¾È º¸¿©ÁÖ±â..
-		// Å¸ÀÏ ±â¼ú¶§¹®¿¡ ¸Â±âµµ ÇÏ´õ¶ó´Â.. - -;
+		// ÃÃ—Â¾ÃºÃ€Â»Â¶Â§ Â¸Ã‚Â´Ã‚ ÂµÂ¿Ã€Ã› Â¾Ãˆ ÂºÂ¸Â¿Â©ÃÃ–Â±Ã¢..
+		// Ã…Â¸Ã€Ã Â±Ã¢Â¼ÃºÂ¶Â§Â¹Â®Â¿Â¡ Â¸Ã‚Â±Ã¢ÂµÂµ Ã‡ÃÂ´ÃµÂ¶Ã³Â´Ã‚.. - -;
 		// 2002.3.9
 		if (!m_bAlive)
 		{
@@ -8887,21 +8890,21 @@ MCreature::PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJ
 	}
 
 
-	// ÀÌµ¿À» ÁßÁöÇÑ´Ù.
+	// Ã€ÃŒÂµÂ¿Ã€Â» ÃÃŸÃÃ¶Ã‡Ã‘Â´Ã™.
 	////m_sX = 0;	
 	////m_sY = 0;	
 	//SetStop();
 
 	//m_ActionCount = 0; 
 	//------------------------------------------------------
-	// ÀÌ¹Ì NextUsedACtionInfo°¡ ÀÖ´Â °æ¿ì Ã¼Å©
+	// Ã€ÃŒÂ¹ÃŒ NextUsedACtionInfoÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬ ÃƒÂ¼Ã…Â©
 	//------------------------------------------------------
 	AffectBufferedActionInfo();
 	
 	ActionMoveNextPosition();
 
-	// nResultActionInfo¿¡ ÇØ´çÇÏ´Â ActionInfo¸¦ Ã£¾Æ¾ß ÇÑ´Ù.
-	// ¿ø·¡ActionInfo + MIN_RESULT_ACTIONINFO¸¦ ÇÏ¸é µÈ´Ù.
+	// nResultActionInfoÂ¿Â¡ Ã‡Ã˜Â´Ã§Ã‡ÃÂ´Ã‚ ActionInfoÂ¸Â¦ ÃƒÂ£Â¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã™.
+	// Â¿Ã¸Â·Â¡ActionInfo + MIN_RESULT_ACTIONINFOÂ¸Â¦ Ã‡ÃÂ¸Ã© ÂµÃˆÂ´Ã™.
 	m_nNextUsedActionInfo	= nResultActionInfo; // +(*g_pActionInfoTable).GetMinResultActionInfo()
 
 	if( temp != 0)
@@ -8918,7 +8921,7 @@ MCreature::PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJ
 		}
 	}
 
-	// ÀÚ½Å¿¡°Ô »ç¿ë?..
+	// Ã€ÃšÂ½Ã…Â¿Â¡Â°Ã” Â»Ã§Â¿Ã«?..
 	SetTraceID( id );
 	m_TraceX	= sX;
 	m_TraceY	= sY;
@@ -8936,29 +8939,29 @@ MCreature::PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJ
 //----------------------------------------------------------------------
 // Packet AttackNormal (x,y, d)
 //----------------------------------------------------------------------
-// this Creature´Â Attack µ¿ÀÛÀ» ÃëÇÑ´Ù.
+// this CreatureÂ´Ã‚ Attack ÂµÂ¿Ã€Ã›Ã€Â» ÃƒÃ«Ã‡Ã‘Â´Ã™.
 //
-// 0. ¸ğµç µ¿ÀÛÀ» ÁßÁöÇÏ°í..
+// 0. Â¸Ã°ÂµÃ§ ÂµÂ¿Ã€Ã›Ã€Â» ÃÃŸÃÃ¶Ã‡ÃÂ°Ã­..
 // 1. Action Attack
 //----------------------------------------------------------------------
 void		
 MCreature::PacketAttackNormal(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, BYTE direction)
 {
 	//--------------------------------------------------
-	// Á×¾úÀ¸¸é return
+	// ÃÃ—Â¾ÃºÃ€Â¸Â¸Ã© return
 	//--------------------------------------------------
 	if (!m_bAlive)
 		return;
 
-	// ÀÌµ¿À» ÁßÁöÇÑ´Ù.
+	// Ã€ÃŒÂµÂ¿Ã€Â» ÃÃŸÃÃ¶Ã‡Ã‘Â´Ã™.
 	m_sX = 0;	
 	m_sY = 0;
 	
-	// server¿¡¼­ ³¯¾Æ¿Â~ Á¤º¸ ¼³Á¤..
+	// serverÂ¿Â¡Â¼Â­ Â³Â¯Â¾Ã†Â¿Ã‚~ ÃÂ¤ÂºÂ¸ Â¼Â³ÃÂ¤..
 	//--------------------------------------------------
-	// Player°¡ ÀÌ¹Ì ±× ÀÚ¸®¿¡ ÀÖ´Ù¸é....
+	// PlayerÂ°Â¡ Ã€ÃŒÂ¹ÃŒ Â±Ã— Ã€ÃšÂ¸Â®Â¿Â¡ Ã€Ã–Â´Ã™Â¸Ã©....
 	//--------------------------------------------------
-	// ¸ø °£´Ù~~
+	// Â¸Ã¸ Â°Â£Â´Ã™~~
 	/*
 	if (g_pPlayer->GetX()==sX && g_pPlayer->GetY()==sY)
 	{
@@ -8968,14 +8971,14 @@ MCreature::PacketAttackNormal(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, BY
 			g_pDebugMessage->Next();
 		#endif
 
-		// ÇöÀç Player°¡ ÀÖ´Â À§Ä¡·Î ¹Ù¶óº»´Ù.
+		// Ã‡Ã¶Ã€Ã§ PlayerÂ°Â¡ Ã€Ã–Â´Ã‚ Ã€Â§Ã„Â¡Â·Ã Â¹Ã™Â¶Ã³ÂºÂ»Â´Ã™.
 		SetDirectionToPosition( g_pPlayer->GetX(), g_pPlayer->GetY() );
 	}	
 	else
 	*/
 	{
 		//--------------------------------------------------
-		// ´Ù¸¥ Creature°¡ ÀÌ¹Ì ÀÖ´Ù¸é?
+		// Â´Ã™Â¸Â¥ CreatureÂ°Â¡ Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã™Â¸Ã©?
 		//--------------------------------------------------
 		/*
 		bool bIsExistCreature;
@@ -8995,27 +8998,27 @@ MCreature::PacketAttackNormal(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, BY
 		}
 		*/	
 
-		// ÇöÀç ÁÂÇ¥¿Í °°Àº °æ¿ì.. ¿òÁ÷ÀÏ ÇÊ¿ä°¡ ¾ø´Ù.
+		// Ã‡Ã¶Ã€Ã§ ÃÃ‚Ã‡Â¥Â¿Ã Â°Â°Ã€Âº Â°Ã¦Â¿Ã¬.. Â¿Ã²ÃÃ·Ã€Ã Ã‡ÃŠÂ¿Ã¤Â°Â¡ Â¾Ã¸Â´Ã™.
 		if (m_X==sX && m_Y==sY)
 		{
 		}
-		// ÁÂÇ¥°¡ ´Ù¸£¸é.. ÀÏ´Ü ¿òÁ÷¿©ÁÖ°í AttackÇØ¾ß ÇÑ´Ù.
+		// ÃÃ‚Ã‡Â¥Â°Â¡ Â´Ã™Â¸Â£Â¸Ã©.. Ã€ÃÂ´Ãœ Â¿Ã²ÃÃ·Â¿Â©ÃÃ–Â°Ã­ AttackÃ‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 		else
 		{
-			// ÀÌµ¿
+			// Ã€ÃŒÂµÂ¿
 			MovePosition(sX, sY);
 			
 			// message
 			DEBUG_ADD_FORMAT("[ Move To Attack ] : (%d, %d) --> (%d, %d),  Player=(%d, %d)", m_X, m_Y, sX, sY, g_pPlayer->GetX(), g_pPlayer->GetY());								
 		}	
 
-		// Server¿¡¼­ ³¯¾Æ¿Â Á¤º¸ ¼³Á¤..		
+		// ServerÂ¿Â¡Â¼Â­ Â³Â¯Â¾Ã†Â¿Ã‚ ÃÂ¤ÂºÂ¸ Â¼Â³ÃÂ¤..		
 		m_Direction = direction;
 	}		
 
 	m_ActionCount = 0; 
 
-	// °ø°İÇÏ´Â motion
+	// Â°Ã¸Â°ÃÃ‡ÃÂ´Ã‚ motion
 	m_nNextUsedActionInfo	= SKILL_ATTACK_MELEE;
 	SetNextAction( GetActionInfoAction(m_nNextUsedActionInfo) );	
 }
@@ -9023,9 +9026,9 @@ MCreature::PacketAttackNormal(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, BY
 //----------------------------------------------------------------------
 // Packet SpecialAction To Sector
 //----------------------------------------------------------------------
-// this Creature´Â nActionInfo¿¡ µû¸¥ µ¿ÀÛÀ» ÃëÇÑ´Ù.
+// this CreatureÂ´Ã‚ nActionInfoÂ¿Â¡ ÂµÃ»Â¸Â¥ ÂµÂ¿Ã€Ã›Ã€Â» ÃƒÃ«Ã‡Ã‘Â´Ã™.
 //
-// 0. ¸ğµç µ¿ÀÛÀ» ÁßÁöÇÏ°í..
+// 0. Â¸Ã°ÂµÃ§ ÂµÂ¿Ã€Ã›Ã€Â» ÃÃŸÃÃ¶Ã‡ÃÂ°Ã­..
 // 1. SpecialAction
 //----------------------------------------------------------------------
 void		
@@ -9034,7 +9037,7 @@ MCreature::PacketSpecialActionToSector(TYPE_ACTIONINFO nActionInfo, TYPE_SECTORP
 {
 	DEBUG_ADD_FORMAT("PacketSpecialActionToSector ai : %d", nActionInfo );
 	//--------------------------------------------------
-	// Á×¾úÀ¸¸é return
+	// ÃÃ—Â¾ÃºÃ€Â¸Â¸Ã© return
 	//--------------------------------------------------
 	if (!m_bAlive || (
 		nActionInfo>=(*g_pActionInfoTable).GetMinResultActionInfo() &&
@@ -9053,7 +9056,7 @@ MCreature::PacketSpecialActionToSector(TYPE_ACTIONINFO nActionInfo, TYPE_SECTORP
 	}
 
 	//------------------------------------------------------
-	// Sector¿¡ »ç¿ëÇÏ´Â ±â¼úÀÌ ¸Â´Â °æ¿ì
+	// SectorÂ¿Â¡ Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Â±Ã¢Â¼ÃºÃ€ÃŒ Â¸Ã‚Â´Ã‚ Â°Ã¦Â¿Ã¬
 	//------------------------------------------------------
 	//DEBUG_ADD("fuck");
 	if ((*g_pActionInfoTable)[nActionInfo].IsTargetZone() ||
@@ -9065,7 +9068,7 @@ MCreature::PacketSpecialActionToSector(TYPE_ACTIONINFO nActionInfo, TYPE_SECTORP
 	{
 	//	DEBUG_ADD("hmhm");
 		//---------------------------------------------------------------
-		// ³È³È.. 2001.10.28
+		// Â³ÃˆÂ³Ãˆ.. 2001.10.28
 		//---------------------------------------------------------------
 		AffectMoveBufferAll();
 	//	DEBUG_ADD("3");
@@ -9073,7 +9076,7 @@ MCreature::PacketSpecialActionToSector(TYPE_ACTIONINFO nActionInfo, TYPE_SECTORP
 		ActionMoveNextPosition();
 	//	DEBUG_ADD("2");
 
-		// ÀÌµ¿À» ÁßÁöÇÑ´Ù.
+		// Ã€ÃŒÂµÂ¿Ã€Â» ÃÃŸÃÃ¶Ã‡Ã‘Â´Ã™.
 	//	m_sX = 0;	
 	//	m_sY = 0;
 		if (nActionInfo==m_nSpecialActionInfo && m_nSpecialActionInfo!=ACTIONINFO_NULL)
@@ -9088,17 +9091,17 @@ MCreature::PacketSpecialActionToSector(TYPE_ACTIONINFO nActionInfo, TYPE_SECTORP
 
 		m_nSpecialActionInfo = nActionInfo;
 		//------------------------------------------------------
-		// ÀÌ¹Ì NextUsedACtionInfo°¡ ÀÖ´Â °æ¿ì Ã¼Å©
+		// Ã€ÃŒÂ¹ÃŒ NextUsedACtionInfoÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬ ÃƒÂ¼Ã…Â©
 		//------------------------------------------------------
 		AffectBufferedActionInfo();
 	//	DEBUG_ADD("1");
 
-		// Server¿¡¼­ ³¯¾Æ¿Â Á¤º¸ ¼³Á¤..	
+		// ServerÂ¿Â¡Â¼Â­ Â³Â¯Â¾Ã†Â¿Ã‚ ÃÂ¤ÂºÂ¸ Â¼Â³ÃÂ¤..	
 		m_nNextUsedActionInfo	= nActionInfo;
 		m_TraceX		= sX;
 		m_TraceY		= sY;
-		m_TraceZ		= 0;	// z°ªÀº.. ÀÇ¹Ì°¡ ÀÖÀ»±î..
-		// 2004, 11, 4, sobeit modify start - ±×·¹ÀÌÆ® ·¯ÇÇ¾ğ ¶«¿¡...
+		m_TraceZ		= 0;	// zÂ°ÂªÃ€Âº.. Ã€Ã‡Â¹ÃŒÂ°Â¡ Ã€Ã–Ã€Â»Â±Ã®..
+		// 2004, 11, 4, sobeit modify start - Â±Ã—Â·Â¹Ã€ÃŒÃ†Â® Â·Â¯Ã‡Ã‡Â¾Ã° Â¶Â«Â¿Â¡...
 		if(GetCreatureType() == 764 || GetCreatureType() == 765)
 		{
 			SetTraceID( GetID() );
@@ -9110,7 +9113,7 @@ MCreature::PacketSpecialActionToSector(TYPE_ACTIONINFO nActionInfo, TYPE_SECTORP
 		// 2004, 11, 4, sobeit modify end
 
 		
-		// ¸ñÇ¥¸¦ ÇâÇØ¼­ ¹Ù¶óº»´Ù.
+		// Â¸Ã±Ã‡Â¥Â¸Â¦ Ã‡Ã¢Ã‡Ã˜Â¼Â­ Â¹Ã™Â¶Ã³ÂºÂ»Â´Ã™.
 		//SetDirectionToPosition(sX, sY);
 		
 	//	m_ActionCount = 0;
@@ -9129,19 +9132,19 @@ MCreature::PacketSpecialActionToSector(TYPE_ACTIONINFO nActionInfo, TYPE_SECTORP
 		}
 
 		//---------------------------------------------------------------
-		// ÀÌ¹Ì Ç¥ÇöÇØ¾ßÇÒ °á°ú°¡ ÀÖ´Â °æ¿ì..
+		// Ã€ÃŒÂ¹ÃŒ Ã‡Â¥Ã‡Ã¶Ã‡Ã˜Â¾ÃŸÃ‡Ã’ Â°Ã¡Â°ÃºÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬..
 		//---------------------------------------------------------------
 	//	DEBUG_ADD("7");
 		if (m_pActionResult != NULL)
 		{
 			DEBUG_ADD("Execute Old Result");
 
-			// ÀÌ¹Ì ÀÖ´ø °á°ú¸¦ Ã³¸®ÇØÁØ´Ù.	
+			// Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã¸ Â°Ã¡Â°ÃºÂ¸Â¦ ÃƒÂ³Â¸Â®Ã‡Ã˜ÃÃ˜Â´Ã™.	
 			// [ TEST CODE ]
-			// °á°ú Ã³¸®..
+			// Â°Ã¡Â°Ãº ÃƒÂ³Â¸Â®..
 			//
-			// (!) m_pActionResult°ªÀÌ Execute¿¡¼­ º¯ÇÒ ¼ö ÀÖ¾î¼­ 
-			//		ÀúÀåÇß´Ù°¡ Áö¿öÁà¾ß ÇÑ´Ù.
+			// (!) m_pActionResultÂ°ÂªÃ€ÃŒ ExecuteÂ¿Â¡Â¼Â­ ÂºÂ¯Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â¾Ã®Â¼Â­ 
+			//		Ã€ÃºÃ€Ã¥Ã‡ÃŸÂ´Ã™Â°Â¡ ÃÃ¶Â¿Ã¶ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			MActionResult* pOldResult = m_pActionResult;
 
 			m_pActionResult = NULL;
@@ -9152,13 +9155,13 @@ MCreature::PacketSpecialActionToSector(TYPE_ACTIONINFO nActionInfo, TYPE_SECTORP
 		}
 
 	//	DEBUG_ADD("6");
-		// °á°ú¸¦ ¼³Á¤
+		// Â°Ã¡Â°ÃºÂ¸Â¦ Â¼Â³ÃÂ¤
 		m_pActionResult = pActionResult;
 
 	//	DEBUG_ADD("5");
 	}
 	//------------------------------------------------------
-	// ¾Æ´Ñ °æ¿ì
+	// Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬
 	//------------------------------------------------------
 	else
 	{
@@ -9173,16 +9176,16 @@ MCreature::PacketSpecialActionToSector(TYPE_ACTIONINFO nActionInfo, TYPE_SECTORP
 //----------------------------------------------------------------------
 // Packet SpecialAction To Other
 //----------------------------------------------------------------------
-// this Creature´Â nActionInfo¿¡ µû¸¥ µ¿ÀÛÀ» ÃëÇÑ´Ù.
+// this CreatureÂ´Ã‚ nActionInfoÂ¿Â¡ ÂµÃ»Â¸Â¥ ÂµÂ¿Ã€Ã›Ã€Â» ÃƒÃ«Ã‡Ã‘Â´Ã™.
 //
-// 0. ¸ğµç µ¿ÀÛÀ» ÁßÁöÇÏ°í..
+// 0. Â¸Ã°ÂµÃ§ ÂµÂ¿Ã€Ã›Ã€Â» ÃÃŸÃÃ¶Ã‡ÃÂ°Ã­..
 // 1. SpecialAction
 //----------------------------------------------------------------------
 void		
 MCreature::PacketSpecialActionToOther(TYPE_ACTIONINFO nActionInfo, TYPE_OBJECTID id, MActionResult* pActionResult)
 {
 	//--------------------------------------------------
-	// Á×¾úÀ¸¸é return
+	// ÃÃ—Â¾ÃºÃ€Â¸Â¸Ã© return
 	//--------------------------------------------------
 	if (!m_bAlive || 
 		nActionInfo>=(*g_pActionInfoTable).GetMinResultActionInfo() &&
@@ -9196,16 +9199,16 @@ MCreature::PacketSpecialActionToOther(TYPE_ACTIONINFO nActionInfo, TYPE_OBJECTID
 		return;
 	}
 	//------------------------------------------------------
-	// Å¸ÀÎ¿¡°Ô »ç¿ëÇÏ´Â ±â¼úÀÌ ¸Â´Â °æ¿ì
+	// Ã…Â¸Ã€ÃÂ¿Â¡Â°Ã” Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Â±Ã¢Â¼ÃºÃ€ÃŒ Â¸Ã‚Â´Ã‚ Â°Ã¦Â¿Ã¬
 	//------------------------------------------------------
 	if ((*g_pActionInfoTable)[nActionInfo].IsTargetOther())
 	{
-		// ´ë»óÀÌ µÇ´Â creature¸¦ ¾ò´Â´Ù.
+		// Â´Ã«Â»Ã³Ã€ÃŒ ÂµÃ‡Â´Ã‚ creatureÂ¸Â¦ Â¾Ã²Â´Ã‚Â´Ã™.
 		MCreature* pCreature = g_pZone->GetCreature( id );
 		
 		if (pCreature==NULL)
 		{
-			// ±×·± creature°¡ ¾øÀ» °æ¿ì
+			// Â±Ã—Â·Â± creatureÂ°Â¡ Â¾Ã¸Ã€Â» Â°Ã¦Â¿Ã¬
 			DEBUG_ADD_FORMAT("[Skill : %s] There's no such creature(%d)", (*g_pActionInfoTable)[nActionInfo].GetName(), id);
 
 			if (pActionResult!=NULL)
@@ -9217,19 +9220,19 @@ MCreature::PacketSpecialActionToOther(TYPE_ACTIONINFO nActionInfo, TYPE_OBJECTID
 		}
 
 		//---------------------------------------------------------------
-		// ³È³È.. 2001.10.28
+		// Â³ÃˆÂ³Ãˆ.. 2001.10.28
 		//---------------------------------------------------------------
 		AffectMoveBufferAll();
 
 		ActionMoveNextPosition();
 
-		// ÀÌµ¿À» ÁßÁöÇÑ´Ù.
+		// Ã€ÃŒÂµÂ¿Ã€Â» ÃÃŸÃÃ¶Ã‡Ã‘Â´Ã™.
 		//m_sX = 0;	
 		//m_sY = 0;
 
 		//------------------------------------------------------
-		// ÀÌÀü µ¿ÀÛÀÌ¶û °°Àº °æ¿ì
-		// 2001.7.23 Ãß°¡
+		// Ã€ÃŒÃ€Ã¼ ÂµÂ¿Ã€Ã›Ã€ÃŒÂ¶Ã» Â°Â°Ã€Âº Â°Ã¦Â¿Ã¬
+		// 2001.7.23 ÃƒÃŸÂ°Â¡
 		//------------------------------------------------------
 		if (nActionInfo==m_nSpecialActionInfo && m_nSpecialActionInfo!=ACTIONINFO_NULL)
 		{
@@ -9244,18 +9247,18 @@ MCreature::PacketSpecialActionToOther(TYPE_ACTIONINFO nActionInfo, TYPE_OBJECTID
 		m_nSpecialActionInfo = nActionInfo;
 
 		//------------------------------------------------------
-		// ÀÌ¹Ì NextUsedACtionInfo°¡ ÀÖ´Â °æ¿ì Ã¼Å©
+		// Ã€ÃŒÂ¹ÃŒ NextUsedACtionInfoÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬ ÃƒÂ¼Ã…Â©
 		//------------------------------------------------------
 		AffectBufferedActionInfo();
 				
-		// Server¿¡¼­ ³¯¾Æ¿Â Á¤º¸ ¼³Á¤..	
+		// ServerÂ¿Â¡Â¼Â­ Â³Â¯Â¾Ã†Â¿Ã‚ ÃÂ¤ÂºÂ¸ Â¼Â³ÃÂ¤..	
 		m_nNextUsedActionInfo	= nActionInfo;
 		m_TraceX		= pCreature->GetX();
 		m_TraceY		= pCreature->GetY();
 		m_TraceZ		= pCreature->GetZ();
 		SetTraceID ( id );
 
-		// ¸ñÇ¥¸¦ ÇâÇØ¼­ ¹Ù¶óº»´Ù.		
+		// Â¸Ã±Ã‡Â¥Â¸Â¦ Ã‡Ã¢Ã‡Ã˜Â¼Â­ Â¹Ã™Â¶Ã³ÂºÂ»Â´Ã™.		
 		//SetDirectionToPosition(pCreature->GetX(), pCreature->GetY());
 		
 		//m_ActionCount = 0;
@@ -9270,17 +9273,17 @@ MCreature::PacketSpecialActionToOther(TYPE_ACTIONINFO nActionInfo, TYPE_OBJECTID
 		}
 
 		//---------------------------------------------------------------
-		// ÀÌ¹Ì Ç¥ÇöÇØ¾ßÇÒ °á°ú°¡ ÀÖ´Â °æ¿ì..
+		// Ã€ÃŒÂ¹ÃŒ Ã‡Â¥Ã‡Ã¶Ã‡Ã˜Â¾ÃŸÃ‡Ã’ Â°Ã¡Â°ÃºÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬..
 		//---------------------------------------------------------------		
 		if (m_pActionResult != NULL)
 		{
 			DEBUG_ADD("Execute Old Result");
 
-			// ÀÌ¹Ì ÀÖ´ø °á°ú¸¦ Ã³¸®ÇØÁØ´Ù.	
+			// Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã¸ Â°Ã¡Â°ÃºÂ¸Â¦ ÃƒÂ³Â¸Â®Ã‡Ã˜ÃÃ˜Â´Ã™.	
 			// [ TEST CODE ]
-			// °á°ú Ã³¸®..			
-			// (!) m_pActionResult°ªÀÌ Execute¿¡¼­ º¯ÇÒ ¼ö ÀÖ¾î¼­ 
-			//		ÀúÀåÇß´Ù°¡ Áö¿öÁà¾ß ÇÑ´Ù.
+			// Â°Ã¡Â°Ãº ÃƒÂ³Â¸Â®..			
+			// (!) m_pActionResultÂ°ÂªÃ€ÃŒ ExecuteÂ¿Â¡Â¼Â­ ÂºÂ¯Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â¾Ã®Â¼Â­ 
+			//		Ã€ÃºÃ€Ã¥Ã‡ÃŸÂ´Ã™Â°Â¡ ÃÃ¶Â¿Ã¶ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			MActionResult* pOldResult = m_pActionResult;
 
 			m_pActionResult = NULL;
@@ -9290,12 +9293,12 @@ MCreature::PacketSpecialActionToOther(TYPE_ACTIONINFO nActionInfo, TYPE_OBJECTID
 			delete pOldResult;	
 		}
 
-		// °á°ú¸¦ ¼³Á¤
+		// Â°Ã¡Â°ÃºÂ¸Â¦ Â¼Â³ÃÂ¤
 		m_pActionResult = pActionResult;
 
 	}
 	//------------------------------------------------------
-	// ¾Æ´Ñ °æ¿ì
+	// Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬
 	//------------------------------------------------------
 	else
 	{
@@ -9311,28 +9314,28 @@ MCreature::PacketSpecialActionToOther(TYPE_ACTIONINFO nActionInfo, TYPE_OBJECTID
 //----------------------------------------------------------------------
 // Packet SpecialAction To InventoryItem
 //----------------------------------------------------------------------
-// castingµ¿ÀÛ¸¸ º¸¿©ÁÖ°Ô µÈ´Ù.
+// castingÂµÂ¿Ã€Ã›Â¸Â¸ ÂºÂ¸Â¿Â©ÃÃ–Â°Ã” ÂµÃˆÂ´Ã™.
 //----------------------------------------------------------------------
 void		
 MCreature::PacketSpecialActionToInventoryItem(TYPE_ACTIONINFO nActionInfo)
 {
 	//--------------------------------------------------
-	// Á×¾úÀ¸¸é return
+	// ÃÃ—Â¾ÃºÃ€Â¸Â¸Ã© return
 	//--------------------------------------------------
 	if (!m_bAlive || nActionInfo>=(*g_pActionInfoTable).GetMinResultActionInfo())
 		return;
 
 	//------------------------------------------------------
-	// Å¸ÀÎ¿¡°Ô »ç¿ëÇÏ´Â ±â¼úÀÌ ¸Â´Â °æ¿ì
+	// Ã…Â¸Ã€ÃÂ¿Â¡Â°Ã” Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Â±Ã¢Â¼ÃºÃ€ÃŒ Â¸Ã‚Â´Ã‚ Â°Ã¦Â¿Ã¬
 	//------------------------------------------------------
 	if ((*g_pActionInfoTable)[nActionInfo].IsTargetItem())
 	{		
 		//------------------------------------------------------
-		// ÀÌ¹Ì NextUsedACtionInfo°¡ ÀÖ´Â °æ¿ì Ã¼Å©
+		// Ã€ÃŒÂ¹ÃŒ NextUsedACtionInfoÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬ ÃƒÂ¼Ã…Â©
 		//------------------------------------------------------
 		AffectBufferedActionInfo();
 				
-		// Server¿¡¼­ ³¯¾Æ¿Â Á¤º¸ ¼³Á¤..	
+		// ServerÂ¿Â¡Â¼Â­ Â³Â¯Â¾Ã†Â¿Ã‚ ÃÂ¤ÂºÂ¸ Â¼Â³ÃÂ¤..	
 		m_nNextUsedActionInfo	= nActionInfo;
 		m_TraceX		= m_X;
 		m_TraceY		= m_Y;
@@ -9348,17 +9351,17 @@ MCreature::PacketSpecialActionToInventoryItem(TYPE_ACTIONINFO nActionInfo)
 		}
 
 		//---------------------------------------------------------------
-		// ÀÌ¹Ì Ç¥ÇöÇØ¾ßÇÒ °á°ú°¡ ÀÖ´Â °æ¿ì..
+		// Ã€ÃŒÂ¹ÃŒ Ã‡Â¥Ã‡Ã¶Ã‡Ã˜Â¾ÃŸÃ‡Ã’ Â°Ã¡Â°ÃºÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬..
 		//---------------------------------------------------------------
 		if (m_pActionResult != NULL)
 		{
 			DEBUG_ADD("Execute Old Result");
 
-			// ÀÌ¹Ì ÀÖ´ø °á°ú¸¦ Ã³¸®ÇØÁØ´Ù.	
+			// Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã¸ Â°Ã¡Â°ÃºÂ¸Â¦ ÃƒÂ³Â¸Â®Ã‡Ã˜ÃÃ˜Â´Ã™.	
 			// [ TEST CODE ]
-			// °á°ú Ã³¸®..			
-			// (!) m_pActionResult°ªÀÌ Execute¿¡¼­ º¯ÇÒ ¼ö ÀÖ¾î¼­ 
-			//		ÀúÀåÇß´Ù°¡ Áö¿öÁà¾ß ÇÑ´Ù.
+			// Â°Ã¡Â°Ãº ÃƒÂ³Â¸Â®..			
+			// (!) m_pActionResultÂ°ÂªÃ€ÃŒ ExecuteÂ¿Â¡Â¼Â­ ÂºÂ¯Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â¾Ã®Â¼Â­ 
+			//		Ã€ÃºÃ€Ã¥Ã‡ÃŸÂ´Ã™Â°Â¡ ÃÃ¶Â¿Ã¶ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			MActionResult* pOldResult = m_pActionResult;
 
 			m_pActionResult = NULL;
@@ -9369,7 +9372,7 @@ MCreature::PacketSpecialActionToInventoryItem(TYPE_ACTIONINFO nActionInfo)
 		}
 	}
 	//------------------------------------------------------
-	// ¾Æ´Ñ °æ¿ì
+	// Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬
 	//------------------------------------------------------
 	else
 	{
@@ -9381,43 +9384,43 @@ MCreature::PacketSpecialActionToInventoryItem(TYPE_ACTIONINFO nActionInfo)
 // Packet SpecialAction To Nobody
 //----------------------------------------------------------------------
 //
-// ´ë»óÀÌ Zone¿¡ ¾ø´Â °æ¿ì...
+// Â´Ã«Â»Ã³Ã€ÃŒ ZoneÂ¿Â¡ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬...
 //
 //----------------------------------------------------------------------
 void		
 MCreature::PacketSpecialActionToNobody(TYPE_ACTIONINFO nActionInfo, TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y)
 {
 	//--------------------------------------------------
-	// Á×¾úÀ¸¸é return
+	// ÃÃ—Â¾ÃºÃ€Â¸Â¸Ã© return
 	//--------------------------------------------------
 	if (!m_bAlive || nActionInfo>=(*g_pActionInfoTable).GetMinResultActionInfo())
 		return;
 
 	//------------------------------------------------------
-	// Å¸ÀÎ¿¡°Ô »ç¿ëÇÏ´Â ±â¼úÀÌ ¸Â´Â °æ¿ì
+	// Ã…Â¸Ã€ÃÂ¿Â¡Â°Ã” Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Â±Ã¢Â¼ÃºÃ€ÃŒ Â¸Ã‚Â´Ã‚ Â°Ã¦Â¿Ã¬
 	//------------------------------------------------------
 	if ((*g_pActionInfoTable)[nActionInfo].IsTargetOther())
 	{
 		//---------------------------------------------------------------
-		// ³È³È.. 2001.10.28
+		// Â³ÃˆÂ³Ãˆ.. 2001.10.28
 		//---------------------------------------------------------------
 		AffectMoveBufferAll();
 
 		ActionMoveNextPosition();
 
 		//------------------------------------------------------
-		// ÀÌ¹Ì NextUsedACtionInfo°¡ ÀÖ´Â °æ¿ì Ã¼Å©
+		// Ã€ÃŒÂ¹ÃŒ NextUsedACtionInfoÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬ ÃƒÂ¼Ã…Â©
 		//------------------------------------------------------
 		AffectBufferedActionInfo();
 				
-		// Server¿¡¼­ ³¯¾Æ¿Â Á¤º¸ ¼³Á¤..	
+		// ServerÂ¿Â¡Â¼Â­ Â³Â¯Â¾Ã†Â¿Ã‚ ÃÂ¤ÂºÂ¸ Â¼Â³ÃÂ¤..	
 		m_nNextUsedActionInfo	= nActionInfo;
 		m_TraceX		= x;
 		m_TraceY		= y;
 		m_TraceZ		= 0;
 		SetTraceID( OBJECTID_NULL );
 
-		// ¸ñÇ¥¸¦ ÇâÇØ¼­ ¹Ù¶óº»´Ù.		
+		// Â¸Ã±Ã‡Â¥Â¸Â¦ Ã‡Ã¢Ã‡Ã˜Â¼Â­ Â¹Ã™Â¶Ã³ÂºÂ»Â´Ã™.		
 		//SetDirectionToPosition(pCreature->GetX(), pCreature->GetY());
 		
 		//m_ActionCount = 0;
@@ -9432,7 +9435,7 @@ MCreature::PacketSpecialActionToNobody(TYPE_ACTIONINFO nActionInfo, TYPE_SECTORP
 		}
 	}
 	//------------------------------------------------------
-	// ¾Æ´Ñ °æ¿ì
+	// Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬
 	//------------------------------------------------------
 	else
 	{
@@ -9443,16 +9446,16 @@ MCreature::PacketSpecialActionToNobody(TYPE_ACTIONINFO nActionInfo, TYPE_SECTORP
 //----------------------------------------------------------------------
 // Packet SpecialAction To Self
 //----------------------------------------------------------------------
-// this Creature´Â nActionInfo¿¡ µû¸¥ µ¿ÀÛÀ» ÃëÇÑ´Ù.
+// this CreatureÂ´Ã‚ nActionInfoÂ¿Â¡ ÂµÃ»Â¸Â¥ ÂµÂ¿Ã€Ã›Ã€Â» ÃƒÃ«Ã‡Ã‘Â´Ã™.
 //
-// 0. ¸ğµç µ¿ÀÛÀ» ÁßÁöÇÏ°í..
+// 0. Â¸Ã°ÂµÃ§ ÂµÂ¿Ã€Ã›Ã€Â» ÃÃŸÃÃ¶Ã‡ÃÂ°Ã­..
 // 1. SpecialAction
 //----------------------------------------------------------------------
 void		
 MCreature::PacketSpecialActionToSelf(TYPE_ACTIONINFO nActionInfo, MActionResult* pActionResult)
 {
 	//--------------------------------------------------
-	// Á×¾úÀ¸¸é return
+	// ÃÃ—Â¾ÃºÃ€Â¸Â¸Ã© return
 	//--------------------------------------------------
 	if (!m_bAlive || nActionInfo>=(*g_pActionInfoTable).GetMinResultActionInfo() || nActionInfo == ACTIONINFO_NULL)
 	{
@@ -9464,30 +9467,30 @@ MCreature::PacketSpecialActionToSelf(TYPE_ACTIONINFO nActionInfo, MActionResult*
 	}
 
 	//------------------------------------------------------
-	// ÀÚ½ÅÇÑÅ× »ç¿ëÇÏ´Â ±â¼úÀÌ ¸Â´Â °æ¿ì
+	// Ã€ÃšÂ½Ã…Ã‡Ã‘Ã…Ã— Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Â±Ã¢Â¼ÃºÃ€ÃŒ Â¸Ã‚Â´Ã‚ Â°Ã¦Â¿Ã¬
 	//------------------------------------------------------
 	if ((*g_pActionInfoTable)[nActionInfo].IsTargetSelf())
 	{
 		//---------------------------------------------------------------
-		// ³È³È.. 2001.10.28
+		// Â³ÃˆÂ³Ãˆ.. 2001.10.28
 		//---------------------------------------------------------------
 		AffectMoveBufferAll();
 
 		ActionMoveNextPosition();
 
-		// ÀÌµ¿À» ÁßÁöÇÑ´Ù.
+		// Ã€ÃŒÂµÂ¿Ã€Â» ÃÃŸÃÃ¶Ã‡Ã‘Â´Ã™.
 	//	m_sX = 0;	
 	//	m_sY = 0;
 		//------------------------------------------------------
-		// ÀÌ¹Ì NextUsedACtionInfo°¡ ÀÖ´Â °æ¿ì Ã¼Å©
+		// Ã€ÃŒÂ¹ÃŒ NextUsedACtionInfoÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬ ÃƒÂ¼Ã…Â©
 		//------------------------------------------------------
 		AffectBufferedActionInfo();
 				
-		// Server¿¡¼­ ³¯¾Æ¿Â Á¤º¸ ¼³Á¤..	
+		// ServerÂ¿Â¡Â¼Â­ Â³Â¯Â¾Ã†Â¿Ã‚ ÃÂ¤ÂºÂ¸ Â¼Â³ÃÂ¤..	
 		m_nNextUsedActionInfo	= nActionInfo;
 		m_TraceX		= m_X;
 		m_TraceY		= m_Y;
-		m_TraceZ		= m_Z;	// z°ªÀº.. ÀÇ¹Ì°¡ ÀÖÀ»±î..
+		m_TraceZ		= m_Z;	// zÂ°ÂªÃ€Âº.. Ã€Ã‡Â¹ÃŒÂ°Â¡ Ã€Ã–Ã€Â»Â±Ã®..
 		SetTraceID( m_ID ) ;
 		
 	//	m_ActionCount = 0;
@@ -9502,17 +9505,17 @@ MCreature::PacketSpecialActionToSelf(TYPE_ACTIONINFO nActionInfo, MActionResult*
 		}
 
 		//---------------------------------------------------------------
-		// ÀÌ¹Ì Ç¥ÇöÇØ¾ßÇÒ °á°ú°¡ ÀÖ´Â °æ¿ì..
+		// Ã€ÃŒÂ¹ÃŒ Ã‡Â¥Ã‡Ã¶Ã‡Ã˜Â¾ÃŸÃ‡Ã’ Â°Ã¡Â°ÃºÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬..
 		//---------------------------------------------------------------
 		if (m_pActionResult != NULL)
 		{
 			DEBUG_ADD("Execute Old Result");
 
-			// ÀÌ¹Ì ÀÖ´ø °á°ú¸¦ Ã³¸®ÇØÁØ´Ù.	
+			// Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã¸ Â°Ã¡Â°ÃºÂ¸Â¦ ÃƒÂ³Â¸Â®Ã‡Ã˜ÃÃ˜Â´Ã™.	
 			// [ TEST CODE ]
-			// °á°ú Ã³¸®..			
-			// (!) m_pActionResult°ªÀÌ Execute¿¡¼­ º¯ÇÒ ¼ö ÀÖ¾î¼­ 
-			//		ÀúÀåÇß´Ù°¡ Áö¿öÁà¾ß ÇÑ´Ù.
+			// Â°Ã¡Â°Ãº ÃƒÂ³Â¸Â®..			
+			// (!) m_pActionResultÂ°ÂªÃ€ÃŒ ExecuteÂ¿Â¡Â¼Â­ ÂºÂ¯Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â¾Ã®Â¼Â­ 
+			//		Ã€ÃºÃ€Ã¥Ã‡ÃŸÂ´Ã™Â°Â¡ ÃÃ¶Â¿Ã¶ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			MActionResult* pOldResult = m_pActionResult;
 
 			m_pActionResult = NULL;
@@ -9522,11 +9525,11 @@ MCreature::PacketSpecialActionToSelf(TYPE_ACTIONINFO nActionInfo, MActionResult*
 			delete pOldResult;	
 		}
 
-		// °á°ú¸¦ ¼³Á¤
+		// Â°Ã¡Â°ÃºÂ¸Â¦ Â¼Â³ÃÂ¤
 		m_pActionResult = pActionResult;
 	}
 	//------------------------------------------------------
-	// ¾Æ´Ñ °æ¿ì
+	// Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬
 	//------------------------------------------------------
 	else
 	{
@@ -9554,7 +9557,7 @@ MCreature::SetStatus(DWORD n, DWORD value)
 	switch (n)
 	{
 		//--------------------------------------------------
-		// Guild ID ¹Ù²ñ
+		// Guild ID Â¹Ã™Â²Ã±
 		//--------------------------------------------------
 		case MODIFY_GUILDID :
 		{
@@ -9572,12 +9575,12 @@ MCreature::SetStatus(DWORD n, DWORD value)
 
 		// 2004, 10, 19, sobeit add end
 		//--------------------------------------------------
-		// ¼ºÇâ ¹Ù²ñ
+		// Â¼ÂºÃ‡Ã¢ Â¹Ã™Â²Ã±
 		//--------------------------------------------------
-		case MODIFY_ALIGNMENT :			// ¼ºÇâ
+		case MODIFY_ALIGNMENT :			// Â¼ÂºÃ‡Ã¢
 		{
 			//--------------------------------------------------
-			// -10000 ~ 10000À» 0~4·Î ¹Ù²Û´Ù.
+			// -10000 ~ 10000Ã€Â» 0~4Â·Ã Â¹Ã™Â²Ã›Â´Ã™.
 			//--------------------------------------------------
 			value = ConvertAlignment( value );
 			m_Status[n] = value;	
@@ -9585,22 +9588,22 @@ MCreature::SetStatus(DWORD n, DWORD value)
 		break;
 
 		//--------------------------------------------------
-		// HP ¹Ù²î´Â °æ¿ì
+		// HP Â¹Ã™Â²Ã®Â´Ã‚ Â°Ã¦Â¿Ã¬
 		//--------------------------------------------------
 		case MODIFY_CURRENT_HP :
 			{
 				const int localValue = min(GetMAX_HP()-GetSilverDamage(), value);
 				AddHPModify( localValue - oldValue );
 
-				// max¸¦ ¾È ³Ñ°Ô
+				// maxÂ¸Â¦ Â¾Ãˆ Â³Ã‘Â°Ã”
 				m_Status[n] = localValue;	
 
-				// ÆÄÆ¼ÀÎ °æ¿ì´Â HP ´Ù½Ã ¼³Á¤ÇØÁØ´Ù.
+				// Ã†Ã„Ã†Â¼Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ HP Â´Ã™Â½Ãƒ Â¼Â³ÃÂ¤Ã‡Ã˜ÃÃ˜Â´Ã™.
 				if (IsPlayerParty())
 				{
 					PARTY_INFO* pInfo = g_pParty->GetMemberInfo( GetName() );
 						
-					// ÁÂÇ¥¸¦ ¼öÁ¤ÇØÁØ´Ù.
+					// ÃÃ‚Ã‡Â¥Â¸Â¦ Â¼Ã¶ÃÂ¤Ã‡Ã˜ÃÃ˜Â´Ã™.
 					if (pInfo!=NULL)
 					{
 						pInfo->HP = localValue;
@@ -9610,15 +9613,15 @@ MCreature::SetStatus(DWORD n, DWORD value)
 		break;
 
 		//--------------------------------------------------
-		// MaxHP ¹Ù²î´Â °æ¿ì
+		// MaxHP Â¹Ã™Â²Ã®Â´Ã‚ Â°Ã¦Â¿Ã¬
 		//--------------------------------------------------
 		case MODIFY_MAX_HP :
-			// ÆÄÆ¼ÀÎ °æ¿ì´Â HP ´Ù½Ã ¼³Á¤ÇØÁØ´Ù.
+			// Ã†Ã„Ã†Â¼Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ HP Â´Ã™Â½Ãƒ Â¼Â³ÃÂ¤Ã‡Ã˜ÃÃ˜Â´Ã™.
 			if (IsPlayerParty())
 			{
 				PARTY_INFO* pInfo = g_pParty->GetMemberInfo( GetName() );
 					
-				// ÁÂÇ¥¸¦ ¼öÁ¤ÇØÁØ´Ù.
+				// ÃÃ‚Ã‡Â¥Â¸Â¦ Â¼Ã¶ÃÂ¤Ã‡Ã˜ÃÃ˜Â´Ã™.
 				if (pInfo!=NULL)
 				{
 					pInfo->MaxHP = value;
@@ -9627,7 +9630,7 @@ MCreature::SetStatus(DWORD n, DWORD value)
 		break;
 
 //		//--------------------------------------------------
-//		// Armageddon HP ¹Ù²î´Â °æ¿ì
+//		// Armageddon HP Â¹Ã™Â²Ã®Â´Ã‚ Â°Ã¦Â¿Ã¬
 //		//--------------------------------------------------
 //		case MODIFY_ARMAGEDDON_HP :
 //		{
@@ -9638,17 +9641,17 @@ MCreature::SetStatus(DWORD n, DWORD value)
 //			{
 //				RemoveEffectStatus(EFFECTSTATUS_ARMAGEDDON);
 //
-//				// ´Ù½Ã Ãß°¡				
+//				// Â´Ã™Â½Ãƒ ÃƒÃŸÂ°Â¡				
 //				if (value!=0)
 //				{
 //					AddEffectStatus(EFFECTSTATUS_ARMAGEDDON, 0xFFFF);
 //				}
 //
-//				// ºÎ¼­Áö´Â ºÎºĞ Ç¥½Ã
+//				// ÂºÃÂ¼Â­ÃÃ¶Â´Ã‚ ÂºÃÂºÃ Ã‡Â¥Â½Ãƒ
 //				int skillID = ARMAGEDDON_CRASH_1 + (changeValue-1);
 //				
 //				//--------------------------------------------------
-//				// ºÎ¼­Áö´Â Effect
+//				// ÂºÃÂ¼Â­ÃÃ¶Â´Ã‚ Effect
 //				//--------------------------------------------------		
 //				ExecuteActionInfoFromMainNode(
 //					skillID,
@@ -9656,10 +9659,10 @@ MCreature::SetStatus(DWORD n, DWORD value)
 //					m_X, m_Y, 0,
 //					m_Direction,
 //					
-//					m_ID,												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+//					m_ID,												// Â¸Ã±Ã‡Â¥Â¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸
 //					m_X, m_Y, 0, 
 //					
-//					0,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+//					0,													// Â±Ã¢Â¼ÃºÃ€Ã‡ (Â³Â²Ã€Âº) ÃÃ¶Â¼Ã“ Â½ÃƒÂ°Â£		
 //					
 //					NULL,
 //					
@@ -9673,14 +9676,14 @@ MCreature::SetStatus(DWORD n, DWORD value)
 //----------------------------------------------------------------------
 // Change To Slayer
 //----------------------------------------------------------------------
-// slayer·Î º¯½ÅÇÏ´Âµ¥..
-// ÀÌ¹Ì slayerÀÌ¸é.. return false
+// slayerÂ·Ã ÂºÂ¯Â½Ã…Ã‡ÃÂ´Ã‚ÂµÂ¥..
+// Ã€ÃŒÂ¹ÃŒ slayerÃ€ÃŒÂ¸Ã©.. return false
 //----------------------------------------------------------------------
 bool	
 MCreature::ChangeToSlayer()
 {
 	//-----------------------------------------------------
-	// ÀÌ¹Ì slayerÀÌ¸é..
+	// Ã€ÃŒÂ¹ÃŒ slayerÃ€ÃŒÂ¸Ã©..
 	//-----------------------------------------------------
 	if (IsSlayer())
 	{
@@ -9690,18 +9693,18 @@ MCreature::ChangeToSlayer()
 	ClearAttachEffect();
 
 	//-----------------------------------------------------
-	// Á¤º¸ ¼³Á¤
+	// ÃÂ¤ÂºÂ¸ Â¼Â³ÃÂ¤
 	//-----------------------------------------------------
 	SetMoveDevice( MOVE_DEVICE_WALK );
 	SetBasicActionInfo( SKILL_ATTACK_MELEE );
 
 	//-----------------------------------------------------
-	// Á¤Áö ½ÃÅ²´Ù.
+	// ÃÂ¤ÃÃ¶ Â½ÃƒÃ…Â²Â´Ã™.
 	//-----------------------------------------------------
 	SetStop();
 
 	//-----------------------------------------------------
-	// ³², ¿© ?
+	// Â³Â², Â¿Â© ?
 	//-----------------------------------------------------
 	if (IsMale())
 	{
@@ -9713,7 +9716,7 @@ MCreature::ChangeToSlayer()
 	}
 
 	//-----------------------------------------------------
-	// ¹øÂ½
+	// Â¹Ã¸Ã‚Â½
 	//-----------------------------------------------------
 	//g_pTopView->SetFadeStart(1, 31, 6,  5,5,31);
 
@@ -9723,14 +9726,14 @@ MCreature::ChangeToSlayer()
 //----------------------------------------------------------------------
 // Change To Vampire
 //----------------------------------------------------------------------
-// vampire·Î º¯½ÅÇÏ´Âµ¥..
-// ÀÌ¹Ì vampireÀÌ¸é.. return false
+// vampireÂ·Ã ÂºÂ¯Â½Ã…Ã‡ÃÂ´Ã‚ÂµÂ¥..
+// Ã€ÃŒÂ¹ÃŒ vampireÃ€ÃŒÂ¸Ã©.. return false
 //----------------------------------------------------------------------
 bool
 MCreature::ChangeToVampire()
 {
 	//-----------------------------------------------------
-	// ÀÌ¹Ì vampireÀÌ¸é..
+	// Ã€ÃŒÂ¹ÃŒ vampireÃ€ÃŒÂ¸Ã©..
 	//-----------------------------------------------------
 	if (IsVampire())
 	{
@@ -9742,22 +9745,22 @@ MCreature::ChangeToVampire()
 	DEBUG_ADD("MCreature::ChangeToVampire - RemoveEffectStatus OK");
 	
 	//-----------------------------------------------------
-	// Á¤º¸ ¼³Á¤
+	// ÃÂ¤ÂºÂ¸ Â¼Â³ÃÂ¤
 	//-----------------------------------------------------
 	SetMoveDevice( MOVE_DEVICE_WALK );
 	SetBasicActionInfo( SKILL_ATTACK_MELEE );
 
 	//-----------------------------------------------------
-	// Á¤Áö ½ÃÅ²´Ù.
+	// ÃÂ¤ÃÃ¶ Â½ÃƒÃ…Â²Â´Ã™.
 	//-----------------------------------------------------
 	SetStop();
 
 	//-----------------------------------------------------
-	// ³², ¿© ?
+	// Â³Â², Â¿Â© ?
 	//-----------------------------------------------------
 	if (IsMale())
 	{
-		// º¯½Å ¼Ò¸®
+		// ÂºÂ¯Â½Ã… Â¼Ã’Â¸Â®
 		PlaySound(SOUND_VAMPIRE_CHANGE_MALE, 
 					false,
 					m_X,
@@ -9767,7 +9770,7 @@ MCreature::ChangeToVampire()
 	}
 	else
 	{
-		// º¯½Å ¼Ò¸®
+		// ÂºÂ¯Â½Ã… Â¼Ã’Â¸Â®
 		PlaySound(SOUND_VAMPIRE_CHANGE_FEMALE, 
 					false,
 					m_X,
@@ -9777,16 +9780,16 @@ MCreature::ChangeToVampire()
 	}
 
 	//-----------------------------------------------------
-	// º¹Àå Á¦°Å
+	// ÂºÂ¹Ã€Ã¥ ÃÂ¦Â°Ã…
 	//-----------------------------------------------------
-	// ¾ÈÇØµµ µÈ´Ù.
+	// Â¾ÃˆÃ‡Ã˜ÂµÂµ ÂµÃˆÂ´Ã™.
 	//for (int i=0; i<ADDON_MAX; i++)
 	//{
 	//	ClearAddonInfo( i );
 	//}
 
 	//-----------------------------------------------------
-	// ¹øÂ½
+	// Â¹Ã¸Ã‚Â½
 	//-----------------------------------------------------
 	//g_pTopView->SetFadeStart(1, 31, 6,  31,0,0);
 
@@ -9806,7 +9809,7 @@ MCreature::FastMovePosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y,bool se
 	//if (m_X!=x || m_Y!=y)
 	{
 		//------------------------------------------------
-		// Á¤Áö
+		// ÃÂ¤ÃÃ¶
 		//------------------------------------------------
 		SetStop();
 
@@ -9814,7 +9817,7 @@ MCreature::FastMovePosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y,bool se
 		m_bNextAction = false;
 		
 		//------------------------------------------------
-		// fast move ¼³Á¤
+		// fast move Â¼Â³ÃÂ¤
 		//------------------------------------------------	
 		SetAction( m_MoveAction );
 
@@ -9824,13 +9827,13 @@ MCreature::FastMovePosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y,bool se
 		m_NextY = y;
 		SetServerPositionWithBlock( x, y );
 
-		// SetActionÇÏ°í ³ª¼­ ¼³Á¤ÇØÁà¾ß ÇÑ´Ù.
+		// SetActionÃ‡ÃÂ°Ã­ Â³ÂªÂ¼Â­ Â¼Â³ÃÂ¤Ã‡Ã˜ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 		m_bFastMove = true;
 
 		return true;
 	}
 
-	// ¾îÂ¶µç ¼­¹öÁÂÇ¥´Â °ËÁõµÆ´Ù°í º»´Ù.
+	// Â¾Ã®Ã‚Â¶ÂµÃ§ Â¼Â­Â¹Ã¶ÃÃ‚Ã‡Â¥Â´Ã‚ Â°Ã‹ÃÃµÂµÃ†Â´Ã™Â°Ã­ ÂºÂ»Â´Ã™.
 	//m_ServerX = x;
 	//m_ServerY = y;
 
@@ -9845,7 +9848,7 @@ MCreature::KnockBackPosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE 
 {
 	//if (m_X!=x || m_Y!=y)
 	{
-		// ¶ß¾Æ ÀÌ°Å bool¾Æ´Ñµ­.. m_b·Î ½ÃÀÛÇÏ³× - -; ÄÄÆÄÀÏ ´Ù½Ã ÇÏ±â ±ÍÂ÷³ª¼­  --;
+		// Â¶ÃŸÂ¾Ã† Ã€ÃŒÂ°Ã… boolÂ¾Ã†Â´Ã‘ÂµÂ­.. m_bÂ·Ã Â½ÃƒÃ€Ã›Ã‡ÃÂ³Ã— - -; Ã„Ã„Ã†Ã„Ã€Ã Â´Ã™Â½Ãƒ Ã‡ÃÂ±Ã¢ Â±ÃÃ‚Ã·Â³ÂªÂ¼Â­  --;
 
 		if( Action == 0 )
 		{
@@ -9854,12 +9857,12 @@ MCreature::KnockBackPosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE 
 			
 			if (knockBackCount<=0)
 			{
-				// ¸Â±â µ¿ÀÛÀÌ ¾ø´ç - -;
+				// Â¸Ã‚Â±Ã¢ ÂµÂ¿Ã€Ã›Ã€ÃŒ Â¾Ã¸Â´Ã§ - -;
 				return false;
 			}
 			
 			//------------------------------------------------
-			// Á¤Áö
+			// ÃÂ¤ÃÃ¶
 			//------------------------------------------------
 			SetStop();
 			
@@ -9867,12 +9870,12 @@ MCreature::KnockBackPosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE 
 			m_bNextAction = false;
 
 			//------------------------------------------------
-			// KnockBack µ¿ÀÛÀ¸·Î damaged¸¦ ¼³Á¤
+			// KnockBack ÂµÂ¿Ã€Ã›Ã€Â¸Â·Ã damagedÂ¸Â¦ Â¼Â³ÃÂ¤
 			//------------------------------------------------	
 			SetAction( ACTION_DAMAGED );
 			
 			//------------------------------------------------
-			// Ä³¸¯ÅÍÀÇ Action¿¡ ¸Â´Â Sound¸¦ Ãâ·ÂÇØÁØ´Ù.
+			// Ã„Â³Â¸Â¯Ã…ÃÃ€Ã‡ ActionÂ¿Â¡ Â¸Ã‚Â´Ã‚ SoundÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡Ã˜ÃÃ˜Â´Ã™.
 			//------------------------------------------------
 			TYPE_SOUNDID soundID = (*g_pCreatureTable)[m_CreatureType].GetActionSound( ACTION_DAMAGED );
 			
@@ -9893,9 +9896,9 @@ MCreature::KnockBackPosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE 
 		
 		
 		//------------------------------------------------	
-		// sx, sy·Î ÁÂÇ¥ º¸Á¤
+		// sx, syÂ·Ã ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 		//
-		// ÇöÀçÀ§Ä¡(m_X, m_Y)¿¡¼­ KnockBackÀ§Ä¡(x, y)·Î ÀÌµ¿.
+		// Ã‡Ã¶Ã€Ã§Ã€Â§Ã„Â¡(m_X, m_Y)Â¿Â¡Â¼Â­ KnockBackÃ€Â§Ã„Â¡(x, y)Â·Ã Ã€ÃŒÂµÂ¿.
 		// 
 		//------------------------------------------------	
 		int oldX = m_X;
@@ -9905,29 +9908,29 @@ MCreature::KnockBackPosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE 
 		POINT	oldPoint = g_pTopView->MapToPixel(oldX, oldY);
 		POINT	newPoint = g_pTopView->MapToPixel(newX, newY);
 		
-		// ÀÌµ¿ÇØ¾ßÇÒ pixel¼ö °è»ê
+		// Ã€ÃŒÂµÂ¿Ã‡Ã˜Â¾ÃŸÃ‡Ã’ pixelÂ¼Ã¶ Â°Ã¨Â»Ãª
 		int gapX = newPoint.x - oldPoint.x; //+ m_sX);
 		int gapY = newPoint.y - oldPoint.y; //+ m_sY);
 
 		m_sX = -gapX;
 		m_sY = -gapY;
 
-		// ÇÑ¹ø¿¡ ÀÌµ¿ÇØ¾ßÇÒ pixel¼ö --> (m_cX, m_cY)¿¡ ³Ö¾îµĞ´Ù.
+		// Ã‡Ã‘Â¹Ã¸Â¿Â¡ Ã€ÃŒÂµÂ¿Ã‡Ã˜Â¾ÃŸÃ‡Ã’ pixelÂ¼Ã¶ --> (m_cX, m_cY)Â¿Â¡ Â³Ã–Â¾Ã®ÂµÃÂ´Ã™.
 		m_cX = gapX / m_bKnockBack;
 		m_cY = gapY / m_bKnockBack;
 
 		
-		// ÁÂÇ¥°¡ ´Ş¶óÁ³À» °æ¿ì¸¸..
+		// ÃÃ‚Ã‡Â¥Â°Â¡ Â´ÃÂ¶Ã³ÃÂ³Ã€Â» Â°Ã¦Â¿Ã¬Â¸Â¸..
 		if (newX!=oldX || newY!=oldY)
 		{
 			//------------------------------------------------	
-			// KnockBackµÇ´Â ¹æÇâ ¼³Á¤
-			// »õÁÂÇ¥¿¡¼­ ¿¹ÀüÁÂÇ¥¸¦ ¹Ù¶óº¸´Â ¹æÇâ
+			// KnockBackÂµÃ‡Â´Ã‚ Â¹Ã¦Ã‡Ã¢ Â¼Â³ÃÂ¤
+			// Â»ÃµÃÃ‚Ã‡Â¥Â¿Â¡Â¼Â­ Â¿Â¹Ã€Ã¼ÃÃ‚Ã‡Â¥Â¸Â¦ Â¹Ã™Â¶Ã³ÂºÂ¸Â´Ã‚ Â¹Ã¦Ã‡Ã¢
 			//------------------------------------------------	
 			m_Direction = MTopView::GetDirectionToPosition(newX, newY, oldX, oldY);
 		
 			//------------------------------------------------	
-			// ÁÂÇ¥´Â ¹Ù·Î ÀÌµ¿.
+			// ÃÃ‚Ã‡Â¥Â´Ã‚ Â¹Ã™Â·Ã Ã€ÃŒÂµÂ¿.
 			//------------------------------------------------			
 			MovePosition( x, y );
 		}
@@ -9937,7 +9940,7 @@ MCreature::KnockBackPosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE 
 		if( Action == 0 )
 		{
 			//------------------------------------------------			
-			// ¸ö¿¡ ºÙ´Â ÇÇ
+			// Â¸Ã¶Â¿Â¡ ÂºÃ™Â´Ã‚ Ã‡Ã‡
 			//------------------------------------------------			
 			MAttachEffect* pEffect = NULL;
 			if(g_pUserInformation->GoreLevel == false)
@@ -9956,7 +9959,7 @@ MCreature::KnockBackPosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE 
 			}						
 			
 			//------------------------------------------------			
-			// ¹Ù´Ú¿¡ Èê¸®´Â ÇÇ 3¹æ¿ï(-_-;)
+			// Â¹Ã™Â´ÃšÂ¿Â¡ ÃˆÃªÂ¸Â®Â´Ã‚ Ã‡Ã‡ 3Â¹Ã¦Â¿Ã¯(-_-;)
 			//------------------------------------------------			
 			if (g_pUserOption->BloodDrop)
 			{
@@ -9964,12 +9967,12 @@ MCreature::KnockBackPosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE 
 				for (int i=0; i<num; i++)
 				{
 					ExecuteActionInfoFromMainNode(
-						BLOOD_CRITICAL_HIT,										// »ç¿ë ±â¼ú ¹øÈ£
+						BLOOD_CRITICAL_HIT,										// Â»Ã§Â¿Ã« Â±Ã¢Â¼Ãº Â¹Ã¸ÃˆÂ£
 						
 						oldX, oldY, 0,
-						(int)m_Direction,														// »ç¿ë ¹æÇâ
+						(int)m_Direction,														// Â»Ã§Â¿Ã« Â¹Ã¦Ã‡Ã¢
 						
-						m_ID,												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+						m_ID,												// Â¸Ã±Ã‡Â¥Â¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸
 						oldX, oldY, 0,
 						
 						50 + rand()%30, //5*16, 
@@ -9985,7 +9988,7 @@ MCreature::KnockBackPosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE 
 		return true;
 	}
 
-	// ¾îÂ¶µç ¼­¹öÁÂÇ¥´Â °ËÁõµÆ´Ù°í º»´Ù.
+	// Â¾Ã®Ã‚Â¶ÂµÃ§ Â¼Â­Â¹Ã¶ÃÃ‚Ã‡Â¥Â´Ã‚ Â°Ã‹ÃÃµÂµÃ†Â´Ã™Â°Ã­ ÂºÂ»Â´Ã™.
 	//m_ServerX = x;
 	//m_ServerY = y;
 
@@ -10002,8 +10005,8 @@ MCreature::StopFastMove()
 	m_sY = 0;
 	m_bFastMove = false;
 
-	// 2001.8.10¿¡ Ãß°¡
-	// ÄÀ..±Ùµ¥ ÀÌ ÇÔ¼ö ¾²ÀÌÁöµµ ¾Ê´Â±º.. - -;;
+	// 2001.8.10Â¿Â¡ ÃƒÃŸÂ°Â¡
+	// Ã„Ã€..Â±Ã™ÂµÂ¥ Ã€ÃŒ Ã‡Ã”Â¼Ã¶ Â¾Â²Ã€ÃŒÃÃ¶ÂµÂµ Â¾ÃŠÂ´Ã‚Â±Âº.. - -;;
 	m_MoveCount = m_MoveCountMax;
 }
 
@@ -10013,8 +10016,8 @@ MCreature::StopFastMove()
 int
 MCreature::FindEnemy()
 {
-	// Áö±İÀº MPlayer¿¡¼­¸¸ »ç¿ëÇÑ´Ù.
-	// ¹Ì·¡¸¦ À§ÇØ¼­...
+	// ÃÃ¶Â±ÃÃ€Âº MPlayerÂ¿Â¡Â¼Â­Â¸Â¸ Â»Ã§Â¿Ã«Ã‡Ã‘Â´Ã™.
+	// Â¹ÃŒÂ·Â¡Â¸Â¦ Ã€Â§Ã‡Ã˜Â¼Â­...
 	return OBJECTID_NULL;
 }
 
@@ -10024,14 +10027,14 @@ MCreature::FindEnemy()
 void				
 MCreature::SetShadowCount(int n)
 { 
-	// 5°³±îÁö.. - -;
+	// 5Â°Â³Â±Ã®ÃÃ¶.. - -;
 	m_ShadowCount = min(5, n); 
 }
 
 //----------------------------------------------------------------------
 // Stop Blood Drain
 //----------------------------------------------------------------------
-// m_bStopBloodDrainÀÌ¸é ÀÌ°É È£ÃâÇØ¾ß ÇÑ´Ù.
+// m_bStopBloodDrainÃ€ÃŒÂ¸Ã© Ã€ÃŒÂ°Ã‰ ÃˆÂ£ÃƒÃ¢Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void	
 MCreature::StopBloodDrain()
@@ -10061,7 +10064,7 @@ MCreature::StopBloodDrain()
 //----------------------------------------------------------------------
 // Stop Absorb Soul
 //----------------------------------------------------------------------
-// m_bStopAbsorbSoulÀÌ¸é ÀÌ°É È£ÃâÇØ¾ß ÇÑ´Ù.
+// m_bStopAbsorbSoulÃ€ÃŒÂ¸Ã© Ã€ÃŒÂ°Ã‰ ÃˆÂ£ÃƒÃ¢Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void	
 MCreature::StopAbsorbSoul()
@@ -10085,10 +10088,10 @@ MCreature::StopAbsorbSoul()
 				{
 					bool bUseEffectSprite = pEffect->IsEffectSprite();
 					
-					// flagÁ¦°Å
+					// flagÃÂ¦Â°Ã…
 					if (bUseEffectSprite)
 					{
-						m_bAttachEffect[pEffect->GetEffectSpriteType()] = false;	// flagÁ¦°Å
+						m_bAttachEffect[pEffect->GetEffectSpriteType()] = false;	// flagÃÂ¦Â°Ã…
 					}
 
 					delete pEffect;
@@ -10110,7 +10113,7 @@ MCreature::StopAbsorbSoul()
 //----------------------------------------------------------------------
 // Update Darkness
 //----------------------------------------------------------------------
-// ´Ü¼øÈ÷ count¸¸ ¹Ù²ãÁØ´Ù.
+// Â´ÃœÂ¼Ã¸ÃˆÃ· countÂ¸Â¸ Â¹Ã™Â²Ã£ÃÃ˜Â´Ã™.
 //----------------------------------------------------------------------
 void	
 MCreature::UpdateDarkness()
@@ -10133,13 +10136,13 @@ MCreature::UpdateDarkness()
 		{
 			m_DarknessCount += m_DarknessCountInc;
 
-			// darkness¿¡ µé¾î°¡´Â °æ¿ì
+			// darknessÂ¿Â¡ ÂµÃ©Â¾Ã®Â°Â¡Â´Ã‚ Â°Ã¦Â¿Ã¬
 			if (m_DarknessCount < 0)
 			{
 				m_DarknessCount = 0;
 				m_DarknessCountInc = 0;
 			}
-			// darkness¿¡¼­ ºüÁ®³ª¿À´Â °æ¿ì
+			// darknessÂ¿Â¡Â¼Â­ ÂºÃ¼ÃÂ®Â³ÂªÂ¿Ã€Â´Ã‚ Â°Ã¦Â¿Ã¬
 			else if (m_DarknessCount >= MAX_DARKNESS_COUNT)
 			{
 				m_DarknessCount = -1;
@@ -10149,8 +10152,8 @@ MCreature::UpdateDarkness()
 	}
 	else
 	{
-		// Slayer°¡ ¾Æ´Ñ °æ¿ì´Â Darkness¶û °ü°è¾ø´Ù.
-		// È®ÀÎ¿ë
+		// SlayerÂ°Â¡ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â´Ã‚ DarknessÂ¶Ã» Â°Ã¼Â°Ã¨Â¾Ã¸Â´Ã™.
+		// ÃˆÂ®Ã€ÃÂ¿Ã«
 		m_DarknessCount = -1;
 		m_DarknessCountInc = 0;
 	}
@@ -10159,10 +10162,10 @@ MCreature::UpdateDarkness()
 //----------------------------------------------------------------------
 // Check In Darkness
 //----------------------------------------------------------------------
-// darkness°¡ ³ªÅ¸³ª°í/»ç¶óÁö´Â ¼ø°£
-//            player°¡ ¿òÁ÷ÀÌ´Â ¼ø°£À» Ã¼Å©ÇÏ¸é µÈ´Ù.
+// darknessÂ°Â¡ Â³ÂªÃ…Â¸Â³ÂªÂ°Ã­/Â»Ã§Â¶Ã³ÃÃ¶Â´Ã‚ Â¼Ã¸Â°Â£
+//            playerÂ°Â¡ Â¿Ã²ÃÃ·Ã€ÃŒÂ´Ã‚ Â¼Ã¸Â°Â£Ã€Â» ÃƒÂ¼Ã…Â©Ã‡ÃÂ¸Ã© ÂµÃˆÂ´Ã™.
 //
-// player°¡ ¾Æ´Ï¹Ç·Î  ½Ã¾ß °ü°è¾ø´ç.
+// playerÂ°Â¡ Â¾Ã†Â´ÃÂ¹Ã‡Â·Ã  Â½ÃƒÂ¾ÃŸ Â°Ã¼Â°Ã¨Â¾Ã¸Â´Ã§.
 //----------------------------------------------------------------------
 void
 MCreature::CheckInDarkness()
@@ -10172,9 +10175,9 @@ MCreature::CheckInDarkness()
 		//if (IsSlayer())
 		{
 			//-------------------------------------------------------
-			// Darkness¿¡ µé¾î¿Ô´ÂÁö Ã¼Å©
+			// DarknessÂ¿Â¡ ÂµÃ©Â¾Ã®Â¿Ã”Â´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©
 			//-------------------------------------------------------
-			// ¼­¹ö ÁÂÇ¥º¸´Ù´Â ÇöÀç ÁÂÇ¥°¡ º¸±â¿¡ ÁÁ´Ù.. ¤»¤»..
+			// Â¼Â­Â¹Ã¶ ÃÃ‚Ã‡Â¥ÂºÂ¸Â´Ã™Â´Ã‚ Ã‡Ã¶Ã€Ã§ ÃÃ‚Ã‡Â¥Â°Â¡ ÂºÂ¸Â±Ã¢Â¿Â¡ ÃÃÂ´Ã™.. Â¤Â»Â¤Â»..
 			if (m_X >=0 && m_X < g_pZone->GetWidth()
 				&& m_Y >= 0 && m_Y < g_pZone->GetHeight())
 			{
@@ -10182,14 +10185,14 @@ MCreature::CheckInDarkness()
 
 				if (m_bAlive && (sector.HasDarkness()))
 				{
-					// darkness¿¡ ÀÖ´Â °æ¿ì
+					// darknessÂ¿Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 					//PlaceInDarkness();
 					m_DarknessCount = MAX_DARKNESS_COUNT;
 					m_DarknessCountInc = 0;
 				}
 				else
 				{		
-					// darkness´Â »ç¶óÁ³´Ù.
+					// darknessÂ´Ã‚ Â»Ã§Â¶Ã³ÃÂ³Â´Ã™.
 					//PlaceNotInDarkness();
 					m_DarknessCount = -1;
 					m_DarknessCountInc = 0;
@@ -10207,9 +10210,9 @@ MCreature::IsInGroundElemental() const
 		//if (IsSlayer())
 		{
 			//-------------------------------------------------------
-			// Darkness¿¡ µé¾î¿Ô´ÂÁö Ã¼Å©
+			// DarknessÂ¿Â¡ ÂµÃ©Â¾Ã®Â¿Ã”Â´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©
 			//-------------------------------------------------------
-			// ¼­¹ö ÁÂÇ¥º¸´Ù´Â ÇöÀç ÁÂÇ¥°¡ º¸±â¿¡ ÁÁ´Ù.. ¤»¤»..
+			// Â¼Â­Â¹Ã¶ ÃÃ‚Ã‡Â¥ÂºÂ¸Â´Ã™Â´Ã‚ Ã‡Ã¶Ã€Ã§ ÃÃ‚Ã‡Â¥Â°Â¡ ÂºÂ¸Â±Ã¢Â¿Â¡ ÃÃÂ´Ã™.. Â¤Â»Â¤Â»..
 			if (m_X >=0 && m_X < g_pZone->GetWidth()
 				&& m_Y >= 0 && m_Y < g_pZone->GetHeight())
 			{
@@ -10233,9 +10236,9 @@ MCreature::IsInFuryOfGnome() const
 		//if (IsSlayer())
 		{
 			//-------------------------------------------------------
-			// Fury Of Gnome¿¡ µé¾î¿Ô´ÂÁö Ã¼Å©
+			// Fury Of GnomeÂ¿Â¡ ÂµÃ©Â¾Ã®Â¿Ã”Â´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©
 			//-------------------------------------------------------
-			// ¼­¹ö ÁÂÇ¥º¸´Ù´Â ÇöÀç ÁÂÇ¥°¡ º¸±â¿¡ ÁÁ´Ù.. ¤»¤»..
+			// Â¼Â­Â¹Ã¶ ÃÃ‚Ã‡Â¥ÂºÂ¸Â´Ã™Â´Ã‚ Ã‡Ã¶Ã€Ã§ ÃÃ‚Ã‡Â¥Â°Â¡ ÂºÂ¸Â±Ã¢Â¿Â¡ ÃÃÂ´Ã™.. Â¤Â»Â¤Â»..
 			if (m_X >=0 && m_X < g_pZone->GetWidth()
 				&& m_Y >= 0 && m_Y < g_pZone->GetHeight())
 			{
@@ -10254,7 +10257,7 @@ MCreature::IsInFuryOfGnome() const
 //----------------------------------------------------------------------
 // Place In Darkness
 //----------------------------------------------------------------------
-// player´Â darkness¿¡ ÀÖ´Ù.
+// playerÂ´Ã‚ darknessÂ¿Â¡ Ã€Ã–Â´Ã™.
 //----------------------------------------------------------------------
 void
 MCreature::PlaceInDarkness(bool IsBlindness)
@@ -10271,7 +10274,7 @@ MCreature::PlaceInDarkness(bool IsBlindness)
 #endif
 		)
 	{
-		// darkness¿¡ ÀÖÁö ¾Ê´ø °æ¿ì
+		// darknessÂ¿Â¡ Ã€Ã–ÃÃ¶ Â¾ÃŠÂ´Ã¸ Â°Ã¦Â¿Ã¬
 		if (m_DarknessCount < 0)
 		{
 			m_DarknessCount = MAX_DARKNESS_COUNT;		
@@ -10291,7 +10294,7 @@ MCreature::PlaceInDarkness(bool IsBlindness)
 //----------------------------------------------------------------------
 // Move In Darkness
 //----------------------------------------------------------------------
-// player´Â darkness¿¡ ÀÖÁö ¾Ê´Ù.
+// playerÂ´Ã‚ darknessÂ¿Â¡ Ã€Ã–ÃÃ¶ Â¾ÃŠÂ´Ã™.
 //----------------------------------------------------------------------
 void
 MCreature::PlaceNotInDarkness()
@@ -10303,7 +10306,7 @@ MCreature::PlaceNotInDarkness()
 #endif
 		)
 	{
-		// darkness¿¡ ÀÖ´ø °æ¿ì
+		// darknessÂ¿Â¡ Ã€Ã–Â´Ã¸ Â°Ã¦Â¿Ã¬
 		if (m_DarknessCount >= 0 && m_DarknessCount < MAX_DARKNESS_COUNT)
 		{
 			m_DarknessCountInc = 1;
@@ -10314,15 +10317,15 @@ MCreature::PlaceNotInDarkness()
 //----------------------------------------------------------------------
 // Show In Darkness
 //----------------------------------------------------------------------
-// darkness¿¡ ÀÖÁö ¾Ê¾Æ¼­ Àß º¸ÀÌ°Å³ª
-// darkness¿¡ ÀÖ´õ¶óµµ °Å¸®¿¡ ÀÇÇØ¼­ º¸ÀÌ´Â°¡?
+// darknessÂ¿Â¡ Ã€Ã–ÃÃ¶ Â¾ÃŠÂ¾Ã†Â¼Â­ Ã€ÃŸ ÂºÂ¸Ã€ÃŒÂ°Ã…Â³Âª
+// darknessÂ¿Â¡ Ã€Ã–Â´ÃµÂ¶Ã³ÂµÂµ Â°Ã…Â¸Â®Â¿Â¡ Ã€Ã‡Ã‡Ã˜Â¼Â­ ÂºÂ¸Ã€ÃŒÂ´Ã‚Â°Â¡?
 //----------------------------------------------------------------------
 BOOL	
 MCreature::ShowInDarkness(int sX, int sY) const
 {
 
 //	DEBUG_ADD_FORMAT("[ShowInDarkness] g_bLight %d", g_bLight);
-	// ÀÌ¹Ì darkness¿¡ ÀÖ´Â °æ¿ì
+	// Ã€ÃŒÂ¹ÃŒ darknessÂ¿Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 	if (//!(m_CreatureType >= 526 && m_CreatureType <= 549 || m_CreatureType >= 371 && m_CreatureType <= 376 || m_CreatureType >= 560 && m_CreatureType <= 563) &&
 //		!IsNPC() &&
 		m_DarknessCount >= 0 &&
@@ -10333,7 +10336,7 @@ MCreature::ShowInDarkness(int sX, int sY) const
 #endif
 	)
 	{
-		// darknessCount¾È¿¡´Â º¼ ¼ö ÀÖ´Ù.
+		// darknessCountÂ¾ÃˆÂ¿Â¡Â´Ã‚ ÂºÂ¼ Â¼Ã¶ Ã€Ã–Â´Ã™.
 		if ((max(abs(m_X-sX), abs(m_Y-sY))) <= m_DarknessCount)
 		{
 			return TRUE;
@@ -10348,12 +10351,12 @@ MCreature::ShowInDarkness(int sX, int sY) const
 //----------------------------------------------------------------------
 // Set HalluCreature
 //----------------------------------------------------------------------
-// halluÀÎ °æ¿ì... ¾î¶² ¸÷À¸·Î º¸¿©Áö°Ô µÈ´Ù.
+// halluÃ€Ã Â°Ã¦Â¿Ã¬... Â¾Ã®Â¶Â² Â¸Ã·Ã€Â¸Â·Ã ÂºÂ¸Â¿Â©ÃÃ¶Â°Ã” ÂµÃˆÂ´Ã™.
 //----------------------------------------------------------------------
 void				
 MCreature::SetHalluCreature(TYPE_CREATURETYPE type)
 {
-	// NPC´Â Hallu°É·Áµµ Á¦´ë·Î º¸ÀÎ´Ù.
+	// NPCÂ´Ã‚ HalluÂ°Ã‰Â·ÃÂµÂµ ÃÂ¦Â´Ã«Â·Ã ÂºÂ¸Ã€ÃÂ´Ã™.
 	if (IsNPC())
 	{
 		m_bHallu = false;
@@ -10364,7 +10367,7 @@ MCreature::SetHalluCreature(TYPE_CREATURETYPE type)
 	
 	m_HalluCreatureFrameID	= (*g_pCreatureSpriteTable)[(*g_pCreatureTable)[type].SpriteTypes[0]].FrameID;
 	
-	// »ö±ò - ¸÷ÀÎ °æ¿ì¸¸.. ¼³Á¤ÇØÁØ´Ù.
+	// Â»Ã¶Â±Ã² - Â¸Ã·Ã€Ã Â°Ã¦Â¿Ã¬Â¸Â¸.. Â¼Â³ÃÂ¤Ã‡Ã˜ÃÃ˜Â´Ã™.
 	m_HalluColorBody	= (*g_pCreatureTable)[m_CreatureType].ColorSet;
 
 //	m_HalluName = rand()%g_pMonsterNameTable->GetLastNameSize();
@@ -10379,7 +10382,7 @@ void
 MCreature::DetermineHalluActionFrame()
 {
 	//------------------------------------------------------
-	// ÀûÀıÇÑ actionÀ» ¼±ÅÃÇÑ´Ù.
+	// Ã€Ã»Ã€Ã½Ã‡Ã‘ actionÃ€Â» Â¼Â±Ã…ÃƒÃ‡Ã‘Â´Ã™.
 	//------------------------------------------------------
 	if (m_Action <= ACTION_DIE)
 	{
@@ -10401,13 +10404,13 @@ MCreature::DetermineHalluActionFrame()
 	BYTE frame = GetFrame();
 
 	//------------------------------------------------------
-	// µ¿ÀÛÀÇ frame ¼ö¸¦ °áÁ¤ÇÑ´Ù.
+	// ÂµÂ¿Ã€Ã›Ã€Ã‡ frame Â¼Ã¶Â¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 	//------------------------------------------------------
 	int countMax = (*g_pCreatureTable)[m_HalluCreatureType].GetActionCount( m_HalluAction );
 
 	if (countMax==0)
 	{
-		// µ¿ÀÛÀÌ ¾ø´Ù¸é..
+		// ÂµÂ¿Ã€Ã›Ã€ÃŒ Â¾Ã¸Â´Ã™Â¸Ã©..
 		if (m_HalluAction!=ACTION_ATTACK)
 		{
 			m_HalluAction = ACTION_ATTACK;
@@ -10415,7 +10418,7 @@ MCreature::DetermineHalluActionFrame()
 			countMax = (*g_pCreatureTable)[m_HalluCreatureType].GetActionCount( m_HalluAction );
 		}
 
-		// µ¿ÀÛÀÌ ¾ø´Ù¸é Á¤Áö..
+		// ÂµÂ¿Ã€Ã›Ã€ÃŒ Â¾Ã¸Â´Ã™Â¸Ã© ÃÂ¤ÃÃ¶..
 		if (countMax==0)
 		{
 			m_HalluAction = ACTION_STAND;
@@ -10424,7 +10427,7 @@ MCreature::DetermineHalluActionFrame()
 		}
 	}
 	
-	if (countMax==0)	// ºñ±³ ºñ±³.. - -;
+	if (countMax==0)	// ÂºÃ±Â±Â³ ÂºÃ±Â±Â³.. - -;
 	{
 		m_HalluFrame = 0;
 	}
@@ -10441,7 +10444,7 @@ const char*
 MCreature::GetHalluName() const
 { 
 	if( strncmp( GetName(), (*g_pGameStringTable)[UI_STRING_MESSAGE_MASTER_NAME].GetString(), (*g_pGameStringTable)[UI_STRING_MESSAGE_MASTER_NAME].GetLength() ) == 0 )
-//		strstr(GetName(), "¿î¿µÀÚ") != NULL)
+//		strstr(GetName(), "Â¿Ã®Â¿ÂµÃ€Ãš") != NULL)
 		return GetName();
 	return g_pMonsterNameTable->GetLastName(m_HalluName);
 }
@@ -10496,13 +10499,13 @@ MCreature::SetRegenBonus(int amount, DWORD delay)
 }
 
 //----------------------------------------------------------------------
-// CheckRegen - Regen¼³Á¤
+// CheckRegen - RegenÂ¼Â³ÃÂ¤
 //----------------------------------------------------------------------
 void
 MCreature::CheckRegen()
 {
 	//-------------------------------------------------------
-	// ¹ìÆÄÀÌ¾î°¡ ¾Æ´Ï¸é RegenÇÏÁö ¾Ê´Â´Ù.
+	// Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â°Â¡ Â¾Ã†Â´ÃÂ¸Ã© RegenÃ‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 	//-------------------------------------------------------
 	if (!IsVampire())
 	{
@@ -10511,7 +10514,7 @@ MCreature::CheckRegen()
 	}
 
 	//-------------------------------------------------------
-	// Burrow»óÅÂ
+	// BurrowÂ»Ã³Ã…Ã‚
 	//-------------------------------------------------------
 	if (IsUndergroundCreature())
 	{
@@ -10520,7 +10523,7 @@ MCreature::CheckRegen()
 	}
 
 	//-------------------------------------------------------
-	// Casket »óÅÂ
+	// Casket Â»Ã³Ã…Ã‚
 	//-------------------------------------------------------
 	if (IsInCasket())
 	{
@@ -10529,12 +10532,12 @@ MCreature::CheckRegen()
 	}
 
 	//-------------------------------------------------------
-	// Creature Type¿¡ µû¶ó¼­..
+	// Creature TypeÂ¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­..
 	//-------------------------------------------------------
 	switch (m_CreatureType)
 	{
 		//---------------------------------------------------------------
-		// ¹ìÆÄÀÌ¾î, ´Á´ë
+		// Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®, Â´ÃÂ´Ã«
 		//---------------------------------------------------------------
 		case CREATURETYPE_VAMPIRE_MALE1 :
 		case CREATURETYPE_VAMPIRE_FEMALE1 :
@@ -10554,19 +10557,19 @@ MCreature::CheckRegen()
 		case CREATURETYPE_VAMPIRE_MALE6:
 		case CREATURETYPE_VAMPIRE_FEMALE6:
 		// add end
-			SetRegen( g_pClientConfig->REGEN_AMOUNT_VAMPIRE, 1000 );	// 2¾¿ 1ÃÊ¸¶´Ù			
+			SetRegen( g_pClientConfig->REGEN_AMOUNT_VAMPIRE, 1000 );	// 2Â¾Â¿ 1ÃƒÃŠÂ¸Â¶Â´Ã™			
 		break;
 
 		//---------------------------------------------------------------
-		// µı °æ¿ì..
+		// ÂµÃ½ Â°Ã¦Â¿Ã¬..
 		//---------------------------------------------------------------
 		default :
-			SetRegen( 0, 0 );	// regen ¾ÈÇÑ´Ù.		
+			SetRegen( 0, 0 );	// regen Â¾ÃˆÃ‡Ã‘Â´Ã™.		
 	}
 }
 
 //----------------------------------------------------------------------
-// ³ª¸¦ ÈíÇ÷ÇÏ°í ÀÖ´ø CreatureÀÇ ÈíÇ÷µ¿ÀÛÀ» ¸ØÃá´Ù
+// Â³ÂªÂ¸Â¦ ÃˆÃ­Ã‡Ã·Ã‡ÃÂ°Ã­ Ã€Ã–Â´Ã¸ CreatureÃ€Ã‡ ÃˆÃ­Ã‡Ã·ÂµÂ¿Ã€Ã›Ã€Â» Â¸Ã˜ÃƒÃ¡Â´Ã™
 //----------------------------------------------------------------------
 void 
 MCreature::StopDrain()
@@ -10582,7 +10585,7 @@ MCreature::StopDrain()
 }
 
 //----------------------------------------------------------------------
-// ³ª¸¦ Èí¿µÇÏ°í ÀÖ´ø CreatureÀÇ Èí¿µµ¿ÀÛÀ» ¸ØÃá´Ù
+// Â³ÂªÂ¸Â¦ ÃˆÃ­Â¿ÂµÃ‡ÃÂ°Ã­ Ã€Ã–Â´Ã¸ CreatureÃ€Ã‡ ÃˆÃ­Â¿ÂµÂµÂ¿Ã€Ã›Ã€Â» Â¸Ã˜ÃƒÃ¡Â´Ã™
 //----------------------------------------------------------------------
 void 
 MCreature::StopAbsorb()
@@ -10798,13 +10801,13 @@ MCreature::RemoveCauseCriticalWoundsEffect()
 			||EFFECTSPRITETYPE_CAUSE_CRITICAL_WOUND_4 == Type 
 			)
 		{
-			// ¸Ş¸ğ¸® Á¦°Å
+			// Â¸ÃÂ¸Ã°Â¸Â® ÃÂ¦Â°Ã…
 			delete pEffect;
 
 			ATTACHEFFECT_LIST::iterator dEffect = iEffect;
 			iEffect--;
 
-			// list¿¡¼­ Á¦°Å
+			// listÂ¿Â¡Â¼Â­ ÃÂ¦Â°Ã…
 			m_listEffect.erase( dEffect );
 
 			m_bAttachEffect[Type] = false;
@@ -10828,13 +10831,13 @@ MCreature::RemoveCauseCriticalWoundsEffect()
 			||EFFECTSPRITETYPE_CAUSE_CRITICAL_WOUND_4 == Type 
 			)
 		{
-			// ¸Ş¸ğ¸® Á¦°Å
+			// Â¸ÃÂ¸Ã°Â¸Â® ÃÂ¦Â°Ã…
 			delete pEffect;
 
 			ATTACHEFFECT_LIST::iterator dEffect = iEffect;
 			iEffect--;
 
-			// list¿¡¼­ Á¦°Å
+			// listÂ¿Â¡Â¼Â­ ÃÂ¦Â°Ã…
 			m_listGroundEffect.erase( dEffect );
 
 			m_bAttachEffect[Type] = false;
@@ -10856,7 +10859,7 @@ MCreature::GetActionMax() const
 	if(!IsAdvancementClass())
 		 return (*g_pCreatureTable)[m_CreatureType].GetActionMax(); 
 
-	// ½ÂÁ÷ Ä³¸¯ÅÍ ÀÏ¶§
+	// Â½Ã‚ÃÃ· Ã„Â³Â¸Â¯Ã…Ã Ã€ÃÂ¶Â§
 	if(IsSlayer())
 		return ACTION_ADVANCEMENT_SLAYER_MAX/* - ACTION_ADVANCEMENT_SLAYER_STOP_SWORD*/;
 	else if(IsVampire())
@@ -10902,7 +10905,7 @@ MCreature::GetMasterEffectType(DWORD Status)
 		case EFFECTSTATUS_GRAND_MASTER_SLAYER_130:
 			{
 				RemoveEffectStatus(EFFECTSTATUS_GRAND_MASTER_SLAYER);
-				if(IsDead()) return 0; //Á×Àº³ÑÇÑÅÙ ÀÌÆåÆ® ¹«½Ã
+				if(IsDead()) return 0; //ÃÃ—Ã€ÂºÂ³Ã‘Ã‡Ã‘Ã…Ã™ Ã€ÃŒÃ†Ã¥Ã†Â® Â¹Â«Â½Ãƒ
 				if(MarketType) 
 					type =  EFFECTSPRITETYPE_MARKET_MASTER_SLAYER_130_FEAR + MarketType - 1;
 			}
@@ -10924,12 +10927,12 @@ MCreature::GetMasterEffectType(DWORD Status)
 						type =  EFFECTSPRITETYPE_MARKET_MASTER_SLAYER_150_ADVANCE_NEW_4;
 						break;
 					}
-					// ½ÂÁ÷ Ä³¸¯ÅÍ´Â Market Master Effect Àû¿ë ÇÏÁö ¸»¶ó°í ÇØ¼­ ÁÖ¼® Ã³¸® ÇÔ..
-					// ³ªÁß¿¡ ¶Ç ¸» ¹Ù²Ù¸é ÁÖ¼® Ç®¾îÁÖ¸é µÊ.
+					// Â½Ã‚ÃÃ· Ã„Â³Â¸Â¯Ã…ÃÂ´Ã‚ Market Master Effect Ã€Ã»Â¿Ã« Ã‡ÃÃÃ¶ Â¸Â»Â¶Ã³Â°Ã­ Ã‡Ã˜Â¼Â­ ÃÃ–Â¼Â® ÃƒÂ³Â¸Â® Ã‡Ã”..
+					// Â³ÂªÃÃŸÂ¿Â¡ Â¶Ã‡ Â¸Â» Â¹Ã™Â²Ã™Â¸Ã© ÃÃ–Â¼Â® Ã‡Â®Â¾Ã®ÃÃ–Â¸Ã© ÂµÃŠ.
 //					if(MarketType) 
 //						type =  EFFECTSPRITETYPE_MARKET_MASTER_SLAYER_150_ADVANCE_FEAR + MarketType - 1;
 //					else
-					// edit By Sonic 2006.10.28 È¥³ı¶ş×ªºó½ÇÉ«ÉíÉÏµÄ¹âÎŞĞ§¹û
+					// edit By Sonic 2006.10.28 ÃˆÂ¥Â³Ã½Â¶Ã¾Ã—ÂªÂºÃ³Â½Ã‡Ã‰Â«Ã‰Ã­Ã‰ÃÂµÃ„Â¹Ã¢ÃÃÃÂ§Â¹Ã»
 
 					//	type = EFFECTSPRITETYPE_ADVANCEMENT_MASTER_SLAYER;
 // 					if(MarketType)
@@ -10967,12 +10970,12 @@ MCreature::GetMasterEffectType(DWORD Status)
 						type =  EFFECTSPRITETYPE_MARKET_MASTER_VAMPIRE_150_ADVANCE_NEW_4;
 						break;	
 					}
-					// ½ÂÁ÷ Ä³¸¯ÅÍ´Â Market Master Effect Àû¿ë ÇÏÁö ¸»¶ó°í ÇØ¼­ ÁÖ¼® Ã³¸® ÇÔ..
-					// ³ªÁß¿¡ ¶Ç ¸» ¹Ù²Ù¸é ÁÖ¼® Ç®¾îÁÖ¸é µÊ.
+					// Â½Ã‚ÃÃ· Ã„Â³Â¸Â¯Ã…ÃÂ´Ã‚ Market Master Effect Ã€Ã»Â¿Ã« Ã‡ÃÃÃ¶ Â¸Â»Â¶Ã³Â°Ã­ Ã‡Ã˜Â¼Â­ ÃÃ–Â¼Â® ÃƒÂ³Â¸Â® Ã‡Ã”..
+					// Â³ÂªÃÃŸÂ¿Â¡ Â¶Ã‡ Â¸Â» Â¹Ã™Â²Ã™Â¸Ã© ÃÃ–Â¼Â® Ã‡Â®Â¾Ã®ÃÃ–Â¸Ã© ÂµÃŠ.
 //					if(MarketType) 
 //						type =  EFFECTSPRITETYPE_MARKET_MASTER_VAMPIRE_150_FRONT_ADVANCE_FEAR + MarketType - 1;
 //					else
-						// edit by sonic 2006.10.28   È¥³ı¶ş×ªºó¿´²»µ½ÉíÉÏ»ğÑÕÉ«Ğ§¹û
+						// edit by sonic 2006.10.28   ÃˆÂ¥Â³Ã½Â¶Ã¾Ã—ÂªÂºÃ³Â¿Â´Â²Â»ÂµÂ½Ã‰Ã­Ã‰ÃÂ»Ã°Ã‘Ã•Ã‰Â«ÃÂ§Â¹Ã»
 							//type =  EFFECTSPRITETYPE_ADVANCEMENT_MASTER_VAMPIRE_BACK;
 // 							if(MarketType)
 // 								type =  EFFECTSPRITETYPE_MARKET_MASTER_VAMPIRE_150_FRONT_FEAR + MarketType - 1;
@@ -11011,12 +11014,12 @@ MCreature::GetMasterEffectType(DWORD Status)
 						type =  EFFECTSPRITETYPE_MARKET_MASTER_OUSTERS_150_ADVANCE_NEW_4;
 						break;	
 					}	
-					// ½ÂÁ÷ Ä³¸¯ÅÍ´Â Market Master Effect Àû¿ë ÇÏÁö ¸»¶ó°í ÇØ¼­ ÁÖ¼® Ã³¸® ÇÔ..
-					// ³ªÁß¿¡ ¶Ç ¸» ¹Ù²Ù¸é ÁÖ¼® Ç®¾îÁÖ¸é µÊ.
+					// Â½Ã‚ÃÃ· Ã„Â³Â¸Â¯Ã…ÃÂ´Ã‚ Market Master Effect Ã€Ã»Â¿Ã« Ã‡ÃÃÃ¶ Â¸Â»Â¶Ã³Â°Ã­ Ã‡Ã˜Â¼Â­ ÃÃ–Â¼Â® ÃƒÂ³Â¸Â® Ã‡Ã”..
+					// Â³ÂªÃÃŸÂ¿Â¡ Â¶Ã‡ Â¸Â» Â¹Ã™Â²Ã™Â¸Ã© ÃÃ–Â¼Â® Ã‡Â®Â¾Ã®ÃÃ–Â¸Ã© ÂµÃŠ.
 //					if(MarketType) 
 //						type =  EFFECTSPRITETYPE_MARKET_MASTER_OUSTERS_150_ADVANCE_FEAR + MarketType - 1;
 //					else
-					// edit by sonic 2006.10.28  ĞŞÕı¶ş×ªºó½ÇÉ«»ğÑÕÉ«ÎÊÌâ
+					// edit by sonic 2006.10.28  ÃÃÃ•Ã½Â¶Ã¾Ã—ÂªÂºÃ³Â½Ã‡Ã‰Â«Â»Ã°Ã‘Ã•Ã‰Â«ÃÃŠÃŒÃ¢
 						//type =  EFFECTSPRITETYPE_ADVANCEMENT_MASTER_OUSTER;
 // 					if(MarketType)
 // 					type =  EFFECTSPRITETYPE_MARKET_MASTER_OUSTERS_150_FEAR + MarketType - 1;
@@ -11083,13 +11086,13 @@ MCreature::ChangeMasterEffectType(int MarketEffect)
 //			|| Type >= EFFECTSPRITETYPE_MARKET_MASTER_VAMPIRE_100_FEAR && Type <= EFFECTSPRITETYPE_MARKET_MASTER_OUSTERS_150_ADVANCE_HOPE
 //			)
 //		{
-//			// ¸Ş¸ğ¸® Á¦°Å
+//			// Â¸ÃÂ¸Ã°Â¸Â® ÃÂ¦Â°Ã…
 //			delete pEffect;
 //
 //			ATTACHEFFECT_LIST::iterator dEffect = iEffect;
 //			iEffect--;
 //
-//			// list¿¡¼­ Á¦°Å
+//			// listÂ¿Â¡Â¼Â­ ÃÂ¦Â°Ã…
 //			m_listEffect.erase( dEffect );
 //
 //			m_bAttachEffect[Type] = false;
@@ -11112,13 +11115,13 @@ MCreature::ChangeMasterEffectType(int MarketEffect)
 //			|| Type >= EFFECTSPRITETYPE_MARKET_MASTER_VAMPIRE_100_FEAR && Type <= EFFECTSPRITETYPE_MARKET_MASTER_OUSTERS_150_ADVANCE_HOPE
 //			)
 //		{
-//			// ¸Ş¸ğ¸® Á¦°Å
+//			// Â¸ÃÂ¸Ã°Â¸Â® ÃÂ¦Â°Ã…
 //			delete pEffect;
 //
 //			ATTACHEFFECT_LIST::iterator dEffect = iEffect;
 //			iEffect--;
 //
-//			// list¿¡¼­ Á¦°Å
+//			// listÂ¿Â¡Â¼Â­ ÃÂ¦Â°Ã…
 //			m_listGroundEffect.erase( dEffect );
 //
 //			m_bAttachEffect[Type] = false;

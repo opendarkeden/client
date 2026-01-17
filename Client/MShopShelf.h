@@ -1,9 +1,9 @@
 //----------------------------------------------------------------------
 // MShopShelf.h
 //----------------------------------------------------------------------
-// »óÁ¡ÀÇ ¼±¹İ ÇÏ³ª.. - -;
+// ìƒì ì˜ ì„ ë°˜ í•˜ë‚˜.. - -;
 //
-// ¼±¹İ ÇÏ³ª¸¶´Ù run-time versionÀÌ ÀÖ´Ù.
+// ì„ ë°˜ í•˜ë‚˜ë§ˆë‹¤ run-time versionì´ ìˆë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef __MSHOPSHELF_H__
@@ -16,11 +16,11 @@ class MShopShelf {
 	public :
 		enum SHELF_TYPE
 		{			
-			SHELF_FIXED,			// °íÁ¤µÈ item list¸¦ °¡Áø shelf
+			SHELF_FIXED,			// ê³ ì •ëœ item listë¥¼ ê°€ì§„ shelf
 			SHELF_SPECIAL,			// special item
 			SHELF_UNKNOWN,			// unknown item
-			MAX_SHELF,				// max°ª
-			SHELF_BASE				// »ç¿ë ¾È ÇÔ
+			MAX_SHELF,				// maxê°’
+			SHELF_BASE				// ì‚¬ìš© ì•ˆ í•¨
 			
 		};
 
@@ -64,22 +64,22 @@ class MShopShelf {
 		// Set
 		//----------------------------------------------------------
 		void		SetVersion(int version)		{ m_Version = version; }
-		bool		AddItem(MItem* pItem);		// ºó °÷¿¡ Ãß°¡ÇÑ´Ù.
-		bool		SetItem(unsigned int  slot, MItem* pItem);	// ±âÁ¸¿¡ ÀÖ´ø°Ç Áö¿öÁØ´Ù.
+		bool		AddItem(MItem* pItem);		// ë¹ˆ ê³³ì— ì¶”ê°€í•œë‹¤.
+		bool		SetItem(unsigned int  slot, MItem* pItem);	// ê¸°ì¡´ì— ìˆë˜ê±´ ì§€ì›Œì¤€ë‹¤.
 
 	
 		//----------------------------------------------------------
-		// Remove - Shelf¿¡¼­ Á¦°ÅÇØ¼­ returnÇØÁØ´Ù.(¿ÜºÎ¿¡¼­ deleteÇØ¾ßÇÑ´Ù.)
+		// Remove - Shelfì—ì„œ ì œê±°í•´ì„œ returní•´ì¤€ë‹¤.(ì™¸ë¶€ì—ì„œ deleteí•´ì•¼í•œë‹¤.)
 		//----------------------------------------------------------
 		MItem*		RemoveItem(unsigned int slot);
 
 		//----------------------------------------------------------
-		// Delete - Shelf ³»ºÎ¿¡ ÀÖ´Â°É Áö¿öÁØ´Ù.
+		// Delete - Shelf ë‚´ë¶€ì— ìˆëŠ”ê±¸ ì§€ì›Œì¤€ë‹¤.
 		//----------------------------------------------------------
 		void		DeleteItem(unsigned int slot);
 
 	protected :
-		bool		m_bShelfEnable;				// ÇöÀç »ç¿ë°¡´ÉÇÑ ShelfÀÎ°¡?
+		bool		m_bShelfEnable;				// í˜„ì¬ ì‚¬ìš©ê°€ëŠ¥í•œ Shelfì¸ê°€?
 
 		MString		m_Name;						// Shelf Name
 
@@ -89,15 +89,15 @@ class MShopShelf {
 
 
 	public :
-		// NewItem()¿¡ ´ëÇÑ functions pointer
+		// NewItem()ì— ëŒ€í•œ functions pointer
 		typedef MShopShelf* (*FUNCTION_NEWSHELFCLASS)();
 
 		//-------------------------------------------------------
-		// ¿øÇÏ´Â classÀÇ ItemÀÇ °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+		// ì›í•˜ëŠ” classì˜ Itemì˜ ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
 		//-------------------------------------------------------
 		static MShopShelf*		NewShelf(MShopShelf::SHELF_TYPE shelfType);
 
-		// °¢ classº°·Î NewItem()¿¡ ´ëÇÑ function pointer
+		// ê° classë³„ë¡œ NewItem()ì— ëŒ€í•œ function pointer
 		static FUNCTION_NEWSHELFCLASS		s_NewShelfClassTable[MAX_SHELF];
 };
 
@@ -105,7 +105,7 @@ class MShopShelf {
 //----------------------------------------------------------------------
 // MShopFixedShelf.h
 //----------------------------------------------------------------------
-// °íÁ¤µÈ Item List¸¦ °¡Áø »óÁ¡ ¼±¹İ
+// ê³ ì •ëœ Item Listë¥¼ ê°€ì§„ ìƒì  ì„ ë°˜
 //----------------------------------------------------------------------
 class MShopFixedShelf : public MShopShelf {
 	public :
@@ -134,7 +134,7 @@ class MShopFixedShelf : public MShopShelf {
 //----------------------------------------------------------------------
 // MShopSpecialShelf.h
 //----------------------------------------------------------------------
-// °íÁ¤µÈ Item List¸¦ °¡Áø »óÁ¡ ¼±¹İ
+// ê³ ì •ëœ Item Listë¥¼ ê°€ì§„ ìƒì  ì„ ë°˜
 //----------------------------------------------------------------------
 class MShopSpecialShelf : public MShopShelf {
 	public :
@@ -159,7 +159,7 @@ class MShopSpecialShelf : public MShopShelf {
 //----------------------------------------------------------------------
 // MShopUnknownShelf.h
 //----------------------------------------------------------------------
-// °íÁ¤µÈ Item List¸¦ °¡Áø »óÁ¡ ¼±¹İ
+// ê³ ì •ëœ Item Listë¥¼ ê°€ì§„ ìƒì  ì„ ë°˜
 //----------------------------------------------------------------------
 class MShopUnknownShelf : public MShopShelf {
 	public :

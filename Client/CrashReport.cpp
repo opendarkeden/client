@@ -5,14 +5,18 @@
 	file path:	D:\study\smodulelib
 	file base:	CrashReport
 	file ext:	cpp
-	author:		¾¦°«
+	author:		ì‘¥ê°“
 	
-	purpose:	Ä¡¸íÀûÀÎ ¿À·ù°¡ ¹ß»ıÇßÀ»¶§ ·Î±×¸¦ ³²±ä´Ù.
+	purpose:	ì¹˜ëª…ì ì¸ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆì„ë•Œ ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
 *********************************************************************/
 #include "Client_PCH.h"
-#include <windows.h>
-#include "CrashReport.h"
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
 #include <imagehlp.h>
+#else
+#include "../../basic/Platform.h"
+#endif
+#include "CrashReport.h"
 #include "Properties.h"
 #include "MCrashReportManager.h"
 #include "ServerInfo.h"
@@ -224,6 +228,7 @@ tSGMB pSGMB = NULL;
 
 extern BOOL GetWinVersion(char *szVersion);
 
+#ifdef PLATFORM_WINDOWS
 LONG __stdcall RecordExceptionInfo( _EXCEPTION_POINTERS* pExp )
 {
 	if( g_pSocket != NULL )
@@ -263,7 +268,7 @@ LONG __stdcall RecordExceptionInfo( _EXCEPTION_POINTERS* pExp )
 	}
 
 	int version = 0;
-	class ifstream versionFile(g_pFileDef->getProperty("FILE_INFO_VERSION").c_str(), ios::binary | ios::nocreate);
+	std::ifstream versionFile(g_pFileDef->getProperty("FILE_INFO_VERSION").c_str(), ios::binary | );
 
 	if (versionFile.is_open())
 	{
@@ -287,15 +292,15 @@ LONG __stdcall RecordExceptionInfo( _EXCEPTION_POINTERS* pExp )
 
 	int frameNum;
 	DWORD imageType = IMAGE_FILE_MACHINE_I386;
-	
+
 	HANDLE hThread;
 	HANDLE hSWProcess = GetCurrentProcess();
 	if(DuplicateHandle( hSWProcess, GetCurrentThread(), hSWProcess, &hThread, 0, false, DUPLICATE_SAME_ACCESS ) != 0)
 	{
-		
+
 		STACKFRAME64 s; // in/out stackframe
 		memset( &s, '\0', sizeof s );
-		
+
 		HINSTANCE hImagehlpDll = LoadLibrary( "dbghelp.dll" );
 		if ( hImagehlpDll != NULL )
 		{
@@ -309,7 +314,7 @@ LONG __stdcall RecordExceptionInfo( _EXCEPTION_POINTERS* pExp )
 				s.AddrPC.Mode = AddrModeFlat;
 				s.AddrFrame.Offset = Context->Ebp;
 				s.AddrFrame.Mode = AddrModeFlat;
-				
+
 				for ( frameNum = 0; ; ++ frameNum )
 				{
 					if ( ! pSW( imageType, hSWProcess, hThread, &s, NULL, NULL, pSFTA, pSGMB, NULL ) )
@@ -322,7 +327,7 @@ LONG __stdcall RecordExceptionInfo( _EXCEPTION_POINTERS* pExp )
 			}
 			FreeLibrary( hImagehlpDll );
 		}
-		
+
 		CloseHandle( hThread );
 	}
 	cr.SetCallStack(callStack.c_str());
@@ -331,6 +336,16 @@ LONG __stdcall RecordExceptionInfo( _EXCEPTION_POINTERS* pExp )
 
 	return EXCEPTION_EXECUTE_HANDLER;
 }
+#else
+// Stub implementation for non-Windows platforms
+LONG __stdcall RecordExceptionInfo( struct _EXCEPTION_POINTERS* pExp )
+{
+    // Crash reporting not implemented on non-Windows platforms
+    // Just return to continue execution
+    (void)pExp;  // Suppress unused parameter warning
+    return 0;
+}
+#endif // PLATFORM_WINDOWS
 
 //void RecordExceptionInfo( unsigned int u, _EXCEPTION_POINTERS* pExp )
 //{
@@ -349,7 +364,7 @@ LONG __stdcall RecordExceptionInfo( _EXCEPTION_POINTERS* pExp )
 //		FileTimeToSystemTime(&fad.ftLastWriteTime, &st);
 //
 //		int version = 0;
-//		class ifstream versionFile(g_pFileDef->getProperty("FILE_INFO_VERSION").c_str(), ios::binary | ios::nocreate);
+//		std::ifstream versionFile(g_pFileDef->getProperty("FILE_INFO_VERSION").c_str(), ios::binary | );
 //
 //		if (versionFile.is_open())
 //		{
@@ -362,7 +377,7 @@ LONG __stdcall RecordExceptionInfo( _EXCEPTION_POINTERS* pExp )
 //		strcpy(szWinVer, "");
 //		GetWinVersion(szWinVer);
 //
-//		// *CrashLog 2003-12-01 10:50:00 98 0xffffffff 0xffffffff¿¡¼­ ¸Ş¸ğ¸® Ä§¹ü ¿¡·¯
+//		// *CrashLog 2003-12-01 10:50:00 98 0xffffffff 0xffffffffì—ì„œ ë©”ëª¨ë¦¬ ì¹¨ë²” ì—ëŸ¬
 //		wsprintf(szTemp, "%04d-%02d-%02d %02d:%02d:%02d %d 0x%08x %s (0x%08x), %s", 
 //			st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond,
 //			version,

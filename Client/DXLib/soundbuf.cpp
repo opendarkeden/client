@@ -1,3 +1,11 @@
+//----------------------------------------------------------------------
+// soundbuf.cpp
+//----------------------------------------------------------------------
+
+// Only compile sound buffer implementation on Windows platforms
+// On non-Windows platforms, DirectSound support is not available
+#ifdef PLATFORM_WINDOWS
+
 #include <wtypes.h>
 #include <memory.h>
 #include "soundbuf.h"
@@ -5,7 +13,7 @@
 //#include "dslib.h"
 #include <stdio.h>
 //#include "debug.h"
-#include "DXLib\CDirectSound.h"
+#include "CDirectSound.h"
 
 const UINT frequencies[3] = { 44100, 48000, 32000 };
 
@@ -82,11 +90,11 @@ int OutputData (LPSOUNDBUF lpsb)
 	LPVOID	audioPtr1, audioPtr2 ;
 	DWORD	audioBytes1, audioBytes2 ;
 
-//	DispDebugMsg("µğÄÚµù Á¤º¸¸¦ ±â·ÏÇÏ·Á ÇÕ´Ï´Ù.") ;
+//	DispDebugMsg("ë””ì½”ë”© ì •ë³´ë¥¼ ê¸°ë¡í•˜ë ¤ í•©ë‹ˆë‹¤.") ;
 
 Fill :
 	while ( lpsb->bPlaying && lpsb->readyBufs == 1 ) Sleep(5) ;
-	if ( lpsb->nPushedFrames < lpsb->nFrames )	// ¹öÆÛ°¡ ¿©À¯°¡ ÀÖÀ» °æ¿ì Ã¤¿î´Ù.
+	if ( lpsb->nPushedFrames < lpsb->nFrames )	// ë²„í¼ê°€ ì—¬ìœ ê°€ ìˆì„ ê²½ìš° ì±„ìš´ë‹¤.
 	{
 		lpsb->dsWriteBuf->Lock( lpsb->offWrite, lpsb->bufSize, 
 			(void**)&audioPtr1, &audioBytes1, (void**)&audioPtr2, &audioBytes2, 0 ) ;
@@ -107,7 +115,7 @@ Fill :
 		lpsb->offWrite += lpsb->bufSize ;
 		lpsb->offWrite %= lpsb->bufSize*lpsb->nPushedFrames ;
 	}
-	else	// ¹öÆÛ°¡ Â÷¸é ¿¬ÁÖ¸¦ ½ÃÀÛÇÑ´Ù.
+	else	// ë²„í¼ê°€ ì°¨ë©´ ì—°ì£¼ë¥¼ ì‹œì‘í•œë‹¤.
 	{
 		lpsb->readyBufs++ ;
 
@@ -122,7 +130,7 @@ Fill :
 
 		goto Fill ; 
 	}
-//	DispDebugMsg("µğÄÚµù Á¤º¸¸¦ ±â·ÏÇß½À´Ï´Ù.") ;
+//	DispDebugMsg("ë””ì½”ë”© ì •ë³´ë¥¼ ê¸°ë¡í–ˆìŠµë‹ˆë‹¤.") ;
 
 	Reset(lpsb) ;
 	return 0 ;
@@ -134,3 +142,5 @@ int WriteTo ( LPSOUNDBUF lpsb , BYTE* arr)
 	return 0 ;
 }
 
+
+#endif /* PLATFORM_WINDOWS */

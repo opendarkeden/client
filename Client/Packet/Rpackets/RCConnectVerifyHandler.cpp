@@ -16,7 +16,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void RCConnectVerifyHandler::execute ( RCConnectVerify * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -29,22 +30,22 @@ void RCConnectVerifyHandler::execute ( RCConnectVerify * pPacket , Player * pPla
 		switch (pPacket->getCode())
 		{
 			//---------------------------------------------------------------
-			// Á¢¼ÓÀÌ Çã¿ëµÈ °æ¿ì
+			// ì ‘ì†ì´ í—ˆìš©ëœ ê²½ìš°
 			//---------------------------------------------------------------
 			case RC_CONNECT_OK :
 				pRequestClientPlayer->setPlayerStatus( CPS_REQUEST_CLIENT_NORMAL );
 
-				// ÇöÀç playerÀÇ ½Ã¾ß¿¡ ÀÖ´ÂÁö ¾ø´ÂÁö¸¦ Ã¼Å©ÇØ¼­ 
-				// ¾ø´Ù¸é ÁÂÇ¥ ¿äÃ»À» ÇÑ´Ù.
+				// í˜„ì¬ playerì˜ ì‹œì•¼ì— ìˆëŠ”ì§€ ì—†ëŠ”ì§€ë¥¼ ì²´í¬í•´ì„œ 
+				// ì—†ë‹¤ë©´ ì¢Œí‘œ ìš”ì²­ì„ í•œë‹¤.
 				/*
 				if (OBJECTID_NULL != g_pZone->GetCreatureID( pRequestClientPlayer->getRequestServerName().c_str() ))
 				{
-					// ÀÖ´Â °æ¿ì					
+					// ìˆëŠ” ê²½ìš°					
 				}
 				else
 				{
-					// ¾ø´Â °æ¿ì
-					// Áö¼ÓÀûÀÎ ÁÂÇ¥ ¿äÃ»À» ÇÑ´Ù.
+					// ì—†ëŠ” ê²½ìš°
+					// ì§€ì†ì ì¸ ì¢Œí‘œ ìš”ì²­ì„ í•œë‹¤.
 					CRRequest _CRRequest;
 					_CRRequest.setCode( CR_REQUEST_POSITION_REPEATLY );
 
@@ -55,7 +56,7 @@ void RCConnectVerifyHandler::execute ( RCConnectVerify * pPacket , Player * pPla
 			break;
 
 			//---------------------------------------------------------------
-			// Á¢¼ÓÀÌ ¾ÈµÇ°Å³ª °ÅºÎµÈ °æ¿ì
+			// ì ‘ì†ì´ ì•ˆë˜ê±°ë‚˜ ê±°ë¶€ëœ ê²½ìš°
 			//---------------------------------------------------------------
 			case RC_CONNECT_REJECT :
 			case RC_CONNECT_WRONG :

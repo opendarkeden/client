@@ -6,6 +6,11 @@
 
 #include "UtilityFunction.h"
 
+#ifndef PLATFORM_WINDOWS
+#include <sys/statvfs.h>
+#endif
+#include <SDL_image.h>
+
 
 bool LoadJPG(LPCTSTR lpszFileName, int &width, int &height, int &bpp, unsigned char** p_data);
 bool SaveJPG(LPCTSTR lpszFileName, int &width, int &height, int &bpp, unsigned char* p_data);
@@ -14,12 +19,12 @@ bool SaveJPG(LPCTSTR lpszFileName, int &width, int &height, int &bpp, unsigned c
 //-----------------------------------------------------------------------------
 // RemoveStringSpace
 //-----------------------------------------------------------------------------
-// string æ’ µ⁄¿« ∞¯πÈ¿ª ¡¶∞≈«—¥Ÿ.
+// string Ïïû Îí§Ïùò Í≥µÎ∞±ÏùÑ Ï†úÍ±∞ÌïúÎã§.
 //-----------------------------------------------------------------------------
 void
 RemoveStringSpace(char*& str)
 {
-	// æ’¬  ∞¯πÈ ¡¶∞≈
+	// ÏïûÏ™Ω Í≥µÎ∞± Ï†úÍ±∞
 	int bExistChar = 0;
 	while (*str != '\0')
 	{
@@ -34,7 +39,7 @@ RemoveStringSpace(char*& str)
 		}
 	}
 
-	// µ⁄¬  ∞¯πÈ ¡¶∞≈ 
+	// Îí§Ï™Ω Í≥µÎ∞± Ï†úÍ±∞ 
 	if (bExistChar)
 	{
 		char* strTemp = str;
@@ -52,11 +57,11 @@ RemoveStringSpace(char*& str)
 //-----------------------------------------------------------------------------
 // SSN Check (strSSN1, strSSN2)
 //-----------------------------------------------------------------------------
-// ¡÷πŒµÓ∑œπ¯»£ √º≈©..
+// Ï£ºÎØºÎì±Î°ùÎ≤àÌò∏ Ï≤¥ÌÅ¨..
 // strSSN1-strSSN2
 // 
-// ¡§ªÛ¿˚¿Œ ¡÷πŒµÓ∑œπ¯»£¿Ã∏È	return 1
-//					æ∆¥œ∏È		return 0
+// Ï†ïÏÉÅÏ†ÅÏù∏ Ï£ºÎØºÎì±Î°ùÎ≤àÌò∏Ïù¥Î©¥	return 1
+//					ÏïÑÎãàÎ©¥		return 0
 //-----------------------------------------------------------------------------
 int 
 IsValidSSN(const char* strSSN1, const char* strSSN2)
@@ -67,7 +72,7 @@ IsValidSSN(const char* strSSN1, const char* strSSN2)
 	}
 
 	//----------------------------------------------------------
-	// SSN1 ¿« ±Ê¿Ã √º≈©. 6¿⁄ø©æﬂ «—¥Ÿ.
+	// SSN1 Ïùò Í∏∏Ïù¥ Ï≤¥ÌÅ¨. 6ÏûêÏó¨Ïïº ÌïúÎã§.
 	//----------------------------------------------------------
 	int lenSSN1 = strlen(strSSN1);
 
@@ -77,7 +82,7 @@ IsValidSSN(const char* strSSN1, const char* strSSN2)
 	}
 
 	//----------------------------------------------------------
-	// SSN2¿« ±Ê¿Ã √º≈©. 7¿⁄ø©æﬂ «—¥Ÿ.
+	// SSN2Ïùò Í∏∏Ïù¥ Ï≤¥ÌÅ¨. 7ÏûêÏó¨Ïïº ÌïúÎã§.
 	//----------------------------------------------------------
 	int lenSSN2 = strlen(strSSN2);
 
@@ -87,7 +92,7 @@ IsValidSSN(const char* strSSN1, const char* strSSN2)
 	}
 
 	//----------------------------------------------------------
-	// ∞¢ ¿⁄∏Æ¿« º˝¿⁄∏¶ ¿–¥¬¥Ÿ.
+	// Í∞Å ÏûêÎ¶¨Ïùò Ïà´ÏûêÎ•º ÏùΩÎäîÎã§.
 	//----------------------------------------------------------
 	const int chZero = '0';
 
@@ -107,7 +112,7 @@ IsValidSSN(const char* strSSN1, const char* strSSN2)
 	int n2_6 = strSSN2[6] - chZero;		// check number
 
 	//----------------------------------------------------------
-	// check«“∑¡¥¬ º˝¿⁄∏¶ ∞ËªÍ«—¥Ÿ.
+	// checkÌï†Î†§Îäî Ïà´ÏûêÎ•º Í≥ÑÏÇ∞ÌïúÎã§.
 	//----------------------------------------------------------
 	int sum = n1_0*2 + n1_1*3 + n1_2*4 + n1_3*5 + n1_4*6 + n1_5*7 
 			+ n2_0*8 + n2_1*9 + n2_2*2 + n2_3*3 + n2_4*4 + n2_5*5;
@@ -115,7 +120,7 @@ IsValidSSN(const char* strSSN1, const char* strSSN2)
     int parity = sum % 11;
 
 	//----------------------------------------------------------
-	// ¥Ÿ∏• ∞ÊøÏ
+	// Îã§Î•∏ Í≤ΩÏö∞
 	//----------------------------------------------------------
     if ( ((11-n2_6)) % 10 != (parity % 10) ) 
 	{ 
@@ -128,24 +133,24 @@ IsValidSSN(const char* strSSN1, const char* strSSN2)
 //-----------------------------------------------------------------------------
 // Is Valid ID
 //-----------------------------------------------------------------------------
-// 4~10±€¿⁄ ∞¯πÈ¿Ã ¿÷¿∏∏È æ»µ»¥Ÿ.
-// ¥Ÿ «—±€¿Ã∞≈≥™
-// ¥Ÿ øµæÓæﬂ «“±Ó??
+// 4~10Í∏ÄÏûê Í≥µÎ∞±Ïù¥ ÏûàÏúºÎ©¥ ÏïàÎêúÎã§.
+// Îã§ ÌïúÍ∏ÄÏù¥Í±∞ÎÇò
+// Îã§ ÏòÅÏñ¥Ïïº Ìï†Íπå??
 /*
 	char temp[3];
 	strncpy(temp, str, 2);
 	temp[2] = NULL;
 
-	if (strcmp(temp, "∞°") >= 0
-		&& strcmp(temp, "»˛") <= 0)
+	if (strcmp(temp, "Í∞Ä") >= 0
+		&& strcmp(temp, "Ìûù") <= 0)
 	{
-		// ¡¶¥Î∑Œµ» «—±€
+		// Ï†úÎåÄÎ°úÎêú ÌïúÍ∏Ä
 		str += 2;					
 		continue;	
 	}
 	else
 	{
-		// 2πŸ¿Ã∆Æ πÆ¿⁄
+		// 2Î∞îÏù¥Ìä∏ Î¨∏Ïûê
 		str += 2;
 		continue;
 	}
@@ -157,7 +162,7 @@ IsValidID(const char* strID, const char* strPermit)
 	const int minLength = 4;
 	const int maxLength = 10;
 
-	// æÓ∂∞«— ∞ÊøÏ¿ÃµÁ «„øÎµ«¥¬ πÆ¿⁄µÈ
+	// Ïñ¥Îñ†Ìïú Í≤ΩÏö∞Ïù¥Îì† ÌóàÏö©ÎêòÎäî Î¨∏ÏûêÎì§
 	//const char* strPermit = "_-";
 
 	int len = 0;
@@ -169,8 +174,8 @@ IsValidID(const char* strID, const char* strPermit)
 	char* str = strtempID;
 
 	//--------------------------------------------------------
-	// ∞¯πÈ¿Ã µÈæÓ∞°∏È æ»µ»¥Ÿ.
-	// ±Ê¿Ãµµ æÀæ∆≥Ω¥Ÿ. *_*;
+	// Í≥µÎ∞±Ïù¥ Îì§Ïñ¥Í∞ÄÎ©¥ ÏïàÎêúÎã§.
+	// Í∏∏Ïù¥ÎèÑ ÏïåÏïÑÎÇ∏Îã§. *_*;
 	//--------------------------------------------------------
 	while (*str != '\0')
 	{
@@ -184,7 +189,7 @@ IsValidID(const char* strID, const char* strPermit)
 	}
 
 	//--------------------------------------------------------
-	// ±Ê¿Ã∞° ¿ﬂ∏¯µ» ∞ÊøÏ
+	// Í∏∏Ïù¥Í∞Ä ÏûòÎ™ªÎêú Í≤ΩÏö∞
 	//--------------------------------------------------------
 	if (len<minLength || len>maxLength)
 	{
@@ -192,7 +197,7 @@ IsValidID(const char* strID, const char* strPermit)
 	}
 
 	//--------------------------------------------------------
-	// √π±€¿⁄∞° º˝¿⁄¿Ã∏È æ»µ»¥Ÿ.
+	// Ï≤´Í∏ÄÏûêÍ∞Ä Ïà´ÏûêÏù¥Î©¥ ÏïàÎêúÎã§.
 	//--------------------------------------------------------
 	if (strtempID[0]>='0' && strtempID[0]<='9')
 	{
@@ -200,7 +205,7 @@ IsValidID(const char* strID, const char* strPermit)
 	}
 
 	//--------------------------------------------------------
-	// «—±€¿ª ¡¶ø‹«— ∆ØºˆπÆ¿⁄∞° µÈæÓ∞°∏È æ»µ»¥Ÿ.
+	// ÌïúÍ∏ÄÏùÑ Ï†úÏô∏Ìïú ÌäπÏàòÎ¨∏ÏûêÍ∞Ä Îì§Ïñ¥Í∞ÄÎ©¥ ÏïàÎêúÎã§.
 	//--------------------------------------------------------
 	int bExistHangul = 0;
 	int bExistEnglish = 0;
@@ -210,32 +215,32 @@ IsValidID(const char* strID, const char* strPermit)
 	{
 		char ch = *str;
 		//--------------------------------------------------------
-		// √π bit∞° '1'¿Ã∏È «—±€..¿œ±Ó?
+		// Ï≤´ bitÍ∞Ä '1'Ïù¥Î©¥ ÌïúÍ∏Ä..ÏùºÍπå?
 		//--------------------------------------------------------
 		if (ch & 0x80)
 		{
-			// «—±€¿Ãπ«∑Œ µŒ byte ¥Ÿ¿Ω ∞≈ √º≈©
+			// ÌïúÍ∏ÄÏù¥ÎØÄÎ°ú Îëê byte Îã§Ïùå Í±∞ Ï≤¥ÌÅ¨
 			str++;
 
 			if (*str=='\0')
 			{
-				// ¥Ÿ¿Ω∞‘ æ¯¿∏∏È ¿ﬂ∏¯µ» ID¿Ã¥Ÿ.
+				// Îã§ÏùåÍ≤å ÏóÜÏúºÎ©¥ ÏûòÎ™ªÎêú IDÏù¥Îã§.
 				return 0;				
 			}
 
 			//--------------------------------------------------------
-			// ¿⁄¿Ω, ∏¿Ω∏∏ ¿÷¥¬ ∞ÊøÏ∂Û∏È ¿ﬂ∏¯µ» æ∆¿Ãµ¥Ÿ.
+			// ÏûêÏùå, Î™®ÏùåÎßå ÏûàÎäî Í≤ΩÏö∞ÎùºÎ©¥ ÏûòÎ™ªÎêú ÏïÑÏù¥ÎîîÎã§.
 			//--------------------------------------------------------
-			const char* badKor = "§≤§≥§∏§π§ß§®§°§¢§µ§∂§À§≈§¡§¿§¬§ƒ§∆§±§§§∑§©§æ§«§√§ø§”§ª§º§∫§Ω§–§Ã§—§…§Õ§œ§“";
-			
+			const char* badKor = "„ÖÇ„ÖÉ„Öà„Öâ„Ñ∑„Ñ∏„Ñ±„Ñ≤„ÖÖ„ÖÜ„Öõ„Öï„Öë„Öê„Öí„Öî„Öñ„ÖÅ„Ñ¥„Öá„Ñπ„Öé„Öó„Öì„Öè„Ö£„Öã„Öå„Öä„Öç„Ö†„Öú„Ö°„Öô„Öù„Öü„Ö¢";
+
 			char strKor[3] = { ch, *str };
-			
-			char* findPtr = strstr(badKor, strKor);
+
+			const char* findPtr = strstr(badKor, strKor);
 
 			if (findPtr!=NULL)
 			{
-				if (!((findPtr - badKor) & 0x01))	// ¬¶ºˆ∂Û∏È..
-				{					
+				if (!((findPtr - badKor) & 0x01))	// ÏßùÏàòÎùºÎ©¥..
+				{
 					return 0;
 				}
 			}
@@ -245,12 +250,12 @@ IsValidID(const char* strID, const char* strPermit)
 			bExistHangul = 1;
 		}
 		//--------------------------------------------------------
-		// æ∆¥œ∏È..
+		// ÏïÑÎãàÎ©¥..
 		//--------------------------------------------------------
 		else
 		{
 			//--------------------------------------------------------
-			// øµæÓ ¥Îº“πÆ¿⁄..
+			// ÏòÅÏñ¥ ÎåÄÏÜåÎ¨∏Ïûê..
 			//--------------------------------------------------------
 			if (ch>='a' && ch<='z' 
 				|| ch>='A' && ch<='Z')
@@ -258,15 +263,15 @@ IsValidID(const char* strID, const char* strPermit)
 				bExistEnglish = 1;
 			}
 			//--------------------------------------------------------
-			// º˝¿⁄∞≈≥™ 
-			// «„øÎµ» πÆ¿⁄¿Œ ∞ÊøÏ¥¬ ±¶¬˙¥Ÿ..
+			// Ïà´ÏûêÍ±∞ÎÇò
+			// ÌóàÏö©Îêú Î¨∏ÏûêÏù∏ Í≤ΩÏö∞Îäî Í¥úÏ∞ÆÎã§..
 			//--------------------------------------------------------
 			else if (ch>='0' && ch<='9'
-					|| strPermit!=NULL && strchr(strPermit, ch)!='\0')
-			{				
+					|| strPermit!=NULL && strchr(strPermit, ch)!=NULL)
+			{
 			}
 			//--------------------------------------------------------
-			// ¿ÃªÛ«— πÆ¿⁄ æ≤∏È æ»µ»¥Ÿ.				
+			// Ïù¥ÏÉÅÌïú Î¨∏Ïûê Ïì∞Î©¥ ÏïàÎêúÎã§.				
 			//--------------------------------------------------------
 			else
 			{
@@ -279,7 +284,7 @@ IsValidID(const char* strID, const char* strPermit)
 	}
 
 	//--------------------------------------------------------
-	// «—±€¿ª ªÁøÎ«— ∞ÊøÏø°¥¬ øµæÓ∏¶ ªÁøÎ«“ ºˆ æ¯¥Ÿ.
+	// ÌïúÍ∏ÄÏùÑ ÏÇ¨Ïö©Ìïú Í≤ΩÏö∞ÏóêÎäî ÏòÅÏñ¥Î•º ÏÇ¨Ïö©Ìï† Ïàò ÏóÜÎã§.
 	//--------------------------------------------------------
 	if (bExistHangul && bExistEnglish)
 	{
@@ -287,7 +292,7 @@ IsValidID(const char* strID, const char* strPermit)
 	}
 
 	//--------------------------------------------------------
-	// ¡§ªÛ¿˚¿Œ ID
+	// Ï†ïÏÉÅÏ†ÅÏù∏ ID
 	//--------------------------------------------------------
 	return 1;
 }
@@ -299,7 +304,7 @@ int
 IsValidPassword(const char* strPWD)
 {
 	//--------------------------------------------------
-	// «„øÎæ»µ«¥¬ ∆ØºˆπÆ¿⁄∏¶ ªÁøÎ«œ∏È æ»µ»¥Ÿ.
+	// ÌóàÏö©ÏïàÎêòÎäî ÌäπÏàòÎ¨∏ÏûêÎ•º ÏÇ¨Ïö©ÌïòÎ©¥ ÏïàÎêúÎã§.
 	//--------------------------------------------------
 	if (strchr(strPWD, '\\')!=NULL
 		|| strchr(strPWD, '\'')!=NULL)
@@ -308,9 +313,9 @@ IsValidPassword(const char* strPWD)
 	}
 
 	//--------------------------------------------------
-	// º˝¿⁄∏∏ ªÁøÎ«œ∏È æ»µ»¥Ÿ.
+	// Ïà´ÏûêÎßå ÏÇ¨Ïö©ÌïòÎ©¥ ÏïàÎêúÎã§.
 	//--------------------------------------------------
-	// »Ê»Ê.. ¿ÃπÃ º˝¿⁄∞° ¿‘∑¬µ» ªÁ∂˜µÈ ∂ß∏ﬁ.. T_T;;
+	// ÌùëÌùë.. Ïù¥ÎØ∏ Ïà´ÏûêÍ∞Ä ÏûÖÎ†•Îêú ÏÇ¨ÎûåÎì§ ÎïåÎ©î.. T_T;;
 	/*
 	char* str = strPWD;
 	
@@ -327,7 +332,7 @@ IsValidPassword(const char* strPWD)
 		}
 	}
 
-	if (AllNumber)	// ¿¸∫Œ º˝¿⁄¿Œ ∞ÊøÏ..
+	if (AllNumber)	// Ï†ÑÎ∂Ä Ïà´ÏûêÏù∏ Í≤ΩÏö∞..
 	{
 		return 0;
 	}
@@ -339,7 +344,7 @@ IsValidPassword(const char* strPWD)
 //-----------------------------------------------------------------------------
 // LoadImageToSurface
 //-----------------------------------------------------------------------------
-// *.bmp, *.jpg∏∏ ¿–¥¬¥Ÿ.
+// *.bmp, *.jpgÎßå ÏùΩÎäîÎã§.
 //-----------------------------------------------------------------------------
 bool	
 LoadImageToSurface(const char* pFilename, CDirectDrawSurface& surface)
@@ -351,26 +356,26 @@ LoadImageToSurface(const char* pFilename, CDirectDrawSurface& surface)
 
 	int fileLen = strlen(pFilename);
 
-	// file¿Ã∏ß¿Ã ≥— ¬™¿∫ ∞ÊøÏ... strlen("¿Ã∏ß.bmp")==8
+	// fileÏù¥Î¶ÑÏù¥ ÎÑò ÏßßÏùÄ Í≤ΩÏö∞... strlen("Ïù¥Î¶Ñ.bmp")==8
 	if (fileLen < 8)
 	{
 		return false;
 	}
 
-	// file¿Ã∏ß¿Ã ¿ÃªÛ«— ∞ÊøÏ
+	// fileÏù¥Î¶ÑÏù¥ Ïù¥ÏÉÅÌïú Í≤ΩÏö∞
 	char checkStr[10];
 	strcpy(checkStr, (pFilename+fileLen-4));
-	strcpy(checkStr, _strlwr(checkStr));
+	// _strlwr is Windows-only, removed - lowercase conversion done below
 
 	bool bBmp = false;
 	bool bJpg = false;
 
-	// »Æ¿Â¿⁄ √º≈©∏¶ ¿ß«ÿ lowercase
+	// ÌôïÏû•Ïûê Ï≤¥ÌÅ¨Î•º ÏúÑÌï¥ lowercase
 	for(int kkk = 0; kkk < strlen(checkStr); kkk++)
 		if(checkStr[kkk] >= 'A' && checkStr[kkk] <= 'Z')
 			checkStr[kkk] += 'a' - 'A';
 
-	// »Æ¿Â¿⁄ √º≈©..
+	// ÌôïÏû•Ïûê Ï≤¥ÌÅ¨..
 	if(!strncmp(".bmp", checkStr, 4))
 	{
 		bBmp = true;
@@ -484,7 +489,7 @@ LoadImageToSurface(const char* pFilename, CDirectDrawSurface& surface)
 //-----------------------------------------------------------------------------
 // SaveSurfaceToImage
 //-----------------------------------------------------------------------------
-// *.bmp, *.jpg∏∏ æ¥¥Ÿ.
+// *.bmp, *.jpgÎßå Ïì¥Îã§.
 //-----------------------------------------------------------------------------
 bool	
 SaveSurfaceToImage(const char* pFilename, CDirectDrawSurface& surface)
@@ -496,26 +501,26 @@ SaveSurfaceToImage(const char* pFilename, CDirectDrawSurface& surface)
 
 	int fileLen = strlen(pFilename);
 
-	// file¿Ã∏ß¿Ã ≥— ¬™¿∫ ∞ÊøÏ... strlen("¿Ã∏ß.bmp")==8
+	// fileÏù¥Î¶ÑÏù¥ ÎÑò ÏßßÏùÄ Í≤ΩÏö∞... strlen("Ïù¥Î¶Ñ.bmp")==8
 	if (fileLen < 8)
 	{
 		return false;
 	}
 
-	// file¿Ã∏ß¿Ã ¿ÃªÛ«— ∞ÊøÏ
+	// fileÏù¥Î¶ÑÏù¥ Ïù¥ÏÉÅÌïú Í≤ΩÏö∞
 	char checkStr[10];
 	strcpy(checkStr, (pFilename+fileLen-4));
-	strcpy(checkStr, _strlwr(checkStr));
+	// _strlwr is Windows-only, removed - lowercase conversion done below
 
 	bool bBmp = false;
 	bool bJpg = false;
 
-	// »Æ¿Â¿⁄ √º≈©∏¶ ¿ß«ÿ lowercase
+	// ÌôïÏû•Ïûê Ï≤¥ÌÅ¨Î•º ÏúÑÌï¥ lowercase
 	for(int kkk = 0; kkk < strlen(checkStr); kkk++)
 		if(checkStr[kkk] >= 'A' && checkStr[kkk] <= 'Z')
 			checkStr[kkk] += 'a' - 'A';
 
-	// »Æ¿Â¿⁄ √º≈©..
+	// ÌôïÏû•Ïûê Ï≤¥ÌÅ¨..
 	if(!strncmp(".bmp", checkStr, 4))
 	{
 		bBmp = true;
@@ -586,7 +591,7 @@ SaveSurfaceToImage(const char* pFilename, CDirectDrawSurface& surface)
 // CBaseImage
 
 extern "C" {
-#include "jpegLib\jpeglib.h"
+#include "jpegLib/jpeglib.h"
 }
 
 /*
@@ -927,20 +932,21 @@ bool SaveJPG(LPCTSTR lpszFileName, int &width, int &height, int &bpp, unsigned c
 //-----------------------------------------------------------------------------
 // Get DiskFreeSpace
 //-----------------------------------------------------------------------------
-// Drive∞° NULL¿Ã∏È ¡ˆ¡§¿ª æ»«œ∏È «ˆ¿Á µÂ∂Û¿Ã∫Í¥Ÿ.
+// DriveÍ∞Ä NULLÏù¥Î©¥ ÏßÄÏ†ïÏùÑ ÏïàÌïòÎ©¥ ÌòÑÏû¨ ÎìúÎùºÏù¥Î∏åÎã§.
 //-----------------------------------------------------------------------------
 unsigned long
 GetDiskFreeSpace(const char* pDrive)
-{	
+{
+#ifdef PLATFORM_WINDOWS
 	DWORD dwSectorsPerCluster;
 	DWORD dwBytesPerSector;
 	DWORD dwNumberOfFreeClusters;
 	DWORD dwTotalNumberOfClusters;
 
-	GetDiskFreeSpace(pDrive,
-						&dwSectorsPerCluster, 
-						&dwBytesPerSector, 
-						&dwNumberOfFreeClusters, 
+	::GetDiskFreeSpaceA(pDrive,
+						&dwSectorsPerCluster,
+						&dwBytesPerSector,
+						&dwNumberOfFreeClusters,
 						&dwTotalNumberOfClusters);
 
 	DWORD bytesPerCluster = dwSectorsPerCluster * dwBytesPerSector;
@@ -948,4 +954,90 @@ GetDiskFreeSpace(const char* pDrive)
 	//DWORD totalBytes = dwTotalNumberOfClusters * bytesPerCluster;
 
 	return freeBytes;
+#else
+	// macOS/Linux implementation using statvfs
+	struct statvfs buf;
+	const char* drive = (pDrive != NULL && pDrive[0] != '\0') ? pDrive : "/";
+	if (statvfs(drive, &buf) != 0) {
+		return 0;
+	}
+	unsigned long freeBytes = (unsigned long)(buf.f_bavail * buf.f_bsize);
+	return freeBytes;
+#endif
 }
+// SDL backend implementation of LoadImageToSurface
+#ifndef PLATFORM_WINDOWS
+#include "SpriteLib/CSpriteSurface.h"
+
+bool LoadImageToSurface(const char* pFilename, CSpriteSurface& surface)
+{
+	if (pFilename == NULL) {
+		return false;
+	}
+
+	int fileLen = strlen(pFilename);
+
+	if (fileLen < 8) {
+		return false;
+	}
+
+	// Check file extension
+	char checkStr[10];
+	strcpy(checkStr, (pFilename + fileLen - 4));
+	for (int i = 0; i < strlen(checkStr); i++) {
+		if (checkStr[i] >= 'A' && checkStr[i] <= 'Z') {
+			checkStr[i] += 'a' - 'A';
+		}
+	}
+
+	// Only support .bmp files for now
+	if (strncmp(".bmp", checkStr, 4) != 0) {
+		return false;
+	}
+
+	// Load image using SDL_image
+	SDL_Surface* loaded = SDL_LoadBMP(pFilename);
+	if (loaded == NULL) {
+		return false;
+	}
+
+	// Convert to RGB565 format
+	SDL_Surface* converted = SDL_ConvertSurfaceFormat(loaded, SDL_PIXELFORMAT_RGB565, 0);
+	if (converted == NULL) {
+		SDL_FreeSurface(loaded);
+		return false;
+	}
+
+	// Get surface info
+	S_SURFACEINFO info;
+	surface.GetSurfaceInfo(&info);
+
+	if (info.p_surface == NULL) {
+		SDL_FreeSurface(converted);
+		SDL_FreeSurface(loaded);
+		return false;
+	}
+
+	// Copy pixel data
+	WORD* dest = (WORD*)info.p_surface;
+	int width = min(converted->w, info.width);
+	int height = min(converted->h, info.height);
+
+	for (int y = 0; y < height; y++) {
+		for (int x = 0; x < width; x++) {
+			Uint8 r, g, b;
+			Uint32 pixel = ((Uint32*)converted->pixels)[y * converted->w + x];
+			SDL_GetRGB(pixel, converted->format, &r, &g, &b);
+
+			// Convert RGB888 to RGB565
+			WORD rgb565 = ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3);
+			dest[y * (info.pitch / 2) + x] = rgb565;
+		}
+	}
+
+	SDL_FreeSurface(converted);
+	SDL_FreeSurface(loaded);
+
+	return true;
+}
+#endif

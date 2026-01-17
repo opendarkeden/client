@@ -7,18 +7,22 @@
 
 class CDirectDrawSurface;
 
+#ifndef PLATFORM_WINDOWS
+class CSpriteSurface;
+#endif
+
 //-----------------------------------------------------------------------------
-// ¹®ÀÚ¿­ ¾Õ µÚÀÇ °ø¹é Á¦°ÅÇÏ±â
+// ë¬¸ìì—´ ì• ë’¤ì˜ ê³µë°± ì œê±°í•˜ê¸°
 //-----------------------------------------------------------------------------
 void	RemoveStringSpace(char*& str);
 
 //-----------------------------------------------------------------------------
-// Á¤»óÀûÀÎ ÁÖ¹Îµî·Ï¹øÈ£ÀÎ°¡?
+// ì •ìƒì ì¸ ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸ì¸ê°€?
 //-----------------------------------------------------------------------------
 int		IsValidSSN(const char* strSSN1, const char* strSSN2);
 
 //-----------------------------------------------------------------------------
-// Á¤»óÀûÀÎ IDÀÎ°¡?
+// ì •ìƒì ì¸ IDì¸ê°€?
 //-----------------------------------------------------------------------------
 int		IsValidID(const char* strID, const char* strPermit);
 
@@ -40,8 +44,13 @@ bool	SaveSurfaceToImage(const char* pFilename, CDirectDrawSurface& surface);
 //-----------------------------------------------------------------------------
 // Get DiskFreeSpace
 //-----------------------------------------------------------------------------
-// Drive°¡ NULLÀÌ¸é ÁöÁ¤À» ¾ÈÇÏ¸é ÇöÀç µå¶óÀÌºê´Ù.
+// Driveê°€ NULLì´ë©´ ì§€ì •ì„ ì•ˆí•˜ë©´ í˜„ì¬ ë“œë¼ì´ë¸Œë‹¤.
 //-----------------------------------------------------------------------------
 unsigned long	GetDiskFreeSpace(const char* pDrive=NULL);
+
+// SDL backend overloads
+#ifndef PLATFORM_WINDOWS
+bool	LoadImageToSurface(const char* pFilename, CSpriteSurface& surface);
+#endif
 
 #endif

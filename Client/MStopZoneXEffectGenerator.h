@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MStopZoneXEffectGenerator.h
 //----------------------------------------------------------------------
-// X«¸¿∏∑Œ ª˝º∫
+// XÌòïÏúºÎ°ú ÏÉùÏÑ±
 //----------------------------------------------------------------------
 
 #ifndef	__MSTOPZONEXEFFECTGENERATOR_H__
@@ -16,7 +16,7 @@ class MStopZoneXEffectGenerator : public MEffectGenerator {
 
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_STOP_ZONE_X; }
 
-		// Effectª˝º∫
+		// EffectÏÉùÏÑ±
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

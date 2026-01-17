@@ -43,15 +43,15 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 			break;
 		case TYPE_FINISH_SCRATCH:
 			{
-				// È®ÀÎÇÏ°í µðºñ¿¡ ÀúÀåÇÏ±â
-				// ÆÐÅ¶ ¸¸µé¾î¼­ ¿Ã¿ùµå¿¡ ºê·ÎµåÄ³½ºÆÃÇØÁÖ±â
-				// ÆøÁ× ÀÌÆåÆ® ºÙ¿©ÁÖ±â..
+				// í™•ì¸í•˜ê³  ë””ë¹„ì— ì €ìž¥í•˜ê¸°
+				// íŒ¨í‚· ë§Œë“¤ì–´ì„œ ì˜¬ì›”ë“œì— ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì£¼ê¸°
+				// í­ì£½ ì´íŽ™íŠ¸ ë¶™ì—¬ì£¼ê¸°..
 
 			}
 			break;
 		case TYPE_OVER_ENDING:
 			{
-				// Á×ÀÎ´Ù.
+				// ì£½ì¸ë‹¤.
 				pPC->setHP(0);
 			}
 			break;

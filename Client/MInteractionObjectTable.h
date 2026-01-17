@@ -1,14 +1,14 @@
 //----------------------------------------------------------------------
 // MInteractionObjectTable.h
 //----------------------------------------------------------------------
-// InteractionObjectÀÇ Á¾·ù¿¡ µû¸¥ Á¤º¸¸¦ ÀúÀåÇÏ´Â class
+// InteractionObjectì˜ ì¢…ë¥˜ì— ë”°ë¥¸ ì •ë³´ë¥¼ ì €ì¥í•˜ëŠ” class
 //----------------------------------------------------------------------
 //
-// [ Á¾·ùº°·Î ÀÖ´Â Á¤º¸ ] 
+// [ ì¢…ë¥˜ë³„ë¡œ ìˆëŠ” ì •ë³´ ] 
 //
 // - Type ID
-// - Action¿¡ ´ëÀÀÇÏ´Â FrameID
-// - ÀÌ¸§... µîµî...
+// - Actionì— ëŒ€ì‘í•˜ëŠ” FrameID
+// - ì´ë¦„... ë“±ë“±...
 // 
 //----------------------------------------------------------------------
 
@@ -20,27 +20,28 @@
 #include "CTypeTable.h"
 #include "DrawTypeDef.h"
 #include "MTypeDef.h"
-class ifstream;
-class ofstream;
+
+#include <fstream>
+using namespace std;
 
 //----------------------------------------------------------------------
 //
-// ÇÑ Á¾·ùÀÇ InteractionObject¿¡ ´ëÇÑ Á¤º¸
+// í•œ ì¢…ë¥˜ì˜ InteractionObjectì— ëŒ€í•œ ì •ë³´
 //
 //----------------------------------------------------------------------
 class INTERACTIONOBJECTTABLE_INFO {
 	public :
 		BYTE					Type;			// InteractionObject Type
 		TYPE_FRAMEID			FrameID;		// FrameID		
-		int						Property;		// ¼Ó¼º
-		TYPE_SOUNDID			SoundID;		// »óÅÂ¸¦ º¯°æÇßÀ» ¶§ÀÇ SoundID
+		int						Property;		// ì†ì„±
+		TYPE_SOUNDID			SoundID;		// ìƒíƒœë¥¼ ë³€ê²½í–ˆì„ ë•Œì˜ SoundID
 
 	public :
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void			SaveToFile(class ofstream& file);		
-		void			LoadFromFile(class ifstream& file);
+		void			SaveToFile(std::ofstream& file);		
+		void			LoadFromFile(std::ifstream& file);
 		
 };
 

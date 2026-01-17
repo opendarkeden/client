@@ -1,15 +1,20 @@
+#include <fstream>
 //----------------------------------------------------------------------
 // CAlphaSprite555.h
 //----------------------------------------------------------------------
-// 5:5:5 video card¿¡ ´ëÇÑ sprite class
+// 5:5:5 video cardì— ëŒ€í•œ sprite class
 //----------------------------------------------------------------------
 
 #ifndef	__CALPHASPRITE555_H__
 #define	__CALPHASPRITE555_H__
 
-#include <Windows.h>
-class ofstream;
-class ifstream;
+#ifdef PLATFORM_WINDOWS
+	#include <Windows.h>
+#else
+	#include "../basic/Platform.h"
+#endif
+std::ofstream;
+std::ifstream;
 
 
 #include "CAlphaSprite.h"
@@ -19,10 +24,10 @@ class CAlphaSprite555 : public CAlphaSprite {
 	public :
 	
 		//---------------------------------------------------------
-		// fstream¿¡¼­ save/load¸¦ ÇÑ´Ù.
+		// fstreamì—ì„œ save/loadë¥¼ í•œë‹¤.
 		//---------------------------------------------------------
-		bool		SaveToFile(class ofstream& file);
-		bool		LoadFromFile(class ifstream& file);
+		bool		SaveToFile(std::ofstream& file);
+		bool		LoadFromFile(std::ifstream& file);
 };
 
 

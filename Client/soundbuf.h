@@ -1,30 +1,34 @@
 #ifndef _SOUNDBUF_H_
 #define _SOUNDBUF_H_
 
+#ifdef PLATFORM_WINDOWS
 #include <wtypes.h>
-#include "mp3.h"
-//#include "dslib.h"
 #include <dsound.h>
+#else
+#include "../basic/Platform.h"  // For basic types
+#include "CDirectSoundStream.h"  // For DSBPOSITIONNOTIFY definition
+#endif
+#include "mp3.h"
 
 
 struct MP3 ;
 
 struct SOUNDBUF
 {
-	char		databuf[0x1200] ;		// »ç¿îµå ¼­ÇÇ½º¿¡ Áı¾î³ÖÀ» µ¥ÀÌÅ¸ÀÇ ¹öÆÛ 
-	int			nWritten ;				// ¾´ ¹ÙÀÌÆ® ¼ö 
-	int			lp ;					// ¿ŞÂÊ Ã¤³Î ÀÎµ¦½º (¸ğ³ëÀÏ °æ¿ì Àü µ¥ÀÌÅ¸ ÀÎµ¦½º)
-	int			rp ;					// ¿À¸¥ÂÊ Ã¤³Î ÀÎµ¦½º 
-	int			channels ;				// Ã¤³Î ¼ö ( 1 or 2 ) 
-	int			nFrames ;				// ¹öÆÛ¸µ ¼ö
-	int			nPushedFrames ;			// ÇöÀç ¹öÆÛ¸µµÈ ¼ö 
-	int			bufSize ;				// ¹öÆÛÀÇ »çÀÌÁî 
-	int			curBuffer ;				// ÇöÀç ¹öÆÛÀÇ ID 
-	LPDIRECTSOUNDBUFFER		dsPlayBuf ;				// ¿¬ÁÖ¿ë ¹öÆÛ 
-	LPDIRECTSOUNDBUFFER		dsWriteBuf ;			// ¾²±â¿ë ¹öÆÛ 
-	int			readyBufs ;				// µ¥ÀÌÅ¸°¡ ´ã±ä ¹öÆÛÀÇ ¼ö 
-	int			offWrite ;				// »ç¿îµå ¹öÆÛÀÇ write ¿ÀÇÁ¼Â
-	BOOL		bPlaying ;				// ÇöÀç ¿¬ÁÖÁß??
+	char		databuf[0x1200] ;		// ì‚¬ìš´ë“œ ì„œí”¼ìŠ¤ì— ì§‘ì–´ë„£ì„ ë°ì´íƒ€ì˜ ë²„í¼ 
+	int			nWritten ;				// ì“´ ë°”ì´íŠ¸ ìˆ˜ 
+	int			lp ;					// ì™¼ìª½ ì±„ë„ ì¸ë±ìŠ¤ (ëª¨ë…¸ì¼ ê²½ìš° ì „ ë°ì´íƒ€ ì¸ë±ìŠ¤)
+	int			rp ;					// ì˜¤ë¥¸ìª½ ì±„ë„ ì¸ë±ìŠ¤ 
+	int			channels ;				// ì±„ë„ ìˆ˜ ( 1 or 2 ) 
+	int			nFrames ;				// ë²„í¼ë§ ìˆ˜
+	int			nPushedFrames ;			// í˜„ì¬ ë²„í¼ë§ëœ ìˆ˜ 
+	int			bufSize ;				// ë²„í¼ì˜ ì‚¬ì´ì¦ˆ 
+	int			curBuffer ;				// í˜„ì¬ ë²„í¼ì˜ ID 
+	LPDIRECTSOUNDBUFFER		dsPlayBuf ;				// ì—°ì£¼ìš© ë²„í¼ 
+	LPDIRECTSOUNDBUFFER		dsWriteBuf ;			// ì“°ê¸°ìš© ë²„í¼ 
+	int			readyBufs ;				// ë°ì´íƒ€ê°€ ë‹´ê¸´ ë²„í¼ì˜ ìˆ˜ 
+	int			offWrite ;				// ì‚¬ìš´ë“œ ë²„í¼ì˜ write ì˜¤í”„ì…‹
+	BOOL		bPlaying ;				// í˜„ì¬ ì—°ì£¼ì¤‘??
 } ;
 
 typedef SOUNDBUF	*LPSOUNDBUF ;

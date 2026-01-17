@@ -20,11 +20,12 @@
 
 //////////////////////////////////////////////////////////////////////
 //
-// ≈¨∂Û¿Ãæ∆Æø°º≠ º≠πˆ∑Œ∫Œ≈Õ ∏ﬁΩ√¡ˆ∏¶ πﬁæ“¿ª∂ß Ω««‡µ«¥¬ ∏ﬁΩÓµÂ¿Ã¥Ÿ.
+// ÌÅ¥ÎùºÏù¥Ïñ∏Ìä∏ÏóêÏÑú ÏÑúÎ≤ÑÎ°úÎ∂ÄÌÑ∞ Î©îÏãúÏßÄÎ•º Î∞õÏïòÏùÑÎïå Ïã§ÌñâÎêòÎäî Î©îÏèòÎìúÏù¥Îã§.
 //
 //////////////////////////////////////////////////////////////////////
 void GCBloodBibleListHandler::execute ( GCBloodBibleList * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY 
 	
@@ -56,7 +57,7 @@ void GCBloodBibleListHandler::execute ( GCBloodBibleList * pPacket , Player * pP
 		g_pPCTalkBox->AddString( str );
 	}
 	
-	// ≥°≥ª±‚ √ﬂ∞°
+	// ÎÅùÎÇ¥Í∏∞ Ï∂îÍ∞Ä
 	std::string szMsg;
 	szMsg += "999";
 	szMsg += (*g_pGameStringTable)[UI_STRING_MESSAGE_RENT_LATER_BLOOD_BIBLE].GetString();

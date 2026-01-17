@@ -1,10 +1,17 @@
 #include "DirectXlib_PCH.h"
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "CDirectInput.h"
 
 #define MSB		0x80
 
+// Global instance - defined in platform-specific files
+#ifdef PLATFORM_WINDOWS
 CDirectInput*	g_pDXInput = NULL;
+#endif
 
 const char*		CDirectInput::s_KeyName[256] = 
 { 	
@@ -231,14 +238,16 @@ NULL, // 0xda
 	"APPS",		//0xDD//AppMenukey
 };
 
+#ifdef PLATFORM_WINDOWS
+
 /*-----------------------------------------------------------------------------
 - GetMouseAcceleration
-- SystemParametersInfo()·Î ¾òÀº Mouse Á¤º¸¸¦ °¡Áö°í Mouse °¡¼Ó°ªÀ» ¾ò´Â´Ù.
+- SystemParametersInfo()ë¡œ ì–»ì€ Mouse ì •ë³´ë¥¼ ê°€ì§€ê³  Mouse ê°€ì†ê°’ì„ ì–»ëŠ”ë‹¤.
 -----------------------------------------------------------------------------*/
 int CDirectInput::GetMouseAcceleration(int value)
 {
 	//
-	// Á¦¾îÆÇ¿¡¼­ º¯°æÇÒ ¼ö ÀÖ´Â Mouse ¼Óµµ ¼³Á¤Àº 7´Ü°èÀÌ´Ù.
+	// ì œì–´íŒì—ì„œ ë³€ê²½í•  ìˆ˜ ìˆëŠ” Mouse ì†ë„ ì„¤ì •ì€ 7ë‹¨ê³„ì´ë‹¤.
 	//
 	// level: (1st threshold, 2nd threshold, acceleration level) -> int m_mouse_info[3]
 	//
@@ -250,8 +259,8 @@ int CDirectInput::GetMouseAcceleration(int value)
 	// 5: (4,  9, 2)
 	// 6: (4,  6, 2)
 	//
-	// accel levelÀÌ 0ÀÌ ¾Æ´Ò ¶§, value°¡ Ã¹¹øÂ° ÇÑ°è°ªº¸´Ù Å©¸é value¸¦ 2¹è ÇÑ´Ù.
-	// accel levelÀÌ 2ÀÏ ¶§´Â µÎ¹øÂ° ÇÑ°è°ªº¸´Ù Å©¸é value¸¦ 2¹èÇÑ °ªÀ» ¶Ç 2¹è ÇÑ´Ù.
+	// accel levelì´ 0ì´ ì•„ë‹ ë•Œ, valueê°€ ì²«ë²ˆì§¸ í•œê³„ê°’ë³´ë‹¤ í¬ë©´ valueë¥¼ 2ë°° í•œë‹¤.
+	// accel levelì´ 2ì¼ ë•ŒëŠ” ë‘ë²ˆì§¸ í•œê³„ê°’ë³´ë‹¤ í¬ë©´ valueë¥¼ 2ë°°í•œ ê°’ì„ ë˜ 2ë°° í•œë‹¤.
 	//
 
 	int result = value;
@@ -270,12 +279,12 @@ int CDirectInput::GetMouseAcceleration(int value)
 
 /*-----------------------------------------------------------------------------
 - SetMouseSpeed
-- Á¦¾îÆÇ¿¡ ¼³Á¤µÈ Mouse ¼Óµµ¸¦ ¹İ¿µÇÑ´Ù.
+- ì œì–´íŒì— ì„¤ì •ëœ Mouse ì†ë„ë¥¼ ë°˜ì˜í•œë‹¤.
 -----------------------------------------------------------------------------*/
 void CDirectInput::SetMouseSpeed()
 {
 	//
-	// m_mouse_info´Â three integer arrayÀÌ´Ù.
+	// m_mouse_infoëŠ” three integer arrayì´ë‹¤.
 	//
 	// m_mouse_info[0] = first test value
 	// m_mouse_info[1] = second test value
@@ -288,9 +297,9 @@ void CDirectInput::SetMouseSpeed()
 
 /*-----------------------------------------------------------------------------
 - SetMouseMoveLimit
-- Mouse ÀÌµ¿ ÀÔ·ÂÁ¦ÇÑ °ª ¼³Á¤.
+- Mouse ì´ë™ ì…ë ¥ì œí•œ ê°’ ì„¤ì •.
 
-  `ÀÏ¹İÀûÀ¸·Î ÀÌ °ªÀº screen sizeÀÌ´Ù.
+  `ì¼ë°˜ì ìœ¼ë¡œ ì´ ê°’ì€ screen sizeì´ë‹¤.
 -----------------------------------------------------------------------------*/
 void CDirectInput::SetMouseMoveLimit(int x, int y)
 {
@@ -304,7 +313,7 @@ void CDirectInput::SetMouseMoveLimit(int x, int y)
 }
 
 /*-----------------------------------------------------------------------------
-Mouse À§Ä¡¸¦ °­Á¦·Î ¼³Á¤
+Mouse ìœ„ì¹˜ë¥¼ ê°•ì œë¡œ ì„¤ì •
 -----------------------------------------------------------------------------*/
 void		
 CDirectInput::SetMousePosition(int x, int y)
@@ -437,7 +446,7 @@ void CDirectInput::OnMouseInput()
 	 if (!m_pMouse)
 		 return;
 
-	// °ª ÃÊ±âÈ­
+	// ê°’ ì´ˆê¸°í™”
 	m_lb_down	= FALSE;	// left button - down
 	m_rb_down	= FALSE;	// right button - down
 	m_cb_down	= FALSE;	// center button - down
@@ -610,10 +619,10 @@ void CDirectInput::OnMouseInput()
                 break;
 
             case DIMOFS_Z:       // Mouse vertical motion 
-					m_mouse_z += od.dwData; // ÀÏ¹İÀûÀ¸·Î wheelÀÇ ÀÔµµ´Â 120ÀÌ´Ù.
+					m_mouse_z += od.dwData; // ì¼ë°˜ì ìœ¼ë¡œ wheelì˜ ì…ë„ëŠ” 120ì´ë‹¤.
 					if (m_fp_mouse_event_receiver)
 					{
-						// m_mouse_zÀ» º¯È¯ÇØ¼­ ³Ñ°ÜÁÙ±î?
+						// m_mouse_zì„ ë³€í™˜í•´ì„œ ë„˜ê²¨ì¤„ê¹Œ?
 						if ((int)od.dwData < 0)
 							m_fp_mouse_event_receiver(CDirectInput::WHEELDOWN, m_mouse_x, m_mouse_y, m_mouse_z);
 						else
@@ -774,7 +783,7 @@ HRESULT CDirectInput::SetAcquire(bool active_app)
 		 }
 
 		 //
-		 // Á¦¾îÆÇ¿¡¼­ Mouse Speed¸¦ Á¶ÀıÇÒ ¶§ Acquire¸¦ ´Ù½Ã ÇÏ¹Ç·Î Áö±İ ÇØÁØ´Ù.
+		 // ì œì–´íŒì—ì„œ Mouse Speedë¥¼ ì¡°ì ˆí•  ë•Œ Acquireë¥¼ ë‹¤ì‹œ í•˜ë¯€ë¡œ ì§€ê¸ˆ í•´ì¤€ë‹¤.
 		 //
 		 SetMouseSpeed();
 	 }
@@ -803,7 +812,7 @@ HRESULT CDirectInput::SetAcquire(bool active_app)
 //------------------------------------------------------------------------
 // Clear
 //------------------------------------------------------------------------
-// Input°ªÀ» ÃÊ±âÈ­ ½ÃÅ²´Ù.
+// Inputê°’ì„ ì´ˆê¸°í™” ì‹œí‚¨ë‹¤.
 //------------------------------------------------------------------------
 void
 CDirectInput::Clear()
@@ -823,10 +832,10 @@ CDirectInput::Clear()
 
 /*-----------------------------------------------------------------------------
 - InitDI
-- Direct InputÀ» ÃÊ±âÈ­ÇÑ´Ù.
+- Direct Inputì„ ì´ˆê¸°í™”í•œë‹¤.
 
-  `DirectDraw¸¦ »ç¿ëÇÏÁö ¾Ê°í DirectInput¸¸ »ç¿ëÇÒ ¼ö ÀÖÀ¸¹Ç·Î Window handleÀ» 
-   ÀÎÀÚ·Î ¹Ş´Â´Ù. °ğ, hWnd¿¡ µ¶Á¡ DirectInput¸¦ »ç¿ëÇÑ´Ù.
+  `DirectDrawë¥¼ ì‚¬ìš©í•˜ì§€ ì•Šê³  DirectInputë§Œ ì‚¬ìš©í•  ìˆ˜ ìˆìœ¼ë¯€ë¡œ Window handleì„ 
+   ì¸ìë¡œ ë°›ëŠ”ë‹¤. ê³§, hWndì— ë…ì  DirectInputë¥¼ ì‚¬ìš©í•œë‹¤.
 -----------------------------------------------------------------------------*/
 HRESULT CDirectInput::InitDI(HWND hWnd, HINSTANCE hInst, E_EXCLUSIVE ex)
 {
@@ -887,9 +896,9 @@ HRESULT CDirectInput::InitDI(HWND hWnd, HINSTANCE hInst, E_EXCLUSIVE ex)
     // this device should interact with the system and with other
     // DirectInput applications.
 	 //
-	 // Keyboard¿¡ ´ëÇØ¼­´Â Windows°¡ Ç×»ó Exclusive·Î »ç¿ëÇÏ¹Ç·Î Application¿¡¼­´Â
-	 // None-Exclusive·Î ¹Û¿¡ ÇÒ ¼ö ¾ø´Ù. ÀÌ°ÍÀº ¾ğÁ¦µçÁö alt+tab, ctrl+alt+del°ú 
-	 // °°Àº Å°ÀÔ·ÂÀ» À¯È¿ÇÏ°Ô ÇÏ±â À§ÇÔÀÌ´Ù.
+	 // Keyboardì— ëŒ€í•´ì„œëŠ” Windowsê°€ í•­ìƒ Exclusiveë¡œ ì‚¬ìš©í•˜ë¯€ë¡œ Applicationì—ì„œëŠ”
+	 // None-Exclusiveë¡œ ë°–ì— í•  ìˆ˜ ì—†ë‹¤. ì´ê²ƒì€ ì–¸ì œë“ ì§€ alt+tab, ctrl+alt+delê³¼ 
+	 // ê°™ì€ í‚¤ì…ë ¥ì„ ìœ íš¨í•˜ê²Œ í•˜ê¸° ìœ„í•¨ì´ë‹¤.
 	 //
     hr = m_pKeyboard->SetCooperativeLevel( hWnd, 
                                         DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
@@ -948,10 +957,15 @@ BOOL CDirectInput::Init(HWND hWnd, HINSTANCE hInst, E_EXCLUSIVE ex)
 	{
 		return TRUE;
 	}
-	
+
 	return FALSE;
-		//MessageBox(NULL, 
-		//				"Error Initializing DirectInput", 
-		//				"DX Library", 
+		//MessageBox(NULL,
+		//				"Error Initializing DirectInput",
+		//				"DX Library",
 		//				MB_ICONERROR | MB_OK);
 }
+
+#else
+// Non-Windows platforms: Use SDL backend implementation from CDirectInput_Adapter.cpp
+// All methods are implemented there
+#endif

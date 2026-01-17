@@ -19,9 +19,9 @@ enum REQUEST_VERIFY
 {
 	REQUEST_VERIFY_NULL,
 	REQUEST_VERIFY_WHISPER_FAILED,
-	REQUEST_VERIFY_PROFILE_NOT_EXIST,		// profileÀÌ ¾Æ¿¹ ¾ø´Â °æ¿ì
-	REQUEST_VERIFY_PROFILE_WRONG_USER,		// Àß¸øµÈ »ç¿ëÀÚ¿¡°Ô ¿äÃ»ÇÑ °æ¿ì
-	REQUEST_VERIFY_PROFILE_DONE,			// profile ´Ù º¸³Â´Ù.
+	REQUEST_VERIFY_PROFILE_NOT_EXIST,		// profileì´ ì•„ì˜ˆ ì—†ëŠ” ê²½ìš°
+	REQUEST_VERIFY_PROFILE_WRONG_USER,		// ì˜ëª»ëœ ì‚¬ìš©ìì—ê²Œ ìš”ì²­í•œ ê²½ìš°
+	REQUEST_VERIFY_PROFILE_DONE,			// profile ë‹¤ ë³´ëƒˆë‹¤.
 };
 
 //////////////////////////////////////////////////////////////////////
@@ -43,10 +43,10 @@ public :
 	
 public :
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write ( SocketOutputStream & oStream ) const throw ( ProtocolException , Error );
 
 	// execute packet's handler
@@ -56,7 +56,7 @@ public :
 	PacketID_t getPacketID () const throw () { return PACKET_RC_REQUEST_VERIFY; }
 	
 	// get packet's body size
-	// ÃÖÀûÈ­½Ã, ¹Ì¸® °è»êµÈ Á¤¼ö¸¦ »ç¿ëÇÑ´Ù.
+	// ìµœì í™”ì‹œ, ë¯¸ë¦¬ ê³„ì‚°ëœ ì •ìˆ˜ë¥¼ ì‚¬ìš©í•œë‹¤.
 	PacketSize_t getPacketSize () const throw () { return szBYTE; }
 
 	#ifdef __DEBUG_OUTPUT__
@@ -125,7 +125,7 @@ class RCRequestVerifyHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( RCRequestVerify * pRCRequestVerify , Player * pPlayer ) throw ( Error );
+	static void execute ( RCRequestVerify * pRCRequestVerify , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

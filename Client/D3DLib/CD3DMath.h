@@ -9,7 +9,105 @@
 #define	D3D_OVERLOADS
 #endif
 
-#include <D3D.h>
+#ifdef PLATFORM_WINDOWS
+	#include <D3D.h>
+#else
+	// For non-Windows platforms, provide basic type definitions
+	#include <math.h>
+
+	// Basic types
+	typedef float FLOAT;
+	typedef float D3DVALUE;
+	typedef int BOOL;
+	// DWORD is already defined in Platform.h
+
+	// Basic D3D types
+	typedef struct _D3DVECTOR {
+		D3DVALUE x; D3DVALUE y; D3DVALUE z;
+
+		// Constructors
+		_D3DVECTOR() : x(0), y(0), z(0) {}
+		_D3DVECTOR(D3DVALUE _x, D3DVALUE _y, D3DVALUE _z) : x(_x), y(_y), z(_z) {}
+
+		// Arithmetic operators (when D3D_OVERLOADS is defined)
+		#ifdef D3D_OVERLOADS
+		// Addition
+		_D3DVECTOR operator+(const _D3DVECTOR& v) const {
+			return _D3DVECTOR(x + v.x, y + v.y, z + v.z);
+		}
+		// Subtraction
+		_D3DVECTOR operator-(const _D3DVECTOR& v) const {
+			return _D3DVECTOR(x - v.x, y - v.y, z - v.z);
+		}
+		// Scalar multiplication
+		_D3DVECTOR operator*(D3DVALUE s) const {
+			return _D3DVECTOR(x * s, y * s, z * s);
+		}
+		// Scalar division
+		_D3DVECTOR operator/(D3DVALUE s) const {
+			return _D3DVECTOR(x / s, y / s, z / s);
+		}
+		// Dot product
+		D3DVALUE operator*(const _D3DVECTOR& v) const {
+			return x * v.x + y * v.y + z * v.z;
+		}
+		#endif
+	} D3DVECTOR, *LPD3DVECTOR;
+
+	// D3D Matrix (4x4)
+	typedef struct _D3DMATRIX {
+		D3DVALUE _11, _12, _13, _14;
+		D3DVALUE _21, _22, _23, _24;
+		D3DVALUE _31, _32, _33, _34;
+		D3DVALUE _41, _42, _43, _44;
+	} D3DMATRIX, *LPD3DMATRIX;
+
+	// D3D Vertex types
+	typedef struct _D3DVERTEX {
+		D3DVALUE x, y, z;           // Position coordinates (NOT D3DVECTOR!)
+		D3DVALUE nx, ny, nz;        // Normal vector coordinates (NOT D3DVECTOR!)
+		D3DVALUE tu, tv;            // Texture coordinates
+
+		// Default constructor
+		_D3DVERTEX() : x(0), y(0), z(0), nx(0), ny(0), nz(0), tu(0), tv(0) {}
+
+		// Constructor with D3DVECTOR for position and normal
+		_D3DVERTEX(const _D3DVECTOR& v, const _D3DVECTOR& n, D3DVALUE _tu, D3DVALUE _tv)
+			: x(v.x), y(v.y), z(v.z), nx(n.x), ny(n.y), nz(n.z), tu(_tu), tv(_tv) {}
+
+		// Full constructor with separate floats
+		_D3DVERTEX(D3DVALUE _x, D3DVALUE _y, D3DVALUE _z,
+		           D3DVALUE _nx, D3DVALUE _ny, D3DVALUE _nz,
+		           D3DVALUE _tu, D3DVALUE _tv)
+			: x(_x), y(_y), z(_z), nx(_nx), ny(_ny), nz(_nz), tu(_tu), tv(_tv) {}
+	} D3DVERTEX, *LPD3DVERTEX;
+
+	typedef struct _D3DTLVERTEX {
+		// Direct3D transformed/lit vertex
+		// Standard naming: sx/sy/sz (screen coordinates)
+		// Also support dvSX/dvSY/dvSZ naming for compatibility
+		union {
+			struct { D3DVALUE sx, sy, sz; };
+			struct { D3DVALUE dvSX, dvSY, dvSZ; };
+		};
+		D3DVALUE rhw;
+		D3DVALUE color, specular;
+		D3DVALUE tu, tv;
+
+		// Default constructor
+		_D3DTLVERTEX() : sx(0), sy(0), sz(0), rhw(0), color(0), specular(0), tu(0), tv(0) {}
+
+		// Constructor with D3DVECTOR position
+		_D3DTLVERTEX(const _D3DVECTOR& v, D3DVALUE _rhw, D3DVALUE _color,
+		             D3DVALUE _specular, D3DVALUE _tu, D3DVALUE _tv)
+			: sx(v.x), sy(v.y), sz(v.z), rhw(_rhw), color(_color), specular(_specular), tu(_tu), tv(_tv) {}
+
+		// Full constructor for transformed/lit vertices
+		_D3DTLVERTEX(D3DVALUE _sx, D3DVALUE _sy, D3DVALUE _sz, D3DVALUE _rhw,
+		             D3DVALUE _color, D3DVALUE _specular, D3DVALUE _tu, D3DVALUE _tv)
+			: sx(_sx), sy(_sy), sz(_sz), rhw(_rhw), color(_color), specular(_specular), tu(_tu), tv(_tv) {}
+	} D3DTLVERTEX, *LPD3DTLVERTEX;
+#endif
 
 //-----------------------------------------------------------------------------
 // Useful Math constants
@@ -134,13 +232,35 @@ class CD3DMath {
 										float Bx, float By, float Bz, float Bw,
 										float fAlpha );
 
-
 		//---------------------------------------------------------------
-		// 
+		//
 		//                       Plane
 		//
 		//---------------------------------------------------------------
 		static float*	GetPlane( float* plane, D3DVECTOR& a, D3DVECTOR& b, D3DVECTOR& c );
+
+		//---------------------------------------------------------------
+		//
+		//                     Vector Helpers
+		//
+		//---------------------------------------------------------------
+		// Cross product of two vectors
+		static inline D3DVECTOR CrossProduct( const D3DVECTOR& a, const D3DVECTOR& b ) {
+			return D3DVECTOR(
+				a.y * b.z - a.z * b.y,
+				a.z * b.x - a.x * b.z,
+				a.x * b.y - a.y * b.x
+			);
+		}
+
+		// Normalize vector (returns normalized copy, doesn't modify input)
+		static inline D3DVECTOR Normalize( const D3DVECTOR& v ) {
+			D3DVALUE len = (D3DVALUE)sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+			if (len > g_EPSILON) {
+				return D3DVECTOR(v.x / len, v.y / len, v.z / len);
+			}
+			return D3DVECTOR(0.0f, 0.0f, 0.0f);
+		}
 };
 
 #endif

@@ -18,8 +18,8 @@
 //
 // class CLRegisterPlayer;
 //
-// Å¬¶óÀÌ¾ğÆ®°¡ ·Î±×ÀÎ ¼­¹ö¿¡°Ô ÃÖÃÊ¿¡ Àü¼ÛÇÏ´Â ÆĞÅ¶ÀÌ´Ù.
-// ¾ÆÀÌµğ¿Í ÆĞ½º¿öµå°¡ ¾ÏÈ£È­µÇ¾î ÀÖ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ê°€ ë¡œê·¸ì¸ ì„œë²„ì—ê²Œ ìµœì´ˆì— ì „ì†¡í•˜ëŠ” íŒ¨í‚·ì´ë‹¤.
+// ì•„ì´ë””ì™€ íŒ¨ìŠ¤ì›Œë“œê°€ ì•”í˜¸í™”ë˜ì–´ ìˆë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -27,10 +27,10 @@ class CLRegisterPlayer : public Packet {
 
 public :
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write ( SocketOutputStream & oStream ) const throw ( ProtocolException , Error );
 
 	// execute packet's handler
@@ -42,21 +42,21 @@ public :
 	// get packet's body size
 	PacketSize_t getPacketSize () const throw ()
 	{
-		// ÃÖÀûÈ­½Ã ¹Ì¸® °è»êµÈ »ó¼ö¸¦ »ç¿ëÇÏµµ·Ï ÇÑ´Ù.
-		return    szBYTE + m_ID.size() 			// ¾ÆÀÌµğ
-				+ szBYTE + m_Password.size() 	// ¾ÏÈ£
-				+ szBYTE + m_Name.size() 		// ÀÌ¸§
-				+ szBYTE						// ¼ºº°
-				+ szBYTE + m_SSN.size() 		// ÁÖ¹Îµî·Ï¹øÈ£
-				+ szBYTE + m_Telephone.size() 	// ÀüÈ­¹øÈ£
-				+ szBYTE + m_Cellular.size() 	// ÈŞ´ëÆù¹øÈ£
-				+ szBYTE + m_ZipCode.size() 	// ¿ìÆí¹øÈ£
-				+ szBYTE + m_Address.size() 	// ÁÖ¼Ò
-				+ szBYTE 						// ±¹°¡ÄÚµå
-				+ szBYTE + m_Email.size() 		// ÀüÀÚ¸ŞÀÏ
-				+ szBYTE + m_Homepage.size() 	// È¨ÆäÀÌÁö
-				+ szBYTE + m_Profile.size() 	// ÀÚ±â¼Ò°³±Û
-				+ szBYTE;						// °ø°³¿©ºÎ
+		// ìµœì í™”ì‹œ ë¯¸ë¦¬ ê³„ì‚°ëœ ìƒìˆ˜ë¥¼ ì‚¬ìš©í•˜ë„ë¡ í•œë‹¤.
+		return    szBYTE + m_ID.size() 			// ì•„ì´ë””
+				+ szBYTE + m_Password.size() 	// ì•”í˜¸
+				+ szBYTE + m_Name.size() 		// ì´ë¦„
+				+ szBYTE						// ì„±ë³„
+				+ szBYTE + m_SSN.size() 		// ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸
+				+ szBYTE + m_Telephone.size() 	// ì „í™”ë²ˆí˜¸
+				+ szBYTE + m_Cellular.size() 	// íœ´ëŒ€í°ë²ˆí˜¸
+				+ szBYTE + m_ZipCode.size() 	// ìš°í¸ë²ˆí˜¸
+				+ szBYTE + m_Address.size() 	// ì£¼ì†Œ
+				+ szBYTE 						// êµ­ê°€ì½”ë“œ
+				+ szBYTE + m_Email.size() 		// ì „ìë©”ì¼
+				+ szBYTE + m_Homepage.size() 	// í™ˆí˜ì´ì§€
+				+ szBYTE + m_Profile.size() 	// ìê¸°ì†Œê°œê¸€
+				+ szBYTE;						// ê³µê°œì—¬ë¶€
 	}
 
 #ifdef __DEBUG_OUTPUT__
@@ -71,8 +71,8 @@ public :
 
 	//----------------------------------------------------------------------
 	// *CAUTION* 
-	// °¢ setXXX()µéÀº ÃÖ´ë ±æÀÌ¸¦ Ã¼Å©ÇØ¼­ truncate ÇÏÁö¸¸, ÃÖ¼Ò±æÀÌ´Â 
-	// Ã¼Å©ÇÏÁö ¾Ê´Â´Ù. ÃÖ¼Ò ±æÀÌ´Â read()/write() ¿¡¼­ Ã¼Å©µÈ´Ù. 
+	// ê° setXXX()ë“¤ì€ ìµœëŒ€ ê¸¸ì´ë¥¼ ì²´í¬í•´ì„œ truncate í•˜ì§€ë§Œ, ìµœì†Œê¸¸ì´ëŠ” 
+	// ì²´í¬í•˜ì§€ ì•ŠëŠ”ë‹¤. ìµœì†Œ ê¸¸ì´ëŠ” read()/write() ì—ì„œ ì²´í¬ëœë‹¤. 
 	//----------------------------------------------------------------------
 
     // get/set player's id
@@ -134,34 +134,34 @@ public :
 private :
 
 	//--------------------------------------------------
-	// ÇÃ·¹ÀÌ¾î ±âº» Á¤º¸
+	// í”Œë ˆì´ì–´ ê¸°ë³¸ ì •ë³´
 	//--------------------------------------------------
-    std::string m_ID; 			// ¾ÆÀÌµğ
-    std::string m_Password; 		// ÆĞ½º¿öµå
+    std::string m_ID; 			// ì•„ì´ë””
+    std::string m_Password; 		// íŒ¨ìŠ¤ì›Œë“œ
 	//--------------------------------------------------
-	// ÇÃ·¹ÀÌ¾î °³ÀÎ Á¤º¸
+	// í”Œë ˆì´ì–´ ê°œì¸ ì •ë³´
 	//--------------------------------------------------
-    std::string m_Name; 			// ÀÌ¸§
-    Sex m_Sex; 				// ¼ºº°
-    std::string m_SSN; 			// ÁÖ¹Îµî·Ï¹øÈ£
+    std::string m_Name; 			// ì´ë¦„
+    Sex m_Sex; 				// ì„±ë³„
+    std::string m_SSN; 			// ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸
 	//--------------------------------------------------
-	// ÇÃ·¹ÀÌ¾î ¿¬¶ôÃ³/ÁÖ¼Ò
+	// í”Œë ˆì´ì–´ ì—°ë½ì²˜/ì£¼ì†Œ
 	//--------------------------------------------------
-    std::string m_Telephone; 	// ÀüÈ­¹øÈ£
-    std::string m_Cellular; 		// ÇÚµåÆù
-    std::string m_ZipCode; 		// ¿ìÆí¹øÈ£
-    std::string m_Address; 		// ÁÖ¼Ò
-    Nation m_Nation; 		// ±¹°¡ ÄÚµå
+    std::string m_Telephone; 	// ì „í™”ë²ˆí˜¸
+    std::string m_Cellular; 		// í•¸ë“œí°
+    std::string m_ZipCode; 		// ìš°í¸ë²ˆí˜¸
+    std::string m_Address; 		// ì£¼ì†Œ
+    Nation m_Nation; 		// êµ­ê°€ ì½”ë“œ
 	//--------------------------------------------------
-	// ÇÃ·¹ÀÌ¾î ÀüÀÚÁ¤º¸
+	// í”Œë ˆì´ì–´ ì „ìì •ë³´
 	//--------------------------------------------------
-    std::string m_Email; 		// ÀüÀÚ¸ŞÀÏ
-    std::string m_Homepage; 		// È¨ÆäÀÌÁö
+    std::string m_Email; 		// ì „ìë©”ì¼
+    std::string m_Homepage; 		// í™ˆí˜ì´ì§€
 	//--------------------------------------------------
-	// ±âÅ¸ 
+	// ê¸°íƒ€ 
 	//--------------------------------------------------
-    std::string m_Profile; 		// ÇÏ°íÇÂ¸»
-	bool m_bPublic; 		// °ø°³ ¿©ºÎ
+    std::string m_Profile; 		// í•˜ê³ í”ˆë§
+	bool m_bPublic; 		// ê³µê°œ ì—¬ë¶€
 
 };
 
@@ -190,21 +190,21 @@ public :
 	// get packet's max body size
 	PacketSize_t getPacketMaxSize () const throw ()
 	{
-		// ÃÖÀûÈ­½Ã ¹Ì¸® °è»êµÈ »ó¼ö¸¦ »ç¿ëÇÏµµ·Ï ÇÑ´Ù.
-		return    szBYTE + PlayerInfo::maxIDLength 			// ¾ÆÀÌµğ
-				+ szBYTE + PlayerInfo::maxPasswordLength 	// ÆĞ½º¿öµå
-				+ szBYTE + PlayerInfo::maxNameLength 		// ÀÌ¸§
-				+ szBYTE									// ¼ºº°
-				+ szBYTE + PlayerInfo::maxSSNLength 		// ÁÖ¹Îµî·Ï¹øÈ£
-				+ szBYTE + PlayerInfo::maxTelephoneLength 	// ÀüÈ­¹øÈ£
-				+ szBYTE + PlayerInfo::maxCellularLength 	// ÈŞ´ëÆù¹øÈ£
-				+ szBYTE + PlayerInfo::maxZipCodeLength 	// ¿ìÆí¹øÈ£
-				+ szBYTE + PlayerInfo::maxAddressLength 	// ÁÖ¼Ò
-				+ szBYTE 									// ±¹°¡ÄÚµå
-				+ szBYTE + PlayerInfo::maxEmailLength 		// ÀüÀÚ¸ŞÀÏ
-				+ szBYTE + PlayerInfo::maxHomepageLength 	// È¨ÆäÀÌÁö
-				+ szBYTE + PlayerInfo::maxProfileLength 	// ÀÚ±â¼Ò°³
-				+ szBYTE;									// °ø°³¿©ºÎ
+		// ìµœì í™”ì‹œ ë¯¸ë¦¬ ê³„ì‚°ëœ ìƒìˆ˜ë¥¼ ì‚¬ìš©í•˜ë„ë¡ í•œë‹¤.
+		return    szBYTE + PlayerInfo::maxIDLength 			// ì•„ì´ë””
+				+ szBYTE + PlayerInfo::maxPasswordLength 	// íŒ¨ìŠ¤ì›Œë“œ
+				+ szBYTE + PlayerInfo::maxNameLength 		// ì´ë¦„
+				+ szBYTE									// ì„±ë³„
+				+ szBYTE + PlayerInfo::maxSSNLength 		// ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸
+				+ szBYTE + PlayerInfo::maxTelephoneLength 	// ì „í™”ë²ˆí˜¸
+				+ szBYTE + PlayerInfo::maxCellularLength 	// íœ´ëŒ€í°ë²ˆí˜¸
+				+ szBYTE + PlayerInfo::maxZipCodeLength 	// ìš°í¸ë²ˆí˜¸
+				+ szBYTE + PlayerInfo::maxAddressLength 	// ì£¼ì†Œ
+				+ szBYTE 									// êµ­ê°€ì½”ë“œ
+				+ szBYTE + PlayerInfo::maxEmailLength 		// ì „ìë©”ì¼
+				+ szBYTE + PlayerInfo::maxHomepageLength 	// í™ˆí˜ì´ì§€
+				+ szBYTE + PlayerInfo::maxProfileLength 	// ìê¸°ì†Œê°œ
+				+ szBYTE;									// ê³µê°œì—¬ë¶€
 	}
 
 

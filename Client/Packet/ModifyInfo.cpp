@@ -36,7 +36,7 @@ ModifyInfo::~ModifyInfo ()
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void ModifyInfo::read ( SocketInputStream & iStream ) 
 	 throw ( ProtocolException , Error )
@@ -58,7 +58,7 @@ void ModifyInfo::read ( SocketInputStream & iStream )
 
 	iStream.read(m_LongCount);
 
-	for (s=0; s<m_LongCount; s++)
+	for (int s=0; s<m_LongCount; s++)
 	{
 		iStream.read(long_data.type);
 		iStream.read(long_data.value);
@@ -70,7 +70,7 @@ void ModifyInfo::read ( SocketInputStream & iStream )
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void ModifyInfo::write ( SocketOutputStream & oStream ) 
      const throw ( ProtocolException , Error )

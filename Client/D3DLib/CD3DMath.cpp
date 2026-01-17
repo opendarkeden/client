@@ -4,6 +4,13 @@
 
 #include "CD3DMath.h"
 #include <math.h>
+#include <string.h>
+
+// Platform-specific memory operations
+#ifndef PLATFORM_WINDOWS
+	// ZeroMemory is Windows-specific, use memset on other platforms
+	#define ZeroMemory(ptr, size) memset((ptr), 0, (size))
+#endif
 
 //------------------------------------------------------------------------------------
 // Static members
@@ -12,7 +19,7 @@
 //------------------------------------------------------------------------------------
 // Get Identity Matrix
 //------------------------------------------------------------------------------------
-// I Matrix¸¦ ±¸ÇÑ´Ù. 
+// I Matrixë¥¼ êµ¬í•œë‹¤. 
 //------------------------------------------------------------------------------------
 void 
 CD3DMath::GetIdentityMatrix(D3DMATRIX &mat)
@@ -28,7 +35,7 @@ CD3DMath::GetIdentityMatrix(D3DMATRIX &mat)
 //------------------------------------------------------------------------------------
 // Get Translate Matrix
 //------------------------------------------------------------------------------------
-// Vector(x,y,z)¸¸Å­ ÀÌµ¿ÇÏ´Â Matrix¸¦ »ı¼ºÇÑ´Ù.
+// Vector(x,y,z)ë§Œí¼ ì´ë™í•˜ëŠ” Matrixë¥¼ ìƒì„±í•œë‹¤.
 //------------------------------------------------------------------------------------
 void
 CD3DMath::GetTranslateMatrix(D3DMATRIX& mat, const D3DVECTOR &Vect)
@@ -39,7 +46,7 @@ CD3DMath::GetTranslateMatrix(D3DMATRIX& mat, const D3DVECTOR &Vect)
 	mat._21 = mat._23 = mat._24 = 0.0f;
 	mat._31 = mat._32 = mat._34 = 0.0f;	
 
-	// ÀÌµ¿
+	// ì´ë™
 	mat._41 = Vect.x;
 	mat._42 = Vect.y;
 	mat._43 = Vect.z;
@@ -48,7 +55,7 @@ CD3DMath::GetTranslateMatrix(D3DMATRIX& mat, const D3DVECTOR &Vect)
 //------------------------------------------------------------------------------------
 // Get Translate Matrix
 //------------------------------------------------------------------------------------
-// Vector(x,y,z)¸¸Å­ ÀÌµ¿ÇÏ´Â Matrix¸¦ »ı¼ºÇÑ´Ù.
+// Vector(x,y,z)ë§Œí¼ ì´ë™í•˜ëŠ” Matrixë¥¼ ìƒì„±í•œë‹¤.
 //------------------------------------------------------------------------------------
 void			
 CD3DMath::GetTranslateMatrix( D3DMATRIX& mat, float sx, float sy, float sz )
@@ -59,7 +66,7 @@ CD3DMath::GetTranslateMatrix( D3DMATRIX& mat, float sx, float sy, float sz )
 	mat._21 = mat._23 = mat._24 = 0.0f;
 	mat._31 = mat._32 = mat._34 = 0.0f;	
 
-	// ÀÌµ¿
+	// ì´ë™
 	mat._41 = sx;
 	mat._42 = sy;
 	mat._43 = sz;
@@ -68,7 +75,7 @@ CD3DMath::GetTranslateMatrix( D3DMATRIX& mat, float sx, float sy, float sz )
 //------------------------------------------------------------------------------------
 // Get Scale Matrix
 //------------------------------------------------------------------------------------
-// Å©±â¸¦ ¹Ù²Ù´Â Matrix¸¦ »ı¼ºÇÑ´Ù.
+// í¬ê¸°ë¥¼ ë°”ê¾¸ëŠ” Matrixë¥¼ ìƒì„±í•œë‹¤.
 //------------------------------------------------------------------------------------
 void			
 CD3DMath::GetScaleMatrix( D3DMATRIX& mat, float sx, float sy, float sz )
@@ -89,7 +96,7 @@ CD3DMath::GetScaleMatrix( D3DMATRIX& mat, float sx, float sy, float sz )
 //------------------------------------------------------------------------------------
 // Get Scale Matrix
 //------------------------------------------------------------------------------------
-// Å©±â¸¦ ¹Ù²Ù´Â Matrix¸¦ »ı¼ºÇÑ´Ù.
+// í¬ê¸°ë¥¼ ë°”ê¾¸ëŠ” Matrixë¥¼ ìƒì„±í•œë‹¤.
 //------------------------------------------------------------------------------------
 void			
 CD3DMath::GetScaleMatrix( D3DMATRIX& mat, const D3DVECTOR& v )
@@ -110,7 +117,7 @@ CD3DMath::GetScaleMatrix( D3DMATRIX& mat, const D3DVECTOR& v )
 //------------------------------------------------------------------------------------
 // Get Rotate Matrix
 //------------------------------------------------------------------------------------
-// XÃà Áß½ÉÀ¸·Î È¸ÀüÇÏ´Â Matrix¸¦ »ı¼ºÇÑ´Ù.
+// Xì¶• ì¤‘ì‹¬ìœ¼ë¡œ íšŒì „í•˜ëŠ” Matrixë¥¼ ìƒì„±í•œë‹¤.
 //------------------------------------------------------------------------------------
 void			
 CD3DMath::GetRotateXMatrix( D3DMATRIX& mat, float fRads )
@@ -122,7 +129,7 @@ CD3DMath::GetRotateXMatrix( D3DMATRIX& mat, float fRads )
 	mat._31 = mat._34 = 0.0f;
 	mat._41 = mat._42 = mat._43 = 0.0f;
 
-	// XÃà È¸Àü
+	// Xì¶• íšŒì „
 	float cf = cosf( fRads );
 	float sf = sinf( fRads );
 
@@ -135,7 +142,7 @@ CD3DMath::GetRotateXMatrix( D3DMATRIX& mat, float fRads )
 //------------------------------------------------------------------------------------
 // Get RotateX Matrix
 //------------------------------------------------------------------------------------
-// YÃà Áß½ÉÀ¸·Î È¸ÀüÇÏ´Â Matrix¸¦ »ı¼ºÇÑ´Ù.
+// Yì¶• ì¤‘ì‹¬ìœ¼ë¡œ íšŒì „í•˜ëŠ” Matrixë¥¼ ìƒì„±í•œë‹¤.
 //------------------------------------------------------------------------------------
 void			
 CD3DMath::GetRotateYMatrix( D3DMATRIX& mat, float fRads )
@@ -147,7 +154,7 @@ CD3DMath::GetRotateYMatrix( D3DMATRIX& mat, float fRads )
 	mat._32 = mat._34 = 0.0f;
 	mat._41 = mat._42 = mat._43 = 0.0f;
 
-	// YÃà È¸Àü
+	// Yì¶• íšŒì „
 	float cf = cosf( fRads );
 	float sf = sinf( fRads );
 
@@ -160,7 +167,7 @@ CD3DMath::GetRotateYMatrix( D3DMATRIX& mat, float fRads )
 //------------------------------------------------------------------------------------
 // Get RotateY Matrix
 //------------------------------------------------------------------------------------
-// ZÃà Áß½ÉÀ¸·Î È¸ÀüÇÏ´Â Matrix¸¦ »ı¼ºÇÑ´Ù.
+// Zì¶• ì¤‘ì‹¬ìœ¼ë¡œ íšŒì „í•˜ëŠ” Matrixë¥¼ ìƒì„±í•œë‹¤.
 //------------------------------------------------------------------------------------
 void			
 CD3DMath::GetRotateZMatrix( D3DMATRIX& mat, float fRads )
@@ -172,7 +179,7 @@ CD3DMath::GetRotateZMatrix( D3DMATRIX& mat, float fRads )
 	mat._31 = mat._32 = mat._34 = 0.0f;
 	mat._41 = mat._42 = mat._43 = 0.0f;
 
-	// ZÃà È¸Àü
+	// Zì¶• íšŒì „
 	float cf = cosf( fRads );
 	float sf = sinf( fRads );
 
@@ -185,7 +192,7 @@ CD3DMath::GetRotateZMatrix( D3DMATRIX& mat, float fRads )
 //------------------------------------------------------------------------------------
 // Get RotateZ Matrix
 //------------------------------------------------------------------------------------
-// vDir Vector¸¦ Áß½ÉÀ¸·Î fRad¸¸Å­ È¸ÀüÇÏ´Â Matrix¸¦ »ı¼ºÇÑ´Ù.
+// vDir Vectorë¥¼ ì¤‘ì‹¬ìœ¼ë¡œ fRadë§Œí¼ íšŒì „í•˜ëŠ” Matrixë¥¼ ìƒì„±í•œë‹¤.
 //------------------------------------------------------------------------------------
 void			
 CD3DMath::GetRotateMatrix( D3DMATRIX& mat, const D3DVECTOR& vDir, float fRads )
@@ -332,7 +339,7 @@ CD3DMath::InvertMatrix( D3DMATRIX& q, const D3DMATRIX& a )
 //-----------------------------------------------------------------------------
 // Matrix *  Translate Matrix
 //-----------------------------------------------------------------------------
-// mat¿¡ Vect¸¸Å­ ÀÌµ¿ÇÏ´Â Matrix¸¦ °öÇÑ´Ù.
+// matì— Vectë§Œí¼ ì´ë™í•˜ëŠ” Matrixë¥¼ ê³±í•œë‹¤.
 //-----------------------------------------------------------------------------
 void			
 CD3DMath::MultiplyTranslateMatrix( D3DMATRIX& mat, const D3DVECTOR &Vect )
@@ -345,7 +352,7 @@ CD3DMath::MultiplyTranslateMatrix( D3DMATRIX& mat, const D3DVECTOR &Vect )
 //-----------------------------------------------------------------------------
 // Matrix * Translate Matrix
 //-----------------------------------------------------------------------------
-// mat¿¡ (sx,sy,sz)¸¸Å­ ÀÌµ¿ÇÏ´Â Matrix¸¦ °öÇÑ´Ù.
+// matì— (sx,sy,sz)ë§Œí¼ ì´ë™í•˜ëŠ” Matrixë¥¼ ê³±í•œë‹¤.
 //-----------------------------------------------------------------------------
 void			
 CD3DMath::MultiplyTranslateMatrix( D3DMATRIX& mat, float sx, float sy, float sz )
@@ -358,7 +365,7 @@ CD3DMath::MultiplyTranslateMatrix( D3DMATRIX& mat, float sx, float sy, float sz 
 //-----------------------------------------------------------------------------
 // Matrix *  Scale Matrix
 //-----------------------------------------------------------------------------
-// mat¿¡ °¢ ¹æÇâÀ¸·Î (sx,sy,sz)¸¸Å­ Å©±â¸¦ ¹Ù²Ù´Â Matrix¸¦ °öÇÑ´Ù.
+// matì— ê° ë°©í–¥ìœ¼ë¡œ (sx,sy,sz)ë§Œí¼ í¬ê¸°ë¥¼ ë°”ê¾¸ëŠ” Matrixë¥¼ ê³±í•œë‹¤.
 //-----------------------------------------------------------------------------
 void			
 CD3DMath::MultiplyScaleMatrix( D3DMATRIX& mat, float sx, float sy, float sz )
@@ -371,7 +378,7 @@ CD3DMath::MultiplyScaleMatrix( D3DMATRIX& mat, float sx, float sy, float sz )
 //-----------------------------------------------------------------------------
 // Matrix *  Scale Matrix
 //-----------------------------------------------------------------------------
-// mat¿¡ °¢ ¹æÇâÀ¸·Î v vector¸¸Å­ Å©±â¸¦ ¹Ù²Ù´Â Matrix¸¦ °öÇÑ´Ù.
+// matì— ê° ë°©í–¥ìœ¼ë¡œ v vectorë§Œí¼ í¬ê¸°ë¥¼ ë°”ê¾¸ëŠ” Matrixë¥¼ ê³±í•œë‹¤.
 //-----------------------------------------------------------------------------
 void			
 CD3DMath::MultiplyScaleMatrix( D3DMATRIX& mat, const D3DVECTOR& v )
@@ -384,7 +391,7 @@ CD3DMath::MultiplyScaleMatrix( D3DMATRIX& mat, const D3DVECTOR& v )
 //-----------------------------------------------------------------------------
 // Matrix *  RotateX Matrix
 //-----------------------------------------------------------------------------
-// mat¿¡ Matrix¿¡ XÃàÀ¸·Î fRads¸¸Å­ È¸ÀüÇÏ´Â matrix¸¦ °öÇÑ´Ù.
+// matì— Matrixì— Xì¶•ìœ¼ë¡œ fRadsë§Œí¼ íšŒì „í•˜ëŠ” matrixë¥¼ ê³±í•œë‹¤.
 //-----------------------------------------------------------------------------
 void			
 CD3DMath::MultiplyRotateXMatrix( D3DMATRIX& mat, float fRads )
@@ -397,7 +404,7 @@ CD3DMath::MultiplyRotateXMatrix( D3DMATRIX& mat, float fRads )
 //-----------------------------------------------------------------------------
 // Matrix *  RotateY Matrix
 //-----------------------------------------------------------------------------
-// mat¿¡ Matrix¿¡ YÃàÀ¸·Î fRads¸¸Å­ È¸ÀüÇÏ´Â matrix¸¦ °öÇÑ´Ù.
+// matì— Matrixì— Yì¶•ìœ¼ë¡œ fRadsë§Œí¼ íšŒì „í•˜ëŠ” matrixë¥¼ ê³±í•œë‹¤.
 //-----------------------------------------------------------------------------
 void			
 CD3DMath::MultiplyRotateYMatrix( D3DMATRIX& mat, float fRads )
@@ -410,7 +417,7 @@ CD3DMath::MultiplyRotateYMatrix( D3DMATRIX& mat, float fRads )
 //-----------------------------------------------------------------------------
 // Matrix *  RotateZ Matrix
 //-----------------------------------------------------------------------------
-// mat¿¡ Matrix¿¡ ZÃàÀ¸·Î fRads¸¸Å­ È¸ÀüÇÏ´Â matrix¸¦ °öÇÑ´Ù.
+// matì— Matrixì— Zì¶•ìœ¼ë¡œ fRadsë§Œí¼ íšŒì „í•˜ëŠ” matrixë¥¼ ê³±í•œë‹¤.
 //-----------------------------------------------------------------------------
 void			
 CD3DMath::MultiplyRotateZMatrix( D3DMATRIX& mat, float fRads )
@@ -423,7 +430,7 @@ CD3DMath::MultiplyRotateZMatrix( D3DMATRIX& mat, float fRads )
 //-----------------------------------------------------------------------------
 // Matrix *  RotateZ Matrix
 //-----------------------------------------------------------------------------
-// mat¿¡ Matrix¿¡ Vector¸¦ Áß½ÉÀ¸·Î fRads¸¸Å­ È¸ÀüÇÏ´Â matrix¸¦ °öÇÑ´Ù.
+// matì— Matrixì— Vectorë¥¼ ì¤‘ì‹¬ìœ¼ë¡œ fRadsë§Œí¼ íšŒì „í•˜ëŠ” matrixë¥¼ ê³±í•œë‹¤.
 //-----------------------------------------------------------------------------
 void			
 CD3DMath::MultiplyRotateVectorMatrix( D3DMATRIX& mat, const D3DVECTOR& vDir, float fRads )
@@ -437,8 +444,8 @@ CD3DMath::MultiplyRotateVectorMatrix( D3DMATRIX& mat, const D3DVECTOR& vDir, flo
 //------------------------------------------------------------------------------------
 // Matrix * Vertex
 //------------------------------------------------------------------------------------
-// Vertex¿¡ Matrix¸¦ °öÇÑ´Ù. 
-// 4ÇàÀº ÀÌµ¿¿¡ °üÇÑ°ÍÀÌ¹Ç·Î ´õÇÑ´Ù.
+// Vertexì— Matrixë¥¼ ê³±í•œë‹¤. 
+// 4í–‰ì€ ì´ë™ì— ê´€í•œê²ƒì´ë¯€ë¡œ ë”í•œë‹¤.
 //------------------------------------------------------------------------------------
 bool 
 CD3DMath::MultiplyMatrixToVertex(const D3DMATRIX &mat, D3DTLVERTEX &Vert)
@@ -464,7 +471,7 @@ CD3DMath::MultiplyMatrixToVertex(const D3DMATRIX &mat, D3DTLVERTEX &Vert)
 //------------------------------------------------------------------------------------
 // MoveVertex
 //------------------------------------------------------------------------------------
-// Vertex¸¦ (x,y,z)¸¸Å­ ÀÌµ¿½ÃÅ²´Ù.
+// Vertexë¥¼ (x,y,z)ë§Œí¼ ì´ë™ì‹œí‚¨ë‹¤.
 //------------------------------------------------------------------------------------
 void 
 CD3DMath::MoveVertex( D3DVERTEX &Vertex, float move_x, float move_y, float move_z )
@@ -652,7 +659,7 @@ CD3DMath::ScaleVertex( D3DVERTEX &Vertex, float scale_x, float scale_y, float sc
 //------------------------------------------------------------------------------------
 // MoveVertex
 //------------------------------------------------------------------------------------
-// Vertex¸¦ (x,y,z)¸¸Å­ ÀÌµ¿½ÃÅ²´Ù.
+// Vertexë¥¼ (x,y,z)ë§Œí¼ ì´ë™ì‹œí‚¨ë‹¤.
 //------------------------------------------------------------------------------------
 void 
 CD3DMath::MoveVertex( D3DTLVERTEX &Vertex, float move_x, float move_y, float move_z )
@@ -802,8 +809,8 @@ CD3DMath::ScaleVertex( D3DTLVERTEX &Vertex, float scale_x, float scale_y, float 
 //------------------------------------------------------------------------------------
 // Matrix x Vertex
 //------------------------------------------------------------------------------------
-// Vertex¿¡ Matrix¸¦ °öÇÑ´Ù. 
-// 4ÇàÀº ÀÌµ¿¿¡ °üÇÑ°ÍÀÌ¹Ç·Î ´õÇÑ´Ù.
+// Vertexì— Matrixë¥¼ ê³±í•œë‹¤. 
+// 4í–‰ì€ ì´ë™ì— ê´€í•œê²ƒì´ë¯€ë¡œ ë”í•œë‹¤.
 //------------------------------------------------------------------------------------
 bool 
 CD3DMath::MultiplyMatrixToVertex(const D3DMATRIX &mat, D3DVERTEX &Vert)
@@ -959,8 +966,8 @@ CD3DMath::ScaleVector( D3DVECTOR &Vector, float scale_x, float scale_y, float sc
 //------------------------------------------------------------------------------------
 // Matrix x Vector
 //------------------------------------------------------------------------------------
-// Vector¿¡ Matrix¸¦ °öÇÑ´Ù. 
-// 4ÇàÀº ÀÌµ¿¿¡ °üÇÑ°ÍÀÌ¹Ç·Î ´õÇÑ´Ù.
+// Vectorì— Matrixë¥¼ ê³±í•œë‹¤. 
+// 4í–‰ì€ ì´ë™ì— ê´€í•œê²ƒì´ë¯€ë¡œ ë”í•œë‹¤.
 //------------------------------------------------------------------------------------
 bool 
 CD3DMath::MultiplyMatrixToVector(const D3DMATRIX &mat, D3DVECTOR &Vector)
@@ -984,7 +991,7 @@ CD3DMath::MultiplyMatrixToVector(const D3DMATRIX &mat, D3DVECTOR &Vector)
 //------------------------------------------------------------------------------------
 // Normalize Vector
 //------------------------------------------------------------------------------------
-// Å©±â°¡ 1ÀÎ Vector¸¦ ¸¸µç´Ù.
+// í¬ê¸°ê°€ 1ì¸ Vectorë¥¼ ë§Œë“ ë‹¤.
 //------------------------------------------------------------------------------------
 void			
 CD3DMath::NormalizeVector( D3DVECTOR &Vector )
@@ -1002,7 +1009,7 @@ CD3DMath::NormalizeVector( D3DVECTOR &Vector )
 //------------------------------------------------------------------------------------
 // MoveVector
 //------------------------------------------------------------------------------------
-// Vector¸¦ (x,y,z)¸¸Å­ ÀÌµ¿½ÃÅ²´Ù.
+// Vectorë¥¼ (x,y,z)ë§Œí¼ ì´ë™ì‹œí‚¨ë‹¤.
 //------------------------------------------------------------------------------------
 void 
 CD3DMath::MoveVector( D3DVECTOR &Vector, float move_x, float move_y, float move_z )
@@ -1200,10 +1207,10 @@ void CD3DMath::QuaternionSlerp( float& Qx, float& Qy, float& Qz, float& Qw,
 //-----------------------------------------------------------------------------
 // CreatePlane()
 //-----------------------------------------------------------------------------
-// ¼¼ Á¡ a,b,c ·Î ÀÌ·ç¾îÁö´Â Æò¸éÀÇ ¹æÁ¤½Ä(coefficient)À» ¾ò´Â´Ù.
+// ì„¸ ì  a,b,c ë¡œ ì´ë£¨ì–´ì§€ëŠ” í‰ë©´ì˜ ë°©ì •ì‹(coefficient)ì„ ì–»ëŠ”ë‹¤.
 //
-// planeÀº 4°³ÀÇ float(A,B,C,D)ÀÎµ¥,
-// Ax + By + Cz + D = 0 ÀÌ´Ù.
+// planeì€ 4ê°œì˜ float(A,B,C,D)ì¸ë°,
+// Ax + By + Cz + D = 0 ì´ë‹¤.
 //-----------------------------------------------------------------------------
 float* 
 CD3DMath::GetPlane( float* plane, D3DVECTOR& a, D3DVECTOR& b, D3DVECTOR& c )

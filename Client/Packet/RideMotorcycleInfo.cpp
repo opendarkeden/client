@@ -43,7 +43,7 @@ RideMotorcycleInfo::~RideMotorcycleInfo ()
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void RideMotorcycleInfo::read ( SocketInputStream & iStream ) 
 	 throw ( ProtocolException , Error )
@@ -66,7 +66,7 @@ void RideMotorcycleInfo::read ( SocketInputStream & iStream )
 
 	iStream.read( m_ListNum );
 
-	for( i = 0; i < m_ListNum; i++ ) 
+	for( int i = 0; i < m_ListNum; i++ ) 
 	{
 		RideMotorcycleSlotInfo * pRideMotorcycleSlotInfo = new RideMotorcycleSlotInfo();
 		pRideMotorcycleSlotInfo->read( iStream );
@@ -77,7 +77,7 @@ void RideMotorcycleInfo::read ( SocketInputStream & iStream )
 }
 		    
 //////////////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void RideMotorcycleInfo::write ( SocketOutputStream & oStream ) 
      const throw ( ProtocolException , Error )

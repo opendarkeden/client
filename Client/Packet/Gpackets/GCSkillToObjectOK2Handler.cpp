@@ -13,7 +13,7 @@
 #include "MSkillManager.h"
 #include "PacketFunction2.h"
 
-// [»õ±â¼ú2]
+// [ìƒˆê¸°ìˆ 2]
 #include "SkillDef.h"	
 void	SkillShadowDancing(MCreature* pUserCreature, MCreature* pTargetCreature, int skillID);
 extern void Add_RocketRuncher(MCreature* UserCreature, MCreature* TargetCreature);
@@ -21,7 +21,8 @@ extern void Add_Wild_Wolf(MCreature* UserCreature, MCreature* TargetCreature, bo
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCSkillToObjectOK2Handler::execute ( GCSkillToObjectOK2 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -29,7 +30,7 @@ void GCSkillToObjectOK2Handler::execute ( GCSkillToObjectOK2 * pPacket , Player 
 
 	
 	//------------------------------------------------------------------
-	// »óÅÂ°ªÀ» ¹Ù²Û´Ù.
+	// ìƒíƒœê°’ì„ ë°”ê¾¼ë‹¤.
 	//------------------------------------------------------------------
 	AffectModifyInfo(g_pPlayer, pPacket);
 
@@ -50,7 +51,7 @@ void GCSkillToObjectOK2Handler::execute ( GCSkillToObjectOK2 * pPacket , Player 
 	int delayFrame = ConvertDurationToFrame( pPacket->getDuration() );
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -58,14 +59,14 @@ void GCSkillToObjectOK2Handler::execute ( GCSkillToObjectOK2 * pPacket , Player 
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 
 
-		// ³»(Player)°¡ ´©±º°¡°¡ »ç¿ëÇÑ SKillÀ» ¸ÂÀº °æ¿ì..
+		// ë‚´(Player)ê°€ ëˆ„êµ°ê°€ê°€ ì‚¬ìš©í•œ SKillì„ ë§žì€ ê²½ìš°..
 		// [ TEST CODE ]
 		MActionResult* pResult = new MActionResult;
 
@@ -89,7 +90,7 @@ void GCSkillToObjectOK2Handler::execute ( GCSkillToObjectOK2 * pPacket , Player 
 		}
 		// 2005, 1, 3, sobeit add end
 		//------------------------------------------------------------------
-		// effect status¸¦ Àû¿ë½ÃÅ²´Ù.
+		// effect statusë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------------------
 		if (g_pPlayer->GetEFFECT_STAT()!=EFFECTSTATUS_NULL)
 		{
@@ -104,7 +105,7 @@ void GCSkillToObjectOK2Handler::execute ( GCSkillToObjectOK2 * pPacket , Player 
 		else
 		{
 			//------------------------------------------------------
-			// EffectStatus°¡ ÀÖ´Ù¸é ºÙÀÎ´Ù.
+			// EffectStatusê°€ ìžˆë‹¤ë©´ ë¶™ì¸ë‹¤.
 			//------------------------------------------------------
 			EFFECTSTATUS es = (*g_pActionInfoTable)[skillID].GetEffectStatus();
 			
@@ -117,10 +118,10 @@ void GCSkillToObjectOK2Handler::execute ( GCSkillToObjectOK2 * pPacket , Player 
 		}
 
 		//------------------------------------------------------
-		// [»õ±â¼ú]
-		// Typhoon ¸ÂÀº °æ¿ì´Â ÇÑµ¿¾È ¸ø ¿òÁ÷ÀÌ°Ô ÇÑ´Ù.
-		// ÀÓ½Ã·Î(-_-;) 1ÃÊ
-		// player¸¸ ¸ø ¿òÁ÷ÀÌµµ·Ï ¸·À¸¸é µÈ´Ù.
+		// [ìƒˆê¸°ìˆ ]
+		// Typhoon ë§žì€ ê²½ìš°ëŠ” í•œë™ì•ˆ ëª» ì›€ì§ì´ê²Œ í•œë‹¤.
+		// ìž„ì‹œë¡œ(-_-;) 1ì´ˆ
+		// playerë§Œ ëª» ì›€ì§ì´ë„ë¡ ë§‰ìœ¼ë©´ ëœë‹¤.
 		//------------------------------------------------------
 		if (skillID==SKILL_TYPHOON || skillID == SKILL_WILD_TYPHOON)
 		{
@@ -135,7 +136,7 @@ void GCSkillToObjectOK2Handler::execute ( GCSkillToObjectOK2 * pPacket , Player 
 		}
 		// 2004, 11, 13, sobeit add end
 	
-		// ÇöÀç ¹«±âÀÇ Àû¿ëÀ» ¹Þ´Â ±â¼úÀÌ¸é..
+		// í˜„ìž¬ ë¬´ê¸°ì˜ ì ìš©ì„ ë°›ëŠ” ê¸°ìˆ ì´ë©´..
 		if ((*g_pActionInfoTable)[skillID].IsAffectCurrentWeaponAction()
 			&& pCreature!=NULL)
 		{
@@ -158,13 +159,13 @@ void GCSkillToObjectOK2Handler::execute ( GCSkillToObjectOK2 * pPacket , Player 
 
 		//------------------------------------------------------
 		//
-		// skill¿¡ °á°ú°¡ ÀÖÀ¸¸é Àû¿ë ½ÃÅ²´Ù.
+		// skillì— ê²°ê³¼ê°€ ìžˆìœ¼ë©´ ì ìš© ì‹œí‚¨ë‹¤.
 		//
 		//------------------------------------------------------
 		MActionResultNode* pActionResultNode = CreateActionResultNode(g_pPlayer, skillID, pPacket->getGrade() );
 
 		//------------------------------------------------------
-		// NULLÀÌ ¾Æ´Ï¸é ½ÇÇà
+		// NULLì´ ì•„ë‹ˆë©´ ì‹¤í–‰
 		//------------------------------------------------------
 		if (pActionResultNode!=NULL)
 		{
@@ -172,35 +173,35 @@ void GCSkillToObjectOK2Handler::execute ( GCSkillToObjectOK2 * pPacket , Player 
 		}
 
 		//------------------------------------------------------
-		// »ç¿ëÀÚ°¡ ¾ø´Â °æ¿ì
+		// ì‚¬ìš©ìžê°€ ì—†ëŠ” ê²½ìš°
 		//------------------------------------------------------
 		if (pCreature == NULL)
 		{
 			ExecuteActionInfoFromMainNode(
-						skillID + (*g_pActionInfoTable).GetMinResultActionInfo(),										// »ç¿ë ±â¼ú ¹øÈ£
+						skillID + (*g_pActionInfoTable).GetMinResultActionInfo(),										// ì‚¬ìš© ê¸°ìˆ  ë²ˆí˜¸
 					
 						g_pPlayer->GetX(), g_pPlayer->GetY(), g_pPlayer->GetZ(),
-						g_pPlayer->GetDirection(),														// »ç¿ë ¹æÇâ
+						g_pPlayer->GetDirection(),														// ì‚¬ìš© ë°©í–¥
 						
-						g_pPlayer->GetID(),												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+						g_pPlayer->GetID(),												// ëª©í‘œì— ëŒ€í•œ ì •ë³´
 						g_pPlayer->GetX(), g_pPlayer->GetY(), g_pPlayer->GetZ(),
 						
-						delayFrame,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+						delayFrame,													// ê¸°ìˆ ì˜ (ë‚¨ì€) ì§€ì† ì‹œê°„		
 						
 						pResult,
 						
-						false);			// ±â¼ú Ã·ºÎÅÍ ½ÃÀÛÇÑ´Ù.
+						false);			// ê¸°ìˆ  ì²¨ë¶€í„° ì‹œìž‘í•œë‹¤.
 		}
 		//------------------------------------------------------
-		// »ç¿ëÀÚ°¡ ÀÖ´Â °æ¿ì
+		// ì‚¬ìš©ìžê°€ ìžˆëŠ” ê²½ìš°
 		//------------------------------------------------------
 		else
 		{
 			if(skillID == SKILL_ABSORB_SOUL)
 				pCreature->ClearStopBloodDrain();
 
-			// [»õ±â¼ú2]
-			// ShadowDancingÀÎÁö Ã¼Å©ÇÏ°í ÀÓ½Ã·Î(-_-;) DoubleImpacet¸¦ ¾´´Ù.
+			// [ìƒˆê¸°ìˆ 2]
+			// ShadowDancingì¸ì§€ ì²´í¬í•˜ê³  ìž„ì‹œë¡œ(-_-;) DoubleImpacetë¥¼ ì“´ë‹¤.
 
 			switch( skillID )
 			{
@@ -213,7 +214,7 @@ void GCSkillToObjectOK2Handler::execute ( GCSkillToObjectOK2 * pPacket , Player 
 				break;
 			// end by Coffee	
 			case SKILL_ILLENDUE :
-				// 2004, 12, 15, sobeit modify start - ÈúÁ÷ÀÌ ÀÎÃ¦ ¶óÀÌÆ®º¼ ¾²´Â°Ô ¹ö±×.
+				// 2004, 12, 15, sobeit modify start - ížì§ì´ ì¸ì±ˆ ë¼ì´íŠ¸ë³¼ ì“°ëŠ”ê²Œ ë²„ê·¸.
 				//SkillIllendue( pCreature, g_pPlayer, SKILL_LIGHT_BALL );
 				SkillIllendue( pCreature, g_pPlayer, MAGIC_CAUSE_SERIOUS_WOUNDS );
 				// 2004, 12, 15, sobeit modify end
@@ -232,7 +233,7 @@ void GCSkillToObjectOK2Handler::execute ( GCSkillToObjectOK2 * pPacket , Player 
 			}
 			
 			//------------------------------------------------------
-			// Player¿¡°Ô protectionÀÌ °É·ÁÀÖ´Â °æ¿ì
+			// Playerì—ê²Œ protectionì´ ê±¸ë ¤ìžˆëŠ” ê²½ìš°
 			//------------------------------------------------------
 			if (g_pPlayer->HasEffectStatus(EFFECTSTATUS_PROTECTION_FROM_ACID))
 			{
@@ -248,23 +249,23 @@ void GCSkillToObjectOK2Handler::execute ( GCSkillToObjectOK2 * pPacket , Player 
 
 			// [ TEST CODE ]
 			//
-			// °á°ú¸¦ »ý¼º&ÀúÀåÇØ¼­ º¸³»¾ß ÇÑ´Ù.
+			// ê²°ê³¼ë¥¼ ìƒì„±&ì €ìž¥í•´ì„œ ë³´ë‚´ì•¼ í•œë‹¤.
 			//
-			// ¹æÇâÀ» ¹Ù¶óº¸±â
+			// ë°©í–¥ì„ ë°”ë¼ë³´ê¸°
 			pCreature->SetDirectionToPosition(g_pPlayer->GetX(), g_pPlayer->GetY());
 
 			//Duration_t	m_Duration;
 			pCreature->PacketSpecialActionToOther(
 								skillID, 
 								g_pPlayer->GetID(),//pPacket->getObjectID(),
-								pResult						// °á°ú
+								pResult						// ê²°ê³¼
 			);
 		}
 	}		
 	
 	/*
 	//------------------------------------------------------
-	// Player°¡ ±â¼úÀ» ´çÇßÀ» ¶§ÀÇ ¸ð½À..
+	// Playerê°€ ê¸°ìˆ ì„ ë‹¹í–ˆì„ ë•Œì˜ ëª¨ìŠµ..
 	//------------------------------------------------------
 	int resultActionInfo =  pPacket->getSkillType() + (*g_pActionInfoTable).GetMinResultActionInfo();
 	g_pPlayer->PacketSpecialActionResult( 
@@ -275,15 +276,15 @@ void GCSkillToObjectOK2Handler::execute ( GCSkillToObjectOK2 * pPacket , Player 
 	);
 
 	//------------------------------------------------------------
-	// Delay Frame ¼³Á¤
+	// Delay Frame ì„¤ì •
 	//------------------------------------------------------------
 	g_pPlayer->SetEffectDelayFrame( resultActionInfo, delayFrame );
 	*/
 
 
 	//------------------------------------------------------------------
-	// UI¿¡ º¸ÀÌ´Â °ÍÀ» ¹Ù²ãÁØ´Ù.
-	// ºñ±³¿¬»êÇÏ´Â°Åº¸´Ù ÀÌ°Ô ´õ ºü¸£Áö ¾ÊÀ»±î.. À½.. - -;
+	// UIì— ë³´ì´ëŠ” ê²ƒì„ ë°”ê¿”ì¤€ë‹¤.
+	// ë¹„êµì—°ì‚°í•˜ëŠ”ê±°ë³´ë‹¤ ì´ê²Œ ë” ë¹ ë¥´ì§€ ì•Šì„ê¹Œ.. ìŒ.. - -;
 	//------------------------------------------------------------------
 	//UI_SetHP( g_pPlayer->GetHP(), g_pPlayer->GetMAX_HP() );
 	//UI_SetMP( g_pPlayer->GetMP(), g_pPlayer->GetMAX_MP() );

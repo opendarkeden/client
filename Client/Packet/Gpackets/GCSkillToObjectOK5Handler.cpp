@@ -12,7 +12,7 @@
 #include "ClientDef.h"
 #include "PacketFunction2.h"
 
-// [»õ±â¼ú2]
+// [ìƒˆê¸°ìˆ 2]
 #include "SkillDef.h"	
 void	SkillShadowDancing(MCreature* pUserCreature, MCreature* pTargetCreature, int skillID);
 extern void Add_RocketRuncher(MCreature* UserCreature, MCreature* TargetCreature);
@@ -20,15 +20,16 @@ extern void Add_Wild_Wolf(MCreature* UserCreature, MCreature* TargetCreature, bo
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCSkillToObjectOK5Handler::execute ( GCSkillToObjectOK5 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-#if __GAME_CLIENT__
+#ifdef __GAME_CLIENT__
 
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -36,7 +37,7 @@ void GCSkillToObjectOK5Handler::execute ( GCSkillToObjectOK5 * pPacket , Player 
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
@@ -80,7 +81,7 @@ void GCSkillToObjectOK5Handler::execute ( GCSkillToObjectOK5 * pPacket , Player 
 		}
 		// 2005, 1, 3, sobeit add end
 	
-		// Creature¿¡°Ô Damage ÀÔÈû
+		// Creatureì—ê²Œ Damage ìž…íž˜
 		if (pUserCreature != NULL && pTargetCreature != NULL)
 		{
 			// 2004, 11, 13, sobeit add start 
@@ -104,8 +105,8 @@ void GCSkillToObjectOK5Handler::execute ( GCSkillToObjectOK5 * pPacket , Player 
 			if( (*g_pActionInfoTable)[skillID].IsUseActionStep() && pPacket->getGrade() > 0)
 				skillID = (*g_pActionInfoTable)[skillID].GetActionStep(pPacket->getGrade() - 1);
 
-			// [»õ±â¼ú2]
-			// ShadowDancingÀÎÁö Ã¼Å©ÇÏ°í ÀÓ½Ã·Î(-_-;) DoubleImpacet¸¦ ¾´´Ù.
+			// [ìƒˆê¸°ìˆ 2]
+			// ShadowDancingì¸ì§€ ì²´í¬í•˜ê³  ìž„ì‹œë¡œ(-_-;) DoubleImpacetë¥¼ ì“´ë‹¤.
 			switch( skillID )
 			{
 			case SKILL_SHADOW_DANCING :
@@ -117,7 +118,7 @@ void GCSkillToObjectOK5Handler::execute ( GCSkillToObjectOK5 * pPacket , Player 
 				break;
 			// end by Coffee
 			case SKILL_ILLENDUE :
-				// 2004, 12, 15, sobeit modify start - ÈúÁ÷ÀÌ ÀÎÃ¦ ¶óÀÌÆ®º¼ ¾²´Â°Ô ¹ö±×.
+				// 2004, 12, 15, sobeit modify start - ížì§ì´ ì¸ì±ˆ ë¼ì´íŠ¸ë³¼ ì“°ëŠ”ê²Œ ë²„ê·¸.
 				//SkillIllendue( pUserCreature, pTargetCreature, SKILL_LIGHT_BALL );
 				SkillIllendue( pUserCreature, pTargetCreature, MAGIC_CAUSE_SERIOUS_WOUNDS );
 				// 2004, 12, 15, sobeit modify end
@@ -133,9 +134,9 @@ void GCSkillToObjectOK5Handler::execute ( GCSkillToObjectOK5 * pPacket , Player 
 
 			// [ TEST CODE ]
 			//
-			// °á°ú¸¦ »ý¼º&ÀúÀåÇØ¼­ º¸³»¾ß ÇÑ´Ù.
+			// ê²°ê³¼ë¥¼ ìƒì„±&ì €ìž¥í•´ì„œ ë³´ë‚´ì•¼ í•œë‹¤.
 			//
-			// ´©±º°¡(target)°¡ ´©±º°¡°¡ »ç¿ëÇÑ SKillÀ» ¸ÂÀº °æ¿ì..
+			// ëˆ„êµ°ê°€(target)ê°€ ëˆ„êµ°ê°€ê°€ ì‚¬ìš©í•œ SKillì„ ë§žì€ ê²½ìš°..
 			// [ TEST CODE ]
 			MActionResult* pResult = new MActionResult;
 
@@ -151,13 +152,13 @@ void GCSkillToObjectOK5Handler::execute ( GCSkillToObjectOK5 * pPacket , Player 
 
 			//------------------------------------------------------
 			//
-			// skill¿¡ °á°ú°¡ ÀÖÀ¸¸é Àû¿ë ½ÃÅ²´Ù.
+			// skillì— ê²°ê³¼ê°€ ìžˆìœ¼ë©´ ì ìš© ì‹œí‚¨ë‹¤.
 			//
 			//------------------------------------------------------
 			MActionResultNode* pActionResultNode = CreateActionResultNode(pTargetCreature, skillID, pPacket->getGrade() );
 
 			//------------------------------------------------------
-			// NULLÀÌ ¾Æ´Ï¸é ½ÇÇà
+			// NULLì´ ì•„ë‹ˆë©´ ì‹¤í–‰
 			//------------------------------------------------------
 			if (pActionResultNode!=NULL)
 			{
@@ -165,7 +166,7 @@ void GCSkillToObjectOK5Handler::execute ( GCSkillToObjectOK5 * pPacket , Player 
 			}
 
 			//------------------------------------------------------
-			// EffectStatus°¡ ÀÖ´Ù¸é ºÙÀÎ´Ù.
+			// EffectStatusê°€ ìžˆë‹¤ë©´ ë¶™ì¸ë‹¤.
 			//------------------------------------------------------
 			EFFECTSTATUS es = (*g_pActionInfoTable)[skillID].GetEffectStatus();
 			
@@ -177,7 +178,7 @@ void GCSkillToObjectOK5Handler::execute ( GCSkillToObjectOK5 * pPacket , Player 
 			}
 
 
-			// ¼­·Î ¹Ù¶óº¸±â
+			// ì„œë¡œ ë°”ë¼ë³´ê¸°
 			pUserCreature->SetDirectionToPosition(pTargetCreature->GetX(), pTargetCreature->GetY());
 			//pTargetCreature->SetDirectionToPosition(pUserCreature->GetX(), pUserCreature->GetY());
 
@@ -185,7 +186,7 @@ void GCSkillToObjectOK5Handler::execute ( GCSkillToObjectOK5 * pPacket , Player 
 			pUserCreature->PacketSpecialActionToOther(
 								skillID, /*pPacket->getSkillType(), */
 								pPacket->getTargetObjectID(),
-								pResult			// °á°ú
+								pResult			// ê²°ê³¼
 			);		
 
 			if( skillID == SKILL_BITE_OF_DEATH )

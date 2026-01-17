@@ -5,19 +5,19 @@
 //***************************************************************************
 // Func :	MP3_ReadHeader			
 //---------------------------------------------------------------------------
-// Desc :	MP3ÀÇ Çì´õ ºÎºÐÀ» ÀÐ¾î ¿Â´Ù.	
-// Params : ¸®ÅÏ ¹öÆÛ
+// Desc :	MP3ì˜ í—¤ë” ë¶€ë¶„ì„ ì½ì–´ ì˜¨ë‹¤.	
+// Params : ë¦¬í„´ ë²„í¼
 // Return : ErrCode ( 0 : OK )
 //===========================================================================
 int MP3_ReadHeader(MP3Header* header) 
 {
 	UINT headerStr ;
 
-	ReadHeader(&headerStr) ;	//Çì´õ ºÎºÐÀ» ÀÐ¾î ¿Â´Ù.(4byte)
+	ReadHeader(&headerStr) ;	//í—¤ë” ë¶€ë¶„ì„ ì½ì–´ ì˜¨ë‹¤.(4byte)
 	
-	UINT Layer = 4 - (headerStr >> 17 ) & 3 ;	// MPEG Layer VersionÀ» ¾ò´Â´Ù.
+	UINT Layer = 4 - (headerStr >> 17 ) & 3 ;	// MPEG Layer Versionì„ ì–»ëŠ”ë‹¤.
 
-	if ( Layer != 3 )	// Layer Version 3ÀÌ ¾Æ´Ï¸é ¿¡·¯ MP3¸¸ Áö¿øÇÑ´Ù.
+	if ( Layer != 3 )	// Layer Version 3ì´ ì•„ë‹ˆë©´ ì—ëŸ¬ MP3ë§Œ ì§€ì›í•œë‹¤.
 		return -1 ;
 
 	header->ProtectionBit = (headerStr >> 16) & 1 ;

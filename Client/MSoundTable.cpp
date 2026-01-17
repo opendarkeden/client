@@ -13,8 +13,8 @@ SOUND_TABLE*		g_pSoundTable = NULL;
 //----------------------------------------------------------------------
 // Save
 //----------------------------------------------------------------------
-void			
-SOUNDTABLE_INFO::SaveToFile(class ofstream& file)
+void
+SOUNDTABLE_INFO::SaveToFile(std::ofstream& file)
 {
 	Filename.SaveToFile( file );
 }
@@ -22,8 +22,8 @@ SOUNDTABLE_INFO::SaveToFile(class ofstream& file)
 //----------------------------------------------------------------------
 // Load
 //----------------------------------------------------------------------
-void			
-SOUNDTABLE_INFO::LoadFromFile(class ifstream& file)
+void
+SOUNDTABLE_INFO::LoadFromFile(std::ifstream& file)
 {
 	Filename.LoadFromFile( file );
 }

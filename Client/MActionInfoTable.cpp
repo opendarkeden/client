@@ -19,12 +19,12 @@ MActionInfoTable*			g_pActionInfoTable = NULL;
 //----------------------------------------------------------------------
 
 //-------------------------------------------------------
-// æ÷µÈ πˆ¿¸.. -_-;
+// Ïï†Îì§ Î≤ÑÏ†Ñ.. -_-;
 //-------------------------------------------------------
 void			
 ACTION_INFO_NODE::SetChildMode()
 {
-	// «œ...«œµÂƒ⁄µ˘-_-;
+	// Ìïò...ÌïòÎìúÏΩîÎî©-_-;
 	if(EffectSpriteType >= EFFECTSPRITETYPE_BLOOD_DRAIN_1 &&
 		EffectSpriteType <= EFFECTSPRITETYPE_BLOOD_DRAIN_3)
 	{
@@ -70,7 +70,7 @@ ACTION_INFO_NODE::SetChildMode()
 // Save
 //----------------------------------------------------------------------
 void			
-ACTION_INFO_NODE::SaveToFile(class ofstream& file)
+ACTION_INFO_NODE::SaveToFile(std::ofstream& file)
 {			
 	file.write((const char*)&EffectGeneratorID, SIZE_EFFECTGENERATORID);			
 	file.write((const char*)&EffectSpriteType, SIZE_EFFECTSPRITETYPE);
@@ -87,7 +87,7 @@ ACTION_INFO_NODE::SaveToFile(class ofstream& file)
 // Load
 //----------------------------------------------------------------------
 void			
-ACTION_INFO_NODE::LoadFromFile(class ifstream& file)
+ACTION_INFO_NODE::LoadFromFile(std::ifstream& file)
 {			
 	file.read((char*)&EffectGeneratorID, SIZE_EFFECTGENERATORID);			
 	file.read((char*)&EffectSpriteType, SIZE_EFFECTSPRITETYPE);
@@ -115,23 +115,23 @@ MActionInfo::MActionInfo()
 	m_bAdvancementClassSkill = false;
 	m_bNonAdvancementClassSkill = false;
 
-	m_CastingActionInfo = ACTIONINFO_NULL;	// casting Action Info∏¶ æ¯æÿ¥Ÿ.
-	m_bCastingAction = false;				// casting µø¿€¿∫ æ∆¥œ∂Û∞Ì º≥¡§..
+	m_CastingActionInfo = ACTIONINFO_NULL;	// casting Action InfoÎ•º ÏóÜÏï§Îã§.
+	m_bCastingAction = false;				// casting ÎèôÏûëÏùÄ ÏïÑÎãàÎùºÍ≥† ÏÑ§Ï†ï..
 
 	m_fUserType = FLAG_ACTIONINFO_USER_ALL;
 	m_fWeaponType = 0;//FLAG_ACTIONINFO_WEAPON_ALL;
-	m_fCurrentWeapon = 0;	// «ˆ¿Á µÈ∞Ì ¿÷¥¬ π´±‚¿« ¿˚øÎ¿ª πﬁ¥¬∞°?
+	m_fCurrentWeapon = 0;	// ÌòÑÏû¨ Îì§Í≥† ÏûàÎäî Î¨¥Í∏∞Ïùò Ï†ÅÏö©ÏùÑ Î∞õÎäîÍ∞Ä?
 	m_MainNode = MAIN_NODE_NULL;
-	m_bAttack = TRUE;			// ±‚∫ª¿˚¿∏∑Œ ∞¯∞›±‚º˙∑Œ º≥¡§
+	m_bAttack = TRUE;			// Í∏∞Î≥∏Ï†ÅÏúºÎ°ú Í≥µÍ≤©Í∏∞Ïà†Î°ú ÏÑ§Ï†ï
 
 	m_bUseRepeatFrame = false;
 
 	for (int i=0; i<3; i++)
 	{
-		m_CastingStartFrame[i] = 0;	// casting effect¿« Ω√¿€ frame
-		m_CastingFrames[i]		= 0;	// casting effect¿« ¡ˆº” frame
+		m_CastingStartFrame[i] = 0;	// casting effectÏùò ÏãúÏûë frame
+		m_CastingFrames[i]		= 0;	// casting effectÏùò ÏßÄÏÜç frame
 		
-		m_StartFrame[i] = 0xFFFF;	// max∞™¿∫ æ∆¥œ¡ˆ∏∏. ¿Ã ¡§µµ∏È √Ê∫–.. ¿Ω≥ƒ«œ.
+		m_StartFrame[i] = 0xFFFF;	// maxÍ∞íÏùÄ ÏïÑÎãàÏßÄÎßå. Ïù¥ Ï†ïÎèÑÎ©¥ Ï∂©Î∂Ñ.. ÏùåÎÉêÌïò.
 
 		m_RepeatStartFrame[i] = m_RepeatEndFrame[i] = -1;
 	}
@@ -148,7 +148,7 @@ MActionInfo::MActionInfo()
 
 	m_EffectStatus = EFFECTSTATUS_NULL;
 
-	// ∞·∞˙ id
+	// Í≤∞Í≥º id
 	m_ActionResultID	= ACTIONRESULTNODE_NULL;
 	m_ActionResultValue	= 0;
 
@@ -159,7 +159,8 @@ MActionInfo::MActionInfo()
 	m_fSelectCreature = FLAG_ACTIONINFO_SELECT_ALL;
 	m_bUseGrade = false;
 	m_bUseActionStep = false;
-	
+
+	int i;
 	for( i = 0 ; i< MAX_ACTION_STEP ;i ++ )
 	{
 		m_ActionStep[i] = 0;
@@ -180,12 +181,12 @@ MActionInfo::~MActionInfo()
 
 
 //-------------------------------------------------------
-// æ÷µÈ πˆ¿¸.. -_-;
+// Ïï†Îì§ Î≤ÑÏ†Ñ.. -_-;
 //-------------------------------------------------------
 void			
 MActionInfo::SetChildMode()
 {
-	// «œ...«œµÂƒ⁄µ˘-_-;
+	// Ìïò...ÌïòÎìúÏΩîÎî©-_-;
 
 	// male
 	if(m_ActionEffectSpriteType >= EFFECTSPRITETYPE_BLOOD_GUN_1_1 &&
@@ -243,10 +244,10 @@ MActionInfo::SetChildMode()
 // Save
 //----------------------------------------------------------------------
 void			
-MActionInfo::SaveToFile(class ofstream& file)
+MActionInfo::SaveToFile(std::ofstream& file)
 {
-	// ¿”Ω√∑Œ ∞ËªÍ.. - -;
-	// startframe¿Ã ¥ ¿∫ ∏∏≈≠ delayµµ ¡ŸæÓµÁ¥Ÿ
+	// ÏûÑÏãúÎ°ú Í≥ÑÏÇ∞.. - -;
+	// startframeÏù¥ Îä¶ÏùÄ ÎßåÌÅº delayÎèÑ Ï§ÑÏñ¥Îì†Îã§
 	/*
 	if (m_StartFrame==0xFFFF)
 	{
@@ -308,7 +309,7 @@ MActionInfo::SaveToFile(class ofstream& file)
 	file.write((const char*)&m_SoundID, SIZE_SOUNDID);
 	file.write((const char*)&m_MainNode, 4);
 	
-	// ∞·∞˙ 
+	// Í≤∞Í≥º 
 	file.write((const char*)&m_ActionResultID, SIZE_ACTIONRESULTID);
 	file.write((const char*)&m_ActionResultValue, 4);
 
@@ -330,6 +331,7 @@ MActionInfo::SaveToFile(class ofstream& file)
 	file.write((const char*)&flag, sizeof(char) );
 	if( m_bUseActionStep )
 	{
+		int i;
 		for( i = 0;i<MAX_ACTION_STEP; i++)
 		{
 			file.write((const char*)&m_ActionStep[i],sizeof( TYPE_ACTIONINFO ) );
@@ -346,7 +348,7 @@ MActionInfo::SaveToFile(class ofstream& file)
 	if( m_bNonAdvancementClassSkill ) flag |= 0x2;
 	file.write( (const char*)&flag, sizeof( char ) );
 */	
-	// ∞¢ ¥‹∞Ëø° ¥Î«— ¡§∫∏
+	// Í∞Å Îã®Í≥ÑÏóê ÎåÄÌïú Ï†ïÎ≥¥
 	CTypeTable<ACTION_INFO_NODE>::SaveToFile(file);
 }
 
@@ -354,7 +356,7 @@ MActionInfo::SaveToFile(class ofstream& file)
 // Load
 //----------------------------------------------------------------------
 void			
-MActionInfo::LoadFromFile(class ifstream& file)
+MActionInfo::LoadFromFile(std::ifstream& file)
 {
 	m_Name.LoadFromFile( file );
 
@@ -399,7 +401,7 @@ MActionInfo::LoadFromFile(class ifstream& file)
 	file.read((char*)&m_SoundID, SIZE_SOUNDID);
 	file.read((char*)&m_MainNode, 4);
 	
-	// ∞·∞˙ 
+	// Í≤∞Í≥º 
 	file.read((char*)&m_ActionResultID, SIZE_ACTIONRESULTID);
 	file.read((char*)&m_ActionResultValue, 4);
 
@@ -420,6 +422,7 @@ MActionInfo::LoadFromFile(class ifstream& file)
 	
 	if( m_bUseActionStep )
 	{
+	int i;
 		for( i = 0;i<MAX_ACTION_STEP; i++)
 		{
 			file.read((char*)&m_ActionStep[i],sizeof( TYPE_ACTIONINFO ) );
@@ -434,7 +437,7 @@ MActionInfo::LoadFromFile(class ifstream& file)
 	m_bAdvancementClassSkill = (flag & 0x1 ) != 0;
 	m_bNonAdvancementClassSkill = (flag & 0x2) != 0;
 */
-	// ∞¢ ¥‹∞Ëø° ¥Î«— ¡§∫∏
+	// Í∞Å Îã®Í≥ÑÏóê ÎåÄÌïú Ï†ïÎ≥¥
 	CTypeTable<ACTION_INFO_NODE>::LoadFromFile(file);
 }
 
@@ -488,7 +491,7 @@ MActionInfoTable::~MActionInfoTable()
 //
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
-// «« æ¯¥¬ ∏µÂ..
+// Ìîº ÏóÜÎäî Î™®Îìú..
 //----------------------------------------------------------------------
 void			
 MActionInfoTable::SetChildMode()
@@ -506,7 +509,7 @@ MActionInfoTable::SetChildMode()
 // Save To File
 //----------------------------------------------------------------------
 void		
-MActionInfoTable::SaveToFile(class ofstream& file)
+MActionInfoTable::SaveToFile(std::ofstream& file)
 {
 	file.write((const char*)&m_nMinResultActionInfo, 4);
 	file.write((const char*)&m_nMaxResultActionInfo, 4);
@@ -518,7 +521,7 @@ MActionInfoTable::SaveToFile(class ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void		
-MActionInfoTable::LoadFromFile(class ifstream& file)
+MActionInfoTable::LoadFromFile(std::ifstream& file)
 {
 	file.read((char*)&m_nMinResultActionInfo, 4);
 	file.read((char*)&m_nMaxResultActionInfo, 4);

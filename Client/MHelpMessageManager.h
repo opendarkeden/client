@@ -2,9 +2,9 @@
 //
 //	created:	2003/11/05   14:23
 //	filename: 	MHelpMessageManager.h
-//	author:		ÃÖ¼®¹Î
+//	author:		ìµœì„ë¯¼
 //	
-//	purpose:	¸ŞÀÏ ½Ã½ºÅÛ¿¡¼­ µµ¿ò¸» ¸Ş¼¼Áö¸¦ »ç¿ëÇÏ±â À§ÇÑ Å¬·¡½º
+//	purpose:	ë©”ì¼ ì‹œìŠ¤í…œì—ì„œ ë„ì›€ë§ ë©”ì„¸ì§€ë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•œ í´ë˜ìŠ¤
 //
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -16,7 +16,7 @@
 #include <vector>
 #include "MString.h"
 //#include "stdafx.h"
-#include <fstream.h>
+#include <fstream>
 #include "RarFile.h"
 #include "VS_UI_filepath.h"
 
@@ -44,7 +44,7 @@ public:
 	MString	m_strKeyword;
 	MString	m_strEvent;
 	
-	// Á¾Á·º°·Î ³»¿ëÀÌ ´Ù¸¥ º¯¼öµé
+	// ì¢…ì¡±ë³„ë¡œ ë‚´ìš©ì´ ë‹¤ë¥¸ ë³€ìˆ˜ë“¤
 	MString			m_strTitle[RACE_MAX];
 	int				m_iLevelMax[RACE_MAX];
 	int				m_iLevelLow[RACE_MAX];
@@ -61,8 +61,8 @@ public:
 	virtual ~MHelpMessage();
 
 	// file func
-	void SaveToFile(class ofstream &file);
-	void LoadFromFile(class ifstream &file);
+	void SaveToFile(std::ofstream &file);
+	void LoadFromFile(std::ifstream &file);
 	void SaveToFile(const char * filename);
 	void LoadFromFile(const char * filename);
 };
@@ -89,29 +89,29 @@ public:
 
 	virtual ~MHelpMessageManager();
 
-	// TODO : ÀÌ¹ÌÁö¸¦ ³Ö¾îÁÖ¼¼¿ä
+	// TODO : ì´ë¯¸ì§€ë¥¼ ë„£ì–´ì£¼ì„¸ìš”
 
 	// SENDER
 	const MString&	getSender(int senderIndex) const	{ return m_SenderVector[senderIndex]; }
 	void			addSender(MString& sender)			{ m_SenderVector.push_back(sender); }
-	void			removeSender(int senderIndex)		{ m_SenderVector.erase(&m_SenderVector[senderIndex]); }
+	void			removeSender(int senderIndex)		{ m_SenderVector.erase(m_SenderVector.begin() + senderIndex); }
 	size_t			getSenderSize() const				{ return m_SenderVector.size(); }
 
 	// ID
 	const MHelpMessage&	getMessage(int messageIndex) const	{ return m_MessageVector[messageIndex]; }
 	void				addMessage(MHelpMessage& message)	{ m_MessageVector.push_back(message); }
-	void				removeMessage(int messageIndex)		{ m_MessageVector.erase(&m_MessageVector[messageIndex]); }
+	void				removeMessage(int messageIndex)		{ m_MessageVector.erase(m_MessageVector.begin() + messageIndex); }
 	void				updateMessage(int messageIndex, MHelpMessage& message) { m_MessageVector[messageIndex] = message; }
 	size_t				getMessageSize() const				{ return m_MessageVector.size(); }
 
-	int							m_KeyCnt;; // °¹¼ö
-	int							m_SenderCnt;; // °¹¼ö
-	// ÆÄÀÏ°ü·Ã ÇÔ¼ö
-	void SaveToFile(class ofstream &file);
-	void LoadFromFile(class ifstream &file);
+	int							m_KeyCnt;; // ê°¯ìˆ˜
+	int							m_SenderCnt;; // ê°¯ìˆ˜
+	// íŒŒì¼ê´€ë ¨ í•¨ìˆ˜
+	void SaveToFile(std::ofstream &file);
+	void LoadFromFile(std::ifstream &file);
 	void SaveToFile(const char * filename);
 	void LoadFromFile(const char * filename);	
-	CRarFile					m_pack_file;  // rpk  ÆÄÀÏ 
+	CRarFile					m_pack_file;  // rpk  íŒŒì¼ 
 	bool LoadHelpMessageRpk(const char *helprpkfilename);
 };
 

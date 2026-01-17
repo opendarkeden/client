@@ -2,7 +2,7 @@
 // Filename    : CGSelectRegenZone.h 
 // Written By  : excel96
 // Description : 
-// ½½·¹ÀÌ¾î°¡ °³ÀÎ¿ë Æ÷Å»À» ÀÌ¿ëÇØ ´Ù¸¥ °÷À¸·Î ÀÌµ¿ÇÏ°íÀÚ ÇÒ ¶§ º¸³»´Â ÆĞÅ¶
+// ìŠ¬ë ˆì´ì–´ê°€ ê°œì¸ìš© í¬íƒˆì„ ì´ìš©í•´ ë‹¤ë¥¸ ê³³ìœ¼ë¡œ ì´ë™í•˜ê³ ì í•  ë•Œ ë³´ë‚´ëŠ” íŒ¨í‚·
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_SELECT_REGEN_ZONE_H__
@@ -56,7 +56,7 @@ class CGSelectRegenZoneFactory : public PacketFactory
 class CGSelectRegenZoneHandler 
 {
 public:
-	static void execute(CGSelectRegenZone* pCGSelectRegenZone, Player* pPlayer) throw(Error);
+	static void execute(CGSelectRegenZone* pCGSelectRegenZone, Player* pPlayer) throw ( ProtocolException , Error );
 };
 
 #endif

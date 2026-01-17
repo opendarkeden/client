@@ -48,7 +48,7 @@ MNPC::GetNPCInfo(TYPE_OBJECTID id) const
 void				
 MNPC::SetShop(MShop* pShop)
 {
-	// ±âÁ¸¿¡ ÀÖ´ø°É Áö¿î´Ù.
+	// ê¸°ì¡´ì— ìˆë˜ê±¸ ì§€ìš´ë‹¤.
 	if (m_pShop!=NULL)
 	{
 		delete m_pShop;
@@ -66,17 +66,17 @@ MNPC::CreateFixedShelf(bool bMysterious)
 	NPC_INFO* pInfo = (*g_pNPCTable).GetData( m_NPCID );
 
 	//-----------------------------------------------------------
-	// NPCÀÇ »óÁ¡À» ¾ò´Â´Ù.
+	// NPCì˜ ìƒì ì„ ì–»ëŠ”ë‹¤.
 	//-----------------------------------------------------------
 	MShop* pShop = m_pShop;
 
 	if (pShop==NULL)
 	{
-		// »óÁ¡ÀÌ ¾øÀ¸¸é »óÁ¡À» ¸¸µç´Ù.
+		// ìƒì ì´ ì—†ìœ¼ë©´ ìƒì ì„ ë§Œë“ ë‹¤.
 		pShop = new MShop;
 		pShop->Init( MShopShelf::MAX_SHELF );
 
-		// NPC¿¡ »óÁ¡ ¼³Á¤..
+		// NPCì— ìƒì  ì„¤ì •..
 		m_pShop = pShop;
 	}
 
@@ -92,11 +92,11 @@ MNPC::CreateFixedShelf(bool bMysterious)
 	}
 
 	//-----------------------------------------------------------
-	// NPCÁ¤º¸°¡ ÀÖ´Â°¡?
+	// NPCì •ë³´ê°€ ìˆëŠ”ê°€?
 	//-----------------------------------------------------------
 	if (pInfo==NULL)
 	{
-		// ¾øÀ¸¸é... ±×³É ºó »óÁ¡ »ı¼º
+		// ì—†ìœ¼ë©´... ê·¸ëƒ¥ ë¹ˆ ìƒì  ìƒì„±
 		MShopShelf* pShopShelf = MShopShelf::NewShelf( shelfType );
 
 		pShop->SetShelf( shelfType, pShopShelf );	
@@ -105,16 +105,16 @@ MNPC::CreateFixedShelf(bool bMysterious)
 	}
 
 	//-----------------------------------------------------------
-	// Normal Item ¼±¹İÀ» ¾ò´Â´Ù.
+	// Normal Item ì„ ë°˜ì„ ì–»ëŠ”ë‹¤.
 	//-----------------------------------------------------------
 	MShopShelf* pShopShelf = pShop->GetShelf( shelfType );
 
 	//-----------------------------------------------------------
-	// ¾øÀ¸¸é »ı¼ºÇÑ´Ù.
+	// ì—†ìœ¼ë©´ ìƒì„±í•œë‹¤.
 	//-----------------------------------------------------------
 	if (pShopShelf==NULL)
 	{
-		// normal shelf¸¦ »ı¼ºÇÑ´Ù.
+		// normal shelfë¥¼ ìƒì„±í•œë‹¤.
 		pShopShelf = MShopShelf::NewShelf( shelfType );
 
 		pShop->SetShelf( shelfType, pShopShelf );	
@@ -127,10 +127,10 @@ MNPC::CreateFixedShelf(bool bMysterious)
 	bool bEnable = false;
 
 	//-----------------------------------------------------------
-	// NPC°¡ °¡Áø ShopTemplate IDµéÀ» ¾ò¾î¼­ Ã³¸®ÇÑ´Ù.
+	// NPCê°€ ê°€ì§„ ShopTemplate IDë“¤ì„ ì–»ì–´ì„œ ì²˜ë¦¬í•œë‹¤.
 	//-----------------------------------------------------------
 	//
-	// ItemÁ¤º¸µéÀ» ÀÌ¿ëÇØ¼­ pShopShelf¿¡ ItemÀ» Ãß°¡ÇÏ¸é µÈ´Ù.
+	// Itemì •ë³´ë“¤ì„ ì´ìš©í•´ì„œ pShopShelfì— Itemì„ ì¶”ê°€í•˜ë©´ ëœë‹¤.
 	//
 	//-----------------------------------------------------------
 	NPC_INFO::SHOPTEMPLATEID_LIST::iterator iID = pInfo->ListShopTemplateID.begin();
@@ -140,14 +140,14 @@ MNPC::CreateFixedShelf(bool bMysterious)
 		unsigned int id = *iID;
 
 		//-----------------------------------------------------------
-		// idÀÇ ShopTemplateÀ» Ã£´Â´Ù.
+		// idì˜ ShopTemplateì„ ì°¾ëŠ”ë‹¤.
 		//-----------------------------------------------------------
 		MShopTemplate* pShopTemplate = (*g_pShopTemplateTable).GetData( id );
 
 		if (pShopTemplate!=NULL)
 		{
 			//-----------------------------------------------------------
-			// Normal ItemÀÎ °æ¿ì¸¸ Ã³¸®ÇÑ´Ù.
+			// Normal Itemì¸ ê²½ìš°ë§Œ ì²˜ë¦¬í•œë‹¤.
 			//-----------------------------------------------------------
 			if ((MShopShelf::SHELF_TYPE)pShopTemplate->Type == shelfType)
 			{	
@@ -155,11 +155,11 @@ MNPC::CreateFixedShelf(bool bMysterious)
 				int	maxType	= pShopTemplate->MaxType;
 
 				//-----------------------------------------------------------
-				// min~max TypeÀÇ itemµéÀ» »ı¼ºÇÑ´Ù. (min, maxÆ÷ÇÔ)
+				// min~max Typeì˜ itemë“¤ì„ ìƒì„±í•œë‹¤. (min, maxí¬í•¨)
 				//-----------------------------------------------------------
 				for (int type=minType; type<=maxType; type++)
 				{
-					// item »ı¼º
+					// item ìƒì„±
 					ITEM_CLASS itemClass = (ITEM_CLASS)pShopTemplate->Class;
 					MItem* pItem = MItem::NewItem( itemClass );
 					bEnable = true;
@@ -182,7 +182,7 @@ MNPC::CreateFixedShelf(bool bMysterious)
 					pItem->SetCurrentDurability( pItem->GetMaxDurability() );
 
 					//-----------------------------------------------------------
-					// ChargeµÈ itemÀÎ °æ¿ì --> ²Ë Ã¤¿î´Ù.
+					// Chargeëœ itemì¸ ê²½ìš° --> ê½‰ ì±„ìš´ë‹¤.
 					//-----------------------------------------------------------
 					if (pItem->IsChargeItem())
 					{
@@ -190,7 +190,7 @@ MNPC::CreateFixedShelf(bool bMysterious)
 					}
 
 					//-----------------------------------------------------------
-					// vampire portalÀÎ °æ¿ì default°ª ¼³Á¤
+					// vampire portalì¸ ê²½ìš° defaultê°’ ì„¤ì •
 					//-----------------------------------------------------------
 					if (pItem->GetItemClass()==ITEM_CLASS_VAMPIRE_PORTAL_ITEM)
 					{
@@ -202,7 +202,7 @@ MNPC::CreateFixedShelf(bool bMysterious)
 							{
 								MVampirePortalItem* pPortalItem = (MVampirePortalItem*)pItem;
 								
-								// ¹ÙÅä¸® ¸¶À»
+								// ë°”í† ë¦¬ ë§ˆì„
 								pPortalItem->SetZone( 1003, 50, 70 );
 								
 							}
@@ -214,7 +214,7 @@ MNPC::CreateFixedShelf(bool bMysterious)
 							{
 								MVampirePortalItem* pPortalItem = (MVampirePortalItem*)pItem;
 								
-								// Å×ÆäÁî ¸¶À»
+								// í…Œí˜ì¦ˆ ë§ˆì„
 								pPortalItem->SetZone( 1007, 62, 65 );
 								
 							}
@@ -226,7 +226,7 @@ MNPC::CreateFixedShelf(bool bMysterious)
 							{
 								MVampirePortalItem* pPortalItem = (MVampirePortalItem*)pItem;
 								
-								// Æä·Î³ª ¸¶À»
+								// í˜ë¡œë‚˜ ë§ˆì„
 								pPortalItem->SetZone( 61, 102, 220 );
 								
 							}
@@ -235,17 +235,17 @@ MNPC::CreateFixedShelf(bool bMysterious)
 					}
 
 
-					// pItem->SetItemOption( 0 ); // default·Î 0ÀÌ¹Ç·Î ÇÒ ÇÊ¿ä ¾ø´Ù.
+					// pItem->SetItemOption( 0 ); // defaultë¡œ 0ì´ë¯€ë¡œ í•  í•„ìš” ì—†ë‹¤.
 	
-					// ¹«½Ã  - -;;				
+					// ë¬´ì‹œ  - -;;				
 					// item option
 					//pShopTemplate->MinOption;
 					//pShopTemplate->MaxOption;
 
 					//------------------------------------------------------
-					// »ı¼ºµÈ itemÀ» shelf¿¡ Ãß°¡ÇÑ´Ù.
+					// ìƒì„±ëœ itemì„ shelfì— ì¶”ê°€í•œë‹¤.
 					//------------------------------------------------------
-					// ¼ø¼­´ë·Î Ãß°¡½ÃÅ°¸é µÈ´Ù.
+					// ìˆœì„œëŒ€ë¡œ ì¶”ê°€ì‹œí‚¤ë©´ ëœë‹¤.
 					//------------------------------------------------------
 					pShopShelf->AddItem( pItem );
 				}				
@@ -275,29 +275,29 @@ MNPC::Action()
 {
 	MCreature::Action();
 
-	// ¹ÙÅä¸®ÀÎ °æ¿ì
+	// ë°”í† ë¦¬ì¸ ê²½ìš°
 	if (m_CreatureType==217
-		// Å×ÆäÁîÀÎ °æ¿ì
+		// í…Œí˜ì¦ˆì¸ ê²½ìš°
 		|| m_CreatureType==366)
 	{
 		//--------------------------------------------------------
-		// ¹æÇâÀ» ¹Ù²Ü ÇÊ¿ä°¡ ¾ø´ø °æ¿ì¿¡..
-		// ½É½ÉÇÒ¶§¸¶´Ù ÇÑ¹ø¾¿ ¹æÇâ ¹Ù²ãÁÖ±â.. - -;
+		// ë°©í–¥ì„ ë°”ê¿€ í•„ìš”ê°€ ì—†ë˜ ê²½ìš°ì—..
+		// ì‹¬ì‹¬í• ë•Œë§ˆë‹¤ í•œë²ˆì”© ë°©í–¥ ë°”ê¿”ì£¼ê¸°.. - -;
 		//--------------------------------------------------------			
-		if (//Player°¡ ¾Æ´Ï°í
+		if (//Playerê°€ ì•„ë‹ˆê³ 
 			m_CreatureType >= 4
-			// »ì¾Æ ÀÖ°í..
+			// ì‚´ì•„ ìˆê³ ..
 			&& m_bAlive
-			// Á¤Áö»óÅÂÀÌ°í
+			// ì •ì§€ìƒíƒœì´ê³ 
 			&& m_Action==ACTION_STAND
-			// ¿òÁ÷ÀÏ°÷ÀÌ ¾ø°í
+			// ì›€ì§ì¼ê³³ì´ ì—†ê³ 
 			&& m_listMoveBuffer.size()==0
-			// Á¤Áöµ¿ÀÛÀÇ ³¡¿¡..
+			// ì •ì§€ë™ì‘ì˜ ëì—..
 			&& m_ActionCount>=m_ActionCountMax-1
-			// randomÇÏ°Ô.. - -;
+			// randomí•˜ê²Œ.. - -;
 			&& (rand() % 5)==0)
 		{
-			// ·£´ıÇÏ°Ô player¸¦ ¹Ù¶óº»´Ù.
+			// ëœë¤í•˜ê²Œ playerë¥¼ ë°”ë¼ë³¸ë‹¤.
 			SetDirectionToPosition( g_pPlayer->GetX(), g_pPlayer->GetY() );
 		}
 	}

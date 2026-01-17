@@ -1,8 +1,8 @@
 //----------------------------------------------------------------------
 // MHelicopterManager.h
 //----------------------------------------------------------------------
-// MHelicopter´Â ÇÑ Player¸¦ ÂÑ¾Æ°¡´Â Effect·Î Ç¥ÇöµÈ´Ù.
-// MHelicopterManager´Â È­¸é»ó¿¡ Á¸ÀçÇÏ´Â MHelicopter¸¦ ´Ù Ã³¸®ÇÑ´Ù.
+// MHelicopterëŠ” í•œ Playerë¥¼ ì«“ì•„ê°€ëŠ” Effectë¡œ í‘œí˜„ëœë‹¤.
+// MHelicopterManagerëŠ” í™”ë©´ìƒì— ì¡´ì¬í•˜ëŠ” MHelicopterë¥¼ ë‹¤ ì²˜ë¦¬í•œë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef __MHELICOPTERMANAGER_H__
@@ -30,13 +30,13 @@ class MHelicopter {
 		void			UpdateSound(int x, int y);
 
 	protected :
-		TYPE_OBJECTID			m_CreatureID;	// È£ÃâÇÑ »ç¶÷ÀÇ id
-		TYPE_OBJECTID			m_EffectID;		// Çï±â ±×¸²ÀÚ EffectÀÇ ID
-		ZONESOUND_NODE*			m_pSound;		// Çï±â ¼Ò¸®
+		TYPE_OBJECTID			m_CreatureID;	// í˜¸ì¶œí•œ ì‚¬ëŒì˜ id
+		TYPE_OBJECTID			m_EffectID;		// í—¬ê¸° ê·¸ë¦¼ì Effectì˜ ID
+		ZONESOUND_NODE*			m_pSound;		// í—¬ê¸° ì†Œë¦¬
 };
 
 //----------------------------------------------------------------------
-// MHelicopterManager - MHelicopter*ÀÇ map
+// MHelicopterManager - MHelicopter*ì˜ map
 //----------------------------------------------------------------------
 class MHelicopterManager : private CTypeMap2<MHelicopter> {
 	public :

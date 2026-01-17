@@ -14,11 +14,12 @@
 extern void		PopupErrorMessage(ErrorID errorID);
 
 //----------------------------------------------------------------------
-// Ä³¸¯ÅÍÀÇ »èÁ¦°¡ ½ÇÆÐÇß´Ù´Â ¶æÀÌ´Ù.
-// °¡¸¸È÷ »ý°¢ÇØº¸´Ï, »èÁ¦ ½ÇÆÐ´Â Å©·¡Å· ½Ãµµ°¡ ¾Æ´Ñ°¡?? - -;
+// ìºë¦­í„°ì˜ ì‚­ì œê°€ ì‹¤íŒ¨í–ˆë‹¤ëŠ” ëœ»ì´ë‹¤.
+// ê°€ë§Œížˆ ìƒê°í•´ë³´ë‹ˆ, ì‚­ì œ ì‹¤íŒ¨ëŠ” í¬ëž˜í‚¹ ì‹œë„ê°€ ì•„ë‹Œê°€?? - -;
 //----------------------------------------------------------------------
 void LCDeletePCErrorHandler::execute ( LCDeletePCError * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 

@@ -15,7 +15,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCMineExplosionOK2Handler::execute ( GCMineExplosionOK2 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -23,7 +24,7 @@ void GCMineExplosionOK2Handler::execute ( GCMineExplosionOK2 * pPacket , Player 
 
 
 	//------------------------------------------------------
-	// Zone¿Ã æ∆¡˜ ª˝º∫µ«¡ˆ æ ¿∫ ∞ÊøÏ
+	// ZoneÏù¥ ÏïÑÏßÅ ÏÉùÏÑ±ÎêòÏßÄ ÏïäÏùÄ Í≤ΩÏö∞
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -31,7 +32,7 @@ void GCMineExplosionOK2Handler::execute ( GCMineExplosionOK2 * pPacket , Player 
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// ¡§ªÛ.. 
+	// Ï†ïÏÉÅ.. 
 	//------------------------------------------------------
 	else
 	{
@@ -42,7 +43,7 @@ void GCMineExplosionOK2Handler::execute ( GCMineExplosionOK2 * pPacket , Player 
 			//int resultActionInfo = skillID + (*g_pActionInfoTable).GetMinResultActionInfo();
 
 			//------------------------------------------------------
-			// ∞·∞˙ ª˝º∫
+			// Í≤∞Í≥º ÏÉùÏÑ±
 			//------------------------------------------------------
 			MActionResult* pResult = new MActionResult;
 		
@@ -53,13 +54,13 @@ void GCMineExplosionOK2Handler::execute ( GCMineExplosionOK2 * pPacket , Player 
 			for (int i=0; i<size; i++)
 			{
 				//pResult->Add( new MActionResultNodeActionInfo( 
-				//					OBJECTID_NULL,		// ªÁøÎ¿⁄ æ¯æÓµµ µ«¥¬∞…±Ó?
+				//					OBJECTID_NULL,		// ÏÇ¨Ïö©Ïûê ÏóÜÏñ¥ÎèÑ ÎêòÎäîÍ±∏Íπå?
 				//					pPacket->popCListElement(), 
 				//					skillType,
 				//					delayFrame ) );
 				//------------------------------------------------------
 				//
-				// skillø° ∞·∞˙∞° ¿÷¿∏∏È ¿˚øÎ Ω√≈≤¥Ÿ.
+				// skillÏóê Í≤∞Í≥ºÍ∞Ä ÏûàÏúºÎ©¥ Ï†ÅÏö© ÏãúÌÇ®Îã§.
 				//
 				//------------------------------------------------------
 				int targetID = pPacket->popCListElement();
@@ -69,7 +70,7 @@ void GCMineExplosionOK2Handler::execute ( GCMineExplosionOK2 * pPacket , Player 
 				if (pTargetCreature!=NULL)
 				{
 					//------------------------------------------------------
-					// EffectStatus∞° ¿÷¥Ÿ∏È ∫Ÿ¿Œ¥Ÿ.
+					// EffectStatusÍ∞Ä ÏûàÎã§Î©¥ Î∂ôÏù∏Îã§.
 					//------------------------------------------------------
 					EFFECTSTATUS es = (*g_pActionInfoTable)[skillID].GetEffectStatus();
 								
@@ -84,12 +85,12 @@ void GCMineExplosionOK2Handler::execute ( GCMineExplosionOK2 * pPacket , Player 
 					switch ((*g_pActionInfoTable)[skillID].GetActionResultID())
 					{
 						//------------------------------------------------------
-						// ¥Ÿ∏• ActionInfo Ω««‡
+						// Îã§Î•∏ ActionInfo Ïã§Ìñâ
 						//------------------------------------------------------
 						case ACTIONRESULTNODE_ACTIONINFO :
 							pActionResultNode =  new MActionResultNodeActionInfo( 
 																(*g_pActionInfoTable)[skillID].GetActionResultValue(),
-																OBJECTID_NULL, // ªÁøÎ¿⁄ æ¯¥Ÿ - -;
+																OBJECTID_NULL, // ÏÇ¨Ïö©Ïûê ÏóÜÎã§ - -;
 																targetID, 
 																pTargetCreature->GetX(),
 																pTargetCreature->GetY(),
@@ -113,7 +114,7 @@ void GCMineExplosionOK2Handler::execute ( GCMineExplosionOK2 * pPacket , Player 
 																delayFrame);
 
 					//------------------------------------------------------
-					// NULL¿Ã æ∆¥œ∏È ∞∞¿Ã ¿˚øÎ
+					// NULLÏù¥ ÏïÑÎãàÎ©¥ Í∞ôÏù¥ Ï†ÅÏö©
 					//------------------------------------------------------
 					if (pActionResultNode!=NULL)
 					{
@@ -123,7 +124,7 @@ void GCMineExplosionOK2Handler::execute ( GCMineExplosionOK2 * pPacket , Player 
 			}
 
 			//------------------------------------------------------
-			// Sectorø° πŸ∑Œ ¿˚øÎ
+			// SectorÏóê Î∞îÎ°ú Ï†ÅÏö©
 			//------------------------------------------------------		
 			int direction = pPacket->getDir();
 

@@ -16,15 +16,16 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCRideMotorCycleOKHandler::execute ( GCRideMotorCycleOK * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-#if __GAME_CLIENT__
+#ifdef __GAME_CLIENT__
 
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -32,33 +33,33 @@ void GCRideMotorCycleOKHandler::execute ( GCRideMotorCycleOK * pPacket , Player 
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MItem* pItem = g_pZone->GetItem( pPacket->getObjectID() );
 
 		//------------------------------------------					
-		// pItemÀº ¿ÀÅä¹ÙÀÌ¿©¾ß ÇÑ´Ù.
-		// player¿¡ Àåºñ ½ÃÅ²´Ù.
+		// pItemì€ ì˜¤í† ë°”ì´ì—¬ì•¼ í•œë‹¤.
+		// playerì— ìž¥ë¹„ ì‹œí‚¨ë‹¤.
 		//------------------------------------------					
 		if (pItem != NULL)
 		{
 			if (pItem->GetItemClass()==ITEM_CLASS_MOTORCYCLE)
 			{
 				//------------------------------------------					
-				// ¿ÀÅä¹ÙÀÌ addon ºÙÀÓ.
+				// ì˜¤í† ë°”ì´ addon ë¶™ìž„.
 				//------------------------------------------					
 				g_pPlayer->SetAddonItem( pItem );
 				
 				//------------------------------------------
-				// ¿òÁ÷ÀÌ´Â ¹æ¹ý ¹Ù²Þ
+				// ì›€ì§ì´ëŠ” ë°©ë²• ë°”ê¿ˆ
 				//------------------------------------------					
 				//g_pPlayer->SetMoveDevice( MCreature::MOVE_DEVICE_RIDE );
 
 				//------------------------------------------
-				// Server¿¡ Á¢¼ÓµÈ °æ¿ì°¡ ¾Æ´Ï¸é..
-				// ¹Ù·Î mouse¿¡ itemÀÌ ºÙ´Â´Ù.
+				// Serverì— ì ‘ì†ëœ ê²½ìš°ê°€ ì•„ë‹ˆë©´..
+				// ë°”ë¡œ mouseì— itemì´ ë¶™ëŠ”ë‹¤.
 				//------------------------------------------
 				//PlaySound( pItem->GetTileSoundID(),
 				//			false,
@@ -77,11 +78,11 @@ void GCRideMotorCycleOKHandler::execute ( GCRideMotorCycleOK * pPacket , Player 
 	}
 	
 	//------------------------------------------
-	// ¾îÂ¶µç °£¿¡.. °ËÁõÀÌ µÇ¾ú´Ù°í º»´Ù.
+	// ì–´ì¨‹ë“  ê°„ì—.. ê²€ì¦ì´ ë˜ì—ˆë‹¤ê³  ë³¸ë‹¤.
 	//------------------------------------------
 	g_pPlayer->SetWaitVerifyNULL();
 
-	// [µµ¿ò¸»] ¿ÀÅä¹ÙÀÌ Åº °æ¿ì
+	// [ë„ì›€ë§] ì˜¤í† ë°”ì´ íƒ„ ê²½ìš°
 //	__BEGIN_HELP_EVENT
 ////		ExecuteHelpEvent( HE_ITEM_RIDE_MOTORCYCLE );
 //	__END_HELP_EVENT

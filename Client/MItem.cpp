@@ -27,7 +27,7 @@
 	#include "MZone.h"
 	#include "MZoneTable.h"
 	#include "MPlayer.h"
-	#include "packet\CPackets\CGUseItemFromGear.h"
+#include "packet/CPackets/CGUseItemFromGear.h"
 	#include "packet/CPackets/CGUsePotionFromInventory.h"
 	#include "packet/CPackets/CGUsePotionFromQuickSlot.h"
 
@@ -37,7 +37,7 @@
 	#include "UIDialog.h"
 #endif
 
-#include <fstream.h>
+#include <fstream>
 #include <algorithm>
 
 #ifdef __GAME_CLIENT__
@@ -51,7 +51,7 @@ extern bool g_bHolyLand;
 extern bool g_bZoneSafe;
 
 //----------------------------------------------------------------------
-// ÃÖ´ë ¼ö
+// ÃƒÃ–Â´Ã« Â¼Ã¶
 //----------------------------------------------------------------------
 //#define MAX_FIRE_CRACKER_PILE_NUMBER	9
 //#define	MAX_POTION_PILE_NUMBER			9
@@ -123,12 +123,12 @@ extern bool g_bZoneSafe;
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// ÇÑ±ÛÀ» »ç¿ëÇÏ´Â°¡?
+// Ã‡Ã‘Â±Ã›Ã€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚Â°Â¡?
 //----------------------------------------------------------------------
 bool	MItem::s_bUseKorean	= true;
 
 //----------------------------------------------------------------------
-// Item ¶³¾î¶ß¸±¶§ÀÇ ³ôÀÌµé..
+// Item Â¶Â³Â¾Ã®Â¶ÃŸÂ¸Â±Â¶Â§Ã€Ã‡ Â³Ã´Ã€ÃŒÂµÃ©..
 //----------------------------------------------------------------------
 int		MItem::s_DropHeight[MAX_DROP_COUNT] = 
 {
@@ -136,7 +136,7 @@ int		MItem::s_DropHeight[MAX_DROP_COUNT] =
 };
 
 //----------------------------------------------------------------------
-// ItemClass¿¡ ¸Â°Ô ¸Ş¸ğ¸®¸¦ Àâ¾ÆÁÖ´Â class tableÀ» ¼³Á¤..
+// ItemClassÂ¿Â¡ Â¸Ã‚Â°Ã” Â¸ÃÂ¸Ã°Â¸Â®Â¸Â¦ Ã€Ã¢Â¾Ã†ÃÃ–Â´Ã‚ class tableÃ€Â» Â¼Â³ÃÂ¤..
 //----------------------------------------------------------------------
 MItem::FUNCTION_NEWITEMCLASS
 MItem::s_NewItemClassTable[MAX_ITEM_CLASS] =
@@ -173,7 +173,7 @@ MItem::s_NewItemClassTable[MAX_ITEM_CLASS] =
 	MCorpse::NewItem,
 	//MSkull::NewItem,
 
-	// vampire¿ë item
+	// vampireÂ¿Ã« item
 	MVampireRing::NewItem,
 	MVampireBracelet::NewItem,
 	MVampireNecklace::NewItem,
@@ -182,7 +182,7 @@ MItem::s_NewItemClassTable[MAX_ITEM_CLASS] =
 	// skull
 	MSkull::NewItem,
 
-	// maceÃß°¡ - 2001/3/26
+	// maceÃƒÃŸÂ°Â¡ - 2001/3/26
 	MMace::NewItem,
 
 	MSerum::NewItem,
@@ -257,7 +257,7 @@ MItem::s_NewItemClassTable[MAX_ITEM_CLASS] =
 	MTrapItem::NewItem,
 	MBloodBibleSign::NewItem,
 	MWarItem::NewItem,
-		//by csm 2Â÷ ÀüÁ÷ ¾ÆÀÌÅÛ Å¬·¡½º Ãß°¡ 
+		//by csm 2Ã‚Ã· Ã€Ã¼ÃÃ· Â¾Ã†Ã€ÃŒÃ…Ã› Ã…Â¬Â·Â¡Â½Âº ÃƒÃŸÂ°Â¡ 
 	MCarryingReceiver::NewItem,
 	MShoulderArmor::NewItem,
 	MDermis::NewItem,
@@ -265,7 +265,7 @@ MItem::s_NewItemClassTable[MAX_ITEM_CLASS] =
 	MFascia::NewItem,
 	MMitten::NewItem,
 	
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 		MSubInventory::NewItem,
 	#endif
 
@@ -306,7 +306,7 @@ MItem*	MLearningItem::NewItem()	{ return new MLearningItem; }
 MItem*	MMoney::NewItem()			{ return new MMoney; }
 MItem*	MCorpse::NewItem()			{ return new MCorpse; }
 
-// vampire¿ë item
+// vampireÂ¿Ã« item
 MItem*	MVampireRing::NewItem()		{ return new MVampireRing; }
 MItem*	MVampireBracelet::NewItem()	{ return new MVampireBracelet; }
 MItem*	MVampireNecklace::NewItem()	{ return new MVampireNecklace; }
@@ -317,7 +317,7 @@ MItem*	MVampireShoes::NewItem()	{ return new MVampireShoes; }
 //----------------------------------------------------------------------
 // New Item
 //----------------------------------------------------------------------
-// itemClass¿¡ ¸Â´Â classÀÇ °´Ã¼¸¦ »ı¼ºÇØ¼­(new) ³Ñ°ÜÁØ´Ù.
+// itemClassÂ¿Â¡ Â¸Ã‚Â´Ã‚ classÃ€Ã‡ Â°Â´ÃƒÂ¼Â¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã˜Â¼Â­(new) Â³Ã‘Â°ÃœÃÃ˜Â´Ã™.
 //----------------------------------------------------------------------
 MItem*		
 MItem::NewItem(ITEM_CLASS itemClass)
@@ -342,8 +342,8 @@ MItem::MItem()
 	m_ItemType		= 0;//ITEMTYPE_NULL;
 //	m_ItemOption	= 0;
 
-	m_bDropping		= FALSE;	// ¶³¾îÁö°í ÀÖ´Â Áß
-	m_DropCount		= 0;		// ÇöÀç count
+	m_bDropping		= FALSE;	// Â¶Â³Â¾Ã®ÃÃ¶Â°Ã­ Ã€Ã–Â´Ã‚ ÃÃŸ
+	m_DropCount		= 0;		// Ã‡Ã¶Ã€Ã§ count
 
 	// identify
 	m_bIdentified	= TRUE;
@@ -380,7 +380,7 @@ MItem::~MItem()
 //----------------------------------------------------------------------
 // Is Insert To Item ( pItem )
 //----------------------------------------------------------------------
-// pItem¿¡ Ãß°¡µÉ ¼ö ÀÖ´Â°¡?
+// pItemÂ¿Â¡ ÃƒÃŸÂ°Â¡ÂµÃ‰ Â¼Ã¶ Ã€Ã–Â´Ã‚Â°Â¡?
 //----------------------------------------------------------------------
 bool		
 MItem::IsInsertToItem(const MItem* pItem) const
@@ -391,13 +391,13 @@ MItem::IsInsertToItem(const MItem* pItem) const
 	}
 
 	//-------------------------------------------------
-	// ½×ÀÌ´Â ItemÀÌ°í 
-	// class¿Í typeÀÌ °°¾Æ¾ß ½×ÀÎ´Ù.	
-	// ÇöÀç °³¼ö°¡ ÇÑ°è¸¦ ³ÑÁö ¾ÊÀº °æ¿ì 
-	// --> Ãß°¡ °¡´É
+	// Â½Ã—Ã€ÃŒÂ´Ã‚ ItemÃ€ÃŒÂ°Ã­ 
+	// classÂ¿Ã typeÃ€ÃŒ Â°Â°Â¾Ã†Â¾ÃŸ Â½Ã—Ã€ÃÂ´Ã™.	
+	// Ã‡Ã¶Ã€Ã§ Â°Â³Â¼Ã¶Â°Â¡ Ã‡Ã‘Â°Ã¨Â¸Â¦ Â³Ã‘ÃÃ¶ Â¾ÃŠÃ€Âº Â°Ã¦Â¿Ã¬ 
+	// --> ÃƒÃŸÂ°Â¡ Â°Â¡Â´Ã‰
 	//-------------------------------------------------
 
-	// (!)¾ÆÁ÷Àº ½×ÀÌ°Ô ÇÏ¸é ¾ÈµÈ´Ù.
+	// (!)Â¾Ã†ÃÃ·Ã€Âº Â½Ã—Ã€ÃŒÂ°Ã” Ã‡ÃÂ¸Ã© Â¾ÃˆÂµÃˆÂ´Ã™.
 
 	///*
 	if (pItem->IsPileItem() 
@@ -419,13 +419,13 @@ const char *
 MItem::GetName()
 {
 	//---------------------------------------------------------
-	// Á¤ÇØÁø ÀÌ¸§ÀÌ µû·Î ¾ø´Ù¸é.. °íÁ¤µÈ ÀÌ¸§ return
+	// ÃÂ¤Ã‡Ã˜ÃÃ¸ Ã€ÃŒÂ¸Â§Ã€ÃŒ ÂµÃ»Â·Ã Â¾Ã¸Â´Ã™Â¸Ã©.. Â°Ã­ÃÂ¤ÂµÃˆ Ã€ÃŒÂ¸Â§ return
 	//---------------------------------------------------------
 	if (m_pName==NULL)
 	{
 		//if (s_bUseKorean) 
 		{
-			// Æ¾¹öÀüÀÎ°æ¿ì XXX¸Ó¸®¸¦ XXX¼Ò¿ï ½ºÅæ·Î Ç¥½ÃÇÑ´Ù.
+			// Ã†Â¾Â¹Ã¶Ã€Ã¼Ã€ÃÂ°Ã¦Â¿Ã¬ XXXÂ¸Ã“Â¸Â®Â¸Â¦ XXXÂ¼Ã’Â¿Ã¯ Â½ÂºÃ…Ã¦Â·Ã Ã‡Â¥Â½ÃƒÃ‡Ã‘Â´Ã™.
 			if(g_pUserInformation->GoreLevel == false && GetItemClass() == ITEM_CLASS_SKULL)
 			{
 //				static char sz_temp[256];
@@ -458,11 +458,11 @@ const char *
 MItem::GetEName() const
 {
 	//---------------------------------------------------------
-	// Á¤ÇØÁø ÀÌ¸§ÀÌ µû·Î ¾ø´Ù¸é.. °íÁ¤µÈ ÀÌ¸§ return
+	// ÃÂ¤Ã‡Ã˜ÃÃ¸ Ã€ÃŒÂ¸Â§Ã€ÃŒ ÂµÃ»Â·Ã Â¾Ã¸Â´Ã™Â¸Ã©.. Â°Ã­ÃÂ¤ÂµÃˆ Ã€ÃŒÂ¸Â§ return
 	//---------------------------------------------------------
 //	if (m_pName==NULL)
 	{
-		// Æ¾¹öÀüÀÎ°æ¿ì XXXHead¶Ç´Â XXXSkull¸¦ XXXSoul Stone·Î Ç¥½ÃÇÑ´Ù.
+		// Ã†Â¾Â¹Ã¶Ã€Ã¼Ã€ÃÂ°Ã¦Â¿Ã¬ XXXHeadÂ¶Ã‡Â´Ã‚ XXXSkullÂ¸Â¦ XXXSoul StoneÂ·Ã Ã‡Â¥Â½ÃƒÃ‡Ã‘Â´Ã™.
 		if(g_pUserInformation->GoreLevel == false && GetItemClass() == ITEM_CLASS_SKULL)
 		{
 			static char sz_temp[256];
@@ -489,7 +489,7 @@ MItem::GetEName() const
 //----------------------------------------------------------------------
 // Set Name
 //----------------------------------------------------------------------
-// m_pName¿¡ ÀÌ¸§À» Á¤ÇØ³Ö´Â´Ù.
+// m_pNameÂ¿Â¡ Ã€ÃŒÂ¸Â§Ã€Â» ÃÂ¤Ã‡Ã˜Â³Ã–Â´Ã‚Â´Ã™.
 //----------------------------------------------------------------------
 void
 MItem::SetName(const char* pName)
@@ -506,7 +506,7 @@ MItem::SetName(const char* pName)
 	}
 
 	//---------------------------------------------
-	// ¼³Á¤..
+	// Â¼Â³ÃÂ¤..
 	//---------------------------------------------
 	m_pName = new char[strlen(pName) + 1];
 
@@ -569,7 +569,7 @@ MItem::GetGridHeight() const
 TYPE_FRAMEID			
 MItem::GetTileFrameID() const
 {
-	// Æ¾¹öÀüÀÎ °æ¿ì ¸Ó¸®´Â º¸¼®À¸·Î Ç¥½ÃÇÑ´Ù.
+	// Ã†Â¾Â¹Ã¶Ã€Ã¼Ã€Ã Â°Ã¦Â¿Ã¬ Â¸Ã“Â¸Â®Â´Ã‚ ÂºÂ¸Â¼Â®Ã€Â¸Â·Ã Ã‡Â¥Â½ÃƒÃ‡Ã‘Â´Ã™.
 	if(g_pUserInformation->GoreLevel == false && GetItemClass() == ITEM_CLASS_SKULL)
 		return 271;
 
@@ -582,7 +582,7 @@ MItem::GetTileFrameID() const
 TYPE_FRAMEID			
 MItem::GetInventoryFrameID() const
 {
-	// Æ¾¹öÀüÀÎ °æ¿ì ¸Ó¸®´Â º¸¼®À¸·Î Ç¥½ÃÇÑ´Ù.
+	// Ã†Â¾Â¹Ã¶Ã€Ã¼Ã€Ã Â°Ã¦Â¿Ã¬ Â¸Ã“Â¸Â®Â´Ã‚ ÂºÂ¸Â¼Â®Ã€Â¸Â·Ã Ã‡Â¥Â½ÃƒÃ‡Ã‘Â´Ã™.
 	if(g_pUserInformation->GoreLevel == false && GetItemClass() == ITEM_CLASS_SKULL)
 		return 285;
 
@@ -609,7 +609,7 @@ MItem::GetDropFrameID() const
 	{
 		int frameID = (*g_pItemTable)[GetItemClass()][m_ItemType].DropFrameID;
 	}
-	// Æ¾¹öÀüÀÎ °æ¿ì ¸Ó¸®´Â º¸¼®À¸·Î Ç¥½ÃÇÑ´Ù.
+	// Ã†Â¾Â¹Ã¶Ã€Ã¼Ã€Ã Â°Ã¦Â¿Ã¬ Â¸Ã“Â¸Â®Â´Ã‚ ÂºÂ¸Â¼Â®Ã€Â¸Â·Ã Ã‡Â¥Â½ÃƒÃ‡Ã‘Â´Ã™.
 	if(g_pUserInformation->GoreLevel == false && GetItemClass() == ITEM_CLASS_SKULL)
 		return 271;
 
@@ -856,19 +856,19 @@ int
 MWeaponItem::GetMinDamage() const
 {
 	return max(1, (*g_pItemTable)[GetItemClass()][m_ItemType].Value3 + (GetGrade()-4) );
-}	// ÃÖ¼Ò °ø°İ·Â
+}	// ÃƒÃ–Â¼Ã’ Â°Ã¸Â°ÃÂ·Ã‚
 
 int
 MWeaponItem::GetMaxDamage() const
 {
 	return max(1, (*g_pItemTable)[GetItemClass()][m_ItemType].Value4 + (GetGrade()-4) );
-}	// ÃÖ´ë °ø°İ·Â		
+}	// ÃƒÃ–Â´Ã« Â°Ã¸Â°ÃÂ·Ã‚		
 
 int
 MWeaponItem::GetToHit() const
 {
 	return (*g_pItemTable)[GetItemClass()][m_ItemType].ToHit;
-}		// ÃÖ´ë °ø°İ·Â		
+}		// ÃƒÃ–Â´Ã« Â°Ã¸Â°ÃÂ·Ã‚		
 
 int
 MWeaponItem::GetCriticalHit() const
@@ -1102,7 +1102,7 @@ MItem::GetItemOptionColorSet(int OptionNum)
 #endif
 		if(GetItemColorSet() == 0xFFFF)
 		{
-			if(GetSilver() > 0)	// ¼Ó¼ºÀÌ ÀÖ´Â °æ¿ì´Â »ö Ç¥½Ã
+			if(GetSilver() > 0)	// Â¼Ã“Â¼ÂºÃ€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Â´Ã‚ Â»Ã¶ Ã‡Â¥Â½Ãƒ
 			{
 				ITEMOPTION_TABLE::ITEMOPTION_PART optionPart = static_cast<ITEMOPTION_TABLE::ITEMOPTION_PART>(GetEnchantLevel());
 
@@ -1273,7 +1273,7 @@ MItem::GetRequireSTR() const
 	
 	return min(original, maxValue);
 	
-	// option¿¡ µû¸¥ Áõ°¡Ä¡
+	// optionÂ¿Â¡ ÂµÃ»Â¸Â¥ ÃÃµÂ°Â¡Ã„Â¡
 	//return max(original, GetItemOptionRequireSTR());
 		//(*g_pItemOptionTable)[m_ItemOption].PlusRequireAbility;
 }
@@ -1304,7 +1304,7 @@ MItem::GetRequireDEX() const
 
 	return min(original, maxValue);
 
-	// option¿¡ µû¸¥ Áõ°¡Ä¡
+	// optionÂ¿Â¡ ÂµÃ»Â¸Â¥ ÃÃµÂ°Â¡Ã„Â¡
 	//return max(original, GetItemOptionRequireDEX());
 	//+ (*g_pItemOptionTable)[m_ItemOption].PlusRequireAbility;
 }
@@ -1335,7 +1335,7 @@ MItem::GetRequireINT() const
 
 	return min(original, maxValue);
 
-	// option¿¡ µû¸¥ Áõ°¡Ä¡
+	// optionÂ¿Â¡ ÂµÃ»Â¸Â¥ ÃÃµÂ°Â¡Ã„Â¡
 	//return max(original, GetItemOptionRequireINT());
 	//+ (*g_pItemOptionTable)[m_ItemOption].PlusRequireAbility;
 }
@@ -1364,7 +1364,7 @@ MItem::GetRequireSUM() const
 
 	return min(original, maxValue);
 
-	// option¿¡ µû¸¥ Áõ°¡Ä¡
+	// optionÂ¿Â¡ ÂµÃ»Â¸Â¥ ÃÃµÂ°Â¡Ã„Â¡
 	//return max(original, GetItemOptionRequireSUM());
 	//+ (*g_pItemOptionTable)[m_ItemOption].PlusRequireAbility;
 }
@@ -1386,7 +1386,7 @@ MItem::GetRequireLevel() const
 	else
 		maxValue = MAX_VAMPIRE_LEVEL;
 
-	// option¿¡ µû¸¥ Áõ°¡Ä¡
+	// optionÂ¿Â¡ ÂµÃ»Â¸Â¥ ÃÃµÂ°Â¡Ã„Â¡
 	original += GetItemOptionRequireLevel();
 
 	if( IsOustersItem() )
@@ -1453,7 +1453,7 @@ void
 MItem::SetDropping()
 {
 	TYPE_FRAMEID dropID = GetDropFrameID();
-	// °ü·ÃµÈ frameÀÌ ¾ø´Â °æ¿ì
+	// Â°Ã¼Â·ÃƒÂµÃˆ frameÃ€ÃŒ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 	if (dropID==FRAMEID_NULL)
 	{
 		return;
@@ -1477,8 +1477,8 @@ MItem::NextDropFrame()
 
 	if (++m_DropCount >= MAX_DROP_COUNT)
 	{
-		m_CurrentFrame = m_MaxFrame - 1;	// ¸¶Áö¸· frameÀ¸·Î..
-		m_DropCount--;						// ÇÏ³ª »©Áà¾ß ÇÏ´Â µí - -;
+		m_CurrentFrame = m_MaxFrame - 1;	// Â¸Â¶ÃÃ¶Â¸Â· frameÃ€Â¸Â·Ã..
+		m_DropCount--;						// Ã‡ÃÂ³Âª Â»Â©ÃÃ Â¾ÃŸ Ã‡ÃÂ´Ã‚ ÂµÃ­ - -;
 		m_bDropping = FALSE;
 	}
 }
@@ -1516,7 +1516,7 @@ MItem::ChangeItemOption(TYPE_ITEM_OPTION ori_option, TYPE_ITEM_OPTION new_option
 	}
 }
 
-// À¯´ÏÅ© ¾ÆÀÌÅÛ »öº¯ÇÏ´Â°Å
+// Ã€Â¯Â´ÃÃ…Â© Â¾Ã†Ã€ÃŒÃ…Ã› Â»Ã¶ÂºÂ¯Ã‡ÃÂ´Ã‚Â°Ã…
 int
 MItem::GetUniqueItemColorset()
 {
@@ -1568,7 +1568,7 @@ MItem::GetSpecialColorItemColorset(unsigned short srcColor)
 	return 0xffff;	
 }
 
-// ·¹¾î ¾ÆÀÌÅÛ »öº¯ÇÏ´Â°Å
+// Â·Â¹Â¾Ã® Â¾Ã†Ã€ÃŒÃ…Ã› Â»Ã¶ÂºÂ¯Ã‡ÃÂ´Ã‚Â°Ã…
 int	MItem::GetRareItemColorset()
 {
 /*
@@ -1615,7 +1615,7 @@ MCorpse::~MCorpse()
 //----------------------------------------------------------------------
 // Set ItemType
 //----------------------------------------------------------------------
-// ItemTypeÀ» ¼³Á¤ÇÒ¶§ SlotItemManagerµµ ÃÊ±âÈ­ÇØ¾ßÇÑ´Ù.
+// ItemTypeÃ€Â» Â¼Â³ÃÂ¤Ã‡Ã’Â¶Â§ SlotItemManagerÂµÂµ ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡Ã˜Â¾ÃŸÃ‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void				
 MBelt::SetItemType(TYPE_ITEMTYPE type)		
@@ -1628,13 +1628,13 @@ MBelt::SetItemType(TYPE_ITEMTYPE type)
 //----------------------------------------------------------------------
 // AddItem ( pItem )
 //----------------------------------------------------------------------
-// ÀûÀıÇÑ slot¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+// Ã€Ã»Ã€Ã½Ã‡Ã‘ slotÂ¿Â¡ pItemÃ€Â» ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool			
 MBelt::AddItem(MItem* pItem)
 {
 	//---------------------------------------------------------------
-	// ºñ¾îÀÖ´Â slotÀ» Ã£¾Æ¼­ itemÀ» Ãß°¡ÇÑ´Ù.
+	// ÂºÃ±Â¾Ã®Ã€Ã–Â´Ã‚ slotÃ€Â» ÃƒÂ£Â¾Ã†Â¼Â­ itemÃ€Â» ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 	//---------------------------------------------------------------
 	for (int n=0; n<m_Size; n++)
 	{
@@ -1650,7 +1650,7 @@ MBelt::AddItem(MItem* pItem)
 //----------------------------------------------------------------------
 // AddItem ( pItem, n )
 //----------------------------------------------------------------------
-// slot(n)¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+// slot(n)Â¿Â¡ pItemÃ€Â» ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool			
 MBelt::AddItem(MItem* pItem, BYTE n)
@@ -1661,7 +1661,7 @@ MBelt::AddItem(MItem* pItem, BYTE n)
 	}
 
 	//---------------------------------------------------------------
-	// Quick itemÀÌ¾î¾ßÁö belt¿¡ Ãß°¡ÇÒ ¼ö ÀÖ´Ù.
+	// Quick itemÃ€ÃŒÂ¾Ã®Â¾ÃŸÃÃ¶ beltÂ¿Â¡ ÃƒÃŸÂ°Â¡Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã™.
 	//---------------------------------------------------------------
 	if (pItem->IsQuickItem())
 	{
@@ -1674,7 +1674,7 @@ MBelt::AddItem(MItem* pItem, BYTE n)
 //----------------------------------------------------------------------
 // ReplaceItem
 //----------------------------------------------------------------------
-// pItemÀ» Ãß°¡ÇÏ°í µı°Ô ÀÖ´Ù¸é Item±³È¯
+// pItemÃ€Â» ÃƒÃŸÂ°Â¡Ã‡ÃÂ°Ã­ ÂµÃ½Â°Ã” Ã€Ã–Â´Ã™Â¸Ã© ItemÂ±Â³ÃˆÂ¯
 //----------------------------------------------------------------------
 bool			
 MBelt::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
@@ -1685,7 +1685,7 @@ MBelt::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 	}
 
 	//---------------------------------------------------------------
-	// ºñ¾î ÀÖ´Â slotÀÌ¸é ±×³É Ãß°¡
+	// ÂºÃ±Â¾Ã® Ã€Ã–Â´Ã‚ slotÃ€ÃŒÂ¸Ã© Â±Ã—Â³Ã‰ ÃƒÃŸÂ°Â¡
 	//---------------------------------------------------------------
 	if (m_ItemSlot[n]==NULL)
 	{
@@ -1693,8 +1693,8 @@ MBelt::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 	}
 	
 	//---------------------------------------------------------------
-	// ¹º°¡ ÀÖ´Ù¸é replaceÇØ¾ß ÇÑ´Ù.
-	// ¹Ù²Ü·Á´Â ItemÀÌ quickItemÀÎ °æ¿ì¸¸ ±³Ã¼..
+	// Â¹ÂºÂ°Â¡ Ã€Ã–Â´Ã™Â¸Ã© replaceÃ‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
+	// Â¹Ã™Â²ÃœÂ·ÃÂ´Ã‚ ItemÃ€ÃŒ quickItemÃ€Ã Â°Ã¦Â¿Ã¬Â¸Â¸ Â±Â³ÃƒÂ¼..
 	//---------------------------------------------------------------	
 	if (pItem->IsQuickItem())
 	{
@@ -1706,25 +1706,25 @@ MBelt::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 
 
 //----------------------------------------------------------------------
-// Can ReplaceItem : (n) slot¿¡ pItemÀ» Ãß°¡ÇÏ°Å³ª 
-//						¿ø·¡ ÀÖ´ø Item°ú ±³Ã¼°¡ °¡´ÉÇÑ°¡?
+// Can ReplaceItem : (n) slotÂ¿Â¡ pItemÃ€Â» ÃƒÃŸÂ°Â¡Ã‡ÃÂ°Ã…Â³Âª 
+//						Â¿Ã¸Â·Â¡ Ã€Ã–Â´Ã¸ ItemÂ°Ãº Â±Â³ÃƒÂ¼Â°Â¡ Â°Â¡Â´Ã‰Ã‡Ã‘Â°Â¡?
 //----------------------------------------------------------------------
 bool			
 MBelt::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 {
 	//---------------------------------------------------------
-	// ItemSlot ¹üÀ§¸¦ ³Ñ¾î°¡´Â °æ¿ì..
+	// ItemSlot Â¹Ã¼Ã€Â§Â¸Â¦ Â³Ã‘Â¾Ã®Â°Â¡Â´Ã‚ Â°Ã¦Â¿Ã¬..
 	//---------------------------------------------------------	
 	if (n>=m_Size)
 	{		
-		// NULL·Î ¼³Á¤ÇÑ´Ù.
+		// NULLÂ·Ã Â¼Â³ÃÂ¤Ã‡Ã‘Â´Ã™.
 		pOldItem = NULL;
 
 		return false;
 	}
 
 	//---------------------------------------------------------	
-	// QuickItemÀÎ°¡?
+	// QuickItemÃ€ÃÂ°Â¡?
 	//---------------------------------------------------------	
 	if (pItem->IsQuickItem())
 	{		
@@ -1741,8 +1741,8 @@ MBelt::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 //----------------------------------------------------------------------
 // Find Slot To Add Item
 //----------------------------------------------------------------------
-// return°ªÀº ÀÚ¸®°¡ ÀÖ´À³Ä(true) / ¾ø´À³Ä(false)
-// trueÀÎ °æ¿ì¿¡.. pItemÀÌ µé¾î°¥ ¼ö ÀÖ´Â ÀÚ¸®°¡ slotÀÌ´Ù.
+// returnÂ°ÂªÃ€Âº Ã€ÃšÂ¸Â®Â°Â¡ Ã€Ã–Â´Ã€Â³Ã„(true) / Â¾Ã¸Â´Ã€Â³Ã„(false)
+// trueÃ€Ã Â°Ã¦Â¿Ã¬Â¿Â¡.. pItemÃ€ÃŒ ÂµÃ©Â¾Ã®Â°Â¥ Â¼Ã¶ Ã€Ã–Â´Ã‚ Ã€ÃšÂ¸Â®Â°Â¡ slotÃ€ÃŒÂ´Ã™.
 //----------------------------------------------------------------------
 bool			
 MBelt::FindSlotToAddItem(MItem* pItem, int &slot) const
@@ -1753,14 +1753,14 @@ MBelt::FindSlotToAddItem(MItem* pItem, int &slot) const
 	}
 
 	//---------------------------------------------------------
-	// ¾îµğ¿¡ µé¾î°¥ ¼ö ÀÖÀ»±î?
+	// Â¾Ã®ÂµÃ°Â¿Â¡ ÂµÃ©Â¾Ã®Â°Â¥ Â¼Ã¶ Ã€Ã–Ã€Â»Â±Ã®?
 	//---------------------------------------------------------
 	for (int i=0; i<m_Size; i++)
 	{
 		const MItem* pQuickItem = m_ItemSlot[i];
 
 		//---------------------------------------------------------
-		// ¾Æ¹«°Íµµ ¾ø´Â °÷ÀÌ¸é ±×³É ³ÖÀ¸¸é µÈ´Ù.
+		// Â¾Ã†Â¹Â«Â°ÃÂµÂµ Â¾Ã¸Â´Ã‚ Â°Ã·Ã€ÃŒÂ¸Ã© Â±Ã—Â³Ã‰ Â³Ã–Ã€Â¸Â¸Ã© ÂµÃˆÂ´Ã™.
 		//---------------------------------------------------------
 		if (pQuickItem==NULL)
 		{
@@ -1768,13 +1768,13 @@ MBelt::FindSlotToAddItem(MItem* pItem, int &slot) const
 			return true;
 		}
 		//---------------------------------------------------------
-		// ¹º°¡ ÀÖÀ¸¸é.. ±×°÷¿¡ ½×ÀÏ ¼ö ÀÖ´ÂÁö ¾Ë¾Æº»´Ù.
+		// Â¹ÂºÂ°Â¡ Ã€Ã–Ã€Â¸Â¸Ã©.. Â±Ã—Â°Ã·Â¿Â¡ Â½Ã—Ã€Ã Â¼Ã¶ Ã€Ã–Â´Ã‚ÃÃ¶ Â¾Ã‹Â¾Ã†ÂºÂ»Â´Ã™.
 		//---------------------------------------------------------
 		if (pQuickItem->GetItemClass()==pItem->GetItemClass()
 			&& pQuickItem->GetItemType()==pItem->GetItemType())
 		{
 			//----------------------------------------------------
-			// ´õÇÑ °³¼ö°¡ max¸¦ ³ÑÁö ¾Ê¾Æ¾ß ÇÑ´Ù.
+			// Â´ÃµÃ‡Ã‘ Â°Â³Â¼Ã¶Â°Â¡ maxÂ¸Â¦ Â³Ã‘ÃÃ¶ Â¾ÃŠÂ¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			//----------------------------------------------------
 			int addTotal = pQuickItem->GetNumber() + pItem->GetNumber();
 
@@ -1786,7 +1786,7 @@ MBelt::FindSlotToAddItem(MItem* pItem, int &slot) const
 		}		
 	}
 
-	// µé¾î°¥ °÷ÀÌ ¾ø´Ù.
+	// ÂµÃ©Â¾Ã®Â°Â¥ Â°Ã·Ã€ÃŒ Â¾Ã¸Â´Ã™.
 	return false;
 }
 
@@ -1798,7 +1798,7 @@ MBelt::FindSlotToAddItem(MItem* pItem, int &slot) const
 //----------------------------------------------------------------------
 // Is Insert To Item
 //----------------------------------------------------------------------
-// ´Ù¸¥ Item¿¡ Ãß°¡µÉ ¼ö ÀÖ´Â°¡?
+// Â´Ã™Â¸Â¥ ItemÂ¿Â¡ ÃƒÃŸÂ°Â¡ÂµÃ‰ Â¼Ã¶ Ã€Ã–Â´Ã‚Â°Â¡?
 //----------------------------------------------------------------------
 bool		
 MMagazine::IsInsertToItem(const MItem* pItem) const
@@ -1809,11 +1809,11 @@ MMagazine::IsInsertToItem(const MItem* pItem) const
 	}
 
 	//------------------------------------------------
-	// ÃÑÀÎ °æ¿ì
+	// ÃƒÃ‘Ã€Ã Â°Ã¦Â¿Ã¬
 	//------------------------------------------------
 	if (pItem->IsGunItem())
 	{
-		// ÀÌ ÅºÃ¢À» ÀåÂøÇÒ ¼ö ÀÖ´Â ÃÑÀÎ °æ¿ì..
+		// Ã€ÃŒ Ã…ÂºÃƒÂ¢Ã€Â» Ã€Ã¥Ã‚Ã¸Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã‚ ÃƒÃ‘Ã€Ã Â°Ã¦Â¿Ã¬..
 		if (GetGunClass()==pItem->GetItemClass())
 		{
 			return true;
@@ -1822,7 +1822,7 @@ MMagazine::IsInsertToItem(const MItem* pItem) const
 		return false;
 	}
 	
-	// °°Àº ÅºÃ¢ÀÎ °æ¿ì Ã¼Å©..
+	// Â°Â°Ã€Âº Ã…ÂºÃƒÂ¢Ã€Ã Â°Ã¦Â¿Ã¬ ÃƒÂ¼Ã…Â©..
 	return MItem::IsInsertToItem( pItem );	
 }
 
@@ -1832,7 +1832,7 @@ MMagazine::IsInsertToItem(const MItem* pItem) const
 //
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
-// Get MaxNumber - Charge°³¼ö
+// Get MaxNumber - ChargeÂ°Â³Â¼Ã¶
 //----------------------------------------------------------------------
 TYPE_ITEM_NUMBER	
 MSlayerPortalItem::GetMaxNumber() const
@@ -1842,7 +1842,7 @@ MSlayerPortalItem::GetMaxNumber() const
 
 //----------------------------------------------------------------------
 // Set EnchantLevel
-// ½ÇÁ¦·Î´Â Charge °³¼ö¸¦ ÀúÀåÇÑ´Ù.
+// Â½Ã‡ÃÂ¦Â·ÃÂ´Ã‚ Charge Â°Â³Â¼Ã¶Â¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void				
 MSlayerPortalItem::SetEnchantLevel(WORD s)
@@ -1874,7 +1874,7 @@ MVampirePortalItem::IsMarked() const
 }
 
 //----------------------------------------------------------------------
-// Get MaxNumber - Charge°³¼ö
+// Get MaxNumber - ChargeÂ°Â³Â¼Ã¶
 //----------------------------------------------------------------------
 TYPE_ITEM_NUMBER	
 MVampirePortalItem::GetMaxNumber() const
@@ -1895,7 +1895,7 @@ MVampirePortalItem::SetZone(int zoneID, TYPE_SECTORPOSITION x, TYPE_SECTORPOSITI
 
 //----------------------------------------------------------------------
 // Set EnchantLevel
-// ½ÇÁ¦·Î´Â Charge °³¼ö¸¦ ÀúÀåÇÑ´Ù.
+// Â½Ã‡ÃÂ¦Â·ÃÂ´Ã‚ Charge Â°Â³Â¼Ã¶Â¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void				
 MVampirePortalItem::SetEnchantLevel(WORD s)
@@ -1918,7 +1918,7 @@ MVampirePortalItem::SetSilver(int s)
 void				
 MVampirePortalItem::SetCurrentDurability(TYPE_ITEM_DURATION d)
 {
-	m_ZoneX = (d >> 8) & 0xFF;		// 0xFF´Â ¾ø¾îµµ µÉ µí..
+	m_ZoneX = (d >> 8) & 0xFF;		// 0xFFÂ´Ã‚ Â¾Ã¸Â¾Ã®ÂµÂµ ÂµÃ‰ ÂµÃ­..
 	m_ZoneY = (d & 0xFF);
 }
 
@@ -1969,9 +1969,9 @@ MMixingItem::GetMaxNumber() const
 //----------------------------------------------------------------------
 // Is BombMaterial
 //----------------------------------------------------------------------
-// ÀÌ°Å´Â ³ªÁß¿¡ ÇÊ»ì~¼öÁ¤ÀÌ ÇÊ¿äÇÏ´Ù.
-// BombMaterial¿¡ member·Î ³ÖµçÁö.. 
-// Bomb / Mine MaterialÀ» ºĞ¸®ÇÏµçÁö....
+// Ã€ÃŒÂ°Ã…Â´Ã‚ Â³ÂªÃÃŸÂ¿Â¡ Ã‡ÃŠÂ»Ã¬~Â¼Ã¶ÃÂ¤Ã€ÃŒ Ã‡ÃŠÂ¿Ã¤Ã‡ÃÂ´Ã™.
+// BombMaterialÂ¿Â¡ memberÂ·Ã Â³Ã–ÂµÃ§ÃÃ¶.. 
+// Bomb / Mine MaterialÃ€Â» ÂºÃÂ¸Â®Ã‡ÃÂµÃ§ÃÃ¶....
 //----------------------------------------------------------------------
 bool
 IsBombMaterial(const MItem* pItem)
@@ -1983,9 +1983,9 @@ IsBombMaterial(const MItem* pItem)
 //----------------------------------------------------------------------
 // Is MineMaterial
 //----------------------------------------------------------------------
-// ÀÌ°Å´Â ³ªÁß¿¡ ÇÊ»ì~¼öÁ¤ÀÌ ÇÊ¿äÇÏ´Ù.
-// BombMaterial¿¡ member·Î ³ÖµçÁö.. 
-// Bomb / Mine MaterialÀ» ºĞ¸®ÇÏµçÁö....
+// Ã€ÃŒÂ°Ã…Â´Ã‚ Â³ÂªÃÃŸÂ¿Â¡ Ã‡ÃŠÂ»Ã¬~Â¼Ã¶ÃÂ¤Ã€ÃŒ Ã‡ÃŠÂ¿Ã¤Ã‡ÃÂ´Ã™.
+// BombMaterialÂ¿Â¡ memberÂ·Ã Â³Ã–ÂµÃ§ÃÃ¶.. 
+// Bomb / Mine MaterialÃ€Â» ÂºÃÂ¸Â®Ã‡ÃÂµÃ§ÃÃ¶....
 //----------------------------------------------------------------------
 bool
 IsMineMaterial(const MItem* pItem)
@@ -2020,7 +2020,7 @@ MOustersComposMei::GetMaxNumber() const
 
 //----------------------------------------------------------------------
 // Set EnchantLevel
-// ½ÇÁ¦·Î´Â Charge °³¼ö¸¦ ÀúÀåÇÑ´Ù.
+// Â½Ã‡ÃÂ¦Â·ÃÂ´Ã‚ Charge Â°Â³Â¼Ã¶Â¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void				
 MOustersSummonGem::SetEnchantLevel(WORD s)
@@ -2035,7 +2035,7 @@ MOustersSummonGem::SetEnchantLevel(WORD s)
 //----------------------------------------------------------------------
 // Set ItemType
 //----------------------------------------------------------------------
-// ItemTypeÀ» ¼³Á¤ÇÒ¶§ SlotItemManagerµµ ÃÊ±âÈ­ÇØ¾ßÇÑ´Ù.
+// ItemTypeÃ€Â» Â¼Â³ÃÂ¤Ã‡Ã’Â¶Â§ SlotItemManagerÂµÂµ ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡Ã˜Â¾ÃŸÃ‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void				
 MOustersArmsBand::SetItemType(TYPE_ITEMTYPE type)		
@@ -2048,13 +2048,13 @@ MOustersArmsBand::SetItemType(TYPE_ITEMTYPE type)
 //----------------------------------------------------------------------
 // AddItem ( pItem )
 //----------------------------------------------------------------------
-// ÀûÀıÇÑ slot¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+// Ã€Ã»Ã€Ã½Ã‡Ã‘ slotÂ¿Â¡ pItemÃ€Â» ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool			
 MOustersArmsBand::AddItem(MItem* pItem)
 {
 	//---------------------------------------------------------------
-	// ºñ¾îÀÖ´Â slotÀ» Ã£¾Æ¼­ itemÀ» Ãß°¡ÇÑ´Ù.
+	// ÂºÃ±Â¾Ã®Ã€Ã–Â´Ã‚ slotÃ€Â» ÃƒÂ£Â¾Ã†Â¼Â­ itemÃ€Â» ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 	//---------------------------------------------------------------
 	for (int n=0; n<m_Size; n++)
 	{
@@ -2070,7 +2070,7 @@ MOustersArmsBand::AddItem(MItem* pItem)
 //----------------------------------------------------------------------
 // AddItem ( pItem, n )
 //----------------------------------------------------------------------
-// slot(n)¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+// slot(n)Â¿Â¡ pItemÃ€Â» ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool			
 MOustersArmsBand::AddItem(MItem* pItem, BYTE n)
@@ -2081,7 +2081,7 @@ MOustersArmsBand::AddItem(MItem* pItem, BYTE n)
 	}
 
 	//---------------------------------------------------------------
-	// Quick itemÀÌ¾î¾ßÁö belt¿¡ Ãß°¡ÇÒ ¼ö ÀÖ´Ù.
+	// Quick itemÃ€ÃŒÂ¾Ã®Â¾ÃŸÃÃ¶ beltÂ¿Â¡ ÃƒÃŸÂ°Â¡Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã™.
 	//---------------------------------------------------------------
 	if (pItem->IsQuickItem())
 	{
@@ -2094,7 +2094,7 @@ MOustersArmsBand::AddItem(MItem* pItem, BYTE n)
 //----------------------------------------------------------------------
 // ReplaceItem
 //----------------------------------------------------------------------
-// pItemÀ» Ãß°¡ÇÏ°í µı°Ô ÀÖ´Ù¸é Item±³È¯
+// pItemÃ€Â» ÃƒÃŸÂ°Â¡Ã‡ÃÂ°Ã­ ÂµÃ½Â°Ã” Ã€Ã–Â´Ã™Â¸Ã© ItemÂ±Â³ÃˆÂ¯
 //----------------------------------------------------------------------
 bool			
 MOustersArmsBand::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
@@ -2105,7 +2105,7 @@ MOustersArmsBand::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 	}
 
 	//---------------------------------------------------------------
-	// ºñ¾î ÀÖ´Â slotÀÌ¸é ±×³É Ãß°¡
+	// ÂºÃ±Â¾Ã® Ã€Ã–Â´Ã‚ slotÃ€ÃŒÂ¸Ã© Â±Ã—Â³Ã‰ ÃƒÃŸÂ°Â¡
 	//---------------------------------------------------------------
 	if (m_ItemSlot[n]==NULL)
 	{
@@ -2113,8 +2113,8 @@ MOustersArmsBand::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 	}
 	
 	//---------------------------------------------------------------
-	// ¹º°¡ ÀÖ´Ù¸é replaceÇØ¾ß ÇÑ´Ù.
-	// ¹Ù²Ü·Á´Â ItemÀÌ quickItemÀÎ °æ¿ì¸¸ ±³Ã¼..
+	// Â¹ÂºÂ°Â¡ Ã€Ã–Â´Ã™Â¸Ã© replaceÃ‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
+	// Â¹Ã™Â²ÃœÂ·ÃÂ´Ã‚ ItemÃ€ÃŒ quickItemÃ€Ã Â°Ã¦Â¿Ã¬Â¸Â¸ Â±Â³ÃƒÂ¼..
 	//---------------------------------------------------------------	
 	if (pItem->IsQuickItem())
 	{
@@ -2126,25 +2126,25 @@ MOustersArmsBand::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 
 
 //----------------------------------------------------------------------
-// Can ReplaceItem : (n) slot¿¡ pItemÀ» Ãß°¡ÇÏ°Å³ª 
-//						¿ø·¡ ÀÖ´ø Item°ú ±³Ã¼°¡ °¡´ÉÇÑ°¡?
+// Can ReplaceItem : (n) slotÂ¿Â¡ pItemÃ€Â» ÃƒÃŸÂ°Â¡Ã‡ÃÂ°Ã…Â³Âª 
+//						Â¿Ã¸Â·Â¡ Ã€Ã–Â´Ã¸ ItemÂ°Ãº Â±Â³ÃƒÂ¼Â°Â¡ Â°Â¡Â´Ã‰Ã‡Ã‘Â°Â¡?
 //----------------------------------------------------------------------
 bool			
 MOustersArmsBand::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 {
 	//---------------------------------------------------------
-	// ItemSlot ¹üÀ§¸¦ ³Ñ¾î°¡´Â °æ¿ì..
+	// ItemSlot Â¹Ã¼Ã€Â§Â¸Â¦ Â³Ã‘Â¾Ã®Â°Â¡Â´Ã‚ Â°Ã¦Â¿Ã¬..
 	//---------------------------------------------------------	
 	if (n>=m_Size)
 	{		
-		// NULL·Î ¼³Á¤ÇÑ´Ù.
+		// NULLÂ·Ã Â¼Â³ÃÂ¤Ã‡Ã‘Â´Ã™.
 		pOldItem = NULL;
 
 		return false;
 	}
 
 	//---------------------------------------------------------	
-	// QuickItemÀÎ°¡?
+	// QuickItemÃ€ÃÂ°Â¡?
 	//---------------------------------------------------------	
 	if (pItem->IsQuickItem())
 	{		
@@ -2161,8 +2161,8 @@ MOustersArmsBand::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 //----------------------------------------------------------------------
 // Find Slot To Add Item
 //----------------------------------------------------------------------
-// return°ªÀº ÀÚ¸®°¡ ÀÖ´À³Ä(true) / ¾ø´À³Ä(false)
-// trueÀÎ °æ¿ì¿¡.. pItemÀÌ µé¾î°¥ ¼ö ÀÖ´Â ÀÚ¸®°¡ slotÀÌ´Ù.
+// returnÂ°ÂªÃ€Âº Ã€ÃšÂ¸Â®Â°Â¡ Ã€Ã–Â´Ã€Â³Ã„(true) / Â¾Ã¸Â´Ã€Â³Ã„(false)
+// trueÃ€Ã Â°Ã¦Â¿Ã¬Â¿Â¡.. pItemÃ€ÃŒ ÂµÃ©Â¾Ã®Â°Â¥ Â¼Ã¶ Ã€Ã–Â´Ã‚ Ã€ÃšÂ¸Â®Â°Â¡ slotÃ€ÃŒÂ´Ã™.
 //----------------------------------------------------------------------
 bool			
 MOustersArmsBand::FindSlotToAddItem(MItem* pItem, int &slot) const
@@ -2173,14 +2173,14 @@ MOustersArmsBand::FindSlotToAddItem(MItem* pItem, int &slot) const
 	}
 
 	//---------------------------------------------------------
-	// ¾îµğ¿¡ µé¾î°¥ ¼ö ÀÖÀ»±î?
+	// Â¾Ã®ÂµÃ°Â¿Â¡ ÂµÃ©Â¾Ã®Â°Â¥ Â¼Ã¶ Ã€Ã–Ã€Â»Â±Ã®?
 	//---------------------------------------------------------
 	for (int i=0; i<m_Size; i++)
 	{
 		const MItem* pQuickItem = m_ItemSlot[i];
 
 		//---------------------------------------------------------
-		// ¾Æ¹«°Íµµ ¾ø´Â °÷ÀÌ¸é ±×³É ³ÖÀ¸¸é µÈ´Ù.
+		// Â¾Ã†Â¹Â«Â°ÃÂµÂµ Â¾Ã¸Â´Ã‚ Â°Ã·Ã€ÃŒÂ¸Ã© Â±Ã—Â³Ã‰ Â³Ã–Ã€Â¸Â¸Ã© ÂµÃˆÂ´Ã™.
 		//---------------------------------------------------------
 		if (pQuickItem==NULL)
 		{
@@ -2188,13 +2188,13 @@ MOustersArmsBand::FindSlotToAddItem(MItem* pItem, int &slot) const
 			return true;
 		}
 		//---------------------------------------------------------
-		// ¹º°¡ ÀÖÀ¸¸é.. ±×°÷¿¡ ½×ÀÏ ¼ö ÀÖ´ÂÁö ¾Ë¾Æº»´Ù.
+		// Â¹ÂºÂ°Â¡ Ã€Ã–Ã€Â¸Â¸Ã©.. Â±Ã—Â°Ã·Â¿Â¡ Â½Ã—Ã€Ã Â¼Ã¶ Ã€Ã–Â´Ã‚ÃÃ¶ Â¾Ã‹Â¾Ã†ÂºÂ»Â´Ã™.
 		//---------------------------------------------------------
 		if (pQuickItem->GetItemClass()==pItem->GetItemClass()
 			&& pQuickItem->GetItemType()==pItem->GetItemType())
 		{
 			//----------------------------------------------------
-			// ´õÇÑ °³¼ö°¡ max¸¦ ³ÑÁö ¾Ê¾Æ¾ß ÇÑ´Ù.
+			// Â´ÃµÃ‡Ã‘ Â°Â³Â¼Ã¶Â°Â¡ maxÂ¸Â¦ Â³Ã‘ÃÃ¶ Â¾ÃŠÂ¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			//----------------------------------------------------
 			int addTotal = pQuickItem->GetNumber() + pItem->GetNumber();
 
@@ -2206,7 +2206,7 @@ MOustersArmsBand::FindSlotToAddItem(MItem* pItem, int &slot) const
 		}		
 	}
 
-	// µé¾î°¥ °÷ÀÌ ¾ø´Ù.
+	// ÂµÃ©Â¾Ã®Â°Â¥ Â°Ã·Ã€ÃŒ Â¾Ã¸Â´Ã™.
 	return false;
 }
 
@@ -2237,7 +2237,7 @@ MLuckyBag::GetMaxNumber() const
 //	Item Use
 //
 ///////////////////////////////////////////////////////////////////////////
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MUsePotionItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MUsePotionItem::UseInventory()
@@ -2252,16 +2252,16 @@ void	MUsePotionItem::UseInventory()
 	g_pSocket->sendPacket( &_CGUsePotionFromInventory );
 
 	
-	// ÀÏ´Ü(!) ±×³É ¾ø¾Ö°í º»´Ù.
+	// Ã€ÃÂ´Ãœ(!) Â±Ã—Â³Ã‰ Â¾Ã¸Â¾Ã–Â°Ã­ ÂºÂ»Â´Ã™.
 	//(*g_pInventory).RemoveItem( pItem->GetID() );
 
 	//----------------------------------------------------
-	// Inventory¿¡¼­ itemÀ» »ç¿ëÇÏ´Â °É °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+	// InventoryÂ¿Â¡Â¼Â­ itemÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Â°Ã‰ Â°Ã‹ÃÃµÂ¹ÃÂ±Ã¢Â¸Â¦ Â±Ã¢Â´Ã™Â¸Â°Â´Ã™.
 	//----------------------------------------------------
 	g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MWater::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MWater::UseInventory()
@@ -2288,19 +2288,19 @@ void	MWater::UseInventory()
 	}
 
 	//----------------------------------------------------
-	// skillÀÌ Á¦´ë·Î ¼³Á¤µÈ °æ¿ì
+	// skillÃ€ÃŒ ÃÂ¦Â´Ã«Â·Ã Â¼Â³ÃÂ¤ÂµÃˆ Â°Ã¦Â¿Ã¬
 	//----------------------------------------------------
 	if (bUseOK)//playerSkill < (*g_pActionInfoTable).GetMinResultActionInfo())
 	{
 		//if ((*g_pActionInfoTable)[playerSkill].IsTargetItem())
 		{
 			//----------------------------------------------------
-			// °ËÁõ ¹ŞÀ»°Ô ¾ø´Â °æ¿ì..
+			// Â°Ã‹ÃÃµ Â¹ÃÃ€Â»Â°Ã” Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬..
 			//----------------------------------------------------
 			if (!g_pPlayer->IsWaitVerify()
 				&& g_pPlayer->IsItemCheckBufferNULL())							
 			{	
-				POINT fitPoint;			// ¼º¼ö°¡ µé¾î°¥ ÀÚ¸®
+				POINT fitPoint;			// Â¼ÂºÂ¼Ã¶Â°Â¡ ÂµÃ©Â¾Ã®Â°Â¥ Ã€ÃšÂ¸Â®
 
 				if( bCreateHolyWater )
 				{
@@ -2319,11 +2319,11 @@ void	MWater::UseInventory()
 
 						g_pSocket->sendPacket( &_CGSkillToInventory );								
 					
-						// ÀÏ´Ü(!) ±×³É ¾ø¾Ö°í º»´Ù.
+						// Ã€ÃÂ´Ãœ(!) Â±Ã—Â³Ã‰ Â¾Ã¸Â¾Ã–Â°Ã­ ÂºÂ»Â´Ã™.
 						//(*g_pInventory).RemoveItem( pItem->GetID() );
 
 						//----------------------------------------------------
-						// Inventory¿¡¼­ itemÀ» »ç¿ëÇÏ´Â °É °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+						// InventoryÂ¿Â¡Â¼Â­ itemÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Â°Ã‰ Â°Ã‹ÃÃµÂ¹ÃÂ±Ã¢Â¸Â¦ Â±Ã¢Â´Ã™Â¸Â°Â´Ã™.
 						//----------------------------------------------------
 						g_pPlayer->SetWaitVerify( MPlayer::WAIT_VERIFY_SKILL_SUCCESS );
 						g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY );								
@@ -2331,16 +2331,16 @@ void	MWater::UseInventory()
 						(*g_pSkillInfoTable)[useSkill].SetNextAvailableTime();
 
 						//----------------------------------------------------
-						// ±â¼ú »ç¿ë ½Ãµµ µ¿ÀÛ
+						// Â±Ã¢Â¼Ãº Â»Ã§Â¿Ã« Â½ÃƒÂµÂµ ÂµÂ¿Ã€Ã›
 						//----------------------------------------------------
 						AddNewInventoryEffect( GetID(),
 											useSkill, //+ (*g_pActionInfoTable).GetMinResultActionInfo(),
-											g_pClientConfig->FPS*3	// 3ÃÊ
+											g_pClientConfig->FPS*3	// 3ÃƒÃŠ
 										);
 					}
 //								else
 //								{
-//									// g_pGameMessage( "ÀÚ¸®°¡ ¾øµû¾ß~" );
+//									// g_pGameMessage( "Ã€ÃšÂ¸Â®Â°Â¡ Â¾Ã¸ÂµÃ»Â¾ÃŸ~" );
 //								}
 				}
 				else if (bCreateHolyPotion )
@@ -2381,7 +2381,7 @@ void	MWater::UseInventory()
 	}
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MMagazine::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MMagazine::UseInventory()
@@ -2413,7 +2413,7 @@ void	MMagazine::UseInventory()
 	{
 		const MGunItem* pGunItem = (const MGunItem*)pHandItem;
 
-		// ÇöÀç ÃÑ¿¡ ÀåÂøÇÒ ¼ö ÀÖ´Â ÅºÃ¢ÀÎ°¡?
+		// Ã‡Ã¶Ã€Ã§ ÃƒÃ‘Â¿Â¡ Ã€Ã¥Ã‚Ã¸Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã‚ Ã…ÂºÃƒÂ¢Ã€ÃÂ°Â¡?
 		if (IsInsertToItem( pGunItem ))	
 		{
 			CGReloadFromInventory _CGReloadFromInventory;
@@ -2424,17 +2424,17 @@ void	MMagazine::UseInventory()
 			g_pSocket->sendPacket( &_CGReloadFromInventory );
 
 			
-			// ÀÏ´Ü(!) ±×³É ¾ø¾Ö°í º»´Ù.
+			// Ã€ÃÂ´Ãœ(!) Â±Ã—Â³Ã‰ Â¾Ã¸Â¾Ã–Â°Ã­ ÂºÂ»Â´Ã™.
 			//(*g_pInventory).RemoveItem( GetID() );
 
 			//----------------------------------------------------
-			// Inventory¿¡¼­ itemÀ» »ç¿ëÇÏ´Â °É °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+			// InventoryÂ¿Â¡Â¼Â­ itemÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Â°Ã‰ Â°Ã‹ÃÃµÂ¹ÃÂ±Ã¢Â¸Â¦ Â±Ã¢Â´Ã™Â¸Â°Â´Ã™.
 			//----------------------------------------------------
 			g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
 		}
 		else
 		{
-			// [µµ¿ò¸»] ÃÑ¾ËÀÌ ¾È ¸Â´Â °æ¿ì
+			// [ÂµÂµÂ¿Ã²Â¸Â»] ÃƒÃ‘Â¾Ã‹Ã€ÃŒ Â¾Ãˆ Â¸Ã‚Â´Ã‚ Â°Ã¦Â¿Ã¬
 //			__BEGIN_HELP_EVENT
 //				ExecuteHelpEvent( HE_ITEM_DIFFERENT_BULLET_TYPE );
 //			__END_HELP_EVENT
@@ -2459,7 +2459,7 @@ void	MMagazine::UseQuickItem()
 		const MGunItem* pGunItem = (const MGunItem*)pHandItem;
 
 		//----------------------------------------------------
-		// ÇöÀç ÃÑ¿¡ ÀåÂøÇÒ ¼ö ÀÖ´Â ÅºÃ¢ÀÎ°¡?
+		// Ã‡Ã¶Ã€Ã§ ÃƒÃ‘Â¿Â¡ Ã€Ã¥Ã‚Ã¸Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã‚ Ã…ÂºÃƒÂ¢Ã€ÃÂ°Â¡?
 		//----------------------------------------------------
 		if (IsInsertToItem( pGunItem ))	
 		{
@@ -2471,32 +2471,32 @@ void	MMagazine::UseQuickItem()
 
 			
 			//----------------------------------------------------
-			// Inventory¿¡¼­ itemÀ» »ç¿ëÇÏ´Â °É °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+			// InventoryÂ¿Â¡Â¼Â­ itemÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Â°Ã‰ Â°Ã‹ÃÃµÂ¹ÃÂ±Ã¢Â¸Â¦ Â±Ã¢Â´Ã™Â¸Â°Â´Ã™.
 			//----------------------------------------------------
 			g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_QUICKSLOT);
 
 			//----------------------------------------------------
-			// º§Æ® ¸ø ¾ø¾Öµµ·Ï..
+			// ÂºÂ§Ã†Â® Â¸Ã¸ Â¾Ã¸Â¾Ã–ÂµÂµÂ·Ã..
 			//----------------------------------------------------
 			UI_LockGear();
 
 //			__BEGIN_HELP_EVENT
-//				// [µµ¿ò¸»] ÅºÃ¢ »ç¿ë
+//				// [ÂµÂµÂ¿Ã²Â¸Â»] Ã…ÂºÃƒÂ¢ Â»Ã§Â¿Ã«
 //				ExecuteHelpEvent( HE_ITEM_USE_MAGAZINE );	
-//				// [µµ¿ò¸»] º§Æ®ÀÇ ¾ÆÀÌÅÛ »ç¿ë
+//				// [ÂµÂµÂ¿Ã²Â¸Â»] ÂºÂ§Ã†Â®Ã€Ã‡ Â¾Ã†Ã€ÃŒÃ…Ã› Â»Ã§Â¿Ã«
 //				ExecuteHelpEvent( HE_ITEM_USE_BELT_ITEM );	
 //			__END_HELP_EVENT
 		}
 		else
 		{
-			// [µµ¿ò¸»] ÃÑ¾ËÀÌ ¾È ¸Â´Â °æ¿ì
+			// [ÂµÂµÂ¿Ã²Â¸Â»] ÃƒÃ‘Â¾Ã‹Ã€ÃŒ Â¾Ãˆ Â¸Ã‚Â´Ã‚ Â°Ã¦Â¿Ã¬
 //			__BEGIN_HELP_EVENT
 //				ExecuteHelpEvent( HE_ITEM_DIFFERENT_BULLET_TYPE );
 //			__END_HELP_EVENT
 
 			PlaySound( SOUND_ITEM_NO_MAGAZINE );
 
-			// ÅºÃ¢ÀÌ ¾È ¸Â´Â °æ¿ì
+			// Ã…ÂºÃƒÂ¢Ã€ÃŒ Â¾Ãˆ Â¸Ã‚Â´Ã‚ Â°Ã¦Â¿Ã¬
 			DEBUG_ADD("[Can't use Magazine] Wrong Magazine");
 		}
 	}
@@ -2504,12 +2504,12 @@ void	MMagazine::UseQuickItem()
 	{
 		//PlaySound( SOUND_ITEM_NO_MAGAZINE );
 
-		// ÃÑÀÌ ¾ø´Â °æ¿ì
+		// ÃƒÃ‘Ã€ÃŒ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 		DEBUG_ADD("[Can't use Magazine] No Gun");
 	}
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MBombMaterial::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MBombMaterial::UseInventory()
@@ -2527,9 +2527,9 @@ void	MBombMaterial::UseInventory()
 	int					itemType;
 
 	//-------------------------------------------
-	// ÆøÅºÀÌ³Ä Áö·Ú³Ä...
+	// Ã†Ã¸Ã…ÂºÃ€ÃŒÂ³Ã„ ÃÃ¶Â·ÃšÂ³Ã„...
 	//-------------------------------------------
-	// ÇÏµåÄÚµù -_-;
+	// Ã‡ÃÂµÃ¥Ã„ÃšÂµÃ¹ -_-;
 	//-------------------------------------------
 	if (currentItemType < 5)
 	{
@@ -2551,17 +2551,17 @@ void	MBombMaterial::UseInventory()
 	}
 
 	//----------------------------------------------------
-	// skillÀÌ Á¦´ë·Î ¼³Á¤µÈ °æ¿ì
+	// skillÃ€ÃŒ ÃÂ¦Â´Ã«Â·Ã Â¼Â³ÃÂ¤ÂµÃˆ Â°Ã¦Â¿Ã¬
 	//----------------------------------------------------
 	if (bUseOK)//playerSkill < (*g_pActionInfoTable).GetMinResultActionInfo())
 	{				
 		//----------------------------------------------------
-		// °ËÁõ ¹ŞÀ»°Ô ¾ø´Â °æ¿ì..
+		// Â°Ã‹ÃÃµ Â¹ÃÃ€Â»Â°Ã” Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬..
 		//----------------------------------------------------
 		if (!g_pPlayer->IsWaitVerify()
 			&& g_pPlayer->IsItemCheckBufferNULL())							
 		{	
-			POINT fitPoint;			// ÆøÅºÀÌ µé¾î°¥ ÀÚ¸®						
+			POINT fitPoint;			// Ã†Ã¸Ã…ÂºÃ€ÃŒ ÂµÃ©Â¾Ã®Â°Â¥ Ã€ÃšÂ¸Â®						
 			
 			if (GetMakeItemFitPosition(this, itemClass, itemType, fitPoint))
 			{
@@ -2575,62 +2575,62 @@ void	MBombMaterial::UseInventory()
 
 				g_pSocket->sendPacket( &_CGSkillToInventory );								
 			
-				// ÀÏ´Ü(!) ±×³É ¾ø¾Ö°í º»´Ù.
+				// Ã€ÃÂ´Ãœ(!) Â±Ã—Â³Ã‰ Â¾Ã¸Â¾Ã–Â°Ã­ ÂºÂ»Â´Ã™.
 				//(*g_pInventory).RemoveItem( GetID() );
 
 				//----------------------------------------------------
-				// Inventory¿¡¼­ itemÀ» »ç¿ëÇÏ´Â °É °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+				// InventoryÂ¿Â¡Â¼Â­ itemÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Â°Ã‰ Â°Ã‹ÃÃµÂ¹ÃÂ±Ã¢Â¸Â¦ Â±Ã¢Â´Ã™Â¸Â°Â´Ã™.
 				//----------------------------------------------------
 				g_pPlayer->SetWaitVerify( MPlayer::WAIT_VERIFY_SKILL_SUCCESS );
 				g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY );
 
-				// ¸¸µå´Â ½Ãµµ Áß¿¡ ÀÌ¹Ì delay¸¸Å­ ½Ã°£À» º¸³½´Ù.
+				// Â¸Â¸ÂµÃ¥Â´Ã‚ Â½ÃƒÂµÂµ ÃÃŸÂ¿Â¡ Ã€ÃŒÂ¹ÃŒ delayÂ¸Â¸Ã…Â­ Â½ÃƒÂ°Â£Ã€Â» ÂºÂ¸Â³Â½Â´Ã™.
 				//(*g_pSkillInfoTable)[useSkill].SetNextAvailableTime();
 
 				//----------------------------------------------------
-				// ±â¼ú »ç¿ë ½Ãµµ µ¿ÀÛ
+				// Â±Ã¢Â¼Ãº Â»Ã§Â¿Ã« Â½ÃƒÂµÂµ ÂµÂ¿Ã€Ã›
 				//----------------------------------------------------
 				AddNewInventoryEffect( GetID(),
 									useSkill, //+ (*g_pActionInfoTable).GetMinResultActionInfo(),
-									g_pClientConfig->FPS*3	// 3ÃÊ
+									g_pClientConfig->FPS*3	// 3ÃƒÃŠ
 								);
 			}
 			else
 			{
-				// g_pGameMessage( "ÀÚ¸®°¡ ¾øµû¾ß~" );
+				// g_pGameMessage( "Ã€ÃšÂ¸Â®Â°Â¡ Â¾Ã¸ÂµÃ»Â¾ÃŸ~" );
 			}
 		}
 	}
 #endif
 }
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MMoney::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MMoney::UseInventory()
 	#endif
 {
 #ifdef __GAME_CLIENT__
-	// 2°³ ÀÌ»ó ÀÖ¾î¾ß ºĞ¸® µÈ´Ù.
+	// 2Â°Â³ Ã€ÃŒÂ»Ã³ Ã€Ã–Â¾Ã®Â¾ÃŸ ÂºÃÂ¸Â® ÂµÃˆÂ´Ã™.
 	if(GetNumber() > 1)
 	{
-		// ¾ÆÀÌÅÛ ºĞ¸®
+		// Â¾Ã†Ã€ÃŒÃ…Ã› ÂºÃÂ¸Â®
 		CGAddInventoryToMouse _CGAddInventoryToMouse;
-		_CGAddInventoryToMouse.setObjectID( 0 );	// ºĞ¸®ÇÑ´Ù´Â ÀÇ¹Ì
+		_CGAddInventoryToMouse.setObjectID( 0 );	// ÂºÃÂ¸Â®Ã‡Ã‘Â´Ã™Â´Ã‚ Ã€Ã‡Â¹ÃŒ
 		_CGAddInventoryToMouse.setX( GetGridX() );
 		_CGAddInventoryToMouse.setY( GetGridY() );
 		
 		g_pSocket->sendPacket( &_CGAddInventoryToMouse );				
 		
 		//----------------------------------------------------
-		// Inventory¿¡¼­ itemÀ» ¸î°³ µå´Â °É °ËÁõ¹Ş´Â´Ù.
-		// ÀÏ´ÜÀº 1°³¸¸ µé¸®µµ·Ï ÇÑ´Ù.
+		// InventoryÂ¿Â¡Â¼Â­ itemÃ€Â» Â¸Ã®Â°Â³ ÂµÃ¥Â´Ã‚ Â°Ã‰ Â°Ã‹ÃÃµÂ¹ÃÂ´Ã‚Â´Ã™.
+		// Ã€ÃÂ´ÃœÃ€Âº 1Â°Â³Â¸Â¸ ÂµÃ©Â¸Â®ÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™.
 		//----------------------------------------------------
 		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_PICKUP_SOME_FROM_INVENTORY);
 	}
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MMine::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MMine::UseInventory()
@@ -2642,7 +2642,7 @@ void	MMine::UseInventory()
 	ACTIONINFO useSkill;					
 		
 	//----------------------------------------------------
-	// »ç¿ë°¡´ÉÇÑ°¡?
+	// Â»Ã§Â¿Ã«Â°Â¡Â´Ã‰Ã‡Ã‘Â°Â¡?
 	//----------------------------------------------------			
 	useSkill = SKILL_INSTALL_MINE;					
 
@@ -2664,7 +2664,7 @@ void	MMine::UseInventory()
 		_CGSkillToInventory.setObjectID( GetID() );
 		_CGSkillToInventory.setX( GetGridX() );
 		_CGSkillToInventory.setY( GetGridY() );
-		// Áö·Ú ½É´Â ¹æÇâ
+		// ÃÃ¶Â·Ãš Â½Ã‰Â´Ã‚ Â¹Ã¦Ã‡Ã¢
 		_CGSkillToInventory.setTargetX( g_pPlayer->GetDirection() );
 		_CGSkillToInventory.setSkillType( useSkill );
 
@@ -2678,7 +2678,7 @@ void	MMine::UseInventory()
 		(*g_pSkillInfoTable)[useSkill].SetNextAvailableTime();
 
 		//----------------------------------------------------
-		// ±â¼ú »ç¿ë ½Ãµµ µ¿ÀÛ
+		// Â±Ã¢Â¼Ãº Â»Ã§Â¿Ã« Â½ÃƒÂµÂµ ÂµÂ¿Ã€Ã›
 		//----------------------------------------------------
 		/*
 		if (useSkill == MAGIC_BLOODY_MARK)
@@ -2693,7 +2693,7 @@ void	MMine::UseInventory()
 	}
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MSlayerPortalItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MSlayerPortalItem::UseInventory()
@@ -2701,19 +2701,19 @@ void	MSlayerPortalItem::UseInventory()
 
 {
 #ifdef __GAME_CLIENT__
-	if(g_bHolyLand == false					// ¼ºÁö°¡ ¾Æ´Ï¾î¾ß ÇÏ°í
-		&& g_pZoneTable->Get( g_pZone->GetID() )->CannotUseSpecialItem == false		// ÇöÀç Á¸ÀÌ ½ºÆä¼È ¾ÆÀÌÅÛÀ» »ç¿ëÇÒ ¼ö ÀÖ¾î¾ß ÇÏ°í
-		&& IsAffectStatus()						// Àû¿ë °¡´ÉÇØ¾ß ÇÏ°í
-		&& IsChargeItem() && GetNumber() > 0	// ÃæÀü¾ÆÀÌÅÛÀÌ¸ç ¼ıÀÚ°¡ 0º¸´Ù Ä¿¾ß ÇÑ´Ù.
-		&& g_pZone->GetHelicopter( g_pPlayer->GetID() ) == NULL// Çï±â¸¦ ºÒ·¶À¸¸é ¾ÈµÈ´Ù.
+	if(g_bHolyLand == false					// Â¼ÂºÃÃ¶Â°Â¡ Â¾Ã†Â´ÃÂ¾Ã®Â¾ÃŸ Ã‡ÃÂ°Ã­
+		&& g_pZoneTable->Get( g_pZone->GetID() )->CannotUseSpecialItem == false		// Ã‡Ã¶Ã€Ã§ ÃÂ¸Ã€ÃŒ Â½ÂºÃ†Ã¤Â¼Ãˆ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â¾Ã®Â¾ÃŸ Ã‡ÃÂ°Ã­
+		&& IsAffectStatus()						// Ã€Ã»Â¿Ã« Â°Â¡Â´Ã‰Ã‡Ã˜Â¾ÃŸ Ã‡ÃÂ°Ã­
+		&& IsChargeItem() && GetNumber() > 0	// ÃƒÃ¦Ã€Ã¼Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒÂ¸Ã§ Â¼Ã½Ã€ÃšÂ°Â¡ 0ÂºÂ¸Â´Ã™ Ã„Â¿Â¾ÃŸ Ã‡Ã‘Â´Ã™.
+		&& g_pZone->GetHelicopter( g_pPlayer->GetID() ) == NULL// Ã‡Ã¯Â±Ã¢Â¸Â¦ ÂºÃ’Â·Â¶Ã€Â¸Â¸Ã© Â¾ÃˆÂµÃˆÂ´Ã™.
 		&& !g_pPlayer->HasEffectStatus(EFFECTSTATUS_INSTALL_TURRET))	
 	{
-		// slayer´Â item»ç¿ëÇÏ´Â°Å´ç
+		// slayerÂ´Ã‚ itemÂ»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚Â°Ã…Â´Ã§
 		CGUseItemFromInventory _CGUseItemFromInventory;
 		_CGUseItemFromInventory.setObjectID( GetID() );
 		_CGUseItemFromInventory.setX( GetGridX() );
 		_CGUseItemFromInventory.setY( GetGridY() );
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 		if(0 != SubInventoryItemID)
 			_CGUseItemFromInventory.setInventoryItemObjectID( SubInventoryItemID );
 	#else
@@ -2726,7 +2726,7 @@ void	MSlayerPortalItem::UseInventory()
 	}
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MVampirePortalItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MVampirePortalItem::UseInventory()
@@ -2734,10 +2734,10 @@ void	MVampirePortalItem::UseInventory()
 
 {
 #ifdef __GAME_CLIENT__
-	if(g_bHolyLand == false					// ¼ºÁö°¡ ¾Æ´Ï¾î¾ß ÇÏ°í
-		&& g_pZoneTable->Get( g_pZone->GetID() )->CannotUseSpecialItem == false		// ÇöÀç Á¸ÀÌ ½ºÆä¼È ¾ÆÀÌÅÛÀ» »ç¿ëÇÒ ¼ö ÀÖ¾î¾ß ÇÏ°í
-		&& IsAffectStatus()						// Àû¿ë °¡´ÉÇØ¾ß ÇÏ°í
-		&& IsChargeItem() && GetNumber() > 0	// ÃæÀü¾ÆÀÌÅÛÀÌ¸ç ¼ıÀÚ°¡ 0º¸´Ù Ä¿¾ß ÇÑ´Ù.
+	if(g_bHolyLand == false					// Â¼ÂºÃÃ¶Â°Â¡ Â¾Ã†Â´ÃÂ¾Ã®Â¾ÃŸ Ã‡ÃÂ°Ã­
+		&& g_pZoneTable->Get( g_pZone->GetID() )->CannotUseSpecialItem == false		// Ã‡Ã¶Ã€Ã§ ÃÂ¸Ã€ÃŒ Â½ÂºÃ†Ã¤Â¼Ãˆ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â¾Ã®Â¾ÃŸ Ã‡ÃÂ°Ã­
+		&& IsAffectStatus()						// Ã€Ã»Â¿Ã« Â°Â¡Â´Ã‰Ã‡Ã˜Â¾ÃŸ Ã‡ÃÂ°Ã­
+		&& IsChargeItem() && GetNumber() > 0	// ÃƒÃ¦Ã€Ã¼Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒÂ¸Ã§ Â¼Ã½Ã€ÃšÂ°Â¡ 0ÂºÂ¸Â´Ã™ Ã„Â¿Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 		)
 	{
 		ACTIONINFO useSkill;					
@@ -2754,7 +2754,7 @@ void	MVampirePortalItem::UseInventory()
 		if(g_pSkillAvailable->IsEnableSkill( useSkill )
 			&& (*g_pSkillInfoTable)[useSkill].IsAvailableTime())
 		{
-			// vampire´Â ±â¼ú »ç¿ëÇÏ´Â°Å´Ù
+			// vampireÂ´Ã‚ Â±Ã¢Â¼Ãº Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚Â°Ã…Â´Ã™
 			CGSkillToInventory _CGSkillToInventory;
 			_CGSkillToInventory.setObjectID( GetID() );
 			_CGSkillToInventory.setX( GetGridX() );
@@ -2770,7 +2770,7 @@ void	MVampirePortalItem::UseInventory()
 			(*g_pSkillInfoTable)[useSkill].SetNextAvailableTime();
 
 			//----------------------------------------------------
-			// ±â¼ú »ç¿ë ½Ãµµ µ¿ÀÛ
+			// Â±Ã¢Â¼Ãº Â»Ã§Â¿Ã« Â½ÃƒÂµÂµ ÂµÂ¿Ã€Ã›
 			//----------------------------------------------------
 			if (useSkill == MAGIC_BLOODY_MARK)
 			{
@@ -2784,7 +2784,7 @@ void	MVampirePortalItem::UseInventory()
 	}
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MEventStarItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MEventStarItem::UseInventory()
@@ -2792,26 +2792,26 @@ void	MEventStarItem::UseInventory()
 
 {
 #ifdef __GAME_CLIENT__
-	// 2°³ ÀÌ»ó ÀÖ¾î¾ß ºĞ¸® µÈ´Ù.
+	// 2Â°Â³ Ã€ÃŒÂ»Ã³ Ã€Ã–Â¾Ã®Â¾ÃŸ ÂºÃÂ¸Â® ÂµÃˆÂ´Ã™.
 	if(GetNumber() > 1)
 	{
-		// ¾ÆÀÌÅÛ ºĞ¸®
+		// Â¾Ã†Ã€ÃŒÃ…Ã› ÂºÃÂ¸Â®
 		CGAddInventoryToMouse _CGAddInventoryToMouse;
-		_CGAddInventoryToMouse.setObjectID( 0 );	// ºĞ¸®ÇÑ´Ù´Â ÀÇ¹Ì
+		_CGAddInventoryToMouse.setObjectID( 0 );	// ÂºÃÂ¸Â®Ã‡Ã‘Â´Ã™Â´Ã‚ Ã€Ã‡Â¹ÃŒ
 		_CGAddInventoryToMouse.setX( GetGridX() );
 		_CGAddInventoryToMouse.setY( GetGridY() );
 		
 		g_pSocket->sendPacket( &_CGAddInventoryToMouse );				
 		
 		//----------------------------------------------------
-		// Inventory¿¡¼­ itemÀ» ¸î°³ µå´Â °É °ËÁõ¹Ş´Â´Ù.
-		// ÀÏ´ÜÀº 1°³¸¸ µé¸®µµ·Ï ÇÑ´Ù.
+		// InventoryÂ¿Â¡Â¼Â­ itemÃ€Â» Â¸Ã®Â°Â³ ÂµÃ¥Â´Ã‚ Â°Ã‰ Â°Ã‹ÃÃµÂ¹ÃÂ´Ã‚Â´Ã™.
+		// Ã€ÃÂ´ÃœÃ€Âº 1Â°Â³Â¸Â¸ ÂµÃ©Â¸Â®ÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™.
 		//----------------------------------------------------
 		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_PICKUP_SOME_FROM_INVENTORY);
 	}
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MMixingItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MMixingItem::UseInventory()
@@ -2821,7 +2821,7 @@ void	MMixingItem::UseInventory()
 #ifdef __GAME_CLIENT__
 	if( GetItemType() >= 0 && GetItemType() <= 8 )
 	{
-		if( GetNumber() > 1 )	// ¾ÆÀÌÅÛ ºĞ¸®
+		if( GetNumber() > 1 )	// Â¾Ã†Ã€ÃŒÃ…Ã› ÂºÃÂ¸Â®
 		{
 			CGAddInventoryToMouse _CGAddInventoryToMouse;
 			_CGAddInventoryToMouse.setObjectID( 0 );
@@ -2857,7 +2857,7 @@ void	MMixingItem::UseInventory()
 	} else
 	if( GetItemType() >= 9 && GetItemType() <= 18 )
 	{
-		// Puritas ´Â ¿ìÅ¬¸¯ÇÏ¸é ºĞ¸®ÇÑ´Ù.
+		// Puritas Â´Ã‚ Â¿Ã¬Ã…Â¬Â¸Â¯Ã‡ÃÂ¸Ã© ÂºÃÂ¸Â®Ã‡Ã‘Â´Ã™.
 		CGAddInventoryToMouse _CGAddInventoryToMouse;
 		_CGAddInventoryToMouse.setObjectID( 0 );
 		_CGAddInventoryToMouse.setX( GetGridX() );
@@ -2868,7 +2868,7 @@ void	MMixingItem::UseInventory()
 	}
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void MEffectItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void MEffectItem::UseInventory()
@@ -2883,7 +2883,7 @@ void MEffectItem::UseInventory()
 		return;
 	}
 	
-	// È®¼º±â°°Àº°Í..
+	// ÃˆÂ®Â¼ÂºÂ±Ã¢Â°Â°Ã€ÂºÂ°Ã..
 	CGUseItemFromInventory _CGUseItemFromInventory;
 	
 	_CGUseItemFromInventory.setObjectID( GetID() );
@@ -2893,7 +2893,7 @@ void MEffectItem::UseInventory()
 	g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY );
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void MItemETC::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void MItemETC::UseInventory()
@@ -2911,7 +2911,7 @@ void MItemETC::UseInventory()
 	}
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void MVampireETC::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void MVampireETC::UseInventory()
@@ -2920,14 +2920,14 @@ void MVampireETC::UseInventory()
 #ifdef __GAME_CLIENT__
 	//----------------------------------------------------
 	//
-	//					º¯½Å¿ë ¾ÆÀÌÅÛ - vampireÀÎ °æ¿ì
+	//					ÂºÂ¯Â½Ã…Â¿Ã« Â¾Ã†Ã€ÃŒÃ…Ã› - vampireÃ€Ã Â°Ã¦Â¿Ã¬
 	//
 	//----------------------------------------------------
 	if (g_pZoneTable->Get( g_pZone->GetID() )->CannotUseSpecialItem == false )
 	{				
 		ACTIONINFO useSkill;// = g_pPlayer->GetSpecialActionInfo();
 
-		if ( GetItemClass() == ITEM_CLASS_SKULL )						// ´Á´ë ¸Ó¸®
+		if ( GetItemClass() == ITEM_CLASS_SKULL )						// Â´ÃÂ´Ã« Â¸Ã“Â¸Â®
 		{
 			useSkill = SKILL_TRANSFORM_TO_WERWOLF;
 		}
@@ -2958,7 +2958,7 @@ void MVampireETC::UseInventory()
 		}
 
 		//----------------------------------------------------
-		// skillÀÌ Á¦´ë·Î ¼³Á¤µÈ °æ¿ì
+		// skillÃ€ÃŒ ÃÂ¦Â´Ã«Â·Ã Â¼Â³ÃÂ¤ÂµÃˆ Â°Ã¦Â¿Ã¬
 		//----------------------------------------------------
 		if (useSkill != ACTIONINFO_NULL)
 		{
@@ -2967,7 +2967,7 @@ void MVampireETC::UseInventory()
 				&& (*g_pSkillInfoTable)[useSkill].IsAvailableTime())					
 			{
 				//----------------------------------------------------
-				// °ËÁõ ¹ŞÀ»°Ô ¾ø´Â °æ¿ì..
+				// Â°Ã‹ÃÃµ Â¹ÃÃ€Â»Â°Ã” Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬..
 				//----------------------------------------------------
 				if (!g_pPlayer->IsWaitVerify()
 					&& g_pPlayer->IsItemCheckBufferNULL())
@@ -2978,21 +2978,21 @@ void MVampireETC::UseInventory()
 					_CGSkillToInventory.setY( GetGridY() );
 					_CGSkillToInventory.setSkillType( useSkill );
 					//_CGSkillToInventory.setCEffectID( 0 );	// -_-;;							
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 					if(0 != SubInventoryItemID)
 						_CGSkillToInventory.setInventoryItemObjectID( SubInventoryItemID );
 	#endif
 					g_pSocket->sendPacket( &_CGSkillToInventory );
 
 					
-					// ÀÏ´Ü(!) ±×³É ¾ø¾Ö°í º»´Ù.
+					// Ã€ÃÂ´Ãœ(!) Â±Ã—Â³Ã‰ Â¾Ã¸Â¾Ã–Â°Ã­ ÂºÂ»Â´Ã™.
 					//(*g_pInventory).RemoveItem( GetID() );
 
 					//----------------------------------------------------
-					// Inventory¿¡¼­ itemÀ» »ç¿ëÇÏ´Â °É °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+					// InventoryÂ¿Â¡Â¼Â­ itemÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Â°Ã‰ Â°Ã‹ÃÃµÂ¹ÃÂ±Ã¢Â¸Â¦ Â±Ã¢Â´Ã™Â¸Â°Â´Ã™.
 					//----------------------------------------------------
 					g_pPlayer->SetWaitVerify( MPlayer::WAIT_VERIFY_SKILL_SUCCESS );
-				#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+				#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 					g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY, SubInventoryItemID );
 				#else
 					g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY );
@@ -3002,11 +3002,11 @@ void MVampireETC::UseInventory()
 					(*g_pSkillInfoTable)[useSkill].SetNextAvailableTime();
 
 					//----------------------------------------------------
-					// ±â¼ú »ç¿ë ½Ãµµ µ¿ÀÛ
+					// Â±Ã¢Â¼Ãº Â»Ã§Â¿Ã« Â½ÃƒÂµÂµ ÂµÂ¿Ã€Ã›
 					//----------------------------------------------------
 					AddNewInventoryEffect( GetID(),
 										useSkill, //+ (*g_pActionInfoTable).GetMinResultActionInfo(),
-										g_pClientConfig->FPS*3	// 3ÃÊ
+										g_pClientConfig->FPS*3	// 3ÃƒÃŠ
 									);								
 				}
 			}
@@ -3014,7 +3014,7 @@ void MVampireETC::UseInventory()
 	}
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MSkull::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MSkull::UseInventory()
@@ -3024,14 +3024,14 @@ void	MSkull::UseInventory()
 #ifdef __GAME_CLIENT__
 	//----------------------------------------------------
 	//
-	//					º¯½Å¿ë ¾ÆÀÌÅÛ - vampireÀÎ °æ¿ì
+	//					ÂºÂ¯Â½Ã…Â¿Ã« Â¾Ã†Ã€ÃŒÃ…Ã› - vampireÃ€Ã Â°Ã¦Â¿Ã¬
 	//
 	//----------------------------------------------------
 	if (g_pZoneTable->Get( g_pZone->GetID() )->CannotUseSpecialItem == false )
 	{				
 		ACTIONINFO useSkill;// = g_pPlayer->GetSpecialActionInfo();
 
-		if ( GetItemClass() == ITEM_CLASS_SKULL && GetItemType() == 39)						// ´Á´ë ¸Ó¸®
+		if ( GetItemClass() == ITEM_CLASS_SKULL && GetItemType() == 39)						// Â´ÃÂ´Ã« Â¸Ã“Â¸Â®
 		{
 			useSkill = SKILL_TRANSFORM_TO_WERWOLF;
 		}
@@ -3062,7 +3062,7 @@ void	MSkull::UseInventory()
 		}
 
 		//----------------------------------------------------
-		// skillÀÌ Á¦´ë·Î ¼³Á¤µÈ °æ¿ì
+		// skillÃ€ÃŒ ÃÂ¦Â´Ã«Â·Ã Â¼Â³ÃÂ¤ÂµÃˆ Â°Ã¦Â¿Ã¬
 		//----------------------------------------------------
 		if (useSkill != ACTIONINFO_NULL)
 		{
@@ -3071,7 +3071,7 @@ void	MSkull::UseInventory()
 				&& (*g_pSkillInfoTable)[useSkill].IsAvailableTime())					
 			{
 				//----------------------------------------------------
-				// °ËÁõ ¹ŞÀ»°Ô ¾ø´Â °æ¿ì..
+				// Â°Ã‹ÃÃµ Â¹ÃÃ€Â»Â°Ã” Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬..
 				//----------------------------------------------------
 				if (!g_pPlayer->IsWaitVerify()
 					&& g_pPlayer->IsItemCheckBufferNULL())
@@ -3086,11 +3086,11 @@ void	MSkull::UseInventory()
 					g_pSocket->sendPacket( &_CGSkillToInventory );
 
 					
-					// ÀÏ´Ü(!) ±×³É ¾ø¾Ö°í º»´Ù.
+					// Ã€ÃÂ´Ãœ(!) Â±Ã—Â³Ã‰ Â¾Ã¸Â¾Ã–Â°Ã­ ÂºÂ»Â´Ã™.
 					//(*g_pInventory).RemoveItem( GetID() );
 
 					//----------------------------------------------------
-					// Inventory¿¡¼­ itemÀ» »ç¿ëÇÏ´Â °É °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+					// InventoryÂ¿Â¡Â¼Â­ itemÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Â°Ã‰ Â°Ã‹ÃÃµÂ¹ÃÂ±Ã¢Â¸Â¦ Â±Ã¢Â´Ã™Â¸Â°Â´Ã™.
 					//----------------------------------------------------
 					g_pPlayer->SetWaitVerify( MPlayer::WAIT_VERIFY_SKILL_SUCCESS );
 					g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY );
@@ -3098,11 +3098,11 @@ void	MSkull::UseInventory()
 					(*g_pSkillInfoTable)[useSkill].SetNextAvailableTime();
 
 					//----------------------------------------------------
-					// ±â¼ú »ç¿ë ½Ãµµ µ¿ÀÛ
+					// Â±Ã¢Â¼Ãº Â»Ã§Â¿Ã« Â½ÃƒÂµÂµ ÂµÂ¿Ã€Ã›
 					//----------------------------------------------------
 					AddNewInventoryEffect( GetID(),
 										useSkill, //+ (*g_pActionInfoTable).GetMinResultActionInfo(),
-										g_pClientConfig->FPS*3	// 3ÃÊ
+										g_pClientConfig->FPS*3	// 3ÃƒÃŠ
 									);								
 				}
 			}
@@ -3111,17 +3111,17 @@ void	MSkull::UseInventory()
 #endif
 }
 
-// ÇØ´ç Å©¸®ÃÄÀÇ ÁÖº¯¿¡ ¿øÇÏ´Â ½ÃÃ¼°¡ ÀÖ´ÂÁö °Ë»çÇÑ´Ù.
+// Ã‡Ã˜Â´Ã§ Ã…Â©Â¸Â®ÃƒÃ„Ã€Ã‡ ÃÃ–ÂºÂ¯Â¿Â¡ Â¿Ã¸Ã‡ÃÂ´Ã‚ Â½ÃƒÃƒÂ¼Â°Â¡ Ã€Ã–Â´Ã‚ÃÃ¶ Â°Ã‹Â»Ã§Ã‡Ã‘Â´Ã™.
 extern bool IsExistCorpseFromPlayer(MCreature* OriginCreature, int creature_type);
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MKey::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MKey::UseInventory()
 	#endif
 {
 #ifdef __GAME_CLIENT__
-	// ÁÖº¯¿¡ ±ê¹ßÀÌ ¾ø¾î¾ß ÇÑ´Ù.
+	// ÃÃ–ÂºÂ¯Â¿Â¡ Â±ÃªÂ¹ÃŸÃ€ÃŒ Â¾Ã¸Â¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 	if( !IsExistCorpseFromPlayer( dynamic_cast<MCreature*>(g_pPlayer), 670 ) )
 	{
 		CGUseItemFromInventory _CGUseItemFromInventory;
@@ -3129,14 +3129,14 @@ void	MKey::UseInventory()
 		_CGUseItemFromInventory.setX( GetGridX() );
 		_CGUseItemFromInventory.setY( GetGridY() );
 		
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 		if(0 != SubInventoryItemID)
 			_CGUseItemFromInventory.setInventoryItemObjectID( SubInventoryItemID );
 	#endif
 		g_pSocket->sendPacket( &_CGUseItemFromInventory );
 
 	//modify by viva for notice : i don't understand it :(
-//	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+//	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 //		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY, SubInventoryItemID );
 //	#else
 		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
@@ -3153,7 +3153,7 @@ void	MKey::UseInventory()
 void	MKey::UseQuickItem()
 {
 #ifdef __GAME_CLIENT__
-	// 2004, 12, 16, sobeit add start - ÀÎ½ºÅç ÅÍ·¿ »óÅÂ¿¡¼­ ¿ÀÅä¹ÙÀÌ¸¦ Å¸¸é ¹®Á¦ »ı±è..¤¾¤¾ ±×·¡¼­ ¸·À½
+	// 2004, 12, 16, sobeit add start - Ã€ÃÂ½ÂºÃ…Ã§ Ã…ÃÂ·Â¿ Â»Ã³Ã…Ã‚Â¿Â¡Â¼Â­ Â¿Ã€Ã…Ã¤Â¹Ã™Ã€ÃŒÂ¸Â¦ Ã…Â¸Â¸Ã© Â¹Â®ÃÂ¦ Â»Ã½Â±Ã¨..Â¤Â¾Â¤Â¾ Â±Ã—Â·Â¡Â¼Â­ Â¸Â·Ã€Â½
 	if(g_pPlayer->HasEffectStatus(EFFECTSTATUS_INSTALL_TURRET))
 	{
 		return ;
@@ -3167,21 +3167,21 @@ void	MKey::UseQuickItem()
 
 	UI_LockGear();
 	g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_QUICKSLOT);
-	// ÀÏ´Ü(!) ±×³É ¾ø¾Ö°í º»´Ù.
+	// Ã€ÃÂ´Ãœ(!) Â±Ã—Â³Ã‰ Â¾Ã¸Â¾Ã–Â°Ã­ ÂºÂ»Â´Ã™.
 	//(*g_pInventory).RemoveItem( GetID() );
 
 	//----------------------------------------------------
-	// Inventory¿¡¼­ itemÀ» »ç¿ëÇÏ´Â °É °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+	// InventoryÂ¿Â¡Â¼Â­ itemÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Â°Ã‰ Â°Ã‹ÃÃµÂ¹ÃÂ±Ã¢Â¸Â¦ Â±Ã¢Â´Ã™Â¸Â°Â´Ã™.
 	//----------------------------------------------------
 	g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_QUICKSLOT);
 	//----------------------------------------------------
-	// º§Æ® ¸ø ¾ø¾Öµµ·Ï..
+	// ÂºÂ§Ã†Â® Â¸Ã¸ Â¾Ã¸Â¾Ã–ÂµÂµÂ·Ã..
 	//----------------------------------------------------
 	UI_LockGear();
 
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MEventTreeItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MEventTreeItem::UseInventory()
@@ -3198,9 +3198,9 @@ void	MEventTreeItem::UseInventory()
 					|| g_pPlayer->GetCreatureType()==CREATURETYPE_OUSTERS_OPERATOR;
 		
 		if(IsPlayerInSafePosition() || g_pZone != NULL && (g_pZone->GetID() == 1104 || g_pZone->GetID() == 1106 || g_pZone->GetID() == 1114 || g_pZone->GetID() == 1115))
-			// ¾ÈÀüÁö´ë¿Í ¸¶½ºÅÍ ·¹¾î¿¡¼­´Â ¸ø¾´´Ù
+			// Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¿Ã Â¸Â¶Â½ÂºÃ…Ã Â·Â¹Â¾Ã®Â¿Â¡Â¼Â­Â´Ã‚ Â¸Ã¸Â¾Â´Â´Ã™
 		{				
-			// °¢ ¼ºÀÌ ¾Æ´Ï¸é¼­ ¿î¿µÀÚ°¡ ¾Æ´Ï¸é
+			// Â°Â¢ Â¼ÂºÃ€ÃŒ Â¾Ã†Â´ÃÂ¸Ã©Â¼Â­ Â¿Ã®Â¿ÂµÃ€ÃšÂ°Â¡ Â¾Ã†Â´ÃÂ¸Ã©
 			if( !( g_pZone->GetID() >= 1201 && g_pZone->GetID() <= 1206 ) && !bMasterWords )
 			{				
 				bUseOK = false;
@@ -3241,11 +3241,11 @@ void	MEventTreeItem::UseInventory()
 						if(pCreature != NULL && pCreature->GetCreatureType() == 482 || pCreature->GetCreatureType() == 650)
 						{
 							bUseOK = false;
-							if(GetItemType() == 12)	// Å©¸®½º ¸¶½º Æ®¸®
+							if(GetItemType() == 12)	// Ã…Â©Â¸Â®Â½Âº Â¸Â¶Â½Âº Ã†Â®Â¸Â®
 							{
 								g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_MESSAGE_XMAS_TREE_CANNOT_USE].GetString() );
 							}
-							else					// °Ô½ÃÆÇ
+							else					// Â°Ã”Â½ÃƒÃ†Ã‡
 							{
 								g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_MESSAGE_BULLETIN_BOARD_CANNOT_USE].GetString() );
 							}
@@ -3257,11 +3257,11 @@ void	MEventTreeItem::UseInventory()
 		}
 		if (bUseOK)
 		{
-			if(GetItemType() == 12)		// Å©¸®½º¸¶½º Æ®¸®
+			if(GetItemType() == 12)		// Ã…Â©Â¸Â®Â½ÂºÂ¸Â¶Â½Âº Ã†Â®Â¸Â®
 			{
 				gC_vs_ui.RunXmasCardWindow(this);
 			}
-			else						// °Ô½ÃÆÇ
+			else						// Â°Ã”Â½ÃƒÃ†Ã‡
 			{
 				gC_vs_ui.RunBulletinBoardWindow(this);
 			}
@@ -3269,7 +3269,7 @@ void	MEventTreeItem::UseInventory()
 	}
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MEventEtcItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MEventEtcItem::UseInventory()
@@ -3282,7 +3282,7 @@ void	MEventEtcItem::UseInventory()
 		&& GetItemType() != 14 
 		&& GetItemType()!=15
 		&& GetItemType()!=16
-		&& GetItemType()!=17) // 14´Â ¸Ó½Ã³Ä..»çÅÁ..°ú ¼ÛÆíµé..
+		&& GetItemType()!=17) // 14Â´Ã‚ Â¸Ã“Â½ÃƒÂ³Ã„..Â»Ã§Ã…Ã..Â°Ãº Â¼Ã›Ã†Ã­ÂµÃ©..
 	{
 		bUseOK = false;
 		g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_MESSAGE_NOT_USE_SAFETY_ZONE].GetString() );
@@ -3294,7 +3294,7 @@ void	MEventEtcItem::UseInventory()
 		if(GetItemType() == 14||
 		GetItemType() == 15||
 		GetItemType() == 16||
-		GetItemType() == 17) // »çÅÁ¸¸, + ¼ÛÆí
+		GetItemType() == 17) // Â»Ã§Ã…ÃÂ¸Â¸, + Â¼Ã›Ã†Ã­
 		{
 			CGUsePotionFromInventory _CGUsePotionFromInventory;
 			_CGUsePotionFromInventory.setObjectID( GetID() );
@@ -3324,7 +3324,7 @@ void	MEventEtcItem::UseQuickItem()
 	if(GetItemType() == 14||
 		GetItemType() == 15||
 		GetItemType() == 16||
-		GetItemType() == 17) // »çÅÁ¸¸, + ¼ÛÆí
+		GetItemType() == 17) // Â»Ã§Ã…ÃÂ¸Â¸, + Â¼Ã›Ã†Ã­
 	{
 		if( g_pPlayer->IsOusters() )
 		{
@@ -3332,14 +3332,14 @@ void	MEventEtcItem::UseQuickItem()
 			_CGUsePotionFromQuickSlot.setObjectID( GetID() );
 			int slotID = GetItemSlot();
 
-			if( g_pArmsBand1 != NULL )	// 1¹ø ¾Ï½º¹êµå°¡ ÀÖÀ¸¸é ±×³É
+			if( g_pArmsBand1 != NULL )	// 1Â¹Ã¸ Â¾ÃÂ½ÂºÂ¹ÃªÂµÃ¥Â°Â¡ Ã€Ã–Ã€Â¸Â¸Ã© Â±Ã—Â³Ã‰
 			{
 				if(g_pArmsBand1->GetItem( slotID ) == this)
 					_CGUsePotionFromQuickSlot.setSlotID( slotID );
 				else
 					_CGUsePotionFromQuickSlot.setSlotID( slotID + 3);
 			}
-			else						// 1¹ø ¾Ï½º¹êµå°¡ ¾øÀ¸¸é 2¹ø +3 À» ÇØÁØ´Ù
+			else						// 1Â¹Ã¸ Â¾ÃÂ½ÂºÂ¹ÃªÂµÃ¥Â°Â¡ Â¾Ã¸Ã€Â¸Â¸Ã© 2Â¹Ã¸ +3 Ã€Â» Ã‡Ã˜ÃÃ˜Â´Ã™
 			{
 				_CGUsePotionFromQuickSlot.setSlotID( slotID + 3);
 			}
@@ -3350,7 +3350,7 @@ void	MEventEtcItem::UseQuickItem()
 		//	DEBUG_ADD_FORMAT("[ Ousters Item Use From QuickSlot ] %d %d",slotID, GetID() );
 			
 			//----------------------------------------------------
-			// º§Æ® ¸ø ¾ø¾Öµµ·Ï..
+			// ÂºÂ§Ã†Â® Â¸Ã¸ Â¾Ã¸Â¾Ã–ÂµÂµÂ·Ã..
 			//----------------------------------------------------
 			UI_LockGear();
 		}
@@ -3363,23 +3363,23 @@ void	MEventEtcItem::UseQuickItem()
 			g_pSocket->sendPacket( &_CGUsePotionFromQuickSlot );
 
 			
-			// ÀÏ´Ü(!) ±×³É ¾ø¾Ö°í º»´Ù.
+			// Ã€ÃÂ´Ãœ(!) Â±Ã—Â³Ã‰ Â¾Ã¸Â¾Ã–Â°Ã­ ÂºÂ»Â´Ã™.
 			//(*g_pInventory).RemoveItem( GetID() );
 
 			//----------------------------------------------------
-			// Inventory¿¡¼­ itemÀ» »ç¿ëÇÏ´Â °É °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+			// InventoryÂ¿Â¡Â¼Â­ itemÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Â°Ã‰ Â°Ã‹ÃÃµÂ¹ÃÂ±Ã¢Â¸Â¦ Â±Ã¢Â´Ã™Â¸Â°Â´Ã™.
 			//----------------------------------------------------
 			g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_QUICKSLOT);
 
 			//----------------------------------------------------
-			// º§Æ® ¸ø ¾ø¾Öµµ·Ï..
+			// ÂºÂ§Ã†Â® Â¸Ã¸ Â¾Ã¸Â¾Ã–ÂµÂµÂ·Ã..
 			//----------------------------------------------------
 			UI_LockGear();
 		}
 	}
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MDyePotionItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MDyePotionItem::UseInventory()
@@ -3387,19 +3387,19 @@ void	MDyePotionItem::UseInventory()
 
 {
 #ifdef __GAME_CLIENT__
-	// ¾Æ¿ì½ºÅÍÁî´Â ¼ºÀÌ ¾ø±â ¶§¹®¿¡ ¼ºÀüÈ¯ ¾ÆÀÌÅÛÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù
+	// Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÃÃ®Â´Ã‚ Â¼ÂºÃ€ÃŒ Â¾Ã¸Â±Ã¢ Â¶Â§Â¹Â®Â¿Â¡ Â¼ÂºÃ€Ã¼ÃˆÂ¯ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™
 	if( g_pPlayer->IsOusters() && GetItemType() == 48 )
 	{
 		UI_PopupMessage(STRING_MESSAGE_CANNOT_USE_OUSTERS);
 	}
 	else
 	{
-		// edit by sonic 2006.10.29  È¥³ı¶ş×ªºó²»ÄÜÊ¹ÓÃ¸Ä±ä»ğÑÕÉ«µÀ¾ß
+		// edit by sonic 2006.10.29  ÃˆÂ¥Â³Ã½Â¶Ã¾Ã—ÂªÂºÃ³Â²Â»Ã„ÃœÃŠÂ¹Ã“ÃƒÂ¸Ã„Â±Ã¤Â»Ã°Ã‘Ã•Ã‰Â«ÂµÃ€Â¾ÃŸ
 
 			/*	
 				// 2005, 2, 22, sobeit add start
 				if(g_pPlayer->IsAdvancementClass() && GetItemType() >= 58 && GetItemType() <= 61)
-				{ // ½ÂÁ÷ À¯Àú´Â ¸¶½ºÅÍ ÀÌÆåÆ® »ö»ó ¹Ù²Ù´Â ¾ÆÀÌÅÛÀ» ¸ø¾²°Ô ÇÑ´Ù³×..Í±î...?
+				{ // Â½Ã‚ÃÃ· Ã€Â¯Ã€ÃºÂ´Ã‚ Â¸Â¶Â½ÂºÃ…Ã Ã€ÃŒÃ†Ã¥Ã†Â® Â»Ã¶Â»Ã³ Â¹Ã™Â²Ã™Â´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» Â¸Ã¸Â¾Â²Â°Ã” Ã‡Ã‘Â´Ã™Â³Ã—..ÂÃÂ±Ã®...?
 					UI_PopupMessage(UI_STRING_MESSAGE_CANNOT_USE_ADVANCEMENTCLASS);
 					return;
 				}
@@ -3424,7 +3424,7 @@ void	MDyePotionItem::UseInventory()
 //	
 //	if( g_pPlayer->IsOusters() )
 //	{
-//		// ¾Æ¿ì½ºÅÍÁî´Â ¼ºÀÌ ¾ø±â ¶§¹®¿¡ ¼ºÀüÈ¯ ¾ÆÀÌÅÛÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù
+//		// Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÃÃ®Â´Ã‚ Â¼ÂºÃ€ÃŒ Â¾Ã¸Â±Ã¢ Â¶Â§Â¹Â®Â¿Â¡ Â¼ÂºÃ€Ã¼ÃˆÂ¯ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™
 //		if(GetItemType() == 48)
 //			UI_PopupMessage(STRING_MESSAGE_CANNOT_USE_OUSTERS);
 //		else
@@ -3433,14 +3433,14 @@ void	MDyePotionItem::UseInventory()
 //			_CGUsePotionFromQuickSlot.setObjectID( GetID() );
 //			int slotID = GetItemSlot();
 //
-//			if( g_pArmsBand1 != NULL )	// 1¹ø ¾Ï½º¹êµå°¡ ÀÖÀ¸¸é ±×³É
+//			if( g_pArmsBand1 != NULL )	// 1Â¹Ã¸ Â¾ÃÂ½ÂºÂ¹ÃªÂµÃ¥Â°Â¡ Ã€Ã–Ã€Â¸Â¸Ã© Â±Ã—Â³Ã‰
 //			{
 //				if(g_pArmsBand1->GetItem( slotID ) == this)
 //					_CGUsePotionFromQuickSlot.setSlotID( slotID );
 //				else
 //					_CGUsePotionFromQuickSlot.setSlotID( slotID + 3);
 //			}
-//			else						// 1¹ø ¾Ï½º¹êµå°¡ ¾øÀ¸¸é 2¹ø +3 À» ÇØÁØ´Ù
+//			else						// 1Â¹Ã¸ Â¾ÃÂ½ÂºÂ¹ÃªÂµÃ¥Â°Â¡ Â¾Ã¸Ã€Â¸Â¸Ã© 2Â¹Ã¸ +3 Ã€Â» Ã‡Ã˜ÃÃ˜Â´Ã™
 //			{
 //				_CGUsePotionFromQuickSlot.setSlotID( slotID + 3);
 //			}
@@ -3451,7 +3451,7 @@ void	MDyePotionItem::UseInventory()
 //		//	DEBUG_ADD_FORMAT("[ Ousters Item Use From QuickSlot ] %d %d",slotID, GetID() );
 //			
 //			//----------------------------------------------------
-//			// º§Æ® ¸ø ¾ø¾Öµµ·Ï..
+//			// ÂºÂ§Ã†Â® Â¸Ã¸ Â¾Ã¸Â¾Ã–ÂµÂµÂ·Ã..
 //			//----------------------------------------------------
 //			UI_LockGear();
 //		}
@@ -3465,22 +3465,22 @@ void	MDyePotionItem::UseInventory()
 //		g_pSocket->sendPacket( &_CGUsePotionFromQuickSlot );
 //
 //		
-//		// ÀÏ´Ü(!) ±×³É ¾ø¾Ö°í º»´Ù.
+//		// Ã€ÃÂ´Ãœ(!) Â±Ã—Â³Ã‰ Â¾Ã¸Â¾Ã–Â°Ã­ ÂºÂ»Â´Ã™.
 //		//(*g_pInventory).RemoveItem( GetID() );
 //
 //		//----------------------------------------------------
-//		// Inventory¿¡¼­ itemÀ» »ç¿ëÇÏ´Â °É °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+//		// InventoryÂ¿Â¡Â¼Â­ itemÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Â°Ã‰ Â°Ã‹ÃÃµÂ¹ÃÂ±Ã¢Â¸Â¦ Â±Ã¢Â´Ã™Â¸Â°Â´Ã™.
 //		//----------------------------------------------------
 //		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_QUICKSLOT);
 //
 //		//----------------------------------------------------
-//		// º§Æ® ¸ø ¾ø¾Öµµ·Ï..
+//		// ÂºÂ§Ã†Â® Â¸Ã¸ Â¾Ã¸Â¾Ã–ÂµÂµÂ·Ã..
 //		//----------------------------------------------------
 //		UI_LockGear();
 //	}
 //#endif
 //}
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MOustersSummonGem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MOustersSummonGem::UseInventory()
@@ -3494,14 +3494,14 @@ void	MOustersSummonGem::UseInventory()
 		_CGUseItemFromInventory.setObjectID( GetID() );
 		_CGUseItemFromInventory.setX( GetGridX() );
 		_CGUseItemFromInventory.setY( GetGridY() );
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 		if(0 != SubInventoryItemID)
 			_CGUseItemFromInventory.setInventoryItemObjectID( SubInventoryItemID );
 	#endif
 
 		g_pSocket->sendPacket( &_CGUseItemFromInventory );
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY, SubInventoryItemID);
 	#else
 		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
@@ -3511,7 +3511,7 @@ void	MOustersSummonGem::UseInventory()
 	}
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MCodeSheetItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MCodeSheetItem::UseInventory()
@@ -3536,20 +3536,20 @@ void	MPotion::UseQuickItem()
 	g_pSocket->sendPacket( &_CGUsePotionFromQuickSlot );
 
 	
-	// ÀÏ´Ü(!) ±×³É ¾ø¾Ö°í º»´Ù.
+	// Ã€ÃÂ´Ãœ(!) Â±Ã—Â³Ã‰ Â¾Ã¸Â¾Ã–Â°Ã­ ÂºÂ»Â´Ã™.
 	//(*g_pInventory).RemoveItem( GetID() );
 
 	//----------------------------------------------------
-	// Inventory¿¡¼­ itemÀ» »ç¿ëÇÏ´Â °É °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+	// InventoryÂ¿Â¡Â¼Â­ itemÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Â°Ã‰ Â°Ã‹ÃÃµÂ¹ÃÂ±Ã¢Â¸Â¦ Â±Ã¢Â´Ã™Â¸Â°Â´Ã™.
 	//----------------------------------------------------
 	g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_QUICKSLOT);
 
 	//----------------------------------------------------
-	// º§Æ® ¸ø ¾ø¾Öµµ·Ï..
+	// ÂºÂ§Ã†Â® Â¸Ã¸ Â¾Ã¸Â¾Ã–ÂµÂµÂ·Ã..
 	//----------------------------------------------------
 	UI_LockGear();
 
-	// [µµ¿ò¸»] º§Æ®ÀÇ ¾ÆÀÌÅÛ »ç¿ë
+	// [ÂµÂµÂ¿Ã²Â¸Â»] ÂºÂ§Ã†Â®Ã€Ã‡ Â¾Ã†Ã€ÃŒÃ…Ã› Â»Ã§Â¿Ã«
 //	__BEGIN_HELP_EVENT
 ///		ExecuteHelpEvent( HE_ITEM_USE_BELT_ITEM );	
 //	__END_HELP_EVENT
@@ -3563,14 +3563,14 @@ void	MOustersPupa::UseQuickItem()
 	_CGUsePotionFromQuickSlot.setObjectID( GetID() );
 	int slotID = GetItemSlot();
 
-	if( g_pArmsBand1 != NULL )	// 1¹ø ¾Ï½º¹êµå°¡ ÀÖÀ¸¸é ±×³É
+	if( g_pArmsBand1 != NULL )	// 1Â¹Ã¸ Â¾ÃÂ½ÂºÂ¹ÃªÂµÃ¥Â°Â¡ Ã€Ã–Ã€Â¸Â¸Ã© Â±Ã—Â³Ã‰
 	{
 		if(g_pArmsBand1->GetItem( slotID ) == this)
 			_CGUsePotionFromQuickSlot.setSlotID( slotID );
 		else
 			_CGUsePotionFromQuickSlot.setSlotID( slotID + 3);
 	}
-	else						// 1¹ø ¾Ï½º¹êµå°¡ ¾øÀ¸¸é 2¹ø +3 À» ÇØÁØ´Ù
+	else						// 1Â¹Ã¸ Â¾ÃÂ½ÂºÂ¹ÃªÂµÃ¥Â°Â¡ Â¾Ã¸Ã€Â¸Â¸Ã© 2Â¹Ã¸ +3 Ã€Â» Ã‡Ã˜ÃÃ˜Â´Ã™
 	{
 		_CGUsePotionFromQuickSlot.setSlotID( slotID + 3);
 	}
@@ -3581,7 +3581,7 @@ void	MOustersPupa::UseQuickItem()
 //	DEBUG_ADD_FORMAT("[ Ousters Item Use From QuickSlot ] %d %d",slotID, GetID() );
 	
 	//----------------------------------------------------
-	// º§Æ® ¸ø ¾ø¾Öµµ·Ï..
+	// ÂºÂ§Ã†Â® Â¸Ã¸ Â¾Ã¸Â¾Ã–ÂµÂµÂ·Ã..
 	//----------------------------------------------------
 	UI_LockGear();
 #endif
@@ -3594,14 +3594,14 @@ void	MOustersComposMei::UseQuickItem()
 	_CGUsePotionFromQuickSlot.setObjectID( GetID() );
 	int slotID = GetItemSlot();
 
-	if( g_pArmsBand1 != NULL )	// 1¹ø ¾Ï½º¹êµå°¡ ÀÖÀ¸¸é ±×³É
+	if( g_pArmsBand1 != NULL )	// 1Â¹Ã¸ Â¾ÃÂ½ÂºÂ¹ÃªÂµÃ¥Â°Â¡ Ã€Ã–Ã€Â¸Â¸Ã© Â±Ã—Â³Ã‰
 	{
 		if(g_pArmsBand1->GetItem( slotID ) == this)
 			_CGUsePotionFromQuickSlot.setSlotID( slotID );
 		else
 			_CGUsePotionFromQuickSlot.setSlotID( slotID + 3);
 	}
-	else						// 1¹ø ¾Ï½º¹êµå°¡ ¾øÀ¸¸é 2¹ø +3 À» ÇØÁØ´Ù
+	else						// 1Â¹Ã¸ Â¾ÃÂ½ÂºÂ¹ÃªÂµÃ¥Â°Â¡ Â¾Ã¸Ã€Â¸Â¸Ã© 2Â¹Ã¸ +3 Ã€Â» Ã‡Ã˜ÃÃ˜Â´Ã™
 	{
 		_CGUsePotionFromQuickSlot.setSlotID( slotID + 3);
 	}
@@ -3612,7 +3612,7 @@ void	MOustersComposMei::UseQuickItem()
 //	DEBUG_ADD_FORMAT("[ Ousters Item Use From QuickSlot ] %d %d",slotID, GetID() );
 	
 	//----------------------------------------------------
-	// º§Æ® ¸ø ¾ø¾Öµµ·Ï..
+	// ÂºÂ§Ã†Â® Â¸Ã¸ Â¾Ã¸Â¾Ã–ÂµÂµÂ·Ã..
 	//----------------------------------------------------
 	UI_LockGear();
 #endif
@@ -3645,15 +3645,15 @@ void	MVampireCoupleRing::UseGear()
 	g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_GEAR );
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MPetItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MPetItem::UseInventory()
 	#endif
 {
 #ifdef __GAME_CLIENT__
-// ÇöÀç ÆêÀÌ ÀÖÀ¸¸é ÆêÀ» È£ÃâÇÏÁö ¸øÇÏµµ·Ï ÇßÀ¸³ª ÆêÀ» ¾ø¾Ù¶§µµ °°ÀÌ »ç¿ëÇÏ¹Ç·Î ÁÖ¼®Ã³¸®ÇßÀ½
-// ¾î¶² ¾ÆÀÌÅÛÀ¸·Î ÆêÀ» È£ÃâÇß´ÂÁö ¾ÆÀÌÅÛ¿¡ Ç¥½ÃÇØÁÖ´Â°Íµµ....¿ÀÅä¹ÙÀÌµµ ¾ÈÇÏ´Ï±î ½ß
+// Ã‡Ã¶Ã€Ã§ Ã†ÃªÃ€ÃŒ Ã€Ã–Ã€Â¸Â¸Ã© Ã†ÃªÃ€Â» ÃˆÂ£ÃƒÃ¢Ã‡ÃÃÃ¶ Â¸Ã¸Ã‡ÃÂµÂµÂ·Ã Ã‡ÃŸÃ€Â¸Â³Âª Ã†ÃªÃ€Â» Â¾Ã¸Â¾Ã™Â¶Â§ÂµÂµ Â°Â°Ã€ÃŒ Â»Ã§Â¿Ã«Ã‡ÃÂ¹Ã‡Â·Ã ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®Ã‡ÃŸÃ€Â½
+// Â¾Ã®Â¶Â² Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â¸Â·Ã Ã†ÃªÃ€Â» ÃˆÂ£ÃƒÃ¢Ã‡ÃŸÂ´Ã‚ÃÃ¶ Â¾Ã†Ã€ÃŒÃ…Ã›Â¿Â¡ Ã‡Â¥Â½ÃƒÃ‡Ã˜ÃÃ–Â´Ã‚Â°ÃÂµÂµ....Â¿Ã€Ã…Ã¤Â¹Ã™Ã€ÃŒÂµÂµ Â¾ÃˆÃ‡ÃÂ´ÃÂ±Ã® Â½ÃŸ
 
 //	if(g_pPlayer->GetPetID() == OBJECTID_NULL)
 //	{
@@ -3664,14 +3664,14 @@ void	MPetItem::UseInventory()
 		_CGUseItemFromInventory.setX( GetGridX() );
 		_CGUseItemFromInventory.setY( GetGridY() );
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 		if(0 != SubInventoryItemID)
 			_CGUseItemFromInventory.setInventoryItemObjectID( SubInventoryItemID );
 	#endif
 
 		g_pSocket->sendPacket( &_CGUseItemFromInventory );
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY, SubInventoryItemID);
 	#else
 		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
@@ -3681,7 +3681,7 @@ void	MPetItem::UseInventory()
 //	}
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MPetFood::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MPetFood::UseInventory()
@@ -3698,13 +3698,13 @@ void	MPetFood::UseInventory()
 		_CGUseItemFromInventory.setX( GetGridX() );
 		_CGUseItemFromInventory.setY( GetGridY() );
 		
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 		if(0 != SubInventoryItemID)
 			_CGUseItemFromInventory.setInventoryItemObjectID( SubInventoryItemID );
 	#endif
 		g_pSocket->sendPacket( &_CGUseItemFromInventory );
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY, SubInventoryItemID);
 	#else
 		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
@@ -3713,27 +3713,27 @@ void	MPetFood::UseInventory()
 	}
 	else
 	{
-		// 2°³ ÀÌ»ó ÀÖ¾î¾ß ºĞ¸® µÈ´Ù.
+		// 2Â°Â³ Ã€ÃŒÂ»Ã³ Ã€Ã–Â¾Ã®Â¾ÃŸ ÂºÃÂ¸Â® ÂµÃˆÂ´Ã™.
 		if(GetNumber() > 1)
 		{
-			// ¾ÆÀÌÅÛ ºĞ¸®
+			// Â¾Ã†Ã€ÃŒÃ…Ã› ÂºÃÂ¸Â®
 			CGAddInventoryToMouse _CGAddInventoryToMouse;
-			_CGAddInventoryToMouse.setObjectID( 0 );	// ºĞ¸®ÇÑ´Ù´Â ÀÇ¹Ì
+			_CGAddInventoryToMouse.setObjectID( 0 );	// ÂºÃÂ¸Â®Ã‡Ã‘Â´Ã™Â´Ã‚ Ã€Ã‡Â¹ÃŒ
 			_CGAddInventoryToMouse.setX( GetGridX() );
 			_CGAddInventoryToMouse.setY( GetGridY() );
 			
 			g_pSocket->sendPacket( &_CGAddInventoryToMouse );				
 			
 			//----------------------------------------------------
-			// Inventory¿¡¼­ itemÀ» ¸î°³ µå´Â °É °ËÁõ¹Ş´Â´Ù.
-			// ÀÏ´ÜÀº 1°³¸¸ µé¸®µµ·Ï ÇÑ´Ù.
+			// InventoryÂ¿Â¡Â¼Â­ itemÃ€Â» Â¸Ã®Â°Â³ ÂµÃ¥Â´Ã‚ Â°Ã‰ Â°Ã‹ÃÃµÂ¹ÃÂ´Ã‚Â´Ã™.
+			// Ã€ÃÂ´ÃœÃ€Âº 1Â°Â³Â¸Â¸ ÂµÃ©Â¸Â®ÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™.
 			//----------------------------------------------------
 			g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_PICKUP_SOME_FROM_INVENTORY);
 		}
 	}
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MSms_item::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MSms_item::UseInventory()
@@ -3753,27 +3753,27 @@ void	MSms_item::UseInventory()
 	}
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MPetEnchantItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MPetEnchantItem::UseInventory()
 	#endif
 {
 #ifdef __GAME_CLIENT__
-	// 2°³ ÀÌ»ó ÀÖ¾î¾ß ºĞ¸® µÈ´Ù.
+	// 2Â°Â³ Ã€ÃŒÂ»Ã³ Ã€Ã–Â¾Ã®Â¾ÃŸ ÂºÃÂ¸Â® ÂµÃˆÂ´Ã™.
 	if(GetNumber() > 1)
 	{
-		// ¾ÆÀÌÅÛ ºĞ¸®
+		// Â¾Ã†Ã€ÃŒÃ…Ã› ÂºÃÂ¸Â®
 		CGAddInventoryToMouse _CGAddInventoryToMouse;
-		_CGAddInventoryToMouse.setObjectID( 0 );	// ºĞ¸®ÇÑ´Ù´Â ÀÇ¹Ì
+		_CGAddInventoryToMouse.setObjectID( 0 );	// ÂºÃÂ¸Â®Ã‡Ã‘Â´Ã™Â´Ã‚ Ã€Ã‡Â¹ÃŒ
 		_CGAddInventoryToMouse.setX( GetGridX() );
 		_CGAddInventoryToMouse.setY( GetGridY() );
 		
 		g_pSocket->sendPacket( &_CGAddInventoryToMouse );				
 		
 		//----------------------------------------------------
-		// Inventory¿¡¼­ itemÀ» ¸î°³ µå´Â °É °ËÁõ¹Ş´Â´Ù.
-		// ÀÏ´ÜÀº 1°³¸¸ µé¸®µµ·Ï ÇÑ´Ù.
+		// InventoryÂ¿Â¡Â¼Â­ itemÃ€Â» Â¸Ã®Â°Â³ ÂµÃ¥Â´Ã‚ Â°Ã‰ Â°Ã‹ÃÃµÂ¹ÃÂ´Ã‚Â´Ã™.
+		// Ã€ÃÂ´ÃœÃ€Âº 1Â°Â³Â¸Â¸ ÂµÃ©Â¸Â®ÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™.
 		//----------------------------------------------------
 		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_PICKUP_SOME_FROM_INVENTORY);
 	}
@@ -3818,7 +3818,7 @@ std::string MPetItem::GetPetOptionName()
 				}
 			}
 		}
-		if(optionLevel != 0 && bFound == true)	// ´Ù¸¥ ¿É¼Ç ÆÄÆ®°¡ ³ª¿ÔÀ»¶§
+		if(optionLevel != 0 && bFound == true)	// Â´Ã™Â¸Â¥ Â¿Ã‰Â¼Ã‡ Ã†Ã„Ã†Â®Â°Â¡ Â³ÂªÂ¿Ã”Ã€Â»Â¶Â§
 		{
 			switch(optionPart)
 			{
@@ -3867,7 +3867,7 @@ std::string MPetItem::GetPetOptionEName()
 				}
 			}
 		}
-		if(optionLevel != 0 && bFound == true)	// ´Ù¸¥ ¿É¼Ç ÆÄÆ®°¡ ³ª¿ÔÀ»¶§
+		if(optionLevel != 0 && bFound == true)	// Â´Ã™Â¸Â¥ Â¿Ã‰Â¼Ã‡ Ã†Ã„Ã†Â®Â°Â¡ Â³ÂªÂ¿Ã”Ã€Â»Â¶Â§
 		{
 			switch(optionPart)
 			{
@@ -3921,7 +3921,7 @@ std::string MPetItem::GetPetName()
 
 	return petName;
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void	MEventGiftBoxItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void	MEventGiftBoxItem::UseInventory()
@@ -3941,36 +3941,36 @@ void	MEventGiftBoxItem::UseInventory()
 	}
 #endif
 }
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void MMoonCardItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void MMoonCardItem::UseInventory()
 	#endif
 {
 #ifdef __GAME_CLIENT__
-	// 2°³ ÀÌ»ó ÀÖ¾î¾ß ºĞ¸® µÈ´Ù.
-	// edit by sonic 2006.11.1  ½«ËÄÒ¶²İÉèÎª¿É·Ö¿ª
+	// 2Â°Â³ Ã€ÃŒÂ»Ã³ Ã€Ã–Â¾Ã®Â¾ÃŸ ÂºÃÂ¸Â® ÂµÃˆÂ´Ã™.
+	// edit by sonic 2006.11.1  Â½Â«Ã‹Ã„Ã’Â¶Â²ÃÃ‰Ã¨ÃÂªÂ¿Ã‰Â·Ã–Â¿Âª
 	//if(GetItemType() == 2 && GetNumber() > 1 && GetNumber() < GetMaxNumber())
 	if(GetItemType() == 2 || GetItemType() ==3 && GetNumber() > 1 && GetNumber() < GetMaxNumber())
 	{
-		// ¾ÆÀÌÅÛ ºĞ¸®
+		// Â¾Ã†Ã€ÃŒÃ…Ã› ÂºÃÂ¸Â®
 		CGAddInventoryToMouse _CGAddInventoryToMouse;
-		_CGAddInventoryToMouse.setObjectID( 0 );	// ºĞ¸®ÇÑ´Ù´Â ÀÇ¹Ì
+		_CGAddInventoryToMouse.setObjectID( 0 );	// ÂºÃÂ¸Â®Ã‡Ã‘Â´Ã™Â´Ã‚ Ã€Ã‡Â¹ÃŒ
 		_CGAddInventoryToMouse.setX( GetGridX() );
 		_CGAddInventoryToMouse.setY( GetGridY() );
 		
 		g_pSocket->sendPacket( &_CGAddInventoryToMouse );				
 		
 		//----------------------------------------------------
-		// Inventory¿¡¼­ itemÀ» ¸î°³ µå´Â °É °ËÁõ¹Ş´Â´Ù.
-		// ÀÏ´ÜÀº 1°³¸¸ µé¸®µµ·Ï ÇÑ´Ù.
+		// InventoryÂ¿Â¡Â¼Â­ itemÃ€Â» Â¸Ã®Â°Â³ ÂµÃ¥Â´Ã‚ Â°Ã‰ Â°Ã‹ÃÃµÂ¹ÃÂ´Ã‚Â´Ã™.
+		// Ã€ÃÂ´ÃœÃ€Âº 1Â°Â³Â¸Â¸ ÂµÃ©Â¸Â®ÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™.
 		//----------------------------------------------------
 		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_PICKUP_SOME_FROM_INVENTORY);
 	}
 #endif
 }
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 void MTrapItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	#else
 void MTrapItem::UseInventory()
@@ -3989,7 +3989,7 @@ void MTrapItem::UseInventory()
 }
 	
 
-#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 
 void MSubInventory::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 {
@@ -4014,11 +4014,11 @@ MSubInventory::SetItemType(TYPE_ITEMTYPE type)
 		MGridItemManager::Init(2, 4);   
 		break;
 	
-	//  2005.08.15 Sjheon 4x6 ÆÑ Add	
+	//  2005.08.15 Sjheon 4x6 Ã†Ã‘ Add	
 	case 1:	// 4*6 pack
 		MGridItemManager::Init(4, 6); 
 		break;
-	//  2005.08.15 Sjheon 4x6 ÆÑ End
+	//  2005.08.15 Sjheon 4x6 Ã†Ã‘ End
 
 	default:
 		MGridItemManager::Init(2, 4);
@@ -4029,46 +4029,46 @@ MSubInventory::SetItemType(TYPE_ITEMTYPE type)
 //----------------------------------------------------------------------
 // AddItem ( pItem )
 //----------------------------------------------------------------------
-// ÀûÀıÇÑ slot¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+// Ã€Ã»Ã€Ã½Ã‡Ã‘ slotÂ¿Â¡ pItemÃ€Â» ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool			
 MSubInventory::AddItem(MItem* pItem)
 {
 	bool re = MGridItemManager::AddItem( pItem );
-	SetEnchantLevel(MGridItemManager::GetItemNum()); // Enchant levelÀ» ¾ÆÀÌÅÛ °¹¼ö·Î ¾²±â·Î ÇßÀ½.
+	SetEnchantLevel(MGridItemManager::GetItemNum()); // Enchant levelÃ€Â» Â¾Ã†Ã€ÃŒÃ…Ã› Â°Â¹Â¼Ã¶Â·Ã Â¾Â²Â±Ã¢Â·Ã Ã‡ÃŸÃ€Â½.
 	return re;
 }
 
 //----------------------------------------------------------------------
 // AddItem ( pItem, n )
 //----------------------------------------------------------------------
-// slot(n)¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+// slot(n)Â¿Â¡ pItemÃ€Â» ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool			
 MSubInventory::AddItem(MItem* pItem, BYTE X, BYTE Y)
 {
 	bool re = MGridItemManager::AddItem( pItem, X, Y );
-	SetEnchantLevel(MGridItemManager::GetItemNum()); // Enchant levelÀ» ¾ÆÀÌÅÛ °¹¼ö·Î ¾²±â·Î ÇßÀ½.
+	SetEnchantLevel(MGridItemManager::GetItemNum()); // Enchant levelÃ€Â» Â¾Ã†Ã€ÃŒÃ…Ã› Â°Â¹Â¼Ã¶Â·Ã Â¾Â²Â±Ã¢Â·Ã Ã‡ÃŸÃ€Â½.
 	return re;
 }
 
 //----------------------------------------------------------------------
 // ReplaceItem
 //----------------------------------------------------------------------
-// pItemÀ» Ãß°¡ÇÏ°í µı°Ô ÀÖ´Ù¸é Item±³È¯
+// pItemÃ€Â» ÃƒÃŸÂ°Â¡Ã‡ÃÂ°Ã­ ÂµÃ½Â°Ã” Ã€Ã–Â´Ã™Â¸Ã© ItemÂ±Â³ÃˆÂ¯
 //----------------------------------------------------------------------
 bool			
 MSubInventory::ReplaceItem(MItem* pItem, BYTE X, BYTE Y, MItem*& pOldItem)
 {
 	bool re =  MGridItemManager::ReplaceItem( pItem, X, Y, pOldItem );
-	SetEnchantLevel(MGridItemManager::GetItemNum()); // Enchant levelÀ» ¾ÆÀÌÅÛ °¹¼ö·Î ¾²±â·Î ÇßÀ½.
+	SetEnchantLevel(MGridItemManager::GetItemNum()); // Enchant levelÃ€Â» Â¾Ã†Ã€ÃŒÃ…Ã› Â°Â¹Â¼Ã¶Â·Ã Â¾Â²Â±Ã¢Â·Ã Ã‡ÃŸÃ€Â½.
 	return re;
 }
 
 
 //----------------------------------------------------------------------
-// Can ReplaceItem : (n) slot¿¡ pItemÀ» Ãß°¡ÇÏ°Å³ª 
-//						¿ø·¡ ÀÖ´ø Item°ú ±³Ã¼°¡ °¡´ÉÇÑ°¡?
+// Can ReplaceItem : (n) slotÂ¿Â¡ pItemÃ€Â» ÃƒÃŸÂ°Â¡Ã‡ÃÂ°Ã…Â³Âª 
+//						Â¿Ã¸Â·Â¡ Ã€Ã–Â´Ã¸ ItemÂ°Ãº Â±Â³ÃƒÂ¼Â°Â¡ Â°Â¡Â´Ã‰Ã‡Ã‘Â°Â¡?
 //----------------------------------------------------------------------
 bool			
 MSubInventory::CanReplaceItem(MItem* pItem, BYTE X, BYTE Y, MItem*& pOldItem)

@@ -3,17 +3,19 @@
 // MTopViewDraw.cpp
 //----------------------------------------------------------------------
 //
-// º¹ÀâÇÑ Draw ÇÔ¼ö ºÎºĞ¸¸ µû·Î »©³õ´Â´Ù.
-// ÀÛ¾÷ÇÏ±â°¡ ¿µ ºÒÆíÇØ¼­ 
+// ë³µì¡í•œ Draw í•¨ìˆ˜ ë¶€ë¶„ë§Œ ë”°ë¡œ ë¹¼ë†“ëŠ”ë‹¤.
+// ì‘ì—…í•˜ê¸°ê°€ ì˜ ë¶ˆí¸í•´ì„œ 
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
 #pragma warning(disable:4786)
 
+#ifdef PLATFORM_WINDOWS
 #include "DX3D.h"
+#endif
 #include <math.h>
 #include <list>
 #include <stdio.h>
-#include <fstream.h>
+#include <fstream>
 #include "MZone.h"
 #include "MCreature.h"
 #include "MFakeCreature.h"
@@ -78,7 +80,7 @@ void	MTopView::DrawDivineGuidanceSlayerCharacter(
 {
 	MCreatureWear*	pCreatureWear = (MCreatureWear*)pCreature;
 	
-	// CreatureÀÇ Action¿¡ ¸Â´Â add-onÀ» Ãâ·ÂÇÑ´Ù.
+	// Creatureì˜ Actionì— ë§ëŠ” add-onì„ ì¶œë ¥í•œë‹¤.
 	//action = pCreature->GetAction();
 	const int tempFrame = 30;
 	
@@ -89,11 +91,11 @@ void	MTopView::DrawDivineGuidanceSlayerCharacter(
 	{
 		for (int i=0; i<ADDON_MAX; i++)
 		{
-			// CreatureÀÇ ÇöÀç ¹æÇâ¿¡ µû¶ó¼­...
-			// ¿ÊÀ» Ãâ·ÂÇØÁÖ´Â ¼ø¼­°¡ ´Ù¸¦ ¼ö ÀÖ´Ù.
+			// Creatureì˜ í˜„ì¬ ë°©í–¥ì— ë”°ë¼ì„œ...
+			// ì˜·ì„ ì¶œë ¥í•´ì£¼ëŠ” ìˆœì„œê°€ ë‹¤ë¥¼ ìˆ˜ ìˆë‹¤.
 			clothesType = MCreatureWear::s_AddonOrder[pCreature->GetDirection()][i];
 			
-			// i¹øÂ° Á¾·ùÀÇ ¿ÊÀ» ÀÔ°í ÀÖ´Ù¸é Ãâ·ÂÇØ ÁØ´Ù.
+			// ië²ˆì§¸ ì¢…ë¥˜ì˜ ì˜·ì„ ì…ê³  ìˆë‹¤ë©´ ì¶œë ¥í•´ ì¤€ë‹¤.
 			const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(clothesType);
 			
 			if (addonInfo.bAddon)
@@ -102,7 +104,7 @@ void	MTopView::DrawDivineGuidanceSlayerCharacter(
 				
 				FRAME_ARRAY &FA = m_AddonFPK[clothes][ACTION_DRAINED][(direction+g_CurrentFrame/2+k)%8];
 				
-				// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+				// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 				if (FA.GetSize() > tempFrame)
 				{
 					CFrame &Frame = FA[tempFrame];					
@@ -117,7 +119,7 @@ void	MTopView::DrawDivineGuidanceSlayerCharacter(
 					pointTemp.y = pPoint->y + cy-(*g_pCreatureTable)[pCreature->GetCreatureType()].Height;// + pCreature->GetSY();
 					
 					//---------------------------------------- 
-					// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+					// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 					//---------------------------------------- 
 					int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
 					if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
@@ -140,7 +142,7 @@ void	MTopView::DrawDivineGuidanceAdvancementClassSlayerCharacter( POINT *pPoint,
 {
 	MCreatureWear*	pCreatureWear = (MCreatureWear*)pCreature;
 	
-	// CreatureÀÇ Action¿¡ ¸Â´Â add-onÀ» Ãâ·ÂÇÑ´Ù.
+	// Creatureì˜ Actionì— ë§ëŠ” add-onì„ ì¶œë ¥í•œë‹¤.
 	//action = pCreature->GetAction();
 	const int tempFrame = 30;
 	
@@ -154,11 +156,11 @@ void	MTopView::DrawDivineGuidanceAdvancementClassSlayerCharacter( POINT *pPoint,
 	{
 		for (int i=0; i<ADDON_MAX; i++)
 		{
-			// CreatureÀÇ ÇöÀç ¹æÇâ¿¡ µû¶ó¼­...
-			// ¿ÊÀ» Ãâ·ÂÇØÁÖ´Â ¼ø¼­°¡ ´Ù¸¦ ¼ö ÀÖ´Ù.
+			// Creatureì˜ í˜„ì¬ ë°©í–¥ì— ë”°ë¼ì„œ...
+			// ì˜·ì„ ì¶œë ¥í•´ì£¼ëŠ” ìˆœì„œê°€ ë‹¤ë¥¼ ìˆ˜ ìˆë‹¤.
 			clothesType = MCreatureWear::s_ACAddonOrder[pCreature->GetDirection()][i];
 			
-			// i¹øÂ° Á¾·ùÀÇ ¿ÊÀ» ÀÔ°í ÀÖ´Ù¸é Ãâ·ÂÇØ ÁØ´Ù.
+			// ië²ˆì§¸ ì¢…ë¥˜ì˜ ì˜·ì„ ì…ê³  ìˆë‹¤ë©´ ì¶œë ¥í•´ ì¤€ë‹¤.
 			const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetACAddonInfo(clothesType);
 			
 			if (addonInfo.bAddon)
@@ -168,7 +170,7 @@ void	MTopView::DrawDivineGuidanceAdvancementClassSlayerCharacter( POINT *pPoint,
 				FRAME_ARRAY &FA = slayerFPK[clothes][ACTION_ADVANCEMENT_SLAYER_DRAINED-ADVANCEMENT_ACTION_START][(direction+g_CurrentFrame/2+k)%8];
 				
 				
-				// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+				// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 				if (FA.GetSize() > tempFrame)
 				{
 					CFrame &Frame = FA[tempFrame];					
@@ -183,7 +185,7 @@ void	MTopView::DrawDivineGuidanceAdvancementClassSlayerCharacter( POINT *pPoint,
 					pointTemp.y = pPoint->y + cy-(*g_pCreatureTable)[pCreature->GetCreatureType()].Height;// + pCreature->GetSY();
 					
 					//---------------------------------------- 
-					// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+					// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 					//---------------------------------------- 
 					int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
 					if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
@@ -221,7 +223,7 @@ void	MTopView::DrawDivineGuidanceVampireCharacter(
 				cx		= Frame.GetCX(),	//m_CreatureFPK[body][action][direction][frame].GetCX(),
 				cy		= Frame.GetCY();	//m_CreatureFPK[body][action][direction][frame].GetCY();
 			
-			// ÁÂÇ¥ º¸Á¤
+			// ì¢Œí‘œ ë³´ì •
 			pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 			pointTemp.y = pPoint->y + cy-(*g_pCreatureTable)[pCreature->GetCreatureType()].Height;// + pCreature->GetSY();
 			
@@ -265,7 +267,7 @@ void	MTopView::DrawDivineGuidanceAdvancementClassVampireCharacter(
 				cx		= Frame.GetCX(),	//m_CreatureFPK[body][action][direction][frame].GetCX(),
 				cy		= Frame.GetCY();	//m_CreatureFPK[body][action][direction][frame].GetCY();
 			
-			// ÁÂÇ¥ º¸Á¤
+			// ì¢Œí‘œ ë³´ì •
 			pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 			pointTemp.y = pPoint->y + cy-(*g_pCreatureTable)[pCreature->GetCreatureType()].Height;// + pCreature->GetSY();
 			
@@ -291,7 +293,7 @@ void	MTopView::DrawDivineGuidanceAdvancementClassVampireCharacter(
 void	MTopView::DrawDivineGuidanceOustersCharacter( 
 			POINT *pPoint, MCreature* pCreature, int direction )
 {
-	//  Ã­Å©¶÷ÀÌ ÀÖ´Ù
+	//  ì± í¬ëŒì´ ìˆë‹¤
 	MCreatureWear *pCreatureWear = (MCreatureWear *)pCreature;
 	const int tempFrame = 30;
 	
@@ -300,7 +302,7 @@ void	MTopView::DrawDivineGuidanceOustersCharacter(
 	
 	int tempAction = ACTION_DRAINED;
 	
-	// ¸öÀ» Âï°í Ã­Å©¶÷À» Âï´Â´Ù
+	// ëª¸ì„ ì°ê³  ì± í¬ëŒì„ ì°ëŠ”ë‹¤
 	const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(ADDON_COAT);
 	const MCreatureWear::ADDON_INFO& bootsAddonInfo = pCreatureWear->GetAddonInfo(ADDON_TROUSER);
 	
@@ -312,7 +314,7 @@ void	MTopView::DrawDivineGuidanceOustersCharacter(
 			
 			FRAME_ARRAY &FA = m_OustersFPK[clothes][tempAction][(direction+g_CurrentFrame/2+k)%8];
 			
-			// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+			// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 			if (FA.GetSize() > tempFrame)
 			{
 				CFrame &Frame = FA[tempFrame];					
@@ -325,7 +327,7 @@ void	MTopView::DrawDivineGuidanceOustersCharacter(
 				pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 				pointTemp.y = pPoint->y + cy-(*g_pCreatureTable)[pCreature->GetCreatureType()].Height;// + pCreature->GetSY();
 				
-				CIndexSprite::SetUsingColorSetOnly( 0, pCreature->GetBodyColor1() );	// ¸Ó¸®»ö
+				CIndexSprite::SetUsingColorSetOnly( 0, pCreature->GetBodyColor1() );	// ë¨¸ë¦¬ìƒ‰
 				
 				int Colorset;
 				
@@ -333,9 +335,9 @@ void	MTopView::DrawDivineGuidanceOustersCharacter(
 				
 				if( Colorset == QUEST_ITEM_COLOR || Colorset == UNIQUE_ITEM_COLOR )
 					Colorset = MItem::GetSpecialColorItemColorset( Colorset );
-				CIndexSprite::SetUsingColorSetOnly( 1, Colorset );	// ¿Ê»ö
+				CIndexSprite::SetUsingColorSetOnly( 1, Colorset );	// ì˜·ìƒ‰
 				
-				if(bChakram == false)	// ¸®½ºÆ²¸´À» Â÷°í ÀÖÀ¸¸é
+				if(bChakram == false)	// ë¦¬ìŠ¤í‹€ë¦¿ì„ ì°¨ê³  ìˆìœ¼ë©´
 				{
 					if(addonInfoChakram.bAddon)
 					{
@@ -343,7 +345,7 @@ void	MTopView::DrawDivineGuidanceOustersCharacter(
 						if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 							Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 						
-						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// ÆÈ
+						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// íŒ”
 					}
 					else
 					{
@@ -351,7 +353,7 @@ void	MTopView::DrawDivineGuidanceOustersCharacter(
 						if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 							Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 						
-						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// ÆÈ
+						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// íŒ”
 					}
 				}
 				else
@@ -362,7 +364,7 @@ void	MTopView::DrawDivineGuidanceOustersCharacter(
 					if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 						Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 					
-					CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// ÆÈ
+					CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// íŒ”
 					
 				}
 				
@@ -372,7 +374,7 @@ void	MTopView::DrawDivineGuidanceOustersCharacter(
 					if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 						Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 					
-					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// ºÎÃ÷»ö
+					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// ë¶€ì¸ ìƒ‰
 				}
 				else
 				{
@@ -380,7 +382,7 @@ void	MTopView::DrawDivineGuidanceOustersCharacter(
 					if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 						Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 					
-					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// ÆÈ
+					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// íŒ”
 				}
 				
 				m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 2-k);
@@ -394,7 +396,7 @@ void	MTopView::DrawDivineGuidanceOustersCharacter(
 			
 			FRAME_ARRAY &FA = m_OustersFPK[clothes][tempAction][(direction+g_CurrentFrame/2+k)%8];
 			
-			// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+			// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 			if (FA.GetSize() > tempFrame)
 			{
 				CFrame &Frame = FA[tempFrame];					
@@ -426,7 +428,7 @@ void	MTopView::DrawDivineGuidanceOustersCharacter(
 void	MTopView::DrawDivineGuidanceAdvancementClassOustersCharacter( 
 			POINT *pPoint, MCreature* pCreature, int direction )
 {
-	//  Ã­Å©¶÷ÀÌ ÀÖ´Ù
+	//  ì± í¬ëŒì´ ìˆë‹¤
 	MCreatureWear *pCreatureWear = (MCreatureWear *)pCreature;
 	const int tempFrame = 30;
 	
@@ -445,7 +447,7 @@ void	MTopView::DrawDivineGuidanceAdvancementClassOustersCharacter(
 			
 			FRAME_ARRAY &FA = m_AdvancementOustersFPK[clothes][tempAction][(direction+g_CurrentFrame/2+k)%8];
 			
-			// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+			// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 			if (FA.GetSize() > tempFrame)
 			{
 				CFrame &Frame = FA[tempFrame];					
@@ -458,7 +460,7 @@ void	MTopView::DrawDivineGuidanceAdvancementClassOustersCharacter(
 				pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 				pointTemp.y = pPoint->y + cy-(*g_pCreatureTable)[pCreature->GetCreatureType()].Height;// + pCreature->GetSY();
 				
-				CIndexSprite::SetUsingColorSetOnly( 0, pCreature->GetBodyColor1() );	// ¸Ó¸®»ö
+				CIndexSprite::SetUsingColorSetOnly( 0, pCreature->GetBodyColor1() );	// ë¨¸ë¦¬ìƒ‰
 				
 				int Colorset;
 				
@@ -466,9 +468,9 @@ void	MTopView::DrawDivineGuidanceAdvancementClassOustersCharacter(
 				
 				if( Colorset == QUEST_ITEM_COLOR || Colorset == UNIQUE_ITEM_COLOR )
 					Colorset = MItem::GetSpecialColorItemColorset( Colorset );
-				CIndexSprite::SetUsingColorSetOnly( 1, Colorset );	// ¿Ê»ö
+				CIndexSprite::SetUsingColorSetOnly( 1, Colorset );	// ì˜·ìƒ‰
 				
-				if(bChakram == false)	// ¸®½ºÆ²¸´À» Â÷°í ÀÖÀ¸¸é
+				if(bChakram == false)	// ë¦¬ìŠ¤í‹€ë¦¿ì„ ì°¨ê³  ìˆìœ¼ë©´
 				{
 					if(addonInfoChakram.bAddon)
 					{
@@ -476,7 +478,7 @@ void	MTopView::DrawDivineGuidanceAdvancementClassOustersCharacter(
 						if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 							Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 						
-						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// ÆÈ
+						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// íŒ”
 					}
 					else
 					{
@@ -484,7 +486,7 @@ void	MTopView::DrawDivineGuidanceAdvancementClassOustersCharacter(
 						if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 							Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 						
-						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// ÆÈ
+						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// íŒ”
 					}
 				}
 				else
@@ -495,7 +497,7 @@ void	MTopView::DrawDivineGuidanceAdvancementClassOustersCharacter(
 					if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 						Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 					
-					CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// ÆÈ
+					CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// íŒ”
 					
 				}
 				
@@ -505,7 +507,7 @@ void	MTopView::DrawDivineGuidanceAdvancementClassOustersCharacter(
 					if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 						Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 					
-					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// ºÎÃ÷»ö
+					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// ë¶€ì¸ ìƒ‰
 				}
 				else
 				{
@@ -513,7 +515,7 @@ void	MTopView::DrawDivineGuidanceAdvancementClassOustersCharacter(
 					if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 						Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 					
-					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// ÆÈ
+					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// íŒ”
 				}
 				
 				m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 2-k);
@@ -527,7 +529,7 @@ void	MTopView::DrawDivineGuidanceAdvancementClassOustersCharacter(
 			
 			FRAME_ARRAY &FA = m_AdvancementOustersFPK[clothes][tempAction][(direction+g_CurrentFrame/2+k)%8];
 			
-			// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+			// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 			if (FA.GetSize() > tempFrame)
 			{
 				CFrame &Frame = FA[tempFrame];					

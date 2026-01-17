@@ -53,7 +53,7 @@ public:
 class GCAddInstalledMineToZoneHandler 
 {
 public:
-	static void execute(GCAddInstalledMineToZone* pPacket, Player* pPlayer) throw(Error);
+	static void execute(GCAddInstalledMineToZone* pPacket, Player* pPlayer) throw ( ProtocolException , Error );
 };
 
 #endif

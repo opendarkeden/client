@@ -36,8 +36,8 @@ void CGTypeStringList::read (SocketInputStream & iStream)
 		BYTE szString;
 		iStream.read(szString);
 
-		if ( szString == 0 ) throw InvalidProtocolException("String ±æÀÌ°¡ 0ÀÔ´Ï´Ù.");
-		if ( szString > MAX_STRING_LENGTH ) throw InvalidProtocolException("String ±æÀÌ°¡ ³Ê¹« ±é´Ï´Ù.");
+		if ( szString == 0 ) throw InvalidProtocolException("String ê¸¸ì´ê°€ 0ì…ë‹ˆë‹¤.");
+		if ( szString > MAX_STRING_LENGTH ) throw InvalidProtocolException("String ê¸¸ì´ê°€ ë„ˆë¬´ ê¹ë‹ˆë‹¤.");
 
 		iStream.read(temp, szString);
 

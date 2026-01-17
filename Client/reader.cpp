@@ -1,7 +1,11 @@
 #include "DirectXlib_PCH.h"
 #include "reader.h"
 #include "common.h"
+#ifdef PLATFORM_WINDOWS
 #include <wtypes.h>
+#else
+#include "../basic/Platform.h"
+#endif
 #include "mp3.h"
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -20,8 +24,13 @@ int	Open(LPSTR pathname)
 	if ( MP3File == NULL ) return -1 ;
 
 	strcpy (MP3FileName, pathname) ;
+#ifdef PLATFORM_WINDOWS
 	struct _stat buf;
 	_stat( MP3FileName, &buf );
+#else
+	struct stat buf;
+	stat( MP3FileName, &buf );
+#endif
 	FileSize = buf.st_size ;
 
 	nSpare = 0 ;
@@ -49,7 +58,7 @@ int GetFileSize()
 //***************************************************************************
 // Func :	ReadHeaderPart
 //---------------------------------------------------------------------------
-// Desc :	MP3 ÆÄÀÏÀÇ Çì´õºÎ¸¦ ÀĞ¾îµéÀÎ´Ù.
+// Desc :	MP3 íŒŒì¼ì˜ í—¤ë”ë¶€ë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
 // Params :
 // Return :
 //===========================================================================
@@ -57,7 +66,7 @@ int ReadHeader(UINT *headerStr)
 {
 	BOOL	result, sync ;
 
-	// Çì´õºÎºĞÀ» Ã£À» ¶§±îÁö °Ë»öÇÑ´Ù.
+	// í—¤ë”ë¶€ë¶„ì„ ì°¾ì„ ë•Œê¹Œì§€ ê²€ìƒ‰í•œë‹¤.
 	do 
 	{
 		if ( fread( headerStr, sizeof(UINT), 1, MP3File) != 1)
@@ -76,7 +85,7 @@ int ReadHeader(UINT *headerStr)
 	return 0 ;
 }
 
-// BYTE ´ÜÀ§·Î ÀĞ¾îµéÀÎ´Ù.
+// BYTE ë‹¨ìœ„ë¡œ ì½ì–´ë“¤ì¸ë‹¤.
 int ReadBytes(BYTE* buf, UINT bytes)
 {
 	if ( fread ( buf, sizeof(BYTE), bytes, MP3File) != bytes )
@@ -84,7 +93,7 @@ int ReadBytes(BYTE* buf, UINT bytes)
 	return 0 ;
 }
 
-// WORD ´ÜÀ§·Î ÀĞ¾îµéÀÎ´Ù.
+// WORD ë‹¨ìœ„ë¡œ ì½ì–´ë“¤ì¸ë‹¤.
 int ReadWords(WORD* buf, UINT words)
 {
 	if ( fread ( buf, sizeof(WORD), words, MP3File) != words )
@@ -92,7 +101,7 @@ int ReadWords(WORD* buf, UINT words)
 	return 0 ;
 }
 
-// DWORD ´ÜÀ§·Î ÀĞ¾îµéÀÎ´Ù.
+// DWORD ë‹¨ìœ„ë¡œ ì½ì–´ë“¤ì¸ë‹¤.
 int ReadDwords(DWORD* buf, UINT dwords)
 {
 	if ( fread ( buf, sizeof(DWORD), dwords, MP3File) != dwords )
@@ -122,15 +131,15 @@ UINT ReadBitsFromByte (BYTE byte, UINT &spare, UINT bits)
 //***************************************************************************
 // Func :	 ReadBits 
 //---------------------------------------------------------------------------
-// Desc :	 bit ´ÜÀ§·Î ÀĞ¾îµé¿© UINTÇüÀ¸·Î ¸®ÅÏ½ÃÅ²´Ù.
-// Params :  ÀĞ¾îµéÀÏ ºñÆ® ¼ö 
-// Return :  °á°ú °ª 
+// Desc :	 bit ë‹¨ìœ„ë¡œ ì½ì–´ë“¤ì—¬ UINTí˜•ìœ¼ë¡œ ë¦¬í„´ì‹œí‚¨ë‹¤.
+// Params :  ì½ì–´ë“¤ì¼ ë¹„íŠ¸ ìˆ˜ 
+// Return :  ê²°ê³¼ ê°’ 
 //===========================================================================
 UINT ReadBits(UINT bits)
 {
 	UINT retVal = 0 ;
 
-	if ( bits > 32 ) return -1 ;	// 32 bit¸¦ ÃÊ°úÇÏ´Â °ÍÀº Çã¿ëÇÏÁö ¾Ê´Â´Ù.
+	if ( bits > 32 ) return -1 ;	// 32 bitë¥¼ ì´ˆê³¼í•˜ëŠ” ê²ƒì€ í—ˆìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
 
 	if ( nSpare >= bits )
 	{
@@ -148,7 +157,7 @@ UINT ReadBits(UINT bits)
 	else
 	{
 		UINT rest = bits - nSpare ;
-		UINT rBytes = (rest + 7) / 8  ;	// ´õ ÀĞ¾î µé¿©¾ß ÇÏ´Â ¹ÙÀÌÆ® ¼ö¸¦ °è»êÇÑ´Ù.
+		UINT rBytes = (rest + 7) / 8  ;	// ë” ì½ì–´ ë“¤ì—¬ì•¼ í•˜ëŠ” ë°”ì´íŠ¸ ìˆ˜ë¥¼ ê³„ì‚°í•œë‹¤.
 		
 		BYTE byte[4] ;
 		ReadBytes( byte, rBytes ) ;

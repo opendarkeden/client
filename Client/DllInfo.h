@@ -5,20 +5,26 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 
-//#define __WORK__
-//#define __MK_DLL__			// DLL¸¸µé¶§
-#ifdef __WORK__
+// Platform-specific exports
+#ifdef PLATFORM_WINDOWS
+	//#define __WORK__
+	//#define __MK_DLL__			// DLLë§Œë“¤ë•Œ
+	#ifdef __WORK__
 
-        #define         __EX
+		#define         __EX
 
+	#else
+
+		#ifdef __MK_DLL__
+			#define __EX __declspec(dllexport)
+		#else
+			#define __EX __declspec(dllimport)
+		#endif
+
+	#endif
 #else
-
-        #ifdef __MK_DLL__
-                #define __EX __declspec(dllexport)
-        #else
-                #define __EX __declspec(dllimport)
-        #endif
-
+	// Non-Windows platforms: don't use __declspec
+	#define __EX
 #endif
 
 #endif

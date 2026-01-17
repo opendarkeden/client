@@ -20,7 +20,8 @@
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
 void GCRequestPowerPointResultHandler::execute ( GCRequestPowerPointResult * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 

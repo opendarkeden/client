@@ -1,15 +1,15 @@
 //----------------------------------------------------------------------
 // Profiler.h
 //----------------------------------------------------------------------
-// ÇÁ·ÎÆÄÀÏ¸µ... ³È..
+// í”„ë¡œíŒŒì¼ë§... ëƒ ..
 //
 //
-// < ÇÊ¿äÇÑ Á¤º¸ >
+// < í•„ìš”í•œ ì •ë³´ >
 //
-// ÀÌ¸§						: ³»¿ëÀÌ±âµµ ÇÏ°í, IDÀÌ´Ù.
-// StartTime				: ÀÌ¹ø loopÀÇ ½ÃÀÛ ½Ã°£
-// TotalTime				: ÀüÃ¼ ÁøÇà ½Ã°£
-// Times					: ¸î ¹ø ¹İº¹À» Çß´Â°¡?
+// ì´ë¦„						: ë‚´ìš©ì´ê¸°ë„ í•˜ê³ , IDì´ë‹¤.
+// StartTime				: ì´ë²ˆ loopì˜ ì‹œì‘ ì‹œê°„
+// TotalTime				: ì „ì²´ ì§„í–‰ ì‹œê°„
+// Times					: ëª‡ ë²ˆ ë°˜ë³µì„ í–ˆëŠ”ê°€?
 // 
 //----------------------------------------------------------------------
 
@@ -18,11 +18,17 @@
 
 #pragma warning(disable:4786)
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include <map>
 #include <string>
-#include <fstream.h>
+#include <fstream>
 #include "DebugInfo.h"
+
+using namespace std;
 
 //----------------------------------------------------------------------
 // ProfilerInfo
@@ -51,12 +57,12 @@ class ProfilerInfo
 		//---------------------------------------------------------------
 		// File Out
 		//---------------------------------------------------------------
-		void		WriteToFile(ofstream& file) const;
+		void		WriteToFile(std::ofstream& file) const;
 
 	private :
-		DWORD		m_StartTime;		// ÀÌ¹ø loop ½ÃÀÛ ½Ã°£
-		DWORD		m_TotalTime;		// ÀüÃ¼ ÁøÇà ½Ã°£
-		DWORD		m_Times;			// ¸î ¹ø ¹İº¹ Çß´Â°¡?
+		DWORD		m_StartTime;		// ì´ë²ˆ loop ì‹œì‘ ì‹œê°„
+		DWORD		m_TotalTime;		// ì „ì²´ ì§„í–‰ ì‹œê°„
+		DWORD		m_Times;			// ëª‡ ë²ˆ ë°˜ë³µ í–ˆëŠ”ê°€?
 };
 
 //----------------------------------------------------------------------

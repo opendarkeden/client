@@ -16,7 +16,7 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCAddGearToZoneHandler::execute ( GCAddGearToZone * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -24,7 +24,7 @@ void GCAddGearToZoneHandler::execute ( GCAddGearToZone * pPacket , Player * pPla
 
 
 	//----------------------------------------------------------------------
-	// SlayerÀÎ °æ¿ì	
+	// Slayerì¸ ê²½ìš°	
 	//----------------------------------------------------------------------
 	switch(g_pPlayer->GetRace())
 	{
@@ -33,14 +33,14 @@ void GCAddGearToZoneHandler::execute ( GCAddGearToZone * pPacket , Player * pPla
 				const MItem* pItem = g_pSlayerGear->GetItem( (MSlayerGear::GEAR_SLAYER)pPacket->getSlotID() );
 				
 				//----------------------------------------------------------------------
-				// ±×·± id¸¦ °¡Áø itemÀÌ ¾ø´Â °æ¿ì
+				// ê·¸ëŸ° idë¥¼ ê°€ì§„ itemì´ ì—†ëŠ” ê²½ìš°
 				//----------------------------------------------------------------------
 				if (pItem==NULL)
 				{
 					DEBUG_ADD_FORMAT("[Error] Item does not exist in SlayerGear! slot=%d", (int)pPacket->getSlotID());
 				}
 				//----------------------------------------------------------------------
-				// itemÀÌ ÀÖ´Â °æ¿ì --> Gear¿¡¼­ Á¦°ÅÇØ¼­ Zone¿¡ Ãß°¡ÇÑ´Ù.
+				// itemì´ ìžˆëŠ” ê²½ìš° --> Gearì—ì„œ ì œê±°í•´ì„œ Zoneì— ì¶”ê°€í•œë‹¤.
 				//----------------------------------------------------------------------
 				else
 				{
@@ -54,7 +54,7 @@ void GCAddGearToZoneHandler::execute ( GCAddGearToZone * pPacket , Player * pPla
 					}
 					else
 					{
-						// ¶³¾î¶ß¸®´Â ¸ð½ÀÀ¸·Î pItemÀ» Zone¿¡ Ãß°¡ÇÑ´Ù.
+						// ë–¨ì–´ëœ¨ë¦¬ëŠ” ëª¨ìŠµìœ¼ë¡œ pItemì„ Zoneì— ì¶”ê°€í•œë‹¤.
 						g_pZone->AddItem( pRemovedItem, TRUE );
 					}
 				}
@@ -66,14 +66,14 @@ void GCAddGearToZoneHandler::execute ( GCAddGearToZone * pPacket , Player * pPla
 				const MItem* pItem = g_pVampireGear->GetItem( (MVampireGear::GEAR_VAMPIRE)pPacket->getSlotID() );
 				
 				//----------------------------------------------------------------------
-				// ±×·± id¸¦ °¡Áø itemÀÌ ¾ø´Â °æ¿ì
+				// ê·¸ëŸ° idë¥¼ ê°€ì§„ itemì´ ì—†ëŠ” ê²½ìš°
 				//----------------------------------------------------------------------
 				if (pItem==NULL)
 				{
 					DEBUG_ADD_FORMAT("[Error] Item does not exist in VampireGear! slot=%d", (int)pPacket->getSlotID());
 				}
 				//----------------------------------------------------------------------
-				// itemÀÌ ÀÖ´Â °æ¿ì --> Gear¿¡¼­ Á¦°ÅÇØ¼­ Zone¿¡ Ãß°¡ÇÑ´Ù.
+				// itemì´ ìžˆëŠ” ê²½ìš° --> Gearì—ì„œ ì œê±°í•´ì„œ Zoneì— ì¶”ê°€í•œë‹¤.
 				//----------------------------------------------------------------------
 				else
 				{
@@ -87,7 +87,7 @@ void GCAddGearToZoneHandler::execute ( GCAddGearToZone * pPacket , Player * pPla
 					}
 					else
 					{
-						// ¶³¾î¶ß¸®´Â ¸ð½ÀÀ¸·Î pItemÀ» Zone¿¡ Ãß°¡ÇÑ´Ù.
+						// ë–¨ì–´ëœ¨ë¦¬ëŠ” ëª¨ìŠµìœ¼ë¡œ pItemì„ Zoneì— ì¶”ê°€í•œë‹¤.
 						g_pZone->AddItem( pRemovedItem, TRUE );
 					}
 				}
@@ -100,14 +100,14 @@ void GCAddGearToZoneHandler::execute ( GCAddGearToZone * pPacket , Player * pPla
 				const MItem* pItem = g_pOustersGear->GetItem( (MOustersGear::GEAR_OUSTERS)pPacket->getSlotID() );
 				
 				//----------------------------------------------------------------------
-				// ±×·± id¸¦ °¡Áø itemÀÌ ¾ø´Â °æ¿ì
+				// ê·¸ëŸ° idë¥¼ ê°€ì§„ itemì´ ì—†ëŠ” ê²½ìš°
 				//----------------------------------------------------------------------
 				if (pItem==NULL)
 				{
 					DEBUG_ADD_FORMAT("[Error] Item does not exist in OustersGear! slot=%d", (int)pPacket->getSlotID());
 				}
 				//----------------------------------------------------------------------
-				// itemÀÌ ÀÖ´Â °æ¿ì --> Gear¿¡¼­ Á¦°ÅÇØ¼­ Zone¿¡ Ãß°¡ÇÑ´Ù.
+				// itemì´ ìžˆëŠ” ê²½ìš° --> Gearì—ì„œ ì œê±°í•´ì„œ Zoneì— ì¶”ê°€í•œë‹¤.
 				//----------------------------------------------------------------------
 				else
 				{
@@ -121,7 +121,7 @@ void GCAddGearToZoneHandler::execute ( GCAddGearToZone * pPacket , Player * pPla
 					}
 					else
 					{
-						// ¶³¾î¶ß¸®´Â ¸ð½ÀÀ¸·Î pItemÀ» Zone¿¡ Ãß°¡ÇÑ´Ù.
+						// ë–¨ì–´ëœ¨ë¦¬ëŠ” ëª¨ìŠµìœ¼ë¡œ pItemì„ Zoneì— ì¶”ê°€í•œë‹¤.
 						g_pZone->AddItem( pRemovedItem, TRUE );
 					}
 				}

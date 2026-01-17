@@ -22,7 +22,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void CRConnectHandler::execute ( CRConnect * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -36,18 +37,18 @@ void CRConnectHandler::execute ( CRConnect * pPacket , Player * pPlayer )
 		&& g_pUserInformation!=NULL
 		&& g_pGameMessage!=NULL)
 	{
-		// Á¢¼ÓÀ» Çã¿ë½ÃÄÑÁÙ±î?
+		// ì ‘ì†ì„ í—ˆìš©ì‹œì¼œì¤„ê¹Œ?
 		if (g_Mode==MODE_GAME)
 		{
-			// Á¦´ë·Î Á¢¼ÓÇÑ°Ô ¸Â³²..
+			// ì œëŒ€ë¡œ ì ‘ì†í•œê²Œ ë§žë‚¨..
 			if (pPacket->getRequestServerName()==g_pUserInformation->CharacterID.GetString())
 			{
-				// Á¢¼ÓÇÑ ¾Ö ÀÌ¸§À» ¼³Á¤ÇØµÐ´Ù.
+				// ì ‘ì†í•œ ì•  ì´ë¦„ì„ ì„¤ì •í•´ë‘”ë‹¤.
 				pRequestServerPlayer->setName( pPacket->getRequestClientName().c_str() );
 
 				pRequestServerPlayer->setPlayerStatus( CPS_REQUEST_SERVER_NORMAL );
 
-				// Á¢¼Ó È®ÀÎ packetÀ» º¸³½´Ù.
+				// ì ‘ì† í™•ì¸ packetì„ ë³´ë‚¸ë‹¤.
 				RCConnectVerify _RCConnectVerify;
 				_RCConnectVerify.setCode( RC_CONNECT_OK );
 				pRequestServerPlayer->sendPacket( &_RCConnectVerify );
@@ -65,7 +66,7 @@ void CRConnectHandler::execute ( CRConnect * pPacket , Player * pPlayer )
 			
 		if (!bConnected)
 		{
-			// Á¢¼Ó È®ÀÎ packetÀ» º¸³½´Ù.
+			// ì ‘ì† í™•ì¸ packetì„ ë³´ë‚¸ë‹¤.
 			RCConnectVerify _RCConnectVerify;
 			_RCConnectVerify.setCode( RC_CONNECT_REJECT );
 			pRequestServerPlayer->sendPacket( &_RCConnectVerify );

@@ -16,17 +16,18 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCDeleteEffectFromTileHandler::execute ( GCDeleteEffectFromTile * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 #ifdef __GAME_CLIENT__
 
 	
-		// -_- �й�
+		// -_- 패배
 //	switch( pPacket->getEffectID() )
 //	{
-//	case EFFECTSTATUS_BLOOD_BIBLE_ARMEGA :         // 199			// Ÿ�Ͽ� �ٴ� ����Ʈ
+//	case EFFECTSTATUS_BLOOD_BIBLE_ARMEGA :         // 199			// 타일에 붙는 이펙트
 //	case EFFECTSTATUS_BLOOD_BIBLE_MIHOLE :       // 200
 //	case EFFECTSTATUS_BLOOD_BIBLE_KIRO :         // 201
 //	case EFFECTSTATUS_BLOOD_BIBLE_INI :         // 202

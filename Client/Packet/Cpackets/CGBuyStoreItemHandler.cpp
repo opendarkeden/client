@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : CGBuyStoreItemHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description : 
 //////////////////////////////////////////////////////////////////////////////
 #include "Client_PCH.h"
@@ -12,23 +12,22 @@
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
-// ÇÃ·¹ÀÌ¾î°¡ ¿øÇÏ´Â ¹°°ÇÀ» ÆÄ´Â NPC¿Í ±× ¾ÆÀÌÅÛÀÌ ÀÖ´ÂÁö
-// È®ÀÎÇÏ°í, ÀÏ¹İ ¾ÆÀÌÅÛ°ú ¸ğÅÍ »çÀÌÅ¬ Ã³¸®ºÎºĞÀ¸·Î ºĞ±âÇÑ´Ù.
+// í”Œë ˆì´ì–´ê°€ ì›í•˜ëŠ” ë¬¼ê±´ì„ íŒŒëŠ” NPCì™€ ê·¸ ì•„ì´í…œì´ ìˆëŠ”ì§€
+// í™•ì¸í•˜ê³ , ì¼ë°˜ ì•„ì´í…œê³¼ ëª¨í„° ì‚¬ì´í´ ì²˜ë¦¬ë¶€ë¶„ìœ¼ë¡œ ë¶„ê¸°í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CGBuyStoreItemHandler::execute (CGBuyStoreItem* pPacket , Player* pPlayer)
-	 throw (ProtocolException , Error)
+
+throw ( ProtocolException , Error )
 {
-	__BEGIN_TRY 
-	//__BEGIN_DEBUG_EX
+	__BEGIN_TRY
 
 #ifdef __GAME_SERVER__
-	
+
 	Assert(pPacket != NULL);
 	Assert(pPlayer != NULL);
 
 #endif
 
-	//__END_DEBUG_EX 
 	__END_CATCH
 }
 

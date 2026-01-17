@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MAttackZoneRectEffectGenerator.cpp
 //----------------------------------------------------------------------
-// °¡¿îµ¥¼­ºÎÅÍ 8¹æÇâÀ¸·Î ÀÌµ¿ÇÏ°Ô ¸¸µç´Ù.
+// ê°€ìš´ë°ì„œë¶€í„° 8ë°©í–¥ìœ¼ë¡œ ì´ë™í•˜ê²Œ ë§Œë“ ë‹¤.
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
 #include "MAttackZoneRectEffectGenerator.h"
@@ -21,12 +21,12 @@ MAttackZoneRectEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	int currentPhase = egInfo.pEffectTarget != NULL ?egInfo.pEffectTarget->GetCurrentPhase() : -1;
 	int maxFrame = g_pTopView->GetMaxEffectFrame(bltType, frameID);
 
-	// ½ÃÀÛ ÁÂÇ¥
+	// ì‹œì‘ ì¢Œí‘œ
 
 
 	if( currentPhase == 2 )
 	{
-		// Ã¹¹øÂ°¸é 8¹æÇâÀ» »ı¼ºÇÑ´Ù.
+		// ì²«ë²ˆì§¸ë©´ 8ë°©í–¥ì„ ìƒì„±í•œë‹¤.
 		int sx = egInfo.x1;
 		int sy = egInfo.y1;
 		int sz = egInfo.z1;
@@ -73,7 +73,7 @@ MAttackZoneRectEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 	} else
 	{
-		// Ã¹¹øÂ°°¡ ¾Æ´Ï¸é
+		// ì²«ë²ˆì§¸ê°€ ì•„ë‹ˆë©´
 
 		int sx = egInfo.x0;
 		int sy = egInfo.y0;

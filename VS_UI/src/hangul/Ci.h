@@ -11,7 +11,9 @@
 #ifndef __CI_H__
 #define __CI_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <windows.h>
+#endif
 #include "BasicS.h"
 
 //-----------------------------------------------------------------------------
@@ -19,8 +21,8 @@
 //
 // Character inputer.
 //
-// Windows IME(Input Method Editor)¸¦ ÅëÇØ ÀÔ·Â¹ÞÀº ¹®ÀÚ¸¦ Ã³¸®ÇÑ´Ù.
-// DBCS(Double-Byte Character Set) ±â¹ÝÀÌ´Ù.
+// Windows IME(Input Method Editor)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·Â¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
+// DBCS(Double-Byte Character Set) ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 //-----------------------------------------------------------------------------
 class CI
 {
@@ -29,7 +31,7 @@ protected :
 	// m_bl_insert_mode
 	//
 	// insert or edit mode
-	// °³º°ÀûÀÎ °´Ã¼¸¶´Ù ´Ù¸£°Ô ÇÏÁö ¾Ê±â À§ÇØ¼­ CI¿¡ Á¤ÀÇÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ CIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//
 	bool			m_bl_insert_mode; 
 
@@ -59,7 +61,7 @@ public:
 	bool	GetInsertModeState() const { return m_bl_insert_mode; }
 	void	ToggleInsertMode() { m_bl_insert_mode = !m_bl_insert_mode; }
 	bool	GetEndOfIME();
-	bool	ImeRunning() const { return m_bl_ime_running; } // IME°¡ ½ÇÇàÁß?
+	bool	ImeRunning() const { return m_bl_ime_running; } // IMEï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
 	bool	GetCursorBlink() const;
 	void	ForceShowCursor() const;
 	void	FinishImeRunning();

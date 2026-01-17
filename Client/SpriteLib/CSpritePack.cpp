@@ -2,7 +2,9 @@
 //#include "CSpritePack.h"
 //#include "CSprite555.h"
 //#include "CSprite565.h"
-//#include <fstream.h>
+//#include <fstream>
+
+using namespace std;
 //
 //void CSpritePack::Init(WORD size, bool b565)
 //{
@@ -29,7 +31,7 @@
 //	return re;
 //}
 //
-//bool CSpritePack::LoadFromFile(class ifstream &file, bool b565)
+//bool CSpritePack::LoadFromFile(std::ifstream &file, bool b565)
 //{
 //	Release();
 //	
@@ -48,20 +50,20 @@
 ////----------------------------------------------------------------------
 //// Load From File Running
 ////----------------------------------------------------------------------
-//// ½Ç½Ã°£ ·Îµù
+//// ì‹¤ì‹œê°„ ë¡œë”©
 ////----------------------------------------------------------------------
 //bool CSpritePack::LoadFromFileRunning(LPCTSTR lpszFilename, bool b565)
 //{
-//	//ÀÎµ¦½º ÆÄÀÏ ·Îµù
+//	//ì¸ë±ìŠ¤ íŒŒì¼ ë¡œë”©
 //	std::string filename = lpszFilename;
 //	filename += 'i';
-//	class ifstream indexFile(filename.c_str(), ios::binary);
+//	std::ifstream indexFile(filename.c_str(), ios::binary);
 //	indexFile.read((char *)&m_Size, 2); 
 //	Init(m_Size, b565);
 //
 //	if(m_file == NULL)
 //	{
-//		m_file = new class ifstream;
+//		m_file = new std::ifstream;
 //	}
 //	
 //	m_file_index = new int[m_Size];
@@ -71,7 +73,7 @@
 //	}
 //	indexFile.close();
 //	
-//	// file¿¡¼­ sprite °³¼ö¸¦ ÀÐ¾î¿Â´Ù.	
+//	// fileì—ì„œ sprite ê°œìˆ˜ë¥¼ ì½ì–´ì˜¨ë‹¤.	
 //	m_file->open(lpszFilename, ios::binary);
 //	
 //	m_file->read((char*)&m_Size, 2);

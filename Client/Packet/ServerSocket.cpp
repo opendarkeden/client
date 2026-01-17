@@ -28,11 +28,11 @@ ServerSocket::ServerSocket ( uint port , uint backlog )
 	m_Impl->create();
 	
 	// reuse address before Bind()
-	// ¹ÙÀÎµå ÇÏ±â Àü¿¡ ÁÖ¼Ò ¸®À¯Áî¸¦ ½Ã½ºÅÛ¿¡ ¾Ë·Á¾ß ÇÑ´Ù.
+	// ë°”ì¸ë“œ í•˜ê¸° ì „ì— ì£¼ì†Œ ë¦¬ìœ ì¦ˆë¥¼ ì‹œìŠ¤í…œì— ì•Œë ¤ì•¼ í•œë‹¤.
 	m_Impl->setReuseAddr();
 	
 	// bind address to socket
-	// ÀÌ¹Ì port°¡ m_Impl¿¡ ÀúÀåµÇ¾î ÀÖÀ¸¹Ç·Î, ÆÄ¶ó¹ÌÅÍ¾ø´Â Bind()¸¦ È£ÃâÇØµµ µÈ´Ù.
+	// ì´ë¯¸ portê°€ m_Implì— ì €ìž¥ë˜ì–´ ìžˆìœ¼ë¯€ë¡œ, íŒŒë¼ë¯¸í„°ì—†ëŠ” Bind()ë¥¼ í˜¸ì¶œí•´ë„ ëœë‹¤.
 	m_Impl->bind();
 	
 	// set listening queue size
@@ -44,8 +44,8 @@ ServerSocket::ServerSocket ( uint port , uint backlog )
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-ServerSocket::~ServerSocket () 
-	throw ( Error )
+ServerSocket::~ServerSocket ()
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -63,7 +63,7 @@ ServerSocket::~ServerSocket ()
 // close socket
 //////////////////////////////////////////////////////////////////////
 void ServerSocket::close ()
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -75,8 +75,8 @@ void ServerSocket::close ()
 //////////////////////////////////////////////////////////////////////
 // accept new connection
 //////////////////////////////////////////////////////////////////////
-Socket * ServerSocket::accept () 
-	throw ( Error )
+Socket * ServerSocket::accept ()
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		

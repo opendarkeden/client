@@ -25,7 +25,7 @@
 //
 // *Reiot's Note*
 //
-// ¹öÆÛ Å©±â¸¦ ÁöÁ¤ÇÏ·Á¸é, connect() Àü¿¡ ÁöÁ¤ÇØ¾ß ÇÑ´Ù.
+// ë²„í¼ í¬ê¸°ë¥¼ ì§€ì •í•˜ë ¤ë©´, connect() ì „ì— ì§€ì •í•´ì•¼ í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -42,7 +42,7 @@ public :
 	Socket ( SocketImpl * impl ) throw ();
 	
 	// destructor
-	virtual ~Socket () throw ( Error );
+	virtual ~Socket () throw ( ProtocolException , Error );
 
 	
 //////////////////////////////////////////////////
@@ -51,7 +51,7 @@ public :
 public :
 	
 	// close connection
-	void close () throw ( Error ) { m_pSocketImpl->close(); }
+	void close () throw ( ProtocolException , Error ) { m_pSocketImpl->close(); }
 	
 	// try connect to remote host
 	void connect () throw ( ConnectException , Error ) { m_pSocketImpl->connect(); }
@@ -67,7 +67,7 @@ public :
 	uint receive ( void * buf , uint len , uint flags = 0 ) throw ( IOException , Error ) { return m_pSocketImpl->receive(buf,len,flags); }
 	
 	//
-	uint available () const throw ( Error ) { return m_pSocketImpl->available(); }
+	uint available () const throw ( ProtocolException , Error ) { return m_pSocketImpl->available(); }
 
 
 //////////////////////////////////////////////////
@@ -76,20 +76,20 @@ public :
 public :
  
     // get/set socket's linger status
-    uint getLinger () const throw ( Error ) { return m_pSocketImpl->getLinger(); }
-    void setLinger ( uint lingertime ) throw ( Error ) { m_pSocketImpl->setLinger(lingertime); }
+    uint getLinger () const throw ( ProtocolException , Error ) { return m_pSocketImpl->getLinger(); }
+    void setLinger ( uint lingertime ) throw ( ProtocolException , Error ) { m_pSocketImpl->setLinger(lingertime); }
  
     // get/set socket's nonblocking status
-    bool isNonBlocking () const throw ( Error ) { return m_pSocketImpl->isNonBlocking(); }
-    void setNonBlocking ( bool on = true ) throw ( Error ) { m_pSocketImpl->setNonBlocking(on); }
+    bool isNonBlocking () const throw ( ProtocolException , Error ) { return m_pSocketImpl->isNonBlocking(); }
+    void setNonBlocking ( bool on = true ) throw ( ProtocolException , Error ) { m_pSocketImpl->setNonBlocking(on); }
  
     // get/set receive buffer size
-    uint getReceiveBufferSize () const throw ( Error ) { return m_pSocketImpl->getReceiveBufferSize(); }
-    void setReceiveBufferSize ( uint size ) throw ( Error ) { m_pSocketImpl->setReceiveBufferSize(size); }
+    uint getReceiveBufferSize () const throw ( ProtocolException , Error ) { return m_pSocketImpl->getReceiveBufferSize(); }
+    void setReceiveBufferSize ( uint size ) throw ( ProtocolException , Error ) { m_pSocketImpl->setReceiveBufferSize(size); }
  
     // get/set send buffer size
-    uint getSendBufferSize () const throw ( Error ) { return m_pSocketImpl->getSendBufferSize(); }
-    void setSendBufferSize ( uint size ) throw ( Error ) { m_pSocketImpl->setSendBufferSize(size); }
+    uint getSendBufferSize () const throw ( ProtocolException , Error ) { return m_pSocketImpl->getSendBufferSize(); }
+    void setSendBufferSize ( uint size ) throw ( ProtocolException , Error ) { m_pSocketImpl->setSendBufferSize(size); }
  
 	// get host & port
 	std::string getHost () const throw () { return m_pSocketImpl->getHost(); }

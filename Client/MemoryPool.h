@@ -6,13 +6,13 @@ file ext:	h
 author:		sonee
 
 purpose:	memory pool
-			°íÁ¤µÈ Å©±â¸¦ ºó¹øÇÏ°Ô new/delete ÇÏ´Â °æ¿ì ¸Þ¸ð¸® Ç®À» »ç¿ëÇÏ¸é
-			¸Þ¸ð¸® ´ÜÆíÈ­¸¦ ÁÙÀÏ ¼ö ÀÖ´Ù.
+			ê³ ì •ëœ í¬ê¸°ë¥¼ ë¹ˆë²ˆí•˜ê²Œ new/delete í•˜ëŠ” ê²½ìš° ë©”ëª¨ë¦¬ í’€ì„ ì‚¬ìš©í•˜ë©´
+			ë©”ëª¨ë¦¬ ë‹¨íŽ¸í™”ë¥¼ ì¤„ì¼ ìˆ˜ ìžˆë‹¤.
 
-			¸Þ¸ð¸® leak Çö»óÀ» ¸·À» ¼ö ÀÖ´Ù.
+			ë©”ëª¨ë¦¬ leak í˜„ìƒì„ ë§‰ì„ ìˆ˜ ìžˆë‹¤.
 
-			Debug ¸ðµåÀÎ °æ¿ì¿¡´Â ¸Þ¸ð¸®°¡ MEMORY_POOL_GARBAGE °ªÀ¸·Î
-			Ã¤¿öÁø´Ù.
+			Debug ëª¨ë“œì¸ ê²½ìš°ì—ëŠ” ë©”ëª¨ë¦¬ê°€ MEMORY_POOL_GARBAGE ê°’ìœ¼ë¡œ
+			ì±„ì›Œì§„ë‹¤.
 *********************************************************************/
 
 #pragma		once
@@ -26,8 +26,8 @@ public :
 	void*					Alloc();
 	void					Free( void *pMem );
 
-	bool					IsPtrInPool( void *pMem );				// MemoryPool¿¡ ÇØ´ç Ptr ÀÌ ÀÖ´Â°¡.
-	bool					IsAvailablePtr( void *pMem );			// ÇØ´ç Æ÷ÀÎÅÍÀÇ À¯È¿¼º
+	bool					IsPtrInPool( void *pMem );				// MemoryPoolì— í•´ë‹¹ Ptr ì´ ìžˆëŠ”ê°€.
+	bool					IsAvailablePtr( void *pMem );			// í•´ë‹¹ í¬ì¸í„°ì˜ ìœ íš¨ì„±
 
 private :
 	class CBlock
@@ -38,7 +38,7 @@ private :
 		unsigned char		*m_pNextBlock;
 	};
 
-	class CFreeBlock												// Free µÈ °ªÀº ´ÜÁö Æ÷ÀÎÅÍ¸¸ ÇÊ¿äÇÏ¹Ç·Î.
+	class CFreeBlock												// Free ëœ ê°’ì€ ë‹¨ì§€ í¬ì¸í„°ë§Œ í•„ìš”í•˜ë¯€ë¡œ.
 	{
 	public :
 		CFreeBlock			*m_pPrev;

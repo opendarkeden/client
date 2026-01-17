@@ -1,12 +1,12 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GCPartyInviteHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "Client_PCH.h"
 #include "GCPartyInvite.h"
-#include "CPackets\CGPartyInvite.h"
+#include "CPackets/CGPartyInvite.h"
 #include "ClientPlayer.h"
 #include "MGameStringTable.h"
 #include "UIDialog.h"
@@ -18,7 +18,9 @@
 extern CMessageArray*		g_pGameMessage;
 
 void GCPartyInviteHandler::execute (GCPartyInvite * pPacket , Player * pPlayer)
-	 throw (ProtocolException , Error)
+	 
+
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	
@@ -49,12 +51,12 @@ void GCPartyInviteHandler::execute (GCPartyInvite * pPacket , Player * pPlayer)
 	{
 		//--------------------------------------------------------------------
 		//
-		// ´©°¡ ³ª¸¦ ÃÊ´ëÇÑ´Ù.
+		// ëˆ„ê°€ ë‚˜ë¥¼ ì´ˆëŒ€í•œë‹¤.
 		//
 		//--------------------------------------------------------------------
 		case GC_PARTY_INVITE_REQUEST :
 			//----------------------------------------------------------------------
-			// ÀÌ¹Ì ³»°¡ ´Ù¸¥ ´©±¸ÇÑÅ× °Å·¡ÇÏÀÚ°í ÇÑ °æ¿ì 
+			// ì´ë¯¸ ë‚´ê°€ ë‹¤ë¥¸ ëˆ„êµ¬í•œí…Œ ê±°ëž˜í•˜ìžê³  í•œ ê²½ìš° 
 			//----------------------------------------------------------------------
 			if (g_pPlayer->GetWaitVerify()==MPlayer::WAIT_VERIFY_PARTY
 				&& g_pTempInformation->GetMode()==TempInformation::MODE_PARTY_REQUEST)
@@ -62,7 +64,7 @@ void GCPartyInviteHandler::execute (GCPartyInvite * pPacket , Player * pPlayer)
 				int code;
 
 				//----------------------------------------------------------------------
-				// ±× »ç¶÷ÀÌ ³ªÇÑÅ× ÆÄÆ¼ ½ÅÃ»ÇÑ °æ¿ì --> OK
+				// ê·¸ ì‚¬ëžŒì´ ë‚˜í•œí…Œ íŒŒí‹° ì‹ ì²­í•œ ê²½ìš° --> OK
 				//----------------------------------------------------------------------
 				if (g_pTempInformation->Value1==targetID)
 				{
@@ -71,10 +73,10 @@ void GCPartyInviteHandler::execute (GCPartyInvite * pPacket , Player * pPlayer)
 					g_pTempInformation->SetMode(TempInformation::MODE_NULL);
 
 					//-------------------------------------------
-					// ÆÄÆ¼ ¼º°ø
+					// íŒŒí‹° ì„±ê³µ
 					//-------------------------------------------
 					// UI_RunParty();
-					// ÆÄÆ¼ ¼º°ø ÆÐÅ¶À» ±â´Ù¸°´Ù.
+					// íŒŒí‹° ì„±ê³µ íŒ¨í‚·ì„ ê¸°ë‹¤ë¦°ë‹¤.
 					UI_ClosePartyCancel();
 
 					bJoinedSomeone = true;
@@ -84,7 +86,7 @@ void GCPartyInviteHandler::execute (GCPartyInvite * pPacket , Player * pPlayer)
 					//2004, 5, 6 sobeit add end
 				}
 				//----------------------------------------------------------------------
-				// ¾Æ´Ñ °æ¿ì
+				// ì•„ë‹Œ ê²½ìš°
 				//----------------------------------------------------------------------
 				else
 				{
@@ -99,22 +101,22 @@ void GCPartyInviteHandler::execute (GCPartyInvite * pPacket , Player * pPlayer)
 
 			}
 			//----------------------------------------------------------------------
-			// ÆÄÆ¼ÇÒ±î? Y/N
+			// íŒŒí‹°í• ê¹Œ? Y/N
 			//----------------------------------------------------------------------
 			else
 			{
 				//-------------------------------------------
-				// ÆÄÆ¼¿¡ µé¾î¿À³²?
+				// íŒŒí‹°ì— ë“¤ì–´ì˜¤ë‚¨?
 				//-------------------------------------------
-				if (g_pPlayer->IsWaitVerify() && g_pPlayer->GetWaitVerify()!=MPlayer::WAIT_VERIFY_PARTY			// °ËÁõ ¹Þ¾Æ¾ß ÇÏ´Â°Ô ÀÖ´Â °æ¿ì
-					//|| g_pPlayer->IsRepeatAction()		// ¹Ýº¹ Çàµ¿ ÁßÀÎ °æ¿ì
-					|| g_pUIDialog->IsLockInput()		// NPC¶û ´ëÈ­Áß..
-					|| g_pPlayer->GetCreatureType()==CREATURETYPE_BAT	// ¹ÚÁãÀÎ °æ¿ì
-					|| g_pPlayer->GetCreatureType()==CREATURETYPE_WOLF	// ´Á´ëÀÎ °æ¿ì
+				if (g_pPlayer->IsWaitVerify() && g_pPlayer->GetWaitVerify()!=MPlayer::WAIT_VERIFY_PARTY			// ê²€ì¦ ë°›ì•„ì•¼ í•˜ëŠ”ê²Œ ìžˆëŠ” ê²½ìš°
+					//|| g_pPlayer->IsRepeatAction()		// ë°˜ë³µ í–‰ë™ ì¤‘ì¸ ê²½ìš°
+					|| g_pUIDialog->IsLockInput()		// NPCëž‘ ëŒ€í™”ì¤‘..
+					|| g_pPlayer->GetCreatureType()==CREATURETYPE_BAT	// ë°•ì¥ì¸ ê²½ìš°
+					|| g_pPlayer->GetCreatureType()==CREATURETYPE_WOLF	// ëŠ‘ëŒ€ì¸ ê²½ìš°
 					|| !g_pParty->IsAcceptInvite()
 					)
 				{
-					// ÆÄÆ¼ °ÅºÎ
+					// íŒŒí‹° ê±°ë¶€
 					CGPartyInvite _CGPartyInvite;
 					_CGPartyInvite.setTargetObjectID( targetID );
 					_CGPartyInvite.setCode( CG_PARTY_INVITE_REJECT );
@@ -130,7 +132,7 @@ void GCPartyInviteHandler::execute (GCPartyInvite * pPacket , Player * pPlayer)
 
 		//--------------------------------------------------------------------
 		//
-		// ³ª¸¦ ÃÊ´ëÇÒ·Á´ø ¾Ö°¡ ÃÊ´ë¸¦ Ãë¼ÒÇß´Ù.
+		// ë‚˜ë¥¼ ì´ˆëŒ€í• ë ¤ë˜ ì• ê°€ ì´ˆëŒ€ë¥¼ ì·¨ì†Œí–ˆë‹¤.
 		//
 		//--------------------------------------------------------------------
 		case GC_PARTY_INVITE_CANCEL :
@@ -145,12 +147,12 @@ void GCPartyInviteHandler::execute (GCPartyInvite * pPacket , Player * pPlayer)
 
 		//--------------------------------------------------------------------
 		//
-		// ³»°¡ ÃÊ´ëÇÑ ¾Ö°¡ ÆÄÆ¼¿¡ µé¾î¿Ô´Ù.
+		// ë‚´ê°€ ì´ˆëŒ€í•œ ì• ê°€ íŒŒí‹°ì— ë“¤ì–´ì™”ë‹¤.
 		//
 		//--------------------------------------------------------------------
 		case GC_PARTY_INVITE_ACCEPT :
 			//----------------------------------------------------------------------
-			// ÀÌ¹Ì ³»°¡ ´Ù¸¥ ´©±¸ÇÑÅ× ÆÄÆ¼ÇÏÀÚ°í ÇÑ °æ¿ì 
+			// ì´ë¯¸ ë‚´ê°€ ë‹¤ë¥¸ ëˆ„êµ¬í•œí…Œ íŒŒí‹°í•˜ìžê³  í•œ ê²½ìš° 
 			//----------------------------------------------------------------------
 			if (g_pPlayer->GetWaitVerify()==MPlayer::WAIT_VERIFY_PARTY
 				&& g_pTempInformation->GetMode()==TempInformation::MODE_PARTY_REQUEST)
@@ -169,7 +171,7 @@ void GCPartyInviteHandler::execute (GCPartyInvite * pPacket , Player * pPlayer)
 
 		//--------------------------------------------------------------------
 		//
-		// ³»°¡ ÃÊ´ëÇÑ ¾Ö°¡ ÆÄÆ¼¿¡ µé¾î¿À±æ °ÅºÎÇß´Ù.
+		// ë‚´ê°€ ì´ˆëŒ€í•œ ì• ê°€ íŒŒí‹°ì— ë“¤ì–´ì˜¤ê¸¸ ê±°ë¶€í–ˆë‹¤.
 		//
 		//--------------------------------------------------------------------
 		case GC_PARTY_INVITE_REJECT :
@@ -180,7 +182,7 @@ void GCPartyInviteHandler::execute (GCPartyInvite * pPacket , Player * pPlayer)
 
 		//--------------------------------------------------------------------
 		//
-		// ³»°¡ ÃÊ´ëÇÑ ¾Ö°¡ ÀÌ¹Ì ´Ù¸¥ »ç¶÷ÀÇ ÃÊ´ë¿¡ ÀÀ´äÇÏ´Â ÁßÀÌ´Ù.
+		// ë‚´ê°€ ì´ˆëŒ€í•œ ì• ê°€ ì´ë¯¸ ë‹¤ë¥¸ ì‚¬ëžŒì˜ ì´ˆëŒ€ì— ì‘ë‹µí•˜ëŠ” ì¤‘ì´ë‹¤.
 		//
 		//--------------------------------------------------------------------
 		case GC_PARTY_INVITE_BUSY :
@@ -191,7 +193,7 @@ void GCPartyInviteHandler::execute (GCPartyInvite * pPacket , Player * pPlayer)
 
 		//--------------------------------------------------------------------
 		//
-		// ³»°¡ ÃÊ´ëÇÑ ¾Ö°¡ ÀÌ¹Ì ´Ù¸¥ ÆÄÆ¼¿¡ ¼ÓÇØÀÖ´Ù.
+		// ë‚´ê°€ ì´ˆëŒ€í•œ ì• ê°€ ì´ë¯¸ ë‹¤ë¥¸ íŒŒí‹°ì— ì†í•´ìžˆë‹¤.
 		//
 		//--------------------------------------------------------------------
 		case GC_PARTY_INVITE_ANOTHER_PARTY :
@@ -200,7 +202,7 @@ void GCPartyInviteHandler::execute (GCPartyInvite * pPacket , Player * pPlayer)
 			
 			if ( pCreature!=NULL )
 			{
-				// playerÀÇ ÆÄÆ¼°¡ ¾Æ´Ñ °æ¿ì¿¡¸¸ ¸Þ½ÃÁö¸¦ Ãâ·ÂÇØÁØ´Ù.
+				// playerì˜ íŒŒí‹°ê°€ ì•„ë‹Œ ê²½ìš°ì—ë§Œ ë©”ì‹œì§€ë¥¼ ì¶œë ¥í•´ì¤€ë‹¤.
 				if (pCreature->IsPlayerParty())
 				{
 					bCancelAll = true;
@@ -218,7 +220,7 @@ void GCPartyInviteHandler::execute (GCPartyInvite * pPacket , Player * pPlayer)
 
 		//--------------------------------------------------------------------
 		//
-		// ²Ë Ã¡´ç.
+		// ê½‰ ì°¼ë‹¹.
 		// 
 		//--------------------------------------------------------------------
 		case GC_PARTY_INVITE_MEMBER_FULL :
@@ -229,7 +231,7 @@ void GCPartyInviteHandler::execute (GCPartyInvite * pPacket , Player * pPlayer)
 	}
 
 	//-------------------------------------------
-	// ÆÄÆ¼ È®ÀÎ
+	// íŒŒí‹° í™•ì¸
 	//-------------------------------------------
 	if (bJoinedSomeone)
 	{
@@ -242,19 +244,19 @@ void GCPartyInviteHandler::execute (GCPartyInvite * pPacket , Player * pPlayer)
 	}
 
 	//--------------------------------------------------------------------
-	// ´Ù ´Ý°í message ¶ç¿ì´Â °æ¿ì
+	// ë‹¤ ë‹«ê³  message ë„ìš°ëŠ” ê²½ìš°
 	//--------------------------------------------------------------------
 	if (bCancelAll)
 	{
 		if (g_pPlayer->GetWaitVerify()==MPlayer::WAIT_VERIFY_PARTY
 			&& g_pTempInformation->GetMode()==TempInformation::MODE_PARTY_REQUEST)
 		{			
-			// °ËÁõ¿ë dataÁ¦°Å
+			// ê²€ì¦ìš© dataì œê±°
 			g_pPlayer->SetWaitVerifyNULL();
 			g_pTempInformation->SetMode(TempInformation::MODE_NULL);
 		}
 
-		// ÆÄÆ¼Ãë¼ÒÇÒ·¡?¸¦ ´Ý´Â´Ù.
+		// íŒŒí‹°ì·¨ì†Œí• ëž˜?ë¥¼ ë‹«ëŠ”ë‹¤.
 		UI_ClosePartyCancel();
 
 		UI_ClosePartyAsk();

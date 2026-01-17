@@ -85,7 +85,7 @@ public:
 class GCKnockBackHandler 
 {
 public:
-	static void execute(GCKnockBack* pGCKnockBack, Player* pPlayer) throw(Error);
+	static void execute(GCKnockBack* pGCKnockBack, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

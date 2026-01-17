@@ -30,7 +30,7 @@ MAttachCreatureOrbitEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInf
 
 	MCreature* pCreature = g_pZone->GetCreature( egInfo.creatureID );
 
-	// Creature°¡ »ç¶óÁ³À» °æ¿ì..
+	// Creatureê°€ ì‚¬ë¼ì¡Œì„ ê²½ìš°..
 	if (pCreature == NULL)
 	{	
 		pCreature = g_pZone->GetFakeCreature( egInfo.creatureID );
@@ -65,7 +65,7 @@ MAttachCreatureOrbitEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInf
 			pCreature->ClearAttachEffect();
 	}
 
-	// Creature¿¡°Ô ºÙÀÌ´Â Effect¸¦ »ý¼ºÇØ¼­ pointer¸¦ ³Ñ°Ü¹Þ´Â´Ù.
+	// Creatureì—ê²Œ ë¶™ì´ëŠ” Effectë¥¼ ìƒì„±í•´ì„œ pointerë¥¼ ë„˜ê²¨ë°›ëŠ”ë‹¤.
 	MAttachOrbitEffect* pEffect = (MAttachOrbitEffect*)pCreature->CreateAttachEffect( egInfo.effectSpriteType, 
 															egInfo.count, 
 															egInfo.linkCount,
@@ -83,10 +83,10 @@ MAttachCreatureOrbitEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInf
 
 	pEffect->SetLink( egInfo.nActionInfo, egInfo.pEffectTarget );
 
-	// ºÙ¾î¾ß ÇÏ´Â Ä³¸¯ÅÍ
+	// ë¶™ì–´ì•¼ í•˜ëŠ” ìºë¦­í„°
 	//pEffect->SetAttachCreatureID( creatureID );		
 
-	// À§·Â
+	// ìœ„ë ¥
 	pEffect->SetPower(egInfo.power);
 	pEffect->m_OrbitStep = effectPosition;
 	if(egInfo.effectSpriteType == EFFECTSPRITETYPE_SUMMON_FIRE_ELEMENTAL_ATTACK 
@@ -96,7 +96,7 @@ MAttachCreatureOrbitEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInf
 	}
 
 
-	// ºûÀÇ ¹à±â
+	// ë¹›ì˜ ë°ê¸°
 	//pEffect->SetLight( light );
 	
 	return true;

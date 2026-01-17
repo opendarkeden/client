@@ -73,7 +73,7 @@ public:
 class GCNicknameListHandler 
 {
 public:
-	static void execute(GCNicknameList* pGCNicknameList, Player* pPlayer) throw(Error);
+	static void execute(GCNicknameList* pGCNicknameList, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

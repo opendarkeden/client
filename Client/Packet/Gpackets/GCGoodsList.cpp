@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GCGoodsList.cpp 
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description : 
 //////////////////////////////////////////////////////////////////////////////
 #include "Client_PCH.h"
@@ -60,7 +60,7 @@ GCGoodsList::~GCGoodsList()
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void GCGoodsList::read ( SocketInputStream & iStream ) 
 	 throw ( ProtocolException , Error )
@@ -69,7 +69,7 @@ void GCGoodsList::read ( SocketInputStream & iStream )
 
 	BYTE totalNum;
 	iStream.read( totalNum );
-	if ( totalNum > MAX_GOODS_LIST ) throw DisconnectException("GCGoodsList : ¹°°Ç °³¼ö°¡ Á¦ÇÑÀ» ÃÊ°úÇß½À´Ï´Ù.");
+	if ( totalNum > MAX_GOODS_LIST ) throw DisconnectException("GCGoodsList : ë¬¼ê±´ ê°œìˆ˜ê°€ ì œí•œì„ ì´ˆê³¼í–ˆìŠµë‹ˆë‹¤.");
 
 	for ( int i=0; i < totalNum ; ++i )
 	{
@@ -103,7 +103,7 @@ void GCGoodsList::read ( SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void GCGoodsList::write ( SocketOutputStream & oStream ) const 
      throw ( ProtocolException , Error )
@@ -112,7 +112,7 @@ void GCGoodsList::write ( SocketOutputStream & oStream ) const
 	__BEGIN_DEBUG
 		
 	BYTE totalNum = m_GoodsList.size();
-	if ( totalNum > MAX_GOODS_LIST ) throw DisconnectException("GCGoodsList : ¾ÆÀÌÅÛ °³¼ö°¡ Æ²·Á¸Ô¾ú½À´Ï´Ù.");
+	if ( totalNum > MAX_GOODS_LIST ) throw DisconnectException("GCGoodsList : ì•„ì´í…œ ê°œìˆ˜ê°€ í‹€ë ¤ë¨¹ì—ˆìŠµë‹ˆë‹¤.");
 
 	oStream.write( totalNum );
 	

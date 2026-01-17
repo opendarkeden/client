@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 //
 // Filename    : GCTradeVerifyHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //
 //////////////////////////////////////////////////////////////////////
@@ -18,21 +18,23 @@
 #ifdef __GAME_CLIENT__
 
 	#include "ClientPlayer.h"
-	#include "Cpackets\CGTradeAddItem.h"
-	#include "Cpackets\CGTradeFinish.h"
+	#include "Cpackets/CGTradeAddItem.h"
+	#include "Cpackets/CGTradeFinish.h"
 	#include "cpackets/CGTradeRemoveItem.h"
 
 #endif
 
 void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	
 #ifdef __GAME_CLIENT__
 
 	//------------------------------------------------------------------------
-	// TradeManager°¡ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì --> -_-;;
+	// TradeManagerê°€ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš° --> -_-;;
 	//------------------------------------------------------------------------
 	if (g_pTradeManager==NULL)
 	{
@@ -47,13 +49,13 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 	{
 		//----------------------------------------------------------------------
 		//
-		// GCTradeAddItemÀ» °ËÁõ ¹Þ¾Æ¾ß ÇÏ´Â °æ¿ì¿¡.. OK
+		// GCTradeAddItemì„ ê²€ì¦ ë°›ì•„ì•¼ í•˜ëŠ” ê²½ìš°ì—.. OK
 		//
 		//----------------------------------------------------------------------
 		case GC_TRADE_VERIFY_CODE_ADD_ITEM_OK :
 			if (g_pTempInformation->GetMode()==TempInformation::MODE_TRADE_VERIFY_ADD_ITEM)
 			{
-				// g_pPlayer->ItemCheckBufferµµ °ËÁõÇØ¾ßµÇ´Âµ¥..»ý·«.. - -;
+				// g_pPlayer->ItemCheckBufferë„ ê²€ì¦í•´ì•¼ë˜ëŠ”ë°..ìƒëžµ.. - -;
 				g_pPlayer->ClearItemCheckBuffer();
 
 				g_pTempInformation->SetMode(TempInformation::MODE_NULL);
@@ -63,7 +65,7 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 				pItem->SetTrade();
 
 				//-----------------------------------------------------------
-				// ¹º°¡ ¹Ù²ï´Ù¸é... OKÃë¼Ò
+				// ë­”ê°€ ë°”ë€ë‹¤ë©´... OKì·¨ì†Œ
 				//-----------------------------------------------------------
 				g_pTradeManager->RefuseOtherTrade();
 				g_pTradeManager->RefuseMyTrade();
@@ -72,7 +74,7 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 
 		//----------------------------------------------------------------------
 		//
-		// GCTradeAddItemÀ» °ËÁõ ¹Þ¾Æ¾ß ÇÏ´Â °æ¿ì¿¡.. Fail
+		// GCTradeAddItemì„ ê²€ì¦ ë°›ì•„ì•¼ í•˜ëŠ” ê²½ìš°ì—.. Fail
 		//
 		//----------------------------------------------------------------------
 		case GC_TRADE_VERIFY_CODE_ADD_ITEM_FAIL :
@@ -86,14 +88,14 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 
 		//----------------------------------------------------------------------
 		//
-		//		±³È¯ ´ë»óÀ¸·Î ¾ÆÀÌÅÛÀ» Ãß°¡ÇÏ´Â °ÍÀ» ÀÎÁõ
+		//		êµí™˜ ëŒ€ìƒìœ¼ë¡œ ì•„ì´í…œì„ ì¶”ê°€í•˜ëŠ” ê²ƒì„ ì¸ì¦
 		//
 		//----------------------------------------------------------------------
 		case GC_TRADE_VERIFY_CODE_ADD_ITEM_WHEN_ACCEPT :
 			
 			if (g_pTempInformation->GetMode()==TempInformation::MODE_TRADE_VERIFY_ADD_ITEM)
 			{
-				// g_pPlayer->ItemCheckBufferµµ °ËÁõÇØ¾ßµÇ´Âµ¥..»ý·«.. - -;
+				// g_pPlayer->ItemCheckBufferë„ ê²€ì¦í•´ì•¼ë˜ëŠ”ë°..ìƒëžµ.. - -;
 				g_pPlayer->ClearItemCheckBuffer();
 
 				g_pTempInformation->SetMode(TempInformation::MODE_NULL);
@@ -101,12 +103,12 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 				MItem* pItem	= (MItem*)g_pTempInformation->pValue;
 				
 				//-----------------------------------------------------------
-				// Ãß°¡ È®ÀÎ
+				// ì¶”ê°€ í™•ì¸
 				//-----------------------------------------------------------
 				pItem->SetTrade();
 
 				//-----------------------------------------------------------
-				// ¹º°¡ ¹Ù²ï´Ù¸é... OKÃë¼Ò
+				// ë­”ê°€ ë°”ë€ë‹¤ë©´... OKì·¨ì†Œ
 				//-----------------------------------------------------------
 				g_pTradeManager->RefuseOtherTrade();
 				g_pTradeManager->RefuseMyTrade();				
@@ -119,7 +121,7 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 
 		//----------------------------------------------------------------------
 		//
-		//			±³È¯ ´ë»ó¿¡¼­ ¾ÆÀÌÅÛÀ» Á¦°ÅÇÏ´Â °ÍÀ» ÀÎÁõ
+		//			êµí™˜ ëŒ€ìƒì—ì„œ ì•„ì´í…œì„ ì œê±°í•˜ëŠ” ê²ƒì„ ì¸ì¦
 		//
 		//----------------------------------------------------------------------
 		case GC_TRADE_VERIFY_CODE_REMOVE_ITEM :
@@ -143,7 +145,7 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 			//----------------------------------------------------------------------
 			if (g_pTempInformation->GetMode()==TempInformation::MODE_TRADE_VERIFY_REMOVE_ITEM)
 			{
-				// g_pPlayer->ItemCheckBufferµµ °ËÁõÇØ¾ßµÇ´Âµ¥..»ý·«.. - -;
+				// g_pPlayer->ItemCheckBufferë„ ê²€ì¦í•´ì•¼ë˜ëŠ”ë°..ìƒëžµ.. - -;
 				g_pPlayer->ClearItemCheckBuffer();
 
 				g_pTempInformation->SetMode(TempInformation::MODE_NULL);
@@ -151,22 +153,22 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 				MItem* pItem	= (MItem*)g_pTempInformation->pValue;
 				
 				//-----------------------------------------------------------
-				// ¼±ÅÃµÇ¾î ÀÖ´ø ¾ÆÀÌÅÛ --> Ãë¼Ò
+				// ì„ íƒë˜ì–´ ìžˆë˜ ì•„ì´í…œ --> ì·¨ì†Œ
 				//-----------------------------------------------------------
 				pItem->UnSetTrade();
 
 				//-----------------------------------------------------------
-				// ¹º°¡ ¹Ù²ï´Ù¸é... OKÃë¼Ò
+				// ë­”ê°€ ë°”ë€ë‹¤ë©´... OKì·¨ì†Œ
 				//-----------------------------------------------------------
 				g_pTradeManager->RefuseOtherTrade();
 				g_pTradeManager->RefuseMyTrade();				
 			}
 			//----------------------------------------------------------------------
-			// inventory --> mouse ÀÇ °ËÁõ
+			// inventory --> mouse ì˜ ê²€ì¦
 			//----------------------------------------------------------------------
 			else if (g_pTempInformation->GetMode()==TempInformation::MODE_TRADE_VERIFY_PICKUP_FROM_INVENTORY)
 			{
-				// g_pPlayer->ItemCheckBufferµµ °ËÁõÇØ¾ßµÇ´Âµ¥..»ý·«.. - -;
+				// g_pPlayer->ItemCheckBufferë„ ê²€ì¦í•´ì•¼ë˜ëŠ”ë°..ìƒëžµ.. - -;
 				g_pPlayer->ClearItemCheckBuffer();
 
 				g_pTempInformation->SetMode(TempInformation::MODE_NULL);
@@ -180,14 +182,14 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 				g_pTradeManager->GetMyInventory()->RemoveItem( gridX, gridY );
 
 				//----------------------------------------------------------------
-				// OK Ãë¼Ò
+				// OK ì·¨ì†Œ
 				//----------------------------------------------------------------				
 				g_pTradeManager->RefuseMyTrade();
 				g_pTradeManager->RefuseOtherTrade();
 
 				//----------------------------------------------------------------
-				// ±³È¯¿¡¼­ ¼±ÅÃµÈ ¾ÆÀÌÅÛÀÌ¸é ÀÚµ¿À¸·Î OK°¡ Ãë¼ÒµÇÁö¸¸
-				// ¾Æ´Ñ ¾ÆÀÌÅÛÀº.. ¼öµ¿À¸·Î OK¹öÆ°À» Ãë¼ÒÇÏ´Â packetÀ» º¸³»¾ß ÇÑ´Ù.
+				// êµí™˜ì—ì„œ ì„ íƒëœ ì•„ì´í…œì´ë©´ ìžë™ìœ¼ë¡œ OKê°€ ì·¨ì†Œë˜ì§€ë§Œ
+				// ì•„ë‹Œ ì•„ì´í…œì€.. ìˆ˜ë™ìœ¼ë¡œ OKë²„íŠ¼ì„ ì·¨ì†Œí•˜ëŠ” packetì„ ë³´ë‚´ì•¼ í•œë‹¤.
 				//----------------------------------------------------------------
 				if (!pItem->IsTrade())
 				{
@@ -200,38 +202,38 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 				}			
 			}
 			//----------------------------------------------------------------
-			// ±×³É item ³õÀ» ¶§
+			// ê·¸ëƒ¥ item ë†“ì„ ë•Œ
 			//----------------------------------------------------------------
 			else if (g_pTempInformation->GetMode()==TempInformation::MODE_TRADE_VERIFY_DROP_TO_INVENTORY)
 			{
-				// g_pPlayer->ItemCheckBufferµµ °ËÁõÇØ¾ßµÇ´Âµ¥..»ý·«.. - -;
+				// g_pPlayer->ItemCheckBufferë„ ê²€ì¦í•´ì•¼ë˜ëŠ”ë°..ìƒëžµ.. - -;
 				g_pPlayer->ClearItemCheckBuffer();
 
 				g_pTempInformation->SetMode(TempInformation::MODE_NULL);
 
-				// pItemÀº ¿ø·¡ µé°í ÀÖ´ø item
+				// pItemì€ ì›ëž˜ ë“¤ê³  ìžˆë˜ item
 				MItem* pItem	= (MItem*)g_pTempInformation->pValue;
 				int gridX		= g_pTempInformation->Value2;
 				int gridY		= g_pTempInformation->Value3;
 				MItem* pMouseItem = UI_GetMouseItem();
 
-				// pItem == pMouseItemÀÌ´Ù.
+				// pItem == pMouseItemì´ë‹¤.
 				//----------------------------------------------------------------
-				// mouse¿¡ itemÀÌ ÀÖÀ» ¶§
+				// mouseì— itemì´ ìžˆì„ ë•Œ
 				//----------------------------------------------------------------
 				if (pMouseItem!=NULL)
 				{			
 					MItem* pOldItem = NULL;
 
 					//----------------------------------------------------------------
-					// inventory¿¡ Ãß°¡½ÃÅ²´Ù.
+					// inventoryì— ì¶”ê°€ì‹œí‚¨ë‹¤.
 					//----------------------------------------------------------------
 					if (g_pTradeManager->GetMyInventory()->ReplaceItem(
-															pMouseItem,		// Ãß°¡ÇÒ item
-															gridX, gridY,	// Ãß°¡ÇÒ À§Ä¡ 
-															pOldItem))								// ¿ø·¡ÀÖ´ø item
+															pMouseItem,		// ì¶”ê°€í•  item
+															gridX, gridY,	// ì¶”ê°€í•  ìœ„ì¹˜ 
+															pOldItem))								// ì›ëž˜ìžˆë˜ item
 					{
-						if (pOldItem != NULL) // replace µÇ¾ú´Â°¡?
+						if (pOldItem != NULL) // replace ë˜ì—ˆëŠ”ê°€?
 						{
 							UI_PickUpItem( pOldItem );						
 						}
@@ -242,7 +244,7 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 					}
 
 					//---------------------------------------------------
-					// ³õÀº ¾ÆÀÌÅÛÀÌ ±³È¯ÇÒ·Á°í ¼±ÅÃµÈ °ÍÀÎ °æ¿ì
+					// ë†“ì€ ì•„ì´í…œì´ êµí™˜í• ë ¤ê³  ì„ íƒëœ ê²ƒì¸ ê²½ìš°
 					//---------------------------------------------------
 					if (pMouseItem->IsTrade())
 					{
@@ -256,18 +258,18 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 				}
 				else
 				{
-					// Äá°¡·ç
+					// ì½©ê°€ë£¨
 				}
 
 				//----------------------------------------------------------------
-				// OK Ãë¼Ò
+				// OK ì·¨ì†Œ
 				//----------------------------------------------------------------
 				g_pTradeManager->RefuseMyTrade();
 				g_pTradeManager->RefuseOtherTrade();
 
 				//----------------------------------------------------------------
-				// ±³È¯¿¡¼­ ¼±ÅÃµÈ ¾ÆÀÌÅÛÀÌ¸é ÀÚµ¿À¸·Î OK°¡ Ãë¼ÒµÇÁö¸¸
-				// ¾Æ´Ñ ¾ÆÀÌÅÛÀº.. ¼öµ¿À¸·Î OK¹öÆ°À» Ãë¼ÒÇÏ´Â packetÀ» º¸³»¾ß ÇÑ´Ù.
+				// êµí™˜ì—ì„œ ì„ íƒëœ ì•„ì´í…œì´ë©´ ìžë™ìœ¼ë¡œ OKê°€ ì·¨ì†Œë˜ì§€ë§Œ
+				// ì•„ë‹Œ ì•„ì´í…œì€.. ìˆ˜ë™ìœ¼ë¡œ OKë²„íŠ¼ì„ ì·¨ì†Œí•˜ëŠ” packetì„ ë³´ë‚´ì•¼ í•œë‹¤.
 				//----------------------------------------------------------------
 				if (pMouseItem!=NULL && !pMouseItem->IsTrade())
 				{
@@ -280,11 +282,11 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 				}
 			}
 			//----------------------------------------------------------------
-			// item¿¡ Ãß°¡µÉ¶§
+			// itemì— ì¶”ê°€ë ë•Œ
 			//----------------------------------------------------------------
 			else if (g_pTempInformation->GetMode()==TempInformation::MODE_TRADE_VERIFY_INSERT_TO_INVENTORY)				
 			{
-				// g_pPlayer->ItemCheckBufferµµ °ËÁõÇØ¾ßµÇ´Âµ¥..»ý·«.. - -;
+				// g_pPlayer->ItemCheckBufferë„ ê²€ì¦í•´ì•¼ë˜ëŠ”ë°..ìƒëžµ.. - -;
 				g_pPlayer->ClearItemCheckBuffer();
 
 				g_pTempInformation->SetMode(TempInformation::MODE_NULL);
@@ -295,18 +297,18 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 				MItem* pMouseItem = UI_GetMouseItem();
 
 				//----------------------------------------------------
-				// pMouseItemÀ» pItem¿¡ Ãß°¡½ÃÅ²´Ù.
+				// pMouseItemì„ pItemì— ì¶”ê°€ì‹œí‚¨ë‹¤.
 				//----------------------------------------------------
 				int total = pMouseItem->GetNumber() + pItem->GetNumber();
 				if ( total > pItem->GetMaxNumber() )
 				{
-					// ÇÑ°è ¼öÄ¡¸¦ ³Ñ¾î°¥ °æ¿ì
+					// í•œê³„ ìˆ˜ì¹˜ë¥¼ ë„˜ì–´ê°ˆ ê²½ìš°
 					pMouseItem->SetNumber( total - pItem->GetMaxNumber() );
 					pItem->SetNumber( pItem->GetMaxNumber() );
 				}
 				else
 				{
-					// ¸ðµÎ pItem¿¡ Ãß°¡µÉ ¼ö ÀÖ´Â °æ¿ì
+					// ëª¨ë‘ pItemì— ì¶”ê°€ë  ìˆ˜ ìžˆëŠ” ê²½ìš°
 					pItem->SetNumber( total );
 					UI_DropItem();
 
@@ -314,13 +316,13 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 				}
 
 				//----------------------------------------------------
-				// ±³È¯Áß¿¡ ¼±ÅÃµÈ ¾ÆÀÌÅÛÀÎ °æ¿ì
+				// êµí™˜ì¤‘ì— ì„ íƒëœ ì•„ì´í…œì¸ ê²½ìš°
 				//----------------------------------------------------
 				// Remove and Add - -;
 				if (pItem->IsTrade())
 				{
 						//----------------------------------------------------
-						// °³¼ö°¡ ¹Ù²¸¼­ Á¦°ÅÇß´Ù°¡..
+						// ê°œìˆ˜ê°€ ë°”ê»´ì„œ ì œê±°í–ˆë‹¤ê°€..
 						//----------------------------------------------------
 						CGTradeRemoveItem _CGTradeRemoveItem;
 						_CGTradeRemoveItem.setTargetObjectID( g_pTradeManager->GetOtherID() );
@@ -333,7 +335,7 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 						#endif
 						
 						//----------------------------------------------------
-						// ´Ù½Ã Ãß°¡
+						// ë‹¤ì‹œ ì¶”ê°€
 						//----------------------------------------------------
 						CGTradeAddItem _CGTradeAddItem;
 						_CGTradeAddItem.setTargetObjectID( g_pTradeManager->GetOtherID() );
@@ -345,8 +347,8 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 				else
 				{
 					//----------------------------------------------------------------
-					// ±³È¯¿¡¼­ ¼±ÅÃµÈ ¾ÆÀÌÅÛÀÌ¸é ÀÚµ¿À¸·Î OK°¡ Ãë¼ÒµÇÁö¸¸
-					// ¾Æ´Ñ ¾ÆÀÌÅÛÀº.. ¼öµ¿À¸·Î OK¹öÆ°À» Ãë¼ÒÇÏ´Â packetÀ» º¸³»¾ß ÇÑ´Ù.
+					// êµí™˜ì—ì„œ ì„ íƒëœ ì•„ì´í…œì´ë©´ ìžë™ìœ¼ë¡œ OKê°€ ì·¨ì†Œë˜ì§€ë§Œ
+					// ì•„ë‹Œ ì•„ì´í…œì€.. ìˆ˜ë™ìœ¼ë¡œ OKë²„íŠ¼ì„ ì·¨ì†Œí•˜ëŠ” packetì„ ë³´ë‚´ì•¼ í•œë‹¤.
 					//----------------------------------------------------------------					
 					CGTradeFinish _CGTradeFinish;
 					_CGTradeFinish.setTargetObjectID( g_pTradeManager->GetOtherID() );
@@ -359,7 +361,7 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 				PlaySound( pItem->GetInventorySoundID() );
 			}
 			//----------------------------------------------------------------
-			// Àß¸øµÈ mode
+			// ìž˜ëª»ëœ mode
 			//----------------------------------------------------------------
 			else
 			{
@@ -370,7 +372,7 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 
 		//----------------------------------------------------------------------
 		//
-		//			±³È¯ ´ë»ó¿¡¼­ µ·À» Ãß°¡ÇÏ´Â °ÍÀ» ÀÎÁõ
+		//			êµí™˜ ëŒ€ìƒì—ì„œ ëˆì„ ì¶”ê°€í•˜ëŠ” ê²ƒì„ ì¸ì¦
 		//
 		//----------------------------------------------------------------------
 		case GC_TRADE_VERIFY_CODE_MONEY_INCREASE :
@@ -390,7 +392,7 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 				//g_pTradeManager->GetMyMoneyManager()->AddMoney( money );
 
 				//-----------------------------------------------------------
-				// ¹º°¡ ¹Ù²ï´Ù¸é... OKÃë¼Ò
+				// ë­”ê°€ ë°”ë€ë‹¤ë©´... OKì·¨ì†Œ
 				//-----------------------------------------------------------
 				g_pTradeManager->RefuseOtherTrade();
 				g_pTradeManager->RefuseMyTrade();
@@ -403,7 +405,7 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 
 		//----------------------------------------------------------------------
 		//
-		//			±³È¯ ´ë»ó¿¡¼­ µ·À» Á¦°ÅÇÏ´Â °ÍÀ» ÀÎÁõ
+		//			êµí™˜ ëŒ€ìƒì—ì„œ ëˆì„ ì œê±°í•˜ëŠ” ê²ƒì„ ì¸ì¦
 		//
 		//----------------------------------------------------------------------
 		case GC_TRADE_VERIFY_CODE_MONEY_DECREASE:
@@ -418,7 +420,7 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 				//g_pMoneyManager->AddMoney( money );	
 
 				//-----------------------------------------------------------
-				// ¹º°¡ ¹Ù²ï´Ù¸é... OKÃë¼Ò
+				// ë­”ê°€ ë°”ë€ë‹¤ë©´... OKì·¨ì†Œ
 				//-----------------------------------------------------------
 				g_pTradeManager->RefuseOtherTrade();
 				g_pTradeManager->RefuseMyTrade();				
@@ -430,15 +432,15 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 		break;
 
 		//----------------------------------------------------------------------
-		// ±³È¯ ¼º¸³À» È®ÀÎÇÏ´Â °ÍÀ» ÀÎÁõ
+		// êµí™˜ ì„±ë¦½ì„ í™•ì¸í•˜ëŠ” ê²ƒì„ ì¸ì¦
 		//----------------------------------------------------------------------
 		case GC_TRADE_VERIFY_CODE_FINISH_ACCEPT:
-			// °ËÁõÀÌ ÇÊ¿ä¾ø´Ù.
+			// ê²€ì¦ì´ í•„ìš”ì—†ë‹¤.
 		break;
 
 		//----------------------------------------------------------------------
 		//
-		//				±³È¯ ¼º¸³À» Ãë¼ÒÇÏ´Â °ÍÀ» ÀÎÁõ
+		//				êµí™˜ ì„±ë¦½ì„ ì·¨ì†Œí•˜ëŠ” ê²ƒì„ ì¸ì¦
 		//
 		//----------------------------------------------------------------------
 		case GC_TRADE_VERIFY_CODE_FINISH_REJECT:
@@ -448,7 +450,7 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 				g_pTempInformation->SetMode(TempInformation::MODE_NULL);
 
 				//----------------------------------------------------------------
-				// ±³È¯Ã¢ ´Ý±â
+				// êµí™˜ì°½ ë‹«ê¸°
 				//----------------------------------------------------------------			
 				if (g_pTradeManager!=NULL)
 				{
@@ -461,7 +463,7 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 
 		//----------------------------------------------------------------------
 		//
-		//				±³È¯ ¼º¸³À» Àç°í·ÁÇÏ´Â °ÍÀ» ÀÎÁõ
+		//				êµí™˜ ì„±ë¦½ì„ ìž¬ê³ ë ¤í•˜ëŠ” ê²ƒì„ ì¸ì¦
 		//
 		//----------------------------------------------------------------------
 		case GC_TRADE_VERIFY_CODE_FINISH_RECONSIDER:
@@ -471,7 +473,7 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 				g_pTempInformation->SetMode(TempInformation::MODE_NULL);
 
 				//----------------------------------------------------------------
-				// OK Ãë¼Ò
+				// OK ì·¨ì†Œ
 				//----------------------------------------------------------------			
 				g_pTradeManager->RefuseMyTrade();
 			}
@@ -485,7 +487,7 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 		case GC_TRADE_VERIFY_CODE_MOUSE_TO_INVENTORY_FAIL:
 			if (g_pTempInformation->GetMode()==TempInformation::MODE_TRADE_VERIFY_DROP_TO_INVENTORY)
 			{
-				// g_pPlayer->ItemCheckBufferµµ °ËÁõÇØ¾ßµÇ´Âµ¥..»ý·«.. - -;
+				// g_pPlayer->ItemCheckBufferë„ ê²€ì¦í•´ì•¼ë˜ëŠ”ë°..ìƒëžµ.. - -;
 				g_pPlayer->ClearItemCheckBuffer();
 
 				g_pTempInformation->SetMode(TempInformation::MODE_NULL);
@@ -505,7 +507,7 @@ void GCTradeVerifyHandler::execute ( GCTradeVerify * pPacket , Player * pPlayer 
 		case GC_TRADE_VERIFY_CODE_INVENTORY_TO_MOUSE_FAIL:
 			if (g_pTempInformation->GetMode()==TempInformation::MODE_TRADE_VERIFY_PICKUP_FROM_INVENTORY)
 			{
-				// g_pPlayer->ItemCheckBufferµµ °ËÁõÇØ¾ßµÇ´Âµ¥..»ý·«.. - -;
+				// g_pPlayer->ItemCheckBufferë„ ê²€ì¦í•´ì•¼ë˜ëŠ”ë°..ìƒëžµ.. - -;
 				g_pPlayer->ClearItemCheckBuffer();
 
 				g_pTempInformation->SetMode(TempInformation::MODE_NULL);

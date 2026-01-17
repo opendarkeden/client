@@ -4,7 +4,9 @@
 
 #include "CAlphaSprite.h"
 #include "CAlphaSpritePackList.h"
-#include <fstream.h>
+#include <fstream>
+
+using namespace std;
 
 //----------------------------------------------------------------------
 //
@@ -18,7 +20,7 @@ CAlphaSpritePackList::CAlphaSpritePackList()
 
 CAlphaSpritePackList::~CAlphaSpritePackList()
 {
-	// list¸¦ ¸Ş¸ğ¸®¿¡¼­ Á¦°ÅÇÑ´Ù.
+	// listë¥¼ ë©”ëª¨ë¦¬ì—ì„œ ì œê±°í•œë‹¤.
 	Release();
 }
 
@@ -36,10 +38,10 @@ CAlphaSpritePackList::Release()
 {
 	if (!m_listSprite.empty())
 	{
-		// ¸ğµç CAlphaSprite¸¦ Áö¿î´Ù.
+		// ëª¨ë“  CAlphaSpriteë¥¼ ì§€ìš´ë‹¤.
 		ALPHASPRITE_LIST::iterator iSprite = m_listSprite.begin();
 
-		// °¢°¢ÀÇ CAlphaSpriteÀÇ ¸Ş¸ğ¸®¸¦ deleteÇÑ´Ù.
+		// ê°ê°ì˜ CAlphaSpriteì˜ ë©”ëª¨ë¦¬ë¥¼ deleteí•œë‹¤.
 		while (iSprite != m_listSprite.end())
 		{
 			delete (*iSprite);
@@ -53,108 +55,108 @@ CAlphaSpritePackList::Release()
 //----------------------------------------------------------------------
 // Add Sprite to List
 //----------------------------------------------------------------------
-// ListÀÇ ³¡¿¡ CAlphaSprite*¸¦ Ãß°¡ÇÑ´Ù.
-// pSprite´Â ¿ÜºÎ¿¡¼­ new¸¦ ÇØ¾ßÇÏ°í delete´Â CAlphaSpritePackList ³»ºÎ¿¡¼­ ÇÑ´Ù.
+// Listì˜ ëì— CAlphaSprite*ë¥¼ ì¶”ê°€í•œë‹¤.
+// pSpriteëŠ” ì™¸ë¶€ì—ì„œ newë¥¼ í•´ì•¼í•˜ê³  deleteëŠ” CAlphaSpritePackList ë‚´ë¶€ì—ì„œ í•œë‹¤.
 //----------------------------------------------------------------------
 void		
 CAlphaSpritePackList::AddSprite(CAlphaSprite* pSprite)
 {
-	// list¿¡ Ãß°¡ÇÏ°í
+	// listì— ì¶”ê°€í•˜ê³ 
 	m_listSprite.insert(m_listSprite.end(), pSprite);
 }
 
 //----------------------------------------------------------------------
 // Remove Sprite
 //----------------------------------------------------------------------
-// ListÀÇ SpriteÁß¿¡¼­ n¹øÂ°ÀÇ Sprite¸¦ »èÁ¦ÇÑ´Ù.
-// index´Â 0ºÎÅÍ nSprite-1±îÁöÀÌ°í deleteÇØÁà¾ß ÇÑ´Ù.
+// Listì˜ Spriteì¤‘ì—ì„œ në²ˆì§¸ì˜ Spriteë¥¼ ì‚­ì œí•œë‹¤.
+// indexëŠ” 0ë¶€í„° nSprite-1ê¹Œì§€ì´ê³  deleteí•´ì¤˜ì•¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void		
 CAlphaSpritePackList::RemoveSprite(TYPE_SPRITEID n)
 {
-	// »èÁ¦ ºÒ°¡
+	// ì‚­ì œ ë¶ˆê°€
 	if ( n >= m_listSprite.size() )
 		return;
 
 	ALPHASPRITE_LIST::iterator	iSprite = m_listSprite.begin();
 
-	// n¹øÂ° sprite¿¡ Á¢±ÙÇÑ´Ù.
+	// në²ˆì§¸ spriteì— ì ‘ê·¼í•œë‹¤.
 	for (TYPE_SPRITEID i=0; i<n; i++)
 		iSprite++;
 
-	// ¸Ş¸ğ¸®¿¡¼­ Áö¿ì°í
+	// ë©”ëª¨ë¦¬ì—ì„œ ì§€ìš°ê³ 
 	delete (*iSprite);
 
-	// list¿¡¼­ Áö¿î´Ù.
+	// listì—ì„œ ì§€ìš´ë‹¤.
 	m_listSprite.erase(iSprite);
 }
 
 //----------------------------------------------------------------------
 // Add Sprite
 //----------------------------------------------------------------------
-// n¹øÂ° µÚ¿¡ pSprite¸¦ Ãß°¡ÇÑ´Ù.
+// në²ˆì§¸ ë’¤ì— pSpriteë¥¼ ì¶”ê°€í•œë‹¤.
 //
-// ex)  0,1,2,3,4....,9  = 10°³
+// ex)  0,1,2,3,4....,9  = 10ê°œ
 //----------------------------------------------------------------------
 void		
 CAlphaSpritePackList::AddSprite(TYPE_SPRITEID n, CAlphaSprite* pSprite)
 {	
-	// nÀÌ ³Ê¹« Å¬¶§
+	// nì´ ë„ˆë¬´ í´ë•Œ
 	if ( n > m_listSprite.size() )
 		n = m_listSprite.size();
 
 	ALPHASPRITE_LIST::iterator	iSprite = m_listSprite.begin();
 
-	// n¹øÂ° sprite¿¡ Á¢±ÙÇÑ´Ù.
+	// në²ˆì§¸ spriteì— ì ‘ê·¼í•œë‹¤.
 	for (TYPE_SPRITEID i=0; i<n; i++)
 		iSprite++;
 
-	// Ãß°¡ÇÑ´Ù.
+	// ì¶”ê°€í•œë‹¤.
 	m_listSprite.insert(iSprite, pSprite);
 }
 
 //----------------------------------------------------------------------
 // Get Sprite
 //----------------------------------------------------------------------
-// ListÀÇ SpriteÁß¿¡¼­ n¹øÂ°ÀÇ Sprite¸¦ »èÁ¦ÇÑ´Ù.
-// index´Â 0ºÎÅÍ nSprite-1±îÁöÀÌ°í deleteÇØÁà¾ß ÇÑ´Ù.
+// Listì˜ Spriteì¤‘ì—ì„œ në²ˆì§¸ì˜ Spriteë¥¼ ì‚­ì œí•œë‹¤.
+// indexëŠ” 0ë¶€í„° nSprite-1ê¹Œì§€ì´ê³  deleteí•´ì¤˜ì•¼ í•œë‹¤.
 //----------------------------------------------------------------------
 CAlphaSprite*
 CAlphaSpritePackList::GetSprite(TYPE_SPRITEID n) const
 {
-	// get ºÒ°¡
+	// get ë¶ˆê°€
 	if ( n >= m_listSprite.size() )
 		return NULL;
 
 	ALPHASPRITE_LIST::const_iterator	iSprite = m_listSprite.begin();
 
-	// n¹øÂ° sprite¿¡ Á¢±ÙÇÑ´Ù.
+	// në²ˆì§¸ spriteì— ì ‘ê·¼í•œë‹¤.
 	for (TYPE_SPRITEID i=0; i<n; i++)
 		iSprite++;
 
-	// n¹øÂ° Sprite¸¦ ³Ñ°ÜÁØ´Ù.
+	// në²ˆì§¸ Spriteë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 	return (*iSprite);
 }
 
 //----------------------------------------------------------------------
 // Change Sprite
 //----------------------------------------------------------------------
-// n¹øÂ°¿Í m¹øÂ° Sprite¸¦ ¹Ù²Û´Ù.
+// në²ˆì§¸ì™€ më²ˆì§¸ Spriteë¥¼ ë°”ê¾¼ë‹¤.
 //----------------------------------------------------------------------
 void		
 CAlphaSpritePackList::ChangeSprite(TYPE_SPRITEID n, TYPE_SPRITEID m)
 {
-	// °°Àº °æ¿ì¿£ ÀÇ¹Ì°¡ ¾ø°ÚÁö..
+	// ê°™ì€ ê²½ìš°ì—” ì˜ë¯¸ê°€ ì—†ê² ì§€..
 	if (m==n) return;
 
-	// get ºÒ°¡
+	// get ë¶ˆê°€
 	if ( n >= m_listSprite.size() || m >= m_listSprite.size())
 		return;
 
 	TYPE_SPRITEID temp;
 
 	//------------------------------------------------------
-	// nÀ» ÀûÀº ¼ö·Î ÁöÁ¤ÇÑ´Ù.
+	// nì„ ì ì€ ìˆ˜ë¡œ ì§€ì •í•œë‹¤.
 	//------------------------------------------------------
 	if (n > m) 
 	{
@@ -166,21 +168,21 @@ CAlphaSpritePackList::ChangeSprite(TYPE_SPRITEID n, TYPE_SPRITEID m)
 	ALPHASPRITE_LIST::iterator	iFirstSprite = m_listSprite.begin();	
 
 	//------------------------------------------------------
-	// n¹øÂ° sprite¿¡ Á¢±ÙÇÑ´Ù.
+	// në²ˆì§¸ spriteì— ì ‘ê·¼í•œë‹¤.
 	//------------------------------------------------------
 	for (TYPE_SPRITEID i=0; i<n; i++)
 		iFirstSprite++;
 
 	//------------------------------------------------------
-	// m¹øÂ° sprite¿¡ Á¢±ÙÇÑ´Ù.
+	// më²ˆì§¸ spriteì— ì ‘ê·¼í•œë‹¤.
 	//------------------------------------------------------
 	temp = m-n;
 	ALPHASPRITE_LIST::iterator	iSecondSprite = iFirstSprite;
-	for (i=n; i<temp; i++)
+	for (int i=n; i<temp; i++)
 		iSecondSprite++;
 	
 	//------------------------------------------------------
-	// iFirstSprite¿Í iSecondSprite¸¦ ¹Ù²ãÁØ´Ù.
+	// iFirstSpriteì™€ iSecondSpriteë¥¼ ë°”ê¿”ì¤€ë‹¤.
 	//------------------------------------------------------
 	CAlphaSprite*	pSprite = *iFirstSprite;
 	*iFirstSprite = *iSecondSprite;
@@ -190,47 +192,47 @@ CAlphaSpritePackList::ChangeSprite(TYPE_SPRITEID n, TYPE_SPRITEID m)
 //----------------------------------------------------------------------
 // Save To File
 //----------------------------------------------------------------------
-// list¸¦ µû¶ó°¡¸é¼­ file¿¡ ÀúÀåÇØ¾ßÇÑ´Ù.
+// listë¥¼ ë”°ë¼ê°€ë©´ì„œ fileì— ì €ì¥í•´ì•¼í•œë‹¤.
 //----------------------------------------------------------------------
 bool		
 CAlphaSpritePackList::SaveToFile(ofstream& spkFile, ofstream& indexFile)
 {
-	// ÃÊ±âÈ­µÇÁö ¾Ê¾ÒÀ¸¸é 
+	// ì´ˆê¸°í™”ë˜ì§€ ì•Šì•˜ìœ¼ë©´ 
 	if (m_listSprite.empty())
 		return FALSE;
 
-	// Size ÀúÀå
+	// Size ì €ì¥
 	TYPE_SPRITEID size = m_listSprite.size();
 	spkFile.write((const char *)&size, SIZE_SPRITEID); 
 	indexFile.write((const char *)&size, SIZE_SPRITEID);
 
 	//--------------------------------------------------
-	// index fileÀ» »ı¼ºÇÏ±â À§ÇÑ Á¤º¸
+	// index fileì„ ìƒì„±í•˜ê¸° ìœ„í•œ ì •ë³´
 	//--------------------------------------------------
 	long*	pIndex = new long [size];
 
 
-	// ListÀÇ ¸ğµç Sprite¸¦ ÀúÀåÇÑ´Ù.
+	// Listì˜ ëª¨ë“  Spriteë¥¼ ì €ì¥í•œë‹¤.
 	ALPHASPRITE_LIST::iterator iSprite = m_listSprite.begin();
 
 	//--------------------------------------------------
-	// ¸ğµç CAlphaSprite¸¦ ÀúÀå
+	// ëª¨ë“  CAlphaSpriteë¥¼ ì €ì¥
 	//--------------------------------------------------
 	int i = 0;
 	while (iSprite != m_listSprite.end())
 	{
-		// SpritePack file¿¡ ¾²¿©Áö´Â index¸¦ ÀúÀå
+		// SpritePack fileì— ì“°ì—¬ì§€ëŠ” indexë¥¼ ì €ì¥
 		pIndex[i++] = spkFile.tellp();
 
-		// Sprite ÀúÀå
-		(*iSprite)->SaveToFile(spkFile);		// CAlphaSpriteÀúÀå	
+		// Sprite ì €ì¥
+		(*iSprite)->SaveToFile(spkFile);		// CAlphaSpriteì €ì¥	
 		iSprite ++;
 	}
 	
 	//--------------------------------------------------
-	// index ÀúÀå
+	// index ì €ì¥
 	//--------------------------------------------------
-	for (i=0; i<size; i++)
+	for (int i=0; i<size; i++)
 	{
 		indexFile.write((const char*)&pIndex[i], 4);
 	}

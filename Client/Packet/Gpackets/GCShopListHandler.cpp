@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 //
 // Filename    : GCShopListHandler.cpp
-// Written By  : ±Ëº∫πŒ
+// Written By  : ÍπÄÏÑ±ÎØº
 // Description :
 //
 //////////////////////////////////////////////////////////////////////
@@ -16,7 +16,9 @@
 #include "UIFunction.h"
 
 void GCShopListHandler::execute ( GCShopList * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -25,7 +27,7 @@ void GCShopListHandler::execute ( GCShopList * pPacket , Player * pPlayer )
 #ifdef __GAME_CLIENT__
 
 	//------------------------------------------------------
-	// Zone¿Ã æ∆¡˜ ª˝º∫µ«¡ˆ æ ¿∫ ∞ÊøÏ
+	// ZoneÏù¥ ÏïÑÏßÅ ÏÉùÏÑ±ÎêòÏßÄ ÏïäÏùÄ Í≤ΩÏö∞
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -33,21 +35,21 @@ void GCShopListHandler::execute ( GCShopList * pPacket , Player * pPlayer )
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// ¡§ªÛ.. 
+	// Ï†ïÏÉÅ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 
 		//------------------------------------------------------
-		// ±◊∑± creature∞° æ¯¥¬ ∞ÊøÏ
+		// Í∑∏Îü∞ creatureÍ∞Ä ÏóÜÎäî Í≤ΩÏö∞
 		//------------------------------------------------------
 		if (pCreature==NULL)
 		{
 			DEBUG_ADD("[Error] OK 111");
 		}
 		//------------------------------------------------------
-		// NPC¿Œ ∞ÊøÏ
+		// NPCÏù∏ Í≤ΩÏö∞
 		//------------------------------------------------------
 		else if (pCreature->GetClassType()==MCreature::CLASS_NPC)
 		{
@@ -58,7 +60,7 @@ void GCShopListHandler::execute ( GCShopList * pPacket , Player * pPlayer )
 			MNPC* pNPC = (MNPC*)pCreature;
 
 			//------------------------------------------------------
-			// ªı∑ŒøÓ Shelf∏¶ ª˝º∫«—¥Ÿ.
+			// ÏÉàÎ°úÏö¥ ShelfÎ•º ÏÉùÏÑ±ÌïúÎã§.
 			//------------------------------------------------------\
 
 			ShopRackType_t shopType = pPacket->getShopType();
@@ -77,7 +79,7 @@ void GCShopListHandler::execute ( GCShopList * pPacket , Player * pPlayer )
 
 			DEBUG_ADD("[GCShopListHandler::execute] OK [2]\n");
 			//------------------------------------------------------
-			// æ∆¿Ã≈€µÈ √ﬂ∞°
+			// ÏïÑÏù¥ÌÖúÎì§ Ï∂îÍ∞Ä
 			//------------------------------------------------------
 			for (int i=0; i<SHOP_RACK_INDEX_MAX; i++)
 			{
@@ -90,7 +92,7 @@ void GCShopListHandler::execute ( GCShopList * pPacket , Player * pPlayer )
 
 				if (item.bExist)
 				{
-					// item ª˝º∫
+					// item ÏÉùÏÑ±
 					MItem* pItem = MItem::NewItem( (ITEM_CLASS)item.itemClass );
 
 					pItem->SetID( item.objectID );
@@ -101,7 +103,7 @@ void GCShopListHandler::execute ( GCShopList * pPacket , Player * pPlayer )
 					pItem->SetGrade( item.grade );
 					pItem->SetEnchantLevel( item.enchantLevel );
 
-					// Shelfø° item√ﬂ∞°
+					// ShelfÏóê itemÏ∂îÍ∞Ä
 					pShelf->SetItem( i, pItem );
 				}
 			}
@@ -110,32 +112,32 @@ void GCShopListHandler::execute ( GCShopList * pPacket , Player * pPlayer )
 
 			//------------------------------------------------------
 			//
-			// NPC¿« ªÛ¡°ø° shelf∏¶ √ﬂ∞°«—¥Ÿ.
+			// NPCÏùò ÏÉÅÏ†êÏóê shelfÎ•º Ï∂îÍ∞ÄÌïúÎã§.
 			//
 			//------------------------------------------------------
 			MShop* pShop = pNPC->GetShop();
 
 			if (pShop==NULL)
 			{
-				// ªÛ¡°¿Ã æ¯æ˙¿∏∏È ª˝º∫«—¥Ÿ.
+				// ÏÉÅÏ†êÏù¥ ÏóÜÏóàÏúºÎ©¥ ÏÉùÏÑ±ÌïúÎã§.
 				pShop = new MShop;
 				pShop->Init( MShopShelf::MAX_SHELF );
 
-				// NPCø° ªÛ¡° º≥¡§
+				// NPCÏóê ÏÉÅÏ†ê ÏÑ§Ï†ï
 				pNPC->SetShop( pShop );
 
-				// normal item º±π›¿ª ª˝º∫«—¥Ÿ.
+				// normal item ÏÑ†Î∞òÏùÑ ÏÉùÏÑ±ÌïúÎã§.
 				pNPC->CreateFixedShelf();
 				pNPC->CreateFixedShelf(true);	// mysterious -_-;
 			}
 
 			//------------------------------------------------------
-			// ªÛ¡°¿« ¡æ∑˘ º≥¡§
+			// ÏÉÅÏ†êÏùò Ï¢ÖÎ•ò ÏÑ§Ï†ï
 			//------------------------------------------------------
 			pShop->SetShopType( (MShop::SHOP_TYPE)pPacket->getNPCShopType() );
 
 			//------------------------------------------------------
-			// default∑Œ normal ªÛ¡°ø° ¡¢±Ÿ«œ∞‘ «—¥Ÿ.
+			// defaultÎ°ú normal ÏÉÅÏ†êÏóê Ï†ëÍ∑ºÌïòÍ≤å ÌïúÎã§.
 			//------------------------------------------------------
 			if (pShop->GetShopType()==MShop::SHOP_EVENT_STAR)
 			{
@@ -147,26 +149,26 @@ void GCShopListHandler::execute ( GCShopList * pPacket , Player * pPlayer )
 			}
 
 			//------------------------------------------------------
-			// º±π›¿« ∞°∞› ∫Ò¿≤ 
+			// ÏÑ†Î∞òÏùò Í∞ÄÍ≤© ÎπÑÏú® 
 			//------------------------------------------------------
 			g_pPriceManager->SetMarketCondBuy( pPacket->getMarketCondBuy() );
 			g_pPriceManager->SetMarketCondSell( pPacket->getMarketCondSell() );			
 			
 			//------------------------------------------------------
-			// ªÛ¡°ø° º±π› º≥¡§
+			// ÏÉÅÏ†êÏóê ÏÑ†Î∞ò ÏÑ§Ï†ï
 			//------------------------------------------------------
 			pShop->SetShelf( pShelf->GetShelfType(), pShelf );
 
 			//------------------------------------------------------
-			// ¡§ªÛ¿˚¿∏∑Œ µ» ∞ÊøÏ
-			// --> ªÛ¡°¿ª Ω««‡«—¥Ÿ.
+			// Ï†ïÏÉÅÏ†ÅÏúºÎ°ú Îêú Í≤ΩÏö∞
+			// --> ÏÉÅÏ†êÏùÑ Ïã§ÌñâÌïúÎã§.
 			//------------------------------------------------------
-			UI_SetShop( pShop );		// shop º≥¡§
+			UI_SetShop( pShop );		// shop ÏÑ§Ï†ï
 			UI_RunShop();
-			UI_SetShop( pShop );		// shop º≥¡§
+			UI_SetShop( pShop );		// shop ÏÑ§Ï†ï
 		}
 		//------------------------------------------------------
-		// NPC∞° æ∆¥— ∞ÊøÏ
+		// NPCÍ∞Ä ÏïÑÎãå Í≤ΩÏö∞
 		//------------------------------------------------------
 		else
 		{

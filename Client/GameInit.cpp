@@ -1,14 +1,22 @@
 //---------------------------------------------------------------------------
 // GameInit.cpp
 //---------------------------------------------------------------------------
-// °ÔÀÓ °ü·Ã ºÎºĞ(ÁÖ·Î ½Ã½ºÅÛ ÂÊ)ÀÇ ÃÊ±âÈ­ / Release
+// ê²Œì„ ê´€ë ¨ ë¶€ë¶„(ì£¼ë¡œ ì‹œìŠ¤í…œ ìª½)ì˜ ì´ˆê¸°í™” / Release
 //---------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // Include files
 //-----------------------------------------------------------------------------
 #include "Client_PCH.h"
+#ifdef PLATFORM_WINDOWS
 #include <MMSystem.h>
+#else
+// macOS: BSD sockets headers for network functions
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#endif
 #include "Client.h"
 #include "GameObject.h"
 #include "AddonDef.h"
@@ -93,14 +101,14 @@ extern RECT g_GameRect;
 //#include "CJpeg.h"
 //#define	new			DEBUG_NEW
 
-// ToT SafeDelete µµ ¾ø°í..ToT 2003.5.11 by sonee
+// ToT SafeDelete ë„ ì—†ê³ ..ToT 2003.5.11 by sonee
 
 extern int					g_Dimension ;
-
-BOOL g_bEnable3DHAL = TRUE;
+// g_bEnable3DHAL is defined in VS_UI_Title.cpp (VS_UI library)
+extern BOOL g_bEnable3DHAL;
 
 //----------------------------------------------------------------------
-// Title Loading - 2001.8.20 ¿ìÇìÇì ÀÚ²Ù ´Ã¾î³ª´Â global - -;;
+// Title Loading - 2001.8.20 ìš°í—¤í—¤ ìê¾¸ ëŠ˜ì–´ë‚˜ëŠ” global - -;;
 //----------------------------------------------------------------------
 //CSpritePack		g_TitleSPK;
 //CSpritePack		g_TitleAniSPK;
@@ -112,7 +120,7 @@ int				g_TitleSpriteAlpha = 32;
 //CDirectDrawSurface	g_TitleSurface;
 
 
-// [Futec¼öÁ¤]
+// [Futecìˆ˜ì •]
 extern char g_FutecIP[20];
 extern unsigned int g_FutecPort;
 
@@ -121,10 +129,10 @@ extern unsigned int g_FutecPort;
 #endif
 
 //----------------------------------------------------------------------
-// AddonSPK ºĞÇÒ ·Îµù - 2001.8.20
+// AddonSPK ë¶„í•  ë¡œë”© - 2001.8.20
 //----------------------------------------------------------------------
 TYPE_SPRITEID		g_AddonSPKNum = 0;
-const int			g_AddonSPKLoadingTimes = 20;	// 20µîºĞÀ¸·Î ³ª´²¼­ loadingÇÑ´Ù.
+const int			g_AddonSPKLoadingTimes = 20;	// 20ë“±ë¶„ìœ¼ë¡œ ë‚˜ëˆ ì„œ loadingí•œë‹¤.
 bool				g_AddonSPKLoaded[g_AddonSPKLoadingTimes] = { false, };
 int					g_AddonSPKIndexFirst[g_AddonSPKLoadingTimes] = { 0, };
 int					g_AddonSPKIndexLast[g_AddonSPKLoadingTimes] = { 0, };
@@ -153,14 +161,14 @@ extern int  g_nGameVersion;
 void
 StartTitleLoading()
 {
-//	class ifstream	titleFile;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
+//	std::ifstream	titleFile;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
 //	if (!FileOpenBinary("data\\ui\\spk\\Title.spk", titleFile))
 //		return;
 //
 //	g_TitleSPK.LoadFromFile(titleFile);
 //	titleFile.close();
 //
-//	class ifstream	titleAniFile;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
+//	std::ifstream	titleAniFile;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
 //	if (!FileOpenBinary("data\\ui\\spk\\TitleAni.spk", titleAniFile))
 //		return;
 //
@@ -256,11 +264,11 @@ StartTitleLoading()
 		}
 
 		CFileIndexTable	FIT;
-		class ifstream indexFile(g_pFileDef->getProperty("FILE_SPRITEINDEX_UI").c_str(), ios::binary);
+		std::ifstream indexFile(g_pFileDef->getProperty("FILE_SPRITEINDEX_UI").c_str(), ios::binary);
 		FIT.LoadFromFile( indexFile );
 		indexFile.close();
 
-		class ifstream spkFile(g_pFileDef->getProperty("FILE_SPRITE_UI").c_str(), ios::binary);
+		std::ifstream spkFile(g_pFileDef->getProperty("FILE_SPRITE_UI").c_str(), ios::binary);
 		if(g_MyFull)
 			spkFile.seekg( FIT[5] );
 		else
@@ -315,7 +323,7 @@ DrawTitleLoading()
 
 //		g_pBack->Unlock();
 
-		// Loading Ãâ·Â
+		// Loading ì¶œë ¥
 		/*
 		if (gpC_base!=NULL)
 		{
@@ -329,9 +337,9 @@ DrawTitleLoading()
 			const COLORREF txColor2 = RGB(20,50,20);
 
 			pPrintInfo->text_color	= txColor2;
-			g_Print(331, 451, "Àá½Ã ±â´Ù·ÁÁÖ¼¼¿ä.", pPrintInfo);
+			g_Print(331, 451, "ì ì‹œ ê¸°ë‹¤ë ¤ì£¼ì„¸ìš”.", pPrintInfo);
 			pPrintInfo->text_color	= txColor;
-			g_Print(330, 450, "Àá½Ã ±â´Ù·ÁÁÖ¼¼¿ä.", pPrintInfo);
+			g_Print(330, 450, "ì ì‹œ ê¸°ë‹¤ë ¤ì£¼ì„¸ìš”.", pPrintInfo);
 			
 			//char str[80];
 			//sprintf(str, "[%d]", g_TitleSpriteID);
@@ -376,13 +384,13 @@ DrawTitleLoading()
 			CDirectDraw::Flip();
 
 		
-		// frame ¹Ù²Ş
+		// frame ë°”ê¿ˆ
 //		if (++g_TitleSpriteID>=g_TitleAniSPK.GetSize())
 //		{
 //			g_TitleSpriteID = 0;			
 //		}
 //			
-//		// ¹à±â Á¶Àı
+//		// ë°ê¸° ì¡°ì ˆ
 //		if (g_TitleSpriteID%3==2)
 //		{
 //			if (--g_TitleSpriteDarkness < 0)
@@ -411,9 +419,9 @@ EndTitleLoading(bool SendLogin)
 		g_pTitleLoadingSprite = NULL;
 	}
 	// 2004, 7, 15, sobeit modify start
-	// 2006.11.07  Coffee Edit È¥³ıÓÎÏ·Æô¶¯ºó×Ô¶¯µÇÂ½
+	// 2006.11.07  Coffee Edit í˜¼ë‡œè¸ç‹—í˜ë•¡ë¹ˆè±ë•¡ë˜ì©
 	
-	if(SendLogin && true == g_pUserInformation->IsAutoLogIn) // ÀÚµ¿ ·Î±×ÀÎ
+	if(SendLogin && true == g_pUserInformation->IsAutoLogIn) // ìë™ ë¡œê·¸ì¸
 	{
 		static LOGIN	login;
 		login.sz_id = new char[  g_pUserInformation->UserID.GetLength() + 1 ];
@@ -459,50 +467,50 @@ PrepareLoadingAddonSPK()
 	}
 
 	//------------------------------------------------------------
-	// ³ª´²¼­ ·ÎµùÇÏ±â À§ÇÑ ÁØºñ.. 2001.8.20 Ãß°¡
+	// ë‚˜ëˆ ì„œ ë¡œë”©í•˜ê¸° ìœ„í•œ ì¤€ë¹„.. 2001.8.20 ì¶”ê°€
 	//------------------------------------------------------------
 	if (g_AddonSPKNum==0)
 	{
-		class ifstream	AddonFileIndex2;//(FILE_ISPRITE_ADDON, ios::binary);
+		std::ifstream	AddonFileIndex2;//(FILE_ISPRITE_ADDON, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_ISPRITEINDEX_ADDON").c_str(), AddonFileIndex2))
 			return false;
 
 		AddonFileIndex2.read((char*)&g_AddonSPKNum, SIZE_SPRITEID);
 
-		// °³¼ö¸¦ Àâ¾ÆµĞ´Ù.
+		// ê°œìˆ˜ë¥¼ ì¡ì•„ë‘”ë‹¤.
 		g_pTopView->m_AddonSPK.Init( g_AddonSPKNum);		
 
 		bool				g_AddonSPKLoaded[g_AddonSPKLoadingTimes] = { false, };
 		bool				g_AddonSPKIndex[g_AddonSPKLoadingTimes] = { 0 };
 
-		// loadingÇÏ´Â È¸¼ö¿¡ ¸Â°Ô file index¸¦ ±¸ÇÑ´Ù.
+		// loadingí•˜ëŠ” íšŒìˆ˜ì— ë§ê²Œ file indexë¥¼ êµ¬í•œë‹¤.
 		int first = 0;
 		for (int i=0; i<g_AddonSPKLoadingTimes; i++)
 		{
 			// 1/3
 			int last = (int)g_AddonSPKNum * (i+1) / g_AddonSPKLoadingTimes;
 			
-			// ´õ Å¬ ÀÏÀº ¾ø°ÚÁö¸¸.. È¤½Ã.. - -;;
+			// ë” í´ ì¼ì€ ì—†ê² ì§€ë§Œ.. í˜¹ì‹œ.. - -;;
 			if (last >= g_AddonSPKNum)
 			{
 				last = g_AddonSPKNum - 1;
 			}
 
 			long fp;
-			// °³¼ö(2 bytes) + ID * (4 bytes)
+			// ê°œìˆ˜(2 bytes) + ID * (4 bytes)
 			AddonFileIndex2.seekg( 2 + first*4 , ios::beg );
 			AddonFileIndex2.read((char*)&fp, 4);
 
-			// loadingÇØ¾ßµÈ´Ù°í Ç¥½Ã
+			// loadingí•´ì•¼ëœë‹¤ê³  í‘œì‹œ
 			g_AddonSPKLoaded[i] = false;
 
-			// file index¼³Á¤			
+			// file indexì„¤ì •			
 			g_AddonSPKIndexFirst[i] = first;
 			g_AddonSPKIndexLast[i] = last;
 			g_AddonSPKIndexFP[i] = fp;
 			
 
-			// ´ÙÀ½ ²¨.
+			// ë‹¤ìŒ êº¼.
 			first = last+1;
 		}
 
@@ -548,10 +556,10 @@ LoadingAddonSPK(bool bLoadingAll)
 
 	for (int i=0; i<g_AddonSPKLoadingTimes; i++)
 	{
-		// loading ¾È µÈ ºÎºĞÀÌ ÀÖÀ¸¸é loadingÇÑ´Ù.
+		// loading ì•ˆ ëœ ë¶€ë¶„ì´ ìˆìœ¼ë©´ loadingí•œë‹¤.
 		if (!g_AddonSPKLoaded[i])
 		{
-//			class ifstream	addonFile;
+//			std::ifstream	addonFile;
 //
 //			if (!FileOpenBinary(FILE_ISPRITE_ADDON, addonFile))
 //				return false;	
@@ -571,7 +579,7 @@ LoadingAddonSPK(bool bLoadingAll)
 		
 			g_AddonSPKLoaded[i] = true;
 
-			// ÀüºÎ loadingÇØ¾ßÇÏ´Â °æ¿ì°¡ ¾Æ´Ï¸é ÇÑºÎºĞ¸¸ loadingÇÑ´Ù.
+			// ì „ë¶€ loadingí•´ì•¼í•˜ëŠ” ê²½ìš°ê°€ ì•„ë‹ˆë©´ í•œë¶€ë¶„ë§Œ loadingí•œë‹¤.
 			if (!bLoadingAll)
 			{
 				#ifdef OUTPUT_DEBUG
@@ -613,7 +621,7 @@ InitVolume()
 	//g_pMasterVolume = (IVolume*)new CVolumeOutMaster;
 	if (!g_pMasterVolume || !g_pMasterVolume->IsAvailable() )
 	{
- 		//InitFail("Master Volume Á¶ÀıÀÌ ¾ÈµÊ");
+ 		//InitFail("Master Volume ì¡°ì ˆì´ ì•ˆë¨");
 		// Debug Message
 		DEBUG_ADD("[Error] Volume : MasterVolume Failed!");
 	}
@@ -624,7 +632,7 @@ InitVolume()
 	//g_pWaveVolume = (IVolume*)new CVolumeOutWave;
 	if (!g_pWaveVolume || !g_pWaveVolume->IsAvailable() )
 	{
- 		//InitFail("Wave Volume Á¶ÀıÀÌ ¾ÈµÊ");
+ 		//InitFail("Wave Volume ì¡°ì ˆì´ ì•ˆë¨");
 		// Debug Message
 		DEBUG_ADD("[Error] Volume : WaveVolume Failed!");
 	}
@@ -679,7 +687,7 @@ InitInput()
 
 
 //---------------------------------------------------------------------------
-// SurfaceÀÇ Á¤º¸¸¦ »ı¼ºÇÑ´Ù.
+// Surfaceì˜ ì •ë³´ë¥¼ ìƒì„±í•œë‹¤.
 //---------------------------------------------------------------------------
 BOOL
 InitSurface()
@@ -694,10 +702,15 @@ InitSurface()
 		delete g_pBack;
 	}
 	g_pBack = new CSpriteSurface;
-	g_pBack->InitBacksurface();	
+#ifdef PLATFORM_WINDOWS
+	g_pBack->InitBacksurface();
+#else
+	// SDL backend: Initialize surface differently
+	g_pBack->Init(800, 600);
+#endif
 
 	//--------------------------------------------------------
-	// ÀÓ½Ã·Î ·ÎµùÈ­¸é ±¸¼º..
+	// ì„ì‹œë¡œ ë¡œë”©í™”ë©´ êµ¬ì„±..
 	// 2001.8.20
 	//--------------------------------------------------------
 
@@ -709,7 +722,7 @@ InitSurface()
 	g_pBack->FillSurface( CDirectDraw::Color(0,0,0) );
 
 	//--------------------------------------------------------
-	// Buffer·Î »ç¿ëÇÒ Surface
+	// Bufferë¡œ ì‚¬ìš©í•  Surface
 	//--------------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Surface - new g_pTopView");
 
@@ -718,7 +731,7 @@ InitSurface()
 	{		
 		g_pTopView = new MTopView;
 
-		// addonSPK ºĞÇÒ ·Îµù ÁØºñ - 2001.8.20
+		// addonSPK ë¶„í•  ë¡œë”© ì¤€ë¹„ - 2001.8.20
 		if (!PrepareLoadingAddonSPK())
 		{
 			return FALSE;
@@ -726,20 +739,24 @@ InitSurface()
 	}
 
 
-	// H/W°¡¼Ó µÇ´Â °æ¿ì
+	// H/Wê°€ì† ë˜ëŠ” ê²½ìš°
 //	if (CDirect3D::IsHAL())
 //	{
 //		g_pTopView->SetSurface( g_pBack );
 //	}
-//	// H/W°¡¼Ó ¾È µÇ´Â °æ¿ì
+//	// H/Wê°€ì† ì•ˆ ë˜ëŠ” ê²½ìš°
 //	else
 	{		
 		if (g_pLast!=NULL) 
 		{
 			delete g_pLast;
 		}
-		g_pLast = new CSpriteSurface;	
+		g_pLast = new CSpriteSurface;
+#ifdef PLATFORM_WINDOWS
 		g_pLast->InitOffsurface(g_GameRect.right, g_GameRect.bottom, DDSCAPS_SYSTEMMEMORY);
+#else
+		g_pLast->InitOffsurface(g_GameRect.right, g_GameRect.bottom);
+#endif
 		g_pLast->SetTransparency( 0 );
 		g_pLast->FillSurface( CDirectDraw::Color(30,30,30) );
 
@@ -747,7 +764,7 @@ InitSurface()
 	}
 
 	//--------------------------------------------------------
-	// °¨¸¶°ª ¼³Á¤
+	// ê°ë§ˆê°’ ì„¤ì •
 	//--------------------------------------------------------
 	if (g_pUserOption->UseGammaControl
 		&& g_pUserOption->GammaValue!=100)
@@ -769,12 +786,12 @@ InitSurface()
 	DEBUG_ADD("[ InitGame ]  Surface - Initialize Font");
 	DEBUG_ADD("[ InitGame ]  Surface - UI");
 
-	// ½½·¹ÀÌ¾î ±×¸² ¾à°£ loading
+	// ìŠ¬ë ˆì´ì–´ ê·¸ë¦¼ ì•½ê°„ loading
 	LoadingAddonSPK( false );
 	DrawTitleLoading();
 
 
-	// ÀÏ´Ü Á¦°Å.. - -;
+	// ì¼ë‹¨ ì œê±°.. - -;
 	gC_vs_ui.Release();
 
 	DEBUG_ADD("[ InitGame ]  Surface - InitD3D");
@@ -799,19 +816,19 @@ InitSurface()
 
 	///*
 	//--------------------------------------------------------
-	// »õ·Î¿î IndexSprite »ı¼º ¹æ¹ı TEST
+	// ìƒˆë¡œìš´ IndexSprite ìƒì„± ë°©ë²• TEST
 	//--------------------------------------------------------
-	// indexTableÀº 555¿Í 565°¡ ´Ù¸£±â ¶§¹®¿¡...
-	// Àß~~°ñ¶ó¼­ ÇØ¾ßÇÑ´Ù. = =;
+	// indexTableì€ 555ì™€ 565ê°€ ë‹¤ë¥´ê¸° ë•Œë¬¸ì—...
+	// ì˜~~ê³¨ë¼ì„œ í•´ì•¼í•œë‹¤. = =;
 	CIndexSprite::SetColorSet();
 
 	//#ifdef OUTPUT_DEBUG
-	//	class ofstream indexTable(FILE_INDEXTABLE, ios::binary);
+	//	std::ofstream indexTable(FILE_INDEXTABLE, ios::binary);
 	//	CIndexSprite::SaveIndexTableToFile( indexTable );
 	///	indexTable.close();
 	//#endif
 	
-	//class ifstream indexTable2;//(FILE_INFO_USINGCOLORSET, ios::binary);
+	//std::ifstream indexTable2;//(FILE_INFO_USINGCOLORSET, ios::binary);
 	//if (!FileOpenBinary(FILE_INDEXTABLE, indexTable2))
 	//	return FALSE;
 	//CIndexSprite::LoadIndexTableFromFile( indexTable2 );
@@ -859,7 +876,7 @@ InitSurface()
 	indexSurface1.Unlock();
 	//indexSurface2.Unlock();
 
-	class ofstream file("test.ispr", ios::binary);
+	std::ofstream file("test.ispr", ios::binary);
 	is.SaveToFile( file );
 	file.close();
 
@@ -894,10 +911,10 @@ InitSurface()
 	*/	
 
 	//--------------------------------------------------------
-	// ViewÀÇ Á¤º¸¸¦ ÃÊ±âÈ­ ½ÃÅ²´Ù.
+	// Viewì˜ ì •ë³´ë¥¼ ì´ˆê¸°í™” ì‹œí‚¨ë‹¤.
 	//--------------------------------------------------------
 	//g_pTopView->SetSurface(g_pLast);	
-	if (g_Mode==MODE_CHANGE_OPTION	// ¿É¼Ç ¹Ù²Ü¶§´Â g_pTopView->Init()´Â ¾È ÇÑ´Ù.
+	if (g_Mode==MODE_CHANGE_OPTION	// ì˜µì…˜ ë°”ê¿€ë•ŒëŠ” g_pTopView->Init()ëŠ” ì•ˆ í•œë‹¤.
 		&& !g_pTopView->Init())
 	{
 		return FALSE;
@@ -909,13 +926,13 @@ InitSurface()
 	//g_pTopView->SetDarkBits(5);
 		
 
-	// ColorSetÀ» ÃÊ±âÈ­½ÃÅ²´Ù.
+	// ColorSetì„ ì´ˆê¸°í™”ì‹œí‚¨ë‹¤.
 	CIndexSprite::SetColorSet();
 	
 	//--------------------------------------------------------
-	// Cursor Surface ÃÊ±âÈ­
+	// Cursor Surface ì´ˆê¸°í™”
 	//--------------------------------------------------------
-	// 2°³ÀÇ Flip Surface, (32*32)
+	// 2ê°œì˜ Flip Surface, (32*32)
 	if (CDirectDraw::IsFullscreen())
 	{
 		if (g_pCursorSurface!=NULL)
@@ -966,7 +983,7 @@ InitSound()
 	{
 		if (g_DXSound.Init(g_hWnd))
 		{	
-			// filename¿¡ µû¶ó¼­.. Wav fileÀ» LoadÇÑ´Ù.
+			// filenameì— ë”°ë¼ì„œ.. Wav fileì„ Loadí•œë‹¤.
 			//for (int i=0; i<(*g_pSoundTable).GetSize(); i++)
 			//{			
 			//	(*g_pSoundTable)[i].pDSBuffer = g_Sound.LoadWav( (*g_pSoundTable)[i].Filename );
@@ -985,24 +1002,29 @@ InitSound()
 		}
 
 		//-----------------------------------------------------------
-		// RAM Ã¼Å©ÇØ¼­.. Àû´çÇÏ°Ô Àâ¾ÆÁØ´Ù.
+		// RAM ì²´í¬í•´ì„œ.. ì ë‹¹í•˜ê²Œ ì¡ì•„ì¤€ë‹¤.
 		//-----------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 		MEMORYSTATUS ms;
 		ZeroMemory(&ms, sizeof(MEMORYSTATUS));
 		ms.dwLength = sizeof(MEMORYSTATUS);
 
 		GlobalMemoryStatus( &ms );
 
-		// dwAvailPhys´Â ¿ØÁö ÀÌ»óÇÏ´Ù. -_-;
-		// 100¸Ş°¡ ÀÌ»óÀÎ °æ¿ì..
-		// »ç¿îµå¿¡ 10¸Ş°¡¸¦ ÅõÀÚÇÑ´Ù.
+		// dwAvailPhysëŠ” ì™ ì§€ ì´ìƒí•˜ë‹¤. -_-;
+		// 100ë©”ê°€ ì´ìƒì¸ ê²½ìš°..
+		// ì‚¬ìš´ë“œì— 10ë©”ê°€ë¥¼ íˆ¬ìí•œë‹¤.
 		if (ms.dwTotalPhys >= 100*1024*1024)
 		{
-			// ÀÌ°Íµµ ÀÓ½ÃÄÚµåÁö¸¸.. - -;
+			// ì´ê²ƒë„ ì„ì‹œì½”ë“œì§€ë§Œ.. - -;
 			g_pClientConfig->MAX_SOUNDPART = 100;
 		}
+#else
+		// macOS: Use default sound part count
+		g_pClientConfig->MAX_SOUNDPART = 100;
+#endif
 
-		// ( ÀüÃ¼ °³¼ö, ¸Ş¸ğ¸® Çã¿ë °³¼ö )
+		// ( ì „ì²´ ê°œìˆ˜, ë©”ëª¨ë¦¬ í—ˆìš© ê°œìˆ˜ )
 		g_pSoundManager->Init( g_pSoundTable->GetSize(), g_pClientConfig->MAX_SOUNDPART );
 
 		/*
@@ -1010,17 +1032,17 @@ InitSound()
 		for (int soundID=0; soundID<(*g_pClientConfig).MAX_SOUNDPART; soundID++)
 		{
 			//-----------------------------------------------------------
-			// ¾øÀ¸¸é --> Load & Play
+			// ì—†ìœ¼ë©´ --> Load & Play
 			//-----------------------------------------------------------
 			if (g_pSoundManager.IsDataNULL(soundID))
 			{
-				// ´Ù½Ã load						
+				// ë‹¤ì‹œ load						
  				LPDIRECTSOUNDBUFFER pBuffer = g_DXSound.LoadWav( (*g_pSoundTable)[soundID].Filename );
 
-				// Load¿¡ ¼º°ø ÇßÀ¸¸é...
+				// Loadì— ì„±ê³µ í–ˆìœ¼ë©´...
 				if (pBuffer!=NULL)
 				{
-					// ReplaceµÆÀ¸¸é ¿ø·¡°ÍÀ» ¸Ş¸ğ¸®¿¡¼­ Áö¿î´Ù.
+					// Replaceëìœ¼ë©´ ì›ë˜ê²ƒì„ ë©”ëª¨ë¦¬ì—ì„œ ì§€ìš´ë‹¤.
 					LPDIRECTSOUNDBUFFER pOld;
 					if (g_pSoundManager.SetData( soundID, pBuffer, pOld ))
 					{
@@ -1029,7 +1051,7 @@ InitSound()
 				}
 			}
 			//-----------------------------------------------------------
-			// ÀÖ´Â °æ¿ì --> Play
+			// ìˆëŠ” ê²½ìš° --> Play
 			//-----------------------------------------------------------
 			else
 			{
@@ -1115,16 +1137,18 @@ InitMusic()
 #else
 	if( g_DXSound.IsInit() )
 	{
+		// SDL backend stub - OGG streaming not implemented
 		if( g_pSoundBufferForOGG == NULL )
 		{
-			g_pSoundBufferForOGG = new CDirectSoundBuffer(g_hWnd, SOUND_STEREO, SOUND_44K, SOUND_16BIT);
+			// g_pSoundBufferForOGG = new CDirectSoundBuffer(g_hWnd, SOUND_STEREO, SOUND_44K, SOUND_16BIT);
+			g_pSoundBufferForOGG = NULL; // Stub: not implemented on SDL
 		}
 		if( g_pOGG == NULL )
 		{
 #ifdef _MT
-			g_pOGG = new COGGSTREAM(g_hWnd, g_pSoundBufferForOGG, 44100, 11025, 8800);
+			g_pOGG = new COGGSTREAM(NULL, g_pSoundBufferForOGG, 44100, 11025, 8800);
 #else
-			g_pOGG = new COGGSTREAM(g_hWnd, g_pSoundBufferForOGG, 44100, 11025, 8800,1);
+			g_pOGG = new COGGSTREAM(NULL, g_pSoundBufferForOGG, 44100, 11025, 8800,1);
 #endif
 			int volume = (g_pUserOption->VolumeMusic - 15) * 250;
 
@@ -1146,7 +1170,7 @@ InitDraw()
 	DEBUG_ADD("[ InitGame ]  Draw");
 
 	//--------------------------------------------------------
-	// 3D°¡¼Ó ¿©ºÎ¸¦ ClientConfig¿¡¼­ ÀĞ¾î¿Â´Ù.
+	// 3Dê°€ì† ì—¬ë¶€ë¥¼ ClientConfigì—ì„œ ì½ì–´ì˜¨ë‹¤.
 	//--------------------------------------------------------
 	g_bHAL = (g_pUserOption->Use3DHAL)? true : false;
 
@@ -1160,6 +1184,7 @@ InitDraw()
 	//                 DirectDraw
 	//
 	//--------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 	//if (g_bHAL)
 	if( g_bHAL )
 	{
@@ -1185,47 +1210,50 @@ InitDraw()
 			{
 				CDirectDraw::Init(g_hWnd, 800, 600, CDirectDraw::WINDOWMODE, true, g_bUseIMEWindow);
 			}
-		}	
-		
+		}
+	}
+#endif // PLATFORM_WINDOWS
+
+#ifdef PLATFORM_WINDOWS
 		//--------------------------------------------------------
-		// Video Memory ¾ó¸¶ÀÎ°¡?
+		// Video Memory ì–¼ë§ˆì¸ê°€?
 		//--------------------------------------------------------
 		DDSCAPS2 ddsCaps2;
 		DWORD dwTotal;
 		DWORD dwFree;
-		ZeroMemory(&ddsCaps2, sizeof(ddsCaps2)); 
-		ddsCaps2.dwCaps = DDSCAPS_VIDEOMEMORY;//DDSCAPS_TEXTURE; 
+		ZeroMemory(&ddsCaps2, sizeof(ddsCaps2));
+		ddsCaps2.dwCaps = DDSCAPS_VIDEOMEMORY;//DDSCAPS_TEXTURE;
 		HRESULT hr = CDirectDraw::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
 
 		DEBUG_ADD_FORMAT("[VidemoMemory from GetAvailableVidMem()] Before Init Draw = %d/%d", dwFree, dwTotal);
 
 
 		//--------------------------------------------------------
-		// ÀÌ°Ô ÁøÂ¥´Ù.. - -;
+		// ì´ê²Œ ì§„ì§œë‹¤.. - -;
 		//--------------------------------------------------------
-		// ±Ùµ¥ .. °ú¿¬ ÀÌ°Å¶ó°í µÉ·Á³ª..
-		// i740¿¡¼­ memory 60MÂë ³ª¿À´Â°Ç ¹»±î.. - -;;
+		// ê·¼ë° .. ê³¼ì—° ì´ê±°ë¼ê³  ë ë ¤ë‚˜..
+		// i740ì—ì„œ memory 60Mì¯¤ ë‚˜ì˜¤ëŠ”ê±´ ë­˜ê¹Œ.. - -;;
 		DDCAPS	driverCaps;
 		ZeroMemory( &driverCaps, sizeof(driverCaps) );
 		driverCaps.dwSize = sizeof(driverCaps);
-		
+
 		hr = CDirectDraw::GetDD()->GetCaps( &driverCaps, NULL );
 		if (hr!=DD_OK)
-		{	
+		{
 			InitFail("[Error] GetCaps to Get VidMem");
 			return FALSE;
 		}
-		
+
 		#ifdef	OUTPUT_DEBUG
 			if (driverCaps.dwCaps2 & DDCAPS2_NONLOCALVIDMEMCAPS)
-			{			
-				DEBUG_ADD_FORMAT("DDCAPS2_NONLOCALVIDMEMCAPS Enable");		
+			{
+				DEBUG_ADD_FORMAT("DDCAPS2_NONLOCALVIDMEMCAPS Enable");
 			}
 			else
 			{
 				DEBUG_ADD_FORMAT("DDCAPS2_NONLOCALVIDMEMCAPS Disable");
 			}
-		#endif	
+		#endif
 
 		dwTotal = driverCaps.dwVidMemTotal;
 		dwFree = driverCaps.dwVidMemFree;
@@ -1237,7 +1265,7 @@ InitDraw()
 		BOOL enoughMemory = TRUE;
 
 		//--------------------------------------------------------
-		// 8M ÀÌ»ó ³²¾ÆÀÖ´Â °æ¿ì¸¸ 3D °¡¼ÓÇÑ´Ù.. Èì.. - -;;
+		// 8M ì´ìƒ ë‚¨ì•„ìˆëŠ” ê²½ìš°ë§Œ 3D ê°€ì†í•œë‹¤.. í .. - -;;
 		//--------------------------------------------------------
 		if (dwFree < 8388608)
 		{
@@ -1245,21 +1273,21 @@ InitDraw()
 		}
 
 		//--------------------------------------------------------
-		// ÇÏµå¿ş¾î °¡¼Ó »ç¿ë °¡´É
+		// í•˜ë“œì›¨ì–´ ê°€ì† ì‚¬ìš© ê°€ëŠ¥
 		//--------------------------------------------------------
 		bool bUse3D = ( enoughMemory && g_bHAL && ( CDirect3D::CheckHAL() ));
-		
+
 		if (bUse3D)
-		{		
+		{
 			DEBUG_ADD("[ InitGame ]  Init 3D");
 
 			if (CDirect3D::Init())
-			{			
+			{
 				g_bEnable3DHAL = TRUE;
 
 
 				D3DDEVICEDESC7 devDesc;
-				
+
 				CDirect3D::GetDevice()->GetCaps( &devDesc );
 
 				#ifdef	OUTPUT_DEBUG
@@ -1281,7 +1309,7 @@ InitDraw()
 		}
 		
 		//--------------------------------------------------------
-		// ÇÏµå¿ş¾î °¡¼Ó »ç¿ë ºÒ°¡´É
+		// í•˜ë“œì›¨ì–´ ê°€ì† ì‚¬ìš© ë¶ˆê°€ëŠ¥
 		//--------------------------------------------------------
 		if (!bUse3D)
 		{
@@ -1314,17 +1342,28 @@ InitDraw()
 			}
 
 			g_bEnable3DHAL = FALSE;
-		}	
-	}
+		}
+#endif // PLATFORM_WINDOWS
+
+#ifndef PLATFORM_WINDOWS
 	//--------------------------------------------------------
 	//
-	// ¹«Á¶°Ç 3D°¡¼Ó ¾È ÇÒ¶§
+	// SDL Backend - DirectX not available
+	//
+	//--------------------------------------------------------
+	DEBUG_ADD("[ InitGame ]  SDL backend - no DirectX initialization");
+#endif // PLATFORM_WINDOWS
+
+#ifdef PLATFORM_WINDOWS
+	//--------------------------------------------------------
+	//
+	// ë¬´ì¡°ê±´ 3Dê°€ì† ì•ˆ í• ë•Œ
 	//
 	//--------------------------------------------------------
 	else
 	{
 		DEBUG_ADD("[ InitGame ]  Init 2D");
-		
+
 		if (g_bFullScreen)
 		{
 			if(g_MyFull)
@@ -1346,12 +1385,15 @@ InitDraw()
 			{
 				CDirectDraw::Init(g_hWnd, 800, 600, CDirectDraw::WINDOWMODE, true, g_bUseIMEWindow);
 			}
-		}		
+		}
 	}
+#endif // PLATFORM_WINDOWS
 
 	CSpriteSurface::InitEffectTable();
 
+#ifdef PLATFORM_WINDOWS
 	CDirectDrawSurface::SetGammaFunction();
+#endif
 
 	return TRUE;
 }
@@ -1417,7 +1459,7 @@ void
 StopLoadingThread()
 {
 	//-------------------------------------------------------------
-	// Loading ÁßÀÌ´ø°Í ¸ğµÎ Á¦°Å
+	// Loading ì¤‘ì´ë˜ê²ƒ ëª¨ë‘ ì œê±°
 	//-------------------------------------------------------------
 	if (g_pLoadingThread!=NULL)
 	{
@@ -1432,7 +1474,7 @@ StopLoadingThread()
 		g_pLoadingThread->SetPriority( THREAD_PRIORITY_LOWEST );
 
 		//-------------------------------------------------------------
-		// ÀÛ¾÷ ÁßÁö°¡ ³¡³¯¶§±îÁö ±â´Ù¸²
+		// ì‘ì—… ì¤‘ì§€ê°€ ëë‚ ë•Œê¹Œì§€ ê¸°ë‹¤ë¦¼
 		//-------------------------------------------------------------
 		DEBUG_ADD_FORMAT("Thread-WaitingForStop: size=%d, working=%d, finish=%d, stop=%d", 
 									g_pLoadingThread->GetSize(),
@@ -1447,7 +1489,7 @@ StopLoadingThread()
 }
 
 //---------------------------------------------------------------------------
-// update loopÀÇ Á¤º¸¸¦ ¼³Á¤ÇÑ´Ù.
+// update loopì˜ ì •ë³´ë¥¼ ì„¤ì •í•œë‹¤.
 //---------------------------------------------------------------------------
 BOOL
 InitGameUpdate()
@@ -1481,11 +1523,13 @@ InitGameUpdate()
 }
 
 //---------------------------------------------------------------------------
-// SurfaceÀÇ Á¤º¸¸¦ »ı¼ºÇÑ´Ù.
+// Surfaceì˜ ì •ë³´ë¥¼ ìƒì„±í•œë‹¤.
 //---------------------------------------------------------------------------
 BOOL
 InitGame()
 {	
+	g_pFileDef = new Properties;
+	g_pFileDef->load("Data/Info/FileDef.inf");			
 
 	//---------------------------------------------------------------------
 	// Profiler
@@ -1606,7 +1650,7 @@ InitGame()
 	//---------------------------------------------------------------------
 	// nick name string table Loading
 	//---------------------------------------------------------------------
-	class ifstream gameStringTableTable;//(FILE_INFO_gameStringTable, ios::binary);
+	std::ifstream gameStringTableTable;//(FILE_INFO_gameStringTable, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_NICKNAME_STRING").c_str(), gameStringTableTable))
 		return FALSE;
 	(*g_pNickNameStringTable).LoadFromFile_NickNameString(gameStringTableTable);
@@ -1617,7 +1661,7 @@ InitGame()
 	//---------------------------------------------------------------------
 	// GameStringTable Loading
 	//---------------------------------------------------------------------
-	class ifstream gameStringTableTable2;//(FILE_INFO_gameStringTable, ios::binary);
+	std::ifstream gameStringTableTable2;//(FILE_INFO_gameStringTable, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_STRING").c_str(), gameStringTableTable2))
 		return FALSE;
 	(*g_pGameStringTable).LoadFromFile(gameStringTableTable2);
@@ -1654,18 +1698,22 @@ InitGame()
 	//----------------------------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Socket - Before WSAStartup");
 
+#ifdef PLATFORM_WINDOWS
 	WORD wVersionRequested;
-	WSADATA wsaData;	
-  
+	WSADATA wsaData;
+
 	wVersionRequested = MAKEWORD( 2, 0 );
- 
-	if (WSAStartup( wVersionRequested, &wsaData ) != 0)	
+
+	if (WSAStartup( wVersionRequested, &wsaData ) != 0)
 	{
 	    // Tell the user that we couldn't find a useable
-	    // WinSock DLL.                                 
+	    // WinSock DLL.
 	    MessageBox( g_hWnd, "couldn't find a useable WinSock DLL.", NULL, MB_OK);
 		return FALSE;
 	}
+#else
+	// macOS: BSD sockets don't need WSAStartup
+#endif
 
 //	#ifdef _DEBUG
 //		bool bMerge = false;
@@ -1689,14 +1737,14 @@ InitGame()
 		InitUserOption() &&
 
 		InitVolume() &&
-		InitInput() &&	
+		InitInput() &&
 		//InitSound()  &&
 		InitDraw() &&
-		
-		//InitThread() &&		// 2001.8.20 ÁÖ¼®Ã³¸® - ·Îµù Thread»ç¿ë ¾ÈÇÔ
+
+		//InitThread() &&		// 2001.8.20 ì£¼ì„ì²˜ë¦¬ - ë¡œë”© Threadì‚¬ìš© ì•ˆí•¨
+		InitGameObject() &&    // GameObject must be initialized before Surface
+		                        // because gC_vs_ui.Init() in InitSurface() depends on g_pMoneyManager
 		InitSurface() &&
-		
-		InitGameObject() &&
 
 		InitGameUpdate()
 		)		
@@ -1705,7 +1753,7 @@ InitGame()
 		CheckInvalidProcess();
 		UI_AffectUserOption();
 		//----------------------------------------
-		// guild ¸¶Å© »ı¼ººÎºĞ
+		// guild ë§ˆí¬ ìƒì„±ë¶€ë¶„
 		//----------------------------------------
 		/*
 		#ifdef _DEBUG
@@ -1721,7 +1769,7 @@ InitGame()
 
 		/*
 		#if defined(_DEBUG) && defined(OUTPUT_DEBUG)
-			class ifstream guildInfoFile2(FILE_INFO_GUILD_INFO_MAPPER, ios::binary | ios::nocreate);	
+			std::ifstream guildInfoFile2(FILE_INFO_GUILD_INFO_MAPPER, ios::binary | );	
 
 			if (!guildInfoFile2.is_open())
 			{
@@ -1734,26 +1782,26 @@ InitGame()
 				const int numGuild = 20;
 				MAKE_GUILD_INFO guildInfo[numGuild] =
 				{
-					{ 1, "Å×ÆäÁî" },
-					{ 2, "¹ÙÅä¸®" },
+					{ 1, "í…Œí˜ì¦ˆ" },
+					{ 2, "ë°”í† ë¦¬" },
 					{ 100, "E.V.E" },
-					{ 101, "±ÍÃµ°Ë" },
-					{ 102, "´Ùµ§¸¶½ºÅÍ" },
-					{ 103, "·¹µåºí·¯µå" },
-					{ 104, "¹ÙÀÌ·¯½º" },
-					{ 105, "¹ìÆÄÀÌ¾îÅ°ÆÛÁî" },
-					{ 106, "¹öÇÇÁî" },
-					{ 107, "ºí·¯µå·¹ÀÎ" },
-					{ 108, "¼Ò³â¹Ì¼Ò³à" },
-					{ 109, "½ÊÀÚ±º" },
-					{ 110, "¿¤Ä«" },
-					{ 111, "ÁöÁ¸" },
-					{ 112, "Å°ÆÛÁî" },
-					{ 113, "ÅÂ±Ø" },
-					{ 114, "Æ¯Àü»ç" },
-					{ 115, "ÆĞ¹Ğ¸®" },
-					{ 116, "ÆÛÆåÆ®" },
-					{ 117, "µ¥Ä«" }
+					{ 101, "ê·€ì²œê²€" },
+					{ 102, "ë‹¤ë´ë§ˆìŠ¤í„°" },
+					{ 103, "ë ˆë“œë¸”ëŸ¬ë“œ" },
+					{ 104, "ë°”ì´ëŸ¬ìŠ¤" },
+					{ 105, "ë±€íŒŒì´ì–´í‚¤í¼ì¦ˆ" },
+					{ 106, "ë²„í”¼ì¦ˆ" },
+					{ 107, "ë¸”ëŸ¬ë“œë ˆì¸" },
+					{ 108, "ì†Œë…„ë¯¸ì†Œë…€" },
+					{ 109, "ì‹­ìêµ°" },
+					{ 110, "ì—˜ì¹´" },
+					{ 111, "ì§€ì¡´" },
+					{ 112, "í‚¤í¼ì¦ˆ" },
+					{ 113, "íƒœê·¹" },
+					{ 114, "íŠ¹ì „ì‚¬" },
+					{ 115, "íŒ¨ë°€ë¦¬" },
+					{ 116, "í¼í™íŠ¸" },
+					{ 117, "ë°ì¹´" }
 				};
 
 
@@ -1769,13 +1817,13 @@ InitGame()
 					
 					g_pGuildInfoMapper->Set( guildID, pInfo );
 
-					// ±æµå ¸¶Å© »ı¼º. "±æµåÀÌ¸§.bmp"
+					// ê¸¸ë“œ ë§ˆí¬ ìƒì„±. "ê¸¸ë“œì´ë¦„.bmp"
 					sprintf(guildMarkFilename, "Data\\Guild\\%s.bmp", guildName);
 					g_pGuildMarkManager->CreateGuildMark( guildID, guildMarkFilename );
 				}
 
-				// g_pGuildInfoMapper ÀúÀå
-				class ofstream guildInfoFile(FILE_INFO_GUILD_INFO_MAPPER, ios::binary);	
+				// g_pGuildInfoMapper ì €ì¥
+				std::ofstream guildInfoFile(FILE_INFO_GUILD_INFO_MAPPER, ios::binary);	
 				g_pGuildInfoMapper->SaveToFile(guildInfoFile);
 				guildInfoFile.close();
 				
@@ -1789,14 +1837,14 @@ InitGame()
 		*/
 
 		//----------------------------------------
-		// ³» profile ÃÊ±âÈ­
+		// ë‚´ profile ì´ˆê¸°í™”
 		//----------------------------------------
-		ProfileManager::DeleteProfiles();		// ±âÁ¸¿¡°Å ¸ğµÎ Á¦°Å
-		ProfileManager::InitProfiles();			// profile »ı¼º
+		ProfileManager::DeleteProfiles();		// ê¸°ì¡´ì—ê±° ëª¨ë‘ ì œê±°
+		ProfileManager::InitProfiles();			// profile ìƒì„±
 
 
 			//----------------------------------------
-			// Player Ä³¸¯ÅÍ ±×¸² Load
+			// Player ìºë¦­í„° ê·¸ë¦¼ Load
 			//----------------------------------------
 			//UI_DrawProgress(70);
 
@@ -1814,12 +1862,12 @@ InitGame()
 		
 			//gC_vs_ui.EndProgress();
 
-			// Login Mode·Î ½ÃÀÛÇÑ´Ù.
+			// Login Modeë¡œ ì‹œì‘í•œë‹¤.
 			//SetMode( MODE_OPENING );		
 			SetMode( MODE_MAINMENU );	
 			//SetMode( MODE_WAIT_POSITION );
 		///*
-		// Server¿¡ Á¢¼ÓÀÌ ¾ÈµÉ ¶§ »ç¿ëÇÏ´Â code
+		// Serverì— ì ‘ì†ì´ ì•ˆë  ë•Œ ì‚¬ìš©í•˜ëŠ” code
 		//*/
 
 		// Debug Message
@@ -1856,7 +1904,7 @@ InitGame()
 		return TRUE;
 	}
 
-	// Init°¡ ½ÇÆĞÇÑ °æ¿ì
+	// Initê°€ ì‹¤íŒ¨í•œ ê²½ìš°
 	return FALSE;	
 }
 
@@ -1866,7 +1914,7 @@ InitGame()
 BOOL
 InitSocket()
 {
-	// ÀÏ´Ü release
+	// ì¼ë‹¨ release
 	ReleaseSocket();
 
 	// Debug Message
@@ -1874,8 +1922,8 @@ InitSocket()
 
 
 	//----------------------------------------------------------------------
-	// È¯°æ ÆÄÀÏÀ» ÀĞ¾îµéÀÎ´Ù.
-	// ½ÇÇà ÆÄÀÏÀº $VSHOME/bin¿¡, È¯°æ ÆÄÀÏÀº $VSHOME/conf ¿¡ Á¸ÀçÇØ¾ß ÇÑ´Ù.?	// command line ¿¡¼­ È¯°æ ÆÄÀÏÀ» ÁöÁ¤ÇÒ ¼ö ÀÖµµ·Ï ÇÑ´Ù.
+	// í™˜ê²½ íŒŒì¼ì„ ì½ì–´ë“¤ì¸ë‹¤.
+	// ì‹¤í–‰ íŒŒì¼ì€ $VSHOME/binì—, í™˜ê²½ íŒŒì¼ì€ $VSHOME/conf ì— ì¡´ì¬í•´ì•¼ í•œë‹¤.?	// command line ì—ì„œ í™˜ê²½ íŒŒì¼ì„ ì§€ì •í•  ìˆ˜ ìˆë„ë¡ í•œë‹¤.
 	//----------------------------------------------------------------------
 
 	try {
@@ -1929,7 +1977,7 @@ InitSocket()
 	try {		
 		DEBUG_ADD("[ InitGame ]  Socket - Before new PacketFactoryManager");
 
-		// ÆĞÅ¶ ÆÑÅä¸® ¸Å´ÏÀú¸¦ »ı¼º, ÃÊ±âÈ­ÇÑ´Ù. 
+		// íŒ¨í‚· íŒ©í† ë¦¬ ë§¤ë‹ˆì €ë¥¼ ìƒì„±, ì´ˆê¸°í™”í•œë‹¤. 
 		g_pPacketFactoryManager = new PacketFactoryManager();
 
 		DEBUG_ADD("[ InitGame ]  Socket - Before new PacketValidator");
@@ -1944,7 +1992,7 @@ InitSocket()
 		DEBUG_ADD("[ InitGame ]  Socket - Before new Socket...");
 
 		//---------------------------------------------------------
-		// Address °ñ¶ó¼­ Á¢¼ÓÇÏ±â
+		// Address ê³¨ë¼ì„œ ì ‘ì†í•˜ê¸°
 		//---------------------------------------------------------
 		int maxAddress = 1;
 
@@ -1957,21 +2005,21 @@ InitSocket()
 			//maxAddress = 1;
 		}
 
-		// ÃÖ±Ù¿¡ Á¢¼Ó½Ãµµ¸¦ Çß´ø ¼­¹ö ÁÖ¼Ò ¹øÈ£..
+		// ìµœê·¼ì— ì ‘ì†ì‹œë„ë¥¼ í–ˆë˜ ì„œë²„ ì£¼ì†Œ ë²ˆí˜¸..
 		static int previousTryServer = 0;
 		
 			
 		//for (int i=0; i<maxAddress; i++)
 		{
-			// ¿©·¯ login ¼­¹ö ÁßÀÇ ÇÑ ±ºµ¥·Î Á¢¼ÓÇÑ´Ù.
-			// ¼ø¼­´ë·Î..
+			// ì—¬ëŸ¬ login ì„œë²„ ì¤‘ì˜ í•œ êµ°ë°ë¡œ ì ‘ì†í•œë‹¤.
+			// ìˆœì„œëŒ€ë¡œ..
 			int i = previousTryServer % maxAddress;
 
 			try {				
 				std::string serverAddressString;
 				serverAddressString = "LoginServerAddress";
 				
-				// [Futec¼öÁ¤]
+				// [Futecìˆ˜ì •]
 				uint port;
 				if( g_pUserInformation->bKorean )
 					port = g_pConfigKorean->getPropertyInt("LoginServerPort");
@@ -1979,7 +2027,7 @@ InitSocket()
 					port = g_pConfigForeign->getPropertyInt(g_Dimension, "LoginServerPort");
 
 
-				// ¼ÒÄÏÀ» »ı¼ºÇÏ°í ¾÷µ¥ÀÌÆ® ¼­¹ö¿¡ ¿¬°áÇÑ´Ù.
+				// ì†Œì¼“ì„ ìƒì„±í•˜ê³  ì—…ë°ì´íŠ¸ ì„œë²„ì— ì—°ê²°í•œë‹¤.
 				std::string ServerAddress;				
 				if (g_FutecPort==0)
 				{				
@@ -1995,7 +2043,7 @@ InitSocket()
 					else
 						ServerAddress = g_pConfigForeign->getProperty( g_Dimension, serverAddressString);
 
-					// LoginServerÀÇ port¸¦ ÀÓÀÇ·Î ¼±ÅÃÇÑ´Ù.
+					// LoginServerì˜ portë¥¼ ì„ì˜ë¡œ ì„ íƒí•œë‹¤.
 					try {
 						int portNum;
 						if( g_pUserInformation->bKorean )
@@ -2003,7 +2051,7 @@ InitSocket()
 						else
 							portNum = g_pConfigForeign->getPropertyInt( g_Dimension, "LoginServerPortNum");
 						
-						// port °í¸£±â
+						// port ê³ ë¥´ê¸°
 						if (portNum>1)
 						{
 							if( g_pUserInformation->bKorean )
@@ -2014,14 +2062,14 @@ InitSocket()
 					} catch (NoSuchElementException&) {
 					}
 				}
-				// FutecÀ¸·Î Á¢¼Ó
+				// Futecìœ¼ë¡œ ì ‘ì†
 				else
 				{
 					ServerAddress = g_FutecIP;
 					port = g_FutecPort;
 				}
 
-				// domainÀ¸·Î µÈ ÁÖ¼ÒÀÎ °æ¿ì..
+				// domainìœ¼ë¡œ ëœ ì£¼ì†Œì¸ ê²½ìš°..
 				if (ServerAddress[0] < '0' || ServerAddress[0] > '9')
 				{
 					struct hostent* h;
@@ -2029,7 +2077,7 @@ InitSocket()
 					if ((h=gethostbyname(ServerAddress.c_str()))==NULL)
 					{
 						// -_-;
-						throw ConnectException("LoginServerÀÇ ÁÖ¼Ò¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+						throw ConnectException("LoginServerì˜ ì£¼ì†Œë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 					}
 
 					char* pIP = (char*)inet_ntoa(*((struct in_addr*)h->h_addr));
@@ -2047,8 +2095,8 @@ InitSocket()
 				
 				hostent& he = *phost;
 				//in_addr* addr = (in_addr*) *(phost->h_addr_list)
-				//add by sonic 2006.4.10 ¼ì²âÓÎÏ·Á¬½Ó·şÎñÆ÷µØÖ·
-				//ServerAddress = cmpServerAddress;//Ç¿ĞĞ¸³Öµ·şÎñÆ÷µØÖ·,·ÀÖ¹³ö´í
+				//add by sonic 2006.4.10 ì‡±ê¿è¸ç‹—ì ¯ìŒˆë¥©è›Ÿí¬ë’ˆå›¹
+				//ServerAddress = cmpServerAddress;//í“»ï¤‰ë¦½ä»¤ë¥©è›Ÿí¬ë’ˆå›¹,ë å²ºë†”ëŒ„
 				//ServerAddress = "59.34.148.238";
 				if ( ServerAddress[0] == 0x31 
 					&& ServerAddress[1] == 0x32
@@ -2104,9 +2152,9 @@ InitSocket()
 //				int lenSA = sizeof(sa);
 //				getsockname( pSocket->getSOCKET(), (sockaddr*)&sa, &lenSA );
 //				char str[128];
-//				sprintf(str, inet_ntoa(sa.sin_addr));	// str : ³»IP
+//				sprintf(str, inet_ntoa(sa.sin_addr));	// str : ë‚´IP
 
-				// connect°¡ µÈ °æ¿ì..
+				// connectê°€ ëœ ê²½ìš°..
 				//break;
 
 			} catch ( ConnectException ) {
@@ -2117,10 +2165,10 @@ InitSocket()
 					pSocket = NULL;
 				}
 
-				// ½ÇÆĞÇßÀ¸´Ï±î ´ÙÀ½ ÁÖ¼Ò·Î..
+				// ì‹¤íŒ¨í–ˆìœ¼ë‹ˆê¹Œ ë‹¤ìŒ ì£¼ì†Œë¡œ..
 				previousTryServer ++;
 
-				// ¸¶Áö¸· ÁÖ¼ÒÀÎ °æ¿ì¿¡¸¸ ³¡ÀÌ´Ù.
+				// ë§ˆì§€ë§‰ ì£¼ì†Œì¸ ê²½ìš°ì—ë§Œ ëì´ë‹¤.
 				//if (i==maxAddress-1)
 				throw;
 			}
@@ -2284,9 +2332,9 @@ void ReleaseAllObjects()
 	EndTitleLoading();
 	
 	//----------------------------------------------------------------
-	// GameUpdate Á¦°Å
+	// GameUpdate ì œê±°
 	//
-	// update loop ¾È¿¡¼­ ÀÌ°É ½ÇÇàÇÏ¸é ¾ÈµÈ´Ù.
+	// update loop ì•ˆì—ì„œ ì´ê±¸ ì‹¤í–‰í•˜ë©´ ì•ˆëœë‹¤.
 	//----------------------------------------------------------------
 	ReleaseGameUpdate();
 
@@ -2339,14 +2387,14 @@ void ReleaseAllObjects()
 	
 	//----------------------------------------------------------------
 	// 
-	//		Global Á¤º¸ Á¦°Å
+	//		Global ì •ë³´ ì œê±°
 	//
 	//----------------------------------------------------------------
 	ReleasePacketItemTable();
 
 	
 	//----------------------------------------------------------------
-	// UI Á¦°Å
+	// UI ì œê±°
 	//----------------------------------------------------------------
 	if (g_pUIDialog!=NULL)
 	{
@@ -2360,7 +2408,7 @@ void ReleaseAllObjects()
 
 	//----------------------------------------------------------------
 	//
-	//					Game°ü·Ã Á¤º¸
+	//					Gameê´€ë ¨ ì •ë³´
 	//
 	//----------------------------------------------------------------
 	
@@ -2385,7 +2433,7 @@ void ReleaseAllObjects()
 	}
 	
 	//----------------------------------------------------------------
-	// Player »èÁ¦
+	// Player ì‚­ì œ
 	//----------------------------------------------------------------
 	DEBUG_ADD("[Release] g_pPlayer");
 	if (g_pPlayer!=NULL)
@@ -2480,9 +2528,9 @@ void ReleaseAllObjects()
 	
 	if (g_pTopView!=NULL)
 	{
-		// updater¸¦ ½ÇÇàÇÒ¶§¸¸ Áö¿öÁØ´Ù. - -;
-		// release ¾È ÇØÁÖ´Â°Ô ´õ »¡¸® Á¦°ÅµÅ¼­(-_-;) ¾ÈÇß¾ú´Âµ¥
-		// updaterÇÒ¶§´Â È®½ÇÈ÷ Á¦°ÅÇØÁÖ´Â°Ô ³´Áö ½Í¾î¼­¸®..
+		// updaterë¥¼ ì‹¤í–‰í• ë•Œë§Œ ì§€ì›Œì¤€ë‹¤. - -;
+		// release ì•ˆ í•´ì£¼ëŠ”ê²Œ ë” ë¹¨ë¦¬ ì œê±°ë¼ì„œ(-_-;) ì•ˆí–ˆì—ˆëŠ”ë°
+		// updaterí• ë•ŒëŠ” í™•ì‹¤íˆ ì œê±°í•´ì£¼ëŠ”ê²Œ ë‚«ì§€ ì‹¶ì–´ì„œë¦¬..
 		//if (g_bNeedUpdate)
 		{
 			g_pTopView->Release();
@@ -2510,16 +2558,18 @@ void ReleaseAllObjects()
 	SAFE_DELETE( g_pLast );
 	
 
-	//----------------------------------------------------------------		
+	//----------------------------------------------------------------
 	// Socket
 	//----------------------------------------------------------------
 	DEBUG_ADD("[Release] Socket");
 	ReleaseSocket();
 
 	//----------------------------------------------------------------
-	// ³È.. 
+	// WinSock Cleanup (Windows only)
 	//----------------------------------------------------------------
-	WSACleanup();	
+#ifdef PLATFORM_WINDOWS
+	WSACleanup();
+#endif
 
 	//----------------------------------------------------------------
 	// Volume
@@ -2544,7 +2594,7 @@ void ReleaseAllObjects()
 	}
 
 	//----------------------------------------------------------------
-	// global Á¦°Å...
+	// global ì œê±°...
 	//----------------------------------------------------------------
 	//if (g_bNeedUpdate)
 	{
@@ -2672,11 +2722,15 @@ void ReleaseAllObjects()
 	//----------------------------------------------------------------
 	DEBUG_ADD("[Release] CDirect3D");
 
+#ifdef PLATFORM_WINDOWS
 	CDirect3D::Release();
+#endif
 
 	DEBUG_ADD("[Release] CDirectDraw");
-	
+
+#ifdef PLATFORM_WINDOWS
 	CDirectDraw::ReleaseAll();
+#endif
 
 	//---------------------------------------------------------------------
 	// Profiler
@@ -2836,7 +2890,7 @@ InitGameObject()
 	int nStartV = 73*25;
 #ifdef __GAME_CLIENT__
 	int version;
-	class ifstream versionFile;//(g_pFileDef->getProperty("FILE_INFO_ACTION").c_str(), ios::binary);
+	std::ifstream versionFile;//(g_pFileDef->getProperty("FILE_INFO_ACTION").c_str(), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_VERSION").c_str(), versionFile))
 	{
 		return FALSE;
@@ -2966,7 +3020,7 @@ InitGameObject()
 	g_pInventoryEffectManager = new MScreenEffectManager;
 
 	//----------------------------------------
-	// Player »ı¼º
+	// Player ìƒì„±
 	//----------------------------------------
 	if (g_pPlayer!=NULL)
 	{	
@@ -2978,7 +3032,7 @@ InitGameObject()
 		delete g_pPlayer;
 	}
 
-	// Player ±âº»°ª ÃÊ±âÈ­
+	// Player ê¸°ë³¸ê°’ ì´ˆê¸°í™”
 	g_pPlayer = new MPlayer;
 	DEBUG_ADD_FORMAT("[g_pPlayer] %x", g_pPlayer);
 
@@ -2987,7 +3041,7 @@ InitGameObject()
 
 	//--------------------------------------------------
 	//
-	// Skill Tree ÃÊ±âÈ­
+	// Skill Tree ì´ˆê¸°í™”
 	//
 	//--------------------------------------------------
 	g_pSkillManager->Init();

@@ -16,11 +16,12 @@
 
 //////////////////////////////////////////////////////////////////////
 //
-// Å¬¶óÀÌ¾ðÆ®¿¡¼­ ¼­¹ö·ÎºÎÅÍ ¸Þ½ÃÁö¸¦ ¹Þ¾ÒÀ»¶§ ½ÇÇàµÇ´Â ¸Þ½îµåÀÌ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì„œë²„ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ë°›ì•˜ì„ë•Œ ì‹¤í–‰ë˜ëŠ” ë©”ì˜ë“œì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void GCRemoveStoreItemHandler::execute ( GCRemoveStoreItem * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY 
 	//__BEGIN_DEBUG_EX

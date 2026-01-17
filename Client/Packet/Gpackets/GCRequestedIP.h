@@ -36,7 +36,7 @@ public:
 
 public:
 	std::string getName() const throw() { return m_Name;}
-	void setName( const char* pName) throw(Error) { m_Name = pName;}
+	void setName( const char* pName) throw ( ProtocolException , Error ) { m_Name = pName;}
 
 	void setIP(IP_t ip) throw() { m_IP = ip; }
 	IP_t getIP() const throw() { return m_IP; }
@@ -74,7 +74,7 @@ public:
 class GCRequestedIPHandler 
 {
 public:
-	static void execute ( GCRequestedIP * pGCRequestedIP , Player * pPlayer ) throw ( Error );
+	static void execute ( GCRequestedIP * pGCRequestedIP , Player * pPlayer ) throw ( ProtocolException , Error );
 };
 
 #endif

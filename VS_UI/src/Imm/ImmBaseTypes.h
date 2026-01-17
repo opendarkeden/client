@@ -37,7 +37,9 @@
 #endif // _MSC_VER >= 1000
 
 //#include <windows.h>
+#ifdef PLATFORM_WINDOWS
 #include "FeelitApi.h"
+#endif
 
 // Version 0x0100 -- IFC10
 // Version 0x0101 -- IFC10p Special release: contains CImmProject::DestroyEffect

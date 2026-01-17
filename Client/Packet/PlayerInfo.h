@@ -17,44 +17,44 @@
 //
 // class PlayerInfo;
 //
-// ÇÃ·¹ÀÌ¾î µî·Ï½Ã °¢ µ¥ÀÌÅ¸ ¸â¹öµéÀÇ ÃÖ´ë ÃÖ¼Ò ±æÀÌ °°Àº Á¤º¸¸¦ ´ã´Â´Ù.
+// í”Œë ˆì´ì–´ ë“±ë¡ì‹œ ê° ë°ì´íƒ€ ë©¤ë²„ë“¤ì˜ ìµœëŒ€ ìµœì†Œ ê¸¸ì´ ê°™ì€ ì •ë³´ë¥¼ ë‹´ëŠ”ë‹¤.
 //
 //----------------------------------------------------------------------
 namespace PlayerInfo {
 
-	// ÇÃ·¹ÀÌ¾î ¾ÆÀÌµğ
+	// í”Œë ˆì´ì–´ ì•„ì´ë””
 	const uint minIDLength = 4;
 	const uint maxIDLength = 10;
 
-	// ÇÃ·¹ÀÌ¾î ¾ÏÈ£
+	// í”Œë ˆì´ì–´ ì•”í˜¸
 	const uint minPasswordLength = 6;
 	const uint maxPasswordLength = 10;
 
-	// ÇÃ·¹ÀÌ¾î ÀÌ¸§
+	// í”Œë ˆì´ì–´ ì´ë¦„
 	const uint maxNameLength = 20;
 
-	// ÁÖ¹Îµî·Ï¹øÈ£ ( '-' ¸¦ Æ÷ÇÔÇØ¾ß ÇÑ´Ù. )
+	// ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸ ( '-' ë¥¼ í¬í•¨í•´ì•¼ í•œë‹¤. )
 	const uint maxSSNLength = 20;
 
-	// ÁıÀüÈ­
+	// ì§‘ì „í™”
 	const uint maxTelephoneLength = 15;
 
-	// ÈŞ´ëÆù
+	// íœ´ëŒ€í°
 	const uint maxCellularLength = 15;
 
-	// ¿ìÆí¹øÈ£
+	// ìš°í¸ë²ˆí˜¸
 	const uint maxZipCodeLength = 7;
 
-	// ÁıÁÖ¼Ò
+	// ì§‘ì£¼ì†Œ
 	const uint maxAddressLength = 100;
 
-	// ÀüÀÚ¸ŞÀÏ
+	// ì „ìë©”ì¼
 	const uint maxEmailLength = 50;
 
-	// È¨ÆäÀÌÁö
+	// í™ˆí˜ì´ì§€
 	const uint maxHomepageLength = 50;
 
-	// ÀÚ±â¼Ò°³±Û
+	// ìê¸°ì†Œê°œê¸€
 	const uint maxProfileLength = 200;
 
 };

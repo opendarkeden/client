@@ -2,7 +2,7 @@
 // CThingFrameSetManager.h
 //----------------------------------------------------------------------
 //
-// AnimationFrameSetÀ» »ı¼ºÇÏ´Â class
+// AnimationFrameSetì„ ìƒì„±í•˜ëŠ” class
 //
 //
 //----------------------------------------------------------------------
@@ -20,10 +20,10 @@ class CAnimationFrameSetManager : public CFrameSetManager {
 
 	protected :
 		//--------------------------------------------------------
-		// AnimationFrameSet°ú °ü·ÃµÈ SpriteID¸¦ ¼±ÅÃÇØ¼­
-		// SpritePack IndexFile·ÎºÎÅÍ SpriteSet IndexFileÀ» »ı¼ºÇÑ´Ù.
+		// AnimationFrameSetê³¼ ê´€ë ¨ëœ SpriteIDë¥¼ ì„ íƒí•´ì„œ
+		// SpritePack IndexFileë¡œë¶€í„° SpriteSet IndexFileì„ ìƒì„±í•œë‹¤.
 		//--------------------------------------------------------
-		bool	SaveSpriteSetIndex(CAnimationFramePack* pAnimationFramePack, class ofstream& setIndex, class ifstream& packIndex);
+		bool	SaveSpriteSetIndex(CAnimationFramePack* pAnimationFramePack, std::ofstream& setIndex, std::ifstream& packIndex);
 };
 
 #endif

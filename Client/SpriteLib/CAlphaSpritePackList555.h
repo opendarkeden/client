@@ -1,7 +1,8 @@
+#include <fstream>
 //----------------------------------------------------------------------
 // CAlphaSpritePackList555.h
 //----------------------------------------------------------------------
-// 5:5:5¸¦ À§ÇÑ class
+// 5:5:5ë¥¼ ìœ„í•œ class
 //----------------------------------------------------------------------
 
 #ifndef	__CALPHASPRITEPACKLIST555_H__
@@ -19,7 +20,7 @@ class CAlphaSpritePackList555 : public CAlphaSpritePackList {
 		//---------------------------------------------------
 		// file I/O		
 		//---------------------------------------------------
-		void		LoadFromFile(class ifstream& file);
+		void		LoadFromFile(std::ifstream& file);
 };
 
 #endif

@@ -1,32 +1,32 @@
 //----------------------------------------------------------------------
 // MItemTable.h
 //----------------------------------------------------------------------
-// ItemÀÇ Á¾·ù¿¡ µû¸¥ Á¤º¸¸¦ ÀúÀåÇÏ´Â class
+// Itemì˜ ì¢…ë¥˜ì— ë”°ë¥¸ ì •ë³´ë¥¼ ì €ì¥í•˜ëŠ” class
 //----------------------------------------------------------------------
 //
-// [ Á¾·ùº°·Î ÀÖ´Â Á¤º¸ ] 
+// [ ì¢…ë¥˜ë³„ë¡œ ìˆëŠ” ì •ë³´ ] 
 //
-// - Tile¿¡¼­ÀÇ FrameID
-// - Inventory¿¡¼­ÀÇ SpriteID
-// - ÀÌ¸§... µîµî...
+// - Tileì—ì„œì˜ FrameID
+// - Inventoryì—ì„œì˜ SpriteID
+// - ì´ë¦„... ë“±ë“±...
 // 
 //
-// (*g_pItemTable)[class][type] À¸·Î ÇÏ³ªÀÇ ItemÁ¤º¸¿¡ Á¢±Ù °¡´ÉÇÏ´Ù.
+// (*g_pItemTable)[class][type] ìœ¼ë¡œ í•˜ë‚˜ì˜ Itemì •ë³´ì— ì ‘ê·¼ ê°€ëŠ¥í•˜ë‹¤.
 //
 //----------------------------------------------------------------------
 //
-// Value1 ~ 4´Â °¡º¯ÀûÀÌ´Ù..
-// ItemÀÇ Á¾·ù¿¡ µû¶ó¼­ Æ¯Á¤ÇÑ value°¡ ¾î´À °ªÀ» ´ëÇ¥ÇÒ ¼ö ÀÖ´Ù.
+// Value1 ~ 4ëŠ” ê°€ë³€ì ì´ë‹¤..
+// Itemì˜ ì¢…ë¥˜ì— ë”°ë¼ì„œ íŠ¹ì •í•œ valueê°€ ì–´ëŠ ê°’ì„ ëŒ€í‘œí•  ìˆ˜ ìˆë‹¤.
 //
-// MotorCycle				: ³»±¸¼º(1), ¿î¹İ°¡´É¹«°Ô(2), Def(6)
-// GearItem					: ³»±¸¼º(1), Protection(2), Def(6)
-// Belt						: ³»±¸¼º(1), Protection(2), Æ÷ÄÏ¼ö(3), Def(6)
-// HolyWater, Áö·Ú, ÆøÅº	: MinDam(1)~MaxDam(2)
-// Potion					: È¸º¹¼öÄ¡(1)
-// °Ë,µµ					: ³»±¸¼º(1), Protection(?), MinDam(3)~MaxDam(4), Speed(7)
-// ½ÊÀÚ°¡					: ³»±¸¼º(1), Protection(?), MinDam(3)~MaxDam(4), MPÁõ°¡(5), Speed(7)
-// ÃÑ						: ³»±¸¼º(1), Protection(?), MinDam(3)~MaxDam(4), »çÁ¤°Å¸®(5), Speed(7)
-// ÅºÃ¢						: MaxÅºÃ¢¼ö(1)
+// MotorCycle				: ë‚´êµ¬ì„±(1), ìš´ë°˜ê°€ëŠ¥ë¬´ê²Œ(2), Def(6)
+// GearItem					: ë‚´êµ¬ì„±(1), Protection(2), Def(6)
+// Belt						: ë‚´êµ¬ì„±(1), Protection(2), í¬ì¼“ìˆ˜(3), Def(6)
+// HolyWater, ì§€ë¢°, í­íƒ„	: MinDam(1)~MaxDam(2)
+// Potion					: íšŒë³µìˆ˜ì¹˜(1)
+// ê²€,ë„					: ë‚´êµ¬ì„±(1), Protection(?), MinDam(3)~MaxDam(4), Speed(7)
+// ì‹­ìê°€					: ë‚´êµ¬ì„±(1), Protection(?), MinDam(3)~MaxDam(4), MPì¦ê°€(5), Speed(7)
+// ì´						: ë‚´êµ¬ì„±(1), Protection(?), MinDam(3)~MaxDam(4), ì‚¬ì •ê±°ë¦¬(5), Speed(7)
+// íƒ„ì°½						: Maxíƒ„ì°½ìˆ˜(1)
 //----------------------------------------------------------------------
 
 #ifndef	__MITEMTABLE_H__
@@ -43,7 +43,7 @@
 #include <list>
 
 //----------------------------------------------------------------------
-// ÇÊ¿ä´É·ÂÄ¡ Flag
+// í•„ìš”ëŠ¥ë ¥ì¹˜ Flag
 //----------------------------------------------------------------------
 #define	REQUIRE_STR							0x01
 #define	REQUIRE_DEX							0x02
@@ -55,7 +55,7 @@ extern int g_ELEMENTAL_STRING_ID[5];
 
 //----------------------------------------------------------------------
 //
-// ÇÑ Á¾·ùÀÇ Item¿¡ ´ëÇÑ Á¤º¸
+// í•œ ì¢…ë¥˜ì˜ Itemì— ëŒ€í•œ ì •ë³´
 //
 //----------------------------------------------------------------------
 class ITEMTABLE_INFO {
@@ -72,42 +72,42 @@ class ITEMTABLE_INFO {
 			ELEMENTAL_TYPE_MAX,
 		};
 
-		MString					HName;				// Item ÇÑ±Û ÀÌ¸§
-		MString					EName;				// Item ¿µ¾î ÀÌ¸§
-		MString					Description;		// Item¿¡ ´ëÇÑ ¼³¸í
+		MString					HName;				// Item í•œê¸€ ì´ë¦„
+		MString					EName;				// Item ì˜ì–´ ì´ë¦„
+		MString					Description;		// Itemì— ëŒ€í•œ ì„¤ëª…
 		
 	 	// Frame ID
-		TYPE_FRAMEID			TileFrameID;		// Tile¿¡¼­ÀÇ FrameID
-		TYPE_FRAMEID			InventoryFrameID;	// Inventory¿¡¼­ÀÇ Frame ID
-		TYPE_FRAMEID			GearFrameID;		// Gear¿¡¼­ÀÇ Frame ID
-		TYPE_FRAMEID			AddonMaleFrameID;	// ÀåÂøÇßÀ» ¶§ÀÇ µ¿ÀÛ FrameID - ³²ÀÚ
-		TYPE_FRAMEID			AddonFemaleFrameID;	// ÀåÂøÇßÀ» ¶§ÀÇ µ¿ÀÛ FrameID - ¿©ÀÚ
-		TYPE_FRAMEID			DropFrameID;		// itemÀ» ¹Ù´Ú¿¡ ¶³¾î¶ß·ÈÀ»¶§ FrameID
+		TYPE_FRAMEID			TileFrameID;		// Tileì—ì„œì˜ FrameID
+		TYPE_FRAMEID			InventoryFrameID;	// Inventoryì—ì„œì˜ Frame ID
+		TYPE_FRAMEID			GearFrameID;		// Gearì—ì„œì˜ Frame ID
+		TYPE_FRAMEID			AddonMaleFrameID;	// ì¥ì°©í–ˆì„ ë•Œì˜ ë™ì‘ FrameID - ë‚¨ì
+		TYPE_FRAMEID			AddonFemaleFrameID;	// ì¥ì°©í–ˆì„ ë•Œì˜ ë™ì‘ FrameID - ì—¬ì
+		TYPE_FRAMEID			DropFrameID;		// itemì„ ë°”ë‹¥ì— ë–¨ì–´ëœ¨ë ¸ì„ë•Œ FrameID
 
-		// 2005, 1, 14, sobeit add start - ItemDescription.spk ¿¡¼­ ¾²´Â frameID
-		TYPE_FRAMEID			DescriptionFrameID;	// Description¿¡¼­ÀÇ FrameID
+		// 2005, 1, 14, sobeit add start - ItemDescription.spk ì—ì„œ ì“°ëŠ” frameID
+		TYPE_FRAMEID			DescriptionFrameID;	// Descriptionì—ì„œì˜ FrameID
 		// 2005, 1, 14, sobeit add end
 		
 		// Sound ID
-		TYPE_SOUNDID			UseSoundID;			// Item »ç¿ë SoundID			
-		TYPE_SOUNDID			TileSoundID;		// Item Áİ±â SoundID
-		TYPE_SOUNDID			InventorySoundID;	// Inventory¿¡¼­ÀÇ Sound
-		TYPE_SOUNDID			GearSoundID;		// Gear¿¡¼­ÀÇ Sound
+		TYPE_SOUNDID			UseSoundID;			// Item ì‚¬ìš© SoundID			
+		TYPE_SOUNDID			TileSoundID;		// Item ì¤ê¸° SoundID
+		TYPE_SOUNDID			InventorySoundID;	// Inventoryì—ì„œì˜ Sound
+		TYPE_SOUNDID			GearSoundID;		// Gearì—ì„œì˜ Sound
 
 		bool					bMaleOnly;
 		bool					bFemaleOnly;
 		
-		// inventory¿¡¼­ÀÇ GridÅ©±â
+		// inventoryì—ì„œì˜ Gridí¬ê¸°
 		BYTE					GridWidth;
 		BYTE					GridHeight;
 
-		// item ÀÚÃ¼¿¡ ´ëÇÑ °íÁ¤µÈ Á¤º¸
-		TYPE_ITEM_WEIGHT		Weight;				// ¹«°Ô	
+		// item ìì²´ì— ëŒ€í•œ ê³ ì •ëœ ì •ë³´
+		TYPE_ITEM_WEIGHT		Weight;				// ë¬´ê²Œ	
 		TYPE_ITEM_PRICE			Price;
-		int						SilverMax;			// ÀºÄÚÆÃ.. 0ÀÌ¸é ¸øÇÏ´Â°Å´Ù.
+		int						SilverMax;			// ì€ì½”íŒ….. 0ì´ë©´ ëª»í•˜ëŠ”ê±°ë‹¤.
 		int						ToHit;				// ToHit
 
-		// °ªµé.. --> Protection, °ø°İ·Â, »çÁ¤°Å¸®...
+		// ê°’ë“¤.. --> Protection, ê³µê²©ë ¥, ì‚¬ì •ê±°ë¦¬...
 		int						Value1;
 		int						Value2;
 		int						Value3;				
@@ -116,10 +116,10 @@ class ITEMTABLE_INFO {
 		int						Value6;
 		int						Value7;
 
-		// ±âº» °ø°İ ActionInfo
+		// ê¸°ë³¸ ê³µê²© ActionInfo
 		TYPE_ACTIONINFO			UseActionInfo;	
 
-		// ÃÖ´ë°ª °³¼ö
+		// ìµœëŒ€ê°’ ê°œìˆ˜
 		TYPE_ITEM_NUMBER		MaxNumber;
 
 		// critical
@@ -134,13 +134,13 @@ class ITEMTABLE_INFO {
 		
 	//protected :	
 	public:
-		// »ç¿ë°¡´ÉÇÑ Á¦ÇÑ´É·Â
+		// ì‚¬ìš©ê°€ëŠ¥í•œ ì œí•œëŠ¥ë ¥
 		BYTE					RequireSTR;
 		BYTE					RequireDEX;
 		BYTE					RequireINT;		
 		BYTE					RequireLevel;
-		BYTE					RequireAdvancementLevel; // ÇÊ¿ä ½ÂÁ÷ ·¹º§
-		WORD					RequireSUM;		// ´É·ÂÄ¡ ÃÑÇÕ
+		BYTE					RequireAdvancementLevel; // í•„ìš” ìŠ¹ì§ ë ˆë²¨
+		WORD					RequireSUM;		// ëŠ¥ë ¥ì¹˜ ì´í•©
 
 	public :
 		ITEMTABLE_INFO();
@@ -158,7 +158,7 @@ class ITEMTABLE_INFO {
 		void	SetDescriptionFrameID(TYPE_FRAMEID fID) { DescriptionFrameID = fID;}
 
 		//-------------------------------------------------------
-		// ÇÊ¿ä´É·ÂÄ¡ ¼³Á¤
+		// í•„ìš”ëŠ¥ë ¥ì¹˜ ì„¤ì •
 		//-------------------------------------------------------
 		void	SetRequireSTR(BYTE str=0)			{ RequireSTR = str; }
 		void	SetRequireDEX(BYTE dex=0)			{ RequireDEX = dex; }
@@ -178,7 +178,7 @@ class ITEMTABLE_INFO {
 		BYTE		GetRequireAdvancementLevel() const	{ return RequireAdvancementLevel; }		
 
 		//-------------------------------------------------------
-		// ¼ºº°
+		// ì„±ë³„
 		//-------------------------------------------------------
 		bool		IsGenderForMale() const				{ return bMaleOnly; }
 		bool		IsGenderForFemale() const			{ return bFemaleOnly; }
@@ -188,18 +188,18 @@ class ITEMTABLE_INFO {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void			SaveToFile(class ofstream& file);		
-		void			LoadFromFile(class ifstream& file);		
+		void			SaveToFile(std::ofstream& file);		
+		void			LoadFromFile(std::ifstream& file);		
 };
 
 
 //--------------------------------------------------------------------------
-// ÇÏ³ªÀÇ class¿¡ ´ëÇÑ typeµéÀÇ Á¤º¸
+// í•˜ë‚˜ì˜ classì— ëŒ€í•œ typeë“¤ì˜ ì •ë³´
 //--------------------------------------------------------------------------
 class ITEMTYPE_TABLE : public CTypeTable<ITEMTABLE_INFO>
 {
 public :
-	void	LoadFromFile(class ifstream& file);
+	void	LoadFromFile(std::ifstream& file);
 
 	int		GetAveragePrice() const	{ return m_AveragePrice; }
 
@@ -209,7 +209,7 @@ private :
 
 //----------------------------------------------------------------------
 //
-// ItemClass¿¡ ´ëÇÑ Table
+// ItemClassì— ëŒ€í•œ Table
 //
 //  :  (*g_pItemTable)[ itemClass ][ itemType ]
 //
@@ -221,7 +221,7 @@ class ITEMCLASS_TABLE : public CTypeTable<ITEMTYPE_TABLE> {
 		~ITEMCLASS_TABLE();
 
 		//-------------------------------------------------------
-		// °¢ classType¿¡ ¸Â´Â °³¼ö¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+		// ê° classTypeì— ë§ëŠ” ê°œìˆ˜ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 		//-------------------------------------------------------
 		void		InitClass( int c, int size );
 		void		InitItem2();

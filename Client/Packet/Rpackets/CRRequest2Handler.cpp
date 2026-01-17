@@ -17,7 +17,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void CRRequest2Handler::execute ( CRRequest2 * pPacket )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -26,8 +27,8 @@ void CRRequest2Handler::execute ( CRRequest2 * pPacket )
 	DEBUG_ADD("CRRequest2Handler");
 
 	if ((g_Mode==MODE_GAME
-			|| g_Mode==MODE_WAIT_UPDATEINFO			// ·Îµù ÁßÀÌ ¾Æ´Ï°Å³ª..
-			|| g_Mode==MODE_WAIT_SETPOSITION		// ÁÂÇ¥ ±â´Ù¸®´Â °æ¿ì
+			|| g_Mode==MODE_WAIT_UPDATEINFO			// ë¡œë”© ì¤‘ì´ ì•„ë‹ˆê±°ë‚˜..
+			|| g_Mode==MODE_WAIT_SETPOSITION		// ì¢Œí‘œ ê¸°ë‹¤ë¦¬ëŠ” ê²½ìš°
 			)
 		&& g_pUserInformation!=NULL)
 	{

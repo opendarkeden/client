@@ -15,7 +15,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCThrowItemOK2Handler::execute ( GCThrowItemOK2 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -26,7 +27,7 @@ void GCThrowItemOK2Handler::execute ( GCThrowItemOK2 * pPacket , Player * pPlaye
 	//int delayFrame = ConvertDurationToFrame( pPacket->getDuration() );
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -34,20 +35,20 @@ void GCThrowItemOK2Handler::execute ( GCThrowItemOK2 * pPacket , Player * pPlaye
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 			
-		// Creature¿¡°Ô Damage ÀÔÈû
+		// Creatureì—ê²Œ Damage ìž…íž˜
 		if (pCreature == NULL)
 		{
 			
 		}
 		else
 		{
-			// ³»(Player)°¡ ´©±º°¡°¡ »ç¿ëÇÑ SKillÀ» ¸ÂÀº °æ¿ì..
+			// ë‚´(Player)ê°€ ëˆ„êµ°ê°€ê°€ ì‚¬ìš©í•œ SKillì„ ë§žì€ ê²½ìš°..
 			// [ TEST CODE ]
 			MActionResult* pResult = new MActionResult;
 			pResult->Add( new MActionResultNodeActionInfo( 
@@ -62,23 +63,23 @@ void GCThrowItemOK2Handler::execute ( GCThrowItemOK2 * pPacket , Player * pPlaye
 
 			// [ TEST CODE ]
 			//
-			// °á°ú¸¦ »ý¼º&ÀúÀåÇØ¼­ º¸³»¾ß ÇÑ´Ù.
+			// ê²°ê³¼ë¥¼ ìƒì„±&ì €ìž¥í•´ì„œ ë³´ë‚´ì•¼ í•œë‹¤.
 			//
-			// ¹æÇâÀ» ¹Ù¶óº¸±â
+			// ë°©í–¥ì„ ë°”ë¼ë³´ê¸°
 			pCreature->SetDirectionToPosition(g_pPlayer->GetX(), g_pPlayer->GetY());
 
 			//Duration_t	m_Duration;
 			pCreature->PacketSpecialActionToOther(
 								skillType, 
-								g_pPlayer->GetID(),		// player°¡ ¸Â´Â´Ù.
-								pResult						// °á°ú
+								g_pPlayer->GetID(),		// playerê°€ ë§žëŠ”ë‹¤.
+								pResult						// ê²°ê³¼
 			);
 		}
 	}	
 	
 	/*
 	//------------------------------------------------------
-	// Player°¡ ±â¼úÀ» ´çÇßÀ» ¶§ÀÇ ¸ð½À..
+	// Playerê°€ ê¸°ìˆ ì„ ë‹¹í–ˆì„ ë•Œì˜ ëª¨ìŠµ..
 	//------------------------------------------------------
 	int resultActionInfo =  pPacket->getSkillType() + g_ActionInfoTable.GetMinResultActionInfo();
 	g_pPlayer->PacketSpecialActionResult( 
@@ -89,19 +90,19 @@ void GCThrowItemOK2Handler::execute ( GCThrowItemOK2 * pPacket , Player * pPlaye
 	);
 
 	//------------------------------------------------------------
-	// Delay Frame ¼³Á¤
+	// Delay Frame ì„¤ì •
 	//------------------------------------------------------------
 	g_pPlayer->SetEffectDelayFrame( resultActionInfo, delayFrame );
 	*/
 
 	//------------------------------------------------------------------
-	// »óÅÂ°ªÀ» ¹Ù²Û´Ù.
+	// ìƒíƒœê°’ì„ ë°”ê¾¼ë‹¤.
 	//------------------------------------------------------------------
 	AffectModifyInfo(g_pPlayer, pPacket);
 
 	//------------------------------------------------------------------
-	// UI¿¡ º¸ÀÌ´Â °ÍÀ» ¹Ù²ãÁØ´Ù.
-	// ºñ±³¿¬»êÇÏ´Â°Åº¸´Ù ÀÌ°Ô ´õ ºü¸£Áö ¾ÊÀ»±î.. À½.. - -;
+	// UIì— ë³´ì´ëŠ” ê²ƒì„ ë°”ê¿”ì¤€ë‹¤.
+	// ë¹„êµì—°ì‚°í•˜ëŠ”ê±°ë³´ë‹¤ ì´ê²Œ ë” ë¹ ë¥´ì§€ ì•Šì„ê¹Œ.. ìŒ.. - -;
 	//------------------------------------------------------------------
 	//UI_SetHP( g_pPlayer->GetHP(), g_pPlayer->GetMAX_HP() );
 	//UI_SetMP( g_pPlayer->GetMP(), g_pPlayer->GetMAX_MP() );

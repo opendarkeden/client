@@ -8,7 +8,7 @@
 #include "GCNoticeEvent.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
+// 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
 void GCNoticeEvent::read ( SocketInputStream & iStream ) 
 	 throw ( ProtocolException , Error )
@@ -19,7 +19,7 @@ void GCNoticeEvent::read ( SocketInputStream & iStream )
 
 	switch (m_Code)
 	{
-		// �Ķ���͸� ��� �ϴ� �ڵ�
+		// 파라미터를 써야 하는 코드
 		case NOTICE_EVENT_MASTER_COMBAT_TIME :
 		case NOTICE_EVENT_KICK_OUT_FROM_ZONE :
 		case NOTICE_EVENT_CONTINUAL_GROUND_ATTACK :
@@ -32,8 +32,8 @@ void GCNoticeEvent::read ( SocketInputStream & iStream )
 		case NOTICE_EVENT_MASTER_LAIR_COUNT :
 		case NOTICE_EVENT_MINI_GAME:
 		case NOTICE_EVENT_FLAG_WAR_FINISH:
-		case NOTICE_EVENT_LEVEL_WAR_ARRANGED :            // �� ������ ������ ���۵˴ϴ�.
-		case NOTICE_EVENT_LEVEL_WAR_STARTED :             // ������ ������ ���۵Ǿ����ϴ�.
+		case NOTICE_EVENT_LEVEL_WAR_ARRANGED :            // 곧 레벨별 전쟁이 시작됩니다.
+		case NOTICE_EVENT_LEVEL_WAR_STARTED :             // 레벨별 전쟁이 시작되었습니다.
 		case NOTICE_EVENT_RACE_WAR_SOON:
 		case NOTICE_EVENT_ENTER_BEGINNER_ZONE:
 		case NOTICE_EVENT_FLAG_WAR_READY:
@@ -43,7 +43,7 @@ void GCNoticeEvent::read ( SocketInputStream & iStream )
 		case NOTICE_EVENT_CROWN_PRICE:
 			iStream.read(m_Parameter);
 			break;
-		// �Ķ���͸� ���� �ʾƵ� �Ǵ� �ڵ�
+		// 파라미터를 쓰지 않아도 되는 코드
 		default:
 			break;
 	}
@@ -52,7 +52,7 @@ void GCNoticeEvent::read ( SocketInputStream & iStream )
 }
 		    
 //////////////////////////////////////////////////////////////////////////////
-// ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
+// 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
 void GCNoticeEvent::write ( SocketOutputStream & oStream ) const 
      throw ( ProtocolException , Error )
@@ -63,7 +63,7 @@ void GCNoticeEvent::write ( SocketOutputStream & oStream ) const
 
 	switch (m_Code)
 	{
-		// �Ķ���͸� ��� �ϴ� �ڵ�
+		// 파라미터를 써야 하는 코드
 		case NOTICE_EVENT_MASTER_COMBAT_TIME :
 		case NOTICE_EVENT_KICK_OUT_FROM_ZONE :
 		case NOTICE_EVENT_CONTINUAL_GROUND_ATTACK :
@@ -76,8 +76,8 @@ void GCNoticeEvent::write ( SocketOutputStream & oStream ) const
 		case NOTICE_EVENT_MASTER_LAIR_COUNT :
 		case NOTICE_EVENT_MINI_GAME:
 		case NOTICE_EVENT_FLAG_WAR_FINISH:
-		case NOTICE_EVENT_LEVEL_WAR_ARRANGED :            // �� ������ ������ ���۵˴ϴ�.
-		case NOTICE_EVENT_LEVEL_WAR_STARTED :             // ������ ������ ���۵Ǿ����ϴ�.
+		case NOTICE_EVENT_LEVEL_WAR_ARRANGED :            // 곧 레벨별 전쟁이 시작됩니다.
+		case NOTICE_EVENT_LEVEL_WAR_STARTED :             // 레벨별 전쟁이 시작되었습니다.
 		case NOTICE_EVENT_RACE_WAR_SOON:
 		case NOTICE_EVENT_ENTER_BEGINNER_ZONE:
 		case NOTICE_EVENT_FLAG_WAR_READY:
@@ -85,7 +85,7 @@ void GCNoticeEvent::write ( SocketOutputStream & oStream ) const
 		case NOTICE_EVENT_HOLYDAY:
 			oStream.write(m_Parameter);
 			break;
-		// �Ķ���͸� ���� �ʾƵ� �Ǵ� �ڵ�
+		// 파라미터를 쓰지 않아도 되는 코드
 		default:
 			break;
 	}
@@ -107,7 +107,7 @@ void GCNoticeEvent::execute ( Player * pPlayer )
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ��Ŷ ������
+// 패킷 사이즈
 //////////////////////////////////////////////////////////////////////////////
 
 PacketSize_t GCNoticeEvent::getPacketSize () const 
@@ -119,7 +119,7 @@ PacketSize_t GCNoticeEvent::getPacketSize () const
 
 	switch (m_Code)
 	{
-		// �Ķ���͸� ��� �ϴ� �ڵ�
+		// 파라미터를 써야 하는 코드
 		case NOTICE_EVENT_MASTER_COMBAT_TIME :
 		case NOTICE_EVENT_KICK_OUT_FROM_ZONE :
 		case NOTICE_EVENT_CONTINUAL_GROUND_ATTACK :
@@ -132,8 +132,8 @@ PacketSize_t GCNoticeEvent::getPacketSize () const
 		case NOTICE_EVENT_MASTER_LAIR_COUNT :
 		case NOTICE_EVENT_MINI_GAME:
 		case NOTICE_EVENT_FLAG_WAR_FINISH:
-		case NOTICE_EVENT_LEVEL_WAR_ARRANGED :            // �� ������ ������ ���۵˴ϴ�.
-		case NOTICE_EVENT_LEVEL_WAR_STARTED :             // ������ ������ ���۵Ǿ����ϴ�.
+		case NOTICE_EVENT_LEVEL_WAR_ARRANGED :            // 곧 레벨별 전쟁이 시작됩니다.
+		case NOTICE_EVENT_LEVEL_WAR_STARTED :             // 레벨별 전쟁이 시작되었습니다.
 		case NOTICE_EVENT_RACE_WAR_SOON:
 		case NOTICE_EVENT_ENTER_BEGINNER_ZONE:
 		case NOTICE_EVENT_FLAG_WAR_READY:
@@ -142,7 +142,7 @@ PacketSize_t GCNoticeEvent::getPacketSize () const
 			//		case NOTICE_EVENT_RACE_WAR_TODAY:
 			size += szuint;
 			break;
-		// �Ķ���͸� ���� �ʾƵ� �Ǵ� �ڵ�
+		// 파라미터를 쓰지 않아도 되는 코드
 		default:
 			break;
 	}

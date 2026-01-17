@@ -17,16 +17,17 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCAttackArmsOK3Handler::execute ( GCAttackArmsOK3 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-#if __GAME_CLIENT__
+#ifdef __GAME_CLIENT__
 
 			// message
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -37,40 +38,40 @@ void GCAttackArmsOK3Handler::execute ( GCAttackArmsOK3 * pPacket , Player * pPla
 	}	
 
 	//------------------------------------------------------
-	// ´ë»óÀÌ µÇ´Â creature¸¦ ¾ò´Â´Ù.
+	// ëŒ€ìƒì´ ë˜ëŠ” creatureë¥¼ ì–»ëŠ”ë‹¤.
 	//------------------------------------------------------
 	MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 	
 	if (pCreature==NULL)
 	{
-		// ±×·± creature°¡ ¾øÀ» °æ¿ì
+		// ê·¸ëŸ° creatureê°€ ì—†ì„ ê²½ìš°
 		DEBUG_ADD_FORMAT("There's no such creature : ID=%d, Skill=%d", pPacket->getObjectID(), pPacket->getSkillType());				
 		
 		return;
 	}
 
 	//------------------------------------------------------
-	// Çàµ¿ÇÏ´Â Creature°¡ TargetCreature¸¦ ¹Ù¶óº¸µµ·Ï ÇÑ´Ù.
+	// í–‰ë™í•˜ëŠ” Creatureê°€ TargetCreatureë¥¼ ë°”ë¼ë³´ë„ë¡ í•œë‹¤.
 	//------------------------------------------------------
 	pCreature->SetDirectionToPosition( pPacket->getTargetX(), pPacket->getTargetY() );
 
 	//------------------------------------------------------
-	// Creature°¡ Çàµ¿À» ÃëÇÏµµ·Ï ÇÑ´Ù.
-	// »ó´ë°¡ zone¿¡ ¾ø´Â °æ¿ìÀÌ´Ù.
+	// Creatureê°€ í–‰ë™ì„ ì·¨í•˜ë„ë¡ í•œë‹¤.
+	// ìƒëŒ€ê°€ zoneì— ì—†ëŠ” ê²½ìš°ì´ë‹¤.
 	//------------------------------------------------------
 	if( pPacket->getSkillType() == SKILL_JABBING_VEIN || pPacket->getSkillType() == SKILL_MOLE_SHOT ||
 					pPacket->getSkillType() == SKILL_TRIDENT || pPacket->getSkillType() == SKILL_QUICK_FIRE ||
 					pPacket->getSkillType() == SKILL_ULTIMATE_BLOW || pPacket->getSkillType() == SKILL_HARPOON_BOMB)
 	{
 		pCreature->PacketSpecialActionToNobody(
-						pPacket->getSkillType()	,	// ÃÑ °ø°İ
+						pPacket->getSkillType()	,	// ì´ ê³µê²©
 						pPacket->getTargetX(),
 						pPacket->getTargetY()						
 		);
 	} else
 	{
 		pCreature->PacketSpecialActionToNobody(
-						pCreature->GetBasicActionInfo()	,	// ÃÑ °ø°İ
+						pCreature->GetBasicActionInfo()	,	// ì´ ê³µê²©
 						pPacket->getTargetX(),
 						pPacket->getTargetY()						
 		);

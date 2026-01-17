@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 //
 // Filename    : GCSearchMotorcycleOKHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //
 //////////////////////////////////////////////////////////////////////
@@ -15,7 +15,9 @@
 #include "MGameStringTable.h"
 
 void GCSearchMotorcycleOKHandler::execute ( GCSearchMotorcycleOK * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	

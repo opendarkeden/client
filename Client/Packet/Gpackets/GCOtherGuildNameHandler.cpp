@@ -11,13 +11,15 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCOtherGuildNameHandler::execute(GCOtherGuildName* pPacket, Player* pPlayer) 
-	 throw ( Error )
+void GCOtherGuildNameHandler::execute(GCOtherGuildName* pPacket, Player* pPlayer)
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
-	// Other Info °Ë»öÈÄ¿¡-_- ÆÄÆ¼ ¸Å´ÏÀúµµ °Ë»öÇØ¼­ ±æµåÀÌ¸§À» ³Ö¾îÁØ´Ù.
+	// Other Info ê²€ìƒ‰í›„ì—-_- íŒŒí‹° ë§¤ë‹ˆì €ë„ ê²€ìƒ‰í•´ì„œ ê¸¸ë“œì´ë¦„ì„ ë„£ì–´ì¤€ë‹¤.
 
-	UI_SetGuildName(pPacket->getGuildID(), pPacket->getGuildName());
-	
+	std::string guildName = pPacket->getGuildName();
+	UI_SetGuildName(pPacket->getGuildID(), guildName);
+
 	__END_CATCH
 }

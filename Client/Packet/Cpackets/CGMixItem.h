@@ -2,8 +2,8 @@
 // Filename    : CGMixItem.h 
 // Written By  : excel96
 // Description : 
-// ÀÎº¥Åä¸® ¾ÈÀÇ ¾ÆÀÌÅÛÀ» »ç¿ëÇÒ ¶§, Å¬¶óÀÌ¾ğÆ®°¡ X, Y ¹× ObjectID¸¦
-// º¸³»¸é ¾ÆÀÌÅÛ Å¬·¡½º¿¡ µû¶ó¼­, ¼­¹ö°¡ ÀÌ¿¡ ¸Â´Â ÄÚµå¸¦ Ã³¸®ÇÑ´Ù.
+// ì¸ë²¤í† ë¦¬ ì•ˆì˜ ì•„ì´í…œì„ ì‚¬ìš©í•  ë•Œ, í´ë¼ì´ì–¸íŠ¸ê°€ X, Y ë° ObjectIDë¥¼
+// ë³´ë‚´ë©´ ì•„ì´í…œ í´ë˜ìŠ¤ì— ë”°ë¼ì„œ, ì„œë²„ê°€ ì´ì— ë§ëŠ” ì½”ë“œë¥¼ ì²˜ë¦¬í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_MIX_ITEM_H__
@@ -41,15 +41,15 @@ public:
 	CoordInven_t getY() const throw() { return m_InvenY; }
 	void setY(CoordInven_t InvenY) throw() { m_InvenY = InvenY; }
 
-	ObjectID_t getTargetObjectID( uint index ) const throw() { Assert(index<2); return m_TargetObjectID[index]; }
-	void setTargetObjectID( uint index, ObjectID_t oid ) throw() { Assert(index<2); m_TargetObjectID[index] = oid; }
+	ObjectID_t getTargetObjectID( uint index ) const throw() { assert(index<2); return m_TargetObjectID[index]; }
+	void setTargetObjectID( uint index, ObjectID_t oid ) throw() { assert(index<2); m_TargetObjectID[index] = oid; }
 
 private:
-	ObjectID_t   m_ObjectID; // ¾ÆÀÌÅÛÀÇ object id 
-	CoordInven_t m_InvenX;   // ¾ÆÀÌÅÛÀÇ ÀÎº¥Åä¸® ÁÂÇ¥ X
-	CoordInven_t m_InvenY;   // ¾ÆÀÌÅÛÀÇ ÀÎº¥Åä¸® ÁÂÇ¥ Y
+	ObjectID_t   m_ObjectID; // ì•„ì´í…œì˜ object id 
+	CoordInven_t m_InvenX;   // ì•„ì´í…œì˜ ì¸ë²¤í† ë¦¬ ì¢Œí‘œ X
+	CoordInven_t m_InvenY;   // ì•„ì´í…œì˜ ì¸ë²¤í† ë¦¬ ì¢Œí‘œ Y
 
-	ObjectID_t	m_TargetObjectID[2];	// ÇÕÄ¥ µÎ ¾ÆÀÌÅÛÀÇ ¿ÀºêÁ§Æ® ID
+	ObjectID_t	m_TargetObjectID[2];	// í•©ì¹  ë‘ ì•„ì´í…œì˜ ì˜¤ë¸Œì íŠ¸ ID
 };
 
 

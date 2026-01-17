@@ -14,12 +14,13 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCHPRecoveryStartToSelfHandler::execute ( GCHPRecoveryStartToSelf * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 
-	// item ªÁøÎ ∞À¡ı
+	// item ÏÇ¨Ïö© Í≤ÄÏ¶ù
 	//UseItemOK();
 
 	if (g_pPlayer!=NULL)

@@ -2,22 +2,23 @@
 // MInteractionObject.h
 //----------------------------------------------------------------------
 //
-// ActionÀÌ ÀÖ´Â ImageObject
+// Actionì´ ìˆëŠ” ImageObject
 // 
 //----------------------------------------------------------------------
 //
-// ´Ü, °¢°¢ÀÇ Action¿¡ ´ëÇØ¼­´Â AnimationÀÌ ¾ø´Ù.
-// ÇÏ³ªÀÇ ActionÀº ÇÏ³ªÀÇ Frame¿¡ ´ëÀÀÇÑ´Ù.
+// ë‹¨, ê°ê°ì˜ Actionì— ëŒ€í•´ì„œëŠ” Animationì´ ì—†ë‹¤.
+// í•˜ë‚˜ì˜ Actionì€ í•˜ë‚˜ì˜ Frameì— ëŒ€ì‘í•œë‹¤.
 //
 //----------------------------------------------------------------------
 
 #ifndef	__MINTERACTIONOBJECT_H__
 #define	__MINTERACTIONOBJECT_H__
 
-class ofstream;
-class ifstream;
 #include "MTypeDef.h"
 #include "MAnimationObject.h"
+
+#include <fstream>
+using namespace std;
 
 
 //----------------------------------------------------------------------
@@ -32,13 +33,13 @@ class MInteractionObject : public MAnimationObject {
 		~MInteractionObject();
 
 		//--------------------------------------------------------
-		// Action¿¡ °ü·ÃµÈ ÇÔ¼ö
+		// Actionì— ê´€ë ¨ëœ í•¨ìˆ˜
 		//--------------------------------------------------------		
 		void			SetAction(BYTE action);
 		BYTE			GetAction() const			{ return m_CurrentFrame; }
 
 		//--------------------------------------------------------		
-		// actionÀÇ ´ÙÀ½ actionÀ» ¼³Á¤ÇÑ´Ù.
+		// actionì˜ ë‹¤ìŒ actionì„ ì„¤ì •í•œë‹¤.
 		//--------------------------------------------------------		
 		void			SetNextAction(BYTE action);
 
@@ -50,8 +51,8 @@ class MInteractionObject : public MAnimationObject {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		virtual void	SaveToFile(class ofstream& file);
-		virtual void	LoadFromFile(class ifstream& file);
+		virtual void	SaveToFile(std::ofstream& file);
+		virtual void	LoadFromFile(std::ifstream& file);
 
 	public :
 		enum INTERACTIONOBJECT_TYPE 
@@ -63,7 +64,7 @@ class MInteractionObject : public MAnimationObject {
 		};
 		
 	protected :
-		// ActionÀ» ¹Ù²Û´Ù.
+		// Actionì„ ë°”ê¾¼ë‹¤.
 		void			ChangeActionDoor();
 		void			ChangeActionTrap();
 		void			ChangeActionSwitch();

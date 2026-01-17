@@ -15,7 +15,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCBloodDrainOK3Handler::execute ( GCBloodDrainOK3 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -23,7 +24,7 @@ void GCBloodDrainOK3Handler::execute ( GCBloodDrainOK3 * pPacket , Player * pPla
 
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -31,26 +32,26 @@ void GCBloodDrainOK3Handler::execute ( GCBloodDrainOK3 * pPacket , Player * pPla
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pUserCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 		MCreature* pTargetCreature = g_pZone->GetCreature( pPacket->getTargetObjectID() );		
 
-		// Creature¿¡°Ô Damage ÀÔÈû
+		// Creatureì—ê²Œ Damage ìž…íž˜
 		if (pUserCreature != NULL && pTargetCreature != NULL)
 		{
-			// TargetCreature¿¡°Ô UserCreature°¡ ÈíÇ÷ÇÏ±¸ ÀÖ´Ù±¸ ¾Ë·ÁÁØ´Ù.
+			// TargetCreatureì—ê²Œ UserCreatureê°€ í¡í˜ˆí•˜êµ¬ ìžˆë‹¤êµ¬ ì•Œë ¤ì¤€ë‹¤.
 			pTargetCreature->SetDrainCreatureID( pPacket->getObjectID() );
 
 			pUserCreature->ClearStopBloodDrain();
 
 			// [ TEST CODE ]
 			//
-			// °á°ú¸¦ »ý¼º&ÀúÀåÇØ¼­ º¸³»¾ß ÇÑ´Ù.
+			// ê²°ê³¼ë¥¼ ìƒì„±&ì €ìž¥í•´ì„œ ë³´ë‚´ì•¼ í•œë‹¤.
 			//
-			// ´©±º°¡(target)°¡ ´©±º°¡°¡ »ç¿ëÇÑ SKillÀ» ¸ÂÀº °æ¿ì..
+			// ëˆ„êµ°ê°€(target)ê°€ ëˆ„êµ°ê°€ê°€ ì‚¬ìš©í•œ SKillì„ ë§žì€ ê²½ìš°..
 			// [ TEST CODE ]
 			MActionResult* pResult = new MActionResult;
 
@@ -64,7 +65,7 @@ void GCBloodDrainOK3Handler::execute ( GCBloodDrainOK3 * pPacket , Player * pPla
 											pTargetCreature->GetY()
 											 ) );
 
-			// ¼­·Î ¹Ù¶óº¸±â
+			// ì„œë¡œ ë°”ë¼ë³´ê¸°
 			pUserCreature->SetDirectionToPosition(pTargetCreature->GetX(), pTargetCreature->GetY());
 			//pTargetCreature->SetDirectionToPosition(pUserCreature->GetX(), pUserCreature->GetY());
 
@@ -72,10 +73,10 @@ void GCBloodDrainOK3Handler::execute ( GCBloodDrainOK3 * pPacket , Player * pPla
 			pUserCreature->PacketSpecialActionToOther(
 								SKILL_BLOOD_DRAIN,
 								pPacket->getTargetObjectID(),
-								pResult			// °á°ú
+								pResult			// ê²°ê³¼
 			);		
 
-			int delayFrame = 691200;	// 12½Ã°£*60ºÐ*60ÃÊ*16frame = 12*60*60*16;
+			int delayFrame = 691200;	// 12ì‹œê°„*60ë¶„*60ì´ˆ*16frame = 12*60*60*16;
 			pTargetCreature->AddEffectStatus( EFFECTSTATUS_BLOOD_DRAIN, delayFrame );
 		}
 	}	

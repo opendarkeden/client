@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // UIDialog.h
 //-----------------------------------------------------------------------------
-// Client¿¡¼­ »ç¿ëÇÏ´Â UI Dilaog ¸ğÀ½..
+// Clientì—ì„œ ì‚¬ìš©í•˜ëŠ” UI Dilaog ëª¨ìŒ..
 //-----------------------------------------------------------------------------
 
 #ifndef __UIDIALOG_H__
@@ -59,31 +59,31 @@ class UIDialog {
 		//---------------------------------------------------------
 		// PC Talk Dlg
 		//---------------------------------------------------------
-		void			PopupPCTalkDlg(int x=-1, int y=-1);		// -1Àº center¸¦ ÀÇ¹ÌÇÑ´Ù.(default)
+		void			PopupPCTalkDlg(int x=-1, int y=-1);		// -1ì€ centerë¥¼ ì˜ë¯¸í•œë‹¤.(default)
 		void			HidePCTalkDlg();
 		void			ShowPCTalkDlg();
-		static void		ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, unsigned long id);
+		static void		ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, id_t id);
 		void			ClosePCTalkDlg();
 
 		//---------------------------------------------------------
 		// Message Dlg
 		//---------------------------------------------------------
-		//void			PopupMessageDlg(UIDIALOG_MESSAGE msg, int x=-1, int y=-1);		// -1Àº center¸¦ ÀÇ¹ÌÇÑ´Ù.(default)		
-		void			PopupFreeMessageDlg(const char* msg, int x=-1, int y=-1, WORD fButton = UI_DIALOG_OK, bool IsAfterExit = false);		// -1Àº center¸¦ ÀÇ¹ÌÇÑ´Ù.(default)				
-		static void		ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id);
+		//void			PopupMessageDlg(UIDIALOG_MESSAGE msg, int x=-1, int y=-1);		// -1ì€ centerë¥¼ ì˜ë¯¸í•œë‹¤.(default)		
+		void			PopupFreeMessageDlg(const char* msg, int x=-1, int y=-1, WORD fButton = UI_DIALOG_OK, bool IsAfterExit = false);		// -1ì€ centerë¥¼ ì˜ë¯¸í•œë‹¤.(default)				
+		static void		ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, id_t id);
 		void			CloseMessageDlg();
 
 		//---------------------------------------------------------
 		// Message Dlg
 		//---------------------------------------------------------
-		//void			PopupHelpDlg(int x=-1, int y=-1);		// -1Àº center¸¦ ÀÇ¹ÌÇÑ´Ù.(default)		
+		//void			PopupHelpDlg(int x=-1, int y=-1);		// -1ì€ centerë¥¼ ì˜ë¯¸í•œë‹¤.(default)		
 		//static void		ProcessHelpDlg(C_VS_UI_DIALOG * pDlg, unsigned long id);
 		//void			CloseHelpDlg();
 
 	protected :
-		static DWORD	s_LockGameInput;	// client·ÎÀÇ ÀÔ·ÂÀ» ¸·´Â´Ù.
+		static DWORD	s_LockGameInput;	// clientë¡œì˜ ì…ë ¥ì„ ë§‰ëŠ”ë‹¤.
 
-		// PC TalkBox¿¡ ÀÖ´Â ¸»µé Áß¿¡¼­ ÇÏ³ª¸¦ ¼±ÅÃÇÏ°Ô ÇÏ´Â °Í..
+		// PC TalkBoxì— ìˆëŠ” ë§ë“¤ ì¤‘ì—ì„œ í•˜ë‚˜ë¥¼ ì„ íƒí•˜ê²Œ í•˜ëŠ” ê²ƒ..
 		C_VS_UI_NPC_DIALOG*			m_pPCTalkDlg;
 		//C_VS_UI_DIALOG*			m_pHelpDlg;
 		C_VS_UI_DIALOG*			m_pMessageDlg;
@@ -96,17 +96,17 @@ class UIDialog {
 
 #ifdef OUTPUT_DEBUG
 		//---------------------------------------------------------
-		// Test Client¿ë
+		// Test Clientìš©
 		//---------------------------------------------------------
 	public :
 
-		void				PopupAddonSelectDlg(int x=-1, int y=-1);		// -1Àº center¸¦ ÀÇ¹ÌÇÑ´Ù.(default)
+		void				PopupAddonSelectDlg(int x=-1, int y=-1);		// -1ì€ centerë¥¼ ì˜ë¯¸í•œë‹¤.(default)
 		static void			ProcessAddonSelectDlg(C_VS_UI_DIALOG * pDlg, unsigned long id);
 
-		void				PopupActionSelectDlg(int x=-1, int y=-1);		// -1Àº center¸¦ ÀÇ¹ÌÇÑ´Ù.(default)
+		void				PopupActionSelectDlg(int x=-1, int y=-1);		// -1ì€ centerë¥¼ ì˜ë¯¸í•œë‹¤.(default)
 		static void			ProcessActionSelectDlg(C_VS_UI_DIALOG * pDlg, unsigned long id);
 
-		void				PopupDirectionSelectDlg(int x=-1, int y=-1);		// -1Àº center¸¦ ÀÇ¹ÌÇÑ´Ù.(default)
+		void				PopupDirectionSelectDlg(int x=-1, int y=-1);		// -1ì€ centerë¥¼ ì˜ë¯¸í•œë‹¤.(default)
 		static void			ProcessDirectionSelectDlg(C_VS_UI_DIALOG * pDlg, unsigned long id);
 
 	protected :

@@ -16,12 +16,12 @@
 enum SystemMessageType
 {
 	SYSTEM_MESSAGE_NORMAL = 0,
-	SYSTEM_MESSAGE_OPERATOR,	// ¿î¿µÀÚ ¸»¾¸
-	SYSTEM_MESSAGE_MASTER_LAIR,	// ¸¶½ºÅÍ ·¹¾î °ü·Ã
-	SYSTEM_MESSAGE_COMBAT,		// ÀüÀï °ü·Ã
-	SYSTEM_MESSAGE_INFO, 		// Æ¯Á¤ÇÑ Á¤º¸ °ü·Ã
-	SYSTEM_MESSAGE_HOLY_LAND,	// ¾Æ´ãÀÇ ¼ºÁö °ü·Ã
-	SYSTEM_MESSAGE_RANGER_CHAT,	// Á¾Á·Àü½Ã ·¹ÀÎÁ® Ãª
+	SYSTEM_MESSAGE_OPERATOR,	// ìš´ì˜ìž ë§ì”€
+	SYSTEM_MESSAGE_MASTER_LAIR,	// ë§ˆìŠ¤í„° ë ˆì–´ ê´€ë ¨
+	SYSTEM_MESSAGE_COMBAT,		// ì „ìŸ ê´€ë ¨
+	SYSTEM_MESSAGE_INFO, 		// íŠ¹ì •í•œ ì •ë³´ ê´€ë ¨
+	SYSTEM_MESSAGE_HOLY_LAND,	// ì•„ë‹´ì˜ ì„±ì§€ ê´€ë ¨
+	SYSTEM_MESSAGE_RANGER_CHAT,	// ì¢…ì¡±ì „ì‹œ ë ˆì¸ì ¸ ì±—
 	SYSTEM_MESSAGE_PLAYER,
 	SYSTEM_MESSAGE_MAX
 };
@@ -30,9 +30,9 @@ enum SystemMessageType
 //
 // class GCSystemMessage;
 //
-// °ÔÀÓ ¼­¹ö°¡ Æ¯Á¤ ÇÃ·¹ÀÌ¾îÀÇ SystemMessage ¸¦ ´Ù¸¥ ÇÃ·¹ÀÌ¾îµé¿¡°Ô ºê·ÎµåÄ³½ºÆ®
-// ÇÒ ¶§ Àü¼ÛÇÏ´Â ÆÐÅ¶ÀÌ´Ù. ³»ºÎ¿¡ Ä³¸¯ÅÍ¸í°ú SystemMessage ½ºÆ®¸µÀ» µ¥ÀÌÅ¸
-// ÇÊµå·Î °¡Áö°í ÀÖ´Ù.
+// ê²Œìž„ ì„œë²„ê°€ íŠ¹ì • í”Œë ˆì´ì–´ì˜ SystemMessage ë¥¼ ë‹¤ë¥¸ í”Œë ˆì´ì–´ë“¤ì—ê²Œ ë¸Œë¡œë“œìºìŠ¤íŠ¸
+// í•  ë•Œ ì „ì†¡í•˜ëŠ” íŒ¨í‚·ì´ë‹¤. ë‚´ë¶€ì— ìºë¦­í„°ëª…ê³¼ SystemMessage ìŠ¤íŠ¸ë§ì„ ë°ì´íƒ€
+// í•„ë“œë¡œ ê°€ì§€ê³  ìžˆë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -44,10 +44,10 @@ public :
 	{
 	}
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream & iStream) throw(ProtocolException, Error);
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
 
 	// execute packet's handler
@@ -115,7 +115,7 @@ public :
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static GCSystemMessagePacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+	// const static GCSystemMessagePacketMaxSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
 	PacketSize_t getPacketMaxSize() const throw() { return szBYTE + 256 + szuint + szBYTE; }
 
 };

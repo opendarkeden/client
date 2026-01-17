@@ -10,7 +10,7 @@
 //
 //----------------------------------------------------------------------
 void		
-FILEINFO_ZONE_HEADER::SaveToFile(class ofstream& file)
+FILEINFO_ZONE_HEADER::SaveToFile(std::ofstream& file)
 {
 	ZoneVersion.SaveToFile(file);
 	file.write((const char*)&ZoneID, 2);
@@ -21,7 +21,7 @@ FILEINFO_ZONE_HEADER::SaveToFile(class ofstream& file)
 	Description.SaveToFile(file);
 }
 void		
-FILEINFO_ZONE_HEADER::LoadFromFile(class ifstream& file)//∂¡»°µÿÕº
+FILEINFO_ZONE_HEADER::LoadFromFile(std::ifstream& file)//ÎóçÌò§ÎíàÊö†
 {
 	ZoneVersion.LoadFromFile(file);
 	file.read((char*)&ZoneID, 2);

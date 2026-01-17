@@ -11,7 +11,9 @@
 #ifndef __DX_LIBRARY_H__
 #define __DX_LIBRARY_H__
 
+#ifdef PLATFORM_WINDOWS
 #include "CDirectDraw.h"
+#endif
 #include "CDirectDrawSurface.h"
 #include "CDirectSound.h"
 #include "CDirectSoundStream.h"

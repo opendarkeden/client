@@ -15,7 +15,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCThrowItemOK1Handler::execute ( GCThrowItemOK1 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -25,7 +26,7 @@ void GCThrowItemOK1Handler::execute ( GCThrowItemOK1 * pPacket , Player * pPlaye
 	TYPE_ACTIONINFO skillType = MAGIC_THROW_HOLY_WATER;//g_pPlayer->GetWaitVerifyActionInfo();
 
 	//------------------------------------------------------------------
-	// Player°¡ ±â´Ù¸®´ø skillÀÇ ¼º°øÀ¯¹«¸¦ °ËÁõ¹Þ¾Ò´Ù.
+	// Playerê°€ ê¸°ë‹¤ë¦¬ë˜ skillì˜ ì„±ê³µìœ ë¬´ë¥¼ ê²€ì¦ë°›ì•˜ë‹¤.
 	//------------------------------------------------------------------
 	if (g_pPlayer->GetWaitVerify()==MPlayer::WAIT_VERIFY_SKILL_SUCCESS)
 	{		
@@ -37,10 +38,10 @@ void GCThrowItemOK1Handler::execute ( GCThrowItemOK1 * pPacket , Player * pPlaye
 	}
 
 	//------------------------------------------------------------------
-	// Player°¡ SkillÀ» ¼º°ø½ÃÅ² °æ¿ì¿¡ ³¯¾Æ¿À´Â PacketÀÌ¹Ç·Î
-	// °á°ú¸¦ ¹Ý¿µ½ÃÄÑ¾ß ÇÑ´Ù.
+	// Playerê°€ Skillì„ ì„±ê³µì‹œí‚¨ ê²½ìš°ì— ë‚ ì•„ì˜¤ëŠ” Packetì´ë¯€ë¡œ
+	// ê²°ê³¼ë¥¼ ë°˜ì˜ì‹œì¼œì•¼ í•œë‹¤.
 	//------------------------------------------------------------------
-	// »óÅÂ°ªÀ» ¹Ù²Û´Ù.
+	// ìƒíƒœê°’ì„ ë°”ê¾¼ë‹¤.
 	//------------------------------------------------------------------
 	/*
 	int size = pPacket->getListNum();
@@ -51,21 +52,21 @@ void GCThrowItemOK1Handler::execute ( GCThrowItemOK1 * pPacket , Player * pPlaye
 		int value = pPacket->popFrontListElement();
 		
 		//------------------------------------------------------------------
-		// Player¿¡°Ô »óÅÂ¸¦ Àû¿ë½ÃÅ²´Ù.
+		// Playerì—ê²Œ ìƒíƒœë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------------------
 		g_pPlayer->SetStatus( part, value );		
 	}
 	*/
 
 	//------------------------------------------------------------------
-	// UI¿¡ º¸ÀÌ´Â °ÍÀ» ¹Ù²ãÁØ´Ù.
-	// ºñ±³¿¬»êÇÏ´Â°Åº¸´Ù ÀÌ°Ô ´õ ºü¸£Áö ¾ÊÀ»±î.. À½.. - -;
+	// UIì— ë³´ì´ëŠ” ê²ƒì„ ë°”ê¿”ì¤€ë‹¤.
+	// ë¹„êµì—°ì‚°í•˜ëŠ”ê±°ë³´ë‹¤ ì´ê²Œ ë” ë¹ ë¥´ì§€ ì•Šì„ê¹Œ.. ìŒ.. - -;
 	//------------------------------------------------------------------
 	//UI_SetHP( g_pPlayer->GetHP(), g_pPlayer->GetMAX_HP() );
 	//UI_SetMP( g_pPlayer->GetMP(), g_pPlayer->GetMAX_MP() );
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -73,28 +74,28 @@ void GCThrowItemOK1Handler::execute ( GCThrowItemOK1 * pPacket , Player * pPlaye
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 
 		// [ TEST CODE ]
-		// ÁøÇàÁßÀÎ EffectÀÌ¸é Result·Î Ãß°¡ÇØ¾ß ÇÑ´Ù.
-		// Result¸¦ »ý¼ºÇÏ°í..
+		// ì§„í–‰ì¤‘ì¸ Effectì´ë©´ Resultë¡œ ì¶”ê°€í•´ì•¼ í•œë‹¤.
+		// Resultë¥¼ ìƒì„±í•˜ê³ ..
 		// g_pPlayer->>AddActionResult( ... )
 
-		// Creature¿¡°Ô Damage ÀÔÈû
+		// Creatureì—ê²Œ Damage ìž…íž˜
 		if (pCreature != NULL)
 		{			
 			MActionResult* pResult = new MActionResult;
 
-			// ¸ÂÀº creature°¡ ¶§¸° playerÀÇ ¹æÇâÀ» ¹Ù¶óº¸±â
+			// ë§žì€ creatureê°€ ë•Œë¦° playerì˜ ë°©í–¥ì„ ë°”ë¼ë³´ê¸°
 			//pCreature->SetDirectionToPosition(g_pPlayer->GetX(), g_pPlayer->GetY());
 
 			//int delayFrame = ConvertDurationToFrame( pPacket->getDuration() );
 
-			// °á°ú Ç¥Çö
+			// ê²°ê³¼ í‘œí˜„
 			//pCreature->PacketSpecialActionResult( pPacket->getSkillType() + g_ActionInfoTable.GetMinResultActionInfo());
 			pResult->Add( new MActionResultNodeActionInfo( 
 											skillType,
@@ -107,7 +108,7 @@ void GCThrowItemOK1Handler::execute ( GCThrowItemOK1 * pPacket , Player * pPlaye
 
 			
 			// [ TEST CODE ] 
-			// ¸Â´Â °á°ú damage¸¦ Ç¥ÇöÇØ ÁØ´Ù.			
+			// ë§žëŠ” ê²°ê³¼ damageë¥¼ í‘œí˜„í•´ ì¤€ë‹¤.			
 			/*
 			MActionResult* pResult = new MActionResult;
 			pResult->Add( new MActionResultNodeActionInfo( g_pPlayer->GetID(), g_pPlayer->GetID(), SKILL_ATTACK_MELEE ) );			
@@ -115,7 +116,7 @@ void GCThrowItemOK1Handler::execute ( GCThrowItemOK1 * pPacket , Player * pPlaye
 			g_pPlayer->PacketAddActionResult(pPacket->getCEffectID(), pResult);
 			*/
 
-			// PlayerÀÇ ÇöÀç ÁøÇà ÁßÀÎ ±â¼úÀÇ °á°ú·Î Ãß°¡½ÃÅ²´Ù.
+			// Playerì˜ í˜„ìž¬ ì§„í–‰ ì¤‘ì¸ ê¸°ìˆ ì˜ ê²°ê³¼ë¡œ ì¶”ê°€ì‹œí‚¨ë‹¤.
 			//g_pPlayer->PacketAddActionResult( pPacket->getCEffectID(), pResult );		
 			g_pPlayer->PacketAddActionResult( 0, pResult );		
 		}

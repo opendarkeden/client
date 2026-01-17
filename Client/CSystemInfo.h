@@ -17,17 +17,17 @@ class CSystemInfo
 {
 public :
 	//------------------------------------------------------------------
-	// Processor °ü·Ã 
+	// Processor ê´€ë ¨ 
 	//------------------------------------------------------------------
 	long			GetCpuClock();
 	bool			CheckMMXTechnology();
-//	bool			CheckSSETechnology();				// VC7 ºÎÅÍ Áö¿ø.
+	bool			CheckSSETechnology();
 	bool			CheckSSE2Technology();
 	bool			Check3DNowTechnology();
 	bool			CheckHyperThreadTechnology();
 
 	//------------------------------------------------------------------
-	// VideoCard °ü·Ã
+	// VideoCard ê´€ë ¨
 	//------------------------------------------------------------------
 
 	//------------------------------------------------------------------

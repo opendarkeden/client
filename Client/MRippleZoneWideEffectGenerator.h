@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MRippleZoneWideEffectGenerator.h
 //----------------------------------------------------------------------
-// ZoneÀÇ ÇÑ ÁöÁ¡¿¡¼­ ÁøÇà¹æÇâÀ¸·Î ÇÑ Ä­ ¿òÁ÷ÀÎ °÷¿¡¼­ »ı¼º
+// Zoneì˜ í•œ ì§€ì ì—ì„œ ì§„í–‰ë°©í–¥ìœ¼ë¡œ í•œ ì¹¸ ì›€ì§ì¸ ê³³ì—ì„œ ìƒì„±
 //----------------------------------------------------------------------
 
 #ifndef	__MRIPPLEZONEWIDEEFFECTGENERATOR_H__
@@ -16,7 +16,7 @@ class MRippleZoneWideEffectGenerator : public MEffectGenerator {
 
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_RIPPLE_ZONE_WIDE; }
 
-		// Effect»ı¼º
+		// Effectìƒì„±
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

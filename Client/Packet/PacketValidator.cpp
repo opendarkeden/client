@@ -51,7 +51,7 @@ PacketValidator::~PacketValidator ()
 // initialize packet validators
 //----------------------------------------------------------------------
 void PacketValidator::init ()
-	throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -68,13 +68,13 @@ void PacketValidator::init ()
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );
 
 		//----------------------------------------------------------------------
-		// CPS_BEGIN_SESSION ( ·Î±×ÀÎ ÆÐÅ¶À» º¸³½ Á÷ÈÄ )
+		// CPS_BEGIN_SESSION ( ë¡œê·¸ì¸ íŒ¨í‚·ì„ ë³´ë‚¸ ì§í›„ )
 		//----------------------------------------------------------------------
 		pPacketIDSet = new PacketIDSet( CPS_BEGIN_SESSION , PacketIDSet::PIST_NONE );
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );
 
 		//----------------------------------------------------------------------
-		// CPS_AFTER_SENDING_CL_LOGIN ( CLLogin ¸¦ º¸³½ Á÷ÈÄ )
+		// CPS_AFTER_SENDING_CL_LOGIN ( CLLogin ë¥¼ ë³´ë‚¸ ì§í›„ )
 		//----------------------------------------------------------------------
 		pPacketIDSet = new PacketIDSet( CPS_AFTER_SENDING_CL_LOGIN );
 		pPacketIDSet->addPacketID( Packet::PACKET_LC_VERSION_CHECK_OK );
@@ -88,14 +88,14 @@ void PacketValidator::init ()
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );
 
 		//----------------------------------------------------------------------
-		// CPS_AFTER_SENDING_CL_QUERY_PLAYER_ID ( CLQueryPlayerID ¸¦ º¸³½ Á÷ÈÄ )
+		// CPS_AFTER_SENDING_CL_QUERY_PLAYER_ID ( CLQueryPlayerID ë¥¼ ë³´ë‚¸ ì§í›„ )
 		//----------------------------------------------------------------------
 		pPacketIDSet = new PacketIDSet( CPS_AFTER_SENDING_CL_QUERY_PLAYER_ID );
 		pPacketIDSet->addPacketID( Packet::PACKET_LC_QUERY_RESULT_PLAYER_ID );
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );
 
 		//----------------------------------------------------------------------
-		// CPS_AFTER_SENDING_CL_REGISTER_PLAYER ( CLRegisterPlayer ¸¦ º¸³½ Á÷ÈÄ )
+		// CPS_AFTER_SENDING_CL_REGISTER_PLAYER ( CLRegisterPlayer ë¥¼ ë³´ë‚¸ ì§í›„ )
 		//----------------------------------------------------------------------
 		pPacketIDSet = new PacketIDSet( CPS_AFTER_SENDING_CL_REGISTER_PLAYER );
 		pPacketIDSet->addPacketID( Packet::PACKET_LC_VERSION_CHECK_OK );
@@ -105,8 +105,8 @@ void PacketValidator::init ()
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );
 
 		//----------------------------------------------------------------------
-		// CPS_AFTER_SENDING_CL_GET_PC_LIST ( CLGetPCList ¸¦ º¸³½ Á÷ÈÄ )
-		// CLChangeServer¸¦ º¸³½ Á÷ÈÄ¿¡µµ ÀÌ »óÅÂ¸¦ À¯ÁöÇÏµµ·Ï ÇÑ´Ù.
+		// CPS_AFTER_SENDING_CL_GET_PC_LIST ( CLGetPCList ë¥¼ ë³´ë‚¸ ì§í›„ )
+		// CLChangeServerë¥¼ ë³´ë‚¸ ì§í›„ì—ë„ ì´ ìƒíƒœë¥¼ ìœ ì§€í•˜ë„ë¡ í•œë‹¤.
 		//----------------------------------------------------------------------
 		pPacketIDSet = new PacketIDSet( CPS_AFTER_SENDING_CL_GET_PC_LIST );
 		pPacketIDSet->addPacketID( Packet::PACKET_LC_PC_LIST );
@@ -115,7 +115,7 @@ void PacketValidator::init ()
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );
 
 		//----------------------------------------------------------------------
-		// CPS_AFTER_SENDING_CL_CREATE_PC ( CLCreatePC ¸¦ º¸³½ Á÷ÈÄ )
+		// CPS_AFTER_SENDING_CL_CREATE_PC ( CLCreatePC ë¥¼ ë³´ë‚¸ ì§í›„ )
 		//----------------------------------------------------------------------
 		pPacketIDSet = new PacketIDSet( CPS_AFTER_SENDING_CL_CREATE_PC );
 		pPacketIDSet->addPacketID( Packet::PACKET_LC_CREATE_PC_OK );
@@ -124,7 +124,7 @@ void PacketValidator::init ()
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );
 
 		//----------------------------------------------------------------------
-		// CPS_AFTER_SENDING_CL_DELETE_PC ( CLDeletePC ¸¦ º¸³½ Á÷ÈÄ )
+		// CPS_AFTER_SENDING_CL_DELETE_PC ( CLDeletePC ë¥¼ ë³´ë‚¸ ì§í›„ )
 		//----------------------------------------------------------------------
 		pPacketIDSet = new PacketIDSet( CPS_AFTER_SENDING_CL_DELETE_PC );
 		pPacketIDSet->addPacketID( Packet::PACKET_LC_DELETE_PC_OK );
@@ -133,7 +133,7 @@ void PacketValidator::init ()
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );
 
 		//----------------------------------------------------------------------
-		// CPS_AFTER_SENDING_CL_SELECT_PC ( CLSelectPC ¸¦ º¸³½ Á÷ÈÄ )
+		// CPS_AFTER_SENDING_CL_SELECT_PC ( CLSelectPC ë¥¼ ë³´ë‚¸ ì§í›„ )
 		//----------------------------------------------------------------------
 		pPacketIDSet = new PacketIDSet( CPS_AFTER_SENDING_CL_SELECT_PC );
 		pPacketIDSet->addPacketID( Packet::PACKET_LC_RECONNECT );
@@ -159,7 +159,7 @@ void PacketValidator::init ()
 		//----------------------------------------------------------------------
 		// CPS_WAITING_FOR_GC_SET_POSITION
 		//----------------------------------------------------------------------
-		// 2002.2.2 , PacketIDSet::PIST_IGNORE_EXCEPT Ãß°¡
+		// 2002.2.2 , PacketIDSet::PIST_IGNORE_EXCEPT ì¶”ê°€
 		pPacketIDSet = new PacketIDSet( CPS_WAITING_FOR_GC_SET_POSITION, PacketIDSet::PIST_IGNORE_EXCEPT );		
 		pPacketIDSet->addPacketID( Packet::PACKET_GC_SET_POSITION );
 		pPacketIDSet->addPacketID( Packet::PACKET_GC_PARTY_INVITE );
@@ -171,7 +171,7 @@ void PacketValidator::init ()
 		//----------------------------------------------------------------------
 		// CPS_WAITING_FOR_GC_RECONNECT_LOGIN
 		//----------------------------------------------------------------------
-		// 2002.2.2 , PacketIDSet::PIST_IGNORE_EXCEPT Ãß°¡
+		// 2002.2.2 , PacketIDSet::PIST_IGNORE_EXCEPT ì¶”ê°€
 		pPacketIDSet = new PacketIDSet( CPS_WAITING_FOR_GC_RECONNECT_LOGIN, PacketIDSet::PIST_IGNORE_EXCEPT );
 		pPacketIDSet->addPacketID( Packet::PACKET_GC_RECONNECT_LOGIN );
 		pPacketIDSet->addPacketID( Packet::PACKET_GC_PARTY_INVITE );
@@ -182,7 +182,7 @@ void PacketValidator::init ()
 
 
 		//----------------------------------------------------------------------
-		// CPS_NORMAL (°ÔÀÓ¿¡ µé¾î°¡ÀÚ!)
+		// CPS_NORMAL (ê²Œìž„ì— ë“¤ì–´ê°€ìž!)
 		//----------------------------------------------------------------------
 		pPacketIDSet = new PacketIDSet( CPS_NORMAL , PacketIDSet::PIST_ANY );
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );
@@ -197,7 +197,7 @@ void PacketValidator::init ()
 		//----------------------------------------------------------------------
 		//						Request Server/Client
 		//----------------------------------------------------------------------
-		// Á¢¼Ó ÇÏ±â Àü
+		// ì ‘ì† í•˜ê¸° ì „
 		//----------------------------------------------------------------------		,
 		pPacketIDSet = new PacketIDSet( CPS_REQUEST_SERVER_BEGIN_SESSION);
 		pPacketIDSet->addPacketID( Packet::PACKET_CR_CONNECT );
@@ -206,13 +206,13 @@ void PacketValidator::init ()
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );		
 
 		//----------------------------------------------------------------------
-		// Á¢¼Ó ÇÏ±â Àü
+		// ì ‘ì† í•˜ê¸° ì „
 		//----------------------------------------------------------------------		,
 		pPacketIDSet = new PacketIDSet( CPS_REQUEST_CLIENT_BEGIN_SESSION , PacketIDSet::PIST_NONE );
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );
 
 		//----------------------------------------------------------------------
-		// RequestServer¿¡ Á¢¼Ó ¿äÃ» ÈÄ
+		// RequestServerì— ì ‘ì† ìš”ì²­ í›„
 		//----------------------------------------------------------------------
 		pPacketIDSet = new PacketIDSet( CPS_REQUEST_CLIENT_AFTER_SENDING_CONNECT );
 		pPacketIDSet->addPacketID( Packet::PACKET_RC_CONNECT_VERIFY );
@@ -220,7 +220,7 @@ void PacketValidator::init ()
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );
 		
 		//----------------------------------------------------------------------
-		// RequestServerÁ¤»ó »óÅÂ
+		// RequestServerì •ìƒ ìƒíƒœ
 		//----------------------------------------------------------------------
 		pPacketIDSet = new PacketIDSet( CPS_REQUEST_SERVER_NORMAL );
 		pPacketIDSet->addPacketID( Packet::PACKET_CR_REQUEST );
@@ -229,7 +229,7 @@ void PacketValidator::init ()
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );
 		
 		//----------------------------------------------------------------------
-		// RequestClientÁ¤»ó »óÅÂ
+		// RequestClientì •ìƒ ìƒíƒœ
 		//----------------------------------------------------------------------
 		pPacketIDSet = new PacketIDSet( CPS_REQUEST_CLIENT_NORMAL );
 		pPacketIDSet->addPacketID( Packet::PACKET_RC_REQUEST_VERIFY );
@@ -237,7 +237,7 @@ void PacketValidator::init ()
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );
 
 		//----------------------------------------------------------------------
-		// Client Communication »óÅÂ
+		// Client Communication ìƒíƒœ
 		//----------------------------------------------------------------------
 		pPacketIDSet = new PacketIDSet( CPS_CLIENT_COMMUNICATION_NORMAL );
 		pPacketIDSet->addPacketID( Packet::PACKET_RC_POSITION_INFO );
@@ -256,7 +256,7 @@ void PacketValidator::init ()
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );
 
 		//----------------------------------------------------------------------
-		// LPS_BEGIN_SESSION ( ·Î±×ÀÎ ¼­¹ö¿¡ ¿¬°áÇÑ Á÷ÈÄ )
+		// LPS_BEGIN_SESSION ( ë¡œê·¸ì¸ ì„œë²„ì— ì—°ê²°í•œ ì§í›„ )
 		//----------------------------------------------------------------------
 		pPacketIDSet = new PacketIDSet( LPS_BEGIN_SESSION );
 //		pPacketIDSet->addPacketID( Packet::PACKET_CL_QUERY_PLAYER_ID );
@@ -267,7 +267,7 @@ void PacketValidator::init ()
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );
 
 		//----------------------------------------------------------------------
-		// LPS_WAITING_FOR_CL_GET_PC_LIST ( »ç¿ëÀÚ ÀÎÁõÀ» ¹ÞÀº Á÷ÈÄ )
+		// LPS_WAITING_FOR_CL_GET_PC_LIST ( ì‚¬ìš©ìž ì¸ì¦ì„ ë°›ì€ ì§í›„ )
 		//----------------------------------------------------------------------
 		pPacketIDSet = new PacketIDSet( LPS_WAITING_FOR_CL_GET_PC_LIST );
 		pPacketIDSet->addPacketID( Packet::PACKET_CL_GET_PC_LIST );
@@ -329,13 +329,13 @@ void PacketValidator::init ()
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );
 
 		//----------------------------------------------------------------------
-		// GPS_NORMAL ( ·ÎµùÀ» ¸¶Ä¡°í °ÔÀÓ¿¡ µé¾î°¡±â ¹Ù·ÎÀü )
+		// GPS_NORMAL ( ë¡œë”©ì„ ë§ˆì¹˜ê³  ê²Œìž„ì— ë“¤ì–´ê°€ê¸° ë°”ë¡œì „ )
 		//----------------------------------------------------------------------
 		pPacketIDSet = new PacketIDSet( GPS_NORMAL , PacketIDSet::PIST_ANY );
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );
 
 		//----------------------------------------------------------------------
-		// GPS_IGNORE_ALL ( ¾Æ¹« ÆÐÅ¶µµ ¹ÞÁö ¾Ê°í ´Ù ¹«½ÃÇÏ´Â »óÅÂ´Ù.. fucksuck)
+		// GPS_IGNORE_ALL ( ì•„ë¬´ íŒ¨í‚·ë„ ë°›ì§€ ì•Šê³  ë‹¤ ë¬´ì‹œí•˜ëŠ” ìƒíƒœë‹¤.. fucksuck)
 		//----------------------------------------------------------------------
 		pPacketIDSet = new PacketIDSet( GPS_IGNORE_ALL , PacketIDSet::PIST_IGNORE_EXCEPT );
 		addPacketIDSet( pPacketIDSet->getPlayerStatus(), pPacketIDSet );

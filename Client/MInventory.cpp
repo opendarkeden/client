@@ -45,10 +45,10 @@ MInventory::~MInventory()
 //----------------------------------------------------------------------
 // Check AffectStatus
 //----------------------------------------------------------------------
-// ªÁøÎ∞°¥…«—¡ˆ √º≈©
+// ÏÇ¨Ïö©Í∞ÄÎä•ÌïúÏßÄ Ï≤¥ÌÅ¨
 //----------------------------------------------------------------------
 void			
-MInventory::CheckAffectStatus(MItem* pItem)	// ∆Ø¡§ æ∆¿Ã≈€
+MInventory::CheckAffectStatus(MItem* pItem)	// ÌäπÏ†ï ÏïÑÏù¥ÌÖú
 {
 #ifdef __GAME_CLIENT__
 
@@ -60,8 +60,8 @@ MInventory::CheckAffectStatus(MItem* pItem)	// ∆Ø¡§ æ∆¿Ã≈€
 //----------------------------------------------------------------------
 // Add item ( pItem )
 //----------------------------------------------------------------------
-// Inventoryø° √ﬂ∞°µ… ºˆ ¿÷¥¬ Item¿Œ¡ˆ ∫∏∞Ì,..
-// ¿˚¿˝«— gridø° √ﬂ∞°«—¥Ÿ.
+// InventoryÏóê Ï∂îÍ∞ÄÎê† Ïàò ÏûàÎäî ItemÏù∏ÏßÄ Î≥¥Í≥†,..
+// Ï†ÅÏ†àÌïú gridÏóê Ï∂îÍ∞ÄÌïúÎã§.
 //----------------------------------------------------------------------
 bool			
 MInventory::AddItem(MItem* pItem)
@@ -70,7 +70,7 @@ MInventory::AddItem(MItem* pItem)
 	{
 		if (MGridItemManager::AddItem( pItem ))
 		{
-			// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+			// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 			#ifdef __GAME_CLIENT__
 				PlaySound( pItem->GetInventorySoundID() );
 			#endif
@@ -88,8 +88,8 @@ MInventory::AddItem(MItem* pItem)
 //----------------------------------------------------------------------
 // Add item ( pItem )
 //----------------------------------------------------------------------
-// Inventoryø° √ﬂ∞°µ… ºˆ ¿÷¥¬ Item¿Œ¡ˆ ∫∏∞Ì,..
-// grid(x,y)ø° pItem¿ª √ﬂ∞°«—¥Ÿ.
+// InventoryÏóê Ï∂îÍ∞ÄÎê† Ïàò ÏûàÎäî ItemÏù∏ÏßÄ Î≥¥Í≥†,..
+// grid(x,y)Ïóê pItemÏùÑ Ï∂îÍ∞ÄÌïúÎã§.
 //----------------------------------------------------------------------
 bool			
 MInventory::AddItem(MItem* pItem, BYTE x, BYTE y)
@@ -98,7 +98,7 @@ MInventory::AddItem(MItem* pItem, BYTE x, BYTE y)
 	{
 		if (MGridItemManager::AddItem( pItem, x, y ))
 		{
-			// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+			// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 			#ifdef __GAME_CLIENT__
 				PlaySound( pItem->GetInventorySoundID() );
 			#endif
@@ -115,9 +115,9 @@ MInventory::AddItem(MItem* pItem, BYTE x, BYTE y)
 //----------------------------------------------------------------------
 // Replace item ( pItem,  x,y,  pOldItem )
 //----------------------------------------------------------------------
-// Inventoryø° √ﬂ∞°µ… ºˆ ¿÷¥¬ Item¿Œ¡ˆ ∫∏∞Ì,..
-// √ﬂ∞°µ… ºˆ ¿÷¿∏∏È √ﬂ∞°«œ¥¬µ•
-// ±◊ ¿ßƒ°ø° ¥Ÿ∏• item¿Ã ¿÷¥Ÿ∏È pOldItemø° ¥„æ∆º≠ ≥—∞‹¡ÿ¥Ÿ.
+// InventoryÏóê Ï∂îÍ∞ÄÎê† Ïàò ÏûàÎäî ItemÏù∏ÏßÄ Î≥¥Í≥†,..
+// Ï∂îÍ∞ÄÎê† Ïàò ÏûàÏúºÎ©¥ Ï∂îÍ∞ÄÌïòÎäîÎç∞
+// Í∑∏ ÏúÑÏπòÏóê Îã§Î•∏ itemÏù¥ ÏûàÎã§Î©¥ pOldItemÏóê Îã¥ÏïÑÏÑú ÎÑòÍ≤®Ï§ÄÎã§.
 //----------------------------------------------------------------------
 bool			
 MInventory::ReplaceItem(MItem* pItem, BYTE x, BYTE y, MItem*& pOldItem)
@@ -126,7 +126,7 @@ MInventory::ReplaceItem(MItem* pItem, BYTE x, BYTE y, MItem*& pOldItem)
 	{
 		if (MGridItemManager::ReplaceItem(pItem, x,y, pOldItem))
 		{
-			// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+			// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 			#ifdef __GAME_CLIENT__
 				PlaySound( pItem->GetInventorySoundID() );
 			#endif
@@ -143,23 +143,23 @@ MInventory::ReplaceItem(MItem* pItem, BYTE x, BYTE y, MItem*& pOldItem)
 //----------------------------------------------------------------------
 // Get Fit Position ( pItem, point )
 //----------------------------------------------------------------------
-// pItem¿Ã µÈæÓ∞• ºˆ ¿÷¥¬ ¿˚¿˝«— grid¿ßƒ°∏¶ ±∏«—¥Ÿ.
+// pItemÏù¥ Îì§Ïñ¥Í∞à Ïàò ÏûàÎäî Ï†ÅÏ†àÌïú gridÏúÑÏπòÎ•º Íµ¨ÌïúÎã§.
 //
-// ¿œ¥‹, Ω◊ø©º≠ ¡ﬂ∫πµ… ºˆ ¿÷¥¬ Item¿Œ ∞ÊøÏ∏¶ √º≈©«ÿæﬂ«—¥Ÿ.
-// ∞≥ºˆ∞° «—∞Ëƒ°∏¶ ≥—æÓº≠ øœ¿¸ Ω◊¿Ã¥¬∞‘ ∫“∞°¥…«“ ∞ÊøÏ¥¬ ∫Û ∞¯∞£¿ª
-// √£¿∏∏È µ»¥Ÿ.
+// ÏùºÎã®, ÏåìÏó¨ÏÑú Ï§ëÎ≥µÎê† Ïàò ÏûàÎäî ItemÏù∏ Í≤ΩÏö∞Î•º Ï≤¥ÌÅ¨Ìï¥ÏïºÌïúÎã§.
+// Í∞úÏàòÍ∞Ä ÌïúÍ≥ÑÏπòÎ•º ÎÑòÏñ¥ÏÑú ÏôÑÏ†Ñ ÏåìÏù¥ÎäîÍ≤å Î∂àÍ∞ÄÎä•Ìï† Í≤ΩÏö∞Îäî Îπà Í≥µÍ∞ÑÏùÑ
+// Ï∞æÏúºÎ©¥ ÎêúÎã§.
 //----------------------------------------------------------------------
 bool			
 MInventory::GetFitPosition(MItem* pItem, POINT& point)
 {
 	//--------------------------------------------------------
-	// Ω◊¿Ã¥¬ item¿Œ ∞ÊøÏ∏∏ √º≈©«—¥Ÿ.
+	// ÏåìÏù¥Îäî itemÏù∏ Í≤ΩÏö∞Îßå Ï≤¥ÌÅ¨ÌïúÎã§.
 	//--------------------------------------------------------
 	if (pItem->IsPileItem())
 	{
-		// ∏µÁ Item¿ª √º≈©«œ∏Èº≠ Ω◊¿œ ºˆ ¿÷¥¬¡ˆ∏¶ √º≈©«—¥Ÿ.
-		// √£¥¬ º¯º≠¥¬?? -_-;;
-		// IDº¯.. »Ï.. -_-;;;
+		// Î™®Îì† ItemÏùÑ Ï≤¥ÌÅ¨ÌïòÎ©¥ÏÑú ÏåìÏùº Ïàò ÏûàÎäîÏßÄÎ•º Ï≤¥ÌÅ¨ÌïúÎã§.
+		// Ï∞æÎäî ÏàúÏÑúÎäî?? -_-;;
+		// IDÏàú.. Ìù†.. -_-;;;
 		ITEM_MAP::iterator iItem = m_mapItem.begin();
 
 		while (iItem != m_mapItem.end())
@@ -167,8 +167,8 @@ MInventory::GetFitPosition(MItem* pItem, POINT& point)
 			MItem* pInventoryItem = (*iItem).second;
 
 			//--------------------------------------------
-			// øœ¿¸«œ∞‘ Ω◊¿œ ºˆ ¿÷¥¬ ¡∂∞«¿Ã µ«∏È...
-			// ±‚¡∏¿« item¿« ¡¬«•∏¶ ≥—∞‹¡ÿ¥Ÿ.
+			// ÏôÑÏ†ÑÌïòÍ≤å ÏåìÏùº Ïàò ÏûàÎäî Ï°∞Í±¥Ïù¥ ÎêòÎ©¥...
+			// Í∏∞Ï°¥Ïùò itemÏùò Ï¢åÌëúÎ•º ÎÑòÍ≤®Ï§ÄÎã§.
 			//--------------------------------------------
 			if (pInventoryItem->GetItemClass()==pItem->GetItemClass()
 				&& pInventoryItem->GetItemType()==pItem->GetItemType()
@@ -191,9 +191,9 @@ MInventory::GetFitPosition(MItem* pItem, POINT& point)
 //----------------------------------------------------------------------
 // Find Item  (class , type)
 //----------------------------------------------------------------------
-// inventoryø°º≠ ¿˚¿˝«— itemClassøÕ itemType¿ª ∞°¡¯ item¿ª «œ≥™ √£¥¬¥Ÿ.
-// itemType¿∫ ¡ˆ¡§æ» «“ ºˆµµ ¿÷¥Ÿ.
-// ±◊∏Æ∞Ì, «œ≥™∏∏ √£¿∏∏È µ«π«∑Œ... ∞°¿Â ∏’¿˙ πﬂ∞ﬂµ«¥¬∞… ≥—∞‹¡÷∏È µ»¥Ÿ.
+// inventoryÏóêÏÑú Ï†ÅÏ†àÌïú itemClassÏôÄ itemTypeÏùÑ Í∞ÄÏßÑ itemÏùÑ ÌïòÎÇò Ï∞æÎäîÎã§.
+// itemTypeÏùÄ ÏßÄÏ†ïÏïà Ìï† ÏàòÎèÑ ÏûàÎã§.
+// Í∑∏Î¶¨Í≥†, ÌïòÎÇòÎßå Ï∞æÏúºÎ©¥ ÎêòÎØÄÎ°ú... Í∞ÄÏû• Î®ºÏ†Ä Î∞úÍ≤¨ÎêòÎäîÍ±∏ ÎÑòÍ≤®Ï£ºÎ©¥ ÎêúÎã§.
 //----------------------------------------------------------------------
 MItem*	
 MInventory::FindItem( ITEM_CLASS itemClass, TYPE_ITEMTYPE itemType )
@@ -201,7 +201,7 @@ MInventory::FindItem( ITEM_CLASS itemClass, TYPE_ITEMTYPE itemType )
 	ITEM_MAP::iterator iItem = m_mapItem.begin();
 
 	//------------------------------------------------------
-	// itemType¿∫ ¡ˆ¡§«œ¡ˆ æ ¿∫ ∞ÊøÏ
+	// itemTypeÏùÄ ÏßÄÏ†ïÌïòÏßÄ ÏïäÏùÄ Í≤ΩÏö∞
 	//------------------------------------------------------
 	if (itemType==ITEMTYPE_NULL)
 	{
@@ -209,7 +209,7 @@ MInventory::FindItem( ITEM_CLASS itemClass, TYPE_ITEMTYPE itemType )
 		{
 			MItem* pItem = (*iItem).second;
 
-			// class∏∏ ∫Ò±≥
+			// classÎßå ÎπÑÍµê
 			if (pItem->GetItemClass()==itemClass)
 			{
 				return pItem;
@@ -219,7 +219,7 @@ MInventory::FindItem( ITEM_CLASS itemClass, TYPE_ITEMTYPE itemType )
 		}
 	}
 	//------------------------------------------------------
-	// classøÕ type ∏µŒ ∫Ò±≥
+	// classÏôÄ type Î™®Îëê ÎπÑÍµê
 	//------------------------------------------------------
 	else
 	{
@@ -227,7 +227,7 @@ MInventory::FindItem( ITEM_CLASS itemClass, TYPE_ITEMTYPE itemType )
 		{
 			MItem* pItem = (*iItem).second;
 
-			// classøÕ type ∏µŒ ∫Ò±≥
+			// classÏôÄ type Î™®Îëê ÎπÑÍµê
 			if (pItem->GetItemClass()==itemClass
 				&& pItem->GetItemType()==itemType)
 			{
@@ -278,28 +278,28 @@ MInventory::FindItem( ITEM_CLASS itemClass, TYPE_ITEMTYPE itemType )
 
 			//---------------------------------------
 			//
-			// update --> ¡§ªÛ¿˚¿∏∑Œ µ» ∞ÊøÏ
+			// update --> Ï†ïÏÉÅÏ†ÅÏúºÎ°ú Îêú Í≤ΩÏö∞
 			//
 			//---------------------------------------
 			if (pEffect->Update())
 			{
 				//-----------------------------------------------
 				//
-				// ¿Ã Effect∞° ≥°≥™±‚ ¿¸ø° LinkCountø° ¿««ÿº≠
-				// ¥Ÿ¿Ω ø¨∞·µ«¥¬ Effect∞° ¿÷¿∏∏È ª˝º∫«ÿæﬂ «—¥Ÿ.
+				// Ïù¥ EffectÍ∞Ä ÎÅùÎÇòÍ∏∞ Ï†ÑÏóê LinkCountÏóê ÏùòÌï¥ÏÑú
+				// Îã§Ïùå Ïó∞Í≤∞ÎêòÎäî EffectÍ∞Ä ÏûàÏúºÎ©¥ ÏÉùÏÑ±Ìï¥Ïïº ÌïúÎã§.
 				//
-				// «ˆ¿ÁFrame¿Ã EndLinkFrame¿ª ≥—æÓ∞£ ∞ÊøÏ
+				// ÌòÑÏû¨FrameÏù¥ EndLinkFrameÏùÑ ÎÑòÏñ¥Í∞Ñ Í≤ΩÏö∞
 				//
 				//-----------------------------------------------
 				if (g_CurrentFrame >= pEffect->GetEndLinkFrame()
 					&& pEffect->GetLinkSize() != 0)
 				{
-					// GenerateNextø°º≠ 
-					// pEffect¿« EffectTarget¿ª NULL∑Œ ∏∏µÈæÓ¡÷±‚ ∂ßπÆø°
-					// ø©±‚º≠ ¡ˆøÔ « ø‰ æ¯¥Ÿ.
+					// GenerateNextÏóêÏÑú 
+					// pEffectÏùò EffectTargetÏùÑ NULLÎ°ú ÎßåÎì§Ïñ¥Ï£ºÍ∏∞ ÎïåÎ¨∏Ïóê
+					// Ïó¨Í∏∞ÏÑú ÏßÄÏö∏ ÌïÑÏöî ÏóÜÎã§.
 					g_EffectGeneratorTable.GenerateNext( pEffect );
 
-					// pEffect¥¬ ø©¿¸»˜ ¡∏¿Á«ÿæﬂ «œπ«∑Œ ¡ˆøÏ∏È æ»µ»¥Ÿ.
+					// pEffectÎäî Ïó¨Ï†ÑÌûà Ï°¥Ïû¨Ìï¥Ïïº ÌïòÎØÄÎ°ú ÏßÄÏö∞Î©¥ ÏïàÎêúÎã§.
 				}
 				
 				
@@ -307,13 +307,13 @@ MInventory::FindItem( ITEM_CLASS itemClass, TYPE_ITEMTYPE itemType )
 			}
 			//---------------------------------------
 			//
-			// ¥Ÿ µ≈º≠ ≥°≥≠ ∞ÊøÏ
+			// Îã§ ÎèºÏÑú ÎÅùÎÇú Í≤ΩÏö∞
 			//
 			//---------------------------------------
 			else
 			{
 				//-----------------------------------------------
-				// ¥Ÿ¿Ω ø¨∞·µ«¥¬ Effect∞° ¿÷¿∏∏È ª˝º∫«ÿæﬂ «—¥Ÿ.
+				// Îã§Ïùå Ïó∞Í≤∞ÎêòÎäî EffectÍ∞Ä ÏûàÏúºÎ©¥ ÏÉùÏÑ±Ìï¥Ïïº ÌïúÎã§.
 				//-----------------------------------------------
 				if (pEffect->GetLinkSize() != 0)
 				{
@@ -321,14 +321,14 @@ MInventory::FindItem( ITEM_CLASS itemClass, TYPE_ITEMTYPE itemType )
 				}
 
 				//-----------------------------------------------
-				// ¡¶∞≈
+				// Ï†úÍ±∞
 				//-----------------------------------------------
 				delete pEffect;
 
 				iTemp = iEffect;
 				iEffect++;
 
-				// listø°º≠ ¡¶∞≈«—¥Ÿ.
+				// listÏóêÏÑú Ï†úÍ±∞ÌïúÎã§.
 				m_listEffect.erase(iTemp);
 			}
 		

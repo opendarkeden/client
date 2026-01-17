@@ -5,7 +5,11 @@
 #ifndef __CLIENTFUNCTION_H__
 #define __CLIENTFUNCTION_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "MTypeDef.h"
 
 extern const char*	GetWhisperID();
@@ -23,7 +27,7 @@ extern void			DrawBloodBibleEffect_InGear(int X, int Y);
 //---------------------------------------------------------------------------
 // Draw AlphaBox
 //---------------------------------------------------------------------------
-// (r,g,b)¥¬ ∞¢∞¢ 0~31, alphaµµ æ∆∏∂ 0~31 -_-;
+// (r,g,b)Îäî Í∞ÅÍ∞Å 0~31, alphaÎèÑ ÏïÑÎßà 0~31 -_-;
 //---------------------------------------------------------------------------
 extern void		DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha);
 

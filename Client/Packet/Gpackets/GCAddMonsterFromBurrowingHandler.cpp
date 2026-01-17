@@ -14,14 +14,15 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCAddMonsterFromBurrowingHandler::execute ( GCAddMonsterFromBurrowing * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 #ifdef __GAME_CLIENT__
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -30,14 +31,14 @@ void GCAddMonsterFromBurrowingHandler::execute ( GCAddMonsterFromBurrowing * pPa
 		
 	}	
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		//AfxMessageBox( pPacket->toString().c_str() );
 		MCreature* pCreature = g_pZone->GetCreature(pPacket->getObjectID());
 
-		// 2004, 9, 1, sobeit add start - °ø¼ºÀü½Ã Æ®·¦ÀÏ °æ¿ì °ø°ÝÃø¿¡¼­´Â º¸ÀÌÁö ¾Ê´Â´Ù.
+		// 2004, 9, 1, sobeit add start - ê³µì„±ì „ì‹œ íŠ¸ëž©ì¼ ê²½ìš° ê³µê²©ì¸¡ì—ì„œëŠ” ë³´ì´ì§€ ì•ŠëŠ”ë‹¤.
 		WORD wMonsterType = pPacket->getMonsterType();
 		if( wMonsterType == 738 ||
 			wMonsterType == 739 ||
@@ -78,9 +79,9 @@ void GCAddMonsterFromBurrowingHandler::execute ( GCAddMonsterFromBurrowing * pPa
 
 			}
 		}
-		// 2004, 9, 1, sobeit add end - °ø¼ºÀü½Ã Æ®·¦ÀÏ °æ¿ì °ø°ÝÃø¿¡¼­´Â º¸ÀÌÁö ¾Ê´Â´Ù.
+		// 2004, 9, 1, sobeit add end - ê³µì„±ì „ì‹œ íŠ¸ëž©ì¼ ê²½ìš° ê³µê²©ì¸¡ì—ì„œëŠ” ë³´ì´ì§€ ì•ŠëŠ”ë‹¤.
 		//--------------------------------------------------
-		// »õ·Î¿î CreatureÀÌ¸é Ãß°¡
+		// ìƒˆë¡œìš´ Creatureì´ë©´ ì¶”ê°€
 		//--------------------------------------------------
 		if (pCreature==NULL)
 		{
@@ -103,19 +104,19 @@ void GCAddMonsterFromBurrowingHandler::execute ( GCAddMonsterFromBurrowing * pPa
 			pCreature->SetStatus( MODIFY_CURRENT_HP, pPacket->getCurrentHP() );
 
 			// [ TEST CODE ]
-			// ÀÌ¸§ ¼³Á¤
+			// ì´ë¦„ ì„¤ì •
 			//char str[20];
 			//sprintf(str, "ID=%d", pCreature->GetID());
 			//pCreature->SetName( (*g_pCreatureTable)[pPacket->getMonsterType()].Name.GetString() );
 			pCreature->SetName( pPacket->getMonsterName().c_str() );
 
-			// ÀÓ½Ã·Î..
+			// ìž„ì‹œë¡œ..
 			pCreature->SetGuildNumber( 1 );
 
-			// ÀÌ¸§
+			// ì´ë¦„
 			//pCreature->SetName( pPacket->getName().toString().c_str() );
 
-			// »ö±ò Á¤º¸
+			// ìƒ‰ê¹” ì •ë³´
 			
 
 			if (!g_pZone->AddCreature( pCreature ))
@@ -126,13 +127,13 @@ void GCAddMonsterFromBurrowingHandler::execute ( GCAddMonsterFromBurrowing * pPa
 			else
 			{				
 				//------------------------------------------------------------
-				// LoadµÇÁö ¾Ê¾ÒÀ¸¸é loadÇÑ´Ù.
+				// Loadë˜ì§€ ì•Šì•˜ìœ¼ë©´ loadí•œë‹¤.
 				//------------------------------------------------------------
 //				LoadCreatureType( pPacket->getMonsterType() );			
 			}
 		}
 		//--------------------------------------------------
-		// ÀÌ¹Ì ÀÖ´Â CreatureÀÎ °æ¿ì
+		// ì´ë¯¸ ìžˆëŠ” Creatureì¸ ê²½ìš°
 		//--------------------------------------------------
 		else
 		{
@@ -151,66 +152,66 @@ void GCAddMonsterFromBurrowingHandler::execute ( GCAddMonsterFromBurrowing * pPa
 			pCreature->SetStatus( MODIFY_CURRENT_HP, pPacket->getCurrentHP() );
 
 			// [ TEST CODE ]
-			// ÀÌ¸§ ¼³Á¤
+			// ì´ë¦„ ì„¤ì •
 			//char str[20];
 			//sprintf(str, "ID=%d", pCreature->GetID());
 			//pCreature->SetName( (*g_pCreatureTable)[pPacket->getMonsterType()].Name.GetString() );
 			pCreature->SetName( pPacket->getMonsterName().c_str() );
 
-			// ÀÓ½Ã·Î..
+			// ìž„ì‹œë¡œ..
 			pCreature->SetGuildNumber( 1 );
 
-			// ÀÌ¸§
+			// ì´ë¦„
 			//pCreature->SetName( pPacket->getName().toString().c_str() );
 
-			// »ö±ò Á¤º¸
+			// ìƒ‰ê¹” ì •ë³´
 
 			//------------------------------------------------------------
-			// LoadµÇÁö ¾Ê¾ÒÀ¸¸é loadÇÑ´Ù.
+			// Loadë˜ì§€ ì•Šì•˜ìœ¼ë©´ loadí•œë‹¤.
 			//------------------------------------------------------------
 //			LoadCreatureType( pPacket->getMonsterType() );			
 		}
 
 		//--------------------------------------------------
-		// Effect ºÙÀÌ±â..
+		// Effect ë¶™ì´ê¸°..
 		//--------------------------------------------------
 		if (pCreature!=NULL)
 		{
 			SetEffectInfo( pCreature, pPacket->getEffectInfo() );		
-			// 2004, 8, 31, sobeit add start - Æ®·¦¿¡ ÀÌÆåÆ® ºÙÀÓ
+			// 2004, 8, 31, sobeit add start - íŠ¸ëž©ì— ì´íŽ™íŠ¸ ë¶™ìž„
 			switch(pCreature->GetCreatureType())
 			{
-				case 739: // Æ®·¦ - ·£µå ¸¶ÀÎ
+				case 739: // íŠ¸ëž© - ëžœë“œ ë§ˆì¸
 					ExecuteActionInfoFromMainNode(SKILL_CLIENT_LAND_MINE_LIGHT,pCreature->GetX(), pCreature->GetY(), 0,pCreature->GetDirection(),	pCreature->GetID(),	
 								pCreature->GetX(), pCreature->GetY(), 0, 0xffff, NULL, false);			
 					break;
-				case 738: // Æ®·¦ - ÇÃ·¹Á® ½ºÅ×ÀÌ¼Ç
+				case 738: // íŠ¸ëž© - í”Œë ˆì ¸ ìŠ¤í…Œì´ì…˜
 					ExecuteActionInfoFromMainNode(SKILL_CLIENT_PLEASUER_STATION_LIGHT,pCreature->GetX(), pCreature->GetY(), 0,pCreature->GetDirection(),	pCreature->GetID(),	
 								pCreature->GetX(), pCreature->GetY(), 0, 0xffff, NULL, false);			
 					break;
 			}
 			// 2004, 8, 31, sobeit add end -
 			//--------------------------------------------------
-			// Burrow¿¡¼­ ºüÁ®³ª¿À´Â Effect == BurrowingÇÏ´Â Effect
+			// Burrowì—ì„œ ë¹ ì ¸ë‚˜ì˜¤ëŠ” Effect == Burrowingí•˜ëŠ” Effect
 			//--------------------------------------------------		
 			ExecuteActionInfoFromMainNode(
-				RESULT_MAGIC_HIDE,										// »ç¿ë ±â¼ú ¹øÈ£
+				RESULT_MAGIC_HIDE,										// ì‚¬ìš© ê¸°ìˆ  ë²ˆí˜¸
 			
 				pCreature->GetX(), pCreature->GetY(), 0,
-				pCreature->GetDirection(),														// »ç¿ë ¹æÇâ
+				pCreature->GetDirection(),														// ì‚¬ìš© ë°©í–¥
 				
-				OBJECTID_NULL,												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+				OBJECTID_NULL,												// ëª©í‘œì— ëŒ€í•œ ì •ë³´
 				pCreature->GetX(), pCreature->GetY(), 0, 
 				
-				0,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+				0,													// ê¸°ìˆ ì˜ (ë‚¨ì€) ì§€ì† ì‹œê°„		
 				
 				NULL,
 				
-				false);			// ±â¼ú Ã·ºÎÅÍ ½ÃÀÛÇÑ´Ù.
+				false);			// ê¸°ìˆ  ì²¨ë¶€í„° ì‹œìž‘í•œë‹¤.
 		}
 	}
 
-	// [µµ¿ò¸»] ¸÷ÀÌ ³ªÅ¸³¯¶§
+	// [ë„ì›€ë§] ëª¹ì´ ë‚˜íƒ€ë‚ ë•Œ
 //	__BEGIN_HELP_EVENT
 ////		ExecuteHelpEvent( HE_CREATURE_APPEAR_MONSTER );
 //	__END_HELP_EVENT

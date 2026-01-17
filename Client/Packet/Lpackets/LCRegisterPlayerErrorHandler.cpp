@@ -21,7 +21,8 @@ extern BOOL		g_bNeedUpdate;
 //
 //--------------------------------------------------------------------------------
 void LCRegisterPlayerErrorHandler::execute ( LCRegisterPlayerError * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -38,7 +39,7 @@ void LCRegisterPlayerErrorHandler::execute ( LCRegisterPlayerError * pPacket , P
 		PopupErrorMessage( (ErrorID)pPacket->getErrorID() );
 	}
 
-	// ╢ы╫ц UI╦╕ ╠Б╢ы╦╝╢б ╩Себ╥н ╧ы╡ш╢ы.
+	// К▀╓Л▀° UIК╔╪ Й╦╟К▀╓К╕╛К┼■ Л┐│М┐°К║° К╟■Й╬╪К▀╓.
 	g_ModeNext = MODE_NEWUSER;
 
 #endif

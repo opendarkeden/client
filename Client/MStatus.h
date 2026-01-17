@@ -1,14 +1,18 @@
 //----------------------------------------------------------------------
 // MStatus.h
 //----------------------------------------------------------------------
-// Ä³¸¯ÅÍ »óÅÂ¿¡ µû¸¥ °ª
+// ìºë¦­í„° ìƒíƒœì— ë”°ë¥¸ ê°’
 //----------------------------------------------------------------------
 
 #ifndef	__MSTATUS_H__
 #define	__MSTATUS_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
-#include "Packet\Types\ModifyDef.h"
+#else
+#include "../../basic/Platform.h"
+#endif
+#include "Packet/Types/ModifyDef.h"
 
 class MStatus {
 	public :
@@ -16,17 +20,17 @@ class MStatus {
 		~MStatus();
 
 		//-------------------------------------------
-		// ¸ğµç °ªÀ» NULLÀ¸·Î ¸¸µç´Ù.
+		// ëª¨ë“  ê°’ì„ NULLìœ¼ë¡œ ë§Œë“ ë‹¤.
 		//-------------------------------------------
 		void	ClearStatus();
 
 		//-------------------------------------------
-		// n¹øÂ° °ªÀ» value·Î ¸¸µç´Ù.
+		// në²ˆì§¸ ê°’ì„ valueë¡œ ë§Œë“ ë‹¤.
 		//-------------------------------------------
 		virtual void	SetStatus(DWORD n, DWORD value)	{ m_Status[n] = value; }
 
 		//-------------------------------------------
-		// n¹øÂ° °ª ÀĞ¾î¿À±â
+		// në²ˆì§¸ ê°’ ì½ì–´ì˜¤ê¸°
 		//-------------------------------------------
 		DWORD	GetStatus(DWORD n) const		{ return m_Status[n]; }
 		
@@ -72,18 +76,18 @@ class MStatus {
 		DWORD	GetGUN_DOMAIN_LEVEL() const			{ return m_Status[MODIFY_GUN_DOMAIN_LEVEL]; }
 		DWORD	GetETC_DOMAIN_LEVEL() const			{ return m_Status[MODIFY_ETC_DOMAIN_LEVEL]; }
 
-		DWORD	GetSWORD_DOMAIN_EXP() const			{ return m_Status[MODIFY_SWORD_DOMAIN_EXP_REMAIN]; }     // °Ë °è¿­ ·¹º§À» º¯°æ
-//		DWORD	GetSWORD_DOMAIN_GOAL_EXP() const			{ return m_Status[MODIFY_SWORD_DOMAIN_GOAL_EXP]; }// °Ë °è¿­ ·¹º§À» º¯°æ
-		DWORD	GetBLADE_DOMAIN_EXP() const			{ return m_Status[MODIFY_BLADE_DOMAIN_EXP_REMAIN]; }     // µµ °è¿­ ·¹º§À» º¯°æ
-//		DWORD	GetBLADE_DOMAIN_GOAL_EXP() const			{ return m_Status[MODIFY_BLADE_DOMAIN_GOAL_EXP]; }// µµ °è¿­ ·¹º§À» º¯°æ
-		DWORD	GetHEAL_DOMAIN_EXP() const			{ return m_Status[MODIFY_HEAL_DOMAIN_EXP_REMAIN]; }      // Èú °è¿­ ·¹º§À» º¯°æ
-//		DWORD	GetHEAL_DOMAIN_GOAL_EXP() const			{ return m_Status[MODIFY_HEAL_DOMAIN_GOAL_EXP]; } // Èú °è¿­ ·¹º§À» º¯°æ
-		DWORD	GetENCHANT_DOMAIN_EXP() const			{ return m_Status[MODIFY_ENCHANT_DOMAIN_EXP_REMAIN]; }   // ÀÎÃ¦Æ® °è¿­ ·¹º§À» º¯°æ
-//		DWORD	GetENCHANT_DOMAIN_GOAL_EXP() const			{ return m_Status[MODIFY_ENCHANT_DOMAIN_GOAL_EXP]; } // ÀÎÃ¦Æ® °è¿­ ·¹º§À» º¯°æ
-		DWORD	GetGUN_DOMAIN_EXP() const			{ return m_Status[MODIFY_GUN_DOMAIN_EXP_REMAIN]; }       // ÃÑ °è¿­ ·¹º§À» º¯°æ
-//		DWORD	GetGUN_DOMAIN_GOAL_EXP() const			{ return m_Status[MODIFY_GUN_DOMAIN_GOAL_EXP]; }  // ÃÑ °è¿­ ·¹º§À» º¯°æ
-		DWORD	GetETC_DOMAIN_EXP() const			{ return m_Status[MODIFY_ETC_DOMAIN_EXP_REMAIN]; }       // ±âÅ¸ °è¿­ ·¹º§À» º¯°æ
-//		DWORD	GetETC_DOMAIN_GOAL_EXP() const			{ return m_Status[MODIFY_ETC_DOMAIN_GOAL_EXP]; }  // ±âÅ¸ °è¿­ ·¹º§À» º¯°æ
+		DWORD	GetSWORD_DOMAIN_EXP() const			{ return m_Status[MODIFY_SWORD_DOMAIN_EXP_REMAIN]; }     // ê²€ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+//		DWORD	GetSWORD_DOMAIN_GOAL_EXP() const			{ return m_Status[MODIFY_SWORD_DOMAIN_GOAL_EXP]; }// ê²€ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+		DWORD	GetBLADE_DOMAIN_EXP() const			{ return m_Status[MODIFY_BLADE_DOMAIN_EXP_REMAIN]; }     // ë„ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+//		DWORD	GetBLADE_DOMAIN_GOAL_EXP() const			{ return m_Status[MODIFY_BLADE_DOMAIN_GOAL_EXP]; }// ë„ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+		DWORD	GetHEAL_DOMAIN_EXP() const			{ return m_Status[MODIFY_HEAL_DOMAIN_EXP_REMAIN]; }      // í ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+//		DWORD	GetHEAL_DOMAIN_GOAL_EXP() const			{ return m_Status[MODIFY_HEAL_DOMAIN_GOAL_EXP]; } // í ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+		DWORD	GetENCHANT_DOMAIN_EXP() const			{ return m_Status[MODIFY_ENCHANT_DOMAIN_EXP_REMAIN]; }   // ì¸ì±ˆíŠ¸ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+//		DWORD	GetENCHANT_DOMAIN_GOAL_EXP() const			{ return m_Status[MODIFY_ENCHANT_DOMAIN_GOAL_EXP]; } // ì¸ì±ˆíŠ¸ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+		DWORD	GetGUN_DOMAIN_EXP() const			{ return m_Status[MODIFY_GUN_DOMAIN_EXP_REMAIN]; }       // ì´ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+//		DWORD	GetGUN_DOMAIN_GOAL_EXP() const			{ return m_Status[MODIFY_GUN_DOMAIN_GOAL_EXP]; }  // ì´ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+		DWORD	GetETC_DOMAIN_EXP() const			{ return m_Status[MODIFY_ETC_DOMAIN_EXP_REMAIN]; }       // ê¸°íƒ€ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+//		DWORD	GetETC_DOMAIN_GOAL_EXP() const			{ return m_Status[MODIFY_ETC_DOMAIN_GOAL_EXP]; }  // ê¸°íƒ€ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
 
 		DWORD	GetSkillLevel() const			{ return m_Status[MODIFY_SKILL_LEVEL]; }
 		DWORD	GetLEVEL() const			{ return m_Status[MODIFY_LEVEL]; }
@@ -95,14 +99,14 @@ class MStatus {
 		DWORD	GetNotoriety() const			{ return m_Status[MODIFY_NOTORIETY]; }
 		DWORD	GetVampExp() const			{ return m_Status[MODIFY_VAMP_EXP_REMAIN]; }
 
-		DWORD	GetSilverDamage() const			{ return m_Status[MODIFY_SILVER_DAMAGE]; }        // Àº µ¥¹ÌÁö¸¦ º¯°æ
-		DWORD	GetAttackSpeed() const			{ return m_Status[MODIFY_ATTACK_SPEED]; }        // °ø°İ ¼Óµµ¸¦ º¯°æ
-		DWORD	GetAlignment() const			{ return m_Status[MODIFY_ALIGNMENT]; }        // ¼ºÇâÀ» º¯°æ
-		DWORD	GetSilverDurability() const		{ return m_Status[MODIFY_SILVER_DURABILITY]; }	// ÇöÀç µé°íÀÖ´Â ¹«±âÀÇ Àºµµ±İ ³²Àº°Å
+		DWORD	GetSilverDamage() const			{ return m_Status[MODIFY_SILVER_DAMAGE]; }        // ì€ ë°ë¯¸ì§€ë¥¼ ë³€ê²½
+		DWORD	GetAttackSpeed() const			{ return m_Status[MODIFY_ATTACK_SPEED]; }        // ê³µê²© ì†ë„ë¥¼ ë³€ê²½
+		DWORD	GetAlignment() const			{ return m_Status[MODIFY_ALIGNMENT]; }        // ì„±í–¥ì„ ë³€ê²½
+		DWORD	GetSilverDurability() const		{ return m_Status[MODIFY_SILVER_DURABILITY]; }	// í˜„ì¬ ë“¤ê³ ìˆëŠ” ë¬´ê¸°ì˜ ì€ë„ê¸ˆ ë‚¨ì€ê±°
 //		DWORD	GetArmageddonHP() const			{ return m_Status[MODIFY_ARMAGEDDON_HP]; }
 
-		DWORD	GetGrade() const				{ return m_Status[MODIFY_RANK]; }		// °è±Ş
-		DWORD	GetGradeExpRemain() const				{ return m_Status[MODIFY_RANK_EXP_REMAIN]; }	// °è±Ş °æÇèÄ¡
+		DWORD	GetGrade() const				{ return m_Status[MODIFY_RANK]; }		// ê³„ê¸‰
+		DWORD	GetGradeExpRemain() const				{ return m_Status[MODIFY_RANK_EXP_REMAIN]; }	// ê³„ê¸‰ ê²½í—˜ì¹˜
 		
 		DWORD	GetOustersExp() const			{ return m_Status[MODIFY_OUSTERS_EXP_REMAIN]; }
 		DWORD	GetSkillBounsPoint() const			{ return m_Status[MODIFY_SKILL_BONUS_POINT]; }
@@ -115,7 +119,7 @@ class MStatus {
 		DWORD	GetAdvancementClassGoalExp() const { return m_Status[ MODIFY_ADVANCEMENT_CLASS_GOAL_EXP ]; }
 
 		//-------------------------------------------
-		// MODIFY_NULLÀÌ ¾Æ´Ñ °ª¸¸ ´ëÀÔÇÑ´Ù.
+		// MODIFY_NULLì´ ì•„ë‹Œ ê°’ë§Œ ëŒ€ì…í•œë‹¤.
 		//-------------------------------------------
 		virtual void	ApplyStatus(const MStatus& status);
 

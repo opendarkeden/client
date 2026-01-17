@@ -3,25 +3,29 @@
 //----------------------------------------------------------------------
 // MTopView.cpp
 //----------------------------------------------------------------------
-// [ Effect Layer ]  - Ãâ·Â ¼ø¼­¿¡ µû¶ó¼­..
+// [ Effect Layer ]  - ÃƒÃ¢Â·Ã‚ Â¼Ã¸Â¼Â­Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­..
 // 
-//		-- Tile Ãâ·Â
-//	* Tile¿¡ ¹Ù·Î ºÙÀº Effect
+//		-- Tile ÃƒÃ¢Â·Ã‚
+//	* TileÂ¿Â¡ Â¹Ã™Â·Ã ÂºÃ™Ã€Âº Effect
 //
 // 
-//	* SectorÀÇ Effect			
-//		-- °¢°¢ÀÇ Character Ãâ·Â
-//	* Character¿¡ ºÙÀº AttachEffect
+//	* SectorÃ€Ã‡ Effect			
+//		-- Â°Â¢Â°Â¢Ã€Ã‡ Character ÃƒÃ¢Â·Ã‚
+//	* CharacterÂ¿Â¡ ÂºÃ™Ã€Âº AttachEffect
 // 
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
 #pragma warning(disable:4786)
 
+#ifdef PLATFORM_WINDOWS
 #include "DX3D.h"
+#else
+#include "DX3D.h"  // Also include on non-Windows platforms for stub definitions
+#endif
 #include <math.h>
 #include <list>
 #include <stdio.h>
-#include <fstream.h>
+#include <fstream>
 #include "MZone.h"
 #include "MCreature.h"
 #include "MFakeCreature.h"
@@ -137,7 +141,7 @@ extern CMessageArray*	g_pNoticeMessage;
 
 extern MScreenEffectManager*	g_pInventoryEffectManager;
 
-extern bool FileOpenBinary(const char* filename, class ifstream& file);
+extern bool FileOpenBinary(const char* filename, std::ifstream& file);
 //GameNew Mode  add by sonc 2006.9.27
 extern	LONG g_SECTOR_WIDTH;
 extern	LONG g_SECTOR_HEIGHT;
@@ -162,8 +166,8 @@ extern bool g_bFrameChanged;
 
 bool g_bMouseInPortal  = false;
 
-// ÀÓ½Ã ¶«»§.. ¿ìÇìÇì
-POINT g_MouseSector = { 0, 0 };		// mouse°¡ °¡¸®Å°´Â sectorÁÂÇ¥
+// Ã€Ã“Â½Ãƒ Â¶Â«Â»Â§.. Â¿Ã¬Ã‡Ã¬Ã‡Ã¬
+POINT g_MouseSector = { 0, 0 };		// mouseÂ°Â¡ Â°Â¡Â¸Â®Ã…Â°Â´Ã‚ sectorÃÃ‚Ã‡Â¥
 
 extern int	g_x;
 extern int	g_y;
@@ -174,7 +178,7 @@ extern MWorkThread*	g_pLoadingThread;
 
 int g_ShowImageObjectID = 0;
 
-// ³İ¸¶ºí¿ë
+// Â³ÃÂ¸Â¶ÂºÃ­Â¿Ã«
 //std::map<int, bool> g_mapPremiumZone;
 
 #ifdef OUTPUT_DEBUG
@@ -189,7 +193,7 @@ int g_ShowImageObjectID = 0;
 #endif
 
 //----------------------------------------------------------------------
-// ÇÑ filterÁÂÇ¥ÀÇ È­¸éºñÀ² °áÁ¤..
+// Ã‡Ã‘ filterÃÃ‚Ã‡Â¥Ã€Ã‡ ÃˆÂ­Â¸Ã©ÂºÃ±Ã€Â² Â°Ã¡ÃÂ¤..
 //----------------------------------------------------------------------
 float MTopView::s_LightWidth	= (float)g_GameRect.right / SCREENLIGHT_WIDTH;
 float MTopView::s_LightHeight	= (float)g_GameRect.bottom / SCREENLIGHT_HEIGHT;
@@ -201,7 +205,7 @@ float MTopView::s_LightHeight	= (float)g_GameRect.bottom / SCREENLIGHT_HEIGHT;
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// ÀüÃ¼ CreatureÀÇ ±×¸² Á¾·ù¼ö
+// Ã€Ã¼ÃƒÂ¼ CreatureÃ€Ã‡ Â±Ã—Â¸Â² ÃÂ¾Â·Ã¹Â¼Ã¶
 //----------------------------------------------------------------------
 #define	MAX_CREATURE_BODY		3
 #define	MAX_CREATURE_ADDON		4
@@ -210,17 +214,17 @@ float MTopView::s_LightHeight	= (float)g_GameRect.bottom / SCREENLIGHT_HEIGHT;
 #define	MAX_NORMALEFFECT		1
 
 //----------------------------------------------------------------------
-// Light 3DÀÇ ¼³Á¤ °ª
+// Light 3DÃ€Ã‡ Â¼Â³ÃÂ¤ Â°Âª
 //-----------------------------------------------------------------------
 #define	MAX_LIGHT_SETSIZE		12
 
 //-----------------------------------------------------------------------
-// ½º³ªÀÌÇÎ¿¡¼­ ¾îµÓ°Ô Ãâ·ÂÇÒ¶§ÀÇ shift°ª
+// Â½ÂºÂ³ÂªÃ€ÃŒÃ‡ÃÂ¿Â¡Â¼Â­ Â¾Ã®ÂµÃ“Â°Ã” ÃƒÃ¢Â·Ã‚Ã‡Ã’Â¶Â§Ã€Ã‡ shiftÂ°Âª
 //-----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
 //
-// FONT °ü·Ã
+// FONT Â°Ã¼Â·Ãƒ
 //
 //----------------------------------------------------------------------
 enum FONTID
@@ -245,21 +249,21 @@ PrintInfo*	g_ClientPrintInfo[MAX_FONTID];
 //		Text Comparison
 //
 //----------------------------------------------------------------------
-// ½Ã°£ÀÌ ¿À·¡µÈ°É ¼±ÅÃÇØ¾ß ÇÑ´Ù.		
-// left < right ¿¡ ´ëÇÑ return°ª
+// Â½ÃƒÂ°Â£Ã€ÃŒ Â¿Ã€Â·Â¡ÂµÃˆÂ°Ã‰ Â¼Â±Ã…ÃƒÃ‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.		
+// left < right Â¿Â¡ Â´Ã«Ã‡Ã‘ returnÂ°Âª
 //
-// Çö ¼ø¼­¸¦ À¯ÁöÇÒ·Á¸é false¸¦
-// ¼ø¼­¸¦ ¹Ù²Ü·Á¸é true¸¦ returnÇØ¾ß ÇÑ´Ù.
+// Ã‡Ã¶ Â¼Ã¸Â¼Â­Â¸Â¦ Ã€Â¯ÃÃ¶Ã‡Ã’Â·ÃÂ¸Ã© falseÂ¸Â¦
+// Â¼Ã¸Â¼Â­Â¸Â¦ Â¹Ã™Â²ÃœÂ·ÃÂ¸Ã© trueÂ¸Â¦ returnÃ‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 //
-// ¾Õ¿¡ °ÍÀÌ ¸ÕÀú Ãâ·ÂµÉ °ÍÀÌ¹Ç·Î.. ½Ã°£ÀÌ ºü¸¥ °Í(ÀûÀº °Í)ÀÌ ¾Õ¿¡ ÀÖ¾î¾ß ÇÑ´Ù.
+// Â¾Ã•Â¿Â¡ Â°ÃÃ€ÃŒ Â¸Ã•Ã€Ãº ÃƒÃ¢Â·Ã‚ÂµÃ‰ Â°ÃÃ€ÃŒÂ¹Ã‡Â·Ã.. Â½ÃƒÂ°Â£Ã€ÃŒ ÂºÃ¼Â¸Â¥ Â°Ã(Ã€Ã»Ã€Âº Â°Ã)Ã€ÃŒ Â¾Ã•Â¿Â¡ Ã€Ã–Â¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 // 
-// PQ´Â ÀÛÀº°É µÚ·Î º¸³½´Ù..
-// ±×·¯¹Ç·Î... ½Ã°£ÀÌ ´À¸° °Í(Å«°Í)ÀÌ µÚ·Î °¡¾ßÇÑ´Ù.
+// PQÂ´Ã‚ Ã€Ã›Ã€ÂºÂ°Ã‰ ÂµÃšÂ·Ã ÂºÂ¸Â³Â½Â´Ã™..
+// Â±Ã—Â·Â¯Â¹Ã‡Â·Ã... Â½ÃƒÂ°Â£Ã€ÃŒ Â´Ã€Â¸Â° Â°Ã(Ã…Â«Â°Ã)Ã€ÃŒ ÂµÃšÂ·Ã Â°Â¡Â¾ÃŸÃ‡Ã‘Â´Ã™.
 bool 
 TextComparison::operator () (DRAWTEXT_NODE * left, DRAWTEXT_NODE * right) const
 { 
-	// ¸ÕÀú ¼³Á¤µÈ ±ÛÀÚÀÎ °æ¿ì.. OK
-	// ½Ã°£ÀÌ °°À¸¸é ÀÏ´Ü µÚ¿¡ µé¾î°£´Ù. 
+	// Â¸Ã•Ã€Ãº Â¼Â³ÃÂ¤ÂµÃˆ Â±Ã›Ã€ÃšÃ€Ã Â°Ã¦Â¿Ã¬.. OK
+	// Â½ÃƒÂ°Â£Ã€ÃŒ Â°Â°Ã€Â¸Â¸Ã© Ã€ÃÂ´Ãœ ÂµÃšÂ¿Â¡ ÂµÃ©Â¾Ã®Â°Â£Â´Ã™. 
 	return left->GetTextTime() >= right->GetTextTime();
 }
 
@@ -292,7 +296,7 @@ MTopView::MTopView()
 	m_SelectSector.x = SECTORPOSITION_NULL;
 	m_SelectSector.y = SECTORPOSITION_NULL;
 
-	// ¼±ÅÃµÈ °Íµé
+	// Â¼Â±Ã…ÃƒÂµÃˆ Â°ÃÂµÃ©
 	m_SelectCreatureID			= OBJECTID_NULL;
 	m_SelectItemID				= OBJECTID_NULL;
 //	m_SelectInteractionObjectID	= OBJECTID_NULL;
@@ -311,7 +315,7 @@ MTopView::MTopView()
 	//m_SelectSector.x = 0;
 	//m_SelectSector.y = 0;
 	
-	// ½Ã¾ß
+	// Â½ÃƒÂ¾ÃŸ
 	m_DarkBits = 0;
 
 
@@ -340,7 +344,7 @@ MTopView::MTopView()
 //	m_p3DBoxHPSurface = NULL;	
 //	m_3DBoxCurrentPixel =  0x7000;
 //
-//	// 2001.7.14 ÁÖ¼®Ã³¸®
+//	// 2001.7.14 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 //	m_pMinimapSPR = NULL;	
 //	m_pMinimapTexture = NULL;
 
@@ -359,7 +363,7 @@ MTopView::MTopView()
 	m_bDrawRequest = false;
 
 	//-----------------------------------------------
-	// AlphBox¸¦ g_pTopView->Init()Àü¿¡ »ç¿ëÇÏ±â À§ÇØ¼­.
+	// AlphBoxÂ¸Â¦ g_pTopView->Init()Ã€Ã¼Â¿Â¡ Â»Ã§Â¿Ã«Ã‡ÃÂ±Ã¢ Ã€Â§Ã‡Ã˜Â¼Â­.
 	//-----------------------------------------------
 //	if (CDirect3D::IsHAL())
 //	{
@@ -380,7 +384,7 @@ MTopView::MTopView()
 //	m_bTileSearchForCreature = true;
 	m_bTileSearchForCreature = false;		
 
-	// ³İ¸¶ºí¿ë
+	// Â³ÃÂ¸Â¶ÂºÃ­Â¿Ã«
 ////	g_mapPremiumZone[31] = true;
 ////	g_mapPremiumZone[32] = true;
 ////	g_mapPremiumZone[33] = true;
@@ -425,13 +429,13 @@ MTopView::~MTopView()
 //----------------------------------------------------------------------
 // Init
 //----------------------------------------------------------------------
-// View¿¡ ÇÊ¿äÇÑ °¢ ºÎºĞµéÀº ÃÊ±âÈ­ ½ÃÅ²´Ù.
+// ViewÂ¿Â¡ Ã‡ÃŠÂ¿Ã¤Ã‡Ã‘ Â°Â¢ ÂºÃÂºÃÂµÃ©Ã€Âº ÃƒÃŠÂ±Ã¢ÃˆÂ­ Â½ÃƒÃ…Â²Â´Ã™.
 //----------------------------------------------------------------------
 bool
 MTopView::Init()
 {
 	//------------------------------------------
-	// ÀÌ¹Ì initµÆ´Ù¸é initÇÏÁö ¾Ê´Â´Ù.
+	// Ã€ÃŒÂ¹ÃŒ initÂµÃ†Â´Ã™Â¸Ã© initÃ‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 	//------------------------------------------
 	if (m_bInit)
 	{
@@ -439,8 +443,9 @@ MTopView::Init()
 	}
 
 	//------------------------------------------
-	// ÀûÀıÇÑ Texture Memory °è»ê
+	// Ã€Ã»Ã€Ã½Ã‡Ã‘ Texture Memory Â°Ã¨Â»Ãª
 	//------------------------------------------
+#ifdef PLATFORM_WINDOWS
 	DDSCAPS2 ddsCaps2;
 	DWORD dwTotal;
 	DWORD dwFree;
@@ -451,10 +456,10 @@ MTopView::Init()
 	DEBUG_ADD_FORMAT("[TextureMemory] Before Init View = %d/%d", dwFree, dwTotal);
 	
 	//------------------------------------------
-	// ÀûÀıÇÑ effect texture°³¼ö
+	// Ã€Ã»Ã€Ã½Ã‡Ã‘ effect textureÂ°Â³Â¼Ã¶
 	//------------------------------------------
-	// 1500000Á¤µµ´Â ´Ù¸¥µ¥ »ç¿ëµÈ´Ù°í º»´Ù.
-	// Æò±ÕÀûÀÎ ÇÑ TextureÀÇ memory size = 65536 - -;;
+	// 1500000ÃÂ¤ÂµÂµÂ´Ã‚ Â´Ã™Â¸Â¥ÂµÂ¥ Â»Ã§Â¿Ã«ÂµÃˆÂ´Ã™Â°Ã­ ÂºÂ»Â´Ã™.
+	// Ã†Ã²Â±Ã•Ã€Ã»Ã€Ã Ã‡Ã‘ TextureÃ€Ã‡ memory size = 65536 - -;;
 	//------------------------------------------
 	int freeMemory = dwFree-1500000;
 
@@ -462,19 +467,24 @@ MTopView::Init()
 
 	int num = freeMemory / 20000 / 12;   	
 	
-	num = max(num, 30);	// 30º¸´Ù´Â Ä¿¾ßÇÑ´Ù.
-	num = min(num, 60);	// 60ÀÌ ÃÖ°í´Ù.
+	num = max(num, 30);	// 30ÂºÂ¸Â´Ã™Â´Ã‚ Ã„Â¿Â¾ÃŸÃ‡Ã‘Â´Ã™.
+	num = min(num, 60);	// 60Ã€ÃŒ ÃƒÃ–Â°Ã­Â´Ã™.
+#else
+	// Stub for macOS - use default values
+	int num = 30;  // Default number of effect textures
+	DEBUG_ADD("[TextureMemory] Using default value for macOS");
+#endif
 	
 	//num = 20;
 
-	// Àç¼³Á¤.. - -;
+	// Ã€Ã§Â¼Â³ÃÂ¤.. - -;
 	//g_pClientConfig->MAX_TEXTUREPART_EFFECT				= num*3/2;
 	//g_pClientConfig->MAX_TEXTUREPART_CREATURESHADOW		= num*3;
 	//g_pClientConfig->MAX_TEXTUREPART_IMAGEOBJECTSHADOW	= num;
 	//g_pClientConfig->MAX_TEXTUREPART_ADDON_SHADOW			= 240 + num*7;
 
 	//------------------------------------------------------------------------
-	// Ä³¸¯ÅÍ ±×¸²ÀÚ¸¦ ¹«Á¶°Ç °Ë°Ô Ãâ·ÂÇÑ´Ù°í ÇßÀ» ¶§ÀÇ °è»ê
+	// Ã„Â³Â¸Â¯Ã…Ã Â±Ã—Â¸Â²Ã€ÃšÂ¸Â¦ Â¹Â«ÃÂ¶Â°Ã‡ Â°Ã‹Â°Ã” ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™Â°Ã­ Ã‡ÃŸÃ€Â» Â¶Â§Ã€Ã‡ Â°Ã¨Â»Ãª
 	//------------------------------------------------------------------------
 	g_pClientConfig->MAX_TEXTUREPART_EFFECT				= num*2;	//num*10;
 	g_pClientConfig->MAX_TEXTUREPART_SCREENEFFECT		= num*5;		//num*10;
@@ -502,7 +512,7 @@ MTopView::Init()
 		InitFonts())
 	{
 		//------------------------------------------
-		// ÀûÀıÇÑ Texture Memory °è»ê
+		// Ã€Ã»Ã€Ã½Ã‡Ã‘ Texture Memory Â°Ã¨Â»Ãª
 		//------------------------------------------
 		#ifdef OUTPUT_DEBUG
 			DDSCAPS2 ddsCaps2;
@@ -528,13 +538,13 @@ MTopView::Init()
 //----------------------------------------------------------------------
 // Init Changes
 //----------------------------------------------------------------------
-// 2D <--> 3D ¹Ù²ğ¶§ »ç¿ë..
+// 2D <--> 3D Â¹Ã™Â²Ã°Â¶Â§ Â»Ã§Â¿Ã«..
 //----------------------------------------------------------------------
 bool
 MTopView::InitChanges()
 {
 	//------------------------------------------
-	// ¾ÆÁ÷ initµÇÁö ¾Ê¾Ò´Ù¸é return
+	// Â¾Ã†ÃÃ· initÂµÃ‡ÃÃ¶ Â¾ÃŠÂ¾Ã’Â´Ã™Â¸Ã© return
 	//------------------------------------------
 	if (!m_bInit)
 	{
@@ -549,8 +559,8 @@ MTopView::InitChanges()
 		InitFonts())
 	{
 		//---------------------------------------------------------
-		// Ä³¸¯ÅÍ loadingÀÌ ÇÏ³ªµµ ¾ÈµÆ´Ù°í Ã¼Å©ÇØµĞ´Ù.
-		// ±×¸²ÀÚ ¶§¹®ÀÎµ¥.. ³È³È.. - -; 2001.10.6
+		// Ã„Â³Â¸Â¯Ã…Ã loadingÃ€ÃŒ Ã‡ÃÂ³ÂªÂµÂµ Â¾ÃˆÂµÃ†Â´Ã™Â°Ã­ ÃƒÂ¼Ã…Â©Ã‡Ã˜ÂµÃÂ´Ã™.
+		// Â±Ã—Â¸Â²Ã€Ãš Â¶Â§Â¹Â®Ã€ÃÂµÂ¥.. Â³ÃˆÂ³Ãˆ.. - -; 2001.10.6
 		//---------------------------------------------------------
 		if (g_pCreatureSpriteTable!=NULL)
 		{
@@ -595,7 +605,7 @@ bool
 MTopView::InitFonts()
 {	
 	//------------------------------------------
-	// UIÀÇ Fontµî·Ï
+	// UIÃ€Ã‡ FontÂµÃ®Â·Ã
 	//------------------------------------------	
 	g_ClientPrintInfo[FONTID_INFO]			= &gpC_base->m_info_pi;			// info
 	g_ClientPrintInfo[FONTID_SLAYER_NAME]	= &gpC_base->m_char_name_pi;	// slayer
@@ -617,7 +627,7 @@ void
 MTopView::Release()
 {
 	//------------------------------------------------
-	// File ´İ±â
+	// File Â´ÃÂ±Ã¢
 	//------------------------------------------------
 //	if (m_TileSPKFile.is_open())
 //	{
@@ -662,7 +672,7 @@ MTopView::Release()
 	DEBUG_ADD("MTV-Rel-File closed");
 
 	//----------------------------------------------------------------------
-	// Tile SurfaceÁ¦°Å
+	// Tile SurfaceÃÂ¦Â°Ã…
 	//----------------------------------------------------------------------
 	if (m_pTileSurface != NULL)
 	{
@@ -776,7 +786,7 @@ MTopView::Release()
 //	//----------------------------------------------------------------------
 //	// Minimap
 //	//----------------------------------------------------------------------
-//	// 2001.7.14 ÁÖ¼®Ã³¸®
+//	// 2001.7.14 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 //	if (m_pMinimapSPR != NULL)
 //	{
 //		delete m_pMinimapSPR;
@@ -810,7 +820,7 @@ MTopView::Release()
 	DEBUG_ADD("MTV-Rel-ClearList");
 
 	//----------------------------------------------------------------------
-	// list , map Á¦°Å
+	// list , map ÃÂ¦Â°Ã…
 	//----------------------------------------------------------------------
 	ClearItemNameList();
 	ClearOutputCreature();	
@@ -823,19 +833,19 @@ MTopView::Release()
 	m_mapImageObject.clear();
 
 	//----------------------------------------------------------------------
-	// FPK Áö¿ì±â
+	// FPK ÃÃ¶Â¿Ã¬Â±Ã¢
 	//----------------------------------------------------------------------
 	DEBUG_ADD("MTV-Rel-FPK");
 
 	m_CreatureFPK.Release();			// Creature frames
 	m_AddonFPK.Release();				// Player addon frames
 	m_OustersFPK.Release();				// Player addon frames
-	m_ItemTileFPK.Release();			// Tile¿¡ ÀÖ´Â Item¿¡ ´ëÇÑ..
-	m_ItemDropFPK.Release();			// ¹Ù´ÚÀ¸·Î ¶³¾îÁö´Â Item¿¡ ´ëÇÑ..
-	m_ImageObjectFPK.Release();		// ImageObject¿¡ ´ëÇÑ frames
+	m_ItemTileFPK.Release();			// TileÂ¿Â¡ Ã€Ã–Â´Ã‚ ItemÂ¿Â¡ Â´Ã«Ã‡Ã‘..
+	m_ItemDropFPK.Release();			// Â¹Ã™Â´ÃšÃ€Â¸Â·Ã Â¶Â³Â¾Ã®ÃÃ¶Â´Ã‚ ItemÂ¿Â¡ Â´Ã«Ã‡Ã‘..
+	m_ImageObjectFPK.Release();		// ImageObjectÂ¿Â¡ Â´Ã«Ã‡Ã‘ frames
 	m_ImageObjectShadowFPK.Release();
 
-	// ½ÂÁø °ü·Ã fpk Áö¿ì±â
+	// Â½Ã‚ÃÃ¸ Â°Ã¼Â·Ãƒ fpk ÃÃ¶Â¿Ã¬Â±Ã¢
 	m_AdvancementSlayerManFPK.Release();
 	m_AdvancementSlayerWomanFPK.Release();
 	m_AdvancementVampireManFPK.Release();
@@ -846,14 +856,14 @@ MTopView::Release()
 	m_AdvancementVampireManShadowFPK.Release();
 	m_AdvancementVampireWomanShadowFPK.Release();
 	m_AdvancementOustersShadowFPK.Release();
-//	m_InteractionObjectFPK.Release();		// ImageObject¿¡ ´ëÇÑ frames
+//	m_InteractionObjectFPK.Release();		// ImageObjectÂ¿Â¡ Â´Ã«Ã‡Ã‘ frames
 
 	DEBUG_ADD("MTV-Rel-EffectFPK");
 
-	m_EffectAlphaFPK.Release();		// Effect¿¡ ´ëÇÑ frames
+	m_EffectAlphaFPK.Release();		// EffectÂ¿Â¡ Â´Ã«Ã‡Ã‘ frames
 	m_EffectScreenFPK.Release();
-	m_EffectShadowFPK.Release();		// Effect¿¡ ´ëÇÑ frames
-	m_EffectNormalFPK.Release();		// Effect¿¡ ´ëÇÑ frames
+	m_EffectShadowFPK.Release();		// EffectÂ¿Â¡ Â´Ã«Ã‡Ã‘ frames
+	m_EffectNormalFPK.Release();		// EffectÂ¿Â¡ Â´Ã«Ã‡Ã‘ frames
 		
 	DEBUG_ADD("MTV-Rel-CFPK");
 
@@ -862,42 +872,42 @@ MTopView::Release()
 	m_OustersShadowFPK.Release();			// Player addon frames	
 		
 	//------------------------------------------------------
-	// SpritePack Á¦°Å
+	// SpritePack ÃÂ¦Â°Ã…
 	//------------------------------------------------------		
 	DEBUG_ADD("MTV-Rel-SPK");
 
 	m_TileSPK.Release();				// Tile
-	m_ImageObjectSPK.Release();		// ImageObject Spriteµé
-//	m_InteractionObjectSPK.Release();		// ImageObject Spriteµé
-	m_CreatureSPK.Release();			// Creature Spriteµé
-	m_AddonSPK.Release();		// Spriteµé		
+	m_ImageObjectSPK.Release();		// ImageObject SpriteÂµÃ©
+//	m_InteractionObjectSPK.Release();		// ImageObject SpriteÂµÃ©
+	m_CreatureSPK.Release();			// Creature SpriteÂµÃ©
+	m_AddonSPK.Release();		// SpriteÂµÃ©		
 	m_OustersSPK.Release();
 	
 	DEBUG_ADD("MTV-Rel-ItemSPK");
 
-	m_ItemTileISPK.Release();			// Spriteµé		
+	m_ItemTileISPK.Release();			// SpriteÂµÃ©		
 	m_ItemDropISPK.Release();			//
 	m_ItemBrokenSPK.Release();			//
-	m_ItemRealSPK.Release();			// Spriteµé				
+	m_ItemRealSPK.Release();			// SpriteÂµÃ©				
 
 	DEBUG_ADD("MTV-Rel-EffectSPk");
-	m_EffectAlphaSPK.Release();		// AlphaSpriteµé
-	m_EffectScreenSPK.Release();		// AlphaSpriteµé
-	m_EffectShadowSPK.Release();		// ShadowSpriteµé
-	m_EffectNormalSPK.Release();		// NormalSpriteµé
+	m_EffectAlphaSPK.Release();		// AlphaSpriteÂµÃ©
+	m_EffectScreenSPK.Release();		// AlphaSpriteÂµÃ©
+	m_EffectShadowSPK.Release();		// ShadowSpriteÂµÃ©
+	m_EffectNormalSPK.Release();		// NormalSpriteÂµÃ©
 	m_EffectScreenPPK.Release();
 	m_EffectAlphaPPK.Release();
 
 	DEBUG_ADD("MTV-Rel-Other");
 
-	m_WeatherSPK.Release();			// WeatherSpriteµé
+	m_WeatherSPK.Release();			// WeatherSpriteÂµÃ©
 	m_GuildSPK.Release();
 
-	m_EtcSPK.Release();				// ±âÅ¸...
+	m_EtcSPK.Release();				// Â±Ã¢Ã…Â¸...
 	m_OustersFinSPK.Release();
 	m_AdvacementQuestEnding.Release();
 
-	// ½ÂÁ÷ °ü·Ã SPK Á¦°Å
+	// Â½Ã‚ÃÃ· Â°Ã¼Â·Ãƒ SPK ÃÂ¦Â°Ã…
 	m_AdvancementSlayerManSPK.Release();
 	m_AdvancementSlayerWomanSPK.Release();
 	m_AdvancementVampireManSPK.Release();
@@ -915,14 +925,14 @@ MTopView::Release()
 	//------------------------------------------------------
 	DEBUG_ADD("MTV-Rel-SSPK");
 
-	m_AddonSSPK.Release();			// Spriteµé		
-	m_OustersSSPK.Release();			// Spriteµé		
+	m_AddonSSPK.Release();			// SpriteÂµÃ©		
+	m_OustersSSPK.Release();			// SpriteÂµÃ©		
 	m_ImageObjectSSPK.Release();
 //	m_InteractionObjectSSPK.Release();
 	m_CreatureSSPK.Release();
 
 	//----------------------------------------------------------------------
-	// File Index Table Áö¿ì±â
+	// File Index Table ÃÃ¶Â¿Ã¬Â±Ã¢
 	//----------------------------------------------------------------------
 	DEBUG_ADD("MTV-Rel-SSPKI");
 
@@ -941,7 +951,7 @@ MTopView::Release()
 	m_LightBufferFilter.Release();;
 
 	//----------------------------------------------------------------------
-	// SFP ArrayÁ¦°Å
+	// SFP ArrayÃÂ¦Â°Ã…
 	//----------------------------------------------------------------------
 	if (m_pTileSFPArrayLargeZone != NULL)
 	{
@@ -977,7 +987,7 @@ MTopView::Release()
 }
 
 //----------------------------------------------------------------------
-// Ãâ·Â ´ë»óÀÌ µÇ´Â Surface¸¦ °áÁ¤ÇÑ´Ù.
+// ÃƒÃ¢Â·Ã‚ Â´Ã«Â»Ã³Ã€ÃŒ ÂµÃ‡Â´Ã‚ SurfaceÂ¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void	
 MTopView::SetSurface(CSpriteSurface*& pSurface)
@@ -991,6 +1001,7 @@ MTopView::SetSurface(CSpriteSurface*& pSurface)
 void
 MTopView::ClearShadowManager()
 {
+#ifdef PLATFORM_WINDOWS
 	if (CDirect3D::IsHAL())
 	{
 //		if (m_pImageObjectShadowManager!=NULL) m_pImageObjectShadowManager->Clear();
@@ -998,6 +1009,7 @@ MTopView::ClearShadowManager()
 //		if (m_pOustersShadowManager!=NULL) m_pOustersShadowManager->Clear();
 //		if (m_pCreatureShadowManager!=NULL) m_pCreatureShadowManager->Clear();
 	}
+#endif
 }
 
 //----------------------------------------------------------------------
@@ -1037,7 +1049,7 @@ MTopView::ClearShadowManager()
 //	if (CDirect3D::IsHAL())
 //	{	
 //		//-----------------------------------------------
-//		// °ËÀº»ö
+//		// Â°Ã‹Ã€ÂºÂ»Ã¶
 //		//-----------------------------------------------
 //		if (m_p3DBoxBlackSurface!=NULL)
 //		{
@@ -1050,7 +1062,7 @@ MTopView::ClearShadowManager()
 //		}
 //
 //		//-----------------------------------------------
-//		// HP»ö±ò
+//		// HPÂ»Ã¶Â±Ã²
 //		//-----------------------------------------------
 //		if (m_p3DBoxHPSurface!=NULL)
 //		{
@@ -1069,7 +1081,7 @@ MTopView::ClearShadowManager()
 //----------------------------------------------------------------------
 // Restore Surface
 //----------------------------------------------------------------------
-void	
+void
 MTopView::RestoreSurface()
 {
 	m_bDrawRequest = false;
@@ -1078,6 +1090,7 @@ MTopView::RestoreSurface()
 	{
 		CDirectDraw::RestoreAllSurfaces();
 
+#ifdef PLATFORM_WINDOWS
 		if (CDirect3D::IsHAL())
 		{
 			CDirect3D::Restore();
@@ -1087,15 +1100,16 @@ MTopView::RestoreSurface()
 			rect3d.x1 = 0;
 			rect3d.y1 = 0;
 			rect3d.x2 = CLIPSURFACE_WIDTH;
-			rect3d.y2 = CLIPSURFACE_HEIGHT;			
+			rect3d.y2 = CLIPSURFACE_HEIGHT;
 
-			CDirect3D::GetDevice()->Clear( 1UL, (D3DRECT *)&rect3d, 
+			CDirect3D::GetDevice()->Clear( 1UL, (D3DRECT *)&rect3d,
 										D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
 										0x00000000, 1.0f, 0L );
 			*/
 		}
+#endif
 
-	//	CDirectDraw::Flip();		
+	//	CDirectDraw::Flip();
 	}
 
 	if (m_pSurface!=NULL)
@@ -1108,7 +1122,7 @@ MTopView::RestoreSurface()
 		m_pTileSurface->Restore();
 	}
 	
-	// ¸ğµÎ ´Ù½Ã ±×·ÁÁØ´Ù.
+	// Â¸Ã°ÂµÃ Â´Ã™Â½Ãƒ Â±Ã—Â·ÃÃÃ˜Â´Ã™.
 	//m_bFirstTileDraw = true;
 	
 	ClearOutputCreature();
@@ -1116,12 +1130,13 @@ MTopView::RestoreSurface()
 	ClearItemNameList();
 
 	//------------------------------------------------------------
-	// °¡¼ÓÀ» »ç¿ëÇÏ´Â °æ¿ì¿¡´Â 
-	// Texture°¡ VideoMemory¿¡ ¿Ã¶ó°¡ ÀÖÀ¸¹Ç·Î RestoreÇØ¾ß ÇÑ´Ù.
-	// ´Ù½Ã Load.. - -;;
+	// Â°Â¡Â¼Ã“Ã€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚
+	// TextureÂ°Â¡ VideoMemoryÂ¿Â¡ Â¿ÃƒÂ¶Ã³Â°Â¡ Ã€Ã–Ã€Â¸Â¹Ã‡Â·Ã RestoreÃ‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
+	// Â´Ã™Â½Ãƒ Load.. - -;;
 	//------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 	if (CDirect3D::IsHAL())
-	{	
+	{
 		//------------------------------------------------------------
 		// Part Manager
 		//------------------------------------------------------------
@@ -1229,15 +1244,16 @@ MTopView::RestoreSurface()
 //		Init3DBoxSurface();
 
 		//------------------------------------------------------------
-		// minimap textureÃÊ±âÈ­
+		// minimap textureÃƒÃŠÂ±Ã¢ÃˆÂ­
 		//------------------------------------------------------------
-		// 2001.7.14 ÁÖ¼®Ã³¸®
+		// 2001.7.14 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 //		if (m_pMinimapSPR!=NULL && m_pMinimapTexture!=NULL)
 //		{
 //			m_pMinimapTexture->Restore();
 ////			InitMinimapTexture();
 //		}		
 	}
+#endif // PLATFORM_WINDOWS
 	/*
 	if (CDirect3D::IsHAL())
 	{
@@ -1246,7 +1262,7 @@ MTopView::RestoreSurface()
 		// Load  EffectPack
 		//
 		//------------------------------------------------------------
-		class ifstream	effectFile2(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
+		std::ifstream	effectFile2(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
 		m_EffectAlphaSPK.LoadFromFile(effectFile2);
 		effectFile2.close();	
 
@@ -1256,7 +1272,7 @@ MTopView::RestoreSurface()
 		//
 		//------------------------------------------------------------		
 		//--------------------------------------------
-		// AlphaSPKÀ» ÀÌ¿ëÇØ¼­ TexturePackÀ» »ı¼ºÇÑ´Ù.
+		// AlphaSPKÃ€Â» Ã€ÃŒÂ¿Ã«Ã‡Ã˜Â¼Â­ TexturePackÃ€Â» Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
 		//--------------------------------------------
 		if (!m_EffectTPK.Init( m_EffectAlphaSPK ))
 		{
@@ -1265,8 +1281,8 @@ MTopView::RestoreSurface()
 		}
 
 		//------------------------------------------------------------	
-		// EffectAlphaSprite¸¦ ¸Ş¸ğ¸®¿¡¼­ »èÁ¦ÇÑ´Ù.
-		// --> TextureSurface¸¦ »ç¿ëÇÒ °ÍÀÌ¹Ç·Î.. ÇÊ¿ä°¡ ¾ø´Ù.
+		// EffectAlphaSpriteÂ¸Â¦ Â¸ÃÂ¸Ã°Â¸Â®Â¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦Ã‡Ã‘Â´Ã™.
+		// --> TextureSurfaceÂ¸Â¦ Â»Ã§Â¿Ã«Ã‡Ã’ Â°ÃÃ€ÃŒÂ¹Ã‡Â·Ã.. Ã‡ÃŠÂ¿Ã¤Â°Â¡ Â¾Ã¸Â´Ã™.
 		//------------------------------------------------------------		
 		m_EffectAlphaSPK.Release();	
 	}
@@ -1275,7 +1291,7 @@ MTopView::RestoreSurface()
 
 
 //----------------------------------------------------------------------
-// »ç¿ëÇÒ SurfaceµéÀ» ÃÊ±âÈ­ ½ÃÅ²´Ù.
+// Â»Ã§Â¿Ã«Ã‡Ã’ SurfaceÂµÃ©Ã€Â» ÃƒÃŠÂ±Ã¢ÃˆÂ­ Â½ÃƒÃ…Â²Â´Ã™.
 //----------------------------------------------------------------------
 bool
 MTopView::InitSurfaces()
@@ -1293,10 +1309,10 @@ MTopView::InitSurfaces()
 
 
 	//
-	// 3D°¡¼ÓÀÌ µÇ¸é VideoMemory¿¡.. (°¡´ÉÇÏ¸é. - -;)
+	// 3DÂ°Â¡Â¼Ã“Ã€ÃŒ ÂµÃ‡Â¸Ã© VideoMemoryÂ¿Â¡.. (Â°Â¡Â´Ã‰Ã‡ÃÂ¸Ã©. - -;)
 	//
-	// ¾ÈµÇ¸é.. system memory¿¡... 
-	// (¿Ö? À½.. ¾îµò°¡¿¡ °ü·ÃµÈ ÄÚµå°¡ ÀÖÁö ½ÍÀºµ¥ Ã£±â ±ÍÂú´Ù. À½³Ä)
+	// Â¾ÃˆÂµÃ‡Â¸Ã©.. system memoryÂ¿Â¡... 
+	// (Â¿Ã–? Ã€Â½.. Â¾Ã®ÂµÃ²Â°Â¡Â¿Â¡ Â°Ã¼Â·ÃƒÂµÃˆ Ã„ÃšÂµÃ¥Â°Â¡ Ã€Ã–ÃÃ¶ Â½ÃÃ€ÂºÂµÂ¥ ÃƒÂ£Â±Ã¢ Â±ÃÃ‚ÃºÂ´Ã™. Ã€Â½Â³Ã„)
 	//
 	//----------------------------------------------------------------
 	// 3D
@@ -1325,26 +1341,27 @@ MTopView::InitSurfaces()
 //	//-----------------------------------------------
 //	if (m_p3DBoxHPSurface!=NULL)
 //	{
-//		delete m_p3DBoxHPSurface;	
+//		delete m_p3DBoxHPSurface;
 //		m_p3DBoxHPSurface = NULL;
 //	}
 
 
+#ifdef PLATFORM_WINDOWS
 	if (CDirect3D::IsHAL())
 	{
-		// ÀÏ´Ü video memory¿¡ »ı¼ºÀÌ µÇµµ·Ï ÇØº¸°í..
-		// ¾ÈµÇ¸é system memory¿¡ »ı¼ºÇÑ´Ù.
+		// Ã€ÃÂ´Ãœ video memoryÂ¿Â¡ Â»Ã½Â¼ÂºÃ€ÃŒ ÂµÃ‡ÂµÂµÂ·Ã Ã‡Ã˜ÂºÂ¸Â°Ã­..
+		// Â¾ÃˆÂµÃ‡Â¸Ã© system memoryÂ¿Â¡ Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
 //		if (!m_pTileSurface->InitOffsurface(TILESURFACE_WIDTH, TILESURFACE_HEIGHT))
 		{
 			DEBUG_ADD("[ InitGame ]  MTopView::InitSurface() - TileSurface vidmem failed");
-			
-			m_pTileSurface->InitOffsurface(g_TILESURFACE_WIDTH, 
-											g_TILESURFACE_HEIGHT, 
+
+			m_pTileSurface->InitOffsurface(g_TILESURFACE_WIDTH,
+											g_TILESURFACE_HEIGHT,
 											DDSCAPS_SYSTEMMEMORY);
-			
-			DEBUG_ADD("[ InitGame ]  MTopView::InitSurface() - TileSurface sysmem OK");			
+
+			DEBUG_ADD("[ InitGame ]  MTopView::InitSurface() - TileSurface sysmem OK");
 		}
-		
+
 		//-----------------------------------------------
 		// free
 		//-----------------------------------------------
@@ -1363,15 +1380,23 @@ MTopView::InitSurfaces()
 
 
 	}
+#endif
 	//----------------------------------------------------------------
 	// 2D
 	//----------------------------------------------------------------
-	else 
+#ifdef PLATFORM_WINDOWS
+	else
 	{
-		m_pTileSurface->InitOffsurface(g_TILESURFACE_WIDTH, 
+		m_pTileSurface->InitOffsurface(g_TILESURFACE_WIDTH,
 									g_TILESURFACE_HEIGHT,
 									DDSCAPS_SYSTEMMEMORY);
 	}
+#else
+	{
+		m_pTileSurface->InitOffsurface(g_TILESURFACE_WIDTH,
+									g_TILESURFACE_HEIGHT);
+	}
+#endif
 
 	//m_pTileSurface->InitOffsurface(TILESURFACE_WIDTH, 
 	//								TILESURFACE_HEIGHT,
@@ -1391,19 +1416,19 @@ MTopView::InitSurfaces()
 //----------------------------------------------------------------------
 // Init Colors
 //----------------------------------------------------------------------
-// »ö±òµéÀ» ÃÊ±âÈ­ ÇÑ´Ù.
+// Â»Ã¶Â±Ã²ÂµÃ©Ã€Â» ÃƒÃŠÂ±Ã¢ÃˆÂ­ Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool
 MTopView::InitColors()
 {
 	//---------------------------------------------------
-	// ´Ã °°Àº »ö
+	// Â´Ãƒ Â°Â°Ã€Âº Â»Ã¶
 	//---------------------------------------------------
 	// item
 	m_ColorNameItem					= g_pClientConfig->COLOR_NAME_ITEM;
 	m_ColorNameItemOption			= g_pClientConfig->COLOR_NAME_ITEM_OPTION;
 
-	// Á¾Á·º°
+	// ÃÂ¾ÃÂ·ÂºÂ°
 	m_ColorNameVampire				= g_pClientConfig->COLOR_NAME_VAMPIRE;
 	m_ColorNameSlayer				= g_pClientConfig->COLOR_NAME_SLAYER;
 	m_ColorNameNPC					= g_pClientConfig->COLOR_NAME_NPC;
@@ -1416,7 +1441,7 @@ MTopView::InitColors()
 
 
 	//---------------------------------------------------
-	// 5:6:5ÀÎ °æ¿ì´Â ¹Ù·Î °ªÀ» ÀĞÀ¸¸é µÈ´Ù.
+	// 5:6:5Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ Â¹Ã™Â·Ã Â°ÂªÃ€Â» Ã€ÃÃ€Â¸Â¸Ã© ÂµÃˆÂ´Ã™.
 	//---------------------------------------------------
 	if (CDirectDraw::Is565())
 	{
@@ -1425,13 +1450,13 @@ MTopView::InitColors()
 
 		m_ColorOutlineItem				= g_pClientConfig->COLOR_OUTLINE_ITEM;
 
-		// °ø°İ °¡´É?
+		// Â°Ã¸Â°Ã Â°Â¡Â´Ã‰?
 		m_ColorOutlineNPC				= g_pClientConfig->COLOR_OUTLINE_NPC;
 		m_ColorOutlineAttackPossible	= g_pClientConfig->COLOR_OUTLINE_ATTACK_POSSIBLE;
 		m_ColorOutlineAttackImpossible	= g_pClientConfig->COLOR_OUTLINE_ATTACK_IMPOSSIBLE;	
 	}
 	//---------------------------------------------------
-	// 5:5:5ÀÎ °æ¿ì´Â °ªÀ» º¯È¯
+	// 5:5:5Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ Â°ÂªÃ€Â» ÂºÂ¯ÃˆÂ¯
 	//---------------------------------------------------
 	else
 	{
@@ -1441,7 +1466,7 @@ MTopView::InitColors()
 		// item
 		m_ColorOutlineItem				= CDirectDraw::Convert565to555(g_pClientConfig->COLOR_OUTLINE_ITEM);
 
-		// °ø°İ °¡´É?
+		// Â°Ã¸Â°Ã Â°Â¡Â´Ã‰?
 		m_ColorOutlineNPC				= CDirectDraw::Convert565to555(g_pClientConfig->COLOR_OUTLINE_NPC);
 		m_ColorOutlineAttackPossible	= CDirectDraw::Convert565to555(g_pClientConfig->COLOR_OUTLINE_ATTACK_POSSIBLE);
 		m_ColorOutlineAttackImpossible	= CDirectDraw::Convert565to555(g_pClientConfig->COLOR_OUTLINE_ATTACK_IMPOSSIBLE);
@@ -1449,7 +1474,7 @@ MTopView::InitColors()
 
 
 	//---------------------------------------------------
-	// 3D °¡¼Ó°ú °ü·ÃÀÌ ÀÖ´Â »ö±ò...
+	// 3D Â°Â¡Â¼Ã“Â°Ãº Â°Ã¼Â·ÃƒÃ€ÃŒ Ã€Ã–Â´Ã‚ Â»Ã¶Â±Ã²...
 	//---------------------------------------------------
 //	if (CDirect3D::IsHAL())
 //	{	
@@ -1475,7 +1500,7 @@ MTopView::InitColors()
 	
 
 //----------------------------------------------------------------------
-// SpritePackÀ» ÀĞ¾î¼­  memory¿¡ LoadÇÑ´Ù.
+// SpritePackÃ€Â» Ã€ÃÂ¾Ã®Â¼Â­  memoryÂ¿Â¡ LoadÃ‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool
 MTopView::InitSprites()
@@ -1556,8 +1581,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  ImageObject Shadow SpritePack	
 	//------------------------------------------------------------
-	class ofstream	ImageObjectSFile(FILE_SSPRITE_IMAGEOBJECT, ios::binary);	
-	class ofstream	ImageObjectSIndexFile(FILE_SSPRITEINDEX_IMAGEOBJECT, ios::binary);	
+	std::ofstream	ImageObjectSFile(FILE_SSPRITE_IMAGEOBJECT, ios::binary);	
+	std::ofstream	ImageObjectSIndexFile(FILE_SSPRITEINDEX_IMAGEOBJECT, ios::binary);	
 
 	m_ImageObjectSSPK.SaveToFile(ImageObjectSFile, ImageObjectSIndexFile);
 
@@ -1573,10 +1598,10 @@ MTopView::InitSprites()
 	// Load  EffectPack
 	//
 	//------------------------------------------------------------
-	// 3d°¡¼ÓÀÌ µÇ¸é m_pImageObjectShadowManager¸¦ »ç¿ëÇÏ°í
-	// ¾Æ´Ï¸é, m_ImageObjectSSPK¸¦ »ç¿ëÇÑ´Ù.
+	// 3dÂ°Â¡Â¼Ã“Ã€ÃŒ ÂµÃ‡Â¸Ã© m_pImageObjectShadowManagerÂ¸Â¦ Â»Ã§Â¿Ã«Ã‡ÃÂ°Ã­
+	// Â¾Ã†Â´ÃÂ¸Ã©, m_ImageObjectSSPKÂ¸Â¦ Â»Ã§Â¿Ã«Ã‡Ã‘Â´Ã™.
 	/*
-	class ifstream	ImageObjectShadowFile2;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
+	std::ifstream	ImageObjectShadowFile2;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
 	if (!FileOpenBinary(FILE_SSPRITE_IMAGEOBJECT, ImageObjectShadowFile2))
 		return false;
 	m_ImageObjectSSPK.LoadFromFile(ImageObjectShadowFile2);
@@ -1602,7 +1627,7 @@ MTopView::InitSprites()
 //	}
 //	else
 	{
-// 		class ifstream	ImageObjectShadowFile2;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
+// 		std::ifstream	ImageObjectShadowFile2;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
 //		if (!FileOpenBinary(FILE_SSPRITE_IMAGEOBJECT, ImageObjectShadowFile2))
 //			return false;
 		m_ImageObjectSSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SSPRITE_IMAGEOBJECT").c_str());
@@ -1622,7 +1647,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Init  Creature SpritePack	
 	//------------------------------------------------------------
-	// ÀÏ´Ü ÀüÃ¼ Å©±â¸¸Å­ memory´Â Àâ¾ÆµĞ´Ù.
+	// Ã€ÃÂ´Ãœ Ã€Ã¼ÃƒÂ¼ Ã…Â©Â±Ã¢Â¸Â¸Ã…Â­ memoryÂ´Ã‚ Ã€Ã¢Â¾Ã†ÂµÃÂ´Ã™.
 	//------------------------------------------------------------
 	//  Init Creature SpriteSet
 	//------------------------------------------------------------	
@@ -1630,10 +1655,10 @@ MTopView::InitSprites()
 	{
 		/*
 		WORD size;
-		class ifstream CreaturePackIndexFile;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
+		std::ifstream CreaturePackIndexFile;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
 		if (!FileOpenBinary(FILE_ISPRITEINDEX_CREATURE, CreaturePackIndexFile))
 			return false;
-		CreaturePackIndexFile.read((char*)&size, 2);	// SpriteÀÇ °³¼ö
+		CreaturePackIndexFile.read((char*)&size, 2);	// SpriteÃ€Ã‡ Â°Â³Â¼Ã¶
 		CreaturePackIndexFile.close();	
 
 		m_CreatureSPK.Init( size, CDirectDraw::Is565() );
@@ -1643,7 +1668,7 @@ MTopView::InitSprites()
 //			m_CreatureSPKFile.close();
 //		}
 //		
-//		// È­ÀÏ¸¸ ¿­¾îµĞ´Ù.
+//		// ÃˆÂ­Ã€ÃÂ¸Â¸ Â¿Â­Â¾Ã®ÂµÃÂ´Ã™.
 //		//------------------------------------------------------------
 //		// sprite load
 //		//------------------------------------------------------------
@@ -1683,20 +1708,20 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Creature SpritePack	
 	//------------------------------------------------------------
-	class ofstream	creatureShadowFile(FILE_SSPRITE_CREATURE, ios::binary);	
-	class ofstream	creatureShadowIndexFile(FILE_SSPRITEINDEX_CREATURE, ios::binary);
+	std::ofstream	creatureShadowFile(FILE_SSPRITE_CREATURE, ios::binary);	
+	std::ofstream	creatureShadowIndexFile(FILE_SSPRITEINDEX_CREATURE, ios::binary);
 	m_CreatureSSPK.SaveToFile(creatureShadowFile, creatureShadowIndexFile);
 	creatureShadowFile.close();
 	creatureShadowIndexFile.close();
 	*/
 
 	//------------------------------------------------------------
-	// Å×½ºÆ® : ÀÏ¹İSpritePack --> ShadowSpritePack
+	// Ã…Ã—Â½ÂºÃ†Â® : Ã€ÃÂ¹ÃSpritePack --> ShadowSpritePack
 	//------------------------------------------------------------
-	// ³²
+	// Â³Â²
 	/*
 	CSpritePack CreatureShadowSPK;
-	class ifstream	CreatureShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
+	std::ifstream	CreatureShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 	if (!FileOpenBinary("Data\\Image\\CreatureShadow.spk", CreatureShadowFile2))
 		return false;
 	CreatureShadowSPK.LoadFromFile(CreatureShadowFile2);
@@ -1710,10 +1735,10 @@ MTopView::InitSprites()
 	}
 
 	//------------------------------------------------------------	
-	// ³² - Save  ShadowSpritePack	
+	// Â³Â² - Save  ShadowSpritePack	
 	//------------------------------------------------------------
-	class ofstream	CreatureShadowFile(FILE_SSPRITE_CREATURE, ios::binary);	
-	class ofstream	CreatureShadowIndexFile(FILE_SSPRITEINDEX_CREATURE, ios::binary);	
+	std::ofstream	CreatureShadowFile(FILE_SSPRITE_CREATURE, ios::binary);	
+	std::ofstream	CreatureShadowIndexFile(FILE_SSPRITEINDEX_CREATURE, ios::binary);	
 
 	m_CreatureSSPK.SaveToFile(CreatureShadowFile, CreatureShadowIndexFile);
 
@@ -1724,26 +1749,26 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	// Load Creature Shadow SpritePack
 	//------------------------------------------------------------
-	// 3d°¡¼ÓÀÌ µÇ¸é m_pCreatureShadowManager¸¦ »ç¿ëÇÏ°í
-	// ¾Æ´Ï¸é, m_CreatureSSPK¸¦ »ç¿ëÇÑ´Ù.
+	// 3dÂ°Â¡Â¼Ã“Ã€ÃŒ ÂµÃ‡Â¸Ã© m_pCreatureShadowManagerÂ¸Â¦ Â»Ã§Â¿Ã«Ã‡ÃÂ°Ã­
+	// Â¾Ã†Â´ÃÂ¸Ã©, m_CreatureSSPKÂ¸Â¦ Â»Ã§Â¿Ã«Ã‡Ã‘Â´Ã™.
 	//------------------------------------------------------------
-	// 3d°¡¼ÓÀÌ µÇ¸é m_pAlphaEffectTextureManager¸¦ »ç¿ëÇÏ°í
-	// ¾Æ´Ï¸é, m_EffectAlphaSPK¸¦ »ç¿ëÇÑ´Ù.
+	// 3dÂ°Â¡Â¼Ã“Ã€ÃŒ ÂµÃ‡Â¸Ã© m_pAlphaEffectTextureManagerÂ¸Â¦ Â»Ã§Â¿Ã«Ã‡ÃÂ°Ã­
+	// Â¾Ã†Â´ÃÂ¸Ã©, m_EffectAlphaSPKÂ¸Â¦ Â»Ã§Â¿Ã«Ã‡Ã‘Â´Ã™.
 	
-	// ÀüÃ¼ °³¼ö¸¸ Àâ¾ÆµĞ´Ù.
+	// Ã€Ã¼ÃƒÂ¼ Â°Â³Â¼Ã¶Â¸Â¸ Ã€Ã¢Â¾Ã†ÂµÃÂ´Ã™.
 	/*
-	class ifstream CreatureShadowPackIndexFile;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
+	std::ifstream CreatureShadowPackIndexFile;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
 	if (!FileOpenBinary(FILE_SSPRITEINDEX_CREATURE, CreatureShadowPackIndexFile))
 		return false;
-	CreatureShadowPackIndexFile.read((char*)&size, 2);	// SpriteÀÇ °³¼ö
+	CreatureShadowPackIndexFile.read((char*)&size, 2);	// SpriteÃ€Ã‡ Â°Â³Â¼Ã¶
 	CreatureShadowPackIndexFile.close();	
 
 	m_CreatureSSPK.Init( size );
 	*/
 	/*
-	// ÀÓ½Ã·Î Load
-	// ÀüÃ¼ loadingÇØµÎ´Â ºÎºĞ
-	class ifstream	CreatureShadowFile2;//(FILE_SSPRITE_Creature, ios::binary);
+	// Ã€Ã“Â½ÃƒÂ·Ã Load
+	// Ã€Ã¼ÃƒÂ¼ loadingÃ‡Ã˜ÂµÃÂ´Ã‚ ÂºÃÂºÃ
+	std::ifstream	CreatureShadowFile2;//(FILE_SSPRITE_Creature, ios::binary);
 	if (!FileOpenBinary(FILE_SSPRITE_CREATURE, CreatureShadowFile2))
 		return false;
 	m_CreatureSSPK.LoadFromFile(CreatureShadowFile2);
@@ -1775,14 +1800,14 @@ MTopView::InitSprites()
 //	else
 	{
 		/*
-		class ifstream	CreatureShadowFile2;//(FILE_SSPRITE_Creature, ios::binary);
+		std::ifstream	CreatureShadowFile2;//(FILE_SSPRITE_Creature, ios::binary);
 		if (!FileOpenBinary(FILE_SSPRITE_CREATURE, CreatureShadowFile2))
 			return false;
 		m_CreatureSSPK.LoadFromFile(CreatureShadowFile2);
 		CreatureShadowFile2.close();
 		*/
 		/*
-		class ifstream indexFile;//(indexFilename, ios::binary);
+		std::ifstream indexFile;//(indexFilename, ios::binary);
 		if (!FileOpenBinary(FILE_SSPRITEINDEX_CREATURE, indexFile))
 			return false;
 
@@ -1793,7 +1818,7 @@ MTopView::InitSprites()
 		m_CreatureSSPK.Init( packSize );
 		*/
 		//------------------------------------------------------------
-		// ±×¸²ÀÚ load
+		// Â±Ã—Â¸Â²Ã€Ãš load
 		//------------------------------------------------------------
 //		if (!FileOpenBinary(FILE_SSPRITE_CREATURE, m_CreatureSSPKFile))
 //			return false;
@@ -1900,8 +1925,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Clothes SpritePack	
 	//------------------------------------------------------------
-	class ofstream	clothesFile("Clothes.spk", ios::binary);	
-	class ofstream	clothesIndexFile("Clothes.spki", ios::binary);	
+	std::ofstream	clothesFile("Clothes.spk", ios::binary);	
+	std::ofstream	clothesIndexFile("Clothes.spki", ios::binary);	
 
 	ClothesSPK.SaveToFile(clothesFile, clothesIndexFile);
 
@@ -1916,15 +1941,15 @@ MTopView::InitSprites()
 /*	
 	if (m_AddonSPK.GetSize()==0)
 	{
-		class ifstream	AddonFile2;//(FILE_ISPRITE_ADDON, ios::binary);
+		std::ifstream	AddonFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 		if (!FileOpenBinary(FILE_ISPRITE_ADDON, AddonFile2))
 			return false;
 		
-		// 2001.8.20 ÁÖ¼®Ã³¸®..
+		// 2001.8.20 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®..
 		//m_AddonSPK.LoadFromFile(AddonFile2);
 		//m_AddonSPK.Init( 20000, CDirectDraw::Is565() );
 		
-		// °³¼ö¸¸ Àâ¾ÆµĞ´Ù.
+		// Â°Â³Â¼Ã¶Â¸Â¸ Ã€Ã¢Â¾Ã†ÂµÃÂ´Ã™.
 		TYPE_SPRITEID addonSize;
 		AddonFile2.read((char*)&addonSize, SIZE_SPRITEID);
 		m_AddonSPK.Init( addonSize, CDirectDraw::Is565() );
@@ -1941,7 +1966,7 @@ MTopView::InitSprites()
 //		m_AddonSSPKFile.close();
 //	}
 //
-//	// È­ÀÏ¸¸ ¿­¾îµĞ´Ù.
+//	// ÃˆÂ­Ã€ÃÂ¸Â¸ Â¿Â­Â¾Ã®ÂµÃÂ´Ã™.
 //	//------------------------------------------------------------
 //	// sprite load
 //	//------------------------------------------------------------
@@ -1966,7 +1991,7 @@ MTopView::InitSprites()
 //	if (!CDirect3D::IsHAL())
 	{
 		//------------------------------------------------------------
-		// ±×¸²ÀÚ load
+		// Â±Ã—Â¸Â²Ã€Ãš load
 		//------------------------------------------------------------
 //		if (!FileOpenBinary(FILE_SSPRITE_ADDON, m_AddonSSPKFile))
 //			return false;
@@ -2010,11 +2035,11 @@ MTopView::InitSprites()
 */
 
 	//------------------------------------------------------------	
-	// ±×¸²ÀÚ - Load  Clothes SpritePack	
+	// Â±Ã—Â¸Â²Ã€Ãš - Load  Clothes SpritePack	
 	//------------------------------------------------------------
-	// ³²
+	// Â³Â²
 	/*
-	class ifstream	AddonMaleShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
+	std::ifstream	AddonMaleShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 	if (!FileOpenBinary(FILE_SSPRITE_ADDON_MALE, AddonMaleShadowFile2))
 		return false;
 	m_AddonMaleShadowSPK.LoadFromFile(AddonMaleShadowFile2);
@@ -2022,12 +2047,12 @@ MTopView::InitSprites()
 	*/
 
 	//------------------------------------------------------------
-	// Å×½ºÆ® : ÀÏ¹İSpritePack --> ShadowSpritePack
+	// Ã…Ã—Â½ÂºÃ†Â® : Ã€ÃÂ¹ÃSpritePack --> ShadowSpritePack
 	//------------------------------------------------------------
 	/*
-	// ³²
+	// Â³Â²
 	CSpritePack AddonMaleShadowSPK;
-	class ifstream	AddonMaleShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
+	std::ifstream	AddonMaleShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 	if (!FileOpenBinary("Data\\Image\\addonMaleShadow.spk", AddonMaleShadowFile2))
 		return false;
 	AddonMaleShadowSPK.LoadFromFile(AddonMaleShadowFile2);
@@ -2041,10 +2066,10 @@ MTopView::InitSprites()
 	}
 
 	//------------------------------------------------------------	
-	// ³² - Save  ShadowSpritePack	
+	// Â³Â² - Save  ShadowSpritePack	
 	//------------------------------------------------------------
-	class ofstream	AddonMaleShadowFile(FILE_SSPRITE_ADDON_MALE, ios::binary);	
-	class ofstream	AddonMaleShadowIndexFile(FILE_SSPRITEINDEX_ADDON_MALE, ios::binary);	
+	std::ofstream	AddonMaleShadowFile(FILE_SSPRITE_ADDON_MALE, ios::binary);	
+	std::ofstream	AddonMaleShadowIndexFile(FILE_SSPRITEINDEX_ADDON_MALE, ios::binary);	
 
 	m_AddonMaleSSPK.SaveToFile(AddonMaleShadowFile, AddonMaleShadowIndexFile);
 
@@ -2057,7 +2082,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	// Male
 	/*
-	class ifstream	AddonShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
+	std::ifstream	AddonShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 	if (!FileOpenBinary(FILE_SSPRITE_ADDON, AddonShadowFile2))
 		return false;
 	m_AddonSSPK.LoadFromFile(AddonShadowFile2);
@@ -2093,7 +2118,7 @@ MTopView::InitSprites()
 //	else
 	{
 		/*
-		class ifstream	AddonShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
+		std::ifstream	AddonShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 		if (!FileOpenBinary(FILE_SSPRITE_ADDON, AddonShadowFile2))
 			return false;
 		m_AddonSSPK.LoadFromFile(AddonShadowFile2);
@@ -2142,8 +2167,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  ItemTile SpritePack	
 	//------------------------------------------------------------
-	class ofstream	itemTileFile(FILE_SPRITE_ITEMTILE, ios::binary);	
-	class ofstream	itemTileIndexFile(FILE_SPRITEINDEX_ITEMTILE, ios::binary);	
+	std::ofstream	itemTileFile(FILE_SPRITE_ITEMTILE, ios::binary);	
+	std::ofstream	itemTileIndexFile(FILE_SPRITEINDEX_ITEMTILE, ios::binary);	
 
 	m_ItemTileSPK.SaveToFile(itemTileFile, itemTileIndexFile);
 
@@ -2156,7 +2181,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_ItemTileISPK.GetSize()==0)
 	{
-//		class ifstream	itemTileFile2;//(FILE_SPRITE_ITEMTILE, ios::binary);
+//		std::ifstream	itemTileFile2;//(FILE_SPRITE_ITEMTILE, ios::binary);
 //		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_ISPRITE_ITEMTILE").c_str(), itemTileFile2))
 //			return false;
 //		m_ItemTileISPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_ISPRITE_ITEMTILE").c_str());
@@ -2177,7 +2202,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_ItemDropISPK.GetSize()==0)
 	{
-//		class ifstream	itemDropFile2;//(FILE_SPRITE_itemDrop, ios::binary);
+//		std::ifstream	itemDropFile2;//(FILE_SPRITE_itemDrop, ios::binary);
 //		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_ISPRITE_ITEMDROP").c_str(), itemDropFile2))
 //			return false;
 //		m_ItemDropISPK.LoadFromFileRunning(itemDropFile2);
@@ -2198,7 +2223,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_ItemBrokenSPK.GetSize()==0)
 	{
-//		class ifstream	itemBrokenFile2;//(FILE_SPRITE_itemBroken, ios::binary);
+//		std::ifstream	itemBrokenFile2;//(FILE_SPRITE_itemBroken, ios::binary);
 //		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_ITEMBROKEN").c_str(), itemBrokenFile2))
 //			return false;
 //		m_ItemBrokenSPK.LoadFromFileRunning(itemBrokenFile2);
@@ -2249,8 +2274,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Tile SpritePack	
 	//------------------------------------------------------------
-	class ofstream	tileFile(FILE_SPRITE_TILE, ios::binary);	
-	class ofstream	tileIndexFile(FILE_SPRITEINDEX_TILE, ios::binary);	
+	std::ofstream	tileFile(FILE_SPRITE_TILE, ios::binary);	
+	std::ofstream	tileIndexFile(FILE_SPRITEINDEX_TILE, ios::binary);	
 
 	m_TileSPK.SaveToFile(tileFile, tileIndexFile);
 
@@ -2260,7 +2285,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Load  Tile SpritePack	
 	//------------------------------------------------------------	
-	class ifstream	tileFile2(FILE_SPRITE_TILE, ios::binary);
+	std::ifstream	tileFile2(FILE_SPRITE_TILE, ios::binary);
 	m_TileSPK.LoadFromFile(tileFile2);
 	tileFile2.close();
 	*/
@@ -2275,14 +2300,14 @@ MTopView::InitSprites()
 	CSpriteFilePositionArray	TileSFPArray;
 	TileSFPArray.Init( 6 );
 
-	// TileSPK Index¸¦ LoadÇÑ´Ù.
+	// TileSPK IndexÂ¸Â¦ LoadÃ‡Ã‘Â´Ã™.
 	CFileIndexTable		TileIndex;
 
-	class ifstream TilePackIndexFile(FILE_SPRITEINDEX_TILE, ios::binary);
+	std::ifstream TilePackIndexFile(FILE_SPRITEINDEX_TILE, ios::binary);
 	TileIndex.LoadFromFile( TilePackIndexFile );
 	TilePackIndexFile.close();	
 
-	// TileSPK¿¡¼­ Æ¯Á¤ÇÑ SpriteIDÀÇ Tileµé¸¸À¸·Î SetÀ» »ı¼ºÇÑ´Ù.
+	// TileSPKÂ¿Â¡Â¼Â­ Ã†Â¯ÃÂ¤Ã‡Ã‘ SpriteIDÃ€Ã‡ TileÂµÃ©Â¸Â¸Ã€Â¸Â·Ã SetÃ€Â» Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
 	TYPE_SPRITEID	TileSpriteID[6] = { 9, 10, 11, 12, 13, 19 };
 	for (TYPE_SPRITEID t=0; t<6; t++)
 	{
@@ -2298,12 +2323,12 @@ MTopView::InitSprites()
 	///*
 //	if (m_TileSPK.GetSize()==0)
 //	{
-//		class ifstream TilePackIndexFile;//(FILE_SPRITEINDEX_TILE, ios::binary);
+//		std::ifstream TilePackIndexFile;//(FILE_SPRITEINDEX_TILE, ios::binary);
 //		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITEINDEX_TILE").c_str(), TilePackIndexFile))
 //			return false;
 //		
 //		//-----------------------------------------------------------
-//		// Index¸¦ LoadÇÑ´Ù.
+//		// IndexÂ¸Â¦ LoadÃ‡Ã‘Â´Ã™.
 //		//-----------------------------------------------------------
 //		m_TileSPKI.LoadFromFile( TilePackIndexFile );
 //		TilePackIndexFile.close();	
@@ -2327,14 +2352,14 @@ MTopView::InitSprites()
 
 	//*/
 	
-	/* TILE INDEX ¸¸µé±â
+	/* TILE INDEX Â¸Â¸ÂµÃ©Â±Ã¢
 	CSpritePack spk;
-	class ifstream TilePackIndexFile(FILE_SPRITE_TILE, ios::binary);
+	std::ifstream TilePackIndexFile(FILE_SPRITE_TILE, ios::binary);
 	spk.LoadFromFile(TilePackIndexFile);	
 	TilePackIndexFile.close();	
 
-	class ofstream TilePackIndexFile2(FILE_SPRITE_TILE, ios::binary);
-	class ofstream TilePackIndexFile3(FILE_SPRITEINDEX_TILE, ios::binary);
+	std::ofstream TilePackIndexFile2(FILE_SPRITE_TILE, ios::binary);
+	std::ofstream TilePackIndexFile3(FILE_SPRITEINDEX_TILE, ios::binary);
 	spk.SaveToFile(TilePackIndexFile2, TilePackIndexFile3);
 	TilePackIndexFile2.close();
 	TilePackIndexFile3.close();
@@ -2344,7 +2369,7 @@ MTopView::InitSprites()
 
 
 	/*
-	class ifstream	TilePackFile(FILE_SPRITE_TILE, ios::binary);		
+	std::ifstream	TilePackFile(FILE_SPRITE_TILE, ios::binary);		
 	m_TileSPK.LoadFromFilePart(TilePackFile, TileSFPArray);
 	TilePackFile.close();
 	*/
@@ -2357,15 +2382,15 @@ MTopView::InitSprites()
 	//
 	//------------------------------------------------------------	
 	//
-	// Index¾ø´Â SPK¿¡ Index»ı¼ºÇÏ±â
+	// IndexÂ¾Ã¸Â´Ã‚ SPKÂ¿Â¡ IndexÂ»Ã½Â¼ÂºÃ‡ÃÂ±Ã¢
 	/*
 	CSpritePack tempSPK;
-	class ifstream	ioFile2(FILE_SPRITE_IMAGEOBJECT, ios::binary);
+	std::ifstream	ioFile2(FILE_SPRITE_IMAGEOBJECT, ios::binary);
 	tempSPK.LoadFromFile(ioFile2);
 	ioFile2.close();
 
-	class ofstream	ioFile(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
-	class ofstream	ioIndexFile(FILE_SPRITEINDEX_IMAGEOBJECT, ios::binary);	
+	std::ofstream	ioFile(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
+	std::ofstream	ioIndexFile(FILE_SPRITEINDEX_IMAGEOBJECT, ios::binary);	
 
 	tempSPK.SaveToFile(ioFile, ioIndexFile);
 
@@ -2377,14 +2402,14 @@ MTopView::InitSprites()
 	CSpriteFilePositionArray	ImageObjectSFPArray;
 	ImageObjectSFPArray.Init( 21 );
 
-	// ImageObjectSPK Index¸¦ LoadÇÑ´Ù.
+	// ImageObjectSPK IndexÂ¸Â¦ LoadÃ‡Ã‘Â´Ã™.
 	CFileIndexTable		ImageObjectIndex;
 
-	class ifstream ImageObjectPackIndexFile(FILE_SPRITEINDEX_IMAGEOBJECT, ios::binary);
+	std::ifstream ImageObjectPackIndexFile(FILE_SPRITEINDEX_IMAGEOBJECT, ios::binary);
 	ImageObjectIndex.LoadFromFile( ImageObjectPackIndexFile );
 	ImageObjectPackIndexFile.close();	
 
-	// ImageObjectSPK¿¡¼­ Æ¯Á¤ÇÑ SpriteIDÀÇ ImageObjectµé¸¸À¸·Î SetÀ» »ı¼ºÇÑ´Ù.
+	// ImageObjectSPKÂ¿Â¡Â¼Â­ Ã†Â¯ÃÂ¤Ã‡Ã‘ SpriteIDÃ€Ã‡ ImageObjectÂµÃ©Â¸Â¸Ã€Â¸Â·Ã SetÃ€Â» Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
 	TYPE_SPRITEID	ImageObjectSpriteID[21] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
 	for (TYPE_SPRITEID io=0; io<21; io++)
 	{
@@ -2400,12 +2425,12 @@ MTopView::InitSprites()
 	if (m_ImageObjectSPK.GetSize()==0)
 	{
 		
-//		class ifstream ImageObjectPackIndexFile;//(FILE_SPRITEINDEX_IMAGEOBJECT, ios::binary);
+//		std::ifstream ImageObjectPackIndexFile;//(FILE_SPRITEINDEX_IMAGEOBJECT, ios::binary);
 //		if (!FileOpenBinary(FILE_SPRITEINDEX_IMAGEOBJECT, ImageObjectPackIndexFile))
 //			return false;
 //
 //		//-----------------------------------------------------------
-//		// Index¸¦ LoadÇÑ´Ù.
+//		// IndexÂ¸Â¦ LoadÃ‡Ã‘Â´Ã™.
 //		//-----------------------------------------------------------
 //		m_ImageObjectSPKI.LoadFromFile( ImageObjectPackIndexFile );
 //		ImageObjectPackIndexFile.close();	
@@ -2414,8 +2439,8 @@ MTopView::InitSprites()
 //
 //		m_ImageObjectSPKFile.open(FILE_SPRITE_IMAGEOBJECT, ios::binary);
 		m_ImageObjectSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SPRITE_IMAGEOBJECT").c_str() );
-		// ÄÀ.. ÀÌ°Å ¿Ö ´Ù ·ÎµùÇÏÁö. - -;;
-		// 2001.8.20 ÁÖ¼®Ã³¸®
+		// Ã„Ã€.. Ã€ÃŒÂ°Ã… Â¿Ã– Â´Ã™ Â·ÃÂµÃ¹Ã‡ÃÃÃ¶. - -;;
+		// 2001.8.20 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 		//if (!FileOpenBinary(FILE_SPRITE_IMAGEOBJECT, m_ImageObjectSPKFile))
 		//	return false;
 
@@ -2444,7 +2469,7 @@ MTopView::InitSprites()
 //	DrawTitleLoading();
 
 	/*
-	class ifstream	ImageObjectPackFile(FILE_SPRITE_IMAGEOBJECT, ios::binary);		
+	std::ifstream	ImageObjectPackFile(FILE_SPRITE_IMAGEOBJECT, ios::binary);		
 	m_ImageObjectSPK.LoadFromFilePart(ImageObjectPackFile, ImageObjectSFPArray);
 	ImageObjectPackFile.close();	
 	*/
@@ -2452,7 +2477,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	//
 	//
-	//                   EffectSPK ÃÊ±âÈ­
+	//                   EffectSPK ÃƒÃŠÂ±Ã¢ÃˆÂ­
 	//
 	//
 	//------------------------------------------------------------
@@ -2644,8 +2669,8 @@ MTopView::InitSprites()
 	// Save  EffectSPK
 	//
 	//------------------------------------------------------------
-	class ofstream	effectFile(FILE_ASPRITE_ALPHAEFFECT, ios::binary);	
-	class ofstream	effectIndexFile(FILE_ASPRITEINDEX_ALPHAEFFECT, ios::binary);	
+	std::ofstream	effectFile(FILE_ASPRITE_ALPHAEFFECT, ios::binary);	
+	std::ofstream	effectIndexFile(FILE_ASPRITEINDEX_ALPHAEFFECT, ios::binary);	
 
 	m_EffectAlphaSPK.SaveToFile(effectFile, effectIndexFile);
 
@@ -2658,10 +2683,10 @@ MTopView::InitSprites()
 	// Load  EffectPack
 	//
 	//------------------------------------------------------------
-	// 3d°¡¼ÓÀÌ µÇ¸é m_pAlphaEffectTextureManager¸¦ »ç¿ëÇÏ°í
-	// ¾Æ´Ï¸é, m_EffectAlphaSPK¸¦ »ç¿ëÇÑ´Ù.
+	// 3dÂ°Â¡Â¼Ã“Ã€ÃŒ ÂµÃ‡Â¸Ã© m_pAlphaEffectTextureManagerÂ¸Â¦ Â»Ã§Â¿Ã«Ã‡ÃÂ°Ã­
+	// Â¾Ã†Â´ÃÂ¸Ã©, m_EffectAlphaSPKÂ¸Â¦ Â»Ã§Â¿Ã«Ã‡Ã‘Â´Ã™.
 /*
-	class ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
+	std::ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
 	if (!FileOpenBinary(FILE_ASPRITE_ALPHAEFFECT, effectFile2))
 		return false;
 	m_EffectAlphaSPK.LoadFromFile(effectFile2);
@@ -2697,25 +2722,25 @@ MTopView::InitSprites()
 //	}
 //	else
 	{
-		//class ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
+		//std::ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
 		//if (!FileOpenBinary(FILE_ASPRITE_ALPHAEFFECT, effectFile2))
 		//	return false;
 		//m_EffectAlphaSPK.LoadFromFile(effectFile2);
 		//effectFile2.close();	
-//		class ifstream effectFileIndex;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
+//		std::ifstream effectFileIndex;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
 //		if (!FileOpenBinary(FILE_ASPRITEINDEX_ALPHAEFFECT, effectFileIndex))
 //			return false;
 //		
-//		// Index File¸¸ loadingÇÏ°í 
+//		// Index FileÂ¸Â¸ loadingÃ‡ÃÂ°Ã­ 
 //		m_EffectAlphaSPKI.LoadFromFile( effectFileIndex );
 //
-//		// °³¼ö¸¸Å­ ÃÊ±âÈ­¸¸ ÇØµĞ´Ù.
+//		// Â°Â³Â¼Ã¶Â¸Â¸Ã…Â­ ÃƒÃŠÂ±Ã¢ÃˆÂ­Â¸Â¸ Ã‡Ã˜ÂµÃÂ´Ã™.
 //		m_EffectAlphaSPK.Init( m_EffectAlphaSPKI.GetSize(), CDirectDraw::Is565() );
 //
 //		effectFileIndex.close();	
 //
 //		//------------------------------------------------------------
-//		// Run-time loadingÀ» À§ÇØ¼­ fileÀ» ¿­¾îµĞ´Ù.
+//		// Run-time loadingÃ€Â» Ã€Â§Ã‡Ã˜Â¼Â­ fileÃ€Â» Â¿Â­Â¾Ã®ÂµÃÂ´Ã™.
 //		//------------------------------------------------------------
 //		if (!FileOpenBinary(FILE_ASPRITE_ALPHAEFFECT, m_EffectAlphaSPKFile))
 //			return false;
@@ -2754,25 +2779,25 @@ MTopView::InitSprites()
 //	}
 //	else
 	{
-		//class ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
+		//std::ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
 		//if (!FileOpenBinary(FILE_ASPRITE_ALPHAEFFECT, effectFile2))
 		//	return false;
 		//m_EffectAlphaSPK.LoadFromFile(effectFile2);
 		//effectFile2.close();	
-//		class ifstream effectFileIndex;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
+//		std::ifstream effectFileIndex;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
 //		if (!FileOpenBinary(FILE_SPRITEINDEX_SCREENEFFECT, effectFileIndex))
 //			return false;
 //		
-//		// Index File¸¸ loadingÇÏ°í 
+//		// Index FileÂ¸Â¸ loadingÃ‡ÃÂ°Ã­ 
 //		m_EffectScreenSPKI.LoadFromFile( effectFileIndex );
 //
-//		// °³¼ö¸¸Å­ ÃÊ±âÈ­¸¸ ÇØµĞ´Ù.
+//		// Â°Â³Â¼Ã¶Â¸Â¸Ã…Â­ ÃƒÃŠÂ±Ã¢ÃˆÂ­Â¸Â¸ Ã‡Ã˜ÂµÃÂ´Ã™.
 //		m_EffectScreenSPK.Init( m_EffectScreenSPKI.GetSize(), CDirectDraw::Is565() );
 //
 //		effectFileIndex.close();	
 //
 //		//------------------------------------------------------------
-//		// Run-time loadingÀ» À§ÇØ¼­ fileÀ» ¿­¾îµĞ´Ù.
+//		// Run-time loadingÃ€Â» Ã€Â§Ã‡Ã˜Â¼Â­ fileÃ€Â» Â¿Â­Â¾Ã®ÂµÃÂ´Ã™.
 //		//------------------------------------------------------------
 //		if (!FileOpenBinary(FILE_SPRITE_SCREENEFFECT, m_EffectScreenSPKFile))
 //			return false;
@@ -2800,7 +2825,7 @@ MTopView::InitSprites()
 //	}
 //	else
 	{
-//		class ifstream	effectFile2;
+//		std::ifstream	effectFile2;
 //		if (!FileOpenBinary(FILE_SSPRITE_SHADOWEFFECT, effectFile2))
 //			return false;
 //		m_EffectShadowSPK.LoadFromFile(effectFile2);
@@ -2811,7 +2836,7 @@ MTopView::InitSprites()
 //	UI_DrawProgress(12);
 //	DrawTitleLoading();
 
-	//class ifstream	effectFile2(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
+	//std::ifstream	effectFile2(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
 	//m_EffectAlphaSPK.LoadFromFile(effectFile2);
 	//effectFile2.close();	
 	
@@ -2824,7 +2849,7 @@ MTopView::InitSprites()
 	if (CDirect3D::IsHAL())
 	{	
 		//--------------------------------------------
-		// AlphaSPKÀ» ÀÌ¿ëÇØ¼­ TexturePackÀ» »ı¼ºÇÑ´Ù.
+		// AlphaSPKÃ€Â» Ã€ÃŒÂ¿Ã«Ã‡Ã˜Â¼Â­ TexturePackÃ€Â» Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
 		//--------------------------------------------
 		if (!m_EffectTPK.Init( m_EffectAlphaSPK ))
 		{
@@ -2833,8 +2858,8 @@ MTopView::InitSprites()
 		}
 
 		//------------------------------------------------------------	
-		// EffectAlphaSprite¸¦ ¸Ş¸ğ¸®¿¡¼­ »èÁ¦ÇÑ´Ù.
-		// --> TextureSurface¸¦ »ç¿ëÇÒ °ÍÀÌ¹Ç·Î.. ÇÊ¿ä°¡ ¾ø´Ù.
+		// EffectAlphaSpriteÂ¸Â¦ Â¸ÃÂ¸Ã°Â¸Â®Â¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦Ã‡Ã‘Â´Ã™.
+		// --> TextureSurfaceÂ¸Â¦ Â»Ã§Â¿Ã«Ã‡Ã’ Â°ÃÃ€ÃŒÂ¹Ã‡Â·Ã.. Ã‡ÃŠÂ¿Ã¤Â°Â¡ Â¾Ã¸Â´Ã™.
 		//------------------------------------------------------------		
 		m_EffectAlphaSPK.Release();
 	}
@@ -2878,8 +2903,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Etc SpritePack	
 	//------------------------------------------------------------
-	class ofstream	EtcFile(FILE_SPRITE_ETC, ios::binary);	
-	class ofstream	EtcIndexFile(FILE_SPRITEINDEX_ETC, ios::binary);	
+	std::ofstream	EtcFile(FILE_SPRITE_ETC, ios::binary);	
+	std::ofstream	EtcIndexFile(FILE_SPRITEINDEX_ETC, ios::binary);	
 
 	m_EtcSPK.SaveToFile(EtcFile, EtcIndexFile);
 
@@ -2892,7 +2917,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	if (m_EtcSPK.GetSize()==0)
 	{
-		class ifstream	EtcFile2;//(FILE_SPRITE_ETC, ios::binary);
+		std::ifstream	EtcFile2;//(FILE_SPRITE_ETC, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_ETC").c_str(), EtcFile2))
 			return false;
 		m_EtcSPK.LoadFromFile(EtcFile2);
@@ -2906,7 +2931,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 //	if (m_InteractionObjectSPK.GetSize()==0)
 //	{
-//		class ifstream	ioFile2;//(FILE_SPRITE_ETC, ios::binary);
+//		std::ifstream	ioFile2;//(FILE_SPRITE_ETC, ios::binary);
 //		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_INTERACTIONOBJECT").c_str(), ioFile2))
 //			return false;
 //		m_InteractionObjectSPK.LoadFromFile(ioFile2);
@@ -2916,7 +2941,7 @@ MTopView::InitSprites()
 //	if (m_InteractionObjectSSPK.GetSize()==0)
 //	{
 //		/*
-//		class ifstream	ioFile3;//(FILE_SPRITE_ETC, ios::binary);
+//		std::ifstream	ioFile3;//(FILE_SPRITE_ETC, ios::binary);
 //		if (!FileOpenBinary(FILE_SSPRITE_INTERACTIONOBJECT, ioFile3))
 //			return false;
 //		m_InteractionObjectSSPK.LoadFromFile(ioFile2);
@@ -2961,8 +2986,8 @@ MTopView::InitSprites()
 	// Save  NormalEffect Shadow SpritePack	
 	//------------------------------------------------------------
 	
-	class ofstream	NormalEffectFile(FILE_SPRITE_NORMALEFFECT, ios::binary);	
-	class ofstream	NormalEffectIndexFile(FILE_SPRITEINDEX_NORMALEFFECT, ios::binary);	
+	std::ofstream	NormalEffectFile(FILE_SPRITE_NORMALEFFECT, ios::binary);	
+	std::ofstream	NormalEffectIndexFile(FILE_SPRITEINDEX_NORMALEFFECT, ios::binary);	
 
 	m_EffectNormalSPK.SaveToFile(NormalEffectFile, NormalEffectIndexFile);
 
@@ -2975,7 +3000,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_EffectNormalSPK.GetSize()==0)
 	{
-//		class ifstream	NormalEffectFile2;//(FILE_SPRITE_NORMALEFFECT, ios::binary);
+//		std::ifstream	NormalEffectFile2;//(FILE_SPRITE_NORMALEFFECT, ios::binary);
 //		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_NORMALEFFECT").c_str(), NormalEffectFile2))
 //			return false;
 //		m_EffectNormalSPK.LoadFromFile(NormalEffectFile2);
@@ -2987,7 +3012,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	//
 	//
-	//                   Weather SpritePack ÃÊ±âÈ­
+	//                   Weather SpritePack ÃƒÃŠÂ±Ã¢ÃˆÂ­
 	//
 	//
 	//------------------------------------------------------------
@@ -2996,7 +3021,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_WeatherSPK.GetSize()==0)
 	{
-		class ifstream	WeatherFile2;//(FILE_SPRITE_WEATHER, ios::binary);
+		std::ifstream	WeatherFile2;//(FILE_SPRITE_WEATHER, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_WEATHER").c_str(), WeatherFile2))
 			return false;
 		m_WeatherSPK.LoadFromFile(WeatherFile2);
@@ -3006,7 +3031,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	//
 	//
-	//                   Shadow Test ÃÊ±âÈ­
+	//                   Shadow Test ÃƒÃŠÂ±Ã¢ÃˆÂ­
 	//
 	//
 	//------------------------------------------------------------
@@ -3038,7 +3063,7 @@ MTopView::InitSprites()
 	CAlphaSprite::SetColorkey( 0 );
 
 	//--------------------------------------------
-	// AlphaSPKÀ» ÀÌ¿ëÇØ¼­ TexturePackÀ» »ı¼ºÇÑ´Ù.
+	// AlphaSPKÃ€Â» Ã€ÃŒÂ¿Ã«Ã‡Ã˜Â¼Â­ TexturePackÃ€Â» Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
 	//--------------------------------------------
 	if (!m_ShadowTPK.Init( ShadowASPK ))
 	{
@@ -3047,8 +3072,8 @@ MTopView::InitSprites()
 	}
 
 	//------------------------------------------------------------	
-	// EffectAlphaSprite¸¦ ¸Ş¸ğ¸®¿¡¼­ »èÁ¦ÇÑ´Ù.
-	// --> TextureSurface¸¦ »ç¿ëÇÒ °ÍÀÌ¹Ç·Î.. ÇÊ¿ä°¡ ¾ø´Ù.
+	// EffectAlphaSpriteÂ¸Â¦ Â¸ÃÂ¸Ã°Â¸Â®Â¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦Ã‡Ã‘Â´Ã™.
+	// --> TextureSurfaceÂ¸Â¦ Â»Ã§Â¿Ã«Ã‡Ã’ Â°ÃÃ€ÃŒÂ¹Ã‡Â·Ã.. Ã‡ÃŠÂ¿Ã¤Â°Â¡ Â¾Ã¸Â´Ã™.
 	//------------------------------------------------------------		
 	ShadowASPK.Release();
 	*/
@@ -3058,7 +3083,7 @@ MTopView::InitSprites()
 	//				Minimap	
 	//
 	//------------------------------------------------------------
-	 // 2001.7.14 ÁÖ¼®Ã³¸®
+	 // 2001.7.14 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 //	if (m_pMinimapSPR!=NULL)
 //	{
 //		delete m_pMinimapSPR;
@@ -3090,7 +3115,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Minimap Sprite
 	//------------------------------------------------------------	
-	class ofstream	MapTest1("Data\\Image\\map_a.spr", ios::binary);		
+	std::ofstream	MapTest1("Data\\Image\\map_a.spr", ios::binary);		
 	m_pMinimapSPR->SaveToFile( MapTest1 );
 	MapTest1.close();
 
@@ -3105,7 +3130,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Minimap Sprite
 	//------------------------------------------------------------	
-	class ofstream	MapTest2("Data\\Image\\map_h.spr", ios::binary);		
+	std::ofstream	MapTest2("Data\\Image\\map_h.spr", ios::binary);		
 	m_pMinimapSPR->SaveToFile( MapTest2 );
 	MapTest2.close();
 
@@ -3120,7 +3145,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Minimap Sprite
 	//------------------------------------------------------------	
-	class ofstream	MapTest3("Data\\Image\\map_e.spr", ios::binary);		
+	std::ofstream	MapTest3("Data\\Image\\map_e.spr", ios::binary);		
 	m_pMinimapSPR->SaveToFile( MapTest3 );
 	MapTest3.close();
 
@@ -3135,7 +3160,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Minimap Sprite
 	//------------------------------------------------------------	
-	class ofstream	MapTest4("Data\\Image\\map_c.spr", ios::binary);		
+	std::ofstream	MapTest4("Data\\Image\\map_c.spr", ios::binary);		
 	m_pMinimapSPR->SaveToFile( MapTest4 );
 	MapTest4.close();
 
@@ -3150,7 +3175,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Minimap Sprite
 	//------------------------------------------------------------	
-	class ofstream	MapTest5("Data\\Image\\map_d.spr", ios::binary);		
+	std::ofstream	MapTest5("Data\\Image\\map_d.spr", ios::binary);		
 	m_pMinimapSPR->SaveToFile( MapTest5 );
 	MapTest5.close();
 
@@ -3159,7 +3184,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	//
 	//
-	//                   Guild SpritePack ÃÊ±âÈ­
+	//                   Guild SpritePack ÃƒÃŠÂ±Ã¢ÃˆÂ­
 	//
 	//
 	//------------------------------------------------------------
@@ -3169,7 +3194,7 @@ MTopView::InitSprites()
 	/*
 	if (m_GuildSPK.GetSize()==0)
 	{
-		class ifstream	guildFile2;//(FILE_SPRITE_WEATHER, ios::binary);
+		std::ifstream	guildFile2;//(FILE_SPRITE_WEATHER, ios::binary);
 		if (!FileOpenBinary(FILE_SPRITE_GUILD, guildFile2))
 			return false;
 		m_GuildSPK.LoadFromFile(guildFile2);
@@ -3184,7 +3209,7 @@ MTopView::InitSprites()
 }
 
 //----------------------------------------------------------------------
-// Filter ÃÊ±âÈ­
+// Filter ÃƒÃŠÂ±Ã¢ÃˆÂ­
 //----------------------------------------------------------------------
 bool
 MTopView::InitFilters()
@@ -3236,7 +3261,7 @@ MTopView::InitFilters()
 	//------------------------------------------------------------	
 	// Save  Light2D FilterPack
 	//------------------------------------------------------------
-	class ofstream	FilterLight2DFile(FILE_FILTER_LIGHT2D, ios::binary);		
+	std::ofstream	FilterLight2DFile(FILE_FILTER_LIGHT2D, ios::binary);		
 	m_Filter.SaveToFile(FilterLight2DFile);
 	FilterLight2DFile.close();	
 	*/
@@ -3244,18 +3269,18 @@ MTopView::InitFilters()
 	//------------------------------------------------------------	
 	// Load  Light2D FilterPack
 	//------------------------------------------------------------	
-	//class ifstream	FilterLight2DFile2(FILE_FILTER_LIGHT2D, ios::binary);
+	//std::ifstream	FilterLight2DFile2(FILE_FILTER_LIGHT2D, ios::binary);
 	//m_Filter.LoadFromFile(FilterLight2DFile2);
 	//FilterLight2DFile2.close();
 
 
 	//------------------------------------------------------------	
 	//
-	//  3D ½Ã¾ßÃ³¸®¸¦ À§ÇÑ Light Filter
+	//  3D Â½ÃƒÂ¾ÃŸÃƒÂ³Â¸Â®Â¸Â¦ Ã€Â§Ã‡Ã‘ Light Filter
 	//
 	//------------------------------------------------------------	
 	//-----------------------------------------------
-	// LightBuffer Texture ÃÊ±âÈ­
+	// LightBuffer Texture ÃƒÃŠÂ±Ã¢ÃˆÂ­
 	//-----------------------------------------------	
 	if (m_pLightBufferTexture!=NULL)
 	{
@@ -3264,7 +3289,7 @@ MTopView::InitFilters()
 		m_pLightBufferTexture = NULL;
 	}
 	//------------------------------------------------------------	
-	// 2D light¿¡¼­ ÇÑ Á¡ÀÌ Â÷ÁöÇÏ´Â È­¸éÀÇ pixelÅ©±â
+	// 2D lightÂ¿Â¡Â¼Â­ Ã‡Ã‘ ÃÂ¡Ã€ÃŒ Ã‚Ã·ÃÃ¶Ã‡ÃÂ´Ã‚ ÃˆÂ­Â¸Ã©Ã€Ã‡ pixelÃ…Â©Â±Ã¢
 	//------------------------------------------------------------	
 	if (m_p2DLightPixelWidth!=NULL)
 	{
@@ -3278,29 +3303,30 @@ MTopView::InitFilters()
 		m_p2DLightPixelHeight = NULL;
 	}
 
-	
+
+#ifdef PLATFORM_WINDOWS
 	if (CDirect3D::IsHAL())
 	{
 		/*
 		//------------------------------------------------------
-		// Light FilterPack ÃÊ±âÈ­
+		// Light FilterPack ÃƒÃŠÂ±Ã¢ÃˆÂ­
 		//------------------------------------------------------
 		m_LightFTP.Init( MAX_LIGHT_SETSIZE );
 
 		//------------------------------------------------------
-		// LightFilter »ı¼º
+		// LightFilter Â»Ã½Â¼Âº
 		//------------------------------------------------------		
 		int maxLight = 14;
 		int maxCenter = 9;
 		int lightRange[MAX_LIGHT_SETSIZE] = { 20, 26, 36, 46, 56, 66, 76, 86, 96, 106, 116, 126};
 		int l,i,j;
 
-		// MAX_LIGHT_SETSIZE¸¸Å­ ¹à±âÀÇ Å©±â Á¾·ù°¡ ÀÖ´Ù.		
+		// MAX_LIGHT_SETSIZEÂ¸Â¸Ã…Â­ Â¹Ã Â±Ã¢Ã€Ã‡ Ã…Â©Â±Ã¢ ÃÂ¾Â·Ã¹Â°Â¡ Ã€Ã–Â´Ã™.		
 		for (l=0; l<MAX_LIGHT_SETSIZE; l++)
 		{
 			int lightRangeHalf = lightRange[l]>>1;	
 			int maxK = maxCenter,maxLight;
-			float gap = (float)(maxK,1)/(float)lightRangeHalf;	// k°ªÀÌ 0~24±îÁö..
+			float gap = (float)(maxK,1)/(float)lightRangeHalf;	// kÂ°ÂªÃ€ÃŒ 0~24Â±Ã®ÃÃ¶..
 
 			m_LightFTP[l].Init( lightRange[l], lightRange[l] );
 			BYTE* pLight;
@@ -3316,11 +3342,11 @@ MTopView::InitFilters()
 
 					k = (float)k * gap;
 				
-					if (k <= maxCenter) k = 0;			// maxCenter±îÁö´Â 0
-					else if (k >= maxK) k = maxLight;	// ³ÑÀ¸¸é maxLight
-					else k = k - maxCenter;				// ³ª¸ÓÁö´Â - maxCenter
+					if (k <= maxCenter) k = 0;			// maxCenterÂ±Ã®ÃÃ¶Â´Ã‚ 0
+					else if (k >= maxK) k = maxLight;	// Â³Ã‘Ã€Â¸Â¸Ã© maxLight
+					else k = k - maxCenter;				// Â³ÂªÂ¸Ã“ÃÃ¶Â´Ã‚ - maxCenter
 
-					// ¹à±âÀÇ SET´Ü°è¸¦ ¸¸µç´Ù.
+					// Â¹Ã Â±Ã¢Ã€Ã‡ SETÂ´ÃœÂ°Ã¨Â¸Â¦ Â¸Â¸ÂµÃ§Â´Ã™.
 					//k >>= shiftValue;
 
 					//*pLight = k;
@@ -3333,7 +3359,7 @@ MTopView::InitFilters()
 		//------------------------------------------------------------	
 		// Save  Light3D FilterPack
 		//------------------------------------------------------------
-		class ofstream	LightFilter3DFile(FILE_FILTER_LIGHT3D, ios::binary);
+		std::ofstream	LightFilter3DFile(FILE_FILTER_LIGHT3D, ios::binary);
 		m_LightFTP.SaveToFile(LightFilter3DFile);
 		LightFilter3DFile.close();	
 
@@ -3342,14 +3368,14 @@ MTopView::InitFilters()
 		//------------------------------------------------------------	
 		// Load  Light3D FilterPack
 		//------------------------------------------------------------	
-		class ifstream	LightFilter3DFile2;//(FILE_FILTER_LIGHT3D, ios::binary);
+		std::ifstream	LightFilter3DFile2;//(FILE_FILTER_LIGHT3D, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_FILTER_LIGHT3D").c_str(), LightFilter3DFile2))
 			return false;
 		m_LightFTP.LoadFromFile(LightFilter3DFile2);
 		LightFilter3DFile2.close();
 
 		//------------------------------------------------------
-		// lightBuffer ÃÊ±âÈ­
+		// lightBuffer ÃƒÃŠÂ±Ã¢ÃˆÂ­
 		//------------------------------------------------------		
 		m_LightBufferFilter.Init( SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT );		
   		
@@ -3357,33 +3383,34 @@ MTopView::InitFilters()
 		m_pLightBufferTexture->InitTextureSurface(SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT, 0, CDirect3D::GetPixelFormat4444());	
 	
 	}
+#endif
 	//------------------------------------------------------------	
 	//
-	//  2D ½Ã¾ßÃ³¸®¸¦ À§ÇÑ Light Filter
+	//  2D Â½ÃƒÂ¾ÃŸÃƒÂ³Â¸Â®Â¸Â¦ Ã€Â§Ã‡Ã‘ Light Filter
 	//
 	//------------------------------------------------------------	
 	else
 	{
 		/*
 		//------------------------------------------------------
-		// Light FilterPack ÃÊ±âÈ­
+		// Light FilterPack ÃƒÃŠÂ±Ã¢ÃˆÂ­
 		//------------------------------------------------------
 		m_LightFTP.Init( MAX_LIGHT_SETSIZE );
 
 		//------------------------------------------------------
-		// LightFilter »ı¼º
+		// LightFilter Â»Ã½Â¼Âº
 		//------------------------------------------------------		
 		int maxLight = 14;
 		int maxCenter = 9;
 		int lightRange[MAX_LIGHT_SETSIZE] = { 20, 26, 36, 46, 56, 66, 76, 86, 96, 106, 116, 126 };
 		int l,i,j;
 
-		// MAX_LIGHT_SETSIZE¸¸Å­ ¹à±âÀÇ Å©±â Á¾·ù°¡ ÀÖ´Ù.		
+		// MAX_LIGHT_SETSIZEÂ¸Â¸Ã…Â­ Â¹Ã Â±Ã¢Ã€Ã‡ Ã…Â©Â±Ã¢ ÃÂ¾Â·Ã¹Â°Â¡ Ã€Ã–Â´Ã™.		
 		for (l=0; l<MAX_LIGHT_SETSIZE; l++)
 		{
 			int lightRangeHalf = lightRange[l]>>1;	
 			int maxK = maxCenter,maxLight;
-			float gap = (float)(maxK,1)/(float)lightRangeHalf;	// k°ªÀÌ 0~24±îÁö..
+			float gap = (float)(maxK,1)/(float)lightRangeHalf;	// kÂ°ÂªÃ€ÃŒ 0~24Â±Ã®ÃÃ¶..
 
 			m_LightFTP[l].Init( lightRange[l], lightRange[l] );
 			BYTE* pLight;
@@ -3399,11 +3426,11 @@ MTopView::InitFilters()
 
 					k = (float)k * gap;
 				
-					if (k <= maxCenter) k = 0;			// maxCenter±îÁö´Â 0
-					else if (k >= maxK) k = maxLight;	// ³ÑÀ¸¸é maxLight
-					else k = k - maxCenter;				// ³ª¸ÓÁö´Â - maxCenter
+					if (k <= maxCenter) k = 0;			// maxCenterÂ±Ã®ÃÃ¶Â´Ã‚ 0
+					else if (k >= maxK) k = maxLight;	// Â³Ã‘Ã€Â¸Â¸Ã© maxLight
+					else k = k - maxCenter;				// Â³ÂªÂ¸Ã“ÃÃ¶Â´Ã‚ - maxCenter
 
-					// ¹à±âÀÇ SET´Ü°è¸¦ ¸¸µç´Ù.
+					// Â¹Ã Â±Ã¢Ã€Ã‡ SETÂ´ÃœÂ°Ã¨Â¸Â¦ Â¸Â¸ÂµÃ§Â´Ã™.
 					//k >>= shiftValue;
 
 					//*pLight = k;
@@ -3416,20 +3443,20 @@ MTopView::InitFilters()
 		//------------------------------------------------------------	
 		// Save  Light2D FilterPack
 		//------------------------------------------------------------
-		class ofstream	LightFilter2DFile(FILE_FILTER_LIGHT2D, ios::binary);
+		std::ofstream	LightFilter2DFile(FILE_FILTER_LIGHT2D, ios::binary);
 		m_LightFTP.SaveToFile(LightFilter2DFile);
 		LightFilter2DFile.close();	
 		*/
 
 		//------------------------------------------------------
-		// lightBuffer ÃÊ±âÈ­
+		// lightBuffer ÃƒÃŠÂ±Ã¢ÃˆÂ­
 		//------------------------------------------------------		
 		m_LightBufferFilter.Init( SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT );	
 		
 		//------------------------------------------------------------	
 		// Load  Light2D FilterPack
 		//------------------------------------------------------------	
-		class ifstream	LightFilter2DFile2;//(FILE_FILTER_LIGHT2D, ios::binary);
+		std::ifstream	LightFilter2DFile2;//(FILE_FILTER_LIGHT2D, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_FILTER_LIGHT2D").c_str(), LightFilter2DFile2))
 			return false;
 		m_LightFTP.LoadFromFile(LightFilter2DFile2);
@@ -3439,9 +3466,9 @@ MTopView::InitFilters()
 		m_p2DLightPixelHeight = new int [SCREENLIGHT_HEIGHT];
 
 		//----------------------------------------------------------------
-		// LightBufferÀÇ ÇÑ Á¡ÀÌ ÀÇ¹ÌÇÏ´Â È­¸é»óÀÇ pixel°¡·Î ±æÀÌ
+		// LightBufferÃ€Ã‡ Ã‡Ã‘ ÃÂ¡Ã€ÃŒ Ã€Ã‡Â¹ÃŒÃ‡ÃÂ´Ã‚ ÃˆÂ­Â¸Ã©Â»Ã³Ã€Ã‡ pixelÂ°Â¡Â·Ã Â±Ã¦Ã€ÃŒ
 		//----------------------------------------------------------------
-		// °¡·ÎÀÇ ÇÕ = 100 * 8 = 800
+		// Â°Â¡Â·ÃÃ€Ã‡ Ã‡Ã• = 100 * 8 = 800
 		BYTE x1,y1=0;
 		if(g_MyFull)
 		{
@@ -3479,11 +3506,11 @@ MTopView::InitFilters()
 */
 
 		//----------------------------------------------------------------
-		// LightBufferÀÇ ÇÑ Á¡ÀÌ ÀÇ¹ÌÇÏ´Â È­¸é»óÀÇ pixel¼¼·Î ±æÀÌ
+		// LightBufferÃ€Ã‡ Ã‡Ã‘ ÃÂ¡Ã€ÃŒ Ã€Ã‡Â¹ÃŒÃ‡ÃÂ´Ã‚ ÃˆÂ­Â¸Ã©Â»Ã³Ã€Ã‡ pixelÂ¼Â¼Â·Ã Â±Ã¦Ã€ÃŒ
 		//----------------------------------------------------------------
-		// °³¼ö´Â SCREENLIGHT_HEIGHT	
-		// total°ªÀÌ CLIPSURFACE_HEIGHT¿Í °°À¸¸é µÈ´Ù.
-		// ÇöÀç´Â 600.  10*24 + 9*40	
+		// Â°Â³Â¼Ã¶Â´Ã‚ SCREENLIGHT_HEIGHT	
+		// totalÂ°ÂªÃ€ÃŒ CLIPSURFACE_HEIGHTÂ¿Ã Â°Â°Ã€Â¸Â¸Ã© ÂµÃˆÂ´Ã™.
+		// Ã‡Ã¶Ã€Ã§Â´Ã‚ 600.  10*24 + 9*40	
 		//----------------------------------------------------------------
 		if(g_MyFull)
 		{
@@ -3507,7 +3534,7 @@ MTopView::InitFilters()
 			x1,y1,y1,x1, y1,y1,x1,y1,
 		};
 		/*
-		//ĞŞ¸ÄÎª768
+		//ÃÃÂ¸Ã„ÃÂª768
 		//----------------------------------------------------------------
 		const int pPixelHeight[SCREENLIGHT_HEIGHT] = 
 		{
@@ -3524,7 +3551,8 @@ MTopView::InitFilters()
 		};
 		*/
 
-		for (int i=0; i<SCREENLIGHT_WIDTH; i++)
+		int i;
+		for (i=0; i<SCREENLIGHT_WIDTH; i++)
 		{
 			m_p2DLightPixelWidth[i] = pPixelWidth[i];
 		}
@@ -3540,7 +3568,7 @@ MTopView::InitFilters()
 
 	//------------------------------------------------------------
 	//
-	// Player¸¦ °¡¸®´Â ImageObjectµéÀ» Ã³¸®ÇÒ Filter
+	// PlayerÂ¸Â¦ Â°Â¡Â¸Â®Â´Ã‚ ImageObjectÂµÃ©Ã€Â» ÃƒÂ³Â¸Â®Ã‡Ã’ Filter
 	//
 	//------------------------------------------------------------
 	/*
@@ -3558,9 +3586,9 @@ MTopView::InitFilters()
 			//k = sqrt(abs(i-100)*abs(i-100) ,
 					//abs(j-200)/2*abs(j-200)/2);
 
-			//k -= 50;	// ºó °ø°£
+			//k -= 50;	// ÂºÃ³ Â°Ã¸Â°Â£
 
-			k >>= 2;	// ºÎµå·¯¿î(?) °ø°£
+			k >>= 2;	// ÂºÃÂµÃ¥Â·Â¯Â¿Ã®(?) Â°Ã¸Â°Â£
 
 			k += 5;
 			
@@ -3576,7 +3604,7 @@ MTopView::InitFilters()
 			//else if (k>15 && k<21)
 			//	k = (rand()%(102 - k*5))? 26:32;
 			
-			// 0°ú 1°ª¸¸...
+			// 0Â°Ãº 1Â°ÂªÂ¸Â¸...
 			if (k > 26) 
 				k = 1;
 			else
@@ -3589,7 +3617,7 @@ MTopView::InitFilters()
 	//------------------------------------------------------------	
 	// Save  Light3D FilterPack
 	//------------------------------------------------------------
-	class ofstream	ImageObjectFilterFile(FILE_FILTER_IMAGEOBJECT, ios::binary);
+	std::ofstream	ImageObjectFilterFile(FILE_FILTER_IMAGEOBJECT, ios::binary);
 	m_ImageObjectFilter.SaveToFile(ImageObjectFilterFile);
 	ImageObjectFilterFile.close();	
 	*/
@@ -3599,7 +3627,7 @@ MTopView::InitFilters()
 	//------------------------------------------------------------	
 	if (m_ImageObjectFilter.IsNotInit())
 	{
-		class ifstream	ImageObjectFilterFile2;//(FILE_FILTER_IMAGEOBJECT, ios::binary);
+		std::ifstream	ImageObjectFilterFile2;//(FILE_FILTER_IMAGEOBJECT, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_FILTER_IMAGEOBJECT").c_str(), ImageObjectFilterFile2))
 			return false;
 		m_ImageObjectFilter.LoadFromFile(ImageObjectFilterFile2);
@@ -3610,16 +3638,16 @@ MTopView::InitFilters()
 }
 
 //----------------------------------------------------------------------
-// CharacterÀÇ Á¤º¸¸¦ »ı¼ºÇÑ´Ù.
+// CharacterÃ€Ã‡ ÃÂ¤ÂºÂ¸Â¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
-// m_CreatureFrame[Á¾·ù][Action][Direction][Frame]
+// m_CreatureFrame[ÃÂ¾Â·Ã¹][Action][Direction][Frame]
 //----------------------------------------------------------------------
 bool
 MTopView::InitCreatureFrames()
 {		
 	//------------------------------------------------------------
 	//
-	//  Creature BodyÀÇ Frame Á¤º¸¸¦ »ı¼ºÇÑ´Ù.
+	//  Creature BodyÃ€Ã‡ Frame ÃÂ¤ÂºÂ¸Â¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
 	//
 	//------------------------------------------------------------
 		 
@@ -3627,26 +3655,26 @@ MTopView::InitCreatureFrames()
 	m_CreatureFPK.Init(MAX_CREATURE_BODY);	
 
 	//-----------------------
-	// Ã¹¹øÂ° Creature(Woman)
+	// ÃƒÂ¹Â¹Ã¸Ã‚Â° Creature(Woman)
 	//-----------------------
-	// µ¿ÀÛ °³¼ö Á¤ÀÇ
+	// ÂµÂ¿Ã€Ã› Â°Â³Â¼Ã¶ ÃÂ¤Ã€Ã‡
 	m_CreatureFPK[0].Init(ACTION_MAX);
 
-	// n¹øÂ° Sprite
+	// nÂ¹Ã¸Ã‚Â° Sprite
 	WORD n = 0;
 	int i,j,k;
 
-	// °¢ µ¿ÀÛ¿¡ 8¹æÇâÀÇ FrameArray°¡ ÀÖ´Ù.
+	// Â°Â¢ ÂµÂ¿Ã€Ã›Â¿Â¡ 8Â¹Ã¦Ã‡Ã¢Ã€Ã‡ FrameArrayÂ°Â¡ Ã€Ã–Â´Ã™.
 	for (k=0; k<ACTION_MAX; k++)
 		m_CreatureFPK[0][k].Init(8);
 
-	// 0~8¹øÂ° ¹æÇâ¿¡´Â °¢°¢ 8°³ÀÇ FrameÀÌ ÀÖ´Ù.
+	// 0~8Â¹Ã¸Ã‚Â° Â¹Ã¦Ã‡Ã¢Â¿Â¡Â´Ã‚ Â°Â¢Â°Â¢ 8Â°Â³Ã€Ã‡ FrameÃ€ÃŒ Ã€Ã–Â´Ã™.
 	for (i=0; i<8; i++)
 	{
 		for (k=0; k<ACTION_MAX; k++)
 			m_CreatureFPK[0][k][i].Init(8);		
 		
-		// 8°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
+		// 8Â°Â³Ã€Ã‡ FrameÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸Â¸Â¦ SetÃ‡Ã‘Â´Ã™.
 		for (j=0; j<8; j++)
 		{
 			for (k=0; k<ACTION_MAX; k++)
@@ -3657,29 +3685,29 @@ MTopView::InitCreatureFrames()
 	}	
 
 	//-----------------------
-	// µÎ¹øÂ° Creature(Skeleton)
+	// ÂµÃÂ¹Ã¸Ã‚Â° Creature(Skeleton)
 	//-----------------------
-	// µ¿ÀÛ °³¼ö Á¤ÀÇ
+	// ÂµÂ¿Ã€Ã› Â°Â³Â¼Ã¶ ÃÂ¤Ã€Ã‡
 	m_CreatureFPK[1].Init(ACTION_MAX);
 
-	// °¢ µ¿ÀÛ¿¡ 8¹æÇâÀÇ FrameArray°¡ ÀÖ´Ù.
+	// Â°Â¢ ÂµÂ¿Ã€Ã›Â¿Â¡ 8Â¹Ã¦Ã‡Ã¢Ã€Ã‡ FrameArrayÂ°Â¡ Ã€Ã–Â´Ã™.
 	for (k=0; k<ACTION_MAX; k++)
 		m_CreatureFPK[1][k].Init(8);	
 
-	// sprite ¼ø¼­
+	// sprite Â¼Ã¸Â¼Â­
 	int step[] = { 2,3,4,3,2,1,0,1 };
 
 
-	// n¹øÂ° Sprite
+	// nÂ¹Ã¸Ã‚Â° Sprite
 	n = 64;
 
-	// 0~8¹øÂ° ¹æÇâ¿¡´Â °¢°¢ 8°³ÀÇ FrameÀÌ ÀÖ´Ù.
+	// 0~8Â¹Ã¸Ã‚Â° Â¹Ã¦Ã‡Ã¢Â¿Â¡Â´Ã‚ Â°Â¢Â°Â¢ 8Â°Â³Ã€Ã‡ FrameÃ€ÃŒ Ã€Ã–Â´Ã™.
 	for (i=0; i<8; i++)
 	{
 		for (k=0; k<ACTION_MAX; k++)
 			m_CreatureFPK[1][k][i].Init(8);		
 		
-		// 8°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
+		// 8Â°Â³Ã€Ã‡ FrameÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸Â¸Â¦ SetÃ‡Ã‘Â´Ã™.
 		for (j=0; j<8; j++)
 		{			
 			for (k=0; k<ACTION_MAX; k++)			
@@ -3691,28 +3719,28 @@ MTopView::InitCreatureFrames()
 
 
 	//-----------------------
-	// ¼¼¹øÂ° Creature(Vamp1)
+	// Â¼Â¼Â¹Ã¸Ã‚Â° Creature(Vamp1)
 	//-----------------------
-	// µ¿ÀÛ °³¼ö Á¤ÀÇ
+	// ÂµÂ¿Ã€Ã› Â°Â³Â¼Ã¶ ÃÂ¤Ã€Ã‡
 	m_CreatureFPK[2].Init(ACTION_MAX_VAMPIRE);
 
-	// n¹øÂ° Sprite
+	// nÂ¹Ã¸Ã‚Â° Sprite
 	n = 104;
 	
-	// °¢ µ¿ÀÛ¿¡ 8¹æÇâÀÇ FrameArray°¡ ÀÖ´Ù.
+	// Â°Â¢ ÂµÂ¿Ã€Ã›Â¿Â¡ 8Â¹Ã¦Ã‡Ã¢Ã€Ã‡ FrameArrayÂ°Â¡ Ã€Ã–Â´Ã™.
 	for (k=0; k<ACTION_MAX_VAMPIRE; k++)
 		m_CreatureFPK[2][k].Init(8);
 
 	//------------------------------------------------
-	// ACTION_STAND - 8¹æÇâ¿¡ ´ëÇØ¼­
+	// ACTION_STAND - 8Â¹Ã¦Ã‡Ã¢Â¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­
 	//------------------------------------------------
 	for (i=0; i<8; i++)
 	{
-		// ¹æÇâ´ç Frame¼ö 
+		// Â¹Ã¦Ã‡Ã¢Â´Ã§ FrameÂ¼Ã¶ 
 		m_CreatureFPK[2][ACTION_STAND][i].Init(16);
 		
 		int index = 0;
-		// 4°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
+		// 4Â°Â³Ã€Ã‡ FrameÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸Â¸Â¦ SetÃ‡Ã‘Â´Ã™.
 		for (j=0; j<4; j++)
 		{			
 			m_CreatureFPK[2][ACTION_STAND][i][index++].Set(n, 15,-60);
@@ -3724,33 +3752,33 @@ MTopView::InitCreatureFrames()
 	}
 
 	//------------------------------------------------
-	// ACTION_MOVE - 8¹æÇâ¿¡ ´ëÇØ¼­
+	// ACTION_MOVE - 8Â¹Ã¦Ã‡Ã¢Â¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­
 	//------------------------------------------------
 	for (i=0; i<8; i++)
 	{
-		// ¹æÇâ´ç Frame¼ö 
+		// Â¹Ã¦Ã‡Ã¢Â´Ã§ FrameÂ¼Ã¶ 
 		m_CreatureFPK[2][ACTION_MOVE][i].Init(8);
 		
-		// 8°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
+		// 8Â°Â³Ã€Ã‡ FrameÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸Â¸Â¦ SetÃ‡Ã‘Â´Ã™.
 		for (j=0; j<7; j++)
 		{
 			// 0~7 frame
 			m_CreatureFPK[2][ACTION_MOVE][i][j].Set(n, 15,-60);
 			n ++;
 		}
-		// 8¹øÂ° frame
+		// 8Â¹Ã¸Ã‚Â° frame
 		m_CreatureFPK[2][ACTION_MOVE][i][7].Set(n-7, 15,-60);
 	}
 
 	//------------------------------------------------
-	// ACTION_ATTACK - 8¹æÇâ¿¡ ´ëÇØ¼­
+	// ACTION_ATTACK - 8Â¹Ã¦Ã‡Ã¢Â¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­
 	//------------------------------------------------
 	for (i=0; i<8; i++)
 	{
-		// ¹æÇâ´ç Frame¼ö 
+		// Â¹Ã¦Ã‡Ã¢Â´Ã§ FrameÂ¼Ã¶ 
 		m_CreatureFPK[2][ACTION_ATTACK][i].Init(8);
 		
-		// 8°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
+		// 8Â°Â³Ã€Ã‡ FrameÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸Â¸Â¦ SetÃ‡Ã‘Â´Ã™.
 		for (j=0; j<8; j++)
 		{
 			m_CreatureFPK[2][ACTION_ATTACK][i][j].Set(n, 15,-60);
@@ -3759,14 +3787,14 @@ MTopView::InitCreatureFrames()
 	}
 
 	//------------------------------------------------
-	// ACTION_MAGIC - 8¹æÇâ¿¡ ´ëÇØ¼­
+	// ACTION_MAGIC - 8Â¹Ã¦Ã‡Ã¢Â¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­
 	//------------------------------------------------
 	for (i=0; i<8; i++)
 	{
-		// ¹æÇâ´ç Frame¼ö 
+		// Â¹Ã¦Ã‡Ã¢Â´Ã§ FrameÂ¼Ã¶ 
 		m_CreatureFPK[2][ACTION_MAGIC][i].Init(8);
 		
-		// 8°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
+		// 8Â°Â³Ã€Ã‡ FrameÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸Â¸Â¦ SetÃ‡Ã‘Â´Ã™.
 		k=0;
 		int kk=6;
 		//int index = 0;
@@ -3783,14 +3811,14 @@ MTopView::InitCreatureFrames()
 	}
 
 	//------------------------------------------------
-	// ACTION_DAMAGED - 8¹æÇâ¿¡ ´ëÇØ¼­
+	// ACTION_DAMAGED - 8Â¹Ã¦Ã‡Ã¢Â¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­
 	//------------------------------------------------
 	for (i=0; i<8; i++)
 	{
-		// ¹æÇâ´ç Frame¼ö 
+		// Â¹Ã¦Ã‡Ã¢Â´Ã§ FrameÂ¼Ã¶ 
 		m_CreatureFPK[2][ACTION_DAMAGED][i].Init(6);
 		
-		// 6°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
+		// 6Â°Â³Ã€Ã‡ FrameÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸Â¸Â¦ SetÃ‡Ã‘Â´Ã™.
 		for (j=0; j<6; j++)
 		{
 			m_CreatureFPK[2][ACTION_DAMAGED][i][j].Set(n, 15,-60);
@@ -3799,14 +3827,14 @@ MTopView::InitCreatureFrames()
 	}
 
 	//------------------------------------------------
-	// ACTION_DRAINED - 8¹æÇâ¿¡ ´ëÇØ¼­
+	// ACTION_DRAINED - 8Â¹Ã¦Ã‡Ã¢Â¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­
 	//------------------------------------------------
 	for (i=0; i<8; i++)
 	{
-		// ¹æÇâ´ç Frame¼ö 
+		// Â¹Ã¦Ã‡Ã¢Â´Ã§ FrameÂ¼Ã¶ 
 		m_CreatureFPK[2][ACTION_DRAINED][i].Init(7);
 		
-		// 7°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
+		// 7Â°Â³Ã€Ã‡ FrameÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸Â¸Â¦ SetÃ‡Ã‘Â´Ã™.
 		for (j=0; j<5; j++)
 		{
 			m_CreatureFPK[2][ACTION_DRAINED][i][j].Set(n, 15,-60);
@@ -3818,14 +3846,14 @@ MTopView::InitCreatureFrames()
 	}
 
 	//------------------------------------------------
-	// ACTION_DIE - 8¹æÇâ¿¡ ´ëÇØ¼­
+	// ACTION_DIE - 8Â¹Ã¦Ã‡Ã¢Â¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­
 	//------------------------------------------------
 	for (i=0; i<8; i++)
 	{
-		// ¹æÇâ´ç Frame¼ö 
+		// Â¹Ã¦Ã‡Ã¢Â´Ã§ FrameÂ¼Ã¶ 
 		m_CreatureFPK[2][ACTION_DIE][i].Init(4);
 		
-		// 4°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
+		// 4Â°Â³Ã€Ã‡ FrameÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸Â¸Â¦ SetÃ‡Ã‘Â´Ã™.
 		for (j=0; j<4; j++)
 		{
 			m_CreatureFPK[2][ACTION_DIE][i][j].Set(n, 15,-60);
@@ -3834,14 +3862,14 @@ MTopView::InitCreatureFrames()
 	}
 
 	//------------------------------------------------
-	// ACTION_VAMPIRE_DRAIN - 8¹æÇâ¿¡ ´ëÇØ¼­
+	// ACTION_VAMPIRE_DRAIN - 8Â¹Ã¦Ã‡Ã¢Â¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­
 	//------------------------------------------------
 	for (i=0; i<8; i++)
 	{
-		// ¹æÇâ´ç Frame¼ö 
+		// Â¹Ã¦Ã‡Ã¢Â´Ã§ FrameÂ¼Ã¶ 
 		m_CreatureFPK[2][ACTION_VAMPIRE_DRAIN][i].Init(7);
 		
-		// 7°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
+		// 7Â°Â³Ã€Ã‡ FrameÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸Â¸Â¦ SetÃ‡Ã‘Â´Ã™.
 		for (j=0; j<5; j++)
 		{
 			m_CreatureFPK[2][ACTION_VAMPIRE_DRAIN][i][j].Set(n, 15,-60);
@@ -3853,8 +3881,8 @@ MTopView::InitCreatureFrames()
 	}
 
 	
-	class ofstream packFile(FILE_CFRAME_CREATURE, ios::binary);
-	class ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, ios::binary);
+	std::ofstream packFile(FILE_CFRAME_CREATURE, ios::binary);
+	std::ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, ios::binary);
 	m_CreatureFPK.SaveToFile(packFile, indexFile);	
 	packFile.close();
 	indexFile.close();	
@@ -3862,7 +3890,7 @@ MTopView::InitCreatureFrames()
 	
 	///*
 	// Load from File
-	class ifstream file;//(FILE_CFRAME_CREATURE, ios::binary);
+	std::ifstream file;//(FILE_CFRAME_CREATURE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_CREATURE").c_str(), file))
 		return false;
 	m_CreatureFPK.LoadFromFile(file);
@@ -3871,7 +3899,7 @@ MTopView::InitCreatureFrames()
 	DrawTitleLoading();
 	//m_CreatureFPK.InfoToFile("log\\CreatureFPK.txt");
 
-	// Frame2 (Á»ºñ)ÀÇ Á×±â µ¿ÀÛÀ» yÁÂÇ¥ ,40¾¿ ÇØÁØ´Ù.
+	// Frame2 (ÃÂ»ÂºÃ±)Ã€Ã‡ ÃÃ—Â±Ã¢ ÂµÂ¿Ã€Ã›Ã€Â» yÃÃ‚Ã‡Â¥ ,40Â¾Â¿ Ã‡Ã˜ÃÃ˜Â´Ã™.
 	/*
 	ACTION_FRAME_ARRAY &zombie = m_CreatureFPK[2];
 
@@ -3887,8 +3915,8 @@ MTopView::InitCreatureFrames()
 		}
 	}
 	
-	class ofstream packFile(FILE_CFRAME_CREATURE, ios::binary);
-	class ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, ios::binary);
+	std::ofstream packFile(FILE_CFRAME_CREATURE, ios::binary);
+	std::ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, ios::binary);
 	m_CreatureFPK.SaveToFile(packFile, indexFile);	
 	packFile.close();
 	indexFile.close();
@@ -3896,7 +3924,7 @@ MTopView::InitCreatureFrames()
 
 
 	/*
-	// Damaged 0,1À» 1,0À¸·Î ¹Ù²Û´Ù.
+	// Damaged 0,1Ã€Â» 1,0Ã€Â¸Â·Ã Â¹Ã™Â²Ã›Â´Ã™.
 	for (int ct=0; ct<m_CreatureFPK.GetSize(); ct++)
 	{
 		DIRECTION_FRAME_ARRAY& damaged = m_CreatureFPK[ct][ACTION_DAMAGED];
@@ -3905,7 +3933,7 @@ MTopView::InitCreatureFrames()
 		{
 			FRAME_ARRAY& dfr = damaged[d];
 
-			// 0°ú 1 framdÀ» ¹Ù²ãÁØ´Ù.
+			// 0Â°Ãº 1 framdÃ€Â» Â¹Ã™Â²Ã£ÃÃ˜Â´Ã™.
 			CFrame frame0 = dfr[0];
 			CFrame frame1 = dfr[1];
 
@@ -3919,7 +3947,7 @@ MTopView::InitCreatureFrames()
 	//m_CreatureFPK.InfoToFile("creature.txt");
 
 	
-	// Á¤Áö 4frameÀ» 6frameÀ¸·Î ¹Ù²ã¼­ ´Ù½Ã 18frameÀ¸·Î..
+	// ÃÂ¤ÃÃ¶ 4frameÃ€Â» 6frameÃ€Â¸Â·Ã Â¹Ã™Â²Ã£Â¼Â­ Â´Ã™Â½Ãƒ 18frameÃ€Â¸Â·Ã..
 	/*
 	DIRECTION_FRAME_ARRAY& stand = m_CreatureFPK[1][ACTION_STAND];
 	DIRECTION_FRAME_ARRAY standTemp;
@@ -3928,7 +3956,7 @@ MTopView::InitCreatureFrames()
 	standTemp2.Init( 8 );
 	for (int d=0; d<8; d++)
 	{		
-		// 4frameÀ»  6frameÀ¸·Î..		
+		// 4frameÃ€Â»  6frameÃ€Â¸Â·Ã..		
 		standTemp2[d].Init( standTemp[d].GetSize(),2 );
 		for (int f=0; f<standTemp[d].GetSize(); f++)
 		{
@@ -3937,7 +3965,7 @@ MTopView::InitCreatureFrames()
 		standTemp2[d][4] = standTemp[d][2];	
 		standTemp2[d][5] = standTemp[d][1];	
 
-		// 6frameÀ» 18frameÀ¸·Î..
+		// 6frameÃ€Â» 18frameÃ€Â¸Â·Ã..
 		stand[d].Init( standTemp2[d].GetSize()*3 );
 		int ff=0;
 		for (f=0; f<standTemp2[d].GetSize(); f++)
@@ -3948,7 +3976,7 @@ MTopView::InitCreatureFrames()
 		}
 	}	
 
-	// °È±â µ¿ÀÛ 6frameÀ» 12frameÀ¸·Î...
+	// Â°ÃˆÂ±Ã¢ ÂµÂ¿Ã€Ã› 6frameÃ€Â» 12frameÃ€Â¸Â·Ã...
 	DIRECTION_FRAME_ARRAY& move = m_CreatureFPK[1][ACTION_MOVE];
 	DIRECTION_FRAME_ARRAY moveTemp;
 	moveTemp = move;
@@ -3965,8 +3993,8 @@ MTopView::InitCreatureFrames()
 		}
 	}
 
-	class ofstream packFile(FILE_CFRAME_CREATURE, ios::binary);
-	class ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, ios::binary);
+	std::ofstream packFile(FILE_CFRAME_CREATURE, ios::binary);
+	std::ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, ios::binary);
 	m_CreatureFPK.SaveToFile(packFile, indexFile);	
 	packFile.close();
 	indexFile.close();	
@@ -3977,7 +4005,7 @@ MTopView::InitCreatureFrames()
 	// Creature Shadow FPK - Loading
 	//
 	//------------------------------------------------------------
-	class ifstream fileShadow;//(FILE_CFRAME_CREATURE, ios::binary);
+	std::ifstream fileShadow;//(FILE_CFRAME_CREATURE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_CREATURE_SHADOW").c_str(), fileShadow))
 		return false;
 	m_CreatureShadowFPK.LoadFromFile(fileShadow);
@@ -3987,7 +4015,7 @@ MTopView::InitCreatureFrames()
 	
 	//------------------------------------------------------------
 	//
-	//  addonÀÇ Frame Á¤º¸¸¦ »ı¼ºÇÑ´Ù.
+	//  addonÃ€Ã‡ Frame ÃÂ¤ÂºÂ¸Â¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
 	//
 	//------------------------------------------------------------
 	//
@@ -3996,25 +4024,25 @@ MTopView::InitCreatureFrames()
 	
 
 	//--------------
-	// Ã¹¹øÂ° ¿Ê
+	// ÃƒÂ¹Â¹Ã¸Ã‚Â° Â¿ÃŠ
 	//--------------
-	// 1°¡Áö µ¿ÀÛ¸¸ ÀÖ´Ù.
+	// 1Â°Â¡ÃÃ¶ ÂµÂ¿Ã€Ã›Â¸Â¸ Ã€Ã–Â´Ã™.
 	m_AddonFPK[0].Init(1);
 	m_AddonFPK[1].Init(1);
 	m_AddonFPK[2].Init(1);
 	m_AddonFPK[3].Init(1);
 
-	// ±× 1°¡Áö µ¿ÀÛ¿¡ 8¹æÇâÀÇ FrameArray°¡ ÀÖ´Ù.
+	// Â±Ã— 1Â°Â¡ÃÃ¶ ÂµÂ¿Ã€Ã›Â¿Â¡ 8Â¹Ã¦Ã‡Ã¢Ã€Ã‡ FrameArrayÂ°Â¡ Ã€Ã–Â´Ã™.
 	m_AddonFPK[0][0].Init(8);
 	m_AddonFPK[1][0].Init(8);
 	m_AddonFPK[2][0].Init(8);
 	m_AddonFPK[3][0].Init(8);
 
-	// n¹øÂ° tile
+	// nÂ¹Ã¸Ã‚Â° tile
 	//n = n + 80;
 	n = 0;
 
-	// 0~8¹øÂ° ¹æÇâ¿¡´Â °¢°¢ 8°³ÀÇ FrameÀÌ ÀÖ´Ù.
+	// 0~8Â¹Ã¸Ã‚Â° Â¹Ã¦Ã‡Ã¢Â¿Â¡Â´Ã‚ Â°Â¢Â°Â¢ 8Â°Â³Ã€Ã‡ FrameÃ€ÃŒ Ã€Ã–Â´Ã™.
 	for (i=0; i<8; i++)
 	{
 		m_AddonFPK[0][0][i].Init(8);
@@ -4022,13 +4050,13 @@ MTopView::InitCreatureFrames()
 		m_AddonFPK[2][0][i].Init(8);
 		m_AddonFPK[3][0][i].Init(8);
 		
-		// 8°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
+		// 8Â°Â³Ã€Ã‡ FrameÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸Â¸Â¦ SetÃ‡Ã‘Â´Ã™.
 		for (int j=0; j<8; j++)
 		{
-			// 83~122 : Shirt ±×¸²ÀÌ ÀÖ´Ù°í ÇßÀ» °æ¿ì
+			// 83~122 : Shirt Â±Ã—Â¸Â²Ã€ÃŒ Ã€Ã–Â´Ã™Â°Ã­ Ã‡ÃŸÃ€Â» Â°Ã¦Â¿Ã¬
 			m_AddonFPK[0][0][i][j].Set(n,step[j], 0,-40);
 
-			// 123~162 Pants ±×¸²ÀÌ ÀÖ´Ù°í ÇßÀ» °æ¿ì
+			// 123~162 Pants Â±Ã—Â¸Â²Ã€ÃŒ Ã€Ã–Â´Ã™Â°Ã­ Ã‡ÃŸÃ€Â» Â°Ã¦Â¿Ã¬
 			m_AddonFPK[1][0][i][j].Set(n,40,step[j], 0,-40);
 
 			// Boots
@@ -4050,19 +4078,19 @@ MTopView::InitCreatureFrames()
 
 	///*
 	
-	class ifstream AdvancementOustersFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream AdvancementOustersFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_OUSTERS").c_str(), AdvancementOustersFile))
 		return false;
 	m_AdvancementOustersFPK.LoadFromFile(AdvancementOustersFile);
 	AdvancementOustersFile.close();	
 
-	class ifstream AdvancementOustersShadowFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream AdvancementOustersShadowFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_OUSTERS_SHADOW").c_str(), AdvancementOustersFile))
 		return false;
 	m_AdvancementOustersShadowFPK.LoadFromFile(AdvancementOustersFile);
 	AdvancementOustersFile.close();	
 
-	class ifstream AdvancementVampireManFile;
+	std::ifstream AdvancementVampireManFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE_MAN").c_str(), 
 		AdvancementVampireManFile))
 		return false;
@@ -4071,54 +4099,54 @@ MTopView::InitCreatureFrames()
 
 	//add by viva
 	//--------------------------------vampire.cfpk
-	class ifstream NewVampireFile;
+	std::ifstream NewVampireFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_NEW_CLASS_VAMPIRE").c_str(), NewVampireFile))	return false;
 	m_NewVampireFPK.LoadFromFile( NewVampireFile );
 	NewVampireFile.close();
 	//--------------------------------vampireShdow.cfpk
-	class ifstream NewVampireShadowFile;
+	std::ifstream NewVampireShadowFile;
 	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_NEW_CLASS_VAMPIRE_SHADOW").c_str(), NewVampireShadowFile))	return false;
 	m_NewVampireShadowFPK.LoadFromFile( NewVampireShadowFile );
 	NewVampireShadowFile.close();
 
 	//--------------------------------SlayerMan.cfpk(AddonMan.cfpk)
-	class ifstream NewSlayerManFile;
+	std::ifstream NewSlayerManFile;
 	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_SLAYER_MAN").c_str(), NewSlayerManFile))	return false;
 	m_NewSlayerManFPK.LoadFromFile( NewSlayerManFile );
 	NewSlayerManFile.close();
 	//--------------------------------SlayerManShadow.cfpk(AddonManShadow.cfpk)
-	class ifstream NewSlayerManShadowFile;
+	std::ifstream NewSlayerManShadowFile;
 	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_SLAYER_MAN_SHADOW").c_str(), NewSlayerManShadowFile))	return false;
 	m_NewSlayerManShadowFPK.LoadFromFile( NewSlayerManShadowFile );
 	NewSlayerManShadowFile.close();
 
 	//---------------------------------SlayerWoman.cfpk(AddonWoman.cfpk)
-	class ifstream NewSlayerWomanFile;
+	std::ifstream NewSlayerWomanFile;
 	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_SLAYER_WOMAN").c_str(), NewSlayerWomanFile))	return false;
 	m_NewSlayerWomanFPK.LoadFromFile( NewSlayerWomanFile );
 	NewSlayerWomanFile.close();
 	//---------------------------------SlayerWoman.cfpk(AddonManShadow.cfpk)
-	class ifstream NewSlayerWomanShadowFile;
+	std::ifstream NewSlayerWomanShadowFile;
 	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_SLAYER_WOMAN_SHADOW").c_str(), NewSlayerWomanShadowFile))	return false;
 	m_NewSlayerWomanShadowFPK.LoadFromFile( NewSlayerWomanShadowFile );
 	NewSlayerWomanShadowFile.close();
 	////end
 
-	class ifstream AdvancementVampireManShadowFile;
+	std::ifstream AdvancementVampireManShadowFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE_MAN_SHADOW").c_str(), 
 		AdvancementVampireManShadowFile))
 		return false;
 	m_AdvancementVampireManShadowFPK.LoadFromFile( AdvancementVampireManShadowFile );
 	AdvancementVampireManShadowFile.close();
 
-	class ifstream AdvancementVampireWomanFile;
+	std::ifstream AdvancementVampireWomanFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE_WOMAN").c_str(), 
 		AdvancementVampireWomanFile))
 		return false;
 	m_AdvancementVampireWomanFPK.LoadFromFile( AdvancementVampireWomanFile );
 	AdvancementVampireWomanFile.close();
 
-	class ifstream AdvancementVampireWomanShadowFile;
+	std::ifstream AdvancementVampireWomanShadowFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE_WOMAN_SHADOW").c_str(), 
 		AdvancementVampireWomanShadowFile))
 		return false;
@@ -4126,14 +4154,14 @@ MTopView::InitCreatureFrames()
 	AdvancementVampireWomanShadowFile.close();
 
 
-	class ifstream AdvancementSlayerManFile;
+	std::ifstream AdvancementSlayerManFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER_MAN").c_str(), 
 		AdvancementSlayerManFile))
 		return false;
 	m_AdvancementSlayerManFPK.LoadFromFile( AdvancementSlayerManFile );
 	AdvancementSlayerManFile.close();
 
-	class ifstream AdvancementSlayerManShadowFile;
+	std::ifstream AdvancementSlayerManShadowFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER_MAN_SHADOW").c_str(), 
 		AdvancementSlayerManShadowFile))
 		return false;
@@ -4141,14 +4169,14 @@ MTopView::InitCreatureFrames()
 	AdvancementSlayerManShadowFile.close();
 
 
-	class ifstream AdvancementSlayerWomanFile;
+	std::ifstream AdvancementSlayerWomanFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER_WOMAN").c_str(), 
 		AdvancementSlayerWomanFile))
 		return false;
 	m_AdvancementSlayerWomanFPK.LoadFromFile( AdvancementSlayerWomanFile );
 	AdvancementSlayerWomanFile.close();
 
-	class ifstream AdvancementSlayerWomanShadowFile;
+	std::ifstream AdvancementSlayerWomanShadowFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER_WOMAN_SHADOW").c_str(), 
 		AdvancementSlayerWomanShadowFile))
 		return false;
@@ -4159,25 +4187,25 @@ MTopView::InitCreatureFrames()
 	//------------------------------------------------
 	// Load from File
 	//------------------------------------------------
-	class ifstream AdvancementSlayerFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream AdvancementSlayerFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER").c_str(), AdvancementSlayerFile))
 		return false;
 	m_AdvancementSlayerFPK.LoadFromFile(AdvancementSlayerFile);
 	AdvancementSlayerFile.close();
 
-	class ifstream AdvancementVampireFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream AdvancementVampireFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE").c_str(), AdvancementVampireFile))
 		return false;
 	m_AdvancementVampireFPK.LoadFromFile(AdvancementVampireFile);
 	AdvancementVampireFile.close();
 	
-	class ifstream AdvancementSlayerShadowFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream AdvancementSlayerShadowFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER_SHADOW").c_str(), AdvancementSlayerFile))
 		return false;
 	m_AdvancementSlayerShadowFPK.LoadFromFile(AdvancementSlayerFile);
 	AdvancementSlayerFile.close();
 
-	class ifstream AdvancementVampireShadowFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream AdvancementVampireShadowFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE_SHADOW").c_str(), AdvancementVampireFile))
 		return false;
 	m_AdvancementVampireShadowFPK.LoadFromFile(AdvancementVampireFile);
@@ -4187,12 +4215,12 @@ MTopView::InitCreatureFrames()
 	//------------------------------------------------
 	// Load from File
 	//------------------------------------------------
-	class ifstream AddonFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream AddonFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADDON").c_str(), AddonFile2))
 		return false;
 	m_AddonFPK.LoadFromFile(AddonFile2);
 	AddonFile2.close();
-	class ifstream OustersFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream OustersFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_OUSTERS").c_str(), OustersFile2))
 		return false;
 	m_OustersFPK.LoadFromFile(OustersFile2);
@@ -4200,15 +4228,15 @@ MTopView::InitCreatureFrames()
 	DrawTitleLoading();
 
 	//------------------------------------------------
-	// ±×¸²ÀÚ - Load from File
+	// Â±Ã—Â¸Â²Ã€Ãš - Load from File
 	//------------------------------------------------
-	class ifstream AddonShadowFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream AddonShadowFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADDON_SHADOW").c_str(), AddonShadowFile2))
 		return false;
 	m_AddonShadowFPK.LoadFromFile(AddonShadowFile2);
 	AddonShadowFile2.close();
 	
-	class ifstream OustersShadowFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream OustersShadowFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_OUSTERS_SHADOW").c_str(), OustersShadowFile2))
 		return false;
 	m_OustersShadowFPK.LoadFromFile(OustersShadowFile2);
@@ -4217,8 +4245,8 @@ MTopView::InitCreatureFrames()
 
 	DrawTitleLoading();
 
-	// ÃÑµ¿ÀÛ¿¡ ¸Ó¸®Ä«¶ô ºüÁø°Í Ãß°¡
-	// ÀÌ·¡µµ ¹º°¡ ¾ÈµÇ³×!!
+	// ÃƒÃ‘ÂµÂ¿Ã€Ã›Â¿Â¡ Â¸Ã“Â¸Â®Ã„Â«Â¶Ã´ ÂºÃ¼ÃÃ¸Â°Ã ÃƒÃŸÂ°Â¡
+	// Ã€ÃŒÂ·Â¡ÂµÂµ Â¹ÂºÂ°Â¡ Â¾ÃˆÂµÃ‡Â³Ã—!!
 	/*
 	int add;
 	for (add=0; add<MAX_ADDONID_MALE; add++)
@@ -4246,14 +4274,14 @@ MTopView::InitCreatureFrames()
 	}
 	*/
 
-	// º¯°æ..
+	// ÂºÂ¯Â°Ã¦..
 	/*
 	int add, a, d, f;
 	for (add=0; add<MAX_ADDONID_MALE; add++)
 	{
 		ACTION_FRAME_ARRAY& AFA = m_AddonMaleFPK[add];
 
-		// motorcycle¿¡´Â actionÃß°¡
+		// motorcycleÂ¿Â¡Â´Ã‚ actionÃƒÃŸÂ°Â¡
 		if (add==ADDONID_MOTORCYCLE_MALE)
 		{			
 			for (a=0; a<ACTION_MAX_SLAYER; a++)
@@ -4311,14 +4339,14 @@ MTopView::InitCreatureFrames()
 				{
 					FRAME_ARRAY& FA = DFA[d];
 					
-					// motorµ¿ÀÛÀ» 3 --> 4 frameÀ¸·Î ¹Ù²Û´Ù.
+					// motorÂµÂ¿Ã€Ã›Ã€Â» 3 --> 4 frameÃ€Â¸Â·Ã Â¹Ã™Â²Ã›Â´Ã™.
 					if (a==ACTION_SLAYER_MOTOR_MOVE)
 					{
 						if (FA.GetSize()!=0)
 						{
 							FRAME_ARRAY newFA;
 							newFA.Init( 4 );
-							// 3°³Â¥¸® FA¸¦ 4°³·Î ¸¸µé¾î¾ß ÇÑ´Ù.
+							// 3Â°Â³Ã‚Â¥Â¸Â® FAÂ¸Â¦ 4Â°Â³Â·Ã Â¸Â¸ÂµÃ©Â¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 							for (f=0; f<FA.GetSize(); f++)
 							{
 								CFrame& frame = FA[f];
@@ -4344,7 +4372,7 @@ MTopView::InitCreatureFrames()
 	//m_AddonFemaleShadowFPK.InfoToFile("log\\addonFemaleShadow.txt");
 
 	/*
-	// [³²ÀÚ] Ä®µ¿ÀÛÀº 6 frameÀ¸·Î ¹Ù²Ù±â...
+	// [Â³Â²Ã€Ãš] Ã„Â®ÂµÂ¿Ã€Ã›Ã€Âº 6 frameÃ€Â¸Â·Ã Â¹Ã™Â²Ã™Â±Ã¢...
 	for (int add=0; add<m_AddonMaleFPK.GetSize(); add++)
 	{	
 		ACTION_FRAME_ARRAY &addon = m_AddonMaleFPK[add];
@@ -4392,7 +4420,7 @@ MTopView::InitCreatureFrames()
 		}
 	}
 	
-	// [¿©ÀÚ] Ä®µ¿ÀÛÀº 6 frameÀ¸·Î ¹Ù²Ù±â...
+	// [Â¿Â©Ã€Ãš] Ã„Â®ÂµÂ¿Ã€Ã›Ã€Âº 6 frameÃ€Â¸Â·Ã Â¹Ã™Â²Ã™Â±Ã¢...
 	for (add=0; add<m_AddonFemaleFPK.GetSize(); add++)
 	{	
 		ACTION_FRAME_ARRAY &addon = m_AddonFemaleFPK[add];
@@ -4440,14 +4468,14 @@ MTopView::InitCreatureFrames()
 		}
 	}
 
-	class ofstream packFileMale(FILE_CFRAME_ADDON_MALE, ios::binary);
-	class ofstream indexFileMale(FILE_CFRAMEINDEX_ADDON_MALE, ios::binary);
+	std::ofstream packFileMale(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ofstream indexFileMale(FILE_CFRAMEINDEX_ADDON_MALE, ios::binary);
 	m_AddonMaleFPK.SaveToFile(packFileMale, indexFileMale);	
 	packFileMale.close();
 	indexFileMale.close();
 
-	class ofstream packFileFemale(FILE_CFRAME_ADDON_FEMALE, ios::binary);
-	class ofstream indexFileFemale(FILE_CFRAMEINDEX_ADDON_FEMALE, ios::binary);
+	std::ofstream packFileFemale(FILE_CFRAME_ADDON_FEMALE, ios::binary);
+	std::ofstream indexFileFemale(FILE_CFRAMEINDEX_ADDON_FEMALE, ios::binary);
 	m_AddonFemaleFPK.SaveToFile(packFileFemale, indexFileFemale);	
 	packFileFemale.close();
 	indexFileFemale.close();
@@ -4455,7 +4483,7 @@ MTopView::InitCreatureFrames()
 	*/
 
 	
-	// ¿©ÀÚ ÃÑ µ¿ÀÛ ¹Ù²Ù±â
+	// Â¿Â©Ã€Ãš ÃƒÃ‘ ÂµÂ¿Ã€Ã› Â¹Ã™Â²Ã™Â±Ã¢
 	/*
 	m_AddonFemaleFPK[ADDONID_GUN_TR_FEMALE][14] = m_AddonFemaleFPK[ADDONID_GUN_TR_FEMALE][7];
 	m_AddonFemaleFPK[ADDONID_GUN_TR_FEMALE][7].Release();
@@ -4482,15 +4510,15 @@ MTopView::InitCreatureFrames()
 //----------------------------------------------------------------------
 // Init Image Frames
 //----------------------------------------------------------------------
-// CImageFramePack			m_ItemTileFPK;			// Tile¿¡ ÀÖ´Â Item¿¡ ´ëÇÑ..
-// m_ImageFrame[Á¾·ù]
+// CImageFramePack			m_ItemTileFPK;			// TileÂ¿Â¡ Ã€Ã–Â´Ã‚ ItemÂ¿Â¡ Â´Ã«Ã‡Ã‘..
+// m_ImageFrame[ÃÂ¾Â·Ã¹]
 //----------------------------------------------------------------------
 bool
 MTopView::InitImageFrames()
 {
 	//------------------------------------------------------------
 	//
-	//  Item on Tile Á¤º¸¸¦ »ı¼ºÇÑ´Ù.
+	//  Item on Tile ÃÂ¤ÂºÂ¸Â¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
 	//
 	//------------------------------------------------------------
 	/*
@@ -4500,8 +4528,8 @@ MTopView::InitImageFrames()
 	for (int i=0; i<28; i++)
 		m_ItemTileFPK[i].Set(i, 10, 10);
 
-	class ofstream packFile(FILE_IFRAME_ITEMTILE, ios::binary);
-	class ofstream indexFile(FILE_IFRAMEINDEX_ITEMTILE, ios::binary);
+	std::ofstream packFile(FILE_IFRAME_ITEMTILE, ios::binary);
+	std::ofstream indexFile(FILE_IFRAMEINDEX_ITEMTILE, ios::binary);
 
 	m_ItemTileFPK.SaveToFile(packFile, indexFile);
 
@@ -4511,7 +4539,7 @@ MTopView::InitImageFrames()
 
 	///*
 	// Load from File
-	class ifstream file2;//(FILE_IFRAME_ITEMTILE, ios::binary);
+	std::ifstream file2;//(FILE_IFRAME_ITEMTILE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_IFRAME_ITEMTILE").c_str(), file2))
 		return false;
 	m_ItemTileFPK.LoadFromFile(file2);
@@ -4526,32 +4554,32 @@ MTopView::InitImageFrames()
 //----------------------------------------------------------------------
 // Init Animation Frames
 //----------------------------------------------------------------------
-// m_ImageObjectFPK[Á¾·ù][Frame]
+// m_ImageObjectFPK[ÃÂ¾Â·Ã¹][Frame]
 //----------------------------------------------------------------------
 bool
 MTopView::InitAnimationFrames()
 {		
 	//------------------------------------------------------------
 	//
-	//  Animation Frame Á¤º¸¸¦ »ı¼ºÇÑ´Ù.
+	//  Animation Frame ÃÂ¤ÂºÂ¸Â¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
 	//
 	//------------------------------------------------------------
 
 	//------------------------------------------------------------
 	//
-	//  ÀÌ Á¤º¸´Â FrameSetÀÌ´Ù.
+	//  Ã€ÃŒ ÃÂ¤ÂºÂ¸Â´Ã‚ FrameSetÃ€ÃŒÂ´Ã™.
 	//
-	//  SpriteSet¿¡¼­ÀÇ SpriteID¸¦ ÀúÀåÇÏ°í ÀÖ¾î¾ß ÇÑ´Ù.
+	//  SpriteSetÂ¿Â¡Â¼Â­Ã€Ã‡ SpriteIDÂ¸Â¦ Ã€ÃºÃ€Ã¥Ã‡ÃÂ°Ã­ Ã€Ã–Â¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 	//
 	//------------------------------------------------------------
 	
-	class ifstream file2;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
+	std::ifstream file2;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_AFRAME_ANIMATIONOBJECT").c_str(), file2))
 		return false;
 	m_ImageObjectFPK.LoadFromFile(file2);
 	file2.close();
 
-	class ifstream file3;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
+	std::ifstream file3;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_AFRAME_ANIMATIONOBJECT_SHADOW").c_str(), file3))
 		return false;
 	m_ImageObjectShadowFPK.LoadFromFile(file3);
@@ -4561,7 +4589,7 @@ MTopView::InitAnimationFrames()
 //	m_InteractionObjectFPK.Init( 1 );
 //	
 //	//------------------------------------------
-//	// Ã¹¹øÂ° Animation Object
+//	// ÃƒÂ¹Â¹Ã¸Ã‚Â° Animation Object
 //	//------------------------------------------
 //	m_InteractionObjectFPK[0].Init(10);	
 //	m_InteractionObjectFPK[0][0].Set(0, 0, -48);
@@ -4576,8 +4604,8 @@ MTopView::InitAnimationFrames()
 //	m_InteractionObjectFPK[0][9].Set(0, 0, -48);
 //	
 //
-//	class ofstream iopackFile(g_pFileDef->getProperty("FILE_AFRAME_INTERACTIONOBJECT").c_str(), ios::binary);
-//	class ofstream ioindexFile(g_pFileDef->getProperty("FILE_AFRAMEINDEX_INTERACTIONOBJECT").c_str(), ios::binary);
+//	std::ofstream iopackFile(g_pFileDef->getProperty("FILE_AFRAME_INTERACTIONOBJECT").c_str(), ios::binary);
+//	std::ofstream ioindexFile(g_pFileDef->getProperty("FILE_AFRAMEINDEX_INTERACTIONOBJECT").c_str(), ios::binary);
 //	m_InteractionObjectFPK.SaveToFile(iopackFile, ioindexFile);
 //	iopackFile.close();
 //	ioindexFile.close();	
@@ -4585,7 +4613,7 @@ MTopView::InitAnimationFrames()
 
 	///*
 	// Load from File
-//	class ifstream iofile2;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
+//	std::ifstream iofile2;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
 //	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_AFRAME_INTERACTIONOBJECT").c_str(), iofile2))
 //		return false;
 //	m_InteractionObjectFPK.LoadFromFile(iofile2);
@@ -4597,7 +4625,7 @@ MTopView::InitAnimationFrames()
 	// Item Drop
 	//
 	//------------------------------------------------------------	
-	class ifstream itemdropfile2;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
+	std::ifstream itemdropfile2;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_AFRAME_ITEMDROP").c_str(), itemdropfile2))
 		return false;
 	m_ItemDropFPK.LoadFromFile(itemdropfile2);
@@ -4613,37 +4641,37 @@ MTopView::InitAnimationFrames()
 //		}
 //
 //	}
-//	class ofstream itemdropfile3(g_pFileDef->getProperty("FILE_AFRAME_ITEMDROP").c_str(), ios::binary);
-//	class ofstream itemdropfile4(g_pFileDef->getProperty("FILE_AFRAMEINDEX_ITEMDROP").c_str(), ios::binary);
+//	std::ofstream itemdropfile3(g_pFileDef->getProperty("FILE_AFRAME_ITEMDROP").c_str(), ios::binary);
+//	std::ofstream itemdropfile4(g_pFileDef->getProperty("FILE_AFRAMEINDEX_ITEMDROP").c_str(), ios::binary);
 //	m_ItemDropFPK.SaveToFile(itemdropfile3, itemdropfile4);
 //	itemdropfile4.close();
 //	itemdropfile3.close();
 
 	//------------------------------------------------------------	
-	// ´Ù½Ã »ı¼º
+	// Â´Ã™Â½Ãƒ Â»Ã½Â¼Âº
 	//------------------------------------------------------------	
 	/*
 	const int numItems	= 121;
 	const int numFrames	= 6;
 
-	// frame º¯È­ °ª 
-	// sprite´Â item¸¶´Ù 4°³¾¿ÀÎµ¥ 6 frameÀ» ¸¸µé¾î¾ß ÇÑ´Ù.
+	// frame ÂºÂ¯ÃˆÂ­ Â°Âª 
+	// spriteÂ´Ã‚ itemÂ¸Â¶Â´Ã™ 4Â°Â³Â¾Â¿Ã€ÃÂµÂ¥ 6 frameÃ€Â» Â¸Â¸ÂµÃ©Â¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 	int nFrame[numFrames] = { 3, 0, 1, 2, 3, 0 };
 
-	m_ItemDropFPK.Init( numItems );	// ÀüÃ¼ item °³¼ö¸¸Å­ÀÇ ani frame
+	m_ItemDropFPK.Init( numItems );	// Ã€Ã¼ÃƒÂ¼ item Â°Â³Â¼Ã¶Â¸Â¸Ã…Â­Ã€Ã‡ ani frame
 
 	int spriteID = 0;
 	for (int i=0; i<numItems; i++)
 	{
-		m_ItemDropFPK[i].Init( numFrames );		// °¢°¢ 6 frame¾¿
+		m_ItemDropFPK[i].Init( numFrames );		// Â°Â¢Â°Â¢ 6 frameÂ¾Â¿
 
 		for (int f=0; f<numFrames; f++)
 		{
 			int sid = spriteID+nFrame[f];
 
-			// Áß½É¿¡ ¿Àµµ·Ï ÁÂÇ¥ º¸Á¤..
-			int cx = g_TILE_X_HALF - (m_ItemDropSPK[sid].GetWidth()>>1);
-			int cy = g_TILE_Y_HALF - (m_ItemDropSPK[sid].GetHeight()>>1);
+			// ÃÃŸÂ½Ã‰Â¿Â¡ Â¿Ã€ÂµÂµÂ·Ã ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤..
+			int cx = 24 - (m_ItemDropSPK[sid].GetWidth()>>1);
+			int cy = 24 - (m_ItemDropSPK[sid].GetHeight()>>1);
 
 			m_ItemDropFPK[i][f].Set( sid, cx, cy );
 		}
@@ -4652,10 +4680,10 @@ MTopView::InitAnimationFrames()
 	}
 
 	//------------------------------------------------------------	
-	// ÀúÀå
+	// Ã€ÃºÃ€Ã¥
 	//------------------------------------------------------------	
-	class ofstream packFile(FILE_AFRAME_ITEMDROP, ios::binary);
-	class ofstream indexFile(FILE_AFRAMEINDEX_ITEMDROP, ios::binary);
+	std::ofstream packFile(FILE_AFRAME_ITEMDROP, ios::binary);
+	std::ofstream indexFile(FILE_AFRAMEINDEX_ITEMDROP, ios::binary);
 	m_ItemDropFPK.SaveToFile(packFile, indexFile);
 	packFile.close();
 	indexFile.close();
@@ -4663,7 +4691,7 @@ MTopView::InitAnimationFrames()
 
 		//------------------------------------------------------------
 	//
-	//  Item Broken Á¤º¸¸¦ »ı¼ºÇÑ´Ù.
+	//  Item Broken ÃÂ¤ÂºÂ¸Â¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
 	//
 	//------------------------------------------------------------
 	///*
@@ -4672,152 +4700,152 @@ MTopView::InitAnimationFrames()
 	const int maxVampireItemBroken = (MVampireGear::MAX_GEAR_VAMPIRE+2-12) * 3;
 	const int maxOustersItemBroken = (MOustersGear::MAX_GEAR_OUSTERS+1-12) * 3;
 
-	m_ItemBrokenFPK.Init( 5 );	// ½½·¹ÀÌ¾î ³²,¿© + ¹ìÆÄÀÌ¾î ³²,¿©
+	m_ItemBrokenFPK.Init( 5 );	// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â³Â²,Â¿Â© + Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â³Â²,Â¿Â©
 
 
 	// { SpriteID, CX, CY }
 	//------------------------------------------------------------
-	// ½½·¹ÀÌ¾î ³²ÀÚ
+	// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â³Â²Ã€Ãš
 	//------------------------------------------------------------
 	int slayerMale[maxSlayerItemBroken][3] =
 	{
-		// Á¤»óÀûÀÎ°Å
-		{ SPRITEID_NULL,	33, 1 },	// ¸ğÀÚ,
-		{ SPRITEID_NULL,	 38, 18 },	// ¸ñ°ÉÀÌ
-		{ SPRITEID_NULL,	16, 19 },	// »óÀÇ
-		{ 1,	62, 19 },	// ¹æÆĞ	
-		{ 2,	19, 11 },	// Ä®		
-		{ SPRITEID_NULL,	9, 49 },	// Àå°©
-		{ SPRITEID_NULL,	27, 54 },	// º§Æ®
-		{ SPRITEID_NULL,	26, 59 },	// ÇÏÀÇ
-		{ 5,	59, 51 },	// ÆÈÂî2		
-		{ 5,	24, 51 },	// ÆÈÂî1
-		{ 6,	20, 60 },	// ¹İÁö1
-		{ 6,	28, 60 },	// ¹İÁö2
-		{ 6,	55, 60 },	// ¹İÁö3
-		{ 6,	63, 60 },	// ¹İÁö4
-		{ SPRITEID_NULL,	20, 122 },	// ½Å¹ß
-		{ 3,	18, 12 },	// ½ÊÀÚ°¡
-		{ 4,	20, 12 },	// ÃÑ
+		// ÃÂ¤Â»Ã³Ã€Ã»Ã€ÃÂ°Ã…
+		{ SPRITEID_NULL,	33, 1 },	// Â¸Ã°Ã€Ãš,
+		{ SPRITEID_NULL,	 38, 18 },	// Â¸Ã±Â°Ã‰Ã€ÃŒ
+		{ SPRITEID_NULL,	16, 19 },	// Â»Ã³Ã€Ã‡
+		{ 1,	62, 19 },	// Â¹Ã¦Ã†Ã	
+		{ 2,	19, 11 },	// Ã„Â®		
+		{ SPRITEID_NULL,	9, 49 },	// Ã€Ã¥Â°Â©
+		{ SPRITEID_NULL,	27, 54 },	// ÂºÂ§Ã†Â®
+		{ SPRITEID_NULL,	26, 59 },	// Ã‡ÃÃ€Ã‡
+		{ 5,	59, 51 },	// Ã†ÃˆÃ‚Ã®2		
+		{ 5,	24, 51 },	// Ã†ÃˆÃ‚Ã®1
+		{ 6,	20, 60 },	// Â¹ÃÃÃ¶1
+		{ 6,	28, 60 },	// Â¹ÃÃÃ¶2
+		{ 6,	55, 60 },	// Â¹ÃÃÃ¶3
+		{ 6,	63, 60 },	// Â¹ÃÃÃ¶4
+		{ SPRITEID_NULL,	20, 122 },	// Â½Ã…Â¹ÃŸ
+		{ 3,	18, 12 },	// Â½ÃŠÃ€ÃšÂ°Â¡
+		{ 4,	20, 12 },	// ÃƒÃ‘
 
-		// ¾à°£ ºÎ¼­Áø°Å
-		{ 9,	40, 10 },	// ¸ğÀÚ,
-		{ 10,	42, 19 },	// ¸ñ°ÉÀÌ
-		{ 7,	33, 18 },	// »óÀÇ
-		{ 14,	62, 19 },	// ¹æÆĞ	
-		{ 15,	19, 11 },	// Ä®		
-		{ 11,	30, 35 },	// Àå°©
-		{ 12,	37, 36 },	// º§Æ®
-		{ 8,	36, 35 },	// ÇÏÀÇ
-		{ 18,	59, 51 },	// ÆÈÂî2		
-		{ 18,	24, 51 },	// ÆÈÂî1
-		{ 19,	20, 60 },	// ¹İÁö1
-		{ 19,	28, 60 },	// ¹İÁö2
-		{ 19,	55, 60 },	// ¹İÁö3
-		{ 19,	63, 60 },	// ¹İÁö4
-		{ 13,	36, 72 },	// ½Å¹ß
-		{ 16,	18, 12 },	// ½ÊÀÚ°¡
-		{ 17,	20, 12 },	// ÃÑ
+		// Â¾Ã Â°Â£ ÂºÃÂ¼Â­ÃÃ¸Â°Ã…
+		{ 9,	40, 10 },	// Â¸Ã°Ã€Ãš,
+		{ 10,	42, 19 },	// Â¸Ã±Â°Ã‰Ã€ÃŒ
+		{ 7,	33, 18 },	// Â»Ã³Ã€Ã‡
+		{ 14,	62, 19 },	// Â¹Ã¦Ã†Ã	
+		{ 15,	19, 11 },	// Ã„Â®		
+		{ 11,	30, 35 },	// Ã€Ã¥Â°Â©
+		{ 12,	37, 36 },	// ÂºÂ§Ã†Â®
+		{ 8,	36, 35 },	// Ã‡ÃÃ€Ã‡
+		{ 18,	59, 51 },	// Ã†ÃˆÃ‚Ã®2		
+		{ 18,	24, 51 },	// Ã†ÃˆÃ‚Ã®1
+		{ 19,	20, 60 },	// Â¹ÃÃÃ¶1
+		{ 19,	28, 60 },	// Â¹ÃÃÃ¶2
+		{ 19,	55, 60 },	// Â¹ÃÃÃ¶3
+		{ 19,	63, 60 },	// Â¹ÃÃÃ¶4
+		{ 13,	36, 72 },	// Â½Ã…Â¹ÃŸ
+		{ 16,	18, 12 },	// Â½ÃŠÃ€ÃšÂ°Â¡
+		{ 17,	20, 12 },	// ÃƒÃ‘
 
-		// ´Ù ºÎ¼­Á® °¡´Â°Å
-		{ 22,	40, 10 },	// ¸ğÀÚ,
-		{ 23,	42, 19 },	// ¸ñ°ÉÀÌ
-		{ 20,	33, 18 },	// »óÀÇ
-		{ 27,	62, 19 },	// ¹æÆĞ	
-		{ 28,	19, 11 },	// Ä®		
-		{ 24,	30, 35 },	// Àå°©
-		{ 25,	37, 36 },	// º§Æ®
-		{ 21,	36, 35 },	// ÇÏÀÇ
-		{ 31,	59, 51 },	// ÆÈÂî2		
-		{ 31,	24, 51 },	// ÆÈÂî1
-		{ 32,	20, 60 },	// ¹İÁö1
-		{ 32,	28, 60 },	// ¹İÁö2
-		{ 32,	55, 60 },	// ¹İÁö3
-		{ 32,	63, 60 },	// ¹İÁö4
-		{ 26,	36, 72 },	// ½Å¹ß
-		{ 29,	18, 12 },	// ½ÊÀÚ°¡
-		{ 30,	20, 12 },	// ÃÑ
+		// Â´Ã™ ÂºÃÂ¼Â­ÃÂ® Â°Â¡Â´Ã‚Â°Ã…
+		{ 22,	40, 10 },	// Â¸Ã°Ã€Ãš,
+		{ 23,	42, 19 },	// Â¸Ã±Â°Ã‰Ã€ÃŒ
+		{ 20,	33, 18 },	// Â»Ã³Ã€Ã‡
+		{ 27,	62, 19 },	// Â¹Ã¦Ã†Ã	
+		{ 28,	19, 11 },	// Ã„Â®		
+		{ 24,	30, 35 },	// Ã€Ã¥Â°Â©
+		{ 25,	37, 36 },	// ÂºÂ§Ã†Â®
+		{ 21,	36, 35 },	// Ã‡ÃÃ€Ã‡
+		{ 31,	59, 51 },	// Ã†ÃˆÃ‚Ã®2		
+		{ 31,	24, 51 },	// Ã†ÃˆÃ‚Ã®1
+		{ 32,	20, 60 },	// Â¹ÃÃÃ¶1
+		{ 32,	28, 60 },	// Â¹ÃÃÃ¶2
+		{ 32,	55, 60 },	// Â¹ÃÃÃ¶3
+		{ 32,	63, 60 },	// Â¹ÃÃÃ¶4
+		{ 26,	36, 72 },	// Â½Ã…Â¹ÃŸ
+		{ 29,	18, 12 },	// Â½ÃŠÃ€ÃšÂ°Â¡
+		{ 30,	20, 12 },	// ÃƒÃ‘
 	};
 
 	//------------------------------------------------------------
-	// ½½·¹ÀÌ¾î ¿©ÀÚ
+	// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â¿Â©Ã€Ãš
 	//------------------------------------------------------------
 	int slayerFemale[maxSlayerItemBroken][3] =
 	{
-		// Á¤»óÀûÀÎ°Å
-		{ SPRITEID_NULL,	33, 1 },	// ¸ğÀÚ,
-		{ SPRITEID_NULL,	 38, 18 },	// ¸ñ°ÉÀÌ
-		{ SPRITEID_NULL,	16, 19 },	// »óÀÇ
-		{ 1,	62, 19 },	// ¹æÆĞ	
-		{ 2,	19, 11 },	// Ä®		
-		{ SPRITEID_NULL,	9, 49 },	// Àå°©
-		{ SPRITEID_NULL,	27, 54 },	// º§Æ®
-		{ SPRITEID_NULL,	26, 59 },	// ÇÏÀÇ
-		{ 5,	59, 51 },	// ÆÈÂî2		
-		{ 5,	24, 51 },	// ÆÈÂî1
-		{ 6,	20, 60 },	// ¹İÁö1
-		{ 6,	28, 60 },	// ¹İÁö2
-		{ 6,	55, 60 },	// ¹İÁö3
-		{ 6,	63, 60 },	// ¹İÁö4
-		{ SPRITEID_NULL,	20, 122 },	// ½Å¹ß
-		{ 3,	18, 12 },	// ½ÊÀÚ°¡
-		{ 4,	20, 12 },	// ÃÑ
+		// ÃÂ¤Â»Ã³Ã€Ã»Ã€ÃÂ°Ã…
+		{ SPRITEID_NULL,	33, 1 },	// Â¸Ã°Ã€Ãš,
+		{ SPRITEID_NULL,	 38, 18 },	// Â¸Ã±Â°Ã‰Ã€ÃŒ
+		{ SPRITEID_NULL,	16, 19 },	// Â»Ã³Ã€Ã‡
+		{ 1,	62, 19 },	// Â¹Ã¦Ã†Ã	
+		{ 2,	19, 11 },	// Ã„Â®		
+		{ SPRITEID_NULL,	9, 49 },	// Ã€Ã¥Â°Â©
+		{ SPRITEID_NULL,	27, 54 },	// ÂºÂ§Ã†Â®
+		{ SPRITEID_NULL,	26, 59 },	// Ã‡ÃÃ€Ã‡
+		{ 5,	59, 51 },	// Ã†ÃˆÃ‚Ã®2		
+		{ 5,	24, 51 },	// Ã†ÃˆÃ‚Ã®1
+		{ 6,	20, 60 },	// Â¹ÃÃÃ¶1
+		{ 6,	28, 60 },	// Â¹ÃÃÃ¶2
+		{ 6,	55, 60 },	// Â¹ÃÃÃ¶3
+		{ 6,	63, 60 },	// Â¹ÃÃÃ¶4
+		{ SPRITEID_NULL,	20, 122 },	// Â½Ã…Â¹ÃŸ
+		{ 3,	18, 12 },	// Â½ÃŠÃ€ÃšÂ°Â¡
+		{ 4,	20, 12 },	// ÃƒÃ‘
 
-		// ¾à°£ ºÎ¼­Áø°Å
-		{ 36,	40, 10 },	// ¸ğÀÚ,
-		{ 37,	41, 20 },	// ¸ñ°ÉÀÌ
-		{ 34,	33, 20 },	// »óÀÇ
-		{ 14,	62, 19 },	// ¹æÆĞ	
-		{ 15,	19, 11 },	// Ä®		
-		{ 38,	30, 37 },	// Àå°©
-		{ 39,	40, 32 },	// º§Æ®
-		{ 35,	38, 35 },	// ÇÏÀÇ
-		{ 18,	59, 51 },	// ÆÈÂî2		
-		{ 18,	24, 51 },	// ÆÈÂî1
-		{ 19,	20, 60 },	// ¹İÁö1
-		{ 19,	28, 60 },	// ¹İÁö2
-		{ 19,	55, 60 },	// ¹İÁö3
-		{ 19,	63, 60 },	// ¹İÁö4
-		{ 40,	39, 55 },	// ½Å¹ß
-		{ 16,	18, 12 },	// ½ÊÀÚ°¡
-		{ 17,	20, 12 },	// ÃÑ
+		// Â¾Ã Â°Â£ ÂºÃÂ¼Â­ÃÃ¸Â°Ã…
+		{ 36,	40, 10 },	// Â¸Ã°Ã€Ãš,
+		{ 37,	41, 20 },	// Â¸Ã±Â°Ã‰Ã€ÃŒ
+		{ 34,	33, 20 },	// Â»Ã³Ã€Ã‡
+		{ 14,	62, 19 },	// Â¹Ã¦Ã†Ã	
+		{ 15,	19, 11 },	// Ã„Â®		
+		{ 38,	30, 37 },	// Ã€Ã¥Â°Â©
+		{ 39,	40, 32 },	// ÂºÂ§Ã†Â®
+		{ 35,	38, 35 },	// Ã‡ÃÃ€Ã‡
+		{ 18,	59, 51 },	// Ã†ÃˆÃ‚Ã®2		
+		{ 18,	24, 51 },	// Ã†ÃˆÃ‚Ã®1
+		{ 19,	20, 60 },	// Â¹ÃÃÃ¶1
+		{ 19,	28, 60 },	// Â¹ÃÃÃ¶2
+		{ 19,	55, 60 },	// Â¹ÃÃÃ¶3
+		{ 19,	63, 60 },	// Â¹ÃÃÃ¶4
+		{ 40,	39, 55 },	// Â½Ã…Â¹ÃŸ
+		{ 16,	18, 12 },	// Â½ÃŠÃ€ÃšÂ°Â¡
+		{ 17,	20, 12 },	// ÃƒÃ‘
 
-		// ´Ù ºÎ¼­Á® °¡´Â°Å
-		{ 43,	40, 10 },	// ¸ğÀÚ,
-		{ 44,	41, 20 },	// ¸ñ°ÉÀÌ
-		{ 41,	33, 20 },	// »óÀÇ
-		{ 14,	62, 19 },	// ¹æÆĞ	
-		{ 15,	19, 11 },	// Ä®		
-		{ 45,	30, 37 },	// Àå°©
-		{ 46,	40, 32 },	// º§Æ®
-		{ 42,	38, 35 },	// ÇÏÀÇ
-		{ 18,	59, 51 },	// ÆÈÂî2		
-		{ 18,	24, 51 },	// ÆÈÂî1
-		{ 19,	20, 60 },	// ¹İÁö1
-		{ 19,	28, 60 },	// ¹İÁö2
-		{ 19,	55, 60 },	// ¹İÁö3
-		{ 19,	63, 60 },	// ¹İÁö4
-		{ 47,	39, 55 },	// ½Å¹ß
-		{ 16,	18, 12 },	// ½ÊÀÚ°¡
-		{ 17,	20, 12 },	// ÃÑ
+		// Â´Ã™ ÂºÃÂ¼Â­ÃÂ® Â°Â¡Â´Ã‚Â°Ã…
+		{ 43,	40, 10 },	// Â¸Ã°Ã€Ãš,
+		{ 44,	41, 20 },	// Â¸Ã±Â°Ã‰Ã€ÃŒ
+		{ 41,	33, 20 },	// Â»Ã³Ã€Ã‡
+		{ 14,	62, 19 },	// Â¹Ã¦Ã†Ã	
+		{ 15,	19, 11 },	// Ã„Â®		
+		{ 45,	30, 37 },	// Ã€Ã¥Â°Â©
+		{ 46,	40, 32 },	// ÂºÂ§Ã†Â®
+		{ 42,	38, 35 },	// Ã‡ÃÃ€Ã‡
+		{ 18,	59, 51 },	// Ã†ÃˆÃ‚Ã®2		
+		{ 18,	24, 51 },	// Ã†ÃˆÃ‚Ã®1
+		{ 19,	20, 60 },	// Â¹ÃÃÃ¶1
+		{ 19,	28, 60 },	// Â¹ÃÃÃ¶2
+		{ 19,	55, 60 },	// Â¹ÃÃÃ¶3
+		{ 19,	63, 60 },	// Â¹ÃÃÃ¶4
+		{ 47,	39, 55 },	// Â½Ã…Â¹ÃŸ
+		{ 16,	18, 12 },	// Â½ÃŠÃ€ÃšÂ°Â¡
+		{ 17,	20, 12 },	// ÃƒÃ‘
 	};
 
 	//------------------------------------------------------------
-	// ¹ìÆÄÀÌ¾î ³²ÀÚ
+	// Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â³Â²Ã€Ãš
 	//------------------------------------------------------------
 	int vampireMale[maxVampireItemBroken][3] =
 	{
-		// Á¤»óÀûÀÎ°Å
-		{ SPRITEID_NULL,	40, 22 },	// ¸ñ°ÉÀÌ
-		{ SPRITEID_NULL,	19, 10 },	// »óÀÇ
-		{ 49,	22, 45 },	// ÆÈÂî1
-		{ 49,	62, 45 },	// ÆÈÂî2
-		{ 50,	18, 54 },	// ¹İÁö1
-		{ 50,	26, 54 },	// ¹İÁö2
-		{ 50,	58, 54 },	// ¹İÁö3
-		{ 50,	66, 54 },	// ¹İÁö4
-		{ 62,	22, 18 },	// ±Í°ÉÀÌ1
-		{ 62,	62, 18 },	// ±Í°ÉÀÌ2
+		// ÃÂ¤Â»Ã³Ã€Ã»Ã€ÃÂ°Ã…
+		{ SPRITEID_NULL,	40, 22 },	// Â¸Ã±Â°Ã‰Ã€ÃŒ
+		{ SPRITEID_NULL,	19, 10 },	// Â»Ã³Ã€Ã‡
+		{ 49,	22, 45 },	// Ã†ÃˆÃ‚Ã®1
+		{ 49,	62, 45 },	// Ã†ÃˆÃ‚Ã®2
+		{ 50,	18, 54 },	// Â¹ÃÃÃ¶1
+		{ 50,	26, 54 },	// Â¹ÃÃÃ¶2
+		{ 50,	58, 54 },	// Â¹ÃÃÃ¶3
+		{ 50,	66, 54 },	// Â¹ÃÃÃ¶4
+		{ 62,	22, 18 },	// Â±ÃÂ°Ã‰Ã€ÃŒ1
+		{ 62,	62, 18 },	// Â±ÃÂ°Ã‰Ã€ÃŒ2
 		{ 65,	16, 22 },	// Weapon1
 		{ 65,	64, 22 },	// Weapon2
 		{ 68,	18, 63 },	// Amulet1
@@ -4825,17 +4853,17 @@ MTopView::InitAnimationFrames()
 		{ 68,	58, 63 },	// Amulet3
 		{ 68,	66, 63 },	// Amulet4
 
-		// ¾à°£ ºÎ¼­Áø°Å
-		{ 52,	43, 18 },	// ¸ñ°ÉÀÌ
-		{ 51,	30, 14 },	// »óÀÇ
-		{ 53,	22, 45 },	// ÆÈÂî1
-		{ 53,	62, 45 },	// ÆÈÂî2
-		{ 54,	18, 54 },	// ¹İÁö1
-		{ 54,	26, 54 },	// ¹İÁö2
-		{ 54,	58, 54 },	// ¹İÁö3
-		{ 54,	66, 54 },	// ¹İÁö4
-		{ 63,	22, 18 },	// ±Í°ÉÀÌ1
-		{ 63,	62, 18 },	// ±Í°ÉÀÌ2
+		// Â¾Ã Â°Â£ ÂºÃÂ¼Â­ÃÃ¸Â°Ã…
+		{ 52,	43, 18 },	// Â¸Ã±Â°Ã‰Ã€ÃŒ
+		{ 51,	30, 14 },	// Â»Ã³Ã€Ã‡
+		{ 53,	22, 45 },	// Ã†ÃˆÃ‚Ã®1
+		{ 53,	62, 45 },	// Ã†ÃˆÃ‚Ã®2
+		{ 54,	18, 54 },	// Â¹ÃÃÃ¶1
+		{ 54,	26, 54 },	// Â¹ÃÃÃ¶2
+		{ 54,	58, 54 },	// Â¹ÃÃÃ¶3
+		{ 54,	66, 54 },	// Â¹ÃÃÃ¶4
+		{ 63,	22, 18 },	// Â±ÃÂ°Ã‰Ã€ÃŒ1
+		{ 63,	62, 18 },	// Â±ÃÂ°Ã‰Ã€ÃŒ2
 		{ 66,	16, 22 },	// Weapon1
 		{ 66,	64, 22 },	// Weapon2
 		{ 69,	18, 63 },	// Amulet1
@@ -4843,17 +4871,17 @@ MTopView::InitAnimationFrames()
 		{ 69,	58, 63 },	// Amulet3
 		{ 69,	66, 63 },	// Amulet4
 
-		// ´Ù ºÎ¼­Áø°Å
-		{ 56,	43, 18 },	// ¸ñ°ÉÀÌ
-		{ 55,	30, 14 },	// »óÀÇ
-		{ 57,	22, 45 },	// ÆÈÂî1
-		{ 57,	62, 45 },	// ÆÈÂî2
-		{ 58,	18, 54 },	// ¹İÁö1
-		{ 58,	26, 54 },	// ¹İÁö2
-		{ 58,	58, 54 },	// ¹İÁö3
-		{ 58,	66, 54 },	// ¹İÁö4
-		{ 64,	22, 18 },	// ±Í°ÉÀÌ1
-		{ 64,	62, 18 },	// ±Í°ÉÀÌ2
+		// Â´Ã™ ÂºÃÂ¼Â­ÃÃ¸Â°Ã…
+		{ 56,	43, 18 },	// Â¸Ã±Â°Ã‰Ã€ÃŒ
+		{ 55,	30, 14 },	// Â»Ã³Ã€Ã‡
+		{ 57,	22, 45 },	// Ã†ÃˆÃ‚Ã®1
+		{ 57,	62, 45 },	// Ã†ÃˆÃ‚Ã®2
+		{ 58,	18, 54 },	// Â¹ÃÃÃ¶1
+		{ 58,	26, 54 },	// Â¹ÃÃÃ¶2
+		{ 58,	58, 54 },	// Â¹ÃÃÃ¶3
+		{ 58,	66, 54 },	// Â¹ÃÃÃ¶4
+		{ 64,	22, 18 },	// Â±ÃÂ°Ã‰Ã€ÃŒ1
+		{ 64,	62, 18 },	// Â±ÃÂ°Ã‰Ã€ÃŒ2
 		{ 67,	16, 22 },	// Weapon1
 		{ 67,	64, 22 },	// Weapon2
 		{ 70,	18, 63 },	// Amulet1
@@ -4863,21 +4891,21 @@ MTopView::InitAnimationFrames()
 	};
 
 	//------------------------------------------------------------
-	// ¹ìÆÄÀÌ¾î ¿©ÀÚ
+	// Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â¿Â©Ã€Ãš
 	//------------------------------------------------------------
 	int vampireFemale[maxVampireItemBroken][3] =
 	{
-		// Á¤»óÀûÀÎ°Å
-		{ SPRITEID_NULL,	40, 22 },	// ¸ñ°ÉÀÌ
-		{ SPRITEID_NULL,	19, 10 },	// »óÀÇ
-		{ 49,	22, 45 },	// ÆÈÂî1
-		{ 49,	62, 45 },	// ÆÈÂî2
-		{ 50,	18, 54 },	// ¹İÁö1
-		{ 50,	58, 54 },	// ¹İÁö3
-		{ 50,	26, 54 },	// ¹İÁö2		
-		{ 50,	66, 54 },	// ¹İÁö4
-		{ 62,	22, 18 },	// ±Í°ÉÀÌ1
-		{ 62,	62, 18 },	// ±Í°ÉÀÌ2
+		// ÃÂ¤Â»Ã³Ã€Ã»Ã€ÃÂ°Ã…
+		{ SPRITEID_NULL,	40, 22 },	// Â¸Ã±Â°Ã‰Ã€ÃŒ
+		{ SPRITEID_NULL,	19, 10 },	// Â»Ã³Ã€Ã‡
+		{ 49,	22, 45 },	// Ã†ÃˆÃ‚Ã®1
+		{ 49,	62, 45 },	// Ã†ÃˆÃ‚Ã®2
+		{ 50,	18, 54 },	// Â¹ÃÃÃ¶1
+		{ 50,	58, 54 },	// Â¹ÃÃÃ¶3
+		{ 50,	26, 54 },	// Â¹ÃÃÃ¶2		
+		{ 50,	66, 54 },	// Â¹ÃÃÃ¶4
+		{ 62,	22, 18 },	// Â±ÃÂ°Ã‰Ã€ÃŒ1
+		{ 62,	62, 18 },	// Â±ÃÂ°Ã‰Ã€ÃŒ2
 		{ 65,	16, 22 },	// Weapon1
 		{ 65,	64, 22 },	// Weapon2
 		{ 68,	18, 63 },	// Amulet1
@@ -4885,17 +4913,17 @@ MTopView::InitAnimationFrames()
 		{ 68,	58, 63 },	// Amulet3
 		{ 68,	66, 63 },	// Amulet4
 
-		// ¾à°£ ºÎ¼­Áø°Å
-		{ 52,	42, 18 },	// ¸ñ°ÉÀÌ
-		{ 60,	31, 19 },	// »óÀÇ
-		{ 53,	22, 45 },	// ÆÈÂî1
-		{ 53,	62, 45 },	// ÆÈÂî2
-		{ 54,	18, 54 },	// ¹İÁö1
-		{ 54,	58, 54 },	// ¹İÁö3
-		{ 54,	26, 54 },	// ¹İÁö2		
-		{ 54,	66, 54 },	// ¹İÁö4
-		{ 63,	22, 18 },	// ±Í°ÉÀÌ1
-		{ 63,	62, 18 },	// ±Í°ÉÀÌ2
+		// Â¾Ã Â°Â£ ÂºÃÂ¼Â­ÃÃ¸Â°Ã…
+		{ 52,	42, 18 },	// Â¸Ã±Â°Ã‰Ã€ÃŒ
+		{ 60,	31, 19 },	// Â»Ã³Ã€Ã‡
+		{ 53,	22, 45 },	// Ã†ÃˆÃ‚Ã®1
+		{ 53,	62, 45 },	// Ã†ÃˆÃ‚Ã®2
+		{ 54,	18, 54 },	// Â¹ÃÃÃ¶1
+		{ 54,	58, 54 },	// Â¹ÃÃÃ¶3
+		{ 54,	26, 54 },	// Â¹ÃÃÃ¶2		
+		{ 54,	66, 54 },	// Â¹ÃÃÃ¶4
+		{ 63,	22, 18 },	// Â±ÃÂ°Ã‰Ã€ÃŒ1
+		{ 63,	62, 18 },	// Â±ÃÂ°Ã‰Ã€ÃŒ2
 		{ 66,	16, 22 },	// Weapon1
 		{ 66,	64, 22 },	// Weapon2
 		{ 69,	18, 63 },	// Amulet1
@@ -4903,17 +4931,17 @@ MTopView::InitAnimationFrames()
 		{ 69,	58, 63 },	// Amulet3
 		{ 69,	66, 63 },	// Amulet4
 
-		// ´Ù ºÎ¼­Áø°Å
-		{ 56,	42, 18 },	// ¸ñ°ÉÀÌ
-		{ 61,	31, 19 },	// »óÀÇ
-		{ 57,	22, 45 },	// ÆÈÂî1
-		{ 57,	62, 45 },	// ÆÈÂî2
-		{ 58,	18, 54 },	// ¹İÁö1
-		{ 58,	58, 54 },	// ¹İÁö3
-		{ 58,	26, 54 },	// ¹İÁö2		
-		{ 58,	66, 54 },	// ¹İÁö4
-		{ 64,	22, 18 },	// ±Í°ÉÀÌ1
-		{ 64,	62, 18 },	// ±Í°ÉÀÌ2
+		// Â´Ã™ ÂºÃÂ¼Â­ÃÃ¸Â°Ã…
+		{ 56,	42, 18 },	// Â¸Ã±Â°Ã‰Ã€ÃŒ
+		{ 61,	31, 19 },	// Â»Ã³Ã€Ã‡
+		{ 57,	22, 45 },	// Ã†ÃˆÃ‚Ã®1
+		{ 57,	62, 45 },	// Ã†ÃˆÃ‚Ã®2
+		{ 58,	18, 54 },	// Â¹ÃÃÃ¶1
+		{ 58,	58, 54 },	// Â¹ÃÃÃ¶3
+		{ 58,	26, 54 },	// Â¹ÃÃÃ¶2		
+		{ 58,	66, 54 },	// Â¹ÃÃÃ¶4
+		{ 64,	22, 18 },	// Â±ÃÂ°Ã‰Ã€ÃŒ1
+		{ 64,	62, 18 },	// Â±ÃÂ°Ã‰Ã€ÃŒ2
 		{ 67,	16, 22 },	// Weapon1
 		{ 67,	64, 22 },	// Weapon2
 		{ 70,	18, 63 },	// Amulet1
@@ -4923,68 +4951,68 @@ MTopView::InitAnimationFrames()
 	};		
 
 	//------------------------------------------------------------
-	// ¾Æ¿ì½ºÅÍÁî
+	// Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÃÃ®
 	//------------------------------------------------------------
 	int Ousters[maxOustersItemBroken][3] =
 	{
-		// Á¤»óÀûÀÎ°Å
-		{ 77,	39, 8 },				// ¼­Å¬¸´
-		{ SPRITEID_NULL ,	34, 18 },				// ¿Ê
-		{ 89,	17, 33 },				// ¿Ş¼Õ				// ¸®½ºÆ²¸´Àº 92
-		{ 89,	61, 33 },				// ¿À¸¥¼Õ
-		{ SPRITEID_NULL,	40, 69 },				// ½Å¹ß
-		{ 74,	19, 18},				// ¾Ï½º¹êµå1
-		{ 74,	57, 18},				// ¾Ï½º¹êµå2
-		{ 83,	19, 63 },				// ¸µ1
-		{ 83,	65, 63 },				// ¸µ2
-		{ 86,	35, 22 },				// ¸ñ°ÉÀÌ1
-		{ 86,	42, 22 },				// ¸ñ°ÉÀÌ2
-		{ 86,	49, 22 },				// ¸ñ°ÉÀÌ3
-		{ 80,	26, 63 },				// Á¤·É¼®1		
-		{ 80,	58, 63 },				// Á¤·É¼®2
-		{ 80,	26, 71 },				// Á¤·É¼®3
-		{ 80,	58, 71 },				// Á¤·É¼® 4 
-		{ 92,	61, 33 },				// ¸®½ºÆ²¸´ 
+		// ÃÂ¤Â»Ã³Ã€Ã»Ã€ÃÂ°Ã…
+		{ 77,	39, 8 },				// Â¼Â­Ã…Â¬Â¸Â´
+		{ SPRITEID_NULL ,	34, 18 },				// Â¿ÃŠ
+		{ 89,	17, 33 },				// Â¿ÃÂ¼Ã•				// Â¸Â®Â½ÂºÃ†Â²Â¸Â´Ã€Âº 92
+		{ 89,	61, 33 },				// Â¿Ã€Â¸Â¥Â¼Ã•
+		{ SPRITEID_NULL,	40, 69 },				// Â½Ã…Â¹ÃŸ
+		{ 74,	19, 18},				// Â¾ÃÂ½ÂºÂ¹ÃªÂµÃ¥1
+		{ 74,	57, 18},				// Â¾ÃÂ½ÂºÂ¹ÃªÂµÃ¥2
+		{ 83,	19, 63 },				// Â¸Âµ1
+		{ 83,	65, 63 },				// Â¸Âµ2
+		{ 86,	35, 22 },				// Â¸Ã±Â°Ã‰Ã€ÃŒ1
+		{ 86,	42, 22 },				// Â¸Ã±Â°Ã‰Ã€ÃŒ2
+		{ 86,	49, 22 },				// Â¸Ã±Â°Ã‰Ã€ÃŒ3
+		{ 80,	26, 63 },				// ÃÂ¤Â·Ã‰Â¼Â®1		
+		{ 80,	58, 63 },				// ÃÂ¤Â·Ã‰Â¼Â®2
+		{ 80,	26, 71 },				// ÃÂ¤Â·Ã‰Â¼Â®3
+		{ 80,	58, 71 },				// ÃÂ¤Â·Ã‰Â¼Â® 4 
+		{ 92,	61, 33 },				// Â¸Â®Â½ÂºÃ†Â²Â¸Â´ 
 
-		// Áß°£
-		{ 78,	40, 22 },				// ¼­Å¬¸´
-		{ 72,	19, 10 },	// ¿Ê
-		{ 90,	22, 45 },				// ¿Ş¼Õ				// ¸®½ºÆ²¸´Àº 92
-		{ 90,	62, 45 },				// ¿À¸¥¼Õ
-		{ 95,	18, 54 },				// ½Å¹ß
-		{ 75,	26, 54 },				// ¾Ï½º¹êµå1
-		{ 75,	58, 54 },				// ¾Ï½º¹êµå2
-		{ 84,	66, 54 },				// ¸µ1
-		{ 84,	22, 18 },				// ¸µ2
-		{ 87,	62, 18 },				// ¸ñ°ÉÀÌ1
-		{ 87,	16, 22 },				// ¸ñ°ÉÀÌ2
-		{ 87,	16, 22 },				// ¸ñ°ÉÀÌ3
+		// ÃÃŸÂ°Â£
+		{ 78,	40, 22 },				// Â¼Â­Ã…Â¬Â¸Â´
+		{ 72,	19, 10 },	// Â¿ÃŠ
+		{ 90,	22, 45 },				// Â¿ÃÂ¼Ã•				// Â¸Â®Â½ÂºÃ†Â²Â¸Â´Ã€Âº 92
+		{ 90,	62, 45 },				// Â¿Ã€Â¸Â¥Â¼Ã•
+		{ 95,	18, 54 },				// Â½Ã…Â¹ÃŸ
+		{ 75,	26, 54 },				// Â¾ÃÂ½ÂºÂ¹ÃªÂµÃ¥1
+		{ 75,	58, 54 },				// Â¾ÃÂ½ÂºÂ¹ÃªÂµÃ¥2
+		{ 84,	66, 54 },				// Â¸Âµ1
+		{ 84,	22, 18 },				// Â¸Âµ2
+		{ 87,	62, 18 },				// Â¸Ã±Â°Ã‰Ã€ÃŒ1
+		{ 87,	16, 22 },				// Â¸Ã±Â°Ã‰Ã€ÃŒ2
+		{ 87,	16, 22 },				// Â¸Ã±Â°Ã‰Ã€ÃŒ3
 		
-		{ 81,	26, 63 },				// Á¤·É¼®1		
-		{ 81,	58, 63 },				// Á¤·É¼®2
-		{ 81,	26, 71 },				// Á¤·É¼®3
-		{ 81,	58, 71 },				// Á¤·É¼® 4 
+		{ 81,	26, 63 },				// ÃÂ¤Â·Ã‰Â¼Â®1		
+		{ 81,	58, 63 },				// ÃÂ¤Â·Ã‰Â¼Â®2
+		{ 81,	26, 71 },				// ÃÂ¤Â·Ã‰Â¼Â®3
+		{ 81,	58, 71 },				// ÃÂ¤Â·Ã‰Â¼Â® 4 
 
-		{ 93,	61, 33 },				// ¸®½ºÆ²¸´  
+		{ 93,	61, 33 },				// Â¸Â®Â½ÂºÃ†Â²Â¸Â´  
 
-		// ³ª»Û°Å
-		{ 79,	40, 22 },				// ¼­Å¬¸´
-		{ 73,	19, 10 },	// ¿Ê
-		{ 91,	22, 45 },				// ¿Ş¼Õ				// ¸®½ºÆ²¸´Àº 92
-		{ 91,	62, 45 },				// ¿À¸¥¼Õ
-		{ 96,	18, 54 },				// ½Å¹ß
-		{ 76,	26, 54 },				// ¾Ï½º¹êµå1
-		{ 76,	58, 54 },				// ¾Ï½º¹êµå2
-		{ 85,	66, 54 },				// ¸µ1
-		{ 85,	22, 18 },				// ¸µ2
-		{ 88,	62, 18 },				// ¸ñ°ÉÀÌ1
-		{ 88,	16, 22 },				// ¸ñ°ÉÀÌ2
-		{ 88,	16, 22 },				// ¸ñ°ÉÀÌ3
-		{ 82,	26, 63 },				// Á¤·É¼®1		
-		{ 82,	58, 63 },				// Á¤·É¼®2
-		{ 82,	26, 71 },				// Á¤·É¼®3
-		{ 82,	58, 71 },				// Á¤·É¼® 4 
-		{ 94,	61, 33 },				// ¸®½ºÆ²¸´
+		// Â³ÂªÂ»Ã›Â°Ã…
+		{ 79,	40, 22 },				// Â¼Â­Ã…Â¬Â¸Â´
+		{ 73,	19, 10 },	// Â¿ÃŠ
+		{ 91,	22, 45 },				// Â¿ÃÂ¼Ã•				// Â¸Â®Â½ÂºÃ†Â²Â¸Â´Ã€Âº 92
+		{ 91,	62, 45 },				// Â¿Ã€Â¸Â¥Â¼Ã•
+		{ 96,	18, 54 },				// Â½Ã…Â¹ÃŸ
+		{ 76,	26, 54 },				// Â¾ÃÂ½ÂºÂ¹ÃªÂµÃ¥1
+		{ 76,	58, 54 },				// Â¾ÃÂ½ÂºÂ¹ÃªÂµÃ¥2
+		{ 85,	66, 54 },				// Â¸Âµ1
+		{ 85,	22, 18 },				// Â¸Âµ2
+		{ 88,	62, 18 },				// Â¸Ã±Â°Ã‰Ã€ÃŒ1
+		{ 88,	16, 22 },				// Â¸Ã±Â°Ã‰Ã€ÃŒ2
+		{ 88,	16, 22 },				// Â¸Ã±Â°Ã‰Ã€ÃŒ3
+		{ 82,	26, 63 },				// ÃÂ¤Â·Ã‰Â¼Â®1		
+		{ 82,	58, 63 },				// ÃÂ¤Â·Ã‰Â¼Â®2
+		{ 82,	26, 71 },				// ÃÂ¤Â·Ã‰Â¼Â®3
+		{ 82,	58, 71 },				// ÃÂ¤Â·Ã‰Â¼Â® 4 
+		{ 94,	61, 33 },				// Â¸Â®Â½ÂºÃ†Â²Â¸Â´
 	};		
 	
 
@@ -5021,8 +5049,8 @@ MTopView::InitAnimationFrames()
 		m_ItemBrokenFPK[4][j].Set(Ousters[j][0], Ousters[j%(maxOustersItemBroken/3)][1]-30, Ousters[j%(maxOustersItemBroken/3)][2]-10);
 	}
 	
-	class ofstream packFile(g_pFileDef->getProperty("FILE_AFRAME_ITEMBROKEN").c_str(), ios::binary);
-	class ofstream indexFile(g_pFileDef->getProperty("FILE_AFRAMEINDEX_ITEMBROKEN").c_str(), ios::binary);
+	std::ofstream packFile(g_pFileDef->getProperty("FILE_AFRAME_ITEMBROKEN").c_str(), ios::binary);
+	std::ofstream indexFile(g_pFileDef->getProperty("FILE_AFRAMEINDEX_ITEMBROKEN").c_str(), ios::binary);
 
 	m_ItemBrokenFPK.SaveToFile(packFile, indexFile);
 
@@ -5033,7 +5061,7 @@ MTopView::InitAnimationFrames()
 
 	///*
 	// Load from File
-	class ifstream fileItemBroken2;//(FILE_IFRAME_ITEMTILE, ios::binary);
+	std::ifstream fileItemBroken2;//(FILE_IFRAME_ITEMTILE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_AFRAME_ITEMBROKEN").c_str(), fileItemBroken2))
 		return false;
 	m_ItemBrokenFPK.LoadFromFile(fileItemBroken2);
@@ -5047,7 +5075,7 @@ MTopView::InitAnimationFrames()
 //----------------------------------------------------------------------
 // Init Effect Frames
 //----------------------------------------------------------------------
-// m_EffectAlphaFPK[Á¾·ù][Direction][Frame]
+// m_EffectAlphaFPK[ÃÂ¾Â·Ã¹][Direction][Frame]
 //----------------------------------------------------------------------
 bool
 MTopView::InitEffectFrames()
@@ -5057,8 +5085,8 @@ MTopView::InitEffectFrames()
 	//   Effect NormalSPK
 	//
 	//------------------------------------------------	
-	// 0¹ø : HolyWater ³¯¾Æ°¡´Â effect
-	// 1¹ø : Bomb ³¯¾Æ°¡´Â effect
+	// 0Â¹Ã¸ : HolyWater Â³Â¯Â¾Ã†Â°Â¡Â´Ã‚ effect
+	// 1Â¹Ã¸ : Bomb Â³Â¯Â¾Ã†Â°Â¡Â´Ã‚ effect
 	/*
 	m_EffectNormalFPK.Init( 2 );
 
@@ -5068,7 +5096,7 @@ MTopView::InitEffectFrames()
 
 		for (int d=0; d<8; d++)
 		{
-			m_EffectNormalFPK[e][d].Init( 4 );	// °¢ 4 frame
+			m_EffectNormalFPK[e][d].Init( 4 );	// Â°Â¢ 4 frame
 
 			for (int f=0; f<4; f++)
 			{
@@ -5081,8 +5109,8 @@ MTopView::InitEffectFrames()
 		}	
 	}
 
-	class ofstream packNormalFile(FILE_EFRAME_NORMALEFFECT, ios::binary);
-	class ofstream indexNormalFile(FILE_EFRAMEINDEX_NORMALEFFECT, ios::binary);
+	std::ofstream packNormalFile(FILE_EFRAME_NORMALEFFECT, ios::binary);
+	std::ofstream indexNormalFile(FILE_EFRAMEINDEX_NORMALEFFECT, ios::binary);
 	m_EffectNormalFPK.SaveToFile(packNormalFile, indexNormalFile);
 	packNormalFile.close();
 	indexNormalFile.close();
@@ -5091,9 +5119,9 @@ MTopView::InitEffectFrames()
 	m_EffectNormalFPK.Init(MAX_NORMALEFFECT);
 
 	//-------------------
-	// Ã¹¹øÂ° Effect
+	// ÃƒÂ¹Â¹Ã¸Ã‚Â° Effect
 	//-------------------
-	// 8¹æÇâÀÌ ÀÖ´Ù.
+	// 8Â¹Ã¦Ã‡Ã¢Ã€ÃŒ Ã€Ã–Â´Ã™.
 	m_EffectNormalFPK[0].Init(8);		// Bomb
 
 	for (int d=0; d<8; d++)
@@ -5107,21 +5135,21 @@ MTopView::InitEffectFrames()
 		m_EffectNormalFPK[0][d][4].Set(0, 0, -48);
 	}
 
-	class ofstream packNormalFile(FILE_EFRAME_NORMALEFFECT, ios::binary);
-	class ofstream indexNormalFile(FILE_EFRAMEINDEX_NORMALEFFECT, ios::binary);
+	std::ofstream packNormalFile(FILE_EFRAME_NORMALEFFECT, ios::binary);
+	std::ofstream indexNormalFile(FILE_EFRAMEINDEX_NORMALEFFECT, ios::binary);
 	m_EffectNormalFPK.SaveToFile(packNormalFile, indexNormalFile);
 	packNormalFile.close();
 	indexNormalFile.close();
 	*/
 
 	//--------------------------------------------------
-	// ÇÏ³ªÀÇ FRRÀ» ÀĞ¾î¼­.. 
-	// EFRR·Î º¯È¯½ÃÄÑ¼­..
-	// EFPK¸¦ »ı¼ºÇÑ´Ù.
+	// Ã‡ÃÂ³ÂªÃ€Ã‡ FRRÃ€Â» Ã€ÃÂ¾Ã®Â¼Â­.. 
+	// EFRRÂ·Ã ÂºÂ¯ÃˆÂ¯Â½ÃƒÃ„Ã‘Â¼Â­..
+	// EFPKÂ¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
 	//--------------------------------------------------
 	// [ TEST CODE ]
 	/*
-	class ifstream fileFA;//(FILE_EFRAME_NORMALEFFECT, ios::binary);
+	std::ifstream fileFA;//(FILE_EFRAME_NORMALEFFECT, ios::binary);
 	if (!FileOpenBinary("Data\\bomb.frr", fileFA))
 		return false;
 
@@ -5144,8 +5172,8 @@ MTopView::InitEffectFrames()
 		}
 	}
 
-	class ofstream packNormalFile(FILE_EFRAME_NORMALEFFECT, ios::binary);
-	class ofstream indexNormalFile(FILE_EFRAMEINDEX_NORMALEFFECT, ios::binary);
+	std::ofstream packNormalFile(FILE_EFRAME_NORMALEFFECT, ios::binary);
+	std::ofstream indexNormalFile(FILE_EFRAMEINDEX_NORMALEFFECT, ios::binary);
 	m_EffectNormalFPK.SaveToFile(packNormalFile, indexNormalFile);
 	packNormalFile.close();
 	indexNormalFile.close();
@@ -5153,16 +5181,16 @@ MTopView::InitEffectFrames()
 
 	///*
 	// Load from NormalFile
-	class ifstream NormalFile2;//(FILE_EFRAME_NORMALEFFECT, ios::binary);
+	std::ifstream NormalFile2;//(FILE_EFRAME_NORMALEFFECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_EFRAME_NORMALEFFECT").c_str(), NormalFile2))
 		return false;
 	m_EffectNormalFPK.LoadFromFile(NormalFile2);
 	NormalFile2.close();
 	//*/
 
-	// ¼¼ºÎÁ¤º¸ Ãâ·ÂÇÏ±â
+	// Â¼Â¼ÂºÃÃÂ¤ÂºÂ¸ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ±Ã¢
 	/*
-	class ofstream infoFile("Log\\EffectNormal.txt");	
+	std::ofstream infoFile("Log\\EffectNormal.txt");	
 
 	for (int type=0; type<m_EffectNormalFPK.GetSize(); type++)
 	{
@@ -5189,9 +5217,9 @@ MTopView::InitEffectFrames()
 	m_EffectAlphaFPK.Init(MAX_ALPHAEFFECT);
 
 	//-------------------
-	// Ã¹¹øÂ° Effect
+	// ÃƒÂ¹Â¹Ã¸Ã‚Â° Effect
 	//-------------------
-	// 8¹æÇâÀÌ ÀÖ´Ù.
+	// 8Â¹Ã¦Ã‡Ã¢Ã€ÃŒ Ã€Ã–Â´Ã™.
 	m_EffectAlphaFPK[0].Init(8);		// Fire	
 	m_EffectAlphaFPK[1].Init(8);		// Lightning
 	m_EffectAlphaFPK[2].Init(8);		// Light
@@ -5205,7 +5233,7 @@ MTopView::InitEffectFrames()
 
 	for (d=0; d<8; d++)
 	{
-		// ±× 8¹æÇâ¾¿¿¡  8 Frames
+		// Â±Ã— 8Â¹Ã¦Ã‡Ã¢Â¾Â¿Â¿Â¡  8 Frames
 		m_EffectAlphaFPK[0][d].Init(8);
 		m_EffectAlphaFPK[1][d].Init(8);
 
@@ -5292,8 +5320,8 @@ MTopView::InitEffectFrames()
 		m_EffectAlphaFPK[9][d][9].Set(66, -21, -104, 4);
 	}
 
-	class ofstream packAlphaFile(FILE_EFRAME_ALPHAEFFECT, ios::binary);
-	class ofstream indexAlphaFile(FILE_EFRAMEINDEX_ALPHAEFFECT, ios::binary);
+	std::ofstream packAlphaFile(FILE_EFRAME_ALPHAEFFECT, ios::binary);
+	std::ofstream indexAlphaFile(FILE_EFRAMEINDEX_ALPHAEFFECT, ios::binary);
 	m_EffectAlphaFPK.SaveToFile(packAlphaFile, indexAlphaFile);
 	packAlphaFile.close();
 	indexAlphaFile.close();
@@ -5301,18 +5329,18 @@ MTopView::InitEffectFrames()
 
 	///*
 	// Load from AlphaFile
-	class ifstream AlphaFile2;//(FILE_EFRAME_ALPHAEFFECT, ios::binary);
+	std::ifstream AlphaFile2;//(FILE_EFRAME_ALPHAEFFECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_EFRAME_ALPHAEFFECT").c_str(), AlphaFile2))
 		return false;
-	//class ifstream AlphaFile2("effect.efpk", ios::binary);
+	//std::ifstream AlphaFile2("effect.efpk", ios::binary);
 	m_EffectAlphaFPK.LoadFromFile(AlphaFile2);
 	AlphaFile2.close();
 	//*/
 
 	/*
-	// ¼¼ºÎ Á¤º¸ Ãâ·ÂÇÏ±â
+	// Â¼Â¼ÂºÃ ÃÂ¤ÂºÂ¸ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ±Ã¢
 	//m_EffectAlphaFPK.InfoToFile("Log\\Effect.txt");
-	class ofstream infoFile("Log\\Effect.txt");	
+	std::ofstream infoFile("Log\\Effect.txt");	
 
 	for (int type=0; type<m_EffectAlphaFPK.GetSize(); type++)
 	{
@@ -5331,9 +5359,9 @@ MTopView::InitEffectFrames()
 	*/
 	/*
 	//---------------------------------------------------------------
-	// °¢ effectÀÇ frame¼ö Ãâ·ÂÇÏ±â
+	// Â°Â¢ effectÃ€Ã‡ frameÂ¼Ã¶ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ±Ã¢
 	//---------------------------------------------------------------
-	class ofstream file("log\\EffectList.txt");
+	std::ofstream file("log\\EffectList.txt");
 	for (int e=0; e<m_EffectAlphaFPK.GetSize(); e++)
 	{
 		DIRECTION_EFFECTFRAME_ARRAY& DEA = m_EffectAlphaFPK[e];
@@ -5345,22 +5373,22 @@ MTopView::InitEffectFrames()
 	
 
 	//---------------------------------------------------------------
-	// ºû Á¶ÀıÇÏ±â
+	// ÂºÃ» ÃÂ¶Ã€Ã½Ã‡ÃÂ±Ã¢
 	//---------------------------------------------------------------
 	/*
 	int light;
 	
-	// effect Á¾·ù
+	// effect ÃÂ¾Â·Ã¹
 	for (int e=0; e<m_EffectAlphaFPK.GetSize(); e++)
 	{
 		DIRECTION_EFFECTFRAME_ARRAY& effect = m_EffectAlphaFPK[e];
 
-		// ¹æÇâº°
+		// Â¹Ã¦Ã‡Ã¢ÂºÂ°
 		for (int d=0; d<8; d++)
 		{
 			EFFECTFRAME_ARRAY& EA = effect[d];
 			
-			// frameº°
+			// frameÂºÂ°
 			for (int f=0; f<EA.GetSize(); f++)
 			{
 				CEffectFrame &frame = EA[f];
@@ -5385,8 +5413,8 @@ MTopView::InitEffectFrames()
 		}
 	}
 
-	class ofstream packAlphaFile(FILE_EFRAME_ALPHAEFFECT, ios::binary);
-	class ofstream indexAlphaFile(FILE_EFRAMEINDEX_ALPHAEFFECT, ios::binary);
+	std::ofstream packAlphaFile(FILE_EFRAME_ALPHAEFFECT, ios::binary);
+	std::ofstream indexAlphaFile(FILE_EFRAMEINDEX_ALPHAEFFECT, ios::binary);
 	m_EffectAlphaFPK.SaveToFile(packAlphaFile, indexAlphaFile);
 	packAlphaFile.close();
 	indexAlphaFile.close();
@@ -5394,7 +5422,7 @@ MTopView::InitEffectFrames()
 
 	/*
 	//---------------------------------------------------------------
-	// ÇÇ sprite Áßº¹ frame³Ö±â
+	// Ã‡Ã‡ sprite ÃÃŸÂºÂ¹ frameÂ³Ã–Â±Ã¢
 	//---------------------------------------------------------------
 	DIRECTION_EFFECTFRAME_ARRAY& effect = m_EffectAlphaFPK[EFFECTSPRITETYPE_SLAYER_DIE];
 
@@ -5408,13 +5436,13 @@ MTopView::InitEffectFrames()
 
 		newEA.Init( frameMax );
 
-		// ¸ğµÎ ³¡ µ¿ÀÛ...
+		// Â¸Ã°ÂµÃ Â³Â¡ ÂµÂ¿Ã€Ã›...
 		for (int i=0; i<frameMax; i++)
 		{
 			newEA[i] = EA[EA.GetSize()-1];
 		}
 		
-		// µÎframe¾¿, Á¤Áö frame °è¼Ó, ÇÑ frame°Å²Ù·Î
+		// ÂµÃframeÂ¾Â¿, ÃÂ¤ÃÃ¶ frame Â°Ã¨Â¼Ã“, Ã‡Ã‘ frameÂ°Ã…Â²Ã™Â·Ã
 		for (i=0; i<EA.GetSize(); i++)
 		{
 			newEA[i*2] = EA[i];
@@ -5426,8 +5454,8 @@ MTopView::InitEffectFrames()
 		EA = newEA;
 	}
 
-	class ofstream packAlphaFile(FILE_EFRAME_ALPHAEFFECT, ios::binary);
-	class ofstream indexAlphaFile(FILE_EFRAMEINDEX_ALPHAEFFECT, ios::binary);
+	std::ofstream packAlphaFile(FILE_EFRAME_ALPHAEFFECT, ios::binary);
+	std::ofstream indexAlphaFile(FILE_EFRAMEINDEX_ALPHAEFFECT, ios::binary);
 	m_EffectAlphaFPK.SaveToFile(packAlphaFile, indexAlphaFile);
 	packAlphaFile.close();
 	indexAlphaFile.close();
@@ -5454,8 +5482,8 @@ MTopView::InitEffectFrames()
 //		}
 //		
 //
-//		class ofstream packshadowEffectFile(g_pFileDef->getProperty("FILE_EFRAME_SHADOWEFFECT").c_str(), ios::binary);
-//		class ofstream indexshadowEffectFile(g_pFileDef->getProperty("FILE_EFRAMEINDEX_SHADOWEFFECT").c_str(), ios::binary);
+//		std::ofstream packshadowEffectFile(g_pFileDef->getProperty("FILE_EFRAME_SHADOWEFFECT").c_str(), ios::binary);
+//		std::ofstream indexshadowEffectFile(g_pFileDef->getProperty("FILE_EFRAMEINDEX_SHADOWEFFECT").c_str(), ios::binary);
 //		m_EffectShadowFPK.SaveToFile(packshadowEffectFile, indexshadowEffectFile);
 //		packshadowEffectFile.close();
 //		indexshadowEffectFile.close();
@@ -5463,17 +5491,17 @@ MTopView::InitEffectFrames()
 
 	///*
 	// Load from shadowEffectFile
-	class ifstream shadowEffectFile2;
+	std::ifstream shadowEffectFile2;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_EFRAME_SHADOWEFFECT").c_str(), shadowEffectFile2))
 		return false;
 	m_EffectShadowFPK.LoadFromFile(shadowEffectFile2);
 	shadowEffectFile2.close();
 
 	// Load from ScreenFile
-	class ifstream ScreenFile2;//(FILE_EFRAME_ScreenEFFECT, ios::binary);
+	std::ifstream ScreenFile2;//(FILE_EFRAME_ScreenEFFECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_EFRAME_SCREENEFFECT").c_str(), ScreenFile2))
 		return false;
-	//class ifstream ScreenFile2("effect.efpk", ios::binary);
+	//std::ifstream ScreenFile2("effect.efpk", ios::binary);
 	m_EffectScreenFPK.LoadFromFile(ScreenFile2);
 	ScreenFile2.close();
 
@@ -5486,7 +5514,7 @@ MTopView::InitEffectFrames()
 void
 MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 {
-	/* // 2001.7.14 ÁÖ¼®Ã³¸®
+	/* // 2001.7.14 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 	//------------------------------------------------------------
 	//
 	//				Minimap	
@@ -5495,14 +5523,14 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 	//------------------------------------------------------------	
 	// Load  Clothes SpritePack	
 	//------------------------------------------------------------
-	class ifstream	MapTest1;
+	std::ifstream	MapTest1;
 	if (!FileOpenBinary(filename, MapTest1))
 		return;
 	m_pMinimapSPR->LoadFromFile( MapTest1 );
 	*/
 
 	//------------------------------------------------------------	
-	// Ç¥½ÃÇØ¾ßÇÒ ZoneInfo°¡ ÀÖ´Â °æ¿ì
+	// Ã‡Â¥Â½ÃƒÃ‡Ã˜Â¾ÃŸÃ‡Ã’ ZoneInfoÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 	//------------------------------------------------------------	
 	/*
 	if (pZoneInfo!=NULL)
@@ -5528,7 +5556,7 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 		WORD green = CDirectDraw::Color(0, 20, 0);
 
 		//----------------------------------------------------------------
-		// SpriteÀÚÃ¼¸¦ ¹Ù²ã¹ö¸°´Ù. - -;
+		// SpriteÃ€ÃšÃƒÂ¼Â¸Â¦ Â¹Ã™Â²Ã£Â¹Ã¶Â¸Â°Â´Ã™. - -;
 		//----------------------------------------------------------------
 		for (spY=0; spY<spHeight; spY++)
 		{
@@ -5537,10 +5565,10 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 			spX = 0;
 			pPixel = m_pMinimapSPR->GetPixelLine( spY );
 
-			count = *pPixel++;		// ¹İº¹ È¸¼ö
+			count = *pPixel++;		// Â¹ÃÂºÂ¹ ÃˆÂ¸Â¼Ã¶
 			
 			//----------------------------------------------------------------
-			// ÇÑ ÁÙ¿¡ ´ëÇÑ Ã¼Å©..
+			// Ã‡Ã‘ ÃÃ™Â¿Â¡ Â´Ã«Ã‡Ã‘ ÃƒÂ¼Ã…Â©..
 			//----------------------------------------------------------------
 			for (i=0; i<count; i++)
 			{
@@ -5554,15 +5582,15 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 					zoneX = spX * zoneWidth / spWidth;
 					
 					//---------------------------------------------------------
-					// ¾ÈÀüÁö´ëÀÌ¸é ³ì»öÀ¸·Î ¹İÅõ¸í..
+					// Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Ã€ÃŒÂ¸Ã© Â³Ã¬Â»Ã¶Ã€Â¸Â·Ã Â¹ÃÃ…ÃµÂ¸Ã­..
 					//---------------------------------------------------------
 					if (pZoneInfo->IsSafeSector(zoneX, zoneY))
 					{
-						// 1Á¡ ³ì»öÀ¸·Î alpha blending - -;
+						// 1ÃÂ¡ Â³Ã¬Â»Ã¶Ã€Â¸Â·Ã alpha blending - -;
 						CSpriteSurface::memcpyAlpha(pPixel, &green, 1);
 					}
 
-					// ´ÙÀ½ Á¡
+					// Â´Ã™Ã€Â½ ÃÂ¡
 					pPixel++;
 					spX++;
 				}
@@ -5571,17 +5599,17 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 	}
 	*/
 
-	/* // 2001.7.14 ÁÖ¼®Ã³¸®
+	/* // 2001.7.14 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 	//------------------------------------------------------------
-	// 3D °¡¼ÓÀÌ¸é...
+	// 3D Â°Â¡Â¼Ã“Ã€ÃŒÂ¸Ã©...
 	//------------------------------------------------------------
 	if (CDirect3D::IsHAL())
 	{
 		InitMinimapTexture();
 	}
 
-	// m_SectorToMinimapWidth - ÇÑ sector´Â °¡·Î ¸î pixelÀÎ°¡?
-	// m_SectorToMinimapHeight - ÇÑ sector´Â ¼¼·Î ¸î pixelÀÎ°¡?
+	// m_SectorToMinimapWidth - Ã‡Ã‘ sectorÂ´Ã‚ Â°Â¡Â·Ã Â¸Ã® pixelÃ€ÃÂ°Â¡?
+	// m_SectorToMinimapHeight - Ã‡Ã‘ sectorÂ´Ã‚ Â¼Â¼Â·Ã Â¸Ã® pixelÃ€ÃÂ°Â¡?
 	if (g_pZone->GetWidth()==0 || g_pZone->GetHeight()==0)
 	{
 		m_SectorToMinimapWidth	= 0;
@@ -5603,7 +5631,7 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //void
 //MTopView::InitMinimapTexture(CSpriteSurface *minimap_surface)
 //{
-//	// ½ºÇÁ¶óÀÌÆ®¸¦ ¸¸µéÀÚ by ¾¦°«
+//	// Â½ÂºÃ‡ÃÂ¶Ã³Ã€ÃŒÃ†Â®Â¸Â¦ Â¸Â¸ÂµÃ©Ã€Ãš by Â¾Â¦Â°Â«
 //	if(minimap_surface != NULL)
 //	{
 //		if(minimap_surface->Lock())
@@ -5616,12 +5644,12 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //	}
 //
 //	//------------------------------------------------------------
-//	// 3D °¡¼ÓÀÌ¸é...
+//	// 3D Â°Â¡Â¼Ã“Ã€ÃŒÂ¸Ã©...
 //	//------------------------------------------------------------
 //	if (!CDirect3D::IsHAL())
 //		return;
 //
-//	// 2001.7.14 ÁÖ¼®Ã³¸®
+//	// 2001.7.14 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 //	if (m_pMinimapTexture!=NULL)
 //	{
 //		delete m_pMinimapTexture;
@@ -5637,7 +5665,7 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //		return;
 //	}
 //
-//	// texture size °áÁ¤
+//	// texture size Â°Ã¡ÃÂ¤
 //	int spWidth, spHeight;
 //	int width, height;
 //	BYTE smallShift = 0;
@@ -5650,24 +5678,24 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //
 //	//-----------------------------------------------------------
 //	//
-//	// ÃÊ ÇÊ»ì ´õÆ¼ Å×½ºÆ® ÄÚµå.. À½³Ä... - -;;
+//	// ÃƒÃŠ Ã‡ÃŠÂ»Ã¬ Â´ÃµÃ†Â¼ Ã…Ã—Â½ÂºÃ†Â® Ã„ÃšÂµÃ¥.. Ã€Â½Â³Ã„... - -;;
 //	//
 //	//-----------------------------------------------------------
 //	//
-//	// m_pMinimapTexture¿¡ minimapÀ» Ãâ·ÂÇÑ´Ù.
+//	// m_pMinimapTextureÂ¿Â¡ minimapÃ€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 //	//
 //	//-----------------------------------------------------------
 //	//-----------------------------------------------------------
-//	// 2ÀÇ ½Â¼ö¸¸ Áö¿øÇÏ´Â °æ¿ì..
+//	// 2Ã€Ã‡ Â½Ã‚Â¼Ã¶Â¸Â¸ ÃÃ¶Â¿Ã¸Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬..
 //	//-----------------------------------------------------------
-//	bool bDifferentSize;	// sprite¿Í textureÀÇ Å©±â°¡ ´Ù¸¥°¡?
+//	bool bDifferentSize;	// spriteÂ¿Ã textureÃ€Ã‡ Ã…Â©Â±Ã¢Â°Â¡ Â´Ã™Â¸Â¥Â°Â¡?
 //	if (CDirect3D::IsTexturePow2())
 //	{
 //		bDifferentSize = true;
 //
-//		// width¿Í height°¡ ´Ù¸¥ °æ¿ì...
-//		// ÀÛÀº ÂÊ¿¡ ¸ÂÃç¼­ ¶È°°ÀÌ ÇÑ´Ù.
-//		// Square·Î ¸ÂÃá´Ù..°í ÇÒ ¼ö ÀÖÁö.. À½ÇÏ..
+//		// widthÂ¿Ã heightÂ°Â¡ Â´Ã™Â¸Â¥ Â°Ã¦Â¿Ã¬...
+//		// Ã€Ã›Ã€Âº Ã‚ÃŠÂ¿Â¡ Â¸Ã‚ÃƒÃ§Â¼Â­ Â¶ÃˆÂ°Â°Ã€ÃŒ Ã‡Ã‘Â´Ã™.
+//		// SquareÂ·Ã Â¸Ã‚ÃƒÃ¡Â´Ã™..Â°Ã­ Ã‡Ã’ Â¼Ã¶ Ã€Ã–ÃÃ¶.. Ã€Â½Ã‡Ã..
 //		if (width < height)
 //		{
 //			height = width;
@@ -5678,10 +5706,10 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //		}
 //
 //		//-----------------------------------------------------------
-//		// TextureÅ©±âº¸´Ù Sprite Å©±â°¡ ´õ Å« °æ¿ì..
+//		// TextureÃ…Â©Â±Ã¢ÂºÂ¸Â´Ã™ Sprite Ã…Â©Â±Ã¢Â°Â¡ Â´Ãµ Ã…Â« Â°Ã¦Â¿Ã¬..
 //		//-----------------------------------------------------------
-//		// Áï, ÇÏµå¿ş¾î¿¡¼­ SpriteÅ©±â¸¸Å­ÀÇ Texture¸¦ Áö¿øÇÏÁö ¸øÇÏ´Â °æ¿ìÀÌ´Ù.		
-//		// shift¸¦ ÀÌ¿ëÇØ¼­ Å©±â¸¦ ÁÙÀÎ´Ù.
+//		// ÃÃ¯, Ã‡ÃÂµÃ¥Â¿Ã¾Â¾Ã®Â¿Â¡Â¼Â­ SpriteÃ…Â©Â±Ã¢Â¸Â¸Ã…Â­Ã€Ã‡ TextureÂ¸Â¦ ÃÃ¶Â¿Ã¸Ã‡ÃÃÃ¶ Â¸Ã¸Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™.		
+//		// shiftÂ¸Â¦ Ã€ÃŒÂ¿Ã«Ã‡Ã˜Â¼Â­ Ã…Â©Â±Ã¢Â¸Â¦ ÃÃ™Ã€ÃÂ´Ã™.
 //		while (spWidth > width || spHeight > height)
 //		{
 //			smallShift ++;
@@ -5691,15 +5719,15 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //		}
 //	}
 //	//-----------------------------------------------------------
-//	// ¾Æ¹«·± size³ª °ü°è ¾ø´Â °æ¿ì
+//	// Â¾Ã†Â¹Â«Â·Â± sizeÂ³Âª Â°Ã¼Â°Ã¨ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 //	//-----------------------------------------------------------
 //	else
 //	{
 //		if (CDirect3D::IsTextureSquareOnly())
 //		{
-//			// width¿Í height°¡ ´Ù¸¥ °æ¿ì...
-//			// Å« ÂÊ¿¡ ¸ÂÃç¼­ ¶È°°ÀÌ ÇÑ´Ù.
-//			// Square·Î ¸ÂÃá´Ù..°í ÇÒ ¼ö ÀÖÁö.. À½ÇÏ..
+//			// widthÂ¿Ã heightÂ°Â¡ Â´Ã™Â¸Â¥ Â°Ã¦Â¿Ã¬...
+//			// Ã…Â« Ã‚ÃŠÂ¿Â¡ Â¸Ã‚ÃƒÃ§Â¼Â­ Â¶ÃˆÂ°Â°Ã€ÃŒ Ã‡Ã‘Â´Ã™.
+//			// SquareÂ·Ã Â¸Ã‚ÃƒÃ¡Â´Ã™..Â°Ã­ Ã‡Ã’ Â¼Ã¶ Ã€Ã–ÃÃ¶.. Ã€Â½Ã‡Ã..
 //			if (width > height)
 //			{
 //				height = width;
@@ -5721,7 +5749,7 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //	}		
 //
 //	//---------------------------------------------------
-//	// TextureSurface »ı¼º
+//	// TextureSurface Â»Ã½Â¼Âº
 //	//---------------------------------------------------		
 //	m_pMinimapTexture->InitTextureSurface(width, height, 0, CDirect3D::GetPixelFormat4444());
 //	POINT point;
@@ -5733,16 +5761,16 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //	
 //
 //	//---------------------------------------------------
-//	// °Ë°Ô Ä¥ÇÏ´Â ºÎºĞ..
+//	// Â°Ã‹Â°Ã” Ã„Â¥Ã‡ÃÂ´Ã‚ ÂºÃÂºÃ..
 //	//---------------------------------------------------
 //	//if (bDifferentSize)
 //	{
 //		/*
-//		// Sprite°¡ Â÷ÁöÇÏ´Â ¿µ¿ªÀ» Á¦¿ÜÇÑ ºÎºĞÀ» °Ë°Ô~~
+//		// SpriteÂ°Â¡ Ã‚Ã·ÃÃ¶Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» ÃÂ¦Â¿ÃœÃ‡Ã‘ ÂºÃÂºÃÃ€Â» Â°Ã‹Â°Ã”~~
 //		DWORD width2 = (width - spWidth) << 1;	// *2 
 //		pSurface += spWidth;
 //
-//		// ¿À¸¥ÂÊ ¿·ºÎºĞ
+//		// Â¿Ã€Â¸Â¥Ã‚ÃŠ Â¿Â·ÂºÃÂºÃ
 //		if (width2 > 0)
 //		{
 //			i = spHeight;		
@@ -5753,7 +5781,7 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //			} while (--i);
 //		}
 //
-//		// ¾Æ·¡ÂÊ
+//		// Â¾Ã†Â·Â¡Ã‚ÃŠ
 //		pSurface -= spWidth;
 //		width2 = width << 1;
 //		i = height - spHeight;
@@ -5769,9 +5797,9 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //		*/
 //		
 //		//---------------------------------------------------
-//		// Texture Surface ÃÊ±âÈ­
+//		// Texture Surface ÃƒÃŠÂ±Ã¢ÃˆÂ­
 //		//---------------------------------------------------
-//		/*// 2001.7.14 ÁÖ¼®Ã³¸®
+//		/*// 2001.7.14 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 //		WORD *pSurface = (WORD*)m_pMinimapTexture->GetSurfacePointer();
 //				//,	*pSurfaceTemp;
 //		long pitch	= m_pMinimapTexture->GetSurfacePitch();
@@ -5788,12 +5816,12 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //	}
 //	
 //	//---------------------------------------------------
-//	// SpriteÃâ·Â
+//	// SpriteÃƒÃ¢Â·Ã‚
 //	//---------------------------------------------------
-//	// Å©±â¸¦ °í·ÁÇØ¼­..
+//	// Ã…Â©Â±Ã¢Â¸Â¦ Â°Ã­Â·ÃÃ‡Ã˜Â¼Â­..
 //
-//	 // 2001.7.14 ÁÖ¼®Ã³¸®
-//	// alpha°ªÀº 16 == ¹İÅõ¸í
+//	 // 2001.7.14 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
+//	// alphaÂ°ÂªÃ€Âº 16 == Â¹ÃÃ…ÃµÂ¸Ã­
 //	BYTE alpha = 16;
 //
 //	if (smallShift==0)
@@ -5806,7 +5834,7 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //	}
 //
 //	//---------------------------------------------------------------
-//	// Ãâ·ÂÇÒ¶§ÀÇ Å©±â
+//	// ÃƒÃ¢Â·Ã‚Ã‡Ã’Â¶Â§Ã€Ã‡ Ã…Â©Â±Ã¢
 //	//---------------------------------------------------------------
 //	spWidth = m_pMinimapSPR->GetWidth();
 //	spHeight = m_pMinimapSPR->GetHeight();
@@ -5815,8 +5843,8 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //		width = 1;
 //		height = 1;
 //
-//		// width¿Í height´Â spWidth¿Í spHeightº¸´Ù Ä¿¾ß ÇÑ´Ù.
-//		// square·Î ¸ÂÃçÁØ´Ù.
+//		// widthÂ¿Ã heightÂ´Ã‚ spWidthÂ¿Ã spHeightÂºÂ¸Â´Ã™ Ã„Â¿Â¾ÃŸ Ã‡Ã‘Â´Ã™.
+//		// squareÂ·Ã Â¸Ã‚ÃƒÃ§ÃÃ˜Â´Ã™.
 //		while (width < spWidth || height < spHeight)
 //		{
 //			width <<= 1;
@@ -5828,7 +5856,7 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //		width = spWidth;
 //		height = spHeight;
 //
-//		// Å« Å©±â·Î ¸ÂÃß¾î¼­ Square·Î ¸¸µç´Ù.
+//		// Ã…Â« Ã…Â©Â±Ã¢Â·Ã Â¸Ã‚ÃƒÃŸÂ¾Ã®Â¼Â­ SquareÂ·Ã Â¸Â¸ÂµÃ§Â´Ã™.
 //		if (CDirect3D::IsTextureSquareOnly())
 //		{				
 //			if (width > height)
@@ -5856,11 +5884,11 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 void
 MTopView::UseHalfFrame(bool bUse)
 {
-	// Addonµµ ¾îÄÉ ÇØ¾ßµÇ´Âµ¥ - -;
-	// Effectµµ... - -;
+	// AddonÂµÂµ Â¾Ã®Ã„Ã‰ Ã‡Ã˜Â¾ÃŸÂµÃ‡Â´Ã‚ÂµÂ¥ - -;
+	// EffectÂµÂµ... - -;
 
 	//----------------------------------------------------------
-	// ÀÌ¹Ì LoadingµÈ °Íµé Á¦°Å
+	// Ã€ÃŒÂ¹ÃŒ LoadingÂµÃˆ Â°ÃÂµÃ© ÃÂ¦Â°Ã…
 	//----------------------------------------------------------
 	m_CreatureSPK.Release();
 	m_CreatureSSPK.Release();
@@ -5875,7 +5903,7 @@ MTopView::UseHalfFrame(bool bUse)
 	}
 
 	//----------------------------------------------------------
-	// Loading µÈ°Ô ¾ø´Ù°í Ç¥½Ã
+	// Loading ÂµÃˆÂ°Ã” Â¾Ã¸Â´Ã™Â°Ã­ Ã‡Â¥Â½Ãƒ
 	//----------------------------------------------------------
 	int num = g_pCreatureSpriteTable->GetSize();
 
@@ -5886,15 +5914,15 @@ MTopView::UseHalfFrame(bool bUse)
 	
 	if (bUse)
 	{
-		// ÀÌ¹Ì LoadingµÈ °Íµé Á¦°Å		
-		class ifstream file(FILE_CFRAME_CREATURE2, ios::binary);
+		// Ã€ÃŒÂ¹ÃŒ LoadingÂµÃˆ Â°ÃÂµÃ© ÃÂ¦Â°Ã…		
+		std::ifstream file(FILE_CFRAME_CREATURE2, ios::binary);
 		m_CreatureFPK.LoadFromFile(file);
 		file.close();		
 	}
 	else
 	{
-		// ÀÌ¹Ì LoadingµÈ °Íµé Á¦°Å
-		class ifstream file(FILE_CFRAME_CREATURE, ios::binary);
+		// Ã€ÃŒÂ¹ÃŒ LoadingÂµÃˆ Â°ÃÂµÃ© ÃÂ¦Â°Ã…
+		std::ifstream file(FILE_CFRAME_CREATURE, ios::binary);
 		m_CreatureFPK.LoadFromFile(file);
 		file.close();
 	}
@@ -5904,7 +5932,7 @@ MTopView::UseHalfFrame(bool bUse)
 //----------------------------------------------------------------------
 // Load From File CreatureSPK
 //----------------------------------------------------------------------
-// ÇöÀç Zone¿¡¼­ ÃâÇöÇÒ Creature¿¡ ´ëÇÑ SpriteµéÀ» LoadÇÑ´Ù.
+// Ã‡Ã¶Ã€Ã§ ZoneÂ¿Â¡Â¼Â­ ÃƒÃ¢Ã‡Ã¶Ã‡Ã’ CreatureÂ¿Â¡ Â´Ã«Ã‡Ã‘ SpriteÂµÃ©Ã€Â» LoadÃ‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void
 MTopView::LoadFromFileCreatureSPK(int spriteType)
@@ -5919,26 +5947,26 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 	//int spriteType = (*g_pCreatureTable)[n].SpriteType;
 
 	//----------------------------------------------------------------------
-	// LoadµÇ¾ú´ÂÁö Ã¼Å©ÇØº»´Ù.
+	// LoadÂµÃ‡Â¾ÃºÂ´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã˜ÂºÂ»Â´Ã™.
 	//----------------------------------------------------------------------
 	if ((*g_pCreatureSpriteTable)[spriteType].bLoad)
 	{
-		// ÀÌ¹Ì LoadµÈ °æ¿ì
+		// Ã€ÃŒÂ¹ÃŒ LoadÂµÃˆ Â°Ã¦Â¿Ã¬
 	}
 	//----------------------------------------------------------------------
-	// LoadÇØ¾ßµÇ´Â °æ¿ì
+	// LoadÃ‡Ã˜Â¾ÃŸÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬
 	//----------------------------------------------------------------------
-	// CreatureAction¿¡ µû¶ó¼­ g_pCreatureActionSpriteTableÀ» ÀÌ¿ëÇÒ °ÍÀÌ¹Ç·Î
-	// ½ÇÁ¦·Î loadingÇÏÁø ¾Ê´Â´Ù.  2001.11.21
+	// CreatureActionÂ¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ g_pCreatureActionSpriteTableÃ€Â» Ã€ÃŒÂ¿Ã«Ã‡Ã’ Â°ÃÃ€ÃŒÂ¹Ã‡Â·Ã
+	// Â½Ã‡ÃÂ¦Â·Ã loadingÃ‡ÃÃÃ¸ Â¾ÃŠÂ´Ã‚Â´Ã™.  2001.11.21
 	//----------------------------------------------------------------------			
 	else
 	{
 		if(g_pUserOption->IsPreLoadMonster)
 		{
 			
-			// ÇöÀç Zone¿¡¼­ ÇÊ¿äÇÑ SpriteµéÀ» LoadÇÏ¸é µÈ´Ù.
-//			class ifstream	creatureFile;//(FILE_ISPRITE_CREATURE, ios::binary);
-//			class ifstream	creatureShadowFile;
+			// Ã‡Ã¶Ã€Ã§ ZoneÂ¿Â¡Â¼Â­ Ã‡ÃŠÂ¿Ã¤Ã‡Ã‘ SpriteÂµÃ©Ã€Â» LoadÃ‡ÃÂ¸Ã© ÂµÃˆÂ´Ã™.
+//			std::ifstream	creatureFile;//(FILE_ISPRITE_CREATURE, ios::binary);
+//			std::ifstream	creatureShadowFile;
 //
 //			//------------------------------------------------------------
 //			// sprite load
@@ -5948,7 +5976,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 			
 
 			//------------------------------------------------------------
-			// Half FrameÀ» »ç¿ëÇÒ¶§
+			// Half FrameÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã’Â¶Â§
 			//------------------------------------------------------------
 			if (0)//g_pUserOption->UseHalfFrame)
 			{
@@ -5956,13 +5984,13 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 				int frameID = (*g_pCreatureSpriteTable)[spriteType].FrameID;
 
 				//------------------------------------------------------------	
-				// ÇÊ¿äÇÑ EFPK¸¦ »ı¼ºÇÏ¸é¼­ »ç¿ëµÈ SpriteIDµµ ±¸ÇÑ´Ù.
+				// Ã‡ÃŠÂ¿Ã¤Ã‡Ã‘ EFPKÂ¸Â¦ Â»Ã½Â¼ÂºÃ‡ÃÂ¸Ã©Â¼Â­ Â»Ã§Â¿Ã«ÂµÃˆ SpriteIDÂµÂµ Â±Â¸Ã‡Ã‘Â´Ã™.
 				//------------------------------------------------------------
 				COrderedList<int> intList;
 				ACTION_FRAME_ARRAY& AFA = CreatureFPK[frameID];
 				int numAction = AFA.GetSize();
 
-				// orderedListÀÇ È¿À²À» ³ôÈ÷±â À§ÇØ¼­ °Å²Ù·Î ..
+				// orderedListÃ€Ã‡ ÃˆÂ¿Ã€Â²Ã€Â» Â³Ã´ÃˆÃ·Â±Ã¢ Ã€Â§Ã‡Ã˜Â¼Â­ Â°Ã…Â²Ã™Â·Ã ..
 				for (int a=AFA.GetSize()-1; a>=0; a--)
 				{
 					DIRECTION_FRAME_ARRAY& DFA = AFA[a];
@@ -5988,7 +6016,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 				CSpriteFilePositionArray SFPA;	
 				SFPA.Init( numID );
 
-				class ifstream CreaturePackIndexFile(FILE_ISPRITEINDEX_CREATURE, ios::binary);			
+				std::ifstream CreaturePackIndexFile(FILE_ISPRITEINDEX_CREATURE, ios::binary);			
 				
 				long fp;
 				for (int i=0; i<numID; i++)
@@ -6009,7 +6037,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 				*/
 			}
 			//------------------------------------------------------------
-			// ÀüÃ¼ Frame ´Ù »ç¿ë
+			// Ã€Ã¼ÃƒÂ¼ Frame Â´Ã™ Â»Ã§Â¿Ã«
 			//------------------------------------------------------------
 			else
 			{
@@ -6019,7 +6047,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 				long			fp	= (*g_pCreatureSpriteTable)[spriteType].SpriteFilePosition;
 
 				m_CreatureSPK.LoadFromFilePart(first, last);
-				// n¹øÂ° creature load	
+				// nÂ¹Ã¸Ã‚Â° creature load	
 //				m_CreatureSPK.LoadFromFilePart(creatureFile, 
 //												fp,
 //												first, 
@@ -6031,7 +6059,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 // 			creatureFile.close();
 
 			//------------------------------------------------------------
-			// ±×¸²ÀÚ load
+			// Â±Ã—Â¸Â²Ã€Ãš load
 			//------------------------------------------------------------
 //			if (!FileOpenBinary(FILE_SSPRITE_CREATURE, creatureShadowFile))
 //				return;	
@@ -6040,13 +6068,13 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //			if (!CDirect3D::IsHAL())
 			{
 				//------------------------------------------------------------
-				// Half Frame »ç¿ë
+				// Half Frame Â»Ã§Â¿Ã«
 				//------------------------------------------------------------
 				if (g_pUserOption->UseHalfFrame)
 				{
 				}
 				//------------------------------------------------------------
-				// ÀüÃ¼ Frame ´Ù »ç¿ë
+				// Ã€Ã¼ÃƒÂ¼ Frame Â´Ã™ Â»Ã§Â¿Ã«
 				//------------------------------------------------------------
 				else
 				{
@@ -6063,11 +6091,11 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 			}
 		}	
 
-		// LoadÇß´Ù°í Ç¥½ÃÇÑ´Ù.
+		// LoadÃ‡ÃŸÂ´Ã™Â°Ã­ Ã‡Â¥Â½ÃƒÃ‡Ã‘Â´Ã™.
 		(*g_pCreatureSpriteTable)[spriteType].bLoad = TRUE;
 
 		//--------------------------------------------------------
-		// Player±×¸²ÀÏ°æ¿ì´Â Ãß°¡ÇÏÁö ¾Ê´Â´Ù.
+		// PlayerÂ±Ã—Â¸Â²Ã€ÃÂ°Ã¦Â¿Ã¬Â´Ã‚ ÃƒÃŸÂ°Â¡Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 		//--------------------------------------------------------
 		//if (spriteType!=(*g_pCreatureTable)[CREATURETYPE_SLAYER_MALE].SpriteType
 		//	&& spriteType!=(*g_pCreatureTable)[CREATURETYPE_SLAYER_FEMALE].SpriteType
@@ -6090,7 +6118,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 		
 		/*
 		//------------------------------------------------------------
-		// ±×¸²ÀÚ Pack»ı¼º
+		// Â±Ã—Â¸Â²Ã€Ãš PackÂ»Ã½Â¼Âº
 		//------------------------------------------------------------
 		m_CreatureSSPK.InitPart(m_CreatureSPK, 
 								(*g_pCreatureTable)[n].FirstSpriteID,
@@ -6098,13 +6126,13 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 
 		//------------------------------------------------------------
 		//
-		// Init ±×¸²ÀÚ TextureSurface
+		// Init Â±Ã—Â¸Â²Ã€Ãš TextureSurface
 		//
 		//------------------------------------------------------------
 		if (CDirect3D::IsHAL())
 		{	
 			//--------------------------------------------
-			// AlphaSPKÀ» ÀÌ¿ëÇØ¼­ TexturePackÀ» »ı¼ºÇÑ´Ù.
+			// AlphaSPKÃ€Â» Ã€ÃŒÂ¿Ã«Ã‡Ã˜Â¼Â­ TexturePackÃ€Â» Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
 			//--------------------------------------------
 			if (!m_CreatureTPK.InitPart( m_CreatureSSPK,
 										(*g_pCreatureTable)[n].FirstSpriteID,
@@ -6115,8 +6143,8 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 			}
 
 			//------------------------------------------------------------	
-			// EffectAlphaSprite¸¦ ¸Ş¸ğ¸®¿¡¼­ »èÁ¦ÇÑ´Ù.
-			// --> TextureSurface¸¦ »ç¿ëÇÒ °ÍÀÌ¹Ç·Î.. ÇÊ¿ä°¡ ¾ø´Ù.
+			// EffectAlphaSpriteÂ¸Â¦ Â¸ÃÂ¸Ã°Â¸Â®Â¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦Ã‡Ã‘Â´Ã™.
+			// --> TextureSurfaceÂ¸Â¦ Â»Ã§Â¿Ã«Ã‡Ã’ Â°ÃÃ€ÃŒÂ¹Ã‡Â·Ã.. Ã‡ÃŠÂ¿Ã¤Â°Â¡ Â¾Ã¸Â´Ã™.
 			//------------------------------------------------------------		
 			m_CreatureSSPK.ReleasePart((*g_pCreatureTable)[n].FirstSpriteID,
 										(*g_pCreatureTable)[n].LastSpriteID);
@@ -6128,7 +6156,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //----------------------------------------------------------------------
 // Load From File AddonSPK
 //----------------------------------------------------------------------
-// ÇöÀç º¸ÀÌ´Â AddonÀ» LoadÇÑ´Ù.
+// Ã‡Ã¶Ã€Ã§ ÂºÂ¸Ã€ÃŒÂ´Ã‚ AddonÃ€Â» LoadÃ‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 //void
 //MTopView::LoadFromFileAddonSPK(int frame, int action)
@@ -6145,14 +6173,14 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //	//int spriteType = (*g_pCreatureTable)[n].SpriteType;
 //
 //	//----------------------------------------------------------------------
-//	// LoadµÇ¾ú´ÂÁö Ã¼Å©ÇØº»´Ù.
+//	// LoadÂµÃ‡Â¾ÃºÂ´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã˜ÂºÂ»Â´Ã™.
 //	//----------------------------------------------------------------------
 //	if ((*g_pAddonSpriteTable)[frameID].bLoad)
 //	{
-//		// ÀÌ¹Ì LoadµÈ °æ¿ì
+//		// Ã€ÃŒÂ¹ÃŒ LoadÂµÃˆ Â°Ã¦Â¿Ã¬
 //	}
 //	//----------------------------------------------------------------------
-//	// LoadÇØ¾ßµÇ´Â °æ¿ì
+//	// LoadÃ‡Ã˜Â¾ÃŸÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬
 //	//----------------------------------------------------------------------
 //	else
 //	{		
@@ -6200,7 +6228,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //----------------------------------------------------------------------
 // Load From File CreatureActionSPK
 //----------------------------------------------------------------------
-// ÇöÀç º¸ÀÌ´Â CreatureActionÀ» LoadÇÑ´Ù.
+// Ã‡Ã¶Ã€Ã§ ÂºÂ¸Ã€ÃŒÂ´Ã‚ CreatureActionÃ€Â» LoadÃ‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 //void
 //MTopView::LoadFromFileCreatureActionSPK(int frame, int action)
@@ -6217,14 +6245,14 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //	//int spriteType = (*g_pCreatureTable)[n].SpriteType;
 //
 //	//----------------------------------------------------------------------
-//	// LoadµÇ¾ú´ÂÁö Ã¼Å©ÇØº»´Ù.
+//	// LoadÂµÃ‡Â¾ÃºÂ´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã˜ÂºÂ»Â´Ã™.
 //	//----------------------------------------------------------------------
 //	if ((*g_pCreatureActionSpriteTable)[frameID].bLoad)
 //	{
-//		// ÀÌ¹Ì LoadµÈ °æ¿ì
+//		// Ã€ÃŒÂ¹ÃŒ LoadÂµÃˆ Â°Ã¦Â¿Ã¬
 //	}
 //	//----------------------------------------------------------------------
-//	// LoadÇØ¾ßµÇ´Â °æ¿ì
+//	// LoadÃ‡Ã˜Â¾ÃŸÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬
 //	//----------------------------------------------------------------------
 //	else
 //	{		
@@ -6268,11 +6296,11 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //		(*g_pCreatureActionSpriteTable)[frameID].bLoad = TRUE;
 //
 //		// frameID --> spriteType
-//		//int spriteType = frameID + 2;	// mapping tableÀ» ¸¸µé¾î¾ß ÇÏ´Âµ¥.
-//										// slayer³²³à¸¦ Á¦¿ÜÇÏ¸é ¼ø¼­´ë·Î´Ù..
+//		//int spriteType = frameID + 2;	// mapping tableÃ€Â» Â¸Â¸ÂµÃ©Â¾Ã®Â¾ÃŸ Ã‡ÃÂ´Ã‚ÂµÂ¥.
+//										// slayerÂ³Â²Â³Ã Â¸Â¦ ÃÂ¦Â¿ÃœÃ‡ÃÂ¸Ã© Â¼Ã¸Â¼Â­Â´Ã«Â·ÃÂ´Ã™..
 //
-//		// loadingµÆ´Ù°í Ç¥½ÃÇØµÖ¾ß Á¸ ÀÌµ¿ ÈÄ releaseÇÒ ¼ö ÀÖ´Ù.
-//		// mapÀ¸·Î ÇØ¾ßÇÑ´Ù.
+//		// loadingÂµÃ†Â´Ã™Â°Ã­ Ã‡Â¥Â½ÃƒÃ‡Ã˜ÂµÃ–Â¾ÃŸ ÃÂ¸ Ã€ÃŒÂµÂ¿ ÃˆÃ„ releaseÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã™.
+//		// mapÃ€Â¸Â·Ã Ã‡Ã˜Â¾ÃŸÃ‡Ã‘Â´Ã™.
 //		//m_listLoadedCreatureSprite.push_back( spriteType );
 //	}
 //}
@@ -6295,7 +6323,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //	//int spriteType = (*g_pCreatureTable)[n].SpriteType;
 //
 //	//----------------------------------------------------------------------
-//	// LoadµÇ¾ú´ÂÁö Ã¼Å©ÇØº»´Ù.
+//	// LoadÂµÃ‡Â¾ÃºÂ´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã˜ÂºÂ»Â´Ã™.
 //	//----------------------------------------------------------------------
 //	if ((*g_pCreatureActionSpriteTable)[frameID].bLoad)
 //	{
@@ -6319,13 +6347,13 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //----------------------------------------------------------------------
 // Release From CreatureSPK
 //----------------------------------------------------------------------
-// ÇöÀç LoadµÈ Creature Sprite¸¦ ¸Ş¸ğ¸® ÇØÁ¦½ÃÅ²´Ù.
+// Ã‡Ã¶Ã€Ã§ LoadÂµÃˆ Creature SpriteÂ¸Â¦ Â¸ÃÂ¸Ã°Â¸Â® Ã‡Ã˜ÃÂ¦Â½ÃƒÃ…Â²Â´Ã™.
 //----------------------------------------------------------------------
 void
 MTopView::ReleaseCreatureSPK(int n)
 {
 //	//--------------------------------------------------------
-//	// Player±×¸²ÀÏ°æ¿ì´Â Á¦°ÅÇÏÁö ¾Ê´Â´Ù.
+//	// PlayerÂ±Ã—Â¸Â²Ã€ÃÂ°Ã¦Â¿Ã¬Â´Ã‚ ÃÂ¦Â°Ã…Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 //	//--------------------------------------------------------
 //	//if (n==CREATURETYPE_SLAYER_MALE
 //	//	|| n==CREATURETYPE_SLAYER_FEMALE
@@ -6341,20 +6369,20 @@ MTopView::ReleaseCreatureSPK(int n)
 //
 //	int spriteType = (*g_pCreatureTable)[n].SpriteType;
 //
-//	// Player±×¸²ÀÏ°æ¿ì´Â Á¦°ÅÇÏÁö ¾Ê´Â´Ù.
+//	// PlayerÂ±Ã—Â¸Â²Ã€ÃÂ°Ã¦Â¿Ã¬Â´Ã‚ ÃÂ¦Â°Ã…Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 //	if ((*g_pCreatureSpriteTable)[spriteType].IsPlayerSprite())
 //	{
 //		return;
 //	}
 //
 //	//----------------------------------------------------------------------
-//	// LoadµÇ¾ú´ÂÁö Ã¼Å©ÇØº»´Ù.
+//	// LoadÂµÃ‡Â¾ÃºÂ´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã˜ÂºÂ»Â´Ã™.
 //	//----------------------------------------------------------------------
 //	if ((*g_pCreatureSpriteTable)[spriteType].bLoad)
 //	{
 //		/*
-//		// ÀÌ¹Ì LoadµÈ °æ¿ì
-//		// n¹øÂ° creatureÀÇ sprite¸¦ ¸Ş¸ğ¸® ÇØÁ¦
+//		// Ã€ÃŒÂ¹ÃŒ LoadÂµÃˆ Â°Ã¦Â¿Ã¬
+//		// nÂ¹Ã¸Ã‚Â° creatureÃ€Ã‡ spriteÂ¸Â¦ Â¸ÃÂ¸Ã°Â¸Â® Ã‡Ã˜ÃÂ¦
 //		m_CreatureSPK.ReleasePart((*g_pCreatureSpriteTable)[spriteType].FirstSpriteID,
 //									(*g_pCreatureSpriteTable)[spriteType].LastSpriteID);
 //
@@ -6377,7 +6405,7 @@ MTopView::ReleaseCreatureSPK(int n)
 //			m_CreatureSPK.ReleasePart(first, last);
 //// 		}
 //
-//		// loadÇÏÁö ¾Ê¾Ò´Ù°í Ç¥½ÃÇÑ´Ù.
+//		// loadÃ‡ÃÃÃ¶ Â¾ÃŠÂ¾Ã’Â´Ã™Â°Ã­ Ã‡Â¥Â½ÃƒÃ‡Ã‘Â´Ã™.
 //		(*g_pCreatureSpriteTable)[spriteType].bLoad = FALSE;
 //
 //		m_listLoadedCreatureSprite.Remove( spriteType );
@@ -6389,10 +6417,10 @@ MTopView::ReleaseCreatureSPK(int n)
 //	}
 //	else
 //	{
-//		// LoadµÇÁö ¾ÊÀº °æ¿ì
+//		// LoadÂµÃ‡ÃÃ¶ Â¾ÃŠÃ€Âº Â°Ã¦Â¿Ã¬
 //	}
 	//--------------------------------------------------------
-	// Player±×¸²ÀÏ°æ¿ì´Â Á¦°ÅÇÏÁö ¾Ê´Â´Ù.
+	// PlayerÂ±Ã—Â¸Â²Ã€ÃÂ°Ã¦Â¿Ã¬Â´Ã‚ ÃÂ¦Â°Ã…Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 	//--------------------------------------------------------
 	//if (n==CREATURETYPE_SLAYER_MALE
 	//	|| n==CREATURETYPE_SLAYER_FEMALE
@@ -6413,20 +6441,20 @@ MTopView::ReleaseCreatureSPK(int n)
 	{
 		
 		int spriteType = (*g_pCreatureTable)[n].SpriteTypes[FrameIndex];
-		// Player±×¸²ÀÏ°æ¿ì´Â Á¦°ÅÇÏÁö ¾Ê´Â´Ù.
+		// PlayerÂ±Ã—Â¸Â²Ã€ÃÂ°Ã¦Â¿Ã¬Â´Ã‚ ÃÂ¦Â°Ã…Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 		if ((*g_pCreatureSpriteTable)[spriteType].IsPlayerSprite())
 		{
 			return;
 		}
 		
 		//----------------------------------------------------------------------
-		// LoadµÇ¾ú´ÂÁö Ã¼Å©ÇØº»´Ù.
+		// LoadÂµÃ‡Â¾ÃºÂ´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã˜ÂºÂ»Â´Ã™.
 		//----------------------------------------------------------------------
 		if ((*g_pCreatureSpriteTable)[spriteType].bLoad)
 		{
 		/*
-		// ÀÌ¹Ì LoadµÈ °æ¿ì
-		// n¹øÂ° creatureÀÇ sprite¸¦ ¸Ş¸ğ¸® ÇØÁ¦
+		// Ã€ÃŒÂ¹ÃŒ LoadÂµÃˆ Â°Ã¦Â¿Ã¬
+		// nÂ¹Ã¸Ã‚Â° creatureÃ€Ã‡ spriteÂ¸Â¦ Â¸ÃÂ¸Ã°Â¸Â® Ã‡Ã˜ÃÂ¦
 		m_CreatureSPK.ReleasePart((*g_pCreatureSpriteTable)[spriteType].FirstSpriteID,
 		(*g_pCreatureSpriteTable)[spriteType].LastSpriteID);
 		
@@ -6449,7 +6477,7 @@ MTopView::ReleaseCreatureSPK(int n)
 			m_CreatureSPK.ReleasePart(first, last);
 			// 		}
 			
-			// loadÇÏÁö ¾Ê¾Ò´Ù°í Ç¥½ÃÇÑ´Ù.
+			// loadÃ‡ÃÃÃ¶ Â¾ÃŠÂ¾Ã’Â´Ã™Â°Ã­ Ã‡Â¥Â½ÃƒÃ‡Ã‘Â´Ã™.
 			(*g_pCreatureSpriteTable)[spriteType].bLoad = FALSE;
 			
 			m_listLoadedCreatureSprite.Remove( spriteType );
@@ -6461,7 +6489,7 @@ MTopView::ReleaseCreatureSPK(int n)
 		}
 		else
 		{
-			// LoadµÇÁö ¾ÊÀº °æ¿ì
+			// LoadÂµÃ‡ÃÃ¶ Â¾ÃŠÃ€Âº Â°Ã¦Â¿Ã¬
 		}
 		
 
@@ -6473,7 +6501,7 @@ MTopView::ReleaseCreatureSPK(int n)
 //----------------------------------------------------------------------
 // Add MonsterSpriteTypes
 //----------------------------------------------------------------------
-// Hallu¿¡¼­ ÂüÁ¶ÇÏ°Ô µÉ °ÍÀÌ´ç...
+// HalluÂ¿Â¡Â¼Â­ Ã‚Ã¼ÃÂ¶Ã‡ÃÂ°Ã” ÂµÃ‰ Â°ÃÃ€ÃŒÂ´Ã§...
 //----------------------------------------------------------------------
 void		
 MTopView::AddMonsterSpriteTypes(const INT_ORDERED_LIST& listUse)
@@ -6496,21 +6524,21 @@ MTopView::AddMonsterSpriteTypes(const INT_ORDERED_LIST& listUse)
 //----------------------------------------------------------------------
 // Release Useless CreatureSPK Except
 //----------------------------------------------------------------------
-// list´Â »ç¿ëÇÏ´Â creatureµéÀÇ sprite type ÀÌ´Ù.
+// listÂ´Ã‚ Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ creatureÂµÃ©Ã€Ã‡ sprite type Ã€ÃŒÂ´Ã™.
 //----------------------------------------------------------------------
 void
 MTopView::ReleaseUselessCreatureSPKExcept(const INT_ORDERED_LIST& listUse)
 {
-	// Áö±İÀº ¸÷+NPC ½ºÇÁ¶óÀÌÆ®°¡ ¾ó¸¶ ¾øÀ¸¹Ç·Î releaseÇÏÁö ¾Ê´Â´Ù.
+	// ÃÃ¶Â±ÃÃ€Âº Â¸Ã·+NPC Â½ÂºÃ‡ÃÂ¶Ã³Ã€ÃŒÃ†Â®Â°Â¡ Â¾Ã³Â¸Â¶ Â¾Ã¸Ã€Â¸Â¹Ã‡Â·Ã releaseÃ‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 	//return;
 
 	//--------------------------------------------------------
-	// loadµÈ °Íµé Áß¿¡¼­ »ç¿ëÁßÀÎ°Å´Â »©°í..
+	// loadÂµÃˆ Â°ÃÂµÃ© ÃÃŸÂ¿Â¡Â¼Â­ Â»Ã§Â¿Ã«ÃÃŸÃ€ÃÂ°Ã…Â´Ã‚ Â»Â©Â°Ã­..
 	//--------------------------------------------------------
 	m_listLoadedCreatureSprite -= listUse;
 
 	//--------------------------------------------------------
-	// ³ª¸ÓÁö´Â Á¦°ÅÇÑ´Ù.
+	// Â³ÂªÂ¸Ã“ÃÃ¶Â´Ã‚ ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 	//--------------------------------------------------------
 	INT_ORDERED_LIST::DATA_LIST::const_iterator iSpriteType = m_listLoadedCreatureSprite.GetIterator();
 
@@ -6519,7 +6547,7 @@ MTopView::ReleaseUselessCreatureSPKExcept(const INT_ORDERED_LIST& listUse)
 		int spriteType = *iSpriteType;
 		
 		//--------------------------------------------------------
-		// Player±×¸²ÀÏ°æ¿ì´Â Á¦°ÅÇÏÁö ¾Ê´Â´Ù.
+		// PlayerÂ±Ã—Â¸Â²Ã€ÃÂ°Ã¦Â¿Ã¬Â´Ã‚ ÃÂ¦Â°Ã…Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 		//--------------------------------------------------------
 		//if (spriteType==(*g_pCreatureTable)[CREATURETYPE_SLAYER_MALE].SpriteType
 		//	|| spriteType==(*g_pCreatureTable)[CREATURETYPE_SLAYER_FEMALE].SpriteType
@@ -6544,11 +6572,11 @@ MTopView::ReleaseUselessCreatureSPKExcept(const INT_ORDERED_LIST& listUse)
 		{
 			/*
 			int first, last;
-			// ÀÌ¹Ì LoadµÈ °æ¿ì
-			// n¹øÂ° creatureÀÇ sprite¸¦ ¸Ş¸ğ¸® ÇØÁ¦
+			// Ã€ÃŒÂ¹ÃŒ LoadÂµÃˆ Â°Ã¦Â¿Ã¬
+			// nÂ¹Ã¸Ã‚Â° creatureÃ€Ã‡ spriteÂ¸Â¦ Â¸ÃÂ¸Ã°Â¸Â® Ã‡Ã˜ÃÂ¦
 
 			//--------------------------------------------------------
-			// Creature SPK Á¦°Å
+			// Creature SPK ÃÂ¦Â°Ã…
 			//--------------------------------------------------------
 			first = (*g_pCreatureSpriteTable)[spriteType].FirstSpriteID;
 			last = (*g_pCreatureSpriteTable)[spriteType].LastSpriteID;
@@ -6559,7 +6587,7 @@ MTopView::ReleaseUselessCreatureSPKExcept(const INT_ORDERED_LIST& listUse)
 			}
 
 			//--------------------------------------------------------
-			// Creature SSPK Á¦°Å
+			// Creature SSPK ÃÂ¦Â°Ã…
 			//--------------------------------------------------------
 			first = (*g_pCreatureSpriteTable)[spriteType].FirstSpriteID;
 			last = (*g_pCreatureSpriteTable)[spriteType].LastSpriteID;
@@ -6569,7 +6597,7 @@ MTopView::ReleaseUselessCreatureSPKExcept(const INT_ORDERED_LIST& listUse)
 				m_CreatureSSPK.ReleasePart( first, last );
 			}
 			*/
-			// loadingÇÑ action¸¸ Á¦°Å
+			// loadingÃ‡Ã‘ actionÂ¸Â¸ ÃÂ¦Â°Ã…
 			// 2001.11.21
 			int frameID = (*g_pCreatureSpriteTable)[spriteType].FrameID;
 
@@ -6578,7 +6606,7 @@ MTopView::ReleaseUselessCreatureSPKExcept(const INT_ORDERED_LIST& listUse)
 				ReleaseCreatureSPK( frameID );
 			}
 
-			// loadÇÏÁö ¾Ê¾Ò´Ù°í Ç¥½ÃÇÑ´Ù.
+			// loadÃ‡ÃÃÃ¶ Â¾ÃŠÂ¾Ã’Â´Ã™Â°Ã­ Ã‡Â¥Â½ÃƒÃ‡Ã‘Â´Ã™.
 			(*g_pCreatureSpriteTable)[spriteType].bLoad = FALSE;
 		}
 
@@ -6586,13 +6614,14 @@ MTopView::ReleaseUselessCreatureSPKExcept(const INT_ORDERED_LIST& listUse)
 	}
 
 	//--------------------------------------------------------
-	// loadµÈ °Í ´Ù½Ã ¼³Á¤
+	// loadÂµÃˆ Â°Ã Â´Ã™Â½Ãƒ Â¼Â³ÃÂ¤
 	//--------------------------------------------------------	
 	m_listLoadedCreatureSprite.Release();
 	m_listLoadedMonsterSprite.Release();
-	
+
 	INT_ORDERED_LIST::DATA_LIST::const_iterator iUse = listUse.GetIterator();
 
+	int i;
 	for (i=0; i<listUse.GetSize(); i++)
 	{
 		int useSpriteType = *iUse;
@@ -6611,17 +6640,17 @@ MTopView::ReleaseUselessCreatureSPKExcept(const INT_ORDERED_LIST& listUse)
 //----------------------------------------------------------------------
 // Load From File  Tile & ImageObject Set
 //----------------------------------------------------------------------
-// ÀÏºÎÀÇ Tile°ú ImageObject¸¦ LoadÇÑ´Ù.
+// Ã€ÃÂºÃÃ€Ã‡ TileÂ°Ãº ImageObjectÂ¸Â¦ LoadÃ‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool		
 MTopView::LoadFromFileTileAndImageObjectSet(const CSpriteSetManager &TileSSM, const CSpriteSetManager &ImageObjectSSM)
 {
 	//--------------------------------------------------------
 	//
-	// Tile ÀÏºÎ Load
+	// Tile Ã€ÃÂºÃ Load
 	//
 	//--------------------------------------------------------
-//	class ifstream	TileSPKFile;//(FILE_SPRITE_TILE, ios::binary);	
+//	std::ifstream	TileSPKFile;//(FILE_SPRITE_TILE, ios::binary);	
 //	if (!FileOpenBinary(FILE_SPRITE_TILE, TileSPKFile))
 //		return false;
 //	bool bLoad = m_TileSPK.LoadFromFilePart(TileSPKFile, m_TileSPKI, TileSSM);
@@ -6634,10 +6663,10 @@ MTopView::LoadFromFileTileAndImageObjectSet(const CSpriteSetManager &TileSSM, co
 	
 	//--------------------------------------------------------
 	//
-	// ImageObject ÀÏºÎ Load
+	// ImageObject Ã€ÃÂºÃ Load
 	//
 	//--------------------------------------------------------
-//	class ifstream	ImageObjectSPKFile;//(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
+//	std::ifstream	ImageObjectSPKFile;//(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
 //	if (!FileOpenBinary(FILE_SPRITE_IMAGEOBJECT, ImageObjectSPKFile))
 //		return false;
 //	bLoad = m_ImageObjectSPK.LoadFromFilePart(ImageObjectSPKFile, m_ImageObjectSPKI, ImageObjectSSM);
@@ -6650,13 +6679,13 @@ MTopView::LoadFromFileTileAndImageObjectSet(const CSpriteSetManager &TileSSM, co
 //----------------------------------------------------------------------
 // Load From File Tile LargeZone
 //----------------------------------------------------------------------
-// File¿¡¼­ LargeZone¿¡¼­¸¸ »ç¿ëÇÒ TileSpriteÀ» LoadÇÑ´Ù.
+// FileÂ¿Â¡Â¼Â­ LargeZoneÂ¿Â¡Â¼Â­Â¸Â¸ Â»Ã§Â¿Ã«Ã‡Ã’ TileSpriteÃ€Â» LoadÃ‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool
-MTopView::LoadFromFileTileSPKLargeZone(class ifstream & file)
+MTopView::LoadFromFileTileSPKLargeZone(std::ifstream & file)
 {
 	//------------------------------------------------------------
-	// File¿¡¼­ TileSprite¿¡ ´ëÇÑ Á¤º¸¸¦ LoadÇÑ´Ù.
+	// FileÂ¿Â¡Â¼Â­ TileSpriteÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸Â¸Â¦ LoadÃ‡Ã‘Â´Ã™.
 	//------------------------------------------------------------
 	CSpriteFilePositionArray* pOldTileSFPA = m_pTileSFPArrayLargeZone;
 
@@ -6665,7 +6694,7 @@ MTopView::LoadFromFileTileSPKLargeZone(class ifstream & file)
 	m_pTileSFPArrayLargeZone->LoadFromFile( file );
 
 	//------------------------------------------------------------
-	// ÇÊ¿ä ¾ø´Â°Å Á¦°Å
+	// Ã‡ÃŠÂ¿Ã¤ Â¾Ã¸Â´Ã‚Â°Ã… ÃÂ¦Â°Ã…
 	//------------------------------------------------------------
 	if (pOldTileSFPA!=NULL)
 	{
@@ -6694,12 +6723,12 @@ MTopView::LoadFromFileTileSPKLargeZone(class ifstream & file)
 
 		DEBUG_ADD( "Subtract");
 		
-		// oldTileID¿¡¼­ newTileID Á¦°ÅÇÑ´Ù.
+		// oldTileIDÂ¿Â¡Â¼Â­ newTileID ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 		oldTileID -= newTileID;
 		
 		DEBUG_ADD( "Release Part");
 		
-		// ¿¹ÀüÀÇ zone¿¡¸¸ Á¸ÀçÇÏ´Â TileIDµéÀ» Á¦°ÅÇÑ´Ù.
+		// Â¿Â¹Ã€Ã¼Ã€Ã‡ zoneÂ¿Â¡Â¸Â¸ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ TileIDÂµÃ©Ã€Â» ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 		m_TileSPK.ReleasePart( oldTileID );
 
 		DEBUG_ADD( "Delete pOldTilSFPA");
@@ -6720,7 +6749,7 @@ MTopView::LoadFromFileTileSPKLargeZone(class ifstream & file)
 	//  Load Tile SpriteSet
 	//------------------------------------------------------------
 	/*
-	class ifstream	TilePackFile;//(FILE_SPRITE_TILE, ios::binary);	
+	std::ifstream	TilePackFile;//(FILE_SPRITE_TILE, ios::binary);	
 	if (!FileOpenBinary(FILE_SPRITE_TILE, TilePackFile))
 		return false;
 	
@@ -6732,7 +6761,7 @@ MTopView::LoadFromFileTileSPKLargeZone(class ifstream & file)
 	*/
 
 	/*
-	// 2001.8.20 ÁÖ¼®Ã³¸®
+	// 2001.8.20 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 	CSpriteFilePositionArray* pSFPA = new CSpriteFilePositionArray;
 	*pSFPA = *m_pTileSFPArrayLargeZone;
 
@@ -6757,13 +6786,13 @@ MTopView::LoadFromFileTileSPKLargeZone(class ifstream & file)
 //----------------------------------------------------------------------
 // Load From File ImageObject LargeZone
 //----------------------------------------------------------------------
-// File¿¡¼­ LargeZone¿¡¼­¸¸ »ç¿ëÇÒ ImageObjectSpriteµéÀ» LoadÇÑ´Ù.
+// FileÂ¿Â¡Â¼Â­ LargeZoneÂ¿Â¡Â¼Â­Â¸Â¸ Â»Ã§Â¿Ã«Ã‡Ã’ ImageObjectSpriteÂµÃ©Ã€Â» LoadÃ‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool
-MTopView::LoadFromFileImageObjectSPKLargeZone(class ifstream & file)
+MTopView::LoadFromFileImageObjectSPKLargeZone(std::ifstream & file)
 {
 	//------------------------------------------------------------
-	// File¿¡¼­ ImageObjectSprite¿¡ ´ëÇÑ Á¤º¸¸¦ LoadÇÑ´Ù.
+	// FileÂ¿Â¡Â¼Â­ ImageObjectSpriteÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸Â¸Â¦ LoadÃ‡Ã‘Â´Ã™.
 	//------------------------------------------------------------
 	CSpriteFilePositionArray* pOldImageObjectSFPA = m_pImageObjectSFPArrayLargeZone;
 
@@ -6772,7 +6801,7 @@ MTopView::LoadFromFileImageObjectSPKLargeZone(class ifstream & file)
 	m_pImageObjectSFPArrayLargeZone->LoadFromFile( file );
 
 	//------------------------------------------------------------
-	// ÇÊ¿ä ¾ø´Â°Å Á¦°Å
+	// Ã‡ÃŠÂ¿Ã¤ Â¾Ã¸Â´Ã‚Â°Ã… ÃÂ¦Â°Ã…
 	//------------------------------------------------------------
 	if (pOldImageObjectSFPA!=NULL)
 	{
@@ -6800,7 +6829,7 @@ MTopView::LoadFromFileImageObjectSPKLargeZone(class ifstream & file)
 			
 		}
 
-		// oldImageObjectID¿¡¼­ newImageObjectID Á¦°ÅÇÑ´Ù.
+		// oldImageObjectIDÂ¿Â¡Â¼Â­ newImageObjectID ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 		oldImageObjectID -= newImageObjectID;
 		
 		/*
@@ -6818,7 +6847,7 @@ MTopView::LoadFromFileImageObjectSPKLargeZone(class ifstream & file)
 		#endif
 		*/
 
-		// ¿¹ÀüÀÇ zone¿¡¸¸ Á¸ÀçÇÏ´Â ImageObjectIDµéÀ» Á¦°ÅÇÑ´Ù.
+		// Â¿Â¹Ã€Ã¼Ã€Ã‡ zoneÂ¿Â¡Â¸Â¸ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ ImageObjectIDÂµÃ©Ã€Â» ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 		m_ImageObjectSPK.ReleasePart( oldImageObjectID );
 
 		delete pOldImageObjectSFPA;
@@ -6831,7 +6860,7 @@ MTopView::LoadFromFileImageObjectSPKLargeZone(class ifstream & file)
 	//  Load ImageObject SpriteSet
 	//------------------------------------------------------------
 	/*
-	class ifstream	ImageObjectPackFile;//(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
+	std::ifstream	ImageObjectPackFile;//(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
 	if (!FileOpenBinary(FILE_SPRITE_IMAGEOBJECT, ImageObjectPackFile))
 		return false;
 	
@@ -6843,8 +6872,8 @@ MTopView::LoadFromFileImageObjectSPKLargeZone(class ifstream & file)
 	*/
 
 	/*
-	// 2001.8.20 ÁÖ¼®Ã³¸®
-	// »õ·Î¿î SFPA »ı¼º.
+	// 2001.8.20 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
+	// Â»ÃµÂ·ÃÂ¿Ã® SFPA Â»Ã½Â¼Âº.
 	CSpriteFilePositionArray* pSFPA = new CSpriteFilePositionArray;
 	*pSFPA = *m_pImageObjectSFPArrayLargeZone;
 
@@ -6868,13 +6897,13 @@ MTopView::LoadFromFileImageObjectSPKLargeZone(class ifstream & file)
 //----------------------------------------------------------------------
 // Load From File Tile SmallZone
 //----------------------------------------------------------------------
-// File¿¡¼­ SmallZone¿¡¼­¸¸ »ç¿ëÇÒ TileSpriteÀ» LoadÇÑ´Ù.
+// FileÂ¿Â¡Â¼Â­ SmallZoneÂ¿Â¡Â¼Â­Â¸Â¸ Â»Ã§Â¿Ã«Ã‡Ã’ TileSpriteÃ€Â» LoadÃ‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool
-MTopView::LoadFromFileTileSPKSmallZone(class ifstream & file)
+MTopView::LoadFromFileTileSPKSmallZone(std::ifstream & file)
 {
 	//------------------------------------------------------------
-	// File¿¡¼­ TileSprite¿¡ ´ëÇÑ Á¤º¸¸¦ LoadÇÑ´Ù.
+	// FileÂ¿Â¡Â¼Â­ TileSpriteÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸Â¸Â¦ LoadÃ‡Ã‘Â´Ã™.
 	//------------------------------------------------------------
 	CSpriteFilePositionArray* pOldTileSFPA = m_pTileSFPArraySmallZone;
 
@@ -6883,7 +6912,7 @@ MTopView::LoadFromFileTileSPKSmallZone(class ifstream & file)
 	m_pTileSFPArraySmallZone->LoadFromFile( file );
 
 	//------------------------------------------------------------
-	// ÇÊ¿ä ¾ø´Â°Å Á¦°Å
+	// Ã‡ÃŠÂ¿Ã¤ Â¾Ã¸Â´Ã‚Â°Ã… ÃÂ¦Â°Ã…
 	//------------------------------------------------------------
 	if (pOldTileSFPA!=NULL)
 	{
@@ -6912,12 +6941,12 @@ MTopView::LoadFromFileTileSPKSmallZone(class ifstream & file)
 
 		DEBUG_ADD( "Subtract");
 		
-		// oldTileID¿¡¼­ newTileID Á¦°ÅÇÑ´Ù.
+		// oldTileIDÂ¿Â¡Â¼Â­ newTileID ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 		oldTileID -= newTileID;
 		
 		DEBUG_ADD( "Release");
 		
-		// ¿¹ÀüÀÇ zone¿¡¸¸ Á¸ÀçÇÏ´Â TileIDµéÀ» Á¦°ÅÇÑ´Ù.
+		// Â¿Â¹Ã€Ã¼Ã€Ã‡ zoneÂ¿Â¡Â¸Â¸ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ TileIDÂµÃ©Ã€Â» ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 		m_TileSPK.ReleasePart( oldTileID );
 
 		DEBUG_ADD( "Delete pOldTilSFPA");
@@ -6933,7 +6962,7 @@ MTopView::LoadFromFileTileSPKSmallZone(class ifstream & file)
 	//  Load Tile SpriteSet
 	//------------------------------------------------------------
 	/*
-	class ifstream	TilePackFile;//(FILE_SPRITE_TILE, ios::binary);	
+	std::ifstream	TilePackFile;//(FILE_SPRITE_TILE, ios::binary);	
 	if (!FileOpenBinary(FILE_SPRITE_TILE, TilePackFile))
 		return false;
 
@@ -6945,7 +6974,7 @@ MTopView::LoadFromFileTileSPKSmallZone(class ifstream & file)
 	*/
 
 	/*
-	// 2001.8.20 ÁÖ¼®Ã³¸®
+	// 2001.8.20 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 	CSpriteFilePositionArray* pSFPA = new CSpriteFilePositionArray;
 	*pSFPA = *m_pTileSFPArraySmallZone;
 
@@ -6970,13 +6999,13 @@ MTopView::LoadFromFileTileSPKSmallZone(class ifstream & file)
 //----------------------------------------------------------------------
 // Load From File ImageObject SmallZone
 //----------------------------------------------------------------------
-// File¿¡¼­ SmallZone¿¡¼­¸¸ »ç¿ëÇÒ ImageObjectSpriteµéÀ» LoadÇÑ´Ù.
+// FileÂ¿Â¡Â¼Â­ SmallZoneÂ¿Â¡Â¼Â­Â¸Â¸ Â»Ã§Â¿Ã«Ã‡Ã’ ImageObjectSpriteÂµÃ©Ã€Â» LoadÃ‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool
-MTopView::LoadFromFileImageObjectSPKSmallZone(class ifstream & file)
+MTopView::LoadFromFileImageObjectSPKSmallZone(std::ifstream & file)
 {
 	//------------------------------------------------------------
-	// File¿¡¼­ ImageObjectSprite¿¡ ´ëÇÑ Á¤º¸¸¦ LoadÇÑ´Ù.
+	// FileÂ¿Â¡Â¼Â­ ImageObjectSpriteÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸Â¸Â¦ LoadÃ‡Ã‘Â´Ã™.
 	//------------------------------------------------------------
 	CSpriteFilePositionArray* pOldImageObjectSFPA = m_pImageObjectSFPArraySmallZone;
 
@@ -6985,7 +7014,7 @@ MTopView::LoadFromFileImageObjectSPKSmallZone(class ifstream & file)
 	m_pImageObjectSFPArraySmallZone->LoadFromFile( file );
 
 	//------------------------------------------------------------
-	// ÇÊ¿ä ¾ø´Â°Å Á¦°Å
+	// Ã‡ÃŠÂ¿Ã¤ Â¾Ã¸Â´Ã‚Â°Ã… ÃÂ¦Â°Ã…
 	//------------------------------------------------------------
 	if (pOldImageObjectSFPA!=NULL)
 	{
@@ -7008,10 +7037,10 @@ MTopView::LoadFromFileImageObjectSPKSmallZone(class ifstream & file)
 			newImageObjectID.Add( (*m_pImageObjectSFPArraySmallZone)[i].SpriteID );
 		}
 
-		// oldImageObjectID¿¡¼­ newImageObjectID Á¦°ÅÇÑ´Ù.
+		// oldImageObjectIDÂ¿Â¡Â¼Â­ newImageObjectID ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 		oldImageObjectID -= newImageObjectID;
 		
-		// ¿¹ÀüÀÇ zone¿¡¸¸ Á¸ÀçÇÏ´Â ImageObjectIDµéÀ» Á¦°ÅÇÑ´Ù.
+		// Â¿Â¹Ã€Ã¼Ã€Ã‡ zoneÂ¿Â¡Â¸Â¸ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ ImageObjectIDÂµÃ©Ã€Â» ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 		m_ImageObjectSPK.ReleasePart( oldImageObjectID );
 
 		delete pOldImageObjectSFPA;
@@ -7025,7 +7054,7 @@ MTopView::LoadFromFileImageObjectSPKSmallZone(class ifstream & file)
 	//  Load ImageObject SpriteSet
 	//------------------------------------------------------------
 	/*
-	class ifstream	ImageObjectPackFile;//(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
+	std::ifstream	ImageObjectPackFile;//(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
 	if (!FileOpenBinary(FILE_SPRITE_IMAGEOBJECT, ImageObjectPackFile))
 		return false;
 	
@@ -7036,7 +7065,7 @@ MTopView::LoadFromFileImageObjectSPKSmallZone(class ifstream & file)
 	return bLoadOK;
 	*/
 	/*
-	// 2001.8.20 ÁÖ¼®Ã³¸®
+	// 2001.8.20 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 	CSpriteFilePositionArray* pSFPA = new CSpriteFilePositionArray;
 	*pSFPA = *m_pImageObjectSFPArraySmallZone;
 
@@ -7097,7 +7126,7 @@ MTopView::ReleaseImageObjectSPKLargeZone()
 //----------------------------------------------------------------------
 // Release TileSPK SmallZone
 //----------------------------------------------------------------------
-// SmallZone¿¡¸¸ Á¸ÀçÇÏ´Â TileµéÀ» Á¦°ÅÇÑ´Ù.
+// SmallZoneÂ¿Â¡Â¸Â¸ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ TileÂµÃ©Ã€Â» ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void	
 MTopView::ReleaseTileSPKSmallZone()
@@ -7105,8 +7134,8 @@ MTopView::ReleaseTileSPKSmallZone()
 	/*
 	DEBUG_ADD( "ReleaseTileSPKSmallZone" );
 	
-	// m_pTileSFPArraySmallZone¿Í m_pTileSFPArrayLargeZone¸¦ sortÇÏ°í
-	// SmallZone - LargeZoneÇØ¼­ ³²Àº °ÍÀ» Á¦°ÅÇÑ´Ù.
+	// m_pTileSFPArraySmallZoneÂ¿Ã m_pTileSFPArrayLargeZoneÂ¸Â¦ sortÃ‡ÃÂ°Ã­
+	// SmallZone - LargeZoneÃ‡Ã˜Â¼Â­ Â³Â²Ã€Âº Â°ÃÃ€Â» ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 	COrderedList<TYPE_SPRITEID>	SmallZoneTileID;
 	COrderedList<TYPE_SPRITEID>	LargeZoneTileID;
 
@@ -7124,10 +7153,10 @@ MTopView::ReleaseTileSPKSmallZone()
 		LargeZoneTileID.Add( m_pTileSFPArrayLargeZone[i].SpriteID );
 	}
 
-	// SmallZoneTileID¿¡¼­ LargeZoneTileID¸¦ Á¦°ÅÇÑ´Ù.
+	// SmallZoneTileIDÂ¿Â¡Â¼Â­ LargeZoneTileIDÂ¸Â¦ ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 	SmallZoneTileID -= LargeZoneTileID;
 	
-	// SmallZone¿¡¸¸ Á¸ÀçÇÏ´Â TileIDµéÀ» Á¦°ÅÇÑ´Ù.
+	// SmallZoneÂ¿Â¡Â¸Â¸ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ TileIDÂµÃ©Ã€Â» ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 	m_TileSPK.ReleasePart( SmallZoneTileID );
 
 	m_pTileSFPArraySmallZone->Release();
@@ -7138,7 +7167,7 @@ MTopView::ReleaseTileSPKSmallZone()
 //----------------------------------------------------------------------
 // Release ImageObjectSPK SmallZone
 //----------------------------------------------------------------------
-// SmallZone¿¡¸¸ Á¸ÀçÇÏ´Â ImageObjectµéÀ» Á¦°ÅÇÑ´Ù.
+// SmallZoneÂ¿Â¡Â¸Â¸ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ ImageObjectÂµÃ©Ã€Â» ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void	
 MTopView::ReleaseImageObjectSPKSmallZone()
@@ -7146,8 +7175,8 @@ MTopView::ReleaseImageObjectSPKSmallZone()
 	/*
 	DEBUG_ADD( "ReleaseImageObjectSPKSmallZone" );
 	
-	// m_pImageObjectSFPArraySmallZone¿Í m_pImageObjectSFPArrayLargeZone¸¦ sortÇÏ°í
-	// SmallZone - LargeZoneÇØ¼­ ³²Àº °ÍÀ» Á¦°ÅÇÑ´Ù.
+	// m_pImageObjectSFPArraySmallZoneÂ¿Ã m_pImageObjectSFPArrayLargeZoneÂ¸Â¦ sortÃ‡ÃÂ°Ã­
+	// SmallZone - LargeZoneÃ‡Ã˜Â¼Â­ Â³Â²Ã€Âº Â°ÃÃ€Â» ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 	COrderedList<TYPE_SPRITEID>	SmallZoneImageObjectID;
 	COrderedList<TYPE_SPRITEID>	LargeZoneImageObjectID;
 
@@ -7165,10 +7194,10 @@ MTopView::ReleaseImageObjectSPKSmallZone()
 		LargeZoneImageObjectID.Add( m_pImageObjectSFPArrayLargeZone[i].SpriteID );
 	}
 
-	// SmallZoneImageObjectID¿¡¼­ LargeZoneImageObjectID¸¦ Á¦°ÅÇÑ´Ù.
+	// SmallZoneImageObjectIDÂ¿Â¡Â¼Â­ LargeZoneImageObjectIDÂ¸Â¦ ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 	SmallZoneImageObjectID -= LargeZoneImageObjectID;
 	
-	// SmallZone¿¡¸¸ Á¸ÀçÇÏ´Â ImageObjectIDµéÀ» Á¦°ÅÇÑ´Ù.
+	// SmallZoneÂ¿Â¡Â¸Â¸ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ ImageObjectIDÂµÃ©Ã€Â» ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 	m_ImageObjectSPK.ReleasePart( SmallZoneImageObjectID );
 
 	m_pImageObjectSFPArraySmallZone->Release();
@@ -7177,23 +7206,23 @@ MTopView::ReleaseImageObjectSPKSmallZone()
 }
 
 //----------------------------------------------------------------------
-// º¸¿©ÁÙ ZoneÀ» ¼³Á¤ÇÑ´Ù.
+// ÂºÂ¸Â¿Â©ÃÃ™ ZoneÃ€Â» Â¼Â³ÃÂ¤Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void
 MTopView::SetZone(MZone* pZone)
 {
 	m_pZone		= pZone;
 	
-	// ¸ğµÎ ´Ù½Ã ±×·ÁÁØ´Ù.
+	// Â¸Ã°ÂµÃ Â´Ã™Â½Ãƒ Â±Ã—Â·ÃÃÃ˜Â´Ã™.
 	m_bFirstTileDraw = true;
 	
 	ClearOutputCreature();
 
 	ClearItemNameList();
 
-	// ÁÂÇ¥ ¼³Á¤
+	// ÃÃ‚Ã‡Â¥ Â¼Â³ÃÂ¤
 	//----------------------------------------
-	// ½Ã¾ß °ü·Ã..
+	// Â½ÃƒÂ¾ÃŸ Â°Ã¼Â·Ãƒ..
 	//----------------------------------------
 //	int x, y;
 //	for (y=0; y<m_pZone->GetHeight(); y++)
@@ -7220,17 +7249,17 @@ MTopView::SetZone(MZone* pZone)
 //----------------------------------------------------------------------
 // Get Screen Point
 //----------------------------------------------------------------------
-// È­¸é »óÀÇ ÁÂÇ¥ (x,y)´Â Zone¿¡¼­ÀÇ pixelÁÂÇ¥·Î´Â ¾î´À Á¡ÀÎ°¡?
+// ÃˆÂ­Â¸Ã© Â»Ã³Ã€Ã‡ ÃÃ‚Ã‡Â¥ (x,y)Â´Ã‚ ZoneÂ¿Â¡Â¼Â­Ã€Ã‡ pixelÃÃ‚Ã‡Â¥Â·ÃÂ´Ã‚ Â¾Ã®Â´Ã€ ÃÂ¡Ã€ÃÂ°Â¡?
 //----------------------------------------------------------------------
 POINT	
 MTopView::ScreenToPixel(int x, int y)
 {
-	// ÇöÀç È­¸éÀÇ (x,y)ÀÇ ÁÂÇ¥¸¦ ±¸ÇÑ´Ù.
-	POINT zonePixel;	// È­¸é»óÀÇ Ã³À½ Sector°¡ ³ªÅ¸³»´Â ZoneÀÇ pixelÁÂÇ¥
+	// Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ (x,y)Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
+	POINT zonePixel;	// ÃˆÂ­Â¸Ã©Â»Ã³Ã€Ã‡ ÃƒÂ³Ã€Â½ SectorÂ°Â¡ Â³ÂªÃ…Â¸Â³Â»Â´Ã‚ ZoneÃ€Ã‡ pixelÃÃ‚Ã‡Â¥
 
-	// È­¸éÀÇ Ã¹ Sector°¡ ³ªÅ¸³»´Â Map¿¡¼­ÀÇ PixelÁÂÇ¥¸¦ ±¸ÇÏ°í
-	// È­¸éÁÂÇ¥ (x,y)¸¦ ´õÇØÁÖ¸é 
-	// È­¸é »óÀÇ ÁÂÇ¥°¡ ³ªÅ¸³»´Â Map¿¡¼­ÀÇ PixelÁÂÇ¥¸¦ ±¸ÇÏ´Â °ÍÀÌ´Ù
+	// ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃƒÂ¹ SectorÂ°Â¡ Â³ÂªÃ…Â¸Â³Â»Â´Ã‚ MapÂ¿Â¡Â¼Â­Ã€Ã‡ PixelÃÃ‚Ã‡Â¥Â¸Â¦ Â±Â¸Ã‡ÃÂ°Ã­
+	// ÃˆÂ­Â¸Ã©ÃÃ‚Ã‡Â¥ (x,y)Â¸Â¦ Â´ÃµÃ‡Ã˜ÃÃ–Â¸Ã© 
+	// ÃˆÂ­Â¸Ã© Â»Ã³Ã€Ã‡ ÃÃ‚Ã‡Â¥Â°Â¡ Â³ÂªÃ…Â¸Â³Â»Â´Ã‚ MapÂ¿Â¡Â¼Â­Ã€Ã‡ PixelÃÃ‚Ã‡Â¥Â¸Â¦ Â±Â¸Ã‡ÃÂ´Ã‚ Â°ÃÃ€ÃŒÂ´Ã™
 	
 	//zonePixel = MapToPixel(m_FirstSector.x, m_FirstSector.y);
 	//zonePixel.x += m_PlusPoint.x  + x;
@@ -7245,15 +7274,15 @@ MTopView::ScreenToPixel(int x, int y)
 //----------------------------------------------------------------------
 // Pixel To Screen
 //----------------------------------------------------------------------
-// ZoneÀÇ pixelÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
+// ZoneÃ€Ã‡ pixelÃÃ‚Ã‡Â¥Â¸Â¦ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã›Â´Ã™.
 //----------------------------------------------------------------------
 POINT
 MTopView::PixelToScreen(int x, int y)
 {
 	POINT screenPixel;
 
-	// zoneÀÇ pixelÁÂÇ¥¿¡¼­ 
-	// È­¸éÀÇ Ã¹Á¡ÀÌ °¡¸®Å°´Â zoneÀÇ ÁÂÇ¥¸¦ »©¸é µÈ´Ù.
+	// zoneÃ€Ã‡ pixelÃÃ‚Ã‡Â¥Â¿Â¡Â¼Â­ 
+	// ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃƒÂ¹ÃÂ¡Ã€ÃŒ Â°Â¡Â¸Â®Ã…Â°Â´Ã‚ zoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Â»Â©Â¸Ã© ÂµÃˆÂ´Ã™.
 	screenPixel.x = x - m_FirstZonePixel.x;
 	screenPixel.y = y - m_FirstZonePixel.y;
 
@@ -7263,17 +7292,17 @@ MTopView::PixelToScreen(int x, int y)
 //----------------------------------------------------------------------
 // Map To Screen
 //----------------------------------------------------------------------
-// MapÀÇ sectorÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
+// MapÃ€Ã‡ sectorÃÃ‚Ã‡Â¥Â¸Â¦ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã›Â´Ã™.
 //----------------------------------------------------------------------
 POINT
 MTopView::MapToScreen(int sX, int sY)
 {
 	POINT screenPixel;
 
-	// MapÀÇ SectorÁÂÇ¥¸¦ PixelÁÂÇ¥·Î ¹Ù²Û´Ù.
+	// MapÃ€Ã‡ SectorÃÃ‚Ã‡Â¥Â¸Â¦ PixelÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã›Â´Ã™.
 	screenPixel = MapToPixel(sX, sY);
 
-	// PixelÁÂÇ¥¸¦ ScreenÁÂÇ¥·Î ¹Ù²Û´Ù.
+	// PixelÃÃ‚Ã‡Â¥Â¸Â¦ ScreenÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã›Â´Ã™.
 	screenPixel.x -= m_FirstZonePixel.x;
 	screenPixel.y -= m_FirstZonePixel.y;
 
@@ -7281,8 +7310,8 @@ MTopView::MapToScreen(int sX, int sY)
 }
 
 //----------------------------------------------------------------------
-// È­¸é ÁÂÇ¥ (x,y)°¡ °¡¸®Å°´Â À§Ä¡´Â 
-// Zone¿¡¼­ÀÇ ¾î¶²(sX,sY) SectorÀÏ±î?
+// ÃˆÂ­Â¸Ã© ÃÃ‚Ã‡Â¥ (x,y)Â°Â¡ Â°Â¡Â¸Â®Ã…Â°Â´Ã‚ Ã€Â§Ã„Â¡Â´Ã‚ 
+// ZoneÂ¿Â¡Â¼Â­Ã€Ã‡ Â¾Ã®Â¶Â²(sX,sY) SectorÃ€ÃÂ±Ã®?
 //----------------------------------------------------------------------
 POINT
 MTopView::GetSelectedSector(int x, int y)
@@ -7290,22 +7319,22 @@ MTopView::GetSelectedSector(int x, int y)
 	POINT point;
 
 	//-------------------------------------------------
-	// ÁØºñµÈ °ªµé
+	// ÃÃ˜ÂºÃ±ÂµÃˆ Â°ÂªÂµÃ©
 	//-------------------------------------------------
-	// È­¸é »óÀÇ Ã¹ Sector : m_FirstSector
-	// ÁÂÇ¥º¸Á¤°ª          : m_PlusPoint
+	// ÃˆÂ­Â¸Ã© Â»Ã³Ã€Ã‡ ÃƒÂ¹ Sector : m_FirstSector
+	// ÃÃ‚Ã‡Â¥ÂºÂ¸ÃÂ¤Â°Âª          : m_PlusPoint
 	//-------------------------------------------------
 
 	//-------------------------------------------------
-	// ¹æ¹ı
+	// Â¹Ã¦Â¹Ã½
 	//-------------------------------------------------
-	// 1. È­¸éÀÇ (0,0)ÀÌ Zone¿¡¼­ ³ªÅ¸³»´Â 
-	//    pixel´ÜÀ§ÁÂÇ¥¸¦ ¾Ë¾Æ³½´Ù.(pX,pY) - MapToPixel
+	// 1. ÃˆÂ­Â¸Ã©Ã€Ã‡ (0,0)Ã€ÃŒ ZoneÂ¿Â¡Â¼Â­ Â³ÂªÃ…Â¸Â³Â»Â´Ã‚ 
+	//    pixelÂ´ÃœÃ€Â§ÃÃ‚Ã‡Â¥Â¸Â¦ Â¾Ã‹Â¾Ã†Â³Â½Â´Ã™.(pX,pY) - MapToPixel
 	//
-	// 2. (pX,pY) + (x,y)¸¦ ±¸ÇÑ´Ù.
+	// 2. (pX,pY) + (x,y)Â¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
 	//
-	// 3. (pX,x, pY,y)°¡ Zone¿¡¼­ ³ªÅ¸³»´Â
-	//    SectorÁÂÇ¥¸¦ ¾Ë¾Æ³½´Ù.           - PixelToMap
+	// 3. (pX,x, pY,y)Â°Â¡ ZoneÂ¿Â¡Â¼Â­ Â³ÂªÃ…Â¸Â³Â»Â´Ã‚
+	//    SectorÃÃ‚Ã‡Â¥Â¸Â¦ Â¾Ã‹Â¾Ã†Â³Â½Â´Ã™.           - PixelToMap
 	//-------------------------------------------------
 
 	point = MapToPixel(m_FirstSector.x, m_FirstSector.y);
@@ -7331,7 +7360,7 @@ MTopView::GetSelectedSector(int x, int y)
 //----------------------------------------------------------------------
 // Set Direction To Creature
 //----------------------------------------------------------------------
-// ´Ù¸¥ Creature¸¦ ÇâÇØ¼­ ¹Ù¶óº»´Ù.
+// Â´Ã™Â¸Â¥ CreatureÂ¸Â¦ Ã‡Ã¢Ã‡Ã˜Â¼Â­ Â¹Ã™Â¶Ã³ÂºÂ»Â´Ã™.
 //----------------------------------------------------------------------
 BYTE
 MTopView::GetDirectionToPosition(int originX, int originY, int destX, int destY)
@@ -7339,16 +7368,16 @@ MTopView::GetDirectionToPosition(int originX, int originY, int destX, int destY)
 	int	stepX = destX - originX,
 		stepY = destY - originY;
 
-	// 0ÀÏ ¶§ check
-	float	k	= (stepX==0)? 0 : (float)(stepY) / stepX;	// ±â¿ï±â
+	// 0Ã€Ã Â¶Â§ check
+	float	k	= (stepX==0)? 0 : (float)(stepY) / stepX;	// Â±Ã¢Â¿Ã¯Â±Ã¢
 									
 
 	//--------------------------------------------------
-	// ¹æÇâÀ» Á¤ÇØ¾ß ÇÑ´Ù.	
+	// Â¹Ã¦Ã‡Ã¢Ã€Â» ÃÂ¤Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.	
 	//--------------------------------------------------
 	if (stepY == 0)
 	{
-		// XÃà
+		// XÃƒÃ 
 		// - -;;
 		if (stepX == 0)
 			return DIRECTION_DOWN;
@@ -7358,14 +7387,14 @@ MTopView::GetDirectionToPosition(int originX, int originY, int destX, int destY)
 			return DIRECTION_LEFT;
 	}
 	else
-	if (stepY < 0)	// UPÂÊÀ¸·Î
+	if (stepY < 0)	// UPÃ‚ÃŠÃ€Â¸Â·Ã
 	{
-		// yÃà À§
+		// yÃƒÃ  Ã€Â§
 		if (stepX == 0)
 		{
 			return DIRECTION_UP;
 		}
-		// 1»çºĞ¸é
+		// 1Â»Ã§ÂºÃÂ¸Ã©
 		else if (stepX > 0)
 		{
 			if (k < -BASIS_DIRECTION_HIGH)
@@ -7375,7 +7404,7 @@ MTopView::GetDirectionToPosition(int originX, int originY, int destX, int destY)
 			else
 				return DIRECTION_RIGHT;
 		}
-		// 2»çºĞ¸é
+		// 2Â»Ã§ÂºÃÂ¸Ã©
 		else
 		{
 			if (k > BASIS_DIRECTION_HIGH)
@@ -7386,15 +7415,15 @@ MTopView::GetDirectionToPosition(int originX, int originY, int destX, int destY)
 				return DIRECTION_LEFT;
 		}
 	}
-	// ¾Æ·¡ÂÊ
+	// Â¾Ã†Â·Â¡Ã‚ÃŠ
 	else
 	{		
-		// yÃà ¾Æ·¡
+		// yÃƒÃ  Â¾Ã†Â·Â¡
 		if (stepX == 0)
 		{
 			return DIRECTION_DOWN;
 		}
-		// 4»çºĞ¸é
+		// 4Â»Ã§ÂºÃÂ¸Ã©
 		else if (stepX > 0)
 		{
 			if (k > BASIS_DIRECTION_HIGH)
@@ -7404,7 +7433,7 @@ MTopView::GetDirectionToPosition(int originX, int originY, int destX, int destY)
 			else
 				return DIRECTION_RIGHT;
 		}
-		// 3»çºĞ¸é
+		// 3Â»Ã§ÂºÃÂ¸Ã©
 		else
 		{
 			if (k < -BASIS_DIRECTION_HIGH)
@@ -7420,28 +7449,30 @@ MTopView::GetDirectionToPosition(int originX, int originY, int destX, int destY)
 //----------------------------------------------------------------------
 // Set Fade Start
 //----------------------------------------------------------------------
-// startºÎÅÍ end±îÁö step¾¿..
-// (r,g,b)»ö±ò·Î Fade in ½ÃÅ²´Ù.
-// 0(¿ø»ö)~31(¾øÀ½)
+// startÂºÃÃ…Ã endÂ±Ã®ÃÃ¶ stepÂ¾Â¿..
+// (r,g,b)Â»Ã¶Â±Ã²Â·Ã Fade in Â½ÃƒÃ…Â²Â´Ã™.
+// 0(Â¿Ã¸Â»Ã¶)~31(Â¾Ã¸Ã€Â½)
 //----------------------------------------------------------------------
 void			
 MTopView::SetFadeStart(char start, char end, char step, BYTE r, BYTE g, BYTE b, WORD delay)
 {	
 	step = abs(step);
 
-	m_FadeValue	= start; 
+	m_FadeValue	= start;
 	m_FadeEnd	= end;
-	m_FadeInc	= (start<end)? step : -step; 
+	m_FadeInc	= (start<end)? step : -step;
 	m_bFade		= true;
 	m_delayFrame = delay;
+#ifdef PLATFORM_WINDOWS
 	if (CDirect3D::IsHAL())
 	{
-		// 3D °¡¼ÓÀÎ °æ¿ì¿£ 4:4:4ÀÌ´Ù.
+		// 3D Â°Â¡Â¼Ã“Ã€Ã Â°Ã¦Â¿Ã¬Â¿Â£ 4:4:4Ã€ÃŒÂ´Ã™.
 		m_FadeColor = (((WORD)r>>1) << 8)
 						| (((WORD)g>>1) << 4)
 						| ((WORD)b>>1);
 	}
 	else
+#endif
 	{
 		m_FadeColor	= CDirectDraw::Color(r,g,b);
 	}
@@ -7451,7 +7482,7 @@ MTopView::SetFadeStart(char start, char end, char step, BYTE r, BYTE g, BYTE b, 
 //----------------------------------------------------------------------
 // Draw Fade
 //----------------------------------------------------------------------
-// Fade In/Out Ã³¸®
+// Fade In/Out ÃƒÂ³Â¸Â®
 //----------------------------------------------------------------------	
 void 
 MTopView::DrawFade()
@@ -7460,7 +7491,7 @@ MTopView::DrawFade()
 		return;
 
 	//--------------------------------------------------------
-	// Fade In/Out ½ÃÅ°´Â ÁßÀÌ¸é Ãâ·Â..
+	// Fade In/Out Â½ÃƒÃ…Â°Â´Ã‚ ÃÃŸÃ€ÃŒÂ¸Ã© ÃƒÃ¢Â·Ã‚..
 	//--------------------------------------------------------
 	if (m_bFade)// || bEvent)
 	{
@@ -7479,7 +7510,7 @@ MTopView::DrawFade()
 //			
 //			if (CDirect3D::IsHAL())
 //			{
-//				// 3D °¡¼ÓÀÎ °æ¿ì¿£ 4:4:4ÀÌ´Ù.
+//				// 3D Â°Â¡Â¼Ã“Ã€Ã Â°Ã¦Â¿Ã¬Â¿Â£ 4:4:4Ã€ÃŒÂ´Ã™.
 //				m_FadeColor = (((WORD)r>>1) << 8)
 //					| (((WORD)g>>1) << 4)
 //					| ((WORD)b>>1);
@@ -7497,14 +7528,14 @@ MTopView::DrawFade()
 		rect.bottom = g_GameRect.bottom;	
 
 //		//--------------------------------------------------------
-//		// 3D °¡¼ÓÀÇ °æ¿ì
+//		// 3D Â°Â¡Â¼Ã“Ã€Ã‡ Â°Ã¦Â¿Ã¬
 //		//--------------------------------------------------------
 //		if (CDirect3D::IsHAL())
 //		{
 //			WORD alpha = (32-m_FadeValue)>>1;			
 //			WORD pixel = alpha << 12;
 //
-//			// m_FadeColor·Î È­¸éÀ» µ¤´Â´Ù.
+//			// m_FadeColorÂ·Ã ÃˆÂ­Â¸Ã©Ã€Â» ÂµÂ¤Â´Ã‚Â´Ã™.
 //			pixel |= m_FadeColor;
 //
 //			DrawBox3D(&rect, pixel);
@@ -7517,23 +7548,25 @@ MTopView::DrawFade()
 			m_pSurface->Lock();
 
 			//-------------------------------------------------
-			// °ËÁ¤»öÀÌ¸é.. ½±°Ô µÈ´Ù~
+			// Â°Ã‹ÃÂ¤Â»Ã¶Ã€ÃŒÂ¸Ã©.. Â½Â±Â°Ã” ÂµÃˆÂ´Ã™~
 			//-------------------------------------------------
 			if (m_FadeColor==0)
 			{
+#ifdef PLATFORM_WINDOWS
 				// 2D 5:6:5
 				if (CDirectDraw::Is565())
 				{
-					m_pSurface->GammaBox565(&rect, m_FadeValue);
+					//m_pSurface->GammaBox565(&rect, m_FadeValue);
 				}
 				// 2D 5:5:5
 				else
 				{
-					m_pSurface->GammaBox555(&rect, m_FadeValue);
+					//m_pSurface->GammaBox555(&rect, m_FadeValue);
 				}
+#endif
 			}
 			//-------------------------------------------------
-			// ¾Æ´Ï¸é...
+			// Â¾Ã†Â´ÃÂ¸Ã©...
 			//-------------------------------------------------
 			else
 			{
@@ -7544,16 +7577,16 @@ MTopView::DrawFade()
 		}
 
 		//------------------------------------------------
-		// ´ÙÀ½ fade°ª
+		// Â´Ã™Ã€Â½ fadeÂ°Âª
 		//------------------------------------------------
-		// 2004, 6, 21, sobeit add start - Áúµå·¹ ¿¬Ãâ ¶«¿¡ Ãß°¡..
+		// 2004, 6, 21, sobeit add start - ÃÃºÂµÃ¥Â·Â¹ Â¿Â¬ÃƒÃ¢ Â¶Â«Â¿Â¡ ÃƒÃŸÂ°Â¡..
 		if(m_delayFrame)
 		{
 			if(g_CurrentFrame - TempFadeFrame >= m_delayFrame)
 			{
-				if( m_FadeEnd == -1 && 1 == m_FadeValue ) // Áúµå·¹ ¿¬Ãâ¶«¿¡ ¾îµÎ¿ö Áø´ã¿¡ Àá½Ã À¯Áö..^^;
+				if( m_FadeEnd == -1 && 1 == m_FadeValue ) // ÃÃºÂµÃ¥Â·Â¹ Â¿Â¬ÃƒÃ¢Â¶Â«Â¿Â¡ Â¾Ã®ÂµÃÂ¿Ã¶ ÃÃ¸Â´Ã£Â¿Â¡ Ã€Ã¡Â½Ãƒ Ã€Â¯ÃÃ¶..^^;
 				{
-					if(g_CurrentFrame - TempFadeFrame> 16*5) // 5ÃÊ°£ À¯Áö
+					if(g_CurrentFrame - TempFadeFrame> 16*5) // 5ÃƒÃŠÂ°Â£ Ã€Â¯ÃÃ¶
 						m_bFade = false;
 				}
 				else
@@ -7564,13 +7597,13 @@ MTopView::DrawFade()
 			}
 		}
 		else
-		// 2004, 6, 21, sobeit add end - Áúµå·¹ ¿¬Ãâ ¶«¿¡ Ãß°¡..
+		// 2004, 6, 21, sobeit add end - ÃÃºÂµÃ¥Â·Â¹ Â¿Â¬ÃƒÃ¢ Â¶Â«Â¿Â¡ ÃƒÃŸÂ°Â¡..
 			m_FadeValue += m_FadeInc;
 
 		//------------------------------------------------
-		// ³¡ÀÎ°¡?
+		// Â³Â¡Ã€ÃÂ°Â¡?
 		//------------------------------------------------
-		// Áõ°¡ÇÏ°í ÀÖ´Â °æ¿ì
+		// ÃÃµÂ°Â¡Ã‡ÃÂ°Ã­ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 		if (m_FadeInc > 0)
 		{
 			if (m_FadeValue > m_FadeEnd || m_FadeValue > 31)
@@ -7588,34 +7621,34 @@ MTopView::DrawFade()
 	}	
 }
 //----------------------------------------------------------------------
-// È­¸é ÁÂÇ¥ (x,y)°¡ °¡¸®Å°´Â À§Ä¡¸¦ ¼±ÅÃÇÏ¸é 
-// ZoneÀÇ ¾î¶²(sX,sY) Object°¡ ¼±ÅÃµÉ±î?
+// ÃˆÂ­Â¸Ã© ÃÃ‚Ã‡Â¥ (x,y)Â°Â¡ Â°Â¡Â¸Â®Ã…Â°Â´Ã‚ Ã€Â§Ã„Â¡Â¸Â¦ Â¼Â±Ã…ÃƒÃ‡ÃÂ¸Ã© 
+// ZoneÃ€Ã‡ Â¾Ã®Â¶Â²(sX,sY) ObjectÂ°Â¡ Â¼Â±Ã…ÃƒÂµÃ‰Â±Ã®?
 //----------------------------------------------------------------------
 MObject*
 MTopView::GetSelectedObject(int x, int y)
 {
 	//--------------------------------------------------------------	
-	// 1. È­¸éÁÂÇ¥ (x,y)ÀÇ Zone¿¡¼­ÀÇ Sector(sX,sY)ÁÂÇ¥¸¦ ±¸ÇÑ´Ù.
+	// 1. ÃˆÂ­Â¸Ã©ÃÃ‚Ã‡Â¥ (x,y)Ã€Ã‡ ZoneÂ¿Â¡Â¼Â­Ã€Ã‡ Sector(sX,sY)ÃÃ‚Ã‡Â¥Â¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
 	// 
-	// 2. (sX,sY) ±ÙÃ³¿¡ Object°¡ ÀÖÀ¸¸é 
-	//    ±× ObjectÀÇ È­¸é »óÀÇ ÁÂÇ¥¸¦ ±¸ÇØ¼­
-	//    (x,y)°¡ ¼ÓÇÏ¸é "¼±ÅÃÇÑ´Ù"
-	//    ¾Æ´Ï¸é, ±× ´ÙÀ½ÀÇ ±ÙÃ³ Sector¸¦ checkÇØºÁ¾ß ÇÑ´Ù.
+	// 2. (sX,sY) Â±Ã™ÃƒÂ³Â¿Â¡ ObjectÂ°Â¡ Ã€Ã–Ã€Â¸Â¸Ã© 
+	//    Â±Ã— ObjectÃ€Ã‡ ÃˆÂ­Â¸Ã© Â»Ã³Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Â±Â¸Ã‡Ã˜Â¼Â­
+	//    (x,y)Â°Â¡ Â¼Ã“Ã‡ÃÂ¸Ã© "Â¼Â±Ã…ÃƒÃ‡Ã‘Â´Ã™"
+	//    Â¾Ã†Â´ÃÂ¸Ã©, Â±Ã— Â´Ã™Ã€Â½Ã€Ã‡ Â±Ã™ÃƒÂ³ SectorÂ¸Â¦ checkÃ‡Ã˜ÂºÃÂ¾ÃŸ Ã‡Ã‘Â´Ã™.
 	//
-	// (!) Player´Â Á¦¿Ü´Ù. ¾ø´Ù°í »ı°¢ÇÏ°í checkÇÑ´Ù.
+	// (!) PlayerÂ´Ã‚ ÃÂ¦Â¿ÃœÂ´Ã™. Â¾Ã¸Â´Ã™Â°Ã­ Â»Ã½Â°Â¢Ã‡ÃÂ°Ã­ checkÃ‡Ã‘Â´Ã™.
 	//--------------------------------------------------------------
 
 	//--------------------------------------------------------------
-	// ±ÙÃ³ Sector¸¦ Ã£´Â ¼ø¼­
+	// Â±Ã™ÃƒÂ³ SectorÂ¸Â¦ ÃƒÂ£Â´Ã‚ Â¼Ã¸Â¼Â­
 	//--------------------------------------------------------------	
-	// - ±×¸²Àº ¾Æ·¡ÂÊ Sector¿¡ ÀÖ´Â °ÍÀÏ¼ö·Ï ´Ê°Ô Ãâ·ÂµÇ¹Ç·Î
-	//   ¼±ÅÃµÉ ¿ì¼±¼øÀ§°¡ ³ô´Ù.
+	// - Â±Ã—Â¸Â²Ã€Âº Â¾Ã†Â·Â¡Ã‚ÃŠ SectorÂ¿Â¡ Ã€Ã–Â´Ã‚ Â°ÃÃ€ÃÂ¼Ã¶Â·Ã Â´ÃŠÂ°Ã” ÃƒÃ¢Â·Ã‚ÂµÃ‡Â¹Ã‡Â·Ã
+	//   Â¼Â±Ã…ÃƒÂµÃ‰ Â¿Ã¬Â¼Â±Â¼Ã¸Ã€Â§Â°Â¡ Â³Ã´Â´Ã™.
 	// 
 	//      .  .  .  
 	//      .  X  . 
 	//      .  .  .  
 	//      .  .  .  
-	//      .  .  .     X°¡ ¼±ÅÃµÆÀ» °æ¿ì, Ground,Item µî... check¹üÀ§
+	//      .  .  .     XÂ°Â¡ Â¼Â±Ã…ÃƒÂµÃ†Ã€Â» Â°Ã¦Â¿Ã¬, Ground,Item ÂµÃ®... checkÂ¹Ã¼Ã€Â§
 	//
 	//
 	//               
@@ -7624,13 +7657,13 @@ MTopView::GetSelectedObject(int x, int y)
 	//      .  .  .  
 	//      .  .  .  
 	//      .  .  .  
-	//      .  .  .     FlyingÀÌ 64 pixel(µÎ Å¸ÀÏ) ³ôÀÌ ¶ã °æ¿ì..
-	//      .  .  .     X°¡ ¼±ÅÃµÆÀ» °æ¿ì, Flying... check¹üÀ§
+	//      .  .  .     FlyingÃ€ÃŒ 64 pixel(ÂµÃ Ã…Â¸Ã€Ã) Â³Ã´Ã€ÃŒ Â¶Ã£ Â°Ã¦Â¿Ã¬..
+	//      .  .  .     XÂ°Â¡ Â¼Â±Ã…ÃƒÂµÃ†Ã€Â» Â°Ã¦Â¿Ã¬, Flying... checkÂ¹Ã¼Ã€Â§
 	//
 	//--------------------------------------------------------------
 
 	//--------------------------------------------------------------
-	// °¢ Sector¿¡ ´ëÇØ¼­ checkÇØºÁ¾ß ÇÏ´Â °Í
+	// Â°Â¢ SectorÂ¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­ checkÃ‡Ã˜ÂºÃÂ¾ÃŸ Ã‡ÃÂ´Ã‚ Â°Ã
 	//--------------------------------------------------------------
 	/*
 	 
@@ -7656,9 +7689,9 @@ MTopView::GetSelectedObject(int x, int y)
 	//--------------------------------------------------------------
 
 	//--------------------------------------------------------------
-	// ¾ÆÁ÷ °ÔÀÓ È­¸éÀÌ ¾È ±×·ÁÁø °æ¿ìÀÌ¸é..
-	// Player°¡ ´ÙÅ©´Ï½º ¼Ó¿¡ ÀÖ´Ù¸é..
-	// ±×³É return
+	// Â¾Ã†ÃÃ· Â°Ã”Ã€Ã“ ÃˆÂ­Â¸Ã©Ã€ÃŒ Â¾Ãˆ Â±Ã—Â·ÃÃÃ¸ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©..
+	// PlayerÂ°Â¡ Â´Ã™Ã…Â©Â´ÃÂ½Âº Â¼Ã“Â¿Â¡ Ã€Ã–Â´Ã™Â¸Ã©..
+	// Â±Ã—Â³Ã‰ return
 	//--------------------------------------------------------------
 //	bool bSlayerPlayer = g_pPlayer->IsSlayer();
 
@@ -7674,7 +7707,7 @@ MTopView::GetSelectedObject(int x, int y)
 		return NULL;
 	}
 
-	POINT firstZonePixel;	// È­¸é»óÀÇ Ã³À½ Sector°¡ ³ªÅ¸³»´Â ZoneÀÇ pixelÁÂÇ¥
+	POINT firstZonePixel;	// ÃˆÂ­Â¸Ã©Â»Ã³Ã€Ã‡ ÃƒÂ³Ã€Â½ SectorÂ°Â¡ Â³ÂªÃ…Â¸Â³Â»Â´Ã‚ ZoneÃ€Ã‡ pixelÃÃ‚Ã‡Â¥
 	firstZonePixel = MapToPixel(m_FirstSector.x, m_FirstSector.y);
 	firstZonePixel.x += m_PlusPoint.x;
 	firstZonePixel.y += m_PlusPoint.y;
@@ -7684,24 +7717,24 @@ MTopView::GetSelectedObject(int x, int y)
 	POINT	sectorPoint;		// Sector Position In Zone
 
 	//--------------------------------------------------------------
-	// (x,y)ÀÇ Zone¿¡¼­ÀÇ pixelÁÂÇ¥¸¦ ±¸ÇÑ´Ù.
+	// (x,y)Ã€Ã‡ ZoneÂ¿Â¡Â¼Â­Ã€Ã‡ pixelÃÃ‚Ã‡Â¥Â¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
 	//--------------------------------------------------------------
 	pixelPoint = MapToPixel(m_FirstSector.x, m_FirstSector.y);
 	pixelPoint.x += m_PlusPoint.x + x;
 	pixelPoint.y += m_PlusPoint.y + y;
 
 	//--------------------------------------------------------------
-	// (x,y)ÀÇ Zone¿¡¼­ÀÇ sectorÁÂÇ¥¸¦ ±¸ÇÑ´Ù.
+	// (x,y)Ã€Ã‡ ZoneÂ¿Â¡Â¼Â­Ã€Ã‡ sectorÃÃ‚Ã‡Â¥Â¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
 	//--------------------------------------------------------------						
 	sectorPoint = PixelToMap(pixelPoint.x, pixelPoint.y);
 
 	g_MouseSector = sectorPoint;
 
 	//--------------------------------------------------------------
-	// Æ÷Å» Ã¼Å©
+	// Ã†Ã·Ã…Â» ÃƒÂ¼Ã…Â©
 	//--------------------------------------------------------------
-	// ¿©±â¼­ ÇÏ´Â°Ç ¿ô±âÁö¸¸.. -_-;;
-	// Ã³¸®ÀÇ ÆíÀÇ¸¦ À§ÇØ¼­.. ÀÓ½Ã·Î... ÇÒÇÒ... ¤Ñ.¤Ñ;;
+	// Â¿Â©Â±Ã¢Â¼Â­ Ã‡ÃÂ´Ã‚Â°Ã‡ Â¿Ã´Â±Ã¢ÃÃ¶Â¸Â¸.. -_-;;
+	// ÃƒÂ³Â¸Â®Ã€Ã‡ Ã†Ã­Ã€Ã‡Â¸Â¦ Ã€Â§Ã‡Ã˜Â¼Â­.. Ã€Ã“Â½ÃƒÂ·Ã... Ã‡Ã’Ã‡Ã’... Â¤Ã‘.Â¤Ã‘;;
 	//--------------------------------------------------------------
 	g_bMouseInPortal = false;
 
@@ -7728,11 +7761,11 @@ MTopView::GetSelectedObject(int x, int y)
 			/*				
 			for (int i=0; i<numPortal; i++)
 			{
-				// ÀÌµ¿ °¡´ÉÇÑ zoneÀÇ ID
+				// Ã€ÃŒÂµÂ¿ Â°Â¡Â´Ã‰Ã‡Ã‘ zoneÃ€Ã‡ ID
 				PORTAL_INFO portalInfo = *iPortal;			
 
 				//-------------------------------------------------------
-				// ÀÓ½Ã Ãâ·Â
+				// Ã€Ã“Â½Ãƒ ÃƒÃ¢Â·Ã‚
 				//-------------------------------------------------------
 				DEBUG_ADD_FORMAT( "[Portal] Type=%d, ZoneID=%d", portalInfo.Type, portalInfo.ZoneID );
 			
@@ -7749,7 +7782,7 @@ MTopView::GetSelectedObject(int x, int y)
 				bool canMove = false;
 				bool bSiegePotal = false;
 				//-------------------------------------------------------
-				// portalÀÇ Á¾·ù¿¡ µû¶ó °¥¼ö ÀÖ´Â°÷ÀÎÁö Ã¼Å©
+				// portalÃ€Ã‡ ÃÂ¾Â·Ã¹Â¿Â¡ ÂµÃ»Â¶Ã³ Â°Â¥Â¼Ã¶ Ã€Ã–Â´Ã‚Â°Ã·Ã€ÃÃÃ¶ ÃƒÂ¼Ã…Â©
 				//-------------------------------------------------------			
 				switch (portalInfo.Type)				
 				{
@@ -7789,7 +7822,7 @@ MTopView::GetSelectedObject(int x, int y)
 				}
 
 				//-------------------------------------------------------			
-				// °¥ ¼ö ÀÖÀ¸¸é Æ÷Å» Ä¿¼­ Ãâ·Â
+				// Â°Â¥ Â¼Ã¶ Ã€Ã–Ã€Â¸Â¸Ã© Ã†Ã·Ã…Â» Ã„Â¿Â¼Â­ ÃƒÃ¢Â·Ã‚
 				//-------------------------------------------------------			
 				if (canMove)
 				{
@@ -7813,9 +7846,9 @@ MTopView::GetSelectedObject(int x, int y)
 							}
 							else
 							{
-								// ÇÊ»ì ÇÏµåÄÚµù~~
+								// Ã‡ÃŠÂ»Ã¬ Ã‡ÃÂµÃ¥Ã„ÃšÂµÃ¹~~
 								zoneID = 60001;
-								//strcpy(pZoneName, "¿¤¸®º£ÀÌÅÍ");
+								//strcpy(pZoneName, "Â¿Â¤Â¸Â®ÂºÂ£Ã€ÃŒÃ…Ã");
 							}
 
 							//if (!g_bMouseInPortal)
@@ -7835,7 +7868,7 @@ MTopView::GetSelectedObject(int x, int y)
 					if (!g_bMouseInPortal)
 					{
 						//char pZoneName[80];
-						//strcpy(pZoneName, "°¥ ¼ö ¾ø´Â °÷");
+						//strcpy(pZoneName, "Â°Â¥ Â¼Ã¶ Â¾Ã¸Â´Ã‚ Â°Ã·");
 						//gpC_mouse_pointer->SetCursorPortal( -1 );
 					}
 				}
@@ -7866,17 +7899,17 @@ MTopView::GetSelectedObject(int x, int y)
 	CFrame			frame;
 //	TYPE_SPRITEID	sprite;
 
-	// ObjectÀÇ ¿µ¿ª
+	// ObjectÃ€Ã‡ Â¿ÂµÂ¿Âª
 //	POINT	objectPixelPoint;
 	//RECT	rect;
 
 	// Player Creature's ID
 	TYPE_OBJECTID	pid = g_pPlayer->GetID();
 
-	//class ofstream file("log.txt");
+	//std::ofstream file("log.txt");
 
 
-	// ÇöÀç checkÇÏ´Â ÁÂÇ¥
+	// Ã‡Ã¶Ã€Ã§ checkÃ‡ÃÂ´Ã‚ ÃÃ‚Ã‡Â¥
 	register int currentX;
 	register int currentY;
 
@@ -7886,19 +7919,19 @@ MTopView::GetSelectedObject(int x, int y)
 	//
 	// Flying Creature Check 
 	//
-	// : °°Àº ³ôÀÌ¿¡ ÀÖ´Â °æ¿ì 
-	//   ÀÏ¹İÀûÀÎ Objectº¸´Ù ¾Æ·¡ÂÊ Sector¿¡ Á¸ÀçÇÒ ¼ö ÀÖ´Ù.
+	// : Â°Â°Ã€Âº Â³Ã´Ã€ÃŒÂ¿Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬ 
+	//   Ã€ÃÂ¹ÃÃ€Ã»Ã€Ã ObjectÂºÂ¸Â´Ã™ Â¾Ã†Â·Â¡Ã‚ÃŠ SectorÂ¿Â¡ ÃÂ¸Ã€Ã§Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã™.
 	//
 	//--------------------------------------------------------------
-	int	sX1 = sectorPoint.x - 3,		// ÇÑ ÁÙ¾¿ ´õ Áõ°¡½ÃÄ×´Ù. À½³Ä¸®~
+	int	sX1 = sectorPoint.x - 3,		// Ã‡Ã‘ ÃÃ™Â¾Â¿ Â´Ãµ ÃÃµÂ°Â¡Â½ÃƒÃ„Ã—Â´Ã™. Ã€Â½Â³Ã„Â¸Â®~
 			sX2 = sectorPoint.x + 3;
 
-	// ¹ÚÁã ³ôÀÌ ¶§¹®¿¡.. +¸¦ ´õÇß´Ù.
+	// Â¹ÃšÃÃ£ Â³Ã´Ã€ÃŒ Â¶Â§Â¹Â®Â¿Â¡.. +Â¸Â¦ Â´ÃµÃ‡ÃŸÂ´Ã™.
 	int	sY1 = sectorPoint.y + 4,
 			sY2 = sectorPoint.y + 8;
 
 	//------------------------------------------------------
-	// ZoneÀÇ ¿µ¿ªÀÌ ¾Æ´Ñ °æ¿ì¿¡ Skip...
+	// ZoneÃ€Ã‡ Â¿ÂµÂ¿ÂªÃ€ÃŒ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡ Skip...
 	//------------------------------------------------------
 	if (sX1 < 0) 
 	{			
@@ -7922,7 +7955,7 @@ MTopView::GetSelectedObject(int x, int y)
 
 
 	//------------------------------------------------------	
-	// ÀÖÀ»¹ıÇÑ Sector¸¦ checkÇÑ´Ù.
+	// Ã€Ã–Ã€Â»Â¹Ã½Ã‡Ã‘ SectorÂ¸Â¦ checkÃ‡Ã‘Â´Ã™.
 	//------------------------------------------------------	
 	for (currentY=sY2; currentY>=sY1; currentY--)	
 	{	
@@ -7934,18 +7967,18 @@ MTopView::GetSelectedObject(int x, int y)
 
 			const MSector& sector = m_pZone->GetSector(currentX, currentY);
 
-			// ¾î¶² Object°¡ ÀÖÀ» °æ¿ì
+			// Â¾Ã®Â¶Â² ObjectÂ°Â¡ Ã€Ã–Ã€Â» Â°Ã¦Â¿Ã¬
 			if (sector.IsExistObject() )			
 			{		
 				
 				//file << "Exist Object!" << endl;
 
-				// ObjectÀÇ Á¾·ù¿¡ µû¶ó¼­ ´Ş¸® checkÇÑ´Ù.
-				// ¼±ÅÃÇÒ ¼ö ÀÖ´Â °ÍÀº Creature¿Í Item»ÓÀÌ´Ù.
+				// ObjectÃ€Ã‡ ÃÂ¾Â·Ã¹Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ Â´ÃÂ¸Â® checkÃ‡Ã‘Â´Ã™.
+				// Â¼Â±Ã…ÃƒÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â°ÃÃ€Âº CreatureÂ¿Ã ItemÂ»Ã“Ã€ÃŒÂ´Ã™.
 
 				//------------------------------------------------
 				//
-				// Flying Creature°¡ ÀÖ´Â °æ¿ì
+				// Flying CreatureÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 				//
 				//------------------------------------------------
 				numCreature = sector.GetFlyingCreatureSize();
@@ -7966,43 +7999,43 @@ MTopView::GetSelectedObject(int x, int y)
 
 						pCreature = (MCreature*)iCreature->second;
 				
-						// PlayerÀÌ¸é ¼±ÅÃÇÏÁö ¾Ê´Â´Ù.
+						// PlayerÃ€ÃŒÂ¸Ã© Â¼Â±Ã…ÃƒÃ‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 						if (pCreature->GetID()!=pid)	
 						{
-							// FlyingCreature°¡ Â÷ÁöÇÏ´Â ¿µ¿ªÀ» ±¸ÇÑ´Ù.
-							// FRAME_PACK¿¡¼­ Á¤º¸¸¦ ÀĞ¾î¾ß ÇÒ µí!!
-							// FlyingCreatureÀÇ SectorÁÂÇ¥¸¦ PixelÁÂÇ¥·Î ¹Ù²ã¾ß ÇÑ´Ù.
+							// FlyingCreatureÂ°Â¡ Ã‚Ã·ÃÃ¶Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â±Â¸Ã‡Ã‘Â´Ã™.
+							// FRAME_PACKÂ¿Â¡Â¼Â­ ÃÂ¤ÂºÂ¸Â¸Â¦ Ã€ÃÂ¾Ã®Â¾ÃŸ Ã‡Ã’ ÂµÃ­!!
+							// FlyingCreatureÃ€Ã‡ SectorÃÃ‚Ã‡Â¥Â¸Â¦ PixelÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã£Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 
-							// FlyingCreatureÀÇ ZoneÀÇ ÁÂÇ¥¸¦ °è»êÇÑ´Ù.
+							// FlyingCreatureÃ€Ã‡ ZoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 							/*
 							objectPixelPoint = MapToPixel(pCreature->GetX(), pCreature->GetY());
 							objectPixelPoint.x += m_PlusPoint.x + pCreature->GetSX();
 							objectPixelPoint.y += m_PlusPoint.y + pCreature->GetSY();
 								
-							// ZoneÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
+							// ZoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã›Â´Ã™.
 							objectPixelPoint.x -= firstZonePixel.x;
 							objectPixelPoint.y -= firstZonePixel.y;
 
-							// Creature°¡ È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.	
+							// CreatureÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â°Ã¨Â»ÃªÃ‡Ã˜Â³Â½Â´Ã™.	
 							frame = m_CreatureFPK[(*g_pCreatureTable)[pCreature->GetCreatureType()].FrameID][pCreature->GetAction()][pCreature->GetDirection()][pCreature->GetFrame()];
 							
-							// ÇöÀç Sprite°¡ È­¸é¿¡ Ãâ·ÂµÇ´Â À§Ä¡
+							// Ã‡Ã¶Ã€Ã§ SpriteÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ Ã€Â§Ã„Â¡
 							objectPixelPoint.x += frame.GetCX();
 							objectPixelPoint.y += frame.GetCY() - FLYINGCREATURE_HEIGHT;
-												// FramePack¿¡¼­ ³ôÀÌ¸¦ ¼³Á¤ÇÏ¹Ç·Î,
-												// FlyingÀÎ °æ¿ìµµ ¶È°°´Ù.
+												// FramePackÂ¿Â¡Â¼Â­ Â³Ã´Ã€ÃŒÂ¸Â¦ Â¼Â³ÃÂ¤Ã‡ÃÂ¹Ã‡Â·Ã,
+												// FlyingÃ€Ã Â°Ã¦Â¿Ã¬ÂµÂµ Â¶ÃˆÂ°Â°Â´Ã™.
 
-							// Creature°¡ È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.
+							// CreatureÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â°Ã¨Â»ÃªÃ‡Ã˜Â³Â½Â´Ã™.
 							rect.left	= objectPixelPoint.x;
 							rect.top	= objectPixelPoint.y;
 							rect.right	= rect.left + m_CreatureSPK[ frame.GetSpriteID() ].GetWidth();
 							rect.bottom	= rect.top + m_CreatureSPK[ frame.GetSpriteID() ].GetHeight();
 							*/
 
-							// ´ÙÅ©´Ï½º¿¡ ÀÖÀ¸¸é 
-							// ¼±ÅÃÇÑ À§Ä¡°¡ CreatureÀÇ ¿µ¿ª¿¡ ¼ÓÇÏ¸é
-							// °ø°İ modeÀÎ °æ¿ì´Â °ø°İ°¡´ÉÇÑ Ä³¸¯ÅÍ¸¸ ¼±ÅÃ
-							// ¾Æ´Ï¸é ¾Æ¹«³ª.
+							// Â´Ã™Ã…Â©Â´ÃÂ½ÂºÂ¿Â¡ Ã€Ã–Ã€Â¸Â¸Ã© 
+							// Â¼Â±Ã…ÃƒÃ‡Ã‘ Ã€Â§Ã„Â¡Â°Â¡ CreatureÃ€Ã‡ Â¿ÂµÂ¿ÂªÂ¿Â¡ Â¼Ã“Ã‡ÃÂ¸Ã©
+							// Â°Ã¸Â°Ã modeÃ€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ Â°Ã¸Â°ÃÂ°Â¡Â´Ã‰Ã‡Ã‘ Ã„Â³Â¸Â¯Ã…ÃÂ¸Â¸ Â¼Â±Ã…Ãƒ
+							// Â¾Ã†Â´ÃÂ¸Ã© Â¾Ã†Â¹Â«Â³Âª.
 							if (
 								(g_pPlayer->IsVampire()&&g_pZone->GetID() != 3001 ||
 								!g_pPlayer->IsVampire()&& !(!pCreature->IsNPC() && pCreature->IsInDarkness()) ||
@@ -8012,7 +8045,7 @@ MTopView::GetSelectedObject(int x, int y)
 								|| g_bLight
 #endif
 								)
-								&& !pCreature->IsCutHeight()	// »ç¶óÁö´Â »óÅÂ¸é
+								&& !pCreature->IsCutHeight()	// Â»Ã§Â¶Ã³ÃÃ¶Â´Ã‚ Â»Ã³Ã…Ã‚Â¸Ã©
 								&& g_pObjectSelector->CanSelect(pCreature)
 								&& pCreature->IsPointInScreenRect(x,y)
 								&& !(pCreature->IsOusters() && pCreature->IsInGroundElemental() && !g_pPlayer->IsOusters()))
@@ -8038,10 +8071,10 @@ MTopView::GetSelectedObject(int x, int y)
 	//
 	//--------------------------------------------------------------
 	sY1 = sectorPoint.y - 3,
-	sY2 = sectorPoint.y + 4;		// ÇÑ ÁÙ¾¿ ´õ Áõ°¡½ÃÄ×´Ù.
+	sY2 = sectorPoint.y + 4;		// Ã‡Ã‘ ÃÃ™Â¾Â¿ Â´Ãµ ÃÃµÂ°Â¡Â½ÃƒÃ„Ã—Â´Ã™.
 
 	//------------------------------------------------------
-	// ZoneÀÇ ¿µ¿ªÀÌ ¾Æ´Ñ °æ¿ì¿¡ Skip...
+	// ZoneÃ€Ã‡ Â¿ÂµÂ¿ÂªÃ€ÃŒ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡ Skip...
 	//------------------------------------------------------	
 	if (sY1 < 0)
 	{	
@@ -8058,55 +8091,55 @@ MTopView::GetSelectedObject(int x, int y)
 	#endif
 
 	//------------------------------------------------------
-	// Check´ë»óÀÌ µÇ´Â ImageObject Iterator
+	// CheckÂ´Ã«Â»Ã³Ã€ÃŒ ÂµÃ‡Â´Ã‚ ImageObject Iterator
 	//------------------------------------------------------
 	IMAGEOBJECT_OUTPUT_MAP::reverse_iterator iImageObjectCheck
 		= m_mapImageObject.rbegin();
 
 	//------------------------------------------------------
-	// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ìÀÇ 
-	// ImageObjectµéÀ» CheckÇÑ´Ù.
-	// m_mapImageObject¿¡´Â Viewpoint°¡ key°ªÀÌ µÇ¾î¼­ SortµÇ¾î ÀÖ´Ù.
+	// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ sY1ÂºÂ¸Â´Ã™ Ã€Ã»Ã€Âº Â°Ã¦Â¿Ã¬Ã€Ã‡ 
+	// ImageObjectÂµÃ©Ã€Â» CheckÃ‡Ã‘Â´Ã™.
+	// m_mapImageObjectÂ¿Â¡Â´Ã‚ ViewpointÂ°Â¡ keyÂ°ÂªÃ€ÃŒ ÂµÃ‡Â¾Ã®Â¼Â­ SortÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã™.
 	//------------------------------------------------------
 	while (iImageObjectCheck != m_mapImageObject.rend())
 	{		
 		MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectCheck).second);
 
-		// InteractionObjectÀÎ °æ¿ì¸¸ checkÇÑ´Ù.
+		// InteractionObjectÃ€Ã Â°Ã¦Â¿Ã¬Â¸Â¸ checkÃ‡Ã‘Â´Ã™.
 //		if (pImageObject->GetObjectType()==MObject::TYPE_INTERACTIONOBJECT)
 //		{
 //			MInteractionObject* const pInteractionObject = (MInteractionObject* const)pImageObject;
 //
-//			// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ì..´Â Check
+//			// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ sY1ÂºÂ¸Â´Ã™ Ã€Ã»Ã€Âº Â°Ã¦Â¿Ã¬..Â´Ã‚ Check
 //			if (pInteractionObject->GetViewpoint() > sY2)
 //			{
 //				/*
-//				// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+//				// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 //				objectPixelPoint.x = pInteractionObject->GetPixelX() - m_FirstZonePixel.x;
 //				objectPixelPoint.y = pInteractionObject->GetPixelY() - m_FirstZonePixel.y;
 //
-//				// frame¿¡ °ü°èµÈ sprite¸¦ ±¸ÇÑ´Ù.
+//				// frameÂ¿Â¡ Â°Ã¼Â°Ã¨ÂµÃˆ spriteÂ¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
 //				frame = m_ImageObjectFPK[ pInteractionObject->GetFrameID() ][ pInteractionObject->GetFrame() ];
 //				sprite = frame.GetSpriteID();
 //
-//				// ÃÊ±âÈ­ µÇÁö ¾ÊÀº °æ¿ì¸é..
+//				// ÃƒÃŠÂ±Ã¢ÃˆÂ­ ÂµÃ‡ÃÃ¶ Â¾ÃŠÃ€Âº Â°Ã¦Â¿Ã¬Â¸Ã©..
 //				if (m_ImageObjectSPK[ sprite ].IsNotInit())
 //				{
 //					iImageObjectCheck ++;
 //					continue;
 //				}
 //						
-//				// ÁÂÇ¥ º¸Á¤
+//				// ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 //				objectPixelPoint.x += frame.GetCX();
 //				objectPixelPoint.y += frame.GetCY();
 //
-//				// È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.
+//				// ÃˆÂ­Â¸Ã©Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â°Ã¨Â»ÃªÃ‡Ã˜Â³Â½Â´Ã™.
 //				rect.left	= objectPixelPoint.x;
 //				rect.top	= objectPixelPoint.y;
 //				rect.right	= rect.left + m_ImageObjectSPK[ sprite ].GetWidth();
 //				rect.bottom	= rect.top + m_ImageObjectSPK[ sprite ].GetHeight();
 //				*/		
-//				// ¼±ÅÃÇÑ À§Ä¡°¡ ImageObjectÀÇ ¿µ¿ª¿¡ ¼ÓÇÏ¸é
+//				// Â¼Â±Ã…ÃƒÃ‡Ã‘ Ã€Â§Ã„Â¡Â°Â¡ ImageObjectÃ€Ã‡ Â¿ÂµÂ¿ÂªÂ¿Â¡ Â¼Ã“Ã‡ÃÂ¸Ã©
 //				if (pInteractionObject->IsPointInScreenRect(x,y))
 //				//if (x > rect.left && x < rect.right
 //				//	&& y > rect.top && y < rect.bottom)
@@ -8119,7 +8152,7 @@ MTopView::GetSelectedObject(int x, int y)
 //					return pInteractionObject;
 //				}
 //			}
-//			// ¾Æ´Ï¸é.. Object checkÇÒ¶§ CheckÇØ¾ßµÇ´Â °æ¿ìÀÌ´Ù.
+//			// Â¾Ã†Â´ÃÂ¸Ã©.. Object checkÃ‡Ã’Â¶Â§ CheckÃ‡Ã˜Â¾ÃŸÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™.
 //			else
 //			{
 //				break;
@@ -8134,7 +8167,7 @@ MTopView::GetSelectedObject(int x, int y)
 	#endif
 
 	//------------------------------------------------------	
-	// ÀÖÀ»¹ıÇÑ Sector¸¦ checkÇÑ´Ù.
+	// Ã€Ã–Ã€Â»Â¹Ã½Ã‡Ã‘ SectorÂ¸Â¦ checkÃ‡Ã‘Â´Ã™.
 	//------------------------------------------------------	
 	for (currentY=sY2; currentY>=sY1; currentY--)	
 	{	
@@ -8146,18 +8179,18 @@ MTopView::GetSelectedObject(int x, int y)
 
 			const MSector& sector = m_pZone->GetSector(currentX, currentY);
 
-			// ¾î¶² Object°¡ ÀÖÀ» °æ¿ì
+			// Â¾Ã®Â¶Â² ObjectÂ°Â¡ Ã€Ã–Ã€Â» Â°Ã¦Â¿Ã¬
 			if (sector.IsExistObject() )			
 			{		
 				
 				//file << "Exist Object!" << endl;
 
-				// ObjectÀÇ Á¾·ù¿¡ µû¶ó¼­ ´Ş¸® checkÇÑ´Ù.
-				// ¼±ÅÃÇÒ ¼ö ÀÖ´Â °ÍÀº Creature¿Í Item»ÓÀÌ´Ù.
+				// ObjectÃ€Ã‡ ÃÂ¾Â·Ã¹Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ Â´ÃÂ¸Â® checkÃ‡Ã‘Â´Ã™.
+				// Â¼Â±Ã…ÃƒÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â°ÃÃ€Âº CreatureÂ¿Ã ItemÂ»Ã“Ã€ÃŒÂ´Ã™.
 
 				//------------------------------------------------
 				//
-				// Flying Creature°¡ ÀÖ´Â °æ¿ì
+				// Flying CreatureÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 				//
 				//------------------------------------------------
 				#ifdef OUTPUT_DEBUG_DRAW_PROCESS_INPUT
@@ -8178,40 +8211,40 @@ MTopView::GetSelectedObject(int x, int y)
 
 						pCreature = (MCreature*)iCreature->second;
 
-						// PlayerÀÌ¸é ¼±ÅÃÇÏÁö ¾Ê´Â´Ù.
+						// PlayerÃ€ÃŒÂ¸Ã© Â¼Â±Ã…ÃƒÃ‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 						if (pCreature->GetID()!=pid)	
 						{
 							/*
-							// FlyingCreature°¡ Â÷ÁöÇÏ´Â ¿µ¿ªÀ» ±¸ÇÑ´Ù.
-							// FRAME_PACK¿¡¼­ Á¤º¸¸¦ ÀĞ¾î¾ß ÇÒ µí!!
-							// FlyingCreatureÀÇ SectorÁÂÇ¥¸¦ PixelÁÂÇ¥·Î ¹Ù²ã¾ß ÇÑ´Ù.
+							// FlyingCreatureÂ°Â¡ Ã‚Ã·ÃÃ¶Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â±Â¸Ã‡Ã‘Â´Ã™.
+							// FRAME_PACKÂ¿Â¡Â¼Â­ ÃÂ¤ÂºÂ¸Â¸Â¦ Ã€ÃÂ¾Ã®Â¾ÃŸ Ã‡Ã’ ÂµÃ­!!
+							// FlyingCreatureÃ€Ã‡ SectorÃÃ‚Ã‡Â¥Â¸Â¦ PixelÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã£Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 
-							// FlyingCreatureÀÇ ZoneÀÇ ÁÂÇ¥¸¦ °è»êÇÑ´Ù.
+							// FlyingCreatureÃ€Ã‡ ZoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 							objectPixelPoint = MapToPixel(pCreature->GetX(), pCreature->GetY());
 							objectPixelPoint.x += m_PlusPoint.x + pCreature->GetSX();
 							objectPixelPoint.y += m_PlusPoint.y + pCreature->GetSY();
 								
-							// ZoneÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
+							// ZoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã›Â´Ã™.
 							objectPixelPoint.x -= firstZonePixel.x;
 							objectPixelPoint.y -= firstZonePixel.y;
 
-							// Creature°¡ È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.	
+							// CreatureÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â°Ã¨Â»ÃªÃ‡Ã˜Â³Â½Â´Ã™.	
 							frame = m_CreatureFPK[(*g_pCreatureTable)[pCreature->GetCreatureType()].FrameID][pCreature->GetAction()][pCreature->GetDirection()][pCreature->GetFrame()];
 							
-							// ÇöÀç Sprite°¡ È­¸é¿¡ Ãâ·ÂµÇ´Â À§Ä¡
+							// Ã‡Ã¶Ã€Ã§ SpriteÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ Ã€Â§Ã„Â¡
 							objectPixelPoint.x += frame.GetCX();
 							objectPixelPoint.y += frame.GetCY() - FLYINGCREATURE_HEIGHT;
-												// FramePack¿¡¼­ ³ôÀÌ¸¦ ¼³Á¤ÇÏ¹Ç·Î,
-												// FlyingÀÎ °æ¿ìµµ ¶È°°´Ù.
+												// FramePackÂ¿Â¡Â¼Â­ Â³Ã´Ã€ÃŒÂ¸Â¦ Â¼Â³ÃÂ¤Ã‡ÃÂ¹Ã‡Â·Ã,
+												// FlyingÃ€Ã Â°Ã¦Â¿Ã¬ÂµÂµ Â¶ÃˆÂ°Â°Â´Ã™.
 
-							// È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.
+							// ÃˆÂ­Â¸Ã©Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â°Ã¨Â»ÃªÃ‡Ã˜Â³Â½Â´Ã™.
 							rect.left	= objectPixelPoint.x;
 							rect.top	= objectPixelPoint.y;
 							rect.right	= rect.left + m_CreatureSPK[ frame.GetSpriteID() ].GetWidth();
 							rect.bottom	= rect.top + m_CreatureSPK[ frame.GetSpriteID() ].GetHeight();
 							*/
 							
-							// ¼±ÅÃÇÑ À§Ä¡°¡ CreatureÀÇ ¿µ¿ª¿¡ ¼ÓÇÏ¸é
+							// Â¼Â±Ã…ÃƒÃ‡Ã‘ Ã€Â§Ã„Â¡Â°Â¡ CreatureÃ€Ã‡ Â¿ÂµÂ¿ÂªÂ¿Â¡ Â¼Ã“Ã‡ÃÂ¸Ã©
 							if ((
 								g_pPlayer->IsVampire()&&g_pZone->GetID() != 3001|| 
 								!g_pPlayer->IsVampire()&& !(!pCreature->IsNPC() && pCreature->IsInDarkness()) ||
@@ -8221,7 +8254,7 @@ MTopView::GetSelectedObject(int x, int y)
 								|| g_bLight
 #endif
 								)
-								&& !pCreature->IsCutHeight()	// »ç¶óÁö´Â »óÅÂ¸é
+								&& !pCreature->IsCutHeight()	// Â»Ã§Â¶Ã³ÃÃ¶Â´Ã‚ Â»Ã³Ã…Ã‚Â¸Ã©
 								&& g_pObjectSelector->CanSelect(pCreature)
 								&& pCreature->IsPointInScreenRect(x,y)
 								&& !(pCreature->IsOusters() && pCreature->IsInGroundElemental() && !g_pPlayer->IsOusters()))
@@ -8240,7 +8273,7 @@ MTopView::GetSelectedObject(int x, int y)
 				
 				//------------------------------------------------
 				//
-				// Creature°¡ ÀÖ´Â °æ¿ì
+				// CreatureÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 				//
 				//------------------------------------------------
 				#ifdef OUTPUT_DEBUG_DRAW_PROCESS_INPUT
@@ -8261,37 +8294,37 @@ MTopView::GetSelectedObject(int x, int y)
 
 						pCreature = (MCreature*)iCreature->second;
 
-						// PlayerÀÌ¸é ¼±ÅÃÇÏÁö ¾Ê´Â´Ù.
+						// PlayerÃ€ÃŒÂ¸Ã© Â¼Â±Ã…ÃƒÃ‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 						if (pCreature->GetID()!=pid)	
 						{
 							/*
-							// Creature°¡ Â÷ÁöÇÏ´Â ¿µ¿ªÀ» ±¸ÇÑ´Ù.
-							// FRAME_PACK¿¡¼­ Á¤º¸¸¦ ÀĞ¾î¾ß ÇÒ µí!!
-							// CreatureÀÇ SectorÁÂÇ¥¸¦ PixelÁÂÇ¥·Î ¹Ù²ã¾ß ÇÑ´Ù.
+							// CreatureÂ°Â¡ Ã‚Ã·ÃÃ¶Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â±Â¸Ã‡Ã‘Â´Ã™.
+							// FRAME_PACKÂ¿Â¡Â¼Â­ ÃÂ¤ÂºÂ¸Â¸Â¦ Ã€ÃÂ¾Ã®Â¾ÃŸ Ã‡Ã’ ÂµÃ­!!
+							// CreatureÃ€Ã‡ SectorÃÃ‚Ã‡Â¥Â¸Â¦ PixelÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã£Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 
-							// CreatureÀÇ ZoneÀÇ ÁÂÇ¥¸¦ °è»êÇÑ´Ù.
+							// CreatureÃ€Ã‡ ZoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 							objectPixelPoint = MapToPixel(pCreature->GetX(), pCreature->GetY());
 							objectPixelPoint.x += m_PlusPoint.x + pCreature->GetSX();
 							objectPixelPoint.y += m_PlusPoint.y + pCreature->GetSY();
 								
-							// ZoneÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
+							// ZoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã›Â´Ã™.
 							objectPixelPoint.x -= firstZonePixel.x;
 							objectPixelPoint.y -= firstZonePixel.y;
 
-							// Creature°¡ È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.	
+							// CreatureÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â°Ã¨Â»ÃªÃ‡Ã˜Â³Â½Â´Ã™.	
 							frame = m_CreatureFPK[(*g_pCreatureTable)[pCreature->GetCreatureType()].FrameID][pCreature->GetAction()][pCreature->GetDirection()][pCreature->GetFrame()];
 							
-							// ÇöÀç Sprite°¡ È­¸é¿¡ Ãâ·ÂµÇ´Â À§Ä¡
+							// Ã‡Ã¶Ã€Ã§ SpriteÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ Ã€Â§Ã„Â¡
 							objectPixelPoint.x += frame.GetCX();
 							objectPixelPoint.y += frame.GetCY();
 
-							// È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.
+							// ÃˆÂ­Â¸Ã©Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â°Ã¨Â»ÃªÃ‡Ã˜Â³Â½Â´Ã™.
 							rect.left	= objectPixelPoint.x;
 							rect.top	= objectPixelPoint.y;
 							rect.right	= rect.left + m_CreatureSPK[ frame.GetSpriteID() ].GetWidth();
 							rect.bottom	= rect.top + m_CreatureSPK[ frame.GetSpriteID() ].GetHeight();
 							*/			
-							// ¼±ÅÃÇÑ À§Ä¡°¡ CreatureÀÇ ¿µ¿ª¿¡ ¼ÓÇÏ¸é
+							// Â¼Â±Ã…ÃƒÃ‡Ã‘ Ã€Â§Ã„Â¡Â°Â¡ CreatureÃ€Ã‡ Â¿ÂµÂ¿ÂªÂ¿Â¡ Â¼Ã“Ã‡ÃÂ¸Ã©
 							if ((g_pPlayer->IsVampire()&&g_pZone->GetID() != 3001 ||
 								!g_pPlayer->IsVampire()&& !(!pCreature->IsNPC() && pCreature->IsInDarkness()) ||
 								!g_pPlayer->IsVampire()&& g_pPlayer->HasEffectStatus( EFFECTSTATUS_LIGHTNESS ) 
@@ -8300,7 +8333,7 @@ MTopView::GetSelectedObject(int x, int y)
 								|| g_bLight
 #endif
 								)
-								&& !pCreature->IsCutHeight()	// »ç¶óÁö´Â »óÅÂ¸é
+								&& !pCreature->IsCutHeight()	// Â»Ã§Â¶Ã³ÃÃ¶Â´Ã‚ Â»Ã³Ã…Ã‚Â¸Ã©
 								&& g_pObjectSelector->CanSelect(pCreature)
 								&& pCreature->IsPointInScreenRect(x,y)
 								&& !(pCreature->IsOusters() && pCreature->IsInGroundElemental() && !g_pPlayer->IsOusters()))
@@ -8319,7 +8352,7 @@ MTopView::GetSelectedObject(int x, int y)
 
 				//------------------------------------------------
 				//
-				// Effect°¡ ÀÖ´Â °æ¿ì
+				// EffectÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 				//
 				//------------------------------------------------				
 				#ifdef OUTPUT_DEBUG_DRAW_PROCESS_INPUT
@@ -8354,7 +8387,7 @@ MTopView::GetSelectedObject(int x, int y)
 
 				//------------------------------------------------
 				//
-				// UndergroundCreature°¡ ÀÖ´Â °æ¿ì
+				// UndergroundCreatureÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 				//
 				//------------------------------------------------
 				#ifdef OUTPUT_DEBUG_DRAW_PROCESS_INPUT
@@ -8375,10 +8408,10 @@ MTopView::GetSelectedObject(int x, int y)
 
 						pCreature = (MCreature*)iCreature->second;
 
-						// PlayerÀÌ¸é ¼±ÅÃÇÏÁö ¾Ê´Â´Ù.
+						// PlayerÃ€ÃŒÂ¸Ã© Â¼Â±Ã…ÃƒÃ‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 						if (pCreature->GetID()!=pid)	
 						{							
-							// ¼±ÅÃÇÑ À§Ä¡°¡ CreatureÀÇ ¿µ¿ª¿¡ ¼ÓÇÏ¸é
+							// Â¼Â±Ã…ÃƒÃ‡Ã‘ Ã€Â§Ã„Â¡Â°Â¡ CreatureÃ€Ã‡ Â¿ÂµÂ¿ÂªÂ¿Â¡ Â¼Ã“Ã‡ÃÂ¸Ã©
 							if ((g_pPlayer->IsVampire() &&g_pZone->GetID() != 3001||
 								!g_pPlayer->IsVampire()&& !(!pCreature->IsNPC() && pCreature->IsInDarkness())
 								|| !g_pPlayer->IsVampire() && g_pPlayer->HasEffectStatus( EFFECTSTATUS_LIGHTNESS ) 								 
@@ -8404,7 +8437,7 @@ MTopView::GetSelectedObject(int x, int y)
 						
 				//------------------------------------------------
 				//
-				// ItemÀÌ ÀÖ´Â °æ¿ì
+				// ItemÃ€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 				//
 				//------------------------------------------------
 				#ifdef OUTPUT_DEBUG_DRAW_PROCESS_INPUT
@@ -8421,27 +8454,27 @@ MTopView::GetSelectedObject(int x, int y)
 
 					//file << "Exist Item!" << endl;
 
-					// Item°¡ Â÷ÁöÇÏ´Â ¿µ¿ªÀ» ±¸ÇÑ´Ù.
-					// FRAME_PACK¿¡¼­ Á¤º¸¸¦ ÀĞ¾î¾ß ÇÒ µí!!
-					// ItemÀÇ SectorÁÂÇ¥¸¦ PixelÁÂÇ¥·Î ¹Ù²ã¾ß ÇÑ´Ù.
+					// ItemÂ°Â¡ Ã‚Ã·ÃÃ¶Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â±Â¸Ã‡Ã‘Â´Ã™.
+					// FRAME_PACKÂ¿Â¡Â¼Â­ ÃÂ¤ÂºÂ¸Â¸Â¦ Ã€ÃÂ¾Ã®Â¾ÃŸ Ã‡Ã’ ÂµÃ­!!
+					// ItemÃ€Ã‡ SectorÃÃ‚Ã‡Â¥Â¸Â¦ PixelÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã£Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 					/*
-					// ItemÀÇ ZoneÀÇ ÁÂÇ¥¸¦ °è»êÇÑ´Ù.
+					// ItemÃ€Ã‡ ZoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 					objectPixelPoint = MapToPixel(pItem->GetX(), pItem->GetY());
 					objectPixelPoint.x += m_PlusPoint.x;// + pItem->GetSX();
 					objectPixelPoint.y += m_PlusPoint.y;// + pItem->GetSY();
 						
-					// ZoneÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
+					// ZoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã›Â´Ã™.
 					objectPixelPoint.x -= firstZonePixel.x;
 					objectPixelPoint.y -= firstZonePixel.y;
 
-					// Item°¡ È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.				
+					// ItemÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â°Ã¨Â»ÃªÃ‡Ã˜Â³Â½Â´Ã™.				
 					frame = m_ItemTileFPK[ pItem->GetTileFrameID() ];
 
-					// ÇöÀç Sprite°¡ È­¸é¿¡ Ãâ·ÂµÇ´Â À§Ä¡
+					// Ã‡Ã¶Ã€Ã§ SpriteÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ Ã€Â§Ã„Â¡
 					objectPixelPoint.x += frame.GetCX();
 					objectPixelPoint.y += frame.GetCY();
 
-					// È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.
+					// ÃˆÂ­Â¸Ã©Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â°Ã¨Â»ÃªÃ‡Ã˜Â³Â½Â´Ã™.
 					rect.left	= objectPixelPoint.x;
 					rect.top	= objectPixelPoint.y;
 					rect.right	= rect.left + m_ItemTileSPK[ frame.GetSpriteID() ].GetWidth();
@@ -8449,8 +8482,8 @@ MTopView::GetSelectedObject(int x, int y)
 					*/			
 
 					//------------------------------------------------
-					// ¹ìÆÄÀÌ¾î°Å³ª
-					// ½½·¹ÀÌ¾îÀÎ °æ¿ì´Â º¼ ¼ö ÀÖ´Â »óÈ²ÀÌ¶ó¸é.. 
+					// Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â°Ã…Â³Âª
+					// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ ÂºÂ¼ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â»Ã³ÃˆÂ²Ã€ÃŒÂ¶Ã³Â¸Ã©.. 
 					//------------------------------------------------
 					if (g_pPlayer->IsVampire()&&g_pZone->GetID() != 3001
 						|| !g_pPlayer->IsVampire() && g_pPlayer->ShowInDarkness(currentX, currentY) 
@@ -8461,8 +8494,8 @@ MTopView::GetSelectedObject(int x, int y)
 						)
 					{
 						//------------------------------------------------
-						// ½ÃÃ¼ÀÎ °æ¿ì´Â 
-						// ½ÃÃ¼ CreatureÀÇ ¿µ¿ªÀ» ºÁ¾ß ÇÑ´Ù.
+						// Â½ÃƒÃƒÂ¼Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ 
+						// Â½ÃƒÃƒÂ¼ CreatureÃ€Ã‡ Â¿ÂµÂ¿ÂªÃ€Â» ÂºÃÂ¾ÃŸ Ã‡Ã‘Â´Ã™.
 						//------------------------------------------------
 						if (pItem->GetItemClass()==ITEM_CLASS_CORPSE)
 						{
@@ -8488,7 +8521,7 @@ MTopView::GetSelectedObject(int x, int y)
 						}
 						else
 						{
-							// ¼±ÅÃÇÑ À§Ä¡°¡ ItemÀÇ ¿µ¿ª¿¡ ¼ÓÇÏ¸é
+							// Â¼Â±Ã…ÃƒÃ‡Ã‘ Ã€Â§Ã„Â¡Â°Â¡ ItemÃ€Ã‡ Â¿ÂµÂ¿ÂªÂ¿Â¡ Â¼Ã“Ã‡ÃÂ¸Ã©
 							if (pItem->IsPointInScreenRect(x,y))
 							//if (x > rect.left && x < rect.right
 								//&& y > rect.top && y < rect.bottom)
@@ -8511,49 +8544,49 @@ MTopView::GetSelectedObject(int x, int y)
 		#endif
 
 		//------------------------------------------------------
-		// Ãâ·Â ½ÃÁ¡ÀÌ currentYº¸´Ù ÀûÀº °æ¿ìÀÇ 
-		// ImageObjectµéÀ» CheckÇÑ´Ù.
-		// m_mapImageObject¿¡´Â Viewpoint°¡ key°ªÀÌ µÇ¾î¼­ SortµÇ¾î ÀÖ´Ù.
+		// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ currentYÂºÂ¸Â´Ã™ Ã€Ã»Ã€Âº Â°Ã¦Â¿Ã¬Ã€Ã‡ 
+		// ImageObjectÂµÃ©Ã€Â» CheckÃ‡Ã‘Â´Ã™.
+		// m_mapImageObjectÂ¿Â¡Â´Ã‚ ViewpointÂ°Â¡ keyÂ°ÂªÃ€ÃŒ ÂµÃ‡Â¾Ã®Â¼Â­ SortÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã™.
 		//------------------------------------------------------
 //		while (iImageObjectCheck != m_mapImageObject.rend())
 //		{
 //			MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectCheck).second);
 //
-			// InteractionObjectÀÎ °æ¿ì¸¸ checkÇÑ´Ù.
+			// InteractionObjectÃ€Ã Â°Ã¦Â¿Ã¬Â¸Â¸ checkÃ‡Ã‘Â´Ã™.
 //			if (pImageObject->GetObjectType()==MObject::TYPE_INTERACTIONOBJECT)
 //			{
 //				MInteractionObject* const pInteractionObject = (MInteractionObject* const)pImageObject;
 //
-//				// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ì..´Â Check
+//				// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ sY1ÂºÂ¸Â´Ã™ Ã€Ã»Ã€Âº Â°Ã¦Â¿Ã¬..Â´Ã‚ Check
 //				if (pInteractionObject->GetViewpoint() == currentY)
 //				{
 //					/*
-//					// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+//					// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 //					objectPixelPoint.x = pInteractionObject->GetPixelX() - m_FirstZonePixel.x;
 //					objectPixelPoint.y = pInteractionObject->GetPixelY() - m_FirstZonePixel.y;
 //
-//					// frame¿¡ °ü°èµÈ sprite¸¦ ±¸ÇÑ´Ù.
+//					// frameÂ¿Â¡ Â°Ã¼Â°Ã¨ÂµÃˆ spriteÂ¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
 //					frame = m_ImageObjectFPK[ pInteractionObject->GetFrameID() ][ pInteractionObject->GetFrame() ];
 //					sprite = frame.GetSpriteID();
 //
-//					// ÃÊ±âÈ­ µÇÁö ¾ÊÀº °æ¿ì¸é..
+//					// ÃƒÃŠÂ±Ã¢ÃˆÂ­ ÂµÃ‡ÃÃ¶ Â¾ÃŠÃ€Âº Â°Ã¦Â¿Ã¬Â¸Ã©..
 //					if (m_ImageObjectSPK[ sprite ].IsNotInit())
 //					{
 //						iImageObjectCheck ++;
 //						continue;
 //					}
 //							
-//					// ÁÂÇ¥ º¸Á¤
+//					// ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 //					objectPixelPoint.x += frame.GetCX();
 //					objectPixelPoint.y += frame.GetCY();
 //
-//					// È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.
+//					// ÃˆÂ­Â¸Ã©Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â°Ã¨Â»ÃªÃ‡Ã˜Â³Â½Â´Ã™.
 //					rect.left	= objectPixelPoint.x;
 //					rect.top	= objectPixelPoint.y;
 //					rect.right	= rect.left + m_ImageObjectSPK[ sprite ].GetWidth();
 //					rect.bottom	= rect.top + m_ImageObjectSPK[ sprite ].GetHeight();
 //					*/			
-//					// ¼±ÅÃÇÑ À§Ä¡°¡ ImageObjectÀÇ ¿µ¿ª¿¡ ¼ÓÇÏ¸é
+//					// Â¼Â±Ã…ÃƒÃ‡Ã‘ Ã€Â§Ã„Â¡Â°Â¡ ImageObjectÃ€Ã‡ Â¿ÂµÂ¿ÂªÂ¿Â¡ Â¼Ã“Ã‡ÃÂ¸Ã©
 //					if (pInteractionObject->IsPointInScreenRect(x,y))
 //					//if (x > rect.left && x < rect.right
 //					//	&& y > rect.top && y < rect.bottom)
@@ -8565,7 +8598,7 @@ MTopView::GetSelectedObject(int x, int y)
 //						return pInteractionObject;
 //					}					
 //				}
-//				// ¾Æ´Ï¸é.. Object checkÇÒ¶§ CheckÇØ¾ßµÇ´Â °æ¿ìÀÌ´Ù.
+//				// Â¾Ã†Â´ÃÂ¸Ã©.. Object checkÃ‡Ã’Â¶Â§ CheckÃ‡Ã˜Â¾ÃŸÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™.
 //				else
 //				{
 //					break;
@@ -8581,46 +8614,46 @@ MTopView::GetSelectedObject(int x, int y)
 	#endif
 
 	//------------------------------------------------------
-	// Ãâ·Â ½ÃÁ¡ÀÌ currentYº¸´Ù ÀûÀº °æ¿ìÀÇ 
-	// ImageObjectµéÀ» CheckÇÑ´Ù.
-	// m_mapImageObject¿¡´Â Viewpoint°¡ key°ªÀÌ µÇ¾î¼­ SortµÇ¾î ÀÖ´Ù.
+	// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ currentYÂºÂ¸Â´Ã™ Ã€Ã»Ã€Âº Â°Ã¦Â¿Ã¬Ã€Ã‡ 
+	// ImageObjectÂµÃ©Ã€Â» CheckÃ‡Ã‘Â´Ã™.
+	// m_mapImageObjectÂ¿Â¡Â´Ã‚ ViewpointÂ°Â¡ keyÂ°ÂªÃ€ÃŒ ÂµÃ‡Â¾Ã®Â¼Â­ SortÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã™.
 	//------------------------------------------------------
 //	while (iImageObjectCheck != m_mapImageObject.rend())
 //	{
 //		MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectCheck).second);
 //
-		// InteractionObjectÀÎ °æ¿ì¸¸ checkÇÑ´Ù.
+		// InteractionObjectÃ€Ã Â°Ã¦Â¿Ã¬Â¸Â¸ checkÃ‡Ã‘Â´Ã™.
 //		if (pImageObject->GetObjectType()==MObject::TYPE_INTERACTIONOBJECT)
 //		{
 //			MInteractionObject* const pInteractionObject = (MInteractionObject* const)pImageObject;
 //		
-//			// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+//			// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 //			/*
 //			objectPixelPoint.x = pInteractionObject->GetPixelX() - m_FirstZonePixel.x;
 //			objectPixelPoint.y = pInteractionObject->GetPixelY() - m_FirstZonePixel.y;
 //
-//			// frame¿¡ °ü°èµÈ sprite¸¦ ±¸ÇÑ´Ù.
+//			// frameÂ¿Â¡ Â°Ã¼Â°Ã¨ÂµÃˆ spriteÂ¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
 //			frame = m_ImageObjectFPK[ pInteractionObject->GetFrameID() ][ pInteractionObject->GetFrame() ];
 //			sprite = frame.GetSpriteID();
 //
-//			// ÃÊ±âÈ­ µÇÁö ¾ÊÀº °æ¿ì¸é..
+//			// ÃƒÃŠÂ±Ã¢ÃˆÂ­ ÂµÃ‡ÃÃ¶ Â¾ÃŠÃ€Âº Â°Ã¦Â¿Ã¬Â¸Ã©..
 //			if (m_ImageObjectSPK[ sprite ].IsNotInit())
 //			{
 //				iImageObjectCheck ++;
 //				continue;
 //			}
 //							
-//			// ÁÂÇ¥ º¸Á¤
+//			// ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 //			objectPixelPoint.x += frame.GetCX();
 //			objectPixelPoint.y += frame.GetCY();
 //
-//			// È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.
+//			// ÃˆÂ­Â¸Ã©Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â°Ã¨Â»ÃªÃ‡Ã˜Â³Â½Â´Ã™.
 //			rect.left	= objectPixelPoint.x;
 //			rect.top	= objectPixelPoint.y;
 //			rect.right	= rect.left + m_ImageObjectSPK[ sprite ].GetWidth();
 //			rect.bottom	= rect.top + m_ImageObjectSPK[ sprite ].GetHeight();
 //			*/				
-//			// ¼±ÅÃÇÑ À§Ä¡°¡ ImageObjectÀÇ ¿µ¿ª¿¡ ¼ÓÇÏ¸é
+//			// Â¼Â±Ã…ÃƒÃ‡Ã‘ Ã€Â§Ã„Â¡Â°Â¡ ImageObjectÃ€Ã‡ Â¿ÂµÂ¿ÂªÂ¿Â¡ Â¼Ã“Ã‡ÃÂ¸Ã©
 //			if (pInteractionObject->IsPointInScreenRect(x,y))
 //			//if (x > rect.left && x < rect.right
 //			//	&& y > rect.top && y < rect.bottom)
@@ -8637,7 +8670,7 @@ MTopView::GetSelectedObject(int x, int y)
 //	}
 
 	//------------------------------------------------------
-	// ¾Æ¹«°Íµµ ¾ø´Ù¸é.. GroundEffectµµ Ã¼Å©ÇÑ´Ù.
+	// Â¾Ã†Â¹Â«Â°ÃÂµÂµ Â¾Ã¸Â´Ã™Â¸Ã©.. GroundEffectÂµÂµ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
 	//------------------------------------------------------
 	#ifdef OUTPUT_DEBUG_DRAW_PROCESS_INPUT
 		DEBUG_ADD("chkGE");
@@ -8685,7 +8718,7 @@ MTopView::GetSelectedObject(int x, int y)
 	if(IsRequestInfo())
 	{
 		//------------------------------------------------------
-		// ¾Æ¹«°Íµµ ¾ø´Ù¸é.. FakeCreature(Pet)µµ Ã¼Å©ÇÑ´Ù.
+		// Â¾Ã†Â¹Â«Â°ÃÂµÂµ Â¾Ã¸Â´Ã™Â¸Ã©.. FakeCreature(Pet)ÂµÂµ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
 		//------------------------------------------------------
 		int fakeCreatureNum = g_pZone->GetFakeCreatureNumber();
 		MZone::CREATURE_MAP::const_iterator iFakeCreature = g_pZone->GetFakeCreatureBegin();
@@ -8693,7 +8726,7 @@ MTopView::GetSelectedObject(int x, int y)
 		{
 			MFakeCreature *pFakeCreature = (MFakeCreature *)iFakeCreature->second;
 
-			// ÆêÀÎ°æ¿ì¸¸ °Ë»ö
+			// Ã†ÃªÃ€ÃÂ°Ã¦Â¿Ã¬Â¸Â¸ Â°Ã‹Â»Ã¶
 			if(pFakeCreature->GetOwnerID() != OBJECTID_NULL && pFakeCreature->IsPointInScreenRect(x, y))
 			{
 				return pFakeCreature;
@@ -8708,37 +8741,37 @@ MTopView::GetSelectedObject(int x, int y)
 
 
 //----------------------------------------------------------------------
-// È­¸é ÁÂÇ¥ (x,y)°¡ °¡¸®Å°´Â À§Ä¡¸¦ ¼±ÅÃÇÏ¸é 
-// ZoneÀÇ ¾î¶²(sX,sY) Object°¡ ¼±ÅÃµÉ±î?
+// ÃˆÂ­Â¸Ã© ÃÃ‚Ã‡Â¥ (x,y)Â°Â¡ Â°Â¡Â¸Â®Ã…Â°Â´Ã‚ Ã€Â§Ã„Â¡Â¸Â¦ Â¼Â±Ã…ÃƒÃ‡ÃÂ¸Ã© 
+// ZoneÃ€Ã‡ Â¾Ã®Â¶Â²(sX,sY) ObjectÂ°Â¡ Â¼Â±Ã…ÃƒÂµÃ‰Â±Ã®?
 //
-// Sprite¿¡¼­ pixelÁ¤º¸¸¦ ÀĞ¾î¼­ ºñ±³ÇÑ´Ù.
+// SpriteÂ¿Â¡Â¼Â­ pixelÃÂ¤ÂºÂ¸Â¸Â¦ Ã€ÃÂ¾Ã®Â¼Â­ ÂºÃ±Â±Â³Ã‡Ã‘Â´Ã™.
 //
 //----------------------------------------------------------------------
 MObject*
 MTopView::GetSelectedObjectSprite(int x, int y)
 {
 	//--------------------------------------------------------------	
-	// 1. È­¸éÁÂÇ¥ (x,y)ÀÇ Zone¿¡¼­ÀÇ Sector(sX,sY)ÁÂÇ¥¸¦ ±¸ÇÑ´Ù.
+	// 1. ÃˆÂ­Â¸Ã©ÃÃ‚Ã‡Â¥ (x,y)Ã€Ã‡ ZoneÂ¿Â¡Â¼Â­Ã€Ã‡ Sector(sX,sY)ÃÃ‚Ã‡Â¥Â¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
 	// 
-	// 2. (sX,sY) ±ÙÃ³¿¡ Object°¡ ÀÖÀ¸¸é 
-	//    ±× ObjectÀÇ È­¸é »óÀÇ ÁÂÇ¥¸¦ ±¸ÇØ¼­
-	//    (x,y)°¡ ¼ÓÇÏ¸é "¼±ÅÃÇÑ´Ù"
-	//    ¾Æ´Ï¸é, ±× ´ÙÀ½ÀÇ ±ÙÃ³ Sector¸¦ checkÇØºÁ¾ß ÇÑ´Ù.
+	// 2. (sX,sY) Â±Ã™ÃƒÂ³Â¿Â¡ ObjectÂ°Â¡ Ã€Ã–Ã€Â¸Â¸Ã© 
+	//    Â±Ã— ObjectÃ€Ã‡ ÃˆÂ­Â¸Ã© Â»Ã³Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Â±Â¸Ã‡Ã˜Â¼Â­
+	//    (x,y)Â°Â¡ Â¼Ã“Ã‡ÃÂ¸Ã© "Â¼Â±Ã…ÃƒÃ‡Ã‘Â´Ã™"
+	//    Â¾Ã†Â´ÃÂ¸Ã©, Â±Ã— Â´Ã™Ã€Â½Ã€Ã‡ Â±Ã™ÃƒÂ³ SectorÂ¸Â¦ checkÃ‡Ã˜ÂºÃÂ¾ÃŸ Ã‡Ã‘Â´Ã™.
 	//
-	// (!) Player´Â Á¦¿Ü´Ù. ¾ø´Ù°í »ı°¢ÇÏ°í checkÇÑ´Ù.
+	// (!) PlayerÂ´Ã‚ ÃÂ¦Â¿ÃœÂ´Ã™. Â¾Ã¸Â´Ã™Â°Ã­ Â»Ã½Â°Â¢Ã‡ÃÂ°Ã­ checkÃ‡Ã‘Â´Ã™.
 	//--------------------------------------------------------------
 
 	//--------------------------------------------------------------
-	// ±ÙÃ³ Sector¸¦ Ã£´Â ¼ø¼­
+	// Â±Ã™ÃƒÂ³ SectorÂ¸Â¦ ÃƒÂ£Â´Ã‚ Â¼Ã¸Â¼Â­
 	//--------------------------------------------------------------	
-	// - ±×¸²Àº ¾Æ·¡ÂÊ Sector¿¡ ÀÖ´Â °ÍÀÏ¼ö·Ï ´Ê°Ô Ãâ·ÂµÇ¹Ç·Î
-	//   ¼±ÅÃµÉ ¿ì¼±¼øÀ§°¡ ³ô´Ù.
+	// - Â±Ã—Â¸Â²Ã€Âº Â¾Ã†Â·Â¡Ã‚ÃŠ SectorÂ¿Â¡ Ã€Ã–Â´Ã‚ Â°ÃÃ€ÃÂ¼Ã¶Â·Ã Â´ÃŠÂ°Ã” ÃƒÃ¢Â·Ã‚ÂµÃ‡Â¹Ã‡Â·Ã
+	//   Â¼Â±Ã…ÃƒÂµÃ‰ Â¿Ã¬Â¼Â±Â¼Ã¸Ã€Â§Â°Â¡ Â³Ã´Â´Ã™.
 	// 
 	//      .  .  .  
 	//      .  X  . 
 	//      .  .  .  
 	//      .  .  .  
-	//      .  .  .     X°¡ ¼±ÅÃµÆÀ» °æ¿ì, Ground,Item µî... check¹üÀ§
+	//      .  .  .     XÂ°Â¡ Â¼Â±Ã…ÃƒÂµÃ†Ã€Â» Â°Ã¦Â¿Ã¬, Ground,Item ÂµÃ®... checkÂ¹Ã¼Ã€Â§
 	//
 	//
 	//               
@@ -8747,13 +8780,13 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 	//      .  .  .  
 	//      .  .  .  
 	//      .  .  .  
-	//      .  .  .     FlyingÀÌ 64 pixel(µÎ Å¸ÀÏ) ³ôÀÌ ¶ã °æ¿ì..
-	//      .  .  .     X°¡ ¼±ÅÃµÆÀ» °æ¿ì, Flying... check¹üÀ§
+	//      .  .  .     FlyingÃ€ÃŒ 64 pixel(ÂµÃ Ã…Â¸Ã€Ã) Â³Ã´Ã€ÃŒ Â¶Ã£ Â°Ã¦Â¿Ã¬..
+	//      .  .  .     XÂ°Â¡ Â¼Â±Ã…ÃƒÂµÃ†Ã€Â» Â°Ã¦Â¿Ã¬, Flying... checkÂ¹Ã¼Ã€Â§
 	//
 	//--------------------------------------------------------------
 
 	//--------------------------------------------------------------
-	// °¢ Sector¿¡ ´ëÇØ¼­ checkÇØºÁ¾ß ÇÏ´Â °Í
+	// Â°Â¢ SectorÂ¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­ checkÃ‡Ã˜ÂºÃÂ¾ÃŸ Ã‡ÃÂ´Ã‚ Â°Ã
 	//--------------------------------------------------------------
 	/*
 	 
@@ -8778,7 +8811,7 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 	*/
 	//--------------------------------------------------------------
 
-	POINT firstZonePixel;	// È­¸é»óÀÇ Ã³À½ Sector°¡ ³ªÅ¸³»´Â ZoneÀÇ pixelÁÂÇ¥
+	POINT firstZonePixel;	// ÃˆÂ­Â¸Ã©Â»Ã³Ã€Ã‡ ÃƒÂ³Ã€Â½ SectorÂ°Â¡ Â³ÂªÃ…Â¸Â³Â»Â´Ã‚ ZoneÃ€Ã‡ pixelÃÃ‚Ã‡Â¥
 	firstZonePixel = MapToPixel(m_FirstSector.x, m_FirstSector.y);
 	firstZonePixel.x += m_PlusPoint.x;
 	firstZonePixel.y += m_PlusPoint.y;
@@ -8788,14 +8821,14 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 	POINT	sectorPoint;		// Sector Position In Zone
 
 	//--------------------------------------------------------------
-	// (x,y)ÀÇ Zone¿¡¼­ÀÇ pixelÁÂÇ¥¸¦ ±¸ÇÑ´Ù.
+	// (x,y)Ã€Ã‡ ZoneÂ¿Â¡Â¼Â­Ã€Ã‡ pixelÃÃ‚Ã‡Â¥Â¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
 	//--------------------------------------------------------------
 	pixelPoint = MapToPixel(m_FirstSector.x, m_FirstSector.y);
 	pixelPoint.x += m_PlusPoint.x + x;
 	pixelPoint.y += m_PlusPoint.y + y;
 
 	//--------------------------------------------------------------
-	// (x,y)ÀÇ Zone¿¡¼­ÀÇ sectorÁÂÇ¥¸¦ ±¸ÇÑ´Ù.
+	// (x,y)Ã€Ã‡ ZoneÂ¿Â¡Â¼Â­Ã€Ã‡ sectorÃÃ‚Ã‡Â¥Â¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
 	//--------------------------------------------------------------						
 	sectorPoint = PixelToMap(pixelPoint.x, pixelPoint.y);
 	
@@ -8811,16 +8844,16 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 	CFrame			frame;
 //	TYPE_SPRITEID	sprite;
 
-	// ObjectÀÇ ¿µ¿ª
+	// ObjectÃ€Ã‡ Â¿ÂµÂ¿Âª
 	POINT	objectPixelPoint;
 
 	// Player Creature's ID
 	TYPE_OBJECTID	pid = g_pPlayer->GetID();
 
-	//class ofstream file("log.txt");
+	//std::ofstream file("log.txt");
 
 
-	// ÇöÀç checkÇÏ´Â ÁÂÇ¥
+	// Ã‡Ã¶Ã€Ã§ checkÃ‡ÃÂ´Ã‚ ÃÃ‚Ã‡Â¥
 	register int currentX;
 	register int currentY;
 
@@ -8830,8 +8863,8 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 	//
 	// Flying Creature Check 
 	//
-	// : °°Àº ³ôÀÌ¿¡ ÀÖ´Â °æ¿ì 
-	//   ÀÏ¹İÀûÀÎ Objectº¸´Ù ¾Æ·¡ÂÊ Sector¿¡ Á¸ÀçÇÒ ¼ö ÀÖ´Ù.
+	// : Â°Â°Ã€Âº Â³Ã´Ã€ÃŒÂ¿Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬ 
+	//   Ã€ÃÂ¹ÃÃ€Ã»Ã€Ã ObjectÂºÂ¸Â´Ã™ Â¾Ã†Â·Â¡Ã‚ÃŠ SectorÂ¿Â¡ ÃÂ¸Ã€Ã§Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã™.
 	//
 	//--------------------------------------------------------------
 	int	sX1 = sectorPoint.x - 1,
@@ -8840,7 +8873,7 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 			sY2 = sectorPoint.y + 5;
 
 	//------------------------------------------------------
-	// ZoneÀÇ ¿µ¿ªÀÌ ¾Æ´Ñ °æ¿ì¿¡ Skip...
+	// ZoneÃ€Ã‡ Â¿ÂµÂ¿ÂªÃ€ÃŒ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡ Skip...
 	//------------------------------------------------------
 	if (sX1 < 0) 
 	{			
@@ -8864,7 +8897,7 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 
 
 	//------------------------------------------------------	
-	// ÀÖÀ»¹ıÇÑ Sector¸¦ checkÇÑ´Ù.
+	// Ã€Ã–Ã€Â»Â¹Ã½Ã‡Ã‘ SectorÂ¸Â¦ checkÃ‡Ã‘Â´Ã™.
 	//------------------------------------------------------	
 	for (currentY=sY2; currentY>=sY1; currentY--)	
 	{	
@@ -8872,18 +8905,18 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 		{				
 			const MSector& sector = m_pZone->GetSector(currentX, currentY);
 
-			// ¾î¶² Object°¡ ÀÖÀ» °æ¿ì
+			// Â¾Ã®Â¶Â² ObjectÂ°Â¡ Ã€Ã–Ã€Â» Â°Ã¦Â¿Ã¬
 			if (sector.IsExistObject() )			
 			{		
 				
 				//file << "Exist Object!" << endl;
 
-				// ObjectÀÇ Á¾·ù¿¡ µû¶ó¼­ ´Ş¸® checkÇÑ´Ù.
-				// ¼±ÅÃÇÒ ¼ö ÀÖ´Â °ÍÀº Creature¿Í Item»ÓÀÌ´Ù.
+				// ObjectÃ€Ã‡ ÃÂ¾Â·Ã¹Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ Â´ÃÂ¸Â® checkÃ‡Ã‘Â´Ã™.
+				// Â¼Â±Ã…ÃƒÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â°ÃÃ€Âº CreatureÂ¿Ã ItemÂ»Ã“Ã€ÃŒÂ´Ã™.
 
 				//------------------------------------------------
 				//
-				// Flying Creature°¡ ÀÖ´Â °æ¿ì
+				// Flying CreatureÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 				//
 				//------------------------------------------------
 				numCreature = sector.GetFlyingCreatureSize();
@@ -8900,33 +8933,33 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 
 						pCreature = (MCreature*)iCreature->second;
 
-						// PlayerÀÌ¸é ¼±ÅÃÇÏÁö ¾Ê´Â´Ù.
+						// PlayerÃ€ÃŒÂ¸Ã© Â¼Â±Ã…ÃƒÃ‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 						if (pCreature->GetID()!=pid)	
 						{
-							// FlyingCreature°¡ Â÷ÁöÇÏ´Â ¿µ¿ªÀ» ±¸ÇÑ´Ù.
-							// FRAME_PACK¿¡¼­ Á¤º¸¸¦ ÀĞ¾î¾ß ÇÒ µí!!
-							// FlyingCreatureÀÇ SectorÁÂÇ¥¸¦ PixelÁÂÇ¥·Î ¹Ù²ã¾ß ÇÑ´Ù.
+							// FlyingCreatureÂ°Â¡ Ã‚Ã·ÃÃ¶Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â±Â¸Ã‡Ã‘Â´Ã™.
+							// FRAME_PACKÂ¿Â¡Â¼Â­ ÃÂ¤ÂºÂ¸Â¸Â¦ Ã€ÃÂ¾Ã®Â¾ÃŸ Ã‡Ã’ ÂµÃ­!!
+							// FlyingCreatureÃ€Ã‡ SectorÃÃ‚Ã‡Â¥Â¸Â¦ PixelÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã£Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 
-							// FlyingCreatureÀÇ ZoneÀÇ ÁÂÇ¥¸¦ °è»êÇÑ´Ù.
+							// FlyingCreatureÃ€Ã‡ ZoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 							objectPixelPoint = MapToPixel(pCreature->GetX(), pCreature->GetY());
 							objectPixelPoint.x += m_PlusPoint.x + pCreature->GetSX();
 							objectPixelPoint.y += m_PlusPoint.y + pCreature->GetSY();
 								
-							// ZoneÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
+							// ZoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã›Â´Ã™.
 							objectPixelPoint.x -= firstZonePixel.x;
 							objectPixelPoint.y -= firstZonePixel.y;
 
-							// Creature°¡ È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.	
+							// CreatureÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â°Ã¨Â»ÃªÃ‡Ã˜Â³Â½Â´Ã™.	
 							frame = m_CreatureFPK[pCreature->GetCreatureFrameID(0)][pCreature->GetAction()][pCreature->GetDirection()][pCreature->GetFrame()];
 							
-							// ÇöÀç Sprite°¡ È­¸é¿¡ Ãâ·ÂµÇ´Â À§Ä¡
+							// Ã‡Ã¶Ã€Ã§ SpriteÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ Ã€Â§Ã„Â¡
 							objectPixelPoint.x += frame.GetCX();
 							objectPixelPoint.y += frame.GetCY() - pCreature->GetZ();//FLYINGCREATURE_HEIGHT;
-												// FramePack¿¡¼­ ³ôÀÌ¸¦ ¼³Á¤ÇÏ¹Ç·Î,
-												// FlyingÀÎ °æ¿ìµµ ¶È°°´Ù.
+												// FramePackÂ¿Â¡Â¼Â­ Â³Ã´Ã€ÃŒÂ¸Â¦ Â¼Â³ÃÂ¤Ã‡ÃÂ¹Ã‡Â·Ã,
+												// FlyingÃ€Ã Â°Ã¦Â¿Ã¬ÂµÂµ Â¶ÃˆÂ°Â°Â´Ã™.
 
-							// mouseÁÂÇ¥°¡ Sprite¿¡ ¼ÓÇÏ´ÂÁö ¾Ë¾Æº¸±â
-							// Sprite¿¡¼­ÀÇ ÁÂÇ¥°¡ »ö±òÀÌ ÀÖ´Â °æ¿ìÀÏ¶§
+							// mouseÃÃ‚Ã‡Â¥Â°Â¡ SpriteÂ¿Â¡ Â¼Ã“Ã‡ÃÂ´Ã‚ÃÃ¶ Â¾Ã‹Â¾Ã†ÂºÂ¸Â±Ã¢
+							// SpriteÂ¿Â¡Â¼Â­Ã€Ã‡ ÃÃ‚Ã‡Â¥Â°Â¡ Â»Ã¶Â±Ã²Ã€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃÂ¶Â§
 							if (m_CreatureSPK[ frame.GetSpriteID() ].IsColorPixel( 
 									x - objectPixelPoint.x, 
 									y - objectPixelPoint.y 
@@ -8951,7 +8984,7 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 	sY2 = sectorPoint.y + 3;
 
 	//------------------------------------------------------
-	// ZoneÀÇ ¿µ¿ªÀÌ ¾Æ´Ñ °æ¿ì¿¡ Skip...
+	// ZoneÃ€Ã‡ Â¿ÂµÂ¿ÂªÃ€ÃŒ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡ Skip...
 	//------------------------------------------------------	
 	if (sY1 < 0)
 	{	
@@ -8964,43 +8997,43 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 	}
 
 	//------------------------------------------------------
-	// Check´ë»óÀÌ µÇ´Â ImageObject Iterator
+	// CheckÂ´Ã«Â»Ã³Ã€ÃŒ ÂµÃ‡Â´Ã‚ ImageObject Iterator
 	//------------------------------------------------------
 	IMAGEOBJECT_OUTPUT_MAP::reverse_iterator iImageObjectCheck
 		= m_mapImageObject.rbegin();
 
 	//------------------------------------------------------
-	// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ìÀÇ 
-	// ImageObjectµéÀ» CheckÇÑ´Ù.
-	// m_mapImageObject¿¡´Â Viewpoint°¡ key°ªÀÌ µÇ¾î¼­ SortµÇ¾î ÀÖ´Ù.
+	// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ sY1ÂºÂ¸Â´Ã™ Ã€Ã»Ã€Âº Â°Ã¦Â¿Ã¬Ã€Ã‡ 
+	// ImageObjectÂµÃ©Ã€Â» CheckÃ‡Ã‘Â´Ã™.
+	// m_mapImageObjectÂ¿Â¡Â´Ã‚ ViewpointÂ°Â¡ keyÂ°ÂªÃ€ÃŒ ÂµÃ‡Â¾Ã®Â¼Â­ SortÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã™.
 	//------------------------------------------------------
 	while (iImageObjectCheck != m_mapImageObject.rend())
 	{		
 		MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectCheck).second);
 
-		// InteractionObjectÀÎ °æ¿ì¸¸ checkÇÑ´Ù.
+		// InteractionObjectÃ€Ã Â°Ã¦Â¿Ã¬Â¸Â¸ checkÃ‡Ã‘Â´Ã™.
 //		if (pImageObject->GetObjectType()==MObject::TYPE_INTERACTIONOBJECT)
 //		{
 //			MInteractionObject* const pInteractionObject = (MInteractionObject* const)pImageObject;
 //
-//			// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ì..´Â Check
+//			// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ sY1ÂºÂ¸Â´Ã™ Ã€Ã»Ã€Âº Â°Ã¦Â¿Ã¬..Â´Ã‚ Check
 //			if (pInteractionObject->GetViewpoint() > sY2)
 //			{
-//				// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+//				// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 //				objectPixelPoint.x = pInteractionObject->GetPixelX() - m_FirstZonePixel.x;
 //				objectPixelPoint.y = pInteractionObject->GetPixelY() - m_FirstZonePixel.y;
 //
-//				// frame¿¡ °ü°èµÈ sprite¸¦ ±¸ÇÑ´Ù.
+//				// frameÂ¿Â¡ Â°Ã¼Â°Ã¨ÂµÃˆ spriteÂ¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
 //				frame = m_ImageObjectFPK[ pInteractionObject->GetFrameID() ][ pInteractionObject->GetFrame() ];
 //				sprite = frame.GetSpriteID();
 //						
-//				// ÁÂÇ¥ º¸Á¤
+//				// ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 //				objectPixelPoint.x += frame.GetCX();
 //				objectPixelPoint.y += frame.GetCY();
 //									
-//				// InteractionObject´Â (point.x, point.y)¿¡ Ãâ·ÂµÇ¾î ÀÖÀ» °ÍÀÌ´Ù.
-//				// mouseÁÂÇ¥°¡ Sprite¿¡ ¼ÓÇÏ´ÂÁö ¾Ë¾Æº¸±â
-//				// Sprite¿¡¼­ÀÇ ÁÂÇ¥°¡ »ö±òÀÌ ÀÖ´Â °æ¿ìÀÏ¶§
+//				// InteractionObjectÂ´Ã‚ (point.x, point.y)Â¿Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â¾Ã® Ã€Ã–Ã€Â» Â°ÃÃ€ÃŒÂ´Ã™.
+//				// mouseÃÃ‚Ã‡Â¥Â°Â¡ SpriteÂ¿Â¡ Â¼Ã“Ã‡ÃÂ´Ã‚ÃÃ¶ Â¾Ã‹Â¾Ã†ÂºÂ¸Â±Ã¢
+//				// SpriteÂ¿Â¡Â¼Â­Ã€Ã‡ ÃÃ‚Ã‡Â¥Â°Â¡ Â»Ã¶Â±Ã²Ã€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃÂ¶Â§
 //				if (m_ImageObjectSPK[ sprite ].IsColorPixel( 
 //						x - objectPixelPoint.x, 
 //						y - objectPixelPoint.y 
@@ -9010,7 +9043,7 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 //					return pInteractionObject;
 //				}
 //			}
-//			// ¾Æ´Ï¸é.. Object checkÇÒ¶§ CheckÇØ¾ßµÇ´Â °æ¿ìÀÌ´Ù.
+//			// Â¾Ã†Â´ÃÂ¸Ã©.. Object checkÃ‡Ã’Â¶Â§ CheckÃ‡Ã˜Â¾ÃŸÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™.
 //			else
 //			{
 //				break;
@@ -9021,7 +9054,7 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 	}
 
 	//------------------------------------------------------	
-	// ÀÖÀ»¹ıÇÑ Sector¸¦ checkÇÑ´Ù.
+	// Ã€Ã–Ã€Â»Â¹Ã½Ã‡Ã‘ SectorÂ¸Â¦ checkÃ‡Ã‘Â´Ã™.
 	//------------------------------------------------------	
 	for (currentY=sY2; currentY>=sY1; currentY--)	
 	{	
@@ -9029,18 +9062,18 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 		{				
 			const MSector& sector = m_pZone->GetSector(currentX, currentY);
 
-			// ¾î¶² Object°¡ ÀÖÀ» °æ¿ì
+			// Â¾Ã®Â¶Â² ObjectÂ°Â¡ Ã€Ã–Ã€Â» Â°Ã¦Â¿Ã¬
 			if (sector.IsExistObject() )			
 			{		
 				
 				//file << "Exist Object!" << endl;
 
-				// ObjectÀÇ Á¾·ù¿¡ µû¶ó¼­ ´Ş¸® checkÇÑ´Ù.
-				// ¼±ÅÃÇÒ ¼ö ÀÖ´Â °ÍÀº Creature¿Í Item»ÓÀÌ´Ù.
+				// ObjectÃ€Ã‡ ÃÂ¾Â·Ã¹Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ Â´ÃÂ¸Â® checkÃ‡Ã‘Â´Ã™.
+				// Â¼Â±Ã…ÃƒÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â°ÃÃ€Âº CreatureÂ¿Ã ItemÂ»Ã“Ã€ÃŒÂ´Ã™.
 
 				//------------------------------------------------
 				//
-				// Flying Creature°¡ ÀÖ´Â °æ¿ì
+				// Flying CreatureÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 				//
 				//------------------------------------------------
 				numCreature = sector.GetFlyingCreatureSize();
@@ -9057,34 +9090,34 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 
 						pCreature = (MCreature*)iCreature->second;
 
-						// PlayerÀÌ¸é ¼±ÅÃÇÏÁö ¾Ê´Â´Ù.
+						// PlayerÃ€ÃŒÂ¸Ã© Â¼Â±Ã…ÃƒÃ‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 						if (pCreature->GetID()!=pid)	
 						{
 
-							// FlyingCreature°¡ Â÷ÁöÇÏ´Â ¿µ¿ªÀ» ±¸ÇÑ´Ù.
-							// FRAME_PACK¿¡¼­ Á¤º¸¸¦ ÀĞ¾î¾ß ÇÒ µí!!
-							// FlyingCreatureÀÇ SectorÁÂÇ¥¸¦ PixelÁÂÇ¥·Î ¹Ù²ã¾ß ÇÑ´Ù.
+							// FlyingCreatureÂ°Â¡ Ã‚Ã·ÃÃ¶Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â±Â¸Ã‡Ã‘Â´Ã™.
+							// FRAME_PACKÂ¿Â¡Â¼Â­ ÃÂ¤ÂºÂ¸Â¸Â¦ Ã€ÃÂ¾Ã®Â¾ÃŸ Ã‡Ã’ ÂµÃ­!!
+							// FlyingCreatureÃ€Ã‡ SectorÃÃ‚Ã‡Â¥Â¸Â¦ PixelÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã£Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 
-							// FlyingCreatureÀÇ ZoneÀÇ ÁÂÇ¥¸¦ °è»êÇÑ´Ù.
+							// FlyingCreatureÃ€Ã‡ ZoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 							objectPixelPoint = MapToPixel(pCreature->GetX(), pCreature->GetY());
 							objectPixelPoint.x += m_PlusPoint.x + pCreature->GetSX();
 							objectPixelPoint.y += m_PlusPoint.y + pCreature->GetSY();
 								
-							// ZoneÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
+							// ZoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã›Â´Ã™.
 							objectPixelPoint.x -= firstZonePixel.x;
 							objectPixelPoint.y -= firstZonePixel.y;
 
-							// Creature°¡ È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.	
+							// CreatureÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â°Ã¨Â»ÃªÃ‡Ã˜Â³Â½Â´Ã™.	
 							frame = m_CreatureFPK[pCreature->GetCreatureFrameID(0)][pCreature->GetAction()][pCreature->GetDirection()][pCreature->GetFrame()];
 							
-							// ÇöÀç Sprite°¡ È­¸é¿¡ Ãâ·ÂµÇ´Â À§Ä¡
+							// Ã‡Ã¶Ã€Ã§ SpriteÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ Ã€Â§Ã„Â¡
 							objectPixelPoint.x += frame.GetCX();
 							objectPixelPoint.y += frame.GetCY() - pCreature->GetZ();//FLYINGCREATURE_HEIGHT;
-												// FramePack¿¡¼­ ³ôÀÌ¸¦ ¼³Á¤ÇÏ¹Ç·Î,
-												// FlyingÀÎ °æ¿ìµµ ¶È°°´Ù.
+												// FramePackÂ¿Â¡Â¼Â­ Â³Ã´Ã€ÃŒÂ¸Â¦ Â¼Â³ÃÂ¤Ã‡ÃÂ¹Ã‡Â·Ã,
+												// FlyingÃ€Ã Â°Ã¦Â¿Ã¬ÂµÂµ Â¶ÃˆÂ°Â°Â´Ã™.
 
-							// mouseÁÂÇ¥°¡ Sprite¿¡ ¼ÓÇÏ´ÂÁö ¾Ë¾Æº¸±â
-							// Sprite¿¡¼­ÀÇ ÁÂÇ¥°¡ »ö±òÀÌ ÀÖ´Â °æ¿ìÀÏ¶§
+							// mouseÃÃ‚Ã‡Â¥Â°Â¡ SpriteÂ¿Â¡ Â¼Ã“Ã‡ÃÂ´Ã‚ÃÃ¶ Â¾Ã‹Â¾Ã†ÂºÂ¸Â±Ã¢
+							// SpriteÂ¿Â¡Â¼Â­Ã€Ã‡ ÃÃ‚Ã‡Â¥Â°Â¡ Â»Ã¶Â±Ã²Ã€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃÂ¶Â§
 							if (m_CreatureSPK[ frame.GetSpriteID() ].IsColorPixel( 
 									x - objectPixelPoint.x, 
 									y - objectPixelPoint.y 
@@ -9098,7 +9131,7 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 				
 				//------------------------------------------------
 				//
-				// Creature°¡ ÀÖ´Â °æ¿ì
+				// CreatureÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 				//
 				//------------------------------------------------
 				numCreature = sector.GetGroundCreatureSize();
@@ -9115,32 +9148,32 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 
 						pCreature = (MCreature*)iCreature->second;
 
-						// PlayerÀÌ¸é ¼±ÅÃÇÏÁö ¾Ê´Â´Ù.
+						// PlayerÃ€ÃŒÂ¸Ã© Â¼Â±Ã…ÃƒÃ‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 						if (pCreature->GetID()!=pid)	
 						{
 
-							// Creature°¡ Â÷ÁöÇÏ´Â ¿µ¿ªÀ» ±¸ÇÑ´Ù.
-							// FRAME_PACK¿¡¼­ Á¤º¸¸¦ ÀĞ¾î¾ß ÇÒ µí!!
-							// CreatureÀÇ SectorÁÂÇ¥¸¦ PixelÁÂÇ¥·Î ¹Ù²ã¾ß ÇÑ´Ù.
+							// CreatureÂ°Â¡ Ã‚Ã·ÃÃ¶Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â±Â¸Ã‡Ã‘Â´Ã™.
+							// FRAME_PACKÂ¿Â¡Â¼Â­ ÃÂ¤ÂºÂ¸Â¸Â¦ Ã€ÃÂ¾Ã®Â¾ÃŸ Ã‡Ã’ ÂµÃ­!!
+							// CreatureÃ€Ã‡ SectorÃÃ‚Ã‡Â¥Â¸Â¦ PixelÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã£Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 
-							// CreatureÀÇ ZoneÀÇ ÁÂÇ¥¸¦ °è»êÇÑ´Ù.
+							// CreatureÃ€Ã‡ ZoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 							objectPixelPoint = MapToPixel(pCreature->GetX(), pCreature->GetY());
 							objectPixelPoint.x += m_PlusPoint.x + pCreature->GetSX();
 							objectPixelPoint.y += m_PlusPoint.y + pCreature->GetSY();
 								
-							// ZoneÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
+							// ZoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã›Â´Ã™.
 							objectPixelPoint.x -= firstZonePixel.x;
 							objectPixelPoint.y -= firstZonePixel.y;
 
-							// Creature°¡ È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.	
+							// CreatureÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â°Ã¨Â»ÃªÃ‡Ã˜Â³Â½Â´Ã™.	
 							frame = m_CreatureFPK[pCreature->GetCreatureFrameID(0)][pCreature->GetAction()][pCreature->GetDirection()][pCreature->GetFrame()];
 							
-							// ÇöÀç Sprite°¡ È­¸é¿¡ Ãâ·ÂµÇ´Â À§Ä¡
+							// Ã‡Ã¶Ã€Ã§ SpriteÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ Ã€Â§Ã„Â¡
 							objectPixelPoint.x += frame.GetCX();
 							objectPixelPoint.y += frame.GetCY();
 
-							// mouseÁÂÇ¥°¡ Sprite¿¡ ¼ÓÇÏ´ÂÁö ¾Ë¾Æº¸±â
-							// Sprite¿¡¼­ÀÇ ÁÂÇ¥°¡ »ö±òÀÌ ÀÖ´Â °æ¿ìÀÏ¶§
+							// mouseÃÃ‚Ã‡Â¥Â°Â¡ SpriteÂ¿Â¡ Â¼Ã“Ã‡ÃÂ´Ã‚ÃÃ¶ Â¾Ã‹Â¾Ã†ÂºÂ¸Â±Ã¢
+							// SpriteÂ¿Â¡Â¼Â­Ã€Ã‡ ÃÃ‚Ã‡Â¥Â°Â¡ Â»Ã¶Â±Ã²Ã€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃÂ¶Â§
 							if (m_CreatureSPK[ frame.GetSpriteID() ].IsColorPixel( 
 									x - objectPixelPoint.x, 
 									y - objectPixelPoint.y 
@@ -9154,7 +9187,7 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 
 				//------------------------------------------------
 				//
-				// Underground Creature°¡ ÀÖ´Â °æ¿ì
+				// Underground CreatureÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 				//
 				//------------------------------------------------
 				numCreature = sector.GetUndergroundCreatureSize();
@@ -9171,33 +9204,33 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 
 						pCreature = (MCreature*)iCreature->second;
 
-						// PlayerÀÌ¸é ¼±ÅÃÇÏÁö ¾Ê´Â´Ù.
+						// PlayerÃ€ÃŒÂ¸Ã© Â¼Â±Ã…ÃƒÃ‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 						if (pCreature->GetID()!=pid)	
 						{
 
-							// Creature°¡ Â÷ÁöÇÏ´Â ¿µ¿ªÀ» ±¸ÇÑ´Ù.
-							// FRAME_PACK¿¡¼­ Á¤º¸¸¦ ÀĞ¾î¾ß ÇÒ µí!!
-							// CreatureÀÇ SectorÁÂÇ¥¸¦ PixelÁÂÇ¥·Î ¹Ù²ã¾ß ÇÑ´Ù.
+							// CreatureÂ°Â¡ Ã‚Ã·ÃÃ¶Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â±Â¸Ã‡Ã‘Â´Ã™.
+							// FRAME_PACKÂ¿Â¡Â¼Â­ ÃÂ¤ÂºÂ¸Â¸Â¦ Ã€ÃÂ¾Ã®Â¾ÃŸ Ã‡Ã’ ÂµÃ­!!
+							// CreatureÃ€Ã‡ SectorÃÃ‚Ã‡Â¥Â¸Â¦ PixelÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã£Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 
-							// CreatureÀÇ ZoneÀÇ ÁÂÇ¥¸¦ °è»êÇÑ´Ù.
+							// CreatureÃ€Ã‡ ZoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 							objectPixelPoint = MapToPixel(pCreature->GetX(), pCreature->GetY());
 							objectPixelPoint.x += m_PlusPoint.x + pCreature->GetSX();
 							objectPixelPoint.y += m_PlusPoint.y + pCreature->GetSY();
 								
-							// ZoneÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
+							// ZoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã›Â´Ã™.
 							objectPixelPoint.x -= firstZonePixel.x;
 							objectPixelPoint.y -= firstZonePixel.y;
 
-							// Creature°¡ È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.	
-							// ÁÂÇ¥ º¸Á¤
+							// CreatureÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â°Ã¨Â»ÃªÃ‡Ã˜Â³Â½Â´Ã™.	
+							// ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 							//frame = m_CreatureFPK[pCreature->GetCreatureFrameID()][pCreature->GetAction()][pCreature->GetDirection()][pCreature->GetFrame()];
 							
-							// ÇöÀç Sprite°¡ È­¸é¿¡ Ãâ·ÂµÇ´Â À§Ä¡
+							// Ã‡Ã¶Ã€Ã§ SpriteÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ Ã€Â§Ã„Â¡
 							//objectPixelPoint.x += frame.GetCX();
 							//objectPixelPoint.y += frame.GetCY();
 
-							// mouseÁÂÇ¥°¡ Sprite¿¡ ¼ÓÇÏ´ÂÁö ¾Ë¾Æº¸±â
-							// Sprite¿¡¼­ÀÇ ÁÂÇ¥°¡ »ö±òÀÌ ÀÖ´Â °æ¿ìÀÏ¶§
+							// mouseÃÃ‚Ã‡Â¥Â°Â¡ SpriteÂ¿Â¡ Â¼Ã“Ã‡ÃÂ´Ã‚ÃÃ¶ Â¾Ã‹Â¾Ã†ÂºÂ¸Â±Ã¢
+							// SpriteÂ¿Â¡Â¼Â­Ã€Ã‡ ÃÃ‚Ã‡Â¥Â°Â¡ Â»Ã¶Â±Ã²Ã€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃÂ¶Â§
 							if (m_EtcSPK[ SPRITEID_CREATURE_BURROW ].IsColorPixel( 
 									x - objectPixelPoint.x, 
 									y - objectPixelPoint.y 
@@ -9211,7 +9244,7 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 						
 				//------------------------------------------------
 				//
-				// ItemÀÌ ÀÖ´Â °æ¿ì
+				// ItemÃ€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 				//
 				//------------------------------------------------				
 				pObject = (MObject*)sector.GetItem();
@@ -9222,28 +9255,28 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 
 					pItem = (MItem*)pObject;
 
-					// Item°¡ Â÷ÁöÇÏ´Â ¿µ¿ªÀ» ±¸ÇÑ´Ù.
-					// FRAME_PACK¿¡¼­ Á¤º¸¸¦ ÀĞ¾î¾ß ÇÒ µí!!
-					// ItemÀÇ SectorÁÂÇ¥¸¦ PixelÁÂÇ¥·Î ¹Ù²ã¾ß ÇÑ´Ù.
+					// ItemÂ°Â¡ Ã‚Ã·ÃÃ¶Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â±Â¸Ã‡Ã‘Â´Ã™.
+					// FRAME_PACKÂ¿Â¡Â¼Â­ ÃÂ¤ÂºÂ¸Â¸Â¦ Ã€ÃÂ¾Ã®Â¾ÃŸ Ã‡Ã’ ÂµÃ­!!
+					// ItemÃ€Ã‡ SectorÃÃ‚Ã‡Â¥Â¸Â¦ PixelÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã£Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 
-					// ItemÀÇ ZoneÀÇ ÁÂÇ¥¸¦ °è»êÇÑ´Ù.
+					// ItemÃ€Ã‡ ZoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 					objectPixelPoint = MapToPixel(pItem->GetX(), pItem->GetY());
 					objectPixelPoint.x += m_PlusPoint.x;// + pItem->GetSX();
 					objectPixelPoint.y += m_PlusPoint.y;// + pItem->GetSY();
 						
-					// ZoneÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
+					// ZoneÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã›Â´Ã™.
 					objectPixelPoint.x -= firstZonePixel.x;
 					objectPixelPoint.y -= firstZonePixel.y;
 
-					// Item°¡ È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.				
+					// ItemÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Â¿ÂµÂ¿ÂªÃ€Â» Â°Ã¨Â»ÃªÃ‡Ã˜Â³Â½Â´Ã™.				
 					frame = m_ItemTileFPK[ pItem->GetTileFrameID() ];
 
-					// ÇöÀç Sprite°¡ È­¸é¿¡ Ãâ·ÂµÇ´Â À§Ä¡
+					// Ã‡Ã¶Ã€Ã§ SpriteÂ°Â¡ ÃˆÂ­Â¸Ã©Â¿Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ Ã€Â§Ã„Â¡
 					objectPixelPoint.x += frame.GetCX();
 					objectPixelPoint.y += frame.GetCY();
 
-					// mouseÁÂÇ¥°¡ Sprite¿¡ ¼ÓÇÏ´ÂÁö ¾Ë¾Æº¸±â
-					// Sprite¿¡¼­ÀÇ ÁÂÇ¥°¡ »ö±òÀÌ ÀÖ´Â °æ¿ìÀÏ¶§
+					// mouseÃÃ‚Ã‡Â¥Â°Â¡ SpriteÂ¿Â¡ Â¼Ã“Ã‡ÃÂ´Ã‚ÃÃ¶ Â¾Ã‹Â¾Ã†ÂºÂ¸Â±Ã¢
+					// SpriteÂ¿Â¡Â¼Â­Ã€Ã‡ ÃÃ‚Ã‡Â¥Â°Â¡ Â»Ã¶Â±Ã²Ã€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃÂ¶Â§
 					if (m_ItemTileISPK[ frame.GetSpriteID() ].IsColorPixel( 
 							x - objectPixelPoint.x, 
 							y - objectPixelPoint.y 
@@ -9263,37 +9296,37 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 		}
 
 		//------------------------------------------------------
-		// Ãâ·Â ½ÃÁ¡ÀÌ currentYº¸´Ù ÀûÀº °æ¿ìÀÇ 
-		// ImageObjectµéÀ» CheckÇÑ´Ù.
-		// m_mapImageObject¿¡´Â Viewpoint°¡ key°ªÀÌ µÇ¾î¼­ SortµÇ¾î ÀÖ´Ù.
+		// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ currentYÂºÂ¸Â´Ã™ Ã€Ã»Ã€Âº Â°Ã¦Â¿Ã¬Ã€Ã‡ 
+		// ImageObjectÂµÃ©Ã€Â» CheckÃ‡Ã‘Â´Ã™.
+		// m_mapImageObjectÂ¿Â¡Â´Ã‚ ViewpointÂ°Â¡ keyÂ°ÂªÃ€ÃŒ ÂµÃ‡Â¾Ã®Â¼Â­ SortÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã™.
 		//------------------------------------------------------
 		while (iImageObjectCheck != m_mapImageObject.rend())
 		{
 			MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectCheck).second);
 
-			// InteractionObjectÀÎ °æ¿ì¸¸ checkÇÑ´Ù.
+			// InteractionObjectÃ€Ã Â°Ã¦Â¿Ã¬Â¸Â¸ checkÃ‡Ã‘Â´Ã™.
 //			if (pImageObject->GetObjectType()==MObject::TYPE_INTERACTIONOBJECT)
 //			{
 //				MInteractionObject* const pInteractionObject = (MInteractionObject* const)pImageObject;
 //
-//				// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ì..´Â Check
+//				// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ sY1ÂºÂ¸Â´Ã™ Ã€Ã»Ã€Âº Â°Ã¦Â¿Ã¬..Â´Ã‚ Check
 //				if (pInteractionObject->GetViewpoint() == currentY)
 //				{
-//					// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+//					// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 //					objectPixelPoint.x = pInteractionObject->GetPixelX() - m_FirstZonePixel.x;
 //					objectPixelPoint.y = pInteractionObject->GetPixelY() - m_FirstZonePixel.y;
 //
-//					// frame¿¡ °ü°èµÈ sprite¸¦ ±¸ÇÑ´Ù.
+//					// frameÂ¿Â¡ Â°Ã¼Â°Ã¨ÂµÃˆ spriteÂ¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
 //					frame = m_ImageObjectFPK[ pInteractionObject->GetFrameID() ][ pInteractionObject->GetFrame() ];
 //					sprite = frame.GetSpriteID();
 //							
-//					// ÁÂÇ¥ º¸Á¤
+//					// ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 //					objectPixelPoint.x += frame.GetCX();
 //					objectPixelPoint.y += frame.GetCY();
 //										
-//					// InteractionObject´Â (point.x, point.y)¿¡ Ãâ·ÂµÇ¾î ÀÖÀ» °ÍÀÌ´Ù.
-//					// mouseÁÂÇ¥°¡ Sprite¿¡ ¼ÓÇÏ´ÂÁö ¾Ë¾Æº¸±â
-//					// Sprite¿¡¼­ÀÇ ÁÂÇ¥°¡ »ö±òÀÌ ÀÖ´Â °æ¿ìÀÏ¶§
+//					// InteractionObjectÂ´Ã‚ (point.x, point.y)Â¿Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â¾Ã® Ã€Ã–Ã€Â» Â°ÃÃ€ÃŒÂ´Ã™.
+//					// mouseÃÃ‚Ã‡Â¥Â°Â¡ SpriteÂ¿Â¡ Â¼Ã“Ã‡ÃÂ´Ã‚ÃÃ¶ Â¾Ã‹Â¾Ã†ÂºÂ¸Â±Ã¢
+//					// SpriteÂ¿Â¡Â¼Â­Ã€Ã‡ ÃÃ‚Ã‡Â¥Â°Â¡ Â»Ã¶Â±Ã²Ã€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃÂ¶Â§
 //					if (m_ImageObjectSPK[ sprite ].IsColorPixel( 
 //							x - objectPixelPoint.x, 
 //							y - objectPixelPoint.y 
@@ -9302,7 +9335,7 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 //						return pInteractionObject;
 //					}
 //				}
-//				// ¾Æ´Ï¸é.. Object checkÇÒ¶§ CheckÇØ¾ßµÇ´Â °æ¿ìÀÌ´Ù.
+//				// Â¾Ã†Â´ÃÂ¸Ã©.. Object checkÃ‡Ã’Â¶Â§ CheckÃ‡Ã˜Â¾ÃŸÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™.
 //				else
 //				{
 //					break;
@@ -9314,34 +9347,34 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 	}	
 
 	//------------------------------------------------------
-	// Ãâ·Â ½ÃÁ¡ÀÌ currentYº¸´Ù ÀûÀº °æ¿ìÀÇ 
-	// ImageObjectµéÀ» CheckÇÑ´Ù.
-	// m_mapImageObject¿¡´Â Viewpoint°¡ key°ªÀÌ µÇ¾î¼­ SortµÇ¾î ÀÖ´Ù.
+	// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ currentYÂºÂ¸Â´Ã™ Ã€Ã»Ã€Âº Â°Ã¦Â¿Ã¬Ã€Ã‡ 
+	// ImageObjectÂµÃ©Ã€Â» CheckÃ‡Ã‘Â´Ã™.
+	// m_mapImageObjectÂ¿Â¡Â´Ã‚ ViewpointÂ°Â¡ keyÂ°ÂªÃ€ÃŒ ÂµÃ‡Â¾Ã®Â¼Â­ SortÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã™.
 	//------------------------------------------------------
 	while (iImageObjectCheck != m_mapImageObject.rend())
 	{
 		MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectCheck).second);
 
-		// InteractionObjectÀÎ °æ¿ì¸¸ checkÇÑ´Ù.
+		// InteractionObjectÃ€Ã Â°Ã¦Â¿Ã¬Â¸Â¸ checkÃ‡Ã‘Â´Ã™.
 //		if (pImageObject->GetObjectType()==MObject::TYPE_INTERACTIONOBJECT)
 //		{
 //			MInteractionObject* const pInteractionObject = (MInteractionObject* const)pImageObject;
 //		
-//			// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+//			// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 //			objectPixelPoint.x = pInteractionObject->GetPixelX() - m_FirstZonePixel.x;
 //			objectPixelPoint.y = pInteractionObject->GetPixelY() - m_FirstZonePixel.y;
 //
-//			// frame¿¡ °ü°èµÈ sprite¸¦ ±¸ÇÑ´Ù.
+//			// frameÂ¿Â¡ Â°Ã¼Â°Ã¨ÂµÃˆ spriteÂ¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
 //			frame = m_ImageObjectFPK[ pInteractionObject->GetFrameID() ][ pInteractionObject->GetFrame() ];
 //			sprite = frame.GetSpriteID();
 //							
-//			// ÁÂÇ¥ º¸Á¤
+//			// ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 //			objectPixelPoint.x += frame.GetCX();
 //			objectPixelPoint.y += frame.GetCY();
 //									
-//			// InteractionObject´Â (point.x, point.y)¿¡ Ãâ·ÂµÇ¾î ÀÖÀ» °ÍÀÌ´Ù.
-//			// mouseÁÂÇ¥°¡ Sprite¿¡ ¼ÓÇÏ´ÂÁö ¾Ë¾Æº¸±â
-//			// Sprite¿¡¼­ÀÇ ÁÂÇ¥°¡ »ö±òÀÌ ÀÖ´Â °æ¿ìÀÏ¶§
+//			// InteractionObjectÂ´Ã‚ (point.x, point.y)Â¿Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â¾Ã® Ã€Ã–Ã€Â» Â°ÃÃ€ÃŒÂ´Ã™.
+//			// mouseÃÃ‚Ã‡Â¥Â°Â¡ SpriteÂ¿Â¡ Â¼Ã“Ã‡ÃÂ´Ã‚ÃÃ¶ Â¾Ã‹Â¾Ã†ÂºÂ¸Â±Ã¢
+//			// SpriteÂ¿Â¡Â¼Â­Ã€Ã‡ ÃÃ‚Ã‡Â¥Â°Â¡ Â»Ã¶Â±Ã²Ã€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃÂ¶Â§
 //			if (m_ImageObjectSPK[ sprite ].IsColorPixel( 
 //					x - objectPixelPoint.x, 
 //					y - objectPixelPoint.y 
@@ -9360,19 +9393,19 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 //----------------------------------------------------------------------
 // Clear ItemNameList
 //----------------------------------------------------------------------
-// ´Ù Áö¿öÁà¾ß ÇÑ´Ù.
+// Â´Ã™ ÃÃ¶Â¿Ã¶ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void			
 MTopView::ClearItemNameList()
 {
 	DRAWITEMNAME_LIST::iterator iItemName = m_listDrawItemName.begin();
 
-	// ¸ğµç node¸¦ Áö¿î´Ù.
+	// Â¸Ã°ÂµÃ§ nodeÂ¸Â¦ ÃÃ¶Â¿Ã®Â´Ã™.
 	while (iItemName != m_listDrawItemName.end())
 	{
 		DRAWITEMNAME_NODE* pNode = *iItemName;
 
-		// ¸Ş¸ğ¸®¿¡¼­ nodeÁ¦°Å
+		// Â¸ÃÂ¸Ã°Â¸Â®Â¿Â¡Â¼Â­ nodeÃÂ¦Â°Ã…
 		delete pNode;
 		
 		iItemName ++;
@@ -9385,15 +9418,15 @@ MTopView::ClearItemNameList()
 //----------------------------------------------------------------------
 // Add ItemName
 //----------------------------------------------------------------------
-// ¿ÜºÎ¿¡¼­ new¸¦ ÇØÁà¾ß ÇÑ´Ù.
+// Â¿ÃœÂºÃÂ¿Â¡Â¼Â­ newÂ¸Â¦ Ã‡Ã˜ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 //
-// pNode->GetDistance·Î sortÇØ¼­ Ãß°¡ÇØ¾ß ÇÑ´Ù.
-// ¿À¸§Â÷¼ø..
+// pNode->GetDistanceÂ·Ã sortÃ‡Ã˜Â¼Â­ ÃƒÃŸÂ°Â¡Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
+// Â¿Ã€Â¸Â§Ã‚Ã·Â¼Ã¸..
 //----------------------------------------------------------------------
-// itemÀÌ ¸¹Àº °æ¿ì´Â µÚ¿¡¼­ºÎÅÍ Ã¼Å©ÇÏ´Â°Ô ºü¸£´Ù.
-// MAX°ªÀÌ Á¤ÇØÁ® ÀÖ±â ¶§¹®¿¡...
-// ±×·¯³ª.. °íÄ¡±â ±ÍÂú±º.. --;
-// ÀÌ°Å Ä¡´Â ½Ã°£¿¡ °íÃÆ°Ú´Ù.. À½³Ä..
+// itemÃ€ÃŒ Â¸Â¹Ã€Âº Â°Ã¦Â¿Ã¬Â´Ã‚ ÂµÃšÂ¿Â¡Â¼Â­ÂºÃÃ…Ã ÃƒÂ¼Ã…Â©Ã‡ÃÂ´Ã‚Â°Ã” ÂºÃ¼Â¸Â£Â´Ã™.
+// MAXÂ°ÂªÃ€ÃŒ ÃÂ¤Ã‡Ã˜ÃÂ® Ã€Ã–Â±Ã¢ Â¶Â§Â¹Â®Â¿Â¡...
+// Â±Ã—Â·Â¯Â³Âª.. Â°Ã­Ã„Â¡Â±Ã¢ Â±ÃÃ‚ÃºÂ±Âº.. --;
+// Ã€ÃŒÂ°Ã… Ã„Â¡Â´Ã‚ Â½ÃƒÂ°Â£Â¿Â¡ Â°Ã­ÃƒÃ†Â°ÃšÂ´Ã™.. Ã€Â½Â³Ã„..
 //----------------------------------------------------------------------
 void		 	
 MTopView::AddItemName(DRAWITEMNAME_NODE* pNode)
@@ -9403,14 +9436,14 @@ MTopView::AddItemName(DRAWITEMNAME_NODE* pNode)
 	BOOL bInsertEnd = TRUE;
 
 	//-------------------------------------------------------
-	// °Å¸®¸¦ ºñ±³ÇÏ¸é¼­ ItemNameÀ» Ãß°¡ÇÑ´Ù.
+	// Â°Ã…Â¸Â®Â¸Â¦ ÂºÃ±Â±Â³Ã‡ÃÂ¸Ã©Â¼Â­ ItemNameÃ€Â» ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 	//-------------------------------------------------------
 	while (iItemName != m_listDrawItemName.end())
 	{
 		DRAWITEMNAME_NODE* pOldNode = *iItemName;
 
 		//------------------------------------------
-		// ºñ±³ ºñ±³~
+		// ÂºÃ±Â±Â³ ÂºÃ±Â±Â³~
 		//------------------------------------------
 		if (pNode->GetDistance() < pOldNode->GetDistance())
 		{			
@@ -9426,16 +9459,16 @@ MTopView::AddItemName(DRAWITEMNAME_NODE* pNode)
 
 	if (bInsertEnd)
 	{
-		// ¸Ç ³¡¿¡ Ãß°¡
+		// Â¸Ã‡ Â³Â¡Â¿Â¡ ÃƒÃŸÂ°Â¡
 		m_listDrawItemName.push_back( pNode );
 	}
 	
 	//-------------------------------------------------------
-	// MAX¸¦ ³Ñ¾î°£ °æ¿ì
+	// MAXÂ¸Â¦ Â³Ã‘Â¾Ã®Â°Â£ Â°Ã¦Â¿Ã¬
 	//-------------------------------------------------------
 	if (m_listDrawItemName.size() > g_pClientConfig->MAX_DRAWITEMNAME)
 	{
-		// ¸¶Áö¸· °É Á¦°ÅÇÑ´Ù.
+		// Â¸Â¶ÃÃ¶Â¸Â· Â°Ã‰ ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 		DRAWITEMNAME_NODE* pDeleteNode = m_listDrawItemName.back();
 
 		delete pDeleteNode;
@@ -9447,7 +9480,7 @@ MTopView::AddItemName(DRAWITEMNAME_NODE* pNode)
 //----------------------------------------------------------------------
 // DrawItemNameList
 //----------------------------------------------------------------------
-// °¢°¢ÀÇ Item¸¶´Ù AddText¸¦ ÇÑ´Ù.
+// Â°Â¢Â°Â¢Ã€Ã‡ ItemÂ¸Â¶Â´Ã™ AddTextÂ¸Â¦ Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void			
 MTopView::DrawItemNameList()
@@ -9462,14 +9495,14 @@ MTopView::DrawItemNameList()
 	int x, x2;
 	int y = 0, y2;
 
-	// minimapÀ» ±×¸®´Â °æ¿ì.. 
-	// ÁÂÇ¥ ¶«½Ã...
-	// ¾Æ·¡ÂÊºÎÅÍ ±×¸°´Ù..
+	// minimapÃ€Â» Â±Ã—Â¸Â®Â´Ã‚ Â°Ã¦Â¿Ã¬.. 
+	// ÃÃ‚Ã‡Â¥ Â¶Â«Â½Ãƒ...
+	// Â¾Ã†Â·Â¡Ã‚ÃŠÂºÃÃ…Ã Â±Ã—Â¸Â°Â´Ã™..
 
-	// 2001.7.14 ÁÖ¼®Ã³¸®
+	// 2001.7.14 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 	//if (g_pUserOption->DrawMinimap)// && g_pPlayer->IsSlayer())
 	{
-		// ¿ìÇìÇì ÇÏµå ÄÚµù~~
+		// Â¿Ã¬Ã‡Ã¬Ã‡Ã¬ Ã‡ÃÂµÃ¥ Ã„ÃšÂµÃ¹~~
 		y = 160;
 	}
 
@@ -9482,7 +9515,7 @@ MTopView::DrawItemNameList()
 		
 		const char* pItemName = pItem->GetName();
 
-		// optionÀÌ ºÙÀº°Å´Â ÆÄ¶õ»ö..
+		// optionÃ€ÃŒ ÂºÃ™Ã€ÂºÂ°Ã…Â´Ã‚ Ã†Ã„Â¶ÃµÂ»Ã¶..
 		COLORREF nameColor;
 		if (pItem->IsSpecialColorItem())
 		{
@@ -9504,12 +9537,12 @@ MTopView::DrawItemNameList()
 		{
 			nameColor = g_pClientConfig->COLOR_NAME_ITEM_RARE_OPTION;
 		}
-		// add by Sonic 2006.10.28 Ôö¼ÓÏÔÊ¾ÈıÊôĞÔ×°±¸ÎªºìÉ«
+		// add by Sonic 2006.10.28 Ã”Ã¶Â¼Ã“ÃÃ”ÃŠÂ¾ÃˆÃ½ÃŠÃ´ÃÃ”Ã—Â°Â±Â¸ÃÂªÂºÃ¬Ã‰Â«
 		else if(pItem->GetItemOptionListCount() > 2)
 		{
 			nameColor = g_pClientConfig->COLOR_NAME_VAMPIRE; //Red
 		}
-		// end by Sonic 2006.10.28 Ôö¼ÓÏÔÊ¾ÈıÊôĞÔ×°±¸ÎªºìÉ«
+		// end by Sonic 2006.10.28 Ã”Ã¶Â¼Ã“ÃÃ”ÃŠÂ¾ÃˆÃ½ÃŠÃ´ÃÃ”Ã—Â°Â±Â¸ÃÂªÂºÃ¬Ã‰Â«
 		else
 		{
 			nameColor = m_ColorNameItemOption;
@@ -9517,13 +9550,13 @@ MTopView::DrawItemNameList()
 
 		if (pItemName != NULL)
 		{
-			// È­¸é ¾È¿¡ ±ÛÀÚ°¡ µé¾î¿Àµµ·Ï..
+			// ÃˆÂ­Â¸Ã© Â¾ÃˆÂ¿Â¡ Â±Ã›Ã€ÃšÂ°Â¡ ÂµÃ©Â¾Ã®Â¿Ã€ÂµÂµÂ·Ã..
 			x = g_GameRect.right - g_GetStringWidth( pItemName, g_ClientPrintInfo[FONTID_ITEM]->hfont );
 			x2 = g_GameRect.right;
 			
 			y2 = y + g_pClientConfig->FONT_ITEM_HEIGHT;
 
-			// °ËÀº»ö ¹Ú½º ¿µ¿ª
+			// Â°Ã‹Ã€ÂºÂ»Ã¶ Â¹ÃšÂ½Âº Â¿ÂµÂ¿Âª
 			RECT rect = {
 				x, 
 				y,
@@ -9531,7 +9564,7 @@ MTopView::DrawItemNameList()
 				y2
 			};
 
-			// mouse·Î ¼±ÅÃµÈ ItemÀÎ °æ¿ì
+			// mouseÂ·Ã Â¼Â±Ã…ÃƒÂµÃˆ ItemÃ€Ã Â°Ã¦Â¿Ã¬
 			if (m_SelectItemID == pItem->GetID())		
 			{
 				DRAWTEXT_NODE* pTextNodeBK = new DRAWTEXT_NODE(
@@ -9569,11 +9602,11 @@ MTopView::DrawItemNameList()
 				AddText( pTextNode );
 			}	
 
-			// item NameÀÇ ¼±ÅÃ ¿µ¿ª
+			// item NameÃ€Ã‡ Â¼Â±Ã…Ãƒ Â¿ÂµÂ¿Âª
 			pNode->SetRect( rect );
 		}
 
-		// ´ÙÀ½..
+		// Â´Ã™Ã€Â½..
 		iItemName ++;
 		y += g_pClientConfig->FONT_ITEM_HEIGHT;
 	}
@@ -9587,8 +9620,8 @@ MTopView::DrawItemNameList()
 //----------------------------------------------------------------------
 // Select Item Name
 //----------------------------------------------------------------------
-// È­¸é ÁÂÇ¥(x,y)¸¦ ¼±ÅÃÇÑ °æ¿ì
-// ±× ÁÂÇ¥¿¡ ItemNameÀÌ ÀÖ´Â°¡?
+// ÃˆÂ­Â¸Ã© ÃÃ‚Ã‡Â¥(x,y)Â¸Â¦ Â¼Â±Ã…ÃƒÃ‡Ã‘ Â°Ã¦Â¿Ã¬
+// Â±Ã— ÃÃ‚Ã‡Â¥Â¿Â¡ ItemNameÃ€ÃŒ Ã€Ã–Â´Ã‚Â°Â¡?
 //----------------------------------------------------------------------
 MItem*
 MTopView::SelectItemName(int x, int y)
@@ -9600,17 +9633,17 @@ MTopView::SelectItemName(int x, int y)
 		DRAWITEMNAME_NODE* pNode = *iItemName;
 
 		//--------------------------------------------
-		// ItemNameÀÇ ¼±ÅÃ¿µ¿ª¿¡ ¼ÓÇÏ¸é?
+		// ItemNameÃ€Ã‡ Â¼Â±Ã…ÃƒÂ¿ÂµÂ¿ÂªÂ¿Â¡ Â¼Ã“Ã‡ÃÂ¸Ã©?
 		//--------------------------------------------
 		if (pNode->IsPointInRect(x,y))
 		{			
-			// item pointer¸¦ ³Ñ°ÜÁØ´Ù.
-			// zone¿¡ ¾ø´Â °æ¿ìµµ ÀÖÀ» ¼ö ÀÖÀ¸¹Ç·Î...
-			// zone¿¡¼­ ÀĞ¾î¿Í¾ß ÇÑ´Ù.
+			// item pointerÂ¸Â¦ Â³Ã‘Â°ÃœÃÃ˜Â´Ã™.
+			// zoneÂ¿Â¡ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬ÂµÂµ Ã€Ã–Ã€Â» Â¼Ã¶ Ã€Ã–Ã€Â¸Â¹Ã‡Â·Ã...
+			// zoneÂ¿Â¡Â¼Â­ Ã€ÃÂ¾Ã®Â¿ÃÂ¾ÃŸ Ã‡Ã‘Â´Ã™.
 			return m_pZone->GetItem( pNode->GetID() );		
 		}
 	
-		// ´ÙÀ½ item name
+		// Â´Ã™Ã€Â½ item name
 		iItemName ++;
 	}
 
@@ -9620,7 +9653,7 @@ MTopView::SelectItemName(int x, int y)
 //----------------------------------------------------------------------
 // Clear TextList
 //----------------------------------------------------------------------
-// ´Ù Áö¿öÁà¾ß ÇÑ´Ù.
+// Â´Ã™ ÃÃ¶Â¿Ã¶ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void			
 MTopView::ClearTextList()
@@ -9629,7 +9662,7 @@ MTopView::ClearTextList()
 	{
 		DRAWTEXT_NODE* pNode = m_pqDrawText.top();
 
-		// ¸Ş¸ğ¸®¿¡¼­ nodeÁ¦°Å
+		// Â¸ÃÂ¸Ã°Â¸Â®Â¿Â¡Â¼Â­ nodeÃÂ¦Â°Ã…
 		delete pNode;
 		
 		m_pqDrawText.pop();
@@ -9639,8 +9672,8 @@ MTopView::ClearTextList()
 //----------------------------------------------------------------------
 // Add Text
 //----------------------------------------------------------------------
-// DrawTextList¿¡ Ãâ·ÂÇÒ stringÀÇ Á¤º¸¸¦ Ãß°¡ÇÑ´Ù.
-// ¿ÜºÎ¿¡¼­ new¸¦ ÇØÁà¾ß ÇÑ´Ù.
+// DrawTextListÂ¿Â¡ ÃƒÃ¢Â·Ã‚Ã‡Ã’ stringÃ€Ã‡ ÃÂ¤ÂºÂ¸Â¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
+// Â¿ÃœÂºÃÂ¿Â¡Â¼Â­ newÂ¸Â¦ Ã‡Ã˜ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void			
 MTopView::AddText(DRAWTEXT_NODE* pNode)
@@ -9660,7 +9693,7 @@ MTopView::AddText(DRAWTEXT_NODE* pNode)
 	}
 	*/
 
-	// ³ªÁß¿¡ ÂïÈ÷°Ô ÇÏ±â
+	// Â³ÂªÃÃŸÂ¿Â¡ Ã‚Ã¯ÃˆÃ·Â°Ã” Ã‡ÃÂ±Ã¢
 	if (pNode->GetTextTime()==0)
 	{
 		QWORD time = ((QWORD)(g_CurrentFrame+160) << 41) 
@@ -9675,7 +9708,7 @@ MTopView::AddText(DRAWTEXT_NODE* pNode)
 //----------------------------------------------------------------------
 // DrawTextList
 //----------------------------------------------------------------------
-// Unlock»óÅÂ¿¡¼­ Ãâ·ÂÇÑ´Ù°í °¡Á¤ÇÑ´Ù.
+// UnlockÂ»Ã³Ã…Ã‚Â¿Â¡Â¼Â­ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™Â°Ã­ Â°Â¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void			
 MTopView::DrawTextList()
@@ -9687,30 +9720,30 @@ MTopView::DrawTextList()
 	//DRAWTEXT_PQ::iterator iText = m_pqDrawText.begin();
 
 	//--------------------------------------------------------
-	// 3D °¡¼Ó »ç¿ëÀÌ¸é...
-	// ÀÏ´Ü ¼¡~~ ¾îµÓ°Ô.. --;
-	// Lock/UnlockÀ» ´ú ¾²±â À§ÇØ¼­..
+	// 3D Â°Â¡Â¼Ã“ Â»Ã§Â¿Ã«Ã€ÃŒÂ¸Ã©...
+	// Ã€ÃÂ´Ãœ Â¼Â¡~~ Â¾Ã®ÂµÃ“Â°Ã”.. --;
+	// Lock/UnlockÃ€Â» Â´Ãº Â¾Â²Â±Ã¢ Ã€Â§Ã‡Ã˜Â¼Â­..
 	//
-	// ±×·±µ¥! 
-	// ±ÛÀÚ ÂïÀ» ¶§, ¹Ù·Î Á÷Àü¿¡ box¸¦ ±×·ÁÁà¾ß ÇÑ´Ù. ÄÊ...
+	// Â±Ã—Â·Â±ÂµÂ¥! 
+	// Â±Ã›Ã€Ãš Ã‚Ã¯Ã€Â» Â¶Â§, Â¹Ã™Â·Ã ÃÃ·Ã€Ã¼Â¿Â¡ boxÂ¸Â¦ Â±Ã—Â·ÃÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™. Ã„ÃŠ...
 	//--------------------------------------------------------
 	/*
 	if (CDirect3D::IsHAL())
 	{
 		m_pSurface->Unlock();
 
-		// ¸ğµç node¸¦ Áö¿î´Ù.
+		// Â¸Ã°ÂµÃ§ nodeÂ¸Â¦ ÃÃ¶Â¿Ã®Â´Ã™.
 		while (iText != m_pqDrawText.end())
 		{
 			DRAWTEXT_NODE* pNode = *iText;
 
 			//--------------------------------------------------------
-			// ±ÛÀÚÃâ·ÂµÇ´Â ºÎºĞ¿¡ °ËÀº»ö »óÀÚ Ãâ·Â
+			// Â±Ã›Ã€ÃšÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ ÂºÃÂºÃÂ¿Â¡ Â°Ã‹Ã€ÂºÂ»Ã¶ Â»Ã³Ã€Ãš ÃƒÃ¢Â·Ã‚
 			//--------------------------------------------------------
 			RECT rect = { pNode->GetX(), pNode->GetY(), 
 						pNode->GetXPlusWidth(), pNode->GetY(),15 };
 			
-			// °ËÀº ¹Ú½º Ãâ·Â..
+			// Â°Ã‹Ã€Âº Â¹ÃšÂ½Âº ÃƒÃ¢Â·Ã‚..
 			DrawBox3D(&rect, 0x7000);			
 
 			iText++;
@@ -9718,14 +9751,14 @@ MTopView::DrawTextList()
 
 		m_pSurface->Lock();	
 		
-		// ´Ù½Ã Ã³À½À¸·Î..
+		// Â´Ã™Â½Ãƒ ÃƒÂ³Ã€Â½Ã€Â¸Â·Ã..
 		iText = m_pqDrawText.begin();
 	}
 	*/
 
 	//m_pSurface->Unlock();
 	//--------------------------------------------------------
-	// ¸ğµç node¸¦ Ãâ·ÂÇÏ°í Áö¿î´Ù.
+	// Â¸Ã°ÂµÃ§ nodeÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ°Ã­ ÃÃ¶Â¿Ã®Â´Ã™.
 	//--------------------------------------------------------
 	RECT rect2;
 
@@ -9734,35 +9767,35 @@ MTopView::DrawTextList()
 		DRAWTEXT_NODE* pNode = m_pqDrawText.top();
 
 		//--------------------------------------------------------
-		// Box¸¦ Ãâ·ÂÇÒ±î?
+		// BoxÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡Ã’Â±Ã®?
 		//--------------------------------------------------------
 		if (pNode->IsExistBox())
 		{
 			//--------------------------------------------------------
-			// ±ÛÀÚÃâ·ÂµÇ´Â ºÎºĞ¿¡ °ËÀº»ö »óÀÚ Ãâ·Â
+			// Â±Ã›Ã€ÃšÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ ÂºÃÂºÃÂ¿Â¡ Â°Ã‹Ã€ÂºÂ»Ã¶ Â»Ã³Ã€Ãš ÃƒÃ¢Â·Ã‚
 			//--------------------------------------------------------
 			RECT rect = pNode->GetBox();
 			
 			//--------------------------------------------------------
-			// Åõ¸íÇÑ ¹Ú½ºÀÎ °æ¿ì
+			// Ã…ÃµÂ¸Ã­Ã‡Ã‘ Â¹ÃšÂ½ÂºÃ€Ã Â°Ã¦Â¿Ã¬
 			//--------------------------------------------------------
 			if (pNode->IsTransBox())
 			{
 				//--------------------------------------------------------
-				// 3D °¡¼ÓÀÇ °æ¿ì
+				// 3D Â°Â¡Â¼Ã“Ã€Ã‡ Â°Ã¦Â¿Ã¬
 				//--------------------------------------------------------
 //				if (CDirect3D::IsHAL())
 //				{
-//					// Unlock / lock... À¸¾Ç~~ ÀÌ°Å ½Ã°£ ¸¹ÀÌ Àâ¾Æ¸ÔÀ»°Çµ¥..
+//					// Unlock / lock... Ã€Â¸Â¾Ã‡~~ Ã€ÃŒÂ°Ã… Â½ÃƒÂ°Â£ Â¸Â¹Ã€ÃŒ Ã€Ã¢Â¾Ã†Â¸Ã”Ã€Â»Â°Ã‡ÂµÂ¥..
 //					//m_pSurface->Unlock();
 //
-//					// ¹Ú½º Ãâ·Â..
+//					// Â¹ÃšÂ½Âº ÃƒÃ¢Â·Ã‚..
 //					#ifdef OUTPUT_DEBUG_DRAW_3DBOX
 //						DEBUG_ADD_FORMAT("TextList-Box3D( %d, %d, %d, %d ), color=%x",
 //														rect.left, rect.top, rect.right, rect.bottom, pNode->GetBoxColor());
 //					#endif
 //
-//					// ¹Ù´Ú ±ò±â
+//					// Â¹Ã™Â´Ãš Â±Ã²Â±Ã¢
 //					WORD boxColor = pNode->GetBoxColor();
 //
 //					rect2 = rect;
@@ -9770,7 +9803,7 @@ MTopView::DrawTextList()
 //
 //					if (pNode->IsExistBoxOutline())
 //					{
-//						// ¿Ü°û ¹Ú½º ±×¸®±â
+//						// Â¿ÃœÂ°Ã» Â¹ÃšÂ½Âº Â±Ã—Â¸Â®Â±Ã¢
 //						rect2 = rect;
 //						DRAW_CHAT_BOX_OUTLINE( rect2, pNode->GetBoxOutlineColor() )
 //
@@ -9800,7 +9833,7 @@ MTopView::DrawTextList()
 //						rect2.bottom = rect.bottom + 4 + 2;
 //						DrawBox3D(&rect2, boxColor);
 //
-//						// ¼±
+//						// Â¼Â±
 //						m_pSurface->Lock();
 //						DRAW_CHAT_BOX_TAIL_LOCKED( rect, pNode->GetBoxOutlineColor() );
 //						m_pSurface->Unlock();
@@ -9816,7 +9849,7 @@ MTopView::DrawTextList()
 					{
 						WORD color = pNode->GetBoxOutlineColor();
 
-						// ¿Ü°û ¹Ú½º ±×¸®±â
+						// Â¿ÃœÂ°Ã» Â¹ÃšÂ½Âº Â±Ã—Â¸Â®Â±Ã¢
 						rect2 = rect;
 						DRAW_CHAT_BOX_OUTLINE( rect2, color )
 
@@ -9825,11 +9858,11 @@ MTopView::DrawTextList()
 
 						WORD boxColor = pNode->GetBoxColor();
 
-						// ¹Ù´Ú ±×¸®±â
+						// Â¹Ã™Â´Ãš Â±Ã—Â¸Â®Â±Ã¢
 						rect2 = rect;
 						DRAW_ALPHA_BOX_2D( rect2, boxColor );
 						
-						// °ËÁ¤»öÀÎ °æ¿ì
+						// Â°Ã‹ÃÂ¤Â»Ã¶Ã€Ã Â°Ã¦Â¿Ã¬
 						if (boxColor==0)
 						{
 							// XXXXXX
@@ -9843,60 +9876,60 @@ MTopView::DrawTextList()
 							if (CDirectDraw::Is565())
 							{
 								rect2 = rect;
-								m_pSurface->GammaBox565(&rect2, 15);
+								//m_pSurface->GammaBox565(&rect2, 15);
 								
 								rect2.left	= rect.left + CHAT_BOX_TAIL_X;
 								rect2.top	= rect.bottom;
 								rect2.right = rect.left + CHAT_BOX_TAIL_X + 6;
 								rect2.bottom = rect.bottom + 2;								
-								m_pSurface->GammaBox565(&rect2, 15);
+								//m_pSurface->GammaBox565(&rect2, 15);
 
 								rect2.left	= rect.left + CHAT_BOX_TAIL_X+1;
 								rect2.top	= rect.bottom + 2;
 								rect2.right = rect.left + CHAT_BOX_TAIL_X+1 + 4;
 								rect2.bottom = rect.bottom + 2 + 2;
-								m_pSurface->GammaBox565(&rect2, 15);
+								//m_pSurface->GammaBox565(&rect2, 15);
 
 								rect2.left	= rect.left + CHAT_BOX_TAIL_X+2;
 								rect2.top	= rect.bottom + 4;
 								rect2.right = rect.left + CHAT_BOX_TAIL_X+2 + 2;
 								rect2.bottom = rect.bottom + 4 + 2;
-								m_pSurface->GammaBox565(&rect2, 15);								
+								//m_pSurface->GammaBox565(&rect2, 15);								
 							}
 							// 2D 5:5:5
 							else
 							{
 								rect2 = rect;
-								m_pSurface->GammaBox555(&rect2, 15);
+								//m_pSurface->GammaBox555(&rect2, 15);
 								
 								rect2.left	= rect.left + CHAT_BOX_TAIL_X;
 								rect2.top	= rect.bottom;
 								rect2.right = rect.left + CHAT_BOX_TAIL_X + 6;
 								rect2.bottom = rect.bottom + 2;								
-								m_pSurface->GammaBox555(&rect2, 15);
+								//m_pSurface->GammaBox555(&rect2, 15);
 
 								rect2.left	= rect.left + CHAT_BOX_TAIL_X+1;
 								rect2.top	= rect.bottom + 2;
 								rect2.right = rect.left + CHAT_BOX_TAIL_X+1 + 4;
 								rect2.bottom = rect.bottom + 2 + 2;
-								m_pSurface->GammaBox555(&rect2, 15);
+								//m_pSurface->GammaBox555(&rect2, 15);
 
 								rect2.left	= rect.left + CHAT_BOX_TAIL_X+2;
 								rect2.top	= rect.bottom + 4;
 								rect2.right = rect.left + CHAT_BOX_TAIL_X+2 + 2;
 								rect2.bottom = rect.bottom + 4 + 2;
-								m_pSurface->GammaBox555(&rect2, 15);
+								//m_pSurface->GammaBox555(&rect2, 15);
 							}					
 
 							
 						}
-						// ´Ù¸¥ »öÀÎ °æ¿ì
+						// Â´Ã™Â¸Â¥ Â»Ã¶Ã€Ã Â°Ã¦Â¿Ã¬
 						else
 						{
 							m_pSurface->BltColorAlpha(&rect, boxColor, 15);
 						}
 
-						// ¼±
+						// Â¼Â±
 						DRAW_CHAT_BOX_TAIL_LOCKED( rect, color );
 
 						m_pSurface->Unlock();						
@@ -9912,7 +9945,7 @@ MTopView::DrawTextList()
 				}
 			}
 			//--------------------------------------------------------
-			// Åõ¸íÇÑ ¹Ú½º°¡ ¾Æ´Ñ °æ¿ì¿¡
+			// Ã…ÃµÂ¸Ã­Ã‡Ã‘ Â¹ÃšÂ½ÂºÂ°Â¡ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡
 			//--------------------------------------------------------
 			else
 			{
@@ -9921,56 +9954,56 @@ MTopView::DrawTextList()
 		}
 
 		//--------------------------------------------------------
-		// Ãâ·ÂÇÒ ±ÛÀÚ°¡ ÀÖ´Â °æ¿ì..
+		// ÃƒÃ¢Â·Ã‚Ã‡Ã’ Â±Ã›Ã€ÃšÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬..
 		//--------------------------------------------------------
 		const char* pString = pNode->GetString();
 
 		if (pString!=NULL && pString[0]!='\0')
 		{
 			//--------------------------------------------------------
-			// Ãâ·Â ÁÂÇ¥
+			// ÃƒÃ¢Â·Ã‚ ÃÃ‚Ã‡Â¥
 			//--------------------------------------------------------
 			int x = pNode->GetX();
 			int y = pNode->GetY();
 
 			//--------------------------------------------------------
-			// font ¼³Á¤
+			// font Â¼Â³ÃÂ¤
 			//--------------------------------------------------------	
 			PrintInfo* pPrintInfo = g_ClientPrintInfo[pNode->GetFont()];				
 
 			//--------------------------------------------------------
-			// flag¿¡ µû¸¥ Ã³¸®µµ ÇØÁà¾ß ÇÑ´Ù....				
+			// flagÂ¿Â¡ ÂµÃ»Â¸Â¥ ÃƒÂ³Â¸Â®ÂµÂµ Ã‡Ã˜ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™....				
 			//--------------------------------------------------------
 			if (pNode->IsOutline())
 			{
-				// ¿ª»ó color¼³Á¤
+				// Â¿ÂªÂ»Ã³ colorÂ¼Â³ÃÂ¤
 				pPrintInfo->text_color = (~pNode->GetColor()) & 0x00FFFFFF;
 					
-				// Ãâ·Â
+				// ÃƒÃ¢Â·Ã‚
 				g_Print(x-1, y-1, pString, pPrintInfo);
 				g_Print(x+1, y+1, pString, pPrintInfo);
 			}
 
-			// text color¼³Á¤
+			// text colorÂ¼Â³ÃÂ¤
 			pPrintInfo->text_color = pNode->GetColor();
 				
 			//--------------------------------------------------------
-			// string Ãâ·Â
+			// string ÃƒÃ¢Â·Ã‚
 			//--------------------------------------------------------
 			g_Print(x, y, pString, pPrintInfo);
 		}
 
-		// ¸Ş¸ğ¸®¿¡¼­ Á¦°ÅÇÑ´Ù.
+		// Â¸ÃÂ¸Ã°Â¸Â®Â¿Â¡Â¼Â­ ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 		delete pNode;
 		
-		// ´ÙÀ½..
+		// Â´Ã™Ã€Â½..
 		m_pqDrawText.pop();
 	}
 
-	// ¸ğµç node¸¦ Á¦°ÅÇÑ´Ù.
+	// Â¸Ã°ÂµÃ§ nodeÂ¸Â¦ ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 	//m_pqDrawText.clear();
 
-	// Lock»óÅÂ
+	// LockÂ»Ã³Ã…Ã‚
 	//m_pSurface->Lock();
 
 	#ifdef OUTPUT_DEBUG_DRAW_PROCESS
@@ -9981,8 +10014,8 @@ MTopView::DrawTextList()
 //----------------------------------------------------------------------
 // Clear LightBufferFilter
 //----------------------------------------------------------------------
-// LightBuffer¸¦ ÃÊ±âÈ­ÇÑ´Ù.
-// ±âº»ÀûÀ¸·Î PlayerÀÇ ½Ã¾ß¸¦ Ç¥ÇöÇØÁàµµ µÈ´Ù.
+// LightBufferÂ¸Â¦ ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡Ã‘Â´Ã™.
+// Â±Ã¢ÂºÂ»Ã€Ã»Ã€Â¸Â·Ã PlayerÃ€Ã‡ Â½ÃƒÂ¾ÃŸÂ¸Â¦ Ã‡Â¥Ã‡Ã¶Ã‡Ã˜ÃÃ ÂµÂµ ÂµÃˆÂ´Ã™.
 //----------------------------------------------------------------------
 void
 MTopView::ClearLightBufferFilter3D()
@@ -9991,7 +10024,7 @@ MTopView::ClearLightBufferFilter3D()
 	//if	(m_DarkBits)
 	{
 		//--------------------------------------------------
-		// ºûÀÇ °ª ¼³Á¤
+		// ÂºÃ»Ã€Ã‡ Â°Âª Â¼Â³ÃÂ¤
 		//--------------------------------------------------
 		BYTE DarkColor;// = 0;
 		///*
@@ -10019,7 +10052,7 @@ MTopView::ClearLightBufferFilter3D()
 		DarkColor = max(0, darkBits - (g_pPlayer->GetLightSight() - g_pPlayer->GetTimeLightSight()));
 	
 		//--------------------------------------------------
-		// ÃÊ±âÈ­ - È­¸é ÀüÃ¼¸¦ Ã¤¿ï ºû..
+		// ÃƒÃŠÂ±Ã¢ÃˆÂ­ - ÃˆÂ­Â¸Ã© Ã€Ã¼ÃƒÂ¼Â¸Â¦ ÃƒÂ¤Â¿Ã¯ ÂºÃ»..
 		//--------------------------------------------------
 		BYTE* pBuffer;
 
@@ -10036,8 +10069,8 @@ MTopView::ClearLightBufferFilter3D()
 //----------------------------------------------------------------------
 // Clear LightBufferFilter
 //----------------------------------------------------------------------
-// LightBuffer¸¦ ÃÊ±âÈ­ÇÑ´Ù.
-// ±âº»ÀûÀ¸·Î PlayerÀÇ ½Ã¾ß¸¦ Ç¥ÇöÇØÁàµµ µÈ´Ù.
+// LightBufferÂ¸Â¦ ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡Ã‘Â´Ã™.
+// Â±Ã¢ÂºÂ»Ã€Ã»Ã€Â¸Â·Ã PlayerÃ€Ã‡ Â½ÃƒÂ¾ÃŸÂ¸Â¦ Ã‡Â¥Ã‡Ã¶Ã‡Ã˜ÃÃ ÂµÂµ ÂµÃˆÂ´Ã™.
 //----------------------------------------------------------------------
 void
 MTopView::ClearLightBufferFilter2D()
@@ -10045,7 +10078,7 @@ MTopView::ClearLightBufferFilter2D()
 	//if (1)//CDirect3D::IsHAL() && m_b3DLight && m_DarkBits)
 	{
 		//--------------------------------------------------
-		// ºûÀÇ °ª ¼³Á¤
+		// ÂºÃ»Ã€Ã‡ Â°Âª Â¼Â³ÃÂ¤
 		//--------------------------------------------------
 		BYTE DarkColor;// = 0;
 		///*
@@ -10073,7 +10106,7 @@ MTopView::ClearLightBufferFilter2D()
 		DarkColor = max(0, DarkColor - ((g_pPlayer->GetLightSight() - g_pPlayer->GetTimeLightSight())<<1));
 
 		//--------------------------------------------------
-		// ÃÊ±âÈ­ - È­¸é ÀüÃ¼¸¦ Ã¤¿ï ºû..
+		// ÃƒÃŠÂ±Ã¢ÃˆÂ­ - ÃˆÂ­Â¸Ã© Ã€Ã¼ÃƒÂ¼Â¸Â¦ ÃƒÂ¤Â¿Ã¯ ÂºÃ»..
 		//--------------------------------------------------
 		BYTE* pBuffer;
 
@@ -10090,11 +10123,11 @@ MTopView::ClearLightBufferFilter2D()
 //----------------------------------------------------------------------
 // Add LightFilter To Screen
 //----------------------------------------------------------------------
-// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
-// ScreenÁÂÇ¥¸¦ LightBuffer¿¡ ¸Âµµ·Ï ¹Ù²ã¾ßÇÑ´Ù.
+// LightFilterÂ¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
+// ScreenÃÃ‚Ã‡Â¥Â¸Â¦ LightBufferÂ¿Â¡ Â¸Ã‚ÂµÂµÂ·Ã Â¹Ã™Â²Ã£Â¾ÃŸÃ‡Ã‘Â´Ã™.
 //
 // (CLIPSURFACE_WIDTH, CLIPSURFACE_WIDTH) 
-//  --> (SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT)·Î..
+//  --> (SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT)Â·Ã..
 //----------------------------------------------------------------------
 void			
 MTopView::AddLightFilter2D(int x, int y, BYTE range, bool bMapPixel, bool bForceLight)
@@ -10109,31 +10142,31 @@ MTopView::AddLightFilter2D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 		&& range!=0 
 		&& (m_DarkBits || g_pPlayer->IsInDarkness()) 
 		&& m_nLight < g_pClientConfig->MAX_LIGHT_DRAW
-		|| bForceLight) // ¹«Á¶°Ç Ãâ·ÂÇØ¾ßÇÏ´Â ºû
+		|| bForceLight) // Â¹Â«ÃÂ¶Â°Ã‡ ÃƒÃ¢Â·Ã‚Ã‡Ã˜Â¾ÃŸÃ‡ÃÂ´Ã‚ ÂºÃ»
 	{
-		// tile ÁÂÇ¥ º¸Á¤ 
-		 //x += g_TILE_X_HALF;
-		 //y += g_TILE_Y_HALF;
+		// tile ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤ 
+		 //x += 24;
+		 //y += 24;
 
-		// Light FilterÀÇ ¹üÀ§¸¦ ³ÑÁö ¾Êµµ·Ï ÇÑ´Ù.
+		// Light FilterÃ€Ã‡ Â¹Ã¼Ã€Â§Â¸Â¦ Â³Ã‘ÃÃ¶ Â¾ÃŠÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™.
 		if (range >= m_LightFTP.GetSize())
 		{
 			range = m_LightFTP.GetSize()-1;
 		}		
 
 		//-----------------------------------------------------
-		// range¿¡ µû¶ó¼­ Ãâ·ÂÇÒ lightFilter¸¦ °áÁ¤ÇØ¾ßÇÑ´Ù.
+		// rangeÂ¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ ÃƒÃ¢Â·Ã‚Ã‡Ã’ lightFilterÂ¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã˜Â¾ÃŸÃ‡Ã‘Â´Ã™.
 		//-----------------------------------------------------		
 		int filterID = range;
 
 		//-----------------------------------------------------
-		// LightFilter Ãâ·Â ½ÃÁ¡ °áÁ¤
-		/// ±×¸®°í, filterÁÂÇ¥ (fx,fy)·Î ¹Ù²ã¾ß ÇÏ°í..
-		// filterÀÇ Áß½ÉÀ» (x,y)¿¡ ¿Àµµ·Ï ¸ÂÃç¾ß ÇÑ´Ù.
+		// LightFilter ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡ Â°Ã¡ÃÂ¤
+		/// Â±Ã—Â¸Â®Â°Ã­, filterÃÃ‚Ã‡Â¥ (fx,fy)Â·Ã Â¹Ã™Â²Ã£Â¾ÃŸ Ã‡ÃÂ°Ã­..
+		// filterÃ€Ã‡ ÃÃŸÂ½Ã‰Ã€Â» (x,y)Â¿Â¡ Â¿Ã€ÂµÂµÂ·Ã Â¸Ã‚ÃƒÃ§Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 		//-----------------------------------------------------
 		int fx, fy;
 
-		// (x,y)°¡ ¾î¶² ÁÂÇ¥ÀÎÁö¿¡ µû¶ó¼­ °è»êÀ» ´Ù¸£°Ô ÇØÁØ´Ù.
+		// (x,y)Â°Â¡ Â¾Ã®Â¶Â² ÃÃ‚Ã‡Â¥Ã€ÃÃÃ¶Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ Â°Ã¨Â»ÃªÃ€Â» Â´Ã™Â¸Â£Â°Ã” Ã‡Ã˜ÃÃ˜Â´Ã™.
 		if (bMapPixel)
 		{
 			// mapPixel --> screen
@@ -10150,12 +10183,12 @@ MTopView::AddLightFilter2D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 			fy = (float)y / s_LightHeight;
 		}
 
-		// filter Áß½É ¸ÂÃß±â
+		// filter ÃÃŸÂ½Ã‰ Â¸Ã‚ÃƒÃŸÂ±Ã¢
 		fx = fx - (m_LightFTP[filterID].GetWidth() >> 1);
 		fy = fy - (m_LightFTP[filterID].GetHeight() >> 1);
 			
 		//-----------------------------------------------------
-		// BufferFilter¿¡ Light filter¸¦ Ãß°¡ÇÑ´Ù.
+		// BufferFilterÂ¿Â¡ Light filterÂ¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 		//-----------------------------------------------------
 		m_LightBufferFilter.BltFilterAdd( fx, fy, m_LightFTP[filterID] );		
 
@@ -10166,11 +10199,11 @@ MTopView::AddLightFilter2D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 //----------------------------------------------------------------------
 // Add LightFilter To Screen
 //----------------------------------------------------------------------
-// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
-// ScreenÁÂÇ¥¸¦ LightBuffer¿¡ ¸Âµµ·Ï ¹Ù²ã¾ßÇÑ´Ù.
+// LightFilterÂ¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
+// ScreenÃÃ‚Ã‡Â¥Â¸Â¦ LightBufferÂ¿Â¡ Â¸Ã‚ÂµÂµÂ·Ã Â¹Ã™Â²Ã£Â¾ÃŸÃ‡Ã‘Â´Ã™.
 //
 // (CLIPSURFACE_WIDTH, CLIPSURFACE_WIDTH) 
-//  --> (SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT)·Î..
+//  --> (SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT)Â·Ã..
 //----------------------------------------------------------------------
 void			
 MTopView::AddLightFilter3D(int x, int y, BYTE range, bool bMapPixel, bool bForceLight)
@@ -10185,31 +10218,31 @@ MTopView::AddLightFilter3D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 		&& range!=0
 		&&	(m_DarkBits	|| g_pPlayer->IsInDarkness()) 
 		&& m_nLight < g_pClientConfig->MAX_LIGHT_DRAW
-		|| bForceLight)	// ¹«Á¶°Ç Ãâ·ÂÇØ¾ßÇÏ´Â ºû
+		|| bForceLight)	// Â¹Â«ÃÂ¶Â°Ã‡ ÃƒÃ¢Â·Ã‚Ã‡Ã˜Â¾ÃŸÃ‡ÃÂ´Ã‚ ÂºÃ»
 	{
-		// tile ÁÂÇ¥ º¸Á¤ 
-		//x += g_TILE_X_HALF;
-		//y += g_TILE_Y_HALF;
+		// tile ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤ 
+		//x += 24;
+		//y += 24;
 
-		// Light FilterÀÇ ¹üÀ§¸¦ ³ÑÁö ¾Êµµ·Ï ÇÑ´Ù.
+		// Light FilterÃ€Ã‡ Â¹Ã¼Ã€Â§Â¸Â¦ Â³Ã‘ÃÃ¶ Â¾ÃŠÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™.
 		if (range >= m_LightFTP.GetSize())
 		{
 			range = m_LightFTP.GetSize()-1;
 		}		
 
 		//-----------------------------------------------------
-		// range¿¡ µû¶ó¼­ Ãâ·ÂÇÒ lightFilter¸¦ °áÁ¤ÇØ¾ßÇÑ´Ù.
+		// rangeÂ¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ ÃƒÃ¢Â·Ã‚Ã‡Ã’ lightFilterÂ¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã˜Â¾ÃŸÃ‡Ã‘Â´Ã™.
 		//-----------------------------------------------------		
 		int filterID = range;
 
 		//-----------------------------------------------------
-		// LightFilter Ãâ·Â ½ÃÁ¡ °áÁ¤
-		/// ±×¸®°í, filterÁÂÇ¥ (fx,fy)·Î ¹Ù²ã¾ß ÇÏ°í..
-		// filterÀÇ Áß½ÉÀ» (x,y)¿¡ ¿Àµµ·Ï ¸ÂÃç¾ß ÇÑ´Ù.
+		// LightFilter ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡ Â°Ã¡ÃÂ¤
+		/// Â±Ã—Â¸Â®Â°Ã­, filterÃÃ‚Ã‡Â¥ (fx,fy)Â·Ã Â¹Ã™Â²Ã£Â¾ÃŸ Ã‡ÃÂ°Ã­..
+		// filterÃ€Ã‡ ÃÃŸÂ½Ã‰Ã€Â» (x,y)Â¿Â¡ Â¿Ã€ÂµÂµÂ·Ã Â¸Ã‚ÃƒÃ§Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 		//-----------------------------------------------------
 		int fx, fy;
 
-		// (x,y)°¡ ¾î¶² ÁÂÇ¥ÀÎÁö¿¡ µû¶ó¼­ °è»êÀ» ´Ù¸£°Ô ÇØÁØ´Ù.
+		// (x,y)Â°Â¡ Â¾Ã®Â¶Â² ÃÃ‚Ã‡Â¥Ã€ÃÃÃ¶Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ Â°Ã¨Â»ÃªÃ€Â» Â´Ã™Â¸Â£Â°Ã” Ã‡Ã˜ÃÃ˜Â´Ã™.
 		if (bMapPixel)
 		{
 			// mapPixel --> screen
@@ -10226,12 +10259,12 @@ MTopView::AddLightFilter3D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 			fy = (float)y / s_LightHeight;
 		}
 
-		// filter Áß½É ¸ÂÃß±â
+		// filter ÃÃŸÂ½Ã‰ Â¸Ã‚ÃƒÃŸÂ±Ã¢
 		fx = fx - (m_LightFTP[filterID].GetWidth() >> 1);
 		fy = fy - (m_LightFTP[filterID].GetHeight() >> 1);
 			
 		//-----------------------------------------------------
-		// BufferFilter¿¡ Light filter¸¦ Ãß°¡ÇÑ´Ù.
+		// BufferFilterÂ¿Â¡ Light filterÂ¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 		//-----------------------------------------------------
 		m_LightBufferFilter.BltFilterSub( fx, fy, m_LightFTP[filterID] );
 
@@ -10242,30 +10275,30 @@ MTopView::AddLightFilter3D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 //----------------------------------------------------------------------
 // Add CreatureOutput All
 //----------------------------------------------------------------------
-// m_pZoneÀÇ Creature mapÀ» ÅëÂ°·Î~ Ãß°¡
+// m_pZoneÃ€Ã‡ Creature mapÃ€Â» Ã…Ã«Ã‚Â°Â·Ã~ ÃƒÃŸÂ°Â¡
 //----------------------------------------------------------------------
-// OutputMap¿¡¼­ÀÇ ID´Â CreatureÀÇ..
+// OutputMapÂ¿Â¡Â¼Â­Ã€Ã‡ IDÂ´Ã‚ CreatureÃ€Ã‡..
 //
-//    2 bytes + 2 bytes    = 4 bytes ·Î ±¸¼ºµÇ¾î ÀÖ´Ù.
-// [pixel yÁÂÇ¥][object id]
+//    2 bytes + 2 bytes    = 4 bytes Â·Ã Â±Â¸Â¼ÂºÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã™.
+// [pixel yÃÃ‚Ã‡Â¥][object id]
 //
-// ÀÏ¹İ creature´Â Ãß°¡ÇÒÁö ¸»Áö¸¦ ¼ıÀÚ·Î °áÁ¤ÇÏ°í..
-// FakeCreature´Â tile¿¡´Â Ãß°¡¾ÈµÇ¹Ç·Î.. ¹«Á¶°Ç ¿©±â¼­ Ãß°¡ÇØ¾ßÇÑ´Ù.
+// Ã€ÃÂ¹Ã creatureÂ´Ã‚ ÃƒÃŸÂ°Â¡Ã‡Ã’ÃÃ¶ Â¸Â»ÃÃ¶Â¸Â¦ Â¼Ã½Ã€ÃšÂ·Ã Â°Ã¡ÃÂ¤Ã‡ÃÂ°Ã­..
+// FakeCreatureÂ´Ã‚ tileÂ¿Â¡Â´Ã‚ ÃƒÃŸÂ°Â¡Â¾ÃˆÂµÃ‡Â¹Ã‡Â·Ã.. Â¹Â«ÃÂ¶Â°Ã‡ Â¿Â©Â±Ã¢Â¼Â­ ÃƒÃŸÂ°Â¡Ã‡Ã˜Â¾ÃŸÃ‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void	
 MTopView::AddOutputCreatureAll()
 {
-	// ÃÊ±âÈ­
+	// ÃƒÃŠÂ±Ã¢ÃˆÂ­
 	m_mapCreature.clear();
 
-	// [»õ±â¼ú3] °ü ¼Ó¿¡ ÀÖÀ»¶§´Â ÀÚ±â¸¸ Ãâ·ÂÇÏ°Ô ÇÑ´Ù.
+	// [Â»ÃµÂ±Ã¢Â¼Ãº3] Â°Ã¼ Â¼Ã“Â¿Â¡ Ã€Ã–Ã€Â»Â¶Â§Â´Ã‚ Ã€ÃšÂ±Ã¢Â¸Â¸ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ°Ã” Ã‡Ã‘Â´Ã™.
 	if (g_pPlayer->IsInCasket())
 	{
 		m_bTileSearchForCreature = false;	
 
 		QWORD key = GetOutputCreatureID(g_pPlayer);
 
-		// (key°ª, pCreature)¸¦ Ãß°¡ÇÑ´Ù.
+		// (keyÂ°Âª, pCreature)Â¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 		m_mapCreature.insert(
 			CREATURE_OUTPUT_MAP::value_type( key, g_pPlayer )
 		);
@@ -10280,8 +10313,8 @@ MTopView::AddOutputCreatureAll()
 
 	int num = m_pZone->GetCreatureNumber();
 
-	// 20¸í ÀÌ»ó ÀÖÀ¸¸é ... 
-	// ±×³É °Ë»öÇÏ´Â°Ô ³´´Ù°í ÆÇ´Ü.. Á¤¸»ÀÏ±î? - -;
+	// 20Â¸Ã­ Ã€ÃŒÂ»Ã³ Ã€Ã–Ã€Â¸Â¸Ã© ... 
+	// Â±Ã—Â³Ã‰ Â°Ã‹Â»Ã¶Ã‡ÃÂ´Ã‚Â°Ã” Â³Â´Â´Ã™Â°Ã­ Ã†Ã‡Â´Ãœ.. ÃÂ¤Â¸Â»Ã€ÃÂ±Ã®? - -;
 	if (num >= 20)
 	{
 //		m_bTileSearchForCreature = true;		
@@ -10293,8 +10326,8 @@ MTopView::AddOutputCreatureAll()
 	}
 	
 	//---------------------------------------------------------
-	// TileÀ» °Ë»öÇØ¼­ Ãâ·ÂÇÏ´Â °æ¿ì°¡ ¾Æ´Ï¸é..
-	// ¸ğµç Creature¸¦ OutputMap¿¡ Ãß°¡ÇØ¾ß ÇÑ´Ù.
+	// TileÃ€Â» Â°Ã‹Â»Ã¶Ã‡Ã˜Â¼Â­ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬Â°Â¡ Â¾Ã†Â´ÃÂ¸Ã©..
+	// Â¸Ã°ÂµÃ§ CreatureÂ¸Â¦ OutputMapÂ¿Â¡ ÃƒÃŸÂ°Â¡Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 	//---------------------------------------------------------
 	if (!m_bTileSearchForCreature)
 	{
@@ -10304,15 +10337,15 @@ MTopView::AddOutputCreatureAll()
 		{
 			pCreature = iCreature->second;
 
-			// key °ª = [pixel YÁÂÇ¥][object id]
+			// key Â°Âª = [pixel YÃÃ‚Ã‡Â¥][object id]
 			QWORD key = GetOutputCreatureID(pCreature);
 
-			// (key°ª, pCreature)¸¦ Ãß°¡ÇÑ´Ù.
+			// (keyÂ°Âª, pCreature)Â¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 			m_mapCreature.insert(
 				CREATURE_OUTPUT_MAP::value_type( key, pCreature )
 			);
 		
-			// ´ÙÀ½ Creature
+			// Â´Ã™Ã€Â½ Creature
 			iCreature++;
 		}
 	}
@@ -10324,21 +10357,21 @@ MTopView::AddOutputCreatureAll()
 	num = m_pZone->GetFakeCreatureNumber();
 	
 	//---------------------------------------------------------
-	// ¸ğµç Creature¸¦ OutputMap¿¡ Ãß°¡ÇØ¾ß ÇÑ´Ù.
+	// Â¸Ã°ÂµÃ§ CreatureÂ¸Â¦ OutputMapÂ¿Â¡ ÃƒÃŸÂ°Â¡Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 	//---------------------------------------------------------
 	for (int i=0; i<num; i++)
 	{
 		pCreature = iCreature->second;
 
-		// key °ª = [pixel YÁÂÇ¥][object id]
+		// key Â°Âª = [pixel YÃÃ‚Ã‡Â¥][object id]
 		QWORD key = GetOutputCreatureID(pCreature);
 
-		// (key°ª, pCreature)¸¦ Ãß°¡ÇÑ´Ù.
+		// (keyÂ°Âª, pCreature)Â¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 		m_mapCreature.insert(
 			CREATURE_OUTPUT_MAP::value_type( key, pCreature )
 		);
 	
-		// ´ÙÀ½ Creature
+		// Â´Ã™Ã€Â½ Creature
 		iCreature++;
 	}
 }
@@ -10346,18 +10379,18 @@ MTopView::AddOutputCreatureAll()
 //----------------------------------------------------------------------
 // Add OutputCreature
 //----------------------------------------------------------------------
-// pCreature¸¦ Ãß°¡ÇÑ´Ù.
+// pCreatureÂ¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool	
 MTopView::AddOutputCreature(MCreature* pCreature)
 {	
-	// key°ª »ı¼º
+	// keyÂ°Âª Â»Ã½Â¼Âº
 	QWORD key = GetOutputCreatureID(pCreature);
 
-	// ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎÇØº¸°í ¾øÀ¸¸é Ãß°¡.
+	// Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶ ÃˆÂ®Ã€ÃÃ‡Ã˜ÂºÂ¸Â°Ã­ Â¾Ã¸Ã€Â¸Â¸Ã© ÃƒÃŸÂ°Â¡.
 	if (m_mapCreature.find( key ) == m_mapCreature.end())
 	{			
-		// (key°ª, pCreature)¸¦ Ãß°¡ÇÑ´Ù.
+		// (keyÂ°Âª, pCreature)Â¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 		m_mapCreature.insert(
 			CREATURE_OUTPUT_MAP::value_type( key, pCreature )
 		);
@@ -10371,12 +10404,12 @@ MTopView::AddOutputCreature(MCreature* pCreature)
 //----------------------------------------------------------------------
 // Remove OutputCreature
 //----------------------------------------------------------------------
-// id¿Í °ü·ÃÀÖ´Â creature¸¦ Á¦°ÅÇÑ´Ù.
+// idÂ¿Ã Â°Ã¼Â·ÃƒÃ€Ã–Â´Ã‚ creatureÂ¸Â¦ ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool	
 MTopView::RemoveOutputCreature(MCreature* pCreature)
 {
-	// ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎÇØº¸°í ÀÖÀ¸¸é Á¦°Å
+	// Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶ ÃˆÂ®Ã€ÃÃ‡Ã˜ÂºÂ¸Â°Ã­ Ã€Ã–Ã€Â¸Â¸Ã© ÃÂ¦Â°Ã…
 	CREATURE_OUTPUT_MAP::iterator iCreature 
 		= m_mapCreature.find( GetOutputCreatureID(pCreature) );
 
@@ -10391,15 +10424,15 @@ MTopView::RemoveOutputCreature(MCreature* pCreature)
 }
 
 //----------------------------------------------------------------------
-// ID°¡ idÀÎ CreatureÀÇ ÁÂÇ¥°¡ y0¿¡¼­ y1À¸·Î ¹Ù²ï°É updateÇÑ´Ù.
+// IDÂ°Â¡ idÃ€Ã CreatureÃ€Ã‡ ÃÃ‚Ã‡Â¥Â°Â¡ y0Â¿Â¡Â¼Â­ y1Ã€Â¸Â·Ã Â¹Ã™Â²Ã¯Â°Ã‰ updateÃ‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
-// id¿Í °ü·ÃÀÖ´Â creatureÀÇ Á¤º¸(Ãâ·ÂÁÂÇ¥°ü·Ãid)¸¦ UpdateÇÑ´Ù.
-// ÀÖÀ¸¸é.. Á¦°ÅÇÏ°í.. ´Ù½Ã Ãß°¡ÇØ¾ß ÇÑ´Ù.
+// idÂ¿Ã Â°Ã¼Â·ÃƒÃ€Ã–Â´Ã‚ creatureÃ€Ã‡ ÃÂ¤ÂºÂ¸(ÃƒÃ¢Â·Ã‚ÃÃ‚Ã‡Â¥Â°Ã¼Â·Ãƒid)Â¸Â¦ UpdateÃ‡Ã‘Â´Ã™.
+// Ã€Ã–Ã€Â¸Â¸Ã©.. ÃÂ¦Â°Ã…Ã‡ÃÂ°Ã­.. Â´Ã™Â½Ãƒ ÃƒÃŸÂ°Â¡Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 bool			
 MTopView::UpdateOutputCreature(TYPE_OBJECTID id, int y0, int y1)
 {
-	// ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎÇØº¸°í ÀÖÀ¸¸é update
+	// Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶ ÃˆÂ®Ã€ÃÃ‡Ã˜ÂºÂ¸Â°Ã­ Ã€Ã–Ã€Â¸Â¸Ã© update
 	CREATURE_OUTPUT_MAP::iterator iCreature 
 		= m_mapCreature.find( GetOutputCreatureID(id, y0) );
 
@@ -10407,13 +10440,13 @@ MTopView::UpdateOutputCreature(TYPE_OBJECTID id, int y0, int y1)
 	{			
 		MCreature* pCreature = (*iCreature).second;
 
-		// Á¦°Å
+		// ÃÂ¦Â°Ã…
 		m_mapCreature.erase( iCreature );
 
-		// (key°ª, pCreature)¸¦ ´Ù½Ã Ãß°¡ÇÑ´Ù.
+		// (keyÂ°Âª, pCreature)Â¸Â¦ Â´Ã™Â½Ãƒ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 		m_mapCreature.insert(
 			CREATURE_OUTPUT_MAP::value_type( 
-					GetOutputCreatureID(id, y1),	// key°ª
+					GetOutputCreatureID(id, y1),	// keyÂ°Âª
 					pCreature 
 			)
 		);
@@ -10427,7 +10460,7 @@ MTopView::UpdateOutputCreature(TYPE_OBJECTID id, int y0, int y1)
 //----------------------------------------------------------------------
 // DrawBox3D
 //----------------------------------------------------------------------
-// °ËÀº»ö ¹İÅõ¸í ¹Ú½º¸¦ ±×¸°´Ù. 3D
+// Â°Ã‹Ã€ÂºÂ»Ã¶ Â¹ÃÃ…ÃµÂ¸Ã­ Â¹ÃšÂ½ÂºÂ¸Â¦ Â±Ã—Â¸Â°Â´Ã™. 3D
 //----------------------------------------------------------------------
 //void
 //MTopView::DrawBox3D(RECT* pRect, WORD pixel)
@@ -10454,7 +10487,7 @@ MTopView::UpdateOutputCreature(TYPE_OBJECTID id, int y0, int y1)
 //		pUsingSurface = m_p3DBoxHPSurface;
 //	}
 //	//-------------------------------------------------
-//	// ´Ù¸¥ »ö±òÀÏ °æ¿ì.. ´Ù½Ã ¼³Á¤..
+//	// Â´Ã™Â¸Â¥ Â»Ã¶Â±Ã²Ã€Ã Â°Ã¦Â¿Ã¬.. Â´Ã™Â½Ãƒ Â¼Â³ÃÂ¤..
 //	//------------------------------------------------		
 //	else
 //	{		
@@ -10484,11 +10517,11 @@ MTopView::UpdateOutputCreature(TYPE_OBJECTID id, int y0, int y1)
 //----------------------------------------------------------------------
 // Draw Alpha Box
 //----------------------------------------------------------------------
-// 2D/3D°¡¼Ó¿¡ °ü°è¾øÀÌ...
-// ÇöÀçÀÇ Lock/Unlock »óÅÂ¿¡ °ü°è¾øÀÌ... ÀÛµ¿ÇÑ´Ù.
+// 2D/3DÂ°Â¡Â¼Ã“Â¿Â¡ Â°Ã¼Â°Ã¨Â¾Ã¸Ã€ÃŒ...
+// Ã‡Ã¶Ã€Ã§Ã€Ã‡ Lock/Unlock Â»Ã³Ã…Ã‚Â¿Â¡ Â°Ã¼Â°Ã¨Â¾Ã¸Ã€ÃŒ... Ã€Ã›ÂµÂ¿Ã‡Ã‘Â´Ã™.
 //
-// m_pSurface¿¡ 
-// (r,g,b)¿Í alpha°ª(1~31)¿¡ µû¶ó¼­ pRect¿µ¿ª¿¡ Åõ¸íÇÑ box¸¦ ±×¸°´Ù.
+// m_pSurfaceÂ¿Â¡ 
+// (r,g,b)Â¿Ã alphaÂ°Âª(1~31)Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ pRectÂ¿ÂµÂ¿ÂªÂ¿Â¡ Ã…ÃµÂ¸Ã­Ã‡Ã‘ boxÂ¸Â¦ Â±Ã—Â¸Â°Â´Ã™.
 //----------------------------------------------------------------------
 void
 MTopView::DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
@@ -10496,15 +10529,15 @@ MTopView::DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 	WORD color;
 
 	//--------------------------------------------------------
-	// Win2000ÀÎ °æ¿ì.. ¿©±â¼­ ¾öÃ»³­ ¼ÓµµÀúÇÏ°¡ »ı±ä´Ù.. ¿Ö ±×·²±î?
-	// ÀÏ´ÜÀº.. AlphaBox¸¦ »ç¿ëÇÏÁö ¾Ê´Â´Ù.
-	// Å×½ºÆ® °á°ú.. ÀÌ°Ô ¹®Á¦°¡ ¾Æ´Ï¾ú´Ù... ¹¹°¡ ¹®Á¦ÀÏ±î. - -;
+	// Win2000Ã€Ã Â°Ã¦Â¿Ã¬.. Â¿Â©Â±Ã¢Â¼Â­ Â¾Ã¶ÃƒÂ»Â³Â­ Â¼Ã“ÂµÂµÃ€ÃºÃ‡ÃÂ°Â¡ Â»Ã½Â±Ã¤Â´Ã™.. Â¿Ã– Â±Ã—Â·Â²Â±Ã®?
+	// Ã€ÃÂ´ÃœÃ€Âº.. AlphaBoxÂ¸Â¦ Â»Ã§Â¿Ã«Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
+	// Ã…Ã—Â½ÂºÃ†Â® Â°Ã¡Â°Ãº.. Ã€ÃŒÂ°Ã” Â¹Â®ÃÂ¦Â°Â¡ Â¾Ã†Â´ÃÂ¾ÃºÂ´Ã™... Â¹Â¹Â°Â¡ Â¹Â®ÃÂ¦Ã€ÃÂ±Ã®. - -;
 	//--------------------------------------------------------
 	/*
 	if (g_WindowsNT)
 	{
 		//------------------------------------------------
-		// Unlock »óÅÂ·Î ¸¸µç´Ù.
+		// Unlock Â»Ã³Ã…Ã‚Â·Ã Â¸Â¸ÂµÃ§Â´Ã™.
 		//------------------------------------------------
 		BOOL bLock = m_pSurface->IsLock();
 		if (bLock)
@@ -10517,7 +10550,7 @@ MTopView::DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 		m_pSurface->FillRect(pRect, color);
 
 		//------------------------------------------------
-		// ¿ø·¡ lock µÈ »óÅÂ¸é ´Ù½Ã µÇµ¹¸°´Ù.
+		// Â¿Ã¸Â·Â¡ lock ÂµÃˆ Â»Ã³Ã…Ã‚Â¸Ã© Â´Ã™Â½Ãƒ ÂµÃ‡ÂµÂ¹Â¸Â°Â´Ã™.
 		//------------------------------------------------
 		if (bLock)
 		{
@@ -10526,17 +10559,17 @@ MTopView::DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 	}
 	*/
 	//--------------------------------------------------------
-	// 98ÀÎ °æ¿ì..
+	// 98Ã€Ã Â°Ã¦Â¿Ã¬..
 	//--------------------------------------------------------
 	//else
 	{
 		//--------------------------------------------------------
-		// 3D °¡¼ÓÀÇ °æ¿ì
+		// 3D Â°Â¡Â¼Ã“Ã€Ã‡ Â°Ã¦Â¿Ã¬
 		//--------------------------------------------------------
 //		if (CDirect3D::IsHAL())
 //		{
 //			//------------------------------------------------
-//			// Unlock »óÅÂ·Î ¸¸µç´Ù.
+//			// Unlock Â»Ã³Ã…Ã‚Â·Ã Â¸Â¸ÂµÃ§Â´Ã™.
 //			//------------------------------------------------
 //			BOOL bLock = m_pSurface->IsLock();
 //			if (bLock)
@@ -10573,7 +10606,7 @@ MTopView::DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 //				pUsingSurface = m_p3DBoxHPSurface;
 //			}
 //			//-------------------------------------------------
-//			// ´Ù¸¥ »ö±òÀÏ °æ¿ì.. ´Ù½Ã ¼³Á¤..
+//			// Â´Ã™Â¸Â¥ Â»Ã¶Â±Ã²Ã€Ã Â°Ã¦Â¿Ã¬.. Â´Ã™Â½Ãƒ Â¼Â³ÃÂ¤..
 //			//------------------------------------------------		
 //			else
 //			{		
@@ -10590,7 +10623,7 @@ MTopView::DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 //			DRAW_TEXTURE_SURFACE( pUsingSurface, pRect )			
 //
 //			//------------------------------------------------
-//			// ¿ø·¡ lock µÈ »óÅÂ¸é ´Ù½Ã µÇµ¹¸°´Ù.
+//			// Â¿Ã¸Â·Â¡ lock ÂµÃˆ Â»Ã³Ã…Ã‚Â¸Ã© Â´Ã™Â½Ãƒ ÂµÃ‡ÂµÂ¹Â¸Â°Â´Ã™.
 //			//------------------------------------------------
 //			if (bLock)
 //			{
@@ -10603,7 +10636,7 @@ MTopView::DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 //		else
 		{
 			//------------------------------------------------
-			// Lock »óÅÂ·Î ¸¸µç´Ù.
+			// Lock Â»Ã³Ã…Ã‚Â·Ã Â¸Â¸ÂµÃ§Â´Ã™.
 			//------------------------------------------------
 			BOOL bUnlock = !m_pSurface->IsLock();
 			if (bUnlock)
@@ -10614,23 +10647,23 @@ MTopView::DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 			color = CDirectDraw::Color(r,g,b);
 
 			//-------------------------------------------------
-			// °ËÁ¤»öÀÌ¸é.. ½±°Ô µÈ´Ù~
+			// Â°Ã‹ÃÂ¤Â»Ã¶Ã€ÃŒÂ¸Ã©.. Â½Â±Â°Ã” ÂµÃˆÂ´Ã™~
 			//-------------------------------------------------
 			if (color==0)
 			{
 				// 2D 5:6:5
 				if (CDirectDraw::Is565())
 				{
-					m_pSurface->GammaBox565(pRect, alpha);
+					//m_pSurface->GammaBox565(pRect, alpha);
 				}
 				// 2D 5:5:5
 				else
 				{
-					m_pSurface->GammaBox555(pRect, alpha);
+					//m_pSurface->GammaBox555(pRect, alpha);
 				}
 			}
 			//-------------------------------------------------
-			// ¾Æ´Ï¸é...
+			// Â¾Ã†Â´ÃÂ¸Ã©...
 			//-------------------------------------------------
 			else
 			{
@@ -10638,7 +10671,7 @@ MTopView::DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 			}
 
 			//------------------------------------------------
-			// ¿ø·¡ÀÇ Lock »óÅÂ·Î µÇµ¹¸°´Ù.
+			// Â¿Ã¸Â·Â¡Ã€Ã‡ Lock Â»Ã³Ã…Ã‚Â·Ã ÂµÃ‡ÂµÂ¹Â¸Â°Â´Ã™.
 			//------------------------------------------------
 			if (bUnlock)
 			{
@@ -10651,9 +10684,9 @@ MTopView::DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 //----------------------------------------------------------------------
 // Draw Information
 //----------------------------------------------------------------------
-// Debug¿¡ ÇÊ¿äÇÑ Á¤º¸¸¦ Ãâ·ÂÇÑ´Ù.
+// DebugÂ¿Â¡ Ã‡ÃŠÂ¿Ã¤Ã‡Ã‘ ÃÂ¤ÂºÂ¸Â¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 //
-// ±ÛÀÚ Ãâ·ÂÇÒ¶§´Â Unlock»óÅÂ..
+// Â±Ã›Ã€Ãš ÃƒÃ¢Â·Ã‚Ã‡Ã’Â¶Â§Â´Ã‚ UnlockÂ»Ã³Ã…Ã‚..
 //----------------------------------------------------------------------
 void
 MTopView::DrawInformation()
@@ -10667,12 +10700,12 @@ MTopView::DrawInformation()
 	//							Lock
 	//-----------------------------------------------------------------	
 	//if (!m_pSurface->Lock()) return;
-	// SurfaceÀÇ Á¤º¸¸¦ ÀúÀåÇØµĞ´Ù.
+	// SurfaceÃ€Ã‡ ÃÂ¤ÂºÂ¸Â¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã˜ÂµÃÂ´Ã™.
 	//S_SURFACEINFO		SurfaceInfo;
 	//SetSurfaceInfo(&SurfaceInfo, m_pSurface->GetDDSD());
 
 	//-----------------------------------------------------------------
-	// Font ¼±ÅÃ
+	// Font Â¼Â±Ã…Ãƒ
 	//-----------------------------------------------------------------
 	PrintInfo* pPrintInfo = g_ClientPrintInfo[FONTID_INFO];	
 	
@@ -10691,9 +10724,9 @@ MTopView::DrawInformation()
 	//-----------------------------------------------------------------
 	// [ TEST CODE ]
 	//-----------------------------------------------------------------
-	// ZoneÀÌ¸§ Ãâ·Â
+	// ZoneÃ€ÃŒÂ¸Â§ ÃƒÃ¢Â·Ã‚
 	//-----------------------------------------------------------------
-	/* // 2001.7.14 ÁÖ¼®Ã³¸®
+	/* // 2001.7.14 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 	if (g_pUserOption->DrawZoneName)
 	{
 		if (g_bZonePlayerInLarge)
@@ -10723,7 +10756,7 @@ MTopView::DrawInformation()
 	
 
 	//-----------------------------------------------------------------
-	// °ÔÀÓ ½Ã°£ Ãâ·Â
+	// Â°Ã”Ã€Ã“ Â½ÃƒÂ°Â£ ÃƒÃ¢Â·Ã‚
 	//-----------------------------------------------------------------
 	/*
 	static DWORD lastDisplayGameTime = g_CurrentTime;
@@ -10755,7 +10788,7 @@ MTopView::DrawInformation()
 	}
 	else
 	{
-		// 30ÃÊ¿¡ ÇÑ¹ø¾¿Àº ½Ã°£À» ¹Ù²ãÁØ´Ù.
+		// 30ÃƒÃŠÂ¿Â¡ Ã‡Ã‘Â¹Ã¸Â¾Â¿Ã€Âº Â½ÃƒÂ°Â£Ã€Â» Â¹Ã™Â²Ã£ÃÃ˜Â´Ã™.
 		if (g_CurrentTime - lastDisplayGameTime > 30000)
 		{
 			g_pGameTime->SetCurrentTime( g_CurrentTime );
@@ -10767,28 +10800,28 @@ MTopView::DrawInformation()
 
 	//-----------------------------------------------------------------
 	//
-	// Item ºÎ¼­Áø°Å Ãâ·Â
+	// Item ÂºÃÂ¼Â­ÃÃ¸Â°Ã… ÃƒÃ¢Â·Ã‚
 	//
 	//-----------------------------------------------------------------
 	y += 10;
 	DrawItemBroken(5, y);
 
-	y += 70;	// ItemBrokenÀÇ Å©±â.. ±ÍÂú¾Æ¼­ ±â³É.. ¤»¤»
+	y += 70;	// ItemBrokenÃ€Ã‡ Ã…Â©Â±Ã¢.. Â±ÃÃ‚ÃºÂ¾Ã†Â¼Â­ Â±Ã¢Â³Ã‰.. Â¤Â»Â¤Â»
 
 	//-----------------------------------------------------------------
 	//
-	// Event Message Ãâ·Â
+	// Event Message ÃƒÃ¢Â·Ã‚
 	//
 	//-----------------------------------------------------------------
 	int strY = 30;
 	int strX = g_GameRect.right /2;
 
-	// Event String Ãâ·Â
+	// Event String ÃƒÃ¢Â·Ã‚
 	DrawEventString( strX, strY );
 
 	//-----------------------------------------------------------------
 	//
-	// System Message Ãâ·Â
+	// System Message ÃƒÃ¢Â·Ã‚
 	//
 	//-----------------------------------------------------------------
 
@@ -10822,26 +10855,27 @@ MTopView::DrawInformation()
 	int iColorType = 0;
 	char* pColorType=NULL;
 	char message[300];
+	int c;
 	for (c=0; c<g_pPlayerMessage->GetSize(); c++)
 	{
 		if ((*g_pPlayerMessage)[c][0] != NULL)
 		{
-			// È¡³öĞÅÏ¢
+			// ÃˆÂ¡Â³Ã¶ÃÃ…ÃÂ¢
 			strcpy(message,(*g_pPlayerMessage)[c]);
-			// È¡³öÑÕÉ«ÀàĞÍ
+			// ÃˆÂ¡Â³Ã¶Ã‘Ã•Ã‰Â«Ã€Ã ÃÃ
 			pColorType = &message[strlen(message)-1];
 			iColorType = atoi(pColorType);
 			pColorType[0]=NULL;
 			COLORREF color = RGB(20<<3,31<<3,12<<3);
 			switch(iColorType)
 			{
-			case 0: // ÂÌÉ«
+			case 0: // Ã‚ÃŒÃ‰Â«
 				color = RGB_GREEN;
 				break;
-			case 1: // À¶É«
+			case 1: // Ã€Â¶Ã‰Â«
 				color = RGB(50,50,200);//RGB_BLUE;
 				break;
-			case 2: // »ÆÉ«
+			case 2: // Â»Ã†Ã‰Â«
 				color = RGB_YELLOW;
 				break;
 			}
@@ -10873,7 +10907,7 @@ MTopView::DrawInformation()
 		}
 	}
 
-	// 5ÃÊ¸¶´Ù ÇÑ¹ø¾¿.. scroll
+	// 5ÃƒÃŠÂ¸Â¶Â´Ã™ Ã‡Ã‘Â¹Ã¸Â¾Â¿.. scroll
 	static DWORD lastTime = g_CurrentTime;
 	if (g_CurrentTime - lastTime >= g_pClientConfig->DELAY_SYSTEMMESSAGE)
 	{
@@ -10881,7 +10915,7 @@ MTopView::DrawInformation()
 		lastTime = g_CurrentTime;
 	}
 
-	// 7ÃÊ¸¶´Ù ÇÑ¹ø¾¿.. scroll
+	// 7ÃƒÃŠÂ¸Â¶Â´Ã™ Ã‡Ã‘Â¹Ã¸Â¾Â¿.. scroll
 	static DWORD lastNoticeTime = g_CurrentTime;
 	if (g_CurrentTime - lastNoticeTime >= (g_pClientConfig->DELAY_SYSTEMMESSAGE + 2000) )
 	{
@@ -10889,7 +10923,7 @@ MTopView::DrawInformation()
 		lastNoticeTime = g_CurrentTime;
 	}
 
-	// 7ÃÊ¸¶´Ù ÇÑ¹ø¾¿.. scroll
+	// 7ÃƒÃŠÂ¸Â¶Â´Ã™ Ã‡Ã‘Â¹Ã¸Â¾Â¿.. scroll
 	static DWORD lastPlayerTimer = g_CurrentTime;
 	if (g_CurrentTime - lastPlayerTimer >= (g_pClientConfig->DELAY_SYSTEMMESSAGE + 10000) )
 	{
@@ -10898,7 +10932,7 @@ MTopView::DrawInformation()
 	}
 	//-----------------------------------------------------------------
 	//
-	// Game Message Ãâ·Â
+	// Game Message ÃƒÃ¢Â·Ã‚
 	//
 	//-----------------------------------------------------------------
 	switch(g_pPlayer->GetRace())
@@ -10908,7 +10942,7 @@ MTopView::DrawInformation()
 		strY = 410;
 		if (g_pPlayer->GetBonusPoint()!=0)
 		{
-			// bonus point ¿Ã¸±·Á°í ´©¸£´Â ¹öÆ°ÀÌ ÀÖ´Â À§Ä¡
+			// bonus point Â¿ÃƒÂ¸Â±Â·ÃÂ°Ã­ Â´Â©Â¸Â£Â´Ã‚ Â¹Ã¶Ã†Â°Ã€ÃŒ Ã€Ã–Â´Ã‚ Ã€Â§Ã„Â¡
 			strX = 85;
 		}	
 		if (g_MyFull)
@@ -10922,7 +10956,7 @@ MTopView::DrawInformation()
 		strY = 440;
 		if (g_pPlayer->GetBonusPoint()!=0)
 		{
-			// bonus point ¿Ã¸±·Á°í ´©¸£´Â ¹öÆ°ÀÌ ÀÖ´Â À§Ä¡
+			// bonus point Â¿ÃƒÂ¸Â±Â·ÃÂ°Ã­ Â´Â©Â¸Â£Â´Ã‚ Â¹Ã¶Ã†Â°Ã€ÃŒ Ã€Ã–Â´Ã‚ Ã€Â§Ã„Â¡
 			strX = 85;
 		}
 		if (g_MyFull)
@@ -10936,7 +10970,7 @@ MTopView::DrawInformation()
 		strY = 410;
 		if (g_pPlayer->GetBonusPoint()!=0)
 		{
-			// bonus point ¿Ã¸±·Á°í ´©¸£´Â ¹öÆ°ÀÌ ÀÖ´Â À§Ä¡
+			// bonus point Â¿ÃƒÂ¸Â±Â·ÃÂ°Ã­ Â´Â©Â¸Â£Â´Ã‚ Â¹Ã¶Ã†Â°Ã€ÃŒ Ã€Ã–Â´Ã‚ Ã€Â§Ã„Â¡
 			strX = 85;
 		}
 		if (g_MyFull)
@@ -10962,7 +10996,7 @@ MTopView::DrawInformation()
 		}		
 	}
 
-	// 5ÃÊ¸¶´Ù ÇÑ¹ø¾¿.. scroll
+	// 5ÃƒÃŠÂ¸Â¶Â´Ã™ Ã‡Ã‘Â¹Ã¸Â¾Â¿.. scroll
 	static DWORD gamelastTime = g_CurrentTime;
 	if (g_CurrentTime - gamelastTime >= g_pClientConfig->DELAY_GAMEMESSAGE)
 	{
@@ -10972,7 +11006,7 @@ MTopView::DrawInformation()
 
 	//-----------------------------------------------------------------
 	//
-	// ÃÑ¾Ë ³²Àº°Å Ãâ·Â
+	// ÃƒÃ‘Â¾Ã‹ Â³Â²Ã€ÂºÂ°Ã… ÃƒÃ¢Â·Ã‚
 	//
 	//-----------------------------------------------------------------
 	if (g_pCurrentMagazine!=NULL)
@@ -10998,7 +11032,7 @@ MTopView::DrawInformation()
 	}
 
 	//-----------------------------------------------------------------
-	// Ä³¸¯ÅÍ »óÅÂ Ãâ·Â
+	// Ã„Â³Â¸Â¯Ã…Ã Â»Ã³Ã…Ã‚ ÃƒÃ¢Â·Ã‚
 	//-----------------------------------------------------------------
 	#ifdef OUTPUT_DEBUG
 		if (g_pDXInput->KeyDown(DIK_P) && 
@@ -11109,7 +11143,7 @@ MTopView::DrawEventString(int& strX, int& strY)
 	ZeroMemory( str2, 256 );
 	
 
-	// Äù½ºÆ® ºÎºĞÀº Äù½ºÆ® ÀÎÅÍÆäÀÌ½º·Î »«´Ù. ¾Æ·¡ºÎºĞÀº »ç¿ëµÇÁö ¾ÊÀ»µí..
+	// Ã„Ã¹Â½ÂºÃ†Â® ÂºÃÂºÃÃ€Âº Ã„Ã¹Â½ÂºÃ†Â® Ã€ÃÃ…ÃÃ†Ã¤Ã€ÃŒÂ½ÂºÂ·Ã Â»Â«Â´Ã™. Â¾Ã†Â·Â¡ÂºÃÂºÃÃ€Âº Â»Ã§Â¿Ã«ÂµÃ‡ÃÃ¶ Â¾ÃŠÃ€Â»ÂµÃ­..
 	const MEvent *QuestEvent = g_pEventManager->GetEventByFlag(EVENTFLAG_QUEST_INFO, 0);
 	
 	if(QuestEvent != NULL)
@@ -11143,8 +11177,8 @@ MTopView::DrawEventString(int& strX, int& strY)
 				{
 				case QUEST_INFO_GATHER_ITEM :
 					{
-						// ¾ÆÀÌÅÛ ¸ğÀ¸±â
-						sprintf(str,"Áö±İÀº ¾ÆÀÌÅÛ ¸ğÀ¸´ÂÁß ¤»¤»¤» %d/%d %d",QuestEvent->parameter3, mkq->GetGoal(), QuestEvent->parameter4 - (timeGetTime() / 1000));
+						// Â¾Ã†Ã€ÃŒÃ…Ã› Â¸Ã°Ã€Â¸Â±Ã¢
+						sprintf(str,"ÃÃ¶Â±ÃÃ€Âº Â¾Ã†Ã€ÃŒÃ…Ã› Â¸Ã°Ã€Â¸Â´Ã‚ÃÃŸ Â¤Â»Â¤Â»Â¤Â» %d/%d %d",QuestEvent->parameter3, mkq->GetGoal(), QuestEvent->parameter4 - (timeGetTime() / 1000));
 					}
 					break;
 				case QUEST_INFO_MONSTER_KILL :
@@ -11263,14 +11297,18 @@ MTopView::DrawEventString(int& strX, int& strY)
 //----------------------------------------------------------------------
 // Draw Information
 //----------------------------------------------------------------------
-// Debug¿¡ ÇÊ¿äÇÑ Á¤º¸¸¦ Ãâ·ÂÇÑ´Ù.
+// DebugÂ¿Â¡ Ã‡ÃŠÂ¿Ã¤Ã‡Ã‘ ÃÂ¤ÂºÂ¸Â¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
-void
-MTopView::DrawDebugInfo(CDirectDrawSurface* pSurface)
-{ 
+void MTopView::DrawDebugInfo(void* pSurface)
+{
+	#ifdef PLATFORM_WINDOWS
+		CDirectDrawSurface* pSurfaceCast = (CDirectDrawSurface*)pSurface;
+	#else
+		CSpriteSurface* pSurfaceCast = (CSpriteSurface*)pSurface;
+	#endif
 	#ifdef	OUTPUT_DEBUG		
 		//----------------------------------------------------------------
-		// debug¿ë code
+		// debugÂ¿Ã« code
 		//----------------------------------------------------------------
 		///*
 		char str[128];
@@ -11300,24 +11338,24 @@ MTopView::DrawDebugInfo(CDirectDrawSurface* pSurface)
 		
 		int zoneID = (g_bZonePlayerInLarge)? g_nZoneLarge : g_nZoneSmall;
 
-		sprintf(str, "ID = %d / %d¸í [Weapon=%s] [align=%d]", g_pPlayer->GetID(), m_pZone->GetCreatureNumber(), attackMode, g_pPlayer->GetAlignment());	
-		pSurface->GDI_Text(10,35, str, RGB(220,220,220));
+		sprintf(str, "ID = %d / %dÂ¸Ã­ [Weapon=%s] [align=%d]", g_pPlayer->GetID(), m_pZone->GetCreatureNumber(), attackMode, g_pPlayer->GetAlignment());	
+		pSurfaceCast->GDI_Text(10,35, str, RGB(220,220,220));
 
 		sprintf(str, " [ZoneID=%d] XY=(%d, %d), sXY=(%d, %d), SerXY=(%d, %d)", zoneID, g_pPlayer->GetX(), g_pPlayer->GetY(), g_pPlayer->GetSX(), g_pPlayer->GetSY(), g_pPlayer->GetServerX(), g_pPlayer->GetServerY());	
-		pSurface->GDI_Text(10,56, str, RGB(220,220,220));
+		pSurfaceCast->GDI_Text(10,56, str, RGB(220,220,220));
 
 		sprintf(str, "SX = %d, SY = %d, HP=%d, MP=%d", g_pPlayer->GetSX(), g_pPlayer->GetSY(), g_pPlayer->GetHP(), g_pPlayer->GetMP());
 		//sprintf(str, "[Wait Move = %d]", g_pPlayer->GetSendMove());
-		pSurface->GDI_Text(10,72, str, RGB(220,220,220));
+		pSurfaceCast->GDI_Text(10,72, str, RGB(220,220,220));
 
 		sprintf(str, "ActionCount = [%d] %d/%d", g_pPlayer->GetAction(), g_pPlayer->GetActionCount(), g_pPlayer->GetActionCountMax());
-		pSurface->GDI_Text(10,88, str, RGB(220,220,220));
+		pSurfaceCast->GDI_Text(10,88, str, RGB(220,220,220));
 
 		sprintf(str, "MoveCount = %d/%d", g_pPlayer->GetMoveCount(), g_pPlayer->GetMoveCountMax());
-		pSurface->GDI_Text(10,104, str, RGB(220,220,220));
+		pSurfaceCast->GDI_Text(10,104, str, RGB(220,220,220));
 
 		sprintf(str, "Dark/Light/Sight = %d/%d/%d", m_DarkBits, g_pPlayer->GetLightSight() + g_pPlayer->GetItemLightSight(), g_pPlayer->GetSight());
-		pSurface->GDI_Text(10,120, str, RGB(220,220,220));
+		pSurfaceCast->GDI_Text(10,120, str, RGB(220,220,220));
 
 		if (g_pProfiler!=NULL && g_pProfiler->HasProfileInfo(g_ProfileInfoName.GetString()))
 		{
@@ -11326,7 +11364,7 @@ MTopView::DrawDebugInfo(CDirectDrawSurface* pSurface)
 			float avgTime = g_pProfiler->GetAverageTime(g_ProfileInfoName.GetString());
 
 			sprintf(str, "%s = %d / %d = %7.3f", g_ProfileInfoName.GetString(), totalTime, times, avgTime);
-			pSurface->GDI_Text(10,136, str, RGB(220,220,220));		
+			pSurfaceCast->GDI_Text(10,136, str, RGB(220,220,220));		
 		}		
 		
 
@@ -11364,7 +11402,7 @@ MTopView::DrawDebugInfo(CDirectDrawSurface* pSurface)
 			&& g_pRequestClientPlayerManager!=NULL)
 		{
 			sprintf(str, "Request Other/My = %d/%d", g_pRequestServerPlayerManager->GetSize(), g_pRequestClientPlayerManager->GetSize());
-			pSurface->GDI_Text(10,225, str, RGB(220,220,220));	
+			pSurfaceCast->GDI_Text(10,225, str, RGB(220,220,220));	
 		}
 
 		//#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
@@ -11383,18 +11421,18 @@ MTopView::DrawDebugInfo(CDirectDrawSurface* pSurface)
 		//pSurface->GDI_Text(9,109, str, RGB(220,220,220));
 		//*/	
 
-		// Timer Ãâ·Â
+		// Timer ÃƒÃ¢Â·Ã‚
 		//sprintf(str, "Timer = %ld", g_CurrentTime);	
 		//g_pBack->GDI_Text(11,11, str, RGB(20,20,20));
 		//g_pBack->GDI_Text(10,20, str, 0xFFFFFF);
 		
 
-		// MouseÁÂÇ¥ Âï±â	
+		// MouseÃÃ‚Ã‡Â¥ Ã‚Ã¯Â±Ã¢	
 		//sprintf(str, "%d, %d", g_x, g_y);	
 		//g_pBack->GDI_Text(11,101, str, RGB(20,20,20));
 		//g_pBack->GDI_Text(10,100, str, RGB(255,255,255));
 
-		//sprintf(str, "ImageObject=%d°³", m_mapImageObject.size());
+		//sprintf(str, "ImageObject=%dÂ°Â³", m_mapImageObject.size());
 		//pSurface->GDI_Text(100,580, str, 0xFFFFFF);
 
 		char infoStr[4][2][20] =
@@ -11413,9 +11451,9 @@ MTopView::DrawDebugInfo(CDirectDrawSurface* pSurface)
 						infoStr[3][g_bSlideScreenShot]
 				);
 
-		pSurface->GDI_Text(150,580, str, 0xFFFFFF);		
+		pSurfaceCast->GDI_Text(150,580, str, 0xFFFFFF);		
 
-		// ³²Àº Texture¸Ş¸ğ¸® test
+		// Â³Â²Ã€Âº TextureÂ¸ÃÂ¸Ã°Â¸Â® test
 		DDSCAPS2 ddsCaps2;
 		DWORD dwTotal;
 		DWORD dwFree;
@@ -11424,7 +11462,7 @@ MTopView::DrawDebugInfo(CDirectDrawSurface* pSurface)
 		HRESULT hr = CDirectDraw::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
 
 		sprintf(str, "Texture = %ld/%ld", dwFree, dwTotal);
-		pSurface->GDI_Text(500,580, str, 0xFFFFFF);		
+		pSurfaceCast->GDI_Text(500,580, str, 0xFFFFFF);		
 
 	
 	#endif
@@ -11434,7 +11472,7 @@ MTopView::DrawDebugInfo(CDirectDrawSurface* pSurface)
 //----------------------------------------------------------------------
 // Draw Test Help
 //----------------------------------------------------------------------
-// ClientTest¿ë Help
+// ClientTestÂ¿Ã« Help
 //----------------------------------------------------------------------
 void
 MTopView::DrawTestHelp()
@@ -11442,7 +11480,7 @@ MTopView::DrawTestHelp()
 	#ifdef OUTPUT_DEBUG
 		//--------------------------------------------------------------------
 		//
-		// F1À» ´©¸¥ »óÅÂ --> µµ¿ò¸» Ãâ·Â
+		// F1Ã€Â» Â´Â©Â¸Â¥ Â»Ã³Ã…Ã‚ --> ÂµÂµÂ¿Ã²Â¸Â» ÃƒÃ¢Â·Ã‚
 		//
 		//--------------------------------------------------------------------	
 		if (g_pDXInput->KeyDown(DIK_F11)
@@ -11461,11 +11499,11 @@ MTopView::DrawTestHelp()
 					
 				if (CDirectDraw::Is565())
 				{
-					m_pSurface->GammaBox565(&rect, 15);
+					//m_pSurface->GammaBox565(&rect, 15);
 				}
 				else
 				{
-					m_pSurface->GammaBox555(&rect, 15);
+					//m_pSurface->GammaBox555(&rect, 15);
 				}
 
 				m_pSurface->Unlock();
@@ -11475,24 +11513,24 @@ MTopView::DrawTestHelp()
 			const char helpStr[maxHelp][128] = 
 			{
 				"---------------------------------------------------------------------",
-				"         ALPHA-TEST CLIENT µµ¿ò¸»",
+				"         ALPHA-TEST CLIENT ÂµÂµÂ¿Ã²Â¸Â»",
 				"---------------------------------------------------------------------",
 				"  [ESC] Menu",
-				"  [F1~F8] º§Æ® ¾ÆÀÌÅÛ »ç¿ë",
-				"  [Scroll Lock] È­¸é Ä¸ÃÄ(--> \\ScreenShot)",
-				"  [Ctrl + M/T/Z] Áöµµ/°ÔÀÓ½Ã°£/Á¸ ÀÌ¸§",
-				"  [Tab] ¾ÆÀÌÅÛÃ¢ on/off",			
-				"  [Ctrl + Tab] ÀåÂøÃ¢ on/off",			
-				"  [L-Ctrl + ~] º§Æ® on/off",			
-				"  [L-Ctrl + S] ±â¼ú ¾ÆÀÌÄÜ ¼±ÅÃ",			
-				"  [L-Ctrl + Space] ¾ÆÀÌÅÛÃ¢, ÀåÂøÃ¢ on/off",
+				"  [F1~F8] ÂºÂ§Ã†Â® Â¾Ã†Ã€ÃŒÃ…Ã› Â»Ã§Â¿Ã«",
+				"  [Scroll Lock] ÃˆÂ­Â¸Ã© Ã„Â¸ÃƒÃ„(--> \\ScreenShot)",
+				"  [Ctrl + M/T/Z] ÃÃ¶ÂµÂµ/Â°Ã”Ã€Ã“Â½ÃƒÂ°Â£/ÃÂ¸ Ã€ÃŒÂ¸Â§",
+				"  [Tab] Â¾Ã†Ã€ÃŒÃ…Ã›ÃƒÂ¢ on/off",			
+				"  [Ctrl + Tab] Ã€Ã¥Ã‚Ã¸ÃƒÂ¢ on/off",			
+				"  [L-Ctrl + ~] ÂºÂ§Ã†Â® on/off",			
+				"  [L-Ctrl + S] Â±Ã¢Â¼Ãº Â¾Ã†Ã€ÃŒÃ„Ãœ Â¼Â±Ã…Ãƒ",			
+				"  [L-Ctrl + Space] Â¾Ã†Ã€ÃŒÃ…Ã›ÃƒÂ¢, Ã€Ã¥Ã‚Ã¸ÃƒÂ¢ on/off",
 				"---------------------------------------------------------------------",
-				"  [L-Button] ÀÌµ¿, ÃßÀû, °ø°İ",
-				"  [L-Shift + L-Button] °­Á¦ °ø°İ",
-				"  [L-Ctrl + L-Button] Àû¸¸ ¼±ÅÃ °ø°İ",
-				"  [R-Button] ¸¶¹ı, ±â¼ú",
+				"  [L-Button] Ã€ÃŒÂµÂ¿, ÃƒÃŸÃ€Ã», Â°Ã¸Â°Ã",
+				"  [L-Shift + L-Button] Â°Â­ÃÂ¦ Â°Ã¸Â°Ã",
+				"  [L-Ctrl + L-Button] Ã€Ã»Â¸Â¸ Â¼Â±Ã…Ãƒ Â°Ã¸Â°Ã",
+				"  [R-Button] Â¸Â¶Â¹Ã½, Â±Ã¢Â¼Ãº",
 				"---------------------------------------------------------------------",
-				"  [Ã¤ÆÃÇÒ¶§] ! ¸¦ »ç¿ëÇÏ¸é Á¸ Ã¤ÆÃ"
+				"  [ÃƒÂ¤Ã†ÃƒÃ‡Ã’Â¶Â§] ! Â¸Â¦ Â»Ã§Â¿Ã«Ã‡ÃÂ¸Ã© ÃÂ¸ ÃƒÂ¤Ã†Ãƒ"
 			};
 
 			POINT point;
@@ -11511,8 +11549,8 @@ MTopView::DrawTestHelp()
 //----------------------------------------------------------------------
 // Draw
 //----------------------------------------------------------------------
-// ÀüºÎ ´Ù½Ã ±×¸±°ÇÁö   
-// ÀÌÀüÀÇ TileÀ» ÀÌ¿ëÇØ¼­ ÀÏºÎ¸¸ ±×¸±°ÇÁö¸¦ ¼±ÅÃÇÑ´Ù.
+// Ã€Ã¼ÂºÃ Â´Ã™Â½Ãƒ Â±Ã—Â¸Â±Â°Ã‡ÃÃ¶   
+// Ã€ÃŒÃ€Ã¼Ã€Ã‡ TileÃ€Â» Ã€ÃŒÂ¿Ã«Ã‡Ã˜Â¼Â­ Ã€ÃÂºÃÂ¸Â¸ Â±Ã—Â¸Â±Â°Ã‡ÃÃ¶Â¸Â¦ Â¼Â±Ã…ÃƒÃ‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void
 MTopView::Draw(int firstPointX,int firstPointY)
@@ -11549,7 +11587,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			else if (g_WipeValue>64) g_WipeValue=64;
 		}
 */
-		// Å¸ÀÏ¿¡ Æ÷Å» Á¤º¸ Ãâ·ÂÇÏ±â
+		// Ã…Â¸Ã€ÃÂ¿Â¡ Ã†Ã·Ã…Â» ÃÂ¤ÂºÂ¸ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ±Ã¢
 		if (g_pDXInput->KeyDown(DIK_T) && g_pDXInput->KeyDown(DIK_LCONTROL))
 		{
 			SetFirstDraw();
@@ -11561,7 +11599,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 	#endif
 
 	/*
-	// Work Thread¸¦ ÀÌ¿ëÇÑ loading test
+	// Work ThreadÂ¸Â¦ Ã€ÃŒÂ¿Ã«Ã‡Ã‘ loading test
 	static int first = 1;
 	if (first)
 	{
@@ -11577,7 +11615,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 	*/
 
 	//------------------------------------------------------------
-	// ºñ°ø½Ä(-_-;) ¿µ¾î ÆùÆ® »ç¿ë¾ÈÇÔ - -;
+	// ÂºÃ±Â°Ã¸Â½Ã„(-_-;) Â¿ÂµÂ¾Ã® Ã†Ã¹Ã†Â® Â»Ã§Â¿Ã«Â¾ÃˆÃ‡Ã” - -;
 	//------------------------------------------------------------
 	//gC_font.NotUseNoPublicEng();		
 
@@ -11586,14 +11624,14 @@ MTopView::Draw(int firstPointX,int firstPointY)
 	//#endif	
 
 	//------------------------------------------------------------
-	// Clip¿µ¿ª ¾È¿¡¼­¸¸ Ãâ·ÂÇÑ´Ù.
+	// ClipÂ¿ÂµÂ¿Âª Â¾ÃˆÂ¿Â¡Â¼Â­Â¸Â¸ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 	//------------------------------------------------------------
-	int clipRight = m_pSurface->GetClipRight();
-	int clipBottom	= m_pSurface->GetClipBottom();
-	m_pSurface->SetClipRightBottom(g_GameRect.right, g_GameRect.bottom);		
+// 	int clipRight = m_pSurface->GetClipRight();
+// 	int clipBottom	= m_pSurface->GetClipBottom();
+// 	m_pSurface->SetClipRightBottom(g_GameRect.right, g_GameRect.bottom);		
 
 	//------------------------------------------------------------
-	// TileÀ» Ã³À½ ±×¸± ¶§, ´Ù~ ±×¸°´Ù.
+	// TileÃ€Â» ÃƒÂ³Ã€Â½ Â±Ã—Â¸Â± Â¶Â§, Â´Ã™~ Â±Ã—Â¸Â°Â´Ã™.
 	//------------------------------------------------------------
 	if (m_bFirstTileDraw)
 	{
@@ -11641,8 +11679,8 @@ MTopView::Draw(int firstPointX,int firstPointY)
 		light.dvDirection.x = 0.0f;	
 		light.dvDirection.y = 0.0f;
 		light.dvDirection.z = 1.0f;
-		light.dvTheta =       0.5f; //¿ø»ÔÀÇ Áß¾Ó Å©±â
-		light.dvPhi =         0.8f; //¿ø»ÔÀÇ ¿Ü°û Å©±â
+		light.dvTheta =       0.5f; //Â¿Ã¸Â»Ã”Ã€Ã‡ ÃÃŸÂ¾Ã“ Ã…Â©Â±Ã¢
+		light.dvPhi =         0.8f; //Â¿Ã¸Â»Ã”Ã€Ã‡ Â¿ÃœÂ°Ã» Ã…Â©Â±Ã¢
 		light.dvAttenuation0 = 1.0f;
 		light.dvFalloff		= 1.0f;
 		
@@ -11651,7 +11689,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 		//*/
 	}
 	//------------------------------------------------------------
-	// ÀÌÀü¿¡ ±×¸° TileÀ» ´Ù½Ã ÀÌ¿ëÇÑ´Ù.
+	// Ã€ÃŒÃ€Ã¼Â¿Â¡ Â±Ã—Â¸Â° TileÃ€Â» Â´Ã™Â½Ãƒ Ã€ÃŒÂ¿Ã«Ã‡Ã‘Â´Ã™.
 	//------------------------------------------------------------
 	//else
 	{			
@@ -11661,7 +11699,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 				DEBUG_ADD( "IsLost?" );
 			#endif
 
-			// µµ¿òÀÌ µÉ±î..
+			// ÂµÂµÂ¿Ã²Ã€ÃŒ ÂµÃ‰Â±Ã®..
 			if (CDirect3D::IsLost())
 			{
 				#ifdef OUTPUT_DEBUG_DRAW_PROCESS
@@ -11725,8 +11763,8 @@ MTopView::Draw(int firstPointX,int firstPointY)
 				D3DLIGHT7 light;
 				CDirect3D::GetDevice()->GetLight( 0, &light );
 
-				light.dvTheta -=       0.01f; //¿ø»ÔÀÇ Áß¾Ó Å©±â
-				light.dvPhi -=         0.01f; //¿ø»ÔÀÇ ¿Ü°û Å©±â
+				light.dvTheta -=       0.01f; //Â¿Ã¸Â»Ã”Ã€Ã‡ ÃÃŸÂ¾Ã“ Ã…Â©Â±Ã¢
+				light.dvPhi -=         0.01f; //Â¿Ã¸Â»Ã”Ã€Ã‡ Â¿ÃœÂ°Ã» Ã…Â©Â±Ã¢
 				
 				CDirect3D::GetDevice()->SetLight( 0, &light );
 			}
@@ -11736,8 +11774,8 @@ MTopView::Draw(int firstPointX,int firstPointY)
 				D3DLIGHT7 light;
 				CDirect3D::GetDevice()->GetLight( 0, &light );
 
-				light.dvTheta +=       0.01f; //¿ø»ÔÀÇ Áß¾Ó Å©±â
-				light.dvPhi +=         0.01f; //¿ø»ÔÀÇ ¿Ü°û Å©±â
+				light.dvTheta +=       0.01f; //Â¿Ã¸Â»Ã”Ã€Ã‡ ÃÃŸÂ¾Ã“ Ã…Â©Â±Ã¢
+				light.dvPhi +=         0.01f; //Â¿Ã¸Â»Ã”Ã€Ã‡ Â¿ÃœÂ°Ã» Ã…Â©Â±Ã¢
 				
 				CDirect3D::GetDevice()->SetLight( 0, &light );
 			}
@@ -11747,7 +11785,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			//test.Rotate( 0.1f, 0.1f, 0 );
 
 			//------------------------------------------------
-			// LightBuffer ÃÊ±âÈ­
+			// LightBuffer ÃƒÃŠÂ±Ã¢ÃˆÂ­
 			//------------------------------------------------
 			#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 				DEBUG_ADD( "Clear LightBufferFilter3D" );
@@ -11773,7 +11811,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			__END_PROFILE("DrawZone")
 
 
-			// mouseÁÂÇ¥ÀÇ ºû			
+			// mouseÃÃ‚Ã‡Â¥Ã€Ã‡ ÂºÃ»			
 			//AddLightFilter( m_FirstZonePixel.x,g_x, m_FirstZonePixel.y,g_y, 4 );
 			//------------------------------------------------
 			// Fade
@@ -11791,7 +11829,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			//------------------------------------------------
 			// Minimap
 			//------------------------------------------------
-			/* // 2001.7.14 ÁÖ¼®Ã³¸®
+			/* // 2001.7.14 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 			if (g_pUserOption->DrawMinimap)
 			{
 				DrawMinimap( CLIPSURFACE_WIDTH-m_pMinimapSPR->GetWidth(),
@@ -11801,7 +11839,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			*/
 
 			//------------------------------------------------
-			// test¿ë µµ¿ò¸»
+			// testÂ¿Ã« ÂµÂµÂ¿Ã²Â¸Â»
 			//------------------------------------------------
 			if (g_pDXInput->KeyDown(DIK_F11))
 			{
@@ -11815,8 +11853,8 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			//CDirect3D::GetDevice()->EndScene();
 
 			//------------------------------------------------
-			// Á¦°ÅµÈ SurfaceµéÀ» Áö¿öÁà¾ß ÇÑ´Ù.
-			// ¹İµå½Ã, EndScene()ÀÌ ³¡³ª°í Áö¿ö¾ß ÇÑ´Ù.
+			// ÃÂ¦Â°Ã…ÂµÃˆ SurfaceÂµÃ©Ã€Â» ÃÃ¶Â¿Ã¶ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
+			// Â¹ÃÂµÃ¥Â½Ãƒ, EndScene()Ã€ÃŒ Â³Â¡Â³ÂªÂ°Ã­ ÃÃ¶Â¿Ã¶Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			//------------------------------------------------
 			#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 				DEBUG_ADD( "Remove RemovedTexture" );
@@ -11837,7 +11875,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 		else
 		{
 			//------------------------------------------------
-			// LightBuffer ÃÊ±âÈ­
+			// LightBuffer ÃƒÃŠÂ±Ã¢ÃˆÂ­
 			//------------------------------------------------
 			#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 				DEBUG_ADD( "Clear LightBufferFilter2D");
@@ -11879,7 +11917,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			//------------------------------------------------
 			// Minimap
 			//------------------------------------------------
-			/* // 2001.7.14 ÁÖ¼®Ã³¸®
+			/* // 2001.7.14 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 			if (g_pUserOption->DrawMinimap)
 			{
 				DrawMinimap( CLIPSURFACE_WIDTH-m_pMinimapSPR->GetWidth(),
@@ -11889,7 +11927,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			*/
 
 			//------------------------------------------------
-			// test¿ë µµ¿ò¸»
+			// testÂ¿Ã« ÂµÂµÂ¿Ã²Â¸Â»
 			//------------------------------------------------
 //			if (g_pDXInput->KeyDown(DIK_F11))
 //			{
@@ -11903,7 +11941,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 	#endif
 
 	//------------------------------------------------
-	// Á¤º¸ Ãâ·Â
+	// ÃÂ¤ÂºÂ¸ ÃƒÃ¢Â·Ã‚
 	//------------------------------------------------
 	DrawInformation();
 
@@ -11913,26 +11951,28 @@ MTopView::Draw(int firstPointX,int firstPointY)
 	
 
 	//char str[80];
-	//sprintf(str, "ImageObject=%d°³", m_mapImageObject.size());
+	//sprintf(str, "ImageObject=%dÂ°Â³", m_mapImageObject.size());
 	//m_pSurface->GDI_Text(100,580, str, 0xFFFFFF);
 
 	//------------------------------------------------------------
-	// Á¤»óÀûÀÎ Ãâ·Â
+	// ÃÂ¤Â»Ã³Ã€Ã»Ã€Ã ÃƒÃ¢Â·Ã‚
 	//------------------------------------------------------------
-	//m_pSurface->SetClipNULL();	
+	//m_pSurface->SetClipNULL();
+#ifdef PLATFORM_WINDOWS
 	m_pSurface->SetClipRightBottom(clipRight, clipBottom);
+#endif
 
 	#ifdef OUTPUT_DEBUG_DRAW_PROCESS
-		DEBUG_ADD("Draw OK");		
+		DEBUG_ADD("Draw OK");
 	#endif
 }
 
 //----------------------------------------------------------------------
 // Draw LightBuffer
 //----------------------------------------------------------------------
-// m_LightBufferFilter¸¦ m_pLightBufferTexture·Î bltÇÏ°í
-// m_pLightBufferTexture¸¦ texture·Î ¼³Á¤ÇØ¼­
-// È­¸é¿¡ LightBufferFilter¸¦ Ãâ·ÂÇÏ°Ô µÈ´Ù.
+// m_LightBufferFilterÂ¸Â¦ m_pLightBufferTextureÂ·Ã bltÃ‡ÃÂ°Ã­
+// m_pLightBufferTextureÂ¸Â¦ textureÂ·Ã Â¼Â³ÃÂ¤Ã‡Ã˜Â¼Â­
+// ÃˆÂ­Â¸Ã©Â¿Â¡ LightBufferFilterÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ°Ã” ÂµÃˆÂ´Ã™.
 //----------------------------------------------------------------------
 void
 MTopView::DrawLightBuffer3D()
@@ -11947,6 +11987,7 @@ MTopView::DrawLightBuffer3D()
 		//------------------------------------------------
 		// LightBufferFilter --> Texture
 		//------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 		WORD *lpSurface, pitch;
 		m_pLightBufferTexture->Lock();
 		lpSurface = (WORD*)m_pLightBufferTexture->GetSurfacePointer();
@@ -11957,13 +11998,13 @@ MTopView::DrawLightBuffer3D()
 
 		m_pLightBufferTexture->Unlock();
 		//*/
-		
+
 		//------------------------------------------------
-		// Texture¼³Á¤ÇÏ°í Ãâ·Â
+		// TextureÂ¼Â³ÃÂ¤Ã‡ÃÂ°Ã­ ÃƒÃ¢Â·Ã‚
 		//------------------------------------------------
 		RECT rect = { 0, 0, g_GameRect.right, g_GameRect.bottom };
-			
-		DRAW_TEXTURE_SURFACE( m_pLightBufferTexture, &rect )		
+
+		DRAW_TEXTURE_SURFACE( m_pLightBufferTexture, &rect )
 		else
 		{
 			#ifdef OUTPUT_DEBUG_DRAW_PROCESS
@@ -11975,6 +12016,11 @@ MTopView::DrawLightBuffer3D()
 		#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 			DEBUG_ADD( "End DrawLightBuffer3D" );
 		#endif
+#else
+		// SDL/macOS: 3D light buffer rendering not implemented
+		(void)m_pLightBufferTexture;
+		(void)m_DarkBits;
+#endif
 	}
 
 	#ifdef OUTPUT_DEBUG_DRAW_PROCESS
@@ -11987,9 +12033,9 @@ MTopView::DrawLightBuffer3D()
 //----------------------------------------------------------------------
 // Draw LightBuffer
 //----------------------------------------------------------------------
-// m_LightBufferFilter¸¦ m_pLightBufferTexture·Î bltÇÏ°í
-// m_pLightBufferTexture¸¦ texture·Î ¼³Á¤ÇØ¼­
-// È­¸é¿¡ LightBufferFilter¸¦ Ãâ·ÂÇÏ°Ô µÈ´Ù.
+// m_LightBufferFilterÂ¸Â¦ m_pLightBufferTextureÂ·Ã bltÃ‡ÃÂ°Ã­
+// m_pLightBufferTextureÂ¸Â¦ textureÂ·Ã Â¼Â³ÃÂ¤Ã‡Ã˜Â¼Â­
+// ÃˆÂ­Â¸Ã©Â¿Â¡ LightBufferFilterÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ°Ã” ÂµÃˆÂ´Ã™.
 //----------------------------------------------------------------------
 void
 MTopView::DrawLightBuffer2D()
@@ -12031,7 +12077,7 @@ MTopView::DrawLightBuffer2D()
 				
 				
 				//--------------------------------------------
-				// 9ÁÙ¾¿ Ãâ·ÂÇÒ¶§...
+				// 9ÃÃ™Â¾Â¿ ÃƒÃ¢Â·Ã‚Ã‡Ã’Â¶Â§...
 				//--------------------------------------------
 				if (*pPH==9)
 				{
@@ -12056,7 +12102,7 @@ MTopView::DrawLightBuffer2D()
 						lpSurface = (WORD*)((BYTE*)lpSurfaceTemp9 + pitch);
 					}
 					//end by sonic
-					// ´ÙÀ½..
+					// Â´Ã™Ã€Â½..
 					
 
 					for (int x=0; x<m_LightBufferFilter.GetWidth(); x++)
@@ -12066,7 +12112,7 @@ MTopView::DrawLightBuffer2D()
 						
 						//if (light!=31)
 						//{
-							// lenÁ¡ Âï±â
+							// lenÃÂ¡ Ã‚Ã¯Â±Ã¢
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp1, len, light);
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp2, len, light);
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp3, len, light);
@@ -12086,11 +12132,11 @@ MTopView::DrawLightBuffer2D()
 						//}
 						
 
-						// ´ÙÀ½ filter°ª
+						// Â´Ã™Ã€Â½ filterÂ°Âª
 						pFilter++;
 						pPW++;
 
-						// ´ÙÀ½ Ãâ·Â À§Ä¡ --> 8 pixel µÚ
+						// Â´Ã™Ã€Â½ ÃƒÃ¢Â·Ã‚ Ã€Â§Ã„Â¡ --> 8 pixel ÂµÃš
 						lpSurfaceTemp1 += len;
 						lpSurfaceTemp2 += len;
 						lpSurfaceTemp3 += len;
@@ -12110,7 +12156,7 @@ MTopView::DrawLightBuffer2D()
 					}	
 				}
 				//--------------------------------------------
-				// 10ÁÙ¾¿ Ãâ·Â
+				// 10ÃÃ™Â¾Â¿ ÃƒÃ¢Â·Ã‚
 				//--------------------------------------------
 				else //if (*pPH==8)
 				{
@@ -12137,7 +12183,7 @@ MTopView::DrawLightBuffer2D()
 					}
 					// end by sonic
 
-					// ´ÙÀ½..
+					// Â´Ã™Ã€Â½..
 					//lpSurface = (WORD*)((BYTE*)lpSurfaceTemp10 + pitch);
 
 					for (int x=0; x<m_LightBufferFilter.GetWidth(); x++)
@@ -12147,7 +12193,7 @@ MTopView::DrawLightBuffer2D()
 						
 						//if (light!=31)
 						//{
-							// lenÁ¡ Âï±â
+							// lenÃÂ¡ Ã‚Ã¯Â±Ã¢
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp1, len, light);
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp2, len, light);
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp3, len, light);
@@ -12168,11 +12214,11 @@ MTopView::DrawLightBuffer2D()
 						//}
 						
 
-						// ´ÙÀ½ filter°ª
+						// Â´Ã™Ã€Â½ filterÂ°Âª
 						pFilter++;
 						pPW++;
 
-						// ´ÙÀ½ Ãâ·Â À§Ä¡ --> 8 pixel µÚ
+						// Â´Ã™Ã€Â½ ÃƒÃ¢Â·Ã‚ Ã€Â§Ã„Â¡ --> 8 pixel ÂµÃš
 						lpSurfaceTemp1 += len;
 						lpSurfaceTemp2 += len;
 						lpSurfaceTemp3 += len;
@@ -12209,7 +12255,7 @@ MTopView::DrawLightBuffer2D()
 				
 				
 				//--------------------------------------------
-				// 9ÁÙ¾¿ Ãâ·ÂÇÒ¶§...
+				// 9ÃÃ™Â¾Â¿ ÃƒÃ¢Â·Ã‚Ã‡Ã’Â¶Â§...
 				//--------------------------------------------
 				if (*pPH==9)
 				{
@@ -12234,7 +12280,7 @@ MTopView::DrawLightBuffer2D()
 						lpSurface = (WORD*)((BYTE*)lpSurfaceTemp9 + pitch);
 					}
 					// end by sonic
-					// ´ÙÀ½..
+					// Â´Ã™Ã€Â½..
 					
 
 					for (int x=0; x<m_LightBufferFilter.GetWidth(); x++)
@@ -12244,7 +12290,7 @@ MTopView::DrawLightBuffer2D()
 						
 						//if (light!=31)
 						//{
-							// lenÁ¡ Âï±â
+							// lenÃÂ¡ Ã‚Ã¯Â±Ã¢
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp1, len, light);
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp2, len, light);
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp3, len, light);
@@ -12264,11 +12310,11 @@ MTopView::DrawLightBuffer2D()
 						//}
 						
 
-						// ´ÙÀ½ filter°ª
+						// Â´Ã™Ã€Â½ filterÂ°Âª
 						pFilter++;
 						pPW++;
 
-						// ´ÙÀ½ Ãâ·Â À§Ä¡ --> 8 pixel µÚ
+						// Â´Ã™Ã€Â½ ÃƒÃ¢Â·Ã‚ Ã€Â§Ã„Â¡ --> 8 pixel ÂµÃš
 						lpSurfaceTemp1 += len;
 						lpSurfaceTemp2 += len;
 						lpSurfaceTemp3 += len;
@@ -12288,7 +12334,7 @@ MTopView::DrawLightBuffer2D()
 					}	
 				}
 				//--------------------------------------------
-				// 10ÁÙ¾¿ Ãâ·Â
+				// 10ÃÃ™Â¾Â¿ ÃƒÃ¢Â·Ã‚
 				//--------------------------------------------
 				else //if (*pPH==8)
 				{
@@ -12310,7 +12356,7 @@ MTopView::DrawLightBuffer2D()
 							lpSurface = (WORD*)((BYTE*)lpSurfaceTemp12 + pitch);
 						}else 
 						{
-							// ´ÙÀ½..
+							// Â´Ã™Ã€Â½..
 							lpSurface = (WORD*)((BYTE*)lpSurfaceTemp10 + pitch);
 						}
 						// end by sonic
@@ -12323,7 +12369,7 @@ MTopView::DrawLightBuffer2D()
 						
 						//if (light!=31)
 						//{
-							// lenÁ¡ Âï±â
+							// lenÃÂ¡ Ã‚Ã¯Â±Ã¢
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp1, len, light);
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp2, len, light);
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp3, len, light);
@@ -12344,11 +12390,11 @@ MTopView::DrawLightBuffer2D()
 						//}
 						
 
-						// ´ÙÀ½ filter°ª
+						// Â´Ã™Ã€Â½ filterÂ°Âª
 						pFilter++;
 						pPW++;
 
-						// ´ÙÀ½ Ãâ·Â À§Ä¡ --> 8 pixel µÚ
+						// Â´Ã™Ã€Â½ ÃƒÃ¢Â·Ã‚ Ã€Â§Ã„Â¡ --> 8 pixel ÂµÃš
 						lpSurfaceTemp1 += len;
 						lpSurfaceTemp2 += len;
 						lpSurfaceTemp3 += len;
@@ -12381,26 +12427,26 @@ MTopView::DrawLightBuffer2D()
 //----------------------------------------------------------------------
 // Determine ImageObject
 //----------------------------------------------------------------------
-// È­¸é¿¡ ÀÖ´Â ImageObjectµéÀ» ¸ğµÎ °Ë»öÇÑ´Ù.
+// ÃˆÂ­Â¸Ã©Â¿Â¡ Ã€Ã–Â´Ã‚ ImageObjectÂµÃ©Ã€Â» Â¸Ã°ÂµÃ Â°Ã‹Â»Ã¶Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void
 MTopView::DetermineImageObject()
 {	
 	//---------------------------------------------------------------	
-	// firstPoint¿¡ Ãâ·ÂµÉ Zone¿¡¼­ÀÇ Ã¹¹øÂ° Sector
+	// firstPointÂ¿Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‰ ZoneÂ¿Â¡Â¼Â­Ã€Ã‡ ÃƒÂ¹Â¹Ã¸Ã‚Â° Sector
 	//---------------------------------------------------------------	
-	// Player¸¦ Áß½ÉÀ¸·Î ÇØ¼­ Ãâ·ÂÇØ¾ßÇÏ±â ¶§¹®¿¡
-	// ¿ŞÂÊ~~~~ À§~ ºÎÅÍ Ãâ·ÂÇÑ´Ù.
+	// PlayerÂ¸Â¦ ÃÃŸÂ½Ã‰Ã€Â¸Â·Ã Ã‡Ã˜Â¼Â­ ÃƒÃ¢Â·Ã‚Ã‡Ã˜Â¾ÃŸÃ‡ÃÂ±Ã¢ Â¶Â§Â¹Â®Â¿Â¡
+	// Â¿ÃÃ‚ÃŠ~~~~ Ã€Â§~ ÂºÃÃ…Ã ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 	//---------------------------------------------------------------	
 	POINT	firstSector;
 	firstSector.x = g_pPlayer->GetX() + g_SECTOR_SKIP_PLAYER_LEFT;
 	firstSector.y = g_pPlayer->GetY() + g_SECTOR_SKIP_PLAYER_UP;
 
 	//---------------------------------------------------------------	
-	// ZoneÀÇ °æ°è¿¡ °¬À» ¶§,
-	// °ËÀº ºÎºĞ ¾È º¸ÀÌ°Ô ÇÏ±â..
+	// ZoneÃ€Ã‡ Â°Ã¦Â°Ã¨Â¿Â¡ Â°Â¬Ã€Â» Â¶Â§,
+	// Â°Ã‹Ã€Âº ÂºÃÂºÃ Â¾Ãˆ ÂºÂ¸Ã€ÃŒÂ°Ã” Ã‡ÃÂ±Ã¢..
 	//---------------------------------------------------------------	
-	// X ÁÂÇ¥ ¸ÂÃß±â..
+	// X ÃÃ‚Ã‡Â¥ Â¸Ã‚ÃƒÃŸÂ±Ã¢..
 	//---------------------------------------------------------------	
 	if (firstSector.x <= 0)
 	{	
@@ -12412,7 +12458,7 @@ MTopView::DetermineImageObject()
 	}
 
 	//---------------------------------------------------------------	
-	// Y ÁÂÇ¥ ¸ÂÃß±â
+	// Y ÃÃ‚Ã‡Â¥ Â¸Ã‚ÃƒÃŸÂ±Ã¢
 	//---------------------------------------------------------------	
 	if (firstSector.y <= 0)
 	{
@@ -12425,7 +12471,7 @@ MTopView::DetermineImageObject()
 
 	//----------------------------------------------------------------------
 	//
-	//                         ImageObject °Ë»ö
+	//                         ImageObject Â°Ã‹Â»Ã¶
 	//
 	//----------------------------------------------------------------------	
 	//POINT firstSector = PixelToMap(m_FirstZonePixel.x, m_FirstZonePixel.y);
@@ -12435,7 +12481,7 @@ MTopView::DetermineImageObject()
 	int sY2 = firstSector.y + g_SECTOR_HEIGHT+1;
 	
 	//------------------------------------------------------
-	// ZoneÀÇ ¿µ¿ªÀÌ ¾Æ´Ñ °æ¿ì¿¡ Skip...
+	// ZoneÃ€Ã‡ Â¿ÂµÂ¿ÂªÃ€ÃŒ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡ Skip...
 	//------------------------------------------------------
 	if (sX1 < 0) 
 	{					
@@ -12460,12 +12506,12 @@ MTopView::DetermineImageObject()
 	}
 		
 	//------------------------------------------------------
-	// ÀÌÀü¿¡ ÀÖ´ø ImageObject¸¦ ¸ğµÎ Áö¿î´Ù.
+	// Ã€ÃŒÃ€Ã¼Â¿Â¡ Ã€Ã–Â´Ã¸ ImageObjectÂ¸Â¦ Â¸Ã°ÂµÃ ÃÃ¶Â¿Ã®Â´Ã™.
 	//------------------------------------------------------
 	m_mapImageObject.clear();	
 
 	//------------------------------------------------------
-	// °¢ SectorÀÇ ImageObject°Ë»ö
+	// Â°Â¢ SectorÃ€Ã‡ ImageObjectÂ°Ã‹Â»Ã¶
 	//------------------------------------------------------
 	int y,x,i;
 	for (y=sY1; y<=sY2; y++)
@@ -12474,44 +12520,44 @@ MTopView::DetermineImageObject()
 		{				
 			const MSector& sector = m_pZone->GetSector(x,y);
 
-			// ImageObject°¡ ÀÖ´Ù¸é.. ¸ğµÎ~ ±â¾ïÇØµĞ´Ù.
-			// ´Ü, Áßº¹À» Çã¿ëÇÏÁö ¾Ê´Â´Ù.
+			// ImageObjectÂ°Â¡ Ã€Ã–Â´Ã™Â¸Ã©.. Â¸Ã°ÂµÃ~ Â±Ã¢Â¾Ã¯Ã‡Ã˜ÂµÃÂ´Ã™.
+			// Â´Ãœ, ÃÃŸÂºÂ¹Ã€Â» Ã‡Ã£Â¿Ã«Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 			if (sector.IsExistImageObject())
 			{
 				OBJECT_MAP::const_iterator iImageObject = sector.GetImageObjectIterator();
 
-				// Sector¿¡ ÀÖ´Â ¸ğµç ImageObjectµéÀ» °Ë»öÇÑ´Ù.
+				// SectorÂ¿Â¡ Ã€Ã–Â´Ã‚ Â¸Ã°ÂµÃ§ ImageObjectÂµÃ©Ã€Â» Â°Ã‹Â»Ã¶Ã‡Ã‘Â´Ã™.
 				for (i=0; i<sector.GetImageObjectSize(); i++)
 				{
 					MImageObject* const pImageObject = (MImageObject* const)((*iImageObject).second);
 
 					//----------------------------------------
-					// Ãâ·Â ½ÃÁ¡À» Ã¼Å©ÇØ¾ß µÇÁö¸¸,
-					// ¾î¶² ImageObjectµéÀº
-					// ÀÚ½ÅÀÇ ViewSector°¡ ¾Æ´Ñ viewpoint¸¦
-					// °®´Â °æ¿ìµµ ÀÖ´Ù. -_-;
-					// ±×·¡¼­.. ¹«Á¶°Ç Ãß°¡ÇÑ´Ù.
+					// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€Â» ÃƒÂ¼Ã…Â©Ã‡Ã˜Â¾ÃŸ ÂµÃ‡ÃÃ¶Â¸Â¸,
+					// Â¾Ã®Â¶Â² ImageObjectÂµÃ©Ã€Âº
+					// Ã€ÃšÂ½Ã…Ã€Ã‡ ViewSectorÂ°Â¡ Â¾Ã†Â´Ã‘ viewpointÂ¸Â¦
+					// Â°Â®Â´Ã‚ Â°Ã¦Â¿Ã¬ÂµÂµ Ã€Ã–Â´Ã™. -_-;
+					// Â±Ã—Â·Â¡Â¼Â­.. Â¹Â«ÃÂ¶Â°Ã‡ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 					//----------------------------------------
-					// Ãâ·Â ½ÃÁ¡ÀÌ µÆÀ¸¸é.. Ãß°¡ÇÑ´Ù.
-					//if (pImageObject->GetViewpoint()==y				// Á¤ÇØÁø ÁÙ
-					//	|| y==sY2-1									// ³¡ÁÙ
-					//	|| pImageObject->GetViewpoint() < sY1)		// Ã¹ÁÙ
+					// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ ÂµÃ†Ã€Â¸Â¸Ã©.. ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
+					//if (pImageObject->GetViewpoint()==y				// ÃÂ¤Ã‡Ã˜ÃÃ¸ ÃÃ™
+					//	|| y==sY2-1									// Â³Â¡ÃÃ™
+					//	|| pImageObject->GetViewpoint() < sY1)		// ÃƒÂ¹ÃÃ™
 					{						
-						// ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎÇØº¸°í ¾øÀ¸¸é Ãß°¡.
+						// Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶ ÃˆÂ®Ã€ÃÃ‡Ã˜ÂºÂ¸Â°Ã­ Â¾Ã¸Ã€Â¸Â¸Ã© ÃƒÃŸÂ°Â¡.
 						QWORD key = GetOutputImageObjectID( pImageObject );
 
 						if (m_mapImageObject.find( key )
 							== m_mapImageObject.end())
 						{			
 							//----------------------------------------
-							// Key°ª = (Viewpoint << 32) | ID
+							// KeyÂ°Âª = (Viewpoint << 32) | ID
 							//----------------------------------------
-							// Viewpoint¿¡ ÀÇÇØ¼­ sortµÈ´Ù.
-							// Viewpoint¿Í ID¿¡ ÀÇÇØ¼­ Á¦°ÅÇÒ ¼ö ÀÖ´Ù.
+							// ViewpointÂ¿Â¡ Ã€Ã‡Ã‡Ã˜Â¼Â­ sortÂµÃˆÂ´Ã™.
+							// ViewpointÂ¿Ã IDÂ¿Â¡ Ã€Ã‡Ã‡Ã˜Â¼Â­ ÃÂ¦Â°Ã…Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã™.
 							//----------------------------------------
 							m_mapImageObject.insert(
 								IMAGEOBJECT_OUTPUT_MAP::value_type(
-									key,	// key°ª
+									key,	// keyÂ°Âª
 									pImageObject
 								)
 							);
@@ -12528,11 +12574,11 @@ MTopView::DetermineImageObject()
 //----------------------------------------------------------------------
 // Update ImageObject
 //----------------------------------------------------------------------
-// m_FirstPoint´Â ¹Ù·Î ÀüÀÇ~ È­¸é ÁÂÇ¥ÀÌ°í..
-// parameterÀÇ firstSector°¡ ÇöÀçÀÇ È­¸é ÁÂÇ¥ÀÌ´Ù.
+// m_FirstPointÂ´Ã‚ Â¹Ã™Â·Ã Ã€Ã¼Ã€Ã‡~ ÃˆÂ­Â¸Ã© ÃÃ‚Ã‡Â¥Ã€ÃŒÂ°Ã­..
+// parameterÃ€Ã‡ firstSectorÂ°Â¡ Ã‡Ã¶Ã€Ã§Ã€Ã‡ ÃˆÂ­Â¸Ã© ÃÃ‚Ã‡Â¥Ã€ÃŒÂ´Ã™.
 //
-// È­¸é¿¡¼­ ¾ø¾îÁö´Â ImageObject´Â m_mapImageObject¿¡¼­ ¾ø¾Ö°í
-// È­¸é¿¡ ³ªÅ¸³ª´Â ImageObject´Â m_mapImageObject¿¡ Ãß°¡ÇÑ´Ù.
+// ÃˆÂ­Â¸Ã©Â¿Â¡Â¼Â­ Â¾Ã¸Â¾Ã®ÃÃ¶Â´Ã‚ ImageObjectÂ´Ã‚ m_mapImageObjectÂ¿Â¡Â¼Â­ Â¾Ã¸Â¾Ã–Â°Ã­
+// ÃˆÂ­Â¸Ã©Â¿Â¡ Â³ÂªÃ…Â¸Â³ÂªÂ´Ã‚ ImageObjectÂ´Ã‚ m_mapImageObjectÂ¿Â¡ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void
 MTopView::UpdateImageObject(const POINT &newFirstSector)
@@ -12547,13 +12593,13 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 
 	//---------------------------------------------------------------
 	// 
-	//               ImageObject °»½Å
+	//               ImageObject Â°Â»Â½Ã…
 	//
 	//---------------------------------------------------------------
-	// newFirstSector¿Í m_FirstSector(¹Ù·Î ÀÌÀüÀÇ ÁÂÇ¥)¸¦ ºñ±³ÇØ¼­
-	// ´Ù¸¥ °æ¿ì... check~~ÇØ¾ßÇÑ´Ù.
+	// newFirstSectorÂ¿Ã m_FirstSector(Â¹Ã™Â·Ã Ã€ÃŒÃ€Ã¼Ã€Ã‡ ÃÃ‚Ã‡Â¥)Â¸Â¦ ÂºÃ±Â±Â³Ã‡Ã˜Â¼Â­
+	// Â´Ã™Â¸Â¥ Â°Ã¦Â¿Ã¬... check~~Ã‡Ã˜Â¾ÃŸÃ‡Ã‘Â´Ã™.
 	//---------------------------------------------------------------
-	// »óÇÏ·Î ÁÂÇ¥°¡ ´Ş¶óÁø °æ¿ì
+	// Â»Ã³Ã‡ÃÂ·Ã ÃÃ‚Ã‡Â¥Â°Â¡ Â´ÃÂ¶Ã³ÃÃ¸ Â°Ã¦Â¿Ã¬
 	//---------------------------------------------------------------
 	if (newFirstSector.y != m_FirstSector.y)
 	{		
@@ -12561,17 +12607,17 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 				sX2=newFirstSector.x + g_SECTOR_WIDTH+1, 
 				sX01=m_FirstSector.x + SECTOR_SKIP_LEFT, 
 				sX02=m_FirstSector.x + g_SECTOR_WIDTH+1, 
-				eraseY1, eraseY2,		// Áö¿ö¾ßµÉ °ÍµéÀÌ ÀÖ´Â ÁÙ
-				lastY,					// È­¸éÀÇ ¸¶Áö¸· ÁÙ(Áö¿ì¸é ¾ÈµÇ´Â °Íµé)
-				newY1, newY2;			// »õ·Î ³ªÅ¸³ª´Â °ÍµéÀÌ ÀÖ´Â ÁÙ
+				eraseY1, eraseY2,		// ÃÃ¶Â¿Ã¶Â¾ÃŸÂµÃ‰ Â°ÃÂµÃ©Ã€ÃŒ Ã€Ã–Â´Ã‚ ÃÃ™
+				lastY,					// ÃˆÂ­Â¸Ã©Ã€Ã‡ Â¸Â¶ÃÃ¶Â¸Â· ÃÃ™(ÃÃ¶Â¿Ã¬Â¸Ã© Â¾ÃˆÂµÃ‡Â´Ã‚ Â°ÃÂµÃ©)
+				newY1, newY2;			// Â»ÃµÂ·Ã Â³ÂªÃ…Â¸Â³ÂªÂ´Ã‚ Â°ÃÂµÃ©Ã€ÃŒ Ã€Ã–Â´Ã‚ ÃÃ™
 		
-		// Ã¼Å©ÇÒ ÇÊ¿ä°¡ ÀÖ´Â°¡?
+		// ÃƒÂ¼Ã…Â©Ã‡Ã’ Ã‡ÃŠÂ¿Ã¤Â°Â¡ Ã€Ã–Â´Ã‚Â°Â¡?
 		bool bCheckLast		= true;
 		bool bCheckErase	= true;
 		bool bCheckNew		= true;
 
 		//-----------------------------------
-		// Zone¿µ¿ªÀ» ¹ş¾î³ª´Â °æ¿ì
+		// ZoneÂ¿ÂµÂ¿ÂªÃ€Â» Â¹Ã¾Â¾Ã®Â³ÂªÂ´Ã‚ Â°Ã¦Â¿Ã¬
 		//-----------------------------------
 		if (sX2 >= m_pZone->GetWidth())
 		{
@@ -12594,39 +12640,39 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 		}
 
 		//-----------------------------------
-		// À§ÂÊÀ¸·Î ÀÌµ¿ÇÑ °æ¿ì
+		// Ã€Â§Ã‚ÃŠÃ€Â¸Â·Ã Ã€ÃŒÂµÂ¿Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 		//-----------------------------------
 		if (newFirstSector.y - m_FirstSector.y < 0)
 		{
-			// ¾Æ·¡ÂÊ¿¡¼­ »ç¶óÁö´Â °Ç¹°ÀÌ ÀÖ´ÂÁö È®ÀÎÇØºÁ¾ßÇÑ´Ù.
-			// --> ÀÌÀü È­¸éÀÇ ¸¶Áö¸· ÁÙ¿¡´Â ÀÖÁö¸¸,
-			//     ÇöÀç È­¸éÀÇ ¸¶Áö¸· ÁÙ¿¡´Â ¾ø´Â °ÍµéÀº »ç¶óÁö´Â °ÍÀÌ´Ù.
+			// Â¾Ã†Â·Â¡Ã‚ÃŠÂ¿Â¡Â¼Â­ Â»Ã§Â¶Ã³ÃÃ¶Â´Ã‚ Â°Ã‡Â¹Â°Ã€ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶ ÃˆÂ®Ã€ÃÃ‡Ã˜ÂºÃÂ¾ÃŸÃ‡Ã‘Â´Ã™.
+			// --> Ã€ÃŒÃ€Ã¼ ÃˆÂ­Â¸Ã©Ã€Ã‡ Â¸Â¶ÃÃ¶Â¸Â· ÃÃ™Â¿Â¡Â´Ã‚ Ã€Ã–ÃÃ¶Â¸Â¸,
+			//     Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ Â¸Â¶ÃÃ¶Â¸Â· ÃÃ™Â¿Â¡Â´Ã‚ Â¾Ã¸Â´Ã‚ Â°ÃÂµÃ©Ã€Âº Â»Ã§Â¶Ã³ÃÃ¶Â´Ã‚ Â°ÃÃ€ÃŒÂ´Ã™.
 			
-			// ´Ù½Ã »ì¸± °Í
-			lastY	= newFirstSector.y + g_SECTOR_HEIGHT+1;	// ÇöÀç È­¸éÀÇ ¸¶Áö¸· ÁÙ
+			// Â´Ã™Â½Ãƒ Â»Ã¬Â¸Â± Â°Ã
+			lastY	= newFirstSector.y + g_SECTOR_HEIGHT+1;	// Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ Â¸Â¶ÃÃ¶Â¸Â· ÃÃ™
 
-			// Áö¿ö¾ß µÉ °Í : lasyY+1 ~ eraseY
+			// ÃÃ¶Â¿Ã¶Â¾ÃŸ ÂµÃ‰ Â°Ã : lasyY+1 ~ eraseY
 			eraseY1	= lastY+1;							
-			eraseY2	= m_FirstSector.y + g_SECTOR_HEIGHT+1;	// ÀÌÀü È­¸éÀÇ ¸¶Áö¸· ÁÙ			
+			eraseY2	= m_FirstSector.y + g_SECTOR_HEIGHT+1;	// Ã€ÃŒÃ€Ã¼ ÃˆÂ­Â¸Ã©Ã€Ã‡ Â¸Â¶ÃÃ¶Â¸Â· ÃÃ™			
 
-			// »õ·Î ³ªÅ¸³ª´Â °Í
+			// Â»ÃµÂ·Ã Â³ÂªÃ…Â¸Â³ÂªÂ´Ã‚ Â°Ã
 			newY1	= newFirstSector.y + SECTOR_SKIP_UP;
 			newY2	= m_FirstSector.y + SECTOR_SKIP_UP - 1;
 
 			//------------------------------------------------------
-			// ZoneÀÇ ¿µ¿ªÀÌ ¾Æ´Ñ °æ¿ì¿¡ Skip...
+			// ZoneÃ€Ã‡ Â¿ÂµÂ¿ÂªÃ€ÃŒ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡ Skip...
 			//------------------------------------------------------
 			if (lastY >= m_pZone->GetHeight())
 			{
 				//lastY = m_pZone->GetHeight()-1;				
-				// »ì¸± ÇÊ¿ä ¾ø´Ù.
+				// Â»Ã¬Â¸Â± Ã‡ÃŠÂ¿Ã¤ Â¾Ã¸Â´Ã™.
 				bCheckLast = false;
 			}
 
 			if (eraseY1 >= m_pZone->GetHeight())
 			{
 				//eraseY1 = m_pZone->GetHeight()-1;
-				// eraseÇÒ ÇÊ¿ä ¾ø´Ù. 
+				// eraseÃ‡Ã’ Ã‡ÃŠÂ¿Ã¤ Â¾Ã¸Â´Ã™. 
 				bCheckErase = false;
 			}
 			else if (eraseY2 >= m_pZone->GetHeight())
@@ -12637,7 +12683,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 			if (newY2 < 0) 
 			{				
 				//newY2 = 0;
-				// newÇÒ ÇÊ¿ä ¾ø´Ù.
+				// newÃ‡Ã’ Ã‡ÃŠÂ¿Ã¤ Â¾Ã¸Â´Ã™.
 				bCheckNew = false;
 			}		
 			else if (newY1 < 0) 
@@ -12647,23 +12693,23 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 			
 		}
 		//-----------------------------------
-		// ¾Æ·¡ÂÊÀ¸·Î ÀÌµ¿ÇÑ °æ¿ì
+		// Â¾Ã†Â·Â¡Ã‚ÃŠÃ€Â¸Â·Ã Ã€ÃŒÂµÂ¿Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 		//-----------------------------------
 		else
 		{	
-			// ´Ù½Ã »ì¸± °Í
-			lastY	= newFirstSector.y + SECTOR_SKIP_UP;	// ÇöÀç È­¸éÀÇ ¸¶Áö¸· ÁÙ
+			// Â´Ã™Â½Ãƒ Â»Ã¬Â¸Â± Â°Ã
+			lastY	= newFirstSector.y + SECTOR_SKIP_UP;	// Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ Â¸Â¶ÃÃ¶Â¸Â· ÃÃ™
 
-			// Áö¿ö¾ßµÉ °Í : eraseY ~ lastY-1
-			eraseY1	= m_FirstSector.y + SECTOR_SKIP_UP;	// ÀÌÀü È­¸éÀÇ ¸¶Áö¸· ÁÙ
+			// ÃÃ¶Â¿Ã¶Â¾ÃŸÂµÃ‰ Â°Ã : eraseY ~ lastY-1
+			eraseY1	= m_FirstSector.y + SECTOR_SKIP_UP;	// Ã€ÃŒÃ€Ã¼ ÃˆÂ­Â¸Ã©Ã€Ã‡ Â¸Â¶ÃÃ¶Â¸Â· ÃÃ™
 			eraseY2	= lastY-1;		
 
-			// »õ·Î ³ªÅ¸³ª´Â °Í
+			// Â»ÃµÂ·Ã Â³ÂªÃ…Â¸Â³ÂªÂ´Ã‚ Â°Ã
 			newY1	= m_FirstSector.y + g_SECTOR_HEIGHT+1 + 1;
 			newY2	= newFirstSector.y + g_SECTOR_HEIGHT+1;
 
 			//------------------------------------------------------
-			// ZoneÀÇ ¿µ¿ªÀÌ ¾Æ´Ñ °æ¿ì¿¡ Skip...
+			// ZoneÃ€Ã‡ Â¿ÂµÂ¿ÂªÃ€ÃŒ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡ Skip...
 			//------------------------------------------------------				
 			if (lastY < 0) 
 			{				
@@ -12695,9 +12741,9 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 		
 
 		//----------------------------------------------
-		// erase1 ~ erase2±îÁö´Â Áö¿ï¸¸ÇÑ(?) °Íµé.
+		// erase1 ~ erase2Â±Ã®ÃÃ¶Â´Ã‚ ÃÃ¶Â¿Ã¯Â¸Â¸Ã‡Ã‘(?) Â°ÃÂµÃ©.
 		//----------------------------------------------
-		// ÀÏ´Ü m_mapImageObject¿¡¼­ Áö¿î´Ù.
+		// Ã€ÃÂ´Ãœ m_mapImageObjectÂ¿Â¡Â¼Â­ ÃÃ¶Â¿Ã®Â´Ã™.
 		//----------------------------------------------
 		if (bCheckErase)
 		{
@@ -12707,21 +12753,21 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 				{
 					const MSector& sector = m_pZone->GetSector(x,y);
 
-					// ImageObject°¡ ÀÖ´Ù¸é.. ¸ğµÎ~ ±â¾ïÇØµĞ´Ù.
-					// ´Ü, Áßº¹À» Çã¿ëÇÏÁö ¾Ê´Â´Ù.
+					// ImageObjectÂ°Â¡ Ã€Ã–Â´Ã™Â¸Ã©.. Â¸Ã°ÂµÃ~ Â±Ã¢Â¾Ã¯Ã‡Ã˜ÂµÃÂ´Ã™.
+					// Â´Ãœ, ÃÃŸÂºÂ¹Ã€Â» Ã‡Ã£Â¿Ã«Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 					if (sector.IsExistImageObject())
 					{
 						OBJECT_MAP::const_iterator iImageObject = sector.GetImageObjectIterator();
 
-						// Sector¿¡ ÀÖ´Â ¸ğµç ImageObjectµéÀ» °Ë»öÇÑ´Ù.
+						// SectorÂ¿Â¡ Ã€Ã–Â´Ã‚ Â¸Ã°ÂµÃ§ ImageObjectÂµÃ©Ã€Â» Â°Ã‹Â»Ã¶Ã‡Ã‘Â´Ã™.
 						for (int i=0; i<sector.GetImageObjectSize(); i++)
 						{
 							MImageObject* const pImageObject = (MImageObject* const)((*iImageObject).second);
 							
 							//----------------------------------------
-							// Key°ª = (Viewpoint << 32) | ID
+							// KeyÂ°Âª = (Viewpoint << 32) | ID
 							//----------------------------------------
-							// ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎÇØº¸°í ÀÖÀ¸¸é Á¦°Å.
+							// Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶ ÃˆÂ®Ã€ÃÃ‡Ã˜ÂºÂ¸Â°Ã­ Ã€Ã–Ã€Â¸Â¸Ã© ÃÂ¦Â°Ã….
 							IMAGEOBJECT_OUTPUT_MAP::iterator iDelete = m_mapImageObject.find( GetOutputImageObjectID( pImageObject ) );
 							if (iDelete	!= m_mapImageObject.end())
 							{			
@@ -12736,7 +12782,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 		}
 
 		//----------------------------------------------
-		// lastY´Â ´Ù½Ã Ãß°¡ÇÑ´Ù.
+		// lastYÂ´Ã‚ Â´Ã™Â½Ãƒ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 		//----------------------------------------------
 		if (bCheckLast)
 		{
@@ -12744,35 +12790,35 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 			{
 				const MSector& sector = m_pZone->GetSector(x, lastY);
 
-				// ImageObject°¡ ÀÖÀ¸¸é..
+				// ImageObjectÂ°Â¡ Ã€Ã–Ã€Â¸Â¸Ã©..
 				if (sector.IsExistImageObject())
 				{
 					OBJECT_MAP::const_iterator iImageObject = sector.GetImageObjectIterator();
 
-					// Sector¿¡ ÀÖ´Â ¸ğµç ImageObjectµéÀ» °Ë»öÇÑ´Ù.
+					// SectorÂ¿Â¡ Ã€Ã–Â´Ã‚ Â¸Ã°ÂµÃ§ ImageObjectÂµÃ©Ã€Â» Â°Ã‹Â»Ã¶Ã‡Ã‘Â´Ã™.
 					for (i=0; i<sector.GetImageObjectSize(); i++)
 					{
 						MImageObject* const pImageObject = (MImageObject* const)((*iImageObject).second);
 
-						// Ãâ·Â ½ÃÁ¡ÀÌ µÆÀ¸¸é.. Ãß°¡ÇÑ´Ù.
-						//if (pImageObject->GetViewpoint()==y				// Á¤ÇØÁø ÁÙ
-						//	|| y==sY2-1									// ³¡ÁÙ
-						//	|| pImageObject->GetViewpoint() < sY1)		// Ã¹ÁÙ
+						// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ ÂµÃ†Ã€Â¸Â¸Ã©.. ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
+						//if (pImageObject->GetViewpoint()==y				// ÃÂ¤Ã‡Ã˜ÃÃ¸ ÃÃ™
+						//	|| y==sY2-1									// Â³Â¡ÃÃ™
+						//	|| pImageObject->GetViewpoint() < sY1)		// ÃƒÂ¹ÃÃ™
 						{		
 							QWORD key = GetOutputImageObjectID(pImageObject);
-							// ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎÇØº¸°í ¾øÀ¸¸é Ãß°¡.
+							// Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶ ÃˆÂ®Ã€ÃÃ‡Ã˜ÂºÂ¸Â°Ã­ Â¾Ã¸Ã€Â¸Â¸Ã© ÃƒÃŸÂ°Â¡.
 							if (m_mapImageObject.find( key )
 								== m_mapImageObject.end())
 							{			
 								//----------------------------------------
-								// Key°ª = (Viewpoint << 32) | ID
+								// KeyÂ°Âª = (Viewpoint << 32) | ID
 								//----------------------------------------
-								// Viewpoint¿¡ ÀÇÇØ¼­ sortµÈ´Ù.
-								// Viewpoint¿Í ID¿¡ ÀÇÇØ¼­ Á¦°ÅÇÒ ¼ö ÀÖ´Ù.
+								// ViewpointÂ¿Â¡ Ã€Ã‡Ã‡Ã˜Â¼Â­ sortÂµÃˆÂ´Ã™.
+								// ViewpointÂ¿Ã IDÂ¿Â¡ Ã€Ã‡Ã‡Ã˜Â¼Â­ ÃÂ¦Â°Ã…Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã™.
 								//----------------------------------------
 								m_mapImageObject.insert(
 									IMAGEOBJECT_OUTPUT_MAP::value_type(
-										key,	// key°ª
+										key,	// keyÂ°Âª
 										pImageObject
 									)
 								);
@@ -12786,7 +12832,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 		}
 
 		//----------------------------------------------
-		// »õ·Î ³ªÅ¸´Â °Íµé : newY1 ~ newY2
+		// Â»ÃµÂ·Ã Â³ÂªÃ…Â¸Â´Ã‚ Â°ÃÂµÃ© : newY1 ~ newY2
 		//----------------------------------------------
 		if (bCheckNew)
 		{
@@ -12796,35 +12842,35 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 				{
 					const MSector& sector = m_pZone->GetSector(x, y);
 
-					// ImageObject°¡ ÀÖÀ¸¸é..
+					// ImageObjectÂ°Â¡ Ã€Ã–Ã€Â¸Â¸Ã©..
 					if (sector.IsExistImageObject())
 					{
 						OBJECT_MAP::const_iterator iImageObject = sector.GetImageObjectIterator();
 
-						// Sector¿¡ ÀÖ´Â ¸ğµç ImageObjectµéÀ» °Ë»öÇÑ´Ù.
+						// SectorÂ¿Â¡ Ã€Ã–Â´Ã‚ Â¸Ã°ÂµÃ§ ImageObjectÂµÃ©Ã€Â» Â°Ã‹Â»Ã¶Ã‡Ã‘Â´Ã™.
 						for (i=0; i<sector.GetImageObjectSize(); i++)
 						{
 							MImageObject* const pImageObject = (MImageObject* const)((*iImageObject).second);
 							
-							// Ãâ·Â ½ÃÁ¡ÀÌ µÆÀ¸¸é.. Ãß°¡ÇÑ´Ù.						
-							//if (viewPoint==y				// Á¤ÇØÁø ÁÙ
-							//	|| viewPoint > newY2									// ³¡ÁÙ
-							//	|| viewPoint < newY1)		// Ã¹ÁÙ
+							// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ ÂµÃ†Ã€Â¸Â¸Ã©.. ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.						
+							//if (viewPoint==y				// ÃÂ¤Ã‡Ã˜ÃÃ¸ ÃÃ™
+							//	|| viewPoint > newY2									// Â³Â¡ÃÃ™
+							//	|| viewPoint < newY1)		// ÃƒÂ¹ÃÃ™
 							{						
-								// ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎÇØº¸°í ¾øÀ¸¸é Ãß°¡.
+								// Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶ ÃˆÂ®Ã€ÃÃ‡Ã˜ÂºÂ¸Â°Ã­ Â¾Ã¸Ã€Â¸Â¸Ã© ÃƒÃŸÂ°Â¡.
 								QWORD key = GetOutputImageObjectID( pImageObject );
 
 								if (m_mapImageObject.find( key ) == m_mapImageObject.end())
 								{			
 									//----------------------------------------
-									// Key°ª = (Viewpoint << 32) | ID
+									// KeyÂ°Âª = (Viewpoint << 32) | ID
 									//----------------------------------------
-									// Viewpoint¿¡ ÀÇÇØ¼­ sortµÈ´Ù.
-									// Viewpoint¿Í ID¿¡ ÀÇÇØ¼­ Á¦°ÅÇÒ ¼ö ÀÖ´Ù.
+									// ViewpointÂ¿Â¡ Ã€Ã‡Ã‡Ã˜Â¼Â­ sortÂµÃˆÂ´Ã™.
+									// ViewpointÂ¿Ã IDÂ¿Â¡ Ã€Ã‡Ã‡Ã˜Â¼Â­ ÃÂ¦Â°Ã…Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã™.
 									//----------------------------------------
 									m_mapImageObject.insert(
 										IMAGEOBJECT_OUTPUT_MAP::value_type(
-											key,	// key°ª
+											key,	// keyÂ°Âª
 											pImageObject
 										)
 									);
@@ -12841,7 +12887,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 	}
 
 	//---------------------------------------------------------------
-	// ÁÂ¿ì·Î ÁÂÇ¥°¡ ´Ş¶óÁø °æ¿ì
+	// ÃÃ‚Â¿Ã¬Â·Ã ÃÃ‚Ã‡Â¥Â°Â¡ Â´ÃÂ¶Ã³ÃÃ¸ Â°Ã¦Â¿Ã¬
 	//---------------------------------------------------------------
 	if (newFirstSector.x != m_FirstSector.x)
 	{
@@ -12849,17 +12895,17 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 				sY2=newFirstSector.y + g_SECTOR_HEIGHT+1, 
 				sY01=m_FirstSector.y + SECTOR_SKIP_UP, 
 				sY02=m_FirstSector.y + g_SECTOR_HEIGHT+1, 
-				eraseX1, eraseX2,		// Áö¿ö¾ßµÉ °ÍµéÀÌ ÀÖ´Â ÁÙ
-				lastX,					// È­¸éÀÇ ¸¶Áö¸· ÁÙ(Áö¿ì¸é ¾ÈµÇ´Â °Íµé)
-				newX1, newX2;			// »õ·Î ³ªÅ¸³ª´Â °ÍµéÀÌ ÀÖ´Â ÁÙ
+				eraseX1, eraseX2,		// ÃÃ¶Â¿Ã¶Â¾ÃŸÂµÃ‰ Â°ÃÂµÃ©Ã€ÃŒ Ã€Ã–Â´Ã‚ ÃÃ™
+				lastX,					// ÃˆÂ­Â¸Ã©Ã€Ã‡ Â¸Â¶ÃÃ¶Â¸Â· ÃÃ™(ÃÃ¶Â¿Ã¬Â¸Ã© Â¾ÃˆÂµÃ‡Â´Ã‚ Â°ÃÂµÃ©)
+				newX1, newX2;			// Â»ÃµÂ·Ã Â³ÂªÃ…Â¸Â³ÂªÂ´Ã‚ Â°ÃÂµÃ©Ã€ÃŒ Ã€Ã–Â´Ã‚ ÃÃ™
 
-		// Ã¼Å©ÇÒ ÇÊ¿ä°¡ ÀÖ´Â°¡?
+		// ÃƒÂ¼Ã…Â©Ã‡Ã’ Ã‡ÃŠÂ¿Ã¤Â°Â¡ Ã€Ã–Â´Ã‚Â°Â¡?
 		bool bCheckLast		= true;
 		bool bCheckErase	= true;
 		bool bCheckNew		= true;
 
 		//-----------------------------------
-		// Zone¿µ¿ªÀ» ¹ş¾î³ª´Â °æ¿ì
+		// ZoneÂ¿ÂµÂ¿ÂªÃ€Â» Â¹Ã¾Â¾Ã®Â³ÂªÂ´Ã‚ Â°Ã¦Â¿Ã¬
 		//-----------------------------------
 		if (sY2 >= m_pZone->GetHeight())
 		{
@@ -12882,27 +12928,27 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 		}
 
 		//-----------------------------------
-		// ¿ŞÂÊÀ¸·Î ÀÌµ¿ÇÑ °æ¿ì
+		// Â¿ÃÃ‚ÃŠÃ€Â¸Â·Ã Ã€ÃŒÂµÂ¿Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 		//-----------------------------------
 		if (newFirstSector.x - m_FirstSector.x < 0)
 		{
-			// ¿À¸¥ÂÊ¿¡¼­ »ç¶óÁö´Â °Ç¹°ÀÌ ÀÖ´ÂÁö È®ÀÎÇØºÁ¾ßÇÑ´Ù.
-			// --> ÀÌÀü È­¸éÀÇ ¸¶Áö¸· ÁÙ¿¡´Â ÀÖÁö¸¸,
-			//     ÇöÀç È­¸éÀÇ ¸¶Áö¸· ÁÙ¿¡´Â ¾ø´Â °ÍµéÀº »ç¶óÁö´Â °ÍÀÌ´Ù.
+			// Â¿Ã€Â¸Â¥Ã‚ÃŠÂ¿Â¡Â¼Â­ Â»Ã§Â¶Ã³ÃÃ¶Â´Ã‚ Â°Ã‡Â¹Â°Ã€ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶ ÃˆÂ®Ã€ÃÃ‡Ã˜ÂºÃÂ¾ÃŸÃ‡Ã‘Â´Ã™.
+			// --> Ã€ÃŒÃ€Ã¼ ÃˆÂ­Â¸Ã©Ã€Ã‡ Â¸Â¶ÃÃ¶Â¸Â· ÃÃ™Â¿Â¡Â´Ã‚ Ã€Ã–ÃÃ¶Â¸Â¸,
+			//     Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ Â¸Â¶ÃÃ¶Â¸Â· ÃÃ™Â¿Â¡Â´Ã‚ Â¾Ã¸Â´Ã‚ Â°ÃÂµÃ©Ã€Âº Â»Ã§Â¶Ã³ÃÃ¶Â´Ã‚ Â°ÃÃ€ÃŒÂ´Ã™.
 			
-			// ´Ù½Ã »ì¸± °Í
-			lastX	= newFirstSector.x + g_SECTOR_WIDTH+1;	// ÇöÀç È­¸éÀÇ ¸¶Áö¸· ÁÙ
+			// Â´Ã™Â½Ãƒ Â»Ã¬Â¸Â± Â°Ã
+			lastX	= newFirstSector.x + g_SECTOR_WIDTH+1;	// Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ Â¸Â¶ÃÃ¶Â¸Â· ÃÃ™
 
-			// Áö¿ö¾ß µÉ °Í : lasyX+1 ~ eraseX
+			// ÃÃ¶Â¿Ã¶Â¾ÃŸ ÂµÃ‰ Â°Ã : lasyX+1 ~ eraseX
 			eraseX1	= lastX+1;							
-			eraseX2	= m_FirstSector.x + g_SECTOR_WIDTH+1;	// ÀÌÀü È­¸éÀÇ ¸¶Áö¸· ÁÙ			
+			eraseX2	= m_FirstSector.x + g_SECTOR_WIDTH+1;	// Ã€ÃŒÃ€Ã¼ ÃˆÂ­Â¸Ã©Ã€Ã‡ Â¸Â¶ÃÃ¶Â¸Â· ÃÃ™			
 
-			// »õ·Î ³ªÅ¸³ª´Â °Í
+			// Â»ÃµÂ·Ã Â³ÂªÃ…Â¸Â³ÂªÂ´Ã‚ Â°Ã
 			newX1	= newFirstSector.x + SECTOR_SKIP_LEFT;
 			newX2	= m_FirstSector.x + SECTOR_SKIP_LEFT - 1;
 
 			//------------------------------------------------------
-			// ZoneÀÇ ¿µ¿ªÀÌ ¾Æ´Ñ °æ¿ì¿¡ Skip...
+			// ZoneÃ€Ã‡ Â¿ÂµÂ¿ÂªÃ€ÃŒ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡ Skip...
 			//------------------------------------------------------
 			if (lastX >= m_pZone->GetWidth())
 			{
@@ -12932,25 +12978,25 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 			
 		}
 		//-----------------------------------
-		// ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿ÇÑ °æ¿ì
+		// Â¿Ã€Â¸Â¥Ã‚ÃŠÃ€Â¸Â·Ã Ã€ÃŒÂµÂ¿Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 		//-----------------------------------
 		else
 		{	
-			// Á¦°Å             Ãß°¡      Ãß°¡
+			// ÃÂ¦Â°Ã…             ÃƒÃŸÂ°Â¡      ÃƒÃŸÂ°Â¡
 			// eraseX1~eraseX2~lastX ~~~~ newX1~newX2
-			// ´Ù½Ã »ì¸± °Í
-			lastX	= newFirstSector.x + SECTOR_SKIP_LEFT;	// ÇöÀç È­¸éÀÇ ¸¶Áö¸· ÁÙ
+			// Â´Ã™Â½Ãƒ Â»Ã¬Â¸Â± Â°Ã
+			lastX	= newFirstSector.x + SECTOR_SKIP_LEFT;	// Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ Â¸Â¶ÃÃ¶Â¸Â· ÃÃ™
 
-			// Áö¿ö¾ßµÉ °Í : eraseX ~ lastX-1
-			eraseX1	= m_FirstSector.x + SECTOR_SKIP_LEFT;	// ÀÌÀü È­¸éÀÇ ¸¶Áö¸· ÁÙ
+			// ÃÃ¶Â¿Ã¶Â¾ÃŸÂµÃ‰ Â°Ã : eraseX ~ lastX-1
+			eraseX1	= m_FirstSector.x + SECTOR_SKIP_LEFT;	// Ã€ÃŒÃ€Ã¼ ÃˆÂ­Â¸Ã©Ã€Ã‡ Â¸Â¶ÃÃ¶Â¸Â· ÃÃ™
 			eraseX2	= lastX-1;		
 
-			// »õ·Î ³ªÅ¸³ª´Â °Í
+			// Â»ÃµÂ·Ã Â³ÂªÃ…Â¸Â³ÂªÂ´Ã‚ Â°Ã
 			newX1	= m_FirstSector.x + g_SECTOR_WIDTH+1 + 1;
 			newX2	= newFirstSector.x + g_SECTOR_WIDTH+1;
 
 			//------------------------------------------------------
-			// ZoneÀÇ ¿µ¿ªÀÌ ¾Æ´Ñ °æ¿ì¿¡ Skip...
+			// ZoneÃ€Ã‡ Â¿ÂµÂ¿ÂªÃ€ÃŒ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡ Skip...
 			//------------------------------------------------------				
 			if (lastX < 0) 
 			{				
@@ -12981,9 +13027,9 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 		
 
 		//----------------------------------------------
-		// erase1 ~ erase2±îÁö´Â Áö¿ï¸¸ÇÑ(?) °Íµé.
+		// erase1 ~ erase2Â±Ã®ÃÃ¶Â´Ã‚ ÃÃ¶Â¿Ã¯Â¸Â¸Ã‡Ã‘(?) Â°ÃÂµÃ©.
 		//----------------------------------------------
-		// ÀÏ´Ü m_mapImageObject¿¡¼­ Áö¿î´Ù.
+		// Ã€ÃÂ´Ãœ m_mapImageObjectÂ¿Â¡Â¼Â­ ÃÃ¶Â¿Ã®Â´Ã™.
 		//----------------------------------------------
 		if (bCheckErase)
 		{
@@ -12993,21 +13039,21 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 				{
 					const MSector& sector = m_pZone->GetSector(x,y);
 
-					// ImageObject°¡ ÀÖ´Ù¸é.. ¸ğµÎ~ ±â¾ïÇØµĞ´Ù.
-					// ´Ü, Áßº¹À» Çã¿ëÇÏÁö ¾Ê´Â´Ù.
+					// ImageObjectÂ°Â¡ Ã€Ã–Â´Ã™Â¸Ã©.. Â¸Ã°ÂµÃ~ Â±Ã¢Â¾Ã¯Ã‡Ã˜ÂµÃÂ´Ã™.
+					// Â´Ãœ, ÃÃŸÂºÂ¹Ã€Â» Ã‡Ã£Â¿Ã«Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 					if (sector.IsExistImageObject())
 					{
 						OBJECT_MAP::const_iterator iImageObject = sector.GetImageObjectIterator();
 
-						// Sector¿¡ ÀÖ´Â ¸ğµç ImageObjectµéÀ» °Ë»öÇÑ´Ù.
+						// SectorÂ¿Â¡ Ã€Ã–Â´Ã‚ Â¸Ã°ÂµÃ§ ImageObjectÂµÃ©Ã€Â» Â°Ã‹Â»Ã¶Ã‡Ã‘Â´Ã™.
 						for (i=0; i<sector.GetImageObjectSize(); i++)
 						{
 							MImageObject* const pImageObject = (MImageObject* const)((*iImageObject).second);
 							
 							//----------------------------------------
-							// Key°ª = (Viewpoint << 32) | ID
+							// KeyÂ°Âª = (Viewpoint << 32) | ID
 							//----------------------------------------
-							// ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎÇØº¸°í ÀÖÀ¸¸é Á¦°Å.
+							// Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶ ÃˆÂ®Ã€ÃÃ‡Ã˜ÂºÂ¸Â°Ã­ Ã€Ã–Ã€Â¸Â¸Ã© ÃÂ¦Â°Ã….
 							IMAGEOBJECT_OUTPUT_MAP::iterator iDelete = m_mapImageObject.find( GetOutputImageObjectID( pImageObject ) );
 							if (iDelete	!= m_mapImageObject.end())
 							{			
@@ -13022,7 +13068,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 		}
 
 		//----------------------------------------------
-		// lastX´Â ´Ù½Ã Ãß°¡ÇÑ´Ù.
+		// lastXÂ´Ã‚ Â´Ã™Â½Ãƒ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 		//----------------------------------------------
 		if (bCheckLast)
 		{
@@ -13030,36 +13076,36 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 			{
 				const MSector& sector = m_pZone->GetSector(lastX, y);
 
-				// ImageObject°¡ ÀÖÀ¸¸é..
+				// ImageObjectÂ°Â¡ Ã€Ã–Ã€Â¸Â¸Ã©..
 				if (sector.IsExistImageObject())
 				{
 					OBJECT_MAP::const_iterator iImageObject = sector.GetImageObjectIterator();
 
-					// Sector¿¡ ÀÖ´Â ¸ğµç ImageObjectµéÀ» °Ë»öÇÑ´Ù.
+					// SectorÂ¿Â¡ Ã€Ã–Â´Ã‚ Â¸Ã°ÂµÃ§ ImageObjectÂµÃ©Ã€Â» Â°Ã‹Â»Ã¶Ã‡Ã‘Â´Ã™.
 					for (i=0; i<sector.GetImageObjectSize(); i++)
 					{
 						MImageObject* const pImageObject = (MImageObject* const)((*iImageObject).second);
 						
-						// Ãâ·Â ½ÃÁ¡ÀÌ µÆÀ¸¸é.. Ãß°¡ÇÑ´Ù.
-						//if (pImageObject->GetViewpoint()==y				// Á¤ÇØÁø ÁÙ
-							//|| y==sY2-1									// ³¡ÁÙ
-							//|| pImageObject->GetViewpoint() < sY1)		// Ã¹ÁÙ
+						// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ ÂµÃ†Ã€Â¸Â¸Ã©.. ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
+						//if (pImageObject->GetViewpoint()==y				// ÃÂ¤Ã‡Ã˜ÃÃ¸ ÃÃ™
+							//|| y==sY2-1									// Â³Â¡ÃÃ™
+							//|| pImageObject->GetViewpoint() < sY1)		// ÃƒÂ¹ÃÃ™
 						{						
-							// ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎÇØº¸°í ¾øÀ¸¸é Ãß°¡.
+							// Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶ ÃˆÂ®Ã€ÃÃ‡Ã˜ÂºÂ¸Â°Ã­ Â¾Ã¸Ã€Â¸Â¸Ã© ÃƒÃŸÂ°Â¡.
 							QWORD key = GetOutputImageObjectID( pImageObject );
 
 							if (m_mapImageObject.find( key )
 								== m_mapImageObject.end())
 							{			
 								//----------------------------------------
-								// Key°ª = (Viewpoint << 32) | ID
+								// KeyÂ°Âª = (Viewpoint << 32) | ID
 								//----------------------------------------
-								// Viewpoint¿¡ ÀÇÇØ¼­ sortµÈ´Ù.
-								// Viewpoint¿Í ID¿¡ ÀÇÇØ¼­ Á¦°ÅÇÒ ¼ö ÀÖ´Ù.
+								// ViewpointÂ¿Â¡ Ã€Ã‡Ã‡Ã˜Â¼Â­ sortÂµÃˆÂ´Ã™.
+								// ViewpointÂ¿Ã IDÂ¿Â¡ Ã€Ã‡Ã‡Ã˜Â¼Â­ ÃÂ¦Â°Ã…Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã™.
 								//----------------------------------------
 								m_mapImageObject.insert(
 									IMAGEOBJECT_OUTPUT_MAP::value_type(
-										key,	// key°ª
+										key,	// keyÂ°Âª
 										pImageObject
 									)
 								);
@@ -13073,7 +13119,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 		}
 
 		//----------------------------------------------
-		// »õ·Î ³ªÅ¸´Â °Íµé : newX1 ~ newX2
+		// Â»ÃµÂ·Ã Â³ÂªÃ…Â¸Â´Ã‚ Â°ÃÂµÃ© : newX1 ~ newX2
 		//----------------------------------------------
 		if (bCheckNew)
 		{
@@ -13083,36 +13129,36 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 				{
 					const MSector& sector = m_pZone->GetSector(x, y);
 
-					// ImageObject°¡ ÀÖÀ¸¸é..
+					// ImageObjectÂ°Â¡ Ã€Ã–Ã€Â¸Â¸Ã©..
 					if (sector.IsExistImageObject())
 					{
 						OBJECT_MAP::const_iterator iImageObject = sector.GetImageObjectIterator();
 
-						// Sector¿¡ ÀÖ´Â ¸ğµç ImageObjectµéÀ» °Ë»öÇÑ´Ù.
+						// SectorÂ¿Â¡ Ã€Ã–Â´Ã‚ Â¸Ã°ÂµÃ§ ImageObjectÂµÃ©Ã€Â» Â°Ã‹Â»Ã¶Ã‡Ã‘Â´Ã™.
 						for (i=0; i<sector.GetImageObjectSize(); i++)
 						{
 							MImageObject* const pImageObject = (MImageObject* const)((*iImageObject).second);
 						
-							// Ãâ·Â ½ÃÁ¡ÀÌ µÆÀ¸¸é.. Ãß°¡ÇÑ´Ù.
-							//if (viewPoint<=y			// À§¿¡ ²¨
-							//	|| viewPoint > sY2)		// ³¡ÁÙ
-								//|| viewPoint < newX1)		// Ã¹ÁÙ
+							// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ ÂµÃ†Ã€Â¸Â¸Ã©.. ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
+							//if (viewPoint<=y			// Ã€Â§Â¿Â¡ Â²Â¨
+							//	|| viewPoint > sY2)		// Â³Â¡ÃÃ™
+								//|| viewPoint < newX1)		// ÃƒÂ¹ÃÃ™
 							{								
-								// ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎÇØº¸°í ¾øÀ¸¸é Ãß°¡.
+								// Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶ ÃˆÂ®Ã€ÃÃ‡Ã˜ÂºÂ¸Â°Ã­ Â¾Ã¸Ã€Â¸Â¸Ã© ÃƒÃŸÂ°Â¡.
 								QWORD key = GetOutputImageObjectID( pImageObject );
 
 								if (m_mapImageObject.find( key )
 									== m_mapImageObject.end())
 								{			
 									//----------------------------------------
-									// Key°ª = (Viewpoint << 32) | ID
+									// KeyÂ°Âª = (Viewpoint << 32) | ID
 									//----------------------------------------
-									// Viewpoint¿¡ ÀÇÇØ¼­ sortµÈ´Ù.
-									// Viewpoint¿Í ID¿¡ ÀÇÇØ¼­ Á¦°ÅÇÒ ¼ö ÀÖ´Ù.
+									// ViewpointÂ¿Â¡ Ã€Ã‡Ã‡Ã˜Â¼Â­ sortÂµÃˆÂ´Ã™.
+									// ViewpointÂ¿Ã IDÂ¿Â¡ Ã€Ã‡Ã‡Ã˜Â¼Â­ ÃÂ¦Â°Ã…Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã™.
 									//----------------------------------------
 									m_mapImageObject.insert(
 										IMAGEOBJECT_OUTPUT_MAP::value_type(
-											key,	// key°ª
+											key,	// keyÂ°Âª
 											pImageObject
 										)
 									);
@@ -13135,14 +13181,14 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 //----------------------------------------------------------------------
 // Draw Zone
 //----------------------------------------------------------------------
-// Pixel ÁÂÇ¥ÀÎ (Xp, Yp)°¡ 
-//       È­¸éÀÇ (0, 0)¿¡ ¿Àµµ·Ï ÇÏ¿© ³ª¸ÓÁö ºÎºĞÀ» Ãâ·ÂÇÑ´Ù.
+// Pixel ÃÃ‚Ã‡Â¥Ã€Ã (Xp, Yp)Â°Â¡ 
+//       ÃˆÂ­Â¸Ã©Ã€Ã‡ (0, 0)Â¿Â¡ Â¿Ã€ÂµÂµÂ·Ã Ã‡ÃÂ¿Â© Â³ÂªÂ¸Ã“ÃÃ¶ ÂºÃÂºÃÃ€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 //
-// pSurfaceÀÇ (X,Y)¿¡ ZoneÀÇ (Xp,Yp)ºÎºĞºÎÅÍ Ãâ·ÂÇÑ´Ù.
+// pSurfaceÃ€Ã‡ (X,Y)Â¿Â¡ ZoneÃ€Ã‡ (Xp,Yp)ÂºÃÂºÃÂºÃÃ…Ã ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 //
-// ÀÌÀü¿¡ Ãâ·ÂÇÑ TileÀ» ÀÌ¿ëÇØ¼­ ÇöÀç TileÀ» ±¸¼ºÇØÁØ µÚ,
-// ´Ù¸¥ Object¸¦ Ãâ·ÂÇÑ´Ù.
+// Ã€ÃŒÃ€Ã¼Â¿Â¡ ÃƒÃ¢Â·Ã‚Ã‡Ã‘ TileÃ€Â» Ã€ÃŒÂ¿Ã«Ã‡Ã˜Â¼Â­ Ã‡Ã¶Ã€Ã§ TileÃ€Â» Â±Â¸Â¼ÂºÃ‡Ã˜ÃÃ˜ ÂµÃš,
+// Â´Ã™Â¸Â¥ ObjectÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 //
 //----------------------------------------------------------------------
 void	
@@ -13153,18 +13199,18 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	#endif
 
 	//-------------------------------------------------
-	// ItemName list¸¦ Áö¿öÁØ´Ù.
+	// ItemName listÂ¸Â¦ ÃÃ¶Â¿Ã¶ÃÃ˜Â´Ã™.
 	//-------------------------------------------------
 	ClearItemNameList();	
 
 
-	// mouse·Î ¼±ÅÃµÈ Ä³¸¯ÅÍ..
+	// mouseÂ·Ã Â¼Â±Ã…ÃƒÂµÃˆ Ã„Â³Â¸Â¯Ã…Ã..
 	m_pSelectedCreature = NULL;
 
 
 	//-------------------------------------------------
 	//
-	// Object¸¦ Ãâ·ÂÇÏ±â À§ÇÑ Á¤º¸
+	// ObjectÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ±Ã¢ Ã€Â§Ã‡Ã‘ ÃÂ¤ÂºÂ¸
 	//
 	//-------------------------------------------------
 	// pointer variable
@@ -13180,7 +13226,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	register int i;
 
 	//-------------------------------------------------
-	// Player¸¦ °¡¸®´Â ImageObjectµé¿¡ ´ëÇÑ Á¤º¸
+	// PlayerÂ¸Â¦ Â°Â¡Â¸Â®Â´Ã‚ ImageObjectÂµÃ©Â¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¤ÂºÂ¸
 	//-------------------------------------------------
 	//if (m_pZone->GetSector(g_pPlayer->GetX(), g_pPlayer->GetY()).IsImageObjectAndNotBlock())
 	//{
@@ -13193,8 +13239,8 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	
 
 	//-------------------------------------------------
-	// Ã¹ Sector°¡ Ãâ·ÂµÉ ÁÂÇ¥ º¸Á¤(smooth scrollÀ» À§ÇØ¼­)
-	// PlayerÀÇ ÁÂÇ¥¸¦ Áß½ÉÀ¸·Î ÇØ¼­ Á¤ÇÑ´Ù.
+	// ÃƒÂ¹ SectorÂ°Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‰ ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤(smooth scrollÃ€Â» Ã€Â§Ã‡Ã˜Â¼Â­)
+	// PlayerÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ ÃÃŸÂ½Ã‰Ã€Â¸Â·Ã Ã‡Ã˜Â¼Â­ ÃÂ¤Ã‡Ã‘Â´Ã™.
 	//-------------------------------------------------
 	m_PlusPoint.x = g_pPlayer->GetSX() - firstPointX;
 	m_PlusPoint.y = g_pPlayer->GetSY() - firstPointY;
@@ -13203,20 +13249,20 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 
 	//---------------------------------------------------------------	
-	// firstPoint¿¡ Ãâ·ÂµÉ Zone¿¡¼­ÀÇ Ã¹¹øÂ° Sector
+	// firstPointÂ¿Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‰ ZoneÂ¿Â¡Â¼Â­Ã€Ã‡ ÃƒÂ¹Â¹Ã¸Ã‚Â° Sector
 	//---------------------------------------------------------------	
-	// Player¸¦ Áß½ÉÀ¸·Î ÇØ¼­ Ãâ·ÂÇØ¾ßÇÏ±â ¶§¹®¿¡
-	// ¿ŞÂÊ~~~~ À§~ ºÎÅÍ Ãâ·ÂÇÑ´Ù.
+	// PlayerÂ¸Â¦ ÃÃŸÂ½Ã‰Ã€Â¸Â·Ã Ã‡Ã˜Â¼Â­ ÃƒÃ¢Â·Ã‚Ã‡Ã˜Â¾ÃŸÃ‡ÃÂ±Ã¢ Â¶Â§Â¹Â®Â¿Â¡
+	// Â¿ÃÃ‚ÃŠ~~~~ Ã€Â§~ ÂºÃÃ…Ã ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 	//---------------------------------------------------------------	
 	POINT	firstSector;
 	firstSector.x = g_pPlayer->GetX() + g_SECTOR_SKIP_PLAYER_LEFT;
 	firstSector.y = g_pPlayer->GetY() + g_SECTOR_SKIP_PLAYER_UP;
 
 	//---------------------------------------------------------------	
-	// ZoneÀÇ °æ°è¿¡ °¬À» ¶§,
-	// °ËÀº ºÎºĞ ¾È º¸ÀÌ°Ô ÇÏ±â..
+	// ZoneÃ€Ã‡ Â°Ã¦Â°Ã¨Â¿Â¡ Â°Â¬Ã€Â» Â¶Â§,
+	// Â°Ã‹Ã€Âº ÂºÃÂºÃ Â¾Ãˆ ÂºÂ¸Ã€ÃŒÂ°Ã” Ã‡ÃÂ±Ã¢..
 	//---------------------------------------------------------------	
-	// X ÁÂÇ¥ ¸ÂÃß±â..
+	// X ÃÃ‚Ã‡Â¥ Â¸Ã‚ÃƒÃŸÂ±Ã¢..
 	//---------------------------------------------------------------	
 	if (firstSector.x <= 0)
 	{
@@ -13256,7 +13302,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	}
 
 	//---------------------------------------------------------------	
-	// Y ÁÂÇ¥ ¸ÂÃß±â
+	// Y ÃÃ‚Ã‡Â¥ Â¸Ã‚ÃƒÃŸÂ±Ã¢
 	//---------------------------------------------------------------	
 	if (firstSector.y <= 0)
 	{
@@ -13296,7 +13342,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	}
 
 	//---------------------------------------------------------------
-	// »õ·Î ³ªÅ¸³ª°Å³ª È­¸é¿¡¼­ ¾ø¾îÁö´Â ImageObject°Ë»ö
+	// Â»ÃµÂ·Ã Â³ÂªÃ…Â¸Â³ÂªÂ°Ã…Â³Âª ÃˆÂ­Â¸Ã©Â¿Â¡Â¼Â­ Â¾Ã¸Â¾Ã®ÃÃ¶Â´Ã‚ ImageObjectÂ°Ã‹Â»Ã¶
 	//---------------------------------------------------------------
 	// 2001.8.22
 
@@ -13308,13 +13354,13 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 	
 	//---------------------------------------------------------------
-	// ¿ÜºÎ¿¡¼­ ÇÊ¿äÇÑ Á¤º¸¸¦ »ı¼º..
-	// È­¸é »óÀÇ Ã¹ À§Ä¡¿¡ Ãâ·ÂµÇ´Â SectorÀÇ ÁÂÇ¥
+	// Â¿ÃœÂºÃÂ¿Â¡Â¼Â­ Ã‡ÃŠÂ¿Ã¤Ã‡Ã‘ ÃÂ¤ÂºÂ¸Â¸Â¦ Â»Ã½Â¼Âº..
+	// ÃˆÂ­Â¸Ã© Â»Ã³Ã€Ã‡ ÃƒÂ¹ Ã€Â§Ã„Â¡Â¿Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ SectorÃ€Ã‡ ÃÃ‚Ã‡Â¥
 	//---------------------------------------------------------------
 	m_FirstSector	= firstSector;	
 
 	//---------------------------------------------------------------
-	// È­¸éÀÇ (0,0)ÀÌ ³ªÅ¸³»´Â ZoneÀÇ PixelÁÂÇ¥
+	// ÃˆÂ­Â¸Ã©Ã€Ã‡ (0,0)Ã€ÃŒ Â³ÂªÃ…Â¸Â³Â»Â´Ã‚ ZoneÃ€Ã‡ PixelÃÃ‚Ã‡Â¥
 	//---------------------------------------------------------------
 	m_FirstZonePixel = MapToPixel(firstSector.x, firstSector.y);
 	m_FirstZonePixel.x += m_PlusPoint.x;
@@ -13337,9 +13383,9 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	
 
 	//---------------------------------------------------------------
-	// Player¸¦ °¡¸®´Â ImageObjectµéÀ» Ã³¸®ÇÒ FilterÀÇ Ãâ·Â ÁÂÇ¥
+	// PlayerÂ¸Â¦ Â°Â¡Â¸Â®Â´Ã‚ ImageObjectÂµÃ©Ã€Â» ÃƒÂ³Â¸Â®Ã‡Ã’ FilterÃ€Ã‡ ÃƒÃ¢Â·Ã‚ ÃÃ‚Ã‡Â¥
 	//---------------------------------------------------------------
-	m_FilterPosition.x = g_pPlayer->GetPixelX() - m_FirstZonePixel.x - (m_ImageObjectFilter.GetWidth()>>1) + g_TILE_X_HALF;
+	m_FilterPosition.x = g_pPlayer->GetPixelX() - m_FirstZonePixel.x - (m_ImageObjectFilter.GetWidth()>>1) + 24;
 	m_FilterPosition.y = g_pPlayer->GetPixelY() - m_FirstZonePixel.y - (m_ImageObjectFilter.GetHeight()>>1) 
 						- (g_pPlayer->IsFlyingCreature()? 3:1 )*TILE_Y;
 	//filterPoint.x = 310;	// 410 - 100;
@@ -13349,19 +13395,19 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	//short	sX,
 	//		sY = (short)firstSector.y;
 
-	// Ãâ·ÂÇÒ Surface»óÀÇ À§Ä¡	
+	// ÃƒÃ¢Â·Ã‚Ã‡Ã’ SurfaceÂ»Ã³Ã€Ã‡ Ã€Â§Ã„Â¡	
 	tilePoint.y = firstPointY;
 
 
 	//--------------------------------------------------
-	// TileSurfaceÀÇ ¿µ¿ª : m_TileSurfaceFirstPixelXY 
+	// TileSurfaceÃ€Ã‡ Â¿ÂµÂ¿Âª : m_TileSurfaceFirstPixelXY 
 	//                      + (TILESURFACE_WIDTH+ TILESURFACE_HEIGHT)
 	//
-	// ÇöÀç È­¸éÀÇ ¿µ¿ª   : m_FirstZonePixel + (800,600)
+	// Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ Â¿ÂµÂ¿Âª   : m_FirstZonePixel + (800,600)
 	//--------------------------------------------------
 	//
-	// ÇöÀç È­¸é ¿µ¿ªÀÌ TileSurface¿¡ ¼ÓÇÏ¸é 
-	// TileSurfaceÀÇ ÀÏºÎ¸¦ ±×´ë·Î ÀÌ¿ëÇÏ¸é µÈ´Ù.
+	// Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã© Â¿ÂµÂ¿ÂªÃ€ÃŒ TileSurfaceÂ¿Â¡ Â¼Ã“Ã‡ÃÂ¸Ã© 
+	// TileSurfaceÃ€Ã‡ Ã€ÃÂºÃÂ¸Â¦ Â±Ã—Â´Ã«Â·Ã Ã€ÃŒÂ¿Ã«Ã‡ÃÂ¸Ã© ÂµÃˆÂ´Ã™.
 	//
 	//
 	//--------------------------------------------------
@@ -13371,30 +13417,30 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	RECT rectScreen;
 	RECT	rectReuse;
 
-	// TileSurfaceÀÇ Zone¿¡¼­ÀÇ ¿µ¿ª
+	// TileSurfaceÃ€Ã‡ ZoneÂ¿Â¡Â¼Â­Ã€Ã‡ Â¿ÂµÂ¿Âª
 	rectTileSurface.left	= m_TileSurfaceFirstZonePixelX;
 	rectTileSurface.top		= m_TileSurfaceFirstZonePixelY;
 	rectTileSurface.right	= m_TileSurfaceFirstZonePixelX + g_TILESURFACE_WIDTH;
 	rectTileSurface.bottom	= m_TileSurfaceFirstZonePixelY + g_TILESURFACE_HEIGHT;
 
-	// ÇöÀç È­¸éÀÇ ¿µ¿ª
+	// Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ Â¿ÂµÂ¿Âª
 	rectScreen.left		= m_FirstZonePixel.x;
 	rectScreen.top		= m_FirstZonePixel.y;
 	rectScreen.right	= m_FirstZonePixel.x + g_GameRect.right;
 	rectScreen.bottom	= m_FirstZonePixel.y + g_GameRect.bottom;
 
-	// ÇöÀç È­¸é Ãâ·Â¿¡ ÀÌ¿ëÇÒ TileSurfaceÀÇ ¿µ¿ªÀ» Á¤ÇÑ´Ù.
-	// È­¸éÀÇ (0,0)ÀÌ µÉ TileSurface¿¡¼­ÀÇ Ã¹ Á¡
+	// Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã© ÃƒÃ¢Â·Ã‚Â¿Â¡ Ã€ÃŒÂ¿Ã«Ã‡Ã’ TileSurfaceÃ€Ã‡ Â¿ÂµÂ¿ÂªÃ€Â» ÃÂ¤Ã‡Ã‘Â´Ã™.
+	// ÃˆÂ­Â¸Ã©Ã€Ã‡ (0,0)Ã€ÃŒ ÂµÃ‰ TileSurfaceÂ¿Â¡Â¼Â­Ã€Ã‡ ÃƒÂ¹ ÃÂ¡
 	rectReuse.left		= rectScreen.left - rectTileSurface.left;
 	rectReuse.top		= rectScreen.top - rectTileSurface.top;
 	rectReuse.right		= rectReuse.left + g_GameRect.right;
 	rectReuse.bottom	= rectReuse.top + g_GameRect.bottom;
 
 	//----------------------------------------------------------------	
-	// rectReuse¸¦ Á¦¿ÜÇÑ ºÎºĞÀº °ËÀº»öÀ¸·Î Ä¥ÇØÁà¾ß ÇÑ´Ù.
+	// rectReuseÂ¸Â¦ ÃÂ¦Â¿ÃœÃ‡Ã‘ ÂºÃÂºÃÃ€Âº Â°Ã‹Ã€ÂºÂ»Ã¶Ã€Â¸Â·Ã Ã„Â¥Ã‡Ã˜ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 	//----------------------------------------------------------------
 	/*
-	// À§ÂÊ
+	// Ã€Â§Ã‚ÃŠ
 	if (rectReuse.top != 0)
 	{
 		rect.left = 0;
@@ -13405,7 +13451,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 		m_pSurface->FillRect(&rect, 0);
 	}
 
-	// ¾Æ·¡ÂÊ
+	// Â¾Ã†Â·Â¡Ã‚ÃŠ
 	if (rectReuse.bottom != SURFACE_HEIGHT)
 	{
 		rect.left = 0;
@@ -13416,7 +13462,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 		m_pSurface->FillRect(&rect, 0);
 	}
 
-	// ¿ŞÂÊ
+	// Â¿ÃÃ‚ÃŠ
 	if (rectReuse.left != 0)
 	{
 		rect.left = 0;
@@ -13427,7 +13473,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 		m_pSurface->FillRect(&rect, 0);
 	}
 
-	// ¿À¸¥ÂÊ
+	// Â¿Ã€Â¸Â¥Ã‚ÃŠ
 	if (rectReuse.right != SURFACE_WIDTH)
 	{
 		rect.left = rectReuse.right;
@@ -13442,9 +13488,9 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 
 	//--------------------------------------------------
-	// TileSurface¸¦ ±×´ë·Î ¾µ ¼ö ÀÖ´ÂÁö Ã¼Å©ÇÑ´Ù.
+	// TileSurfaceÂ¸Â¦ Â±Ã—Â´Ã«Â·Ã Â¾Âµ Â¼Ã¶ Ã€Ã–Â´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
 	//--------------------------------------------------
-	// ºÎÁ·ÇÑ ºÎºĞ Ç¥½Ã	
+	// ÂºÃÃÂ·Ã‡Ã‘ ÂºÃÂºÃ Ã‡Â¥Â½Ãƒ	
 	BYTE bLack = 0;
 	 
 	//bLack |= (rectScreen.left <= rectTileSurface.left);				// 1
@@ -13470,14 +13516,14 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 	//---------------------------------------------------------------------
 	//
-	// ÇöÀç È­¸éÀÌ TileSurface¿¡ ¼ÓÇÏ´Â °æ¿ì
+	// Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€ÃŒ TileSurfaceÂ¿Â¡ Â¼Ã“Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 	//
 	//---------------------------------------------------------------------
 	if (bLack==0)
 	{
 		//....
 		//---------------------------------------------------------------
-		// »õ·Î ³ªÅ¸³ª°Å³ª È­¸é¿¡¼­ ¾ø¾îÁö´Â ImageObject°Ë»ö
+		// Â»ÃµÂ·Ã Â³ÂªÃ…Â¸Â³ÂªÂ°Ã…Â³Âª ÃˆÂ­Â¸Ã©Â¿Â¡Â¼Â­ Â¾Ã¸Â¾Ã®ÃÃ¶Â´Ã‚ ImageObjectÂ°Ã‹Â»Ã¶
 		//---------------------------------------------------------------
 		// 2001.8.22
 		//UpdateImageObject(firstSector);	
@@ -13486,7 +13532,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	/*
 	//---------------------------------------------------------------------
 	//
-	// ³Ê¹« ¸¹ÀÌ °»½ÅÇØ¾ßÇÏ´Â °æ¿ì
+	// Â³ÃŠÂ¹Â« Â¸Â¹Ã€ÃŒ Â°Â»Â½Ã…Ã‡Ã˜Â¾ÃŸÃ‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 	//
 	//---------------------------------------------------------------------
 	else if (abs(leftGap) >= (TILE_X<<2)
@@ -13500,7 +13546,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 		m_mapImageObject.clear();
 		m_mapCreature.clear();
 		
-		// TileÀüÃ¼¸¦ ´Ù½Ã ±×·ÁÁØ´Ù.
+		// TileÃ€Ã¼ÃƒÂ¼Â¸Â¦ Â´Ã™Â½Ãƒ Â±Ã—Â·ÃÃÃ˜Â´Ã™.
 		DrawTileSurface();
 
 		DetermineImageObject();		
@@ -13512,19 +13558,19 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	*/
 	//---------------------------------------------------------------------
 	//
-	// ÇöÀç È­¸éÀÌ TileSurface¿¡ ¼ÓÇÏÁö ¾Ê´Â °æ¿ì
+	// Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€ÃŒ TileSurfaceÂ¿Â¡ Â¼Ã“Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚ Â°Ã¦Â¿Ã¬
 	//
 	//---------------------------------------------------------------------
 	else
 	{
 		//---------------------------------------------------------------
-		// »õ·Î ³ªÅ¸³ª°Å³ª È­¸é¿¡¼­ ¾ø¾îÁö´Â ImageObject°Ë»ö
+		// Â»ÃµÂ·Ã Â³ÂªÃ…Â¸Â³ÂªÂ°Ã…Â³Âª ÃˆÂ­Â¸Ã©Â¿Â¡Â¼Â­ Â¾Ã¸Â¾Ã®ÃÃ¶Â´Ã‚ ImageObjectÂ°Ã‹Â»Ã¶
 		//---------------------------------------------------------------
 		// 2001.8.22
 		//UpdateImageObject(firstSector);	
 
 		//----------------------------------------
-		// ºÎºĞÀûÀ¸·Î¸¸ °»½ÅÇÏ´Âµ¥ ÇÊ¿äÇÑ Á¤º¸
+		// ÂºÃÂºÃÃ€Ã»Ã€Â¸Â·ÃÂ¸Â¸ Â°Â»Â½Ã…Ã‡ÃÂ´Ã‚ÂµÂ¥ Ã‡ÃŠÂ¿Ã¤Ã‡Ã‘ ÃÂ¤ÂºÂ¸
 		//----------------------------------------
 		BYTE	changeCount = 0;	// 1 or 2
 		int		sX1[2], sX2[2], sY1[2], sY2[2];
@@ -13537,14 +13583,14 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 		if (bLack & FLAG_TILESURFACE_LACK_LEFT)
 		{
 			//--------------------------
-			// LEFT + UP ºÎÁ·
+			// LEFT + UP ÂºÃÃÂ·
 			//--------------------------
 			if (bLack & FLAG_TILESURFACE_LACK_UP)
 			{
 				//--------------------------------------------------
-				// ÀÌÀü Tile Surface¿¡¼­
-				// ´Ù½Ã ±¸¼ºÇÒ·Á´Â Tile Surface¿¡¼­ »ç¿ëÇÒ ¼ö 
-				// ÀÖ´Â ºÎºĞÀ» ³²°ÜµĞ´Ù.			
+				// Ã€ÃŒÃ€Ã¼ Tile SurfaceÂ¿Â¡Â¼Â­
+				// Â´Ã™Â½Ãƒ Â±Â¸Â¼ÂºÃ‡Ã’Â·ÃÂ´Ã‚ Tile SurfaceÂ¿Â¡Â¼Â­ Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ 
+				// Ã€Ã–Â´Ã‚ ÂºÃÂºÃÃ€Â» Â³Â²Â°ÃœÂµÃÂ´Ã™.			
 				//--------------------------------------------------
 				point.x = TILESURFACE_OUTLINE_LEFT;
 				point.y = TILESURFACE_OUTLINE_UP;
@@ -13556,16 +13602,16 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 				//--------------------------------------------------
 				//
-				// ºÎÁ·ÇÑ ºÎºĞÀ» ±×·ÁÁØ´Ù.
+				// ÂºÃÃÂ·Ã‡Ã‘ ÂºÃÂºÃÃ€Â» Â±Ã—Â·ÃÃÃ˜Â´Ã™.
 				//
 				//--------------------------------------------------				
 
 				changeCount = 2;
 
 				//--------------------------------------------------
-				// LeftºÎºĞ
+				// LeftÂºÃÂºÃ
 				//--------------------------------------------------
-				// Ãâ·ÂÇÒ sector (sX1,sY) ~ (sX2, sY2)±îÁö Ãâ·Â
+				// ÃƒÃ¢Â·Ã‚Ã‡Ã’ sector (sX1,sY) ~ (sX2, sY2)Â±Ã®ÃÃ¶ ÃƒÃ¢Â·Ã‚
 				//--------------------------------------------------			
 				sX1[0] = m_TileSurfaceFirstSectorX - TILESURFACE_SECTOR_EDGE;
 				sY1[0] = m_TileSurfaceFirstSectorY - TILESURFACE_SECTOR_EDGE;
@@ -13573,15 +13619,15 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY2[0] = sY1[0] + g_TILESURFACE_SECTOR_HEIGHT;
 					
 				//--------------------------------------------------
-				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
+				// ÃƒÂ¹Â¹Ã¸Ã‚Â° ÃƒÃ¢Â·Ã‚ ÃÃ‚Ã‡Â¥
 				//--------------------------------------------------
 				firstTilePoint[0].x = 0;
 				firstTilePoint[0].y = 0;
 
 				//--------------------------------------------------
-				// UpºÎºĞ
+				// UpÂºÃÂºÃ
 				//--------------------------------------------------
-				// Ãâ·ÂÇÒ sector (sX1,sY) ~ (sX2, sY2)±îÁö Ãâ·Â
+				// ÃƒÃ¢Â·Ã‚Ã‡Ã’ sector (sX1,sY) ~ (sX2, sY2)Â±Ã®ÃÃ¶ ÃƒÃ¢Â·Ã‚
 				//--------------------------------------------------			
 				sX1[1] = m_TileSurfaceFirstSectorX - TILESURFACE_SECTOR_EDGE;
 				sY1[1] = m_TileSurfaceFirstSectorY - TILESURFACE_SECTOR_EDGE;
@@ -13589,14 +13635,14 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY2[1] = sY1[1] + TILESURFACE_SECTOR_EDGE;
 					
 				//--------------------------------------------------
-				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
+				// ÃƒÂ¹Â¹Ã¸Ã‚Â° ÃƒÃ¢Â·Ã‚ ÃÃ‚Ã‡Â¥
 				//--------------------------------------------------
 				firstTilePoint[1].x = 0;
 				firstTilePoint[1].y = 0;
 
 
 				//--------------------------------------------------
-				// Ãâ·Â¿¡ »ç¿ëÇÒ TileSurface ¿µ¿ª ´Ù½Ã ¼³Á¤
+				// ÃƒÃ¢Â·Ã‚Â¿Â¡ Â»Ã§Â¿Ã«Ã‡Ã’ TileSurface Â¿ÂµÂ¿Âª Â´Ã™Â½Ãƒ Â¼Â³ÃÂ¤
 				//--------------------------------------------------
 				rectReuse.left += TILESURFACE_OUTLINE_LEFT;
 				rectReuse.right += TILESURFACE_OUTLINE_LEFT;
@@ -13604,7 +13650,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				rectReuse.bottom += TILESURFACE_OUTLINE_UP;
 
 				//--------------------------------------------------
-				// °»½ÅµÈ TileSurface¿¡ ´ëÇÑ ÁÂÇ¥ ¼³Á¤
+				// Â°Â»Â½Ã…ÂµÃˆ TileSurfaceÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÃ‚Ã‡Â¥ Â¼Â³ÃÂ¤
 				//--------------------------------------------------
 				m_TileSurfaceFirstSectorX -= TILESURFACE_SECTOR_EDGE;
 				m_TileSurfaceFirstZonePixelX -= TILESURFACE_OUTLINE_LEFT;
@@ -13612,14 +13658,14 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				m_TileSurfaceFirstZonePixelY -= TILESURFACE_OUTLINE_UP;
 			}			
 			//--------------------------
-			// LEFT + DOWN ºÎÁ·
+			// LEFT + DOWN ÂºÃÃÂ·
 			//--------------------------
 			else if (bLack & FLAG_TILESURFACE_LACK_DOWN)
 			{
 				//--------------------------------------------------
-				// ÀÌÀü Tile Surface¿¡¼­
-				// ´Ù½Ã ±¸¼ºÇÒ·Á´Â Tile Surface¿¡¼­ »ç¿ëÇÒ ¼ö 
-				// ÀÖ´Â ºÎºĞÀ» ³²°ÜµĞ´Ù.			
+				// Ã€ÃŒÃ€Ã¼ Tile SurfaceÂ¿Â¡Â¼Â­
+				// Â´Ã™Â½Ãƒ Â±Â¸Â¼ÂºÃ‡Ã’Â·ÃÂ´Ã‚ Tile SurfaceÂ¿Â¡Â¼Â­ Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ 
+				// Ã€Ã–Â´Ã‚ ÂºÃÂºÃÃ€Â» Â³Â²Â°ÃœÂµÃÂ´Ã™.			
 				//--------------------------------------------------
 				point.x = TILESURFACE_OUTLINE_LEFT;
 				point.y = 0;
@@ -13631,16 +13677,16 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 				//--------------------------------------------------
 				//
-				// ºÎÁ·ÇÑ ºÎºĞÀ» ±×·ÁÁØ´Ù.
+				// ÂºÃÃÂ·Ã‡Ã‘ ÂºÃÂºÃÃ€Â» Â±Ã—Â·ÃÃÃ˜Â´Ã™.
 				//
 				//--------------------------------------------------
 
 				changeCount = 2;
 
 				//--------------------------------------------------
-				// LeftºÎºĞ
+				// LeftÂºÃÂºÃ
 				//--------------------------------------------------
-				// Ãâ·ÂÇÒ sector (sX1,sY) ~ (sX2, sY2)±îÁö Ãâ·Â
+				// ÃƒÃ¢Â·Ã‚Ã‡Ã’ sector (sX1,sY) ~ (sX2, sY2)Â±Ã®ÃÃ¶ ÃƒÃ¢Â·Ã‚
 				//--------------------------------------------------			
 				sX1[0] = m_TileSurfaceFirstSectorX - TILESURFACE_SECTOR_EDGE;
 				sY1[0] = m_TileSurfaceFirstSectorY + TILESURFACE_SECTOR_EDGE;
@@ -13648,15 +13694,15 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY2[0] = sY1[0] + g_TILESURFACE_SECTOR_HEIGHT;
 					
 				//--------------------------------------------------
-				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
+				// ÃƒÂ¹Â¹Ã¸Ã‚Â° ÃƒÃ¢Â·Ã‚ ÃÃ‚Ã‡Â¥
 				//--------------------------------------------------
 				firstTilePoint[0].x = 0;
 				firstTilePoint[0].y = 0;
 
 				//--------------------------------------------------
-				// DownºÎºĞ
+				// DownÂºÃÂºÃ
 				//--------------------------------------------------
-				// Ãâ·ÂÇÒ sector (sX1,sY) ~ (sX2, sY2)±îÁö Ãâ·Â
+				// ÃƒÃ¢Â·Ã‚Ã‡Ã’ sector (sX1,sY) ~ (sX2, sY2)Â±Ã®ÃÃ¶ ÃƒÃ¢Â·Ã‚
 				//--------------------------------------------------			
 				sX1[1] = m_TileSurfaceFirstSectorX - TILESURFACE_SECTOR_EDGE;
 				sY1[1] = m_TileSurfaceFirstSectorY + g_TILESURFACE_SECTOR_HEIGHT;
@@ -13664,13 +13710,13 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY2[1] = sY1[1] + TILESURFACE_SECTOR_EDGE;
 					
 				//--------------------------------------------------
-				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
+				// ÃƒÂ¹Â¹Ã¸Ã‚Â° ÃƒÃ¢Â·Ã‚ ÃÃ‚Ã‡Â¥
 				//--------------------------------------------------
 				firstTilePoint[1].x = 0;
 				firstTilePoint[1].y = g_TILESURFACE_OUTLINE_DOWN;
 
 				//--------------------------------------------------
-				// Ãâ·Â¿¡ »ç¿ëÇÒ TileSurface ¿µ¿ª ´Ù½Ã ¼³Á¤
+				// ÃƒÃ¢Â·Ã‚Â¿Â¡ Â»Ã§Â¿Ã«Ã‡Ã’ TileSurface Â¿ÂµÂ¿Âª Â´Ã™Â½Ãƒ Â¼Â³ÃÂ¤
 				//--------------------------------------------------
 				rectReuse.left += TILESURFACE_OUTLINE_LEFT;
 				rectReuse.right += TILESURFACE_OUTLINE_LEFT;
@@ -13678,7 +13724,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				rectReuse.bottom -= TILESURFACE_OUTLINE_UP;
 
 				//--------------------------------------------------
-				// °»½ÅµÈ TileSurface¿¡ ´ëÇÑ ÁÂÇ¥ ¼³Á¤
+				// Â°Â»Â½Ã…ÂµÃˆ TileSurfaceÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÃ‚Ã‡Â¥ Â¼Â³ÃÂ¤
 				//--------------------------------------------------
 				m_TileSurfaceFirstSectorX -= TILESURFACE_SECTOR_EDGE;
 				m_TileSurfaceFirstZonePixelX -= TILESURFACE_OUTLINE_LEFT;
@@ -13686,14 +13732,14 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				m_TileSurfaceFirstZonePixelY += TILESURFACE_OUTLINE_UP;
 			}
 			//--------------------------
-			// LEFT ºÎÁ·
+			// LEFT ÂºÃÃÂ·
 			//--------------------------
 			else
 			{
 				//--------------------------------------------------
-				// ÀÌÀü Tile Surface¿¡¼­
-				// ´Ù½Ã ±¸¼ºÇÒ·Á´Â Tile Surface¿¡¼­ »ç¿ëÇÒ ¼ö 
-				// ÀÖ´Â ºÎºĞÀ» ³²°ÜµĞ´Ù.			
+				// Ã€ÃŒÃ€Ã¼ Tile SurfaceÂ¿Â¡Â¼Â­
+				// Â´Ã™Â½Ãƒ Â±Â¸Â¼ÂºÃ‡Ã’Â·ÃÂ´Ã‚ Tile SurfaceÂ¿Â¡Â¼Â­ Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ 
+				// Ã€Ã–Â´Ã‚ ÂºÃÂºÃÃ€Â» Â³Â²Â°ÃœÂµÃÂ´Ã™.			
 				//--------------------------------------------------
 				point.x = TILESURFACE_OUTLINE_LEFT;
 				point.y = 0;
@@ -13705,14 +13751,14 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 				//--------------------------------------------------
 				//
-				// ºÎÁ·ÇÑ ºÎºĞÀ» ±×·ÁÁØ´Ù.
+				// ÂºÃÃÂ·Ã‡Ã‘ ÂºÃÂºÃÃ€Â» Â±Ã—Â·ÃÃÃ˜Â´Ã™.
 				//
 				//--------------------------------------------------
 
 				changeCount = 1;
 
 				//--------------------------------------------------
-				// Ãâ·ÂÇÒ sector (sX1,sY) ~ (sX2, sY2)±îÁö Ãâ·Â
+				// ÃƒÃ¢Â·Ã‚Ã‡Ã’ sector (sX1,sY) ~ (sX2, sY2)Â±Ã®ÃÃ¶ ÃƒÃ¢Â·Ã‚
 				//--------------------------------------------------			
 				sX1[0] = m_TileSurfaceFirstSectorX - TILESURFACE_SECTOR_EDGE;
 				sY1[0] = m_TileSurfaceFirstSectorY;
@@ -13720,19 +13766,19 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY2[0] = sY1[0] + g_TILESURFACE_SECTOR_HEIGHT;
 					
 				//--------------------------------------------------
-				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
+				// ÃƒÂ¹Â¹Ã¸Ã‚Â° ÃƒÃ¢Â·Ã‚ ÃÃ‚Ã‡Â¥
 				//--------------------------------------------------
 				firstTilePoint[0].x = 0;
 				firstTilePoint[0].y = 0;
 
 				//--------------------------------------------------
-				// Ãâ·Â¿¡ »ç¿ëÇÒ TileSurface ¿µ¿ª ´Ù½Ã ¼³Á¤
+				// ÃƒÃ¢Â·Ã‚Â¿Â¡ Â»Ã§Â¿Ã«Ã‡Ã’ TileSurface Â¿ÂµÂ¿Âª Â´Ã™Â½Ãƒ Â¼Â³ÃÂ¤
 				//--------------------------------------------------
 				rectReuse.left += TILESURFACE_OUTLINE_LEFT;
 				rectReuse.right += TILESURFACE_OUTLINE_LEFT;
 
 				//--------------------------------------------------
-				// °»½ÅµÈ TileSurface¿¡ ´ëÇÑ ÁÂÇ¥ ¼³Á¤
+				// Â°Â»Â½Ã…ÂµÃˆ TileSurfaceÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÃ‚Ã‡Â¥ Â¼Â³ÃÂ¤
 				//--------------------------------------------------
 				m_TileSurfaceFirstSectorX -= TILESURFACE_SECTOR_EDGE;
 				m_TileSurfaceFirstZonePixelX -= TILESURFACE_OUTLINE_LEFT;
@@ -13744,14 +13790,14 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 		else if (bLack & FLAG_TILESURFACE_LACK_RIGHT)
 		{
 			//--------------------------
-			// RIGHT + UP ºÎÁ·
+			// RIGHT + UP ÂºÃÃÂ·
 			//--------------------------
 			if (bLack & FLAG_TILESURFACE_LACK_UP)
 			{
 				//--------------------------------------------------
-				// ÀÌÀü Tile Surface¿¡¼­
-				// ´Ù½Ã ±¸¼ºÇÒ·Á´Â Tile Surface¿¡¼­ »ç¿ëÇÒ ¼ö 
-				// ÀÖ´Â ºÎºĞÀ» ³²°ÜµĞ´Ù.			
+				// Ã€ÃŒÃ€Ã¼ Tile SurfaceÂ¿Â¡Â¼Â­
+				// Â´Ã™Â½Ãƒ Â±Â¸Â¼ÂºÃ‡Ã’Â·ÃÂ´Ã‚ Tile SurfaceÂ¿Â¡Â¼Â­ Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ 
+				// Ã€Ã–Â´Ã‚ ÂºÃÂºÃÃ€Â» Â³Â²Â°ÃœÂµÃÂ´Ã™.			
 				//--------------------------------------------------
 				point.x = 0;
 				point.y = TILESURFACE_OUTLINE_UP;
@@ -13763,16 +13809,16 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 				//--------------------------------------------------
 				//
-				// ºÎÁ·ÇÑ ºÎºĞÀ» ±×·ÁÁØ´Ù.
+				// ÂºÃÃÂ·Ã‡Ã‘ ÂºÃÂºÃÃ€Â» Â±Ã—Â·ÃÃÃ˜Â´Ã™.
 				//
 				//--------------------------------------------------
 
 				changeCount = 2;
 
 				//--------------------------------------------------
-				// RightºÎºĞ
+				// RightÂºÃÂºÃ
 				//--------------------------------------------------
-				// Ãâ·ÂÇÒ sector (sX1,sY) ~ (sX2, sY2)±îÁö Ãâ·Â
+				// ÃƒÃ¢Â·Ã‚Ã‡Ã’ sector (sX1,sY) ~ (sX2, sY2)Â±Ã®ÃÃ¶ ÃƒÃ¢Â·Ã‚
 				//--------------------------------------------------			
 				sX1[0] = m_TileSurfaceFirstSectorX + g_TILESURFACE_SECTOR_WIDTH;
 				sY1[0] = m_TileSurfaceFirstSectorY - TILESURFACE_SECTOR_OUTLINE_UP;
@@ -13780,15 +13826,15 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY2[0] = sY1[0] + g_TILESURFACE_SECTOR_HEIGHT;
 					
 				//--------------------------------------------------
-				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
+				// ÃƒÂ¹Â¹Ã¸Ã‚Â° ÃƒÃ¢Â·Ã‚ ÃÃ‚Ã‡Â¥
 				//--------------------------------------------------
 				firstTilePoint[0].x = g_TILESURFACE_OUTLINE_RIGHT;
 				firstTilePoint[0].y = 0;
 
 				//--------------------------------------------------
-				// UPºÎºĞ
+				// UPÂºÃÂºÃ
 				//--------------------------------------------------
-				// Ãâ·ÂÇÒ sector (sX1,sY) ~ (sX2, sY2)±îÁö Ãâ·Â
+				// ÃƒÃ¢Â·Ã‚Ã‡Ã’ sector (sX1,sY) ~ (sX2, sY2)Â±Ã®ÃÃ¶ ÃƒÃ¢Â·Ã‚
 				//--------------------------------------------------			
 				sX1[1] = m_TileSurfaceFirstSectorX + TILESURFACE_SECTOR_OUTLINE_LEFT;
 				sY1[1] = m_TileSurfaceFirstSectorY - TILESURFACE_SECTOR_EDGE;
@@ -13796,13 +13842,13 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY2[1] = sY1[1] + TILESURFACE_SECTOR_EDGE;
 					
 				//--------------------------------------------------
-				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
+				// ÃƒÂ¹Â¹Ã¸Ã‚Â° ÃƒÃ¢Â·Ã‚ ÃÃ‚Ã‡Â¥
 				//--------------------------------------------------
 				firstTilePoint[1].x = 0;
 				firstTilePoint[1].y = 0;
 
 				//--------------------------------------------------
-				// Ãâ·Â¿¡ »ç¿ëÇÒ TileSurface ¿µ¿ª ´Ù½Ã ¼³Á¤
+				// ÃƒÃ¢Â·Ã‚Â¿Â¡ Â»Ã§Â¿Ã«Ã‡Ã’ TileSurface Â¿ÂµÂ¿Âª Â´Ã™Â½Ãƒ Â¼Â³ÃÂ¤
 				//--------------------------------------------------
 				rectReuse.left -= TILESURFACE_OUTLINE_LEFT;
 				rectReuse.right -= TILESURFACE_OUTLINE_LEFT;
@@ -13810,7 +13856,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				rectReuse.bottom += TILESURFACE_OUTLINE_UP;
 
 				//--------------------------------------------------
-				// °»½ÅµÈ TileSurface¿¡ ´ëÇÑ ÁÂÇ¥ ¼³Á¤
+				// Â°Â»Â½Ã…ÂµÃˆ TileSurfaceÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÃ‚Ã‡Â¥ Â¼Â³ÃÂ¤
 				//--------------------------------------------------
 				m_TileSurfaceFirstSectorX += TILESURFACE_SECTOR_EDGE;
 				m_TileSurfaceFirstZonePixelX += TILESURFACE_OUTLINE_LEFT;
@@ -13818,14 +13864,14 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				m_TileSurfaceFirstZonePixelY -= TILESURFACE_OUTLINE_UP;
 			}
 			//--------------------------
-			// RIGHT + DOWN ºÎÁ·
+			// RIGHT + DOWN ÂºÃÃÂ·
 			//--------------------------
 			else if (bLack & FLAG_TILESURFACE_LACK_DOWN)
 			{
 				//--------------------------------------------------
-				// ÀÌÀü Tile Surface¿¡¼­
-				// ´Ù½Ã ±¸¼ºÇÒ·Á´Â Tile Surface¿¡¼­ »ç¿ëÇÒ ¼ö 
-				// ÀÖ´Â ºÎºĞÀ» ³²°ÜµĞ´Ù.			
+				// Ã€ÃŒÃ€Ã¼ Tile SurfaceÂ¿Â¡Â¼Â­
+				// Â´Ã™Â½Ãƒ Â±Â¸Â¼ÂºÃ‡Ã’Â·ÃÂ´Ã‚ Tile SurfaceÂ¿Â¡Â¼Â­ Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ 
+				// Ã€Ã–Â´Ã‚ ÂºÃÂºÃÃ€Â» Â³Â²Â°ÃœÂµÃÂ´Ã™.			
 				//--------------------------------------------------
 				point.x = 0;
 				point.y = 0;
@@ -13837,16 +13883,16 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 				//--------------------------------------------------
 				//
-				// ºÎÁ·ÇÑ ºÎºĞÀ» ±×·ÁÁØ´Ù.
+				// ÂºÃÃÂ·Ã‡Ã‘ ÂºÃÂºÃÃ€Â» Â±Ã—Â·ÃÃÃ˜Â´Ã™.
 				//
 				//--------------------------------------------------
 
 				changeCount = 2;
 
 				//--------------------------------------------------
-				// RightºÎºĞ
+				// RightÂºÃÂºÃ
 				//--------------------------------------------------
-				// Ãâ·ÂÇÒ sector (sX1,sY) ~ (sX2, sY2)±îÁö Ãâ·Â
+				// ÃƒÃ¢Â·Ã‚Ã‡Ã’ sector (sX1,sY) ~ (sX2, sY2)Â±Ã®ÃÃ¶ ÃƒÃ¢Â·Ã‚
 				//--------------------------------------------------			
 				sX1[0] = m_TileSurfaceFirstSectorX + g_TILESURFACE_SECTOR_WIDTH;
 				sY1[0] = m_TileSurfaceFirstSectorY + TILESURFACE_SECTOR_OUTLINE_UP;
@@ -13854,15 +13900,15 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY2[0] = sY1[0] + g_TILESURFACE_SECTOR_HEIGHT;
 					
 				//--------------------------------------------------
-				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
+				// ÃƒÂ¹Â¹Ã¸Ã‚Â° ÃƒÃ¢Â·Ã‚ ÃÃ‚Ã‡Â¥
 				//--------------------------------------------------
 				firstTilePoint[0].x = g_TILESURFACE_OUTLINE_RIGHT;
 				firstTilePoint[0].y = 0;
 
 				//--------------------------------------------------
-				// DownºÎºĞ
+				// DownÂºÃÂºÃ
 				//--------------------------------------------------
-				// Ãâ·ÂÇÒ sector (sX1,sY) ~ (sX2, sY2)±îÁö Ãâ·Â
+				// ÃƒÃ¢Â·Ã‚Ã‡Ã’ sector (sX1,sY) ~ (sX2, sY2)Â±Ã®ÃÃ¶ ÃƒÃ¢Â·Ã‚
 				//--------------------------------------------------			
 				sX1[1] = m_TileSurfaceFirstSectorX + TILESURFACE_SECTOR_OUTLINE_LEFT;
 				sY1[1] = m_TileSurfaceFirstSectorY + g_TILESURFACE_SECTOR_HEIGHT;
@@ -13870,13 +13916,13 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY2[1] = sY1[1] + TILESURFACE_SECTOR_EDGE;
 					
 				//--------------------------------------------------
-				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
+				// ÃƒÂ¹Â¹Ã¸Ã‚Â° ÃƒÃ¢Â·Ã‚ ÃÃ‚Ã‡Â¥
 				//--------------------------------------------------
 				firstTilePoint[1].x = 0;
 				firstTilePoint[1].y = g_TILESURFACE_OUTLINE_DOWN;
 
 				//--------------------------------------------------
-				// Ãâ·Â¿¡ »ç¿ëÇÒ TileSurface ¿µ¿ª ´Ù½Ã ¼³Á¤
+				// ÃƒÃ¢Â·Ã‚Â¿Â¡ Â»Ã§Â¿Ã«Ã‡Ã’ TileSurface Â¿ÂµÂ¿Âª Â´Ã™Â½Ãƒ Â¼Â³ÃÂ¤
 				//--------------------------------------------------
 				rectReuse.left -= TILESURFACE_OUTLINE_LEFT;
 				rectReuse.right -= TILESURFACE_OUTLINE_LEFT;
@@ -13884,7 +13930,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				rectReuse.bottom -= TILESURFACE_OUTLINE_UP;
 
 				//--------------------------------------------------
-				// °»½ÅµÈ TileSurface¿¡ ´ëÇÑ ÁÂÇ¥ ¼³Á¤
+				// Â°Â»Â½Ã…ÂµÃˆ TileSurfaceÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÃ‚Ã‡Â¥ Â¼Â³ÃÂ¤
 				//--------------------------------------------------
 				m_TileSurfaceFirstSectorX += TILESURFACE_SECTOR_EDGE;
 				m_TileSurfaceFirstZonePixelX += TILESURFACE_OUTLINE_LEFT;
@@ -13892,14 +13938,14 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				m_TileSurfaceFirstZonePixelY += TILESURFACE_OUTLINE_UP;
 			}
 			//--------------------------
-			// RIGHT ºÎÁ·
+			// RIGHT ÂºÃÃÂ·
 			//--------------------------
 			else
 			{
 				//--------------------------------------------------
-				// ÀÌÀü Tile Surface¿¡¼­
-				// ´Ù½Ã ±¸¼ºÇÒ·Á´Â Tile Surface¿¡¼­ »ç¿ëÇÒ ¼ö 
-				// ÀÖ´Â ºÎºĞÀ» ³²°ÜµĞ´Ù.			
+				// Ã€ÃŒÃ€Ã¼ Tile SurfaceÂ¿Â¡Â¼Â­
+				// Â´Ã™Â½Ãƒ Â±Â¸Â¼ÂºÃ‡Ã’Â·ÃÂ´Ã‚ Tile SurfaceÂ¿Â¡Â¼Â­ Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ 
+				// Ã€Ã–Â´Ã‚ ÂºÃÂºÃÃ€Â» Â³Â²Â°ÃœÂµÃÂ´Ã™.			
 				//--------------------------------------------------
 				point.x = 0;
 				point.y = 0;
@@ -13911,14 +13957,14 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 				//--------------------------------------------------
 				//
-				// ºÎÁ·ÇÑ ºÎºĞÀ» ±×·ÁÁØ´Ù.
+				// ÂºÃÃÂ·Ã‡Ã‘ ÂºÃÂºÃÃ€Â» Â±Ã—Â·ÃÃÃ˜Â´Ã™.
 				//
 				//--------------------------------------------------
 
 				changeCount = 1;
 
 				//--------------------------------------------------
-				// Ãâ·ÂÇÒ sector (sX1,sY) ~ (sX2, sY2)±îÁö Ãâ·Â
+				// ÃƒÃ¢Â·Ã‚Ã‡Ã’ sector (sX1,sY) ~ (sX2, sY2)Â±Ã®ÃÃ¶ ÃƒÃ¢Â·Ã‚
 				//--------------------------------------------------			
 				sX1[0] = m_TileSurfaceFirstSectorX + g_TILESURFACE_SECTOR_WIDTH;
 				sY1[0] = m_TileSurfaceFirstSectorY;
@@ -13926,33 +13972,33 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY2[0] = sY1[0] + g_TILESURFACE_SECTOR_HEIGHT;
 					
 				//--------------------------------------------------
-				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
+				// ÃƒÂ¹Â¹Ã¸Ã‚Â° ÃƒÃ¢Â·Ã‚ ÃÃ‚Ã‡Â¥
 				//--------------------------------------------------
 				firstTilePoint[0].x = g_TILESURFACE_OUTLINE_RIGHT;
 				firstTilePoint[0].y = 0;
 
 				//--------------------------------------------------
-				// Ãâ·Â¿¡ »ç¿ëÇÒ TileSurface ¿µ¿ª ´Ù½Ã ¼³Á¤
+				// ÃƒÃ¢Â·Ã‚Â¿Â¡ Â»Ã§Â¿Ã«Ã‡Ã’ TileSurface Â¿ÂµÂ¿Âª Â´Ã™Â½Ãƒ Â¼Â³ÃÂ¤
 				//--------------------------------------------------
 				rectReuse.left -= TILESURFACE_OUTLINE_LEFT;
 				rectReuse.right -= TILESURFACE_OUTLINE_LEFT;
 
 				//--------------------------------------------------
-				// °»½ÅµÈ TileSurface¿¡ ´ëÇÑ ÁÂÇ¥ ¼³Á¤
+				// Â°Â»Â½Ã…ÂµÃˆ TileSurfaceÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÃ‚Ã‡Â¥ Â¼Â³ÃÂ¤
 				//--------------------------------------------------
 				m_TileSurfaceFirstSectorX += TILESURFACE_SECTOR_EDGE;
 				m_TileSurfaceFirstZonePixelX += TILESURFACE_OUTLINE_LEFT;
 			}
 		}
 		//--------------------------
-		// UP ºÎÁ·
+		// UP ÂºÃÃÂ·
 		//--------------------------
 		else if (bLack & FLAG_TILESURFACE_LACK_UP)
 		{
 			//--------------------------------------------------
-			// ÀÌÀü Tile Surface¿¡¼­
-			// ´Ù½Ã ±¸¼ºÇÒ·Á´Â Tile Surface¿¡¼­ »ç¿ëÇÒ ¼ö 
-			// ÀÖ´Â ºÎºĞÀ» ³²°ÜµĞ´Ù.			
+			// Ã€ÃŒÃ€Ã¼ Tile SurfaceÂ¿Â¡Â¼Â­
+			// Â´Ã™Â½Ãƒ Â±Â¸Â¼ÂºÃ‡Ã’Â·ÃÂ´Ã‚ Tile SurfaceÂ¿Â¡Â¼Â­ Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ 
+			// Ã€Ã–Â´Ã‚ ÂºÃÂºÃÃ€Â» Â³Â²Â°ÃœÂµÃÂ´Ã™.			
 			//--------------------------------------------------
 			point.x = 0;
 			point.y = TILESURFACE_OUTLINE_UP;
@@ -13964,14 +14010,14 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 			//--------------------------------------------------
 			//
-			// ºÎÁ·ÇÑ ºÎºĞÀ» ±×·ÁÁØ´Ù.
+			// ÂºÃÃÂ·Ã‡Ã‘ ÂºÃÂºÃÃ€Â» Â±Ã—Â·ÃÃÃ˜Â´Ã™.
 			//
 			//--------------------------------------------------
 
 			changeCount = 1;
 
 			//--------------------------------------------------
-			// Ãâ·ÂÇÒ sector (sX1,sY) ~ (sX2, sY2)±îÁö Ãâ·Â
+			// ÃƒÃ¢Â·Ã‚Ã‡Ã’ sector (sX1,sY) ~ (sX2, sY2)Â±Ã®ÃÃ¶ ÃƒÃ¢Â·Ã‚
 			//--------------------------------------------------			
 			sX1[0] = m_TileSurfaceFirstSectorX;
 			sY1[0] = m_TileSurfaceFirstSectorY - TILESURFACE_SECTOR_EDGE;
@@ -13979,32 +14025,32 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			sY2[0] = sY1[0] + TILESURFACE_SECTOR_EDGE;
 				
 			//--------------------------------------------------
-			// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
+			// ÃƒÂ¹Â¹Ã¸Ã‚Â° ÃƒÃ¢Â·Ã‚ ÃÃ‚Ã‡Â¥
 			//--------------------------------------------------
 			firstTilePoint[0].x = 0;
 			firstTilePoint[0].y = 0;
 
 			//--------------------------------------------------
-			// Ãâ·Â¿¡ »ç¿ëÇÒ TileSurface ¿µ¿ª ´Ù½Ã ¼³Á¤
+			// ÃƒÃ¢Â·Ã‚Â¿Â¡ Â»Ã§Â¿Ã«Ã‡Ã’ TileSurface Â¿ÂµÂ¿Âª Â´Ã™Â½Ãƒ Â¼Â³ÃÂ¤
 			//--------------------------------------------------
 			rectReuse.top += TILESURFACE_OUTLINE_UP;
 			rectReuse.bottom += TILESURFACE_OUTLINE_UP;
 
 			//--------------------------------------------------
-			// °»½ÅµÈ TileSurface¿¡ ´ëÇÑ ÁÂÇ¥ ¼³Á¤
+			// Â°Â»Â½Ã…ÂµÃˆ TileSurfaceÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÃ‚Ã‡Â¥ Â¼Â³ÃÂ¤
 			//--------------------------------------------------
 			m_TileSurfaceFirstSectorY -= TILESURFACE_SECTOR_EDGE;
 			m_TileSurfaceFirstZonePixelY -= TILESURFACE_OUTLINE_UP;
 		}
 		//--------------------------
-		// DOWN ºÎÁ·
+		// DOWN ÂºÃÃÂ·
 		//--------------------------
 		else if (bLack & FLAG_TILESURFACE_LACK_DOWN)
 		{
 			//--------------------------------------------------
-			// ÀÌÀü Tile Surface¿¡¼­
-			// ´Ù½Ã ±¸¼ºÇÒ·Á´Â Tile Surface¿¡¼­ »ç¿ëÇÒ ¼ö 
-			// ÀÖ´Â ºÎºĞÀ» ³²°ÜµĞ´Ù.			
+			// Ã€ÃŒÃ€Ã¼ Tile SurfaceÂ¿Â¡Â¼Â­
+			// Â´Ã™Â½Ãƒ Â±Â¸Â¼ÂºÃ‡Ã’Â·ÃÂ´Ã‚ Tile SurfaceÂ¿Â¡Â¼Â­ Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ 
+			// Ã€Ã–Â´Ã‚ ÂºÃÂºÃÃ€Â» Â³Â²Â°ÃœÂµÃÂ´Ã™.			
 			//--------------------------------------------------
 			point.x = 0;
 			point.y = 0;
@@ -14016,14 +14062,14 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 			//--------------------------------------------------
 			//
-			// ºÎÁ·ÇÑ ºÎºĞÀ» ±×·ÁÁØ´Ù.
+			// ÂºÃÃÂ·Ã‡Ã‘ ÂºÃÂºÃÃ€Â» Â±Ã—Â·ÃÃÃ˜Â´Ã™.
 			//
 			//--------------------------------------------------
 
 			changeCount = 1;
 
 			//--------------------------------------------------
-			// Ãâ·ÂÇÒ sector (sX1,sY) ~ (sX2, sY2)±îÁö Ãâ·Â
+			// ÃƒÃ¢Â·Ã‚Ã‡Ã’ sector (sX1,sY) ~ (sX2, sY2)Â±Ã®ÃÃ¶ ÃƒÃ¢Â·Ã‚
 			//--------------------------------------------------			
 			sX1[0] = m_TileSurfaceFirstSectorX;
 			sY1[0] = m_TileSurfaceFirstSectorY + g_TILESURFACE_SECTOR_HEIGHT;
@@ -14031,19 +14077,19 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			sY2[0] = sY1[0] + TILESURFACE_SECTOR_EDGE;
 				
 			//--------------------------------------------------
-			// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
+			// ÃƒÂ¹Â¹Ã¸Ã‚Â° ÃƒÃ¢Â·Ã‚ ÃÃ‚Ã‡Â¥
 			//--------------------------------------------------
 			firstTilePoint[0].x = 0;
 			firstTilePoint[0].y = g_TILESURFACE_OUTLINE_DOWN;
 
 			//--------------------------------------------------
-			// Ãâ·Â¿¡ »ç¿ëÇÒ TileSurface ¿µ¿ª ´Ù½Ã ¼³Á¤
+			// ÃƒÃ¢Â·Ã‚Â¿Â¡ Â»Ã§Â¿Ã«Ã‡Ã’ TileSurface Â¿ÂµÂ¿Âª Â´Ã™Â½Ãƒ Â¼Â³ÃÂ¤
 			//--------------------------------------------------
 			rectReuse.top -= TILESURFACE_OUTLINE_UP;
 			rectReuse.bottom -= TILESURFACE_OUTLINE_UP;
 
 			//--------------------------------------------------
-			// °»½ÅµÈ TileSurface¿¡ ´ëÇÑ ÁÂÇ¥ ¼³Á¤
+			// Â°Â»Â½Ã…ÂµÃˆ TileSurfaceÂ¿Â¡ Â´Ã«Ã‡Ã‘ ÃÃ‚Ã‡Â¥ Â¼Â³ÃÂ¤
 			//--------------------------------------------------
 			m_TileSurfaceFirstSectorY += TILESURFACE_SECTOR_EDGE;
 			m_TileSurfaceFirstZonePixelY += TILESURFACE_OUTLINE_UP;
@@ -14052,7 +14098,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 		//------------------------------------------------------
 		//
-		//   ºÎºĞÀûÀ¸·Î TileµéÀ» °»½ÅÇÏ±â..
+		//   ÂºÃÂºÃÃ€Ã»Ã€Â¸Â·Ã TileÂµÃ©Ã€Â» Â°Â»Â½Ã…Ã‡ÃÂ±Ã¢..
 		//
 		//------------------------------------------------------
 		register int n;
@@ -14061,11 +14107,11 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			POINT tilePointTemp;
 
 			//------------------------------------------------------
-			// ZoneÀÇ ¿µ¿ªÀÌ ¾Æ´Ñ °æ¿ì¿¡ Skip...
+			// ZoneÃ€Ã‡ Â¿ÂµÂ¿ÂªÃ€ÃŒ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡ Skip...
 			//------------------------------------------------------
 			if (sX1[n] < 0) 
 			{	
-				// Zone¿Ü°û ºÎºĞÀº °ËÀº»öÀ¸·Î Ä¥ÇÑ´Ù.
+				// ZoneÂ¿ÃœÂ°Ã» ÂºÃÂºÃÃ€Âº Â°Ã‹Ã€ÂºÂ»Ã¶Ã€Â¸Â·Ã Ã„Â¥Ã‡Ã‘Â´Ã™.
 				rect.left = firstTilePoint[n].x;
 				rect.top = 0;	
 				
@@ -14083,7 +14129,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			{
 				sX2[n] = m_pZone->GetWidth();//-1;				
 
-				// Zone¿Ü°û ºÎºĞÀº °ËÀº»öÀ¸·Î Ä¥ÇÑ´Ù.
+				// ZoneÂ¿ÃœÂ°Ã» ÂºÃÂºÃÃ€Âº Â°Ã‹Ã€ÂºÂ»Ã¶Ã€Â¸Â·Ã Ã„Â¥Ã‡Ã‘Â´Ã™.
 				rect.left = firstTilePoint[n].x + (sX2[n]-sX1[n])*TILE_X;
 				rect.top = 0;					
 				rect.right = g_TILESURFACE_WIDTH;
@@ -14094,7 +14140,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 			if (sY1[n] < 0)
 			{
-				// Zone¿Ü°û ºÎºĞÀº °ËÀº»öÀ¸·Î Ä¥ÇÑ´Ù.
+				// ZoneÂ¿ÃœÂ°Ã» ÂºÃÂºÃÃ€Âº Â°Ã‹Ã€ÂºÂ»Ã¶Ã€Â¸Â·Ã Ã„Â¥Ã‡Ã‘Â´Ã™.
 				rect.left = firstTilePoint[n].x;
 				rect.top = firstTilePoint[n].y;	
 				
@@ -14109,7 +14155,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 			if (sY2[n] > m_pZone->GetHeight())
 			{
-				// Zone¿Ü°û ºÎºĞÀº °ËÀº»öÀ¸·Î Ä¥ÇÑ´Ù.
+				// ZoneÂ¿ÃœÂ°Ã» ÂºÃÂºÃÃ€Âº Â°Ã‹Ã€ÂºÂ»Ã¶Ã€Â¸Â·Ã Ã„Â¥Ã‡Ã‘Â´Ã™.
 				rect.left = firstTilePoint[n].x;
 				rect.top = firstTilePoint[n].y;					
 				rect.right = firstTilePoint[n].x + (sX2[n]-sX1[n])*TILE_X;
@@ -14119,7 +14165,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY2[n] = m_pZone->GetHeight();//-1;
 			}
 					
-			// Ã¹¹øÂ° ÁÙ			
+			// ÃƒÂ¹Â¹Ã¸Ã‚Â° ÃÃ™			
 			tilePointTemp.y = firstTilePoint[n].y;
 
 			//---------------------------------------
@@ -14132,7 +14178,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			int endX = sX2[n];
 			for (y=sY1[n]; y<endY; y++)
 			{				
-				// ÇÑ ÁÙÀÇ Ã¹¹øÂ° Sector					
+				// Ã‡Ã‘ ÃÃ™Ã€Ã‡ ÃƒÂ¹Â¹Ã¸Ã‚Â° Sector					
 				tilePointTemp.x = firstTilePoint[n].x;
 
 				for (x=sX1[n]; x<endX; x++)
@@ -14159,7 +14205,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 						CSprite& sprite = m_TileSPK[ spriteID ];
 
 						//---------------------------------------
-						// ID°¡ spriteIDÀÎ TileÀ» LoadÇÑ´Ù.
+						// IDÂ°Â¡ spriteIDÃ€Ã TileÃ€Â» LoadÃ‡Ã‘Â´Ã™.
 						//---------------------------------------
 //						if (sprite.IsNotInit())
 //						{
@@ -14171,7 +14217,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 //							m_TileSPKFile.seekg(m_TileSPKI[spriteID], ios::beg);
 //							
 //							//--------------------------------------------------
-//							// Loading¿¡ ¼º°øÇÑ °æ¿ì
+//							// LoadingÂ¿Â¡ Â¼ÂºÂ°Ã¸Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 //							//--------------------------------------------------
 //							if (m_TileSPK[spriteID].LoadFromFile( m_TileSPKFile ))
 //							{
@@ -14184,10 +14230,10 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 //								#endif
 //							}
 //							//--------------------------------------------------
-//							// ½ÇÆĞÇÑ °æ¿ì --> ÀÌ¹Ì LoadingÇÏ°í ÀÖ´Â °æ¿ìÀÌ´Ù.				
+//							// Â½Ã‡Ã†ÃÃ‡Ã‘ Â°Ã¦Â¿Ã¬ --> Ã€ÃŒÂ¹ÃŒ LoadingÃ‡ÃÂ°Ã­ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™.				
 //							//--------------------------------------------------
 //							/*
-//							// 2001.8.20 ÁÖ¼®Ã³¸®
+//							// 2001.8.20 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 //							else
 //							{
 //								#ifdef	OUTPUT_DEBUG
@@ -14199,7 +14245,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 //								#endif
 //
 //		
-//								// file thread ¼øÀ§¸¦ ³ôÈù´Ù.
+//								// file thread Â¼Ã¸Ã€Â§Â¸Â¦ Â³Ã´ÃˆÃ¹Â´Ã™.
 //								//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_HIGHEST);
 //
 //								MLoadingSPKWorkNode3* pNode = new MLoadingSPKWorkNode3(spriteID, m_TileSPKI[spriteID]);
@@ -14208,7 +14254,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 //								g_pLoadingThread->SetPriority( THREAD_PRIORITY_HIGHEST );
 //								g_pLoadingThread->AddFirst( pNode );
 //
-//								// Thread¿¡¼­ LoadingÀÌ ³¡³¯¶§±îÁö ±â´Ù¸°´Ù.
+//								// ThreadÂ¿Â¡Â¼Â­ LoadingÃ€ÃŒ Â³Â¡Â³Â¯Â¶Â§Â±Ã®ÃÃ¶ Â±Ã¢Â´Ã™Â¸Â°Â´Ã™.
 //								int waitCount = 0;
 //								while (1)
 //								{								
@@ -14233,7 +14279,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 //								}
 //								//while (!m_TileSPK[spriteID].LoadFromFile( m_TileSPKFile ));
 //
-//								// file thread ¼øÀ§¸¦ ³·Ãá´Ù.
+//								// file thread Â¼Ã¸Ã€Â§Â¸Â¦ Â³Â·ÃƒÃ¡Â´Ã™.
 //								//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_BELOW_NORMAL);	
 //								g_pLoadingThread->SetPriority( THREAD_PRIORITY_LOWEST );
 //
@@ -14247,7 +14293,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 //						}
 						//else 
 						//{
-							// ¶ß¾Ç~~!!!!!!! ¼Óµµ Àâ¾Æ ¸Ô´Â´Ù~!!!
+							// Â¶ÃŸÂ¾Ã‡~~!!!!!!! Â¼Ã“ÂµÂµ Ã€Ã¢Â¾Ã† Â¸Ã”Â´Ã‚Â´Ã™~!!!
 //							POINT pointTempTemp = point;
 //							m_pTileSurface->BltSprite(&pointTempTemp, &m_EtcSPK[SPRITEID_TILE_NULL]);
 
@@ -14260,11 +14306,11 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 					}
 					
 
-					// Ãâ·ÂÇÏ·Á´Â ÁÂÇ¥ ÀÌµ¿
+					// ÃƒÃ¢Â·Ã‚Ã‡ÃÂ·ÃÂ´Ã‚ ÃÃ‚Ã‡Â¥ Ã€ÃŒÂµÂ¿
 					tilePointTemp.x += TILE_X;
 				}		
 						
-				// ´ÙÀ½ ÁÙ
+				// Â´Ã™Ã€Â½ ÃÃ™
 				tilePointTemp.y += TILE_Y;					
 			}	
 
@@ -14305,7 +14351,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 		if (CDirect3D::IsHAL())
 		{	
 			
-			// TileTexture ¼³Á¤
+			// TileTexture Â¼Â³ÃÂ¤
 			CSpriteSurface* m_pTileTexture = new CSpriteSurface;
 			m_pTileTexture->InitTextureSurface(256, 256);
 			
@@ -14322,7 +14368,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			if (first)
 			{
 				//--------------------------------------------------------
-				// Light ¼³Á¤
+				// Light Â¼Â³ÃÂ¤
 				//--------------------------------------------------------
 				D3DLIGHT7 light;
 				ZeroMemory( &light, sizeof(D3DLIGHT7) );
@@ -14342,7 +14388,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_LIGHTING, TRUE );
 
 
-				// world matrix¸¦ ±â¿ïÀÓ..
+				// world matrixÂ¸Â¦ Â±Ã¢Â¿Ã¯Ã€Ã“..
 				D3DMATRIX matWorld;
 				CDirect3D::GetDevice()->GetTransform( D3DTRANSFORMSTATE_WORLD, &matWorld );
 				CD3DMath::MultiplyRotateXMatrix(matWorld, 25*g_DEGTORAD);
@@ -14381,7 +14427,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	bool bDrawBackGround = DrawEvent();
 	
 	__BEGIN_PROFILE("ReuseBltTileSurface")
-	// 2004, 9, 3, sobeit add start - Å¸ÀÏ µŞÂÊ¿¡ ±¸¸§-_-;
+	// 2004, 9, 3, sobeit add start - Ã…Â¸Ã€Ã ÂµÃÃ‚ÃŠÂ¿Â¡ Â±Â¸Â¸Â§-_-;
 //	event = g_pEventManager->GetEventByFlag(EVENTFLAG_CLOUD_BACKGROUND);
 	if(g_pPlayer->IsShowAdamCloud())
 	{
@@ -14391,6 +14437,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			int CloudPos = g_CurrentFrame % g_GameRect.right;
 			POINT CloudPoint = {0,0};
 			RECT CloudRect = { CloudPos, 0, g_GameRect.left, g_GameRect.top };
+#ifdef PLATFORM_WINDOWS
 			if(CloudPos != g_GameRect.left)
 				m_pSurface->BltNoColorkey(&CloudPoint, pCloudSurface, &CloudRect);
 			if(CloudPos != 0)
@@ -14400,6 +14447,19 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				CloudRect.right	=  CloudPos;
 				m_pSurface->BltNoColorkey(&CloudPoint, pCloudSurface, &CloudRect);
 			}
+#else
+			// SDL backend: Cast CDirectDrawSurface* to CSpriteSurface* for compatibility
+			CSpriteSurface* pCloudSprite = reinterpret_cast<CSpriteSurface*>(pCloudSurface);
+			if(CloudPos != g_GameRect.left)
+				m_pSurface->BltNoColorkey(&CloudPoint, pCloudSprite, &CloudRect);
+			if(CloudPos != 0)
+			{
+				CloudPoint.x	= g_GameRect.left-CloudPos;
+				CloudRect.left	=  0;
+				CloudRect.right	=  CloudPos;
+				m_pSurface->BltNoColorkey(&CloudPoint, pCloudSprite, &CloudRect);
+			}
+#endif
 			if(bDrawBackGround)
 				m_pSurface->Blt(&point, m_pTileSurface, &rectReuse);
 		}
@@ -14408,7 +14468,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			m_pSurface->BltNoColorkey(&point, m_pTileSurface, &rectReuse);
 	}
 	else
-	// 2004, 9, 3, sobeit add end - Å¸ÀÏ µŞÂÊ¿¡ ±¸¸§-_-;
+	// 2004, 9, 3, sobeit add end - Ã…Â¸Ã€Ã ÂµÃÃ‚ÃŠÂ¿Â¡ Â±Â¸Â¸Â§-_-;
 	if(bDrawBackGround)
 		m_pSurface->BltNoColorkey(&point, m_pTileSurface, &rectReuse);
 	
@@ -14422,19 +14482,19 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	int sX1, sX2, sY1, sY2;	
 
 	//------------------------------------------------------
-	// Object¸¦ Ãâ·ÂÇÏ±â À§ÇÑ È­¸é ÁÂÇ¥ ¼³Á¤
+	// ObjectÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ±Ã¢ Ã€Â§Ã‡Ã‘ ÃˆÂ­Â¸Ã© ÃÃ‚Ã‡Â¥ Â¼Â³ÃÂ¤
 	//------------------------------------------------------
 	sX1 = firstSector.x + SECTOR_SKIP_LEFT;
 	sY1 = firstSector.y + SECTOR_SKIP_UP;
 	sX2 = firstSector.x + g_SECTOR_WIDTH;
 	sY2 = firstSector.y + g_SECTOR_HEIGHT;
 
-	// Ãâ·ÂÇÒ Surface»óÀÇ À§Ä¡
+	// ÃƒÃ¢Â·Ã‚Ã‡Ã’ SurfaceÂ»Ã³Ã€Ã‡ Ã€Â§Ã„Â¡
 	tilePoint.x = firstPointX + TILE_X*SECTOR_SKIP_LEFT;
 	tilePoint.y = firstPointY + TILE_Y*SECTOR_SKIP_UP;
 
 	//------------------------------------------------------
-	// ZoneÀÇ ¿µ¿ªÀÌ ¾Æ´Ñ °æ¿ì¿¡ Skip...
+	// ZoneÃ€Ã‡ Â¿ÂµÂ¿ÂªÃ€ÃŒ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡ Skip...
 	//------------------------------------------------------
 	if (sX1 < 0) 
 	{					
@@ -14462,7 +14522,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 	//------------------------------------------------------
 	//
-	//                  Object Ãâ·Â
+	//                  Object ÃƒÃ¢Â·Ã‚
 	//
 	//------------------------------------------------------
 
@@ -14475,7 +14535,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 // 2004, 03, 24, sobeit start
 	//------------------------------------------------------
-	// Creature OutputMapÀ» »ı¼ºÇÑ´Ù.
+	// Creature OutputMapÃ€Â» Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
 	//------------------------------------------------------
 	__BEGIN_PROFILE("AddOutputCreature")
 
@@ -14501,12 +14561,12 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 		if(pCreature->GetCreatureType() == CREATURETYPE_GHOST)
 		{
-			// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ì..´Â Ãâ·Â
-			// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+			// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ sY1ÂºÂ¸Â´Ã™ Ã€Ã»Ã€Âº Â°Ã¦Â¿Ã¬..Â´Ã‚ ÃƒÃ¢Â·Ã‚
+			// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 			point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 			point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
 									
-			// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
+			// Â¹Ã Â±Ã¢Â¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 			//int DarkBits = (m_pZone->GetSector(pCreature->GetX(),pCreature->GetY()).GetLight()==0)?m_DarkBits:0;
 			
 			DrawCreature(&point, pCreature);//, DarkBits);
@@ -14517,7 +14577,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 // 2004, 03, 24, sobeit end
 	/*
 	//------------------------------------------------------
-	// Sprite ÇÏ³ª º¸±â
+	// Sprite Ã‡ÃÂ³Âª ÂºÂ¸Â±Ã¢
 	//------------------------------------------------------
 			static int s_id = 0;
 			static DWORD lastFrame = g_CurrentFrame;
@@ -14563,38 +14623,38 @@ if (!m_pSurface->Lock()) return;
 	*/
 
 
-	// SurfaceÀÇ Á¤º¸¸¦ ÀúÀåÇØµĞ´Ù.
+	// SurfaceÃ€Ã‡ ÃÂ¤ÂºÂ¸Â¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã˜ÂµÃÂ´Ã™.
 	//SetSurfaceInfo(&m_SurfaceInfo, m_pSurface->GetDDSD());
 
 	//------------------------------------------------------
 	//
-	//			¹Ù´Ú ¿ÀºêÁ§Æ® Ãâ·Â
+	//			Â¹Ã™Â´Ãš Â¿Ã€ÂºÃªÃÂ§Ã†Â® ÃƒÃ¢Â·Ã‚
 	//
 	//------------------------------------------------------	
 	//------------------------------------------------------
-	// Ãâ·Â´ë»óÀÌ µÇ´Â ImageObject Iterator
+	// ÃƒÃ¢Â·Ã‚Â´Ã«Â»Ã³Ã€ÃŒ ÂµÃ‡Â´Ã‚ ImageObject Iterator
 	//------------------------------------------------------
 	IMAGEOBJECT_OUTPUT_MAP::const_iterator iImageObjectOutput0 = m_mapImageObject.begin();
 	
 	//------------------------------------------------------
-	// Ãâ·Â ½ÃÁ¡ÀÌ 0 Áï ¹Ù´Ú ¿ÀºêÁ§Æ®ÀÎ
-	// ImageObjectµéÀ» Ãâ·ÂÇÑ´Ù.
-	// m_mapImageObject¿¡´Â Viewpoint°¡ key°ªÀÌ µÇ¾î¼­ SortµÇ¾î ÀÖ´Ù.
+	// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ 0 ÃÃ¯ Â¹Ã™Â´Ãš Â¿Ã€ÂºÃªÃÂ§Ã†Â®Ã€Ã
+	// ImageObjectÂµÃ©Ã€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
+	// m_mapImageObjectÂ¿Â¡Â´Ã‚ ViewpointÂ°Â¡ keyÂ°ÂªÃ€ÃŒ ÂµÃ‡Â¾Ã®Â¼Â­ SortÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã™.
 	//------------------------------------------------------
 	while (bDrawBackGround && iImageObjectOutput0 != m_mapImageObject.end())
 	{
 		MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectOutput0).second);
 
-		// Ãâ·Â ½ÃÁ¡ÀÌ 0ÀÎ°æ¿ì °æ¿ì..´Â Ãâ·Â
+		// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ 0Ã€ÃÂ°Ã¦Â¿Ã¬ Â°Ã¦Â¿Ã¬..Â´Ã‚ ÃƒÃ¢Â·Ã‚
 		if (pImageObject->GetViewpoint() == 0)
 		{
-			// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+			// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 			point.x = pImageObject->GetPixelX() - m_FirstZonePixel.x;
 			point.y = pImageObject->GetPixelY() - m_FirstZonePixel.y;
 									
 			DrawImageObject(&point, pImageObject);
 		}
-		// ¾Æ´Ï¸é.. Object Ãâ·ÂÇÒ¶§ Ãâ·ÂµÇ´Â °æ¿ìÀÌ´Ù.
+		// Â¾Ã†Â´ÃÂ¸Ã©.. Object ÃƒÃ¢Â·Ã‚Ã‡Ã’Â¶Â§ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™.
 //		else
 //		{
 //			break;
@@ -14606,17 +14666,17 @@ if (!m_pSurface->Lock()) return;
 
 	//------------------------------------------------------
 	//
-	//			Ground Effect Ãâ·Â
+	//			Ground Effect ÃƒÃ¢Â·Ã‚
 	//
 	//------------------------------------------------------	
-	// player°¡ °ü¼Ó¿¡ ÀÖ´Â °æ¿ì [»õ±â¼ú3]
+	// playerÂ°Â¡ Â°Ã¼Â¼Ã“Â¿Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬ [Â»ÃµÂ±Ã¢Â¼Ãº3]
 	//------------------------------------------------------
 	bool bPlayerInCasket = g_pPlayer->IsInCasket();
 		
 	if (bPlayerInCasket)
 	{
-		// [»õ±â¼ú3]
-		// È­¸é ÀüÃ¼¸¦ ¾îµÓ°Ô Ç¥½ÃÇÑ´Ù. Tile¸¸ - -;;
+		// [Â»ÃµÂ±Ã¢Â¼Ãº3]
+		// ÃˆÂ­Â¸Ã© Ã€Ã¼ÃƒÂ¼Â¸Â¦ Â¾Ã®ÂµÃ“Â°Ã” Ã‡Â¥Â½ÃƒÃ‡Ã‘Â´Ã™. TileÂ¸Â¸ - -;;
 		rect.left = 0;
 		rect.right = g_GameRect.right;
 		rect.top = 0;
@@ -14636,10 +14696,10 @@ if (!m_pSurface->Lock()) return;
 
 	//------------------------------------------------------
 	//
-	// ¼±ÅÃµÈ Sector¸¦ Ç¥½ÃÇÑ´Ù.
+	// Â¼Â±Ã…ÃƒÂµÃˆ SectorÂ¸Â¦ Ã‡Â¥Â½ÃƒÃ‡Ã‘Â´Ã™.
 	//
 	//------------------------------------------------------
-	// ¼±ÅÃµÈ À§Ä¡°¡ ÀÖ°í.. ¼±ÅÃµÈ Object°¡ ¾øÀ» ¶§...
+	// Â¼Â±Ã…ÃƒÂµÃˆ Ã€Â§Ã„Â¡Â°Â¡ Ã€Ã–Â°Ã­.. Â¼Â±Ã…ÃƒÂµÃˆ ObjectÂ°Â¡ Â¾Ã¸Ã€Â» Â¶Â§...
 	//if (g_pUserInformation->Invisible)
 	{
 	}
@@ -14667,11 +14727,11 @@ if (!m_pSurface->Lock()) return;
 			
 			if(g_pEventManager->GetEventByFlag(EVENTFLAG_NOT_DRAW_CREATURE) == NULL)
 			{
-				// Áß½É ÁÂÇ¥ º¸Á¤
+				// ÃÃŸÂ½Ã‰ ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 				CSprite* pSprite = &m_EtcSPK[ frameID[clickFrame] ];
 				
-				selectedPoint.x += g_TILE_X_HALF - (pSprite->GetWidth()>>1);
-				selectedPoint.y += g_TILE_Y_HALF - (pSprite->GetHeight()>>1);
+				selectedPoint.x += 24 - (pSprite->GetWidth()>>1);
+				selectedPoint.y += 24 - (pSprite->GetHeight()>>1);
 				
 				
 				m_pSurface->BltSprite(&selectedPoint, pSprite);
@@ -14685,7 +14745,7 @@ if (!m_pSurface->Lock()) return;
 			}
 			
 			
-			// Player°¡ ¼±ÅÃµÈ À§Ä¡¿¡ ¿ÔÀ¸¸é..
+			// PlayerÂ°Â¡ Â¼Â±Ã…ÃƒÂµÃˆ Ã€Â§Ã„Â¡Â¿Â¡ Â¿Ã”Ã€Â¸Â¸Ã©..
 			if (g_pPlayer->GetX()==m_SelectSector.x && g_pPlayer->GetY()==m_SelectSector.y)
 			{
 				m_SelectSector.x = SECTORPOSITION_NULL;
@@ -14699,11 +14759,11 @@ if (!m_pSurface->Lock()) return;
 
 	//------------------------------------------------------
 	// 
-	//       ImageObjectÀÇ ±×¸²ÀÚ Ãâ·Â
+	//       ImageObjectÃ€Ã‡ Â±Ã—Â¸Â²Ã€Ãš ÃƒÃ¢Â·Ã‚
 	//
 	//------------------------------------------------------
 	//------------------------------------------------------
-	// Ãâ·Â´ë»óÀÌ µÇ´Â ImageObject Iterator
+	// ÃƒÃ¢Â·Ã‚Â´Ã«Â»Ã³Ã€ÃŒ ÂµÃ‡Â´Ã‚ ImageObject Iterator
 	//------------------------------------------------------
 	__BEGIN_PROFILE("DrawImageObjectShadow")
 
@@ -14714,7 +14774,7 @@ if (!m_pSurface->Lock()) return;
 	{
 		MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectShadowOutput).second);
 		
-		// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+		// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 		point.x = pImageObject->GetPixelX() - m_FirstZonePixel.x;
 		point.y = pImageObject->GetPixelY() - m_FirstZonePixel.y;
 											
@@ -14750,36 +14810,36 @@ if (!m_pSurface->Lock()) return;
 
 	//------------------------------------------------------
 	//
-	// Ãâ·Â ½ÃÁ¡º¸´Ù À§ÂÊ¿¡ ÀÖ´Â ImageObjectµéÀ» Ãâ·ÂÇÑ´Ù.
+	// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡ÂºÂ¸Â´Ã™ Ã€Â§Ã‚ÃŠÂ¿Â¡ Ã€Ã–Â´Ã‚ ImageObjectÂµÃ©Ã€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 	//
 	//------------------------------------------------------
 	//------------------------------------------------------
-	// Ãâ·Â´ë»óÀÌ µÇ´Â ImageObject Iterator
+	// ÃƒÃ¢Â·Ã‚Â´Ã«Â»Ã³Ã€ÃŒ ÂµÃ‡Â´Ã‚ ImageObject Iterator
 	//------------------------------------------------------
 	IMAGEOBJECT_OUTPUT_MAP::const_iterator iImageObjectOutput = m_mapImageObject.begin();
 	
 	//------------------------------------------------------
-	// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ìÀÇ 
-	// ImageObjectµéÀ» Ãâ·ÂÇÑ´Ù.
-	// m_mapImageObject¿¡´Â Viewpoint°¡ key°ªÀÌ µÇ¾î¼­ SortµÇ¾î ÀÖ´Ù.
+	// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ sY1ÂºÂ¸Â´Ã™ Ã€Ã»Ã€Âº Â°Ã¦Â¿Ã¬Ã€Ã‡ 
+	// ImageObjectÂµÃ©Ã€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
+	// m_mapImageObjectÂ¿Â¡Â´Ã‚ ViewpointÂ°Â¡ keyÂ°ÂªÃ€ÃŒ ÂµÃ‡Â¾Ã®Â¼Â­ SortÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã™.
 	//------------------------------------------------------
 	while (bDrawBackGround && iImageObjectOutput != m_mapImageObject.end())
 	{
 		MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectOutput).second);
 
-		// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ì..´Â Ãâ·Â
+		// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ sY1ÂºÂ¸Â´Ã™ Ã€Ã»Ã€Âº Â°Ã¦Â¿Ã¬..Â´Ã‚ ÃƒÃ¢Â·Ã‚
 		if (pImageObject->GetViewpoint() < sY1)
 		{
 			if(pImageObject->GetViewpoint() != 0)
 			{
-				// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+				// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 				point.x = pImageObject->GetPixelX() - m_FirstZonePixel.x;
 				point.y = pImageObject->GetPixelY() - m_FirstZonePixel.y;
 										
 				DrawImageObject(&point, pImageObject);
 			}
 		}
-		// ¾Æ´Ï¸é.. Object Ãâ·ÂÇÒ¶§ Ãâ·ÂµÇ´Â °æ¿ìÀÌ´Ù.
+		// Â¾Ã†Â´ÃÂ¸Ã©.. Object ÃƒÃ¢Â·Ã‚Ã‡Ã’Â¶Â§ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™.
 		else
 		{
 			break;
@@ -14788,16 +14848,16 @@ if (!m_pSurface->Lock()) return;
 		iImageObjectOutput ++;
 	}
 
-	// ¾Ö´Ï¸ŞÀÌ¼Ç ¿ÀºêÁ§Æ®¿¡¼­ Loop°¡ µÇ´Â ¿¡´Ï¸ŞÀÌ¼Ç ¿ÀºêÁ§Æ®ÀÇ FrameÀ» ¸ÂÃß±â À§ÇØ¼­
+	// Â¾Ã–Â´ÃÂ¸ÃÃ€ÃŒÂ¼Ã‡ Â¿Ã€ÂºÃªÃÂ§Ã†Â®Â¿Â¡Â¼Â­ LoopÂ°Â¡ ÂµÃ‡Â´Ã‚ Â¿Â¡Â´ÃÂ¸ÃÃ€ÃŒÂ¼Ã‡ Â¿Ã€ÂºÃªÃÂ§Ã†Â®Ã€Ã‡ FrameÃ€Â» Â¸Ã‚ÃƒÃŸÂ±Ã¢ Ã€Â§Ã‡Ã˜Â¼Â­
 	if(g_bFrameChanged)
 		MAnimationObject::NextLoopFrame();
 
-/*	- 2004, 4, 24 sobeit block - ghost ¶§¹®¿¡ À§¿¡¼­ Ã³¸® ÇÔ
+/*	- 2004, 4, 24 sobeit block - ghost Â¶Â§Â¹Â®Â¿Â¡ Ã€Â§Â¿Â¡Â¼Â­ ÃƒÂ³Â¸Â® Ã‡Ã”
 	//------------------------------------------------------
-	// player°¡ °ü ¼Ó¿¡ ÀÖ´Â °æ¿ì°¡ ¾Æ´Ï¸é.. [»õ±â¼ú3]
+	// playerÂ°Â¡ Â°Ã¼ Â¼Ã“Â¿Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Â°Â¡ Â¾Ã†Â´ÃÂ¸Ã©.. [Â»ÃµÂ±Ã¢Â¼Ãº3]
 	//------------------------------------------------------
 	//------------------------------------------------------
-	// Creature OutputMapÀ» »ı¼ºÇÑ´Ù.
+	// Creature OutputMapÃ€Â» Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
 	//------------------------------------------------------
 	__BEGIN_PROFILE("AddOutputCreature")
 
@@ -14807,15 +14867,15 @@ if (!m_pSurface->Lock()) return;
 
 	//------------------------------------------------------
 	//
-	//			¸ğµç creatureÀÇ ±×¸²ÀÚ¸¦ Ãâ·ÂÇÑ´Ù.
+	//			Â¸Ã°ÂµÃ§ creatureÃ€Ã‡ Â±Ã—Â¸Â²Ã€ÃšÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 	//
 	//------------------------------------------------------
-	// ¸ğµç creatureÀÇ shadow¸¦ Ãâ·ÂÇÑ´Ù.
-	// (!) AddOutputCreatureAll()¸¦ ÇÑ ´ÙÀ½¿¡ ½ÇÇàÇØ¾ß ÇÑ´Ù.
+	// Â¸Ã°ÂµÃ§ creatureÃ€Ã‡ shadowÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
+	// (!) AddOutputCreatureAll()Â¸Â¦ Ã‡Ã‘ Â´Ã™Ã€Â½Â¿Â¡ Â½Ã‡Ã‡Ã Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 	//
-	// LockµÈ »óÅÂ¿¡¼­ ½ÇÇàÇÑ´Ù°í °¡Á¤ÇÑ´Ù.
+	// LockÂµÃˆ Â»Ã³Ã…Ã‚Â¿Â¡Â¼Â­ Â½Ã‡Ã‡Ã Ã‡Ã‘Â´Ã™Â°Ã­ Â°Â¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 	//----------------------------------------------------
-	// 3D°¡¼ÓÇÒ¶§´Â UnlockÀ¸·Î ¸¸µç´Ù.
+	// 3DÂ°Â¡Â¼Ã“Ã‡Ã’Â¶Â§Â´Ã‚ UnlockÃ€Â¸Â·Ã Â¸Â¸ÂµÃ§Â´Ã™.
 	//----------------------------------------------------
 	BOOL bUnlockStatus = CDirect3D::IsHAL() && g_pUserOption->BlendingShadow;
 	if (bUnlockStatus)
@@ -14824,7 +14884,7 @@ if (!m_pSurface->Lock()) return;
 	}
 */
 	//------------------------------------------------------
-	// Ãâ·Â´ë»óÀÌ µÇ´Â Creature Iterator
+	// ÃƒÃ¢Â·Ã‚Â´Ã«Â»Ã³Ã€ÃŒ ÂµÃ‡Â´Ã‚ Creature Iterator
 	//------------------------------------------------------
 	__BEGIN_PROFILE("DrawCreatureShadowAll")
 
@@ -14832,9 +14892,9 @@ if (!m_pSurface->Lock()) return;
 	iCreatureOutput = m_mapCreature.begin();
 
 	//------------------------------------------------------
-	// Ä³¸¯ÅÍ ±×¸²ÀÚ¸¦ ¸ğµÎ Ãâ·ÂÇÑ´Ù.
+	// Ã„Â³Â¸Â¯Ã…Ã Â±Ã—Â¸Â²Ã€ÃšÂ¸Â¦ Â¸Ã°ÂµÃ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 	//------------------------------------------------------
-	// Å¸ÀÏÀ» Ã¼Å©ÇØ¼­ Ãâ·ÂÇÏ´Â °æ¿ì
+	// Ã…Â¸Ã€ÃÃ€Â» ÃƒÂ¼Ã…Â©Ã‡Ã˜Â¼Â­ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 	//------------------------------------------------------
 	if (m_bTileSearchForCreature)
 	{
@@ -14844,7 +14904,7 @@ if (!m_pSurface->Lock()) return;
 			{	
 				int darknessCount = g_pPlayer->GetDarknessCount();
 				
-				// darkness¶û °ü°è¾øÀÌ º¸ÀÌ´Â °æ¿ì. effect´Â +2
+				// darknessÂ¶Ã» Â°Ã¼Â°Ã¨Â¾Ã¸Ã€ÃŒ ÂºÂ¸Ã€ÃŒÂ´Ã‚ Â°Ã¦Â¿Ã¬. effectÂ´Ã‚ +2
 				if (darknessCount < 0
 					|| max(abs(g_pPlayer->GetX()-x), abs(g_pPlayer->GetY()-y)) <= darknessCount+2)
 				//g_pPlayer->ShowInDarkness(x, y))
@@ -14863,11 +14923,11 @@ if (!m_pSurface->Lock()) return;
 
 						if (pCreature!=NULL)
 						{
-							// playerÀÌ°Å³ª darkness¶û °ü°è¾øÀÌ º¸ÀÌ´Â °æ¿ì
+							// playerÃ€ÃŒÂ°Ã…Â³Âª darknessÂ¶Ã» Â°Ã¼Â°Ã¨Â¾Ã¸Ã€ÃŒ ÂºÂ¸Ã€ÃŒÂ´Ã‚ Â°Ã¦Â¿Ã¬
 							if (pCreature==g_pPlayer
 								|| g_pPlayer->ShowInDarkness(pCreature->GetX(), pCreature->GetY()))
 							{				
-								// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+								// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 								point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 								point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
 														
@@ -14892,19 +14952,19 @@ if (!m_pSurface->Lock()) return;
 									|| iCreature->first > MSector::POSITION_FLYINGCREATURE_MAX)
 									break;
 
-								// underground´Â ±×¸²ÀÚ°¡ ¾ø´ç.
+								// undergroundÂ´Ã‚ Â±Ã—Â¸Â²Ã€ÃšÂ°Â¡ Â¾Ã¸Â´Ã§.
 								if (iCreature->first >= MSector::POSITION_GROUNDCREATURE)
 								{
 									pCreature = (MCreature*)iCreature->second;
 
-									// playerÀÌ°Å³ª darkness¶û °ü°è¾øÀÌ º¸ÀÌ´Â °æ¿ì
+									// playerÃ€ÃŒÂ°Ã…Â³Âª darknessÂ¶Ã» Â°Ã¼Â°Ã¨Â¾Ã¸Ã€ÃŒ ÂºÂ¸Ã€ÃŒÂ´Ã‚ Â°Ã¦Â¿Ã¬
 									if (
 										(pCreature==g_pPlayer
 										|| g_pPlayer->ShowInDarkness(pCreature->GetX(), pCreature->GetY())) &&
 										!pCreature->IsFakeCreature()										
 										)
 									{				
-										// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+										// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 										point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 										point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
 																
@@ -14938,14 +14998,14 @@ if (!m_pSurface->Lock()) return;
 			}
 		}
 
-		// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+		// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 		point.x = g_pPlayer->GetPixelX() - m_FirstZonePixel.x;
 		point.y = g_pPlayer->GetPixelY() - m_FirstZonePixel.y;
 								
 		DrawCreatureShadow(&point, g_pPlayer);//, DarkBits);		
 	}
 	//------------------------------------------------------
-	// Ä³¸¯ÅÍ OutputMapÀ» ÀÌ¿ëÇÏ´Â °æ¿ì
+	// Ã„Â³Â¸Â¯Ã…Ã OutputMapÃ€Â» Ã€ÃŒÂ¿Ã«Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 	//------------------------------------------------------
 	else
 	{
@@ -14956,12 +15016,12 @@ if (!m_pSurface->Lock()) return;
 			if (pCreature==g_pPlayer
 				|| g_pPlayer->ShowInDarkness(pCreature->GetX(), pCreature->GetY()))
 			{
-				// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ì..´Â Ãâ·Â
-				// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+				// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ sY1ÂºÂ¸Â´Ã™ Ã€Ã»Ã€Âº Â°Ã¦Â¿Ã¬..Â´Ã‚ ÃƒÃ¢Â·Ã‚
+				// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 				point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 				point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
 										
-				// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
+				// Â¹Ã Â±Ã¢Â¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 				//int DarkBits = (m_pZone->GetSector(pCreature->GetX(),pCreature->GetY()).GetLight()==0)?m_DarkBits:0;
 				
 				DrawCreatureShadow(&point, pCreature);//, DarkBits);
@@ -14974,31 +15034,31 @@ if (!m_pSurface->Lock()) return;
 	__END_PROFILE("DrawCreatureShadowAll")
 
 	//----------------------------------------------------
-	// ¿ø·¡ÀÇ LockµÈ »óÅÂ¸¦ À¯Áö½ÃÄÑ ÁØ´Ù.
+	// Â¿Ã¸Â·Â¡Ã€Ã‡ LockÂµÃˆ Â»Ã³Ã…Ã‚Â¸Â¦ Ã€Â¯ÃÃ¶Â½ÃƒÃ„Ã‘ ÃÃ˜Â´Ã™.
 	//----------------------------------------------------
 	if (bUnlockStatus)
 	{	
 		m_pSurface->Lock();
 	}
 
-	// Item ±×¸²ÀÚ Ãâ·Â¿ë
+	// Item Â±Ã—Â¸Â²Ã€Ãš ÃƒÃ¢Â·Ã‚Â¿Ã«
 	//------------------------------------------------------
-	// È­¸éÀÇ SectorµéÀ» ¸ğµÎ °Ë»öÇÏ¸é¼­
-	// Sector¿¡ Á¸ÀçÇÏ´Â ObjectµéÀ» Ãâ·ÂÇÑ´Ù.
+	// ÃˆÂ­Â¸Ã©Ã€Ã‡ SectorÂµÃ©Ã€Â» Â¸Ã°ÂµÃ Â°Ã‹Â»Ã¶Ã‡ÃÂ¸Ã©Â¼Â­
+	// SectorÂ¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ ObjectÂµÃ©Ã€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 	//------------------------------------------------------
-	// Ã¹¹øÂ° ÁÙ	
+	// ÃƒÂ¹Â¹Ã¸Ã‚Â° ÃÃ™	
 	tilePointTemp.y = tilePoint.y;
 
 	//----------------------------------------------------------------
 	//
-	// tileÀ» °Ë»öÇØ¼­ Ä³¸¯ÅÍ¸¦ Ãâ·ÂÇÏ´Â °æ¿ì
+	// tileÃ€Â» Â°Ã‹Â»Ã¶Ã‡Ã˜Â¼Â­ Ã„Â³Â¸Â¯Ã…ÃÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 	//
 	//----------------------------------------------------------------
 	if (m_bTileSearchForCreature)
 	{
 		for (y=sY1; y<=sY2; y++)
 		{				
-			// ÇÑ ÁÙÀÇ Ã¹¹øÂ° Sector					
+			// Ã‡Ã‘ ÃÃ™Ã€Ã‡ ÃƒÂ¹Â¹Ã¸Ã‚Â° Sector					
 			tilePointTemp.x = tilePoint.x;			
 			
 			for (x=sX1; x<=sX2; x++)
@@ -15007,7 +15067,7 @@ if (!m_pSurface->Lock()) return;
 
 				//------------------------------------------------
 				//
-				//              Object Ãâ·Â
+				//              Object ÃƒÃ¢Â·Ã‚
 				//
 				//------------------------------------------------
 					
@@ -15015,19 +15075,19 @@ if (!m_pSurface->Lock()) return;
 				{				
 			
 					//----------------------------------------
-					// ItemÀÏ °æ¿ì
+					// ItemÃ€Ã Â°Ã¦Â¿Ã¬
 					//----------------------------------------					
 					pItem = sector.GetItem();
 					if (pItem != NULL
 						&& g_pPlayer->ShowInDarkness(x, y))
 					{		
 						//----------------------------------------
-						// ½ÃÃ¼ÀÎ °æ¿ì
-						// Effect¸¦ Ãâ·ÂÇÏ°í ³ª¼­ Ãâ·ÂÇÑ´Ù.
+						// Â½ÃƒÃƒÂ¼Ã€Ã Â°Ã¦Â¿Ã¬
+						// EffectÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ°Ã­ Â³ÂªÂ¼Â­ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 						//
 						// 2002.1.23
-						// ¾ğÁ¦ EffectÃâ·ÂÄÚµå°¡ ºüÁø°ÅÁö..
-						// ¾ÏÆ° ½ÃÃ¼ °ü·Ã ÄÚµå´Â »«´Ù. 
+						// Â¾Ã°ÃÂ¦ EffectÃƒÃ¢Â·Ã‚Ã„ÃšÂµÃ¥Â°Â¡ ÂºÃ¼ÃÃ¸Â°Ã…ÃÃ¶..
+						// Â¾ÃÃ†Â° Â½ÃƒÃƒÂ¼ Â°Ã¼Â·Ãƒ Ã„ÃšÂµÃ¥Â´Ã‚ Â»Â«Â´Ã™. 
 						//----------------------------------------
 						//if (pItem->GetItemClass()==ITEM_CLASS_CORPSE)
 						{
@@ -15039,10 +15099,10 @@ if (!m_pSurface->Lock()) return;
 							point.y = tilePointTemp.y;
 
 
-							// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
+							// Â¹Ã Â±Ã¢Â¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 							//DarkBits = (sector.GetLight()==0)?m_DarkBits:0;
 							
-							// ³ªÁß¿¡ FrameÁ¤º¸¿¡¼­ cx,cy¸¦ ±³Á¤ÇØ¾ß ÇÑ´Ù.									
+							// Â³ÂªÃÃŸÂ¿Â¡ FrameÃÂ¤ÂºÂ¸Â¿Â¡Â¼Â­ cx,cyÂ¸Â¦ Â±Â³ÃÂ¤Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.									
 							DrawItemShadow(&point, pItem);//, DarkBits);
 						}
 					}
@@ -15050,31 +15110,31 @@ if (!m_pSurface->Lock()) return;
 
 
 				//------------------------------------			
-				// Ãâ·ÂÇÏ·Á´Â ÁÂÇ¥ ÀÌµ¿
+				// ÃƒÃ¢Â·Ã‚Ã‡ÃÂ·ÃÂ´Ã‚ ÃÃ‚Ã‡Â¥ Ã€ÃŒÂµÂ¿
 				//------------------------------------
 				tilePointTemp.x += TILE_X;
 			}
 			
 					
-			// ´ÙÀ½ ÁÙ
+			// Â´Ã™Ã€Â½ ÃÃ™
 			tilePointTemp.y += TILE_Y;					
 		}		
 	}
 	//----------------------------------------------------------------
 	//
-	// tileÀ» °Ë»öÇÏÁö ¾Ê°í OutputCreatureMapÀ» ÀÌ¿ëÇØ¼­ Ä³¸¯ÅÍ¸¦ Ãâ·ÂÇÏ´Â °æ¿ì
+	// tileÃ€Â» Â°Ã‹Â»Ã¶Ã‡ÃÃÃ¶ Â¾ÃŠÂ°Ã­ OutputCreatureMapÃ€Â» Ã€ÃŒÂ¿Ã«Ã‡Ã˜Â¼Â­ Ã„Â³Â¸Â¯Ã…ÃÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 	//
 	//----------------------------------------------------------------
 	else
 	{	
 		for (y=sY1; y<=sY2; y++)
 		{
-			// °ü ¼Ó¿¡ ÀÖÀ» ¶§´Â ±×³É °Ë»öÇØ¼­ Ãâ·ÂÇÏ´Â object´Â ¾ø´Ù.
-			// AddOutputCreatureAll()¿¡¼­ m_bTileSearchForCreature°¡ false·Î
-			// ¼³Á¤µÇ¹Ç·Î... OutputCreatureMapÀ» ÀÌ¿ëÇÏ¸é µÈ´Ù.
-			if (!bPlayerInCasket)	// [»õ±â¼ú3]
+			// Â°Ã¼ Â¼Ã“Â¿Â¡ Ã€Ã–Ã€Â» Â¶Â§Â´Ã‚ Â±Ã—Â³Ã‰ Â°Ã‹Â»Ã¶Ã‡Ã˜Â¼Â­ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ´Ã‚ objectÂ´Ã‚ Â¾Ã¸Â´Ã™.
+			// AddOutputCreatureAll()Â¿Â¡Â¼Â­ m_bTileSearchForCreatureÂ°Â¡ falseÂ·Ã
+			// Â¼Â³ÃÂ¤ÂµÃ‡Â¹Ã‡Â·Ã... OutputCreatureMapÃ€Â» Ã€ÃŒÂ¿Ã«Ã‡ÃÂ¸Ã© ÂµÃˆÂ´Ã™.
+			if (!bPlayerInCasket)	// [Â»ÃµÂ±Ã¢Â¼Ãº3]
 			{			
-				// ÇÑ ÁÙÀÇ Ã¹¹øÂ° Sector					
+				// Ã‡Ã‘ ÃÃ™Ã€Ã‡ ÃƒÂ¹Â¹Ã¸Ã‚Â° Sector					
 				tilePointTemp.x = tilePoint.x;			
 				
 				for (x=sX1; x<=sX2; x++)
@@ -15083,7 +15143,7 @@ if (!m_pSurface->Lock()) return;
 					
 					//------------------------------------------------
 					//
-					//              Object Ãâ·Â
+					//              Object ÃƒÃ¢Â·Ã‚
 					//
 					//------------------------------------------------
 					//MItem* pCorpseItem = NULL;
@@ -15091,19 +15151,19 @@ if (!m_pSurface->Lock()) return;
 					if (sector.IsExistObject())
 					{				
 						//----------------------------------------
-						// ItemÀÏ °æ¿ì
+						// ItemÃ€Ã Â°Ã¦Â¿Ã¬
 						//----------------------------------------					
 						pItem = sector.GetItem();
 						if (pItem != NULL
 							&& g_pPlayer->ShowInDarkness(x, y))
 						{		
 							//----------------------------------------
-							// ½ÃÃ¼ÀÎ °æ¿ì
-							// Effect¸¦ Ãâ·ÂÇÏ°í ³ª¼­ Ãâ·ÂÇÑ´Ù.
+							// Â½ÃƒÃƒÂ¼Ã€Ã Â°Ã¦Â¿Ã¬
+							// EffectÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ°Ã­ Â³ÂªÂ¼Â­ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 							//
 							// 2002.1.23
-							// ¾ğÁ¦ EffectÃâ·ÂÄÚµå°¡ ºüÁø°ÅÁö..
-							// ¾ÏÆ° ½ÃÃ¼ °ü·Ã ÄÚµå´Â »«´Ù. 
+							// Â¾Ã°ÃÂ¦ EffectÃƒÃ¢Â·Ã‚Ã„ÃšÂµÃ¥Â°Â¡ ÂºÃ¼ÃÃ¸Â°Ã…ÃÃ¶..
+							// Â¾ÃÃ†Â° Â½ÃƒÃƒÂ¼ Â°Ã¼Â·Ãƒ Ã„ÃšÂµÃ¥Â´Ã‚ Â»Â«Â´Ã™. 
 							//----------------------------------------
 							//if (pItem->GetItemClass()==ITEM_CLASS_CORPSE)
 							{
@@ -15114,7 +15174,7 @@ if (!m_pSurface->Lock()) return;
 								point.x = tilePointTemp.x;
 								point.y = tilePointTemp.y;
 
-								// ³ªÁß¿¡ FrameÁ¤º¸¿¡¼­ cx,cy¸¦ ±³Á¤ÇØ¾ß ÇÑ´Ù.									
+								// Â³ÂªÃÃŸÂ¿Â¡ FrameÃÂ¤ÂºÂ¸Â¿Â¡Â¼Â­ cx,cyÂ¸Â¦ Â±Â³ÃÂ¤Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.									
 								DrawItemShadow(&point, pItem);//, DarkBits);
 							}
 						}
@@ -15122,13 +15182,13 @@ if (!m_pSurface->Lock()) return;
 
 
 					//------------------------------------			
-					// Ãâ·ÂÇÏ·Á´Â ÁÂÇ¥ ÀÌµ¿
+					// ÃƒÃ¢Â·Ã‚Ã‡ÃÂ·ÃÂ´Ã‚ ÃÃ‚Ã‡Â¥ Ã€ÃŒÂµÂ¿
 					//------------------------------------
 					tilePointTemp.x += TILE_X;
 				}
 			}	// bPlayerInCasket
 					
-			// ´ÙÀ½ ÁÙ
+			// Â´Ã™Ã€Â½ ÃÃ™
 			tilePointTemp.y += TILE_Y;
 		}
 	}
@@ -15136,49 +15196,49 @@ if (!m_pSurface->Lock()) return;
 
 	//------------------------------------------------------
 	//
-	//				½ÇÁ¦ sprite Ãâ·Â
+	//				Â½Ã‡ÃÂ¦ sprite ÃƒÃ¢Â·Ã‚
 	//
 	//------------------------------------------------------
 	//------------------------------------------------------
-	// Ãâ·Â´ë»óÀÌ µÇ´Â Creature Iterator
+	// ÃƒÃ¢Â·Ã‚Â´Ã«Â»Ã³Ã€ÃŒ ÂµÃ‡Â´Ã‚ Creature Iterator
 	//------------------------------------------------------
 	iCreatureOutput = m_mapCreature.begin();
 
 	//------------------------------------------------------
-	// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ìÀÇ 
-	// CreatureµéÀ» Ãâ·ÂÇÑ´Ù.
-	// m_mapCreature¿¡´Â Viewpoint°¡ key°ªÀÌ µÇ¾î¼­ SortµÇ¾î ÀÖ´Ù.
+	// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ sY1ÂºÂ¸Â´Ã™ Ã€Ã»Ã€Âº Â°Ã¦Â¿Ã¬Ã€Ã‡ 
+	// CreatureÂµÃ©Ã€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
+	// m_mapCreatureÂ¿Â¡Â´Ã‚ ViewpointÂ°Â¡ keyÂ°ÂªÃ€ÃŒ ÂµÃ‡Â¾Ã®Â¼Â­ SortÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã™.
 	//------------------------------------------------------
 	while (iCreatureOutput != m_mapCreature.end())
 	{
 		MCreature* const pCreature = (MCreature* const)((*iCreatureOutput).second);
 
-		// 2004, 04, 24 sobeit add start -ghost ÀÏ¶§ 
+		// 2004, 04, 24 sobeit add start -ghost Ã€ÃÂ¶Â§ 
 		if(pCreature->GetCreatureType() == CREATURETYPE_GHOST)
 		{
 			iCreatureOutput ++;
 			continue;
 		}
-		// 2004, 04, 24 sobeit add end -ghost ÀÏ¶§ 
+		// 2004, 04, 24 sobeit add end -ghost Ã€ÃÂ¶Â§ 
 
-		// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ì..´Â Ãâ·Â
+		// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ sY1ÂºÂ¸Â´Ã™ Ã€Ã»Ã€Âº Â°Ã¦Â¿Ã¬..Â´Ã‚ ÃƒÃ¢Â·Ã‚
 		if (pCreature->GetY() < sY1)
 		{
-			// playerÀÌ°Å³ª darkness¶û °ü°è¾øÀÌ º¸ÀÌ´Â °æ¿ì
+			// playerÃ€ÃŒÂ°Ã…Â³Âª darknessÂ¶Ã» Â°Ã¼Â°Ã¨Â¾Ã¸Ã€ÃŒ ÂºÂ¸Ã€ÃŒÂ´Ã‚ Â°Ã¦Â¿Ã¬
 			if (pCreature==g_pPlayer
 				|| g_pPlayer->ShowInDarkness(pCreature->GetX(), pCreature->GetY()))
 			{					
-				// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+				// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 				point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 				point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
 										
-				// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
+				// Â¹Ã Â±Ã¢Â¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 				//int DarkBits = (m_pZone->GetSector(pCreature->GetX(),pCreature->GetY()).GetLight()==0)?m_DarkBits:0;
 
 				DrawCreature(&point, pCreature);//, DarkBits);
 			}
 		}
-		// ¾Æ´Ï¸é.. ÇÑ ÁÙ Ãâ·ÂÀÌ ³¡³ª°í Ãâ·ÂÇÒ¶§ Ãâ·ÂµÇ´Â °æ¿ìÀÌ´Ù.
+		// Â¾Ã†Â´ÃÂ¸Ã©.. Ã‡Ã‘ ÃÃ™ ÃƒÃ¢Â·Ã‚Ã€ÃŒ Â³Â¡Â³ÂªÂ°Ã­ ÃƒÃ¢Â·Ã‚Ã‡Ã’Â¶Â§ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™.
 		else
 		{
 			break;
@@ -15188,22 +15248,22 @@ if (!m_pSurface->Lock()) return;
 	}
 
 	//------------------------------------------------------
-	// È­¸éÀÇ SectorµéÀ» ¸ğµÎ °Ë»öÇÏ¸é¼­
-	// Sector¿¡ Á¸ÀçÇÏ´Â ObjectµéÀ» Ãâ·ÂÇÑ´Ù.
+	// ÃˆÂ­Â¸Ã©Ã€Ã‡ SectorÂµÃ©Ã€Â» Â¸Ã°ÂµÃ Â°Ã‹Â»Ã¶Ã‡ÃÂ¸Ã©Â¼Â­
+	// SectorÂ¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ ObjectÂµÃ©Ã€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 	//------------------------------------------------------
-	// Ã¹¹øÂ° ÁÙ	
+	// ÃƒÂ¹Â¹Ã¸Ã‚Â° ÃÃ™	
 	tilePointTemp.y = tilePoint.y;
 
 	//----------------------------------------------------------------
 	//
-	// tileÀ» °Ë»öÇØ¼­ Ä³¸¯ÅÍ¸¦ Ãâ·ÂÇÏ´Â °æ¿ì
+	// tileÃ€Â» Â°Ã‹Â»Ã¶Ã‡Ã˜Â¼Â­ Ã„Â³Â¸Â¯Ã…ÃÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 	//
 	//----------------------------------------------------------------
 	if (m_bTileSearchForCreature)
 	{
 		for (y=sY1; y<=sY2; y++)
 		{				
-			// ÇÑ ÁÙÀÇ Ã¹¹øÂ° Sector					
+			// Ã‡Ã‘ ÃÃ™Ã€Ã‡ ÃƒÂ¹Â¹Ã¸Ã‚Â° Sector					
 			tilePointTemp.x = tilePoint.x;			
 			
 			for (x=sX1; x<=sX2; x++)
@@ -15211,7 +15271,7 @@ if (!m_pSurface->Lock()) return;
 				const MSector& sector = m_pZone->GetSector(x,y);			
 
 				//------------------------------------------------------
-				// ¼­¹ö blockÁÂÇ¥¿¡ »ç°¢Çü
+				// Â¼Â­Â¹Ã¶ blockÃÃ‚Ã‡Â¥Â¿Â¡ Â»Ã§Â°Â¢Ã‡Ã¼
 				//------------------------------------------------------
 				#ifdef OUTPUT_DEBUG
 					if (g_pDXInput->KeyDown(DIK_LCONTROL) && g_pDXInput->KeyDown(DIK_V))
@@ -15235,7 +15295,7 @@ if (!m_pSurface->Lock()) return;
 				#endif
 				
 				//------------------------------------------------------
-				// Æ¯Á¤ÇÑ ImageObjectÀÇ ViewSector?¿¡ "X"Ç¥ÇÏ±â
+				// Ã†Â¯ÃÂ¤Ã‡Ã‘ ImageObjectÃ€Ã‡ ViewSector?Â¿Â¡ "X"Ã‡Â¥Ã‡ÃÂ±Ã¢
 				//------------------------------------------------------
 				#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
 					if (g_pDXInput->KeyDown(DIK_A) && 
@@ -15245,7 +15305,7 @@ if (!m_pSurface->Lock()) return;
 						{
 							OBJECT_MAP::const_iterator iImageObject = sector.GetImageObjectIterator();
 
-							// Sector¿¡ ÀÖ´Â ¸ğµç ImageObjectµéÀ» °Ë»öÇÑ´Ù.
+							// SectorÂ¿Â¡ Ã€Ã–Â´Ã‚ Â¸Ã°ÂµÃ§ ImageObjectÂµÃ©Ã€Â» Â°Ã‹Â»Ã¶Ã‡Ã‘Â´Ã™.
 							for (i=0; i<sector.GetImageObjectSize(); i++)
 							{
 								MImageObject* const pImageObject = (MImageObject* const)((*iImageObject).second);
@@ -15268,7 +15328,7 @@ if (!m_pSurface->Lock()) return;
 				#endif				
 
 				//------------------------------------------------
-				// ºûÀÇ °­µµ¸¦ Ãâ·ÂÇÑ´Ù.
+				// ÂºÃ»Ã€Ã‡ Â°Â­ÂµÂµÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 				//------------------------------------------------
 				//if (x==g_SelectSector.x && y==g_SelectSector.y)
 				//{
@@ -15279,7 +15339,7 @@ if (!m_pSurface->Lock()) return;
 
 				//------------------------------------------------
 				//
-				//              Object Ãâ·Â
+				//              Object ÃƒÃ¢Â·Ã‚
 				//
 				//------------------------------------------------
 				//MItem* pCorpseItem = NULL;
@@ -15287,7 +15347,7 @@ if (!m_pSurface->Lock()) return;
 				if (sector.IsExistObject())
 				{				
 					//----------------------------------------
-					// test code : Object À§Ä¡ Ç¥½Ã
+					// test code : Object Ã€Â§Ã„Â¡ Ã‡Â¥Â½Ãƒ
 					//----------------------------------------
 					//point = tilePointTemp;
 					//m_pSurface->Copy(&point, m_pm_pSurface[0], 
@@ -15296,19 +15356,19 @@ if (!m_pSurface->Lock()) return;
 					//----------------------------------------
 			
 					//----------------------------------------
-					// ItemÀÏ °æ¿ì
+					// ItemÃ€Ã Â°Ã¦Â¿Ã¬
 					//----------------------------------------					
 					pItem = sector.GetItem();
 					if (pItem != NULL
 						&& g_pPlayer->ShowInDarkness(x, y))
 					{		
 						//----------------------------------------
-						// ½ÃÃ¼ÀÎ °æ¿ì
-						// Effect¸¦ Ãâ·ÂÇÏ°í ³ª¼­ Ãâ·ÂÇÑ´Ù.
+						// Â½ÃƒÃƒÂ¼Ã€Ã Â°Ã¦Â¿Ã¬
+						// EffectÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ°Ã­ Â³ÂªÂ¼Â­ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 						//
 						// 2002.1.23
-						// ¾ğÁ¦ EffectÃâ·ÂÄÚµå°¡ ºüÁø°ÅÁö..
-						// ¾ÏÆ° ½ÃÃ¼ °ü·Ã ÄÚµå´Â »«´Ù. 
+						// Â¾Ã°ÃÂ¦ EffectÃƒÃ¢Â·Ã‚Ã„ÃšÂµÃ¥Â°Â¡ ÂºÃ¼ÃÃ¸Â°Ã…ÃÃ¶..
+						// Â¾ÃÃ†Â° Â½ÃƒÃƒÂ¼ Â°Ã¼Â·Ãƒ Ã„ÃšÂµÃ¥Â´Ã‚ Â»Â«Â´Ã™. 
 						//----------------------------------------
 						//if (pItem->GetItemClass()==ITEM_CLASS_CORPSE)
 						{
@@ -15320,11 +15380,11 @@ if (!m_pSurface->Lock()) return;
 							point.y = tilePointTemp.y;
 
 							/*
-							// ¿ï··¿ï··~~
+							// Â¿Ã¯Â·Â·Â¿Ã¯Â·Â·~~
 							int size = g_CurrentFrame & 0x00000007;
 
-							int x0 = point.x + g_TILE_X_HALF;
-							int y0 = point.y + g_TILE_Y_HALF;
+							int x0 = point.x + 24;
+							int y0 = point.y + 24;
 							int size4 = size << 4;
 							int size2 = size << 3;
 							RECT rect = 
@@ -15337,10 +15397,10 @@ if (!m_pSurface->Lock()) return;
 							m_pSurface->ChangeBrightnessBit( &rect, g_CurrentFrame );
 							*/
 
-							// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
+							// Â¹Ã Â±Ã¢Â¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 							//DarkBits = (sector.GetLight()==0)?m_DarkBits:0;
 							
-							// ³ªÁß¿¡ FrameÁ¤º¸¿¡¼­ cx,cy¸¦ ±³Á¤ÇØ¾ß ÇÑ´Ù.									
+							// Â³ÂªÃÃŸÂ¿Â¡ FrameÃÂ¤ÂºÂ¸Â¿Â¡Â¼Â­ cx,cyÂ¸Â¦ Â±Â³ÃÂ¤Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.									
 							DrawItem(&point, pItem);//, DarkBits);
 						}
 					}
@@ -15348,7 +15408,7 @@ if (!m_pSurface->Lock()) return;
 
 				//------------------------------------------------
 				//
-				//              Effect Ãâ·Â
+				//              Effect ÃƒÃ¢Â·Ã‚
 				//
 				//------------------------------------------------
 				//if (sector.IsExistEffect())
@@ -15359,9 +15419,9 @@ if (!m_pSurface->Lock()) return;
 	//			}
 
 				//------------------------------------------------
-				// ½ÃÃ¼
+				// Â½ÃƒÃƒÂ¼
 				//------------------------------------------------
-				// À½!! ²ÙÁöÇÑ ÄÚµåÀÇ Áö¸§±æ.. À½³Ä.. ³ªµµ ¸ô¶ó
+				// Ã€Â½!! Â²Ã™ÃÃ¶Ã‡Ã‘ Ã„ÃšÂµÃ¥Ã€Ã‡ ÃÃ¶Â¸Â§Â±Ã¦.. Ã€Â½Â³Ã„.. Â³ÂªÂµÂµ Â¸Ã´Â¶Ã³
 				//------------------------------------------------
 				/*
 				if (pCorpseItem)
@@ -15369,34 +15429,34 @@ if (!m_pSurface->Lock()) return;
 					point.x = tilePointTemp.x;
 					point.y = tilePointTemp.y;
 
-					// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
+					// Â¹Ã Â±Ã¢Â¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 					//DarkBits = (sector.GetLight()==0)?m_DarkBits:0;
 					
-					// ³ªÁß¿¡ FrameÁ¤º¸¿¡¼­ cx,cy¸¦ ±³Á¤ÇØ¾ß ÇÑ´Ù.									
+					// Â³ÂªÃÃŸÂ¿Â¡ FrameÃÂ¤ÂºÂ¸Â¿Â¡Â¼Â­ cx,cyÂ¸Â¦ Â±Â³ÃÂ¤Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.									
 					DrawItem(&point, pItem);//, DarkBits);
 				}
 				*/
 
 				//------------------------------------			
-				// Ãâ·ÂÇÏ·Á´Â ÁÂÇ¥ ÀÌµ¿
+				// ÃƒÃ¢Â·Ã‚Ã‡ÃÂ·ÃÂ´Ã‚ ÃÃ‚Ã‡Â¥ Ã€ÃŒÂµÂ¿
 				//------------------------------------
 				tilePointTemp.x += TILE_X;
 			}
 			
 			//-----------------------------------------------------
-			// ÇÑ ÁÙÀÌ ³¡³¯¶§¸¶´Ù 
-			// Ãâ·ÂÇØ¾ßÇÒ ±× ÁÙÀÇ ImageObjectµéÀ» Ãâ·ÂÇÑ´Ù.
+			// Ã‡Ã‘ ÃÃ™Ã€ÃŒ Â³Â¡Â³Â¯Â¶Â§Â¸Â¶Â´Ã™ 
+			// ÃƒÃ¢Â·Ã‚Ã‡Ã˜Â¾ÃŸÃ‡Ã’ Â±Ã— ÃÃ™Ã€Ã‡ ImageObjectÂµÃ©Ã€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 			//-----------------------------------------------------	
 			while (bDrawBackGround && iImageObjectOutput != m_mapImageObject.end())
 			{
 				MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectOutput).second);
 
-				// Ãâ·Â ½ÃÁ¡ÀÌ y¿Í °°Àº °æ¿ì Ãâ·Â
+				// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ yÂ¿Ã Â°Â°Ã€Âº Â°Ã¦Â¿Ã¬ ÃƒÃ¢Â·Ã‚
 				if (pImageObject->GetViewpoint() <= y)
 				{
 					if(pImageObject->GetViewpoint() != 0)
 					{
-						// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+						// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 						point.x = pImageObject->GetPixelX() - m_FirstZonePixel.x;
 						point.y = pImageObject->GetPixelY() - m_FirstZonePixel.y;				
 
@@ -15407,7 +15467,7 @@ if (!m_pSurface->Lock()) return;
 						//m_pSurface->GDI_Text(point.x, point.y, str, 0xFFFFFF);
 					}
 				}
-				// ¾Æ´Ï¸é.. ´Ù¸¥ ÁÙÀÌ´Ù.
+				// Â¾Ã†Â´ÃÂ¸Ã©.. Â´Ã™Â¸Â¥ ÃÃ™Ã€ÃŒÂ´Ã™.
 				else
 				{				
 					break;
@@ -15417,39 +15477,39 @@ if (!m_pSurface->Lock()) return;
 			}
 
 			//------------------------------------------------------
-			// ÇÑ ÁÙÀÌ ³¡³¯¶§¸¶´Ù 
-			// Ãâ·ÂÇØ¾ßÇÒ ±× ÁÙÀÇ CreatureµéÀ» Ãâ·ÂÇÑ´Ù.
+			// Ã‡Ã‘ ÃÃ™Ã€ÃŒ Â³Â¡Â³Â¯Â¶Â§Â¸Â¶Â´Ã™ 
+			// ÃƒÃ¢Â·Ã‚Ã‡Ã˜Â¾ÃŸÃ‡Ã’ Â±Ã— ÃÃ™Ã€Ã‡ CreatureÂµÃ©Ã€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 			//------------------------------------------------------
 			while (iCreatureOutput != m_mapCreature.end())
 			{
 				MCreature* const pCreature = (MCreature* const)((*iCreatureOutput).second);
 
-				// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ì..´Â Ãâ·Â
+				// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ sY1ÂºÂ¸Â´Ã™ Ã€Ã»Ã€Âº Â°Ã¦Â¿Ã¬..Â´Ã‚ ÃƒÃ¢Â·Ã‚
 				if (pCreature->GetY() <= y)
 				{
-					// 2004, 04, 24 sobeit add start -ghost ÀÏ¶§ 
+					// 2004, 04, 24 sobeit add start -ghost Ã€ÃÂ¶Â§ 
 					if(pCreature->GetCreatureType() == CREATURETYPE_GHOST)
 					{
 						iCreatureOutput ++;
 						continue;
 					}
-					// 2004, 04, 24 sobeit add end -ghost ÀÏ¶§ 
+					// 2004, 04, 24 sobeit add end -ghost Ã€ÃÂ¶Â§ 
 
-					// playerÀÌ°Å³ª darkness¶û °ü°è¾øÀÌ º¸ÀÌ´Â °æ¿ì
+					// playerÃ€ÃŒÂ°Ã…Â³Âª darknessÂ¶Ã» Â°Ã¼Â°Ã¨Â¾Ã¸Ã€ÃŒ ÂºÂ¸Ã€ÃŒÂ´Ã‚ Â°Ã¦Â¿Ã¬
 					if (pCreature==g_pPlayer
 						|| g_pPlayer->ShowInDarkness(pCreature->GetX(), pCreature->GetY()))
 					{				
-						// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+						// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 						point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 						point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
 												
-						// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
+						// Â¹Ã Â±Ã¢Â¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 						//int DarkBits = (m_pZone->GetSector(pCreature->GetX(),pCreature->GetY()).GetLight()==0)?m_DarkBits:0;
 
 						DrawCreature(&point, pCreature);//, DarkBits);
 					}
 				}
-				// ¾Æ´Ï¸é.. ÇÑ ÁÙ Ãâ·ÂÀÌ ³¡³ª°í Ãâ·ÂÇÒ¶§ Ãâ·ÂµÇ´Â °æ¿ìÀÌ´Ù.
+				// Â¾Ã†Â´ÃÂ¸Ã©.. Ã‡Ã‘ ÃÃ™ ÃƒÃ¢Â·Ã‚Ã€ÃŒ Â³Â¡Â³ÂªÂ°Ã­ ÃƒÃ¢Â·Ã‚Ã‡Ã’Â¶Â§ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™.
 				else
 				{
 					break;
@@ -15459,21 +15519,21 @@ if (!m_pSurface->Lock()) return;
 			}
 
 			//------------------------------------------------------
-			// Ãâ·Â¼ø¼­¶§¹®¿¡.. ¿©±â¼­ Ä³¸¯ÅÍ¸¦ Ã¼Å©ÇÑ´Ù.
-			// SectorÀÇ Effect Ãâ·Â
+			// ÃƒÃ¢Â·Ã‚Â¼Ã¸Â¼Â­Â¶Â§Â¹Â®Â¿Â¡.. Â¿Â©Â±Ã¢Â¼Â­ Ã„Â³Â¸Â¯Ã…ÃÂ¸Â¦ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
+			// SectorÃ€Ã‡ Effect ÃƒÃ¢Â·Ã‚
 			//------------------------------------------------------
-			// Ä³¸¯ÅÍº¸´Ù ´Ê°Ô Ãâ·ÂµÇ¾î¾ß ÇÏ¹Ç·Î...
+			// Ã„Â³Â¸Â¯Ã…ÃÂºÂ¸Â´Ã™ Â´ÃŠÂ°Ã” ÃƒÃ¢Â·Ã‚ÂµÃ‡Â¾Ã®Â¾ÃŸ Ã‡ÃÂ¹Ã‡Â·Ã...
 			//------------------------------------------------------
 			//------------------------------------------------------
-			// Player´Â Tile¿¡ ¼ÓÇÏÁö ¾Ê±â ¶§¹®¿¡ µû·Î Ã¼Å©ÇÑ´Ù.
+			// PlayerÂ´Ã‚ TileÂ¿Â¡ Â¼Ã“Ã‡ÃÃÃ¶ Â¾ÃŠÂ±Ã¢ Â¶Â§Â¹Â®Â¿Â¡ ÂµÃ»Â·Ã ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
 			//------------------------------------------------------
 			if (g_pPlayer->GetY() == y)
 			{
-				// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+				// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 				point.x = g_pPlayer->GetPixelX() - m_FirstZonePixel.x;
 				point.y = g_pPlayer->GetPixelY() - m_FirstZonePixel.y;
 										
-				// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
+				// Â¹Ã Â±Ã¢Â¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 				//int DarkBits = (m_pZone->GetSector(pCreature->GetX(),pCreature->GetY()).GetLight()==0)?m_DarkBits:0;
 
 				DrawCreature(&point, g_pPlayer);//, DarkBits);
@@ -15484,7 +15544,7 @@ if (!m_pSurface->Lock()) return;
 			{	
 				int darknessCount = g_pPlayer->GetDarknessCount();
 				
-				// darkness¶û °ü°è¾øÀÌ º¸ÀÌ´Â °æ¿ì. effect´Â +2
+				// darknessÂ¶Ã» Â°Ã¼Â°Ã¨Â¾Ã¸Ã€ÃŒ ÂºÂ¸Ã€ÃŒÂ´Ã‚ Â°Ã¦Â¿Ã¬. effectÂ´Ã‚ +2
 				if (darknessCount < 0
 					|| max(abs(g_pPlayer->GetX()-x), abs(g_pPlayer->GetY()-y)) <= darknessCount+2)
 				//g_pPlayer->ShowInDarkness(x, y))
@@ -15512,16 +15572,16 @@ if (!m_pSurface->Lock()) return;
 
 								MCreature* pCreature = (MCreature*)iCreature->second;
 						
-								// 2004, 04, 24 sobeit add start -ghost ÀÏ¶§ 
+								// 2004, 04, 24 sobeit add start -ghost Ã€ÃÂ¶Â§ 
 								if(pCreature->GetCreatureType() == CREATURETYPE_GHOST)
 									continue;
-								// 2004, 04, 24 sobeit add end -ghost ÀÏ¶§ 
+								// 2004, 04, 24 sobeit add end -ghost Ã€ÃÂ¶Â§ 
 
-								// playerÀÌ°Å³ª darkness¶û °ü°è¾øÀÌ º¸ÀÌ´Â °æ¿ì
+								// playerÃ€ÃŒÂ°Ã…Â³Âª darknessÂ¶Ã» Â°Ã¼Â°Ã¨Â¾Ã¸Ã€ÃŒ ÂºÂ¸Ã€ÃŒÂ´Ã‚ Â°Ã¦Â¿Ã¬
 								if (pCreature==g_pPlayer
 									|| g_pPlayer->ShowInDarkness(pCreature->GetX(), pCreature->GetY()))
 								{				
-									// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+									// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 									point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 									point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
 															
@@ -15533,7 +15593,7 @@ if (!m_pSurface->Lock()) return;
 
 					//------------------------------------------------
 					//
-					//              Effect Ãâ·Â
+					//              Effect ÃƒÃ¢Â·Ã‚
 					//
 					//------------------------------------------------
 					if (sector.IsExistEffect())
@@ -15545,30 +15605,30 @@ if (!m_pSurface->Lock()) return;
 				}
 
 				//------------------------------------			
-				// Ãâ·ÂÇÏ·Á´Â ÁÂÇ¥ ÀÌµ¿
+				// ÃƒÃ¢Â·Ã‚Ã‡ÃÂ·ÃÂ´Ã‚ ÃÃ‚Ã‡Â¥ Ã€ÃŒÂµÂ¿
 				//------------------------------------
 				tilePointTemp.x += TILE_X;
 			}
 					
-			// ´ÙÀ½ ÁÙ
+			// Â´Ã™Ã€Â½ ÃÃ™
 			tilePointTemp.y += TILE_Y;					
 		}		
 	}
 	//----------------------------------------------------------------
 	//
-	// tileÀ» °Ë»öÇÏÁö ¾Ê°í OutputCreatureMapÀ» ÀÌ¿ëÇØ¼­ Ä³¸¯ÅÍ¸¦ Ãâ·ÂÇÏ´Â °æ¿ì
+	// tileÃ€Â» Â°Ã‹Â»Ã¶Ã‡ÃÃÃ¶ Â¾ÃŠÂ°Ã­ OutputCreatureMapÃ€Â» Ã€ÃŒÂ¿Ã«Ã‡Ã˜Â¼Â­ Ã„Â³Â¸Â¯Ã…ÃÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 	//
 	//----------------------------------------------------------------
 	else
 	{	
 		for (y=sY1; y<=sY2; y++)
 		{
-			// °ü ¼Ó¿¡ ÀÖÀ» ¶§´Â ±×³É °Ë»öÇØ¼­ Ãâ·ÂÇÏ´Â object´Â ¾ø´Ù.
-			// AddOutputCreatureAll()¿¡¼­ m_bTileSearchForCreature°¡ false·Î
-			// ¼³Á¤µÇ¹Ç·Î... OutputCreatureMapÀ» ÀÌ¿ëÇÏ¸é µÈ´Ù.
-			if (!bPlayerInCasket)	// [»õ±â¼ú3]
+			// Â°Ã¼ Â¼Ã“Â¿Â¡ Ã€Ã–Ã€Â» Â¶Â§Â´Ã‚ Â±Ã—Â³Ã‰ Â°Ã‹Â»Ã¶Ã‡Ã˜Â¼Â­ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ´Ã‚ objectÂ´Ã‚ Â¾Ã¸Â´Ã™.
+			// AddOutputCreatureAll()Â¿Â¡Â¼Â­ m_bTileSearchForCreatureÂ°Â¡ falseÂ·Ã
+			// Â¼Â³ÃÂ¤ÂµÃ‡Â¹Ã‡Â·Ã... OutputCreatureMapÃ€Â» Ã€ÃŒÂ¿Ã«Ã‡ÃÂ¸Ã© ÂµÃˆÂ´Ã™.
+			if (!bPlayerInCasket)	// [Â»ÃµÂ±Ã¢Â¼Ãº3]
 			{			
-				// ÇÑ ÁÙÀÇ Ã¹¹øÂ° Sector					
+				// Ã‡Ã‘ ÃÃ™Ã€Ã‡ ÃƒÂ¹Â¹Ã¸Ã‚Â° Sector					
 				tilePointTemp.x = tilePoint.x;			
 				
 				for (x=sX1; x<=sX2; x++)
@@ -15576,7 +15636,7 @@ if (!m_pSurface->Lock()) return;
 					const MSector& sector = m_pZone->GetSector(x,y);
 					
 					//------------------------------------------------------
-					// ¼­¹ö blockÁÂÇ¥¿¡ »ç°¢Çü
+					// Â¼Â­Â¹Ã¶ blockÃÃ‚Ã‡Â¥Â¿Â¡ Â»Ã§Â°Â¢Ã‡Ã¼
 					//------------------------------------------------------
 					#ifdef OUTPUT_DEBUG
 						if (g_pDXInput->KeyDown(DIK_LCONTROL) && g_pDXInput->KeyDown(DIK_V))
@@ -15592,7 +15652,7 @@ if (!m_pSurface->Lock()) return;
 					#endif
 					
 					//------------------------------------------------------
-					// Æ¯Á¤ÇÑ ImageObjectÀÇ ViewSector?¿¡ "X"Ç¥ÇÏ±â
+					// Ã†Â¯ÃÂ¤Ã‡Ã‘ ImageObjectÃ€Ã‡ ViewSector?Â¿Â¡ "X"Ã‡Â¥Ã‡ÃÂ±Ã¢
 					//------------------------------------------------------
 					#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
 						if (g_pDXInput->KeyDown(DIK_A) && 
@@ -15602,7 +15662,7 @@ if (!m_pSurface->Lock()) return;
 							{
 								OBJECT_MAP::const_iterator iImageObject = sector.GetImageObjectIterator();
 
-								// Sector¿¡ ÀÖ´Â ¸ğµç ImageObjectµéÀ» °Ë»öÇÑ´Ù.
+								// SectorÂ¿Â¡ Ã€Ã–Â´Ã‚ Â¸Ã°ÂµÃ§ ImageObjectÂµÃ©Ã€Â» Â°Ã‹Â»Ã¶Ã‡Ã‘Â´Ã™.
 								for (i=0; i<sector.GetImageObjectSize(); i++)
 								{
 									MImageObject* const pImageObject = (MImageObject* const)((*iImageObject).second);
@@ -15625,7 +15685,7 @@ if (!m_pSurface->Lock()) return;
 					#endif				
 
 					//------------------------------------------------
-					// ºûÀÇ °­µµ¸¦ Ãâ·ÂÇÑ´Ù.
+					// ÂºÃ»Ã€Ã‡ Â°Â­ÂµÂµÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 					//------------------------------------------------
 					//if (x==g_SelectSector.x && y==g_SelectSector.y)
 					//{
@@ -15636,7 +15696,7 @@ if (!m_pSurface->Lock()) return;
 
 					//------------------------------------------------
 					//
-					//              Object Ãâ·Â
+					//              Object ÃƒÃ¢Â·Ã‚
 					//
 					//------------------------------------------------
 					//MItem* pCorpseItem = NULL;
@@ -15644,7 +15704,7 @@ if (!m_pSurface->Lock()) return;
 					if (sector.IsExistObject())
 					{				
 						//----------------------------------------
-						// test code : Object À§Ä¡ Ç¥½Ã
+						// test code : Object Ã€Â§Ã„Â¡ Ã‡Â¥Â½Ãƒ
 						//----------------------------------------
 						//point = tilePointTemp;
 						//m_pSurface->Copy(&point, m_pm_pSurface[0], 
@@ -15653,19 +15713,19 @@ if (!m_pSurface->Lock()) return;
 						//----------------------------------------
 				
 						//----------------------------------------
-						// ItemÀÏ °æ¿ì
+						// ItemÃ€Ã Â°Ã¦Â¿Ã¬
 						//----------------------------------------					
 						pItem = sector.GetItem();
 						if (pItem != NULL
 							&& g_pPlayer->ShowInDarkness(x, y))
 						{		
 							//----------------------------------------
-							// ½ÃÃ¼ÀÎ °æ¿ì
-							// Effect¸¦ Ãâ·ÂÇÏ°í ³ª¼­ Ãâ·ÂÇÑ´Ù.
+							// Â½ÃƒÃƒÂ¼Ã€Ã Â°Ã¦Â¿Ã¬
+							// EffectÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ°Ã­ Â³ÂªÂ¼Â­ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 							//
 							// 2002.1.23
-							// ¾ğÁ¦ EffectÃâ·ÂÄÚµå°¡ ºüÁø°ÅÁö..
-							// ¾ÏÆ° ½ÃÃ¼ °ü·Ã ÄÚµå´Â »«´Ù. 
+							// Â¾Ã°ÃÂ¦ EffectÃƒÃ¢Â·Ã‚Ã„ÃšÂµÃ¥Â°Â¡ ÂºÃ¼ÃÃ¸Â°Ã…ÃÃ¶..
+							// Â¾ÃÃ†Â° Â½ÃƒÃƒÂ¼ Â°Ã¼Â·Ãƒ Ã„ÃšÂµÃ¥Â´Ã‚ Â»Â«Â´Ã™. 
 							//----------------------------------------
 							//if (pItem->GetItemClass()==ITEM_CLASS_CORPSE)
 							{
@@ -15677,11 +15737,11 @@ if (!m_pSurface->Lock()) return;
 								point.y = tilePointTemp.y;
 
 								/*
-								// ¿ï··¿ï··~~
+								// Â¿Ã¯Â·Â·Â¿Ã¯Â·Â·~~
 								int size = g_CurrentFrame & 0x00000007;
 
-								int x0 = point.x + g_TILE_X_HALF;
-								int y0 = point.y + g_TILE_Y_HALF;
+								int x0 = point.x + 24;
+								int y0 = point.y + 24;
 								int size4 = size << 4;
 								int size2 = size << 3;
 								RECT rect = 
@@ -15694,10 +15754,10 @@ if (!m_pSurface->Lock()) return;
 								m_pSurface->ChangeBrightnessBit( &rect, g_CurrentFrame );
 								*/
 
-								// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
+								// Â¹Ã Â±Ã¢Â¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 								//DarkBits = (sector.GetLight()==0)?m_DarkBits:0;
 								
-								// ³ªÁß¿¡ FrameÁ¤º¸¿¡¼­ cx,cy¸¦ ±³Á¤ÇØ¾ß ÇÑ´Ù.									
+								// Â³ÂªÃÃŸÂ¿Â¡ FrameÃÂ¤ÂºÂ¸Â¿Â¡Â¼Â­ cx,cyÂ¸Â¦ Â±Â³ÃÂ¤Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.									
 								DrawItem(&point, pItem);//, DarkBits);
 							}
 						}
@@ -15705,7 +15765,7 @@ if (!m_pSurface->Lock()) return;
 
 					//------------------------------------------------
 					//
-					//              Effect Ãâ·Â
+					//              Effect ÃƒÃ¢Â·Ã‚
 					//
 					//------------------------------------------------
 					//if (sector.IsExistEffect())
@@ -15716,9 +15776,9 @@ if (!m_pSurface->Lock()) return;
 		//			}
 
 					//------------------------------------------------
-					// ½ÃÃ¼
+					// Â½ÃƒÃƒÂ¼
 					//------------------------------------------------
-					// À½!! ²ÙÁöÇÑ ÄÚµåÀÇ Áö¸§±æ.. À½³Ä.. ³ªµµ ¸ô¶ó
+					// Ã€Â½!! Â²Ã™ÃÃ¶Ã‡Ã‘ Ã„ÃšÂµÃ¥Ã€Ã‡ ÃÃ¶Â¸Â§Â±Ã¦.. Ã€Â½Â³Ã„.. Â³ÂªÂµÂµ Â¸Ã´Â¶Ã³
 					//------------------------------------------------
 					/*
 					if (pCorpseItem)
@@ -15726,35 +15786,35 @@ if (!m_pSurface->Lock()) return;
 						point.x = tilePointTemp.x;
 						point.y = tilePointTemp.y;
 
-						// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
+						// Â¹Ã Â±Ã¢Â¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 						//DarkBits = (sector.GetLight()==0)?m_DarkBits:0;
 						
-						// ³ªÁß¿¡ FrameÁ¤º¸¿¡¼­ cx,cy¸¦ ±³Á¤ÇØ¾ß ÇÑ´Ù.									
+						// Â³ÂªÃÃŸÂ¿Â¡ FrameÃÂ¤ÂºÂ¸Â¿Â¡Â¼Â­ cx,cyÂ¸Â¦ Â±Â³ÃÂ¤Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.									
 						DrawItem(&point, pItem);//, DarkBits);
 					}
 					*/
 
 					//------------------------------------			
-					// Ãâ·ÂÇÏ·Á´Â ÁÂÇ¥ ÀÌµ¿
+					// ÃƒÃ¢Â·Ã‚Ã‡ÃÂ·ÃÂ´Ã‚ ÃÃ‚Ã‡Â¥ Ã€ÃŒÂµÂ¿
 					//------------------------------------
 					tilePointTemp.x += TILE_X;
 				}
 			}	// bPlayerInCasket
 			
 			//-----------------------------------------------------
-			// ÇÑ ÁÙÀÌ ³¡³¯¶§¸¶´Ù 
-			// Ãâ·ÂÇØ¾ßÇÒ ±× ÁÙÀÇ ImageObjectµéÀ» Ãâ·ÂÇÑ´Ù.
+			// Ã‡Ã‘ ÃÃ™Ã€ÃŒ Â³Â¡Â³Â¯Â¶Â§Â¸Â¶Â´Ã™ 
+			// ÃƒÃ¢Â·Ã‚Ã‡Ã˜Â¾ÃŸÃ‡Ã’ Â±Ã— ÃÃ™Ã€Ã‡ ImageObjectÂµÃ©Ã€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 			//-----------------------------------------------------	
 			while (bDrawBackGround && iImageObjectOutput != m_mapImageObject.end())
 			{
 				MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectOutput).second);
 
-				// Ãâ·Â ½ÃÁ¡ÀÌ y¿Í °°Àº °æ¿ì Ãâ·Â
+				// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ yÂ¿Ã Â°Â°Ã€Âº Â°Ã¦Â¿Ã¬ ÃƒÃ¢Â·Ã‚
 				if (pImageObject->GetViewpoint() <= y)
 				{
 					if(pImageObject->GetViewpoint() != 0)
 					{
-						// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+						// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 						point.x = pImageObject->GetPixelX() - m_FirstZonePixel.x;
 						point.y = pImageObject->GetPixelY() - m_FirstZonePixel.y;				
 
@@ -15765,7 +15825,7 @@ if (!m_pSurface->Lock()) return;
 						//m_pSurface->GDI_Text(point.x, point.y, str, 0xFFFFFF);
 					}
 				}
-				// ¾Æ´Ï¸é.. ´Ù¸¥ ÁÙÀÌ´Ù.
+				// Â¾Ã†Â´ÃÂ¸Ã©.. Â´Ã™Â¸Â¥ ÃÃ™Ã€ÃŒÂ´Ã™.
 				else
 				{				
 					break;
@@ -15775,39 +15835,39 @@ if (!m_pSurface->Lock()) return;
 			}
 
 			//------------------------------------------------------
-			// ÇÑ ÁÙÀÌ ³¡³¯¶§¸¶´Ù 
-			// Ãâ·ÂÇØ¾ßÇÒ ±× ÁÙÀÇ CreatureµéÀ» Ãâ·ÂÇÑ´Ù.
+			// Ã‡Ã‘ ÃÃ™Ã€ÃŒ Â³Â¡Â³Â¯Â¶Â§Â¸Â¶Â´Ã™ 
+			// ÃƒÃ¢Â·Ã‚Ã‡Ã˜Â¾ÃŸÃ‡Ã’ Â±Ã— ÃÃ™Ã€Ã‡ CreatureÂµÃ©Ã€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 			//------------------------------------------------------
 			while (iCreatureOutput != m_mapCreature.end())
 			{
 				MCreature* const pCreature = (MCreature* const)((*iCreatureOutput).second);
 
-				// 2004, 04, 24 sobeit add start -ghost ÀÏ¶§ 
+				// 2004, 04, 24 sobeit add start -ghost Ã€ÃÂ¶Â§ 
 				if(pCreature->GetCreatureType() == CREATURETYPE_GHOST)
 				{
 					iCreatureOutput ++;
 					continue;
 				}
-				// 2004, 04, 24 sobeit end start -ghost ÀÏ¶§ 
+				// 2004, 04, 24 sobeit end start -ghost Ã€ÃÂ¶Â§ 
 
-				// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ì..´Â Ãâ·Â
+				// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ sY1ÂºÂ¸Â´Ã™ Ã€Ã»Ã€Âº Â°Ã¦Â¿Ã¬..Â´Ã‚ ÃƒÃ¢Â·Ã‚
 				if (pCreature->GetY() <= y)
 				{
-					// playerÀÌ°Å³ª darkness¶û °ü°è¾øÀÌ º¸ÀÌ´Â °æ¿ì
+					// playerÃ€ÃŒÂ°Ã…Â³Âª darknessÂ¶Ã» Â°Ã¼Â°Ã¨Â¾Ã¸Ã€ÃŒ ÂºÂ¸Ã€ÃŒÂ´Ã‚ Â°Ã¦Â¿Ã¬
 					if (pCreature==g_pPlayer
 						|| g_pPlayer->ShowInDarkness(pCreature->GetX(), pCreature->GetY()))
 					{				
-						// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+						// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 						point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 						point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
 												
-						// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
+						// Â¹Ã Â±Ã¢Â¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 						//int DarkBits = (m_pZone->GetSector(pCreature->GetX(),pCreature->GetY()).GetLight()==0)?m_DarkBits:0;
 
 						DrawCreature(&point, pCreature);//, DarkBits);
 					}
 				}
-				// ¾Æ´Ï¸é.. ÇÑ ÁÙ Ãâ·ÂÀÌ ³¡³ª°í Ãâ·ÂÇÒ¶§ Ãâ·ÂµÇ´Â °æ¿ìÀÌ´Ù.
+				// Â¾Ã†Â´ÃÂ¸Ã©.. Ã‡Ã‘ ÃÃ™ ÃƒÃ¢Â·Ã‚Ã€ÃŒ Â³Â¡Â³ÂªÂ°Ã­ ÃƒÃ¢Â·Ã‚Ã‡Ã’Â¶Â§ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™.
 				else
 				{
 					break;
@@ -15817,18 +15877,18 @@ if (!m_pSurface->Lock()) return;
 			}
 
 			//------------------------------------------------------
-			// SectorÀÇ Effect Ãâ·Â
+			// SectorÃ€Ã‡ Effect ÃƒÃ¢Â·Ã‚
 			//------------------------------------------------------
-			// Ä³¸¯ÅÍº¸´Ù ´Ê°Ô Ãâ·ÂµÇ¾î¾ß ÇÏ¹Ç·Î...
+			// Ã„Â³Â¸Â¯Ã…ÃÂºÂ¸Â´Ã™ Â´ÃŠÂ°Ã” ÃƒÃ¢Â·Ã‚ÂµÃ‡Â¾Ã®Â¾ÃŸ Ã‡ÃÂ¹Ã‡Â·Ã...
 			//------------------------------------------------------
-			if (!bPlayerInCasket)	// [»õ±â¼ú3] °ü ¼Ó¿¡ ÀÖÀ»¶§ Effect´Â ¾È Âï´Â´Ù.
+			if (!bPlayerInCasket)	// [Â»ÃµÂ±Ã¢Â¼Ãº3] Â°Ã¼ Â¼Ã“Â¿Â¡ Ã€Ã–Ã€Â»Â¶Â§ EffectÂ´Ã‚ Â¾Ãˆ Ã‚Ã¯Â´Ã‚Â´Ã™.
 			{			
 				tilePointTemp.x = tilePoint.x;
 				for (x=sX1; x<=sX2; x++)
 				{	
 					int darknessCount = g_pPlayer->GetDarknessCount();
 					
-					// darkness¶û °ü°è¾øÀÌ º¸ÀÌ´Â °æ¿ì. effect´Â +2
+					// darknessÂ¶Ã» Â°Ã¼Â°Ã¨Â¾Ã¸Ã€ÃŒ ÂºÂ¸Ã€ÃŒÂ´Ã‚ Â°Ã¦Â¿Ã¬. effectÂ´Ã‚ +2
 					if (darknessCount < 0
 						|| max(abs(g_pPlayer->GetX()-x), abs(g_pPlayer->GetY()-y)) <= darknessCount+2)
 					//g_pPlayer->ShowInDarkness(x, y))
@@ -15837,7 +15897,7 @@ if (!m_pSurface->Lock()) return;
 
 						//------------------------------------------------
 						//
-						//              Effect Ãâ·Â
+						//              Effect ÃƒÃ¢Â·Ã‚
 						//
 						//------------------------------------------------
 						if (sector.IsExistEffect())
@@ -15849,44 +15909,44 @@ if (!m_pSurface->Lock()) return;
 					}
 
 					//------------------------------------			
-					// Ãâ·ÂÇÏ·Á´Â ÁÂÇ¥ ÀÌµ¿
+					// ÃƒÃ¢Â·Ã‚Ã‡ÃÂ·ÃÂ´Ã‚ ÃÃ‚Ã‡Â¥ Ã€ÃŒÂµÂ¿
 					//------------------------------------
 					tilePointTemp.x += TILE_X;
 				}
 			}
 					
-			// ´ÙÀ½ ÁÙ
+			// Â´Ã™Ã€Â½ ÃÃ™
 			tilePointTemp.y += TILE_Y;
 		}
 	}
 
 	
 	//------------------------------------------------------
-	// Ãâ·Â ½ÃÁ¡ÀÌ sY2º¸´Ù Å« °æ¿ìÀÇ 
-	// CreatureµéÀ» Ãâ·ÂÇÑ´Ù.
-	// m_mapCreature¿¡´Â Viewpoint°¡ key°ªÀÌ µÇ¾î¼­ SortµÇ¾î ÀÖ´Ù.
+	// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ sY2ÂºÂ¸Â´Ã™ Ã…Â« Â°Ã¦Â¿Ã¬Ã€Ã‡ 
+	// CreatureÂµÃ©Ã€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
+	// m_mapCreatureÂ¿Â¡Â´Ã‚ ViewpointÂ°Â¡ keyÂ°ÂªÃ€ÃŒ ÂµÃ‡Â¾Ã®Â¼Â­ SortÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã™.
 	//------------------------------------------------------
 	while (iCreatureOutput != m_mapCreature.end())
 	{
 		MCreature* const pCreature = (MCreature* const)((*iCreatureOutput).second);
 
-		// 2004, 04, 24 sobeit add start -ghost ÀÏ¶§ 
+		// 2004, 04, 24 sobeit add start -ghost Ã€ÃÂ¶Â§ 
 		if(pCreature->GetCreatureType() == CREATURETYPE_GHOST)
 		{
 			iCreatureOutput ++;
 			continue;
 		}
-		// 2004, 04, 24 sobeit add end -ghost ÀÏ¶§ 
+		// 2004, 04, 24 sobeit add end -ghost Ã€ÃÂ¶Â§ 
 
-		// playerÀÌ°Å³ª darkness¶û °ü°è¾øÀÌ º¸ÀÌ´Â °æ¿ì
+		// playerÃ€ÃŒÂ°Ã…Â³Âª darknessÂ¶Ã» Â°Ã¼Â°Ã¨Â¾Ã¸Ã€ÃŒ ÂºÂ¸Ã€ÃŒÂ´Ã‚ Â°Ã¦Â¿Ã¬
 		if (pCreature==g_pPlayer
 			|| g_pPlayer->ShowInDarkness(pCreature->GetX(), pCreature->GetY()))
 		{
-			// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+			// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 			point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 			point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
 									
-			// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
+			// Â¹Ã Â±Ã¢Â¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 			//int DarkBits = (m_pZone->GetSector(pCreature->GetX(),pCreature->GetY()).GetLight()==0)?m_DarkBits:0;
 
 			DrawCreature(&point, pCreature);//, DarkBits);		
@@ -15897,15 +15957,15 @@ if (!m_pSurface->Lock()) return;
 
 
 	//------------------------------------------------------
-	// Ãâ·Â ½ÃÁ¡ÀÌ sY2º¸´Ù Å« °æ¿ìÀÇ 
-	// ImageObjectµéÀ» Ãâ·ÂÇÑ´Ù.
-	// m_mapImageObject¿¡´Â Viewpoint°¡ key°ªÀÌ µÇ¾î¼­ SortµÇ¾î ÀÖ´Ù.
+	// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃÂ¡Ã€ÃŒ sY2ÂºÂ¸Â´Ã™ Ã…Â« Â°Ã¦Â¿Ã¬Ã€Ã‡ 
+	// ImageObjectÂµÃ©Ã€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
+	// m_mapImageObjectÂ¿Â¡Â´Ã‚ ViewpointÂ°Â¡ keyÂ°ÂªÃ€ÃŒ ÂµÃ‡Â¾Ã®Â¼Â­ SortÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã™.
 	//------------------------------------------------------
 	while (bDrawBackGround && iImageObjectOutput != m_mapImageObject.end())
 	{
 		MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectOutput).second);
 
-		// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+		// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 		point.x = pImageObject->GetPixelX() - m_FirstZonePixel.x;
 		point.y = pImageObject->GetPixelY() - m_FirstZonePixel.y;
 									
@@ -15915,7 +15975,7 @@ if (!m_pSurface->Lock()) return;
 	}
 
 	//------------------------------------------------
-	// mouse¼±ÅÃÇÑ °ÍÀÇ ¿Ü°û¼±¸¸ ´Ù½Ã ÇÑ ¹ø Ãâ·ÂÇØÁØ´Ù.
+	// mouseÂ¼Â±Ã…ÃƒÃ‡Ã‘ Â°ÃÃ€Ã‡ Â¿ÃœÂ°Ã»Â¼Â±Â¸Â¸ Â´Ã™Â½Ãƒ Ã‡Ã‘ Â¹Ã¸ ÃƒÃ¢Â·Ã‚Ã‡Ã˜ÃÃ˜Â´Ã™.
 	//------------------------------------------------
 	if (m_SOM.IsInit())
 	{
@@ -15924,18 +15984,18 @@ if (!m_pSurface->Lock()) return;
 		#endif
 		//m_pSurface->BltSpriteOutlineOnly( &m_SOM,  m_SOMOutlineColor );
 
-		// Á¦°Å
+		// ÃÂ¦Â°Ã…
 		m_SOM.Clear();
 	}
 	
 	//----------------------------------------------------------------
-	// player°¡ °ü ¼Ó¿¡ ÀÖ´Â °æ¿ì°¡ ¾Æ´Ï¸é.. [»õ±â¼ú3]
+	// playerÂ°Â¡ Â°Ã¼ Â¼Ã“Â¿Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Â°Â¡ Â¾Ã†Â´ÃÂ¸Ã©.. [Â»ÃµÂ±Ã¢Â¼Ãº3]
 	//----------------------------------------------------------------
 	if (!bPlayerInCasket && bDrawBackGround)
 	{			
 		//----------------------------------------------------------------
 		//
-		//          Weather - ³¯¾¾ È¿°ú Ãâ·Â
+		//          Weather - Â³Â¯Â¾Â¾ ÃˆÂ¿Â°Ãº ÃƒÃ¢Â·Ã‚
 		//
 		//----------------------------------------------------------------
 		
@@ -15947,8 +16007,8 @@ if (!m_pSurface->Lock()) return;
 
 		if (g_pWeather->IsActive())
 		{
-			// °¡·Î ÁÂÇ¥ º¸Á¤..
-			// ÇöÀç PlayerÀÇ ÁÂÇ¥¿Í ºñ±³ÇÑ´Ù.
+			// Â°Â¡Â·Ã ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤..
+			// Ã‡Ã¶Ã€Ã§ PlayerÃ€Ã‡ ÃÃ‚Ã‡Â¥Â¿Ã ÂºÃ±Â±Â³Ã‡Ã‘Â´Ã™.
 			//int gapX = ((g_pPlayer->GetX() - g_pWeather->GetStartX()) * TILE_X + g_pPlayer->GetSX()) % SURFACE_WIDTH;
 			//int gapY = ((g_pPlayer->GetY() - g_pWeather->GetStartY()) * TILE_Y + g_pPlayer->GetSY()) % SURFACE_HEIGHT;
 			int gapX = (m_FirstZonePixel.x - g_pWeather->GetStartX()) % g_GameRect.right;
@@ -15958,7 +16018,7 @@ if (!m_pSurface->Lock()) return;
 			{
 				const MAP_EFFECT& MapEffect = (*g_pWeather)[i];
 
-				// ¸ØÃßÁö ¾ÊÀº °ÍÀÌ¸é...
+				// Â¸Ã˜ÃƒÃŸÃÃ¶ Â¾ÃŠÃ€Âº Â°ÃÃ€ÃŒÂ¸Ã©...
 				if (MapEffect.IsActive())
 				{
 					point.x = MapEffect.GetX() - gapX;
@@ -16013,12 +16073,12 @@ if (!m_pSurface->Lock()) return;
 			__BEGIN_PROFILE("DrawLightFilter")
 				
 				//----------------------------------------------------------------
-				// playerÀÇ light ÁÂÇ¥ ¼³Á¤
+				// playerÃ€Ã‡ light ÃÃ‚Ã‡Â¥ Â¼Â³ÃÂ¤
 				//----------------------------------------------------------------
-				int pX = g_pPlayer->GetPixelX() - m_FirstZonePixel.x + g_TILE_X_HALF;
+				int pX = g_pPlayer->GetPixelX() - m_FirstZonePixel.x + 24;
 			int pY = g_pPlayer->GetPixelY() - m_FirstZonePixel.y - TILE_Y;
 			char sh[255]={0};
-			// add by Sonic 2006.9.30 ĞŞÕıÈËÎïÊÓÒ°½¹µã
+			// add by Sonic 2006.9.30 ÃÃÃ•Ã½ÃˆÃ‹ÃÃ¯ÃŠÃ“Ã’Â°Â½Â¹ÂµÃ£
 			if(g_MyFull)
 			{
 				pX-=110;
@@ -16029,7 +16089,7 @@ if (!m_pSurface->Lock()) return;
 			//----------------------------------------------------------------
 			// 3D 
 			//----------------------------------------------------------------
-			// ¹ÚÁãÀÎ °æ¿ì ½Ã¾ß +3	
+			// Â¹ÃšÃÃ£Ã€Ã Â°Ã¦Â¿Ã¬ Â½ÃƒÂ¾ÃŸ +3	
 			//int addLight = (g_pPlayer->GetCreatureType()==CREATURETYPE_BAT ? 3 : 0);
 //			int addLight = (g_pPlayer->IsFlyingCreature() ? 3 : 0);
 			g_pPlayer->CalculateLightSight();
@@ -16048,10 +16108,10 @@ if (!m_pSurface->Lock()) return;
 				AddLightFilter3D( pX, 
 					pY - (g_pPlayer->IsFlyingCreature()? 72:0 ),	//g_pPlayer->GetZ(), 
 					playerLight, 
-					false,	// screenPixelÁÂÇ¥			
-					true);	// ¹«Á¶°Ç Ãâ·ÂÇØ¾ßÇÏ´Â ºû		
+					false,	// screenPixelÃÃ‚Ã‡Â¥			
+					true);	// Â¹Â«ÃÂ¶Â°Ã‡ ÃƒÃ¢Â·Ã‚Ã‡Ã˜Â¾ÃŸÃ‡ÃÂ´Ã‚ ÂºÃ»		
 				
-				// ¿ÀÅä¹ÙÀÌ ºÒºû
+				// Â¿Ã€Ã…Ã¤Â¹Ã™Ã€ÃŒ ÂºÃ’ÂºÃ»
 				ADD_MOTORCYCLE_LIGHT_XY_3D( g_pPlayer, pX, pY, true );		
 				
 				//---------------------------------------
@@ -16060,7 +16120,7 @@ if (!m_pSurface->Lock()) return;
 				m_pSurface->Unlock();
 				
 				//---------------------------------------
-				// 3D ½Ã¾ßÃ³¸® Ãâ·Â
+				// 3D Â½ÃƒÂ¾ÃŸÃƒÂ³Â¸Â® ÃƒÃ¢Â·Ã‚
 				//---------------------------------------
 				point.x = 0;
 				point.y = 0;
@@ -16078,7 +16138,7 @@ if (!m_pSurface->Lock()) return;
 
 //				DrawLightBuffer3D();
 				
-				// SurfaceÀÇ Á¤º¸¸¦ ÀúÀåÇØµĞ´Ù.
+				// SurfaceÃ€Ã‡ ÃÂ¤ÂºÂ¸Â¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã˜ÂµÃÂ´Ã™.
 				//SetSurfaceInfo(&m_SurfaceInfo, m_pSurface->GetDDSD());
 			}
 			//----------------------------------------------------------------
@@ -16086,14 +16146,14 @@ if (!m_pSurface->Lock()) return;
 			//----------------------------------------------------------------
 			else
 			{
-				// ¹ÚÁãÀÎ °æ¿ì ½Ã¾ß +3		
+				// Â¹ÃšÃÃ£Ã€Ã Â°Ã¦Â¿Ã¬ Â½ÃƒÂ¾ÃŸ +3		
 				AddLightFilter2D( pX, 
 					pY - g_pPlayer->GetZ(), 
 					playerLight,  
-					false,	// screenPixelÁÂÇ¥			
-					true);	// ¹«Á¶°Ç Ãâ·ÂÇØ¾ßÇÏ´Â ºû
+					false,	// screenPixelÃÃ‚Ã‡Â¥			
+					true);	// Â¹Â«ÃÂ¶Â°Ã‡ ÃƒÃ¢Â·Ã‚Ã‡Ã˜Â¾ÃŸÃ‡ÃÂ´Ã‚ ÂºÃ»
 				
-				// ¿ÀÅä¹ÙÀÌ ºÒºû
+				// Â¿Ã€Ã…Ã¤Â¹Ã™Ã€ÃŒ ÂºÃ’ÂºÃ»
 				ADD_MOTORCYCLE_LIGHT_XY_2D( g_pPlayer, pX, pY, true );	
 				
 				DrawLightBuffer2D();
@@ -16113,11 +16173,11 @@ if (!m_pSurface->Lock()) return;
 
 
 		//----------------------------------------------------------------	
-		// Unlock »óÅÂÀÌ´Ù..
+		// Unlock Â»Ã³Ã…Ã‚Ã€ÃŒÂ´Ã™..
 		//----------------------------------------------------------------		
 
 		//----------------------------------------------------------------
-		// Mouse·Î ¼±ÅÃµÈ Ä³¸¯ÅÍÀÌ¸é.. ¹àÀº ±ÛÀÚ Ãâ·Â
+		// MouseÂ·Ã Â¼Â±Ã…ÃƒÂµÃˆ Ã„Â³Â¸Â¯Ã…ÃÃ€ÃŒÂ¸Ã©.. Â¹Ã Ã€Âº Â±Ã›Ã€Ãš ÃƒÃ¢Â·Ã‚
 		//----------------------------------------------------------------			
 		if(IsRequestInfo())
 			DrawCreatureMyName();
@@ -16136,13 +16196,13 @@ if (!m_pSurface->Lock()) return;
 
 
 		//----------------------------------------------------------------
-		// ItemÀÌ¸§µéÀ» Ãâ·ÂÇÏ°Ô ÇÑ´Ù.
+		// ItemÃ€ÃŒÂ¸Â§ÂµÃ©Ã€Â» ÃƒÃ¢Â·Ã‚Ã‡ÃÂ°Ã” Ã‡Ã‘Â´Ã™.
 		//----------------------------------------------------------------
 		if (m_bDrawItemNameList && !g_pPlayer->IsInDarkness())
 		{
 			__BEGIN_PROFILE("DrawItemNameList")
 
-			// unlock»óÅÂ¿¡¼­ È£Ãâ..
+			// unlockÂ»Ã³Ã…Ã‚Â¿Â¡Â¼Â­ ÃˆÂ£ÃƒÃ¢..
 			DrawItemNameList();		
 
 			__END_PROFILE("DrawItemNameList")
@@ -16150,7 +16210,7 @@ if (!m_pSurface->Lock()) return;
 	} // bPlayerInCasket
 	else 
 	{
-		// [»õ±â¼ú3]
+		// [Â»ÃµÂ±Ã¢Â¼Ãº3]
 		m_pSurface->Unlock();
 	}
 
@@ -16160,7 +16220,7 @@ if (!m_pSurface->Lock()) return;
 	//m_pSurface->Lock();
 
 	//----------------------------------------------------------------
-	// È­¸é¿¡ ³ª¿À´Â ±ÛÀÚ¸¦ Ãâ·ÂÇÑ´Ù.
+	// ÃˆÂ­Â¸Ã©Â¿Â¡ Â³ÂªÂ¿Ã€Â´Ã‚ Â±Ã›Ã€ÃšÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 	//----------------------------------------------------------------
 	__BEGIN_PROFILE("DrawTextList")
 
@@ -16169,12 +16229,12 @@ if (!m_pSurface->Lock()) return;
 	__END_PROFILE("DrawTextList")
 
 	//-------------------------------------------------
-	// Ãâ·ÂÇÒ string¿¡ ±â¾ïµÈ°É ´Ù ¾ø¾ÖÁØ´Ù.
+	// ÃƒÃ¢Â·Ã‚Ã‡Ã’ stringÂ¿Â¡ Â±Ã¢Â¾Ã¯ÂµÃˆÂ°Ã‰ Â´Ã™ Â¾Ã¸Â¾Ã–ÃÃ˜Â´Ã™.
 	//-------------------------------------------------
 	ClearTextList();
 
 	//-------------------------------------------------
-	// guild mark Ãâ·Â Å×½ºÆ®
+	// guild mark ÃƒÃ¢Â·Ã‚ Ã…Ã—Â½ÂºÃ†Â®
 	//-------------------------------------------------
 //	#ifdef _DEBUG
 //
@@ -16183,29 +16243,29 @@ if (!m_pSurface->Lock()) return;
 //			int guildID = g_pPlayer->GetX()%10;
 //
 //			//-------------------------------------------------
-//			// loadµÇ¾î ÀÖ´ÂÁö º»´Ù.
+//			// loadÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã‚ÃÃ¶ ÂºÂ»Â´Ã™.
 //			//-------------------------------------------------
 //			CSprite* pSprite = g_pGuildMarkManager->GetGuildMark(guildID);
 //
 //			if (pSprite==NULL)
 //			{		
 //				//-------------------------------------------------
-//				// file¿¡ ÀÖ´ÂÁö º»´Ù.
+//				// fileÂ¿Â¡ Ã€Ã–Â´Ã‚ÃÃ¶ ÂºÂ»Â´Ã™.
 //				//-------------------------------------------------
 //				g_pGuildMarkManager->LoadGuildMark(guildID);
 //
 //				//-------------------------------------------------
-//				// file¿¡¼­ loadµÇ¾ú´ÂÁö ´Ù½Ã Ã¼Å©
+//				// fileÂ¿Â¡Â¼Â­ loadÂµÃ‡Â¾ÃºÂ´Ã‚ÃÃ¶ Â´Ã™Â½Ãƒ ÃƒÂ¼Ã…Â©
 //				//-------------------------------------------------
 //				pSprite = g_pGuildMarkManager->GetGuildMark(guildID);
 //
 //				//-------------------------------------------------
-//				// file¿¡µµ ¾ø´Â °æ¿ì..
-//				// guildMark°ü¸®¼­¹ö?¿¡¼­ ¹Ş¾Æ¿Â´Ù.
+//				// fileÂ¿Â¡ÂµÂµ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬..
+//				// guildMarkÂ°Ã¼Â¸Â®Â¼Â­Â¹Ã¶?Â¿Â¡Â¼Â­ Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
 //				//-------------------------------------------------
 //				if (pSprite==NULL)
 //				{
-//					// ¿©±â¼­´Â.. ÀÓ½Ã·Î È­ÀÏ¿¡¼­ »ı¼ºÇÑ´Ù.
+//					// Â¿Â©Â±Ã¢Â¼Â­Â´Ã‚.. Ã€Ã“Â½ÃƒÂ·Ã ÃˆÂ­Ã€ÃÂ¿Â¡Â¼Â­ Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
 //					char str[256];
 //					sprintf(str, "Data\\Guild\\Guild%d.bmp", guildID);
 ////					g_pGuildMarkManager->CreateGuildMark( guildID, str );
@@ -16213,7 +16273,7 @@ if (!m_pSurface->Lock()) return;
 //			}
 //			else
 //			{			
-//				// ÀÛÀº°Åµµ °Á ÇÔ Âï¾îº»´Ù.
+//				// Ã€Ã›Ã€ÂºÂ°Ã…ÂµÂµ Â°Ã Ã‡Ã” Ã‚Ã¯Â¾Ã®ÂºÂ»Â´Ã™.
 //				CSprite* pSpriteSmall = g_pGuildMarkManager->GetGuildMarkSmall(guildID);
 //
 //				m_pSurface->Lock();
@@ -16236,7 +16296,7 @@ if (!m_pSurface->Lock()) return;
 
 
 	//----------------------------------------------------------------
-	// Light Ãâ·Â
+	// Light ÃƒÃ¢Â·Ã‚
 	//----------------------------------------------------------------
 	
 	/*
@@ -16251,12 +16311,12 @@ if (!m_pSurface->Lock()) return;
 	
 
 	//----------------------------------------------------------------
-	// Object Ãâ·Â	
+	// Object ÃƒÃ¢Â·Ã‚	
 	//----------------------------------------------------------------
-	// YÁÂÇ¥·Î sort¸¦ ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+	// YÃÃ‚Ã‡Â¥Â·Ã sortÂ¸Â¦ Ã‡Ã˜Â¼Â­ ÃƒÃ¢Â·Ã‚Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 	//----------------------------------------------------------------
-	// list´ë½Å¿¡ priority queue¸¦ »ç¿ëÇÏ´Â°Ô ³´Áö ½Í´Ù! sortÀÚµ¿~~
-	// ±×·±µ¥! list¿¡ Ãß°¡µÉ¶§ ¼ø¼­°¡ ÀÖÀ¸´Ï±î... °ü°è°¡ ¾øÀ» °Å °°´Ù!
+	// listÂ´Ã«Â½Ã…Â¿Â¡ priority queueÂ¸Â¦ Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚Â°Ã” Â³Â´ÃÃ¶ Â½ÃÂ´Ã™! sortÃ€ÃšÂµÂ¿~~
+	// Â±Ã—Â·Â±ÂµÂ¥! listÂ¿Â¡ ÃƒÃŸÂ°Â¡ÂµÃ‰Â¶Â§ Â¼Ã¸Â¼Â­Â°Â¡ Ã€Ã–Ã€Â¸Â´ÃÂ±Ã®... Â°Ã¼Â°Ã¨Â°Â¡ Â¾Ã¸Ã€Â» Â°Ã… Â°Â°Â´Ã™!
 	//----------------------------------------------------------------
 
 	
@@ -16314,7 +16374,7 @@ if (!m_pSurface->Lock()) return;
 	*/
 
 	/*
-	// ±×¸²ÀÚ Test		
+	// Â±Ã—Â¸Â²Ã€Ãš Test		
 	if (g_pDXInput->KeyDown(DIK_SPACE))
 	{
 		point.x = g_x;
@@ -16325,12 +16385,12 @@ if (!m_pSurface->Lock()) return;
 			sprite = 0;//rand()%m_pImageObjectShadowManager->GetMaxIndex();
 
 			m_pSurface->Unlock();
-			// EffectTexture ¼³Á¤
+			// EffectTexture Â¼Â³ÃÂ¤
 			//CDirect3D::GetDevice()->SetTexture(0, m_EffectTPK[sprite].GetSurface());
 			CSpriteSurface* pSurface = m_pImageObjectShadowManager->GetTexture(sprite);		
 			CDirect3D::GetDevice()->SetTexture(0, pSurface->GetSurface());
 			
-			// ÁÂÇ¥ ¼³Á¤
+			// ÃÃ‚Ã‡Â¥ Â¼Â³ÃÂ¤
 			m_SpriteVertices[0].sx = point.x;	
 			m_SpriteVertices[0].sy = point.y;
 			//m_SpriteVertices[1].sx = point.x,m_EffectTPK[sprite].GetWidth();
@@ -16342,7 +16402,7 @@ if (!m_pSurface->Lock()) return;
 			m_SpriteVertices[3].sx = m_SpriteVertices[1].sx;
 			m_SpriteVertices[3].sy = m_SpriteVertices[2].sy;		
 			
-			// Ãâ·Â
+			// ÃƒÃ¢Â·Ã‚
 			CDirect3D::GetDevice()->DrawPrimitive(D3DPT_TRIANGLESTRIP, 
 									D3DFVF_TLVERTEX, 
 									m_SpriteVertices, 
@@ -16360,8 +16420,8 @@ if (!m_pSurface->Lock()) return;
 	*/	
 
 	//------------------------------------------------------
-	// (Ä¿¼­)
-	// ¿òÁ÷ÀÌ´Â ¹æÇâÀÌ °è¼Ó ¹Ù²î°í ÀÖ´Â °æ¿ì --> Ä¿¼­ Ç¥Çö	
+	// (Ã„Â¿Â¼Â­)
+	// Â¿Ã²ÃÃ·Ã€ÃŒÂ´Ã‚ Â¹Ã¦Ã‡Ã¢Ã€ÃŒ Â°Ã¨Â¼Ã“ Â¹Ã™Â²Ã®Â°Ã­ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬ --> Ã„Â¿Â¼Â­ Ã‡Â¥Ã‡Ã¶	
 	//
 	//------------------------------------------------------
 	/*
@@ -16369,11 +16429,11 @@ if (!m_pSurface->Lock()) return;
 	{
 		POINT cursorPoint;
 		GetCursorPos(&cursorPoint);
-		// ±×¸®°í, ÇöÀç PlayerÀÖ´Â À§Ä¡¸¦ ¼±ÅÃÇÏÁö ¾ÊÀº °æ¿ìÀÌ´Ù.
+		// Â±Ã—Â¸Â®Â°Ã­, Ã‡Ã¶Ã€Ã§ PlayerÃ€Ã–Â´Ã‚ Ã€Â§Ã„Â¡Â¸Â¦ Â¼Â±Ã…ÃƒÃ‡ÃÃÃ¶ Â¾ÃŠÃ€Âº Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™.
 		point = GetSelectedSector(cursorPoint.x, cursorPoint.y);
 		if (g_pPlayer->GetX()!=point.x || g_pPlayer->GetY()!=point.y)
 		{
-			// player°¡ ¿òÁ÷ÀÌ´Â ¹æÇâÀ¸·Î Ä¿¼­ ¸ğ¾ç Ç¥½Ã
+			// playerÂ°Â¡ Â¿Ã²ÃÃ·Ã€ÃŒÂ´Ã‚ Â¹Ã¦Ã‡Ã¢Ã€Â¸Â·Ã Ã„Â¿Â¼Â­ Â¸Ã°Â¾Ã§ Ã‡Â¥Â½Ãƒ
 			int direction = g_pPlayer->GetDirection();
 
 			// [ TEST CODE ]
@@ -16393,7 +16453,7 @@ if (!m_pSurface->Lock()) return;
 
 
 	//---------------------------------------
-	// Filter¿µ¿ª »ç°¢Çü
+	// FilterÂ¿ÂµÂ¿Âª Â»Ã§Â°Â¢Ã‡Ã¼
 	//---------------------------------------
 	//rect.left = 410 - 100;
 	//rect.right = 410 + 100;
@@ -16402,7 +16462,7 @@ if (!m_pSurface->Lock()) return;
 	//m_pSurface->DrawRect(&rect, 0xFFFF);
 
 	/*
-	// Creature Sprite º¸¿©ÁÖ±â
+	// Creature Sprite ÂºÂ¸Â¿Â©ÃÃ–Â±Ã¢
 	static int s = 3;
 
 	if (++s == 43) s=3;
@@ -16420,17 +16480,17 @@ if (!m_pSurface->Lock()) return;
 //----------------------------------------------------------------------
 // Draw TileSurface
 //----------------------------------------------------------------------
-// - PlayerÁÂÇ¥¸¦ Áß½ÉÀ¸·Î ÇØ¼­...
-//   ´ÜÁö TileÀ» m_pTileSurface¿¡ ±×¸°´Ù.
+// - PlayerÃÃ‚Ã‡Â¥Â¸Â¦ ÃÃŸÂ½Ã‰Ã€Â¸Â·Ã Ã‡Ã˜Â¼Â­...
+//   Â´ÃœÃÃ¶ TileÃ€Â» m_pTileSurfaceÂ¿Â¡ Â±Ã—Â¸Â°Â´Ã™.
 //
-// - ÇöÀç È­¸éÀÇ ObjectµéÀ» °Ë»öÇØ¼­ Ãâ·Â¿¡ ÀÌ¿ëÇÒ ¼ö ÀÖ°Ô ±â¾ïÇØµĞ´Ù.
+// - Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ObjectÂµÃ©Ã€Â» Â°Ã‹Â»Ã¶Ã‡Ã˜Â¼Â­ ÃƒÃ¢Â·Ã‚Â¿Â¡ Ã€ÃŒÂ¿Ã«Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â°Ã” Â±Ã¢Â¾Ã¯Ã‡Ã˜ÂµÃÂ´Ã™.
 //----------------------------------------------------------------------
 void	
 MTopView::DrawTileSurface()
 {
 	//-------------------------------------------------
 	//
-	// Object¸¦ Ãâ·ÂÇÏ±â À§ÇÑ Á¤º¸
+	// ObjectÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ±Ã¢ Ã€Â§Ã‡Ã‘ ÃÂ¤ÂºÂ¸
 	//
 	//-------------------------------------------------
 	// sprite point
@@ -16438,8 +16498,8 @@ MTopView::DrawTileSurface()
 	RECT	rect;
 	
 	//---------------------------------------------------------------
-	// Player¸¦ Áß½É¿¡ µÎ±â À§ÇÑ Ã¹¹øÂ° SectorÁÂÇ¥¸¦ ±¸ÇÑ´Ù.
-	// È­¸éÀÇ (0,0)ÀÌ ³ªÅ¸³»´Â ZoneÀÇ PixelÁÂÇ¥
+	// PlayerÂ¸Â¦ ÃÃŸÂ½Ã‰Â¿Â¡ ÂµÃÂ±Ã¢ Ã€Â§Ã‡Ã‘ ÃƒÂ¹Â¹Ã¸Ã‚Â° SectorÃÃ‚Ã‡Â¥Â¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
+	// ÃˆÂ­Â¸Ã©Ã€Ã‡ (0,0)Ã€ÃŒ Â³ÂªÃ…Â¸Â³Â»Â´Ã‚ ZoneÃ€Ã‡ PixelÃÃ‚Ã‡Â¥
 	//---------------------------------------------------------------
 	m_FirstZonePixel = MapToPixel(g_pPlayer->GetX()+g_SECTOR_SKIP_PLAYER_LEFT, 
 									g_pPlayer->GetY()+g_SECTOR_SKIP_PLAYER_UP);
@@ -16462,20 +16522,20 @@ MTopView::DrawTileSurface()
 	#endif
 	
 	//---------------------------------------------------------------	
-	// È­¸éÀÇ (0,0)¿¡ Ãâ·ÂµÇ´Â Sector
+	// ÃˆÂ­Â¸Ã©Ã€Ã‡ (0,0)Â¿Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ Sector
 	//---------------------------------------------------------------		
 	POINT	firstSector;
 	firstSector = PixelToMap(m_FirstZonePixel.x, m_FirstZonePixel.y);
 	m_FirstSector = firstSector;
 
 	//---------------------------------------------------------------
-	// TileSurface (0,0)¿¡ Ãâ·ÂµÇ´Â SectorÁÂÇ¥
+	// TileSurface (0,0)Â¿Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚ SectorÃÃ‚Ã‡Â¥
 	//---------------------------------------------------------------
 	firstSector.x -= TILESURFACE_SECTOR_EDGE;
 	firstSector.y -= TILESURFACE_SECTOR_EDGE;
 
 	//---------------------------------------------------------------
-	// TileSurface (0,0)ÀÇ Zone¿¡¼­ÀÇ pixelÁÂÇ¥¸¦ ±â¾ïÇØµĞ´Ù.
+	// TileSurface (0,0)Ã€Ã‡ ZoneÂ¿Â¡Â¼Â­Ã€Ã‡ pixelÃÃ‚Ã‡Â¥Â¸Â¦ Â±Ã¢Â¾Ã¯Ã‡Ã˜ÂµÃÂ´Ã™.
 	//---------------------------------------------------------------
 	m_TileSurfaceFirstSectorX		= firstSector.x;
 	m_TileSurfaceFirstSectorY		= firstSector.y;
@@ -16487,27 +16547,27 @@ MTopView::DrawTileSurface()
 
 	//----------------------------------------------------------------------
 	//
-	//                         Tile Ãâ·Â
+	//                         Tile ÃƒÃ¢Â·Ã‚
 	//
 	//----------------------------------------------------------------------
 	//----------------------------------------------------------------------
-	// ¹«Á¶°Ç ÃÖÃÊ Sector°¡ TileSurfaceÀÇ (0,0)¿¡ ¿Àµµ·Ï ÇØ¾ßÇÑ´Ù.
+	// Â¹Â«ÃÂ¶Â°Ã‡ ÃƒÃ–ÃƒÃŠ SectorÂ°Â¡ TileSurfaceÃ€Ã‡ (0,0)Â¿Â¡ Â¿Ã€ÂµÂµÂ·Ã Ã‡Ã˜Â¾ÃŸÃ‡Ã‘Â´Ã™.
 	//----------------------------------------------------------------------
 	int	sX1 = firstSector.x, 
 			sX2 = firstSector.x + g_TILESURFACE_SECTOR_WIDTH,		// sX1 ~ sX2
 			sY1 = firstSector.y, 
 			sY2 = firstSector.y + g_TILESURFACE_SECTOR_HEIGHT;	// sY1 ~ sY2
 
-	// Ãâ·ÂÇÒ Surface»óÀÇ À§Ä¡	
+	// ÃƒÃ¢Â·Ã‚Ã‡Ã’ SurfaceÂ»Ã³Ã€Ã‡ Ã€Â§Ã„Â¡	
 	tilePoint.x = 0;
 	tilePoint.y = 0;
 		
 	//------------------------------------------------------
-	// ZoneÀÇ ¿µ¿ªÀÌ ¾Æ´Ñ °æ¿ì¿¡ Skip...
+	// ZoneÃ€Ã‡ Â¿ÂµÂ¿ÂªÃ€ÃŒ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡ Skip...
 	//------------------------------------------------------					
 	if (sX1 < 0) 
 	{			
-		// Zone¿Ü°û ºÎºĞÀº °ËÀº»öÀ¸·Î Ä¥ÇÑ´Ù.
+		// ZoneÂ¿ÃœÂ°Ã» ÂºÃÂºÃÃ€Âº Â°Ã‹Ã€ÂºÂ»Ã¶Ã€Â¸Â·Ã Ã„Â¥Ã‡Ã‘Â´Ã™.
 		rect.left = tilePoint.x;
 		rect.top = 0;	
 		
@@ -16525,7 +16585,7 @@ MTopView::DrawTileSurface()
 	{
 		sX2 = m_pZone->GetWidth();//-1;
 
-		// Zone¿Ü°û ºÎºĞÀº °ËÀº»öÀ¸·Î Ä¥ÇÑ´Ù.
+		// ZoneÂ¿ÃœÂ°Ã» ÂºÃÂºÃÃ€Âº Â°Ã‹Ã€ÂºÂ»Ã¶Ã€Â¸Â·Ã Ã„Â¥Ã‡Ã‘Â´Ã™.
 		rect.left = tilePoint.x + (sX2-sX1)*TILE_X;
 		rect.top = 0;					
 		rect.right = g_TILESURFACE_WIDTH;
@@ -16536,7 +16596,7 @@ MTopView::DrawTileSurface()
 
 	if (sY1 < 0)
 	{
-		// Zone¿Ü°û ºÎºĞÀº °ËÀº»öÀ¸·Î Ä¥ÇÑ´Ù.
+		// ZoneÂ¿ÃœÂ°Ã» ÂºÃÂºÃÃ€Âº Â°Ã‹Ã€ÂºÂ»Ã¶Ã€Â¸Â·Ã Ã„Â¥Ã‡Ã‘Â´Ã™.
 		rect.left = tilePoint.x;
 		rect.top = tilePoint.y;	
 		
@@ -16551,7 +16611,7 @@ MTopView::DrawTileSurface()
 
 	if (sY2 > m_pZone->GetHeight())
 	{
-		// Zone¿Ü°û ºÎºĞÀº °ËÀº»öÀ¸·Î Ä¥ÇÑ´Ù.
+		// ZoneÂ¿ÃœÂ°Ã» ÂºÃÂºÃÃ€Âº Â°Ã‹Ã€ÂºÂ»Ã¶Ã€Â¸Â·Ã Ã„Â¥Ã‡Ã‘Â´Ã™.
 		rect.left = tilePoint.x;
 		rect.top = tilePoint.y;					
 		rect.right = tilePoint.x + (sX2-sX1)*TILE_X;
@@ -16562,7 +16622,7 @@ MTopView::DrawTileSurface()
 	}			
 			
 	//------------------------------------------------------
-	// ÀÏ´Ü °ËÀº»öÀ¸·Î ÀüÃ¼¸¦ Ä¥ÇÑ´Ù.
+	// Ã€ÃÂ´Ãœ Â°Ã‹Ã€ÂºÂ»Ã¶Ã€Â¸Â·Ã Ã€Ã¼ÃƒÂ¼Â¸Â¦ Ã„Â¥Ã‡Ã‘Â´Ã™.
 	//------------------------------------------------------
 	/*
 	rect.left = 0;
@@ -16574,9 +16634,9 @@ MTopView::DrawTileSurface()
 	*/
 
 	//------------------------------------------------------
-	// °¢ SectorÃâ·Â
+	// Â°Â¢ SectorÃƒÃ¢Â·Ã‚
 	//------------------------------------------------------	
-	// Ã¹¹øÂ° ÁÙ
+	// ÃƒÂ¹Â¹Ã¸Ã‚Â° ÃÃ™
 	POINT tilePointTemp;
 	tilePointTemp.y = tilePoint.y;
 
@@ -16593,14 +16653,14 @@ MTopView::DrawTileSurface()
 	//char str[80];
 	for (y=sY1; y<sY2; y++)
 	{				
-		// ÇÑ ÁÙÀÇ Ã¹¹øÂ° Sector					
+		// Ã‡Ã‘ ÃÃ™Ã€Ã‡ ÃƒÂ¹Â¹Ã¸Ã‚Â° Sector					
 		tilePointTemp.x = tilePoint.x;
 
 		for (x=sX1; x<sX2; x++)
 		{				
 			point = tilePointTemp;
 
-			// (sX,sY) SectorÀÇ SpriteID¸¦ ÀĞ¾î¼­ Ãâ·Â
+			// (sX,sY) SectorÃ€Ã‡ SpriteIDÂ¸Â¦ Ã€ÃÂ¾Ã®Â¼Â­ ÃƒÃ¢Â·Ã‚
 			//m_pTileSurface->Lock();			
 		
 			int spriteID = m_pZone->GetSector(x,y).GetSpriteID();
@@ -16626,7 +16686,7 @@ MTopView::DrawTileSurface()
 				CSprite& sprite = m_TileSPK[ spriteID ];
 
 				//---------------------------------------
-				// ID°¡ spriteIDÀÎ TileÀ» LoadÇÑ´Ù.
+				// IDÂ°Â¡ spriteIDÃ€Ã TileÃ€Â» LoadÃ‡Ã‘Â´Ã™.
 				//---------------------------------------
 //				#ifdef	OUTPUT_DEBUG
 //					char str[256];
@@ -16639,7 +16699,7 @@ MTopView::DrawTileSurface()
 //
 //					m_TileSPKFile.seekg(m_TileSPKI[spriteID], ios::beg);
 //					//--------------------------------------------------
-//					// ¼º°øÇÑ °æ¿ì.. 
+//					// Â¼ÂºÂ°Ã¸Ã‡Ã‘ Â°Ã¦Â¿Ã¬.. 
 //					//--------------------------------------------------
 //					if (m_TileSPK[spriteID].LoadFromFile( m_TileSPKFile ))
 //					{
@@ -16648,20 +16708,20 @@ MTopView::DrawTileSurface()
 //						#endif
 //					}
 //					//--------------------------------------------------
-//					// ½ÇÆĞÇÑ °æ¿ì --> ÀÌ¹Ì LoadingÇÏ°í ÀÖ´Â °æ¿ìÀÌ´Ù.				
+//					// Â½Ã‡Ã†ÃÃ‡Ã‘ Â°Ã¦Â¿Ã¬ --> Ã€ÃŒÂ¹ÃŒ LoadingÃ‡ÃÂ°Ã­ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™.				
 //					//--------------------------------------------------
 //					/*
-//					// 2001.8.20 ÁÖ¼®Ã³¸®
+//					// 2001.8.20 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 //					else
 //					{
 //						#ifdef	OUTPUT_DEBUG
 //							strcat(str, "...Fail & Wait Loading");
 //						#endif
 //
-//						// file thread ¼øÀ§¸¦ ³ôÈù´Ù.
+//						// file thread Â¼Ã¸Ã€Â§Â¸Â¦ Â³Ã´ÃˆÃ¹Â´Ã™.
 //						//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_HIGHEST);
 //
-//						// Thread¿¡¼­ LoadingÀÌ ³¡³¯¶§±îÁö ±â´Ù¸°´Ù.
+//						// ThreadÂ¿Â¡Â¼Â­ LoadingÃ€ÃŒ Â³Â¡Â³Â¯Â¶Â§Â±Ã®ÃÃ¶ Â±Ã¢Â´Ã™Â¸Â°Â´Ã™.
 //						//while (m_TileSPK[spriteID].IsNotInit());
 //						//while (!m_TileSPK[spriteID].LoadFromFile( m_TileSPKFile ));
 //						MLoadingSPKWorkNode3* pNode = new MLoadingSPKWorkNode3(spriteID, m_TileSPKI[spriteID]);
@@ -16692,7 +16752,7 @@ MTopView::DrawTileSurface()
 //							}
 //						}
 //
-//						// file thread ¼øÀ§¸¦ ³·Ãá´Ù.
+//						// file thread Â¼Ã¸Ã€Â§Â¸Â¦ Â³Â·ÃƒÃ¡Â´Ã™.
 //						//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_BELOW_NORMAL);					
 //						g_pLoadingThread->SetPriority( THREAD_PRIORITY_LOWEST );
 //					}
@@ -16701,7 +16761,7 @@ MTopView::DrawTileSurface()
 //					DEBUG_ADD( str );
 //				}
 
-				// ¶ß¾Ç~~!!!!!!! ¼Óµµ Àâ¾Æ ¸Ô´Â´Ù~!!!
+				// Â¶ÃŸÂ¾Ã‡~~!!!!!!! Â¼Ã“ÂµÂµ Ã€Ã¢Â¾Ã† Â¸Ã”Â´Ã‚Â´Ã™~!!!
 //				POINT pointTempTemp = point;
 //				m_pTileSurface->BltSprite(&pointTempTemp, &m_EtcSPK[SPRITEID_TILE_NULL]);
 
@@ -16722,11 +16782,11 @@ MTopView::DrawTileSurface()
 			//m_pTileSurface->Unlock();		
 			
 
-			// Ãâ·ÂÇÏ·Á´Â ÁÂÇ¥ ÀÌµ¿
+			// ÃƒÃ¢Â·Ã‚Ã‡ÃÂ·ÃÂ´Ã‚ ÃÃ‚Ã‡Â¥ Ã€ÃŒÂµÂ¿
 			tilePointTemp.x += TILE_X;
 		}		
 				
-		// ´ÙÀ½ ÁÙ
+		// Â´Ã™Ã€Â½ ÃÃ™
 		tilePointTemp.y += TILE_Y;					
 	}		
 
@@ -16745,13 +16805,13 @@ MTopView::DrawPartyHP(POINT* pPoint, MCreature* pCreature)
 	pPoint->x += 10;
 
 	//-----------------------------------------------------
-	// HP°è»ê
+	// HPÂ°Ã¨Â»Ãª
 	//-----------------------------------------------------
 	int currentHP		= pCreature->GetHP();
 	int maxHP			= pCreature->GetMAX_HP();
 
 	//-----------------------------------------------------
-	// ¶¥¼Ó¿¡ ÀÖ´Â ¾Ö´Â HP°¡ ²Ë Âù°ÍÃ³·³ º¸¿©ÁØ´Ù.
+	// Â¶Â¥Â¼Ã“Â¿Â¡ Ã€Ã–Â´Ã‚ Â¾Ã–Â´Ã‚ HPÂ°Â¡ Â²Ã‹ Ã‚Ã¹Â°ÃÃƒÂ³Â·Â³ ÂºÂ¸Â¿Â©ÃÃ˜Â´Ã™.
 	//-----------------------------------------------------
 	if (pCreature->IsUndergroundCreature())
 	{
@@ -16765,7 +16825,7 @@ MTopView::DrawPartyHP(POINT* pPoint, MCreature* pCreature)
 	}
 
 	//-----------------------------------------------------
-	// ½ÇÁ¦·Î º¸¿©Áú pixel°è»ê
+	// Â½Ã‡ÃÂ¦Â·Ã ÂºÂ¸Â¿Â©ÃÃº pixelÂ°Ã¨Â»Ãª
 	//-----------------------------------------------------
 	CSprite* pHPBackSprite	= &m_EtcSPK[SPRITEID_PARTY_HP_BACKGROUND];
 	CSprite* pHPSprite		= &m_EtcSPK[SPRITEID_PARTY_HP];
@@ -16774,7 +16834,7 @@ MTopView::DrawPartyHP(POINT* pPoint, MCreature* pCreature)
 	int currentPixels	= (maxHP==0)? 0 : maxPixels * currentHP / maxHP;
 
 	//-----------------------------------------------------
-	// Ãâ·Â
+	// ÃƒÃ¢Â·Ã‚
 	//-----------------------------------------------------
 	POINT pointTemp;
 
@@ -16815,7 +16875,7 @@ MTopView::DrawInventoryEffect(POINT* pPoint)
 	if (g_pInventoryEffectManager!=NULL)
 	{			
 		//------------------------------------------------
-		// Unlock »óÅÂ·Î ¸¸µç´Ù. 
+		// Unlock Â»Ã³Ã…Ã‚Â·Ã Â¸Â¸ÂµÃ§Â´Ã™. 
 		//------------------------------------------------
 		BOOL bLock = m_pSurface->IsLock();
 		if (!bLock)
@@ -16828,7 +16888,7 @@ MTopView::DrawInventoryEffect(POINT* pPoint)
 		g_pTopView->DrawEffect(pPoint, g_pInventoryEffectManager->GetEffects(), g_pInventoryEffectManager->GetSize());
 
 		//------------------------------------------------
-		// ¿ø·¡ lock µÈ »óÅÂ¸é ´Ù½Ã µÇµ¹¸°´Ù.
+		// Â¿Ã¸Â·Â¡ lock ÂµÃˆ Â»Ã³Ã…Ã‚Â¸Ã© Â´Ã™Â½Ãƒ ÂµÃ‡ÂµÂ¹Â¸Â°Â´Ã™.
 		//------------------------------------------------
 		if (!bLock)
 		{
@@ -16885,7 +16945,7 @@ int
 {
 	
 	int y2 = pPoint->y;
-	// ¾à°£ ¿ŞÂÊ¿¡¼­ Ãâ·Â...
+	// Â¾Ã Â°Â£ Â¿ÃÃ‚ÃŠÂ¿Â¡Â¼Â­ ÃƒÃ¢Â·Ã‚...
 	//pPoint->x -= 50;
 
 	// 2005, 1, 20, sobeit add start
@@ -16897,12 +16957,12 @@ int
 	// 2005, 1, 20, sobeit add end
 	//---------------------------------------------------------
 	//
-	//			Font¼³Á¤
+	//			FontÂ¼Â³ÃÂ¤
 	//
 	//---------------------------------------------------------	
 	FONTID	font;
 	//---------------------------------------------------------
-	// Vampire¿Í Slayer¿¡ µû¶ó¼­ Font¸¦ ´Ù¸£°Ô ÇØÁØ´Ù.
+	// VampireÂ¿Ã SlayerÂ¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ FontÂ¸Â¦ Â´Ã™Â¸Â£Â°Ã” Ã‡Ã˜ÃÃ˜Â´Ã™.
 	//---------------------------------------------------------
 	if (pCreature->IsVampire())
 	{
@@ -16923,7 +16983,7 @@ int
 	const int ChatFontHeight = bLargeFont ? g_pClientConfig->FONT_HEIGHT + 5 : g_pClientConfig->FONT_HEIGHT ;
 	//---------------------------------------------------------
 	//
-	//		Á¦ÀÏ ±ä stringÀÇ ±æÀÌ¸¦ ¾ò´Â´Ù.
+	//		ÃÂ¦Ã€Ã Â±Ã¤ stringÃ€Ã‡ Â±Ã¦Ã€ÃŒÂ¸Â¦ Â¾Ã²Â´Ã‚Â´Ã™.
 	//
 	//---------------------------------------------------------
 	int maxLen = 0;
@@ -16934,7 +16994,7 @@ int
 		const char *str = pCreature->GetChatString(i);		
 
 		//---------------------------------------------------------
-		// ¹º°¡ ÀÖÀ¸¸é.. Ãâ·ÂÇØ¾ßÇÑ´Ù.
+		// Â¹ÂºÂ°Â¡ Ã€Ã–Ã€Â¸Â¸Ã©.. ÃƒÃ¢Â·Ã‚Ã‡Ã˜Â¾ÃŸÃ‡Ã‘Â´Ã™.
 		//---------------------------------------------------------
 		if (str[0] != NULL)
 		{
@@ -16950,7 +17010,7 @@ int
 			numString = g_pClientConfig->MAX_CHATSTRING_MINUS_1 - i;
 
 			//---------------------------------------------------------
-			// Ãâ·ÂÇÒ°Ô ¾ø´Â °æ¿ì	
+			// ÃƒÃ¢Â·Ã‚Ã‡Ã’Â°Ã” Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬	
 			//---------------------------------------------------------
 			if (numString==0)
 			{
@@ -16963,7 +17023,7 @@ int
 
 	//---------------------------------------------------------
 	//
-	//			Ãâ·Â Á¤º¸ ¼³Á¤
+	//			ÃƒÃ¢Â·Ã‚ ÃÂ¤ÂºÂ¸ Â¼Â³ÃÂ¤
 	//
 	//---------------------------------------------------------	
 	int firstY = y2 - numString * ChatFontHeight;
@@ -16974,7 +17034,7 @@ int
 
 
 	//---------------------------------------------------------
-	// È­¸é ¾È¿¡ ±ÛÀÚ°¡ µé¾î¿Àµµ·Ï..
+	// ÃˆÂ­Â¸Ã© Â¾ÃˆÂ¿Â¡ Â±Ã›Ã€ÃšÂ°Â¡ ÂµÃ©Â¾Ã®Â¿Ã€ÂµÂµÂ·Ã..
 	//---------------------------------------------------------
 	if (x<0) x=0;
 
@@ -17037,14 +17097,14 @@ int
 	}
 
 	//---------------------------------------------------------
-	//  °¢ string Ãâ·Â...
+	//  Â°Â¢ string ÃƒÃ¢Â·Ã‚...
 	//---------------------------------------------------------
-	int start = g_pClientConfig->MAX_CHATSTRING-numString; 
-	for (i=start; i<g_pClientConfig->MAX_CHATSTRING; i++)
+	int start = g_pClientConfig->MAX_CHATSTRING-numString;
+	for (int i=start; i<g_pClientConfig->MAX_CHATSTRING; i++)
 	{
 		const char *str = pCreature->GetChatString(i);
 		
-		// ¹º°¡ ÀÖÀ¸¸é.. Ãâ·ÂÇØ¾ßÇÑ´Ù.
+		// Â¹ÂºÂ°Â¡ Ã€Ã–Ã€Â¸Â¸Ã©.. ÃƒÃ¢Â·Ã‚Ã‡Ã˜Â¾ÃŸÃ‡Ã‘Â´Ã™.
 		//if (str[0] != NULL)
 		{
 			//m_pSurface->GDI_Text(pointTemp.x, pointTemp.y, str, 0xFFFF);
@@ -17059,17 +17119,17 @@ int
 			);	
 
 			//---------------------------------------------------------
-			// 33À¸·Î ÇÑ°Å´Â.. DWORD time¿¡¼­ Ã¹ bit°¡ ÇÊ¿ä¾øÀ» µí ÇÏ°í
-			// Creature Object ID·Î Ä³¸¯ÅÍº°·Î ¼ø¼­¿¡ ¸ÂÃç¼­ Ãâ·ÂÇÏ°í 
-			// Ãâ·Â¼ø¼­ i¸¦ Ãß°¡ÇØ¼­ ¼ø¼­´ë·Î Ãâ·ÂµÇ°Ô ÇÑ °ÍÀÌ´Ù.
+			// 33Ã€Â¸Â·Ã Ã‡Ã‘Â°Ã…Â´Ã‚.. DWORD timeÂ¿Â¡Â¼Â­ ÃƒÂ¹ bitÂ°Â¡ Ã‡ÃŠÂ¿Ã¤Â¾Ã¸Ã€Â» ÂµÃ­ Ã‡ÃÂ°Ã­
+			// Creature Object IDÂ·Ã Ã„Â³Â¸Â¯Ã…ÃÂºÂ°Â·Ã Â¼Ã¸Â¼Â­Â¿Â¡ Â¸Ã‚ÃƒÃ§Â¼Â­ ÃƒÃ¢Â·Ã‚Ã‡ÃÂ°Ã­ 
+			// ÃƒÃ¢Â·Ã‚Â¼Ã¸Â¼Â­ iÂ¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã˜Â¼Â­ Â¼Ã¸Â¼Â­Â´Ã«Â·Ã ÃƒÃ¢Â·Ã‚ÂµÃ‡Â°Ã” Ã‡Ã‘ Â°ÃÃ€ÃŒÂ´Ã™.
 			//
-			// ¿À·¡µÈ°Å < Ä³¸¯ÅÍº°·Î < ÁÙ¼ø¼­
+			// Â¿Ã€Â·Â¡ÂµÃˆÂ°Ã… < Ã„Â³Â¸Â¯Ã…ÃÂºÂ°Â·Ã < ÃÃ™Â¼Ã¸Â¼Â­
 			//---------------------------------------------------------
 			QWORD time = timeBase + m_pqDrawText.size();
 			pNode->SetTextTime( time );
 			
 			//---------------------------------------------------------
-			// °ËÀº»ö ¹Ú½º
+			// Â°Ã‹Ã€ÂºÂ»Ã¶ Â¹ÃšÂ½Âº
 			//---------------------------------------------------------
 			if (i==start)
 			{
@@ -17083,7 +17143,7 @@ int
 				pNode->SetBox( rect, m_ColorBlackHalf );
 
 				//---------------------------------------------------------
-				// Ã¤ÆÃ¿¡ ¿Ü°û ¹Ú½º ±×¸®±â
+				// ÃƒÂ¤Ã†ÃƒÂ¿Â¡ Â¿ÃœÂ°Ã» Â¹ÃšÂ½Âº Â±Ã—Â¸Â®Â±Ã¢
 				//---------------------------------------------------------
 				if (g_pUserOption->DrawChatBoxOutline)
 				{
@@ -17107,11 +17167,11 @@ int
 		}
 		//else
 		//{	
-			// yÁÙ ÁÂÇ¥ return
+			// yÃÃ™ ÃÃ‚Ã‡Â¥ return
 		//	return firstY;
 		//}
 
-		// ÇÑÁÙ¾¿ ¾Æ·¡·Î..
+		// Ã‡Ã‘ÃÃ™Â¾Â¿ Â¾Ã†Â·Â¡Â·Ã..
 		y += ChatFontHeight;
 	}
 
@@ -17119,9 +17179,9 @@ int
 }
 
 //----------------------------------------------------------------------
-// Draw Item : Item Ãâ·ÂÇÏ±â	
+// Draw Item : Item ÃƒÃ¢Â·Ã‚Ã‡ÃÂ±Ã¢	
 //----------------------------------------------------------------------
-// pSurfaceÀÇ pPoint¿¡ pItemÀ» Ãâ·ÂÇÑ´Ù. 
+// pSurfaceÃ€Ã‡ pPointÂ¿Â¡ pItemÃ€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™. 
 //----------------------------------------------------------------------
 void	
 MTopView::DrawItem(POINT* pPoint, MItem* pItem)
@@ -17136,7 +17196,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 	__BEGIN_PROFILE("DrawItem")
 
 	//------------------------------------------------
-	// SlayerÀÎ °æ¿ì Darkness ¾ÈÀ» º¼ ¼ö ¾ø´Ù.
+	// SlayerÃ€Ã Â°Ã¦Â¿Ã¬ Darkness Â¾ÃˆÃ€Â» ÂºÂ¼ Â¼Ã¶ Â¾Ã¸Â´Ã™.
 	//------------------------------------------------
 	if (g_pZone->GetSector(pItem->GetX(), pItem->GetY()).HasDarkness() &&
 		IsAffectFromDarkness() &&
@@ -17162,7 +17222,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 	}
 	
 	//---------------------------------------------------------
-	// ½ÃÃ¼ÀÎ °æ¿ì´Â Creature¸¦ Ãâ·ÂÇÑ´Ù.
+	// Â½ÃƒÃƒÂ¼Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ CreatureÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 	//---------------------------------------------------------
 	if (pItem->GetItemClass()==ITEM_CLASS_CORPSE)
 	{
@@ -17175,9 +17235,9 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 		if (pCreature!=NULL)
 		{
 			//---------------------------------------------------------
-			// PC VampireÀÎ °æ¿ì´Â '¸ÕÁö'·Î Ç¥ÇöÇÑ´Ù.
+			// PC VampireÃ€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ 'Â¸Ã•ÃÃ¶'Â·Ã Ã‡Â¥Ã‡Ã¶Ã‡Ã‘Â´Ã™.
 			// 
-			// Æ¾¹öÀüÀÎ°æ¿ì´Â ¸ğµÎ '¸ÕÁö'·Î Ç¥ÇöÇÑ´Ù.
+			// Ã†Â¾Â¹Ã¶Ã€Ã¼Ã€ÃÂ°Ã¦Â¿Ã¬Â´Ã‚ Â¸Ã°ÂµÃ 'Â¸Ã•ÃÃ¶'Â·Ã Ã‡Â¥Ã‡Ã¶Ã‡Ã‘Â´Ã™.
 			//---------------------------------------------------------
 //			if (//pCreature->GetCreatureType()==CREATURETYPE_VAMPIRE_MALE 
 //				//|| pCreature->GetCreatureType()==CREATURETYPE_VAMPIRE_FEMALE)
@@ -17188,13 +17248,13 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 //
 //				POINT pointTemp;
 //
-//				// ÁÂÇ¥ º¸Á¤
+//				// ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 //				pointTemp.x = pPoint->x - 5;
 //				pointTemp.y = pPoint->y;
 //					
 //
-//				// ¼±ÅÃµÈ °ÍÀÎ °æ¿ì
-//				// Creature¸¦ ¼±ÅÃÇÑ °ÍÃ³·³ÇØ¼­ Ãâ·Â.. »ç±â´ç. - -;
+//				// Â¼Â±Ã…ÃƒÂµÃˆ Â°ÃÃ€Ã Â°Ã¦Â¿Ã¬
+//				// CreatureÂ¸Â¦ Â¼Â±Ã…ÃƒÃ‡Ã‘ Â°ÃÃƒÂ³Â·Â³Ã‡Ã˜Â¼Â­ ÃƒÃ¢Â·Ã‚.. Â»Ã§Â±Ã¢Â´Ã§. - -;
 ///				if (m_SelectItemID == pItem->GetID())
 //				{
 //					m_SOMOutlineColor = m_ColorOutlineItem;
@@ -17211,12 +17271,12 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 //				}
 //			}
 			//---------------------------------------------------------
-			// ÀÏ¹İ Ä³¸¯ÅÍ Á×Àº ¸ğ½À..
+			// Ã€ÃÂ¹Ã Ã„Â³Â¸Â¯Ã…Ã ÃÃ—Ã€Âº Â¸Ã°Â½Ã€..
 			//---------------------------------------------------------
 //			else
 			{
-				// ¼±ÅÃµÈ °ÍÀÎ °æ¿ì
-				// Creature¸¦ ¼±ÅÃÇÑ °ÍÃ³·³ÇØ¼­ Ãâ·Â.. »ç±â´ç. - -;
+				// Â¼Â±Ã…ÃƒÂµÃˆ Â°ÃÃ€Ã Â°Ã¦Â¿Ã¬
+				// CreatureÂ¸Â¦ Â¼Â±Ã…ÃƒÃ‡Ã‘ Â°ÃÃƒÂ³Â·Â³Ã‡Ã˜Â¼Â­ ÃƒÃ¢Â·Ã‚.. Â»Ã§Â±Ã¢Â´Ã§. - -;
 				if (m_SelectItemID == pItem->GetID())
 				{
 					TYPE_OBJECTID temp = m_SelectCreatureID;
@@ -17224,13 +17284,13 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 
 //					if (
 //							(
-//							pCreature->GetCreatureType() >= 371 && pCreature->GetCreatureType() <= 376	// ¼º¹°
-//							|| pCreature->GetCreatureType() == 482	// Å©¸®½º¸¶½º Æ®¸®
+//							pCreature->GetCreatureType() >= 371 && pCreature->GetCreatureType() <= 376	// Â¼ÂºÂ¹Â°
+//							|| pCreature->GetCreatureType() == 482	// Ã…Â©Â¸Â®Â½ÂºÂ¸Â¶Â½Âº Ã†Â®Â¸Â®
 //							)
 //						||
 //							(
 //							pCreature->GetActionCount() < pCreature->GetActionCountMax()
-//							// Æ¾¹öÀüÀÏ °æ¿ì¿¡´Â ½½·¹ÀÌ¾î½ÃÃ¼ ±×¸²ÀÚ Ãâ·ÂÇØÁà¾ßÇÔ
+//							// Ã†Â¾Â¹Ã¶Ã€Ã¼Ã€Ã Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â½ÃƒÃƒÂ¼ Â±Ã—Â¸Â²Ã€Ãš ÃƒÃ¢Â·Ã‚Ã‡Ã˜ÃÃ Â¾ÃŸÃ‡Ã”
 //							|| g_pUserInformation->GoreLevel == false
 //							&& pCreature->GetActionCount()>=pCreature->GetActionCountMax()/2
 //							&& pCreature->IsDead()
@@ -17249,13 +17309,13 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 				{
 //					if (
 //							(
-//							pCreature->GetCreatureType() >= 371 && pCreature->GetCreatureType() <= 376	// ¼º¹°
-//							|| pCreature->GetCreatureType() == 482	// Å©¸®½º¸¶½º Æ®¸®
+//							pCreature->GetCreatureType() >= 371 && pCreature->GetCreatureType() <= 376	// Â¼ÂºÂ¹Â°
+//							|| pCreature->GetCreatureType() == 482	// Ã…Â©Â¸Â®Â½ÂºÂ¸Â¶Â½Âº Ã†Â®Â¸Â®
 //							)
 //						||
 //							(
 //							pCreature->GetActionCount() < pCreature->GetActionCountMax()
-//							// Æ¾¹öÀüÀÏ °æ¿ì¿¡´Â ½½·¹ÀÌ¾î½ÃÃ¼ ±×¸²ÀÚ Ãâ·ÂÇØÁà¾ßÇÔ
+//							// Ã†Â¾Â¹Ã¶Ã€Ã¼Ã€Ã Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â½ÃƒÃƒÂ¼ Â±Ã—Â¸Â²Ã€Ãš ÃƒÃ¢Â·Ã‚Ã‡Ã˜ÃÃ Â¾ÃŸÃ‡Ã”
 //							|| g_pUserInformation->GoreLevel == false
 //							&& pCreature->GetActionCount()>=pCreature->GetActionCountMax()/2
 //							&& pCreature->IsDead()
@@ -17271,12 +17331,12 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 			}
 
 			//------------------------------------------------
-			// Á×Àº Ä³¸¯ÅÍÀÌ¸é ¼±ÅÃ »ç°¢ÇüÀ»
-			// ÇÑ Tile Å©±â·Î Á¦ÇÑÇÑ´Ù.
+			// ÃÃ—Ã€Âº Ã„Â³Â¸Â¯Ã…ÃÃ€ÃŒÂ¸Ã© Â¼Â±Ã…Ãƒ Â»Ã§Â°Â¢Ã‡Ã¼Ã€Â»
+			// Ã‡Ã‘ Tile Ã…Â©Â±Ã¢Â·Ã ÃÂ¦Ã‡Ã‘Ã‡Ã‘Â´Ã™.
 			//------------------------------------------------
 			if(!(pCreature->GetCreatureType() >= 371 && pCreature->GetCreatureType() <= 376 || pCreature->GetCreatureType() >= 560 && pCreature->GetCreatureType() <= 563 || pCreature->GetCreatureType() >= 526 && pCreature->GetCreatureType() <= 549 || pCreature->GetCreatureType() == 672 || pCreature->GetCreatureType() == 673 ))
 			{
-				if(pCreature->GetCreatureType() == 482 || pCreature->GetCreatureType() == 650 )	// Æ®¸®´Â select¾ÈµÇ°Ô
+				if(pCreature->GetCreatureType() == 482 || pCreature->GetCreatureType() == 650 )	// Ã†Â®Â¸Â®Â´Ã‚ selectÂ¾ÃˆÂµÃ‡Â°Ã”
 				{
 					RECT rect;
 					rect.left	= orPoint.x;
@@ -17308,9 +17368,9 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 	}
 
 	//---------------------------------------------------------
-	// ¾ÆÁ÷ ¶³¾îÁö°í ÀÖ´Â ÁßÀÌ¸é..
+	// Â¾Ã†ÃÃ· Â¶Â³Â¾Ã®ÃÃ¶Â°Ã­ Ã€Ã–Â´Ã‚ ÃÃŸÃ€ÃŒÂ¸Ã©..
 	//---------------------------------------------------------
-	// m_ItemDropFPK¿Í m_ItemDropSPK¸¦ ÀÌ¿ë..
+	// m_ItemDropFPKÂ¿Ã m_ItemDropSPKÂ¸Â¦ Ã€ÃŒÂ¿Ã«..
 	//---------------------------------------------------------
 	if (pItem->IsDropping())
 	{
@@ -17331,8 +17391,8 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 		//#endif
 
 		//---------------------------------------------------------
-		// ÀÌ°Å °íÄ¡°í³ª¼­.. MZone::AddItem( ...) ¿¡¼­
-		// if (bDropping) µÚÀÇ ÁÖ¼®ºÎºĞÀ» »ì·Á¾ß ÇÑ´Ù..
+		// Ã€ÃŒÂ°Ã… Â°Ã­Ã„Â¡Â°Ã­Â³ÂªÂ¼Â­.. MZone::AddItem( ...) Â¿Â¡Â¼Â­
+		// if (bDropping) ÂµÃšÃ€Ã‡ ÃÃ–Â¼Â®ÂºÃÂºÃÃ€Â» Â»Ã¬Â·ÃÂ¾ÃŸ Ã‡Ã‘Â´Ã™..
 		//---------------------------------------------------------
 		CFrame &Frame = m_ItemDropFPK[ dropFrameID ][ frame ];
 		//CFrame &Frame = m_ItemTileFPK[ pItem->GetTileFrameID() ];
@@ -17352,7 +17412,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 		CIndexSprite* pSprite = &m_ItemDropISPK[ Frame.GetSpriteID() ];
 		//CSprite* pSprite = &m_ItemTileSPK[ Frame.GetSpriteID() ];
 
-		// Ãâ·Â
+		// ÃƒÃ¢Â·Ã‚
 		int colorSet = pItem->GetItemOptionColorSet();
 
 //		if(pItem->IsQuestItem())
@@ -17369,9 +17429,9 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 		m_pSurface->BltIndexSprite(&pointTemp, pSprite);							
 	}
 	//---------------------------------------------------------
-	// ¹Ù´Ú¿¡ ÀÖ´Â item
+	// Â¹Ã™Â´ÃšÂ¿Â¡ Ã€Ã–Â´Ã‚ item
 	//---------------------------------------------------------
-	// m_ItemTileFPK¿Í m_ItemTileSPK¸¦ ÀÌ¿ë
+	// m_ItemTileFPKÂ¿Ã m_ItemTileSPKÂ¸Â¦ Ã€ÃŒÂ¿Ã«
 	//---------------------------------------------------------
 	else
 	{
@@ -17397,7 +17457,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 			Frame.GetSpriteID());
 		*/
 
-		// ÁÂÇ¥ º¸Á¤
+		// ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 		POINT pointTemp;
 		pointTemp.x = pPoint->x + Frame.GetCX();
 		pointTemp.y = pPoint->y + Frame.GetCY();
@@ -17426,8 +17486,8 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 		CIndexSprite::SetUsingColorSet( colorSet, colorSet );
 
 		//---------------------------------------- 		
-		// Item ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
-		// ¾ÆÀÌÅÛÀÇ ¼±ÅÃ ¿µ¿ª Å©±â¸¦ Á¦ÇÑÇÑ´Ù.
+		// Item Â¼Â±Ã…Ãƒ Â»Ã§Â°Â¢Ã‡Ã¼ Â¿ÂµÂ¿Âª Â¼Â³ÃÂ¤
+		// Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã‡ Â¼Â±Ã…Ãƒ Â¿ÂµÂ¿Âª Ã…Â©Â±Ã¢Â¸Â¦ ÃÂ¦Ã‡Ã‘Ã‡Ã‘Â´Ã™.
 		//---------------------------------------- 	
 		RECT rect;
 		rect.left	= max(pointTemp.x, pPoint->x);
@@ -17437,10 +17497,10 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 
 		pItem->SetScreenRect( &rect );
 
-		// m_SpritePack¿¡¼­ ÀûÀıÇÑ sprite¸¦ °ñ¶ó¼­ Ãâ·ÂÇØÁØ´Ù.
+		// m_SpritePackÂ¿Â¡Â¼Â­ Ã€Ã»Ã€Ã½Ã‡Ã‘ spriteÂ¸Â¦ Â°Ã±Â¶Ã³Â¼Â­ ÃƒÃ¢Â·Ã‚Ã‡Ã˜ÃÃ˜Â´Ã™.
 
 		//-------------------------------------------------------
-		// Mouse°¡ °¡¸®Å°°í ÀÖ´Â Item
+		// MouseÂ°Â¡ Â°Â¡Â¸Â®Ã…Â°Â°Ã­ Ã€Ã–Â´Ã‚ Item
 		//-------------------------------------------------------
 		if (m_SelectItemID == pItem->GetID())		
 		{		
@@ -17460,12 +17520,12 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 			//}
 
 			//-------------------------------------
-			// mouse°¡ °¡¸®Å°´Â ItemÀÇ Á¤º¸ Ç¥½Ã
+			// mouseÂ°Â¡ Â°Â¡Â¸Â®Ã…Â°Â´Ã‚ ItemÃ€Ã‡ ÃÂ¤ÂºÂ¸ Ã‡Â¥Â½Ãƒ
 			//-------------------------------------
 			/*
 			const char* pItemName = pItem->GetName();
 
-			// optionÀÌ ºÙÀº°Å´Â ÆÄ¶õ»ö..
+			// optionÃ€ÃŒ ÂºÃ™Ã€ÂºÂ°Ã…Â´Ã‚ Ã†Ã„Â¶ÃµÂ»Ã¶..
 			COLORREF nameColor;
 			if (pItem->GetItemOption()==0)
 			{
@@ -17483,12 +17543,12 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 				int x = pointTemp.x + (pSprite->GetWidth()>>1);
 				int y = pointTemp.y - g_pClientConfig->FONT_ITEM_HEIGHT;			
 
-				// È­¸é ¾È¿¡ ±ÛÀÚ°¡ µé¾î¿Àµµ·Ï..
+				// ÃˆÂ­Â¸Ã© Â¾ÃˆÂ¿Â¡ Â±Ã›Ã€ÃšÂ°Â¡ ÂµÃ©Â¾Ã®Â¿Ã€ÂµÂµÂ·Ã..
 				if (x<0) x=0;
 				if (y<0) y=0;
 
 				//--------------------------------------------------
-				// GetStringWidth¿¡¼­´Â unlockÇØ¾ßÇÑ´Ù.
+				// GetStringWidthÂ¿Â¡Â¼Â­Â´Ã‚ unlockÃ‡Ã˜Â¾ÃŸÃ‡Ã‘Â´Ã™.
 				//--------------------------------------------------
 				m_pSurface->Unlock();
 				int x2 = x + g_GetStringWidth(pItemName, g_ClientPrintInfo[font]->hfont);
@@ -17511,7 +17571,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 				);
 
 
-				// °ËÀº»ö ¹Ú½º			
+				// Â°Ã‹Ã€ÂºÂ»Ã¶ Â¹ÃšÂ½Âº			
 				RECT rect = {
 					x, 
 					y,
@@ -17534,7 +17594,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 		else
 		{	
 			//-------------------------------------------------------
-			// ÃßÀû ÁßÀÎ ItemÇ¥½Ã
+			// ÃƒÃŸÃ€Ã» ÃÃŸÃ€Ã ItemÃ‡Â¥Â½Ãƒ
 			//-------------------------------------------------------
 			//if (g_pPlayer->IsTraceItem() && g_pPlayer->GetTraceID()==pItem->GetID())
 			{	
@@ -17542,7 +17602,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 			//	m_pSurface->BltSpriteColor(&pointTemp, &m_ItemTileSPK[ Frame.GetSpriteID() ], 0);
 			}	
 			//-------------------------------------------------------
-			// Á¤»ó Ãâ·Â
+			// ÃÂ¤Â»Ã³ ÃƒÃ¢Â·Ã‚
 			//-------------------------------------------------------
 			//else 
 			{
@@ -17550,16 +17610,16 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 				//{			
 					
 				//-------------------------------------------------------
-				// ¼³Ä¡µÈ Áö·ÚÀÌ¸é..
+				// Â¼Â³Ã„Â¡ÂµÃˆ ÃÃ¶Â·ÃšÃ€ÃŒÂ¸Ã©..
 				//-------------------------------------------------------
 				if (pItem->GetItemClass()==ITEM_CLASS_MINE
 					&& ((MMine*)pItem)->IsInstalled())
 				{
-					// »¡°£»öÀ¸·Î Ãâ·ÂÇÑ´Ù.
+					// Â»Â¡Â°Â£Â»Ã¶Ã€Â¸Â·Ã ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 					m_pSurface->BltIndexSpriteColor(&pointTemp, pSprite, 0);
 				}
 				//-------------------------------------------------------	
-				// ÀÏ¹İÀûÀÎ ¾ÆÀÌÅÛ
+				// Ã€ÃÂ¹ÃÃ€Ã»Ã€Ã Â¾Ã†Ã€ÃŒÃ…Ã›
 				//-------------------------------------------------------
 				else
 				{					
@@ -17575,7 +17635,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 		
 		// [ TEST CODE ]
 		//-------------------------------------
-		// mouse°¡ °¡¸®Å°´Â ItemÀÇ Á¤º¸ Ç¥½Ã
+		// mouseÂ°Â¡ Â°Â¡Â¸Â®Ã…Â°Â´Ã‚ ItemÃ€Ã‡ ÃÂ¤ÂºÂ¸ Ã‡Â¥Â½Ãƒ
 		//-------------------------------------
 		/*
 		DRAWTEXT_NODE* pNode = new DRAWTEXT_NODE(
@@ -17590,7 +17650,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 	}
 
 	//--------------------------------------------------------------------
-	// ItemNameList¿¡ Ãß°¡
+	// ItemNameListÂ¿Â¡ ÃƒÃŸÂ°Â¡
 	//--------------------------------------------------------------------
 	if (m_bDrawItemNameList)
 	{
@@ -17615,9 +17675,9 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 
 
 //----------------------------------------------------------------------
-// Draw ItemShadow : Item ±×¸²ÀÚ Ãâ·ÂÇÏ±â	
+// Draw ItemShadow : Item Â±Ã—Â¸Â²Ã€Ãš ÃƒÃ¢Â·Ã‚Ã‡ÃÂ±Ã¢	
 //----------------------------------------------------------------------
-// pSurfaceÀÇ pPoint¿¡ pItemÀ» Ãâ·ÂÇÑ´Ù.
+// pSurfaceÃ€Ã‡ pPointÂ¿Â¡ pItemÃ€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void	
 MTopView::DrawItemShadow(POINT* pPoint, MItem* pItem)
@@ -17629,7 +17689,7 @@ MTopView::DrawItemShadow(POINT* pPoint, MItem* pItem)
 	__BEGIN_PROFILE("DrawItemShadow")
 
 	//------------------------------------------------
-	// SlayerÀÎ °æ¿ì Darkness ¾ÈÀ» º¼ ¼ö ¾ø´Ù.
+	// SlayerÃ€Ã Â°Ã¦Â¿Ã¬ Darkness Â¾ÃˆÃ€Â» ÂºÂ¼ Â¼Ã¶ Â¾Ã¸Â´Ã™.
 	//------------------------------------------------
 	if (g_pZone->GetSector(pItem->GetX(), pItem->GetY()).HasDarkness() 
 		&&IsAffectFromDarkness())
@@ -17642,7 +17702,7 @@ MTopView::DrawItemShadow(POINT* pPoint, MItem* pItem)
 	}
 	
 	//---------------------------------------------------------
-	// ½ÃÃ¼ÀÎ °æ¿ì´Â Creature¸¦ Ãâ·ÂÇÑ´Ù.
+	// Â½ÃƒÃƒÂ¼Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ CreatureÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 	//---------------------------------------------------------
 	if (pItem->GetItemClass()==ITEM_CLASS_CORPSE)
 	{
@@ -17653,11 +17713,11 @@ MTopView::DrawItemShadow(POINT* pPoint, MItem* pItem)
 		if (pCreature!=NULL)
 		{
 			//---------------------------------------------------------
-			// ÀÏ¹İ Ä³¸¯ÅÍ Á×Àº ¸ğ½À..
+			// Ã€ÃÂ¹Ã Ã„Â³Â¸Â¯Ã…Ã ÃÃ—Ã€Âº Â¸Ã°Â½Ã€..
 			//---------------------------------------------------------
 			{
-				// ¼±ÅÃµÈ °ÍÀÎ °æ¿ì
-				// Creature¸¦ ¼±ÅÃÇÑ °ÍÃ³·³ÇØ¼­ Ãâ·Â.. »ç±â´ç. - -;
+				// Â¼Â±Ã…ÃƒÂµÃˆ Â°ÃÃ€Ã Â°Ã¦Â¿Ã¬
+				// CreatureÂ¸Â¦ Â¼Â±Ã…ÃƒÃ‡Ã‘ Â°ÃÃƒÂ³Â·Â³Ã‡Ã˜Â¼Â­ ÃƒÃ¢Â·Ã‚.. Â»Ã§Â±Ã¢Â´Ã§. - -;
 				if (m_SelectItemID == pItem->GetID())
 				{
 					TYPE_OBJECTID temp = m_SelectCreatureID;
@@ -17665,21 +17725,21 @@ MTopView::DrawItemShadow(POINT* pPoint, MItem* pItem)
 
 					if (
 							(
-							pCreature->GetCreatureType() >= 371 && pCreature->GetCreatureType() <= 376	// ¼º¹°
-							|| pCreature->GetCreatureType() >= 560 && pCreature->GetCreatureType() <= 563	// ¼º¹°
-							|| pCreature->GetCreatureType() >= 526 && pCreature->GetCreatureType() <= 549	// ¼º´Ü
-							|| pCreature->GetCreatureType() == 482	// Å©¸®½º¸¶½º Æ®¸®
-							|| pCreature->GetCreatureType() == 650	// °Ô½ÃÆÇ
+							pCreature->GetCreatureType() >= 371 && pCreature->GetCreatureType() <= 376	// Â¼ÂºÂ¹Â°
+							|| pCreature->GetCreatureType() >= 560 && pCreature->GetCreatureType() <= 563	// Â¼ÂºÂ¹Â°
+							|| pCreature->GetCreatureType() >= 526 && pCreature->GetCreatureType() <= 549	// Â¼ÂºÂ´Ãœ
+							|| pCreature->GetCreatureType() == 482	// Ã…Â©Â¸Â®Â½ÂºÂ¸Â¶Â½Âº Ã†Â®Â¸Â®
+							|| pCreature->GetCreatureType() == 650	// Â°Ã”Â½ÃƒÃ†Ã‡
 							|| pCreature->GetCreatureType() == 672
 							|| pCreature->GetCreatureType() == 673
-							|| pCreature->GetCreatureType() == 730 // ¿şÀÌ Æ÷ÀÎÆ®1
-							|| pCreature->GetCreatureType() == 731 // ¿şÀÌ Æ÷ÀÎÆ®2
-							|| pCreature->GetCreatureType() == 732 // ¿şÀÌ Æ÷ÀÎÆ®3
+							|| pCreature->GetCreatureType() == 730 // Â¿Ã¾Ã€ÃŒ Ã†Ã·Ã€ÃÃ†Â®1
+							|| pCreature->GetCreatureType() == 731 // Â¿Ã¾Ã€ÃŒ Ã†Ã·Ã€ÃÃ†Â®2
+							|| pCreature->GetCreatureType() == 732 // Â¿Ã¾Ã€ÃŒ Ã†Ã·Ã€ÃÃ†Â®3
 							)
 						||
 							(
 							pCreature->GetActionCount() < pCreature->GetActionCountMax()
-							// Æ¾¹öÀüÀÏ °æ¿ì¿¡´Â ½½·¹ÀÌ¾î½ÃÃ¼ ±×¸²ÀÚ Ãâ·ÂÇØÁà¾ßÇÔ
+							// Ã†Â¾Â¹Ã¶Ã€Ã¼Ã€Ã Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â½ÃƒÃƒÂ¼ Â±Ã—Â¸Â²Ã€Ãš ÃƒÃ¢Â·Ã‚Ã‡Ã˜ÃÃ Â¾ÃŸÃ‡Ã”
 							|| g_pUserInformation->GoreLevel == false
 							&& pCreature->GetActionCount()>=pCreature->GetActionCountMax()/2
 							&& pCreature->IsDead()
@@ -17696,21 +17756,21 @@ MTopView::DrawItemShadow(POINT* pPoint, MItem* pItem)
 				{
 					if (
 							(
-							pCreature->GetCreatureType() >= 371 && pCreature->GetCreatureType() <= 376	// ¼º¹°
-							|| pCreature->GetCreatureType() >= 560 && pCreature->GetCreatureType() <= 563	// ¼º¹°
-							|| pCreature->GetCreatureType() >= 526 && pCreature->GetCreatureType() <= 549	// ¼º¹°
-							|| pCreature->GetCreatureType() == 482	// Å©¸®½º¸¶½º Æ®¸®
-							|| pCreature->GetCreatureType() == 650  // °Ô½ÃÆÇ
+							pCreature->GetCreatureType() >= 371 && pCreature->GetCreatureType() <= 376	// Â¼ÂºÂ¹Â°
+							|| pCreature->GetCreatureType() >= 560 && pCreature->GetCreatureType() <= 563	// Â¼ÂºÂ¹Â°
+							|| pCreature->GetCreatureType() >= 526 && pCreature->GetCreatureType() <= 549	// Â¼ÂºÂ¹Â°
+							|| pCreature->GetCreatureType() == 482	// Ã…Â©Â¸Â®Â½ÂºÂ¸Â¶Â½Âº Ã†Â®Â¸Â®
+							|| pCreature->GetCreatureType() == 650  // Â°Ã”Â½ÃƒÃ†Ã‡
 							|| pCreature->GetCreatureType() == 672
 							|| pCreature->GetCreatureType() == 673
-							|| pCreature->GetCreatureType() == 730 // ¿şÀÌ Æ÷ÀÎÆ®1
-							|| pCreature->GetCreatureType() == 731 // ¿şÀÌ Æ÷ÀÎÆ®2
-							|| pCreature->GetCreatureType() == 732 // ¿şÀÌ Æ÷ÀÎÆ®3
+							|| pCreature->GetCreatureType() == 730 // Â¿Ã¾Ã€ÃŒ Ã†Ã·Ã€ÃÃ†Â®1
+							|| pCreature->GetCreatureType() == 731 // Â¿Ã¾Ã€ÃŒ Ã†Ã·Ã€ÃÃ†Â®2
+							|| pCreature->GetCreatureType() == 732 // Â¿Ã¾Ã€ÃŒ Ã†Ã·Ã€ÃÃ†Â®3
 							)
 						||
 							(
 							pCreature->GetActionCount() < pCreature->GetActionCountMax()
-							// Æ¾¹öÀüÀÏ °æ¿ì¿¡´Â ½½·¹ÀÌ¾î½ÃÃ¼ ±×¸²ÀÚ Ãâ·ÂÇØÁà¾ßÇÔ
+							// Ã†Â¾Â¹Ã¶Ã€Ã¼Ã€Ã Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â½ÃƒÃƒÂ¼ Â±Ã—Â¸Â²Ã€Ãš ÃƒÃ¢Â·Ã‚Ã‡Ã˜ÃÃ Â¾ÃŸÃ‡Ã”
 							|| g_pUserInformation->GoreLevel == false
 							&& pCreature->GetActionCount()>=pCreature->GetActionCountMax()/2
 							&& pCreature->IsDead()
@@ -17745,9 +17805,9 @@ MTopView::DrawItemShadow(POINT* pPoint, MItem* pItem)
 }
 
 //----------------------------------------------------------------------
-// Draw ImageObject : ±×¸² Ãâ·ÂÇÏ±â	
+// Draw ImageObject : Â±Ã—Â¸Â² ÃƒÃ¢Â·Ã‚Ã‡ÃÂ±Ã¢	
 //----------------------------------------------------------------------
-// pSurfaceÀÇ pPoint¿¡ pImageObjectÀ» Ãâ·ÂÇÑ´Ù.
+// pSurfaceÃ€Ã‡ pPointÂ¿Â¡ pImageObjectÃ€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------
 void	
 MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
@@ -17769,47 +17829,47 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 		//	DEBUG_ADD_FORMAT("[TempDebug] Before Draw ImageObject : %d", pImageObject->GetID());
 	//#endif	
 
-	// m_SpritePack¿¡¼­ ÀûÀıÇÑ sprite¸¦ °ñ¶ó¼­ Ãâ·ÂÇØÁØ´Ù.
-	// Player¸¦ °¡¸®´Â ±×¸²ÀÏ °æ¿ì ¹İÅõ¸í Ã³¸®
+	// m_SpritePackÂ¿Â¡Â¼Â­ Ã€Ã»Ã€Ã½Ã‡Ã‘ spriteÂ¸Â¦ Â°Ã±Â¶Ã³Â¼Â­ ÃƒÃ¢Â·Ã‚Ã‡Ã˜ÃÃ˜Â´Ã™.
+	// PlayerÂ¸Â¦ Â°Â¡Â¸Â®Â´Ã‚ Â±Ã—Â¸Â²Ã€Ã Â°Ã¦Â¿Ã¬ Â¹ÃÃ…ÃµÂ¸Ã­ ÃƒÂ³Â¸Â®
 	
 	//if (pImageObject->GetImageObjectID() == m_BehindImageObjectID)
 
 	//m_pSurface->HLine(410,310, 1, 0xFFFF);
-	// (410,310)Àº PlayerÀÇ È­¸é »óÀÇ ¹ßÀ§Ä¡..ÀÌ´Ù..
-	// (g_x,g_y)´Â MouseÁÂÇ¥¸¦ ±âÁØÀ¸·Î....
+	// (410,310)Ã€Âº PlayerÃ€Ã‡ ÃˆÂ­Â¸Ã© Â»Ã³Ã€Ã‡ Â¹ÃŸÃ€Â§Ã„Â¡..Ã€ÃŒÂ´Ã™..
+	// (g_x,g_y)Â´Ã‚ MouseÃÃ‚Ã‡Â¥Â¸Â¦ Â±Ã¢ÃÃ˜Ã€Â¸Â·Ã....
 
 	//------------------------------------------------------
-	// 1. ImageObject°¡ Åõ¸íÀÌ µÇ´Â °ÍÀÎ°¡?
-	// 2. Viewpoint°¡ PlayerÀ§Ä¡º¸´Ù ¾Æ·¡ÂÊ¿¡ ÀÖ´Â°¡?
-	// 3. Sprite°¡ Player¸¦ °¡¸®´Â°¡?
+	// 1. ImageObjectÂ°Â¡ Ã…ÃµÂ¸Ã­Ã€ÃŒ ÂµÃ‡Â´Ã‚ Â°ÃÃ€ÃÂ°Â¡?
+	// 2. ViewpointÂ°Â¡ PlayerÃ€Â§Ã„Â¡ÂºÂ¸Â´Ã™ Â¾Ã†Â·Â¡Ã‚ÃŠÂ¿Â¡ Ã€Ã–Â´Ã‚Â°Â¡?
+	// 3. SpriteÂ°Â¡ PlayerÂ¸Â¦ Â°Â¡Â¸Â®Â´Ã‚Â°Â¡?
 	//------------------------------------------------------
-	// 1,2,3ÀÌ ¸ğµÎ ¸¸Á·ÇÑ °æ¿ì.. ¹İÅõ¸í Ã³¸®ÇÑ´Ù.
+	// 1,2,3Ã€ÃŒ Â¸Ã°ÂµÃ Â¸Â¸ÃÂ·Ã‡Ã‘ Â°Ã¦Â¿Ã¬.. Â¹ÃÃ…ÃµÂ¸Ã­ ÃƒÂ³Â¸Â®Ã‡Ã‘Â´Ã™.
 	//------------------------------------------------------
 	bool bTrans;
 
-	// playerÁÂÇ¥
+	// playerÃÃ‚Ã‡Â¥
 	//POINT m_FilterPosition;// = MapToPixel(g_pPlayer->GetX(), g_pPlayer->GetY());
 	//m_FilterPosition.x -= m_FirstZonePixel.x-m_PlusPoint.x;
 	//m_FilterPosition.y -= m_FirstZonePixel.y-m_PlusPoint.y;
 
-	// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
+	// Â±Ã—Â¸Â²Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ Ã‡Ã¶Ã€Ã§ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¿Â¡ Â¸Ã‚ÃƒÃŸÂ±Ã¢								
 	//m_FilterPosition.x = g_pPlayer->GetPixelX() - m_FirstZonePixel.x - filter.GetWidth();
 	//m_FilterPosition.y = g_pPlayer->GetPixelY() - m_FirstZonePixel.y - filter.GetHeight();
 	//m_FilterPosition.x = 310;	// 410 - 100;
 	//m_FilterPosition.y = 116;	// 204 - 100;
 	
 	//------------------------------------------------------
-	// ÀüÃ¼ÀûÀ¸·Î ¾îµÎ¿î °ªÀ» ÁöÁ¤ÇÑ´Ù.
-	// ´Ü, ImageObjectÀÇ ÁÂÇ¥(Zone¿¡¼­ÀÇ SectorÁÂÇ¥)°¡ 
-	// ¹àÀº TileÀÌ¸é(Light°¡ 0ÀÌ ¾Æ´Ñ °æ¿ì) DarkBits=0À¸·Î ÇÑ´Ù.
+	// Ã€Ã¼ÃƒÂ¼Ã€Ã»Ã€Â¸Â·Ã Â¾Ã®ÂµÃÂ¿Ã® Â°ÂªÃ€Â» ÃÃ¶ÃÂ¤Ã‡Ã‘Â´Ã™.
+	// Â´Ãœ, ImageObjectÃ€Ã‡ ÃÃ‚Ã‡Â¥(ZoneÂ¿Â¡Â¼Â­Ã€Ã‡ SectorÃÃ‚Ã‡Â¥)Â°Â¡ 
+	// Â¹Ã Ã€Âº TileÃ€ÃŒÂ¸Ã©(LightÂ°Â¡ 0Ã€ÃŒ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬) DarkBits=0Ã€Â¸Â·Ã Ã‡Ã‘Â´Ã™.
 	//------------------------------------------------------
 	//BYTE DarkBits;
 	
 	//------------------------------------------------------
 	// [ TEST CODE ]
 	//------------------------------------------------------
-		// ÀÌ°Å´Â ÇÊ¿ä¾ø´Â codeÀÌ´Ù.
-		// MapEditor¿¡¼­ Àß ¸¸µé¾îÁÖ¸é µÈ´Ù.
+		// Ã€ÃŒÂ°Ã…Â´Ã‚ Ã‡ÃŠÂ¿Ã¤Â¾Ã¸Â´Ã‚ codeÃ€ÃŒÂ´Ã™.
+		// MapEditorÂ¿Â¡Â¼Â­ Ã€ÃŸ Â¸Â¸ÂµÃ©Â¾Ã®ÃÃ–Â¸Ã© ÂµÃˆÂ´Ã™.
 	/*
 	if (pImageObject->GetX()!=SECTORPOSITION_NULL && pImageObject->GetY()!=SECTORPOSITION_NULL
 		&&
@@ -17822,7 +17882,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 		DarkBits = m_DarkBits;
 	}
 	
-	// 3D °¡¼ÓÀÌ µÇ´Â °æ¿ì.. ¹«Á¶°Ç ¿ø·¡ »ö±òÀ» ±×´ë·Î Ãâ·ÂÇÑ´Ù.
+	// 3D Â°Â¡Â¼Ã“Ã€ÃŒ ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬.. Â¹Â«ÃÂ¶Â°Ã‡ Â¿Ã¸Â·Â¡ Â»Ã¶Â±Ã²Ã€Â» Â±Ã—Â´Ã«Â·Ã ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 	if (CDirect3D::IsHAL())
 	{
 		DarkBits = 0;
@@ -17830,13 +17890,13 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 	*/
 
 	//----------------------------------------------------				
-	// °Ç¹°Àº ¹«Á¶°Ç ¹İÅõ¸í
+	// Â°Ã‡Â¹Â°Ã€Âº Â¹Â«ÃÂ¶Â°Ã‡ Â¹ÃÃ…ÃµÂ¸Ã­
 	//----------------------------------------------------				
 	BOOL bBlendingShadow = 1;//g_pUserOption->BlendingShadow;
 	
 	//------------------------------------------------------
 	//
-	//  ShadowObject Ãâ·Â
+	//  ShadowObject ÃƒÃ¢Â·Ã‚
 	//
 	//------------------------------------------------------
 	if (pImageObject->GetObjectType()==MObject::TYPE_SHADOWOBJECT)
@@ -17913,7 +17973,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 	}
 	//------------------------------------------------------
 	//
-	//          ShadowAnimationObject Ãâ·Â
+	//          ShadowAnimationObject ÃƒÃ¢Â·Ã‚
 	//
 	//------------------------------------------------------
 	else if (pImageObject->GetObjectType()==MObject::TYPE_SHADOWANIMATIONOBJECT)
@@ -17921,7 +17981,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 	}
 	//------------------------------------------------------
 	//
-	//          InteractionObject Ãâ·Â
+	//          InteractionObject ÃƒÃ¢Â·Ã‚
 	//
 	//------------------------------------------------------
 //	else if (pImageObject->GetObjectType()==MObject::TYPE_INTERACTIONOBJECT)
@@ -17950,14 +18010,14 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //				#endif
 //				*/
 //
-//				// ÁÂÇ¥ º¸Á¤
+//				// ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 //				pPoint->x += Frame.GetCX();
 //				pPoint->y += Frame.GetCY();
 //
 //				CSprite* pSprite = &m_InteractionObjectSPK[ sprite ];		
 //				
 //				//---------------------------------------- 		
-//				// InteractionObjectÀÇ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+//				// InteractionObjectÃ€Ã‡ Â¼Â±Ã…Ãƒ Â»Ã§Â°Â¢Ã‡Ã¼ Â¿ÂµÂ¿Âª Â¼Â³ÃÂ¤
 //				//---------------------------------------- 	
 //				RECT rect;
 //				rect.left	= pPoint->x;
@@ -17967,11 +18027,11 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //				pInteractionObject->SetScreenRect( &rect );
 //
 //
-//				// ¹İÅõ¸í check				
+//				// Â¹ÃÃ…ÃµÂ¸Ã­ check				
 //				bTrans = pImageObject->IsTrans();
 //
 //				//--------------------------------
-//				// ¼±ÅÃµÈ InteractionObjectÀÏ °æ¿ì...
+//				// Â¼Â±Ã…ÃƒÂµÃˆ InteractionObjectÃ€Ã Â°Ã¦Â¿Ã¬...
 //				//--------------------------------
 //				if (m_SelectInteractionObjectID==pInteractionObject->GetID())
 //				{			
@@ -17994,13 +18054,13 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //					}
 //				}
 //				//--------------------------------
-//				// Åõ¸í Ã³¸®
+//				// Ã…ÃµÂ¸Ã­ ÃƒÂ³Â¸Â®
 //				//--------------------------------
 //				else if (bTrans)
 //				{
-//					// ¹İÅõ¸í
+//					// Â¹ÃÃ…ÃµÂ¸Ã­
 //					//m_pSurface->BltSpriteHalf(pPoint, &m_ImageObjectSPK[ sprite ]);
-//					// ±×¸²¿¡ ¸ÂÃá filter ÁÂÇ¥ º¸Á¤
+//					// Â±Ã—Â¸Â²Â¿Â¡ Â¸Ã‚ÃƒÃ¡ filter ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 //					CSprite::SetFilter(m_FilterPosition.x - pPoint->x,
 //										m_FilterPosition.y - pPoint->y,
 //										&m_ImageObjectFilter);
@@ -18017,15 +18077,15 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //					//}					
 //				}
 //				//--------------------------------
-//				// ±×³É Ãâ·Â
+//				// Â±Ã—Â³Ã‰ ÃƒÃ¢Â·Ã‚
 //				//--------------------------------
 //				else
 //				{
 //					//if (m_ImageObjectSPK[ sprite ].IsInit())
 //					{
 //						///*
-//						// PlayerÀÇ ½Ã¾ßÀÇ Å©±â¸¦ ¹İ¿µÇØ¼­
-//						// ½Ã¾ß ¾È¿¡ ÀÖ´Â ImageObjectµé¸¸ º¸ÀÌ°Ô ÇÑ´Ù.
+//						// PlayerÃ€Ã‡ Â½ÃƒÂ¾ÃŸÃ€Ã‡ Ã…Â©Â±Ã¢Â¸Â¦ Â¹ÃÂ¿ÂµÃ‡Ã˜Â¼Â­
+//						// Â½ÃƒÂ¾ÃŸ Â¾ÃˆÂ¿Â¡ Ã€Ã–Â´Ã‚ ImageObjectÂµÃ©Â¸Â¸ ÂºÂ¸Ã€ÃŒÂ°Ã” Ã‡Ã‘Â´Ã™.
 //						//CSprite& spriteRef = m_ImageObjectSPK[ sprite ];
 //
 //						//int sight = g_pPlayer->GetMaxLightSight();
@@ -18035,9 +18095,9 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //						//int sY = 270-(pY>>1) - pPoint->y;			
 //
 //						//if (DarkBits==0 //|| m_ImageObjectSPK[ pImageObject->GetSpriteID() ].IsIntersectFilter())
-//							// Ãâ·Â ½ÃÀÛÀ§Ä¡(s_X,s_Y)°¡ SpriteÀÇ ³¡Á¡º¸´Ù´Â ÀûÀ» °æ¿ì
+//							// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃ€Ã›Ã€Â§Ã„Â¡(s_X,s_Y)Â°Â¡ SpriteÃ€Ã‡ Â³Â¡ÃÂ¡ÂºÂ¸Â´Ã™Â´Ã‚ Ã€Ã»Ã€Â» Â°Ã¦Â¿Ã¬
 //						//	|| (sX < spriteRef.GetWidth() && sY < spriteRef.GetHeight()
-//							// FilterÀÇ ³¡Á¡ÀÌ Sprite Ã¹Á¡ º¸´Ù Å« °æ¿ì
+//							// FilterÃ€Ã‡ Â³Â¡ÃÂ¡Ã€ÃŒ Sprite ÃƒÂ¹ÃÂ¡ ÂºÂ¸Â´Ã™ Ã…Â« Â°Ã¦Â¿Ã¬
 //						//	 &&	sX,pX > 0 && sY,pY > 0))
 //						//{
 //							m_pSurface->BltSprite(pPoint, pSprite);
@@ -18057,7 +18117,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //			case BLT_EFFECT :	
 //				/*
 //				//--------------------------------
-//				// ¼±ÅÃµÈ InteractionObjectÀÏ °æ¿ì...
+//				// Â¼Â±Ã…ÃƒÂµÃˆ InteractionObjectÃ€Ã Â°Ã¦Â¿Ã¬...
 //				//--------------------------------
 //				if (m_SelectInteractionObjectID==pInteractionObject->GetID())
 //				{
@@ -18080,14 +18140,14 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 	{
 		//------------------------------------------------------
 		//
-		//          ImageObject : Sprite Ãâ·Â
+		//          ImageObject : Sprite ÃƒÃ¢Â·Ã‚
 		//
 		//------------------------------------------------------
 		int spriteID = pImageObject->GetSpriteID();
 		if (spriteID != SPRITEID_NULL)	
 		{			
 			//---------------------------------------
-			// ID°¡ spriteÀÎ ImageObject¸¦ LoadÇÑ´Ù.
+			// IDÂ°Â¡ spriteÃ€Ã ImageObjectÂ¸Â¦ LoadÃ‡Ã‘Â´Ã™.
 			//---------------------------------------
 //			#ifdef	OUTPUT_DEBUG
 //				char str[256];
@@ -18101,7 +18161,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //
 //				m_ImageObjectSPKFile.seekg(m_ImageObjectSPKI[spriteID], ios::beg);				
 //				//--------------------------------------------------
-//				// Loading¿¡ ¼º°øÇÑ °æ¿ì
+//				// LoadingÂ¿Â¡ Â¼ÂºÂ°Ã¸Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 //				//--------------------------------------------------
 //				if (m_ImageObjectSPK[ spriteID ].LoadFromFile( m_ImageObjectSPKFile ))
 //				{
@@ -18112,10 +18172,10 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //					#endif
 //				}
 //				//--------------------------------------------------
-//				// ½ÇÆĞÇÑ °æ¿ì --> ÀÌ¹Ì LoadingÇÏ°í ÀÖ´Â °æ¿ìÀÌ´Ù.				
+//				// Â½Ã‡Ã†ÃÃ‡Ã‘ Â°Ã¦Â¿Ã¬ --> Ã€ÃŒÂ¹ÃŒ LoadingÃ‡ÃÂ°Ã­ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™.				
 //				//--------------------------------------------------
 //				/*
-//				// 2001.8.20 ÁÖ¼®Ã³¸®
+//				// 2001.8.20 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 //				else
 //				{
 //					#ifdef	OUTPUT_DEBUG
@@ -18124,7 +18184,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //						DEBUG_ADD( str );
 //					#endif
 //
-//					// file thread ¼øÀ§¸¦ ³ôÈù´Ù.
+//					// file thread Â¼Ã¸Ã€Â§Â¸Â¦ Â³Ã´ÃˆÃ¹Â´Ã™.
 //					//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_HIGHEST);
 //					MLoadingSPKWorkNode3* pNode = new MLoadingSPKWorkNode3(spriteID, m_ImageObjectSPKI[spriteID]);
 //					pNode->SetSPK( &m_ImageObjectSPK, FILE_SPRITE_IMAGEOBJECT );
@@ -18132,7 +18192,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //					g_pLoadingThread->SetPriority( THREAD_PRIORITY_HIGHEST );
 //					g_pLoadingThread->AddFirst( pNode );
 //
-//					// Thread¿¡¼­ LoadingÀÌ ³¡³¯¶§±îÁö ±â´Ù¸°´Ù.
+//					// ThreadÂ¿Â¡Â¼Â­ LoadingÃ€ÃŒ Â³Â¡Â³Â¯Â¶Â§Â±Ã®ÃÃ¶ Â±Ã¢Â´Ã™Â¸Â°Â´Ã™.
 //					//while (m_ImageObjectSPK[ spriteID ].IsNotInit());
 //					while (1)
 //					{
@@ -18151,7 +18211,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //					}
 //					//while (!m_ImageObjectSPK[spriteID].LoadFromFile( m_ImageObjectSPKFile ));
 //
-//					// file thread ¼øÀ§¸¦ ³·Ãá´Ù.
+//					// file thread Â¼Ã¸Ã€Â§Â¸Â¦ Â³Â·ÃƒÃ¡Â´Ã™.
 //					//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_BELOW_NORMAL);
 //					g_pLoadingThread->SetPriority( THREAD_PRIORITY_LOWEST );
 //
@@ -18161,7 +18221,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 
 			bTrans = pImageObject->IsTrans()
 						&& pImageObject->GetViewpoint() >= g_pPlayer->GetY()
-						// 2001.9.5 Ãß°¡
+						// 2001.9.5 ÃƒÃŸÂ°Â¡
 						&& pImageObject->IsWallTransPosition(g_pPlayer->GetX(), g_pPlayer->GetY());
 
 						
@@ -18170,7 +18230,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						//	310 - pPoint->y);
 		
 			//--------------------------------
-			// Åõ¸í Ã³¸®
+			// Ã…ÃµÂ¸Ã­ ÃƒÂ³Â¸Â®
 			//--------------------------------
 			if (bTrans)
 			{	
@@ -18178,7 +18238,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 				//m_pSurface->BltSpriteHalf(pPoint, &m_ImageObjectSPK[ spriteID ]);
 			
 
-				// ±×¸²¿¡ ¸ÂÃá filter ÁÂÇ¥ º¸Á¤
+				// Â±Ã—Â¸Â²Â¿Â¡ Â¸Ã‚ÃƒÃ¡ filter ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 				CSprite::SetFilter(m_FilterPosition.x - pPoint->x,
 									m_FilterPosition.y - pPoint->y,
 									&m_ImageObjectFilter);
@@ -18192,7 +18252,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					{
 						m_pSurface->Unlock();
 
-						// Texture ¼³Á¤
+						// Texture Â¼Â³ÃÂ¤
 						CSpriteSurface* pSurface = m_pImageObjectTextureManager->GetTexture(spriteID);
 
 						if( pSurface != NULL )
@@ -18203,7 +18263,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 							CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_ONE );
 							CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_ONE );   
 							
-							// ÁÂÇ¥ ¼³Á¤
+							// ÃÃ‚Ã‡Â¥ Â¼Â³ÃÂ¤
 							//						m_SpriteVertices[0].sx = pPoint->x;
 							//						m_SpriteVertices[0].sy = pPoint->y;
 							//						m_SpriteVertices[1].sx = pPoint->x,m_pImageObjectTextureManager->GetWidth(spriteID);
@@ -18236,7 +18296,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						if (g_pDXInput->KeyDown(DIK_A) && 
 							(g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL)))
 						{
-							// CTRL+A´©¸£¸é ¾Ï°Åµµ ¾È Âï´Â´Ù.
+							// CTRL+AÂ´Â©Â¸Â£Â¸Ã© Â¾ÃÂ°Ã…ÂµÂµ Â¾Ãˆ Ã‚Ã¯Â´Ã‚Â´Ã™.
 						}
 						else
 					#endif
@@ -18252,17 +18312,17 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					//								&m_ImageObjectSPK[ spriteID ], DarkBits);
 					//}	
 
-					// Texture¸¸µé¾î¼­ ¹İÅõ¸í ÇÏ±â... 
+					// TextureÂ¸Â¸ÂµÃ©Â¾Ã®Â¼Â­ Â¹ÃÃ…ÃµÂ¸Ã­ Ã‡ÃÂ±Ã¢... 
 					/*
 					if (CDirect3D::IsHAL())
 					{
 						m_pSurface->Unlock();
 
-						// Texture ¼³Á¤
+						// Texture Â¼Â³ÃÂ¤
 						CSpriteSurface* pSurface = m_pImageObjectTextureManager->GetTexture(spriteID);
 						CDirect3D::GetDevice()->SetTexture(0, pSurface->GetSurface());
 				
-						// ÁÂÇ¥ ¼³Á¤
+						// ÃÃ‚Ã‡Â¥ Â¼Â³ÃÂ¤
 						m_SpriteVertices[0].sx = pPoint->x;
 						m_SpriteVertices[0].sy = pPoint->y;
 						m_SpriteVertices[1].sx = pPoint->x,m_pImageObjectTextureManager->GetWidth(spriteID);
@@ -18272,7 +18332,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						m_SpriteVertices[3].sx = m_SpriteVertices[1].sx;
 						m_SpriteVertices[3].sy = m_SpriteVertices[2].sy;		
 						
-						// Ãâ·Â
+						// ÃƒÃ¢Â·Ã‚
 						CDirect3D::GetDevice()->DrawPrimitive(D3DPT_TRIANGLESTRIP, 
 												D3DFVF_TLVERTEX, 
 												m_SpriteVertices, 
@@ -18297,14 +18357,14 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					{
 						m_pSurface->Unlock();
 
-						// Texture ¼³Á¤
+						// Texture Â¼Â³ÃÂ¤
 						CSpriteSurface* pSurface = m_pImageObjectTextureManager->GetTexture(spriteID);
 
 						if( pSurface != NULL )
 						{
 							CDirect3D::GetDevice()->SetTexture(0, pSurface->GetSurface());
 							
-							// ÁÂÇ¥ ¼³Á¤
+							// ÃÃ‚Ã‡Â¥ Â¼Â³ÃÂ¤
 							//						m_SpriteVertices[0].sx = pPoint->x;
 							//						m_SpriteVertices[0].sy = pPoint->y;
 							//						m_SpriteVertices[1].sx = pPoint->x,m_pImageObjectTextureManager->GetWidth(spriteID);
@@ -18347,15 +18407,15 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 				//m_pSurface->BltSprite(pPoint, &m_ImageObjectOutlineSPK[ 0 ]);
 			}
 			//--------------------------------
-			// ±×³É Ãâ·Â
+			// Â±Ã—Â³Ã‰ ÃƒÃ¢Â·Ã‚
 			//--------------------------------
 			else
 			{					
 				//if (m_ImageObjectSPK[ spriteID ].IsInit())
 				{
 					///*
-					// PlayerÀÇ ½Ã¾ßÀÇ Å©±â¸¦ ¹İ¿µÇØ¼­
-					// ½Ã¾ß ¾È¿¡ ÀÖ´Â ImageObjectµé¸¸ º¸ÀÌ°Ô ÇÑ´Ù.
+					// PlayerÃ€Ã‡ Â½ÃƒÂ¾ÃŸÃ€Ã‡ Ã…Â©Â±Ã¢Â¸Â¦ Â¹ÃÂ¿ÂµÃ‡Ã˜Â¼Â­
+					// Â½ÃƒÂ¾ÃŸ Â¾ÃˆÂ¿Â¡ Ã€Ã–Â´Ã‚ ImageObjectÂµÃ©Â¸Â¸ ÂºÂ¸Ã€ÃŒÂ°Ã” Ã‡Ã‘Â´Ã™.
 					//CSprite& spriteRef = m_ImageObjectSPK[ spriteID ];
 
 					//int sight = g_pPlayer->GetMaxLightSight();
@@ -18365,9 +18425,9 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					//int sY = 270-(pY>>1) - pPoint->y;			
 
 					//if (DarkBits==0 //|| m_ImageObjectSPK[ spriteID ].IsIntersectFilter())
-						// Ãâ·Â ½ÃÀÛÀ§Ä¡(s_X,s_Y)°¡ SpriteÀÇ ³¡Á¡º¸´Ù´Â ÀûÀ» °æ¿ì
+						// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃ€Ã›Ã€Â§Ã„Â¡(s_X,s_Y)Â°Â¡ SpriteÃ€Ã‡ Â³Â¡ÃÂ¡ÂºÂ¸Â´Ã™Â´Ã‚ Ã€Ã»Ã€Â» Â°Ã¦Â¿Ã¬
 					//	|| (sX < spriteRef.GetWidth() && sY < spriteRef.GetHeight()
-						// FilterÀÇ ³¡Á¡ÀÌ Sprite Ã¹Á¡ º¸´Ù Å« °æ¿ì
+						// FilterÃ€Ã‡ Â³Â¡ÃÂ¡Ã€ÃŒ Sprite ÃƒÂ¹ÃÂ¡ ÂºÂ¸Â´Ã™ Ã…Â« Â°Ã¦Â¿Ã¬
 					//	 &&	sX,pX > 0 && sY,pY > 0))
 						
 					//{
@@ -18375,7 +18435,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					if (g_pDXInput->KeyDown(DIK_A) && 
 						(g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL)))
 					{
-						// CTRL+A´©¸£¸é ¾Ï°Åµµ ¾È Âï´Â´Ù.
+						// CTRL+AÂ´Â©Â¸Â£Â¸Ã© Â¾ÃÂ°Ã…ÂµÂµ Â¾Ãˆ Ã‚Ã¯Â´Ã‚Â´Ã™.
 					}
 					else
 #endif
@@ -18490,7 +18550,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 
 		//------------------------------------------------------------
 		//
-		//     AnimationObjectÀÎ °æ¿ì¿£ Frameµµ Ãâ·ÂÇØÁà¾ß ÇÑ´Ù.
+		//     AnimationObjectÃ€Ã Â°Ã¦Â¿Ã¬Â¿Â£ FrameÂµÂµ ÃƒÃ¢Â·Ã‚Ã‡Ã˜ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 		//
 		//------------------------------------------------------------
 		if (pImageObject->IsAnimation())
@@ -18501,7 +18561,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 
 			POINT pointTemp = *pPoint;
 
-			/*******************±×¸²ÀÚ Ãâ·Â ½ÃÀÛ******************/ 
+			/*******************Â±Ã—Â¸Â²Ã€Ãš ÃƒÃ¢Â·Ã‚ Â½ÃƒÃ€Ã›******************/ 
 			if (pAnimationObject->GetFrameID() < m_ImageObjectShadowFPK.GetSize()
 				&& pAnimationObject->GetFrame() < m_ImageObjectShadowFPK[pAnimationObject->GetFrameID()].GetSize())
 			{
@@ -18522,7 +18582,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					}
 				}
 			}
-			/*******************±×¸²ÀÚ Ãâ·Â ³¡******************/ 
+			/*******************Â±Ã—Â¸Â²Ã€Ãš ÃƒÃ¢Â·Ã‚ Â³Â¡******************/ 
 
 			switch (pAnimationObject->GetBltType())
 			{
@@ -18538,7 +18598,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					if(sprite >= m_ImageObjectSPK.GetSize())
 						break;
 					//---------------------------------------
-					// ID°¡ spriteÀÎ ImageObject¸¦ LoadÇÑ´Ù.
+					// IDÂ°Â¡ spriteÃ€Ã ImageObjectÂ¸Â¦ LoadÃ‡Ã‘Â´Ã™.
 					//---------------------------------------
 //					if (m_ImageObjectSPK[ sprite ].IsNotInit())
 //					{
@@ -18550,7 +18610,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //						m_ImageObjectSPKFile.seekg(m_ImageObjectSPKI[sprite], ios::beg);						
 //						
 //						//--------------------------------------------------
-//						// Loading¿¡ ¼º°øÇÑ °æ¿ì
+//						// LoadingÂ¿Â¡ Â¼ÂºÂ°Ã¸Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 //						//--------------------------------------------------
 //						if (m_ImageObjectSPK[ sprite ].LoadFromFile( m_ImageObjectSPKFile ))
 //						{
@@ -18563,10 +18623,10 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //							#endif
 //						}
 //						//--------------------------------------------------
-//						// ½ÇÆĞÇÑ °æ¿ì --> ÀÌ¹Ì LoadingÇÏ°í ÀÖ´Â °æ¿ìÀÌ´Ù.				
+//						// Â½Ã‡Ã†ÃÃ‡Ã‘ Â°Ã¦Â¿Ã¬ --> Ã€ÃŒÂ¹ÃŒ LoadingÃ‡ÃÂ°Ã­ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™.				
 //						//--------------------------------------------------
 //						
-////						// 2001.8.20 ÁÖ¼®Ã³¸®
+////						// 2001.8.20 ÃÃ–Â¼Â®ÃƒÂ³Â¸Â®
 ////						else
 ////						{
 ////							#ifdef	OUTPUT_DEBUG
@@ -18577,7 +18637,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 ////								}
 ////							#endif
 ////
-////							// file thread ¼øÀ§¸¦ ³ôÈù´Ù.
+////							// file thread Â¼Ã¸Ã€Â§Â¸Â¦ Â³Ã´ÃˆÃ¹Â´Ã™.
 ////							//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_HIGHEST);
 ////							MLoadingSPKWorkNode3* pNode = new MLoadingSPKWorkNode3(sprite, m_ImageObjectSPKI[sprite]);
 ////							pNode->SetSPK( &m_ImageObjectSPK, FILE_SPRITE_IMAGEOBJECT );
@@ -18585,7 +18645,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 ////							g_pLoadingThread->SetPriority( THREAD_PRIORITY_HIGHEST );
 ////							g_pLoadingThread->AddFirst( pNode );
 ////
-////							// Thread¿¡¼­ LoadingÀÌ ³¡³¯¶§±îÁö ±â´Ù¸°´Ù.
+////							// ThreadÂ¿Â¡Â¼Â­ LoadingÃ€ÃŒ Â³Â¡Â³Â¯Â¶Â§Â±Ã®ÃÃ¶ Â±Ã¢Â´Ã™Â¸Â°Â´Ã™.
 ////							//while (m_ImageObjectSPK[sprite].IsNotInit());
 ////							while (1)
 ////							{
@@ -18604,18 +18664,18 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 ////							}
 ////							//while (!m_ImageObjectSPK[ sprite ].LoadFromFile( m_ImageObjectSPKFile ));
 ////
-////							// file thread ¼øÀ§¸¦ ³·Ãá´Ù.
+////							// file thread Â¼Ã¸Ã€Â§Â¸Â¦ Â³Â·ÃƒÃ¡Â´Ã™.
 ////							//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_BELOW_NORMAL);
 ////							g_pLoadingThread->SetPriority( THREAD_PRIORITY_LOWEST );
 ////
 ////						}
 //						
 //					}
-					// ÁÂÇ¥ º¸Á¤
+					// ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 					pPoint->x += Frame.GetCX();
 					pPoint->y += Frame.GetCY();
 
-					// spriteID°¡ ¾ø´Â °æ¿ì´Â ¹İÅõ¸í ´Ù½Ã check				
+					// spriteIDÂ°Â¡ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬Â´Ã‚ Â¹ÃÃ…ÃµÂ¸Ã­ Â´Ã™Â½Ãƒ check				
 					if (spriteID==SPRITEID_NULL)
 					{
 						bTrans = true;
@@ -18627,13 +18687,13 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					}				
 
 					//--------------------------------
-					// Åõ¸í Ã³¸®
+					// Ã…ÃµÂ¸Ã­ ÃƒÂ³Â¸Â®
 					//--------------------------------
 					if (bTrans)
 					{
-						// ¹İÅõ¸í
+						// Â¹ÃÃ…ÃµÂ¸Ã­
 						//m_pSurface->BltSpriteHalf(pPoint, &m_ImageObjectSPK[ sprite ]);
-						// ±×¸²¿¡ ¸ÂÃá filter ÁÂÇ¥ º¸Á¤
+						// Â±Ã—Â¸Â²Â¿Â¡ Â¸Ã‚ÃƒÃ¡ filter ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 						CSprite::SetFilter(m_FilterPosition.x - pPoint->x,
 											m_FilterPosition.y - pPoint->y,
 											&m_ImageObjectFilter);
@@ -18652,13 +18712,13 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						
 					}
 					//--------------------------------
-					// ±×³É Ãâ·Â
+					// Â±Ã—Â³Ã‰ ÃƒÃ¢Â·Ã‚
 					//--------------------------------
 					else
 					{
 						///*
-						// PlayerÀÇ ½Ã¾ßÀÇ Å©±â¸¦ ¹İ¿µÇØ¼­
-						// ½Ã¾ß ¾È¿¡ ÀÖ´Â ImageObjectµé¸¸ º¸ÀÌ°Ô ÇÑ´Ù.
+						// PlayerÃ€Ã‡ Â½ÃƒÂ¾ÃŸÃ€Ã‡ Ã…Â©Â±Ã¢Â¸Â¦ Â¹ÃÂ¿ÂµÃ‡Ã˜Â¼Â­
+						// Â½ÃƒÂ¾ÃŸ Â¾ÃˆÂ¿Â¡ Ã€Ã–Â´Ã‚ ImageObjectÂµÃ©Â¸Â¸ ÂºÂ¸Ã€ÃŒÂ°Ã” Ã‡Ã‘Â´Ã™.
 						//if (m_ImageObjectSPK[ sprite ].IsInit())
 						{
 							//CSprite& spriteRef = m_ImageObjectSPK[ sprite ];
@@ -18670,9 +18730,9 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 							//int sY = 270-(pY>>1) - pPoint->y;			
 
 							//if (DarkBits==0 //|| m_ImageObjectSPK[ spriteID ].IsIntersectFilter())
-								// Ãâ·Â ½ÃÀÛÀ§Ä¡(s_X,s_Y)°¡ SpriteÀÇ ³¡Á¡º¸´Ù´Â ÀûÀ» °æ¿ì
+								// ÃƒÃ¢Â·Ã‚ Â½ÃƒÃ€Ã›Ã€Â§Ã„Â¡(s_X,s_Y)Â°Â¡ SpriteÃ€Ã‡ Â³Â¡ÃÂ¡ÂºÂ¸Â´Ã™Â´Ã‚ Ã€Ã»Ã€Â» Â°Ã¦Â¿Ã¬
 							//	|| (sX < spriteRef.GetWidth() && sY < spriteRef.GetHeight()
-								// FilterÀÇ ³¡Á¡ÀÌ Sprite Ã¹Á¡ º¸´Ù Å« °æ¿ì
+								// FilterÃ€Ã‡ Â³Â¡ÃÂ¡Ã€ÃŒ Sprite ÃƒÂ¹ÃÂ¡ ÂºÂ¸Â´Ã™ Ã…Â« Â°Ã¦Â¿Ã¬
 							//	 &&	sX,pX > 0 && sY,pY > 0))
 							//{
 							//if( pImageObject->IsHalf() )
@@ -18701,14 +18761,14 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 
 						sprite = Frame.GetSpriteID();
 						
-						// ÁÂÇ¥ º¸Á¤
+						// ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 						pPoint->x += Frame.GetCX();
 						pPoint->y += Frame.GetCY();
 						
 						DRAW_ALPHASPRITEPAL(pPoint, sprite, m_EffectAlphaSPK, m_EffectAlphaPPK[fid])//, m_EffectAlphaSPKI, m_EffectAlphaSPKFile)					
 								
 						//-------------------------------------------------------
-						// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
+						// H/W Â°Â¡Â¼Ã“Ã€ÃŒ ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 						//-------------------------------------------------------
 						if (CDirect3D::IsHAL())
 						{
@@ -18722,7 +18782,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //								sprite, m_pAlphaEffectTextureManager, fid )//m_EffectAlphaPPK[fid])
 //								
 //							#ifdef OUTPUT_DEBUG
-//								// ¿ø·¡´ë·Î
+//								// Â¿Ã¸Â·Â¡Â´Ã«Â·Ã
 //							CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE);					
 //							CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
 //							CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
@@ -18730,25 +18790,25 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 							
 							
 							//------------------------------------------------
-							// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
+							// LightFilterÂ¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 							//------------------------------------------------
-							AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-								pPoint->y + g_TILE_Y_HALF, 
-								Frame.GetLight(),			// ºûÀÇ ¹à±â
-								false);		// false = screenÁÂÇ¥
+							AddLightFilter3D( pPoint->x + 24, 
+								pPoint->y + 24, 
+								Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+								false);		// false = screenÃÃ‚Ã‡Â¥
 							
 						}
 						//-------------------------------------------------------
-						// 2D Ãâ·Â
+						// 2D ÃƒÃ¢Â·Ã‚
 						//-------------------------------------------------------
 						else
 						{
 //							DRAW_ALPHASPRITEPAL(pPoint, sprite, m_EffectAlphaSPK, m_EffectAlphaPPK[fid])//, m_EffectAlphaSPKI, m_EffectAlphaSPKFile)					
 								
-								AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-								pPoint->y + g_TILE_Y_HALF, 
-								Frame.GetLight(),			// ºûÀÇ ¹à±â
-								false);		// false = screenÁÂÇ¥
+								AddLightFilter2D( pPoint->x + 24, 
+								pPoint->y + 24, 
+								Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+								false);		// false = screenÃÃ‚Ã‡Â¥
 						}
 					}
 					if (g_bFrameChanged)
@@ -18772,7 +18832,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						
 						if (sprite!=SPRITEID_NULL)
 						{
-							// Frame ÁÂÇ¥ º¸Á¤
+							// Frame ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 							pPoint->x += Frame.GetCX();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetCX();
 							pPoint->y += Frame.GetCY();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetCY();
 							
@@ -18784,7 +18844,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 								m_EffectScreenPPK[fid],
 								CSpriteSurface::EFFECT_SCREEN)
 							//-------------------------------------------------------
-							// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
+							// H/W Â°Â¡Â¼Ã“Ã€ÃŒ ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 							//-------------------------------------------------------
 							if (CDirect3D::IsHAL())
 							{
@@ -18800,21 +18860,21 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //								DRAW_TEXTURE_SPRITEPAL_LOCKED(pPoint->x, pPoint->y, 
 //									sprite, m_pScreenEffectTextureManager, fid ) //m_EffectScreenPPK[fid])
 //									
-//									// ¿ø·¡´ë·Î
+//									// Â¿Ã¸Â·Â¡Â´Ã«Â·Ã
 //									CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
 //								CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
 								
 								//------------------------------------------------
-								// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
+								// LightFilterÂ¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 								//------------------------------------------------
-								AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-									pPoint->y + g_TILE_Y_HALF, 
-									Frame.GetLight(),			// ºûÀÇ ¹à±â
-									false);		// false = screenÁÂÇ¥
+								AddLightFilter3D( pPoint->x + 24, 
+									pPoint->y + 24, 
+									Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+									false);		// false = screenÃÃ‚Ã‡Â¥
 								
 							}
 							//-------------------------------------------------------
-							// H/W °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ìÀÌ¸é...
+							// H/W Â°Â¡Â¼Ã“Ã€ÃŒ Â¾ÃˆÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 							//-------------------------------------------------------
 							else
 							{
@@ -18826,10 +18886,10 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //									m_EffectScreenPPK[fid],
 //									CSpriteSurface::EFFECT_SCREEN)
 									
-									AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-									pPoint->y + g_TILE_Y_HALF, 
-									Frame.GetLight(),			// ºûÀÇ ¹à±â
-									false);		// false = screenÁÂÇ¥
+									AddLightFilter2D( pPoint->x + 24, 
+									pPoint->y + 24, 
+									Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+									false);		// false = screenÃÃ‚Ã‡Â¥
 							}
 						}
 						if (g_bFrameChanged)
@@ -18856,7 +18916,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 	}
 
 	/*
-	// ImageObject ID Ãâ·Â
+	// ImageObject ID ÃƒÃ¢Â·Ã‚
 	char str[80];
 	sprintf(str, "%d", pImageObject->GetID());
 	gC_font.PrintStringNoConvert(&m_SurfaceInfo, 
@@ -18882,10 +18942,10 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //----------------------------------------------------------------
 // SurfaceLock For AlphaEffect
 //----------------------------------------------------------------
-// 3DÀÌ°í lockµÅ ÀÖÀ¸¸é UnlockÀ¸·Î...
-// 3D¾Æ´Ï°í lock¾È µÅ ÀÖÀ¸¸é lockÀ¸·Î..
+// 3DÃ€ÃŒÂ°Ã­ lockÂµÃ… Ã€Ã–Ã€Â¸Â¸Ã© UnlockÃ€Â¸Â·Ã...
+// 3DÂ¾Ã†Â´ÃÂ°Ã­ lockÂ¾Ãˆ ÂµÃ… Ã€Ã–Ã€Â¸Â¸Ã© lockÃ€Â¸Â·Ã..
 //
-// return°ªÀº ¿ø·¡ Lock»óÅÂ
+// returnÂ°ÂªÃ€Âº Â¿Ã¸Â·Â¡ LockÂ»Ã³Ã…Ã‚
 //----------------------------------------------------------------
 /*
 BOOL
@@ -18897,7 +18957,7 @@ MTopView::SurfaceLockForAlphaEffect()
 	{
 		if (bLock)
 		{
-			// 3DÀÌ°í lockµÅ ÀÖÀ¸¸é UnlockÀ¸·Î...
+			// 3DÃ€ÃŒÂ°Ã­ lockÂµÃ… Ã€Ã–Ã€Â¸Â¸Ã© UnlockÃ€Â¸Â·Ã...
 			m_pSurface->Unlock();
 		}
 	}
@@ -18905,7 +18965,7 @@ MTopView::SurfaceLockForAlphaEffect()
 	{	
 		if (!bLock)
 		{
-			// 3D¾Æ´Ï°í lock¾È µÅ ÀÖÀ¸¸é lockÀ¸·Î..
+			// 3DÂ¾Ã†Â´ÃÂ°Ã­ lockÂ¾Ãˆ ÂµÃ… Ã€Ã–Ã€Â¸Â¸Ã© lockÃ€Â¸Â·Ã..
 			m_pSurface->Lock();
 		}
 	}
@@ -18917,7 +18977,7 @@ MTopView::SurfaceLockForAlphaEffect()
 //----------------------------------------------------------------
 // SurfaceLock
 //----------------------------------------------------------------
-// return°ªÀº ¿ø·¡ÀÇ lock»óÅÂ
+// returnÂ°ÂªÃ€Âº Â¿Ã¸Â·Â¡Ã€Ã‡ lockÂ»Ã³Ã…Ã‚
 //----------------------------------------------------------------
 /*
 BOOL
@@ -18937,7 +18997,7 @@ MTopView::SurfaceLock()
 //----------------------------------------------------------------
 // SurfaceLock Restore
 //----------------------------------------------------------------
-// ¿ø·¡ÀÇ Lock»óÅÂ·Î µ¹·ÁÁØ´Ù.
+// Â¿Ã¸Â·Â¡Ã€Ã‡ LockÂ»Ã³Ã…Ã‚Â·Ã ÂµÂ¹Â·ÃÃÃ˜Â´Ã™.
 //----------------------------------------------------------------
 /*
 void
@@ -18947,7 +19007,7 @@ MTopView::SurfaceLockRestore( BOOL bOldLock )
 	{
 		if (!m_pSurface->IsLock())
 		{
-			// ¿ø·¡ LockÀÌ¾ú´Âµ¥ LockÀÌ ¾Æ´Ï¸é
+			// Â¿Ã¸Â·Â¡ LockÃ€ÃŒÂ¾ÃºÂ´Ã‚ÂµÂ¥ LockÃ€ÃŒ Â¾Ã†Â´ÃÂ¸Ã©
 			m_pSurface->Lock();
 		}
 	}
@@ -18955,7 +19015,7 @@ MTopView::SurfaceLockRestore( BOOL bOldLock )
 	{
 		if (m_pSurface->IsLock())
 		{
-			// ¿ø·¡ LockÀÌ ¾Æ´Ï¾ú´Âµ¥ LockÀÌ¸é..
+			// Â¿Ã¸Â·Â¡ LockÃ€ÃŒ Â¾Ã†Â´ÃÂ¾ÃºÂ´Ã‚ÂµÂ¥ LockÃ€ÃŒÂ¸Ã©..
 			m_pSurface->Unlock();
 		}
 	}
@@ -18963,7 +19023,7 @@ MTopView::SurfaceLockRestore( BOOL bOldLock )
 */
 
 //----------------------------------------------------------------
-// Effect Ãâ·Â
+// Effect ÃƒÃ¢Â·Ã‚
 //----------------------------------------------------------------
 void	
 MTopView::DrawEffect(POINT* pPoint, EFFECT_LIST::const_iterator iEffect, BYTE size)
@@ -18988,41 +19048,41 @@ MTopView::DrawEffect(POINT* pPoint, EFFECT_LIST::const_iterator iEffect, BYTE si
 			continue;
 		}
 		//------------------------------------------------------------------
-		// Tile´ÜÀ§ÀÇ Ãâ·Â ÁÂÇ¥
+		// TileÂ´ÃœÃ€Â§Ã€Ã‡ ÃƒÃ¢Â·Ã‚ ÃÃ‚Ã‡Â¥
 		//------------------------------------------------------------------
 		//if (pEffect->GetEffectType()==MEffect::EFFECT_SECTOR)
 		//{			
 		//	point = *pPoint;
 		//}
 		//------------------------------------------------------------------
-		// Screen Ãâ·Â ÁÂÇ¥
+		// Screen ÃƒÃ¢Â·Ã‚ ÃÃ‚Ã‡Â¥
 		//------------------------------------------------------------------
 		//else 
 		if (pEffect->GetEffectType()==MEffect::EFFECT_SCREEN)
 		{			
 			MScreenEffect* pScreenEffect = (MScreenEffect*)pEffect;
-			//MScreenEffect::SetScreenBasis( pPoint->x, pPoint->y );	// ÇÑ¹ø¸¸ ÇØÁÖ¸é µÇ´Âµ¥.. À½³Ä.
+			//MScreenEffect::SetScreenBasis( pPoint->x, pPoint->y );	// Ã‡Ã‘Â¹Ã¸Â¸Â¸ Ã‡Ã˜ÃÃ–Â¸Ã© ÂµÃ‡Â´Ã‚ÂµÂ¥.. Ã€Â½Â³Ã„.
 			point.x = pScreenEffect->GetScreenX();
 			point.y = pScreenEffect->GetScreenY();
 		}
 		//------------------------------------------------------------------
-		// Pixel´ÜÀ§ÀÇ Ãâ·Â ÁÂÇ¥
+		// PixelÂ´ÃœÃ€Â§Ã€Ã‡ ÃƒÃ¢Â·Ã‚ ÃÃ‚Ã‡Â¥
 		//------------------------------------------------------------------
 		else
 		{
 			//MMovingEffect* pMovingEffect = (MMovingEffect* const)pEffect;
 			
-			// Pixel ´ÜÀ§ÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²ãÁØ´Ù.
+			// Pixel Â´ÃœÃ€Â§Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã£ÃÃ˜Â´Ã™.
 			point.x = pEffect->GetPixelX() - m_FirstZonePixel.x;
 			point.y = pEffect->GetPixelY() - pEffect->GetPixelZ() - m_FirstZonePixel.y;
 		}
 
 		//------------------------------------------------------------------
-		// Ãâ·Â
+		// ÃƒÃ¢Â·Ã‚
 		//------------------------------------------------------------------
 		DrawEffect( &point, pEffect, pEffect->IsSelectable() );		
 
-		// ´ÙÀ½ Effect
+		// Â´Ã™Ã€Â½ Effect
 		iEffect++;
 	}	
 	
@@ -19037,7 +19097,7 @@ MTopView::DrawEffect(POINT* pPoint, EFFECT_LIST::const_iterator iEffect, BYTE si
 //----------------------------------------------------------------
 // Draw GroundEffect
 //----------------------------------------------------------------
-// Tile¿¡ ¹Ù·Î ºÙ¾î ÀÖ´Â GroundEffect¸¦ Ãâ·Â
+// TileÂ¿Â¡ Â¹Ã™Â·Ã ÂºÃ™Â¾Ã® Ã€Ã–Â´Ã‚ GroundEffectÂ¸Â¦ ÃƒÃ¢Â·Ã‚
 //----------------------------------------------------------------
 void	
 MTopView::DrawGroundEffect()
@@ -19061,20 +19121,20 @@ MTopView::DrawGroundEffect()
 			iEffect++;
 			continue;
 		}
-		// Pixel ´ÜÀ§ÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²ãÁØ´Ù.
-		// Áß½ÉÁ¡
+		// Pixel Â´ÃœÃ€Â§Ã€Ã‡ ÃÃ‚Ã‡Â¥Â¸Â¦ ÃˆÂ­Â¸Ã©Ã€Ã‡ ÃÃ‚Ã‡Â¥Â·Ã Â¹Ã™Â²Ã£ÃÃ˜Â´Ã™.
+		// ÃÃŸÂ½Ã‰ÃÂ¡
 		point.x = pEffect->GetPixelX() - m_FirstZonePixel.x;
 		point.y = pEffect->GetPixelY() - pEffect->GetPixelZ() - m_FirstZonePixel.y;			
 		
 		pointTemp = point;
 
 		//------------------------------------------------------------------
-		// Ãâ·Â
+		// ÃƒÃ¢Â·Ã‚
 		//------------------------------------------------------------------
 		DrawEffect( &pointTemp, pEffect, pEffect->IsSelectable());
 		
 		//------------------------------------------------------------------
-		// ¼±ÅÃµÇ´Â EffectÀÎ °æ¿ì
+		// Â¼Â±Ã…ÃƒÂµÃ‡Â´Ã‚ EffectÃ€Ã Â°Ã¦Â¿Ã¬
 		//------------------------------------------------------------------
 		if (pEffect->IsSelectable()
 			&& m_SelectEffectID==pEffect->GetID())
@@ -19084,7 +19144,7 @@ MTopView::DrawGroundEffect()
 			if (pEffectTarget!=NULL)
 			{
 				//------------------------------------------------------------------
-				// PortalÀÎ °æ¿ì
+				// PortalÃ€Ã Â°Ã¦Â¿Ã¬
 				//------------------------------------------------------------------
 				if (pEffectTarget->GetEffectTargetType()==MEffectTarget::EFFECT_TARGET_PORTAL
 					&& g_pPlayer->IsVampire())
@@ -19106,7 +19166,7 @@ MTopView::DrawGroundEffect()
 				}
 			}
 		}
-		// ´ÙÀ½ Effect
+		// Â´Ã™Ã€Â½ Effect
 		iEffect++;
 	}	
 
@@ -19120,16 +19180,16 @@ MTopView::DrawGroundEffect()
 //----------------------------------------------------------------
 // Draw AttachEffect
 //----------------------------------------------------------------
-// Effect Ãâ·Â
-// [ÇÏµåÄÚµùÀÇ Áø¼ö] - -;;
-// type - 0 - ¹«Á¶°Ç Ãâ·Â
-//        1 - fore ground¸¸ Ãâ·Â
-//        2 - back ground¸¸ Ãâ·Â
+// Effect ÃƒÃ¢Â·Ã‚
+// [Ã‡ÃÂµÃ¥Ã„ÃšÂµÃ¹Ã€Ã‡ ÃÃ¸Â¼Ã¶] - -;;
+// type - 0 - Â¹Â«ÃÂ¶Â°Ã‡ ÃƒÃ¢Â·Ã‚
+//        1 - fore groundÂ¸Â¸ ÃƒÃ¢Â·Ã‚
+//        2 - back groundÂ¸Â¸ ÃƒÃ¢Â·Ã‚
 //----------------------------------------------------------------
-// ÀÏ´Ü..
-// PairFrameÀº AttachEffect¿¡¼­¸¸ Ãâ·ÂÇÑ´Ù.. 
-// ActionFrameµµ AttachEffect¿¡¼­¸¸ Ãâ·ÂÇÑ´Ù..
-// NormalEffect¿¡´Â ActionFrameÀ» ¹«½ÃÇß´Ù. ¾ÆÁ÷Àº ÂïÀ»ÀÏµµ ¾ø°í ±ÍÂú°í ÇØ¼­ --;; 
+// Ã€ÃÂ´Ãœ..
+// PairFrameÃ€Âº AttachEffectÂ¿Â¡Â¼Â­Â¸Â¸ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.. 
+// ActionFrameÂµÂµ AttachEffectÂ¿Â¡Â¼Â­Â¸Â¸ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™..
+// NormalEffectÂ¿Â¡Â´Ã‚ ActionFrameÃ€Â» Â¹Â«Â½ÃƒÃ‡ÃŸÂ´Ã™. Â¾Ã†ÃÃ·Ã€Âº Ã‚Ã¯Ã€Â»Ã€ÃÂµÂµ Â¾Ã¸Â°Ã­ Â±ÃÃ‚ÃºÂ°Ã­ Ã‡Ã˜Â¼Â­ --;; 
 //----------------------------------------------------------------
 void	
 MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEffect, BYTE size, MCreature* pCreature, int type)
@@ -19146,8 +19206,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 		MEffect* pEffect = *iEffect;
 		
 		//----------------------------------------------------------------
-		// Sprite·Î Ç¥ÇöÇÏ´Â EffectÀÎ °æ¿ì¸¸ Ãâ·ÂÇÑ´Ù.
-		// Attach°¡ ¾Æ´Ï°Å³ª.. AttachÀÌ´õ¶óµµ Sprite·Î Ãâ·ÂÇÏ´Â °æ¿ì
+		// SpriteÂ·Ã Ã‡Â¥Ã‡Ã¶Ã‡ÃÂ´Ã‚ EffectÃ€Ã Â°Ã¦Â¿Ã¬Â¸Â¸ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
+		// AttachÂ°Â¡ Â¾Ã†Â´ÃÂ°Ã…Â³Âª.. AttachÃ€ÃŒÂ´ÃµÂ¶Ã³ÂµÂµ SpriteÂ·Ã ÃƒÃ¢Â·Ã‚Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 		//----------------------------------------------------------------		
 		if (pEffect->GetEffectType()!=MEffect::EFFECT_ATTACH ||
 			pEffect->GetEffectType()==MEffect::EFFECT_ATTACH && ((MAttachEffect*)pEffect)->IsEffectSprite()
@@ -19159,7 +19219,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 			int frameID = pEffect->GetFrameID();
 			int frame = pEffect->GetFrame();
 
-			// 2004, 9, 14, sobeit add start - ÀÎ½ºÅç ÅÍ·¿ÀÏ¶§ ÀÌÆåÆ® ¾Èº¸¿©ÁÜ
+			// 2004, 9, 14, sobeit add start - Ã€ÃÂ½ÂºÃ…Ã§ Ã…ÃÂ·Â¿Ã€ÃÂ¶Â§ Ã€ÃŒÃ†Ã¥Ã†Â® Â¾ÃˆÂºÂ¸Â¿Â©ÃÃœ
 			int TempSecreenEffect = GET_EFFECTSPRITETYPE_SCREEN( frameID );
 
 			if(pCreature->HasEffectStatus(EFFECTSTATUS_INSTALL_TURRET))
@@ -19172,13 +19232,13 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 					continue;
 				}
 			}
-			// 2004, 9, 14, sobeit add end - ÀÎ½ºÅç ÅÍ·¿ÀÏ¶§ ÀÌÆåÆ® ¾Èº¸¿©ÁÜ
+			// 2004, 9, 14, sobeit add end - Ã€ÃÂ½ÂºÃ…Ã§ Ã…ÃÂ·Â¿Ã€ÃÂ¶Â§ Ã€ÃŒÃ†Ã¥Ã†Â® Â¾ÃˆÂºÂ¸Â¿Â©ÃÃœ
 //			if( pEffect->GetBltType() == BLT_EFFECT &&
 //				frameID >= EFFECTSPRITETYPE_PROTECTION_FROM_BLOOD_ING &&
 //				frameID <= EFFECTSPRITETYPE_PROTECTION_FROM_CURSE_ING			
 //				)
 //			{
-//				// ÇØ´ç ÀÌÆåÆ®´Â ³ª ¶Ç´Â ¿ì¸® ÆÄÆ¼¿ø¸¸ º¸¿©¾ß ÇÑ´Ù.
+//				// Ã‡Ã˜Â´Ã§ Ã€ÃŒÃ†Ã¥Ã†Â®Â´Ã‚ Â³Âª Â¶Ã‡Â´Ã‚ Â¿Ã¬Â¸Â® Ã†Ã„Ã†Â¼Â¿Ã¸Â¸Â¸ ÂºÂ¸Â¿Â©Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 //				if( ! (
 //					pCreature == g_pPlayer || pCreature->IsPlayerParty() )
 //					)
@@ -19223,14 +19283,14 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 				{
 					int est = GET_EFFECTSPRITETYPE_EFFECT( frameID );
 
-					// action¿¡ ¸Â´Â effectFrameID¸¦ °ñ¶óÁÖ´Â °Å´ç.
+					// actionÂ¿Â¡ Â¸Ã‚Â´Ã‚ effectFrameIDÂ¸Â¦ Â°Ã±Â¶Ã³ÃÃ–Â´Ã‚ Â°Ã…Â´Ã§.
 					int aest = GET_ACTION_EFFECTSPRITETYPE(est);
 					const bool bBack = (*g_pEffectSpriteTypeTable)[est].bPairFrameBack;
 					int sest = GET_EFFECTSPRITETYPE_EFFECT( frameID );
 					
 					if (aest!=FRAMEID_NULL)
 					{
-						// FRAMEID_NULLÀÎ°É Ã¼Å©ÇÑ´Ù. min( , ) -_-;
+						// FRAMEID_NULLÃ€ÃÂ°Ã‰ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™. min( , ) -_-;
 						int action = pCreature->GetAction();
 						if(action == ACTION_ADVANCEMENT_SLAYER_MAGIC_ATTACK || 
 							action == ACTION_ADVANCEMENT_OUSTERS_MAGIC_ATTACK || 
@@ -19267,9 +19327,9 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 						}
 					}
 
-					// Áö±İÀº ÇÏµåÄÚµù µÇ¾î ÀÖÁö¸¸, µû·Î ÀÌÆåÆ® ½ºÇÁ¶óÀÌÆ®Å¸ÀÔ°ú µ¿ÀÛ ÇÁ·¹ÀÓ°£ÀÇ ÇÁ·¹ÀÓ µ¿±âÈ­
-					// °ü·Ã ±â´ÉÀÌ Ãß°¡µÇ¸é, ÇÏµåÄÚµùÀ» ¸·À» ¼ö ÀÖÀ» °ÍÀÌ´Ù. 
-					// µ¿±âÈ­ ±â´ÉÀÌ Ãß°¡µÈ´Ù¸é, Ä³¸¯ÅÍ¿¡ ÇØ´ç ÀÌÆåÆ®°¡ ºÙ´Â µ¿ÀÛÀ» ¼¼ÆÃÇÒ ¼ö ÀÖ¾î¾ß °ÚÁö..
+					// ÃÃ¶Â±ÃÃ€Âº Ã‡ÃÂµÃ¥Ã„ÃšÂµÃ¹ ÂµÃ‡Â¾Ã® Ã€Ã–ÃÃ¶Â¸Â¸, ÂµÃ»Â·Ã Ã€ÃŒÃ†Ã¥Ã†Â® Â½ÂºÃ‡ÃÂ¶Ã³Ã€ÃŒÃ†Â®Ã…Â¸Ã€Ã”Â°Ãº ÂµÂ¿Ã€Ã› Ã‡ÃÂ·Â¹Ã€Ã“Â°Â£Ã€Ã‡ Ã‡ÃÂ·Â¹Ã€Ã“ ÂµÂ¿Â±Ã¢ÃˆÂ­
+					// Â°Ã¼Â·Ãƒ Â±Ã¢Â´Ã‰Ã€ÃŒ ÃƒÃŸÂ°Â¡ÂµÃ‡Â¸Ã©, Ã‡ÃÂµÃ¥Ã„ÃšÂµÃ¹Ã€Â» Â¸Â·Ã€Â» Â¼Ã¶ Ã€Ã–Ã€Â» Â°ÃÃ€ÃŒÂ´Ã™. 
+					// ÂµÂ¿Â±Ã¢ÃˆÂ­ Â±Ã¢Â´Ã‰Ã€ÃŒ ÃƒÃŸÂ°Â¡ÂµÃˆÂ´Ã™Â¸Ã©, Ã„Â³Â¸Â¯Ã…ÃÂ¿Â¡ Ã‡Ã˜Â´Ã§ Ã€ÃŒÃ†Ã¥Ã†Â®Â°Â¡ ÂºÃ™Â´Ã‚ ÂµÂ¿Ã€Ã›Ã€Â» Â¼Â¼Ã†ÃƒÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â¾Ã®Â¾ÃŸ Â°ÃšÃÃ¶..
 					
 					bool		bLarSlash = est >= EFFECTSPRITETYPE_LAR_SLASH_MALE_FAST && est <= EFFECTSPRITETYPE_LAR_SLASH_FEMALE_SLOW;
 					bool		bRediance = est >= EFFECTSPRITETYPE_REDIANCE_MALE_FAST && est <= EFFECTSPRITETYPE_REDIANCE_FEMALE_NORMAL_ATTACK_SLOW;
@@ -19283,7 +19343,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 						}
 						else
 						{
-							// ´Ù¸¥ µ¿ÀÛÀÌ¸é Àß ¾Ë¾Æ¼­ ³Ñ±âÀÚ.
+							// Â´Ã™Â¸Â¥ ÂµÂ¿Ã€Ã›Ã€ÃŒÂ¸Ã© Ã€ÃŸ Â¾Ã‹Â¾Ã†Â¼Â­ Â³Ã‘Â±Ã¢Ã€Ãš.
 							iEffect++;
 							continue;
 						}
@@ -19298,7 +19358,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 					bool bFrameBackground = Frame.IsBackground();
 					AFFECT_ORBIT_EFFECT_BACKGROUND(pEffect, bFrameBackground);
 				
-					// ¾ğÁ¦ Ãâ·ÂµÇ´Â°ÇÁö Ã¼Å©ÇÔ ÇØÁØ´Ù.
+					// Â¾Ã°ÃÂ¦ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚Â°Ã‡ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã” Ã‡Ã˜ÃÃ˜Â´Ã™.
 					if (HAS_PAIR_EFFECTSPRITETYPE(sest) && bBack == true )
 					{
 						EFFECTSPRITETYPETABLE_INFO::FRAMEID_LIST& idList = (*g_pEffectSpriteTypeTable)[sest].PairFrameIDList;
@@ -19317,7 +19377,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 							bool bFrameBackground = Frame.IsBackground();
 							AFFECT_ORBIT_EFFECT_BACKGROUND(pEffect, bFrameBackground);
 
-							// ¾ğÁ¦ Ãâ·ÂµÇ´Â°ÇÁö Ã¼Å©ÇÔ ÇØÁØ´Ù.
+							// Â¾Ã°ÃÂ¦ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚Â°Ã‡ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã” Ã‡Ã˜ÃÃ˜Â´Ã™.
 							if (type==0 
 								|| type==1 && !bFrameBackground
 								|| type==2 && bFrameBackground)
@@ -19326,7 +19386,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 
 								if (sprite!=SPRITEID_NULL)
 								{
-									// Frame ÁÂÇ¥ º¸Á¤
+									// Frame ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 									pointTemp = *pPoint;
 									pointTemp.x += Frame.GetCX();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetCX();
 									pointTemp.y += Frame.GetCY();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetCY();
@@ -19340,7 +19400,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //															m_EffectAlphaSPKI, 
 //															m_EffectAlphaSPKFile)
 									//-------------------------------------------------------
-									// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
+									// H/W Â°Â¡Â¼Ã“Ã€ÃŒ ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 									//-------------------------------------------------------
 									if (CDirect3D::IsHAL())
 									{
@@ -19354,7 +19414,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //																	sprite, m_pAlphaEffectTextureManager, pairFrameID ) //m_EffectAlphaPPK[pairFrameID])
 //
 //										#ifdef OUTPUT_DEBUG
-//											// ¿ø·¡´ë·Î
+//											// Â¿Ã¸Â·Â¡Â´Ã«Â·Ã
 //											CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE);					
 //											CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
 //											CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
@@ -19362,16 +19422,16 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 							
 
 										//------------------------------------------------
-										// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
+										// LightFilterÂ¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 										//------------------------------------------------
-										AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-														pPoint->y + g_TILE_Y_HALF, 
-														Frame.GetLight(),			// ºûÀÇ ¹à±â
-														false);		// false = screenÁÂÇ¥
+										AddLightFilter3D( pPoint->x + 24, 
+														pPoint->y + 24, 
+														Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+														false);		// false = screenÃÃ‚Ã‡Â¥
 									
 									}
 									//-------------------------------------------------------
-									// H/W °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ìÀÌ¸é...
+									// H/W Â°Â¡Â¼Ã“Ã€ÃŒ Â¾ÃˆÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 									//-------------------------------------------------------
 									else
 									{
@@ -19382,10 +19442,10 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 ////															m_EffectAlphaSPKI, 
 ////															m_EffectAlphaSPKFile)
 
-										AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-													pPoint->y + g_TILE_Y_HALF, 
-													Frame.GetLight(),			// ºûÀÇ ¹à±â
-													false);		// false = screenÁÂÇ¥
+										AddLightFilter2D( pPoint->x + 24, 
+													pPoint->y + 24, 
+													Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+													false);		// false = screenÃÃ‚Ã‡Â¥
 									}
 								}
 							}
@@ -19402,7 +19462,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 
 						if (sprite!=SPRITEID_NULL)
 						{
-							// Frame ÁÂÇ¥ º¸Á¤
+							// Frame ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 							pointTemp = *pPoint;
 							pointTemp.x += Frame.GetCX();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetCX();
 							pointTemp.y += Frame.GetCY();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetCY();
@@ -19416,7 +19476,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //													m_EffectAlphaSPKI, 
 //													m_EffectAlphaSPKFile)
 							//-------------------------------------------------------
-							// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
+							// H/W Â°Â¡Â¼Ã“Ã€ÃŒ ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 							//-------------------------------------------------------
 							if (CDirect3D::IsHAL())
 							{
@@ -19430,7 +19490,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //															sprite, m_pAlphaEffectTextureManager, frameID ) //m_EffectAlphaPPK[frameID])
 //
 //								#ifdef OUTPUT_DEBUG
-//									// ¿ø·¡´ë·Î
+//									// Â¿Ã¸Â·Â¡Â´Ã«Â·Ã
 //									CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE);					
 //									CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
 //									CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
@@ -19438,16 +19498,16 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 					
 
 								//------------------------------------------------
-								// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
+								// LightFilterÂ¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 								//------------------------------------------------
-								AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-												pPoint->y + g_TILE_Y_HALF, 
-												Frame.GetLight(),			// ºûÀÇ ¹à±â
-												false);		// false = screenÁÂÇ¥
+								AddLightFilter3D( pPoint->x + 24, 
+												pPoint->y + 24, 
+												Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+												false);		// false = screenÃÃ‚Ã‡Â¥
 							
 							}
 							//-------------------------------------------------------
-							// H/W °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ìÀÌ¸é...
+							// H/W Â°Â¡Â¼Ã“Ã€ÃŒ Â¾ÃˆÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 							//-------------------------------------------------------
 							else
 							{
@@ -19458,16 +19518,16 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //													m_EffectAlphaSPKI, 
 //													m_EffectAlphaSPKFile)
 
-								AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-											pPoint->y + g_TILE_Y_HALF, 
-											Frame.GetLight(),			// ºûÀÇ ¹à±â
-											false);		// false = screenÁÂÇ¥
+								AddLightFilter2D( pPoint->x + 24, 
+											pPoint->y + 24, 
+											Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+											false);		// false = screenÃÃ‚Ã‡Â¥
 							}
 						}
 					}
 
 					//--------------------------------------------------------
-					// Pair Frame Ãâ·Â
+					// Pair Frame ÃƒÃ¢Â·Ã‚
 					//--------------------------------------------------------
 //					sest = GET_EFFECTSPRITETYPE_EFFECT( frameID );
 
@@ -19489,7 +19549,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 							bool bFrameBackground = Frame.IsBackground();
 							AFFECT_ORBIT_EFFECT_BACKGROUND(pEffect, bFrameBackground);
 
-							// ¾ğÁ¦ Ãâ·ÂµÇ´Â°ÇÁö Ã¼Å©ÇÔ ÇØÁØ´Ù.
+							// Â¾Ã°ÃÂ¦ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚Â°Ã‡ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã” Ã‡Ã˜ÃÃ˜Â´Ã™.
 							if (type==0 
 								|| type==1 && !bFrameBackground
 								|| type==2 && bFrameBackground)
@@ -19498,7 +19558,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 
 								if (sprite!=SPRITEID_NULL)
 								{
-									// Frame ÁÂÇ¥ º¸Á¤
+									// Frame ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 									pointTemp = *pPoint;
 									pointTemp.x += Frame.GetCX();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetCX();
 									pointTemp.y += Frame.GetCY();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetCY();
@@ -19512,7 +19572,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //															m_EffectAlphaSPKI, 
 //															m_EffectAlphaSPKFile)
 									//-------------------------------------------------------
-									// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
+									// H/W Â°Â¡Â¼Ã“Ã€ÃŒ ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 									//-------------------------------------------------------
 									if (CDirect3D::IsHAL())
 									{
@@ -19526,7 +19586,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //																	sprite, m_pAlphaEffectTextureManager, pairFrameID ) //m_EffectAlphaPPK[pairFrameID])
 //
 //										#ifdef OUTPUT_DEBUG
-//											// ¿ø·¡´ë·Î
+//											// Â¿Ã¸Â·Â¡Â´Ã«Â·Ã
 //											CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE);					
 //											CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
 //											CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
@@ -19534,16 +19594,16 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 							
 
 										//------------------------------------------------
-										// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
+										// LightFilterÂ¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 										//------------------------------------------------
-										AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-														pPoint->y + g_TILE_Y_HALF, 
-														Frame.GetLight(),			// ºûÀÇ ¹à±â
-														false);		// false = screenÁÂÇ¥
+										AddLightFilter3D( pPoint->x + 24, 
+														pPoint->y + 24, 
+														Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+														false);		// false = screenÃÃ‚Ã‡Â¥
 									
 									}
 									//-------------------------------------------------------
-									// H/W °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ìÀÌ¸é...
+									// H/W Â°Â¡Â¼Ã“Ã€ÃŒ Â¾ÃˆÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 									//-------------------------------------------------------
 									else
 									{
@@ -19554,10 +19614,10 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 ////															m_EffectAlphaSPKI, 
 ////															m_EffectAlphaSPKFile)
 
-										AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-													pPoint->y + g_TILE_Y_HALF, 
-													Frame.GetLight(),			// ºûÀÇ ¹à±â
-													false);		// false = screenÁÂÇ¥
+										AddLightFilter2D( pPoint->x + 24, 
+													pPoint->y + 24, 
+													Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+													false);		// false = screenÃÃ‚Ã‡Â¥
 									}
 								}
 							}
@@ -19576,7 +19636,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 					int est = GET_EFFECTSPRITETYPE_SCREEN( frameID );
 					bool bBack = (*g_pEffectSpriteTypeTable)[est].bPairFrameBack;
 
-					// action¿¡ ¸Â´Â effectFrameID¸¦ °ñ¶óÁÖ´Â °Å´ç.
+					// actionÂ¿Â¡ Â¸Ã‚Â´Ã‚ effectFrameIDÂ¸Â¦ Â°Ã±Â¶Ã³ÃÃ–Â´Ã‚ Â°Ã…Â´Ã§.
 					int aest = GET_ACTION_EFFECTSPRITETYPE(est);
 					if (aest!=FRAMEID_NULL)
 					{
@@ -19608,7 +19668,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 					bool bFrameBackground = Frame.IsBackground();
 					AFFECT_ORBIT_EFFECT_BACKGROUND(pEffect, bFrameBackground);
 
-					// ¾ğÁ¦ Ãâ·ÂµÇ´Â°ÇÁö Ã¼Å©ÇÔ ÇØÁØ´Ù.
+					// Â¾Ã°ÃÂ¦ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚Â°Ã‡ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã” Ã‡Ã˜ÃÃ˜Â´Ã™.
 					if (type==0 
 						|| type==1 && !bFrameBackground
 						|| type==2 && bFrameBackground)
@@ -19617,7 +19677,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 
 						if (sprite!=SPRITEID_NULL)
 						{
-							// Frame ÁÂÇ¥ º¸Á¤
+							// Frame ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 							pointTemp = *pPoint;
 							pointTemp.x += Frame.GetCX();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetCX();
 							pointTemp.y += Frame.GetCY();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetCY();
@@ -19632,7 +19692,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //													m_EffectScreenSPKFile,
 												CSpriteSurface::EFFECT_SCREEN)
 							//-------------------------------------------------------
-							// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
+							// H/W Â°Â¡Â¼Ã“Ã€ÃŒ ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 							//-------------------------------------------------------
 							if (CDirect3D::IsHAL())
 							{
@@ -19648,21 +19708,21 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //								DRAW_TEXTURE_SPRITEPAL_LOCKED(pointTemp.x, pointTemp.y, 
 //															sprite, m_pScreenEffectTextureManager, frameID ) // m_EffectScreenPPK[frameID])
 //
-//								// ¿ø·¡´ë·Î
+//								// Â¿Ã¸Â·Â¡Â´Ã«Â·Ã
 //								CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
 //								CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
 					
 								//------------------------------------------------
-								// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
+								// LightFilterÂ¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 								//------------------------------------------------
-								AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-												pPoint->y + g_TILE_Y_HALF, 
-												Frame.GetLight(),			// ºûÀÇ ¹à±â
-												false);		// false = screenÁÂÇ¥
+								AddLightFilter3D( pPoint->x + 24, 
+												pPoint->y + 24, 
+												Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+												false);		// false = screenÃÃ‚Ã‡Â¥
 							
 							}
 							//-------------------------------------------------------
-							// H/W °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ìÀÌ¸é...
+							// H/W Â°Â¡Â¼Ã“Ã€ÃŒ Â¾ÃˆÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 							//-------------------------------------------------------
 							else
 							{
@@ -19674,16 +19734,16 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //													m_EffectScreenSPKFile,
 													CSpriteSurface::EFFECT_SCREEN)
 
-								AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-											pPoint->y + g_TILE_Y_HALF, 
-											Frame.GetLight(),			// ºûÀÇ ¹à±â
-											false);		// false = screenÁÂÇ¥
+								AddLightFilter2D( pPoint->x + 24, 
+											pPoint->y + 24, 
+											Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+											false);		// false = screenÃÃ‚Ã‡Â¥
 							}
 						}
 					}
 
 					//--------------------------------------------------------
-					// Pair Frame Ãâ·Â
+					// Pair Frame ÃƒÃ¢Â·Ã‚
 					//--------------------------------------------------------
 					est = GET_EFFECTSPRITETYPE_SCREEN( frameID );
 
@@ -19706,7 +19766,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 							bool bFrameBackground = Frame.IsBackground();
 							AFFECT_ORBIT_EFFECT_BACKGROUND(pEffect, bFrameBackground);
 
-							// ¾ğÁ¦ Ãâ·ÂµÇ´Â°ÇÁö Ã¼Å©ÇÔ ÇØÁØ´Ù.
+							// Â¾Ã°ÃÂ¦ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â´Ã‚Â°Ã‡ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã” Ã‡Ã˜ÃÃ˜Â´Ã™.
 							if (type==0 
 								|| type==1 && !bFrameBackground
 								|| type==2 && bFrameBackground)
@@ -19715,7 +19775,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 
 								if (sprite!=SPRITEID_NULL)
 								{
-									// Frame ÁÂÇ¥ º¸Á¤
+									// Frame ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 									pointTemp = *pPoint;
 									pointTemp.x += Frame.GetCX();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetCX();
 									pointTemp.y += Frame.GetCY();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetCY();
@@ -19730,7 +19790,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //															m_EffectScreenSPKFile,
 														CSpriteSurface::EFFECT_SCREEN)
 									//-------------------------------------------------------
-									// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
+									// H/W Â°Â¡Â¼Ã“Ã€ÃŒ ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 									//-------------------------------------------------------
 									if (CDirect3D::IsHAL())
 									{
@@ -19746,21 +19806,21 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //										DRAW_TEXTURE_SPRITEPAL_LOCKED(pointTemp.x, pointTemp.y, 
 //																	sprite, m_pScreenEffectTextureManager, pairFrameID )//m_EffectScreenPPK[pairFrameID])
 //
-//										// ¿ø·¡´ë·Î
+//										// Â¿Ã¸Â·Â¡Â´Ã«Â·Ã
 //										CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
 //										CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
 							
 										//------------------------------------------------
-										// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
+										// LightFilterÂ¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 										//------------------------------------------------
-										AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-														pPoint->y + g_TILE_Y_HALF, 
-														Frame.GetLight(),			// ºûÀÇ ¹à±â
-														false);		// false = screenÁÂÇ¥
+										AddLightFilter3D( pPoint->x + 24, 
+														pPoint->y + 24, 
+														Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+														false);		// false = screenÃÃ‚Ã‡Â¥
 									
 									}
 									//-------------------------------------------------------
-									// H/W °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ìÀÌ¸é...
+									// H/W Â°Â¡Â¼Ã“Ã€ÃŒ Â¾ÃˆÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 									//-------------------------------------------------------
 									else
 									{
@@ -19772,10 +19832,10 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //															m_EffectScreenSPKFile,
 															CSpriteSurface::EFFECT_SCREEN)
 
-										AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-													pPoint->y + g_TILE_Y_HALF, 
-													Frame.GetLight(),			// ºûÀÇ ¹à±â
-													false);		// false = screenÁÂÇ¥
+										AddLightFilter2D( pPoint->x + 24, 
+													pPoint->y + 24, 
+													Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+													false);		// false = screenÃÃ‚Ã‡Â¥
 									}
 								}
 							}
@@ -19788,7 +19848,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 			}
 		}
 
-		// ´ÙÀ½ Effect
+		// Â´Ã™Ã€Â½ Effect
 		iEffect++;
 	}	
 
@@ -19800,7 +19860,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 }
 
 //----------------------------------------------------------------
-// (x,y)¿¡ m_pZoneÀÇ MinimapÀ» ±×¸°´Ù.
+// (x,y)Â¿Â¡ m_pZoneÃ€Ã‡ MinimapÃ€Â» Â±Ã—Â¸Â°Â´Ã™.
 //----------------------------------------------------------------
 // Test Function
 //----------------------------------------------------------------
@@ -19809,7 +19869,7 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 {
 	
 	//------------------------------------------------
-	// vampireÀÎ °æ¿ì´Â Ãâ·Â¾ÈÇÑ´Ù.
+	// vampireÃ€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ ÃƒÃ¢Â·Ã‚Â¾ÃˆÃ‡Ã‘Â´Ã™.
 	//------------------------------------------------
 	//if (g_pPlayer->IsVampire())
 	//{
@@ -19817,7 +19877,7 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 	//}
 
 	//------------------------------------------------
-	// 3D °¡¼Ó
+	// 3D Â°Â¡Â¼Ã“
 	//------------------------------------------------
 //	if (CDirect3D::IsHAL())
 //	{
@@ -19828,7 +19888,7 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 //				return;
 //			}			
 //	
-//			// Texture ¼³Á¤
+//			// Texture Â¼Â³ÃÂ¤
 //			CDirect3D::GetDevice()->SetTexture(0, m_pMinimapTexture->GetSurface());
 //
 //			RECT rect = { x, 
@@ -19845,7 +19905,7 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 //
 //
 //			//------------------------------------------------
-//			// PlayerÀ§Ä¡¿¡ Á¡Âï±â
+//			// PlayerÃ€Â§Ã„Â¡Â¿Â¡ ÃÂ¡Ã‚Ã¯Â±Ã¢
 //			//------------------------------------------------
 ////			if (!m_pSurface->Lock())
 ////				return;
@@ -19855,11 +19915,11 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 ////			WORD*	pSurface	= (WORD*)m_pSurface->GetSurfacePointer();
 ////			long	lPitch		= m_pSurface->GetSurfacePitch();
 ////
-////			// PlayerÀÇ Minimap»óÀÇ ÁÂÇ¥
+////			// PlayerÃ€Ã‡ MinimapÂ»Ã³Ã€Ã‡ ÃÃ‚Ã‡Â¥
 ////			point.x = x + g_pPlayer->GetX()*m_SectorToMinimapWidth;
 ////			point.y = y + g_pPlayer->GetY()*m_SectorToMinimapHeight;
 ////
-////			// Á¡ Âï±â
+////			// ÃÂ¡ Ã‚Ã¯Â±Ã¢
 ////			WORD*	pSurfaceTemp;	
 ////			pSurfaceTemp = (WORD*)((BYTE*)pSurface + lPitch*point.y + (point.x<<1));
 ////			*pSurfaceTemp++ = 0xFFFF;
@@ -19885,16 +19945,16 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 //			m_pSurface->BltSpriteHalf(&point, m_pMinimapSPR);
 //
 //			//------------------------------------------------
-//			// PlayerÀ§Ä¡¿¡ Á¡Âï±â
+//			// PlayerÃ€Â§Ã„Â¡Â¿Â¡ ÃÂ¡Ã‚Ã¯Â±Ã¢
 //			//------------------------------------------------	
 ////			WORD*	pSurface	= (WORD*)m_pSurface->GetSurfacePointer();
 ////			long	lPitch		= m_pSurface->GetSurfacePitch();
 ////
-////			// PlayerÀÇ Minimap»óÀÇ ÁÂÇ¥
+////			// PlayerÃ€Ã‡ MinimapÂ»Ã³Ã€Ã‡ ÃÃ‚Ã‡Â¥
 ////			point.x = x + g_pPlayer->GetX()*m_SectorToMinimapWidth;
 ////			point.y = y + g_pPlayer->GetY()*m_SectorToMinimapHeight;
 ////
-////			// Á¡ Âï±â
+////			// ÃÂ¡ Ã‚Ã¯Â±Ã¢
 ////			WORD*	pSurfaceTemp;	
 ////			pSurfaceTemp = (WORD*)((BYTE*)pSurface + lPitch*point.y + (point.x<<1));
 ////			*pSurfaceTemp++ = 0xFFFF;
@@ -19909,12 +19969,12 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 	
 
 	/*
-	// ±×¸² Ãâ·Â
+	// Â±Ã—Â¸Â² ÃƒÃ¢Â·Ã‚
 	m_pSurface->Lock();
 
 	POINT point = { x, y };
 
-	// Minimap Ãâ·Â
+	// Minimap ÃƒÃ¢Â·Ã‚
 	m_pSurface->BltSprite( &point, m_pMinimapSPR );
 
 	int width = m_pMinimapSPR->GetWidth();
@@ -19923,11 +19983,11 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 	WORD*	pSurface	= (WORD*)m_pSurface->GetSurfacePointer();
 	long	lPitch		= m_pSurface->GetSurfacePitch();
 
-	// PlayerÀÇ Minimap»óÀÇ ÁÂÇ¥
+	// PlayerÃ€Ã‡ MinimapÂ»Ã³Ã€Ã‡ ÃÃ‚Ã‡Â¥
 	point.x = x + g_pPlayer->GetX()*m_SectorToMinimapWidth;
 	point.y = y + g_pPlayer->GetY()*m_SectorToMinimapHeight;
 
-	// Á¡ Âï±â
+	// ÃÂ¡ Ã‚Ã¯Â±Ã¢
 	WORD*	pSurfaceTemp;	
 	pSurfaceTemp = (WORD*)((BYTE*)pSurface + lPitch*point.y + (point.x<<1));
 	*pSurfaceTemp++ = 0xFFFF;
@@ -19964,14 +20024,14 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 
 		for (j=0; j<m_pZone->GetWidth(); j++)
 		{			
-			// playerÀ§Ä¡
+			// playerÃ€Â§Ã„Â¡
 			if (pX==j && pY==i)
 			{
 				color = 0xFFFF;
 			}			
 			else
 			{				
-				// tile»ö±òº°·Î..
+				// tileÂ»Ã¶Â±Ã²ÂºÂ°Â·Ã..
 				
 				//switch (m_pZone->GetSector(j,i).GetSpriteID())
 				//{
@@ -19983,7 +20043,7 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 				
 				 const MSector &sector = m_pZone->GetSector(j,i);
 			
-				// ±×¸²
+				// Â±Ã—Â¸Â²
 				if (sector.IsExistImageObject() && sector.IsBlockAny())
 				{
 					color = 0x07E0;	// G
@@ -20008,11 +20068,11 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 			
 			*lpSurfaceTemp = color;
 			
-			// ´ÙÀ½ Á¡
+			// Â´Ã™Ã€Â½ ÃÂ¡
 			lpSurfaceTemp = (WORD*)((BYTE*)lpSurfaceTemp + scale*4);
 		}
 
-		// ´ÙÀ½ ÁÙ
+		// Â´Ã™Ã€Â½ ÃÃ™
 		lpSurface = (WORD*)((BYTE*)lpSurface + pitch*scale);
 	}
 
@@ -20028,9 +20088,9 @@ MTopView::DrawItemBroken(int x, int y)
 {	
 //	return;
 	/*
-		MAX_GEAR¿¡ -10 ÇÑ°Ç core zap+bloodbible °¹¼ö ¸¸Å­ »«°Å..^^;
+		MAX_GEARÂ¿Â¡ -10 Ã‡Ã‘Â°Ã‡ core zap+bloodbible Â°Â¹Â¼Ã¶ Â¸Â¸Ã…Â­ Â»Â«Â°Ã…..^^;
 	*/
-	// ºÎ¼­Áú·Á´Â itemÃâ·Â
+	// ÂºÃÂ¼Â­ÃÃºÂ·ÃÂ´Ã‚ itemÃƒÃ¢Â·Ã‚
 	MPlayerGear* pGear;
 	int spriteID;
 	int frameType;
@@ -20092,7 +20152,7 @@ MTopView::DrawItemBroken(int x, int y)
 	}
 
 	//----------------------------------------------------------------
-	// ºÎ¼­Áú·Á´Â itemÀÌ ÀÖ´Ù¸é Ãâ·ÂÇÑ´Ù.
+	// ÂºÃÂ¼Â­ÃÃºÂ·ÃÂ´Ã‚ itemÃ€ÃŒ Ã€Ã–Â´Ã™Â¸Ã© ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 	//----------------------------------------------------------------
 	if (pGear->HasBrokenItem() )
 	{
@@ -20102,7 +20162,7 @@ MTopView::DrawItemBroken(int x, int y)
 		m_pSurface->Lock();
 
 		//---------------------------------------------
-		// ±âº» ²®µ¥±â(-_-;) Ãâ·Â
+		// Â±Ã¢ÂºÂ» Â²Â®ÂµÂ¥Â±Ã¢(-_-;) ÃƒÃ¢Â·Ã‚
 		//---------------------------------------------
 		POINT pointBasis = { x+15, y };
 		POINT point = { pointBasis.x, pointBasis.y };
@@ -20113,59 +20173,59 @@ MTopView::DrawItemBroken(int x, int y)
 		int size = pGear->GetSize();
 
 		//---------------------------------------------
-		// GearÀÇ ¸ğµç slot¿¡ ´ëÇØ¼­ Ã¼Å©
+		// GearÃ€Ã‡ Â¸Ã°ÂµÃ§ slotÂ¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­ ÃƒÂ¼Ã…Â©
 		//---------------------------------------------
 		for (int i=0; i<size-4-6; i++)
 		{			
 			const MItem* pItem = pGear->GetItem( (BYTE)i );	
 			
 			//---------------------------------------------
-			// ¹º°¡ Âø¿ëÇÏ°í ÀÖÀ»¶§¸¸ Ãâ·ÂÇÑ´Ù.
+			// Â¹ÂºÂ°Â¡ Ã‚Ã¸Â¿Ã«Ã‡ÃÂ°Ã­ Ã€Ã–Ã€Â»Â¶Â§Â¸Â¸ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 			//---------------------------------------------
 			if (pItem!=NULL)
 			{			
 				MPlayerGear::ITEM_STATUS itemStatus = pGear->GetItemStatus( i );
 
 				//---------------------------------------------
-				// ¹«±âÀÎ °æ¿ì.. Á¾·ù¿¡ µû¶ó¼­ ±×¸²ÀÌ ´Ù¸£´Ù.
+				// Â¹Â«Â±Ã¢Ã€Ã Â°Ã¦Â¿Ã¬.. ÃÂ¾Â·Ã¹Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ Â±Ã—Â¸Â²Ã€ÃŒ Â´Ã™Â¸Â£Â´Ã™.
 				//---------------------------------------------
 				int frameID;
 
 				if (g_pPlayer->IsSlayer())
 				{
 					//---------------------------------------------
-					// ¿Ş¼ÕÀÎµ¥.
+					// Â¿ÃÂ¼Ã•Ã€ÃÂµÂ¥.
 					//---------------------------------------------
 					if (i==MSlayerGear::GEAR_SLAYER_LEFTHAND)
 					{
-						// ¹æÆĞÀÌ¸é Ãâ·Â
+						// Â¹Ã¦Ã†ÃÃ€ÃŒÂ¸Ã© ÃƒÃ¢Â·Ã‚
 						if (pItem->GetItemClass()==ITEM_CLASS_SHIELD)
 						{
 							frameID = i;
 						}
-						// ¹æÆĞ°¡ ¾Æ´Ï¸é.. Ãâ·Â ¾ÈÇÑ´Ù.
+						// Â¹Ã¦Ã†ÃÂ°Â¡ Â¾Ã†Â´ÃÂ¸Ã©.. ÃƒÃ¢Â·Ã‚ Â¾ÃˆÃ‡Ã‘Â´Ã™.
 						else
 						{
 							continue;
 						}
 					}
 					//---------------------------------------------
-					// ¿À¸¥¼ÕÀº ¹«±â¿¡ µû¶ó¼­ Ãâ·Â
+					// Â¿Ã€Â¸Â¥Â¼Ã•Ã€Âº Â¹Â«Â±Ã¢Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ ÃƒÃ¢Â·Ã‚
 					//---------------------------------------------
 					else if (i==MSlayerGear::GEAR_SLAYER_RIGHTHAND)
 					{				
-						// ÃÑ?				
+						// ÃƒÃ‘?				
 						if (pItem->IsGunItem())
 						{
 							frameID = MSlayerGear::MAX_GEAR_SLAYER + 1 - 12;
 						}
-						// ½ÊÀÚ°¡?
+						// Â½ÃŠÃ€ÃšÂ°Â¡?
 						else if (pItem->GetItemClass()==ITEM_CLASS_CROSS
 								|| pItem->GetItemClass()==ITEM_CLASS_MACE)
 						{
 							frameID = MSlayerGear::MAX_GEAR_SLAYER -12;
 						}
-						// ¾Æ´Ï¹È.. Ä®ÀÌ³ª µµ
+						// Â¾Ã†Â´ÃÂ¹Ãˆ.. Ã„Â®Ã€ÃŒÂ³Âª ÂµÂµ
 						else
 						{
 							frameID = i;
@@ -20194,7 +20254,7 @@ MTopView::DrawItemBroken(int x, int y)
 				}
 
 				//---------------------------------------------
-				// Á¤»óÀûÀÌ¸é Á¤»óÀûÀÎ°Å Ãâ·Â..
+				// ÃÂ¤Â»Ã³Ã€Ã»Ã€ÃŒÂ¸Ã© ÃÂ¤Â»Ã³Ã€Ã»Ã€ÃÂ°Ã… ÃƒÃ¢Â·Ã‚..
 				//---------------------------------------------
 				if (itemStatus==MPlayerGear::ITEM_STATUS_OK || pItem->GetItemClass() == ITEM_CLASS_COUPLE_RING ||
 					pItem->GetItemClass() == ITEM_CLASS_VAMPIRE_COUPLE_RING)
@@ -20212,7 +20272,7 @@ MTopView::DrawItemBroken(int x, int y)
 					}
 				}
 				//---------------------------------------------
-				// ºÎ¼­Á® °¡´Â °ÍÀÌ¸é.. »ö±ò~ÀÖ°Ô Ãâ·Â..
+				// ÂºÃÂ¼Â­ÃÂ® Â°Â¡Â´Ã‚ Â°ÃÃ€ÃŒÂ¸Ã©.. Â»Ã¶Â±Ã²~Ã€Ã–Â°Ã” ÃƒÃ¢Â·Ã‚..
 				//---------------------------------------------
 				else
 				{
@@ -20329,7 +20389,7 @@ MTopView::GetEffectSpriteType(BLT_TYPE bltType, TYPE_FRAMEID frameID) const
 //----------------------------------------------------------------
 // DrawEffect ( point, MEffect* )
 //----------------------------------------------------------------
-// m_pSurface->IsLock() »óÅÂ¿¡¼­ È£ÃâµÈ´Ù°í °¡Á¤ÇÑ´Ù.
+// m_pSurface->IsLock() Â»Ã³Ã…Ã‚Â¿Â¡Â¼Â­ ÃˆÂ£ÃƒÃ¢ÂµÃˆÂ´Ã™Â°Ã­ Â°Â¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------
 void
 MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
@@ -20361,7 +20421,7 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 				m_pSurface->BltSprite(&point, pSprite);				
 
 				//---------------------------------------- 		
-				// ÀÌÆåÆ® ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+				// Ã€ÃŒÃ†Ã¥Ã†Â® Â¼Â±Ã…Ãƒ Â»Ã§Â°Â¢Ã‡Ã¼ Â¿ÂµÂ¿Âª Â¼Â³ÃÂ¤
 				//---------------------------------------- 	
 				if (bSelectable)
 				{
@@ -20399,7 +20459,7 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 				DRAW_ALPHASPRITEPAL(&point, spriteID, m_EffectAlphaSPK, m_EffectAlphaPPK[pEffect->GetFrameID()])//, m_EffectAlphaSPKI, m_EffectAlphaSPKFile)
 
 				//---------------------------------------- 		
-				// ÀÌÆåÆ® ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+				// Ã€ÃŒÃ†Ã¥Ã†Â® Â¼Â±Ã…Ãƒ Â»Ã§Â°Â¢Ã‡Ã¼ Â¿ÂµÂ¿Âª Â¼Â³ÃÂ¤
 				//---------------------------------------- 	
 				if (bSelectable)
 				{
@@ -20415,7 +20475,7 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 				}
 
 				//-------------------------------------------------------
-				// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
+				// H/W Â°Â¡Â¼Ã“Ã€ÃŒ ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 				//-------------------------------------------------------
 				if (CDirect3D::IsHAL())
 				{
@@ -20428,14 +20488,14 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 //					DRAW_TEXTURE_SPRITEPAL_LOCKED(point.x, point.y, spriteID, m_pAlphaEffectTextureManager, pEffect->GetFrameID() ) //m_EffectAlphaPPK[pEffect->GetFrameID()])
 //
 //					#ifdef OUTPUT_DEBUG
-//						// ¿ø·¡´ë·Î
+//						// Â¿Ã¸Â·Â¡Â´Ã«Â·Ã
 //						CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE);					
 //						CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
 //						CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
 //					#endif
 					
 					//---------------------------------------- 		
-					// ÀÌÆåÆ® ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+					// Ã€ÃŒÃ†Ã¥Ã†Â® Â¼Â±Ã…Ãƒ Â»Ã§Â°Â¢Ã‡Ã¼ Â¿ÂµÂ¿Âª Â¼Â³ÃÂ¤
 					//---------------------------------------- 	
 //					if (bSelectable)
 //					{
@@ -20449,23 +20509,23 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 //					}
 
 					//------------------------------------------------
-					// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
+					// LightFilterÂ¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 					//------------------------------------------------
-					AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-									pPoint->y + g_TILE_Y_HALF, 
-									Frame.GetLight(),			// ºûÀÇ ¹à±â
-									false);	// false = screenÁÂÇ¥					
+					AddLightFilter3D( pPoint->x + 24, 
+									pPoint->y + 24, 
+									Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+									false);	// false = screenÃÃ‚Ã‡Â¥					
 				
 				}
 				//-------------------------------------------------------
-				// H/W °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ìÀÌ¸é...
+				// H/W Â°Â¡Â¼Ã“Ã€ÃŒ Â¾ÃˆÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 				//-------------------------------------------------------
 				else
 				{
 //					DRAW_ALPHASPRITEPAL(&point, spriteID, m_EffectAlphaSPK, m_EffectAlphaPPK[pEffect->GetFrameID()])//, m_EffectAlphaSPKI, m_EffectAlphaSPKFile)
 
 //					//---------------------------------------- 		
-//					// ÀÌÆåÆ® ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+//					// Ã€ÃŒÃ†Ã¥Ã†Â® Â¼Â±Ã…Ãƒ Â»Ã§Â°Â¢Ã‡Ã¼ Â¿ÂµÂ¿Âª Â¼Â³ÃÂ¤
 //					//---------------------------------------- 	
 //					if (bSelectable)
 //					{
@@ -20481,10 +20541,10 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 //					}
 
 
-					AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-									pPoint->y + g_TILE_Y_HALF, 
-									Frame.GetLight(),			// ºûÀÇ ¹à±â
-									false);		// false = screenÁÂÇ¥
+					AddLightFilter2D( pPoint->x + 24, 
+									pPoint->y + 24, 
+									Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+									false);		// false = screenÃÃ‚Ã‡Â¥
 				}
 			}
 		}
@@ -20514,7 +20574,7 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 									CSpriteSurface::EFFECT_SCREEN)
 
 				//---------------------------------------- 		
-				// ÀÌÆåÆ® ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+				// Ã€ÃŒÃ†Ã¥Ã†Â® Â¼Â±Ã…Ãƒ Â»Ã§Â°Â¢Ã‡Ã¼ Â¿ÂµÂ¿Âª Â¼Â³ÃÂ¤
 				//---------------------------------------- 	
 				if (bSelectable)
 				{
@@ -20529,7 +20589,7 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 					pEffect->SetScreenRect( &rect );
 				}
 				//-------------------------------------------------------
-				// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
+				// H/W Â°Â¡Â¼Ã“Ã€ÃŒ ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 				//-------------------------------------------------------
 				if (CDirect3D::IsHAL())
 				{
@@ -20544,12 +20604,12 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 //					
 //					DRAW_TEXTURE_SPRITEPAL_LOCKED(point.x, point.y, spriteID, m_pScreenEffectTextureManager, pEffect->GetFrameID() ) //m_EffectScreenPPK[pEffect->GetFrameID()])
 //
-//					// ¿ø·¡´ë·Î
+//					// Â¿Ã¸Â·Â¡Â´Ã«Â·Ã
 //					CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
 //					CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
 					
 					//---------------------------------------- 		
-					// ÀÌÆåÆ® ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+					// Ã€ÃŒÃ†Ã¥Ã†Â® Â¼Â±Ã…Ãƒ Â»Ã§Â°Â¢Ã‡Ã¼ Â¿ÂµÂ¿Âª Â¼Â³ÃÂ¤
 					//---------------------------------------- 	
 //					if (bSelectable)
 //					{
@@ -20563,16 +20623,16 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 //					}
 
 					//------------------------------------------------
-					// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
+					// LightFilterÂ¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 					//------------------------------------------------
-					AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-									pPoint->y + g_TILE_Y_HALF, 
-									Frame.GetLight(),			// ºûÀÇ ¹à±â
-									false);	// false = screenÁÂÇ¥					
+					AddLightFilter3D( pPoint->x + 24, 
+									pPoint->y + 24, 
+									Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+									false);	// false = screenÃÃ‚Ã‡Â¥					
 				
 				}
 				//-------------------------------------------------------
-				// H/W °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ìÀÌ¸é...
+				// H/W Â°Â¡Â¼Ã“Ã€ÃŒ Â¾ÃˆÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 				//-------------------------------------------------------
 				else
 				{
@@ -20585,7 +20645,7 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 //										CSpriteSurface::EFFECT_SCREEN)
 
 //					//---------------------------------------- 		
-//					// ÀÌÆåÆ® ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+//					// Ã€ÃŒÃ†Ã¥Ã†Â® Â¼Â±Ã…Ãƒ Â»Ã§Â°Â¢Ã‡Ã¼ Â¿ÂµÂ¿Âª Â¼Â³ÃÂ¤
 //					//---------------------------------------- 	
 //					if (bSelectable)
 //					{
@@ -20601,10 +20661,10 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 //					}
 
 
-					AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-									pPoint->y + g_TILE_Y_HALF, 
-									Frame.GetLight(),			// ºûÀÇ ¹à±â
-									false);		// false = screenÁÂÇ¥
+					AddLightFilter2D( pPoint->x + 24, 
+									pPoint->y + 24, 
+									Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+									false);		// false = screenÃÃ‚Ã‡Â¥
 				}
 
 			}
@@ -20633,23 +20693,23 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 					m_pSurface->BltShadowSpriteDarkness(&point, pSprite, 1 );
 				}
 				//-------------------------------------------------------
-				// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
+				// H/W Â°Â¡Â¼Ã“Ã€ÃŒ ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 				//-------------------------------------------------------
 				if (CDirect3D::IsHAL())
 				{
 //					DRAW_TEXTURE_SPRITE_LOCKED(point.x, point.y, spriteID, m_pEffectShadowManager)		
 
 					//------------------------------------------------
-					// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
+					// LightFilterÂ¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 					//------------------------------------------------
-					AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-									pPoint->y + g_TILE_Y_HALF, 
-									Frame.GetLight(),			// ºûÀÇ ¹à±â
-									false);	// false = screenÁÂÇ¥					
+					AddLightFilter3D( pPoint->x + 24, 
+									pPoint->y + 24, 
+									Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+									false);	// false = screenÃÃ‚Ã‡Â¥					
 				
 				}
 				//-------------------------------------------------------
-				// H/W °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ìÀÌ¸é...
+				// H/W Â°Â¡Â¼Ã“Ã€ÃŒ Â¾ÃˆÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ¸Ã©...
 				//-------------------------------------------------------
 				else
 				{
@@ -20659,10 +20719,10 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 //					{
 //						m_pSurface->BltShadowSpriteDarkness(&point, pSprite, 1 );
 //						
-						AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-										pPoint->y + g_TILE_Y_HALF, 
-										Frame.GetLight(),			// ºûÀÇ ¹à±â
-										false);		// false = screenÁÂÇ¥
+						AddLightFilter2D( pPoint->x + 24, 
+										pPoint->y + 24, 
+										Frame.GetLight(),			// ÂºÃ»Ã€Ã‡ Â¹Ã Â±Ã¢
+										false);		// false = screenÃÃ‚Ã‡Â¥
 //					}
 				}
 			}
@@ -20683,7 +20743,7 @@ MTopView::GetRandomMonsterTypeInZone() const
 
 	if (numSprites==0)
 	{
-		// ºí·¯µå ¿ö·Ï ±×¸².. 
+		// ÂºÃ­Â·Â¯ÂµÃ¥ Â¿Ã¶Â·Ã Â±Ã—Â¸Â².. 
 		spriteType = 27;
 	}
 	else
@@ -20700,7 +20760,7 @@ MTopView::GetRandomMonsterTypeInZone() const
 		spriteType = *iID;
 	}
 
-	// spriteID°¡ spriteÀÎ ¸ó½ºÅÍµé Áß¿¡¼­ ÇÏ³ª¸¦ ¼±ÅÃÇÑ´Ù.
+	// spriteIDÂ°Â¡ spriteÃ€Ã Â¸Ã³Â½ÂºÃ…ÃÂµÃ© ÃÃŸÂ¿Â¡Â¼Â­ Ã‡ÃÂ³ÂªÂ¸Â¦ Â¼Â±Ã…ÃƒÃ‡Ã‘Â´Ã™.
 	return g_pCreatureSpriteTypeMapper->GetRandomCreatureType( spriteType );
 }
 
@@ -20737,7 +20797,7 @@ MTopView::DrawCreatureHPModify(POINT *point, MCreature* pCreature)
 			RGB(150, 255, 150);
 		}
 		
-		g_PrintColorStrOut(point->x + g_TILE_X_HALF - g_GetStringWidth(str, gpC_base->m_chatting_pi.hfont)/2, py, str, gpC_base->m_chatting_pi, color, RGB_BLACK);
+		g_PrintColorStrOut(point->x + 24 - g_GetStringWidth(str, gpC_base->m_chatting_pi.hfont)/2, py, str, gpC_base->m_chatting_pi, color, RGB_BLACK);
 
 		py += 15;
 
@@ -20756,19 +20816,19 @@ MTopView::DrawCreatureHPModify(POINT *point, MCreature* pCreature)
 //----------------------------------------------------------------------
 // DrawGuildMark
 /*----------------------------------------------------------------------
-	- °ø¼ºÀü ½Ã Ä³¸¯ÅÍ À§¿¡ ±æµå ¸¶Å©¸¦ º¸¿©ÁØ´Ù.
-	- ¼±ÅÃ ¿©ºÎ¿Í »ó°ü¾øÀÌ Ç×»ó º¸ÀÎ´Ù.
-	- g_pPlayer°¡ °ø¼ºÀü Âü°¡ÁßÀÏ ¶§¸¸ °ø¼ºÀü Âü°¡ÁßÀÎ ´Ù¸¥ Å©¸®ÃÄÀÇ ±æµå¸¶Å© Ç¥½Ã
+	- Â°Ã¸Â¼ÂºÃ€Ã¼ Â½Ãƒ Ã„Â³Â¸Â¯Ã…Ã Ã€Â§Â¿Â¡ Â±Ã¦ÂµÃ¥ Â¸Â¶Ã…Â©Â¸Â¦ ÂºÂ¸Â¿Â©ÃÃ˜Â´Ã™.
+	- Â¼Â±Ã…Ãƒ Â¿Â©ÂºÃÂ¿Ã Â»Ã³Â°Ã¼Â¾Ã¸Ã€ÃŒ Ã‡Ã—Â»Ã³ ÂºÂ¸Ã€ÃÂ´Ã™.
+	- g_pPlayerÂ°Â¡ Â°Ã¸Â¼ÂºÃ€Ã¼ Ã‚Ã¼Â°Â¡ÃÃŸÃ€Ã Â¶Â§Â¸Â¸ Â°Ã¸Â¼ÂºÃ€Ã¼ Ã‚Ã¼Â°Â¡ÃÃŸÃ€Ã Â´Ã™Â¸Â¥ Ã…Â©Â¸Â®ÃƒÃ„Ã€Ã‡ Â±Ã¦ÂµÃ¥Â¸Â¶Ã…Â© Ã‡Â¥Â½Ãƒ
 //----------------------------------------------------------------------*/
 void		
 MTopView::DrawGuildMarkInSiegeWar(MCreature* pCreature, int YPos)
 {	
-	// EFFECTSTATUS_GHOST ¿¡ °É·ÁÀÖÀ¸¸é ³²µµ ¸øº¸°í ³ªµµ ¸øº»´Ù
+	// EFFECTSTATUS_GHOST Â¿Â¡ Â°Ã‰Â·ÃÃ€Ã–Ã€Â¸Â¸Ã© Â³Â²ÂµÂµ Â¸Ã¸ÂºÂ¸Â°Ã­ Â³ÂªÂµÂµ Â¸Ã¸ÂºÂ»Â´Ã™
 	if(pCreature == NULL) return;
 	if(pCreature->HasEffectStatus(EFFECTSTATUS_GHOST))return;
 
 	//-----------------------------------------------------
-	// Hallu¿¡ °É¸®¸é ±æµå¸¶Å©³ª °è±Ş¸¶Å© ¾ÈÂïÀ½
+	// HalluÂ¿Â¡ Â°Ã‰Â¸Â®Â¸Ã© Â±Ã¦ÂµÃ¥Â¸Â¶Ã…Â©Â³Âª Â°Ã¨Â±ÃÂ¸Â¶Ã…Â© Â¾ÃˆÃ‚Ã¯Ã€Â½
 	//-----------------------------------------------------
 	if(!g_pPlayer->HasEffectStatus(EFFECTSTATUS_HALLUCINATION)
 		&& pCreature->GetCreatureType() != CREATURETYPE_VAMPIRE_OPERATOR
@@ -20779,14 +20839,14 @@ MTopView::DrawGuildMarkInSiegeWar(MCreature* pCreature, int YPos)
 		)
 	{
 		//-----------------------------------------------------
-		// Guild°¡ ÀÖ´Â °æ¿ì - Guild Mark Ãâ·Â
+		// GuildÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬ - Guild Mark ÃƒÃ¢Â·Ã‚
 		//-----------------------------------------------------
 		int guildID = pCreature->GetGuildNumber();
 			
 		if (guildID > 0)
 		{
 			//-------------------------------------------------
-			// loadµÇ¾î ÀÖ´ÂÁö º»´Ù.
+			// loadÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã‚ÃÃ¶ ÂºÂ»Â´Ã™.
 			//-------------------------------------------------
 			CSprite* pSprite = g_pGuildMarkManager->GetGuildMarkSmall(guildID);
 			
@@ -20802,18 +20862,18 @@ MTopView::DrawGuildMarkInSiegeWar(MCreature* pCreature, int YPos)
 				if (!g_pGuildMarkManager->HasGuildMark(guildID))
 				{
 					//-------------------------------------------------
-					// file¿¡ ÀÖ´ÂÁö º»´Ù.
+					// fileÂ¿Â¡ Ã€Ã–Â´Ã‚ÃÃ¶ ÂºÂ»Â´Ã™.
 					//-------------------------------------------------
 					g_pGuildMarkManager->LoadGuildMark(guildID);
 					
 					//-------------------------------------------------
-					// file¿¡¼­ loadµÇ¾ú´ÂÁö ´Ù½Ã Ã¼Å©
+					// fileÂ¿Â¡Â¼Â­ loadÂµÃ‡Â¾ÃºÂ´Ã‚ÃÃ¶ Â´Ã™Â½Ãƒ ÃƒÂ¼Ã…Â©
 					//-------------------------------------------------
 					pSprite = g_pGuildMarkManager->GetGuildMark(guildID);
 					
 					//-------------------------------------------------
-					// file¿¡µµ ¾ø´Â °æ¿ì..
-					// guildMark°ü¸®¼­¹ö?¿¡¼­ ¹Ş¾Æ¿Â´Ù.
+					// fileÂ¿Â¡ÂµÂµ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬..
+					// guildMarkÂ°Ã¼Â¸Â®Â¼Â­Â¹Ã¶?Â¿Â¡Â¼Â­ Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
 					//-------------------------------------------------
 					//if (pSprite==NULL) {}
 				}				
@@ -20825,24 +20885,24 @@ MTopView::DrawGuildMarkInSiegeWar(MCreature* pCreature, int YPos)
 //----------------------------------------------------------------------
 // Draw CreatureName
 //----------------------------------------------------------------------
-// Unlock »óÅÂ¿¡¼­ ºÒ·ÁÁö´Â ÇÔ¼öÀÌ´Ù.
+// Unlock Â»Ã³Ã…Ã‚Â¿Â¡Â¼Â­ ÂºÃ’Â·ÃÃÃ¶Â´Ã‚ Ã‡Ã”Â¼Ã¶Ã€ÃŒÂ´Ã™.
 //
-// ¼±ÅÃµÈ Ä³¸¯ÅÍ ÀÌ¸§À» Ãâ·ÂÇÑ´Ù.
-// ÀÌ¸§¿¡´Â HP, ¼ºÇâ, ±æµå.. µîµîÀÇ Á¤º¸°¡ Æ÷ÇÔµÈ´Ù.
-// ¼­ºñ½º·Î(-_-;) RequestMode¿¡ µû¸¥ iconµµ Ãâ·ÂÇÑ´Ù.
+// Â¼Â±Ã…ÃƒÂµÃˆ Ã„Â³Â¸Â¯Ã…Ã Ã€ÃŒÂ¸Â§Ã€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
+// Ã€ÃŒÂ¸Â§Â¿Â¡Â´Ã‚ HP, Â¼ÂºÃ‡Ã¢, Â±Ã¦ÂµÃ¥.. ÂµÃ®ÂµÃ®Ã€Ã‡ ÃÂ¤ÂºÂ¸Â°Â¡ Ã†Ã·Ã‡Ã”ÂµÃˆÂ´Ã™.
+// Â¼Â­ÂºÃ±Â½ÂºÂ·Ã(-_-;) RequestModeÂ¿Â¡ ÂµÃ»Â¸Â¥ iconÂµÂµ ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 //----------------------------------------------------------------------
 void		
 MTopView::DrawCreatureName(MCreature* pCreature)
 {	
-	// EFFECTSTATUS_GHOST ¿¡ °É·ÁÀÖÀ¸¸é ³²µµ ¸øº¸°í ³ªµµ ¸øº»´Ù
+	// EFFECTSTATUS_GHOST Â¿Â¡ Â°Ã‰Â·ÃÃ€Ã–Ã€Â¸Â¸Ã© Â³Â²ÂµÂµ Â¸Ã¸ÂºÂ¸Â°Ã­ Â³ÂªÂµÂµ Â¸Ã¸ÂºÂ»Â´Ã™
 	if(pCreature == NULL) return;
 	if(pCreature->HasEffectStatus(EFFECTSTATUS_GHOST))return;
 
-	// 2004, 08, 05 sobeit add start - ¼º¹®Àº º¸¿©Áö¸é ÀÌ»óÇÏ´Ù?
+	// 2004, 08, 05 sobeit add start - Â¼ÂºÂ¹Â®Ã€Âº ÂºÂ¸Â¿Â©ÃÃ¶Â¸Ã© Ã€ÃŒÂ»Ã³Ã‡ÃÂ´Ã™?
 	if( pCreature->GetCreatureType() >= 726 &&
 		pCreature->GetCreatureType() <= 729)
 		return;
-	// 2004, 08, 05 sobeit add end - ¼º¹® 
+	// 2004, 08, 05 sobeit add end - Â¼ÂºÂ¹Â® 
 	if(
 		(g_pPlayer->HasEffectStatus(EFFECTSTATUS_YELLOW_POISON_TO_CREATURE) || 
 		g_pPlayer->HasEffectStatus(EFFECTSTATUS_FLARE )||
@@ -20850,7 +20910,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		&& pCreature != g_pPlayer 
 		)
 	{
-		// °Å¸®¿¡ µû¶ó¼­ Ãâ·Â ¿©ºÎ¸¦ °áÁ¤ÇÑ´Ù.
+		// Â°Ã…Â¸Â®Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ ÃƒÃ¢Â·Ã‚ Â¿Â©ÂºÃÂ¸Â¦ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
 		int sx,sy,ex,ey;
 
 		sx = g_pPlayer->GetX() - 1;
@@ -20865,7 +20925,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 	}
 
 	//---------------------------------------------------------------
-	// ¶¥ ¼Ó¿¡ ÀÖ´Â ¾Ö´Â ÀÌ¸§µµ ¾ø´ç. - -;
+	// Â¶Â¥ Â¼Ã“Â¿Â¡ Ã€Ã–Â´Ã‚ Â¾Ã–Â´Ã‚ Ã€ÃŒÂ¸Â§ÂµÂµ Â¾Ã¸Â´Ã§. - -;
 	//---------------------------------------------------------------
 	if (pCreature->IsUndergroundCreature())
 	{
@@ -20882,7 +20942,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 
 	m_bDrawRequest = false;
 	//------------------------------------------------
-	// item ±³È¯ÇÑ´Ù´Â Ç¥½Ã Ãâ·Â
+	// item Â±Â³ÃˆÂ¯Ã‡Ã‘Â´Ã™Â´Ã‚ Ã‡Â¥Â½Ãƒ ÃƒÃ¢Â·Ã‚
 	//------------------------------------------------
 	if (IsRequestMode())	
 	{
@@ -20891,25 +20951,25 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		if(pCreature->GetClassType() == MCreature::CLASS_FAKE)
 		{
 			MFakeCreature *pFakeCreature = (MFakeCreature *)pCreature;
-			if(pFakeCreature->GetOwnerID() != OBJECTID_NULL)	// ÆêÀÌ´Ù
+			if(pFakeCreature->GetOwnerID() != OBJECTID_NULL)	// Ã†ÃªÃ€ÃŒÂ´Ã™
 			{
 				bRequest = true;
 			}
 		}
 		//------------------------------------------------
-		// ¾ÆÁ÷Àº Ãâ·ÂÇÏ¸é ¾ÈµÈ´Ù.
+		// Â¾Ã†ÃÃ·Ã€Âº ÃƒÃ¢Â·Ã‚Ã‡ÃÂ¸Ã© Â¾ÃˆÂµÃˆÂ´Ã™.
 		//------------------------------------------------			
-		else if (// NPC°¡ ¾Æ´Ï°í
+		else if (// NPCÂ°Â¡ Â¾Ã†Â´ÃÂ°Ã­
 			!pCreature->IsNPC()
-			// PlayerÀÎ °æ¿ì¸¸
+			// PlayerÃ€Ã Â°Ã¦Â¿Ã¬Â¸Â¸
 			//&& pCreature->GetCreatureType()<=CREATURETYPE_VAMPIRE_FEMALE
 			//&& (*g_pCreatureSpriteTable)[(*g_pCreatureTable)[pCreature->GetCreatureType()].SpriteType].IsPlayerOnlySprite()
 			&& (*g_pCreatureSpriteTable)[(*g_pCreatureTable)[pCreature->GetCreatureType()].SpriteTypes[0]].IsPlayerOnlySprite()
-			// °ü ¼Ó¿¡ ÀÖ´Â °æ¿ì
+			// Â°Ã¼ Â¼Ã“Â¿Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 			&& !pCreature->IsInCasket()
-			// ¶¥¿¡ ¹¯ÇôÀÖÀ»¶© °Å·¡ ÇÑ´Ù´Â Ç¥½Ã ¾È ³ª¿À°Ô...
+			// Â¶Â¥Â¿Â¡ Â¹Â¯Ã‡Ã´Ã€Ã–Ã€Â»Â¶Â© Â°Ã…Â·Â¡ Ã‡Ã‘Â´Ã™Â´Ã‚ Ã‡Â¥Â½Ãƒ Â¾Ãˆ Â³ÂªÂ¿Ã€Â°Ã”...
 			//&& !pCreature->IsUndergroundCreature()
-			// »ì¾ÆÀÖ´Â.. - -;
+			// Â»Ã¬Â¾Ã†Ã€Ã–Â´Ã‚.. - -;
 			&& pCreature->IsAlive()
 			&& pCreature->GetCreatureType() != CREATURETYPE_SLAYER_OPERATOR
 			&& pCreature->GetCreatureType() != CREATURETYPE_VAMPIRE_OPERATOR
@@ -20925,11 +20985,11 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 			TYPE_SPRITEID	RequestSpriteID;
 				
 			//---------------------------------------------------------------
-			// trade ½ÅÃ»ÇÏ´Â ¾ÆÀÌÄÜ
+			// trade Â½Ã…ÃƒÂ»Ã‡ÃÂ´Ã‚ Â¾Ã†Ã€ÃŒÃ„Ãœ
 			//---------------------------------------------------------------
 			if (IsRequestTrade())
 			{
-				const maxRequestFrames = SPRITEID_ITEM_TRADE_LAST - SPRITEID_ITEM_TRADE + 1;
+				const int maxRequestFrames = SPRITEID_ITEM_TRADE_LAST - SPRITEID_ITEM_TRADE + 1;
 				RequestSpriteID = SPRITEID_ITEM_TRADE + ((g_CurrentFrame>>1) % (maxRequestFrames<<1));
 
 				if (RequestSpriteID > SPRITEID_ITEM_TRADE_LAST)
@@ -20943,11 +21003,11 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 				}					
 			}
 			//---------------------------------------------------------------
-			// party ½ÅÃ»ÇÏ´Â ¾ÆÀÌÄÜ
+			// party Â½Ã…ÃƒÂ»Ã‡ÃÂ´Ã‚ Â¾Ã†Ã€ÃŒÃ„Ãœ
 			//---------------------------------------------------------------
 			else if(IsRequestParty())
 			{
-				const maxRequestFrames = SPRITEID_PARTY_REQUEST_LAST - SPRITEID_PARTY_REQUEST + 1;
+				const int maxRequestFrames = SPRITEID_PARTY_REQUEST_LAST - SPRITEID_PARTY_REQUEST + 1;
 				RequestSpriteID = SPRITEID_PARTY_REQUEST + ((g_CurrentFrame>>1) % (maxRequestFrames+4));
 
 				if (RequestSpriteID > SPRITEID_PARTY_REQUEST_LAST)
@@ -20956,11 +21016,11 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 				}
 			}
 			//---------------------------------------------------------------
-			// Info ½ÅÃ»ÇÏ´Â ¾ÆÀÌÄÜ
+			// Info Â½Ã…ÃƒÂ»Ã‡ÃÂ´Ã‚ Â¾Ã†Ã€ÃŒÃ„Ãœ
 			//---------------------------------------------------------------
 			else if(IsRequestInfo())
 			{
-				const maxRequestFrames = SPRITEID_INFO_REQUEST_LAST - SPRITEID_INFO_REQUEST + 1;
+				const int maxRequestFrames = SPRITEID_INFO_REQUEST_LAST - SPRITEID_INFO_REQUEST + 1;
 				RequestSpriteID = SPRITEID_INFO_REQUEST + ((g_CurrentFrame>>1) % (maxRequestFrames+4));
 
 				if (RequestSpriteID > SPRITEID_INFO_REQUEST_LAST)
@@ -20982,14 +21042,14 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 
 		
 	//------------------------------------------------
-	// Ä³¸¯ÅÍ ÀÌ¸§ Ãâ·Â
+	// Ã„Â³Â¸Â¯Ã…Ã Ã€ÃŒÂ¸Â§ ÃƒÃ¢Â·Ã‚
 	//------------------------------------------------
 	//gC_font.PrintStringNoConvert(&m_SurfaceInfo, pCreature->GetName(), pointTemp.x, pointTemp.y, 0xFFFF);	
 	bool bMasterWords = pCreature->GetCreatureType()==CREATURETYPE_SLAYER_OPERATOR
 						|| pCreature->GetCreatureType()==CREATURETYPE_VAMPIRE_OPERATOR
 						|| pCreature->GetCreatureType() == CREATURETYPE_OUSTERS_OPERATOR
 						|| strncmp( pCreature->GetName(), (*g_pGameStringTable)[UI_STRING_MESSAGE_MASTER_NAME].GetString(), (*g_pGameStringTable)[UI_STRING_MESSAGE_MASTER_NAME].GetLength() ) == 0;
-//						|| (strstr(pCreature->GetName(), "¿î¿µÀÚ")!=NULL);
+//						|| (strstr(pCreature->GetName(), "Â¿Ã®Â¿ÂµÃ€Ãš")!=NULL);
 
 	bool bHalluName = (g_pPlayer->HasEffectStatus(EFFECTSTATUS_HALLUCINATION) || 
 		!bMasterWords && 
@@ -21000,7 +21060,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		g_pZoneTable->Get( g_pZone->GetID() )->ChatMaskByRace &&
 		g_pPlayer->GetCreatureType() != CREATURETYPE_SLAYER_OPERATOR &&
 		g_pPlayer->GetCreatureType() != CREATURETYPE_VAMPIRE_OPERATOR &&
-		g_pPlayer->GetCreatureType() != CREATURETYPE_OUSTERS_OPERATOR;						// Ãª ¸¶½ºÅ©¸¦ ¾º¿ï °æ¿ì¿¡¸¸ 
+		g_pPlayer->GetCreatureType() != CREATURETYPE_OUSTERS_OPERATOR;						// ÃƒÂª Â¸Â¶Â½ÂºÃ…Â©Â¸Â¦ Â¾ÂºÂ¿Ã¯ Â°Ã¦Â¿Ã¬Â¿Â¡Â¸Â¸ 
 	if(g_pPlayer->HasEffectStatus( EFFECTSTATUS_GHOST ))
 		bHalluName = false;
 #ifdef __METROTECH_TEST__
@@ -21031,11 +21091,11 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 	*/
 
 	//-----------------------------------------------------
-	// NPCÀÎ °æ¿ì
+	// NPCÃ€Ã Â°Ã¦Â¿Ã¬
 	//-----------------------------------------------------
 	if (pCreature->IsNPC())
 	{
-		// ¹ÙÅä¸®ÀÎ °æ¿ì.. ÇÏµåÄÚµù - -;;
+		// Â¹Ã™Ã…Ã¤Â¸Â®Ã€Ã Â°Ã¦Â¿Ã¬.. Ã‡ÃÂµÃ¥Ã„ÃšÂµÃ¹ - -;;
 		if (pCreature->GetCreatureType()==217)
 		{
 			color	= m_ColorNameAlignment[1];
@@ -21048,15 +21108,15 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		}
 	}
 	//-----------------------------------------------------
-	// ¿î¿µÀÚÀÎ °æ¿ì
+	// Â¿Ã®Â¿ÂµÃ€ÃšÃ€Ã Â°Ã¦Â¿Ã¬
 	//-----------------------------------------------------
 	else if (pCreature->GetCompetence()==0)
 	{
-		color = CDirectDraw::Color( 31, 23, 3 );	// ±İ»ö?
+		color = CDirectDraw::Color( 31, 23, 3 );	// Â±ÃÂ»Ã¶?
 		font	= FONTID_NPC_NAME;
 	}
 	//-----------------------------------------------------
-	// Hallu¿¡ °É¸° °æ¿ì
+	// HalluÂ¿Â¡ Â°Ã‰Â¸Â° Â°Ã¦Â¿Ã¬
 	//-----------------------------------------------------
 	else if(g_pPlayer->HasEffectStatus(EFFECTSTATUS_HALLUCINATION))
 	{
@@ -21064,12 +21124,12 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		font	= FONTID_VAMPIRE_NAME;
 	}
 	//-----------------------------------------------------
-	// SlayerÀÎ °æ¿ì 
+	// SlayerÃ€Ã Â°Ã¦Â¿Ã¬ 
 	//-----------------------------------------------------
 	else if (g_pPlayer->IsSlayer())
 	{
 		//-----------------------------------------------------
-		// Á¾Á·¿¡ µû¶ó¼­ 
+		// ÃÂ¾ÃÂ·Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ 
 		//-----------------------------------------------------
 		if (g_pPlayer->CanAttackTribe( pCreature )
 			|| g_pJusticeAttackManager->HasCreature( pCreature->GetName() ))
@@ -21079,7 +21139,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 			font	= FONTID_VAMPIRE_NAME;
 		}
 		//-----------------------------------------------------
-		// ¾Æ´Ï¸é.. ¼ºÇâ¿¡ µû¸¥ Ç¥½Ã
+		// Â¾Ã†Â´ÃÂ¸Ã©.. Â¼ÂºÃ‡Ã¢Â¿Â¡ ÂµÃ»Â¸Â¥ Ã‡Â¥Â½Ãƒ
 		//-----------------------------------------------------
 		else
 		{
@@ -21100,7 +21160,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 			font	= FONTID_VAMPIRE_NAME;
 		}
 		//-----------------------------------------------------
-		// ¾Æ´Ï¸é.. ¼ºÇâ¿¡ µû¸¥ Ç¥½Ã
+		// Â¾Ã†Â´ÃÂ¸Ã©.. Â¼ÂºÃ‡Ã¢Â¿Â¡ ÂµÃ»Â¸Â¥ Ã‡Â¥Â½Ãƒ
 		//-----------------------------------------------------
 		else
 		{
@@ -21111,12 +21171,12 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		}
 	}
 	//-----------------------------------------------------
-	// ¹ìÆÄÀÌ¾îÀÎ °æ¿ì
+	// Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Ã€Ã Â°Ã¦Â¿Ã¬
 	//-----------------------------------------------------
 	else
 	{
 		//-----------------------------------------------------
-		// ±æµå¿¡ µû¶ó¼­
+		// Â±Ã¦ÂµÃ¥Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­
 		//-----------------------------------------------------
 		if (g_pPlayer->CanAttackGuild( pCreature )
 			|| g_pJusticeAttackManager->HasCreature( pCreature->GetName() ))
@@ -21126,7 +21186,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 			font	= FONTID_VAMPIRE_NAME;
 		}
 		//-----------------------------------------------------
-		// ¾Æ´Ï¸é.. ¼ºÇâ¿¡ µû¸¥ Ç¥½Ã
+		// Â¾Ã†Â´ÃÂ¸Ã©.. Â¼ÂºÃ‡Ã¢Â¿Â¡ ÂµÃ»Â¸Â¥ Ã‡Â¥Â½Ãƒ
 		//-----------------------------------------------------
 		else
 		{
@@ -21140,7 +21200,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 	if (pName!=NULL)
 	{
 		//-----------------------------------------------------
-		// Level NameÀÌ ÀÖ´Â °æ¿ì
+		// Level NameÃ€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 		//-----------------------------------------------------
 		if (pCreature->HasLevelName())
 		{
@@ -21169,7 +21229,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		
 		int guildID = 0;
 		//-----------------------------------------------------
-		// ÀÌ¸§ ¹Ø¿¡ ±ò¸± ÀüÃ¼(ÀÌ¸§) Å©±âÀÇ ¹Ú½º
+		// Ã€ÃŒÂ¸Â§ Â¹Ã˜Â¿Â¡ Â±Ã²Â¸Â± Ã€Ã¼ÃƒÂ¼(Ã€ÃŒÂ¸Â§) Ã…Â©Â±Ã¢Ã€Ã‡ Â¹ÃšÂ½Âº
 		//-----------------------------------------------------
 		int rectLeft	= m_pointChatString.x + POSITION_HP_BAR -14 ;
 		int rectRight	= rectLeft + MAX_HP_BAR;//m_pointChatString.x+5 + namePixel;
@@ -21177,7 +21237,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		int rectBottom	= yPoint_20 + g_pClientConfig->FONT_HEIGHT;
 
 		//-----------------------------------------------------
-		// Hallu¿¡ °É¸®¸é ±æµå¸¶Å©³ª °è±Ş¸¶Å© ¾ÈÂïÀ½
+		// HalluÂ¿Â¡ Â°Ã‰Â¸Â®Â¸Ã© Â±Ã¦ÂµÃ¥Â¸Â¶Ã…Â©Â³Âª Â°Ã¨Â±ÃÂ¸Â¶Ã…Â© Â¾ÃˆÃ‚Ã¯Ã€Â½
 		//-----------------------------------------------------
 		if(!g_pPlayer->HasEffectStatus(EFFECTSTATUS_HALLUCINATION)
 			&& pCreature->GetCreatureType() != CREATURETYPE_VAMPIRE_OPERATOR
@@ -21188,7 +21248,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 			)
 		{
 			//-----------------------------------------------------
-			// Guild°¡ ÀÖ´Â °æ¿ì - Guild Mark Ãâ·Â
+			// GuildÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬ - Guild Mark ÃƒÃ¢Â·Ã‚
 			//-----------------------------------------------------
 			guildID = pCreature->GetGuildNumber();
 			if(	g_pPlayer->GetRace() != pCreature->GetRace() && pCreature->IsPlayer() &&
@@ -21196,16 +21256,16 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 				)
 				guildID = 0;
 			
-			// gradeÃâ·Â
-			int gradeID = pCreature->GetGrade()-1;	// 1~50 À¸·Î µÇÀÖÀ¸¹Ç·Î -1ÇØ¼­ 0~49·Î ¸ÂÃá´Ù
-			// ÇÃ·¹ÀÌ¾î¸¸ °è±Ş Ãâ·Â, ¹ÚÁã³ª ´Á´ë´Â ¾ÈÇÔ
+			// gradeÃƒÃ¢Â·Ã‚
+			int gradeID = pCreature->GetGrade()-1;	// 1~50 Ã€Â¸Â·Ã ÂµÃ‡Ã€Ã–Ã€Â¸Â¹Ã‡Â·Ã -1Ã‡Ã˜Â¼Â­ 0~49Â·Ã Â¸Ã‚ÃƒÃ¡Â´Ã™
+			// Ã‡ÃƒÂ·Â¹Ã€ÃŒÂ¾Ã®Â¸Â¸ Â°Ã¨Â±Ã ÃƒÃ¢Â·Ã‚, Â¹ÃšÃÃ£Â³Âª Â´ÃÂ´Ã«Â´Ã‚ Â¾ÃˆÃ‡Ã”
 			if(!pCreature->IsPlayerOnly())
 				gradeID = -1;
 			
 				/*
 				if (guildID>=0)
 				{
-				// run-time loadingµµ ±¦ÂúÀ» µí..
+				// run-time loadingÂµÂµ Â±Â¦Ã‚ÃºÃ€Â» ÂµÃ­..
 				if (guildID < m_GuildSPK.GetSize())
 				{
 				m_pSurface->Lock();
@@ -21221,7 +21281,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 			if (guildID > 0)
 			{
 				//-------------------------------------------------
-				// loadµÇ¾î ÀÖ´ÂÁö º»´Ù.
+				// loadÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã‚ÃÃ¶ ÂºÂ»Â´Ã™.
 				//-------------------------------------------------
 				CSprite* pSprite = g_pGuildMarkManager->GetGuildMarkSmall(guildID);
 				
@@ -21240,25 +21300,25 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 					if (!g_pGuildMarkManager->HasGuildMark(guildID))
 					{
 						//-------------------------------------------------
-						// file¿¡ ÀÖ´ÂÁö º»´Ù.
+						// fileÂ¿Â¡ Ã€Ã–Â´Ã‚ÃÃ¶ ÂºÂ»Â´Ã™.
 						//-------------------------------------------------
 						g_pGuildMarkManager->LoadGuildMark(guildID);
 						
 						//-------------------------------------------------
-						// file¿¡¼­ loadµÇ¾ú´ÂÁö ´Ù½Ã Ã¼Å©
+						// fileÂ¿Â¡Â¼Â­ loadÂµÃ‡Â¾ÃºÂ´Ã‚ÃÃ¶ Â´Ã™Â½Ãƒ ÃƒÂ¼Ã…Â©
 						//-------------------------------------------------
 						pSprite = g_pGuildMarkManager->GetGuildMark(guildID);
 						
 						//-------------------------------------------------
-						// file¿¡µµ ¾ø´Â °æ¿ì..
-						// guildMark°ü¸®¼­¹ö?¿¡¼­ ¹Ş¾Æ¿Â´Ù.
+						// fileÂ¿Â¡ÂµÂµ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬..
+						// guildMarkÂ°Ã¼Â¸Â®Â¼Â­Â¹Ã¶?Â¿Â¡Â¼Â­ Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
 						//-------------------------------------------------
 						//if (pSprite==NULL) {}
 					}				
 				}
 			}
 			
-			// °è±ŞÀÌ ÀÖ´Â°æ¿ì °è±Ş¸¶Å© Ãâ·Â
+			// Â°Ã¨Â±ÃÃ€ÃŒ Ã€Ã–Â´Ã‚Â°Ã¦Â¿Ã¬ Â°Ã¨Â±ÃÂ¸Â¶Ã…Â© ÃƒÃ¢Â·Ã‚
 			if(gradeID > -1 && gradeID <= GRADE_MARK_MAX)
 			{
 				CSprite* pSprite = g_pGuildMarkManager->GetGradeMarkSmall(gradeID, pCreature->GetRace());
@@ -21276,7 +21336,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 			}
 			
 		}
-		// ÆêÀÎ°æ¿ì ·¹º§ ¸¶Å© Ãâ·Â
+		// Ã†ÃªÃ€ÃÂ°Ã¦Â¿Ã¬ Â·Â¹ÂºÂ§ Â¸Â¶Ã…Â© ÃƒÃ¢Â·Ã‚
 		if(pCreature->GetClassType() == MCreature::CLASS_FAKE)
 		{
 			MFakeCreature *pFakeCreature = (MFakeCreature *)pCreature;
@@ -21308,7 +21368,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		}
 
 		//-----------------------------------------------------
-		// HP°è»ê
+		// HPÂ°Ã¨Â»Ãª
 		//-----------------------------------------------------
 		int currentHP		= max(0,int(pCreature->GetHP()));
 		int maxHP			= pCreature->GetMAX_HP();
@@ -21324,7 +21384,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		#endif
 
 		//-----------------------------------------------------
-		// ¶¥¼Ó¿¡ ÀÖ´Â ¾Ö´Â HP°¡ ²Ë Âù°ÍÃ³·³ º¸¿©ÁØ´Ù.
+		// Â¶Â¥Â¼Ã“Â¿Â¡ Ã€Ã–Â´Ã‚ Â¾Ã–Â´Ã‚ HPÂ°Â¡ Â²Ã‹ Ã‚Ã¹Â°ÃÃƒÂ³Â·Â³ ÂºÂ¸Â¿Â©ÃÃ˜Â´Ã™.
 		//-----------------------------------------------------
 		//if (pCreature->IsUndergroundCreature())
 		//{
@@ -21338,7 +21398,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		}
 
 		//-----------------------------------------------------
-		// ½ÇÁ¦·Î º¸¿©Áú pixel°è»ê
+		// Â½Ã‡ÃÂ¦Â·Ã ÂºÂ¸Â¿Â©ÃÃº pixelÂ°Ã¨Â»Ãª
 		//-----------------------------------------------------
 		int maxPixels		= rectRight - rectLeft;
 		int currentPixels	= max(0,int((maxHP==0)? 0 : maxPixels * currentHP / maxHP));
@@ -21348,11 +21408,11 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 
 		
 		//-----------------------------------------------------
-		// HP°¡ ²Ë Â÷°Ô Ç¥½ÃµÇ´Â °æ¿ì
+		// HPÂ°Â¡ Â²Ã‹ Ã‚Ã·Â°Ã” Ã‡Â¥Â½ÃƒÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬
 		//-----------------------------------------------------
 		if (currentPixels==maxPixels)
 		{
-			// ¹ÙÅÁ»ö ±ò ÇÊ¿ä ¾øÁö¸¸.. ÀÌ¸§ Àß º¸ÀÌ°Ô ÇÒ·Á°í.. --
+			// Â¹Ã™Ã…ÃÂ»Ã¶ Â±Ã² Ã‡ÃŠÂ¿Ã¤ Â¾Ã¸ÃÃ¶Â¸Â¸.. Ã€ÃŒÂ¸Â§ Ã€ÃŸ ÂºÂ¸Ã€ÃŒÂ°Ã” Ã‡Ã’Â·ÃÂ°Ã­.. --
 			DRAWTEXT_NODE* pNodeBase = new DRAWTEXT_NODE (
 										nameX+1,
 										yPoint_20+4+1,
@@ -21363,13 +21423,13 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 			AddText( pNodeBase );
 		}
 		//-----------------------------------------------------
-		// HP ´âÀº ºÎºĞ Ç¥½Ã
+		// HP Â´Ã¢Ã€Âº ÂºÃÂºÃ Ã‡Â¥Â½Ãƒ
 		//-----------------------------------------------------
 		else
 		{
 			//-----------------------------------------------------
 			//
-			//			Max HP ¸¸Å­ÀÇ Box¸¸ Ç¥½Ã
+			//			Max HP Â¸Â¸Ã…Â­Ã€Ã‡ BoxÂ¸Â¸ Ã‡Â¥Â½Ãƒ
 			//
 			//-----------------------------------------------------
 			DRAWTEXT_NODE* pNodeBase = new DRAWTEXT_NODE (
@@ -21380,7 +21440,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 										font);
 
 			//-----------------------------------------------------
-			// HP ´âÀº ºÎºĞ
+			// HP Â´Ã¢Ã€Âº ÂºÃÂºÃ
 			//-----------------------------------------------------
 			RECT rect = {	rectLeft + currentPixels, 
 							rectTop,
@@ -21395,10 +21455,10 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 
 		//-----------------------------------------------------
 		//
-		//		ÇöÀç HP¸¸Å­ÀÇ Box¿Í Ä³¸¯ÅÍ ÀÌ¸§ Ãâ·Â
+		//		Ã‡Ã¶Ã€Ã§ HPÂ¸Â¸Ã…Â­Ã€Ã‡ BoxÂ¿Ã Ã„Â³Â¸Â¯Ã…Ã Ã€ÃŒÂ¸Â§ ÃƒÃ¢Â·Ã‚
 		//
 		//-----------------------------------------------------
-		// ÇöÀç HP¸¸Å­ÀÇ Box¿Í Ä³¸¯ÅÍ ÀÌ¸§ Ãâ·Â(±î¸Ä°Ô)
+		// Ã‡Ã¶Ã€Ã§ HPÂ¸Â¸Ã…Â­Ã€Ã‡ BoxÂ¿Ã Ã„Â³Â¸Â¯Ã…Ã Ã€ÃŒÂ¸Â§ ÃƒÃ¢Â·Ã‚(Â±Ã®Â¸Ã„Â°Ã”)
 		//-----------------------------------------------------	
 		DRAWTEXT_NODE* pNode = new DRAWTEXT_NODE (
 									nameX + 1,
@@ -21408,12 +21468,12 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 									font);	//FLAG_DRAWTEXT_HANGUL_JOHAP);
 
 		//-----------------------------------------------------
-		// 0ÀÌ ¾Æ´Ï¸é boxÃâ·Â
+		// 0Ã€ÃŒ Â¾Ã†Â´ÃÂ¸Ã© boxÃƒÃ¢Â·Ã‚
 		//-----------------------------------------------------							
 		if (currentPixels!=0)				
 		{
 			//-----------------------------------------------------
-			// ÇöÀç HP¿¡ ´ëÇÑ ¹Ú½º
+			// Ã‡Ã¶Ã€Ã§ HPÂ¿Â¡ Â´Ã«Ã‡Ã‘ Â¹ÃšÂ½Âº
 			//-----------------------------------------------------
 			RECT rectHP = {	rectLeft, 
 							rectTop,
@@ -21430,7 +21490,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 			}
 			else
 			{
-				// ºÒÅõ¸íÇÑ HP bar¸¦ Ãâ·ÂÇÒ¶§
+				// ÂºÃ’Ã…ÃµÂ¸Ã­Ã‡Ã‘ HP barÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡Ã’Â¶Â§
 				static WORD notTransHPBar 
 					= CDirectDraw::Color(g_pClientConfig->COLOR_HP_BAR_R>>1,
 											g_pClientConfig->COLOR_HP_BAR_G>>1,
@@ -21441,11 +21501,11 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		}
 
 		//-----------------------------------------------------
-		// Ãâ·ÂÇÏ°Ô ¼³Á¤..
+		// ÃƒÃ¢Â·Ã‚Ã‡ÃÂ°Ã” Â¼Â³ÃÂ¤..
 		//-----------------------------------------------------
 		AddText( pNode );			
 
-		// 2004, 10, 28, sobeit add start -¸ó½ºÅÍ Å³ Äù½ºÆ® ÇØ´ç ¸ó½ºÅÍ¿¡ Ç¥½Ã.
+		// 2004, 10, 28, sobeit add start -Â¸Ã³Â½ÂºÃ…Ã Ã…Â³ Ã„Ã¹Â½ÂºÃ†Â® Ã‡Ã˜Â´Ã§ Â¸Ã³Â½ÂºÃ…ÃÂ¿Â¡ Ã‡Â¥Â½Ãƒ.
 //		if(pCreature->IsAlive() && UI_IsMonsterKillQuest_Monster((*g_pCreatureTable)[pCreature->GetCreatureType()].SpriteTypes[0]))
 //		{
 //			WORD temp_color;
@@ -21454,7 +21514,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 //		}
 		// 2004, 10, 28, sobeit add end
 		//-----------------------------------------------------
-		// ÀÌ¸§ ´Ù½Ã Âï±â
+		// Ã€ÃŒÂ¸Â§ Â´Ã™Â½Ãƒ Ã‚Ã¯Â±Ã¢
 		//-----------------------------------------------------
 		DRAWTEXT_NODE* pNode2 = new DRAWTEXT_NODE (
 									nameX,
@@ -21464,10 +21524,10 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 									font);	//FLAG_DRAWTEXT_HANGUL_JOHAP);
 
 		AddText( pNode2 );
-		// 2004, 6, 17, sobeit add start - about nick name - °°Àº Á¾Á· ÀÏ¶§¸¸ ´Ğ³×ÀÓ º¸ÀÌ°Ô..¼öÁ¤.
+		// 2004, 6, 17, sobeit add start - about nick name - Â°Â°Ã€Âº ÃÂ¾ÃÂ· Ã€ÃÂ¶Â§Â¸Â¸ Â´ÃÂ³Ã—Ã€Ã“ ÂºÂ¸Ã€ÃŒÂ°Ã”..Â¼Ã¶ÃÂ¤.
 		if(pCreature->GetNickNameType() != NicknameInfo::NICK_NONE)// && (/*g_pPlayer->GetRace() == pCreature->GetRace()|| */pCreature->IsFakeCreature()))
 		{
-			if(yPoint-42<0) return; // °Á ÂïÁö ¸»ÀÚ..¤¾¤¾
+			if(yPoint-42<0) return; // Â°Ã Ã‚Ã¯ÃÃ¶ Â¸Â»Ã€Ãš..Â¤Â¾Â¤Â¾
 			BYTE bType = pCreature->GetNickNameType();
 			const char* szNickName = pCreature->GetNickName().c_str();
 			if(strlen(szNickName)>0)
@@ -21500,9 +21560,9 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 					color = RGB_YELLOW;
 					break;
 				}
-			//	if(guildID >0) // ±æµå¸¶Å©°¡ ¾ÈÂïÈú¶© ´Ğ³×ÀÓÀ» hpbar+°è±Ş¸¶Å© Áß¾Ó¿¡ Âï°í
+			//	if(guildID >0) // Â±Ã¦ÂµÃ¥Â¸Â¶Ã…Â©Â°Â¡ Â¾ÃˆÃ‚Ã¯ÃˆÃºÂ¶Â© Â´ÃÂ³Ã—Ã€Ã“Ã€Â» hpbar+Â°Ã¨Â±ÃÂ¸Â¶Ã…Â© ÃÃŸÂ¾Ã“Â¿Â¡ Ã‚Ã¯Â°Ã­
 			//		nameX = rectLeft + ((MAX_HP_BAR - namePixel+20)>>1);
-			//	else // ±×¿Ü¿£ hpbar Áß¾Ó¿¡ Âï´Â´Ù
+			//	else // Â±Ã—Â¿ÃœÂ¿Â£ hpbar ÃÃŸÂ¾Ã“Â¿Â¡ Ã‚Ã¯Â´Ã‚Â´Ã™
 					nameX = rectLeft + ((MAX_HP_BAR - namePixel)>>1);
 
 				DRAWTEXT_NODE* pNode = new DRAWTEXT_NODE (
@@ -21543,7 +21603,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 //----------------------------------------------------------------------
 // GetChangeValueToDirection
 //----------------------------------------------------------------------
-// ¿©±â ÀÖ¾î¾ßÇÒ ÇÔ¼ö´Â ¾Æ´ÏÁö¸¸.. - -;
+// Â¿Â©Â±Ã¢ Ã€Ã–Â¾Ã®Â¾ÃŸÃ‡Ã’ Ã‡Ã”Â¼Ã¶Â´Ã‚ Â¾Ã†Â´ÃÃÃ¶Â¸Â¸.. - -;
 //----------------------------------------------------------------------
 POINT
 MTopView::GetChangeValueToDirection(int direction)
@@ -21570,7 +21630,7 @@ void
 MTopView::DrawUndergroundCreature(POINT *pPoint, MCreature *pCreature)
 {
 	//----------------------------------------
-	// °íÁ¤µÈ burrow±×¸²  -_-;; 
+	// Â°Ã­ÃÂ¤ÂµÃˆ burrowÂ±Ã—Â¸Â²  -_-;; 
 	//----------------------------------------
 	POINT pointTemp;
 	RECT rect;
@@ -21578,7 +21638,7 @@ MTopView::DrawUndergroundCreature(POINT *pPoint, MCreature *pCreature)
 	CSprite* pSprite = &m_EtcSPK[ SPRITEID_CREATURE_BURROW ];	
 	
 	//----------------------------------------
-	// ÁÂÇ¥ º¸Á¤
+	// ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 	//----------------------------------------
 	int cx = 4;
 	int cy = 4;
@@ -21586,7 +21646,7 @@ MTopView::DrawUndergroundCreature(POINT *pPoint, MCreature *pCreature)
 	pointTemp.y = pPoint->y + cy;
 	
 	//---------------------------------------- 		
-	// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+	// Ã„Â³Â¸Â¯Ã…Ã Â¼Â±Ã…Ãƒ Â»Ã§Â°Â¢Ã‡Ã¼ Â¿ÂµÂ¿Âª Â¼Â³ÃÂ¤
 	//---------------------------------------- 	
 	rect.left	= pointTemp.x;
 	rect.top	= pointTemp.y;
@@ -21595,13 +21655,13 @@ MTopView::DrawUndergroundCreature(POINT *pPoint, MCreature *pCreature)
 	pCreature->SetScreenRect( &rect );				
 	
 	//---------------------------------------- 	
-	// ¼±ÅÃµÈ °æ¿ì
+	// Â¼Â±Ã…ÃƒÂµÃˆ Â°Ã¦Â¿Ã¬
 	//---------------------------------------- 	
 	if (m_SelectCreatureID == pCreature->GetID() )
 	{
-		// SpriteOutlineManager¿¡ Ãß°¡
+		// SpriteOutlineManagerÂ¿Â¡ ÃƒÃŸÂ°Â¡
 		
-		// ¶¥¼Ó¿¡ ÀÖ´Â ¾ÖµéÀº ¹«Á¶°Ç vampireÀÌ´Ù.
+		// Â¶Â¥Â¼Ã“Â¿Â¡ Ã€Ã–Â´Ã‚ Â¾Ã–ÂµÃ©Ã€Âº Â¹Â«ÃÂ¶Â°Ã‡ vampireÃ€ÃŒÂ´Ã™.
 		if (g_pObjectSelector->CanAttack(pCreature))
 		{
 			m_SOMOutlineColor = m_ColorOutlineAttackPossible;
@@ -21617,7 +21677,7 @@ MTopView::DrawUndergroundCreature(POINT *pPoint, MCreature *pCreature)
 		m_pSurface->BltSpriteOutline( &m_SOM,  m_SOMOutlineColor );
 		
 		//---------------------------------------- 	
-		// ÀÌ¸§ Ãâ·ÂÇÒ ÁÂÇ¥ ÁöÁ¤
+		// Ã€ÃŒÂ¸Â§ ÃƒÃ¢Â·Ã‚Ã‡Ã’ ÃÃ‚Ã‡Â¥ ÃÃ¶ÃÂ¤
 		//---------------------------------------- 	
 		const int FontHeight = g_pClientConfig->FONT_HEIGHT;
 		const int FontHeight2 = FontHeight << 1;
@@ -21626,7 +21686,7 @@ MTopView::DrawUndergroundCreature(POINT *pPoint, MCreature *pCreature)
 		if (pointTemp.x<0) pointTemp.x=0;
 		
 		//---------------------------------------- 	
-		// Level Name ÂïÀ» À§Ä¡µµ °è»ê
+		// Level Name Ã‚Ã¯Ã€Â» Ã€Â§Ã„Â¡ÂµÂµ Â°Ã¨Â»Ãª
 		//---------------------------------------- 	
 		if (pCreature->HasLevelName())
 		{
@@ -21638,7 +21698,7 @@ MTopView::DrawUndergroundCreature(POINT *pPoint, MCreature *pCreature)
 			}
 		}
 		//---------------------------------------- 	
-		// ±×³É ÀÌ¸§¸¸ ÂïÀ» ¶§
+		// Â±Ã—Â³Ã‰ Ã€ÃŒÂ¸Â§Â¸Â¸ Ã‚Ã¯Ã€Â» Â¶Â§
 		//---------------------------------------- 	
 		else
 		{
@@ -21654,7 +21714,7 @@ MTopView::DrawUndergroundCreature(POINT *pPoint, MCreature *pCreature)
 		m_pSelectedCreature = pCreature;
 	}
 	//----------------------------------------
-	// ±×³É Ãâ·Â
+	// Â±Ã—Â³Ã‰ ÃƒÃ¢Â·Ã‚
 	//----------------------------------------
 	else
 	{
@@ -21662,7 +21722,7 @@ MTopView::DrawUndergroundCreature(POINT *pPoint, MCreature *pCreature)
 	}
 	
 	//----------------------------------------
-	// ¸ö¿¡ ºÙÀº Effect Ãâ·Â
+	// Â¸Ã¶Â¿Â¡ ÂºÃ™Ã€Âº Effect ÃƒÃ¢Â·Ã‚
 	//----------------------------------------
 	/*
 	if (pCreature->IsExistAttachEffect())
@@ -21679,7 +21739,7 @@ MTopView::DrawUndergroundCreature(POINT *pPoint, MCreature *pCreature)
 void		
 MTopView::DrawCreatureMyName()
 {	
-	// EFFECTSTATUS_GHOST ¿¡ °É·ÁÀÖÀ¸¸é ³²µµ ¸øº¸°í ³ªµµ ¸øº»´Ù
+	// EFFECTSTATUS_GHOST Â¿Â¡ Â°Ã‰Â·ÃÃ€Ã–Ã€Â¸Â¸Ã© Â³Â²ÂµÂµ Â¸Ã¸ÂºÂ¸Â°Ã­ Â³ÂªÂµÂµ Â¸Ã¸ÂºÂ»Â´Ã™
 	if(g_pPlayer->HasEffectStatus(EFFECTSTATUS_GHOST))return;
 
 	const char* pCreatureName;
@@ -21709,7 +21769,7 @@ MTopView::DrawCreatureMyName()
 		
 
 		//-----------------------------------------------------
-		// ÀÌ¸§ ¹Ø¿¡ ±ò¸± ÀüÃ¼(ÀÌ¸§) Å©±âÀÇ ¹Ú½º
+		// Ã€ÃŒÂ¸Â§ Â¹Ã˜Â¿Â¡ Â±Ã²Â¸Â± Ã€Ã¼ÃƒÂ¼(Ã€ÃŒÂ¸Â§) Ã…Â©Â±Ã¢Ã€Ã‡ Â¹ÃšÂ½Âº
 		//-----------------------------------------------------
 		{
 			rectLeft	= g_pPlayer->GetPixelX() - m_FirstZonePixel.x + POSITION_HP_BAR - 14;
@@ -21718,23 +21778,23 @@ MTopView::DrawCreatureMyName()
 			rectBottom	= yPoint_20+ g_pClientConfig->FONT_HEIGHT;
 		}
 		//-----------------------------------------------------
-		// Hallu¿¡ °É¸®¸é ±æµå¸¶Å©³ª °è±Ş¸¶Å© ¾ÈÂïÀ½
+		// HalluÂ¿Â¡ Â°Ã‰Â¸Â®Â¸Ã© Â±Ã¦ÂµÃ¥Â¸Â¶Ã…Â©Â³Âª Â°Ã¨Â±ÃÂ¸Â¶Ã…Â© Â¾ÃˆÃ‚Ã¯Ã€Â½
 		//-----------------------------------------------------
 		if(!g_pPlayer->HasEffectStatus(EFFECTSTATUS_HALLUCINATION))
 		{
 			//-----------------------------------------------------
-			// Guild°¡ ÀÖ´Â °æ¿ì - Guild Mark Ãâ·Â
+			// GuildÂ°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬ - Guild Mark ÃƒÃ¢Â·Ã‚
 			//-----------------------------------------------------
 			guildID = g_pPlayer->GetGuildNumber();
 
-			gradeID = g_pPlayer->GetGrade()-1;	// 1~50 À¸·Î µÇÀÖÀ¸¹Ç·Î -1ÇØ¼­ 0~49·Î ¸ÂÃá´Ù
+			gradeID = g_pPlayer->GetGrade()-1;	// 1~50 Ã€Â¸Â·Ã ÂµÃ‡Ã€Ã–Ã€Â¸Â¹Ã‡Â·Ã -1Ã‡Ã˜Â¼Â­ 0~49Â·Ã Â¸Ã‚ÃƒÃ¡Â´Ã™
 			if(!g_pPlayer->IsPlayerOnly())
 				gradeID = -1;
 			
 			if (guildID > 0)
 			{
 				//-------------------------------------------------
-				// loadµÇ¾î ÀÖ´ÂÁö º»´Ù.
+				// loadÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã‚ÃÃ¶ ÂºÂ»Â´Ã™.
 				//-------------------------------------------------
 				CSprite* pSprite = g_pGuildMarkManager->GetGuildMarkSmall(guildID);
 				
@@ -21759,7 +21819,7 @@ MTopView::DrawCreatureMyName()
 				}
 			}
 			
-			// °è±ŞÀÌ ÀÖ´Â°æ¿ì °è±Ş¸¶Å© Ãâ·Â
+			// Â°Ã¨Â±ÃÃ€ÃŒ Ã€Ã–Â´Ã‚Â°Ã¦Â¿Ã¬ Â°Ã¨Â±ÃÂ¸Â¶Ã…Â© ÃƒÃ¢Â·Ã‚
 			if(gradeID > -1 && gradeID <= GRADE_MARK_MAX)
 			{
 				CSprite* pSprite = g_pGuildMarkManager->GetGradeMarkSmall(gradeID, g_pPlayer->GetRace());
@@ -21778,7 +21838,7 @@ MTopView::DrawCreatureMyName()
 			
 		}
 		//-----------------------------------------------------
-		// HP°è»ê
+		// HPÂ°Ã¨Â»Ãª
 		//-----------------------------------------------------
 		int currentHP		= max(0,int(g_pPlayer->GetHP()));
 		int maxHP			= g_pPlayer->GetMAX_HP();
@@ -21799,7 +21859,7 @@ MTopView::DrawCreatureMyName()
 		}
 
 		//-----------------------------------------------------
-		// ½ÇÁ¦·Î º¸¿©Áú pixel°è»ê
+		// Â½Ã‡ÃÂ¦Â·Ã ÂºÂ¸Â¿Â©ÃÃº pixelÂ°Ã¨Â»Ãª
 		//-----------------------------------------------------
 		int maxPixels		= rectRight - rectLeft;
 		int currentPixels	= max(0,int((maxHP==0)? 0 : maxPixels * currentHP / maxHP));
@@ -21809,11 +21869,11 @@ MTopView::DrawCreatureMyName()
 
 		
 		//-----------------------------------------------------
-		// HP°¡ ²Ë Â÷°Ô Ç¥½ÃµÇ´Â °æ¿ì
+		// HPÂ°Â¡ Â²Ã‹ Ã‚Ã·Â°Ã” Ã‡Â¥Â½ÃƒÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬
 		//-----------------------------------------------------
 		if (currentPixels==maxPixels)
 		{
-			// ¹ÙÅÁ»ö ±ò ÇÊ¿ä ¾øÁö¸¸.. ÀÌ¸§ Àß º¸ÀÌ°Ô ÇÒ·Á°í.. --
+			// Â¹Ã™Ã…ÃÂ»Ã¶ Â±Ã² Ã‡ÃŠÂ¿Ã¤ Â¾Ã¸ÃÃ¶Â¸Â¸.. Ã€ÃŒÂ¸Â§ Ã€ÃŸ ÂºÂ¸Ã€ÃŒÂ°Ã” Ã‡Ã’Â·ÃÂ°Ã­.. --
 			DRAWTEXT_NODE* pNodeBase = new DRAWTEXT_NODE (
 										nameX+1,
 										yPoint_20+4+1,
@@ -21824,13 +21884,13 @@ MTopView::DrawCreatureMyName()
 			AddText( pNodeBase );
 		}
 		//-----------------------------------------------------
-		// HP ´âÀº ºÎºĞ Ç¥½Ã
+		// HP Â´Ã¢Ã€Âº ÂºÃÂºÃ Ã‡Â¥Â½Ãƒ
 		//-----------------------------------------------------
 		else
 		{
 			//-----------------------------------------------------
 			//
-			//			Max HP ¸¸Å­ÀÇ Box¸¸ Ç¥½Ã
+			//			Max HP Â¸Â¸Ã…Â­Ã€Ã‡ BoxÂ¸Â¸ Ã‡Â¥Â½Ãƒ
 			//
 			//-----------------------------------------------------
 			DRAWTEXT_NODE* pNodeBase = new DRAWTEXT_NODE (
@@ -21841,7 +21901,7 @@ MTopView::DrawCreatureMyName()
 										font);
 
 			//-----------------------------------------------------
-			// HP ´âÀº ºÎºĞ
+			// HP Â´Ã¢Ã€Âº ÂºÃÂºÃ
 			//-----------------------------------------------------
 			RECT rect = {	rectLeft + currentPixels, 
 							rectTop,
@@ -21856,10 +21916,10 @@ MTopView::DrawCreatureMyName()
 
 		//-----------------------------------------------------
 		//
-		//		ÇöÀç HP¸¸Å­ÀÇ Box¿Í Ä³¸¯ÅÍ ÀÌ¸§ Ãâ·Â
+		//		Ã‡Ã¶Ã€Ã§ HPÂ¸Â¸Ã…Â­Ã€Ã‡ BoxÂ¿Ã Ã„Â³Â¸Â¯Ã…Ã Ã€ÃŒÂ¸Â§ ÃƒÃ¢Â·Ã‚
 		//
 		//-----------------------------------------------------
-		// ÇöÀç HP¸¸Å­ÀÇ Box¿Í Ä³¸¯ÅÍ ÀÌ¸§ Ãâ·Â(±î¸Ä°Ô)
+		// Ã‡Ã¶Ã€Ã§ HPÂ¸Â¸Ã…Â­Ã€Ã‡ BoxÂ¿Ã Ã„Â³Â¸Â¯Ã…Ã Ã€ÃŒÂ¸Â§ ÃƒÃ¢Â·Ã‚(Â±Ã®Â¸Ã„Â°Ã”)
 		//-----------------------------------------------------			
 		DRAWTEXT_NODE* pNode = new DRAWTEXT_NODE (
 									nameX + 1,
@@ -21869,12 +21929,12 @@ MTopView::DrawCreatureMyName()
 									font);	//FLAG_DRAWTEXT_HANGUL_JOHAP);
 
 		//-----------------------------------------------------
-		// 0ÀÌ ¾Æ´Ï¸é boxÃâ·Â
+		// 0Ã€ÃŒ Â¾Ã†Â´ÃÂ¸Ã© boxÃƒÃ¢Â·Ã‚
 		//-----------------------------------------------------							
 		if (currentPixels!=0)				
 		{
 			//-----------------------------------------------------
-			// ÇöÀç HP¿¡ ´ëÇÑ ¹Ú½º
+			// Ã‡Ã¶Ã€Ã§ HPÂ¿Â¡ Â´Ã«Ã‡Ã‘ Â¹ÃšÂ½Âº
 			//-----------------------------------------------------
 			RECT rectHP = {	rectLeft, 
 							rectTop,
@@ -21891,7 +21951,7 @@ MTopView::DrawCreatureMyName()
 			}
 			else
 			{
-				// ºÒÅõ¸íÇÑ HP bar¸¦ Ãâ·ÂÇÒ¶§
+				// ÂºÃ’Ã…ÃµÂ¸Ã­Ã‡Ã‘ HP barÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡Ã’Â¶Â§
 				static WORD notTransHPBar 
 					= CDirectDraw::Color(g_pClientConfig->COLOR_HP_BAR_R>>1,
 											g_pClientConfig->COLOR_HP_BAR_G>>1,
@@ -21902,13 +21962,13 @@ MTopView::DrawCreatureMyName()
 		}
 
 		//-----------------------------------------------------
-		// Ãâ·ÂÇÏ°Ô ¼³Á¤..
+		// ÃƒÃ¢Â·Ã‚Ã‡ÃÂ°Ã” Â¼Â³ÃÂ¤..
 		//-----------------------------------------------------
 		AddText( pNode );			
 
 
 		//-----------------------------------------------------
-		// ÀÌ¸§ ´Ù½Ã Âï±â
+		// Ã€ÃŒÂ¸Â§ Â´Ã™Â½Ãƒ Ã‚Ã¯Â±Ã¢
 		//-----------------------------------------------------
 		DRAWTEXT_NODE* pNode2 = new DRAWTEXT_NODE (
 									nameX,
@@ -21951,9 +22011,9 @@ MTopView::DrawCreatureMyName()
 					color = RGB_YELLOW;
 					break;
 				}
-			//	if(guildID >0) // ±æµå¸¶Å©°¡ ¾ÈÂïÈú¶© ´Ğ³×ÀÓÀ» hpbar+°è±Ş¸¶Å© Áß¾Ó¿¡ Âï°í
+			//	if(guildID >0) // Â±Ã¦ÂµÃ¥Â¸Â¶Ã…Â©Â°Â¡ Â¾ÃˆÃ‚Ã¯ÃˆÃºÂ¶Â© Â´ÃÂ³Ã—Ã€Ã“Ã€Â» hpbar+Â°Ã¨Â±ÃÂ¸Â¶Ã…Â© ÃÃŸÂ¾Ã“Â¿Â¡ Ã‚Ã¯Â°Ã­
 			//		nameX = rectLeft + ((MAX_HP_BAR - namePixel+20)>>1);
-			//	else // ±×¿Ü¿£ hpbar Áß¾Ó¿¡ Âï´Â´Ù
+			//	else // Â±Ã—Â¿ÃœÂ¿Â£ hpbar ÃÃŸÂ¾Ã“Â¿Â¡ Ã‚Ã¯Â´Ã‚Â´Ã™
 					nameX = rectLeft + ((MAX_HP_BAR - namePixel)>>1);
 
 				DRAWTEXT_NODE* pNode = new DRAWTEXT_NODE (
@@ -22003,19 +22063,19 @@ MTopView::DrawEvent()
 	else
 		bDrawBackGround = ExcuteOustersFinEvent();
 	
-	// 2005, 2, 18, sobeit add start - WebBrowser°¡ ¶°ÀÖÀ» ¶§ Ã³¸®
+	// 2005, 2, 18, sobeit add start - WebBrowserÂ°Â¡ Â¶Â°Ã€Ã–Ã€Â» Â¶Â§ ÃƒÂ³Â¸Â®
 	if(UI_IsRunning_WebBrowser())
 	{
-		//bDrawBackGround = false; // ¹è°æÀ» ÂïÁö ¾Ê´Â´Ù. UI´Â Âï´Â´Ù..
+		//bDrawBackGround = false; // Â¹Ã¨Â°Ã¦Ã€Â» Ã‚Ã¯ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™. UIÂ´Ã‚ Ã‚Ã¯Â´Ã‚Â´Ã™..
 		int TempValue = UI_GetMouseCursorInfo_WebBrowser();
 
-		if(TempValue == 1) // Ä¿¼­°¡ À¥ È­¸é ¾ÈÀ¸·Î µé¾î¿È
+		if(TempValue == 1) // Ã„Â¿Â¼Â­Â°Â¡ Ã€Â¥ ÃˆÂ­Â¸Ã© Â¾ÃˆÃ€Â¸Â·Ã ÂµÃ©Â¾Ã®Â¿Ãˆ
 		{
-			UI_ShowWindowCursor(); // Ä¿¼­ º¸¿©ÁÖÀå..
+			UI_ShowWindowCursor(); // Ã„Â¿Â¼Â­ ÂºÂ¸Â¿Â©ÃÃ–Ã€Ã¥..
 		}
-		else if( TempValue == -1) // Ä¿¼­°¡ À¥ È­¸é ¹ÛÀ¸·Î ³ª°¬´Ù.
+		else if( TempValue == -1) // Ã„Â¿Â¼Â­Â°Â¡ Ã€Â¥ ÃˆÂ­Â¸Ã© Â¹Ã›Ã€Â¸Â·Ã Â³ÂªÂ°Â¬Â´Ã™.
 		{
-			UI_HiddenWindowCursor(); // Ä¿¼­ ¾Èº¸¿©ÁØ´Ù.
+			UI_HiddenWindowCursor(); // Ã„Â¿Â¼Â­ Â¾ÃˆÂºÂ¸Â¿Â©ÃÃ˜Â´Ã™.
 		}
 //		if(UI_IsMouseIn_WebBrowser())
 //		{
@@ -22050,7 +22110,7 @@ MTopView::ExcuteAdvancementQuestEnding(void *pVoid)
 		int SpkIndex = AdvancementQuestEndingEvent->parameter4;
 		if(m_AdvacementQuestEnding.GetSize() == 0)
 		{
-			class ifstream	FinFile;
+			std::ifstream	FinFile;
 			if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_ADVANCEMENT_QUEST").c_str(), FinFile))
 				return false;
 			m_AdvacementQuestEnding.LoadFromFile(FinFile);
@@ -22087,7 +22147,7 @@ MTopView::ExcuteAdvancementQuestEnding(void *pVoid)
 					g_pOGG->streamClose();
 				
 				if( g_pSoundBufferForOGG == NULL )
-					g_pSoundBufferForOGG = new CDirectSoundBuffer(g_hWnd, SOUND_STEREO, SOUND_44K, SOUND_16BIT);
+					g_pSoundBufferForOGG = NULL; // SDL backend: CDirectSoundBuffer not implemented
 				
 				if( g_pOGG == NULL )
 #ifdef _MT
@@ -22100,7 +22160,7 @@ MTopView::ExcuteAdvancementQuestEnding(void *pVoid)
 					fclose(g_oggfile );
 				g_oggfile = fopen("data\\music\\Silence_of_Battlefield.ogg","rb");
 				g_pOGG->streamLoad(g_oggfile, NULL);
-				g_pOGG->streamPlay(SOUND_PLAY_REPEAT);
+				g_pOGG->streamPlay(0);
 				int volume = (g_pUserOption->VolumeMusic - 15) * 250;
 				g_pOGG->streamVolume( max( -10000, min( -1, volume ) ) );
 			}
@@ -22206,7 +22266,7 @@ MTopView::ExcuteOustersFinEvent()
 	{
 		if((event->eventFlag & EVENTFLAG_ONLY_EVENT_BACKGROUND) == EVENTFLAG_NOT_DRAW_BACKGROUND)
 		{
-			m_pSurface->FillSurface(0);	//	È­¸éÁö¿ì±â
+			m_pSurface->FillSurface(0);	//	ÃˆÂ­Â¸Ã©ÃÃ¶Â¿Ã¬Â±Ã¢
 		}
 		else if(event->parameter4 < EVENTBACKGROUNDID_MAX)
 		{
@@ -22218,7 +22278,13 @@ MTopView::ExcuteOustersFinEvent()
 
 			CDirectDrawSurface *pSurface = g_pEventManager->GetEventBackground((EVENTBACKGROUND_ID)event->parameter4);
 
+#ifdef PLATFORM_WINDOWS
 			m_pSurface->BltNoColorkey(&p, pSurface, &r);
+#else
+			// SDL backend: Cast CDirectDrawSurface* to CSpriteSurface* for compatibility
+			CSpriteSurface* pSpriteSurface = reinterpret_cast<CSpriteSurface*>(pSurface);
+			m_pSurface->BltNoColorkey(&p, pSpriteSurface, &r);
+#endif
 				
 //			m_pSurface->BltSprite(&p, g_pEventManager->GetEventBackground(event->parameter4));
 
@@ -22237,7 +22303,7 @@ MTopView::ExcuteOustersFinEvent()
 
 		if(m_OustersFinSPK.GetSize() == 0)
 		{
-			class ifstream	FinFile;
+			std::ifstream	FinFile;
 			if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_OUSTERS_FIN").c_str(), FinFile))
 				return bDrawBackGround;
 			m_OustersFinSPK.LoadFromFile(FinFile);
@@ -22273,7 +22339,7 @@ MTopView::ExcuteOustersFinEvent()
 					g_pOGG->streamClose();
 				
 				if( g_pSoundBufferForOGG == NULL )
-					g_pSoundBufferForOGG = new CDirectSoundBuffer(g_hWnd, SOUND_STEREO, SOUND_44K, SOUND_16BIT);
+					g_pSoundBufferForOGG = NULL; // SDL backend: CDirectSoundBuffer not implemented
 				
 				if( g_pOGG == NULL )
 #ifdef _MT
@@ -22286,7 +22352,7 @@ MTopView::ExcuteOustersFinEvent()
 					fclose(g_oggfile );
 				g_oggfile = fopen("data\\music\\chaos.ogg","rb");
 				g_pOGG->streamLoad(g_oggfile, NULL);
-				g_pOGG->streamPlay(SOUND_PLAY_REPEAT);
+				g_pOGG->streamPlay(0);
 				int volume = (g_pUserOption->VolumeMusic - 15) * 250;
 				g_pOGG->streamVolume( max( -10000, min( -1, volume ) ) );
 			}
@@ -22377,7 +22443,7 @@ MTopView::ExcuteOustersFinEvent()
 					
 					MCreatureWear*	pCreatureWear = (MCreatureWear*)pCreature;
 					
-					// CreatureÀÇ Action¿¡ ¸Â´Â add-onÀ» Ãâ·ÂÇÑ´Ù.
+					// CreatureÃ€Ã‡ ActionÂ¿Â¡ Â¸Ã‚Â´Ã‚ add-onÃ€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã‘Â´Ã™.
 					//action = pCreature->GetAction();
 					
 					WORD clothes;
@@ -22385,11 +22451,11 @@ MTopView::ExcuteOustersFinEvent()
 
 					for (int i=0; i<ADDON_MAX; i++)
 					{
-						// CreatureÀÇ ÇöÀç ¹æÇâ¿¡ µû¶ó¼­...
-						// ¿ÊÀ» Ãâ·ÂÇØÁÖ´Â ¼ø¼­°¡ ´Ù¸¦ ¼ö ÀÖ´Ù.
+						// CreatureÃ€Ã‡ Ã‡Ã¶Ã€Ã§ Â¹Ã¦Ã‡Ã¢Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­...
+						// Â¿ÃŠÃ€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã˜ÃÃ–Â´Ã‚ Â¼Ã¸Â¼Â­Â°Â¡ Â´Ã™Â¸Â¦ Â¼Ã¶ Ã€Ã–Â´Ã™.
 						clothesType = MCreatureWear::s_AddonOrder[direction][i];
 						
-						// i¹øÂ° Á¾·ùÀÇ ¿ÊÀ» ÀÔ°í ÀÖ´Ù¸é Ãâ·ÂÇØ ÁØ´Ù.
+						// iÂ¹Ã¸Ã‚Â° ÃÂ¾Â·Ã¹Ã€Ã‡ Â¿ÃŠÃ€Â» Ã€Ã”Â°Ã­ Ã€Ã–Â´Ã™Â¸Ã© ÃƒÃ¢Â·Ã‚Ã‡Ã˜ ÃÃ˜Â´Ã™.
 						const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(clothesType);
 						
 						if (addonInfo.bAddon)
@@ -22398,7 +22464,7 @@ MTopView::ExcuteOustersFinEvent()
 							
 							FRAME_ARRAY &FA = m_AddonFPK[clothes][action][direction];
 							
-							// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+							// Ã€Ã–Â´Ã‚ ÂµÂ¿Ã€Ã›Ã€Ã Â°Ã¦Â¿Ã¬
 							if (FA.GetSize() > frame)
 							{
 								CFrame &Frame = FA[frame];					
@@ -22409,7 +22475,7 @@ MTopView::ExcuteOustersFinEvent()
 								
 								CIndexSprite* pSprite = &m_AddonSPK[ sprite ];					
 								
-								// º¹ÀåSprite°¡ ÃÊ±âÈ­ µÇÁö ¾ÊÀº °æ¿ì
+								// ÂºÂ¹Ã€Ã¥SpriteÂ°Â¡ ÃƒÃŠÂ±Ã¢ÃˆÂ­ ÂµÃ‡ÃÃ¶ Â¾ÃŠÃ€Âº Â°Ã¦Â¿Ã¬
 //									if (pSprite->IsNotInit())
 //									{
 //										LoadFromFileAddonSPK( clothes, action );
@@ -22418,7 +22484,7 @@ MTopView::ExcuteOustersFinEvent()
 								
 								POINT pointTemp;
 								
-								// ÁÂÇ¥ º¸Á¤
+								// ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 								pointTemp.x = 384+cx;
 								pointTemp.y = 312+cy;
 								
@@ -22426,7 +22492,7 @@ MTopView::ExcuteOustersFinEvent()
 									int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
 									if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
 									{
-										// À¯´ÏÅ© ¾ÆÀÌÅÛÀÌ¸é
+										// Ã€Â¯Â´ÃÃ…Â© Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒÂ¸Ã©
 										//									if(colorSet2 == QUEST_ITEM_COLOR)
 										//										colorSet2 = MItem::GetQuestItemColorset();
 										//									else
@@ -22439,7 +22505,7 @@ MTopView::ExcuteOustersFinEvent()
 									
 									CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
 									
-									// ¾îµÓ°Ô Âï±â
+									// Â¾Ã®ÂµÃ“Â°Ã” Ã‚Ã¯Â±Ã¢
 									if (pCreature->IsFade())
 									{
 										m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);
@@ -22450,7 +22516,7 @@ MTopView::ExcuteOustersFinEvent()
 									}
 								}						
 								
-								// Á¤»óÀûÀÎ Ãâ·Â
+								// ÃÂ¤Â»Ã³Ã€Ã»Ã€Ã ÃƒÃ¢Â·Ã‚
 								//CIndexSprite::SetUsingColorSet( addonInfo.ColorSet1, addonInfo.ColorSet2 );
 								//m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 								
@@ -22579,7 +22645,7 @@ MTopView::ExcuteOustersFinEvent()
 
 						POINT pointTemp;
 						
-						// ÁÂÇ¥ º¸Á¤
+						// ÃÃ‚Ã‡Â¥ ÂºÂ¸ÃÂ¤
 						pointTemp.x = 384+cx;
 						pointTemp.y = 312+cy;
 

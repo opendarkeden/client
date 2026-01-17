@@ -10,94 +10,94 @@
 //---------------------------------------------------------------------------
 enum HELP_EVENT
 {
-//	HE_TIME_PASSED,					// ½Ã°£ÀÌ Áö³¯ ¶§ -_-;
-//	HE_CREATURE_APPEAR_MONSTER,		// ¸÷ÀÌ ³ªÅ¸³¯¶§
-//	HE_CREATURE_APPEAR_NPC,			// NPC ³ªÅ¸³¯¶§
-//	HE_CREATURE_APPEAR_VAMPIRE,		// Vampire ³ªÅ¸³¯¶§
-//	HE_CREATURE_APPEAR_SLAYER,		// Slayer°¡ ³ªÅ¸³¯¶§	
-//	HE_SKILL_CAN_LEARN_SWORD,		// °Ë SkillÀ» ¹è¿ï ¼ö ÀÖÀ» ¶§
-//	HE_SKILL_CAN_LEARN_BLADE,		// µµ SkillÀ» ¹è¿ï ¼ö ÀÖÀ» ¶§
-//	HE_SKILL_CAN_LEARN_GUN,		// ÃÑ SkillÀ» ¹è¿ï ¼ö ÀÖÀ» ¶§
-//	HE_SKILL_CAN_LEARN_HEAL,		// Èú SkillÀ» ¹è¿ï ¼ö ÀÖÀ» ¶§
-//	HE_SKILL_CAN_LEARN_ENCHANT,		// ÀÎÃ¦Æ® SkillÀ» ¹è¿ï ¼ö ÀÖÀ» ¶§
-//	HE_SKILL_CAN_LEARN_VAMPIRE,		// ¹ìÆÄÀÌ¾î SKillÀ» ¹è¿ï ¼ö ÀÖÀ» ¶§
-//	HE_SKILL_LEARNED,				// SkillÀ» ¹è¿üÀ» ¶§
-//	HE_SKILL_ICON_CHANGE,			// ±â¼ú ¾ÆÀÌÄÜ ¹Ù²ð ¶§	
-//	HE_EFFECT_BLOOD_DRAIN,			// ÈíÇ÷ ´çÇßÀ» ¶§
-//	HE_EFFECT_GREEN_POISON,			// Green Poison°É·ÈÀ» ¶§
-//	HE_EFFECT_YELLOW_POISON,		// Yellow Poison°É·ÈÀ» ¶§
-//	HE_EFFECT_PURPLE_WALL,			// Purple Wall°É·ÈÀ» ¶§
-//	HE_EFFECT_BLESS,				// Bless°É·ÈÀ» ¶§
-//	HE_EFFECT_STRIKING,				// Striking°É·ÈÀ» ¶§
-//	HE_EFFECT_BURROW,				// BurrowÇÏ°í ³ª¼­
-//	HE_STATUS_HP_LOW,				// HP°¡ ³·À» ¶§
-//	HE_STATUS_MP_LOW,				// MP°¡ ³·À» ¶§
-//	HE_STATUS_BONUS_POINT,			// º¸³Ê½º point»ý°åÀ»¶§		
-//	HE_TRADE_REQUESTED,				// ±³È¯½ÅÃ» ¹ÞÀ» ¶§
-//	HE_TRADE_REQUEST,				// ±³È¯½ÅÃ» ÇÏ°í ³ª¼­
-//	HE_TRADE_ITEM_ADD,				// ±³È¯Áß¿¡ ¾ÆÀÌÅÛ Ãß°¡
-//	HE_TRADE_ITEM_REMOVE,			// ±³È¯Áß¿¡ ¾ÆÀÌÅÛ Á¦°Å	
-//	HE_CHAT_WHISPERED,				// ±Ó¼Ó¸» ¿ÔÀ» ¶§
-//	HE_CHAT_WHISPER,				// ±Ó¼Ó¸» ÇÒ ¶§
-//	HE_CHAT_SHOUTED,				// ¿ÜÄ¡±â ¿ÔÀ» ¶§
-//	HE_CHAT_SHOUT,					// ¿ÜÄ¡±â ÇÒ ¶§
-//	HE_CHAT_REJECT,					// ´ëÈ­°ÅºÎ
-//	HE_CHAT_REJECT_USER,			// ´ëÈ­°ÅºÎ ÇÑ ¸í
-//	HE_ITEM_APPEAR,					// ±ÙÃ³¿¡ ¾ÆÀÌÅÛÀÌ ³ªÅ¸³µÀ»¶§,
-//	HE_ITEM_PICKUP,					// ¾ÆÀÌÅÛÀ» ÁÖ¿üÀ» ¶§	
-//	HE_ITEM_USE_BELT_ITEM,			// º§Æ® ¾ÆÀÌÅÛ »ç¿ëÇÒ ¶§
-//	HE_ITEM_USE_MAGAZINE,			// ÅºÃ¢ »ç¿ëÇÒ ¶§		
-//	HE_ITEM_APPEAR_HOLY_WATER,		// ¼º¼ö »ý°åÀ» ¶§		
-//	HE_ITEM_EMPTY_BULLET,			// ÃÑ¾Ë ´Ù ½èÀ» ¶§
-//	HE_ITEM_DIFFERENT_BULLET_TYPE,	// ´Ù¸¥ ÃÑ¾ËÀ» ½èÀ» ¶§
-//	HE_ITEM_DURABILITY_LOW,			// ¾ÆÀÌÅÛ ³»±¸µµ°¡ ³·À» ¶§
-//	HE_ITEM_BROKEN,					// ¾ÆÀÌÅÛÀÌ ºÎ¼­Áú ¶§
-//	HE_ITEM_BUY_MOTORCYCLE,			// ¿ÀÅä¹ÙÀÌ »ç°í ³ª¼­
-//	HE_ITEM_RIDE_MOTORCYCLE,		// ¿ÀÅä¹ÙÀÌ Å» ¶§	
-//	HE_ITEM_WEAR_BELT,				// º§Æ® Âø¿ëÇÒ ¶§
-//	HE_ITEM_WEAR_GUN,				// ÃÑ Âø¿ëÇÒ ¶§
-//	HE_ITEM_WEAR_SWORD,				// °Ë Âø¿ëÇÒ ¶§
-//	HE_ITEM_WEAR_BLADE,				// µµ Âø¿ëÇÒ ¶§
-//	HE_ITEM_WEAR_CROSS,				// ½ÊÀÚ°¡ Âø¿ëÇÒ ¶§
-//	HE_ITEM_WEAR_MACE,				// mace Âø¿ëÇÒ ¶§
-//	HE_ITEM_PICKUP_MONEY,			// µ· ÁÖ¿üÀ» ¶§
-//	HE_ITEM_DROP_MONEY,				// µ· ¹ö·ÈÀ» ¶§
-//	HE_ITEM_APPEAR_CORPSE,			// ½ÃÃ¼°¡ »ý°åÀ» ¶§	
-//	HE_PRESSED_ALT,					// ALT´©¸¦¶§
-//	HE_PRESSED_FUNCTION_KEY_FOR_QUICKITEM,	// ´ÜÃàÅ°·Î quickitem¾µ¶§	
+//	HE_TIME_PASSED,					// ì‹œê°„ì´ ì§€ë‚  ë•Œ -_-;
+//	HE_CREATURE_APPEAR_MONSTER,		// ëª¹ì´ ë‚˜íƒ€ë‚ ë•Œ
+//	HE_CREATURE_APPEAR_NPC,			// NPC ë‚˜íƒ€ë‚ ë•Œ
+//	HE_CREATURE_APPEAR_VAMPIRE,		// Vampire ë‚˜íƒ€ë‚ ë•Œ
+//	HE_CREATURE_APPEAR_SLAYER,		// Slayerê°€ ë‚˜íƒ€ë‚ ë•Œ	
+//	HE_SKILL_CAN_LEARN_SWORD,		// ê²€ Skillì„ ë°°ìš¸ ìˆ˜ ìžˆì„ ë•Œ
+//	HE_SKILL_CAN_LEARN_BLADE,		// ë„ Skillì„ ë°°ìš¸ ìˆ˜ ìžˆì„ ë•Œ
+//	HE_SKILL_CAN_LEARN_GUN,		// ì´ Skillì„ ë°°ìš¸ ìˆ˜ ìžˆì„ ë•Œ
+//	HE_SKILL_CAN_LEARN_HEAL,		// íž Skillì„ ë°°ìš¸ ìˆ˜ ìžˆì„ ë•Œ
+//	HE_SKILL_CAN_LEARN_ENCHANT,		// ì¸ì±ˆíŠ¸ Skillì„ ë°°ìš¸ ìˆ˜ ìžˆì„ ë•Œ
+//	HE_SKILL_CAN_LEARN_VAMPIRE,		// ë±€íŒŒì´ì–´ SKillì„ ë°°ìš¸ ìˆ˜ ìžˆì„ ë•Œ
+//	HE_SKILL_LEARNED,				// Skillì„ ë°°ì› ì„ ë•Œ
+//	HE_SKILL_ICON_CHANGE,			// ê¸°ìˆ  ì•„ì´ì½˜ ë°”ë€” ë•Œ	
+//	HE_EFFECT_BLOOD_DRAIN,			// í¡í˜ˆ ë‹¹í–ˆì„ ë•Œ
+//	HE_EFFECT_GREEN_POISON,			// Green Poisonê±¸ë ¸ì„ ë•Œ
+//	HE_EFFECT_YELLOW_POISON,		// Yellow Poisonê±¸ë ¸ì„ ë•Œ
+//	HE_EFFECT_PURPLE_WALL,			// Purple Wallê±¸ë ¸ì„ ë•Œ
+//	HE_EFFECT_BLESS,				// Blessê±¸ë ¸ì„ ë•Œ
+//	HE_EFFECT_STRIKING,				// Strikingê±¸ë ¸ì„ ë•Œ
+//	HE_EFFECT_BURROW,				// Burrowí•˜ê³  ë‚˜ì„œ
+//	HE_STATUS_HP_LOW,				// HPê°€ ë‚®ì„ ë•Œ
+//	HE_STATUS_MP_LOW,				// MPê°€ ë‚®ì„ ë•Œ
+//	HE_STATUS_BONUS_POINT,			// ë³´ë„ˆìŠ¤ pointìƒê²¼ì„ë•Œ		
+//	HE_TRADE_REQUESTED,				// êµí™˜ì‹ ì²­ ë°›ì„ ë•Œ
+//	HE_TRADE_REQUEST,				// êµí™˜ì‹ ì²­ í•˜ê³  ë‚˜ì„œ
+//	HE_TRADE_ITEM_ADD,				// êµí™˜ì¤‘ì— ì•„ì´í…œ ì¶”ê°€
+//	HE_TRADE_ITEM_REMOVE,			// êµí™˜ì¤‘ì— ì•„ì´í…œ ì œê±°	
+//	HE_CHAT_WHISPERED,				// ê·“ì†ë§ ì™”ì„ ë•Œ
+//	HE_CHAT_WHISPER,				// ê·“ì†ë§ í•  ë•Œ
+//	HE_CHAT_SHOUTED,				// ì™¸ì¹˜ê¸° ì™”ì„ ë•Œ
+//	HE_CHAT_SHOUT,					// ì™¸ì¹˜ê¸° í•  ë•Œ
+//	HE_CHAT_REJECT,					// ëŒ€í™”ê±°ë¶€
+//	HE_CHAT_REJECT_USER,			// ëŒ€í™”ê±°ë¶€ í•œ ëª…
+//	HE_ITEM_APPEAR,					// ê·¼ì²˜ì— ì•„ì´í…œì´ ë‚˜íƒ€ë‚¬ì„ë•Œ,
+//	HE_ITEM_PICKUP,					// ì•„ì´í…œì„ ì£¼ì› ì„ ë•Œ	
+//	HE_ITEM_USE_BELT_ITEM,			// ë²¨íŠ¸ ì•„ì´í…œ ì‚¬ìš©í•  ë•Œ
+//	HE_ITEM_USE_MAGAZINE,			// íƒ„ì°½ ì‚¬ìš©í•  ë•Œ		
+//	HE_ITEM_APPEAR_HOLY_WATER,		// ì„±ìˆ˜ ìƒê²¼ì„ ë•Œ		
+//	HE_ITEM_EMPTY_BULLET,			// ì´ì•Œ ë‹¤ ì¼ì„ ë•Œ
+//	HE_ITEM_DIFFERENT_BULLET_TYPE,	// ë‹¤ë¥¸ ì´ì•Œì„ ì¼ì„ ë•Œ
+//	HE_ITEM_DURABILITY_LOW,			// ì•„ì´í…œ ë‚´êµ¬ë„ê°€ ë‚®ì„ ë•Œ
+//	HE_ITEM_BROKEN,					// ì•„ì´í…œì´ ë¶€ì„œì§ˆ ë•Œ
+//	HE_ITEM_BUY_MOTORCYCLE,			// ì˜¤í† ë°”ì´ ì‚¬ê³  ë‚˜ì„œ
+//	HE_ITEM_RIDE_MOTORCYCLE,		// ì˜¤í† ë°”ì´ íƒˆ ë•Œ	
+//	HE_ITEM_WEAR_BELT,				// ë²¨íŠ¸ ì°©ìš©í•  ë•Œ
+//	HE_ITEM_WEAR_GUN,				// ì´ ì°©ìš©í•  ë•Œ
+//	HE_ITEM_WEAR_SWORD,				// ê²€ ì°©ìš©í•  ë•Œ
+//	HE_ITEM_WEAR_BLADE,				// ë„ ì°©ìš©í•  ë•Œ
+//	HE_ITEM_WEAR_CROSS,				// ì‹­ìžê°€ ì°©ìš©í•  ë•Œ
+//	HE_ITEM_WEAR_MACE,				// mace ì°©ìš©í•  ë•Œ
+//	HE_ITEM_PICKUP_MONEY,			// ëˆ ì£¼ì› ì„ ë•Œ
+//	HE_ITEM_DROP_MONEY,				// ëˆ ë²„ë ¸ì„ ë•Œ
+//	HE_ITEM_APPEAR_CORPSE,			// ì‹œì²´ê°€ ìƒê²¼ì„ ë•Œ	
+//	HE_PRESSED_ALT,					// ALTëˆ„ë¥¼ë•Œ
+//	HE_PRESSED_FUNCTION_KEY_FOR_QUICKITEM,	// ë‹¨ì¶•í‚¤ë¡œ quickitemì“¸ë•Œ	
 
 	// 2004, 4, 7 sobeit add
-	HELP_EVENT_CHAT,				// ±Û¾´ÈÄ Ã³À½ ¿£ÅÍ ´­·¶À» ¶§
-	HELP_EVENT_INTERFACE,			// ÀÎÅÍÆäÀÌ½º ±âº» ¼³¸í
-	HELP_EVENT_USE_POTION,			// »ý¸í·ÂÀÌ 30% ÀÌÇÏÀÏ ¶§
-	HELP_EVENT_GET_ITEM,			// Ã³À½ ¾ÆÀÌÅÛÀ» È¹µæ ÇßÀ» ¶§
-	HELP_EVENT_USE_SHOP,			// »óÁ¡ npc¸¦ Å¬¸¯ ÇßÀ» ¶§
-	HELP_EVENT_GET_BELT,			// º§Æ® ¾ÆÀÌÅÛ ½Àµæ½Ã
-	HELP_EVENT_ITEM_REPAIR,			// ¾ÆÀÌÅÛ ¼ö¸® ÀÌ¹ÌÁö°¡ ¶ã ¶§
+	HELP_EVENT_CHAT,				// ê¸€ì“´í›„ ì²˜ìŒ ì—”í„° ëˆŒë €ì„ ë•Œ
+	HELP_EVENT_INTERFACE,			// ì¸í„°íŽ˜ì´ìŠ¤ ê¸°ë³¸ ì„¤ëª…
+	HELP_EVENT_USE_POTION,			// ìƒëª…ë ¥ì´ 30% ì´í•˜ì¼ ë•Œ
+	HELP_EVENT_GET_ITEM,			// ì²˜ìŒ ì•„ì´í…œì„ íšë“ í–ˆì„ ë•Œ
+	HELP_EVENT_USE_SHOP,			// ìƒì  npcë¥¼ í´ë¦­ í–ˆì„ ë•Œ
+	HELP_EVENT_GET_BELT,			// ë²¨íŠ¸ ì•„ì´í…œ ìŠµë“ì‹œ
+	HELP_EVENT_ITEM_REPAIR,			// ì•„ì´í…œ ìˆ˜ë¦¬ ì´ë¯¸ì§€ê°€ ëœ° ë•Œ
 	// 2004, 4, 7 sobeit end
 
 	// 2004, 5, 3 sobeit add start
-	HELP_EVENT_EQUIP_ITEM,			// ÀÎº¥Åä¸® Ã³À½ ¿ÀÇÂ ÇÒ ¶§(Âø¿ë µµ¿ò¸»)
-	HELP_EVENT_STORAGE_BUY,			// ÀÎº¥¿¡ ÀÚ¸®°¡ ¸ðÀÚ¶ö ¶§ È¤Àº µ·ÀÌ 10¸¸ÀÌ ³Ñ¾úÀ» ¶§(º¸°üÇÔ ±¸ÀÔ µµ¿ò¸»)
-	HELP_EVENT_FAME,				// Ã³À½ ¼ºÇâÀÌ ¶³¾î Á³À» ¶§
-	HELP_EVENT_PARTY,				// Ã³À½ ÆÄÆ¼¸¦ ¸Î¾úÀ» ¶§
-	HELP_EVENT_DIE,					// Ã³À½ Á×¾úÀ» ¶§
-	HELP_EVENT_KILL,				// Ã³À½ Á×¿´À» ¶§(ÈíÇ÷ µµ¿ò¸»)
-	HELP_EVENT_ABSORB_SOUL,			// ½ºÅ³ ½ÃÀü½Ã ¿ä±¸ EP ºÎÁ· ½Ã(Èí¿µ µµ¿ò¸»)
-	HELP_EVENT_DRAIN_BLOOD,			// ½½·¹ÀÌ¾î°¡ ÈíÇ÷ ´çÇßÀ» ¶§
-	HELP_EVENT_BEGINNER_ZONE,		// ÃÊº¸Á¸ »ç³ÉÅÍ- ÀÎº¥Åä¸® µµ¿ò¸» ´Ý¾ÒÀ» ¶§
-	HELP_EVENT_LEARN_SKILL,			// Ã³À½ ½ºÅ³ ¹è¿ï¼ö ÀÖÀ» ¶§ - ·¹º§ÀÌ 5°¡ µÇ¾úÀ» ¶§
+	HELP_EVENT_EQUIP_ITEM,			// ì¸ë²¤í† ë¦¬ ì²˜ìŒ ì˜¤í”ˆ í•  ë•Œ(ì°©ìš© ë„ì›€ë§)
+	HELP_EVENT_STORAGE_BUY,			// ì¸ë²¤ì— ìžë¦¬ê°€ ëª¨ìžëž„ ë•Œ í˜¹ì€ ëˆì´ 10ë§Œì´ ë„˜ì—ˆì„ ë•Œ(ë³´ê´€í•¨ êµ¬ìž… ë„ì›€ë§)
+	HELP_EVENT_FAME,				// ì²˜ìŒ ì„±í–¥ì´ ë–¨ì–´ ì¡Œì„ ë•Œ
+	HELP_EVENT_PARTY,				// ì²˜ìŒ íŒŒí‹°ë¥¼ ë§ºì—ˆì„ ë•Œ
+	HELP_EVENT_DIE,					// ì²˜ìŒ ì£½ì—ˆì„ ë•Œ
+	HELP_EVENT_KILL,				// ì²˜ìŒ ì£½ì˜€ì„ ë•Œ(í¡í˜ˆ ë„ì›€ë§)
+	HELP_EVENT_ABSORB_SOUL,			// ìŠ¤í‚¬ ì‹œì „ì‹œ ìš”êµ¬ EP ë¶€ì¡± ì‹œ(í¡ì˜ ë„ì›€ë§)
+	HELP_EVENT_DRAIN_BLOOD,			// ìŠ¬ë ˆì´ì–´ê°€ í¡í˜ˆ ë‹¹í–ˆì„ ë•Œ
+	HELP_EVENT_BEGINNER_ZONE,		// ì´ˆë³´ì¡´ ì‚¬ëƒ¥í„°- ì¸ë²¤í† ë¦¬ ë„ì›€ë§ ë‹«ì•˜ì„ ë•Œ
+	HELP_EVENT_LEARN_SKILL,			// ì²˜ìŒ ìŠ¤í‚¬ ë°°ìš¸ìˆ˜ ìžˆì„ ë•Œ - ë ˆë²¨ì´ 5ê°€ ë˜ì—ˆì„ ë•Œ
 	// 2004, 5, 3 sobeit add end
 
 	// 2004, 6, 8 sobeit add start
-	HELP_EVENT_LEVEL_30,			// ·¹º§ÀÌ30ÀÌ µÇ¾úÀ»¶§ - Á¾Á· Æ¯¼º
-	HELP_EVENT_LEVEL_31,			// ·¹º§ÀÌ31ÀÌ µÇ¾úÀ»¶§ - Á¾Á· ½Ã½ºÅÛ
-	HELP_EVENT_LEVEL_32,			// ·¹º§ÀÌ32ÀÌ µÇ¾úÀ»¶§ - Æê ½Ã½ºÅÛ
+	HELP_EVENT_LEVEL_30,			// ë ˆë²¨ì´30ì´ ë˜ì—ˆì„ë•Œ - ì¢…ì¡± íŠ¹ì„±
+	HELP_EVENT_LEVEL_31,			// ë ˆë²¨ì´31ì´ ë˜ì—ˆì„ë•Œ - ì¢…ì¡± ì‹œìŠ¤í…œ
+	HELP_EVENT_LEVEL_32,			// ë ˆë²¨ì´32ì´ ë˜ì—ˆì„ë•Œ - íŽ« ì‹œìŠ¤í…œ
 	// 2004, 6, 8 sobeit add end
 
 	// 2004, 9, 14, sobeit add start
-	HELP_EVENT_CAMPAIGN,			// Ä·ÆäÀÎ - ·Î±×ÀÎ ÇÏÀÚ¸¶ÀÚ
-	HELP_EVENT_EVENT,				// ÀÌº¥Æ® - ·Î±×ÀÎ ÇÏÀÚ¸¶ÀÚ
+	HELP_EVENT_CAMPAIGN,			// ìº íŽ˜ì¸ - ë¡œê·¸ì¸ í•˜ìžë§ˆìž
+	HELP_EVENT_EVENT,				// ì´ë²¤íŠ¸ - ë¡œê·¸ì¸ í•˜ìžë§ˆìž
 	// 2004, 9, 14, sobeit add end
 	MAX_HELP_EVENT,
 

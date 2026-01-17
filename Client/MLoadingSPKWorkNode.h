@@ -1,22 +1,22 @@
 //----------------------------------------------------------------------
 // MLoadingSPKWorkNode.h
 //----------------------------------------------------------------------
-// class ÀÌ¸§ ºÙÀÌ±â°¡ °ñÄ¡°¡ ¾ÆÆÄ¼­ ¼ıÀÚ ºÙ¿´À½. - -;;
+// class ì´ë¦„ ë¶™ì´ê¸°ê°€ ê³¨ì¹˜ê°€ ì•„íŒŒì„œ ìˆ«ì ë¶™ì˜€ìŒ. - -;;
 //
-// ¾ÏÆ°.. SPK¸¦ LoadingÇÏ´Âµ¥.. ±× ¹æ¹ı¿¡ µû¶ó¼­ ¸î°³ÀÇ Node·Î ³ª´¸
+// ì•”íŠ¼.. SPKë¥¼ Loadingí•˜ëŠ”ë°.. ê·¸ ë°©ë²•ì— ë”°ë¼ì„œ ëª‡ê°œì˜ Nodeë¡œ ë‚˜ë‰¨
 //
-// [Remain]ÀÇ ÀÇ¹Ì´Â Node°¡ ½ÇÇàÁß¿¡ Áß´ÜµÇ¾úÀ» °æ¿ì
-// ³²Àº ÀÛ¾÷À» ´Ù½Ã ÇÏ³ªÀÇ Node·Î ¸¸µé¾î¾ß µÇ´Âµ¥..
-// ±× ¶§ »ı¼ºÇÒ NodeÀÇ Á¾·ùÀÌ´Ù.
+// [Remain]ì˜ ì˜ë¯¸ëŠ” Nodeê°€ ì‹¤í–‰ì¤‘ì— ì¤‘ë‹¨ë˜ì—ˆì„ ê²½ìš°
+// ë‚¨ì€ ì‘ì—…ì„ ë‹¤ì‹œ í•˜ë‚˜ì˜ Nodeë¡œ ë§Œë“¤ì–´ì•¼ ë˜ëŠ”ë°..
+// ê·¸ ë•Œ ìƒì„±í•  Nodeì˜ ì¢…ë¥˜ì´ë‹¤.
 /*
 
-  [ °øÅë ]
+  [ ê³µí†µ ]
   		CSpritePack*	SPK
 		char			SPKFilename
 
 
   [Node 1]
-		= FilePosition¿¡¼­ SFPArray¸¦ ÀĞ¾î¼­ SPK¿¡ loadÇÑ´Ù.
+		= FilePositionì—ì„œ SFPArrayë¥¼ ì½ì–´ì„œ SPKì— loadí•œë‹¤.
 		
 		char			SFPFilename
 		long			FilePosition
@@ -25,7 +25,7 @@
 
 
   [Node 2]
-		= SFPArray¸¦ ÀÌ¿ëÇØ¼­ SPK¿¡´Ù loadÇÑ´Ù.
+		= SFPArrayë¥¼ ì´ìš©í•´ì„œ SPKì—ë‹¤ loadí•œë‹¤.
 
 		SFPArray*		SFPA
 
@@ -33,7 +33,7 @@
 		
 
   [Node 3]
-		= FilePosition¿¡¼­ ÇÏ³ªÀÇ Sprite¸¦ ÀĞ¾î¼­ SPKÀÇ ID¹øÂ°¿¡ ÀúÀåÇÑ´Ù.
+		= FilePositionì—ì„œ í•˜ë‚˜ì˜ Spriteë¥¼ ì½ì–´ì„œ SPKì˜ IDë²ˆì§¸ì— ì €ì¥í•œë‹¤.
 
 		TYPE_SPRITEID	SpriteID
 		long			FilePosition
@@ -41,7 +41,7 @@
 		[Remain] --> NULL
 
   [Node 4]
-		= FilePosition¿¡¼­ SPKÀÇ FirstID ~ LastID±îÁö¸¦ ÀĞ¾îµéÀÎ´Ù.
+		= FilePositionì—ì„œ SPKì˜ FirstID ~ LastIDê¹Œì§€ë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
 
 		TYPE_SPRITEID	FirstSpriteID
 		TYPE_SPRITEID	LastSpriteID
@@ -67,7 +67,7 @@
 //----------------------------------------------------------------------
 // MLoadingSPKWorkNode
 //----------------------------------------------------------------------
-// SPKFile¿¡¼­ ¾î¶»°Ô~ÇØ¼­ SPK¸¦ loadingÇÑ´Ù.
+// SPKFileì—ì„œ ì–´ë–»ê²Œ~í•´ì„œ SPKë¥¼ loadingí•œë‹¤.
 //----------------------------------------------------------------------
 class MLoadingSPKWorkNode : public MWorkNode {
 	public :
@@ -75,7 +75,7 @@ class MLoadingSPKWorkNode : public MWorkNode {
 		~MLoadingSPKWorkNode() {}
 
 		//---------------------------------------------------
-		// pSPK¿¡ SPKFilenameÀÇ ¹º°¡¸¦(?) LoadingÇÏ´Â °ÍÀÌ´Ù.
+		// pSPKì— SPKFilenameì˜ ë­”ê°€ë¥¼(?) Loadingí•˜ëŠ” ê²ƒì´ë‹¤.
 		//---------------------------------------------------
 		void			SetSPK(CSpritePack* pSPK, const char* filename)
 		{
@@ -106,7 +106,7 @@ class MLoadingSPKWorkNode1 : public MLoadingSPKWorkNode {
 //----------------------------------------------------------------------
 // Node 2
 //----------------------------------------------------------------------
-// m_pSFPA´Â ³»ºÎ¿¡¼­ deleteÇÑ´Ù.
+// m_pSFPAëŠ” ë‚´ë¶€ì—ì„œ deleteí•œë‹¤.
 //----------------------------------------------------------------------
 class MLoadingSPKWorkNode2 : public MLoadingSPKWorkNode {
 	public :

@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MItem.h
 //----------------------------------------------------------------------
-// ¾ÆÀÌÅÛ..
+// ì•„ì´í…œ..
 //----------------------------------------------------------------------
 /*
 
@@ -77,24 +77,24 @@ class MCreature;
 class MItem : public MObject, public CAnimationFrame {
 	public :
 		//----------------------------------------------------------------------
-		// ItemÀÌ ÀåÂøµÇ´Â À§Ä¡
+		// Itemì´ ì¥ì°©ë˜ëŠ” ìœ„ì¹˜
 		//----------------------------------------------------------------------
 		enum ITEM_GEAR_SLOT
 		{	
-			SLOT_HELM = 0,			// ¸ğÀÚ
-			SLOT_NECKLACE,			// ¸ñ°ÉÀÌ
-			SLOT_COAT,				// »óÀÇ
-			SLOT_LEFTHAND,			// ¿Ş¼Õ
-			SLOT_RIGHTHAND,			// ¿À¸¥¼Õ
-			SLOT_TWOHAND,			// ¾ç¼Õ
-			SLOT_BELT,				// Çõ´ë
-			SLOT_BRACELET,			// ÆÈÂî
-			SLOT_TROUSER,			// ÇÏÀÇ
-			SLOT_RING,				// ¹İÁö
-			SLOT_SHOES,				// ½Å¹ß
-			SLOT_GLOVE,				// Àå°©
+			SLOT_HELM = 0,			// ëª¨ì
+			SLOT_NECKLACE,			// ëª©ê±¸ì´
+			SLOT_COAT,				// ìƒì˜
+			SLOT_LEFTHAND,			// ì™¼ì†
+			SLOT_RIGHTHAND,			// ì˜¤ë¥¸ì†
+			SLOT_TWOHAND,			// ì–‘ì†
+			SLOT_BELT,				// í˜ëŒ€
+			SLOT_BRACELET,			// íŒ”ì°Œ
+			SLOT_TROUSER,			// í•˜ì˜
+			SLOT_RING,				// ë°˜ì§€
+			SLOT_SHOES,				// ì‹ ë°œ
+			SLOT_GLOVE,				// ì¥ê°‘
 			SLOT_PDA,				// PDA
-			SLOT_SHOULDER,			// ¾î±ú
+			SLOT_SHOULDER,			// ì–´ê¹¨
 
 			// vampire 
 			SLOT_VAMPIRE_RING,
@@ -104,32 +104,32 @@ class MItem : public MObject, public CAnimationFrame {
 			SLOT_VAMPIRE_EARRING,
 			SLOT_VAMPIRE_LEFTHAND,
 			SLOT_VAMPIRE_RIGHTHAND,
-			SLOT_VAMPIRE_TWOHAND,			// ¾ç¼Õ
+			SLOT_VAMPIRE_TWOHAND,			// ì–‘ì†
 			SLOT_VAMPIRE_AMULET,
-			SLOT_VAMPIRE_DERMIS,			// ¹®½Å
-			SLOT_VAMPIRE_PERSONA,			// °¡¸é
+			SLOT_VAMPIRE_DERMIS,			// ë¬¸ì‹ 
+			SLOT_VAMPIRE_PERSONA,			// ê°€ë©´
 
 			// ousters
-			SLOT_OUSTERS_CIRCLET,			// ¼­Å¬¸´
-			SLOT_OUSTERS_COAT,				// ¿Ê
-			SLOT_OUSTERS_LEFTHAND,			// ¿Ş¼Õ
-			SLOT_OUSTERS_RIGHTHAND,			// ¿À¸¥¼Õ
-			SLOT_OUSTERS_TWOHAND,			// ¾ç¼Õ
-			SLOT_OUSTERS_BOOTS,				// ½Å¹ß
-			SLOT_OUSTERS_ARMSBAND,			// ¾Ï½º¹êµå
-			SLOT_OUSTERS_RING,				// ¸µ
-			SLOT_OUSTERS_PENDENT,			// ¸ñ°ÉÀÌ
-			SLOT_OUSTERS_STONE,			// Á¤·É¼®
-			SLOT_OUSTERS_FASCIA,			// Çã¸®Àå½Ä
-			SLOT_OUSTERS_MITTEN,			// Àå°©
+			SLOT_OUSTERS_CIRCLET,			// ì„œí´ë¦¿
+			SLOT_OUSTERS_COAT,				// ì˜·
+			SLOT_OUSTERS_LEFTHAND,			// ì™¼ì†
+			SLOT_OUSTERS_RIGHTHAND,			// ì˜¤ë¥¸ì†
+			SLOT_OUSTERS_TWOHAND,			// ì–‘ì†
+			SLOT_OUSTERS_BOOTS,				// ì‹ ë°œ
+			SLOT_OUSTERS_ARMSBAND,			// ì•”ìŠ¤ë°´ë“œ
+			SLOT_OUSTERS_RING,				// ë§
+			SLOT_OUSTERS_PENDENT,			// ëª©ê±¸ì´
+			SLOT_OUSTERS_STONE,			// ì •ë ¹ì„
+			SLOT_OUSTERS_FASCIA,			// í—ˆë¦¬ì¥ì‹
+			SLOT_OUSTERS_MITTEN,			// ì¥ê°‘
 
 
-			// °øÅë
-			SLOT_BLOOD_BIBLE,			 // ºí·¯µå ¹ÙÀÌºí
+			// ê³µí†µ
+			SLOT_BLOOD_BIBLE,			 // ë¸”ëŸ¬ë“œ ë°”ì´ë¸”
 
-			MAX_SLOT,				// ÃÖ´ë°ª
+			MAX_SLOT,				// ìµœëŒ€ê°’
 
-			SLOT_NULL				// ¾ø´Â °æ¿ì
+			SLOT_NULL				// ì—†ëŠ” ê²½ìš°
 		};
 
 
@@ -138,7 +138,7 @@ class MItem : public MObject, public CAnimationFrame {
 		virtual ~MItem();
 
 		//-------------------------------------------------------
-		// ItemÀÇ class
+		// Itemì˜ class
 		//-------------------------------------------------------
 		virtual ITEM_CLASS	GetItemClass() const				{ return ITEM_CLASS_NULL; }
 
@@ -186,44 +186,44 @@ class MItem : public MObject, public CAnimationFrame {
 		int					IsOustersItem() const			{ return ((*g_pItemTable)[GetItemClass()][m_ItemType].Race & FLAG_RACE_OUSTERS); }
 
 		//-------------------------------------------------------
-		// ±âº» Item Color
+		// ê¸°ë³¸ Item Color
 		//-------------------------------------------------------
 		void				SetItemColorSet(WORD cs)		{ m_ItemColorSet = cs; }		
 		WORD				GetItemColorSet() const			{ return m_ItemColorSet; }		
 
 		//-------------------------------------------------------
-		// ¼Ó¼º
+		// ì†ì„±
 		//-------------------------------------------------------
-		// Container·Î »ç¿ëÇÒ ¼ö ÀÖ´Â ItemÀÎ°¡?
+		// Containerë¡œ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” Itemì¸ê°€?
 		virtual bool		IsContainerItem() const		{ return false; }		
 
-		// °°Àº Item³¢¸® ½×ÀÌ´Â°¡?
+		// ê°™ì€ Itemë¼ë¦¬ ìŒ“ì´ëŠ”ê°€?
 		virtual bool		IsPileItem() const				{ return false; }
 
-		// ½×ÀÌ´Â°Å¶ûÀº ´Ù¸£´Ù. °³¼ö¸¸ ¹Ù²ï´Ù.
+		// ìŒ“ì´ëŠ”ê±°ë‘ì€ ë‹¤ë¥´ë‹¤. ê°œìˆ˜ë§Œ ë°”ë€ë‹¤.
 		virtual bool		IsChargeItem() const			{ return false; }
 
-		// ÀåÂøÇÒ ¼ö ÀÖ´Â°¡?
+		// ì¥ì°©í•  ìˆ˜ ìˆëŠ”ê°€?
 		virtual bool		IsGearItem() const			{ return false; }
 
-		// Âø¿ëÇØ¼­ ±×¸²ÀÌ ¹Ù²î´Â ItemÀÎ°¡?
+		// ì°©ìš©í•´ì„œ ê·¸ë¦¼ì´ ë°”ë€ŒëŠ” Itemì¸ê°€?
 		virtual bool		IsAddonItem() const			{ return false; }
 
-		// ±âº» °ø°İ ¹«±âÀÎ°¡?
+		// ê¸°ë³¸ ê³µê²© ë¬´ê¸°ì¸ê°€?
 		virtual bool		IsBasicWeapon() const		{ return false; }
 
-		// ÃÑÀÎ°¡?
+		// ì´ì¸ê°€?
 		virtual bool		IsGunItem() const			{ return false; }
 
-		// Inventory¿¡ µé¾î°¥ ¼ö ÀÖ´Â ItemÀÎ°¡?
+		// Inventoryì— ë“¤ì–´ê°ˆ ìˆ˜ ìˆëŠ” Itemì¸ê°€?
 		virtual bool		IsInventoryItem() const		{ return true; }
 		
-		// QuickItem¿¡ µé¾î°¡´Â°¡?
-		// QuickItemÀº ±âº»ÀûÀ¸·Î »ç¿ë°¡´ÉÇÑ°Íµé¸¸ ³Ö±â ¶§¹®¿¡ QuickItemÀÌ¸é ¹«Á¶°Ç »ç¿ë °¡´ÉÇÏ´Ù.
+		// QuickItemì— ë“¤ì–´ê°€ëŠ”ê°€?
+		// QuickItemì€ ê¸°ë³¸ì ìœ¼ë¡œ ì‚¬ìš©ê°€ëŠ¥í•œê²ƒë“¤ë§Œ ë„£ê¸° ë•Œë¬¸ì— QuickItemì´ë©´ ë¬´ì¡°ê±´ ì‚¬ìš© ê°€ëŠ¥í•˜ë‹¤.
 		virtual bool		IsQuickItem() const			{ return false; }
 
-		// »ç¿ë °¡´ÉÇÑ ¾ÆÀÌÅÛÀÎ°¡?
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+		// ì‚¬ìš© ê°€ëŠ¥í•œ ì•„ì´í…œì¸ê°€?
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		virtual void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0)	{}
 	#else
 		virtual void		UseInventory()				{}
@@ -232,29 +232,29 @@ class MItem : public MObject, public CAnimationFrame {
 		virtual void		UseGear()					{}
 
 
-		// ´Ù¸¥ Item¿¡ Ãß°¡µÉ ¼ö ÀÖ´Â°¡?
+		// ë‹¤ë¥¸ Itemì— ì¶”ê°€ë  ìˆ˜ ìˆëŠ”ê°€?
 		virtual bool		IsInsertToItem(const MItem* pItem) const;
 
-		// ÀåÂøÇÒ ¼ö ÀÖ´Â °÷Àº?
+		// ì¥ì°©í•  ìˆ˜ ìˆëŠ” ê³³ì€?
 		virtual ITEM_GEAR_SLOT	GetGearSlot() const				{ return SLOT_NULL; }
 
-		// Æ¯Á¤ ºÎÀ§¿¡ ÀåÂøÇÒ ¼ö ÀÖ´Â°¡?
-		virtual bool		IsGearSlotHelm()	const			{ return false; }	// ¸ğÀÚ
-		virtual bool		IsGearSlotNecklace() const		{ return false; }	// ¸ñ°ÉÀÌ
-		virtual bool		IsGearSlotCoat() const			{ return false; }	// »óÀÇ
-		virtual bool		IsGearSlotLeftHand() const		{ return false; }	// ¿Ş¼Õ
-		virtual bool		IsGearSlotRightHand() const		{ return false; }	// ¿À¸¥¼Õ
-		virtual bool		IsGearSlotTwoHand() const		{ return false; }	// ¾ç¼Õ
-		virtual bool		IsGearSlotBelt() const			{ return false; }	// Çõ´ë
-		virtual bool		IsGearSlotBracelet() const		{ return false; }	// ÆÈÂî
-		virtual bool		IsGearSlotTrouser() const		{ return false; }	// ÇÏÀÇ
-		virtual bool		IsGearSlotRing() const			{ return false; }	// ¹İÁö
-		virtual bool		IsGearSlotShoes() const			{ return false; }	// ½Å¹ß		
-		virtual bool		IsGearSlotGlove() const			{ return false; }	// Àå°©		
-		virtual bool		IsGearSlotCoreZap() const		{ return false; }	// ÄÚ¾îÀì	
-		virtual bool		IsGearSlotBloodBible() const		{ return false; }	// ºí·¯µå ¹ÙÀÌºí
-		virtual bool		IsGearSlotPDA() const			{ return false; }	// PDA ½½·Ô
-		virtual bool		IsGearSlotShoulder() const		{ return false; }	// ¾î±ú ½½·Ô
+		// íŠ¹ì • ë¶€ìœ„ì— ì¥ì°©í•  ìˆ˜ ìˆëŠ”ê°€?
+		virtual bool		IsGearSlotHelm()	const			{ return false; }	// ëª¨ì
+		virtual bool		IsGearSlotNecklace() const		{ return false; }	// ëª©ê±¸ì´
+		virtual bool		IsGearSlotCoat() const			{ return false; }	// ìƒì˜
+		virtual bool		IsGearSlotLeftHand() const		{ return false; }	// ì™¼ì†
+		virtual bool		IsGearSlotRightHand() const		{ return false; }	// ì˜¤ë¥¸ì†
+		virtual bool		IsGearSlotTwoHand() const		{ return false; }	// ì–‘ì†
+		virtual bool		IsGearSlotBelt() const			{ return false; }	// í˜ëŒ€
+		virtual bool		IsGearSlotBracelet() const		{ return false; }	// íŒ”ì°Œ
+		virtual bool		IsGearSlotTrouser() const		{ return false; }	// í•˜ì˜
+		virtual bool		IsGearSlotRing() const			{ return false; }	// ë°˜ì§€
+		virtual bool		IsGearSlotShoes() const			{ return false; }	// ì‹ ë°œ		
+		virtual bool		IsGearSlotGlove() const			{ return false; }	// ì¥ê°‘		
+		virtual bool		IsGearSlotCoreZap() const		{ return false; }	// ì½”ì–´ì½	
+		virtual bool		IsGearSlotBloodBible() const		{ return false; }	// ë¸”ëŸ¬ë“œ ë°”ì´ë¸”
+		virtual bool		IsGearSlotPDA() const			{ return false; }	// PDA ìŠ¬ë¡¯
+		virtual bool		IsGearSlotShoulder() const		{ return false; }	// ì–´ê¹¨ ìŠ¬ë¡¯
 
 		// vampire
 		virtual bool		IsGearSlotVampireEarRing() const	{ return false; }
@@ -264,35 +264,35 @@ class MItem : public MObject, public CAnimationFrame {
 		virtual bool		IsGearSlotVampireCoat() const	{ return false; }
 		virtual bool		IsGearSlotVampireLeftHand() const	{ return false; }
 		virtual bool		IsGearSlotVampireRightHand() const	{ return false; }
-		virtual bool		IsGearSlotVampireTwoHand() const	{ return false; }	// ¾ç¼Õ
+		virtual bool		IsGearSlotVampireTwoHand() const	{ return false; }	// ì–‘ì†
 		virtual bool		IsGearSlotVampireAmulet() const	{ return false; }
-		virtual bool		IsGearSlotVampireCoreZap() const		{ return false; }	// ÄÚ¾îÀì	
-		virtual bool		IsGearSlotVampireBloodBible() const		{ return false; }	// ºí·¯µå ¹ÙÀÌºí
-		virtual bool		IsGearSlotVampireDermis() const		{ return false; }	// ¹®½Å
-		virtual bool		IsGearSlotVampirePersona() const		{ return false; }	// Æä¸£¼Ò³ª
+		virtual bool		IsGearSlotVampireCoreZap() const		{ return false; }	// ì½”ì–´ì½	
+		virtual bool		IsGearSlotVampireBloodBible() const		{ return false; }	// ë¸”ëŸ¬ë“œ ë°”ì´ë¸”
+		virtual bool		IsGearSlotVampireDermis() const		{ return false; }	// ë¬¸ì‹ 
+		virtual bool		IsGearSlotVampirePersona() const		{ return false; }	// í˜ë¥´ì†Œë‚˜
 
 		// ousters
 		virtual bool		IsGearSlotOustersCirclet() const		{ return false; }
 		virtual bool		IsGearSlotOustersCoat() const			{ return false; }
 		virtual bool		IsGearSlotOustersLeftHand() const		{ return false; }
 		virtual bool		IsGearSlotOustersRightHand() const		{ return false; }
-		virtual bool		IsGearSlotOustersTwoHand() const		{ return false; }	// ¾ç¼Õ
+		virtual bool		IsGearSlotOustersTwoHand() const		{ return false; }	// ì–‘ì†
 		virtual bool		IsGearSlotOustersBoots() const			{ return false; }
 		virtual bool		IsGearSlotOustersArmsBand() const		{ return false; }
 		virtual bool		IsGearSlotOustersRing() const			{ return false; }
 		virtual bool		IsGearSlotOustersPendent() const		{ return false; }
 		virtual bool		IsGearSlotOustersStone() const			{ return false; }
-		virtual bool		IsGearSlotOustersCoreZap() const		{ return false; }	// ÄÚ¾îÀì	
-		virtual bool		IsGearSlotOustersBloodBible() const		{ return false; }	// ºí·¯µå ¹ÙÀÌºí
-		virtual bool		IsGearSlotOustersFascia() const		{ return false; }	// Çã¸®Àå½Ä
-		virtual bool		IsGearSlotOustersMitten() const		{ return false; }	// Àå°©
+		virtual bool		IsGearSlotOustersCoreZap() const		{ return false; }	// ì½”ì–´ì½	
+		virtual bool		IsGearSlotOustersBloodBible() const		{ return false; }	// ë¸”ëŸ¬ë“œ ë°”ì´ë¸”
+		virtual bool		IsGearSlotOustersFascia() const		{ return false; }	// í—ˆë¦¬ì¥ì‹
+		virtual bool		IsGearSlotOustersMitten() const		{ return false; }	// ì¥ê°‘
 
 		// 2005, 1, 3, sobeit add start
-		virtual bool		IsDurationAlwaysOkay() const		{ return false; }	// ³»±¸ Ã¼Å© ¾ÈÇÏ´Â ¾ÆÀÌÅÛ
+		virtual bool		IsDurationAlwaysOkay() const		{ return false; }	// ë‚´êµ¬ ì²´í¬ ì•ˆí•˜ëŠ” ì•„ì´í…œ
 		// 2005, 1, 3, sobeit add end
 		
 		//-------------------------------------------------------
-		// ¾ÆÀÌÅÛ ÀÌ¸§ : ÇÑ±Û / ¿µ¾î?
+		// ì•„ì´í…œ ì´ë¦„ : í•œê¸€ / ì˜ì–´?
 		//-------------------------------------------------------
 		static bool			IsUseKorean()	{ return s_bUseKorean; }
 		static bool			IsUseEnglish()	{ return !s_bUseKorean; }
@@ -300,7 +300,7 @@ class MItem : public MObject, public CAnimationFrame {
 		static void			UseEnglish()	{ s_bUseKorean = false; }
 
 		//---------------------------------------------------
-		// class¸¶´Ù °íÁ¤µÈ Á¤º¸
+		// classë§ˆë‹¤ ê³ ì •ëœ ì •ë³´
 		//---------------------------------------------------
 		const char*				GetName();
 		const char*				GetEName() const;
@@ -311,31 +311,31 @@ class MItem : public MObject, public CAnimationFrame {
 		BYTE					GetGridHeight() const;
 
 		// FrameID
-		TYPE_FRAMEID			GetTileFrameID() const;			// Tile¿¡¼­ÀÇ FrameID
-		TYPE_FRAMEID			GetInventoryFrameID() const;	// Inventory¿¡¼­ÀÇ Frame ID
-		TYPE_FRAMEID			GetGearFrameID() const;			// Gear¿¡¼­ÀÇ Frame ID
+		TYPE_FRAMEID			GetTileFrameID() const;			// Tileì—ì„œì˜ FrameID
+		TYPE_FRAMEID			GetInventoryFrameID() const;	// Inventoryì—ì„œì˜ Frame ID
+		TYPE_FRAMEID			GetGearFrameID() const;			// Gearì—ì„œì˜ Frame ID
 		TYPE_FRAMEID			GetAddonMaleFrameID() const;
 		TYPE_FRAMEID			GetAddonFemaleFrameID() const;
-		TYPE_FRAMEID			GetDropFrameID() const;			// ¹Ù´Ú¿¡ ¶³¾îÁö´Â Item
+		TYPE_FRAMEID			GetDropFrameID() const;			// ë°”ë‹¥ì— ë–¨ì–´ì§€ëŠ” Item
 
 		// Sound ID
-		TYPE_SOUNDID			GetUseSoundID() const;			// Item »ç¿ë SoundID			
-		TYPE_SOUNDID			GetTileSoundID() const;			// Item Áİ±â SoundID
-		TYPE_SOUNDID			GetInventorySoundID() const;	// Inventory¿¡¼­ÀÇ Sound
-		TYPE_SOUNDID			GetGearSoundID() const;			// Gear¿¡¼­ÀÇ Sound	
+		TYPE_SOUNDID			GetUseSoundID() const;			// Item ì‚¬ìš© SoundID			
+		TYPE_SOUNDID			GetTileSoundID() const;			// Item ì¤ê¸° SoundID
+		TYPE_SOUNDID			GetInventorySoundID() const;	// Inventoryì—ì„œì˜ Sound
+		TYPE_SOUNDID			GetGearSoundID() const;			// Gearì—ì„œì˜ Sound	
 
 		// addon slot
 		virtual ADDON			GetAddonSlot() const	{ return ADDON_NULL; }
 
 		//---------------------------------------------------
-		// ¼ºº°
+		// ì„±ë³„
 		//---------------------------------------------------
 		bool					IsGenderForMale() const;
 		bool					IsGenderForFemale() const;
 		bool					IsGenderForAll() const;
 
 		//---------------------------------------------------
-		// ÇÊ¿ä´É·Â
+		// í•„ìš”ëŠ¥ë ¥
 		//---------------------------------------------------
 		BYTE					GetRequireSTR()	const;
 		BYTE					GetRequireDEX()	const;
@@ -344,12 +344,12 @@ class MItem : public MObject, public CAnimationFrame {
 		WORD					GetRequireSUM() const;		
 
 		//---------------------------------------------------
-		// ÀåÂøÇßÀ» ¶§ ¹Ù²î´Â.. BasicActionInfo
+		// ì¥ì°©í–ˆì„ ë•Œ ë°”ë€ŒëŠ”.. BasicActionInfo
 		//---------------------------------------------------
 		TYPE_ACTIONINFO			GetUseActionInfo() const;
 
 		//---------------------------------------------------
-		// Option¿¡ µû¸¥ Á¤º¸
+		// Optionì— ë”°ë¥¸ ì •ë³´
 		//---------------------------------------------------
 		BYTE				GetItemOptionPart(int OptionNum = 0) const;
 		const char*			GetItemOptionName(int OptionNum = 0) const;
@@ -365,50 +365,50 @@ class MItem : public MObject, public CAnimationFrame {
 		int					GetItemOptionRequireSUM() const;
 
 		//---------------------------------------------------
-		// ¼¼ºÎ Á¤º¸
+		// ì„¸ë¶€ ì •ë³´
 		//---------------------------------------------------
-		// Inventory¿¡¼­ÀÇ ÁÂÇ¥
+		// Inventoryì—ì„œì˜ ì¢Œí‘œ
 		void					SetGridXY(BYTE x, BYTE y)	{ m_GridX=x; m_GridY=y; }
 		BYTE					GetGridX() const			{ return m_GridX; }
 		BYTE					GetGridY() const			{ return m_GridY; }		
 
-		// ¾î¶²(?) Slot¿¡¼­ÀÇ ÁÂÇ¥ (m_GridX¸¦ ÀÌ¿ëÇÑ´Ù. °ü°è¾ø´Ù. - -;;)
+		// ì–´ë–¤(?) Slotì—ì„œì˜ ì¢Œí‘œ (m_GridXë¥¼ ì´ìš©í•œë‹¤. ê´€ê³„ì—†ë‹¤. - -;;)
 		void					SetItemSlot(BYTE n)		{ m_GridX = n; }
 		BYTE					GetItemSlot() const		{ return m_GridX; }
 		
-		// ³»±¸¼º(ÇöÀç)
+		// ë‚´êµ¬ì„±(í˜„ì¬)
 		TYPE_ITEM_DURATION		GetCurrentDurability() const				{ return m_CurrentDurability; }
 		virtual void			SetCurrentDurability(TYPE_ITEM_DURATION d)	{ m_CurrentDurability = d; }
 
-		// °³¼ö( µ·, ½×ÀÎ °³¼ö)
+		// ê°œìˆ˜( ëˆ, ìŒ“ì¸ ê°œìˆ˜)
 		virtual TYPE_ITEM_NUMBER	GetNumber() const					{ return m_Number; }
 		virtual void				SetNumber(TYPE_ITEM_NUMBER n)		{ m_Number = n; }
 
-		// ÃÖ´ë °³¼ö
+		// ìµœëŒ€ ê°œìˆ˜
 		virtual TYPE_ITEM_NUMBER	GetMaxNumber() const				{ return 1; }
 
 		
 		//---------------------------------------------------
-		// Valueµé..
+		// Valueë“¤..
 		//---------------------------------------------------		
-		virtual int		GetMaxDurability() const	{ return -1; }	// ³»±¸¼º
-		virtual int		GetCarryingCapacity() const	{ return -1; }	// ¿î¹İ °¡´É ¹«°Ô
-		virtual int		GetProtectionValue() const	{ return -1; }	// ¹æ¾î·Â
-		virtual int		GetDefenseValue() const		{ return -1; }	// ¹æ¾î·Â
-		virtual int		GetPocketNumber() const		{ return -1; }	// Æ÷ÄÏ¼ö
-		virtual int		GetMinDamage() const		{ return -1; }	// ÃÖ¼Ò °ø°İ·Â
-		virtual int		GetMaxDamage() const		{ return -1; }	// ÃÖ´ë °ø°İ·Â
-		virtual int		GetHealPoint() const		{ return -1; }	// HP¼öÄ¡
-		virtual int		GetManaPoint() const		{ return -1; }	// MP¼öÄ¡
-		virtual ITEM_CLASS	GetGunClass() const		{ return ITEM_CLASS_NULL; }	// ÃÑÀÇ Á¾·ù
-		virtual int		GetMagazineSize() const		{ return -1; }	// ÅºÃ¢ ¼ö
-		virtual int		GetReach() const			{ return  1; }	// »çÁ¤°Å¸®
+		virtual int		GetMaxDurability() const	{ return -1; }	// ë‚´êµ¬ì„±
+		virtual int		GetCarryingCapacity() const	{ return -1; }	// ìš´ë°˜ ê°€ëŠ¥ ë¬´ê²Œ
+		virtual int		GetProtectionValue() const	{ return -1; }	// ë°©ì–´ë ¥
+		virtual int		GetDefenseValue() const		{ return -1; }	// ë°©ì–´ë ¥
+		virtual int		GetPocketNumber() const		{ return -1; }	// í¬ì¼“ìˆ˜
+		virtual int		GetMinDamage() const		{ return -1; }	// ìµœì†Œ ê³µê²©ë ¥
+		virtual int		GetMaxDamage() const		{ return -1; }	// ìµœëŒ€ ê³µê²©ë ¥
+		virtual int		GetHealPoint() const		{ return -1; }	// HPìˆ˜ì¹˜
+		virtual int		GetManaPoint() const		{ return -1; }	// MPìˆ˜ì¹˜
+		virtual ITEM_CLASS	GetGunClass() const		{ return ITEM_CLASS_NULL; }	// ì´ì˜ ì¢…ë¥˜
+		virtual int		GetMagazineSize() const		{ return -1; }	// íƒ„ì°½ ìˆ˜
+		virtual int		GetReach() const			{ return  1; }	// ì‚¬ì •ê±°ë¦¬
 		virtual int		GetToHit() const			{ return -1; }	// ToHit
-		virtual int		GetCriticalHit() const		{ return -1; }	// Å©¸®Æ¼ÄÃÈı È®·ü
-		virtual int		GetLucky() const			{ return -9999; }	// ·°Å°!
+		virtual int		GetCriticalHit() const		{ return -1; }	// í¬ë¦¬í‹°ì»¬í› í™•ë¥ 
+		virtual int		GetLucky() const			{ return -9999; }	// ëŸ­í‚¤!
 
 		//---------------------------------------------------
-		// Item¶³¾î¶ß¸®±â..
+		// Itemë–¨ì–´ëœ¨ë¦¬ê¸°..
 		//---------------------------------------------------
 		void		SetDropping();
 		BOOL		IsDropping() const		{ return m_bDropping; }
@@ -423,14 +423,14 @@ class MItem : public MObject, public CAnimationFrame {
 		void		UnSetIdentified()		{ m_bIdentified = FALSE; }
 
 		//-----------------------------------------------
-		// AffectStatus - ¼öÄ¡ Àû¿ëµÇ´Â°¡?
+		// AffectStatus - ìˆ˜ì¹˜ ì ìš©ë˜ëŠ”ê°€?
 		//-----------------------------------------------
 		bool	IsAffectStatus() const		{ return m_bAffectStatus; }
 		void	SetAffectStatus() 			{ m_bAffectStatus = true; }
 		void	UnSetAffectStatus()			{ m_bAffectStatus = false; }
 
 		//---------------------------------------------------
-		// Trade - ±³È¯ÇÒ·Á°í ¼±ÅÃÇÑ ItemÀÎ°¡?
+		// Trade - êµí™˜í• ë ¤ê³  ì„ íƒí•œ Itemì¸ê°€?
 		//---------------------------------------------------
 		BOOL		IsTrade() const			{ return m_bTrade; }
 		void		SetTrade()				{ m_bTrade = TRUE; }
@@ -439,7 +439,7 @@ class MItem : public MObject, public CAnimationFrame {
 		//---------------------------------------------------
 		// Silver
 		//---------------------------------------------------
-		int			GetSilverMax() const	{ return (*g_pItemTable)[GetItemClass()][m_ItemType].SilverMax; }	// Silver coatingÃÖ´ë°ª
+		int			GetSilverMax() const	{ return (*g_pItemTable)[GetItemClass()][m_ItemType].SilverMax; }	// Silver coatingìµœëŒ€ê°’
 		int			GetSilver() const		{ return m_Silver; }
 		virtual void	SetSilver(int s)		{ m_Silver = s; }
 
@@ -463,7 +463,7 @@ class MItem : public MObject, public CAnimationFrame {
 		virtual void	SetEnchantLevel(WORD s)		{ m_EnchantLevel = s; }
 
 		//-------------------------------------------------------
-		// ÀÌ¸§ 
+		// ì´ë¦„ 
 		//-------------------------------------------------------
 		void		SetName(const char* pName);
 
@@ -481,53 +481,53 @@ class MItem : public MObject, public CAnimationFrame {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		//void	SaveToFile(class ofstream& file);
-		//void	LoadFromFile(class ifstream& file);
+		//void	SaveToFile(std::ofstream& file);
+		//void	LoadFromFile(std::ifstream& file);
 
 	public :		
-		// NewItem()¿¡ ´ëÇÑ functions pointer
+		// NewItem()ì— ëŒ€í•œ functions pointer
 		typedef MItem* (*FUNCTION_NEWITEMCLASS)();
 
 		//-------------------------------------------------------
-		// ¿øÇÏ´Â classÀÇ ItemÀÇ °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+		// ì›í•˜ëŠ” classì˜ Itemì˜ ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
 		//-------------------------------------------------------
 		static MItem*		NewItem(ITEM_CLASS itemClass);
 
-		// °¢ classº°·Î NewItem()¿¡ ´ëÇÑ function pointer
+		// ê° classë³„ë¡œ NewItem()ì— ëŒ€í•œ function pointer
 		static FUNCTION_NEWITEMCLASS		s_NewItemClassTable[MAX_ITEM_CLASS];
 
 	
 	//-------------------------------------------------------
 	//
-	//			ÇÏ³ªÀÇ Item instance¿¡ ´ëÇÑ Á¤º¸
+	//			í•˜ë‚˜ì˜ Item instanceì— ëŒ€í•œ ì •ë³´
 	//
 	//-------------------------------------------------------
 	protected :				
-		// ItemÀÇ Á¾·ù¿¡ ´ëÇÑ ID
+		// Itemì˜ ì¢…ë¥˜ì— ëŒ€í•œ ID
 		TYPE_ITEMTYPE			m_ItemType;	
 
-		// ItemÀÇ option
+		// Itemì˜ option
 		std::list<TYPE_ITEM_OPTION>		m_ItemOptionList;
 
-		// ±âº» Color
+		// ê¸°ë³¸ Color
 		WORD					m_ItemColorSet;
 		
-		// Inventory¿¡¼­ÀÇ ÁÂÇ¥
+		// Inventoryì—ì„œì˜ ì¢Œí‘œ
 		BYTE					m_GridX;
 		BYTE					m_GridY;
 
-		// ¼¼ºÎ Á¤º¸
+		// ì„¸ë¶€ ì •ë³´
 		TYPE_ITEM_DURATION		m_CurrentDurability;		
 
-		// °³¼ö (µ·, ½×ÀÎ °³¼ö)
+		// ê°œìˆ˜ (ëˆ, ìŒ“ì¸ ê°œìˆ˜)
 		TYPE_ITEM_NUMBER		m_Number;
 
 		//---------------------------------------------------
 		// drop
 		//---------------------------------------------------
-		BOOL					m_bDropping;					// ¶³¾îÁö°í ÀÖ´Â Áß
-		int						m_DropCount;					// ÇöÀç count
-		static int				s_DropHeight[MAX_DROP_COUNT];	// Drop ³ôÀÌ
+		BOOL					m_bDropping;					// ë–¨ì–´ì§€ê³  ìˆëŠ” ì¤‘
+		int						m_DropCount;					// í˜„ì¬ count
+		static int				s_DropHeight[MAX_DROP_COUNT];	// Drop ë†’ì´
 
 		//---------------------------------------------------
 		// identified
@@ -535,12 +535,12 @@ class MItem : public MObject, public CAnimationFrame {
 		BOOL					m_bIdentified;
 
 		//---------------------------------------------------
-		// itemÀÔÀº »óÅÂ°¡ ¸ğµÎ Á¦´ë·Î Àû¿ëµÆ´Â°¡?
+		// itemì…ì€ ìƒíƒœê°€ ëª¨ë‘ ì œëŒ€ë¡œ ì ìš©ëëŠ”ê°€?
 		//---------------------------------------------------
 		bool					m_bAffectStatus;	
 
 		//---------------------------------------------------
-		// ±³È¯ÇÒ itemÀÎ°¡?
+		// êµí™˜í•  itemì¸ê°€?
 		//---------------------------------------------------
 		BOOL					m_bTrade;
 
@@ -565,15 +565,15 @@ class MItem : public MObject, public CAnimationFrame {
 		int						m_EnchantLevel;		
 		
 		//---------------------------------------------------
-		// item ÀÌ¸§
+		// item ì´ë¦„
 		//---------------------------------------------------
 		char*					m_pName;
 
-		// ItemÀÌ¸§¿¡ ÇÑ±ÛÀ» »ç¿ëÇÏ´Â°¡?
+		// Itemì´ë¦„ì— í•œê¸€ì„ ì‚¬ìš©í•˜ëŠ”ê°€?
 		static bool				s_bUseKorean;
 		
 		//---------------------------------------------------
-		// ¾ÆÀÌÅÛÀÌ Äù½ºÆ® ¾ÆÀÌÅÛÀÎ°¡? (Time Manager¿¡ µî·ÏµÇÁö ¾Ê¾ÒÀ»°æ¿ì..
+		// ì•„ì´í…œì´ í€˜ìŠ¤íŠ¸ ì•„ì´í…œì¸ê°€? (Time Managerì— ë“±ë¡ë˜ì§€ ì•Šì•˜ì„ê²½ìš°..
 		//---------------------------------------------------
 		bool					m_Quest;
 		bool					m_persnal;
@@ -584,7 +584,7 @@ class MItem : public MObject, public CAnimationFrame {
 
 //----------------------------------------------------------------------
 //
-//          Gear¿¡ »ç¿ëÇÏ´Â ItemÀÎ °æ¿ì.. Âø¿ëÇÒ ¼ö ÀÖ´Ù.
+//          Gearì— ì‚¬ìš©í•˜ëŠ” Itemì¸ ê²½ìš°.. ì°©ìš©í•  ìˆ˜ ìˆë‹¤.
 //
 //----------------------------------------------------------------------
 class MGearItem : public MItem {
@@ -595,15 +595,15 @@ class MGearItem : public MItem {
 	public :
 		bool			IsGearItem() const			{ return true; }
 
-		// °ª
-		virtual int	GetMaxDurability() const;//	{ return (*g_pItemTable)[GetItemClass()][m_ItemType].Value1; }	// ³»±¸¼º
-		virtual int	GetProtectionValue() const	{ return (*g_pItemTable)[GetItemClass()][m_ItemType].Value2; }	// ¹æ¾î·Â
+		// ê°’
+		virtual int	GetMaxDurability() const;//	{ return (*g_pItemTable)[GetItemClass()][m_ItemType].Value1; }	// ë‚´êµ¬ì„±
+		virtual int	GetProtectionValue() const	{ return (*g_pItemTable)[GetItemClass()][m_ItemType].Value2; }	// ë°©ì–´ë ¥
 		virtual int	GetDefenseValue() const		{ return (*g_pItemTable)[GetItemClass()][m_ItemType].Value6; }	// def
 };
 
 //----------------------------------------------------------------------
 //
-//               Pile(½×ÀÌ´Â) ItemÀÎ °æ¿ì..
+//               Pile(ìŒ“ì´ëŠ”) Itemì¸ ê²½ìš°..
 //
 //----------------------------------------------------------------------
 class MPileItem : public MItem {
@@ -618,12 +618,12 @@ class MPileItem : public MItem {
 };
 
 //-------------------------------------------------------
-// MUsePotionItem - Æ÷¼Ç ¾ÆÀÌÅÛÀº ±âº»ÀûÀ¸·Î °°Àº ·çÆ¾ÀÌ¶ó °Ë»ç Á¶°ÇÀ» Á¦¿ÜÇÏ°í´Â »ó¼Ó¹Ş¾Æ¼­ À¸›XÀ¸›X
+// MUsePotionItem - í¬ì…˜ ì•„ì´í…œì€ ê¸°ë³¸ì ìœ¼ë¡œ ê°™ì€ ë£¨í‹´ì´ë¼ ê²€ì‚¬ ì¡°ê±´ì„ ì œì™¸í•˜ê³ ëŠ” ìƒì†ë°›ì•„ì„œ ìœ¼ìŒ°ìœ¼ìŒ°
 //-------------------------------------------------------
 class MUsePotionItem : public MPileItem
 {
 public:
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		virtual void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		virtual void	UseInventory();
@@ -684,7 +684,7 @@ class MBelt : public MArmorItem2, public MSlotItemManager {
 		ITEM_CLASS	GetItemClass() const		{ return ITEM_CLASS_BELT; }
 
 		//------------------------------------------------
-		// ItemType¼³Á¤
+		// ItemTypeì„¤ì •
 		//------------------------------------------------
 		void				SetItemType(TYPE_ITEMTYPE type);
 
@@ -698,19 +698,19 @@ class MBelt : public MArmorItem2, public MSlotItemManager {
 		//				SlotItemManager
 		//
 		//------------------------------------------------
-		// AddItem : slot(n)¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+		// AddItem : slot(n)ì— pItemì„ ì¶”ê°€í•œë‹¤.
 		//------------------------------------------------
 		bool			AddItem(MItem* pItem);
 		bool			AddItem(MItem* pItem, BYTE n);
 		
 		//------------------------------------------------
-		// ReplaceItem : pItemÀ» Ãß°¡ÇÏ°í µı°Ô ÀÖ´Ù¸é Item±³È¯
+		// ReplaceItem : pItemì„ ì¶”ê°€í•˜ê³  ë”´ê²Œ ìˆë‹¤ë©´ Itemêµí™˜
 		//------------------------------------------------
 		bool			ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem);	
 
 		//------------------------------------------------
-		// Can ReplaceItem : n slot¿¡ pItemÀ» Ãß°¡°¡´ÉÇÑ°¡? 
-		// pOldItem¿¡´Â ÀÌÀü¿¡ ÀÖ´ø °Í..
+		// Can ReplaceItem : n slotì— pItemì„ ì¶”ê°€ê°€ëŠ¥í•œê°€? 
+		// pOldItemì—ëŠ” ì´ì „ì— ìˆë˜ ê²ƒ..
 		//------------------------------------------------
 		bool			CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem);
 
@@ -719,8 +719,8 @@ class MBelt : public MArmorItem2, public MSlotItemManager {
 		//------------------------------------------------
 		bool			FindSlotToAddItem(MItem* pItem, int &slot) const;
 
-		// °ª
-		virtual int	GetPocketNumber() const		{ return (*g_pItemTable)[ITEM_CLASS_BELT][m_ItemType].Value3; }	// Æ÷ÄÏ¼ö		
+		// ê°’
+		virtual int	GetPocketNumber() const		{ return (*g_pItemTable)[ITEM_CLASS_BELT][m_ItemType].Value3; }	// í¬ì¼“ìˆ˜		
 
 		static MItem*	NewItem()				{ return new MBelt; }
 };
@@ -742,15 +742,15 @@ class MCorpse : public MItem, public MGridItemManager  {
 
 		static MItem*	NewItem()				{ return new MCorpse; }
 
-		// Ä³¸¯ÅÍ °ü·Ã
+		// ìºë¦­í„° ê´€ë ¨
 		//----------------------------------------------------------
-		// ÅºÃ¢
+		// íƒ„ì°½
 		//----------------------------------------------------------
 		MCreature*		GetCreature() const			{ return m_pCreature; }	
 		MCreature*		SetCreature(MCreature* pCreature)	{ MCreature* pTemp=m_pCreature; m_pCreature=pCreature; return pTemp; }
 
 	public :
-		// ½ÃÃ¼ÀÇ ¿ø·¡ Ä³¸¯ÅÍ
+		// ì‹œì²´ì˜ ì›ë˜ ìºë¦­í„°
 		MCreature*		m_pCreature;
 };
 
@@ -765,17 +765,17 @@ class MPotion : public MUsePotionItem {
 	public :
 		ITEM_CLASS	GetItemClass() const		{ return ITEM_CLASS_POTION; }
 
-		// ½×ÀÌ´Â ÃÖ´ë °³¼ö
+		// ìŒ“ì´ëŠ” ìµœëŒ€ ê°œìˆ˜
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
 		// quick item
 		bool		IsQuickItem() const			{ return true; }
 
-		// heal µÇ´Â ¼öÄ¡
-		int		GetHealPoint() const		{ return (*g_pItemTable)[ITEM_CLASS_POTION][m_ItemType].Value1; }	// HP¼öÄ¡
+		// heal ë˜ëŠ” ìˆ˜ì¹˜
+		int		GetHealPoint() const		{ return (*g_pItemTable)[ITEM_CLASS_POTION][m_ItemType].Value1; }	// HPìˆ˜ì¹˜
 		
-		// mana µÇ´Â ¼öÄ¡
-		int		GetManaPoint() const		{ return (*g_pItemTable)[ITEM_CLASS_POTION][m_ItemType].Value2; }	// MP¼öÄ¡
+		// mana ë˜ëŠ” ìˆ˜ì¹˜
+		int		GetManaPoint() const		{ return (*g_pItemTable)[ITEM_CLASS_POTION][m_ItemType].Value2; }	// MPìˆ˜ì¹˜
 
 		// use item
 		void	UseQuickItem();
@@ -794,11 +794,11 @@ class MWater : public MPileItem {
 	public :
 		ITEM_CLASS	GetItemClass() const		{ return ITEM_CLASS_WATER; }
 
-		// ½×ÀÌ´Â ÃÖ´ë °³¼ö
+		// ìŒ“ì´ëŠ” ìµœëŒ€ ê°œìˆ˜
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
-		// »ç¿ë °¡´ÉÇÑ ¾ÆÀÌÅÛÀÌ´Ù.
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+		// ì‚¬ìš© ê°€ëŠ¥í•œ ì•„ì´í…œì´ë‹¤.
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -818,12 +818,12 @@ class MHolyWater : public MPileItem {
 	public :
 		ITEM_CLASS	GetItemClass() const		{ return ITEM_CLASS_HOLYWATER; }
 
-		// ½×ÀÌ´Â ÃÖ´ë °³¼ö
+		// ìŒ“ì´ëŠ” ìµœëŒ€ ê°œìˆ˜
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
 		// damage
-		virtual int	GetMinDamage() const	{ return (*g_pItemTable)[ITEM_CLASS_HOLYWATER][m_ItemType].Value1; }	// ÃÖ¼Ò °ø°İ·Â
-		virtual int	GetMaxDamage() const	{ return (*g_pItemTable)[ITEM_CLASS_HOLYWATER][m_ItemType].Value2; }	// ÃÖ´ë °ø°İ·Â	
+		virtual int	GetMinDamage() const	{ return (*g_pItemTable)[ITEM_CLASS_HOLYWATER][m_ItemType].Value1; }	// ìµœì†Œ ê³µê²©ë ¥
+		virtual int	GetMaxDamage() const	{ return (*g_pItemTable)[ITEM_CLASS_HOLYWATER][m_ItemType].Value2; }	// ìµœëŒ€ ê³µê²©ë ¥	
 
 		static MItem*	NewItem()	{ return new MHolyWater; }
 };
@@ -839,26 +839,26 @@ class MMagazine : public MPileItem {
 	public :
 		ITEM_CLASS	GetItemClass() const		{ return ITEM_CLASS_MAGAZINE; }
 
-		// ½×ÀÌ´Â ÃÖ´ë °³¼ö
+		// ìŒ“ì´ëŠ” ìµœëŒ€ ê°œìˆ˜
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
 		// quick item
 		bool		IsQuickItem() const			{ return true; }
 
 		// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
 	#endif
 		void		UseQuickItem();
 
-		// ´Ù¸¥ Item¿¡ Ãß°¡µÉ ¼ö ÀÖ´Â°¡?
+		// ë‹¤ë¥¸ Itemì— ì¶”ê°€ë  ìˆ˜ ìˆëŠ”ê°€?
 		bool		IsInsertToItem(const MItem* pItem) const;
 		
-		// ÅºÃ¢ ¼ö
-		ITEM_CLASS	GetGunClass() const		{ return (ITEM_CLASS)(*g_pItemTable)[ITEM_CLASS_MAGAZINE][m_ItemType].Value1; }	// ÃÑÀÇ Á¾·ù
-		virtual int	GetMagazineSize() const	{ return (*g_pItemTable)[ITEM_CLASS_MAGAZINE][m_ItemType].Value2; }	// ÅºÃ¢¼ö
+		// íƒ„ì°½ ìˆ˜
+		ITEM_CLASS	GetGunClass() const		{ return (ITEM_CLASS)(*g_pItemTable)[ITEM_CLASS_MAGAZINE][m_ItemType].Value1; }	// ì´ì˜ ì¢…ë¥˜
+		virtual int	GetMagazineSize() const	{ return (*g_pItemTable)[ITEM_CLASS_MAGAZINE][m_ItemType].Value2; }	// íƒ„ì°½ìˆ˜
 
 		static MItem*	NewItem()	{ return new MMagazine; }
 };
@@ -983,9 +983,9 @@ class MWeaponItem : public MGearItem
 
 		bool		IsBasicWeapon() const		{ return true; }
 		
-		int			GetMinDamage() const;//		{ return (*g_pItemTable)[GetItemClass()][m_ItemType].Value3; }	// ÃÖ¼Ò °ø°İ·Â
-		int			GetMaxDamage() const;//		{ return (*g_pItemTable)[GetItemClass()][m_ItemType].Value4; }	// ÃÖ´ë °ø°İ·Â		
-		int			GetToHit() const;//			{ return (*g_pItemTable)[GetItemClass()][m_ItemType].ToHit; }		// ÃÖ´ë °ø°İ·Â		
+		int			GetMinDamage() const;//		{ return (*g_pItemTable)[GetItemClass()][m_ItemType].Value3; }	// ìµœì†Œ ê³µê²©ë ¥
+		int			GetMaxDamage() const;//		{ return (*g_pItemTable)[GetItemClass()][m_ItemType].Value4; }	// ìµœëŒ€ ê³µê²©ë ¥		
+		int			GetToHit() const;//			{ return (*g_pItemTable)[GetItemClass()][m_ItemType].ToHit; }		// ìµœëŒ€ ê³µê²©ë ¥		
 		int			GetCriticalHit() const;//		{ return (*g_pItemTable)[GetItemClass()][m_ItemType].CriticalHit; }
 
 };
@@ -1073,8 +1073,8 @@ class MCross : public MWeaponItem {
 		bool		IsAddonItem() const				{ return true; }
 		ADDON		GetAddonSlot() const			{ return ADDON_RIGHTHAND; }
 
-		// °ª
-		virtual int	GetManaPoint() const		{ return (*g_pItemTable)[ITEM_CLASS_CROSS][m_ItemType].Value5; }	// MP¼öÄ¡
+		// ê°’
+		virtual int	GetManaPoint() const		{ return (*g_pItemTable)[ITEM_CLASS_CROSS][m_ItemType].Value5; }	// MPìˆ˜ì¹˜
 		
 		static MItem*	NewItem()	{ return new MCross; }
 };
@@ -1098,8 +1098,8 @@ class MMace : public MWeaponItem {
 		bool		IsAddonItem() const				{ return true; }
 		ADDON		GetAddonSlot() const			{ return ADDON_RIGHTHAND; }
 
-		// °ª		
-		virtual int	GetManaPoint() const		{ return (*g_pItemTable)[ITEM_CLASS_MACE][m_ItemType].Value5; }	// MP¼öÄ¡
+		// ê°’		
+		virtual int	GetManaPoint() const		{ return (*g_pItemTable)[ITEM_CLASS_MACE][m_ItemType].Value5; }	// MPìˆ˜ì¹˜
 		
 		static MItem*	NewItem()	{ return new MMace; }
 };
@@ -1152,17 +1152,17 @@ class MGunItem : public MWeaponItem {
 		~MGunItem() { if (m_pMagazine!=NULL) delete m_pMagazine; }
 
 	public :
-		bool			IsGunItem() const				{ return true; }	// ÃÑÀÎ°¡?
+		bool			IsGunItem() const				{ return true; }	// ì´ì¸ê°€?
 
 		bool			IsAddonItem() const				{ return true; }
 		ADDON			GetAddonSlot() const			{ return ADDON_RIGHTHAND; }
 
-		// °ª		
-		virtual int	GetReach() const			{ return (*g_pItemTable)[GetItemClass()][m_ItemType].Value5; }	// MP¼öÄ¡
-		virtual int	GetMagazineSize() const		{ return (m_pMagazine==NULL)?0:m_pMagazine->GetNumber(); }	// ÅºÃ¢ ¼ö
+		// ê°’		
+		virtual int	GetReach() const			{ return (*g_pItemTable)[GetItemClass()][m_ItemType].Value5; }	// MPìˆ˜ì¹˜
+		virtual int	GetMagazineSize() const		{ return (m_pMagazine==NULL)?0:m_pMagazine->GetNumber(); }	// íƒ„ì°½ ìˆ˜
 		
 		//----------------------------------------------------------
-		// ÅºÃ¢
+		// íƒ„ì°½
 		//----------------------------------------------------------
 		MMagazine*		GetMagazine() const					{ return m_pMagazine; }
 		MMagazine*		RemoveMagazine()					{ MMagazine* pTemp=m_pMagazine; m_pMagazine=NULL; return pTemp; }
@@ -1255,7 +1255,7 @@ class MItemETC : public MPileItem {
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
 		// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -1282,9 +1282,9 @@ class MMotorcycle : public MItem, public MGridItemManager  {
 
 		bool			IsAddonItem() const				{ return true; }
 		ADDON			GetAddonSlot() const			{ return ADDON_MOTOR; }
-		// °ª
-		virtual int	GetMaxDurability() const;//	{ return (*g_pItemTable)[ITEM_CLASS_MOTORCYCLE][m_ItemType].Value1; }	// ³»±¸¼º
-		virtual int	GetCarryingCapacity() const	{ return (*g_pItemTable)[ITEM_CLASS_MOTORCYCLE][m_ItemType].Value2; }	// ¿î¹İ°¡´É¹«°Ô
+		// ê°’
+		virtual int	GetMaxDurability() const;//	{ return (*g_pItemTable)[ITEM_CLASS_MOTORCYCLE][m_ItemType].Value1; }	// ë‚´êµ¬ì„±
+		virtual int	GetCarryingCapacity() const	{ return (*g_pItemTable)[ITEM_CLASS_MOTORCYCLE][m_ItemType].Value2; }	// ìš´ë°˜ê°€ëŠ¥ë¬´ê²Œ
 		
 		static MItem*	NewItem()	{ return new MMotorcycle; }
 };
@@ -1301,7 +1301,7 @@ class MKey : public MItem {
 		ITEM_CLASS	GetItemClass() const		{ return ITEM_CLASS_KEY; }
 
 		// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -1335,12 +1335,12 @@ class MBombMaterial : public MPileItem {
 		~MBombMaterial() {}
 
 	public :
-		// ½×ÀÌ´Â ÃÖ´ë °³¼ö
+		// ìŒ“ì´ëŠ” ìµœëŒ€ ê°œìˆ˜
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
 		ITEM_CLASS	GetItemClass() const		{ return ITEM_CLASS_BOMB_MATERIAL; }
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -1379,7 +1379,7 @@ class MMoney : public MPileItem {
 		static MItem*	NewItem()	{ return new MMoney; }
 
 		//yckou
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -1400,9 +1400,9 @@ class MBomb : public MPileItem {
 
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
-		// °ª
-		int		GetMinDamage() const		{ return (*g_pItemTable)[ITEM_CLASS_BOMB][m_ItemType].Value1; }	// ÃÖ¼Ò °ø°İ·Â
-		int		GetMaxDamage() const		{ return (*g_pItemTable)[ITEM_CLASS_BOMB][m_ItemType].Value2; }	// ÃÖ´ë °ø°İ·Â
+		// ê°’
+		int		GetMinDamage() const		{ return (*g_pItemTable)[ITEM_CLASS_BOMB][m_ItemType].Value1; }	// ìµœì†Œ ê³µê²©ë ¥
+		int		GetMaxDamage() const		{ return (*g_pItemTable)[ITEM_CLASS_BOMB][m_ItemType].Value2; }	// ìµœëŒ€ ê³µê²©ë ¥
 
 		static MItem*	NewItem()	{ return new MBomb; }
 };
@@ -1420,17 +1420,17 @@ class MMine : public MPileItem {
 
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
-		// °ª
-		int		GetMinDamage() const		{ return (*g_pItemTable)[ITEM_CLASS_MINE][m_ItemType].Value1; }	// ÃÖ¼Ò °ø°İ·Â
-		int		GetMaxDamage() const		{ return (*g_pItemTable)[ITEM_CLASS_MINE][m_ItemType].Value2; }	// ÃÖ´ë °ø°İ·Â
+		// ê°’
+		int		GetMinDamage() const		{ return (*g_pItemTable)[ITEM_CLASS_MINE][m_ItemType].Value1; }	// ìµœì†Œ ê³µê²©ë ¥
+		int		GetMaxDamage() const		{ return (*g_pItemTable)[ITEM_CLASS_MINE][m_ItemType].Value2; }	// ìµœëŒ€ ê³µê²©ë ¥
 
-		// ¼³Ä¡µÇ¾ú³ª?
+		// ì„¤ì¹˜ë˜ì—ˆë‚˜?
 		bool	IsInstalled() const			{ return m_bInstalled; }
 		void	SetInstalled() 				{ m_bInstalled = true; }
 		void	UnSetInstalled() 			{ m_bInstalled = false; }
 
 		// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -1560,11 +1560,11 @@ class MSkull : public MPileItem {
 	public :
 		ITEM_CLASS	GetItemClass() const		{ return ITEM_CLASS_SKULL; }
 
-		// ½×ÀÌ´Â ÃÖ´ë °³¼ö
+		// ìŒ“ì´ëŠ” ìµœëŒ€ ê°œìˆ˜
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
 		// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -1574,7 +1574,7 @@ class MSkull : public MPileItem {
 };
 
 //----------------------------------------------------------------------
-// Serum - Ç÷Ã»
+// Serum - í˜ˆì²­
 //----------------------------------------------------------------------
 class MSerum : public MUsePotionItem {
 	public :
@@ -1584,11 +1584,11 @@ class MSerum : public MUsePotionItem {
 	public :
 		ITEM_CLASS	GetItemClass() const		{ return ITEM_CLASS_SERUM; }
 
-		// ½×ÀÌ´Â ÃÖ´ë °³¼ö
+		// ìŒ“ì´ëŠ” ìµœëŒ€ ê°œìˆ˜
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 		
-		// heal µÇ´Â ¼öÄ¡
-		int		GetHealPoint() const		{ return (*g_pItemTable)[ITEM_CLASS_SERUM][m_ItemType].Value1; }	// HP¼öÄ¡	
+		// heal ë˜ëŠ” ìˆ˜ì¹˜
+		int		GetHealPoint() const		{ return (*g_pItemTable)[ITEM_CLASS_SERUM][m_ItemType].Value1; }	// HPìˆ˜ì¹˜	
 
 		static MItem*	NewItem()	{ return new MSerum; }
 };
@@ -1604,11 +1604,11 @@ class MVampireETC : public MPileItem {
 	public :
 		ITEM_CLASS	GetItemClass() const		{ return ITEM_CLASS_VAMPIRE_ETC; }
 
-		// ½×ÀÌ´Â ÃÖ´ë °³¼ö
+		// ìŒ“ì´ëŠ” ìµœëŒ€ ê°œìˆ˜
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
 		// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -1638,7 +1638,7 @@ class MSlayerPortalItem : public MItem {
 		void				SetEnchantLevel(WORD s);
 
 		// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -1657,7 +1657,7 @@ class MVampirePortalItem : public MItem {
 
 		ITEM_CLASS	GetItemClass() const		{ return ITEM_CLASS_VAMPIRE_PORTAL_ITEM; }
 		
-		// ½×ÀÌ´Â ÃÖ´ë °³¼ö
+		// ìŒ“ì´ëŠ” ìµœëŒ€ ê°œìˆ˜
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
 		TYPE_ITEM_NUMBER	GetNumber() const					{ return m_Number; }
@@ -1665,20 +1665,20 @@ class MVampirePortalItem : public MItem {
 
 		bool				IsChargeItem() const				{ return true; }
 
-		// ¸ñÇ¥ zone¿¡ ´ëÇÑ Á¤º¸
+		// ëª©í‘œ zoneì— ëŒ€í•œ ì •ë³´
 		bool				IsMarked() const;
 		void				SetZone(int zoneID, TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y);
 		int					GetZoneID() const	{ return m_ZoneID; }
 		TYPE_SECTORPOSITION	GetZoneX() const	{ return m_ZoneX; }
 		TYPE_SECTORPOSITION	GetZoneY() const	{ return m_ZoneY; }
 
-		// zoneÁ¤º¸ ¼³Á¤ÇÑ´Ù. - -;;
+		// zoneì •ë³´ ì„¤ì •í•œë‹¤. - -;;
 		void				SetSilver(int s);
 		void				SetCurrentDurability(TYPE_ITEM_DURATION d);
 		void				SetEnchantLevel(WORD s);
 
 		// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -1702,7 +1702,7 @@ class MEventGiftBoxItem : public MItem {
 
 		ITEM_CLASS	GetItemClass() const			{ return ITEM_CLASS_EVENT_GIFT_BOX; }
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -1723,7 +1723,7 @@ class MEventStarItem : public MPileItem {
 
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -1764,7 +1764,7 @@ class MVampireAmulet : public MAccessoryItem {
 
 		ITEM_GEAR_SLOT	GetGearSlot() const				{ return SLOT_VAMPIRE_AMULET; }
 		bool		IsGearSlotVampireAmulet() const			{ return true; }
-		bool		IsDurationAlwaysOkay() const		{ return true; }	// ³»±¸ Ã¼Å© ¾ÈÇÏ´Â ¾ÆÀÌÅÛ
+		bool		IsDurationAlwaysOkay() const		{ return true; }	// ë‚´êµ¬ ì²´í¬ ì•ˆí•˜ëŠ” ì•„ì´í…œ
 		static MItem*	NewItem()	{ return new MVampireAmulet; }
 };
 
@@ -1791,7 +1791,7 @@ class MEventTreeItem : public MItem {
 
 		ITEM_CLASS	GetItemClass() const			{ return ITEM_CLASS_EVENT_TREE; }
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -1813,7 +1813,7 @@ class MEventEtcItem : public MPileItem {
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
 		// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -1866,7 +1866,7 @@ class MCoupleRing : public MRing {
 
 		// use item
 		void	UseGear();
-		bool	IsDurationAlwaysOkay() const		{ return true; }	// ³»±¸ Ã¼Å© ¾ÈÇÏ´Â ¾ÆÀÌÅÛ
+		bool	IsDurationAlwaysOkay() const		{ return true; }	// ë‚´êµ¬ ì²´í¬ ì•ˆí•˜ëŠ” ì•„ì´í…œ
 
 		static MItem*	NewItem()	{ return new MCoupleRing; }
 };
@@ -1884,7 +1884,7 @@ class MVampireCoupleRing : public MVampireRing {
 		
 		// use item
 		void	UseGear();
-		bool	IsDurationAlwaysOkay() const		{ return true; }	// ³»±¸ Ã¼Å© ¾ÈÇÏ´Â ¾ÆÀÌÅÛ
+		bool	IsDurationAlwaysOkay() const		{ return true; }	// ë‚´êµ¬ ì²´í¬ ì•ˆí•˜ëŠ” ì•„ì´í…œ
 		static MItem*	NewItem()	{ return new MVampireCoupleRing; }
 };
 
@@ -1907,7 +1907,7 @@ public :
 	ITEM_CLASS	GetItemClass() const		{ return ITEM_CLASS_DYE_POTION; }
 
 	// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -1939,7 +1939,7 @@ public :
 	TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
 	// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -1971,18 +1971,18 @@ public :
 	//				SlotItemManager
 	//
 	//------------------------------------------------
-	// AddItem : slot(n)¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+	// AddItem : slot(n)ì— pItemì„ ì¶”ê°€í•œë‹¤.
 	//------------------------------------------------
 	bool			AddItem(MItem* pItem);
 	bool			AddItem(MItem* pItem, BYTE n);
 	
 	//------------------------------------------------
-	// ReplaceItem : pItemÀ» Ãß°¡ÇÏ°í µı°Ô ÀÖ´Ù¸é Item±³È¯
+	// ReplaceItem : pItemì„ ì¶”ê°€í•˜ê³  ë”´ê²Œ ìˆë‹¤ë©´ Itemêµí™˜
 	//------------------------------------------------
 	bool			ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem);		
 	//------------------------------------------------
-	// Can ReplaceItem : n slot¿¡ pItemÀ» Ãß°¡°¡´ÉÇÑ°¡? 
-	// pOldItem¿¡´Â ÀÌÀü¿¡ ÀÖ´ø °Í..
+	// Can ReplaceItem : n slotì— pItemì„ ì¶”ê°€ê°€ëŠ¥í•œê°€? 
+	// pOldItemì—ëŠ” ì´ì „ì— ìˆë˜ ê²ƒ..
 	//------------------------------------------------
 	bool			CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem);
 	
@@ -1990,8 +1990,8 @@ public :
 	// Find Slot To Add Item
 	//------------------------------------------------
 	bool			FindSlotToAddItem(MItem* pItem, int &slot) const;	
-	// °ª
-	virtual int	GetPocketNumber() const		{ return (*g_pItemTable)[ITEM_CLASS_OUSTERS_ARMSBAND][m_ItemType].Value3; }	// Æ÷ÄÏ¼ö
+	// ê°’
+	virtual int	GetPocketNumber() const		{ return (*g_pItemTable)[ITEM_CLASS_OUSTERS_ARMSBAND][m_ItemType].Value3; }	// í¬ì¼“ìˆ˜
 	
 	static MItem*	NewItem()	{ return new MOustersArmsBand; }
 };
@@ -2175,10 +2175,10 @@ public :
 	ITEM_CLASS	GetItemClass() const		{ return ITEM_CLASS_PUPA; }
 	TYPE_ITEM_NUMBER	GetMaxNumber() const;
 	
-	// heal µÇ´Â ¼öÄ¡
-	int		GetHealPoint() const		{ return (*g_pItemTable)[ITEM_CLASS_PUPA][m_ItemType].Value1; }	// HP¼öÄ¡	
-	// mana µÇ´Â ¼öÄ¡
-	int		GetManaPoint() const		{ return (*g_pItemTable)[ITEM_CLASS_PUPA][m_ItemType].Value2; }	// MP¼öÄ¡
+	// heal ë˜ëŠ” ìˆ˜ì¹˜
+	int		GetHealPoint() const		{ return (*g_pItemTable)[ITEM_CLASS_PUPA][m_ItemType].Value1; }	// HPìˆ˜ì¹˜	
+	// mana ë˜ëŠ” ìˆ˜ì¹˜
+	int		GetManaPoint() const		{ return (*g_pItemTable)[ITEM_CLASS_PUPA][m_ItemType].Value2; }	// MPìˆ˜ì¹˜
 
 	bool	IsQuickItem() const			{ return true; }
 
@@ -2201,11 +2201,11 @@ public :
 	ITEM_CLASS	GetItemClass() const		{ return ITEM_CLASS_COMPOS_MEI; }
 	TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
-	// heal µÇ´Â ¼öÄ¡
-	int		GetHealPoint() const		{ return (*g_pItemTable)[ITEM_CLASS_COMPOS_MEI][m_ItemType].Value1; }	// HP¼öÄ¡
+	// heal ë˜ëŠ” ìˆ˜ì¹˜
+	int		GetHealPoint() const		{ return (*g_pItemTable)[ITEM_CLASS_COMPOS_MEI][m_ItemType].Value1; }	// HPìˆ˜ì¹˜
 	
-	// mana µÇ´Â ¼öÄ¡
-	int		GetManaPoint() const		{ return (*g_pItemTable)[ITEM_CLASS_COMPOS_MEI][m_ItemType].Value2; }	// MP¼öÄ¡
+	// mana ë˜ëŠ” ìˆ˜ì¹˜
+	int		GetManaPoint() const		{ return (*g_pItemTable)[ITEM_CLASS_COMPOS_MEI][m_ItemType].Value2; }	// MPìˆ˜ì¹˜
 
 	bool	IsQuickItem() const			{ return true; }
 
@@ -2229,7 +2229,7 @@ public :
 	
 	static MItem*	NewItem()	{ return new MOustersSummonGem; }
 
-	// ½×ÀÌ´Â ÃÖ´ë °³¼ö
+	// ìŒ“ì´ëŠ” ìµœëŒ€ ê°œìˆ˜
 	TYPE_ITEM_NUMBER	GetMaxNumber() const;
 	
 	TYPE_ITEM_NUMBER	GetNumber() const					{ return m_Number; }
@@ -2238,7 +2238,7 @@ public :
 	void				SetEnchantLevel(WORD s);
 
 	// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -2258,7 +2258,7 @@ public :
 	static MItem* NewItem()		{ return new MEffectItem; }
 
 	// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -2275,7 +2275,7 @@ public :
 	ITEM_CLASS	GetItemClass() const			{ return ITEM_CLASS_CODE_SHEET; }
 
 	// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -2290,7 +2290,7 @@ public :
 	~MMoonCardItem() { }
 
 	// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -2315,7 +2315,7 @@ private:
 	DWORD	m_UpdateTime;
 	DWORD	m_PetExpRemain;
 	//2004, 5, 11 sobeit add start
-	DWORD	m_PetKeepedDay;//º¸°ü³¯Â¥
+	DWORD	m_PetKeepedDay;//ë³´ê´€ë‚ ì§œ
 	//2004, 5, 11 sobeit add end
 	WORD	m_PetFoodType;
 	bool	m_bCanGamble;
@@ -2351,7 +2351,7 @@ public :
 	std::string				GetPetOptionEName();
 	
 	// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -2370,7 +2370,7 @@ public :
 	TYPE_ITEM_NUMBER		GetMaxNumber() const;
 	
 	// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -2385,7 +2385,7 @@ public :
 	~MPetEnchantItem() { }
 
 	// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -2419,7 +2419,7 @@ public :
 
 
 	// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -2441,7 +2441,7 @@ public :
 	bool	IsGearSlotCoreZap() const					{ return true; }
 	bool	IsGearSlotVampireCoreZap() const			{ return true; }
 	bool	IsGearSlotOustersCoreZap() const			{ return true; }
-	bool	IsDurationAlwaysOkay() const		{ return true; }	// ³»±¸ Ã¼Å© ¾ÈÇÏ´Â ¾ÆÀÌÅÛ
+	bool	IsDurationAlwaysOkay() const		{ return true; }	// ë‚´êµ¬ ì²´í¬ ì•ˆí•˜ëŠ” ì•„ì´í…œ
 };
 
 class MGQuestItem : public MItem {
@@ -2461,7 +2461,7 @@ public :
 	~MTrapItem() { }
 
 	// use item
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
 	#else
 		void		UseInventory();
@@ -2488,7 +2488,7 @@ public :
 	bool	IsGearSlotVampireBloodBible() const			{ return true; }
 	bool	IsGearSlotOustersBloodBible() const			{ return true; }
 
-	bool	IsDurationAlwaysOkay() const		{ return true; }	// ³»±¸ Ã¼Å© ¾ÈÇÏ´Â ¾ÆÀÌÅÛ
+	bool	IsDurationAlwaysOkay() const		{ return true; }	// ë‚´êµ¬ ì²´í¬ ì•ˆí•˜ëŠ” ì•„ì´í…œ
 };
 
 class MWarItem : public MItem {
@@ -2501,7 +2501,7 @@ public :
 
 };
 
-// By csm 2004.12.27 ÀüÁ÷ ¾ÆÀÌÅÛ Ãß°¡ 
+// By csm 2004.12.27 ì „ì§ ì•„ì´í…œ ì¶”ê°€ 
 
 class MCarryingReceiver : public MAccessoryItem {
 	public :
@@ -2515,8 +2515,8 @@ class MCarryingReceiver : public MAccessoryItem {
 //
 		static MItem*	NewItem()	{ return new MCarryingReceiver; }
 
-		bool		IsGearSlotPDA() const			{ return true; }	// PDA ½½·Ô
-		bool	IsDurationAlwaysOkay() const		{ return true; }	// ³»±¸ Ã¼Å© ¾ÈÇÏ´Â ¾ÆÀÌÅÛ
+		bool		IsGearSlotPDA() const			{ return true; }	// PDA ìŠ¬ë¡¯
+		bool	IsDurationAlwaysOkay() const		{ return true; }	// ë‚´êµ¬ ì²´í¬ ì•ˆí•˜ëŠ” ì•„ì´í…œ
 };
 
 class MShoulderArmor : public MAccessoryItem {
@@ -2531,8 +2531,8 @@ class MShoulderArmor : public MAccessoryItem {
 
 		static MItem*	NewItem()	{ return new MShoulderArmor; }
 
-		bool		IsGearSlotShoulder() const		{ return true; }	// ¾î±ú ½½·Ô
-		bool	IsDurationAlwaysOkay() const		{ return true; }	// ³»±¸ Ã¼Å© ¾ÈÇÏ´Â ¾ÆÀÌÅÛ
+		bool		IsGearSlotShoulder() const		{ return true; }	// ì–´ê¹¨ ìŠ¬ë¡¯
+		bool	IsDurationAlwaysOkay() const		{ return true; }	// ë‚´êµ¬ ì²´í¬ ì•ˆí•˜ëŠ” ì•„ì´í…œ
 		bool		IsAddonItem() const				{ return true; }
 };
 class MDermis : public MAccessoryItem {
@@ -2547,8 +2547,8 @@ class MDermis : public MAccessoryItem {
 		//bool		IsGearSlotVampireRing() const			{ return true; }
 
 		static MItem*	NewItem()	{ return new MDermis; }
-		bool		IsGearSlotVampireDermis() const		{ return true; }	// ¹®½Å
-		bool	IsDurationAlwaysOkay() const		{ return true; }	// ³»±¸ Ã¼Å© ¾ÈÇÏ´Â ¾ÆÀÌÅÛ
+		bool		IsGearSlotVampireDermis() const		{ return true; }	// ë¬¸ì‹ 
+		bool	IsDurationAlwaysOkay() const		{ return true; }	// ë‚´êµ¬ ì²´í¬ ì•ˆí•˜ëŠ” ì•„ì´í…œ
 };
 
 class MPersona : public MAccessoryItem {
@@ -2563,8 +2563,8 @@ class MPersona : public MAccessoryItem {
 //		bool		IsGearSlotVampireRing() const			{ return true; }
 
 		static MItem*	NewItem()	{ return new MPersona; }
-		bool		IsGearSlotVampirePersona() const		{ return true; }	// Æä¸£¼Ò³ª
-		bool	IsDurationAlwaysOkay() const		{ return true; }	// ³»±¸ Ã¼Å© ¾ÈÇÏ´Â ¾ÆÀÌÅÛ
+		bool		IsGearSlotVampirePersona() const		{ return true; }	// í˜ë¥´ì†Œë‚˜
+		bool	IsDurationAlwaysOkay() const		{ return true; }	// ë‚´êµ¬ ì²´í¬ ì•ˆí•˜ëŠ” ì•„ì´í…œ
 };
 
 
@@ -2580,8 +2580,8 @@ class MFascia : public MAccessoryItem {
 //		bool		IsGearSlotVampireRing() const			{ return true; }
 
 		static MItem*	NewItem()	{ return new MFascia; }
-		bool		IsGearSlotOustersFascia() const		{ return true; }	// Çã¸®Àå½Ä
-		bool	IsDurationAlwaysOkay() const		{ return true; }	// ³»±¸ Ã¼Å© ¾ÈÇÏ´Â ¾ÆÀÌÅÛ
+		bool		IsGearSlotOustersFascia() const		{ return true; }	// í—ˆë¦¬ì¥ì‹
+		bool	IsDurationAlwaysOkay() const		{ return true; }	// ë‚´êµ¬ ì²´í¬ ì•ˆí•˜ëŠ” ì•„ì´í…œ
 };
 
 class MMitten : public MArmorItem {
@@ -2599,11 +2599,11 @@ class MMitten : public MArmorItem {
 //		ADDON		GetAddonSlot() const			{ return ADDON_COAT; }
 
 		static MItem*	NewItem()	{ return new MMitten; }
-		bool		IsGearSlotOustersMitten() const		{ return true; }	// Àå°©
-		bool	IsDurationAlwaysOkay() const		{ return true; }	// ³»±¸ Ã¼Å© ¾ÈÇÏ´Â ¾ÆÀÌÅÛ
+		bool		IsGearSlotOustersMitten() const		{ return true; }	// ì¥ê°‘
+		bool	IsDurationAlwaysOkay() const		{ return true; }	// ë‚´êµ¬ ì²´í¬ ì•ˆí•˜ëŠ” ì•„ì´í…œ
 };
 
-#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 
 class MSubInventory : public MItem , public MGridItemManager {
 	public :
@@ -2627,19 +2627,19 @@ class MSubInventory : public MItem , public MGridItemManager {
 		//				SlotItemManager
 		//
 		//------------------------------------------------
-		// AddItem : slot(n)¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+		// AddItem : slot(n)ì— pItemì„ ì¶”ê°€í•œë‹¤.
 		//------------------------------------------------
 		bool			AddItem(MItem* pItem);
 		bool			AddItem(MItem* pItem, BYTE X, BYTE Y);
 		
 		//------------------------------------------------
-		// ReplaceItem : pItemÀ» Ãß°¡ÇÏ°í µı°Ô ÀÖ´Ù¸é Item±³È¯
+		// ReplaceItem : pItemì„ ì¶”ê°€í•˜ê³  ë”´ê²Œ ìˆë‹¤ë©´ Itemêµí™˜
 		//------------------------------------------------
 		bool			ReplaceItem(MItem* pItem, BYTE X, BYTE Y, MItem*& pOldItem);	
 
 		//------------------------------------------------
-		// Can ReplaceItem : n slot¿¡ pItemÀ» Ãß°¡°¡´ÉÇÑ°¡? 
-		// pOldItem¿¡´Â ÀÌÀü¿¡ ÀÖ´ø °Í..
+		// Can ReplaceItem : n slotì— pItemì„ ì¶”ê°€ê°€ëŠ¥í•œê°€? 
+		// pOldItemì—ëŠ” ì´ì „ì— ìˆë˜ ê²ƒ..
 		//------------------------------------------------
 		bool			CanReplaceItem(MItem* pItem,BYTE X, BYTE Y, MItem*& pOldItem);
 };

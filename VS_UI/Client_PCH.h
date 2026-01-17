@@ -1,42 +1,52 @@
 ////////////////////////////////////////////////////////////////////////////////
 //	created:	2004/12/22
 //	file base:	client_pch.h
-// 
+//
+//	Modified for cross-platform support (macOS/Linux)
 ////////////////////////////////////////////////////////////////////////////////
 
 #pragma once
 
-#pragma warning(disable:4290)
-#pragma warning(disable:4018)
-#pragma warning(disable:4244)
-#pragma warning(disable:4018)
-#pragma warning(disable:4786)
-
-
-#pragma warning(push)
+#ifdef PLATFORM_WINDOWS
+	#pragma warning(disable:4290)
+	#pragma warning(disable:4018)
+	#pragma warning(disable:4244)
+	#pragma warning(disable:4018)
+	#pragma warning(disable:4786)
+	#pragma warning(push)
+#endif
 
 #include <string>
-#include <assert.h>
+#include <cassert>
 #include <vector>
 #include <map>
 #include <list>
 #include <deque>
 #include <bitset>
 #include <algorithm>
-#include <iostream.h>
-#include <fstream.h>
-#include <windows.h>
-#include <MMSystem.h>
-#include <Digitalv.h>
-#include <DDraw.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <io.h>
-#include <fcntl.h>
+#include <iostream>
+#include <fstream>
+#include <cstdio>
+#include <cstdarg>
 #include <sys/types.h>
-#include <sys/stat.h> 
+#include <sys/stat.h>
+
+#ifdef PLATFORM_WINDOWS
+	#include <windows.h>
+	#include <MMSystem.h>
+	#include <Digitalv.h>
+	#include <DDraw.h>
+	#include <io.h>
+	#include <fcntl.h>
+	#pragma warning(pop)
+#else
+	/* Use platform abstraction layer */
+	#include "../basic/Platform.h"
+	#include <SDL2/SDL.h>
+	#include <unistd.h>
+#endif
+
 //#include "GAME1024.h"
-#pragma warning(pop)
 
 using std::string;
 using std::vector;

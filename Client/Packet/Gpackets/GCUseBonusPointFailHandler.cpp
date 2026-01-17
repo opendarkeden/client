@@ -25,7 +25,7 @@ void GCUseBonusPointFailHandler::execute ( GCUseBonusPointFail* pPacket , Player
 
 
 	//------------------------------------------------------------
-	// mode Á¦°Å
+	// mode ì œê±°
 	//------------------------------------------------------------
 	g_pTempInformation->SetMode(TempInformation::MODE_NULL);
 

@@ -2,12 +2,14 @@
 #define _MP3_HEADER_H_
 
 #include "common.h"
+#ifdef PLATFORM_WINDOWS
 #include <wtypes.h>
+#endif
 
 struct MP3Header
 {
-	e_mode	Mode;										// 楷林 规侥 
-	UINT	ModeExt ;									// 犬厘 楷林 规侥 
+	e_mode	Mode;										// 鞐办＜ 氚╈嫕 
+	UINT	ModeExt ;									// 頇曥灔 鞐办＜ 氚╈嫕 
 	UINT	ProtectionBit ;								
 	UINT	BitrateIndex ;
 	UINT	padding_bit ;

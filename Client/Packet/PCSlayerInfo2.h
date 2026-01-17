@@ -10,8 +10,8 @@
 #include "PCInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// SlayerÀÇ ¸ğµç Á¤º¸(´É·ÂÄ¡,°É·ÁÀÖ´Â¸¶¹ı µî)¸¦ ´ã°í ÀÖ´Â °´Ã¼.
-// GCUpdateInfo ÆĞÅ¶¿¡ ´ã°Ü¼­ Å¬¶óÀÌ¾ğÆ®¿¡°Ô Àü¼ÛµÈ´Ù.
+// Slayerì˜ ëª¨ë“  ì •ë³´(ëŠ¥ë ¥ì¹˜,ê±¸ë ¤ìˆëŠ”ë§ˆë²• ë“±)ë¥¼ ë‹´ê³  ìˆëŠ” ê°ì²´.
+// GCUpdateInfo íŒ¨í‚·ì— ë‹´ê²¨ì„œ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì „ì†¡ëœë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class PCSlayerInfo2 : public PCInfo 
@@ -165,14 +165,14 @@ public :
 		m_INT[attrType] = inte; 
 	}
 
-	Exp_t getSTRExp () const throw(Error) { return m_STRExp; };
-	void setSTRExp(Exp_t STRExp) throw(Error) { m_STRExp = STRExp; }
+	Exp_t getSTRExp () const throw ( ProtocolException , Error ) { return m_STRExp; };
+	void setSTRExp(Exp_t STRExp) throw ( ProtocolException , Error ) { m_STRExp = STRExp; }
 
-	Exp_t getDEXExp () const throw(Error) { return m_DEXExp; };
-	void setDEXExp(Exp_t DEXExp) throw(Error) { m_DEXExp = DEXExp; }
+	Exp_t getDEXExp () const throw ( ProtocolException , Error ) { return m_DEXExp; };
+	void setDEXExp(Exp_t DEXExp) throw ( ProtocolException , Error ) { m_DEXExp = DEXExp; }
 
-	Exp_t getINTExp () const throw(Error) { return m_INTExp; };
-	void setINTExp(Exp_t INTExp) throw(Error) { m_INTExp = INTExp; }
+	Exp_t getINTExp () const throw ( ProtocolException , Error ) { return m_INTExp; };
+	void setINTExp(Exp_t INTExp) throw ( ProtocolException , Error ) { m_INTExp = INTExp; }
 
 	HP_t getHP (AttrType attrType = ATTR_CURRENT) const throw () { return m_HP[attrType]; }
 	void setHP (HP_t hp, AttrType attrType = ATTR_CURRENT) throw () { m_HP[attrType] = hp; }
@@ -255,7 +255,7 @@ private:
 	Exp_t m_DEXExp;
 	Exp_t m_INTExp;
 
-	// °è±Ş
+	// ê³„ê¸‰
 	Rank_t		m_Rank;
 	RankExp_t	m_RankExp;
 
@@ -274,9 +274,9 @@ private:
 	// sight 
 	Sight_t m_Sight;
 
-	// ±æµå Á¤º¸
+	// ê¸¸ë“œ ì •ë³´
 
-    // ÇÖ Å°
+    // í•« í‚¤
 	SkillType_t m_HotKey[4];
 
 	BYTE m_Competence;

@@ -15,7 +15,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCThrowItemOK3Handler::execute ( GCThrowItemOK3 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -25,7 +26,7 @@ void GCThrowItemOK3Handler::execute ( GCThrowItemOK3 * pPacket , Player * pPlaye
 	int skillType = MAGIC_THROW_HOLY_WATER;
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -33,21 +34,21 @@ void GCThrowItemOK3Handler::execute ( GCThrowItemOK3 * pPacket , Player * pPlaye
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pUserCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 		MCreature* pTargetCreature = g_pZone->GetCreature( pPacket->getTargetObjectID() );		
 
-		// Creature¿¡°Ô Damage ÀÔÈû
+		// Creatureì—ê²Œ Damage ìž…íž˜
 		if (pUserCreature != NULL && pTargetCreature != NULL)
 		{
 			// [ TEST CODE ]
 			//
-			// °á°ú¸¦ »ý¼º&ÀúÀåÇØ¼­ º¸³»¾ß ÇÑ´Ù.
+			// ê²°ê³¼ë¥¼ ìƒì„±&ì €ìž¥í•´ì„œ ë³´ë‚´ì•¼ í•œë‹¤.
 			//
-			// ´©±º°¡(target)°¡ ´©±º°¡°¡ »ç¿ëÇÑ SKillÀ» ¸ÂÀº °æ¿ì..
+			// ëˆ„êµ°ê°€(target)ê°€ ëˆ„êµ°ê°€ê°€ ì‚¬ìš©í•œ SKillì„ ë§žì€ ê²½ìš°..
 			// [ TEST CODE ]
 			MActionResult* pResult = new MActionResult;
 
@@ -63,7 +64,7 @@ void GCThrowItemOK3Handler::execute ( GCThrowItemOK3 * pPacket , Player * pPlaye
 						);
 										//delayFrame ) );
 
-			// ¼­·Î ¹Ù¶óº¸±â
+			// ì„œë¡œ ë°”ë¼ë³´ê¸°
 			pUserCreature->SetDirectionToPosition(pTargetCreature->GetX(), pTargetCreature->GetY());
 			//pTargetCreature->SetDirectionToPosition(pUserCreature->GetX(), pUserCreature->GetY());
 
@@ -71,7 +72,7 @@ void GCThrowItemOK3Handler::execute ( GCThrowItemOK3 * pPacket , Player * pPlaye
 			pUserCreature->PacketSpecialActionToOther(
 								skillType,
 								pPacket->getTargetObjectID(),
-								pResult			// °á°ú
+								pResult			// ê²°ê³¼
 			);		
 		}
 	}		

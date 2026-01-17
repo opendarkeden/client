@@ -20,10 +20,11 @@
 
 //////////////////////////////////////////////////////////////////////
 //
-// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¼­¹ö·ÎºÎÅÍ ¸Ş½ÃÁö¸¦ ¹Ş¾ÒÀ»¶§ ½ÇÇàµÇ´Â ¸Ş½îµåÀÌ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì„œë²„ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ë°›ì•˜ì„ë•Œ ì‹¤í–‰ë˜ëŠ” ë©”ì˜ë“œì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void GCAddStoreItemHandler::execute ( GCAddStoreItem * pPacket , Player * pPlayer )
+
 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY 
@@ -49,11 +50,11 @@ throw ( ProtocolException , Error )
 					{
 						const MItem *p_slot_item = g_pStorage2->GetItem(i);
 						
-						// ½½¶ùÀÌ ºñ¾úÀ¸¸é °Á~ ³Ö´Â´Ù
+						// ìŠ¬ëì´ ë¹„ì—ˆìœ¼ë©´ ê±~ ë„£ëŠ”ë‹¤
 						if(p_slot_item == NULL)
 						{
 							//------------------------------------------------------------
-							// itemÀ» »ı¼ºÇÑ´Ù.
+							// itemì„ ìƒì„±í•œë‹¤.
 							//------------------------------------------------------------
 							MItem* pItem = MItem::NewItem( (ITEM_CLASS)pPacket->getItem().getItemClass() );
 							
@@ -65,18 +66,18 @@ throw ( ProtocolException , Error )
 							pItem->SetPersnalPrice(pPacket->getItem().getPrice());
 							
 							//------------------------------------------
-							// °³¼ö
+							// ê°œìˆ˜
 							//------------------------------------------
-							// ÃÑÀÎ °æ¿ì
+							// ì´ì¸ ê²½ìš°
 							//------------------------------------------
 							if (pItem->IsGunItem())
 							{
 								MMagazine* pMagazine = (MMagazine*)MItem::NewItem( (ITEM_CLASS)ITEM_CLASS_MAGAZINE );
 								
-								// ÀÇ¹Ì ¾øÀ½ - -;
+								// ì˜ë¯¸ ì—†ìŒ - -;
 								pMagazine->SetID( 0 );
 								
-								// ÀÌ°Å´Â ÃÑ¿¡ ¸ÂÃç¼­ ÇØÁà¾ßµÈ´Ù.
+								// ì´ê±°ëŠ” ì´ì— ë§ì¶°ì„œ í•´ì¤˜ì•¼ëœë‹¤.
 								for (int j=0; j<(*g_pItemTable)[ITEM_CLASS_MAGAZINE].GetSize(); j++)			
 								{
 									pMagazine->SetItemType(	j );
@@ -87,18 +88,18 @@ throw ( ProtocolException , Error )
 									}
 								}
 								
-								// ÀÇ¹Ì ¾øÀ½
+								// ì˜ë¯¸ ì—†ìŒ
 								pMagazine->ClearItemOption();
 								
 								
 								//------------------------------------
-								// ÅºÃ¢ ¼³Á¤
+								// íƒ„ì°½ ì„¤ì •
 								//------------------------------------
 								MGunItem* pGunItem = (MGunItem*)pItem;
 								pGunItem->SetMagazine( pMagazine );
 							}		
 							//------------------------------------------
-							// ÃÑÀÌ ¾Æ´Ñ °æ¿ì
+							// ì´ì´ ì•„ë‹Œ ê²½ìš°
 							//------------------------------------------
 							else
 							{
@@ -109,7 +110,7 @@ throw ( ProtocolException , Error )
 							pItem->SetEnchantLevel( pPacket->getItem().getEnchantLevel() );
 							
 							//------------------------------------------------------------
-							// Sub ItemÀÌ ÀÖÀ¸¸é »ı¼ºÇÑ´Ù.
+							// Sub Itemì´ ìˆìœ¼ë©´ ìƒì„±í•œë‹¤.
 							//------------------------------------------------------------
 							
 							int subNum =pPacket->getItem().getSubItems().size();
@@ -117,7 +118,7 @@ throw ( ProtocolException , Error )
 							if (subNum!=0)
 							{
 								//------------------------------------------------------------
-								// BeltÀÎ °æ¿ì
+								// Beltì¸ ê²½ìš°
 								//------------------------------------------------------------
 								if (pItem->GetItemClass()==ITEM_CLASS_BELT)
 								{
@@ -126,7 +127,7 @@ throw ( ProtocolException , Error )
 									std::list<SubItemInfo*>::const_iterator iItem = listSubItem.begin();
 									
 									//------------------------------------------------------------
-									// °¢°¢ÀÇ sub itemÀ» ¼³Á¤ÇÑ´Ù.
+									// ê°ê°ì˜ sub itemì„ ì„¤ì •í•œë‹¤.
 									//------------------------------------------------------------
 									while (iItem != listSubItem.end())
 									{
@@ -135,7 +136,7 @@ throw ( ProtocolException , Error )
 										if (pItemInfo!=NULL)
 										{
 											//------------------------------------------------------------
-											// sub itemÀ» »ı¼ºÇÑ´Ù.
+											// sub itemì„ ìƒì„±í•œë‹¤.
 											//------------------------------------------------------------
 											MItem* pSubItem = MItem::NewItem( (ITEM_CLASS)pItemInfo->getItemClass() );
 											
@@ -164,7 +165,7 @@ throw ( ProtocolException , Error )
 									std::list<SubItemInfo*>::const_iterator iItem = listSubItem.begin();
 									
 									//------------------------------------------------------------
-									// °¢°¢ÀÇ sub itemÀ» ¼³Á¤ÇÑ´Ù.
+									// ê°ê°ì˜ sub itemì„ ì„¤ì •í•œë‹¤.
 									//------------------------------------------------------------
 									while (iItem != listSubItem.end())
 									{
@@ -173,7 +174,7 @@ throw ( ProtocolException , Error )
 										if (pItemInfo!=NULL)
 										{
 											//------------------------------------------------------------
-											// sub itemÀ» »ı¼ºÇÑ´Ù.
+											// sub itemì„ ìƒì„±í•œë‹¤.
 											//------------------------------------------------------------
 											MItem* pSubItem = MItem::NewItem( (ITEM_CLASS)pItemInfo->getItemClass() );
 											

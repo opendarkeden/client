@@ -18,7 +18,7 @@
 //
 // class GCUnionOfferList;
 //
-// Å¬¶óÀÌ¾ğÆ®¿¡°Ô ¿¬ÇÕÀ» ½ÅÃ»ÇÑ ±æµå ¸®½ºÆ®¸¦ ¸¸µé¾î¼­ º¸³»ÁØ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì—°í•©ì„ ì‹ ì²­í•œ ê¸¸ë“œ ë¦¬ìŠ¤íŠ¸ë¥¼ ë§Œë“¤ì–´ì„œ ë³´ë‚´ì¤€ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -117,7 +117,7 @@ public:
 	GuildID_t getGuildID() const throw() { return m_GuildID; }
 	void setGuildID( GuildID_t GuildID ) throw() { m_GuildID = GuildID; }
 
-	// get/set OfferGuild Type (JOIN-½ÅÃ»ÀÚ ¸ñ·Ï, QUIT-Å»Åğ½ÅÃ»ÇÑ ±æµå)
+	// get/set OfferGuild Type (JOIN-ì‹ ì²­ì ëª©ë¡, QUIT-íƒˆí‡´ì‹ ì²­í•œ ê¸¸ë“œ)
 	BYTE	getGuildType()	const throw() { return m_Type-1; }
 	void	setGuildType( BYTE Type ) throw() { m_Type = Type; }
 
@@ -151,10 +151,10 @@ public :
     ~GCUnionOfferList() throw();
 
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream & iStream) throw(ProtocolException, Error);
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
 
 	// execute packet's handler
@@ -208,7 +208,7 @@ public :
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static GCSystemMessagePacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+	// const static GCSystemMessagePacketMaxSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
 	PacketSize_t getPacketMaxSize() const throw() { return SingleGuildUnionOffer::getMaxSize() * 20; }
 
 };

@@ -1,8 +1,8 @@
 //----------------------------------------------------------------------
 // CDirectSoundStream.h
 //----------------------------------------------------------------------
-// ¿ìÇìÇì..
-// DirectX »ùÇÃÀ» ±Ü¾î¼­ ±ŞÁ¶µÈ ÇÊ»ì ÇãÁ¢ class.. - -;
+// ìš°í—¤í—¤..
+// DirectX ìƒ˜í”Œì„ ê¸ì–´ì„œ ê¸‰ì¡°ëœ í•„ì‚´ í—ˆì ‘ class.. - -;
 //----------------------------------------------------------------------
 
 #ifndef __CDIRECTSOUNDSTREAM_H__
@@ -11,8 +11,50 @@
 
 #define NUM_PLAY_NOTIFICATIONS  16
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
 #include <DSound.h>
+#else
+#include "../../basic/Platform.h"
+
+/* Forward declarations for DirectSound types */
+typedef struct IDirectSoundBuffer* LPDIRECTSOUNDBUFFER;
+typedef struct IDirectSoundNotify* LPDIRECTSOUNDNOTIFY;
+typedef void* HMMIO;
+
+/* WAVE form type */
+typedef DWORD FOURCC;
+
+/* WAVE file chunk information structure */
+typedef struct _MMCKINFO {
+    FOURCC   ckid;
+    DWORD    cksize;
+    FOURCC   fccType;
+    DWORD    dwDataOffset;
+    DWORD    dwFlags;
+} MMCKINFO, *LPMMCKINFO;
+
+/* WAVE format structure */
+#ifndef _WAVEFORMATEX_
+#define _WAVEFORMATEX_
+typedef struct _WAVEFORMATEX {
+    WORD    wFormatTag;
+    WORD    nChannels;
+    DWORD   nSamplesPerSec;
+    DWORD   nAvgBytesPerSec;
+    WORD    nBlockAlign;
+    WORD    wBitsPerSample;
+    WORD    cbSize;
+} WAVEFORMATEX, *LPWAVEFORMATEX;
+#endif
+
+/* DirectSound buffer position notify structure */
+typedef struct _DSBPOSITIONNOTIFY {
+    DWORD   dwOffset;
+    HANDLE  hEventNotify;
+} DSBPOSITIONNOTIFY;
+
+#endif
 
 class CDirectSoundStream {
 	public :
@@ -33,7 +75,7 @@ class CDirectSoundStream {
 		void					SetVolumeLimit(LONG volume);
 		LONG					GetVolumeLimit() const	{ return m_MaxVolume; }
 
-		// main loop¿¡¼­ µ¹·ÁÁà¾ß ÇÑ´Ù.
+		// main loopì—ì„œ ëŒë ¤ì¤˜ì•¼ í•œë‹¤.
 		void					Update();
 
 		// get
@@ -61,7 +103,7 @@ class CDirectSoundStream {
 
 		HANDLE					m_hNotificationEvents[2];
 
-		// À½ÇìÇì...
+		// ìŒí—¤í—¤...
 		DWORD					m_dwBufferSize;
 		DWORD					m_dwNotifySize;
 		DWORD					m_dwNextWriteOffset;
@@ -69,13 +111,13 @@ class CDirectSoundStream {
 		DWORD					m_dwLastPos;
 		BOOL					m_bFoundEnd;
 
-		// °¡Àå ÃÖ±Ù¿¡ loadÇÑ Wav¿¡ ´ëÇÑ Á¤º¸
+		// ê°€ì¥ ìµœê·¼ì— loadí•œ Wavì— ëŒ€í•œ ì •ë³´
 		WAVEFORMATEX			m_wavefmt;        // Pointer to WAVEFORMATEX structure
 		HMMIO					m_hmmioIn;     // MM I/O handle for the WAVE
 		MMCKINFO				m_ckIn;        // Multimedia RIFF chunk
 		MMCKINFO				m_ckInRiff;    // Use in opening a WAVE file
 
-		LONG					m_MaxVolume;		// ÇöÀçÀÇ ÃÖ´ë ¼Ò¸® Å©±â
+		LONG					m_MaxVolume;		// í˜„ì¬ì˜ ìµœëŒ€ ì†Œë¦¬ í¬ê¸°
 };
 
 #endif

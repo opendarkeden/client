@@ -1,9 +1,13 @@
 
-#include <fstream.h>
-#include <strstrea.h>
+#include <fstream>
+#include <strstream>
 #ifdef  __WIN32__
 #define STRICT
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #endif   // __WIN32__
 
 #include "bit_res.h"

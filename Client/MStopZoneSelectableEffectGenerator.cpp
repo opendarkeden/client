@@ -31,8 +31,8 @@ MStopZoneSelectableEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo
 	int direction = egInfo.direction;
 
 	//-----------------------------------------------------------
-	// ´ÙÅ©´Ï½ºÀÇ °æ¿ì ´Ù¾çÇÏ°Ô Âï¾îÁÖ±â...
-	// ÀÓ½Ã ¶«»§ ÄÚµå.. ÄÉÄÉ~
+	// ë‹¤í¬ë‹ˆìŠ¤ì˜ ê²½ìš° ë‹¤ì–‘í•˜ê²Œ ì°ì–´ì£¼ê¸°...
+	// ìž„ì‹œ ë•œë¹µ ì½”ë“œ.. ì¼€ì¼€~
 	//-----------------------------------------------------------
 	if (frameID>=EFFECTSPRITETYPE_DARKNESS_1_1
 		&& frameID<=EFFECTSPRITETYPE_DARKNESS_3_5 ||
@@ -81,7 +81,7 @@ MStopZoneSelectableEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo
 	}
 
 	//-----------------------------------------------------------
-	// Sword Wave¸¦ À§ÇÑ ÀÓ½Ã(-_-;) ÄÚµå..
+	// Sword Waveë¥¼ ìœ„í•œ ìž„ì‹œ(-_-;) ì½”ë“œ..
 	//-----------------------------------------------------------
 	if (frameID==EFFECTSPRITETYPE_SWORD_WAVE_1)
 	{
@@ -98,7 +98,7 @@ MStopZoneSelectableEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo
 	
 
 	//---------------------------------------------
-	// pixelÁÂÇ¥¸¦ MapÀÇ ÁÂÇ¥·Î ¹Ù²ãÁØ´Ù.
+	// pixelì¢Œí‘œë¥¼ Mapì˜ ì¢Œí‘œë¡œ ë°”ê¿”ì¤€ë‹¤.
 	//---------------------------------------------
 	TYPE_SECTORPOSITION	sX, sY;
 	sX = g_pTopView->PixelToMapX(egInfo.x0);
@@ -108,36 +108,36 @@ MStopZoneSelectableEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo
 
 	MEffect*	pEffect;
 	//---------------------------------------------
-	// Effect »ý¼º
+	// Effect ìƒì„±
 	//---------------------------------------------
 	pEffect = new MSelectableEffect(bltType);
 
 	pEffect->SetFrameID( frameID, maxFrame );	
 
-	pEffect->SetPosition(sX, sY);		// Sector ÁÂÇ¥		
+	pEffect->SetPosition(sX, sY);		// Sector ì¢Œí‘œ		
 	pEffect->SetZ(egInfo.z0);			
-	pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
-	pEffect->SetCount( egInfo.count, egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+	pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ìž…í•´ì¤€ë‹¤.
+	pEffect->SetCount( egInfo.count, egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 
-	// ¹æÇâ ¼³Á¤
+	// ë°©í–¥ ì„¤ì •
 	pEffect->SetDirection( direction );
 
-	// À§·Â
+	// ìœ„ë ¥
 	pEffect->SetPower(egInfo.power);
 
-	// ºûÀÇ ¹à±â
+	// ë¹›ì˜ ë°ê¸°
 	//pEffect->SetLight( light );
 
-	// Zone¿¡ Ãß°¡ÇÑ´Ù.
+	// Zoneì— ì¶”ê°€í•œë‹¤.
 	bool bAdd = g_pZone->AddEffect( pEffect );
 
 	//---------------------------------------------
-	// ¹Ýº¹µÇ´Â frameÀÌ¸é..
-	// ½ÃÀÛ frameÀ» ´Ù¸£°Ô ÇÑ´Ù.
+	// ë°˜ë³µë˜ëŠ” frameì´ë©´..
+	// ì‹œìž‘ frameì„ ë‹¤ë¥´ê²Œ í•œë‹¤.
 	//---------------------------------------------
 	if (bAdd)
 	{
-		// ´ÙÀ½ Effect »ý¼º Á¤º¸
+		// ë‹¤ìŒ Effect ìƒì„± ì •ë³´
 		pEffect->SetLink( egInfo.nActionInfo, egInfo.pEffectTarget );
 		
 		if (repeatFrame)

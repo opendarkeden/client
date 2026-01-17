@@ -5,7 +5,7 @@
 #include "CAlphaSprite565.h"
 #include "CAlphaSpritePackList.h"
 #include "CAlphaSpritePackList565.h"
-#include <fstream.h>
+#include <fstream>
 
 //----------------------------------------------------------------------
 //
@@ -16,30 +16,30 @@
 //----------------------------------------------------------------------
 // Load From File
 //----------------------------------------------------------------------
-// file¿¡¼­ ID¿Í Sprite¸¦ ÀĞ¾î¿Í¼­ list ÇÏ³ª¾¿ ÀúÀåÇÑ´Ù.
+// fileì—ì„œ IDì™€ Spriteë¥¼ ì½ì–´ì™€ì„œ list í•˜ë‚˜ì”© ì €ì¥í•œë‹¤.
 //----------------------------------------------------------------------
 void		
 CAlphaSpritePackList565::LoadFromFile(ifstream& file)
 {
-	// memory¿¡¼­ listÁ¦°Å
+	// memoryì—ì„œ listì œê±°
 	Release();
 
-	// file¿¡¼­ sprite °³¼ö¸¦ ÀĞ¾î¿Â´Ù.	
+	// fileì—ì„œ sprite ê°œìˆ˜ë¥¼ ì½ì–´ì˜¨ë‹¤.	
 	TYPE_SPRITEID size;
 	file.read((char*)&size, SIZE_SPRITEID);
 
 
 	CAlphaSprite* pSprite;
 
-	// file¿¡ ÀÖ´Â SpriteµéÀ» Load	
+	// fileì— ìˆëŠ” Spriteë“¤ì„ Load	
 	for (TYPE_SPRITEID i=0; i<size; i++)	
 	{			
-		// ¸Ş¸ğ¸® Àâ±â
+		// ë©”ëª¨ë¦¬ ì¡ê¸°
 		pSprite = new CAlphaSprite565;
 
-		pSprite->LoadFromFile(file);	// Sprite ÀĞ¾î¿À±â
+		pSprite->LoadFromFile(file);	// Sprite ì½ì–´ì˜¤ê¸°
 
-		// List¿¡ Ãß°¡
+		// Listì— ì¶”ê°€
 		AddSprite(pSprite);
 	}
 }

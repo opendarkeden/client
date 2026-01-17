@@ -24,13 +24,14 @@
 // 
 // GLIncomingConnectionOKHander::execute()
 // 
-// °ÔÀÓ ¼­¹ö·ÎºÎÅÍ GLIncomingConnectionOK ÆĞÅ¶ÀÌ ³¯¾Æ¿À¸é, ·Î±×ÀÎ ¼­¹ö´Â ÀÌ Çã°¡°¡ 
-// ¾î´À ÇÃ·¹ÀÌ¾î¿¡ ´ëÇÑ Çã°¡ÀÎÁö Ã£¾Æ³»¾ß ÇÑ´Ù. ±× ÈÄ, ÀÌ ÇÃ·¹ÀÌ¾î¿¡°Ô LCReconnect
-// ÆĞÅ¶À» ´øÁ®Áà¾ß ÇÑ´Ù.
+// ê²Œì„ ì„œë²„ë¡œë¶€í„° GLIncomingConnectionOK íŒ¨í‚·ì´ ë‚ ì•„ì˜¤ë©´, ë¡œê·¸ì¸ ì„œë²„ëŠ” ì´ í—ˆê°€ê°€ 
+// ì–´ëŠ í”Œë ˆì´ì–´ì— ëŒ€í•œ í—ˆê°€ì¸ì§€ ì°¾ì•„ë‚´ì•¼ í•œë‹¤. ê·¸ í›„, ì´ í”Œë ˆì´ì–´ì—ê²Œ LCReconnect
+// íŒ¨í‚·ì„ ë˜ì ¸ì¤˜ì•¼ í•œë‹¤.
 // 
 //--------------------------------------------------------------------------------
 void GLIncomingConnectionOKHandler::execute ( GLIncomingConnectionOK * pPacket )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -38,7 +39,7 @@ void GLIncomingConnectionOKHandler::execute ( GLIncomingConnectionOK * pPacket )
 
 	try {	
 
-		// ÇÃ·¹ÀÌ¾î ¾ÆÀÌµğ¸¦ »ç¿ëÇØ¼­ ÇÃ·¹ÀÌ¾î °´Ã¼¿¡ Á¢±ÙÇÑ´Ù.
+		// í”Œë ˆì´ì–´ ì•„ì´ë””ë¥¼ ì‚¬ìš©í•´ì„œ í”Œë ˆì´ì–´ ê°ì²´ì— ì ‘ê·¼í•œë‹¤.
 		LoginPlayer * pLoginPlayer = g_pLoginPlayerManager->getPlayer( pPacket->getPlayerID() );
 
 		//cout << "PlayerStatus : " << (int)pLoginPlayer->getPlayerStatus() << endl;
@@ -49,22 +50,22 @@ void GLIncomingConnectionOKHandler::execute ( GLIncomingConnectionOK * pPacket )
 			 << "| Please Reconnect to GameServer |" << endl
 			 << "+--------------------------------+" << endl;
 
-        // Å¬¶óÀÌ¾ğÆ®¿¡°Ô °ÔÀÓ ¼­¹ö·Î ÀçÁ¢¼ÓÇÏ¶ó°í ¾Ë·ÁÁØ´Ù.
+        // í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ê²Œì„ ì„œë²„ë¡œ ì¬ì ‘ì†í•˜ë¼ê³  ì•Œë ¤ì¤€ë‹¤.
         LCReconnect lcReconnect;
         lcReconnect.setGameServerIP( pPacket->getHost() );
         lcReconnect.setGameServerPort( pPacket->getTCPPort() );
         lcReconnect.setKey( pPacket->getKey() );
 
-		// LCReconnect ÆĞÅ¶À» Àü¼ÛÇÑ´Ù.
+		// LCReconnect íŒ¨í‚·ì„ ì „ì†¡í•œë‹¤.
         pLoginPlayer->sendPacket( &lcReconnect );
 
-		// ¿¬°áÀ» Á¾·áÇÑ´Ù.
+		// ì—°ê²°ì„ ì¢…ë£Œí•œë‹¤.
 		pLoginPlayer->disconnect( UNDISCONNECTED );
 
-		// LPM¿¡¼­ »èÁ¦ÇÑ´Ù.
+		// LPMì—ì„œ ì‚­ì œí•œë‹¤.
 		g_pLoginPlayerManager->deletePlayer( pLoginPlayer->getSocket()->getSOCKET() );
 
-		// LoginPlayer °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+		// LoginPlayer ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 		delete pLoginPlayer;
 
 	} catch ( NoSuchElementException & nsee ) {

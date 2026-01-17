@@ -1,10 +1,10 @@
 //----------------------------------------------------------------------
 // CUsingColorSetTable.h
 //----------------------------------------------------------------------
-// CIndexSprite¿¡¼­ »ç¿ëÇÏ´Â ColorSet Áß¿¡¼­
-// ¾î¶² Sprite¿¡´Â Æ¯Á¤ÇÑ »ö±òµé¸¸ »ç¿ëÇÒ ¼ö ÀÖ°Ô ÇÏ±â À§ÇØ¼­..
-// MAX_COLORSET°³ÀÇ boolÀ» ¸¸µé°í
-// »ç¿ëÇÒ ¼ö ÀÖ´Â COLORSET¿¡´Â BOOLÀ» Ç¥½ÃÇÑ´Ù.
+// CIndexSpriteì—ì„œ ì‚¬ìš©í•˜ëŠ” ColorSet ì¤‘ì—ì„œ
+// ì–´ë–¤ Spriteì—ëŠ” íŠ¹ì •í•œ ìƒ‰ê¹”ë“¤ë§Œ ì‚¬ìš©í•  ìˆ˜ ìˆê²Œ í•˜ê¸° ìœ„í•´ì„œ..
+// MAX_COLORSETê°œì˜ boolì„ ë§Œë“¤ê³ 
+// ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” COLORSETì—ëŠ” BOOLì„ í‘œì‹œí•œë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef	__CUSINGCOLORSETTABLE_H__
@@ -12,8 +12,9 @@
 
 #include "CIndexSprite.h"
 #include "CTypeTable.h"
-class ofstream;
-class ifstream;
+
+#include <fstream>
+using namespace std;
 
 
 class USINGCOLORSET_NODE {
@@ -28,7 +29,7 @@ class USINGCOLORSET_NODE {
 		void			Disable(int set);
 
 		//-------------------------------------------------
-		// ÀÏÁ¤ ¹üÀ§ÀÇ Enable / Disable 
+		// ì¼ì • ë²”ìœ„ì˜ Enable / Disable 
 		//-------------------------------------------------
 		void			Enable(int start, int end);
 		void			Disable(int start, int end);
@@ -36,8 +37,8 @@ class USINGCOLORSET_NODE {
 		//-------------------------------------------------
 		// File I/O
 		//-------------------------------------------------
-		void			SaveToFile(class ofstream& file);
-		bool			LoadFromFile(class ifstream& file);
+		void			SaveToFile(std::ofstream& file);
+		bool			LoadFromFile(std::ifstream& file);
 
 	protected :
 		bool			m_bEnable[MAX_COLORSET];
@@ -49,7 +50,7 @@ extern 	USINGCOLORSET_TABLE*	g_pUsingColorSetTable;
 
 
 //----------------------------------------------------------------------
-// UsingColorSetÀÇ Á¾·ù...
+// UsingColorSetì˜ ì¢…ë¥˜...
 //----------------------------------------------------------------------
 enum USINGCOLORSET
 {

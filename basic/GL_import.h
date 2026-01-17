@@ -18,14 +18,16 @@ DllImport void (*Bltz)(const S_SURFACEINFO *,
                   const S_SURFACEINFO *, 
                   const S_RECT *,
                   const S_RECT *); // copy_2D_Space fp
-DllImport void (*CkBltz)(const S_SURFACEINFO *, 
-                  const S_SURFACEINFO *, 
+DllImport void (*CkBltz)(const S_SURFACEINFO *,
+                  const S_SURFACEINFO *,
                   const S_RECT *,
-                  const S_RECT *, 
+                  const S_RECT *,
 						const int); // copy_2D_Space_colorkey fp
 
+#ifdef PLATFORM_WINDOWS
 DllImport void	SetSurfaceInfo(S_SURFACEINFO *surface_info, const DDSURFACEDESC2 *p_ddsd);
 DllImport void	SetSurfaceInfo(S_SURFACEINFO *surface_info, const DDSURFACEDESC *p_ddsd);
+#endif
 DllImport void	SetSurfaceInfo(S_SURFACEINFO &surface_info, void *p_surface, int w, int h, int pitch=0);
 DllImport void	SetRect(S_RECT &rect, int x, int y, int w, int h);
 DllImport int	Get_ColorkeyColor(S_PICINFO *picinfo);
@@ -40,7 +42,7 @@ DllImport void	TransparentBlt16(S_SURFACEINFO *dest_surface_info,
 								S_SURFACEINFO *src_surface_info, 
 								S_RECT *dest_rect,
 								S_RECT *src_rect);
-DllImport int	getPixel16(S_SURFACEINFO *info, int x, int y); // utility¿¡¼­ »ç¿ë!
+DllImport int	getPixel16(S_SURFACEINFO *info, int x, int y); // utilityï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½!
 
 DllImport bool	TestTga(const char * filename);
 DllImport bool GetTgaPicInfo(const char * sz_filename, S_PICINFO &picinfo);

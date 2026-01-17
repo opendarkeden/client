@@ -17,14 +17,14 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCAddEffectHandler::execute ( GCAddEffect * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 #ifdef __GAME_CLIENT__
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -33,7 +33,7 @@ void GCAddEffectHandler::execute ( GCAddEffect * pPacket , Player * pPlayer )
 		
 	}	
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
@@ -41,7 +41,7 @@ void GCAddEffectHandler::execute ( GCAddEffect * pPacket , Player * pPlayer )
 		
 		MCreature* pCreature = g_pZone->GetCreature(CreatureID);
 
-		// ¼º¹°º¸°ü´ë ¾ò¾î¿À±â À§ÇØ¼­
+		// ì„±ë¬¼ë³´ê´€ëŒ€ ì–»ì–´ì˜¤ê¸° ìœ„í•´ì„œ
 		if (pCreature == NULL)
 		{
 			MItem *selectedItem = g_pZone->GetItem(CreatureID);
@@ -76,14 +76,14 @@ void GCAddEffectHandler::execute ( GCAddEffect * pPacket , Player * pPlayer )
 				PlaySound( (*g_pEffectStatusTable)[ status ].SoundID );
 			}
 			
-			// ÀÓ½Ã·Î...
-			// µÒÀÌ¸é ¹«½Ã..
-			// extremeÀÌ¸é ¹«½Ã...
+			// ìž„ì‹œë¡œ...
+			// ë‘ ì´ë©´ ë¬´ì‹œ..
+			// extremeì´ë©´ ë¬´ì‹œ...
 			if (status == EFFECTSTATUS_BACK_STAB_3 || status == EFFECTSTATUS_ICE_OF_SOUL_STONE ||
 				status == EFFECTSTATUS_TRAP_TRIGGERED || status == EFFECTSTATUS_TRAPPED ||
 				status == EFFECTSTATUS_TRYING || status == EFFECTSTATUS_GROUND_ELEMENTAL_CENTER)
 			{
-				// 3´Ü°è´Â °ü·Ã actioninfo °¡ ÀÖ´Ù.
+				// 3ë‹¨ê³„ëŠ” ê´€ë ¨ actioninfo ê°€ ìžˆë‹¤.
 				TYPE_ACTIONINFO		ActionInfo = (*g_pEffectStatusTable)[ status ].ActionInfo;
 				if( ActionInfo != ACTIONINFO_NULL )
 				{
@@ -111,7 +111,7 @@ void GCAddEffectHandler::execute ( GCAddEffect * pPacket , Player * pPlayer )
 			}
 			// 2004, 9, 3, sobeit add start
 			else
-			if(status == EFFECTSTATUS_TURRET_LASER && g_pPlayer) // °ø¼ºÀü Æ®·¦Áß..°ø°ÝÃø¿¡ ¾Èº¸ÀÌ´Â ±¤¼±
+			if(status == EFFECTSTATUS_TURRET_LASER && g_pPlayer) // ê³µì„±ì „ íŠ¸ëž©ì¤‘..ê³µê²©ì¸¡ì— ì•ˆë³´ì´ëŠ” ê´‘ì„ 
 			{
 				if(g_pPlayer->HasEffectStatus(EFFECTSTATUS_SIEGE_ATTACKER_1) || 
 					g_pPlayer->HasEffectStatus(EFFECTSTATUS_SIEGE_ATTACKER_2) || 
@@ -127,10 +127,10 @@ void GCAddEffectHandler::execute ( GCAddEffect * pPacket , Player * pPlayer )
 				//&& status!=EFFECTSTATUS_EXTREME
 				)
 			{
-				// delay°è»ê
+				// delayê³„ì‚°
 				DWORD delayFrame = ConvertDurationToFrame( pPacket->getDuration() );
 
-				// EffectStatus¸¦ Ãß°¡ÇÑ´Ù.
+				// EffectStatusë¥¼ ì¶”ê°€í•œë‹¤.
 				pCreature->AddEffectStatus(status, delayFrame);
 			}
 			

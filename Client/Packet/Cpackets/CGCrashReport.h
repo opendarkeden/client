@@ -96,7 +96,7 @@ public:
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static CGCrashReportPacketSize ∏¶ ¡§¿««ÿº≠ ∏Æ≈œ«œ∂Û.
+	// const static CGCrashReportPacketSize Î•º Ï†ïÏùòÌï¥ÏÑú Î¶¨ÌÑ¥ÌïòÎùº.
 	PacketSize_t getPacketMaxSize() const throw() {
 		return
 			19 + szWORD + 10 + szWORD + 100 + szWORD + 1024 + szWORD + 1024;

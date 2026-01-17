@@ -15,7 +15,7 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCAddBatHandler::execute ( GCAddBat * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -24,10 +24,10 @@ void GCAddBatHandler::execute ( GCAddBat * pPacket , Player * pPlayer )
 
 	int batCreatureType = 185;
 
-	_MinTrace("%d\n", pPacket->getBatColor() );
+	// _MinTrace("%d\n", pPacket->getBatColor() ); // Windows-only debug trace
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -36,7 +36,7 @@ void GCAddBatHandler::execute ( GCAddBat * pPacket , Player * pPlayer )
 		
 	}	
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
@@ -44,7 +44,7 @@ void GCAddBatHandler::execute ( GCAddBat * pPacket , Player * pPlayer )
 		MCreature* pCreature = g_pZone->GetCreature(pPacket->getObjectID());
 
 		//--------------------------------------------------
-		// »õ·Î¿î CreatureÀÌ¸é Ãß°¡
+		// ìƒˆë¡œìš´ Creatureì´ë©´ ì¶”ê°€
 		//--------------------------------------------------
 		if (pCreature==NULL)
 		{
@@ -58,7 +58,7 @@ void GCAddBatHandler::execute ( GCAddBat * pPacket , Player * pPlayer )
 
 			pCreature->SetName( pPacket->getName().c_str() );
 
-			// ÀÓ½Ã·Î
+			// ìž„ì‹œë¡œ
 			pCreature->SetGuildNumber( pPacket->getGuildID() );
 
 			pCreature->SetFlyingCreature();
@@ -76,7 +76,7 @@ void GCAddBatHandler::execute ( GCAddBat * pPacket , Player * pPlayer )
 			pCreature->SetStatus( MODIFY_CURRENT_HP, pPacket->getCurrentHP() );
 
 			//pPacket->getName()
-			// »ö»ó Á¤º¸
+			// ìƒ‰ìƒ ì •ë³´
 			
 			if( pPacket->getBatColor() != 0 )
 				pCreature->SetBatColor( pPacket->getBatColor() );
@@ -90,14 +90,14 @@ void GCAddBatHandler::execute ( GCAddBat * pPacket , Player * pPlayer )
 			}
 		}
 		//--------------------------------------------------
-		// ÀÌ¹Ì ÀÖ´Â CreatureÀÎ °æ¿ì
+		// ì´ë¯¸ ìžˆëŠ” Creatureì¸ ê²½ìš°
 		//--------------------------------------------------
 		else
 		{
 			//pCreature->SetCreatureType( batCreatureType );
 			pCreature->SetFlyingCreature();
 			
-			// ÀÓ½Ã·Î
+			// ìž„ì‹œë¡œ
 			pCreature->SetGuildNumber( pPacket->getGuildID() );
 
 			//pCreature->SetAction(ACTION_MOVE);
@@ -116,35 +116,35 @@ void GCAddBatHandler::execute ( GCAddBat * pPacket , Player * pPlayer )
 				pCreature->SetBatColor( 0xFFFF );
 
 			//--------------------------------------------------
-			// ¹ÚÁã·Î º¯½ÅÇÏ´Â °á°ú
+			// ë°•ì¥ë¡œ ë³€ì‹ í•˜ëŠ” ê²°ê³¼
 			//--------------------------------------------------
 			MActionResult* pResult = new MActionResult;
 
 			pResult->Add( new MActionResultNodeChangeCreatureType( pCreature->GetID(), batCreatureType ) );
 
 			//--------------------------------------------------
-			// ¹ÚÁã º¯½Å 
+			// ë°•ì¥ ë³€ì‹  
 			//--------------------------------------------------								
 			ExecuteActionInfoFromMainNode(
-				RESULT_MAGIC_TRANSFORM_TO_BAT,										// »ç¿ë ±â¼ú ¹øÈ£
+				RESULT_MAGIC_TRANSFORM_TO_BAT,										// ì‚¬ìš© ê¸°ìˆ  ë²ˆí˜¸
 			
 				pCreature->GetX(), pCreature->GetY(), 0,
-				pCreature->GetDirection(),														// »ç¿ë ¹æÇâ
+				pCreature->GetDirection(),														// ì‚¬ìš© ë°©í–¥
 				
-				OBJECTID_NULL,												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+				OBJECTID_NULL,												// ëª©í‘œì— ëŒ€í•œ ì •ë³´
 				pCreature->GetX(), pCreature->GetY(), 0, 
 				
-				0,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+				0,													// ê¸°ìˆ ì˜ (ë‚¨ì€) ì§€ì† ì‹œê°„		
 				
 				pResult, //NULL,
 				
-				false);			// ±â¼ú Ã·ºÎÅÍ ½ÃÀÛÇÑ´Ù.
+				false);			// ê¸°ìˆ  ì²¨ë¶€í„° ì‹œìž‘í•œë‹¤.
 
 			//pCreature->SetDelay( 1000 );
 		}	
 	}
 
-	// [µµ¿ò¸»] Vampire°¡ ³ªÅ¸³¯¶§
+	// [ë„ì›€ë§] Vampireê°€ ë‚˜íƒ€ë‚ ë•Œ
 //	__BEGIN_HELP_EVENT
 //		//ExecuteHelpEvent( HE_CREATURE_APPEAR_VAMPIRE );
 //	__END_HELP_EVENT

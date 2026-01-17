@@ -1,11 +1,11 @@
 //----------------------------------------------------------------------
 // CTypeMap2.h
 //----------------------------------------------------------------------
-// DataTypeÀº pointer typeÀÌ¾î¾ß ÇÑ´Ù.
+// DataTypeì€ pointer typeì´ì–´ì•¼ í•œë‹¤.
 //
-// fstream.h¿Í fstreamÀÇ Ãæµ¹·Î ÀÎÇØ¼­..
-// ÀÓ½Ã·Î...
-// fstreamÀ» »ç¿ëÇÏÁö ¾Ê´Â versionÀÌ´ç. - -;
+// fstream.hì™€ fstreamì˜ ì¶©ëŒë¡œ ì¸í•´ì„œ..
+// ì„ì‹œë¡œ...
+// fstreamì„ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ” versionì´ë‹¹. - -;
 //----------------------------------------------------------------------
 
 #ifndef __CTYPEMAP2_H__
@@ -16,12 +16,19 @@
 #include <map>
 
 //----------------------------------------------------------------------
-// CTypeMap2 (id, DataType*)ÀÇ map
+// CTypeMap2 (id, DataType*)ì˜ map
 //----------------------------------------------------------------------
 template <class DataType>
 class CTypeMap2 : public std::map<unsigned int, DataType*> {
 	public :
 		typedef	std::map<unsigned int, DataType*>	TYPE_MAP;
+
+		// Bring base class methods into scope
+		using std::map<unsigned int, DataType*>::begin;
+		using std::map<unsigned int, DataType*>::end;
+		using std::map<unsigned int, DataType*>::find;
+		using std::map<unsigned int, DataType*>::clear;
+		using std::map<unsigned int, DataType*>::insert;
 
 	public :
 		CTypeMap2();
@@ -68,7 +75,7 @@ template <class DataType>
 void
 CTypeMap2<DataType>::Release()
 {
-	TYPE_MAP::iterator iData = begin();
+	typename TYPE_MAP::iterator iData = begin();
 
 	while (iData != end())
 	{
@@ -89,19 +96,19 @@ template <class DataType>
 bool				
 CTypeMap2<DataType>::AddData( unsigned int id, DataType* pData )
 {
-	TYPE_MAP::iterator	iData = find( id );
+	typename TYPE_MAP::iterator	iData = find( id );
 
 	if (iData != end())
 	{
-		// ÀÌ¹Ì ÀÖ´Â °æ¿ì
-		// pData´Â ¿ÜºÎ¿¡¼­ Áö¿öÁà¾ßÇÑ´Ù.
+		// ì´ë¯¸ ìˆëŠ” ê²½ìš°
+		// pDataëŠ” ì™¸ë¶€ì—ì„œ ì§€ì›Œì¤˜ì•¼í•œë‹¤.
 		return false;
 	}
 
 	//------------------------------------------------------
-	// ¾ø´Â °æ¿ì --> Ãß°¡
+	// ì—†ëŠ” ê²½ìš° --> ì¶”ê°€
 	//------------------------------------------------------
-	insert(TYPE_MAP::value_type(id, pData));
+	insert(typename TYPE_MAP::value_type(id, pData));
 
 	return true;
 }
@@ -113,15 +120,15 @@ template <class DataType>
 DataType*	
 CTypeMap2<DataType>::GetData( unsigned int id )
 {
-	TYPE_MAP::iterator	iData = find( id );
+	typename TYPE_MAP::iterator	iData = find( id );
 
 	if (iData == end())
 	{
-		// ¾ø´Â °æ¿ì 
+		// ì—†ëŠ” ê²½ìš° 
 		return NULL;
 	}
 
-	// ÀÖ´Â °æ¿ì
+	// ìˆëŠ” ê²½ìš°
 	return (*iData).second;
 }
 
@@ -132,15 +139,15 @@ template <class DataType>
 const DataType*	
 CTypeMap2<DataType>::GetData( unsigned int id ) const
 {
-	TYPE_MAP::const_iterator	iData = find( id );
+	typename TYPE_MAP::const_iterator	iData = find( id );
 
 	if (iData == end())
 	{
-		// ¾ø´Â °æ¿ì 
+		// ì—†ëŠ” ê²½ìš° 
 		return NULL;
 	}
 
-	// ÀÖ´Â °æ¿ì
+	// ìˆëŠ” ê²½ìš°
 	return (*iData).second;
 }
 
@@ -151,18 +158,18 @@ template <class DataType>
 bool				
 CTypeMap2<DataType>::RemoveData( unsigned int id )
 {
-	TYPE_MAP::iterator	iData = find( id );
+	typename TYPE_MAP::iterator	iData = find( id );
 
 	if (iData == end())
 	{
-		// ¾ø´Â °æ¿ì 
+		// ì—†ëŠ” ê²½ìš° 
 		return false;
 	}
 
-	// ÀÖÀ¸¸é Áö¿öÁà¾ß ÇÑ´Ù.
+	// ìˆìœ¼ë©´ ì§€ì›Œì¤˜ì•¼ í•œë‹¤.
 	delete (*iData).second;
 
-	erase( iData );
+	TYPE_MAP::erase( iData );
 
 	return true;
 }

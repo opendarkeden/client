@@ -2,7 +2,11 @@
 // CSpriteTexturePartManager.cpp
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
+#ifdef PLATFORM_WINDOWS
 #include "DX3D.h"
+#else
+#include "CDirect3D.h"
+#endif
 #include "CFileIndexTable.h"
 #include "CSpriteTexturePartManager.h"
 
@@ -41,11 +45,11 @@ CNormalSpriteTexturePartManager::~CNormalSpriteTexturePartManager()
 //----------------------------------------------------------------------
 // Init(spkFilename, indexFilename)
 //----------------------------------------------------------------------
-// spkFilenameÀº AlphaSpritePackÀÌ´Ù.
-// indexFilenameÀº AlphaSpritePack IndexÀÌ´Ù.
+// spkFilenameì€ AlphaSpritePackì´ë‹¤.
+// indexFilenameì€ AlphaSpritePack Indexì´ë‹¤.
 //
-// spkFilenameÀº È­ÀÏÀ» ¿­¾î¼­ ³ªÁß¿¡ ÀĞÀ» ¼ö ÀÖµµ·Ï ÇØµÎ°í
-// indexFilenameÀº ¸ğµÎ ÀĞ¾î¼­ ±â¾ïÇØµĞ´Ù.
+// spkFilenameì€ í™”ì¼ì„ ì—´ì–´ì„œ ë‚˜ì¤‘ì— ì½ì„ ìˆ˜ ìˆë„ë¡ í•´ë‘ê³ 
+// indexFilenameì€ ëª¨ë‘ ì½ì–´ì„œ ê¸°ì–µí•´ë‘”ë‹¤.
 //----------------------------------------------------------------------
 void
 CNormalSpriteTexturePartManager::Init(CSpritePack* pSPK, WORD partSize)
@@ -54,15 +58,15 @@ CNormalSpriteTexturePartManager::Init(CSpritePack* pSPK, WORD partSize)
 	Release();
 
 	///*
-	// Index FileÀ» LoadÇÑ´Ù.
-//	class ifstream indexFile(indexFilename, ios::binary);
+	// Index Fileì„ Loadí•œë‹¤.
+//	std::ifstream indexFile(indexFilename, ios::binary);
 //	m_SPKIndex.LoadFromFile( indexFile );
 //	indexFile.close();
 //
-//	// SPK¸¦ ÃÊ±âÈ­ ÇÑ´Ù. (°³¼ö¸¸Å­..)
+//	// SPKë¥¼ ì´ˆê¸°í™” í•œë‹¤. (ê°œìˆ˜ë§Œí¼..)
 //	m_SPK.Init( m_SPKIndex.GetSize());//, CDirectDraw::Is565() );
 //
-//	// SPK FileÀ» ¿­¾îµĞ´Ù.
+//	// SPK Fileì„ ì—´ì–´ë‘”ë‹¤.
 //	m_SPKFile.open(spkFilename, ios::binary);
 //	
 //	TYPE_SPRITEID size;
@@ -78,11 +82,11 @@ CNormalSpriteTexturePartManager::Init(CSpritePack* pSPK, WORD partSize)
 
 	//int allSize = pSPK->GetSize();
 
-	// Base classÀÇ Init¸¦ ÀÌ¿ëÇØ¼­..
-	// ( ÀüÃ¼ °³¼ö, ¸Ş¸ğ¸® Çã¿ë °³¼ö ) 
+	// Base classì˜ Initë¥¼ ì´ìš©í•´ì„œ..
+	// ( ì „ì²´ ê°œìˆ˜, ë©”ëª¨ë¦¬ í—ˆìš© ê°œìˆ˜ ) 
 	CPartManager<WORD, WORD, CSpriteSurface*>::Init( allSize, partSize );
 	
-	// NULL·Î ÃÊ±âÈ­
+	// NULLë¡œ ì´ˆê¸°í™”
 	for (int i=0; i<m_nPart; i++)
 	{
 		m_pData[i] = NULL;
@@ -92,7 +96,7 @@ CNormalSpriteTexturePartManager::Init(CSpritePack* pSPK, WORD partSize)
 	m_pWidth = new int [allSize];
 	m_pHeight = new int [allSize];
 
-	for (i=0; i<allSize; i++)
+	for (int i=0; i<allSize; i++)
 	{
 		m_pWidth[i] = 0;
 		m_pHeight[i] = 0;
@@ -104,7 +108,7 @@ CNormalSpriteTexturePartManager::Init(CSpritePack* pSPK, WORD partSize)
 
 	if (CDirect3D::IsTexturePow2())
 	{
-		for (i=0; i<allSize; i++)
+		for (int i=0; i<allSize; i++)
 		{
 			if ((*pSPK)[i].IsInit())
 			{
@@ -113,8 +117,8 @@ CNormalSpriteTexturePartManager::Init(CSpritePack* pSPK, WORD partSize)
 				width = 1;
 				height = 1;
 
-				// width¿Í height´Â spWidth¿Í spHeightº¸´Ù Ä¿¾ß ÇÑ´Ù.
-				// square·Î ¸ÂÃçÁØ´Ù.
+				// widthì™€ heightëŠ” spWidthì™€ spHeightë³´ë‹¤ ì»¤ì•¼ í•œë‹¤.
+				// squareë¡œ ë§ì¶°ì¤€ë‹¤.
 				while (width < spWidth || height < spHeight)
 				{
 					width <<= 1;
@@ -133,7 +137,7 @@ CNormalSpriteTexturePartManager::Init(CSpritePack* pSPK, WORD partSize)
 	}
 	else
 	{
-		for (i=0; i<allSize; i++)
+		for (int i=0; i<allSize; i++)
 		{
 			if ((*pSPK)[i].IsInit())
 			{
@@ -142,7 +146,7 @@ CNormalSpriteTexturePartManager::Init(CSpritePack* pSPK, WORD partSize)
 				width = spWidth;
 				height = spHeight;
 
-				// Å« Å©±â·Î ¸ÂÃß¾î¼­ Square·Î ¸¸µç´Ù.
+				// í° í¬ê¸°ë¡œ ë§ì¶”ì–´ì„œ Squareë¡œ ë§Œë“ ë‹¤.
 				if (CDirect3D::IsTextureSquareOnly())
 				{				
 					if (width > height)
@@ -173,7 +177,7 @@ CNormalSpriteTexturePartManager::Init(CSpritePack* pSPK, WORD partSize)
 //----------------------------------------------------------------------
 // Release
 //----------------------------------------------------------------------
-// ¿­·ÁÁø SPK fileÀ» ´İ´Â´Ù.
+// ì—´ë ¤ì§„ SPK fileì„ ë‹«ëŠ”ë‹¤.
 //----------------------------------------------------------------------
 void	
 CNormalSpriteTexturePartManager::Release()
@@ -215,7 +219,7 @@ CNormalSpriteTexturePartManager::Release()
 //----------------------------------------------------------------------
 // Delete Removed
 //----------------------------------------------------------------------
-// Áö¿ö¾ß ÇÒ °Íµé
+// ì§€ì›Œì•¼ í•  ê²ƒë“¤
 //----------------------------------------------------------------------
 void				
 CNormalSpriteTexturePartManager::DeleteRemoved()
@@ -237,15 +241,15 @@ CNormalSpriteTexturePartManager::DeleteRemoved()
 //----------------------------------------------------------------------
 // Clear
 //----------------------------------------------------------------------
-// Video MemoryÀÇ ³»¿ëÀº clearÇÑ´Ù.
-// ½ÇÁ¦·Î´Â... ´Ù ³¯·Á¹ö¸®´Â °ÍÀÌ´Ù.
+// Video Memoryì˜ ë‚´ìš©ì€ clearí•œë‹¤.
+// ì‹¤ì œë¡œëŠ”... ë‹¤ ë‚ ë ¤ë²„ë¦¬ëŠ” ê²ƒì´ë‹¤.
 //----------------------------------------------------------------------
 void
 CNormalSpriteTexturePartManager::Clear()
 {	
 	DeleteRemoved();
 
-	// video memory¸¦ ³¯·Á~ÁØ´Ù.
+	// video memoryë¥¼ ë‚ ë ¤~ì¤€ë‹¤.
 	for (int i=0; i<m_nPart; i++)
 	{
 		if (m_pData[i] != NULL)			
@@ -256,12 +260,12 @@ CNormalSpriteTexturePartManager::Clear()
 		}
 	}
 
-	// Base classÀÇ Init¸¦ ÀÌ¿ëÇØ¼­..
-	// ( ÀüÃ¼ °³¼ö, ¸Ş¸ğ¸® Çã¿ë °³¼ö ) 
+	// Base classì˜ Initë¥¼ ì´ìš©í•´ì„œ..
+	// ( ì „ì²´ ê°œìˆ˜, ë©”ëª¨ë¦¬ í—ˆìš© ê°œìˆ˜ ) 
 	CPartManager<WORD, WORD, CSpriteSurface*>::Init( m_nIndex, m_nPart );
 
-	// NULL·Î ÃÊ±âÈ­
-	for (i=0; i<m_nPart; i++)
+	// NULLë¡œ ì´ˆê¸°í™”
+	for (int i=0; i<m_nPart; i++)
 	{
 		m_pData[i] = NULL;
 	}
@@ -271,14 +275,14 @@ CNormalSpriteTexturePartManager::Clear()
 //----------------------------------------------------------------------
 // GetTexture( id )
 //----------------------------------------------------------------------
-// SPK¿¡¼­ ID°¡ idÀÎ AlphaSprite°¡ LoadµÈ Surface¸¦ ³Ñ°ÜÁà¾ß ÇÏ´Âµ¥,
+// SPKì—ì„œ IDê°€ idì¸ AlphaSpriteê°€ Loadëœ Surfaceë¥¼ ë„˜ê²¨ì¤˜ì•¼ í•˜ëŠ”ë°,
 //
-// LoadµÇÁö ¾Ê¾ÒÀ¸¸é,
-// Index¸¦ Âü°íÇØ¼­ ¿­·ÁÁø SPK File¿¡¼­ 
-// id¿¡ ÇØ´çÇÏ´Â AlphaSprite¸¦ LoadÇØ¼­ Surface¸¦ ÇÏ³ª »ı¼ºÇÏ°í
-// ±× Surface¿¡ AlphaSprite¸¦ Ãâ·ÂÇØÁØ´Ù.
+// Loadë˜ì§€ ì•Šì•˜ìœ¼ë©´,
+// Indexë¥¼ ì°¸ê³ í•´ì„œ ì—´ë ¤ì§„ SPK Fileì—ì„œ 
+// idì— í•´ë‹¹í•˜ëŠ” AlphaSpriteë¥¼ Loadí•´ì„œ Surfaceë¥¼ í•˜ë‚˜ ìƒì„±í•˜ê³ 
+// ê·¸ Surfaceì— AlphaSpriteë¥¼ ì¶œë ¥í•´ì¤€ë‹¤.
 //
-// ÀÌ ºÎºĞ¿¡¼­ ¼Óµµ°¡ »ó´çÈ÷ ´À·ÁÁöÁö ¾ÊÀ»±î... 
+// ì´ ë¶€ë¶„ì—ì„œ ì†ë„ê°€ ìƒë‹¹íˆ ëŠë ¤ì§€ì§€ ì•Šì„ê¹Œ... 
 //----------------------------------------------------------------------
 CSpriteSurface*		
 CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
@@ -287,7 +291,7 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 	//static int reuse	= 0;
 
 	//-----------------------------------------------------------
-	// ¾øÀ¸¸é --> Load & return
+	// ì—†ìœ¼ë©´ --> Load & return
 	//-----------------------------------------------------------
 	if (IsDataNotNULL(id))
 	{
@@ -325,29 +329,29 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 		CSprite* pSprite = &(*m_pSPK)[id];
 		//CAlphaSprite* pSprite = &(*m_pSPK)[id];
 
-		//// ´Ù LoadµÇ¾î ÀÖ´Ù°í °¡Á¤ÇÑ´Ù..
+		//// ë‹¤ Loadë˜ì–´ ìˆë‹¤ê³  ê°€ì •í•œë‹¤..
 		///*
 		//----------------------------------------
-		// ÀÌ¹Ì LoadµÈ °ÍÀÌ¸é..
+		// ì´ë¯¸ Loadëœ ê²ƒì´ë©´..
 		//----------------------------------------
 //		if (pSprite->IsInit())
 //		{
 //		}
 //		//----------------------------------------
-//		// LoadÇØ¾ß µÇ´Â °æ¿ì
+//		// Loadí•´ì•¼ ë˜ëŠ” ê²½ìš°
 //		//----------------------------------------
 //		else
 //		{
 //			//-----------------------------------------------------------
-//			// AlphaSprite¸¦ LoadÇÑ´Ù.
+//			// AlphaSpriteë¥¼ Loadí•œë‹¤.
 //			//-----------------------------------------------------------
-//			// id¿¡ ¸Â´Â ÀûÀıÇÑ FilePointer·Î ÀÌµ¿ÇØ¼­
+//			// idì— ë§ëŠ” ì ì ˆí•œ FilePointerë¡œ ì´ë™í•´ì„œ
 //			int temp = m_SPKIndex[id];
 //			m_SPKFile.seekg(m_SPKIndex[id], ios::beg);
 //			pSprite->LoadFromFile( m_SPKFile );
 //		}
 		//*/
-		// TextureÀÇ Size¸¦ °áÁ¤ÇÑ´Ù.
+		// Textureì˜ Sizeë¥¼ ê²°ì •í•œë‹¤.
 		int spWidth, spHeight;
 		int width, height;
 		BYTE smallShift = 0;
@@ -356,7 +360,7 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 		spHeight = pSprite->GetHeight();
 
 		//-----------------------------------------------------
-		// ±æÀÌ°¡ 0ÀÎ °æ¿ì..
+		// ê¸¸ì´ê°€ 0ì¸ ê²½ìš°..
 		//-----------------------------------------------------
 		if (spWidth==0 || spHeight==0)
 		{
@@ -364,7 +368,7 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 		}
 
 		//-----------------------------------------------------------
-		// (´Ù½Ã) »ı¼ºÇÑ´Ù.
+		// (ë‹¤ì‹œ) ìƒì„±í•œë‹¤.
 		//-----------------------------------------------------------
 		CSpriteSurface* pTextureSurface = new CSpriteSurface;
 	
@@ -374,22 +378,22 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 		CDirect3D::GetTextureSize(width, height);		
 
 		//-----------------------------------------------------------
-		// 2ÀÇ ½Â¼ö¸¸ Áö¿øÇÏ´Â °æ¿ì..
+		// 2ì˜ ìŠ¹ìˆ˜ë§Œ ì§€ì›í•˜ëŠ” ê²½ìš°..
 		//-----------------------------------------------------------
-		bool bDifferentSize;	// sprite¿Í textureÀÇ Å©±â°¡ ´Ù¸¥°¡?
+		bool bDifferentSize;	// spriteì™€ textureì˜ í¬ê¸°ê°€ ë‹¤ë¥¸ê°€?
 		if (CDirect3D::IsTexturePow2())
 		{
 			bDifferentSize = true;
 
-			// width¿Í height°¡ ´Ù¸¥ °æ¿ì...
-			// ÀÛÀº ÂÊ¿¡ ¸ÂÃç¼­ ¶È°°ÀÌ ÇÑ´Ù.
-			// Square·Î ¸ÂÃá´Ù..°í ÇÒ ¼ö ÀÖÁö.. À½ÇÏ..
+			// widthì™€ heightê°€ ë‹¤ë¥¸ ê²½ìš°...
+			// ì‘ì€ ìª½ì— ë§ì¶°ì„œ ë˜‘ê°™ì´ í•œë‹¤.
+			// Squareë¡œ ë§ì¶˜ë‹¤..ê³  í•  ìˆ˜ ìˆì§€.. ìŒí•˜..
 			
-			// Å« ÂÊ¿¡ ¸ÂÃß¸é... detailÀº ³ô¾ÆÁö´Âµ¥.. 
-			// ¹º°¡ ¹®Á¦°¡ ÀÖ¾ú´ø°Å °°±âµµ ÇÑµ¥(-_-;)
-			// Áö±İÀº »ı°¢ÇÏ±â ½È¾î¼­... - -;;;
-			// ÀÛÀº ÂÊ¿¡ ¸ÂÃß¸é detailÀÌ ¶³¾îÁø´Ù.
-			// ¾ÏÆ° ÀÌ ºÎºĞ Ã¼Å©¸¦ ÇØ¾ßÇÑ´Ù.			
+			// í° ìª½ì— ë§ì¶”ë©´... detailì€ ë†’ì•„ì§€ëŠ”ë°.. 
+			// ë­”ê°€ ë¬¸ì œê°€ ìˆì—ˆë˜ê±° ê°™ê¸°ë„ í•œë°(-_-;)
+			// ì§€ê¸ˆì€ ìƒê°í•˜ê¸° ì‹«ì–´ì„œ... - -;;;
+			// ì‘ì€ ìª½ì— ë§ì¶”ë©´ detailì´ ë–¨ì–´ì§„ë‹¤.
+			// ì•”íŠ¼ ì´ ë¶€ë¶„ ì²´í¬ë¥¼ í•´ì•¼í•œë‹¤.			
 			if (width > height)
 			{
 				height = width;
@@ -400,10 +404,10 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 			}
 
 			//-----------------------------------------------------------
-			// TextureÅ©±âº¸´Ù Sprite Å©±â°¡ ´õ Å« °æ¿ì..
+			// Textureí¬ê¸°ë³´ë‹¤ Sprite í¬ê¸°ê°€ ë” í° ê²½ìš°..
 			//-----------------------------------------------------------
-			// Áï, ÇÏµå¿ş¾î¿¡¼­ SpriteÅ©±â¸¸Å­ÀÇ Texture¸¦ Áö¿øÇÏÁö ¸øÇÏ´Â °æ¿ìÀÌ´Ù.		
-			// shift¸¦ ÀÌ¿ëÇØ¼­ Å©±â¸¦ ÁÙÀÎ´Ù.
+			// ì¦‰, í•˜ë“œì›¨ì–´ì—ì„œ Spriteí¬ê¸°ë§Œí¼ì˜ Textureë¥¼ ì§€ì›í•˜ì§€ ëª»í•˜ëŠ” ê²½ìš°ì´ë‹¤.		
+			// shiftë¥¼ ì´ìš©í•´ì„œ í¬ê¸°ë¥¼ ì¤„ì¸ë‹¤.
 			while (spWidth > width || spHeight > height)
 			{
 				smallShift ++;
@@ -413,15 +417,15 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 			}
 		}
 		//-----------------------------------------------------------
-		// ¾Æ¹«·± size³ª °ü°è ¾ø´Â °æ¿ì
+		// ì•„ë¬´ëŸ° sizeë‚˜ ê´€ê³„ ì—†ëŠ” ê²½ìš°
 		//-----------------------------------------------------------
 		else
 		{
 			if (CDirect3D::IsTextureSquareOnly())
 			{
-				// width¿Í height°¡ ´Ù¸¥ °æ¿ì...
-				// Å« ÂÊ¿¡ ¸ÂÃç¼­ ¶È°°ÀÌ ÇÑ´Ù.
-				// Square·Î ¸ÂÃá´Ù..°í ÇÒ ¼ö ÀÖÁö.. À½ÇÏ..
+				// widthì™€ heightê°€ ë‹¤ë¥¸ ê²½ìš°...
+				// í° ìª½ì— ë§ì¶°ì„œ ë˜‘ê°™ì´ í•œë‹¤.
+				// Squareë¡œ ë§ì¶˜ë‹¤..ê³  í•  ìˆ˜ ìˆì§€.. ìŒí•˜..
 				if (width > height)
 				{
 					height = width;
@@ -440,7 +444,7 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 		}		
 
 		//---------------------------------------------------
-		// TextureSurface »ı¼º
+		// TextureSurface ìƒì„±
 		//---------------------------------------------------		
 		pTextureSurface->InitTextureSurface(width, height, 0, CDirect3D::GetPixelFormat1555());
 
@@ -457,12 +461,12 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 		int i;
 
 		//---------------------------------------------------
-		// °Ë°Ô Ä¥ÇÏ´Â ºÎºĞ..
+		// ê²€ê²Œ ì¹ í•˜ëŠ” ë¶€ë¶„..
 		//---------------------------------------------------
 		//if (bDifferentSize)
 		{
 			//---------------------------------------------------
-			// Texture Surface ÃÊ±âÈ­
+			// Texture Surface ì´ˆê¸°í™”
 			//---------------------------------------------------
 			WORD *pSurface = (WORD*)pTextureSurface->GetSurfacePointer();
 					//,	*pSurfaceTemp;
@@ -470,18 +474,18 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 
 			int width2 = width << 1;
 
-			for (i=0; i<height; i++)
+			for (int i=0; i<height; i++)
 			{
 				memset(pSurface, 0, width2);
 				pSurface = (WORD*)((BYTE*)pSurface + pitch);
 			}
 			
 			/*
-			// Sprite°¡ Â÷ÁöÇÏ´Â ¿µ¿ªÀ» Á¦¿ÜÇÑ ºÎºĞÀ» °Ë°Ô~~
+			// Spriteê°€ ì°¨ì§€í•˜ëŠ” ì˜ì—­ì„ ì œì™¸í•œ ë¶€ë¶„ì„ ê²€ê²Œ~~
 			DWORD width2 = (width - spWidth) << 1;	// *2 
 			pSurface += spWidth;
 
-			// ¿À¸¥ÂÊ ¿·ºÎºĞ
+			// ì˜¤ë¥¸ìª½ ì˜†ë¶€ë¶„
 			if (width2 > 0)
 			{
 				i = spHeight;		
@@ -492,7 +496,7 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 				} while (--i);
 			}
 
-			// ¾Æ·¡ÂÊ
+			// ì•„ë˜ìª½
 			pSurface -= spWidth;
 			width2 = width << 1;
 			i = height - spHeight;
@@ -509,9 +513,9 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 		}
 
 		//---------------------------------------------------
-		// AlphaSpriteÃâ·Â
+		// AlphaSpriteì¶œë ¥
 		//---------------------------------------------------
-		// EffectÀÇ Å©±â¸¦ °í·ÁÇØ¼­..
+		// Effectì˜ í¬ê¸°ë¥¼ ê³ ë ¤í•´ì„œ..
 		if (smallShift==0)
 		{
 			//pTextureSurface->BltAlphaSprite4444NotTrans(&point, pSprite);
@@ -526,9 +530,9 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 
 
 		//-----------------------------------------------------------
-		// Ãâ·ÂÇÒ¶§ »ç¿ëÇÒ Å©±â
+		// ì¶œë ¥í• ë•Œ ì‚¬ìš©í•  í¬ê¸°
 		//-----------------------------------------------------------
-		// ÀÌÀü¿¡ Ãâ·ÂÇÒ Texture Size°¡ Á¤ÇØÁ® ÀÖÁö ¾ÊÀº °æ¿ì
+		// ì´ì „ì— ì¶œë ¥í•  Texture Sizeê°€ ì •í•´ì ¸ ìˆì§€ ì•Šì€ ê²½ìš°
 		//-----------------------------------------------------------
 		if (m_pWidth[id]==0 || m_pHeight[id]==0)
 		{
@@ -537,14 +541,14 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 			
 			if (CDirect3D::IsTexturePow2())
 			{	
-				// texture¿¡¼­ Ãâ·ÂµÇ´Â size¸¦ ±¸ÇÑ´Ù.
+				// textureì—ì„œ ì¶œë ¥ë˜ëŠ” sizeë¥¼ êµ¬í•œë‹¤.
 				for (int i=0; i<smallShift; i++)
 				{
 					spWidth >>= 1;
 					spHeight >>= 1;
 				}
 
-				// ½ÇÁ¦ Å©±â
+				// ì‹¤ì œ í¬ê¸°
 				width = width * pSprite->GetWidth() / spWidth;
 				height = height * pSprite->GetHeight() / spHeight;		
 			}
@@ -553,7 +557,7 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 				width = spWidth;
 				height = spHeight;
 
-				// Å« Å©±â·Î ¸ÂÃß¾î¼­ Square·Î ¸¸µç´Ù.
+				// í° í¬ê¸°ë¡œ ë§ì¶”ì–´ì„œ Squareë¡œ ë§Œë“ ë‹¤.
 				if (CDirect3D::IsTextureSquareOnly())
 				{				
 					if (width > height)
@@ -572,7 +576,7 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 		}
 		
 		//---------------------------------------------------
-		// ReplaceµÆÀ¸¸é ¿ø·¡°ÍÀ» ¸Ş¸ğ¸®¿¡¼­ Áö¿î´Ù.
+		// Replaceëìœ¼ë©´ ì›ë˜ê²ƒì„ ë©”ëª¨ë¦¬ì—ì„œ ì§€ìš´ë‹¤.
 		//---------------------------------------------------
 		CSpriteSurface* pOld = NULL;
 		WORD oldIndex = SetData( id, pTextureSurface, pOld );
@@ -582,16 +586,16 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 			if (pOld != NULL)
 			{
 				//------------------------------------------------------------
-				// D3DÀÇ Texture´Â ¹Ù·Î »ç¿ëµÇÁö ¾Ê´Â °æ¿ìµµ ÀÖ´Ù.
-				// BeginScene() ~ EndScene() ±îÁö Surface´Â »ì¾ÆÀÖ¾î¾ß ÇÏ¹Ç·Î
-				// ¿©±â¼­ Áö¿ì¸é ¾ÈµÈ´Ù.
+				// D3Dì˜ TextureëŠ” ë°”ë¡œ ì‚¬ìš©ë˜ì§€ ì•ŠëŠ” ê²½ìš°ë„ ìˆë‹¤.
+				// BeginScene() ~ EndScene() ê¹Œì§€ SurfaceëŠ” ì‚´ì•„ìˆì–´ì•¼ í•˜ë¯€ë¡œ
+				// ì—¬ê¸°ì„œ ì§€ìš°ë©´ ì•ˆëœë‹¤.
 				//------------------------------------------------------------
 				//delete pOld;
 				//------------------------------------------------------------
 				m_listRemoved.push_back( pOld );
 			}
 
-			// loadingµÇ¾î ÀÖ´ø sprite¸¦ Á¦°ÅÇÑ´Ù... ¸Ş¸ğ¸® ¶§¹®¿¡..
+			// loadingë˜ì–´ ìˆë˜ spriteë¥¼ ì œê±°í•œë‹¤... ë©”ëª¨ë¦¬ ë•Œë¬¸ì—..
 			//m_SPK[oldIndex].Release();
 		}
 

@@ -2,7 +2,7 @@
 // Filename    : GCPetUseSkill.h 
 // Written By  : elca@ewestsoft.com
 // Description : 
-// ±â¼úÀÌ ¼º°øÇßÀ»¶§ º¸³»´Â ÆĞÅ¶À» À§ÇÑ Å¬·¡½º Á¤ÀÇ
+// ê¸°ìˆ ì´ ì„±ê³µí–ˆì„ë•Œ ë³´ë‚´ëŠ” íŒ¨í‚·ì„ ìœ„í•œ í´ë˜ìŠ¤ ì •ì˜
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_PET_USE_SKILL_H__
@@ -16,7 +16,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCPetUseSkill;
-// °ÔÀÓ¼­¹ö¿¡¼­ Å¬¶óÀÌ¾ğÆ®·Î ÀÚ½ÅÀÇ ±â¼úÀÌ ¼º°øÀ» ¾Ë·ÁÁÖ±â À§ÇÑ Å¬·¡½º
+// ê²Œì„ì„œë²„ì—ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ìì‹ ì˜ ê¸°ìˆ ì´ ì„±ê³µì„ ì•Œë ¤ì£¼ê¸° ìœ„í•œ í´ë˜ìŠ¤
 //////////////////////////////////////////////////////////////////////////////
 
 class GCPetUseSkill : public Packet 
@@ -73,7 +73,7 @@ public:
 class GCPetUseSkillHandler 
 {
 public:
-	static void execute(GCPetUseSkill* pGCPetUseSkill, Player* pPlayer) throw(Error);
+	static void execute(GCPetUseSkill* pGCPetUseSkill, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

@@ -23,10 +23,10 @@ class GCAddMonsterCorpse : public Packet {
 
 public :
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write ( SocketOutputStream & oStream ) const throw ( ProtocolException , Error );
 
 	// execute packet's handler
@@ -37,7 +37,7 @@ public :
 	
 	// get packet's body size
 	// *OPTIMIZATION HINT*
-	// const static GCAddMonsterCorpsePacketSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+	// const static GCAddMonsterCorpsePacketSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
 	PacketSize_t getPacketSize () const throw () 
 	{ 
 		return szObjectID + 
@@ -99,14 +99,14 @@ private :
 	
     ObjectID_t m_ObjectID;			// OID
 
-	MonsterType_t m_MonsterType; 	// ¸ó½ºÅÍ Å¸ÀÔ
+	MonsterType_t m_MonsterType; 	// ëª¬ìŠ¤í„° íƒ€ì…
 
 	std::string m_MonsterName;
 
-   	Coord_t m_X;					// X ÁÂÇ¥
-	Coord_t m_Y;					// Y ÁÂÇ¥
-	Dir_t m_Dir;					// ¹æÇâ
-	bool m_bhasHead;				// ¸Ó¸®°¡ ÀÖ´Â°¡?
+   	Coord_t m_X;					// X ì¢Œí‘œ
+	Coord_t m_Y;					// Y ì¢Œí‘œ
+	Dir_t m_Dir;					// ë°©í–¥
+	bool m_bhasHead;				// ë¨¸ë¦¬ê°€ ìˆëŠ”ê°€?
 	
 	BYTE m_TreasureCount;
 
@@ -140,7 +140,7 @@ public :
 
 	// get packet's body size
 	// *OPTIMIZATION HINT*
-	// const static GCAddMonsterCorpsePacketSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+	// const static GCAddMonsterCorpsePacketSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
 	PacketSize_t getPacketMaxSize () const throw () 
 	{ 
 		return szObjectID + 
@@ -168,7 +168,7 @@ class GCAddMonsterCorpseHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCAddMonsterCorpse * pPacket , Player * pPlayer ) throw ( Error );
+	static void execute ( GCAddMonsterCorpse * pPacket , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

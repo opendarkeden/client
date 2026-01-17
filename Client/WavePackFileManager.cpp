@@ -18,7 +18,7 @@ WavePackFileManager*	g_pWavePackFileManager = NULL;
 //
 //--------------------------------------------------------------------------
 bool		
-WavePackFileInfo::SaveToFileData(class ofstream& file)
+WavePackFileInfo::SaveToFileData(std::ofstream& file)
 {
 	if (m_Filename.c_str()==NULL)
 	{
@@ -70,7 +70,7 @@ WavePackFileInfo::SaveToFileData(class ofstream& file)
 	mmioClose(wavefile, 0);
 
 	//--------------------------------------------------------------
-	// file¿¡ ÀúÀåÇÑ´Ù.
+	// fileì— ì €ìž¥í•œë‹¤.
 	//--------------------------------------------------------------
 	file.write((const char*)&cksize, 4);
 	file.write((const char*)&wavefmt, wavefmtSize);
@@ -85,7 +85,7 @@ WavePackFileInfo::SaveToFileData(class ofstream& file)
 // Load From File Data
 //--------------------------------------------------------------------------
 LPDIRECTSOUNDBUFFER		
-WavePackFileInfo::LoadFromFileData(class ifstream& file)
+WavePackFileInfo::LoadFromFileData(std::ifstream& file)
 {
 	DWORD cksize;
 	WAVEFORMATEX wavefmt;
@@ -101,7 +101,7 @@ WavePackFileInfo::LoadFromFileData(class ifstream& file)
 	bufdesc.dwSize			= sizeof(DSBUFFERDESC);
 	bufdesc.dwFlags			= DSBCAPS_CTRLPAN 
 							| DSBCAPS_CTRLVOLUME ;
-							//| DSBCAPS_LOCDEFER;	// ÀÌ°Ç ¿Ö ³Ö¾îµÐ°Å¿´À»±î. - -;
+							//| DSBCAPS_LOCDEFER;	// ì´ê±´ ì™œ ë„£ì–´ë‘”ê±°ì˜€ì„ê¹Œ. - -;
 	bufdesc.dwBufferBytes	= cksize;
 	bufdesc.lpwfxFormat		= &wavefmt;
 
@@ -161,7 +161,7 @@ WavePackFileManager::LoadFromFileData(TYPE_SOUNDID id)
 
 	if (pInfo!=NULL)
 	{
-		class ifstream file(m_DataFilename.c_str(), ios::binary);
+		std::ifstream file(m_DataFilename.c_str(), ios::binary);
 		file.seekg( pInfo->GetFilePosition() );
 		
 		LPDIRECTSOUNDBUFFER pBuffer = pInfo->LoadFromFileData(file);

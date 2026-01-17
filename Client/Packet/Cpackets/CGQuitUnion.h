@@ -25,15 +25,15 @@ class CGQuitUnion : public Packet
 {
 public:
 	enum{
-		QUIT_NORMAL = 0,		// ÀıÂ÷¿¡ µû¶ó ½ÅÃ»
-		QUIT_QUICK,				// ÀÏ¹æÀûÀ¸·Î Å»Åğ
+		QUIT_NORMAL = 0,		// ì ˆì°¨ì— ë”°ë¼ ì‹ ì²­
+		QUIT_QUICK,				// ì¼ë°©ì ìœ¼ë¡œ íƒˆí‡´
 		QUIT_MAX
 	};	
 
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream & iStream) throw(ProtocolException, Error);
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
 
 	// execute packet's handler
@@ -117,7 +117,7 @@ class CGQuitUnionHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGQuitUnion* pCGQuitUnion, Player* pPlayer) throw(Error);
+	static void execute(CGQuitUnion* pCGQuitUnion, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 #endif

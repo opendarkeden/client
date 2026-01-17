@@ -16,7 +16,9 @@
 //////////////////////////////////////////////////////////////////////
 
 void GCGQuestStatusInfoHandler::execute ( GCGQuestStatusInfo * pGCGQuestStatusInfo , Player * pPlayer )
-	 throw ( Error )
+	 
+
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 //	__BEGIN_DEBUG_EX

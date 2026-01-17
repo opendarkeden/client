@@ -1,15 +1,15 @@
 //--------------------------------------------------------------------------
 // PackFileManager.h
 //--------------------------------------------------------------------------
-// È­ÀÏµéÀ» ¹­¾î¼­ °ü¸®ÇÑ´Ù.
-// Ãß°¡, ¼öÁ¤ÀÌ ½¬¿ö¾ß ÇÑ´Ù.
+// í™”ì¼ë“¤ì„ ë¬¶ì–´ì„œ ê´€ë¦¬í•œë‹¤.
+// ì¶”ê°€, ìˆ˜ì •ì´ ì‰¬ì›Œì•¼ í•œë‹¤.
 //
-// [ È­ÀÏÇü½Ä ]
+// [ í™”ì¼í˜•ì‹ ]
 // 
 //  DataFile  : [Data0]....[DataX][DataY][DataZ]
 //	IndexFile : [ID, DataFP]....[ID, DataFP][ID, DataFP][ID, DataFP]
 //
-// Merge´Â AppendPatch¸¦ ÀÌ¿ëÇÏ¸é µÈ´Ù.
+// MergeëŠ” AppendPatchë¥¼ ì´ìš©í•˜ë©´ ëœë‹¤.
 //--------------------------------------------------------------------------
 
 #ifndef __PACK_FILE_MANAGER_H__
@@ -17,15 +17,19 @@
 
 #pragma warning(disable:4786)
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include <map>
 #include <string>
-#include <fstream.h>
+#include <fstream>
 
 //--------------------------------------------------------------------------
 // Pack FileInfo
 //--------------------------------------------------------------------------
-// DataÈ­ÀÏÀ» ¸ÕÀú ÀúÀåÇÏ°í Index¸¦ ÀúÀåÇØ¾ß ÇÑ´Ù.
+// Dataí™”ì¼ì„ ë¨¼ì € ì €ì¥í•˜ê³  Indexë¥¼ ì €ì¥í•´ì•¼ í•œë‹¤.
 //--------------------------------------------------------------------------
 class PackFileInfo {
 	public :
@@ -46,13 +50,13 @@ class PackFileInfo {
 		//-------------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------------
-		virtual void		SaveToFile(class ofstream& file);
-		virtual void		LoadFromFile(class ifstream& file);
-		virtual bool		SaveToFileData(class ofstream& file);
+		virtual void		SaveToFile(std::ofstream& file);
+		virtual void		LoadFromFile(std::ifstream& file);
+		virtual bool		SaveToFileData(std::ofstream& file);
 
 	protected :
 		DWORD				m_ID;			// ID
-		std::string			m_Filename;		// È­ÀÏÀÌ¸§
+		std::string			m_Filename;		// í™”ì¼ì´ë¦„
 		long				m_FP;			// File Position
 };
 
@@ -88,8 +92,8 @@ class PackFileManager {
 		// Load Data
 		//---------------------------------------------------------------
 		void				SetDataFilename(const char* pFilename)	{ m_DataFilename = pFilename; }
-		bool				GetInputFileStream(const char* pFilename, class ifstream& file) const;
-		bool				GetInputFileStream(DWORD id, class ifstream& file) const;
+		bool				GetInputFileStream(const char* pFilename, std::ifstream& file) const;
+		bool				GetInputFileStream(DWORD id, std::ifstream& file) const;
 
 		//---------------------------------------------------------------
 		// Merge
@@ -141,9 +145,9 @@ PackFileManager<FileInfoType>::Release()
 {
 	//----------------------------------------------------------
 	// ID map
-	// °°Àº pointer¸¦ »ç¿ëÇÏ¹Ç·Î...
+	// ê°™ì€ pointerë¥¼ ì‚¬ìš©í•˜ë¯€ë¡œ...
 	//----------------------------------------------------------
-	FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.begin();
+	typename FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.begin();
 
 	while (iInfo != m_IDInfos.end())
 	{
@@ -168,7 +172,7 @@ template <class FileInfoType>
 bool
 PackFileManager<FileInfoType>::AddInfo(DWORD id, FileInfoType* pInfo)
 {
-	FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.find( id );
+	typename FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.find( id );
 
 	if (iInfo != m_IDInfos.end())
 	{
@@ -192,7 +196,7 @@ template <class FileInfoType>
 bool		
 PackFileManager<FileInfoType>::HasInfo(DWORD id)
 {
-	FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.find( id );
+	typename FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.find( id );
 
 	if (iInfo != m_IDInfos.end())
 	{
@@ -209,7 +213,7 @@ template <class FileInfoType>
 bool		
 PackFileManager<FileInfoType>::HasInfo(const char* pFilename)
 {
-	FILEINFO_ID_MAP::iterator iInfo = m_NameInfos.find( std::string(pFilename) );
+	typename FILEINFO_ID_MAP::iterator iInfo = m_NameInfos.find( std::string(pFilename) );
 
 	if (iInfo != m_IDInfos.end())
 	{
@@ -226,7 +230,7 @@ template <class FileInfoType>
 FileInfoType*	
 PackFileManager<FileInfoType>::GetInfo(DWORD id) const
 {
-	FILEINFO_ID_MAP::const_iterator iInfo = m_IDInfos.find( id );
+	typename FILEINFO_ID_MAP::const_iterator iInfo = m_IDInfos.find( id );
 
 	if (iInfo != m_IDInfos.end())
 	{
@@ -243,7 +247,7 @@ template <class FileInfoType>
 FileInfoType*	
 PackFileManager<FileInfoType>::GetInfo(const char* pFilename) const
 {
-	FILEINFO_NAME_MAP::const_iterator iInfo = m_IDInfos.find( std::string(pFilename) );
+	typename FILEINFO_NAME_MAP::const_iterator iInfo = m_IDInfos.find( std::string(pFilename) );
 
 	if (iInfo != m_IDInfos.end())
 	{
@@ -260,13 +264,13 @@ template <class FileInfoType>
 bool					
 PackFileManager<FileInfoType>::RemoveInfo(DWORD id)
 {
-	FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.find( id );
+	typename FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.find( id );
 
 	if (iInfo != m_IDInfos.end())
 	{
 		FileInfoType* pInfo = iInfo->second;
 
-		FILEINFO_NAME_MAP::iterator iNameInfo = m_NameInfos.find( pInfo->GetFilename() );
+		typename FILEINFO_NAME_MAP::iterator iNameInfo = m_NameInfos.find( pInfo->GetFilename() );
 
 		if (iNameInfo!=m_NameInfos.end())
 		{
@@ -298,13 +302,13 @@ PackFileManager<FileInfoType>::RemoveInfo(const char* pFilename)
 		return false;
 	}
 
-	FILEINFO_NAME_MAP::iterator iNameInfo = m_NameInfos.find( std::string(pFilename) );
+	typename FILEINFO_NAME_MAP::iterator iNameInfo = m_NameInfos.find( std::string(pFilename) );
 
-	if (iInfo != m_NameInfos.end())
+	if (iNameInfo != m_NameInfos.end())
 	{
-		FileInfoType* pInfo = iInfo->second;
+		FileInfoType* pInfo = iNameInfo->second;
 
-		FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.find( pInfo->GetID() );
+		typename FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.find( pInfo->GetID() );
 
 		if (iInfo!=m_IDInfos.end())
 		{
@@ -348,14 +352,14 @@ template <class FileInfoType>
 bool					
 PackFileManager<FileInfoType>::SaveToFileInfo(const char* pFilename)
 {
-	class ofstream file(pFilename, ios::binary | ios::trunc);
+	std::ofstream file(pFilename, std::ios::binary | std::ios::trunc);
 
-	// °³¼ö
+	// ê°œìˆ˜
 	WORD num = m_IDInfos.size();
 	file.write((const char*)&num, 2);
 
-	// Header ÀúÀå
-	FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.begin();
+	// Header ì €ì¥
+	typename FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.begin();
 
 	while (iInfo != m_IDInfos.end())
 	{
@@ -380,9 +384,9 @@ PackFileManager<FileInfoType>::LoadFromFileInfo(const char* pFilename)
 {
 	Release();
 
-	class ifstream file(pFilename, ios::binary | ios::nocreate);
+	std::ifstream file(pFilename, std::ios::binary);
 
-	// °³¼ö
+	// ê°œìˆ˜
 	if (file.is_open())
 	{
 		WORD num;
@@ -390,7 +394,7 @@ PackFileManager<FileInfoType>::LoadFromFileInfo(const char* pFilename)
 
 		for (int i=0; i<num; i++)
 		{
-			// Header ÀĞ±â
+			// Header ì½ê¸°
 			FileInfoType* pInfo = new FileInfoType;
 
 			pInfo->LoadFromFile( file );
@@ -413,14 +417,14 @@ template <class FileInfoType>
 bool					
 PackFileManager<FileInfoType>::SaveToFileData(const char* pFilename)
 {
-	class ofstream file(pFilename, ios::binary | ios::trunc);
+	std::ofstream file(pFilename, std::ios::binary | std::ios::trunc);
 
-	// °³¼ö
+	// ê°œìˆ˜
 	WORD num = m_IDInfos.size();
 	file.write((const char*)&num, 2);	
 
 	// data
-	FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.begin();
+	typename FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.begin();
 
 	while  (iInfo != m_IDInfos.end())
 	{
@@ -446,7 +450,7 @@ PackFileManager<FileInfoType>::SaveToFileData(const char* pFilename)
 //--------------------------------------------------------------------------
 template <class FileInfoType>
 bool
-PackFileManager<FileInfoType>::GetInputFileStream(const char* pFilename, class ifstream& file) const
+PackFileManager<FileInfoType>::GetInputFileStream(const char* pFilename, std::ifstream& file) const
 {
 	if (m_DataFilename.c_str()==NULL 
 		|| pFilename==NULL)
@@ -454,13 +458,13 @@ PackFileManager<FileInfoType>::GetInputFileStream(const char* pFilename, class i
 		return false;
 	}
 
-	FILEINFO_NAME_MAP::iterator iInfo = m_NameInfos.find( std::string(pFilename) );
+	typename FILEINFO_NAME_MAP::iterator iInfo = m_NameInfos.find( std::string(pFilename) );
 
 	if (iInfo != m_NameInfos.end())
 	{
 		FileInfoType* pInfo = iInfo->second;
 
-		file.open(m_DataFilename.c_str(), ios::binary);
+		file.open(m_DataFilename.c_str(), std::ios::binary);
 
 		file.seekg( pInfo->GetFilePosition() );
 
@@ -475,20 +479,20 @@ PackFileManager<FileInfoType>::GetInputFileStream(const char* pFilename, class i
 //--------------------------------------------------------------------------
 template <class FileInfoType>
 bool
-PackFileManager<FileInfoType>::GetInputFileStream(DWORD id, class ifstream& file) const
+PackFileManager<FileInfoType>::GetInputFileStream(DWORD id, std::ifstream& file) const
 {
 	if (m_DataFilename.c_str()==NULL)
 	{
-		return;
+		return false;
 	}
 
-	FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.find( id );
+	typename FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.find( id );
 
 	if (iInfo != m_IDInfos.end())
 	{
 		FileInfoType* pInfo = iInfo->second;
 
-		file.open(m_DataFilename.c_str(), ios::binary);
+		file.open(m_DataFilename.c_str(), std::ios::binary);
 
 		file.seekg( pInfo->GetFilePosition() );
 
@@ -509,16 +513,16 @@ PackFileManager<FileInfoType>::Merge(const char* pInfoFilenameOrg,
 						const char* pInfoFilenameApp,
 						const char* pDataFilenameApp)
 {
-	//class fstream fileInfoOrg(pInfoFilenameOrg, ios::in | ios::out | ios::binary | ios::ate);	
-	//class fstream fileDataOrg(pDataFilenameOrg, ios::in | ios::out | ios::binary | ios::ate);
-	//class ifstream fileInfoApp(pInfoFilenameApp, ios::binary);
-	//class ifstream fileDataApp(pDataFilenameApp, ios::binary);
+	//class fstream fileInfoOrg(pInfoFilenameOrg, ios::in | ios::out | std::ios::binary | ios::ate);	
+	//class fstream fileDataOrg(pDataFilenameOrg, ios::in | ios::out | std::ios::binary | ios::ate);
+	//std::ifstream fileInfoApp(pInfoFilenameApp, std::ios::binary);
+	//std::ifstream fileDataApp(pDataFilenameApp, std::ios::binary);
 
-	// pInfoFilenameOrgÀÇ °³¼ö º¯°æ
-	// pInfoFilenameOrgÀÇ ³¡¿¡ pInfoFilenameApp¸¦ ºÙÀÎ´Ù.
+	// pInfoFilenameOrgì˜ ê°œìˆ˜ ë³€ê²½
+	// pInfoFilenameOrgì˜ ëì— pInfoFilenameAppë¥¼ ë¶™ì¸ë‹¤.
 
-	// pDataFilenameOrgÀÇ °³¼ö º¯°æ
-	// pDataFilenameOrgÀÇ ³¡¿¡ pDataFilenameApp¸¦ ºÙÀÎ´Ù.
+	// pDataFilenameOrgì˜ ê°œìˆ˜ ë³€ê²½
+	// pDataFilenameOrgì˜ ëì— pDataFilenameAppë¥¼ ë¶™ì¸ë‹¤.
 
 	return true;
 }

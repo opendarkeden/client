@@ -13,6 +13,7 @@
 
 #define _CPP
 
+#ifdef PLATFORM_WINDOWS
 #ifndef _CPP
 #define export extern "C" __declspec (dllexport)
 #define import extern "C" __declspec (dllimport)
@@ -28,6 +29,14 @@
 #define DllClass		DllExport
 #else
 #define DllClass		DllImport
+#endif
+#else
+// Non-Windows platforms: empty macros
+#define export
+#define import extern
+#define DllExport
+#define DllImport extern
+#define DllClass
 #endif
 
 #endif

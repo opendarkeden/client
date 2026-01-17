@@ -1,15 +1,15 @@
 //----------------------------------------------------------------------
 // MGridItemManager.h
 //----------------------------------------------------------------------
-// width * height ¸¸Å­ÀÇ grid¸¦ °¡Áø´Ù.
+// width * height ë§Œí¼ì˜ gridë¥¼ ê°€ì§„ë‹¤.
 //
-// °¢ grid´Â MItem*·Î ÀÌ·ç¾îÁ® ÀÖ´Ù.
+// ê° gridëŠ” MItem*ë¡œ ì´ë£¨ì–´ì ¸ ìˆë‹¤.
 //
-// MItemÀÇ Å©±â(GridWidth()*GridHeight)¿¡ µû¶ó¼­
-// ÀûÀıÇÑ °³¼öÀÇ grid¸¦ Â÷ÁöÇÏ°Ô µÈ´Ù.
+// MItemì˜ í¬ê¸°(GridWidth()*GridHeight)ì— ë”°ë¼ì„œ
+// ì ì ˆí•œ ê°œìˆ˜ì˜ gridë¥¼ ì°¨ì§€í•˜ê²Œ ëœë‹¤.
 //
-// Item¸¶´Ù MItemManagerÀÇ map¿¡µµ Ãß°¡ÇÏ°í
-// gridÀÇ Å©±â¸¸Å­ m_ItemGrid¿¡µµ °¢°¢ÀÇ grid¿¡ Ç¥½ÃÇØÁØ´Ù.
+// Itemë§ˆë‹¤ MItemManagerì˜ mapì—ë„ ì¶”ê°€í•˜ê³ 
+// gridì˜ í¬ê¸°ë§Œí¼ m_ItemGridì—ë„ ê°ê°ì˜ gridì— í‘œì‹œí•´ì¤€ë‹¤.
 //----------------------------------------------------------------------
 /*
  = Init(9, 5)
@@ -24,7 +24,7 @@
 	  +---------+
 
 
- = AddItem( Å©±â°¡ 2x2ÀÎ°Í, (1,1)¿¡ )
+ = AddItem( í¬ê¸°ê°€ 2x2ì¸ê²ƒ, (1,1)ì— )
 
   	   012345678
 	  +---------+
@@ -36,7 +36,7 @@
 	  +---------+
 
 
- = AddItem( Å©±â°¡ 3x2ÀÎ °Í ) - ÀûÀıÇÑ À§Ä¡¿¡ Ãß°¡
+ = AddItem( í¬ê¸°ê°€ 3x2ì¸ ê²ƒ ) - ì ì ˆí•œ ìœ„ì¹˜ì— ì¶”ê°€
 
    	   012345678
 	  +---------+
@@ -82,26 +82,26 @@ class MGridItemManager : public MItemManager {
 		//------------------------------------------------------
 		// Add / Get / Remove
 		//------------------------------------------------------		
-		bool			AddItem(MItem* pItem);					// ÀûÀıÇÑ grid¿¡ Ãß°¡ÇÑ´Ù.
-		bool			AddItem(MItem* pItem, BYTE x, BYTE y);	// grid(x,y)¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+		bool			AddItem(MItem* pItem);					// ì ì ˆí•œ gridì— ì¶”ê°€í•œë‹¤.
+		bool			AddItem(MItem* pItem, BYTE x, BYTE y);	// grid(x,y)ì— pItemì„ ì¶”ê°€í•œë‹¤.
 
-		MItem*			GetItem(BYTE x, BYTE y) const;			// grid(x,y)ÀÇ itemÀ» ÀĞ¾î¿Â´Ù.
+		MItem*			GetItem(BYTE x, BYTE y) const;			// grid(x,y)ì˜ itemì„ ì½ì–´ì˜¨ë‹¤.
 		MItem*			GetItem(TYPE_OBJECTID id) const;
 		
-		MItem*			RemoveItem(BYTE x, BYTE y);				// grid(x,y)ÀÇ itemÀ» Á¦°ÅÇÑ´Ù.
-		MItem*			RemoveItem(TYPE_OBJECTID id);			// id°¡ °°Àº itemÀ» Á¦°ÅÇÑ´Ù.
+		MItem*			RemoveItem(BYTE x, BYTE y);				// grid(x,y)ì˜ itemì„ ì œê±°í•œë‹¤.
+		MItem*			RemoveItem(TYPE_OBJECTID id);			// idê°€ ê°™ì€ itemì„ ì œê±°í•œë‹¤.
 
-		bool			ReplaceItem(MItem* pItem, BYTE x, BYTE y, MItem*& pOldItem);	// (x,y)À§Ä¡ÀÇ Item±³È¯
+		bool			ReplaceItem(MItem* pItem, BYTE x, BYTE y, MItem*& pOldItem);	// (x,y)ìœ„ì¹˜ì˜ Itemêµí™˜
 
 		//------------------------------------------------------		
-		// Can Replace Item (½ÇÁ¦´Â Add or Replace¸¦ checkÇÑ´Ù.)
+		// Can Replace Item (ì‹¤ì œëŠ” Add or Replaceë¥¼ checkí•œë‹¤.)
 		//------------------------------------------------------		
 		bool			CanReplaceItem(MItem* pItem, BYTE x, BYTE y, MItem*& pOldItem);
 
 		//------------------------------------------------------		
 		// Get FitPosition
 		//------------------------------------------------------		
-		bool			GetFitPosition(MItem* pItem, POINT& point);	// pItemÀÌ µé¾î°¥ ¼ö ÀÖ´Â ÀûÀıÇÑ gridÀ§Ä¡¸¦ ±¸ÇÑ´Ù.
+		bool			GetFitPosition(MItem* pItem, POINT& point);	// pItemì´ ë“¤ì–´ê°ˆ ìˆ˜ ìˆëŠ” ì ì ˆí•œ gridìœ„ì¹˜ë¥¼ êµ¬í•œë‹¤.
 
 		//------------------------------------------------------		
 		// FindItemGridOrder

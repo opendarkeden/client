@@ -14,13 +14,14 @@
 //
 //////////////////////////////////////////////////////////////////////
 void GCWaitGuildListHandler::execute ( GCWaitGuildList * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	
 #ifdef __GAME_CLIENT__
 	//------------------------------------------------------
-	// °ËÁõ
+	// ê²€ì¦
 	//------------------------------------------------------
 	if ( g_pPlayer->GetWaitVerify()==MPlayer::WAIT_VERIFY_NPC_ASK )
 	{

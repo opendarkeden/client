@@ -20,7 +20,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCRemoveFromGearHandler::execute ( GCRemoveFromGear * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -30,7 +31,7 @@ void GCRemoveFromGearHandler::execute ( GCRemoveFromGear * pPacket , Player * pP
 	int slotID = pPacket->getSlotID();
 
 	//----------------------------------------------------------------------
-	// SlayerÀÎ °æ¿ì
+	// Slayerì¸ ê²½ìš°
 	//----------------------------------------------------------------------
 	switch(g_pPlayer->GetRace())
 	{
@@ -46,7 +47,7 @@ void GCRemoveFromGearHandler::execute ( GCRemoveFromGear * pPacket , Player * pP
 		else
 		{
 			//----------------------------------------------------------
-			// game message Ãâ·Â
+			// game message ì¶œë ¥
 			//----------------------------------------------------------
 
 			if(pRemovedItem->GetItemClass() != ITEM_CLASS_COUPLE_RING && pRemovedItem->GetItemClass() != ITEM_CLASS_VAMPIRE_COUPLE_RING)
@@ -81,26 +82,26 @@ void GCRemoveFromGearHandler::execute ( GCRemoveFromGear * pPacket , Player * pP
 			
 			int addonSlot[] = 
 			{
-				ADDON_HELM,			//GEAR_SLAYER_HELM = 0,			// ¸ðÀÚ
-					ADDON_NULL,			//GEAR_SLAYER_NECKLACE,			// ¸ñ°ÉÀÌ
-					ADDON_COAT,			//GEAR_SLAYER_COAT,				// »óÀÇ
-					ADDON_LEFTHAND,		//GEAR_SLAYER_LEFTHAND,			// ¿Þ¼Õ
-					ADDON_RIGHTHAND,	//GEAR_SLAYER_RIGHTHAND,			// ¿À¸¥¼Õ
-					ADDON_NULL,			//GEAR_SLAYER_GLOVE,				// Àå°©
-					ADDON_NULL,			//GEAR_SLAYER_BELT,				// Çõ´ë
-					ADDON_TROUSER,		//GEAR_SLAYER_TROUSER,			// ÇÏÀÇ			
-					ADDON_NULL,			//GEAR_SLAYER_BRACELET1,			// ÆÈÂî1
-					ADDON_NULL,			//GEAR_SLAYER_BRACELET2,			// ÆÈÂî2
-					ADDON_NULL,			//GEAR_SLAYER_RING1,				// ¹ÝÁö1
-					ADDON_NULL,			//GEAR_SLAYER_RING2,				// ¹ÝÁö2
-					ADDON_NULL,			//GEAR_SLAYER_RING3,				// ¹ÝÁö3
-					ADDON_NULL,			//GEAR_SLAYER_RING4,				// ¹ÝÁö4
-					ADDON_NULL,			//GEAR_SLAYER_SHOES,				// ½Å¹ß
+				ADDON_HELM,			//GEAR_SLAYER_HELM = 0,			// ëª¨ìž
+					ADDON_NULL,			//GEAR_SLAYER_NECKLACE,			// ëª©ê±¸ì´
+					ADDON_COAT,			//GEAR_SLAYER_COAT,				// ìƒì˜
+					ADDON_LEFTHAND,		//GEAR_SLAYER_LEFTHAND,			// ì™¼ì†
+					ADDON_RIGHTHAND,	//GEAR_SLAYER_RIGHTHAND,			// ì˜¤ë¥¸ì†
+					ADDON_NULL,			//GEAR_SLAYER_GLOVE,				// ìž¥ê°‘
+					ADDON_NULL,			//GEAR_SLAYER_BELT,				// í˜ëŒ€
+					ADDON_TROUSER,		//GEAR_SLAYER_TROUSER,			// í•˜ì˜			
+					ADDON_NULL,			//GEAR_SLAYER_BRACELET1,			// íŒ”ì°Œ1
+					ADDON_NULL,			//GEAR_SLAYER_BRACELET2,			// íŒ”ì°Œ2
+					ADDON_NULL,			//GEAR_SLAYER_RING1,				// ë°˜ì§€1
+					ADDON_NULL,			//GEAR_SLAYER_RING2,				// ë°˜ì§€2
+					ADDON_NULL,			//GEAR_SLAYER_RING3,				// ë°˜ì§€3
+					ADDON_NULL,			//GEAR_SLAYER_RING4,				// ë°˜ì§€4
+					ADDON_NULL,			//GEAR_SLAYER_SHOES,				// ì‹ ë°œ
 			};
 		
 			//----------------------------------------------------------
-			// ¿Þ¼ÕÀÎµ¥.. ¿Þ¼ÕÀÌ ºñ¾ú°í ¿À¸¥¼Õ¿¡ ¾ç¼Õ ¹«±âÀÌ¸é..
-			// ¿À¸¥¼ÕÀ» ¾ø¾Ö¾ß ÇÑ´Ù.
+			// ì™¼ì†ì¸ë°.. ì™¼ì†ì´ ë¹„ì—ˆê³  ì˜¤ë¥¸ì†ì— ì–‘ì† ë¬´ê¸°ì´ë©´..
+			// ì˜¤ë¥¸ì†ì„ ì—†ì• ì•¼ í•œë‹¤.
 			//----------------------------------------------------------
 			if (slotID==MSlayerGear::GEAR_SLAYER_LEFTHAND)
 			{
@@ -115,7 +116,7 @@ void GCRemoveFromGearHandler::execute ( GCRemoveFromGear * pPacket , Player * pP
 			}
 
 			//----------------------------------------------------------
-			// º¹ÀåÀ» ¹Ù²ãÁØ´Ù.
+			// ë³µìž¥ì„ ë°”ê¿”ì¤€ë‹¤.
 			//----------------------------------------------------------
 			int addonSlotID = addonSlot[slotID];
 
@@ -138,11 +139,11 @@ void GCRemoveFromGearHandler::execute ( GCRemoveFromGear * pPacket , Player * pP
 				#endif
 			}
 
-			// itemÁ¤º¸ Á¦°Å
+			// itemì •ë³´ ì œê±°
 			UI_RemoveDescriptor( (void*)pRemovedItem );
 
 			//----------------------------------------------------------
-			// itemÀ» ¾ø¾Ø´Ù.
+			// itemì„ ì—†ì•¤ë‹¤.
 			//----------------------------------------------------------
 			delete pRemovedItem;
 		}
@@ -151,7 +152,7 @@ void GCRemoveFromGearHandler::execute ( GCRemoveFromGear * pPacket , Player * pP
 
 	case RACE_VAMPIRE:
 	//----------------------------------------------------------------------
-	// VampireÀÎ °æ¿ì
+	// Vampireì¸ ê²½ìš°
 	//----------------------------------------------------------------------
 	{
 		MItem* pRemovedItem = g_pVampireGear->RemoveItem( (MVampireGear::GEAR_VAMPIRE)slotID );
@@ -163,7 +164,7 @@ void GCRemoveFromGearHandler::execute ( GCRemoveFromGear * pPacket , Player * pP
 		else
 		{
 			//----------------------------------------------------------
-			// game message Ãâ·Â
+			// game message ì¶œë ¥
 			//----------------------------------------------------------
 			if(pRemovedItem->GetItemClass() != ITEM_CLASS_COUPLE_RING && pRemovedItem->GetItemClass() != ITEM_CLASS_VAMPIRE_COUPLE_RING)
 			{
@@ -195,27 +196,27 @@ void GCRemoveFromGearHandler::execute ( GCRemoveFromGear * pPacket , Player * pP
 
 			int addonSlot[] = 
 			{
-				ADDON_NULL,			//GEAR_VAMPIRE_NECKLACE,			// ¸ñ°ÉÀÌ
-				ADDON_COAT,			//GEAR_VAMPIRE_COAT,				// »óÀÇ
-				ADDON_NULL,			//GEAR_VAMPIRE_BRACELET1,			// ÆÈÂî1
-				ADDON_NULL,			//GEAR_VAMPIRE_BRACELET2,			// ÆÈÂî2
-				ADDON_NULL,			//GEAR_VAMPIRE_RING1,				// ¹ÝÁö1
-				ADDON_NULL,			//GEAR_VAMPIRE_RING2,				// ¹ÝÁö2
-				ADDON_NULL,			//GEAR_VAMPIRE_RING3,				// ¹ÝÁö3
-				ADDON_NULL,			//GEAR_VAMPIRE_RING4,				// ¹ÝÁö4
-				ADDON_NULL,			//GEAR_VAMPIRE_EARRING1,			// ±Í°ÉÀÌ1
-				ADDON_NULL,			//GEAR_VAMPIRE_EARRING2,			// ±Í°ÉÀÌ2
-				ADDON_NULL,			//GEAR_VAMPIRE_WEAPON1,				// ¹«±â1
-				ADDON_NULL,			//GEAR_VAMPIRE_WEAPON2,				// ¹«±â2
-				ADDON_NULL,			//GEAR_VAMPIRE_AMULET1,				// ¾Æ¹Ä·¿1
-				ADDON_NULL,			//GEAR_VAMPIRE_AMULET2,				// ¾Æ¹Ä·¿2
-				ADDON_NULL,			//GEAR_VAMPIRE_AMULET3,				// ¾Æ¹Ä·¿3
-				ADDON_NULL,			//GEAR_VAMPIRE_AMULET4,				// ¾Æ¹Ä·¿4
+				ADDON_NULL,			//GEAR_VAMPIRE_NECKLACE,			// ëª©ê±¸ì´
+				ADDON_COAT,			//GEAR_VAMPIRE_COAT,				// ìƒì˜
+				ADDON_NULL,			//GEAR_VAMPIRE_BRACELET1,			// íŒ”ì°Œ1
+				ADDON_NULL,			//GEAR_VAMPIRE_BRACELET2,			// íŒ”ì°Œ2
+				ADDON_NULL,			//GEAR_VAMPIRE_RING1,				// ë°˜ì§€1
+				ADDON_NULL,			//GEAR_VAMPIRE_RING2,				// ë°˜ì§€2
+				ADDON_NULL,			//GEAR_VAMPIRE_RING3,				// ë°˜ì§€3
+				ADDON_NULL,			//GEAR_VAMPIRE_RING4,				// ë°˜ì§€4
+				ADDON_NULL,			//GEAR_VAMPIRE_EARRING1,			// ê·€ê±¸ì´1
+				ADDON_NULL,			//GEAR_VAMPIRE_EARRING2,			// ê·€ê±¸ì´2
+				ADDON_NULL,			//GEAR_VAMPIRE_WEAPON1,				// ë¬´ê¸°1
+				ADDON_NULL,			//GEAR_VAMPIRE_WEAPON2,				// ë¬´ê¸°2
+				ADDON_NULL,			//GEAR_VAMPIRE_AMULET1,				// ì•„ë®¬ë ›1
+				ADDON_NULL,			//GEAR_VAMPIRE_AMULET2,				// ì•„ë®¬ë ›2
+				ADDON_NULL,			//GEAR_VAMPIRE_AMULET3,				// ì•„ë®¬ë ›3
+				ADDON_NULL,			//GEAR_VAMPIRE_AMULET4,				// ì•„ë®¬ë ›4
 			};
 
 			//----------------------------------------------------------
-			// ¿Þ¼ÕÀÎµ¥.. ¿Þ¼ÕÀÌ ºñ¾ú°í ¿À¸¥¼Õ¿¡ ¾ç¼Õ ¹«±âÀÌ¸é..
-			// ¿À¸¥¼ÕÀ» ¾ø¾Ö¾ß ÇÑ´Ù.
+			// ì™¼ì†ì¸ë°.. ì™¼ì†ì´ ë¹„ì—ˆê³  ì˜¤ë¥¸ì†ì— ì–‘ì† ë¬´ê¸°ì´ë©´..
+			// ì˜¤ë¥¸ì†ì„ ì—†ì• ì•¼ í•œë‹¤.
 			//----------------------------------------------------------
 			if (slotID==MVampireGear::GEAR_VAMPIRE_LEFTHAND)
 			{
@@ -230,7 +231,7 @@ void GCRemoveFromGearHandler::execute ( GCRemoveFromGear * pPacket , Player * pP
 			}
 
 			//----------------------------------------------------------
-			// º¹ÀåÀ» ¹Ù²ãÁØ´Ù.
+			// ë³µìž¥ì„ ë°”ê¿”ì¤€ë‹¤.
 			//----------------------------------------------------------
 			int addonSlotID = addonSlot[slotID];
 
@@ -253,11 +254,11 @@ void GCRemoveFromGearHandler::execute ( GCRemoveFromGear * pPacket , Player * pP
 				#endif
 			}
 
-			// itemÁ¤º¸ Á¦°Å
+			// itemì •ë³´ ì œê±°
 			UI_RemoveDescriptor( (void*)pRemovedItem );
 
 			//----------------------------------------------------------
-			// itemÀ» ¾ø¾Ø´Ù.
+			// itemì„ ì—†ì•¤ë‹¤.
 			//----------------------------------------------------------
 			delete pRemovedItem;
 		}
@@ -275,7 +276,7 @@ void GCRemoveFromGearHandler::execute ( GCRemoveFromGear * pPacket , Player * pP
 		else
 		{
 			//----------------------------------------------------------
-			// game message Ãâ·Â
+			// game message ì¶œë ¥
 			//----------------------------------------------------------
 			if(1)
 			{
@@ -307,27 +308,27 @@ void GCRemoveFromGearHandler::execute ( GCRemoveFromGear * pPacket , Player * pP
 
 			int addonSlot[] = 
 			{
-				ADDON_NULL,			//GEAR_OUSTERS_CIRCLET,			// ¼­Å¬¸´
-				ADDON_COAT,			//GEAR_OUSTERS_COAT,				// ¿Ê
-				ADDON_LEFTHAND,		//GEAR_OUSTERS_LEFTHAND,			// ¿Þ¼Õ
-				ADDON_RIGHTHAND,	//GEAR_OUSTERS_RIGHTHAND,			// ¿À¸¥¼Õ
-				ADDON_TROUSER,			//GEAR_OUSTERS_BOOTS,				// ½Å¹ß
-				ADDON_NULL,			//GEAR_OUSTERS_ARMSBAND1,			// ¾Ï½º¹êµå1
-				ADDON_NULL,			//GEAR_OUSTERS_ARMSBAND2,			// ¾Ï½º¹êµå2
-				ADDON_NULL,			//GEAR_OUSTERS_RING1,				// ¸µ1
-				ADDON_NULL,			//GEAR_OUSTERS_RING2,				// ¸µ2
-				ADDON_NULL,			//GEAR_OUSTERS_NECKLACE1,			// ¸ñ°ÉÀÌ1
-				ADDON_NULL,			//GEAR_OUSTERS_NECKLACE2,			// ¸ñ°ÉÀÌ2
-				ADDON_NULL,			//GEAR_OUSTERS_NECKLACE3,			// ¸ñ°ÉÀÌ3
-				ADDON_NULL,			//GEAR_OUSTERS_STONE1,			// Á¤·É¼®1
-				ADDON_NULL,			//GEAR_OUSTERS_STONE2,			// Á¤·É¼®2
-				ADDON_NULL,			//GEAR_OUSTERS_STONE3,			// Á¤·É¼®3
-				ADDON_NULL,			//GEAR_OUSTERS_STONE4,			// Á¤·É¼®4
+				ADDON_NULL,			//GEAR_OUSTERS_CIRCLET,			// ì„œí´ë¦¿
+				ADDON_COAT,			//GEAR_OUSTERS_COAT,				// ì˜·
+				ADDON_LEFTHAND,		//GEAR_OUSTERS_LEFTHAND,			// ì™¼ì†
+				ADDON_RIGHTHAND,	//GEAR_OUSTERS_RIGHTHAND,			// ì˜¤ë¥¸ì†
+				ADDON_TROUSER,			//GEAR_OUSTERS_BOOTS,				// ì‹ ë°œ
+				ADDON_NULL,			//GEAR_OUSTERS_ARMSBAND1,			// ì•”ìŠ¤ë°´ë“œ1
+				ADDON_NULL,			//GEAR_OUSTERS_ARMSBAND2,			// ì•”ìŠ¤ë°´ë“œ2
+				ADDON_NULL,			//GEAR_OUSTERS_RING1,				// ë§1
+				ADDON_NULL,			//GEAR_OUSTERS_RING2,				// ë§2
+				ADDON_NULL,			//GEAR_OUSTERS_NECKLACE1,			// ëª©ê±¸ì´1
+				ADDON_NULL,			//GEAR_OUSTERS_NECKLACE2,			// ëª©ê±¸ì´2
+				ADDON_NULL,			//GEAR_OUSTERS_NECKLACE3,			// ëª©ê±¸ì´3
+				ADDON_NULL,			//GEAR_OUSTERS_STONE1,			// ì •ë ¹ì„1
+				ADDON_NULL,			//GEAR_OUSTERS_STONE2,			// ì •ë ¹ì„2
+				ADDON_NULL,			//GEAR_OUSTERS_STONE3,			// ì •ë ¹ì„3
+				ADDON_NULL,			//GEAR_OUSTERS_STONE4,			// ì •ë ¹ì„4
 			};
 
 			//----------------------------------------------------------
-			// ¿Þ¼ÕÀÎµ¥.. ¿Þ¼ÕÀÌ ºñ¾ú°í ¿À¸¥¼Õ¿¡ ¾ç¼Õ ¹«±âÀÌ¸é..
-			// ¿À¸¥¼ÕÀ» ¾ø¾Ö¾ß ÇÑ´Ù.
+			// ì™¼ì†ì¸ë°.. ì™¼ì†ì´ ë¹„ì—ˆê³  ì˜¤ë¥¸ì†ì— ì–‘ì† ë¬´ê¸°ì´ë©´..
+			// ì˜¤ë¥¸ì†ì„ ì—†ì• ì•¼ í•œë‹¤.
 			//----------------------------------------------------------
 			if (slotID==MOustersGear::GEAR_OUSTERS_LEFTHAND)
 			{
@@ -342,7 +343,7 @@ void GCRemoveFromGearHandler::execute ( GCRemoveFromGear * pPacket , Player * pP
 			}
 
 			//----------------------------------------------------------
-			// º¹ÀåÀ» ¹Ù²ãÁØ´Ù.
+			// ë³µìž¥ì„ ë°”ê¿”ì¤€ë‹¤.
 			//----------------------------------------------------------
 			int addonSlotID = addonSlot[slotID];
 
@@ -365,11 +366,11 @@ void GCRemoveFromGearHandler::execute ( GCRemoveFromGear * pPacket , Player * pP
 				#endif
 			}
 
-			// itemÁ¤º¸ Á¦°Å
+			// itemì •ë³´ ì œê±°
 			UI_RemoveDescriptor( (void*)pRemovedItem );
 
 			//----------------------------------------------------------
-			// itemÀ» ¾ø¾Ø´Ù.
+			// itemì„ ì—†ì•¤ë‹¤.
 			//----------------------------------------------------------
 			delete pRemovedItem;
 		}
@@ -377,7 +378,7 @@ void GCRemoveFromGearHandler::execute ( GCRemoveFromGear * pPacket , Player * pP
 	break;
 	}
 
-//	// [µµ¿ò¸»] ¾ÆÀÌÅÛÀÌ ºÎ¼­Áø °æ¿ì
+//	// [ë„ì›€ë§] ì•„ì´í…œì´ ë¶€ì„œì§„ ê²½ìš°
 //	__BEGIN_HELP_EVENT
 ////		ExecuteHelpEvent( HE_ITEM_BROKEN );
 //	__END_HELP_EVENT

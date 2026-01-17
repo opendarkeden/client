@@ -1,8 +1,14 @@
 #ifndef __CSPRITE_PAL__
 #define __CSPRITE_PAL__
 
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "CTypeTable.h"
+#include <fstream>
+using namespace std;
 
 class MPalette
 {
@@ -31,8 +37,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	virtual bool	SaveToFile(class ofstream& file) = 0;
-	virtual bool	LoadFromFile(class ifstream& file) = 0;		
+	virtual bool	SaveToFile(std::ofstream& file) = 0;
+	virtual bool	LoadFromFile(std::ifstream& file) = 0;		
 
 protected:
 	WORD *		m_pColor;
@@ -45,8 +51,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	bool LoadFromFile(class ifstream &file);
-	bool SaveToFile(class ofstream &file);
+	bool LoadFromFile(ifstream &file);
+	bool SaveToFile(ofstream &file);
 };
 
 class MPalette565 : public MPalette
@@ -55,8 +61,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	bool LoadFromFile(class ifstream &file);
-	bool SaveToFile(class ofstream &file);
+	bool LoadFromFile(ifstream &file);
+	bool SaveToFile(ofstream &file);
 };
 
 class MPalettePack
@@ -85,8 +91,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	bool LoadFromFile(class ifstream &file, bool b565 = true);
-	bool SaveToFile(class ofstream &file);
+	bool LoadFromFile(ifstream &file, bool b565 = true);
+	bool SaveToFile(ofstream &file);
 
 	bool LoadFromFile(LPCTSTR lpszFilename, bool b565 = true);
 	bool SaveToFile(LPCTSTR lpszFilename);
@@ -114,15 +120,15 @@ public:
 	bool		IsLoading() const	{ return m_bLoading; }
 
 	//---------------------------------------------------------
-	// m_pData¿« memory∏¶ Release«—¥Ÿ.		
+	// m_pDataÏùò memoryÎ•º ReleaseÌïúÎã§.		
 	//---------------------------------------------------------
 	void		Release();
 
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	bool LoadFromFile(class ifstream &file);
-	bool SaveToFile(class ofstream &file);
+	bool LoadFromFile(ifstream &file);
+	bool SaveToFile(ofstream &file);
 
 	//--------------------------------------------------------
 	// Get Functions
@@ -145,15 +151,15 @@ public:
 	
 
 protected:
-	WORD			m_Width;		// ∞°∑Œ pixelºˆ
-	WORD			m_Height;		// ºº∑Œ pixelºˆ		
-	DWORD			m_Size;			// Ω∫«¡∂Û¿Ã∆Æ¿« size
+	WORD			m_Width;		// Í∞ÄÎ°ú pixelÏàò
+	WORD			m_Height;		// ÏÑ∏Î°ú pixelÏàò		
+	DWORD			m_Size;			// Ïä§ÌîÑÎùºÏù¥Ìä∏Ïùò size
 
 	BYTE**			m_pPixels;		// pixels point array
 	BYTE*			m_pData;			// data
 
-	bool			m_bInit;		// data∞° ¿÷¥¬∞°?
-	bool			m_bLoading;		// Loading¡ﬂ¿Œ∞°?
+	bool			m_bInit;		// dataÍ∞Ä ÏûàÎäîÍ∞Ä?
+	bool			m_bLoading;		// LoadingÏ§ëÏù∏Í∞Ä?
 
 	static BYTE		s_Colorkey;
 
@@ -185,8 +191,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	bool LoadFromFile(class ifstream &file);
-	bool SaveToFile(class ofstream &file);
+	bool LoadFromFile(ifstream &file);
+	bool SaveToFile(ofstream &file);
 	
 	bool LoadFromFile(LPCTSTR lpszFilename);
 	bool SaveToFile(LPCTSTR lpszFilename);

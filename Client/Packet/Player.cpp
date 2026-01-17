@@ -2,7 +2,7 @@
 // 
 // Filename    : Plyaer.cpp 
 // Written By  : reiot@ewestsoft.com
-// Description : ÇÃ·¹ÀÌ¾î º£ÀÌ½º Å¬·¡½º
+// Description : í”Œë ˆì´ì–´ ë² ì´ìŠ¤ í´ë˜ìŠ¤
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -56,7 +56,7 @@ Player::Player ()
 //
 //////////////////////////////////////////////////////////////////////
 Player::Player ( Socket * pSocket )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 : m_pSocket(pSocket), m_pInputStream(NULL), m_pOutputStream(NULL)
 {
 	__BEGIN_TRY
@@ -83,7 +83,7 @@ Player::Player ( Socket * pSocket )
 //
 //////////////////////////////////////////////////////////////////////
 Player::~Player ()
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -141,53 +141,53 @@ void Player::processCommand ()
 
 	try {
 
-		// Çì´õ¸¦ ÀÓ½ÃÀúÀåÇÒ ¹öÆÛ »ı¼º
+		// í—¤ë”ë¥¼ ì„ì‹œì €ì¥í•  ë²„í¼ ìƒì„±
 		char header[szPacketHeader];
 		PacketID_t packetID;
 		PacketSize_t packetSize;
-		// add by Coffee Ôö¼Ó·â°üĞòÁĞ
+		// add by Coffee è—¤ì†ë£ê´€åŸ¼ì£—
 		SequenceSize_t packetSequence;
 
 		Packet * pPacket;
 
-		// ÀÔ·Â¹öÆÛ¿¡ µé¾îÀÖ´Â ¿ÏÀüÇÑ ÆĞÅ¶µéÀ» ¸ğÁ¶¸® Ã³¸®ÇÑ´Ù.
+		// ì…ë ¥ë²„í¼ì— ë“¤ì–´ìˆëŠ” ì™„ì „í•œ íŒ¨í‚·ë“¤ì„ ëª¨ì¡°ë¦¬ ì²˜ë¦¬í•œë‹¤.
 		while ( true ) {
 		
-			// ÀÔ·Â½ºÆ®¸²¿¡¼­ ÆĞÅ¶Çì´õÅ©±â¸¸Å­ ÀĞ¾îº»´Ù.
-			// ¸¸¾à ÁöÁ¤ÇÑ Å©±â¸¸Å­ ½ºÆ®¸²¿¡¼­ ÀĞÀ» ¼ö ¾ø´Ù¸é,
-			// Insufficient ¿¹¿Ü°¡ ¹ß»ıÇÏ°í, ·çÇÁ¸¦ ºüÁ®³ª°£´Ù.
+			// ì…ë ¥ìŠ¤íŠ¸ë¦¼ì—ì„œ íŒ¨í‚·í—¤ë”í¬ê¸°ë§Œí¼ ì½ì–´ë³¸ë‹¤.
+			// ë§Œì•½ ì§€ì •í•œ í¬ê¸°ë§Œí¼ ìŠ¤íŠ¸ë¦¼ì—ì„œ ì½ì„ ìˆ˜ ì—†ë‹¤ë©´,
+			// Insufficient ì˜ˆì™¸ê°€ ë°œìƒí•˜ê³ , ë£¨í”„ë¥¼ ë¹ ì ¸ë‚˜ê°„ë‹¤.
 			m_pInputStream->peek( header , szPacketHeader );
 
-			// ÆĞÅ¶¾ÆÀÌµğ ¹× ÆĞÅ¶Å©±â¸¦ ¾Ë¾Æ³½´Ù.
-			// ÀÌ¶§ ÆĞÅ¶Å©±â´Â Çì´õ¸¦ Æ÷ÇÔÇÑ´Ù.
+			// íŒ¨í‚·ì•„ì´ë”” ë° íŒ¨í‚·í¬ê¸°ë¥¼ ì•Œì•„ë‚¸ë‹¤.
+			// ì´ë•Œ íŒ¨í‚·í¬ê¸°ëŠ” í—¤ë”ë¥¼ í¬í•¨í•œë‹¤.
 			memcpy( &packetID   , &header[0] , szPacketID );	
 			memcpy( &packetSize , &header[szPacketID] , szPacketSize );
 			memcpy( &packetSequence , &header[szPacketID+szPacketSize] , szSequenceSize );
 
-			// ÆĞÅ¶ ¾ÆÀÌµğ°¡ ÀÌ»óÇÏ¸é ÇÁ·ÎÅäÄİ ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+			// íŒ¨í‚· ì•„ì´ë””ê°€ ì´ìƒí•˜ë©´ í”„ë¡œí† ì½œ ì—ëŸ¬ë¡œ ê°„ì£¼í•œë‹¤.
 			if ( packetID >= Packet::PACKET_MAX )
 				throw InvalidProtocolException("[Player::processCommand]invalid packet id");
 			
-			// ÆĞÅ¶ Å©±â°¡ ³Ê¹« Å©¸é ÇÁ·ÎÅäÄİ ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+			// íŒ¨í‚· í¬ê¸°ê°€ ë„ˆë¬´ í¬ë©´ í”„ë¡œí† ì½œ ì—ëŸ¬ë¡œ ê°„ì£¼í•œë‹¤.
 			if ( packetSize > g_pPacketFactoryManager->getPacketMaxSize(packetID) )
 			{
 				SendBugReport("too large PacketSize ID)%d %d/%d", packetID, packetSize, g_pPacketFactoryManager->getPacketMaxSize( packetID ) );
 				throw InvalidProtocolException("too large packet size");
 			}
 			
-			// ÀÔ·Â¹öÆÛ³»¿¡ ÆĞÅ¶Å©±â¸¸Å­ÀÇ µ¥ÀÌÅ¸°¡ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
-			// ÃÖÀûÈ­½Ã break ¸¦ »ç¿ëÇÏ¸é µÈ´Ù. (¿©±â¼­´Â ÀÏ´Ü exceptionÀ» ¾µ °ÍÀÌ´Ù.)
+			// ì…ë ¥ë²„í¼ë‚´ì— íŒ¨í‚·í¬ê¸°ë§Œí¼ì˜ ë°ì´íƒ€ê°€ ë“¤ì–´ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
+			// ìµœì í™”ì‹œ break ë¥¼ ì‚¬ìš©í•˜ë©´ ëœë‹¤. (ì—¬ê¸°ì„œëŠ” ì¼ë‹¨ exceptionì„ ì“¸ ê²ƒì´ë‹¤.)
 			if ( m_pInputStream->length() < szPacketHeader + packetSize )
 				throw InsufficientDataException();
 			
-			// ¿©±â±îÁö ¿Ô´Ù¸é ÀÔ·Â¹öÆÛ¿¡´Â ¿ÏÀüÇÑ ÆĞÅ¶ ÇÏ³ª ÀÌ»óÀÌ µé¾îÀÖ´Ù´Â ¶æÀÌ´Ù.
-			// ÆĞÅ¶ÆÑÅä¸®¸Å´ÏÀú·ÎºÎÅÍ ÆĞÅ¶¾ÆÀÌµğ¸¦ »ç¿ëÇØ¼­ ÆĞÅ¶ ½ºÆ®·°Ã³¸¦ »ı¼ºÇÏ¸é µÈ´Ù.
-			// ÆĞÅ¶¾ÆÀÌµğ°¡ Àß¸øµÉ °æ¿ì´Â ÆĞÅ¶ÆÑÅä¸®¸Å´ÏÀú¿¡¼­ Ã³¸®ÇÑ´Ù.
+			// ì—¬ê¸°ê¹Œì§€ ì™”ë‹¤ë©´ ì…ë ¥ë²„í¼ì—ëŠ” ì™„ì „í•œ íŒ¨í‚· í•˜ë‚˜ ì´ìƒì´ ë“¤ì–´ìˆë‹¤ëŠ” ëœ»ì´ë‹¤.
+			// íŒ¨í‚·íŒ©í† ë¦¬ë§¤ë‹ˆì €ë¡œë¶€í„° íŒ¨í‚·ì•„ì´ë””ë¥¼ ì‚¬ìš©í•´ì„œ íŒ¨í‚· ìŠ¤íŠ¸ëŸ­ì²˜ë¥¼ ìƒì„±í•˜ë©´ ëœë‹¤.
+			// íŒ¨í‚·ì•„ì´ë””ê°€ ì˜ëª»ë  ê²½ìš°ëŠ” íŒ¨í‚·íŒ©í† ë¦¬ë§¤ë‹ˆì €ì—ì„œ ì²˜ë¦¬í•œë‹¤.
 			pPacket = g_pPacketFactoryManager->createPacket( packetID );
 
-			// ÀÌÁ¦ ÀÌ ÆĞÅ¶½ºÆ®·°Ã³¸¦ ÃÊ±âÈ­ÇÑ´Ù.
-			// ÆĞÅ¶ÇÏÀ§Å¬·¡½º¿¡ Á¤ÀÇµÈ read()°¡ virtual ¸ŞÄ¿´ÏÁò¿¡ ÀÇÇØ¼­ È£ÃâµÇ¾î
-			// ÀÚµ¿ÀûÀ¸·Î ÃÊ±âÈ­µÈ´Ù.
+			// ì´ì œ ì´ íŒ¨í‚·ìŠ¤íŠ¸ëŸ­ì²˜ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
+			// íŒ¨í‚·í•˜ìœ„í´ë˜ìŠ¤ì— ì •ì˜ëœ read()ê°€ virtual ë©”ì»¤ë‹ˆì¦˜ì— ì˜í•´ì„œ í˜¸ì¶œë˜ì–´
+			// ìë™ì ìœ¼ë¡œ ì´ˆê¸°í™”ëœë‹¤.
 			m_pInputStream->read( pPacket );
 /*
 	#ifdef __DEBUG_OUTPUT__
@@ -196,11 +196,11 @@ void Player::processCommand ()
 			fclose(fp);
 	#endif
 */		
-			// ÀÌÁ¦ ÀÌ ÆĞÅ¶½ºÆ®·°Ã³¸¦ °¡Áö°í ÆĞÅ¶ÇÚµé·¯¸¦ ¼öÇàÇÏ¸é µÈ´Ù.
-			// ÆĞÅ¶¾ÆÀÌµğ°¡ Àß¸øµÉ °æ¿ì´Â ÆĞÅ¶ÇÚµé·¯¸Å´ÏÀú¿¡¼­ Ã³¸®ÇÑ´Ù.
+			// ì´ì œ ì´ íŒ¨í‚·ìŠ¤íŠ¸ëŸ­ì²˜ë¥¼ ê°€ì§€ê³  íŒ¨í‚·í•¸ë“¤ëŸ¬ë¥¼ ìˆ˜í–‰í•˜ë©´ ëœë‹¤.
+			// íŒ¨í‚·ì•„ì´ë””ê°€ ì˜ëª»ë  ê²½ìš°ëŠ” íŒ¨í‚·í•¸ë“¤ëŸ¬ë§¤ë‹ˆì €ì—ì„œ ì²˜ë¦¬í•œë‹¤.
 			pPacket->execute( this );
 			
-			// ÆĞÅ¶À» »èÁ¦ÇÑ´Ù
+			// íŒ¨í‚·ì„ ì‚­ì œí•œë‹¤
 			delete pPacket;
 
 		}
@@ -209,7 +209,7 @@ void Player::processCommand ()
 
 		// PacketFactoryManager::createPacket(PacketID_t)
 		// PacketFactoryManager::getPacketMaxSize(PacketID_t)
-		// ¿¡¼­ ´øÁú °¡´É¼ºÀÌ ÀÖ´Ù.
+		// ì—ì„œ ë˜ì§ˆ ê°€ëŠ¥ì„±ì´ ìˆë‹¤.
 		throw Error( nsee.toString() );
 
 	} catch ( InsufficientDataException ) {
@@ -264,13 +264,13 @@ void Player::sendPacket ( Packet * pPacket )
 //
 //////////////////////////////////////////////////////////////////////
 void Player::disconnect ( bool bDisconnected )
-	throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
-	// Á¤´çÇÏ°Ô ·Î±×¾Æ¿ôÇÑ °æ¿ì¿¡´Â Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇÒ ¼ö ÀÖ´Ù.
-	// ±×·¯³ª, ºÒ¹ıÀûÀÎ µğ½º¸¦ °É¾ú´Ù¸é ¼ÒÄÏÀÌ ´İ°åÀ¸¹Ç·Î
-	// ÇÃ·¯½ÃÇÒ °æ¿ì SIG_PIPE À» ¹Ş°Ô µÈ´Ù.
+	// ì •ë‹¹í•˜ê²Œ ë¡œê·¸ì•„ì›ƒí•œ ê²½ìš°ì—ëŠ” ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•  ìˆ˜ ìˆë‹¤.
+	// ê·¸ëŸ¬ë‚˜, ë¶ˆë²•ì ì¸ ë””ìŠ¤ë¥¼ ê±¸ì—ˆë‹¤ë©´ ì†Œì¼“ì´ ë‹«ê²¼ìœ¼ë¯€ë¡œ
+	// í”ŒëŸ¬ì‹œí•  ê²½ìš° SIG_PIPE ì„ ë°›ê²Œ ëœë‹¤.
 	if ( bDisconnected == UNDISCONNECTED ) {
 
 		//
@@ -314,7 +314,7 @@ void Player::setSocket ( Socket * pSocket )
 //
 //////////////////////////////////////////////////////////////////////
 std::string Player::toString () const
-       throw ( Error )
+       throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		

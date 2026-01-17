@@ -17,7 +17,7 @@
 //----------------------------------------------------------------------
 //MStopZoneWallEffectGenerator	g_StopZoneWallEffectGenerator;
 //---------------------------------------------
-// ¹æÇâ¿¡ µû¶ó¼­... { ½ÃÀÛº¸Á¤X, ½ÃÀÛº¸Á¤Y, º¯È­X, º¯È­Y }
+// ë°©í–¥ì— ë”°ë¼ì„œ... { ì‹œì‘ë³´ì •X, ì‹œì‘ë³´ì •Y, ë³€í™”X, ë³€í™”Y }
 //---------------------------------------------
 const int g_WallDirValue[8][4] = { 
 	{ 0, -1, 0, 1 },		// left
@@ -42,7 +42,7 @@ MStopZoneWallEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	TYPE_FRAMEID	frameID	= (*g_pEffectSpriteTypeTable)[egInfo.effectSpriteType].FrameID;
 
 	//---------------------------------------------
-	// pixelÁÂÇ¥¸¦ MapÀÇ ÁÂÇ¥·Î ¹Ù²ãÁØ´Ù.
+	// pixelì¢Œí‘œë¥¼ Mapì˜ ì¢Œí‘œë¡œ ë°”ê¿”ì¤€ë‹¤.
 	//---------------------------------------------
 	int	//sX0, sY0, 
 		sX1, sY1;
@@ -51,14 +51,14 @@ MStopZoneWallEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	sX1 = g_pTopView->PixelToMapX(egInfo.x1);
 	sY1 = g_pTopView->PixelToMapY(egInfo.y1);
 
-	// (sX0, sY0)¿¡¼­ (sX1, sY1)À» ¹Ù¶óº¸´Â ¹æÇâÀ» ¾ò¾î³½´Ù.
+	// (sX0, sY0)ì—ì„œ (sX1, sY1)ì„ ë°”ë¼ë³´ëŠ” ë°©í–¥ì„ ì–»ì–´ë‚¸ë‹¤.
 	int lookDirection = egInfo.direction;//MTopView::GetDirectionToPosition(sX0, sY0, sX1, sY1);
 
 	
 	//---------------------------------------------
-	// ½ÃÀÛ °ª
+	// ì‹œì‘ ê°’
 	//---------------------------------------------
-	// step(°³¼ö)   stepMulti(½ÃÀÛ°ª º¯È­)
+	// step(ê°œìˆ˜)   stepMulti(ì‹œì‘ê°’ ë³€í™”)
 	// 1			 0
 	// 3			 1
 	// 5			 2
@@ -75,33 +75,33 @@ MStopZoneWallEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 	MEffect*	pEffect;
 	//---------------------------------------------
-	// [1]Effect »ı¼º
+	// [1]Effect ìƒì„±
 	//---------------------------------------------
 	for (int i=0; i<egInfo.step; i++)
 	{
 		pEffect = new MEffect(bltType);
 
 		//---------------------------------------------
-		// ÇÑ¹øÀº EffectTargetÀ» newÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+		// í•œë²ˆì€ EffectTargetì„ newí•  í•„ìš”ê°€ ì—†ë‹¤.
 		//---------------------------------------------
 		
 		pEffect->SetFrameID( frameID, maxFrame );	
 
-		pEffect->SetPosition(sX, sY);		// Sector ÁÂÇ¥		
+		pEffect->SetPosition(sX, sY);		// Sector ì¢Œí‘œ		
 		pEffect->SetZ(egInfo.z0);			
-		pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
-		pEffect->SetCount( egInfo.count , egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+		pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ì…í•´ì¤€ë‹¤.
+		pEffect->SetCount( egInfo.count , egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 
-		// ¹æÇâ ¼³Á¤
+		// ë°©í–¥ ì„¤ì •
 		pEffect->SetDirection( egInfo.direction );
 
-		// À§·Â
+		// ìœ„ë ¥
 		pEffect->SetPower(egInfo.power);
 
-		// ºûÀÇ ¹à±â
+		// ë¹›ì˜ ë°ê¸°
 		//pEffect->SetLight( light );
 
-		// Zone¿¡ Ãß°¡ÇÑ´Ù.
+		// Zoneì— ì¶”ê°€í•œë‹¤.
 		bool bAdd = g_pZone->AddEffect( pEffect );
 
 		/*
@@ -120,7 +120,7 @@ MStopZoneWallEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		{
 			if (!bOK)
 			{				
-				// Ã³À½À¸·Î Ãß°¡µÈ effect¿¡ ´ëÇØ¼­ link¼³Á¤
+				// ì²˜ìŒìœ¼ë¡œ ì¶”ê°€ëœ effectì— ëŒ€í•´ì„œ linkì„¤ì •
 				pEffect->SetLink( egInfo.nActionInfo, egInfo.pEffectTarget );
 
 				bOK = true;
@@ -137,7 +137,7 @@ MStopZoneWallEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 			}
 		}
 
-		// ´ÙÀ½ ÁÂÇ¥
+		// ë‹¤ìŒ ì¢Œí‘œ
 		sX += cX;
 		sY += cY;
 

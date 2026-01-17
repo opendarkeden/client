@@ -14,7 +14,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCSkillToSelfOK3Handler::execute ( GCSkillToSelfOK3 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -22,7 +23,7 @@ void GCSkillToSelfOK3Handler::execute ( GCSkillToSelfOK3 * pPacket , Player * pP
 
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -30,7 +31,7 @@ void GCSkillToSelfOK3Handler::execute ( GCSkillToSelfOK3 * pPacket , Player * pP
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
@@ -39,7 +40,7 @@ void GCSkillToSelfOK3Handler::execute ( GCSkillToSelfOK3 * pPacket , Player * pP
 
 		//------------------------------------------------------
 		//
-		// ¾î´À ÁöÁ¡¿¡¼­ ±â¼ú »ç¿ëÀÌ µÈ´Ù.
+		// ì–´ëŠ ì§€ì ì—ì„œ ê¸°ìˆ  ì‚¬ìš©ì´ ëœë‹¤.
 		//
 		//------------------------------------------------------			
 
@@ -63,7 +64,7 @@ void GCSkillToSelfOK3Handler::execute ( GCSkillToSelfOK3 * pPacket , Player * pP
 		MActionResult* pResult = NULL;
 
 		//------------------------------------------------------
-		// EffectStatus°¡ ÀÖ´Ù¸é ºÙÀÎ´Ù.
+		// EffectStatusê°€ ìžˆë‹¤ë©´ ë¶™ì¸ë‹¤.
 		//------------------------------------------------------
 		EFFECTSTATUS es = (*g_pActionInfoTable)[skillID].GetEffectStatus();
 		
@@ -87,7 +88,7 @@ void GCSkillToSelfOK3Handler::execute ( GCSkillToSelfOK3 * pPacket , Player * pP
 
 		//------------------------------------------------------
 		//
-		// skill¿¡ °á°ú°¡ ÀÖÀ¸¸é °°ÀÌ Àû¿ë ½ÃÅ²´Ù.
+		// skillì— ê²°ê³¼ê°€ ìžˆìœ¼ë©´ ê°™ì´ ì ìš© ì‹œí‚¨ë‹¤.
 		//
 		//------------------------------------------------------
 		/*
@@ -104,7 +105,7 @@ void GCSkillToSelfOK3Handler::execute ( GCSkillToSelfOK3 * pPacket , Player * pP
 		*/
 
 		//------------------------------------------------------
-		// NULLÀÌ ¾Æ´Ï¸é °°ÀÌ Àû¿ë
+		// NULLì´ ì•„ë‹ˆë©´ ê°™ì´ ì ìš©
 		//------------------------------------------------------
 		/*
 		if (pActionResultNode!=NULL)
@@ -116,26 +117,26 @@ void GCSkillToSelfOK3Handler::execute ( GCSkillToSelfOK3 * pPacket , Player * pP
 		//Duration_t	m_Duration;
 		//pCreature->PacketSpecialActionToSelf( 
 		//						pPacket->getSkillType(),
-		//						pResult	// °á°ú
+		//						pResult	// ê²°ê³¼
 		//	);
 
 		//------------------------------------------------------
-		// »ç¿ë À§Ä¡¸¸ ÀÖ´Â °æ¿ì...
+		// ì‚¬ìš© ìœ„ì¹˜ë§Œ ìžˆëŠ” ê²½ìš°...
 		//------------------------------------------------------
 		ExecuteActionInfoFromMainNode(
 			skillID + (*g_pActionInfoTable).GetMinResultActionInfo(),
 		
-			pPacket->getX(), pPacket->getY(), 0, // ±â¼ú »ç¿ëÇÏ´Â »ç¶÷(?) 
-			0,														// »ç¿ë ¹æÇâ
+			pPacket->getX(), pPacket->getY(), 0, // ê¸°ìˆ  ì‚¬ìš©í•˜ëŠ” ì‚¬ëžŒ(?) 
+			0,														// ì‚¬ìš© ë°©í–¥
 			
-			OBJECTID_NULL,												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+			OBJECTID_NULL,												// ëª©í‘œì— ëŒ€í•œ ì •ë³´
 			pPacket->getX(), pPacket->getY(), 0, 
 			
-			delayFrame,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+			delayFrame,													// ê¸°ìˆ ì˜ (ë‚¨ì€) ì§€ì† ì‹œê°„		
 			
 			NULL,
 
-			false);			// ±â¼ú Ã·ºÎÅÍ ½ÃÀÛÇÑ´Ù.
+			false);			// ê¸°ìˆ  ì²¨ë¶€í„° ì‹œìž‘í•œë‹¤.
 	}
 
 #endif

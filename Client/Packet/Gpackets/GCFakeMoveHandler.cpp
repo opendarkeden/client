@@ -15,7 +15,8 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCFakeMoveHandler::execute ( GCFakeMove * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -34,7 +35,7 @@ void GCFakeMoveHandler::execute ( GCFakeMove * pPacket , Player * pPlayer )
 //	pFakeCreature->SetFakePosition( pCreature->GetX(), pCreature->GetY() );
 	
 	//------------------------------------------------------
-	// Fake Creature¸¦ Zone¿¡ Ãß°¡
+	// Fake Creatureë¥¼ Zoneì— ì¶”ê°€
 	//------------------------------------------------------
 	if (!g_pZone->AddFakeCreature( pFakeCreature ))
 	{

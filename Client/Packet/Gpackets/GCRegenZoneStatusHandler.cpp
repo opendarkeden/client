@@ -12,18 +12,20 @@
 
 //////////////////////////////////////////////////////////////////////
 //
-// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¼­¹ö·ÎºÎÅÍ ¸Ş½ÃÁö¸¦ ¹Ş¾ÒÀ»¶§ ½ÇÇàµÇ´Â ¸Ş½îµåÀÌ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì„œë²„ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ë°›ì•˜ì„ë•Œ ì‹¤í–‰ë˜ëŠ” ë©”ì˜ë“œì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void GCRegenZoneStatusHandler::execute ( GCRegenZoneStatus * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	if( g_pRegenTowerInfoManager == NULL )
 		return;
 
-	for(int i = 0; i < 8 ; i++ )
+	int i;
+	for(i = 0; i < 8 ; i++ )
 	{
-		RegenTowerInfo& pInfo = g_pRegenTowerInfoManager->Get( i );		
+		RegenTowerInfo& pInfo = g_pRegenTowerInfoManager->Get( i );
 		pInfo.owner = (int)pPacket->getStatus( i );
 	}
 

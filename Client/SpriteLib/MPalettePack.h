@@ -1,3 +1,4 @@
+#include <fstream>
 #ifndef __MPALETTE_PACK_H__
 #define __MPALETTE_PACK_H__
 
@@ -17,7 +18,7 @@ typedef CTypePack2<MPalette, MPalette555, MPalette565> MPalettePack;
 //	//--------------------------------------------------------
 //	// file I/O
 //	//--------------------------------------------------------
-//	bool LoadFromFile(class ifstream &file, bool b565 = true);
+//	bool LoadFromFile(std::ifstream &file, bool b565 = true);
 //	bool LoadFromFile(LPCTSTR lpszFilename, bool b565 = true);
 //	
 //protected:

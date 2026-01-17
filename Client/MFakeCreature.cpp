@@ -29,7 +29,7 @@ extern	LONG g_TILESURFACE_OUTLINE_RIGHT;
 extern	LONG g_TILESURFACE_OUTLINE_DOWN;
 BYTE GetCreatureActionCountMax( const MCreature* pCreature, int action );
 
-extern POINT GetNextTileByDirection(int TileX, int TileY, byte Dir);
+extern POINT GetNextTileByDirection(int TileX, int TileY, BYTE Dir);
 #define MoveNextPosition()					\
 											\
 		MovePosition( m_NextX, m_NextY );	\
@@ -70,8 +70,8 @@ DWORD MFakeCreature::m_FakeID = 0;
 DWORD
 MFakeCreature::GetFakeID()
 {
-	// ¼­¹ö¿¡¼­´Â 10000ºÎÅÍ objectID¸¦ »ç¿ëÇÑ´Ù..°í °¡Á¤ÇÏ°í...
-	// ³È³È.... ÇÏµå ÄÚµù~~ ÄÉÄÉ..	
+	// ì„œë²„ì—ì„œëŠ” 10000ë¶€í„° objectIDë¥¼ ì‚¬ìš©í•œë‹¤..ê³  ê°€ì •í•˜ê³ ...
+	// ëƒ ëƒ .... í•˜ë“œ ì½”ë”©~~ ì¼€ì¼€..	
 	MCreature *pFakeCreature = NULL;
 
 	do
@@ -110,15 +110,15 @@ MFakeCreature::MFakeCreature()
 
 	m_pPetItem = NULL;
 
-	// ¸ñÀûÁö	
+	// ëª©ì ì§€	
 	m_DestX = SECTORPOSITION_NULL;
 	m_DestY = SECTORPOSITION_NULL;
 
-	// ´ÙÀ½ ¸ñÀûÁö
+	// ë‹¤ìŒ ëª©ì ì§€
 	m_NextDestX = SECTORPOSITION_NULL;
 	m_NextDestY = SECTORPOSITION_NULL;
 
-	// ¸ø °¬´ø °÷..
+	// ëª» ê°”ë˜ ê³³..
 	m_BlockDestX = SECTORPOSITION_NULL;
 	m_BlockDestY = SECTORPOSITION_NULL;
 
@@ -166,23 +166,23 @@ MFakeCreature::SetFakeCreatureType(FAKE_CREATURE_TYPE fct)
 	switch (fct)
 	{
 		//----------------------------------------------
-		// Èå¸´ÇÑ ÇÑ¹øÀÇ µ¿ÀÛ ÈÄ¿¡ »ç¶óÁü
+		// íë¦¿í•œ í•œë²ˆì˜ ë™ì‘ í›„ì— ì‚¬ë¼ì§
 		//----------------------------------------------
-		case FAKE_CREATURE_FAST_MOVE_ACTION :		// [»õ±â¼ú]
+		case FAKE_CREATURE_FAST_MOVE_ACTION :		// [ìƒˆê¸°ìˆ ]
 		case FAKE_CREATURE_FADE_ACTION :
 		case FAKE_CREATURE_BRIGHTNESS :
 			SetFade();
 		break;
 
 		//----------------------------------------------
-		// Æ÷Å»·Î µé¾î°¡´Â °æ¿ì
+		// í¬íƒˆë¡œ ë“¤ì–´ê°€ëŠ” ê²½ìš°
 		//----------------------------------------------
 		case FAKE_CREATURE_TO_PORTAL :
 			SetCutHeightFrom( 0, 80, 5 );
 		break;
 
 		//----------------------------------------------
-		// ºù±Ûºù±Û
+		// ë¹™ê¸€ë¹™ê¸€
 		//----------------------------------------------
 		case FAKE_CREATURE_TURNING_MOVE :
 			SetFade();
@@ -193,9 +193,9 @@ MFakeCreature::SetFakeCreatureType(FAKE_CREATURE_TYPE fct)
 }
 
 //----------------------------------------------------------------------
-// Set ActionResult  [»õ±â¼ú]
+// Set ActionResult  [ìƒˆê¸°ìˆ ]
 //----------------------------------------------------------------------
-// Creature¿¡ ³Ö¾î¾ß µÇ´Âµ¥.. ÄÄÆÄÀÏ ½Ã°£À» ÁÙÀÌ±â À§ÇØ¼­ -_-;;
+// Creatureì— ë„£ì–´ì•¼ ë˜ëŠ”ë°.. ì»´íŒŒì¼ ì‹œê°„ì„ ì¤„ì´ê¸° ìœ„í•´ì„œ -_-;;
 //----------------------------------------------------------------------
 /*
 MActionResult*		
@@ -203,12 +203,12 @@ MFakeCreature::SetActionResult(MActionResult* pResult)
 {
 	if (m_pActionResult != NULL)
 	{		
-		// ÀÌ¹Ì ÀÖ´ø °á°ú¸¦ Ã³¸®ÇØÁØ´Ù.	
+		// ì´ë¯¸ ìˆë˜ ê²°ê³¼ë¥¼ ì²˜ë¦¬í•´ì¤€ë‹¤.	
 		// [ TEST CODE ]
-		// °á°ú Ã³¸®..
+		// ê²°ê³¼ ì²˜ë¦¬..
 		//
-		// (!) m_pActionResult°ªÀÌ Execute¿¡¼­ º¯ÇÒ ¼ö ÀÖ¾î¼­ 
-		//		ÀúÀåÇß´Ù°¡ Áö¿öÁà¾ß ÇÑ´Ù.
+		// (!) m_pActionResultê°’ì´ Executeì—ì„œ ë³€í•  ìˆ˜ ìˆì–´ì„œ 
+		//		ì €ì¥í–ˆë‹¤ê°€ ì§€ì›Œì¤˜ì•¼ í•œë‹¤.
 		MActionResult* pOldResult = m_pActionResult;
 
 		m_pActionResult = NULL;
@@ -218,7 +218,7 @@ MFakeCreature::SetActionResult(MActionResult* pResult)
 		delete pOldResult;			
 	}
 
-	// °á°ú¸¦ ¼³Á¤
+	// ê²°ê³¼ë¥¼ ì„¤ì •
 	m_pActionResult = pActionResult;
 }
 */
@@ -236,19 +236,19 @@ MFakeCreature::Action()
 	}
 
 	//--------------------------------------------------------
-	// Ã¤ÆÃ String ¾îµÓ°Ô ÇÒ ½Ã°£
+	// ì±„íŒ… String ì–´ë‘¡ê²Œ í•  ì‹œê°„
 	//--------------------------------------------------------
 	if (m_NextChatFadeTime < g_CurrentTime)
 	{
 		FadeChatString();		
 	}
 	//--------------------------------------------------------
-	// Status »óÅÂ º¯È­	- HP, MP º¯È­
+	// Status ìƒíƒœ ë³€í™”	- HP, MP ë³€í™”
 	//--------------------------------------------------------
 	UpdateStatus();	
 	
 	//--------------------------------------------------------
-	// Æ¯¼öÇÑ È¿°úµé
+	// íŠ¹ìˆ˜í•œ íš¨ê³¼ë“¤
 	//--------------------------------------------------------
 	UpdateInvisible();
 	UpdateCasket();
@@ -279,7 +279,7 @@ MFakeCreature::Action()
 
 	}
 	//--------------------------------------------------------
-	// ¹æÇâ ÀüÈ¯À» ÀÚ¿¬½º·´°Ô
+	// ë°©í–¥ ì „í™˜ì„ ìì—°ìŠ¤ëŸ½ê²Œ
 	//--------------------------------------------------------
 	ChangeNearDirection();
 	//m_CurrentDirection = m_Direction;
@@ -289,19 +289,19 @@ MFakeCreature::Action()
 
 	if (m_nNextUsedActionInfo!=ACTIONINFO_NULL)
 	{		
-		// affectUsedActionInfo¸¦ ½ÇÇàÇÏ°í ³ª¸é
-		// NextActionInfo°¡ ¹Ù²ğ ¼ö°¡ ÀÖ´Ù.			
+		// affectUsedActionInfoë¥¼ ì‹¤í–‰í•˜ê³  ë‚˜ë©´
+		// NextActionInfoê°€ ë°”ë€” ìˆ˜ê°€ ìˆë‹¤.			
 		TYPE_ACTIONINFO nextUsedActionInfo = m_nNextUsedActionInfo;
 		TYPE_ACTIONINFO nextNextUsedActionInfo = ACTIONINFO_NULL;
 
 		//--------------------------------------------------------
-		// ÀÌÀü¿¡ »ç¿ë ÁßÀÎ ±â¼úÀÌ ÀÖ´Ù¸é... ¹Ù·Î Àû¿ë ½ÃÅ²´Ù.
+		// ì´ì „ì— ì‚¬ìš© ì¤‘ì¸ ê¸°ìˆ ì´ ìˆë‹¤ë©´... ë°”ë¡œ ì ìš© ì‹œí‚¨ë‹¤.
 		//--------------------------------------------------------
 		if (m_nUsedActionInfo!=ACTIONINFO_NULL)
 		{	
 			m_nNextUsedActionInfo = ACTIONINFO_NULL;
 
-			// castingEffect°¡ ¾ÆÁ÷ Ãâ·Â ¾ÈµÆÀ¸¸é Ãâ·Â½ÃÅ²´Ù.
+			// castingEffectê°€ ì•„ì§ ì¶œë ¥ ì•ˆëìœ¼ë©´ ì¶œë ¥ì‹œí‚¨ë‹¤.
 			if (GetActionInfoCastingStartFrame(m_nUsedActionInfo) >= m_ActionCount)
 			{
 				AttachCastingEffect( m_nUsedActionInfo, TRUE );
@@ -318,7 +318,7 @@ MFakeCreature::Action()
 
 		int actionInfoAction = GetActionInfoAction(m_nUsedActionInfo);
 
-		// ¸Â´Â µ¿ÀÛÀÌ¸é.. ÇÇ Æ¢±è..
+		// ë§ëŠ” ë™ì‘ì´ë©´.. í”¼ íŠ€ê¹€..
 		if (actionInfoAction==ACTION_DAMAGED)
 		{
 			if //(m_Action!=ACTION_STAND 
@@ -334,15 +334,15 @@ MFakeCreature::Action()
 			}
 		}
 
-		// 2001.05.21 Ãß°¡
-		// ±â¼ú µ¿ÀÛ¿¡¼­ ACTION_STAND´Â º¸¿©ÁÖÁö ¾Ê´Â´Ù.
+		// 2001.05.21 ì¶”ê°€
+		// ê¸°ìˆ  ë™ì‘ì—ì„œ ACTION_STANDëŠ” ë³´ì—¬ì£¼ì§€ ì•ŠëŠ”ë‹¤.
 		if (actionInfoAction!=ACTION_STAND)
 		{
 			SetAction( actionInfoAction );
 		}
 	}
 	//--------------------------------------------------------
-	// ±â¾ïµÈ ´ÙÀ½ Çàµ¿... 
+	// ê¸°ì–µëœ ë‹¤ìŒ í–‰ë™... 
 	//--------------------------------------------------------
 	else if (m_bNextAction 
 			|| m_NextAction!=ACTION_STAND 
@@ -353,7 +353,7 @@ MFakeCreature::Action()
 	}	 
 
 	//--------------------------------------------------------
-	// ¸¶ºñ µÆÀ» ¶§..
+	// ë§ˆë¹„ ëì„ ë•Œ..
 	//--------------------------------------------------------
 	if (HasEffectStatus(EFFECTSTATUS_CURSE_PARALYSIS)
 		|| HasEffectStatus(EFFECTSTATUS_EXPLOSION_WATER)
@@ -361,7 +361,7 @@ MFakeCreature::Action()
 		|| HasEffectStatus(EFFECTSTATUS_GLACIER))
 	{			
 		//--------------------------------------------------------
-		// ±â¼úÀ» »ç¿ëÇÏ·Á´Â °æ¿ì
+		// ê¸°ìˆ ì„ ì‚¬ìš©í•˜ë ¤ëŠ” ê²½ìš°
 		//--------------------------------------------------------
 		if (m_nUsedActionInfo!=ACTIONINFO_NULL)
 		{
@@ -370,28 +370,28 @@ MFakeCreature::Action()
 		}
 	}
 	//--------------------------------------------------------
-	// ÀÏ¹İÀûÀÎ °æ¿ì
+	// ì¼ë°˜ì ì¸ ê²½ìš°
 	//--------------------------------------------------------
 	else
 	{
 		//--------------------------------------------------------
-		// Action Ã³¸®
+		// Action ì²˜ë¦¬
 		//--------------------------------------------------------
 		if (m_ActionCount < m_ActionCountMax)
 		{		
 			//--------------------------------------------------------
-			// ±â¼úÀ» »ç¿ëÇÏ·Á´Â °æ¿ì
+			// ê¸°ìˆ ì„ ì‚¬ìš©í•˜ë ¤ëŠ” ê²½ìš°
 			//--------------------------------------------------------
 			if (m_nUsedActionInfo!=ACTIONINFO_NULL)
 			{
 				ActionEffect();
 			}
 			//--------------------------------------------------------
-			// Çàµ¿..
+			// í–‰ë™..
 			//--------------------------------------------------------
 			else
 			{
-				// ÀûÀıÇÑ Action ¼öÇà
+				// ì ì ˆí•œ Action ìˆ˜í–‰
 				//switch (m_Action)
 				if (m_Action==ACTION_STAND 
 					|| IsSlayer() && m_Action==ACTION_SLAYER_MOTOR_STAND)
@@ -403,7 +403,7 @@ MFakeCreature::Action()
 				else if (m_Action==ACTION_MOVE
 					|| IsSlayer() && m_Action==ACTION_SLAYER_MOTOR_MOVE)
 				{
-						// °È´Â µ¿ÀÛÀº µû·Î Ã³¸®ÇÑ´Ù.
+						// ê±·ëŠ” ë™ì‘ì€ ë”°ë¡œ ì²˜ë¦¬í•œë‹¤.
 						//ActionMove();
 				}
 				*/
@@ -417,25 +417,25 @@ MFakeCreature::Action()
 		}
 		
 		//--------------------------------------------------------
-		// ActionÀÌ ³¡³­ °æ¿ì...
+		// Actionì´ ëë‚œ ê²½ìš°...
 		//--------------------------------------------------------
 		if (m_ActionCount>=m_ActionCountMax)
 		{
 			//--------------------------------------------------------
-			// »ì¾Æ ÀÖ´Â °æ¿ì¸¸
+			// ì‚´ì•„ ìˆëŠ” ê²½ìš°ë§Œ
 			//--------------------------------------------------------
 			if (m_bAlive)
 			{
 				//--------------------------------------------------------
-				// ¸ñÇ¥ Å¸ÀÏ¿¡ µµÂøÇÑ »óÅÂ¿¡¼­..
-				// °è¼Ó ¼­ ÀÖ°Å³ª.. ´Ù °ÉÀº °æ¿ì´Â.. 
-				// Á¦ÀÚ¸®¿¡¼­ Èçµé°Å¸®´Â ¸ğ½ÀÀ» Ç¥ÇöÇØÁØ´Ù.
+				// ëª©í‘œ íƒ€ì¼ì— ë„ì°©í•œ ìƒíƒœì—ì„œ..
+				// ê³„ì† ì„œ ìˆê±°ë‚˜.. ë‹¤ ê±¸ì€ ê²½ìš°ëŠ”.. 
+				// ì œìë¦¬ì—ì„œ í”ë“¤ê±°ë¦¬ëŠ” ëª¨ìŠµì„ í‘œí˜„í•´ì¤€ë‹¤.
 				//--------------------------------------------------------
 				if (m_MoveCount==m_MoveCountMax)
 				{		
 					//#ifdef CONNECT_SERVER
 					//--------------------------------------------------------
-					// ´ÙÀ½ ÀÌµ¿ÀÌ ¾ø´Ù¸é.. Á¤Áö½ÃÅ²´Ù.
+					// ë‹¤ìŒ ì´ë™ì´ ì—†ë‹¤ë©´.. ì •ì§€ì‹œí‚¨ë‹¤.
 					//--------------------------------------------------------
 					AffectMoveBuffer();
 
@@ -457,8 +457,8 @@ MFakeCreature::Action()
 					//#endif
 				}
 				//--------------------------------------------------------
-				// °È´Ù°¡ ´Ù¸¥ actionÀ» º¸¿©Áá°Å³ª °è¼Ó °È´ø ÁßÀÌ´Ù.
-				// ´Ù½Ã °È´Â´Ù.
+				// ê±·ë‹¤ê°€ ë‹¤ë¥¸ actionì„ ë³´ì—¬ì¤¬ê±°ë‚˜ ê³„ì† ê±·ë˜ ì¤‘ì´ë‹¤.
+				// ë‹¤ì‹œ ê±·ëŠ”ë‹¤.
 				//--------------------------------------------------------
 				else 
 				{			
@@ -468,7 +468,7 @@ MFakeCreature::Action()
 
 					if (m_MoveCount>=m_MoveCountMax)
 					{
-						// ´ÙÀ½ ÀÌµ¿ÇÒ °÷ÀÌ ÀÖÀ¸¸é..
+						// ë‹¤ìŒ ì´ë™í•  ê³³ì´ ìˆìœ¼ë©´..
 //						if (m_NextX != SECTORPOSITION_NULL)
 						if (m_NextX != SECTORPOSITION_NULL
 							&& m_NextDirection != DIRECTION_NULL)
@@ -481,7 +481,7 @@ MFakeCreature::Action()
 //							MovePosition( m_NextX, m_NextY );
 //							m_Direction = m_NextDirection;					
 //							
-//							// ÀÌµ¿ÇÏ°Ô ÇÑ´Ù.
+//							// ì´ë™í•˜ê²Œ í•œë‹¤.
 //							SetAction( m_MoveAction );
 //
 //							m_NextX = SECTORPOSITION_NULL;
@@ -505,7 +505,7 @@ MFakeCreature::Action()
 							//#ifdef CONNECT_SERVER
 
 							//--------------------------------------------------------
-							// ´ÙÀ½ ÀÌµ¿ÀÌ ¾ø´Ù¸é.. Á¤Áö½ÃÅ²´Ù.
+							// ë‹¤ìŒ ì´ë™ì´ ì—†ë‹¤ë©´.. ì •ì§€ì‹œí‚¨ë‹¤.
 							//--------------------------------------------------------
 							AffectMoveBuffer();
 
@@ -534,7 +534,7 @@ MFakeCreature::Action()
 }
 
 //----------------------------------------------------------------------
-// Set FakeCreature FastMoveAction [»õ±â¼ú]
+// Set FakeCreature FastMoveAction [ìƒˆê¸°ìˆ ]
 //----------------------------------------------------------------------
 void
 MFakeCreature::SetFakeCreatureFastMoveAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY,
@@ -560,7 +560,7 @@ MFakeCreature::SetFakePosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 	switch (m_FakeCreatureType)
 	{
 		//----------------------------------------------
-		// ºù±Ûºù±Û
+		// ë¹™ê¸€ë¹™ê¸€
 		//----------------------------------------------
 		case FAKE_CREATURE_TURNING_MOVE :
 		{
@@ -572,7 +572,7 @@ MFakeCreature::SetFakePosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 				actionCountMax = 1;
 			}
 
-			// ¸ñÇ¥ 200, ÇöÀç 100
+			// ëª©í‘œ 200, í˜„ì¬ 100
 			// gapX = 200 - 100 = 100
 			// m_cX = 100 / c
 			int gapX = m_FakeX - m_X;
@@ -599,7 +599,7 @@ MFakeCreature::UpdateFake()
 	switch (m_FakeCreatureType)
 	{
 		//----------------------------------------------
-		// ºù±Ûºù±Û
+		// ë¹™ê¸€ë¹™ê¸€
 		//----------------------------------------------
 		case FAKE_CREATURE_TURNING_MOVE :
 		{
@@ -613,10 +613,10 @@ MFakeCreature::UpdateFake()
 				int sX = m_FakeSX;
 				int sY = m_FakeSY;
 
-				// ÇÑ Å¸ÀÏ ÁÂÇ¥¸¦ ³Ñ°Ô ÀÌµ¿ÇßÀ¸¸é..
+				// í•œ íƒ€ì¼ ì¢Œí‘œë¥¼ ë„˜ê²Œ ì´ë™í–ˆìœ¼ë©´..
 				if (abs(sX) >= TILE_X || abs(sY) >= TILE_Y)
 				{
-					// »õ·Î¿î mapÁÂÇ¥ °è»ê
+					// ìƒˆë¡œìš´ mapì¢Œí‘œ ê³„ì‚°
 					int mapX = m_X;
 					int mapY = m_Y;
 					int	pixelX = MTopView::MapToPixelX(mapX);
@@ -670,7 +670,7 @@ MFakeCreature::IsFakeEnd()
 					&& m_ActionCount>=m_ActionCountMax;
 		break;
 
-		// [»õ±â¼ú]
+		// [ìƒˆê¸°ìˆ ]
 		case FAKE_CREATURE_FAST_MOVE_ACTION :
 			return !m_bFastMove
 					&& m_nUsedActionInfo==ACTIONINFO_NULL
@@ -712,7 +712,7 @@ MFakeCreature::IsFakeEnd()
 				firstSector.y = g_pPlayer->GetY() + g_SECTOR_SKIP_PLAYER_UP-1;
 				endSector.x	  = firstSector.x+g_SECTOR_WIDTH+2;
 				endSector.y   = firstSector.y+g_SECTOR_HEIGHT+2;
-				// È­¸é ¹ÛÀ¸·Î °¡¹È ¾ø¾ÖÀÚ..ÀÏ´Ü..
+				// í™”ë©´ ë°–ìœ¼ë¡œ ê°€ë¯„ ì—†ì• ì..ì¼ë‹¨..
 				if(!IsInSector(firstSector.x, firstSector.y, endSector.x, endSector.y))
 					return true;
 			}
@@ -723,7 +723,7 @@ MFakeCreature::IsFakeEnd()
 }
 
 //----------------------------------------------------------------------
-// Packet Special Action To Other [»õ±â¼ú]
+// Packet Special Action To Other [ìƒˆê¸°ìˆ ]
 //----------------------------------------------------------------------
 void		
 MFakeCreature::PacketSpecialActionToOther(TYPE_ACTIONINFO nActionInfo, TYPE_OBJECTID id, MActionResult* pActionResult)
@@ -766,7 +766,7 @@ MFakeCreature::KeepTraceCreature()
 			m_bTraceFlag = true;
 			RemoveNodes();
 			SetNextDestination(pCreature->GetX(), pCreature->GetY());
-			// ÇÏµåÇÏµå ¤»¤»¤» -¤µ-
+			// í•˜ë“œí•˜ë“œ ã…‹ã…‹ã…‹ -ã……-
 			if(m_Action == ACTION_VAMPIRE_DRAIN)
 			{
 				if(m_ActionCount < m_ActionCountMax-13)
@@ -784,7 +784,7 @@ MFakeCreature::KeepTraceCreature()
 		static BYTE lastAction = ACTION_STAND;
 		if(lastAction != ACTION_STAND && m_Action == ACTION_STAND)
 		{
-			// ¸ØÃè´Ù
+			// ë©ˆì·„ë‹¤
 			m_bTraceFlag = false;
 		}
 		lastAction = m_Action;
@@ -809,15 +809,15 @@ MFakeCreature::KeepTraceCreature()
 						m_PatrolCount = rand()%3+2;
 						m_nextMoveTime = timeGetTime()+(rand()%3+2)*1000;
 						ExecuteActionInfoFromMainNode(
-							SKILL_CLIENT_TANK_SMOKE,										// »ç¿ë ±â¼ú ¹øÈ£
+							SKILL_CLIENT_TANK_SMOKE,										// ì‚¬ìš© ê¸°ìˆ  ë²ˆí˜¸
 							
 							0, 0, 0,
-							DIRECTION_DOWN, // »ç¿ë ¹æÇâ
+							DIRECTION_DOWN, // ì‚¬ìš© ë°©í–¥
 							
-							GetID(),												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+							GetID(),												// ëª©í‘œì— ëŒ€í•œ ì •ë³´
 							0, 0, 0, 
 							
-							0,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+							0,													// ê¸°ìˆ ì˜ (ë‚¨ì€) ì§€ì† ì‹œê°„		
 							
 							NULL,
 							
@@ -883,21 +883,21 @@ MFakeCreature::KeepTraceCreature()
 //----------------------------------------------------------------------
 // Set Next Destination
 //----------------------------------------------------------------------
-// ´ÙÀ½¿¡ ÀÌµ¿ÇÒ ¸ñÇ¥ À§Ä¡¸¦ °áÁ¤ÇÑ´Ù.
-// ¸ñÇ¥À§Ä¡°¡ °¥ ¼ö ¾ø´Â °÷ÀÎ °æ¿ì... ¾î¶»°Ô ÇÒ °ÍÀÎ°¡?
+// ë‹¤ìŒì— ì´ë™í•  ëª©í‘œ ìœ„ì¹˜ë¥¼ ê²°ì •í•œë‹¤.
+// ëª©í‘œìœ„ì¹˜ê°€ ê°ˆ ìˆ˜ ì—†ëŠ” ê³³ì¸ ê²½ìš°... ì–´ë–»ê²Œ í•  ê²ƒì¸ê°€?
 //----------------------------------------------------------------------
 bool	
 MFakeCreature::SetNextDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 { 
-	// ÃßÀû ÁßÀÌ ¾Æ´Ï¸é¼­
-	// ÀÌ¹Ì ¸ñÇ¥À§Ä¡¿¡ ÀÖ´Â °æ¿ì´Â ±æÃ£±â ÇÊ¿ä¾ø´Ù.
+	// ì¶”ì  ì¤‘ì´ ì•„ë‹ˆë©´ì„œ
+	// ì´ë¯¸ ëª©í‘œìœ„ì¹˜ì— ìˆëŠ” ê²½ìš°ëŠ” ê¸¸ì°¾ê¸° í•„ìš”ì—†ë‹¤.
 	if (m_bTraceFlag==false && sX==m_X && sY==m_Y)
 	{
 		return false;
 	}	
 
-	// Àß¸øµÈ °ª
-	// ÀÌÀü¿¡ ¸ø °¬´ø °÷..
+	// ì˜ëª»ëœ ê°’
+	// ì´ì „ì— ëª» ê°”ë˜ ê³³..
 	if (sX==SECTORPOSITION_NULL || sY==SECTORPOSITION_NULL
 		|| sX==m_BlockDestX && sY==m_BlockDestY)
 	{
@@ -927,7 +927,7 @@ MFakeCreature::SetNextDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY
 			else
 				MovePoint.x = 0;
 
-			int limit = 20;	// À¯È¿°ª 20¹ø³»¿¡ ¸øÃ£À¸¸é Æ÷±â
+			int limit = 20;	// ìœ íš¨ê°’ 20ë²ˆë‚´ì— ëª»ì°¾ìœ¼ë©´ í¬ê¸°
 
 			while( bCanStand == FALSE && !( GetX() == sX && GetY() == sY ) &&
 				sX >= 0 && sY >= 0 
@@ -967,15 +967,15 @@ MFakeCreature::GetNextDestination(POINT &dest)
 //----------------------------------------------------------------------
 // Get NextPosition()
 //----------------------------------------------------------------------
-// ±æÃ£±â¿¡ ÀÇÇØ¼­ Á¤ÇØÁø ±æµé Áß¿¡¼­
-// ¹Ù·Î ´ÙÀ½¿¡ °¡¾ßÇÒ Sector¿¡ ´ëÇÑ ÁÂÇ¥¸¦ ³Ñ°ÜÁØ´Ù.
+// ê¸¸ì°¾ê¸°ì— ì˜í•´ì„œ ì •í•´ì§„ ê¸¸ë“¤ ì¤‘ì—ì„œ
+// ë°”ë¡œ ë‹¤ìŒì— ê°€ì•¼í•  Sectorì— ëŒ€í•œ ì¢Œí‘œë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 //
-// 'ÇöÀçÀ§Ä¡'¿¡¼­ '´ÙÀ½ ¹æÇâ'¿¡ ´ëÇØ ÀûÀıÇÑ º¯È­¸¦ ´õÇØÁØ´Ù.
+// 'í˜„ì¬ìœ„ì¹˜'ì—ì„œ 'ë‹¤ìŒ ë°©í–¥'ì— ëŒ€í•´ ì ì ˆí•œ ë³€í™”ë¥¼ ë”í•´ì¤€ë‹¤.
 //----------------------------------------------------------------------
 bool
 MFakeCreature::GetNextPosition(POINT &next)
 {
-	// °¥ ±æÀÌ Á¤ÇØÁöÁö ¾ÊÀº °æ¿ì
+	// ê°ˆ ê¸¸ì´ ì •í•´ì§€ì§€ ì•Šì€ ê²½ìš°
 	if (m_listDirection.empty())
 	{
 		//next.x = SECTORPOSITION_NULL;
@@ -984,9 +984,9 @@ MFakeCreature::GetNextPosition(POINT &next)
 	}
 
 	
-	// °¥ ±æÀÌ Á¤ÇØÁø °æ¿ì, ´ÙÀ½ ÁÂÇ¥¸¦ returnÇÑ´Ù.
+	// ê°ˆ ê¸¸ì´ ì •í•´ì§„ ê²½ìš°, ë‹¤ìŒ ì¢Œí‘œë¥¼ returní•œë‹¤.
 
-	// ÇöÀç À§Ä¡¿¡¼­ ´ÙÀ½ ¹æÇâ¿¡ ´ëÇØ¼­ ¸ñÇ¥ ¼³Á¤
+	// í˜„ì¬ ìœ„ì¹˜ì—ì„œ ë‹¤ìŒ ë°©í–¥ì— ëŒ€í•´ì„œ ëª©í‘œ ì„¤ì •
 	next.x = m_X;
 	next.y = m_Y;
 	
@@ -1009,8 +1009,8 @@ MFakeCreature::GetNextPosition(POINT &next)
 //----------------------------------------------------------------------
 // Set Destination(sX, sY)
 //----------------------------------------------------------------------
-// ¸ñÇ¥À§Ä¡¸¦ ÁöÁ¤ÇÏ´Â ¼ø°£¿¡ ¸ñÇ¥À§Ä¡±îÁöÀÇ
-// Best Path¸¦ °áÁ¤ÇØ¼­ m_listDirection¿¡ ÀúÀåÇØµĞ´Ù.
+// ëª©í‘œìœ„ì¹˜ë¥¼ ì§€ì •í•˜ëŠ” ìˆœê°„ì— ëª©í‘œìœ„ì¹˜ê¹Œì§€ì˜
+// Best Pathë¥¼ ê²°ì •í•´ì„œ m_listDirectionì— ì €ì¥í•´ë‘”ë‹¤.
 //----------------------------------------------------------------------
 bool
 MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
@@ -1031,7 +1031,7 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 	#endif
 
 	//-------------------------------------------------------
-	// »ì¾ÆÀÖÁö ¾ÊÀº °æ¿ì..
+	// ì‚´ì•„ìˆì§€ ì•Šì€ ê²½ìš°..
 	//-------------------------------------------------------
 	if (!m_bAlive)
 	{
@@ -1050,13 +1050,13 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 	}
 
 	//-------------------------------------------------------
-	// ZoneÀÇ ¿µ¿ª ¹ÛÀÌ¸é check ¾ÈÇÑ´Ù.
+	// Zoneì˜ ì˜ì—­ ë°–ì´ë©´ check ì•ˆí•œë‹¤.
 	//-------------------------------------------------------
 	if (sX<0 || sY<0 
 		|| sX>=m_pZone->GetWidth() || sY>=m_pZone->GetHeight()
 		)
 	{
-		// Zone¿µ¿ª ¹ÛÀÌ¸é check ¾È ÇÒ °æ¿ì
+		// Zoneì˜ì—­ ë°–ì´ë©´ check ì•ˆ í•  ê²½ìš°
 		//m_ActionCount = m_ActionCountMax;
 		m_MoveCount = m_MoveCountMax;
 		m_DestX = SECTORPOSITION_NULL;
@@ -1068,18 +1068,18 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 
 		return false;
 
-		// ÇöÀç ÁøÇà ¹æÇâÀ¸·Î ÀÌµ¿ÇÏ°Ô ÇÏ´Â °æ¿ì
+		// í˜„ì¬ ì§„í–‰ ë°©í–¥ìœ¼ë¡œ ì´ë™í•˜ê²Œ í•˜ëŠ” ê²½ìš°
 		/*
 		POINT position = g_pTopView->GetSelectedSector(g_x, g_y);		
 		BYTE direction = GetDirectionToPosition(position.x, position.y);		
 
-		// ¹æÇâ¿¡ µû¸¥ À§Ä¡¸¦ °áÁ¤ÇÑ´Ù.		
+		// ë°©í–¥ì— ë”°ë¥¸ ìœ„ì¹˜ë¥¼ ê²°ì •í•œë‹¤.		
 		MCreature::GetNextPosition(direction, position);
 		
 		sX = position.x;
 		sY = position.y;
 		
-		// ÇöÀç ÁøÇà ¹æÇâÀÌ ZoneÀ» ¹ş¾î³ª´Â °æ¿ì
+		// í˜„ì¬ ì§„í–‰ ë°©í–¥ì´ Zoneì„ ë²—ì–´ë‚˜ëŠ” ê²½ìš°
 		if (sX<0 || sY<0 
 			|| sX>=m_pZone->GetWidth() || sY>=m_pZone->GetHeight()) 
 		{
@@ -1089,7 +1089,7 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 	}
 
 	//-------------------------------------------------------
-	// ÃßÀû ÁßÀÏ °æ¿ì, ÀÌ¹Ì »çÁ¤ °Å¸®¿¡ ÀÖÀ» ¶§...
+	// ì¶”ì  ì¤‘ì¼ ê²½ìš°, ì´ë¯¸ ì‚¬ì • ê±°ë¦¬ì— ìˆì„ ë•Œ...
 	//-------------------------------------------------------
 	if (m_bTraceFlag == true
 		&& max(abs(m_TraceX-m_X), abs(m_TraceY-m_Y))<=1)
@@ -1134,7 +1134,7 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 	*/
 
 	//--------------------------------------------------------------
-	// °¥ ¼ö ÀÖ´Â °÷ÀÌ¸é
+	// ê°ˆ ìˆ˜ ìˆëŠ” ê³³ì´ë©´
 	//--------------------------------------------------------------
 	// Best First Search
 	//--------------------------------------------------------------
@@ -1145,25 +1145,25 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 #endif
 
 	//--------------------------------------------------------------
-	// °¥ ¼ö ÀÖ´Â °÷ÀÌ°Å³ª
-	// ÃßÀûÁßÀÌ¸é Best Search~·Î ±æÀ» Ã£´Â´Ù.
+	// ê°ˆ ìˆ˜ ìˆëŠ” ê³³ì´ê±°ë‚˜
+	// ì¶”ì ì¤‘ì´ë©´ Best Search~ë¡œ ê¸¸ì„ ì°¾ëŠ”ë‹¤.
 	//--------------------------------------------------------------
 	if (bCanStand || m_bTraceFlag == true) 
 	{		
 		//-------------------------------------------------------
-		// ¸ñÇ¥À§Ä¡¸¦ ÀúÀå
+		// ëª©í‘œìœ„ì¹˜ë¥¼ ì €ì¥
 		//-------------------------------------------------------
 		m_DestX = sX;
 		m_DestY = sY;
 
 		//-------------------------------------------------------
-		// priority queue¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+		// priority queueë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 		//-------------------------------------------------------
 		RemoveNodes();	
 
 		//-------------------------------------------------------
-		// visited¸¦ ¸ğµÎ false·Î ÇØµÎ°í
-		// ÇöÀçÀ§Ä¡ºÎÅÍ ¹æ¹®ÇÏÁö ¾ÊÀº °÷µéÀ» ¹æ¹®ÇÏ±â ½ÃÀÛÇÑ´Ù.
+		// visitedë¥¼ ëª¨ë‘ falseë¡œ í•´ë‘ê³ 
+		// í˜„ì¬ìœ„ì¹˜ë¶€í„° ë°©ë¬¸í•˜ì§€ ì•Šì€ ê³³ë“¤ì„ ë°©ë¬¸í•˜ê¸° ì‹œì‘í•œë‹¤.
 		//-------------------------------------------------------
 		POINT firstSector = g_pTopView->GetFirstSector();
 		//int x0 = m_DestX - g_pClientConfig->MAX_FINDPATH_WIDTH, 
@@ -1185,7 +1185,7 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 		if (y1 > g_pZone->GetHeight())	
 			y1 = g_pZone->GetHeight();
 		
-//		int size = x1-x0;	// byte¼ö
+//		int size = x1-x0;	// BYTEìˆ˜
 		for (int i=y0; i<y1; i++)
 		{			
 			for (int j=x0; j<x1; j++)
@@ -1199,20 +1199,20 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 
 		//-------------------------------------------------------
 		//
-		// ÇöÀç À§Ä¡
+		// í˜„ì¬ ìœ„ì¹˜
 		//
 		//-------------------------------------------------------
 
 		//-------------------------------------------------------
-		// ¸ñÀûÁö¸¦ ÇâÇÑ ¹æÇâºÎÅÍ ±æÃ£±â¸¦ ÇÑ´Ù.		
+		// ëª©ì ì§€ë¥¼ í–¥í•œ ë°©í–¥ë¶€í„° ê¸¸ì°¾ê¸°ë¥¼ í•œë‹¤.		
 		//-------------------------------------------------------
 		static BYTE FirstDirection = GetDirectionToPosition(m_DestX, m_DestY);
 		static TYPE_SECTORPOSITION previousDestX = SECTORPOSITION_NULL;
 		static TYPE_SECTORPOSITION previousDestY = SECTORPOSITION_NULL;
 
 		//-------------------------------------------------------
-		// ¹æ±İ ÀüÀÇ ±æÃ£±â Çß´ø°Å¶û ¸ñÇ¥ À§Ä¡°¡ ´Ù¸¥ °æ¿ì¿¡¸¸ 
-		// ¸ñÀûÁö¸¦ ÇâÇÑ ¹æÇâÀ» ¼³Á¤ÇÑ´Ù.
+		// ë°©ê¸ˆ ì „ì˜ ê¸¸ì°¾ê¸° í–ˆë˜ê±°ë‘ ëª©í‘œ ìœ„ì¹˜ê°€ ë‹¤ë¥¸ ê²½ìš°ì—ë§Œ 
+		// ëª©ì ì§€ë¥¼ í–¥í•œ ë°©í–¥ì„ ì„¤ì •í•œë‹¤.
 		//-------------------------------------------------------
 		if (previousDestX!=m_DestX || previousDestY!=m_DestY)
 		{
@@ -1221,8 +1221,8 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 			previousDestY = m_DestY;
 		}
 		//-------------------------------------------------------
-		// °°Àº ¸ñÇ¥¸¦ ÇâÇØ ³ª¾Æ°¡´Â °æ¿ì´Â 
-		// ÇöÀç PlayerÀÇ ¹æÇâºÎÅÍ »ìÆìº»´Ù.
+		// ê°™ì€ ëª©í‘œë¥¼ í–¥í•´ ë‚˜ì•„ê°€ëŠ” ê²½ìš°ëŠ” 
+		// í˜„ì¬ Playerì˜ ë°©í–¥ë¶€í„° ì‚´í´ë³¸ë‹¤.
 		//-------------------------------------------------------
 		else
 		{
@@ -1238,7 +1238,7 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 									);
 	
 		//-------------------------------------------------------
-		// listDNodes¿¡ ³Ö¾î¼­ ³ªÁß¿¡ Áö¿öÁØ´Ù.
+		// listDNodesì— ë„£ì–´ì„œ ë‚˜ì¤‘ì— ì§€ì›Œì¤€ë‹¤.
 		//-------------------------------------------------------
 		m_listDNodes.push_back( currentDNode );
 
@@ -1247,19 +1247,19 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 		
 		POINT	next;
 		int		dist;
-		bool	bFound = false;		// ¾ÆÁ÷ µµ´ŞÇÏÁö ¾Ê¾Ò´Ù´Â ÀÇ¹Ì
+		bool	bFound = false;		// ì•„ì§ ë„ë‹¬í•˜ì§€ ì•Šì•˜ë‹¤ëŠ” ì˜ë¯¸
 
 		while (!bFound && !m_pqDNodes.empty())
 		{
 			//-------------------------------------------------------
-			// Á¦ÀÏ ±¦ÂúÀº(!) Node¸¦ °ñ¶ó¼­(priority queueÀÌ´Ù)
-			// ¾îµğ·Î °¡¾ßÇÒÁö¿¡ ´ëÇØ¼­ °è»êÇØº»´Ù.
+			// ì œì¼ ê´œì°®ì€(!) Nodeë¥¼ ê³¨ë¼ì„œ(priority queueì´ë‹¤)
+			// ì–´ë””ë¡œ ê°€ì•¼í• ì§€ì— ëŒ€í•´ì„œ ê³„ì‚°í•´ë³¸ë‹¤.
 			//-------------------------------------------------------
 			DNode* pDNode = m_pqDNodes.top();
 			m_pqDNodes.pop();
 
 			//-------------------------------------------------------
-			// ¿ÏÀüÈ÷ µµÂøÇÑ °æ¿ì
+			// ì™„ì „íˆ ë„ì°©í•œ ê²½ìš°
 			//-------------------------------------------------------
 			if (pDNode->distance==0) 
 			{
@@ -1269,7 +1269,7 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 			}
 			
 			//-------------------------------------------------------
-			// »çÁ¤ °Å¸® ÀÌ³»·Î Á¢±ÙÇÏ±â
+			// ì‚¬ì • ê±°ë¦¬ ì´ë‚´ë¡œ ì ‘ê·¼í•˜ê¸°
 			//-------------------------------------------------------
 			if (m_bTraceFlag == true && 
 				max(abs(pDNode->x-m_DestX), abs(pDNode->y-m_DestY))<=1)
@@ -1282,7 +1282,7 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 			int Direction = pDNode->direction;
 
 			//-------------------------------------------------------
-			// 8¹æÇâÀ» ¸ğµÎ check
+			// 8ë°©í–¥ì„ ëª¨ë‘ check
 			//-------------------------------------------------------
 			for (int i=0; i<8; Direction++, i++)
 			{		
@@ -1304,34 +1304,34 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 				}
 
 				//-------------------------------------------------------
-				// ZoneÀÇ ¿µ¿ª ¹ÛÀÌ¸é check ¾ÈÇÑ´Ù.
+				// Zoneì˜ ì˜ì—­ ë°–ì´ë©´ check ì•ˆí•œë‹¤.
 				//-------------------------------------------------------
 				if (next.x<0 || next.y<0 
 					|| next.x>=m_pZone->GetWidth() || next.y>=m_pZone->GetHeight()) continue;
 
 				//-------------------------------------------------------
-				// °¬´ø °÷ÀÌ¸é ¾È °£´Ù.
+				// ê°”ë˜ ê³³ì´ë©´ ì•ˆ ê°„ë‹¤.
 				//-------------------------------------------------------
 				if (g_pZone->IsVisitedFlag(next.x, next.y)) continue;
 
-				// ÇÑ È­¸éÀ» ³Ñ¾î°¡´Â °æ¿ì´Â checkÇÏÁö ¾Ê´Â´Ù.				
+				// í•œ í™”ë©´ì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°ëŠ” checkí•˜ì§€ ì•ŠëŠ”ë‹¤.				
 				if (next.x<x0 || next.y<y0 
 					|| next.x>=x1 || next.y>=y1) continue;
 
 				//-------------------------------------------------------
-				// °¥ ¼ö ÀÖÀ¸¸é pqueue¿¡ ³Ö´Â´Ù.
+				// ê°ˆ ìˆ˜ ìˆìœ¼ë©´ pqueueì— ë„£ëŠ”ë‹¤.
 				//-------------------------------------------------------
 				if (m_pZone->CanMove(m_MoveType, next.x, next.y))
 				{				
 					g_pZone->SetVisitedFlag(next.x, next.y);
 
 					//-------------------------------------------------------
-					// Node¸¦ ¸¸µé¾î¼­ priority queue¿¡ Ãß°¡ÇÑ´Ù.
+					// Nodeë¥¼ ë§Œë“¤ì–´ì„œ priority queueì— ì¶”ê°€í•œë‹¤.
 					//-------------------------------------------------------
-					// °Å¸® °è»ê
+					// ê±°ë¦¬ ê³„ì‚°
 					dist = CalculateDistance(next.x, next.y);
 
-					// Node¸¦ ¸¸µé¾î¼­ Ãß°¡
+					// Nodeë¥¼ ë§Œë“¤ì–´ì„œ ì¶”ê°€
 					DNode*	nextDNode = new DNode(
 											next.x, 
 											next.y, 
@@ -1341,7 +1341,7 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 					
 				
 					//-------------------------------------------------------
-					// listDNodes¿¡ ³Ö¾î¼­ ³ªÁß¿¡ Áö¿öÁØ´Ù.
+					// listDNodesì— ë„£ì–´ì„œ ë‚˜ì¤‘ì— ì§€ì›Œì¤€ë‹¤.
 					//-------------------------------------------------------
 					m_listDNodes.push_back( nextDNode );
 					
@@ -1357,15 +1357,15 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 		}
 
 		//-------------------------------------------------------
-		// Ã£¾ÒÀ» °æ¿ì ±æÀ» Á¤ÇØ¾ß ÇÑ´Ù.
+		// ì°¾ì•˜ì„ ê²½ìš° ê¸¸ì„ ì •í•´ì•¼ í•œë‹¤.
 		//-------------------------------------------------------
 		if (bFound)
 		{				
 			//-------------------------------------------------------
-			// m_pqDNodes·ÎºÎÅÍ list¸¦ Ã¤¿î´Ù. (parent¸¦ µû¶ó°¡¾ßÇÑ´Ù)
+			// m_pqDNodesë¡œë¶€í„° listë¥¼ ì±„ìš´ë‹¤. (parentë¥¼ ë”°ë¼ê°€ì•¼í•œë‹¤)
 			//-------------------------------------------------------
 
-			// ¸ñÇ¥À§Ä¡
+			// ëª©í‘œìœ„ì¹˜
 			DNode* currentNode = m_pqDNodes.top();
 			m_pqDNodes.pop();
 			
@@ -1381,18 +1381,18 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 			m_BlockDestY = SECTORPOSITION_NULL;
 		}
 		//-------------------------------------------------------
-		// ±æÀÌ ¾øÀ» °æ¿ì Á¤ÁöÇÑ´Ù.
+		// ê¸¸ì´ ì—†ì„ ê²½ìš° ì •ì§€í•œë‹¤.
 		//-------------------------------------------------------
 		else
 		{
-			// ÃßÀû ÁßÁö
+			// ì¶”ì  ì¤‘ì§€
 			if (m_bTraceFlag == true)				
 			{
 				m_MoveCount = m_MoveCountMax;
 
 				m_bTraceFlag = false;
 
-				// 2001.7.31 Ãß°¡
+				// 2001.7.31 ì¶”ê°€
 				m_nUsedActionInfo = ACTIONINFO_NULL;
 				m_nNextUsedActionInfo = ACTIONINFO_NULL;
 			}
@@ -1404,13 +1404,13 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 			m_DestY = SECTORPOSITION_NULL;			
 		}
 	}
-	// °¥ ¼ö ¾ø´Â °÷
+	// ê°ˆ ìˆ˜ ì—†ëŠ” ê³³
 	else 
 	{
 		//m_ActionCount = m_ActionCountMax;
 		m_MoveCount = m_MoveCountMax;
 
-		// ÀÌ¹ø¿¡ °¥ ¼ö ¾ø¾ú´ø °÷ ¼³Á¤
+		// ì´ë²ˆì— ê°ˆ ìˆ˜ ì—†ì—ˆë˜ ê³³ ì„¤ì •
 		//m_BlockDestX = m_DestX;
 		//m_BlockDestY = m_DestY;
 
@@ -1426,12 +1426,12 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 
 	/*
 	else
-	// ÀÌ ºÎºĞ¿¡ ¾à°£ÀÇ ¿À·ù°¡ ÀÖ´Â µí ÇÔ!! -_-;;;;
+	// ì´ ë¶€ë¶„ì— ì•½ê°„ì˜ ì˜¤ë¥˜ê°€ ìˆëŠ” ë“¯ í•¨!! -_-;;;;
 	//--------------------------------------------------------------
-	// ¾Æ¿¹ °¥ ¼ö ¾ø´Â °÷ÀÌ¸é..
+	// ì•„ì˜ˆ ê°ˆ ìˆ˜ ì—†ëŠ” ê³³ì´ë©´..
 	//--------------------------------------------------------------
-	// PlayerÀ§Ä¡¿¡¼­ ¸ñÇ¥ÁöÁ¡±îÁö Á÷¼±?À¸·Î °É¾î°¡´Ù°¡ 
-	// Àå¾Ö¹°ÀÌ »ı±â¸é ¸ØÃá´Ù.
+	// Playerìœ„ì¹˜ì—ì„œ ëª©í‘œì§€ì ê¹Œì§€ ì§ì„ ?ìœ¼ë¡œ ê±¸ì–´ê°€ë‹¤ê°€ 
+	// ì¥ì• ë¬¼ì´ ìƒê¸°ë©´ ë©ˆì¶˜ë‹¤.
 	// (m_X, m_Y)  --->  (sX, sY)
 	//--------------------------------------------------------------		
 	{
@@ -1452,27 +1452,27 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 		
 		while (1)
 		{
-			// ºÎÈ£¿¡ µû¶ó¼­..
+			// ë¶€í˜¸ì— ë”°ë¼ì„œ..
 			signX = (stepX==0)? 0 : (stepX<0)? -1 : 1;
 			signY = (stepY==0)? 0 : (stepY<0)? -1 : 1;
 
 			x += signX;
 			y += signY;
 				
-			// °¥ ¼ö ÀÖ´Â °÷ÀÌ¸é list¿¡ ³Ö´Â´Ù.
+			// ê°ˆ ìˆ˜ ìˆëŠ” ê³³ì´ë©´ listì— ë„£ëŠ”ë‹¤.
 			if (m_pZone->CanMove(x,y))
 			{				
 				m_listDirection.insert( m_listDirection.end(), DetermineDirection(stepX, stepY));
 			}
 			else 
 			{
-				// x,y ÇÑÄ­ ÀüÀÇ À§Ä¡¸¦ ¸ñÇ¥ÁöÁ¡À¸·Î Á¤ÇÑ´Ù.
+				// x,y í•œì¹¸ ì „ì˜ ìœ„ì¹˜ë¥¼ ëª©í‘œì§€ì ìœ¼ë¡œ ì •í•œë‹¤.
 				m_DestX = x - signX;
 				m_DestY = y - signY;
 				break;
 			}	
 			
-			// ÇÑ Ä­ ¿òÁ÷¿´À½À» Ç¥½Ã
+			// í•œ ì¹¸ ì›€ì§ì˜€ìŒì„ í‘œì‹œ
 			stepX -= signX;
 			stepY -= signY;
 		}				
@@ -1499,7 +1499,7 @@ MFakeCreature::GetDestination(POINT &dest)
 }
 
 //----------------------------------------------------------------------
-// priority queueÀÎ m_pqDNodes¸¦ Áö¿î´Ù.
+// priority queueì¸ m_pqDNodesë¥¼ ì§€ìš´ë‹¤.
 //----------------------------------------------------------------------
 void
 MFakeCreature::RemoveNodes()
@@ -1510,7 +1510,7 @@ MFakeCreature::RemoveNodes()
 	}
 
 
-	// temp¸¦ Áö¿î´Ù.
+	// tempë¥¼ ì§€ìš´ë‹¤.
 	DNODE_LIST::iterator iNode = m_listDNodes.begin();
 
 	while (iNode != m_listDNodes.end())
@@ -1524,10 +1524,10 @@ MFakeCreature::RemoveNodes()
 }
 
 //----------------------------------------------------------------------
-// (x,y)·Î ºÎÅÍ m_Dest(X,Y)±îÁöÀÇ °Å¸®¸¦ ±¸ÇÑ´Ù.
+// (x,y)ë¡œ ë¶€í„° m_Dest(X,Y)ê¹Œì§€ì˜ ê±°ë¦¬ë¥¼ êµ¬í•œë‹¤.
 //----------------------------------------------------------------------
-// °¡·Î,¼¼·Î,´ë°¢¼± ¸ğµÎ 1ÀÌ¹Ç·Î °¡Àå Å« °ªÀÌ °Å¸®ÀÌ°í
-// ¸ñÇ¥¿Í °°Àº ÁÂÇ¥°¡ ÀÖ´Â°Ô ´õ ÁÁÀ¸¹Ç·Î ¾Æ´Ñ °æ¿ì +1ÀÌ µÇµµ·Ï ÇÑ´Ù.
+// ê°€ë¡œ,ì„¸ë¡œ,ëŒ€ê°ì„  ëª¨ë‘ 1ì´ë¯€ë¡œ ê°€ì¥ í° ê°’ì´ ê±°ë¦¬ì´ê³ 
+// ëª©í‘œì™€ ê°™ì€ ì¢Œí‘œê°€ ìˆëŠ”ê²Œ ë” ì¢‹ìœ¼ë¯€ë¡œ ì•„ë‹Œ ê²½ìš° +1ì´ ë˜ë„ë¡ í•œë‹¤.
 //----------------------------------------------------------------------
 int
 MFakeCreature::CalculateDistance(int x, int y)
@@ -1550,22 +1550,22 @@ MFakeCreature::CalculateDistance(int x, int y)
 void
 MFakeCreature::SetStop()
 {
-	// ±æÃ£±â Á¦°Å
+	// ê¸¸ì°¾ê¸° ì œê±°
 	m_listDirection.clear(); 
 
-	// ÃßÀû ÁßÁö	
+	// ì¶”ì  ì¤‘ì§€	
 	m_bTraceFlag = false;
 	//m_fNextTrace	= FLAG_TRACE_NULL;
 
-	// Action ÁßÁö
+	// Action ì¤‘ì§€
 	m_sX=0; 
 	m_sY=0;
 
-	// ´ÙÀ½ µ¿ÀÛµµ ¾ø¾Ú
+	// ë‹¤ìŒ ë™ì‘ë„ ì—†ì•°
 	m_NextX = SECTORPOSITION_NULL;
 	m_NextY = SECTORPOSITION_NULL;
 
-	// ¸ñÇ¥ Á¦°Å
+	// ëª©í‘œ ì œê±°
 	m_DestX			= SECTORPOSITION_NULL; 
 	m_DestY			= SECTORPOSITION_NULL; 
 	m_NextDestX		= SECTORPOSITION_NULL; 
@@ -1575,15 +1575,15 @@ MFakeCreature::SetStop()
 	m_bKnockBack = 0;	
 
 	//------------------------------------------------
-	// ±âÁ¸ÀÇ MoveBuffer¸¦ ´Ù Áö¿ò
+	// ê¸°ì¡´ì˜ MoveBufferë¥¼ ë‹¤ ì§€ì›€
 	//------------------------------------------------
 	AffectMoveBufferAll();
 	//ReleaseMoveBuffer();
 
-	// 2001.11.8 - Á¤ÁöÇÒ¶§ ÁÂÇ¥ º¸Á¤ È®½ÇÈ÷..
+	// 2001.11.8 - ì •ì§€í• ë•Œ ì¢Œí‘œ ë³´ì • í™•ì‹¤íˆ..
 	ActionMoveNextPosition();
 
-	// Action ÁßÁö
+	// Action ì¤‘ì§€
 	m_sX=0; 
 	m_sY=0;
 
@@ -1592,7 +1592,7 @@ MFakeCreature::SetStop()
 	m_ActionCount	= m_ActionCountMax; 
 	m_MoveCount		= m_MoveCountMax;
 
-	// ´ÙÀ½ µ¿ÀÛµµ ¾ø¾Ú
+	// ë‹¤ìŒ ë™ì‘ë„ ì—†ì•°
 	m_bNextAction = false;
 	m_NextX = SECTORPOSITION_NULL;
 	m_NextY = SECTORPOSITION_NULL;
@@ -1606,18 +1606,18 @@ MFakeCreature::SetStop()
 // Move
 //----------------------------------------------------------------------
 //
-// ÇöÀçÀÇ ¹æÇâ(m_CurrentDirection)À¸·Î ÇÑ FrameÀÌµ¿ÇÑ´Ù.
+// í˜„ì¬ì˜ ë°©í–¥(m_CurrentDirection)ìœ¼ë¡œ í•œ Frameì´ë™í•œë‹¤.
 //
-// ÇÑ Sector¸¦ ÀÌµ¿ÇÏ´Â°Ô ¾Æ´Ï°í Sector¿Í Sector»çÀÌ¸¦ ÀÌµ¿ÇÏ´Â Áß°£ÀÇ
-// ÇÑ FrameÀ» ÀÌµ¿ÇÏ´Â °ÍÀÌ´Ù. 
+// í•œ Sectorë¥¼ ì´ë™í•˜ëŠ”ê²Œ ì•„ë‹ˆê³  Sectorì™€ Sectorì‚¬ì´ë¥¼ ì´ë™í•˜ëŠ” ì¤‘ê°„ì˜
+// í•œ Frameì„ ì´ë™í•˜ëŠ” ê²ƒì´ë‹¤. 
 //
-// Sector --> Sector¿¡¼­ ¸î FrameÀ» ÀÌµ¿ÇÒ±î??°¡ ¹®Á¦ÀÎµ¥...
-//    = cX,cY¿¡ ÇÑ¹ø¿¡ ÀÌµ¿ÇÏ´Â pixel´ÜÀ§¸¦ ´ëÀÔÇÏ°í
-//    = sX,sY¿¡ ÇÑ¹ø¿¡ ÀÌµ¿ÇÏ´Â pixel´ÜÀ§¸¦ ÀÔ·ÂÇÏ¸é µÈ´Ù.
+// Sector --> Sectorì—ì„œ ëª‡ Frameì„ ì´ë™í• ê¹Œ??ê°€ ë¬¸ì œì¸ë°...
+//    = cX,cYì— í•œë²ˆì— ì´ë™í•˜ëŠ” pixelë‹¨ìœ„ë¥¼ ëŒ€ì…í•˜ê³ 
+//    = sX,sYì— í•œë²ˆì— ì´ë™í•˜ëŠ” pixelë‹¨ìœ„ë¥¼ ì…ë ¥í•˜ë©´ ëœë‹¤.
 //
-// Move()¿¡¼­´Â
-//    cX,cY°¡ 0ÀÌ¸é ´Ù½Ã cX,cY, sX,sY °ªÀ» »ı¼ºÇÏ°í
-//    0ÀÌ ¾Æ´Ï¸é sX
+// Move()ì—ì„œëŠ”
+//    cX,cYê°€ 0ì´ë©´ ë‹¤ì‹œ cX,cY, sX,sY ê°’ì„ ìƒì„±í•˜ê³ 
+//    0ì´ ì•„ë‹ˆë©´ sX
 //----------------------------------------------------------------------
 void	
 MFakeCreature::ActionMovePet()
@@ -1642,18 +1642,18 @@ MFakeCreature::ActionMovePet()
 
 	//----------------------------------------------------
 	//
-	// ´ÙÀ½ Sector¿¡ µµ´ŞÇÑ °æ¿ì	
+	// ë‹¤ìŒ Sectorì— ë„ë‹¬í•œ ê²½ìš°	
 	//
 	//----------------------------------------------------
-	// m_listDirection¿¡¼­ ¹æÇâÀ» ÇÏ³ª ÀĞ¾î¿Í¼­ 
-	// checkÇØº¸°í ¿òÁ÷ÀÎ´Ù.
+	// m_listDirectionì—ì„œ ë°©í–¥ì„ í•˜ë‚˜ ì½ì–´ì™€ì„œ 
+	// checkí•´ë³´ê³  ì›€ì§ì¸ë‹¤.
 	//----------------------------------------------------
 	if (m_MoveCount%moveTimesTemp==0)//m_sX==0 && m_sY==0)
 	{
 		TYPE_SECTORPOSITION	x, y;
 
 		//-------------------------------------------------------------
-		// fast moveÀÎ °æ¿ì´Â nextX, nextY¿¡ ÁÂÇ¥°¡ ÀÖ´Ù.
+		// fast moveì¸ ê²½ìš°ëŠ” nextX, nextYì— ì¢Œí‘œê°€ ìˆë‹¤.
 		//-------------------------------------------------------------
 		if (m_bFastMove)
 		{
@@ -1666,12 +1666,12 @@ MFakeCreature::ActionMovePet()
 			m_Direction = GetDirectionToPosition( x, y );
 		}
 		//-------------------------------------------------------------
-		// ÀÏ¹İÀûÀÎ ¿òÁ÷ÀÓ
+		// ì¼ë°˜ì ì¸ ì›€ì§ì„
 		//-------------------------------------------------------------
 		else
 		{
 			//----------------------------------------------------
-			// ¸ñÇ¥À§Ä¡°¡ ¾øÀ¸¸é ¿òÁ÷ÀÌÁö ¾Ê´Â´Ù.
+			// ëª©í‘œìœ„ì¹˜ê°€ ì—†ìœ¼ë©´ ì›€ì§ì´ì§€ ì•ŠëŠ”ë‹¤.
 			//----------------------------------------------------
 			if (m_DestX==SECTORPOSITION_NULL && m_NextDestX==SECTORPOSITION_NULL) 
 			{
@@ -1686,45 +1686,45 @@ MFakeCreature::ActionMovePet()
 			//----------------------------------------------------
 			//
 			//
-			//                 ÃßÀû ÁßÀÌ¸é..
+			//                 ì¶”ì  ì¤‘ì´ë©´..
 			//
 			//
 			//----------------------------------------------------		
 			//----------------------------------------------------	
-			// Creature ÃßÀû ÁßÀÌ¸é..
-			// Creature°¡ »ç¶óÁö°Å³ª
-			// ÃßÀû ¸ñÇ¥ÁÂÇ¥°¡ ¹Ù²ğ ¼ö ÀÖÀ¸¹Ç·Î checkÇØÁØ´Ù.
+			// Creature ì¶”ì  ì¤‘ì´ë©´..
+			// Creatureê°€ ì‚¬ë¼ì§€ê±°ë‚˜
+			// ì¶”ì  ëª©í‘œì¢Œí‘œê°€ ë°”ë€” ìˆ˜ ìˆìœ¼ë¯€ë¡œ checkí•´ì¤€ë‹¤.
 			//----------------------------------------------------	
 			if (m_bTraceFlag == true) 
 			{
-				// ÃßÀûÇÏ´Â CreatureÀÇ Á¤º¸¸¦ ÀĞ¾î¿Â´Ù.
+				// ì¶”ì í•˜ëŠ” Creatureì˜ ì •ë³´ë¥¼ ì½ì–´ì˜¨ë‹¤.
 				MCreature*	pCreature = m_pZone->GetCreature( m_TraceID );				
 
 				//GET_DYING_CREATURE( pCreature, m_TraceID );
 
 				//-------------------------------------------------------
-				// ÃßÀûÇÏ´Â Creature°¡ »ç¶óÁ³À» °æ¿ì --> ÃßÀû ÁßÁö
-				// ³»°¡ SlayerÀÎ °æ¿ì´Â Darkness¾È¿¡ µé¾î°£ Ä³¸¯À» ÂÑ¾Æ°¥ ¼ö ¾ø´Ù.					
+				// ì¶”ì í•˜ëŠ” Creatureê°€ ì‚¬ë¼ì¡Œì„ ê²½ìš° --> ì¶”ì  ì¤‘ì§€
+				// ë‚´ê°€ Slayerì¸ ê²½ìš°ëŠ” Darknessì•ˆì— ë“¤ì–´ê°„ ìºë¦­ì„ ì«“ì•„ê°ˆ ìˆ˜ ì—†ë‹¤.					
 				//-------------------------------------------------------								
 				if (pCreature==NULL )
 				{
-					// ÃßÀû ÁßÁö
+					// ì¶”ì  ì¤‘ì§€
 					m_bTraceFlag = false;
 						
-					// ¸ØÃá´Ù.
+					// ë©ˆì¶˜ë‹¤.
 					SetStop();					
 					return;			
 				}
 			
 				//-------------------------------------------------------			
-				// ÃßÀûÇÒ·Á´Â CreatureÀÇ ÁÂÇ¥°¡ ´Ş¶óÁ³À» °æ¿ì
+				// ì¶”ì í• ë ¤ëŠ” Creatureì˜ ì¢Œí‘œê°€ ë‹¬ë¼ì¡Œì„ ê²½ìš°
 				//-------------------------------------------------------			
 				if (pCreature->GetX()!=m_TraceX ||
 					pCreature->GetY()!=m_TraceY)
 				{										
 					m_NextDestX = pCreature->GetX();
 					m_NextDestY = pCreature->GetY();
-					// Z´Â °ü°è¾ø´Ù.
+					// ZëŠ” ê´€ê³„ì—†ë‹¤.
 				}
 
 				m_TraceX	= pCreature->GetX();
@@ -1732,11 +1732,11 @@ MFakeCreature::ActionMovePet()
 				m_TraceZ	= pCreature->GetZ();
 			}
 			//----------------------------------------------------
-			// ±æÃ£±â BufferingÇß´ø°É ¼³Á¤ÇÑ´Ù.
+			// ê¸¸ì°¾ê¸° Bufferingí–ˆë˜ê±¸ ì„¤ì •í•œë‹¤.
 			//----------------------------------------------------
 			if (m_NextDestX!=SECTORPOSITION_NULL)
 			{
-				// ±æÃ£±â
+				// ê¸¸ì°¾ê¸°
 				//SetDestination(m_NextDestX, m_NextDestY);
 				m_DestX		= m_NextDestX;	// TEST
 				m_DestY		= m_NextDestY;	// TEST
@@ -1745,24 +1745,24 @@ MFakeCreature::ActionMovePet()
 			}
 
 			//----------------------------------------------------
-			// ±æÃ£±â : ÇÑ Tile ÀÌµ¿½Ã¸¶´Ù ±æÃ£±â¸¦ ÇÑ´Ù.
+			// ê¸¸ì°¾ê¸° : í•œ Tile ì´ë™ì‹œë§ˆë‹¤ ê¸¸ì°¾ê¸°ë¥¼ í•œë‹¤.
 			//----------------------------------------------------
 			if (m_DestX!=SECTORPOSITION_NULL)
 				SetDestination(m_DestX, m_DestY);
 
 			//----------------------------------------------------
-			// Server¿¡¼­ °ËÁõ¹Ş±â À§ÇØ¼­ Send
+			// Serverì—ì„œ ê²€ì¦ë°›ê¸° ìœ„í•´ì„œ Send
 			//----------------------------------------------------
 			//SetAction( m_MoveAction );
 
 			
 			//----------------------------------------------------
-			// °¥ ±æÀÌ ¾ø´Â °æ¿ì
+			// ê°ˆ ê¸¸ì´ ì—†ëŠ” ê²½ìš°
 			//----------------------------------------------------
 			if (m_listDirection.empty())
 			{
 				//--------------------------------------------
-				// ¸ñÀûÁö¿¡ µµ´ŞÇÑ °æ¿ì..
+				// ëª©ì ì§€ì— ë„ë‹¬í•œ ê²½ìš°..
 				//--------------------------------------------
 				if (m_DestX==m_X && m_DestY==m_Y)
 				{
@@ -1786,17 +1786,17 @@ MFakeCreature::ActionMovePet()
 			
 			//----------------------------------------------------	
 			//
-			// ¹æÇâ´ë·Î ¿òÁ÷ÀÎ´Ù.
+			// ë°©í–¥ëŒ€ë¡œ ì›€ì§ì¸ë‹¤.
 			//
 			//----------------------------------------------------			
 			//----------------------------------------------------
-			// m_listDirection¿¡¼­ ¹æÇâÀ» ÇÏ³ª ÀĞ¾î¿Â´Ù.
+			// m_listDirectionì—ì„œ ë°©í–¥ì„ í•˜ë‚˜ ì½ì–´ì˜¨ë‹¤.
 			//----------------------------------------------------
 			m_Direction = m_listDirection.front();
 			m_listDirection.pop_front();	
 				
 			//----------------------------------------------------
-			// ´ÙÀ½¿¡ ±æÃ£±â¸¦ ÇØ¾ßÇÒ °æ¿ì...
+			// ë‹¤ìŒì— ê¸¸ì°¾ê¸°ë¥¼ í•´ì•¼í•  ê²½ìš°...
 			//----------------------------------------------------
 			if (m_NextDestX!=SECTORPOSITION_NULL)
 			{
@@ -1805,12 +1805,12 @@ MFakeCreature::ActionMovePet()
 			}
 
 			//----------------------------------------------------
-			// ÀĞ¾î¿Â ¹æÇâÀ¸·Î ÇÑ Sector¸¦ ÁøÇàÇÏ°í
-			// cX,cY, sX,sY¸¦ ´Ù½Ã ÁöÁ¤ÇØÁà¾ß ÇÑ´Ù.
+			// ì½ì–´ì˜¨ ë°©í–¥ìœ¼ë¡œ í•œ Sectorë¥¼ ì§„í–‰í•˜ê³ 
+			// cX,cY, sX,sYë¥¼ ë‹¤ì‹œ ì§€ì •í•´ì¤˜ì•¼ í•œë‹¤.
 			//----------------------------------------------------
 
 			//----------------------------------------------------
-			// ÀÌµ¿ °¡´ÉÇÑÁö check
+			// ì´ë™ ê°€ëŠ¥í•œì§€ check
 			//----------------------------------------------------
 			x = m_X;
 			y = m_Y;
@@ -1829,78 +1829,78 @@ MFakeCreature::ActionMovePet()
 		}
 
 		//--------------------------------------------------------------------
-		// ¿òÁ÷ÀÏ ¼ö ÀÖÀ» °æ¿ì		
+		// ì›€ì§ì¼ ìˆ˜ ìˆì„ ê²½ìš°		
 		//--------------------------------------------------------------------
 		if (m_pZone->CanMove(m_MoveType, x,y)
-			|| m_bFastMove		// Fast MoveÀÎ °æ¿ì´Â ¹«Á¶°Ç ÀÌµ¿ °¡´É..
+			|| m_bFastMove		// Fast Moveì¸ ê²½ìš°ëŠ” ë¬´ì¡°ê±´ ì´ë™ ê°€ëŠ¥..
 			
 			)
 		{		
 			//---------------------------------------------------------------
-			// Fast MoveÀÎ °æ¿ì..
+			// Fast Moveì¸ ê²½ìš°..
 			//---------------------------------------------------------------
 			if (m_bFastMove)
 			{
 				// nothing
 			}
 			//---------------------------------------------------------------
-			// ÀÏ¹İÀûÀÎ ¿òÁ÷ÀÓ --> °ËÁõ ÇÊ¿ä
+			// ì¼ë°˜ì ì¸ ì›€ì§ì„ --> ê²€ì¦ í•„ìš”
 			//---------------------------------------------------------------
 			else
 			{
 			}
 
 			//-----------------------
-			// ½Ã¾ß ¹Ù²ãÁÖ±â
+			// ì‹œì•¼ ë°”ê¿”ì£¼ê¸°
 			//-----------------------
 			//m_pZone->MoveLightSight(m_X, m_Y, m_LightSight, m_Direction);
 			//m_pZone->UnSetLightSight(m_X, m_Y, m_LightSight);
 			//m_pZone->SetLightSight(x, y, m_LightSight);
 
-			// ÀÌÀü ÁÂÇ¥ ±â¾ï
+			// ì´ì „ ì¢Œí‘œ ê¸°ì–µ
 			TYPE_SECTORPOSITION ox = m_X;
 			TYPE_SECTORPOSITION oy = m_Y;
 
-			// zoneÀÇ sectorÀÇ Á¤º¸¸¦ ¹Ù²ãÁØ´Ù.
+			// zoneì˜ sectorì˜ ì •ë³´ë¥¼ ë°”ê¿”ì¤€ë‹¤.
 			MovePosition( x, y );
 			
 			//CheckInDarkness();
 
 			//--------------------------------------------
-			// 5 FrameÀÌ ÀÖ´Ù°í ÇÒ °æ¿ì
+			// 5 Frameì´ ìˆë‹¤ê³  í•  ê²½ìš°
 			//--------------------------------------------
 			//
-			// [1] UP,DOWN,LEFT,RIGHTÀÏ ¶§,
+			// [1] UP,DOWN,LEFT,RIGHTì¼ ë•Œ,
 			//
-			//     Xº¯È­ : 0 16 32 48 64   (+-16)
-			//     Yº¯È­ : 0  8 16 24 32   (+-8)
+			//     Xë³€í™” : 0 16 32 48 64   (+-16)
+			//     Yë³€í™” : 0  8 16 24 32   (+-8)
 			// 
 			//
-			// [2] ´ë°¢¼±(LEFTUP,LEFTDOWN,RIGHTUP,RIGHTDOWN)À¸·Î ¿òÁ÷ÀÏ¶§,
+			// [2] ëŒ€ê°ì„ (LEFTUP,LEFTDOWN,RIGHTUP,RIGHTDOWN)ìœ¼ë¡œ ì›€ì§ì¼ë•Œ,
 			//
-			//     Xº¯È­ : 0  8 16 24 32   (+-8)
-			//     Yº¯È­ : 0  4  8 12 16   (+-4)
+			//     Xë³€í™” : 0  8 16 24 32   (+-8)
+			//     Yë³€í™” : 0  4  8 12 16   (+-4)
 			//
 			//--------------------------------------------
-			// sX,sY : ¿òÁ÷¿©¾ßÇÒ ÀüÃ¼ pixel(ÇÑ TILE)
-			// cX,cY : ÀÌµ¿ÇÏ´Â ´ÜÀ§ pixel
+			// sX,sY : ì›€ì§ì—¬ì•¼í•  ì „ì²´ pixel(í•œ TILE)
+			// cX,cY : ì´ë™í•˜ëŠ” ë‹¨ìœ„ pixel
 			//--------------------------------------------		
 			//--------------------------------------------
-			// Fast Move ÀÎ °æ¿ì
+			// Fast Move ì¸ ê²½ìš°
 			//--------------------------------------------
 
 			if (m_bFastMove)
 			{
-				// Á÷¼± °Å¸®·Î ¿òÁ÷ÀÏ¶§ÀÇ pixel°Å¸®
-				// ex) ¿ŞÂÊ 2 --> 1 : ( 2 - 1 ) * TILE_X
-				//     À§ÂÊ 2 --> 1 : ( 2 - 1 ) * TILE_Y
+				// ì§ì„  ê±°ë¦¬ë¡œ ì›€ì§ì¼ë•Œì˜ pixelê±°ë¦¬
+				// ex) ì™¼ìª½ 2 --> 1 : ( 2 - 1 ) * TILE_X
+				//     ìœ„ìª½ 2 --> 1 : ( 2 - 1 ) * TILE_Y
 				m_sX = (ox - m_X) * TILE_X;
 				m_sY = (oy - m_Y) * TILE_Y;
 				
 				//------------------------------------------------
-				// ½ÇÁ¦ ÇÑ Å¸ÀÏ ÀÌµ¿ ¼ÓµµÀÇ ¹İÀÇ ¼Óµµ¿¡ ¸ñÀûÁö±îÁö ÀÌµ¿ÇÑ´Ù.
+				// ì‹¤ì œ í•œ íƒ€ì¼ ì´ë™ ì†ë„ì˜ ë°˜ì˜ ì†ë„ì— ëª©ì ì§€ê¹Œì§€ ì´ë™í•œë‹¤.
 				//------------------------------------------------
-				// ÇÑ Å¸ÀÏ ÀÌµ¿ÇÒ¶§ÀÇ Frame ¼ö
+				// í•œ íƒ€ì¼ ì´ë™í• ë•Œì˜ Frame ìˆ˜
 				int moveTimes_div_2 = (*g_pCreatureTable)[m_CreatureType].MoveTimes >> 1;
 				
 				m_cX = -m_sX / moveTimes_div_2;
@@ -1914,7 +1914,7 @@ MFakeCreature::ActionMovePet()
 				}
 			}
 			//--------------------------------------------	
-			// Á¤»ó ÀÌµ¿
+			// ì •ìƒ ì´ë™
 			//--------------------------------------------
 			else
 			{	
@@ -1925,7 +1925,7 @@ MFakeCreature::ActionMovePet()
 
 				//????????????????????????????????????????????????????????
 				//???                                                  ???
-				//???   ÇÑ FrameÀ» ÀÌµ¿...ÇØ¾ßÇÏ´Â°¡?? ¸»¾Æ¾ß ÇÏ´Â°¡   ???
+				//???   í•œ Frameì„ ì´ë™...í•´ì•¼í•˜ëŠ”ê°€?? ë§ì•„ì•¼ í•˜ëŠ”ê°€   ???
 				//???                                                  ???
 				//????????????????????????????????????????????????????????
 				int moveTimes_1;
@@ -1977,10 +1977,10 @@ MFakeCreature::ActionMovePet()
 
 			m_MoveCount++;
 
-			// ´ÙÀ½¿¡ ÀÌµ¿ÇÒ count¸¦ ÁöÁ¤ÇÑ´Ù.
+			// ë‹¤ìŒì— ì´ë™í•  countë¥¼ ì§€ì •í•œë‹¤.
 
 			//------------------------------------------------
-			// Ä³¸¯ÅÍÀÇ MoveAction¿¡ ¸Â´Â Sound¸¦ Ãâ·ÂÇØÁØ´Ù.
+			// ìºë¦­í„°ì˜ MoveActionì— ë§ëŠ” Soundë¥¼ ì¶œë ¥í•´ì¤€ë‹¤.
 			//------------------------------------------------
 			TYPE_SOUNDID soundID = (*g_pCreatureTable)[m_CreatureType].GetActionSound( m_MoveAction );
 
@@ -1993,9 +1993,9 @@ MFakeCreature::ActionMovePet()
 			}
 		}	
 		//--------------------------------------------
-		// ¿òÁ÷ÀÏ ¼ö ¾øÀ» °æ¿ì		
+		// ì›€ì§ì¼ ìˆ˜ ì—†ì„ ê²½ìš°		
 		//--------------------------------------------
-		// ±æÃ£±â¸¦ ´Ù½Ã ÇØÁØ´Ù.
+		// ê¸¸ì°¾ê¸°ë¥¼ ë‹¤ì‹œ í•´ì¤€ë‹¤.
 		else
 		{
 			m_NextDestX = m_DestX;
@@ -2003,10 +2003,10 @@ MFakeCreature::ActionMovePet()
 			m_listDirection.empty();
 
 
-			DEBUG_ADD("´Ù¸¥ Ä³¸¯ÅÍ¿¡ ÀÇÇØ¼­ BlockµÆÀ½.");					
+			DEBUG_ADD("ë‹¤ë¥¸ ìºë¦­í„°ì— ì˜í•´ì„œ BlockëìŒ.");					
 		}
 
-		// ´ÙÀ½ Sector±îÁö ¿òÁ÷ÀÎ´Ù.
+		// ë‹¤ìŒ Sectorê¹Œì§€ ì›€ì§ì¸ë‹¤.
 		if (!m_listDirection.empty())
 		{
 			//m_NextAction = m_MoveAction;
@@ -2015,12 +2015,12 @@ MFakeCreature::ActionMovePet()
 	}
 	//----------------------------------------------------
 	//
-	// ¾ÆÁ÷ ´ÙÀ½ Sector±îÁö ´ú µµ´ŞÇÑ °æ¿ì
+	// ì•„ì§ ë‹¤ìŒ Sectorê¹Œì§€ ëœ ë„ë‹¬í•œ ê²½ìš°
 	//
 	//----------------------------------------------------
 	else
 	{
-		// ÇÑ FrameÀ» ÀÌµ¿ÇÑ´Ù.
+		// í•œ Frameì„ ì´ë™í•œë‹¤.
 		/*
 		switch (m_MoveDevice)
 		{
@@ -2040,15 +2040,15 @@ MFakeCreature::ActionMovePet()
 			DEBUG_ADD("going");
 		#endif
 
-		// ÀÌµ¿ÇÒ count°¡ µÆÀ»¶§¸¸ ÀÌµ¿ÇÑ´Ù.
+		// ì´ë™í•  countê°€ ëì„ë•Œë§Œ ì´ë™í•œë‹¤.
 		if (m_MoveCount>=m_NextMoveCount)
 		{			
 			//--------------------------------------------
-			// Fast Move ÀÎ °æ¿ì
+			// Fast Move ì¸ ê²½ìš°
 			//--------------------------------------------
 			if (m_bFastMove)
 			{
-				// 2001.8.22 Ãß°¡ - ³È³È
+				// 2001.8.22 ì¶”ê°€ - ëƒ ëƒ 
 				if (m_sX!=0)	m_sX += m_cX;
 				if (m_sY!=0)	m_sY += m_cY;		
 
@@ -2059,12 +2059,12 @@ MFakeCreature::ActionMovePet()
 					m_MoveCount = m_MoveCountMax;
 				}
 
-				// ´ÙÀ½¿¡ ÀÌµ¿ÇÒ count¸¦ ÁöÁ¤ÇÑ´Ù.
+				// ë‹¤ìŒì— ì´ë™í•  countë¥¼ ì§€ì •í•œë‹¤.
 				m_NextMoveCount += 1;//(*g_pCreatureTable)[m_CreatureType].MoveRatio;
 
 			}
 			//--------------------------------------------
-			// ÀÏ¹İÀûÀÎ ÀÌµ¿ÀÇ °æ¿ì
+			// ì¼ë°˜ì ì¸ ì´ë™ì˜ ê²½ìš°
 			//--------------------------------------------
 			else
 			{
@@ -2093,11 +2093,11 @@ MFakeCreature::ActionMovePet()
 				m_cX = m_cXTable[moveTimes_1][m_DirectionMoved][m_MoveTableCount%moveTimes_1];
 				m_cY = m_cYTable[moveTimes_1][m_DirectionMoved][m_MoveTableCount%moveTimes_1];
 
-				// 2001.8.22 Ãß°¡ - ³È³È
+				// 2001.8.22 ì¶”ê°€ - ëƒ ëƒ 
 				if (m_sX!=0)	m_sX += m_cX;
 				if (m_sY!=0)	m_sY += m_cY;		
 
-				// ´ÙÀ½¿¡ ÀÌµ¿ÇÒ count¸¦ ÁöÁ¤ÇÑ´Ù.
+				// ë‹¤ìŒì— ì´ë™í•  countë¥¼ ì§€ì •í•œë‹¤.
 				m_NextMoveCount += 1;//(*g_pCreatureTable)[m_CreatureType].MoveRatio;
 
 				m_MoveCount++;
@@ -2109,7 +2109,7 @@ MFakeCreature::ActionMovePet()
 		}
 		
 		//m_ActionCount++;
-		// frameÀ» ¹Ù²ãÁØ´Ù. ¸¶Áö¸· Frame±îÁö °¬À¸¸é 0¹øÂ° FrameÀ¸·Î ¹Ù²Û´Ù.
+		// frameì„ ë°”ê¿”ì¤€ë‹¤. ë§ˆì§€ë§‰ Frameê¹Œì§€ ê°”ìœ¼ë©´ 0ë²ˆì§¸ Frameìœ¼ë¡œ ë°”ê¾¼ë‹¤.
 		//if (++m_ActionCount == (*m_pFrames)[m_Action][m_Direction].GetCount())
 		//	m_ActionCount = 0;
 
@@ -2258,15 +2258,15 @@ MFakeCreature::UpdateTurret()
 void 
 MFakeCreature::KeepWanderCreature()
 {
-	// À¯·ÉÀÌ ¾Æ´Ï¹È ¸®ÅÏ
+	// ìœ ë ¹ì´ ì•„ë‹ˆë¯„ ë¦¬í„´
 	if(GetCreatureType() != CREATURETYPE_GHOST)
 		return;
 	POINT	firstSector, endSector,NextMove;
-	firstSector.x = g_pPlayer->GetX() + g_SECTOR_SKIP_PLAYER_LEFT-1;// +4 Å×½ºÆ®
+	firstSector.x = g_pPlayer->GetX() + g_SECTOR_SKIP_PLAYER_LEFT-1;// +4 í…ŒìŠ¤íŠ¸
 	firstSector.y = g_pPlayer->GetY() + g_SECTOR_SKIP_PLAYER_UP-1;
 	endSector.x	  = firstSector.x+g_SECTOR_WIDTH+2;
 	endSector.y   = firstSector.y+g_SECTOR_HEIGHT+2;
-	// È­¸é ¾È¿¡ ÀÖ´Â À¯·É ÀÌ¹È..
+	// í™”ë©´ ì•ˆì— ìˆëŠ” ìœ ë ¹ ì´ë¯„..
 	if(IsInSector(firstSector.x, firstSector.y, endSector.x, endSector.y))
 	{
 		NextMove.x = GetX(); NextMove.y = GetY();
@@ -2310,25 +2310,25 @@ MFakeCreature::KeepWanderCreature()
 				return;
 			}
 			if(IsInSector(firstSector.x-1, firstSector.y, firstSector.x-1, endSector.y))
-			{// ¿ŞÂÊ º®
+			{// ì™¼ìª½ ë²½
 				m_Direction = 3 + rand()%3;
 				m_DirectionMove = m_Direction;
 				SetAction(ACTION_MOVE);
 			}
 			else if(IsInSector(endSector.x+1, firstSector.y, endSector.x+1, endSector.y))
-			{// ¿À¸¥ÂÊ º®
+			{// ì˜¤ë¥¸ìª½ ë²½
 				m_Direction = (7 + rand()%3)%8;
 				m_DirectionMove = m_Direction;
 				SetAction(ACTION_MOVE);
 			}
 			else if(IsInSector(firstSector.x, firstSector.y-1, endSector.x, firstSector.y-1))
-			{// À§ÂÊ º®
+			{// ìœ„ìª½ ë²½
 				m_Direction = 1 + rand()%3;
 				m_DirectionMove = m_Direction;
 				SetAction(ACTION_MOVE);
 			}
 			else if(IsInSector(firstSector.x, endSector.y+1, endSector.x, endSector.y+1))
-			{// ¾Æ·¡ÂÊ º®
+			{// ì•„ë˜ìª½ ë²½
 				m_Direction = 5 + rand()%3;
 				m_DirectionMove = m_Direction;
 				SetAction(ACTION_MOVE);
@@ -2367,7 +2367,7 @@ MFakeCreature::KeepRocketLuncher()
 	if(pCreature != NULL)
 	{
 		int distance = max(abs(pCreature->GetX()-m_X), abs(pCreature->GetY()-m_Y));
-//		// Ã³À½ Á¢±ÙÇÒ¶§±îÁö¸¸ ÃßÀûÇÏ°í ( °ÁÀÖ´Â º¯¼ö m_PatrolCount ½á¾ßÁö..¤¾¤¾)
+//		// ì²˜ìŒ ì ‘ê·¼í• ë•Œê¹Œì§€ë§Œ ì¶”ì í•˜ê³  ( ê±ìˆëŠ” ë³€ìˆ˜ m_PatrolCount ì¨ì•¼ì§€..ã…ã…)
 		if(distance > 1)
 		{
 			m_DirectionMove = m_Direction = m_CurrentDirection = GetDirectionToPosition(pCreature->GetX(), pCreature->GetY());
@@ -2375,7 +2375,7 @@ MFakeCreature::KeepRocketLuncher()
 			m_DestY = pCreature->GetY();
 			m_PatrolCount = m_CurrentDirection;
 		}
-//		// Å¸°ÙÁÖÀ§¸¦ ¸Éµ·´Ù..? -_-;
+//		// íƒ€ê²Ÿì£¼ìœ„ë¥¼ ë§´ëˆë‹¤..? -_-;
 		else
 		{
 			if(m_DestX == GetX() && m_DestY == GetY())

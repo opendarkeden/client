@@ -1,7 +1,7 @@
 #include "Client_PCH.h"
-#include <fstream.h>
+#include <fstream>
 #include "NicknameInfo.h"
-#include "Assert.h"
+#include "Packet/Assert.h"
 NicknameInfo::NicknameInfo()
 {
 	m_NicknameID = 0;
@@ -22,7 +22,7 @@ PacketSize_t NicknameInfo::getSize() const
 		case NICK_CUSTOM:
 			return szWORD + szBYTE + szBYTE + m_Nickname.size();
 		default:
-			Assert(false);
+			assert(false);
 	}
 
 	return 0;
@@ -58,7 +58,7 @@ void NicknameInfo::read(SocketInputStream& iStream)
 				break;
 			}
 		default:
-			Assert(false);
+			assert(false);
 	}
 
 	__END_CATCH
@@ -94,7 +94,7 @@ void NicknameInfo::write(SocketOutputStream& oStream) const
 				break;
 			}
 		default:
-			Assert(false);
+			assert(false);
 	}
 
 	__END_CATCH

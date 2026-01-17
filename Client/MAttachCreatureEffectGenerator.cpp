@@ -29,7 +29,7 @@ MAttachCreatureEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	int direction = egInfo.direction;
 
 	//-----------------------------------------------------------
-	// Sword Wave¸¦ À§ÇÑ ÀÓ½Ã(-_-;) ÄÚµå..
+	// Sword Waveë¥¼ ìœ„í•œ ìž„ì‹œ(-_-;) ì½”ë“œ..
 	//-----------------------------------------------------------
 	/*
 	if (frameID==EFFECTSPRITETYPE_SWORD_WAVE_1)
@@ -47,7 +47,7 @@ MAttachCreatureEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 	MCreature* pCreature = g_pZone->GetCreature( egInfo.creatureID );
 
-	// Creature°¡ »ç¶óÁ³À» °æ¿ì..
+	// Creatureê°€ ì‚¬ë¼ì¡Œì„ ê²½ìš°..
 	if (pCreature == NULL)
 	{	
 		pCreature = g_pZone->GetFakeCreature( egInfo.creatureID );
@@ -101,7 +101,7 @@ MAttachCreatureEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		EffectType = EFFECTSPRITETYPE_TRIDENT_BOMB_1 + (rand()%10);
 		break;
 	case EFFECTSPRITETYPE_PIERCING_FRONT :
-		// ToT ¹æÇâÀº..¤Ñ.¤Ì ¹Ý´ë~
+		// ToT ë°©í–¥ì€..ã…¡.ã…œ ë°˜ëŒ€~
 		direction = (direction+4)%8;
 		break;
 	case EFFECTSPRITETYPE_QUICK_FIRE_BOMB_1 :
@@ -130,7 +130,7 @@ MAttachCreatureEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		EffectType >=EFFECTSPRITETYPE_JABBING_VEIN_REAR_1 && EffectType <= EFFECTSPRITETYPE_JABBING_VEIN_REAR_BAT)
 			EffectType = EFFECTSPRITETYPE_JABBING_VEIN_REAR_BAT;
 	
-	// Creature¿¡°Ô ºÙÀÌ´Â Effect¸¦ »ý¼ºÇØ¼­ pointer¸¦ ³Ñ°Ü¹Þ´Â´Ù.
+	// Creatureì—ê²Œ ë¶™ì´ëŠ” Effectë¥¼ ìƒì„±í•´ì„œ pointerë¥¼ ë„˜ê²¨ë°›ëŠ”ë‹¤.
 	MAttachEffect* pEffect = pCreature->CreateAttachEffect( EffectType, egInfo.count, egInfo.linkCount );
 
 	if (pEffect == NULL)
@@ -142,13 +142,13 @@ MAttachCreatureEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	pEffect->SetLink( egInfo.nActionInfo, egInfo.pEffectTarget );
 	pEffect->SetZ( plusZ );
 
-	// ºÙ¾î¾ß ÇÏ´Â Ä³¸¯ÅÍ
+	// ë¶™ì–´ì•¼ í•˜ëŠ” ìºë¦­í„°
 	//pEffect->SetAttachCreatureID( creatureID );		
 
-	// À§·Â
+	// ìœ„ë ¥
 	pEffect->SetPower(egInfo.power);
 
-	// ºûÀÇ ¹à±â
+	// ë¹›ì˜ ë°ê¸°
 	//pEffect->SetLight( light );
 	pEffect->SetDirection( direction );
 	

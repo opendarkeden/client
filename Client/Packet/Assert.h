@@ -14,8 +14,8 @@
 
 //--------------------------------------------------------------------------------
 //
-// Config.h ¿¡ NDEBUG °¡ Á¤ÀÇµÇ¸é, ¸ğµç Assert¸¦ ¹«½ÃÇÑ´Ù.
-// ±×·¸Áö ¾ÊÀº °æ¿ì Assert°¡ ½ÇÆĞÇÏ¸é ÆÄÀÏ¿¡ ·Î±×¸¦ ÇÑÈÄ, AssertError¸¦ ¸®ÅÏÇÑ´Ù.
+// Config.h ì— NDEBUG ê°€ ì •ì˜ë˜ë©´, ëª¨ë“  Assertë¥¼ ë¬´ì‹œí•œë‹¤.
+// ê·¸ë ‡ì§€ ì•Šì€ ê²½ìš° Assertê°€ ì‹¤íŒ¨í•˜ë©´ íŒŒì¼ì— ë¡œê·¸ë¥¼ í•œí›„, AssertErrorë¥¼ ë¦¬í„´í•œë‹¤.
 //
 //--------------------------------------------------------------------------------
 void __assert__ ( const char * file , uint line , const char * func , const char * expr ) throw ( AssertionError );
@@ -24,10 +24,12 @@ void __assert__ ( const char * file , uint line , const char * func , const char
 	#define Assert(expr) ((void)0)
 #elif __LINUX__
 	#define Assert(expr) ((void)((expr)?0:(__assert__(__FILE__,__LINE__,__PRETTY_FUNCTION__,#expr),0)))
-#elif __WIN_CONSOLE__ || __WIN32__ 
+#elif __WIN_CONSOLE__ || __WIN32__
 	#define Assert(expr) ((void)((expr)?0:(__assert__(__FILE__,__LINE__,"",#expr),0)))
 #elif __MFC__
 	#define Assert(expr) ASSERT(expr)
+#elif defined(__APPLE__) || defined(__macos__)
+	#define Assert(expr) ((void)((expr)?0:(__assert__(__FILE__,__LINE__,__PRETTY_FUNCTION__,#expr),0)))
 #endif
 
 #endif

@@ -14,7 +14,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCBloodDrainOK2Handler::execute ( GCBloodDrainOK2 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -22,7 +23,7 @@ void GCBloodDrainOK2Handler::execute ( GCBloodDrainOK2 * pPacket , Player * pPla
 
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -30,19 +31,19 @@ void GCBloodDrainOK2Handler::execute ( GCBloodDrainOK2 * pPacket , Player * pPla
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 
-		// ³»°¡ Creature¿¡°Ô ÈíÇ÷´çÇÏ±¸ ÀÖ´Ù±¸ ¾Ë·ÁÁØ´Ù
+		// ë‚´ê°€ Creatureì—ê²Œ í¡í˜ˆë‹¹í•˜êµ¬ ìžˆë‹¤êµ¬ ì•Œë ¤ì¤€ë‹¤
 		g_pPlayer->SetDrainCreatureID( pPacket->getObjectID() );
 		
-		// Creature¿¡°Ô Damage ÀÔÈû
+		// Creatureì—ê²Œ Damage ìž…íž˜
 		if (pCreature == NULL)
 		{
-			// ¹Ù·Î ´çÇÏ´Â ¸ð½À
+			// ë°”ë¡œ ë‹¹í•˜ëŠ” ëª¨ìŠµ
 			g_pPlayer->PacketSpecialActionResult( 
 										RESULT_SKILL_BLOOD_DRAIN,
 										g_pPlayer->GetID(),	
@@ -54,7 +55,7 @@ void GCBloodDrainOK2Handler::execute ( GCBloodDrainOK2 * pPacket , Player * pPla
 		{
 			pCreature->ClearStopBloodDrain();
 
-			// ³»(Player)°¡ ´©±º°¡°¡ »ç¿ëÇÑ SKillÀ» ¸ÂÀº °æ¿ì..
+			// ë‚´(Player)ê°€ ëˆ„êµ°ê°€ê°€ ì‚¬ìš©í•œ SKillì„ ë§žì€ ê²½ìš°..
 			// [ TEST CODE ]
 			MActionResult* pResult = new MActionResult;
 			pResult->Add( new MActionResultNodeActionInfo( 
@@ -67,22 +68,22 @@ void GCBloodDrainOK2Handler::execute ( GCBloodDrainOK2 * pPacket , Player * pPla
 
 			// [ TEST CODE ]
 			//
-			// °á°ú¸¦ »ý¼º&ÀúÀåÇØ¼­ º¸³»¾ß ÇÑ´Ù.
+			// ê²°ê³¼ë¥¼ ìƒì„±&ì €ìž¥í•´ì„œ ë³´ë‚´ì•¼ í•œë‹¤.
 			//
-			// ¹æÇâÀ» ¹Ù¶óº¸±â
+			// ë°©í–¥ì„ ë°”ë¼ë³´ê¸°
 			pCreature->SetDirectionToPosition(g_pPlayer->GetX(), g_pPlayer->GetY());
 
 			//Duration_t	m_Duration;
 			pCreature->PacketSpecialActionToOther(
 								SKILL_BLOOD_DRAIN,
 								g_pPlayer->GetID(),
-								pResult						// °á°ú
+								pResult						// ê²°ê³¼
 			);
 		}
 	}	
 	
 	//------------------------------------------------------
-	// Player°¡ ±â¼úÀ» ´çÇßÀ» ¶§ÀÇ ¸ð½À..
+	// Playerê°€ ê¸°ìˆ ì„ ë‹¹í–ˆì„ ë•Œì˜ ëª¨ìŠµ..
 	//------------------------------------------------------
 	/*
 	int resultActionInfo =  SKILL_BLOOD_DRAIN + g_ActionInfoTable.GetMinResultActionInfo();
@@ -94,17 +95,17 @@ void GCBloodDrainOK2Handler::execute ( GCBloodDrainOK2 * pPacket , Player * pPla
 				);
 	*/
 	//------------------------------------------------------------
-	// Delay Frame ¼³Á¤
+	// Delay Frame ì„¤ì •
 	//------------------------------------------------------------
 	//g_pPlayer->SetEffectDelayFrame( resultActionInfo, delayFrame );
 
 	//------------------------------------------------------------------
-	// »óÅÂ°ªÀ» ¹Ù²Û´Ù.
+	// ìƒíƒœê°’ì„ ë°”ê¾¼ë‹¤.
 	//------------------------------------------------------------------
 	AffectModifyInfo(g_pPlayer, pPacket);
 	
 	//------------------------------------------------------------------
-	// ¹°¸° »óÅÂ..
+	// ë¬¼ë¦° ìƒíƒœ..
 	//------------------------------------------------------------------
 	if (g_pPlayer->GetEFFECT_STAT()!=EFFECTSTATUS_NULL)
 	{
@@ -116,8 +117,8 @@ void GCBloodDrainOK2Handler::execute ( GCBloodDrainOK2 * pPacket , Player * pPla
 	}
 
 	//------------------------------------------------------------------
-	// UI¿¡ º¸ÀÌ´Â °ÍÀ» ¹Ù²ãÁØ´Ù.
-	// ºñ±³¿¬»êÇÏ´Â°Åº¸´Ù ÀÌ°Ô ´õ ºü¸£Áö ¾ÊÀ»±î.. À½.. - -;
+	// UIì— ë³´ì´ëŠ” ê²ƒì„ ë°”ê¿”ì¤€ë‹¤.
+	// ë¹„êµì—°ì‚°í•˜ëŠ”ê±°ë³´ë‹¤ ì´ê²Œ ë” ë¹ ë¥´ì§€ ì•Šì„ê¹Œ.. ìŒ.. - -;
 	//------------------------------------------------------------------
 	//UI_SetHP( g_pPlayer->GetHP(), g_pPlayer->GetMAX_HP() );
 	//UI_SetMP( g_pPlayer->GetMP(), g_pPlayer->GetMAX_MP() );

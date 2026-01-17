@@ -28,7 +28,7 @@
 //////////////////////////////////////////////////
 // external variable
 //////////////////////////////////////////////////
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 extern int errno;
 #endif
 
@@ -54,14 +54,14 @@ using namespace FileAPI;
 //
 //////////////////////////////////////////////////////////////////////
 SOCKET SocketAPI::socket_ex ( int domain , int type , int protocol ) 
-	throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 	SOCKET s = ::socket(domain,type,protocol);
 
 	if ( s == INVALID_SOCKET ) {
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 		switch ( errno ) {
 		case EPROTONOSUPPORT :
 			throw Error("The protocol type or the specified protocol is not supported within this domain.");
@@ -136,10 +136,10 @@ void SocketAPI::bind_ex ( SOCKET s , const struct sockaddr * addr , uint addrlen
 	__BEGIN_TRY
 
 	if ( bind ( s , addr , addrlen ) == SOCKET_ERROR ) {
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 		switch ( errno ) {
 		case EADDRINUSE :
-			throw BindException("The address is already in use. kill another server or use another port. ¼ÒÄÏÀÇ ÁÖ¼Ò È¤Àº Æ÷Æ®°¡ ÀÌ¹Ì »ç¿ëÁßÀÔ´Ï´Ù. ±âÁ¸ÀÇ ¼­¹ö ¼ÒÄÏÀ» Á¾·áÇÏ°Å³ª, ´Ù¸¥ Æ÷Æ®¸¦ »ç¿ëÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.");
+			throw BindException("The address is already in use. kill another server or use another port. ì†Œì¼“ì˜ ì£¼ì†Œ í˜¹ì€ í¬íŠ¸ê°€ ì´ë¯¸ ì‚¬ìš©ì¤‘ì…ë‹ˆë‹¤. ê¸°ì¡´ì˜ ì„œë²„ ì†Œì¼“ì„ ì¢…ë£Œí•˜ê±°ë‚˜, ë‹¤ë¥¸ í¬íŠ¸ë¥¼ ì‚¬ìš©í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.");
 		case EINVAL : 
 			throw BindException("The socket is already bound to an address , or the addr_len was wrong, or the socket was not in the AF_UNIX family.");
 		case EACCES : 
@@ -226,7 +226,7 @@ void SocketAPI::connect_ex ( SOCKET s , const struct sockaddr * addr , uint addr
 	__BEGIN_TRY
 
 	if ( connect(s,addr,addrlen) == SOCKET_ERROR ) {
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 		switch ( errno ) {
 		case EALREADY : 
 			throw NonBlockingIOException("The socket is non-blocking and a previous connection attempt has not yet been completed.");
@@ -286,7 +286,7 @@ void SocketAPI::connect_ex ( SOCKET s , const struct sockaddr * addr , uint addr
 		case WSAETIMEDOUT : 
 			throw ConnectException("Attempt to connect timed out without establishing a connection.");
 		case WSAEWOULDBLOCK  : 
-			// ¿ÜºÎ¿¡¼­ ÀÌ°Ô catch°¡ ¾ÈµÇ´Â °æ¿ì°¡ ÀÖ°í º° ÀÇ¹Ì ¾ø¾î¼­..  
+			// ì™¸ë¶€ì—ì„œ ì´ê²Œ catchê°€ ì•ˆë˜ëŠ” ê²½ìš°ê°€ ìˆê³  ë³„ ì˜ë¯¸ ì—†ì–´ì„œ..  
 			// 2002.3.15
 			//throw NonBlockingIOException("The socket is marked as nonblocking and the connection cannot be completed immediately.");
 			throw ConnectException("WSAEWOULDBLOCK");
@@ -319,12 +319,12 @@ void SocketAPI::connect_ex ( SOCKET s , const struct sockaddr * addr , uint addr
 //
 //////////////////////////////////////////////////////////////////////
 void SocketAPI::listen_ex ( SOCKET s , uint backlog ) 
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 	if ( listen( s , backlog ) == SOCKET_ERROR ) {
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 		switch ( errno ) {
 		case EBADF : 
 			throw Error("Bad descriptor.");
@@ -394,14 +394,14 @@ SOCKET SocketAPI::accept_ex ( SOCKET s , struct sockaddr * addr , uint * addrlen
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	SOCKET client = accept( s , addr , addrlen );
 #elif __WINDOWS__
 	SOCKET client = accept( s , addr , (int*)addrlen );
 #endif
 	
 	if ( client == INVALID_SOCKET ) {
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 		switch ( errno ) {
 		case EWOULDBLOCK : 
 			throw NonBlockingIOException("The socket is marked non-blocking and no connections are present to be accepted.");
@@ -473,11 +473,11 @@ SOCKET SocketAPI::accept_ex ( SOCKET s , struct sockaddr * addr , uint * addrlen
 //
 //////////////////////////////////////////////////////////////////////
 void SocketAPI::getsockopt_ex ( SOCKET s , int level , int optname , void * optval , uint * optlen )
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	if ( getsockopt( s , level , optname , optval , optlen ) == SOCKET_ERROR ) {
 		switch ( errno ) {
 		case EBADF : 
@@ -541,11 +541,11 @@ void SocketAPI::getsockopt_ex ( SOCKET s , int level , int optname , void * optv
 //
 //////////////////////////////////////////////////////////////////////
 void SocketAPI::setsockopt_ex ( SOCKET s , int level , int optname , const void * optval , uint optlen )
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	if ( setsockopt( s , level , optname , optval , optlen ) == SOCKET_ERROR ) {
 		switch ( errno ) {
 			case EBADF : 
@@ -620,14 +620,14 @@ uint SocketAPI::send_ex ( SOCKET s , const void * buf , uint len , uint flags )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	int nSent = send(s,buf,len,flags);
 #elif __WINDOWS__
 	int nSent = send(s,(const char *)buf,len,flags);
 #endif
 
 	if ( nSent == SOCKET_ERROR ) {
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 		switch ( errno ) {
 		case EBADF : 
 			throw Error("An invalid descriptor was specified.");
@@ -644,7 +644,7 @@ uint SocketAPI::send_ex ( SOCKET s , const void * buf , uint len , uint flags )
 		case ECONNRESET :
 			throw ConnectException("connection reset by peer.");
 		case EPIPE :
-			throw ConnectException("pipe broken. may be peer host has shut down or has been disabled. »ó´ë È£½ºÆ®°¡ ¼Ë´Ù¿îµÇ¾ú°Å³ª ¿¬°áÀÌ ºÒ°¡´ÉÇÏ°Ô µÇ¾î ¼ÒÄÏ¿¬°áÀÌ ÆÄ±«µÇ¾ú½À´Ï´Ù.");
+			throw ConnectException("pipe broken. may be peer host has shut down or has been disabled. ìƒëŒ€ í˜¸ìŠ¤íŠ¸ê°€ ì…§ë‹¤ìš´ë˜ì—ˆê±°ë‚˜ ì—°ê²°ì´ ë¶ˆê°€ëŠ¥í•˜ê²Œ ë˜ì–´ ì†Œì¼“ì—°ê²°ì´ íŒŒê´´ë˜ì—ˆìŠµë‹ˆë‹¤.");
 		default : 
 			throw UnknownError(strerror(errno),errno);
 		}//end of switch
@@ -709,14 +709,14 @@ uint SocketAPI::sendto_ex ( SOCKET s , const void * buf , int len , unsigned int
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	int nSent = sendto(s,buf,len,flags,to,tolen);
 #elif __WINDOWS__
 	int nSent = sendto(s,(const char *)buf,len,flags,to,tolen);
 #endif
 
 	if ( nSent == SOCKET_ERROR ) {
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 		switch ( errno ) {
 		case EBADF : 
 			throw Error("An invalid descriptor was specified.");
@@ -733,7 +733,7 @@ uint SocketAPI::sendto_ex ( SOCKET s , const void * buf , int len , unsigned int
 		case ECONNRESET :
 			throw ConnectException("connection reset by peer.");
 		case EPIPE :
-			throw ConnectException("pipe broken. may be peer host has shut down or has been disabled. »ó´ë È£½ºÆ®°¡ ¼Ë´Ù¿îµÇ¾ú°Å³ª ¿¬°áÀÌ ºÒ°¡´ÉÇÏ°Ô µÇ¾î ¼ÒÄÏ¿¬°áÀÌ ÆÄ±«µÇ¾ú½À´Ï´Ù.");
+			throw ConnectException("pipe broken. may be peer host has shut down or has been disabled. ìƒëŒ€ í˜¸ìŠ¤íŠ¸ê°€ ì…§ë‹¤ìš´ë˜ì—ˆê±°ë‚˜ ì—°ê²°ì´ ë¶ˆê°€ëŠ¥í•˜ê²Œ ë˜ì–´ ì†Œì¼“ì—°ê²°ì´ íŒŒê´´ë˜ì—ˆìŠµë‹ˆë‹¤.");
 		default : 
 			throw UnknownError(strerror(errno),errno);
 		}	
@@ -776,14 +776,14 @@ uint SocketAPI::recv_ex ( SOCKET s , void * buf , uint len , uint flags )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	int nrecv = recv(s,buf,len,flags);
 #elif __WINDOWS__
 	int nrecv = recv(s,(char*)buf,len,flags);
 #endif
 
 	if ( nrecv == SOCKET_ERROR ) {
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 		switch ( errno ) {
 		case EBADF : 
 			throw Error("The argument s is an invalid descriptor.");
@@ -800,7 +800,7 @@ uint SocketAPI::recv_ex ( SOCKET s , void * buf , uint len , uint flags )
 		case ECONNRESET :
 			throw ConnectException("connection reset by peer.");
 		case EPIPE :
-			throw ConnectException("pipe broken. may be peer host has shut down or has been disabled. »ó´ë È£½ºÆ®°¡ ¼Ë´Ù¿îµÇ¾ú°Å³ª ¿¬°áÀÌ ºÒ°¡´ÉÇÏ°Ô µÇ¾î ¼ÒÄÏ¿¬°áÀÌ ÆÄ±«µÇ¾ú½À´Ï´Ù.");
+			throw ConnectException("pipe broken. may be peer host has shut down or has been disabled. ìƒëŒ€ í˜¸ìŠ¤íŠ¸ê°€ ì…§ë‹¤ìš´ë˜ì—ˆê±°ë‚˜ ì—°ê²°ì´ ë¶ˆê°€ëŠ¥í•˜ê²Œ ë˜ì–´ ì†Œì¼“ì—°ê²°ì´ íŒŒê´´ë˜ì—ˆìŠµë‹ˆë‹¤.");
 		default : 
 			throw UnknownError(strerror(errno),errno);
 		}//end of switch
@@ -859,14 +859,14 @@ uint SocketAPI::recvfrom_ex ( SOCKET s , void * buf , int len , uint flags , str
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	int nReceived = recvfrom(s,buf,len,flags,from,fromlen);
 #elif __WINDOWS__
 	int nReceived = recvfrom(s,(char*)buf,len,flags,from,(int*)fromlen);
 #endif
 
 	if ( nReceived == SOCKET_ERROR ) {
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 		switch ( errno ) {
 		case EBADF : 
 			throw Error("The argument s is an invalid descriptor.");
@@ -883,7 +883,7 @@ uint SocketAPI::recvfrom_ex ( SOCKET s , void * buf , int len , uint flags , str
 		case ECONNRESET :
 			throw ConnectException("connection reset by peer.");
 		case EPIPE :
-			throw ConnectException("pipe broken. may be peer host has shut down or has been disabled. »ó´ë È£½ºÆ®°¡ ¼Ë´Ù¿îµÇ¾ú°Å³ª ¿¬°áÀÌ ºÒ°¡´ÉÇÏ°Ô µÇ¾î ¼ÒÄÏ¿¬°áÀÌ ÆÄ±«µÇ¾ú½À´Ï´Ù.");
+			throw ConnectException("pipe broken. may be peer host has shut down or has been disabled. ìƒëŒ€ í˜¸ìŠ¤íŠ¸ê°€ ì…§ë‹¤ìš´ë˜ì—ˆê±°ë‚˜ ì—°ê²°ì´ ë¶ˆê°€ëŠ¥í•˜ê²Œ ë˜ì–´ ì†Œì¼“ì—°ê²°ì´ íŒŒê´´ë˜ì—ˆìŠµë‹ˆë‹¤.");
 		default : 
 			throw UnknownError(strerror(errno),errno);
 		}//end of switch
@@ -973,7 +973,7 @@ void SocketAPI::closesocket_ex ( SOCKET s )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	// using close_ex()
 	FileAPI::close_ex(s);
 #elif __WINDOWS__
@@ -1010,11 +1010,11 @@ void SocketAPI::closesocket_ex ( SOCKET s )
 //
 /////////////////////////////////////////////////////////////////////
 void SocketAPI::ioctlsocket_ex ( SOCKET s , long cmd , ulong * argp )
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	throw UnsupportedError();
 #elif __WINDOWS__
 	if ( ioctlsocket(s,cmd,argp) == SOCKET_ERROR ) {
@@ -1057,11 +1057,11 @@ void SocketAPI::ioctlsocket_ex ( SOCKET s , long cmd , ulong * argp )
 //
 //////////////////////////////////////////////////////////////////////
 bool SocketAPI::getsocketnonblocking_ex ( SOCKET s )
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	return FileAPI::getfilenonblocking_ex(s);
 #elif __WINDOWS__
 	throw UnsupportedError();
@@ -1090,11 +1090,11 @@ bool SocketAPI::getsocketnonblocking_ex ( SOCKET s )
 //
 //////////////////////////////////////////////////////////////////////
 void SocketAPI::setsocketnonblocking_ex ( SOCKET s , bool on )
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	FileAPI::setfilenonblocking_ex(s,on);
 #elif __WINDOWS__
 	ulong argp = ( on == true ) ? 1 : 0;
@@ -1122,11 +1122,11 @@ void SocketAPI::setsocketnonblocking_ex ( SOCKET s , bool on )
 //
 //////////////////////////////////////////////////////////////////////
 uint SocketAPI::availablesocket_ex ( SOCKET s )
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	return availablefile_ex(s);
 #elif __WINDOWS__
 	ulong argp = 0;
@@ -1157,12 +1157,12 @@ uint SocketAPI::availablesocket_ex ( SOCKET s )
 //
 //////////////////////////////////////////////////////////////////////
 void SocketAPI::shutdown_ex ( SOCKET s , uint how )
-	 throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 	if ( shutdown(s,how) < 0 ) {
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 		switch ( errno ) {
 		case EBADF : 
 			throw Error("s is not a valid descriptor.");
@@ -1204,11 +1204,11 @@ void SocketAPI::shutdown_ex ( SOCKET s , uint how )
 // system call for I/O multiplexing
 //
 // Parameters
-//     maxfdp1   - Å×½ºÆ®ÇÒ ÆÄÀÏ µğ½ºÅ©¸³ÅÍÁß °¡Àå Å« °ª + 1
-//     readset   - ÀÔ·ÂÀÌ µé¾î¿Ô´ÂÁö Å×½ºÆ®ÇÒ ÆÄÀÏ µğ½ºÅ©¸³ÅÍÀÇ ÁıÇÕ
-//     writeset  - Ãâ·ÂÀ» ÇÒ ¼ö ÀÖ´ÂÁö Å×½ºÆ®ÇÒ ÆÄÀÏ µğ½ºÅ©¸³ÅÍÀÇ ÁıÇÕ
-//     exceptset - OOB µ¥ÀÌÅ¸°¡ µé¾î¿Ô´ÂÁö Å×½ºÆ®ÇÒ ÆÄÀÏ µğ½ºÅ©¸³ÅÍÀÇ ÁıÇÕ
-//     timeout   - ¾ó¸¶³ª ±â´Ù¸± °ÍÀÎ°¡? 
+//     maxfdp1   - í…ŒìŠ¤íŠ¸í•  íŒŒì¼ ë””ìŠ¤í¬ë¦½í„°ì¤‘ ê°€ì¥ í° ê°’ + 1
+//     readset   - ì…ë ¥ì´ ë“¤ì–´ì™”ëŠ”ì§€ í…ŒìŠ¤íŠ¸í•  íŒŒì¼ ë””ìŠ¤í¬ë¦½í„°ì˜ ì§‘í•©
+//     writeset  - ì¶œë ¥ì„ í•  ìˆ˜ ìˆëŠ”ì§€ í…ŒìŠ¤íŠ¸í•  íŒŒì¼ ë””ìŠ¤í¬ë¦½í„°ì˜ ì§‘í•©
+//     exceptset - OOB ë°ì´íƒ€ê°€ ë“¤ì–´ì™”ëŠ”ì§€ í…ŒìŠ¤íŠ¸í•  íŒŒì¼ ë””ìŠ¤í¬ë¦½í„°ì˜ ì§‘í•©
+//     timeout   - ì–¼ë§ˆë‚˜ ê¸°ë‹¤ë¦´ ê²ƒì¸ê°€? 
 //
 // Return
 //     positive count of ready descriptors
@@ -1224,7 +1224,7 @@ int SocketAPI::select_ex ( int maxfdp1 , fd_set * readset , fd_set * writeset , 
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 
 	int result = select( maxfdp1 , readset , writeset , exceptset , timeout );
 

@@ -16,7 +16,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCAttackMeleeOK1Handler::execute ( GCAttackMeleeOK1 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -25,7 +26,7 @@ void GCAttackMeleeOK1Handler::execute ( GCAttackMeleeOK1 * pPacket , Player * pP
 	// message
 
 	//------------------------------------------------------------------
-	// Player°¡ ±â´Ù¸®´ø skillÀÇ ¼º°øÀ¯¹«¸¦ °ËÁõ¹Ş¾Ò´Ù.
+	// Playerê°€ ê¸°ë‹¤ë¦¬ë˜ skillì˜ ì„±ê³µìœ ë¬´ë¥¼ ê²€ì¦ë°›ì•˜ë‹¤.
 	//------------------------------------------------------------------
 	if (g_pPlayer->GetWaitVerify()==MPlayer::WAIT_VERIFY_SKILL_SUCCESS)
 	{		
@@ -37,12 +38,12 @@ void GCAttackMeleeOK1Handler::execute ( GCAttackMeleeOK1 * pPacket , Player * pP
 	}
 
 	//------------------------------------------------------------------
-	// »óÅÂ°ªÀ» ¹Ù²Û´Ù.
+	// ìƒíƒœê°’ì„ ë°”ê¾¼ë‹¤.
 	//------------------------------------------------------------------
 	AffectModifyInfo(g_pPlayer, pPacket);
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -51,18 +52,18 @@ void GCAttackMeleeOK1Handler::execute ( GCAttackMeleeOK1 * pPacket , Player * pP
 	}
 
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 
-		// Creature¿¡°Ô Damage ÀÔÈû
+		// Creatureì—ê²Œ Damage ì…í˜
 		if (pCreature != NULL)
 		{
-			// SKILL_ATTACK_MELEE¿¡ ´ëÇÑ °á°ú¸¦ Ç¥ÇöÇØÁØ´Ù.
+			// SKILL_ATTACK_MELEEì— ëŒ€í•œ ê²°ê³¼ë¥¼ í‘œí˜„í•´ì¤€ë‹¤.
 			/*
-			// ¹Ù·Î ¸Â´Â ¸ğ½À
+			// ë°”ë¡œ ë§ëŠ” ëª¨ìŠµ
 			pCreature->PacketSpecialActionResult( 
 								g_pPlayer->GetBasicActionInfo() + g_ActionInfoTable.GetMinResultActionInfo(),
 								pCreature->GetID(),
@@ -70,7 +71,7 @@ void GCAttackMeleeOK1Handler::execute ( GCAttackMeleeOK1 * pPacket , Player * pP
 								pCreature->GetY()
 								);
 				*/
-			// actionÀÌ ³¡³ª°í ¸Â´Â µ¿ÀÛ
+			// actionì´ ëë‚˜ê³  ë§ëŠ” ë™ì‘
 			if (pCreature!=NULL)
 			{
 				MActionResult* pResult = new MActionResult;

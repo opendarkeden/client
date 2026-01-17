@@ -2,7 +2,7 @@
 // CStorageSurface.cpp
 //----------------------------------------------------------------------
 #include "client_PCH.h"
-#include "CDirectDrawSurface.h"
+#include "CSpriteSurface.h"
 #include "CStorageSurface.h"
 //#include "DebugInfo.h"
 
@@ -31,31 +31,31 @@ CStorageSurface::~CStorageSurface()
 //----------------------------------------------------------------------
 // Init
 //----------------------------------------------------------------------
-// (»ç¿ëÇÒSurface°³¼ö, surface°¡·ÎÅ©±â, ¼¼·ÎÅ©±â)
+// (ì‚¬ìš©í• Surfaceê°œìˆ˜, surfaceê°€ë¡œí¬ê¸°, ì„¸ë¡œí¬ê¸°)
 //----------------------------------------------------------------------
 void
 CStorageSurface::Init(int size, int width, int height)
 {
-	// parameter°¡ Àß¸øµÈ °æ¿ì..
+	// parameterê°€ ì˜ëª»ëœ ê²½ìš°..
 	if (size==0 || width==0 || height==0)
 		return;
 
-	// ÀÏ´Ü ÀÌÀü¿¡ ÀÖ´ø°É ÇØÁ¦ÇÑ ÈÄ¿¡..
+	// ì¼ë‹¨ ì´ì „ì— ìˆë˜ê±¸ í•´ì œí•œ í›„ì—..
 	Release();	
 
-	// »õ·Î ¼³Á¤.. ¸Ş¸ğ¸® Àâ±â
+	// ìƒˆë¡œ ì„¤ì •.. ë©”ëª¨ë¦¬ ì¡ê¸°
 	m_Size = size;
-	m_pPoint = new POINT [m_Size];	
-	m_pStorageSurface = new CDirectDrawSurface [m_Size];
+	m_pPoint = new POINT [m_Size];
+	m_pStorageSurface = new CSpriteSurface [m_Size];
 
 	
 	for (int i=0; i<m_Size; i++)	
 	{
-		// °¢ surfaceÀÇ ±â¾ï À§Ä¡¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+		// ê° surfaceì˜ ê¸°ì–µ ìœ„ì¹˜ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 		m_pPoint[i].x = 0;
 		m_pPoint[i].y = 0;
 
-		// °¢ surfaceÀÇ Å©±â¸¦ °áÁ¤ÇØµĞ´Ù.
+		// ê° surfaceì˜ í¬ê¸°ë¥¼ ê²°ì •í•´ë‘”ë‹¤.
 		m_pStorageSurface[i].InitOffsurface(width, height);
 		m_pStorageSurface[i].SetTransparency(0);
 	}
@@ -64,7 +64,7 @@ CStorageSurface::Init(int size, int width, int height)
 //----------------------------------------------------------------------
 // Release
 //----------------------------------------------------------------------
-// ¸Ş¸ğ¸® Á¦°Å
+// ë©”ëª¨ë¦¬ ì œê±°
 //----------------------------------------------------------------------
 void
 CStorageSurface::Release()
@@ -87,12 +87,12 @@ CStorageSurface::Release()
 //----------------------------------------------------------------------
 // Store
 //----------------------------------------------------------------------
-// pSurfaceÀÇ pPointºÎºĞÀ» ÀĞ¾î¼­ i¹øÂ° surface¿¡ ±â¾ï½ÃÄÑµĞ´Ù.
+// pSurfaceì˜ pPointë¶€ë¶„ì„ ì½ì–´ì„œ ië²ˆì§¸ surfaceì— ê¸°ì–µì‹œì¼œë‘”ë‹¤.
 //----------------------------------------------------------------------
 void				
-CStorageSurface::Store(int i, CDirectDrawSurface* pSurface, POINT* pPoint)
+CStorageSurface::Store(int i, CSpriteSurface* pSurface, POINT* pPoint)
 {
-	// i°¡ ¾ø´Â surface¹øÈ£ÀÏ °æ¿ì..
+	// iê°€ ì—†ëŠ” surfaceë²ˆí˜¸ì¼ ê²½ìš°..
 	if (i<0 || i>=m_Size)
 		return;
 
@@ -125,7 +125,7 @@ CStorageSurface::Store(int i, CDirectDrawSurface* pSurface, POINT* pPoint)
 		height = pSurface->GetHeight();
 	}	
 
-	// pSurface¿¡¼­ ±â¾ï½ÃÄÑµÑ ¿µ¿ª
+	// pSurfaceì—ì„œ ê¸°ì–µì‹œì¼œë‘˜ ì˜ì—­
 	RECT	rect = 
 			{
 				pPoint->x, 
@@ -135,11 +135,11 @@ CStorageSurface::Store(int i, CDirectDrawSurface* pSurface, POINT* pPoint)
 			};	
 	
 	
-	// ±â¾ï½ÃÅ² À§Ä¡¸¦ ÀúÀåÇØµĞ´Ù.
+	// ê¸°ì–µì‹œí‚¨ ìœ„ì¹˜ë¥¼ ì €ì¥í•´ë‘”ë‹¤.
 	m_pPoint[i] = *pPoint;
 
-	// m_pStorageSurface[i]ÀÇ (0,0)¿¡ 
-	// pSurfaceÀÇ ¿µ¿ªÀ» ±â¾ï½ÃÄÑµĞ´Ù.
+	// m_pStorageSurface[i]ì˜ (0,0)ì— 
+	// pSurfaceì˜ ì˜ì—­ì„ ê¸°ì–µì‹œì¼œë‘”ë‹¤.
 	m_pStorageSurface[i].BltNoColorkey(&origin, pSurface, &rect);
 
 	//DEBUG_ADD_FORMAT("Store : [%d] (%d, %d)", i, m_pPoint[i].x, m_pPoint[i].y);
@@ -148,16 +148,16 @@ CStorageSurface::Store(int i, CDirectDrawSurface* pSurface, POINT* pPoint)
 //----------------------------------------------------------------------
 // Restore
 //----------------------------------------------------------------------
-// i¹øÂ° surface¸¦ pSurfaceÀÇ ¿ø·¡À§Ä¡(m_pPoint)·Î Ãâ·ÂÇØÁØ´Ù.
+// ië²ˆì§¸ surfaceë¥¼ pSurfaceì˜ ì›ë˜ìœ„ì¹˜(m_pPoint)ë¡œ ì¶œë ¥í•´ì¤€ë‹¤.
 //----------------------------------------------------------------------
 void				
-CStorageSurface::Restore(int i, CDirectDrawSurface* pSurface, POINT* pPoint) const
+CStorageSurface::Restore(int i, CSpriteSurface* pSurface, POINT* pPoint) const
 {
-	// i°¡ ¾ø´Â surface¹øÈ£ÀÏ °æ¿ì..
+	// iê°€ ì—†ëŠ” surfaceë²ˆí˜¸ì¼ ê²½ìš°..
 	if (i<0 || i>=m_Size)
 		return;
 
-	// pSurface¿¡¼­ ±â¾ï½ÃÄÑµÑ ¿µ¿ª
+	// pSurfaceì—ì„œ ê¸°ì–µì‹œì¼œë‘˜ ì˜ì—­
 	RECT	rect = 
 			{
 				0, 
@@ -167,8 +167,8 @@ CStorageSurface::Restore(int i, CDirectDrawSurface* pSurface, POINT* pPoint) con
 			};
 
 
-	// pSurfaceÀÇ ¿ø·¡ À§Ä¡(m_pPoint)¿¡ 
-	// m_pStorageSurface[i]ÀÇ ±â¾ïµÈ ¿µ¿ªÀ» Ãâ·Â½ÃÅ²´Ù.	
+	// pSurfaceì˜ ì›ë˜ ìœ„ì¹˜(m_pPoint)ì— 
+	// m_pStorageSurface[i]ì˜ ê¸°ì–µëœ ì˜ì—­ì„ ì¶œë ¥ì‹œí‚¨ë‹¤.	
 	if (pPoint==NULL)
 	{
 		POINT point = m_pPoint[i];

@@ -14,15 +14,16 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCGetOffMotorCycleFailedHandler::execute ( GCGetOffMotorCycleFailed * pPacket, Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-#if __GAME_CLIENT__
+#ifdef __GAME_CLIENT__
 
 
 	//------------------------------------------
-	// ¾îÂ¶µç °£¿¡.. °ËÁõÀÌ µÇ¾ú´Ù°í º»´Ù.
+	// ì–´ì¨‹ë“  ê°„ì—.. ê²€ì¦ì´ ë˜ì—ˆë‹¤ê³  ë³¸ë‹¤.
 	//------------------------------------------
 	g_pPlayer->SetWaitVerifyNULL();
 

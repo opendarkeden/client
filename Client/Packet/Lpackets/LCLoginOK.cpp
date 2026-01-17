@@ -19,7 +19,7 @@ void LCLoginOK::read ( SocketInputStream & iStream )
 {
 	__BEGIN_TRY
 
-	// ¼­¹ö ±×·ì ÀÌ¸§À» ÀĞ´Â´Ù.
+	// ì„œë²„ ê·¸ë£¹ ì´ë¦„ì„ ì½ëŠ”ë‹¤.
 	iStream.read( m_isAdult );
 	iStream.read( m_bFamily );
 	iStream.read( m_Stat );
@@ -37,7 +37,7 @@ void LCLoginOK::write ( SocketOutputStream & oStream ) const
 {
 	__BEGIN_TRY
 
-	// ±×·ì ÀÌ¸§À» ¾´´Ù.
+	// ê·¸ë£¹ ì´ë¦„ì„ ì“´ë‹¤.
 	oStream.write( m_isAdult );
 	oStream.write( m_bFamily );
 	oStream.write( m_Stat );

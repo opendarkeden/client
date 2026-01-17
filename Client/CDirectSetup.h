@@ -5,7 +5,11 @@
 #ifndef	__CDIRECTSETUP_H__
 #define	__CDIRECTSETUP_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 
 
 //-----------------------------------------------------------------------------
@@ -43,13 +47,13 @@ class CDirectSetup {
 		CDirectSetup();
 		~CDirectSetup();
 		
-		// DirectX¸¦ ¼³Ä¡ÇÑ´Ù.
+		// DirectXë¥¼ ì„¤ì¹˜í•œë‹¤.
 		//static BOOL			DirectXInstall(HWND hWnd, HINSTANCE hInstance, const char* subDir, bool bInstall=true);
 
-		// versionÀ» ¾ò¾î¿Â´Ù.
+		// versionì„ ì–»ì–´ì˜¨ë‹¤.
 		static void			GetVersion( DWORD* pdwDXVersion, DWORD* pdwDXPlatform );		
 
-		// ÀçºÎÆÃ ÇÑ´Ù¸é, ±× ¶§ ½ÇÇàÇÒ ÇÁ·Î±×·¥
+		// ì¬ë¶€íŒ… í•œë‹¤ë©´, ê·¸ ë•Œ ì‹¤í–‰í•  í”„ë¡œê·¸ë¨
 		//static void			SetRestartProgram(const char* filename);
 
 	protected :

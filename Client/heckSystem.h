@@ -1,10 +1,17 @@
 // heckSystem.h: interface for the CheckSystem class.
 //
 //////////////////////////////////////////////////////////////////////
-#include <windows.h>
+#ifndef __HECKSYSTEM_H__
+#define __HECKSYSTEM_H__
+
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 
 
-class CheckSystem  
+class CheckSystem
 {
 public:
 	BOOL GetSystem();

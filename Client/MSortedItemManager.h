@@ -7,6 +7,8 @@
 
 #pragma warning(disable:4786)
 
+#include <map>
+
 class MItem;
 
 class MSortedItemManager : public std::map<ULONGLONG, MItem*> {
@@ -19,22 +21,22 @@ class MSortedItemManager : public std::map<ULONGLONG, MItem*> {
 		MSortedItemManager();
 		~MSortedItemManager();
 
-		void		Release();											// ¸ğµÎ deleteÇÏ°í mapÀ» Áö¿î´Ù.
-		void		Clear()		{ m_NumTwoByTwo = 0; clear(); }			// map¿¡¼­ ±×³É Áö¿î´Ù.
+		void		Release();											// ëª¨ë‘ deleteí•˜ê³  mapì„ ì§€ìš´ë‹¤.
+		void		Clear()		{ m_NumTwoByTwo = 0; clear(); }			// mapì—ì„œ ê·¸ëƒ¥ ì§€ìš´ë‹¤.
 
 		//----------------------------------------------------------
-		// 2 x 2ÀÇ °³¼ö
+		// 2 x 2ì˜ ê°œìˆ˜
 		//----------------------------------------------------------
 		void		SetTwoByTwoNumber(int n);
 		int			GetTwoByTwoNumber() const	{ return m_NumTwoByTwo; }
 
 		//----------------------------------------------------------
-		// item Ãß°¡
+		// item ì¶”ê°€
 		//----------------------------------------------------------
 		bool		AddItem(MItem* pItem);
 
 		//----------------------------------------------------------
-		// mapÃß°¡
+		// mapì¶”ê°€
 		//----------------------------------------------------------
 		//void		Merge(const MSortedItemManager& sim);
 
@@ -44,7 +46,7 @@ class MSortedItemManager : public std::map<ULONGLONG, MItem*> {
 	protected :
 		ULONGLONG	GetKey(MItem* pItem);
 		int			m_NumTwoByTwo;
-		int			m_NumTwoByTwoTemp;				// ÀÓ½Ã - GetKey¿¡¼­ ÇÊ¼ö!
+		int			m_NumTwoByTwoTemp;				// ì„ì‹œ - GetKeyì—ì„œ í•„ìˆ˜!
 };
 
 #endif

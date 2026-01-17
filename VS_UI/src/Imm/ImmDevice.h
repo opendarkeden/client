@@ -37,6 +37,7 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
+#ifdef PLATFORM_WINDOWS
 #ifndef _IFCDLL_
 #define DLLIFC __declspec(dllimport)
 #else
@@ -44,6 +45,9 @@
 #endif
 
 #include <dinput.h>
+#else
+#define DLLIFC
+#endif
 #include "ImmBaseTypes.h"
 
 #ifdef IFC_EFFECT_CACHING
@@ -101,8 +105,9 @@ const DWORD IMM_IHDFF			=0x00000004;
 const DWORD IMM_VIBROFF			=0x00000008;
 
 //Product Types (not to be confused with product GUIDs)
+#ifdef PLATFORM_WINDOWS
 const DWORD IMM_JOYSTICK_FULLFF	= MAKELONG(IMM_FULLFF, IMM_JOYSTICK);
-const DWORD IMM_WHEEL_FULLFF	= MAKELONG(IMM_FULLFF, IMM_WHEEL); 
+const DWORD IMM_WHEEL_FULLFF		= MAKELONG(IMM_FULLFF, IMM_WHEEL);
 const DWORD IMM_GAMEPAD_FULLFF	= MAKELONG(IMM_FULLFF, IMM_GAMEPAD);
 const DWORD IMM_ABSMOUSE_FULLFF	= MAKELONG(IMM_FULLFF, IMM_ABSMOUSE);
 
@@ -115,6 +120,7 @@ const DWORD IMM_JOYSTICK_VIBROFF= MAKELONG(IMM_VIBROFF, IMM_JOYSTICK);
 const DWORD IMM_WHEEL_VIBROFF	= MAKELONG(IMM_VIBROFF, IMM_WHEEL);
 const DWORD IMM_GAMEPAD_VIBROFF	= MAKELONG(IMM_VIBROFF, IMM_GAMEPAD);
 const DWORD IMM_RELMOUSE_VIBROFF= MAKELONG(IMM_VIBROFF, IMM_RELMOUSE);
+#endif
 
 //================================================================
 // CImmDevice

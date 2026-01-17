@@ -52,7 +52,7 @@ const std::string UPDATETYPE2String[] = {
 //
 // class Update;
 //
-// Æ¯Á¤ ¹öÀüÀÇ Smart Update ¸í·É ÇÏ³ª¿Í ´ëÀÀµÇ´Â Å¬·¡½ºÀÌ´Ù.
+// íŠ¹ì • ë²„ì „ì˜ Smart Update ëª…ë ¹ í•˜ë‚˜ì™€ ëŒ€ì‘ë˜ëŠ” í´ë˜ìŠ¤ì´ë‹¤.
 // 
 //--------------------------------------------------------------------------------
 class Update {
@@ -63,10 +63,10 @@ public :
 	int			getFileSize(uint i);
 
 	// load from file
-	void load ( class ifstream & ifile );
+	void load ( std::ifstream & ifile );
 
 	// save to file
-	void save ( class ofstream & ofile ) const;
+	void save ( std::ofstream & ofile ) const;
 
 	// get size
 	uint getSize () const;

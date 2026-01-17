@@ -25,17 +25,17 @@ bool
 MRippleZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 {
 	//---------------------------------------------
-	// pixelÁÂÇ¥¸¦ MapÀÇ ÁÂÇ¥·Î ¹Ù²ãÁØ´Ù.
+	// pixelì¢Œí‘œë¥¼ Mapì˜ ì¢Œí‘œë¡œ ë°”ê¿”ì¤€ë‹¤.
 	//---------------------------------------------
 	TYPE_SECTORPOSITION	sX, sY;
 	sX = g_pTopView->PixelToMapX(egInfo.x0);
 	sY = g_pTopView->PixelToMapY(egInfo.y0);
 
-	// ´ÙÀ½ ÁÂÇ¥¸¦ Á¤ÇÑ´Ù.	
+	// ë‹¤ìŒ ì¢Œí‘œë¥¼ ì •í•œë‹¤.	
 	TYPE_SECTORPOSITION x=sX, y=sY;
 	MCreature::GetPositionToDirection(x,y, egInfo.direction);
 
-	// ZoneÀÇ ¿µ¿ªÀ» ¹ş¾î³ª´Â °æ¿ì..
+	// Zoneì˜ ì˜ì—­ì„ ë²—ì–´ë‚˜ëŠ” ê²½ìš°..
 	if (x<0 || y<0 || x>=g_pZone->GetWidth() || y>=g_pZone->GetHeight())
 			return false;
 
@@ -46,30 +46,30 @@ MRippleZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 	MEffect*	pEffect;
 	//---------------------------------------------
-	// Effect »ı¼º
+	// Effect ìƒì„±
 	//---------------------------------------------
 	pEffect = new MEffect(bltType);
 
 	pEffect->SetFrameID( frameID, maxFrame );	
 
-	pEffect->SetPosition(x, y);		// Sector ÁÂÇ¥		
+	pEffect->SetPosition(x, y);		// Sector ì¢Œí‘œ		
 	
-	// ¹æÇâ ¼³Á¤
+	// ë°©í–¥ ì„¤ì •
 	pEffect->SetDirection( egInfo.direction );
 
 	pEffect->SetZ(egInfo.z0);			
-	pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
-	pEffect->SetCount( egInfo.count, egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+	pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ì…í•´ì¤€ë‹¤.
+	pEffect->SetCount( egInfo.count, egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 
-	// À§·Â
+	// ìœ„ë ¥
 	pEffect->SetPower(egInfo.power);
 
-	// ºûÀÇ ¹à±â
+	// ë¹›ì˜ ë°ê¸°
 	//pEffect->SetLight( light );
 
-	// Zone¿¡ Ãß°¡ÇÑ´Ù.
+	// Zoneì— ì¶”ê°€í•œë‹¤.
 
-	// ±×¸²¿¡ µû¶ó¼­... ¹Ù´Ú¿¡ Ãß°¡ÇÏ±âµµ ÇÑ´Ù. ¿ª½¬ ÇÏµåÄÚµù ¤»¤»..
+	// ê·¸ë¦¼ì— ë”°ë¼ì„œ... ë°”ë‹¥ì— ì¶”ê°€í•˜ê¸°ë„ í•œë‹¤. ì—­ì‰¬ í•˜ë“œì½”ë”© ã…‹ã…‹..
 	if (egInfo.effectSpriteType==EFFECTSPRITETYPE_EARTHQUAKE_1
 		|| egInfo.effectSpriteType==EFFECTSPRITETYPE_EARTHQUAKE_2
 		|| egInfo.effectSpriteType==EFFECTSPRITETYPE_EARTHQUAKE_3
@@ -83,7 +83,7 @@ MRippleZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		
 	if (g_pZone->AddEffect( pEffect ))
 	{
-		// ´ÙÀ½ Effect »ı¼º Á¤º¸
+		// ë‹¤ìŒ Effect ìƒì„± ì •ë³´
 		pEffect->SetLink( egInfo.nActionInfo, egInfo.pEffectTarget );
 
 		return true;

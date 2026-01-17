@@ -13,7 +13,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCAddInstalledMineToZoneHandler::execute ( GCAddInstalledMineToZone * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -34,7 +35,7 @@ void GCAddInstalledMineToZoneHandler::execute ( GCAddInstalledMineToZone * pPack
 
 	if (pItem==NULL)
 	{
-		// ¸ÓÁö
+		// ë¨¸ì§€
 		DEBUG_ADD("[Error] Can't Installed Mine");
 	}
 	else if (pItem->GetItemClass()==ITEM_CLASS_MINE)

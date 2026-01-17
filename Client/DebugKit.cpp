@@ -6,8 +6,10 @@
 #include "stdafx.h"
 #include "DebugKit.h"
 
+#ifdef PLATFORM_WINDOWS
 #include <wtypes.h>
-#include "fstream"
+#endif
+#include <fstream>
 
 extern BOOL g_bMsgOutPutFlag;
 extern BOOL g_bMsgDetailFlag;
@@ -121,8 +123,8 @@ CMessageStringTable::~CMessageStringTable()
 void CMessageStringTable::LoadFromFile(std::string strFileName)
 {
 	int i=0;
-	std::ifstream ifile( strFileName.c_str() , ios::in );
-//	std::ifstream ifile( "MessageDefine.ini" , ios::in );
+	std::ifstream ifile( strFileName.c_str() , std::ios::in );
+//	std::ifstream ifile( "MessageDefine.ini" , std::ios::in );
 	if ( ! ifile )
 		return;	
 	while ( true ) {

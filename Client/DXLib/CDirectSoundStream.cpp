@@ -2,6 +2,10 @@
 // CDirectSoundStream.cpp
 //-----------------------------------------------------------------------------
 
+// Only compile DirectSoundStream implementation on Windows platforms
+// On non-Windows platforms (macOS/Linux with SDL2), we only use the stub class from CDirectSoundStream.h
+#ifdef PLATFORM_WINDOWS
+
 #include "CDirectSoundStream.h"
 #include "CDirectSound.h"
 
@@ -74,7 +78,7 @@ CDirectSoundStream::Release()
 
 
 //----------------------------------------------------------------------
-// »≠¿œ ∑ŒµÂ(*.wav)
+// ÌôîÏùº Î°úÎìú(*.wav)
 //----------------------------------------------------------------------
 void
 CDirectSoundStream::Load(LPSTR filename)
@@ -151,7 +155,7 @@ CDirectSoundStream::Load(LPSTR filename)
 			ZeroMemory( &dsbd, sizeof(DSBUFFERDESC) );
 			dsbd.dwSize        = sizeof(DSBUFFERDESC);
 			dsbd.dwFlags       = DSBCAPS_CTRLPOSITIONNOTIFY 
-								// øÏ«Ï«Ï ¿Ã∞≈ æ» ≥÷¿∫∞… ¿Ã¡¶ πﬂ∞ﬂ«ﬂ¥Ÿ. 2001.9.21
+								// Ïö∞Ìó§Ìó§ Ïù¥Í±∞ Ïïà ÎÑ£ÏùÄÍ±∏ Ïù¥Ï†ú Î∞úÍ≤¨ÌñàÎã§. 2001.9.21
 								| DSBCAPS_CTRLVOLUME		
 								| DSBCAPS_GETCURRENTPOSITION2;
 			dsbd.dwBufferBytes = m_dwBufferSize;
@@ -249,7 +253,7 @@ CDirectSoundStream::Play( BOOL bLooped )
 
 		m_bPlay = TRUE;
 	
-		// volume ¡∂¿˝
+		// volume Ï°∞Ï†à
 		if (m_pDSBuffer!=NULL)
 		{
 			m_pDSBuffer->SetVolume( m_MaxVolume );	
@@ -519,7 +523,7 @@ CDirectSoundStream::HandleNotification( BOOL bLooped )
     m_pDSBuffer->Unlock( pbBuffer, dwBufferLength, NULL, 0 );
     pbBuffer = NULL;
 	
-	// volume ¡∂¿˝
+	// volume Ï°∞Ï†à
 	static LONG previousVolume = m_MaxVolume;
 
 	if (previousVolume!=m_MaxVolume && m_pDSBuffer!=NULL)
@@ -637,7 +641,7 @@ CDirectSoundStream::RestoreBuffers( BOOL bLooped )
 //-----------------------------------------------------------------------------
 // Update
 //-----------------------------------------------------------------------------
-// event√≥∏Æ
+// eventÏ≤òÎ¶¨
 //-----------------------------------------------------------------------------
 void					
 CDirectSoundStream::Update()
@@ -657,7 +661,7 @@ CDirectSoundStream::Update()
 			}
 
 			//---------------------------------------------------------
-			// ¡ﬂ¡ˆ µ∆¿ª ∂ß,
+			// Ï§ëÏßÄ ÎêêÏùÑ Îïå,
 			//---------------------------------------------------------
 			if (WaitForSingleObject(m_hNotificationEvents[1], 0) == WAIT_OBJECT_0)
 			{
@@ -686,3 +690,4 @@ CDirectSoundStream::SetVolumeLimit(LONG volume)
 	}
 	
 }
+#endif /* PLATFORM_WINDOWS */

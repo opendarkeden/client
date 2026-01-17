@@ -15,7 +15,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCAddWolfHandler::execute ( GCAddWolf * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -24,11 +25,11 @@ void GCAddWolfHandler::execute ( GCAddWolf * pPacket , Player * pPlayer )
 	
 	int wolfCreatureType = 186;
 
-	if( pPacket->getItemType() == 39 )			// Were Wolf·Î º¯½Å
+	if( pPacket->getItemType() == 39 )			// Were Wolfë¡œ ë³€ì‹ 
 		wolfCreatureType = CREATURETYPE_WER_WOLF;
 	
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -37,14 +38,14 @@ void GCAddWolfHandler::execute ( GCAddWolf * pPacket , Player * pPlayer )
 		
 	}	
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature(pPacket->getObjectID());
 
 		//--------------------------------------------------
-		// »õ·Î¿î CreatureÀÌ¸é Ãß°¡
+		// ìƒˆë¡œìš´ Creatureì´ë©´ ì¶”ê°€
 		//--------------------------------------------------
 		if (pCreature==NULL)
 		{
@@ -73,8 +74,8 @@ void GCAddWolfHandler::execute ( GCAddWolf * pPacket , Player * pPlayer )
 			pCreature->SetStatus( MODIFY_CURRENT_HP, pPacket->getCurrentHP() );
 
 			//pPacket->getName()
-			// »ö»ó Á¤º¸
-			// ÀÓ½Ã·Î
+			// ìƒ‰ìƒ ì •ë³´
+			// ìž„ì‹œë¡œ
 			pCreature->SetGuildNumber( pPacket->getGuildID() );
 
 			if (!g_pZone->AddCreature( pCreature ))
@@ -84,13 +85,13 @@ void GCAddWolfHandler::execute ( GCAddWolf * pPacket , Player * pPlayer )
 			}
 		}
 		//--------------------------------------------------
-		// ÀÌ¹Ì ÀÖ´Â CreatureÀÎ °æ¿ì
+		// ì´ë¯¸ ìžˆëŠ” Creatureì¸ ê²½ìš°
 		//--------------------------------------------------
 		else
 		{
 			pCreature->SetCreatureType( wolfCreatureType );
 
-			// ÀÓ½Ã·Î
+			// ìž„ì‹œë¡œ
 			pCreature->SetGuildNumber( pPacket->getGuildID() );
 
 			pCreature->SetGroundCreature();
@@ -106,29 +107,29 @@ void GCAddWolfHandler::execute ( GCAddWolf * pPacket , Player * pPlayer )
 			pCreature->SetStatus( MODIFY_CURRENT_HP, pPacket->getCurrentHP() );
 
 			//--------------------------------------------------
-			// ´Á´ë·Î º¯½ÅÇÏ´Â °á°ú
+			// ëŠ‘ëŒ€ë¡œ ë³€ì‹ í•˜ëŠ” ê²°ê³¼
 			//--------------------------------------------------
 			MActionResult* pResult = new MActionResult;
 
 			pResult->Add( new MActionResultNodeChangeCreatureType( pCreature->GetID(), wolfCreatureType ) );
 
 			//--------------------------------------------------
-			// ´Á´ë º¯½Å 
+			// ëŠ‘ëŒ€ ë³€ì‹  
 			//--------------------------------------------------								
 			ExecuteActionInfoFromMainNode(
-				RESULT_MAGIC_TRANSFORM_TO_WOLF,										// »ç¿ë ±â¼ú ¹øÈ£
+				RESULT_MAGIC_TRANSFORM_TO_WOLF,										// ì‚¬ìš© ê¸°ìˆ  ë²ˆí˜¸
 			
 				pCreature->GetX(), pCreature->GetY(), 0,
-				pCreature->GetDirection(),														// »ç¿ë ¹æÇâ
+				pCreature->GetDirection(),														// ì‚¬ìš© ë°©í–¥
 				
-				OBJECTID_NULL,												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+				OBJECTID_NULL,												// ëª©í‘œì— ëŒ€í•œ ì •ë³´
 				pCreature->GetX(), pCreature->GetY(), 0, 
 				
-				0,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+				0,													// ê¸°ìˆ ì˜ (ë‚¨ì€) ì§€ì† ì‹œê°„		
 				
 				pResult, //NULL,
 				
-				false);			// ±â¼ú Ã·ºÎÅÍ ½ÃÀÛÇÑ´Ù.
+				false);			// ê¸°ìˆ  ì²¨ë¶€í„° ì‹œìž‘í•œë‹¤.
 
 			//pCreature->SetDelay( 1000 );
 		}	
@@ -137,7 +138,7 @@ void GCAddWolfHandler::execute ( GCAddWolf * pPacket , Player * pPlayer )
 			pCreature->SetBodyColor1( pPacket->getColor() );
 	}
 
-	// [µµ¿ò¸»] Vampire°¡ ³ªÅ¸³¯¶§
+	// [ë„ì›€ë§] Vampireê°€ ë‚˜íƒ€ë‚ ë•Œ
 //	__BEGIN_HELP_EVENT
 //		//ExecuteHelpEvent( HE_CREATURE_APPEAR_VAMPIRE );
 //	__END_HELP_EVENT

@@ -1,17 +1,23 @@
 //---------------------------------------------------------------------------------
 // ExperienceTable.h
 //---------------------------------------------------------------------------------
-// ÀÌ¹Ì È­ÀÏÀÌ Á¸ÀçÇÏ°í.. °Å±â¼­ ÀĞ¾î¿Â´Ù°í °¡Á¤Çß±â ¶§¹®¿¡.. 
-// saveÇÔ¼ö´Â ¾ø´ç..
+// ì´ë¯¸ í™”ì¼ì´ ì¡´ì¬í•˜ê³ .. ê±°ê¸°ì„œ ì½ì–´ì˜¨ë‹¤ê³  ê°€ì •í–ˆê¸° ë•Œë¬¸ì—.. 
+// saveí•¨ìˆ˜ëŠ” ì—†ë‹¹..
 //---------------------------------------------------------------------------------
 
 #ifndef __EXPERIENCETABLE_H__
 #define __EXPERIENCETABLE_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "ExpInfo.h"
 #include "RaceType.h"
-class ifstream;
+
+#include <fstream>
+using namespace std;
 
 //---------------------------------------------------------------------------------
 // ExperienceTable
@@ -45,16 +51,16 @@ class ExperienceTable {
 		//----------------------------------------------------------------
 		// Load From File
 		//----------------------------------------------------------------
-		void				LoadFromFileSTR(class ifstream& file);
-		void				LoadFromFileDEX(class ifstream& file);
-		void				LoadFromFileINT(class ifstream& file);
-		void				LoadFromFileVampire(class ifstream& file);
-		void				LoadFromFileOusters(class ifstream& file);
-		void				LoadFromFileSlayerRank(class ifstream& file);
-		void				LoadFromFileVampireRank(class ifstream& file);
-		void				LoadFromFileOustersRank(class ifstream& file);
-		void				LoadFromFilePetExp(class ifstream& file);
-		void				LoadFromFileAdvanceMent(class ifstream& file);
+		void				LoadFromFileSTR(std::ifstream& file);
+		void				LoadFromFileDEX(std::ifstream& file);
+		void				LoadFromFileINT(std::ifstream& file);
+		void				LoadFromFileVampire(std::ifstream& file);
+		void				LoadFromFileOusters(std::ifstream& file);
+		void				LoadFromFileSlayerRank(std::ifstream& file);
+		void				LoadFromFileVampireRank(std::ifstream& file);
+		void				LoadFromFileOustersRank(std::ifstream& file);
+		void				LoadFromFilePetExp(std::ifstream& file);
+		void				LoadFromFileAdvanceMent(std::ifstream& file);
 
 	public :
 		ExpTable			m_STRExp;

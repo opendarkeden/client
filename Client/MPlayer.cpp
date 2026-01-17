@@ -2,10 +2,10 @@
 // MPlayer.cpp
 //----------------------------------------------------------------------
 //
-// m_nUsedActionInfo´Â ´ÙÀ½ turn¿¡ ¹Ù·Î ¼öÇàÇÏ°Ô µÇ´Â µ¿ÀÛÀÌ°í
+// m_nUsedActionInfoëŠ” ë‹¤ìŒ turnì— ë°”ë¡œ ìˆ˜í–‰í•˜ê²Œ ë˜ëŠ” ë™ì‘ì´ê³ 
 //
-// m_nNextUsedActionInfo´Â 
-//          ÃßÀûÀÌ ³¡³ª°í ³ª¼­¾ß ¼öÇàÇÏ°Ô µÇ´Â µ¿ÀÛÀÌ´Ù.(bufferÀÇ ¿ªÇÒ)
+// m_nNextUsedActionInfoëŠ” 
+//          ì¶”ì ì´ ëë‚˜ê³  ë‚˜ì„œì•¼ ìˆ˜í–‰í•˜ê²Œ ë˜ëŠ” ë™ì‘ì´ë‹¤.(bufferì˜ ì—­í• )
 //
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
@@ -40,8 +40,8 @@
 #include "MObjectSelector.h"
 #include "SoundDef.h"
 #include "MItemFinder.h"
-#include "packet\Cpackets\CGSelectTileEffect.h"
-#include "packet\Cpackets\CGPartyInvite.h"
+#include "packet/Cpackets/CGSelectTileEffect.h"
+#include "packet/Cpackets/CGPartyInvite.h"
 #include "EffectSpriteTypeDef.h"
 #include "ModifyStatusManager.h"
 #include "ClientCommunicationManager.h"
@@ -49,11 +49,11 @@
 #include "MItemFinder.h"
 #include "MZoneTable.h"
 
-#include "Rpackets\RCPositionInfo.h"
-#include "Rpackets\RCStatusHP.h"
-#include "Rpackets\RCCharacterInfo.h"
-#include "Cpackets\CGRequestInfo.h"
-#include "Cpackets\CGUseItemFromGear.h"
+#include "Rpackets/RCPositionInfo.h"
+#include "Rpackets/RCStatusHP.h"
+#include "Rpackets/RCCharacterInfo.h"
+#include "Cpackets/CGRequestInfo.h"
+#include "Cpackets/CGUseItemFromGear.h"
 
 #include "UserInformation.h"
 #include "MParty.h"
@@ -79,7 +79,7 @@
 #include "UserOption.h"
 #include "VS_UI_GameCommon2.h"
 
-#include "Cpackets\CGPartyPosition.h"
+#include "Cpackets/CGPartyPosition.h"
 
 extern void UI_RunPetInfo(struct PETINFO *pPetInfo);
 extern bool UpdateSocketOutput();
@@ -102,7 +102,7 @@ extern	LONG g_TILESURFACE_OUTLINE_DOWN;
 //#include "Client.h"
 bool		GetMakeItemFitPosition(MItem* pItem, ITEM_CLASS itemClass, int itemType, POINT& fitPoint);
 
-// [»õ±â¼ú]
+// [ìƒˆê¸°ìˆ ]
 void		SkillShadowDancing(MCreature* pUserCreature, MCreature* pTargetCreature, int skillID);
 bool			IsCreatureMove( MCreature *pCreature );
 bool			IsCreatureActionAttack( MCreature *pCreature );
@@ -125,7 +125,9 @@ BYTE GetCreatureActionCountMax( const MCreature* pCreature, int action );
 
 #include "VS_UI.h" // KJTINC
 #include "VS_UI_Mouse_pointer.h"
+#ifdef PLATFORM_WINDOWS
 #include "CImm.h"
+#endif
 
 extern	DWORD	g_CurrentTime;
 extern	int		g_x;
@@ -161,7 +163,7 @@ MPlayer*			g_pPlayer = NULL;
 //----------------------------------------------------------------------
 // define Functions
 //----------------------------------------------------------------------
-// ¸· ½ÃÃ¼°¡ µÇ´Â ¼ø°£...
+// ë§‰ ì‹œì²´ê°€ ë˜ëŠ” ìˆœê°„...
 /*
 #define GET_DYING_CREATURE( pCreature, id )								\
 		if (pCreature==NULL)											\
@@ -195,7 +197,7 @@ MPlayer*			g_pPlayer = NULL;
 		}
 
 //----------------------------------------------------------------------
-// Æ÷¼Ç ÀÚµ¿ ¸Ô±â
+// í¬ì…˜ ìë™ ë¨¹ê¸°
 //----------------------------------------------------------------------
 #ifdef __METROTECH_TEST__
 
@@ -224,7 +226,7 @@ MPlayer*			g_pPlayer = NULL;
 				
 				if(hp_gap > 0)
 				{
-					if(g_iAutoHealPotion == 2)	// ¿¡³ÊÁö ´Ş¸é ´Ü¸¸Å­ Ã¤¿î´Ù
+					if(g_iAutoHealPotion == 2)	// ì—ë„ˆì§€ ë‹¬ë©´ ë‹¨ë§Œí¼ ì±„ìš´ë‹¤
 					{
 						if(g_pSkillAvailable->IsEnableSkill( MAGIC_CURE_CRITICAL_WOUNDS ) &&
 							(*g_pSkillInfoTable)[MAGIC_CURE_CRITICAL_WOUNDS].IsEnable() && 
@@ -250,7 +252,7 @@ MPlayer*			g_pPlayer = NULL;
 							bUse = true;
 						}
 					}
-					else if(g_iAutoHealPotion == 3)	// ¿¡³ÊÁö ´Ş¸é Ã¤¿î´Ù
+					else if(g_iAutoHealPotion == 3)	// ì—ë„ˆì§€ ë‹¬ë©´ ì±„ìš´ë‹¤
 					{
 						if(g_pSkillAvailable->IsEnableSkill( MAGIC_CURE_CRITICAL_WOUNDS ) &&
 							(*g_pSkillInfoTable)[MAGIC_CURE_CRITICAL_WOUNDS].IsEnable())
@@ -289,7 +291,7 @@ MPlayer*			g_pPlayer = NULL;
 
 			if(bUse == true && skill_id != ACTIONINFO_NULL)
 			{
-				// ½ºÅ³»ç¿ë
+				// ìŠ¤í‚¬ì‚¬ìš©
 				g_pPlayer->UnSetRequestMode();
 				
 				TYPE_ACTIONINFO old_special = g_pPlayer->GetSpecialActionInfo();
@@ -303,7 +305,7 @@ MPlayer*			g_pPlayer = NULL;
 	}
 
 	//------------------------------------------------------------
-	// Healing ¸Ô±â
+	// Healing ë¨¹ê¸°
 	//------------------------------------------------------------
 	void
 	AutoUsePotion(int bHeal)	// 0:heal 1:mana 2:magazine
@@ -387,7 +389,7 @@ MPlayer*			g_pPlayer = NULL;
 			switch(bHeal)
 			{
 			case 0:	// Heal
-				// HP´Â 50% ÀÌÇÏÀÏ¶§ ¸Ô´Â´Ù.
+				// HPëŠ” 50% ì´í•˜ì¼ë•Œ ë¨¹ëŠ”ë‹¤.
 				forceUse = percent <= 50;
 				break;
 
@@ -396,7 +398,7 @@ MPlayer*			g_pPlayer = NULL;
 				itemType += 5;
 				maxItemType += 5;
 
-				// Mana´Â ÇöÀç »ç¿ëÁßÀÎ ±â¼ú°ú ºñ±³ÇØ¼­ ¸Ô´Â´Ù.
+				// ManaëŠ” í˜„ì¬ ì‚¬ìš©ì¤‘ì¸ ê¸°ìˆ ê³¼ ë¹„êµí•´ì„œ ë¨¹ëŠ”ë‹¤.
 				if (g_pSkillInfoTable!=NULL)
 				{
 					int skill = g_pPlayer->GetSpecialActionInfo();
@@ -420,14 +422,14 @@ MPlayer*			g_pPlayer = NULL;
 				{
 					pItem = g_pInventory->FindItem(itemClass , type );
 
-					// reloadÀÏ¶§´Â ÀºÁ¦ÃÑ¾ËÀ» Ã£¾Æº¸ÀÚ
+					// reloadì¼ë•ŒëŠ” ì€ì œì´ì•Œì„ ì°¾ì•„ë³´ì
 					if(bHeal >= 2 && pItem == NULL) pItem = g_pInventory->FindItem(itemClass , type +8);
 
 					if (pItem!=NULL) break;					
 				}
 				while (--type > badType);
 
-				// ¸î percent ÀÌÇÏÀÏ¶§´Â ±×³É ¸Ô¾î¾ß ÇÑ´Ù. ÃÑ¾ËÀº »©±¸
+				// ëª‡ percent ì´í•˜ì¼ë•ŒëŠ” ê·¸ëƒ¥ ë¨¹ì–´ì•¼ í•œë‹¤. ì´ì•Œì€ ë¹¼êµ¬
 				if (bHeal != 2 && pItem==NULL && forceUse)
 				{
 					type = badType + 1;
@@ -466,7 +468,7 @@ MPlayer*			g_pPlayer = NULL;
 				}
 				else if (g_pQuickSlot!=NULL)
 				{
-					// º§Æ®¿¡¼­ Ã£±â
+					// ë²¨íŠ¸ì—ì„œ ì°¾ê¸°
 					type = itemType;
 
 					do
@@ -475,7 +477,7 @@ MPlayer*			g_pPlayer = NULL;
 
 						pItem = g_pQuickSlot->FindItem( itemFinder );
 
-						// reloadÀÏ¶§´Â ÀºÁ¦ÃÑ¾ËÀ» Ã£¾Æº¸ÀÚ
+						// reloadì¼ë•ŒëŠ” ì€ì œì´ì•Œì„ ì°¾ì•„ë³´ì
 						if(bHeal >= 2 && pItem == NULL)
 						{
 							MItemClassTypeFinder itemFinder( itemClass, type +8 );
@@ -487,7 +489,7 @@ MPlayer*			g_pPlayer = NULL;
 					}
 					while (--type > badType);
 
-					// ¸î percent ÀÌÇÏÀÏ¶§´Â ±×³É ¸Ô¾î¾ß ÇÑ´Ù. ÃÑ¾ËÀÏ ¶§´Â »©±¸
+					// ëª‡ percent ì´í•˜ì¼ë•ŒëŠ” ê·¸ëƒ¥ ë¨¹ì–´ì•¼ í•œë‹¤. ì´ì•Œì¼ ë•ŒëŠ” ë¹¼êµ¬
 					if (bHeal != 2 && pItem==NULL && forceUse)
 					{
 						type = badType + 1;
@@ -544,7 +546,7 @@ bool	CanActionByZoneInfo()
 	{
 		ZONETABLE_INFO *pZoneInfo = g_pZoneTable->Get( g_pZone->GetID() );
 		
-		if(pZoneInfo->CannotAttackInSafe == true)					// ¾ÈÀüÁö´ë ¾È¿¡¼­ °ø°İÇÒ ¼ö ¾øÀ¸¸é
+		if(pZoneInfo->CannotAttackInSafe == true)					// ì•ˆì „ì§€ëŒ€ ì•ˆì—ì„œ ê³µê²©í•  ìˆ˜ ì—†ìœ¼ë©´
 		{			
 			if ( g_pZone->GetSector(g_pPlayer->GetX(),g_pPlayer->GetY()).IsSafeComplete() )
 				return true;
@@ -563,13 +565,13 @@ bool	CanActionByZoneInfo()
 }
 
 //----------------------------------------------------------------------
-// ÆÄÆ¼¿øµé¿¡°Ô ³» ÁÂÇ¥¸¦ º¸³½´Ù.
+// íŒŒí‹°ì›ë“¤ì—ê²Œ ë‚´ ì¢Œí‘œë¥¼ ë³´ë‚¸ë‹¤.
 //----------------------------------------------------------------------
 void
 SendPositionInfoToParty()
 {
 	//------------------------------------------------------
-	// Áö¼ÓÀûÀ¸·Î ÁÂÇ¥¸¦ º¸³»´Â °æ¿ì
+	// ì§€ì†ì ìœ¼ë¡œ ì¢Œí‘œë¥¼ ë³´ë‚´ëŠ” ê²½ìš°
 	//------------------------------------------------------		
 	if (g_pParty->GetSize()!=0
 		&& g_pClientCommunicationManager!=NULL)
@@ -582,20 +584,20 @@ SendPositionInfoToParty()
 		int y		= g_pPlayer->GetY();
 		int zoneID	= (g_bZonePlayerInLarge?g_nZoneLarge : g_nZoneSmall);
 
-		// ÁÂÇ¥°¡ ´Ş¶óÁ³À¸¸é º¸³½´Ù.
+		// ì¢Œí‘œê°€ ë‹¬ë¼ì¡Œìœ¼ë©´ ë³´ë‚¸ë‹¤.
 		if (oldX!=x || oldY!=y || oldZoneID!=zoneID)			
 		{
 			if(g_pUserInformation->bKorean == true)
 			{
 				RCPositionInfo _RCPositionInfo;
 
-				// ÀÌ¸§À» ¾È º¸³»µµ IP·Î Ã¼Å©ÇÏ±â ¶§¸Ş µÈ´Ù.
+				// ì´ë¦„ì„ ì•ˆ ë³´ë‚´ë„ IPë¡œ ì²´í¬í•˜ê¸° ë•Œë©” ëœë‹¤.
 				//_RCPositionInfo.setName( g_pUserInformation->CharacterID.GetString() );
 				_RCPositionInfo.setZoneX( x );
 				_RCPositionInfo.setZoneY( y );
 				_RCPositionInfo.setZoneID( zoneID );
 
-				// º¸³½ Á¤º¸ ±â¾ï
+				// ë³´ë‚¸ ì •ë³´ ê¸°ì–µ
 				oldX = x;
 				oldY = y;
 				oldZoneID = zoneID;
@@ -605,8 +607,8 @@ SendPositionInfoToParty()
 					PARTY_INFO* pInfo = g_pParty->GetMemberInfo( i );
 					
 					if (pInfo!=NULL
-						// ½Ã¾ß¿¡ ¾ø´Â °æ¿ì¿¡¸¸ À§Ä¡ Á¤º¸¸¦ º¸³½´Ù.
-						// ÀÇ¹Ì°¡ ¾øÀ»Áöµµ.. - -;
+						// ì‹œì•¼ì— ì—†ëŠ” ê²½ìš°ì—ë§Œ ìœ„ì¹˜ ì •ë³´ë¥¼ ë³´ë‚¸ë‹¤.
+						// ì˜ë¯¸ê°€ ì—†ì„ì§€ë„.. - -;
 						//&& !pInfo->bInSight
 						)
 					{
@@ -626,7 +628,7 @@ SendPositionInfoToParty()
 					}
 				}			
 			}
-			else	// ÇÑ±¹¾î°¡ ¾Æ´Ò °æ¿ì
+			else	// í•œêµ­ì–´ê°€ ì•„ë‹ ê²½ìš°
 			{
 				CGPartyPosition _CGPartyPosition;
 
@@ -643,7 +645,7 @@ SendPositionInfoToParty()
 //----------------------------------------------------------------------
 // Send StatusInfo To Party
 //----------------------------------------------------------------------
-// ÆÄÆ¼¿øµé¿¡°Ô ³» »óÅÂ Á¤º¸¸¦ º¸³½´Ù. ¾ğÁ¦? - -;
+// íŒŒí‹°ì›ë“¤ì—ê²Œ ë‚´ ìƒíƒœ ì •ë³´ë¥¼ ë³´ë‚¸ë‹¤. ì–¸ì œ? - -;
 //----------------------------------------------------------------------
 void
 SendStatusInfoToParty()
@@ -653,7 +655,7 @@ SendStatusInfoToParty()
 	if (g_CurrentTime >= nextTime)
 	{
 		//------------------------------------------------------
-		// Áö¼ÓÀûÀ¸·Î ÁÂÇ¥¸¦ º¸³»´Â °æ¿ì
+		// ì§€ì†ì ìœ¼ë¡œ ì¢Œí‘œë¥¼ ë³´ë‚´ëŠ” ê²½ìš°
 		//------------------------------------------------------		
 		if (g_pParty->GetSize()!=0
 			&& g_pClientCommunicationManager!=NULL)
@@ -664,19 +666,19 @@ SendStatusInfoToParty()
 			int HP		= g_pPlayer->GetHP();
 			int MaxHP	= g_pPlayer->GetMAX_HP();
 			
-			// ÁÂÇ¥°¡ ´Ş¶óÁ³À¸¸é º¸³½´Ù.
+			// ì¢Œí‘œê°€ ë‹¬ë¼ì¡Œìœ¼ë©´ ë³´ë‚¸ë‹¤.
 			if (oldHP!=HP || oldMaxHP!=MaxHP)
 			{
 				if(g_pUserInformation->bKorean == true)
 				{
 					RCStatusHP _RCStatusHP;
 
-					// ÀÌ¸§À» ¾È º¸³»µµ IP·Î Ã¼Å©ÇÏ±â ¶§¸Ş µÈ´Ù.
+					// ì´ë¦„ì„ ì•ˆ ë³´ë‚´ë„ IPë¡œ ì²´í¬í•˜ê¸° ë•Œë©” ëœë‹¤.
 					//_RCStatusHP.setName( g_pUserInformation->CharacterID.GetString() );
 					_RCStatusHP.setCurrentHP( HP );
 					_RCStatusHP.setMaxHP( MaxHP );
 					
-					// º¸³½ Á¤º¸ ±â¾ï
+					// ë³´ë‚¸ ì •ë³´ ê¸°ì–µ
 					oldHP = HP;
 					oldMaxHP = MaxHP;
 					
@@ -685,8 +687,8 @@ SendStatusInfoToParty()
 						PARTY_INFO* pInfo = g_pParty->GetMemberInfo( i );
 						
 						if (pInfo!=NULL
-							// ½Ã¾ß¿¡ ¾ø´Â °æ¿ì¿¡¸¸ »óÅÂ Á¤º¸¸¦ º¸³½´Ù.
-							// ÀÇ¹Ì°¡ ¾øÀ»Áöµµ.. - -;
+							// ì‹œì•¼ì— ì—†ëŠ” ê²½ìš°ì—ë§Œ ìƒíƒœ ì •ë³´ë¥¼ ë³´ë‚¸ë‹¤.
+							// ì˜ë¯¸ê°€ ì—†ì„ì§€ë„.. - -;
 							//&& !pInfo->bInSight
 							)
 						{
@@ -706,7 +708,7 @@ SendStatusInfoToParty()
 						}
 					}	
 				}
-				else // ÇÑ±¹¾î°¡ ¾Æ´Ñ °æ¿ì
+				else // í•œêµ­ì–´ê°€ ì•„ë‹Œ ê²½ìš°
 				{
 					int x		= g_pPlayer->GetX();
 					int y		= g_pPlayer->GetY();
@@ -723,8 +725,8 @@ SendStatusInfoToParty()
 			}
 		}
 
-		// ½Ã¾ß¿¡ ¾ø´Â °æ¿ìÀÇ HPÀÌ±â ¶§¹®¿¡..
-		// 5ÃÊ¿¡ ÇÑ¹ø °»½ÅÇØÁØ´Ù.
+		// ì‹œì•¼ì— ì—†ëŠ” ê²½ìš°ì˜ HPì´ê¸° ë•Œë¬¸ì—..
+		// 5ì´ˆì— í•œë²ˆ ê°±ì‹ í•´ì¤€ë‹¤.
 		nextTime = g_CurrentTime + g_pClientConfig->CLIENT_COMMUNICATION_STATUS_DELAY;
 	}
 }
@@ -732,13 +734,13 @@ SendStatusInfoToParty()
 //----------------------------------------------------------------------
 // Send StatusInfo To Party
 //----------------------------------------------------------------------
-// ÆÄÆ¼¿øµé¿¡°Ô ³» »óÅÂ Á¤º¸¸¦ º¸³½´Ù. ¾ğÁ¦? - -;
+// íŒŒí‹°ì›ë“¤ì—ê²Œ ë‚´ ìƒíƒœ ì •ë³´ë¥¼ ë³´ë‚¸ë‹¤. ì–¸ì œ? - -;
 //----------------------------------------------------------------------
 void
 SendCharacterInfoToParty()
 {
 	//------------------------------------------------------
-	// Áö¼ÓÀûÀ¸·Î ÁÂÇ¥¸¦ º¸³»´Â °æ¿ì
+	// ì§€ì†ì ìœ¼ë¡œ ì¢Œí‘œë¥¼ ë³´ë‚´ëŠ” ê²½ìš°
 	//------------------------------------------------------		
 	if (g_pParty->GetSize()!=0
 		&& g_pClientCommunicationManager!=NULL)
@@ -748,7 +750,7 @@ SendCharacterInfoToParty()
 		{
 			RCCharacterInfo _RCCharacterInfo;
 
-			// ÀÌ¸§À» ¾È º¸³»µµ IP·Î Ã¼Å©ÇÏ±â ¶§¸Ş µÈ´Ù.
+			// ì´ë¦„ì„ ì•ˆ ë³´ë‚´ë„ IPë¡œ ì²´í¬í•˜ê¸° ë•Œë©” ëœë‹¤.
 			//_RCStatusHP.setName( g_pUserInformation->CharacterID.GetString() );
 			_RCCharacterInfo.setGuildID( guildID );
 			
@@ -757,8 +759,8 @@ SendCharacterInfoToParty()
 				PARTY_INFO* pInfo = g_pParty->GetMemberInfo( i );
 				
 				if (pInfo!=NULL
-					// ½Ã¾ß¿¡ ¾ø´Â °æ¿ì¿¡¸¸ »óÅÂ Á¤º¸¸¦ º¸³½´Ù.
-					// ÀÇ¹Ì°¡ ¾øÀ»Áöµµ.. - -;
+					// ì‹œì•¼ì— ì—†ëŠ” ê²½ìš°ì—ë§Œ ìƒíƒœ ì •ë³´ë¥¼ ë³´ë‚¸ë‹¤.
+					// ì˜ë¯¸ê°€ ì—†ì„ì§€ë„.. - -;
 					//&& !pInfo->bInSight
 					)
 				{
@@ -817,7 +819,7 @@ IsBlockAllDirection()
 //----------------------------------------------------------------------
 MPlayer::MPlayer()
 {	
-	// ÃßÀû Á¤º¸
+	// ì¶”ì  ì •ë³´
 	m_fTrace				= FLAG_TRACE_NULL;
 	m_TraceDistance			= 0;
 	m_TraceObjectAction		= 0;
@@ -825,7 +827,7 @@ MPlayer::MPlayer()
 
 	m_BasicAttackDistance	= 1;
 
-	// ´ÙÀ½ ÃßÀû Á¤º¸ 
+	// ë‹¤ìŒ ì¶”ì  ì •ë³´ 
 	m_fNextTrace			= FLAG_TRACE_NULL;
 	m_NextTraceID			= OBJECTID_NULL;
 	m_NextTraceX			= SECTORPOSITION_NULL;
@@ -834,47 +836,47 @@ MPlayer::MPlayer()
 	m_NextTraceObjectAction	= 0;
 
 	
-	// ¸ñÀûÁö	
+	// ëª©ì ì§€	
 	m_DestX = SECTORPOSITION_NULL;
 	m_DestY = SECTORPOSITION_NULL;
 
-	// ´ÙÀ½ ¸ñÀûÁö
+	// ë‹¤ìŒ ëª©ì ì§€
 	m_NextDestX = SECTORPOSITION_NULL;
 	m_NextDestY = SECTORPOSITION_NULL;
 
-	// ¸ø °¬´ø °÷..
+	// ëª» ê°”ë˜ ê³³..
 	m_BlockDestX = SECTORPOSITION_NULL;
 	m_BlockDestY = SECTORPOSITION_NULL;
 
-	// Server·Î º¸³½ ¸Ş¼¼Áö °³¼ö
+	// Serverë¡œ ë³´ë‚¸ ë©”ì„¸ì§€ ê°œìˆ˜
 	m_SendMove = 0;
 
-	// Delay½Ã°£
+	// Delayì‹œê°„
 	m_DelayTime	= 0;
 	
 	// attack mode
 	m_AttackMode = ATTACK_MODE_NORMAL;
 
-	// ¹æ±İ ÁÖ¿î item
+	// ë°©ê¸ˆ ì£¼ìš´ item
 	m_ItemCheckBufferStatus = ITEM_CHECK_BUFFER_NULL;
 	m_pItemCheckBuffer = NULL;
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		m_dwSubItemIDCheckBuffer = OBJECTID_NULL;
 	#endif
-	// ±â¼ú »ç¿ëÀÇ ¸ñÇ¥
+	// ê¸°ìˆ  ì‚¬ìš©ì˜ ëª©í‘œ
 	m_pEffectTarget = NULL;
 
-	// server¿¡¼­ ±â´Ù¸®±â
+	// serverì—ì„œ ê¸°ë‹¤ë¦¬ê¸°
 	m_WaitVerify = WAIT_VERIFY_NULL;
 	m_WaitVerifyActionInfo = ACTIONINFO_NULL;
 
-	// °è¼Ó ÃßÀûÇÏ±â..
+	// ê³„ì† ì¶”ì í•˜ê¸°..
 	m_bKeepTraceCreature = true;
 
-	// Çàµ¿ ¹İº¹
+	// í–‰ë™ ë°˜ë³µ
 	m_bRepeatAction		= FALSE;
 
-	// ¹ìÆÄÀÌ¾î·Î º¯ÇÏ´Â ½Ã°£
+	// ë±€íŒŒì´ì–´ë¡œ ë³€í•˜ëŠ” ì‹œê°„
 	m_ConversionDelayTime = 0;
 
 	m_nNoPacketUsedActionInfo = ACTIONINFO_NULL;
@@ -882,7 +884,7 @@ MPlayer::MPlayer()
 	m_bLockMode = false;
 
 	//-------------------------------------------------------
-	// ºûÀÇ Å©±â ½Ã¾ß
+	// ë¹›ì˜ í¬ê¸° ì‹œì•¼
 	//-------------------------------------------------------
 	m_TimeLightSight = 0;
 //	m_TimeLightSightX = SECTORPOSITION_NULL;
@@ -890,7 +892,7 @@ MPlayer::MPlayer()
 	m_ItemLightSight = 0;
 	m_LightSight = 0;
 
-	// Ä³¸¯ÅÍ ½Ã¾ß
+	// ìºë¦­í„° ì‹œì•¼
 	m_Sight = 0;
 	m_PetDelayTime = 0;
 
@@ -906,10 +908,10 @@ MPlayer::MPlayer()
 
 MPlayer::~MPlayer()
 {
-	// À¸Çæ~~ ÇÊ»ìÀÇ ÄÚµå - -;;
-	// Effect°¡ deleteµÇ¸é¼­
-	// playerÀÇ EffectTargetÀ» Á¦°ÅÇÒ·Á°í g_pPlayer·Î Á¢±ÙÇÏ´Â ¹Ù¶÷¿¡..
-	// ±¸Á¶¸¦ Á» ¹Ù²ã¾ßµÉÅÙµ¥.. T_T;; °íÄ¥ ½Ã°£ÀÌ.. - -;	
+	// ìœ¼í—~~ í•„ì‚´ì˜ ì½”ë“œ - -;;
+	// Effectê°€ deleteë˜ë©´ì„œ
+	// playerì˜ EffectTargetì„ ì œê±°í• ë ¤ê³  g_pPlayerë¡œ ì ‘ê·¼í•˜ëŠ” ë°”ëŒì—..
+	// êµ¬ì¡°ë¥¼ ì¢€ ë°”ê¿”ì•¼ë í…ë°.. T_T;; ê³ ì¹  ì‹œê°„ì´.. - -;	
 	g_pUserInformation->bCompetence = false;
 	g_pUserInformation->bCompetenceShape = false;
 	g_pPlayer = NULL;
@@ -921,7 +923,7 @@ MPlayer::~MPlayer()
 	m_listDirection.clear();
 	m_listSendDirection.clear();
 
-	// ±â¼ú »ç¿ë ¸ñÇ¥
+	// ê¸°ìˆ  ì‚¬ìš© ëª©í‘œ
 	if (m_pEffectTarget!=NULL)
 	{
 		MEffectTarget* pTempEffectTarget = m_pEffectTarget;
@@ -939,7 +941,7 @@ MPlayer::~MPlayer()
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// MPlayer°¡ Á¸ÀçÇÏ´Â ZoneÀ» ¼³Á¤ÇÑ´Ù.
+// MPlayerê°€ ì¡´ì¬í•˜ëŠ” Zoneì„ ì„¤ì •í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 MPlayer::SetZone(MZone* pZone)
@@ -950,24 +952,24 @@ MPlayer::SetZone(MZone* pZone)
 }
 
 //----------------------------------------------------------------------
-// Player¸¦ ¸ØÃß°Ô ÇÑ´Ù.
+// Playerë¥¼ ë©ˆì¶”ê²Œ í•œë‹¤.
 //----------------------------------------------------------------------
 void
 MPlayer::SetStop()
 { 
-	// ±æÃ£±â Á¦°Å
-	// 2004, 9, 1, sobeit add start - ¼­¼­ Á×´Â°Å ¹æÁö?¤»¤»
+	// ê¸¸ì°¾ê¸° ì œê±°
+	// 2004, 9, 1, sobeit add start - ì„œì„œ ì£½ëŠ”ê±° ë°©ì§€?ã…‹ã…‹
 	m_bKnockBack = 0;
 
 	// 2004, 9, 1, sobeit add end
 
 	m_listDirection.clear(); 
 
-	// ÃßÀû ÁßÁö	
+	// ì¶”ì  ì¤‘ì§€	
 	m_fTrace		= FLAG_TRACE_NULL;
 	//m_fNextTrace	= FLAG_TRACE_NULL;
 
-	// Action ÁßÁö
+	// Action ì¤‘ì§€
 	m_sX=0; 
 	m_sY=0;
 
@@ -976,13 +978,13 @@ MPlayer::SetStop()
 		tempAction = ACTION_OUSTERS_FAST_MOVE_STAND;
 
 	m_Action		= tempAction;
-	// 2004, 11, 3, sobeit modify start - m_ActionCount¸¦ ¹Ù²ï ¾×¼ÇÀÇ ¸Æ½º Ä«¿îÆ®·Î ¼¼ÆÃ ÇßÀ½ - ¾Æ¿ì½ºÅÍÁî °í½ºÆ® ¹ö±× ¶«½Ã..¤Ñ¤Ñ;
+	// 2004, 11, 3, sobeit modify start - m_ActionCountë¥¼ ë°”ë€ ì•¡ì…˜ì˜ ë§¥ìŠ¤ ì¹´ìš´íŠ¸ë¡œ ì„¸íŒ… í–ˆìŒ - ì•„ìš°ìŠ¤í„°ì¦ˆ ê³ ìŠ¤íŠ¸ ë²„ê·¸ ë•œì‹œ..ã…¡ã…¡;
 	m_ActionCount	= m_ActionCountMax; 
 	//m_ActionCount	= (*g_pCreatureTable)[m_CreatureType].GetActionCount( m_Action );
 	// 2004, 11, 3, sobeit modify end
 	m_MoveCount		= m_MoveCountMax; 
 
-	// ´ÙÀ½ µ¿ÀÛµµ ¾ø¾Ú
+	// ë‹¤ìŒ ë™ì‘ë„ ì—†ì•°
 	m_bNextAction = false;
 	m_NextX = SECTORPOSITION_NULL;
 	m_NextY = SECTORPOSITION_NULL;
@@ -991,7 +993,7 @@ MPlayer::SetStop()
 	//m_nUsedActionInfo = ACTIONINFO_NULL;
 
 	
-	// ¸ñÇ¥ Á¦°Å
+	// ëª©í‘œ ì œê±°
 	m_DestX			= SECTORPOSITION_NULL; 
 	m_DestY			= SECTORPOSITION_NULL; 
 	m_NextDestX		= SECTORPOSITION_NULL; 
@@ -1000,7 +1002,7 @@ MPlayer::SetStop()
 
 
 //----------------------------------------------------------------------
-// priority queueÀÎ m_pqDNodes¸¦ Áö¿î´Ù.
+// priority queueì¸ m_pqDNodesë¥¼ ì§€ìš´ë‹¤.
 //----------------------------------------------------------------------
 void
 MPlayer::RemoveNodes()
@@ -1013,7 +1015,7 @@ MPlayer::RemoveNodes()
 	}
 
 
-	// temp¸¦ Áö¿î´Ù.
+	// tempë¥¼ ì§€ìš´ë‹¤.
 	DNODE_LIST::iterator iNode = m_listDNodes.begin();
 
 	while (iNode != m_listDNodes.end())
@@ -1027,10 +1029,10 @@ MPlayer::RemoveNodes()
 }
 
 //----------------------------------------------------------------------
-// (x,y)·Î ºÎÅÍ m_Dest(X,Y)±îÁöÀÇ °Å¸®¸¦ ±¸ÇÑ´Ù.
+// (x,y)ë¡œ ë¶€í„° m_Dest(X,Y)ê¹Œì§€ì˜ ê±°ë¦¬ë¥¼ êµ¬í•œë‹¤.
 //----------------------------------------------------------------------
-// °¡·Î,¼¼·Î,´ë°¢¼± ¸ğµÎ 1ÀÌ¹Ç·Î °¡Àå Å« °ªÀÌ °Å¸®ÀÌ°í
-// ¸ñÇ¥¿Í °°Àº ÁÂÇ¥°¡ ÀÖ´Â°Ô ´õ ÁÁÀ¸¹Ç·Î ¾Æ´Ñ °æ¿ì +1ÀÌ µÇµµ·Ï ÇÑ´Ù.
+// ê°€ë¡œ,ì„¸ë¡œ,ëŒ€ê°ì„  ëª¨ë‘ 1ì´ë¯€ë¡œ ê°€ì¥ í° ê°’ì´ ê±°ë¦¬ì´ê³ 
+// ëª©í‘œì™€ ê°™ì€ ì¢Œí‘œê°€ ìˆëŠ”ê²Œ ë” ì¢‹ìœ¼ë¯€ë¡œ ì•„ë‹Œ ê²½ìš° +1ì´ ë˜ë„ë¡ í•œë‹¤.
 //----------------------------------------------------------------------
 int
 MPlayer::CalculateDistance(int x, int y)
@@ -1075,13 +1077,13 @@ MPlayer::GetDestination(POINT &dest)
 bool	
 MPlayer::SetMovePosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 {
-	// »ì¾ÆÀÖÁö ¾ÊÀº °æ¿ì..
+	// ì‚´ì•„ìˆì§€ ì•Šì€ ê²½ìš°..
 	if	(
 		(
 		!m_bAlive
-		// °ü¼Ó¿¡ ÀÖ´Â °æ¿ì
+		// ê´€ì†ì— ìˆëŠ” ê²½ìš°
 		|| m_bInCasket
-		// ¶¥ ¼Ó¿¡ ÀÖ´Â °æ¿ì
+		// ë•… ì†ì— ìˆëŠ” ê²½ìš°
 		|| IsUndergroundCreature()
 		|| HasEffectStatus(EFFECTSTATUS_SLEEP)
 		)
@@ -1094,7 +1096,7 @@ MPlayer::SetMovePosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 		return false;
 	}
 
-	// ´ÙÀ½¿¡ »ç¿ëÇØ¾ßÇÒ ±â¼úÀÌ ÀÖ´Â °æ¿ì...
+	// ë‹¤ìŒì— ì‚¬ìš©í•´ì•¼í•  ê¸°ìˆ ì´ ìˆëŠ” ê²½ìš°...
 	//if (m_nUsedActionInfo!=ACTIONINFO_NULL)
 	if (m_ActionCount>=m_ActionCountMax)
 	{
@@ -1123,15 +1125,15 @@ MPlayer::SetMovePosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 //----------------------------------------------------------------------
 // Set Next Destination
 //----------------------------------------------------------------------
-// ´ÙÀ½¿¡ ÀÌµ¿ÇÒ ¸ñÇ¥ À§Ä¡¸¦ °áÁ¤ÇÑ´Ù.
-// ¸ñÇ¥À§Ä¡°¡ °¥ ¼ö ¾ø´Â °÷ÀÎ °æ¿ì... ¾î¶»°Ô ÇÒ °ÍÀÎ°¡?
+// ë‹¤ìŒì— ì´ë™í•  ëª©í‘œ ìœ„ì¹˜ë¥¼ ê²°ì •í•œë‹¤.
+// ëª©í‘œìœ„ì¹˜ê°€ ê°ˆ ìˆ˜ ì—†ëŠ” ê³³ì¸ ê²½ìš°... ì–´ë–»ê²Œ í•  ê²ƒì¸ê°€?
 //----------------------------------------------------------------------
 bool	
 MPlayer::SetNextDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 { 
 	//DEBUG_ADD_FORMAT("[Set] NextDestination (%d, %d) --> (%d, %d)", m_X, m_Y, sX, sY);
 
-	// »ì¾ÆÀÖÁö ¾ÊÀº °æ¿ì..
+	// ì‚´ì•„ìˆì§€ ì•Šì€ ê²½ìš°..
 	if	(
 		(!m_bAlive || HasEffectStatus(EFFECTSTATUS_SLEEP))
 		&& !g_pPlayer->HasEffectStatus( EFFECTSTATUS_GHOST )
@@ -1143,7 +1145,7 @@ MPlayer::SetNextDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 		return false;
 	}
 
-	// ´ÙÀ½¿¡ »ç¿ëÇØ¾ßÇÒ ±â¼úÀÌ ÀÖ´Â °æ¿ì...
+	// ë‹¤ìŒì— ì‚¬ìš©í•´ì•¼í•  ê¸°ìˆ ì´ ìˆëŠ” ê²½ìš°...
 	if (m_nUsedActionInfo!=ACTIONINFO_NULL)
 	{
 		m_fTraceBuffer = FLAG_TRACE_NULL;
@@ -1164,15 +1166,15 @@ MPlayer::SetNextDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 		TraceNULL();
 	}
 	
-	// ÃßÀû ÁßÀÌ ¾Æ´Ï¸é¼­
-	// ÀÌ¹Ì ¸ñÇ¥À§Ä¡¿¡ ÀÖ´Â °æ¿ì´Â ±æÃ£±â ÇÊ¿ä¾ø´Ù.
+	// ì¶”ì  ì¤‘ì´ ì•„ë‹ˆë©´ì„œ
+	// ì´ë¯¸ ëª©í‘œìœ„ì¹˜ì— ìˆëŠ” ê²½ìš°ëŠ” ê¸¸ì°¾ê¸° í•„ìš”ì—†ë‹¤.
 	if (m_fTrace==FLAG_TRACE_NULL && sX==m_X && sY==m_Y)
 	{
 		return false;
 	}	
 
-	// Àß¸øµÈ °ª
-	// ÀÌÀü¿¡ ¸ø °¬´ø °÷..
+	// ì˜ëª»ëœ ê°’
+	// ì´ì „ì— ëª» ê°”ë˜ ê³³..
 	if (sX==SECTORPOSITION_NULL || sY==SECTORPOSITION_NULL
 		|| sX==m_BlockDestX && sY==m_BlockDestY)
 	{
@@ -1180,25 +1182,25 @@ MPlayer::SetNextDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 	}
 
 	//---------------------------------------------------
-	// [¹æ¹ı 1]
-	// ¸ñÇ¥ÁöÁ¡À¸·Î °¥ ¼ö ¾ø´Ù¸é
-	// ¸ñÇ¥ ÁöÁ¡°ú °¡Àå °¡±î¿î °÷À¸·Î ÀÌµ¿ÇÏ°Ô ÇÑ´Ù.
+	// [ë°©ë²• 1]
+	// ëª©í‘œì§€ì ìœ¼ë¡œ ê°ˆ ìˆ˜ ì—†ë‹¤ë©´
+	// ëª©í‘œ ì§€ì ê³¼ ê°€ì¥ ê°€ê¹Œìš´ ê³³ìœ¼ë¡œ ì´ë™í•˜ê²Œ í•œë‹¤.
 	//---------------------------------------------------
 	/*
 	TYPE_SECTORPOSITION destX = sX;
 	TYPE_SECTORPOSITION	destY = sY;	
 
 	//---------------------------------------------------
-	// °¥ ¼ö ÀÖ´Â ¸ñÇ¥ÁöÁ¡À» ÁöÁ¤ÇÑ´Ù.
+	// ê°ˆ ìˆ˜ ìˆëŠ” ëª©í‘œì§€ì ì„ ì§€ì •í•œë‹¤.
 	//---------------------------------------------------
 	while (!m_pZone->CanMove(m_MoveType, destX, destY))
 	{
-		// ¸ñÇ¥(sX,sY)¿¡¼­ ÇöÀç À§Ä¡·ÎÀÇ ¹æÇâ
+		// ëª©í‘œ(sX,sY)ì—ì„œ í˜„ì¬ ìœ„ì¹˜ë¡œì˜ ë°©í–¥
 		BYTE direction = MTopView::GetDirectionToPosition(sX, sY, m_X, m_Y);
 
 		GetPositionToDirection(destX, destY, direction);
 
-		// ¿ÏÀüÈ÷(!) °¥ ¼ö ¾ø´Â °÷ÀÌ´Ù.
+		// ì™„ì „íˆ(!) ê°ˆ ìˆ˜ ì—†ëŠ” ê³³ì´ë‹¤.
 		if (destX==m_X && destY==m_Y)
 			return false;
 	}
@@ -1229,7 +1231,7 @@ MPlayer::SetNextDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 			else
 				MovePoint.x = 0;
 
-			int limit = 20;	// À¯È¿°ª 20¹ø³»¿¡ ¸øÃ£À¸¸é Æ÷±â
+			int limit = 20;	// ìœ íš¨ê°’ 20ë²ˆë‚´ì— ëª»ì°¾ìœ¼ë©´ í¬ê¸°
 
 			while( bCanStand == FALSE && !( GetX() == sX && GetY() == sY ) &&
 				sX >= 0 && sY >= 0 
@@ -1248,11 +1250,11 @@ MPlayer::SetNextDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 	}
 //	else
 	//---------------------------------------------------
-	// [¹æ¹ı 2]
-	// ÇöÀç À§Ä¡¿¡¼­ ¸ñÇ¥ ÁöÁ¡À¸·Î ÇÑ Ä­ ÀÌµ¿..
+	// [ë°©ë²• 2]
+	// í˜„ì¬ ìœ„ì¹˜ì—ì„œ ëª©í‘œ ì§€ì ìœ¼ë¡œ í•œ ì¹¸ ì´ë™..
 	//
-	// ´Ü, ÃßÀû ÁßÀÎ °æ¿ì´Â... °ü°è¾ø°í.. 
-	// ÀÌµ¿ Áß¿¡¼­¸¸...
+	// ë‹¨, ì¶”ì  ì¤‘ì¸ ê²½ìš°ëŠ”... ê´€ê³„ì—†ê³ .. 
+	// ì´ë™ ì¤‘ì—ì„œë§Œ...
 	//---------------------------------------------------
 //	if (m_fTrace==FLAG_TRACE_NULL && !m_pZone->CanMove(m_MoveType, sX, sY))
 //	{
@@ -1263,7 +1265,7 @@ MPlayer::SetNextDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 //
 //		GetPositionToDirection(sX, sY, direction);
 //
-//		// »õ·Î¿î ¸ñÇ¥ ÁöÁ¡À¸·Î ¸ø °¡´Â °æ¿ì..
+//		// ìƒˆë¡œìš´ ëª©í‘œ ì§€ì ìœ¼ë¡œ ëª» ê°€ëŠ” ê²½ìš°..
 //		if (!m_pZone->CanMove(m_MoveType, sX, sY))
 //		{
 //			return false;
@@ -1281,7 +1283,7 @@ MPlayer::SetNextDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 //----------------------------------------------------------------------
 // Reset Send Move
 //----------------------------------------------------------------------
-// server¿¡¼­ ±â´Ù¸®´Â messasge´Â ¾ø´Ù°í Ç¥½ÃÇÑ´Ù.
+// serverì—ì„œ ê¸°ë‹¤ë¦¬ëŠ” messasgeëŠ” ì—†ë‹¤ê³  í‘œì‹œí•œë‹¤.
 //----------------------------------------------------------------------
 void	
 MPlayer::ResetSendMove()	
@@ -1294,7 +1296,7 @@ MPlayer::ResetSendMove()
 //----------------------------------------------------------------------
 // Get DeadDelay Last
 //----------------------------------------------------------------------
-// Player°¡ Á×°í ³­ ÈÄ, ±â´Ù¸®´Â ½Ã°£..
+// Playerê°€ ì£½ê³  ë‚œ í›„, ê¸°ë‹¤ë¦¬ëŠ” ì‹œê°„..
 //----------------------------------------------------------------------
 DWORD			
 MPlayer::GetDeadDelayLast() const
@@ -1322,15 +1324,15 @@ MPlayer::GetNextDestination(POINT &dest)
 //----------------------------------------------------------------------
 // Get NextPosition()
 //----------------------------------------------------------------------
-// ±æÃ£±â¿¡ ÀÇÇØ¼­ Á¤ÇØÁø ±æµé Áß¿¡¼­
-// ¹Ù·Î ´ÙÀ½¿¡ °¡¾ßÇÒ Sector¿¡ ´ëÇÑ ÁÂÇ¥¸¦ ³Ñ°ÜÁØ´Ù.
+// ê¸¸ì°¾ê¸°ì— ì˜í•´ì„œ ì •í•´ì§„ ê¸¸ë“¤ ì¤‘ì—ì„œ
+// ë°”ë¡œ ë‹¤ìŒì— ê°€ì•¼í•  Sectorì— ëŒ€í•œ ì¢Œí‘œë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 //
-// 'ÇöÀçÀ§Ä¡'¿¡¼­ '´ÙÀ½ ¹æÇâ'¿¡ ´ëÇØ ÀûÀıÇÑ º¯È­¸¦ ´õÇØÁØ´Ù.
+// 'í˜„ì¬ìœ„ì¹˜'ì—ì„œ 'ë‹¤ìŒ ë°©í–¥'ì— ëŒ€í•´ ì ì ˆí•œ ë³€í™”ë¥¼ ë”í•´ì¤€ë‹¤.
 //----------------------------------------------------------------------
 bool
 MPlayer::GetNextPosition(POINT &next)
 {
-	// °¥ ±æÀÌ Á¤ÇØÁöÁö ¾ÊÀº °æ¿ì
+	// ê°ˆ ê¸¸ì´ ì •í•´ì§€ì§€ ì•Šì€ ê²½ìš°
 	if (m_listDirection.empty())
 	{
 		//next.x = SECTORPOSITION_NULL;
@@ -1339,9 +1341,9 @@ MPlayer::GetNextPosition(POINT &next)
 	}
 
 	
-	// °¥ ±æÀÌ Á¤ÇØÁø °æ¿ì, ´ÙÀ½ ÁÂÇ¥¸¦ returnÇÑ´Ù.
+	// ê°ˆ ê¸¸ì´ ì •í•´ì§„ ê²½ìš°, ë‹¤ìŒ ì¢Œí‘œë¥¼ returní•œë‹¤.
 
-	// ÇöÀç À§Ä¡¿¡¼­ ´ÙÀ½ ¹æÇâ¿¡ ´ëÇØ¼­ ¸ñÇ¥ ¼³Á¤
+	// í˜„ì¬ ìœ„ì¹˜ì—ì„œ ë‹¤ìŒ ë°©í–¥ì— ëŒ€í•´ì„œ ëª©í‘œ ì„¤ì •
 	next.x = m_X;
 	next.y = m_Y;
 	
@@ -1364,8 +1366,8 @@ MPlayer::GetNextPosition(POINT &next)
 //----------------------------------------------------------------------
 // Set Destination(sX, sY)
 //----------------------------------------------------------------------
-// ¸ñÇ¥À§Ä¡¸¦ ÁöÁ¤ÇÏ´Â ¼ø°£¿¡ ¸ñÇ¥À§Ä¡±îÁöÀÇ
-// Best Path¸¦ °áÁ¤ÇØ¼­ m_listDirection¿¡ ÀúÀåÇØµĞ´Ù.
+// ëª©í‘œìœ„ì¹˜ë¥¼ ì§€ì •í•˜ëŠ” ìˆœê°„ì— ëª©í‘œìœ„ì¹˜ê¹Œì§€ì˜
+// Best Pathë¥¼ ê²°ì •í•´ì„œ m_listDirectionì— ì €ì¥í•´ë‘”ë‹¤.
 //----------------------------------------------------------------------
 bool
 MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
@@ -1386,7 +1388,7 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 	#endif
 
 	//-------------------------------------------------------
-	// »ì¾ÆÀÖÁö ¾ÊÀº °æ¿ì..
+	// ì‚´ì•„ìˆì§€ ì•Šì€ ê²½ìš°..
 	//-------------------------------------------------------
 	if (!m_bAlive)
 	{
@@ -1404,7 +1406,7 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 		m_listDirection.clear();
 	}
 
-		// ¼º¹°À» µé¾úÀ»¶§´Â ÀÚ±âÆí ¾ÈÀüÁö´ë´Â ¸ø°£´Ù!
+		// ì„±ë¬¼ì„ ë“¤ì—ˆì„ë•ŒëŠ” ìê¸°í¸ ì•ˆì „ì§€ëŒ€ëŠ” ëª»ê°„ë‹¤!
 	bool bHasRelic = 
 		( m_bEffectStatus[EFFECTSTATUS_HAS_VAMPIRE_RELIC] || m_bEffectStatus[EFFECTSTATUS_HAS_SLAYER_RELIC] ) && 
 		(g_pZone->GetSector(sX, sY).IsSafeSlayer() && IsSlayer() ||
@@ -1446,17 +1448,17 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 	}
 
 	//-------------------------------------------------------
-	// ZoneÀÇ ¿µ¿ª ¹ÛÀÌ¸é check ¾ÈÇÑ´Ù.
+	// Zoneì˜ ì˜ì—­ ë°–ì´ë©´ check ì•ˆí•œë‹¤.
 	//-------------------------------------------------------
 	if (sX<0 || sY<0 
 		|| sX>=m_pZone->GetWidth() || sY>=m_pZone->GetHeight()
-		// [»õ±â¼ú] Sanctuary ·Î´Â ¸ø ¿òÁ÷ÀÎ´Ù.
+		// [ìƒˆê¸°ìˆ ] Sanctuary ë¡œëŠ” ëª» ì›€ì§ì¸ë‹¤.
 		|| g_pZone->GetSector(m_X, m_Y).HasSanctuary()
 		|| bHasRelic
 		|| bHasBloodBible
 		)
 	{
-		// Zone¿µ¿ª ¹ÛÀÌ¸é check ¾È ÇÒ °æ¿ì
+		// Zoneì˜ì—­ ë°–ì´ë©´ check ì•ˆ í•  ê²½ìš°
 		//m_ActionCount = m_ActionCountMax;
 		m_MoveCount = m_MoveCountMax;
 		m_DestX = SECTORPOSITION_NULL;
@@ -1468,18 +1470,18 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 
 		return false;
 
-		// ÇöÀç ÁøÇà ¹æÇâÀ¸·Î ÀÌµ¿ÇÏ°Ô ÇÏ´Â °æ¿ì
+		// í˜„ì¬ ì§„í–‰ ë°©í–¥ìœ¼ë¡œ ì´ë™í•˜ê²Œ í•˜ëŠ” ê²½ìš°
 		/*
 		POINT position = g_pTopView->GetSelectedSector(g_x, g_y);		
 		BYTE direction = GetDirectionToPosition(position.x, position.y);		
 
-		// ¹æÇâ¿¡ µû¸¥ À§Ä¡¸¦ °áÁ¤ÇÑ´Ù.		
+		// ë°©í–¥ì— ë”°ë¥¸ ìœ„ì¹˜ë¥¼ ê²°ì •í•œë‹¤.		
 		MCreature::GetNextPosition(direction, position);
 		
 		sX = position.x;
 		sY = position.y;
 		
-		// ÇöÀç ÁøÇà ¹æÇâÀÌ ZoneÀ» ¹ş¾î³ª´Â °æ¿ì
+		// í˜„ì¬ ì§„í–‰ ë°©í–¥ì´ Zoneì„ ë²—ì–´ë‚˜ëŠ” ê²½ìš°
 		if (sX<0 || sY<0 
 			|| sX>=m_pZone->GetWidth() || sY>=m_pZone->GetHeight()) 
 		{
@@ -1489,7 +1491,7 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 	}
 
 	//-------------------------------------------------------
-	// ÃßÀû ÁßÀÏ °æ¿ì, ÀÌ¹Ì »çÁ¤ °Å¸®¿¡ ÀÖÀ» ¶§...
+	// ì¶”ì  ì¤‘ì¼ ê²½ìš°, ì´ë¯¸ ì‚¬ì • ê±°ë¦¬ì— ìˆì„ ë•Œ...
 	//-------------------------------------------------------
 	if (m_fTrace!=FLAG_TRACE_NULL
 		&& max(abs(m_TraceX-m_X), abs(m_TraceY-m_Y))<=m_TraceDistance)
@@ -1534,7 +1536,7 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 	*/
 
 	//--------------------------------------------------------------
-	// °¥ ¼ö ÀÖ´Â °÷ÀÌ¸é
+	// ê°ˆ ìˆ˜ ìˆëŠ” ê³³ì´ë©´
 	//--------------------------------------------------------------
 	// Best First Search
 	//--------------------------------------------------------------
@@ -1545,25 +1547,25 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 #endif
 
 	//--------------------------------------------------------------
-	// °¥ ¼ö ÀÖ´Â °÷ÀÌ°Å³ª
-	// ÃßÀûÁßÀÌ¸é Best Search~·Î ±æÀ» Ã£´Â´Ù.
+	// ê°ˆ ìˆ˜ ìˆëŠ” ê³³ì´ê±°ë‚˜
+	// ì¶”ì ì¤‘ì´ë©´ Best Search~ë¡œ ê¸¸ì„ ì°¾ëŠ”ë‹¤.
 	//--------------------------------------------------------------
 	if (bCanStand || m_fTrace!=FLAG_TRACE_NULL) 
 	{		
 		//-------------------------------------------------------
-		// ¸ñÇ¥À§Ä¡¸¦ ÀúÀå
+		// ëª©í‘œìœ„ì¹˜ë¥¼ ì €ì¥
 		//-------------------------------------------------------
 		m_DestX = sX;
 		m_DestY = sY;
 
 		//-------------------------------------------------------
-		// priority queue¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+		// priority queueë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 		//-------------------------------------------------------
 		RemoveNodes();	
 
 		//-------------------------------------------------------
-		// visited¸¦ ¸ğµÎ false·Î ÇØµÎ°í
-		// ÇöÀçÀ§Ä¡ºÎÅÍ ¹æ¹®ÇÏÁö ¾ÊÀº °÷µéÀ» ¹æ¹®ÇÏ±â ½ÃÀÛÇÑ´Ù.
+		// visitedë¥¼ ëª¨ë‘ falseë¡œ í•´ë‘ê³ 
+		// í˜„ì¬ìœ„ì¹˜ë¶€í„° ë°©ë¬¸í•˜ì§€ ì•Šì€ ê³³ë“¤ì„ ë°©ë¬¸í•˜ê¸° ì‹œì‘í•œë‹¤.
 		//-------------------------------------------------------
 		POINT firstSector = g_pTopView->GetFirstSector();
 		//int x0 = m_DestX - g_pClientConfig->MAX_FINDPATH_WIDTH, 
@@ -1585,7 +1587,7 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 		if (y1 > g_pZone->GetHeight())	
 			y1 = g_pZone->GetHeight();
 		
-		int size = x1-x0;	// byte¼ö
+		int size = x1-x0;	// byteìˆ˜
 		for (int i=y0; i<y1; i++)
 		{			
 			for (int j=x0; j<x1; j++)
@@ -1599,20 +1601,20 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 
 		//-------------------------------------------------------
 		//
-		// ÇöÀç À§Ä¡
+		// í˜„ì¬ ìœ„ì¹˜
 		//
 		//-------------------------------------------------------
 
 		//-------------------------------------------------------
-		// ¸ñÀûÁö¸¦ ÇâÇÑ ¹æÇâºÎÅÍ ±æÃ£±â¸¦ ÇÑ´Ù.		
+		// ëª©ì ì§€ë¥¼ í–¥í•œ ë°©í–¥ë¶€í„° ê¸¸ì°¾ê¸°ë¥¼ í•œë‹¤.		
 		//-------------------------------------------------------
 		static BYTE FirstDirection = GetDirectionToPosition(m_DestX, m_DestY);
 		static TYPE_SECTORPOSITION previousDestX = SECTORPOSITION_NULL;
 		static TYPE_SECTORPOSITION previousDestY = SECTORPOSITION_NULL;
 
 		//-------------------------------------------------------
-		// ¹æ±İ ÀüÀÇ ±æÃ£±â Çß´ø°Å¶û ¸ñÇ¥ À§Ä¡°¡ ´Ù¸¥ °æ¿ì¿¡¸¸ 
-		// ¸ñÀûÁö¸¦ ÇâÇÑ ¹æÇâÀ» ¼³Á¤ÇÑ´Ù.
+		// ë°©ê¸ˆ ì „ì˜ ê¸¸ì°¾ê¸° í–ˆë˜ê±°ë‘ ëª©í‘œ ìœ„ì¹˜ê°€ ë‹¤ë¥¸ ê²½ìš°ì—ë§Œ 
+		// ëª©ì ì§€ë¥¼ í–¥í•œ ë°©í–¥ì„ ì„¤ì •í•œë‹¤.
 		//-------------------------------------------------------
 		if (previousDestX!=m_DestX || previousDestY!=m_DestY)
 		{
@@ -1621,8 +1623,8 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 			previousDestY = m_DestY;
 		}
 		//-------------------------------------------------------
-		// °°Àº ¸ñÇ¥¸¦ ÇâÇØ ³ª¾Æ°¡´Â °æ¿ì´Â 
-		// ÇöÀç PlayerÀÇ ¹æÇâºÎÅÍ »ìÆìº»´Ù.
+		// ê°™ì€ ëª©í‘œë¥¼ í–¥í•´ ë‚˜ì•„ê°€ëŠ” ê²½ìš°ëŠ” 
+		// í˜„ì¬ Playerì˜ ë°©í–¥ë¶€í„° ì‚´í´ë³¸ë‹¤.
 		//-------------------------------------------------------
 		else
 		{
@@ -1638,7 +1640,7 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 									);
 	
 		//-------------------------------------------------------
-		// listDNodes¿¡ ³Ö¾î¼­ ³ªÁß¿¡ Áö¿öÁØ´Ù.
+		// listDNodesì— ë„£ì–´ì„œ ë‚˜ì¤‘ì— ì§€ì›Œì¤€ë‹¤.
 		//-------------------------------------------------------
 		m_listDNodes.push_back( currentDNode );
 
@@ -1647,19 +1649,19 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 		
 		POINT	next;
 		int		dist;
-		bool	bFound = false;		// ¾ÆÁ÷ µµ´ŞÇÏÁö ¾Ê¾Ò´Ù´Â ÀÇ¹Ì
+		bool	bFound = false;		// ì•„ì§ ë„ë‹¬í•˜ì§€ ì•Šì•˜ë‹¤ëŠ” ì˜ë¯¸
 
 		while (!bFound && !m_pqDNodes.empty())
 		{
 			//-------------------------------------------------------
-			// Á¦ÀÏ ±¦ÂúÀº(!) Node¸¦ °ñ¶ó¼­(priority queueÀÌ´Ù)
-			// ¾îµğ·Î °¡¾ßÇÒÁö¿¡ ´ëÇØ¼­ °è»êÇØº»´Ù.
+			// ì œì¼ ê´œì°®ì€(!) Nodeë¥¼ ê³¨ë¼ì„œ(priority queueì´ë‹¤)
+			// ì–´ë””ë¡œ ê°€ì•¼í• ì§€ì— ëŒ€í•´ì„œ ê³„ì‚°í•´ë³¸ë‹¤.
 			//-------------------------------------------------------
 			DNode* pDNode = m_pqDNodes.top();
 			m_pqDNodes.pop();
 
 			//-------------------------------------------------------
-			// ¿ÏÀüÈ÷ µµÂøÇÑ °æ¿ì
+			// ì™„ì „íˆ ë„ì°©í•œ ê²½ìš°
 			//-------------------------------------------------------
 			if (pDNode->distance==0) 
 			{
@@ -1669,7 +1671,7 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 			}
 			
 			//-------------------------------------------------------
-			// »çÁ¤ °Å¸® ÀÌ³»·Î Á¢±ÙÇÏ±â
+			// ì‚¬ì • ê±°ë¦¬ ì´ë‚´ë¡œ ì ‘ê·¼í•˜ê¸°
 			//-------------------------------------------------------
 			if (m_fTrace!=FLAG_TRACE_NULL && 
 				max(abs(pDNode->x-m_DestX), abs(pDNode->y-m_DestY))<=m_TraceDistance)
@@ -1682,7 +1684,7 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 			int Direction = pDNode->direction;
 
 			//-------------------------------------------------------
-			// 8¹æÇâÀ» ¸ğµÎ check
+			// 8ë°©í–¥ì„ ëª¨ë‘ check
 			//-------------------------------------------------------
 			for (int i=0; i<8; Direction++, i++)
 			{		
@@ -1704,22 +1706,22 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 				}
 
 				//-------------------------------------------------------
-				// ZoneÀÇ ¿µ¿ª ¹ÛÀÌ¸é check ¾ÈÇÑ´Ù.
+				// Zoneì˜ ì˜ì—­ ë°–ì´ë©´ check ì•ˆí•œë‹¤.
 				//-------------------------------------------------------
 				if (next.x<0 || next.y<0 
 					|| next.x>=m_pZone->GetWidth() || next.y>=m_pZone->GetHeight()) continue;
 
 				//-------------------------------------------------------
-				// °¬´ø °÷ÀÌ¸é ¾È °£´Ù.
+				// ê°”ë˜ ê³³ì´ë©´ ì•ˆ ê°„ë‹¤.
 				//-------------------------------------------------------
 				if (g_pZone->IsVisitedFlag(next.x, next.y)) continue;
 
-				// ÇÑ È­¸éÀ» ³Ñ¾î°¡´Â °æ¿ì´Â checkÇÏÁö ¾Ê´Â´Ù.				
+				// í•œ í™”ë©´ì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°ëŠ” checkí•˜ì§€ ì•ŠëŠ”ë‹¤.				
 				if (next.x<x0 || next.y<y0 
 					|| next.x>=x1 || next.y>=y1) continue;
 
 				//-------------------------------------------------------
-				// °¥ ¼ö ÀÖÀ¸¸é pqueue¿¡ ³Ö´Â´Ù.
+				// ê°ˆ ìˆ˜ ìˆìœ¼ë©´ pqueueì— ë„£ëŠ”ë‹¤.
 				//-------------------------------------------------------
 				if (m_pZone->CanMove(m_MoveType, next.x, next.y)
 					&& !bHasRelic && !bHasBloodBible
@@ -1734,12 +1736,12 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 //					m_ppVisited[next.y][next.x] = true;
 
 					//-------------------------------------------------------
-					// Node¸¦ ¸¸µé¾î¼­ priority queue¿¡ Ãß°¡ÇÑ´Ù.
+					// Nodeë¥¼ ë§Œë“¤ì–´ì„œ priority queueì— ì¶”ê°€í•œë‹¤.
 					//-------------------------------------------------------
-					// °Å¸® °è»ê
+					// ê±°ë¦¬ ê³„ì‚°
 					dist = CalculateDistance(next.x, next.y);
 
-					// Node¸¦ ¸¸µé¾î¼­ Ãß°¡
+					// Nodeë¥¼ ë§Œë“¤ì–´ì„œ ì¶”ê°€
 					DNode*	nextDNode = new DNode(
 											next.x, 
 											next.y, 
@@ -1749,7 +1751,7 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 					
 				
 					//-------------------------------------------------------
-					// listDNodes¿¡ ³Ö¾î¼­ ³ªÁß¿¡ Áö¿öÁØ´Ù.
+					// listDNodesì— ë„£ì–´ì„œ ë‚˜ì¤‘ì— ì§€ì›Œì¤€ë‹¤.
 					//-------------------------------------------------------
 					m_listDNodes.push_back( nextDNode );
 					
@@ -1765,15 +1767,15 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 		}
 
 		//-------------------------------------------------------
-		// Ã£¾ÒÀ» °æ¿ì ±æÀ» Á¤ÇØ¾ß ÇÑ´Ù.
+		// ì°¾ì•˜ì„ ê²½ìš° ê¸¸ì„ ì •í•´ì•¼ í•œë‹¤.
 		//-------------------------------------------------------
 		if (bFound)
 		{				
 			//-------------------------------------------------------
-			// m_pqDNodes·ÎºÎÅÍ list¸¦ Ã¤¿î´Ù. (parent¸¦ µû¶ó°¡¾ßÇÑ´Ù)
+			// m_pqDNodesë¡œë¶€í„° listë¥¼ ì±„ìš´ë‹¤. (parentë¥¼ ë”°ë¼ê°€ì•¼í•œë‹¤)
 			//-------------------------------------------------------
 
-			// ¸ñÇ¥À§Ä¡
+			// ëª©í‘œìœ„ì¹˜
 			DNode* currentNode = m_pqDNodes.top();
 			m_pqDNodes.pop();
 			
@@ -1789,18 +1791,18 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 			m_BlockDestY = SECTORPOSITION_NULL;
 		}
 		//-------------------------------------------------------
-		// ±æÀÌ ¾øÀ» °æ¿ì Á¤ÁöÇÑ´Ù.
+		// ê¸¸ì´ ì—†ì„ ê²½ìš° ì •ì§€í•œë‹¤.
 		//-------------------------------------------------------
 		else
 		{
-			// ÃßÀû ÁßÁö
+			// ì¶”ì  ì¤‘ì§€
 			if (m_fTrace!=FLAG_TRACE_NULL)				
 			{
 				m_MoveCount = m_MoveCountMax;
 
 				TraceNULL();
 
-				// 2001.7.31 Ãß°¡
+				// 2001.7.31 ì¶”ê°€
 				m_nUsedActionInfo = ACTIONINFO_NULL;
 				m_nNextUsedActionInfo = ACTIONINFO_NULL;
 			}
@@ -1812,13 +1814,13 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 			m_DestY = SECTORPOSITION_NULL;			
 		}
 	}
-	// °¥ ¼ö ¾ø´Â °÷
+	// ê°ˆ ìˆ˜ ì—†ëŠ” ê³³
 	else 
 	{
 		//m_ActionCount = m_ActionCountMax;
 		m_MoveCount = m_MoveCountMax;
 
-		// ÀÌ¹ø¿¡ °¥ ¼ö ¾ø¾ú´ø °÷ ¼³Á¤
+		// ì´ë²ˆì— ê°ˆ ìˆ˜ ì—†ì—ˆë˜ ê³³ ì„¤ì •
 		//m_BlockDestX = m_DestX;
 		//m_BlockDestY = m_DestY;
 
@@ -1834,12 +1836,12 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 
 	/*
 	else
-	// ÀÌ ºÎºĞ¿¡ ¾à°£ÀÇ ¿À·ù°¡ ÀÖ´Â µí ÇÔ!! -_-;;;;
+	// ì´ ë¶€ë¶„ì— ì•½ê°„ì˜ ì˜¤ë¥˜ê°€ ìˆëŠ” ë“¯ í•¨!! -_-;;;;
 	//--------------------------------------------------------------
-	// ¾Æ¿¹ °¥ ¼ö ¾ø´Â °÷ÀÌ¸é..
+	// ì•„ì˜ˆ ê°ˆ ìˆ˜ ì—†ëŠ” ê³³ì´ë©´..
 	//--------------------------------------------------------------
-	// PlayerÀ§Ä¡¿¡¼­ ¸ñÇ¥ÁöÁ¡±îÁö Á÷¼±?À¸·Î °É¾î°¡´Ù°¡ 
-	// Àå¾Ö¹°ÀÌ »ı±â¸é ¸ØÃá´Ù.
+	// Playerìœ„ì¹˜ì—ì„œ ëª©í‘œì§€ì ê¹Œì§€ ì§ì„ ?ìœ¼ë¡œ ê±¸ì–´ê°€ë‹¤ê°€ 
+	// ì¥ì• ë¬¼ì´ ìƒê¸°ë©´ ë©ˆì¶˜ë‹¤.
 	// (m_X, m_Y)  --->  (sX, sY)
 	//--------------------------------------------------------------		
 	{
@@ -1860,27 +1862,27 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 		
 		while (1)
 		{
-			// ºÎÈ£¿¡ µû¶ó¼­..
+			// ë¶€í˜¸ì— ë”°ë¼ì„œ..
 			signX = (stepX==0)? 0 : (stepX<0)? -1 : 1;
 			signY = (stepY==0)? 0 : (stepY<0)? -1 : 1;
 
 			x += signX;
 			y += signY;
 				
-			// °¥ ¼ö ÀÖ´Â °÷ÀÌ¸é list¿¡ ³Ö´Â´Ù.
+			// ê°ˆ ìˆ˜ ìˆëŠ” ê³³ì´ë©´ listì— ë„£ëŠ”ë‹¤.
 			if (m_pZone->CanMove(x,y))
 			{				
 				m_listDirection.insert( m_listDirection.end(), DetermineDirection(stepX, stepY));
 			}
 			else 
 			{
-				// x,y ÇÑÄ­ ÀüÀÇ À§Ä¡¸¦ ¸ñÇ¥ÁöÁ¡À¸·Î Á¤ÇÑ´Ù.
+				// x,y í•œì¹¸ ì „ì˜ ìœ„ì¹˜ë¥¼ ëª©í‘œì§€ì ìœ¼ë¡œ ì •í•œë‹¤.
 				m_DestX = x - signX;
 				m_DestY = y - signY;
 				break;
 			}	
 			
-			// ÇÑ Ä­ ¿òÁ÷¿´À½À» Ç¥½Ã
+			// í•œ ì¹¸ ì›€ì§ì˜€ìŒì„ í‘œì‹œ
 			stepX -= signX;
 			stepY -= signY;
 		}				
@@ -1899,7 +1901,7 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 //----------------------------------------------------------------------
 // Self Special Action
 //----------------------------------------------------------------------
-// ÀÚ½ÅÇÑÅ× Æ¯¼ö±â¼ú »ç¿ë
+// ìì‹ í•œí…Œ íŠ¹ìˆ˜ê¸°ìˆ  ì‚¬ìš©
 //----------------------------------------------------------------------
 bool	
 MPlayer::SelfSpecialAction()
@@ -1913,14 +1915,14 @@ MPlayer::SelfSpecialAction()
 		return false;
 
 	//-----------------------------------------------------
-	// delay°¡ ÀÖÀ¸¸é ¾ÈµÈ´Ù.
+	// delayê°€ ìˆìœ¼ë©´ ì•ˆëœë‹¤.
 	//-----------------------------------------------------
 	if (!IsNotDelay() || HasEffectStatus( EFFECTSTATUS_ETERNITY_PAUSE ) )
 	{
 		return false;
 	}
 
-	// [»õ±â¼ú3] °ü ¼Ó¿¡ ÀÖ´Â °æ¿ì´Â Open casket¸¸ »ç¿ëÇÒ ¼ö ÀÖ´Ù.
+	// [ìƒˆê¸°ìˆ 3] ê´€ ì†ì— ìˆëŠ” ê²½ìš°ëŠ” Open casketë§Œ ì‚¬ìš©í•  ìˆ˜ ìˆë‹¤.
 	//if (IsInCasket())
 //	{
 //		m_nSpecialActionInfo = MAGIC_OPEN_CASKET;
@@ -1928,21 +1930,21 @@ MPlayer::SelfSpecialAction()
 
 	
 	if (m_nSpecialActionInfo == ACTIONINFO_NULL
-		// ¿ÀÅä¹ÙÀÌ¸¦ Å¸°í ÀÖÀ¸¸é Æ¯¼ö°ø°İÀÌ ¾ÈµÈ´Ù.
+		// ì˜¤í† ë°”ì´ë¥¼ íƒ€ê³  ìˆìœ¼ë©´ íŠ¹ìˆ˜ê³µê²©ì´ ì•ˆëœë‹¤.
 		|| m_MoveDevice == MOVE_DEVICE_RIDE
-		// ¹º°¡ ±â¼ú »ç¿ëÀ» °ËÁ¤ ¹Ş¾Æ¾ß ÇÏ¸é »ç¿ëÇÒ ¼ö ¾ø´Ù.
-		//|| m_WaitVerify != WAIT_VERIFY_NULL)	// 2001.8.20 ÁÖ¼®Ã³¸®
+		// ë­”ê°€ ê¸°ìˆ  ì‚¬ìš©ì„ ê²€ì • ë°›ì•„ì•¼ í•˜ë©´ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+		//|| m_WaitVerify != WAIT_VERIFY_NULL)	// 2001.8.20 ì£¼ì„ì²˜ë¦¬
 		|| IsInSafeSector() == 2
-		// ¿ÏÀü ¾ÈÀüÁö´ë¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+		// ì™„ì „ ì•ˆì „ì§€ëŒ€ì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
 		)
 		return false;
 
-	// ÀÚ½Å¿¡°Ô »ç¿ëÇÒ ¼ö ÀÖ´Â °Íµé¸¸ »ç¿ëÇÑ´Ù.
+	// ìì‹ ì—ê²Œ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ê²ƒë“¤ë§Œ ì‚¬ìš©í•œë‹¤.
 	if ((*g_pActionInfoTable)[m_nSpecialActionInfo].IsTargetSelf())
 	{	
 		
 		//-------------------------------------------------------
-		// Áö·Ú ¸¸µé±â
+		// ì§€ë¢° ë§Œë“¤ê¸°
 		//-------------------------------------------------------
 		// skillID            itemType
 		// MINE_ANKLE_KILLER,	// 5
@@ -1951,7 +1953,7 @@ MPlayer::SelfSpecialAction()
 		// MINE_DIAMONDBACK,	// 8
 		// MINE_SWIFT_EX		// 9
 		//
-		// ÇÏµåÇÏµå...
+		// í•˜ë“œí•˜ë“œ...
 		//			
 		if (m_nSpecialActionInfo==SKILL_INSTALL_MINE
 			|| m_nSpecialActionInfo>=MINE_ANKLE_KILLER 
@@ -1960,8 +1962,8 @@ MPlayer::SelfSpecialAction()
 			int					useSkill = SKILL_INSTALL_MINE;					
 
 			//-------------------------------------------------------
-			// ÇöÀç »ç¿ëÇÒ ¼ö ÀÖ´Â ±â¼úÀÎÁö Ã¼Å©..
-			// Passive ½ºÅ³ÀÌ¸é »ç¿ë ¸øÇÏ°Ô..
+			// í˜„ì¬ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ê¸°ìˆ ì¸ì§€ ì²´í¬..
+			// Passive ìŠ¤í‚¬ì´ë©´ ì‚¬ìš© ëª»í•˜ê²Œ..
 			//-------------------------------------------------------
 			if (g_pSkillAvailable->IsEnableSkill( (ACTIONINFO)useSkill )
 				&& (*g_pSkillInfoTable)[useSkill].IsEnable()
@@ -1978,7 +1980,7 @@ MPlayer::SelfSpecialAction()
 
 				if (m_nSpecialActionInfo!=SKILL_INSTALL_MINE)
 				{
-					// Æ¯Á¤ typeÀÇ Áö·Ú¸¦ Ã£´Â´Ù.
+					// íŠ¹ì • typeì˜ ì§€ë¢°ë¥¼ ì°¾ëŠ”ë‹¤.
 					int itemType = m_nSpecialActionInfo-MINE_ANKLE_KILLER;
 
 					MItemClassTypeFinder itemFinder(itemClass, itemType);
@@ -1986,28 +1988,28 @@ MPlayer::SelfSpecialAction()
 				}
 				else
 				{
-					// Áö·Ú ¾Ï²¨³ª Ã£´Â´Ù.
+					// ì§€ë¢° ì•”êº¼ë‚˜ ì°¾ëŠ”ë‹¤.
 					MItemClassFinder itemFinder(itemClass);
 					pItem = ((MItemManager*)g_pInventory)->FindItem( itemFinder );
 				}
 				
-				// ¾µ·Á´Â ÆøÅºÀÌ ÀÖ´Â °æ¿ì
+				// ì“¸ë ¤ëŠ” í­íƒ„ì´ ìˆëŠ” ê²½ìš°
 				if (pItem!=NULL)
 				{
-					// Áö·Ú ¼³Ä¡ ÁØºñ..
+					// ì§€ë¢° ì„¤ì¹˜ ì¤€ë¹„..
 					gC_vs_ui.StartInstallMineProgress( pItem->GetGridX(), pItem->GetGridY() );
 				}									
 			}
 
-			// ¹İº¹µ¿ÀÛÀ» ¼³Á¤ÇÏÁö ¾Ê´Â´Ù.
+			// ë°˜ë³µë™ì‘ì„ ì„¤ì •í•˜ì§€ ì•ŠëŠ”ë‹¤.
 			m_fNextTrace = FLAG_TRACE_NULL;
 			UnSetRepeatAction();
 			return false;	
 		}
 
 		//-------------------------------------------------------
-		// ÇöÀç »ç¿ëÇÒ ¼ö ÀÖ´Â ±â¼úÀÎÁö Ã¼Å©..
-		// Passive ½ºÅ³ÀÌ¸é »ç¿ë ¸øÇÏ°Ô..
+		// í˜„ì¬ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ê¸°ìˆ ì¸ì§€ ì²´í¬..
+		// Passive ìŠ¤í‚¬ì´ë©´ ì‚¬ìš© ëª»í•˜ê²Œ..
 		//-------------------------------------------------------
 		if (!g_pSkillAvailable->IsEnableSkill( (ACTIONINFO)m_nSpecialActionInfo )
 			|| !(*g_pSkillInfoTable)[m_nSpecialActionInfo].IsEnable()
@@ -2024,43 +2026,45 @@ MPlayer::SelfSpecialAction()
 		if (IsStop()) // || m_Action!=ACTION_ATTACK)
 		{
 			//-------------------------------------------------------
-			// Æ¯Á¤ÇÑ ±â¼úÀÎ °æ¿ìÀÇ Ã¼Å©
+			// íŠ¹ì •í•œ ê¸°ìˆ ì¸ ê²½ìš°ì˜ ì²´í¬
 			//-------------------------------------------------------
 			switch (m_nSpecialActionInfo)
 			{
 				//-------------------------------------------------------
-				// Æ÷Å»
+				// í¬íƒˆ
 				//-------------------------------------------------------
 				case MAGIC_BLOODY_MARK :
 					if (IsVampire() && g_bHolyLand == false && g_pZoneTable->Get( m_pZone->GetID() )->CannotUseSpecialItem == false)
 					{
 						//----------------------------------------------------
-						// Server¿¡ Á¢¼ÓÇÑ °æ¿ì
+						// Serverì— ì ‘ì†í•œ ê²½ìš°
 						//----------------------------------------------------
 							//----------------------------------------------------
-							// °ËÁõ ¹ŞÀ»°Ô ¾ø´Â °æ¿ì..
+							// ê²€ì¦ ë°›ì„ê²Œ ì—†ëŠ” ê²½ìš°..
 							//----------------------------------------------------
 							if (!IsWaitVerify()
 								&& IsItemCheckBufferNULL())
 							{									
-								// »ç¿ë¾ÈµÈ(Marked=false) VampirePortalItemÀ» Ã£´Â´Ù.
+								// ì‚¬ìš©ì•ˆëœ(Marked=false) VampirePortalItemì„ ì°¾ëŠ”ë‹¤.
 
-							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 								MItem* pSubInventory = NULL;
-								MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( MVampirePortalItemFinder( false ) , pSubInventory );
+								MVampirePortalItemFinder finder1( false );
+								MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( finder1 , pSubInventory );
 							#else
-								MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( MVampirePortalItemFinder( false ) );
+								MVampirePortalItemFinder finder1( false );
+								MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( finder1 );
 							#endif
 								
 								
 								
 								if (pItem!=NULL && pItem->GetNumber()>0 && pItem->IsAffectStatus())
 								{	
-									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 										DWORD SubInventoryItemID = 0;
 									#endif
 									//----------------------------------------------------
-									// Server¿¡ Á¢¼ÓÇÑ °æ¿ì
+									// Serverì— ì ‘ì†í•œ ê²½ìš°
 									//----------------------------------------------------
 										CGSkillToInventory _CGSkillToInventory;
 										_CGSkillToInventory.setObjectID( pItem->GetID() );
@@ -2068,7 +2072,7 @@ MPlayer::SelfSpecialAction()
 										_CGSkillToInventory.setY( pItem->GetGridY() );
 										_CGSkillToInventory.setSkillType( MAGIC_BLOODY_MARK );
 										//_CGSkillToInventory.setCEffectID( 0 );	// -_-;;							
-									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 										if(NULL != pSubInventory)
 										{
 											SubInventoryItemID = pSubInventory->GetID();
@@ -2078,11 +2082,11 @@ MPlayer::SelfSpecialAction()
 										g_pSocket->sendPacket( &_CGSkillToInventory );
 
 										//----------------------------------------------------
-										// Inventory¿¡¼­ itemÀ» »ç¿ëÇÏ´Â °É °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+										// Inventoryì—ì„œ itemì„ ì‚¬ìš©í•˜ëŠ” ê±¸ ê²€ì¦ë°›ê¸°ë¥¼ ê¸°ë‹¤ë¦°ë‹¤.
 										//----------------------------------------------------
 										SetWaitVerify( WAIT_VERIFY_SKILL_SUCCESS );
 
-									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 										SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY, SubInventoryItemID);
 									#else
 										SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY);
@@ -2098,29 +2102,31 @@ MPlayer::SelfSpecialAction()
 				break;
 
 				//-------------------------------------------------------
-				// Æ÷Å»
+				// í¬íƒˆ
 				//-------------------------------------------------------
 				case MAGIC_BLOODY_TUNNEL :					
 					if (IsVampire() && g_bHolyLand == false && g_pZoneTable->Get( m_pZone->GetID() )->CannotUseSpecialItem == false)
 					{
 							//----------------------------------------------------
-							// °ËÁõ ¹ŞÀ»°Ô ¾ø´Â °æ¿ì..
+							// ê²€ì¦ ë°›ì„ê²Œ ì—†ëŠ” ê²½ìš°..
 							//----------------------------------------------------
 							if (!IsWaitVerify()
 								&& IsItemCheckBufferNULL())
 							{		
-								// »ç¿ëµÈ(Marked=true) VampirePortalItemÀ» Ã£´Â´Ù.
-							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+								// ì‚¬ìš©ëœ(Marked=true) VampirePortalItemì„ ì°¾ëŠ”ë‹¤.
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 								MItem* pSubInventory = NULL;
-								MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( MVampirePortalItemFinder( true ) , pSubInventory );
+								MVampirePortalItemFinder finder2( true );
+								MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( finder2 , pSubInventory );
 							#else
-								MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( MVampirePortalItemFinder( true ) );
+								MVampirePortalItemFinder finder2( true );
+								MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( finder2 );
 							#endif
 								
 								
 								if (pItem!=NULL && pItem->GetNumber()>0 && pItem->IsAffectStatus())
 								{				
-									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 										DWORD SubInventoryItemID = 0;
 									#endif
 										CGSkillToInventory _CGSkillToInventory;
@@ -2129,7 +2135,7 @@ MPlayer::SelfSpecialAction()
 										_CGSkillToInventory.setY( pItem->GetGridY() );
 										_CGSkillToInventory.setSkillType( MAGIC_BLOODY_TUNNEL );
 										//_CGSkillToInventory.setCEffectID( 0 );	// -_-;;							
-									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 										if(NULL != pSubInventory)
 										{
 											SubInventoryItemID = pSubInventory->GetID();
@@ -2139,11 +2145,11 @@ MPlayer::SelfSpecialAction()
 										g_pSocket->sendPacket( &_CGSkillToInventory );
 
 										//----------------------------------------------------
-										// Inventory¿¡¼­ itemÀ» »ç¿ëÇÏ´Â °É °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+										// Inventoryì—ì„œ itemì„ ì‚¬ìš©í•˜ëŠ” ê±¸ ê²€ì¦ë°›ê¸°ë¥¼ ê¸°ë‹¤ë¦°ë‹¤.
 										//----------------------------------------------------
 										SetWaitVerify( MPlayer::WAIT_VERIFY_SKILL_SUCCESS );
 
-									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 										SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY, SubInventoryItemID);
 									#else
 										SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY);
@@ -2160,30 +2166,32 @@ MPlayer::SelfSpecialAction()
 				break;
 
 				//-------------------------------------------------------
-				// Æ÷Å»
+				// í¬íƒˆ
 				//-------------------------------------------------------
 				case SUMMON_HELICOPTER :
 					if (IsSlayer() && g_bHolyLand == false && g_pZoneTable->Get( m_pZone->GetID() )->CannotUseSpecialItem == false)
 					{
 							//----------------------------------------------------
-							// °ËÁõ ¹ŞÀ»°Ô ¾ø´Â °æ¿ì..
+							// ê²€ì¦ ë°›ì„ê²Œ ì—†ëŠ” ê²½ìš°..
 							//----------------------------------------------------
 							if (IsWaitVerifyNULL()
 								&& IsItemCheckBufferNULL()
 								&& g_pZone->GetHelicopter( GetID() )==NULL)				
 							{		
 
-							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 								MItem* pSubInventory = NULL;
-								MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( MSlayerPortalItemFinder() , pSubInventory);
+								MSlayerPortalItemFinder finder3;
+								MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( finder3 , pSubInventory);
 							#else
-								MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( MSlayerPortalItemFinder() );
+								MSlayerPortalItemFinder finder3;
+								MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( finder3 );
 							#endif
 								
 								
 								if (pItem!=NULL && pItem->GetNumber()>0 && pItem->IsAffectStatus())
 								{				
-									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 										DWORD SubInventoryItemID = 0;
 									#endif
 										CGUseItemFromInventory _CGUseItemFromInventory;
@@ -2191,7 +2199,7 @@ MPlayer::SelfSpecialAction()
 										_CGUseItemFromInventory.setX( pItem->GetGridX() );
 										_CGUseItemFromInventory.setY( pItem->GetGridY() );
 
-									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 										if(NULL != pSubInventory)
 										{
 											SubInventoryItemID = pSubInventory->GetID();
@@ -2202,9 +2210,9 @@ MPlayer::SelfSpecialAction()
 										g_pSocket->sendPacket( &_CGUseItemFromInventory );
 
 										//----------------------------------------------------
-										// Inventory¿¡¼­ itemÀ» »ç¿ëÇÏ´Â °É °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+										// Inventoryì—ì„œ itemì„ ì‚¬ìš©í•˜ëŠ” ê±¸ ê²€ì¦ë°›ê¸°ë¥¼ ê¸°ë‹¤ë¦°ë‹¤.
 										//----------------------------------------------------
-									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 										SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY, SubInventoryItemID);
 									#else
 										SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
@@ -2218,7 +2226,7 @@ MPlayer::SelfSpecialAction()
 				break;
 
 				//-------------------------------------------------------
-				// ¼º¼ö ¸¸µé±â
+				// ì„±ìˆ˜ ë§Œë“¤ê¸°
 				//-------------------------------------------------------
 				case MAGIC_CREATE_HOLY_WATER :				
 					if (
@@ -2237,7 +2245,7 @@ MPlayer::SelfSpecialAction()
 
 						if (pItem!=NULL)
 						{
-//							POINT fitPoint;			// ¼º¼ö°¡ µé¾î°¥ ÀÚ¸®
+//							POINT fitPoint;			// ì„±ìˆ˜ê°€ ë“¤ì–´ê°ˆ ìë¦¬
 
 //							if (GetMakeItemFitPosition(pItem, 
 //														ITEM_CLASS_HOLYWATER, 
@@ -2256,11 +2264,11 @@ MPlayer::SelfSpecialAction()
 								g_pSocket->sendPacket( &_CGSkillToInventory );
 
 								
-								// ÀÏ´Ü(!) ±×³É ¾ø¾Ö°í º»´Ù.
+								// ì¼ë‹¨(!) ê·¸ëƒ¥ ì—†ì• ê³  ë³¸ë‹¤.
 								//(*g_pInventory).RemoveItem( pItem->GetID() );
 
 								//----------------------------------------------------
-								// Inventory¿¡¼­ itemÀ» »ç¿ëÇÏ´Â °É °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+								// Inventoryì—ì„œ itemì„ ì‚¬ìš©í•˜ëŠ” ê±¸ ê²€ì¦ë°›ê¸°ë¥¼ ê¸°ë‹¤ë¦°ë‹¤.
 								//----------------------------------------------------
 								SetWaitVerify( MPlayer::WAIT_VERIFY_SKILL_SUCCESS );
 								SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY );
@@ -2268,19 +2276,19 @@ MPlayer::SelfSpecialAction()
 								(*g_pSkillInfoTable)[MAGIC_CREATE_HOLY_WATER].SetNextAvailableTime();
 
 								//----------------------------------------------------
-								// ±â¼ú »ç¿ë ½Ãµµ µ¿ÀÛ
+								// ê¸°ìˆ  ì‚¬ìš© ì‹œë„ ë™ì‘
 								//----------------------------------------------------
 								AddNewInventoryEffect( pItem->GetID(),
 													MAGIC_CREATE_HOLY_WATER, //+ (*g_pActionInfoTable).GetMinResultActionInfo(),
-													g_pClientConfig->FPS*3	// 3ÃÊ
+													g_pClientConfig->FPS*3	// 3ì´ˆ
 												);
-								// ¹İº¹µ¿ÀÛÀ» ¼³Á¤ÇÏÁö ¾Ê´Â´Ù.
+								// ë°˜ë³µë™ì‘ì„ ì„¤ì •í•˜ì§€ ì•ŠëŠ”ë‹¤.
 								m_fNextTrace = FLAG_TRACE_NULL;
 								UnSetRepeatAction();
 							}
 //							else
 //							{
-//								// g_pGameMessage( "ÀÚ¸®°¡ ¾øµû¾ß~" );
+//								// g_pGameMessage( "ìë¦¬ê°€ ì—†ë”°ì•¼~" );
 //							}
 						}						
 					}
@@ -2305,7 +2313,7 @@ MPlayer::SelfSpecialAction()
 
 						if (pItem!=NULL)
 						{
-							POINT fitPoint;			// ¼º¼ö°¡ µé¾î°¥ ÀÚ¸®
+							POINT fitPoint;			// ì„±ìˆ˜ê°€ ë“¤ì–´ê°ˆ ìë¦¬
 
 							if (GetMakeItemFitPosition(pItem, 
 														ITEM_CLASS_POTION, 
@@ -2324,11 +2332,11 @@ MPlayer::SelfSpecialAction()
 								g_pSocket->sendPacket( &_CGSkillToInventory );
 
 								
-								// ÀÏ´Ü(!) ±×³É ¾ø¾Ö°í º»´Ù.
+								// ì¼ë‹¨(!) ê·¸ëƒ¥ ì—†ì• ê³  ë³¸ë‹¤.
 								//(*g_pInventory).RemoveItem( pItem->GetID() );
 
 								//----------------------------------------------------
-								// Inventory¿¡¼­ itemÀ» »ç¿ëÇÏ´Â °É °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+								// Inventoryì—ì„œ itemì„ ì‚¬ìš©í•˜ëŠ” ê±¸ ê²€ì¦ë°›ê¸°ë¥¼ ê¸°ë‹¤ë¦°ë‹¤.
 								//----------------------------------------------------
 								SetWaitVerify( MPlayer::WAIT_VERIFY_SKILL_SUCCESS );
 								SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY );
@@ -2336,19 +2344,19 @@ MPlayer::SelfSpecialAction()
 								(*g_pSkillInfoTable)[SKILL_CREATE_HOLY_POTION].SetNextAvailableTime();
 
 								//----------------------------------------------------
-								// ±â¼ú »ç¿ë ½Ãµµ µ¿ÀÛ
+								// ê¸°ìˆ  ì‚¬ìš© ì‹œë„ ë™ì‘
 								//----------------------------------------------------
 								AddNewInventoryEffect( pItem->GetID(),
 													SKILL_CREATE_HOLY_POTION, //+ (*g_pActionInfoTable).GetMinResultActionInfo(),
-													g_pClientConfig->FPS*3	// 3ÃÊ
+													g_pClientConfig->FPS*3	// 3ì´ˆ
 												);
-								// ¹İº¹µ¿ÀÛÀ» ¼³Á¤ÇÏÁö ¾Ê´Â´Ù.
+								// ë°˜ë³µë™ì‘ì„ ì„¤ì •í•˜ì§€ ì•ŠëŠ”ë‹¤.
 								m_fNextTrace = FLAG_TRACE_NULL;
 								UnSetRepeatAction();
 							}
 							else
 							{
-								// g_pGameMessage( "ÀÚ¸®°¡ ¾øµû¾ß~" );
+								// g_pGameMessage( "ìë¦¬ê°€ ì—†ë”°ì•¼~" );
 							}
 						}						
 					}
@@ -2357,17 +2365,17 @@ MPlayer::SelfSpecialAction()
 				break;
 
 				//-------------------------------------------------------
-				// ÆøÅº ¸¸µé±â
-				// Áö·Ú ¸¸µé±â
+				// í­íƒ„ ë§Œë“¤ê¸°
+				// ì§€ë¢° ë§Œë“¤ê¸°
 				//-------------------------------------------------------
 				case SKILL_MAKE_BOMB :
 				case SKILL_MAKE_MINE :
 					if (IsSlayer()
 						&& !IsWaitVerify()
 						&& IsItemCheckBufferNULL()
-						&& !gC_vs_ui.IsInstallMineProgress())	// Áö·Ú ¸¸µå´Â ÁßÀÌ¸é..
-						//|| gC_vs_ui.IsCreateMineProgress()	// Áö·Ú ¸¸µå´Â ÁßÀÌ¸é..
-						//|| gC_vs_ui.IsCreateBombProgress()	// Áö·Ú ¸¸µå´Â ÁßÀÌ¸é..
+						&& !gC_vs_ui.IsInstallMineProgress())	// ì§€ë¢° ë§Œë“œëŠ” ì¤‘ì´ë©´..
+						//|| gC_vs_ui.IsCreateMineProgress()	// ì§€ë¢° ë§Œë“œëŠ” ì¤‘ì´ë©´..
+						//|| gC_vs_ui.IsCreateBombProgress()	// ì§€ë¢° ë§Œë“œëŠ” ì¤‘ì´ë©´..
 					{					
 
 						int					skillID;
@@ -2376,7 +2384,7 @@ MPlayer::SelfSpecialAction()
 						int					maxItemType;
 						int					itemTypeModifier;
 							
-						// itemTypeÀÌ 0~4±îÁöÀÌ¸é ÆøÅºÀÌ´Ù.
+						// itemTypeì´ 0~4ê¹Œì§€ì´ë©´ í­íƒ„ì´ë‹¤.
 						if (m_nSpecialActionInfo==SKILL_MAKE_BOMB)
 						{
 							skillID = SKILL_MAKE_BOMB;
@@ -2401,14 +2409,14 @@ MPlayer::SelfSpecialAction()
 
 						if (pItem!=NULL)
 						{
-							POINT fitPoint;			// µé¾î°¥ ÀÚ¸®
+							POINT fitPoint;			// ë“¤ì–´ê°ˆ ìë¦¬
 
 							if (GetMakeItemFitPosition(pItem, 
 														itemClass, 
 														pItem->GetItemType() + itemTypeModifier, 
 														fitPoint))
 							{
-								// ¸¸µé±â ½ÃÀÛÇÏ´Â ¼ø°£...
+								// ë§Œë“¤ê¸° ì‹œì‘í•˜ëŠ” ìˆœê°„...
 								if (skillID==SKILL_MAKE_BOMB)
 								{
 									gC_vs_ui.StartCreateBombProgress( pItem->GetGridX(), pItem->GetGridY() );
@@ -2418,15 +2426,15 @@ MPlayer::SelfSpecialAction()
 									gC_vs_ui.StartCreateMineProgress( pItem->GetGridX(), pItem->GetGridY() );
 								}
 
-								// UI¿¡¼­ ¸·´ë±â º¸¿©ÁÖ°í ³ª¼­
-								// UI_ITEM_USE°¡ ³¯¾Æ¿À´Â ºÎºĞ¿¡¼­ Ã³¸®ÇÑ´Ù.
+								// UIì—ì„œ ë§‰ëŒ€ê¸° ë³´ì—¬ì£¼ê³  ë‚˜ì„œ
+								// UI_ITEM_USEê°€ ë‚ ì•„ì˜¤ëŠ” ë¶€ë¶„ì—ì„œ ì²˜ë¦¬í•œë‹¤.
 								
-								// ¿¬¼ÓÀûÀ¸·Î »ç¿ëÇÏ±â À§ÇØ¼­
+								// ì—°ì†ì ìœ¼ë¡œ ì‚¬ìš©í•˜ê¸° ìœ„í•´ì„œ
 //								m_fNextTrace	= FLAG_TRACE_SELF;
 //				
 //								m_bRepeatAction = FALSE;
 								
-								// ¹İº¹µ¿ÀÛÀ» ¼³Á¤ÇÏÁö ¾Ê´Â´Ù.
+								// ë°˜ë³µë™ì‘ì„ ì„¤ì •í•˜ì§€ ì•ŠëŠ”ë‹¤.
 								m_fNextTrace = FLAG_TRACE_NULL;
 								UnSetRepeatAction();
 								
@@ -2443,11 +2451,11 @@ MPlayer::SelfSpecialAction()
 								g_pSocket->sendPacket( &_CGSkillToInventory );
 
 								
-								// ÀÏ´Ü(!) ±×³É ¾ø¾Ö°í º»´Ù.
+								// ì¼ë‹¨(!) ê·¸ëƒ¥ ì—†ì• ê³  ë³¸ë‹¤.
 								//(*g_pInventory).RemoveItem( pItem->GetID() );
 
 								//----------------------------------------------------
-								// Inventory¿¡¼­ itemÀ» »ç¿ëÇÏ´Â °É °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+								// Inventoryì—ì„œ itemì„ ì‚¬ìš©í•˜ëŠ” ê±¸ ê²€ì¦ë°›ê¸°ë¥¼ ê¸°ë‹¤ë¦°ë‹¤.
 								//----------------------------------------------------
 								SetWaitVerify( MPlayer::WAIT_VERIFY_SKILL_SUCCESS );
 								SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY );
@@ -2455,17 +2463,17 @@ MPlayer::SelfSpecialAction()
 								(*g_pSkillInfoTable)[skillID].SetNextAvailableTime();
 
 								//----------------------------------------------------
-								// ±â¼ú »ç¿ë ½Ãµµ µ¿ÀÛ
+								// ê¸°ìˆ  ì‚¬ìš© ì‹œë„ ë™ì‘
 								//----------------------------------------------------
 								AddNewInventoryEffect( pItem->GetID(),
 													skillID, //+ (*g_pActionInfoTable).GetMinResultActionInfo(),
-													g_pClientConfig->FPS*3	// 3ÃÊ
+													g_pClientConfig->FPS*3	// 3ì´ˆ
 												);
 								*/
 							}
 							else
 							{
-								// g_pGameMessage( "ÀÚ¸®°¡ ¾øµû¾ß~" );
+								// g_pGameMessage( "ìë¦¬ê°€ ì—†ë”°ì•¼~" );
 							}
 						}						
 					}
@@ -2474,33 +2482,33 @@ MPlayer::SelfSpecialAction()
 				break;
 
 				//-------------------------------------------------------
-				// ¹ÚÁã³ª ´Á´ë º¯½Å
+				// ë°•ì¥ë‚˜ ëŠ‘ëŒ€ ë³€ì‹ 
 				//-------------------------------------------------------
 				case SKILL_TRANSFORM_TO_WERWOLF :
 				case MAGIC_TRANSFORM_TO_WOLF :
 				case MAGIC_TRANSFORM_TO_BAT :					
 					//----------------------------------------------------
 					//
-					//					º¯½Å¿ë ¾ÆÀÌÅÛ - vampireÀÎ °æ¿ì
+					//					ë³€ì‹ ìš© ì•„ì´í…œ - vampireì¸ ê²½ìš°
 					//
 					//----------------------------------------------------
 					if (IsVampire() && g_pZoneTable->Get( m_pZone->GetID() )->CannotUseSpecialItem == false)
 					{
 							//----------------------------------------------------
-							// °ËÁõ ¹ŞÀ»°Ô ¾ø´Â °æ¿ì..
+							// ê²€ì¦ ë°›ì„ê²Œ ì—†ëŠ” ê²½ìš°..
 							//----------------------------------------------------
 							if (!IsWaitVerify()
 								&& IsItemCheckBufferNULL())
 							{		
 								MItem* pItem = NULL;
 
-							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 								MItem* pSubInventory = NULL;
 							#endif
 
 								if (m_nSpecialActionInfo==MAGIC_TRANSFORM_TO_WOLF)
 								{
-									// ´Á´ë ¹ßÅé Ã£±â
+									// ëŠ‘ëŒ€ ë°œí†± ì°¾ê¸°
 									pItem = g_pInventory->FindItem(ITEM_CLASS_VAMPIRE_ETC, 0);
 								}
 								else if ( m_nSpecialActionInfo == SKILL_TRANSFORM_TO_WERWOLF )
@@ -2509,7 +2517,7 @@ MPlayer::SelfSpecialAction()
 								}
 								else
 								{
-								#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+								#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 									pItem = g_pInventory->FindItemAll( MItemClassTypeFinder(ITEM_CLASS_VAMPIRE_ETC , 1), pSubInventory );
 								#else
 									pItem = g_pInventory->FindItem(ITEM_CLASS_VAMPIRE_ETC, 1);
@@ -2519,7 +2527,7 @@ MPlayer::SelfSpecialAction()
 
 								if (pItem!=NULL)
 								{			
-								#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+								#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 									DWORD dwSubInventoryID = 0;
 								#endif
 									CGSkillToInventory _CGSkillToInventory;
@@ -2529,7 +2537,7 @@ MPlayer::SelfSpecialAction()
 									_CGSkillToInventory.setSkillType( m_nSpecialActionInfo );
 									//_CGSkillToInventory.setCEffectID( 0 );	// -_-;;	
 									
-								#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+								#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 									if(NULL != pSubInventory)
 										dwSubInventoryID = pSubInventory->GetID();
 
@@ -2539,15 +2547,15 @@ MPlayer::SelfSpecialAction()
 									g_pSocket->sendPacket( &_CGSkillToInventory );
 
 
-									// ÀÏ´Ü(!) ±×³É ¾ø¾Ö°í º»´Ù.
+									// ì¼ë‹¨(!) ê·¸ëƒ¥ ì—†ì• ê³  ë³¸ë‹¤.
 									//(*g_pInventory).RemoveItem( pItem->GetID() );
 
 									//----------------------------------------------------
-									// Inventory¿¡¼­ itemÀ» »ç¿ëÇÏ´Â °É °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+									// Inventoryì—ì„œ itemì„ ì‚¬ìš©í•˜ëŠ” ê±¸ ê²€ì¦ë°›ê¸°ë¥¼ ê¸°ë‹¤ë¦°ë‹¤.
 									//----------------------------------------------------
 									SetWaitVerify( MPlayer::WAIT_VERIFY_SKILL_SUCCESS );
 									
-								#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+								#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 									SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY , dwSubInventoryID);
 								#else
 									SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY );
@@ -2557,11 +2565,11 @@ MPlayer::SelfSpecialAction()
 									(*g_pSkillInfoTable)[m_nSpecialActionInfo].SetNextAvailableTime();
 
 									//----------------------------------------------------
-									// ±â¼ú »ç¿ë ½Ãµµ µ¿ÀÛ
+									// ê¸°ìˆ  ì‚¬ìš© ì‹œë„ ë™ì‘
 									//----------------------------------------------------
 									AddNewInventoryEffect( pItem->GetID(),
 														m_nSpecialActionInfo, //+ (*g_pActionInfoTable).GetMinResultActionInfo(),
-														g_pClientConfig->FPS*3	// 3ÃÊ
+														g_pClientConfig->FPS*3	// 3ì´ˆ
 													);
 								}
 							}
@@ -2572,7 +2580,7 @@ MPlayer::SelfSpecialAction()
 
 				//----------------------------------------------------
 				//
-				// º¯½Å Ç®±â
+				// ë³€ì‹  í’€ê¸°
 				// 
 				//----------------------------------------------------
 				case MAGIC_UN_TRANSFORM :
@@ -2594,7 +2602,7 @@ MPlayer::SelfSpecialAction()
 				case SKILL_SUMMON_SYLPH :
 					if( IsOusters() && !HasEffectStatus( EFFECTSTATUS_HAS_FLAG )
 						//----------------------------------------------------
-						// °ËÁõ ¹ŞÀ»°Ô ¾ø´Â °æ¿ì..
+						// ê²€ì¦ ë°›ì„ê²Œ ì—†ëŠ” ê²½ìš°..
 						//----------------------------------------------------
 						&& IsWaitVerifyNULL()
 						&& IsItemCheckBufferNULL()
@@ -2602,11 +2610,13 @@ MPlayer::SelfSpecialAction()
 					{
 						//MItem* pItem = g_pInventory->FindItem( ITEM_CLASS_OUSTERS_SUMMON_ITEM );
 
-					#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+					#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 						MItem* pSubInventory = NULL;
-						MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( MOustersSummonGemItemFinder(), pSubInventory );
+						MOustersSummonGemItemFinder finder4;
+						MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( finder4, pSubInventory );
 					#else
-						MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( MOustersSummonGemItemFinder() );
+						MOustersSummonGemItemFinder finder4;
+						MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( finder4 );
 					#endif
 						
 						if( pItem != NULL )
@@ -2614,7 +2624,7 @@ MPlayer::SelfSpecialAction()
 							if( pItem->IsAffectStatus() && pItem->IsChargeItem() && pItem->GetNumber() > 0 )
 							{
 								
-							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 								DWORD SubInventoryItemID = 0;
 							#endif
 
@@ -2623,7 +2633,7 @@ MPlayer::SelfSpecialAction()
 								_CGUseItemFromInventory.setX( pItem->GetGridX() );
 								_CGUseItemFromInventory.setY( pItem->GetGridY() );
 
-							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 								if(NULL != pSubInventory)
 								{
 									SubInventoryItemID = pSubInventory->GetID();
@@ -2634,7 +2644,7 @@ MPlayer::SelfSpecialAction()
 
 								g_pSocket->sendPacket( &_CGUseItemFromInventory );
 
-							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 								SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY, SubInventoryItemID);
 							#else
 								SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
@@ -2651,16 +2661,16 @@ MPlayer::SelfSpecialAction()
 				break;
 				//-----------------------------------------------------
 				//
-				// ÃßÀû
+				// ì¶”ì 
 				//
 				//-----------------------------------------------------
 				case SKILL_SOUL_CHAIN :
-					// ¹ìÆÄÀÌ¾î ½½·¹ÀÌ¾î ±¸ºĞÀÌ ¾ø´Ù.
+					// ë±€íŒŒì´ì–´ ìŠ¬ë ˆì´ì–´ êµ¬ë¶„ì´ ì—†ë‹¤.
 
 					if (!IsWaitVerify())
 					{
-						// UI Ã¢À» ¶ç¿öÁØ´Ù.
-						// UI Ã¢À» ¶ç¿î µÚ ¸Ş½ÃÁö°¡ ³¯¾Æ¿À¸é °Å±â¼­ sendpacket À» ÇØÁØ´Ù.
+						// UI ì°½ì„ ë„ì›Œì¤€ë‹¤.
+						// UI ì°½ì„ ë„ìš´ ë’¤ ë©”ì‹œì§€ê°€ ë‚ ì•„ì˜¤ë©´ ê±°ê¸°ì„œ sendpacket ì„ í•´ì¤€ë‹¤.
 						gC_vs_ui.RunTraceWindow();
 						
 //						int skillID = SKILL_SOUL_CHAIN;
@@ -2677,7 +2687,7 @@ MPlayer::SelfSpecialAction()
 
 				case SKILL_LOVE_CHAIN :
 					//----------------------------------------------------
-					// °ËÁõ ¹ŞÀ»°Ô ¾ø´Â °æ¿ì..
+					// ê²€ì¦ ë°›ì„ê²Œ ì—†ëŠ” ê²½ìš°..
 					//----------------------------------------------------
 					if (!IsWaitVerify()
 						&& IsItemCheckBufferNULL())
@@ -2713,7 +2723,7 @@ MPlayer::SelfSpecialAction()
 						return false;
 					}
 					break;
-				// add by Coffee 2007-6-9 Ôö¼ÓÊ¹ÓÃĞÂ¼¼ÄÜÎïÆ·¿Û³ı
+				// add by Coffee 2007-6-9 è—¤ì†è³ˆç—°åŠ¤ì„¸ì½˜è† í‹”ì™±ë‡œ
 // 				case SKILL_BLLODY_SCARIFY:
 // 				case SKILL_BLOOD_CURSE:
 // 					if (IsVampire() && !IsWaitVerify() && IsItemCheckBufferNULL())
@@ -2739,42 +2749,42 @@ MPlayer::SelfSpecialAction()
 			if( (*g_pActionInfoTable)[m_nSpecialActionInfo].GetParentActionInfo() != ACTIONINFO_NULL )
 				m_nSpecialActionInfo = (*g_pActionInfoTable)[m_nSpecialActionInfo].GetParentActionInfo();
 
-			// »ç¿ëÇÑ ±â¼ú·Î ¼³Á¤
+			// ì‚¬ìš©í•œ ê¸°ìˆ ë¡œ ì„¤ì •
 			m_nUsedActionInfo	= m_nSpecialActionInfo;
 
-			// ÃßÀû Á¤º¸ ÃÊ±âÈ­
+			// ì¶”ì  ì •ë³´ ì´ˆê¸°í™”
 			SetTraceID( m_ID );
 			m_fTrace	= FLAG_TRACE_SELF;
 			m_TraceX	= m_X;//SECTORPOSITION_NULL;
 			m_TraceY	= m_Y;//SECTORPOSITION_NULL;
 			m_TraceZ	= 0;
 
-			// ÇöÀç ÃßÀûÇÏ´Â ´ë»ó¿¡ ´ëÇØ¼­ ±â¾ïÇØµĞ´Ù.
+			// í˜„ì¬ ì¶”ì í•˜ëŠ” ëŒ€ìƒì— ëŒ€í•´ì„œ ê¸°ì–µí•´ë‘”ë‹¤.
 			m_fTraceBuffer	= m_fTrace;	
 
 			//------------------------------------------------------------
-			// BasicActionÀÌ ¹¹³Ä¿¡ µû¶ó¼­..
-			// ÇöÀç PlayerÀÇ ´É·Â¿¡ µû¶ó¼­ TraceDistance°¡ ´Ş¶óÁú °ÍÀÌ´Ù.
+			// BasicActionì´ ë­ëƒì— ë”°ë¼ì„œ..
+			// í˜„ì¬ Playerì˜ ëŠ¥ë ¥ì— ë”°ë¼ì„œ TraceDistanceê°€ ë‹¬ë¼ì§ˆ ê²ƒì´ë‹¤.
 			//------------------------------------------------------------
 			
 			m_TraceDistance		= 0;
 			
 			//------------------------------------------------------------
-			// ±â¼ú »ç¿ë ActionÇ¥Çö
+			// ê¸°ìˆ  ì‚¬ìš© Actioní‘œí˜„
 			SetNextAction( GetActionInfoAction(m_nUsedActionInfo, true) );
 
-			// bufferingÀ» ¾ø¾Ø´Ù.
+			// bufferingì„ ì—†ì•¤ë‹¤.
 			m_fNextTrace			= FLAG_TRACE_NULL;	
 
 			//------------------------------------------------------------
-			// messageÃâ·Â
+			// messageì¶œë ¥
 			//------------------------------------------------------------
 			DEBUG_ADD_FORMAT("Self SpecialAction");					
 		}
 		else
 		{
 			//------------------------------------------------------------
-			// ¹İº¹ actionÇÏ´Â ÁßÀÌ ¾Æ´Ñ °æ¿ì¿¡ ´ÙÀ½ µ¿ÀÛ buffering
+			// ë°˜ë³µ actioní•˜ëŠ” ì¤‘ì´ ì•„ë‹Œ ê²½ìš°ì— ë‹¤ìŒ ë™ì‘ buffering
 			//------------------------------------------------------------
 			if (m_bRepeatAction)
 			{
@@ -2801,7 +2811,7 @@ MPlayer::SelfSpecialAction()
 //----------------------------------------------------------------------
 // Keep Trace Creature
 //----------------------------------------------------------------------
-// ÃßÀûÇÏ´ø Creature¸¦ °è¼Ó ÃßÀûÇÑ´Ù.
+// ì¶”ì í•˜ë˜ Creatureë¥¼ ê³„ì† ì¶”ì í•œë‹¤.
 //----------------------------------------------------------------------
 void
 MPlayer::KeepTraceCreature()
@@ -2815,7 +2825,7 @@ MPlayer::KeepTraceCreature()
 		return;			
 	}
 
-	// ÃßÀûÇÏ´Â CreatureÀÇ Á¤º¸¸¦ ÀĞ¾î¿Â´Ù.
+	// ì¶”ì í•˜ëŠ” Creatureì˜ ì •ë³´ë¥¼ ì½ì–´ì˜¨ë‹¤.
 	MCreature*	pCreature = m_pZone->GetCreature( m_TraceID );
 
 	//GET_DYING_CREATURE( pCreature, m_TraceID );
@@ -2826,7 +2836,7 @@ MPlayer::KeepTraceCreature()
 	{
 		if( ( GetTickCount() - m_TraceTimer ) / 1000 > g_pClientConfig->TRACE_CHARACTER_LIMIT_TIME )
 		{
-			if( pCreature != NULL &&					// µ¿Á·ÀÏ °æ¿ì¸¸.
+			if( pCreature != NULL &&					// ë™ì¡±ì¼ ê²½ìš°ë§Œ.
 				(pCreature->IsSlayer() && IsSlayer()) || 
 				(pCreature->IsVampire() && IsVampire()) ||
 				(pCreature->IsOusters() && IsOusters())
@@ -2839,8 +2849,8 @@ MPlayer::KeepTraceCreature()
 	}
 	
 	//-------------------------------------------------------
-	// ÃßÀûÇÏ´Â Creature°¡ »ç¶óÁ³À» °æ¿ì --> ÃßÀû ÁßÁö
-	// ³»°¡ SlayerÀÎ °æ¿ì´Â Darkness¾È¿¡ µé¾î°£ Ä³¸¯À» ÂÑ¾Æ°¥ ¼ö ¾ø´Ù.
+	// ì¶”ì í•˜ëŠ” Creatureê°€ ì‚¬ë¼ì¡Œì„ ê²½ìš° --> ì¶”ì  ì¤‘ì§€
+	// ë‚´ê°€ Slayerì¸ ê²½ìš°ëŠ” Darknessì•ˆì— ë“¤ì–´ê°„ ìºë¦­ì„ ì«“ì•„ê°ˆ ìˆ˜ ì—†ë‹¤.
 	//-------------------------------------------------------
 	if ((pCreature==NULL || 
 		pCreature->IsInDarkness() && !pCreature->IsNPC() && 
@@ -2854,10 +2864,10 @@ MPlayer::KeepTraceCreature()
 #endif
 		)
 	{
-		// ÃßÀû ÁßÁö
+		// ì¶”ì  ì¤‘ì§€
 		TraceNULL();
 			
-		// ¸ØÃá´Ù.
+		// ë©ˆì¶˜ë‹¤.
 		SetStop();	
 		
 		UnSetRepeatAction();
@@ -2879,7 +2889,7 @@ MPlayer::KeepTraceCreature()
 //----------------------------------------------------------------------
 // Get ActionInfo Range
 //----------------------------------------------------------------------
-// nActionInfoÀÇ »ç¿ë °¡´É °Å¸®´Â?
+// nActionInfoì˜ ì‚¬ìš© ê°€ëŠ¥ ê±°ë¦¬ëŠ”?
 //----------------------------------------------------------------------
 int		
 MPlayer::GetActionInfoRange(TYPE_ACTIONINFO nActionInfo)
@@ -2891,7 +2901,7 @@ MPlayer::GetActionInfoRange(TYPE_ACTIONINFO nActionInfo)
 		nActionInfo = (*g_pActionInfoTable)[nActionInfo].GetParentActionInfo();
 
 	//-------------------------------------------------------------
-	// ±âº» actionÀÇ Àû¿ëÀ» ¹Ş´Â°¡?
+	// ê¸°ë³¸ actionì˜ ì ìš©ì„ ë°›ëŠ”ê°€?
 	//-------------------------------------------------------------
 	if ((*g_pActionInfoTable)[nActionInfo].IsAffectCurrentWeaponRange())
 	{
@@ -2910,12 +2920,12 @@ MPlayer::GetActionInfoRange(TYPE_ACTIONINFO nActionInfo)
 		return maxRange;
 #endif
 
-	int maxLevel = 100;	// ½½·¹ÀÌ¾î´Â ½ºÅ³·¹º§À» 100±îÁö ¿Ã¸°´Ù.
+	int maxLevel = 100;	// ìŠ¬ë ˆì´ì–´ëŠ” ìŠ¤í‚¬ë ˆë²¨ì„ 100ê¹Œì§€ ì˜¬ë¦°ë‹¤.
 	
 	if(IsOusters())
-		maxLevel = 30;	// ¾Æ¿ì½ºÅÍÁî´Â ½ºÅ³·¹º§À» 30±îÁö ¿Ã¸°´Ù.
+		maxLevel = 30;	// ì•„ìš°ìŠ¤í„°ì¦ˆëŠ” ìŠ¤í‚¬ë ˆë²¨ì„ 30ê¹Œì§€ ì˜¬ë¦°ë‹¤.
 
-	// Æ¯Á¤ ½ºÅ³¿¡ ´ëÇÑ Range °è»ê
+	// íŠ¹ì • ìŠ¤í‚¬ì— ëŒ€í•œ Range ê³„ì‚°
 	
 	switch( nActionInfo )
 	{
@@ -2939,8 +2949,8 @@ MPlayer::GetActionInfoRange(TYPE_ACTIONINFO nActionInfo)
 //----------------------------------------------------------------------
 // Trace Creature To BasicAction
 //----------------------------------------------------------------------
-// ±âº»°ø°İÀ¸·Î(L-Click) ÇÑ ¸íÀÇ Creature¸¦ ÃßÀûÇÏ¿© °ø°İÇÑ´Ù.
-// ¸ØÃçÀÖ´Â »óÅÂ°¡ ¾Æ´Ï¸é.. Next¿¡ ¼³Á¤ÇØµĞ´Ù.
+// ê¸°ë³¸ê³µê²©ìœ¼ë¡œ(L-Click) í•œ ëª…ì˜ Creatureë¥¼ ì¶”ì í•˜ì—¬ ê³µê²©í•œë‹¤.
+// ë©ˆì¶°ìˆëŠ” ìƒíƒœê°€ ì•„ë‹ˆë©´.. Nextì— ì„¤ì •í•´ë‘”ë‹¤.
 //----------------------------------------------------------------------
 bool
 MPlayer::TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack, bool bClick)
@@ -2959,10 +2969,10 @@ MPlayer::TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack, bool bC
 		return false;
 
 	//-----------------------------------------------------
-	// delay°¡ ÀÖÀ¸¸é ¾ÈµÈ´Ù.
+	// delayê°€ ìˆìœ¼ë©´ ì•ˆëœë‹¤.
 	//-----------------------------------------------------
 	if (!IsNotDelay() 
-		|| IsInCasket()	// [»õ±â¼ú3]
+		|| IsInCasket()	// [ìƒˆê¸°ìˆ 3]
 		|| HasEffectStatus( EFFECTSTATUS_ETERNITY_PAUSE )
 		|| IsInDarkness() && 
 		!HasEffectStatus( EFFECTSTATUS_LIGHTNESS )
@@ -2983,12 +2993,12 @@ MPlayer::TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack, bool bC
 
 	if (IsStop()) // || m_Action!=ACTION_ATTACK)
 	{		
-		// Zone¿¡ Á¸ÀçÇÏ´Â CreatureÀÎÁö checkÇÑ´Ù.
+		// Zoneì— ì¡´ì¬í•˜ëŠ” Creatureì¸ì§€ checkí•œë‹¤.
 		MCreature*	pCreature = m_pZone->GetCreature(id);
 		if(pCreature == NULL)
 		{
 			MFakeCreature *pFakeCreature = (MFakeCreature *)m_pZone->GetFakeCreature(id);
-			if(pFakeCreature != NULL && pFakeCreature->GetOwnerID() != OBJECTID_NULL)	// ÆêÀÌ´ç
+			if(pFakeCreature != NULL && pFakeCreature->GetOwnerID() != OBJECTID_NULL)	// í«ì´ë‹¹
 			{
 				MPetItem *pPetItem = pFakeCreature->GetPetItem();
 				if(pPetItem != NULL)
@@ -3020,7 +3030,7 @@ MPlayer::TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack, bool bC
 				return false;
 			}
 		}
-		// 2004,5, 28 sobeit add start - ´Ù¸¥ Ä³¸¯ÅÍ Á¤º¸
+		// 2004,5, 28 sobeit add start - ë‹¤ë¥¸ ìºë¦­í„° ì •ë³´
 		if(g_pTopView->GetRequestMode() == MRequestMode::REQUEST_INFO)
 		{
 			SetTraceID( id );
@@ -3032,9 +3042,9 @@ MPlayer::TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack, bool bC
 		// 2004,5, 28 sobeit add end
 		//GET_DYING_CREATURE( pCreature, id );
 
-		// creature°¡ ¾ø´Â °æ¿ì
-		// creature°¡ ÀÌ¹Ì Á×Àº °æ¿ì
-		// ³»°¡ SlayerÀÎ °æ¿ì´Â Darkness¾È¿¡ µé¾î°£ Ä³¸¯À» ÂÑ¾Æ°¥ ¼ö ¾ø´Ù.	
+		// creatureê°€ ì—†ëŠ” ê²½ìš°
+		// creatureê°€ ì´ë¯¸ ì£½ì€ ê²½ìš°
+		// ë‚´ê°€ Slayerì¸ ê²½ìš°ëŠ” Darknessì•ˆì— ë“¤ì–´ê°„ ìºë¦­ì„ ì«“ì•„ê°ˆ ìˆ˜ ì—†ë‹¤.	
 		
 		if( pCreature != NULL )
 		{
@@ -3085,21 +3095,21 @@ MPlayer::TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack, bool bC
 		MItem *pOustersItem = g_pOustersGear->GetItem(MOustersGear::GEAR_OUSTERS_RIGHTHAND);
 
 		//------------------------------------------------
-		// RequestÇÒ·Á°í ÂÑ¾Æ°¡´Â °æ¿ì
+		// Requestí• ë ¤ê³  ì«“ì•„ê°€ëŠ” ê²½ìš°
 		//------------------------------------------------
 		if (g_pTopView->IsRequestMode() 
-			// Player¸¸ µÈ´Ù.
+			// Playerë§Œ ëœë‹¤.
 			//&& pCreature->GetCreatureType()<=CREATURETYPE_VAMPIRE_FEMALE
 			&& (*g_pCreatureSpriteTable)[(*g_pCreatureTable)[m_CreatureType].SpriteTypes[0]].IsPlayerOnlySprite()
-			// °ü ¼Ó¿¡ ÀÖ´Â °æ¿ì´Â ¾ÈµÈ´Ù.
+			// ê´€ ì†ì— ìˆëŠ” ê²½ìš°ëŠ” ì•ˆëœë‹¤.
 			&& !pCreature->IsInCasket()
-			// ¼û¾î ÀÖ´Â °æ¿ì´Â ¾ÈµÈ´Ù.
+			// ìˆ¨ì–´ ìˆëŠ” ê²½ìš°ëŠ” ì•ˆëœë‹¤.
 			&& !pCreature->IsUndergroundCreature()
 			&& pCreature->GetCreatureType() != CREATURETYPE_SLAYER_OPERATOR
 			&& pCreature->GetCreatureType() != CREATURETYPE_VAMPIRE_OPERATOR
 			&& pCreature->GetCreatureType() != CREATURETYPE_OUSTERS_OPERATOR
 
-			// ³»°¡ ¹ÚÁã³ª ´Á´ë°¡ ¾Æ´Ñ °æ¿ì
+			// ë‚´ê°€ ë°•ì¥ë‚˜ ëŠ‘ëŒ€ê°€ ì•„ë‹Œ ê²½ìš°
 			//&& m_CreatureType!=CREATURETYPE_BAT
 			//&& m_CreatureType!=CREATURETYPE_WOLF
 			)
@@ -3111,8 +3121,8 @@ MPlayer::TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack, bool bC
 			SetRequestMode( g_pTopView->GetRequestMode() );
 		}
 		//------------------------------------------------
-		// ¿ÀÅä¹ÙÀÌ¸¦ Å¸°í ÀÖÀ¸¸é °ø°İÀÌ ¾ÈµÈ´Ù.
-		// ¹ÚÁãÀÎ °æ¿ì °ø°İÀÌ ¾ÈµÈ´Ù.
+		// ì˜¤í† ë°”ì´ë¥¼ íƒ€ê³  ìˆìœ¼ë©´ ê³µê²©ì´ ì•ˆëœë‹¤.
+		// ë°•ì¥ì¸ ê²½ìš° ê³µê²©ì´ ì•ˆëœë‹¤.
 		//------------------------------------------------
 		else if (m_MoveDevice == MOVE_DEVICE_RIDE 
 				|| m_MoveDevice == MOVE_DEVICE_SUMMON_SYLPH || HasEffectStatusSummonSylph( dynamic_cast<MCreature*>(this) )
@@ -3127,7 +3137,7 @@ MPlayer::TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack, bool bC
 			UnSetRequestMode();
 		}
 		//------------------------------------------------
-		// °­Á¦ °ø°İÀÎ°¡?
+		// ê°•ì œ ê³µê²©ì¸ê°€?
 		//------------------------------------------------		
 		else if (bForceAttack)
 		{
@@ -3140,25 +3150,25 @@ MPlayer::TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack, bool bC
 			UnSetRequestMode();
 		}
 		//------------------------------------------------
-		// ¾Æ´Ï¸é.. Á¾Á·¿¡ µû¶ó¼­..
+		// ì•„ë‹ˆë©´.. ì¢…ì¡±ì— ë”°ë¼ì„œ..
 		//------------------------------------------------
 		else
 		{
 			bTraceCreatureToForceAttack = CanAttackTribe( pCreature )
-										// ¹ìÆÄÀÌ¾îÀÎ °æ¿ì¿¡´Â Guild¿¡ µû¶ó¼­ °ø°İÇÒ ¼ö ÀÖ°Å³ª..
+										// ë±€íŒŒì´ì–´ì¸ ê²½ìš°ì—ëŠ” Guildì— ë”°ë¼ì„œ ê³µê²©í•  ìˆ˜ ìˆê±°ë‚˜..
 										|| IsVampire() && CanAttackGuild( pCreature )
 										|| g_pObjectSelector->IsWarEnemy( pCreature );
-									//	|| m_pZone->IsFreePKZone();			// -_- ¹Ù³ªÅø
+									//	|| m_pZone->IsFreePKZone();			// -_- ë°”ë‚˜íˆ´
 
 
-			// Á¤´ç¹æÀ§°¡ µÇ´Â°¡?
+			// ì •ë‹¹ë°©ìœ„ê°€ ë˜ëŠ”ê°€?
 			bTraceCreatureToForceAttack |= g_pJusticeAttackManager->HasCreature( pCreature->GetName() );
 
-			// °è¼Ó ÂÑ¾Æ°¡´Â°¡? - °ø°İÀÌ ¾Æ´Ï¶ó¸é..
+			// ê³„ì† ì«“ì•„ê°€ëŠ”ê°€? - ê³µê²©ì´ ì•„ë‹ˆë¼ë©´..
 			bKeepTraceCreature			= !bTraceCreatureToForceAttack;	
 		}
 
-		// 2005, 1, 8, sobeit add start - ½ÂÁ÷ ½½·¡ÀÌ¾î Áß ÈúÁ÷ ÀÎÃ¦Àº ÀÏ¹İ °ø°İÀ» ÇÒ ¼ö ¾ø´Ù. µ¿ÀÛÀÌ ¾ø´Ù..-_-
+		// 2005, 1, 8, sobeit add start - ìŠ¹ì§ ìŠ¬ë˜ì´ì–´ ì¤‘ íì§ ì¸ì±ˆì€ ì¼ë°˜ ê³µê²©ì„ í•  ìˆ˜ ì—†ë‹¤. ë™ì‘ì´ ì—†ë‹¤..-_-
 		if(IsAdvancementClass())
 		{
 			const MCreatureWear::ADDON_INFO& TempaddonInfo = GetAddonInfo(ADDON_RIGHTHAND);
@@ -3172,29 +3182,29 @@ MPlayer::TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack, bool bC
 		}
 		// 2005, 1, 8, sobeit add end
 		//------------------------------------------------
-		// ÃÑ °ø°İÀÏ °æ¿ì 
-		// --> ÅºÃ¢ÀÌ ¼³Á¤µÇ¾î ÀÖ´Â °æ¿ì¸¦ Ã¼Å©ÇÏ¸é µÈ´Ù.
+		// ì´ ê³µê²©ì¼ ê²½ìš° 
+		// --> íƒ„ì°½ì´ ì„¤ì •ë˜ì–´ ìˆëŠ” ê²½ìš°ë¥¼ ì²´í¬í•˜ë©´ ëœë‹¤.
 		//------------------------------------------------
 		if (bKeepTraceCreature)
 		{
-			// ÃßÀûÇÏ´Â °æ¿ì Ã¼Å©ÇÒ °Í...
+			// ì¶”ì í•˜ëŠ” ê²½ìš° ì²´í¬í•  ê²ƒ...
 		}
-		// NPC°¡ ¾Æ´Ï¶ó¸é °ø°İÇÒ·Á´Â°Çµ¥... ÃÑ¾Ë Ã¼Å©ÇØ¾ß ÇÑ´Ù.
+		// NPCê°€ ì•„ë‹ˆë¼ë©´ ê³µê²©í• ë ¤ëŠ”ê±´ë°... ì´ì•Œ ì²´í¬í•´ì•¼ í•œë‹¤.
 		else if (!pCreature->IsNPC())
 		{
 			if(!IsRequestMode() && IsInSafeSector() == 2)
 				return false;
 			
-			// g_pCurrentMagazineÀ» È®½ÇÈ÷ NULL·Î ¼³Á¤ÇÏ¸é µÈ´Ù.
+			// g_pCurrentMagazineì„ í™•ì‹¤íˆ NULLë¡œ ì„¤ì •í•˜ë©´ ëœë‹¤.
 			//if (IsSlayer())
 			{
 			//	const MItem* pWeapon = g_pSlayerGear->GetItem( MSlayerGear::GEAR_SLAYER_RIGHTHAND );
 				
 				//------------------------------------------------
-				// ÃÑ¾Ë Ã¼Å©
+				// ì´ì•Œ ì²´í¬
 				//------------------------------------------------
-			//	if (pWeapon!=NULL					// ¹«±â°¡ ÀÖ°í
-			//		&& pWeapon->IsGunItem()			// ÃÑÀÌ°í
+			//	if (pWeapon!=NULL					// ë¬´ê¸°ê°€ ìˆê³ 
+			//		&& pWeapon->IsGunItem()			// ì´ì´ê³ 
 				//	&&	
 
 				if (
@@ -3207,19 +3217,19 @@ MPlayer::TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack, bool bC
 				{
 					if (!IsRequestMode() 
 						
-						&& g_pCurrentMagazine!=NULL)		// ÃÑ¾ËÀÌ ÇÊ¿ä ¾ø´Â °æ¿ì
+						&& g_pCurrentMagazine!=NULL)		// ì´ì•Œì´ í•„ìš” ì—†ëŠ” ê²½ìš°
 					{
-						if (g_pCurrentMagazine->GetNumber()==0)	// ÃÑ¾ËÀÌ ¾ø´Â °æ¿ì
+						if (g_pCurrentMagazine->GetNumber()==0)	// ì´ì•Œì´ ì—†ëŠ” ê²½ìš°
 						{
-							// ÃÑÀ» »ç¿ëÇÏ´Âµ¥ ÅºÃ¢ÀÌ ¾ø´Â °æ¿ì
+							// ì´ì„ ì‚¬ìš©í•˜ëŠ”ë° íƒ„ì°½ì´ ì—†ëŠ” ê²½ìš°
 							PlaySound( SOUND_ITEM_NO_MAGAZINE );
 
 							m_fNextTrace	= FLAG_TRACE_NULL;
 
-							// ÅºÃ¢ ¾øÀ»¶§ delay
+							// íƒ„ì°½ ì—†ì„ë•Œ delay
 							m_DelayTime	= g_CurrentTime + GetActionInfoDelay(m_nBasicActionInfo);
 
-							// [µµ¿ò¸»] ÃÑ¾Ë ´Ù ½èÀ» ¶§
+							// [ë„ì›€ë§] ì´ì•Œ ë‹¤ ì¼ì„ ë•Œ
 //							__BEGIN_HELP_EVENT
 //								ExecuteHelpEvent( HE_ITEM_EMPTY_BULLET );
 //							__END_HELP_EVENT
@@ -3235,11 +3245,11 @@ MPlayer::TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack, bool bC
 				}
 			}
 			
-			// »ç¿ëÇÑ ±â¼ú·Î ¼³Á¤
+			// ì‚¬ìš©í•œ ê¸°ìˆ ë¡œ ì„¤ì •
 			m_nNextUsedActionInfo	= GetBasicActionInfo(); //m_nBasicActionInfo;
 		}
 		
-		// ÃßÀû Á¤º¸ ¼³Á¤
+		// ì¶”ì  ì •ë³´ ì„¤ì •
 		SetTraceID( id );
 
 		if( !bForceAttack && bClick )
@@ -3253,22 +3263,22 @@ MPlayer::TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack, bool bC
 		m_TraceZ	= pCreature->GetZ();
 		
 		//------------------------------------------------------------
-		// °­Á¦ °ø°İÀÎ°¡?
-		// °è¼Ó ÃßÀûÇÏ´Â°¡?
+		// ê°•ì œ ê³µê²©ì¸ê°€?
+		// ê³„ì† ì¶”ì í•˜ëŠ”ê°€?
 		//------------------------------------------------------------
 		m_bTraceCreatureToForceAttack	= bTraceCreatureToForceAttack;
 		m_bKeepTraceCreature			= bKeepTraceCreature;
 
 		//------------------------------------------------------------
-		// ÃßÀû ¸ñÇ¥ °Å¸®..
+		// ì¶”ì  ëª©í‘œ ê±°ë¦¬..
 		//------------------------------------------------------------
-		// BasicActionÀÌ ¹¹³Ä¿¡ µû¶ó¼­..
-		// ÇöÀç PlayerÀÇ ´É·Â¿¡ µû¶ó¼­ TraceDistance°¡ ´Ş¶óÁú °ÍÀÌ´Ù.
+		// BasicActionì´ ë­ëƒì— ë”°ë¼ì„œ..
+		// í˜„ì¬ Playerì˜ ëŠ¥ë ¥ì— ë”°ë¼ì„œ TraceDistanceê°€ ë‹¬ë¼ì§ˆ ê²ƒì´ë‹¤.
 		//
-		// µû¶ó°¡´Â °ÍÀÌ¸é 1ÀÌ°í
-		// ¾Æ´Ï¸é ±âº» °ø°İ¿¡ µû¶ó¼­..
+		// ë”°ë¼ê°€ëŠ” ê²ƒì´ë©´ 1ì´ê³ 
+		// ì•„ë‹ˆë©´ ê¸°ë³¸ ê³µê²©ì— ë”°ë¼ì„œ..
 		//
-		// NPCÀÎ °æ¿ì´Â °Å¸®°¡ ´Ş¶óÁú ¼ö ÀÖ´Ù.
+		// NPCì¸ ê²½ìš°ëŠ” ê±°ë¦¬ê°€ ë‹¬ë¼ì§ˆ ìˆ˜ ìˆë‹¤.
 		//------------------------------------------------------------
 		if (m_bKeepTraceCreature)
 		{
@@ -3282,18 +3292,18 @@ MPlayer::TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack, bool bC
 		// NPC 
 		if (pCreature->IsNPC())
 		{
-			if(pCreature->GetCreatureType() == 659)	// ´ëÁöÁ¤·ÉÀÇ »ÔÀº ÇÑÄ­
+			if(pCreature->GetCreatureType() == 659)	// ëŒ€ì§€ì •ë ¹ì˜ ë¿”ì€ í•œì¹¸
 				m_TraceDistance		= 1;	
 			else
 				m_TraceDistance		= TRADE_DISTANCE_NPC;	
 		}
-		// TradeÇÒ·Á°í ÂÑ¾Æ°¡´Â °æ¿ì
+		// Tradeí• ë ¤ê³  ì«“ì•„ê°€ëŠ” ê²½ìš°
 		else if (IsRequestMode())
 		{
 			m_TraceDistance		= TRADE_DISTANCE_PC;	
 		}
 
-		// ÇöÀç ÃßÀûÇÏ´Â ´ë»ó¿¡ ´ëÇØ¼­ ±â¾ïÇØµĞ´Ù.
+		// í˜„ì¬ ì¶”ì í•˜ëŠ” ëŒ€ìƒì— ëŒ€í•´ì„œ ê¸°ì–µí•´ë‘”ë‹¤.
 		m_fTraceBuffer	= m_fTrace;	
 		m_TraceIDBuffer = id;
 
@@ -3303,27 +3313,27 @@ MPlayer::TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack, bool bC
 			m_bTraceCreatureToForceAttack = false;
 
 
-		// ÃßÀûÇÏ´Â ±æ ¼³Á¤
+		// ì¶”ì í•˜ëŠ” ê¸¸ ì„¤ì •
 		SetAction( m_MoveAction );
 		SetNextDestination(m_TraceX, m_TraceY);
 
-		// bufferingÀ» ¾ø¾Ø´Ù.
+		// bufferingì„ ì—†ì•¤ë‹¤.
 		m_fNextTrace			= FLAG_TRACE_NULL;	
 
 		//------------------------------------------------------------
-		// messageÃâ·Â
+		// messageì¶œë ¥
 		//------------------------------------------------------------
 		DEBUG_ADD_FORMAT("Trace Creature To BasicAction : ID=%d, (%d, %d)", id, m_TraceX, m_TraceY);				
 
 		//------------------------------------------------------------
-		// return falseÇÏ¸é ¹İº¹ actionÀ» ¾ÈÇÏ°Ô µÈ´Ù.
+		// return falseí•˜ë©´ ë°˜ë³µ actionì„ ì•ˆí•˜ê²Œ ëœë‹¤.
 		//------------------------------------------------------------
 		if (m_bKeepTraceCreature)// || m_bTraceCreatureToForceAttack)
 		{
 			return false;
 		}
 
-		// ¼±ÅÃµÈ sector ¾ø¾Ö±â
+		// ì„ íƒëœ sector ì—†ì• ê¸°
 		g_pTopView->SetSelectedSectorNULL();
 			
 
@@ -3332,7 +3342,7 @@ MPlayer::TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack, bool bC
 	else
 	{
 		//------------------------------------------------------------
-		// ¹İº¹ actionÇÏ´Â ÁßÀÌ ¾Æ´Ñ °æ¿ì¿¡ ´ÙÀ½ µ¿ÀÛ buffering
+		// ë°˜ë³µ actioní•˜ëŠ” ì¤‘ì´ ì•„ë‹Œ ê²½ìš°ì— ë‹¤ìŒ ë™ì‘ buffering
 		//------------------------------------------------------------
 		if (m_bRepeatAction)
 		{
@@ -3363,12 +3373,12 @@ MPlayer::TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack, bool bC
 //----------------------------------------------------------------------
 // Trace Creature To SpecialAction
 //----------------------------------------------------------------------
-// Æ¯¼ö°ø°İÀ¸·Î(R-Click) ÇÑ ¸íÀÇ Creature¸¦ ÃßÀûÇÏ¿© °ø°İÇÑ´Ù.
-// ¸ØÃçÀÖ´Â »óÅÂ°¡ ¾Æ´Ï¸é.. Next¿¡ ¼³Á¤ÇØµĞ´Ù.
+// íŠ¹ìˆ˜ê³µê²©ìœ¼ë¡œ(R-Click) í•œ ëª…ì˜ Creatureë¥¼ ì¶”ì í•˜ì—¬ ê³µê²©í•œë‹¤.
+// ë©ˆì¶°ìˆëŠ” ìƒíƒœê°€ ì•„ë‹ˆë©´.. Nextì— ì„¤ì •í•´ë‘”ë‹¤.
 //----------------------------------------------------------------------
-// [return°ª]
+// [returnê°’]
 //
-//  ´Ù¸¥ Creature¿¡°Ô »ç¿ëÇÏÁö ¸øÇÏ´Â °æ¿ì¸¸ false¸¦ returnÇÑ´Ù. 
+//  ë‹¤ë¥¸ Creatureì—ê²Œ ì‚¬ìš©í•˜ì§€ ëª»í•˜ëŠ” ê²½ìš°ë§Œ falseë¥¼ returní•œë‹¤. 
 //
 //----------------------------------------------------------------------
 bool	
@@ -3390,11 +3400,11 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 //	}
 		
 	//-----------------------------------------------------
-	// delay°¡ ÀÖÀ¸¸é ¾ÈµÈ´Ù.
+	// delayê°€ ìˆìœ¼ë©´ ì•ˆëœë‹¤.
 	//-----------------------------------------------------
 	if (!IsNotDelay() 
 		|| HasEffectStatus( EFFECTSTATUS_ETERNITY_PAUSE )
-		|| IsInCasket()	// [»õ±â¼ú3]
+		|| IsInCasket()	// [ìƒˆê¸°ìˆ 3]
 		|| IsInDarkness() && (!HasEffectStatus( EFFECTSTATUS_LIGHTNESS ) || g_pZone->GetID() == 3001)
 		&& !g_pPlayer->HasEffectStatus( EFFECTSTATUS_GHOST )
 #ifdef __METROTECH_TEST__
@@ -3406,14 +3416,14 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 	}
 
 	if (m_nSpecialActionInfo == ACTIONINFO_NULL
-		// ¿ÀÅä¹ÙÀÌ¸¦ Å¸°í ÀÖÀ¸¸é Æ¯¼ö°ø°İÀÌ ¾ÈµÈ´Ù.
+		// ì˜¤í† ë°”ì´ë¥¼ íƒ€ê³  ìˆìœ¼ë©´ íŠ¹ìˆ˜ê³µê²©ì´ ì•ˆëœë‹¤.
 		|| m_MoveDevice == MOVE_DEVICE_RIDE
-		// ¹º°¡ ±â¼ú »ç¿ëÀ» °ËÁ¤ ¹Ş¾Æ¾ß ÇÏ¸é »ç¿ëÇÒ ¼ö ¾ø´Ù.
-		//|| m_WaitVerify != WAIT_VERIFY_NULL)	// 2001.8.20 ÁÖ¼®Ã³¸®
+		// ë­”ê°€ ê¸°ìˆ  ì‚¬ìš©ì„ ê²€ì • ë°›ì•„ì•¼ í•˜ë©´ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+		//|| m_WaitVerify != WAIT_VERIFY_NULL)	// 2001.8.20 ì£¼ì„ì²˜ë¦¬
 		|| IsInSafeSector() == 2
-		// ¿ÏÀü ¾ÈÀüÁö´ë¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+		// ì™„ì „ ì•ˆì „ì§€ëŒ€ì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
 		|| CanActionByZoneInfo()
-		|| HasEffectStatusSummonSylph( dynamic_cast<MCreature*>(this) )				// ´Ş¶ó´ó±â¸é ¸øÇÑ´ç~ 
+		|| HasEffectStatusSummonSylph( dynamic_cast<MCreature*>(this) )				// ë‹¬ë¼ëŒ•ê¸°ë©´ ëª»í•œë‹¹~ 
 		)
 	{
 		m_fNextTrace = FLAG_TRACE_NULL;
@@ -3424,12 +3434,12 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 	}
 
 		
-	// ´Ù¸¥ ±â¼úÀ» »ç¿ëÁßÀÎ °æ¿ì
+	// ë‹¤ë¥¸ ê¸°ìˆ ì„ ì‚¬ìš©ì¤‘ì¸ ê²½ìš°
 	if (m_nUsedActionInfo!=ACTIONINFO_NULL)
 		return false;
 
 	//-------------------------------------------------------
-	// Å¸ÀÎ¿¡°Ô »ç¿ëÇÒ ¼ö ÀÖ´Â °Íµé¸¸ »ç¿ëÇÑ´Ù.
+	// íƒ€ì¸ì—ê²Œ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ê²ƒë“¤ë§Œ ì‚¬ìš©í•œë‹¤.
 	//-------------------------------------------------------
 	
 	if ((*g_pActionInfoTable)[m_nSpecialActionInfo].IsTargetOther())
@@ -3437,7 +3447,7 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 		int useSkill = m_nSpecialActionInfo;
 		int originalSkill = m_nSpecialActionInfo;
 
-//		// 2004, 6, 9 sobeit add start - Å×½ºÆ®, ÈíÇ÷ ¼º°ø ¸Ş¼¼Áö ¿Â´ã¿¡ µ¿ÀÛÇÏ°Ô..-_-
+//		// 2004, 6, 9 sobeit add start - í…ŒìŠ¤íŠ¸, í¡í˜ˆ ì„±ê³µ ë©”ì„¸ì§€ ì˜¨ë‹´ì— ë™ì‘í•˜ê²Œ..-_-
 //		if(m_nSpecialActionInfo == SKILL_BLOOD_DRAIN)
 //		{
 //			m_fNextTrace = FLAG_TRACE_NULL;
@@ -3447,11 +3457,11 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 //				CGBloodDrain _CGBloodDrain;
 //				_CGBloodDrain.setObjectID( m_TraceID );
 //				g_pSocket->sendPacket( &_CGBloodDrain );
-//				DEBUG_ADD("ÈíÇ÷ ¸Ş¼¼Áö º¸³¿");
+//				DEBUG_ADD("í¡í˜ˆ ë©”ì„¸ì§€ ë³´ëƒ„");
 //			}
 //			return false;
 //		}
-//		// 2004, 6, 9 sobeit add end - Å×½ºÆ®, ÈíÇ÷ ¼º°ø ¸Ş¼¼Áö ¿Â´ã¿¡ µ¿ÀÛÇÏ°Ô..-_-
+//		// 2004, 6, 9 sobeit add end - í…ŒìŠ¤íŠ¸, í¡í˜ˆ ì„±ê³µ ë©”ì„¸ì§€ ì˜¨ë‹´ì— ë™ì‘í•˜ê²Œ..-_-
 	
 		if( m_nSpecialActionInfo == SKILL_BLITZ_SLIDING_ATTACK ||
 			m_nSpecialActionInfo == SKILL_BLAZE_WALK_ATTACK 
@@ -3488,8 +3498,8 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 
 		
 		//-------------------------------------------------------
-		// ÇöÀç »ç¿ëÇÒ ¼ö ÀÖ´Â ±â¼úÀÎÁö Ã¼Å©..
-		// Passive ½ºÅ³ÀÌ¸é »ç¿ë ¸øÇÏ°Ô..
+		// í˜„ì¬ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ê¸°ìˆ ì¸ì§€ ì²´í¬..
+		// Passive ìŠ¤í‚¬ì´ë©´ ì‚¬ìš© ëª»í•˜ê²Œ..
 		//-------------------------------------------------------
 			if (!g_pSkillAvailable->IsEnableSkill( (ACTIONINFO)originalSkill )
 				|| !(*g_pSkillInfoTable)[originalSkill].IsEnable()
@@ -3505,25 +3515,25 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 		
 		if (IsStop()) // || m_Action!=ACTION_ATTACK)
 		{
-			// Zone¿¡ Á¸ÀçÇÏ´Â CreatureÀÎÁö checkÇÑ´Ù.
+			// Zoneì— ì¡´ì¬í•˜ëŠ” Creatureì¸ì§€ checkí•œë‹¤.
 			MCreature*	pCreature = m_pZone->GetCreature(id);
 
 			//GET_DYING_CREATURE( pCreature, id );
 			
-			// creature°¡ ¾ø´Â °æ¿ì
-			// ³»°¡ SlayerÀÎ °æ¿ì´Â Darkness¾È¿¡ µé¾î°£ Ä³¸¯À» ÂÑ¾Æ°¥ ¼ö ¾ø´Ù.
+			// creatureê°€ ì—†ëŠ” ê²½ìš°
+			// ë‚´ê°€ Slayerì¸ ê²½ìš°ëŠ” Darknessì•ˆì— ë“¤ì–´ê°„ ìºë¦­ì„ ì«“ì•„ê°ˆ ìˆ˜ ì—†ë‹¤.
 			if (pCreature==NULL 
-				// ½ÃÃ¼ÇÑÅ× ¾µ ¼ö ÀÖ´Â ½ºÅ³ Á¤º¸¸¦ Ãß°¡ÇØ¾ßÇÑ´Ù.
+				// ì‹œì²´í•œí…Œ ì“¸ ìˆ˜ ìˆëŠ” ìŠ¤í‚¬ ì •ë³´ë¥¼ ì¶”ê°€í•´ì•¼í•œë‹¤.
 				|| pCreature->IsDead() && originalSkill!=MAGIC_RESURRECT && originalSkill!=SKILL_TRANSFUSION  && originalSkill!=SKILL_SOUL_REBIRTH 
 				|| pCreature->IsInGroundElemental() && pCreature->IsOusters() && !g_pPlayer->IsOusters()
-				// 2004, 10, 14, sobiet modify start - ¶óÀÌÆ®´Ï½º°É·ÈÀ»¶§ ´ÙÅ©´Ï½º ¾È¿¡ ³à¼® °ø°İÀÌ ¾ÈµÈ´Ù°í ÇØ¼­ ¼öÁ¤..
+				// 2004, 10, 14, sobiet modify start - ë¼ì´íŠ¸ë‹ˆìŠ¤ê±¸ë ¸ì„ë•Œ ë‹¤í¬ë‹ˆìŠ¤ ì•ˆì— ë…€ì„ ê³µê²©ì´ ì•ˆëœë‹¤ê³  í•´ì„œ ìˆ˜ì •..
 //				|| pCreature->IsInDarkness() && !pCreature->IsNPC() && 
 //				!(IsVampire() && !HasEffectStatus( EFFECTSTATUS_LIGHTNESS )  ||
 //				g_pZone->GetID() != 3001 && IsVampire() )
 //				&& !g_pPlayer->HasEffectStatus( EFFECTSTATUS_GHOST ) 
 				|| pCreature->IsInDarkness() && !pCreature->IsNPC() && !g_pPlayer->HasEffectStatus( EFFECTSTATUS_GHOST ) &&
 				(!IsVampire() && !HasEffectStatus( EFFECTSTATUS_LIGHTNESS )  ||	g_pZone->GetID() == 3001 && IsVampire() )
-				// 2004, 10, 14, sobiet modify end- ¶óÀÌÆ®´Ï½º°É·ÈÀ»¶§ ´ÙÅ©´Ï½º ¾È¿¡ ³à¼® °ø°İÀÌ ¾ÈµÈ´Ù°í ÇØ¼­ ¼öÁ¤..
+				// 2004, 10, 14, sobiet modify end- ë¼ì´íŠ¸ë‹ˆìŠ¤ê±¸ë ¸ì„ë•Œ ë‹¤í¬ë‹ˆìŠ¤ ì•ˆì— ë…€ì„ ê³µê²©ì´ ì•ˆëœë‹¤ê³  í•´ì„œ ìˆ˜ì •..
 #ifdef __METROTECH_TEST__
 				&& !g_bLight
 #endif
@@ -3537,9 +3547,9 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 				|| IsOusters() && !(*g_pActionInfoTable)[originalSkill].IsUserOusters() && pCreature->IsOusters() && pCreature->IsPlayerOnly() && !bForceAttack				
 				) 
 			{
-				// ¿©±â±îÁö ¿À¸é ACTIONINFO_NULLÀÎµ¥..
-				// UnSetRepeatAction()¿¡¼­ Á¦´ë·Î Ã³¸®ÇÏ±â À§ÇØ¼­.. - -;;
-				// ¾ÏÆ° Äá°¡·ç´Ù.. - -;;
+				// ì—¬ê¸°ê¹Œì§€ ì˜¤ë©´ ACTIONINFO_NULLì¸ë°..
+				// UnSetRepeatAction()ì—ì„œ ì œëŒ€ë¡œ ì²˜ë¦¬í•˜ê¸° ìœ„í•´ì„œ.. - -;;
+				// ì•”íŠ¼ ì½©ê°€ë£¨ë‹¤.. - -;;
 				if (IsRepeatAction())
 				{
 					m_nUsedActionInfo = originalSkill;
@@ -3581,7 +3591,7 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 			bool bKeepTraceCreature			= false;			
 
 			//-------------------------------------------------------
-			// NPCÀÎ °æ¿ì.. ±×³É ÃßÀûÇÏ°Ô ÇÑ´Ù.
+			// NPCì¸ ê²½ìš°.. ê·¸ëƒ¥ ì¶”ì í•˜ê²Œ í•œë‹¤.
 			//-------------------------------------------------------
 			if (pCreature->IsNPC())
 			{
@@ -3600,7 +3610,7 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 
 
 			//-------------------------------------------------------
-			// Æ¯Á¤ ±â¼ú¿¡ ´ëÇÑ Ã¼Å© - µû·Î »©¾ßµÇ´Âµ¥. ´Ã ±×·¸µíÀÌ.. --;
+			// íŠ¹ì • ê¸°ìˆ ì— ëŒ€í•œ ì²´í¬ - ë”°ë¡œ ë¹¼ì•¼ë˜ëŠ”ë°. ëŠ˜ ê·¸ë ‡ë“¯ì´.. --;
 			//-------------------------------------------------------
 			switch (originalSkill)
 			{
@@ -3610,15 +3620,15 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 				case SKILL_TRANSFUSION :
 
 					//--------------------------------------------------
-					// »ç¿ëÇÒ ¼ö ¾ø´Â °æ¿ì
+					// ì‚¬ìš©í•  ìˆ˜ ì—†ëŠ” ê²½ìš°
 					//--------------------------------------------------
-					// ³» HP°¡ 30º¸´Ù ÀûÀº °æ¿ì
-					// ´Ù¸¥ ±æµåÀÎ °æ¿ì
-					// »ó´ëÀÇ HP°¡ fullÀÎ °æ¿ì
+					// ë‚´ HPê°€ 30ë³´ë‹¤ ì ì€ ê²½ìš°
+					// ë‹¤ë¥¸ ê¸¸ë“œì¸ ê²½ìš°
+					// ìƒëŒ€ì˜ HPê°€ fullì¸ ê²½ìš°
 					if (GetHP() < 30
 						|| pCreature->IsSlayer()
 							//|| GetGuildNumber()!=pCreature->GetGuildNumber()	
-							// vampireÀÇ default ±æµå
+							// vampireì˜ default ê¸¸ë“œ
 							//&& GetGuildNumber()!=0
 						//	&& pCreature->GetGuildNumber()!=0
 						|| pCreature->GetHP()==pCreature->GetMAX_HP()
@@ -3653,12 +3663,12 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 			}
 
 			//-------------------------------------------------------
-			// Æ¯Á¤ÇÑ »óÈ² Ã¼Å©
+			// íŠ¹ì •í•œ ìƒí™© ì²´í¬
 			//-------------------------------------------------------
 			if ((*g_pActionInfoTable)[originalSkill].HasOption())
 			{
 				//-------------------------------------------------------
-				// bless °É·Á¾ß »ç¿ëÇÏ´Â ±â¼ú
+				// bless ê±¸ë ¤ì•¼ ì‚¬ìš©í•˜ëŠ” ê¸°ìˆ 
 				//-------------------------------------------------------
 				if ((*g_pActionInfoTable)[originalSkill].IsOptionUseWithBless())
 				{
@@ -3674,7 +3684,7 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 			}
 
 			//-------------------------------------------------------
-			// itemÀ» »ç¿ëÇÏ´Â ±â¼úÀÌ¸é itemÀ» Ã¼Å©ÇØ¾ß ÇÑ´Ù.
+			// itemì„ ì‚¬ìš©í•˜ëŠ” ê¸°ìˆ ì´ë©´ itemì„ ì²´í¬í•´ì•¼ í•œë‹¤.
 			//-------------------------------------------------------
 			WORD fWeaponType = (*g_pActionInfoTable)[originalSkill].GetWeaponType();
 			if (fWeaponType	& FLAG_ACTIONINFO_WEAPON_HOLY_WATER)
@@ -3690,14 +3700,14 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 					return false;
 				}
 
-				// holy water°¡ ÀÖ´Â °æ¿ì¶ó¸é..
-				// µıÁş ¸øÇÏµµ·Ï... item °íÁ¤..
-				// ±â¼ú ³¡³ª°í Ç®¾î¾ß ÇÑ´Ù.
+				// holy waterê°€ ìˆëŠ” ê²½ìš°ë¼ë©´..
+				// ë”´ì§“ ëª»í•˜ë„ë¡... item ê³ ì •..
+				// ê¸°ìˆ  ëë‚˜ê³  í’€ì–´ì•¼ í•œë‹¤.
 				//SetItemCheckBuffer( pItem, ITEM_CHECK_BUFFER_SKILL_FROM_ITEM );
 			}
 
 			//-------------------------------------------------------
-			// itemÀ» »ç¿ëÇÏ´Â ±â¼úÀÌ¸é itemÀ» Ã¼Å©ÇØ¾ß ÇÑ´Ù.
+			// itemì„ ì‚¬ìš©í•˜ëŠ” ê¸°ìˆ ì´ë©´ itemì„ ì²´í¬í•´ì•¼ í•œë‹¤.
 			//-------------------------------------------------------
 			if (fWeaponType & FLAG_ACTIONINFO_WEAPON_BOMB)
 			{
@@ -3712,24 +3722,24 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 					return false;
 				}
 
-				// holy water°¡ ÀÖ´Â °æ¿ì¶ó¸é..
-				// µıÁş ¸øÇÏµµ·Ï... item °íÁ¤..
-				// ±â¼ú ³¡³ª°í Ç®¾î¾ß ÇÑ´Ù.
+				// holy waterê°€ ìˆëŠ” ê²½ìš°ë¼ë©´..
+				// ë”´ì§“ ëª»í•˜ë„ë¡... item ê³ ì •..
+				// ê¸°ìˆ  ëë‚˜ê³  í’€ì–´ì•¼ í•œë‹¤.
 				//SetItemCheckBuffer( pItem, ITEM_CHECK_BUFFER_SKILL_FROM_ITEM );
 			}
 
 			//-------------------------------------------------------
-			// ÃÑÀ» »ç¿ëÇÏ´Â ±â¼úÀÌ¸é 
-			// ÃÑ¾ËÀ» Ã¼Å©ÇØ¾ß ÇÑ´Ù.
+			// ì´ì„ ì‚¬ìš©í•˜ëŠ” ê¸°ìˆ ì´ë©´ 
+			// ì´ì•Œì„ ì²´í¬í•´ì•¼ í•œë‹¤.
 			//-------------------------------------------------------
 			if ((*g_pActionInfoTable)[originalSkill].IsWeaponTypeGunAny())
 			{
 					if (g_pCurrentMagazine==NULL)
 					{
-						// ÃÑÀ» »ç¿ëÇÏ´Âµ¥ ÅºÃ¢ÀÌ ¾ø´Â °æ¿ì
+						// ì´ì„ ì‚¬ìš©í•˜ëŠ”ë° íƒ„ì°½ì´ ì—†ëŠ” ê²½ìš°
 						PlaySound( SOUND_ITEM_NO_MAGAZINE );
 
-						// ÅºÃ¢ ¾øÀ»¶§ delay
+						// íƒ„ì°½ ì—†ì„ë•Œ delay
 							m_DelayTime	= g_CurrentTime + GetActionInfoDelay(m_nBasicActionInfo);
 
 						m_fNextTrace	= FLAG_TRACE_NULL;
@@ -3739,10 +3749,10 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 					{
 						if (g_pCurrentMagazine->GetNumber()==0)
 						{
-							// ÃÑÀ» »ç¿ëÇÏ´Âµ¥ ÅºÃ¢ÀÌ ¾ø´Â °æ¿ì
+							// ì´ì„ ì‚¬ìš©í•˜ëŠ”ë° íƒ„ì°½ì´ ì—†ëŠ” ê²½ìš°
 							PlaySound( SOUND_ITEM_NO_MAGAZINE );
 
-							// ÅºÃ¢ ¾øÀ»¶§ delay
+							// íƒ„ì°½ ì—†ì„ë•Œ delay
 							m_DelayTime	= g_CurrentTime + GetActionInfoDelay(m_nBasicActionInfo);
 
 							if (IsRepeatAction())
@@ -3760,7 +3770,7 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 
 							m_fNextTrace	= FLAG_TRACE_NULL;
 
-							// [µµ¿ò¸»] ÃÑ¾Ë ´Ù ½èÀ» ¶§
+							// [ë„ì›€ë§] ì´ì•Œ ë‹¤ ì¼ì„ ë•Œ
 //							__BEGIN_HELP_EVENT
 //								ExecuteHelpEvent( HE_ITEM_EMPTY_BULLET );
 //							__END_HELP_EVENT
@@ -3771,33 +3781,33 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 					}
 			}
 
-			// creature°¡ ÀÌ¹Ì Á×Àº °æ¿ì
+			// creatureê°€ ì´ë¯¸ ì£½ì€ ê²½ìš°
 			//if (pCreature->IsDead()) return;
 
-			// »ç¿ëÇÑ ±â¼ú·Î ¼³Á¤
+			// ì‚¬ìš©í•œ ê¸°ìˆ ë¡œ ì„¤ì •
 			m_nNextUsedActionInfo	= useSkill;
 
-			// ÃßÀû Á¤º¸ ¼³Á¤
+			// ì¶”ì  ì •ë³´ ì„¤ì •
 			SetTraceID( id );
 			m_fTrace	= FLAG_TRACE_CREATURE_SPECIAL;		
 			m_TraceX	= pCreature->GetX();
 			m_TraceY	= pCreature->GetY();
 			m_TraceZ	= pCreature->GetZ();
 
-			// ÃßÀû´ë»óÀÌ µÇ´Â Ä³¸¯ÅÍÀÇ Á¾Á·
+			// ì¶”ì ëŒ€ìƒì´ ë˜ëŠ” ìºë¦­í„°ì˜ ì¢…ì¡±
 			//m_TraceCreatureTribe = pCreature->GetCreatureTribe();
 
-			// ÇöÀç ÃßÀûÇÏ´Â ´ë»ó¿¡ ´ëÇØ¼­ ±â¾ïÇØµĞ´Ù.
+			// í˜„ì¬ ì¶”ì í•˜ëŠ” ëŒ€ìƒì— ëŒ€í•´ì„œ ê¸°ì–µí•´ë‘”ë‹¤.
 			m_fTraceBuffer	= m_fTrace;	
 			m_TraceIDBuffer = id;
 
 			//------------------------------------------------------------
-			// SpecialActionÀÌ ¹¹³Ä¿¡ µû¶ó¼­.. 
-			// ÇöÀç PlayerÀÇ ´É·Â¿¡ µû¶ó¼­ TraceDistance°¡ ´Ş¶óÁú °ÍÀÌ´Ù.
+			// SpecialActionì´ ë­ëƒì— ë”°ë¼ì„œ.. 
+			// í˜„ì¬ Playerì˜ ëŠ¥ë ¥ì— ë”°ë¼ì„œ TraceDistanceê°€ ë‹¬ë¼ì§ˆ ê²ƒì´ë‹¤.
 			//------------------------------------------------------------
 			//------------------------------------------------------------
-			// °­Á¦ °ø°İÀÎ°¡?
-			// °è¼Ó ÃßÀûÇÏ´Â°¡?
+			// ê°•ì œ ê³µê²©ì¸ê°€?
+			// ê³„ì† ì¶”ì í•˜ëŠ”ê°€?
 			//------------------------------------------------------------
 			m_bTraceCreatureToForceAttack	= bTraceCreatureToForceAttack;
 			m_bKeepTraceCreature			= bKeepTraceCreature;
@@ -3806,28 +3816,28 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 			
 			//------------------------------------------------------------
 
-			// ÃßÀûÇÏ´Â ±æ ¼³Á¤
+			// ì¶”ì í•˜ëŠ” ê¸¸ ì„¤ì •
 			SetAction( m_MoveAction );
 			SetNextDestination(m_TraceX, m_TraceY);
 
-			// bufferingÀ» ¾ø¾Ø´Ù.
+			// bufferingì„ ì—†ì•¤ë‹¤.
 			m_fNextTrace			= FLAG_TRACE_NULL;
 
-			// °è¼Ó ÂÑ¾Æ°¡´Â °ÍÀ» ÁßÁö
+			// ê³„ì† ì«“ì•„ê°€ëŠ” ê²ƒì„ ì¤‘ì§€
 			m_bKeepTraceCreature	= false;
 		
 			//------------------------------------------------------------
-			// messageÃâ·Â
+			// messageì¶œë ¥
 			//------------------------------------------------------------
 			DEBUG_ADD_FORMAT("Trace Creature To SpecialAction: ID=%d, (%d, %d)", id, m_TraceX, m_TraceY);					
 
-			// ¼±ÅÃµÈ sector ¾ø¾Ö±â
+			// ì„ íƒëœ sector ì—†ì• ê¸°
 			g_pTopView->SetSelectedSectorNULL();
 		}
 		else
 		{
 			//------------------------------------------------------------
-			// ¹İº¹ actionÇÏ´Â ÁßÀÌ ¾Æ´Ñ °æ¿ì¿¡ ´ÙÀ½ µ¿ÀÛ buffering
+			// ë°˜ë³µ actioní•˜ëŠ” ì¤‘ì´ ì•„ë‹Œ ê²½ìš°ì— ë‹¤ìŒ ë™ì‘ buffering
 			//------------------------------------------------------------
 			if (m_bRepeatAction)
 			{
@@ -3854,7 +3864,7 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 		return true;
 	}
 	
-	// Target to creature°¡ ¾Æ´Ï¶ó´Â ÀÇ¹Ì.
+	// Target to creatureê°€ ì•„ë‹ˆë¼ëŠ” ì˜ë¯¸.
 	return false;
 }
 
@@ -3862,29 +3872,29 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 //----------------------------------------------------------------------
 // Trace Sector To BasicAction
 //----------------------------------------------------------------------
-// ±âº»°ø°İÀ¸·Î(L-Click)  Sector(sX,sY)¸¦ °ø°İÇÑ´Ù.
-// ¸ØÃçÀÖ´Â »óÅÂ°¡ ¾Æ´Ï¸é.. Next¿¡ ¼³Á¤ÇØµĞ´Ù.
+// ê¸°ë³¸ê³µê²©ìœ¼ë¡œ(L-Click)  Sector(sX,sY)ë¥¼ ê³µê²©í•œë‹¤.
+// ë©ˆì¶°ìˆëŠ” ìƒíƒœê°€ ì•„ë‹ˆë©´.. Nextì— ì„¤ì •í•´ë‘”ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MPlayer::TraceSectorToBasicAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 {
 	//-----------------------------------------------------
-	// delay°¡ ÀÖÀ¸¸é ¾ÈµÈ´Ù.
+	// delayê°€ ìˆìœ¼ë©´ ì•ˆëœë‹¤.
 	//-----------------------------------------------------
 	if (!IsNotDelay() 
 		|| HasEffectStatus ( EFFECTSTATUS_ETERNITY_PAUSE )
-		|| IsInCasket()	// [»õ±â¼ú3]
+		|| IsInCasket()	// [ìƒˆê¸°ìˆ 3]
 		|| g_bZoneSafe)
 	{
 		return false;
 	}
 
-	// ÁÂÇ¥°¡ Àß¸ø ÀÔ·ÂµÈ °æ¿ì
+	// ì¢Œí‘œê°€ ì˜ëª» ì…ë ¥ëœ ê²½ìš°
 	if (sX==SECTORPOSITION_NULL || sY==SECTORPOSITION_NULL)
 		return false;
 	
 	if (m_nBasicActionInfo == ACTIONINFO_NULL
-		// ¿ÀÅä¹ÙÀÌ¸¦ Å¸°í ÀÖÀ¸¸é °ø°İ ¾ÈµÊ
+		// ì˜¤í† ë°”ì´ë¥¼ íƒ€ê³  ìˆìœ¼ë©´ ê³µê²© ì•ˆë¨
 		|| m_MoveDevice == MOVE_DEVICE_RIDE
 		|| CanActionByZoneInfo())
 	{
@@ -3893,39 +3903,39 @@ MPlayer::TraceSectorToBasicAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY
 		
 	if (IsStop()) // || m_Action!=ACTION_ATTACK)
 	{		
-		// »ç¿ëÇÑ ±â¼ú·Î ¼³Á¤
+		// ì‚¬ìš©í•œ ê¸°ìˆ ë¡œ ì„¤ì •
 		m_nNextUsedActionInfo	= GetBasicActionInfo(); //m_nBasicActionInfo;
 		
-		// ÃßÀû Á¤º¸ ¼³Á¤
+		// ì¶”ì  ì •ë³´ ì„¤ì •
 		m_fTrace	= FLAG_TRACE_SECTOR_BASIC;
 		m_TraceX	= sX;
 		m_TraceY	= sY;
 		m_TraceZ	= 0;
 		
-		// ÇöÀç ÃßÀûÇÏ´Â ´ë»ó¿¡ ´ëÇØ¼­ ±â¾ïÇØµĞ´Ù.
+		// í˜„ì¬ ì¶”ì í•˜ëŠ” ëŒ€ìƒì— ëŒ€í•´ì„œ ê¸°ì–µí•´ë‘”ë‹¤.
 		m_fTraceBuffer	= m_fTrace;	
 
 		//------------------------------------------------------------
-		// BasicActionÀÌ ¹¹³Ä¿¡ µû¶ó¼­..
-		// ÇöÀç PlayerÀÇ ´É·Â¿¡ µû¶ó¼­ TraceDistance°¡ ´Ş¶óÁú °ÍÀÌ´Ù.
+		// BasicActionì´ ë­ëƒì— ë”°ë¼ì„œ..
+		// í˜„ì¬ Playerì˜ ëŠ¥ë ¥ì— ë”°ë¼ì„œ TraceDistanceê°€ ë‹¬ë¼ì§ˆ ê²ƒì´ë‹¤.
 		//------------------------------------------------------------
 		
 		m_TraceDistance		= GetActionInfoRange(m_nNextUsedActionInfo);
 		
 		//------------------------------------------------------------		
 
-		// ÃßÀûÇÏ´Â ±æ ¼³Á¤
+		// ì¶”ì í•˜ëŠ” ê¸¸ ì„¤ì •
 		SetAction( m_MoveAction );
 		SetNextDestination(m_TraceX, m_TraceY);
 
-		// bufferingÀ» ¾ø¾Ø´Ù.
+		// bufferingì„ ì—†ì•¤ë‹¤.
 		m_fNextTrace			= FLAG_TRACE_NULL;
 		
-		// °è¼Ó ÂÑ¾Æ°¡´Â °ÍÀ» ÁßÁö
+		// ê³„ì† ì«“ì•„ê°€ëŠ” ê²ƒì„ ì¤‘ì§€
 		m_bKeepTraceCreature	= false;
 
 		//------------------------------------------------------------
-		// messageÃâ·Â
+		// messageì¶œë ¥
 		//------------------------------------------------------------
 		#ifdef	OUTPUT_DEBUG
 			DEBUG_ADD_FORMAT("Trace Sector To BasicAction: (%d, %d)", sX, sY);				
@@ -3934,7 +3944,7 @@ MPlayer::TraceSectorToBasicAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY
 	else
 	{
 		//------------------------------------------------------------
-		// ¹İº¹ actionÇÏ´Â ÁßÀÌ ¾Æ´Ñ °æ¿ì¿¡ ´ÙÀ½ µ¿ÀÛ buffering
+		// ë°˜ë³µ actioní•˜ëŠ” ì¤‘ì´ ì•„ë‹Œ ê²½ìš°ì— ë‹¤ìŒ ë™ì‘ buffering
 		//------------------------------------------------------------
 		if (m_bRepeatAction)
 		{
@@ -3960,12 +3970,12 @@ MPlayer::TraceSectorToBasicAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY
 //----------------------------------------------------------------------
 // Trace Sector To SpecialAction
 //----------------------------------------------------------------------
-// Æ¯¼ö°ø°İÀ¸·Î(R-Click)  Sector(sX,sY)¸¦ °ø°İÇÑ´Ù.
-// ¸ØÃçÀÖ´Â »óÅÂ°¡ ¾Æ´Ï¸é.. Next¿¡ ¼³Á¤ÇØµĞ´Ù.
+// íŠ¹ìˆ˜ê³µê²©ìœ¼ë¡œ(R-Click)  Sector(sX,sY)ë¥¼ ê³µê²©í•œë‹¤.
+// ë©ˆì¶°ìˆëŠ” ìƒíƒœê°€ ì•„ë‹ˆë©´.. Nextì— ì„¤ì •í•´ë‘”ë‹¤.
 //----------------------------------------------------------------------
-// [return°ª]
+// [returnê°’]
 //
-//  Zone¿¡ »ç¿ëÇÏÁö ¸øÇÏ´Â °æ¿ì¸¸ false¸¦ returnÇÑ´Ù. 
+//  Zoneì— ì‚¬ìš©í•˜ì§€ ëª»í•˜ëŠ” ê²½ìš°ë§Œ falseë¥¼ returní•œë‹¤. 
 //
 //----------------------------------------------------------------------
 bool	
@@ -3980,11 +3990,11 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 		return false;
 
 	//-----------------------------------------------------
-	// delay°¡ ÀÖÀ¸¸é ¾ÈµÈ´Ù.
+	// delayê°€ ìˆìœ¼ë©´ ì•ˆëœë‹¤.
 	//-----------------------------------------------------
 	if (!IsNotDelay() 
 		|| HasEffectStatus( EFFECTSTATUS_ETERNITY_PAUSE )
-		|| IsInCasket()	// [»õ±â¼ú3]
+		|| IsInCasket()	// [ìƒˆê¸°ìˆ 3]
 		|| g_bZoneSafe
 		|| CanActionByZoneInfo()
 		)
@@ -3992,17 +4002,17 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 		return false;
 	}
 
-	// ÁÂÇ¥°¡ Àß¸ø ÀÔ·ÂµÈ °æ¿ì
+	// ì¢Œí‘œê°€ ì˜ëª» ì…ë ¥ëœ ê²½ìš°
 	if (sX==SECTORPOSITION_NULL || sY==SECTORPOSITION_NULL)
 		return false;
 	
 	if (m_nSpecialActionInfo == ACTIONINFO_NULL		
-		// ¿ÀÅä¹ÙÀÌ¸¦ Å¸°í ÀÖÀ¸¸é ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+		// ì˜¤í† ë°”ì´ë¥¼ íƒ€ê³  ìˆìœ¼ë©´ ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
 		|| m_MoveDevice == MOVE_DEVICE_RIDE
-		// ¹º°¡ ±â¼ú »ç¿ëÀ» °ËÁ¤ ¹Ş¾Æ¾ß ÇÏ¸é »ç¿ëÇÒ ¼ö ¾ø´Ù.
-		//|| m_WaitVerify != WAIT_VERIFY_NULL)	// 2001.8.20 ÁÖ¼®Ã³¸®
+		// ë­”ê°€ ê¸°ìˆ  ì‚¬ìš©ì„ ê²€ì • ë°›ì•„ì•¼ í•˜ë©´ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+		//|| m_WaitVerify != WAIT_VERIFY_NULL)	// 2001.8.20 ì£¼ì„ì²˜ë¦¬
 		|| IsInSafeSector() == 2
-		// ¿ÏÀü ¾ÈÀüÁö´ë¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.		
+		// ì™„ì „ ì•ˆì „ì§€ëŒ€ì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.		
 		)
 	{
 		m_fNextTrace = FLAG_TRACE_NULL;
@@ -4011,7 +4021,7 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 
 		return false;
 	}
-	// 2004, 9, 18, sobeit add start - ÅÍ·¿ ÆÄÀÌ¾î´Â »çÁ¤°Å¸® ¹ş¾î³ª¹È ¹«½Ã ¤Ì.¤Ì 
+	// 2004, 9, 18, sobeit add start - í„°ë › íŒŒì´ì–´ëŠ” ì‚¬ì •ê±°ë¦¬ ë²—ì–´ë‚˜ë¯„ ë¬´ì‹œ ã…œ.ã…œ 
 	if (m_nSpecialActionInfo==SKILL_TURRET_FIRE)
 	{
 		m_TraceDistance		= GetActionInfoRange(m_nSpecialActionInfo);
@@ -4025,11 +4035,11 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 	}
 	// 2004, 9, 18, sobeit add end
 
-	// ´Ù¸¥ ±â¼úÀ» »ç¿ëÁßÀÎ °æ¿ì
+	// ë‹¤ë¥¸ ê¸°ìˆ ì„ ì‚¬ìš©ì¤‘ì¸ ê²½ìš°
 	if (m_nUsedActionInfo!=ACTIONINFO_NULL)
 		return false;
 
-	// 2004, 9, 21, sobeit add start - Å¸°Ù Å©¸®ÃÄ ½ºÅ³ÀÌ Å¸°Ù Á¸ ½ºÅ³·Î »ç¿ëÇÒ ¼ö ÀÖ°Ô
+	// 2004, 9, 21, sobeit add start - íƒ€ê²Ÿ í¬ë¦¬ì³ ìŠ¤í‚¬ì´ íƒ€ê²Ÿ ì¡´ ìŠ¤í‚¬ë¡œ ì‚¬ìš©í•  ìˆ˜ ìˆê²Œ
 	bool bAbleTargetSector = false;
 //	if(m_nSpecialActionInfo == SKILL_DESTRUCTION_SPEAR || m_nSpecialActionInfo == SKILL_DESTRUCTION_SPEAR_MASTERY)
 //	{
@@ -4043,7 +4053,7 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 			bAbleTargetSector = true;
 	}
 	// 2004, 9, 21, sobeit add end
-	// Zone¿¡ »ç¿ëÇÒ ¼ö ÀÖ´Â °Íµé¸¸ »ç¿ëÇÑ´Ù.
+	// Zoneì— ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ê²ƒë“¤ë§Œ ì‚¬ìš©í•œë‹¤.
 	if ((*g_pActionInfoTable)[m_nSpecialActionInfo].IsTargetZone() || bAbleTargetSector)
 	{
 		int grade = 0;
@@ -4077,13 +4087,13 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 //			}
 //		}
 		//-------------------------------------------------------
-		// ÆøÅº °ñ¶ó¼­ ´øÁö±â
+		// í­íƒ„ ê³¨ë¼ì„œ ë˜ì§€ê¸°
 		//-------------------------------------------------------
 		if (useSkill==SKILL_THROW_BOMB)
 		{
 			//-------------------------------------------------------
-			// ÇöÀç »ç¿ëÇÒ ¼ö ÀÖ´Â ±â¼úÀÎÁö Ã¼Å©..
-			// Passive ½ºÅ³ÀÌ¸é »ç¿ë ¸øÇÏ°Ô..
+			// í˜„ì¬ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ê¸°ìˆ ì¸ì§€ ì²´í¬..
+			// Passive ìŠ¤í‚¬ì´ë©´ ì‚¬ìš© ëª»í•˜ê²Œ..
 			//-------------------------------------------------------
 			if (IsSlayer()
 				&& !IsWaitVerify()
@@ -4107,8 +4117,8 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 
 		
 		//-------------------------------------------------------
-		// ÇöÀç »ç¿ëÇÒ ¼ö ÀÖ´Â ±â¼úÀÎÁö Ã¼Å©..
-		// Passive ½ºÅ³ÀÌ¸é »ç¿ë ¸øÇÏ°Ô..
+		// í˜„ì¬ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ê¸°ìˆ ì¸ì§€ ì²´í¬..
+		// Passive ìŠ¤í‚¬ì´ë©´ ì‚¬ìš© ëª»í•˜ê²Œ..
 		//-------------------------------------------------------
 		if (
 			(!g_pSkillAvailable->IsEnableSkill( (ACTIONINFO)m_nSpecialActionInfo ) && m_nSpecialActionInfo != SKILL_TURRET_FIRE)
@@ -4150,7 +4160,7 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 				
 				if(pItem != NULL)
 				{
-					// ¼º¹°Àº ¾È¸Ô°Ô ÇÏ±â
+					// ì„±ë¬¼ì€ ì•ˆë¨¹ê²Œ í•˜ê¸°
 					MCreature* pCreature = ((MCorpse*)pItem)->GetCreature();
 					if(pCreature != NULL)
 					{
@@ -4167,11 +4177,11 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 			int targetY = sY;
 
 			//-------------------------------------------------------
-			// Æ¯Á¤ÇÑ ±â¼úÀÎ °æ¿ìÀÇ Ã¼Å©
+			// íŠ¹ì •í•œ ê¸°ìˆ ì¸ ê²½ìš°ì˜ ì²´í¬
 			//-------------------------------------------------------
 			switch (useSkill)
 			{
-				// Æ®·£½º Ç»ÀüÀº Å¸ÀÏ±â¼ú·Î Ã¼Å©µÇÀÖÁö¸¸ ½ÇÁ¦·Î »ç¿ëÇÒ ¼ö ´Â ¾ø´Ù
+				// íŠ¸ëœìŠ¤ í“¨ì „ì€ íƒ€ì¼ê¸°ìˆ ë¡œ ì²´í¬ë˜ìˆì§€ë§Œ ì‹¤ì œë¡œ ì‚¬ìš©í•  ìˆ˜ ëŠ” ì—†ë‹¤
 				case SKILL_TRANSFUSION:
 					return false;
 					break;
@@ -4181,9 +4191,9 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 					break;
 
 				//-------------------------------------------------------
-				// Èí¿µ
+				// í¡ì˜
 				//-------------------------------------------------------
-				// ¹Ù´Ú¿¡ ½ÃÃ¼°¡ ¾ø´Â °æ¿ì´Â ±â¼ú »ç¿ë ¾ÈÇÑ´Ù.
+				// ë°”ë‹¥ì— ì‹œì²´ê°€ ì—†ëŠ” ê²½ìš°ëŠ” ê¸°ìˆ  ì‚¬ìš© ì•ˆí•œë‹¤.
 				//-------------------------------------------------------
 				case SKILL_ABSORB_SOUL :
 					if (IsOusters())
@@ -4208,7 +4218,7 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 							return false;
 						}
 						
-						// ¼º¹°Àº ¾È¸Ô°Ô ÇÏ±â
+						// ì„±ë¬¼ì€ ì•ˆë¨¹ê²Œ í•˜ê¸°
 						MCreature* pCreature = ((MCorpse*)pItem)->GetCreature();
 						if(pCreature != NULL)
 						{
@@ -4228,9 +4238,9 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 					break;
 
 				//-------------------------------------------------------
-				// ´Á´ëÀÎ °æ¿ì ½ÃÃ¼ ¸Ô±â
+				// ëŠ‘ëŒ€ì¸ ê²½ìš° ì‹œì²´ ë¨¹ê¸°
 				//-------------------------------------------------------
-				// ¹Ù´Ú¿¡ ½ÃÃ¼°¡ ¾ø´Â °æ¿ì´Â ±â¼ú »ç¿ë ¾ÈÇÑ´Ù.
+				// ë°”ë‹¥ì— ì‹œì²´ê°€ ì—†ëŠ” ê²½ìš°ëŠ” ê¸°ìˆ  ì‚¬ìš© ì•ˆí•œë‹¤.
 				//-------------------------------------------------------
 				case SKILL_BITE_OF_DEATH :
 					if (m_CreatureType != CREATURETYPE_WER_WOLF )
@@ -4253,7 +4263,7 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 							return false;
 						}
 
-						// ¼º¹°Àº ¾È¸Ô°Ô ÇÏ±â
+						// ì„±ë¬¼ì€ ì•ˆë¨¹ê²Œ í•˜ê¸°
 						MCreature* pCreature = ((MCorpse*)pItem)->GetCreature();
 						if(pCreature != NULL)
 						{
@@ -4273,7 +4283,7 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 				break;
 //				// 2004, 8, 30, sobeit add start - sweep vice test
 //				case SKILL_SWEEP_VICE_1:
-//					if(!GetSweepViewValue()) //½ºÀ¬¹ÙÀÌ½º¸¦ ¾ÆÁ÷ »ç¿ëÁßÀÌ ¾Æ´Ò¶§
+//					if(!GetSweepViewValue()) //ìŠ¤ìœ•ë°”ì´ìŠ¤ë¥¼ ì•„ì§ ì‚¬ìš©ì¤‘ì´ ì•„ë‹ë•Œ
 //					{
 //						SetSweepViewValue(1);
 //						g_SelectSector = g_pTopView->GetSelectedSector(g_x, g_y);
@@ -4311,7 +4321,7 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 			WORD fWeaponType = (*g_pActionInfoTable)[useSkill].GetWeaponType();
 			
 			//------------------------------------------------
-			// ÆøÅºÀÎ °æ¿ì.. ·¹º§¿¡ µû¶ó¼­ ÁÂÇ¥ ¾î±ß³ª°Ô
+			// í­íƒ„ì¸ ê²½ìš°.. ë ˆë²¨ì— ë”°ë¼ì„œ ì¢Œí‘œ ì–´ê¸‹ë‚˜ê²Œ
 			//------------------------------------------------
 			if (fWeaponType	& FLAG_ACTIONINFO_WEAPON_BOMB)
 			{
@@ -4321,20 +4331,20 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 
 				if (rand()%100 < hitRoll)
 				{
-					// Á¦´ë·Î ¸ÂÀº °æ¿ì
+					// ì œëŒ€ë¡œ ë§ì€ ê²½ìš°
 				}
 				else
 				{
 					if (rand()%100 < 25
-						&& skillLevel < 30)		// 2Å¸ÀÏ ±ÙÃ³
+						&& skillLevel < 30)		// 2íƒ€ì¼ ê·¼ì²˜
 					{
-						// ºú¸Â¾Æ¾ß ÇÑ´Ù.
+						// ë¹šë§ì•„ì•¼ í•œë‹¤.
 						targetX += rand()%5 - 2;
 						targetY += rand()%5 - 2;
 					}
-					else						// 1Å¸ÀÏ ±ÙÃ³
+					else						// 1íƒ€ì¼ ê·¼ì²˜
 					{
-						// ºú¸Â¾Æ¾ß ÇÑ´Ù.
+						// ë¹šë§ì•„ì•¼ í•œë‹¤.
 						targetX += rand()%3 - 1;
 						targetY += rand()%3 - 1;
 					}
@@ -4342,22 +4352,22 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 			}
 
 			//------------------------------------------------
-			// ÃÑ¾Ë Ã¼Å©
+			// ì´ì•Œ ì²´í¬
 			//------------------------------------------------
 			if ((*g_pActionInfoTable)[useSkill].IsWeaponTypeGunAny())
 			{
-				if (!IsRequestMode() && g_pCurrentMagazine!=NULL)		// ÃÑ¾ËÀÌ ÇÊ¿ä ¾ø´Â °æ¿ì
+				if (!IsRequestMode() && g_pCurrentMagazine!=NULL)		// ì´ì•Œì´ í•„ìš” ì—†ëŠ” ê²½ìš°
 				{
-					if (g_pCurrentMagazine->GetNumber()==0)	// ÃÑ¾ËÀÌ ¾ø´Â °æ¿ì
+					if (g_pCurrentMagazine->GetNumber()==0)	// ì´ì•Œì´ ì—†ëŠ” ê²½ìš°
 					{
-						// ÃÑÀ» »ç¿ëÇÏ´Âµ¥ ÅºÃ¢ÀÌ ¾ø´Â °æ¿ì
+						// ì´ì„ ì‚¬ìš©í•˜ëŠ”ë° íƒ„ì°½ì´ ì—†ëŠ” ê²½ìš°
 						PlaySound( SOUND_ITEM_NO_MAGAZINE );
 
 						m_fNextTrace	= FLAG_TRACE_NULL;
 
 						
 
-						// [µµ¿ò¸»] ÃÑ¾Ë ´Ù ½èÀ» ¶§
+						// [ë„ì›€ë§] ì´ì•Œ ë‹¤ ì¼ì„ ë•Œ
 //						__BEGIN_HELP_EVENT
 //							ExecuteHelpEvent( HE_ITEM_EMPTY_BULLET );
 //						__END_HELP_EVENT
@@ -4365,13 +4375,13 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 						m_fNextTrace = FLAG_TRACE_NULL;
 
 						UnSetRepeatAction();
-						// 2004, 9, 23, sobeit add start - ÅÍ·¿ °ø°İ ³¡³ª´Â µ¿ÀÛ
+						// 2004, 9, 23, sobeit add start - í„°ë › ê³µê²© ëë‚˜ëŠ” ë™ì‘
 						if(HasEffectStatus(EFFECTSTATUS_INSTALL_TURRET))
 						{
 							InstallTurretStopAttack();
 						}
 						else
-							// ÅºÃ¢ ¾øÀ»¶§ delay
+							// íƒ„ì°½ ì—†ì„ë•Œ delay
 						m_DelayTime	= g_CurrentTime + GetActionInfoDelay(m_nBasicActionInfo);
 						// 2004, 9, 23, sobeit add end
 						return false;
@@ -4379,39 +4389,39 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 				}
 			}
 
-			// »ç¿ëÇÑ ±â¼ú·Î ¼³Á¤
+			// ì‚¬ìš©í•œ ê¸°ìˆ ë¡œ ì„¤ì •
 			m_nNextUsedActionInfo	= useSkill;
 
-			// ÃßÀû Á¤º¸ ¼³Á¤
+			// ì¶”ì  ì •ë³´ ì„¤ì •
 			m_fTrace	= FLAG_TRACE_SECTOR_SPECIAL;
 			m_TraceX	= targetX;
 			m_TraceY	= targetY;
 			m_TraceZ	= 0;
 
-			// ÇöÀç ÃßÀûÇÏ´Â ´ë»ó¿¡ ´ëÇØ¼­ ±â¾ïÇØµĞ´Ù.
+			// í˜„ì¬ ì¶”ì í•˜ëŠ” ëŒ€ìƒì— ëŒ€í•´ì„œ ê¸°ì–µí•´ë‘”ë‹¤.
 			m_fTraceBuffer	= m_fTrace;	
 			
 			//------------------------------------------------------------
-			// BasicActionÀÌ ¹¹³Ä¿¡ µû¶ó¼­..
-			// ÇöÀç PlayerÀÇ ´É·Â¿¡ µû¶ó¼­ TraceDistance°¡ ´Ş¶óÁú °ÍÀÌ´Ù.
+			// BasicActionì´ ë­ëƒì— ë”°ë¼ì„œ..
+			// í˜„ì¬ Playerì˜ ëŠ¥ë ¥ì— ë”°ë¼ì„œ TraceDistanceê°€ ë‹¬ë¼ì§ˆ ê²ƒì´ë‹¤.
 			//------------------------------------------------------------
 			
 			m_TraceDistance		= GetActionInfoRange(m_nNextUsedActionInfo);
 			
 			//------------------------------------------------------------		
 
-			// ÃßÀûÇÏ´Â ±æ ¼³Á¤
+			// ì¶”ì í•˜ëŠ” ê¸¸ ì„¤ì •
 			SetAction( m_MoveAction );
 			SetNextDestination(m_TraceX, m_TraceY);
 
-			// bufferingÀ» ¾ø¾Ø´Ù.
+			// bufferingì„ ì—†ì•¤ë‹¤.
 			m_fNextTrace			= FLAG_TRACE_NULL;
 
-			// °è¼Ó ÂÑ¾Æ°¡´Â °ÍÀ» ÁßÁö
+			// ê³„ì† ì«“ì•„ê°€ëŠ” ê²ƒì„ ì¤‘ì§€
 			m_bKeepTraceCreature	= false;
 			
 			//------------------------------------------------------------
-			// messageÃâ·Â
+			// messageì¶œë ¥
 			//------------------------------------------------------------
 			DEBUG_ADD_FORMAT("Trace Sector To SpecialAction: (%d, %d)", sX, sY);					
 			if(useSkill == SKILL_TELEPORT)
@@ -4423,7 +4433,7 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 		{
 
 			//------------------------------------------------------------
-			// ¹İº¹ actionÇÏ´Â ÁßÀÌ ¾Æ´Ñ °æ¿ì¿¡ ´ÙÀ½ µ¿ÀÛ buffering
+			// ë°˜ë³µ actioní•˜ëŠ” ì¤‘ì´ ì•„ë‹Œ ê²½ìš°ì— ë‹¤ìŒ ë™ì‘ buffering
 			//------------------------------------------------------------
 			if (m_bRepeatAction)
 			{
@@ -4441,7 +4451,7 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 
 				m_bRepeatAction = FALSE;
 
-				// 200411, 12, 21, sobeit modify start - ÀÌµ¿Áß ½ºÅ³ »ç¿ë½Ã ¹İº¹ÀÌ ¾ÈµÇ´Â Çö»ó ¼öÁ¤
+				// 200411, 12, 21, sobeit modify start - ì´ë™ì¤‘ ìŠ¤í‚¬ ì‚¬ìš©ì‹œ ë°˜ë³µì´ ì•ˆë˜ëŠ” í˜„ìƒ ìˆ˜ì •
 				//return false;
 				return true;
 				// 200411, 12, 21, sobeit modify end
@@ -4451,25 +4461,25 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 		return true;
 	}
 
-	// Zone¿¡ »ç¿ëÇÏ´Â°Ô ¾Æ´Ï¶ó´Â ÀÇ¹Ì
+	// Zoneì— ì‚¬ìš©í•˜ëŠ”ê²Œ ì•„ë‹ˆë¼ëŠ” ì˜ë¯¸
 	return false;
 }
 
 //----------------------------------------------------------------------
 // Trace Item
 //----------------------------------------------------------------------
-// ItemÀ¸·Î ´Ù°¡°¡¼­ ÁÖ¿ö¾ß ÇÑ´Ù.
-// ¸ØÃçÀÖ´Â »óÅÂ°¡ ¾Æ´Ï¸é.. Next¿¡ ¼³Á¤ÇØµĞ´Ù.
+// Itemìœ¼ë¡œ ë‹¤ê°€ê°€ì„œ ì£¼ì›Œì•¼ í•œë‹¤.
+// ë©ˆì¶°ìˆëŠ” ìƒíƒœê°€ ì•„ë‹ˆë©´.. Nextì— ì„¤ì •í•´ë‘”ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MPlayer::TraceItem(TYPE_OBJECTID id)
 {
 	//-----------------------------------------------------
-	// delay°¡ ÀÖÀ¸¸é ¾ÈµÈ´Ù.
+	// delayê°€ ìˆìœ¼ë©´ ì•ˆëœë‹¤.
 	//-----------------------------------------------------
 	if (!IsNotDelay() 
 		|| HasEffectStatus( EFFECTSTATUS_ETERNITY_PAUSE )
-		|| IsInCasket()	// [»õ±â¼ú3]
+		|| IsInCasket()	// [ìƒˆê¸°ìˆ 3]
 		|| IsInDarkness() && (!HasEffectStatus( EFFECTSTATUS_LIGHTNESS )||g_pZone->GetID() == 3001)
 		&& !g_pPlayer->HasEffectStatus( EFFECTSTATUS_GHOST )
 #ifdef __METROTECH_TEST__
@@ -4482,10 +4492,10 @@ MPlayer::TraceItem(TYPE_OBJECTID id)
 
 	if (IsStop()) // || m_Action!=ACTION_ATTACK)
 	{
-		// Zone¿¡ Á¸ÀçÇÏ´Â ItemÀÎÁö checkÇÑ´Ù.
+		// Zoneì— ì¡´ì¬í•˜ëŠ” Itemì¸ì§€ checkí•œë‹¤.
 		MItem*	pItem = m_pZone->GetItem(id);
 
-		// itemÀÌ zone¿¡ ¾ø´Â °æ¿ì
+		// itemì´ zoneì— ì—†ëŠ” ê²½ìš°
 		if (pItem==NULL
 			|| g_pZone->GetSector(pItem->GetX(), pItem->GetY()).HasDarkness() && 
 			( !IsVampire() && (!HasEffectStatus( EFFECTSTATUS_LIGHTNESS ) || 
@@ -4500,7 +4510,7 @@ MPlayer::TraceItem(TYPE_OBJECTID id)
 		}
 	
 		//-------------------------------------------------------------
-		// Item Áİ±â °¡´É °Å¸®¿¡ ÀÌ¹Ì ÀÖ´Ù¸é..
+		// Item ì¤ê¸° ê°€ëŠ¥ ê±°ë¦¬ì— ì´ë¯¸ ìˆë‹¤ë©´..
 		//-------------------------------------------------------------
 		if (max(abs(pItem->GetX()-m_X), abs(pItem->GetY()-m_Y)) <= 1)
 		{
@@ -4508,51 +4518,51 @@ MPlayer::TraceItem(TYPE_OBJECTID id)
 
 			TraceNULL();
 			
-			// ÃßÀûÀ» ¿Ï·áÇßÀ¸¹Ç·Î ItemÀ» Áİ´Â´Ù.
+			// ì¶”ì ì„ ì™„ë£Œí–ˆìœ¼ë¯€ë¡œ Itemì„ ì¤ëŠ”ë‹¤.
 			PickupItem( pItem );	
 			
 			return true;
 		}
 
 
-		// ÃßÀû Á¤º¸ ¼³Á¤
+		// ì¶”ì  ì •ë³´ ì„¤ì •
 		SetTraceID( id );
 		m_fTrace	= FLAG_TRACE_ITEM;
 		m_TraceX	= pItem->GetX();
 		m_TraceY	= pItem->GetY();
 		m_TraceZ	= 0;
 
-		// ÇöÀç ÃßÀûÇÏ´Â ´ë»ó¿¡ ´ëÇØ¼­ ±â¾ïÇØµĞ´Ù.
+		// í˜„ì¬ ì¶”ì í•˜ëŠ” ëŒ€ìƒì— ëŒ€í•´ì„œ ê¸°ì–µí•´ë‘”ë‹¤.
 		m_fTraceBuffer	= m_fTrace;	
 		
 
 		//------------------------------------------------------------		
-		// ÇöÀç PlayerÀÇ ´É·Â¿¡ µû¶ó¼­ TraceDistance°¡ ´Ş¶óÁú±î?
+		// í˜„ì¬ Playerì˜ ëŠ¥ë ¥ì— ë”°ë¼ì„œ TraceDistanceê°€ ë‹¬ë¼ì§ˆê¹Œ?
 		//------------------------------------------------------------
 		
 		m_TraceDistance		= 1;
 		
 		//------------------------------------------------------------
 
-		// ÃßÀûÇÏ´Â ±æ ¼³Á¤
+		// ì¶”ì í•˜ëŠ” ê¸¸ ì„¤ì •
 		SetAction( m_MoveAction );
 		SetNextDestination(m_TraceX, m_TraceY);
 
-		// bufferingÀ» ¾ø¾Ø´Ù.
+		// bufferingì„ ì—†ì•¤ë‹¤.
 		m_fNextTrace			= FLAG_TRACE_NULL;
 	
-		// °è¼Ó ÂÑ¾Æ°¡´Â °ÍÀ» ÁßÁö
+		// ê³„ì† ì«“ì•„ê°€ëŠ” ê²ƒì„ ì¤‘ì§€
 		m_bKeepTraceCreature	= false;
 
 		//------------------------------------------------------------
-		// messageÃâ·Â
+		// messageì¶œë ¥
 		//------------------------------------------------------------
 		DEBUG_ADD_FORMAT("Trace IteM: %d", id);				
 	}
 	else
 	{
 		//------------------------------------------------------------
-		// ¹İº¹ actionÇÏ´Â ÁßÀÌ ¾Æ´Ñ °æ¿ì¿¡ ´ÙÀ½ µ¿ÀÛ buffering
+		// ë°˜ë³µ actioní•˜ëŠ” ì¤‘ì´ ì•„ë‹Œ ê²½ìš°ì— ë‹¤ìŒ ë™ì‘ buffering
 		//------------------------------------------------------------
 		if (m_bRepeatAction)
 		{
@@ -4577,27 +4587,27 @@ MPlayer::TraceItem(TYPE_OBJECTID id)
 //----------------------------------------------------------------------
 // Trace InteractionObject
 //----------------------------------------------------------------------
-// InteractionObject·Î ´Ù°¡°¡¼­ currentActionÀ» º¯°æ½ÃÅ²´Ù.
-// --> ´Ù°¡°¬À»¶§, currentActionÀÌ 
-//     "ÀÌ¹Ì" º¯°æµÇ¾îÀÖÀ¸¸é º¯°æÇÏÁö ¾Ê¾Æ¾ß ÇÑ´Ù.
+// InteractionObjectë¡œ ë‹¤ê°€ê°€ì„œ currentActionì„ ë³€ê²½ì‹œí‚¨ë‹¤.
+// --> ë‹¤ê°€ê°”ì„ë•Œ, currentActionì´ 
+//     "ì´ë¯¸" ë³€ê²½ë˜ì–´ìˆìœ¼ë©´ ë³€ê²½í•˜ì§€ ì•Šì•„ì•¼ í•œë‹¤.
 //
-// ¸ØÃçÀÖ´Â »óÅÂ°¡ ¾Æ´Ï¸é.. Next¿¡ ¼³Á¤ÇØµĞ´Ù.
+// ë©ˆì¶°ìˆëŠ” ìƒíƒœê°€ ì•„ë‹ˆë©´.. Nextì— ì„¤ì •í•´ë‘”ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MPlayer::TraceInteractionObject(TYPE_OBJECTID id, BYTE currentAction)
 {
 	//-----------------------------------------------------
-	// delay°¡ ÀÖÀ¸¸é ¾ÈµÈ´Ù.
+	// delayê°€ ìˆìœ¼ë©´ ì•ˆëœë‹¤.
 	//-----------------------------------------------------
 	if (!IsNotDelay()
 		|| HasEffectStatus( EFFECTSTATUS_ETERNITY_PAUSE )
-		|| IsInCasket())	// [»õ±â¼ú3]		
+		|| IsInCasket())	// [ìƒˆê¸°ìˆ 3]		
 	{
 		return false;
 	}
 
 	//------------------------------------------------
-	// ¿ÀÅä¹ÙÀÌ¸¦ Å¸°í ÀÖÀ¸¸é ¹®À» ¿­ ¼ö ¾ø´Ù.
+	// ì˜¤í† ë°”ì´ë¥¼ íƒ€ê³  ìˆìœ¼ë©´ ë¬¸ì„ ì—´ ìˆ˜ ì—†ë‹¤.
 	//------------------------------------------------
 	if (m_MoveDevice == MOVE_DEVICE_RIDE)
 	{
@@ -4606,17 +4616,17 @@ MPlayer::TraceInteractionObject(TYPE_OBJECTID id, BYTE currentAction)
 
 	if (IsStop()) // || m_Action!=ACTION_ATTACK)
 	{
-		// Zone¿¡ Á¸ÀçÇÏ´Â ItemÀÎÁö checkÇÑ´Ù.
+		// Zoneì— ì¡´ì¬í•˜ëŠ” Itemì¸ì§€ checkí•œë‹¤.
 		MImageObject*	pImageObject = m_pZone->GetImageObject(id);
 
-		// ImageObject°¡ ¾øÀ¸¸é return
+		// ImageObjectê°€ ì—†ìœ¼ë©´ return
 		if (pImageObject==NULL) return false;
 
-		// InteractionObject°¡ ¾Æ´Ï¸é return
+		// InteractionObjectê°€ ì•„ë‹ˆë©´ return
 		if (pImageObject->GetObjectType()!=MObject::TYPE_INTERACTIONOBJECT)
 			return false;	 	
 
-		// ÃßÀû Á¤º¸ ¼³Á¤
+		// ì¶”ì  ì •ë³´ ì„¤ì •
 		SetTraceID( id );
 		m_fTrace			= FLAG_TRACE_INTERACTIONOBJECT;
 		m_TraceObjectAction	= currentAction;
@@ -4624,36 +4634,36 @@ MPlayer::TraceInteractionObject(TYPE_OBJECTID id, BYTE currentAction)
 		m_TraceY			= pImageObject->GetY();
 		m_TraceZ			= 0;
 
-		// ÇöÀç ÃßÀûÇÏ´Â ´ë»ó¿¡ ´ëÇØ¼­ ±â¾ïÇØµĞ´Ù.
+		// í˜„ì¬ ì¶”ì í•˜ëŠ” ëŒ€ìƒì— ëŒ€í•´ì„œ ê¸°ì–µí•´ë‘”ë‹¤.
 		m_fTraceBuffer	= m_fTrace;	
 
 		//------------------------------------------------------------		
-		// ÇöÀç PlayerÀÇ ´É·Â¿¡ µû¶ó¼­ TraceDistance°¡ ´Ş¶óÁú±î?
+		// í˜„ì¬ Playerì˜ ëŠ¥ë ¥ì— ë”°ë¼ì„œ TraceDistanceê°€ ë‹¬ë¼ì§ˆê¹Œ?
 		//------------------------------------------------------------
 		
 		m_TraceDistance		= 1;
 		
 		//------------------------------------------------------------
 
-		// ÃßÀûÇÏ´Â ±æ ¼³Á¤
+		// ì¶”ì í•˜ëŠ” ê¸¸ ì„¤ì •
 		SetAction( m_MoveAction );
 		SetNextDestination(m_TraceX, m_TraceY);
 
-		// bufferingÀ» ¾ø¾Ø´Ù.
+		// bufferingì„ ì—†ì•¤ë‹¤.
 		m_fNextTrace			= FLAG_TRACE_NULL;
 	
-		// °è¼Ó ÂÑ¾Æ°¡´Â °ÍÀ» ÁßÁö
+		// ê³„ì† ì«“ì•„ê°€ëŠ” ê²ƒì„ ì¤‘ì§€
 		m_bKeepTraceCreature	= false;
 
 		//------------------------------------------------------------
-		// messageÃâ·Â
+		// messageì¶œë ¥
 		//------------------------------------------------------------
 		DEBUG_ADD_FORMAT("Trace InteractionObject: %d", id);				
 	}
 	else
 	{
 		//------------------------------------------------------------
-		// ¹İº¹ actionÇÏ´Â ÁßÀÌ ¾Æ´Ñ °æ¿ì¿¡ ´ÙÀ½ µ¿ÀÛ buffering
+		// ë°˜ë³µ actioní•˜ëŠ” ì¤‘ì´ ì•„ë‹Œ ê²½ìš°ì— ë‹¤ìŒ ë™ì‘ buffering
 		//------------------------------------------------------------
 		if (m_bRepeatAction)
 		{
@@ -4679,23 +4689,23 @@ MPlayer::TraceInteractionObject(TYPE_OBJECTID id, BYTE currentAction)
 //----------------------------------------------------------------------
 // Trace Effect
 //----------------------------------------------------------------------
-// SelectableEffect¿¡ Á¢±ÙÇÑ´Ù.
+// SelectableEffectì— ì ‘ê·¼í•œë‹¤.
 //----------------------------------------------------------------------
 bool	
 MPlayer::TraceEffect(TYPE_OBJECTID id)
 {
 	//-----------------------------------------------------
-	// delay°¡ ÀÖÀ¸¸é ¾ÈµÈ´Ù.
+	// delayê°€ ìˆìœ¼ë©´ ì•ˆëœë‹¤.
 	//-----------------------------------------------------
 	if (!IsNotDelay()
 		|| HasEffectStatus( EFFECTSTATUS_ETERNITY_PAUSE )
-		|| IsInCasket())	// [»õ±â¼ú3]
+		|| IsInCasket())	// [ìƒˆê¸°ìˆ 3]
 	{
 		return false;
 	}
 
 	//------------------------------------------------
-	// ¿ÀÅä¹ÙÀÌ¸¦ Å¸°í ÀÖÀ¸¸é ¹®À» ¿­ ¼ö ¾ø´Ù.
+	// ì˜¤í† ë°”ì´ë¥¼ íƒ€ê³  ìˆìœ¼ë©´ ë¬¸ì„ ì—´ ìˆ˜ ì—†ë‹¤.
 	//------------------------------------------------
 	if (m_MoveDevice == MOVE_DEVICE_RIDE)
 	{
@@ -4719,7 +4729,7 @@ MPlayer::TraceEffect(TYPE_OBJECTID id)
 		if (!pEffect->IsSelectable())
 			return false;	 	
 
-		// ÃßÀû Á¤º¸ ¼³Á¤
+		// ì¶”ì  ì •ë³´ ì„¤ì •
 		SetTraceID( id );
 		m_fTrace			= FLAG_TRACE_EFFECT;
 		//m_TraceObjectAction	= currentAction;
@@ -4727,36 +4737,36 @@ MPlayer::TraceEffect(TYPE_OBJECTID id)
 		m_TraceY			= pEffect->GetY();
 		m_TraceZ			= 0;
 
-		// ÇöÀç ÃßÀûÇÏ´Â ´ë»ó¿¡ ´ëÇØ¼­ ±â¾ïÇØµĞ´Ù.
+		// í˜„ì¬ ì¶”ì í•˜ëŠ” ëŒ€ìƒì— ëŒ€í•´ì„œ ê¸°ì–µí•´ë‘”ë‹¤.
 		m_fTraceBuffer	= m_fTrace;	
 
 		//------------------------------------------------------------		
-		// ÇöÀç PlayerÀÇ ´É·Â¿¡ µû¶ó¼­ TraceDistance°¡ ´Ş¶óÁú±î?
+		// í˜„ì¬ Playerì˜ ëŠ¥ë ¥ì— ë”°ë¼ì„œ TraceDistanceê°€ ë‹¬ë¼ì§ˆê¹Œ?
 		//------------------------------------------------------------
 		
 		m_TraceDistance		= 1;
 		
 		//------------------------------------------------------------
 
-		// ÃßÀûÇÏ´Â ±æ ¼³Á¤
+		// ì¶”ì í•˜ëŠ” ê¸¸ ì„¤ì •
 		SetAction( m_MoveAction );
 		SetNextDestination(m_TraceX, m_TraceY);
 
-		// bufferingÀ» ¾ø¾Ø´Ù.
+		// bufferingì„ ì—†ì•¤ë‹¤.
 		m_fNextTrace			= FLAG_TRACE_NULL;
 	
-		// °è¼Ó ÂÑ¾Æ°¡´Â °ÍÀ» ÁßÁö
+		// ê³„ì† ì«“ì•„ê°€ëŠ” ê²ƒì„ ì¤‘ì§€
 		m_bKeepTraceCreature	= false;
 
 		//------------------------------------------------------------
-		// messageÃâ·Â
+		// messageì¶œë ¥
 		//------------------------------------------------------------
 		DEBUG_ADD_FORMAT("Trace Effect: %d", id);				
 	}
 	else
 	{
 		//------------------------------------------------------------
-		// ¹İº¹ actionÇÏ´Â ÁßÀÌ ¾Æ´Ñ °æ¿ì¿¡ ´ÙÀ½ µ¿ÀÛ buffering
+		// ë°˜ë³µ actioní•˜ëŠ” ì¤‘ì´ ì•„ë‹Œ ê²½ìš°ì— ë‹¤ìŒ ë™ì‘ buffering
 		//------------------------------------------------------------
 		if (m_bRepeatAction)
 		{
@@ -4784,15 +4794,15 @@ MPlayer::TraceEffect(TYPE_OBJECTID id)
 //----------------------------------------------------------------------
 // Set Trace Position
 //----------------------------------------------------------------------
-// Creature°¡ ÀÖ´Â sector´Â ÀÌ¹Ì Creature°¡ ÀÖ±â ¶§¹®¿¡ °¥ ¼ö ¾ø´Ù.
-// ±×·¯¹Ç·Î, Creature¿¡ °¡Àå ±ÙÁ¢ÇÏ¸é¼­ ÇöÀç Player¿¡¼­ °¡±î¿î 
-// Sector¸¦ ¼±ÅÃÇØ¾ß ÇÑ´Ù.
+// Creatureê°€ ìˆëŠ” sectorëŠ” ì´ë¯¸ Creatureê°€ ìˆê¸° ë•Œë¬¸ì— ê°ˆ ìˆ˜ ì—†ë‹¤.
+// ê·¸ëŸ¬ë¯€ë¡œ, Creatureì— ê°€ì¥ ê·¼ì ‘í•˜ë©´ì„œ í˜„ì¬ Playerì—ì„œ ê°€ê¹Œìš´ 
+// Sectorë¥¼ ì„ íƒí•´ì•¼ í•œë‹¤.
 //----------------------------------------------------------------------
 /*
 void
 MPlayer::SetTraceDestination()
 {
-	// checkÇÏ´Â ¹æÇâÀÇ ¼ø¼­¸¦ µĞ´Ù.
+	// checkí•˜ëŠ” ë°©í–¥ì˜ ìˆœì„œë¥¼ ë‘”ë‹¤.
 	int		stepX = m_X - m_TraceX,
 			stepY = m_Y - m_TraceY;
 	int		signX = (stepX==0)? 0 : (stepX<0)? -1 : 1,
@@ -4800,7 +4810,7 @@ MPlayer::SetTraceDestination()
 
 	int		check[8];
 
-	// signX,signY·Î 
+	// signX,signYë¡œ 
 	switch (DetermineDirection(signX, signY))
 	{
 		case RIGHT :
@@ -4810,7 +4820,7 @@ MPlayer::SetTraceDestination()
 	
 
 	//-------------------------------------------------------
-	// 8¹æÇâÀ» ¸ğµÎ check
+	// 8ë°©í–¥ì„ ëª¨ë‘ check
 	//-------------------------------------------------------
 	for (int i=0; i<8; i++)
 	{		
@@ -4827,13 +4837,13 @@ MPlayer::SetTraceDestination()
 		}
 
 		//-------------------------------------------------------
-		// ZoneÀÇ ¿µ¿ª ¹ÛÀÌ¸é check ¾ÈÇÑ´Ù.
+		// Zoneì˜ ì˜ì—­ ë°–ì´ë©´ check ì•ˆí•œë‹¤.
 		//-------------------------------------------------------
 		if (next.x<0 || next.y<0 
 					|| next.x>=m_pZone->GetWidth() || next.y>=m_pZone->GetHeight()) continue;
 
 		//-------------------------------------------------------
-		// °¥ ¼ö ÀÖÀ¸¸é ¼±ÅÃÇÑ´Ù.
+		// ê°ˆ ìˆ˜ ìˆìœ¼ë©´ ì„ íƒí•œë‹¤.
 		//-------------------------------------------------------
 		if (m_pZone->CanMove(next.x, next.y))
 		{				
@@ -4845,7 +4855,7 @@ MPlayer::SetTraceDestination()
 //----------------------------------------------------------------------
 // Can Attack Tribe
 //----------------------------------------------------------------------
-// ¾î¶² Á¾Á·À» °ø°İÇÒ ¼ö ÀÖ´Â AttackModeÀÎÁö¸¦ ¾Ë¾Æº»´Ù.
+// ì–´ë–¤ ì¢…ì¡±ì„ ê³µê²©í•  ìˆ˜ ìˆëŠ” AttackModeì¸ì§€ë¥¼ ì•Œì•„ë³¸ë‹¤.
 //----------------------------------------------------------------------
 bool
 MPlayer::CanAttackTribe( enum CREATURETRIBE to ) const
@@ -4853,24 +4863,24 @@ MPlayer::CanAttackTribe( enum CREATURETRIBE to ) const
 	switch ( m_AttackMode )
 	{
 		//--------------------------------------------
-		// ÆòÈ­»óÅÂ : ¾Æ¹«µµ °ø°İ ¾È ÇÑ´Ù.
+		// í‰í™”ìƒíƒœ : ì•„ë¬´ë„ ê³µê²© ì•ˆ í•œë‹¤.
 		//--------------------------------------------
 		case ATTACK_MODE_PEACE :
 			return false;
 		break;
 
 		//--------------------------------------------
-		// °ø°İ»óÅÂ : ¾Æ¹«³ª °ø°İ ÇÑ´Ù.
+		// ê³µê²©ìƒíƒœ : ì•„ë¬´ë‚˜ ê³µê²© í•œë‹¤.
 		//--------------------------------------------
 		case ATTACK_MODE_AGGRESS :
 			return true;
 		break;
 
 		//--------------------------------------------
-		// º¸Åë : Àû¸¸ °ø°İÇÑ´Ù.
+		// ë³´í†µ : ì ë§Œ ê³µê²©í•œë‹¤.
 		//--------------------------------------------
-		// Àû = Tribe°¡ °°Áö ¾ÊÀº °æ¿ì..
-		// NPC´Â °ø°İ ¸øÇÑ´Ù.
+		// ì  = Tribeê°€ ê°™ì§€ ì•Šì€ ê²½ìš°..
+		// NPCëŠ” ê³µê²© ëª»í•œë‹¤.
 		case ATTACK_MODE_NORMAL :
 			return GetCreatureTribe()!=to;// && to!=CREATURETRIBE_NPC;
 		break;		
@@ -4882,7 +4892,7 @@ MPlayer::CanAttackTribe( enum CREATURETRIBE to ) const
 //----------------------------------------------------------------------
 // Can Attack Guild
 //----------------------------------------------------------------------
-// ¾î¶² guild¸¦ °ø°İÇÒ ¼ö ÀÖ´Â AttackModeÀÎÁö¸¦ ¾Ë¾Æº»´Ù.
+// ì–´ë–¤ guildë¥¼ ê³µê²©í•  ìˆ˜ ìˆëŠ” AttackModeì¸ì§€ë¥¼ ì•Œì•„ë³¸ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MPlayer::CanAttackGuild( const MCreature* pCreature ) const
@@ -4890,33 +4900,33 @@ MPlayer::CanAttackGuild( const MCreature* pCreature ) const
 	switch ( m_AttackMode )
 	{
 		//--------------------------------------------
-		// ÆòÈ­»óÅÂ : ¾Æ¹«µµ °ø°İ ¾È ÇÑ´Ù.
+		// í‰í™”ìƒíƒœ : ì•„ë¬´ë„ ê³µê²© ì•ˆ í•œë‹¤.
 		//--------------------------------------------
 		case ATTACK_MODE_PEACE :
 			return false;
 		break;
 
 		//--------------------------------------------
-		// °ø°İ»óÅÂ : ¾Æ¹«³ª °ø°İ ÇÑ´Ù.
+		// ê³µê²©ìƒíƒœ : ì•„ë¬´ë‚˜ ê³µê²© í•œë‹¤.
 		//--------------------------------------------
 		case ATTACK_MODE_AGGRESS :
 			return true;
 		break;
 
 		//--------------------------------------------
-		// º¸Åë : Àû¸¸ °ø°İÇÑ´Ù.
+		// ë³´í†µ : ì ë§Œ ê³µê²©í•œë‹¤.
 		//--------------------------------------------
-		// Àû = Guild°¡ °°Áö ¾ÊÀº °æ¿ì..
+		// ì  = Guildê°€ ê°™ì§€ ì•Šì€ ê²½ìš°..
 		case ATTACK_MODE_NORMAL :
 		{
 			int gn = pCreature->GetGuildNumber();
 
 			return m_GuildNumber!=gn
-					// ÇöÀç´Â »ç¿ëÀÚ³¢¸®´Â °ø°İÇÏ¸é ¾ÈµÇ±â ¶§¹®¿¡..
-					// »ç¿ëÀÚ ±æµå°¡ ¾Æ´Ñ °æ¿ì¸¸ °ø°İÇÒ ¼ö ÀÖ´Ù.
-					// ³ªÁß¿¡´Â ÀÌ°Å ºüÁ®¾ßµÇÁö ¾ÊÀ»±î?
+					// í˜„ì¬ëŠ” ì‚¬ìš©ìë¼ë¦¬ëŠ” ê³µê²©í•˜ë©´ ì•ˆë˜ê¸° ë•Œë¬¸ì—..
+					// ì‚¬ìš©ì ê¸¸ë“œê°€ ì•„ë‹Œ ê²½ìš°ë§Œ ê³µê²©í•  ìˆ˜ ìˆë‹¤.
+					// ë‚˜ì¤‘ì—ëŠ” ì´ê±° ë¹ ì ¸ì•¼ë˜ì§€ ì•Šì„ê¹Œ?
 
-					// vampireÀÎ °æ¿ì. ÀÏ´Ü vampire¸¸ AttackByGuild¸¦ »ç¿ëÇÏ±â ¶§¹®
+					// vampireì¸ ê²½ìš°. ì¼ë‹¨ vampireë§Œ AttackByGuildë¥¼ ì‚¬ìš©í•˜ê¸° ë•Œë¬¸
 					&& gn!=GUILDID_VAMPIRE_DEFAULT && gn<MIN_USER_GUILDID
 					|| GetCreatureTribe()!=pCreature->GetCreatureTribe();
 					// && to!=CREATURETRIBE_NPC;
@@ -4930,10 +4940,10 @@ MPlayer::CanAttackGuild( const MCreature* pCreature ) const
 //----------------------------------------------------------------------
 // Action In Trace Distance
 //----------------------------------------------------------------------
-// Çàµ¿ÀÌ °¡´ÉÇÑ °Å¸®¿¡ ÀÖÀ» ¶§ÀÇ Çàµ¿ Ã³¸®
+// í–‰ë™ì´ ê°€ëŠ¥í•œ ê±°ë¦¬ì— ìˆì„ ë•Œì˜ í–‰ë™ ì²˜ë¦¬
 //
-// return true : °Å¸®¿¡ ÀÖÀ» ¶§
-//		  false : °Å¸® ¹Û.
+// return true : ê±°ë¦¬ì— ìˆì„ ë•Œ
+//		  false : ê±°ë¦¬ ë°–.
 //----------------------------------------------------------------------
 bool
 MPlayer::ActionInTraceDistance()
@@ -4949,12 +4959,12 @@ MPlayer::ActionInTraceDistance()
 			}
 			else
 			{
-				// Äá°¡·ç~~..
+				// ì½©ê°€ë£¨~~..
 				//nextAction = ACTION_STAND;
 			}
 		}
 		//-----------------------------------------------------
-		// °É¾î´Ù´Ò¶§
+		// ê±¸ì–´ë‹¤ë‹ë•Œ
 		//-----------------------------------------------------
 		else if( m_MoveDevice == MOVE_DEVICE_SUMMON_SYLPH )
 		{
@@ -4975,9 +4985,9 @@ MPlayer::ActionInTraceDistance()
 
 	//-------------------------------------------------------
 	//
-	// [ ÃßÀû ¿Ï·á ] 
+	// [ ì¶”ì  ì™„ë£Œ ] 
 	//
-	// : »çÁ¤ °Å¸® ÀÌ³»ÀÎ °æ¿ì --> ÃßÀû ÁßÁö --> ÃßÀû Action
+	// : ì‚¬ì • ê±°ë¦¬ ì´ë‚´ì¸ ê²½ìš° --> ì¶”ì  ì¤‘ì§€ --> ì¶”ì  Action
 	//
 	//-------------------------------------------------------			
 	if (max(abs(m_X-m_TraceX), abs(m_Y-m_TraceY)) 
@@ -4985,21 +4995,21 @@ MPlayer::ActionInTraceDistance()
 	{	
 		//----------------------------------------------------
 		//
-		// »çÁ¤°Å¸®¿¡ Á¢±ÙÇßÀ¸¹Ç·Î Action ModeÀüÈ¯				
+		// ì‚¬ì •ê±°ë¦¬ì— ì ‘ê·¼í–ˆìœ¼ë¯€ë¡œ Action Modeì „í™˜				
 		//
 		//----------------------------------------------------
 				
 		//----------------------------------------------------
-		// ÃßÀûÀÌ ¿Ï·áµÆÀ¸¹Ç·Î ÀûÀıÇÑ Çàµ¿À» ÃëÇÏ°Ô ÇÑ´Ù.
-		// m_NextAction¿¡ ÀûÀıÇÑ Çàµ¿À» ¼³Á¤..
+		// ì¶”ì ì´ ì™„ë£Œëìœ¼ë¯€ë¡œ ì ì ˆí•œ í–‰ë™ì„ ì·¨í•˜ê²Œ í•œë‹¤.
+		// m_NextActionì— ì ì ˆí•œ í–‰ë™ì„ ì„¤ì •..
 		//----------------------------------------------------
 		//---------------------
-		// ÀÚ½Å¿¡°Ô Çàµ¿
+		// ìì‹ ì—ê²Œ í–‰ë™
 		//---------------------
 		if (m_fTrace & FLAG_TRACE_SELF)
 		{
 			//---------------------------------------------------------------
-			// ÇöÀç ¼±ÅÃµÈ Æ¯¼ö±â¼ú¿¡ µû¶ó¼­..
+			// í˜„ì¬ ì„ íƒëœ íŠ¹ìˆ˜ê¸°ìˆ ì— ë”°ë¼ì„œ..
 			//---------------------------------------------------------------					
 			//m_ActionCount = m_ActionCountMax;
 			m_MoveCount = m_MoveCountMax;					
@@ -5014,16 +5024,16 @@ MPlayer::ActionInTraceDistance()
 		}
 		//----------------------------------------------------
 		//
-		//					±âº» Çàµ¿
+		//					ê¸°ë³¸ í–‰ë™
 		//
 		//----------------------------------------------------
 		else if (m_fTrace & FLAG_TRACE_CREATURE_BASIC)
 		{
 			//---------------------------------------------------------------
-			// ÇöÀç »ç¿ëÁßÀÎ ¹«±â¿¡ µû¶ó¼­...
+			// í˜„ì¬ ì‚¬ìš©ì¤‘ì¸ ë¬´ê¸°ì— ë”°ë¼ì„œ...
 			//---------------------------------------------------------------
 			// pCreature
-			// m_TraceX, m_TraceY°¡ ¸ñÀûÁö
+			// m_TraceX, m_TraceYê°€ ëª©ì ì§€
 			//---------------------------------------------------------------
 			//m_ActionCount = m_ActionCountMax;
 			m_MoveCount = m_MoveCountMax;
@@ -5034,16 +5044,16 @@ MPlayer::ActionInTraceDistance()
 		}
 		//----------------------------------------------------
 		//
-		//						Æ¯¼ö Çàµ¿
+		//						íŠ¹ìˆ˜ í–‰ë™
 		//
 		//----------------------------------------------------
 		else if (m_fTrace & FLAG_TRACE_CREATURE_SPECIAL)
 		{
 			//---------------------------------------------------------------
-			// Slot¿¡ ¼³Á¤µÈ Æ¯¼ö°ø°İ(°ø°İÀÌ ¾Æ´Ò¼öµµ ÀÖ°ÚÁö)¿¡ µû¶ó¼­..
+			// Slotì— ì„¤ì •ëœ íŠ¹ìˆ˜ê³µê²©(ê³µê²©ì´ ì•„ë‹ìˆ˜ë„ ìˆê² ì§€)ì— ë”°ë¼ì„œ..
 			//---------------------------------------------------------------
 			// pCreature
-			// m_TraceX, m_TraceY°¡ ¸ñÀûÁö
+			// m_TraceX, m_TraceYê°€ ëª©ì ì§€
 			//---------------------------------------------------------------
 			//m_ActionCount = m_ActionCountMax;
 			m_MoveCount = m_MoveCountMax;
@@ -5073,16 +5083,16 @@ MPlayer::ActionInTraceDistance()
 		}
 		//----------------------------------------------------
 		//
-		//				±âº» Çàµ¿ -> Sector
+		//				ê¸°ë³¸ í–‰ë™ -> Sector
 		//
 		//----------------------------------------------------
 		else if (m_fTrace & FLAG_TRACE_SECTOR_BASIC)
 		{
 			//---------------------------------------------------------------
-			// ÇöÀç »ç¿ëÁßÀÎ ¹«±â¿¡ µû¶ó¼­...
+			// í˜„ì¬ ì‚¬ìš©ì¤‘ì¸ ë¬´ê¸°ì— ë”°ë¼ì„œ...
 			//---------------------------------------------------------------
 			// pCreature
-			// m_TraceX, m_TraceY°¡ ¸ñÀûÁö
+			// m_TraceX, m_TraceYê°€ ëª©ì ì§€
 			//---------------------------------------------------------------
 			//m_ActionCount = m_ActionCountMax;
 			m_MoveCount = m_MoveCountMax;
@@ -5112,16 +5122,16 @@ MPlayer::ActionInTraceDistance()
 		}
 		//----------------------------------------------------
 		//
-		//				Æ¯¼ö Çàµ¿ -> Sector
+		//				íŠ¹ìˆ˜ í–‰ë™ -> Sector
 		//
 		//----------------------------------------------------
 		else if (m_fTrace & FLAG_TRACE_SECTOR_SPECIAL)
 		{
 			//---------------------------------------------------------------
-			// Slot¿¡ ¼³Á¤µÈ Æ¯¼ö°ø°İ(°ø°İÀÌ ¾Æ´Ò¼öµµ ÀÖ°ÚÁö)¿¡ µû¶ó¼­..
+			// Slotì— ì„¤ì •ëœ íŠ¹ìˆ˜ê³µê²©(ê³µê²©ì´ ì•„ë‹ìˆ˜ë„ ìˆê² ì§€)ì— ë”°ë¼ì„œ..
 			//---------------------------------------------------------------
 			// pCreature
-			// m_TraceX, m_TraceY°¡ ¸ñÀûÁö
+			// m_TraceX, m_TraceYê°€ ëª©ì ì§€
 			//---------------------------------------------------------------
 			//m_NextAction = ACTION_SHOOT;
 			//m_ActionCount = m_ActionCountMax; 
@@ -5153,14 +5163,14 @@ MPlayer::ActionInTraceDistance()
 		}
 		//----------------------------------------------------
 		//
-		//					Item ÃßÀû
+		//					Item ì¶”ì 
 		//
 		//----------------------------------------------------
 		else if (m_fTrace & FLAG_TRACE_ITEM)
 		{
 			MItem*	pItem = m_pZone->GetItem( m_TraceID );
 
-			// ÃßÀûÀ» ¿Ï·áÇßÀ¸¹Ç·Î ItemÀ» Áİ´Â´Ù.
+			// ì¶”ì ì„ ì™„ë£Œí–ˆìœ¼ë¯€ë¡œ Itemì„ ì¤ëŠ”ë‹¤.
 			if (pItem!=NULL
 				&& (!g_pZone->GetSector(pItem->GetX(), pItem->GetY()).HasDarkness() || IsVampire() && g_pZone->GetID() != 3001 || 
 				!IsVampire() && HasEffectStatus( EFFECTSTATUS_LIGHTNESS )
@@ -5178,17 +5188,17 @@ MPlayer::ActionInTraceDistance()
 		}
 		//----------------------------------------------------
 		//
-		//			InventoryÀÇ Item¿¡ ±â¼ú »ç¿ë
+		//			Inventoryì˜ Itemì— ê¸°ìˆ  ì‚¬ìš©
 		//
 		//----------------------------------------------------
 		else if (m_fTrace & FLAG_TRACE_INVENTORY)
 		{
 			MItem* pItem = g_pInventory->GetItemToModify( m_TraceID );
 
-			// ÃßÀûÀ» ¿Ï·áÇßÀ¸¹Ç·Î ItemÀ» Áİ´Â´Ù.
+			// ì¶”ì ì„ ì™„ë£Œí–ˆìœ¼ë¯€ë¡œ Itemì„ ì¤ëŠ”ë‹¤.
 			if (pItem!=NULL)
 			{
-				// ActionEffect()¸¦ È£ÃâÇÏ±â À§ÇØ¼­...
+				// ActionEffect()ë¥¼ í˜¸ì¶œí•˜ê¸° ìœ„í•´ì„œ...
 				m_MoveCount = m_MoveCountMax;
 				SetNextAction(nextAction);
 			}
@@ -5201,7 +5211,7 @@ MPlayer::ActionInTraceDistance()
 		}
 		//----------------------------------------------------
 		//
-		//			EffectÃßÀû
+		//			Effectì¶”ì 
 		//
 		//----------------------------------------------------
 		else if (m_fTrace & FLAG_TRACE_EFFECT)
@@ -5249,7 +5259,7 @@ MPlayer::ActionInTraceDistance()
 		}	
 		//----------------------------------------------------
 		//
-		//			InteractionObjectÃßÀû
+		//			InteractionObjectì¶”ì 
 		//
 		//----------------------------------------------------
 		else if (m_fTrace & FLAG_TRACE_INTERACTIONOBJECT)
@@ -5269,42 +5279,42 @@ MPlayer::ActionInTraceDistance()
 		return false;
 	}
 	//-------------------------------------------------------
-	// ´õ ÃßÀûÇØ¾ß ÇÏ´Â °æ¿ì
+	// ë” ì¶”ì í•´ì•¼ í•˜ëŠ” ê²½ìš°
 	//-------------------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ÃßÀûÇÒ ±æÀÌ ¾ø´Â °æ¿ì --> ±æÃ£±â
+		// ì¶”ì í•  ê¸¸ì´ ì—†ëŠ” ê²½ìš° --> ê¸¸ì°¾ê¸°
 		//------------------------------------------
 		if (m_listDirection.empty())
 		{
 			//---------------------
-			// ±âº» Çàµ¿
+			// ê¸°ë³¸ í–‰ë™
 			//---------------------
 			if (m_fTrace & FLAG_TRACE_CREATURE_BASIC)
 			{
 				TraceCreatureToBasicAction( m_TraceID, m_bTraceCreatureToForceAttack );
 			}
 			//---------------------
-			// Æ¯¼ö Çàµ¿
+			// íŠ¹ìˆ˜ í–‰ë™
 			//---------------------
 			else  if (m_fTrace & FLAG_TRACE_CREATURE_SPECIAL)
 			{
 				TraceCreatureToSpecialAction( m_TraceID, m_bTraceCreatureToForceAttack );
 			}
 			//---------------------
-			// ±âº» Çàµ¿ -> Sector
+			// ê¸°ë³¸ í–‰ë™ -> Sector
 			//---------------------
 			else if (m_fTrace & FLAG_TRACE_SECTOR_BASIC)
 			{
 				TraceSectorToBasicAction( m_TraceX, m_TraceY );
 			}
 			//---------------------
-			// Æ¯¼ö Çàµ¿ -> Sector
+			// íŠ¹ìˆ˜ í–‰ë™ -> Sector
 			//---------------------
 			else if (m_fTrace & FLAG_TRACE_SECTOR_SPECIAL)
 			{
-				// 2004, 9, 18, sobeit add start - ÅÍ·¿ ÆÄÀÌ¾î´Â »çÁ¤°Å¸® ¹ş¾î³ª¹È ¹«½Ã ¤Ì.¤Ì 
+				// 2004, 9, 18, sobeit add start - í„°ë › íŒŒì´ì–´ëŠ” ì‚¬ì •ê±°ë¦¬ ë²—ì–´ë‚˜ë¯„ ë¬´ì‹œ ã…œ.ã…œ 
 				if (m_nUsedActionInfo==SKILL_TURRET_FIRE)
 				{
 					m_fNextTrace = FLAG_TRACE_NULL;
@@ -5317,35 +5327,35 @@ MPlayer::ActionInTraceDistance()
 				TraceSectorToSpecialAction( m_TraceX, m_TraceY );
 			}
 			//---------------------
-			// Item ÃßÀû
+			// Item ì¶”ì 
 			//---------------------
 			else if (m_fTrace & FLAG_TRACE_ITEM)
 			{
 				TraceItem( m_TraceID );
 			}
 			//---------------------
-			// Inventory¿¡ ±â¼ú »ç¿ë
+			// Inventoryì— ê¸°ìˆ  ì‚¬ìš©
 			//---------------------
 			else if (m_fTrace & FLAG_TRACE_INVENTORY)
 			{
 				TraceInventoryItem( m_TraceID );
 			}
 			//---------------------
-			// EffectÃßÀû
+			// Effectì¶”ì 
 			//---------------------
 			else if (m_fTrace & FLAG_TRACE_EFFECT)
 			{
 				TraceEffect( m_TraceID );
 			}
 			//---------------------
-			// InteractionObjectÃßÀû
+			// InteractionObjectì¶”ì 
 			//---------------------
 			else if (m_fTrace & FLAG_TRACE_INTERACTIONOBJECT)
 			{
 				TraceInteractionObject( m_TraceID, m_TraceObjectAction );
 			}
 
-			// ÀÌµ¿~ÇÏ¸é¼­ ÃßÀû..
+			// ì´ë™~í•˜ë©´ì„œ ì¶”ì ..
 			//SetAction( m_MoveAction );
 		}
 
@@ -5360,10 +5370,10 @@ MPlayer::ActionInTraceDistance()
 //----------------------------------------------------------------------
 // Move
 //----------------------------------------------------------------------
-// MCreature::Move¿Í ºñ½ÁÇÏÁö¸¸ MPlayer::Move´Â 
-//    m_listDirection¿¡¼­ ¹æÇâÀ» ÇÏ³ª¾¿ ÀĞ¾î¼­ ¿òÁ÷ÀÌ°Ô µÈ´Ù.
+// MCreature::Moveì™€ ë¹„ìŠ·í•˜ì§€ë§Œ MPlayer::MoveëŠ” 
+//    m_listDirectionì—ì„œ ë°©í–¥ì„ í•˜ë‚˜ì”© ì½ì–´ì„œ ì›€ì§ì´ê²Œ ëœë‹¤.
 // 
-// ´Ü, ±æÀ» °¡´Ù°¡ ¸·È÷¸é ´Ù½Ã ±æÀ» Á¤ÇØ¾ßÇÑ´Ù(SetDest...)
+// ë‹¨, ê¸¸ì„ ê°€ë‹¤ê°€ ë§‰íˆë©´ ë‹¤ì‹œ ê¸¸ì„ ì •í•´ì•¼í•œë‹¤(SetDest...)
 //----------------------------------------------------------------------
 void	
 MPlayer::ActionMove()
@@ -5374,11 +5384,11 @@ MPlayer::ActionMove()
 
 	//----------------------------------------------------
 	//
-	// ´ÙÀ½ Sector¿¡ µµ´ŞÇÑ °æ¿ì	
+	// ë‹¤ìŒ Sectorì— ë„ë‹¬í•œ ê²½ìš°	
 	//
 	//----------------------------------------------------
-	// m_listDirection¿¡¼­ ¹æÇâÀ» ÇÏ³ª ÀĞ¾î¿Í¼­ 
-	// checkÇØº¸°í ¿òÁ÷ÀÎ´Ù.
+	// m_listDirectionì—ì„œ ë°©í–¥ì„ í•˜ë‚˜ ì½ì–´ì™€ì„œ 
+	// checkí•´ë³´ê³  ì›€ì§ì¸ë‹¤.
 	//----------------------------------------------------
 	if( HasEffectStatus( EFFECTSTATUS_TRYING ) )
 	{
@@ -5406,7 +5416,7 @@ MPlayer::ActionMove()
 		TYPE_SECTORPOSITION	x, y;
 
 		//-------------------------------------------------------------
-		// fast moveÀÎ °æ¿ì´Â nextX, nextY¿¡ ÁÂÇ¥°¡ ÀÖ´Ù.
+		// fast moveì¸ ê²½ìš°ëŠ” nextX, nextYì— ì¢Œí‘œê°€ ìˆë‹¤.
 		//-------------------------------------------------------------
 		if (m_bFastMove)
 		{
@@ -5420,12 +5430,12 @@ MPlayer::ActionMove()
 
 		}
 		//-------------------------------------------------------------
-		// ÀÏ¹İÀûÀÎ ¿òÁ÷ÀÓ
+		// ì¼ë°˜ì ì¸ ì›€ì§ì„
 		//-------------------------------------------------------------
 		else
 		{
 			//----------------------------------------------------
-			// ¸ñÇ¥À§Ä¡°¡ ¾øÀ¸¸é ¿òÁ÷ÀÌÁö ¾Ê´Â´Ù.
+			// ëª©í‘œìœ„ì¹˜ê°€ ì—†ìœ¼ë©´ ì›€ì§ì´ì§€ ì•ŠëŠ”ë‹¤.
 			//----------------------------------------------------
 			if (m_DestX==SECTORPOSITION_NULL && m_NextDestX==SECTORPOSITION_NULL) 
 			{
@@ -5439,11 +5449,11 @@ MPlayer::ActionMove()
 			
 			//----------------------------------------------------
 			// 
-			// 1. ±æÃ£±â¸¦ ÇØ¼­ ÀÌµ¿ÇÏ°Ô ÇÏ°í..
-			// 2. Server¿¡¼­ °ËÁõ ¹Ş±â À§ÇØ Send..
+			// 1. ê¸¸ì°¾ê¸°ë¥¼ í•´ì„œ ì´ë™í•˜ê²Œ í•˜ê³ ..
+			// 2. Serverì—ì„œ ê²€ì¦ ë°›ê¸° ìœ„í•´ Send..
 			//
 			//----------------------------------------------------
-			// Server·ÎºÎÅÍ ±â´Ù¸®´Â messageÀÇ °³¼ö Ãâ·Â		
+			// Serverë¡œë¶€í„° ê¸°ë‹¤ë¦¬ëŠ” messageì˜ ê°œìˆ˜ ì¶œë ¥		
 			if (m_SendMove != 0  && g_bNetStatusGood)
 			{
 				static int lastSendCount = 0;
@@ -5459,28 +5469,28 @@ MPlayer::ActionMove()
 			//----------------------------------------------------
 			//
 			//
-			//                 ÃßÀû ÁßÀÌ¸é..
+			//                 ì¶”ì  ì¤‘ì´ë©´..
 			//
 			//
 			//----------------------------------------------------		
 			if (m_fTrace != FLAG_TRACE_NULL)
 			{				
 				//----------------------------------------------------	
-				// Creature ÃßÀû ÁßÀÌ¸é..
-				// Creature°¡ »ç¶óÁö°Å³ª
-				// ÃßÀû ¸ñÇ¥ÁÂÇ¥°¡ ¹Ù²ğ ¼ö ÀÖÀ¸¹Ç·Î checkÇØÁØ´Ù.
+				// Creature ì¶”ì  ì¤‘ì´ë©´..
+				// Creatureê°€ ì‚¬ë¼ì§€ê±°ë‚˜
+				// ì¶”ì  ëª©í‘œì¢Œí‘œê°€ ë°”ë€” ìˆ˜ ìˆìœ¼ë¯€ë¡œ checkí•´ì¤€ë‹¤.
 				//----------------------------------------------------	
 				if ((m_fTrace & FLAG_TRACE_CREATURE_BASIC) 
 					|| (m_fTrace & FLAG_TRACE_CREATURE_SPECIAL))
 				{
-					// ÃßÀûÇÏ´Â CreatureÀÇ Á¤º¸¸¦ ÀĞ¾î¿Â´Ù.
+					// ì¶”ì í•˜ëŠ” Creatureì˜ ì •ë³´ë¥¼ ì½ì–´ì˜¨ë‹¤.
 					MCreature*	pCreature = m_pZone->GetCreature( m_TraceID );				
 
 					//GET_DYING_CREATURE( pCreature, m_TraceID );
 
 					//-------------------------------------------------------
-					// ÃßÀûÇÏ´Â Creature°¡ »ç¶óÁ³À» °æ¿ì --> ÃßÀû ÁßÁö
-					// ³»°¡ SlayerÀÎ °æ¿ì´Â Darkness¾È¿¡ µé¾î°£ Ä³¸¯À» ÂÑ¾Æ°¥ ¼ö ¾ø´Ù.					
+					// ì¶”ì í•˜ëŠ” Creatureê°€ ì‚¬ë¼ì¡Œì„ ê²½ìš° --> ì¶”ì  ì¤‘ì§€
+					// ë‚´ê°€ Slayerì¸ ê²½ìš°ëŠ” Darknessì•ˆì— ë“¤ì–´ê°„ ìºë¦­ì„ ì«“ì•„ê°ˆ ìˆ˜ ì—†ë‹¤.					
 					//-------------------------------------------------------								
 					if (pCreature==NULL 
 						|| pCreature->IsInDarkness() && !pCreature->IsNPC() && 
@@ -5497,16 +5507,16 @@ MPlayer::ActionMove()
 						{
 							m_fNextTrace = FLAG_TRACE_NULL;
 
-							// ¹öÆ°À» ¶¼¾úÀ¸¹Ç·Î Çàµ¿ ¹İº¹À» Ãë¼ÒÇÑ´Ù.
+							// ë²„íŠ¼ì„ ë–¼ì—ˆìœ¼ë¯€ë¡œ í–‰ë™ ë°˜ë³µì„ ì·¨ì†Œí•œë‹¤.
 							UnSetRepeatAction();
 							//TraceNextNULL();
 						}
 						else
 						{
-							// ÃßÀû ÁßÁö
+							// ì¶”ì  ì¤‘ì§€
 							TraceNULL();
 								
-							// ¸ØÃá´Ù.
+							// ë©ˆì¶˜ë‹¤.
 							SetStop();					
 						}
 
@@ -5518,14 +5528,14 @@ MPlayer::ActionMove()
 					}
 				
 					//-------------------------------------------------------			
-					// ÃßÀûÇÒ·Á´Â CreatureÀÇ ÁÂÇ¥°¡ ´Ş¶óÁ³À» °æ¿ì
+					// ì¶”ì í• ë ¤ëŠ” Creatureì˜ ì¢Œí‘œê°€ ë‹¬ë¼ì¡Œì„ ê²½ìš°
 					//-------------------------------------------------------			
 					if (pCreature->GetX()!=m_TraceX ||
 						pCreature->GetY()!=m_TraceY)
 					{										
 						m_NextDestX = pCreature->GetX();
 						m_NextDestY = pCreature->GetY();
-						// Z´Â °ü°è¾ø´Ù.
+						// ZëŠ” ê´€ê³„ì—†ë‹¤.
 					}
 
 					m_TraceX	= pCreature->GetX();
@@ -5533,16 +5543,16 @@ MPlayer::ActionMove()
 					m_TraceZ	= pCreature->GetZ();
 				}
 				//----------------------------------------------------	
-				// Item ÃßÀû ÁßÀÌ¸é..
-				// ItemÀÌ »ç¶óÁú ¼ö ÀÖÀ¸¹Ç·Î checkÇØÁØ´Ù.
+				// Item ì¶”ì  ì¤‘ì´ë©´..
+				// Itemì´ ì‚¬ë¼ì§ˆ ìˆ˜ ìˆìœ¼ë¯€ë¡œ checkí•´ì¤€ë‹¤.
 				//----------------------------------------------------
 				else if (m_fTrace & FLAG_TRACE_ITEM)
 				{
-					// ÃßÀûÇÏ´Â CreatureÀÇ Á¤º¸¸¦ ÀĞ¾î¿Â´Ù.
+					// ì¶”ì í•˜ëŠ” Creatureì˜ ì •ë³´ë¥¼ ì½ì–´ì˜¨ë‹¤.
 					MItem*	pItem = m_pZone->GetItem( m_TraceID );
 
 					//-------------------------------------------------------
-					// ÃßÀûÇÏ´Â ItemÀÌ »ç¶óÁ³À» °æ¿ì --> ÃßÀû ÁßÁö
+					// ì¶”ì í•˜ëŠ” Itemì´ ì‚¬ë¼ì¡Œì„ ê²½ìš° --> ì¶”ì  ì¤‘ì§€
 					//-------------------------------------------------------
 					if (pItem==NULL
 						|| g_pZone->GetSector(pItem->GetX(), pItem->GetY()).HasDarkness()&& 
@@ -5554,10 +5564,10 @@ MPlayer::ActionMove()
 #endif
 						) 
 					{
-						// ÃßÀû ÁßÁö
+						// ì¶”ì  ì¤‘ì§€
 						TraceNULL();
 							
-						// ¸ØÃá´Ù.
+						// ë©ˆì¶˜ë‹¤.
 						SetStop();					
 							
 						#ifdef OUTPUT_DEBUG_PLAYER_ACTION
@@ -5569,19 +5579,19 @@ MPlayer::ActionMove()
 				}
 
 				//-------------------------------------------------------
-				// Çàµ¿ °¡´É °Å¸®¿¡ ÀÖ´ÂÁö ÆÇ´ÜÇÑ´Ù.
+				// í–‰ë™ ê°€ëŠ¥ ê±°ë¦¬ì— ìˆëŠ”ì§€ íŒë‹¨í•œë‹¤.
 				//-------------------------------------------------------
 				if (ActionInTraceDistance())
 				{
-					// ±â¼ú »ç¿ë~~
+					// ê¸°ìˆ  ì‚¬ìš©~~
 					if (m_nNextUsedActionInfo!=ACTIONINFO_NULL)
 					{						
 						m_nUsedActionInfo = m_nNextUsedActionInfo;
 						m_nNextUsedActionInfo = ACTIONINFO_NULL;
 
-						// ´ÙÀ½ action¼³Á¤
+						// ë‹¤ìŒ actionì„¤ì •
 						m_bNextAction = true;
-						// 2004, 11, 23, sobeit add start - ¾Æ..°¨±â°É·Á¼­..´«¿¡ ¾Ï°ÍµÎ ¾Èµé¾î¿Â´Ù..¤Ì.¤Ì
+						// 2004, 11, 23, sobeit add start - ì•„..ê°ê¸°ê±¸ë ¤ì„œ..ëˆˆì— ì•”ê²ƒë‘ ì•ˆë“¤ì–´ì˜¨ë‹¤..ã…œ.ã…œ
 						if(m_nUsedActionInfo == SKILL_SET_AFIRE)
 						{
 							if(max(abs(m_X-m_TraceX), abs(m_Y-m_TraceY))<2)
@@ -5594,25 +5604,25 @@ MPlayer::ActionMove()
 							SetNextAction(GetActionInfoAction( m_nUsedActionInfo ));
 					}
 
-					// ´õ ÀÌ»ó °¥ ÇÊ¿ä°¡ ¾ø´Ù.
+					// ë” ì´ìƒ ê°ˆ í•„ìš”ê°€ ì—†ë‹¤.
 					m_listDirection.clear();
 
-					// ActionÁßÁö
+					// Actionì¤‘ì§€
 					//m_ActionCount = m_ActionCountMax;
 					m_MoveCount = m_MoveCountMax;
 
-					// Player°¡ ¹Ù¶óº¸´Â ¹æÇâÀÌ ÇöÀç ÀûÀÌ ÀÖ´Â ¹æÇâÀÌ µÇµµ·Ï ÇÑ´Ù.				
+					// Playerê°€ ë°”ë¼ë³´ëŠ” ë°©í–¥ì´ í˜„ì¬ ì ì´ ìˆëŠ” ë°©í–¥ì´ ë˜ë„ë¡ í•œë‹¤.				
 					SetDirectionToPosition( m_TraceX, m_TraceY );
 					
 							
 					//----------------------------------------------------			
-					// °è¼Ó ÃßÀûÇÏ´Â °æ¿ì°¡ ¾Æ´Ï¸é ÃßÀû ÁßÁö
+					// ê³„ì† ì¶”ì í•˜ëŠ” ê²½ìš°ê°€ ì•„ë‹ˆë©´ ì¶”ì  ì¤‘ì§€
 					//----------------------------------------------------
 					if (m_bKeepTraceCreature)
 					{
 						int fTrace = m_fTrace;
 						
-						// Á¤Áö
+						// ì •ì§€
 						SetStop();
 
 						m_fTrace = fTrace;
@@ -5621,7 +5631,7 @@ MPlayer::ActionMove()
 					{
 						TraceNULL();
 
-						// Á¤Áö
+						// ì •ì§€
 						SetStop();
 					}
 				}
@@ -5629,11 +5639,11 @@ MPlayer::ActionMove()
 			}
 
 			//----------------------------------------------------
-			// ±æÃ£±â BufferingÇß´ø°É ¼³Á¤ÇÑ´Ù.
+			// ê¸¸ì°¾ê¸° Bufferingí–ˆë˜ê±¸ ì„¤ì •í•œë‹¤.
 			//----------------------------------------------------
 			if (m_NextDestX!=SECTORPOSITION_NULL)
 			{
-				// ±æÃ£±â
+				// ê¸¸ì°¾ê¸°
 				//SetDestination(m_NextDestX, m_NextDestY);
 				m_DestX		= m_NextDestX;	// TEST
 				m_DestY		= m_NextDestY;	// TEST
@@ -5642,20 +5652,20 @@ MPlayer::ActionMove()
 			}
 
 			//----------------------------------------------------
-			// ±æÃ£±â : ÇÑ Tile ÀÌµ¿½Ã¸¶´Ù ±æÃ£±â¸¦ ÇÑ´Ù.
+			// ê¸¸ì°¾ê¸° : í•œ Tile ì´ë™ì‹œë§ˆë‹¤ ê¸¸ì°¾ê¸°ë¥¼ í•œë‹¤.
 			//----------------------------------------------------
 			if (m_DestX!=SECTORPOSITION_NULL)
 				SetDestination(m_DestX, m_DestY);
 
 			//----------------------------------------------------
-			// Server¿¡¼­ °ËÁõ¹Ş±â À§ÇØ¼­ Send
+			// Serverì—ì„œ ê²€ì¦ë°›ê¸° ìœ„í•´ì„œ Send
 			//----------------------------------------------------
 			//SetAction( m_MoveAction );
 
 			
 			//----------------------------------------------------
-			// °ËÁõ¹ŞÁö ¾ÊÀº ¿òÁ÷ÀÓÀÌ 
-			// Á¤ÇØÁø ¼ıÀÚ ÀÌÇÏÀÏ °æ¿ì¿¡¸¸ ¿òÁ÷ÀÌ°Ô ÇÑ´Ù.
+			// ê²€ì¦ë°›ì§€ ì•Šì€ ì›€ì§ì„ì´ 
+			// ì •í•´ì§„ ìˆ«ì ì´í•˜ì¼ ê²½ìš°ì—ë§Œ ì›€ì§ì´ê²Œ í•œë‹¤.
 			//----------------------------------------------------
 			if (m_SendMove > g_pClientConfig->MAX_CLIENT_MOVE)	
 			{			
@@ -5673,12 +5683,12 @@ MPlayer::ActionMove()
 			}
 
 			//----------------------------------------------------
-			// °¥ ±æÀÌ ¾ø´Â °æ¿ì
+			// ê°ˆ ê¸¸ì´ ì—†ëŠ” ê²½ìš°
 			//----------------------------------------------------
 			if (m_listDirection.empty())
 			{
 				//--------------------------------------------
-				// ¸ñÀûÁö¿¡ µµ´ŞÇÑ °æ¿ì..
+				// ëª©ì ì§€ì— ë„ë‹¬í•œ ê²½ìš°..
 				//--------------------------------------------
 				if (m_DestX==m_X && m_DestY==m_Y)
 				{
@@ -5702,17 +5712,17 @@ MPlayer::ActionMove()
 			
 			//----------------------------------------------------	
 			//
-			// ¹æÇâ´ë·Î ¿òÁ÷ÀÎ´Ù.
+			// ë°©í–¥ëŒ€ë¡œ ì›€ì§ì¸ë‹¤.
 			//
 			//----------------------------------------------------			
 			//----------------------------------------------------
-			// m_listDirection¿¡¼­ ¹æÇâÀ» ÇÏ³ª ÀĞ¾î¿Â´Ù.
+			// m_listDirectionì—ì„œ ë°©í–¥ì„ í•˜ë‚˜ ì½ì–´ì˜¨ë‹¤.
 			//----------------------------------------------------
 			m_Direction = m_listDirection.front();
 			m_listDirection.pop_front();	
 				
 			//----------------------------------------------------
-			// ´ÙÀ½¿¡ ±æÃ£±â¸¦ ÇØ¾ßÇÒ °æ¿ì...
+			// ë‹¤ìŒì— ê¸¸ì°¾ê¸°ë¥¼ í•´ì•¼í•  ê²½ìš°...
 			//----------------------------------------------------
 			if (m_NextDestX!=SECTORPOSITION_NULL)
 			{
@@ -5721,12 +5731,12 @@ MPlayer::ActionMove()
 			}
 
 			//----------------------------------------------------
-			// ÀĞ¾î¿Â ¹æÇâÀ¸·Î ÇÑ Sector¸¦ ÁøÇàÇÏ°í
-			// cX,cY, sX,sY¸¦ ´Ù½Ã ÁöÁ¤ÇØÁà¾ß ÇÑ´Ù.
+			// ì½ì–´ì˜¨ ë°©í–¥ìœ¼ë¡œ í•œ Sectorë¥¼ ì§„í–‰í•˜ê³ 
+			// cX,cY, sX,sYë¥¼ ë‹¤ì‹œ ì§€ì •í•´ì¤˜ì•¼ í•œë‹¤.
 			//----------------------------------------------------
 
 			//----------------------------------------------------
-			// ÀÌµ¿ °¡´ÉÇÑÁö check
+			// ì´ë™ ê°€ëŠ¥í•œì§€ check
 			//----------------------------------------------------
 			x = m_X;
 			y = m_Y;
@@ -5745,10 +5755,10 @@ MPlayer::ActionMove()
 		}
 
 		//--------------------------------------------------------------------
-		// ¿òÁ÷ÀÏ ¼ö ÀÖÀ» °æ¿ì		
+		// ì›€ì§ì¼ ìˆ˜ ìˆì„ ê²½ìš°		
 		//--------------------------------------------------------------------
 		if (m_pZone->CanMove(m_MoveType, x,y)
-			|| m_bFastMove		// Fast MoveÀÎ °æ¿ì´Â ¹«Á¶°Ç ÀÌµ¿ °¡´É..
+			|| m_bFastMove		// Fast Moveì¸ ê²½ìš°ëŠ” ë¬´ì¡°ê±´ ì´ë™ ê°€ëŠ¥..
 			
 #ifdef __EXPO_CLIENT__
 			|| g_UserInformation.Invisible
@@ -5756,19 +5766,19 @@ MPlayer::ActionMove()
 			)
 		{		
 			//---------------------------------------------------------------
-			// Fast MoveÀÎ °æ¿ì..
+			// Fast Moveì¸ ê²½ìš°..
 			//---------------------------------------------------------------
 			if (m_bFastMove)
 			{
 				// nothing
 			}
 			//---------------------------------------------------------------
-			// ÀÏ¹İÀûÀÎ ¿òÁ÷ÀÓ --> °ËÁõ ÇÊ¿ä
+			// ì¼ë°˜ì ì¸ ì›€ì§ì„ --> ê²€ì¦ í•„ìš”
 			//---------------------------------------------------------------
 			else
 			{
 				//----------------------------------------------------
-				// Áö·Ú ¼³Ä¡ÁßÀÌ¸é Ãë¼ÒÇÏ±â
+				// ì§€ë¢° ì„¤ì¹˜ì¤‘ì´ë©´ ì·¨ì†Œí•˜ê¸°
 				//----------------------------------------------------
 				if (gC_vs_ui.IsInstallMineProgress())
 				{
@@ -5783,13 +5793,13 @@ MPlayer::ActionMove()
 
 				//yckou
 //				UpdateSocketOutput();
-				// Server·Î º¸³½ ¹æÇâÀ» ±â¾ïÇØµĞ´Ù.
+				// Serverë¡œ ë³´ë‚¸ ë°©í–¥ì„ ê¸°ì–µí•´ë‘”ë‹¤.
 				m_listSendDirection.push_back( m_Direction );
 				m_SendMove++;
 				
 
 				//----------------------------------------------------
-				// NPC¿¡°Ô ¸» °Ç »óÅÂ¿¡¼­ ¿òÁ÷ÀÌ´Â °æ¿ì..			
+				// NPCì—ê²Œ ë§ ê±´ ìƒíƒœì—ì„œ ì›€ì§ì´ëŠ” ê²½ìš°..			
 				//----------------------------------------------------
 				if (m_WaitVerifyActionInfo==WAIT_VERIFY_NPC_ASK)
 				{
@@ -5798,14 +5808,14 @@ MPlayer::ActionMove()
 					if (pCreature!=NULL)
 					{
 						//----------------------------------------------------
-						// °Å¸®°¡ ¸Ö¾îÁö¸é ´ëÈ­ ÁßÁö´ç.
+						// ê±°ë¦¬ê°€ ë©€ì–´ì§€ë©´ ëŒ€í™” ì¤‘ì§€ë‹¹.
 						//----------------------------------------------------
 						if ((max(abs(m_X-pCreature->GetX()), abs(m_Y-pCreature->GetY()))) > TRADE_DISTANCE_NPC)
 						{
-							// °ËÁõ Á¦°Å
+							// ê²€ì¦ ì œê±°
 							SetWaitVerifyNULL();
 
-							// Dialog ²¨ÁØ´Ù.
+							// Dialog êº¼ì¤€ë‹¤.
 							g_pUIDialog->ClosePCTalkDlg();
 						}
 					}
@@ -5813,24 +5823,24 @@ MPlayer::ActionMove()
 			}
 
 			//-----------------------
-			// ½Ã¾ß ¹Ù²ãÁÖ±â
+			// ì‹œì•¼ ë°”ê¿”ì£¼ê¸°
 			//-----------------------
 			//m_pZone->MoveLightSight(m_X, m_Y, m_LightSight, m_Direction);
 			//m_pZone->UnSetLightSight(m_X, m_Y, m_LightSight);
 			//m_pZone->SetLightSight(x, y, m_LightSight);
 
-			// ÀÌÀü ÁÂÇ¥ ±â¾ï
+			// ì´ì „ ì¢Œí‘œ ê¸°ì–µ
 			TYPE_SECTORPOSITION ox = m_X;
 			TYPE_SECTORPOSITION oy = m_Y;
 
-			// zoneÀÇ sectorÀÇ Á¤º¸¸¦ ¹Ù²ãÁØ´Ù.
+			// zoneì˜ sectorì˜ ì •ë³´ë¥¼ ë°”ê¿”ì¤€ë‹¤.
 			MovePosition( x, y );
 			
 			//CheckInDarkness();
 
 			//--------------------------------------------
 			//
-			// ÀÌµ¿ÇÑ °÷ÀÌ 'Æ÷Å»'ÀÎ °æ¿ì
+			// ì´ë™í•œ ê³³ì´ 'í¬íƒˆ'ì¸ ê²½ìš°
 			//
 			//--------------------------------------------
 			if (IsSlayer())
@@ -5847,7 +5857,7 @@ MPlayer::ActionMove()
 						PORTAL_INFO portalInfo = *iPortal;			
 
 						//--------------------------------------------
-						// ¸ÖÆ¼ Æ÷Å»ÀÌ¸é elevator¸¦ ¶ç¿î´Ù.
+						// ë©€í‹° í¬íƒˆì´ë©´ elevatorë¥¼ ë„ìš´ë‹¤.
 						//--------------------------------------------
 						if (portalInfo.Type==MPortal::TYPE_MULTI_PORTAL)
 						{
@@ -5855,10 +5865,10 @@ MPlayer::ActionMove()
 							
 							gC_vs_ui.RunElevator();
 
-							// ¸ñÀûÁö Ç¥½Ã¸¦ ¾ø¾Ø´Ù.
+							// ëª©ì ì§€ í‘œì‹œë¥¼ ì—†ì•¤ë‹¤.
 							g_pTopView->SetSelectedSectorNULL();
 
-							// ¸ñÀûÁö ¾ø¾Ú..
+							// ëª©ì ì§€ ì—†ì•°..
 							m_DestX		= SECTORPOSITION_NULL;
 							m_DestY		= SECTORPOSITION_NULL;	
 							m_NextDestX = SECTORPOSITION_NULL;
@@ -5871,39 +5881,39 @@ MPlayer::ActionMove()
 			}
 
 			//--------------------------------------------
-			// 5 FrameÀÌ ÀÖ´Ù°í ÇÒ °æ¿ì
+			// 5 Frameì´ ìˆë‹¤ê³  í•  ê²½ìš°
 			//--------------------------------------------
 			//
-			// [1] UP,DOWN,LEFT,RIGHTÀÏ ¶§,
+			// [1] UP,DOWN,LEFT,RIGHTì¼ ë•Œ,
 			//
-			//     Xº¯È­ : 0 16 32 48 64   (+-16)
-			//     Yº¯È­ : 0  8 16 24 32   (+-8)
+			//     Xë³€í™” : 0 16 32 48 64   (+-16)
+			//     Yë³€í™” : 0  8 16 24 32   (+-8)
 			// 
 			//
-			// [2] ´ë°¢¼±(LEFTUP,LEFTDOWN,RIGHTUP,RIGHTDOWN)À¸·Î ¿òÁ÷ÀÏ¶§,
+			// [2] ëŒ€ê°ì„ (LEFTUP,LEFTDOWN,RIGHTUP,RIGHTDOWN)ìœ¼ë¡œ ì›€ì§ì¼ë•Œ,
 			//
-			//     Xº¯È­ : 0  8 16 24 32   (+-8)
-			//     Yº¯È­ : 0  4  8 12 16   (+-4)
+			//     Xë³€í™” : 0  8 16 24 32   (+-8)
+			//     Yë³€í™” : 0  4  8 12 16   (+-4)
 			//
 			//--------------------------------------------
-			// sX,sY : ¿òÁ÷¿©¾ßÇÒ ÀüÃ¼ pixel(ÇÑ TILE)
-			// cX,cY : ÀÌµ¿ÇÏ´Â ´ÜÀ§ pixel
+			// sX,sY : ì›€ì§ì—¬ì•¼í•  ì „ì²´ pixel(í•œ TILE)
+			// cX,cY : ì´ë™í•˜ëŠ” ë‹¨ìœ„ pixel
 			//--------------------------------------------		
 			//--------------------------------------------
-			// Fast Move ÀÎ °æ¿ì
+			// Fast Move ì¸ ê²½ìš°
 			//--------------------------------------------
 			if (m_bFastMove)
 			{
-				// Á÷¼± °Å¸®·Î ¿òÁ÷ÀÏ¶§ÀÇ pixel°Å¸®
-				// ex) ¿ŞÂÊ 2 --> 1 : ( 2 - 1 ) * TILE_X
-				//     À§ÂÊ 2 --> 1 : ( 2 - 1 ) * TILE_Y
+				// ì§ì„  ê±°ë¦¬ë¡œ ì›€ì§ì¼ë•Œì˜ pixelê±°ë¦¬
+				// ex) ì™¼ìª½ 2 --> 1 : ( 2 - 1 ) * TILE_X
+				//     ìœ„ìª½ 2 --> 1 : ( 2 - 1 ) * TILE_Y
 				m_sX = (ox - m_X) * TILE_X;
 				m_sY = (oy - m_Y) * TILE_Y;
 					
 				//------------------------------------------------
-				// ½ÇÁ¦ ÇÑ Å¸ÀÏ ÀÌµ¿ ¼ÓµµÀÇ ¹İÀÇ ¼Óµµ¿¡ ¸ñÀûÁö±îÁö ÀÌµ¿ÇÑ´Ù.
+				// ì‹¤ì œ í•œ íƒ€ì¼ ì´ë™ ì†ë„ì˜ ë°˜ì˜ ì†ë„ì— ëª©ì ì§€ê¹Œì§€ ì´ë™í•œë‹¤.
 				//------------------------------------------------
-				// ÇÑ Å¸ÀÏ ÀÌµ¿ÇÒ¶§ÀÇ Frame ¼ö
+				// í•œ íƒ€ì¼ ì´ë™í• ë•Œì˜ Frame ìˆ˜
 				int moveTimes_div_2 = (*g_pCreatureTable)[m_CreatureType].MoveTimes >> 1;
 				// 2005, 1, 5, sobeit add start
 				if(HasEffectStatus(EFFECTSTATUS_BIKE_CRASH))
@@ -5923,7 +5933,7 @@ MPlayer::ActionMove()
 				}
 			}
 			//--------------------------------------------	
-			// Á¤»ó ÀÌµ¿
+			// ì •ìƒ ì´ë™
 			//--------------------------------------------
 			else
 			{	
@@ -5934,7 +5944,7 @@ MPlayer::ActionMove()
 
 				//????????????????????????????????????????????????????????
 				//???                                                  ???
-				//???   ÇÑ FrameÀ» ÀÌµ¿...ÇØ¾ßÇÏ´Â°¡?? ¸»¾Æ¾ß ÇÏ´Â°¡   ???
+				//???   í•œ Frameì„ ì´ë™...í•´ì•¼í•˜ëŠ”ê°€?? ë§ì•„ì•¼ í•˜ëŠ”ê°€   ???
 				//???                                                  ???
 				//????????????????????????????????????????????????????????
 				int moveTimes_1;
@@ -5981,11 +5991,11 @@ MPlayer::ActionMove()
 
 			m_MoveCount++;
 
-			// ´ÙÀ½¿¡ ÀÌµ¿ÇÒ count¸¦ ÁöÁ¤ÇÑ´Ù.
+			// ë‹¤ìŒì— ì´ë™í•  countë¥¼ ì§€ì •í•œë‹¤.
 			m_NextMoveCount = (*g_pCreatureTable)[m_CreatureType].MoveRatio;
 
 			//------------------------------------------------
-			// Ä³¸¯ÅÍÀÇ MoveAction¿¡ ¸Â´Â Sound¸¦ Ãâ·ÂÇØÁØ´Ù.
+			// ìºë¦­í„°ì˜ MoveActionì— ë§ëŠ” Soundë¥¼ ì¶œë ¥í•´ì¤€ë‹¤.
 			//------------------------------------------------
 			TYPE_SOUNDID soundID = (*g_pCreatureTable)[m_CreatureType].GetActionSound( m_MoveAction );
 
@@ -5998,9 +6008,9 @@ MPlayer::ActionMove()
 			}
 		}	
 		//--------------------------------------------
-		// ¿òÁ÷ÀÏ ¼ö ¾øÀ» °æ¿ì		
+		// ì›€ì§ì¼ ìˆ˜ ì—†ì„ ê²½ìš°		
 		//--------------------------------------------
-		// ±æÃ£±â¸¦ ´Ù½Ã ÇØÁØ´Ù.
+		// ê¸¸ì°¾ê¸°ë¥¼ ë‹¤ì‹œ í•´ì¤€ë‹¤.
 		else
 		{
 			m_NextDestX = m_DestX;
@@ -6008,10 +6018,10 @@ MPlayer::ActionMove()
 			m_listDirection.empty();
 
 
-			DEBUG_ADD("´Ù¸¥ Ä³¸¯ÅÍ¿¡ ÀÇÇØ¼­ BlockµÆÀ½.");					
+			DEBUG_ADD("ë‹¤ë¥¸ ìºë¦­í„°ì— ì˜í•´ì„œ BlockëìŒ.");					
 		}
 
-		// ´ÙÀ½ Sector±îÁö ¿òÁ÷ÀÎ´Ù.
+		// ë‹¤ìŒ Sectorê¹Œì§€ ì›€ì§ì¸ë‹¤.
 		if (!m_listDirection.empty())
 		{
 			//m_NextAction = m_MoveAction;
@@ -6020,12 +6030,12 @@ MPlayer::ActionMove()
 	}
 	//----------------------------------------------------
 	//
-	// ¾ÆÁ÷ ´ÙÀ½ Sector±îÁö ´ú µµ´ŞÇÑ °æ¿ì
+	// ì•„ì§ ë‹¤ìŒ Sectorê¹Œì§€ ëœ ë„ë‹¬í•œ ê²½ìš°
 	//
 	//----------------------------------------------------
 	else
 	{
-		// ÇÑ FrameÀ» ÀÌµ¿ÇÑ´Ù.
+		// í•œ Frameì„ ì´ë™í•œë‹¤.
 		/*
 		switch (m_MoveDevice)
 		{
@@ -6045,15 +6055,15 @@ MPlayer::ActionMove()
 			DEBUG_ADD("going");
 		#endif
 
-		// ÀÌµ¿ÇÒ count°¡ µÆÀ»¶§¸¸ ÀÌµ¿ÇÑ´Ù.
+		// ì´ë™í•  countê°€ ëì„ë•Œë§Œ ì´ë™í•œë‹¤.
 		if (m_MoveCount>=m_NextMoveCount)
 		{			
 			//--------------------------------------------
-			// Fast Move ÀÎ °æ¿ì
+			// Fast Move ì¸ ê²½ìš°
 			//--------------------------------------------
 			if (m_bFastMove)
 			{
-				// 2001.8.22 Ãß°¡ - ³È³È
+				// 2001.8.22 ì¶”ê°€ - ëƒ ëƒ 
 				if (m_sX!=0)	m_sX += m_cX;
 				if (m_sY!=0)	m_sY += m_cY;		
 
@@ -6064,16 +6074,16 @@ MPlayer::ActionMove()
 					m_MoveCount = m_MoveCountMax;
 				}
 
-				// ´ÙÀ½¿¡ ÀÌµ¿ÇÒ count¸¦ ÁöÁ¤ÇÑ´Ù.
+				// ë‹¤ìŒì— ì´ë™í•  countë¥¼ ì§€ì •í•œë‹¤.
 				m_NextMoveCount += (*g_pCreatureTable)[m_CreatureType].MoveRatio;
 
 				if (m_MoveCount+1 >= m_MoveCountMax
 					&& m_nNoPacketUsedActionInfo==ACTIONINFO_NULL)
 				{
 					//----------------------------------------------------------
-					// À¸À¸Èì.. Å×½ºÆ® ÄÚµå.
+					// ìœ¼ìœ¼í .. í…ŒìŠ¤íŠ¸ ì½”ë“œ.
 					//----------------------------------------------------------
-					// fast move ÈÄ¿¡ ÇÑ¹ø ¶§¸®±â.. - -
+					// fast move í›„ì— í•œë²ˆ ë•Œë¦¬ê¸°.. - -
 					// Flash Sliding
 					//----------------------------------------------------------
 					//m_TraceID	= id;		
@@ -6085,7 +6095,7 @@ MPlayer::ActionMove()
 						&& m_nSpecialActionInfo != MAGIC_RAPID_GLIDING 
 						&& m_nSpecialActionInfo != SKILL_TELEPORT
 						&& !HasEffectStatus(EFFECTSTATUS_BIKE_CRASH)
-						)		//-_- ÇöÀç ¼±ÅÃµÈ°Ô...·Î..
+						)		//-_- í˜„ì¬ ì„ íƒëœê²Œ...ë¡œ..
 					{
 //						_MinTrace(" SpecialActionInfo : %d UsedAction : %d NextUsedActionInfo :%d\n",
 //							m_nSpecialActionInfo, m_nUsedActionInfo, m_nNextUsedActionInfo);
@@ -6095,14 +6105,14 @@ MPlayer::ActionMove()
 
 						UnSetRequestMode();
 
-						// »ç¿ëÇÑ ±â¼ú·Î ¼³Á¤
+						// ì‚¬ìš©í•œ ê¸°ìˆ ë¡œ ì„¤ì •
 						
 						//---------------------------------------------------
-						// ¿ìÈÄÈÊ..
+						// ìš°í›„í›—..
 						//---------------------------------------------------
 						MActionResult* pResult = new MActionResult;
 
-						// °á°ú Ç¥Çö
+						// ê²°ê³¼ í‘œí˜„
 						int ActionInfo = GetBasicActionInfo() ; //m_nBasicActionInfo;
 						if( m_nSpecialActionInfo == SKILL_BLITZ_SLIDING || m_nSpecialActionInfo == SKILL_BLAZE_WALK )
 						{
@@ -6150,16 +6160,16 @@ MPlayer::ActionMove()
 														0 ) 
 										);	
 
-						// PlayerÀÇ ÇöÀç ÁøÇà ÁßÀÎ ±â¼úÀÇ °á°ú·Î Ãß°¡½ÃÅ²´Ù.
+						// Playerì˜ í˜„ì¬ ì§„í–‰ ì¤‘ì¸ ê¸°ìˆ ì˜ ê²°ê³¼ë¡œ ì¶”ê°€ì‹œí‚¨ë‹¤.
 						if( m_nUsedActionInfo == SKILL_BLITZ_SLIDING_ATTACK ||
 							m_nUsedActionInfo == SKILL_BLAZE_WALK_ATTACK 
 							)
 							m_nUsedActionInfo = GetBasicActionInfo(); //m_nBasicActionInfo;
 						
 						int tempActionInfo = m_nUsedActionInfo;
-						m_nUsedActionInfo = GetBasicActionInfo(); //m_nBasicActionInfo;	// ¸·°¡´Â ÄÚµå - -;
+						m_nUsedActionInfo = GetBasicActionInfo(); //m_nBasicActionInfo;	// ë§‰ê°€ëŠ” ì½”ë“œ - -;
 						
-						// ¸·°£´Ù ~~  --;
+						// ë§‰ê°„ë‹¤ ~~  --;
 						if (m_listEffectTarget.size()==0)
 						{
 							m_pEffectTarget = new MEffectTarget( 0 );
@@ -6172,10 +6182,10 @@ MPlayer::ActionMove()
 
 						m_nUsedActionInfo = tempActionInfo;
 						//---------------------------------------------------
-						// ¿ìÈÄÈÄÈÊ... - -; 2001.12.10¿¡ Ãß°¡.. ¤»¤».
+						// ìš°í›„í›„í›—... - -; 2001.12.10ì— ì¶”ê°€.. ã…‹ã…‹.
 						//---------------------------------------------------
 						
-						// ÃßÀû Á¤º¸ ¼³Á¤						
+						// ì¶”ì  ì •ë³´ ì„¤ì •						
 						m_fTrace	= FLAG_TRACE_CREATURE_BASIC;
 						m_TraceX	= pCreature->GetX();
 						m_TraceY	= pCreature->GetY();
@@ -6189,7 +6199,7 @@ MPlayer::ActionMove()
 						SetNextAction(GetActionInfoAction( m_nNextUsedActionInfo ));
 						SetDirection( MTopView::GetDirectionToPosition( GetX(), GetY(), pCreature->GetX(), pCreature->GetY() ) );
 
-						// ´ÙÀ½¿¡ ÇÑ ¹ø ÆĞÅ¶À» ¾È º¸³½´Ù.
+						// ë‹¤ìŒì— í•œ ë²ˆ íŒ¨í‚·ì„ ì•ˆ ë³´ë‚¸ë‹¤.
 						m_nNoPacketUsedActionInfo = m_nNextUsedActionInfo;
 					}
 					else
@@ -6202,7 +6212,7 @@ MPlayer::ActionMove()
 	
 			}
 			//--------------------------------------------
-			// ÀÏ¹İÀûÀÎ ÀÌµ¿ÀÇ °æ¿ì
+			// ì¼ë°˜ì ì¸ ì´ë™ì˜ ê²½ìš°
 			//--------------------------------------------
 			else
 			{
@@ -6228,18 +6238,18 @@ MPlayer::ActionMove()
 				}
 
 				m_MoveTableCount++;
-				// 2004, 12, 22, sobeit add start - max °ª ³Ñ¾î°¡¸é ¾û¶×ÇÑ ÁÂÇ¥°¡ µé¾î°£´Ù.
+				// 2004, 12, 22, sobeit add start - max ê°’ ë„˜ì–´ê°€ë©´ ì—‰ëš±í•œ ì¢Œí‘œê°€ ë“¤ì–´ê°„ë‹¤.
 				if(m_MoveTableCount > moveTimes_1)
 					m_MoveTableCount = moveTimes_1;
 				// 2004, 12, 22, sobeit add end
 				m_cX = m_cXTable[moveTimes_1][m_DirectionMoved][m_MoveTableCount];
 				m_cY = m_cYTable[moveTimes_1][m_DirectionMoved][m_MoveTableCount];
 
-				// 2001.8.22 Ãß°¡ - ³È³È
+				// 2001.8.22 ì¶”ê°€ - ëƒ ëƒ 
 				if (m_sX!=0)	m_sX += m_cX;
 				if (m_sY!=0)	m_sY += m_cY;		
 			
-				// ´ÙÀ½¿¡ ÀÌµ¿ÇÒ count¸¦ ÁöÁ¤ÇÑ´Ù.
+				// ë‹¤ìŒì— ì´ë™í•  countë¥¼ ì§€ì •í•œë‹¤.
 				m_NextMoveCount += (*g_pCreatureTable)[m_CreatureType].MoveRatio;
 
 				m_MoveCount++;
@@ -6251,7 +6261,7 @@ MPlayer::ActionMove()
 		}
 		
 		//m_ActionCount++;
-		// frameÀ» ¹Ù²ãÁØ´Ù. ¸¶Áö¸· Frame±îÁö °¬À¸¸é 0¹øÂ° FrameÀ¸·Î ¹Ù²Û´Ù.
+		// frameì„ ë°”ê¿”ì¤€ë‹¤. ë§ˆì§€ë§‰ Frameê¹Œì§€ ê°”ìœ¼ë©´ 0ë²ˆì§¸ Frameìœ¼ë¡œ ë°”ê¾¼ë‹¤.
 		//if (++m_ActionCount == (*m_pFrames)[m_Action][m_Direction].GetCount())
 		//	m_ActionCount = 0;
 
@@ -6275,13 +6285,13 @@ MPlayer::AttachCastingEffect(TYPE_ACTIONINFO nUsedActionInfo, BOOL bForceAttach)
 {
 	MCreature::AttachCastingEffect(nUsedActionInfo, bForceAttach);
 
-	// ÄÊ..
+	// ì¼..
 }
 
 //----------------------------------------------------------------------
 // Affect UsedActionInfo
 //----------------------------------------------------------------------
-// m_nUsedActionInfo¸¦ ½ÇÇà½ÃÅ²´Ù.
+// m_nUsedActionInfoë¥¼ ì‹¤í–‰ì‹œí‚¨ë‹¤.
 //----------------------------------------------------------------------
 void
 MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
@@ -6348,7 +6358,7 @@ MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 //		if(abs(g_SelectSector.y - m_TraceY) > GetActionInfoRange(nUsedActionInfo))
 //			g_SelectSector.y = GetY();
 //		
-//		// ´ÙÀ½ ¸ñÇ¥À§Ä¡·Î ¼³Á¤ÇÑ´Ù
+//		// ë‹¤ìŒ ëª©í‘œìœ„ì¹˜ë¡œ ì„¤ì •í•œë‹¤
 //		g_pPlayer->TraceNULL();
 //		
 //		if (g_pPlayer->SetMovePosition(g_SelectSector.x, g_SelectSector.y))
@@ -6356,12 +6366,12 @@ MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 //			g_pPlayer->SetNextActionToMove();
 //		}
 //		
-//		// ´ÙÀ½ °¥ °÷ÀÌ ¾øÀ¸¸é
+//		// ë‹¤ìŒ ê°ˆ ê³³ì´ ì—†ìœ¼ë©´
 //		POINT point;
 //		g_pPlayer->GetNextDestination( point );		
 //		if (point.x==SECTORPOSITION_NULL || point.y==SECTORPOSITION_NULL)
 //		{
-//			// ÇöÀç °¡°í ÀÖ´Â °÷ÀÌ ¾øÀ¸¸é
+//			// í˜„ì¬ ê°€ê³  ìˆëŠ” ê³³ì´ ì—†ìœ¼ë©´
 //			g_pPlayer->GetDestination( point );
 //			if (point.x==SECTORPOSITION_NULL || point.y==SECTORPOSITION_NULL)
 //			{
@@ -6380,19 +6390,19 @@ MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 #endif
 
 	//-----------------------------------------------------
-	// ÀÌ ±â¼ú¿¡¼­ »ç¿ëÇÒ EffectTarget
+	// ì´ ê¸°ìˆ ì—ì„œ ì‚¬ìš©í•  EffectTarget
 	//-----------------------------------------------------
 	MEffectTarget* pEffectTarget = NULL;
 
 	DEBUG_ADD_FORMAT("[MPlayer-StartEffect] ActionInfo=%d, ActionCount=%d/%d", nUsedActionInfo, m_ActionCount, m_ActionCountMax);
 	
 	//--------------------------------------------------------
-	// Casting ActionInfoÀÎ°¡?
+	// Casting ActionInfoì¸ê°€?
 	//--------------------------------------------------------
 	BOOL bCastingAction = (*g_pActionInfoTable)[nUsedActionInfo].IsCastingAction();
 
 	//--------------------------------------------------------
-	// ¸ñÇ¥ À§Ä¡ PixelÁÂÇ¥
+	// ëª©í‘œ ìœ„ì¹˜ Pixelì¢Œí‘œ
 	//--------------------------------------------------------
 	point = MTopView::MapToPixel(m_TraceX, m_TraceY);
 	//point.x += m_sX;
@@ -6401,17 +6411,17 @@ MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 	
 	//--------------------------------------------------------
 	//
-	//					Effect ¸ñÇ¥ ¼³Á¤
+	//					Effect ëª©í‘œ ì„¤ì •
 	//Z
 	//--------------------------------------------------------
 	//MEffectTarget* m_pEffectTarget = new MEffectTarget( (*g_pActionInfoTable)[nUsedActionInfo].GetSize() );
 	// 
 	//--------------------------------------------------------
-	// casting actionÀÎ °æ¿ì
+	// casting actionì¸ ê²½ìš°
 	//--------------------------------------------------------
 	if (bCastingAction)
 	{
-		// casting¿ë EffectTargetÀ» »ı¼ºÇÑ´Ù.
+		// castingìš© EffectTargetì„ ìƒì„±í•œë‹¤.
 		pEffectTarget = new MEffectTarget( (*g_pActionInfoTable)[nUsedActionInfo].GetSize() );
 		pEffectTarget->NewEffectID();
 
@@ -6423,10 +6433,10 @@ MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 			pEffectTarget->Set( point.x, point.y, m_TraceZ, m_TraceID );
 
 		//--------------------------------------------------------
-		// castingAction¿¡¼­µµ delay°¡ Àû¿ëµÇÁö¸¸,
-		// castingActionÀÎ °æ¿ì´Â delay¸¦ Á¦°ÅÇÏ¸é ¾ÈµÈ´Ù.
+		// castingActionì—ì„œë„ delayê°€ ì ìš©ë˜ì§€ë§Œ,
+		// castingActionì¸ ê²½ìš°ëŠ” delayë¥¼ ì œê±°í•˜ë©´ ì•ˆëœë‹¤.
 		//--------------------------------------------------------
-		// ÀÌ°Å °ËÁõÇÒ ¹æ¹ıÀÌ ¾ø´Ù.
+		// ì´ê±° ê²€ì¦í•  ë°©ë²•ì´ ì—†ë‹¤.
 		//if (m_DelayActionInfo==nUsedActionInfo) - -;
 		{
 			pEffectTarget->SetDelayFrame( m_EffectDelayFrame );
@@ -6436,13 +6446,13 @@ MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 
 	}
 	//--------------------------------------------------------
-	// casting actionÀÌ ¾Æ´Ñ.. ½ÇÁ¦ ±â¼úÀÎ °æ¿ì..
+	// casting actionì´ ì•„ë‹Œ.. ì‹¤ì œ ê¸°ìˆ ì¸ ê²½ìš°..
 	//--------------------------------------------------------
 	else
 	{
 		//--------------------------------------------------------
-		// ½ÃÀÛ ±â¼úÀÌ¸é.. ÀÌ¹Ì new¸¦ ÇßÀ¸¹Ç·Î
-		// °á°ú ±â¼úÀÎ °æ¿ì¿¡¸¸ EffectTargetÀ» »ı¼ºÇÑ´Ù.
+		// ì‹œì‘ ê¸°ìˆ ì´ë©´.. ì´ë¯¸ newë¥¼ í–ˆìœ¼ë¯€ë¡œ
+		// ê²°ê³¼ ê¸°ìˆ ì¸ ê²½ìš°ì—ë§Œ EffectTargetì„ ìƒì„±í•œë‹¤.
 		//--------------------------------------------------------
 		if (nUsedActionInfo < (*g_pActionInfoTable).GetMinResultActionInfo())
 		{
@@ -6457,17 +6467,17 @@ MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 				MEffectTarget* pTempEffectTarget = m_pEffectTarget;
 				m_pEffectTarget = NULL;
 				
-				// deleteµÇ¸é¼­ m_pEffectTarget¿¡ Á¢±ÙÀÌ µÈ´Ù - -;
+				// deleteë˜ë©´ì„œ m_pEffectTargetì— ì ‘ê·¼ì´ ëœë‹¤ - -;
 				delete pTempEffectTarget;				
 			}
 
 			//----------------------------------------------------------
-			// °á°ú¸¦ ÇÏ³ª »ı¼º½ÃÄÑ µĞ´Ù.
+			// ê²°ê³¼ë¥¼ í•˜ë‚˜ ìƒì„±ì‹œì¼œ ë‘”ë‹¤.
 			//----------------------------------------------------------
 			m_pEffectTarget = new MEffectTarget( (*g_pActionInfoTable)[nUsedActionInfo].GetSize() );
 			m_pEffectTarget->NewEffectID();
 
-			// ³ªÁß¿¡ Áö¿öÁÖ±â À§ÇØ¼­..
+			// ë‚˜ì¤‘ì— ì§€ì›Œì£¼ê¸° ìœ„í•´ì„œ..
 			AddEffectTarget( m_pEffectTarget );
 			//m_listEffectTarget.push_back( pEffectTarget );
 
@@ -6497,9 +6507,9 @@ MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 		}
 
 		//--------------------------------------------------------
-		// Action¿¡ ¸Â´Â Sound Ãâ·Â
+		// Actionì— ë§ëŠ” Sound ì¶œë ¥
 		//--------------------------------------------------------
-		// °á°úÀÎ °æ¿ì¸¸ ¿©±â¼­ »ç¿îµå Ãâ·ÂÇÑ´Ù.
+		// ê²°ê³¼ì¸ ê²½ìš°ë§Œ ì—¬ê¸°ì„œ ì‚¬ìš´ë“œ ì¶œë ¥í•œë‹¤.
 		if (nUsedActionInfo >= g_pActionInfoTable->GetMinResultActionInfo())
 		{
 			int soundID = (*g_pCreatureTable)[m_CreatureType].GetActionSound( 
@@ -6514,13 +6524,16 @@ MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 				&& soundID < g_pSoundTable->GetSize())
 			{
 				DEBUG_ADD_FORMAT("ForceAction-AffectUsedActionInfo(%d, %s)", soundID, strrchr((*g_pSoundTable)[soundID].Filename.GetString(), '\\'));
-		
+
+#ifdef PLATFORM_WINDOWS
+				// Force feedback only supported on Windows with IFC
 				gpC_Imm->ForceAction( soundID );
+#endif
 			}
 		}
 
 		//--------------------------------------------------------
-		// Áö¼Ó ½Ã°£ ¼³Á¤
+		// ì§€ì† ì‹œê°„ ì„¤ì •
 		//--------------------------------------------------------
 		if (m_DelayActionInfo==nUsedActionInfo)
 		{
@@ -6529,17 +6542,17 @@ MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 			m_EffectDelayFrame	= 0;
 		}
 
-		// ÀúÀåÇØµÎ°í
+		// ì €ì¥í•´ë‘ê³ 
 		pEffectTarget = m_pEffectTarget;
 		
-		// Áö¿ò.. 
+		// ì§€ì›€.. 
 		m_pEffectTarget = NULL;
 	}
 
-	// ÁøÇàÁßÀÎ Effect·Î¼­ ±â¾ïÇØµĞ´Ù.		
+	// ì§„í–‰ì¤‘ì¸ Effectë¡œì„œ ê¸°ì–µí•´ë‘”ë‹¤.		
 	//AddEffectTarget( m_pEffectTarget );
 	
-	// °á°ú¿¡ ´ëÇÑ Á¤º¸¸¦ ¼³Á¤ - delete´Â °á°ú¸¦ Àû¿ëÇÒ¶§..
+	// ê²°ê³¼ì— ëŒ€í•œ ì •ë³´ë¥¼ ì„¤ì • - deleteëŠ” ê²°ê³¼ë¥¼ ì ìš©í• ë•Œ..
 	/*
 	MActionResult* pResult = new MActionResult;
 	pResult->Add( new MActionResultNodeActionInfo( m_ID, m_TraceID, nUsedActionInfo ) );
@@ -6550,13 +6563,13 @@ MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 
 	//--------------------------------------------------------
 	//
-	//					½ÃÀÛ À§Ä¡¸¦ °áÁ¤ÇÑ´Ù.
+	//					ì‹œì‘ ìœ„ì¹˜ë¥¼ ê²°ì •í•œë‹¤.
 	//
 	//--------------------------------------------------------
 	int x,y,z, direction;
 
 	//--------------------------------------------------------
-	// User À§Ä¡¿¡¼­ ½ÃÀÛÇÏ´Â °æ¿ì
+	// User ìœ„ì¹˜ì—ì„œ ì‹œì‘í•˜ëŠ” ê²½ìš°
 	//--------------------------------------------------------
 	if ((*g_pActionInfoTable)[nUsedActionInfo].IsStartUser())
 	{
@@ -6570,7 +6583,7 @@ MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 		z			= m_Z+1;//+60;			
 	}
 	//--------------------------------------------------------
-	// Target À§Ä¡¿¡¼­ ½ÃÀÛÇÏ´Â °æ¿ì
+	// Target ìœ„ì¹˜ì—ì„œ ì‹œì‘í•˜ëŠ” ê²½ìš°
 	//--------------------------------------------------------
 	else if ((*g_pActionInfoTable)[nUsedActionInfo].IsStartTarget())
 	{
@@ -6580,7 +6593,7 @@ MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 	}
 
 	//--------------------------------------------------------
-	// °øÁß¿¡¼­ ½ÃÀÛÇÏ´Â °æ¿ì
+	// ê³µì¤‘ì—ì„œ ì‹œì‘í•˜ëŠ” ê²½ìš°
 	//--------------------------------------------------------
 	if ((*g_pActionInfoTable)[nUsedActionInfo].IsStartSky())
 	{
@@ -6589,13 +6602,13 @@ MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 		//direction	= DIRECTION_DOWN;
 	}
 	//--------------------------------------------------------
-	// Áö»ó¿¡¼­ ½ÃÀÛÇÏ´Â °æ¿ì
+	// ì§€ìƒì—ì„œ ì‹œì‘í•˜ëŠ” ê²½ìš°
 	//--------------------------------------------------------
 	//else
 	//{
 	if( nUsedActionInfo == SKILL_ABSORB_SOUL )
 	{
-		// m_TraceID ´Â Á¸ÀÇ ½ÃÃ¼ÀÌ¹Ç·Î ¾ÆÀÌÅÛÀÌ´Ù.		
+		// m_TraceID ëŠ” ì¡´ì˜ ì‹œì²´ì´ë¯€ë¡œ ì•„ì´í…œì´ë‹¤.		
 		direction = g_pTopView->GetDirectionToPosition( 
 			GetX(), GetY(),m_TraceX, m_TraceY);
 	}
@@ -6607,15 +6620,15 @@ MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 	
 	//--------------------------------------------------------
 	//
-	//                   Effect»ı¼º		
+	//                   Effectìƒì„±		
 	//
 	//--------------------------------------------------------
 	g_pEffectGeneratorTable->Generate(
-			x,y,z,				// ½ÃÀÛ À§Ä¡
-			direction, 		// ¹æÇâ
+			x,y,z,				// ì‹œì‘ ìœ„ì¹˜
+			direction, 		// ë°©í–¥
 			1,					// power
-			nUsedActionInfo,		//	ActionInfoTableÁ¾·ù,
-			pEffectTarget		// ¸ñÇ¥ Á¤º¸
+			nUsedActionInfo,		//	ActionInfoTableì¢…ë¥˜,
+			pEffectTarget		// ëª©í‘œ ì •ë³´
 			, GetActionGrade()
 	);
 	ClearActionGrade();
@@ -6626,13 +6639,13 @@ MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 //----------------------------------------------------------------------
 // Action to Send Packet
 //----------------------------------------------------------------------
-// packetÀ» º¸³½´ç...
+// packetì„ ë³´ë‚¸ë‹¹...
 //----------------------------------------------------------------------
 void
 MPlayer::ActionToSendPacket()
 {
 	//--------------------------------------------------------
-	// °á°ú Çàµ¿ÀÌ ¾Æ´Ñ °æ¿ì¸¸ packetÀ» º¸³½´Ù.
+	// ê²°ê³¼ í–‰ë™ì´ ì•„ë‹Œ ê²½ìš°ë§Œ packetì„ ë³´ë‚¸ë‹¤.
 	//--------------------------------------------------------
 	if (m_nUsedActionInfo >= g_pActionInfoTable->GetMinResultActionInfo() || m_nUsedActionInfo == ACTIONINFO_NULL)
 	{
@@ -6655,7 +6668,7 @@ MPlayer::ActionToSendPacket()
 	case SKILL_SWEEP_VICE_1:
 	case SKILL_SWEEP_VICE_3:
 	case SKILL_SWEEP_VICE_5:
-//		if(!GetSweepViewValue()) //½ºÀ¬¹ÙÀÌ½º¸¦ ¾ÆÁ÷ »ç¿ëÁßÀÌ ¾Æ´Ò¶§
+//		if(!GetSweepViewValue()) //ìŠ¤ìœ•ë°”ì´ìŠ¤ë¥¼ ì•„ì§ ì‚¬ìš©ì¤‘ì´ ì•„ë‹ë•Œ
 //		{
 //			SetSweepViewValue(1);
 //			g_SelectSector = g_pTopView->GetSelectedSector(g_x, g_y);
@@ -6706,7 +6719,7 @@ MPlayer::ActionToSendPacket()
 				}
 				else
 				{
-					g_pGameMessage->AddFormat("[ÌáÊ¾] %s",(*g_pGameStringTable)[STRING_STATUS_NOT_FIND_SKILL_CRAD].GetString());
+					g_pGameMessage->AddFormat("[ç“Šåˆ»] %s",(*g_pGameStringTable)[STRING_STATUS_NOT_FIND_SKILL_CRAD].GetString());
 					return;
 				}
 			}
@@ -6741,7 +6754,7 @@ MPlayer::ActionToSendPacket()
 				}
 				else
 				{
-					g_pGameMessage->AddFormat("[ÌáÊ¾] %s",(*g_pGameStringTable)[STRING_STATUS_NOT_FIND_SKILL_CRAD].GetString());
+					g_pGameMessage->AddFormat("[ç“Šåˆ»] %s",(*g_pGameStringTable)[STRING_STATUS_NOT_FIND_SKILL_CRAD].GetString());
 					return;
 				}
 			}
@@ -6769,7 +6782,7 @@ MPlayer::ActionToSendPacket()
 				}
 				else
 				{
-					g_pGameMessage->AddFormat("[ÌáÊ¾] %s",(*g_pGameStringTable)[STRING_STATUS_NOT_FIND_SKILL_CRAD].GetString());
+					g_pGameMessage->AddFormat("[ç“Šåˆ»] %s",(*g_pGameStringTable)[STRING_STATUS_NOT_FIND_SKILL_CRAD].GetString());
 					return;
 				}
 			}
@@ -6779,14 +6792,14 @@ MPlayer::ActionToSendPacket()
 	}
 
 	/*
-	// [ÀûÀıÇÑ Å¸ÀÌ¹Ö]¿¡ .. 
+	// [ì ì ˆí•œ íƒ€ì´ë°]ì— .. 
 	BOOL	bActionStand	= (m_Action==ACTION_STAND || IsSlayer() && m_Action==ACTION_SLAYER_MOTOR_STAND);
 	int		actionCountMax_1 = m_ActionCountMax-1;
 	BOOL	bEndAction		= (m_ActionCount==actionCountMax_1);// || bActionStand;
 	int		StartFrame		= (*g_pActionInfoTable)[m_nUsedActionInfo].GetStartFrame( m_WeaponSpeed );
 
 	int		packetSendTiming = min(actionCountMax_1, StartFrame);
-	BOOL	bStartAction	= (m_ActionCount==packetSendTiming);	// packetSendTimingÀÌ ¿ø·¡´Â 0ÀÌ¾ú´Ù.
+	BOOL	bStartAction	= (m_ActionCount==packetSendTiming);	// packetSendTimingì´ ì›ë˜ëŠ” 0ì´ì—ˆë‹¤.
 	
 	if (bActionStand)
 	{
@@ -6802,14 +6815,14 @@ MPlayer::ActionToSendPacket()
 	BOOL	bStartAction	= (m_ActionCount==0);	
 	
 
-	// Effect°¡ ½ÃÀÛµÇ´Â °æ¿ì´Â..
-	// (1) StartFrameÀÎ °æ¿ì
-	// (2) ¸¶Áö¸· ActionFrameÀÎ °æ¿ì
+	// Effectê°€ ì‹œì‘ë˜ëŠ” ê²½ìš°ëŠ”..
+	// (1) StartFrameì¸ ê²½ìš°
+	// (2) ë§ˆì§€ë§‰ ActionFrameì¸ ê²½ìš°
 	BOOL	bStartEffect = m_ActionCount==StartFrame || 
 							StartFrame >= m_ActionCountMax && bEndAction;
 	
 	//BOOL	bCastingEffect	= GetActionInfoCastingStartFrame(m_nUsedActionInfo)==m_ActionCount;
-		// ¹İº¹ actionÀÇ ½ÃÀÛ frame
+		// ë°˜ë³µ actionì˜ ì‹œì‘ frame
 	bStartAction |= m_bRepeatAction 
 					&& (*g_pActionInfoTable)[m_nUsedActionInfo].IsUseRepeatFrame()
 					&& m_RepeatCount!=0
@@ -6818,14 +6831,14 @@ MPlayer::ActionToSendPacket()
 	//----------------------------------------------------------------------
 	// [ TEST CODE ]
 	//----------------------------------------------------------------------
-	// »ó´çÈ÷ À§ÇèÇÑ ÁşÀÌÁö¸¸.. - -;;
-	// Å©°Ô ¹®Á¦´Â ¾øÀ» µí...
+	// ìƒë‹¹íˆ ìœ„í—˜í•œ ì§“ì´ì§€ë§Œ.. - -;;
+	// í¬ê²Œ ë¬¸ì œëŠ” ì—†ì„ ë“¯...
 	//----------------------------------------------------------------------
-	// EffectTargetÀº castingµ¿ÀÛÀÌ ³¡³­ µÚ¿¡ »ı¼ºµÇ´Âµ¥,
-	// EffectTargetÀÇ ID¸¦ casting½ÃÀÛ¶§¿¡ server·Î º¸³»¾ß ÇÏ±â ¶§¹®¿¡
-	// ÀÓ½Ã·Î... EffectTargetÀ» ¸ÕÀú »ı¼º½ÃÄÑµÎ°í »ç¿ëÇß´Ù.
+	// EffectTargetì€ castingë™ì‘ì´ ëë‚œ ë’¤ì— ìƒì„±ë˜ëŠ”ë°,
+	// EffectTargetì˜ IDë¥¼ castingì‹œì‘ë•Œì— serverë¡œ ë³´ë‚´ì•¼ í•˜ê¸° ë•Œë¬¸ì—
+	// ì„ì‹œë¡œ... EffectTargetì„ ë¨¼ì € ìƒì„±ì‹œì¼œë‘ê³  ì‚¬ìš©í–ˆë‹¤.
 	//----------------------------------------------------------------------
-	// À½. data member·Î ¹Ù²å´Ù. - -;;
+	// ìŒ. data memberë¡œ ë°”ê¿¨ë‹¤. - -;;
 	//static MEffectTarget* 
 
 	
@@ -6835,14 +6848,14 @@ MPlayer::ActionToSendPacket()
 
 	//----------------------------------------------------------
 	//
-	//					µ¿ÀÛ ½ÃÀÛ ½ÃÁ¡..
+	//					ë™ì‘ ì‹œì‘ ì‹œì ..
 	//
 	//----------------------------------------------------------
 	if (//bStartEffect)
 		bStartAction || m_nUsedActionInfo == SKILL_BURNING_SOUL_LAUNCH)
 	{			
 		//----------------------------------------------------------
-		// PacketÀ» ¾È º¸³»´Â °æ¿ìÀÌ´Ù.
+		// Packetì„ ì•ˆ ë³´ë‚´ëŠ” ê²½ìš°ì´ë‹¤.
 		//----------------------------------------------------------
 		if (m_nNoPacketUsedActionInfo==m_nUsedActionInfo)
 		{
@@ -6852,7 +6865,7 @@ MPlayer::ActionToSendPacket()
 											GetActionInfoAction(m_nUsedActionInfo) );
 
 			//------------------------------------------------
-			// Ä³¸¯ÅÍÀÇ Action¿¡ ¸Â´Â Sound¸¦ Ãâ·ÂÇØÁØ´Ù.
+			// ìºë¦­í„°ì˜ Actionì— ë§ëŠ” Soundë¥¼ ì¶œë ¥í•´ì¤€ë‹¤.
 			//------------------------------------------------
 			PlaySound( soundID,	false, m_X, m_Y	);
 
@@ -6869,7 +6882,10 @@ MPlayer::ActionToSendPacket()
 				if (soundID < g_pSoundTable->GetSize())
 				{
 					DEBUG_ADD_FORMAT("ForceAction-ActionToSendPacket(%d, %s)", soundID, strrchr((*g_pSoundTable)[soundID].Filename.GetString(), '\\'));
+#ifdef PLATFORM_WINDOWS
+					// Force feedback only supported on Windows with IFC
 					gpC_Imm->ForceAction( soundID );
+#endif
 				}
 			}
 
@@ -6877,32 +6893,32 @@ MPlayer::ActionToSendPacket()
 		}
 
 		//----------------------------------------------------------------------
-		// ÀÌ ´Ü°è¿¡¼­ PacketÀ» º¸³»¾ß ÇÑ´Ù.
+		// ì´ ë‹¨ê³„ì—ì„œ Packetì„ ë³´ë‚´ì•¼ í•œë‹¤.
 		//----------------------------------------------------------------------
-		// ´Ü, ActionEffect()°¡ È£ÃâµÆ´Ù°í ÇØ¼­ ¸ğµç °æ¿ì¿¡ 
-		// ´Ù PacketÀü¼ÛÀÌ ÀÏ¾î³ª´Â °ÍÀº ¾Æ´Ï´Ù.
+		// ë‹¨, ActionEffect()ê°€ í˜¸ì¶œëë‹¤ê³  í•´ì„œ ëª¨ë“  ê²½ìš°ì— 
+		// ë‹¤ Packetì „ì†¡ì´ ì¼ì–´ë‚˜ëŠ” ê²ƒì€ ì•„ë‹ˆë‹¤.
 		//
-		// Server¿¡¼­ ¹Ş¾Æ¼­ Player°¡ ¾î¶² ActionÀ» ÃëÇÒ °æ¿ìµµ ÀÖ±â ¶§¹®ÀÌ´Ù.
+		// Serverì—ì„œ ë°›ì•„ì„œ Playerê°€ ì–´ë–¤ Actionì„ ì·¨í•  ê²½ìš°ë„ ìˆê¸° ë•Œë¬¸ì´ë‹¤.
 		//
-		// ActionEffect()°¡ ºÒ¸®±â Àü¿¡..
-		// PacketÀ» º¸³¾Áö ¸»Áö¸¦ °áÁ¤ÇÏ´Â º¯¼ö°¡ ÇÊ¿äÇÒ °ÍÀÌ´Ù.
+		// ActionEffect()ê°€ ë¶ˆë¦¬ê¸° ì „ì—..
+		// Packetì„ ë³´ë‚¼ì§€ ë§ì§€ë¥¼ ê²°ì •í•˜ëŠ” ë³€ìˆ˜ê°€ í•„ìš”í•  ê²ƒì´ë‹¤.
 		//
-		// (!) Packet¿¡´Â »ç¿ëÇÑ ActionInfo¿¡ ´ëÇÑ Instance ID¸¦ ºÙ¿©Áà¾ß ÇÑ´Ù.
-		//     °á°ú¸¦ ¹Ş¾ÒÀ» ¶§ check¸¦ À§ÇØ¼­ÀÌ´Ù.
-		//     ±×¸®°í, °¡Àå ÃÖ±ÙÀÇ Instance ID¸¦ ÇÏ³ª¸¸ ±â¾ïÇÑ´Ù.		
+		// (!) Packetì—ëŠ” ì‚¬ìš©í•œ ActionInfoì— ëŒ€í•œ Instance IDë¥¼ ë¶™ì—¬ì¤˜ì•¼ í•œë‹¤.
+		//     ê²°ê³¼ë¥¼ ë°›ì•˜ì„ ë•Œ checkë¥¼ ìœ„í•´ì„œì´ë‹¤.
+		//     ê·¸ë¦¬ê³ , ê°€ì¥ ìµœê·¼ì˜ Instance IDë¥¼ í•˜ë‚˜ë§Œ ê¸°ì–µí•œë‹¤.		
 		//----------------------------------------------------------------------
 
-		// °á°ú¸¦ º¸¿©ÁÖ´Â ActionÀÌ ¾Æ´Ï°í
-		// ½ÇÁ¦·Î Player°¡ »ç¿ëÇÑ ActionÀÏ °æ¿ì¿¡¸¸ PacketÀ» º¸³½´Ù.
+		// ê²°ê³¼ë¥¼ ë³´ì—¬ì£¼ëŠ” Actionì´ ì•„ë‹ˆê³ 
+		// ì‹¤ì œë¡œ Playerê°€ ì‚¬ìš©í•œ Actionì¼ ê²½ìš°ì—ë§Œ Packetì„ ë³´ë‚¸ë‹¤.
 		if (m_nUsedActionInfo < (*g_pActionInfoTable).GetMinResultActionInfo())
 		{
 			//--------------------------------------------------------
-			// ±â¼ú »ç¿ë ½Ã°£ Delay¸¦ ¼³Á¤ÇØÁØ´Ù.
-			// ½ÃÀÛ ±â¼úÀÎ °æ¿ì¿¡¸¸..
+			// ê¸°ìˆ  ì‚¬ìš© ì‹œê°„ Delayë¥¼ ì„¤ì •í•´ì¤€ë‹¤.
+			// ì‹œì‘ ê¸°ìˆ ì¸ ê²½ìš°ì—ë§Œ..
 			//--------------------------------------------------------
 			if (m_Action==ACTION_STAND)
 			{
-				// Á¤Áö µ¿ÀÛ ±â¼úÀº 0.3ÃÊÀÇ delay¸¦ °¡Áø´Ù.
+				// ì •ì§€ ë™ì‘ ê¸°ìˆ ì€ 0.3ì´ˆì˜ delayë¥¼ ê°€ì§„ë‹¤.
 				m_DelayTime	= g_CurrentTime + 300;
 			}
 			else if (m_bRepeatAction)
@@ -6912,13 +6928,13 @@ MPlayer::ActionToSendPacket()
 			{
 				m_DelayTime	= g_CurrentTime 
 								+ GetActionInfoDelay(m_nUsedActionInfo);
-								// [ÀûÀıÇÑ Å¸ÀÌ¹Ö]¿¡ º¸³¾¶§´Â - ÇØ¾ß ÇÑ´Ù.
-								// - (m_ActionCount<<6);	// Áö³ª°£ ActionCount¸¸Å­ delay¸¦ »©ÁØ´Ù.
+								// [ì ì ˆí•œ íƒ€ì´ë°]ì— ë³´ë‚¼ë•ŒëŠ” - í•´ì•¼ í•œë‹¤.
+								// - (m_ActionCount<<6);	// ì§€ë‚˜ê°„ ActionCountë§Œí¼ delayë¥¼ ë¹¼ì¤€ë‹¤.
 			}
 
 		//----------------------------------------------------------
 		//
-		//			¼­¹ö¿¡ Á¢¼ÓÇØ ÀÖ´Â °æ¿ì..
+		//			ì„œë²„ì— ì ‘ì†í•´ ìˆëŠ” ê²½ìš°..
 		//
 		//----------------------------------------------------------
 
@@ -6937,19 +6953,19 @@ MPlayer::ActionToSendPacket()
 			}
 
 			//----------------------------------------------------------
-			// °á°ú¸¦ ÇÏ³ª »ı¼º½ÃÄÑ µĞ´Ù.
+			// ê²°ê³¼ë¥¼ í•˜ë‚˜ ìƒì„±ì‹œì¼œ ë‘”ë‹¤.
 			//----------------------------------------------------------
 			m_pEffectTarget = new MEffectTarget( (*g_pActionInfoTable)[m_nUsedActionInfo].GetSize() );
 			
 			DEBUG_ADD_FORMAT("NewEffectTarget: action=(%d/%d) ActionInfo=%d, pEffectTarget=%x", m_ActionCount, m_ActionCountMax, m_nUsedActionInfo, m_pEffectTarget);
 			
 			//---------------------------------------------------------
-			// ÁøÇàÁßÀÎ °á°ú·Î¼­ Ãß°¡ÇÑ´Ù.
+			// ì§„í–‰ì¤‘ì¸ ê²°ê³¼ë¡œì„œ ì¶”ê°€í•œë‹¤.
 			//----------------------------------------------------------
 			AddEffectTarget( m_pEffectTarget );
 
 			//----------------------------------------------------------
-			// »õ·Î¿î EffectID¸¦ ¹ß±Ş?¹Ş´Â´Ù.
+			// ìƒˆë¡œìš´ EffectIDë¥¼ ë°œê¸‰?ë°›ëŠ”ë‹¤.
 			//----------------------------------------------------------
 			m_pEffectTarget->NewEffectID();
 
@@ -6957,7 +6973,7 @@ MPlayer::ActionToSendPacket()
 			if (m_fTraceBuffer!=FLAG_TRACE_NULL)
 			{
 				//----------------------------------------------------------
-				// ´ÙÀ½¿¡ ÀÌ ±â¼úÀ» »ç¿ëÇÒ ¼ö ÀÖ´Â ½Ã°£ ¼³Á¤
+				// ë‹¤ìŒì— ì´ ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ì‹œê°„ ì„¤ì •
 				//----------------------------------------------------------
 				int originalActionInfo = m_nUsedActionInfo;
 				if( (*g_pActionInfoTable)[m_nUsedActionInfo].GetParentActionInfo() != ACTIONINFO_NULL )
@@ -6965,17 +6981,17 @@ MPlayer::ActionToSendPacket()
 				(*g_pSkillInfoTable)[originalActionInfo].SetNextAvailableTime();
 
 				//----------------------------------------------------------
-				// º¸³»´Â packet Á¾·ù ¼³Á¤
+				// ë³´ë‚´ëŠ” packet ì¢…ë¥˜ ì„¤ì •
 				//----------------------------------------------------------
 				ACTIONINFO_PACKET	packetType		= (*g_pActionInfoTable)[m_nUsedActionInfo].GetPacketType();
 				
 
 				//----------------------------------------------------------
 				//
-				//			»ó´ë¿¡°Ô »ç¿ëÇÏ´Â °ÍÀÌ¸é..
+				//			ìƒëŒ€ì—ê²Œ ì‚¬ìš©í•˜ëŠ” ê²ƒì´ë©´..
 				//
 				//----------------------------------------------------------
-				// ±âº» °ø°İ
+				// ê¸°ë³¸ ê³µê²©
 				//----------------------------------------------------------
 				if (m_fTraceBuffer & FLAG_TRACE_CREATURE_BASIC) 
 				{
@@ -7004,7 +7020,7 @@ MPlayer::ActionToSendPacket()
 				}
 				//----------------------------------------------------------
 				//
-				// Blood drainÀÎ °æ¿ì
+				// Blood drainì¸ ê²½ìš°
 				//
 				//----------------------------------------------------------
 				else if (packetType==ACTIONINFO_PACKET_BLOOD_DRAIN)
@@ -7012,13 +7028,13 @@ MPlayer::ActionToSendPacket()
 					CGBloodDrain _CGBloodDrain;
 					_CGBloodDrain.setObjectID( m_TraceID );
 					g_pSocket->sendPacket( &_CGBloodDrain );
-			//		DEBUG_ADD("ÈíÇ÷ ¸Ş¼¼Áö º¸³¿");									
-					// 2001.8.20 ÁÖ¼®Ã³¸®
+			//		DEBUG_ADD("í¡í˜ˆ ë©”ì„¸ì§€ ë³´ëƒ„");									
+					// 2001.8.20 ì£¼ì„ì²˜ë¦¬
 //					SetWaitVerify( WAIT_VERIFY_SKILL_SUCCESS, m_nUsedActionInfo );
 				}
 				//----------------------------------------------------------
 				//
-				// Èí¿µÀÎ °æ¿ì
+				// í¡ì˜ì¸ ê²½ìš°
 				//
 				//----------------------------------------------------------
 				else if (packetType==ACTIONINFO_PACKET_ABSORB_SOUL)
@@ -7053,7 +7069,7 @@ MPlayer::ActionToSendPacket()
 
 						MOustersPupa pupa;
 
-						// ¶ó¹Ù¿Í °°Àº Å¸ÀÔÀ¸·Î
+						// ë¼ë°”ì™€ ê°™ì€ íƒ€ì…ìœ¼ë¡œ
 						pupa.SetItemType(pLarvaItem->GetItemType());
 
 						POINT p;
@@ -7061,25 +7077,25 @@ MPlayer::ActionToSendPacket()
 						_CGAbsorbSoul.setTargetInvenX(p.x);
 						_CGAbsorbSoul.setTargetInvenY(p.y);
 
-						// (!!!) °ËÁõ packetÀ» ¹ŞÀ»¶§±îÁö itemÀ» ¸ø ¿òÁ÷ÀÌµµ·Ï ÇØ¾ßÇÑ´Ù.
-						// Item°ü·Ã ÇàÀ§ Áß´Ü
+						// (!!!) ê²€ì¦ packetì„ ë°›ì„ë•Œê¹Œì§€ itemì„ ëª» ì›€ì§ì´ë„ë¡ í•´ì•¼í•œë‹¤.
+						// Itemê´€ë ¨ í–‰ìœ„ ì¤‘ë‹¨
 						SetItemCheckBuffer(pLarvaItem, ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY);
 						
-						// ±â¼ú »ç¿ë Áß´Ü
-						// 2001.8.20 ÁÖ¼®Ã³¸®
-						// 2001.10.26 ÁÖ¼®ÇØÁ¦ - ItemÀº °ËÁõµÇ¾î¾ß ÇÑ´Ù.
+						// ê¸°ìˆ  ì‚¬ìš© ì¤‘ë‹¨
+						// 2001.8.20 ì£¼ì„ì²˜ë¦¬
+						// 2001.10.26 ì£¼ì„í•´ì œ - Itemì€ ê²€ì¦ë˜ì–´ì•¼ í•œë‹¤.
 						SetWaitVerify( WAIT_VERIFY_SKILL_SUCCESS, m_nUsedActionInfo );
 					}
 
 					g_pSocket->sendPacket( &_CGAbsorbSoul );
 
 					
-					// 2001.8.20 ÁÖ¼®Ã³¸®
+					// 2001.8.20 ì£¼ì„ì²˜ë¦¬
 					SetWaitVerify( WAIT_VERIFY_SKILL_SUCCESS, m_nUsedActionInfo );
 				}
 				//----------------------------------------------------------
 				//
-				// ´Ù¸¥ »ç¶÷¿¡°Ô »ç¿ëÇÏ´Â packetÀ» º¸³»´Â °æ¿ì
+				// ë‹¤ë¥¸ ì‚¬ëŒì—ê²Œ ì‚¬ìš©í•˜ëŠ” packetì„ ë³´ë‚´ëŠ” ê²½ìš°
 				//
 				//----------------------------------------------------------
 				else if	(packetType==ACTIONINFO_PACKET_OTHER
@@ -7088,7 +7104,7 @@ MPlayer::ActionToSendPacket()
 					#ifndef __EXPO_CLIENT__
 
 						//-----------------------------------------------
-						// itemÀ» »ç¿ëÇØ¼­ skillÀ» »ç¿ëÇÏ´Â °æ¿ì
+						// itemì„ ì‚¬ìš©í•´ì„œ skillì„ ì‚¬ìš©í•˜ëŠ” ê²½ìš°
 						//-----------------------------------------------					
 						if ((*g_pActionInfoTable)[m_nUsedActionInfo].GetWeaponType()
 							& FLAG_ACTIONINFO_WEAPON_HOLY_WATER)
@@ -7096,20 +7112,20 @@ MPlayer::ActionToSendPacket()
 							MItem* pUsingItem = g_pInventory->FindItem( ITEM_CLASS_HOLYWATER );
 							
 							//-----------------------------------------------
-							// »ç¿ëÇÒ itemÀÌ ¾ø´Â °æ¿ì
+							// ì‚¬ìš©í•  itemì´ ì—†ëŠ” ê²½ìš°
 							//-----------------------------------------------
 							if (pUsingItem==NULL)
 							{
 								//-------------------------------------------------
-								// Skill Icon Ã¼Å© - ÇÊ¿äÇÒ·Á³ª.. - -;
+								// Skill Icon ì²´í¬ - í•„ìš”í• ë ¤ë‚˜.. - -;
 								//-------------------------------------------------
 								g_pSkillAvailable->SetAvailableSkills();
 
-								// ÃßÀû ÁßÁö
+								// ì¶”ì  ì¤‘ì§€
 								TraceNULL();
 
 								//------------------------------------------
-								// Á¦ÀÚ¸®¿¡¼­ Èçµé°Å¸®´Â ¸ğ½À
+								// ì œìë¦¬ì—ì„œ í”ë“¤ê±°ë¦¬ëŠ” ëª¨ìŠµ
 								//------------------------------------------
 								SetAction( ACTION_STAND );
 
@@ -7129,14 +7145,14 @@ MPlayer::ActionToSendPacket()
 							g_pSocket->sendPacket( &_CGThrowItem );						
 							
 							//--------------------------------------------------
-							// 1°³ ÀÌ»óÀÎ °æ¿ì¿¡´Â °³¼ö¸¸ ÁÙÀÎ´Ù.
+							// 1ê°œ ì´ìƒì¸ ê²½ìš°ì—ëŠ” ê°œìˆ˜ë§Œ ì¤„ì¸ë‹¤.
 							//--------------------------------------------------
 							if (pUsingItem->GetNumber()>1)
 							{
 								pUsingItem->SetNumber( pUsingItem->GetNumber() - 1 );
 							}
 							//--------------------------------------------------
-							// 1°³¸¸ ³²Àº °æ¿ì´Â ItemÀ» ¿ÏÀüÈ÷ Á¦°ÅÇÑ´Ù
+							// 1ê°œë§Œ ë‚¨ì€ ê²½ìš°ëŠ” Itemì„ ì™„ì „íˆ ì œê±°í•œë‹¤
 							//--------------------------------------------------
 							else
 							{
@@ -7144,7 +7160,7 @@ MPlayer::ActionToSendPacket()
 
 								if (pRemovedItem!=NULL)
 								{
-									// itemÁ¤º¸ Á¦°Å
+									// itemì •ë³´ ì œê±°
 									UI_RemoveDescriptor( (void*)pRemovedItem );
 
 									delete pRemovedItem;								
@@ -7155,13 +7171,13 @@ MPlayer::ActionToSendPacket()
 								}
 
 								//-------------------------------------------------
-								// Skill Icon Ã¼Å©
+								// Skill Icon ì²´í¬
 								//-------------------------------------------------
 								g_pSkillAvailable->SetAvailableSkills();
 							}
 						}
 						//-----------------------------------------------
-						// ÆøÅºÀ» »ç¿ëÇØ¼­ skillÀ» »ç¿ëÇÏ´Â °æ¿ì
+						// í­íƒ„ì„ ì‚¬ìš©í•´ì„œ skillì„ ì‚¬ìš©í•˜ëŠ” ê²½ìš°
 						//-----------------------------------------------					
 						if ((*g_pActionInfoTable)[m_nUsedActionInfo].GetWeaponType()
 							& FLAG_ACTIONINFO_WEAPON_BOMB)
@@ -7182,20 +7198,20 @@ MPlayer::ActionToSendPacket()
 							}
 							
 							//-----------------------------------------------
-							// »ç¿ëÇÒ itemÀÌ ¾ø´Â °æ¿ì
+							// ì‚¬ìš©í•  itemì´ ì—†ëŠ” ê²½ìš°
 							//-----------------------------------------------
 							if (pUsingItem==NULL)
 							{
 								//-------------------------------------------------
-								// Skill Icon Ã¼Å© - ÇÊ¿äÇÒ·Á³ª.. - -;
+								// Skill Icon ì²´í¬ - í•„ìš”í• ë ¤ë‚˜.. - -;
 								//-------------------------------------------------
 								g_pSkillAvailable->SetAvailableSkills();
 
-								// ÃßÀû ÁßÁö
+								// ì¶”ì  ì¤‘ì§€
 								TraceNULL();
 
 								//------------------------------------------
-								// Á¦ÀÚ¸®¿¡¼­ Èçµé°Å¸®´Â ¸ğ½À
+								// ì œìë¦¬ì—ì„œ í”ë“¤ê±°ë¦¬ëŠ” ëª¨ìŠµ
 								//------------------------------------------
 								SetAction( ACTION_STAND );
 
@@ -7217,14 +7233,14 @@ MPlayer::ActionToSendPacket()
 							g_pSocket->sendPacket( &cgThrowBomb );						
 							
 							//--------------------------------------------------
-							// 1°³ ÀÌ»óÀÎ °æ¿ì¿¡´Â °³¼ö¸¸ ÁÙÀÎ´Ù.
+							// 1ê°œ ì´ìƒì¸ ê²½ìš°ì—ëŠ” ê°œìˆ˜ë§Œ ì¤„ì¸ë‹¤.
 							//--------------------------------------------------
 							if (pUsingItem->GetNumber()>1)
 							{
 								pUsingItem->SetNumber( pUsingItem->GetNumber() - 1 );
 							}
 							//--------------------------------------------------
-							// 1°³¸¸ ³²Àº °æ¿ì´Â ItemÀ» ¿ÏÀüÈ÷ Á¦°ÅÇÑ´Ù
+							// 1ê°œë§Œ ë‚¨ì€ ê²½ìš°ëŠ” Itemì„ ì™„ì „íˆ ì œê±°í•œë‹¤
 							//--------------------------------------------------
 							else
 							{
@@ -7232,7 +7248,7 @@ MPlayer::ActionToSendPacket()
 
 								if (pRemovedItem!=NULL)
 								{
-									// itemÁ¤º¸ Á¦°Å
+									// itemì •ë³´ ì œê±°
 									UI_RemoveDescriptor( (void*)pRemovedItem );
 
 									delete pRemovedItem;								
@@ -7243,7 +7259,7 @@ MPlayer::ActionToSendPacket()
 								}
 
 								//-------------------------------------------------
-								// Skill Icon Ã¼Å©
+								// Skill Icon ì²´í¬
 								//-------------------------------------------------
 								g_pSkillAvailable->SetAvailableSkills();
 							}
@@ -7266,9 +7282,9 @@ MPlayer::ActionToSendPacket()
 						}
 
 					#else
-					// ÀÓ½Ã·Î..
-					// BOMB±â¼úÀº targetÀÌ object¿Í tileÀÌ¹Ç·Î..
-					// ¹«Á¶°Ç tile·Î º¸³»ÁØ´Ù.
+					// ì„ì‹œë¡œ..
+					// BOMBê¸°ìˆ ì€ targetì´ objectì™€ tileì´ë¯€ë¡œ..
+					// ë¬´ì¡°ê±´ tileë¡œ ë³´ë‚´ì¤€ë‹¤.
 						if (m_nUsedActionInfo==BOMB_TWISTER)
 						{
 							int SkillType = m_nUsedActionInfo;
@@ -7302,12 +7318,12 @@ MPlayer::ActionToSendPacket()
 						}
 					#endif
 						
-					// 2001.8.20 ÁÖ¼®Ã³¸®
+					// 2001.8.20 ì£¼ì„ì²˜ë¦¬
 					SetWaitVerify( WAIT_VERIFY_SKILL_SUCCESS, m_nUsedActionInfo );
 				}
 				//----------------------------------------------------------
 				//
-				//			ÀÚ½Å¿¡°Ô »ç¿ëÇÏ´Â °ÍÀÌ¸é..
+				//			ìì‹ ì—ê²Œ ì‚¬ìš©í•˜ëŠ” ê²ƒì´ë©´..
 				//
 				//----------------------------------------------------------
 				else if (packetType==ACTIONINFO_PACKET_SELF
@@ -7325,13 +7341,13 @@ MPlayer::ActionToSendPacket()
 					_CGSkillToSelf.setCEffectID( m_pEffectTarget->GetEffectID() );
 					g_pSocket->sendPacket( &_CGSkillToSelf );
 
-					// 2001.8.20 ÁÖ¼®Ã³¸®
+					// 2001.8.20 ì£¼ì„ì²˜ë¦¬
 					SetWaitVerify( WAIT_VERIFY_SKILL_SUCCESS, m_nUsedActionInfo );
 					//*/
 				}
 				//----------------------------------------------------------
 				//
-				//				Tile¿¡ »ç¿ëÇÏ´Â °ÍÀÌ¸é..
+				//				Tileì— ì‚¬ìš©í•˜ëŠ” ê²ƒì´ë©´..
 				//
 				//----------------------------------------------------------
 				else if (packetType==ACTIONINFO_PACKET_ZONE
@@ -7374,13 +7390,13 @@ MPlayer::ActionToSendPacket()
 					_CGSkillToTile.setY( m_TraceY );
 					g_pSocket->sendPacket( &_CGSkillToTile );
 
-					// 2001.8.20 ÁÖ¼®Ã³¸®
+					// 2001.8.20 ì£¼ì„ì²˜ë¦¬
 					SetWaitVerify( WAIT_VERIFY_SKILL_SUCCESS, m_nUsedActionInfo );
 					//*/
 				}
 				//----------------------------------------------------------
 				//
-				//				Inventory¿¡ »ç¿ëÇÏ´Â °ÍÀÌ¸é..
+				//				Inventoryì— ì‚¬ìš©í•˜ëŠ” ê²ƒì´ë©´..
 				//
 				//----------------------------------------------------------
 				else if (packetType==ACTIONINFO_PACKET_ITEM
@@ -7390,7 +7406,7 @@ MPlayer::ActionToSendPacket()
 
 					if (pItem!=NULL && IsItemCheckBufferNULL())
 					{
-						// inventoryÀÇ Item¿¡ ±â¼úÀ» »ç¿ëÇÑ´Ù°í packetÃ³¸®¸¦ ÇØÁÖ¸é µÈ´Ù.
+						// inventoryì˜ Itemì— ê¸°ìˆ ì„ ì‚¬ìš©í•œë‹¤ê³  packetì²˜ë¦¬ë¥¼ í•´ì£¼ë©´ ëœë‹¤.
 						CGSkillToInventory _CGSkillToInventory;
 						
 						_CGSkillToInventory.setSkillType( m_nUsedActionInfo );
@@ -7400,13 +7416,13 @@ MPlayer::ActionToSendPacket()
 						_CGSkillToInventory.setY( pItem->GetGridY() );
 
 							
-						// (!!!) °ËÁõ packetÀ» ¹ŞÀ»¶§±îÁö itemÀ» ¸ø ¿òÁ÷ÀÌµµ·Ï ÇØ¾ßÇÑ´Ù.
-						// Item°ü·Ã ÇàÀ§ Áß´Ü
+						// (!!!) ê²€ì¦ packetì„ ë°›ì„ë•Œê¹Œì§€ itemì„ ëª» ì›€ì§ì´ë„ë¡ í•´ì•¼í•œë‹¤.
+						// Itemê´€ë ¨ í–‰ìœ„ ì¤‘ë‹¨
 						SetItemCheckBuffer(pItem, ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY);
 						
-						// ±â¼ú »ç¿ë Áß´Ü
-						// 2001.8.20 ÁÖ¼®Ã³¸®
-						// 2001.10.26 ÁÖ¼®ÇØÁ¦ - ItemÀº °ËÁõµÇ¾î¾ß ÇÑ´Ù.
+						// ê¸°ìˆ  ì‚¬ìš© ì¤‘ë‹¨
+						// 2001.8.20 ì£¼ì„ì²˜ë¦¬
+						// 2001.10.26 ì£¼ì„í•´ì œ - Itemì€ ê²€ì¦ë˜ì–´ì•¼ í•œë‹¤.
 						SetWaitVerify( WAIT_VERIFY_SKILL_SUCCESS, m_nUsedActionInfo );
 					}
 					
@@ -7418,24 +7434,24 @@ MPlayer::ActionToSendPacket()
 
 
 		//----------------------------------------------------------------------
-		// Packet °á°ú¸¦ ¹ŞÀ» °æ¿ì¿¡..
+		// Packet ê²°ê³¼ë¥¼ ë°›ì„ ê²½ìš°ì—..
 		//----------------------------------------------------------------------
-		// Client¿¡¼­ º¸³½ Instance ID¸¦ °°ÀÌ ¹Ş¾Æ¼­..
-		// ±× ID°¡ ÇöÀç ÀúÀåµÈ InstanceID¿Í °°À¸¸é .. ¾ÆÁ÷ ±× ActionInfo°¡
-		// ÁøÇàÁßÀÌ¶ó´Â ÀÇ¹ÌÀÌ´Ù. PlayerÀÇ ActionInfo°¡ ³¡³¯¶§´Â
-		// Instance ID¸¦ 0À¸·Î? ÇØ¾ßÇÏÁö ¾ÊÀ»±î..
+		// Clientì—ì„œ ë³´ë‚¸ Instance IDë¥¼ ê°™ì´ ë°›ì•„ì„œ..
+		// ê·¸ IDê°€ í˜„ì¬ ì €ì¥ëœ InstanceIDì™€ ê°™ìœ¼ë©´ .. ì•„ì§ ê·¸ ActionInfoê°€
+		// ì§„í–‰ì¤‘ì´ë¼ëŠ” ì˜ë¯¸ì´ë‹¤. Playerì˜ ActionInfoê°€ ëë‚ ë•ŒëŠ”
+		// Instance IDë¥¼ 0ìœ¼ë¡œ? í•´ì•¼í•˜ì§€ ì•Šì„ê¹Œ..
 		//
-		// °°À¸¸é.. Server¿¡¼­ ³¯¾Æ¿Â ActionInfoÀÇ °á°ú¸¦ ±â¾ï½ÃÄÑµÎ°í  
-		//          ³ªÁß¿¡~~~ Ãâ·ÂÇÏ°í..(ActionInfo°¡ ³¡³­ÈÄ¿¡)
-		// ´Ù¸£¸é.. Áï½Ã Ãâ·ÂÇÏ¸é µÈ´Ù.
+		// ê°™ìœ¼ë©´.. Serverì—ì„œ ë‚ ì•„ì˜¨ ActionInfoì˜ ê²°ê³¼ë¥¼ ê¸°ì–µì‹œì¼œë‘ê³   
+		//          ë‚˜ì¤‘ì—~~~ ì¶œë ¥í•˜ê³ ..(ActionInfoê°€ ëë‚œí›„ì—)
+		// ë‹¤ë¥´ë©´.. ì¦‰ì‹œ ì¶œë ¥í•˜ë©´ ëœë‹¤.
 		//
-		// ÀÌ·¸°Ô °­Á¦·Î ½Ã°£Â÷¸¦ µÎ¾î¼­.. PacketÃ³¸®¿¡ µû¸¥ Èå¸§À» ¸¸µé¾î¾ß ÇÑ´Ù.
+		// ì´ë ‡ê²Œ ê°•ì œë¡œ ì‹œê°„ì°¨ë¥¼ ë‘ì–´ì„œ.. Packetì²˜ë¦¬ì— ë”°ë¥¸ íë¦„ì„ ë§Œë“¤ì–´ì•¼ í•œë‹¤.
 		//----------------------------------------------------------------------
 
-		// castingµ¿ÀÛÀÌ ¿ø·¡´Â ¿©±â¼­ Ç¥ÇöµÆ´Ù. - -;
+		// castingë™ì‘ì´ ì›ë˜ëŠ” ì—¬ê¸°ì„œ í‘œí˜„ëë‹¤. - -;
 
 		//------------------------------------------------
-		// ±â¼úÀÇ µ¿ÀÛ¿¡ ¸Â´Â sound¸¦ Ãâ·ÂÇØÁØ´Ù.
+		// ê¸°ìˆ ì˜ ë™ì‘ì— ë§ëŠ” soundë¥¼ ì¶œë ¥í•´ì¤€ë‹¤.
 		//------------------------------------------------
 		//g_Sound.Play( g_SoundTable[(*g_pActionInfoTable)[m_nUsedActionInfo].GetSoundID()].pDSBuffer );
 		//PlaySound( (*g_pActionInfoTable)[m_nUsedActionInfo].GetSoundID() ,
@@ -7443,7 +7459,7 @@ MPlayer::ActionToSendPacket()
 		//			m_X, m_Y);	
 
 		//------------------------------------------------
-		// Ä³¸¯ÅÍÀÇ Action¿¡ ¸Â´Â Sound¸¦ Ãâ·ÂÇØÁØ´Ù.
+		// ìºë¦­í„°ì˜ Actionì— ë§ëŠ” Soundë¥¼ ì¶œë ¥í•´ì¤€ë‹¤.
 		//------------------------------------------------
 		int soundID = (*g_pCreatureTable)[m_CreatureType].GetActionSound( 
 										GetActionInfoAction(m_nUsedActionInfo) );
@@ -7453,8 +7469,8 @@ MPlayer::ActionToSendPacket()
 		//-------------------------------------------------
 		// Force Feel
 		//-------------------------------------------------
-		if (g_pUserOption->UseForceFeel && gpC_Imm!=NULL && gpC_Imm->IsDevice())				
-		{				
+		if (g_pUserOption->UseForceFeel && gpC_Imm!=NULL && gpC_Imm->IsDevice())
+		{
 			if ((*g_pActionInfoTable)[m_nUsedActionInfo].IsWeaponTypeGunAny())
 			{
 				soundID = SOUND_SLAYER_ATTACK_AR;
@@ -7463,7 +7479,10 @@ MPlayer::ActionToSendPacket()
 			if (soundID < g_pSoundTable->GetSize())
 			{
 				DEBUG_ADD_FORMAT("ForceAction-ActionToSendPacket(%d, %s)", soundID, strrchr((*g_pSoundTable)[soundID].Filename.GetString(), '\\'));
+#ifdef PLATFORM_WINDOWS
+				// Force feedback only supported on Windows with IFC
 				gpC_Imm->ForceAction( soundID );
+#endif
 			}
 		}
 	}
@@ -7476,7 +7495,7 @@ void
 MPlayer::SetServerPosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 {
 	//--------------------------------------------------------
-	// ¸ğµÎ Á¦°Å..
+	// ëª¨ë‘ ì œê±°..
 	//--------------------------------------------------------
 	m_listSendDirection.clear();
 
@@ -7485,14 +7504,14 @@ MPlayer::SetServerPosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 	g_bNetStatusGood = true;
 
 	//--------------------------------------------------------
-	// Server¿¡¼­ °ËÁõµÈ À§Ä¡¸¦ ±â¾ïÇØµĞ´Ù.
+	// Serverì—ì„œ ê²€ì¦ëœ ìœ„ì¹˜ë¥¼ ê¸°ì–µí•´ë‘”ë‹¤.
 	//--------------------------------------------------------
 	m_ServerX	= sX;
 	m_ServerY	= sY;
 
 	//--------------------------------------------------------
-	// (m_ServerX, m_ServerY)¿¡¼­ºÎÅÍ 
-	// PlayerÀÇ ½Ã¾ß¿¡ Æ÷ÇÔµÇÁö ¾Ê´Â Creature¸¦ Zone¿¡¼­ Á¦°Å½ÃÅ²´Ù.
+	// (m_ServerX, m_ServerY)ì—ì„œë¶€í„° 
+	// Playerì˜ ì‹œì•¼ì— í¬í•¨ë˜ì§€ ì•ŠëŠ” Creatureë¥¼ Zoneì—ì„œ ì œê±°ì‹œí‚¨ë‹¤.
 	//--------------------------------------------------------
 	if (m_pZone!=NULL)
 	{
@@ -7505,22 +7524,22 @@ MPlayer::SetServerPosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 //----------------------------------------------------------------------
 // Action Effect
 //----------------------------------------------------------------------
-// µ¿ÀÛÀÌ ¸ğµÎ ³¡³¯¶§¿¡ EffectÈ¿°ú¸¦ ¼öÇàÇÑ´Ù.
+// ë™ì‘ì´ ëª¨ë‘ ëë‚ ë•Œì— Effectíš¨ê³¼ë¥¼ ìˆ˜í–‰í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 MPlayer::ActionEffect()
 {
 	/*
-	// [ÀûÀıÇÑ Å¸ÀÌ¹Ö]¿¡ ÆĞÅ¶À» º¸³»´Â ÄÚµå
+	// [ì ì ˆí•œ íƒ€ì´ë°]ì— íŒ¨í‚·ì„ ë³´ë‚´ëŠ” ì½”ë“œ
 	// 
 	BOOL	bActionStand	= (m_Action==ACTION_STAND || IsSlayer() && m_Action==ACTION_SLAYER_MOTOR_STAND);
 	int		actionCountMax_1 = m_ActionCountMax-1;
 	BOOL	bEndAction		= (m_ActionCount==actionCountMax_1);// || bActionStand;
 	int		StartFrame		= (*g_pActionInfoTable)[m_nUsedActionInfo].GetStartFrame( m_WeaponSpeed );
 	
-	// µ¿ÀÛ ³¡ºÎºĞ¿¡¼­ ÆĞÅ¶ º¸³½´Ù. 2001.8.1
+	// ë™ì‘ ëë¶€ë¶„ì—ì„œ íŒ¨í‚· ë³´ë‚¸ë‹¤. 2001.8.1
 	int		packetSendTiming = min(actionCountMax_1, StartFrame);
-	BOOL	bStartAction	= (m_ActionCount==packetSendTiming);	// packetSendTimingÀÌ ¿ø·¡´Â 0ÀÌ¾ú´Ù.
+	BOOL	bStartAction	= (m_ActionCount==packetSendTiming);	// packetSendTimingì´ ì›ë˜ëŠ” 0ì´ì—ˆë‹¤.
 	
 	if (bActionStand)
 	{
@@ -7533,10 +7552,10 @@ MPlayer::ActionEffect()
 	#endif
 
 	// 2002.3.12
-	// packetÀ» º¸³»¾ßÇÏ´Â ½ÃÀÛ µ¿ÀÛÀÇ ±â¼úÀÌ¸é..
+	// packetì„ ë³´ë‚´ì•¼í•˜ëŠ” ì‹œì‘ ë™ì‘ì˜ ê¸°ìˆ ì´ë©´..
 	if (m_nUsedActionInfo < g_pActionInfoTable->GetMinResultActionInfo())
 	{
-		// °Å¸®°¡ µÇ´Â °æ¿ì¸¸ ActionEffect¸¦ ¼öÇàÇÑ´Ù.		
+		// ê±°ë¦¬ê°€ ë˜ëŠ” ê²½ìš°ë§Œ ActionEffectë¥¼ ìˆ˜í–‰í•œë‹¤.		
 		if (max(abs(m_X-m_TraceX), abs(m_Y-m_TraceY)) 
 			<= m_TraceDistance)
 		{
@@ -7550,18 +7569,18 @@ MPlayer::ActionEffect()
 				DEBUG_ADD("not inDist");
 			#endif
 
-			// °Å¸®°¡ ¾È µÇ¸é? 
+			// ê±°ë¦¬ê°€ ì•ˆ ë˜ë©´? 
 			//if (m_listDirection.empty())
 			{
 				if (m_DestX != SECTORPOSITION_NULL
 					&& m_DestY != SECTORPOSITION_NULL)
 				{
-					// ÇöÀç °¡°í ÀÖ´Â ¸ñÇ¥°¡ ÀÖ´Â °æ¿ì
+					// í˜„ì¬ ê°€ê³  ìˆëŠ” ëª©í‘œê°€ ìˆëŠ” ê²½ìš°
 				}
 				else if (abs((int)m_X-m_TraceX) < g_SECTOR_WIDTH
 						&& abs((int)m_Y-m_TraceY) < g_SECTOR_HEIGHT)
 				{
-					// ÃßÀûÇÏ´Â °æ¿ì
+					// ì¶”ì í•˜ëŠ” ê²½ìš°
 					m_DestX = m_TraceX;
 					m_DestY = m_TraceY;
 				}
@@ -7572,7 +7591,7 @@ MPlayer::ActionEffect()
 						DEBUG_ADD("NewWayOK");
 					#endif
 
-					// °¥ ±æÀÌ ÀÖ´Â °æ¿ì
+					// ê°ˆ ê¸¸ì´ ìˆëŠ” ê²½ìš°
 					m_nNextUsedActionInfo = m_nUsedActionInfo;
 					m_nUsedActionInfo = ACTIONINFO_NULL;
 					
@@ -7580,8 +7599,8 @@ MPlayer::ActionEffect()
 				}
 				else
 				{				
-					// °¥±æÀÌ ¾ø´Â °æ¿ì
-					// ¶Ç ÀÌ·± ÄÚµå°¡ ´Ã¾ú´Ù. ÂÁ.. ½Ï ¶â¾î°íÃÄ¾ßµÇ´Âµ¥ --;
+					// ê°ˆê¸¸ì´ ì—†ëŠ” ê²½ìš°
+					// ë˜ ì´ëŸ° ì½”ë“œê°€ ëŠ˜ì—ˆë‹¤. ì©.. ì‹¹ ëœ¯ì–´ê³ ì³ì•¼ë˜ëŠ”ë° --;
 					SetAction(((m_MoveDevice==MOVE_DEVICE_WALK)? ACTION_STAND : ACTION_SLAYER_MOTOR_STAND));
 					SetNextAction(ACTION_STAND);
 					m_fTraceBuffer = 0;
@@ -7612,13 +7631,13 @@ MPlayer::ActionEffect()
 	
 	BOOL	bStartAction	= (m_ActionCount==0 && !IsGunShotGuidance());
 	
-	// Effect°¡ ½ÃÀÛµÇ´Â °æ¿ì´Â..
-	// (1) StartFrameÀÎ °æ¿ì
-	// (2) ¸¶Áö¸· ActionFrameÀÎ °æ¿ì
+	// Effectê°€ ì‹œì‘ë˜ëŠ” ê²½ìš°ëŠ”..
+	// (1) StartFrameì¸ ê²½ìš°
+	// (2) ë§ˆì§€ë§‰ ActionFrameì¸ ê²½ìš°
 	BOOL	bStartEffect = m_ActionCount==StartFrame || 
 							StartFrame >= m_ActionCountMax && bEndAction;
 
-	// ¹İº¹ actionÀÇ ½ÃÀÛ frame
+	// ë°˜ë³µ actionì˜ ì‹œì‘ frame
 	bStartAction |= m_bRepeatAction 
 					&& (*g_pActionInfoTable)[m_nUsedActionInfo].IsUseRepeatFrame()
 					&& m_RepeatCount!=0
@@ -7630,14 +7649,14 @@ MPlayer::ActionEffect()
 	//----------------------------------------------------------------------
 	// [ TEST CODE ]
 	//----------------------------------------------------------------------
-	// »ó´çÈ÷ À§ÇèÇÑ ÁşÀÌÁö¸¸.. - -;;
-	// Å©°Ô ¹®Á¦´Â ¾øÀ» µí...
+	// ìƒë‹¹íˆ ìœ„í—˜í•œ ì§“ì´ì§€ë§Œ.. - -;;
+	// í¬ê²Œ ë¬¸ì œëŠ” ì—†ì„ ë“¯...
 	//----------------------------------------------------------------------
-	// EffectTargetÀº castingµ¿ÀÛÀÌ ³¡³­ µÚ¿¡ »ı¼ºµÇ´Âµ¥,
-	// EffectTargetÀÇ ID¸¦ casting½ÃÀÛ¶§¿¡ server·Î º¸³»¾ß ÇÏ±â ¶§¹®¿¡
-	// ÀÓ½Ã·Î... EffectTargetÀ» ¸ÕÀú »ı¼º½ÃÄÑµÎ°í »ç¿ëÇß´Ù.
+	// EffectTargetì€ castingë™ì‘ì´ ëë‚œ ë’¤ì— ìƒì„±ë˜ëŠ”ë°,
+	// EffectTargetì˜ IDë¥¼ castingì‹œì‘ë•Œì— serverë¡œ ë³´ë‚´ì•¼ í•˜ê¸° ë•Œë¬¸ì—
+	// ì„ì‹œë¡œ... EffectTargetì„ ë¨¼ì € ìƒì„±ì‹œì¼œë‘ê³  ì‚¬ìš©í–ˆë‹¤.
 	//----------------------------------------------------------------------
-	// À½. data member·Î ¹Ù²å´Ù. - -;;
+	// ìŒ. data memberë¡œ ë°”ê¿¨ë‹¤. - -;;
 	//static MEffectTarget* 
 
 	
@@ -7648,7 +7667,7 @@ MPlayer::ActionEffect()
 	int SkillInfo = m_nUsedActionInfo;
 	if(SkillInfo == SKILL_SWEEP_VICE_1)
 	{
-		if(!GetSweepViewValue() && g_bRButtonDown) //½ºÀ¬¹ÙÀÌ½º¸¦ ¾ÆÁ÷ »ç¿ëÁßÀÌ ¾Æ´Ò¶§
+		if(!GetSweepViewValue() && g_bRButtonDown) //ìŠ¤ìœ•ë°”ì´ìŠ¤ë¥¼ ì•„ì§ ì‚¬ìš©ì¤‘ì´ ì•„ë‹ë•Œ
 		{
 			if(g_pSkillAvailable->IsEnableSkill( SKILL_SWEEP_VICE_1)
 				&&!IsDead()
@@ -7687,11 +7706,11 @@ MPlayer::ActionEffect()
 	
 	//----------------------------------------------------------
 	//
-	//					µ¿ÀÛ ½ÃÀÛ ½ÃÁ¡..
+	//					ë™ì‘ ì‹œì‘ ì‹œì ..
 	//
 	//----------------------------------------------------------
-	if (//bStartEffect)		// Effect°¡ ºÙÀ»¶§ packetÀ» º¸³½´Ù.
-		bStartAction)		// µ¿ÀÛ ½ÃÀÛÇÒ¶§ packetÀ» º¸³½´Ù.
+	if (//bStartEffect)		// Effectê°€ ë¶™ì„ë•Œ packetì„ ë³´ë‚¸ë‹¤.
+		bStartAction)		// ë™ì‘ ì‹œì‘í• ë•Œ packetì„ ë³´ë‚¸ë‹¤.
 	{	
 		if(HasEffectStatus(EFFECTSTATUS_INSTALL_TURRET))
 		{
@@ -7717,27 +7736,27 @@ MPlayer::ActionEffect()
 	AttachCastingEffect( SkillInfo );
 
 	//-------------------------------------------------------------
-	// Á¤Áö µ¿ÀÛÀÌ¸é..
-	// ¹Ù·Î effect¸¦ º¸¿©ÁØ´Ù.
+	// ì •ì§€ ë™ì‘ì´ë©´..
+	// ë°”ë¡œ effectë¥¼ ë³´ì—¬ì¤€ë‹¤.
 	//-------------------------------------------------------------
 
-	// [ÀûÀıÇÑ Å¸ÀÌ¹Ö] ¸Â°Ô º¸³¾·Á¸é ÀÌ°Å ÁÖ¼®Ã³¸® ÇØ¾ßÇÑ´Ù.
+	// [ì ì ˆí•œ íƒ€ì´ë°] ë§ê²Œ ë³´ë‚¼ë ¤ë©´ ì´ê±° ì£¼ì„ì²˜ë¦¬ í•´ì•¼í•œë‹¤.
 	if (bActionStand)
 	{
 		m_ActionCount = actionCountMax_1;
 	}
 
 	//----------------------------------------------------------
-	// action count Áõ°¡
+	// action count ì¦ê°€
 	//----------------------------------------------------------
-	// ¿Ö ¿©±â¼­ Áõ°¡ÇÏ³Ä¸é?
-	// ¹Ø¿¡¼­.. actionCount°¡ ¹Ù²ğ ¼ö ÀÖ±â ¶§¹®¿¡..
+	// ì™œ ì—¬ê¸°ì„œ ì¦ê°€í•˜ëƒë©´?
+	// ë°‘ì—ì„œ.. actionCountê°€ ë°”ë€” ìˆ˜ ìˆê¸° ë•Œë¬¸ì—..
 	//----------------------------------------------------------
 	m_ActionCount++; 
 
 
 	//--------------------------------------------------------	
-	// ÀÓ½Ã·Î ÈíÇ÷µ¿ÀÛ ÁßÁöÇÏ´Â°Å..
+	// ì„ì‹œë¡œ í¡í˜ˆë™ì‘ ì¤‘ì§€í•˜ëŠ”ê±°..
 	//--------------------------------------------------------	
 	if (m_bStopBloodDrain)
 	{
@@ -7751,10 +7770,10 @@ MPlayer::ActionEffect()
 		
 	//----------------------------------------------------------
 	//
-	//					Effect ½ÃÀÛ
+	//					Effect ì‹œì‘
 	//
 	//----------------------------------------------------------
-	// affect ÈÄ¿¡ ÀÌ°Ô ¹Ù²ğ ¼öµµ ÀÖ´Ù T_T;
+	// affect í›„ì— ì´ê²Œ ë°”ë€” ìˆ˜ë„ ìˆë‹¤ T_T;
 	TYPE_ACTIONINFO currentUsedActionInfo = SkillInfo;
 
 	if (bStartEffect)
@@ -7768,21 +7787,21 @@ MPlayer::ActionEffect()
 
 	//----------------------------------------------------------
 	//
-	//					Actionµ¿ÀÛÀÌ ³¡³¯ ¶§
+	//					Actionë™ì‘ì´ ëë‚  ë•Œ
 	//
 	//----------------------------------------------------------
 	if (bEndAction)
 		//&& (*g_pActionInfoTable)[ m_nUsedActionInfo ].GetSize()!=0)		
 	{
 		//--------------------------------------------------------
-		// ÃßÀû Á¤º¸¸¦ ¾ø¾ÖÁØ´Ù.
+		// ì¶”ì  ì •ë³´ë¥¼ ì—†ì• ì¤€ë‹¤.
 		//--------------------------------------------------------
 		//m_TraceID	= OBJECTID_NULL;
 		//m_Action	= ACTION_STAND;
 
 		//--------------------------------------------------------
-		// ±â¼ú »ç¿ë ½Ã°£ Delay¸¦ ¼³Á¤ÇØÁØ´Ù.
-		// ½ÃÀÛ ±â¼úÀÎ °æ¿ì¿¡¸¸..
+		// ê¸°ìˆ  ì‚¬ìš© ì‹œê°„ Delayë¥¼ ì„¤ì •í•´ì¤€ë‹¤.
+		// ì‹œì‘ ê¸°ìˆ ì¸ ê²½ìš°ì—ë§Œ..
 		//--------------------------------------------------------
 		// [ TEST CODE ]
 		//if (//currentUsedActionInfo!=ACTIONINFO_NULL && 
@@ -7795,7 +7814,7 @@ MPlayer::ActionEffect()
 
 
 		//------------------------------------------------------------
-		// ¹İº¹ Çàµ¿ Ã¼Å©..
+		// ë°˜ë³µ í–‰ë™ ì²´í¬..
 		//------------------------------------------------------------
 			///*
 		if (CheckRepeatAction())
@@ -7803,7 +7822,7 @@ MPlayer::ActionEffect()
 			CheckBufferAction();
 		}
 
-		// 2002.3.24 checkRepeatAction() À§¿¡ ÀÖ´ø°É ¿©±â·Î ³»·È´Ù.
+		// 2002.3.24 checkRepeatAction() ìœ„ì— ìˆë˜ê±¸ ì—¬ê¸°ë¡œ ë‚´ë ¸ë‹¤.
 		m_nUsedActionInfo = ACTIONINFO_NULL;		
 
 		//*/
@@ -7816,35 +7835,35 @@ MPlayer::ActionEffect()
 
 
 //----------------------------------------------------------------------
-// ½Ã¾ß ¼öÁ¤
+// ì‹œì•¼ ìˆ˜ì •
 //----------------------------------------------------------------------
 //void	
 //MPlayer::SetLightSight(char LightSight)
 //{
-//	// ½Ã¾ß°¡ ¼³Á¤µÇ¾î ÀÖÀ» ¶§, ½Ã¾ß Á¦°Å..
+//	// ì‹œì•¼ê°€ ì„¤ì •ë˜ì–´ ìˆì„ ë•Œ, ì‹œì•¼ ì œê±°..
 ////	if (m_TimeLightSightX != SECTORPOSITION_NULL)
 ////	{
 //////		m_pZone->UnSetLight(m_LightSightX, m_LightSightY, m_LightSight);	
 ////	}
 //
-//	// ¼³Á¤
+//	// ì„¤ì •
 //	m_TimeLightSight = LightSight;
 //
-//	// ¼³Á¤µÈ ½Ã¾ß¿¡ ´ëÇÑ ÁÂÇ¥°ªÀ» Set..	
+//	// ì„¤ì •ëœ ì‹œì•¼ì— ëŒ€í•œ ì¢Œí‘œê°’ì„ Set..	
 ////	m_TimeLightSightX = m_X;
 ////	m_TimeLightSightY = m_Y;
 //
-//	// »õ·Î¿î ½Ã¾ß ¹üÀ§ ÁöÁ¤.		
+//	// ìƒˆë¡œìš´ ì‹œì•¼ ë²”ìœ„ ì§€ì •.		
 ////	m_pZone->SetLight(m_X, m_Y, m_LightSight);			
 //}
 
 //----------------------------------------------------------------------
-// ½Ã¾ß »èÁ¦
+// ì‹œì•¼ ì‚­ì œ
 //----------------------------------------------------------------------
 //void	
 //MPlayer::UnSetLightSight()
 //{
-//	// ½Ã¾ß°¡ ¼³Á¤µÇ¾î ÀÖÀ» ¶§, ½Ã¾ß Á¦°Å..
+//	// ì‹œì•¼ê°€ ì„¤ì •ë˜ì–´ ìˆì„ ë•Œ, ì‹œì•¼ ì œê±°..
 ////	if (m_LightSightX != SECTORPOSITION_NULL)
 ////	{
 ////		m_pZone->UnSetLight(m_LightSightX, m_LightSightY, m_LightSight);	
@@ -7859,7 +7878,7 @@ MPlayer::ActionEffect()
 //----------------------------------------------------------------------
 // Set ItemCheckBuffer
 //----------------------------------------------------------------------
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 void MPlayer::SetItemCheckBuffer(MItem* pItem, enum ITEM_CHECK_BUFFER status, TYPE_OBJECTID SubItem)
 	#else
 void MPlayer::SetItemCheckBuffer(MItem* pItem, enum ITEM_CHECK_BUFFER status)
@@ -7868,7 +7887,7 @@ void MPlayer::SetItemCheckBuffer(MItem* pItem, enum ITEM_CHECK_BUFFER status)
 {
 	m_pItemCheckBuffer = pItem;
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		m_dwSubItemIDCheckBuffer = SubItem;
 	#endif
 
@@ -7906,13 +7925,13 @@ MPlayer::ClearItemCheckBuffer()
 	DEBUG_ADD("Set Item Check Buffer to NULL");
 	
 	m_pItemCheckBuffer = NULL;
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		m_dwSubItemIDCheckBuffer = OBJECTID_NULL;
 	#endif
 	m_ItemCheckBufferStatus = ITEM_CHECK_BUFFER_NULL;
 
-	// 2004, 8, 27, sobeit add start - °ü¼ÒÈ¯ »óÅÂ¿¡¼­ ÀÎº¥¾ÆÀÌÅÛ »ç¿ëÈÄ Âø¿ë¾ÆÀÌÅÛ ¹ş¾ú´Ù ÀÔ¾ú´Ù ÇÏ¸é 
-	// Å¬¶óÀÌ¾ğÆ® ÂÊ¿¡¼­ °ü»óÅÂ°¡ Ç®¸°´Ù.-_- µû¶ó¼­ °ü ¼ÒÈ¯ÀÏ¶© UI_UnlockGear()À» È£ÃâÇÏÁö ¾Ê´Â´Ù.
+	// 2004, 8, 27, sobeit add start - ê´€ì†Œí™˜ ìƒíƒœì—ì„œ ì¸ë²¤ì•„ì´í…œ ì‚¬ìš©í›„ ì°©ìš©ì•„ì´í…œ ë²—ì—ˆë‹¤ ì…ì—ˆë‹¤ í•˜ë©´ 
+	// í´ë¼ì´ì–¸íŠ¸ ìª½ì—ì„œ ê´€ìƒíƒœê°€ í’€ë¦°ë‹¤.-_- ë”°ë¼ì„œ ê´€ ì†Œí™˜ì¼ë• UI_UnlockGear()ì„ í˜¸ì¶œí•˜ì§€ ì•ŠëŠ”ë‹¤.
 	if(!IsInCasket())
 		UI_UnlockGear();
 	// 2004, 8, 27, sobeit add end - 
@@ -7921,7 +7940,7 @@ MPlayer::ClearItemCheckBuffer()
 }
 
 //----------------------------------------------------------------------
-// Çàµ¿ °áÁ¤
+// í–‰ë™ ê²°ì •
 //----------------------------------------------------------------------
 void	
 MPlayer::SetAction(BYTE action)
@@ -7948,17 +7967,17 @@ MPlayer::SetAction(BYTE action)
 		action = ACTION_STAND;
 	}
 
-	// ¹«Á¶°Ç ²¨ÁØ´Ù.
+	// ë¬´ì¡°ê±´ êº¼ì¤€ë‹¤.
 	m_bFastMove = false;
 	//m_bFastMove = false;
 	
 	//-----------------------------------------------------------------
-	// ÇöÀç ¸ğ½ÀÀÇ action¿¡ ¸Â´Â °æ¿ì. 2001.10.5
+	// í˜„ì¬ ëª¨ìŠµì˜ actionì— ë§ëŠ” ê²½ìš°. 2001.10.5
 	//-----------------------------------------------------------------
 	if (action < GetActionMax())
 	{
 		//-----------------------------------------------------
-		// ¿ÀÅä¹ÙÀÌ Å¸°í ÀÖÀ»¶§
+		// ì˜¤í† ë°”ì´ íƒ€ê³  ìˆì„ë•Œ
 		//-----------------------------------------------------
 		if (m_MoveDevice==MOVE_DEVICE_RIDE)
 		{
@@ -7975,7 +7994,7 @@ MPlayer::SetAction(BYTE action)
 			}
 		}
 		//-----------------------------------------------------
-		// °É¾î´Ù´Ò¶§
+		// ê±¸ì–´ë‹¤ë‹ë•Œ
 		//-----------------------------------------------------
 		else
 		{
@@ -8007,7 +8026,7 @@ MPlayer::SetAction(BYTE action)
 		#ifdef OUTPUT_DEBUG
 			if (IsSlayer())
 			{
-				// slayerÀÎ °æ¿ì
+				// slayerì¸ ê²½ìš°
 				if (action >= GetActionMax())
 				{
 					DEBUG_ADD_FORMAT("[Error] Slayer's Action exceed MAX : id=%d, action=%d", m_ID, action);
@@ -8054,12 +8073,12 @@ MPlayer::SetAction(BYTE action)
 		m_bNextAction = false;
 
 		//------------------------------------------------
-		// MoveÀÎ °æ¿ì
+		// Moveì¸ ê²½ìš°
 		//------------------------------------------------
 		if (action==m_MoveAction)
 		{
-			// ±×³É ¼­ÀÖ´Â °æ¿ì¸é... ³¡µ¿ÀÛÀ¸·Î ¸¸µç´Ù.
-			// ActionÀÌ ³¡³µ´Ù°í Ç¥½ÃÇØÁÖ±â À§ÇØ¼­..
+			// ê·¸ëƒ¥ ì„œìˆëŠ” ê²½ìš°ë©´... ëë™ì‘ìœ¼ë¡œ ë§Œë“ ë‹¤.
+			// Actionì´ ëë‚¬ë‹¤ê³  í‘œì‹œí•´ì£¼ê¸° ìœ„í•´ì„œ..
 			if (m_Action==ACTION_STAND 
 				|| IsSlayer() && m_Action==ACTION_SLAYER_MOTOR_STAND
 				|| IsOusters() && m_Action==ACTION_OUSTERS_FAST_MOVE_STAND)
@@ -8069,7 +8088,7 @@ MPlayer::SetAction(BYTE action)
 			}
 
 			//------------------------------------------------
-			// Á¤ÁöµÈ °æ¿ì¸¸ ¿òÁ÷ÀÎ´Ù.
+			// ì •ì§€ëœ ê²½ìš°ë§Œ ì›€ì§ì¸ë‹¤.
 			//------------------------------------------------
 			if (IsStop())
 			{	
@@ -8078,30 +8097,30 @@ MPlayer::SetAction(BYTE action)
 
 				SetNextAction(ACTION_STAND);
 
-				// Move Ã¹ µ¿ÀÛ
+				// Move ì²« ë™ì‘
 				m_MoveCount = 0;
 				m_NextMoveCount = 0;
 				
-				// Á¤Áö  :  m_sX = 0; m_sY = 0;
-				// ¿òÁ÷ÀÌ´Â Á¾·ù¿¡ µû¶ó¼­..
+				// ì •ì§€  :  m_sX = 0; m_sY = 0;
+				// ì›€ì§ì´ëŠ” ì¢…ë¥˜ì— ë”°ë¼ì„œ..
 				//m_MoveCountMax = (*g_pCreatureTable)[m_CreatureType].GetActionCount( action );
 				m_MoveCountMax = GetCreatureActionCountMax( this, action );
 					//g_pTopView->m_CreatureFPK[(*g_pCreatureTable)[m_CreatureType].FrameID]
 					//									[action][m_Direction].GetSize();		
 			
 				//---------------------------------------------
-				// UI¿¡¼­ gearÀÇ item ÀÌµ¿À» ¸øÇÏ°Ô ÇÑ´Ù. 
+				// UIì—ì„œ gearì˜ item ì´ë™ì„ ëª»í•˜ê²Œ í•œë‹¤. 
 				//---------------------------------------------
 				//gC_vs_ui.LockItem();
 				gC_vs_ui.LockGear();				
 			}
 			//------------------------------------------------
-			// ¿òÁ÷ÀÌ°í ÀÖ´Â µµÁßÀÌ¸é BufferingÇÑ´Ù.
+			// ì›€ì§ì´ê³  ìˆëŠ” ë„ì¤‘ì´ë©´ Bufferingí•œë‹¤.
 			//------------------------------------------------
 			else
 			{
 				//---------------------------------------------
-				// UI¿¡¼­ gear item ÀÌµ¿À» ÇÒ ¼ö ÀÖµµ·Ï ÇÑ´Ù.
+				// UIì—ì„œ gear item ì´ë™ì„ í•  ìˆ˜ ìˆë„ë¡ í•œë‹¤.
 				//---------------------------------------------
 				//gC_vs_ui.UnlockItem();
 				gC_vs_ui.UnlockGear();
@@ -8111,12 +8130,12 @@ MPlayer::SetAction(BYTE action)
 			}
 		}
 		//------------------------------------------------
-		// ActionÀÎ °æ¿ì
+		// Actionì¸ ê²½ìš°
 		//------------------------------------------------
 		else
 		{
 			//------------------------------------------------
-			// extremeÀº Æ¯Á¤ µ¿ÀÛ¿¡¼­ Ç®¸°´Ù.
+			// extremeì€ íŠ¹ì • ë™ì‘ì—ì„œ í’€ë¦°ë‹¤.
 			//------------------------------------------------
 //			if (HasEffectStatus(EFFECTSTATUS_EXTREME))
 //			{
@@ -8129,16 +8148,16 @@ MPlayer::SetAction(BYTE action)
 //				}
 //			}
 
-			if (// ¿ÀÅä¹ÙÀÌ Å¸°í ÀÖÀ»¶§´Â action ¾È º¸¿©ÁØ´Ù.
+			if (// ì˜¤í† ë°”ì´ íƒ€ê³  ìˆì„ë•ŒëŠ” action ì•ˆ ë³´ì—¬ì¤€ë‹¤.
 				m_MoveDevice==MOVE_DEVICE_RIDE && action!=ACTION_SLAYER_MOTOR_STAND
-				// damagedÀÎ °æ¿ì..
+				// damagedì¸ ê²½ìš°..
 				|| action==ACTION_DAMAGED 						
-						&& (// °ø°İ¹Ş´Â ÁßÀÌ ¾Æ´Ï°Å³ª Á¤Áö µ¿ÀÛÀÌ ¾Æ´Ï¸é °ø°İ ¹Ş´Â ¸ğ½À Ç¥Çö ¾È ÇÑ´Ù
+						&& (// ê³µê²©ë°›ëŠ” ì¤‘ì´ ì•„ë‹ˆê±°ë‚˜ ì •ì§€ ë™ì‘ì´ ì•„ë‹ˆë©´ ê³µê²© ë°›ëŠ” ëª¨ìŠµ í‘œí˜„ ì•ˆ í•œë‹¤
 							m_Action!=ACTION_DAMAGED && m_Action!=ACTION_STAND && m_Action!=ACTION_MOVE
 
-							// ÈíÇ÷ ´çÇÏ´Â µ¿ÀÛ ÁßÀÌ°Å³ª 
+							// í¡í˜ˆ ë‹¹í•˜ëŠ” ë™ì‘ ì¤‘ì´ê±°ë‚˜ 
 	//						m_Action==ACTION_DRAINED
-							// ¹ìÆÄÀÌ¾îÀÏ¶§, ÈíÇ÷ÇÏ´Â µ¿ÀÛ Áß¿¡´Â damaged¸¦ ¾È º¸¿©ÁØ´Ù.
+							// ë±€íŒŒì´ì–´ì¼ë•Œ, í¡í˜ˆí•˜ëŠ” ë™ì‘ ì¤‘ì—ëŠ” damagedë¥¼ ì•ˆ ë³´ì—¬ì¤€ë‹¤.
 	//						|| IsVampire() && m_Action==ACTION_VAMPIRE_DRAIN
 							)
 				)
@@ -8148,13 +8167,13 @@ MPlayer::SetAction(BYTE action)
 			}
 
 			//---------------------------------------------
-			// UI¿¡¼­ gear item ÀÌµ¿À» ÇÒ ¼ö ÀÖµµ·Ï ÇÑ´Ù.
+			// UIì—ì„œ gear item ì´ë™ì„ í•  ìˆ˜ ìˆë„ë¡ í•œë‹¤.
 			//---------------------------------------------
 			//gC_vs_ui.UnlockItem();
 			if(!IsInCasket())
 				gC_vs_ui.UnlockGear();		
 
-			// µ¿ÀÛ ¼³Á¤		
+			// ë™ì‘ ì„¤ì •		
 			SetNextAction(ACTION_STAND);
 
 			//m_ActionCountMax = (*g_pCreatureTable)[m_CreatureType].GetActionCount( action );
@@ -8162,7 +8181,7 @@ MPlayer::SetAction(BYTE action)
 
 			if (m_ActionCountMax==0)
 			{
-				// µ¿ÀÛÀÌ ¾ø´Â °æ¿ì
+				// ë™ì‘ì´ ì—†ëŠ” ê²½ìš°
 				m_Action = ((m_MoveDevice==MOVE_DEVICE_WALK)? ACTION_STAND : ACTION_SLAYER_MOTOR_STAND);
 				//SetAction( ((m_MoveDevice==MOVE_DEVICE_WALK)? ACTION_STAND : ACTION_SLAYER_MOTOR_STAND) );
 				m_ActionCount = 0;		
@@ -8173,7 +8192,7 @@ MPlayer::SetAction(BYTE action)
 			else
 			{
 				//---------------------------------------------
-				// actionÀ» ¹İº¹ÇÏ´Â °æ¿ì
+				// actionì„ ë°˜ë³µí•˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (m_nUsedActionInfo!=ACTIONINFO_NULL 
 					&& m_bRepeatAction 
@@ -8182,18 +8201,18 @@ MPlayer::SetAction(BYTE action)
 					m_Action = action; 
 					//SetAction( action );
 
-					// ¹İº¹È¸¼ö Á¦ÇÑÀÌ °É¸®¸é..
+					// ë°˜ë³µíšŒìˆ˜ ì œí•œì´ ê±¸ë¦¬ë©´..
 					if (m_RepeatCount >= (*g_pActionInfoTable)[m_nUsedActionInfo].GetRepeatLimit())
 					{		
 						m_RepeatCount = 0;
 
-						// ¹«Á¶°Ç Ã¹ µ¿ÀÛºÎÅÍ..
+						// ë¬´ì¡°ê±´ ì²« ë™ì‘ë¶€í„°..
 						m_ActionCount = 0;
 					}
 					else
 					{
 						//---------------------------------------------
-						// °è¼Ó ¹İº¹ÇÏ´Â °æ¿ì
+						// ê³„ì† ë°˜ë³µí•˜ëŠ” ê²½ìš°
 						//---------------------------------------------
 						BOOL bSlayer = IsSlayer();
 
@@ -8202,12 +8221,12 @@ MPlayer::SetAction(BYTE action)
 							&& action!=ACTION_STAND 
 							&& (!bSlayer || bSlayer && action!=ACTION_SLAYER_MOTOR_STAND))
 						{
-							// count ¼³Á¤..
+							// count ì„¤ì •..
 							//m_ActionCount = (*g_pActionInfoTable)[m_nUsedActionInfo].GetRepeatStartFrame( m_WeaponSpeed );
 							m_ActionCount = GetActionInfoRepeatStartFrame( m_nUsedActionInfo );
 						}
 						//---------------------------------------------
-						// Ã³À½ ¹İº¹À» ½ÃÀÛÇÒ·Á´Â °æ¿ì
+						// ì²˜ìŒ ë°˜ë³µì„ ì‹œì‘í• ë ¤ëŠ” ê²½ìš°
 						//---------------------------------------------
 						else
 						{
@@ -8219,7 +8238,7 @@ MPlayer::SetAction(BYTE action)
 					m_ActionCountMax = GetActionInfoRepeatEndFrame( m_nUsedActionInfo );
 				}
 				//---------------------------------------------
-				// ÀÏ¹İÀûÀÎ °æ¿ì..
+				// ì¼ë°˜ì ì¸ ê²½ìš°..
 				//---------------------------------------------
 				else
 				{			
@@ -8229,7 +8248,7 @@ MPlayer::SetAction(BYTE action)
 							|| IsOusters() && action==ACTION_OUSTERS_FAST_MOVE_STAND && m_Action==ACTION_OUSTERS_FAST_MOVE_STAND)
 							)
 					{
-						// °°Àº Á¤Áö µ¿ÀÛÀÌ¸é ¼³Á¤ÇÏÁö ¾Ê´Â´Ù.
+						// ê°™ì€ ì •ì§€ ë™ì‘ì´ë©´ ì„¤ì •í•˜ì§€ ì•ŠëŠ”ë‹¤.
 						//m_ActionCount = 0;
 						//m_ActionCountMax = (*g_pCreatureTable)[m_CreatureType].GetActionCount( m_Action );
 					}
@@ -8238,7 +8257,7 @@ MPlayer::SetAction(BYTE action)
 						m_Action = action;
 						//SetAction( action );
 
-						// count ¼³Á¤..
+						// count ì„¤ì •..
 						m_ActionCount = 0;
 						
 							//g_pTopView->m_CreatureFPK[(*g_pCreatureTable)[m_CreatureType].FrameID]
@@ -8250,8 +8269,8 @@ MPlayer::SetAction(BYTE action)
 	}
 
 
-	// µ¿ÀÛÀ» ½ÃÀÛÇÒ¶§ ºÎ°¡ÀûÀ¸·Î ºÙ´Â Effect µé.
-	// ¾îµò°¡·Î »©¾ß ÇÏ´Âµ¥.-_-
+	// ë™ì‘ì„ ì‹œì‘í• ë•Œ ë¶€ê°€ì ìœ¼ë¡œ ë¶™ëŠ” Effect ë“¤.
+	// ì–´ë”˜ê°€ë¡œ ë¹¼ì•¼ í•˜ëŠ”ë°.-_-
 	if( HasEffectStatus( EFFECTSTATUS_REDIANCE ) )
 	{
 		if( 
@@ -8280,7 +8299,7 @@ MPlayer::SetAction(BYTE action)
 	}
 
 	//------------------------------
-	// Á¤ÁöÇÑ »óÅÂÀÌ¸é
+	// ì •ì§€í•œ ìƒíƒœì´ë©´
 	//------------------------------
 	/*
 	if (IsStop())
@@ -8288,7 +8307,7 @@ MPlayer::SetAction(BYTE action)
 		m_Action = action; 
 		m_NextAction = ACTION_STAND;
 
-		// CreatureÀÇ Á¾·ù¿¡ µû¶ó Action¿¡ ´ëÇÑ frame¼ö°¡ ´Ş¶ó¾ß ÇÏ³ª?
+		// Creatureì˜ ì¢…ë¥˜ì— ë”°ë¼ Actionì— ëŒ€í•œ frameìˆ˜ê°€ ë‹¬ë¼ì•¼ í•˜ë‚˜?
 		switch (m_Action)
 		{
 			case ACTION_MOVE :
@@ -8312,7 +8331,7 @@ MPlayer::SetAction(BYTE action)
 		m_ActionCount = 0;
 	}
 	//------------------------------
-	// ¿òÁ÷ÀÌ°í ÀÖ´Â »óÅÂÀÌ¸é
+	// ì›€ì§ì´ê³  ìˆëŠ” ìƒíƒœì´ë©´
 	//------------------------------
 	else
 	{
@@ -8325,7 +8344,7 @@ MPlayer::SetAction(BYTE action)
 //----------------------------------------------------------------------
 // Set AddonItem
 //----------------------------------------------------------------------
-// AddonItemÀ» ÀåÂøÇÑ´Ù.
+// AddonItemì„ ì¥ì°©í•œë‹¤.
 //----------------------------------------------------------------------
 bool
 MPlayer::SetAddonItem( MItem* pItem )
@@ -8333,21 +8352,21 @@ MPlayer::SetAddonItem( MItem* pItem )
 	DEBUG_ADD("MPlayer::SetAddonItem");
 	
 	//-------------------------------------------------
-	// Á¦´ë·Î ÀåÂøÇÑ °æ¿ì
+	// ì œëŒ€ë¡œ ì¥ì°©í•œ ê²½ìš°
 	//-------------------------------------------------
 	if (MCreatureWear::SetAddonItem( pItem ))
 	{
 		//-------------------------------------------------
-		// ÀåÂøÇÑ ItemÀÌ 
-		// ±âº»°ø°İ¿ë ¾ÆÀÌÅÛÀÌ¶ó¸é...
-		// ±âº»°ø°İActionInfo°¡ ¹Ù²î¾î¾ß ÇÑ´Ù.
+		// ì¥ì°©í•œ Itemì´ 
+		// ê¸°ë³¸ê³µê²©ìš© ì•„ì´í…œì´ë¼ë©´...
+		// ê¸°ë³¸ê³µê²©ActionInfoê°€ ë°”ë€Œì–´ì•¼ í•œë‹¤.
 		//-------------------------------------------------
 		if (pItem->IsBasicWeapon())
 		{
 			//-------------------------------------------------
-			// °ø°İ °¡´É°Å¸® ¼³Á¤
-			// ÃÑÀÎ °æ¿ì¸¸ ´Ù¸£°í.. 
-			// ³ª¸ÓÁö´Â ¸ğµÎ ±ÙÁ¢°ø°İÀÌ¹Ç·Î 1ÀÌ´Ù.							
+			// ê³µê²© ê°€ëŠ¥ê±°ë¦¬ ì„¤ì •
+			// ì´ì¸ ê²½ìš°ë§Œ ë‹¤ë¥´ê³ .. 
+			// ë‚˜ë¨¸ì§€ëŠ” ëª¨ë‘ ê·¼ì ‘ê³µê²©ì´ë¯€ë¡œ 1ì´ë‹¤.							
 			//-------------------------------------------------
 			//if (pItem->IsGunItem())
 			//{
@@ -8359,7 +8378,7 @@ MPlayer::SetAddonItem( MItem* pItem )
 			//}
 
 			//-------------------------------------------------
-			// Skill Icon Ã¼Å©
+			// Skill Icon ì²´í¬
 			//-------------------------------------------------
 			//(*g_pSkillAvailable).SetAvailableSkills();
 		}
@@ -8373,7 +8392,7 @@ MPlayer::SetAddonItem( MItem* pItem )
 //----------------------------------------------------------------------
 // Remove AddonItem
 //----------------------------------------------------------------------
-// AddonItemÀ» ÀåÂøÇØÁ¦ÇÑ´Ù.
+// AddonItemì„ ì¥ì°©í•´ì œí•œë‹¤.
 //----------------------------------------------------------------------
 bool
 MPlayer::RemoveAddonItem( MItem* pItem )
@@ -8381,26 +8400,26 @@ MPlayer::RemoveAddonItem( MItem* pItem )
 	DEBUG_ADD("MCreatureWear::RemoveAddonItem");
 	
 	//-------------------------------------------------
-	// Á¦´ë·Î ÇØÁ¦µÈ °æ¿ì
+	// ì œëŒ€ë¡œ í•´ì œëœ ê²½ìš°
 	//-------------------------------------------------
 	if (MCreatureWear::RemoveAddonItem( pItem ))
 	{
 		//-------------------------------------------------
-		// ÇØÁ¦ÇÑ ItemÀÌ 
-		// ±âº»°ø°İ¿ë ¾ÆÀÌÅÛÀÌ¶ó¸é...
-		// ±âº»°ø°İActionInfo°¡ ¸Ç¼Õ °ø°İÀ¸·Î ¹Ù²î¾î¾ß ÇÑ´Ù.
+		// í•´ì œí•œ Itemì´ 
+		// ê¸°ë³¸ê³µê²©ìš© ì•„ì´í…œì´ë¼ë©´...
+		// ê¸°ë³¸ê³µê²©ActionInfoê°€ ë§¨ì† ê³µê²©ìœ¼ë¡œ ë°”ë€Œì–´ì•¼ í•œë‹¤.
 		//-------------------------------------------------
 		if (pItem->IsBasicWeapon())
 		{
-			// ±âº» ¸Ç¼Õ °ø°İ µ¿ÀÛÀ¸·Î ÀüÈ¯ÇÑ´Ù.
+			// ê¸°ë³¸ ë§¨ì† ê³µê²© ë™ì‘ìœ¼ë¡œ ì „í™˜í•œë‹¤.
 			SetBasicActionInfo( SKILL_ATTACK_MELEE );
 
 
-			// °ø°İ °¡´É°Å¸® ¼³Á¤
+			// ê³µê²© ê°€ëŠ¥ê±°ë¦¬ ì„¤ì •
 			SetBasicAttackDistance( 1 );
 
 			//-------------------------------------------------
-			// Skill Icon Ã¼Å©
+			// Skill Icon ì²´í¬
 			//-------------------------------------------------
 			//(*g_pSkillAvailable).SetAvailableSkills();
 		}
@@ -8414,8 +8433,8 @@ MPlayer::RemoveAddonItem( MItem* pItem )
 //----------------------------------------------------------------------
 // Set Next Action
 //----------------------------------------------------------------------
-// ´ÙÀ½¿¡ ÇÒ Çàµ¿ ¼³Á¤.. ÇöÀç ±×³É ¼­ÀÖÀ¸¸é(STAND) ¹Ù·Î action ¼³Á¤
-// ¾Æ´Ï¸é, buffering
+// ë‹¤ìŒì— í•  í–‰ë™ ì„¤ì •.. í˜„ì¬ ê·¸ëƒ¥ ì„œìˆìœ¼ë©´(STAND) ë°”ë¡œ action ì„¤ì •
+// ì•„ë‹ˆë©´, buffering
 //----------------------------------------------------------------------
 void	
 MPlayer::SetNextAction(BYTE action)
@@ -8456,7 +8475,7 @@ MPlayer::SetNextAction(BYTE action)
 //----------------------------------------------------------------------
 // Set NextAction To Move
 //----------------------------------------------------------------------
-// ´ÙÀ½ action¿¡´Â ÀÌµ¿ÇÑ´Ù.
+// ë‹¤ìŒ actionì—ëŠ” ì´ë™í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 MPlayer::SetNextActionToMove()
@@ -8476,14 +8495,14 @@ MPlayer::SetNextActionToMove()
 //----------------------------------------------------------------------
 // Set Alive
 //----------------------------------------------------------------------
-// »ì¾Ò´Ù~ 
+// ì‚´ì•˜ë‹¤~ 
 //----------------------------------------------------------------------
 void	
 MPlayer::SetAlive()
 {
 	m_bAlive = true;
 
-	// item ÀÌµ¿ ÇØÁ¦
+	// item ì´ë™ í•´ì œ
 	UI_UnlockItem();
 	UI_UnlockGear();
 	UI_UnlockItemTrade();
@@ -8491,7 +8510,7 @@ MPlayer::SetAlive()
 	SetAction( ACTION_STAND );
 
 	//-------------------------------------------------------
-	// Effect»óÅÂµé Á¦°Å
+	// Effectìƒíƒœë“¤ ì œê±°
 	//-------------------------------------------------------
 	/*
 	if (g_pEffectStatusTable!=NULL)
@@ -8517,13 +8536,13 @@ MPlayer::SetAlive()
 //----------------------------------------------------------------------
 // Set Dead
 //----------------------------------------------------------------------
-// Á×¾ú´Ù~ 
-// ServerPositionÀ¸·Î °¡¼­ Á×ÀÚ..
+// ì£½ì—ˆë‹¤~ 
+// ServerPositionìœ¼ë¡œ ê°€ì„œ ì£½ì..
 //----------------------------------------------------------------------
 void	
 MPlayer::SetDead()
 {
-	// »ì¾Æ ÀÖ´Â °æ¿ì¸¸ Á×ÀÎ´Ù. -_-;;
+	// ì‚´ì•„ ìˆëŠ” ê²½ìš°ë§Œ ì£½ì¸ë‹¤. -_-;;
 	if (m_bAlive)
 	{
 		if(HasEffectStatus(EFFECTSTATUS_INSTALL_TURRET))
@@ -8547,7 +8566,7 @@ MPlayer::SetDead()
 		StopDrain();
 		StopAbsorb();
 
-		// item ÀÌµ¿ ¸øÇÏ°Ô..
+		// item ì´ë™ ëª»í•˜ê²Œ..
 		UI_LockItem();
 		UI_LockGear();
 		UI_LockItemTrade();
@@ -8559,18 +8578,18 @@ MPlayer::SetDead()
 
 		DEBUG_ADD_FORMAT("PlayerDeadPosition(%d, %d)", m_ServerX, m_ServerY);
 
-		// Á¤Áö
+		// ì •ì§€
 		TraceNULL();
 		
-		// Á×À» ¶§ÀÇ ActionInfo
+		// ì£½ì„ ë•Œì˜ ActionInfo
 		m_nUsedActionInfo	= (*g_pCreatureTable)[m_CreatureType].DeadActionInfo;
 		
 		if (m_nUsedActionInfo!=ACTIONINFO_NULL)
 		{
-			// Á×À» ¶§ÀÇ µ¿ÀÛ
+			// ì£½ì„ ë•Œì˜ ë™ì‘
 			SetAction( GetActionInfoAction(m_nUsedActionInfo) );
 
-			// ³ªÇÑÅ× ÇÏ´Â µ¿ÀÛ
+			// ë‚˜í•œí…Œ í•˜ëŠ” ë™ì‘
 			m_NextTraceID			= m_ID;
 			m_NextTraceX			= m_X;
 			m_NextTraceY			= m_Y;
@@ -8582,16 +8601,16 @@ MPlayer::SetDead()
 			m_TraceZ			= 0;	
 		}
 
-		// Delay ½Ã°£
+		// Delay ì‹œê°„
 		m_DeadDelayTime	= g_CurrentTime + g_pClientConfig->DELAY_PLAYER_DEAD;
 
 
 		//-------------------------------------------------------
-		// º¸ÀÌ°Ô ÇÏ±â
+		// ë³´ì´ê²Œ í•˜ê¸°
 		//-------------------------------------------------------
 		SetVisibleSoon();
 
-		// Á×À»¶§ ¹ú¶± ¼­´Â°Å ¾ø¾Ö±â À§ÇØ¼­.. È®ÀÎ»ç»ì.. - -; 2001.7.23
+		// ì£½ì„ë•Œ ë²Œë–¡ ì„œëŠ”ê±° ì—†ì• ê¸° ìœ„í•´ì„œ.. í™•ì¸ì‚¬ì‚´.. - -; 2001.7.23
 		m_bNextAction = false;
 		m_bKeepTraceCreature = false;
 		SetNextAction(ACTION_STAND);
@@ -8602,17 +8621,17 @@ MPlayer::SetDead()
 		StopRecoveryMP();
 		SetStatus( MODIFY_CURRENT_HP, 0 );
 
-		// LockMode ²ô±â
+		// LockMode ë„ê¸°
 		UnSetLockMode();
 
-		// À½¾ÇÀ» ´À¸®°Ô...
+		// ìŒì•…ì„ ëŠë¦¬ê²Œ...
 		//g_DXMusic.SetCurrentTempo( g_DXMusic.GetOriginalTempo() * 0.8f );
 
 		m_Z = 0;
-		// È®ÀÎ.. 
+		// í™•ì¸.. 
 		UI_CloseSelectWayPoint();
 
-		// Logout½Ã°£ Á¦°Å
+		// Logoutì‹œê°„ ì œê±°
 		g_pUserInformation->LogoutTime = 0;	
 
 		SetWaitVerifyNULL();
@@ -8620,20 +8639,20 @@ MPlayer::SetDead()
 		g_pEventManager->RemoveEvent(EVENTID_LOGOUT);
 		g_pEventManager->RemoveEvent(EVENTID_LOVECHAIN);
 
-		// Á×¾ú´Ù.
+		// ì£½ì—ˆë‹¤.
 		m_bAlive = false;
 		m_bInCasket = false;
 	
 		//-------------------------------------------------------
-		// Effect»óÅÂµé Á¦°Å
+		// Effectìƒíƒœë“¤ ì œê±°
 		//-------------------------------------------------------
 		if (g_pEffectStatusTable!=NULL)
 		{
 			for (int e=0; e<g_pEffectStatusTable->GetSize(); e++)
 			{
-				// ÈíÇ÷Àº Á¦°ÅÇÏÁö ¾Ê´Â´Ù.
+				// í¡í˜ˆì€ ì œê±°í•˜ì§€ ì•ŠëŠ”ë‹¤.
 				if (e!=EFFECTSTATUS_BLOOD_DRAIN && 
-					// 2004, 11, 16, sobeit add start - °ø¼ºÀü °ø¼ºÃø ³à¼®µé »óÅÂ°¡ ÇÊ¿äÇØ¼­ »èÁ¦ ¾ÈÇÔ..
+					// 2004, 11, 16, sobeit add start - ê³µì„±ì „ ê³µì„±ì¸¡ ë…€ì„ë“¤ ìƒíƒœê°€ í•„ìš”í•´ì„œ ì‚­ì œ ì•ˆí•¨..
 					e!=EFFECTSTATUS_SIEGE_ATTACKER_1 &&	
 					e!=EFFECTSTATUS_SIEGE_ATTACKER_2 &&
 					e!=EFFECTSTATUS_SIEGE_ATTACKER_3 &&
@@ -8651,11 +8670,11 @@ MPlayer::SetDead()
 //		g_pTempInformation->SetMode( TempInformation::MODE_NULL );
 
 		//---------------------------------------------------------------
-		// ³» Á¤º¸¸¦ ÆÄÆ¼¿¡°Ô º¸³»ÁØ´Ù.
+		// ë‚´ ì •ë³´ë¥¼ íŒŒí‹°ì—ê²Œ ë³´ë‚´ì¤€ë‹¤.
 		//---------------------------------------------------------------
 		SendStatusInfoToParty();	
 
-		// 2004, 5, 7 sobeit add start - Á×¾úÀ» ¶§ µµ¿ò¸»
+		// 2004, 5, 7 sobeit add start - ì£½ì—ˆì„ ë•Œ ë„ì›€ë§
 		ExecuteHelpEvent(HELP_EVENT_DIE);
 		// 2004, 5, 7 sobeit add end
 	}
@@ -8668,7 +8687,7 @@ bool
 MPlayer::CheckRepeatAction()
 {
 	//----------------------------------------------------------------------
-	// ¹İº¹ actionÀÌ ¾ÈµÇ´Â °æ¿ì
+	// ë°˜ë³µ actionì´ ì•ˆë˜ëŠ” ê²½ìš°
 	//----------------------------------------------------------------------
 	if (m_bKeepTraceCreature || IsRequestMode() || IsInDarkness())// || m_bTraceCreatureToForceAttack)
 	{
@@ -8677,7 +8696,7 @@ MPlayer::CheckRepeatAction()
 	}
 
 	//----------------------------------------------------------------------
-	// actionÀÇ ¸¶Áö¸· µ¿ÀÛÀÌ°Å³ª Á¤Áöµ¿ÀÛÀÎ °æ¿ì¿¡ ¹İº¹ actionÀ» Àû¿ëÇÑ´Ù.
+	// actionì˜ ë§ˆì§€ë§‰ ë™ì‘ì´ê±°ë‚˜ ì •ì§€ë™ì‘ì¸ ê²½ìš°ì— ë°˜ë³µ actionì„ ì ìš©í•œë‹¤.
 	//----------------------------------------------------------------------
 	if (m_ActionCount>=m_ActionCountMax-1 
 			|| m_Action==ACTION_STAND 
@@ -8686,12 +8705,12 @@ MPlayer::CheckRepeatAction()
 		static DWORD repeatFrameIncTurn = 0;
 
 		//------------------------------------------------------------
-		// ¹İº¹ Çàµ¿ÀÌ ¼³Á¤µÈ °æ¿ì
+		// ë°˜ë³µ í–‰ë™ì´ ì„¤ì •ëœ ê²½ìš°
 		//------------------------------------------------------------
 		if (m_bRepeatAction)				
 		{
 			//------------------------------------------------------------
-			// ÀÚ½Å¿¡°Ô Æ¯¼ö ±â¼ú
+			// ìì‹ ì—ê²Œ íŠ¹ìˆ˜ ê¸°ìˆ 
 			//------------------------------------------------------------
 			if (m_fTraceBuffer & FLAG_TRACE_SELF)
 			{
@@ -8709,7 +8728,7 @@ MPlayer::CheckRepeatAction()
 				return true;
 			}				
 			//------------------------------------------------------------
-			// ±âº» Çàµ¿			
+			// ê¸°ë³¸ í–‰ë™			
 			//------------------------------------------------------------
 			else if (m_fTraceBuffer & FLAG_TRACE_CREATURE_BASIC)
 			{	
@@ -8731,7 +8750,7 @@ MPlayer::CheckRepeatAction()
 				return true;
 			}				
 			//------------------------------------------------------------
-			// Æ¯¼ö Çàµ¿
+			// íŠ¹ìˆ˜ í–‰ë™
 			//------------------------------------------------------------
 			else  if (m_fTraceBuffer & FLAG_TRACE_CREATURE_SPECIAL)
 			{
@@ -8751,10 +8770,10 @@ MPlayer::CheckRepeatAction()
 				//CHECK_REPEAT_LIMIT_TO_RETURN_FALSE( m_nUsedActionInfo, m_RepeatCount )				
 				if (m_nUsedActionInfo < g_pActionInfoTable->GetSize())
 				{
-					// ¹İº¹È¸¼ö Á¦ÇÑ¿¡ °É¸®¸é..
+					// ë°˜ë³µíšŒìˆ˜ ì œí•œì— ê±¸ë¦¬ë©´..
 					if (m_RepeatCount >= (*g_pActionInfoTable)[m_nUsedActionInfo].GetRepeatLimit())
 					{		
-						// µ¿ÀÛ ³¡À¸·Î º¸³½´Ù.
+						// ë™ì‘ ëìœ¼ë¡œ ë³´ë‚¸ë‹¤.
 						//m_RepeatCount = 0;
 
 						BOOL bSlayer = IsSlayer();
@@ -8762,7 +8781,7 @@ MPlayer::CheckRepeatAction()
 						if ((*g_pActionInfoTable)[m_nUsedActionInfo].IsUseRepeatFrame() //m_WeaponSpeed )
 							&& m_Action!=ACTION_STAND 
 							&& (!bSlayer || bSlayer && m_Action!=ACTION_SLAYER_MOTOR_STAND)
-							&& m_ActionCountMax!=0 )	// ÀÌ°É·Î µÉ·Á³ª.. - -;
+							&& m_ActionCountMax!=0 )	// ì´ê±¸ë¡œ ë ë ¤ë‚˜.. - -;
 						{	
 							//m_ActionCountMax = (*g_pCreatureTable)[m_CreatureType].GetActionCount( m_Action );
 							m_ActionCountMax = GetCreatureActionCountMax( this, m_Action );
@@ -8775,7 +8794,7 @@ MPlayer::CheckRepeatAction()
 				return true;
 			}
 			//------------------------------------------------------------
-			// Æ¯¼ö Çàµ¿ -> Sector
+			// íŠ¹ìˆ˜ í–‰ë™ -> Sector
 			//------------------------------------------------------------
 			else if (m_fTraceBuffer & FLAG_TRACE_SECTOR_SPECIAL)
 			{
@@ -8786,7 +8805,7 @@ MPlayer::CheckRepeatAction()
 				//m_NextTraceY = m_TraceY;
 
 				//------------------------------------------------------------
-				// ÇöÀçÀÇ mouse ÁÂÇ¥¸¦ ÀĞ¾î¼­ mapÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
+				// í˜„ì¬ì˜ mouse ì¢Œí‘œë¥¼ ì½ì–´ì„œ mapì˜ ì¢Œí‘œë¡œ ë°”ê¾¼ë‹¤.
 				//------------------------------------------------------------
 				POINT temp = g_pTopView->ScreenToPixel(g_x, g_y);
 				temp = MTopView::PixelToMap( temp.x, temp.y );
@@ -8806,12 +8825,12 @@ MPlayer::CheckRepeatAction()
 			}		
 		}
 		//------------------------------------------------------------
-		// ¹İº¹ Çàµ¿ÀÌ ¼³Á¤ ¾È µÈ °æ¿ì
+		// ë°˜ë³µ í–‰ë™ì´ ì„¤ì • ì•ˆ ëœ ê²½ìš°
 		//------------------------------------------------------------
 		else
 		{
 			//------------------------------------------------------------
-			// bufferingµÈ ´ÙÀ½ Çàµ¿ÀÌ ÀÖ´Ù¸é..
+			// bufferingëœ ë‹¤ìŒ í–‰ë™ì´ ìˆë‹¤ë©´..
 			//------------------------------------------------------------
 			if (m_fNextTrace!=FLAG_TRACE_NULL)
 			{
@@ -8830,9 +8849,9 @@ MPlayer::CheckRepeatAction()
 //----------------------------------------------------------------------
 // Check BufferAction
 //----------------------------------------------------------------------
-// ´ÙÀ½¿¡ Ã³¸®ÇØ¾ßÇÒ bufferingµÈ actionÀÌ ÀÖ´ÂÁö¸¦ ¾Ë¾Æº»´Ù.
-// ÀÖÀ» °æ¿ì´Â return true
-// ¾øÀ» °æ¿ì´Â return false
+// ë‹¤ìŒì— ì²˜ë¦¬í•´ì•¼í•  bufferingëœ actionì´ ìˆëŠ”ì§€ë¥¼ ì•Œì•„ë³¸ë‹¤.
+// ìˆì„ ê²½ìš°ëŠ” return true
+// ì—†ì„ ê²½ìš°ëŠ” return false
 //----------------------------------------------------------------------
 bool
 MPlayer::CheckBufferAction()
@@ -8840,70 +8859,70 @@ MPlayer::CheckBufferAction()
 	//DEBUG_ADD("Before CheckBufferAction");
 	
 	//------------------------------------------		
-	//     ÃßÀûÇØ¾ß ÇÏ´Â °æ¿ì..		
+	//     ì¶”ì í•´ì•¼ í•˜ëŠ” ê²½ìš°..		
 	//------------------------------------------
 	if (m_fNextTrace != FLAG_TRACE_NULL)
 	{			
 		//SetAction( (m_MoveAction==ACTION_SLAYER_MOTOR_MOVE)? ACTION_SLAYER_MOTOR_STAND : ACTION_STAND );
 
 		//---------------------
-		// ÀÚ½Å¿¡°Ô Æ¯¼ö ±â¼ú
+		// ìì‹ ì—ê²Œ íŠ¹ìˆ˜ ê¸°ìˆ 
 		//---------------------
 		if (m_fNextTrace & FLAG_TRACE_SELF)
 		{
 			SelfSpecialAction();
 		}				
 		//---------------------
-		// ±âº» Çàµ¿			
+		// ê¸°ë³¸ í–‰ë™			
 		//---------------------
 		if (m_fNextTrace & FLAG_TRACE_CREATURE_BASIC)
 		{
 			TraceCreatureToBasicAction( m_NextTraceID, m_bNextForceAttack );
 		}				
 		//---------------------
-		// Æ¯¼ö Çàµ¿
+		// íŠ¹ìˆ˜ í–‰ë™
 		//---------------------
 		else  if (m_fNextTrace & FLAG_TRACE_CREATURE_SPECIAL)
 		{
 			TraceCreatureToSpecialAction( m_NextTraceID, m_bNextForceAttack );
 		}
 		//---------------------
-		// ±âº» Çàµ¿ -> Sector
+		// ê¸°ë³¸ í–‰ë™ -> Sector
 		//---------------------
 		else if (m_fNextTrace & FLAG_TRACE_SECTOR_BASIC)
 		{
 			TraceSectorToBasicAction( m_NextTraceX, m_NextTraceY );
 		}
 		//---------------------
-		// Æ¯¼ö Çàµ¿ -> Sector
+		// íŠ¹ìˆ˜ í–‰ë™ -> Sector
 		//---------------------
 		else if (m_fNextTrace & FLAG_TRACE_SECTOR_SPECIAL)
 		{
 			TraceSectorToSpecialAction( m_NextTraceX, m_NextTraceY );
 		}
 		//---------------------
-		// Item ÃßÀû
+		// Item ì¶”ì 
 		//---------------------
 		else if (m_fNextTrace & FLAG_TRACE_ITEM)
 		{
 			TraceItem( m_NextTraceID );
 		}
 		//---------------------
-		// InventoryÀÇ Item ¿¡ ±â¼ú »ç¿ë
+		// Inventoryì˜ Item ì— ê¸°ìˆ  ì‚¬ìš©
 		//---------------------
 		else if (m_fNextTrace & FLAG_TRACE_INVENTORY)
 		{
 			TraceInventoryItem( m_NextTraceID );
 		}
 		//---------------------
-		// EffectÃßÀû
+		// Effectì¶”ì 
 		//---------------------
 		else if (m_fNextTrace & FLAG_TRACE_EFFECT)
 		{
 			TraceEffect( m_NextTraceID );
 		}
 		//---------------------
-		// InteractionObjectÃßÀû
+		// InteractionObjectì¶”ì 
 		//---------------------
 		else if (m_fNextTrace & FLAG_TRACE_INTERACTIONOBJECT)
 		{
@@ -8916,7 +8935,7 @@ MPlayer::CheckBufferAction()
 	}
 
 	//------------------------------------------		
-	//     BufferingµÈ ´ÙÀ½ Çàµ¿
+	//     Bufferingëœ ë‹¤ìŒ í–‰ë™
 	//------------------------------------------
 	BOOL bSlayer = IsSlayer();
 
@@ -8943,7 +8962,7 @@ MPlayer::CheckBufferAction()
 void			
 MPlayer::UnSetRepeatAction()				
 { 
-	// ¹İº¹ÀÌ ÁßÁöµÇ¸é ´ÙÀ½ bufferingÇàµ¿µµ ¾ø¾Ö¾ß µÉ±î?
+	// ë°˜ë³µì´ ì¤‘ì§€ë˜ë©´ ë‹¤ìŒ bufferingí–‰ë™ë„ ì—†ì• ì•¼ ë ê¹Œ?
 
 	m_bRepeatAction = FALSE; 
 
@@ -8980,7 +8999,7 @@ MPlayer::UnSetRepeatAction()
 		&& (*g_pActionInfoTable)[m_nUsedActionInfo].IsUseRepeatFrame() //m_WeaponSpeed )
 		&& m_Action!=ACTION_STAND 
 		&& (!bSlayer || bSlayer && m_Action!=ACTION_SLAYER_MOTOR_STAND)
-		&& m_ActionCountMax!=0 )	// ÀÌ°É·Î µÉ·Á³ª.. - -;
+		&& m_ActionCountMax!=0 )	// ì´ê±¸ë¡œ ë ë ¤ë‚˜.. - -;
 	{	
 		//m_ActionCountMax = (*g_pCreatureTable)[m_CreatureType].GetActionCount( m_Action );		
 		m_ActionCountMax = GetCreatureActionCountMax( this, m_Action );
@@ -9016,7 +9035,7 @@ MPlayer::AddEffectStatus(EFFECTSTATUS status, DWORD delayFrame)
 			// Bless
 			//--------------------------------------------------
 			case EFFECTSTATUS_BLESS :
-				// [µµ¿ò¸»] striking
+				// [ë„ì›€ë§] striking
 //				ExecuteHelpEvent( HE_EFFECT_BLESS );
 			break;
 
@@ -9024,7 +9043,7 @@ MPlayer::AddEffectStatus(EFFECTSTATUS status, DWORD delayFrame)
 			// Striking
 			//--------------------------------------------------
 			case EFFECTSTATUS_STRIKING :
-				// [µµ¿ò¸»] striking
+				// [ë„ì›€ë§] striking
 //				ExecuteHelpEvent( HE_EFFECT_STRIKING );
 			break;
 
@@ -9033,7 +9052,7 @@ MPlayer::AddEffectStatus(EFFECTSTATUS status, DWORD delayFrame)
 			//--------------------------------------------------
 			case EFFECTSTATUS_GREEN_POISON :
 			case EFFECTSTATUS_POISON :
-				// [µµ¿ò¸»] green poison
+				// [ë„ì›€ë§] green poison
 //				ExecuteHelpEvent( HE_EFFECT_GREEN_POISON );
 			break;
 
@@ -9042,7 +9061,7 @@ MPlayer::AddEffectStatus(EFFECTSTATUS status, DWORD delayFrame)
 			//--------------------------------------------------
 			//case EFFECTSTATUS_PURPLE_WALL :
 			case EFFECTSTATUS_CURSE_PARALYSIS :
-				// [µµ¿ò¸»] purple wall
+				// [ë„ì›€ë§] purple wall
 //				ExecuteHelpEvent( HE_EFFECT_PURPLE_WALL );
 			break;
 
@@ -9051,7 +9070,7 @@ MPlayer::AddEffectStatus(EFFECTSTATUS status, DWORD delayFrame)
 			//--------------------------------------------------
 			case EFFECTSTATUS_YELLOW_POISON :
 			case EFFECTSTATUS_YELLOW_POISON_TO_CREATURE :
-				// [µµ¿ò¸»] yellow poison
+				// [ë„ì›€ë§] yellow poison
 //				ExecuteHelpEvent( HE_EFFECT_YELLOW_POISON );
 			break;
 		
@@ -9060,17 +9079,17 @@ MPlayer::AddEffectStatus(EFFECTSTATUS status, DWORD delayFrame)
 			//--------------------------------------------------
 			case EFFECTSTATUS_BLOOD_DRAIN :
 			{
-				// 2004, 5, 6 sobeit add start [µµ¿ò¸»] ÈíÇ÷´çÇßÀ»¶§
+				// 2004, 5, 6 sobeit add start [ë„ì›€ë§] í¡í˜ˆë‹¹í–ˆì„ë•Œ
 				ExecuteHelpEvent( HELP_EVENT_DRAIN_BLOOD );				
 				// 2004, 5, 6 sobeit add end
 			}
 			break;		
 
 			//--------------------------------------------------
-			// OBSERVING_EYE [»õ±â¼ú6]
+			// OBSERVING_EYE [ìƒˆê¸°ìˆ 6]
 			//--------------------------------------------------
 			case EFFECTSTATUS_OBSERVING_EYE :
-				// ¾ÆÁ÷ ¾È °É·ÁÀÖ´Â °æ¿ì
+				// ì•„ì§ ì•ˆ ê±¸ë ¤ìˆëŠ” ê²½ìš°
 				if (!m_bEffectStatus[EFFECTSTATUS_OBSERVING_EYE])
 				{
 					CalculateLightSight();
@@ -9086,12 +9105,12 @@ MPlayer::AddEffectStatus(EFFECTSTATUS status, DWORD delayFrame)
 	__END_HELP_EVENT
 
 	//--------------------------------------------------
-	// ¹ìÆÄÀÌ¾î·Î º¯ÇÏ´Â effectÀÌ¸é.. ½Ã°£ ¼³Á¤À» ÇØµĞ´Ù.
+	// ë±€íŒŒì´ì–´ë¡œ ë³€í•˜ëŠ” effectì´ë©´.. ì‹œê°„ ì„¤ì •ì„ í•´ë‘”ë‹¤.
 	//--------------------------------------------------
 	switch (status)
 	{
 		//--------------------------------------------------
-		// ÈíÇ÷
+		// í¡í˜ˆ
 		//--------------------------------------------------
 		case EFFECTSTATUS_BLOOD_DRAIN :
 		{
@@ -9134,7 +9153,7 @@ MPlayer::AddEffectStatus(EFFECTSTATUS status, DWORD delayFrame)
 
 	bool re = MCreature::AddEffectStatus( status, delayFrame );
 	//--------------------------------------------------
-	// UI¿¡ ¾Ë¸°´Ù. ¿Ö ÀÌ°É re·Î ÆÇ´ÜÇÏ¸é »à»ì³ªÁö-_-; 2002.5.5 ¾¦°«
+	// UIì— ì•Œë¦°ë‹¤. ì™œ ì´ê±¸ reë¡œ íŒë‹¨í•˜ë©´ ì‚‘ì‚´ë‚˜ì§€-_-; 2002.5.5 ì‘¥ê°“
 	//--------------------------------------------------
 	if(!(IsSlayer() && status == EFFECTSTATUS_CAUSE_CRITICAL_WOUNDS))
 		UI_AddEffectStatus( status, delayFrame );
@@ -9158,7 +9177,7 @@ MPlayer::RemoveEffectStatus(EFFECTSTATUS status)
 	bool bOK = MCreatureWear::RemoveEffectStatus( status );
 
 	//--------------------------------------------------
-	// UI¿¡ ¾Ë¸°´Ù.
+	// UIì— ì•Œë¦°ë‹¤.
 	//--------------------------------------------------
 	UI_RemoveEffectStatus( status );
 
@@ -9177,7 +9196,7 @@ MPlayer::RemoveEffectStatus(EFFECTSTATUS status)
 		if(GetWaitVerify() == MPlayer::WAIT_VERIFY_SYLPH_SUMMON_GETOFF)
 			SetWaitVerifyNULL();
 		
-		/*  add by sonic ĞŞÕıÄ§Áé¶ş×ªºóÊ¹ÓÃ·ç¾«Áé²»ÄÜ±ä»ØÔ­ĞÎBUG 2006.10.4 */
+		/*  add by sonic éŒ¦æ”£ì¹¨ì¥£ë—ç˜»ë¹ˆè³ˆç—°ë£¨ì‘¹ì¥£ê¼‡ì½˜ê¸´ì€¼è¦©è¿‘BUG 2006.10.4 */
 		if(IsAdvancementClass() && status==EFFECTSTATUS_SUMMON_SYLPH)
 		{
 				m_bEffectStatus[status]=true;
@@ -9194,7 +9213,7 @@ MPlayer::RemoveEffectStatus(EFFECTSTATUS status)
 		break;
 
 		//--------------------------------------------------
-		// ¹ìÆÄÀÌ¾î·Î º¯ÇÏ´Â effectÀÌ¸é.. ½Ã°£ ¼³Á¤ Á¦°Å
+		// ë±€íŒŒì´ì–´ë¡œ ë³€í•˜ëŠ” effectì´ë©´.. ì‹œê°„ ì„¤ì • ì œê±°
 		//--------------------------------------------------
 		case EFFECTSTATUS_BLOOD_DRAIN :
 			UnSetConversionDelay();
@@ -9203,10 +9222,10 @@ MPlayer::RemoveEffectStatus(EFFECTSTATUS status)
 		break;
 
 		//--------------------------------------------------
-		// Á×´Ù°¡ »ì¾Æ³­ °æ¿ì
+		// ì£½ë‹¤ê°€ ì‚´ì•„ë‚œ ê²½ìš°
 		//--------------------------------------------------		
 		case EFFECTSTATUS_COMA :
-			// °ËÁõ Á¦°Å
+			// ê²€ì¦ ì œê±°
 			if (g_pTempInformation->GetMode()==TempInformation::MODE_WAIT_RESURRECT)
 			{
 				g_pTempInformation->SetMode(TempInformation::MODE_NULL);
@@ -9223,14 +9242,14 @@ MPlayer::RemoveEffectStatus(EFFECTSTATUS status)
 		break;
 
 		//--------------------------------------------------
-		// OBSERVING_EYE [»õ±â¼ú6]
+		// OBSERVING_EYE [ìƒˆê¸°ìˆ 6]
 		//--------------------------------------------------
 		case EFFECTSTATUS_OBSERVING_EYE :
 			CalculateStatus();
 		break;
 
 		case EFFECTSTATUS_GHOST:
-			if (!(*g_pCreatureTable)[m_CreatureType].bFlyingCreature)	// ¹ÚÁãÀÎ °æ¿ì
+			if (!(*g_pCreatureTable)[m_CreatureType].bFlyingCreature)	// ë°•ì¥ì¸ ê²½ìš°
 				SetGroundCreature();
 			break;
 		case EFFECTSTATUS_WILL_OF_LIFE :
@@ -9276,7 +9295,7 @@ MPlayer::SetCreatureType(TYPE_CREATURETYPE type)
 	MCreatureWear::SetCreatureType(type);
 
 	//---------------------------------------------------
-	// Skill IconÀ» ´Ù½Ã Ã¼Å©ÇÑ´Ù.
+	// Skill Iconì„ ë‹¤ì‹œ ì²´í¬í•œë‹¤.
 	//---------------------------------------------------
 	if (g_pSkillAvailable!=NULL)
 	{
@@ -9297,55 +9316,55 @@ void
 MPlayer::UpdateConversionTime()
 {
 	//--------------------------------------------------------
-	// ¹ìÆÄÀÌ¾î·Î º¯ÇÏ´Â EffectÃ¼Å©
-	// ÄÚµå ¸¶±¸ Ãß°¡ÇÏ±â.. Ä«Ä«...- -;
+	// ë±€íŒŒì´ì–´ë¡œ ë³€í•˜ëŠ” Effectì²´í¬
+	// ì½”ë“œ ë§ˆêµ¬ ì¶”ê°€í•˜ê¸°.. ì¹´ì¹´...- -;
 	//--------------------------------------------------------
 
-	// ÀüÀï ³²Àº ½Ã°£ Ã¼Å©
+	// ì „ìŸ ë‚¨ì€ ì‹œê°„ ì²´í¬
 	
 	if (IsSlayer())
 	{
 		if ((int)m_ConversionDelayTime > (int)g_CurrentTime)
 		{
 			//--------------------------------------------------------
-			// ¹ìÆÄÀÌ¾î·Î º¯ÇÏ´Â ³²Àº ½Ã°£À» UI¿¡ ¼³Á¤ÇÑ´Ù.
+			// ë±€íŒŒì´ì–´ë¡œ ë³€í•˜ëŠ” ë‚¨ì€ ì‹œê°„ì„ UIì— ì„¤ì •í•œë‹¤.
 			//--------------------------------------------------------
-			// msec --> minÀ¸·Î ¹Ù²Û´Ù.   * GetTimeRatio / 1000 / 60 
+			// msec --> minìœ¼ë¡œ ë°”ê¾¼ë‹¤.   * GetTimeRatio / 1000 / 60 
 			int changeTime = ((int)m_ConversionDelayTime - (int)g_CurrentTime)/* * g_pGameTime->GetTimeRatio()*/ / 60000 ;
 			g_char_slot_ingame.CHANGE_VAMPIRE = changeTime;
 
-			static DWORD enableBlinkTime = 0;	// ±ôºı°Å·Áµµ µÇ´Â ½Ã°£
+			static DWORD enableBlinkTime = 0;	// ê¹œë¹¡ê±°ë ¤ë„ ë˜ëŠ” ì‹œê°„
 			
 			//const DWORD sixHour = 6*60*60*1000;
 
-			// { ³²Àº½Ã°£, ±ôºıÀÌ´Â ½Ã°£ }
+			// { ë‚¨ì€ì‹œê°„, ê¹œë¹¡ì´ëŠ” ì‹œê°„ }
 			const int maxBlink = 12;
 			const DWORD blinkValue[maxBlink][2] = 
 			{
-				{ 4*60*60*1000, 6*60*1000 },	// 4½Ã°£ ÀÌ»ó --> 5ºĞ¸¶´Ù			
-				{ 3*60*60*1000, 4*60*1000 },	// 3½Ã°£ ÀÌ»ó --> 4ºĞ¸¶´Ù			
-				{ 2*60*60*1000, 3*60*1000 },	// 2½Ã°£ ÀÌ»ó --> 3ºĞ¸¶´Ù			
-				{ 1*60*60*1000, 2*60*1000 },	// 1½Ã°£ ÀÌ»ó --> 2ºĞ¸¶´Ù
-				{ 1*60*60*1000, 1*60*1000 },	// 10ºĞ ÀÌ»ó --> 1ºĞ
-				{ 3*60*1000, 30*1000 },			// 3ºĞ ÀÌ»ó --> 30ÃÊ
-				{ 2*60*1000, 10*1000 },			// 2ºĞ ÀÌ»ó --> 10ÃÊ
-				{ 1*60*1000, 5*1000 },			// 1ºĞ ÀÌ»ó --> 5ÃÊ
-				{ 30*60*1000, 3*1000 },			// 30ÃÊ ÀÌ»ó --> 3ÃÊ
-				{ 10*1000, 2*1000 },			// 10ÃÊ ÀÌ»ó --> 2ÃÊ
-				{ 10*1000, 2*1000 },			// 5ÃÊ ÀÌ»ó --> 1ÃÊ
-				{ 0*1000, 300 }					// 0ÃÊ ÀÌ»ó --> 0.3ÃÊ
+				{ 4*60*60*1000, 6*60*1000 },	// 4ì‹œê°„ ì´ìƒ --> 5ë¶„ë§ˆë‹¤			
+				{ 3*60*60*1000, 4*60*1000 },	// 3ì‹œê°„ ì´ìƒ --> 4ë¶„ë§ˆë‹¤			
+				{ 2*60*60*1000, 3*60*1000 },	// 2ì‹œê°„ ì´ìƒ --> 3ë¶„ë§ˆë‹¤			
+				{ 1*60*60*1000, 2*60*1000 },	// 1ì‹œê°„ ì´ìƒ --> 2ë¶„ë§ˆë‹¤
+				{ 1*60*60*1000, 1*60*1000 },	// 10ë¶„ ì´ìƒ --> 1ë¶„
+				{ 3*60*1000, 30*1000 },			// 3ë¶„ ì´ìƒ --> 30ì´ˆ
+				{ 2*60*1000, 10*1000 },			// 2ë¶„ ì´ìƒ --> 10ì´ˆ
+				{ 1*60*1000, 5*1000 },			// 1ë¶„ ì´ìƒ --> 5ì´ˆ
+				{ 30*60*1000, 3*1000 },			// 30ì´ˆ ì´ìƒ --> 3ì´ˆ
+				{ 10*1000, 2*1000 },			// 10ì´ˆ ì´ìƒ --> 2ì´ˆ
+				{ 10*1000, 2*1000 },			// 5ì´ˆ ì´ìƒ --> 1ì´ˆ
+				{ 0*1000, 300 }					// 0ì´ˆ ì´ìƒ --> 0.3ì´ˆ
 			};
 
 			//--------------------------------------------------------
-			// ¸¶Áö¸·¿¡ ±ôºıÀÌ°í ³ª¼­.. 
-			// ´Ù½Ã ±ôºıÀÏ ¼ö ÀÖ´Â ½Ã°£ÀÎÁö Ã¼Å©ÇÑ´Ù.
+			// ë§ˆì§€ë§‰ì— ê¹œë¹¡ì´ê³  ë‚˜ì„œ.. 
+			// ë‹¤ì‹œ ê¹œë¹¡ì¼ ìˆ˜ ìˆëŠ” ì‹œê°„ì¸ì§€ ì²´í¬í•œë‹¤.
 			//--------------------------------------------------------
 			if (g_CurrentTime > enableBlinkTime)
 			{
-				// º¯ÇÏ±â±îÁö ³²Àº ½Ã°£.. /1000ÇÏ¸é 'ÃÊ'·Î ³ª¿Â´Ù.
+				// ë³€í•˜ê¸°ê¹Œì§€ ë‚¨ì€ ì‹œê°„.. /1000í•˜ë©´ 'ì´ˆ'ë¡œ ë‚˜ì˜¨ë‹¤.
 				DWORD timeGap = m_ConversionDelayTime - g_CurrentTime;
 				
-				// ¹«Á¶°Ç Ãâ·Â. 6½Ã°£ÀÌ ¾È ³²Àº °æ¿ì¿¡¸¸ effectÃâ·Â
+				// ë¬´ì¡°ê±´ ì¶œë ¥. 6ì‹œê°„ì´ ì•ˆ ë‚¨ì€ ê²½ìš°ì—ë§Œ effectì¶œë ¥
 				if (1)//timeGap < sixHour)
 				{
 					BOOL bBlink = FALSE;
@@ -9356,7 +9375,7 @@ MPlayer::UpdateConversionTime()
 						{
 							g_pTopView->SetFadeStart(25, 31, 2, 31,0,0);
 
-							// ´ÙÀ½¿¡ ±ôºıÀÏ ¼ö ÀÖ´Â ½Ã°£À» ¼³Á¤ÇÑ´Ù.
+							// ë‹¤ìŒì— ê¹œë¹¡ì¼ ìˆ˜ ìˆëŠ” ì‹œê°„ì„ ì„¤ì •í•œë‹¤.
 							enableBlinkTime = g_CurrentTime + blinkValue[i][1];
 
 							bBlink = TRUE;
@@ -9377,7 +9396,7 @@ MPlayer::UpdateConversionTime()
 			m_ConversionDelayTime = 0;
 
 			//--------------------------------------------------------
-			// ¹ìÆÄÀÌ¾î·Î º¯ÇÏ´Â ³²Àº ½Ã°£À» UI¿¡ ¼³Á¤ÇÑ´Ù.
+			// ë±€íŒŒì´ì–´ë¡œ ë³€í•˜ëŠ” ë‚¨ì€ ì‹œê°„ì„ UIì— ì„¤ì •í•œë‹¤.
 			//--------------------------------------------------------
 			g_char_slot_ingame.CHANGE_VAMPIRE = 0;
 		}
@@ -9385,7 +9404,7 @@ MPlayer::UpdateConversionTime()
 }
 
 //----------------------------------------------------------------------
-// ´ÙÀ½ µ¿ÀÛÀ» ÃëÇÑ´Ù.
+// ë‹¤ìŒ ë™ì‘ì„ ì·¨í•œë‹¤.
 //----------------------------------------------------------------------
 void
 MPlayer::Action()
@@ -9395,7 +9414,7 @@ MPlayer::Action()
 		g_pZone->RemoveFakeCreature(GetElementalID());
 	}
 
-	// ÆêÀÌ ÀÖ°í Æê µ¿ÀÛÇÑÁö 1ÃÊ ³Ñ¾úÀ»¶§
+	// í«ì´ ìˆê³  í« ë™ì‘í•œì§€ 1ì´ˆ ë„˜ì—ˆì„ë•Œ
 	if( GetPetID() != OBJECTID_NULL)
 	{
 		MFakeCreature *pFakeCreature = (MFakeCreature *)g_pZone->GetFakeCreature(GetPetID());
@@ -9408,22 +9427,22 @@ MPlayer::Action()
 				int petLevel = pPetItem->GetNumber();
 				int petDelayTime = 0;	
 				TYPE_ITEMTYPE tmpItemType = pPetItem->GetItemType();
-				// add by svi 2009-07-01 Ôö¼ÓĞÂ³èÎïÍÚÍ·µÄËÙ¶È
+				// add by svi 2009-07-01 è—¤ì†åŠ¤ë…˜è† ç©€åº«ë¨é†µë˜‘
 				if(tmpItemType == 6 || tmpItemType == 7 || tmpItemType == 8)
 				{
 					petDelayTime = 1200 + ((petLevelMax-petLevel)*120)/petLevelMax;
 				}
 				// end
-				else if(pPetItem->GetItemType()>2)// 2 Â÷ ÆêÀÌ¸é
+				else if(pPetItem->GetItemType()>2)// 2 ì°¨ í«ì´ë©´
 					petDelayTime = 3200+((petLevelMax-petLevel)*2800)/petLevelMax;
 				else
 					petDelayTime = 1200+((petLevelMax-petLevel)*2800)/petLevelMax;
 
 				if(m_PetDelayTime+petDelayTime < GetTickCount() )
 				{
-					int itemLimit = 1;	// ¸Ó¸®´Â »©°í
+					int itemLimit = 1;	// ë¨¸ë¦¬ëŠ” ë¹¼ê³ 
 
-					if(pPetItem->IsCanCutHead())	// ¸Ó¸®µû±â ±â´ÉÀÌ ÀÖÀ¸¸é ¸Ó¸® Æ÷ÇÔÇØ¼­
+					if(pPetItem->IsCanCutHead())	// ë¨¸ë¦¬ë”°ê¸° ê¸°ëŠ¥ì´ ìˆìœ¼ë©´ ë¨¸ë¦¬ í¬í•¨í•´ì„œ
 						itemLimit = 0;
 
 					MItem *pItem = g_pZone->GetCorpseKilledByMe(itemLimit);
@@ -9438,7 +9457,7 @@ MPlayer::Action()
 
 						g_pSocket->sendPacket( &_CGDissectionCorpse );
 
-						// ÇÑ²¨¹ø¿¡ µûÁø´Ù limit·Î ¼¼ÆÃÇØÁÖÀğ
+						// í•œêº¼ë²ˆì— ë”°ì§„ë‹¤ limitë¡œ ì„¸íŒ…í•´ì£¼ìŸˆ
 						DEBUG_ADD_FORMAT("[PETPET] itemLimit %d", itemLimit);
 						pItem->SetNumber( itemLimit );
 					}
@@ -9449,7 +9468,7 @@ MPlayer::Action()
 		}
 	}
 
-	// ³Ê¹« ¿À·¡ ¹İº¹ ½ÃÅ°Áö ¾Ê°Ô
+	// ë„ˆë¬´ ì˜¤ë˜ ë°˜ë³µ ì‹œí‚¤ì§€ ì•Šê²Œ
 	if( m_nUsedActionInfo == SKILL_BLITZ_SLIDING_ATTACK || m_nUsedActionInfo == SKILL_BLAZE_WALK_ATTACK )
 		UnSetRepeatAction();
 
@@ -9458,7 +9477,7 @@ MPlayer::Action()
 		if(m_RepeatTimer + g_pClientConfig->REPEAT_TIME < GetTickCount())
 			UnSetRepeatAction();
 	}
-	// ³Ê¹« ¿À·¡ ¹İº¹ ½ÃÅ°Áö ¾Ê°Ô
+	// ë„ˆë¬´ ì˜¤ë˜ ë°˜ë³µ ì‹œí‚¤ì§€ ì•Šê²Œ
 	if(IsLockMode())
 	{
 		if(m_LockTimer + g_pClientConfig->LOCK_TIME < GetTickCount())
@@ -9470,7 +9489,7 @@ MPlayer::Action()
 	//}
 	
 	//----------------------------------------------------------------------
-	// ÆÄÆ¼¿øµé¿¡°Ô ³ªÀÇ »óÅÂÁ¤º¸¸¦ º¸³½´Ù.
+	// íŒŒí‹°ì›ë“¤ì—ê²Œ ë‚˜ì˜ ìƒíƒœì •ë³´ë¥¼ ë³´ë‚¸ë‹¤.
 	//----------------------------------------------------------------------
 	SendStatusInfoToParty();
 	
@@ -9491,13 +9510,13 @@ MPlayer::Action()
 #endif
 	/*
 	// [ TEST CODE ]
-	// EffectTarget¿¡ °á°ú Ãß°¡ÇÏ±â Test
+	// EffectTargetì— ê²°ê³¼ ì¶”ê°€í•˜ê¸° Test
 	if (m_listEffectTarget.size()!=0 && m_ActionCount==m_ActionCountMax)
 	{
 		MActionResult* pResult = new MActionResult;
 		pResult->Add( new MActionResultNodeActionInfo( 1, 1001, GUIDANCE_FIRE ) );
 		
-		// °á°ú¿Í °ü·ÃµÈ Effect°¡ ¾ø´Â °æ¿ì..
+		// ê²°ê³¼ì™€ ê´€ë ¨ëœ Effectê°€ ì—†ëŠ” ê²½ìš°..
 		EFFECTTARGET_LIST::iterator iEffectTarget = m_listEffectTarget.begin();
 		MEffectTarget* pEffectTarget = *iEffectTarget;
 		
@@ -9505,8 +9524,8 @@ MPlayer::Action()
 
 		if (!AddActionResult(id, pResult))
 		{
-			// °á°ú¸¦ ¹Ù·Î ½ÇÇàÇÏ°í..
-			// ¸Ş¸ğ¸®¿¡¼­ Áö¿î´Ù.
+			// ê²°ê³¼ë¥¼ ë°”ë¡œ ì‹¤í–‰í•˜ê³ ..
+			// ë©”ëª¨ë¦¬ì—ì„œ ì§€ìš´ë‹¤.
 			delete pResult;
 		}
 		
@@ -9521,30 +9540,30 @@ MPlayer::Action()
 	#endif
 
 	//--------------------------------------------------------
-	// µµ¿ò¸» --;
+	// ë„ì›€ë§ --;
 	//--------------------------------------------------------
 //	__BEGIN_HELP_EVENT
-//		static DWORD nextHelpTime = g_CurrentTime+20*1000;	// 20ÃÊ µÚ Ã³À½À¸·Î ¸Ş¼¼Áö Ãâ·Â
+//		static DWORD nextHelpTime = g_CurrentTime+20*1000;	// 20ì´ˆ ë’¤ ì²˜ìŒìœ¼ë¡œ ë©”ì„¸ì§€ ì¶œë ¥
 //		if (g_CurrentTime > nextHelpTime)
 //		{
 //			ExecuteHelpEvent( HE_TIME_PASSED );
 //
-//			nextHelpTime = g_CurrentTime + 20*1000;	// 20ÃÊ
+//			nextHelpTime = g_CurrentTime + 20*1000;	// 20ì´ˆ
 //		}
 //	__END_HELP_EVENT
 
 	//--------------------------------------------------------
-	// Status »óÅÂ º¯È­	- HP, MP º¯È­
+	// Status ìƒíƒœ ë³€í™”	- HP, MP ë³€í™”
 	//--------------------------------------------------------
 	UpdateStatus();	
 	
 	//--------------------------------------------------------
-	// ¹ìÆÄÀÌ¾î·Î º¯ÇÏ´Â EffectÃ¼Å©
+	// ë±€íŒŒì´ì–´ë¡œ ë³€í•˜ëŠ” Effectì²´í¬
 	//--------------------------------------------------------
 	UpdateConversionTime();
 	
 	//--------------------------------------------------------
-	// Ã¤ÆÃ String Scroll ½ÃÅ³ ½Ã°£
+	// ì±„íŒ… String Scroll ì‹œí‚¬ ì‹œê°„
 	//--------------------------------------------------------
 	if (m_NextChatFadeTime < g_CurrentTime)
 	{
@@ -9552,7 +9571,7 @@ MPlayer::Action()
 	}
 
 	//--------------------------------------------------------
-	// Æ¯¼öÇÑ È¿°úµé
+	// íŠ¹ìˆ˜í•œ íš¨ê³¼ë“¤
 	//--------------------------------------------------------
 	if(UpDateInstallTurret())
 		return;
@@ -9573,13 +9592,13 @@ MPlayer::Action()
 
 	UpdateBikeCrash();
 	//--------------------------------------------------------
-	// ¹æÇâ ÀüÈ¯À» ÀÚ¿¬½º·´°Ô
+	// ë°©í–¥ ì „í™˜ì„ ìì—°ìŠ¤ëŸ½ê²Œ
 	//--------------------------------------------------------
 	ChangeNearDirection();
 	//m_CurrentDirection = m_Direction;
 
 	//--------------------------------------------------------
-	// ±â¼ú¿¡ µû¸¥ °á°ú Ç¥Çö Ã¼Å©
+	// ê¸°ìˆ ì— ë”°ë¥¸ ê²°ê³¼ í‘œí˜„ ì²´í¬
 	//--------------------------------------------------------
 	#ifdef OUTPUT_DEBUG_PLAYER_ACTION
 		DEBUG_ADD("beforeCheckListEffect");
@@ -9592,8 +9611,8 @@ MPlayer::Action()
 		if (numTarget!=0)
 		{
 			//------------------------------------------------------------
-			// ¹º°¡ ±â¼úÀ» »ç¿ëÇÏ°í ÀÖ´Ù¸é 
-			// ±× ±â¼úÀÇ °á°ú ½ÃÁ¡¿¡¼­ °á°ú¸¦ º¸¿©ÁÖ°Ô ÇÒ·Á°í...
+			// ë­”ê°€ ê¸°ìˆ ì„ ì‚¬ìš©í•˜ê³  ìˆë‹¤ë©´ 
+			// ê·¸ ê¸°ìˆ ì˜ ê²°ê³¼ ì‹œì ì—ì„œ ê²°ê³¼ë¥¼ ë³´ì—¬ì£¼ê²Œ í• ë ¤ê³ ...
 			//------------------------------------------------------------
 			BOOL	bActionStand	= (m_Action==ACTION_STAND || IsSlayer() && m_Action==ACTION_SLAYER_MOTOR_STAND);
 			//int		actionCountMax_1 = m_ActionCountMax-1;
@@ -9609,7 +9628,7 @@ MPlayer::Action()
 							&& m_RepeatCount!=0
 							&& m_ActionCount >= GetActionInfoRepeatStartFrame( m_nUsedActionInfo );
 
-			// °á°ú¸¦ ÀüºÎ ½ÇÇàÇØ¹ö¸°´Ù.
+			// ê²°ê³¼ë¥¼ ì „ë¶€ ì‹¤í–‰í•´ë²„ë¦°ë‹¤.
 			if (bStartResult)
 			{
 				EFFECTTARGET_LIST::iterator iEffectTarget = m_listEffectTarget.begin();
@@ -9624,7 +9643,7 @@ MPlayer::Action()
 
 						if (pResult!=NULL)
 						{
-							// ½ÇÇàÇÑ °á°ú´Â ¾ø¾Ø´Ù.
+							// ì‹¤í–‰í•œ ê²°ê³¼ëŠ” ì—†ì•¤ë‹¤.
 							int numTargetBeforeExecute = m_listEffectTarget.size();
 
 							pEffectTarget->SetResultNULL();
@@ -9635,19 +9654,19 @@ MPlayer::Action()
 
 							int numTargetAfterExecute = m_listEffectTarget.size();
 							
-							// pResult->Execute()¿¡¼­ m_listEffectTargetÀÌ Á¦°ÅµÉ ¼ö°¡ ÀÖ´Ù - -;
-							// Äá°¡·ç ±¸Á¶... ¼öÁ¤ÀÌ ÇÊ¿äÇÏ´Ù - -;;
+							// pResult->Execute()ì—ì„œ m_listEffectTargetì´ ì œê±°ë  ìˆ˜ê°€ ìˆë‹¤ - -;
+							// ì½©ê°€ë£¨ êµ¬ì¡°... ìˆ˜ì •ì´ í•„ìš”í•˜ë‹¤ - -;;
 							if (numTargetBeforeExecute!=numTargetAfterExecute)
 							{
-								// Ã³À½ºÎÅÍ ´Ù½Ã Ã¼Å©
+								// ì²˜ìŒë¶€í„° ë‹¤ì‹œ ì²´í¬
 								iEffectTarget = m_listEffectTarget.begin();
 								continue;
 							}
 
-							// delete´Â ¿ÜºÎ¿¡¼­ ÇÑ´Ù...
-							// ¾Æ¸¶(-_-;;) Effect¿¡ ºÙ¿©¼­ Effect Á¦°ÅµÉ¶§ Áö¿ì´Â µí..
-							// ±×·¯³ª.. º°·Î ±â¾ïÀÌ ¾È³ª´Âµ¥.. ¤Ñ.¤Ñ;;
-							// ÀÏ´Ü Áö¿ì¸é ´Ù¿îµÇ´Âµ¥. ¾È Áö¿ì¸é ´Ù¿î¾ÈµÇ´Â°Éº¸¸é.. ¸Â´Âµí.. - -;;
+							// deleteëŠ” ì™¸ë¶€ì—ì„œ í•œë‹¤...
+							// ì•„ë§ˆ(-_-;;) Effectì— ë¶™ì—¬ì„œ Effect ì œê±°ë ë•Œ ì§€ìš°ëŠ” ë“¯..
+							// ê·¸ëŸ¬ë‚˜.. ë³„ë¡œ ê¸°ì–µì´ ì•ˆë‚˜ëŠ”ë°.. ã…¡.ã…¡;;
+							// ì¼ë‹¨ ì§€ìš°ë©´ ë‹¤ìš´ë˜ëŠ”ë°. ì•ˆ ì§€ìš°ë©´ ë‹¤ìš´ì•ˆë˜ëŠ”ê±¸ë³´ë©´.. ë§ëŠ”ë“¯.. - -;;
 							//delete pEffectTarget;
 						}
 					}
@@ -9665,9 +9684,9 @@ MPlayer::Action()
 	#endif
 
 	//--------------------------------------------------------
-	// ±â¼ú »ç¿ëÈÄÀÇ delay°¡ ¸ğµÎ ³¡³­ »óÅÂÀÌ¸é...
+	// ê¸°ìˆ  ì‚¬ìš©í›„ì˜ delayê°€ ëª¨ë‘ ëë‚œ ìƒíƒœì´ë©´...
 	//--------------------------------------------------------	
-	if (!m_bTurning	// [»õ±â¼ú]
+	if (!m_bTurning	// [ìƒˆê¸°ìˆ ]
 		&& !HasEffectStatus(EFFECTSTATUS_CURSE_PARALYSIS)
 		&& !IsCauseCriticalWounds()
 //		&& !IsBloodyZenith()
@@ -9683,7 +9702,7 @@ MPlayer::Action()
 		)// && !HasEffectStatus(EFFECTSTATUS_CAUSE_CRITICAL_WOUNDS))	//IsNotDelay())
 	{
 		//--------------------------------------------------------
-		// ´ÙÀ½ bufferingµÈ actioninfo
+		// ë‹¤ìŒ bufferingëœ actioninfo
 		//--------------------------------------------------------
 		/*
 		if (m_nNextUsedActionInfo!=ACTIONINFO_NULL
@@ -9694,7 +9713,7 @@ MPlayer::Action()
 		}
 		*/
 		//--------------------------------------------------------
-		// ¹«½¼ effect°¡ °É·ÁÀÖ´Ù¸é 2¹è ´À¸®°Ô ¿òÁ÷ÀÎ´Ù.
+		// ë¬´ìŠ¨ effectê°€ ê±¸ë ¤ìˆë‹¤ë©´ 2ë°° ëŠë¦¬ê²Œ ì›€ì§ì¸ë‹¤.
 		//--------------------------------------------------------
 		if (HasEffectStatus( EFFECTSTATUS_HAS_SLAYER_RELIC )       || HasEffectStatus( EFFECTSTATUS_HAS_VAMPIRE_RELIC ) ||
 			HasEffectStatus( EFFECTSTATUS_HAS_BLOOD_BIBLE_GREGORI )|| HasEffectStatus( EFFECTSTATUS_HAS_BLOOD_BIBLE_NEMA ) ||
@@ -9729,14 +9748,14 @@ MPlayer::Action()
 		}
 
 		//--------------------------------------------------------
-		// KnockBack Ã³¸® 2001.10.9
+		// KnockBack ì²˜ë¦¬ 2001.10.9
 		//--------------------------------------------------------
 		if (m_bKnockBack > 0)
 		{
 			m_sX += m_cX;
 			m_sY += m_cY;
 
-			// knockBack ´Ùx µÆÀ¸¸é Á¤Áöµ¿ÀÛ.
+			// knockBack ë‹¤x ëìœ¼ë©´ ì •ì§€ë™ì‘.
 			if (--m_bKnockBack==0)
 			{
 				m_sX = 0;
@@ -9748,19 +9767,19 @@ MPlayer::Action()
 			}			
 		}
 		//--------------------------------------------------------
-		// FastMoveÁß¿¡´Â actionÀ» ÃëÇÏÁö ¾Ê´Â´Ù. 2001.8.10
+		// FastMoveì¤‘ì—ëŠ” actionì„ ì·¨í•˜ì§€ ì•ŠëŠ”ë‹¤. 2001.8.10
 		//--------------------------------------------------------
 		else if (!m_bFastMove)
 		{
 			//--------------------------------------------------------
-			// Lock Mode »ç¿ë
+			// Lock Mode ì‚¬ìš©
 			//--------------------------------------------------------
 			if (m_bLockMode && !IsInDarkness())
 			{
 				int creatureID = FindEnemy();
 
 				//--------------------------------------------------------
-				// »çÁ¤°Å¸® ÀÌ³»¿¡ ÀûÀÌ ¾ø´Â °æ¿ì
+				// ì‚¬ì •ê±°ë¦¬ ì´ë‚´ì— ì ì´ ì—†ëŠ” ê²½ìš°
 				//--------------------------------------------------------
 				if (creatureID == OBJECTID_NULL)
 				{
@@ -9771,7 +9790,7 @@ MPlayer::Action()
 					m_fTraceBuffer	= FLAG_TRACE_NULL;	
 					m_fNextTrace	= FLAG_TRACE_NULL;
 
-					// ±æÃ£±â Çß´ø°É ¾ø¾ÖÁØ´Ù.
+					// ê¸¸ì°¾ê¸° í–ˆë˜ê±¸ ì—†ì• ì¤€ë‹¤.
 					m_DestX		= SECTORPOSITION_NULL;
 					m_DestY		= SECTORPOSITION_NULL;
 					m_NextDestX	= SECTORPOSITION_NULL;
@@ -9780,7 +9799,7 @@ MPlayer::Action()
 					g_pTopView->SetSelectedNULL();
 				}
 				//--------------------------------------------------------
-				// ÀûÀÌ ÀÖ´Â °æ¿ì
+				// ì ì´ ìˆëŠ” ê²½ìš°
 				//--------------------------------------------------------
 				else
 				{
@@ -9788,16 +9807,16 @@ MPlayer::Action()
 					int bSpecialAction = g_bRButtonDown;
 
 					//---------------------------------------------------------------
-					// ±âº» Çàµ¿
+					// ê¸°ë³¸ í–‰ë™
 					//-------------------------------------------------------------
 					if (bBasicAction)
 					{
 						if (TraceCreatureToBasicAction( 
 									creatureID, 
-									true ))		// °­Á¦ °ø°İ
+									true ))		// ê°•ì œ ê³µê²©
 						{
 							//----------------------------------
-							// ¹İº¹ actionÀÎ °æ¿ì¸¸ ¹İº¹ ¼³Á¤
+							// ë°˜ë³µ actionì¸ ê²½ìš°ë§Œ ë°˜ë³µ ì„¤ì •
 							//----------------------------------
 							//if (m_nBasicActionInfo!=ACTIONINFO_NULL 
 							//	&& (*g_pActionInfoTable)[m_nBasicActionInfo].IsUseRepeatFrame()
@@ -9813,14 +9832,14 @@ MPlayer::Action()
 						}
 					}
 					//-------------------------------------------------------------
-					// Æ¯¼ö Çàµ¿
+					// íŠ¹ìˆ˜ í–‰ë™
 					//-------------------------------------------------------------
 					else if (bSpecialAction)
 					{
 						if (TraceCreatureToSpecialAction( creatureID, true ))
 						{
 							//----------------------------------
-							// ¹İº¹ actionÀÎ °æ¿ì¸¸ ¹İº¹ ¼³Á¤
+							// ë°˜ë³µ actionì¸ ê²½ìš°ë§Œ ë°˜ë³µ ì„¤ì •
 							//----------------------------------
 							if (m_nSpecialActionInfo!=ACTIONINFO_NULL 
 								&& (*g_pActionInfoTable)[m_nSpecialActionInfo].IsUseRepeatFrame()
@@ -9837,25 +9856,25 @@ MPlayer::Action()
 						}
 					}					
 
-					// ¸ñÀûÁö Ç¥½Ã¸¦ ¾ø¾Ø´Ù.
+					// ëª©ì ì§€ í‘œì‹œë¥¼ ì—†ì•¤ë‹¤.
 					g_pTopView->SetSelectedSectorNULL();
 				}
 				
 			}
 
 			//--------------------------------------------------------
-			// ÇÇ Èê¸®´Â°Å Ã¼Å©
+			// í”¼ í˜ë¦¬ëŠ”ê±° ì²´í¬
 			//--------------------------------------------------------
 			if (m_bAlive)
 			{
 				CheckDropBlood();
 			}
 
-			// delayTimeÀº ¾ø´Â °É·Î settingÇÑ´Ù.
+			// delayTimeì€ ì—†ëŠ” ê±¸ë¡œ settingí•œë‹¤.
 			//m_DelayTime	= 0;
 			//----------------------------------------------------
-			// °è¼Ó ÃßÀûÇÏ´Â °æ¿ì
-			// À½.. ÁöÀúºĞÇÑ ÄÚµå°¡ ´Ã¾î³­´Ù... - -;;
+			// ê³„ì† ì¶”ì í•˜ëŠ” ê²½ìš°
+			// ìŒ.. ì§€ì €ë¶„í•œ ì½”ë“œê°€ ëŠ˜ì–´ë‚œë‹¤... - -;;
 			//----------------------------------------------------
 			if (m_bKeepTraceCreature && (m_fTrace & FLAG_TRACE_CREATURE_BASIC))
 			{							
@@ -9863,7 +9882,7 @@ MPlayer::Action()
 			}
 			
 			//------------------------------------------		
-			//     BufferingµÈ ´ÙÀ½ Çàµ¿
+			//     Bufferingëœ ë‹¤ìŒ í–‰ë™
 			//------------------------------------------
 			BOOL bSlayer = IsSlayer();
 			if (m_bNextAction ||
@@ -9887,10 +9906,10 @@ MPlayer::Action()
 			//------------------------------------------
 			// [ TEST CODE ]
 			//------------------------------------------
-			// ¿òÁ÷ÀÌ´Â µµÁß¿¡..
-			// ÃßÀûÇÏ´Â °æ¿ì ÃßÀû¸ñÇ¥°Å¸®°¡ µÇ´Â °æ¿ì¿¡´Â..
-			// ¹Ù·Î ÀÌ¹ø¿¡.. actionÀ» ¼öÇàÇÏ°Ô ÇØ¾ßÇÑ´Ù.
-			// ±×·¡¼­, return false
+			// ì›€ì§ì´ëŠ” ë„ì¤‘ì—..
+			// ì¶”ì í•˜ëŠ” ê²½ìš° ì¶”ì ëª©í‘œê±°ë¦¬ê°€ ë˜ëŠ” ê²½ìš°ì—ëŠ”..
+			// ë°”ë¡œ ì´ë²ˆì—.. actionì„ ìˆ˜í–‰í•˜ê²Œ í•´ì•¼í•œë‹¤.
+			// ê·¸ë˜ì„œ, return false
 			if (m_NextAction==m_MoveAction &&
 				m_fTrace != FLAG_TRACE_NULL &&
 				(max(abs(m_X-m_TraceX), abs(m_Y-m_TraceY))) <= m_TraceDistance)
@@ -9899,7 +9918,7 @@ MPlayer::Action()
 			}
 
 			//------------------------------------------
-			// Action ¼öÇà.. ´ÙÀ½ FrameÀ¸·Î...
+			// Action ìˆ˜í–‰.. ë‹¤ìŒ Frameìœ¼ë¡œ...
 			//------------------------------------------
 			if (m_ActionCount < m_ActionCountMax)
 			{		
@@ -9911,13 +9930,13 @@ MPlayer::Action()
 				{
 					//m_ActionCount--;
 
-					// ÀûÀıÇÑ Action ¼öÇà
+					// ì ì ˆí•œ Action ìˆ˜í–‰
 					//switch (m_Action)
 					//
 
 					BOOL bSlayer = IsSlayer();
 
-						// Á¤Áö µ¿ÀÛ
+						// ì •ì§€ ë™ì‘
 					if (m_Action==ACTION_STAND || IsOusters() && m_Action==ACTION_OUSTERS_FAST_MOVE_MOVE
 						|| bSlayer && m_Action==ACTION_SLAYER_MOTOR_STAND)
 					{
@@ -9925,7 +9944,7 @@ MPlayer::Action()
 						m_ActionCount++;						
 
 						//------------------------------------------------------------
-						// ¹İº¹ Çàµ¿ Ã¼Å©..
+						// ë°˜ë³µ í–‰ë™ ì²´í¬..
 						//------------------------------------------------------------
 						if (CheckRepeatAction())
 						{
@@ -9933,7 +9952,7 @@ MPlayer::Action()
 							{
 								if (m_nNextUsedActionInfo != ACTIONINFO_NULL)
 								{
-									// ¾Æ.. Çò°¥·Á¶ó.. - -;
+									// ì•„.. í—·ê°ˆë ¤ë¼.. - -;
 									m_nUsedActionInfo = m_nNextUsedActionInfo;
 									m_nNextUsedActionInfo = ACTIONINFO_NULL;							
 
@@ -9941,19 +9960,19 @@ MPlayer::Action()
 									{
 										if (m_nNextUsedActionInfo != ACTIONINFO_NULL)
 										{
-											// ¾Æ.. Çò°¥·Á¶ó.. - -;
+											// ì•„.. í—·ê°ˆë ¤ë¼.. - -;
 											m_nUsedActionInfo = m_nNextUsedActionInfo;
 											m_nNextUsedActionInfo = ACTIONINFO_NULL;
 										}
 										else
 										{
-											// ´õ ÀÌ»ó °¥ ÇÊ¿ä°¡ ¾ø´Ù.
+											// ë” ì´ìƒ ê°ˆ í•„ìš”ê°€ ì—†ë‹¤.
 											m_listDirection.clear();
 
-											// ÀÌµ¿ ÁßÁö
+											// ì´ë™ ì¤‘ì§€
 											m_MoveCount = m_MoveCountMax;
 
-											// Player°¡ ¹Ù¶óº¸´Â ¹æÇâÀÌ ÇöÀç ÀûÀÌ ÀÖ´Â ¹æÇâÀÌ µÇµµ·Ï ÇÑ´Ù.				
+											// Playerê°€ ë°”ë¼ë³´ëŠ” ë°©í–¥ì´ í˜„ì¬ ì ì´ ìˆëŠ” ë°©í–¥ì´ ë˜ë„ë¡ í•œë‹¤.				
 											SetDirectionToPosition( m_TraceX, m_TraceY );
 
 											SetAction( m_NextAction );
@@ -9977,7 +9996,7 @@ MPlayer::Action()
 						else if (m_Action==ACTION_MOVE 
 								|| bSlayer && ACTION_SLAYER_MOTOR_MOVE)
 						{
-							// Move´Â µû·Î Ã³¸®ÇÑ´Ù.
+							// MoveëŠ” ë”°ë¡œ ì²˜ë¦¬í•œë‹¤.
 							//ActionMove();					
 						}
 						*/					
@@ -10010,19 +10029,19 @@ MPlayer::Action()
 
 
 		//------------------------------------------
-		// ActionÀÌ ³¡³­ »óÅÂÀÌ¸é
+		// Actionì´ ëë‚œ ìƒíƒœì´ë©´
 		//------------------------------------------
 		if (m_bAlive)
 		{
-			// ºÎµîÈ£ Ãß°¡ 2001.10.7
+			// ë¶€ë“±í˜¸ ì¶”ê°€ 2001.10.7
 			if (m_ActionCount>=m_ActionCountMax) //if (IsStop())
 			{
 				//--------------------------------------------------------
-				// ¸ñÇ¥ Å¸ÀÏ¿¡ µµÂøÇÑ »óÅÂ¿¡¼­..
-				// °è¼Ó ¼­ ÀÖ°Å³ª.. ´Ù °ÉÀº °æ¿ì´Â.. 
-				// Á¦ÀÚ¸®¿¡¼­ Èçµé°Å¸®´Â ¸ğ½ÀÀ» Ç¥ÇöÇØÁØ´Ù.
+				// ëª©í‘œ íƒ€ì¼ì— ë„ì°©í•œ ìƒíƒœì—ì„œ..
+				// ê³„ì† ì„œ ìˆê±°ë‚˜.. ë‹¤ ê±¸ì€ ê²½ìš°ëŠ”.. 
+				// ì œìë¦¬ì—ì„œ í”ë“¤ê±°ë¦¬ëŠ” ëª¨ìŠµì„ í‘œí˜„í•´ì¤€ë‹¤.
 				//--------------------------------------------------------
-				// ºÎµîÈ£ Ãß°¡ 2001.10.7
+				// ë¶€ë“±í˜¸ ì¶”ê°€ 2001.10.7
 				if (m_MoveCount>=m_MoveCountMax)
 				{					
 					//if (m_bRepeatAction && m_RepeatCount!=0 && (*g_pActionInfoTable)[m_nUsedActionInfo].IsRepeatFrame())
@@ -10030,7 +10049,7 @@ MPlayer::Action()
 					//	int a =0;
 					//}
 					//------------------------------------------------------------
-					// ¹İº¹ Çàµ¿ Ã¼Å©..
+					// ë°˜ë³µ í–‰ë™ ì²´í¬..
 					//------------------------------------------------------------
 					//if (
 						bool bCheckRepeat = CheckRepeatAction();
@@ -10059,7 +10078,7 @@ MPlayer::Action()
 						*/
 						if (m_nNextUsedActionInfo != ACTIONINFO_NULL)
 						{
-							// ¾Æ.. Çò°¥·Á¶ó.. - -;
+							// ì•„.. í—·ê°ˆë ¤ë¼.. - -;
 							m_nUsedActionInfo = m_nNextUsedActionInfo;
 							m_nNextUsedActionInfo = ACTIONINFO_NULL;							
 
@@ -10067,19 +10086,19 @@ MPlayer::Action()
 							{
 								if (m_nNextUsedActionInfo != ACTIONINFO_NULL)
 								{
-									// ¾Æ.. Çò°¥·Á¶ó.. - -;
+									// ì•„.. í—·ê°ˆë ¤ë¼.. - -;
 									m_nUsedActionInfo = m_nNextUsedActionInfo;
 									m_nNextUsedActionInfo = ACTIONINFO_NULL;
 								}
 								else
 								{
-									// ´õ ÀÌ»ó °¥ ÇÊ¿ä°¡ ¾ø´Ù.
+									// ë” ì´ìƒ ê°ˆ í•„ìš”ê°€ ì—†ë‹¤.
 									m_listDirection.clear();
 
-									// ÀÌµ¿ ÁßÁö
+									// ì´ë™ ì¤‘ì§€
 									m_MoveCount = m_MoveCountMax;
 
-									// Player°¡ ¹Ù¶óº¸´Â ¹æÇâÀÌ ÇöÀç ÀûÀÌ ÀÖ´Â ¹æÇâÀÌ µÇµµ·Ï ÇÑ´Ù.				
+									// Playerê°€ ë°”ë¼ë³´ëŠ” ë°©í–¥ì´ í˜„ì¬ ì ì´ ìˆëŠ” ë°©í–¥ì´ ë˜ë„ë¡ í•œë‹¤.				
 									SetDirectionToPosition( m_TraceX, m_TraceY );
 
 									SetAction( m_NextAction );
@@ -10100,7 +10119,7 @@ MPlayer::Action()
 					}
 
 					//------------------------------------------
-					// Á¦ÀÚ¸®¿¡¼­ Èçµé°Å¸®´Â ¸ğ½À
+					// ì œìë¦¬ì—ì„œ í”ë“¤ê±°ë¦¬ëŠ” ëª¨ìŠµ
 					//------------------------------------------
 					if (m_bRepeatAction)// && m_RepeatCount!=0)// && (*g_pActionInfoTable)[m_nUsedActionInfo].IsRepeatFrame())
 					{						
@@ -10112,8 +10131,8 @@ MPlayer::Action()
 					
 				}
 				//--------------------------------------------------------
-				// °È´Ù°¡ ´Ù¸¥ actionÀ» º¸¿©Áá°Å³ª °è¼Ó °È´ø ÁßÀÌ´Ù.
-				// ´Ù½Ã °È´Â´Ù.
+				// ê±·ë‹¤ê°€ ë‹¤ë¥¸ actionì„ ë³´ì—¬ì¤¬ê±°ë‚˜ ê³„ì† ê±·ë˜ ì¤‘ì´ë‹¤.
+				// ë‹¤ì‹œ ê±·ëŠ”ë‹¤.
 				//--------------------------------------------------------					
 				else
 				{			
@@ -10121,8 +10140,8 @@ MPlayer::Action()
 					ActionMove();
 
 					//----------------------------------------------------
-					// ÀÌµ¿ÀÌ ¸ğµÎ ³¡³µÀ¸¸é..
-					// Á¦ÀÚ¸®¿¡¼­ Èçµé°Å¸®´Â ¸ğ½À 
+					// ì´ë™ì´ ëª¨ë‘ ëë‚¬ìœ¼ë©´..
+					// ì œìë¦¬ì—ì„œ í”ë“¤ê±°ë¦¬ëŠ” ëª¨ìŠµ 
 					//----------------------------------------------------
 					if (m_MoveCount==m_MoveCountMax)
 					{		
@@ -10138,7 +10157,7 @@ MPlayer::Action()
 						{
 							if (m_nNextUsedActionInfo != ACTIONINFO_NULL)
 							{
-								// ¾Æ.. Çò°¥·Á¶ó.. - -;
+								// ì•„.. í—·ê°ˆë ¤ë¼.. - -;
 								m_nUsedActionInfo = m_nNextUsedActionInfo;
 								m_nNextUsedActionInfo = ACTIONINFO_NULL;							
 
@@ -10146,19 +10165,19 @@ MPlayer::Action()
 								{
 									if (m_nNextUsedActionInfo != ACTIONINFO_NULL)
 									{
-										// ¾Æ.. Çò°¥·Á¶ó.. - -;
+										// ì•„.. í—·ê°ˆë ¤ë¼.. - -;
 										m_nUsedActionInfo = m_nNextUsedActionInfo;
 										m_nNextUsedActionInfo = ACTIONINFO_NULL;
 									}
 									else
 									{
-										// ´õ ÀÌ»ó °¥ ÇÊ¿ä°¡ ¾ø´Ù.
+										// ë” ì´ìƒ ê°ˆ í•„ìš”ê°€ ì—†ë‹¤.
 										m_listDirection.clear();
 
-										// ÀÌµ¿ ÁßÁö
+										// ì´ë™ ì¤‘ì§€
 										m_MoveCount = m_MoveCountMax;
 
-										// Player°¡ ¹Ù¶óº¸´Â ¹æÇâÀÌ ÇöÀç ÀûÀÌ ÀÖ´Â ¹æÇâÀÌ µÇµµ·Ï ÇÑ´Ù.				
+										// Playerê°€ ë°”ë¼ë³´ëŠ” ë°©í–¥ì´ í˜„ì¬ ì ì´ ìˆëŠ” ë°©í–¥ì´ ë˜ë„ë¡ í•œë‹¤.				
 										SetDirectionToPosition( m_TraceX, m_TraceY );
 
 										SetAction( m_NextAction );
@@ -10179,7 +10198,7 @@ MPlayer::Action()
 						}
 
 						//------------------------------------------
-						// Á¦ÀÚ¸®¿¡¼­ Èçµé°Å¸®´Â ¸ğ½À
+						// ì œìë¦¬ì—ì„œ í”ë“¤ê±°ë¦¬ëŠ” ëª¨ìŠµ
 						//------------------------------------------				
 						if (m_ActionCount>=m_ActionCountMax)
 						{
@@ -10193,8 +10212,8 @@ MPlayer::Action()
 
 	
 	//--------------------------------------------------------
-	// Delay°¡ ÀÖ´Â °æ¿ì...  
-	// »ì¾Æ ÀÖ´Â °æ¿ì¿¡¸¸ --> Á¤Áöµ¿ÀÛÀ» º¸¿©ÁØ´Ù.
+	// Delayê°€ ìˆëŠ” ê²½ìš°...  
+	// ì‚´ì•„ ìˆëŠ” ê²½ìš°ì—ë§Œ --> ì •ì§€ë™ì‘ì„ ë³´ì—¬ì¤€ë‹¤.
 	//--------------------------------------------------------
 	/*
 	else if (m_bAlive)
@@ -10207,10 +10226,10 @@ MPlayer::Action()
 				m_ActionCount++;
 			}		
 
-			// actionÀÌ ³¡³µÀ¸¸é..
+			// actionì´ ëë‚¬ìœ¼ë©´..
 			if (m_ActionCount==m_ActionCountMax) 
 			{
-				// ´Ù½Ã Á¤Áö µ¿ÀÛ
+				// ë‹¤ì‹œ ì •ì§€ ë™ì‘
 				SetAction( (m_MoveAction==ACTION_SLAYER_MOTOR_MOVE)? ACTION_SLAYER_MOTOR_STAND : ACTION_STAND );
 			}		hflh
 		}
@@ -10226,41 +10245,41 @@ MPlayer::Action()
 //----------------------------------------------------------------------
 // Add EffectTarget
 //----------------------------------------------------------------------
-// ÁøÇàÁßÀÎ EffectTargetÀ» Ãß°¡ÇÑ´Ù.
+// ì§„í–‰ì¤‘ì¸ EffectTargetì„ ì¶”ê°€í•œë‹¤.
 //----------------------------------------------------------------------
 void
 MPlayer::AddEffectTarget(MEffectTarget* pEffectTarget)
 {
-	// ±âÁ¸¿¡²¨ ´Ù Áö¿ö¹ö¸°´Ù. ¤»¤»
+	// ê¸°ì¡´ì—êº¼ ë‹¤ ì§€ì›Œë²„ë¦°ë‹¤. ã…‹ã…‹
 	m_listEffectTarget.clear();
 
-	// »õ°Å ÇÏ³ª Ãß°¡
+	// ìƒˆê±° í•˜ë‚˜ ì¶”ê°€
 	m_listEffectTarget.push_back( pEffectTarget );
 }
 
 //----------------------------------------------------------------------
 // Remove EffectTarget
 //----------------------------------------------------------------------
-// ÁøÇàÁßÀÌ´ø Effect°¡ ³¡³­ °æ¿ì...
-// ±×¿Í °ü·ÃÀÖ´Â TargetÀ» Á¦°ÅÇÑ´Ù.
+// ì§„í–‰ì¤‘ì´ë˜ Effectê°€ ëë‚œ ê²½ìš°...
+// ê·¸ì™€ ê´€ë ¨ìˆëŠ” Targetì„ ì œê±°í•œë‹¤.
 //----------------------------------------------------------------------
 void
 MPlayer::RemoveEffectTarget(BYTE id)
 {
 	EFFECTTARGET_LIST::iterator iEffectTarget = m_listEffectTarget.begin();
 
-	// id°¡ °°Àº °æ¿ì¸¦ Ã£¾Æ¼­ Á¦°ÅÇÑ´Ù.
-	// listÀÌ±â ¶§¹®¿¡.. ´Ù ºñ±³ÇØ¾ß ÇÏÁö¸¸...
-	// ½ÇÁ¦·Î Player°¡ »ç¿ëÁßÀÎ ±â¼úÀÌ ¸î°³~ ¹Û¿¡ ¾ÈµÇ±â ¶§¹®¿¡...
+	// idê°€ ê°™ì€ ê²½ìš°ë¥¼ ì°¾ì•„ì„œ ì œê±°í•œë‹¤.
+	// listì´ê¸° ë•Œë¬¸ì—.. ë‹¤ ë¹„êµí•´ì•¼ í•˜ì§€ë§Œ...
+	// ì‹¤ì œë¡œ Playerê°€ ì‚¬ìš©ì¤‘ì¸ ê¸°ìˆ ì´ ëª‡ê°œ~ ë°–ì— ì•ˆë˜ê¸° ë•Œë¬¸ì—...
 	while (iEffectTarget != m_listEffectTarget.end())
 	{
-		// id°¡ °°Àº °æ¿ì
+		// idê°€ ê°™ì€ ê²½ìš°
 		if ((*iEffectTarget)->GetEffectID() == id)
 		{
-			// ¸Ş¸ğ¸®¿¡¼­ Á¦°Å´Â ¿ÜºÎ¿¡¼­ ÇÑ´Ù.
+			// ë©”ëª¨ë¦¬ì—ì„œ ì œê±°ëŠ” ì™¸ë¶€ì—ì„œ í•œë‹¤.
 			//delete (*iEffectTarget);
 
-			// list¿¡¼­ Á¦°ÅÇÑ´Ù.			
+			// listì—ì„œ ì œê±°í•œë‹¤.			
 			m_listEffectTarget.erase( iEffectTarget );
 
 			break;
@@ -10273,20 +10292,20 @@ MPlayer::RemoveEffectTarget(BYTE id)
 //----------------------------------------------------------------------
 // Packet Back
 //----------------------------------------------------------------------
-// ÀÌµ¿ ÁßÀÌ¸é..
-// ¹Ù·Î ÀüÀÇ Ä­À¸·Î BackÇÑ´Ù.
-// °ø°İ ´çÇßÀ»¶§ÀÇ Ã³¸®ÀÌ´Ù.
-// ÇØÅ·ÀÇ À§ÇèÀÌ ÀÖÁö ¾ÊÀ»±î.. ÈìÈì.. - -;;
+// ì´ë™ ì¤‘ì´ë©´..
+// ë°”ë¡œ ì „ì˜ ì¹¸ìœ¼ë¡œ Backí•œë‹¤.
+// ê³µê²© ë‹¹í–ˆì„ë•Œì˜ ì²˜ë¦¬ì´ë‹¤.
+// í•´í‚¹ì˜ ìœ„í—˜ì´ ìˆì§€ ì•Šì„ê¹Œ.. í í .. - -;;
 //----------------------------------------------------------------------
 /*
 void	
 MPlayer::PacketBack()
 {
-	// Á¤ÁöµÈ »óÅÂÀÌ¸é ÇÊ¿ä°¡ ¾ø´Ù.
+	// ì •ì§€ëœ ìƒíƒœì´ë©´ í•„ìš”ê°€ ì—†ë‹¤.
 	if (m_sX==0 && m_sY==0)
 		return;
 
-	// ¹İ´ë¹æÇâ.. 	
+	// ë°˜ëŒ€ë°©í–¥.. 	
 	//m_sX = -m_sX;
 	//m_sY = -m_sY;
 	//m_cX = -m_cX;
@@ -10294,17 +10313,17 @@ MPlayer::PacketBack()
 	//m_ActionCount = m_ActionCountMax - m_ActionCount;
 	
 
-	// Á¤ÁöµÈ »óÅÂ°¡ ¾Æ´Ï¸é.. Á¤Áö ½ÃÅ²´Ù.
+	// ì •ì§€ëœ ìƒíƒœê°€ ì•„ë‹ˆë©´.. ì •ì§€ ì‹œí‚¨ë‹¤.
 	SetStop();
 
-	// ¹Ù·Î ÀüÀÇ À§Ä¡´Â...
-	// ÇöÀç À§Ä¡¿¡¼­ ÁøÇà¹æÇâÀÇ ¹İ´ë¹æÇâÀ¸·Î µÇµ¹¾Æ °¡¸é µÈ´Ù.
+	// ë°”ë¡œ ì „ì˜ ìœ„ì¹˜ëŠ”...
+	// í˜„ì¬ ìœ„ì¹˜ì—ì„œ ì§„í–‰ë°©í–¥ì˜ ë°˜ëŒ€ë°©í–¥ìœ¼ë¡œ ë˜ëŒì•„ ê°€ë©´ ëœë‹¤.
 	m_Direction = GetCounterDirection( m_Direction );
 
-	// ¹æÇâÀ¸·Î ¿òÁ÷ÀÎ ÁÂÇ¥¸¦ ¾ò´Â´Ù.
+	// ë°©í–¥ìœ¼ë¡œ ì›€ì§ì¸ ì¢Œí‘œë¥¼ ì–»ëŠ”ë‹¤.
 	GetPositionToDirection(m_X, m_Y, m_Direction);
 
-	// BackÀÌµ¿À» Çß´Ù°¡ Server·Î º¸³½´Ù.
+	// Backì´ë™ì„ í–ˆë‹¤ê°€ Serverë¡œ ë³´ë‚¸ë‹¤.
 	#ifdef	CONNECT_SERVER
 		CGMove _CGMove;
 		_CGMove.setX( m_X );
@@ -10317,7 +10336,7 @@ MPlayer::PacketBack()
 				g_pDebugMessage->Next();
 		#endif
 
-		// Server·Î º¸³½ ¹æÇâÀ» ±â¾ïÇØµĞ´Ù.
+		// Serverë¡œ ë³´ë‚¸ ë°©í–¥ì„ ê¸°ì–µí•´ë‘”ë‹¤.
 		m_listSendDirection.push_back( m_Direction );
 		m_SendMove++;
 		
@@ -10328,21 +10347,21 @@ MPlayer::PacketBack()
 //----------------------------------------------------------------------
 // Packet MoveOK
 //----------------------------------------------------------------------
-// Server¿¡¼­ MOVE_OK¸¦ ¹ŞÀº °æ¿ì
+// Serverì—ì„œ MOVE_OKë¥¼ ë°›ì€ ê²½ìš°
 //
-// ÇöÀçÀ§Ä¡¿¡¼­ direction¹æÇâÀÎ (x,y) sector·Î ÀÌµ¿°¡´ÉÇÏ´Ù´Â ÀÇ¹ÌÀÌ´Ù.
+// í˜„ì¬ìœ„ì¹˜ì—ì„œ directionë°©í–¥ì¸ (x,y) sectorë¡œ ì´ë™ê°€ëŠ¥í•˜ë‹¤ëŠ” ì˜ë¯¸ì´ë‹¤.
 //----------------------------------------------------------------------
 void
 MPlayer::PacketMoveOK(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, BYTE direction)
 {
-	// 2004, 9, 16, sobeit add start - ÅÍ·¿ ¹æÇâ ¹Ù²Ù±â, »¬±î..¤Ñ¤Ñ;
+	// 2004, 9, 16, sobeit add start - í„°ë › ë°©í–¥ ë°”ê¾¸ê¸°, ëº„ê¹Œ..ã…¡ã…¡;
 //	if(HasEffectStatus(EFFECTSTATUS_INSTALL_TURRET))
 //	{
 //		SetCurrentDirection(direction);
 //		return;
 //	}
 	// 2004, 9, 16, sobeit add end
-	// 2004, 9, 21, sobeit add start - ¾Æ´ã ºÏ ±¸¸§
+	// 2004, 9, 21, sobeit add start - ì•„ë‹´ ë¶ êµ¬ë¦„
 	m_bShowAdamCloud = false;
 	if(NULL != g_pZone && g_pZone->GetID() == 74)
 	{
@@ -10351,8 +10370,8 @@ MPlayer::PacketMoveOK(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, BYTE direc
 	}
 	// 2004, 9, 21, sobeit add end
 	//--------------------------------------------------------
-	// ±â¾ïÇØµĞ °Í Áß¿¡¼­..
-	// °ËÁõ¹ŞÀº ¹æÇâÀ» Á¦°ÅÇÑ´Ù.
+	// ê¸°ì–µí•´ë‘” ê²ƒ ì¤‘ì—ì„œ..
+	// ê²€ì¦ë°›ì€ ë°©í–¥ì„ ì œê±°í•œë‹¤.
 	//--------------------------------------------------------
 	if (!m_listSendDirection.empty())
 	{
@@ -10360,45 +10379,45 @@ MPlayer::PacketMoveOK(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, BYTE direc
 	}
 
 	//--------------------------------------------------------
-	// MoveError´ÙÀ½¿¡ MoveOK°¡ ¹Ù·Î ³¯¾Æ¿À´Â °æ¿ì
+	// MoveErrorë‹¤ìŒì— MoveOKê°€ ë°”ë¡œ ë‚ ì•„ì˜¤ëŠ” ê²½ìš°
 	//--------------------------------------------------------
 	if (m_SendMove==0)
 	{
 		//--------------------------------------------------------
-		// MoveError´ÙÀ½¿¡ ¹Ù·Î MoveOK°¡ ³¯¾Æ¿À´Â °æ¿ì°¡ ÀÖ¾ú´Ù.
-		// ÀÌ °æ¿ì.. (¾Æ¸¶ - -;) ÁÂÇ¥°¡ »ß²ı~ÇØ¼­ 
-		// °è¼Ó ´ÙÀ½ºÎÅÍ ÁÂÇ¥ °ËÁõÀ» ¸ø¹Ş´Â°Å °°´Ù.
-		// ±×·¡¼­.. ÀÓ½Ã(?) ´ëÃ¥À¸·Î... Server¿¡¼­ °ËÁõµÈ ÁÂÇ¥·Î ¹Ù·Î ÀÌµ¿½ÃÅ²´Ù.
+		// MoveErrorë‹¤ìŒì— ë°”ë¡œ MoveOKê°€ ë‚ ì•„ì˜¤ëŠ” ê²½ìš°ê°€ ìˆì—ˆë‹¤.
+		// ì´ ê²½ìš°.. (ì•„ë§ˆ - -;) ì¢Œí‘œê°€ ì‚ë—~í•´ì„œ 
+		// ê³„ì† ë‹¤ìŒë¶€í„° ì¢Œí‘œ ê²€ì¦ì„ ëª»ë°›ëŠ”ê±° ê°™ë‹¤.
+		// ê·¸ë˜ì„œ.. ì„ì‹œ(?) ëŒ€ì±…ìœ¼ë¡œ... Serverì—ì„œ ê²€ì¦ëœ ì¢Œí‘œë¡œ ë°”ë¡œ ì´ë™ì‹œí‚¨ë‹¤.
 		//--------------------------------------------------------
 		MovePosition( sX, sY );
 
-		// ÀÌµ¿À» ÁßÁöÇÑ´Ù.
+		// ì´ë™ì„ ì¤‘ì§€í•œë‹¤.
 		m_sX = 0;	
 		m_sY = 0;
 
 		m_MoveCount		= m_MoveCountMax;
 		m_ActionCount	= m_ActionCountMax; 
 
-		// ±æÃ£±â Á¦°Å
+		// ê¸¸ì°¾ê¸° ì œê±°
 		m_listDirection.empty();			
 
 		//----------------------------------------------------
-		// Creature¸¦ °è¼Ó ÃßÀûÇÏ´ø ÁßÀÌ¸é..
+		// Creatureë¥¼ ê³„ì† ì¶”ì í•˜ë˜ ì¤‘ì´ë©´..
 		//----------------------------------------------------
-		if (m_bKeepTraceCreature						// °è¼Ó ÃßÀûÇÏ´Â °æ¿ì
-			&& (m_fTrace & FLAG_TRACE_CREATURE_BASIC)	// creature¸¦ ÃßÀûÇÏ´Â °æ¿ì
-			&& !m_bTraceCreatureToForceAttack)			// ±×³É µû¶ó°¡´Â °æ¿ì
+		if (m_bKeepTraceCreature						// ê³„ì† ì¶”ì í•˜ëŠ” ê²½ìš°
+			&& (m_fTrace & FLAG_TRACE_CREATURE_BASIC)	// creatureë¥¼ ì¶”ì í•˜ëŠ” ê²½ìš°
+			&& !m_bTraceCreatureToForceAttack)			// ê·¸ëƒ¥ ë”°ë¼ê°€ëŠ” ê²½ìš°
 		{							
 			KeepTraceCreature();		
 		}
 		//----------------------------------------------------
-		// º¸Åë ÀÌµ¿½Ã¿¡ ÁßÁöµÈ °æ¿ì
+		// ë³´í†µ ì´ë™ì‹œì— ì¤‘ì§€ëœ ê²½ìš°
 		//----------------------------------------------------
 		else
 		{		
 			TraceNULL();	
 
-			// ±æÃ£±â Çß´ø°É ¾ø¾ÖÁØ´Ù.
+			// ê¸¸ì°¾ê¸° í–ˆë˜ê±¸ ì—†ì• ì¤€ë‹¤.
 			m_DestX		= SECTORPOSITION_NULL;
 			m_DestY		= SECTORPOSITION_NULL;
 			m_NextDestX	= SECTORPOSITION_NULL;
@@ -10406,7 +10425,7 @@ MPlayer::PacketMoveOK(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, BYTE direc
 		}
 	}
 	//--------------------------------------------------------
-	// Á¤»óÀûÀÎ MoveOKÀÎ °æ¿ì
+	// ì •ìƒì ì¸ MoveOKì¸ ê²½ìš°
 	//--------------------------------------------------------
 	else if (m_SendMove>0)
 	{
@@ -10416,7 +10435,7 @@ MPlayer::PacketMoveOK(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, BYTE direc
 	g_bNetStatusGood = true;
 
 	//--------------------------------------------------------
-	// Server¿¡¼­ °ËÁõµÈ À§Ä¡¸¦ ±â¾ïÇØµĞ´Ù.
+	// Serverì—ì„œ ê²€ì¦ëœ ìœ„ì¹˜ë¥¼ ê¸°ì–µí•´ë‘”ë‹¤.
 	//--------------------------------------------------------
 	//POINT nextPoint;
 	//MCreature::GetNextPosition(direction, nextPoint);
@@ -10428,8 +10447,8 @@ MPlayer::PacketMoveOK(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, BYTE direc
 
 
 	//--------------------------------------------------------
-	// (m_ServerX, m_ServerY)¿¡¼­ºÎÅÍ 
-	// PlayerÀÇ ½Ã¾ß¿¡ Æ÷ÇÔµÇÁö ¾Ê´Â Creature¸¦ Zone¿¡¼­ Á¦°Å½ÃÅ²´Ù.
+	// (m_ServerX, m_ServerY)ì—ì„œë¶€í„° 
+	// Playerì˜ ì‹œì•¼ì— í¬í•¨ë˜ì§€ ì•ŠëŠ” Creatureë¥¼ Zoneì—ì„œ ì œê±°ì‹œí‚¨ë‹¤.
 	//--------------------------------------------------------
 	if (m_pZone!=NULL)
 	{
@@ -10444,7 +10463,7 @@ MPlayer::PacketMoveOK(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, BYTE direc
 //----------------------------------------------------------------------
 // Packet MoveNO
 //----------------------------------------------------------------------
-// Server¿¡¼­ MOVE_NO¸¦ ¹ŞÀº °æ¿ì
+// Serverì—ì„œ MOVE_NOë¥¼ ë°›ì€ ê²½ìš°
 //----------------------------------------------------------------------
 void	
 MPlayer::PacketMoveNO()	
@@ -10458,22 +10477,22 @@ MPlayer::PacketMoveNO()
 	m_SendMove = 0;
 
 	//------------------------------------------------------------
-	// ÇöÀç À§Ä¡·Î ¿Ã ¼ö ÀÖ´Â ±æÀÌ ÀÖ´ÂÁö »ìÆìº»´Ù.
+	// í˜„ì¬ ìœ„ì¹˜ë¡œ ì˜¬ ìˆ˜ ìˆëŠ” ê¸¸ì´ ìˆëŠ”ì§€ ì‚´í´ë³¸ë‹¤.
 	//
-	// ±æÀÌ ¾ø´Â °æ¿ìÀÌ°Å³ª ±æÀÌ ³Ñ ±ä °æ¿ì?´Â 
-	//		ÃÖ±ÙÀÇ °ËÁõ¹ŞÀº À§Ä¡(ServerX,Y)·Î ÀÌµ¿ÇÑ´Ù.
+	// ê¸¸ì´ ì—†ëŠ” ê²½ìš°ì´ê±°ë‚˜ ê¸¸ì´ ë„˜ ê¸´ ê²½ìš°?ëŠ” 
+	//		ìµœê·¼ì˜ ê²€ì¦ë°›ì€ ìœ„ì¹˜(ServerX,Y)ë¡œ ì´ë™í•œë‹¤.
 	//
-	// ±æÀÌ ÀÖ´Ù¸é, Ã£Àº À§Ä¡±îÁöÀÇ ÀÌµ¿ packetÀ» º¸³½´Ù.
+	// ê¸¸ì´ ìˆë‹¤ë©´, ì°¾ì€ ìœ„ì¹˜ê¹Œì§€ì˜ ì´ë™ packetì„ ë³´ë‚¸ë‹¤.
 	//------------------------------------------------------------
-	//if (!SetDestination( m_X, m_Y ) || m_listDirection.empty()	// ±æÀÌ ¾ø´Â °æ¿ì
-		//|| m_SendMove > g_pClientConfig->MAX_CLIENT_MOVE)		// ±æÀÌ ³Ñ ±ä °æ¿ì
+	//if (!SetDestination( m_X, m_Y ) || m_listDirection.empty()	// ê¸¸ì´ ì—†ëŠ” ê²½ìš°
+		//|| m_SendMove > g_pClientConfig->MAX_CLIENT_MOVE)		// ê¸¸ì´ ë„˜ ê¸´ ê²½ìš°
 	{
-		// Zone¿¡¼­ ÇöÀç ÀÖ´Â Sector¿¡¼­ Á¦°ÅÇÏ°í 
-		// Server¿¡¼­ °ËÁõµÈ ÃÖ±ÙÀÇ Sector·Î ÀÌµ¿ÇÑ´Ù.
+		// Zoneì—ì„œ í˜„ì¬ ìˆëŠ” Sectorì—ì„œ ì œê±°í•˜ê³  
+		// Serverì—ì„œ ê²€ì¦ëœ ìµœê·¼ì˜ Sectorë¡œ ì´ë™í•œë‹¤.
 		MovePosition( m_ServerX, m_ServerY );
 		
 
-		// ÀÌµ¿À» ÁßÁöÇÑ´Ù.
+		// ì´ë™ì„ ì¤‘ì§€í•œë‹¤.
 		m_sX = 0;	
 		m_sY = 0;
 		
@@ -10481,25 +10500,25 @@ MPlayer::PacketMoveNO()
 		//m_ActionCount	= m_ActionCountMax; 
 
 		//----------------------------------------------------
-		// Creature¸¦ °è¼Ó ÃßÀûÇÏ´ø ÁßÀÌ¸é..
+		// Creatureë¥¼ ê³„ì† ì¶”ì í•˜ë˜ ì¤‘ì´ë©´..
 		//----------------------------------------------------
-		if (m_bKeepTraceCreature						// °è¼Ó ÃßÀûÇÏ´Â °æ¿ì
-			&& (m_fTrace & FLAG_TRACE_CREATURE_BASIC)	// creature¸¦ ÃßÀûÇÏ´Â °æ¿ì
-			&& !m_bTraceCreatureToForceAttack			// ±×³É µû¶ó°¡´Â °æ¿ì
-			&& m_ActionCount>=m_ActionCountMax)			// Æ¯º°ÇÑ µ¿ÀÛ¾øÀÌ ¿òÁ÷ÀÌ°í ÀÖ´ø °æ¿ì
+		if (m_bKeepTraceCreature						// ê³„ì† ì¶”ì í•˜ëŠ” ê²½ìš°
+			&& (m_fTrace & FLAG_TRACE_CREATURE_BASIC)	// creatureë¥¼ ì¶”ì í•˜ëŠ” ê²½ìš°
+			&& !m_bTraceCreatureToForceAttack			// ê·¸ëƒ¥ ë”°ë¼ê°€ëŠ” ê²½ìš°
+			&& m_ActionCount>=m_ActionCountMax)			// íŠ¹ë³„í•œ ë™ì‘ì—†ì´ ì›€ì§ì´ê³  ìˆë˜ ê²½ìš°
 		{							
 			KeepTraceCreature();		
 		}
 		//----------------------------------------------------
-		// º¸Åë ÀÌµ¿½Ã¿¡ ÁßÁöµÈ °æ¿ì
+		// ë³´í†µ ì´ë™ì‹œì— ì¤‘ì§€ëœ ê²½ìš°
 		//----------------------------------------------------
 		else
 		{		
-			// ±æÃ£±â Çß´ø°É ¾ø¾ÖÁØ´Ù.
+			// ê¸¸ì°¾ê¸° í–ˆë˜ê±¸ ì—†ì• ì¤€ë‹¤.
 			m_listDirection.empty();
 
 			/*
-			// ´Ù ÁÖ¼®Ã³¸®ÇÏ¸é ¿ØÁö µÉ°Å°°´Ù... - -;  2001.8.1		
+			// ë‹¤ ì£¼ì„ì²˜ë¦¬í•˜ë©´ ì™ ì§€ ë ê±°ê°™ë‹¤... - -;  2001.8.1		
 			m_DestX		= SECTORPOSITION_NULL;
 			m_DestY		= SECTORPOSITION_NULL;
 			m_NextDestX	= SECTORPOSITION_NULL;
@@ -10507,7 +10526,7 @@ MPlayer::PacketMoveNO()
 
 			TraceNULL();	
 
-			// 2001.7.27 Ãß°¡
+			// 2001.7.27 ì¶”ê°€
 			UnSetRepeatAction();	
 			*/
 		}
@@ -10515,7 +10534,7 @@ MPlayer::PacketMoveNO()
 		// 2001.8.22
 		if (m_Action==m_MoveAction)
 		{
-			// ÀÌµ¿ ÁßÀÌ¸é ±×³É Á¤Áö
+			// ì´ë™ ì¤‘ì´ë©´ ê·¸ëƒ¥ ì •ì§€
 			/*
 			SetStop();
 
@@ -10528,20 +10547,20 @@ MPlayer::PacketMoveNO()
 
 			UnSetRepeatAction();			
 			*/
-			// ±æÃ£±â Á¦°Å
+			// ê¸¸ì°¾ê¸° ì œê±°
 			m_listDirection.clear(); 
 
-			// ÃßÀû ÁßÁö	
+			// ì¶”ì  ì¤‘ì§€	
 			//m_fTrace		= FLAG_TRACE_NULL;
 			//m_fNextTrace	= FLAG_TRACE_NULL;
 
-			// Action ÁßÁö
+			// Action ì¤‘ì§€
 			//m_Action		= (m_MoveAction==ACTION_SLAYER_MOTOR_MOVE)? ACTION_SLAYER_MOTOR_STAND : ACTION_STAND;
 			//m_ActionCount	= m_ActionCountMax; 	
 			m_MoveCount		= m_MoveCountMax-1; 
 			m_NextMoveCount = m_MoveCount;
 
-			// ´ÙÀ½ µ¿ÀÛµµ ¾ø¾Ú
+			// ë‹¤ìŒ ë™ì‘ë„ ì—†ì•°
 			m_bNextAction = false;
 			m_NextX = SECTORPOSITION_NULL;
 			m_NextY = SECTORPOSITION_NULL;
@@ -10550,14 +10569,14 @@ MPlayer::PacketMoveNO()
 			//m_nUsedActionInfo = ACTIONINFO_NULL;
 
 			
-			// ¸ñÇ¥ Á¦°Å
+			// ëª©í‘œ ì œê±°
 			m_DestX			= SECTORPOSITION_NULL; 
 			m_DestY			= SECTORPOSITION_NULL; 
 			m_NextDestX		= SECTORPOSITION_NULL; 
 			m_NextDestY		= SECTORPOSITION_NULL; 
 		}
 		// 2001.8.6
-		// ÀÓ½Ã ´ëÃ¥.. - ¿òÁ÷ÀÌ´Ù°¡ ºÎµúÇô¼Å Æ¨±â´Â °æ¿ì..
+		// ì„ì‹œ ëŒ€ì±….. - ì›€ì§ì´ë‹¤ê°€ ë¶€ë”ªí˜€ì…” íŠ•ê¸°ëŠ” ê²½ìš°..
 		else if (m_ActionCount>=m_ActionCountMax)
 		{
 			if (m_Action==m_MoveAction)
@@ -10583,20 +10602,20 @@ MPlayer::PacketMoveNO()
 		}
 
 		//m_SendMove = 0;
-		// ¿©±â¼­ ¹º°¡ SX, SY°ªÀÌ ÀÌ»óÇÏ°Ô µÇ´Âµ¥~~!!!!!!!!!!!!!!!!
+		// ì—¬ê¸°ì„œ ë­”ê°€ SX, SYê°’ì´ ì´ìƒí•˜ê²Œ ë˜ëŠ”ë°~~!!!!!!!!!!!!!!!!
 	}
 	/*
-	// ÇÑÄ­ Â÷ÀÌ·Î ´ëÃ¼·Î ¸·Çô¹ö¸®±â ¶§¹®¿¡
-	// º°·Î ÀÇ¹Ì°¡ ¾ø¾î¼­ ÁÖ¼®Ã³¸®ÇØµ×´Ù.
-	// ±×¸®°í.. Å×½ºÆ®µµ ÇÑ¹øµµ ¸øÇØº» ÄÚµåÀÌ´Ù. - -;
+	// í•œì¹¸ ì°¨ì´ë¡œ ëŒ€ì²´ë¡œ ë§‰í˜€ë²„ë¦¬ê¸° ë•Œë¬¸ì—
+	// ë³„ë¡œ ì˜ë¯¸ê°€ ì—†ì–´ì„œ ì£¼ì„ì²˜ë¦¬í•´ë’€ë‹¤.
+	// ê·¸ë¦¬ê³ .. í…ŒìŠ¤íŠ¸ë„ í•œë²ˆë„ ëª»í•´ë³¸ ì½”ë“œì´ë‹¤. - -;
 	else
 	{
 		DEBUG_ADD_FORMAT("[MoveNo] Find New Way. num=%d", m_listDirection.size());
 
 		//----------------------------------------------------	
 		//
-		// (m_ServerX, m_ServerY)¿¡¼­ 
-		//	(m_X, m_Y)±îÁö ¹æÇâ´ë·Î ¿òÁ÷ÀÎ´Ù.
+		// (m_ServerX, m_ServerY)ì—ì„œ 
+		//	(m_X, m_Y)ê¹Œì§€ ë°©í–¥ëŒ€ë¡œ ì›€ì§ì¸ë‹¤.
 		//
 		//----------------------------------------------------
 		int x = m_ServerX;
@@ -10605,7 +10624,7 @@ MPlayer::PacketMoveNO()
 		while (!m_listDirection.empty())
 		{
 			//----------------------------------------------------
-			// m_listDirection¿¡¼­ ¹æÇâÀ» ÇÏ³ª ÀĞ¾î¿Â´Ù.
+			// m_listDirectionì—ì„œ ë°©í–¥ì„ í•˜ë‚˜ ì½ì–´ì˜¨ë‹¤.
 			//----------------------------------------------------
 			int direction = m_listDirection.front();
 			m_listDirection.pop_front();	
@@ -10623,7 +10642,7 @@ MPlayer::PacketMoveNO()
 			}
 
 			//----------------------------------------------------
-			// Server¿¡¼­ °ËÁõÀ» ¹Ş¾Æ¾ß ÇÑ´Ù.
+			// Serverì—ì„œ ê²€ì¦ì„ ë°›ì•„ì•¼ í•œë‹¤.
 			//----------------------------------------------------
 			#ifdef	CONNECT_SERVER
 				CGMove _CGMove;
@@ -10632,7 +10651,7 @@ MPlayer::PacketMoveNO()
 				_CGMove.setDir( direction );
 				g_pSocket->sendPacket( &_CGMove );
 				
-				// Server·Î º¸³½ ¹æÇâÀ» ±â¾ïÇØµĞ´Ù.
+				// Serverë¡œ ë³´ë‚¸ ë°©í–¥ì„ ê¸°ì–µí•´ë‘”ë‹¤.
 				m_listSendDirection.push_back( direction );
 				m_SendMove++;				
 			#endif
@@ -10645,34 +10664,34 @@ MPlayer::PacketMoveNO()
 //----------------------------------------------------------------------
 // Packet SpecialAction Result
 //----------------------------------------------------------------------
-// this Creature´Â Damage¸¦ ¹Ş¾ÒÀ¸¹Ç·Î
-// ÀÌµ¿ ÁßÀÌ¸é ¹æ±İ ÀüÀÇ Tile·Î Back½ÃÄÑ¾ß ÇÑ´Ù.
+// this CreatureëŠ” Damageë¥¼ ë°›ì•˜ìœ¼ë¯€ë¡œ
+// ì´ë™ ì¤‘ì´ë©´ ë°©ê¸ˆ ì „ì˜ Tileë¡œ Backì‹œì¼œì•¼ í•œë‹¤.
 //
-// 0. ¸ğµç µ¿ÀÛÀ» ÁßÁöÇÏ°í..
-// 1. Action --> Damage¹Ş´Â µ¿ÀÛ
-// 2. Damage Ç¥½Ã
+// 0. ëª¨ë“  ë™ì‘ì„ ì¤‘ì§€í•˜ê³ ..
+// 1. Action --> Damageë°›ëŠ” ë™ì‘
+// 2. Damage í‘œì‹œ
 //----------------------------------------------------------------------
 void		
 MPlayer::PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJECTID id, TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, BYTE temp)
 {
 	//--------------------------------------------------
-	// Á×¾úÀ¸¸é return
+	// ì£½ì—ˆìœ¼ë©´ return
 	//--------------------------------------------------
 	if (!m_bAlive)
 		return;
 
 	//----------------------------------------------------------------------
-	// °á°ú actionÀÌ ¾Æ´Ñ °æ¿ì..  - ÀÇ¹Ì°¡ ÀÖ³ª?? Èì..
+	// ê²°ê³¼ actionì´ ì•„ë‹Œ ê²½ìš°..  - ì˜ë¯¸ê°€ ìˆë‚˜?? í ..
 	//----------------------------------------------------------------------
 	if (nResultActionInfo < (*g_pActionInfoTable).GetMinResultActionInfo()
-		// fast moveÁß¿¡´Â actionÀ» º¸¿©ÁÖÁö ¾Ê´Â´Ù... // 2001.8.10
+		// fast moveì¤‘ì—ëŠ” actionì„ ë³´ì—¬ì£¼ì§€ ì•ŠëŠ”ë‹¤... // 2001.8.10
 		|| m_bFastMove || m_bKnockBack)
 	{
 		return;
 	}
 
 	//----------------------------------------------------------------------
-	// ¹æ¾î¸· È¿°ú.. - -;
+	// ë°©ì–´ë§‰ íš¨ê³¼.. - -;
 	//----------------------------------------------------------------------
 	int actionInfoAction = GetActionInfoAction(nResultActionInfo);
 	
@@ -10700,12 +10719,12 @@ MPlayer::PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJEC
 	}
 
 	//-------------------------------------------------
-	// ¹İº¹ action ¶§¹®¿¡ ±â¾ïÇØµĞ´Ù.
+	// ë°˜ë³µ action ë•Œë¬¸ì— ê¸°ì–µí•´ë‘”ë‹¤.
 	//-------------------------------------------------
 	int oldTraceID = m_TraceID;
 
 	//----------------------------------------------------------------------
-	// ±âÁ¸¿¡ »ç¿ëÇÒ·Á´Â °ÍÀÌ ÀÖ¾ú´Ù¸é...
+	// ê¸°ì¡´ì— ì‚¬ìš©í• ë ¤ëŠ” ê²ƒì´ ìˆì—ˆë‹¤ë©´...
 	//----------------------------------------------------------------------
 	///*
 	m_nNextUsedActionInfo = ACTIONINFO_NULL;
@@ -10717,16 +10736,16 @@ MPlayer::PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJEC
 		BOOL	bSentPacket		= (m_ActionCount>0);
 		int		StartFrame		= (*g_pActionInfoTable)[m_nUsedActionInfo].GetStartFrame( m_WeaponSpeed );
 
-		// Effect°¡ ½ÃÀÛµÇ´Â °æ¿ì´Â..
-		// (1) StartFrameÀÎ °æ¿ì
-		// (2) ¸¶Áö¸· ActionFrameÀÎ °æ¿ì
+		// Effectê°€ ì‹œì‘ë˜ëŠ” ê²½ìš°ëŠ”..
+		// (1) StartFrameì¸ ê²½ìš°
+		// (2) ë§ˆì§€ë§‰ ActionFrameì¸ ê²½ìš°
 		BOOL	bStartedEffect = m_ActionCount>=StartFrame;
 
 		//--------------------------------------------------
-		// ÀÌ¹Ì effect°¡ ºÙÀº°Ô ¾Æ´Ï¶ó¸é ºÙÀÎ´Ù.
+		// ì´ë¯¸ effectê°€ ë¶™ì€ê²Œ ì•„ë‹ˆë¼ë©´ ë¶™ì¸ë‹¤.
 		//--------------------------------------------------		
-		if (!bStartActionInfo						// °á°ú ÆĞÅ¶ÀÌ°Å³ª..
-			|| (bSentPacket && !bStartedEffect))	// ÆĞÅ¶À» º¸³Â´Âµ¥ Effect°¡ ¾È ºÙÀº °æ¿ì..
+		if (!bStartActionInfo						// ê²°ê³¼ íŒ¨í‚·ì´ê±°ë‚˜..
+			|| (bSentPacket && !bStartedEffect))	// íŒ¨í‚·ì„ ë³´ëƒˆëŠ”ë° Effectê°€ ì•ˆ ë¶™ì€ ê²½ìš°..
 		{
 			TYPE_ACTIONINFO oldUsedActionInfo = m_nUsedActionInfo;
 
@@ -10734,7 +10753,7 @@ MPlayer::PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJEC
 
 			AffectUsedActionInfo(oldUsedActionInfo);
 			
-			// AffectUsedActionInfo¿¡ ÀÇÇØ¼­ »ı±ä °á°ú Ç¥Çö..
+			// AffectUsedActionInfoì— ì˜í•´ì„œ ìƒê¸´ ê²°ê³¼ í‘œí˜„..
 			if (m_nUsedActionInfo != ACTIONINFO_NULL)
 			{
 				AttachCastingEffect( m_nUsedActionInfo, TRUE );
@@ -10742,7 +10761,7 @@ MPlayer::PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJEC
 			}
 		}			
 		//--------------------------------------------------		
-		// ¹Ù·Î ÀÌÀüÀÇ Effect¸¦ Ãâ·Â ¾È ÇÏ´Â °æ¿ì.
+		// ë°”ë¡œ ì´ì „ì˜ Effectë¥¼ ì¶œë ¥ ì•ˆ í•˜ëŠ” ê²½ìš°.
 		//--------------------------------------------------		
 		else
 		{
@@ -10750,7 +10769,7 @@ MPlayer::PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJEC
 		}
 		
 		//-------------------------------------------------------------
-		// castingEffect°¡ ¾ÆÁ÷ Ãâ·Â ¾ÈµÆÀ¸¸é Ãâ·Â½ÃÅ²´Ù.
+		// castingEffectê°€ ì•„ì§ ì¶œë ¥ ì•ˆëìœ¼ë©´ ì¶œë ¥ì‹œí‚¨ë‹¤.
 		//-------------------------------------------------------------
 		if (m_nUsedActionInfo!=ACTIONINFO_NULL
 			&& GetActionInfoCastingStartFrame(m_nUsedActionInfo) >= m_ActionCount)
@@ -10761,18 +10780,18 @@ MPlayer::PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJEC
 	}
 	//*/
 
-	// ÀÌµ¿À» ÁßÁöÇÑ´Ù.
+	// ì´ë™ì„ ì¤‘ì§€í•œë‹¤.
 	//m_sX = 0;	
 	//m_sY = 0;
-	// Back½ÃÅ²´Ù.	
+	// Backì‹œí‚¨ë‹¤.	
 	////SetStop();
 	//PacketBack();		
 	
 	//m_ActionCount = m_ActionCountMax; 
 
-	// ÃßÀû ÁßÁö
+	// ì¶”ì  ì¤‘ì§€
 	//-------------------------------------------------
-	// 2000.09.22 ¿¡ m_fTrace¸¸ NULL·Î ¹Ù²Ş..
+	// 2000.09.22 ì— m_fTraceë§Œ NULLë¡œ ë°”ê¿ˆ..
 	//-------------------------------------------------
 	//TraceNULL();
 	m_fTrace = FLAG_TRACE_NULL;
@@ -10782,29 +10801,29 @@ MPlayer::PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJEC
 	m_TraceX	= sX;
 	m_TraceY	= sY;
 
-	// ±æÃ£±â Çß´ø°É ¾ø¾ÖÁØ´Ù.
+	// ê¸¸ì°¾ê¸° í–ˆë˜ê±¸ ì—†ì• ì¤€ë‹¤.
 	m_listDirection.empty();
 	m_DestX		= m_X;//SECTORPOSITION_NULL;
 	m_DestY		= m_Y;//SECTORPOSITION_NULL;
 	m_NextDestX	= SECTORPOSITION_NULL;
 	m_NextDestY	= SECTORPOSITION_NULL;
 
-	// nResultActionInfo¿¡ ÇØ´çÇÏ´Â ActionInfo¸¦ Ã£¾Æ¾ß ÇÑ´Ù.
-	// ¿ø·¡ActionInfo + MIN_RESULT_ACTIONINFO¸¦ ÇÏ¸é µÈ´Ù.
+	// nResultActionInfoì— í•´ë‹¹í•˜ëŠ” ActionInfoë¥¼ ì°¾ì•„ì•¼ í•œë‹¤.
+	// ì›ë˜ActionInfo + MIN_RESULT_ACTIONINFOë¥¼ í•˜ë©´ ëœë‹¤.
 //	m_nUsedActionInfo	= nResultActionInfo;	// + (*g_pActionInfoTable).GetMinResultActionInfo()
 	//SetAction( (*g_pActionInfoTable)[m_nUsedActionInfo].GetAction() );
 
-	// ÀÌ·¸°Ô ÇØ¹ö¸®¸é..
-	// ÇöÀç ÁøÇàÇÏ´Â Tile±îÁö °¡¼­.. °ø°İÀ» ¹Ş±â ¶§¹®¿¡
-	// ÇÑ Ä­ ¶³¾îÁ®¼­ °ø°İ¹Ş´Â °æ¿ì°¡ ¹ß»ıÇÑ´Ù.
-	// ¾î¶»°Ô ÇØ¾ßÇÒ±î??
+	// ì´ë ‡ê²Œ í•´ë²„ë¦¬ë©´..
+	// í˜„ì¬ ì§„í–‰í•˜ëŠ” Tileê¹Œì§€ ê°€ì„œ.. ê³µê²©ì„ ë°›ê¸° ë•Œë¬¸ì—
+	// í•œ ì¹¸ ë–¨ì–´ì ¸ì„œ ê³µê²©ë°›ëŠ” ê²½ìš°ê°€ ë°œìƒí•œë‹¤.
+	// ì–´ë–»ê²Œ í•´ì•¼í• ê¹Œ??
 	//m_NextAction = (*g_pActionInfoTable)[m_nUsedActionInfo].GetAction();
 	
 	//SetNextAction( GetActionInfoAction(m_nUsedActionInfo) );
 	//m_bNextAction = true;
 
-	// 2001.05.21 Ãß°¡
-	// ±â¼ú µ¿ÀÛ¿¡¼­ ACTION_STAND´Â º¸¿©ÁÖÁö ¾Ê´Â´Ù.
+	// 2001.05.21 ì¶”ê°€
+	// ê¸°ìˆ  ë™ì‘ì—ì„œ ACTION_STANDëŠ” ë³´ì—¬ì£¼ì§€ ì•ŠëŠ”ë‹¤.
 	if (actionInfoAction!=ACTION_STAND)
 	{
 		SetAction( actionInfoAction );
@@ -10813,7 +10832,7 @@ MPlayer::PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJEC
 	if( temp != 0)
 		SetActionGrade( temp );
 
-	// ¹Ù·Î Àû¿ë
+	// ë°”ë¡œ ì ìš©
 	//-------------------------------------------------------------
 	//
 	// Casting effect
@@ -10827,13 +10846,13 @@ MPlayer::PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJEC
 
 
 	//-------------------------------------------------
-	// ¹İº¹ action ¶§¹®¿¡...
+	// ë°˜ë³µ action ë•Œë¬¸ì—...
 	//-------------------------------------------------
 	SetTraceID( oldTraceID );
 
-	// ÀÚ½Å¿¡°Ô »ç¿ë?..
+	// ìì‹ ì—ê²Œ ì‚¬ìš©?..
 	//-------------------------------------------------
-	// 2000.09.22 ¿¡ ÁÖ¼® Ã³¸®.. -_-;
+	// 2000.09.22 ì— ì£¼ì„ ì²˜ë¦¬.. -_-;
 	//-------------------------------------------------
 	//m_TraceID = m_ID;
 
@@ -10849,16 +10868,16 @@ MPlayer::PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJEC
 //----------------------------------------------------------------------
 // Packet Add ActionResult
 //----------------------------------------------------------------------
-// Player°¡ »ç¿ëÇÑ Action°ú °ü·ÃµÈ °á°ú¸¦ Server·Î ºÎÅÍ ¹Ş¾Æ¼­
-// ¿ÜºÎ¿¡¼­ ActionResult·Î »ı¼ºÇÑ °ÍÀ» 
-// PlayerÀÇ ActionResultList¿¡ Ãß°¡ÇÑ´Ù.
+// Playerê°€ ì‚¬ìš©í•œ Actionê³¼ ê´€ë ¨ëœ ê²°ê³¼ë¥¼ Serverë¡œ ë¶€í„° ë°›ì•„ì„œ
+// ì™¸ë¶€ì—ì„œ ActionResultë¡œ ìƒì„±í•œ ê²ƒì„ 
+// Playerì˜ ActionResultListì— ì¶”ê°€í•œë‹¤.
 //
-// Áï, InstanceID°¡ idÀÎ MEffectTargetÀÇ Result¸¦ ¼³Á¤ÇÑ´Ù.
+// ì¦‰, InstanceIDê°€ idì¸ MEffectTargetì˜ Resultë¥¼ ì„¤ì •í•œë‹¤.
 //----------------------------------------------------------------------
-// return°ªÀÌ 
-//     trueÀÌ¸é Ãß°¡µÇ¾ú´Ù´Â ÀÇ¹Ì
-//     falseÀÌ¸é °ü·ÃµÈ EffectTargetÀÌ ¾øÀ¸¹Ç·Î 
-//               °á°ú¸¦ ¹Ù·Î ½ÇÇàÇØÁà¾ß ÇÑ´Ù.
+// returnê°’ì´ 
+//     trueì´ë©´ ì¶”ê°€ë˜ì—ˆë‹¤ëŠ” ì˜ë¯¸
+//     falseì´ë©´ ê´€ë ¨ëœ EffectTargetì´ ì—†ìœ¼ë¯€ë¡œ 
+//               ê²°ê³¼ë¥¼ ë°”ë¡œ ì‹¤í–‰í•´ì¤˜ì•¼ í•œë‹¤.
 //----------------------------------------------------------------------
 bool		
 MPlayer::PacketAddActionResult(WORD effectID, MActionResult* pActionResult)
@@ -10870,7 +10889,7 @@ MPlayer::PacketAddActionResult(WORD effectID, MActionResult* pActionResult)
 	pEffectTarget->SetResult( pResult );
 	*/
 	
-	// Ã³¸®ÇÒ °á°ú°¡ ¾ø´Â °æ¿ì
+	// ì²˜ë¦¬í•  ê²°ê³¼ê°€ ì—†ëŠ” ê²½ìš°
 	if (pActionResult==NULL)
 	{
 		return false;
@@ -10880,14 +10899,14 @@ MPlayer::PacketAddActionResult(WORD effectID, MActionResult* pActionResult)
 	if (m_nUsedActionInfo < g_pActionInfoTable->GetMinResultActionInfo())
 	{
 		//------------------------------------------------------------
-		// ÁøÇàÁßÀÎ EffectÀÇ EffectTargetÀÌ ÀÖÀ» °æ¿ì¿¡
+		// ì§„í–‰ì¤‘ì¸ Effectì˜ EffectTargetì´ ìˆì„ ê²½ìš°ì—
 		//------------------------------------------------------------
 		if (m_listEffectTarget.size()!=0)
 		{
-			// ¸¶Áö¸· EffectTargetÀÇ °á°ú¸¦ È®ÀÎÇØº»´Ù..
+			// ë§ˆì§€ë§‰ EffectTargetì˜ ê²°ê³¼ë¥¼ í™•ì¸í•´ë³¸ë‹¤..
 			MEffectTarget* pEffectTarget = m_listEffectTarget.back();
 
-			// ÀÌ¹Ì °á°ú°¡ ÀÖ´Â °æ¿ì¶ó¸é..
+			// ì´ë¯¸ ê²°ê³¼ê°€ ìˆëŠ” ê²½ìš°ë¼ë©´..
 			MActionResult* pResult = pEffectTarget->GetResult();
 
 			if (pResult!=NULL)
@@ -10895,12 +10914,12 @@ MPlayer::PacketAddActionResult(WORD effectID, MActionResult* pActionResult)
 				pEffectTarget->SetResultNULL();
 			}
 
-			// »õ·Î¿î °á°ú¸¦ ´ëÀÔÇØÁØ´Ù.
+			// ìƒˆë¡œìš´ ê²°ê³¼ë¥¼ ëŒ€ì…í•´ì¤€ë‹¤.
 			pEffectTarget->SetResult( pActionResult );
 
 			if (pResult!=NULL)
 			{
-				// ±âÁ¸ÀÇ °á°ú¸¦ ½ÇÇà½ÃÄÑ ¹ö¸°´Ù.
+				// ê¸°ì¡´ì˜ ê²°ê³¼ë¥¼ ì‹¤í–‰ì‹œì¼œ ë²„ë¦°ë‹¤.
 				pResult->Execute();
 
 				delete pResult;
@@ -10914,29 +10933,29 @@ MPlayer::PacketAddActionResult(WORD effectID, MActionResult* pActionResult)
 			while (iEffectTarget != m_listEffectTarget.end())
 			{
 				//------------------------------------------------------------
-				// id°¡ °°Àº °æ¿ì
+				// idê°€ ê°™ì€ ê²½ìš°
 				//------------------------------------------------------------
-				// EffectID¸¦ Ã¼Å©ÇØ¾ßÇÏÁö¸¸,
-				// ÇöÀç(!)´Â .. ±â¼ú ÇÏ³ª ¾²°í ÇÏ³ª °ËÁõ¹Ş±â ¶§¹®¿¡
-				// EffectID¸¦ Ã¼Å© ¾ÈÇØµµ µÈ´Ù.
+				// EffectIDë¥¼ ì²´í¬í•´ì•¼í•˜ì§€ë§Œ,
+				// í˜„ì¬(!)ëŠ” .. ê¸°ìˆ  í•˜ë‚˜ ì“°ê³  í•˜ë‚˜ ê²€ì¦ë°›ê¸° ë•Œë¬¸ì—
+				// EffectIDë¥¼ ì²´í¬ ì•ˆí•´ë„ ëœë‹¤.
 				//------------------------------------------------------------
-				// ¹«Á¶°Ç ÀÌ¹ø Çàµ¿¿¡ ¸ÂÃç¼­ °á°ú¸¦ Ç¥ÇöÇØÁÙ ¿¹Á¤ÀÌ¹Ç·Î
-				// °á°ú¸¦ ³Ö¾îµĞ´Ù.
+				// ë¬´ì¡°ê±´ ì´ë²ˆ í–‰ë™ì— ë§ì¶°ì„œ ê²°ê³¼ë¥¼ í‘œí˜„í•´ì¤„ ì˜ˆì •ì´ë¯€ë¡œ
+				// ê²°ê³¼ë¥¼ ë„£ì–´ë‘”ë‹¤.
 				//if ((*iEffectTarget)->GetEffectID() == effectID)
 				{
-					// EffectTargetÀÇ °á°ú·Î Ãß°¡½ÃÅ²´Ù.
-					// ÀÌ¹Ì °á°ú°¡ ÀÖ´Â °æ¿ì..(?)
-					// ±× ÀüÀÇ °á°ú¸¦ ½ÇÇà½ÃÄÑ¹ö¸°´Ù.
+					// EffectTargetì˜ ê²°ê³¼ë¡œ ì¶”ê°€ì‹œí‚¨ë‹¤.
+					// ì´ë¯¸ ê²°ê³¼ê°€ ìˆëŠ” ê²½ìš°..(?)
+					// ê·¸ ì „ì˜ ê²°ê³¼ë¥¼ ì‹¤í–‰ì‹œì¼œë²„ë¦°ë‹¤.
 					if ((*iEffectTarget)->IsExistResult())
 					{
 						(*iEffectTarget)->GetResult()->Execute();
-						//break; // ¿ø·¡´Â.. - -;
+						//break; // ì›ë˜ëŠ”.. - -;
 					}
 
-					// »õ·Î¿î°É setÇÏ¸é ±âÁ¸¿¡°Ç deleteµÈ´Ù.
+					// ìƒˆë¡œìš´ê±¸ setí•˜ë©´ ê¸°ì¡´ì—ê±´ deleteëœë‹¤.
 					(*iEffectTarget)->SetResult( pActionResult );
 
-					// Á¦´ë·Î ¼³Á¤ µÈ °æ¿ì
+					// ì œëŒ€ë¡œ ì„¤ì • ëœ ê²½ìš°
 					return true;
 				}
 
@@ -10947,11 +10966,11 @@ MPlayer::PacketAddActionResult(WORD effectID, MActionResult* pActionResult)
 	}
 
 	//------------------------------------------------------------
-	// ÁøÇàÁßÀÎ EffectÀÇ EffectTargetÀÌ ¾øÀ» °æ¿ì¿¡
+	// ì§„í–‰ì¤‘ì¸ Effectì˜ EffectTargetì´ ì—†ì„ ê²½ìš°ì—
 	//------------------------------------------------------------			
-	// °á°ú¸¦ ¹Ù·Î ½ÇÇàÇÏ°í..
-	// ¸Ş¸ğ¸®¿¡¼­ Áö¿î´Ù.
-	// (!) °á°ú ½ÇÇàÀ» À§ÇÑ Manager class°¡ ÇÊ¿äÇÏ´Ù.
+	// ê²°ê³¼ë¥¼ ë°”ë¡œ ì‹¤í–‰í•˜ê³ ..
+	// ë©”ëª¨ë¦¬ì—ì„œ ì§€ìš´ë‹¤.
+	// (!) ê²°ê³¼ ì‹¤í–‰ì„ ìœ„í•œ Manager classê°€ í•„ìš”í•˜ë‹¤.
 	pActionResult->Execute();
 
 	delete pActionResult;
@@ -10962,7 +10981,7 @@ MPlayer::PacketAddActionResult(WORD effectID, MActionResult* pActionResult)
 //----------------------------------------------------------------------
 // On Attacking
 //----------------------------------------------------------------------
-// ¹İº¹ Çàµ¿ Áß¿¡ °ø°İÇÏ´Â °æ¿ì..
+// ë°˜ë³µ í–‰ë™ ì¤‘ì— ê³µê²©í•˜ëŠ” ê²½ìš°..
 //----------------------------------------------------------------------
 bool			
 MPlayer::OnAttacking() const				
@@ -10973,7 +10992,7 @@ MPlayer::OnAttacking() const
 //----------------------------------------------------------------------
 // Basic Action To Creature
 //----------------------------------------------------------------------
-// ÃßÀûÀ» ¿Ï·áÇÑ °æ¿ì.. Creature¿¡°Ô ±âº»actionÀ» ÃëÇÑ´Ù.
+// ì¶”ì ì„ ì™„ë£Œí•œ ê²½ìš°.. Creatureì—ê²Œ ê¸°ë³¸actionì„ ì·¨í•œë‹¤.
 //----------------------------------------------------------------------
 void
 MPlayer::BasicActionToCreature()
@@ -10993,22 +11012,22 @@ MPlayer::BasicActionToCreature()
 		return;
 
 	//---------------------------------------------------------------
-	// ´ë»óÀÌ NPCÀÎ °æ¿ì..
+	// ëŒ€ìƒì´ NPCì¸ ê²½ìš°..
 	//---------------------------------------------------------------
 	if (pCreature->IsNPC())
 	{
-		// ¹ÚÁã³ª ´Á´ë°¡ ¾Æ´Ñ °æ¿ì.. °Å·¡ °¡´ÉÇÏ´Ù.
+		// ë°•ì¥ë‚˜ ëŠ‘ëŒ€ê°€ ì•„ë‹Œ ê²½ìš°.. ê±°ë˜ ê°€ëŠ¥í•˜ë‹¤.
 		if (//m_CreatureType!=CREATURETYPE_BAT
 			//&& m_CreatureType!=CREATURETYPE_WOLF)
 			(*g_pCreatureSpriteTable)[(*g_pCreatureTable)[m_CreatureType].SpriteTypes[0]].IsPlayerOnlySprite())
 		{		
-			if(pCreature->GetCreatureType() == 659)	// ´ëÁöÁ¤·ÉÀÇ »ÔÀÌ¸é UI¶ç¿î´Ù
+			if(pCreature->GetCreatureType() == 659)	// ëŒ€ì§€ì •ë ¹ì˜ ë¿”ì´ë©´ UIë„ìš´ë‹¤
 				UI_RunHorn(g_pZone->GetID());
 			else
 				
 				if (IsWaitVerifyNULL())
 				{
-					// NPC Ã³¸® packetÀ» º¸³½´Ù.
+					// NPC ì²˜ë¦¬ packetì„ ë³´ë‚¸ë‹¤.
 					CGNPCTalk _CGNPCTalk;
 					_CGNPCTalk.setObjectID( m_TraceID );
 
@@ -11018,11 +11037,11 @@ MPlayer::BasicActionToCreature()
 				}
 		}
 
-		// ÇÊ¿äÇÏ·Á³ª.. - -;
+		// í•„ìš”í•˜ë ¤ë‚˜.. - -;
 		m_bTraceCreatureToForceAttack = false;
 		m_bKeepTraceCreature = false;
 
-		// Á¤ÁöÇÑ´Ù.
+		// ì •ì§€í•œë‹¤.
 		SetNextAction(ACTION_STAND);
 		m_nUsedActionInfo = ACTIONINFO_NULL;
 		m_nNextUsedActionInfo = ACTIONINFO_NULL;
@@ -11030,14 +11049,14 @@ MPlayer::BasicActionToCreature()
 		UnSetRepeatAction();
 	}
 	//---------------------------------------------------------------
-	// RequestÇÒ·Á´Â °æ¿ì
+	// Requestí• ë ¤ëŠ” ê²½ìš°
 	//---------------------------------------------------------------
 	else if (IsRequestMode())
 	{
 		switch (m_RequestMode)
 		{
 			//---------------------------------------------------------------
-			// Trade ÇÒ·Á´Â °æ¿ì
+			// Trade í• ë ¤ëŠ” ê²½ìš°
 			//---------------------------------------------------------------
 			case REQUEST_TRADE :
 			{
@@ -11048,7 +11067,7 @@ MPlayer::BasicActionToCreature()
 					IsOusters() && pCreature->IsOusters())
 					)
 				{
-						// ±³È¯ ½ÅÃ»
+						// êµí™˜ ì‹ ì²­
 						CGTradePrepare _CGTradePrepare;
 						_CGTradePrepare.setTargetObjectID( m_TraceID );
 						_CGTradePrepare.setCode( CG_TRADE_PREPARE_CODE_REQUEST );
@@ -11057,12 +11076,12 @@ MPlayer::BasicActionToCreature()
 
 					SetWaitVerify( WAIT_VERIFY_TRADE );
 					
-					// temp informationµµ ¼³Á¤.. (À½..¾à°£ ÇãÁ¢ÇÏ´ç.- -;)
+					// temp informationë„ ì„¤ì •.. (ìŒ..ì•½ê°„ í—ˆì ‘í•˜ë‹¹.- -;)
 					g_pTempInformation->SetMode(TempInformation::MODE_TRADE_REQUEST);
 					g_pTempInformation->Value1 = m_TraceID;
 
 					//-----------------------------------------------------
-					// ±³È¯ Ãë¼ÒÇÒ±î?
+					// êµí™˜ ì·¨ì†Œí• ê¹Œ?
 					//-----------------------------------------------------
 					UI_RunExchangeCancel( pCreature->GetName() );
 				}				
@@ -11070,20 +11089,20 @@ MPlayer::BasicActionToCreature()
 			break;
 
 			//---------------------------------------------------------------
-			// Party ÇÒ·Á´Â °æ¿ì
+			// Party í• ë ¤ëŠ” ê²½ìš°
 			//---------------------------------------------------------------
 			case REQUEST_PARTY :
 			{
 				if (IsWaitVerifyNULL() 
 					&& g_pTempInformation->GetMode() == TempInformation::MODE_NULL
 					&& g_pParty!=NULL
-					// ³» ÆÄÆ¼¿øÀÌ ¾Æ´Ñ °æ¿ì¿¡¸¸ ½ÅÃ» °¡´ÉÇÏ´Ù.
+					// ë‚´ íŒŒí‹°ì›ì´ ì•„ë‹Œ ê²½ìš°ì—ë§Œ ì‹ ì²­ ê°€ëŠ¥í•˜ë‹¤.
 					&& !g_pParty->HasMember( pCreature->GetName() )
 					&& (IsSlayer() && pCreature->IsSlayer() || IsVampire() && pCreature->IsVampire() || IsOusters() && pCreature->IsOusters())
 					&& g_pSystemAvailableManager->IsAvailablePartySystem()
 					)
 				{
-						// ÆÄÆ¼ ½ÅÃ»
+						// íŒŒí‹° ì‹ ì²­
 						CGPartyInvite _CGPartyInvite;
 						_CGPartyInvite.setTargetObjectID( m_TraceID );
 						_CGPartyInvite.setCode( CG_PARTY_INVITE_REQUEST );
@@ -11092,12 +11111,12 @@ MPlayer::BasicActionToCreature()
 
 					SetWaitVerify( WAIT_VERIFY_PARTY );
 
-					// temp informationµµ ¼³Á¤.. (À½..¾à°£ ÇãÁ¢ÇÏ´ç.- -;)
+					// temp informationë„ ì„¤ì •.. (ìŒ..ì•½ê°„ í—ˆì ‘í•˜ë‹¹.- -;)
 					g_pTempInformation->SetMode(TempInformation::MODE_PARTY_REQUEST);
 					g_pTempInformation->Value1 = m_TraceID;
 
 					//-----------------------------------------------------
-					// ±³È¯ Ãë¼ÒÇÒ±î?
+					// êµí™˜ ì·¨ì†Œí• ê¹Œ?
 					//-----------------------------------------------------
 					UI_RunPartyCancel( pCreature->GetName() );
 				}				
@@ -11105,12 +11124,12 @@ MPlayer::BasicActionToCreature()
 			break;
 
 			//---------------------------------------------------------------
-			// OtherInfo º¼·Á´Â °æ¿ì
+			// OtherInfo ë³¼ë ¤ëŠ” ê²½ìš°
 			//---------------------------------------------------------------
 			case REQUEST_INFO:
 			{
 //				MFakeCreature *pFakeCreature = (MFakeCreature *)g_pZone->GetFakeCreature(m_TraceID);
-//				if(pFakeCreature != NULL && pFakeCreature->GetOwnerID() != OBJECTID_NULL)	// ÆêÀÌ´ç
+//				if(pFakeCreature != NULL && pFakeCreature->GetOwnerID() != OBJECTID_NULL)	// í«ì´ë‹¹
 //				{
 //					UI_RunPetInfo(pFakeCreature->GetPetItem());
 //				}
@@ -11136,7 +11155,7 @@ MPlayer::BasicActionToCreature()
 
 							}
 						}
-						// Á¤º¸ ½ÅÃ»
+						// ì •ë³´ ì‹ ì²­
 						CGRequestInfo _CGRequestInfo;
 						_CGRequestInfo.setValue( m_TraceID );
 						_CGRequestInfo.setCode( CGRequestInfo::REQUEST_CHARACTER_INFO );
@@ -11169,11 +11188,11 @@ MPlayer::BasicActionToCreature()
 	
 		}
 
-		// ÇÊ¿äÇÏ·Á³ª.. - -;
+		// í•„ìš”í•˜ë ¤ë‚˜.. - -;
 		m_bTraceCreatureToForceAttack = false;
 		m_bKeepTraceCreature = false;
 
-		// Á¤ÁöÇÑ´Ù.
+		// ì •ì§€í•œë‹¤.
 		SetNextAction(ACTION_STAND);
 		m_nUsedActionInfo = ACTIONINFO_NULL;
 		m_nNextUsedActionInfo = ACTIONINFO_NULL;
@@ -11183,13 +11202,13 @@ MPlayer::BasicActionToCreature()
 		UnSetRequestMode();
 	}	
 	//---------------------------------------------------------------
-	// ¾Æ´Ï¸é.. °ø°İÀÌ°Å³ª ¸ØÃã..
+	// ì•„ë‹ˆë©´.. ê³µê²©ì´ê±°ë‚˜ ë©ˆì¶¤..
 	//---------------------------------------------------------------
 	else
 	{
 		//---------------------------------------------------------------
-		// °­Á¦ attackÀÌ°Å³ª..
-		// ÃßÀû´ë»óÀÌ µÇ´Â Ä³¸¯ÅÍÀÇ Á¾Á·À» º¸°í °ø°İÇÒÁö¸¦ °áÁ¤ÇÑ´Ù.
+		// ê°•ì œ attackì´ê±°ë‚˜..
+		// ì¶”ì ëŒ€ìƒì´ ë˜ëŠ” ìºë¦­í„°ì˜ ì¢…ì¡±ì„ ë³´ê³  ê³µê²©í• ì§€ë¥¼ ê²°ì •í•œë‹¤.
 		//---------------------------------------------------------------
 		bool bOusters = IsOusters();
 		MItem *pOustersItem = NULL;
@@ -11215,11 +11234,11 @@ MPlayer::BasicActionToCreature()
 		{
 			DEBUG_ADD_FORMAT("Basic Action : %d - But don't attack", m_TraceID);					
 			
-			// °ø°İ ¾ÈÇÑ´Ù.
+			// ê³µê²© ì•ˆí•œë‹¤.
 			m_nUsedActionInfo = ACTIONINFO_NULL;
 			
 			//---------------------------------
-			// °è¼Ó ÃßÀûÇØ¾ß ÇÏ¸é..
+			// ê³„ì† ì¶”ì í•´ì•¼ í•˜ë©´..
 			//---------------------------------
 			if (m_bKeepTraceCreature)
 			{
@@ -11258,22 +11277,22 @@ MPlayer::BasicActionToCreature()
 //	}
 //
 //	//---------------------------------------------------------------
-//	// ´ë»óÀÌ NPCÀÎ °æ¿ì..
+//	// ëŒ€ìƒì´ NPCì¸ ê²½ìš°..
 //	//---------------------------------------------------------------
 //	if (pCreature->IsNPC())
 //	{
-//		// ¹ÚÁã³ª ´Á´ë°¡ ¾Æ´Ñ °æ¿ì.. °Å·¡ °¡´ÉÇÏ´Ù.
+//		// ë°•ì¥ë‚˜ ëŠ‘ëŒ€ê°€ ì•„ë‹Œ ê²½ìš°.. ê±°ë˜ ê°€ëŠ¥í•˜ë‹¤.
 //		if (//m_CreatureType!=CREATURETYPE_BAT
 //			//&& m_CreatureType!=CREATURETYPE_WOLF)
 //			(*g_pCreatureSpriteTable)[(*g_pCreatureTable)[m_CreatureType].SpriteType].IsPlayerOnlySprite())
 //		{		
-//			if(pCreature->GetCreatureType() == 659)	// ´ëÁöÁ¤·ÉÀÇ »ÔÀÌ¸é UI¶ç¿î´Ù
+//			if(pCreature->GetCreatureType() == 659)	// ëŒ€ì§€ì •ë ¹ì˜ ë¿”ì´ë©´ UIë„ìš´ë‹¤
 //				UI_RunHorn(g_pZone->GetID());
 //			else
 //				
 //				if (IsWaitVerifyNULL())
 //				{
-//					// NPC Ã³¸® packetÀ» º¸³½´Ù.
+//					// NPC ì²˜ë¦¬ packetì„ ë³´ë‚¸ë‹¤.
 //					CGNPCTalk _CGNPCTalk;
 //					_CGNPCTalk.setObjectID( m_TraceID );
 //
@@ -11283,11 +11302,11 @@ MPlayer::BasicActionToCreature()
 //				}
 //		}
 //
-//		// ÇÊ¿äÇÏ·Á³ª.. - -;
+//		// í•„ìš”í•˜ë ¤ë‚˜.. - -;
 //		m_bTraceCreatureToForceAttack = false;
 //		m_bKeepTraceCreature = false;
 //
-//		// Á¤ÁöÇÑ´Ù.
+//		// ì •ì§€í•œë‹¤.
 //		SetNextAction(ACTION_STAND);
 //		m_nUsedActionInfo = ACTIONINFO_NULL;
 //		m_nNextUsedActionInfo = ACTIONINFO_NULL;
@@ -11295,14 +11314,14 @@ MPlayer::BasicActionToCreature()
 //		UnSetRepeatAction();
 //	}
 //	//---------------------------------------------------------------
-//	// RequestÇÒ·Á´Â °æ¿ì
+//	// Requestí• ë ¤ëŠ” ê²½ìš°
 //	//---------------------------------------------------------------
 //	else if (IsRequestMode())
 //	{
 //		switch (m_RequestMode)
 //		{
 //			//---------------------------------------------------------------
-//			// Trade ÇÒ·Á´Â °æ¿ì
+//			// Trade í• ë ¤ëŠ” ê²½ìš°
 //			//---------------------------------------------------------------
 //			case REQUEST_TRADE :
 //			{
@@ -11313,7 +11332,7 @@ MPlayer::BasicActionToCreature()
 //					IsOusters() && pCreature->IsOusters())
 //					)
 //				{
-//						// ±³È¯ ½ÅÃ»
+//						// êµí™˜ ì‹ ì²­
 //						CGTradePrepare _CGTradePrepare;
 //						_CGTradePrepare.setTargetObjectID( m_TraceID );
 //						_CGTradePrepare.setCode( CG_TRADE_PREPARE_CODE_REQUEST );
@@ -11322,12 +11341,12 @@ MPlayer::BasicActionToCreature()
 //
 //					SetWaitVerify( WAIT_VERIFY_TRADE );
 //					
-//					// temp informationµµ ¼³Á¤.. (À½..¾à°£ ÇãÁ¢ÇÏ´ç.- -;)
+//					// temp informationë„ ì„¤ì •.. (ìŒ..ì•½ê°„ í—ˆì ‘í•˜ë‹¹.- -;)
 //					g_pTempInformation->SetMode(TempInformation::MODE_TRADE_REQUEST);
 //					g_pTempInformation->Value1 = m_TraceID;
 //
 //					//-----------------------------------------------------
-//					// ±³È¯ Ãë¼ÒÇÒ±î?
+//					// êµí™˜ ì·¨ì†Œí• ê¹Œ?
 //					//-----------------------------------------------------
 //					UI_RunExchangeCancel( pCreature->GetName() );
 //				}				
@@ -11335,20 +11354,20 @@ MPlayer::BasicActionToCreature()
 //			break;
 //
 //			//---------------------------------------------------------------
-//			// Party ÇÒ·Á´Â °æ¿ì
+//			// Party í• ë ¤ëŠ” ê²½ìš°
 //			//---------------------------------------------------------------
 //			case REQUEST_PARTY :
 //			{
 //				if (IsWaitVerifyNULL() 
 //					&& g_pTempInformation->GetMode() == TempInformation::MODE_NULL
 //					&& g_pParty!=NULL
-//					// ³» ÆÄÆ¼¿øÀÌ ¾Æ´Ñ °æ¿ì¿¡¸¸ ½ÅÃ» °¡´ÉÇÏ´Ù.
+//					// ë‚´ íŒŒí‹°ì›ì´ ì•„ë‹Œ ê²½ìš°ì—ë§Œ ì‹ ì²­ ê°€ëŠ¥í•˜ë‹¤.
 //					&& !g_pParty->HasMember( pCreature->GetName() )
 //					&& (IsSlayer() && pCreature->IsSlayer() || IsVampire() && pCreature->IsVampire() || IsOusters() && pCreature->IsOusters())
 //					&& g_pSystemAvailableManager->IsAvailablePartySystem()
 //					)
 //				{
-//						// ÆÄÆ¼ ½ÅÃ»
+//						// íŒŒí‹° ì‹ ì²­
 //						CGPartyInvite _CGPartyInvite;
 //						_CGPartyInvite.setTargetObjectID( m_TraceID );
 //						_CGPartyInvite.setCode( CG_PARTY_INVITE_REQUEST );
@@ -11357,12 +11376,12 @@ MPlayer::BasicActionToCreature()
 //
 //					SetWaitVerify( WAIT_VERIFY_PARTY );
 //
-//					// temp informationµµ ¼³Á¤.. (À½..¾à°£ ÇãÁ¢ÇÏ´ç.- -;)
+//					// temp informationë„ ì„¤ì •.. (ìŒ..ì•½ê°„ í—ˆì ‘í•˜ë‹¹.- -;)
 //					g_pTempInformation->SetMode(TempInformation::MODE_PARTY_REQUEST);
 //					g_pTempInformation->Value1 = m_TraceID;
 //
 //					//-----------------------------------------------------
-//					// ±³È¯ Ãë¼ÒÇÒ±î?
+//					// êµí™˜ ì·¨ì†Œí• ê¹Œ?
 //					//-----------------------------------------------------
 //					UI_RunPartyCancel( pCreature->GetName() );
 //				}				
@@ -11370,12 +11389,12 @@ MPlayer::BasicActionToCreature()
 //			break;
 //
 //			//---------------------------------------------------------------
-//			// OtherInfo º¼·Á´Â °æ¿ì
+//			// OtherInfo ë³¼ë ¤ëŠ” ê²½ìš°
 //			//---------------------------------------------------------------
 //			case REQUEST_INFO:
 //			{
 ////				MFakeCreature *pFakeCreature = (MFakeCreature *)g_pZone->GetFakeCreature(m_TraceID);
-////				if(pFakeCreature != NULL && pFakeCreature->GetOwnerID() != OBJECTID_NULL)	// ÆêÀÌ´ç
+////				if(pFakeCreature != NULL && pFakeCreature->GetOwnerID() != OBJECTID_NULL)	// í«ì´ë‹¹
 ////				{
 ////					UI_RunPetInfo(pFakeCreature->GetPetItem());
 ////				}
@@ -11401,7 +11420,7 @@ MPlayer::BasicActionToCreature()
 //
 //							}
 //						}
-//						// Á¤º¸ ½ÅÃ»
+//						// ì •ë³´ ì‹ ì²­
 //						CGRequestInfo _CGRequestInfo;
 //						_CGRequestInfo.setValue( m_TraceID );
 //						_CGRequestInfo.setCode( CGRequestInfo::REQUEST_CHARACTER_INFO );
@@ -11434,11 +11453,11 @@ MPlayer::BasicActionToCreature()
 //	
 //		}
 //
-//		// ÇÊ¿äÇÏ·Á³ª.. - -;
+//		// í•„ìš”í•˜ë ¤ë‚˜.. - -;
 //		m_bTraceCreatureToForceAttack = false;
 //		m_bKeepTraceCreature = false;
 //
-//		// Á¤ÁöÇÑ´Ù.
+//		// ì •ì§€í•œë‹¤.
 //		SetNextAction(ACTION_STAND);
 //		m_nUsedActionInfo = ACTIONINFO_NULL;
 //		m_nNextUsedActionInfo = ACTIONINFO_NULL;
@@ -11448,13 +11467,13 @@ MPlayer::BasicActionToCreature()
 //		UnSetRequestMode();
 //	}	
 //	//---------------------------------------------------------------
-//	// ¾Æ´Ï¸é.. °ø°İÀÌ°Å³ª ¸ØÃã..
+//	// ì•„ë‹ˆë©´.. ê³µê²©ì´ê±°ë‚˜ ë©ˆì¶¤..
 //	//---------------------------------------------------------------
 //	else
 //	{
 //		//---------------------------------------------------------------
-//		// °­Á¦ attackÀÌ°Å³ª..
-//		// ÃßÀû´ë»óÀÌ µÇ´Â Ä³¸¯ÅÍÀÇ Á¾Á·À» º¸°í °ø°İÇÒÁö¸¦ °áÁ¤ÇÑ´Ù.
+//		// ê°•ì œ attackì´ê±°ë‚˜..
+//		// ì¶”ì ëŒ€ìƒì´ ë˜ëŠ” ìºë¦­í„°ì˜ ì¢…ì¡±ì„ ë³´ê³  ê³µê²©í• ì§€ë¥¼ ê²°ì •í•œë‹¤.
 //		//---------------------------------------------------------------
 //		bool bOusters = IsOusters();
 //		MItem *pOustersItem = NULL;
@@ -11480,11 +11499,11 @@ MPlayer::BasicActionToCreature()
 //		{
 //			DEBUG_ADD_FORMAT("Basic Action : %d - But don't attack", m_TraceID);					
 //			
-//			// °ø°İ ¾ÈÇÑ´Ù.
+//			// ê³µê²© ì•ˆí•œë‹¤.
 //			m_nUsedActionInfo = ACTIONINFO_NULL;
 //			
 //			//---------------------------------
-//			// °è¼Ó ÃßÀûÇØ¾ß ÇÏ¸é..
+//			// ê³„ì† ì¶”ì í•´ì•¼ í•˜ë©´..
 //			//---------------------------------
 //			if (m_bKeepTraceCreature)
 //			{
@@ -11511,14 +11530,14 @@ MPlayer::BasicActionToCreature()
 //----------------------------------------------------------------------
 // Pickup Item
 //----------------------------------------------------------------------
-// ItemÁİ±â¸¦ ¼öÇàÇÑ´Ù.
+// Itemì¤ê¸°ë¥¼ ìˆ˜í–‰í•œë‹¤.
 //----------------------------------------------------------------------
 void
 MPlayer::PickupItem(MItem* pItem)
 {
 	//----------------------------------------------------
-	// °ËÁõ ¹ŞÀ» ¾ÆÀÌÅÛÀÌ ¾ø°í..
-	// ÇöÀç µé°í ÀÖ´Â ItemÀÌ ¾ø´Â °æ¿ì
+	// ê²€ì¦ ë°›ì„ ì•„ì´í…œì´ ì—†ê³ ..
+	// í˜„ì¬ ë“¤ê³  ìˆëŠ” Itemì´ ì—†ëŠ” ê²½ìš°
 	//----------------------------------------------------
 
 	if( HasEffectStatusSummonSylph( dynamic_cast<MCreature*>(this) ) )
@@ -11528,15 +11547,15 @@ MPlayer::PickupItem(MItem* pItem)
 		&& gpC_mouse_pointer->GetPickUpItem()==NULL)
 	{
 		//----------------------------------------------------------------
-		// À§Ä¡ °ËÁõÀÌ µÈ »óÅÂ
+		// ìœ„ì¹˜ ê²€ì¦ì´ ëœ ìƒíƒœ
 		//----------------------------------------------------------------
 		//if (m_SendMove==0)
 		{
 			// [ TEST CODE ]
-			// Item Á¤º¸¸¦ ÀĞ¾î¿Í¼­ ItemÁİ±âÇÒ¶§ Sound¸¦ ³½´Ù.
-			// ÀÌ ºÎºĞÀº ³ªÁß¿¡.. 
-			// Server Packet¿¡¼­ È®½ÇÈ÷ "ÁÖ¿ü´Ù"¶ó°í ÇÒ ¶§
-			// ÇÏ´Â °ÍÀÌ ÁÁÀ» °Í °°±âµµ ÇÏ´Ù.
+			// Item ì •ë³´ë¥¼ ì½ì–´ì™€ì„œ Itemì¤ê¸°í• ë•Œ Soundë¥¼ ë‚¸ë‹¤.
+			// ì´ ë¶€ë¶„ì€ ë‚˜ì¤‘ì—.. 
+			// Server Packetì—ì„œ í™•ì‹¤íˆ "ì£¼ì› ë‹¤"ë¼ê³  í•  ë•Œ
+			// í•˜ëŠ” ê²ƒì´ ì¢‹ì„ ê²ƒ ê°™ê¸°ë„ í•˜ë‹¤.
 			//MItem*	pItem = m_pZone->GetItem( m_TraceID );
 
 			//g_Sound.Play( g_SoundTable[ g_ItemTable[pItem->GetItemType()].PickupSoundID ].pDSBuffer );
@@ -11544,13 +11563,13 @@ MPlayer::PickupItem(MItem* pItem)
 			//			false,
 			//			m_X, m_Y);
 
-			// item class ºñ±³ÇÏÁö ¸»°í..
-			// item class¿¡´Ù°¡ virtual pickup()À» µÎ´Â°Ô ³´Áö ½ÍÀºµ¥.
-			// ±ÍÂú¾î¶û.. -_-;;
+			// item class ë¹„êµí•˜ì§€ ë§ê³ ..
+			// item classì—ë‹¤ê°€ virtual pickup()ì„ ë‘ëŠ”ê²Œ ë‚«ì§€ ì‹¶ì€ë°.
+			// ê·€ì°®ì–´ë‘.. -_-;;
 
 			//----------------------------------------------------------------
 			//
-			//	 MotorcycleÀÎ °æ¿ì --> Å¸±â
+			//	 Motorcycleì¸ ê²½ìš° --> íƒ€ê¸°
 			//
 			//----------------------------------------------------------------
 			if (pItem->GetItemClass()==ITEM_CLASS_MOTORCYCLE)
@@ -11564,13 +11583,13 @@ MPlayer::PickupItem(MItem* pItem)
 			
 			//----------------------------------------------------------------
 			//
-			// ½ÃÃ¼ÀÎ °æ¿ì --> Looting
+			// ì‹œì²´ì¸ ê²½ìš° --> Looting
 			//
 			//----------------------------------------------------------------
 			else if (pItem->GetItemClass()==ITEM_CLASS_CORPSE)
 			{				
 				//----------------------------------------------------
-				// Server¿¡ Á¢¼ÓÇØ ÀÖÀ» ¶§,
+				// Serverì— ì ‘ì†í•´ ìˆì„ ë•Œ,
 				//----------------------------------------------------
 					MCreature* pCreature = ((MCorpse*)pItem)->GetCreature();
 
@@ -11585,14 +11604,14 @@ MPlayer::PickupItem(MItem* pItem)
 							pCreature->GetCreatureType() >= 371 && pCreature->GetCreatureType() <= 376 || 
 							pCreature->GetCreatureType() >= 560 && pCreature->GetCreatureType() <= 563 || 
 							pCreature->GetCreatureType() >= 526 && pCreature->GetCreatureType() <= 549 ||
-							pCreature->GetCreatureType() == 670 ||			// ±ê´ë¸é
-							pCreature->GetCreatureType() == 672	||			// ½ºÀ§ÆÛ º¸°ü´ëÀÌ¸é
+							pCreature->GetCreatureType() == 670 ||			// ê¹ƒëŒ€ë©´
+							pCreature->GetCreatureType() == 672	||			// ìŠ¤ìœ„í¼ ë³´ê´€ëŒ€ì´ë©´
 							pCreature->GetCreatureType() == 673
 							)
 						{
-							// ¹ÚÁã°¡ ¾Æ´Ñ °æ¿ì¿¡¸¸ º¸³½´Ù.
-							// ¿ÀÅä¹ÙÀÌ¸¦ Å¸Áö ¾ÊÀº º¸Åë °ÉÀ½ÀÎ °æ¿ì¿¡¸¸
-							// ¼®È­ ¾È°É·ÈÀ»¶§
+							// ë°•ì¥ê°€ ì•„ë‹Œ ê²½ìš°ì—ë§Œ ë³´ë‚¸ë‹¤.
+							// ì˜¤í† ë°”ì´ë¥¼ íƒ€ì§€ ì•Šì€ ë³´í†µ ê±¸ìŒì¸ ê²½ìš°ì—ë§Œ
+							// ì„í™” ì•ˆê±¸ë ¸ì„ë•Œ
 							if (m_CreatureType!=CREATURETYPE_BAT
 								&& m_MoveDevice==MOVE_DEVICE_WALK
 								&& !m_bEffectStatus[EFFECTSTATUS_CURSE_PARALYSIS])
@@ -11608,26 +11627,26 @@ MPlayer::PickupItem(MItem* pItem)
 									pItem->SetNumber( pItem->GetNumber()-1 );
 							}
 						}
-						// itemÀÌ ¾ø´Â °æ¿ì¿£..
+						// itemì´ ì—†ëŠ” ê²½ìš°ì—”..
 						else
 						{
-							// ´Á´ë¶ó¸é ½ÃÃ¼ ¸Ô±â
-							// ¼º¹°ÀÌ ¾Æ´Ñ °æ¿ì¿¡¸¸, ¼öÈ£¼º´ÜÀÌ ¾Æ´Ñ °æ¿ì¿¡¸¸.
+							// ëŠ‘ëŒ€ë¼ë©´ ì‹œì²´ ë¨¹ê¸°
+							// ì„±ë¬¼ì´ ì•„ë‹Œ ê²½ìš°ì—ë§Œ, ìˆ˜í˜¸ì„±ë‹¨ì´ ì•„ë‹Œ ê²½ìš°ì—ë§Œ.
 							if ( m_CreatureType==CREATURETYPE_WOLF && 
 								!(
 								pCreature->GetCreatureType() >= 371 && pCreature->GetCreatureType() <= 376 || 
-								pCreature->GetCreatureType() == 670	||			// ±ê´ë¸é
-								pCreature->GetCreatureType() == 672 ||			// ½ºÀ§ÆÛ º¸°ü´ëÀÌ¸é
+								pCreature->GetCreatureType() == 670	||			// ê¹ƒëŒ€ë©´
+								pCreature->GetCreatureType() == 672 ||			// ìŠ¤ìœ„í¼ ë³´ê´€ëŒ€ì´ë©´
 								pCreature->GetCreatureType() == 673 ||
 								pCreature->GetCreatureType() >= 526 && pCreature->GetCreatureType() <= 549 || 
 								pCreature->GetCreatureType() >= 560 && pCreature->GetCreatureType() <= 563
 								)								
 							   )
 							{
-								// »ç¿ëÇÑ ±â¼ú·Î ¼³Á¤
+								// ì‚¬ìš©í•œ ê¸°ìˆ ë¡œ ì„¤ì •
 								m_nNextUsedActionInfo	= MAGIC_EAT_CORPSE;
 
-								// ÃßÀû Á¤º¸ ¼³Á¤
+								// ì¶”ì  ì •ë³´ ì„¤ì •
 								m_fTraceBuffer = m_fTrace = FLAG_TRACE_SECTOR_SPECIAL;
 								m_TraceX	= pItem->GetX();
 								m_TraceY	= pItem->GetY();
@@ -11648,7 +11667,7 @@ MPlayer::PickupItem(MItem* pItem)
 
 			//----------------------------------------------------------------
 			//
-			// µ·ÀÎ °æ¿ì --> ¹«Á¶°Ç inventory·Î..
+			// ëˆì¸ ê²½ìš° --> ë¬´ì¡°ê±´ inventoryë¡œ..
 			//
 			//----------------------------------------------------------------
 			else if (pItem->GetItemClass()==ITEM_CLASS_MONEY)
@@ -11659,7 +11678,7 @@ MPlayer::PickupItem(MItem* pItem)
 			else //if (m_CreatureType!=CREATURETYPE_BAT || m_MoveDevice!=MOVE_DEVICE_WALK)
 			{
 				//----------------------------------------------------------------
-				// ¼³Ä¡µÈ Áö·ÚÀÎ °æ¿ì´Â ÁÖÀ» ¼ö ¾ø´Ù.
+				// ì„¤ì¹˜ëœ ì§€ë¢°ì¸ ê²½ìš°ëŠ” ì£¼ì„ ìˆ˜ ì—†ë‹¤.
 				//----------------------------------------------------------------
 				if (pItem->GetItemClass()==ITEM_CLASS_MINE)
 				{
@@ -11670,28 +11689,28 @@ MPlayer::PickupItem(MItem* pItem)
 				}				
 				//----------------------------------------------------------------
 				//
-				//	 Event ¾ÆÀÌÅÛÀÎ °æ¿ì
+				//	 Event ì•„ì´í…œì¸ ê²½ìš°
 				//
 				//----------------------------------------------------------------
 //				else if (pItem->GetItemClass()==ITEM_CLASS_EVENT_GIFT_BOX)
 //				{
-//					// °°Àº typeÀÇ ¾ÆÀÌÅÛÀÌ ÀÖ´ÂÁö Ã¼Å©ÇÑ´Ù.
+//					// ê°™ì€ typeì˜ ì•„ì´í…œì´ ìˆëŠ”ì§€ ì²´í¬í•œë‹¤.
 //					if (NULL != g_pInventory->FindItem( ITEM_CLASS_EVENT_GIFT_BOX, pItem->GetItemType() ))
 //					{
-//						// ÀÖ´Ù¸é ¸ø Áİ´Â´Ù.
+//						// ìˆë‹¤ë©´ ëª» ì¤ëŠ”ë‹¤.
 //						return;
 //					}
 //				}
 
 				//----------------------------------------------------------------
 				//
-				//	Gear¿¡ µé¾î°¥ ¼ö ÀÖ´Â ItemÀÎ °æ¿ì..
+				//	Gearì— ë“¤ì–´ê°ˆ ìˆ˜ ìˆëŠ” Itemì¸ ê²½ìš°..
 				//
 				//----------------------------------------------------------------
 				if (pItem->IsGearItem())
 				{					
 					//------------------------------------------
-					// gear³ª Inventory°¡ ¿­·ÁÀÖ´Ù¸é --> mouse·Î
+					// gearë‚˜ Inventoryê°€ ì—´ë ¤ìˆë‹¤ë©´ --> mouseë¡œ
 					//------------------------------------------
 					if (gC_vs_ui.GetGearOpenState() ||
 						gC_vs_ui.GetInventoryOpenState())
@@ -11699,43 +11718,43 @@ MPlayer::PickupItem(MItem* pItem)
 						PickupItemToMouse( pItem );
 					}
 					//------------------------------------------
-					// ¾Æ´Ï¸é 
+					// ì•„ë‹ˆë©´ 
 					//------------------------------------------
 					else
 					{
-						// gear¿¡ ³Ö¾îº¸°í µé¾î°¥ ¼ö ¾ø´Ù¸é
-						// inventory¿¡ ³Ö¾îº»´Ù.
+						// gearì— ë„£ì–´ë³´ê³  ë“¤ì–´ê°ˆ ìˆ˜ ì—†ë‹¤ë©´
+						// inventoryì— ë„£ì–´ë³¸ë‹¤.
 
-						// µÑ ´Ù ¾È µé¾î°¡¸é ¸ø Áı´Â´Ù.
+						// ë‘˜ ë‹¤ ì•ˆ ë“¤ì–´ê°€ë©´ ëª» ì§‘ëŠ”ë‹¤.
 
-						// ÀÏ´ÜÀº.. --;
+						// ì¼ë‹¨ì€.. --;
 						PickupItemToInventory( pItem );									
 					}
 				}
 				//----------------------------------------------------------------
 				//
-				//	Inventory¿¡ µé¾î°¥ ¼ö ÀÖ´Â ItemÀÎ °æ¿ì..
+				//	Inventoryì— ë“¤ì–´ê°ˆ ìˆ˜ ìˆëŠ” Itemì¸ ê²½ìš°..
 				//
 				//----------------------------------------------------------------
 				else if (pItem->IsInventoryItem())
 				{												
 					//----------------------------------------------------------------
-					// inventory°¡ ¿­·ÁÀÖ´Ù¸é --> mouse·Î
+					// inventoryê°€ ì—´ë ¤ìˆë‹¤ë©´ --> mouseë¡œ
 					//----------------------------------------------------------------
 					if (gC_vs_ui.GetInventoryOpenState())
 					{							
 						PickupItemToMouse( pItem );
 					}
 					//----------------------------------------------------------------
-					// ¾Æ´Ï¸é ±×³É inventory·Î
+					// ì•„ë‹ˆë©´ ê·¸ëƒ¥ inventoryë¡œ
 					//----------------------------------------------------------------
 					else
 					{
 						if (pItem->IsQuickItem()
 							&& PickupItemToQuickslot( pItem ))
 						{
-							// quickslot¿¡ µé¾î°¥ ¼ö ÀÖ¾î¼­ µé¾î°¡µµ µÇ´Â °æ¿ì´Ù.
-							// ³É³É..
+							// quickslotì— ë“¤ì–´ê°ˆ ìˆ˜ ìˆì–´ì„œ ë“¤ì–´ê°€ë„ ë˜ëŠ” ê²½ìš°ë‹¤.
+							// ëƒ¥ëƒ¥..
 						}
 						else
 						{
@@ -11746,7 +11765,7 @@ MPlayer::PickupItem(MItem* pItem)
 			}
 		}
 		//----------------------------------------------------------------
-		// À§Ä¡ °ËÁõÀÌ ¾ÈµÈ »óÅÂ
+		// ìœ„ì¹˜ ê²€ì¦ì´ ì•ˆëœ ìƒíƒœ
 		//----------------------------------------------------------------
 		//DEBUG_ADD_FORMAT("Cannot Pickup item (Position not verified) sendMove=%d", m_SendMove);		
 	}
@@ -11765,18 +11784,18 @@ MPlayer::PickupItem(MItem* pItem)
 //----------------------------------------------------------------------
 // Pickup Item to Inventory
 //----------------------------------------------------------------------
-// ZoneÀÇ ItemÀ» ÁÖ¿ö¼­ inventory¿¡ ³Ö´Â´Ù.
+// Zoneì˜ Itemì„ ì£¼ì›Œì„œ inventoryì— ë„£ëŠ”ë‹¤.
 //----------------------------------------------------------------------
 void
 MPlayer::PickupItemToInventory(MItem* pItem)
 {
 	//------------------------------------------
-	// Inventory¿¡ µé¾î°¥ ÀÚ¸®°¡ ÀÖ´Â °æ¿ì
-	// : Server¿¡¼­ °ËÁõ¹Ş±â À§ÇÑ packetÀ» º¸³½´Ù.
+	// Inventoryì— ë“¤ì–´ê°ˆ ìë¦¬ê°€ ìˆëŠ” ê²½ìš°
+	// : Serverì—ì„œ ê²€ì¦ë°›ê¸° ìœ„í•œ packetì„ ë³´ë‚¸ë‹¤.
 	//------------------------------------------
 		POINT fitPoint;
 		//------------------------------------------
-		// ÀÌÀü¿¡ Ã³¸®ÇÒ·Á´Â itemÀÌ ¾ø´Â °æ¿ì..
+		// ì´ì „ì— ì²˜ë¦¬í• ë ¤ëŠ” itemì´ ì—†ëŠ” ê²½ìš°..
 		//------------------------------------------
 		if (IsItemCheckBufferNULL())
 		{
@@ -11795,43 +11814,43 @@ MPlayer::PickupItemToInventory(MItem* pItem)
 
 				g_pSocket->sendPacket( &_CGAddZoneToInventory );
 
-				// ÁÖ¿ï·Á´Â itemÀ» ±â¾ïÇÑ´Ù.
+				// ì£¼ìš¸ë ¤ëŠ” itemì„ ê¸°ì–µí•œë‹¤.
 				pItem->SetGridXY( fitPoint.x, fitPoint.y );
 				SetItemCheckBuffer(pItem, ITEM_CHECK_BUFFER_PICKUP_TO_INVENTORY);											
 			}
 			else
 			{
 				//------------------------------------------------------------
-				// inventory¿¡ ÀûÀıÇÑ °ø°£ÀÌ ¾ø¾î¼­ ÁÖ¿ï ¼ö ¾ø´Â °æ¿ìÀÌ´Ù.				
+				// inventoryì— ì ì ˆí•œ ê³µê°„ì´ ì—†ì–´ì„œ ì£¼ìš¸ ìˆ˜ ì—†ëŠ” ê²½ìš°ì´ë‹¤.				
 				//------------------------------------------------------------
 				pItem->SetDropping();
 
-				// 2004, 5, 7 , sobeit add start - ÀÎº¥¿¡ ÀÚ¸®°¡ ¾øÀ¸¸é º¸°üÇÔ »ç¶ó°í µµ¿ò¸» º¸¿©ÁÜ
+				// 2004, 5, 7 , sobeit add start - ì¸ë²¤ì— ìë¦¬ê°€ ì—†ìœ¼ë©´ ë³´ê´€í•¨ ì‚¬ë¼ê³  ë„ì›€ë§ ë³´ì—¬ì¤Œ
 				ExecuteHelpEvent( HELP_EVENT_STORAGE_BUY );
 				// 2004, 5, 6, sobeit add end
 			}
 		}
 		//------------------------------------------
-		// ¾ÆÁ÷ ´Ù¸¥ itemÀ» Ã³¸® ÁßÀÌ±â ¶§¹®¿¡
-		// itemÀ» ÁİÁö ¸øÇÏ´Â °æ¿ìÀÌ´Ù.
+		// ì•„ì§ ë‹¤ë¥¸ itemì„ ì²˜ë¦¬ ì¤‘ì´ê¸° ë•Œë¬¸ì—
+		// itemì„ ì¤ì§€ ëª»í•˜ëŠ” ê²½ìš°ì´ë‹¤.
 		//------------------------------------------
 		else
 		{
-			// messageÃâ·Â
-			// "¾ÆÁ÷ itemÀ» ÁÖ¿ï ¼ö ¾ø½À´Ï´Ù."
+			// messageì¶œë ¥
+			// "ì•„ì§ itemì„ ì£¼ìš¸ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 		}
 }
 
 //----------------------------------------------------------------------
 // Pickup Money
 //----------------------------------------------------------------------
-// ZoneÀÇ ItemÀ» Áİ´Â´Ù.
+// Zoneì˜ Itemì„ ì¤ëŠ”ë‹¤.
 //----------------------------------------------------------------------
 void
 MPlayer::PickupMoney(MMoney* pItem)
 {
 		//------------------------------------------
-		// ÀÌÀü¿¡ Ã³¸®ÇÒ·Á´Â itemÀÌ ¾ø´Â °æ¿ì..
+		// ì´ì „ì— ì²˜ë¦¬í• ë ¤ëŠ” itemì´ ì—†ëŠ” ê²½ìš°..
 		//------------------------------------------
 		if (IsItemCheckBufferNULL())
 		{		
@@ -11843,37 +11862,37 @@ MPlayer::PickupMoney(MMoney* pItem)
 		
 			g_pSocket->sendPacket( &_CGPickupMoney );
 
-			// ÁÖ¿ï·Á´Â itemÀ» ±â¾ïÇÑ´Ù.
+			// ì£¼ìš¸ë ¤ëŠ” itemì„ ê¸°ì–µí•œë‹¤.
 			SetItemCheckBuffer(pItem, ITEM_CHECK_BUFFER_PICKUP_MONEY);											
 		
 		}
 		//------------------------------------------
-		// ¾ÆÁ÷ ´Ù¸¥ itemÀ» Ã³¸® ÁßÀÌ±â ¶§¹®¿¡
-		// itemÀ» ÁİÁö ¸øÇÏ´Â °æ¿ìÀÌ´Ù.
+		// ì•„ì§ ë‹¤ë¥¸ itemì„ ì²˜ë¦¬ ì¤‘ì´ê¸° ë•Œë¬¸ì—
+		// itemì„ ì¤ì§€ ëª»í•˜ëŠ” ê²½ìš°ì´ë‹¤.
 		//------------------------------------------
 		else
 		{
-			// messageÃâ·Â
-			// "¾ÆÁ÷ itemÀ» ÁÖ¿ï ¼ö ¾ø½À´Ï´Ù."
+			// messageì¶œë ¥
+			// "ì•„ì§ itemì„ ì£¼ìš¸ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 		}
 }
 
 //----------------------------------------------------------------------
 // Pickup Item to Mouse
 //----------------------------------------------------------------------
-// ZoneÀÇ ItemÀ» ÁÖ¿ö¼­ Mouse¿¡ ºÙÀÎ´Ù. - -
+// Zoneì˜ Itemì„ ì£¼ì›Œì„œ Mouseì— ë¶™ì¸ë‹¤. - -
 //----------------------------------------------------------------------
 void
 MPlayer::PickupItemToMouse(MItem* pItem)
 {
 	//------------------------------------------
-	// Server¿¡ Á¢¼ÓµÈ °æ¿ì´Â..
+	// Serverì— ì ‘ì†ëœ ê²½ìš°ëŠ”..
 	//------------------------------------------
-	// itemÀ» ÁÖ¿ï ¼ö ÀÖ´ÂÁö server¿¡¼­ 
-	// °ËÁõÀ» ¹Ş¾Æ¾ß ÇÑ´Ù.
+	// itemì„ ì£¼ìš¸ ìˆ˜ ìˆëŠ”ì§€ serverì—ì„œ 
+	// ê²€ì¦ì„ ë°›ì•„ì•¼ í•œë‹¤.
 	//------------------------------------------
 		//------------------------------------------
-		// ÀÌÀü¿¡ Ã³¸®ÇÒ·Á´Â itemÀÌ ¾ø´Â °æ¿ì..
+		// ì´ì „ì— ì²˜ë¦¬í• ë ¤ëŠ” itemì´ ì—†ëŠ” ê²½ìš°..
 		//------------------------------------------
 		if (IsItemCheckBufferNULL())
 		{
@@ -11889,30 +11908,30 @@ MPlayer::PickupItemToMouse(MItem* pItem)
 				
 				g_pSocket->sendPacket( &_CGAddZoneToMouse );
 				
-				// ÁÖ¿ï·Á´Â itemÀ» ±â¾ïÇÑ´Ù.
+				// ì£¼ìš¸ë ¤ëŠ” itemì„ ê¸°ì–µí•œë‹¤.
 				SetItemCheckBuffer(pItem, ITEM_CHECK_BUFFER_PICKUP_TO_MOUSE);
 			}
 		}								
 		//------------------------------------------
-		// itemÀ» ÁİÁö ¸øÇÏ´Â °æ¿ìÀÌ´Ù.
+		// itemì„ ì¤ì§€ ëª»í•˜ëŠ” ê²½ìš°ì´ë‹¤.
 		//------------------------------------------
 		else
 		{
-			// messageÃâ·Â
-			// "¾ÆÁ÷ itemÀ» ÁÖ¿ï ¼ö ¾ø½À´Ï´Ù."
+			// messageì¶œë ¥
+			// "ì•„ì§ itemì„ ì£¼ìš¸ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 		}
 }
 
 //----------------------------------------------------------------------
 // Pickup Item to Quickslot
 //----------------------------------------------------------------------
-// ZoneÀÇ ItemÀ» ÁÖ¿ö¼­ Mouse¿¡ ºÙÀÎ´Ù. - -
+// Zoneì˜ Itemì„ ì£¼ì›Œì„œ Mouseì— ë¶™ì¸ë‹¤. - -
 //----------------------------------------------------------------------
 bool
 MPlayer::PickupItemToQuickslot(MItem* pItem)
 {
 	//------------------------------------------------------------------
-	// ÀÏ´Ü QuickSlot¿¡ µé¾î°¥ ¼ö ÀÖ´ÂÁö¸¦ È®ÀÎÇØ¾ß ÇÑ´Ù.
+	// ì¼ë‹¨ QuickSlotì— ë“¤ì–´ê°ˆ ìˆ˜ ìˆëŠ”ì§€ë¥¼ í™•ì¸í•´ì•¼ í•œë‹¤.
 	//------------------------------------------------------------------
 	if ( (g_pQuickSlot!=NULL&&IsSlayer()) || ((g_pArmsBand1!=NULL||g_pArmsBand2!=NULL)&&IsOusters())
 		&& IsItemCheckBufferNULL()
@@ -11925,7 +11944,7 @@ MPlayer::PickupItemToQuickslot(MItem* pItem)
 		int slot;
 
 		//---------------------------------------------------------
-		// QuickSlotÀÇ ¾îµğ¿¡ µé¾î°¥ ¼ö ÀÖÀ»±î?
+		// QuickSlotì˜ ì–´ë””ì— ë“¤ì–´ê°ˆ ìˆ˜ ìˆì„ê¹Œ?
 		//---------------------------------------------------------
 		if (IsSlayer() && !g_pQuickSlot->FindSlotToAddItem(pItem, slot))
 		{
@@ -11933,7 +11952,7 @@ MPlayer::PickupItemToQuickslot(MItem* pItem)
 		} 
 		else if( IsOusters() )
 		{
-			// Ã¹¹øÂ°²¨¸ÕÀú µÚÁö°í ¾øÀ¸¸é µÎ¹øÂ°²¬ µÚÁø´Ù.
+			// ì²«ë²ˆì§¸êº¼ë¨¼ì € ë’¤ì§€ê³  ì—†ìœ¼ë©´ ë‘ë²ˆì§¸ê»„ ë’¤ì§„ë‹¤.
 			
 			if( g_pArmsBand1 == NULL ||  !g_pArmsBand1->FindSlotToAddItem( pItem, slot ) )
 			{
@@ -11947,7 +11966,7 @@ MPlayer::PickupItemToQuickslot(MItem* pItem)
 		}
 
 			//---------------------------------------------------------
-			// ÀÏ´Ü ¸¶¿ì½º·Î °¥ ¼ö ÀÖ´Â°É °ËÁõ¹Ş¾Æ¾ß ÇÑ´Ù...
+			// ì¼ë‹¨ ë§ˆìš°ìŠ¤ë¡œ ê°ˆ ìˆ˜ ìˆëŠ”ê±¸ ê²€ì¦ë°›ì•„ì•¼ í•œë‹¤...
 			//---------------------------------------------------------
 			CGAddZoneToMouse _CGAddZoneToMouse;
 
@@ -11958,7 +11977,7 @@ MPlayer::PickupItemToQuickslot(MItem* pItem)
 			g_pSocket->sendPacket( &_CGAddZoneToMouse );
 
 			//---------------------------------------------------------
-			// slot¿¡ µé¾î°¥ ¼ö ÀÖ´Ù.
+			// slotì— ë“¤ì–´ê°ˆ ìˆ˜ ìˆë‹¤.
 			//---------------------------------------------------------
 			g_pTempInformation->SetMode(TempInformation::MODE_TRADE_VERIFY_PICKUP_TO_QUICKSLOT);
 			g_pTempInformation->Value1 = FirstArmsband ? slot : slot + 3;
@@ -11976,7 +11995,7 @@ MPlayer::PickupItemToQuickslot(MItem* pItem)
 //----------------------------------------------------------------------
 // Pickup Item to Mouse
 //----------------------------------------------------------------------
-// ZoneÀÇ ItemÀ» ÁÖ¿ö¼­ Mouse¿¡ ºÙÀÎ´Ù. - -
+// Zoneì˜ Itemì„ ì£¼ì›Œì„œ Mouseì— ë¶™ì¸ë‹¤. - -
 //----------------------------------------------------------------------
 void
 MPlayer::RideMotorcycle(MMotorcycle* pMotorcycle)
@@ -11989,7 +12008,7 @@ MPlayer::RideMotorcycle(MMotorcycle* pMotorcycle)
 	}
 
 	//------------------------------------------
-	// °È°í ÀÖ´Â ÁßÀÎ °æ¿ì ¿ÀÅä¹ÙÀÌ¿¡ Å» ¼ö ÀÖ´Ù.
+	// ê±·ê³  ìˆëŠ” ì¤‘ì¸ ê²½ìš° ì˜¤í† ë°”ì´ì— íƒˆ ìˆ˜ ìˆë‹¤.
 	//------------------------------------------
 	if (m_MoveDevice==MOVE_DEVICE_WALK)
 	{
@@ -12001,32 +12020,32 @@ MPlayer::RideMotorcycle(MMotorcycle* pMotorcycle)
 
 		g_pSocket->sendPacket( &_CGRideMotorCycle );
 
-		// MotorcycleÀ» Å¸±â À§ÇØ °ËÁõ¹Ş±â¸¦ ±â´Ù¸°´Ù.
+		// Motorcycleì„ íƒ€ê¸° ìœ„í•´ ê²€ì¦ë°›ê¸°ë¥¼ ê¸°ë‹¤ë¦°ë‹¤.
 		SetWaitVerify( WAIT_VERIFY_MOTORCYCLE_GETON );
 	}
 	//------------------------------------------
-	// ÀÌ¹Ì ¿ÀÅä¹ÙÀÌ¸¦ Å¸°í ÀÖ´Â °æ¿ìÀÌ´Ù.
+	// ì´ë¯¸ ì˜¤í† ë°”ì´ë¥¼ íƒ€ê³  ìˆëŠ” ê²½ìš°ì´ë‹¤.
 	//------------------------------------------
 	else
 	{
-		// ¿ÀÅä¹ÙÀÌ Å» ¼ö ¾ø´Ù. 
+		// ì˜¤í† ë°”ì´ íƒˆ ìˆ˜ ì—†ë‹¤. 
 	}
 }
 
 //----------------------------------------------------------------------
 // Skill To Inventory Item
 //----------------------------------------------------------------------
-// Inventory¿¡ ÀÖ´Â item¿¡ ±â¼úÀ» »ç¿ëÇÑ´Ù.
-// ¿©±â¼­´Â castingµ¿ÀÛ¸¸ ½ÃÀÛÇÏ°Ô ÇÏ¸é µÈ´Ù.
+// Inventoryì— ìˆëŠ” itemì— ê¸°ìˆ ì„ ì‚¬ìš©í•œë‹¤.
+// ì—¬ê¸°ì„œëŠ” castingë™ì‘ë§Œ ì‹œì‘í•˜ê²Œ í•˜ë©´ ëœë‹¤.
 //
-// °á°ú´Â packetÀ» ¹Ş¾Æ¼­ Ã³¸®..
-// °á°ú´Â (global) AddNewInventoryEffect(...)¿¡¼­ º¸¿©Áö°Ô ÇÏ¸é µÈ´Ù.
+// ê²°ê³¼ëŠ” packetì„ ë°›ì•„ì„œ ì²˜ë¦¬..
+// ê²°ê³¼ëŠ” (global) AddNewInventoryEffect(...)ì—ì„œ ë³´ì—¬ì§€ê²Œ í•˜ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 bool
 MPlayer::TraceInventoryItem(TYPE_OBJECTID id)
 {
 	//-----------------------------------------------------
-	// delay°¡ ÀÖÀ¸¸é ¾ÈµÈ´Ù.
+	// delayê°€ ìˆìœ¼ë©´ ì•ˆëœë‹¤.
 	//-----------------------------------------------------
 	if (!IsNotDelay()
 		|| HasEffectStatus( EFFECTSTATUS_ETERNITY_PAUSE ))
@@ -12035,20 +12054,20 @@ MPlayer::TraceInventoryItem(TYPE_OBJECTID id)
 	}
 
 	//--------------------------------------------------------
-	// »ç¿ëÇÒ ¼ö ¾ø´Â °æ¿ì
+	// ì‚¬ìš©í•  ìˆ˜ ì—†ëŠ” ê²½ìš°
 	//--------------------------------------------------------
 	if (m_nSpecialActionInfo == ACTIONINFO_NULL
-		// ¿ÀÅä¹ÙÀÌ¸¦ Å¸°í ÀÖÀ¸¸é Æ¯¼ö°ø°İÀÌ ¾ÈµÈ´Ù.
+		// ì˜¤í† ë°”ì´ë¥¼ íƒ€ê³  ìˆìœ¼ë©´ íŠ¹ìˆ˜ê³µê²©ì´ ì•ˆëœë‹¤.
 		|| m_MoveDevice == MOVE_DEVICE_RIDE
-		// ¹º°¡ ±â¼ú »ç¿ëÀ» °ËÁ¤ ¹Ş¾Æ¾ß ÇÏ¸é »ç¿ëÇÒ ¼ö ¾ø´Ù.
-		//|| m_WaitVerify != WAIT_VERIFY_NULL)	// 2001.8.20 ÁÖ¼®Ã³¸®
+		// ë­”ê°€ ê¸°ìˆ  ì‚¬ìš©ì„ ê²€ì • ë°›ì•„ì•¼ í•˜ë©´ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+		//|| m_WaitVerify != WAIT_VERIFY_NULL)	// 2001.8.20 ì£¼ì„ì²˜ë¦¬
 		)
 	{
 		return false;
 	}
 	
 	//--------------------------------------------------------
-	// ´Ù¸¥ ±â¼úÀ» »ç¿ëÁßÀÎ °æ¿ì
+	// ë‹¤ë¥¸ ê¸°ìˆ ì„ ì‚¬ìš©ì¤‘ì¸ ê²½ìš°
 	//--------------------------------------------------------
 	if (m_nUsedActionInfo!=ACTIONINFO_NULL)
 		return false;
@@ -12056,13 +12075,13 @@ MPlayer::TraceInventoryItem(TYPE_OBJECTID id)
 	
 
 	//--------------------------------------------------------
-	// ÇöÀç ±â¼úÀÌ item¿¡ »ç¿ëÇÏ´Â°Ô ¸Â³ª?
+	// í˜„ì¬ ê¸°ìˆ ì´ itemì— ì‚¬ìš©í•˜ëŠ”ê²Œ ë§ë‚˜?
 	//--------------------------------------------------------
 	if ((*g_pActionInfoTable)[m_nSpecialActionInfo].IsTargetItem())
 	{
 		//-------------------------------------------------------
-		// ÇöÀç »ç¿ëÇÒ ¼ö ÀÖ´Â ±â¼úÀÎÁö Ã¼Å©..
-		// Passive ½ºÅ³ÀÌ¸é »ç¿ë ¸øÇÏ°Ô..
+		// í˜„ì¬ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ê¸°ìˆ ì¸ì§€ ì²´í¬..
+		// Passive ìŠ¤í‚¬ì´ë©´ ì‚¬ìš© ëª»í•˜ê²Œ..
 		//-------------------------------------------------------
 		if (!g_pSkillAvailable->IsEnableSkill( (ACTIONINFO)m_nSpecialActionInfo )
 			|| !(*g_pSkillInfoTable)[m_nSpecialActionInfo].IsEnable()
@@ -12076,11 +12095,11 @@ MPlayer::TraceInventoryItem(TYPE_OBJECTID id)
 			return false;
 		}
 
-		// Á¤Áö »óÅÂ¿¡¼­¸¸ »ç¿ëÇÒ ¼ö ÀÖ´Ù.
+		// ì •ì§€ ìƒíƒœì—ì„œë§Œ ì‚¬ìš©í•  ìˆ˜ ìˆë‹¤.
 		if (IsStop() && IsItemCheckBufferNULL()) // || m_Action!=ACTION_ATTACK)
 		{
 			//--------------------------------------------------------
-			// pItemÀÌ inventory¿¡ ÀÖ´Â itemÀÎÁö Ã¼Å©ÇÑ´Ù.
+			// pItemì´ inventoryì— ìˆëŠ” itemì¸ì§€ ì²´í¬í•œë‹¤.
 			//--------------------------------------------------------
 			const MItem* pItem = ((MItemManager)(*g_pInventory)).GetItem( id );
 			
@@ -12089,42 +12108,42 @@ MPlayer::TraceInventoryItem(TYPE_OBJECTID id)
 				return false;
 			}
 
-			// »ç¿ëÇÑ ±â¼ú·Î ¼³Á¤
+			// ì‚¬ìš©í•œ ê¸°ìˆ ë¡œ ì„¤ì •
 			m_nNextUsedActionInfo	= m_nSpecialActionInfo;
 
-			// ÃßÀû Á¤º¸ ¼³Á¤
+			// ì¶”ì  ì •ë³´ ì„¤ì •
 			SetTraceID( id );
 			m_fTrace	= FLAG_TRACE_INVENTORY;
 			m_TraceX	= pItem->GetGridX();
 			m_TraceY	= pItem->GetGridY();
 			m_TraceZ	= 0;
 
-			// ÇöÀç ÃßÀûÇÏ´Â ´ë»ó¿¡ ´ëÇØ¼­ ±â¾ïÇØµĞ´Ù.
+			// í˜„ì¬ ì¶”ì í•˜ëŠ” ëŒ€ìƒì— ëŒ€í•´ì„œ ê¸°ì–µí•´ë‘”ë‹¤.
 			m_fTraceBuffer	= m_fTrace;	
 			
 
 			//------------------------------------------------------------		
-			// Inventory Item¿¡ ´ëÇØ¼­´Â ÀÇ¹Ì ¾ø´Ù. - -;
+			// Inventory Itemì— ëŒ€í•´ì„œëŠ” ì˜ë¯¸ ì—†ë‹¤. - -;
 			//------------------------------------------------------------	
-			m_TraceDistance		= 1;		//Èç¹û±»ĞŞ¸ÄÎª40¾ÍÈ«ÆÁ¼ñÎï	
+			m_TraceDistance		= 1;		//í”ë²êµ³éŒ¦ë§£æ§¨40ì•í™íŒìˆ„è† 	
 			SetAction( m_MoveAction );
 			SetNextDestination(m_X, m_Y);
 
-			// bufferingÀ» ¾ø¾Ø´Ù.
+			// bufferingì„ ì—†ì•¤ë‹¤.
 			m_fNextTrace			= FLAG_TRACE_NULL;
 		
-			// °è¼Ó ÂÑ¾Æ°¡´Â °ÍÀ» ÁßÁö
+			// ê³„ì† ì«“ì•„ê°€ëŠ” ê²ƒì„ ì¤‘ì§€
 			m_bKeepTraceCreature	= false;
 
 			//------------------------------------------------------------
-			// messageÃâ·Â
+			// messageì¶œë ¥
 			//------------------------------------------------------------
 			DEBUG_ADD_FORMAT("Trace IteMM: %d", id);				
 		}
 		else
 		{
 			//------------------------------------------------------------
-			// ¹İº¹ actionÇÏ´Â ÁßÀÌ ¾Æ´Ñ °æ¿ì¿¡ ´ÙÀ½ µ¿ÀÛ buffering
+			// ë°˜ë³µ actioní•˜ëŠ” ì¤‘ì´ ì•„ë‹Œ ê²½ìš°ì— ë‹¤ìŒ ë™ì‘ buffering
 			//------------------------------------------------------------
 			if (m_bRepeatAction)
 			{
@@ -12146,15 +12165,15 @@ MPlayer::TraceInventoryItem(TYPE_OBJECTID id)
 		return true;
 	}
 
-	// item¿¡ »ç¿ëÇÏ´Â ±â¼úÀÌ ¾Æ´Ï¶ó´Â ÀÇ¹Ì
+	// itemì— ì‚¬ìš©í•˜ëŠ” ê¸°ìˆ ì´ ì•„ë‹ˆë¼ëŠ” ì˜ë¯¸
 	return false;
 }
 
 //----------------------------------------------------------------------
 // Change To Slayer
 //----------------------------------------------------------------------
-// slayer·Î º¯½ÅÇÏ´Âµ¥..
-// ÀÌ¹Ì slayerÀÌ¸é.. return false
+// slayerë¡œ ë³€ì‹ í•˜ëŠ”ë°..
+// ì´ë¯¸ slayerì´ë©´.. return false
 //----------------------------------------------------------------------
 bool	
 MPlayer::ChangeToSlayer()
@@ -12166,7 +12185,7 @@ MPlayer::ChangeToSlayer()
 		g_pCurrentMagazine = NULL;
 		
 		//-----------------------------------------------------
-		// º¸°üÇÔµµ ³¯·ÁÁØ´Ù.
+		// ë³´ê´€í•¨ë„ ë‚ ë ¤ì¤€ë‹¤.
 		//-----------------------------------------------------
 		if (g_pStorage!=NULL)
 		{
@@ -12175,7 +12194,7 @@ MPlayer::ChangeToSlayer()
 		}
 
 		//-----------------------------------------------------
-		// ¹øÂ½
+		// ë²ˆì©
 		//-----------------------------------------------------
 		g_pTopView->SetFadeStart(1, 31, 6,  5,5,31);
 
@@ -12194,8 +12213,8 @@ MPlayer::ChangeToSlayer()
 //----------------------------------------------------------------------
 // Change To Vampire
 //----------------------------------------------------------------------
-// vampire·Î º¯½ÅÇÏ´Âµ¥..
-// ÀÌ¹Ì vampireÀÌ¸é.. return false
+// vampireë¡œ ë³€ì‹ í•˜ëŠ”ë°..
+// ì´ë¯¸ vampireì´ë©´.. return false
 //----------------------------------------------------------------------
 bool
 MPlayer::ChangeToVampire()
@@ -12208,7 +12227,7 @@ MPlayer::ChangeToVampire()
 		
 
 		//-----------------------------------------------------
-		// º¸°üÇÔµµ ³¯·ÁÁØ´Ù.
+		// ë³´ê´€í•¨ë„ ë‚ ë ¤ì¤€ë‹¤.
 		//-----------------------------------------------------
 		if (g_pStorage!=NULL)
 		{
@@ -12235,7 +12254,7 @@ MPlayer::ChangeToVampire()
 //----------------------------------------------------------------------
 // Set Status
 //----------------------------------------------------------------------
-// Ä³¸¯ÅÍÀÇ »óÅÂ°ªÀ» ¹Ù²Û´Ù.
+// ìºë¦­í„°ì˜ ìƒíƒœê°’ì„ ë°”ê¾¼ë‹¤.
 //----------------------------------------------------------------------
 void	
 MPlayer::SetStatus(DWORD n, DWORD value)
@@ -12251,26 +12270,26 @@ MPlayer::SetStatus(DWORD n, DWORD value)
 	modifyValue.oldValue = m_Status[n];
 	modifyValue.newValue = value;
 
-	// ÀÏ´Ü °ª º¯°æ
+	// ì¼ë‹¨ ê°’ ë³€ê²½
 	m_Status[n] = value; 
 	
-	// º¯°æµÈ °ª°ú °ü·ÃµÈ Ã³¸®
+	// ë³€ê²½ëœ ê°’ê³¼ ê´€ë ¨ëœ ì²˜ë¦¬
 	g_pModifyStatusManager->Execute( n, (void*)&modifyValue );
 
-	// ´Ù½Ã.. - -;
+	// ë‹¤ì‹œ.. - -;
 	m_Status[n] = modifyValue.newValue;
 }
 
 //----------------------------------------------------------------------
 // Check Status
 //----------------------------------------------------------------------
-// ¼öÄ¡ º¯ÇÏ´Â°Å Ã¼Å©
+// ìˆ˜ì¹˜ ë³€í•˜ëŠ”ê±° ì²´í¬
 //----------------------------------------------------------------------
 void	
 MPlayer::CalculateStatus()
 {
 	//-----------------------------------------------------------------
-	// item Âø¿ëÇÑ°Å¿¡ µû¶ó¼­...
+	// item ì°©ìš©í•œê±°ì— ë”°ë¼ì„œ...
 	//-----------------------------------------------------------------
 	MItemManager* pGear;
 
@@ -12289,7 +12308,7 @@ MPlayer::CalculateStatus()
 			int domainLevel = 0;
 			
 			//------------------------------------------------------
-			// ÃÑµé¾ú´ÂÁö Ã¼Å©
+			// ì´ë“¤ì—ˆëŠ”ì§€ ì²´í¬
 			//------------------------------------------------------
 			if (pWeapon!=NULL && pWeapon->IsAffectStatus())
 			{
@@ -12323,7 +12342,7 @@ MPlayer::CalculateStatus()
 				
 				
 				//----------------------------------------------------
-				// ¹«±âÀÇ ±âº» ¼Óµµ
+				// ë¬´ê¸°ì˜ ê¸°ë³¸ ì†ë„
 				//----------------------------------------------------			
 				if(pWeapon->IsAffectStatus())
 					weaponSpeed = pWeapon->GetOriginalSpeed();
@@ -12342,7 +12361,7 @@ MPlayer::CalculateStatus()
 			if (pWeapon!=NULL)
 			{
 				//----------------------------------------------------
-				// ¹«±âÀÇ ±âº» ¼Óµµ
+				// ë¬´ê¸°ì˜ ê¸°ë³¸ ì†ë„
 				//----------------------------------------------------			
 				if(pWeapon->IsAffectStatus())
 					weaponSpeed = pWeapon->GetOriginalSpeed();
@@ -12360,7 +12379,7 @@ MPlayer::CalculateStatus()
 			if (pWeapon!=NULL)
 			{
 				//----------------------------------------------------
-				// ¹«±âÀÇ ±âº» ¼Óµµ
+				// ë¬´ê¸°ì˜ ê¸°ë³¸ ì†ë„
 				//----------------------------------------------------			
 				if(pWeapon->IsAffectStatus())
 					weaponSpeed = pWeapon->GetOriginalSpeed();
@@ -12372,9 +12391,9 @@ MPlayer::CalculateStatus()
 
 	
 	//-----------------------------------------------------------------
-	// GearÀÇ ¸ğµç item¿¡ ´ëÇØ¼­..
+	// Gearì˜ ëª¨ë“  itemì— ëŒ€í•´ì„œ..
 	//
-	// DAM, AC, TOHIT, CC option¸¸ Àû¿ë½ÃÅ²´Ù.
+	// DAM, AC, TOHIT, CC optionë§Œ ì ìš©ì‹œí‚¨ë‹¤.
 	//-----------------------------------------------------------------
 	g_StatusManager.Set(GetSTR(), GetDEX(), GetINT());
 
@@ -12419,7 +12438,7 @@ MPlayer::CalculateStatus()
 	int	ElementalWind = 0;
 
 	//-----------------------------------------------------------------
-	// ¾ÆÀÌÅÛ¿¡ ÀÇÇØ¼­ ½Ã¾ß°¡ ¹à¾ÆÁö´Â°Å Ã¼Å©.
+	// ì•„ì´í…œì— ì˜í•´ì„œ ì‹œì•¼ê°€ ë°ì•„ì§€ëŠ”ê±° ì²´í¬.
 	//-----------------------------------------------------------------
 	SetItemLightSight(0);
 
@@ -12430,7 +12449,7 @@ MPlayer::CalculateStatus()
 		const MItem* pItem = pGear->Get();
 
 		//----------------------------------------------------------
-		// ¼öÄ¡°¡ Àû¿ëµÇ´Â itemÀÎ °æ¿ì¸¸..
+		// ìˆ˜ì¹˜ê°€ ì ìš©ë˜ëŠ” itemì¸ ê²½ìš°ë§Œ..
 		//----------------------------------------------------------
 		if (pItem != NULL && pItem->IsAffectStatus())
 		{
@@ -12448,7 +12467,7 @@ MPlayer::CalculateStatus()
 
 			}
 			//---------------------------------------------------
-			// ±âº»ÀûÀÎ ¹æ¾î¼öÄ¡ Áõ°¡
+			// ê¸°ë³¸ì ì¸ ë°©ì–´ìˆ˜ì¹˜ ì¦ê°€
 			//---------------------------------------------------
 			int def = pItem->GetDefenseValue();
 			
@@ -12473,7 +12492,7 @@ MPlayer::CalculateStatus()
 				
 				ITEMOPTION_INFO& optionInfo = (*g_pItemOptionTable)[*optionListItr];
 				//---------------------------------------------------
-				// ºÎ°¡ÀûÀÎ Option
+				// ë¶€ê°€ì ì¸ Option
 				//---------------------------------------------------
 				switch ((ITEMOPTION_TABLE::ITEMOPTION_PART)optionInfo.Part)
 				{
@@ -12499,7 +12518,7 @@ MPlayer::CalculateStatus()
 
 				ITEMOPTION_INFO& optionInfo = (*g_pItemOptionTable)[option];
 				//---------------------------------------------------
-				// ºÎ°¡ÀûÀÎ Option
+				// ë¶€ê°€ì ì¸ Option
 				//---------------------------------------------------
 				switch ((ITEMOPTION_TABLE::ITEMOPTION_PART)optionInfo.Part)
 				{
@@ -12522,7 +12541,7 @@ MPlayer::CalculateStatus()
 		pGear->Next();
 	}	
 
-	// 2004, 9, 20, sobeit add start - Á¤·É ·¹º§ ¿Ã·ÁÁÖ´Â °è±Ş½ºÅ³ÀÌ ÀÖ³×..
+	// 2004, 9, 20, sobeit add start - ì •ë ¹ ë ˆë²¨ ì˜¬ë ¤ì£¼ëŠ” ê³„ê¸‰ìŠ¤í‚¬ì´ ìˆë„¤..
 	if((*g_pRankBonusTable)[RANK_BONUS_SALAMANDERS_KNOWLEDGE].GetStatus() == RankBonusInfo::STATUS_LEARNED)
 		ElementalFire ++;
 	if((*g_pRankBonusTable)[RANK_BONUS_UNDINES_KNOWLEDGE].GetStatus() == RankBonusInfo::STATUS_LEARNED)
@@ -12530,7 +12549,7 @@ MPlayer::CalculateStatus()
 	if((*g_pRankBonusTable)[RANK_BONUS_GNOMES_KNOWLEDGE].GetStatus() == RankBonusInfo::STATUS_LEARNED)
 		ElementalEarth ++;
 	// 2004, 9, 20, sobeit add end
-	// Á¤·É ¼öÄ¡ ÁöÁ¤
+	// ì •ë ¹ ìˆ˜ì¹˜ ì§€ì •
 	SetStatus(MODIFY_ELEMENTAL_FIRE, ElementalFire);
 	SetStatus(MODIFY_ELEMENTAL_WATER, ElementalWater);
 	SetStatus(MODIFY_ELEMENTAL_EARTH, ElementalEarth);
@@ -12539,21 +12558,21 @@ MPlayer::CalculateStatus()
 		g_pSkillAvailable->SetAvailableSkills();
 
 	//-----------------------------------------------------------------
-	// ¹«±â ¼Óµµ ÁöÁ¤
+	// ë¬´ê¸° ì†ë„ ì§€ì •
 	//-----------------------------------------------------------------
 	SetStatus(MODIFY_ATTACK_SPEED, AttackSpeed);
 
 	//-----------------------------------------------------------------
-	// DAM, AC, TOHI, CC option¸¸ Àû¿ë½ÃÅ²´Ù.
+	// DAM, AC, TOHI, CC optionë§Œ ì ìš©ì‹œí‚¨ë‹¤.
 	//-----------------------------------------------------------------
-	// 2001.9.28 Á¦°Å
+	// 2001.9.28 ì œê±°
 	//SetStatus(MODIFY_DEFENSE, DV);
 	//SetStatus(MODIFY_PROTECTION, PV);
 	//SetStatus(MODIFY_TOHIT, TOHIT);
 //	SetStatus(MODIFY_CARRYWEIGHT, CC);			
 
 	//-----------------------------------------------------------------
-	// DAM¸¸ µû·Î Ã¼Å©.. ³È³È..
+	// DAMë§Œ ë”°ë¡œ ì²´í¬.. ëƒ ëƒ ..
 	//-----------------------------------------------------------------	
 //	m_Status[MODIFY_MIN_DAMAGE] = MinDAM; 
 //	m_Status[MODIFY_MAX_DAMAGE] = MaxDAM; 
@@ -12561,7 +12580,7 @@ MPlayer::CalculateStatus()
 	int maxSilverDAM = 0, minSilverDAM = 0;
 
 	//-----------------------------------------------------------------
-	// SlayerÀÎ °æ¿ì --> ¹«±â damage Àû¿ë
+	// Slayerì¸ ê²½ìš° --> ë¬´ê¸° damage ì ìš©
 	//-----------------------------------------------------------------
 	switch(GetRace())
 	{
@@ -12580,7 +12599,7 @@ MPlayer::CalculateStatus()
 				maxDAM = MaxDAM + pWeapon->GetMaxDamage();		
 
 				//-----------------------------------------------------------------
-				// ½ÊÀÚ°¡³ª ¸ŞÀÌ½ºÀÎ °æ¿ì  : Àºµ¥¹ÌÁö +10%
+				// ì‹­ìê°€ë‚˜ ë©”ì´ìŠ¤ì¸ ê²½ìš°  : ì€ë°ë¯¸ì§€ +10%
 				//-----------------------------------------------------------------
 				if (pWeapon->GetItemClass()==ITEM_CLASS_MACE
 					|| pWeapon->GetItemClass()==ITEM_CLASS_CROSS)
@@ -12590,8 +12609,8 @@ MPlayer::CalculateStatus()
 				}
 
 				//-----------------------------------------------------------------
-				// Àºµµ±İÀÌ µÇ¾î ÀÖ´Â °æ¿ì : Àºµ¥¹ÌÁö +10%
-				// ÃÑÀÎ °æ¿ì ÀºÃÑ¾Ë Ã¼Å©
+				// ì€ë„ê¸ˆì´ ë˜ì–´ ìˆëŠ” ê²½ìš° : ì€ë°ë¯¸ì§€ +10%
+				// ì´ì¸ ê²½ìš° ì€ì´ì•Œ ì²´í¬
 				//-----------------------------------------------------------------
 				if (!pWeapon->IsGunItem() && pWeapon->GetSilver() > 0
 					|| pWeapon->IsGunItem() 
@@ -12608,7 +12627,7 @@ MPlayer::CalculateStatus()
 
 	case RACE_VAMPIRE:
 		//-----------------------------------------------------------------
-		// ¹ìÆÄÀÌ¾î..
+		// ë±€íŒŒì´ì–´..
 		//-----------------------------------------------------------------
 		{
 			const MItem* pWeapon = g_pVampireGear->GetItem( MVampireGear::GEAR_VAMPIRE_RIGHTHAND );
@@ -12629,7 +12648,7 @@ MPlayer::CalculateStatus()
 
 	case RACE_OUSTERS:
 		//-----------------------------------------------------------------
-		// ¾Æ¿ì½ºÅÍÁî..
+		// ì•„ìš°ìŠ¤í„°ì¦ˆ..
 		//-----------------------------------------------------------------
 		{
 			const MItem* pWeapon = g_pOustersGear->GetItem( MOustersGear::GEAR_OUSTERS_RIGHTHAND );
@@ -12654,7 +12673,7 @@ MPlayer::CalculateStatus()
 	g_char_slot_ingame.SILVER_DAM2	= minSilverDAM;
 	g_char_slot_ingame.SILVER_DAM	= maxSilverDAM;
 
-	// °ÔÀÓ Áß¿¡´Â ¼­¹ö¿¡¼­ º¸³»ÁÖ±â ¶§¹®¿¡..
+	// ê²Œì„ ì¤‘ì—ëŠ” ì„œë²„ì—ì„œ ë³´ë‚´ì£¼ê¸° ë•Œë¬¸ì—..
 	if (g_Mode == MODE_WAIT_PCLIST)
 	{
 		UI_SetCharInfoDefense( DV );	
@@ -12686,8 +12705,8 @@ MPlayer::FastMovePosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, bool ser
 	{
 		if(server == true)
 			SetServerPosition( x, y);
-		// 2001.8.8  °è¼Ó ÃßÀûÇÏ°Ô ÇØº¸±â À§ÇÑ ÁÖ¼®Ã³¸®
-		// ±×·¯³ª.. ¹º°¡ ¹®Á¦°¡ ÀÖ¾î¼­.. ´Ù½Ã... - -;;
+		// 2001.8.8  ê³„ì† ì¶”ì í•˜ê²Œ í•´ë³´ê¸° ìœ„í•œ ì£¼ì„ì²˜ë¦¬
+		// ê·¸ëŸ¬ë‚˜.. ë­”ê°€ ë¬¸ì œê°€ ìˆì–´ì„œ.. ë‹¤ì‹œ... - -;;
 		//m_nUsedActionInfo = ACTIONINFO_NULL;
 		//m_Action		= (m_MoveAction==ACTION_SLAYER_MOTOR_MOVE)? ACTION_SLAYER_MOTOR_STAND : ACTION_STAND;
 
@@ -12700,10 +12719,10 @@ MPlayer::FastMovePosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, bool ser
 		UnSetRepeatAction();
 		//*/
 
-		// ´Ù °ËÁõµÆ´Ù°í º»´Ù.
+		// ë‹¤ ê²€ì¦ëë‹¤ê³  ë³¸ë‹¤.
 		ResetSendMove();
 
-		// 2001.8.10¿¡ Ãß°¡
+		// 2001.8.10ì— ì¶”ê°€
 		m_nUsedActionInfo = ACTIONINFO_NULL;
 
 		return true;
@@ -12720,8 +12739,8 @@ MPlayer::KnockBackPosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y)
 {
 	if (MCreature::KnockBackPosition( x, y ))
 	{
-		// 2001.8.8  °è¼Ó ÃßÀûÇÏ°Ô ÇØº¸±â À§ÇÑ ÁÖ¼®Ã³¸®
-		// ±×·¯³ª.. ¹º°¡ ¹®Á¦°¡ ÀÖ¾î¼­.. ´Ù½Ã... - -;;
+		// 2001.8.8  ê³„ì† ì¶”ì í•˜ê²Œ í•´ë³´ê¸° ìœ„í•œ ì£¼ì„ì²˜ë¦¬
+		// ê·¸ëŸ¬ë‚˜.. ë­”ê°€ ë¬¸ì œê°€ ìˆì–´ì„œ.. ë‹¤ì‹œ... - -;;
 		//m_nUsedActionInfo = ACTIONINFO_NULL;
 		//m_Action		= (m_MoveAction==ACTION_SLAYER_MOTOR_MOVE)? ACTION_SLAYER_MOTOR_STAND : ACTION_STAND;
 
@@ -12734,10 +12753,10 @@ MPlayer::KnockBackPosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y)
 		//UnSetRepeatAction();
 		//*/
 
-		// ´Ù °ËÁõµÆ´Ù°í º»´Ù.
+		// ë‹¤ ê²€ì¦ëë‹¤ê³  ë³¸ë‹¤.
 		ResetSendMove();
 
-		// 2001.8.10¿¡ Ãß°¡
+		// 2001.8.10ì— ì¶”ê°€
 		m_nUsedActionInfo = ACTIONINFO_NULL;
 
 		return true;
@@ -12749,33 +12768,33 @@ MPlayer::KnockBackPosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y)
 //----------------------------------------------------------------------
 // Find Enemy
 //----------------------------------------------------------------------
-// ±ÙÃ³ÀÇ ÀûÀ» Ã£´Â´Ù.
-// ÀûÀÌ ¾ø´Ù¸é OBJECTID_NULLÀ» returnÇÑ´Ù.
+// ê·¼ì²˜ì˜ ì ì„ ì°¾ëŠ”ë‹¤.
+// ì ì´ ì—†ë‹¤ë©´ OBJECTID_NULLì„ returní•œë‹¤.
 //----------------------------------------------------------------------
 int		
 MPlayer::FindEnemy()
 {
 	//---------------------------------------------------------------
-	// ÇöÀç L, R ButtonÀÌ ´­¸° »óÅÂ·Î LockModeÀÇ Çàµ¿À» ÆÇ´ÜÇÑ´Ù.
-	// º°·ç ¾È ±ò²ûÇÏÁö¸¸.. ¤»¤»..
+	// í˜„ì¬ L, R Buttonì´ ëˆŒë¦° ìƒíƒœë¡œ LockModeì˜ í–‰ë™ì„ íŒë‹¨í•œë‹¤.
+	// ë³„ë£¨ ì•ˆ ê¹”ë”í•˜ì§€ë§Œ.. ã…‹ã…‹..
 	//---------------------------------------------------------------
 	int bBasicAction = g_bLButtonDown;
 	int bSpecialAction = g_bRButtonDown;
 	int actionDistance = 0;
 
 	//---------------------------------------------------------------
-	// ±âº» Çàµ¿
+	// ê¸°ë³¸ í–‰ë™
 	//-------------------------------------------------------------
 	if (bBasicAction)
 	{
 		actionDistance = m_BasicAttackDistance;		
 	}
 	//-------------------------------------------------------------
-	// Æ¯¼ö Çàµ¿
+	// íŠ¹ìˆ˜ í–‰ë™
 	//-------------------------------------------------------------
 	else if (bSpecialAction)
 	{
-		// Æ¯¼ö ±â¼úÀÌ ¼³Á¤µÇÁö ¾ÊÀº °æ¿ì
+		// íŠ¹ìˆ˜ ê¸°ìˆ ì´ ì„¤ì •ë˜ì§€ ì•Šì€ ê²½ìš°
 		if (m_nSpecialActionInfo==ACTIONINFO_NULL)
 		{
 			return NULL;
@@ -12785,7 +12804,7 @@ MPlayer::FindEnemy()
 	}
 
 	//-------------------------------------------------------------
-	// ZoneÀÇ ¸ğµç Creature¸¦ °Ë»öÇÑ´Ù.
+	// Zoneì˜ ëª¨ë“  Creatureë¥¼ ê²€ìƒ‰í•œë‹¤.
 	//-------------------------------------------------------------
 	int	numCreature = g_pZone->GetCreatureNumber();
 
@@ -12798,7 +12817,7 @@ MPlayer::FindEnemy()
 		MCreature* pCreature = iCreature->second;
 
 		//--------------------------------------------------
-		// NPCµµ ¾Æ´Ï°í, ³»°¡ ¾Æ´Ñ °æ¿ì..
+		// NPCë„ ì•„ë‹ˆê³ , ë‚´ê°€ ì•„ë‹Œ ê²½ìš°..
 		//--------------------------------------------------
 		if (!pCreature->IsNPC() 
 			&& pCreature->GetID()!=m_ID)
@@ -12807,35 +12826,35 @@ MPlayer::FindEnemy()
 			int ty = pCreature->GetServerY();
 
 			//--------------------------------------------------
-			// ÀûÀÌ°í..
-			// Çàµ¿ °¡´É °Å¸®ÀÌ¸é...
+			// ì ì´ê³ ..
+			// í–‰ë™ ê°€ëŠ¥ ê±°ë¦¬ì´ë©´...
 			//--------------------------------------------------
 			if (g_pObjectSelector->CanAttack(pCreature)
 				&& max(abs(tx-m_X), abs(ty-m_Y)) <= actionDistance)
 				//&& g_pObjectSelector->IsAblePKbyZone(pCreature))					
 			{
 				//--------------------------------------------------
-				// Ã³À½ ¼±ÅÃµÈ Ä³¸¯ÅÍÀÎ °æ¿ì
+				// ì²˜ìŒ ì„ íƒëœ ìºë¦­í„°ì¸ ê²½ìš°
 				//--------------------------------------------------
 				if (targetCreatureID==OBJECTID_NULL)
 				{
 					targetCreatureID = pCreature->GetID();
 				}
 				//--------------------------------------------------
-				// Ã³À½ ¼±ÅÃµÈ Ä³¸¯ÅÍ°¡ ¾Æ´Ñ °æ¿ì
+				// ì²˜ìŒ ì„ íƒëœ ìºë¦­í„°ê°€ ì•„ë‹Œ ê²½ìš°
 				//--------------------------------------------------
 				else
 				{
 					//--------------------------------------------------
-					// ¹İ¹İÀÇ È®·ü·Î ¸ñÇ¥¸¦ ´Ù½Ã ¼³Á¤ÇÑ´Ù.
+					// ë°˜ë°˜ì˜ í™•ë¥ ë¡œ ëª©í‘œë¥¼ ë‹¤ì‹œ ì„¤ì •í•œë‹¤.
 					//--------------------------------------------------
 					if (rand()%2)
 					{
 						targetCreatureID = pCreature->GetID();	
 					}
 					//--------------------------------------------------
-					// ´Ù½Ã ¼³Á¤µÇÁö ¾ÊÀº °æ¿ì
-					// ±âÁ¸¿¡ ¼³Á¤µÈ Ä³¸¯ÅÍ¸¦ ¼±ÅÃÇÑ´Ù.
+					// ë‹¤ì‹œ ì„¤ì •ë˜ì§€ ì•Šì€ ê²½ìš°
+					// ê¸°ì¡´ì— ì„¤ì •ëœ ìºë¦­í„°ë¥¼ ì„ íƒí•œë‹¤.
 					//--------------------------------------------------
 					else
 					{
@@ -12854,7 +12873,7 @@ MPlayer::FindEnemy()
 //----------------------------------------------------------------------
 // Stop Blood Drain
 //----------------------------------------------------------------------
-// m_bStopBloodDrainÀÌ¸é ÀÌ°É È£ÃâÇØ¾ß ÇÑ´Ù.
+// m_bStopBloodDrainì´ë©´ ì´ê±¸ í˜¸ì¶œí•´ì•¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 MPlayer::StopBloodDrain()
@@ -12867,7 +12886,7 @@ MPlayer::StopBloodDrain()
 		{
 			m_ActionCount = 60;
 
-			// delay ´Ù½Ã ¼³Á¤
+			// delay ë‹¤ì‹œ ì„¤ì •
 			//m_DelayTime	= g_CurrentTime + (m_ActionCountMax-m_ActionCount)*60;		
 			
 			UnSetStopBloodDrain();
@@ -12889,7 +12908,7 @@ MPlayer::StopBloodDrain()
 //----------------------------------------------------------------------
 // Stop Absorb Soul
 //----------------------------------------------------------------------
-// m_bStopAbsorbSoulÀÌ¸é ÀÌ°É È£ÃâÇØ¾ß ÇÑ´Ù.
+// m_bStopAbsorbSoulì´ë©´ ì´ê±¸ í˜¸ì¶œí•´ì•¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 MPlayer::StopAbsorbSoul()
@@ -12913,10 +12932,10 @@ MPlayer::StopAbsorbSoul()
 				{
 					bool bUseEffectSprite = pEffect->IsEffectSprite();
 					
-					// flagÁ¦°Å
+					// flagì œê±°
 					if (bUseEffectSprite)
 					{
-						m_bAttachEffect[pEffect->GetEffectSpriteType()] = false;	// flagÁ¦°Å
+						m_bAttachEffect[pEffect->GetEffectSpriteType()] = false;	// flagì œê±°
 					}
 					
 					delete pEffect;
@@ -12938,8 +12957,8 @@ MPlayer::StopAbsorbSoul()
 //----------------------------------------------------------------------
 // Check In Darkness
 //----------------------------------------------------------------------
-// darkness°¡ ³ªÅ¸³ª°í/»ç¶óÁö´Â ¼ø°£
-//            player°¡ ¿òÁ÷ÀÌ´Â ¼ø°£À» Ã¼Å©ÇÏ¸é µÈ´Ù.
+// darknessê°€ ë‚˜íƒ€ë‚˜ê³ /ì‚¬ë¼ì§€ëŠ” ìˆœê°„
+//            playerê°€ ì›€ì§ì´ëŠ” ìˆœê°„ì„ ì²´í¬í•˜ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 void
 MPlayer::CheckInDarkness()
@@ -12955,19 +12974,19 @@ MPlayer::CheckInDarkness()
 		)
 	{
 		//-------------------------------------------------------
-		// Darkness¿¡ µé¾î¿Ô´ÂÁö Ã¼Å©
+		// Darknessì— ë“¤ì–´ì™”ëŠ”ì§€ ì²´í¬
 		//-------------------------------------------------------
-		// ¼­¹ö ÁÂÇ¥º¸´Ù´Â ÇöÀç ÁÂÇ¥°¡ º¸±â¿¡ ÁÁ´Ù.. ¤»¤»..
+		// ì„œë²„ ì¢Œí‘œë³´ë‹¤ëŠ” í˜„ì¬ ì¢Œí‘œê°€ ë³´ê¸°ì— ì¢‹ë‹¤.. ã…‹ã…‹..
 		const MSector& sector = g_pZone->GetSector( m_X, m_Y );
 
 		if (sector.HasDarkness())
 		{
-			// darkness¿¡ ÀÖ´Â °æ¿ì
+			// darknessì— ìˆëŠ” ê²½ìš°
 			PlaceInDarkness();
 		}
 		else
 		{		
-			// darkness´Â »ç¶óÁ³´Ù.
+			// darknessëŠ” ì‚¬ë¼ì¡Œë‹¤.
 			PlaceNotInDarkness();
 		}
 	}
@@ -12988,12 +13007,12 @@ MPlayer::SetSpecialActionInfo( TYPE_ACTIONINFO n )
 	{
 		m_nSpecialActionInfo = n; 
 
-		// ¹İº¹ Áß¿¡´Â..
-		// ±â¼úÀÇ TargetÀÌ ¹Ù²î´Â °æ¿ì°¡ ÀÖ´Ù.
+		// ë°˜ë³µ ì¤‘ì—ëŠ”..
+		// ê¸°ìˆ ì˜ Targetì´ ë°”ë€ŒëŠ” ê²½ìš°ê°€ ìˆë‹¤.
 		if (IsRepeatAction())
 		{
 			if (m_fTraceBuffer != FLAG_TRACE_NULL
-				// ±âº» µ¿ÀÛ Áß¿¡´Â °ü°è¾ø´Ù.
+				// ê¸°ë³¸ ë™ì‘ ì¤‘ì—ëŠ” ê´€ê³„ì—†ë‹¤.
 				&& !(m_fTraceBuffer & FLAG_TRACE_CREATURE_BASIC)
 				&& !(m_fTraceBuffer & FLAG_TRACE_SECTOR_BASIC)
 				&& !(m_fTraceBuffer & FLAG_TRACE_ITEM)
@@ -13001,13 +13020,13 @@ MPlayer::SetSpecialActionInfo( TYPE_ACTIONINFO n )
 				&& !(m_fTraceBuffer & FLAG_TRACE_EFFECT)
 				)
 			{			
-				// ±â¼ú »ç¿ëÁßÀÎ °æ¿ì..
+				// ê¸°ìˆ  ì‚¬ìš©ì¤‘ì¸ ê²½ìš°..
 				BOOL bOther = ((*g_pActionInfoTable)[n].IsTargetOther());
 				BOOL bSelf = ((*g_pActionInfoTable)[n].IsTargetSelf());
 				BOOL bZone = ((*g_pActionInfoTable)[n].IsTargetZone());
 				BOOL bItem = ((*g_pActionInfoTable)[n].IsTargetItem());
 
-				// Á¤»óÀûÀÎ °æ¿ì...
+				// ì •ìƒì ì¸ ê²½ìš°...
 				if (((m_fTraceBuffer & FLAG_TRACE_SELF) && bSelf)
 					|| ((m_fTraceBuffer & FLAG_TRACE_CREATURE_SPECIAL) && bOther)
 					|| ((m_fTraceBuffer & FLAG_TRACE_SECTOR_SPECIAL) && bZone)
@@ -13015,7 +13034,7 @@ MPlayer::SetSpecialActionInfo( TYPE_ACTIONINFO n )
 					)
 				{				
 				}
-				// ºñÁ¤»óÀûÀÎ °æ¿ì.. target ¼³Á¤À» ¹Ù²ã¾ß ÇÑ´Ù.
+				// ë¹„ì •ìƒì ì¸ ê²½ìš°.. target ì„¤ì •ì„ ë°”ê¿”ì•¼ í•œë‹¤.
 				else
 				{
 					if (bOther)
@@ -13099,7 +13118,7 @@ void	MPlayer::CalculateLightSight()
 //	CalculateSight();
 	m_LightSight = GetTimeLightSight() + GetItemLightSight();
 
-	// [»õ±â¼ú6] observing eye°¡ °É·ÁÀÖÀ¸¸é ½Ã¾ß°¡ ³Ğ¾îÁø´Ù.
+	// [ìƒˆê¸°ìˆ 6] observing eyeê°€ ê±¸ë ¤ìˆìœ¼ë©´ ì‹œì•¼ê°€ ë„“ì–´ì§„ë‹¤.
 	if (m_bEffectStatus[EFFECTSTATUS_OBSERVING_EYE])
 	{
 		m_LightSight +=  1 + (*g_pSkillInfoTable)[SKILL_OBSERVING_EYE].GetLevel() / 50;
@@ -13165,15 +13184,15 @@ void	MPlayer::SetFlyingCreature()
 
 void	MPlayer::CalculateSight()
 {
-	// -_----; ½Ã¾ß ¼¼ÆÃ ¤»¤»¤» ¹ö±×°¡ ¸¹¾Æ¼­ °Á ¸ÇµéÀÚ
+	// -_----; ì‹œì•¼ ì„¸íŒ… ã…‹ã…‹ã…‹ ë²„ê·¸ê°€ ë§ì•„ì„œ ê± ë§¨ë“¤ì
 
 	//-----------------------------------------------------------------
-	// item Âø¿ëÇÑ°Å¿¡ µû¶ó¼­...
+	// item ì°©ìš©í•œê±°ì— ë”°ë¼ì„œ...
 	//-----------------------------------------------------------------
 	MItemManager* pGear = GetGear();
 
 	//-----------------------------------------------------------------
-	// SlayerÀÎ °æ¿ì
+	// Slayerì¸ ê²½ìš°
 	//-----------------------------------------------------------------	
 	if(pGear == NULL )
 		return;
@@ -13187,7 +13206,7 @@ void	MPlayer::CalculateSight()
 		const MItem* pItem = pGear->Get();
 
 		//----------------------------------------------------------
-		// ¼öÄ¡°¡ Àû¿ëµÇ´Â itemÀÎ °æ¿ì¸¸..
+		// ìˆ˜ì¹˜ê°€ ì ìš©ë˜ëŠ” itemì¸ ê²½ìš°ë§Œ..
 		//----------------------------------------------------------
 		if (pItem->IsAffectStatus())
 		{	
@@ -13197,7 +13216,7 @@ void	MPlayer::CalculateSight()
 			{				
 				ITEMOPTION_INFO& optionInfo = (*g_pItemOptionTable)[*optionListItr];
 				//---------------------------------------------------
-				// ºÎ°¡ÀûÀÎ Option
+				// ë¶€ê°€ì ì¸ Option
 				//---------------------------------------------------
 				switch ((ITEMOPTION_TABLE::ITEMOPTION_PART)optionInfo.Part)
 				{
@@ -13215,7 +13234,7 @@ void	MPlayer::CalculateSight()
 				TYPE_ITEM_OPTION option = *itr;
 				ITEMOPTION_INFO& optionInfo = (*g_pItemOptionTable)[option];
 				//---------------------------------------------------
-				// ºÎ°¡ÀûÀÎ Option
+				// ë¶€ê°€ì ì¸ Option
 				//---------------------------------------------------
 				switch ((ITEMOPTION_TABLE::ITEMOPTION_PART)optionInfo.Part)
 				{
@@ -13235,7 +13254,7 @@ void	MPlayer::CalculateSight()
 #endif
 		)
 	{
-		// ÃÖ°­~~
+		// ìµœê°•~~
 		SetItemLightSight( GetItemLightSight() + 15 );
 	} else
 	{
@@ -13250,7 +13269,7 @@ void	MPlayer::CalculateSight()
 void
 MPlayer::UpdateSweepVice()
 {
-	if(GetSweepViewValue())	// ½ºÀ¬ ¹ÙÀÌ½º ÁßÀÏ‹š
+	if(GetSweepViewValue())	// ìŠ¤ìœ• ë°”ì´ìŠ¤ ì¤‘ì¼ë–„
 	{
 		//if(IsDead() || m_nUsedActionInfo != SKILL_SWEEP_VICE_1 || m_SweepViceX == SECTORPOSITION_NULL ||	m_SweepViceY == SECTORPOSITION_NULL	)
 		if(IsDead() ||!IsSlayer() || m_SweepViceX == SECTORPOSITION_NULL ||	m_SweepViceY == SECTORPOSITION_NULL	)

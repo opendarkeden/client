@@ -16,12 +16,14 @@
 #endif
 //////////////////////////////////////////////////////////////////////
 //
-// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¼­¹ö·ÎºÎÅÍ ¸Ş½ÃÁö¸¦ ¹Ş¾ÒÀ»¶§ ½ÇÇàµÇ´Â ¸Ş½îµåÀÌ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì„œë²„ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ë°›ì•˜ì„ë•Œ ì‹¤í–‰ë˜ëŠ” ë©”ì˜ë“œì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
 void GCAuthKeyHandler::execute ( GCAuthKey * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY 
 //		__BEGIN_DEBUG_EX
@@ -30,15 +32,15 @@ void GCAuthKeyHandler::execute ( GCAuthKey * pPacket , Player * pPlayer )
 
 #if !defined(OUTPUT_DEBUG) && !defined(_DEBUG) && !defined(__DEBUG_OUTPUT__) && defined(__NPROTECT__) //add by zdj
 	Set_Auth(pPacket->getKey());
-//	MessageBox(g_hWnd, "GCAuthKeyHandler¹ŞÀ½1", "Warning", MB_OK);
+//	MessageBox(g_hWnd, "GCAuthKeyHandlerë°›ìŒ1", "Warning", MB_OK);
 #endif
-//	MessageBox(g_hWnd, "GCAuthKeyHandler¹ŞÀ½2", "Warning", MB_OK);
+//	MessageBox(g_hWnd, "GCAuthKeyHandlerë°›ìŒ2", "Warning", MB_OK);
 //#ifdef __NPROTECT__
 //	//cout << pPacket->toString() << endl;
 //	Set_Auth(pPacket->getKey());
-//	MessageBox(g_hWnd, "GCAuthKeyHandler¹ŞÀ½1", "Warning", MB_OK);
+//	MessageBox(g_hWnd, "GCAuthKeyHandlerë°›ìŒ1", "Warning", MB_OK);
 //#endif
-//	MessageBox(g_hWnd, "GCAuthKeyHandler¹ŞÀ½2", "Warning", MB_OK);
+//	MessageBox(g_hWnd, "GCAuthKeyHandlerë°›ìŒ2", "Warning", MB_OK);
 #endif
 
 //	__END_DEBUG_EX

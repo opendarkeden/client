@@ -14,8 +14,12 @@
 #include "GL_import.h"
 #include "Timer2.h"
 #include "DXLib.h"
+#ifdef PLATFORM_WINDOWS
 #include "Unicorn.h"
+#endif
 #include "SP.h"
+#include "../hangul/Fl2.h"  // For full PrintInfo definition
+#include "CSpriteSurface.h"
 //#include "VS_UI_Exception.h"
 #include "VS_UI_ui_result_receiver.h"
 #include "SimpleDataList.h"
@@ -43,15 +47,15 @@ struct S_BLOOD_BIBLE_DESCRIPTION
 	char *		sz_player;
 };
 
-// ÁÖ¹Î¹øÈ£ÀÚ¸´¼ö(ÇÑ±¹)
+// ï¿½Ö¹Î¹ï¿½È£ï¿½Ú¸ï¿½ï¿½ï¿½(ï¿½Ñ±ï¿½)
 #define SSN_POS_COUNT					13
 #define SSN_PART1_CHAR_COUNT			6
 #define SSN_PART2_CHAR_COUNT			7
 //#define _SHOW_WINDOW_ATTR
 
 //
-// SHOW_WINDOW_ATTRÀº °¢ Window¿¡ Window»óÅÂ¸¦ Ãâ·ÂÇÏ±â À§ÇÑ °ÍÀÌ´Ù. Window¸¦ µð¹ö±ëÇÏ±â À§ÇØ
-// ¸¸µç °ÍÀÌ´Ù.
+// SHOW_WINDOW_ATTRï¿½ï¿½ ï¿½ï¿½ Windowï¿½ï¿½ Windowï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½. Windowï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
 //
 #if (defined(_SHOW_WINDOW_ATTR) && !defined(_LIB))
 #define SHOW_WINDOW_ATTR { \
@@ -66,8 +70,8 @@ struct S_BLOOD_BIBLE_DESCRIPTION
 //
 // set/unset background mouse focus message
 //
-// client background¿¡ mouse focus¸¦ set/unsetÇÑ´Ù.
-// ÀÌ°ÍÀº mouse pointer°¡ UI Window·Î acquire/unacquire¸¦ client¿¡ ¾Ë¸®´Â °ÍÀÌ´Ù.
+// client backgroundï¿½ï¿½ mouse focusï¿½ï¿½ set/unsetï¿½Ñ´ï¿½.
+// ï¿½Ì°ï¿½ï¿½ï¿½ mouse pointerï¿½ï¿½ UI Windowï¿½ï¿½ acquire/unacquireï¿½ï¿½ clientï¿½ï¿½ ï¿½Ë¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
 //
 #define SET_BACKGROUND_MOUSE_FOCUS	if (gpC_window_manager->GetMouseFocusedWindow() == NULL) \
 													gpC_base->SendMessage(UI_BACKGROUND_MOUSE_FOCUS, gpC_mouse_pointer->GetPointerX(), gpC_mouse_pointer->GetPointerY());
@@ -76,7 +80,7 @@ struct S_BLOOD_BIBLE_DESCRIPTION
 
 #define TEXT_LINE(x)						(x*20) // 20 font height...
 
-// LOWORD, HIWORD·Î °Ë»öÇÑ´Ù.
+// LOWORD, HIWORDï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ñ´ï¿½.
 #define MAKEDWORD(a, b)					(DWORD)((a << 16)|b)
 
 #define INTERFACE_BLINK_VALUE_MAX	4
@@ -84,14 +88,14 @@ struct S_BLOOD_BIBLE_DESCRIPTION
 extern bool gbl_global_empty_move;
 
 //
-// EMPTY_MOVE´Â °­Á¦·Î ¸¶¿ì½ºÀÔ·ÂÀÇ MOVE¸¦ ÇÑ ¹ø ¹ß»ýÇÑ´Ù.
+// EMPTY_MOVEï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½ºï¿½Ô·ï¿½ï¿½ï¿½ MOVEï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ß»ï¿½ï¿½Ñ´ï¿½.
 //
 #define EMPTY_MOVE						gbl_global_empty_move = true;
 
 //-----------------------------------------------------------------------------
 // Global definition.
 //-----------------------------------------------------------------------------
-#define PCS_NUMBER_LIMIT				7 // 7ÀÚ¸®
+#define PCS_NUMBER_LIMIT				7 // 7ï¿½Ú¸ï¿½
 
 // rgb
 #define RGB_WHITE							RGB(255, 255, 255)
@@ -151,7 +155,7 @@ enum
 };
 
 // font id
-// ¼±ÅÃÇÒ ¼ö ÀÖ´Â font Á¤ÀÇ.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ font ï¿½ï¿½ï¿½ï¿½.
 enum font_id_t
 {
 	FONT_SLAYER,
@@ -167,13 +171,13 @@ enum font_id_t
 //---------------------------------------
 struct MOUSEPOINTER_INFO
 {
-	int		x; // screen¿¡¼­ÀÇ (x, y)
+	int		x; // screenï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (x, y)
 	int		y;
 	int		width;
 	int		height;
 };
 
-// Client·Î loginÀ» º¸³»±â À§ÇÑ ±¸Á¶Ã¼.
+// Clientï¿½ï¿½ loginï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼.
 struct DELETE_CHARACTER
 {
 	char *	sz_part1;
@@ -196,7 +200,7 @@ struct NEW_REGISTRATION
 
 	char *	sz_email;
 	char *	sz_address;
-	char *	sz_ssn_number_part1; // ÁÖ¹Î¹øÈ£
+	char *	sz_ssn_number_part1; // ï¿½Ö¹Î¹ï¿½È£
 	char *	sz_ssn_number_part2;
 	char *	sz_homepage;
 	char *	sz_woo;
@@ -228,8 +232,8 @@ struct NEW_CHARACTER
 //-----------------------------------------------------------------------------
 // Base
 //
-// ±â¹ÝÀ» Á¤ÀÇÇÏ´Â classÀÌ´Ù.
-// VS_UI System¿¡ Àü¿ªÀûÀ¸·Î ¿µÇâÀ» ÀÔÈ÷´Â °ÍµéÀº ¸ðµÎ ¿©±â¿¡ Á¤ÀÇµÈ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ classï¿½Ì´ï¿½.
+// VS_UI Systemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Íµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ÇµÈ´ï¿½.
 //-----------------------------------------------------------------------------
 class Base
 {
@@ -240,9 +244,9 @@ private:
 	//
 	// m_event_occured
 	//
-	// C_VS_UI_TRIBE class ÂüÁ¶.
+	// C_VS_UI_TRIBE class ï¿½ï¿½ï¿½ï¿½.
 	//
-	// event°¡ ¹ß»ýÇÏ¸é setµÈ´Ù.
+	// eventï¿½ï¿½ ï¿½ß»ï¿½ï¿½Ï¸ï¿½ setï¿½È´ï¿½.
 	//
 	bool						m_event_occured;
 
@@ -255,8 +259,8 @@ public:
 	// Video/Font defition.
 	//
 public:
-	CSpriteSurface *		m_p_DDSurface_back; // UI¸¦ Ãâ·ÂÇÒ surface
-	CSpriteSurface			m_DDSurface_offscreen; // effect¸¦ À§ÇÑ offscreen
+	CSpriteSurface *		m_p_DDSurface_back; // UIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ surface
+	CSpriteSurface			m_DDSurface_offscreen; // effectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ offscreen
 
 private:
 	int						m_colorkey_red; // offscreen colorkey
@@ -265,9 +269,9 @@ public:
 	PrintInfo				m_small_pi;
 	PrintInfo				m_chatting_pi;
 	PrintInfo				m_user_id_pi;
-	PrintInfo				m_value_pi; // ¿ìÃøÁ¤·ÄµÈ ¸ÚÁø ¼ýÀÚ..
-	PrintInfo				m_value2_pi; // ÁÂÃøÁ¤·ÄµÈ ¸ÚÁø ¼ýÀÚ..
-	PrintInfo				m_item_name_pi; // !item descriptionÀÌ Ãâ·ÂµÈ ÈÄ »öÀÌ º¯°æµÉ ¼ö ÀÖ´Ù.
+	PrintInfo				m_value_pi; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
+	PrintInfo				m_value2_pi; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
+	PrintInfo				m_item_name_pi; // !item descriptionï¿½ï¿½ ï¿½ï¿½Âµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
 	PrintInfo				m_item_desc_pi;
 	PrintInfo				m_dialog_menu_pi;
 	PrintInfo				m_dialog_msg_pi;
@@ -291,13 +295,14 @@ public:
 	// xmas
 	PrintInfo				m_xmas_pi;
 	
-	PrintInfo				m_money2_pi; // ¿ìÃø Á¤·Ä µ·
+	PrintInfo				m_money2_pi; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 
 private:
 	C_VS_UI_UI_RESULT_RECEIVER		m_C_ui_result_receiver;
 
 	void	InitFont();
 	void	InitSurface(CSpriteSurface *surface);
+	// Font management methods - available on all platforms
 	void	SetDefaultLogfont(LOGFONT &lf) const;
 	void	SetFont(PrintInfo &pi, LOGFONT &lf, COLORREF textcolor, COLORREF backcolor=0, int bk_mode=TRANSPARENT, int align=TA_LEFT);
 
@@ -320,14 +325,38 @@ extern Base * gpC_base;
 extern UINT	g_blink_value;
 extern int ga_item_blink_color_table[];
 
-extern bool gbl_sell_running; // »ç´Â Áß..
-extern bool gbl_buy_running; // ÆÄ´Â Áß..
-extern bool gbl_repair_running; // °íÄ¡´Â Áß...
-extern bool gbl_silvering_running; // °íÄ¡´Â Áß...
+extern bool gbl_sell_running; // ï¿½ï¿½ï¿½ ï¿½ï¿½..
+extern bool gbl_buy_running; // ï¿½Ä´ï¿½ ï¿½ï¿½..
+extern bool gbl_repair_running; // ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½...
+extern bool gbl_silvering_running; // ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½...
 extern bool gbl_item_lock;
 extern bool gbl_gear_lock;
 extern bool gbl_item_trade_lock;
 //extern bool gbl_vampire_interface;
 extern Race g_eRaceInterface;
-extern bool gbl_swap_advancement_item_running; // »ç´Â Áß..
+extern bool gbl_swap_advancement_item_running; // ï¿½ï¿½ï¿½ ï¿½ï¿½..
+
+//-----------------------------------------------------------------------------
+// Cross-platform path conversion utilities
+//-----------------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
+	// On Windows, no conversion needed
+	inline std::string ConvertGamePath(const char* path) {
+		return std::string(path);
+	}
+#else
+	// On Unix/macOS, convert backslashes to forward slashes
+	inline std::string ConvertGamePath(const char* path) {
+		if (!path) return std::string();
+		std::string result = path;
+		size_t pos = 0;
+		// Replace all backslashes with forward slashes
+		while ((pos = result.find('\\', pos)) != std::string::npos) {
+			result.replace(pos, 1, "/");
+			pos += 1;
+		}
+		return result;
+	}
+#endif
+
 #endif

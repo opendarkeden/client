@@ -83,7 +83,7 @@ public:
 	class CGThrowBombHandler 
 	{
 	public:
-		static void execute(CGThrowBomb* pCGThrowBomb, Player* pPlayer) throw(Error);
+		static void execute(CGThrowBomb* pCGThrowBomb, Player* pPlayer) throw ( ProtocolException , Error );
 	};
 #endif
 

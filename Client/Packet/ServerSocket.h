@@ -35,7 +35,7 @@ public :
 	ServerSocket ( uint port , uint backlog = 5 ) throw ( BindException , Error );
 	
 	// destructor
-	~ServerSocket () throw ( Error );
+	~ServerSocket () throw ( ProtocolException , Error );
 	
 
 //////////////////////////////////////////////////
@@ -44,30 +44,30 @@ public :
 public :
 	
 	// close socket
-	void close () throw ( Error );
+	void close () throw ( ProtocolException , Error );
 	
 	// accept new connection
-	Socket * accept () throw ( Error );
+	Socket * accept () throw ( ProtocolException , Error );
 
 	// get/set socket's linger status
-    uint getLinger () const throw ( Error ) { return m_Impl->getLinger(); }
-    void setLinger ( uint lingertime ) throw ( Error ) { m_Impl->setLinger(lingertime); }
+    uint getLinger () const throw ( ProtocolException , Error ) { return m_Impl->getLinger(); }
+    void setLinger ( uint lingertime ) throw ( ProtocolException , Error ) { m_Impl->setLinger(lingertime); }
  
     // get/set socket's reuse address status
-    bool isReuseAddr () const throw ( Error ) { return m_Impl->isReuseAddr(); }
-    void setReuseAddr ( bool on = true ) throw ( Error ) { m_Impl->setReuseAddr(on); }
+    bool isReuseAddr () const throw ( ProtocolException , Error ) { return m_Impl->isReuseAddr(); }
+    void setReuseAddr ( bool on = true ) throw ( ProtocolException , Error ) { m_Impl->setReuseAddr(on); }
  
     // get/set socket's nonblocking status
-    bool isNonBlocking () const throw ( Error ) { return m_Impl->isNonBlocking(); }
-    void setNonBlocking ( bool on = true ) throw ( Error ) { m_Impl->setNonBlocking(on); }
+    bool isNonBlocking () const throw ( ProtocolException , Error ) { return m_Impl->isNonBlocking(); }
+    void setNonBlocking ( bool on = true ) throw ( ProtocolException , Error ) { m_Impl->setNonBlocking(on); }
  
     // get/set receive buffer size
-    uint getReceiveBufferSize () const throw ( Error ) { return m_Impl->getReceiveBufferSize(); }
-    void setReceiveBufferSize ( uint size ) throw ( Error ) { m_Impl->setReceiveBufferSize(size); }
+    uint getReceiveBufferSize () const throw ( ProtocolException , Error ) { return m_Impl->getReceiveBufferSize(); }
+    void setReceiveBufferSize ( uint size ) throw ( ProtocolException , Error ) { m_Impl->setReceiveBufferSize(size); }
  
     // get/set send buffer size
-    uint getSendBufferSize () const throw ( Error ) { return m_Impl->getSendBufferSize(); }
-    void setSendBufferSize ( uint size ) throw ( Error ) { m_Impl->setSendBufferSize(size); }
+    uint getSendBufferSize () const throw ( ProtocolException , Error ) { return m_Impl->getSendBufferSize(); }
+    void setSendBufferSize ( uint size ) throw ( ProtocolException , Error ) { m_Impl->setSendBufferSize(size); }
  
 	SOCKET getSOCKET () throw () { return m_Impl->getSOCKET(); }
 

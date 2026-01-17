@@ -34,10 +34,10 @@ class SocketOutputStream {
 public :
 	
 	// constructor
-	SocketOutputStream ( Socket * sock , uint BufferSize = DefaultSocketOutputBufferSize ) throw ( Error );
+	SocketOutputStream ( Socket * sock , uint BufferSize = DefaultSocketOutputBufferSize ) throw ( ProtocolException , Error );
 	
 	// destructor
-	virtual ~SocketOutputStream () throw ( Error );
+	virtual ~SocketOutputStream () throw ( ProtocolException , Error );
 
 	
 //////////////////////////////////////////////////
@@ -47,12 +47,12 @@ public :
 	
 	// write data to stream (output buffer)
 	// *CAUTION*
-	// string À» ¹öÆÛ¿¡ writing ÇÒ ¶§, ÀÚµ¿À¸·Î size ¸¦ ¾Õ¿¡ ºÙÀÏ ¼öµµ ÀÖ´Ù.
-	// ±×·¯³ª, string ÀÇ Å©±â¸¦ BYTE/WORD Áß ¾î´À °ÍÀ¸·Î ÇÒ °ÇÁö´Â ÀÇ¹®ÀÌ´Ù.
-	// ÆĞÅ¶ÀÇ Å©±â´Â ÀÛÀ» ¼ö·Ï ÁÁ´Ù´Â Á¤Ã¥ÇÏ¿¡¼­ ÇÊ¿ä¿¡ µû¶ó¼­ string size °ªÀ»
-	// BYTE ¶Ç´Â WORD ¸¦ ¼öµ¿À¸·Î »ç¿ëÇÏµµ·Ï ÇÑ´Ù.
-	uint write ( const char * buf , uint len ) throw ( Error );
-	uint write ( const std::string & buf ) throw ( Error ) { return write(buf.c_str(),buf.size()); }
+	// string ì„ ë²„í¼ì— writing í•  ë•Œ, ìë™ìœ¼ë¡œ size ë¥¼ ì•ì— ë¶™ì¼ ìˆ˜ë„ ìˆë‹¤.
+	// ê·¸ëŸ¬ë‚˜, string ì˜ í¬ê¸°ë¥¼ BYTE/WORD ì¤‘ ì–´ëŠ ê²ƒìœ¼ë¡œ í•  ê±´ì§€ëŠ” ì˜ë¬¸ì´ë‹¤.
+	// íŒ¨í‚·ì˜ í¬ê¸°ëŠ” ì‘ì„ ìˆ˜ë¡ ì¢‹ë‹¤ëŠ” ì •ì±…í•˜ì—ì„œ í•„ìš”ì— ë”°ë¼ì„œ string size ê°’ì„
+	// BYTE ë˜ëŠ” WORD ë¥¼ ìˆ˜ë™ìœ¼ë¡œ ì‚¬ìš©í•˜ë„ë¡ í•œë‹¤.
+	uint write ( const char * buf , uint len ) throw ( ProtocolException , Error );
+	uint write ( const std::string & buf ) throw ( ProtocolException , Error ) { return write(buf.c_str(),buf.size()); }
 	void write ( const Packet * pPacket ) throw ( ProtocolException , Error );
 	
     uint write ( bool   buf ) throw ( ProtocolException , Error ) { return write( (const char*)&buf, szbool   ); }
@@ -89,7 +89,7 @@ public :
 <<")";
         return msg.toString();
     }
-	// ³õÊ¼»¯·â°üĞòÁĞ
+	// ë†“è¿¦ëºë£ê´€åŸ¼ì£—
 	void InitSeq(){ m_Sequence =0;}
 //////////////////////////////////////////////////
 // attributes
@@ -108,8 +108,8 @@ private :
 	// buffer head/tail
 	uint m_Head;
 	uint m_Tail;
-	// ·â°üĞòÁĞ
-	byte m_Sequence;
+	// ë£ê´€åŸ¼ì£—
+	BYTE m_Sequence;
 //add by viva 2008-12-31
 public :
 	WORD m_EncryptKey;

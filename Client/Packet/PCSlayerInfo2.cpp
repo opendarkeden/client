@@ -100,7 +100,7 @@ void PCSlayerInfo2::read ( SocketInputStream & iStream )
 		iStream.read( m_Sight );
 
 		// read sight
-		for(  i = 0 ; i < 4 ; i++ ) 
+		for(int i = 0 ; i < 4 ; i++ ) 
 		{
 			iStream.read( m_HotKey[i] );
 		}
@@ -174,7 +174,7 @@ void PCSlayerInfo2::write ( SocketOutputStream & oStream ) const
 		oStream.write( m_Alignment );
 		
 		// write attributes
-		// ³Ö´Â ¼ø¼­´Â ATTR_CURRENT, ATTR_MAX, ATTR_BASIC
+		// ë„£ëŠ” ìˆœì„œëŠ” ATTR_CURRENT, ATTR_MAX, ATTR_BASIC
 		oStream.write( m_STR[ATTR_CURRENT] );
 		oStream.write( m_STR[ATTR_MAX] );
 		oStream.write( m_STR[ATTR_BASIC] );
@@ -215,7 +215,7 @@ void PCSlayerInfo2::write ( SocketOutputStream & oStream ) const
 		oStream.write( m_Sight );
 
 		// write HotKey
-		for( i = 0; i < 4; i++ ) 
+		for(int i = 0; i < 4; i++ ) 
 		{
 			oStream.write( m_HotKey[i] );
 		}
@@ -296,4 +296,6 @@ string PCSlayerInfo2::toString () const
 	
 	return msg.toString();
 }
+
+//----------------------------------------------------------------------
 #endif

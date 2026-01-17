@@ -1456,7 +1456,7 @@ bool	C_VS_UI_COMPUTER::LoadTree(const char* szFilename)
 
 		CSpritePack *temp;
 		temp = new CSpritePack;
-		ifstream file(spkname.c_str(), ios::binary | ios::nocreate);
+		ifstream file(spkname.c_str(), ios::binary);
 		if (!file)
 			_Error(FILE_OPEN);
 		temp->LoadFromFile( file );
@@ -1550,7 +1550,7 @@ bool	C_VS_UI_COMPUTER::LoadTree(const char* szFilename)
 //
 //			CSpritePack *temp;
 //			temp = new CSpritePack;
-//			ifstream file(spkname.c_str(), ios::binary | ios::nocreate);
+//			ifstream file(spkname.c_str(), ios::binary);
 //			if (!file)
 //				_Error(FILE_OPEN);
 //			temp->LoadFromFile( file );

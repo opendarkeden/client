@@ -19,7 +19,8 @@ void sendCannotUse(CGMixItem* pPacket, Player* pPlayer);
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGMixItemHandler::execute(CGMixItem* pPacket, Player* pPlayer)
-	throw (ProtocolException, Error)
+	
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY 
 
@@ -48,9 +49,9 @@ void CGMixItemHandler::execute(CGMixItem* pPacket, Player* pPlayer)
 	CoordInven_t InvenX = pPacket->getX();
 	CoordInven_t InvenY = pPacket->getY();
 
-	//cout << "ÆÐÅ¶³¯¶ó¿È : " << pPacket->toString() << endl;
+	//cout << "íŒ¨í‚·ë‚ ë¼ì˜´ : " << pPacket->toString() << endl;
 
-	// ÀÎº¥Åä¸® ÁÂÇ¥¸¦ ³Ñ¾î°¡´Â ¿µ¿ªÀÌ¶ó¸é ¾È µÈ´Ù.
+	// ì¸ë²¤í† ë¦¬ ì¢Œí‘œë¥¼ ë„˜ì–´ê°€ëŠ” ì˜ì—­ì´ë¼ë©´ ì•ˆ ëœë‹¤.
 	if (InvenX >= pInventory->getWidth() || InvenY >= pInventory->getHeight())
 	{
 		GCCannotUse _GCCannotUse;
@@ -59,7 +60,7 @@ void CGMixItemHandler::execute(CGMixItem* pPacket, Player* pPlayer)
 		return;
 	}
 
-	// ÀÎº¥Åä¸®¿¡ ±× ¾ÆÀÌÅÛÀÌ ¾ø´Ù¸é ¿¡·¯´Ù.
+	// ì¸ë²¤í† ë¦¬ì— ê·¸ ì•„ì´í…œì´ ì—†ë‹¤ë©´ ì—ëŸ¬ë‹¤.
 	Item* pItem = pInventory->getItem(InvenX, InvenY);
 	if (pItem == NULL)
 	{
@@ -69,13 +70,13 @@ void CGMixItemHandler::execute(CGMixItem* pPacket, Player* pPlayer)
 		return;
 	}
 
-	// ÀÎº¥Åä¸®¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀÇ Object¸¦ ¹Þ´Â´Ù.
+	// ì¸ë²¤í† ë¦¬ì— ìžˆëŠ” ì•„ì´í…œì˜ Objectë¥¼ ë°›ëŠ”ë‹¤.
 	ObjectID_t ItemObjectID = pItem->getObjectID();
 
-	// OID°¡ ÀÏÄ¡ÇÏÁö ¾Ê°Å³ª, »ç¿ëÇÒ ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÌ¶ó¸é ¿¡·¯´Ù.
+	// OIDê°€ ì¼ì¹˜í•˜ì§€ ì•Šê±°ë‚˜, ì‚¬ìš©í•  ìˆ˜ ì—†ëŠ” ì•„ì´í…œì´ë¼ë©´ ì—ëŸ¬ë‹¤.
 	if (ItemObjectID != pPacket->getObjectID() || !isUsableItem(pItem, pCreature))
 	{
-		//cout << "¾ÆÅÛ »ç¿ë ºÒ°¡. ¿ÉÁ§Æ® ¾Æµð°¡ ¾È ¸Â´ø°¡..." << endl;
+		//cout << "ì•„í…œ ì‚¬ìš© ë¶ˆê°€. ì˜µì íŠ¸ ì•„ë””ê°€ ì•ˆ ë§žë˜ê°€..." << endl;
 		GCCannotUse _GCCannotUse;
 		_GCCannotUse.setObjectID(pPacket->getObjectID());
 		pGamePlayer->sendPacket(&_GCCannotUse);

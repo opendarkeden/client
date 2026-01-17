@@ -16,7 +16,7 @@
 //
 // class GCAddBurrowingCreature;
 //
-// ½Ã¾ß ¾È¿¡ BurrowingCreature °¡ µé¾î¿ÔÀ» °æ¿ì, ÀÌ ÆĞÅ¶¿¡ BurrowingCreature Á¤º¸¸¦ ´ã¾Æ¼­ Àü¼Û¹Ş´Â´Ù.
+// ì‹œì•¼ ì•ˆì— BurrowingCreature ê°€ ë“¤ì–´ì™”ì„ ê²½ìš°, ì´ íŒ¨í‚·ì— BurrowingCreature ì •ë³´ë¥¼ ë‹´ì•„ì„œ ì „ì†¡ë°›ëŠ”ë‹¤.
 //
 //--------------------------------------------------------------------------------
 
@@ -24,10 +24,10 @@ class GCAddBurrowingCreature : public Packet {
 
 public :
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write ( SocketOutputStream & oStream ) const throw ( ProtocolException , Error );
 
 	// execute packet's handler
@@ -38,7 +38,7 @@ public :
 	
 	// get packet's body size
 	// *OPTIMIZATION HINT*
-	// const static GCAddBurrowingCreaturePacketSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+	// const static GCAddBurrowingCreaturePacketSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
 	PacketSize_t getPacketSize () const throw () 
 	{ 
 		return szObjectID 
@@ -78,14 +78,14 @@ public :
 
 private :
 	
-    // Á¸ ·¹º§¿¡¼­ À¯´ÏÅ©ÇÑ ¾ÆÀÌµğ·Î °´Ã¼ ±¸ºĞÀ» À§ÇØ¼­ »ç¿ëÇÑ´Ù.
+    // ì¡´ ë ˆë²¨ì—ì„œ ìœ ë‹ˆí¬í•œ ì•„ì´ë””ë¡œ ê°ì²´ êµ¬ë¶„ì„ ìœ„í•´ì„œ ì‚¬ìš©í•œë‹¤.
     ObjectID_t m_ObjectID;
 
-    // BurrowingCreatureÀÇ ÀÌ¸§
+    // BurrowingCreatureì˜ ì´ë¦„
     std::string m_Name;
 
-   	Coord_t m_X;				// X ÁÂÇ¥
-	Coord_t m_Y;				// Y ÁÂÇ¥
+   	Coord_t m_X;				// X ì¢Œí‘œ
+	Coord_t m_Y;				// Y ì¢Œí‘œ
 };
 
 
@@ -114,7 +114,7 @@ public :
 
 	// get packet's body size
 	// *OPTIMIZATION HINT*
-	// const static GCAddBurrowingCreaturePacketSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+	// const static GCAddBurrowingCreaturePacketSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
 	PacketSize_t getPacketMaxSize () const throw () 
 	{
 		return szObjectID 
@@ -136,7 +136,7 @@ class GCAddBurrowingCreatureHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCAddBurrowingCreature * pPacket , Player * pPlayer ) throw ( Error );
+	static void execute ( GCAddBurrowingCreature * pPacket , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

@@ -15,7 +15,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCChangeShapeHandler::execute ( GCChangeShape * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -24,7 +25,7 @@ void GCChangeShapeHandler::execute ( GCChangeShape * pPacket , Player * pPlayer 
 
 	//--------------------------------------------------------
 	//
-	// ÀÓ½Ã·Î ItemÀ» »ı¼ºÇÑ´Ù.
+	// ì„ì‹œë¡œ Itemì„ ìƒì„±í•œë‹¤.
 	//
 	//--------------------------------------------------------
 	MItem* pItem = NULL;
@@ -32,7 +33,7 @@ void GCChangeShapeHandler::execute ( GCChangeShape * pPacket , Player * pPlayer 
 	pItem = MItem::NewItem( (enum ITEM_CLASS)pPacket->getItemClass() );
 
 	//--------------------------------------------------------
-	// ItemÀÌ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì...
+	// Itemì´ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°...
 	//--------------------------------------------------------
 	if (pItem==NULL)
 	{
@@ -48,11 +49,11 @@ void GCChangeShapeHandler::execute ( GCChangeShape * pPacket , Player * pPlayer 
 
 	//------------------------------------------------------
 	//
-	//  Creature¿¡°Ô ÀûÀıÇÑ AddonÀ» Âø¿ë½ÃÅ²´Ù.
+	//  Creatureì—ê²Œ ì ì ˆí•œ Addonì„ ì°©ìš©ì‹œí‚¨ë‹¤.
 	//
 	//------------------------------------------------------
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -60,14 +61,14 @@ void GCChangeShapeHandler::execute ( GCChangeShape * pPacket , Player * pPlayer 
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 
 		//--------------------------------------------------
-		// Creature°¡ ¾ø´Â °æ¿ì
+		// Creatureê°€ ì—†ëŠ” ê²½ìš°
 		//--------------------------------------------------
 		if (pCreature==NULL)
 		{
@@ -75,14 +76,14 @@ void GCChangeShapeHandler::execute ( GCChangeShape * pPacket , Player * pPlayer 
 			DEBUG_ADD_FORMAT("[Error] Not Exist Creature. ID=%d", pPacket->getObjectID());
 		}
 		//--------------------------------------------------
-		// Á¸ÀçÇÏ´Â CreatureÀÎ °æ¿ì
-		// º¹ÀåÀÌ ÀÖ´Â creatureÀÌ¸é --> AddonÂø¿ë
+		// ì¡´ì¬í•˜ëŠ” Creatureì¸ ê²½ìš°
+		// ë³µì¥ì´ ìˆëŠ” creatureì´ë©´ --> Addonì°©ìš©
 		//--------------------------------------------------
 		else if (pCreature->IsWear())
 		{
 			MCreatureWear* pCreatureWear = (MCreatureWear*)pCreature;
 
-			// Ä³¸¯ÅÍ¸¦ Á¤Áö½ÃÅ²´Ù.
+			// ìºë¦­í„°ë¥¼ ì •ì§€ì‹œí‚¨ë‹¤.
 			pCreatureWear->SetStop();
 			
 			#ifdef	OUTPUT_DEBUG				
@@ -102,7 +103,7 @@ void GCChangeShapeHandler::execute ( GCChangeShape * pPacket , Player * pPlayer 
 		}
 			
 		//--------------------------------------------------
-		// ¿ÊÀ» ÀÔÀ» ¼ö ¾ø´Â CreatureÀÎ °æ¿ì
+		// ì˜·ì„ ì…ì„ ìˆ˜ ì—†ëŠ” Creatureì¸ ê²½ìš°
 		//--------------------------------------------------
 		else 
 		{

@@ -9,27 +9,39 @@
 #ifndef __SOCKET_API_H__
 #define __SOCKET_API_H__
 
+/* Platform detection */
+#if defined(_WIN32) || defined(_WIN64)
+	#ifndef PLATFORM_WINDOWS
+		#define PLATFORM_WINDOWS
+	#endif
+#elif defined(__APPLE__)
+	#define PLATFORM_MACOS
+#elif defined(__linux__)
+	#define PLATFORM_LINUX
+#endif
+
 // include files
 #include "Types.h"
 #include "Exception.h"
 
-#if __WINDOWS__
+#if defined(PLATFORM_WINDOWS)
 #include <WinSock.h>
-#elif __LINUX__
+#elif defined(PLATFORM_LINUX) || defined(PLATFORM_MACOS)
 #include <netinet/in.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <arpa/inet.h>
 #endif
 
 
 //////////////////////////////////////////////////
 //
-// Windowsø°º≠¥¬ SOCKET∞˙ INVALID_SOCKETø° unsigned int∏¶
-// ªÁøÎ«—¥Ÿ. ∏∏æ‡ Windows∂Û∏È WinSock.h∏¶ include«ﬂ¿∏π«∑Œ
-// SOCKET∞˙ INVALID_SOCKET¿Ã ¡§¿«µ«æÓ ¿÷∞‘ µ»¥Ÿ.
+// WindowsÏóêÏÑúÎäî SOCKETÍ≥º INVALID_SOCKETÏùÑ unsigned intÏúºÎ°ú
+// Ï†ïÏùòÌïúÎã§. Í∑∏Îü¨ÎÇò WindowsÏóêÏÑú WinSock.hÎ•º includeÌïòÏßÄ ÏïäÏúºÎ©¥
+// SOCKETÍ≥º INVALID_SOCKETÏù¥ Ï†ïÏùòÎêòÏñ¥ ÏûàÏßÄ ÏïäÎã§.
 //
 //////////////////////////////////////////////////
-#if __LINUX__
+#if defined(PLATFORM_LINUX) || defined(PLATFORM_MACOS)
 
 	typedef int SOCKET;
 	static const int INVALID_SOCKET = -1;
@@ -53,7 +65,7 @@ namespace SocketAPI {
 // exception version of socket ()
 //
 SOCKET socket_ex ( int domain , int type , int protocol ) 
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 
 //
@@ -73,7 +85,7 @@ void connect_ex ( SOCKET s , const struct sockaddr * name , uint namelen )
 // exception version of listen ()
 //
 void listen_ex ( SOCKET s , uint backlog ) 
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 
 //
@@ -87,13 +99,13 @@ SOCKET accept_ex ( SOCKET s , struct sockaddr * addr , uint * addrlen )
 // exception version of getsockopt ()
 //
 void getsockopt_ex ( SOCKET s , int level , int optname , void * optval , uint * optlen )
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 //
 // exception version of setsockopt ()
 //
 void setsockopt_ex ( SOCKET s , int level , int optname , const void * optval , uint optlen )
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 
 //
@@ -143,35 +155,35 @@ void closesocket_ex ( SOCKET s )
 // in UNIX , ioctl() used instead
 //
 void ioctlsocket_ex ( SOCKET s , long cmd , ulong * argp )
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 
 //
 // check if socket is nonblocking mode
 //
 bool getsocketnonblocking_ex ( SOCKET s )
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 
 //
 // make socket nonblocking mode
 //
 void setsocketnonblocking_ex ( SOCKET s , bool on )
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 
 //
 // get amount of data in socket input buffer
 //
 uint availablesocket_ex ( SOCKET s )
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 
 //
 // exception version of shutdown()
 //
 void shutdown_ex ( SOCKET s , uint how )
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 
 //

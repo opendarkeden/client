@@ -18,7 +18,7 @@
 //
 // class WarInfo;
 //
-// ÇÏ³ªÀÇ ÀüÀï¿¡ ´ëÇÑ Á¤º¸
+// í•˜ë‚˜ì˜ ì „ìŸì— ëŒ€í•œ ì •ë³´
 //
 //--------------------------------------------------------------------------------
 
@@ -31,10 +31,10 @@ public :
 	GuildWarInfo() {}
 	~GuildWarInfo() {}
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream & iStream) throw(ProtocolException, Error);
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
 
 	PacketSize_t getSize() const throw() 
@@ -74,10 +74,10 @@ public :
 	void 				addJoinGuild(GuildID_t gid)	{ m_GuildIDs.addValue(gid); }
 
 private :
-	ZoneID_t				m_CastleID;				// ÀüÀïÁßÀÎ ¼º
-	std::string					m_DefenseGuildName;		// ¹æ¾î ±æµå
-	std::string					m_AttackGuildName;		// °ø°İ ±æµå
-	GuildIDList				m_GuildIDs;				// Âü¿©±æµåµé
+	ZoneID_t				m_CastleID;				// ì „ìŸì¤‘ì¸ ì„±
+	std::string					m_DefenseGuildName;		// ë°©ì–´ ê¸¸ë“œ
+	std::string					m_AttackGuildName;		// ê³µê²© ê¸¸ë“œ
+	GuildIDList				m_GuildIDs;				// ì°¸ì—¬ê¸¸ë“œë“¤
 };
 
 #endif

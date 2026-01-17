@@ -18,8 +18,8 @@
 class GCAddMonsterFromBurrowing : public Packet 
 {
 public:
-	GCAddMonsterFromBurrowing() throw( Error );
-	virtual ~GCAddMonsterFromBurrowing() throw( Error );
+	GCAddMonsterFromBurrowing();
+	virtual ~GCAddMonsterFromBurrowing();
 	
 public:
     void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
@@ -131,7 +131,7 @@ public:
 class GCAddMonsterFromBurrowingHandler 
 {
 public:
-	static void execute ( GCAddMonsterFromBurrowing * pPacket , Player * pPlayer ) throw ( Error );
+	static void execute ( GCAddMonsterFromBurrowing * pPacket , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

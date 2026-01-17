@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MStopZoneEmptyRectEffectGenerator.h
 //----------------------------------------------------------------------
-// ªÁ∞¢«¸¿∏∑Œ ª˝º∫
+// ÏÇ¨Í∞ÅÌòïÏúºÎ°ú ÏÉùÏÑ±
 //----------------------------------------------------------------------
 
 #ifndef	__MSTOPZONEEMPTYRECTEFFECTGENERATOR_H__
@@ -16,7 +16,7 @@ class MStopZoneEmptyRectEffectGenerator : public MEffectGenerator {
 
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_STOP_ZONE_EMPTY_RECT; }
 
-		// Effectª˝º∫
+		// EffectÏÉùÏÑ±
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

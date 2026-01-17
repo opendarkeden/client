@@ -1,20 +1,22 @@
 #ifndef _MP3_READER_H_
 #define _MP3_READER_H_
 
+#ifdef PLATFORM_WINDOWS
 #include <wtypes.h>
+#endif
 #include "mp3.h"
 #include <stdio.h>
 
-extern int Open(LPSTR PathName) ;						// MP3 ÆÄÀÏÀ» ¿¬´Ù.
-extern int Close() ;									// MP3 ÆÄÀÏÀ» ´İ´Â´Ù.
-extern int ReadHeader(UINT *headerStr) ;				// Çì´õºÎ¸¦ ÀĞ¾îµéÀÎ´Ù.	
-extern int ReadBytes(BYTE* buf, UINT bytes) ;			// 1 ¹ÙÀÌÆ® ´ÜÀ§·Î ÀĞ¾îµéÀÎ´Ù.
-extern int ReadWords(WORD* buf, UINT words) ;			// 2 ¹ÙÀÌÆ® ´ÜÀ§·Î ÀĞ¾îµéÀÎ´Ù.
-extern int ReadDwords(DWORD* buf, UINT dwords) ;		// 4 ¹ÙÀÌÆ® ´ÜÀ§·Î ÀĞ¾îµéÀÎ´Ù.
+extern int Open(LPSTR PathName) ;						// MP3 íŒŒì¼ì„ ì—°ë‹¤.
+extern int Close() ;									// MP3 íŒŒì¼ì„ ë‹«ëŠ”ë‹¤.
+extern int ReadHeader(UINT *headerStr) ;				// í—¤ë”ë¶€ë¥¼ ì½ì–´ë“¤ì¸ë‹¤.	
+extern int ReadBytes(BYTE* buf, UINT bytes) ;			// 1 ë°”ì´íŠ¸ ë‹¨ìœ„ë¡œ ì½ì–´ë“¤ì¸ë‹¤.
+extern int ReadWords(WORD* buf, UINT words) ;			// 2 ë°”ì´íŠ¸ ë‹¨ìœ„ë¡œ ì½ì–´ë“¤ì¸ë‹¤.
+extern int ReadDwords(DWORD* buf, UINT dwords) ;		// 4 ë°”ì´íŠ¸ ë‹¨ìœ„ë¡œ ì½ì–´ë“¤ì¸ë‹¤.
 extern UINT ReadBits(UINT bits) ;
 extern int ReadSideInfo(UINT channel, side_info_t *sideInfo) ;	// 
-extern int GetCurOffset() ;				// ÇöÀçÀÇ offsetÀ» ¾ò¾î ¿Â´Ù.
-extern int GetFileSize() ;				// ÆÄÀÏ »çÀÌÁî¸¦ ¾ò¾î¿Â´Ù.
+extern int GetCurOffset() ;				// í˜„ì¬ì˜ offsetì„ ì–»ì–´ ì˜¨ë‹¤.
+extern int GetFileSize() ;				// íŒŒì¼ ì‚¬ì´ì¦ˆë¥¼ ì–»ì–´ì˜¨ë‹¤.
 extern int SetOffset(int offset) ;
 extern int GetMaxFrames(MP3 *mp3) ;
 extern int GetMinFrames(MP3 *mp3) ;

@@ -18,7 +18,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCPetUseSkillHandler::execute ( GCPetUseSkill * pGCPetUseSkill , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -31,13 +32,13 @@ void GCPetUseSkillHandler::execute ( GCPetUseSkill * pGCPetUseSkill , Player * p
 
 	if( pAttackerCreature == NULL )
 	{
-		DEBUG_ADD_FORMAT("[GCPetUseSkillHandler] ¾îÅÂÄ¿(%d) ¾øÀ½-_-;", attackerID);
+		DEBUG_ADD_FORMAT("[GCPetUseSkillHandler] ì–´íƒœì»¤(%d) ì—†ìŒ-_-;", attackerID);
 	}
 	else
 	{
 		if( pTargetCreature == NULL )
 		{
-			DEBUG_ADD_FORMAT("[GCPetUseSkillHandler] Å¸°Ù(%d) ¾øÀ½-_-;", targetID);
+			DEBUG_ADD_FORMAT("[GCPetUseSkillHandler] íƒ€ê²Ÿ(%d) ì—†ìŒ-_-;", targetID);
 		}
 		else
 		{
@@ -47,7 +48,7 @@ void GCPetUseSkillHandler::execute ( GCPetUseSkill * pGCPetUseSkill , Player * p
 			
 			if( pPet == NULL )
 			{
-				DEBUG_ADD_FORMAT("[GCPetUseSkillHandler] Æê(%d) ¾øÀ½-_-;", pAttackerCreature->GetPetID());
+				DEBUG_ADD_FORMAT("[GCPetUseSkillHandler] íŽ«(%d) ì—†ìŒ-_-;", pAttackerCreature->GetPetID());
 			}
 			else
 			{
@@ -71,19 +72,19 @@ void GCPetUseSkillHandler::execute ( GCPetUseSkill * pGCPetUseSkill , Player * p
 
 					switch(petItemType)
 					{
-					// ÅÊÅ©-_-;
+					// íƒ±í¬-_-;
 					case 3:
 						{
 							ExecuteActionInfoFromMainNode(
-								SKILL_CLIENT_TANK_ATTACKED,										// »ç¿ë ±â¼ú ¹øÈ£
+								SKILL_CLIENT_TANK_ATTACKED,										// ì‚¬ìš© ê¸°ìˆ  ë²ˆí˜¸
 								
 								0, 0, 0,
-								DIRECTION_DOWN, // »ç¿ë ¹æÇâ
+								DIRECTION_DOWN, // ì‚¬ìš© ë°©í–¥
 								
-								pTargetCreature->GetID(),												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+								pTargetCreature->GetID(),												// ëª©í‘œì— ëŒ€í•œ ì •ë³´
 								0, 0, 0, 
 								
-								0,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+								0,													// ê¸°ìˆ ì˜ (ë‚¨ì€) ì§€ì† ì‹œê°„		
 								
 								NULL,
 								
@@ -111,15 +112,15 @@ void GCPetUseSkillHandler::execute ( GCPetUseSkill * pGCPetUseSkill , Player * p
 						
 						{
 							ExecuteActionInfoFromMainNode(
-								skillID,										// »ç¿ë ±â¼ú ¹øÈ£
+								skillID,										// ì‚¬ìš© ê¸°ìˆ  ë²ˆí˜¸
 								
 								0, 0, 0,
-								DIRECTION_DOWN, // »ç¿ë ¹æÇâ
+								DIRECTION_DOWN, // ì‚¬ìš© ë°©í–¥
 								
-								pTargetCreature->GetID(),												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+								pTargetCreature->GetID(),												// ëª©í‘œì— ëŒ€í•œ ì •ë³´
 								0, 0, 0, 
 								
-								0,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+								0,													// ê¸°ìˆ ì˜ (ë‚¨ì€) ì§€ì† ì‹œê°„		
 								
 								NULL,
 								
@@ -139,15 +140,15 @@ void GCPetUseSkillHandler::execute ( GCPetUseSkill * pGCPetUseSkill , Player * p
 							skillID = SKILL_CLIENT_PIXIE_ABSORB_SOUL_5;
 
 						ExecuteActionInfoFromMainNode(
-							skillID,										// »ç¿ë ±â¼ú ¹øÈ£
+							skillID,										// ì‚¬ìš© ê¸°ìˆ  ë²ˆí˜¸
 							
 							0, 0, 0,
-							DIRECTION_DOWN, // »ç¿ë ¹æÇâ
+							DIRECTION_DOWN, // ì‚¬ìš© ë°©í–¥
 							
-							pTargetCreature->GetID(),												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+							pTargetCreature->GetID(),												// ëª©í‘œì— ëŒ€í•œ ì •ë³´
 							0, 0, 0, 
 							
-							0,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+							0,													// ê¸°ìˆ ì˜ (ë‚¨ì€) ì§€ì† ì‹œê°„		
 							
 							NULL,
 							
@@ -161,7 +162,7 @@ void GCPetUseSkillHandler::execute ( GCPetUseSkill * pGCPetUseSkill , Player * p
 				int sx = 0, sy = 0;
 				BYTE petDirect = pPet->GetDirectionToPosition(pTargetCreature->GetX(), pTargetCreature->GetY());
 
-				// 2004, 12, 21, sobeit add start - ¼¾Å¸¿ì·Î ÅÍ·¿À§Ä¡ ¼¼ÆÃ
+				// 2004, 12, 21, sobeit add start - ì„¼íƒ€ìš°ë¡œ í„°ë ›ìœ„ì¹˜ ì„¸íŒ…
 				if( pPet->GetCreatureType() == 702 || pPet->GetCreatureType() == 703 || pPet->GetCreatureType() == 704 )
 					pPet->SetTurretFinalDirection(petDirect);
 				// 2004, 12, 21, sobeit add end
@@ -170,28 +171,28 @@ void GCPetUseSkillHandler::execute ( GCPetUseSkill * pGCPetUseSkill , Player * p
 				{
 					POINT pointGap[8] = 
 					{
-						{ 11, 6 },	// ÁÂ
-						{ 8, 2 },	// ÁÂÇÏ
-						{ 0, 0 },	// ÇÏ
-						{ -7, 2 },	// ¿ìÇÏ
-						{ -10, 6 },	// ¿ì
-						{ -7, 10 },	// ¿ì»ó
-						{ 0, 12 },	// »ó
-						{ 8, 10 },	// ÁÂ»ó
+						{ 11, 6 },	// ì¢Œ
+						{ 8, 2 },	// ì¢Œí•˜
+						{ 0, 0 },	// í•˜
+						{ -7, 2 },	// ìš°í•˜
+						{ -10, 6 },	// ìš°
+						{ -7, 10 },	// ìš°ìƒ
+						{ 0, 12 },	// ìƒ
+						{ 8, 10 },	// ì¢Œìƒ
 					};
 					sx = pointGap[pPet->GetDirection()].x-pointGap[petDirect].x;
 					sy = pointGap[pPet->GetDirection()].y-pointGap[petDirect].y;
 				}
 				ExecuteActionInfoFromMainNode(
-					skillID,										// »ç¿ë ±â¼ú ¹øÈ£
+					skillID,										// ì‚¬ìš© ê¸°ìˆ  ë²ˆí˜¸
 					
 					pPet->GetX(), pPet->GetY(), 0,
-					petDirect, // »ç¿ë ¹æÇâ
+					petDirect, // ì‚¬ìš© ë°©í–¥
 					
-					pPet->GetID(),												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+					pPet->GetID(),												// ëª©í‘œì— ëŒ€í•œ ì •ë³´
 					pPet->GetX(), pPet->GetY(), 0, 
 					
-					0,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+					0,													// ê¸°ìˆ ì˜ (ë‚¨ì€) ì§€ì† ì‹œê°„		
 					
 					NULL,
 					

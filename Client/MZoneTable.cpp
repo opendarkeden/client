@@ -15,21 +15,21 @@ class SOUND_SOURCE
 		~SOUND_SOURCE();
 
 	//-------------------------------------------------------
-	// zoneÀÇ (x, y)¿¡¼­ TimeGap
+	// zoneì˜ (x, y)ì—ì„œ TimeGap
 	//-------------------------------------------------------
 	public :
 		int				x, y;
-		int				MinTimeGap;			// ÃÖ¼ÒÇÑ MinTimeGapÈÄ¿¡ playÇØ¾ßÇÑ´Ù.
-		int				MaxTimeGap;			// MaxTime¾È¿¡´Â playÇØ¾ßÇÑ´Ù.
+		int				MinTimeGap;			// ìµœì†Œí•œ MinTimeGapí›„ì— playí•´ì•¼í•œë‹¤.
+		int				MaxTimeGap;			// MaxTimeì•ˆì—ëŠ” playí•´ì•¼í•œë‹¤.
 		int				SoundID;
-		int				NextPlayTime;		// ´ÙÀ½¿¡ playÇØµµ µÇ´Â ½Ã°£
+		int				NextPlayTime;		// ë‹¤ìŒì— playí•´ë„ ë˜ëŠ” ì‹œê°„
 
 	public :
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void			SaveToFile(class ofstream& file);		
-		void			LoadFromFile(class ifstream& file);		
+		void			SaveToFile(std::ofstream& file);		
+		void			LoadFromFile(std::ifstream& file);		
 };
 */
 
@@ -73,7 +73,7 @@ ZONETABLE_INFO::GetRandomSoundID() const
 	
 	SOUNDID_LIST::const_iterator	iID = SoundIDList.begin();
 
-	// select¹øÂ° id¸¦ ¼±ÅÃÇÑ´Ù.
+	// selectë²ˆì§¸ idë¥¼ ì„ íƒí•œë‹¤.
 	for (int i=0; i<select; i++)
 	{
 		iID++;
@@ -86,7 +86,7 @@ ZONETABLE_INFO::GetRandomSoundID() const
 // Save
 //----------------------------------------------------------------------
 void			
-ZONETABLE_INFO::SaveToFile(class ofstream& file)
+ZONETABLE_INFO::SaveToFile(std::ofstream& file)
 {
 	file.write((const char*)&ID, SIZE_ZONEID);
 	Name.SaveToFile( file );
@@ -97,7 +97,7 @@ ZONETABLE_INFO::SaveToFile(class ofstream& file)
 	InfoFilename.SaveToFile( file );
 	TeenFilename.SaveToFile( file );
 	
-	// sound IDµé ÀúÀå
+	// sound IDë“¤ ì €ì¥
 	int numSound = SoundIDList.size();
 
 	file.write((const char*)&numSound, 4);
@@ -129,7 +129,7 @@ ZONETABLE_INFO::SaveToFile(class ofstream& file)
 // Load
 //----------------------------------------------------------------------
 void			
-ZONETABLE_INFO::LoadFromFile(class ifstream& file)
+ZONETABLE_INFO::LoadFromFile(std::ifstream& file)
 {
 	file.read((char*)&ID, SIZE_ZONEID);
 	Name.LoadFromFile( file );
@@ -140,7 +140,7 @@ ZONETABLE_INFO::LoadFromFile(class ifstream& file)
 	InfoFilename.LoadFromFile( file );
 	TeenFilename.LoadFromFile( file );
 
-	// sound idµé loading
+	// sound idë“¤ loading
 	SoundIDList.clear();
 
 	int numSound;
@@ -189,7 +189,7 @@ CZoneTable::Release()
 {
 	ZONEINFO_MAP::iterator iInfo = m_mapZoneInfo.begin();
 
-	// ¸ğµç ZoneInfo¸¦ ¸Ş¸ğ¸®¿¡¼­ Áö¿î´Ù.
+	// ëª¨ë“  ZoneInfoë¥¼ ë©”ëª¨ë¦¬ì—ì„œ ì§€ìš´ë‹¤.
 	while (iInfo != m_mapZoneInfo.end())
 	{
 		ZONETABLE_INFO*	pInfo = (*iInfo).second;
@@ -208,7 +208,7 @@ CZoneTable::Release()
 //----------------------------------------------------------------------
 // Add ZoneInfo
 //----------------------------------------------------------------------
-// ZoneInfo¸¦ Ãß°¡ÇÑ´Ù.
+// ZoneInfoë¥¼ ì¶”ê°€í•œë‹¤.
 //----------------------------------------------------------------------
 bool				
 CZoneTable::Add(ZONETABLE_INFO* pZoneInfo)
@@ -220,7 +220,7 @@ CZoneTable::Add(ZONETABLE_INFO* pZoneInfo)
 
 	ZONEINFO_MAP::iterator iInfo = m_mapZoneInfo.find( pZoneInfo->ID );
 
-	// ÀÌ¹Ì ÀÖÀ¸¸é.. Áö¿î´Ù.
+	// ì´ë¯¸ ìˆìœ¼ë©´.. ì§€ìš´ë‹¤.
 	if (iInfo!=m_mapZoneInfo.end())
 	{
 		delete pZoneInfo;
@@ -228,7 +228,7 @@ CZoneTable::Add(ZONETABLE_INFO* pZoneInfo)
 		return false;
 	}
 
-	// Ãß°¡ÇÑ´Ù.
+	// ì¶”ê°€í•œë‹¤.
 	m_mapZoneInfo.insert( ZONEINFO_MAP::value_type(pZoneInfo->ID, pZoneInfo) );
 
 	return true;
@@ -237,14 +237,14 @@ CZoneTable::Add(ZONETABLE_INFO* pZoneInfo)
 //----------------------------------------------------------------------
 // Get ZoneInfo
 //----------------------------------------------------------------------
-// zoneID°¡ idÀÎ zoneInfo¸¦ ¾ò´Â´Ù.
+// zoneIDê°€ idì¸ zoneInfoë¥¼ ì–»ëŠ”ë‹¤.
 //----------------------------------------------------------------------
 ZONETABLE_INFO*		
 CZoneTable::Get(TYPE_ZONEID id)
 {
 	ZONEINFO_MAP::iterator iInfo = m_mapZoneInfo.find( id );
 
-	// ¾øÀ¸¸é..
+	// ì—†ìœ¼ë©´..
 	if (iInfo == m_mapZoneInfo.end())
 	{
 		return NULL;
@@ -256,20 +256,20 @@ CZoneTable::Get(TYPE_ZONEID id)
 //----------------------------------------------------------------------
 // Save To File
 //----------------------------------------------------------------------
-// size , °¢°¢ÀÇ ZoneInfo
+// size , ê°ê°ì˜ ZoneInfo
 //----------------------------------------------------------------------
 void				
-CZoneTable::SaveToFile(class ofstream& file)
+CZoneTable::SaveToFile(std::ofstream& file)
 {
 	//---------------------------------------------
-	// ÀüÃ¼ °³¼ö ÀúÀå
+	// ì „ì²´ ê°œìˆ˜ ì €ì¥
 	//---------------------------------------------
 	int size = m_mapZoneInfo.size();
 
 	file.write((const char*)&size , 4);
 
 	//---------------------------------------------
-	// °¢°¢ÀÇ zoneInfo¸¦ ÀúÀåÇÑ´Ù.
+	// ê°ê°ì˜ zoneInfoë¥¼ ì €ì¥í•œë‹¤.
 	//---------------------------------------------
 	ZONEINFO_MAP::iterator iInfo = m_mapZoneInfo.begin();
 
@@ -289,25 +289,25 @@ CZoneTable::SaveToFile(class ofstream& file)
 //----------------------------------------------------------------------
 // Load From File
 //----------------------------------------------------------------------
-// size , °¢°¢ÀÇ ZoneInfo
+// size , ê°ê°ì˜ ZoneInfo
 //----------------------------------------------------------------------
 void				
-CZoneTable::LoadFromFile(class ifstream& file)
+CZoneTable::LoadFromFile(std::ifstream& file)
 {
 	//---------------------------------------------
-	// ±âÁ¸¿¡ ÀÖ´ø ¸Ş¸ğ¸® »èÁ¦
+	// ê¸°ì¡´ì— ìˆë˜ ë©”ëª¨ë¦¬ ì‚­ì œ
 	//---------------------------------------------
 	Release();
 
 	//---------------------------------------------
-	// size ÀĞ¾î¿À±â
+	// size ì½ì–´ì˜¤ê¸°
 	//---------------------------------------------
 	int size;
 
 	file.read((char*)&size, 4);
 
 	//---------------------------------------------
-	// °¢°¢ÀÇ ZoneInfo¸¦ LoadÇÑ´Ù.
+	// ê°ê°ì˜ ZoneInfoë¥¼ Loadí•œë‹¤.
 	//---------------------------------------------
 	for (int i=0; i<size; i++)
 	{

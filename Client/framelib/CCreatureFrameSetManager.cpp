@@ -30,8 +30,8 @@ CCreatureFrameSetManager::~CCreatureFrameSetManager()
 //----------------------------------------------------------------------
 // Save SpriteSet Index
 //----------------------------------------------------------------------
-// CreatureFrameSet°ú °ü·ÃµÈ SpriteID¸¦ ¼±ÅÃÇØ¼­
-// SpritePack IndexFile·ÎºÎÅÍ SpriteSet IndexFileÀ» »ı¼ºÇÑ´Ù.
+// CreatureFrameSetê³¼ ê´€ë ¨ëœ SpriteIDë¥¼ ì„ íƒí•´ì„œ
+// SpritePack IndexFileë¡œë¶€í„° SpriteSet IndexFileì„ ìƒì„±í•œë‹¤.
 //----------------------------------------------------------------------
 bool		
 CCreatureFrameSetManager::SaveSpriteSetIndex(CCreatureFramePack* pCreatureFramePack, 
@@ -47,18 +47,18 @@ CCreatureFrameSetManager::SaveSpriteSetIndex(CCreatureFramePack* pCreatureFrameP
 	DATA_LIST::iterator iData = m_List.begin();
 
 	//------------------------------------------------------------------
-	// ¼±ÅÃµÈ FrameID¿¡ °ü·ÃµÈ ¸ğµç SpriteID¸¦ ¾Ë¾Æ³»¾ß ÇÑ´Ù.	
+	// ì„ íƒëœ FrameIDì— ê´€ë ¨ëœ ëª¨ë“  SpriteIDë¥¼ ì•Œì•„ë‚´ì•¼ í•œë‹¤.	
 	//------------------------------------------------------------------
 	while (iData != m_List.end())
 	{
-		// FRAME_ARRAY¸¦ ÀĞ¾î¿Â´Ù.
+		// FRAME_ARRAYë¥¼ ì½ì–´ì˜¨ë‹¤.
 		pActionArray = &((*pCreatureFramePack)[*iData]);
 
 		//--------------------------------------------------------------
-		// °¢°¢ÀÇ ACTION_FRAME_ARRAY¿¡ ¼ÓÇÑ ..
-		// DIRECTION_FRAME_ARRAY¿¡ ¼ÓÇÑ..
-		// FRAME_ARRAY¿¡ ¼ÓÇÑ FrameÀÇ SpriteID¸¦ 
-		// CSpriteSetManager¿¡ ÀúÀåÇÑ´Ù. - -;;
+		// ê°ê°ì˜ ACTION_FRAME_ARRAYì— ì†í•œ ..
+		// DIRECTION_FRAME_ARRAYì— ì†í•œ..
+		// FRAME_ARRAYì— ì†í•œ Frameì˜ SpriteIDë¥¼ 
+		// CSpriteSetManagerì— ì €ì¥í•œë‹¤. - -;;
 		//--------------------------------------------------------------
 		for (int action=0; action<pActionArray->GetSize(); action++)
 		{
@@ -77,9 +77,9 @@ CCreatureFrameSetManager::SaveSpriteSetIndex(CCreatureFramePack* pCreatureFrameP
 	}
 
 	//------------------------------------------------------------------
-	// ThingFrameSet°ú °ü·ÃµÈ ¸ğµç SpriteID¸¦ 
-	// SpriteSetManager¿¡ ÀúÀåÇßÀ¸¹Ç·Î 
-	// SpriteSetManager¸¦ ÀÌ¿ëÇØ SpriteSetIndex¸¦ »ı¼ºÇÏ¸éµÈ´Ù.
+	// ThingFrameSetê³¼ ê´€ë ¨ëœ ëª¨ë“  SpriteIDë¥¼ 
+	// SpriteSetManagerì— ì €ì¥í–ˆìœ¼ë¯€ë¡œ 
+	// SpriteSetManagerë¥¼ ì´ìš©í•´ SpriteSetIndexë¥¼ ìƒì„±í•˜ë©´ëœë‹¤.
 	//------------------------------------------------------------------
 	return ssm.SaveSpriteSetIndex(setIndex, packIndex);
 }

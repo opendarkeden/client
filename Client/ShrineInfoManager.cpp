@@ -25,13 +25,8 @@ bool RegenTowerInfoManager::LoadRegenTowerInfo()
 {
 	CRarFile rarfile;
 	
-#ifdef __GAME_CLIENT__
 	rarfile.SetRAR( g_pFileDef->getProperty("FILE_INFO_DATA").c_str(), "darkeden" );
 	rarfile.Open( g_pFileDef->getProperty("FILE_REGEN_TOWER_INFO").c_str() );
-#else
-	rarfile.SetRAR( "data\\info\\infodata.rpk", "darkeden" );
-	rarfile.Open( "RegenTowerPosition.inf" );
-#endif
 	
 	if( !rarfile.IsSet() )
 		return false;

@@ -1,11 +1,11 @@
 #ifndef __NICKNAME_INFO_H__
 #define __NICKNAME_INFO_H__
 
-#include "packet\Types.h"
+#include "Packet/Types.h"
 
-#include "packet\Packet.h"
-#include "packet\SocketInputStream.h"
-#include "packet\SocketOutputStream.h"
+#include "Packet/Packet.h"
+#include "Packet/SocketInputStream.h"
+#include "Packet/SocketOutputStream.h"
 
 #include <string>
 
@@ -17,12 +17,12 @@ public:
 	NicknameInfo();
 	enum
 	{
-		NICK_NONE = 0,		// ´Ğ³×ÀÓ ¾øÀ½
-		NICK_BUILT_IN,		// ÀÏ¹İÀûÀ¸·Î ÀÚµ¿À¸·Î ÁÖ¾îÁö´Â ´Ğ³×ÀÓ (ÀÎµ¦½º)
-		NICK_QUEST,			// Äù½ºÆ® Å¬¸®¾îÇÑ µÚ ¹Ş´Â ´Ğ³×ÀÓ (ÀÎµ¦½º)
-		NICK_FORCED,		// °­Á¦·Î ºÙ¿©Áø ´Ğ³×ÀÓ (ÀÎµ¦½º)
-		NICK_CUSTOM_FORCED,	// °­Á¦·Î ºÙ¿©Áø ´Ğ³×ÀÓ (½ºÆ®¸µ)
-		NICK_CUSTOM,		// À¯Àú°¡ ÀÚÀ¯·Ó°Ô ³ÖÀº ´Ğ³×ÀÓ (½ºÆ®¸µ)
+		NICK_NONE = 0,		// ë‹‰ë„¤ì„ ì—†ìŒ
+		NICK_BUILT_IN,		// ì¼ë°˜ì ìœ¼ë¡œ ìë™ìœ¼ë¡œ ì£¼ì–´ì§€ëŠ” ë‹‰ë„¤ì„ (ì¸ë±ìŠ¤)
+		NICK_QUEST,			// í€˜ìŠ¤íŠ¸ í´ë¦¬ì–´í•œ ë’¤ ë°›ëŠ” ë‹‰ë„¤ì„ (ì¸ë±ìŠ¤)
+		NICK_FORCED,		// ê°•ì œë¡œ ë¶™ì—¬ì§„ ë‹‰ë„¤ì„ (ì¸ë±ìŠ¤)
+		NICK_CUSTOM_FORCED,	// ê°•ì œë¡œ ë¶™ì—¬ì§„ ë‹‰ë„¤ì„ (ìŠ¤íŠ¸ë§)
+		NICK_CUSTOM,		// ìœ ì €ê°€ ììœ ë¡­ê²Œ ë„£ì€ ë‹‰ë„¤ì„ (ìŠ¤íŠ¸ë§)
 	};
 
 	PacketSize_t		getSize() const;
@@ -46,7 +46,7 @@ private:
 	WORD	m_NicknameID;
 	BYTE	m_NicknameType;
 	string	m_Nickname;
-	WORD	m_NicknameIndex;	// ½ºÆ®¸µ ¶Ç´Â ÀÎµ¦½º ÇÏ³ª¸¸ »ç¿ëµÈ´Ù.
+	WORD	m_NicknameIndex;	// ìŠ¤íŠ¸ë§ ë˜ëŠ” ì¸ë±ìŠ¤ í•˜ë‚˜ë§Œ ì‚¬ìš©ëœë‹¤.
 };
 
 #endif

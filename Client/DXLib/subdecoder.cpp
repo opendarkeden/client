@@ -1,5 +1,17 @@
+//----------------------------------------------------------------------
+// subdecoder.cpp
+//----------------------------------------------------------------------
+
+// Only compile MP3 decoder implementation on Windows platforms
+// On non-Windows platforms, MP3 support is not available
+#ifdef PLATFORM_WINDOWS
+
 #include "mp3.h"
+#ifdef PLATFORM_WINDOWS
 #include <wtypes.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "huffman.h"
 #include <math.h>
 
@@ -12,7 +24,7 @@ struct
 int		slen[2][16]			=	{{0, 0, 0, 0, 3, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4},
 								{0, 1, 2, 3, 0, 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 3}};
 
-// Ω∫ƒ…¿œ ∆—≈Õ∏¶ º≥¡§«—¥Ÿ.
+// Ïä§ÏºÄÏùº Ìå©ÌÑ∞Î•º ÏÑ§Ï†ïÌïúÎã§.
 void get_scale_factors(MP3 *mp3, int ch, int gr)
 {
 	int	sfb, window;

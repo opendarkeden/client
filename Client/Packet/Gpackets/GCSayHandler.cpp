@@ -20,11 +20,12 @@
 
 //////////////////////////////////////////////////////////////////////
 //
-// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¼­¹ö·ÎºÎÅÍ ¸Ş½ÃÁö¸¦ ¹Ş¾ÒÀ»¶§ ½ÇÇàµÇ´Â ¸Ş½îµåÀÌ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì„œë²„ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ë°›ì•˜ì„ë•Œ ì‹¤í–‰ë˜ëŠ” ë©”ì˜ë“œì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void GCSayHandler::execute ( GCSay * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	
@@ -32,7 +33,7 @@ void GCSayHandler::execute ( GCSay * pPacket , Player * pPlayer )
 
 	// Debug Message	
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -40,12 +41,12 @@ void GCSayHandler::execute ( GCSay * pPacket , Player * pPlayer )
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		//---------------------------------------------------------------
-		// Ä³¸¯ÅÍ ¸Ó¸® À§¿¡ Ã¤ÆÃÀ» ¶ç¿î´Ù.
+		// ìºë¦­í„° ë¨¸ë¦¬ ìœ„ì— ì±„íŒ…ì„ ë„ìš´ë‹¤.
 		//---------------------------------------------------------------
 		//DEBUG_ADD("Zone-GetCreature");
 
@@ -53,13 +54,13 @@ void GCSayHandler::execute ( GCSay * pPacket , Player * pPlayer )
 
 		if (pCreature==NULL)
 		{
-			// ±×·± Ä³¸¯ÅÍ°¡ ¾øÀ¸¸é ¹«½ÃÇÑ´Ù.
+			// ê·¸ëŸ° ìºë¦­í„°ê°€ ì—†ìœ¼ë©´ ë¬´ì‹œí•œë‹¤.
 			DEBUG_ADD("No such Character");
 		}
 		else
 		{			
 			bool IsGildre	= pCreature->GetCreatureType() == 717 || 
-							  pCreature->GetCreatureType() == 723 ; // Áúµå·¹ ÀÏ¶§
+							  pCreature->GetCreatureType() == 723 ; // ì§ˆë“œë ˆ ì¼ë•Œ
 			bool bMasterWords = pCreature->GetCreatureType()==CREATURETYPE_SLAYER_OPERATOR
 								|| pCreature->GetCreatureType()==CREATURETYPE_VAMPIRE_OPERATOR
 								|| pCreature->GetCreatureType()==CREATURETYPE_OUSTERS_OPERATOR
@@ -70,14 +71,14 @@ void GCSayHandler::execute ( GCSay * pPacket , Player * pPlayer )
 			//DEBUG_ADD_FORMAT("isMasterWords=%d", bMasterWords);
 
 			//-------------------------------------------------
-			// Á¤»óÀûÀÎ ´ëÈ­
+			// ì •ìƒì ì¸ ëŒ€í™”
 			//-------------------------------------------------
 			if (bMasterWords 
 				|| g_pChatManager->IsAcceptID( pCreature->GetName() ))
 			{
 				//DEBUG_ADD("can see");
 
-				// Ã¤ÆÃ~~
+				// ì±„íŒ…~~
 				char str[256];
 
 				bool isPlayerVampire = pCreature->GetCreatureType()==CREATURETYPE_VAMPIRE_MALE1
@@ -90,7 +91,7 @@ void GCSayHandler::execute ( GCSay * pPacket , Player * pPlayer )
 										|| pCreature->GetCreatureType()==CREATURETYPE_BAT
 										|| pCreature->GetCreatureType()==CREATURETYPE_WOLF
 										|| pCreature->GetCreatureType()==CREATURETYPE_WER_WOLF
-										// add by coffee 2006.11.24  ÑÇÂéĞÎÏó
+										// add by coffee 2006.11.24  é¥‘ì®¸è¿‘è¹¶
 										|| pCreature->GetCreatureType()==CREATURETYPE_VAMPIRE_FEMALE4
 										|| pCreature->GetCreatureType()==CREATURETYPE_VAMPIRE_MALE4
 										//add by viva
@@ -108,7 +109,7 @@ void GCSayHandler::execute ( GCSay * pPacket , Player * pPlayer )
 				//DEBUG_ADD("strcpy");
 				
 				//---------------------------------------------------------------
-				// ¿Ï¼ºÇü --> Á¶ÇÕÇü
+				// ì™„ì„±í˜• --> ì¡°í•©í˜•
 				//---------------------------------------------------------------
 				//UI_WansungToJohap( pPacket->getMessage().c_str(), str );
 				strcpy( str, pPacket->getMessage().c_str() );
@@ -120,9 +121,9 @@ void GCSayHandler::execute ( GCSay * pPacket , Player * pPlayer )
 					g_pPlayer->GetCreatureType() == CREATURETYPE_OUSTERS_OPERATOR;
 
 				//--------------------------------------------------
-				// ¿å Á¦°Å
-				// ¿î¿µÀÚ°¡ ÇÑ ¸»µµ ¾Æ´Ï°í ³ªµµ ¿î¿µÀÚ°¡ ¾Æ´Ï¸é filterÇÑ´Ù.
-				// --> ¿î¿µÀÚÀÇ ¸»Àº ´Ù º¸ÀÌ°í ¿î¿µÀÚ´Â ´Ù º»´Ù.
+				// ìš• ì œê±°
+				// ìš´ì˜ìê°€ í•œ ë§ë„ ì•„ë‹ˆê³  ë‚˜ë„ ìš´ì˜ìê°€ ì•„ë‹ˆë©´ filterí•œë‹¤.
+				// --> ìš´ì˜ìì˜ ë§ì€ ë‹¤ ë³´ì´ê³  ìš´ì˜ìëŠ” ë‹¤ ë³¸ë‹¤.
 				//--------------------------------------------------
 				if (!bMasterWords && !g_pUserInformation->IsMaster 
 					&& !g_pPlayer->HasEffectStatus( EFFECTSTATUS_GHOST )
@@ -132,7 +133,7 @@ void GCSayHandler::execute ( GCSay * pPacket , Player * pPlayer )
 					)
 				{
 				
-					// playerÀÎ °æ¿ì¸¸ ³ª»Û¸» Á¦°Å
+					// playerì¸ ê²½ìš°ë§Œ ë‚˜ìœë§ ì œê±°
 					if (isPlayerCharacter)
 					{
 						DEBUG_ADD("remove curse");
@@ -152,10 +153,10 @@ void GCSayHandler::execute ( GCSay * pPacket , Player * pPlayer )
 
 					#ifndef _DEBUG
 						//--------------------------------------------------
-						// Á¾Á·ÀÌ ´Ù¸¥ °æ¿ì
+						// ì¢…ì¡±ì´ ë‹¤ë¥¸ ê²½ìš°
 						//--------------------------------------------------
 						if (g_pPlayer->GetRace() != pCreature->GetRace()
-							// playerÀÎ °æ¿ì¸¸.. ¸ø µè°Ô..
+							// playerì¸ ê²½ìš°ë§Œ.. ëª» ë“£ê²Œ..
 							//&& isPlayerVampire 
 							&& isPlayerCharacter
 							&& !bTranslation 
@@ -167,7 +168,7 @@ void GCSayHandler::execute ( GCSay * pPacket , Player * pPlayer )
 						{
 							//DEBUG_ADD("add mask1");
 
-							// INT´Â 150±îÁöÀÌ¹Ç·Î..  
+							// INTëŠ” 150ê¹Œì§€ì´ë¯€ë¡œ..  
 							int percent;
 //							if( g_pPlayer->IsOusters() )
 //								percent = 70;
@@ -182,13 +183,13 @@ void GCSayHandler::execute ( GCSay * pPacket , Player * pPlayer )
 //						{
 //							//DEBUG_ADD("add mask2");
 //
-//							// INT´Â 300±îÁöÀÌ¹Ç·Î..  
+//							// INTëŠ” 300ê¹Œì§€ì´ë¯€ë¡œ..  
 //							int percent = min(75, 25+g_pPlayer->GetINT()*100/300);
 //							g_pChatManager->AddMask(str, percent);
 //
 //							//DEBUG_ADD("ok");
 //						}
-						// ÇÒ·ç »óÅÂ´Â Ã¤ÆÃµµ Á¦´ë·Î ¾È º¸ÀÎ´Ù.
+						// í• ë£¨ ìƒíƒœëŠ” ì±„íŒ…ë„ ì œëŒ€ë¡œ ì•ˆ ë³´ì¸ë‹¤.
 						else if (g_pPlayer->HasEffectStatus(EFFECTSTATUS_HALLUCINATION))
 						{
 							//DEBUG_ADD("add mask3");
@@ -206,19 +207,19 @@ void GCSayHandler::execute ( GCSay * pPacket , Player * pPlayer )
 
 				//DEBUG_ADD("ok");
 
-				// history¿¡ Ãß°¡
+				// historyì— ì¶”ê°€
 				char strName[256];
 				//sprintf(temp, "%s> %s", pCreature->GetName(), str);
 				
 
-				// Á¾Á·ÀÌ ´Ù¸£¸é hallu nameÀ» ÀĞ¾î¿Â´Ù
+				// ì¢…ì¡±ì´ ë‹¤ë¥´ë©´ hallu nameì„ ì½ì–´ì˜¨ë‹¤
 				if(!bMasterWords && !g_pUserInformation->IsMaster && g_pPlayer->GetRace() != pCreature->GetRace() && !bTranslation)
 					strcpy(strName, pCreature->GetHalluName());
 				else
 					strcpy(strName, pCreature->GetName());
 
-				// playerÀÎ °æ¿ì¸¸ Ã¤ÆÃÃ¢¿¡ ±Û ³Ö´Â´Ù.
-				if (isPlayerCharacter /*|| IsGildre*/) // Áúµå·¹ ÀÏ°æ¿ì Á¸ Ã¤ÆÃÀ¸·Î ³¯¸°´Ù°í ÇØ¼­ ¸·À½..
+				// playerì¸ ê²½ìš°ë§Œ ì±„íŒ…ì°½ì— ê¸€ ë„£ëŠ”ë‹¤.
+				if (isPlayerCharacter /*|| IsGildre*/) // ì§ˆë“œë ˆ ì¼ê²½ìš° ì¡´ ì±„íŒ…ìœ¼ë¡œ ë‚ ë¦°ë‹¤ê³  í•´ì„œ ë§‰ìŒ..
 				{
 					//DEBUG_ADD("UI add");
 					UI_AddChatToHistory( str, strName, 0, pPacket->getColor() );
@@ -226,7 +227,7 @@ void GCSayHandler::execute ( GCSay * pPacket , Player * pPlayer )
 				}
 			}
 			//-------------------------------------------------
-			// ´ëÈ­ °ÅºÎ·Î ¼³Á¤µÇ¾î ÀÖ´Ù¸é Ãâ·Â¾ÈÇÑ´Ù.
+			// ëŒ€í™” ê±°ë¶€ë¡œ ì„¤ì •ë˜ì–´ ìˆë‹¤ë©´ ì¶œë ¥ì•ˆí•œë‹¤.
 			//-------------------------------------------------
 			else
 			{

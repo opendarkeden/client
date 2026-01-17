@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // CTypeMap.h
 //----------------------------------------------------------------------
-// DataTypeÀº pointer typeÀÌ¾î¾ß ÇÑ´Ù.
+// DataTypeì€ pointer typeì´ì–´ì•¼ í•œë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef __CTYPEMAP_H__
@@ -10,10 +10,10 @@
 #pragma warning(disable:4786)
 
 #include <map>
-#include <fstream.h>
+#include <fstream>
 
 //----------------------------------------------------------------------
-// CTypeMap (id, DataType*)ÀÇ map
+// CTypeMap (id, DataType*)ì˜ map
 //----------------------------------------------------------------------
 template <class DataType>
 class CTypeMap : public std::map<unsigned int, DataType*> {
@@ -39,8 +39,8 @@ class CTypeMap : public std::map<unsigned int, DataType*> {
 		//-----------------------------------------------------
 		// File I/O
 		//-----------------------------------------------------
-		virtual void		SaveToFile(class ofstream& file);
-		virtual void		LoadFromFile(class ifstream& file);
+		virtual void		SaveToFile(std::ofstream& file);
+		virtual void		LoadFromFile(std::ifstream& file);
 
 	protected :
 };
@@ -70,9 +70,9 @@ template <class DataType>
 void
 CTypeMap<DataType>::Release()
 {
-	TYPE_MAP::iterator iData = begin();
+	typename TYPE_MAP::iterator iData = this->begin();
 
-	while (iData != end())
+	while (iData != this->end())
 	{
 		DataType*	pData	= (*iData).second;		
 
@@ -81,7 +81,7 @@ CTypeMap<DataType>::Release()
 		iData ++;
 	}
 
-	clear();
+	this->clear();
 }
 
 //----------------------------------------------------------------------
@@ -91,19 +91,19 @@ template <class DataType>
 bool				
 CTypeMap<DataType>::AddData( unsigned int id, DataType* pData )
 {
-	TYPE_MAP::iterator	iData = find( id );
+	typename TYPE_MAP::iterator iData = this->find(id);
 
-	if (iData != end())
+	if (iData != this->end())
 	{
-		// ÀÌ¹Ì ÀÖ´Â °æ¿ì
-		// pData´Â ¿ÜºÎ¿¡¼­ Áö¿öÁà¾ßÇÑ´Ù.
+		// ì´ë¯¸ ìˆëŠ” ê²½ìš°
+		// pDataëŠ” ì™¸ë¶€ì—ì„œ ì§€ì›Œì¤˜ì•¼í•œë‹¤.
 		return false;
 	}
 
 	//------------------------------------------------------
-	// ¾ø´Â °æ¿ì --> Ãß°¡
+	// ì—†ëŠ” ê²½ìš° --> ì¶”ê°€
 	//------------------------------------------------------
-	insert(TYPE_MAP::value_type(id, pData));
+	this->insert(typename TYPE_MAP::value_type(id, pData));
 
 	return true;
 }
@@ -115,15 +115,15 @@ template <class DataType>
 DataType*	
 CTypeMap<DataType>::GetData( unsigned int id )
 {
-	TYPE_MAP::iterator	iData = find( id );
+	typename TYPE_MAP::iterator iData = this->find(id);
 
-	if (iData == end())
+	if (iData == this->end())
 	{
-		// ¾ø´Â °æ¿ì 
+		// ì—†ëŠ” ê²½ìš° 
 		return NULL;
 	}
 
-	// ÀÖ´Â °æ¿ì
+	// ìˆëŠ” ê²½ìš°
 	return (*iData).second;
 }
 
@@ -134,18 +134,18 @@ template <class DataType>
 bool				
 CTypeMap<DataType>::RemoveData( unsigned int id )
 {
-	TYPE_MAP::iterator	iData = find( id );
+	typename TYPE_MAP::iterator iData = this->find(id);
 
-	if (iData == end())
+	if (iData == this->end())
 	{
-		// ¾ø´Â °æ¿ì 
+		// ì—†ëŠ” ê²½ìš° 
 		return false;
 	}
 
-	// ÀÖÀ¸¸é Áö¿öÁà¾ß ÇÑ´Ù.
+	// ìˆìœ¼ë©´ ì§€ì›Œì¤˜ì•¼ í•œë‹¤.
 	delete (*iData).second;
 
-	erase( iData );
+	this->erase( iData );
 
 	return true;
 }
@@ -154,27 +154,27 @@ CTypeMap<DataType>::RemoveData( unsigned int id )
 // Save To File
 //----------------------------------------------------------------------
 template <class DataType>
-void		
-CTypeMap<DataType>::SaveToFile(class ofstream& file)
+void
+CTypeMap<DataType>::SaveToFile(std::ofstream& file)
 {
-	TYPE_MAP::iterator iData = begin();
+	typename TYPE_MAP::iterator iData = this->begin();
 
 	//-----------------------------------------------------
-	// °³¼ö ÀúÀå
+	// ê°œìˆ˜ ì €ì¥
 	//-----------------------------------------------------
-	int infoSize = size();
+	int infoSize = this->size();
 	file.write((const char*)&infoSize, 4);
 
 	//-----------------------------------------------------
-	// °¢ info ÀúÀå
+	// ê° info ì €ì¥
 	//-----------------------------------------------------
-	while (iData != end())
+	while (iData != this->end())
 	{
 		unsigned int	id		= (*iData).first;
 		DataType*		pData	= (*iData).second;		
 
-		file.write((const char*)&id, 4);	// id ÀúÀå
-		pData->SaveToFile( file );			// NPC info ÀúÀå
+		file.write((const char*)&id, 4);	// id ì €ì¥
+		pData->SaveToFile( file );			// NPC info ì €ì¥
 
 		iData ++;
 	}
@@ -184,11 +184,11 @@ CTypeMap<DataType>::SaveToFile(class ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 template <class DataType>
-void		
-CTypeMap<DataType>::LoadFromFile(class ifstream& file)
+void
+CTypeMap<DataType>::LoadFromFile(std::ifstream& file)
 {
 	//-----------------------------------------------------
-	// ±âÁ¸¿¡ ÀÖ´ø°Í Á¦°Å
+	// ê¸°ì¡´ì— ìˆë˜ê²ƒ ì œê±°
 	//-----------------------------------------------------
 	Release();
 
@@ -199,7 +199,7 @@ CTypeMap<DataType>::LoadFromFile(class ifstream& file)
 	file.read((char*)&infoSize, 4);
 
 	//-----------------------------------------------------
-	// °¢ info
+	// ê° info
 	//-----------------------------------------------------
 	unsigned int id;
 	for (int i=0; i<infoSize; i++)
@@ -210,7 +210,7 @@ CTypeMap<DataType>::LoadFromFile(class ifstream& file)
 		pData->LoadFromFile( file );
 
 		//-----------------------------------------------------
-		// map¿¡ Ãß°¡ÇÑ´Ù.
+		// mapì— ì¶”ê°€í•œë‹¤.
 		//-----------------------------------------------------
 		if (!AddData( id, pData ))
 		{

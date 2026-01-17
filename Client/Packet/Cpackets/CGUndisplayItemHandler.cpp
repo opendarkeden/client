@@ -40,7 +40,7 @@ void CGUndisplayItemHandler::execute (CGUndisplayItem* pPacket , Player* pPlayer
 
 	if ( pPacket->getIndex() > MAX_ITEM_NUM )
 	{
-		filelog("Store.log", "[%s:%s] (%u) Àß¸øµÈ ÀÎµ¦½ºÀÔ´Ï´Ù.",
+		filelog("Store.log", "[%s:%s] (%u) ì˜ëª»ëœ ì¸ë±ìŠ¤ì…ë‹ˆë‹¤.",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str(), pPacket->getIndex());
 		return;
 	}
@@ -48,7 +48,7 @@ void CGUndisplayItemHandler::execute (CGUndisplayItem* pPacket , Player* pPlayer
 	BYTE result = pStore->removeStoreItem( pPacket->getIndex() );
 	if ( result != 0 )
 	{
-		filelog("Store.log", "[%s:%s] (%u) ¾ÆÀÌÅÛÀ» »¬ ¼ö ¾ø½À´Ï´Ù.",
+		filelog("Store.log", "[%s:%s] (%u) ì•„ì´í…œì„ ëº„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str(), result);
 		return;
 	}

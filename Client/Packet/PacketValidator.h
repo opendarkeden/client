@@ -18,10 +18,10 @@
 //
 // class PacketValidator;
 //
-// ÇÃ·¹ÀÌ¾îÀÇ Æ¯Á¤ »óÅÂ¿¡¼­ Çã¿ëµÇ´Â ÆĞÅ¶µéÀÇ ¸®½ºÆ®¸¦ °ü¸®ÇÔ.
-// XXXPlayer::processCommand() ¿¡¼­ ÆĞÅ¶ ¾ÆÀÌµğ°¡ µé¾î¿ÔÀ» °æ¿ì
-// ÀÌ ¾ÆÀÌµğ¸¦ ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ¿¡ µû¶ó¼­ °ËÁõÇØº»´Ù. ÀÌ¶§ ¸ÂÀ¸¸é
-// °è¼Ó Ã³¸®ÇÏ¸é µÇÁö¸¸ Æ²¸®¸é Á¢¼ÓÀ» Á¾·áÇØ¾ß ÇÑ´Ù.
+// í”Œë ˆì´ì–´ì˜ íŠ¹ì • ìƒíƒœì—ì„œ í—ˆìš©ë˜ëŠ” íŒ¨í‚·ë“¤ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ê´€ë¦¬í•¨.
+// XXXPlayer::processCommand() ì—ì„œ íŒ¨í‚· ì•„ì´ë””ê°€ ë“¤ì–´ì™”ì„ ê²½ìš°
+// ì´ ì•„ì´ë””ë¥¼ í”Œë ˆì´ì–´ì˜ ìƒíƒœì— ë”°ë¼ì„œ ê²€ì¦í•´ë³¸ë‹¤. ì´ë•Œ ë§ìœ¼ë©´
+// ê³„ì† ì²˜ë¦¬í•˜ë©´ ë˜ì§€ë§Œ í‹€ë¦¬ë©´ ì ‘ì†ì„ ì¢…ë£Œí•´ì•¼ í•œë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ public :
 	~PacketValidator () throw ();
 
 	// init
-	void init () throw ( Error );
+	void init () throw ( ProtocolException , Error );
 
 	// add packet id set
 	void addPacketIDSet ( PlayerStatus playerStatus , PacketIDSet * pPacketID ) throw ( DuplicatedException , Error );

@@ -2,7 +2,7 @@
 
 // Filename    : CGGetEventItem.cpp 
 
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 
 // Description : 
 

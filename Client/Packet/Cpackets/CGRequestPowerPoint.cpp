@@ -2,7 +2,7 @@
 // Filename    : CGRequestPowerPoint.cpp 
 // Written By  :
 // Description :
-// ¼­¹ö¿¡ ¿øÇÏ´Â »ç¶÷ÀÇ IP ¿äÃ»
+// ì„œë²„ì— ì›í•˜ëŠ” ì‚¬ëŒì˜ IP ìš”ì²­
 //////////////////////////////////////////////////////////////////////////////
 #include "Client_PCH.h"
 #include "CGRequestPowerPoint.h"

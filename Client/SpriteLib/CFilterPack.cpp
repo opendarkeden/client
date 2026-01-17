@@ -4,7 +4,7 @@
 
 #include "CFilter.h"
 #include "CFilterPack.h"
-#include <fstream.h>
+#include <fstream>
 
 //----------------------------------------------------------------------
 //
@@ -20,7 +20,7 @@ CFilterPack::CFilterPack()
 
 CFilterPack::~CFilterPack()
 {
-	// array¸¦ ¸Ş¸ğ¸®¿¡¼­ Á¦°ÅÇÑ´Ù.
+	// arrayë¥¼ ë©”ëª¨ë¦¬ì—ì„œ ì œê±°í•œë‹¤.
 	Release();
 }
 
@@ -36,14 +36,14 @@ CFilterPack::~CFilterPack()
 void
 CFilterPack::Init(TYPE_FILTERID count)
 {
-	// °³¼ö°¡ ¾øÀ» °æ¿ì 
+	// ê°œìˆ˜ê°€ ì—†ì„ ê²½ìš° 
 	if (count==0) 
 		return;
 
-	// ÀÏ´Ü ÇØÁ¦
+	// ì¼ë‹¨ í•´ì œ
 	Release();
 
-	// ¸Ş¸ğ¸® Àâ±â
+	// ë©”ëª¨ë¦¬ ì¡ê¸°
 	m_nFilters = count;
 
 	m_pFilters = new CFilter [m_nFilters];
@@ -58,7 +58,7 @@ CFilterPack::Release()
 {
 	if (m_pFilters != NULL)
 	{
-		// ¸ğµç CFilter¸¦ Áö¿î´Ù.
+		// ëª¨ë“  CFilterë¥¼ ì§€ìš´ë‹¤.
 		delete [] m_pFilters;
 		m_pFilters = NULL;
 		
@@ -72,14 +72,14 @@ CFilterPack::Release()
 void
 CFilterPack::SaveToFile(ofstream& file)
 {
-	// °³¼ö ÀúÀå
+	// ê°œìˆ˜ ì €ì¥
 	file.write((const char*)&m_nFilters, SIZE_FILTERID);
 
-	// ÀúÀåµÈ °ÍÀÌ ¾øÀ¸¸é return
+	// ì €ì¥ëœ ê²ƒì´ ì—†ìœ¼ë©´ return
 	if (m_nFilters==0 || m_pFilters==NULL)
 		return;
 
-	// °¢°¢ÀÇ Filter¸¦ File¿¡ ÀúÀåÇÑ´Ù.
+	// ê°ê°ì˜ Filterë¥¼ Fileì— ì €ì¥í•œë‹¤.
 	for (TYPE_FILTERID i=0; i<m_nFilters; i++)
 	{
 		m_pFilters[i].SaveToFile( file );
@@ -92,17 +92,17 @@ CFilterPack::SaveToFile(ofstream& file)
 void		
 CFilterPack::LoadFromFile(ifstream& file)
 {
-	// °³¼ö ÀĞ¾î¿À±â
+	// ê°œìˆ˜ ì½ì–´ì˜¤ê¸°
 	file.read((char*)&m_nFilters, SIZE_FILTERID);
 
-	// ¾øÀ¸¸é return
+	// ì—†ìœ¼ë©´ return
 	if (m_nFilters==0)
 		return;
 
-	// memoryÀâ±â
+	// memoryì¡ê¸°
 	Init( m_nFilters );
 
-	// °¢°¢ÀÇ Filter¸¦ LoadÇØ ¿Â´Ù.
+	// ê°ê°ì˜ Filterë¥¼ Loadí•´ ì˜¨ë‹¤.
 	for (TYPE_FILTERID i=0; i<m_nFilters; i++)
 	{
 		m_pFilters[i].LoadFromFile( file );

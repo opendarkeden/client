@@ -6,6 +6,10 @@
 #include "CSpriteSurface.h"
 #include "CIndexSprite.h"
 
+#ifdef SPRITELIB_BACKEND_SDL
+#include "SpriteLibBackend.h"
+#endif
+
 //-----------------------------------------------------------------------------
 // Static Member
 //-----------------------------------------------------------------------------
@@ -21,7 +25,7 @@ WORD	CIndexSprite::s_Colorkey = 0;
 int		CIndexSprite::s_IndexValue[MAX_COLORSET_USE];
 
 //-----------------------------------------------------------------------------
-// Blt Color¿¡¼­ ±âº»»öÀ¸·Î »ç¿ëÇÒ ColorSet
+// Blt Colorï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ColorSet
 //-----------------------------------------------------------------------------
 const int defaultGradationColor = 384;
 
@@ -65,19 +69,19 @@ CIndexSprite::SetColorSet()
 	/*
 	static BYTE rgbPoint[MAX_COLORSET_SEED][3] = 
 	{
-		//                     ±âº»»ö  :  ¹àÀ½,º¸Åë,¾îµÎ¿ò,
-		{ 16, 16, 16 },		// Èò»ö	
-		{ 31, 0, 0 },		// »¡°­	
-		{ 31, 16, 0 },		// ÁÖÈ²	
-		{ 31, 31, 0 },		// ³ë¶û	
-		{ 0, 31, 16 },		// ¿¬µÎ	
-		{ 0, 31, 0 },		// ÃÊ·Ï	
-		{ 0, 0, 31 },		// ÆÄ¶û	
-		{ 31, 0, 31 },		// º¸¶ó	
-		{ 0, 31, 31 },		// ÇÏ´Ã	
-		{ 16, 0, 31 },		// ³²»ö	
-		{ 16, 16, 31 },		// Â£Àº ÇÏ´Ã
-		{ 31, 16, 16 }		// »ì»ö		
+		//                     ï¿½âº»ï¿½ï¿½  :  ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Î¿ï¿½,
+		{ 16, 16, 16 },		// ï¿½ï¿½ï¿½	
+		{ 31, 0, 0 },		// ï¿½ï¿½ï¿½ï¿½	
+		{ 31, 16, 0 },		// ï¿½ï¿½È²	
+		{ 31, 31, 0 },		// ï¿½ï¿½ï¿½	
+		{ 0, 31, 16 },		// ï¿½ï¿½ï¿½ï¿½	
+		{ 0, 31, 0 },		// ï¿½Ê·ï¿½	
+		{ 0, 0, 31 },		// ï¿½Ä¶ï¿½	
+		{ 31, 0, 31 },		// ï¿½ï¿½ï¿½ï¿½	
+		{ 0, 31, 31 },		// ï¿½Ï´ï¿½	
+		{ 16, 0, 31 },		// ï¿½ï¿½ï¿½ï¿½	
+		{ 16, 16, 31 },		// Â£ï¿½ï¿½ ï¿½Ï´ï¿½
+		{ 31, 16, 16 }		// ï¿½ï¿½ï¿½		
 	};
 	*/
 
@@ -112,18 +116,18 @@ CIndexSprite::SetColorSet()
 		{ 31, 16, 31 },
 		{ 31, 31, 16 },
 
-		{ 16, 16, 16 }, // È¸»ö
-		{ 24, 24, 24 }, // ¹àÀº È¸»ö
-		{ 8, 8, 8 }, // ¾îµÎ¿î È¸»ö		
+		{ 16, 16, 16 }, // È¸ï¿½ï¿½
+		{ 24, 24, 24 }, // ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
+		{ 8, 8, 8 }, // ï¿½ï¿½Î¿ï¿½ È¸ï¿½ï¿½		
 
-		{ 30, 24, 18 }, // »ì»ö
-		{ 25, 15, 11 },	// °¥»ö		
+		{ 30, 24, 18 }, // ï¿½ï¿½ï¿½
+		{ 25, 15, 11 },	// ï¿½ï¿½ï¿½ï¿½		
 		{ 21, 12, 11 },				
-		{ 19, 15, 13 }, // °íµ¿»ö				
+		{ 19, 15, 13 }, // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½				
 
-		{ 21, 18, 11 }, // ¿¬ÇÑ »ì»ö		
+		{ 21, 18, 11 }, // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½		
 
-		{ 22, 16, 9 } // »ì»ö		
+		{ 22, 16, 9 } // ï¿½ï¿½ï¿½		
 	};
 
 		
@@ -134,7 +138,7 @@ CIndexSprite::SetColorSet()
 	set = 0;
 	int r,g,b;
 
-	for (i=0; i<MAX_COLORSET_SEED; i++)
+	for (int i=0; i<MAX_COLORSET_SEED; i++)
 	{
 		r = rgbPoint[i][0];
 		g = rgbPoint[i][1];
@@ -143,7 +147,7 @@ CIndexSprite::SetColorSet()
 		// MAX_COLORGRADATION_HALF ~ 1
 		for (j=MAX_COLORGRADATION_HALF; j>=1; j--)
 		{
-			// Ã¹ÁÙ¸¸
+			// Ã¹ï¿½Ù¸ï¿½
 			if (j==MAX_COLORGRADATION_HALF)
 			{
 				GetIndexColor(ColorSet[set], j, 
@@ -204,7 +208,7 @@ CIndexSprite::SetColorSet()
 	}
 	
 	//----------------------------------------------------------------------
-	// GradationValue¿Í
+	// GradationValueï¿½ï¿½
 	//----------------------------------------------------------------------
 	for (j=0; j<MAX_COLORGRADATION; j++)
 	{
@@ -213,16 +217,16 @@ CIndexSprite::SetColorSet()
 	}
 
 	//----------------------------------------------------------------------
-	// Darkness»öÀ» °áÁ¤ÇÑ´Ù.
+	// Darknessï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//----------------------------------------------------------------------
-	for (i=0; i<MAX_COLORSET; i++)
+	for (int i=0; i<MAX_COLORSET; i++)
 	{
 		for (j=0; j<MAX_COLORGRADATION; j++)
 		{
 			color = ColorSet[i][j];
 			//GradationValue[j] = CDirectDraw::Red(color) + CDirectDraw::Green(color) + CDirectDraw::Blue(color);
 
-			// Darkness¸¦ À§ÇÑ »ö°ª
+			// Darknessï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			for (k=0; k<MAX_DARKBIT; k++)
 			{	
 				r = ((color >> CDirectDraw::s_bSHIFT_R) >> k) << CDirectDraw::s_bSHIFT_R;
@@ -242,7 +246,7 @@ CIndexSprite::SetColorSet()
 	}
 
 	//----------------------------------------------------------------------
-	// »ö±ò Å×½ºÆ®..
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ®..
 	//----------------------------------------------------------------------
 	/*
 	int colorSet = MAX_COLORSET-1;
@@ -260,7 +264,7 @@ CIndexSprite::SetColorSet()
 // Save IndexTable To File
 //----------------------------------------------------------------------
 BOOL
-CIndexSprite::SaveIndexTableToFile(class ofstream& file)
+CIndexSprite::SaveIndexTableToFile(std::ofstream& file)
 {
 	int i,j,k;
 
@@ -269,7 +273,7 @@ CIndexSprite::SaveIndexTableToFile(class ofstream& file)
 	int db = MAX_DARKBIT;
 
 	//----------------------------------------------------------------------
-	// °ËÁõ¿ë ¼ýÀÚµé..
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½..
 	//----------------------------------------------------------------------
 	file.write((const char*)&cg, 4);
 	file.write((const char*)&cs, 4);
@@ -278,7 +282,7 @@ CIndexSprite::SaveIndexTableToFile(class ofstream& file)
 	//----------------------------------------------------------------------
 	// WORD	CIndexSprite::ColorSet[MAX_COLORSET][MAX_COLORGRADATION];
 	//----------------------------------------------------------------------
-	for (i=0; i<MAX_COLORSET; i++)
+	for (int i=0; i<MAX_COLORSET; i++)
 	{
 		for (j=0; j<MAX_COLORGRADATION; j++)
 		{
@@ -289,7 +293,7 @@ CIndexSprite::SaveIndexTableToFile(class ofstream& file)
 	//----------------------------------------------------------------------
 	//	WORD	CIndexSprite::GradationValue[MAX_COLORGRADATION];
 	//----------------------------------------------------------------------
-	for (i=0; i<MAX_COLORSET; i++)
+	for (int i=0; i<MAX_COLORSET; i++)
 	{
 		file.write((const char*)&GradationValue[i], 2);
 	}
@@ -299,7 +303,7 @@ CIndexSprite::SaveIndexTableToFile(class ofstream& file)
 	//----------------------------------------------------------------------
 	for (k=0; k<MAX_DARKBIT; k++)
 	{
-		for (i=0; i<MAX_COLORSET; i++)
+		for (int i=0; i<MAX_COLORSET; i++)
 		{
 			for (j=0; j<MAX_COLORGRADATION; j++)
 			{
@@ -315,14 +319,14 @@ CIndexSprite::SaveIndexTableToFile(class ofstream& file)
 // Load IndexTable From File
 //----------------------------------------------------------------------
 BOOL
-CIndexSprite::LoadIndexTableFromFile(class ifstream& file)
+CIndexSprite::LoadIndexTableFromFile(std::ifstream& file)
 {
 	int i,j,k;
 
 	int cg, cs, db;
 
 	//----------------------------------------------------------------------
-	// °ËÁõ¿ë ¼ýÀÚµé..
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½..
 	//----------------------------------------------------------------------
 	file.read((char*)&cg, 4);
 	file.read((char*)&cs, 4);
@@ -338,7 +342,7 @@ CIndexSprite::LoadIndexTableFromFile(class ifstream& file)
 	//----------------------------------------------------------------------
 	// WORD	CIndexSprite::ColorSet[MAX_COLORSET][MAX_COLORGRADATION];
 	//----------------------------------------------------------------------
-	for (i=0; i<MAX_COLORSET; i++)
+	for (int i=0; i<MAX_COLORSET; i++)
 	{
 		for (j=0; j<MAX_COLORGRADATION; j++)
 		{
@@ -349,7 +353,7 @@ CIndexSprite::LoadIndexTableFromFile(class ifstream& file)
 	//----------------------------------------------------------------------
 	//	WORD	CIndexSprite::GradationValue[MAX_COLORGRADATION];
 	//----------------------------------------------------------------------
-	for (i=0; i<MAX_COLORSET; i++)
+	for (int i=0; i<MAX_COLORSET; i++)
 	{
 		file.read((char*)&GradationValue[i], 2);
 	}
@@ -359,7 +363,7 @@ CIndexSprite::LoadIndexTableFromFile(class ifstream& file)
 	//----------------------------------------------------------------------
 	for (k=0; k<MAX_DARKBIT; k++)
 	{
-		for (i=0; i<MAX_COLORSET; i++)
+		for (int i=0; i<MAX_COLORSET; i++)
 		{
 			for (j=0; j<MAX_COLORGRADATION; j++)
 			{
@@ -372,7 +376,7 @@ CIndexSprite::LoadIndexTableFromFile(class ifstream& file)
 }
 
 //----------------------------------------------------------------------
-// Ãâ·Â¿¡ »ç¿ëÇÒ ColorSetÀ» ¼±ÅÃÇÑ´Ù.
+// ï¿½ï¿½Â¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ColorSetï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //----------------------------------------------------------------------
 void	
 CIndexSprite::SetUsingColorSet(int set1, int set2)
@@ -382,7 +386,7 @@ CIndexSprite::SetUsingColorSet(int set1, int set2)
 }
 
 //----------------------------------------------------------------------
-// Ãâ·Â¿¡ »ç¿ëÇÒ ColorSetÀ» ¼±ÅÃÇÑ´Ù.
+// ï¿½ï¿½Â¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ColorSetï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //----------------------------------------------------------------------
 void
 CIndexSprite::SetUsingColorSetOnly(BYTE setNumber, int colorSet)
@@ -392,8 +396,8 @@ CIndexSprite::SetUsingColorSetOnly(BYTE setNumber, int colorSet)
 
 
 //----------------------------------------------------------------------
-// (r0,g0,b0) ~ (r1,g1,b1) »çÀÌÀÇ step°³¼ö¸¸Å­ÀÇ ¼ýÀÚ¸¦
-// pColor¿¡ ³Ö¾îÁØ´Ù.
+// (r0,g0,b0) ~ (r1,g1,b1) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ stepï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½
+// pColorï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ø´ï¿½.
 //----------------------------------------------------------------------
 void
 CIndexSprite::GetIndexColor(WORD* pColor, int step, 
@@ -436,8 +440,13 @@ CIndexSprite::CIndexSprite()
 {
 	m_Width		= 0;
 	m_Height	= 0;
-	m_Pixels	= NULL;	
+	m_Pixels	= NULL;
 	m_bInit		= false;
+
+#ifdef SPRITELIB_BACKEND_SDL
+	m_backend_sprite = SPRITECTL_INVALID_SPRITE;
+	m_backend_dirty = false;
+#endif
 }
 
 CIndexSprite::~CIndexSprite()
@@ -452,13 +461,20 @@ CIndexSprite::~CIndexSprite()
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// m_PixelsÀÇ memory¸¦ ÇØÁ¦ÇÑ´Ù.
+// m_Pixelsï¿½ï¿½ memoryï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //----------------------------------------------------------------------
 void	
 CIndexSprite::Release()
 {
+#ifdef SPRITELIB_BACKEND_SDL
+	if (m_backend_sprite != SPRITECTL_INVALID_SPRITE) {
+		spritectl_destroy_sprite(m_backend_sprite);
+		m_backend_sprite = SPRITECTL_INVALID_SPRITE;
+		m_backend_dirty = false;
+	}
+#endif
 	if (m_Pixels!=NULL)
-	{		
+	{
 		m_bInit		= false;
 
 		for (int i=0; i<m_Height; i++)
@@ -479,60 +495,60 @@ CIndexSprite::Release()
 void
 CIndexSprite::operator = (const CIndexSprite& Sprite)
 {
-	// ¸Þ¸ð¸® ÇØÁ¦
+	// ï¿½Þ¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	Release();
 
 	
-	// NULLÀÌ¸é ÀúÀåÇÏÁö ¾Ê´Â´Ù.
+	// NULLï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 	if (Sprite.m_Pixels==NULL || Sprite.m_Width==0 || Sprite.m_Height==0)
 		return;
 
-	// Å©±â ¼³Á¤
+	// Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	m_Width = Sprite.m_Width;
 	m_Height = Sprite.m_Height;
 	
-	// ¾ÐÃà µÈ °Í ÀúÀå
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	int index;	
 	register int i;
 	register int j;
 
 	int colorCount, transPair, indexCount;
 
-	// ¸Þ¸ð¸® Àâ±â
+	// ï¿½Þ¸ï¿½ ï¿½ï¿½ï¿½
 	m_Pixels = new WORD* [m_Height];
 
 	//--------------------------------
 	// 5:6:5
 	//--------------------------------
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
-		// ¹Ýº¹ È¸¼öÀÇ 2 byte
+		// ï¿½Ýºï¿½ È¸ï¿½ï¿½ï¿½ï¿½ 2 byte
 		transPair = Sprite.m_Pixels[i][0];
 				
 		index	= 1;
 
-		// °¢ line¸¶´Ù byte¼ö¸¦ ¼¼¾î¼­ ÀúÀåÇØ¾ßÇÑ´Ù.
+		// ï¿½ï¿½ lineï¿½ï¿½ï¿½ï¿½ byteï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î¼­ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 		for (j=0; j<transPair; j++)
 		{			
 			// transCount = m_Pixels[i][index];
-			index++;	// Åõ¸í ¼ö
-			indexCount = Sprite.m_Pixels[i][index++];	// indexPair ¼ö
+			index++;	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+			indexCount = Sprite.m_Pixels[i][index++];	// indexPair ï¿½ï¿½
 
-			index += indexCount;		// index»ö¿¡ ´ëÇÑ Á¤º¸ ¼ö ¸¸Å­
+			index += indexCount;		// indexï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å­
 
-			// Normal»ö ¼ö
+			// Normalï¿½ï¿½ ï¿½ï¿½
 			colorCount = Sprite.m_Pixels[i][index++];
 
-			// Normal»ö ¼ö¸¸Å­ Áõ°¡
+			// Normalï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½
 			index	+= colorCount;
 		}
 
-		// ¸Þ¸ð¸® Àâ±â
+		// ï¿½Þ¸ï¿½ ï¿½ï¿½ï¿½
 		m_Pixels[i] = new WORD [index];
 		memcpy(m_Pixels[i], Sprite.m_Pixels[i], index<<1);
 	}
 
-	// º¹»ç ¿Ï·á
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½
 	m_bInit = true;
 }
 
@@ -540,14 +556,14 @@ CIndexSprite::operator = (const CIndexSprite& Sprite)
 //-----------------------------------------------------------------------------
 // Get IndexColor
 //-----------------------------------------------------------------------------
-// Á¤ÇØÁø gradation¿¡ ÀÇÇØ¼­
-// color»ö¿¡ ´ëÀÀÇÏ´Â ÀûÀýÇÑ index»ö(½ÇÁ¦ »öÀÌ ¾Æ´Ñ index¹øÈ£)À» Ã£¾ÆÁØ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ gradationï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½
+// colorï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ indexï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ indexï¿½ï¿½È£)ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½Ø´ï¿½.
 //-----------------------------------------------------------------------------
 BYTE
 CIndexSprite::GetIndexColor(WORD color)
 {
 	//-------------------------------------------------------
-	// Gradition°ª
+	// Graditionï¿½ï¿½
 	//-------------------------------------------------------
 	WORD spriteGradation = CDirectDraw::Red(color) 
 						+ CDirectDraw::Green(color) 
@@ -559,39 +575,40 @@ CIndexSprite::GetIndexColor(WORD color)
 //-----------------------------------------------------------------------------
 // GetColorToGradation
 //-----------------------------------------------------------------------------
-// color(0~93)°ªÀ» gradation(0~MAX_GRADATION)°ªÀ¸·Î ¹Ù²Û´Ù.
+// color(0~93)ï¿½ï¿½ï¿½ï¿½ gradation(0~MAX_GRADATION)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²Û´ï¿½.
 //-----------------------------------------------------------------------------
 BYTE
 CIndexSprite::GetColorToGradation(BYTE spriteGradation)
 {
-	// 5:6:5Àü¿ë code
+	// 5:6:5ï¿½ï¿½ï¿½ï¿½ code
 	//WORD spriteGradation = (color >> 11) + ((color >> 6) & 0x1F) + (color & 0x1F);
-	// 5:5:5Àü¿ë code
+	// 5:5:5ï¿½ï¿½ï¿½ï¿½ code
 	//WORD spriteGradation = (color >> 10) + ((color >> 5) & 0x1F) + (color & 0x1F);
 
 	//-------------------------------------------------------
-	// spriteGradation°ª°ú °¡Àå °¡±î¿î 
-	// GradationValue¸¦ Ã£¾Æ¾ß ÇÑ´Ù.
+	// spriteGradationï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+	// GradationValueï¿½ï¿½ Ã£ï¿½Æ¾ï¿½ ï¿½Ñ´ï¿½.
 	//-------------------------------------------------------
-	for (int g=0; g<MAX_COLORGRADATION; g++)
-	{			
+	int g;
+	for (g=0; g<MAX_COLORGRADATION; g++)
+	{
 		if (spriteGradation > GradationValue[g])
 		{
 			break;
 		}
 	}
 
-	// Á¦ÀÏ ³¡ÀÇ »ö±òÀÎ °æ¿ì
-	if (g==0 ||	g==MAX_COLORGRADATION-1)
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	if (g==0 || g==MAX_COLORGRADATION-1)
 	{
 		return g;
 	}
 
-	// °¡¿îµ¥ »ö±ò
+	// ï¿½ï¿½ï¿½îµ¥ ï¿½ï¿½ï¿½ï¿½
 	WORD value1 = GradationValue[g-1] - spriteGradation;
 	WORD value2 = spriteGradation - GradationValue[g-1];
-	
-	// ÀûÀº °ªÀ» ¼±ÅÃÇÑ´Ù.
+
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	if (value1 < value2)
 	{
 		return g-1;
@@ -600,32 +617,32 @@ CIndexSprite::GetColorToGradation(BYTE spriteGradation)
 	{
 		return g;
 	}
-	
-	// °°Àº °æ¿ì´Â.. ??	
-	return g-1;	
+
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.. ??
+	return g-1;
 }
 
 //-----------------------------------------------------------------------------
 // Set Pixel
 //-----------------------------------------------------------------------------
-// pixelÁ¤º¸(pSource)¿Í
-// µÎ °³ÀÇ index Á¤º¸¸¦ °¡Áö°í 
-// IndexSprite¸¦ »ý¼ºÇÑ´Ù.
+// pixelï¿½ï¿½ï¿½ï¿½(pSource)ï¿½ï¿½
+// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ index ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+// IndexSpriteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //
-// ¿ì¼± ColorInfo¿Í IndexInfo¸¦ »ý¼ºÇÏ°í..
-// GenerateFromIndex¸¦ È£ÃâÇÑ´Ù..
+// ï¿½ì¼± ColorInfoï¿½ï¿½ IndexInfoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½..
+// GenerateFromIndexï¿½ï¿½ È£ï¿½ï¿½ï¿½Ñ´ï¿½..
 //
-// È¿À²Àº Á» ¶³¾îÁöÁö¸¸ -_-; ÃÖÀûÈ­ÇÏ±â ±ÍÂú´Ù. reuse¶ó°í.. 
-// ¾îÂ÷ÇÇ °ÔÀÓ ½ÇÇàÁß¿¡´Â ¾²ÀÏ ÀÏÀÌ ¾øÀ¸´Ï±ñ.. À½ÇÏ.. -_-;;;; 
+// È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -_-; ï¿½ï¿½ï¿½ï¿½È­ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. reuseï¿½ï¿½ï¿½.. 
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½.. ï¿½ï¿½ï¿½ï¿½.. -_-;;;; 
 //-----------------------------------------------------------------------------
 void		
 CIndexSprite::SetPixel(WORD* pSource, WORD sourcePitch, 
-							 WORD* pIndex1, WORD indexPitch1,	// Ã¹¹øÂ° index
-							 WORD* pIndex2, WORD indexPitch2,	// µÎ¹øÂ° index
+							 WORD* pIndex1, WORD indexPitch1,	// Ã¹ï¿½ï¿½Â° index
+							 WORD* pIndex2, WORD indexPitch2,	// ï¿½Î¹ï¿½Â° index
 							 WORD width, WORD height)
 {
 	//--------------------------------------------------
-	// ±æÀÌ°¡ 0ÀÏ¶§..
+	// ï¿½ï¿½ï¿½Ì°ï¿½ 0ï¿½Ï¶ï¿½..
 	//--------------------------------------------------
 	if (width==0 || height==0)
 	{
@@ -634,27 +651,27 @@ CIndexSprite::SetPixel(WORD* pSource, WORD sourcePitch,
 	}
 
 	WORD	*pSourceTemp, *pIndexTemp1, *pIndexTemp2;
-	WORD	transIndex1=0, transIndex2=0;	// default Åõ¸í»öÀº 0¹ø(°ËÁ¤)
+	WORD	transIndex1=0, transIndex2=0;	// default ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
 
 	//--------------------------------------------------
-	// IndexÁ¤º¸°¡ ÀÖ´Â surfaceÀÇ Åõ¸í»öÀ» °áÁ¤ÇÑ´Ù.
+	// Indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------------
-	// pSourceÀÇ Åõ¸í»öÀÌ ÀÖ´Â À§Ä¡°¡
-	// pIndex1, pIndex2¿¡¼­µµ Åõ¸í»öÀÌ´Ù.
+	// pSourceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½
+	// pIndex1, pIndex2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 	//--------------------------------------------------
 	WORD	*pSourceTemp2;
 	pSourceTemp = pSource;
 
-	for (register i=0; i<height; i++)
+	for (register int i=0; i<height; i++)
 	{
 		pSourceTemp2 = pSourceTemp;
 
 		for (register int j=0; j<width; j++)
 		{
-			// Åõ¸í»ö
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if (*pSourceTemp2==s_Colorkey)
 			{
-				// pIndex1°ú pIndex2¿¡¼­ °¢°¢ Åõ¸í»öÀ» °áÁ¤ÇÑ´Ù.
+				// pIndex1ï¿½ï¿½ pIndex2ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if (pIndex1!=NULL)
 				{
 					transIndex1 = *(WORD*)((BYTE*)pIndex1 + i*indexPitch1 + (j<<1));
@@ -677,7 +694,7 @@ CIndexSprite::SetPixel(WORD* pSource, WORD sourcePitch,
 	
 
 	//--------------------------------------------------
-	// Á¤º¸ »ý¼ºÀ» À§ÇÑ ¸Þ¸ð¸® Àâ±â
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¸ï¿½ ï¿½ï¿½ï¿½
 	//--------------------------------------------------
 	WORD** ppColor, **ppIndex;
 
@@ -687,16 +704,16 @@ CIndexSprite::SetPixel(WORD* pSource, WORD sourcePitch,
 	//--------------------------------------------------
 	// Ã¼Å© Ã¼Å©~
 	//--------------------------------------------------
-	for (i=0; i<height; i++)
+	for (int i=0; i<height; i++)
 	{
 		//--------------------------------------------------
-		// ¸Þ¸ð¸® Àâ±â
+		// ë©”ëª¨ë¦¬ í• ë‹¹
 		//--------------------------------------------------
 		ppColor[i] = new WORD [width];
 		ppIndex[i] = new WORD [width];
 
 		//--------------------------------------------------
-		// Ã¹ Á¡
+		// Ã¹ ï¿½ï¿½
 		//--------------------------------------------------
 		pSourceTemp = pSource;
 
@@ -711,45 +728,45 @@ CIndexSprite::SetPixel(WORD* pSource, WORD sourcePitch,
 		}
 
 		//--------------------------------------------------
-		// ÁÙ ´ÜÀ§ Ã¼Å©..
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©..
 		//--------------------------------------------------
 		for (register int j=0; j<width; j++)
 		{
 			//--------------------------------------------------
-			// Åõ¸í»öÀÌ¶ó¸é..
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½..
 			//--------------------------------------------------
 			if (*pSourceTemp==s_Colorkey)
 			{
 				ppIndex[i][j] = INDEX_TRANS;
 			}
 			//--------------------------------------------------
-			// ¸ÕÀú Index»öÀÎÁö¸¦ Ã¼Å©ÇÏ°í, 
-			// ¾Æ´Ï¸é, ½ÇÁ¦ »öÀÎ °æ¿ìÀÌ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ Indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ï°ï¿½, 
+			// ï¿½Æ´Ï¸ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 			//--------------------------------------------------
 			else
 			{
 				//--------------------------------------------------
-				// index1ÀÌ ÀÖ´Â °ÍÀÎÁö Ã¼Å©ÇØ¾ß ÇÑ´Ù.
+				// index1ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 				//--------------------------------------------------
 				if (pIndex1!=NULL && *pIndexTemp1!=transIndex1)
 				{
 					ppIndex[i][j] = GetIndexColor( *pSourceTemp );	// (0<<8) | gradation;
 				}
 				//--------------------------------------------------
-				// index2°¡ ÀÖ´Â °ÍÀÎÁö Ã¼Å©ÇØ¾ß ÇÑ´Ù.
+				// index2ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 				//--------------------------------------------------
 				else if (pIndex2!=NULL && *pIndexTemp2!=transIndex2)
 				{
 					ppIndex[i][j] = (1<<8) | GetIndexColor( *pSourceTemp );
 				}
 				//--------------------------------------------------
-				// µÑ ´Ù ¾ø´Â °æ¿ì = ½ÇÁ¦ »ö
+				// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				//--------------------------------------------------
 				else
 				{
 					ppIndex[i][j] = INDEX_NULL;
 
-					// ½ÇÁ¦ »öÀ» ÀúÀåÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					ppColor[i][j] = *pSourceTemp;
 				}				
 			}
@@ -757,7 +774,7 @@ CIndexSprite::SetPixel(WORD* pSource, WORD sourcePitch,
 			pSourceTemp++;
 
 			//--------------------------------------------------
-			// ´ÙÀ½ Á¡
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 			//--------------------------------------------------
 			if (pIndex1!=NULL)
 			{
@@ -771,7 +788,7 @@ CIndexSprite::SetPixel(WORD* pSource, WORD sourcePitch,
 		}
 
 		//--------------------------------------------------
-		// ´ÙÀ½ ÁÙ
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		//--------------------------------------------------
 		pSource = (WORD*)((BYTE*)pSource + sourcePitch);
 
@@ -788,16 +805,16 @@ CIndexSprite::SetPixel(WORD* pSource, WORD sourcePitch,
 
 
 	//--------------------------------------------------
-	// ppColor¿Í ppIndex°¡ ¿Ï¼ºµÇ¾úÀ¸¹Ç·Î.. 
-	// IndexSprite»ý¼º!
+	// ppColorï¿½ï¿½ ppIndexï¿½ï¿½ ï¿½Ï¼ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ç·ï¿½.. 
+	// IndexSpriteï¿½ï¿½ï¿½ï¿½!
 	//--------------------------------------------------
 	GenerateFromIndex(ppColor, width, height, ppIndex);
 
 
 	//--------------------------------------------------
-	// ppColor¿Í ppIndex¸¦ Áö¿öÁØ´Ù.
+	// ppColorì™€ ppIndexë¥¼ ì‚­ì œí•œë‹¤.
 	//--------------------------------------------------
-	for (i=0; i<height; i++)
+	for (int i=0; i<height; i++)
 	{
 		delete [] ppColor[i];
 		delete [] ppIndex[i];
@@ -812,78 +829,78 @@ CIndexSprite::SetPixel(WORD* pSource, WORD sourcePitch,
 // Generate Index 2
 //-----------------------------------------------------------------------------
 // 
-// ppColor¿¡¼­ width*height¸¸Å­ÀÇ Á¡À» ÀÐ¾î¼­ Sprite¸¦ ¸¸µå´Âµ¥..
-// Åõ¸í»ö ¾ÐÃàµµ ÇØ¾ßÇÏ°í...
-// Index ArrayÀÇ Á¤º¸µµ ÂüÁ¶ÇØ¾ßÇÑ´Ù.
+// ppColorï¿½ï¿½ï¿½ï¿½ width*heightï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾î¼­ Spriteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Âµï¿½..
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½àµµ ï¿½Ø¾ï¿½ï¿½Ï°ï¿½...
+// Index Arrayï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 //
 //-----------------------------------------------------------------------------
-// - ³»ºÎÀûÀ¸·Î Åõ¸í»ö ¾ÐÃàÀ» »ç¿ëÇÑ´Ù.
-// - IndexSetÀÇ Gradation»ö±òº°·Î ¾ÐÃà(?)ÇÑ´Ù. (È¿À²Àº ³ôÁö ¾ÊÀ» µí ÇÏ´Ù)
+// - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+// - IndexSetï¿½ï¿½ Gradationï¿½ï¿½ï¿½òº°·ï¿½ ï¿½ï¿½ï¿½ï¿½(?)ï¿½Ñ´ï¿½. (È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ï´ï¿½)
 //
 //
-// [ ÇÑ ÁÙÀÇ Á¤º¸ ]
+// [ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ]
 //
-// (Åõ¸íPair¹Ýº¹¼ö) 
-//    ( (Åõ¸í»ö¼ö, Index»ö¼ö, 
-//                 (indexSet¹øÈ£, gradation¹øÈ£), 
-//                 (indexSet¹øÈ£, gradation¹øÈ£), 
+// (ï¿½ï¿½ï¿½ï¿½Pairï¿½Ýºï¿½ï¿½ï¿½) 
+//    ( (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Indexï¿½ï¿½ï¿½ï¿½, 
+//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
+//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
 //                              .     
 //                              .     
 //                              .     
-//    ( (Åõ¸í»ö¼ö, Index»ö¼ö, 
-//                 (indexSet¹øÈ£, gradation¹øÈ£), 
-//                 (indexSet¹øÈ£, gradation¹øÈ£), 
+//    ( (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Indexï¿½ï¿½ï¿½ï¿½, 
+//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
+//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
 //                              .     
 //                              .     
 //                              .     
-//        °íÁ¤µÈ»ö±ò¼ö, °íÁ¤µÈ»ö±òµé)
+//        ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½)
 //    )
 //
-// WORD : Åõ¸í»ö¼ö 
-// WORD : »öPair¹Ýº¹¼ö
-// WORD : index»ö¼ö
-// WORD : indexSet¹øÈ£ | gradation¹øÈ£ --> BYTE | BYTE
-// WORD : °íÁ¤µÈ»ö±ò¼ö
-// WORD*: °íÁ¤µÈ»ö±òµé
+// WORD : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+// WORD : ï¿½ï¿½Pairï¿½Ýºï¿½ï¿½ï¿½
+// WORD : indexï¿½ï¿½ï¿½ï¿½
+// WORD : indexSetï¿½ï¿½È£ | gradationï¿½ï¿½È£ --> BYTE | BYTE
+// WORD : ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½
+// WORD*: ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½
 //
-// Åõ¸í»ö°ú Gradation Index°ª°ú »ö±ò°ªÀ» °°ÀÌ ÀúÀåÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Gradation Indexï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
-// ppIndex¿¡´Â °¢ 2byte¿¡ 
-// ((IndexSet¹øÈ£<<8) | Gradation¹øÈ£)°¡ ÀúÀåµÇ¾î ÀÖ¾î¾ß ÇÑ´Ù.
+// ppIndexï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 2byteï¿½ï¿½ 
+// ((IndexSetï¿½ï¿½È£<<8) | Gradationï¿½ï¿½È£)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
-// Index¸¦ °Ë»öÇÏ¸é¼­.. 
-// Åõ¸í»öÀÎ °æ¿ì´Â Åõ¸í»ö counterÁõ°¡..
-// ¾Æ´Ï¸é.. IndexSetº°·Î °°Àº Gradation³¢¸® ¾ÐÃà..
+// Indexï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï¸é¼­.. 
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ counterï¿½ï¿½ï¿½ï¿½..
+// ï¿½Æ´Ï¸ï¿½.. IndexSetï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Gradationï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
 //-----------------------------------------------------------------------------
 void			
 CIndexSprite::GenerateFromIndex(WORD** ppColor,
 								WORD width, WORD height,
 								WORD** ppIndex)
 {
-	// memoryÇØÁ¦
+	// memoryï¿½ï¿½ï¿½ï¿½
 	Release();
 
 	m_Width = width;
 	m_Height = height;
 
-	// ÀÏ´Ü memory¸¦ Àû´çÈ÷ Àâ¾ÆµÐ´Ù.	
+	// ï¿½Ï´ï¿½ memoryï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ÆµÐ´ï¿½.	
 	WORD*	data = new WORD[m_Width*8+10];
 
-	int	index;				// dataÀÇ index·Î »ç¿ë
+	int	index;				// dataï¿½ï¿½ indexï¿½ï¿½ ï¿½ï¿½ï¿½
 			
-	int	transPairCount,					// Åõ¸íPair °³¼ö
-			transColorCount,				// Åõ¸í»ö °³¼ö			
-			indexColorCount,				// Index»ö °³¼ö
-			normalColorCount;				// NormalColor °³¼ö
+	int	transPairCount,					// ï¿½ï¿½ï¿½ï¿½Pair ï¿½ï¿½ï¿½ï¿½
+			transColorCount,				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½			
+			indexColorCount,				// Indexï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			normalColorCount;				// NormalColor ï¿½ï¿½ï¿½ï¿½
 
-	int	indexColorCountPosition,		// IndexColor°³¼ö ÀúÀå À§Ä¡
-			normalColorCountPosition;		// NormalColor°³¼ö ÀúÀå À§Ä¡
+	int	indexColorCountPosition,		// IndexColorï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+			normalColorCountPosition;		// NormalColorï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
 
 	enum	COLORTYPE { COLORTYPE_TRANS, COLORTYPE_INDEX, COLORTYPE_NORMAL }
-			lastColorType;			// ÃÖ±Ù¿¡ °Ë»çÇÑ »öÀÇ Á¾·ù
+			lastColorType;			// ï¿½Ö±Ù¿ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 								
 
-	// heightÁÙ ¸¸Å­ memoryÀâ±â
+	// heightï¿½ï¿½ ï¿½ï¿½Å­ memoryï¿½ï¿½ï¿½
 	m_Pixels = new WORD* [height];
 
 
@@ -901,25 +918,25 @@ CIndexSprite::GenerateFromIndex(WORD** ppColor,
 		lastColorType = COLORTYPE_TRANS;
 
 		//------------------------------------------------------------
-		// °¢ line¿¡ ´ëÇØ¼­ ¾ÐÃà~
+		// ï¿½ï¿½ lineï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½~
 		//------------------------------------------------------------
 		for (register int  j=0; j<width; j++)
 		{
 			//--------------------------------------------------
-			// Index°¡ Åõ¸í»öÀÎ °æ¿ì
+			// Indexï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			//--------------------------------------------------
 			if ((ppIndex[i][j] & 0xFF)==INDEX_TRANS)
 			{
 				//--------------------------------------------------
-				// ÃÖ±Ù¿¡ °Ë»çÇÑ°Ô index»öÀÌ¾ú´Ù¸é,
+				// ï¿½Ö±Ù¿ï¿½ ï¿½Ë»ï¿½ï¿½Ñ°ï¿½ indexï¿½ï¿½ï¿½Ì¾ï¿½ï¿½Ù¸ï¿½,
 				//--------------------------------------------------
 				if (lastColorType == COLORTYPE_INDEX)
 				{
-					// ÀÌÀü index»ö¼ö¸¦ ÀúÀåÇØ¾ßÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 					data[indexColorCountPosition] = indexColorCount;
 
-					// ' (Åõ¸í»ö¼ö,»öPair¹Ýº¹¼ö, (»öPairµé....)) 'ÀÇ ÇÑ set°¡ ³¡³µÀ½À» ÀÇ¹ÌÇÏ¹Ç·Î
-					// normal»ö ¼ö´Â 0À¸·ÎÇØ¼­ ÀúÀåÇÑ´Ù.
+					// ' (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Pairï¿½Ýºï¿½ï¿½ï¿½, (ï¿½ï¿½Pairï¿½ï¿½....)) 'ï¿½ï¿½ ï¿½ï¿½ setï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½Ï¹Ç·ï¿½
+					// normalï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					transPairCount++;
 					
 					data[index++] = 0;					
@@ -928,11 +945,11 @@ CIndexSprite::GenerateFromIndex(WORD** ppColor,
 					lastColorType = COLORTYPE_TRANS;
 				}
 				//--------------------------------------------------
-				// ÃÖ±Ù¿¡ °Ë»çÇÑ°Ô normal»öÀÌ¾ú´Ù¸é
+				// ï¿½Ö±Ù¿ï¿½ ï¿½Ë»ï¿½ï¿½Ñ°ï¿½ normalï¿½ï¿½ï¿½Ì¾ï¿½ï¿½Ù¸ï¿½
 				//--------------------------------------------------
 				else if (lastColorType == COLORTYPE_NORMAL)
 				{
-					// ' (Åõ¸í»ö¼ö,indexPair¹Ýº¹¼ö, (index¹Ýº¹), °íÁ¤»öµé)) 'ÀÇ ÇÑ set°¡ ³¡³µÀ½À» ÀÇ¹ÌÇÏ¹Ç·Î
+					// ' (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,indexPairï¿½Ýºï¿½ï¿½ï¿½, (indexï¿½Ýºï¿½), ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)) 'ï¿½ï¿½ ï¿½ï¿½ setï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½Ï¹Ç·ï¿½
 					transPairCount++;
 					
 					data[normalColorCountPosition] = normalColorCount;
@@ -946,70 +963,70 @@ CIndexSprite::GenerateFromIndex(WORD** ppColor,
 				transColorCount++;				
 			}		
 			//--------------------------------------------------				
-			// Index »öÀÎ °æ¿ì...
+			// Index ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½...
 			//--------------------------------------------------
 			else if ((ppIndex[i][j] & 0xFF)!=INDEX_NULL)
 			{
 				//--------------------------------------------------
-				// ÀÌÀüÀÇ °ÍÀÌ Åõ¸í»öÀÌ¾ú´Ù¸é..
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½Ù¸ï¿½..
 				//--------------------------------------------------
 				if (lastColorType == COLORTYPE_TRANS)
 				{						
-					data[index++] = transColorCount;		// »óÀ§ byte¿¡ Åõ¸í¼ö¸¦ ³Ö´Â´Ù.
+					data[index++] = transColorCount;		// ï¿½ï¿½ï¿½ï¿½ byteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
 					transColorCount = 0;
 					
-					// »õ·Î¿î index»ö °ª¿¡ ´ëÇÑ ÃÊ±âÈ­..
-					// index»öÀÇ °³¼ö¸¦ ÀúÀåÇÒ À§Ä¡
+					// ï¿½ï¿½ï¿½Î¿ï¿½ indexï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­..
+					// indexï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
 					indexColorCountPosition = index++;
 					indexColorCount	= 0;
 					
 					lastColorType = COLORTYPE_INDEX;
 				}
 				//--------------------------------------------------
-				// ÀÌÀü¿¡ °ÍÀÌ º¯ÇÏÁö¾Ê´Â »öÀÎ °æ¿ì
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//--------------------------------------------------
 				else if (lastColorType == COLORTYPE_NORMAL)
 				{
-					// º¯ÇÏÁö ¾Ê´Â »ö ³¡
-					// ' (Åõ¸í»ö¼ö,indexPair¹Ýº¹¼ö, (index¹Ýº¹), °íÁ¤»öµé)) 'ÀÇ ÇÑ set°¡ ³¡³µÀ½À» ÀÇ¹ÌÇÏ¹Ç·Î
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ ï¿½ï¿½
+					// ' (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,indexPairï¿½Ýºï¿½ï¿½ï¿½, (indexï¿½Ýºï¿½), ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)) 'ï¿½ï¿½ ï¿½ï¿½ setï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½Ï¹Ç·ï¿½
 					transPairCount++;
 					
 					data[normalColorCountPosition] = normalColorCount;
 					normalColorCount = 0;
 
-					// Åõ¸í»ö ¾ø´Ù.. - -;
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.. - -;
 					data[index++] = 0;
 
-					// index»öÀÇ °³¼ö¸¦ ÀúÀåÇÒ À§Ä¡
+					// indexï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
 					indexColorCountPosition = index++;
 					indexColorCount	= 0;					
 
 					lastColorType = COLORTYPE_INDEX;						
 				}	
 				
-				// index»ö °³¼ö Áõ°¡
+				// indexï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				indexColorCount++;
 
-				// index»ö ÀúÀå				
+				// indexï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½				
 				data[index++]	= ppIndex[i][j];
 			}
 			//--------------------------------------------------				
-			// º¯ÇÏÁö ¾Ê´Â »öÀÎ °æ¿ì (INDEX_NULL)
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (INDEX_NULL)
 			//--------------------------------------------------
 			else //if ((ppIndex[i][j] & 0xFF)==INDEX_NULL)
 			{	
 				//--------------------------------------------------
-				// ÀÌÀü »ö±òÀÌ Åõ¸í»öÀÌ¸é..
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½..
 				//--------------------------------------------------
 				if (lastColorType == COLORTYPE_TRANS)
 				{
 					data[index++] = transColorCount;
 					transColorCount = 0;
 						
-					// indexCount´Â ¾ø´Ù.
+					// indexCountï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 					data[index++] = 0;	
 						
-					// Á¤»ó»ö±òÀÌ ³ª¿ÔÀ¸¹Ç·Î ÃÊ±âÈ­.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½Ê±ï¿½È­.
 					normalColorCountPosition = index++;
 					normalColorCount = 0;
 
@@ -1017,62 +1034,62 @@ CIndexSprite::GenerateFromIndex(WORD** ppColor,
 				}
 				else
 				//--------------------------------------------------
-				// ÀÌÀü »ö±òÀÌ index»öÀÌ¸é..
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ indexï¿½ï¿½ï¿½Ì¸ï¿½..
 				//--------------------------------------------------
 				if (lastColorType == COLORTYPE_INDEX)
 				{
-					// ÀÌÀü index»ö¼ö¸¦ ÀúÀåÇØ¾ßÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 					data[indexColorCountPosition] = indexColorCount;
 						
-					// Á¤»ó»ö±òÀÌ ³ª¿ÔÀ¸¹Ç·Î ÃÊ±âÈ­.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½Ê±ï¿½È­.
 					normalColorCountPosition = index++;
 					normalColorCount = 0;
 
 					lastColorType = COLORTYPE_NORMAL;						
 				}
 
-				data[index++] = ppColor[i][j];	// ½ÇÁ¦ »ö±òÀ» ÀúÀåÇÑ´Ù.
+				data[index++] = ppColor[i][j];	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				normalColorCount++;
 			}
 		}
 		
 		//--------------------------------------------------
-		// ÇÑ ÁÙÀÇ ¸¶Áö¸· Á¡ÀÌ Åõ¸í»öÀÎ°¡?
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½?
 		//--------------------------------------------------
 		if (lastColorType == COLORTYPE_TRANS)
 		{
-			// Åõ¸í»öÀÌ¸é º°´Ù¸¥ Ã³¸®¸¦ ¾ÈÇØÁàµµ µÉ°Å °°´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½àµµ ï¿½É°ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		}	
 		//--------------------------------------------------
-		// ¸¶Áö¸· Á¡ÀÌ index»öÀÎ °æ¿ì - indexPairÁ¤¸®..
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ indexï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ - indexPairï¿½ï¿½ï¿½ï¿½..
 		//--------------------------------------------------
 		else if (lastColorType == COLORTYPE_INDEX)
 		{		
-			// ÀÌÀü index»ö¼ö¸¦ ÀúÀåÇØ¾ßÇÑ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 			data[indexColorCountPosition] = indexColorCount;
 
-			// normal»öÀº ¾ø´Ù.
+			// normalï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			data[index++] = 0;
 
-			// ' (Åõ¸í»ö¼ö,indexPair¹Ýº¹¼ö, (index¹Ýº¹), °íÁ¤»öµé)) 'ÀÇ ÇÑ set°¡ ³¡³µÀ½À» ÀÇ¹ÌÇÏ¹Ç·Î
+			// ' (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,indexPairï¿½Ýºï¿½ï¿½ï¿½, (indexï¿½Ýºï¿½), ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)) 'ï¿½ï¿½ ï¿½ï¿½ setï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½Ï¹Ç·ï¿½
 			transPairCount++;			
 		}
 		//--------------------------------------------------
-		// ¸¶Áö¸· Á¡ÀÌ normal»öÀÎ °æ¿ì
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ normalï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		//--------------------------------------------------
 		else 
 		{
-			// ' (Åõ¸í»ö¼ö,indexPair¹Ýº¹¼ö, (index¹Ýº¹), °íÁ¤»öµé)) 'ÀÇ ÇÑ set°¡ ³¡³µÀ½À» ÀÇ¹ÌÇÏ¹Ç·Î
+			// ' (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,indexPairï¿½Ýºï¿½ï¿½ï¿½, (indexï¿½Ýºï¿½), ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)) 'ï¿½ï¿½ ï¿½ï¿½ setï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½Ï¹Ç·ï¿½
 			data[normalColorCountPosition] = normalColorCount;	
 
 			transPairCount++;		
 		}
 
-		// memory¸¦ Àâ´Â´Ù.
+		// memoryï¿½ï¿½ ï¿½ï¿½Â´ï¿½.
 		m_Pixels[i] = new WORD [index+1];
 
-		// m_Pixels[i]¸¦ ¾ÐÃàÇßÀ¸¹Ç·Î data·Î ´ëÃ¼ÇÑ´Ù.
-		// m_Pixels[i][0]¿¡´Â count¸¦ ³Ö¾î¾ß ÇÑ´Ù.
+		// m_Pixels[i]ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ dataï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½Ñ´ï¿½.
+		// m_Pixels[i][0]ï¿½ï¿½ï¿½ï¿½ countï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½Ñ´ï¿½.
 		m_Pixels[i][0] = transPairCount;
 		memcpy(m_Pixels[i]+1, data, index<<1);
 
@@ -1088,7 +1105,7 @@ CIndexSprite::GenerateFromIndex(WORD** ppColor,
 	ofstream colorFile("color.txt");
 	ofstream spriteFile("sprite.txt");
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		for (int j=0; j<m_Width; j++)
 		{
@@ -1115,49 +1132,49 @@ CIndexSprite::GenerateFromIndex(WORD** ppColor,
 // Generate Index (Old version)
 //-----------------------------------------------------------------------------
 // 
-// ppColor¿¡¼­ width*height¸¸Å­ÀÇ Á¡À» ÀÐ¾î¼­ Sprite¸¦ ¸¸µå´Âµ¥..
-// Åõ¸í»ö ¾ÐÃàµµ ÇØ¾ßÇÏ°í...
-// Index ArrayÀÇ Á¤º¸µµ ÂüÁ¶ÇØ¾ßÇÑ´Ù.
+// ppColorï¿½ï¿½ï¿½ï¿½ width*heightï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾î¼­ Spriteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Âµï¿½..
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½àµµ ï¿½Ø¾ï¿½ï¿½Ï°ï¿½...
+// Index Arrayï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 //
 //-----------------------------------------------------------------------------
-// - ³»ºÎÀûÀ¸·Î Åõ¸í»ö ¾ÐÃàÀ» »ç¿ëÇÑ´Ù.
-// - IndexSetÀÇ Gradation»ö±òº°·Î ¾ÐÃà(?)ÇÑ´Ù. (È¿À²Àº ³ôÁö ¾ÊÀ» µí ÇÏ´Ù)
+// - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+// - IndexSetï¿½ï¿½ Gradationï¿½ï¿½ï¿½òº°·ï¿½ ï¿½ï¿½ï¿½ï¿½(?)ï¿½Ñ´ï¿½. (È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ï´ï¿½)
 //
 //
-// [ ÇÑ ÁÙÀÇ Á¤º¸ ]
+// [ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ]
 //
-// (Åõ¸íPair¹Ýº¹¼ö) 
-//    ( (Åõ¸í»ö¼ö, IndexPair¹Ýº¹¼ö, 
-//                 (index»ö¼ö, indexSet¹øÈ£, gradation¹øÈ£), 
-//                 (index»ö¼ö, indexSet¹øÈ£, gradation¹øÈ£), 
+// (ï¿½ï¿½ï¿½ï¿½Pairï¿½Ýºï¿½ï¿½ï¿½) 
+//    ( (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, IndexPairï¿½Ýºï¿½ï¿½ï¿½, 
+//                 (indexï¿½ï¿½ï¿½ï¿½, indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
+//                 (indexï¿½ï¿½ï¿½ï¿½, indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
 //                              .     
 //                              .     
 //                              .     
-//        °íÁ¤µÈ»ö±ò¼ö, °íÁ¤µÈ»ö±òµé)
-//       (Åõ¸í»ö¼ö, IndexPair¹Ýº¹¼ö, 
-//                 (index»ö¼ö, indexSet¹øÈ£, gradation¹øÈ£), 
-//                 (index»ö¼ö, indexSet¹øÈ£, gradation¹øÈ£), 
+//        ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½)
+//       (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, IndexPairï¿½Ýºï¿½ï¿½ï¿½, 
+//                 (indexï¿½ï¿½ï¿½ï¿½, indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
+//                 (indexï¿½ï¿½ï¿½ï¿½, indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
 //                              .     
 //                              .     
 //                              .     
-//        °íÁ¤µÈ»ö±ò¼ö, °íÁ¤µÈ»ö±òµé)
+//        ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½)
 //    )
 //
-// WORD : Åõ¸í»ö¼ö 
-// WORD : »öPair¹Ýº¹¼ö
-// WORD : index»ö¼ö
-// WORD : indexSet¹øÈ£ | gradation¹øÈ£ --> BYTE | BYTE
-// WORD : °íÁ¤µÈ»ö±ò¼ö
-// WORD*: °íÁ¤µÈ»ö±òµé
+// WORD : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+// WORD : ï¿½ï¿½Pairï¿½Ýºï¿½ï¿½ï¿½
+// WORD : indexï¿½ï¿½ï¿½ï¿½
+// WORD : indexSetï¿½ï¿½È£ | gradationï¿½ï¿½È£ --> BYTE | BYTE
+// WORD : ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½
+// WORD*: ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½
 //
-// Åõ¸í»ö°ú Gradation Index°ª°ú »ö±ò°ªÀ» °°ÀÌ ÀúÀåÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Gradation Indexï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
-// ppIndex¿¡´Â °¢ 2byte¿¡ 
-// ((IndexSet¹øÈ£<<8) | Gradation¹øÈ£)°¡ ÀúÀåµÇ¾î ÀÖ¾î¾ß ÇÑ´Ù.
+// ppIndexï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 2byteï¿½ï¿½ 
+// ((IndexSetï¿½ï¿½È£<<8) | Gradationï¿½ï¿½È£)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
-// Index¸¦ °Ë»öÇÏ¸é¼­.. 
-// Åõ¸í»öÀÎ °æ¿ì´Â Åõ¸í»ö counterÁõ°¡..
-// ¾Æ´Ï¸é.. IndexSetº°·Î °°Àº Gradation³¢¸® ¾ÐÃà..
+// Indexï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï¸é¼­.. 
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ counterï¿½ï¿½ï¿½ï¿½..
+// ï¿½Æ´Ï¸ï¿½.. IndexSetï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Gradationï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
 //-----------------------------------------------------------------------------
 /*
 void			
@@ -1165,35 +1182,35 @@ CIndexSprite::GenerateFromIndex(WORD** ppColor,
 								WORD width, WORD height,
 								WORD** ppIndex)
 {
-	// memoryÇØÁ¦
+	// memoryï¿½ï¿½ï¿½ï¿½
 	Release();
 
 	m_Width = width;
 	m_Height = height;
 
-	// ÀÏ´Ü memory¸¦ Àû´çÈ÷ Àâ¾ÆµÐ´Ù.	
+	// ï¿½Ï´ï¿½ memoryï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ÆµÐ´ï¿½.	
 	WORD*	data = new WORD[m_Width*8];
 
-	WORD	index;				// dataÀÇ index·Î »ç¿ë
+	WORD	index;				// dataï¿½ï¿½ indexï¿½ï¿½ ï¿½ï¿½ï¿½
 			
-	WORD	transPairCount,					// Åõ¸íPair °³¼ö
-			transColorCount,				// Åõ¸í»ö °³¼ö
-			indexColorPairCount,			// IndexPair°³¼ö
-			indexColorCount,				// Index»ö °³¼ö
-			normalColorCount;				// NormalColor °³¼ö
+	WORD	transPairCount,					// ï¿½ï¿½ï¿½ï¿½Pair ï¿½ï¿½ï¿½ï¿½
+			transColorCount,				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			indexColorPairCount,			// IndexPairï¿½ï¿½ï¿½ï¿½
+			indexColorCount,				// Indexï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			normalColorCount;				// NormalColor ï¿½ï¿½ï¿½ï¿½
 
-	WORD	indexColorPairCountPosition,	// IndexPair°³¼ö ÀúÀå À§Ä¡
-			indexColorCountPosition,		// IndexColor°³¼ö ÀúÀå À§Ä¡
-			normalColorCountPosition;		// NormalColor°³¼ö ÀúÀå À§Ä¡
+	WORD	indexColorPairCountPosition,	// IndexPairï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+			indexColorCountPosition,		// IndexColorï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+			normalColorCountPosition;		// NormalColorï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
 
 	enum	COLORTYPE { COLORTYPE_TRANS, COLORTYPE_INDEX, COLORTYPE_NORMAL }
-			lastColorType;			// ÃÖ±Ù¿¡ °Ë»çÇÑ »öÀÇ Á¾·ù
+			lastColorType;			// ï¿½Ö±Ù¿ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 								
-	BYTE	lastIndexSet;		// ÃÖ±Ù¿¡ °Ë»çÇÑ IndexSet
-	BYTE	lastIndexColor;		// ÃÖ±Ù¿¡ °Ë»çÇÑ IndexGradation
+	BYTE	lastIndexSet;		// ï¿½Ö±Ù¿ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ IndexSet
+	BYTE	lastIndexColor;		// ï¿½Ö±Ù¿ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ IndexGradation
 
 
-	// heightÁÙ ¸¸Å­ memoryÀâ±â
+	// heightï¿½ï¿½ ï¿½ï¿½Å­ memoryï¿½ï¿½ï¿½
 	m_Pixels = new WORD* [height];
 
 
@@ -1209,32 +1226,32 @@ CIndexSprite::GenerateFromIndex(WORD** ppColor,
 		lastColorType = COLORTYPE_TRANS;
 
 		//------------------------------------------------------------
-		// °¢ line¿¡ ´ëÇØ¼­ ¾ÐÃà~
+		// ï¿½ï¿½ lineï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½~
 		//------------------------------------------------------------
 		for (register int  j=0; j<width; j++)
 		{
 			//--------------------------------------------------
-			// Index°¡ Åõ¸í»öÀÎ °æ¿ì
+			// Indexï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			//--------------------------------------------------
 			if ((ppIndex[i][j] & 0xFF)==INDEX_TRANS)
 			{
 				//--------------------------------------------------
-				// ÃÖ±Ù¿¡ °Ë»çÇÑ°Ô index»öÀÌ¾ú´Ù¸é,
+				// ï¿½Ö±Ù¿ï¿½ ï¿½Ë»ï¿½ï¿½Ñ°ï¿½ indexï¿½ï¿½ï¿½Ì¾ï¿½ï¿½Ù¸ï¿½,
 				//--------------------------------------------------
 				if (lastColorType == COLORTYPE_INDEX)
 				{
-					// ÀÌÀü index»ö¼ö¸¦ ÀúÀåÇØ¾ßÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 					data[indexColorCountPosition] = indexColorCount;
 
-					// indexPair°³¼ö ÇÏ³ª Áõ°¡
+					// indexPairï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½
 					indexColorPairCount++;
 
-					// indexPair°¡ ¸ðµÎ ³¡³µÀ¸¹Ç·Î.. ÀúÀåÇØ¾ßÇÑ´Ù.
+					// indexPairï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½.. ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 					data[indexColorPairCountPosition] = indexColorPairCount;
 					indexColorPairCount = 0;
 
-					// ' (Åõ¸í»ö¼ö,»öPair¹Ýº¹¼ö, (»öPairµé....)) 'ÀÇ ÇÑ set°¡ ³¡³µÀ½À» ÀÇ¹ÌÇÏ¹Ç·Î
-					// normal»ö ¼ö´Â 0À¸·ÎÇØ¼­ ÀúÀåÇÑ´Ù.
+					// ' (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Pairï¿½Ýºï¿½ï¿½ï¿½, (ï¿½ï¿½Pairï¿½ï¿½....)) 'ï¿½ï¿½ ï¿½ï¿½ setï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½Ï¹Ç·ï¿½
+					// normalï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					transPairCount++;
 					
 					data[index++] = 0;					
@@ -1243,11 +1260,11 @@ CIndexSprite::GenerateFromIndex(WORD** ppColor,
 					lastColorType = COLORTYPE_TRANS;
 				}
 				//--------------------------------------------------
-				// ÃÖ±Ù¿¡ °Ë»çÇÑ°Ô normal»öÀÌ¾ú´Ù¸é
+				// ï¿½Ö±Ù¿ï¿½ ï¿½Ë»ï¿½ï¿½Ñ°ï¿½ normalï¿½ï¿½ï¿½Ì¾ï¿½ï¿½Ù¸ï¿½
 				//--------------------------------------------------
 				else if (lastColorType == COLORTYPE_NORMAL)
 				{
-					// ' (Åõ¸í»ö¼ö,indexPair¹Ýº¹¼ö, (index¹Ýº¹), °íÁ¤»öµé)) 'ÀÇ ÇÑ set°¡ ³¡³µÀ½À» ÀÇ¹ÌÇÏ¹Ç·Î
+					// ' (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,indexPairï¿½Ýºï¿½ï¿½ï¿½, (indexï¿½Ýºï¿½), ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)) 'ï¿½ï¿½ ï¿½ï¿½ setï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½Ï¹Ç·ï¿½
 					transPairCount++;
 					
 					data[normalColorCountPosition] = normalColorCount;
@@ -1261,124 +1278,124 @@ CIndexSprite::GenerateFromIndex(WORD** ppColor,
 				transColorCount++;				
 			}		
 			//--------------------------------------------------				
-			// Index »öÀÎ °æ¿ì...
+			// Index ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½...
 			//--------------------------------------------------
 			else if ((ppIndex[i][j] & 0xFF)!=INDEX_NULL)
 			{
 				//--------------------------------------------------
-				// ÀÌÀüÀÇ °ÍÀÌ Åõ¸í»öÀÌ¾ú´Ù¸é..
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½Ù¸ï¿½..
 				//--------------------------------------------------
 				if (lastColorType == COLORTYPE_TRANS)
 				{						
-					data[index++] = transColorCount;		// »óÀ§ byte¿¡ Åõ¸í¼ö¸¦ ³Ö´Â´Ù.
+					data[index++] = transColorCount;		// ï¿½ï¿½ï¿½ï¿½ byteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½.
 					transColorCount = 0;
 					
-					// ´ÙÀ½¿¡ [IndexPair°³¼ö]¸¦ ³ÖÀ» À§Ä¡¸¦ ±â¾ï
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [IndexPairï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½
 					indexColorPairCountPosition = index++;
-					indexColorPairCount = 0;		// index»ö¼ö
+					indexColorPairCount = 0;		// indexï¿½ï¿½ï¿½ï¿½
 
-					// »õ·Î¿î index»ö °ª¿¡ ´ëÇÑ ÃÊ±âÈ­..
-					// index»öÀÇ °³¼ö¸¦ ÀúÀåÇÒ À§Ä¡
+					// ï¿½ï¿½ï¿½Î¿ï¿½ indexï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­..
+					// indexï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
 					indexColorCountPosition = index++;
 					indexColorCount	= 1;
 
-					// index»öÀÌ Ã³À½ ³ª¿À¹Ç·Î.. ÃÊ±âÈ­..
+					// indexï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½.. ï¿½Ê±ï¿½È­..
 					lastIndexSet	= (ppIndex[i][j]>>8) & 0xFF;
 					lastIndexColor	= ppIndex[i][j] & 0xFF;	
 
-					// ÀúÀå
+					// ï¿½ï¿½ï¿½ï¿½
 					data[index++]	= (lastIndexSet<<8) | lastIndexColor;
 					
 					lastColorType = COLORTYPE_INDEX;
 				}
 				//--------------------------------------------------
-				// ÀÌÀü¿¡ °ÍÀÌ º¯ÇÏÁö¾Ê´Â »öÀÎ °æ¿ì
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//--------------------------------------------------
 				else if (lastColorType == COLORTYPE_NORMAL)
 				{
-					// º¯ÇÏÁö ¾Ê´Â »ö ³¡
-					// ' (Åõ¸í»ö¼ö,indexPair¹Ýº¹¼ö, (index¹Ýº¹), °íÁ¤»öµé)) 'ÀÇ ÇÑ set°¡ ³¡³µÀ½À» ÀÇ¹ÌÇÏ¹Ç·Î
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ ï¿½ï¿½
+					// ' (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,indexPairï¿½Ýºï¿½ï¿½ï¿½, (indexï¿½Ýºï¿½), ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)) 'ï¿½ï¿½ ï¿½ï¿½ setï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½Ï¹Ç·ï¿½
 					transPairCount++;
 					
 					data[normalColorCountPosition] = normalColorCount;
 					normalColorCount = 0;
 
-					// Åõ¸í»ö ¾ø´Ù.. - -;
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.. - -;
 					data[index++] = 0;
 
-					// ´ÙÀ½¿¡ [IndexPair°³¼ö]¸¦ ³ÖÀ» À§Ä¡¸¦ ±â¾ï
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [IndexPairï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½
 					indexColorPairCountPosition = index++;
-					indexColorPairCount = 0;		// index»ö¼ö
+					indexColorPairCount = 0;		// indexï¿½ï¿½ï¿½ï¿½
 
-					// index»öÀÇ °³¼ö¸¦ ÀúÀåÇÒ À§Ä¡
+					// indexï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
 					indexColorCountPosition = index++;
 					indexColorCount	= 1;
 
-					// index»öÀÌ Ã³À½ ³ª¿À¹Ç·Î.. ÃÊ±âÈ­..
+					// indexï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½.. ï¿½Ê±ï¿½È­..
 					lastIndexSet	= (ppIndex[i][j]>>8) & 0xFF;
 					lastIndexColor	= ppIndex[i][j] & 0xFF;
 
-					// ÀúÀå
+					// ï¿½ï¿½ï¿½ï¿½
 					data[index++]	= (lastIndexSet<<8) | lastIndexColor;
 
 					lastColorType = COLORTYPE_INDEX;						
 				}	
 				//--------------------------------------------------
-				// ÀÌÀü¿¡ °ÍÀÌ index»öÀÎ °æ¿ì
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ indexï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//--------------------------------------------------
 				else 			
 				{
 					//--------------------------------------------------
-					// ÀÌÀü index»öÀÌ¶û Set°ª°ú Gradation°ªÀÌ °°Àº °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ indexï¿½ï¿½ï¿½Ì¶ï¿½ Setï¿½ï¿½ï¿½ï¿½ Gradationï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//--------------------------------------------------
 					if (lastIndexSet == ((ppIndex[i][j]>>8) & 0xFF)
 						&& lastIndexColor == (ppIndex[i][j] & 0xFF))
 					{
-						// °°Àº index»öÀÌ¹Ç·Î countÁõ°¡
+						// ï¿½ï¿½ï¿½ï¿½ indexï¿½ï¿½ï¿½Ì¹Ç·ï¿½ countï¿½ï¿½ï¿½ï¿½
 						indexColorCount++;
 					}
 					//--------------------------------------------------
-					// ´Ù¸¥ index»öÀÌ ³ªÅ¸³­´Ù.
+					// ï¿½Ù¸ï¿½ indexï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½.
 					//--------------------------------------------------
 					else
 					{	
-						// ÀÌÀü index»ö¼ö¸¦ ÀúÀåÇØ¾ßÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 						data[indexColorCountPosition] = indexColorCount;						
 
-						// indexPair°³¼ö ÇÏ³ª Áõ°¡
+						// indexPairï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½
 						indexColorPairCount++;
 
-						// »õ·Î¿î index»ö °ª¿¡ ´ëÇÑ ÃÊ±âÈ­..
-						// index»öÀÇ °³¼ö¸¦ ÀúÀåÇÒ À§Ä¡
+						// ï¿½ï¿½ï¿½Î¿ï¿½ indexï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­..
+						// indexï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
 						indexColorCountPosition = index++;
 						indexColorCount	= 1;
 
-						// index»öÀÌ Ã³À½ ³ª¿À¹Ç·Î.. ÃÊ±âÈ­..
+						// indexï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½.. ï¿½Ê±ï¿½È­..
 						lastIndexSet	= (ppIndex[i][j]>>8) & 0xFF;
 						lastIndexColor	= ppIndex[i][j] & 0xFF;	
 
-						// ÀúÀå
+						// ï¿½ï¿½ï¿½ï¿½
 						data[index++]	= (lastIndexSet<<8) | lastIndexColor;
 					}							
 				}
 			}
 			//--------------------------------------------------				
-			// º¯ÇÏÁö ¾Ê´Â »öÀÎ °æ¿ì (INDEX_NULL)
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (INDEX_NULL)
 			//--------------------------------------------------
 			else //if ((ppIndex[i][j] & 0xFF)==INDEX_NULL)
 			{	
 				//--------------------------------------------------
-				// ÀÌÀü »ö±òÀÌ Åõ¸í»öÀÌ¸é..
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½..
 				//--------------------------------------------------
 				if (lastColorType == COLORTYPE_TRANS)
 				{
 					data[index++] = transColorCount;
 					transColorCount = 0;
 						
-					// indexPair´Â ¾ø´Ù.
+					// indexPairï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 					data[index++] = 0;	
 						
-					// Á¤»ó»ö±òÀÌ ³ª¿ÔÀ¸¹Ç·Î ÃÊ±âÈ­.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½Ê±ï¿½È­.
 					normalColorCountPosition = index++;
 					normalColorCount = 0;
 
@@ -1386,77 +1403,77 @@ CIndexSprite::GenerateFromIndex(WORD** ppColor,
 				}
 				else
 				//--------------------------------------------------
-				// ÀÌÀü »ö±òÀÌ index»öÀÌ¸é..
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ indexï¿½ï¿½ï¿½Ì¸ï¿½..
 				//--------------------------------------------------
 				if (lastColorType == COLORTYPE_INDEX)
 				{
-					// ÀÌÀü index»ö¼ö¸¦ ÀúÀåÇØ¾ßÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 					data[indexColorCountPosition] = indexColorCount;
 
-					// indexPair°³¼ö ÇÏ³ª Áõ°¡
+					// indexPairï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½
 					indexColorPairCount++;
 
-					// indexPair°¡ ¸ðµÎ ³¡³µÀ¸¹Ç·Î.. ÀúÀåÇØ¾ßÇÑ´Ù.
+					// indexPairï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½.. ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 					data[indexColorPairCountPosition] = indexColorPairCount;
 					indexColorPairCount = 0;
 
 						
-					// Á¤»ó»ö±òÀÌ ³ª¿ÔÀ¸¹Ç·Î ÃÊ±âÈ­.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½Ê±ï¿½È­.
 					normalColorCountPosition = index++;
 					normalColorCount = 0;
 
 					lastColorType = COLORTYPE_NORMAL;						
 				}
 
-				data[index++] = ppColor[i][j];	// ½ÇÁ¦ »ö±òÀ» ÀúÀåÇÑ´Ù.
+				data[index++] = ppColor[i][j];	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				normalColorCount++;
 			}
 		}
 		
 		//--------------------------------------------------
-		// ÇÑ ÁÙÀÇ ¸¶Áö¸· Á¡ÀÌ Åõ¸í»öÀÎ°¡?
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½?
 		//--------------------------------------------------
 		if (lastColorType == COLORTYPE_TRANS)
 		{
-			// Åõ¸í»öÀÌ¸é º°´Ù¸¥ Ã³¸®¸¦ ¾ÈÇØÁàµµ µÉ°Å °°´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½àµµ ï¿½É°ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		}	
 		//--------------------------------------------------
-		// ¸¶Áö¸· Á¡ÀÌ index»öÀÎ °æ¿ì - indexPairÁ¤¸®..
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ indexï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ - indexPairï¿½ï¿½ï¿½ï¿½..
 		//--------------------------------------------------
 		else if (lastColorType == COLORTYPE_INDEX)
 		{		
-			// ÀÌÀü index»ö¼ö¸¦ ÀúÀåÇØ¾ßÇÑ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 			data[indexColorCountPosition] = indexColorCount;
 
-			// indexPair°³¼ö ÇÏ³ª Áõ°¡
+			// indexPairï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½
 			indexColorPairCount++;
 
-			// indexPair°¡ ¸ðµÎ ³¡³µÀ¸¹Ç·Î.. ÀúÀåÇØ¾ßÇÑ´Ù.
+			// indexPairï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½.. ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 			data[indexColorPairCountPosition] = indexColorPairCount;
 			indexColorPairCount = 0;
 
-			// normal»öÀº ¾ø´Ù.
+			// normalï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			data[index++] = 0;
 
-			// ' (Åõ¸í»ö¼ö,indexPair¹Ýº¹¼ö, (index¹Ýº¹), °íÁ¤»öµé)) 'ÀÇ ÇÑ set°¡ ³¡³µÀ½À» ÀÇ¹ÌÇÏ¹Ç·Î
+			// ' (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,indexPairï¿½Ýºï¿½ï¿½ï¿½, (indexï¿½Ýºï¿½), ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)) 'ï¿½ï¿½ ï¿½ï¿½ setï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½Ï¹Ç·ï¿½
 			transPairCount++;			
 		}
 		//--------------------------------------------------
-		// ¸¶Áö¸· Á¡ÀÌ normal»öÀÎ °æ¿ì
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ normalï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		//--------------------------------------------------
 		else 
 		{
-			// ' (Åõ¸í»ö¼ö,indexPair¹Ýº¹¼ö, (index¹Ýº¹), °íÁ¤»öµé)) 'ÀÇ ÇÑ set°¡ ³¡³µÀ½À» ÀÇ¹ÌÇÏ¹Ç·Î
+			// ' (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,indexPairï¿½Ýºï¿½ï¿½ï¿½, (indexï¿½Ýºï¿½), ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)) 'ï¿½ï¿½ ï¿½ï¿½ setï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½Ï¹Ç·ï¿½
 			data[normalColorCountPosition] = normalColorCount;	
 
 			transPairCount++;		
 		}
 
-		// memory¸¦ Àâ´Â´Ù.
+		// memoryï¿½ï¿½ ï¿½ï¿½Â´ï¿½.
 		m_Pixels[i] = new WORD [index+1];
 
-		// m_Pixels[i]¸¦ ¾ÐÃàÇßÀ¸¹Ç·Î data·Î ´ëÃ¼ÇÑ´Ù.
-		// m_Pixels[i][0]¿¡´Â count¸¦ ³Ö¾î¾ß ÇÑ´Ù.
+		// m_Pixels[i]ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ dataï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½Ñ´ï¿½.
+		// m_Pixels[i][0]ï¿½ï¿½ï¿½ï¿½ countï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½Ñ´ï¿½.
 		m_Pixels[i][0] = transPairCount;
 		memcpy(m_Pixels[i]+1, data, index<<1);
 
@@ -1471,7 +1488,7 @@ CIndexSprite::GenerateFromIndex(WORD** ppColor,
 	//ofstream colorFile("color.txt");
 	//ofstream spriteFile("sprite.txt");
 
-	//for (i=0; i<m_Height; i++)
+	//for (int i=0; i<m_Height; i++)
 	//{
 		//for (int j=0; j<m_Width; j++)
 		//{
@@ -1497,8 +1514,8 @@ CIndexSprite::GenerateFromIndex(WORD** ppColor,
 //-----------------------------------------------------------------------------
 // Get IndexInfo
 //-----------------------------------------------------------------------------
-// ÇöÀç ÀúÀåµÈ m_PixelsÀÇ °ªÀ¸·Î IndexInfo¸¦ »ý¼ºÇØ¾ß ÇÑ´Ù.
-// ppIndex¿¡´Â ¸ðµÎ INDEX_TRANS°ªÀÌ µé¾î°¡ ÀÖ´Ù°í °¡Á¤ÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ m_Pixelsï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ IndexInfoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
+// ppIndexï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ INDEX_TRANSï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¡ ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void			
 CIndexSprite::GetIndexInfo(WORD**& ppIndex)
@@ -1518,23 +1535,23 @@ CIndexSprite::GetIndexInfo(WORD**& ppIndex)
 	register int k;
 	register int l;
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{			
 		pPixels	= m_Pixels[i];
 		pDest	= ppIndex[i];
 
-		// (Åõ¸í¼ö,Index¹Ýº¹,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö		
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Indexï¿½Ýºï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½		
 		transPair	= *pPixels++;
 		
- 		// ÇÑ ÁÙ Ãâ·Â
+ 		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 		if (transPair > 0)
 		{
 			j = transPair;
 			do {		
-				pDest += *pPixels++;	// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				indexCount = *pPixels++;		// Index¹Ýº¹ ¼ö
+				pDest += *pPixels++;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+				indexCount = *pPixels++;		// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-				// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+				// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if (indexCount > 0)
 				{
 					k = indexCount;
@@ -1550,10 +1567,10 @@ CIndexSprite::GetIndexInfo(WORD**& ppIndex)
 					} while (--k);
 				}
 
-				// Normal »ö±ò ¼ö
+				// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;
 				
-				// Normal »ö±ò ¼ö¸¸Å­ INDEX_NULLÀ» Ãâ·Â.
+				// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ INDEX_NULLï¿½ï¿½ ï¿½ï¿½ï¿½.
 				for (l=0; l<colorCount; l++)
 				{					
 					*pDest++ = (INDEXSET_NULL<<8) | INDEX_NULL;
@@ -1568,29 +1585,29 @@ CIndexSprite::GetIndexInfo(WORD**& ppIndex)
 //----------------------------------------------------------------------
 // Is ColorPixel ?
 //----------------------------------------------------------------------
-// Sprite¾È¿¡¼­ (x,y)´Â »ö±òÀÌ ÀÖ´Â°¡?(Åõ¸í»öÀÌ ¾Æ´Ñ °æ¿ì)
+// Spriteï¿½È¿ï¿½ï¿½ï¿½ (x,y)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½?(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½)
 //----------------------------------------------------------------------
 bool		
 CIndexSprite::IsColorPixel(short x, short y)
 {
-	// ÃÊ±âÈ­ µÈ °æ¿ì
+	// ï¿½Ê±ï¿½È­ ï¿½ï¿½ ï¿½ï¿½ï¿½
 	if (m_bInit)
 	{	
-		// SpriteÀÇ ¿µ¿ªÀ» ¹þ¾î³ª¸é false
+		// Spriteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³ªï¿½ï¿½ false
 		if (x<0 || y<0 || x>=m_Width || y>=m_Height)
 			return false;
 
-		// y¹øÂ° ÁÙ
+		// yï¿½ï¿½Â° ï¿½ï¿½
 		WORD	*pPixels = m_Pixels[y];
 
-		// y¹øÂ° ÁÙÀÇ ¹Ýº¹ ¼ö
+		// yï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		int	count = *pPixels++;
 
 		int	index = 0;
 
-		//    ( (Åõ¸í»ö¼ö, Index»ö¼ö, 
-		//                 (indexSet¹øÈ£, gradation¹øÈ£), 
-		//                 (indexSet¹øÈ£, gradation¹øÈ£), 
+		//    ( (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Indexï¿½ï¿½ï¿½ï¿½, 
+		//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
+		//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
 
 		register int i;
 
@@ -1600,31 +1617,31 @@ CIndexSprite::IsColorPixel(short x, short y)
 			do {
 				index += *pPixels++;
 
-				// Åõ¸í»ö±îÁöº¸´Ù ÀûÀº °æ¿ì
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				if (x < index)
 				{
 					return false;
 				}
 
-				// index»ö¼ö¸¸Å­ Áõ°¡		
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½		
 				index += *pPixels;
 
-				// index»ö Á¤º¸¸¸Å­ Áõ°¡.
+				// indexï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½.
 				pPixels += *pPixels;
 
 				pPixels++;
 
 
-				// °íÁ¤µÈ »ö±ò¼ö¸¸Å­ Áõ°¡
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½
 				index += *pPixels;
 
-				// °íÁ¤»ö Á¤º¸¸¸Å­ Áõ°¡.
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½.
 				pPixels += *pPixels;
 
 				pPixels++;
 
 
-				// index+°íÁ¤»ö±îÁöº¸´Ù ÀûÀº °æ¿ì
+				// index+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				if (x < index)
 				{
 					return true;
@@ -1639,29 +1656,29 @@ CIndexSprite::IsColorPixel(short x, short y)
 //----------------------------------------------------------------------
 // Get Pixel ?
 //----------------------------------------------------------------------
-// Sprite¾È¿¡¼­ (x,y)´Â »ö±òÀ» ¾ò´Â´Ù.(Åõ¸í»öÀÌ ¾Æ´Ñ °æ¿ì)
+// Spriteï¿½È¿ï¿½ï¿½ï¿½ (x,y)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â´ï¿½.(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½)
 //----------------------------------------------------------------------
 WORD		
 CIndexSprite::GetPixel(int x, int y) const
 {
-	// ÃÊ±âÈ­ µÈ °æ¿ì
+	// ï¿½Ê±ï¿½È­ ï¿½ï¿½ ï¿½ï¿½ï¿½
 	if (m_bInit)
 	{	
-		// SpriteÀÇ ¿µ¿ªÀ» ¹þ¾î³ª¸é false
+		// Spriteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³ªï¿½ï¿½ false
 		if (x<0 || y<0 || x>=m_Width || y>=m_Height)
 			return 0;
 
-		// y¹øÂ° ÁÙ
+		// yï¿½ï¿½Â° ï¿½ï¿½
 		WORD	*pPixels = m_Pixels[y];
 
-		// y¹øÂ° ÁÙÀÇ ¹Ýº¹ ¼ö
+		// yï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		int	count = *pPixels++;
 
 		int	index = 0;
 
-		//    ( (Åõ¸í»ö¼ö, Index»ö¼ö, 
-		//                 (indexSet¹øÈ£, gradation¹øÈ£), 
-		//                 (indexSet¹øÈ£, gradation¹øÈ£), 
+		//    ( (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Indexï¿½ï¿½ï¿½ï¿½, 
+		//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
+		//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
 
 		register int i;
 
@@ -1671,36 +1688,36 @@ CIndexSprite::GetPixel(int x, int y) const
 			do {
 				index += *pPixels++;
 
-				// Åõ¸í»ö±îÁöº¸´Ù ÀûÀº °æ¿ì
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				if (x < index)
 				{
 					return 0;
 				}
 
-				// index»ö¼ö¸¸Å­ Áõ°¡		
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½		
 				index += *pPixels;
 
-				// index»ö Á¤º¸¸¸Å­ Áõ°¡.
+				// indexï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½.
 				pPixels += *pPixels;
 
 				pPixels++;
 
 
-				// °íÁ¤µÈ »ö±ò¼ö¸¸Å­ Áõ°¡
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½
 				index += *pPixels;
 
-				// °íÁ¤»ö Á¤º¸¸¸Å­ Áõ°¡.
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½.
 				pPixels += *pPixels;
 
 				pPixels++;
 
 
-				// index+°íÁ¤»ö±îÁöº¸´Ù ÀûÀº °æ¿ì
+				// index+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				if (x < index)
 				{
 					// [ TEST CODE ]
-					// ¾ÆÁ÷ ¿Ï¼ºµÈ°Ô ¾Æ´Ï´Ù.
-					// ÇöÀçÀÇ IndexColor¸¦ ÂüÁ¶ÇØ¼­ »öÀ» ³Ñ°ÜÁà¾ß ÇÑ´Ù?
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¼ï¿½ï¿½È°ï¿½ ï¿½Æ´Ï´ï¿½.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ IndexColorï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½?
 					return pPixels[x-index];
 				}
 			} while (--i);
@@ -1716,11 +1733,11 @@ CIndexSprite::GetPixel(int x, int y) const
 // s_Value1 - Main Color
 // s_Value2 - Sub Color
 //-----------------------------------------------------------------------------
-//    ( (Åõ¸í»ö¼ö, Index»ö¼ö, 
-//                 (indexSet¹øÈ£, gradation¹øÈ£), 
-//                 (indexSet¹øÈ£, gradation¹øÈ£), 
+//    ( (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Indexï¿½ï¿½ï¿½ï¿½, 
+//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
+//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
 //-----------------------------------------------------------------------------
-// ClippingÇÏÁö ¾Ê´Â´Ù.
+// Clippingï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void
 CIndexSprite::Blt(WORD *pDest, WORD pitch)
@@ -1741,7 +1758,7 @@ CIndexSprite::Blt(WORD *pDest, WORD pitch)
 	int rectBottom = m_Height;	
 
 	
-	//for (i=0; i<rectBottom; i++)	
+	//for (int i=0; i<rectBottom; i++)	
 	if (rectBottom > 0)
 	{
 		i = rectBottom-1;
@@ -1752,20 +1769,20 @@ CIndexSprite::Blt(WORD *pDest, WORD pitch)
 			pPixels		= m_Pixels[i];
 			pDestTemp	= pDest;
 
-			// (Åõ¸í¼ö,Index»ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö		
+			// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Indexï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½		
 			transPair	= *pPixels++;
 			
- 			// ÇÑ ÁÙ Ãâ·Â		
+ 			// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 			if (transPair > 0)
 			{
 				j = transPair;
 				do
 				{
-					pDestTemp += *pPixels++;	// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+					pDestTemp += *pPixels++;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+					indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
-					// ÇÑ ÁÙ Ãâ·Â		
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+					// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -1775,13 +1792,13 @@ CIndexSprite::Blt(WORD *pDest, WORD pitch)
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 							
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 							*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 							pDestTemp ++;
 						} while (--k);
 					}
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 					
 					memcpy((void*)pDestTemp, (void*)pPixels, colorCount<<1);
@@ -1802,12 +1819,12 @@ CIndexSprite::Blt(WORD *pDest, WORD pitch)
 // s_Value1 - Main Color
 // s_Value2 - Sub Color
 //-----------------------------------------------------------------------------
-//    ( (Åõ¸í»ö¼ö, Index»ö¼ö, 
-//                 (indexSet¹øÈ£, gradation¹øÈ£), 
-//                 (indexSet¹øÈ£, gradation¹øÈ£), 
+//    ( (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Indexï¿½ï¿½ï¿½ï¿½, 
+//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
+//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
 //-----------------------------------------------------------------------------
-// ¿ÞÂÊ clipping.  
-// rectLeft°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ clipping.  
+// rectLeftï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç³Ê¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ pDestï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //----------------------------------------------------------------------
 void
 CIndexSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
@@ -1816,7 +1833,7 @@ CIndexSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int		count,
 			transCount, 
@@ -1835,51 +1852,51 @@ CIndexSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectLeft = pRect->left;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ðµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...
+		// xxxxOOOOOOOOOOOOOOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½..
 		//---------------------------------------------
-		// xxxxºÎºÐ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxï¿½ÎºÐ±ï¿½ï¿½ï¿½ checkï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Æ¾
 		//---------------------------------------------		
 		if (count > 0)
 		{
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½			
 				index += transCount;			
 			
 				//---------------------------------------------
-				// index»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+indexCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¬ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºÐ °Ç³Ê¶ê
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ ï¿½Ç³Ê¶ï¿½
 						pDestTemp += index - rectLeft;
 
-						// index»ö ¸ðµÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -1889,13 +1906,13 @@ CIndexSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						memcpy((void*)pDestTemp, (void*)pPixels, colorCount<<1);
@@ -1903,22 +1920,22 @@ CIndexSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 						pDestTemp	+= colorCount;
 						pPixels		+= colorCount;					
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì, indexÀÏºÎ Ãâ·Â
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½Æ´Ñ»ï¿½ï¿½ï¿½ ï¿½ÏºÎ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ 
+					// xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½, indexï¿½Ïºï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					else
 					{					
-						dist = rectLeft - index;		// ¿ÞÂÊ¿¡¼­ skipµÇ´Â Á¡µé ¼ö
+						dist = rectLeft - index;		// ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						
 						pPixels += dist;
 						indexCount -= dist;
 						
-						// index»ö ÀÏºÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½Ïºï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -1928,13 +1945,13 @@ CIndexSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						memcpy((void*)pDestTemp, (void*)pPixels, colorCount<<1);
@@ -1942,55 +1959,55 @@ CIndexSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 						pDestTemp	+= colorCount;
 						pPixels		+= colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 				}		
 
 				
-				// index»ö¼ö¸¸Å­ indexÁõ°¡
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 
-				// index»ö±ò¸¸Å­ skip
+				// indexï¿½ï¿½ï¿½ï¿½Å­ skip
 				pPixels += indexCount;
 
-				// normal »ö±ò ¼ö
+				// normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;			
 				
 				//---------------------------------------------
-				// index»ö±îÁöÇØ¼­´Â xxxx¹üÀ§¸¦ ¾È ³Ñ¾î°¡°í..
-				// normal»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½..
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					dist = rectLeft - index;				
 					colorCount2 = colorCount - dist;
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					memcpy(pDestTemp, pPixels+dist, colorCount2<<1);					
 					pDestTemp += colorCount2;
 					pPixels += colorCount;
 
-					// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					break;			
 				}		
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½				
 				pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 		
 
 			//---------------------------------------------
-			// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.		
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.		
 			//---------------------------------------------
 			if (--j > 0)
 			{
 				do {
-					pDestTemp += *pPixels++;	// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+					pDestTemp += *pPixels++;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+					indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -2000,13 +2017,13 @@ CIndexSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 							*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 							pDestTemp ++;
 						} while (--k);
 					}
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 					
 					memcpy((void*)pDestTemp, (void*)pPixels, colorCount<<1);
@@ -2026,8 +2043,8 @@ CIndexSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // Blt ClipRight
 //----------------------------------------------------------------------
-// ¿À¸¥ÂÊ clipping.  
-// rectRight°³ ±îÁöÀÇ Á¡¸¸ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ clipping.  
+// rectRightï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ pDestï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //----------------------------------------------------------------------
 void
 CIndexSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
@@ -2036,7 +2053,7 @@ CIndexSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -2053,57 +2070,57 @@ CIndexSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectBottom = pRect->bottom;	
 	int rectRight = pRect->right;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 			
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-		// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...		
+		// OOOOOOOOOOOOOOxxxxx ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 		//---------------------------------------------
-		// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+		// OOOOOOOOOOOOOOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½È´ï¿½.
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do {
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += transCount;
 				
-				// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºÐºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-				// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ðµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ÊºÎºÐºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½Ö´ï¿½.
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ breakï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 
-				// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Â°Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 				//---------------------------------------------
-				// index»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------			
 				if (index+indexCount > rectRight)
 				{
-					// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					if (index > rectRight)
 					{
 						break;
 					}
-					// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±Ý Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 					else
 					{
 						pDestTemp += transCount;
 
-						// ¿À¸¥ÂÊÀ¸·Î skipµÇ´Â Á¡µéÀ» »©ÁØ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 						indexCount = rectRight - index;
 
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -2112,7 +2129,7 @@ CIndexSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 								pDestTemp ++;
 							} while (--k);
@@ -2122,13 +2139,13 @@ CIndexSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 					}
 				}
 
-				// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³Ê¶ï¿½ï¿½
 				pDestTemp += transCount;
 
 				//-------------------------
-				// index»ö ¸ðµÎ Ãâ·Â
+				// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//-------------------------
-				// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+				// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if (indexCount > 0)
 				{
 					k = indexCount;
@@ -2137,30 +2154,30 @@ CIndexSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 						colorGradation	= (*pPixels & 0xFF);			// gradation
 						pPixels++;
 
-						// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+						// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 						*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 						pDestTemp ++;
 					} while (--k);
 				}		
-				// Ãâ·ÂÇÑ indexCount¸¸Å­ indexÁõ°¡
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ indexCountï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 				
 
-				// Normal »ö±ò ¼ö
+				// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;
 
 				//---------------------------------------------
-				// normal»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------			
 				if (index+colorCount > rectRight)
 				{
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					memcpy(pDestTemp, pPixels, (rectRight - index)<<1);
 					break;			
 				}			
 				
 				//--------------------
-				// normal»ö ¸ðµÎ Ãâ·Â
+				// normalï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//--------------------
 				memcpy(pDestTemp, pPixels, colorCount<<1);
 
@@ -2180,13 +2197,13 @@ CIndexSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 // s_Value1 - Main Color
 // s_Value2 - Sub Color
 //-----------------------------------------------------------------------------
-//    ( (Åõ¸í»ö¼ö, Index»ö¼ö, 
-//                 (indexSet¹øÈ£, gradation¹øÈ£), 
-//                 (indexSet¹øÈ£, gradation¹øÈ£), 
+//    ( (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Indexï¿½ï¿½ï¿½ï¿½, 
+//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
+//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
 //-----------------------------------------------------------------------------
-// ¿ÞÂÊ clipping.  
-// rectLeft°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
-// rectRight±îÁö..
+// ï¿½ï¿½ï¿½ï¿½ clipping.  
+// rectLeftï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç³Ê¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ pDestï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+// rectRightï¿½ï¿½ï¿½ï¿½..
 //----------------------------------------------------------------------
 void
 CIndexSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
@@ -2195,7 +2212,7 @@ CIndexSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -2212,53 +2229,53 @@ CIndexSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 	int colorSet, colorGradation;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ðµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½..
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...
+		// xxxxOOOOOOOOOOOOOOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½..
 		//---------------------------------------------
-		// xxxxºÎºÐ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxï¿½ÎºÐ±ï¿½ï¿½ï¿½ checkï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Æ¾
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do {		
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½			
 				index += transCount;			
 			
 				//---------------------------------------------
-				// index»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+indexCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¬ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºÐ °Ç³Ê¶ê
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ ï¿½Ç³Ê¶ï¿½
 						pDestTemp += index - rectLeft;
 
-						// index»ö ¸ðµÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -2267,13 +2284,13 @@ CIndexSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						memcpy((void*)pDestTemp, (void*)pPixels, colorCount<<1);
@@ -2281,22 +2298,22 @@ CIndexSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 						pDestTemp	+= colorCount;
 						pPixels		+= colorCount;					
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì, indexÀÏºÎ Ãâ·Â
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½Æ´Ñ»ï¿½ï¿½ï¿½ ï¿½ÏºÎ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ 
+					// xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½, indexï¿½Ïºï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					else
 					{					
-						dist = rectLeft - index;		// ¿ÞÂÊ¿¡¼­ skipµÇ´Â Á¡µé ¼ö
+						dist = rectLeft - index;		// ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						
 						pPixels += dist;
 						indexCount -= dist;
 						
-						// index»ö ÀÏºÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½Ïºï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -2305,13 +2322,13 @@ CIndexSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						memcpy((void*)pDestTemp, (void*)pPixels, colorCount<<1);
@@ -2320,85 +2337,85 @@ CIndexSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 						pPixels		+= colorCount;
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 				}		
 
 				
-				// index»ö¼ö¸¸Å­ indexÁõ°¡
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 
-				// index»ö±ò¸¸Å­ skip
+				// indexï¿½ï¿½ï¿½ï¿½Å­ skip
 				pPixels += indexCount;
 
-				// normal »ö±ò ¼ö
+				// normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;			
 				
 				//---------------------------------------------
-				// index»ö±îÁöÇØ¼­´Â xxxx¹üÀ§¸¦ ¾È ³Ñ¾î°¡°í..
-				// normal»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½..
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					dist = rectLeft - index;				
 					colorCount2 = colorCount - dist;
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					memcpy(pDestTemp, pPixels+dist, colorCount2<<1);					
 					pDestTemp += colorCount2;
 					pPixels += colorCount;
 					index += colorCount;
 
-					// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					break;			
 				}		
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½				
 				pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 		
 
 			//---------------------------------------------
-			// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-			// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+			// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...		
+			// OOOOOOOOOOOOOOxxxxx ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 			//---------------------------------------------
-			// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+			// OOOOOOOOOOOOOOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½È´ï¿½.
 			//---------------------------------------------
 			if (--j > 0)		
 			{
 				do {
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+					indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 							
-					// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 					index += transCount;
 					
-					// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºÐºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-					// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ðµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ÊºÎºÐºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½Ö´ï¿½.
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ breakï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 
-					// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Â°Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 					//---------------------------------------------
-					// index»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+					// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------			
 					if (index+indexCount > rectRight)
 					{
-						// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						if (index > rectRight)
 						{
 							break;
 						}
-						// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±Ý Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 						else
 						{
 							pDestTemp += transCount;
 
-							// ¿À¸¥ÂÊÀ¸·Î skipµÇ´Â Á¡µéÀ» »©ÁØ´Ù.
+							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 							indexCount = rectRight - index;
 
-							// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+							// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 							if (indexCount > 0)
 							{
 								k = indexCount;
@@ -2407,7 +2424,7 @@ CIndexSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 									colorGradation	= (*pPixels & 0xFF);			// gradation
 									pPixels++;
 
-									// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+									// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 									*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 									pDestTemp ++;
 								} while (--k);
@@ -2417,13 +2434,13 @@ CIndexSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 						}
 					}
 
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³Ê¶ï¿½ï¿½
 					pDestTemp += transCount;
 
 					//-------------------------
-					// index»ö ¸ðµÎ Ãâ·Â
+					// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//-------------------------
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -2432,30 +2449,30 @@ CIndexSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 							*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 							pDestTemp ++;
 						} while (--k);
 					}		
-					// Ãâ·ÂÇÑ indexCount¸¸Å­ indexÁõ°¡
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ indexCountï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 					index += indexCount;
 					
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 
 					//---------------------------------------------
-					// normal»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+					// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------			
 					if (index+colorCount > rectRight)
 					{
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						memcpy(pDestTemp, pPixels, (rectRight - index)<<1);
 						break;			
 					}			
 					
 					//--------------------
-					// normal»ö ¸ðµÎ Ãâ·Â
+					// normalï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//--------------------
 					memcpy(pDestTemp, pPixels, colorCount<<1);
 
@@ -2474,7 +2491,7 @@ CIndexSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // Blt Clip Height
 //----------------------------------------------------------------------
-// pRect->top, rectBottom¸¸Å­¸¸ Ãâ·ÂÇÑ´Ù.
+// pRect->top, rectBottomï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //----------------------------------------------------------------------
 void
 CIndexSprite::BltClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
@@ -2493,23 +2510,23 @@ CIndexSprite::BltClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 
 	int colorSet, colorGradation;
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö		
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½		
 		count	= *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 		if (count > 0)
 		{
 			j = count;
 			do {		
-				pDestTemp += *pPixels++;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+				pDestTemp += *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+				indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-				// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+				// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if (indexCount > 0)
 				{
 					k = indexCount;
@@ -2518,13 +2535,13 @@ CIndexSprite::BltClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 						colorGradation	= (*pPixels & 0xFF);			// gradation
 						pPixels++;
 
-						// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+						// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 						*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 						pDestTemp ++;
 					} while (--k);
 				}
 
-				// Normal »ö±ò ¼ö
+				// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;
 				
 				memcpy((void*)pDestTemp, (void*)pPixels, colorCount<<1);
@@ -2572,18 +2589,18 @@ CIndexSprite::BltDarkness(WORD *pDest, WORD pitch, BYTE DarkBits)
 			pPixels		= m_Pixels[i];
 			pDestTemp	= pDest;
 
-			// (Åõ¸í¼ö,Index»ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö		
+			// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Indexï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½		
 			transPair	= *pPixels++;
 			
- 			// ÇÑ ÁÙ Ãâ·Â
+ 			// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 			if (transPair > 0)
 			{
 				j = transPair;
 				do {
-					pDestTemp += *pPixels++;	// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+					pDestTemp += *pPixels++;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+					indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -2592,13 +2609,13 @@ CIndexSprite::BltDarkness(WORD *pDest, WORD pitch, BYTE DarkBits)
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 							*pDestTemp		= ColorSetDarkness[DarkBits][s_IndexValue[colorSet]][colorGradation];
 							pDestTemp ++;
 						} while (--k);
 					}
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 					
 					CSpriteSurface::memcpyDarkness(pDestTemp, pPixels, colorCount);
@@ -2625,7 +2642,7 @@ CIndexSprite::BltDarknessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE Dar
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -2642,52 +2659,52 @@ CIndexSprite::BltDarknessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE Dar
 	int colorSet, colorGradation;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ðµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½..
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...
+		// xxxxOOOOOOOOOOOOOOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½..
 		//---------------------------------------------
-		// xxxxºÎºÐ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxï¿½ÎºÐ±ï¿½ï¿½ï¿½ checkï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Æ¾
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do {		
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½			
 				index += transCount;			
 			
 				//---------------------------------------------
-				// index»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+indexCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¬ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºÐ °Ç³Ê¶ê
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ ï¿½Ç³Ê¶ï¿½
 						pDestTemp += index - rectLeft;
 
-						// index»ö ¸ðµÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -2696,13 +2713,13 @@ CIndexSprite::BltDarknessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE Dar
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSetDarkness[DarkBits][s_IndexValue[colorSet]][colorGradation];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyDarkness(pDestTemp, pPixels, colorCount);
@@ -2710,22 +2727,22 @@ CIndexSprite::BltDarknessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE Dar
 						pDestTemp	+= colorCount;
 						pPixels		+= colorCount;					
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì, indexÀÏºÎ Ãâ·Â
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½Æ´Ñ»ï¿½ï¿½ï¿½ ï¿½ÏºÎ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ 
+					// xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½, indexï¿½Ïºï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					else
 					{					
-						dist = rectLeft - index;		// ¿ÞÂÊ¿¡¼­ skipµÇ´Â Á¡µé ¼ö
+						dist = rectLeft - index;		// ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						
 						pPixels += dist;
 						indexCount -= dist;
 						
-						// index»ö ÀÏºÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½Ïºï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -2734,13 +2751,13 @@ CIndexSprite::BltDarknessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE Dar
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSetDarkness[DarkBits][s_IndexValue[colorSet]][colorGradation];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyDarkness(pDestTemp, pPixels, colorCount);
@@ -2748,55 +2765,55 @@ CIndexSprite::BltDarknessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE Dar
 						pDestTemp	+= colorCount;
 						pPixels		+= colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 				}		
 
 				
-				// index»ö¼ö¸¸Å­ indexÁõ°¡
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 
-				// index»ö±ò¸¸Å­ skip
+				// indexï¿½ï¿½ï¿½ï¿½Å­ skip
 				pPixels += indexCount;
 
-				// normal »ö±ò ¼ö
+				// normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;			
 				
 				//---------------------------------------------
-				// index»ö±îÁöÇØ¼­´Â xxxx¹üÀ§¸¦ ¾È ³Ñ¾î°¡°í..
-				// normal»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½..
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					dist = rectLeft - index;				
 					colorCount2 = colorCount - dist;
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					CSpriteSurface::memcpyDarkness(pDestTemp, pPixels+dist, colorCount2);
 					pDestTemp += colorCount2;
 					pPixels += colorCount;
 
-					// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					break;			
 				}		
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½				
 				pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 		
 
 			//---------------------------------------------
-			// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.		
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.		
 			//---------------------------------------------	
 			if (--j > 0)
 			{
 				do {		
-					pDestTemp += *pPixels++;	// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+					pDestTemp += *pPixels++;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+					indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -2805,13 +2822,13 @@ CIndexSprite::BltDarknessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE Dar
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 							*pDestTemp		= ColorSetDarkness[DarkBits][s_IndexValue[colorSet]][colorGradation];
 							pDestTemp ++;
 						} while (--k);
 					}
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 					
 					CSpriteSurface::memcpyDarkness(pDestTemp, pPixels, colorCount);
@@ -2838,7 +2855,7 @@ CIndexSprite::BltDarknessClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE Da
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -2854,57 +2871,57 @@ CIndexSprite::BltDarknessClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE Da
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 			
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-		// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...		
+		// OOOOOOOOOOOOOOxxxxx ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 		//---------------------------------------------
-		// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+		// OOOOOOOOOOOOOOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½È´ï¿½.
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do {
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += transCount;
 				
-				// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºÐºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-				// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ðµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ÊºÎºÐºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½Ö´ï¿½.
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ breakï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 
-				// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Â°Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 				//---------------------------------------------
-				// index»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------			
 				if (index+indexCount > rectRight)
 				{
-					// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					if (index > rectRight)
 					{
 						break;
 					}
-					// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±Ý Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 					else
 					{
 						pDestTemp += transCount;
 
-						// ¿À¸¥ÂÊÀ¸·Î skipµÇ´Â Á¡µéÀ» »©ÁØ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 						indexCount = rectRight - index;
 
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -2913,7 +2930,7 @@ CIndexSprite::BltDarknessClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE Da
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSetDarkness[DarkBits][s_IndexValue[colorSet]][colorGradation];
 								pDestTemp ++;
 							} while (--k);
@@ -2923,13 +2940,13 @@ CIndexSprite::BltDarknessClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE Da
 					}
 				}
 
-				// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³Ê¶ï¿½ï¿½
 				pDestTemp += transCount;
 
 				//-------------------------
-				// index»ö ¸ðµÎ Ãâ·Â
+				// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//-------------------------
-				// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+				// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if (indexCount > 0)
 				{
 					k = indexCount;
@@ -2938,30 +2955,30 @@ CIndexSprite::BltDarknessClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE Da
 						colorGradation	= (*pPixels & 0xFF);			// gradation
 						pPixels++;
 
-						// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+						// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 						*pDestTemp		= ColorSetDarkness[DarkBits][s_IndexValue[colorSet]][colorGradation];
 						pDestTemp ++;
 					} while (--k);
 				}		
-				// Ãâ·ÂÇÑ indexCount¸¸Å­ indexÁõ°¡
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ indexCountï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 				
 
-				// Normal »ö±ò ¼ö
+				// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;
 
 				//---------------------------------------------
-				// normal»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------			
 				if (index+colorCount > rectRight)
 				{
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					CSpriteSurface::memcpyDarkness(pDestTemp, pPixels, rectRight - index);
 					break;			
 				}			
 				
 				//--------------------
-				// normal»ö ¸ðµÎ Ãâ·Â
+				// normalï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//--------------------
 				CSpriteSurface::memcpyDarkness(pDestTemp, pPixels, colorCount);
 
@@ -2987,7 +3004,7 @@ CIndexSprite::BltDarknessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE Da
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -3004,53 +3021,53 @@ CIndexSprite::BltDarknessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE Da
 	int colorSet, colorGradation;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ðµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½..
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...
+		// xxxxOOOOOOOOOOOOOOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½..
 		//---------------------------------------------
-		// xxxxºÎºÐ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxï¿½ÎºÐ±ï¿½ï¿½ï¿½ checkï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Æ¾
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do {
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½			
 				index += transCount;			
 			
 				//---------------------------------------------
-				// index»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+indexCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¬ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºÐ °Ç³Ê¶ê
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ ï¿½Ç³Ê¶ï¿½
 						pDestTemp += index - rectLeft;
 
-						// index»ö ¸ðµÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -3059,13 +3076,13 @@ CIndexSprite::BltDarknessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE Da
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSetDarkness[DarkBits][s_IndexValue[colorSet]][colorGradation];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyDarkness(pDestTemp, pPixels, colorCount);
@@ -3073,22 +3090,22 @@ CIndexSprite::BltDarknessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE Da
 						pDestTemp	+= colorCount;
 						pPixels		+= colorCount;					
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì, indexÀÏºÎ Ãâ·Â
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½Æ´Ñ»ï¿½ï¿½ï¿½ ï¿½ÏºÎ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ 
+					// xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½, indexï¿½Ïºï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					else
 					{					
-						dist = rectLeft - index;		// ¿ÞÂÊ¿¡¼­ skipµÇ´Â Á¡µé ¼ö
+						dist = rectLeft - index;		// ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						
 						pPixels += dist;
 						indexCount -= dist;
 						
-						// index»ö ÀÏºÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½Ïºï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -3097,13 +3114,13 @@ CIndexSprite::BltDarknessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE Da
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSetDarkness[DarkBits][s_IndexValue[colorSet]][colorGradation];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyDarkness(pDestTemp, pPixels, colorCount);
@@ -3112,85 +3129,85 @@ CIndexSprite::BltDarknessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE Da
 						pPixels		+= colorCount;
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 				}		
 
 				
-				// index»ö¼ö¸¸Å­ indexÁõ°¡
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 
-				// index»ö±ò¸¸Å­ skip
+				// indexï¿½ï¿½ï¿½ï¿½Å­ skip
 				pPixels += indexCount;
 
-				// normal »ö±ò ¼ö
+				// normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;			
 				
 				//---------------------------------------------
-				// index»ö±îÁöÇØ¼­´Â xxxx¹üÀ§¸¦ ¾È ³Ñ¾î°¡°í..
-				// normal»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½..
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					dist = rectLeft - index;				
 					colorCount2 = colorCount - dist;
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					CSpriteSurface::memcpyDarkness(pDestTemp, pPixels+dist, colorCount2);
 					pDestTemp += colorCount2;
 					pPixels += colorCount;
 					index += colorCount;
 
-					// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					break;			
 				}		
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½				
 				pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 		
 
 			//---------------------------------------------
-			// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-			// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+			// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...		
+			// OOOOOOOOOOOOOOxxxxx ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 			//---------------------------------------------
-			// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+			// OOOOOOOOOOOOOOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½È´ï¿½.
 			//---------------------------------------------
 			if (--j > 0)
 			{
 				do {
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+					indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 							
-					// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 					index += transCount;
 					
-					// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºÐºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-					// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ðµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ÊºÎºÐºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½Ö´ï¿½.
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ breakï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 
-					// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Â°Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 					//---------------------------------------------
-					// index»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+					// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------			
 					if (index+indexCount > rectRight)
 					{
-						// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						if (index > rectRight)
 						{
 							break;
 						}
-						// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±Ý Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 						else
 						{
 							pDestTemp += transCount;
 
-							// ¿À¸¥ÂÊÀ¸·Î skipµÇ´Â Á¡µéÀ» »©ÁØ´Ù.
+							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 							indexCount = rectRight - index;
 
-							// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+							// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 							if (indexCount > 0)
 							{
 								k = indexCount;
@@ -3199,7 +3216,7 @@ CIndexSprite::BltDarknessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE Da
 									colorGradation	= (*pPixels & 0xFF);			// gradation
 									pPixels++;
 
-									// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+									// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 									*pDestTemp		= ColorSetDarkness[DarkBits][s_IndexValue[colorSet]][colorGradation];
 									pDestTemp ++;
 								} while (--k);
@@ -3209,13 +3226,13 @@ CIndexSprite::BltDarknessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE Da
 						}
 					}
 
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³Ê¶ï¿½ï¿½
 					pDestTemp += transCount;
 
 					//-------------------------
-					// index»ö ¸ðµÎ Ãâ·Â
+					// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//-------------------------
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -3224,30 +3241,30 @@ CIndexSprite::BltDarknessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE Da
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 							*pDestTemp		= ColorSetDarkness[DarkBits][s_IndexValue[colorSet]][colorGradation];
 							pDestTemp ++;
 						} while (--k);
 					}
-					// Ãâ·ÂÇÑ indexCount¸¸Å­ indexÁõ°¡
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ indexCountï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 					index += indexCount;
 					
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 
 					//---------------------------------------------
-					// normal»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+					// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------			
 					if (index+colorCount > rectRight)
 					{
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						CSpriteSurface::memcpyDarkness(pDestTemp, pPixels, rectRight - index);
 						break;			
 					}			
 					
 					//--------------------
-					// normal»ö ¸ðµÎ Ãâ·Â
+					// normalï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//--------------------
 					CSpriteSurface::memcpyDarkness(pDestTemp, pPixels, colorCount);
 
@@ -3284,23 +3301,23 @@ CIndexSprite::BltDarknessClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE D
 
 	int colorSet, colorGradation;
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö		
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½		
 		count	= *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 		if (count > 0)
 		{
 			j = count;
 			do {
-				pDestTemp += *pPixels++;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+				pDestTemp += *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+				indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-				// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+				// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if (indexCount > 0)
 				{
 					k = indexCount;
@@ -3309,13 +3326,13 @@ CIndexSprite::BltDarknessClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE D
 						colorGradation	= (*pPixels & 0xFF);			// gradation
 						pPixels++;
 
-						// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+						// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 						*pDestTemp		= ColorSetDarkness[DarkBits][s_IndexValue[colorSet]][colorGradation];
 						pDestTemp ++;
 					} while (--k);
 				}
 
-				// Normal »ö±ò ¼ö
+				// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;
 				
 				CSpriteSurface::memcpyDarkness(pDestTemp, pPixels, colorCount);
@@ -3362,18 +3379,18 @@ CIndexSprite::BltAlpha(WORD *pDest, WORD pitch, BYTE alpha)
 			pPixels		= m_Pixels[i];
 			pDestTemp	= pDest;
 
-			// (Åõ¸í¼ö,Index»ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö		
+			// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Indexï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½		
 			transPair	= *pPixels++;
 			
- 			// ÇÑ ÁÙ Ãâ·Â
+ 			// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 			if (transPair > 0)
 			{
 				j = transPair;
 				do {				
-					pDestTemp += *pPixels++;	// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+					pDestTemp += *pPixels++;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+					indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -3382,13 +3399,13 @@ CIndexSprite::BltAlpha(WORD *pDest, WORD pitch, BYTE alpha)
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 							*pDestTemp		= CSpriteSurface::memcpyAlpha1Pixel(*pDestTemp, ColorSet[s_IndexValue[colorSet]][colorGradation]);
 							pDestTemp ++;
 						} while (--k);
 					}
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 					
 					CSpriteSurface::memcpyAlpha(pDestTemp, pPixels, colorCount);
@@ -3416,7 +3433,7 @@ CIndexSprite::BltAlphaClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -3433,52 +3450,52 @@ CIndexSprite::BltAlphaClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha)
 	int colorSet, colorGradation;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ðµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½..
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...
+		// xxxxOOOOOOOOOOOOOOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½..
 		//---------------------------------------------
-		// xxxxºÎºÐ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxï¿½ÎºÐ±ï¿½ï¿½ï¿½ checkï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Æ¾
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do {
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½			
 				index += transCount;			
 			
 				//---------------------------------------------
-				// index»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+indexCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¬ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºÐ °Ç³Ê¶ê
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ ï¿½Ç³Ê¶ï¿½
 						pDestTemp += index - rectLeft;
 
-						// index»ö ¸ðµÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -3487,13 +3504,13 @@ CIndexSprite::BltAlphaClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha)
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= CSpriteSurface::memcpyAlpha1Pixel(*pDestTemp, ColorSet[s_IndexValue[colorSet]][colorGradation]);
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyAlpha(pDestTemp, pPixels, colorCount);
@@ -3501,22 +3518,22 @@ CIndexSprite::BltAlphaClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha)
 						pDestTemp	+= colorCount;
 						pPixels		+= colorCount;					
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì, indexÀÏºÎ Ãâ·Â
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½Æ´Ñ»ï¿½ï¿½ï¿½ ï¿½ÏºÎ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ 
+					// xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½, indexï¿½Ïºï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					else
 					{					
-						dist = rectLeft - index;		// ¿ÞÂÊ¿¡¼­ skipµÇ´Â Á¡µé ¼ö
+						dist = rectLeft - index;		// ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						
 						pPixels += dist;
 						indexCount -= dist;
 						
-						// index»ö ÀÏºÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½Ïºï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -3525,13 +3542,13 @@ CIndexSprite::BltAlphaClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha)
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= CSpriteSurface::memcpyAlpha1Pixel(*pDestTemp, ColorSet[s_IndexValue[colorSet]][colorGradation]);
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyAlpha(pDestTemp, pPixels, colorCount);
@@ -3539,54 +3556,54 @@ CIndexSprite::BltAlphaClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha)
 						pDestTemp	+= colorCount;
 						pPixels		+= colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 				}		
 
 				
-				// index»ö¼ö¸¸Å­ indexÁõ°¡
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 
-				// index»ö±ò¸¸Å­ skip
+				// indexï¿½ï¿½ï¿½ï¿½Å­ skip
 				pPixels += indexCount;
 
-				// normal »ö±ò ¼ö
+				// normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;			
 				
 				//---------------------------------------------
-				// index»ö±îÁöÇØ¼­´Â xxxx¹üÀ§¸¦ ¾È ³Ñ¾î°¡°í..
-				// normal»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½..
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					dist = rectLeft - index;				
 					colorCount2 = colorCount - dist;
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					CSpriteSurface::memcpyAlpha(pDestTemp, pPixels+dist, colorCount2);
 					pDestTemp += colorCount2;
 					pPixels += colorCount;
 
-					// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					break;			
 				}		
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½				
 				pPixels += colorCount;
 				index += colorCount;
 			} while (--j);		
 
 			//---------------------------------------------
-			// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.		
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.		
 			//---------------------------------------------		
 			if (--j > 0)
 			{
 				do {
-					pDestTemp += *pPixels++;	// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+					pDestTemp += *pPixels++;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+					indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -3595,13 +3612,13 @@ CIndexSprite::BltAlphaClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha)
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 							*pDestTemp		= CSpriteSurface::memcpyAlpha1Pixel(*pDestTemp, ColorSet[s_IndexValue[colorSet]][colorGradation]);
 							pDestTemp ++;
 						} while (--k);
 					}
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 					
 					CSpriteSurface::memcpyAlpha(pDestTemp, pPixels, colorCount);
@@ -3628,7 +3645,7 @@ CIndexSprite::BltAlphaClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -3644,57 +3661,57 @@ CIndexSprite::BltAlphaClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 			
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-		// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...		
+		// OOOOOOOOOOOOOOxxxxx ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 		//---------------------------------------------
-		// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+		// OOOOOOOOOOOOOOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½È´ï¿½.
 		//---------------------------------------------		
 		if (count > 0)
 		{
 			j = count;
 			do {
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += transCount;
 				
-				// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºÐºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-				// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ðµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ÊºÎºÐºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½Ö´ï¿½.
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ breakï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 
-				// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Â°Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 				//---------------------------------------------
-				// index»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------			
 				if (index+indexCount > rectRight)
 				{
-					// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					if (index > rectRight)
 					{
 						break;
 					}
-					// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±Ý Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 					else
 					{
 						pDestTemp += transCount;
 
-						// ¿À¸¥ÂÊÀ¸·Î skipµÇ´Â Á¡µéÀ» »©ÁØ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 						indexCount = rectRight - index;
 
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -3703,7 +3720,7 @@ CIndexSprite::BltAlphaClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= CSpriteSurface::memcpyAlpha1Pixel(*pDestTemp, ColorSet[s_IndexValue[colorSet]][colorGradation]);
 								pDestTemp ++;
 							} while (--k);
@@ -3713,13 +3730,13 @@ CIndexSprite::BltAlphaClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha
 					}
 				}
 
-				// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³Ê¶ï¿½ï¿½
 				pDestTemp += transCount;
 
 				//-------------------------
-				// index»ö ¸ðµÎ Ãâ·Â
+				// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//-------------------------
-				// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+				// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if (indexCount > 0)
 				{
 					k = indexCount;
@@ -3728,30 +3745,30 @@ CIndexSprite::BltAlphaClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha
 						colorGradation	= (*pPixels & 0xFF);			// gradation
 						pPixels++;
 
-						// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+						// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 						*pDestTemp		= CSpriteSurface::memcpyAlpha1Pixel(*pDestTemp, ColorSet[s_IndexValue[colorSet]][colorGradation]);
 						pDestTemp ++;
 					} while (--k);
 				}		
-				// Ãâ·ÂÇÑ indexCount¸¸Å­ indexÁõ°¡
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ indexCountï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 				
 
-				// Normal »ö±ò ¼ö
+				// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;
 
 				//---------------------------------------------
-				// normal»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------			
 				if (index+colorCount > rectRight)
 				{
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					CSpriteSurface::memcpyAlpha(pDestTemp, pPixels, rectRight - index);
 					break;			
 				}			
 				
 				//--------------------
-				// normal»ö ¸ðµÎ Ãâ·Â
+				// normalï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//--------------------
 				CSpriteSurface::memcpyAlpha(pDestTemp, pPixels, colorCount);
 
@@ -3777,7 +3794,7 @@ CIndexSprite::BltAlphaClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -3794,53 +3811,53 @@ CIndexSprite::BltAlphaClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha
 	int colorSet, colorGradation;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ðµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½..
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...
+		// xxxxOOOOOOOOOOOOOOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½..
 		//---------------------------------------------
-		// xxxxºÎºÐ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxï¿½ÎºÐ±ï¿½ï¿½ï¿½ checkï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Æ¾
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do {
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½			
 				index += transCount;			
 			
 				//---------------------------------------------
-				// index»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+indexCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¬ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºÐ °Ç³Ê¶ê
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ ï¿½Ç³Ê¶ï¿½
 						pDestTemp += index - rectLeft;
 
-						// index»ö ¸ðµÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -3849,13 +3866,13 @@ CIndexSprite::BltAlphaClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= CSpriteSurface::memcpyAlpha1Pixel(*pDestTemp, ColorSet[s_IndexValue[colorSet]][colorGradation]);
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyAlpha(pDestTemp, pPixels, colorCount);
@@ -3863,22 +3880,22 @@ CIndexSprite::BltAlphaClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha
 						pDestTemp	+= colorCount;
 						pPixels		+= colorCount;					
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì, indexÀÏºÎ Ãâ·Â
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½Æ´Ñ»ï¿½ï¿½ï¿½ ï¿½ÏºÎ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ 
+					// xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½, indexï¿½Ïºï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					else
 					{					
-						dist = rectLeft - index;		// ¿ÞÂÊ¿¡¼­ skipµÇ´Â Á¡µé ¼ö
+						dist = rectLeft - index;		// ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						
 						pPixels += dist;
 						indexCount -= dist;
 						
-						// index»ö ÀÏºÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½Ïºï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -3887,13 +3904,13 @@ CIndexSprite::BltAlphaClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= CSpriteSurface::memcpyAlpha1Pixel(*pDestTemp, ColorSet[s_IndexValue[colorSet]][colorGradation]);
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyAlpha(pDestTemp, pPixels, colorCount);
@@ -3902,84 +3919,84 @@ CIndexSprite::BltAlphaClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha
 						pPixels		+= colorCount;
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 				}		
 
 				
-				// index»ö¼ö¸¸Å­ indexÁõ°¡
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 
-				// index»ö±ò¸¸Å­ skip
+				// indexï¿½ï¿½ï¿½ï¿½Å­ skip
 				pPixels += indexCount;
 
-				// normal »ö±ò ¼ö
+				// normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;			
 				
 				//---------------------------------------------
-				// index»ö±îÁöÇØ¼­´Â xxxx¹üÀ§¸¦ ¾È ³Ñ¾î°¡°í..
-				// normal»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½..
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					dist = rectLeft - index;				
 					colorCount2 = colorCount - dist;
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					CSpriteSurface::memcpyAlpha(pDestTemp, pPixels+dist, colorCount2);
 					pDestTemp += colorCount2;
 					pPixels += colorCount;
 					index += colorCount;
 
-					// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					break;			
 				}		
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½				
 				pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 		
 			//---------------------------------------------
-			// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-			// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+			// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...		
+			// OOOOOOOOOOOOOOxxxxx ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 			//---------------------------------------------
-			// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+			// OOOOOOOOOOOOOOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½È´ï¿½.
 			//---------------------------------------------
 			if (--j > 0)
 			{
 				do {
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+					indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 							
-					// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 					index += transCount;
 					
-					// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºÐºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-					// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ðµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ÊºÎºÐºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½Ö´ï¿½.
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ breakï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 
-					// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Â°Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 					//---------------------------------------------
-					// index»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+					// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------			
 					if (index+indexCount > rectRight)
 					{
-						// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						if (index > rectRight)
 						{
 							break;
 						}
-						// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±Ý Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 						else
 						{
 							pDestTemp += transCount;
 
-							// ¿À¸¥ÂÊÀ¸·Î skipµÇ´Â Á¡µéÀ» »©ÁØ´Ù.
+							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 							indexCount = rectRight - index;
 
-							// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+							// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 							if (indexCount > 0)
 							{
 								k = indexCount;
@@ -3988,7 +4005,7 @@ CIndexSprite::BltAlphaClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha
 									colorGradation	= (*pPixels & 0xFF);			// gradation
 									pPixels++;
 
-									// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+									// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 									*pDestTemp		= CSpriteSurface::memcpyAlpha1Pixel(*pDestTemp, ColorSet[s_IndexValue[colorSet]][colorGradation]);
 									pDestTemp ++;
 								} while (--k);
@@ -3998,13 +4015,13 @@ CIndexSprite::BltAlphaClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha
 						}
 					}
 
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³Ê¶ï¿½ï¿½
 					pDestTemp += transCount;
 
 					//-------------------------
-					// index»ö ¸ðµÎ Ãâ·Â
+					// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//-------------------------
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -4013,30 +4030,30 @@ CIndexSprite::BltAlphaClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 							*pDestTemp		= CSpriteSurface::memcpyAlpha1Pixel(*pDestTemp, ColorSet[s_IndexValue[colorSet]][colorGradation]);
 							pDestTemp ++;
 						} while (--k);
 					}		
-					// Ãâ·ÂÇÑ indexCount¸¸Å­ indexÁõ°¡
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ indexCountï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 					index += indexCount;
 					
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 
 					//---------------------------------------------
-					// normal»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+					// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------			
 					if (index+colorCount > rectRight)
 					{
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						CSpriteSurface::memcpyAlpha(pDestTemp, pPixels, rectRight - index);
 						break;			
 					}			
 					
 					//--------------------
-					// normal»ö ¸ðµÎ Ãâ·Â
+					// normalï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//--------------------
 					CSpriteSurface::memcpyAlpha(pDestTemp, pPixels, colorCount);
 
@@ -4073,23 +4090,23 @@ CIndexSprite::BltAlphaClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE alph
 
 	int colorSet, colorGradation;
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö		
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½		
 		count	= *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 		if (count > 0)
 		{
 			j = count;
 			do {						
-				pDestTemp += *pPixels++;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+				pDestTemp += *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+				indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-				// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+				// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if (indexCount > 0)
 				{
 					k = indexCount;
@@ -4098,13 +4115,13 @@ CIndexSprite::BltAlphaClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE alph
 						colorGradation	= (*pPixels & 0xFF);			// gradation
 						pPixels++;
 
-						// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+						// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 						*pDestTemp		= CSpriteSurface::memcpyAlpha1Pixel(*pDestTemp, ColorSet[s_IndexValue[colorSet]][colorGradation]);
 						pDestTemp ++;
 					} while (--k);
 				}
 
-				// Normal »ö±ò ¼ö
+				// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;
 				
 				CSpriteSurface::memcpyAlpha(pDestTemp, pPixels, colorCount);
@@ -4124,7 +4141,7 @@ CIndexSprite::BltAlphaClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE alph
 //----------------------------------------------------------------------
 // BltWave
 //----------------------------------------------------------------------
-// ClippingÇÏÁö ¾Ê´Â´Ù.
+// Clippingï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //----------------------------------------------------------------------
 /*
 void
@@ -4146,7 +4163,7 @@ CIndexSprite::BltWave(WORD *pDest, WORD pitch)
 	int rectBottom = m_Height;	
 
 	
-	//for (i=0; i<rectBottom; i++)	
+	//for (int i=0; i<rectBottom; i++)	
 	if (rectBottom > 0)
 	{
 		i = rectBottom-1;
@@ -4157,20 +4174,20 @@ CIndexSprite::BltWave(WORD *pDest, WORD pitch)
 			pPixels		= m_Pixels[i];
 			pDestTemp	= pDest;
 
-			// (Åõ¸í¼ö,Index»ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö		
+			// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Indexï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½		
 			transPair	= *pPixels++;
 			
- 			// ÇÑ ÁÙ Ãâ·Â		
+ 			// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 			if (transPair > 0)
 			{
 				j = transPair;
 				do
 				{
-					pDestTemp += *pPixels++;	// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+					pDestTemp += *pPixels++;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+					indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
-					// ÇÑ ÁÙ Ãâ·Â		
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+					// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -4180,7 +4197,7 @@ CIndexSprite::BltWave(WORD *pDest, WORD pitch)
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 							//*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 
 							WORD color = GradationValue[s_IndexValue[colorSet]][colorGradation];//*pPixels;							
@@ -4193,7 +4210,7 @@ CIndexSprite::BltWave(WORD *pDest, WORD pitch)
 						} while (--k);
 					}
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 					
 					//memcpy((void*)pDestTemp, (void*)pPixels, colorCount<<1);
@@ -4259,18 +4276,18 @@ CIndexSprite::BltColor(WORD *pDest, WORD pitch, BYTE rgb)
 			pPixels		= m_Pixels[i];
 			pDestTemp	= pDest;
 
-			// (Åõ¸í¼ö,Index»ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö		
+			// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Indexï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½		
 			transPair	= *pPixels++;
 			
- 			// ÇÑ ÁÙ Ãâ·Â
+ 			// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 			if (transPair > 0)
 			{
 				j = transPair;
 				do {
-					pDestTemp += *pPixels++;	// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+					pDestTemp += *pPixels++;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+					indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -4280,14 +4297,14 @@ CIndexSprite::BltColor(WORD *pDest, WORD pitch, BYTE rgb)
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 							*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
 												& CDirectDraw::s_wMASK_RGB[rgb];
 							pDestTemp ++;
 						} while (--k);
 					}
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 					
 					CSpriteSurface::memcpyColor(pDestTemp, pPixels, colorCount);					
@@ -4314,7 +4331,7 @@ CIndexSprite::BltColorClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -4331,52 +4348,52 @@ CIndexSprite::BltColorClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 	int colorSet, colorGradation;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ðµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½..
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...
+		// xxxxOOOOOOOOOOOOOOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½..
 		//---------------------------------------------
-		// xxxxºÎºÐ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxï¿½ÎºÐ±ï¿½ï¿½ï¿½ checkï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Æ¾
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do {		
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½			
 				index += transCount;			
 			
 				//---------------------------------------------
-				// index»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+indexCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¬ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºÐ °Ç³Ê¶ê
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ ï¿½Ç³Ê¶ï¿½
 						pDestTemp += index - rectLeft;
 
-						// index»ö ¸ðµÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -4385,14 +4402,14 @@ CIndexSprite::BltColorClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
 												& CDirectDraw::s_wMASK_RGB[rgb];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyColor(pDestTemp, pPixels, colorCount);
@@ -4400,22 +4417,22 @@ CIndexSprite::BltColorClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 						pDestTemp	+= colorCount;
 						pPixels		+= colorCount;					
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì, indexÀÏºÎ Ãâ·Â
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½Æ´Ñ»ï¿½ï¿½ï¿½ ï¿½ÏºÎ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ 
+					// xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½, indexï¿½Ïºï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					else
 					{					
-						dist = rectLeft - index;		// ¿ÞÂÊ¿¡¼­ skipµÇ´Â Á¡µé ¼ö
+						dist = rectLeft - index;		// ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						
 						pPixels += dist;
 						indexCount -= dist;
 						
-						// index»ö ÀÏºÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½Ïºï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -4424,14 +4441,14 @@ CIndexSprite::BltColorClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
 												& CDirectDraw::s_wMASK_RGB[rgb];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyColor(pDestTemp, pPixels, colorCount);
@@ -4439,55 +4456,55 @@ CIndexSprite::BltColorClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 						pDestTemp	+= colorCount;
 						pPixels		+= colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 				}		
 
 				
-				// index»ö¼ö¸¸Å­ indexÁõ°¡
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 
-				// index»ö±ò¸¸Å­ skip
+				// indexï¿½ï¿½ï¿½ï¿½Å­ skip
 				pPixels += indexCount;
 
-				// normal »ö±ò ¼ö
+				// normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;			
 				
 				//---------------------------------------------
-				// index»ö±îÁöÇØ¼­´Â xxxx¹üÀ§¸¦ ¾È ³Ñ¾î°¡°í..
-				// normal»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½..
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					dist = rectLeft - index;				
 					colorCount2 = colorCount - dist;
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					CSpriteSurface::memcpyColor(pDestTemp, pPixels+dist, colorCount2);
 					pDestTemp += colorCount2;
 					pPixels += colorCount;
 
-					// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					break;			
 				}		
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½				
 				pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 		
 
 			//---------------------------------------------
-			// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.		
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.		
 			//---------------------------------------------	
 			if (--j > 0)
 			{
 				do {		
-					pDestTemp += *pPixels++;	// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+					pDestTemp += *pPixels++;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+					indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -4496,14 +4513,14 @@ CIndexSprite::BltColorClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 							*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
 												& CDirectDraw::s_wMASK_RGB[rgb];
 							pDestTemp ++;
 						} while (--k);
 					}
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 					
 					CSpriteSurface::memcpyColor(pDestTemp, pPixels, colorCount);
@@ -4524,14 +4541,14 @@ CIndexSprite::BltColorClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 void		
 CIndexSprite::BltColorClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 {
-	// rgb°ª ¼³Á¤
+	// rgbï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	CSpriteSurface::s_Value1 = rgb;
 
 	WORD	*pPixels,
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -4547,57 +4564,57 @@ CIndexSprite::BltColorClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 			
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-		// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...		
+		// OOOOOOOOOOOOOOxxxxx ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 		//---------------------------------------------
-		// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+		// OOOOOOOOOOOOOOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½È´ï¿½.
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do {
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += transCount;
 				
-				// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºÐºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-				// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ðµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ÊºÎºÐºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½Ö´ï¿½.
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ breakï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 
-				// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Â°Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 				//---------------------------------------------
-				// index»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------			
 				if (index+indexCount > rectRight)
 				{
-					// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					if (index > rectRight)
 					{
 						break;
 					}
-					// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±Ý Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 					else
 					{
 						pDestTemp += transCount;
 
-						// ¿À¸¥ÂÊÀ¸·Î skipµÇ´Â Á¡µéÀ» »©ÁØ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 						indexCount = rectRight - index;
 
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -4606,7 +4623,7 @@ CIndexSprite::BltColorClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
 												& CDirectDraw::s_wMASK_RGB[rgb];
 								pDestTemp ++;
@@ -4617,13 +4634,13 @@ CIndexSprite::BltColorClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 					}
 				}
 
-				// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³Ê¶ï¿½ï¿½
 				pDestTemp += transCount;
 
 				//-------------------------
-				// index»ö ¸ðµÎ Ãâ·Â
+				// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//-------------------------
-				// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+				// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if (indexCount > 0)
 				{
 					k = indexCount;
@@ -4632,31 +4649,31 @@ CIndexSprite::BltColorClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 						colorGradation	= (*pPixels & 0xFF);			// gradation
 						pPixels++;
 
-						// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+						// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 						*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
 												& CDirectDraw::s_wMASK_RGB[rgb];
 						pDestTemp ++;
 					} while (--k);
 				}		
-				// Ãâ·ÂÇÑ indexCount¸¸Å­ indexÁõ°¡
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ indexCountï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 				
 
-				// Normal »ö±ò ¼ö
+				// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;
 
 				//---------------------------------------------
-				// normal»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------			
 				if (index+colorCount > rectRight)
 				{
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					CSpriteSurface::memcpyColor(pDestTemp, pPixels, rectRight - index);
 					break;			
 				}			
 				
 				//--------------------
-				// normal»ö ¸ðµÎ Ãâ·Â
+				// normalï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//--------------------
 				CSpriteSurface::memcpyColor(pDestTemp, pPixels, colorCount);
 
@@ -4676,14 +4693,14 @@ CIndexSprite::BltColorClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 void		
 CIndexSprite::BltColorClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 {
-	// rgb°ª ¼³Á¤
+	// rgbï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	CSpriteSurface::s_Value1 = rgb;
 
 	WORD	*pPixels,
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -4700,53 +4717,53 @@ CIndexSprite::BltColorClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 	int colorSet, colorGradation;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ðµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½..
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...
+		// xxxxOOOOOOOOOOOOOOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½..
 		//---------------------------------------------
-		// xxxxºÎºÐ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxï¿½ÎºÐ±ï¿½ï¿½ï¿½ checkï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Æ¾
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do {
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½			
 				index += transCount;			
 			
 				//---------------------------------------------
-				// index»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+indexCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¬ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºÐ °Ç³Ê¶ê
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ ï¿½Ç³Ê¶ï¿½
 						pDestTemp += index - rectLeft;
 
-						// index»ö ¸ðµÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -4755,14 +4772,14 @@ CIndexSprite::BltColorClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
 												& CDirectDraw::s_wMASK_RGB[rgb];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyColor(pDestTemp, pPixels, colorCount);
@@ -4770,22 +4787,22 @@ CIndexSprite::BltColorClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 						pDestTemp	+= colorCount;
 						pPixels		+= colorCount;					
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì, indexÀÏºÎ Ãâ·Â
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½Æ´Ñ»ï¿½ï¿½ï¿½ ï¿½ÏºÎ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ 
+					// xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½, indexï¿½Ïºï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					else
 					{					
-						dist = rectLeft - index;		// ¿ÞÂÊ¿¡¼­ skipµÇ´Â Á¡µé ¼ö
+						dist = rectLeft - index;		// ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						
 						pPixels += dist;
 						indexCount -= dist;
 						
-						// index»ö ÀÏºÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½Ïºï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -4794,14 +4811,14 @@ CIndexSprite::BltColorClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
 												& CDirectDraw::s_wMASK_RGB[rgb];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyColor(pDestTemp, pPixels, colorCount);
@@ -4810,85 +4827,85 @@ CIndexSprite::BltColorClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 						pPixels		+= colorCount;
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 				}		
 
 				
-				// index»ö¼ö¸¸Å­ indexÁõ°¡
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 
-				// index»ö±ò¸¸Å­ skip
+				// indexï¿½ï¿½ï¿½ï¿½Å­ skip
 				pPixels += indexCount;
 
-				// normal »ö±ò ¼ö
+				// normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;			
 				
 				//---------------------------------------------
-				// index»ö±îÁöÇØ¼­´Â xxxx¹üÀ§¸¦ ¾È ³Ñ¾î°¡°í..
-				// normal»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½..
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					dist = rectLeft - index;				
 					colorCount2 = colorCount - dist;
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					CSpriteSurface::memcpyColor(pDestTemp, pPixels+dist, colorCount2);
 					pDestTemp += colorCount2;
 					pPixels += colorCount;
 					index += colorCount;
 
-					// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					break;			
 				}		
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½				
 				pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 		
 
 			//---------------------------------------------
-			// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-			// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+			// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...		
+			// OOOOOOOOOOOOOOxxxxx ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 			//---------------------------------------------
-			// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+			// OOOOOOOOOOOOOOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½È´ï¿½.
 			//---------------------------------------------
 			if (--j > 0)
 			{
 				do {
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+					indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 							
-					// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 					index += transCount;
 					
-					// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºÐºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-					// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ðµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ÊºÎºÐºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½Ö´ï¿½.
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ breakï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 
-					// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Â°Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 					//---------------------------------------------
-					// index»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+					// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------			
 					if (index+indexCount > rectRight)
 					{
-						// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						if (index > rectRight)
 						{
 							break;
 						}
-						// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±Ý Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 						else
 						{
 							pDestTemp += transCount;
 
-							// ¿À¸¥ÂÊÀ¸·Î skipµÇ´Â Á¡µéÀ» »©ÁØ´Ù.
+							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 							indexCount = rectRight - index;
 
-							// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+							// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 							if (indexCount > 0)
 							{
 								k = indexCount;
@@ -4897,7 +4914,7 @@ CIndexSprite::BltColorClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 									colorGradation	= (*pPixels & 0xFF);			// gradation
 									pPixels++;
 
-									// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+									// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 									*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
 												& CDirectDraw::s_wMASK_RGB[rgb];
 									pDestTemp ++;
@@ -4908,13 +4925,13 @@ CIndexSprite::BltColorClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 						}
 					}
 
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³Ê¶ï¿½ï¿½
 					pDestTemp += transCount;
 
 					//-------------------------
-					// index»ö ¸ðµÎ Ãâ·Â
+					// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//-------------------------
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -4923,31 +4940,31 @@ CIndexSprite::BltColorClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 							*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
 												& CDirectDraw::s_wMASK_RGB[rgb];
 							pDestTemp ++;
 						} while (--k);
 					}
-					// Ãâ·ÂÇÑ indexCount¸¸Å­ indexÁõ°¡
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ indexCountï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 					index += indexCount;
 					
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 
 					//---------------------------------------------
-					// normal»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+					// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------			
 					if (index+colorCount > rectRight)
 					{
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						CSpriteSurface::memcpyColor(pDestTemp, pPixels, rectRight - index);
 						break;			
 					}			
 					
 					//--------------------
-					// normal»ö ¸ðµÎ Ãâ·Â
+					// normalï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//--------------------
 					CSpriteSurface::memcpyColor(pDestTemp, pPixels, colorCount);
 
@@ -4968,7 +4985,7 @@ CIndexSprite::BltColorClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 void		
 CIndexSprite::BltColorClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 {
-	// rgb°ª ¼³Á¤
+	// rgbï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	CSpriteSurface::s_Value1 = rgb;
 
 	int	count,
@@ -4985,23 +5002,23 @@ CIndexSprite::BltColorClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 
 	int colorSet, colorGradation;
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö		
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½		
 		count	= *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 		if (count > 0)
 		{
 			j = count;
 			do {
-				pDestTemp += *pPixels++;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+				pDestTemp += *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+				indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-				// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+				// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if (indexCount > 0)
 				{
 					k = indexCount;
@@ -5010,14 +5027,14 @@ CIndexSprite::BltColorClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 						colorGradation	= (*pPixels & 0xFF);			// gradation
 						pPixels++;
 
-						// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+						// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 						*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
 												& CDirectDraw::s_wMASK_RGB[rgb];
 						pDestTemp ++;
 					} while (--k);
 				}
 
-				// Normal »ö±ò ¼ö
+				// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;
 				
 				CSpriteSurface::memcpyColor(pDestTemp, pPixels, colorCount);
@@ -5065,18 +5082,18 @@ CIndexSprite::BltColorSet(WORD *pDest, WORD pitch, WORD colorSet)
 			pPixels		= m_Pixels[i];
 			pDestTemp	= pDest;
 
-			// (Åõ¸í¼ö,Index»ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö		
+			// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Indexï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½		
 			transPair	= *pPixels++;
 			
- 			// ÇÑ ÁÙ Ãâ·Â
+ 			// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 			if (transPair > 0)
 			{
 				j = transPair;
 				do {
-					pDestTemp += *pPixels++;	// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+					pDestTemp += *pPixels++;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+					indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -5086,14 +5103,14 @@ CIndexSprite::BltColorSet(WORD *pDest, WORD pitch, WORD colorSet)
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 							*pDestTemp		= ColorSet[colorSet][colorGradation];
 												//& CDirectDraw::s_wMASK_RGB[colorSet];
 							pDestTemp ++;
 						} while (--k);
 					}
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 					
 					CSpriteSurface::memcpyEffectGradation(pDestTemp, pPixels, colorCount);					
@@ -5120,7 +5137,7 @@ CIndexSprite::BltColorSetClipLeft(WORD *pDest, WORD pitch, RECT* pRect, WORD col
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -5138,52 +5155,52 @@ CIndexSprite::BltColorSetClipLeft(WORD *pDest, WORD pitch, RECT* pRect, WORD col
 		colorGradation;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ðµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½..
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...
+		// xxxxOOOOOOOOOOOOOOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½..
 		//---------------------------------------------
-		// xxxxºÎºÐ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxï¿½ÎºÐ±ï¿½ï¿½ï¿½ checkï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Æ¾
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do {		
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½			
 				index += transCount;			
 			
 				//---------------------------------------------
-				// index»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+indexCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¬ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºÐ °Ç³Ê¶ê
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ ï¿½Ç³Ê¶ï¿½
 						pDestTemp += index - rectLeft;
 
-						// index»ö ¸ðµÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -5192,14 +5209,14 @@ CIndexSprite::BltColorSetClipLeft(WORD *pDest, WORD pitch, RECT* pRect, WORD col
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[colorSet][colorGradation];
 												//& CDirectDraw::s_wMASK_RGB[colorSet];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyEffectGradation(pDestTemp, pPixels, colorCount);
@@ -5207,22 +5224,22 @@ CIndexSprite::BltColorSetClipLeft(WORD *pDest, WORD pitch, RECT* pRect, WORD col
 						pDestTemp	+= colorCount;
 						pPixels		+= colorCount;					
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì, indexÀÏºÎ Ãâ·Â
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½Æ´Ñ»ï¿½ï¿½ï¿½ ï¿½ÏºÎ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ 
+					// xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½, indexï¿½Ïºï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					else
 					{					
-						dist = rectLeft - index;		// ¿ÞÂÊ¿¡¼­ skipµÇ´Â Á¡µé ¼ö
+						dist = rectLeft - index;		// ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						
 						pPixels += dist;
 						indexCount -= dist;
 						
-						// index»ö ÀÏºÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½Ïºï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -5231,14 +5248,14 @@ CIndexSprite::BltColorSetClipLeft(WORD *pDest, WORD pitch, RECT* pRect, WORD col
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[colorSet][colorGradation];
 												//& CDirectDraw::s_wMASK_RGB[colorSet];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyEffectGradation(pDestTemp, pPixels, colorCount);
@@ -5246,55 +5263,55 @@ CIndexSprite::BltColorSetClipLeft(WORD *pDest, WORD pitch, RECT* pRect, WORD col
 						pDestTemp	+= colorCount;
 						pPixels		+= colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 				}		
 
 				
-				// index»ö¼ö¸¸Å­ indexÁõ°¡
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 
-				// index»ö±ò¸¸Å­ skip
+				// indexï¿½ï¿½ï¿½ï¿½Å­ skip
 				pPixels += indexCount;
 
-				// normal »ö±ò ¼ö
+				// normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;			
 				
 				//---------------------------------------------
-				// index»ö±îÁöÇØ¼­´Â xxxx¹üÀ§¸¦ ¾È ³Ñ¾î°¡°í..
-				// normal»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½..
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					dist = rectLeft - index;				
 					colorCount2 = colorCount - dist;
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					CSpriteSurface::memcpyEffectGradation(pDestTemp, pPixels+dist, colorCount2);
 					pDestTemp += colorCount2;
 					pPixels += colorCount;
 
-					// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					break;			
 				}		
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½				
 				pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 		
 
 			//---------------------------------------------
-			// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.		
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.		
 			//---------------------------------------------	
 			if (--j > 0)
 			{
 				do {		
-					pDestTemp += *pPixels++;	// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+					pDestTemp += *pPixels++;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+					indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -5303,14 +5320,14 @@ CIndexSprite::BltColorSetClipLeft(WORD *pDest, WORD pitch, RECT* pRect, WORD col
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 							*pDestTemp		= ColorSet[colorSet][colorGradation];
 												//& CDirectDraw::s_wMASK_RGB[colorSet];
 							pDestTemp ++;
 						} while (--k);
 					}
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 					
 					CSpriteSurface::memcpyEffectGradation(pDestTemp, pPixels, colorCount);
@@ -5331,14 +5348,14 @@ CIndexSprite::BltColorSetClipLeft(WORD *pDest, WORD pitch, RECT* pRect, WORD col
 void		
 CIndexSprite::BltColorSetClipRight(WORD *pDest, WORD pitch, RECT* pRect, WORD colorSet)
 {
-	// colorSet°ª ¼³Á¤
+	// colorSetï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	CSpriteSurface::s_Value1 = colorSet;
 
 	WORD	*pPixels,
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -5355,57 +5372,57 @@ CIndexSprite::BltColorSetClipRight(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 			
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-		// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...		
+		// OOOOOOOOOOOOOOxxxxx ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 		//---------------------------------------------
-		// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+		// OOOOOOOOOOOOOOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½È´ï¿½.
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do {
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += transCount;
 				
-				// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºÐºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-				// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ðµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ÊºÎºÐºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½Ö´ï¿½.
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ breakï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 
-				// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Â°Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 				//---------------------------------------------
-				// index»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------			
 				if (index+indexCount > rectRight)
 				{
-					// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					if (index > rectRight)
 					{
 						break;
 					}
-					// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±Ý Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 					else
 					{
 						pDestTemp += transCount;
 
-						// ¿À¸¥ÂÊÀ¸·Î skipµÇ´Â Á¡µéÀ» »©ÁØ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 						indexCount = rectRight - index;
 
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -5414,7 +5431,7 @@ CIndexSprite::BltColorSetClipRight(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[colorSet][colorGradation];
 												//& CDirectDraw::s_wMASK_RGB[colorSet];
 								pDestTemp ++;
@@ -5425,13 +5442,13 @@ CIndexSprite::BltColorSetClipRight(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 					}
 				}
 
-				// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³Ê¶ï¿½ï¿½
 				pDestTemp += transCount;
 
 				//-------------------------
-				// index»ö ¸ðµÎ Ãâ·Â
+				// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//-------------------------
-				// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+				// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if (indexCount > 0)
 				{
 					k = indexCount;
@@ -5440,31 +5457,31 @@ CIndexSprite::BltColorSetClipRight(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 						colorGradation	= (*pPixels & 0xFF);			// gradation
 						pPixels++;
 
-						// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+						// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 						*pDestTemp		= ColorSet[colorSet][colorGradation];
 												//& CDirectDraw::s_wMASK_RGB[colorSet];
 						pDestTemp ++;
 					} while (--k);
 				}		
-				// Ãâ·ÂÇÑ indexCount¸¸Å­ indexÁõ°¡
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ indexCountï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 				
 
-				// Normal »ö±ò ¼ö
+				// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;
 
 				//---------------------------------------------
-				// normal»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------			
 				if (index+colorCount > rectRight)
 				{
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					CSpriteSurface::memcpyEffectGradation(pDestTemp, pPixels, rectRight - index);
 					break;			
 				}			
 				
 				//--------------------
-				// normal»ö ¸ðµÎ Ãâ·Â
+				// normalï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//--------------------
 				CSpriteSurface::memcpyEffectGradation(pDestTemp, pPixels, colorCount);
 
@@ -5484,14 +5501,14 @@ CIndexSprite::BltColorSetClipRight(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 void		
 CIndexSprite::BltColorSetClipWidth(WORD *pDest, WORD pitch, RECT* pRect, WORD colorSet)
 {
-	// colorSet°ª ¼³Á¤
+	// colorSetï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	CSpriteSurface::s_Value1 = colorSet;
 
 	WORD	*pPixels,
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -5509,53 +5526,53 @@ CIndexSprite::BltColorSetClipWidth(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 		colorGradation;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ðµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½..
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...
+		// xxxxOOOOOOOOOOOOOOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½..
 		//---------------------------------------------
-		// xxxxºÎºÐ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxï¿½ÎºÐ±ï¿½ï¿½ï¿½ checkï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Æ¾
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do {
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½			
 				index += transCount;			
 			
 				//---------------------------------------------
-				// index»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+indexCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¬ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºÐ °Ç³Ê¶ê
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ ï¿½Ç³Ê¶ï¿½
 						pDestTemp += index - rectLeft;
 
-						// index»ö ¸ðµÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -5564,14 +5581,14 @@ CIndexSprite::BltColorSetClipWidth(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[colorSet][colorGradation];
 												//& CDirectDraw::s_wMASK_RGB[colorSet];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyEffectGradation(pDestTemp, pPixels, colorCount);
@@ -5579,22 +5596,22 @@ CIndexSprite::BltColorSetClipWidth(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 						pDestTemp	+= colorCount;
 						pPixels		+= colorCount;					
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì, indexÀÏºÎ Ãâ·Â
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½Æ´Ñ»ï¿½ï¿½ï¿½ ï¿½ÏºÎ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ 
+					// xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½, indexï¿½Ïºï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					else
 					{					
-						dist = rectLeft - index;		// ¿ÞÂÊ¿¡¼­ skipµÇ´Â Á¡µé ¼ö
+						dist = rectLeft - index;		// ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						
 						pPixels += dist;
 						indexCount -= dist;
 						
-						// index»ö ÀÏºÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½Ïºï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -5603,14 +5620,14 @@ CIndexSprite::BltColorSetClipWidth(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[colorSet][colorGradation];
 												//& CDirectDraw::s_wMASK_RGB[colorSet];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyEffectGradation(pDestTemp, pPixels, colorCount);
@@ -5619,85 +5636,85 @@ CIndexSprite::BltColorSetClipWidth(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 						pPixels		+= colorCount;
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 				}		
 
 				
-				// index»ö¼ö¸¸Å­ indexÁõ°¡
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 
-				// index»ö±ò¸¸Å­ skip
+				// indexï¿½ï¿½ï¿½ï¿½Å­ skip
 				pPixels += indexCount;
 
-				// normal »ö±ò ¼ö
+				// normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;			
 				
 				//---------------------------------------------
-				// index»ö±îÁöÇØ¼­´Â xxxx¹üÀ§¸¦ ¾È ³Ñ¾î°¡°í..
-				// normal»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½..
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					dist = rectLeft - index;				
 					colorCount2 = colorCount - dist;
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					CSpriteSurface::memcpyEffectGradation(pDestTemp, pPixels+dist, colorCount2);
 					pDestTemp += colorCount2;
 					pPixels += colorCount;
 					index += colorCount;
 
-					// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					break;			
 				}		
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½				
 				pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 		
 
 			//---------------------------------------------
-			// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-			// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+			// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...		
+			// OOOOOOOOOOOOOOxxxxx ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 			//---------------------------------------------
-			// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+			// OOOOOOOOOOOOOOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½È´ï¿½.
 			//---------------------------------------------
 			if (--j > 0)
 			{
 				do {
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+					indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 							
-					// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 					index += transCount;
 					
-					// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºÐºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-					// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ðµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ÊºÎºÐºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½Ö´ï¿½.
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ breakï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 
-					// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Â°Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 					//---------------------------------------------
-					// index»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+					// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------			
 					if (index+indexCount > rectRight)
 					{
-						// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						if (index > rectRight)
 						{
 							break;
 						}
-						// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±Ý Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 						else
 						{
 							pDestTemp += transCount;
 
-							// ¿À¸¥ÂÊÀ¸·Î skipµÇ´Â Á¡µéÀ» »©ÁØ´Ù.
+							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 							indexCount = rectRight - index;
 
-							// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+							// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 							if (indexCount > 0)
 							{
 								k = indexCount;
@@ -5706,7 +5723,7 @@ CIndexSprite::BltColorSetClipWidth(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 									colorGradation	= (*pPixels & 0xFF);			// gradation
 									pPixels++;
 
-									// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+									// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 									*pDestTemp		= ColorSet[colorSet][colorGradation];
 												//& CDirectDraw::s_wMASK_RGB[colorSet];
 									pDestTemp ++;
@@ -5717,13 +5734,13 @@ CIndexSprite::BltColorSetClipWidth(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 						}
 					}
 
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³Ê¶ï¿½ï¿½
 					pDestTemp += transCount;
 
 					//-------------------------
-					// index»ö ¸ðµÎ Ãâ·Â
+					// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//-------------------------
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -5732,31 +5749,31 @@ CIndexSprite::BltColorSetClipWidth(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 							*pDestTemp		= ColorSet[colorSet][colorGradation];
 												//& CDirectDraw::s_wMASK_RGB[colorSet];
 							pDestTemp ++;
 						} while (--k);
 					}
-					// Ãâ·ÂÇÑ indexCount¸¸Å­ indexÁõ°¡
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ indexCountï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 					index += indexCount;
 					
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 
 					//---------------------------------------------
-					// normal»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+					// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------			
 					if (index+colorCount > rectRight)
 					{
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						CSpriteSurface::memcpyEffectGradation(pDestTemp, pPixels, rectRight - index);
 						break;			
 					}			
 					
 					//--------------------
-					// normal»ö ¸ðµÎ Ãâ·Â
+					// normalï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//--------------------
 					CSpriteSurface::memcpyEffectGradation(pDestTemp, pPixels, colorCount);
 
@@ -5777,7 +5794,7 @@ CIndexSprite::BltColorSetClipWidth(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 void		
 CIndexSprite::BltColorSetClipHeight(WORD *pDest, WORD pitch, RECT* pRect, WORD colorSet)
 {
-	// colorSet°ª ¼³Á¤
+	// colorSetï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	CSpriteSurface::s_Value1 = colorSet;
 
 	int	count,
@@ -5796,23 +5813,23 @@ CIndexSprite::BltColorSetClipHeight(WORD *pDest, WORD pitch, RECT* pRect, WORD c
 		colorGradation;
 
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö		
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½		
 		count	= *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 		if (count > 0)
 		{
 			j = count;
 			do {
-				pDestTemp += *pPixels++;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+				pDestTemp += *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+				indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-				// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+				// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if (indexCount > 0)
 				{
 					k = indexCount;
@@ -5821,14 +5838,14 @@ CIndexSprite::BltColorSetClipHeight(WORD *pDest, WORD pitch, RECT* pRect, WORD c
 						colorGradation	= (*pPixels & 0xFF);			// gradation
 						pPixels++;
 
-						// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+						// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 						*pDestTemp		= ColorSet[colorSet][colorGradation];
 												//& CDirectDraw::s_wMASK_RGB[colorSet];
 						pDestTemp ++;
 					} while (--k);
 				}
 
-				// Normal »ö±ò ¼ö
+				// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;
 				
 				CSpriteSurface::memcpyEffectGradation(pDestTemp, pPixels, colorCount);
@@ -5849,11 +5866,11 @@ CIndexSprite::BltColorSetClipHeight(WORD *pDest, WORD pitch, RECT* pRect, WORD c
 // s_Value1 - Main Color
 // s_Value2 - Sub Color
 //-----------------------------------------------------------------------------
-//    ( (Åõ¸í»ö¼ö, Index»ö¼ö, 
-//                 (indexSet¹øÈ£, gradation¹øÈ£), 
-//                 (indexSet¹øÈ£, gradation¹øÈ£), 
+//    ( (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Indexï¿½ï¿½ï¿½ï¿½, 
+//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
+//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
 //-----------------------------------------------------------------------------
-// ClippingÇÏÁö ¾Ê´Â´Ù.
+// Clippingï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void
 CIndexSprite::BltEffect(WORD *pDest, WORD pitch)
@@ -5874,7 +5891,7 @@ CIndexSprite::BltEffect(WORD *pDest, WORD pitch)
 	int rectBottom = m_Height;	
 
 	
-	//for (i=0; i<rectBottom; i++)	
+	//for (int i=0; i<rectBottom; i++)	
 	if (rectBottom > 0)
 	{
 		i = rectBottom-1;
@@ -5885,28 +5902,28 @@ CIndexSprite::BltEffect(WORD *pDest, WORD pitch)
 			pPixels		= m_Pixels[i];
 			pDestTemp	= pDest;
 
-			// (Åõ¸í¼ö,Index»ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö		
+			// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Indexï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½		
 			transPair	= *pPixels++;
 			
- 			// ÇÑ ÁÙ Ãâ·Â		
+ 			// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 			if (transPair > 0)
 			{
 				j = transPair;
 				do
 				{
-					pDestTemp += *pPixels++;	// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+					pDestTemp += *pPixels++;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+					indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
 					if (indexCount > 0)
 					{
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						memcpyEffect( pDestTemp, pPixels, indexCount );
 
 						pDestTemp += indexCount;
 						pPixels += indexCount;
 					}
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 					
 					if (colorCount > 0)
@@ -5930,12 +5947,12 @@ CIndexSprite::BltEffect(WORD *pDest, WORD pitch)
 // s_Value1 - Main Color
 // s_Value2 - Sub Color
 //-----------------------------------------------------------------------------
-//    ( (Åõ¸í»ö¼ö, Index»ö¼ö, 
-//                 (indexSet¹øÈ£, gradation¹øÈ£), 
-//                 (indexSet¹øÈ£, gradation¹øÈ£), 
+//    ( (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Indexï¿½ï¿½ï¿½ï¿½, 
+//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
+//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
 //-----------------------------------------------------------------------------
-// ¿ÞÂÊ clipping.  
-// rectLeft°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ clipping.  
+// rectLeftï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç³Ê¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ pDestï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //----------------------------------------------------------------------
 void
 CIndexSprite::BltEffectClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
@@ -5944,7 +5961,7 @@ CIndexSprite::BltEffectClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int		count,
 			transCount, 
@@ -5963,50 +5980,50 @@ CIndexSprite::BltEffectClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectLeft = pRect->left;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ðµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...
+		// xxxxOOOOOOOOOOOOOOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½..
 		//---------------------------------------------
-		// xxxxºÎºÐ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxï¿½ÎºÐ±ï¿½ï¿½ï¿½ checkï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Æ¾
 		//---------------------------------------------		
 		if (count > 0)
 		{
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½			
 				index += transCount;			
 			
 				//---------------------------------------------
-				// index»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+indexCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¬ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºÐ °Ç³Ê¶ê
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ ï¿½Ç³Ê¶ï¿½
 						pDestTemp += index - rectLeft;
 
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							memcpyEffect( pDestTemp, pPixels, indexCount );
@@ -6016,7 +6033,7 @@ CIndexSprite::BltEffectClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 						}
 
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						if (colorCount > 0)
@@ -6027,21 +6044,21 @@ CIndexSprite::BltEffectClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 							pPixels		+= colorCount;					
 						}
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì, indexÀÏºÎ Ãâ·Â
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½Æ´Ñ»ï¿½ï¿½ï¿½ ï¿½ÏºÎ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ 
+					// xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½, indexï¿½Ïºï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					else
 					{					
-						dist = rectLeft - index;		// ¿ÞÂÊ¿¡¼­ skipµÇ´Â Á¡µé ¼ö
+						dist = rectLeft - index;		// ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						
 						pPixels += dist;
 						indexCount -= dist;
 						
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							memcpyEffect( pDestTemp, pPixels, indexCount );
@@ -6051,7 +6068,7 @@ CIndexSprite::BltEffectClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 						}
 
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						if (colorCount > 0)
@@ -6062,31 +6079,31 @@ CIndexSprite::BltEffectClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 							pPixels		+= colorCount;
 						}
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 				}		
 
 				
-				// index»ö¼ö¸¸Å­ indexÁõ°¡
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 
-				// index»ö±ò¸¸Å­ skip
+				// indexï¿½ï¿½ï¿½ï¿½Å­ skip
 				pPixels += indexCount;
 
-				// normal »ö±ò ¼ö
+				// normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;			
 				
 				//---------------------------------------------
-				// index»ö±îÁöÇØ¼­´Â xxxx¹üÀ§¸¦ ¾È ³Ñ¾î°¡°í..
-				// normal»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½..
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					dist = rectLeft - index;				
 					colorCount2 = colorCount - dist;
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (colorCount2 > 0)
 					{
 						CSpriteSurface::memcpyEffect(pDestTemp, pPixels+dist, colorCount2);
@@ -6094,26 +6111,26 @@ CIndexSprite::BltEffectClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 						pPixels += colorCount;
 					}
 
-					// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					break;			
 				}		
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½				
 				pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 		
 
 			//---------------------------------------------
-			// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.		
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.		
 			//---------------------------------------------
 			if (--j > 0)
 			{
 				do {
-					pDestTemp += *pPixels++;	// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+					pDestTemp += *pPixels++;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+					indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						memcpyEffect( pDestTemp, pPixels, indexCount );
@@ -6122,7 +6139,7 @@ CIndexSprite::BltEffectClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 						pPixels += indexCount;
 					}
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 					
 					if (colorCount > 0)
@@ -6145,8 +6162,8 @@ CIndexSprite::BltEffectClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // BltEffect ClipRight
 //----------------------------------------------------------------------
-// ¿À¸¥ÂÊ clipping.  
-// rectRight°³ ±îÁöÀÇ Á¡¸¸ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ clipping.  
+// rectRightï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ pDestï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //----------------------------------------------------------------------
 void
 CIndexSprite::BltEffectClipRight(WORD* pDest, WORD pitch, RECT* pRect)
@@ -6155,7 +6172,7 @@ CIndexSprite::BltEffectClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -6172,57 +6189,57 @@ CIndexSprite::BltEffectClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectBottom = pRect->bottom;	
 	int rectRight = pRect->right;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 			
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-		// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...		
+		// OOOOOOOOOOOOOOxxxxx ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 		//---------------------------------------------
-		// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+		// OOOOOOOOOOOOOOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½È´ï¿½.
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do {
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += transCount;
 				
-				// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºÐºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-				// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ðµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ÊºÎºÐºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½Ö´ï¿½.
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ breakï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 
-				// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Â°Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 				//---------------------------------------------
-				// index»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------			
 				if (index+indexCount > rectRight)
 				{
-					// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					if (index > rectRight)
 					{
 						break;
 					}
-					// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±Ý Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 					else
 					{
 						pDestTemp += transCount;
 
-						// ¿À¸¥ÂÊÀ¸·Î skipµÇ´Â Á¡µéÀ» »©ÁØ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 						indexCount = rectRight - index;
 
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							memcpyEffect( pDestTemp, pPixels, indexCount );
@@ -6236,13 +6253,13 @@ CIndexSprite::BltEffectClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 					}
 				}
 
-				// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³Ê¶ï¿½ï¿½
 				pDestTemp += transCount;
 
 				//-------------------------
-				// index»ö ¸ðµÎ Ãâ·Â
+				// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//-------------------------
-				// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+				// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if (indexCount > 0)
 				{
 					memcpyEffect( pDestTemp, pPixels, indexCount );
@@ -6251,19 +6268,19 @@ CIndexSprite::BltEffectClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 					pPixels += indexCount;
 				}
 
-				// Ãâ·ÂÇÑ indexCount¸¸Å­ indexÁõ°¡
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ indexCountï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 				
 
-				// Normal »ö±ò ¼ö
+				// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;
 
 				//---------------------------------------------
-				// normal»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------			
 				if (index+colorCount > rectRight)
 				{
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					int tempCount = rectRight - index;
 					if (tempCount > 0)
 					{
@@ -6273,7 +6290,7 @@ CIndexSprite::BltEffectClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 				}			
 				
 				//--------------------
-				// normal»ö ¸ðµÎ Ãâ·Â
+				// normalï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//--------------------
 				if (colorCount > 0)
 				{
@@ -6296,13 +6313,13 @@ CIndexSprite::BltEffectClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 // s_Value1 - Main Color
 // s_Value2 - Sub Color
 //-----------------------------------------------------------------------------
-//    ( (Åõ¸í»ö¼ö, Index»ö¼ö, 
-//                 (indexSet¹øÈ£, gradation¹øÈ£), 
-//                 (indexSet¹øÈ£, gradation¹øÈ£), 
+//    ( (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Indexï¿½ï¿½ï¿½ï¿½, 
+//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
+//                 (indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
 //-----------------------------------------------------------------------------
-// ¿ÞÂÊ clipping.  
-// rectLeft°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
-// rectRight±îÁö..
+// ï¿½ï¿½ï¿½ï¿½ clipping.  
+// rectLeftï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç³Ê¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ pDestï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+// rectRightï¿½ï¿½ï¿½ï¿½..
 //----------------------------------------------------------------------
 void
 CIndexSprite::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
@@ -6311,7 +6328,7 @@ CIndexSprite::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -6328,52 +6345,52 @@ CIndexSprite::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 	//int colorSet, colorGradation;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ðµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½..
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...
+		// xxxxOOOOOOOOOOOOOOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½..
 		//---------------------------------------------
-		// xxxxºÎºÐ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxï¿½ÎºÐ±ï¿½ï¿½ï¿½ checkï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Æ¾
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do {		
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½			
 				index += transCount;			
 			
 				//---------------------------------------------
-				// index»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+indexCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¬ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºÐ °Ç³Ê¶ê
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ ï¿½Ç³Ê¶ï¿½
 						pDestTemp += index - rectLeft;
 
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							memcpyEffect( pDestTemp, pPixels, indexCount );
@@ -6383,7 +6400,7 @@ CIndexSprite::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 						}
 
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						if (colorCount > 0)
@@ -6394,21 +6411,21 @@ CIndexSprite::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 							pPixels		+= colorCount;					
 						}
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì, indexÀÏºÎ Ãâ·Â
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½Æ´Ñ»ï¿½ï¿½ï¿½ ï¿½ÏºÎ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ 
+					// xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½, indexï¿½Ïºï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					else
 					{					
-						dist = rectLeft - index;		// ¿ÞÂÊ¿¡¼­ skipµÇ´Â Á¡µé ¼ö
+						dist = rectLeft - index;		// ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						
 						pPixels += dist;
 						indexCount -= dist;
 						
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							memcpyEffect( pDestTemp, pPixels, indexCount );
@@ -6417,7 +6434,7 @@ CIndexSprite::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 							pPixels += indexCount;
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						if (colorCount > 0)
@@ -6429,31 +6446,31 @@ CIndexSprite::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 							index += colorCount;
 						}
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 				}		
 
 				
-				// index»ö¼ö¸¸Å­ indexÁõ°¡
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 
-				// index»ö±ò¸¸Å­ skip
+				// indexï¿½ï¿½ï¿½ï¿½Å­ skip
 				pPixels += indexCount;
 
-				// normal »ö±ò ¼ö
+				// normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;			
 				
 				//---------------------------------------------
-				// index»ö±îÁöÇØ¼­´Â xxxx¹üÀ§¸¦ ¾È ³Ñ¾î°¡°í..
-				// normal»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½..
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					dist = rectLeft - index;				
 					colorCount2 = colorCount - dist;
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (colorCount2 > 0)
 					{
 						CSpriteSurface::memcpyEffect(pDestTemp, pPixels+dist, colorCount2);
@@ -6462,55 +6479,55 @@ CIndexSprite::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 					pPixels += colorCount;
 					index += colorCount;					
 
-					// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					break;			
 				}		
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½				
 				pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 		
 
 			//---------------------------------------------
-			// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-			// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+			// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...		
+			// OOOOOOOOOOOOOOxxxxx ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 			//---------------------------------------------
-			// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+			// OOOOOOOOOOOOOOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½È´ï¿½.
 			//---------------------------------------------
 			if (--j > 0)		
 			{
 				do {
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+					indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 							
-					// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 					index += transCount;
 					
-					// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºÐºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-					// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ðµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ÊºÎºÐºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½Ö´ï¿½.
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ breakï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 
-					// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Â°Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 					//---------------------------------------------
-					// index»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+					// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------			
 					if (index+indexCount > rectRight)
 					{
-						// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						if (index > rectRight)
 						{
 							break;
 						}
-						// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±Ý Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 						else
 						{
 							pDestTemp += transCount;
 
-							// ¿À¸¥ÂÊÀ¸·Î skipµÇ´Â Á¡µéÀ» »©ÁØ´Ù.
+							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 							indexCount = rectRight - index;
 
-							// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+							// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 							if (indexCount > 0)
 							{
 								memcpyEffect( pDestTemp, pPixels, indexCount );
@@ -6524,13 +6541,13 @@ CIndexSprite::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 						}
 					}
 
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³Ê¶ï¿½ï¿½
 					pDestTemp += transCount;
 
 					//-------------------------
-					// index»ö ¸ðµÎ Ãâ·Â
+					// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//-------------------------
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						memcpyEffect( pDestTemp, pPixels, indexCount );
@@ -6539,19 +6556,19 @@ CIndexSprite::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 						pPixels += indexCount;
 					}
 
-					// Ãâ·ÂÇÑ indexCount¸¸Å­ indexÁõ°¡
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ indexCountï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 					index += indexCount;
 					
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 
 					//---------------------------------------------
-					// normal»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+					// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------			
 					if (index+colorCount > rectRight)
 					{
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						int tempCount = rectRight - index;
 						if (tempCount > 0)
 						{
@@ -6561,7 +6578,7 @@ CIndexSprite::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 					}			
 					
 					//--------------------
-					// normal»ö ¸ðµÎ Ãâ·Â
+					// normalï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//--------------------
 					if (colorCount > 0)
 					{
@@ -6583,7 +6600,7 @@ CIndexSprite::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // BltEffect Clip Height
 //----------------------------------------------------------------------
-// pRect->top, rectBottom¸¸Å­¸¸ Ãâ·ÂÇÑ´Ù.
+// pRect->top, rectBottomï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //----------------------------------------------------------------------
 void
 CIndexSprite::BltEffectClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
@@ -6602,23 +6619,23 @@ CIndexSprite::BltEffectClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 
 	//int colorSet, colorGradation;
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö		
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½		
 		count	= *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 		if (count > 0)
 		{
 			j = count;
 			do {		
-				pDestTemp += *pPixels++;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+				pDestTemp += *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+				indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-				// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+				// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if (indexCount > 0)
 				{
 					memcpyEffect( pDestTemp, pPixels, indexCount );
@@ -6627,7 +6644,7 @@ CIndexSprite::BltEffectClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 					pPixels += indexCount;
 				}
 
-				// Normal »ö±ò ¼ö
+				// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;
 				
 				if (colorCount > 0)
@@ -6725,7 +6742,7 @@ CIndexSprite::memcpyEffectSimpleOutline(WORD* pDest, WORD* pSource, WORD pixels)
 {
 	int colorSet, colorGradation;
 
-	// Ã¹ Á¡
+	// Ã¹ ï¿½ï¿½
 	colorSet		= (*pSource >> 8) & 0xFF;						
 	colorGradation	= *pSource & 0xFF;			// gradation
 	*pDest			= ColorSet[s_IndexValue[colorSet]][colorGradation];
@@ -6735,7 +6752,7 @@ CIndexSprite::memcpyEffectSimpleOutline(WORD* pDest, WORD* pSource, WORD pixels)
 	pDest += pixels_1;
 	pSource += pixels_1;
 	
-	// ³¡ Á¡
+	// ï¿½ï¿½ ï¿½ï¿½
 	colorSet		= (*pSource >> 8) & 0xFF;						
 	colorGradation	= *pSource & 0xFF;			// gradation
 	//*pDest			= ColorSet[s_IndexValue[colorSet]][colorGradation];
@@ -6753,12 +6770,12 @@ CIndexSprite::memcpyEffectWipeOut(WORD* pDest, WORD* pSource, WORD pixels)
 	int drawPixels = (pixels - skipPixels)>>1;
 	int drawPixels2 = pixels - drawPixels - skipPixels;
 	
-	// [1] drawPixels¸¸Å­ Ãâ·ÂÇÏ°í..
-	// [2] skipPixels ¸¸Å­ °Ç³Ê¶ç°í
-	// [3] drawPixels2¸¸Å­ Ãâ·Â
+	// [1] drawPixelsï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½..
+	// [2] skipPixels ï¿½ï¿½Å­ ï¿½Ç³Ê¶ï¿½ï¿½
+	// [3] drawPixels2ï¿½ï¿½Å­ ï¿½ï¿½ï¿½
 	
 	//------------------------------------------------------------	
-	// drawPixels¸¸Å­ Ãâ·Â
+	// drawPixelsï¿½ï¿½Å­ ï¿½ï¿½ï¿½
 	//------------------------------------------------------------		
 	if (drawPixels > 0)
 	{
@@ -6768,20 +6785,20 @@ CIndexSprite::memcpyEffectWipeOut(WORD* pDest, WORD* pSource, WORD pixels)
 			colorGradation	= *pSource & 0xFF;			// gradation
 			pSource++;
 
-			// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+			// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 			*pDest		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 			pDest ++;
 		} while (--drawPixels);
 	}
 
 	//------------------------------------------------------------	
-	// skipPixels¸¸Å­ °Ç³Ê¶ê
+	// skipPixelsï¿½ï¿½Å­ ï¿½Ç³Ê¶ï¿½
 	//------------------------------------------------------------	
 	pDest += skipPixels;
 	pSource += skipPixels;
 
 	//------------------------------------------------------------	
-	// drawPixels2¸¸Å­ Ãâ·Â
+	// drawPixels2ï¿½ï¿½Å­ ï¿½ï¿½ï¿½
 	//------------------------------------------------------------	
 	if (drawPixels2 > 0)
 	{
@@ -6791,7 +6808,7 @@ CIndexSprite::memcpyEffectWipeOut(WORD* pDest, WORD* pSource, WORD pixels)
 			colorGradation	= *pSource & 0xFF;			// gradation
 			pSource++;
 
-			// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+			// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 			*pDest		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 			pDest ++;
 		} while (--drawPixels2);
@@ -6804,24 +6821,24 @@ CIndexSprite::memcpyEffectWipeOut(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // memcpy EffectNet
 //----------------------------------------------------------------------
-// ±×¹°¸Á
+// ï¿½×¹ï¿½ï¿½ï¿½
 //----------------------------------------------------------------------
 void		
 CIndexSprite::memcpyEffectNet(WORD* pDest, WORD* pSource, WORD pixels)
 {
-	// Âï´ÂÁ¡(1) + °Ç³Ê¶ç´ÂÁ¡(s_Value1)
+	// ï¿½ï¿½ï¿½ï¿½ï¿½(1) + ï¿½Ç³Ê¶ï¿½ï¿½ï¿½ï¿½(s_Value1)
 	register int i = pixels;
 	int skipPixels = 1 + CSpriteSurface::s_Value1;
 
 	int colorSet, colorGradation;	
 	
-	// ÇÑÁ¡ Âï°í , skipPixels¸¸Å­ °Ç³Ê¶ç±â
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ , skipPixelsï¿½ï¿½Å­ ï¿½Ç³Ê¶ï¿½ï¿½
 	do
 	{
 		colorSet		= (*pSource >> 8) & 0xFF;						
 		colorGradation	= *pSource & 0xFF;			// gradation
 		
-		// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+		// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 		*pDest		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 
 		pSource += skipPixels;
@@ -6912,18 +6929,18 @@ CIndexSprite::BltBrightness(WORD *pDest, WORD pitch, BYTE DarkBits)
 			pPixels		= m_Pixels[i];
 			pDestTemp	= pDest;
 
-			// (Åõ¸í¼ö,Index»ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö		
+			// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Indexï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½		
 			transPair	= *pPixels++;
 			
- 			// ÇÑ ÁÙ Ãâ·Â
+ 			// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 			if (transPair > 0)
 			{
 				j = transPair;
 				do {
-					pDestTemp += *pPixels++;	// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+					pDestTemp += *pPixels++;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+					indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -6932,14 +6949,14 @@ CIndexSprite::BltBrightness(WORD *pDest, WORD pitch, BYTE DarkBits)
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 							*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 							pDestTemp ++;
 						} while (--k);
 						
 					}
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 					
 					CSpriteSurface::memcpyBrightness(pDestTemp, pPixels, colorCount);					
@@ -6966,7 +6983,7 @@ CIndexSprite::BltBrightnessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE D
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -6983,52 +7000,52 @@ CIndexSprite::BltBrightnessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE D
 	int colorSet, colorGradation;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ðµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½..
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...
+		// xxxxOOOOOOOOOOOOOOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½..
 		//---------------------------------------------
-		// xxxxºÎºÐ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxï¿½ÎºÐ±ï¿½ï¿½ï¿½ checkï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Æ¾
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do {		
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½			
 				index += transCount;			
 			
 				//---------------------------------------------
-				// index»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+indexCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¬ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºÐ °Ç³Ê¶ê
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ ï¿½Ç³Ê¶ï¿½
 						pDestTemp += index - rectLeft;
 
-						// index»ö ¸ðµÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -7037,13 +7054,13 @@ CIndexSprite::BltBrightnessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE D
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyBrightness(pDestTemp, pPixels, colorCount);
@@ -7051,22 +7068,22 @@ CIndexSprite::BltBrightnessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE D
 						pDestTemp	+= colorCount;
 						pPixels		+= colorCount;					
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì, indexÀÏºÎ Ãâ·Â
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½Æ´Ñ»ï¿½ï¿½ï¿½ ï¿½ÏºÎ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ 
+					// xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½, indexï¿½Ïºï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					else
 					{					
-						dist = rectLeft - index;		// ¿ÞÂÊ¿¡¼­ skipµÇ´Â Á¡µé ¼ö
+						dist = rectLeft - index;		// ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						
 						pPixels += dist;
 						indexCount -= dist;
 						
-						// index»ö ÀÏºÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½Ïºï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -7075,13 +7092,13 @@ CIndexSprite::BltBrightnessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE D
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyBrightness(pDestTemp, pPixels, colorCount);
@@ -7089,55 +7106,55 @@ CIndexSprite::BltBrightnessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE D
 						pDestTemp	+= colorCount;
 						pPixels		+= colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 				}		
 
 				
-				// index»ö¼ö¸¸Å­ indexÁõ°¡
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 
-				// index»ö±ò¸¸Å­ skip
+				// indexï¿½ï¿½ï¿½ï¿½Å­ skip
 				pPixels += indexCount;
 
-				// normal »ö±ò ¼ö
+				// normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;			
 				
 				//---------------------------------------------
-				// index»ö±îÁöÇØ¼­´Â xxxx¹üÀ§¸¦ ¾È ³Ñ¾î°¡°í..
-				// normal»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½..
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					dist = rectLeft - index;				
 					colorCount2 = colorCount - dist;
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					CSpriteSurface::memcpyBrightness(pDestTemp, pPixels+dist, colorCount2);
 					pDestTemp += colorCount2;
 					pPixels += colorCount;
 
-					// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					break;			
 				}		
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½				
 				pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 		
 
 			//---------------------------------------------
-			// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.		
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.		
 			//---------------------------------------------	
 			if (--j > 0)
 			{
 				do {		
-					pDestTemp += *pPixels++;	// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+					pDestTemp += *pPixels++;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+					indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -7146,13 +7163,13 @@ CIndexSprite::BltBrightnessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE D
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 							*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 							pDestTemp ++;
 						} while (--k);
 					}
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 					
 					CSpriteSurface::memcpyBrightness(pDestTemp, pPixels, colorCount);
@@ -7179,7 +7196,7 @@ CIndexSprite::BltBrightnessClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -7195,57 +7212,57 @@ CIndexSprite::BltBrightnessClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 			
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-		// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...		
+		// OOOOOOOOOOOOOOxxxxx ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 		//---------------------------------------------
-		// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+		// OOOOOOOOOOOOOOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½È´ï¿½.
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do {
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += transCount;
 				
-				// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºÐºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-				// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ðµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ÊºÎºÐºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½Ö´ï¿½.
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ breakï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 
-				// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Â°Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 				//---------------------------------------------
-				// index»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------			
 				if (index+indexCount > rectRight)
 				{
-					// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					if (index > rectRight)
 					{
 						break;
 					}
-					// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±Ý Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 					else
 					{
 						pDestTemp += transCount;
 
-						// ¿À¸¥ÂÊÀ¸·Î skipµÇ´Â Á¡µéÀ» »©ÁØ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 						indexCount = rectRight - index;
 
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -7254,7 +7271,7 @@ CIndexSprite::BltBrightnessClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 								pDestTemp ++;
 							} while (--k);
@@ -7264,13 +7281,13 @@ CIndexSprite::BltBrightnessClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 					}
 				}
 
-				// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³Ê¶ï¿½ï¿½
 				pDestTemp += transCount;
 
 				//-------------------------
-				// index»ö ¸ðµÎ Ãâ·Â
+				// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//-------------------------
-				// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+				// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if (indexCount > 0)
 				{
 					k = indexCount;
@@ -7279,30 +7296,30 @@ CIndexSprite::BltBrightnessClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 						colorGradation	= (*pPixels & 0xFF);			// gradation
 						pPixels++;
 
-						// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+						// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 						*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 						pDestTemp ++;
 					} while (--k);
 				}		
-				// Ãâ·ÂÇÑ indexCount¸¸Å­ indexÁõ°¡
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ indexCountï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 				
 
-				// Normal »ö±ò ¼ö
+				// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;
 
 				//---------------------------------------------
-				// normal»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------			
 				if (index+colorCount > rectRight)
 				{
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					CSpriteSurface::memcpyBrightness(pDestTemp, pPixels, rectRight - index);
 					break;			
 				}			
 				
 				//--------------------
-				// normal»ö ¸ðµÎ Ãâ·Â
+				// normalï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				//--------------------
 				CSpriteSurface::memcpyBrightness(pDestTemp, pPixels, colorCount);
 
@@ -7328,7 +7345,7 @@ CIndexSprite::BltBrightnessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -7345,53 +7362,53 @@ CIndexSprite::BltBrightnessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 	int colorSet, colorGradation;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ðµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½..
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...
+		// xxxxOOOOOOOOOOOOOOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½..
 		//---------------------------------------------
-		// xxxxºÎºÐ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxï¿½ÎºÐ±ï¿½ï¿½ï¿½ checkï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Æ¾
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do {
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+				indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½			
 				index += transCount;			
 			
 				//---------------------------------------------
-				// index»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+indexCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¬ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºÐ °Ç³Ê¶ê
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ ï¿½Ç³Ê¶ï¿½
 						pDestTemp += index - rectLeft;
 
-						// index»ö ¸ðµÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -7400,13 +7417,13 @@ CIndexSprite::BltBrightnessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyBrightness(pDestTemp, pPixels, colorCount);
@@ -7414,22 +7431,22 @@ CIndexSprite::BltBrightnessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 						pDestTemp	+= colorCount;
 						pPixels		+= colorCount;					
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì, indexÀÏºÎ Ãâ·Â
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½Æ´Ñ»ï¿½ï¿½ï¿½ ï¿½ÏºÎ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ 
+					// xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½, indexï¿½Ïºï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------
 					else
 					{					
-						dist = rectLeft - index;		// ¿ÞÂÊ¿¡¼­ skipµÇ´Â Á¡µé ¼ö
+						dist = rectLeft - index;		// ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						
 						pPixels += dist;
 						indexCount -= dist;
 						
-						// index»ö ÀÏºÎ Ãâ·Â
-						// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+						// indexï¿½ï¿½ ï¿½Ïºï¿½ ï¿½ï¿½ï¿½
+						// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (indexCount > 0)
 						{
 							k = indexCount;
@@ -7438,13 +7455,13 @@ CIndexSprite::BltBrightnessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 								colorGradation	= (*pPixels & 0xFF);			// gradation
 								pPixels++;
 
-								// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+								// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 								*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 								pDestTemp ++;
 							} while (--k);
 						}
 
-						// Normal »ö ¸ðµÎ Ãâ·Â
+						// Normal ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 						colorCount = *pPixels++;
 						
 						CSpriteSurface::memcpyBrightness(pDestTemp, pPixels, colorCount);
@@ -7453,85 +7470,85 @@ CIndexSprite::BltBrightnessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 						pPixels		+= colorCount;
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						break;
 					}
 				}		
 
 				
-				// index»ö¼ö¸¸Å­ indexÁõ°¡
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 				index += indexCount;
 
-				// index»ö±ò¸¸Å­ skip
+				// indexï¿½ï¿½ï¿½ï¿½Å­ skip
 				pPixels += indexCount;
 
-				// normal »ö±ò ¼ö
+				// normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;			
 				
 				//---------------------------------------------
-				// index»ö±îÁöÇØ¼­´Â xxxx¹üÀ§¸¦ ¾È ³Ñ¾î°¡°í..
-				// normal»ö±îÁöÇÏ¸é xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½..
+				// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ xxxxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					dist = rectLeft - index;				
 					colorCount2 = colorCount - dist;
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					CSpriteSurface::memcpyBrightness(pDestTemp, pPixels+dist, colorCount2);
 					pDestTemp += colorCount2;
 					pPixels += colorCount;
 					index += colorCount;
 
-					// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					break;			
 				}		
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½				
 				pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 		
 
 			//---------------------------------------------
-			// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-			// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+			// ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Clippingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½...		
+			// OOOOOOOOOOOOOOxxxxx ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 			//---------------------------------------------
-			// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+			// OOOOOOOOOOOOOOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½È´ï¿½.
 			//---------------------------------------------
 			if (--j > 0)
 			{
 				do {
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½			
+					indexCount = *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ ï¿½ï¿½			
 							
-					// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 					index += transCount;
 					
-					// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºÐºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-					// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ðµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ÊºÎºÐºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½Ö´ï¿½.
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ breakï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 
-					// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´Â°Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 					//---------------------------------------------
-					// index»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+					// indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------			
 					if (index+indexCount > rectRight)
 					{
-						// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 						if (index > rectRight)
 						{
 							break;
 						}
-						// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±Ý Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 						else
 						{
 							pDestTemp += transCount;
 
-							// ¿À¸¥ÂÊÀ¸·Î skipµÇ´Â Á¡µéÀ» »©ÁØ´Ù.
+							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ skipï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 							indexCount = rectRight - index;
 
-							// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+							// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 							if (indexCount > 0)
 							{
 								k = indexCount;
@@ -7540,7 +7557,7 @@ CIndexSprite::BltBrightnessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 									colorGradation	= (*pPixels & 0xFF);			// gradation
 									pPixels++;
 
-									// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+									// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 									*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 									pDestTemp ++;
 								} while (--k);
@@ -7550,13 +7567,13 @@ CIndexSprite::BltBrightnessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 						}
 					}
 
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³Ê¶ï¿½ï¿½
 					pDestTemp += transCount;
 
 					//-------------------------
-					// index»ö ¸ðµÎ Ãâ·Â
+					// indexï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//-------------------------
-					// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+					// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					if (indexCount > 0)
 					{
 						k = indexCount;
@@ -7565,30 +7582,30 @@ CIndexSprite::BltBrightnessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 							colorGradation	= (*pPixels & 0xFF);			// gradation
 							pPixels++;
 
-							// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+							// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 							*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 							pDestTemp ++;
 						} while (--k);
 					}
-					// Ãâ·ÂÇÑ indexCount¸¸Å­ indexÁõ°¡
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ indexCountï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½
 					index += indexCount;
 					
 
-					// Normal »ö±ò ¼ö
+					// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					colorCount = *pPixels++;
 
 					//---------------------------------------------
-					// normal»ö±îÁö ¿À¸¥ÂÊ ³¡±îÁö µµ´ÞÇßÀ» °æ¿ì
+					// normalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//---------------------------------------------			
 					if (index+colorCount > rectRight)
 					{
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Surfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						CSpriteSurface::memcpyBrightness(pDestTemp, pPixels, rectRight - index);
 						break;			
 					}			
 					
 					//--------------------
-					// normal»ö ¸ðµÎ Ãâ·Â
+					// normalï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					//--------------------
 					CSpriteSurface::memcpyBrightness(pDestTemp, pPixels, colorCount);
 
@@ -7625,23 +7642,23 @@ CIndexSprite::BltBrightnessClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE
 
 	int colorSet, colorGradation;
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹Ýº¹ ¼ö		
+		// (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ýºï¿½ ï¿½ï¿½		
 		count	= *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 		if (count > 0)
 		{
 			j = count;
 			do {
-				pDestTemp += *pPixels++;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				indexCount = *pPixels++;	// Index¹Ýº¹ ¼ö
+				pDestTemp += *pPixels++;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ç³ï¿½ ï¿½Ú´ï¿½.
+				indexCount = *pPixels++;	// Indexï¿½Ýºï¿½ ï¿½ï¿½
 
-				// indexCount¼ö¸¸Å­ index»öµéÀ» Ãâ·ÂÇÑ´Ù.
+				// indexCountï¿½ï¿½ï¿½ï¿½Å­ indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if (indexCount > 0)
 				{
 					k = indexCount;
@@ -7650,13 +7667,13 @@ CIndexSprite::BltBrightnessClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE
 						colorGradation	= (*pPixels & 0xFF);			// gradation
 						pPixels++;
 
-						// s_IndexValue¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+						// s_IndexValueï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.				
 						*pDestTemp		= ColorSet[s_IndexValue[colorSet]][colorGradation];
 						pDestTemp ++;
 					} while (--k);
 				}
 
-				// Normal »ö±ò ¼ö
+				// Normal ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				colorCount = *pPixels++;
 				
 				CSpriteSurface::memcpyBrightness(pDestTemp, pPixels, colorCount);

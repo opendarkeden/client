@@ -8,10 +8,10 @@
 #pragma warning(disable:4786)
 
 //------------------------------------------------------------------
-// NULL°ª
+// NULLê°’
 //------------------------------------------------------------------
 #define	ZONEID_NULL						0xFFFF
-#define	OBJECTID_NULL					0xFFFFFFFF		// ¾Æ¹«°Íµµ ¾ø´Ù´Â ÀÇ¹Ì..
+#define	OBJECTID_NULL					0xFFFFFFFF		// ì•„ë¬´ê²ƒë„ ì—†ë‹¤ëŠ” ì˜ë¯¸..
 #define	INTERACTIONOBJECTTYPE_NULL		0xFFFF
 #define	SECTORPOSITION_NULL				0xFFFF
 
@@ -60,7 +60,7 @@ typedef	unsigned short	TYPE_ITEM_WEIGHT;
 
 //----------------------------------------------------------------------
 //
-//                 Creature °ü·Ã
+//                 Creature ê´€ë ¨
 //
 //----------------------------------------------------------------------
 
@@ -71,7 +71,7 @@ typedef	unsigned short	TYPE_ITEM_WEIGHT;
 typedef	unsigned short	TYPE_CREATURETYPE;
 
 //----------------------------------------------------------------------
-// ¹æÇâ¿¡ ´ëÇÑ °ª
+// ë°©í–¥ì— ëŒ€í•œ ê°’
 //----------------------------------------------------------------------
 enum DIRECTIONS
 {			
@@ -90,10 +90,10 @@ enum DIRECTIONS
 #define	MAX_DIRECTION	DIRECTION_MAX
 
 //----------------------------------------------------------------------
-// Çàµ¿¿¡ ´ëÇÑ °ª
+// í–‰ë™ì— ëŒ€í•œ ê°’
 //----------------------------------------------------------------------
-// VAMPIRE¿Í SLAYER°¡ °°Àº °ªÀ» °¡Áö´Â ÀÌÀ¯´Â
-// FramePack¿¡¼­ÀÇ Action¹øÈ£ ¶§¹®ÀÌ´Ù..
+// VAMPIREì™€ SLAYERê°€ ê°™ì€ ê°’ì„ ê°€ì§€ëŠ” ì´ìœ ëŠ”
+// FramePackì—ì„œì˜ Actionë²ˆí˜¸ ë•Œë¬¸ì´ë‹¤..
 //
 #define	ACTION_STAND					0
 #define	ACTION_MOVE						1
@@ -102,52 +102,52 @@ enum DIRECTIONS
 #define	ACTION_DAMAGED					4
 #define	ACTION_DRAINED					5
 #define	ACTION_DIE						6
-#define	ACTION_VAMPIRE_DRAIN		7			// °°Àº °ªÀÌ´Ù.
-#define	ACTION_SLAYER_GUN_SR			7			// Àú°Ý¿ë(TR)
-#define	ACTION_SLAYER_GUN_AR			8			// ¼ÒÃÑ(AG)
-#define	ACTION_SLAYER_SWORD				9			// Ä®
-#define	ACTION_SLAYER_BLADE				10			// µµ
+#define	ACTION_VAMPIRE_DRAIN		7			// ê°™ì€ ê°’ì´ë‹¤.
+#define	ACTION_SLAYER_GUN_SR			7			// ì €ê²©ìš©(TR)
+#define	ACTION_SLAYER_GUN_AR			8			// ì†Œì´(AG)
+#define	ACTION_SLAYER_SWORD				9			// ì¹¼
+#define	ACTION_SLAYER_BLADE				10			// ë„
 #define	ACTION_SLAYER_THROW_WEAPON		11	
 #define	ACTION_SLAYER_MOTOR_MOVE		12
-#define	ACTION_SLAYER_GUN_SG			13			// ¼¦°Ç(SG)
-#define	ACTION_SLAYER_GUN_SMG			14			// ÀÚµ¿¼ÒÃÑ(SMG)
-#define	ACTION_SLAYER_SWORD_2			15			// Ä® Æ¯¼öµ¿ÀÛ
-#define	ACTION_SLAYER_BLADE_2			16			// µµ Æ¯¼öµ¿ÀÛ
+#define	ACTION_SLAYER_GUN_SG			13			// ìƒ·ê±´(SG)
+#define	ACTION_SLAYER_GUN_SMG			14			// ìžë™ì†Œì´(SMG)
+#define	ACTION_SLAYER_SWORD_2			15			// ì¹¼ íŠ¹ìˆ˜ë™ìž‘
+#define	ACTION_SLAYER_BLADE_2			16			// ë„ íŠ¹ìˆ˜ë™ìž‘
 #define	ACTION_SLAYER_THROW_POTION		17
 #define	ACTION_SLAYER_MOTOR_STAND		18
-#define	ACTION_VAMPIRE_ATTACK_SLOW		8			// vampireÀü¿ë
-#define	ACTION_VAMPIRE_ATTACK_FAST		9			// vampireÀü¿ë
+#define	ACTION_VAMPIRE_ATTACK_SLOW		8			// vampireì „ìš©
+#define	ACTION_VAMPIRE_ATTACK_FAST		9			// vampireì „ìš©
 
 // 2001.7.6
-#define	ACTION_VAMPIRE_DIE_BODY			10			// vampireÀü¿ë - ¸Ó¸®¾ø°í ¸ñ¸¸ ÀÖ´Â °Í
-#define	ACTION_SLAYER_GUN_SR_SLOW		19			// Àú°Ý¿ë(TR)
-#define	ACTION_SLAYER_GUN_SR_FAST		20			// Àú°Ý¿ë(TR)
-#define	ACTION_SLAYER_GUN_AR_SLOW		21			// ¼ÒÃÑ(AG)
-#define	ACTION_SLAYER_GUN_AR_FAST		22	 		// ¼ÒÃÑ(AG)
-#define	ACTION_SLAYER_GUN_SG_SLOW		23			// ¼¦°Ç(SG)
-#define	ACTION_SLAYER_GUN_SG_FAST		24			// ¼¦°Ç(SG)
-#define	ACTION_SLAYER_GUN_SMG_SLOW		25			// ÀÚµ¿¼ÒÃÑ(SMG)
-#define	ACTION_SLAYER_GUN_SMG_FAST		26			// ÀÚµ¿¼ÒÃÑ(SMG)
-#define	ACTION_SLAYER_SWORD_SLOW		27			// Ä®
-#define	ACTION_SLAYER_SWORD_FAST		28			// Ä®
-#define	ACTION_SLAYER_BLADE_SLOW		29			// µµ
-#define	ACTION_SLAYER_BLADE_FAST		30			// µµ
-#define	ACTION_SLAYER_SWORD_2_SLOW		31			// Ä® Æ¯¼öµ¿ÀÛ
-#define	ACTION_SLAYER_SWORD_2_FAST		32			// Ä® Æ¯¼öµ¿ÀÛ
-#define	ACTION_SLAYER_BLADE_2_SLOW		33			// µµ Æ¯¼öµ¿ÀÛ
-#define	ACTION_SLAYER_BLADE_2_FAST		34			// µµ Æ¯¼öµ¿ÀÛ
+#define	ACTION_VAMPIRE_DIE_BODY			10			// vampireì „ìš© - ë¨¸ë¦¬ì—†ê³  ëª©ë§Œ ìžˆëŠ” ê²ƒ
+#define	ACTION_SLAYER_GUN_SR_SLOW		19			// ì €ê²©ìš©(TR)
+#define	ACTION_SLAYER_GUN_SR_FAST		20			// ì €ê²©ìš©(TR)
+#define	ACTION_SLAYER_GUN_AR_SLOW		21			// ì†Œì´(AG)
+#define	ACTION_SLAYER_GUN_AR_FAST		22	 		// ì†Œì´(AG)
+#define	ACTION_SLAYER_GUN_SG_SLOW		23			// ìƒ·ê±´(SG)
+#define	ACTION_SLAYER_GUN_SG_FAST		24			// ìƒ·ê±´(SG)
+#define	ACTION_SLAYER_GUN_SMG_SLOW		25			// ìžë™ì†Œì´(SMG)
+#define	ACTION_SLAYER_GUN_SMG_FAST		26			// ìžë™ì†Œì´(SMG)
+#define	ACTION_SLAYER_SWORD_SLOW		27			// ì¹¼
+#define	ACTION_SLAYER_SWORD_FAST		28			// ì¹¼
+#define	ACTION_SLAYER_BLADE_SLOW		29			// ë„
+#define	ACTION_SLAYER_BLADE_FAST		30			// ë„
+#define	ACTION_SLAYER_SWORD_2_SLOW		31			// ì¹¼ íŠ¹ìˆ˜ë™ìž‘
+#define	ACTION_SLAYER_SWORD_2_FAST		32			// ì¹¼ íŠ¹ìˆ˜ë™ìž‘
+#define	ACTION_SLAYER_BLADE_2_SLOW		33			// ë„ íŠ¹ìˆ˜ë™ìž‘
+#define	ACTION_SLAYER_BLADE_2_FAST		34			// ë„ íŠ¹ìˆ˜ë™ìž‘
 
-#define ACTION_OUSTERS_STAND			7			// ¼­ÀÖ±â
-#define ACTION_OUSTERS_MOVE				8			// °È±â
-#define ACTION_OUSTERS_CHAKRAM			9			// Â÷Å©¶÷ °ø°Ý
-#define ACTION_OUSTERS_MAGIC_ATTACK		10			// ¸¶¹ý °ø°Ý
-#define ACTION_OUSTERS_DRAIN			11			// Èí¿µ
-#define ACTION_OUSTERS_FAST_MOVE_STAND	12			// °øÁß Á¤Áö
-#define ACTION_OUSTERS_FAST_MOVE_MOVE	13			// °øÁß ¿òÁ÷ÀÓ
-#define ACTION_OUSTERS_ATTACK_SLOW		14			// ÀÏ¹Ý °ø°Ý ´À¸²
-#define ACTION_OUSTERS_ATTACK_FAST		15			// ÀÏ¹Ý °ø°Ý ºü¸§
-#define ACTION_OUSTERS_CHAKRAM_SLOW		16			// Â÷Å©¶÷ °ø°Ý ´À¸²
-#define ACTION_OUSTERS_CHAKRAM_FAST		17			// Â÷Å©¶÷ °ø°Ý ºü¸§
+#define ACTION_OUSTERS_STAND			7			// ì„œìžˆê¸°
+#define ACTION_OUSTERS_MOVE				8			// ê±·ê¸°
+#define ACTION_OUSTERS_CHAKRAM			9			// ì°¨í¬ëžŒ ê³µê²©
+#define ACTION_OUSTERS_MAGIC_ATTACK		10			// ë§ˆë²• ê³µê²©
+#define ACTION_OUSTERS_DRAIN			11			// í¡ì˜
+#define ACTION_OUSTERS_FAST_MOVE_STAND	12			// ê³µì¤‘ ì •ì§€
+#define ACTION_OUSTERS_FAST_MOVE_MOVE	13			// ê³µì¤‘ ì›€ì§ìž„
+#define ACTION_OUSTERS_ATTACK_SLOW		14			// ì¼ë°˜ ê³µê²© ëŠë¦¼
+#define ACTION_OUSTERS_ATTACK_FAST		15			// ì¼ë°˜ ê³µê²© ë¹ ë¦„
+#define ACTION_OUSTERS_CHAKRAM_SLOW		16			// ì°¨í¬ëžŒ ê³µê²© ëŠë¦¼
+#define ACTION_OUSTERS_CHAKRAM_FAST		17			// ì°¨í¬ëžŒ ê³µê²© ë¹ ë¦„
 
 #define	ACTION_MAX_VAMPIRE			11
 #define	ACTION_MAX_SLAYER			35 //by viva
@@ -157,21 +157,21 @@ enum DIRECTIONS
 
 
 //----------------------------------------------------------------------
-// AddonÀ§Ä¡
+// Addonìœ„ì¹˜
 //----------------------------------------------------------------------
 enum ADDON
 {
-	ADDON_HAIR,			// ¸Ó¸®
-	ADDON_HELM,			// ¸ðÀÚ
-	ADDON_COAT,			// »óÀÇ
-	ADDON_TROUSER,		// ÇÏÀÇ
-	//ADDON_SHOES,		// ½Å¹ß
-	//ADDON_LEFTGLOVE,		// ¿Þ¼Õ Àå°©
-	//ADDON_RIGHTGLOVE,		// ¿À¸¥¼Õ Àå°©
-	ADDON_LEFTHAND,		// ¿Þ¼Õ			
-	ADDON_RIGHTHAND,	// ¿À¸¥¼Õ
-	//ADDON_CLOAK,		// ¿ÜÅõ
-	ADDON_MOTOR,		// ¿ÀÅä¹ÙÀÌ
+	ADDON_HAIR,			// ë¨¸ë¦¬
+	ADDON_HELM,			// ëª¨ìž
+	ADDON_COAT,			// ìƒì˜
+	ADDON_TROUSER,		// í•˜ì˜
+	//ADDON_SHOES,		// ì‹ ë°œ
+	//ADDON_LEFTGLOVE,		// ì™¼ì† ìž¥ê°‘
+	//ADDON_RIGHTGLOVE,		// ì˜¤ë¥¸ì† ìž¥ê°‘
+	ADDON_LEFTHAND,		// ì™¼ì†			
+	ADDON_RIGHTHAND,	// ì˜¤ë¥¸ì†
+	//ADDON_CLOAK,		// ì™¸íˆ¬
+	ADDON_MOTOR,		// ì˜¤í† ë°”ì´
 	ADDON_MAX,
 	ADDON_NULL	= 0xFFFF,
 };
@@ -180,7 +180,7 @@ enum ADDON
 
 //----------------------------------------------------------------------
 //
-//                          Effect °ü·Ã
+//                          Effect ê´€ë ¨
 //
 //----------------------------------------------------------------------
 #define	ACTIONINFO_NULL					0xFFFF
@@ -190,7 +190,7 @@ typedef	unsigned short	TYPE_ACTIONINFO;
 
 //----------------------------------------------------------------------
 //
-//                       EffectGenerator °ü·Ã
+//                       EffectGenerator ê´€ë ¨
 //
 //----------------------------------------------------------------------
 typedef	unsigned short TYPE_EFFECTGENERATORID;
@@ -201,7 +201,7 @@ typedef	unsigned short TYPE_EFFECTGENERATORID;
 
 //----------------------------------------------------------------------
 //
-//                       Sound / Music °ü·Ã
+//                       Sound / Music ê´€ë ¨
 //
 //----------------------------------------------------------------------
 
@@ -215,7 +215,7 @@ typedef unsigned short TYPE_MUSICID;
 
 
 //----------------------------------------------------------------------
-// EffectSpriteType Á¤ÀÇ
+// EffectSpriteType ì •ì˜
 //----------------------------------------------------------------------
 typedef	unsigned short				TYPE_EFFECTSPRITETYPE;
 #define	SIZE_EFFECTSPRITETYPE		2
@@ -402,14 +402,14 @@ enum AC_SLAYER_PART
 
 enum AC_ADDON
 {
-	AC_ADDON_BODY,		// ¸öÅë
-	AC_ADDON_HELM,		// Çï¸ä
+	AC_ADDON_BODY,		// ëª¸í†µ
+	AC_ADDON_HELM,		// í—¬ë©§
 //	AC_ADDON_COAT,			// add by viva
 //	AC_ADDON_TROUSER,		//add by viva
-	AC_ADDON_LEFTHAND,	// ¿Þ¼Õ
-	AC_ADDON_RIGHTHAND,	// ¿À¸¥¼Õ
-	AC_ADDON_MOTOR,		// ¿ÀÅä¹ÙÀÌ
-	AC_ADDON_SHOULDER,	// °ßÀå
+	AC_ADDON_LEFTHAND,	// ì™¼ì†
+	AC_ADDON_RIGHTHAND,	// ì˜¤ë¥¸ì†
+	AC_ADDON_MOTOR,		// ì˜¤í† ë°”ì´
+	AC_ADDON_SHOULDER,	// ê²¬ìž¥
 	AC_ADDON_MAX,
 	AC_ADDON_NULL	= 0xFFFF,
 };

@@ -25,15 +25,16 @@ extern BOOL g_bNeedUpdate;
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void LCRegisterPlayerOKHandler::execute ( LCRegisterPlayerOK * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 #ifdef __GAME_CLIENT__
 
-	//cout << "ÇÃ·¹ÀÌ¾î µî·Ï¿¡ ¼º°øÇß½À´Ï´ç.. ÃßÄ«.. " << endl;
+	//cout << "í”Œë ˆì´ì–´ ë“±ë¡ì— ì„±ê³µí–ˆìŠµë‹ˆë‹¹.. ì¶”ì¹´.. " << endl;
 
-	//throw DisconnectException("ÇÃ·¹ÀÌ¾î µî·Ï¿¡ ¼º°øÇßÀ¸´Ï±ñ, Á¢¼ÓÀ» Á¾·áÇÏ°í ´Ù½Ã ÇØ¶û..");
+	//throw DisconnectException("í”Œë ˆì´ì–´ ë“±ë¡ì— ì„±ê³µí–ˆìœ¼ë‹ˆê¹, ì ‘ì†ì„ ì¢…ë£Œí•˜ê³  ë‹¤ì‹œ í•´ëž‘..");
 	// Debug Message
 
 	if (!g_bNeedUpdate)
@@ -44,15 +45,15 @@ void LCRegisterPlayerOKHandler::execute ( LCRegisterPlayerOK * pPacket , Player 
 
 		pClientPlayer->sendPacket( &clGetPCList );
 		
-		// ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ¸¦ ¹Ù²Û´Ù.
+		// í”Œë ˆì´ì–´ì˜ ìƒíƒœë¥¼ ë°”ê¾¼ë‹¤.
 		pClientPlayer->setPlayerStatus( CPS_AFTER_SENDING_CL_GET_PC_LIST );
 
 		//------------------------------------------------------------
-		// ´Ý´Â´Ù.
+		// ë‹«ëŠ”ë‹¤.
 		//------------------------------------------------------------
 		UI_CloseUserRegistrationWindow();
 
-		// ID¸¦ ±â¾ï½ÃÄÑµÐ´Ù.
+		// IDë¥¼ ê¸°ì–µì‹œì¼œë‘”ë‹¤.
 		if( g_pUserInformation->UserID != NULL && g_pUserInformation->UserID.GetLength() < 15 )
 			UI_BackupLoginID( g_pUserInformation->UserID );
 		else
@@ -60,18 +61,18 @@ void LCRegisterPlayerOKHandler::execute ( LCRegisterPlayerOK * pPacket , Player 
 
 
 		//------------------------------------------------------------
-		// ÇöÀç Server Á¤º¸¸¦ ÀúÀåÇØµÐ´Ù.
+		// í˜„ìž¬ Server ì •ë³´ë¥¼ ì €ìž¥í•´ë‘”ë‹¤.
 		//------------------------------------------------------------
 		SetServerGroupName( pPacket->getGroupName().c_str() );
 		//SetServerName( pPacket->getServerName().c_str() );
 
 		//------------------------------------------------------------
-		// Client´Â PC List¸¦ ±â´Ù·Á¾ß ÇÑ´Ù.
+		// ClientëŠ” PC Listë¥¼ ê¸°ë‹¤ë ¤ì•¼ í•œë‹¤.
 		//------------------------------------------------------------	
 		SetMode( MODE_WAIT_PCLIST );
 
 		//------------------------------------------------------------
-		// Gore LevelÀ» ¹Ù²Û´Ù.
+		// Gore Levelì„ ë°”ê¾¼ë‹¤.
 		//------------------------------------------------------------
 		bool bGoreLevel = pPacket->isAdult() && !g_pUserOption->UseTeenVersion;
 

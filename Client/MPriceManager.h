@@ -7,7 +7,7 @@
 
 class MItem;
 
-// °¡°İÀº typeÀÇ º°ÀÌ number°³.
+// ê°€ê²©ì€ typeì˜ ë³„ì´ numberê°œ.
 struct STAR_ITEM_PRICE {
 	int type;
 	int number;
@@ -17,10 +17,10 @@ class MPriceManager {
 	public :
 		enum TRADE_TYPE
 		{
-			NPC_TO_PC,		// player°¡ ¹°°Ç »ì¶§, m_MarketCondSell
-			PC_TO_NPC,		// player°¡ ¹°°Ç ÆÈ¶§, m_MarketCondBuy
-			REPAIR,			// player°¡ ¹°°Ç repairÇÒ ¶§,
-			SILVERING,		// player°¡ ¹°°Ç¿¡ ½Ç¹öÄÚÆÃÇÒ ¶§,
+			NPC_TO_PC,		// playerê°€ ë¬¼ê±´ ì‚´ë•Œ, m_MarketCondSell
+			PC_TO_NPC,		// playerê°€ ë¬¼ê±´ íŒ”ë•Œ, m_MarketCondBuy
+			REPAIR,			// playerê°€ ë¬¼ê±´ repairí•  ë•Œ,
+			SILVERING,		// playerê°€ ë¬¼ê±´ì— ì‹¤ë²„ì½”íŒ…í•  ë•Œ,
 		};
 
 	public :
@@ -35,9 +35,9 @@ class MPriceManager {
 		int			GetMysteriousPrice(MItem* pItem) const;
 
 		//-------------------------------------------------------		
-		// ½Ã¼¼
+		// ì‹œì„¸
 		//-------------------------------------------------------		
-		// NPC ±âÁØÀ¸·Î buy, sell
+		// NPC ê¸°ì¤€ìœ¼ë¡œ buy, sell
 		void		SetMarketCondBuy(int buy)			{ m_MarketCondBuy = buy; }
 		void		SetMarketCondSell(int sell)			{ m_MarketCondSell = sell; }
 
@@ -48,10 +48,10 @@ class MPriceManager {
 
 	protected :
 		
-		// ½Ã¼¼
-		int					m_MarketCondBuy;		// NPC°¡ »ì¶§(25)
-		int					m_MarketCondSell;		// NPC°¡ ÆÈ¶§(100)
-		int					m_EventFixPrice;		// ¼­¹ö¿¡¼­ Á¤ÇØÁÖ´Â ÀÌº¥Æ® ¾ÆÀÌÅÛ °¡°İ
+		// ì‹œì„¸
+		int					m_MarketCondBuy;		// NPCê°€ ì‚´ë•Œ(25)
+		int					m_MarketCondSell;		// NPCê°€ íŒ”ë•Œ(100)
+		int					m_EventFixPrice;		// ì„œë²„ì—ì„œ ì •í•´ì£¼ëŠ” ì´ë²¤íŠ¸ ì•„ì´í…œ ê°€ê²©
 };
 
 extern MPriceManager*		g_pPriceManager;

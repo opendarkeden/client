@@ -37,8 +37,8 @@ extern uint receiveWithDebug (Socket *pSock, void * buf , uint len);
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-SocketInputStream::SocketInputStream ( Socket * sock , uint BufferLen ) 
-	throw ( Error )
+SocketInputStream::SocketInputStream ( Socket * sock , uint BufferLen )
+	throw ( ProtocolException , Error )
 : m_pSocket(sock), m_Buffer(NULL), m_BufferLen(BufferLen), m_Head(0), m_Tail(0)
 {
 	__BEGIN_TRY
@@ -60,8 +60,8 @@ SocketInputStream::SocketInputStream ( Socket * sock , uint BufferLen )
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-SocketInputStream::~SocketInputStream () 
-	throw ( Error )
+SocketInputStream::~SocketInputStream ()
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -89,11 +89,11 @@ uint SocketInputStream::read ( char * buf , uint len )
 	if ( len == 0 )
 		throw InvalidProtocolException("len==0");
 	
-	// ¿äÃ»ÇÑ ¸¸Å­ÀÇ µ¥ÀÌÅ¸°¡ ¹öÆÛ³»¿¡ Á¸ÀçÇÏÁö ¾ÊÀ» °æ¿ì ¿¹¿Ü¸¦ ´øÁø´Ù.
-	// ¸¸¾à ¸ðµç read °¡ peek() ·Î Ã¼Å©ÇÑ ÈÄ È£ÃâµÈ´Ù¸é, ¾Æ·¡ if-throw ´Â 
-	// Áßº¹µÈ °¨ÀÌ ÀÖ´Ù. µû¶ó¼­, ÄÚ¸àÆ®·Î Ã³¸®ÇØµµ ¹«¹æÇÏ´Ù.
-	// ´Ü ¾Æ·¡ ÄÚµå¸¦ ÄÚ¸àÆ®Ã³¸®ÇÏ¸é, ¹Ù·Î ¾Æ·¡ÀÇ if-else ¸¦ 'if'-'else if'-'else'
-	// ·Î ¼öÁ¤ÇØÁà¾ß ÇÑ´Ù.
+	// ìš”ì²­í•œ ë§Œí¼ì˜ ë°ì´íƒ€ê°€ ë²„í¼ë‚´ì— ì¡´ìž¬í•˜ì§€ ì•Šì„ ê²½ìš° ì˜ˆì™¸ë¥¼ ë˜ì§„ë‹¤.
+	// ë§Œì•½ ëª¨ë“  read ê°€ peek() ë¡œ ì²´í¬í•œ í›„ í˜¸ì¶œëœë‹¤ë©´, ì•„ëž˜ if-throw ëŠ” 
+	// ì¤‘ë³µëœ ê°ì´ ìžˆë‹¤. ë”°ë¼ì„œ, ì½”ë©˜íŠ¸ë¡œ ì²˜ë¦¬í•´ë„ ë¬´ë°©í•˜ë‹¤.
+	// ë‹¨ ì•„ëž˜ ì½”ë“œë¥¼ ì½”ë©˜íŠ¸ì²˜ë¦¬í•˜ë©´, ë°”ë¡œ ì•„ëž˜ì˜ if-else ë¥¼ 'if'-'else if'-'else'
+	// ë¡œ ìˆ˜ì •í•´ì¤˜ì•¼ í•œë‹¤.
 	if ( len > length() )
 		throw InsufficientDataException( len - length() );
 	
@@ -152,15 +152,15 @@ throw ( ProtocolException , Error ) {
 	if ( len == 0 )
 		throw InvalidProtocolException("len==0");
 	
-	// ¿äÃ»ÇÑ ¸¸Å­ÀÇ µ¥ÀÌÅ¸°¡ ¹öÆÛ³»¿¡ Á¸ÀçÇÏÁö ¾ÊÀ» °æ¿ì ¿¹¿Ü¸¦ ´øÁø´Ù.
-	// ¸¸¾à ¸ðµç read °¡ peek() ·Î Ã¼Å©ÇÑ ÈÄ È£ÃâµÈ´Ù¸é, ¾Æ·¡ if-throw ´Â 
-	// Áßº¹µÈ °¨ÀÌ ÀÖ´Ù. µû¶ó¼­, ÄÚ¸àÆ®·Î Ã³¸®ÇØµµ ¹«¹æÇÏ´Ù.
-	// ´Ü ¾Æ·¡ ÄÚµå¸¦ ÄÚ¸àÆ®Ã³¸®ÇÏ¸é, ¹Ù·Î ¾Æ·¡ÀÇ if-else ¸¦ if-else if-else
-	// ·Î ¼öÁ¤ÇØÁà¾ß ÇÑ´Ù.
+	// ìš”ì²­í•œ ë§Œí¼ì˜ ë°ì´íƒ€ê°€ ë²„í¼ë‚´ì— ì¡´ìž¬í•˜ì§€ ì•Šì„ ê²½ìš° ì˜ˆì™¸ë¥¼ ë˜ì§„ë‹¤.
+	// ë§Œì•½ ëª¨ë“  read ê°€ peek() ë¡œ ì²´í¬í•œ í›„ í˜¸ì¶œëœë‹¤ë©´, ì•„ëž˜ if-throw ëŠ” 
+	// ì¤‘ë³µëœ ê°ì´ ìžˆë‹¤. ë”°ë¼ì„œ, ì½”ë©˜íŠ¸ë¡œ ì²˜ë¦¬í•´ë„ ë¬´ë°©í•˜ë‹¤.
+	// ë‹¨ ì•„ëž˜ ì½”ë“œë¥¼ ì½”ë©˜íŠ¸ì²˜ë¦¬í•˜ë©´, ë°”ë¡œ ì•„ëž˜ì˜ if-else ë¥¼ if-else if-else
+	// ë¡œ ìˆ˜ì •í•´ì¤˜ì•¼ í•œë‹¤.
 	if ( len > length() )
 		throw InsufficientDataException( len - length() );
 	
-	// ½ºÆ®¸µ¿¡´Ù°¡ len ¸¸Å­ °ø°£À» ¹Ì¸® ÇÒ´çÇÑ´Ù.
+	// ìŠ¤íŠ¸ë§ì—ë‹¤ê°€ len ë§Œí¼ ê³µê°„ì„ ë¯¸ë¦¬ í• ë‹¹í•œë‹¤.
 	str.reserve( len );
 
 	if ( m_Head < m_Tail ) {	// normal order
@@ -218,17 +218,17 @@ void SocketInputStream::read ( Packet * pPacket )
 {
 	__BEGIN_TRY
 		
-	// ÀÌ¹Ì »óÀ§ ·¹º§¿¡¼­ ID, Size¸¦ ÀÐ°í ID¿¡ ¸Â´Â ÆÐÅ¶°´Ã¼¸¦ ¸¸µé¾î¼­
-	// ÆÄ¶ó¹ÌÅÍ·Î ³Ñ°åÀ¸¹Ç·Î ID ´Â skip ÇÑ´Ù. Size´Â °´Ã¼ÀÇ ¹ÙÀÌ³Ê¸® 
-	// ÀÌ¹ÌÁö°¡ ¸ðµÎ µµÂøÇß´ÂÁö¸¸ Ã¼Å©ÇÒ»Ó, °´Ã¼ÀÇ ÃÊ±âÈ­¿Í´Â ¹«°üÇÏ±â
-	// ¶§¹®¿¡ skip ÇÑ´Ù.
+	// ì´ë¯¸ ìƒìœ„ ë ˆë²¨ì—ì„œ ID, Sizeë¥¼ ì½ê³  IDì— ë§žëŠ” íŒ¨í‚·ê°ì²´ë¥¼ ë§Œë“¤ì–´ì„œ
+	// íŒŒë¼ë¯¸í„°ë¡œ ë„˜ê²¼ìœ¼ë¯€ë¡œ ID ëŠ” skip í•œë‹¤. SizeëŠ” ê°ì²´ì˜ ë°”ì´ë„ˆë¦¬ 
+	// ì´ë¯¸ì§€ê°€ ëª¨ë‘ ë„ì°©í–ˆëŠ”ì§€ë§Œ ì²´í¬í• ë¿, ê°ì²´ì˜ ì´ˆê¸°í™”ì™€ëŠ” ë¬´ê´€í•˜ê¸°
+	// ë•Œë¬¸ì— skip í•œë‹¤.
 	skip( szPacketHeader );
 
-	// ÀÌÁ¦ ÇÏÀ§ ÆÐÅ¶ Å¬·¡½º¿¡ Á¤ÀÇµÈ ¸Þ½îµå¸¦ ¼öÇàÇÏ¸é, ³»ºÎ¿¡¼­
-	// ¾Ë¾Æ¼­ Àß ÃÊ±âÈ­ÇÏ°Ô µÈ´Ù.
-	// ´Ü ¾î¶² ÆÐÅ¶ÀÇ read()¿¡¼­ Æ²¸®°Ô µÇ¸é ±× ÀÌÈÄÀÇ ¸ðµç ÆÐÅ¶Àº
-	// ÆÄ½ÌÀÌ ºÒ°¡´ÉÇÏ°Ô µÈ´Ù. µû¶ó¼­, ÆÐÅ¶ Å¬·¡½º¸¦ µðÀÚÀÎÇÒ ¶§
-	// ÁÖÀÇÇØ¾ß ÇÑ´Ù.
+	// ì´ì œ í•˜ìœ„ íŒ¨í‚· í´ëž˜ìŠ¤ì— ì •ì˜ëœ ë©”ì˜ë“œë¥¼ ìˆ˜í–‰í•˜ë©´, ë‚´ë¶€ì—ì„œ
+	// ì•Œì•„ì„œ ìž˜ ì´ˆê¸°í™”í•˜ê²Œ ëœë‹¤.
+	// ë‹¨ ì–´ë–¤ íŒ¨í‚·ì˜ read()ì—ì„œ í‹€ë¦¬ê²Œ ë˜ë©´ ê·¸ ì´í›„ì˜ ëª¨ë“  íŒ¨í‚·ì€
+	// íŒŒì‹±ì´ ë¶ˆê°€ëŠ¥í•˜ê²Œ ëœë‹¤. ë”°ë¼ì„œ, íŒ¨í‚· í´ëž˜ìŠ¤ë¥¼ ë””ìžì¸í•  ë•Œ
+	// ì£¼ì˜í•´ì•¼ í•œë‹¤.
 	pPacket->read( *this );
 
 	//  By tiancaiamao
@@ -247,7 +247,7 @@ void SocketInputStream::read ( Packet * pPacket )
 //////////////////////////////////////////////////////////////////////
 // peek data from buffer
 //////////////////////////////////////////////////////////////////////
-bool SocketInputStream::peek ( char * buf , uint len )
+bool SocketInputStream::peek ( char * buf , uint len ) throw ( ProtocolException , Error )
 {
 //	__BEGIN_TRY
 			
@@ -256,13 +256,13 @@ bool SocketInputStream::peek ( char * buf , uint len )
 	if ( len == 0 )
 		throw InvalidProtocolException("len==0");
 	
-	// ¿äÃ»ÇÑ Å©±âº¸´Ù ¹öÆÛÀÇ µ¥ÀÌÅ¸°¡ ÀûÀº °æ¿ì, ¿¹¿Ü¸¦ ´øÁø´Ù.
+	// ìš”ì²­í•œ í¬ê¸°ë³´ë‹¤ ë²„í¼ì˜ ë°ì´íƒ€ê°€ ì ì€ ê²½ìš°, ì˜ˆì™¸ë¥¼ ë˜ì§„ë‹¤.
 	if ( len > length() ) {
 		// throw InsufficientDataException( len - length() );
 		return false;
 	}
 
-	// buf ¿¡ º¹»ç´Â ÇÏµÇ, m_Head ´Â º¯È­½ÃÅ°Áö ¾Ê´Â´Ù.
+	// buf ì— ë³µì‚¬ëŠ” í•˜ë˜, m_Head ëŠ” ë³€í™”ì‹œí‚¤ì§€ ì•ŠëŠ”ë‹¤.
 	if ( m_Head < m_Tail ) {	// normal order
 
 		//
@@ -327,7 +327,7 @@ void SocketInputStream::skip ( uint len )
 	if ( len > length() )
 		throw InsufficientDataException( len - length() );
 	
-	// m_Head ¸¦ Áõ°¡½ÃÅ²´Ù.
+	// m_Head ë¥¼ ì¦ê°€ì‹œí‚¨ë‹¤.
 
 	uint pos = m_Head;
 	m_Head = ( m_Head + len ) % m_BufferLen;
@@ -354,36 +354,36 @@ void SocketInputStream::skip ( uint len )
 //
 // fill buffer from socket
 //
-// µ¥ÀÌÅ¸°¡ ¾øÀ» °æ¿ì 0 À» ¸®ÅÏÇÑ´Ù.
-// ±×·±µ¥, NonBlocking ÀÏ °æ¿ì NonBlockingIOException À» ´øÁø´Ù.
+// ë°ì´íƒ€ê°€ ì—†ì„ ê²½ìš° 0 ì„ ë¦¬í„´í•œë‹¤.
+// ê·¸ëŸ°ë°, NonBlocking ì¼ ê²½ìš° NonBlockingIOException ì„ ë˜ì§„ë‹¤.
 //
 // *NOTES*
 //
-// °¡Àå ½¬¿î ¹æ¹ýÀº ÇÔ¼ö¿¡´Ù°¡ char buf[N]; À» ¼±¾ðÇÑ ÈÄ¿¡ ¿©±â´Ù°¡
-// receive() °á°ú°ªÀ» ÀúÀåÇÑ ÈÄ, ¹öÆÛ¿¡ º¹»çÇÏ´Â °ÍÀÌ´Ù. ±×·¯³ª, ÀÌ
-// ¹æ¹ýÀº º¹»ç°¡ 2È¸ ¹ß»ýÇÏ±â ¶§¹®¿¡ Áö¾çµÇ¾î¾ß ÇÏ°Ú´Ù. 
+// ê°€ìž¥ ì‰¬ìš´ ë°©ë²•ì€ í•¨ìˆ˜ì—ë‹¤ê°€ char buf[N]; ì„ ì„ ì–¸í•œ í›„ì— ì—¬ê¸°ë‹¤ê°€
+// receive() ê²°ê³¼ê°’ì„ ì €ìž¥í•œ í›„, ë²„í¼ì— ë³µì‚¬í•˜ëŠ” ê²ƒì´ë‹¤. ê·¸ëŸ¬ë‚˜, ì´
+// ë°©ë²•ì€ ë³µì‚¬ê°€ 2íšŒ ë°œìƒí•˜ê¸° ë•Œë¬¸ì— ì§€ì–‘ë˜ì–´ì•¼ í•˜ê² ë‹¤. 
 //
-// µû¶ó¼­, ½ºÆ®¸²ÀÇ ³»ºÎ ¹öÆÛ¿¡´Ù°¡ Á÷Á¢ ½á¾ß ÇÏ´Âµ¥, ÀÌ¶§ ³»ºÎ ¹öÆÛ°¡
-// circular ÀÌ¹Ç·Î, normal order ÀÏ °æ¿ì¿¡´Â 2È¸ ÀÌ»ó receive()°¡ È£ÃâµÉ
-// È®·üÀÌ ÀÖ°Ô µÈ´Ù.
+// ë”°ë¼ì„œ, ìŠ¤íŠ¸ë¦¼ì˜ ë‚´ë¶€ ë²„í¼ì—ë‹¤ê°€ ì§ì ‘ ì¨ì•¼ í•˜ëŠ”ë°, ì´ë•Œ ë‚´ë¶€ ë²„í¼ê°€
+// circular ì´ë¯€ë¡œ, normal order ì¼ ê²½ìš°ì—ëŠ” 2íšŒ ì´ìƒ receive()ê°€ í˜¸ì¶œë 
+// í™•ë¥ ì´ ìžˆê²Œ ëœë‹¤.
 //
-// ÀÌ¶§ Ã¹¹øÂ° receive()¿¡¼­ ¼ÒÄÏÀÇ receive ¹öÆÛÀÇ µ¥ÀÌÅ¸¸¦ ´Ù ÀÐ¾î¹ö¸®°í, 
-// µ¿½Ã¿¡ ¹öÆÛÀÇ ³¡¿¡ µµ´ÞÇÑ °æ¿ì µÎ¹øÂ° receive() ¿¡¼­ NonBlockingIOException 
-// ÀÌ ¹ß»ýÇÏ°Ô µÈ´Ù. (¹°·Ð ÀÌ·± °æ¿ì´Â µå¹°´Ù. ¹öÆÛÀÇ ³¡°ú ¸Ç¾Õ¿¡ °ÉÃÄ¼­ 
-// µ¥ÀÌÅ¸°¡ ½áÁú °æ¿ì´Â Á¾Á¾ ¹ß»ýÇÑ´Ù Ä¡´õ¶óµµ.. ) 
+// ì´ë•Œ ì²«ë²ˆì§¸ receive()ì—ì„œ ì†Œì¼“ì˜ receive ë²„í¼ì˜ ë°ì´íƒ€ë¥¼ ë‹¤ ì½ì–´ë²„ë¦¬ê³ , 
+// ë™ì‹œì— ë²„í¼ì˜ ëì— ë„ë‹¬í•œ ê²½ìš° ë‘ë²ˆì§¸ receive() ì—ì„œ NonBlockingIOException 
+// ì´ ë°œìƒí•˜ê²Œ ëœë‹¤. (ë¬¼ë¡  ì´ëŸ° ê²½ìš°ëŠ” ë“œë¬¼ë‹¤. ë²„í¼ì˜ ëê³¼ ë§¨ì•žì— ê±¸ì³ì„œ 
+// ë°ì´íƒ€ê°€ ì¨ì§ˆ ê²½ìš°ëŠ” ì¢…ì¢… ë°œìƒí•œë‹¤ ì¹˜ë”ë¼ë„.. ) 
 //
-// ÀÚ. ÀÌ·² °æ¿ì fill()Àº ¿ÜºÎ·Î NonBlockingIOException À» ´øÁ®¾ß ÇÏ´Â°¡?
-// ¾Æ´Ï¸é Áö±Ý±îÁö ÀÐÀº µ¥ÀÌÅ¸ Å©±â¸¦ ¸®ÅÏÇØ¾ß ÇÏ´Â°¡? Á¤´äÀº ÈÄÀÚ´Ù. ^^;
-// Áï ³» ¸¾´ë·Î¾ß~~~ ÀÌÈ÷È÷È÷È÷È÷~
+// ìž. ì´ëŸ´ ê²½ìš° fill()ì€ ì™¸ë¶€ë¡œ NonBlockingIOException ì„ ë˜ì ¸ì•¼ í•˜ëŠ”ê°€?
+// ì•„ë‹ˆë©´ ì§€ê¸ˆê¹Œì§€ ì½ì€ ë°ì´íƒ€ í¬ê¸°ë¥¼ ë¦¬í„´í•´ì•¼ í•˜ëŠ”ê°€? ì •ë‹µì€ í›„ìžë‹¤. ^^;
+// ì¦‰ ë‚´ ë§˜ëŒ€ë¡œì•¼~~~ ì´ížˆížˆížˆížˆížˆ~
 //
 //////////////////////////////////////////////////////////////////////
-uint SocketInputStream::fill ()
+uint SocketInputStream::fill () throw ( IOException , Error )
 {
 	__BEGIN_TRY
 		
-	uint nFilled = 0;		// ¹öÆÛ¿¡ Ã¤¿ö³ÖÀº Å©±â
-	uint nReceived;			// Socket::receive()·Î ÇÑ¹ø ÀÐ¾îµéÀÎ Å©±â
-	uint nFree;				// ¹öÆÛÀÇ ºó ¿µ¿ªÀÇ Å©±â
+	uint nFilled = 0;		// ë²„í¼ì— ì±„ì›Œë„£ì€ í¬ê¸°
+	uint nReceived;			// Socket::receive()ë¡œ í•œë²ˆ ì½ì–´ë“¤ì¸ í¬ê¸°
+	uint nFree;				// ë²„í¼ì˜ ë¹ˆ ì˜ì—­ì˜ í¬ê¸°
 
 #ifdef __TEST_PACKET_RECEIVED_SIZE_PER_SECOND__
 	if( g_dwReceivedSizeCheckTime == 0 )
@@ -402,9 +402,9 @@ uint SocketInputStream::fill ()
 	
 
 	if ( m_Head <= m_Tail ) {	// normal order
-								// m_Head == m_Tail ÀÏ °æ¿ì´Â ¹öÆÛ°¡ ºó »óÅÂ¸¦ ³ªÅ¸³½´Ù.
+								// m_Head == m_Tail ì¼ ê²½ìš°ëŠ” ë²„í¼ê°€ ë¹ˆ ìƒíƒœë¥¼ ë‚˜íƒ€ë‚¸ë‹¤.
 
-		// ÀÏ´Ü ¹öÆÛÀÇ ¿À¸¥ÂÊ ºó °ø°£¸¸À» Ã¤¿î´Ù.
+		// ì¼ë‹¨ ë²„í¼ì˜ ì˜¤ë¥¸ìª½ ë¹ˆ ê³µê°„ë§Œì„ ì±„ìš´ë‹¤.
 		if ( m_Head == 0 ) {
 
 			//
@@ -413,9 +413,9 @@ uint SocketInputStream::fill ()
 			// abcd......
 			//
 			
-			// ÁÖÀÇÇÒ Á¡Àº, m_Head == 0 ÀÏ °æ¿ì, m_Tail ÀÌ ¹öÆÛÀÇ ³¡À» µ¹¾Æ¼­ ´Ù½Ã 0 À¸·Î
-			// µÇ°Ô µÇ¸é buffer empty ¿Í °°Àº »óÅÂ°¡ µÈ´Ù´Â Á¡ÀÌ´Ù. µû¶ó¼­, m_Head ¸¦ Ã¼Å©
-			// ÇØ¼­ 0 ÀÏ °æ¿ì m_Tail À» À§ÇØ¼­ ¹öÆÛÀÇ ¸Ç ¸¶Áö¸· Ä­À» ºñ¿öµÖ¾ß ÇÏ°Ú´Ù. ^^
+			// ì£¼ì˜í•  ì ì€, m_Head == 0 ì¼ ê²½ìš°, m_Tail ì´ ë²„í¼ì˜ ëì„ ëŒì•„ì„œ ë‹¤ì‹œ 0 ìœ¼ë¡œ
+			// ë˜ê²Œ ë˜ë©´ buffer empty ì™€ ê°™ì€ ìƒíƒœê°€ ëœë‹¤ëŠ” ì ì´ë‹¤. ë”°ë¼ì„œ, m_Head ë¥¼ ì²´í¬
+			// í•´ì„œ 0 ì¼ ê²½ìš° m_Tail ì„ ìœ„í•´ì„œ ë²„í¼ì˜ ë§¨ ë§ˆì§€ë§‰ ì¹¸ì„ ë¹„ì›Œë‘¬ì•¼ í•˜ê² ë‹¤. ^^
 
 			nFree = m_BufferLen - m_Tail - 1;
 			nReceived = receiveWithDebug(m_pSocket, &m_Buffer[m_Tail] , nFree );
@@ -436,13 +436,13 @@ uint SocketInputStream::fill ()
 			
 			if ( nReceived == nFree ) {
 
-				// ¼ÒÄÏÀÇ receive ¹öÆÛ¿¡ µ¥ÀÌÅ¸°¡ ³²¾ÆÀÖÀ» °¡´É¼ºÀÌ ÀÖ´Ù.
-				// ±×·¯³ª, ÀÔ·Â ¹öÆÛ¿¡ ¿©À¯ °ø°£ÀÌ ¾øÀ¸¹Ç·Î µ¥ÀÌÅ¸°¡ ³²¾Æ 
-				// ÀÖ´Ù¸é ¹öÆÛ¸¦ Áõ°¡½ÃÄÑ¾ß ÇÑ´Ù.
+				// ì†Œì¼“ì˜ receive ë²„í¼ì— ë°ì´íƒ€ê°€ ë‚¨ì•„ìžˆì„ ê°€ëŠ¥ì„±ì´ ìžˆë‹¤.
+				// ê·¸ëŸ¬ë‚˜, ìž…ë ¥ ë²„í¼ì— ì—¬ìœ  ê³µê°„ì´ ì—†ìœ¼ë¯€ë¡œ ë°ì´íƒ€ê°€ ë‚¨ì•„ 
+				// ìžˆë‹¤ë©´ ë²„í¼ë¥¼ ì¦ê°€ì‹œì¼œì•¼ í•œë‹¤.
 				uint available = m_pSocket->available();
 				if ( available > 0 ) {
 					resize( available + 1 );
-					// resize µÇ¸é, ³»ºÎÀÇ µ¥ÀÌÅ¸°¡ Á¤·ÄµÇ¹Ç·Î m_Tail ºÎÅÍ ¾²¸é µÈ´Ù.
+					// resize ë˜ë©´, ë‚´ë¶€ì˜ ë°ì´íƒ€ê°€ ì •ë ¬ë˜ë¯€ë¡œ m_Tail ë¶€í„° ì“°ë©´ ëœë‹¤.
 					nReceived = receiveWithDebug(m_pSocket, &m_Buffer[m_Tail] , available );
 					
 					//add by viva
@@ -465,7 +465,7 @@ uint SocketInputStream::fill ()
 			// ...abcd...
 			//
 
-			// ÀÌ °æ¿ì, m_Tail ÀÌ ¹öÆÛÀÇ ¾ÕÂÊÀ¸·Î ³Ñ¾î°¡µµ ¹«¹æÇÏ´Ù.
+			// ì´ ê²½ìš°, m_Tail ì´ ë²„í¼ì˜ ì•žìª½ìœ¼ë¡œ ë„˜ì–´ê°€ë„ ë¬´ë°©í•˜ë‹¤.
 			nFree = m_BufferLen - m_Tail;
 			nReceived = receiveWithDebug(m_pSocket, &m_Buffer[m_Tail] , nFree );
 
@@ -485,10 +485,10 @@ uint SocketInputStream::fill ()
 				
 				Assert( m_Tail == 0 );
 
-				// ¼ÒÄÏÀÇ receive ¹öÆÛ¿¡ µ¥ÀÌÅ¸°¡ ´õ ³²¾ÆÀÖÀ» °¡´É¼ºÀÌ ÀÖ´Ù.
-				// µû¶ó¼­, ÀÔ·Â ¹öÆÛÀÇ ¾ÕÂÊ ¿©À¯ °ø°£¿¡ µ¥ÀÌÅ¸¸¦ ¾²µµ·Ï ÇÑ´Ù.
-				// ´Ü ÀÌ¶§¿¡µµ m_Head == m_Tail ÀÌ¸é empty °¡ µÇ¹Ç·Î,
-				// -1 ÁÙÀÌµµ·Ï ÇÑ´Ù.
+				// ì†Œì¼“ì˜ receive ë²„í¼ì— ë°ì´íƒ€ê°€ ë” ë‚¨ì•„ìžˆì„ ê°€ëŠ¥ì„±ì´ ìžˆë‹¤.
+				// ë”°ë¼ì„œ, ìž…ë ¥ ë²„í¼ì˜ ì•žìª½ ì—¬ìœ  ê³µê°„ì— ë°ì´íƒ€ë¥¼ ì“°ë„ë¡ í•œë‹¤.
+				// ë‹¨ ì´ë•Œì—ë„ m_Head == m_Tail ì´ë©´ empty ê°€ ë˜ë¯€ë¡œ,
+				// -1 ì¤„ì´ë„ë¡ í•œë‹¤.
 				nFree = m_Head - 1;
 				nReceived = receiveWithDebug(m_pSocket, &m_Buffer[0] , nFree );
 				//add by viva
@@ -500,12 +500,12 @@ uint SocketInputStream::fill ()
 				
 				if ( nReceived == nFree ) {	// buffer is full
 
-					// ¹öÆÛ°¡ °¡µæ Âù »óÅÂÀÏ °æ¿ì, ¼ÒÄÏÀÇ receive ¹öÆÛ¿¡ µ¥ÀÌÅ¸°¡ ´õ 
-					// ³²¾ÆÀÖÀ» °¡´É¼ºÀÌ ÀÖ´Ù. µû¶ó¼­, ÀÐ¾îº¸°í ´õ ÀÖÀ¸¸é ¹öÆÛ¸¦ Áõ°¡½ÃÅ²´Ù.
+					// ë²„í¼ê°€ ê°€ë“ ì°¬ ìƒíƒœì¼ ê²½ìš°, ì†Œì¼“ì˜ receive ë²„í¼ì— ë°ì´íƒ€ê°€ ë” 
+					// ë‚¨ì•„ìžˆì„ ê°€ëŠ¥ì„±ì´ ìžˆë‹¤. ë”°ë¼ì„œ, ì½ì–´ë³´ê³  ë” ìžˆìœ¼ë©´ ë²„í¼ë¥¼ ì¦ê°€ì‹œí‚¨ë‹¤.
 					uint available = m_pSocket->available();
 					if ( available > 0 ) {
 						resize( available + 1 );
-						// resize µÇ¸é, ³»ºÎÀÇ µ¥ÀÌÅ¸°¡ Á¤·ÄµÇ¹Ç·Î m_Tail ºÎÅÍ ¾²¸é µÈ´Ù.
+						// resize ë˜ë©´, ë‚´ë¶€ì˜ ë°ì´íƒ€ê°€ ì •ë ¬ë˜ë¯€ë¡œ m_Tail ë¶€í„° ì“°ë©´ ëœë‹¤.
 						nReceived = receiveWithDebug(m_pSocket, &m_Buffer[m_Tail] , available );
 
 						// by tiancaiamao
@@ -548,12 +548,12 @@ uint SocketInputStream::fill ()
 		
 		if ( nReceived == nFree ) {		// buffer is full
 
-			// ÀÌ °æ¿ì, ¼ÒÄÏÀÇ receive ¹öÆÛ¿¡ µ¥ÀÌÅ¸°¡ ´õ ³²¾ÆÀÖÀ» 
-			// °¡´É¼ºÀÌ ÀÖ´Ù. µû¶ó¼­, ÀÐ¾îº¸°í ´õ ÀÖÀ¸¸é ¹öÆÛ¸¦ Áõ°¡½ÃÅ²´Ù.
+			// ì´ ê²½ìš°, ì†Œì¼“ì˜ receive ë²„í¼ì— ë°ì´íƒ€ê°€ ë” ë‚¨ì•„ìžˆì„ 
+			// ê°€ëŠ¥ì„±ì´ ìžˆë‹¤. ë”°ë¼ì„œ, ì½ì–´ë³´ê³  ë” ìžˆìœ¼ë©´ ë²„í¼ë¥¼ ì¦ê°€ì‹œí‚¨ë‹¤.
 			uint available = m_pSocket->available();
 			if ( available > 0 ) {
 				resize( available + 1 );
-				// resize µÇ¸é, ³»ºÎÀÇ µ¥ÀÌÅ¸°¡ Á¤·ÄµÇ¹Ç·Î m_Tail ºÎÅÍ ¾²¸é µÈ´Ù.
+				// resize ë˜ë©´, ë‚´ë¶€ì˜ ë°ì´íƒ€ê°€ ì •ë ¬ë˜ë¯€ë¡œ m_Tail ë¶€í„° ì“°ë©´ ëœë‹¤.
 				nReceived = receiveWithDebug(m_pSocket, &m_Buffer[m_Tail] , available );
 				if(nReceived==0) return 0;
 				//add by viva
@@ -579,7 +579,7 @@ uint SocketInputStream::fill ()
 //////////////////////////////////////////////////////////////////////
 // fill buffer from socket
 //
-// ¿¡µðÆ® ¿ä¸Á - ¾ÆÁ÷ ¾È °íÃÆÀ½. 0 -;
+// ì—ë””íŠ¸ ìš”ë§ - ì•„ì§ ì•ˆ ê³ ì³¤ìŒ. 0 -;
 //
 //////////////////////////////////////////////////////////////////////
 uint SocketInputStream::fill_RAW ()
@@ -611,7 +611,7 @@ uint SocketInputStream::fill_RAW ()
 	m_Tail += nread;
 	
 	if ( nread == (int)nfree ) {
-		// µ¥ÀÌÅ¸°¡ ´õ ÀÖÀ» °¡´É¼ºÀÌ ÀÖ´Ù.
+		// ë°ì´íƒ€ê°€ ë” ìžˆì„ ê°€ëŠ¥ì„±ì´ ìžˆë‹¤.
 		uint more = 0;
 		int result = ioctl( m_pSocket->getSOCKET() , FIONREAD , &more );
 		if ( result < 0 )
@@ -619,13 +619,13 @@ uint SocketInputStream::fill_RAW ()
 		
 		if ( more > 0 ) {
 
-			// ¹öÆÛ¸¦ Áõ°¡½ÃÅ²´Ù.
+			// ë²„í¼ë¥¼ ì¦ê°€ì‹œí‚¨ë‹¤.
 			resize( more + 1 );
 
-			// ¹öÆÛ¸¦ Ã¤¿î´Ù.
+			// ë²„í¼ë¥¼ ì±„ìš´ë‹¤.
 			nread = recv( m_pSocket->getSOCKET() , &m_Buffer[m_Tail] , more , 0 );
 			
-			// ¹«Á¶°Ç more ¸¸Å­ ÀÐ¾î¾ß ÇÑ´Ù. ±×·¸Áö ¾ÊÀ» °æ¿ì ¿¡·¯´Ù.
+			// ë¬´ì¡°ê±´ more ë§Œí¼ ì½ì–´ì•¼ í•œë‹¤. ê·¸ë ‡ì§€ ì•Šì„ ê²½ìš° ì—ëŸ¬ë‹¤.
 			Assert( (int)more == nread );
 			
 			nread += more;
@@ -657,17 +657,17 @@ void SocketInputStream::resize ( int size )
 	
 	if ( size < 0 ) {
 		
-		// ¸¸¾à Å©±â¸¦ ÁÙÀÌ·Á´Âµ¥ ¹öÆÛ¿¡ µé¾îÀÖ´Â µ¥ÀÌÅ¸¸¦ 
-		// ´Ù ¸ø´ã¾Æ³¾ °æ¿ì 
+		// ë§Œì•½ í¬ê¸°ë¥¼ ì¤„ì´ë ¤ëŠ”ë° ë²„í¼ì— ë“¤ì–´ìžˆëŠ” ë°ì´íƒ€ë¥¼ 
+		// ë‹¤ ëª»ë‹´ì•„ë‚¼ ê²½ìš° 
 		if ( newBufferLen < 0 || newBufferLen < len )
 			throw IOException("new buffer is too small!");
 		
 	} 
 	
-	// »õ ¹öÆÛ¸¦ ÇÒ´ç¹Þ´Â´Ù.
+	// ìƒˆ ë²„í¼ë¥¼ í• ë‹¹ë°›ëŠ”ë‹¤.
 	char * newBuffer = new char[ newBufferLen ];
 		
-	// ¿ø·¡ ¹öÆÛÀÇ ³»¿ëÀ» º¹»çÇÑ´Ù.
+	// ì›ëž˜ ë²„í¼ì˜ ë‚´ìš©ì„ ë³µì‚¬í•œë‹¤.
 	if ( m_Head < m_Tail ) {
 
 		//
@@ -691,14 +691,14 @@ void SocketInputStream::resize ( int size )
 
 	}
 		
-	// ¿ø·¡ ¹öÆÛ¸¦ »èÁ¦ÇÑ´Ù.
+	// ì›ëž˜ ë²„í¼ë¥¼ ì‚­ì œí•œë‹¤.
 	delete [] m_Buffer;
 		
-	// ¹öÆÛ ¹× ¹öÆÛ Å©±â¸¦ Àç¼³Á¤ÇÑ´Ù.
+	// ë²„í¼ ë° ë²„í¼ í¬ê¸°ë¥¼ ìž¬ì„¤ì •í•œë‹¤.
 	m_Buffer = newBuffer;
 	m_BufferLen = newBufferLen;
 	m_Head = 0;
-	m_Tail = len;	// m_Tail Àº µé¾îÀÖ´Â µ¥ÀÌÅ¸ÀÇ ±æÀÌ¿Í °°´Ù.
+	m_Tail = len;	// m_Tail ì€ ë“¤ì–´ìžˆëŠ” ë°ì´íƒ€ì˜ ê¸¸ì´ì™€ ê°™ë‹¤.
 
 	#ifdef __DEBUG_OUTPUT__
 		ofstream ofile("buffer_resized.log",ios::app);
@@ -723,9 +723,9 @@ void SocketInputStream::resize ( int size )
 //
 // CAUTION
 //
-//    m_Tail ÀÌ ºó Ä­À» °¡¸®Å°°í ÀÖ´Ù´Â °Í¿¡ À¯ÀÇÇÏ¶ó. 
-//    ¹öÆÛÀÇ Å©±â°¡ m_BufferLen ¶ó¸é ½ÇÁ¦ ÀÌ Å¥¿¡ µé¾î°¥ 
-//    ¼ö ÀÖ´Â µ¥ÀÌÅ¸´Â ( m_BufferLen - 1 ) ÀÌ µÈ´Ù.
+//    m_Tail ì´ ë¹ˆ ì¹¸ì„ ê°€ë¦¬í‚¤ê³  ìžˆë‹¤ëŠ” ê²ƒì— ìœ ì˜í•˜ë¼. 
+//    ë²„í¼ì˜ í¬ê¸°ê°€ m_BufferLen ë¼ë©´ ì‹¤ì œ ì´ íì— ë“¤ì–´ê°ˆ 
+//    ìˆ˜ ìžˆëŠ” ë°ì´íƒ€ëŠ” ( m_BufferLen - 1 ) ì´ ëœë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 uint SocketInputStream::length () const
@@ -772,7 +772,7 @@ WORD SocketInputStream::EncryptData(WORD EncryptKey, char* buf, int len)
 	
 	if(m_HashTable == NULL) return EncryptKey;
 
-	for(i = 0; i<len; i++)
+	for(int i = 0; i<len; i++)
 	{
 		*(buf + i) ^= m_HashTable[EncryptKey];
 		if(++EncryptKey == 512)	EncryptKey = 0;

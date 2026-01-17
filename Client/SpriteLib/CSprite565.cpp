@@ -16,20 +16,20 @@
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// fstream¿¡ save ÇÑ´Ù.    ( file¿¡´Â 5:6:5·Î ÀúÀåÇÑ´Ù. )
+// fstreamì— save í•œë‹¤.    ( fileì—ëŠ” 5:6:5ë¡œ ì €ì¥í•œë‹¤. )
 //----------------------------------------------------------------------
 bool	
 CSprite565::SaveToFile(ofstream& file)
 {
-	// width¿Í height¸¦ ÀúÀåÇÑ´Ù.
+	// widthì™€ heightë¥¼ ì €ì¥í•œë‹¤.
 	file.write((const char*)&m_Width , 2);
 	file.write((const char*)&m_Height, 2);
 
-	// NULLÀÌ¸é ÀúÀåÇÏÁö ¾Ê´Â´Ù. ±æÀÌ¸¸ ÀúÀåµÇ´Â °ÍÀÌ´Ù.
+	// NULLì´ë©´ ì €ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤. ê¸¸ì´ë§Œ ì €ì¥ë˜ëŠ” ê²ƒì´ë‹¤.
 	if (m_Pixels==NULL || m_Width==0 || m_Height==0)
 		return false;
 	
-	// ¾ĞÃà µÈ °Í ÀúÀå
+	// ì••ì¶• ëœ ê²ƒ ì €ì¥
 	WORD index;	
 
 	register int i;
@@ -38,25 +38,25 @@ CSprite565::SaveToFile(ofstream& file)
 	//--------------------------------
 	// 5:6:5
 	//--------------------------------
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
-		// ¹İº¹ È¸¼öÀÇ 2 byte
+		// ë°˜ë³µ íšŒìˆ˜ì˜ 2 byte
 		int	count = m_Pixels[i][0], 
 				colorCount;
 		index	= 1;
 
-		// °¢ line¸¶´Ù byte¼ö¸¦ ¼¼¾î¼­ ÀúÀåÇØ¾ßÇÑ´Ù.
+		// ê° lineë§ˆë‹¤ byteìˆ˜ë¥¼ ì„¸ì–´ì„œ ì €ì¥í•´ì•¼í•œë‹¤.
 		for (j=0; j<count; j++)
 		{
 			//transCount = m_Pixels[i][index];
 			colorCount = m_Pixels[i][index+1];
 
-			index+=2;	// µÎ count ¸¸Å­
+			index+=2;	// ë‘ count ë§Œí¼
 
-			index += colorCount;	// Åõ¸í»ö ¾Æ´Ñ°Í¸¸Å­ +				
+			index += colorCount;	// íˆ¬ëª…ìƒ‰ ì•„ë‹Œê²ƒë§Œí¼ +				
 		}
 
-		// byte¼ö¿Í ½ÇÁ¦ data¸¦ ÀúÀåÇÑ´Ù.
+		// byteìˆ˜ì™€ ì‹¤ì œ dataë¥¼ ì €ì¥í•œë‹¤.
 		file.write((const char*)&index, 2);
 		file.write((const char*)m_Pixels[i], index<<1);
 	}
@@ -66,12 +66,12 @@ CSprite565::SaveToFile(ofstream& file)
 }
 
 //----------------------------------------------------------------------
-// fstream¿¡¼­ loadÇÑ´Ù.
+// fstreamì—ì„œ loadí•œë‹¤.
 //----------------------------------------------------------------------
 bool	
 CSprite565::LoadFromFile(ifstream& file)
 {
-	// ÀÌ°Å¸¦ ÇÏ³ª·Î ¹­¾î¾ß ÇÏ´Âµ¥..
+	// ì´ê±°ë¥¼ í•˜ë‚˜ë¡œ ë¬¶ì–´ì•¼ í•˜ëŠ”ë°..
 	if (m_bLoading) 
 	{	
 		return false;
@@ -85,8 +85,8 @@ CSprite565::LoadFromFile(ifstream& file)
 	bool	T = true;
 	bool	F = false;
 
-	// LoadingÇÏ°í ÀÖÁö ¾ÊÀº »óÅÂÀÎ °æ¿ì
-	// LoadingÇÒ·Á´Â »óÅÂ·Î ¸¸µç´Ù.
+	// Loadingí•˜ê³  ìˆì§€ ì•Šì€ ìƒíƒœì¸ ê²½ìš°
+	// Loadingí• ë ¤ëŠ” ìƒíƒœë¡œ ë§Œë“ ë‹¤.
 	void* pOld = InterlockedCompareExchange( 
 						(PVOID *)&pCheck,  // pointer to the destination pointer
 						&T,      // the exchange value
@@ -95,24 +95,24 @@ CSprite565::LoadFromFile(ifstream& file)
  
 	bool old = *(bool*)pOld;
 
-	// Áö±İ loadingÇÒ°ÍÀÌ ¾Æ´Ï¸é return
+	// ì§€ê¸ˆ loadingí• ê²ƒì´ ì•„ë‹ˆë©´ return
 	*/
 
-	// loadindÁßÀÌ¶ó°í Ç¥½Ã
+	// loadindì¤‘ì´ë¼ê³  í‘œì‹œ
 	m_bLoading = true;
 	
 
-	// ÀÌ¹Ì ÀâÇôÀÖ´Â memory¸¦ releaseÇÑ´Ù.
+	// ì´ë¯¸ ì¡í˜€ìˆëŠ” memoryë¥¼ releaseí•œë‹¤.
 	Release();
 
 	//long start = file.tellg();
 
-	// width¿Í height¸¦ LoadÇÑ´Ù.
+	// widthì™€ heightë¥¼ Loadí•œë‹¤.
 	file.read((char*)&m_Width , 2);
 	file.read((char*)&m_Height, 2);	
 
 
-	// ±æÀÌ°¡ 0ÀÌ¸é ´õ LoadÇÒ°Ô ¾ø°ÚÁö..
+	// ê¸¸ì´ê°€ 0ì´ë©´ ë” Loadí• ê²Œ ì—†ê² ì§€..
 	if (m_Width==0 || m_Height==0) 
 	{	
 		m_bInit = true;
@@ -140,7 +140,7 @@ CSprite565::LoadFromFile(ifstream& file)
 	//--------------------------------
 	for (int i=0; i<m_Height; i++)
 	{
-		// byte¼ö¿Í ½ÇÁ¦ data¸¦ LoadÇÑ´Ù.
+		// byteìˆ˜ì™€ ì‹¤ì œ dataë¥¼ Loadí•œë‹¤.
 		file.read((char*)&len, 2);
 		
 		m_Pixels[i] = NULL;
@@ -159,17 +159,17 @@ CSprite565::LoadFromFile(ifstream& file)
 
 
 //----------------------------------------------------------------------
-// fstream¿¡¼­ Buffer·Î loadÇÑ´Ù.
+// fstreamì—ì„œ Bufferë¡œ loadí•œë‹¤.
 //----------------------------------------------------------------------
 /*
 bool	
 CSprite565::LoadFromFileToBuffer(ifstream& file)
 {
-	// width¿Í height¸¦ LoadÇÑ´Ù.
+	// widthì™€ heightë¥¼ Loadí•œë‹¤.
 	file.read((char*)&s_Width , 2);
 	file.read((char*)&s_Height, 2);	
 
-	// ±æÀÌ°¡ 0ÀÌ¸é ´õ LoadÇÒ°Ô ¾ø°ÚÁö..
+	// ê¸¸ì´ê°€ 0ì´ë©´ ë” Loadí• ê²Œ ì—†ê² ì§€..
 	if (s_Width==0 || s_Height==0) 
 		return false;
 
@@ -185,7 +185,7 @@ CSprite565::LoadFromFileToBuffer(ifstream& file)
 	//--------------------------------
 	for (int i=0; i<s_Height; i++)
 	{
-		// byte¼ö¿Í ½ÇÁ¦ data¸¦ LoadÇÑ´Ù.
+		// byteìˆ˜ì™€ ì‹¤ì œ dataë¥¼ Loadí•œë‹¤.
 		file.read((char*)&s_BufferLen[i], 2);		
 		
 		file.read((char*)s_Buffer[i], s_BufferLen[i]<<1);

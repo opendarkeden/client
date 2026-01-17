@@ -68,7 +68,7 @@ public :
 
 	// get packet's body size
 	// *OPTIMIZATION HINT*
-	// const static GCAddNewItemToZonePacketSize ∏¶ ¡§¿«, ∏Æ≈œ«œ∂Û.
+	// const static GCAddNewItemToZonePacketSize Î•º Ï†ïÏùò, Î¶¨ÌÑ¥ÌïòÎùº.
 	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + szCoord + szCoord + szBYTE + szItemType + szBYTE + 255 + szDurability + szItemNum + szBYTE +(szObjectID + szBYTE + szItemType + szItemNum + szSlotID)* 12; }
 
 };
@@ -85,7 +85,7 @@ class GCAddNewItemToZoneHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCAddNewItemToZone* pPacket, Player* pPlayer) throw(Error);
+	static void execute(GCAddNewItemToZone* pPacket, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

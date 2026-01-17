@@ -27,13 +27,13 @@ MImageObject::MImageObject()
 
 	m_bAnimation	= false;
 
-	// ImageObject´Â m_X¸¦ ¾È ¾²±â ¶§¹®¿¡.. ÀÓ½Ã·Î(¾Æ¸¶ ¿µ¿øÈ÷.. -_-;) »ç¿ëÇÑ´Ù.
+	// ImageObjectëŠ” m_Xë¥¼ ì•ˆ ì“°ê¸° ë•Œë¬¸ì—.. ìž„ì‹œë¡œ(ì•„ë§ˆ ì˜ì›ížˆ.. -_-;) ì‚¬ìš©í•œë‹¤.
 	m_X	= WALL_NULL;
 }
 
 MImageObject::MImageObject(TYPE_OBJECTID id, TYPE_OBJECTID ImageObjectID, TYPE_SPRITEID SpriteID, int pX, int pY, TYPE_SECTORPOSITION viewpoint, BYTE trans)
 {
-	// instace ID¹ß±Þ
+	// instace IDë°œê¸‰
 	m_ID			= id;
 
 	// type
@@ -111,8 +111,8 @@ MImageObject::LoadFromFile(ifstream& file)
 //----------------------------------------------------------------------
 // Set Wall
 //----------------------------------------------------------------------
-// m_X¿¡´Â WallDirection
-// m_Y¿¡´Â WallValue¸¦ ÀúÀåÇÑ´Ù.
+// m_Xì—ëŠ” WallDirection
+// m_Yì—ëŠ” WallValueë¥¼ ì €ìž¥í•œë‹¤.
 //----------------------------------------------------------------------
 void				
 MImageObject::SetWall(WALL_DIRECTION wd)//, int x, int y)
@@ -123,19 +123,19 @@ MImageObject::SetWall(WALL_DIRECTION wd)//, int x, int y)
 	switch (m_X)
 	{
 		//-------------------------------------------------------------
-		// ¿À¸¥ÂÊÀ¸·Î °¡¸é¼­ ¾Æ·¡·Î ³»·Á°¡´Â º®
+		// ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ë©´ì„œ ì•„ëž˜ë¡œ ë‚´ë ¤ê°€ëŠ” ë²½
 		//-------------------------------------------------------------
 		case WALL_RIGHTDOWN :
-			// x - y °ªÀÌ ÀúÀåµÇ¾îÀÖÀ¸¹Ç·Î..
-			// °ªÀÌ À½¼öÀÏ¼öµµ ÀÖ´Ù. (m_Y´Â unsignedÀÌ´Ù. - -;)
+			// x - y ê°’ì´ ì €ìž¥ë˜ì–´ìžˆìœ¼ë¯€ë¡œ..
+			// ê°’ì´ ìŒìˆ˜ì¼ìˆ˜ë„ ìžˆë‹¤. (m_YëŠ” unsignedì´ë‹¤. - -;)
 			m_Y = x - y;
 		break;
 
 		//-------------------------------------------------------------
-		// ¿À¸¥ÂÊÀ¸·Î °¡¸é¼­ À§·Î ¿Ã¶ó°¡´Â º®
+		// ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ë©´ì„œ ìœ„ë¡œ ì˜¬ë¼ê°€ëŠ” ë²½
 		//-------------------------------------------------------------
 		case WALL_RIGHTUP :
-			// x + y ÀÇ °ª
+			// x + y ì˜ ê°’
 			m_Y = x + y;
 		break;
 	}
@@ -163,15 +163,15 @@ MImageObject::GetWallDirection() const
 //----------------------------------------------------------------------
 // Is Trans Position
 //----------------------------------------------------------------------
-// player°¡ sectorÁÂÇ¥ (sX,sY)¿¡ ÀÖÀ»¶§ ÀÌ Object´Â Åõ¸íÀÌ µÇ´Â°¡?
+// playerê°€ sectorì¢Œí‘œ (sX,sY)ì— ìžˆì„ë•Œ ì´ ObjectëŠ” íˆ¬ëª…ì´ ë˜ëŠ”ê°€?
 //
-// WALL_RIGHTDOWN ¹æÇâÀÏ ¶§,
+// WALL_RIGHTDOWN ë°©í–¥ì¼ ë•Œ,
 //			value = x-y
-//			sX-sY°¡ valueº¸´Ù Å« °æ¿ì°¡ Åõ¸íÀÌ µÈ´Ù.
+//			sX-sYê°€ valueë³´ë‹¤ í° ê²½ìš°ê°€ íˆ¬ëª…ì´ ëœë‹¤.
 //
-// WALL_RIGHTUP ¹æÇâÀÏ ¶§,
+// WALL_RIGHTUP ë°©í–¥ì¼ ë•Œ,
 //			value = x+y
-//			sX+sY°¡ valueº¸´Ù ÀûÀº °æ¿ì Åõ¸íÀÌ µÈ´Ù.
+//			sX+sYê°€ valueë³´ë‹¤ ì ì€ ê²½ìš° íˆ¬ëª…ì´ ëœë‹¤.
 //
 //----------------------------------------------------------------------
 bool
@@ -181,11 +181,11 @@ MImageObject::IsWallTransPosition(int sX, int sY) const
 		switch (m_X)
 		{
 			//-------------------------------------------------------------
-			// ¿À¸¥ÂÊÀ¸·Î °¡¸é¼­ ¾Æ·¡·Î ³»·Á°¡´Â º®
+			// ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ë©´ì„œ ì•„ëž˜ë¡œ ë‚´ë ¤ê°€ëŠ” ë²½
 			//-------------------------------------------------------------
 			case WALL_RIGHTDOWN :
 			{
-				// imageObjectÀÇ sector XÁÂÇ¥
+				// imageObjectì˜ sector Xì¢Œí‘œ
 				int objectSX = MTopView::PixelToMapX( m_PixelX );
 		
 				// x - y
@@ -201,11 +201,11 @@ MImageObject::IsWallTransPosition(int sX, int sY) const
 			break;
 
 			//-------------------------------------------------------------
-			// ¿À¸¥ÂÊÀ¸·Î °¡¸é¼­ À§·Î ¿Ã¶ó°¡´Â º®
+			// ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ë©´ì„œ ìœ„ë¡œ ì˜¬ë¼ê°€ëŠ” ë²½
 			//-------------------------------------------------------------
 			case WALL_RIGHTUP :
 			{
-				// imageObjectÀÇ sector XÁÂÇ¥
+				// imageObjectì˜ sector Xì¢Œí‘œ
 				int objectSX = MTopView::PixelToMapX( m_PixelX );
 				
 				// x + y

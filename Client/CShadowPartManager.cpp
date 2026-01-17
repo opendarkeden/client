@@ -2,22 +2,27 @@
 // CShadowPartManager.cpp
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
+#ifdef PLATFORM_WINDOWS
 #include "DX3D.h"
+#else
+#include "CDirect3D.h"
+#endif
 #include "CFileIndexTable.h"
 #include "CShadowPartManager.h"
 #include "MGameTime.h"
 #include "MWeather.h"
+#include <fstream>
 
 #include "DebugInfo.h"
 //#define	new			DEBUG_NEW
 //#define	delete		DEBUG_DELETE
 
-extern bool FileOpenBinary(const char* filename, class ifstream& fil);
+extern bool FileOpenBinary(const char* filename, ifstream& fil);
 
 extern bool		g_bZonePlayerInLarge;
 
-// ÀÌ°Å 128ÇÏ¸é memory°¡ Àå³­ÀÌ ¾Æ´Ï´Ù.
-// detailÀÌ ¹®Á¦ÀÎµ¥... Èì³Ä..
+// ì´ê±° 128í•˜ë©´ memoryê°€ ì¥ë‚œì´ ì•„ë‹ˆë‹¤.
+// detailì´ ë¬¸ì œì¸ë°... í ëƒ..
 #define	MAX_SIZE_TEXTURE_SHADOW		128
 
 
@@ -58,11 +63,11 @@ CShadowPartManager::~CShadowPartManager()
 //----------------------------------------------------------------------
 // Init(SSPKFilename, indexFilename)
 //----------------------------------------------------------------------
-// SSPKFilenameÀº ShadowSpritePackÀÌ´Ù.
-// indexFilenameÀº ShadowSpritePack IndexÀÌ´Ù.
+// SSPKFilenameì€ ShadowSpritePackì´ë‹¤.
+// indexFilenameì€ ShadowSpritePack Indexì´ë‹¤.
 //
-// SSPKFilenameÀº È­ÀÏÀ» ¿­¾î¼­ ³ªÁß¿¡ ÀĞÀ» ¼ö ÀÖµµ·Ï ÇØµÎ°í
-// indexFilenameÀº ¸ğµÎ ÀĞ¾î¼­ ±â¾ïÇØµĞ´Ù.
+// SSPKFilenameì€ í™”ì¼ì„ ì—´ì–´ì„œ ë‚˜ì¤‘ì— ì½ì„ ìˆ˜ ìˆë„ë¡ í•´ë‘ê³ 
+// indexFilenameì€ ëª¨ë‘ ì½ì–´ì„œ ê¸°ì–µí•´ë‘”ë‹¤.
 //----------------------------------------------------------------------
 void
 //CShadowPartManager::Init(CShadowSpritePack* pSSPK, WORD partSize)
@@ -70,18 +75,18 @@ CShadowPartManager::Init(const char* SSPKFilename, WORD partSize)
 {
 	Release();
 	///*
-	// Index FileÀ» LoadÇÑ´Ù.
-	class ifstream indexFile;//(indexFilename, ios::binary);
+	// Index Fileì„ Loadí•œë‹¤.
+	std::ifstream indexFile;//(indexFilename, ios::binary);
 //	if (!FileOpenBinary(indexFilename, indexFile))
 //		return;
 //
 //	m_SSPKIndex.LoadFromFile( indexFile );
 //	indexFile.close();
 //
-//	// SSPK¸¦ ÃÊ±âÈ­ ÇÑ´Ù. (°³¼ö¸¸Å­..)
+//	// SSPKë¥¼ ì´ˆê¸°í™” í•œë‹¤. (ê°œìˆ˜ë§Œí¼..)
 //	m_SSPK.Init( m_SSPKIndex.GetSize() );
 //
-//	// SSPK FileÀ» ¿­¾îµĞ´Ù.
+//	// SSPK Fileì„ ì—´ì–´ë‘”ë‹¤.
 //	m_SSPKFile.open(SSPKFilename, ios::binary);
 //	
 //	TYPE_SPRITEID size;
@@ -95,22 +100,22 @@ CShadowPartManager::Init(const char* SSPKFilename, WORD partSize)
 
 	//int allSize = pSSPK->GetSize();
 
-	// Base classÀÇ Init¸¦ ÀÌ¿ëÇØ¼­..
-	// ( ÀüÃ¼ °³¼ö, ¸Ş¸ğ¸® Çã¿ë °³¼ö ) 
+	// Base classì˜ Initë¥¼ ì´ìš©í•´ì„œ..
+	// ( ì „ì²´ ê°œìˆ˜, ë©”ëª¨ë¦¬ í—ˆìš© ê°œìˆ˜ ) 
 	CPartManager<WORD, WORD, CSpriteSurface*>::Init( allSize, partSize );
 
-	// NULL·Î ÃÊ±âÈ­
+	// NULLë¡œ ì´ˆê¸°í™”
 	for (int i=0; i<m_nPart; i++)
 	{
 		m_pData[i] = NULL;
 	}
 
 	
-	// texture size¸¦ ¼³Á¤ÇÑ´Ù.
+	// texture sizeë¥¼ ì„¤ì •í•œë‹¤.
 	m_pWidth = new int [allSize];
 	m_pHeight = new int [allSize];
 
-	for (i=0; i<allSize; i++)
+	for (int i=0; i<allSize; i++)
 	{
 		m_pWidth[i] = 0;
 		m_pHeight[i] = 0;
@@ -122,7 +127,7 @@ CShadowPartManager::Init(const char* SSPKFilename, WORD partSize)
 
 	if (CDirect3D::IsTexturePow2())
 	{
-		for (i=0; i<allSize; i++)
+		for (int i=0; i<allSize; i++)
 		{
 			if ((*pSSPK)[i].IsInit())
 			{
@@ -131,8 +136,8 @@ CShadowPartManager::Init(const char* SSPKFilename, WORD partSize)
 				width = 1;
 				height = 1;
 
-				// width¿Í height´Â spWidth¿Í spHeightº¸´Ù Ä¿¾ß ÇÑ´Ù.
-				// square·Î ¸ÂÃçÁØ´Ù.
+				// widthì™€ heightëŠ” spWidthì™€ spHeightë³´ë‹¤ ì»¤ì•¼ í•œë‹¤.
+				// squareë¡œ ë§ì¶°ì¤€ë‹¤.
 				while (width < spWidth || height < spHeight)
 				{
 					width <<= 1;
@@ -151,7 +156,7 @@ CShadowPartManager::Init(const char* SSPKFilename, WORD partSize)
 	}
 	else
 	{
-		for (i=0; i<allSize; i++)
+		for (int i=0; i<allSize; i++)
 		{
 			if ((*pSSPK)[i].IsInit())
 			{
@@ -160,7 +165,7 @@ CShadowPartManager::Init(const char* SSPKFilename, WORD partSize)
 				width = spWidth;
 				height = spHeight;
 
-				// Å« Å©±â·Î ¸ÂÃß¾î¼­ Square·Î ¸¸µç´Ù.
+				// í° í¬ê¸°ë¡œ ë§ì¶”ì–´ì„œ Squareë¡œ ë§Œë“ ë‹¤.
 				if (CDirect3D::IsTextureSquareOnly())
 				{				
 					if (width > height)
@@ -191,7 +196,7 @@ CShadowPartManager::Init(const char* SSPKFilename, WORD partSize)
 //----------------------------------------------------------------------
 // Release
 //----------------------------------------------------------------------
-// ¿­·ÁÁø SSPK fileÀ» ´İ´Â´Ù.
+// ì—´ë ¤ì§„ SSPK fileì„ ë‹«ëŠ”ë‹¤.
 //----------------------------------------------------------------------
 void	
 CShadowPartManager::Release()
@@ -233,7 +238,7 @@ CShadowPartManager::Release()
 //----------------------------------------------------------------------
 // Delete Removed
 //----------------------------------------------------------------------
-// Áö¿ö¾ß ÇÒ °Íµé
+// ì§€ì›Œì•¼ í•  ê²ƒë“¤
 //----------------------------------------------------------------------
 void				
 CShadowPartManager::DeleteRemoved()
@@ -256,13 +261,13 @@ CShadowPartManager::DeleteRemoved()
 //----------------------------------------------------------------------
 // Clear
 //----------------------------------------------------------------------
-// Video MemoryÀÇ ³»¿ëÀº clearÇÑ´Ù.
-// ½ÇÁ¦·Î´Â... ´Ù ³¯·Á¹ö¸®´Â °ÍÀÌ´Ù.
+// Video Memoryì˜ ë‚´ìš©ì€ clearí•œë‹¤.
+// ì‹¤ì œë¡œëŠ”... ë‹¤ ë‚ ë ¤ë²„ë¦¬ëŠ” ê²ƒì´ë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowPartManager::Clear()
 {
-	// video memory¸¦ ³¯·Á~ÁØ´Ù.
+	// video memoryë¥¼ ë‚ ë ¤~ì¤€ë‹¤.
 	for (int i=0; i<m_nPart; i++)
 	{
 		if (m_pData[i] != NULL)			
@@ -273,12 +278,12 @@ CShadowPartManager::Clear()
 		}
 	}
 
-	// Base classÀÇ Init¸¦ ÀÌ¿ëÇØ¼­..
-	// ( ÀüÃ¼ °³¼ö, ¸Ş¸ğ¸® Çã¿ë °³¼ö ) 
+	// Base classì˜ Initë¥¼ ì´ìš©í•´ì„œ..
+	// ( ì „ì²´ ê°œìˆ˜, ë©”ëª¨ë¦¬ í—ˆìš© ê°œìˆ˜ ) 
 	CPartManager<WORD, WORD, CSpriteSurface*>::Init( m_nIndex, m_nPart );
 
-	// NULL·Î ÃÊ±âÈ­
-	for (i=0; i<m_nPart; i++)
+	// NULLë¡œ ì´ˆê¸°í™”
+	for (int i=0; i<m_nPart; i++)
 	{
 		m_pData[i] = NULL;
 	}
@@ -289,14 +294,14 @@ CShadowPartManager::Clear()
 //----------------------------------------------------------------------
 // GetTexture( id )
 //----------------------------------------------------------------------
-// SSPK¿¡¼­ ID°¡ idÀÎ ShadowSprite°¡ LoadµÈ Surface¸¦ ³Ñ°ÜÁà¾ß ÇÏ´Âµ¥,
+// SSPKì—ì„œ IDê°€ idì¸ ShadowSpriteê°€ Loadëœ Surfaceë¥¼ ë„˜ê²¨ì¤˜ì•¼ í•˜ëŠ”ë°,
 //
-// LoadµÇÁö ¾Ê¾ÒÀ¸¸é,
-// Index¸¦ Âü°íÇØ¼­ ¿­·ÁÁø SSPK File¿¡¼­ 
-// id¿¡ ÇØ´çÇÏ´Â ShadowSprite¸¦ LoadÇØ¼­ Surface¸¦ ÇÏ³ª »ı¼ºÇÏ°í
-// ±× Surface¿¡ ShadowSprite¸¦ Ãâ·ÂÇØÁØ´Ù.
+// Loadë˜ì§€ ì•Šì•˜ìœ¼ë©´,
+// Indexë¥¼ ì°¸ê³ í•´ì„œ ì—´ë ¤ì§„ SSPK Fileì—ì„œ 
+// idì— í•´ë‹¹í•˜ëŠ” ShadowSpriteë¥¼ Loadí•´ì„œ Surfaceë¥¼ í•˜ë‚˜ ìƒì„±í•˜ê³ 
+// ê·¸ Surfaceì— ShadowSpriteë¥¼ ì¶œë ¥í•´ì¤€ë‹¤.
 //
-// ÀÌ ºÎºĞ¿¡¼­ ¼Óµµ°¡ »ó´çÈ÷ ´À·ÁÁöÁö ¾ÊÀ»±î... 
+// ì´ ë¶€ë¶„ì—ì„œ ì†ë„ê°€ ìƒë‹¹íˆ ëŠë ¤ì§€ì§€ ì•Šì„ê¹Œ... 
 //----------------------------------------------------------------------
 CSpriteSurface*		
 CShadowPartManager::GetTexture(TYPE_SPRITEID id)
@@ -305,7 +310,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 	//static int reuse	= 0;
 
 	//-----------------------------------------------------------
-	// ¾øÀ¸¸é --> Load & return
+	// ì—†ìœ¼ë©´ --> Load & return
 	//-----------------------------------------------------------
 	if (IsDataNULL(id))
 	{
@@ -320,23 +325,23 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 		//CShadowSprite* pSprite = &(*m_pSSPK)[id];
 
 
-		//// ´Ù LoadµÇ¾î ÀÖ´Ù°í °¡Á¤ÇÑ´Ù..
+		//// ë‹¤ Loadë˜ì–´ ìˆë‹¤ê³  ê°€ì •í•œë‹¤..
 		///*
 		//----------------------------------------
-		// ÀÌ¹Ì LoadµÈ °ÍÀÌ¸é..
+		// ì´ë¯¸ Loadëœ ê²ƒì´ë©´..
 		//----------------------------------------
 //		if (pSprite->IsInit())
 //		{
 //		}
 //		//----------------------------------------
-//		// LoadÇØ¾ß µÇ´Â °æ¿ì
+//		// Loadí•´ì•¼ ë˜ëŠ” ê²½ìš°
 //		//----------------------------------------
 //		else
 //		{
 //			//-----------------------------------------------------------
-//			// ShadowSprite¸¦ LoadÇÑ´Ù.
+//			// ShadowSpriteë¥¼ Loadí•œë‹¤.
 //			//-----------------------------------------------------------
-//			// id¿¡ ¸Â´Â ÀûÀıÇÑ FilePointer·Î ÀÌµ¿ÇØ¼­
+//			// idì— ë§ëŠ” ì ì ˆí•œ FilePointerë¡œ ì´ë™í•´ì„œ
 //			int temp = m_SSPKIndex[id];
 //			m_SSPKFile.seekg(m_SSPKIndex[id], ios::beg);
 //			pSprite->LoadFromFile( m_SSPKFile );
@@ -351,9 +356,9 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 		#endif	
 
 		
-		// shift°ªÀ» ÀûÀıÈ÷ Á¤ÇØ¾ß ÇÑ´Ù.
-		// width¿Í height´Â 256À» ³Ñ¾î°¡¸é ¾ÈµÈ´Ù.
-		// TextureÀÇ Size¸¦ °áÁ¤ÇÑ´Ù.
+		// shiftê°’ì„ ì ì ˆíˆ ì •í•´ì•¼ í•œë‹¤.
+		// widthì™€ heightëŠ” 256ì„ ë„˜ì–´ê°€ë©´ ì•ˆëœë‹¤.
+		// Textureì˜ Sizeë¥¼ ê²°ì •í•œë‹¤.
 		int spWidth, spHeight;
 		int width, height;
 
@@ -369,7 +374,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 		spHeight = pSprite->GetHeight();
 		
 		//-----------------------------------------------------
-		// ±æÀÌ°¡ 0ÀÎ °æ¿ì..
+		// ê¸¸ì´ê°€ 0ì¸ ê²½ìš°..
 		//-----------------------------------------------------
 		if (spWidth==0 || spHeight==0)
 		{
@@ -381,7 +386,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 
 
 		int shift = 0;
-		// °¡·Î,¼¼·Î ¾î´À ÇÏ³ª¶óµµ MAX_SIZE_TEXTURE_SHADOWº¸´Ù Å©¸é..
+		// ê°€ë¡œ,ì„¸ë¡œ ì–´ëŠ í•˜ë‚˜ë¼ë„ MAX_SIZE_TEXTURE_SHADOWë³´ë‹¤ í¬ë©´..
 		while (width>MAX_SIZE_TEXTURE_SHADOW || height>MAX_SIZE_TEXTURE_SHADOW)
 		{
 			width >>= 1;
@@ -392,18 +397,18 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 		CDirect3D::GetTextureSize(width, height);	
 
 		//-----------------------------------------------------------
-		// 2ÀÇ ½Â¼ö¸¸ Áö¿øÇÏ´Â °æ¿ì..
+		// 2ì˜ ìŠ¹ìˆ˜ë§Œ ì§€ì›í•˜ëŠ” ê²½ìš°..
 		//-----------------------------------------------------------
-		bool bDifferentSize;	// sprite¿Í textureÀÇ Å©±â°¡ ´Ù¸¥°¡?
+		bool bDifferentSize;	// spriteì™€ textureì˜ í¬ê¸°ê°€ ë‹¤ë¥¸ê°€?
 		if (CDirect3D::IsTexturePow2())
 		{
 			bDifferentSize = true;
 
-			// width¿Í height°¡ ´Ù¸¥ °æ¿ì...
-			// ÀÛÀº ÂÊ¿¡ ¸ÂÃç¼­ ¶È°°ÀÌ ÇÑ´Ù.
-			// Square·Î ¸ÂÃá´Ù..°í ÇÒ ¼ö ÀÖÁö.. À½ÇÏ..
+			// widthì™€ heightê°€ ë‹¤ë¥¸ ê²½ìš°...
+			// ì‘ì€ ìª½ì— ë§ì¶°ì„œ ë˜‘ê°™ì´ í•œë‹¤.
+			// Squareë¡œ ë§ì¶˜ë‹¤..ê³  í•  ìˆ˜ ìˆì§€.. ìŒí•˜..
 
-			// Å« ÂÊ¿¡ ¸ÂÃß¸é?..
+			// í° ìª½ì— ë§ì¶”ë©´?..
 			if (width > height)
 			{
 				height = width;
@@ -414,10 +419,10 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 			}
 
 			//-----------------------------------------------------------
-			// TextureÅ©±âº¸´Ù Sprite Å©±â°¡ ´õ Å« °æ¿ì..
+			// Textureí¬ê¸°ë³´ë‹¤ Sprite í¬ê¸°ê°€ ë” í° ê²½ìš°..
 			//-----------------------------------------------------------
-			// Áï, ÇÏµå¿ş¾î¿¡¼­ SpriteÅ©±â¸¸Å­ÀÇ Texture¸¦ Áö¿øÇÏÁö ¸øÇÏ´Â °æ¿ìÀÌ´Ù.		
-			// shift¸¦ ÀÌ¿ëÇØ¼­ Å©±â¸¦ ÁÙÀÎ´Ù.
+			// ì¦‰, í•˜ë“œì›¨ì–´ì—ì„œ Spriteí¬ê¸°ë§Œí¼ì˜ Textureë¥¼ ì§€ì›í•˜ì§€ ëª»í•˜ëŠ” ê²½ìš°ì´ë‹¤.		
+			// shiftë¥¼ ì´ìš©í•´ì„œ í¬ê¸°ë¥¼ ì¤„ì¸ë‹¤.
 			shift = 0;		
 			while (spWidth > width || spHeight > height)
 			{
@@ -428,15 +433,15 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 			}
 		}
 		//-----------------------------------------------------------
-		// ¾Æ¹«·± size³ª °ü°è ¾ø´Â °æ¿ì
+		// ì•„ë¬´ëŸ° sizeë‚˜ ê´€ê³„ ì—†ëŠ” ê²½ìš°
 		//-----------------------------------------------------------
 		else
 		{
 			if (CDirect3D::IsTextureSquareOnly())
 			{
-				// width¿Í height°¡ ´Ù¸¥ °æ¿ì...
-				// Å« ÂÊ¿¡ ¸ÂÃç¼­ ¶È°°ÀÌ ÇÑ´Ù.
-				// Square·Î ¸ÂÃá´Ù..°í ÇÒ ¼ö ÀÖÁö.. À½ÇÏ..
+				// widthì™€ heightê°€ ë‹¤ë¥¸ ê²½ìš°...
+				// í° ìª½ì— ë§ì¶°ì„œ ë˜‘ê°™ì´ í•œë‹¤.
+				// Squareë¡œ ë§ì¶˜ë‹¤..ê³  í•  ìˆ˜ ìˆì§€.. ìŒí•˜..
 				if (width > height)
 				{
 					height = width;
@@ -462,7 +467,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 		#endif
 
 		//-----------------------------------------------------------
-		// (´Ù½Ã) »ı¼ºÇÑ´Ù.
+		// (ë‹¤ì‹œ) ìƒì„±í•œë‹¤.
 		//-----------------------------------------------------------
 		CSpriteSurface* pTextureSurface = new CSpriteSurface;
 
@@ -475,7 +480,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 				}
 			#endif
 
-			return false;
+			return NULL;
 		}
 		
 		#ifdef OUTPUT_DEBUG
@@ -487,7 +492,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 		
 
 		//---------------------------------------------------
-		// TextureSurface »ı¼º
+		// TextureSurface ìƒì„±
 		//---------------------------------------------------	
 		#ifdef OUTPUT_DEBUG
 			if (g_pDebugMessage)
@@ -519,7 +524,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 		if (!pTextureSurface->Lock())
 		{
 			delete pTextureSurface;
-			return false;
+			return NULL;
 		}
 			/*
 		DDSURFACEDESC2 ddsd;
@@ -570,7 +575,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 		int i;
 
 		//---------------------------------------------------
-		// Texture Surface ÃÊ±âÈ­
+		// Texture Surface ì´ˆê¸°í™”
 		//---------------------------------------------------
 		//static WORD trans[1024] = { 0, };
 
@@ -578,7 +583,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 				//,	*pSurfaceTemp;
 		long pitch	= pTextureSurface->GetSurfacePitch();
 
-		// °Ë°Ô Ä¥ÇÏ´Â ºÎºĞ..
+		// ê²€ê²Œ ì¹ í•˜ëŠ” ë¶€ë¶„..
 		//if (bDifferentSize)
 		{
 			int width2 = width << 1;
@@ -603,41 +608,41 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 		#endif
 		
 		//---------------------------------------------------
-		// ½Ã°£¿¡ µû¸¥ ±×¸²ÀÚ Ãâ·Â
+		// ì‹œê°„ì— ë”°ë¥¸ ê·¸ë¦¼ì ì¶œë ¥
 		//---------------------------------------------------
 		const int timeShadow[] =
 		{
-			0x4000,		// 0½Ã
-			0x4000,		// 1½Ã
-			0x4000,		// 2½Ã
-			0x4000,		// 3½Ã
-			0x4000,		// 4½Ã
-			0x4000,		// 5½Ã
-			0x4000,		// 6½Ã
-			0x5000,		// 7½Ã
-			0x6000,		// 8½Ã
-			0x7000,		// 9½Ã
-			0x8000,		// 10½Ã
-			0x9000,		// 11½Ã
-			0xA000,		// 12½Ã
-			0xB000,		// 13½Ã
-			0xC000,		// 14½Ã
-			0xB000,		// 15½Ã
-			0xA000,		// 16½Ã
-			0x9000,		// 17½Ã
-			0x8000,		// 18½Ã
-			0x7000,		// 19½Ã
-			0x6000,		// 20½Ã
-			0x5000,		// 21½Ã
-			0x4000,		// 22½Ã
-			0x4000		// 23½Ã			
+			0x4000,		// 0ì‹œ
+			0x4000,		// 1ì‹œ
+			0x4000,		// 2ì‹œ
+			0x4000,		// 3ì‹œ
+			0x4000,		// 4ì‹œ
+			0x4000,		// 5ì‹œ
+			0x4000,		// 6ì‹œ
+			0x5000,		// 7ì‹œ
+			0x6000,		// 8ì‹œ
+			0x7000,		// 9ì‹œ
+			0x8000,		// 10ì‹œ
+			0x9000,		// 11ì‹œ
+			0xA000,		// 12ì‹œ
+			0xB000,		// 13ì‹œ
+			0xC000,		// 14ì‹œ
+			0xB000,		// 15ì‹œ
+			0xA000,		// 16ì‹œ
+			0x9000,		// 17ì‹œ
+			0x8000,		// 18ì‹œ
+			0x7000,		// 19ì‹œ
+			0x6000,		// 20ì‹œ
+			0x5000,		// 21ì‹œ
+			0x4000,		// 22ì‹œ
+			0x4000		// 23ì‹œ			
 		};
 
 		WORD shadowColor = timeShadow[(*g_pGameTime).GetHour()];
 
 
 		//---------------------------------------------------
-		// °Ç¹° ¾È¿¡´Â ¹«Á¶°Ç 0x8000
+		// ê±´ë¬¼ ì•ˆì—ëŠ” ë¬´ì¡°ê±´ 0x8000
 		//---------------------------------------------------
 		if (!g_bZonePlayerInLarge)
 		{
@@ -646,7 +651,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 		else
 		{
 			//---------------------------------------------------
-			// ºñ°¡ ¿À¸é ±×¸²ÀÚ°¡ ´õ ¿¯¾îÁø´Ù.
+			// ë¹„ê°€ ì˜¤ë©´ ê·¸ë¦¼ìê°€ ë” ì—·ì–´ì§„ë‹¤.
 			//---------------------------------------------------
 			if (g_pWeather->GetWeatherType()==MWeather::WEATHER_RAIN)
 			{
@@ -663,7 +668,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 
 
 		//---------------------------------------------------
-		// ShadowSpriteÃâ·Â
+		// ShadowSpriteì¶œë ¥
 		//---------------------------------------------------
 		pTextureSurface->BltShadowSpriteSmall4444(&point, pSprite, shadowColor, shift);
 		
@@ -680,9 +685,9 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 	
 			
 		//-----------------------------------------------------------
-		// Ãâ·ÂÇÒ¶§ »ç¿ëÇÒ Å©±â
+		// ì¶œë ¥í• ë•Œ ì‚¬ìš©í•  í¬ê¸°
 		//-----------------------------------------------------------
-		// ÀÌÀü¿¡ Ãâ·ÂÇÒ Texture Size°¡ Á¤ÇØÁ® ÀÖÁö ¾ÊÀº °æ¿ì
+		// ì´ì „ì— ì¶œë ¥í•  Texture Sizeê°€ ì •í•´ì ¸ ìˆì§€ ì•Šì€ ê²½ìš°
 		//-----------------------------------------------------------
 		if (m_pWidth[id]==0 || m_pHeight[id]==0)
 		{
@@ -691,14 +696,14 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 
 			if (CDirect3D::IsTexturePow2())
 			{	
-				// texture¿¡¼­ Ãâ·ÂµÇ´Â size¸¦ ±¸ÇÑ´Ù.
+				// textureì—ì„œ ì¶œë ¥ë˜ëŠ” sizeë¥¼ êµ¬í•œë‹¤.
 				for (int i=0; i<shift; i++)
 				{
 					spWidth >>= 1;
 					spHeight >>= 1;
 				}
 
-				// ½ÇÁ¦ Å©±â
+				// ì‹¤ì œ í¬ê¸°
 				width = width * pSprite->GetWidth() / spWidth;
 				height = height * pSprite->GetHeight() / spHeight;		
 			}
@@ -707,7 +712,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 				width = spWidth;
 				height = spHeight;
 
-				// Å« Å©±â·Î ¸ÂÃß¾î¼­ Square·Î ¸¸µç´Ù.
+				// í° í¬ê¸°ë¡œ ë§ì¶”ì–´ì„œ Squareë¡œ ë§Œë“ ë‹¤.
 				if (CDirect3D::IsTextureSquareOnly())
 				{				
 					if (width > height)
@@ -727,7 +732,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 	
 		
 		//---------------------------------------------------
-		// ReplaceµÆÀ¸¸é ¿ø·¡°ÍÀ» ¸Ş¸ğ¸®¿¡¼­ Áö¿î´Ù.
+		// Replaceëìœ¼ë©´ ì›ë˜ê²ƒì„ ë©”ëª¨ë¦¬ì—ì„œ ì§€ìš´ë‹¤.
 		//---------------------------------------------------
 		CSpriteSurface* pOld = NULL;
 		WORD oldIndex = SetData( id, pTextureSurface, pOld );
@@ -751,17 +756,17 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 				#endif
 				
 				//------------------------------------------------------------
-				// D3DÀÇ Texture´Â ¹Ù·Î »ç¿ëµÇÁö ¾Ê´Â °æ¿ìµµ ÀÖ´Ù.
-				// BeginScene() ~ EndScene() ±îÁö Surface´Â »ì¾ÆÀÖ¾î¾ß ÇÏ¹Ç·Î
-				// ¿©±â¼­ Áö¿ì¸é ¾ÈµÈ´Ù.
+				// D3Dì˜ TextureëŠ” ë°”ë¡œ ì‚¬ìš©ë˜ì§€ ì•ŠëŠ” ê²½ìš°ë„ ìˆë‹¤.
+				// BeginScene() ~ EndScene() ê¹Œì§€ SurfaceëŠ” ì‚´ì•„ìˆì–´ì•¼ í•˜ë¯€ë¡œ
+				// ì—¬ê¸°ì„œ ì§€ìš°ë©´ ì•ˆëœë‹¤.
 				//------------------------------------------------------------
 				//delete pOld;
 				//------------------------------------------------------------
 				m_listRemoved.push_back( pOld );
 			}
 
-			// loadingµÇ¾î ÀÖ´ø sprite¸¦ Á¦°ÅÇÑ´Ù... ¸Ş¸ğ¸® ¶§¹®¿¡..
-			// ±×¸²ÀÚ´Â ±¦ÂúÀ»·Á³ª? Èì.. 
+			// loadingë˜ì–´ ìˆë˜ spriteë¥¼ ì œê±°í•œë‹¤... ë©”ëª¨ë¦¬ ë•Œë¬¸ì—..
+			// ê·¸ë¦¼ìëŠ” ê´œì°®ì„ë ¤ë‚˜? í .. 
 			//m_SSPK[oldIndex].Release();			
 		}
 
@@ -778,7 +783,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 		//reload++;
 	}
 	//-----------------------------------------------------------
-	// ÀÖ´Â °æ¿ì --> return
+	// ìˆëŠ” ê²½ìš° --> return
 	//-----------------------------------------------------------
 	else
 	{
@@ -815,7 +820,7 @@ CShadowSprite&
 CShadowPartManager::GetSprite(TYPE_SPRITEID id)
 {
 	//------------------------------------------------------
-	// Load°¡ ¾È µÆÀ¸¸é loadÇØ¼­ ³Ñ°ÜÁØ´Ù.
+	// Loadê°€ ì•ˆ ëìœ¼ë©´ loadí•´ì„œ ë„˜ê²¨ì¤€ë‹¤.
 	//------------------------------------------------------
 //	if (m_SSPK[id].IsNotInit())
 //	{

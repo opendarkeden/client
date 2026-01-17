@@ -1,9 +1,10 @@
+#include <fstream>
 //----------------------------------------------------------------------
 // CSpritePack.h
 //----------------------------------------------------------------------
 //
-// SpritePackÀÇ Sprite¿¡ ´ëÇÑ File Pointer Index°¡ ÇÊ¿äÇÏ´Ù.
-// SpriteSet¿¡¼­ ÀĞ±â À§ÇØ¼­.
+// SpritePackì˜ Spriteì— ëŒ€í•œ File Pointer Indexê°€ í•„ìš”í•˜ë‹¤.
+// SpriteSetì—ì„œ ì½ê¸° ìœ„í•´ì„œ.
 //
 //----------------------------------------------------------------------
 
@@ -27,7 +28,7 @@ typedef CTypePack2<CSprite, CSprite555, CSprite565> CSpritePack;
 //	//--------------------------------------------------------
 //	// file I/O
 //	//--------------------------------------------------------
-//	bool LoadFromFile(class ifstream &file, bool b565 = true);
+//	bool LoadFromFile(std::ifstream &file, bool b565 = true);
 //	bool LoadFromFile(LPCTSTR lpszFilename, bool b565 = true);
 //	bool LoadFromFileRunning(LPCTSTR lpszFilename, bool b565 = true);
 //	

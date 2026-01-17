@@ -3,12 +3,26 @@
 // Created : 8/11/98
 #pragma once
 
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
+
 // User-defined callback for volume change notification
+#ifndef CALLBACK
+#define CALLBACK
+#endif
+
 typedef void (CALLBACK *PONMICVOULUMECHANGE)( DWORD dwCurrentVolume, DWORD dwUserValue );
 
 ////////////////////////////////////////////////////////////////////////
 // IVolume interface
+#ifdef PLATFORM_WINDOWS
 class __declspec(novtable) IVolume
+#else
+class IVolume
+#endif
 {
 public:
 	virtual bool	IsAvailable() = 0;

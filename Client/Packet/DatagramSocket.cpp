@@ -18,13 +18,13 @@
 //
 // constructor for UDP Client Socket
 //
-// UDP Å¬¶óÀÌ¾ðÆ® ¼ÒÄÏÀº ´ÜÁö nonamed ¼ÒÄÏ¸¸ »ý¼ºÇØ µÎ¸é µÈ´Ù.
-// ¿Ö³ÄÇÏ¸é, ¼­¹ö·Î sendÇÒ ¶§¸¶´Ù DatagramÀÇ ÁÖ¼Ò¸¦ ÁöÁ¤ÇØµÎ¸é
-// µÇ±â ¶§¹®ÀÌ´Ù.
+// UDP í´ë¼ì´ì–¸íŠ¸ ì†Œì¼“ì€ ë‹¨ì§€ nonamed ì†Œì¼“ë§Œ ìƒì„±í•´ ë‘ë©´ ëœë‹¤.
+// ì™œëƒí•˜ë©´, ì„œë²„ë¡œ sendí•  ë•Œë§ˆë‹¤ Datagramì˜ ì£¼ì†Œë¥¼ ì§€ì •í•´ë‘ë©´
+// ë˜ê¸° ë•Œë¬¸ì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
-DatagramSocket::DatagramSocket () 
-	throw ( Error )
+DatagramSocket::DatagramSocket ()
+	throw ( ProtocolException , Error )
 : m_SocketID(INVALID_SOCKET)
 {
 	__BEGIN_TRY 
@@ -41,11 +41,11 @@ DatagramSocket::DatagramSocket ()
 //
 // constructor for UDP Server Socket
 //
-// UDP ¼­¹ö ¼ÒÄÏÀº ¼ÒÄÏÀ» »ý¼ºÇÏ°í, port ¸¦ ¹ÙÀÎµù½ÃÅ°¸é ÁØºñ°¡ ¿Ï·áµÈ´Ù.
+// UDP ì„œë²„ ì†Œì¼“ì€ ì†Œì¼“ì„ ìƒì„±í•˜ê³ , port ë¥¼ ë°”ì¸ë”©ì‹œí‚¤ë©´ ì¤€ë¹„ê°€ ì™„ë£Œëœë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
-DatagramSocket::DatagramSocket ( uint port ) 
-	throw ( Error )
+DatagramSocket::DatagramSocket ( uint port )
+	throw ( ProtocolException , Error )
 : m_SocketID(INVALID_SOCKET)
 {
 	__BEGIN_TRY 
@@ -76,7 +76,7 @@ DatagramSocket::DatagramSocket ( uint port )
 // destructor
 //////////////////////////////////////////////////////////////////////
 DatagramSocket::~DatagramSocket ()
-	throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	
@@ -115,8 +115,8 @@ uint DatagramSocket::send ( Datagram * pDatagram )
 //
 // receive datagram from peer
 //
-// ¸¸¾à¿¡ ÀÌ Å¬·¡½º¸¦ blocking À¸·Î »ç¿ëÇÑ´Ù¸é, (Áï select ±â¹ÝÀ¸·Î)
-// ¾Æ¸¶µµ nReceived °¡ 0 ÀÌÇÏÀÎ °æ¿ì´Â ¾øÀ¸¸®¶ó°í ÆÇ´ÜµÈ´Ù.
+// ë§Œì•½ì— ì´ í´ëž˜ìŠ¤ë¥¼ blocking ìœ¼ë¡œ ì‚¬ìš©í•œë‹¤ë©´, (ì¦‰ select ê¸°ë°˜ìœ¼ë¡œ)
+// ì•„ë§ˆë„ nReceived ê°€ 0 ì´í•˜ì¸ ê²½ìš°ëŠ” ì—†ìœ¼ë¦¬ë¼ê³  íŒë‹¨ëœë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 Datagram * DatagramSocket::receive ()
@@ -129,7 +129,7 @@ Datagram * DatagramSocket::receive ()
 	SOCKADDR_IN SockAddr;
 	uint _szSOCKADDR_IN = szSOCKADDR_IN;
 
-	// ÀÐÀ»°Ô ÀÖ´ÂÁö Ã¼Å©ÇÑ´Ù.
+	// ì½ì„ê²Œ ìžˆëŠ”ì§€ ì²´í¬í•œë‹¤.
 	ulong available = SocketAPI::availablesocket_ex( m_SocketID );		
 	
 	if (available > 0)
@@ -140,7 +140,7 @@ Datagram * DatagramSocket::receive ()
 
 		DEBUG_ADD_FORMAT("[DatagramSocket] available=%d", available);
 
-		// ³»ºÎ ¹öÆÛ¿¡´Ù°¡ º¹»çÇØµÐ´Ù.
+		// ë‚´ë¶€ ë²„í¼ì—ë‹¤ê°€ ë³µì‚¬í•´ë‘”ë‹¤.
 		int nReceived = SocketAPI::recvfrom_ex( m_SocketID , m_Buffer , DATAGRAM_SOCKET_BUFFER_LEN , 0 , (SOCKADDR*)&SockAddr , &_szSOCKADDR_IN );
 
 		if ( nReceived > 0 ) 

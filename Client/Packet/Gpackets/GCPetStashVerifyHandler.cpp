@@ -24,7 +24,8 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCPetStashVerifyHandler::execute ( GCPetStashVerify * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY 
 //		__BEGIN_DEBUG_EX
@@ -35,7 +36,7 @@ void GCPetStashVerifyHandler::execute ( GCPetStashVerify * pPacket , Player * pP
 	{ 
 		case GCPetStashVerify::PET_STASH_OK:
 			if(g_pTempInformation->GetMode() == TempInformation::MODE_PETITEM_MOVETO_INVENTORY)
-			{// º¸°üÇÔ -> ÀÎº¥
+			{// ë³´ê´€í•¨ -> ì¸ë²¤
 				MItem* pItem = g_pStorage->RemoveItem(g_pTempInformation->Value1) ;
 				if(pItem)
 				{
@@ -44,7 +45,7 @@ void GCPetStashVerifyHandler::execute ( GCPetStashVerify * pPacket , Player * pP
 					{
 						pPetItem->SetPetKeepedDay(0);
 						if(g_pInventory->AddItem( (MItem*)g_pTempInformation->pValue))
-						{ // Àß µÆ³×
+						{ // ìž˜ ëë„¤
 							DEBUG_ADD("@Stash - Get Keep PetItem Inventory AddItem Success");
 						}
 						else
@@ -59,7 +60,7 @@ void GCPetStashVerifyHandler::execute ( GCPetStashVerify * pPacket , Player * pP
 				}
 			}
 			else if(g_pTempInformation->GetMode() == TempInformation::MODE_PETITEM_MOVETO_PETSTORAGE)
-			{// ÀÎº¥ -> º¸°üÇÔ
+			{// ì¸ë²¤ -> ë³´ê´€í•¨
 				MItem* pItem = g_pInventory->RemoveItem(g_pTempInformation->Value2, g_pTempInformation->Value3) ;
 				if(pItem)
 				{
@@ -90,11 +91,11 @@ void GCPetStashVerifyHandler::execute ( GCPetStashVerify * pPacket , Player * pP
 			g_pUIDialog->PopupFreeMessageDlg((*g_pGameStringTable)[UI_STRING_MESSAGE_INVENTORY_FULL_MONSTER_KILL_QUEST].GetString() );
 			
 			break;
-		case GCPetStashVerify::PET_STASH_RACK_IS_NOT_EMPTY:	// ÇØ´ç À§Ä¡¿¡ ÀÌ¹Ì ´Ù¸¥ Æê ¾ÆÀÌÅÛÀÌ ÀÖ½À´Ï´Ù.
+		case GCPetStashVerify::PET_STASH_RACK_IS_NOT_EMPTY:	// í•´ë‹¹ ìœ„ì¹˜ì— ì´ë¯¸ ë‹¤ë¥¸ íŽ« ì•„ì´í…œì´ ìžˆìŠµë‹ˆë‹¤.
 			g_pUIDialog->PopupFreeMessageDlg((*g_pGameStringTable)[STRING_MESSAGE_EXIST_ITEM_ALREADY].GetString() );
 			
 			break;
-		case GCPetStashVerify::PET_STASH_RACK_IS_EMPTY:// Ã£À¸·Á°í ÇÑ À§Ä¡¿¡ ¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù.
+		case GCPetStashVerify::PET_STASH_RACK_IS_EMPTY:// ì°¾ìœ¼ë ¤ê³  í•œ ìœ„ì¹˜ì— ì•„ì´í…œì´ ì—†ìŠµë‹ˆë‹¤.
 			g_pUIDialog->PopupFreeMessageDlg((*g_pGameStringTable)[STRING_MESSAGE_CANNOT_BUY_NO_ITEM].GetString() );
 			
 			break;

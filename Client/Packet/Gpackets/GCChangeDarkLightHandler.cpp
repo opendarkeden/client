@@ -20,7 +20,8 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCChangeDarkLightHandler::execute ( GCChangeDarkLight * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -42,10 +43,10 @@ void GCChangeDarkLightHandler::execute ( GCChangeDarkLight * pPacket , Player * 
 		lightSight = 13;
 	}
 
-	// È­¸éÀÇ ¾îµÓ±â
+	// í™”ë©´ì˜ ì–´ë‘¡ê¸°
 	g_pTopView->SetDarkBits( darkLevel );		
 	
-	// Player½Ã¾ß ºûÀÇ Å©±â
+	// Playerì‹œì•¼ ë¹›ì˜ í¬ê¸°
 	g_pPlayer->SetTimeLightSight( lightSight );		
 
 	

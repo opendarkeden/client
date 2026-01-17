@@ -44,7 +44,7 @@ public :
 	SocketImpl ( const SocketImpl & impl ) throw ();
 
 	// virtual destructor
-	virtual ~SocketImpl () throw ( Error );
+	virtual ~SocketImpl () throw ( ProtocolException , Error );
 
 //////////////////////////////////////////////////
 // methods
@@ -52,17 +52,17 @@ public :
 public :
 	
 	// create socket
-	void create () throw ( Error );
+	void create () throw ( ProtocolException , Error );
 	
 	// close connection
-	void close () throw ( Error );
+	void close () throw ( ProtocolException , Error );
 	
 	// bind socket
 	void bind () throw ( BindException , Error );
 	void bind ( uint port ) throw ( BindException , Error );
 	
 	// listen
-	void listen ( uint backlog ) throw ( Error );
+	void listen ( uint backlog ) throw ( ProtocolException , Error );
 	
 	// connect to remote host
 	void connect () throw ( ConnectException , Error );
@@ -78,7 +78,7 @@ public :
 	uint receive ( void * buf , uint len , uint flags = 0 ) throw ( IOException , Error );
 	
 	// how much available?
-	uint available () const throw ( Error );
+	uint available () const throw ( ProtocolException , Error );
 	
 
 //////////////////////////////////////////////////
@@ -87,24 +87,24 @@ public :
 public :
 
 	// get/set socket's linger status
-	uint getLinger () const throw ( Error );
-	void setLinger ( uint lingertime ) throw ( Error );
+	uint getLinger () const throw ( ProtocolException , Error );
+	void setLinger ( uint lingertime ) throw ( ProtocolException , Error );
 	
 	// get/set socket's reuse address status
-	bool isReuseAddr () const throw ( Error );
-	void setReuseAddr ( bool on = true ) throw ( Error );
+	bool isReuseAddr () const throw ( ProtocolException , Error );
+	void setReuseAddr ( bool on = true ) throw ( ProtocolException , Error );
 	
 	// get/set socket's nonblocking status
-	bool isNonBlocking () const throw ( Error );
-	void setNonBlocking ( bool on = true ) throw ( Error );
+	bool isNonBlocking () const throw ( ProtocolException , Error );
+	void setNonBlocking ( bool on = true ) throw ( ProtocolException , Error );
 	
 	// get/set receive buffer size
-	uint getReceiveBufferSize () const throw ( Error );
-	void setReceiveBufferSize ( uint size ) throw ( Error );
+	uint getReceiveBufferSize () const throw ( ProtocolException , Error );
+	void setReceiveBufferSize ( uint size ) throw ( ProtocolException , Error );
 	
 	// get/set send buffer size
-	uint getSendBufferSize () const throw ( Error );
-	void setSendBufferSize ( uint size ) throw ( Error );
+	uint getSendBufferSize () const throw ( ProtocolException , Error );
+	void setSendBufferSize ( uint size ) throw ( ProtocolException , Error );
 	
 
 //////////////////////////////////////////////////

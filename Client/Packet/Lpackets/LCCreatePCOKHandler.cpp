@@ -21,7 +21,8 @@
 // 
 //----------------------------------------------------------------------
 void LCCreatePCOKHandler::execute ( LCCreatePCOK * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -31,7 +32,7 @@ void LCCreatePCOKHandler::execute ( LCCreatePCOK * pPacket , Player * pPlayer )
 
 	UI_NewCharacterCreateOk();
 
-	// ´Ù½Ã PC LIST ¸¦ ¹Þ¾Æ¿Í¾ß ÇÑ´Ù.
+	// ë‹¤ì‹œ PC LIST ë¥¼ ë°›ì•„ì™€ì•¼ í•œë‹¤.
 	CLGetPCList clGetPCList;
 	pClientPlayer->sendPacket( &clGetPCList );
 

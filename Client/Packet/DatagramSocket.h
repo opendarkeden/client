@@ -19,8 +19,8 @@
 //
 // class DatagramSocket;
 //
-// ¸¸¾à µ¥ÀÌÅÍ±×·¥ ¼ÒÄÏÀÇ ³»ºÎ ¹öÆÛ°¡ µ¥ÀÌÅÍ±×·¥ ÆĞÅ¶ÀÇ ÃÖ´ë Å©±âº¸´Ù
-// Å©´Ù¸é, ¾Æ¸¶µµ ÆĞÅ¶ÀÌ Àß¸®´Â ÀÏÀº ¾øÀ» °ÍÀÌ´Ù.
+// ë§Œì•½ ë°ì´í„°ê·¸ë¨ ì†Œì¼“ì˜ ë‚´ë¶€ ë²„í¼ê°€ ë°ì´í„°ê·¸ë¨ íŒ¨í‚·ì˜ ìµœëŒ€ í¬ê¸°ë³´ë‹¤
+// í¬ë‹¤ë©´, ì•„ë§ˆë„ íŒ¨í‚·ì´ ì˜ë¦¬ëŠ” ì¼ì€ ì—†ì„ ê²ƒì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -31,13 +31,13 @@ class DatagramSocket {
 public :
 
 	// constructor for UDP Client Socket
-	DatagramSocket () throw ( Error );
+	DatagramSocket () throw ( ProtocolException , Error );
 
 	// constructor for UDP Server Socket
-	DatagramSocket ( uint port ) throw ( Error );
+	DatagramSocket ( uint port ) throw ( ProtocolException , Error );
 
 	// destructor
-	~DatagramSocket () throw ( Error );
+	~DatagramSocket () throw ( ProtocolException , Error );
 
 	// send datagram to peer
 	uint send ( Datagram * pDatagram ) throw ( ConnectException , Error );

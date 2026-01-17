@@ -1,9 +1,10 @@
+#include <fstream>
 //----------------------------------------------------------------------
 // CFilterPack.h
 //----------------------------------------------------------------------
 //
-// FilterPackÀÇ Filter¿¡ ´ëÇÑ File Pointer Index°¡ ÇÊ¿äÇÏ´Ù.
-// FilterSet¿¡¼­ ÀĞ±â À§ÇØ¼­.
+// FilterPackì˜ Filterì— ëŒ€í•œ File Pointer Indexê°€ í•„ìš”í•˜ë‹¤.
+// FilterSetì—ì„œ ì½ê¸° ìœ„í•´ì„œ.
 //
 //----------------------------------------------------------------------
 
@@ -27,8 +28,8 @@ class CFilterPack {
 		//--------------------------------------------------------
 		// file I/O
 		//--------------------------------------------------------
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);		
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);		
 		
 		//--------------------------------------------------------
 		// size
@@ -41,8 +42,8 @@ class CFilterPack {
 		CFilter&	operator [] (TYPE_FILTERID n) { return m_pFilters[n]; }
 
 	protected :
-		TYPE_FILTERID		m_nFilters;		// CFilterÀÇ °³¼ö
-		CFilter*			m_pFilters;		// CFilterµéÀ» ÀúÀåÇØµĞ´Ù.
+		TYPE_FILTERID		m_nFilters;		// CFilterì˜ ê°œìˆ˜
+		CFilter*			m_pFilters;		// CFilterë“¤ì„ ì €ì¥í•´ë‘”ë‹¤.
 };
 
 #endif

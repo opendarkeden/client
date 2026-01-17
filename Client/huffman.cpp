@@ -1,5 +1,9 @@
 #include "DirectXlib_PCH.h"
+#ifdef PLATFORM_WINDOWS
 #include <strstrea.h>
+#else
+#include <sstream>
+#endif
 #ifdef  __WIN32__
 #define STRICT
 #endif   // __WIN32__

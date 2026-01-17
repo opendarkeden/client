@@ -39,7 +39,7 @@ void CGStoreSignHandler::execute (CGStoreSign* pPacket , Player* pPlayer)
 
 	if ( pPacket->getSign().size() > MAX_SIGN_SIZE )
 	{
-		filelog("Store.log", "[%s:%s] (%s) °£ÆÇ ±æÀÌ°¡ ³Ê¹« ±é´Ï´Ù.",
+		filelog("Store.log", "[%s:%s] (%s) ê°„íŒ ê¸¸ì´ê°€ ë„ˆë¬´ ê¹ë‹ˆë‹¤.",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str(), pPacket->getSign().c_str());
 		return;
 	}

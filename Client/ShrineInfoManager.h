@@ -12,8 +12,8 @@ public :
 	~RegenTowerInfo() {}
 	void	LoadFromLine(char *szLine);
 
-	void	LoadFromFile(class ifstream& file) { }
-	void	SaveToFile(class ofstream& file) { }
+	void	LoadFromFile(std::ifstream& file) { }
+	void	SaveToFile(std::ofstream& file) { }
 	
 	int		num;
 	int		zoneID;	
@@ -31,5 +31,5 @@ public :
 private :
 };
 
-// Singleton pattern ÀÎÅÍÆäÀÌ½º´Â ¾îµğÀÖ´Â°Å¾ß~~
+// Singleton pattern ì¸í„°í˜ì´ìŠ¤ëŠ” ì–´ë””ìˆëŠ”ê±°ì•¼~~
 extern RegenTowerInfoManager *g_pRegenTowerInfoManager;

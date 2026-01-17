@@ -1,13 +1,13 @@
 //-----------------------------------------------------------------------------
 // CWaitUIUpdate.h
 //-----------------------------------------------------------------------------
-// UI¿¡¼­ ¸Ş½ÃÁö°¡ ¿À±â¸¦ ±â´Ù¸®´Â Loop
+// UIì—ì„œ ë©”ì‹œì§€ê°€ ì˜¤ê¸°ë¥¼ ê¸°ë‹¤ë¦¬ëŠ” Loop
 //-----------------------------------------------------------------------------
 
 #ifndef	__CWAITUIUPDATE_H__
 #define	__CWaitUIUPDATE_H__
 
-#include "CWinUpdate.h"
+#include "WinLib/CWinUpdate.h"
 #include "CDirectInput.h"
 
 class CWaitUIUpdate : public CWinUpdate {

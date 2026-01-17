@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MMultipleFallingEffectGenerator.cpp
 //----------------------------------------------------------------------
-// 4∞≥¿« Effect∞° ∞¯¡ﬂø°º≠ ∂≥æÓ¡¯¥Ÿ.
+// 4Í∞úÏùò EffectÍ∞Ä Í≥µÏ§ëÏóêÏÑú Îñ®Ïñ¥ÏßÑÎã§.
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
 #include "MMultipleFallingEffectGenerator.h"
@@ -35,13 +35,13 @@ MMultipleFallingEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	MLinearEffect*	pEffect;
 	int x, y, z;
 	int ez1 = egInfo.z1 - TILE_Y;
-	int zt = ez1;// + (TILE_Y<<1);	// æ∆∑°¬ ø° ∂≥æÓ¡˙ ∞ÕµÈ¿« ¡¬«•
+	int zt = ez1;// + (TILE_Y<<1);	// ÏïÑÎûòÏ™ΩÏóê Îñ®Ïñ¥Ïßà Í≤ÉÎì§Ïùò Ï¢åÌëú
 
 
 	MEffectTarget*	pEffectTarget2;
 	
 	//---------------------------------------------
-	// Effect ª˝º∫
+	// Effect ÏÉùÏÑ±
 	//---------------------------------------------
 	int numEffectPhase = 4;
 
@@ -76,30 +76,30 @@ MMultipleFallingEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	int ez[numEffect];
 
 	int dropCount = egInfo.count;
-	const int phaseUpper = 150;	// «— ¥‹∞Ëø°º≠ ¿ß∑Œ ¥ı ø√∂Û∞°¥¬ ¡¬«• ∫∏¡§
+	const int phaseUpper = 150;	// Ìïú Îã®Í≥ÑÏóêÏÑú ÏúÑÎ°ú Îçî Ïò¨ÎùºÍ∞ÄÎäî Ï¢åÌëú Î≥¥Ï†ï
 	const int dropCountInc = phaseUpper / egInfo.step;
 
-	// numEffectPhase * numEffect ∞≥¿« effect∏¶ ª˝º∫«—¥Ÿ.
+	// numEffectPhase * numEffect Í∞úÏùò effectÎ•º ÏÉùÏÑ±ÌïúÎã§.
 	for (int i=0; i<numEffectPhase; i++)
 	{
 		int n = 0;
 	
-		ex[n] = egInfo.x0 - rand()%randX - g_TILE_X_HALF;
+		ex[n] = egInfo.x0 - rand()%randX - 24;
 		ey[n] = egInfo.y0 - rand()%randY;
 		ez[n] = baseZ + rand()%50;
 
 		n++;
-		ex[n] = egInfo.x0 - rand()%randX - g_TILE_X_HALF;
+		ex[n] = egInfo.x0 - rand()%randX - 24;
 		ey[n] = egInfo.y0 + rand()%randY;
 		ez[n] = baseZ + rand()%50;
 
 		n++;
-		ex[n] = egInfo.x0 + rand()%randX + g_TILE_X_HALF;
+		ex[n] = egInfo.x0 + rand()%randX + 24;
 		ey[n] = egInfo.y0 - rand()%randY;
 		ez[n] = baseZ + rand()%50;
 
 		n++;
-		ex[n] = egInfo.x0 + rand()%randX + g_TILE_X_HALF;
+		ex[n] = egInfo.x0 + rand()%randX + 24;
 		ey[n] = egInfo.y0 + rand()%randY;
 		ez[n] = baseZ + rand()%50;
 
@@ -116,22 +116,22 @@ MMultipleFallingEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 			
 			pEffect->SetFrameID( frameID, maxFrame );	
 
-			// πﬂªÁ ¿ßƒ° Pixel¡¬«•	
+			// Î∞úÏÇ¨ ÏúÑÏπò PixelÏ¢åÌëú	
 			pEffect->SetPixelPosition( x, y, egInfo.z0+z );	
 
-			// πÊ«‚ º≥¡§
+			// Î∞©Ìñ• ÏÑ§Ï†ï
 			pEffect->SetDirection( egInfo.direction );
 							
-			// ∏Ò«• ¿ßƒ° Pixel¡¬«•
+			// Î™©Ìëú ÏúÑÏπò PixelÏ¢åÌëú
 			pEffect->SetTarget( x, y, zt, egInfo.step );
 
-			// ¡ˆº”µ«¥¬ Frame (∏Ò«•∞° ¿÷¥Ÿ∏È ∫∞∑Œ ∞¸∞Ë æ¯¿Ω - -;)
+			// ÏßÄÏÜçÎêòÎäî Frame (Î™©ÌëúÍ∞Ä ÏûàÎã§Î©¥ Î≥ÑÎ°ú Í¥ÄÍ≥Ñ ÏóÜÏùå - -;)
 			pEffect->SetCount( dropCount, egInfo.linkCount );
 
-			// ¿ß∑¬
+			// ÏúÑÎ†•
 			pEffect->SetPower(egInfo.power);
 
-			// Zoneø° √ﬂ∞°«—¥Ÿ.
+			// ZoneÏóê Ï∂îÍ∞ÄÌïúÎã§.
 			if (g_pZone->AddEffect( pEffect ))
 			{
 				if (!bOK)
@@ -141,7 +141,7 @@ MMultipleFallingEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 				}
 				else
 				{
-					// ¥Ÿ¿Ω Effect ª˝º∫ ¡§∫∏
+					// Îã§Ïùå Effect ÏÉùÏÑ± Ï†ïÎ≥¥
 					if (egInfo.pEffectTarget == NULL)
 					{
 						pEffect->SetLink( egInfo.nActionInfo, NULL );

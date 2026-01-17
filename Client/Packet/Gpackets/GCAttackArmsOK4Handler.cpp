@@ -17,16 +17,17 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCAttackArmsOK4Handler::execute ( GCAttackArmsOK4 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-#if __GAME_CLIENT__
+#ifdef __GAME_CLIENT__
 
 			// message
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -37,20 +38,20 @@ void GCAttackArmsOK4Handler::execute ( GCAttackArmsOK4 * pPacket , Player * pPla
 	}	
 
 	//------------------------------------------------------
-	// ´ë»óÀÌ µÇ´Â creature¸¦ ¾ò´Â´Ù.
+	// ëŒ€ìƒì´ ë˜ëŠ” creatureë¥¼ ì–»ëŠ”ë‹¤.
 	//------------------------------------------------------
 	MCreature* pTargetCreature = g_pZone->GetCreature( pPacket->getTargetObjectID() );
 	
 	if (pTargetCreature==NULL)
 	{
-		// ±×·± creature°¡ ¾øÀ» °æ¿ì
+		// ê·¸ëŸ° creatureê°€ ì—†ì„ ê²½ìš°
 		DEBUG_ADD_FORMAT("There's no such creature : TargetID=%d, Skill=%d", pPacket->getTargetObjectID(), SKILL_ATTACK_MELEE);
 		
 		return;
 	}
 
 	//------------------------------------------------------
-	// target creature°¡ °á°ú¸¦ ´çÇÏ´Â ¸ð½ÀÀ» ¹Ù·Î º¸¿©ÁØ´Ù.
+	// target creatureê°€ ê²°ê³¼ë¥¼ ë‹¹í•˜ëŠ” ëª¨ìŠµì„ ë°”ë¡œ ë³´ì—¬ì¤€ë‹¤.
 	//------------------------------------------------------
 	
 	if( pPacket->getSkillType() == SKILL_JABBING_VEIN || pPacket->getSkillType() == SKILL_MOLE_SHOT ||

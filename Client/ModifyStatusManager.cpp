@@ -6,7 +6,7 @@
 #include "MTopView.h"
 #include "MTypeDef.h"
 #include "ModifyStatusManager.h"
-#include "packet\types\ModifyDef.h"
+#include "packet/types/ModifyDef.h"
 #include "UIFunction.h"
 #include "MPlayer.h"
 #include "MSkillManager.h"
@@ -53,7 +53,7 @@ CanLearnDomainSkill(int domain)
 	int domainLevel = skillDomain.GetDomainLevel();
 	
 	//--------------------------------------------------
-	// »õ ±â¼úÀ» ¹è¿ï ¼ö ÀÖ´ÂÁö Ã¼Å©
+	// ìƒˆ ê¸°ìˆ ì„ ë°°ìš¸ ìˆ˜ ìžˆëŠ”ì§€ ì²´í¬
 	//--------------------------------------------------
 	skillDomain.SetBegin();
 
@@ -76,8 +76,8 @@ CanLearnDomainSkill(int domain)
 		{
 			DEBUG_ADD_FORMAT("[CanLearnNewSkill] skill=%s. learnLev=%d. domainLev=%d", (*g_pSkillInfoTable)[ai].GetName(), learnLevel, domainLevel);
 			
-			// »õ·Î¿î ±â¼úÀ» ¹è¿ï ¼ö ÀÖ´Â °æ¿ì
-			// ±×³É ¹è¿ï ¼ö ÀÖ´ÂÁö¸¸ ¾Ë¸é µÈ´Ù.
+			// ìƒˆë¡œìš´ ê¸°ìˆ ì„ ë°°ìš¸ ìˆ˜ ìžˆëŠ” ê²½ìš°
+			// ê·¸ëƒ¥ ë°°ìš¸ ìˆ˜ ìžˆëŠ”ì§€ë§Œ ì•Œë©´ ëœë‹¤.
 			return true;
 		}
 
@@ -90,7 +90,7 @@ CanLearnDomainSkill(int domain)
 //----------------------------------------------------------------------
 // Set Domain Level
 //----------------------------------------------------------------------
-// ÀÌ domainÀÇ »õ·Î¿î ±â¼úÀ» ¹è¿ï ¼ö ÀÖ´Â°¡?
+// ì´ domainì˜ ìƒˆë¡œìš´ ê¸°ìˆ ì„ ë°°ìš¸ ìˆ˜ ìžˆëŠ”ê°€?
 //----------------------------------------------------------------------
 void
 SetDomainLevel( int domain, int domainLevel )
@@ -101,7 +101,7 @@ SetDomainLevel( int domain, int domainLevel )
 	if (g_Mode==MODE_GAME)
 	{
 		//--------------------------------------------------
-		// µµ¸ÞÀÎ ·¹º§ÀÌ ¾ó¸¶°¡ µÇ¾ú´Ù°í Ç¥½Ã
+		// ë„ë©”ì¸ ë ˆë²¨ì´ ì–¼ë§ˆê°€ ë˜ì—ˆë‹¤ê³  í‘œì‹œ
 		//--------------------------------------------------
 		int num1 = domainLevel % 10;
 		if (num1==2 || num1==4 || num1==5 || num1==9)
@@ -114,7 +114,7 @@ SetDomainLevel( int domain, int domainLevel )
 		}
 
 		//--------------------------------------------------
-		// »õ ±â¼úÀ» ¹è¿ï ¼ö ÀÖ´ÂÁö Ã¼Å©
+		// ìƒˆ ê¸°ìˆ ì„ ë°°ìš¸ ìˆ˜ ìžˆëŠ”ì§€ ì²´í¬
 		//--------------------------------------------------
 		if (CanLearnDomainSkill(domain))
 		{
@@ -232,7 +232,7 @@ ModifyStatusManager::Function_MODIFY_CURRENT_HP(void* pVoid)
 	UI_SetHP( value, g_pPlayer->GetMAX_HP() );
 	UI_SetCharInfoHP( value );		
 	
-	// skill¸¶´Ù MP°¡ ÃæºÐÇÑÁö Ã¼Å©
+	// skillë§ˆë‹¤ MPê°€ ì¶©ë¶„í•œì§€ ì²´í¬
 	if (g_pPlayer->IsVampire())
 	{
 		g_pSkillAvailable->CheckMP();
@@ -254,7 +254,7 @@ ModifyStatusManager::Function_MODIFY_CURRENT_MP(void* pVoid)
 	UI_SetMP( value, g_pPlayer->GetMAX_MP() );	
 	UI_SetCharInfoMP( value );
 
-	// skill¸¶´Ù MP°¡ ÃæºÐÇÑÁö Ã¼Å©
+	// skillë§ˆë‹¤ MPê°€ ì¶©ë¶„í•œì§€ ì²´í¬
 	if (!g_pPlayer->IsVampire())
 	{
 		g_pSkillAvailable->CheckMP();
@@ -297,7 +297,7 @@ ModifyStatusManager::Function_MODIFY_MAX_MP(void* pVoid)
 	UI_SetMP( g_pPlayer->GetMP(), value );	
 	UI_SetCharInfoMP_max( value );
 
-	// skill¸¶´Ù MP°¡ ÃæºÐÇÑÁö Ã¼Å©
+	// skillë§ˆë‹¤ MPê°€ ì¶©ë¶„í•œì§€ ì²´í¬
 	//(*g_pSkillAvailable).CheckMP();
 
 	if (g_Mode==MODE_GAME)
@@ -330,11 +330,11 @@ ModifyStatusManager::Function_MODIFY_DURABILITY(void* pVoid)
 	EXTRACT_MODIFY_VALUE( pVoid )
 
 
-	// 2005, 2, 23, sobeit modify start - 1BYTE | 3BYTE ·Î ¼öÁ¤
+	// 2005, 2, 23, sobeit modify start - 1BYTE | 3BYTE ë¡œ ìˆ˜ì •
 	int slotID		= (value & 0xFF000000) >> 24;
-	int	durability	= value & 0x00FFFFFF;	// »©ÁØ´Ù.
+	int	durability	= value & 0x00FFFFFF;	// ë¹¼ì¤€ë‹¤.
 //	int slotID		= (value & 0xFFFF0000) >> 16;
-//	int	durability	= value & 0x0000FFFF;	// »©ÁØ´Ù.
+//	int	durability	= value & 0x0000FFFF;	// ë¹¼ì¤€ë‹¤.
 	// 2005, 2, 23, sobeit modify end
 
 	#ifdef	OUTPUT_DEBUG
@@ -349,14 +349,14 @@ ModifyStatusManager::Function_MODIFY_DURABILITY(void* pVoid)
 	case RACE_SLAYER:
 	{
 		//-------------------------------------------------
-		// ¿À¸¥¼Õ¿¡ ¹«±â µé°í ÀÖ´Âµ¥.
-		// ¼­¹ö¿¡¼­´Â ¿Þ¼ÕÀÌ¶ó°í ³¯¾Æ¿À±âµµ ÇÑ´Ù. - -;
+		// ì˜¤ë¥¸ì†ì— ë¬´ê¸° ë“¤ê³  ìžˆëŠ”ë°.
+		// ì„œë²„ì—ì„œëŠ” ì™¼ì†ì´ë¼ê³  ë‚ ì•„ì˜¤ê¸°ë„ í•œë‹¤. - -;
 		//-------------------------------------------------
 		const MItem* pItem = g_pSlayerGear->GetItem( (MSlayerGear::GEAR_SLAYER)slotID );
 
 		if (pItem!=NULL)
 		{
-			// ¾ç¼Õ ¹«±â ÀÌ¸é.. ¹«Á¶°Ç ¿À¸¥¼ÕÀ¸·Î slot °íÁ¤
+			// ì–‘ì† ë¬´ê¸° ì´ë©´.. ë¬´ì¡°ê±´ ì˜¤ë¥¸ì†ìœ¼ë¡œ slot ê³ ì •
 			if (pItem->GetGearSlot()==MItem::SLOT_TWOHAND)
 			{
 				slotID = (BYTE)MSlayerGear::GEAR_SLAYER_RIGHTHAND;
@@ -376,14 +376,14 @@ ModifyStatusManager::Function_MODIFY_DURABILITY(void* pVoid)
 	case RACE_VAMPIRE:
 	{
 		//-------------------------------------------------
-		// ¿À¸¥¼Õ¿¡ ¹«±â µé°í ÀÖ´Âµ¥.
-		// ¼­¹ö¿¡¼­´Â ¿Þ¼ÕÀÌ¶ó°í ³¯¾Æ¿À±âµµ ÇÑ´Ù. - -;
+		// ì˜¤ë¥¸ì†ì— ë¬´ê¸° ë“¤ê³  ìžˆëŠ”ë°.
+		// ì„œë²„ì—ì„œëŠ” ì™¼ì†ì´ë¼ê³  ë‚ ì•„ì˜¤ê¸°ë„ í•œë‹¤. - -;
 		//-------------------------------------------------
 		const MItem* pItem = g_pVampireGear->GetItem( (MVampireGear::GEAR_VAMPIRE)slotID );
 
 		if (pItem!=NULL)
 		{
-			// ¾ç¼Õ ¹«±â ÀÌ¸é.. ¹«Á¶°Ç ¿À¸¥¼ÕÀ¸·Î slot °íÁ¤
+			// ì–‘ì† ë¬´ê¸° ì´ë©´.. ë¬´ì¡°ê±´ ì˜¤ë¥¸ì†ìœ¼ë¡œ slot ê³ ì •
 			if (pItem->GetGearSlot()==MItem::SLOT_VAMPIRE_TWOHAND)
 			{
 				slotID = (BYTE)MVampireGear::GEAR_VAMPIRE_RIGHTHAND;
@@ -403,14 +403,14 @@ ModifyStatusManager::Function_MODIFY_DURABILITY(void* pVoid)
 	case RACE_OUSTERS:
 		{
 			//-------------------------------------------------
-			// ¿À¸¥¼Õ¿¡ ¹«±â µé°í ÀÖ´Âµ¥.
-			// ¼­¹ö¿¡¼­´Â ¿Þ¼ÕÀÌ¶ó°í ³¯¾Æ¿À±âµµ ÇÑ´Ù. - -;
+			// ì˜¤ë¥¸ì†ì— ë¬´ê¸° ë“¤ê³  ìžˆëŠ”ë°.
+			// ì„œë²„ì—ì„œëŠ” ì™¼ì†ì´ë¼ê³  ë‚ ì•„ì˜¤ê¸°ë„ í•œë‹¤. - -;
 			//-------------------------------------------------
 			const MItem* pItem = g_pOustersGear->GetItem( (MOustersGear::GEAR_OUSTERS)slotID );
 			
 			if (pItem!=NULL)
 			{
-				// ¾ç¼Õ ¹«±â ÀÌ¸é.. ¹«Á¶°Ç ¿À¸¥¼ÕÀ¸·Î slot °íÁ¤
+				// ì–‘ì† ë¬´ê¸° ì´ë©´.. ë¬´ì¡°ê±´ ì˜¤ë¥¸ì†ìœ¼ë¡œ slot ê³ ì •
 				if (pItem->GetGearSlot()==MItem::SLOT_OUSTERS_TWOHAND)
 				{
 					slotID = (BYTE)MOustersGear::GEAR_OUSTERS_RIGHTHAND;
@@ -487,7 +487,7 @@ void
 ModifyStatusManager::Function_MODIFY_BULLET(void* pVoid)
 {
 	EXTRACT_MODIFY_VALUE( pVoid )
-//	g_pSystemMessage->Add("ÃÑ¾Ë ¹Þ´Ù.");
+//	g_pSystemMessage->Add("ì´ì•Œ ë°›ë‹¤.");
 
 	if (g_pCurrentMagazine!=NULL)
 	{
@@ -528,8 +528,8 @@ ModifyStatusManager::Function_MODIFY_VISION(void* pVoid)
 	EXTRACT_MODIFY_VALUE( pVoid )
 
 	//--------------------------------------------------------
-	// (m_ServerX, m_ServerY)¿¡¼­ºÎÅÍ 
-	// PlayerÀÇ ½Ã¾ß¿¡ Æ÷ÇÔµÇÁö ¾Ê´Â Creature¸¦ Zone¿¡¼­ Á¦°Å½ÃÅ²´Ù.
+	// (m_ServerX, m_ServerY)ì—ì„œë¶€í„° 
+	// Playerì˜ ì‹œì•¼ì— í¬í•¨ë˜ì§€ ì•ŠëŠ” Creatureë¥¼ Zoneì—ì„œ ì œê±°ì‹œí‚¨ë‹¤.
 	//--------------------------------------------------------
 	g_pPlayer->SetSight( value );
 	g_pZone->KeepObjectInSight(g_pPlayer->GetServerX(), 
@@ -577,7 +577,7 @@ ModifyStatusManager::Function_MODIFY_CURRENT_STR(void* pVoid)
 	UI_SetCharInfoSTR( value );
 	
 	//------------------------------------------
-	// ´Ù¸¥ °ª ¹Ù²î´Â °Í °è»ê
+	// ë‹¤ë¥¸ ê°’ ë°”ë€ŒëŠ” ê²ƒ ê³„ì‚°
 	//------------------------------------------
 	MPlayerGear *pGear = g_pPlayer->GetGear();
 
@@ -585,7 +585,7 @@ ModifyStatusManager::Function_MODIFY_CURRENT_STR(void* pVoid)
 	pGear->CheckAffectStatusAll();				
 
 	//------------------------------------------
-	// ¹Ù²î´Â ¼öÄ¡ °è»ê
+	// ë°”ë€ŒëŠ” ìˆ˜ì¹˜ ê³„ì‚°
 	//------------------------------------------
 	g_pPlayer->CalculateStatus();
 }
@@ -615,7 +615,7 @@ ModifyStatusManager::Function_MODIFY_CURRENT_DEX(void* pVoid)
 	UI_SetCharInfoDEX( value );
 
 	//------------------------------------------
-	// ´Ù¸¥ °ª ¹Ù²î´Â °Í °è»ê
+	// ë‹¤ë¥¸ ê°’ ë°”ë€ŒëŠ” ê²ƒ ê³„ì‚°
 	//------------------------------------------
 	MPlayerGear *pGear = g_pPlayer->GetGear();
 	
@@ -623,7 +623,7 @@ ModifyStatusManager::Function_MODIFY_CURRENT_DEX(void* pVoid)
 	pGear->CheckAffectStatusAll();				
 		
 	//------------------------------------------
-	// ¹Ù²î´Â ¼öÄ¡ °è»ê
+	// ë°”ë€ŒëŠ” ìˆ˜ì¹˜ ê³„ì‚°
 	//------------------------------------------
 	g_pPlayer->CalculateStatus();					
 }
@@ -653,13 +653,13 @@ ModifyStatusManager::Function_MODIFY_CURRENT_INT(void* pVoid)
 	UI_SetCharInfoINT( value );
 
 	//------------------------------------------
-	// ´Ù¸¥ °ª ¹Ù²î´Â °Í °è»ê
+	// ë‹¤ë¥¸ ê°’ ë°”ë€ŒëŠ” ê²ƒ ê³„ì‚°
 	//------------------------------------------
 	switch(g_pPlayer->GetRace())
 	{
 		case RACE_SLAYER:
 			//------------------------------------------
-			// »ç¿ë°¡´ÉÇÑÁö Ã¼Å©ÇÑ´Ù.
+			// ì‚¬ìš©ê°€ëŠ¥í•œì§€ ì²´í¬í•œë‹¤.
 			//------------------------------------------
 			g_pInventory->CheckAffectStatusAll();
 			g_pSlayerGear->CheckAffectStatusAll();
@@ -677,7 +677,7 @@ ModifyStatusManager::Function_MODIFY_CURRENT_INT(void* pVoid)
 	}
 
 	//------------------------------------------
-	// ¹Ù²î´Â ¼öÄ¡ °è»ê
+	// ë°”ë€ŒëŠ” ìˆ˜ì¹˜ ê³„ì‚°
 	//------------------------------------------
 	g_pPlayer->CalculateStatus();		
 }
@@ -741,7 +741,7 @@ ModifyStatusManager::Function_MODIFY_BONUS_POINT(void* pVoid)
 
 	UI_SetBonusPoint( value );
 
-	// [µµ¿ò¸»] bonus point
+	// [ë„ì›€ë§] bonus point
 //	__BEGIN_HELP_EVENT
 //		ExecuteHelpEvent( HE_STATUS_BONUS_POINT );	
 //	__END_HELP_EVENT
@@ -854,7 +854,7 @@ ModifyStatusManager::Function_MODIFY_LEVEL(void* pVoid)
 	}
 
 	//------------------------------------------
-	// »ç¿ë°¡´ÉÇÑÁö Ã¼Å©ÇÑ´Ù.
+	// ì‚¬ìš©ê°€ëŠ¥í•œì§€ ì²´í¬í•œë‹¤.
 	//------------------------------------------
 	MPlayerGear *pGear = g_pPlayer->GetGear();
 	
@@ -880,7 +880,7 @@ ModifyStatusManager::Function_MODIFY_ALIGNMENT(void* pVoid)
 	//#endif		
 
 	//--------------------------------------------------
-	// UI¿¡ ¼³Á¤
+	// UIì— ì„¤ì •
 	//--------------------------------------------------
 	short uiAlignment = value;
 	if (uiAlignment > 10000)
@@ -890,7 +890,7 @@ ModifyStatusManager::Function_MODIFY_ALIGNMENT(void* pVoid)
 	g_char_slot_ingame.alignment_num = uiAlignment;
 
 	//--------------------------------------------------
-	// -10000 ~ 10000À» 0~4·Î ¹Ù²Û´Ù.
+	// -10000 ~ 10000ì„ 0~4ë¡œ ë°”ê¾¼ë‹¤.
 	//--------------------------------------------------
 	int alignment;
 	int oldAlignment;
@@ -909,7 +909,7 @@ ModifyStatusManager::Function_MODIFY_ALIGNMENT(void* pVoid)
 	oldAlignment = ConvertAlignment( oldValue );
 
 	//--------------------------------------------------
-	// ¼ºÇâÀÌ Á¶±Ý ¹Ù²¼´Ù´Â ¸Þ¼¼Áö
+	// ì„±í–¥ì´ ì¡°ê¸ˆ ë°”ê¼ˆë‹¤ëŠ” ë©”ì„¸ì§€
 	//--------------------------------------------------
 	if (g_Mode==MODE_GAME)
 	{
@@ -934,7 +934,7 @@ ModifyStatusManager::Function_MODIFY_ALIGNMENT(void* pVoid)
 	//#endif
 
 	//--------------------------------------------------
-	// ¼ºÇâÀÇ ´Ü°è°¡ ¹Ù²ï °æ¿ì..
+	// ì„±í–¥ì˜ ë‹¨ê³„ê°€ ë°”ë€ ê²½ìš°..
 	//--------------------------------------------------
 	if (oldAlignment != alignment)
 	{	
@@ -1111,8 +1111,8 @@ ModifyStatusManager::Function_MODIFY_MIN_DAMAGE(void* pVoid)
 {
 	EXTRACT_MODIFY_VALUE( pVoid )
 			
-	// ÀÌ°Å ¸»°í ±×³É damage¸¸ °è»êÇÏµµ·Ï ¹Ù²ã¾ß ÇÑ´Ù.. 
-	// ÀÏ´Ü ÀØÀ»±îºÁ ÀÓ½Ã·Î.. - -;;
+	// ì´ê±° ë§ê³  ê·¸ëƒ¥ damageë§Œ ê³„ì‚°í•˜ë„ë¡ ë°”ê¿”ì•¼ í•œë‹¤.. 
+	// ì¼ë‹¨ ìžŠì„ê¹Œë´ ìž„ì‹œë¡œ.. - -;;
 	g_pPlayer->CalculateStatus();
 }
 
@@ -1208,7 +1208,7 @@ ModifyStatusManager::Function_MODIFY_SKILL_POINT(void* pVoid)
 		
 		UI_SetSkillPoint( value );
 		
-		// [µµ¿ò¸»] bonus point
+		// [ë„ì›€ë§] bonus point
 //		__BEGIN_HELP_EVENT
 //			ExecuteHelpEvent( HE_STATUS_BONUS_POINT );	
 //		__END_HELP_EVENT
@@ -1304,7 +1304,7 @@ ModifyStatusManager::Function_MODIFY_PET_HP(void *pVoid)
 	{
 		pPetItem->SetCurrentDurability(value);
 
-		// Æê Á×±â
+		// íŽ« ì£½ê¸°
 		if(value == 60)
 		{
 			std::string petName = pPetItem->GetPetName().c_str();

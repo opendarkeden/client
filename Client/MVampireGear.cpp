@@ -22,51 +22,51 @@ MVampireGear*		g_pVampireGear = NULL;
 MVampireGear::FUNCTION_GEARSLOT_CHECK
 MVampireGear::s_GearSlotCheckTable[MAX_GEAR_VAMPIRE] =
 {
-	IsGearSlotNecklace,			// ∏Ò∞…¿Ã
-	IsGearSlotCoat,				// ªÛ¿«
-	IsGearSlotBracelet,			// ∆»¬Ó1
-	IsGearSlotBracelet,			// ∆»¬Ó2
-	IsGearSlotRing,				// π›¡ˆ1
-	IsGearSlotRing,				// π›¡ˆ2
-	IsGearSlotRing,				// π›¡ˆ3
-	IsGearSlotRing,				// π›¡ˆ4
-	IsGearSlotEarRing,			// ±Õ∞…¿Ã1
-	IsGearSlotEarRing,			// ±Õ∞…¿Ã2
-	IsGearSlotLeftHand,			// øﬁº’
-	IsGearSlotRightHand,		// ø¿∏•º’
-	IsGearSlotAmulet,			// ∫Œ¿˚1
-	IsGearSlotAmulet,			// ∫Œ¿˚2
-	IsGearSlotAmulet,			// ∫Œ¿˚3
-	IsGearSlotAmulet,			// ∫Œ¿˚4
-	IsGearSlotCoreZap,			// ƒ⁄æÓ¿Ï1
-	IsGearSlotCoreZap,			// ƒ⁄æÓ¿Ï2
-	IsGearSlotCoreZap,			// ƒ⁄æÓ¿Ï3
-	IsGearSlotCoreZap,			// ƒ⁄æÓ¿Ï4
-	IsGearSlotDermis,			// Ω¬¡˜øÎ πÆΩ≈?
-	IsGearSlotPersona,			// Ω¬¡˜øÎ ∆‰∏£º“≥™
-	IsGearSlotBloodBible,		// ∫Ì∑ØµÂ πŸ¿Ã∫Ì 1
-	IsGearSlotBloodBible,		// ∫Ì∑ØµÂ πŸ¿Ã∫Ì 2
-	IsGearSlotBloodBible,		// ∫Ì∑ØµÂ πŸ¿Ã∫Ì 3
-	IsGearSlotBloodBible,		// ∫Ì∑ØµÂ πŸ¿Ã∫Ì 4
-	IsGearSlotBloodBible,		// ∫Ì∑ØµÂ πŸ¿Ã∫Ì 5
-	IsGearSlotBloodBible,		// ∫Ì∑ØµÂ πŸ¿Ã∫Ì 6
+	IsGearSlotNecklace,			// Î™©Í±∏Ïù¥
+	IsGearSlotCoat,				// ÏÉÅÏùò
+	IsGearSlotBracelet,			// ÌåîÏ∞å1
+	IsGearSlotBracelet,			// ÌåîÏ∞å2
+	IsGearSlotRing,				// Î∞òÏßÄ1
+	IsGearSlotRing,				// Î∞òÏßÄ2
+	IsGearSlotRing,				// Î∞òÏßÄ3
+	IsGearSlotRing,				// Î∞òÏßÄ4
+	IsGearSlotEarRing,			// Í∑ÄÍ±∏Ïù¥1
+	IsGearSlotEarRing,			// Í∑ÄÍ±∏Ïù¥2
+	IsGearSlotLeftHand,			// ÏôºÏÜê
+	IsGearSlotRightHand,		// Ïò§Î•∏ÏÜê
+	IsGearSlotAmulet,			// Î∂ÄÏ†Å1
+	IsGearSlotAmulet,			// Î∂ÄÏ†Å2
+	IsGearSlotAmulet,			// Î∂ÄÏ†Å3
+	IsGearSlotAmulet,			// Î∂ÄÏ†Å4
+	IsGearSlotCoreZap,			// ÏΩîÏñ¥ÏûΩ1
+	IsGearSlotCoreZap,			// ÏΩîÏñ¥ÏûΩ2
+	IsGearSlotCoreZap,			// ÏΩîÏñ¥ÏûΩ3
+	IsGearSlotCoreZap,			// ÏΩîÏñ¥ÏûΩ4
+	IsGearSlotDermis,			// ÏäπÏßÅÏö© Î¨∏Ïã†?
+	IsGearSlotPersona,			// ÏäπÏßÅÏö© ÌéòÎ•¥ÏÜåÎÇò
+	IsGearSlotBloodBible,		// Î∏îÎü¨Îìú Î∞îÏù¥Î∏î 1
+	IsGearSlotBloodBible,		// Î∏îÎü¨Îìú Î∞îÏù¥Î∏î 2
+	IsGearSlotBloodBible,		// Î∏îÎü¨Îìú Î∞îÏù¥Î∏î 3
+	IsGearSlotBloodBible,		// Î∏îÎü¨Îìú Î∞îÏù¥Î∏î 4
+	IsGearSlotBloodBible,		// Î∏îÎü¨Îìú Î∞îÏù¥Î∏î 5
+	IsGearSlotBloodBible,		// Î∏îÎü¨Îìú Î∞îÏù¥Î∏î 6
 };
 
 //----------------------------------------------------------------------
-// ∆Ø¡§ ∫Œ¿ßø° pItem¿ª ¿Â¬¯«“ ºˆ ¿÷¥¬¡ˆ∏¶ check«—¥Ÿ.
+// ÌäπÏ†ï Î∂ÄÏúÑÏóê pItemÏùÑ Ïû•Ï∞©Ìï† Ïàò ÏûàÎäîÏßÄÎ•º checkÌïúÎã§.
 //----------------------------------------------------------------------
-bool		MVampireGear::IsGearSlotNecklace(MItem* pItem) 	{ return pItem->IsGearSlotVampireNecklace(); }	// ∏Ò∞…¿Ã
-bool		MVampireGear::IsGearSlotCoat(MItem* pItem) 		{ return pItem->IsGearSlotVampireCoat(); }		// ªÛ¿«
-bool		MVampireGear::IsGearSlotBracelet(MItem* pItem) 	{ return pItem->IsGearSlotVampireBracelet(); }	// ∆»¬Ó
-bool		MVampireGear::IsGearSlotRing(MItem* pItem) 		{ return pItem->IsGearSlotVampireRing(); }		// π›¡ˆ
-bool		MVampireGear::IsGearSlotEarRing(MItem* pItem) 	{ return pItem->IsGearSlotVampireEarRing(); }	// ±Õ∞…¿Ã
-bool		MVampireGear::IsGearSlotLeftHand(MItem* pItem) 	{ return pItem->IsGearSlotVampireLeftHand(); }	// øﬁº’
-bool		MVampireGear::IsGearSlotRightHand(MItem* pItem) { return pItem->IsGearSlotVampireRightHand(); }	// ø¿∏•º’
-bool		MVampireGear::IsGearSlotAmulet(MItem* pItem)	{ return pItem->IsGearSlotVampireAmulet(); }	// ø¿∏•º’
-bool		MVampireGear::IsGearSlotCoreZap(MItem* pItem)	{ return pItem->IsGearSlotVampireCoreZap(); }	// ƒ⁄æÓ¿Ï
-bool		MVampireGear::IsGearSlotDermis(MItem* pItem)	{ return pItem->IsGearSlotVampireDermis(); }	// πÆΩ≈
-bool		MVampireGear::IsGearSlotPersona(MItem* pItem)	{ return pItem->IsGearSlotVampirePersona(); }	// ∆‰∏£º“
-bool		MVampireGear::IsGearSlotBloodBible(MItem* pItem){ return pItem->IsGearSlotVampireBloodBible(); }	// ∫Ì∑Øµ πŸ¿Ã∫Ì
+bool		MVampireGear::IsGearSlotNecklace(MItem* pItem) 	{ return pItem->IsGearSlotVampireNecklace(); }	// Î™©Í±∏Ïù¥
+bool		MVampireGear::IsGearSlotCoat(MItem* pItem) 		{ return pItem->IsGearSlotVampireCoat(); }		// ÏÉÅÏùò
+bool		MVampireGear::IsGearSlotBracelet(MItem* pItem) 	{ return pItem->IsGearSlotVampireBracelet(); }	// ÌåîÏ∞å
+bool		MVampireGear::IsGearSlotRing(MItem* pItem) 		{ return pItem->IsGearSlotVampireRing(); }		// Î∞òÏßÄ
+bool		MVampireGear::IsGearSlotEarRing(MItem* pItem) 	{ return pItem->IsGearSlotVampireEarRing(); }	// Í∑ÄÍ±∏Ïù¥
+bool		MVampireGear::IsGearSlotLeftHand(MItem* pItem) 	{ return pItem->IsGearSlotVampireLeftHand(); }	// ÏôºÏÜê
+bool		MVampireGear::IsGearSlotRightHand(MItem* pItem) { return pItem->IsGearSlotVampireRightHand(); }	// Ïò§Î•∏ÏÜê
+bool		MVampireGear::IsGearSlotAmulet(MItem* pItem)	{ return pItem->IsGearSlotVampireAmulet(); }	// Ïò§Î•∏ÏÜê
+bool		MVampireGear::IsGearSlotCoreZap(MItem* pItem)	{ return pItem->IsGearSlotVampireCoreZap(); }	// ÏΩîÏñ¥ÏûΩ
+bool		MVampireGear::IsGearSlotDermis(MItem* pItem)	{ return pItem->IsGearSlotVampireDermis(); }	// Î¨∏Ïã†
+bool		MVampireGear::IsGearSlotPersona(MItem* pItem)	{ return pItem->IsGearSlotVampirePersona(); }	// ÌéòÎ•¥ÏÜå
+bool		MVampireGear::IsGearSlotBloodBible(MItem* pItem){ return pItem->IsGearSlotVampireBloodBible(); }	// Î∏îÎü¨Îîî Î∞îÏù¥Î∏î
 
 //----------------------------------------------------------------------
 //
@@ -91,12 +91,12 @@ MVampireGear::~MVampireGear()
 //----------------------------------------------------------------------
 // Init 
 //----------------------------------------------------------------------
-// MAX_GEAR_VAMPIRE∏∏≈≠¿« Slot¿ª ª˝º∫«—¥Ÿ.
+// MAX_GEAR_VAMPIREÎßåÌÅºÏùò SlotÏùÑ ÏÉùÏÑ±ÌïúÎã§.
 //----------------------------------------------------------------------
 void
 MVampireGear::Init()
 {
-	// slot ª˝º∫
+	// slot ÏÉùÏÑ±
 	MPlayerGear::Init(MAX_GEAR_VAMPIRE);
 	m_Gilles_CoreZap = 12;
 	m_bBloodBibleOpenCount = 0;
@@ -105,7 +105,7 @@ MVampireGear::Init()
 //----------------------------------------------------------------------
 // Check AffectStatus
 //----------------------------------------------------------------------
-// ∆Ø¡§ æ∆¿Ã≈€¿« ¬¯øÎ ∞°¥… ø©∫Œ∏¶ √º≈©«—¥Ÿ.
+// ÌäπÏ†ï ÏïÑÏù¥ÌÖúÏùò Ï∞©Ïö© Í∞ÄÎä• Ïó¨Î∂ÄÎ•º Ï≤¥ÌÅ¨ÌïúÎã§.
 //----------------------------------------------------------------------
 void			
 MVampireGear::CheckAffectStatus(MItem* pItem)
@@ -120,14 +120,14 @@ MVampireGear::CheckAffectStatus(MItem* pItem)
 //----------------------------------------------------------------------
 // Add Item ( pItem )
 //----------------------------------------------------------------------
-// pItem¿ª ¿˚¿˝«—(?) slotø° √ﬂ∞°Ω√≈≤¥Ÿ.
+// pItemÏùÑ Ï†ÅÏ†àÌïú(?) slotÏóê Ï∂îÍ∞ÄÏãúÌÇ®Îã§.
 //----------------------------------------------------------------------
 bool			
 MVampireGear::AddItem(MItem* pItem)
 {
 	for (int i=0; i<MAX_GEAR_VAMPIRE; i++)
 	{
-		// √ﬂ∞°«ﬂ¿∏∏È..
+		// Ï∂îÍ∞ÄÌñàÏúºÎ©¥..
 		if (AddItem( pItem, (enum GEAR_VAMPIRE)i ))
 		{
 			return true;
@@ -140,44 +140,44 @@ MVampireGear::AddItem(MItem* pItem)
 //----------------------------------------------------------------------
 // Can Replace Item ( pItem, n )
 //----------------------------------------------------------------------
-// slot(n)ø° pItem¿ª √ﬂ∞°«—¥Ÿ.
-// √ﬂ∞°«“ ºˆ ¿÷¥¬ slot¿Œ¡ˆ »Æ¿Œ«ÿæﬂ «—¥Ÿ.
+// slot(n)Ïóê pItemÏùÑ Ï∂îÍ∞ÄÌïúÎã§.
+// Ï∂îÍ∞ÄÌï† Ïàò ÏûàÎäî slotÏù∏ÏßÄ ÌôïÏù∏Ìï¥Ïïº ÌïúÎã§.
 //
-// pOldItemø°¥¬ ±≥√ºµ… ∞Õ¿Ã ¿÷¥¬ ∞ÊøÏø° ±◊∞‘ µÈæÓ∞£¥Ÿ.
+// pOldItemÏóêÎäî ÍµêÏ≤¥Îê† Í≤ÉÏù¥ ÏûàÎäî Í≤ΩÏö∞Ïóê Í∑∏Í≤å Îì§Ïñ¥Í∞ÑÎã§.
 //----------------------------------------------------------------------
 bool			
 MVampireGear::CanReplaceItem(MItem* pItem, GEAR_VAMPIRE n, MItem*& pOldItem)
 {	
-	// ºˆƒ° ¿˚øÎµ«¡ˆ æ ¥¬ æ∆¿Ã≈€¿∫ ¬¯øÎµ«¡ˆ æ ¥¬¥Ÿ
+	// ÏàòÏπò Ï†ÅÏö©ÎêòÏßÄ ÏïäÎäî ÏïÑÏù¥ÌÖúÏùÄ Ï∞©Ïö©ÎêòÏßÄ ÏïäÎäîÎã§
 	if(pItem->IsAffectStatus() == false&& !pItem->IsQuestItem())
 		return false;
 
 	pOldItem = NULL;
 
 	//---------------------------------------------------------
-	// ItemSlot π¸¿ß∏¶ ≥—æÓ∞°¥¬ ∞ÊøÏ..
+	// ItemSlot Î≤îÏúÑÎ•º ÎÑòÏñ¥Í∞ÄÎäî Í≤ΩÏö∞..
 	//---------------------------------------------------------	
 	if (n>=m_Size || !pItem->IsVampireItem())
 	{
 		return false;
 	}
 
-	if(n>=GEAR_VAMPIRE_BLOOD_BIBLE1 && n<=GEAR_VAMPIRE_BLOOD_BIBLE6) // ∫Ì∑ØµÂ πŸ¿Ã∫Ì¿∫ ¡˝¿ªºˆ æ¯¥Ÿ.
+	if(n>=GEAR_VAMPIRE_BLOOD_BIBLE1 && n<=GEAR_VAMPIRE_BLOOD_BIBLE6) // Î∏îÎü¨Îìú Î∞îÏù¥Î∏îÏùÄ ÏßëÏùÑÏàò ÏóÜÎã§.
 		return false;
 	//-------------------------------------------------
 	//
-	// º’ø° ¿Â¬¯«“∑¡¥¬ ∞ÊøÏ
+	// ÏÜêÏóê Ïû•Ï∞©Ìï†Î†§Îäî Í≤ΩÏö∞
 	//
 	//-------------------------------------------------
 	if (n==GEAR_VAMPIRE_LEFTHAND || n==GEAR_VAMPIRE_RIGHTHAND)	
 	{
 		//-------------------------------------------------
-		// [ æÁº’ Item ] ¿Œ ∞ÊøÏ
+		// [ ÏñëÏÜê Item ] Ïù∏ Í≤ΩÏö∞
 		//-------------------------------------------------
 		if (pItem->IsGearSlotTwoHand())
 		{			
 			//-------------------------------------------------
-			// æÁº’¿« Slot¿Ã ∏µŒ ∫ÒæÓ¿÷¥¬ ∞ÊøÏ 
+			// ÏñëÏÜêÏùò SlotÏù¥ Î™®Îëê ÎπÑÏñ¥ÏûàÎäî Í≤ΩÏö∞ 
 			//-------------------------------------------------			
 			if (m_ItemSlot[GEAR_VAMPIRE_RIGHTHAND]==NULL
 					&& m_ItemSlot[GEAR_VAMPIRE_LEFTHAND]==NULL)
@@ -186,13 +186,13 @@ MVampireGear::CanReplaceItem(MItem* pItem, GEAR_VAMPIRE n, MItem*& pOldItem)
 			}
 			
 			//-------------------------------------------------
-			// æÁº’ø° ¥Ÿ π∫∞° ¿÷¥¬ ∞ÊøÏ
+			// ÏñëÏÜêÏóê Îã§ Î≠îÍ∞Ä ÏûàÎäî Í≤ΩÏö∞
 			//-------------------------------------------------
 			if (m_ItemSlot[GEAR_VAMPIRE_RIGHTHAND]!=NULL 
 				&& m_ItemSlot[GEAR_VAMPIRE_LEFTHAND]!=NULL)
 			{
 				//-------------------------------------------------
-				// æÁº’ø° ¿÷¥¬∞‘ ∞∞¥Ÿ∏È..
+				// ÏñëÏÜêÏóê ÏûàÎäîÍ≤å Í∞ôÎã§Î©¥..
 				//-------------------------------------------------
 				if (m_ItemSlot[GEAR_VAMPIRE_RIGHTHAND]==m_ItemSlot[GEAR_VAMPIRE_LEFTHAND])
 				{
@@ -204,7 +204,7 @@ MVampireGear::CanReplaceItem(MItem* pItem, GEAR_VAMPIRE n, MItem*& pOldItem)
 			}
 
 			//-------------------------------------------------
-			// ø¿∏•º’ø°∏∏ π∫∞° ¿÷¥¬ ∞ÊøÏ
+			// Ïò§Î•∏ÏÜêÏóêÎßå Î≠îÍ∞Ä ÏûàÎäî Í≤ΩÏö∞
 			//-------------------------------------------------
 			else if (m_ItemSlot[GEAR_VAMPIRE_RIGHTHAND]!=NULL)
 			{
@@ -213,7 +213,7 @@ MVampireGear::CanReplaceItem(MItem* pItem, GEAR_VAMPIRE n, MItem*& pOldItem)
 			}
 
 			//-------------------------------------------------
-			// øﬁº’ø°∏∏π∫∞° ¿÷¥¬ ∞ÊøÏ
+			// ÏôºÏÜêÏóêÎßåÎ≠îÍ∞Ä ÏûàÎäî Í≤ΩÏö∞
 			//-------------------------------------------------
 			else if (m_ItemSlot[GEAR_VAMPIRE_LEFTHAND]!=NULL)
 			{			
@@ -221,22 +221,22 @@ MVampireGear::CanReplaceItem(MItem* pItem, GEAR_VAMPIRE n, MItem*& pOldItem)
 				return true;
 			}
 
-			// ¿Ã∑± ∞ÊøÏ∞° ¿÷¿ª ºˆ ¿÷¿ª±Ó? - -;;
+			// Ïù¥Îü∞ Í≤ΩÏö∞Í∞Ä ÏûàÏùÑ Ïàò ÏûàÏùÑÍπå? - -;;
 			return false;
 		}
 
 		//-------------------------------------------------
-		// [ ø¿∏•º’ Item ] ¿Œ ∞ÊøÏ
+		// [ Ïò§Î•∏ÏÜê Item ] Ïù∏ Í≤ΩÏö∞
 		//-------------------------------------------------				
 		else if (pItem->IsGearSlotRightHand())
 		{
-			// NULL¿Ã∞≈≥™ ∏ª∞≈≥™ ±◊≥… ≥÷æÓ¡÷∏È µ»¥Ÿ.
+			// NULLÏù¥Í±∞ÎÇò ÎßêÍ±∞ÎÇò Í∑∏ÎÉ• ÎÑ£Ïñ¥Ï£ºÎ©¥ ÎêúÎã§.
 			pOldItem = m_ItemSlot[GEAR_VAMPIRE_RIGHTHAND];
 			return true;
 		}
 		
 		//-------------------------------------------------				
-		// [ øﬁº’ Item ] ¿Œ ∞ÊøÏ
+		// [ ÏôºÏÜê Item ] Ïù∏ Í≤ΩÏö∞
 		//-------------------------------------------------
 		else if (pItem->IsGearSlotLeftHand())
 		{
@@ -244,17 +244,17 @@ MVampireGear::CanReplaceItem(MItem* pItem, GEAR_VAMPIRE n, MItem*& pOldItem)
 			return true;
 		}
 
-		// º’ø° ¿Â¬¯«œ¥¬∞‘ æ∆¥— ∞ÊøÏ
+		// ÏÜêÏóê Ïû•Ï∞©ÌïòÎäîÍ≤å ÏïÑÎãå Í≤ΩÏö∞
 		return false;
 	}
 	/***********************************************************	
-				ƒ⁄æÓ¿Ï ∞¸∑√ √≥∏Æ
+				ÏΩîÏñ¥ÏûΩ Í¥ÄÎ†® Ï≤òÎ¶¨
 	***********************************************************/
 	if (n >= GEAR_VAMPIRE_RING1 && n <= GEAR_VAMPIRE_RING4)	
 	{
 		if (pItem->IsGearSlotVampireRing())
 		{			
-			if (m_ItemSlot[n+m_Gilles_CoreZap]==NULL) // ƒ⁄æÓ¿Ï¿Ã æ¯æÓæﬂ ∏µ¿ª ≥ı¿ª ºˆ ¿÷¿Ω
+			if (m_ItemSlot[n+m_Gilles_CoreZap]==NULL) // ÏΩîÏñ¥ÏûΩÏù¥ ÏóÜÏñ¥Ïïº ÎßÅÏùÑ ÎÜìÏùÑ Ïàò ÏûàÏùå
 			{
 				pOldItem = m_ItemSlot[n];
 				return true;
@@ -263,7 +263,7 @@ MVampireGear::CanReplaceItem(MItem* pItem, GEAR_VAMPIRE n, MItem*& pOldItem)
 		else
 		if (pItem->IsGearSlotVampireCoreZap())
 		{			
-			if (m_ItemSlot[n]!=NULL) // ƒ⁄æÓ¿Ï¿∫ ∏µ¿Ã ¿÷æÓæﬂ ≥ı¿ª ºˆ ¿÷¥Ÿ. 
+			if (m_ItemSlot[n]!=NULL) // ÏΩîÏñ¥ÏûΩÏùÄ ÎßÅÏù¥ ÏûàÏñ¥Ïïº ÎÜìÏùÑ Ïàò ÏûàÎã§. 
 			{
 				if(m_ItemSlot[n+m_Gilles_CoreZap]!=NULL)
 					pOldItem = m_ItemSlot[n+m_Gilles_CoreZap];
@@ -274,16 +274,16 @@ MVampireGear::CanReplaceItem(MItem* pItem, GEAR_VAMPIRE n, MItem*& pOldItem)
 		}
 		return false;
 	}
-	else if(n >= GEAR_VAMPIRE_ZAP1 && n <= GEAR_VAMPIRE_ZAP4) // ƒ⁄æÓ¿Ï ΩΩ∑‘¿∫ ∫∏¿Ã¡ˆ æ ¥¬¥Ÿ. -_-?? 
+	else if(n >= GEAR_VAMPIRE_ZAP1 && n <= GEAR_VAMPIRE_ZAP4) // ÏΩîÏñ¥ÏûΩ Ïä¨Î°ØÏùÄ Î≥¥Ïù¥ÏßÄ ÏïäÎäîÎã§. -_-?? 
 		return false;
 
 	//----------------------------------------------------
-	// ¿˚¿˝«— Slot¿Œ¡ˆ »Æ¿Œ«ÿæﬂ «—¥Ÿ.
+	// Ï†ÅÏ†àÌïú SlotÏù∏ÏßÄ ÌôïÏù∏Ìï¥Ïïº ÌïúÎã§.
 	//----------------------------------------------------	
-	if (pItem->IsGearItem()	&&				// pItem¿Ã GearItem¿Œ¡ˆ »Æ¿Œ..
-		(*s_GearSlotCheckTable[n])(pItem))	// ¿˚¿˝«— Slot¿Œ¡ˆ »Æ¿Œ
+	if (pItem->IsGearItem()	&&				// pItemÏù¥ GearItemÏù∏ÏßÄ ÌôïÏù∏..
+		(*s_GearSlotCheckTable[n])(pItem))	// Ï†ÅÏ†àÌïú SlotÏù∏ÏßÄ ÌôïÏù∏
 	{
-		// nπ¯¬∞ slotø° pItem¿ª √ﬂ∞°«—¥Ÿ.
+		// nÎ≤àÏß∏ slotÏóê pItemÏùÑ Ï∂îÍ∞ÄÌïúÎã§.
 		pOldItem = m_ItemSlot[n];
 		return true;
 	}
@@ -294,14 +294,14 @@ MVampireGear::CanReplaceItem(MItem* pItem, GEAR_VAMPIRE n, MItem*& pOldItem)
 //----------------------------------------------------------------------
 // Add Item ( pItem, n )
 //----------------------------------------------------------------------
-// slot(n)ø° pItem¿ª √ﬂ∞°«—¥Ÿ.
-// √ﬂ∞°«“ ºˆ ¿÷¥¬ slot¿Œ¡ˆ »Æ¿Œ«ÿæﬂ «—¥Ÿ.
+// slot(n)Ïóê pItemÏùÑ Ï∂îÍ∞ÄÌïúÎã§.
+// Ï∂îÍ∞ÄÌï† Ïàò ÏûàÎäî slotÏù∏ÏßÄ ÌôïÏù∏Ìï¥Ïïº ÌïúÎã§.
 //----------------------------------------------------------------------
 bool			
 MVampireGear::AddItem(MItem* pItem, GEAR_VAMPIRE n)
 {	
 	//---------------------------------------------------------
-	// ItemSlot π¸¿ß∏¶ ≥—æÓ∞°¥¬ ∞ÊøÏ..
+	// ItemSlot Î≤îÏúÑÎ•º ÎÑòÏñ¥Í∞ÄÎäî Í≤ΩÏö∞..
 	//---------------------------------------------------------	
 	if (n>=m_Size || !pItem->IsVampireItem())
 	{
@@ -309,23 +309,23 @@ MVampireGear::AddItem(MItem* pItem, GEAR_VAMPIRE n)
 	}
 
 	//-------------------------------------------------
-	// æÁº’ Item¿Œ ∞ÊøÏ¥¬ µ˚∑Œ √º≈©«ÿ¡ÿ¥Ÿ.
+	// ÏñëÏÜê ItemÏù∏ Í≤ΩÏö∞Îäî Îî∞Î°ú Ï≤¥ÌÅ¨Ìï¥Ï§ÄÎã§.
 	//-------------------------------------------------
 	if ((n==GEAR_VAMPIRE_LEFTHAND || n==GEAR_VAMPIRE_RIGHTHAND) &&
 		pItem->IsGearSlotTwoHand())
 	{
-		// æÁº’¿« Slot¿Ã ∏µŒ ∫ÒæÓ¿÷¥¬ ªÛ≈¬ø°∏∏ √ﬂ∞° ∞°¥…«œ¥Ÿ.
+		// ÏñëÏÜêÏùò SlotÏù¥ Î™®Îëê ÎπÑÏñ¥ÏûàÎäî ÏÉÅÌÉúÏóêÎßå Ï∂îÍ∞Ä Í∞ÄÎä•ÌïòÎã§.
 		if (m_ItemSlot[GEAR_VAMPIRE_RIGHTHAND]==NULL
 				&& m_ItemSlot[GEAR_VAMPIRE_LEFTHAND]==NULL)
 		{
-			// ø¿∏•º’ø° √ﬂ∞°«—¥Ÿ.			
+			// Ïò§Î•∏ÏÜêÏóê Ï∂îÍ∞ÄÌïúÎã§.			
 			if (MPlayerGear::AddItem( pItem, GEAR_VAMPIRE_RIGHTHAND ))
 			{
-				// øﬁº’ø°µµ √ﬂ∞°«ÿ¡ÿ¥Ÿ.
+				// ÏôºÏÜêÏóêÎèÑ Ï∂îÍ∞ÄÌï¥Ï§ÄÎã§.
 				m_ItemSlot[GEAR_VAMPIRE_LEFTHAND] = pItem;
 
 				//-------------------------------------------------
-				// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+				// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 				//-------------------------------------------------
 				#ifdef __GAME_CLIENT__
 					PlaySound( pItem->GetGearSoundID() );
@@ -341,18 +341,18 @@ MVampireGear::AddItem(MItem* pItem, GEAR_VAMPIRE n)
 		return false;
 	}
 	/***********************************************************	
-				ƒ⁄æÓ¿Ï ∞¸∑√ √≥∏Æ
+				ÏΩîÏñ¥ÏûΩ Í¥ÄÎ†® Ï≤òÎ¶¨
 	***********************************************************/
 	if (n >= GEAR_VAMPIRE_RING1 && n <= GEAR_VAMPIRE_RING4)	
 	{
 		if (pItem->IsGearSlotVampireRing())
 		{			
-			if (m_ItemSlot[n+m_Gilles_CoreZap]==NULL&&m_ItemSlot[n]==NULL) // ∏µµµ æ¯∞Ì ƒ⁄æÓ¿Ï¿Ã æ¯æÓæﬂ ∏µ¿ª ≥ı¿ª ºˆ ¿÷¿Ω
+			if (m_ItemSlot[n+m_Gilles_CoreZap]==NULL&&m_ItemSlot[n]==NULL) // ÎßÅÎèÑ ÏóÜÍ≥† ÏΩîÏñ¥ÏûΩÏù¥ ÏóÜÏñ¥Ïïº ÎßÅÏùÑ ÎÜìÏùÑ Ïàò ÏûàÏùå
 			{
 				if (MPlayerGear::AddItem( pItem, n ))	
 				{
 					//-------------------------------------------------
-					// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+					// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 					//-------------------------------------------------
 					#ifdef __GAME_CLIENT__
 						PlaySound( pItem->GetGearSoundID() );
@@ -366,12 +366,12 @@ MVampireGear::AddItem(MItem* pItem, GEAR_VAMPIRE n)
 		else 
 		if (pItem->IsGearSlotVampireCoreZap())
 		{
-			if (m_ItemSlot[n-m_Gilles_CoreZap]!=NULL && m_ItemSlot[n]==NULL) // «ÿ¥Á¿ßƒ°ø° ∏µ¿Ã ¿÷∞Ì ƒ⁄æÓ¿Ï¿Ã æ¯¿ª ∞ÊøÏ∏∏ ƒ⁄æÓ¿Ï √ﬂ∞°
+			if (m_ItemSlot[n-m_Gilles_CoreZap]!=NULL && m_ItemSlot[n]==NULL) // Ìï¥ÎãπÏúÑÏπòÏóê ÎßÅÏù¥ ÏûàÍ≥† ÏΩîÏñ¥ÏûΩÏù¥ ÏóÜÏùÑ Í≤ΩÏö∞Îßå ÏΩîÏñ¥ÏûΩ Ï∂îÍ∞Ä
 			{		
-				if (MPlayerGear::AddItem( pItem, n + m_Gilles_CoreZap ))// ƒ⁄æÓ¿Ï ¿ßƒ°ø° √ﬂ∞°
+				if (MPlayerGear::AddItem( pItem, n + m_Gilles_CoreZap ))// ÏΩîÏñ¥ÏûΩ ÏúÑÏπòÏóê Ï∂îÍ∞Ä
 				{
 					//-------------------------------------------------
-					// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+					// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 					//-------------------------------------------------
 					#ifdef __GAME_CLIENT__
 						PlaySound( pItem->GetGearSoundID() );
@@ -386,21 +386,21 @@ MVampireGear::AddItem(MItem* pItem, GEAR_VAMPIRE n)
 
 		return false;
 	}
-//	else if(n >= GEAR_VAMPIRE_ZAP1 && n <= GEAR_VAMPIRE_ZAP4) // ƒ⁄æÓ¿Ï ΩΩ∑‘¿∫ ∫∏¿Ã¡ˆ æ ¥¬¥Ÿ. -_-?? 
+//	else if(n >= GEAR_VAMPIRE_ZAP1 && n <= GEAR_VAMPIRE_ZAP4) // ÏΩîÏñ¥ÏûΩ Ïä¨Î°ØÏùÄ Î≥¥Ïù¥ÏßÄ ÏïäÎäîÎã§. -_-?? 
 //		return false;
 	//----------------------------------------------------
-	// ¿˚¿˝«— Slot¿Œ¡ˆ »Æ¿Œ«ÿæﬂ «—¥Ÿ.
+	// Ï†ÅÏ†àÌïú SlotÏù∏ÏßÄ ÌôïÏù∏Ìï¥Ïïº ÌïúÎã§.
 	//----------------------------------------------------	
-	if (m_ItemSlot[n]==NULL &&				// nπ¯¬∞ slot¿Ã ∫ÒæÓ¿÷¥¬¡ˆ »Æ¿Œ
-		pItem->IsGearItem()	&&				// pItem¿Ã GearItem¿Œ¡ˆ »Æ¿Œ..
-		(*s_GearSlotCheckTable[n])(pItem))	// ¿˚¿˝«— Slot¿Œ¡ˆ »Æ¿Œ
+	if (m_ItemSlot[n]==NULL &&				// nÎ≤àÏß∏ slotÏù¥ ÎπÑÏñ¥ÏûàÎäîÏßÄ ÌôïÏù∏
+		pItem->IsGearItem()	&&				// pItemÏù¥ GearItemÏù∏ÏßÄ ÌôïÏù∏..
+		(*s_GearSlotCheckTable[n])(pItem))	// Ï†ÅÏ†àÌïú SlotÏù∏ÏßÄ ÌôïÏù∏
 	{
-		// slot∏∏ ∏¬¿∏∏È µ»¥Ÿ.
-		// nπ¯¬∞ slotø° pItem¿ª √ﬂ∞°«—¥Ÿ.
+		// slotÎßå ÎßûÏúºÎ©¥ ÎêúÎã§.
+		// nÎ≤àÏß∏ slotÏóê pItemÏùÑ Ï∂îÍ∞ÄÌïúÎã§.
 		bool bAdd = MPlayerGear::AddItem( pItem, n );
 
 		//-------------------------------------------------
-		// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+		// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 		//-------------------------------------------------
 		if (bAdd)
 		{
@@ -427,7 +427,7 @@ MVampireGear::RemoveItem(GEAR_VAMPIRE n)
 	MItem* pItem = m_ItemSlot[n];
 
 	//-----------------------------------------------------
-	// æ¯¥¬ ∞ÊøÏ
+	// ÏóÜÎäî Í≤ΩÏö∞
 	//-----------------------------------------------------
 	if (pItem==NULL)
 	{
@@ -435,7 +435,7 @@ MVampireGear::RemoveItem(GEAR_VAMPIRE n)
 	}
 
 	//-----------------------------------------------------
-	// æÁº’ π´±‚¿Ã∏È ø¿∏•º’¿∏∑Œ º≥¡§«—¥Ÿ.
+	// ÏñëÏÜê Î¨¥Í∏∞Ïù¥Î©¥ Ïò§Î•∏ÏÜêÏúºÎ°ú ÏÑ§Ï†ïÌïúÎã§.
 	//-----------------------------------------------------
 	if (pItem->IsGearSlotTwoHand())
 	{
@@ -443,20 +443,20 @@ MVampireGear::RemoveItem(GEAR_VAMPIRE n)
 	}
 	
 	/***********************************************************	
-				ƒ⁄æÓ¿Ï ∞¸∑√ √≥∏Æ
+				ÏΩîÏñ¥ÏûΩ Í¥ÄÎ†® Ï≤òÎ¶¨
 	***********************************************************/
 	if(n>=GEAR_VAMPIRE_RING1 && n<= GEAR_VAMPIRE_RING4) 
 	{
-		if(NULL != m_ItemSlot[n+m_Gilles_CoreZap]) // ƒ⁄æÓ¿Ï¿Ã ∫ŸæÓ ¿÷¿∏∏È ƒ⁄æÓ¿Ï¿ª ∂æ¥Ÿ
-			n = (GEAR_VAMPIRE)(n + m_Gilles_CoreZap); // ƒ⁄æÓ¿Ï ¿ßƒ°
+		if(NULL != m_ItemSlot[n+m_Gilles_CoreZap]) // ÏΩîÏñ¥ÏûΩÏù¥ Î∂ôÏñ¥ ÏûàÏúºÎ©¥ ÏΩîÏñ¥ÏûΩÏùÑ ÎóÄÎã§
+			n = (GEAR_VAMPIRE)(n + m_Gilles_CoreZap); // ÏΩîÏñ¥ÏûΩ ÏúÑÏπò
 	}
-//	else if(n >= GEAR_VAMPIRE_ZAP1 && n <= GEAR_VAMPIRE_ZAP4) // ƒ⁄æÓ¿Ï ΩΩ∑‘¿∫ ∫∏¿Ã¡ˆ æ ¥¬¥Ÿ. -_-?? 
+//	else if(n >= GEAR_VAMPIRE_ZAP1 && n <= GEAR_VAMPIRE_ZAP4) // ÏΩîÏñ¥ÏûΩ Ïä¨Î°ØÏùÄ Î≥¥Ïù¥ÏßÄ ÏïäÎäîÎã§. -_-?? 
 //		return false;
 
 	pItem = MPlayerGear::RemoveItem( (BYTE)n );
 
 	//-----------------------------------------------------
-	// æ¯¥¬ ∞ÊøÏ
+	// ÏóÜÎäî Í≤ΩÏö∞
 	//-----------------------------------------------------
 	if (pItem==NULL)
 	{
@@ -464,7 +464,7 @@ MVampireGear::RemoveItem(GEAR_VAMPIRE n)
 	}
 
 	//-----------------------------------------------------
-	// æÁº’ Item¿Œ ∞ÊøÏ æÁº’¿« Slot¿ª ∏µŒ ¡¶∞≈«ÿ¡‡æﬂ «—¥Ÿ.
+	// ÏñëÏÜê ItemÏù∏ Í≤ΩÏö∞ ÏñëÏÜêÏùò SlotÏùÑ Î™®Îëê Ï†úÍ±∞Ìï¥Ï§òÏïº ÌïúÎã§.
 	//-----------------------------------------------------
 	if (pItem->IsGearSlotTwoHand())
 	{
@@ -476,12 +476,12 @@ MVampireGear::RemoveItem(GEAR_VAMPIRE n)
 		g_pPlayer->CalculateStatus();
 	#endif
 
-	// ¿÷¿∏∏È...
+	// ÏûàÏúºÎ©¥...
 	return pItem;
 }
 
 //----------------------------------------------------------------------
-// RemoveItem : id∞° ∞∞¿∫ item¿ª ¡¶∞≈«—¥Ÿ.
+// RemoveItem : idÍ∞Ä Í∞ôÏùÄ itemÏùÑ Ï†úÍ±∞ÌïúÎã§.
 //----------------------------------------------------------------------
 MItem*			
 MVampireGear::RemoveItem(TYPE_OBJECTID id)
@@ -489,7 +489,7 @@ MVampireGear::RemoveItem(TYPE_OBJECTID id)
 	MItem* pItem = MPlayerGear::RemoveItem( id ); 
 
 	//-----------------------------------------------------
-	// æ¯¥¬ ∞ÊøÏ
+	// ÏóÜÎäî Í≤ΩÏö∞
 	//-----------------------------------------------------
 	if (pItem==NULL)
 	{
@@ -497,7 +497,7 @@ MVampireGear::RemoveItem(TYPE_OBJECTID id)
 	}
 
 	//-----------------------------------------------------
-	// æÁº’ Item¿Œ ∞ÊøÏ æÁº’¿« Slot¿ª ∏µŒ ¡¶∞≈«ÿ¡‡æﬂ «—¥Ÿ.
+	// ÏñëÏÜê ItemÏù∏ Í≤ΩÏö∞ ÏñëÏÜêÏùò SlotÏùÑ Î™®Îëê Ï†úÍ±∞Ìï¥Ï§òÏïº ÌïúÎã§.
 	//-----------------------------------------------------
 	if (pItem->IsGearSlotTwoHand())
 	{
@@ -510,18 +510,18 @@ MVampireGear::RemoveItem(TYPE_OBJECTID id)
 		g_pPlayer->CalculateStatus();
 	#endif
 
-	// ¿÷¿∏∏È...
+	// ÏûàÏúºÎ©¥...
 	return pItem;
 }
 
 //----------------------------------------------------------------------
-// ReplaceItem : pItem¿ª √ﬂ∞°«œ∞Ì µ˝∞‘ ¿÷¥Ÿ∏È Item±≥»Ø
+// ReplaceItem : pItemÏùÑ Ï∂îÍ∞ÄÌïòÍ≥† Îî¥Í≤å ÏûàÎã§Î©¥ ItemÍµêÌôò
 //----------------------------------------------------------------------
 bool			
 MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 {
 	//---------------------------------------------------------
-	// ItemSlot π¸¿ß∏¶ ≥—æÓ∞°¥¬ ∞ÊøÏ..
+	// ItemSlot Î≤îÏúÑÎ•º ÎÑòÏñ¥Í∞ÄÎäî Í≤ΩÏö∞..
 	//---------------------------------------------------------	
 	if (n>=m_Size || !pItem->IsVampireItem())
 	{
@@ -530,7 +530,7 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 
 	//-------------------------------------------------
 	//
-	// º’ø° ¿Â¬¯«“∑¡¥¬ ∞ÊøÏ
+	// ÏÜêÏóê Ïû•Ï∞©Ìï†Î†§Îäî Í≤ΩÏö∞
 	//
 	//-------------------------------------------------
 	if (n==GEAR_VAMPIRE_LEFTHAND || n==GEAR_VAMPIRE_RIGHTHAND)	
@@ -538,24 +538,24 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 		bool bAdd = false;
 			
 		//-------------------------------------------------
-		// [ æÁº’ Item ] ¿Œ ∞ÊøÏ
+		// [ ÏñëÏÜê Item ] Ïù∏ Í≤ΩÏö∞
 		//-------------------------------------------------
 		if (pItem->IsGearSlotTwoHand())
 		{			
 			//-------------------------------------------------
-			// æÁº’¿« Slot¿Ã ∏µŒ ∫ÒæÓ¿÷¥¬ ∞ÊøÏ
+			// ÏñëÏÜêÏùò SlotÏù¥ Î™®Îëê ÎπÑÏñ¥ÏûàÎäî Í≤ΩÏö∞
 			//-------------------------------------------------
-			// ±◊≥… √ﬂ∞°«—¥Ÿ.
+			// Í∑∏ÎÉ• Ï∂îÍ∞ÄÌïúÎã§.
 			//-------------------------------------------------
 			if (m_ItemSlot[GEAR_VAMPIRE_RIGHTHAND]==NULL
 					&& m_ItemSlot[GEAR_VAMPIRE_LEFTHAND]==NULL)
 			{
-				// ±◊≥… √ﬂ∞°«—¥Ÿ.
+				// Í∑∏ÎÉ• Ï∂îÍ∞ÄÌïúÎã§.
 				pOldItem = NULL;
 				if (MPlayerGear::AddItem( pItem, GEAR_VAMPIRE_RIGHTHAND ))
 				{
 					//-------------------------------------------------
-					// item¿« ≥ª±∏º∫ ªÛ≈¬ º≥¡§
+					// itemÏùò ÎÇ¥Íµ¨ÏÑ± ÏÉÅÌÉú ÏÑ§Ï†ï
 					//-------------------------------------------------
 					CheckItemStatus( pItem, GEAR_VAMPIRE_RIGHTHAND );
 
@@ -564,7 +564,7 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 					m_ItemSlot[GEAR_VAMPIRE_RIGHTHAND] = pItem;
 
 					//-------------------------------------------------
-					// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+					// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 					//-------------------------------------------------
 					#ifdef __GAME_CLIENT__
 						PlaySound( pItem->GetGearSoundID() );						
@@ -578,23 +578,23 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}
 			
 			//-------------------------------------------------
-			// æÁº’ø° ¥Ÿ π∫∞° ¿÷¥¬ ∞ÊøÏ
+			// ÏñëÏÜêÏóê Îã§ Î≠îÍ∞Ä ÏûàÎäî Í≤ΩÏö∞
 			//-------------------------------------------------
 			if (m_ItemSlot[GEAR_VAMPIRE_RIGHTHAND]!=NULL 
 				&& m_ItemSlot[GEAR_VAMPIRE_LEFTHAND]!=NULL)
 			{
 				//-------------------------------------------------
-				// æÁº’ø° ¿÷¥¬∞‘ ∞∞¥Ÿ∏È..
+				// ÏñëÏÜêÏóê ÏûàÎäîÍ≤å Í∞ôÎã§Î©¥..
 				//-------------------------------------------------
 				if (m_ItemSlot[GEAR_VAMPIRE_RIGHTHAND]==m_ItemSlot[GEAR_VAMPIRE_LEFTHAND])
 				{
-					// æÁº’ π´±‚øÕ ±≥√º«œ¥¬ ∞ÊøÏ¿Ã¥Ÿ.
+					// ÏñëÏÜê Î¨¥Í∏∞ÏôÄ ÍµêÏ≤¥ÌïòÎäî Í≤ΩÏö∞Ïù¥Îã§.
 					if (MPlayerGear::ReplaceItem( pItem, 
 													GEAR_VAMPIRE_RIGHTHAND, 
 													pOldItem ))
 					{
 						//-------------------------------------------------
-						// item¿« ≥ª±∏º∫ ªÛ≈¬ º≥¡§
+						// itemÏùò ÎÇ¥Íµ¨ÏÑ± ÏÉÅÌÉú ÏÑ§Ï†ï
 						//-------------------------------------------------
 						CheckItemStatus( pItem, GEAR_VAMPIRE_RIGHTHAND );
 
@@ -603,7 +603,7 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 						//m_ItemSlot[GEAR_VAMPIRE_RIGHTHAND] = pItem;
 
 						//-------------------------------------------------
-						// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+						// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 						//-------------------------------------------------
 						#ifdef __GAME_CLIENT__
 							PlaySound( pItem->GetGearSoundID() );
@@ -617,7 +617,7 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 				}
 				
 				//-------------------------------------------------
-				// æÁº’ø° ¿÷¥¬∞‘ ¥Ÿ∏£¥Ÿ∏È..
+				// ÏñëÏÜêÏóê ÏûàÎäîÍ≤å Îã§Î•¥Îã§Î©¥..
 				//-------------------------------------------------
 				pOldItem = NULL;
 				return false;
@@ -625,9 +625,9 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}
 
 			//-------------------------------------------------
-			// ø¿∏•º’ø° π∫∞° ¿÷¥¬ ∞ÊøÏ
+			// Ïò§Î•∏ÏÜêÏóê Î≠îÍ∞Ä ÏûàÎäî Í≤ΩÏö∞
 			//-------------------------------------------------
-			// ø¿∏•º’¿« Item∞˙ Replace«—¥Ÿ.
+			// Ïò§Î•∏ÏÜêÏùò ItemÍ≥º ReplaceÌïúÎã§.
 			//-------------------------------------------------
 			else if (m_ItemSlot[GEAR_VAMPIRE_RIGHTHAND]!=NULL)
 			{
@@ -637,9 +637,9 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}		
 
 			//-------------------------------------------------
-			// øﬁº’ø° π∫∞° ¿÷¥¬ ∞ÊøÏ
+			// ÏôºÏÜêÏóê Î≠îÍ∞Ä ÏûàÎäî Í≤ΩÏö∞
 			//-------------------------------------------------
-			// øﬁº’¿« Item∞˙ Replace«—¥Ÿ.
+			// ÏôºÏÜêÏùò ItemÍ≥º ReplaceÌïúÎã§.
 			//-------------------------------------------------
 			else if (m_ItemSlot[GEAR_VAMPIRE_LEFTHAND]!=NULL)
 			{
@@ -649,12 +649,12 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}
 
 			//-----------------------------------------------------
-			// æÁº’¿« Slot¿ª ∏µŒ º≥¡§..
+			// ÏñëÏÜêÏùò SlotÏùÑ Î™®Îëê ÏÑ§Ï†ï..
 			//-----------------------------------------------------
 			if (bAdd)
 			{
 				//-------------------------------------------------
-				// item¿« ≥ª±∏º∫ ªÛ≈¬ º≥¡§
+				// itemÏùò ÎÇ¥Íµ¨ÏÑ± ÏÉÅÌÉú ÏÑ§Ï†ï
 				//-------------------------------------------------
 				CheckItemStatus( pItem, GEAR_VAMPIRE_RIGHTHAND );
 				
@@ -663,7 +663,7 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 				m_ItemSlot[GEAR_VAMPIRE_RIGHTHAND] = pItem;
 		
 				//-------------------------------------------------
-				// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+				// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 				//-------------------------------------------------
 				#ifdef __GAME_CLIENT__
 					PlaySound( pItem->GetGearSoundID() );
@@ -676,7 +676,7 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			return false;
 		}
 		//-------------------------------------------------
-		// [ ø¿∏•º’ Item ] ¿Œ ∞ÊøÏ
+		// [ Ïò§Î•∏ÏÜê Item ] Ïù∏ Í≤ΩÏö∞
 		//-------------------------------------------------		
 		else if (pItem->IsGearSlotRightHand())
 		{
@@ -685,13 +685,13 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 													pOldItem );
 
 			//-------------------------------------------------
-			// ±≥»Øµ«æÓ ≥™ø¬ Item¿Ã æÁº’¿Œ ∞ÊøÏ
+			// ÍµêÌôòÎêòÏñ¥ ÎÇòÏò® ItemÏù¥ ÏñëÏÜêÏù∏ Í≤ΩÏö∞
 			//-------------------------------------------------
 			if (pOldItem!=NULL)
 			{
 				if (pOldItem->IsGearSlotTwoHand())
 				{
-					// øﬁº’¿ª ∫Òøˆµ–¥Ÿ.
+					// ÏôºÏÜêÏùÑ ÎπÑÏõåÎëîÎã§.
 					m_ItemSlot[GEAR_VAMPIRE_LEFTHAND] = NULL;
 				}
 
@@ -700,12 +700,12 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			if (bAdd)
 			{
 				//-------------------------------------------------
-				// item¿« ≥ª±∏º∫ ªÛ≈¬ º≥¡§
+				// itemÏùò ÎÇ¥Íµ¨ÏÑ± ÏÉÅÌÉú ÏÑ§Ï†ï
 				//-------------------------------------------------
 				CheckItemStatus( pItem, GEAR_VAMPIRE_RIGHTHAND );
 
 				//-------------------------------------------------
-				// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+				// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 				//-------------------------------------------------
 				#ifdef __GAME_CLIENT__
 					PlaySound( pItem->GetGearSoundID() );
@@ -718,7 +718,7 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			return false;
 		}
 		//-------------------------------------------------
-		// [ øﬁº’ Item ] ¿Œ ∞ÊøÏ
+		// [ ÏôºÏÜê Item ] Ïù∏ Í≤ΩÏö∞
 		//-------------------------------------------------
 		else if (pItem->IsGearSlotLeftHand())
 		{
@@ -726,13 +726,13 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 													GEAR_VAMPIRE_LEFTHAND, 
 													pOldItem );
 			//-------------------------------------------------
-			// ±≥»Øµ«æÓ ≥™ø¬ Item¿Ã æÁº’¿Œ ∞ÊøÏ
+			// ÍµêÌôòÎêòÏñ¥ ÎÇòÏò® ItemÏù¥ ÏñëÏÜêÏù∏ Í≤ΩÏö∞
 			//-------------------------------------------------
 			if (pOldItem!=NULL)
 			{
 				if (pOldItem->IsGearSlotTwoHand())
 				{
-					// ø¿∏•º’¿ª ∫Òøˆµ–¥Ÿ.
+					// Ïò§Î•∏ÏÜêÏùÑ ÎπÑÏõåÎëîÎã§.
 					m_ItemSlot[GEAR_VAMPIRE_RIGHTHAND] = NULL;
 				}
 
@@ -741,12 +741,12 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			if (bAdd)
 			{
 				//-------------------------------------------------
-				// item ªÛ≈¬ º≥¡§
+				// item ÏÉÅÌÉú ÏÑ§Ï†ï
 				//-------------------------------------------------
 				CheckItemStatus( pItem, GEAR_VAMPIRE_LEFTHAND );
 				
 				//-------------------------------------------------
-				// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+				// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 				//-------------------------------------------------
 				#ifdef __GAME_CLIENT__
 					PlaySound( pItem->GetGearSoundID() );
@@ -760,35 +760,35 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 		}
 		
 		//-------------------------------------------------
-		// º’ø° ¿Â¬¯«“∑¡¥¬µ•
-		// º’ø° ¿Â¬¯«“ ºˆ ¿÷¥¬ Item¿Ã æ∆¥— ∞ÊøÏ
+		// ÏÜêÏóê Ïû•Ï∞©Ìï†Î†§ÎäîÎç∞
+		// ÏÜêÏóê Ïû•Ï∞©Ìï† Ïàò ÏûàÎäî ItemÏù¥ ÏïÑÎãå Í≤ΩÏö∞
 		//-------------------------------------------------
 		pOldItem = NULL;
 		return false;
 		
 	}
 	/***********************************************************	
-				ƒ⁄æÓ¿Ï ∞¸∑√ √≥∏Æ
+				ÏΩîÏñ¥ÏûΩ Í¥ÄÎ†® Ï≤òÎ¶¨
 	***********************************************************/
 	if (n >= GEAR_VAMPIRE_RING1 && n <= GEAR_VAMPIRE_RING4)	
 	{
 		if (pItem->IsGearSlotVampireRing())
 		{			
-			if (m_ItemSlot[n+m_Gilles_CoreZap]!=NULL) // ƒ⁄æÓ¿Ï¿Ã ¿÷¿∏∏È ∏¯ ≥ı¿Ω
+			if (m_ItemSlot[n+m_Gilles_CoreZap]!=NULL) // ÏΩîÏñ¥ÏûΩÏù¥ ÏûàÏúºÎ©¥ Î™ª ÎÜìÏùå
 				return false;
 		}
 		else
 		if (pItem->IsGearSlotVampireCoreZap())
 		{			
-			if (m_ItemSlot[n]!=NULL) // ƒ⁄æÓ¿Ï¿∫ ∏µ¿Ã ¿÷æÓæﬂ ≥ı¿ª ºˆ ¿÷¥Ÿ. 
+			if (m_ItemSlot[n]!=NULL) // ÏΩîÏñ¥ÏûΩÏùÄ ÎßÅÏù¥ ÏûàÏñ¥Ïïº ÎÜìÏùÑ Ïàò ÏûàÎã§. 
 			{
 				bool bAdd = false;
-				if(m_ItemSlot[n+m_Gilles_CoreZap] == NULL)// ±‚¡∏ ƒ⁄æÓ¿Ï¿Ã æ¯¿∏∏È
+				if(m_ItemSlot[n+m_Gilles_CoreZap] == NULL)// Í∏∞Ï°¥ ÏΩîÏñ¥ÏûΩÏù¥ ÏóÜÏúºÎ©¥
 				{
 					pOldItem = NULL;
-					bAdd = MPlayerGear::AddItem( pItem, n+m_Gilles_CoreZap );	// ∞¡ √ﬂ∞°
+					bAdd = MPlayerGear::AddItem( pItem, n+m_Gilles_CoreZap );	// Í±ç Ï∂îÍ∞Ä
 				}
-				else // ±‚¡∏ ƒ⁄æÓ¿Ï¿Ã ¿÷¿∏∏È ±≥»Ø
+				else // Í∏∞Ï°¥ ÏΩîÏñ¥ÏûΩÏù¥ ÏûàÏúºÎ©¥ ÍµêÌôò
 				{
 					bAdd = MPlayerGear::ReplaceItem( pItem, n+m_Gilles_CoreZap, pOldItem );	
 					
@@ -798,7 +798,7 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 					}			
 				}
 
-				if (bAdd) // ¿ﬂ √ﬂ∞° µ∆¿∏∏È 
+				if (bAdd) // Ïûò Ï∂îÍ∞Ä ÎêêÏúºÎ©¥ 
 				{
 					#ifdef __GAME_CLIENT__
 						PlaySound( pItem->GetGearSoundID() );
@@ -812,26 +812,26 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			return false;
 		}
 	}
-//	else if(n >= GEAR_VAMPIRE_ZAP1 && n <= GEAR_VAMPIRE_ZAP4) // ƒ⁄æÓ¿Ï ΩΩ∑‘¿∫ ∫∏¿Ã¡ˆ æ ¥¬¥Ÿ. -_-?? 
+//	else if(n >= GEAR_VAMPIRE_ZAP1 && n <= GEAR_VAMPIRE_ZAP4) // ÏΩîÏñ¥ÏûΩ Ïä¨Î°ØÏùÄ Î≥¥Ïù¥ÏßÄ ÏïäÎäîÎã§. -_-?? 
 //		return false;
 	
 	//----------------------------------------------------
-	// ¿˚¿˝«— Slot¿Œ¡ˆ »Æ¿Œ«ÿæﬂ «—¥Ÿ.
+	// Ï†ÅÏ†àÌïú SlotÏù∏ÏßÄ ÌôïÏù∏Ìï¥Ïïº ÌïúÎã§.
 	//----------------------------------------------------	
-	if (//m_ItemSlot[n]==NULL &&				// nπ¯¬∞ slot¿Ã ∫ÒæÓ¿÷¥¬¡ˆ »Æ¿Œ
-		pItem->IsGearItem()	&&				// pItem¿Ã GearItem¿Œ¡ˆ »Æ¿Œ..
-		(*s_GearSlotCheckTable[n])(pItem))	// ¿˚¿˝«— Slot¿Œ¡ˆ »Æ¿Œ
+	if (//m_ItemSlot[n]==NULL &&				// nÎ≤àÏß∏ slotÏù¥ ÎπÑÏñ¥ÏûàÎäîÏßÄ ÌôïÏù∏
+		pItem->IsGearItem()	&&				// pItemÏù¥ GearItemÏù∏ÏßÄ ÌôïÏù∏..
+		(*s_GearSlotCheckTable[n])(pItem))	// Ï†ÅÏ†àÌïú SlotÏù∏ÏßÄ ÌôïÏù∏
 	{
-		// nπ¯¬∞ slotø° pItem¿ª √ﬂ∞°«—¥Ÿ.
+		// nÎ≤àÏß∏ slotÏóê pItemÏùÑ Ï∂îÍ∞ÄÌïúÎã§.
 		if (MPlayerGear::ReplaceItem( pItem, n, pOldItem ))
 		{
 			//-------------------------------------------------
-			// item ªÛ≈¬ º≥¡§
+			// item ÏÉÅÌÉú ÏÑ§Ï†ï
 			//-------------------------------------------------
 			CheckItemStatus( pItem, n );			
 
 			//-------------------------------------------------
-			// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+			// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 			//-------------------------------------------------
 			#ifdef __GAME_CLIENT__
 				PlaySound( pItem->GetGearSoundID() );
@@ -854,7 +854,7 @@ MVampireGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 MItem*	MVampireGear::GetGearItem_PickUp(int &n) const	
 {
 	int Slot = n;
-//	if(Slot>=GEAR_VAMPIRE_BLOOD_BIBLE1 && Slot<=GEAR_VAMPIRE_BLOOD_BIBLE6) // ∫Ì∑ØµÂ πŸ¿Ã∫Ì¿∫ ¡˝¿ªºˆ æ¯¥Ÿ.
+//	if(Slot>=GEAR_VAMPIRE_BLOOD_BIBLE1 && Slot<=GEAR_VAMPIRE_BLOOD_BIBLE6) // Î∏îÎü¨Îìú Î∞îÏù¥Î∏îÏùÄ ÏßëÏùÑÏàò ÏóÜÎã§.
 //		return NULL;
 	if(Slot>=GEAR_VAMPIRE_RING1 && Slot<=GEAR_VAMPIRE_RING4)
 	{
@@ -904,7 +904,7 @@ MItem*	MVampireGear::GetGearCoreZapedItem(int slot) const
 const bool	MVampireGear::IsHasAllCoreZap(int CoreZapType) const	
 {
 	BYTE bType[4] = {0,};
-	if(CoreZapType == 0) // ¡˙µÂ∑π ƒ⁄æÓ ¿Ï ¿œ ∞ÊøÏ
+	if(CoreZapType == 0) // ÏßàÎìúÎ†à ÏΩîÏñ¥ ÏûΩ Ïùº Í≤ΩÏö∞
 	{
 		MItem* pItem;
 		for(int i = 0; i<4; i++)

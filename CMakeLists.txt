@@ -1,0 +1,378 @@
+cmake_minimum_required(VERSION 3.10)
+
+# Set SDL2 include path before project() for it to take effect
+if(EXISTS "/opt/homebrew/include/SDL2")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I/opt/homebrew/include/SDL2")
+elseif(EXISTS "/usr/local/include/SDL2")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I/usr/local/include/SDL2")
+endif()
+
+project(DarkEdenClient VERSION 1.0.0)
+
+# C++ standard
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# Build options
+option(BUILD_TESTS "Build test programs" ON)
+
+# Auto-enable SDL backend on non-Windows platforms
+if(WIN32)
+	option(USE_SDL_BACKEND "Use SDL backend instead of native Windows APIs" OFF)
+else()
+	set(USE_SDL_BACKEND ON CACHE BOOL "Use SDL backend instead of native Windows APIs" FORCE)
+endif()
+
+option(BUILD_ENGINE "Build new SDL-based engine" ON)
+
+# Set output directories
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+
+# Add SDL2 include directory BEFORE add_subdirectory
+if(EXISTS "/opt/homebrew/include/SDL2")
+	include_directories(/opt/homebrew/include/SDL2)
+elseif(EXISTS "/usr/local/include/SDL2")
+	include_directories(/usr/local/include/SDL2)
+endif()
+
+# Find SDL2 (needed for engine and DXLib)
+if(BUILD_ENGINE OR USE_SDL_BACKEND OR NOT WIN32)
+	find_package(SDL2 REQUIRED)
+	find_package(SDL2_image REQUIRED)
+	find_package(SDL2_ttf REQUIRED)
+endif()
+
+# Find JPEG library (needed for UtilityFunction.cpp)
+find_package(JPEG QUIET)
+if(NOT JPEG_FOUND)
+	# Try pkg-config as fallback
+	find_package(PkgConfig QUIET)
+	if(PKG_CONFIG_FOUND)
+		pkg_check_modules(JPEG libjpeg)
+	endif()
+endif()
+if(JPEG_FOUND OR JPEG_LIBRARIES)
+	message(STATUS "JPEG library found: ${JPEG_LIBRARIES}")
+else()
+	message(WARNING "JPEG library not found - JPG loading/saving may not work")
+endif()
+
+# Subdirectories
+add_subdirectory(basic)
+add_subdirectory(Client/DXLib)
+add_subdirectory(Client/SpriteLib)
+
+# Additional libraries from VC6 project
+add_subdirectory(Client/MZLib)
+add_subdirectory(Client/VolumeLib)
+add_subdirectory(Client/framelib)
+add_subdirectory(Client/DEUtil)
+
+if(BUILD_ENGINE)
+	add_subdirectory(engine/sprite)
+	add_subdirectory(engine/ui)
+endif()
+
+# ============================================================
+# VS_UI Library - UI System (按需编译必要的 Client 文件)
+# ============================================================
+if(USE_SDL_BACKEND OR NOT WIN32)
+	# VS_UI source files
+	file(GLOB_RECURSE VS_UI_SRC_SOURCES
+		VS_UI/src/*.cpp
+		VS_UI/*.cpp  # Include VS_UI root directory for RarFile.cpp
+	)
+
+	# Exclude Windows-specific files
+	if(NOT WIN32)
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*Imm.*")
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*WinMain.*")
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*WebBrowser.*")
+		# Exclude Windows-specific Korean input method files (except macOS stub)
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/src/hangul/Ci\\.cpp")
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/src/hangul/FL2\\.cpp")
+		# Exclude Windows-specific edit widget (uses IMM/GDI)
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*U_edit.*")
+		# Exclude problematic files in VS_UI root directory
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/DebugInfo\\.cpp")
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/MitemTableInit\\.cpp")
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/SXml\\.cpp")
+		# Note: u_window.cpp is now cross-platform compatible
+	endif()
+
+	# Client files that VS_UI depends on (按需编译)
+	set(VS_UI_CLIENT_SOURCES
+		# Core
+		Client/Client.cpp
+		Client/ClientFunction.cpp
+
+		# Item System
+		Client/MItem.cpp
+		Client/MItemManager.cpp
+		Client/MItemOptionTable.cpp
+		Client/MMoneyManager.cpp
+
+		# Skill System
+		Client/MSkillManager.cpp
+		Client/SkillDef.cpp
+
+		# Gear System
+		Client/MSlayerGear.cpp
+		Client/MVampireGear.cpp
+		Client/MOustersGear.cpp
+		Client/MQuickSlot.cpp
+
+		# Inventory System
+		Client/MInventory.cpp
+		Client/MStorage.cpp
+		Client/MShopShelf.cpp
+
+		# Zone System
+		Client/MZone.cpp
+		Client/MZoneTable.cpp
+
+		# Player System
+		Client/MPlayer.cpp
+		Client/MCreatureTable.cpp
+		Client/MFakeCreature.cpp
+		Client/MNpcTable.cpp
+		Client/MNPCTable.cpp
+
+		# Social System
+		Client/MParty.cpp
+		Client/MGuildMarkManager.cpp
+		Client/MGuildInfoMapper.cpp
+
+		# Trade System
+		Client/MTradeManager.cpp
+		Client/MPriceManager.cpp
+		Client/MShop.cpp
+
+		# Game Data
+		Client/MGameStringTable.cpp
+		Client/ExperienceTable.cpp
+		Client/UserInformation.cpp
+		Client/SystemAvailabilities.cpp
+		Client/FameInfo.cpp
+		Client/DebugInfo.cpp
+		Client/ClientConfig.cpp
+		Client/UtilityFunction.cpp
+		Client/GameFunctions.cpp
+		Client/RenderingFunctions.cpp
+		Client/UIUtilityFunctions.cpp
+
+		# Events & Time
+		Client/MEventManager.cpp
+		Client/MGameTime.cpp
+		Client/MTimeItemManager.cpp
+
+		# UI Support
+		Client/MHelpMessageManager.cpp
+		Client/MSoundTable.cpp
+		Client/MMonsterKillQuestInfo.cpp
+	)
+
+	# Combine all sources
+	set(VS_UI_ALL_SOURCES ${VS_UI_SRC_SOURCES} ${VS_UI_CLIENT_SOURCES})
+
+	# Create VS_UI static library
+	add_library(VS_UI STATIC ${VS_UI_ALL_SOURCES})
+
+	# Include directories
+	target_include_directories(VS_UI PUBLIC
+		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI
+		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/header
+		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/widget
+		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/hangul
+		${CMAKE_CURRENT_SOURCE_DIR}/Client
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/D3DLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/framelib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/Packet
+		${CMAKE_CURRENT_SOURCE_DIR}
+	)
+
+	# Link libraries
+	target_link_libraries(VS_UI PUBLIC
+		basic
+		dxlib
+		SpriteLib
+		mzlib
+		volumelib
+		framelib
+		deutil
+		SDL2::SDL2
+		SDL2::SDL2main
+		SDL2_image::SDL2_image
+		SDL2_ttf::SDL2_ttf
+	)
+
+	# Platform-specific definitions
+	if(NOT WIN32)
+		target_compile_definitions(VS_UI PRIVATE PLATFORM_MACOS)
+		# Also pass PLATFORM_MACOS to Client files compiled into VS_UI
+		target_compile_definitions(VS_UI PUBLIC PLATFORM_MACOS)
+	endif()
+
+	message(STATUS "VS_UI library will be built from ${VS_UI_SRC_SOURCES} VS_UI files + ${VS_UI_CLIENT_SOURCES} Client files")
+endif()
+
+if(BUILD_TESTS)
+	enable_testing()
+	add_subdirectory(tests)
+endif()
+
+# Examples (always built if backend is enabled)
+if(USE_SDL_BACKEND OR NOT WIN32)
+	add_subdirectory(examples)
+endif()
+
+# Dark Eden Client Executable
+if(USE_SDL_BACKEND OR NOT WIN32)
+	# Collect remaining Client source files (excluding those already in VS_UI)
+	file(GLOB CLIENT_MAIN_SOURCES
+		Client/*.cpp
+		Client/Packet/*.cpp
+		Client/Packet/**/*.cpp
+		Client/SXml/*.cpp
+		Client/WinLib/*.cpp
+	)
+
+	# Add additional source files
+	list(APPEND CLIENT_MAIN_SOURCES
+		Client/nProtectStub.cpp
+		Client/NPGameLib.cpp
+		Client/COGGSTREAM.cpp
+	)
+
+	# Remove files that are already compiled in VS_UI library
+	list(REMOVE_ITEM CLIENT_MAIN_SOURCES
+		${VS_UI_CLIENT_SOURCES}
+		# Explicitly remove files that duplicate globals in Client.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/GlobalVariables.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/GCNotifyWinHandler.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/GCNotifyWin.cpp
+		# Exclude MitemTableinit2.cpp - duplicates InitItem2() from MitemTableInit.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/MitemTableinit2.cpp
+	)
+
+	# Note: Cpackets contains CG (Client to Game) handlers
+	# These are server-side handlers that shouldn't be compiled in the client
+	# The client-side packet handling is done through different mechanisms
+	list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*Cpackets/.*Handler\\.cpp")
+
+
+	# Exclude Windows-specific files
+	if(NOT WIN32)
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*Imm.*")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*D3D.*")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*Direct3.*")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*GameMain.*")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*EXECryptor.*")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*GetWinVer.*")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*\\.bak.*")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*_bak-.*")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*MInternetConnection.*")
+		# Exclude Handler files in Client root only (not in Packet subdirectories)
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX "^Client/[^/]+Handler\\.cpp")
+		# Exclude Client.cpp and ClientFunction.cpp - they're already in VS_UI library
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX "^Client/Client\\.cpp")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX "^Client/ClientFunction\\.cpp")
+		# MWorkThread and MMusic are needed on all platforms
+		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*MWorkThread.*")
+		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*MMusic\\.cpp")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*PacketFunction\\.cpp")
+		# ProfileManager needed on all platforms
+		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*ProfileManager\\.cpp")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*VolumeOut.*\\.cpp")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*WavePackFileManager\\.cpp")
+		# Exclude Windows-specific WinMain files
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX "WinLib/CWinMain\\.cpp")
+		# Exclude Client.cpp on non-Windows (uses WinMain)
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX "Client/Client\\.cpp")
+	endif()
+
+	# Add DarkEden executable
+	add_executable(DarkEden ${CLIENT_MAIN_SOURCES})
+
+	# Set output directory
+	set_target_properties(DarkEden PROPERTIES
+		RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+	)
+
+	# Link libraries (now includes VS_UI)
+	target_link_libraries(DarkEden PRIVATE
+		SpriteLib
+		dxlib
+		basic
+		mzlib
+		volumelib
+		framelib
+		deutil
+		VS_UI
+		SDL2::SDL2
+		SDL2::SDL2main
+	)
+
+	# Link JPEG library if available
+	if(JPEG_LIBRARIES)
+		target_link_libraries(DarkEden PRIVATE ${JPEG_LIBRARIES})
+		if(JPEG_INCLUDE_DIRS)
+			target_include_directories(DarkEden PRIVATE ${JPEG_INCLUDE_DIRS})
+		endif()
+	endif()
+
+	# Include directories
+	target_include_directories(DarkEden PRIVATE
+		${CMAKE_CURRENT_SOURCE_DIR}
+		${CMAKE_CURRENT_SOURCE_DIR}/basic
+		${CMAKE_CURRENT_SOURCE_DIR}/Client
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/D3DLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/Packet
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/framelib
+		${CMAKE_CURRENT_SOURCE_DIR}/engine/sprite/include
+		${CMAKE_CURRENT_SOURCE_DIR}/engine/ui/include
+		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/header
+		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/widget
+		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/hangul
+		${CMAKE_CURRENT_SOURCE_DIR}/game/vs_ui
+	)
+
+	# Add Immersion library include path only on Windows
+	if(WIN32)
+		target_include_directories(DarkEden PRIVATE
+			${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/Imm
+		)
+	endif()
+
+	# Compile definitions
+	target_compile_definitions(DarkEden PRIVATE
+		USE_SDL_BACKEND
+		SPRITELIB_BACKEND_SDL
+		__GAME_CLIENT__=1
+	)
+
+	# Platform-specific definitions
+	if(NOT WIN32)
+		target_compile_definitions(DarkEden PRIVATE PLATFORM_MACOS)
+	endif()
+
+	message(STATUS "DarkEden executable will be built from remaining Client files (VS_UI compiled separately)")
+endif()
+
+# Print configuration summary
+message(STATUS "")
+message(STATUS "=== Dark Eden Client Configuration ===")
+message(STATUS "  Build Tests:      ${BUILD_TESTS}")
+message(STATUS "  Use SDL Backend:  ${USE_SDL_BACKEND}")
+message(STATUS "  Build Engine:     ${BUILD_ENGINE}")
+message(STATUS "  C++ Standard:     ${CMAKE_CXX_STANDARD}")
+message(STATUS "=======================================")
+message(STATUS "")

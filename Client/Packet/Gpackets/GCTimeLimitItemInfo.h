@@ -18,7 +18,7 @@
 //
 // class GCTimeLimitItemInfo;
 //
-// Å¬¶óÀÌ¾ğÆ®¿¡ µî·Ï ´ë±âÁßÀÎ ±æµå ¸®½ºÆ®¸¦ º¸³½´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì— ë“±ë¡ ëŒ€ê¸°ì¤‘ì¸ ê¸¸ë“œ ë¦¬ìŠ¤íŠ¸ë¥¼ ë³´ë‚¸ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -44,8 +44,8 @@ public :
 
 public:
 
-	DWORD	getTimeLimit(ObjectID_t objectID) const throw(Error);
-	void	addTimeLimit(ObjectID_t objectID, DWORD time) throw(Error);
+	DWORD	getTimeLimit(ObjectID_t objectID) const throw ( ProtocolException , Error );
+	void	addTimeLimit(ObjectID_t objectID, DWORD time) throw ( ProtocolException , Error );
 	
 	ItemTimeLimitMap	m_TimeLimitItemInfos;
 };

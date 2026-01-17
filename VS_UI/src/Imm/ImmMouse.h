@@ -32,10 +32,12 @@
 #ifndef ImmMouse_h
 #define ImmMouse_h
 
+#ifdef PLATFORM_WINDOWS
 #ifndef _IFCDLL_
 #define DLLIFC __declspec(dllimport)
 #else
 #define DLLIFC __declspec(dllexport)
+#endif
 #endif
 
 #include "ImmDevice.h"

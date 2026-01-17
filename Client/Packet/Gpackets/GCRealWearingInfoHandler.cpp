@@ -18,7 +18,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCRealWearingInfoHandler::execute ( GCRealWearingInfo * pPacket , Player * pPlayer )
-	 throw ( ProtocolException, Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -47,12 +48,12 @@ void GCRealWearingInfoHandler::execute ( GCRealWearingInfo * pPacket , Player * 
 			
 			if(pWeapon != NULL)
 			{
-				if(flag & 0x10)	// ¹«±â ¼öÄ¡°¡ Àû¿ëµÇ´Â °æ¿ì
+				if(flag & 0x10)	// ë¬´ê¸° ìˆ˜ì¹˜ê°€ ì ìš©ë˜ëŠ” ê²½ìš°
 				{
 					if(pWeapon->IsAffectStatus() == false)
 						bResetSkills = true;
 				}
-				else	// ¹«±â ¼öÄ¡°¡ Àû¿ëµÇÁö ¾Ê´Â °æ¿ì
+				else	// ë¬´ê¸° ìˆ˜ì¹˜ê°€ ì ìš©ë˜ì§€ ì•ŠëŠ” ê²½ìš°
 				{
 					if(pWeapon->IsAffectStatus() == true)
 						bResetSkills = true;
@@ -63,7 +64,7 @@ void GCRealWearingInfoHandler::execute ( GCRealWearingInfo * pPacket , Player * 
 			DWORD bit = 1;
 
 			//-------------------------------------------------------
-			// °¢ Slot¿¡ ´ëÇØ¼­ itemÀÇ ¼öÄ¡ Àû¿ë ¿©ºÎ¸¦ ÆÇ´ÜÇÑ´Ù.
+			// ê° Slotì— ëŒ€í•´ì„œ itemì˜ ìˆ˜ì¹˜ ì ìš© ì—¬ë¶€ë¥¼ íŒë‹¨í•œë‹¤.
 			//-------------------------------------------------------
 			for (int i=0; i<num; i++)
 			{
@@ -83,7 +84,7 @@ void GCRealWearingInfoHandler::execute ( GCRealWearingInfo * pPacket , Player * 
 					if (pModifyItem!=NULL)
 					{
 						//-------------------------------------------------------
-						// Á¦´ë·Î ¼öÄ¡°¡ Àû¿ëµÇ´Â °æ¿ì
+						// ì œëŒ€ë¡œ ìˆ˜ì¹˜ê°€ ì ìš©ë˜ëŠ” ê²½ìš°
 						//-------------------------------------------------------
 						if (flag & bit)
 						{
@@ -91,7 +92,7 @@ void GCRealWearingInfoHandler::execute ( GCRealWearingInfo * pPacket , Player * 
 							g_pPlayer->SetAddonItem(pModifyItem);
 						}
 						//-------------------------------------------------------
-						// Á¦´ë·Î ¼öÄ¡°¡ Àû¿ëµÇÁö ¾Ê´Â °æ¿ì
+						// ì œëŒ€ë¡œ ìˆ˜ì¹˜ê°€ ì ìš©ë˜ì§€ ì•ŠëŠ” ê²½ìš°
 						//-------------------------------------------------------
 						else
 						{
@@ -119,7 +120,7 @@ void GCRealWearingInfoHandler::execute ( GCRealWearingInfo * pPacket , Player * 
 			DWORD bit = 1;
 
 			//-------------------------------------------------------
-			// °¢ Slot¿¡ ´ëÇØ¼­ itemÀÇ ¼öÄ¡ Àû¿ë ¿©ºÎ¸¦ ÆÇ´ÜÇÑ´Ù.
+			// ê° Slotì— ëŒ€í•´ì„œ itemì˜ ìˆ˜ì¹˜ ì ìš© ì—¬ë¶€ë¥¼ íŒë‹¨í•œë‹¤.
 			//-------------------------------------------------------
 			for (int i=0; i<num; i++)
 			{
@@ -138,14 +139,14 @@ void GCRealWearingInfoHandler::execute ( GCRealWearingInfo * pPacket , Player * 
 					if (pModifyItem!=NULL)
 					{
 						//-------------------------------------------------------
-						// Á¦´ë·Î ¼öÄ¡°¡ Àû¿ëµÇ´Â °æ¿ì
+						// ì œëŒ€ë¡œ ìˆ˜ì¹˜ê°€ ì ìš©ë˜ëŠ” ê²½ìš°
 						//-------------------------------------------------------
 						if (flag & bit)
 						{
 							pModifyItem->SetAffectStatus();
 						}
 						//-------------------------------------------------------
-						// Á¦´ë·Î ¼öÄ¡°¡ Àû¿ëµÇÁö ¾Ê´Â °æ¿ì
+						// ì œëŒ€ë¡œ ìˆ˜ì¹˜ê°€ ì ìš©ë˜ì§€ ì•ŠëŠ” ê²½ìš°
 						//-------------------------------------------------------
 						else
 						{
@@ -165,7 +166,7 @@ void GCRealWearingInfoHandler::execute ( GCRealWearingInfo * pPacket , Player * 
 				DWORD bit = 1;
 				
 				//-------------------------------------------------------
-				// °¢ Slot¿¡ ´ëÇØ¼­ itemÀÇ ¼öÄ¡ Àû¿ë ¿©ºÎ¸¦ ÆÇ´ÜÇÑ´Ù.
+				// ê° Slotì— ëŒ€í•´ì„œ itemì˜ ìˆ˜ì¹˜ ì ìš© ì—¬ë¶€ë¥¼ íŒë‹¨í•œë‹¤.
 				//-------------------------------------------------------
 				for (int i=0; i<num; i++)
 				{
@@ -184,14 +185,14 @@ void GCRealWearingInfoHandler::execute ( GCRealWearingInfo * pPacket , Player * 
 						if (pModifyItem!=NULL)
 						{
 							//-------------------------------------------------------
-							// Á¦´ë·Î ¼öÄ¡°¡ Àû¿ëµÇ´Â °æ¿ì
+							// ì œëŒ€ë¡œ ìˆ˜ì¹˜ê°€ ì ìš©ë˜ëŠ” ê²½ìš°
 							//-------------------------------------------------------
 							if (flag & bit)
 							{
 								pModifyItem->SetAffectStatus();
 							}
 							//-------------------------------------------------------
-							// Á¦´ë·Î ¼öÄ¡°¡ Àû¿ëµÇÁö ¾Ê´Â °æ¿ì
+							// ì œëŒ€ë¡œ ìˆ˜ì¹˜ê°€ ì ìš©ë˜ì§€ ì•ŠëŠ” ê²½ìš°
 							//-------------------------------------------------------
 							else
 							{

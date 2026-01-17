@@ -2,8 +2,8 @@
 // 
 // Filename    : InventoryInfo.cpp 
 // Written By  : elca@ewestsoft.com
-// Description : ÀÚ½Å¿¡°Ô ¾²´Â ±â¼úÀÇ ¼º°øÀ» ¾Ë¸®±â À§ÇÑ ÆĞÅ¶ Å¬·¡½ºÀÇ
-//               ¸â¹ö Á¤ÀÇ.
+// Description : ìì‹ ì—ê²Œ ì“°ëŠ” ê¸°ìˆ ì˜ ì„±ê³µì„ ì•Œë¦¬ê¸° ìœ„í•œ íŒ¨í‚· í´ë˜ìŠ¤ì˜
+//               ë©¤ë²„ ì •ì˜.
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -36,7 +36,7 @@ InventoryInfo::~InventoryInfo ()
 {
 	__BEGIN_TRY
 
-	// ¼Ò¼ÓµÈ ¸ğµç °´Ã¼µéÀ» »èÁ¦ÇÑ´Ù.
+	// ì†Œì†ëœ ëª¨ë“  ê°ì²´ë“¤ì„ ì‚­ì œí•œë‹¤.
 	while ( !m_InventorySlotInfoList.empty() ) {
 		InventorySlotInfo * pInventorySlotInfo = m_InventorySlotInfoList.front();
 		delete pInventorySlotInfo;
@@ -48,7 +48,7 @@ InventoryInfo::~InventoryInfo ()
 
 
 //////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void InventoryInfo::read ( SocketInputStream & iStream ) 
 	 throw ( ProtocolException , Error )
@@ -58,7 +58,7 @@ void InventoryInfo::read ( SocketInputStream & iStream )
 	//add by zdj
 	//iStream.read( m_Width );
 	//iStream.read( m_Height );
-	// ÃÖÀûÈ­ ÀÛ¾÷½Ã ½ÇÁ¦ Å©±â¸¦ ¸í½ÃÇÏµµ·Ï ÇÑ´Ù.
+	// ìµœì í™” ì‘ì—…ì‹œ ì‹¤ì œ í¬ê¸°ë¥¼ ëª…ì‹œí•˜ë„ë¡ í•œë‹¤.
 	iStream.read( m_ListNum );
 
 	for( int i = 0; i < m_ListNum; i++ ) {
@@ -73,7 +73,7 @@ void InventoryInfo::read ( SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////
 void InventoryInfo::write ( SocketOutputStream & oStream ) 
      const throw ( ProtocolException , Error )
@@ -84,7 +84,7 @@ void InventoryInfo::write ( SocketOutputStream & oStream )
 	//oStream.write( m_Width );
 	//oStream.write( m_Height );
 
-	// ÃÖÀûÈ­ ÀÛ¾÷½Ã ½ÇÁ¦ Å©±â¸¦ ¸í½ÃÇÏµµ·Ï ÇÑ´Ù.
+	// ìµœì í™” ì‘ì—…ì‹œ ì‹¤ì œ í¬ê¸°ë¥¼ ëª…ì‹œí•˜ë„ë¡ í•œë‹¤.
 	oStream.write( m_ListNum );
 
     for ( std::list<InventorySlotInfo*>:: const_iterator itr = m_InventorySlotInfoList.begin(); itr!= m_InventorySlotInfoList.end(); itr++) {

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 //
 // Filename    : GCTradeRemoveItemHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //
 //////////////////////////////////////////////////////////////////////
@@ -13,14 +13,16 @@
 #include "ClientDef.h"
 
 void GCTradeRemoveItemHandler::execute ( GCTradeRemoveItem * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	
 #ifdef __GAME_CLIENT__
 
 	//------------------------------------------------------------------------
-	// TradeManager°¡ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì --> -_-;;
+	// TradeManagerê°€ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš° --> -_-;;
 	//------------------------------------------------------------------------
 	if (g_pTradeManager==NULL)
 	{
@@ -36,14 +38,14 @@ void GCTradeRemoveItemHandler::execute ( GCTradeRemoveItem * pPacket , Player * 
 	MItem* pItem = g_pTradeManager->GetOtherInventory()->RemoveItem( itemID );
 
 	//------------------------------------------------------------------------
-	// ¾ÆÀÌÅÛÀÌ ¾ø´Ù¸é..
+	// ì•„ì´í…œì´ ì—†ë‹¤ë©´..
 	//------------------------------------------------------------------------
 	if (pItem==NULL)
 	{
 		DEBUG_ADD_FORMAT( "[Error] There is no such item. id=%d", itemID );
 	}
 	//------------------------------------------------------------------------
-	// ÀÖÀ¸¸é ±×³É Áö¿ì¸é µÈ´Ù.
+	// ìžˆìœ¼ë©´ ê·¸ëƒ¥ ì§€ìš°ë©´ ëœë‹¤.
 	//------------------------------------------------------------------------
 	else
 	{
@@ -51,7 +53,7 @@ void GCTradeRemoveItemHandler::execute ( GCTradeRemoveItem * pPacket , Player * 
 	}
 	
 	//-----------------------------------------------------------
-	// ¹º°¡ ¹Ù²ï´Ù¸é... OKÃë¼Ò
+	// ë­”ê°€ ë°”ë€ë‹¤ë©´... OKì·¨ì†Œ
 	//-----------------------------------------------------------
 	g_pTradeManager->RefuseOtherTrade();
 	g_pTradeManager->RefuseMyTrade();

@@ -1,18 +1,25 @@
 //----------------------------------------------------------------------
 // CD3DTextureEffect.h
 //----------------------------------------------------------------------
-// CDirect3D¸¦ ÀÌ¿ëÇØ¼­..
-// 2DÁÂÇ¥°èÀÇ »ç°¢ ¿µ¿ª¿¡ texture¸¦ ÀÔÈ÷´Â ¹æ¹ıÀ¸·Î effect¸¦ Ç¥ÇöÇÑ´Ù.
+// CDirect3Dë¥¼ ì´ìš©í•´ì„œ..
+// 2Dì¢Œí‘œê³„ì˜ ì‚¬ê° ì˜ì—­ì— textureë¥¼ ì…íˆëŠ” ë°©ë²•ìœ¼ë¡œ effectë¥¼ í‘œí˜„í•œë‹¤.
 //
-// Draw..()°¡ ½ÇÇàµÉ¶§´Â
-// BeginScene()ÀÌ µÇ¾î ÀÖ´Â »óÅÂ¾î¾ß ÇÏ°í..
-// ÀÓÀÇÀÇ Texture°¡ ¼³Á¤µÇ¾î ÀÖ´Ù°í °¡Á¤ÇÑ´Ù.
+// Draw..()ê°€ ì‹¤í–‰ë ë•ŒëŠ”
+// BeginScene()ì´ ë˜ì–´ ìˆëŠ” ìƒíƒœì–´ì•¼ í•˜ê³ ..
+// ì„ì˜ì˜ Textureê°€ ì„¤ì •ë˜ì–´ ìˆë‹¤ê³  ê°€ì •í•œë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef __CD3DTEXTUREEFFECT_H__
 #define __CD3DTEXTUREEFFECT_H__
 
-#include "CDirect3D.h"
+#ifdef PLATFORM_WINDOWS
+	#include <D3D.h>
+	#include <ddraw.h>
+	#include "CDirectDraw.h"
+#else
+	#include "basic/Platform.h"  // For RECT, WORD, etc.
+	#include "CD3DMath.h"  // For D3DTLVERTEX
+#endif
 
 class CD3DTextureEffect {
 	public :

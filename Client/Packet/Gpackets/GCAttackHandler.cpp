@@ -14,16 +14,17 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCAttackHandler::execute ( GCAttack * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-#if __GAME_CLIENT__
+#ifdef __GAME_CLIENT__
 
 	// message
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -31,7 +32,7 @@ void GCAttackHandler::execute ( GCAttack * pPacket , Player * pPlayer )
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
@@ -39,7 +40,7 @@ void GCAttackHandler::execute ( GCAttack * pPacket , Player * pPlayer )
 
 		if (pCreature != NULL)
 		{
-			// ¹æÇâ ¹Ù¶óº¸±â
+			// ë°©í–¥ ë°”ë¼ë³´ê¸°
 			pCreature->SetDirectionToPosition(pPacket->getX(), pPacket->getY());
 
 			pCreature->PacketAttackNormal(	pPacket->getX(),

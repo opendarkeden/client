@@ -6,26 +6,32 @@
 	file base:	CSystemInfo
 	file ext:	cpp
 	author:		sonee
-	
-	purpose:	½Ã½ºÅÛ Á¤º¸¸¦ ¾Ë¾Æ³½´Ù.
-				2003-10-17		CPU Clock ¾ò¾î¿À±â
-								MMX,SSE2 Å×Å©³î·¯Áö Enable ¿©ºÎ
-								Hyper Thread Enable ¿©ºÎ
+
+	purpose:	ì‹œìŠ¤í…œ ì •ë³´ë¥¼ ì•Œì•„ë‚¸ë‹¤.
+				2003-10-17		CPU Clock ì–»ì–´ì˜¤ê¸°
+								MMX,SSE2 í…Œí¬ë†€ëŸ¬ì§€ Enable ì—¬ë¶€
+								Hyper Thread Enable ì—¬ë¶€
 *********************************************************************/
 #include "Client_PCH.h"
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../basic/Platform.h"
+#endif
 #include "CSystemInfo.h"
 
-#pragma warning( disable : 4035 )		// disable ½ÃÄÑ¹ö¸®ÀÚ-_-;
+#ifdef PLATFORM_WINDOWS
+
+#pragma warning( disable : 4035 )		// disable ì‹œì¼œë²„ë¦¬ì-_-;
 #pragma warning( disable: 4800 ) //'int' : forcing value to bool 'true' or 'false' (performance warning)
 
 inline unsigned __int64 theCycleCount(void)
 {
-    
+
     _asm    _emit 0x0F
     _asm    _emit 0x31
-    
-    // -_- return Àº ¾øÁö¸¸ _emits ´Â __int64¸¦ ¸®ÅÏÇÕ´Ï´Ù-_-;
+
+    // -_- return ì€ ì—†ì§€ë§Œ _emits ëŠ” __int64ë¥¼ ë¦¬í„´í•©ë‹ˆë‹¤-_-;
 }
 
 static bool cpuid(unsigned long function, unsigned long& out_eax, unsigned long& out_ebx, unsigned long& out_ecx, unsigned long& out_edx)
@@ -361,3 +367,50 @@ bool CSystemInfo::CheckHyperThreadTechnology()
 
 	return false;  // This is not a genuine Intel processor.
 }
+#else
+// Non-Windows platforms (macOS/Linux) - Stub implementations
+
+inline uint64_t theCycleCount(void)
+{
+    // Stub implementation - return 0
+    return 0;
+}
+
+static bool cpuid(unsigned long function, unsigned long& out_eax, unsigned long& out_ebx, unsigned long& out_ecx, unsigned long& out_edx)
+{
+    // Stub implementation - assume no special CPU features
+    out_eax = out_ebx = out_ecx = out_edx = 0;
+    return false;
+}
+
+long CSystemInfo::GetCpuClock()
+{
+    // Stub implementation - return a reasonable default
+    return 2000; // Assume 2 GHz
+}
+
+bool CSystemInfo::CheckMMXTechnology()
+{
+    // Stub implementation - assume MMX is available on modern systems
+    return true;
+}
+
+bool CSystemInfo::CheckSSETechnology()
+{
+    // Stub implementation - assume SSE is available on modern systems
+    return true;
+}
+
+bool CSystemInfo::CheckSSE2Technology()
+{
+    // Stub implementation - assume SSE2 is available on modern systems
+    return true;
+}
+
+bool CSystemInfo::CheckHyperThreadTechnology()
+{
+    // Stub implementation - assume no hyperthreading
+    return false;
+}
+
+#endif // PLATFORM_WINDOWS

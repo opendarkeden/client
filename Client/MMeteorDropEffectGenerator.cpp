@@ -33,7 +33,7 @@ MMeteorDropEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	MLinearEffect*	pEffect;
 	int x, z;
 	//---------------------------------------------
-	// Effect »ý¼º - Left Up
+	// Effect ìƒì„± - Left Up
 	//---------------------------------------------
 	x = 100;
 	z = 400;
@@ -41,31 +41,31 @@ MMeteorDropEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 	pEffect->SetFrameID( frameID, maxFrame );	
 
-	// ¹ß»ç À§Ä¡ PixelÁÂÇ¥	(¸ñÇ¥À§Ä¡¿¡¼­ z¸¸Å­ À§¿¡)
-	// ±Ùµ¥ 0À¸·Î ÇÒ°ÇÁö. 1·Î ÇÒ°ÇÁö.. Á¤ÇÒ ¼ö ÀÖ´Â flag°¡ ÇÊ¿äÇÏ´ç..
-	// generator¸¦ µý°É ¸¸µéµçÁö... 
+	// ë°œì‚¬ ìœ„ì¹˜ Pixelì¢Œí‘œ	(ëª©í‘œìœ„ì¹˜ì—ì„œ zë§Œí¼ ìœ„ì—)
+	// ê·¼ë° 0ìœ¼ë¡œ í• ê±´ì§€. 1ë¡œ í• ê±´ì§€.. ì •í•  ìˆ˜ ìžˆëŠ” flagê°€ í•„ìš”í•˜ë‹¹..
+	// generatorë¥¼ ë”´ê±¸ ë§Œë“¤ë“ ì§€... 
 
 	//pEffect->SetPixelPosition( egInfo.x0, egInfo.y0, egInfo.z1+z );	
 	pEffect->SetPixelPosition( egInfo.x1+x, egInfo.y1, egInfo.z1+z );	
 
-	// ¹æÇâ ¼³Á¤
+	// ë°©í–¥ ì„¤ì •
 	pEffect->SetDirection( egInfo.direction );
 					
-	// ¸ñÇ¥ À§Ä¡ PixelÁÂÇ¥ (¸ñÇ¥À§Ä¡)
+	// ëª©í‘œ ìœ„ì¹˜ Pixelì¢Œí‘œ (ëª©í‘œìœ„ì¹˜)
 	pEffect->SetTarget( egInfo.x1, egInfo.y1, egInfo.z1, egInfo.step );
 
-	// Áö¼ÓµÇ´Â Frame (¸ñÇ¥°¡ ÀÖ´Ù¸é º°·Î °ü°è ¾øÀ½ - -;)
+	// ì§€ì†ë˜ëŠ” Frame (ëª©í‘œê°€ ìžˆë‹¤ë©´ ë³„ë¡œ ê´€ê³„ ì—†ìŒ - -;)
 	pEffect->SetCount( egInfo.count, egInfo.linkCount );
 
-	// À§·Â
+	// ìœ„ë ¥
 	pEffect->SetPower(egInfo.power);
-	// ºûÀÇ ¹à±â
+	// ë¹›ì˜ ë°ê¸°
 	//pEffect->SetLight( light );
 
-	// Zone¿¡ Ãß°¡ÇÑ´Ù.
+	// Zoneì— ì¶”ê°€í•œë‹¤.
 	if (g_pZone->AddEffect( pEffect ))
 	{
-		// ´ÙÀ½ Effect »ý¼º Á¤º¸
+		// ë‹¤ìŒ Effect ìƒì„± ì •ë³´
 		pEffect->SetLink( egInfo.nActionInfo, egInfo.pEffectTarget );
 
 		MEvent event;

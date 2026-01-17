@@ -255,7 +255,7 @@ public:
 	// Action
 	//-----------------------------------------------------------------------
 	void	ActionMove();
-	void	ActionRotation(BYTE Direction);					// 0Àº ¿ÞÂÊ 1Àº ¿À¸¥ÂÊ
+	void	ActionRotation(BYTE Direction);					// 0ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	//-----------------------------------------------------------------------
 	// Process
@@ -672,8 +672,8 @@ private:
 		C_VS_UI_MAIL();
 		~C_VS_UI_MAIL();
 
-		void SaveToFile(class ofstream &file);
-		bool LoadFromFile(class ifstream &file);
+		void SaveToFile(std::ofstream &file);
+		bool LoadFromFile(std::ifstream &file);
 		void SaveToFile(std::string filename);
 		void LoadFromFile(std::string filename);
 	};
@@ -799,8 +799,8 @@ public:
 		m_pC_button_group->CancelPushState();
 	}
 
-	void SaveToFile(class ofstream &file);
-	void LoadFromFile(class ifstream &file);
+	void SaveToFile(std::ofstream &file);
+	void LoadFromFile(std::ifstream &file);
 	void SaveToFile(std::string filename);
 	void LoadFromFile(std::string filename);
 	void CloseMailBoxDialogBox();
@@ -824,7 +824,7 @@ struct PETINFO
 	std::string NAME;
 	bool ATTACK;
 	std::string NICK_NAME;
-	bool ChangeAbleNickName; // ³»ÆêÀÎÁö ¾Æ´ÑÁö..
+	bool ChangeAbleNickName; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ï¿½ï¿½..
 };
 
 //-----------------------------------------------------------------------------
@@ -902,13 +902,13 @@ public :
 //-----------------------------------------------------------------------------
 // C_VS_UI_HELPDESC
 //
-// Desc : ÇïÇÁ ¸Þ¼¼Áö Å¬·¡½º 
+// Desc : ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ 
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // C_VS_UI_HELPDESC
 //
-// Desc : ÇïÇÁ ¸Þ¼¼Áö Å¬·¡½º 
+// Desc : ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ 
 //-----------------------------------------------------------------------------
 
 class C_VS_UI_HELPDESC: public Window, public Exec , public ButtonVisual 
@@ -1051,7 +1051,7 @@ private:
 	std::string			m_szMyNum, m_szSMSMessage;
 	std::list<std::string>	m_szOtherNum;
 public:
-	C_VS_UI_SMS_MESSAGE(); // team_nameÀº memberÀÎ °æ¿ì¿¡¸¸
+	C_VS_UI_SMS_MESSAGE(); // team_nameï¿½ï¿½ memberï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½
 	~C_VS_UI_SMS_MESSAGE();
 
 	void	Process();
@@ -1133,7 +1133,7 @@ public:
 		std::string	CustomName;
 		std::string	Number;
 	};
-	C_VS_UI_SMS_LIST(); // team_nameÀº memberÀÎ °æ¿ì¿¡¸¸
+	C_VS_UI_SMS_LIST(); // team_nameï¿½ï¿½ memberï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½
 	~C_VS_UI_SMS_LIST();
 
 	void	Process();
@@ -1208,7 +1208,7 @@ private:
 
 	std::string			m_szNum, m_szName, m_szID;
 public:
-	C_VS_UI_SMS_RECORD(); // team_nameÀº memberÀÎ °æ¿ì¿¡¸¸
+	C_VS_UI_SMS_RECORD(); // team_nameï¿½ï¿½ memberï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½
 	~C_VS_UI_SMS_RECORD();
 
 	void	Process();
@@ -1232,12 +1232,12 @@ class C_VS_UI_NicknameInfo
 public:
 	enum
 	{
-		NICK_NONE = 0,		// ´Ð³×ÀÓ ¾øÀ½
-		NICK_BUILT_IN,		// ÀÏ¹ÝÀûÀ¸·Î ÀÚµ¿À¸·Î ÁÖ¾îÁö´Â ´Ð³×ÀÓ (ÀÎµ¦½º)
-		NICK_QUEST,			// Äù½ºÆ® Å¬¸®¾îÇÑ µÚ ¹Þ´Â ´Ð³×ÀÓ (ÀÎµ¦½º)
-		NICK_FORCED,		// °­Á¦·Î ºÙ¿©Áø ´Ð³×ÀÓ (ÀÎµ¦½º)
-		NICK_CUSTOM_FORCED,	// °­Á¦·Î ºÙ¿©Áø ´Ð³×ÀÓ (½ºÆ®¸µ)
-		NICK_CUSTOM,		// À¯Àú°¡ ÀÚÀ¯·Ó°Ô ³ÖÀº ´Ð³×ÀÓ (½ºÆ®¸µ)
+		NICK_NONE = 0,		// ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		NICK_BUILT_IN,		// ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½ (ï¿½Îµï¿½ï¿½ï¿½)
+		NICK_QUEST,			// ï¿½ï¿½ï¿½ï¿½Æ® Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½ (ï¿½Îµï¿½ï¿½ï¿½)
+		NICK_FORCED,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½ (ï¿½Îµï¿½ï¿½ï¿½)
+		NICK_CUSTOM_FORCED,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½ (ï¿½ï¿½Æ®ï¿½ï¿½)
+		NICK_CUSTOM,		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½ (ï¿½ï¿½Æ®ï¿½ï¿½)
 	};
 
 	WORD	getNicknameID() const { return m_NicknameID; }
@@ -1255,7 +1255,7 @@ private:
 	WORD	m_NicknameID;
 	BYTE	m_NicknameType;
 	std::string	m_Nickname;
-	WORD	m_NicknameIndex;	// ½ºÆ®¸µ ¶Ç´Â ÀÎµ¦½º ÇÏ³ª¸¸ »ç¿ëµÈ´Ù.
+	WORD	m_NicknameIndex;	// ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½È´ï¿½.
 };
 class C_VS_UI_NAMING : public Window, public Exec, public ButtonVisual
 {
@@ -1269,10 +1269,10 @@ private :
 
 	enum INFO_SPK
 	{
-		NICKNAME_STR = 0,	// ´Ð³×ÀÓ
-		NICKNAME_LIST_STR,	// ´Ð³×ÀÓ ¸®½ºÆ®
-		PETNAME_STR,		// ÆêÀÌ¸§
-		ADD_NICKNAME_STR,	// Ãß°¡ ´Ð³×ÀÓ
+		NICKNAME_STR = 0,	// ï¿½Ð³ï¿½ï¿½ï¿½
+		NICKNAME_LIST_STR,	// ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
+		PETNAME_STR,		// ï¿½ï¿½ï¿½Ì¸ï¿½
+		ADD_NICKNAME_STR,	// ï¿½ß°ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½
 	};
 	enum EXEC_ID
 	{
@@ -1332,10 +1332,10 @@ private :
 	C_SPRITE_PACK		m_pC_spk;
 	enum INFO_SPK
 	{
-		NICKNAME_STR = 0,	// ´Ð³×ÀÓ
-		NICKNAME_LIST_STR,	// ´Ð³×ÀÓ ¸®½ºÆ®
-		PETNAME_STR,		// ÆêÀÌ¸§
-		ADD_NICKNAME_STR,	// Ãß°¡ ´Ð³×ÀÓ
+		NICKNAME_STR = 0,	// ï¿½Ð³ï¿½ï¿½ï¿½
+		NICKNAME_LIST_STR,	// ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
+		PETNAME_STR,		// ï¿½ï¿½ï¿½Ì¸ï¿½
+		ADD_NICKNAME_STR,	// ï¿½ß°ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½
 	};
 	enum EXEC_ID
 	{
@@ -1371,7 +1371,7 @@ public :
 //-----------------------------------------------------------------------------
 // class C_VS_UI_QUEST_MANAGER
 //
-// Äù½ºÆ® ui °ü·Ã ÀÌ¹ÌÁö¿Í Äù½ºÆ® Á¤º¸¸¦ Ã³¸® ÇÏÀÚ..
+// ï¿½ï¿½ï¿½ï¿½Æ® ui ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
 //-----------------------------------------------------------------------------
 class	C_VS_UI_QUEST_LIST;
 class	C_VS_UI_QUEST_DETAIL;
@@ -1380,7 +1380,7 @@ class	C_VS_UI_QUEST_ITEM;
 class	C_VS_UI_QUEST_ICON;
 
 /* 
-Äù½ºÆ® °ü·Ã npcÃ¢À» ¶ç¿î´Ù..
+ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ npcÃ¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
 */
 class C_VS_UI_QUEST_NPC_DIALOG 
 {
@@ -1401,9 +1401,9 @@ public:
 		std::string		m_StrArg;
 		DWORD			m_NumArg;
 		BYTE			bStatus;
-		BYTE			bCondition;	// ¾î´À Á¶°Ç¿¡ ÀÖ´Â°¡ 0 : Happen, 1 : Complete, 2 : Fail, 3 : Reward
-		WORD			bIndex;		// ÇØ´ç Á¶°ÇÀÇ ¸î¹øÂ° elementÀÎ°¡
-		DWORD			dwTimeLimit;// ½Ã°£ Á¦ÇÑ Äù½ºÆ®ÀÏ °æ¿ì Ã³À½ ³²À½ ½Ã°£ ¼¼ÆÃ 
+		BYTE			bCondition;	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½Ö´Â°ï¿½ 0 : Happen, 1 : Complete, 2 : Fail, 3 : Reward
+		WORD			bIndex;		// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â° elementï¿½Î°ï¿½
+		DWORD			dwTimeLimit;// ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 	};
 	struct _GQuestInfo{
 		DWORD			dwQuestID;
@@ -1432,9 +1432,9 @@ private:
 	XMLTree						m_Quest_XML_Tree;
 
 	DWORD						m_SelectedQuestID;
-	std::vector<_GQuestInfo*>	m_QuestListInfo; // Äù½ºÆ® Á¤º¸ ¸®½ºÆ®
-	std::vector<MItem*>			m_QuestItemInfo; // Äù½ºÆ® ¾ÆÀÌÅÛ ¸®½ºÆ®
-	std::vector<_GQuestExcuteElement*>	m_QuestExcutElement; // Äù½ºÆ® ExcuteElement ¸®½ºÆ®
+	std::vector<_GQuestInfo*>	m_QuestListInfo; // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
+	std::vector<MItem*>			m_QuestItemInfo; // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
+	std::vector<_GQuestExcuteElement*>	m_QuestExcutElement; // ï¿½ï¿½ï¿½ï¿½Æ® ExcuteElement ï¿½ï¿½ï¿½ï¿½Æ®
 	
 	bool						UpdateQuestInfo(_GQuestInfo *QInfo, int nType = -1);
 	char*						GetQuestTitle(const XMLTree *pElement);
@@ -1444,25 +1444,25 @@ private:
 public:
 	enum INFO_SPK
 	{
-		INVENTORY_SLOT,			// ÀÎº¥Åä¸® ½½·Ô µÞ¹è°æ
-		TAB_BUTTON_PROCESS,		// ÅÇ¹öÆ° - ÁøÇà
-		TAB_BUTTON_COMPLETE,	// ÅÇ¹öÆ° - ¿Ï·á
-		BUTTON_ACCEPT,			// ¼ö¶ô ¹öÆ°
-		BUTTON_ACCEPT_HILIGHT,	// ¼ö¶ô ¹öÆ° ÇÏÀÌ¶óÀÌÆ®
-		BUTTON_ACCEPT_PUSH,		// ¼ö¶ô ¹öÆ° Çª½¬
-		BUTTON_GIVEUP,			// Æ÷±â ¹öÆ°
-		BUTTON_GIVEUP_HILIGHT,	// Æ÷±â ¹öÆ° ÇÏÀÌ¶óÀÌÆ®
-		BUTTON_GIVEUP_PUSH,		// Æ÷±â ¹öÆ° Çª½¬
-		QUEST_LIST_SUBJECT,		// Á¦¸ñ,»óÅÂ
-		QUEST_MISSION_SUBJECT,	// ÀÓ¹«,»óÅÂ
-		QUEST_TITLE_BG,			// Äù½ºÆ® ¸ñ·Ï µÞ ¹è°æ
-		QUEST_TABLE_BG,			// Äù½ºÆ® ¸ñ·Ï µÞ ¹è°æ
-		QUEST_DETAIL_BG,		// Äù½ºÆ® »ó¼¼ µÞ ¹è°æ
+		INVENTORY_SLOT,			// ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¹ï¿½ï¿½
+		TAB_BUTTON_PROCESS,		// ï¿½Ç¹ï¿½Æ° - ï¿½ï¿½ï¿½ï¿½
+		TAB_BUTTON_COMPLETE,	// ï¿½Ç¹ï¿½Æ° - ï¿½Ï·ï¿½
+		BUTTON_ACCEPT,			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+		BUTTON_ACCEPT_HILIGHT,	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½Æ®
+		BUTTON_ACCEPT_PUSH,		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° Çªï¿½ï¿½
+		BUTTON_GIVEUP,			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+		BUTTON_GIVEUP_HILIGHT,	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½Æ®
+		BUTTON_GIVEUP_PUSH,		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° Çªï¿½ï¿½
+		QUEST_LIST_SUBJECT,		// ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½
+		QUEST_MISSION_SUBJECT,	// ï¿½Ó¹ï¿½,ï¿½ï¿½ï¿½ï¿½
+		QUEST_TITLE_BG,			// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
+		QUEST_TABLE_BG,			// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
+		QUEST_DETAIL_BG,		// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 
-		QUEST_LIST_TITLE,		// Äù½ºÆ® ¸ñ·Ï Å¸ÀÌÆ²
-		QUEST_DETAIL_TITLE,		// Äù½ºÆ® ¼¼ºÎ Å¸ÀÌÆ²
-		QUEST_MISSION_TITLE,	// Äù½ºÆ® ÀÓ¹« Å¸ÀÌÆ²
-		QUEST_ITEM_TITLE,		// Äù½ºÆ® ¾ÆÀÌÅÛ Å¸ÀÌÆ²
+		QUEST_LIST_TITLE,		// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Æ²
+		QUEST_DETAIL_TITLE,		// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Æ²
+		QUEST_MISSION_TITLE,	// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ó¹ï¿½ Å¸ï¿½ï¿½Æ²
+		QUEST_ITEM_TITLE,		// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Æ²
 
 	};
 	
@@ -1535,13 +1535,13 @@ class C_VS_UI_QUEST_LIST : public Window, public Exec, public ButtonVisual/*, pu
 public:
 	enum QUEST_LIST_STATUS
 	{
-		CANNOT = 0,		// ¾ÆÁ÷ ºÒ°¡´É
-		CAN_ACCEPT,		// ¼öÇà°¡´É
-		DOING,			// ¼öÇàÁß
-		SUCCESS,		// ¼º°ø (¾ÆÁ÷ º¸»ó¹ÞÁö ¾ÊÀ½)
-		COMPLETE,		// ¿Ï·á (º¸»ó¹ÞÀ½, Àç¼öÇà ºÒ°¡´É)
-		FAIL,			// ½ÇÆÐ (Àç¼öÇà ºÒ°¡´É)
-		CAN_REPLAY,		// Àç¼öÇà °¡´É
+		CANNOT = 0,		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½
+		CAN_ACCEPT,		// ï¿½ï¿½ï¿½à°¡ï¿½ï¿½
+		DOING,			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		SUCCESS,		// ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+		COMPLETE,		// ï¿½Ï·ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½)
+		FAIL,			// ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½)
+		CAN_REPLAY,		// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	};
 
 private:
@@ -1559,13 +1559,13 @@ private:
 	C_VS_UI_SCROLL_BAR			*m_pC_scroll_bar;	
 	int							m_SelectPos;
 	int							m_SelectContents;
-	BYTE						m_TabID; // ¸ñ·Ï/¿Ï·á ÅÇ ¼±ÅÃ
+	BYTE						m_TabID; // ï¿½ï¿½ï¿½/ï¿½Ï·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	bool						m_bl_focus;
 
-	int							m_OustersOffset;// ¾Æ¿ì½ºÅÍÁî ÇÈ¼¿ º¸Á¤
+	int							m_OustersOffset;// ï¿½Æ¿ì½ºï¿½ï¿½ï¿½ï¿½ ï¿½È¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-	std::vector<C_VS_UI_QUEST_MANAGER::_GQuestInfo*>		m_QuestListInfo[2];		// 0 : ¼öÇà°¡´É, ¼öÇàÁß,¼º°ø ÀÏ¶§ Äù½ºÆ® ¸®½ºÆ®
-															// 1 : ¿Ï·á, ½ÇÆÐ, Àç¼öÇà °¡´É ÀÏ¶§ Äù½ºÆ® ¸®½ºÆ®
+	std::vector<C_VS_UI_QUEST_MANAGER::_GQuestInfo*>		m_QuestListInfo[2];		// 0 : ï¿½ï¿½ï¿½à°¡ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½Æ®
+															// 1 : ï¿½Ï·ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½Æ®
 
 public:
 
@@ -1607,9 +1607,9 @@ private:
 	C_VS_UI_SCROLL_BAR			*m_pC_scroll_bar;	
 	int							m_SelectPos;
 	bool						m_bl_focus;
-	int							m_OustersOffset;// ¾Æ¿ì½ºÅÍÁî ÇÈ¼¿ º¸Á¤
+	int							m_OustersOffset;// ï¿½Æ¿ì½ºï¿½ï¿½ï¿½ï¿½ ï¿½È¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-	int							m_IsAbleRunQuest ; // 0 : disable 1 : ¼öÇà 2 : Æ÷±â
+	int							m_IsAbleRunQuest ; // 0 : disable 1 : ï¿½ï¿½ï¿½ï¿½ 2 : ï¿½ï¿½ï¿½ï¿½
 	std::string					m_szTitle;
 public:
 	C_VS_UI_QUEST_DETAIL(C_SPRITE_PACK*	spr);
@@ -1639,10 +1639,10 @@ class C_VS_UI_QUEST_MISSION :  public Window, public Exec, public ButtonVisual/*
 public:
 	enum QUEST_MISSION_STATUS
 	{
-		HIDE = 0,			// º¸¿©ÁÖÁö ¾ÊÀ½
-		CURRENT,			// Áö±Ý ÇØ¾ß µÇ´Â ¹Ì¼Ç (¼öÇàÁß)
-		SUCCESS,			// ÀÌ¹Ì ¼º°øÇÑ ¹Ì¼Ç
-		FAIL,				// ½ÇÆÐ
+		HIDE = 0,			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		CURRENT,			// ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ ï¿½Ç´ï¿½ ï¿½Ì¼ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+		SUCCESS,			// ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¼ï¿½
+		FAIL,				// ï¿½ï¿½ï¿½ï¿½
 	};
 
 private:
@@ -1659,7 +1659,7 @@ private:
 	C_VS_UI_SCROLL_BAR			*m_pC_scroll_bar;	
 	int							m_SelectPos;
 	bool						m_bl_focus;
-	int							m_OustersOffset;// ¾Æ¿ì½ºÅÍÁî ÇÈ¼¿ º¸Á¤
+	int							m_OustersOffset;// ï¿½Æ¿ì½ºï¿½ï¿½ï¿½ï¿½ ï¿½È¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	std::vector<C_VS_UI_QUEST_MANAGER::_GMissionInfo*> m_QuestMissionInfo;
 public:
@@ -1708,7 +1708,7 @@ private:
 	C_VS_UI_SCROLL_BAR			*m_pC_scroll_bar;	
 	int							m_SelectPos;
 	bool						m_bl_focus;
-	int							m_OustersOffset;// ¾Æ¿ì½ºÅÍÁî ÇÈ¼¿ º¸Á¤
+	int							m_OustersOffset;// ï¿½Æ¿ì½ºï¿½ï¿½ï¿½ï¿½ ï¿½È¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	std::vector<MItem*>			m_QuestItemInfo;
 
@@ -1861,19 +1861,19 @@ private :
 	enum INFO_SPK
 	{
 		JJANG_MAIN,
-		JJANG_BUTTON_EXCHANGE,			// ±³È¯ ¹öÆ°
-		JJANG_BUTTON_EXCHANGE_HILIGHT,	// ±³È¯ ¹öÆ° ÇÏÀÌ¶óÀÌÆ®
-		JJANG_BUTTON_EXCHANGE_PUSH,		// ±³È¯ ¹öÆ° Çª½¬
+		JJANG_BUTTON_EXCHANGE,			// ï¿½ï¿½È¯ ï¿½ï¿½Æ°
+		JJANG_BUTTON_EXCHANGE_HILIGHT,	// ï¿½ï¿½È¯ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½Æ®
+		JJANG_BUTTON_EXCHANGE_PUSH,		// ï¿½ï¿½È¯ ï¿½ï¿½Æ° Çªï¿½ï¿½
 	};
 	enum ITEM_CODE
 	{
-		CANDY = 0,				// »çÅÁ 1°³ 
-		RESURRECTION_SCROLL,	// ºÎÈ° ½ºÅ©·Ñ 1°³
-		ELIXIR_SCROLL,			// ¿¤¸¯¼­ ½ºÅ©·Ñ 1°³
-		MEGAPHONE,				// È®¼º±â 30ºÐ
-		NAMING_PEN,				// ³×ÀÌ¹Ö Ææ 1°³
-		SIGNPOST,				// ¾Ë¸²ÆÇ 6½Ã°£
-		BLACK_RICE_CAKE_SOUP	// °ËÀº ¶±±¹ 1°³
+		CANDY = 0,				// ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ 
+		RESURRECTION_SCROLL,	// ï¿½ï¿½È° ï¿½ï¿½Å©ï¿½ï¿½ 1ï¿½ï¿½
+		ELIXIR_SCROLL,			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ 1ï¿½ï¿½
+		MEGAPHONE,				// È®ï¿½ï¿½ï¿½ï¿½ 30ï¿½ï¿½
+		NAMING_PEN,				// ï¿½ï¿½ï¿½Ì¹ï¿½ ï¿½ï¿½ 1ï¿½ï¿½
+		SIGNPOST,				// ï¿½Ë¸ï¿½ï¿½ï¿½ 6ï¿½Ã°ï¿½
+		BLACK_RICE_CAKE_SOUP	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½
 	};
 	enum EXEC_ID
 	{
@@ -1899,7 +1899,7 @@ private :
 	int					m_SelectPos;
 	LineEditorVisual	m_EditPhoneNumber;
 	std::string			m_szMyPhoneNumber;
-	WORD				m_AvailablePoint; // °×ºí °¡´É Æ÷ÀÎÆ®
+	WORD				m_AvailablePoint; // ï¿½×ºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 
 	int					m_GambleMode;
 	DWORD				m_dwSpeed;
@@ -1934,7 +1934,7 @@ public :
 	void	PowerjjangGambleResult(BYTE bItemCode);
 };
 
-#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ð°ï¿½
 
 
 //-----------------------------------------------------------------------------
@@ -1942,10 +1942,10 @@ public :
 //
 // slayer/vampire inventory base class.
 //
-// - slayer/vampire inventory °øÅëÀÇ interface¸¦ Á¤ÀÇÇÑ´Ù. 
-// - slayer¿¡¼­ vampire·Î ¹Ù²î°Å³ª ¶Ç´Â ±× ¹Ý´ëÀÏ ¶§, °´Ã¼¸¦ Àç»ý¼ºÇÏ¿©
-//   inventory´Â ÃÊ±âÈ­µÇÁö¸¸, inventoryÀÇ itemÀº ±×´ë·Î À¯ÁöµÈ´Ù. interface»ó¿¡¼­ÀÇ
-//   inventory´Â itemÀ» ÀúÀåÇÏ°í ÀÖÁö ¾Ê´Ù. ±×·¡¼­ ÀÌ class¸¦ base·Î ÇÏ´Â °ÍÀÌ´Ù.
+// - slayer/vampire inventory ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ interfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. 
+// - slayerï¿½ï¿½ï¿½ï¿½ vampireï¿½ï¿½ ï¿½Ù²ï¿½Å³ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ ï¿½Ý´ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½
+//   inventoryï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, inventoryï¿½ï¿½ itemï¿½ï¿½ ï¿½×´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½. interfaceï¿½ó¿¡¼ï¿½ï¿½ï¿½
+//   inventoryï¿½ï¿½ itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½. ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ classï¿½ï¿½ baseï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
 //-----------------------------------------------------------------------------
 class C_VS_UI_INVENTORY_SUB : public Window, public Exec, public ButtonVisual
 {
@@ -1968,7 +1968,7 @@ protected:
 		INVENTORY_ITEMBACK_ALPHA,
 		INVENTORY_WINDOW_2X4,
 		INVENTORY_WINDOW_2X4_ALPHA,
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ð°ï¿½
 		INVENTORY_WINDOW_4X6,
 		INVENTORY_WINDOW_4X6_ALPHA,
 	#endif
@@ -1984,7 +1984,7 @@ protected:
 	enum 
 	{ 
 		TYPE_2X4 = 0,
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ð°ï¿½
 		TYPE_4X6 = 1,
 	#endif
 		
@@ -1997,18 +1997,18 @@ protected:
 
 	BYTE					m_SubInventoryType;
 	
-	Rect					m_grid_rect; // ÀüÃ¼ Grid rect.
+	Rect					m_grid_rect; // ï¿½ï¿½Ã¼ Grid rect.
 
 	int						m_focus_grid_x, m_focus_grid_y;
 
-	// »ó¼Ó¹Þ´Â class¿¡¼­ ¹Ýµå½Ã setÇØÁà¾ß ÇÑ´Ù.
+	// ï¿½ï¿½Ó¹Þ´ï¿½ classï¿½ï¿½ï¿½ï¿½ ï¿½Ýµï¿½ï¿½ setï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	int							m_grid_start_offset_x, m_grid_start_offset_y;
 
 	int						m_MainWindowSpk;
 	int						n_nType;
 
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ð°ï¿½
 		MSubInventory*			m_MultiPackItem;
 	#endif
 
@@ -2034,7 +2034,7 @@ public:
 	C_VS_UI_INVENTORY_SUB(MItem* pItem);
 	virtual ~C_VS_UI_INVENTORY_SUB();
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ð°ï¿½
 		MItem*	GetSubInventoryItem() { return m_MultiPackItem; }
 	#endif
 

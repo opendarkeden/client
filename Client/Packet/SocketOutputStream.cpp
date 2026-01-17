@@ -18,8 +18,8 @@
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-SocketOutputStream::SocketOutputStream ( Socket * sock , uint BufferLen ) 
-	throw ( Error )
+SocketOutputStream::SocketOutputStream ( Socket * sock , uint BufferLen )
+	throw ( ProtocolException , Error )
 : m_Socket(sock), m_Buffer(NULL), m_BufferLen(BufferLen), m_Head(0), m_Tail(0) ,m_Sequence(0)
 {
 	__BEGIN_TRY
@@ -39,14 +39,14 @@ SocketOutputStream::SocketOutputStream ( Socket * sock , uint BufferLen )
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-SocketOutputStream::~SocketOutputStream () 
-	throw ( Error )
+SocketOutputStream::~SocketOutputStream ()
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 	if ( m_Buffer != NULL ) {
-		// ¿¬°áÀÌ ²÷°Ü¼­ ConnectException À» ¹Ş¾Æ Á¾·áµÈ »óÅÂ¿¡¼­
-		// flush¸¦ ÇÒ °æ¿ì SIGPIPE °¡ ³­´Ù. µû¶ó¼­, ¹«½ÃÇÏÀÚ~
+		// ì—°ê²°ì´ ëŠê²¨ì„œ ConnectException ì„ ë°›ì•„ ì¢…ë£Œëœ ìƒíƒœì—ì„œ
+		// flushë¥¼ í•  ê²½ìš° SIGPIPE ê°€ ë‚œë‹¤. ë”°ë¼ì„œ, ë¬´ì‹œí•˜ì~
 		// flush();
 		delete [] m_Buffer;
 		m_Buffer = NULL;
@@ -65,20 +65,20 @@ SocketOutputStream::~SocketOutputStream ()
 // ( ( m_Head = m_Tail + 1 ) ||  
 //   ( ( m_Head == 0 ) && ( m_Tail == m_BufferLen - 1 ) )
 //
-// ÀÏ ¶§ ¹öÆÛ full ·Î °£ÁÖÇÑ´Ù´Â °ÍÀ» ÀØÁö ¸»¶ó. µû¶ó¼­, ¹öÆÛÀÇ ºó
-// °ø°£ÀÇ Å©±â´Â Ç×»ó 1 À» »©Áà¾ß ÇÑ´Ù´Â »ç½Ç!
+// ì¼ ë•Œ ë²„í¼ full ë¡œ ê°„ì£¼í•œë‹¤ëŠ” ê²ƒì„ ìŠì§€ ë§ë¼. ë”°ë¼ì„œ, ë²„í¼ì˜ ë¹ˆ
+// ê³µê°„ì˜ í¬ê¸°ëŠ” í•­ìƒ 1 ì„ ë¹¼ì¤˜ì•¼ í•œë‹¤ëŠ” ì‚¬ì‹¤!
 //
 //////////////////////////////////////////////////////////////////////
-uint SocketOutputStream::write ( const char * buf , uint len ) 
-     throw ( Error )
+uint SocketOutputStream::write ( const char * buf , uint len )
+     throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-	// ÇöÀç ¹öÆÛÀÇ ºó ¿µ¿ªÀ» °è»êÇÑ´Ù.
+	// í˜„ì¬ ë²„í¼ì˜ ë¹ˆ ì˜ì—­ì„ ê³„ì‚°í•œë‹¤.
 	uint nFree = ( ( m_Head <= m_Tail ) ?  m_BufferLen - m_Tail + m_Head - 1 : m_Head - m_Tail - 1 );
 	//m_Tail - m_Head - 1 );
 
-	// ¾µ·Á°í ÇÏ´Â µ¥ÀÌÅ¸ÀÇ Å©±â°¡ ºó ¿µ¿ªÀÇ Å©±â¸¦ ÃÊ°úÇÒ °æ¿ì ¹öÆÛ¸¦ Áõ°¡½ÃÅ²´Ù.
+	// ì“¸ë ¤ê³  í•˜ëŠ” ë°ì´íƒ€ì˜ í¬ê¸°ê°€ ë¹ˆ ì˜ì—­ì˜ í¬ê¸°ë¥¼ ì´ˆê³¼í•  ê²½ìš° ë²„í¼ë¥¼ ì¦ê°€ì‹œí‚¨ë‹¤.
 	if ( len >= nFree )
 		resize( len - nFree + 1 );
 		
@@ -136,7 +136,7 @@ void SocketOutputStream::write ( const Packet * pPacket )
 {
 	__BEGIN_TRY
 		
-	// ¿ì¼± ÆĞÅ¶¾ÆÀÌµğ¿Í ÆĞÅ¶Å©±â¸¦ Ãâ·Â¹öÆÛ·Î ¾´´Ù.
+	// ìš°ì„  íŒ¨í‚·ì•„ì´ë””ì™€ íŒ¨í‚·í¬ê¸°ë¥¼ ì¶œë ¥ë²„í¼ë¡œ ì“´ë‹¤.
 	PacketID_t packetID = pPacket->getPacketID();
 	write( (char*)&packetID , szPacketID );
 
@@ -150,11 +150,11 @@ void SocketOutputStream::write ( const Packet * pPacket )
 	PacketSize_t packetSize = pPacket->getPacketSize();
 	write( (char*)&packetSize , szPacketSize );
 	
-	// ¼ÓÈë·â°üĞòÁĞ
+	// ì†í™ë£ê´€åŸ¼ì£—
 	write( (char*)&m_Sequence, szSequenceSize);
 	m_Sequence++;
 
-	// ÀÌÁ¦ ÆĞÅ¶¹Ùµğ¸¦ Ãâ·Â¹öÆÛ·Î ¾´´Ù.
+	// ì´ì œ íŒ¨í‚·ë°”ë””ë¥¼ ì¶œë ¥ë²„í¼ë¡œ ì“´ë‹¤.
 		pPacket->write( *this );
 	
 	
@@ -265,17 +265,17 @@ void SocketOutputStream::resize ( int size )
 	
 	if ( size < 0 ) {
 		
-		// ¸¸¾à Å©±â¸¦ ÁÙÀÌ·Á´Âµ¥ ¹öÆÛ¿¡ µé¾îÀÖ´Â µ¥ÀÌÅ¸¸¦ 
-		// ´Ù ¸ø´ã¾Æ³¾ °æ¿ì 
+		// ë§Œì•½ í¬ê¸°ë¥¼ ì¤„ì´ë ¤ëŠ”ë° ë²„í¼ì— ë“¤ì–´ìˆëŠ” ë°ì´íƒ€ë¥¼ 
+		// ë‹¤ ëª»ë‹´ì•„ë‚¼ ê²½ìš° 
 		if ( newBufferLen < 0 || newBufferLen < len )
 			throw IOException("new buffer is too small!");
 		
 	} 
 	
-	// »õ ¹öÆÛ¸¦ ÇÒ´ç¹Ş´Â´Ù.
+	// ìƒˆ ë²„í¼ë¥¼ í• ë‹¹ë°›ëŠ”ë‹¤.
 	char * newBuffer = new char[ newBufferLen ];
 		
-	// ¿ø·¡ ¹öÆÛÀÇ ³»¿ëÀ» º¹»çÇÑ´Ù.
+	// ì›ë˜ ë²„í¼ì˜ ë‚´ìš©ì„ ë³µì‚¬í•œë‹¤.
 	if ( m_Head < m_Tail ) {
 
 		//
@@ -299,10 +299,10 @@ void SocketOutputStream::resize ( int size )
 
 	}
 		
-	// ¿ø·¡ ¹öÆÛ¸¦ »èÁ¦ÇÑ´Ù.
+	// ì›ë˜ ë²„í¼ë¥¼ ì‚­ì œí•œë‹¤.
 	delete [] m_Buffer;
 		
-	// ¹öÆÛ ¹× ¹öÆÛ Å©±â¸¦ Àç¼³Á¤ÇÑ´Ù.
+	// ë²„í¼ ë° ë²„í¼ í¬ê¸°ë¥¼ ì¬ì„¤ì •í•œë‹¤.
 	m_Buffer = newBuffer;
 	m_BufferLen = newBufferLen;
 	m_Head = 0;
@@ -342,8 +342,8 @@ WORD SocketOutputStream::EncryptData(WORD EncryptKey, char* buf, int len)
 		*(buf + i) ^= 0xCC;
 
 	if(m_HashTable == NULL)	return EncryptKey;
-	
-	for(i = 0; i<len; i++)
+
+	for(int i = 0; i<len; i++)
 	{
 		*(buf + i) ^= m_HashTable[EncryptKey];
 		if(++EncryptKey == 512)	EncryptKey = 0;

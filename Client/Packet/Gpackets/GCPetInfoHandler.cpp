@@ -17,7 +17,8 @@ extern void SetPetInfo(PetInfo* pPetInfo, TYPE_OBJECTID objectID);
 //
 //////////////////////////////////////////////////////////////////////
 void GCPetInfoHandler::execute ( GCPetInfo * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	

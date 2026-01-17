@@ -2,7 +2,7 @@
 
 	VS_UI_widget.h
 
-	VS UI Àü¿ë Widget.
+	VS UI ï¿½ï¿½ï¿½ï¿½ Widget.
 
 	2000.6.7. KJTINC
 
@@ -13,8 +13,44 @@
 
 #include "VS_UI_Base.h"
 #include "VS_UI_GlobalResource.h"
+#ifdef PLATFORM_WINDOWS
 #include "CImm.h"
+#endif
 #include "VS_UI_MOUSE_POINTER.h"
+#include "../widget/u_button.h"  // For EventButton, Exec, Button classes
+
+// Stub definitions for non-Windows platforms (without Immersion library)
+#ifndef PLATFORM_WINDOWS
+#include <sys/time.h>
+
+// Stub for CImm class (from Immersion library)
+class CImm {
+public:
+    enum FORCE_UI_ID {
+        FORCE_UI_DRAG,
+        FORCE_UI_WINDOW,
+        FORCE_UI_BUTTON,
+        FORCE_UI_GRID,
+        FORCE_UI_MAX,
+    };
+    void ForceUI(unsigned int ID) {}
+    bool IsDevice() { return false; }  // Stub: no device on non-Windows platforms
+    void Enable(bool enable) {}  // Stub: enable/disable device
+    void Disable() {}  // Stub: disable device
+};
+
+// Stub for global Immersion device pointer
+static CImm gpC_Imm_instance;
+#define gpC_Imm (&gpC_Imm_instance)
+
+// GetTickCount stub
+inline DWORD GetTickCount() {
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return (DWORD)(tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+
+#endif // !PLATFORM_WINDOWS
 /*
 //----------------------------------------------------------------------------
 // Button Class
@@ -93,8 +129,8 @@ public:
 					m_alpha--;
 				}
 
-				// !m_alpha = 0ÀÎ »óÅÂ¿¡¼­ ¶Ç m_alpha--°¡ µÉ ¼ö ÀÖ´Ù. ÀÌ°ÍÀº ½Ã°£Â÷¿¡ ÀÇÇØ¼­
-				// EventFocuxX°¡ µÎ¹øÀÌ»ó ½ÇÇàµÇ±â ¶§¹®ÀÌ´Ù.
+				// !m_alpha = 0ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½ m_alpha--ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½. ï¿½Ì°ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½
+				// EventFocuxXï¿½ï¿½ ï¿½Î¹ï¿½ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½Ç±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 				if (m_alpha <= 0)
 				{
 					m_alpha = 0;
@@ -132,12 +168,12 @@ class ButtonVisual
 {
 public:
 	//
-	// ÇÏ³ªÀÇ buttonÀ» ±¸º°ÇÏ±â À§ÇÑ id¿Í buttonÀÇ »óÅÂ flag¸¦ ÀÎÀÚ·Î ÇÑ´Ù.
+	// ï¿½Ï³ï¿½ï¿½ï¿½ buttonï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ idï¿½ï¿½ buttonï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ flagï¿½ï¿½ ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½Ñ´ï¿½.
 	//
 	virtual void	ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button) = 0;
 
-	// Desciption ÀÌ ÀÖ´ÂºÎºÐ¿¡¸¸ È£ÃâµÈ´Ù.
-	// ButtonGroup::ShowDescription(); À¸·Î È£ÃâÀÌ µÇ¸ç, ÇÊ¿äÇÏÁö ¾ÊÀ»°æ¿ì »ç¿ëÇÏÁö ¾Ê¾Æµµ »ó
+	// Desciption ï¿½ï¿½ ï¿½Ö´ÂºÎºÐ¿ï¿½ï¿½ï¿½ È£ï¿½ï¿½È´ï¿½.
+	// ButtonGroup::ShowDescription(); ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½, ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Æµï¿½ ï¿½ï¿½
 	virtual void	ShowButtonDescription(C_VS_UI_EVENT_BUTTON *p_button){}
 
 };
@@ -149,7 +185,7 @@ extern Button *	gpC_press_button;
 //-----------------------------------------------------------------------------
 // ButtonGroup
 //
-// C_VS_UI_BUTTON2 object¸¦ °ü¸®ÇÑ´Ù.
+// C_VS_UI_BUTTON2 objectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 class ButtonGroup : public SimpleDataList<C_VS_UI_EVENT_BUTTON *>
 {
@@ -310,9 +346,9 @@ public:
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-// ½ºÅ©·Ñ¹Ù Å¬·¡½ºÀÌ´Ù
-// ³»ºÎÀûÀ¸·Î Show¸¦ °¡Áö°í ÀÖÀ¸¸ç ±âº» ½ºÅ©·Ñ¹Ù spk¸¦ Ãâ·ÂÇÑ´Ù.
-// ´Ù¸¥ spk¸¦ »ç¿ëÇÏµµ·Ï ¼³Á¤ÇÒ¼ö ÀÖÀ¸³ª, ½ºÇÁ¶óÀÌÆ®ÀÇ ¼ø¼­´Â ±âº» spk¿Í °°¾Æ¾ß ÇÑ´Ù.
+// ï¿½ï¿½Å©ï¿½Ñ¹ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Showï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº» ï¿½ï¿½Å©ï¿½Ñ¹ï¿½ spkï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+// ï¿½Ù¸ï¿½ spkï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº» spkï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½Ñ´ï¿½.
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 class C_VS_UI_SCROLL_BAR : public Rect
@@ -806,7 +842,7 @@ public:
 		return m_pos;
 	}
 
-	void	SetPosMax(int max)	//pos_max´Â ½ºÅ©·ÑµÉ Ç×¸ñÀÇ °³¼öÀÌ´Ù. ¸¸¾à ÇÑ È­¸é¿¡ 5°³ÀÇ Ç×¸ñÀÌ ³ª¿À°í, ÃÑ 10°³ÀÇ Ç×¸ñÀÌ ÀÖ´Ù¸é ½ºÅ©·Ñ°ªÀº 0~5 ±îÁö °¡Áö¹Ç·Î pos_max == 6 ÀÌ´Ù. 
+	void	SetPosMax(int max)	//pos_maxï¿½ï¿½ ï¿½ï¿½Å©ï¿½Ñµï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È­ï¿½é¿¡ 5ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ 10ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½Å©ï¿½Ñ°ï¿½ï¿½ï¿½ 0~5 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ pos_max == 6 ï¿½Ì´ï¿½. 
 	{
 		m_pos = 0;
 		m_pos_max = max;

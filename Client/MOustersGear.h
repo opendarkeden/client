@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MOustersGear.h
 //----------------------------------------------------------------------
-// OustersÀÇ Gear¿¡ ´ëÇÑ class
+// Oustersì˜ Gearì— ëŒ€í•œ class
 //----------------------------------------------------------------------
 
 #ifndef	__MOUSTERSGEAR_H__
@@ -12,48 +12,48 @@
 class MOustersGear : public MPlayerGear	{
 	public :
 		//----------------------------------------------------
-		// QuickItem SlotÀÇ Slot ID
+		// QuickItem Slotì˜ Slot ID
 		//----------------------------------------------------
-		// (!) ID¸¦ ¹Ù²Ù¸é s_GearSlotCheckTableÀÇ ¼ø¼­µµ ¹Ù²ãÁà¾ß ÇÑ´Ù.
+		// (!) IDë¥¼ ë°”ê¾¸ë©´ s_GearSlotCheckTableì˜ ìˆœì„œë„ ë°”ê¿”ì¤˜ì•¼ í•œë‹¤.
 		//----------------------------------------------------
 		enum GEAR_OUSTERS
 		{
-			GEAR_OUSTERS_CIRCLET,			// ¼­Å¬¸´
-			GEAR_OUSTERS_COAT,				// ¿Ê
-			GEAR_OUSTERS_LEFTHAND,			// ¿Þ¼Õ
-			GEAR_OUSTERS_RIGHTHAND,			// ¿À¸¥¼Õ
-			GEAR_OUSTERS_BOOTS,				// ½Å¹ß
-			GEAR_OUSTERS_ARMSBAND1,			// ¾Ï½º¹êµå1
-			GEAR_OUSTERS_ARMSBAND2,			// ¾Ï½º¹êµå2
-			GEAR_OUSTERS_RING1,				// ¸µ1
-			GEAR_OUSTERS_RING2,				// ¸µ2
-			GEAR_OUSTERS_PENDENT1,			// ¸ñ°ÉÀÌ1
-			GEAR_OUSTERS_PENDENT2,			// ¸ñ°ÉÀÌ2
-			GEAR_OUSTERS_PENDENT3,			// ¸ñ°ÉÀÌ3
-			GEAR_OUSTERS_STONE1,			// Á¤·É¼®1
-			GEAR_OUSTERS_STONE2,			// Á¤·É¼®2
-			GEAR_OUSTERS_STONE3,			// Á¤·É¼®3
-			GEAR_OUSTERS_STONE4,			// Á¤·É¼®4
+			GEAR_OUSTERS_CIRCLET,			// ì„œí´ë¦¿
+			GEAR_OUSTERS_COAT,				// ì˜·
+			GEAR_OUSTERS_LEFTHAND,			// ì™¼ì†
+			GEAR_OUSTERS_RIGHTHAND,			// ì˜¤ë¥¸ì†
+			GEAR_OUSTERS_BOOTS,				// ì‹ ë°œ
+			GEAR_OUSTERS_ARMSBAND1,			// ì•”ìŠ¤ë°´ë“œ1
+			GEAR_OUSTERS_ARMSBAND2,			// ì•”ìŠ¤ë°´ë“œ2
+			GEAR_OUSTERS_RING1,				// ë§1
+			GEAR_OUSTERS_RING2,				// ë§2
+			GEAR_OUSTERS_PENDENT1,			// ëª©ê±¸ì´1
+			GEAR_OUSTERS_PENDENT2,			// ëª©ê±¸ì´2
+			GEAR_OUSTERS_PENDENT3,			// ëª©ê±¸ì´3
+			GEAR_OUSTERS_STONE1,			// ì •ë ¹ì„1
+			GEAR_OUSTERS_STONE2,			// ì •ë ¹ì„2
+			GEAR_OUSTERS_STONE3,			// ì •ë ¹ì„3
+			GEAR_OUSTERS_STONE4,			// ì •ë ¹ì„4
 			
-			GEAR_OUSTERS_ZAP1,				// Àì1 - Á¤·É¼®¿¡ ´ùºÙÀÌ´Â ¾ÆÀÌÅÛ
-			GEAR_OUSTERS_ZAP2,				// Àì2
-			GEAR_OUSTERS_ZAP3,				// Àì3
-			GEAR_OUSTERS_ZAP4,				// Àì4
+			GEAR_OUSTERS_ZAP1,				// ìž½1 - ì •ë ¹ì„ì— ë›ë¶™ì´ëŠ” ì•„ì´í…œ
+			GEAR_OUSTERS_ZAP2,				// ìž½2
+			GEAR_OUSTERS_ZAP3,				// ìž½3
+			GEAR_OUSTERS_ZAP4,				// ìž½4
 			//by csm 2004 12.31 add item slot
-			GEAR_OUSTERS_FASCIA,			// ½ÂÁ÷¿ë Çã¸®Àå½Ä
-	        GEAR_OUSTERS_MITTEN,			// ½ÂÁ÷¿ë Àå°©?
+			GEAR_OUSTERS_FASCIA,			// ìŠ¹ì§ìš© í—ˆë¦¬ìž¥ì‹
+	        GEAR_OUSTERS_MITTEN,			// ìŠ¹ì§ìš© ìž¥ê°‘?
 
-			GEAR_OUSTERS_BLOOD_BIBLE1,				// ºí·¯µå ¹ÙÀÌºí ½½·Ô 1 - Å¬¶óÀÌ¾ðÆ® Àü¿ë
-			GEAR_OUSTERS_BLOOD_BIBLE2,				// ºí·¯µå ¹ÙÀÌºí ½½·Ô 2
-			GEAR_OUSTERS_BLOOD_BIBLE3,				// ºí·¯µå ¹ÙÀÌºí ½½·Ô 3
-			GEAR_OUSTERS_BLOOD_BIBLE4,				// ºí·¯µå ¹ÙÀÌºí ½½·Ô 4
-			GEAR_OUSTERS_BLOOD_BIBLE5,				// ºí·¯µå ¹ÙÀÌºí ½½·Ô 5
-			GEAR_OUSTERS_BLOOD_BIBLE6,				// ºí·¯µå ¹ÙÀÌºí ½½·Ô 6
+			GEAR_OUSTERS_BLOOD_BIBLE1,				// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìŠ¬ë¡¯ 1 - í´ë¼ì´ì–¸íŠ¸ ì „ìš©
+			GEAR_OUSTERS_BLOOD_BIBLE2,				// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìŠ¬ë¡¯ 2
+			GEAR_OUSTERS_BLOOD_BIBLE3,				// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìŠ¬ë¡¯ 3
+			GEAR_OUSTERS_BLOOD_BIBLE4,				// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìŠ¬ë¡¯ 4
+			GEAR_OUSTERS_BLOOD_BIBLE5,				// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìŠ¬ë¡¯ 5
+			GEAR_OUSTERS_BLOOD_BIBLE6,				// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìŠ¬ë¡¯ 6
 			MAX_GEAR_OUSTERS
 		};	
 
 		//----------------------------------------------------
-		// Æ¯Á¤ÇÑ ºÎÀ§¿¡ ÀåÂøÇÒ ¼ö ÀÖ´Â ItemÀÎÁö È®ÀÎ
+		// íŠ¹ì •í•œ ë¶€ìœ„ì— ìž¥ì°©í•  ìˆ˜ ìžˆëŠ” Itemì¸ì§€ í™•ì¸
 		//----------------------------------------------------
 		inline static bool		IsGearSlotCirclet(MItem* pItem);
 		inline static bool		IsGearSlotCoat(MItem* pItem);
@@ -75,66 +75,66 @@ class MOustersGear : public MPlayerGear	{
 		~MOustersGear();
 
 		//------------------------------------------------
-		// ±ú²ýÇÏ°Ô~ ÃÊ±âÈ­ ½ÃÄÑ ÁØ´Ù.
+		// ê¹¨ë—í•˜ê²Œ~ ì´ˆê¸°í™” ì‹œì¼œ ì¤€ë‹¤.
 		//------------------------------------------------
 		void			Init();
 
 		//------------------------------------------------
-		// AddItem : slot(n)¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+		// AddItem : slot(n)ì— pItemì„ ì¶”ê°€í•œë‹¤.
 		//------------------------------------------------
 		bool			AddItem(MItem* pItem);
 		bool			AddItem(MItem* pItem, GEAR_OUSTERS n);
 
 		//------------------------------------------------
-		// GetItem : slot(n)ÀÇ itemÀ» ÀÐ¾î¿Â´Ù.
+		// GetItem : slot(n)ì˜ itemì„ ì½ì–´ì˜¨ë‹¤.
 		//------------------------------------------------
 		MItem*			GetItem(GEAR_OUSTERS n) const { return MSlotItemManager::GetItem( (BYTE)n ); }
 		
 		//------------------------------------------------
-		// RemoveItem : slot(n)ÀÇ itemÀ» Á¦°ÅÇÑ´Ù.
+		// RemoveItem : slot(n)ì˜ itemì„ ì œê±°í•œë‹¤.
 		//------------------------------------------------
 		MItem*			RemoveItem(GEAR_OUSTERS n);
 
 		//------------------------------------------------
-		// RemoveItem : id°¡ °°Àº itemÀ» Á¦°ÅÇÑ´Ù.
+		// RemoveItem : idê°€ ê°™ì€ itemì„ ì œê±°í•œë‹¤.
 		//------------------------------------------------
 		MItem*			RemoveItem(TYPE_OBJECTID id);
 
 		//------------------------------------------------
-		// ReplaceItem : pItemÀ» Ãß°¡ÇÏ°í µý°Ô ÀÖ´Ù¸é Item±³È¯
+		// ReplaceItem : pItemì„ ì¶”ê°€í•˜ê³  ë”´ê²Œ ìžˆë‹¤ë©´ Itemêµí™˜
 		//------------------------------------------------
 		bool			ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem);
 
 		//------------------------------------------------
-		// Can ReplaceItem : (n) slot¿¡ pItemÀ» Ãß°¡ÇÏ°Å³ª 
-		//						¿ø·¡ ÀÖ´ø Item°ú ±³Ã¼°¡ °¡´ÉÇÑ°¡?
+		// Can ReplaceItem : (n) slotì— pItemì„ ì¶”ê°€í•˜ê±°ë‚˜ 
+		//						ì›ëž˜ ìžˆë˜ Itemê³¼ êµì²´ê°€ ê°€ëŠ¥í•œê°€?
 		//------------------------------------------------
 		bool			CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem);
 
 		//------------------------------------------------------
-		// ÇöÀç »ç¿ë°¡´ÉÇÑ°Ç°¡?
+		// í˜„ìž¬ ì‚¬ìš©ê°€ëŠ¥í•œê±´ê°€?
 		//------------------------------------------------------
-		void			CheckAffectStatus(MItem* pItem);	// Æ¯Á¤ ¾ÆÀÌÅÛ
+		void			CheckAffectStatus(MItem* pItem);	// íŠ¹ì • ì•„ì´í…œ
 		
 		//------------------------------------------------
-		// GetItem : ±â¾î Ã¢¿¡¼­ pick ÇÒ¶§¸¸ »ç¿ë slot(n)ÀÇ itemÀ» ÀÐ¾î¿Â´Ù.
+		// GetItem : ê¸°ì–´ ì°½ì—ì„œ pick í• ë•Œë§Œ ì‚¬ìš© slot(n)ì˜ itemì„ ì½ì–´ì˜¨ë‹¤.
 		//------------------------------------------------
 		MItem*			GetGearItem_PickUp(int &n) const ;
 		//------------------------------------------------
-		// GetItem : ÄÚ¾îÀì ¾ÆÀÌÅÛÀÌ ´ùºÙ¿©Á® ÀÖ´ÂÁö °Ë»ç
+		// GetItem : ì½”ì–´ìž½ ì•„ì´í…œì´ ë›ë¶™ì—¬ì ¸ ìžˆëŠ”ì§€ ê²€ì‚¬
 		//------------------------------------------------
 		MItem*			GetGearCoreZapItem(int slot) const	;
 		//------------------------------------------------
-		// GetItem : ÄÚ¾îÀì ¾ÆÀÌÅÛ ¹ØÀÇ ¾ÆÀÌÅÛÀ» °Ë»ç
+		// GetItem : ì½”ì–´ìž½ ì•„ì´í…œ ë°‘ì˜ ì•„ì´í…œì„ ê²€ì‚¬
 		//------------------------------------------------
 		MItem*			GetGearCoreZapedItem(int slot) const	;
 		//------------------------------------------------
-		// GetItem : ÄÚ¾îÀìÀ» ´Ù ¸ð¾Ò´ÂÁö..
+		// GetItem : ì½”ì–´ìž½ì„ ë‹¤ ëª¨ì•˜ëŠ”ì§€..
 		//------------------------------------------------
 		const bool			IsHasAllCoreZap(int CoreZapType) const	;
 
 		//------------------------------------------------
-		// bool : ºí·¯µå ±â¾îÃ¢ÀÌ ¿­·È´ÂÁö.
+		// bool : ë¸”ëŸ¬ë“œ ê¸°ì–´ì°½ì´ ì—´ë ¸ëŠ”ì§€.
 		//------------------------------------------------
 		void			SetBloodBibleOpenSlot(int Num) { m_bBloodBibleOpenCount = Num;	}
 		BYTE			GetBloodBibleOpenSlot() { return m_bBloodBibleOpenCount;	}
@@ -142,12 +142,12 @@ class MOustersGear : public MPlayerGear	{
 
 	protected :
 		//------------------------------------------------
-		// IsGearSlot...()¿¡ ´ëÇÑ function pointer
+		// IsGearSlot...()ì— ëŒ€í•œ function pointer
 		//------------------------------------------------
 		typedef bool (*FUNCTION_GEARSLOT_CHECK)(MItem*);
 
 		//------------------------------------------------
-		// °¢ ºÎÀ§º°·Î IsGearSlot...()¿¡ ´ëÇÑ function pointer
+		// ê° ë¶€ìœ„ë³„ë¡œ IsGearSlot...()ì— ëŒ€í•œ function pointer
 		//------------------------------------------------
 		static FUNCTION_GEARSLOT_CHECK		s_GearSlotCheckTable[MAX_GEAR_OUSTERS];
 

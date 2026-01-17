@@ -14,12 +14,13 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCPhoneConnectionFailedHandler::execute ( GCPhoneConnectionFailed * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 
-	// disconnect Ãâ·Â?
+	// disconnect ì¶œë ¥?
 //	UI_PCSConnectionFailed();
 
 	__END_CATCH

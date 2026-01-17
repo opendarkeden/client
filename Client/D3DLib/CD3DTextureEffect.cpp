@@ -3,6 +3,7 @@
 //----------------------------------------------------------------------
 
 #include "CD3DTextureEffect.h"
+#include "CDirect3D.h"  // For CDirect3D::GetDevice()
 
 //----------------------------------------------------------------------
 //
@@ -11,8 +12,8 @@
 //----------------------------------------------------------------------
 CD3DTextureEffect::CD3DTextureEffect()
 {
-	// ÀÌ°Ô Á¤»óÀÌÁö ½ÍÀºµ¥..
-	// ÀÌ·¸°Ô ÇÏ´Ï±î.. ¾î¶² video card¿¡¼­´Â ¿Ü°û ºÎºÐ¿¡ ÁÙÀÌ »ý°Ü¼­.. T_T;
+	// ì´ê²Œ ì •ìƒì´ì§€ ì‹¶ì€ë°..
+	// ì´ë ‡ê²Œ í•˜ë‹ˆê¹Œ.. ì–´ë–¤ video cardì—ì„œëŠ” ì™¸ê³½ ë¶€ë¶„ì— ì¤„ì´ ìƒê²¨ì„œ.. T_T;
 	//m_TextureVertices[0] = D3DTLVERTEX(D3DVECTOR(0, 0, 0), 1, 0xffffffff, 0, 0.0f, 0.0f);
 	//m_TextureVertices[1] = D3DTLVERTEX(D3DVECTOR(1, 0, 0), 1, 0xffffffff, 0, 1.0f, 0.0f);
 	//m_TextureVertices[2] = D3DTLVERTEX(D3DVECTOR(0, 1, 0), 1, 0xffffffff, 0, 0.0f, 1.0f);
@@ -40,7 +41,7 @@ void
 CD3DTextureEffect::DrawEffect2D(RECT* pRect)
 {
 	//------------------------------------------------
-	// ÁÂÇ¥ ¼³Á¤
+	// ì¢Œí‘œ ì„¤ì •
 	//------------------------------------------------
 	m_TextureVertices[0].sx = (float)pRect->left;
 	m_TextureVertices[0].sy = (float)pRect->top;
@@ -52,7 +53,7 @@ CD3DTextureEffect::DrawEffect2D(RECT* pRect)
 	m_TextureVertices[3].sy = (float)pRect->bottom;
 	
 	//------------------------------------------------
-	// Ãâ·Â
+	// ì¶œë ¥
 	//------------------------------------------------
 	CDirect3D::GetDevice()->DrawPrimitive(D3DPT_TRIANGLESTRIP, 
 							D3DFVF_TLVERTEX, 

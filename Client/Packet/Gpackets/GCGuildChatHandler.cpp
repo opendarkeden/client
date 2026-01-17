@@ -15,11 +15,12 @@
 #include "UIFunction.h"
 //////////////////////////////////////////////////////////////////////
 //
-// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¼­¹ö·ÎºÎÅÍ ¸Ş½ÃÁö¸¦ ¹Ş¾ÒÀ»¶§ ½ÇÇàµÇ´Â ¸Ş½îµåÀÌ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì„œë²„ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ë°›ì•˜ì„ë•Œ ì‹¤í–‰ë˜ëŠ” ë©”ì˜ë“œì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void GCGuildChatHandler::execute ( GCGuildChat * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	
@@ -28,7 +29,7 @@ void GCGuildChatHandler::execute ( GCGuildChat * pPacket , Player * pPlayer )
 		char str[256];
 
 		//---------------------------------------------------------------
-		// ¿Ï¼ºÇü --> Á¶ÇÕÇü
+		// ì™„ì„±í˜• --> ì¡°í•©í˜•
 		//---------------------------------------------------------------
 		//UI_WansungToJohap( pPacket->getMessage().c_str(), str );
 	
@@ -38,20 +39,20 @@ void GCGuildChatHandler::execute ( GCGuildChat * pPacket , Player * pPlayer )
 		if (str[0] != NULL)
 		{
 			//--------------------------------------------------
-			// ³ª¿¡°Ô º¸ÀÌ´Â ±ÛÀÎ°¡?
+			// ë‚˜ì—ê²Œ ë³´ì´ëŠ” ê¸€ì¸ê°€?
 			//--------------------------------------------------
 			if (g_pChatManager->IsAcceptID( pPacket->getSender().c_str() ))
 			{
 				//--------------------------------------------------
-				// ¿å Á¦°Å
+				// ìš• ì œê±°
 				//--------------------------------------------------
 				g_pChatManager->RemoveCurse( str );
 					
 				// GUILDCHAT = 4
 				// 2004, 11, 11, sobeit modify start
-				if(0 == pPacket->getType()) // ±æµåÃª 
+				if(0 == pPacket->getType()) // ê¸¸ë“œì±— 
 					UI_AddChatToHistory( str, (char *)pPacket->getSender().c_str(), 4, pPacket->getColor() );
-				else // À¯´Ï¿Â Ãª
+				else // ìœ ë‹ˆì˜¨ ì±—
 				{
 					char szName[128];
 					sprintf(szName, "[%s]%s", pPacket->getSendGuildName().c_str(), pPacket->getSender().c_str());

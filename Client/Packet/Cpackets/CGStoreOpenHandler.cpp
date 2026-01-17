@@ -40,7 +40,7 @@ void CGStoreOpenHandler::execute (CGStoreOpen* pPacket , Player* pPlayer)
 
 	if ( pStore->isOpen() )
 	{
-		filelog("Store.log", "[%s:%s] ÀÌ¹Ì »óÁ¡ÀÌ ¿­·ÁÀÖ½À´Ï´Ù.",
+		filelog("Store.log", "[%s:%s] ì´ë¯¸ ìƒì ì´ ì—´ë ¤ìˆìŠµë‹ˆë‹¤.",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str());
 		return;
 	}

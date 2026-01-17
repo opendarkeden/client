@@ -1,13 +1,13 @@
 //-----------------------------------------------------------------------------
 // COpeningUpdate.h
 //-----------------------------------------------------------------------------
-// Opening¿¡¼­ ¸Ş½ÃÁö°¡ ¿À±â¸¦ ±â´Ù¸®´Â Loop
+// Openingì—ì„œ ë©”ì‹œì§€ê°€ ì˜¤ê¸°ë¥¼ ê¸°ë‹¤ë¦¬ëŠ” Loop
 //-----------------------------------------------------------------------------
 
 #ifndef	__COPENINGUPDATE_H__
 #define	__COPENINGUPDATE_H__
 
-#include "CWinUpdate.h"
+#include "WinLib/CWinUpdate.h"
 
 class COpeningUpdate : public CWinUpdate {
 	public :

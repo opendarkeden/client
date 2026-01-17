@@ -15,8 +15,8 @@
 	#include "Properties.h"
 	#include "MItemFinder.h"
 	#include "UserInformation.h"
-	#include "VS_UI.h"		// [»õ±â¼ú3]
-	#include "MZone.h"		// ·¹¾îÁ¸¿¡¼­ invisibility ¸ø¾²°Ô ÇÒ·Á°í
+	#include "VS_UI.h"		// [ìƒˆê¸°ìˆ 3]
+	#include "MZone.h"		// ë ˆì–´ì¡´ì—ì„œ invisibility ëª»ì“°ê²Œ í• ë ¤ê³ 
 #include "DebugInfo.h"
 
 	extern MItem* UI_GetMouseItem();
@@ -26,9 +26,9 @@
 #endif
 
 #ifdef __GAME_CLIENT__
-	bool	FileOpenBinary(const char* filename, class ifstream& file);
+	bool	FileOpenBinary(const char* filename, std::ifstream& file);
 
-	// MItem.cpp¿¡ ÀÖ´Ù.
+	// MItem.cppì— ìˆë‹¤.
 	bool	IsBombMaterial(const MItem* pItem);
 
 	bool	g_abHolyLandBonusSkills[12] = { false, };
@@ -67,29 +67,29 @@ SKILLINFO_NODE::SKILLINFO_NODE()
 	m_bPassive = false;
 	m_bActive = false;
 		
-	m_ExpLevel = 0;			// ½ºÅ³ ·¹º§
-	m_SkillExp = 0;			// ½ºÅ³ °æÇèÄ¡
+	m_ExpLevel = 0;			// ìŠ¤í‚¬ ë ˆë²¨
+	m_SkillExp = 0;			// ìŠ¤í‚¬ ê²½í—˜ì¹˜
 
 	m_LearnLevel = 100;
 	m_eSkillRace = RACE_SLAYER;
 
-	m_DelayTime = 0;		// ±â¼ú »ç¿ëÈÄ ´Ù½Ã »ç¿ë°¡´ÉÇÑ delay
-	m_AvailableTime = 0;	// ´Ù½Ã »ç¿ë °¡´ÉÇÑ ½Ã°£
+	m_DelayTime = 0;		// ê¸°ìˆ  ì‚¬ìš©í›„ ë‹¤ì‹œ ì‚¬ìš©ê°€ëŠ¥í•œ delay
+	m_AvailableTime = 0;	// ë‹¤ì‹œ ì‚¬ìš© ê°€ëŠ¥í•œ ì‹œê°„
 		
 	m_bEnable = false;	
 
-	DomainType = 0;		// ±× ±â¼úÀÌ ¾î´À µµ¸ŞÀÎ¿¡ ¼ÓÇÏ´Â°¡.
-	minDamage = 0;		// ÃÖ¼Ò µ¥¹ÌÁö ¶Ç´Â È¿°úÄ¡.
-	maxDamage = 0;		// ÃÖ´ë µ¥¹ÌÁö ¶Ç´Â È¿°úÄ¡.
-	minDelay = 0;		// ÃÖ¼Ò »ç¿ë µô·¹ÀÌ.
-	maxDelay = 0;		// ÃÖ´ë »ç¿ë µô·¹ÀÌ.
-	minCastTime = 0;	// ÃÖ¼Ò Ä³½ºÆÃ Å¸ÀÓ.
-	maxCastTime = 0;	// ÃÖ´ë Ä³½ºÆÃ Å¸ÀÓ.		
-	minDuration = 0;	// ÃÖ¼Ò Áö¼Ó ½Ã°£
-	maxDuration = 0;	// ÃÖ´ë Áö¼Ó ½Ã°£
-	minRange = 1;		// ÃÖ¼Ò »çÁ¤°Å¸®
-	maxRange = 1;		// ÃÖ´ë »çÁ¤°Å¸®
-	maxExp = 0;			// ±× ±â¼úÀÇ 100% °æÇèÄ¡. 1 È¸´ç + 1 ¾¿ ¿Ã¶ó°¨
+	DomainType = 0;		// ê·¸ ê¸°ìˆ ì´ ì–´ëŠ ë„ë©”ì¸ì— ì†í•˜ëŠ”ê°€.
+	minDamage = 0;		// ìµœì†Œ ë°ë¯¸ì§€ ë˜ëŠ” íš¨ê³¼ì¹˜.
+	maxDamage = 0;		// ìµœëŒ€ ë°ë¯¸ì§€ ë˜ëŠ” íš¨ê³¼ì¹˜.
+	minDelay = 0;		// ìµœì†Œ ì‚¬ìš© ë”œë ˆì´.
+	maxDelay = 0;		// ìµœëŒ€ ì‚¬ìš© ë”œë ˆì´.
+	minCastTime = 0;	// ìµœì†Œ ìºìŠ¤íŒ… íƒ€ì„.
+	maxCastTime = 0;	// ìµœëŒ€ ìºìŠ¤íŒ… íƒ€ì„.		
+	minDuration = 0;	// ìµœì†Œ ì§€ì† ì‹œê°„
+	maxDuration = 0;	// ìµœëŒ€ ì§€ì† ì‹œê°„
+	minRange = 1;		// ìµœì†Œ ì‚¬ì •ê±°ë¦¬
+	maxRange = 1;		// ìµœëŒ€ ì‚¬ì •ê±°ë¦¬
+	maxExp = 0;			// ê·¸ ê¸°ìˆ ì˜ 100% ê²½í—˜ì¹˜. 1 íšŒë‹¹ + 1 ì”© ì˜¬ë¼ê°
 	SkillPoint = 0;
 	LevelUpPoint = 0;
 	Fire= 0;
@@ -116,16 +116,16 @@ SKILLINFO_NODE::SaveFromFileServerSkillInfo(ofstream &file)
 	file.write((char*)&DomainType, 4);
 	m_Name.SaveToFile( file );
 	m_HName.SaveToFile( file );
-	file.write((char*)&minDamage, 4);		// ÃÖ¼Ò µ¥¹ÌÁö ¶Ç´Â È¿°úÄ¡.
-	file.write((char*)&maxDamage, 4);		// ÃÖ´ë µ¥¹ÌÁö ¶Ç´Â È¿°úÄ¡.
-	file.write((char*)&minDelay, 4);			// ÃÖ¼Ò »ç¿ë µô·¹ÀÌ.
-	file.write((char*)&maxDelay, 4);			// ÃÖ´ë »ç¿ë µô·¹ÀÌ.
-	file.write((char*)&minDuration, 4);		// ÃÖ¼Ò Ä³½ºÆÃ Å¸ÀÓ.
-	file.write((char*)&maxDuration, 4);		// ÃÖ´ë Ä³½ºÆÃ Å¸ÀÓ.
-	file.write((char*)&m_MP, 4);					// ¸¶³ª ¼Ò¸ğ·®.(m_MP)
-	file.write((char*)&minRange, 4);			// ÃÖ¼Ò »çÁ¤°Å¸®
-	file.write((char*)&maxRange, 4);			// ÃÖ´ë »çÁ¤°Å¸®
-	file.write((char*)&maxExp, 4);			// ±× ±â¼úÀÇ 100% °æÇèÄ¡. 1 È¸´ç + 1 ¾¿ ¿Ã¶ó°¨	
+	file.write((char*)&minDamage, 4);		// ìµœì†Œ ë°ë¯¸ì§€ ë˜ëŠ” íš¨ê³¼ì¹˜.
+	file.write((char*)&maxDamage, 4);		// ìµœëŒ€ ë°ë¯¸ì§€ ë˜ëŠ” íš¨ê³¼ì¹˜.
+	file.write((char*)&minDelay, 4);			// ìµœì†Œ ì‚¬ìš© ë”œë ˆì´.
+	file.write((char*)&maxDelay, 4);			// ìµœëŒ€ ì‚¬ìš© ë”œë ˆì´.
+	file.write((char*)&minDuration, 4);		// ìµœì†Œ ìºìŠ¤íŒ… íƒ€ì„.
+	file.write((char*)&maxDuration, 4);		// ìµœëŒ€ ìºìŠ¤íŒ… íƒ€ì„.
+	file.write((char*)&m_MP, 4);					// ë§ˆë‚˜ ì†Œëª¨ëŸ‰.(m_MP)
+	file.write((char*)&minRange, 4);			// ìµœì†Œ ì‚¬ì •ê±°ë¦¬
+	file.write((char*)&maxRange, 4);			// ìµœëŒ€ ì‚¬ì •ê±°ë¦¬
+	file.write((char*)&maxExp, 4);			// ê·¸ ê¸°ìˆ ì˜ 100% ê²½í—˜ì¹˜. 1 íšŒë‹¹ + 1 ì”© ì˜¬ë¼ê°	
 	
 	if(DomainType == SKILLDOMAIN_OUSTERS)
 	{
@@ -166,7 +166,7 @@ SKILLINFO_NODE::SaveFromFileServerSkillInfo(ofstream &file)
 // Load From File ServerSkillInfo
 //----------------------------------------------------------------------
 void		
-SKILLINFO_NODE::LoadFromFileServerSkillInfo(class ifstream& file)
+SKILLINFO_NODE::LoadFromFileServerSkillInfo(std::ifstream& file)
 {
 	int ll;
 	MString name;
@@ -177,16 +177,16 @@ SKILLINFO_NODE::LoadFromFileServerSkillInfo(class ifstream& file)
 	file.read((char*)&DomainType, 4);
 	name.LoadFromFile( file );
 	hname.LoadFromFile( file );
-	file.read((char*)&minDamage, 4);		// ÃÖ¼Ò µ¥¹ÌÁö ¶Ç´Â È¿°úÄ¡.
-	file.read((char*)&maxDamage, 4);		// ÃÖ´ë µ¥¹ÌÁö ¶Ç´Â È¿°úÄ¡.
-	file.read((char*)&minDelay, 4);			// ÃÖ¼Ò »ç¿ë µô·¹ÀÌ.
-	file.read((char*)&maxDelay, 4);			// ÃÖ´ë »ç¿ë µô·¹ÀÌ.
-	file.read((char*)&minDuration, 4);		// ÃÖ¼Ò Ä³½ºÆÃ Å¸ÀÓ.
-	file.read((char*)&maxDuration, 4);		// ÃÖ´ë Ä³½ºÆÃ Å¸ÀÓ.
-	file.read((char*)&mp, 4);					// ¸¶³ª ¼Ò¸ğ·®.(m_MP)
-	file.read((char*)&minRange, 4);			// ÃÖ¼Ò »çÁ¤°Å¸®
-	file.read((char*)&maxRange, 4);			// ÃÖ´ë »çÁ¤°Å¸®
-	file.read((char*)&maxExp, 4);			// ±× ±â¼úÀÇ 100% °æÇèÄ¡. 1 È¸´ç + 1 ¾¿ ¿Ã¶ó°¨	
+	file.read((char*)&minDamage, 4);		// ìµœì†Œ ë°ë¯¸ì§€ ë˜ëŠ” íš¨ê³¼ì¹˜.
+	file.read((char*)&maxDamage, 4);		// ìµœëŒ€ ë°ë¯¸ì§€ ë˜ëŠ” íš¨ê³¼ì¹˜.
+	file.read((char*)&minDelay, 4);			// ìµœì†Œ ì‚¬ìš© ë”œë ˆì´.
+	file.read((char*)&maxDelay, 4);			// ìµœëŒ€ ì‚¬ìš© ë”œë ˆì´.
+	file.read((char*)&minDuration, 4);		// ìµœì†Œ ìºìŠ¤íŒ… íƒ€ì„.
+	file.read((char*)&maxDuration, 4);		// ìµœëŒ€ ìºìŠ¤íŒ… íƒ€ì„.
+	file.read((char*)&mp, 4);					// ë§ˆë‚˜ ì†Œëª¨ëŸ‰.(m_MP)
+	file.read((char*)&minRange, 4);			// ìµœì†Œ ì‚¬ì •ê±°ë¦¬
+	file.read((char*)&maxRange, 4);			// ìµœëŒ€ ì‚¬ì •ê±°ë¦¬
+	file.read((char*)&maxExp, 4);			// ê·¸ ê¸°ìˆ ì˜ 100% ê²½í—˜ì¹˜. 1 íšŒë‹¹ + 1 ì”© ì˜¬ë¼ê°	
 	
 	if(DomainType == SKILLDOMAIN_OUSTERS)
 	{
@@ -229,25 +229,25 @@ SKILLINFO_NODE::LoadFromFileServerSkillInfo(class ifstream& file)
 //----------------------------------------------------------------------
 // Add NextSkill
 //----------------------------------------------------------------------
-// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Â SkillµéÀ» ¼³Á¤ÇÑ´Ù.
+// ë‹¤ìŒì— ë°°ìš¸ ìˆ˜ ìˆëŠ” Skillë“¤ì„ ì„¤ì •í•œë‹¤.
 //----------------------------------------------------------------------
 bool			
 SKILLINFO_NODE::AddNextSkill(ACTIONINFO id)
 {
 	SKILLID_LIST::iterator iSkill = m_listNextSkill.begin();
 
-	// sortÇØ¼­ addÇÑ´Ù.
+	// sortí•´ì„œ addí•œë‹¤.
 	while (iSkill != m_listNextSkill.end())
 	{
-		// ÀÌ¹Ì ÀÖÀ¸¸é Ãß°¡ ºÒ°¡
+		// ì´ë¯¸ ìˆìœ¼ë©´ ì¶”ê°€ ë¶ˆê°€
 		if (*iSkill==id)
 		{
 			return false;
 		}
-		// Å«°Å ¾Õ¿¡..
+		// í°ê±° ì•ì—..
 		else if (*iSkill > id)
 		{
-			// ¾Õ¿¡ Ãß°¡ÇÑ´Ù.
+			// ì•ì— ì¶”ê°€í•œë‹¤.
 			m_listNextSkill.insert( iSkill, id );
 
 			return true;
@@ -265,23 +265,23 @@ SKILLINFO_NODE::AddNextSkill(ACTIONINFO id)
 // Save To File
 //----------------------------------------------------------------------
 void		
-SKILLINFO_NODE::SaveToFile(class ofstream& file)
+SKILLINFO_NODE::SaveToFile(std::ofstream& file)
 {
 
-	m_Name.SaveToFile( file );							// ±â¼ú ÀÌ¸§
+	m_Name.SaveToFile( file );							// ê¸°ìˆ  ì´ë¦„
 	m_HName.SaveToFile( file );
 	file.write((const char*)&m_Level, 4);
 	file.write((const char*)&m_X, 4);
-	file.write((const char*)&m_Y, 4);					// È­¸é¿¡¼­ÀÇ Ãâ·Â ½ÃÀÛ À§Ä¡
-	file.write((const char*)&m_SpriteID, SIZE_SPRITEID);	// ±â¼úÀÇ Icon Sprite
-	file.write((const char*)&m_MP, 4);				// MP¼Òºñ·®
-	file.write((const char*)&m_bPassive, 1);		// passive skillÀÎ°¡?
-	file.write((const char*)&m_bActive, 1);			// Ç×»ó »ç¿ë °¡´ÉÇÑ skillÀÎ°¡?
+	file.write((const char*)&m_Y, 4);					// í™”ë©´ì—ì„œì˜ ì¶œë ¥ ì‹œì‘ ìœ„ì¹˜
+	file.write((const char*)&m_SpriteID, SIZE_SPRITEID);	// ê¸°ìˆ ì˜ Icon Sprite
+	file.write((const char*)&m_MP, 4);				// MPì†Œë¹„ëŸ‰
+	file.write((const char*)&m_bPassive, 1);		// passive skillì¸ê°€?
+	file.write((const char*)&m_bActive, 1);			// í•­ìƒ ì‚¬ìš© ê°€ëŠ¥í•œ skillì¸ê°€?
 
 	BYTE skillStep = m_SkillStep;
 	file.write((const char*)&skillStep, 1);
 
-	// id list ÀúÀå
+	// id list ì €ì¥
 	int idNum = m_listNextSkill.size();
 	file.write((const char*)&idNum, 4);
 	SKILLID_LIST::const_iterator iSkillID = m_listNextSkill.begin();
@@ -300,17 +300,17 @@ SKILLINFO_NODE::SaveToFile(class ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void		
-SKILLINFO_NODE::LoadFromFile(class ifstream& file)
+SKILLINFO_NODE::LoadFromFile(std::ifstream& file)
 {
-	m_Name.LoadFromFile( file );					// ±â¼ú ÀÌ¸§
+	m_Name.LoadFromFile( file );					// ê¸°ìˆ  ì´ë¦„
 	m_HName.LoadFromFile( file );
 	file.read((char*)&m_Level, 4);
 	file.read((char*)&m_X, 4);
-	file.read((char*)&m_Y, 4);						// È­¸é¿¡¼­ÀÇ Ãâ·Â ½ÃÀÛ À§Ä¡
-	file.read((char*)&m_SpriteID, SIZE_SPRITEID);	// ±â¼úÀÇ Icon Sprite
-	file.read((char*)&m_MP, 4);						// MP¼Òºñ·®
-	file.read((char*)&m_bPassive, 1);				// passive ½ºÅ³?
-	file.read((char*)&m_bActive, 1);				// Ç×»ó »ç¿ë °¡´ÉÇÑ skillÀÎ°¡?
+	file.read((char*)&m_Y, 4);						// í™”ë©´ì—ì„œì˜ ì¶œë ¥ ì‹œì‘ ìœ„ì¹˜
+	file.read((char*)&m_SpriteID, SIZE_SPRITEID);	// ê¸°ìˆ ì˜ Icon Sprite
+	file.read((char*)&m_MP, 4);						// MPì†Œë¹„ëŸ‰
+	file.read((char*)&m_bPassive, 1);				// passive ìŠ¤í‚¬?
+	file.read((char*)&m_bActive, 1);				// í•­ìƒ ì‚¬ìš© ê°€ëŠ¥í•œ skillì¸ê°€?
 
 	BYTE skillStep;
 	file.read((char*)&skillStep, 1);
@@ -329,19 +329,19 @@ SKILLINFO_NODE::LoadFromFile(class ifstream& file)
 		m_listNextSkill.push_back( (ACTIONINFO)id );
 	}	
 
-	// ¹è¿î level
+	// ë°°ìš´ level
 	m_ExpLevel = 0;
 }	
 
 //----------------------------------------------------------------------
 // Set DelayTime ( delay )
 //----------------------------------------------------------------------
-// ±â¼ú »ç¿ëÈÄ ´Ù½Ã »ç¿ëÇÒ ¼ö ÀÖ´Â delay½Ã°£ ¼³Á¤
+// ê¸°ìˆ  ì‚¬ìš©í›„ ë‹¤ì‹œ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” delayì‹œê°„ ì„¤ì •
 //----------------------------------------------------------------------
 void
 SKILLINFO_NODE::SetDelayTime(DWORD delay)		
 {
-	// 3ÃÊ ÀÌÇÏ ±â¼úÀº delay°¡ ¾ø´Â °É·Î Ç¥½ÃÇÑ´Ù.
+	// 3ì´ˆ ì´í•˜ ê¸°ìˆ ì€ delayê°€ ì—†ëŠ” ê±¸ë¡œ í‘œì‹œí•œë‹¤.
 	if (delay < 1800)
 	{
 		delay = 0;
@@ -353,7 +353,7 @@ SKILLINFO_NODE::SetDelayTime(DWORD delay)
 //----------------------------------------------------------------------
 // Is AvailableTime ?
 //----------------------------------------------------------------------
-// Áö±İ »ç¿ë °¡´ÉÇÑ°¡?
+// ì§€ê¸ˆ ì‚¬ìš© ê°€ëŠ¥í•œê°€?
 //----------------------------------------------------------------------
 bool
 SKILLINFO_NODE::IsAvailableTime() const		
@@ -368,7 +368,7 @@ SKILLINFO_NODE::IsAvailableTime() const
 //----------------------------------------------------------------------
 // Get AvailableTimeLeft
 //----------------------------------------------------------------------
-// ³²Àº »ç¿ë °¡´É ½Ã°£
+// ë‚¨ì€ ì‚¬ìš© ê°€ëŠ¥ ì‹œê°„
 //----------------------------------------------------------------------
 DWORD				
 SKILLINFO_NODE::GetAvailableTimeLeft() const
@@ -388,12 +388,12 @@ SKILLINFO_NODE::GetAvailableTimeLeft() const
 //----------------------------------------------------------------------
 // Set AvailableTime
 //----------------------------------------------------------------------
-// Áö±İ ¹Ù·Î »ç¿ë °¡´ÉÇÏ°Ô ¼³Á¤ÇÑ´Ù.
+// ì§€ê¸ˆ ë°”ë¡œ ì‚¬ìš© ê°€ëŠ¥í•˜ê²Œ ì„¤ì •í•œë‹¤.
 //----------------------------------------------------------------------
 void
 SKILLINFO_NODE::SetAvailableTime(int delay)
 {
-	// ±ò²ûÇÏ°Ô 0À¸·Î.. - -;
+	// ê¹”ë”í•˜ê²Œ 0ìœ¼ë¡œ.. - -;
 	#ifdef __GAME_CLIENT__
 	if(delay == 0)
 		m_AvailableTime = 0;	//g_CurrentTime;
@@ -405,13 +405,13 @@ SKILLINFO_NODE::SetAvailableTime(int delay)
 //----------------------------------------------------------------------
 // Set Next AvailableTime
 //----------------------------------------------------------------------
-// ´ÙÀ½ »ç¿ë °¡´ÉÇÑ ½Ã°£À» °áÁ¤ÇÑ´Ù.
+// ë‹¤ìŒ ì‚¬ìš© ê°€ëŠ¥í•œ ì‹œê°„ì„ ê²°ì •í•œë‹¤.
 //----------------------------------------------------------------------
 void
 SKILLINFO_NODE::SetNextAvailableTime()
 {
 	#ifdef __GAME_CLIENT__
-		// ÇöÀç½Ã°£¿¡¼­ delayTimeÈÄ¿¡´Â »ç¿ë °¡´ÉÇÏ´Ù.
+		// í˜„ì¬ì‹œê°„ì—ì„œ delayTimeí›„ì—ëŠ” ì‚¬ìš© ê°€ëŠ¥í•˜ë‹¤.
 		m_AvailableTime = g_CurrentTime + m_DelayTime;
 	#endif
 }
@@ -452,7 +452,7 @@ MSkillSet::AddSkill(ACTIONINFO id, BYTE flag)
 	iSkill = find( id );
 	
 	//-----------------------------------------------
-	// ¾ÆÁ÷ ¾ø´Â SkillÀÌ¸é Ãß°¡	
+	// ì•„ì§ ì—†ëŠ” Skillì´ë©´ ì¶”ê°€	
 	//-----------------------------------------------
 	if (iSkill == end())
 	{
@@ -462,7 +462,7 @@ MSkillSet::AddSkill(ACTIONINFO id, BYTE flag)
 	}
 	
 	//-----------------------------------------------
-	// ÀÌ¹Ì ÀÖ´Ù¸é flag¸¸ ¹Ù²Û´Ù.
+	// ì´ë¯¸ ìˆë‹¤ë©´ flagë§Œ ë°”ê¾¼ë‹¤.
 	//-----------------------------------------------
 	SKILLID_NODE& node = (*iSkill).second;
 	
@@ -474,7 +474,7 @@ MSkillSet::AddSkill(ACTIONINFO id, BYTE flag)
 //----------------------------------------------------------------------
 // Remove Skill
 //----------------------------------------------------------------------
-// SkillID Á¦°Å
+// SkillID ì œê±°
 //----------------------------------------------------------------------
 bool			
 MSkillSet::RemoveSkill(ACTIONINFO id)
@@ -482,12 +482,12 @@ MSkillSet::RemoveSkill(ACTIONINFO id)
 	SKILLID_MAP::iterator	iSkill;
 
 	//--------------------------------------------------
-	// ID°¡ idÀÎ Skill¸¦ Ã£´Â´Ù.
+	// IDê°€ idì¸ Skillë¥¼ ì°¾ëŠ”ë‹¤.
 	//--------------------------------------------------
 	iSkill = find(id);
     
 	//--------------------------------------------------
-	// ±×·± id¸¦ °¡Áø SkillÀÌ ¾ø´Â °æ¿ì
+	// ê·¸ëŸ° idë¥¼ ê°€ì§„ Skillì´ ì—†ëŠ” ê²½ìš°
 	//--------------------------------------------------
 	if (iSkill == end())
 	{
@@ -495,9 +495,9 @@ MSkillSet::RemoveSkill(ACTIONINFO id)
 	}
 
 	//--------------------------------------------------
-	// Ã£Àº °æ¿ì --> Á¦°Å	
+	// ì°¾ì€ ê²½ìš° --> ì œê±°	
 	//--------------------------------------------------
-	// map¿¡¼­ Á¦°Å
+	// mapì—ì„œ ì œê±°
 	erase( iSkill );
 
 	return true;
@@ -506,7 +506,7 @@ MSkillSet::RemoveSkill(ACTIONINFO id)
 //----------------------------------------------------------------------
 // Is Enable Skill?
 //----------------------------------------------------------------------
-// idÀÇ skillÀÌ »ç¿ë °¡´ÉÇÑ°¡?
+// idì˜ skillì´ ì‚¬ìš© ê°€ëŠ¥í•œê°€?
 //----------------------------------------------------------------------
 bool			
 MSkillSet::IsEnableSkill(ACTIONINFO id) const
@@ -514,12 +514,12 @@ MSkillSet::IsEnableSkill(ACTIONINFO id) const
 	SKILLID_MAP::const_iterator		iSkill;
 
 	//--------------------------------------------------
-	// ID°¡ idÀÎ Skill¸¦ Ã£´Â´Ù.
+	// IDê°€ idì¸ Skillë¥¼ ì°¾ëŠ”ë‹¤.
 	//--------------------------------------------------
 	iSkill = find(id);
     
 	//--------------------------------------------------
-	// ±×·± id¸¦ °¡Áø SkillÀÌ ¾ø´Â °æ¿ì
+	// ê·¸ëŸ° idë¥¼ ê°€ì§„ Skillì´ ì—†ëŠ” ê²½ìš°
 	//--------------------------------------------------
 	if (iSkill == end())
 	{
@@ -527,7 +527,7 @@ MSkillSet::IsEnableSkill(ACTIONINFO id) const
 	}
 
 	//--------------------------------------------------
-	// Ã£Àº °æ¿ì --> Is enable?
+	// ì°¾ì€ ê²½ìš° --> Is enable?
 	//--------------------------------------------------
 			
 	return ((*iSkill).second).IsEnable()!=0;	
@@ -542,12 +542,12 @@ MSkillSet::EnableSkill(ACTIONINFO id)
 	SKILLID_MAP::iterator	iSkill;
 
 	//--------------------------------------------------
-	// ID°¡ idÀÎ Skill¸¦ Ã£´Â´Ù.
+	// IDê°€ idì¸ Skillë¥¼ ì°¾ëŠ”ë‹¤.
 	//--------------------------------------------------
 	iSkill = find(id);
     
 	//--------------------------------------------------
-	// ±×·± id¸¦ °¡Áø SkillÀÌ ¾ø´Â °æ¿ì
+	// ê·¸ëŸ° idë¥¼ ê°€ì§„ Skillì´ ì—†ëŠ” ê²½ìš°
 	//--------------------------------------------------
 	if (iSkill == end())
 	{
@@ -555,9 +555,9 @@ MSkillSet::EnableSkill(ACTIONINFO id)
 	}
 
 	//--------------------------------------------------
-	// Ã£Àº °æ¿ì --> enable
+	// ì°¾ì€ ê²½ìš° --> enable
 	//--------------------------------------------------
-	// map¿¡¼­ Á¦°Å
+	// mapì—ì„œ ì œê±°
 	((*iSkill).second).SetEnable();
 
 	return true;
@@ -572,12 +572,12 @@ MSkillSet::DisableSkill(ACTIONINFO id)
 	SKILLID_MAP::iterator	iSkill;
 
 	//--------------------------------------------------
-	// ID°¡ idÀÎ Skill¸¦ Ã£´Â´Ù.
+	// IDê°€ idì¸ Skillë¥¼ ì°¾ëŠ”ë‹¤.
 	//--------------------------------------------------
 	iSkill = find(id);
     
 	//--------------------------------------------------
-	// ±×·± id¸¦ °¡Áø SkillÀÌ ¾ø´Â °æ¿ì
+	// ê·¸ëŸ° idë¥¼ ê°€ì§„ Skillì´ ì—†ëŠ” ê²½ìš°
 	//--------------------------------------------------
 	if (iSkill == end())
 	{
@@ -585,9 +585,9 @@ MSkillSet::DisableSkill(ACTIONINFO id)
 	}
 
 	//--------------------------------------------------
-	// Ã£Àº °æ¿ì --> enable
+	// ì°¾ì€ ê²½ìš° --> enable
 	//--------------------------------------------------
-	// map¿¡¼­ Á¦°Å
+	// mapì—ì„œ ì œê±°
 	((*iSkill).second).SetDisable();
 
 	return true;
@@ -596,12 +596,12 @@ MSkillSet::DisableSkill(ACTIONINFO id)
 //----------------------------------------------------------------------
 // Set Avaliable Skills
 //----------------------------------------------------------------------
-// ÇöÀç »ç¿ë °¡´ÉÇÑ ¸ğµç skillµéÀ» Ã£¾Æ¼­ Ãß°¡ÇÑ´Ù.
+// í˜„ì¬ ì‚¬ìš© ê°€ëŠ¥í•œ ëª¨ë“  skillë“¤ì„ ì°¾ì•„ì„œ ì¶”ê°€í•œë‹¤.
 //
-// - ÇöÀç µé°í ÀÖ´Â ¹«±â¸¦ º¸°í
-//   SkillTree¿¡¼­ ÀûÀıÇÑ domainÀ» ¸ğµÎ enable / ³ª¸ÓÁö´Â disable
-// - inventory¿¡¼­ skill¿¡ °ü·ÃµÈ ±â¼úÀ» Ã£´Â´Ù.
-// - ±âÅ¸.. skill ?
+// - í˜„ì¬ ë“¤ê³  ìˆëŠ” ë¬´ê¸°ë¥¼ ë³´ê³ 
+//   SkillTreeì—ì„œ ì ì ˆí•œ domainì„ ëª¨ë‘ enable / ë‚˜ë¨¸ì§€ëŠ” disable
+// - inventoryì—ì„œ skillì— ê´€ë ¨ëœ ê¸°ìˆ ì„ ì°¾ëŠ”ë‹¤.
+// - ê¸°íƒ€.. skill ?
 //----------------------------------------------------------------------
 void
 MSkillSet::SetAvailableSkills()
@@ -618,7 +618,7 @@ MSkillSet::SetAvailableSkills()
 	}
 
 	//--------------------------------------------------
-	// playerÀÇ ÇöÀç MP
+	// playerì˜ í˜„ì¬ MP
 	//--------------------------------------------------
 	int playerMP;		
 	BYTE flag;
@@ -627,7 +627,7 @@ MSkillSet::SetAvailableSkills()
 	{
 		playerMP = g_pPlayer->GetMP();	
 
-		// EFFECTSTATUS_SACRIFICE »ç¿ëÁßÀÌ¸é HP 1ÀÌ MP 2°¡ µÈ´Ù.
+		// EFFECTSTATUS_SACRIFICE ì‚¬ìš©ì¤‘ì´ë©´ HP 1ì´ MP 2ê°€ ëœë‹¤.
 		if (g_pPlayer->HasEffectStatus(EFFECTSTATUS_SACRIFICE))
 		{
 			playerMP += (g_pPlayer->GetHP() << 1);
@@ -635,11 +635,11 @@ MSkillSet::SetAvailableSkills()
 	}
 	else
 	{
-		// vampireÀÎ °æ¿ì´Â HP¸¦ MP´ë½Å¿¡ ¾´´Ù.
+		// vampireì¸ ê²½ìš°ëŠ” HPë¥¼ MPëŒ€ì‹ ì— ì“´ë‹¤.
 		playerMP = g_pPlayer->GetHP();	
 	}
 
-	// ¸ğµç skillµéÀ» Áö¿î´Ù.
+	// ëª¨ë“  skillë“¤ì„ ì§€ìš´ë‹¤.
 	clear();
 	
 	if( g_pZone != NULL && g_pZone->GetID() == 3001 )
@@ -648,7 +648,7 @@ MSkillSet::SetAvailableSkills()
 
 	//-----------------------------------------------------
 	//
-	//					slayerÀÎ °æ¿ì
+	//					slayerì¸ ê²½ìš°
 	//
 	//-----------------------------------------------------
 	switch(g_pPlayer->GetRace())
@@ -660,7 +660,7 @@ MSkillSet::SetAvailableSkills()
 			{
 				return;
 			}
-			// 2004, 9, 16, sobeit add start - ÀÎ½ºÅç ÅÍ·¿ÀÏ¶§ ½ºÅ³ Á¤º¸ °»½Å
+			// 2004, 9, 16, sobeit add start - ì¸ìŠ¤í†¨ í„°ë ›ì¼ë•Œ ìŠ¤í‚¬ ì •ë³´ ê°±ì‹ 
 			if(g_pPlayer->HasEffectStatus(EFFECTSTATUS_INSTALL_TURRET))
 			{
 				insert(SKILLID_MAP::value_type( MAGIC_UN_TRANSFORM, SKILLID_NODE(MAGIC_UN_TRANSFORM, FLAG_SKILL_ENABLE) ));
@@ -671,19 +671,19 @@ MSkillSet::SetAvailableSkills()
 				insert(SKILLID_MAP::value_type( SKILL_VIVID_MAGAZINE, SKILLID_NODE(SKILL_VIVID_MAGAZINE, FLAG_SKILL_ENABLE) ));
 				return;
 			}
-			// 2004, 9, 16, sobeit add end - ÀÎ½ºÅç ÅÍ·¿ÀÏ¶§ ½ºÅ³ Á¤º¸ °»½Å
+			// 2004, 9, 16, sobeit add end - ì¸ìŠ¤í†¨ í„°ë ›ì¼ë•Œ ìŠ¤í‚¬ ì •ë³´ ê°±ì‹ 
 			//-----------------------------------------------------
 			//
-			// Domain¿¡ µû¸¥ enable Ã¼Å©..
+			// Domainì— ë”°ë¥¸ enable ì²´í¬..
 			//
 			//-----------------------------------------------------
 			BYTE fDomain[MAX_SKILLDOMAIN];
 			
-			// ÇöÀç µé°í ÀÖ´Â item
+			// í˜„ì¬ ë“¤ê³  ìˆëŠ” item
 			const MItem* pItem = (*g_pSlayerGear).GetItem( (MSlayerGear::GEAR_SLAYER)MSlayerGear::GEAR_SLAYER_RIGHTHAND );
 
 			//-----------------------------------------------------
-			// gun/sword/blade ¸¸ Ã¼Å©ÇÏ¸é µÈ´Ù.
+			// gun/sword/blade ë§Œ ì²´í¬í•˜ë©´ ëœë‹¤.
 			//-----------------------------------------------------
 			fDomain[SKILLDOMAIN_GUN]	= 0;
 			fDomain[SKILLDOMAIN_BLADE]	= 0;
@@ -692,21 +692,21 @@ MSkillSet::SetAvailableSkills()
 			if (pItem!=NULL && pItem->IsAffectStatus())
 			{	
 				//-----------------------------------------------------
-				// ÃÑÀÌ¸é.. ÃÑ¸¸ enable
+				// ì´ì´ë©´.. ì´ë§Œ enable
 				//-----------------------------------------------------
 				if (pItem->IsGunItem())
 				{
 					fDomain[SKILLDOMAIN_GUN]	= FLAG_SKILL_ENABLE;
 				}
 				//-----------------------------------------------------
-				// swordÀÌ¸é sword¸¸ enable
+				// swordì´ë©´ swordë§Œ enable
 				//-----------------------------------------------------
 				else if (pItem->GetItemClass()==ITEM_CLASS_SWORD)
 				{
 					fDomain[SKILLDOMAIN_SWORD]	= FLAG_SKILL_ENABLE;
 				}
 				//-----------------------------------------------------
-				// bladeÀÌ¸é blade¸¸ enable
+				// bladeì´ë©´ bladeë§Œ enable
 				//-----------------------------------------------------
 				else if (pItem->GetItemClass()==ITEM_CLASS_BLADE)
 				{
@@ -716,7 +716,7 @@ MSkillSet::SetAvailableSkills()
 			
 			//-----------------------------------------------------
 			//
-			// SkillTree °Ë»ö
+			// SkillTree ê²€ìƒ‰
 			//
 			//-----------------------------------------------------
 			//-----------------------------------------------------
@@ -729,7 +729,7 @@ MSkillSet::SetAvailableSkills()
 			{
 				MSkillDomain::SKILLSTATUS	status	= bladeDomain.GetSkillStatus();
 
-				// ¹è¿üÀ¸¸é..
+				// ë°°ì› ìœ¼ë©´..
 				if (status == MSkillDomain::SKILLSTATUS_LEARNED)
 				{
 					ACTIONINFO id = bladeDomain.GetSkillID();
@@ -751,7 +751,7 @@ MSkillSet::SetAvailableSkills()
 					insert(SKILLID_MAP::value_type( id, SKILLID_NODE(id, flag) ));
 				}
 
-				// ´ÙÀ½
+				// ë‹¤ìŒ
 				bladeDomain.Next();
 			}
 
@@ -765,7 +765,7 @@ MSkillSet::SetAvailableSkills()
 			{
 				MSkillDomain::SKILLSTATUS	status	= swordDomain.GetSkillStatus();
 
-				// ¹è¿üÀ¸¸é..
+				// ë°°ì› ìœ¼ë©´..
 				if (status == MSkillDomain::SKILLSTATUS_LEARNED)
 				{
 					ACTIONINFO id = swordDomain.GetSkillID();
@@ -787,7 +787,7 @@ MSkillSet::SetAvailableSkills()
 					insert(SKILLID_MAP::value_type( id, SKILLID_NODE(id, flag) ));
 				}
 
-				// ´ÙÀ½
+				// ë‹¤ìŒ
 				swordDomain.Next();
 			}
 
@@ -801,7 +801,7 @@ MSkillSet::SetAvailableSkills()
 			{
 				MSkillDomain::SKILLSTATUS	status	= gunDomain.GetSkillStatus();
 				
-				// ¹è¿üÀ¸¸é..
+				// ë°°ì› ìœ¼ë©´..
 				if (status == MSkillDomain::SKILLSTATUS_LEARNED)
 				{
 					ACTIONINFO id = gunDomain.GetSkillID();
@@ -823,12 +823,12 @@ MSkillSet::SetAvailableSkills()
 					insert(SKILLID_MAP::value_type( id, SKILLID_NODE(id, flag) ));
 				}
 
-				// ´ÙÀ½
+				// ë‹¤ìŒ
 				gunDomain.Next();
 			}
 
 			//-----------------------------------------------------
-			// Enchant - ±×³É ¸ğµÎ Ãß°¡ÇÏ¸é µÈ´Ù.
+			// Enchant - ê·¸ëƒ¥ ëª¨ë‘ ì¶”ê°€í•˜ë©´ ëœë‹¤.
 			//-----------------------------------------------------
 			MSkillDomain& enchantDomain = (*g_pSkillManager)[SKILLDOMAIN_ENCHANT];
 
@@ -837,7 +837,7 @@ MSkillSet::SetAvailableSkills()
 			{
 				MSkillDomain::SKILLSTATUS	status	= enchantDomain.GetSkillStatus();
 
-				// ¹è¿üÀ¸¸é..
+				// ë°°ì› ìœ¼ë©´..
 				if (status == MSkillDomain::SKILLSTATUS_LEARNED)
 				{
 					ACTIONINFO id = enchantDomain.GetSkillID();
@@ -854,13 +854,13 @@ MSkillSet::SetAvailableSkills()
 					insert(SKILLID_MAP::value_type( id, SKILLID_NODE(id, flag) ));
 				}
 
-				// ´ÙÀ½
+				// ë‹¤ìŒ
 				enchantDomain.Next();
 			}
 
 			
 			//-----------------------------------------------------
-			// Heal - ±×³É ¸ğµÎ Ãß°¡ÇÏ¸é µÈ´Ù.
+			// Heal - ê·¸ëƒ¥ ëª¨ë‘ ì¶”ê°€í•˜ë©´ ëœë‹¤.
 			//-----------------------------------------------------
 			MSkillDomain& healDomain = (*g_pSkillManager)[SKILLDOMAIN_HEAL];
 
@@ -869,7 +869,7 @@ MSkillSet::SetAvailableSkills()
 			{
 				MSkillDomain::SKILLSTATUS	status	= healDomain.GetSkillStatus();
 
-				// ¹è¿üÀ¸¸é..
+				// ë°°ì› ìœ¼ë©´..
 				if (status == MSkillDomain::SKILLSTATUS_LEARNED)
 				{
 					ACTIONINFO id = healDomain.GetSkillID();
@@ -886,12 +886,12 @@ MSkillSet::SetAvailableSkills()
 					insert(SKILLID_MAP::value_type( id, SKILLID_NODE(id, flag) ));
 				}
 
-				// ´ÙÀ½
+				// ë‹¤ìŒ
 				healDomain.Next();
 			}
 
 			//-----------------------------------------------------
-			// Etc - ±×³É ¸ğµÎ Ãß°¡ÇÏ¸é µÈ´Ù.
+			// Etc - ê·¸ëƒ¥ ëª¨ë‘ ì¶”ê°€í•˜ë©´ ëœë‹¤.
 			//-----------------------------------------------------
 			MSkillDomain& etcDomain = (*g_pSkillManager)[SKILLDOMAIN_ETC];
 
@@ -900,7 +900,7 @@ MSkillSet::SetAvailableSkills()
 			{
 				MSkillDomain::SKILLSTATUS	status	= etcDomain.GetSkillStatus();
 
-				// ¹è¿üÀ¸¸é..
+				// ë°°ì› ìœ¼ë©´..
 				if (status == MSkillDomain::SKILLSTATUS_LEARNED)
 				{
 					ACTIONINFO id = etcDomain.GetSkillID();
@@ -918,13 +918,13 @@ MSkillSet::SetAvailableSkills()
 					insert(SKILLID_MAP::value_type( id, SKILLID_NODE(id, flag) ));
 				}
 
-				// ´ÙÀ½
+				// ë‹¤ìŒ
 				etcDomain.Next();
 			}
 
 			//-----------------------------------------------------
 			//
-			// Inventory °Ë»ö
+			// Inventory ê²€ìƒ‰
 			//
 			//-----------------------------------------------------
 			BOOL bCheckHolyWater	= TRUE;
@@ -951,7 +951,7 @@ MSkillSet::SetAvailableSkills()
 
 				ITEM_CLASS itemClass = pItem->GetItemClass();
 
-			#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+			#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 				if(itemClass == ITEM_CLASS_SUB_INVENTORY)
 				{
 					MSubInventory* pSubItem = (MSubInventory*)pItem;
@@ -998,7 +998,7 @@ MSkillSet::SetAvailableSkills()
 
 					insert(SKILLID_MAP::value_type( MAGIC_THROW_HOLY_WATER, SKILLID_NODE(MAGIC_THROW_HOLY_WATER, flag)) );				
 
-					// [µµ¿ò¸»] º§Æ®ÀÇ ¾ÆÀÌÅÛ »ç¿ë
+					// [ë„ì›€ë§] ë²¨íŠ¸ì˜ ì•„ì´í…œ ì‚¬ìš©
 //					__BEGIN_HELP_EVENT
 //						ExecuteHelpEvent( HE_ITEM_APPEAR_HOLY_WATER );	
 //					__END_HELP_EVENT
@@ -1006,7 +1006,7 @@ MSkillSet::SetAvailableSkills()
 					bCheckHolyWater = FALSE;
 				}
 				//-----------------------------------------------------
-				// Bomb / Mine - Á¾·ùº°·Î µû·Î Ãß°¡ÇØ¾ßÇÑ´Ù.
+				// Bomb / Mine - ì¢…ë¥˜ë³„ë¡œ ë”°ë¡œ ì¶”ê°€í•´ì•¼í•œë‹¤.
 				//-----------------------------------------------------
 				else if (bCheckBombOrMine
 						&& (itemClass==ITEM_CLASS_BOMB
@@ -1031,14 +1031,14 @@ MSkillSet::SetAvailableSkills()
 
 					
 
-					// ÆøÅº/Áö·Ú ¸¶´Ù »ç¿ë °¡´ÉÇÑ ¾ÆÀÌÄÜÀ» Ãß°¡ÇÑ´Ù.
+					// í­íƒ„/ì§€ë¢° ë§ˆë‹¤ ì‚¬ìš© ê°€ëŠ¥í•œ ì•„ì´ì½˜ì„ ì¶”ê°€í•œë‹¤.
 					if (find((ACTIONINFO)skillID)==end())
 					{
 						insert(SKILLID_MAP::value_type( (ACTIONINFO)skillID, SKILLID_NODE((ACTIONINFO)skillID, flag)) );
 					}
 				}
 				//-----------------------------------------------------
-				// ÆøÅº/Áö·Ú Àç·á
+				// í­íƒ„/ì§€ë¢° ì¬ë£Œ
 				//-----------------------------------------------------
 				else if (bCheckBombOrMineMaterial
 							&& itemClass==ITEM_CLASS_BOMB_MATERIAL)
@@ -1053,11 +1053,11 @@ MSkillSet::SetAvailableSkills()
 					}
 				}
 				
-				// ´ÙÀ½
+				// ë‹¤ìŒ
 				g_pInventory->Next();
 			}
 
-			// mouse¿¡ ÀÖ´Â ¾ÆÀÌÅÛµµ Ã¼Å©ÇÑ´Ù.
+			// mouseì— ìˆëŠ” ì•„ì´í…œë„ ì²´í¬í•œë‹¤.
 			MItem* pMouseItem = UI_GetMouseItem();
 
 			if (pMouseItem!=NULL)
@@ -1072,7 +1072,7 @@ MSkillSet::SetAvailableSkills()
 				bHasBombMaterial	= bHasBombMaterial || itemClass==ITEM_CLASS_BOMB_MATERIAL && isBombMaterial;
 			}
 
-			// Áö·Ú ¼³Ä¡ ±â¼úÀ» ¹è¿ü°í Áö·Ú°¡ ÀÖ´Ù¸é iconÀ» enable½ÃÅ²´Ù.
+			// ì§€ë¢° ì„¤ì¹˜ ê¸°ìˆ ì„ ë°°ì› ê³  ì§€ë¢°ê°€ ìˆë‹¤ë©´ iconì„ enableì‹œí‚¨ë‹¤.
 			if (bCheckInstallMine)
 			{
 				ACTIONINFO skillID = SKILL_INSTALL_MINE;
@@ -1089,7 +1089,7 @@ MSkillSet::SetAvailableSkills()
 				}
 			}
 
-			// Áö·Ú »ı¼º ±â¼úÀ» ¹è¿ü°í Áö·Ú Àç·á°¡ ÀÖ´Ù¸é iconÀ» enable½ÃÅ²´Ù.
+			// ì§€ë¢° ìƒì„± ê¸°ìˆ ì„ ë°°ì› ê³  ì§€ë¢° ì¬ë£Œê°€ ìˆë‹¤ë©´ iconì„ enableì‹œí‚¨ë‹¤.
 			if (bCheckCreateMine)
 			{
 				ACTIONINFO skillID = SKILL_MAKE_MINE;
@@ -1106,7 +1106,7 @@ MSkillSet::SetAvailableSkills()
 				}
 			}
 
-			// ÆøÅº »ı¼º ±â¼úÀ» ¹è¿ü°í ÆøÅº Àç·á°¡ ÀÖ´Ù¸é iconÀ» enable½ÃÅ²´Ù.
+			// í­íƒ„ ìƒì„± ê¸°ìˆ ì„ ë°°ì› ê³  í­íƒ„ ì¬ë£Œê°€ ìˆë‹¤ë©´ iconì„ enableì‹œí‚¨ë‹¤.
 			if (bCheckCreateBomb)
 			{
 				ACTIONINFO skillID = SKILL_MAKE_BOMB;
@@ -1123,7 +1123,7 @@ MSkillSet::SetAvailableSkills()
 				}
 			}
 
-			// ÆøÅº ´øÁö±â ±â¼úÀ» ¹è¿ü°í ÆøÅºÀÌ ÀÖ´Ù¸é iconÀ» enable½ÃÅ²´Ù.
+			// í­íƒ„ ë˜ì§€ê¸° ê¸°ìˆ ì„ ë°°ì› ê³  í­íƒ„ì´ ìˆë‹¤ë©´ iconì„ enableì‹œí‚¨ë‹¤.
 			if (bCheckBomb)
 			{
 				ACTIONINFO skillID = SKILL_THROW_BOMB;
@@ -1141,7 +1141,7 @@ MSkillSet::SetAvailableSkills()
 			}
 
 			//-----------------------------------------------------
-			// Restore ÀÓÀÇ·Î Ãß°¡
+			// Restore ì„ì˜ë¡œ ì¶”ê°€
 			//-----------------------------------------------------
 			if (g_pUserInformation->HasSkillRestore)
 			{
@@ -1161,17 +1161,17 @@ MSkillSet::SetAvailableSkills()
 
 	//-----------------------------------------------------
 	//
-	//					vampireÀÎ °æ¿ì
+	//					vampireì¸ ê²½ìš°
 	//
 	//-----------------------------------------------------
 	case RACE_VAMPIRE:
 		{		
 			//-----------------------------------------------------
 			//
-			// SkillTree °Ë»ö
+			// SkillTree ê²€ìƒ‰
 			//
 			//-----------------------------------------------------
-			// [»õ±â¼ú3] °ü ¼Ó¿¡¼­´Â ±â¼ú ¸ø ¾´´Ù.
+			// [ìƒˆê¸°ìˆ 3] ê´€ ì†ì—ì„œëŠ” ê¸°ìˆ  ëª» ì“´ë‹¤.
 			if (g_pPlayer->IsInCasket())
 			{
 				flag = FLAG_SKILL_ENABLE;
@@ -1182,7 +1182,7 @@ MSkillSet::SetAvailableSkills()
 				return;
 			}
 			
-			// ¹ìÆÄÀÌ¾îÀÎ °æ¿ì¸¸ ¾µ ¼ö ÀÖ´Ù. --> ¹ÚÁã³ª ´Á´ë¿¡¼­´Â »ç¿ë¸øÇÑ´Ù.
+			// ë±€íŒŒì´ì–´ì¸ ê²½ìš°ë§Œ ì“¸ ìˆ˜ ìˆë‹¤. --> ë°•ì¥ë‚˜ ëŠ‘ëŒ€ì—ì„œëŠ” ì‚¬ìš©ëª»í•œë‹¤.
 			if (g_pPlayer->GetCreatureType()==CREATURETYPE_VAMPIRE_MALE1
 				|| g_pPlayer->GetCreatureType()==CREATURETYPE_VAMPIRE_FEMALE1
 				|| g_pPlayer->GetCreatureType()==CREATURETYPE_VAMPIRE_MALE2
@@ -1206,7 +1206,7 @@ MSkillSet::SetAvailableSkills()
 				
 				vampireDomain.SetBegin();		
 
-			#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+			#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 				MItem* pSubInventory = NULL;
 			#endif
 
@@ -1214,12 +1214,12 @@ MSkillSet::SetAvailableSkills()
 				{
 					MSkillDomain::SKILLSTATUS	status	= vampireDomain.GetSkillStatus();
 
-					// ¹è¿üÀ¸¸é..
+					// ë°°ì› ìœ¼ë©´..
 					if (status == MSkillDomain::SKILLSTATUS_LEARNED)
 					{
 						ACTIONINFO id = vampireDomain.GetSkillID();
 
-						// ·¹¾îÁ¸¿¡¼­´Â ÀÎºñÀúºô¸®Æ¼ ¸ø¾²°Ô ÇÑ´Ù...ÇÏµåÇÏµå
+						// ë ˆì–´ì¡´ì—ì„œëŠ” ì¸ë¹„ì €ë¹Œë¦¬í‹° ëª»ì“°ê²Œ í•œë‹¤...í•˜ë“œí•˜ë“œ
 						if ((*g_pSkillInfoTable)[id].GetMP() > playerMP
 							|| id == MAGIC_INVISIBILITY && (g_pZone->GetID() == 1104 || g_pZone->GetID() == 1106 || g_pZone->GetID() == 1114 || g_pZone->GetID() == 1115))
 						{
@@ -1230,28 +1230,35 @@ MSkillSet::SetAvailableSkills()
 							flag = FLAG_SKILL_ENABLE;					
 						}
 
-						// Item »ç¿ëÇÏ´Â°Å Ã¼Å©
+						// Item ì‚¬ìš©í•˜ëŠ”ê±° ì²´í¬
 						switch (id)
 						{
 							case MAGIC_BLOODY_MARK :
-
-							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
-								if (NULL == ((MItemManager*)g_pInventory)->FindItemAll( MVampirePortalItemFinder( false ) , pSubInventory))
+							{
+								MVampirePortalItemFinder finder(false);
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
+								if (NULL == ((MItemManager*)g_pInventory)->FindItemAll( finder , pSubInventory))
 							#else
-								if (NULL == ((MItemManager*)g_pInventory)->FindItem( MVampirePortalItemFinder( false ) ))
+								if (NULL == ((MItemManager*)g_pInventory)->FindItem( finder ))
 							#endif
 								{
 									flag = 0;
-								}							
+								}
+							}
 							break;
 
 							case MAGIC_BLOODY_TUNNEL :
-
-							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
-								if (NULL == ((MItemManager*)g_pInventory)->FindItemAll( MVampirePortalItemFinder( true ) , pSubInventory ))
+							{
+								MVampirePortalItemFinder finder(true);
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
+								if (NULL == ((MItemManager*)g_pInventory)->FindItemAll( finder , pSubInventory ))
 							#else
-								if (NULL == ((MItemManager*)g_pInventory)->FindItem( MVampirePortalItemFinder( true ) ))
+								if (NULL == ((MItemManager*)g_pInventory)->FindItem( finder ))
 							#endif
+								{
+									flag = 0;
+								}
+							}
 								{
 									flag = 0;
 								}
@@ -1266,7 +1273,7 @@ MSkillSet::SetAvailableSkills()
 
 							case MAGIC_TRANSFORM_TO_BAT :
 
-							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 								if (NULL == g_pInventory->FindItemAll( MItemClassTypeFinder(ITEM_CLASS_VAMPIRE_ETC , 1), pSubInventory ))
 							#else
 								if (NULL == g_pInventory->FindItem( ITEM_CLASS_VAMPIRE_ETC, 1 ))
@@ -1292,14 +1299,14 @@ MSkillSet::SetAvailableSkills()
 						insert(SKILLID_MAP::value_type( id, SKILLID_NODE(id, flag) ));
 					}
 
-					// ´ÙÀ½
+					// ë‹¤ìŒ
 					vampireDomain.Next();
 				}
 			}
 
 			//-----------------------------------------------------
 			//
-			// Inventory °Ë»ö
+			// Inventory ê²€ìƒ‰
 			//
 			//-----------------------------------------------------
 			/*
@@ -1336,21 +1343,21 @@ MSkillSet::SetAvailableSkills()
 					}				
 				}
 
-				// ´ÙÀ½
+				// ë‹¤ìŒ
 				g_pInventory->Next();
 			}
 			*/
 
 			//-----------------------------------------------------
 			//
-			// ±âº» Skill
+			// ê¸°ë³¸ Skill
 			//
 			//-----------------------------------------------------
-			// ÈíÇ÷ --> ´Á´ë³ª ¹ÚÁã´Â ÈíÇ÷ ¸øÇÑ´Ù.
+			// í¡í˜ˆ --> ëŠ‘ëŒ€ë‚˜ ë°•ì¥ëŠ” í¡í˜ˆ ëª»í•œë‹¤.
 			
 
 			//-----------------------------------------------------
-			// ºÒ±âµÕ ÀÓÀÇ·Î Ãß°¡
+			// ë¶ˆê¸°ë‘¥ ì„ì˜ë¡œ ì¶”ê°€
 			//-----------------------------------------------------
 			if (g_pUserInformation->HasMagicGroundAttack)
 			{
@@ -1369,7 +1376,7 @@ MSkillSet::SetAvailableSkills()
 			SetAvailableVampireSkills();
 
 			//-----------------------------------------------------
-			// ºí·¯µğ ½º³×ÀÌÅ© ÀÓÀÇ·Î Ãß°¡
+			// ë¸”ëŸ¬ë”” ìŠ¤ë„¤ì´í¬ ì„ì˜ë¡œ ì¶”ê°€
 			//-----------------------------------------------------
 			if (g_pUserInformation->HasMagicBloodySnake)
 			{
@@ -1386,7 +1393,7 @@ MSkillSet::SetAvailableSkills()
 			}
 
 			//-----------------------------------------------------
-			// ºí·¯µğ ¿öÇÁ ÀÓÀÇ·Î Ãß°¡
+			// ë¸”ëŸ¬ë”” ì›Œí”„ ì„ì˜ë¡œ ì¶”ê°€
 			//-----------------------------------------------------
 			if (g_pUserInformation->HasMagicBloodyWarp)
 			{
@@ -1408,7 +1415,7 @@ MSkillSet::SetAvailableSkills()
 		{		
 			//-----------------------------------------------------
 			//
-			// SkillTree °Ë»ö
+			// SkillTree ê²€ìƒ‰
 			//
 			//-----------------------------------------------------
 			{
@@ -1419,7 +1426,7 @@ MSkillSet::SetAvailableSkills()
 				{
 					MSkillDomain::SKILLSTATUS	status	= oustersDomain.GetSkillStatus();
 
-					// ¹è¿üÀ¸¸é..
+					// ë°°ì› ìœ¼ë©´..
 					if (status == MSkillDomain::SKILLSTATUS_LEARNED)
 					{
 						ACTIONINFO id = oustersDomain.GetSkillID();
@@ -1436,7 +1443,7 @@ MSkillSet::SetAvailableSkills()
 							}
 							else
 							{
-								// ÇöÀç µé°í ÀÖ´Â item
+								// í˜„ì¬ ë“¤ê³  ìˆëŠ” item
 								const MItem* pItem = (*g_pOustersGear).GetItem( (MOustersGear::GEAR_OUSTERS)MOustersGear::GEAR_OUSTERS_RIGHTHAND );
 								
 								if(sInfo.ElementalDomain == SKILLINFO_NODE::ELEMENTAL_DOMAIN_NO_DOMAIN || sInfo.ElementalDomain == SKILLINFO_NODE::ELEMENTAL_DOMAIN_WIND
@@ -1467,7 +1474,7 @@ MSkillSet::SetAvailableSkills()
 							}
 						}
 
-					#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+					#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 						if( id == SKILL_SUMMON_SYLPH )
 						{
 							MItem* pSubInventory = NULL;
@@ -1485,17 +1492,17 @@ MSkillSet::SetAvailableSkills()
 						insert(SKILLID_MAP::value_type( id, SKILLID_NODE(id, flag) ));
 					}
 
-					// ´ÙÀ½
+					// ë‹¤ìŒ
 					oustersDomain.Next();
 				}
 			}
 
 			//-----------------------------------------------------
 			//
-			// ±âº» Skill
+			// ê¸°ë³¸ Skill
 			//
 			//-----------------------------------------------------
-//			// ÈíÇ÷ --> ´Á´ë³ª ¹ÚÁã´Â ÈíÇ÷ ¸øÇÑ´Ù.
+//			// í¡í˜ˆ --> ëŠ‘ëŒ€ë‚˜ ë°•ì¥ëŠ” í¡í˜ˆ ëª»í•œë‹¤.
 //			if (g_pPlayer->GetCreatureType()!=CREATURETYPE_BAT
 //				&& g_pPlayer->GetCreatureType()!=CREATURETYPE_WOLF)
 //			{
@@ -1519,11 +1526,12 @@ MSkillSet::SetAvailableSkills()
 
 
 	//-----------------------------------------------------
-	// 
-	// ÇÇÀÇ ¼º¼­ º¸³Ê½º ¸¾´ë·Î Ãß°¡-¤µ-
+	//
+	// í”¼ì˜ ì„±ì„œ ë³´ë„ˆìŠ¤ ë§˜ëŒ€ë¡œ ì¶”ê°€-ã……-
 	//
 	//-----------------------------------------------------
-	for(int i = 0; i < HOLYLAND_BONUS_MAX; i++)
+	int i;
+	for(i = 0; i < HOLYLAND_BONUS_MAX; i++)
 	{
 		if(g_abHolyLandBonusSkills[i] == true)
 		{
@@ -1575,7 +1583,7 @@ MSkillSet::SetAvailableSkills()
 
 	//CheckMP();
 
-	// ½ºÅ³ÀÌ ºñ¾úÀ»¶§ È£ÃâµÇ¸é -_- ³­¸®³­´Ù.
+	// ìŠ¤í‚¬ì´ ë¹„ì—ˆì„ë•Œ í˜¸ì¶œë˜ë©´ -_- ë‚œë¦¬ë‚œë‹¤.
 //	if( size() > 5 )
 //		gC_vs_ui.ResetHotKey();
 #endif
@@ -1595,7 +1603,7 @@ MSkillSet::SetAvailableVampireSkills()
 	{
 		playerMP = g_pPlayer->GetMP();	
 
-		// EFFECTSTATUS_SACRIFICE »ç¿ëÁßÀÌ¸é HP 1ÀÌ MP 2°¡ µÈ´Ù.
+		// EFFECTSTATUS_SACRIFICE ì‚¬ìš©ì¤‘ì´ë©´ HP 1ì´ MP 2ê°€ ëœë‹¤.
 		if (g_pPlayer->HasEffectStatus(EFFECTSTATUS_SACRIFICE))
 		{
 			playerMP += (g_pPlayer->GetHP() << 1);
@@ -1603,7 +1611,7 @@ MSkillSet::SetAvailableVampireSkills()
 	}
 	else
 	{
-		// vampireÀÎ °æ¿ì´Â HP¸¦ MP´ë½Å¿¡ ¾´´Ù.
+		// vampireì¸ ê²½ìš°ëŠ” HPë¥¼ MPëŒ€ì‹ ì— ì“´ë‹¤.
 		playerMP = g_pPlayer->GetHP();	
 	}
 
@@ -1625,7 +1633,7 @@ MSkillSet::SetAvailableVampireSkills()
 	
 	//-----------------------------------------------------
 	// 
-	// invisibleÀÎ°¡?
+	// invisibleì¸ê°€?
 	//
 	//-----------------------------------------------------
 	if (g_pPlayer->IsInvisible())
@@ -1649,7 +1657,7 @@ MSkillSet::SetAvailableVampireSkills()
 			}
 			insert(SKILLID_MAP::value_type( MAGIC_EAT_CORPSE, SKILLID_NODE(MAGIC_EAT_CORPSE, flag) ));
 			
-			// Â¢±â - -;
+			// ì§–ê¸° - -;
 			if( vampireDomain.GetSkillStatus( MAGIC_HOWL ) == MSkillDomain::SKILLSTATUS_LEARNED )
 			{
 				if( (*g_pSkillInfoTable)[MAGIC_HOWL].GetMP() > playerMP)				
@@ -1694,7 +1702,7 @@ MSkillSet::SetAvailableVampireSkills()
 		
 	//-----------------------------------------------------
 	// 
-	// º¯½Å ÁßÀÎ°¡?
+	// ë³€ì‹  ì¤‘ì¸ê°€?
 	//
 	//-----------------------------------------------------
 	if (PlayerCreatureType!=CREATURETYPE_VAMPIRE_MALE1
@@ -1725,16 +1733,16 @@ MSkillSet::SetAvailableVampireSkills()
 //----------------------------------------------------------------------
 // Check MP
 //----------------------------------------------------------------------
-// ¼±ÅÃµÈ skillµéÀÇ MP¸¦ º¸°í
-// »ç¿ë°¡´ÉÇÑÁö ¾Æ´ÑÁö¸¦ Ã¼Å©ÇÑ´Ù.
+// ì„ íƒëœ skillë“¤ì˜ MPë¥¼ ë³´ê³ 
+// ì‚¬ìš©ê°€ëŠ¥í•œì§€ ì•„ë‹Œì§€ë¥¼ ì²´í¬í•œë‹¤.
 //----------------------------------------------------------------------
 void
 MSkillSet::CheckMP()
 {
 #ifdef __GAME_CLIENT__
 	
-	// mp Ã¼Å©ÇÒ¶§.. ÇöÀç ÀåºñÁßÀÎ ¹«±âµµ Ã¼Å©ÇØ¾ßµÇ´Âµ¥
-	// ÀÏ´ÜÀº.. ÀÌÄÉ °£´Ù. T_T;
+	// mp ì²´í¬í• ë•Œ.. í˜„ì¬ ì¥ë¹„ì¤‘ì¸ ë¬´ê¸°ë„ ì²´í¬í•´ì•¼ë˜ëŠ”ë°
+	// ì¼ë‹¨ì€.. ì´ì¼€ ê°„ë‹¤. T_T;
 	SetAvailableSkills(); 
 
 	/*
@@ -1744,7 +1752,7 @@ MSkillSet::CheckMP()
 	}
 
 	//--------------------------------------------------
-	// playerÀÇ ÇöÀç MP
+	// playerì˜ í˜„ì¬ MP
 	//--------------------------------------------------
 	int playerMP;
 	
@@ -1754,14 +1762,14 @@ MSkillSet::CheckMP()
 	}
 	else
 	{
-		// vampireÀÎ °æ¿ì´Â HP¸¦ MP´ë½Å¿¡ ¾´´Ù.
+		// vampireì¸ ê²½ìš°ëŠ” HPë¥¼ MPëŒ€ì‹ ì— ì“´ë‹¤.
 		playerMP = g_pPlayer->GetHP();	
 	}
 
 	SKILLID_MAP::iterator iID = begin();
 	
 	//--------------------------------------------------
-	// ¸ğµç skillµé¿¡ ´ëÇØ¼­ mp Ã¼Å©
+	// ëª¨ë“  skillë“¤ì— ëŒ€í•´ì„œ mp ì²´í¬
 	//--------------------------------------------------
 	while (iID != end())
 	{
@@ -1769,14 +1777,14 @@ MSkillSet::CheckMP()
 		SKILLID_NODE&	node = (*iID).second;	
 
 		//--------------------------------------------------
-		// MP»ç¿ë·®ÀÌ ÇöÀçMPº¸´Ù Å« °æ¿ì.. --> »ç¿ë ºÒ°¡
+		// MPì‚¬ìš©ëŸ‰ì´ í˜„ì¬MPë³´ë‹¤ í° ê²½ìš°.. --> ì‚¬ìš© ë¶ˆê°€
 		//--------------------------------------------------
 		if ((*g_pSkillInfoTable)[id].GetMP() > playerMP)
 		{
 			node.SetDisable();
 		}
 		//--------------------------------------------------
-		// ¾Æ´Ï¸é, »ç¿ë °¡´ÉÇÏ°Ô Ç¥½Ã
+		// ì•„ë‹ˆë©´, ì‚¬ìš© ê°€ëŠ¥í•˜ê²Œ í‘œì‹œ
 		//--------------------------------------------------
 		else
 		{
@@ -1822,7 +1830,7 @@ MSkillDomain::~MSkillDomain()
 
 
 	//---------------------------------------------------------
-	// Skill Step map Áö¿ì±â
+	// Skill Step map ì§€ìš°ê¸°
 	//---------------------------------------------------------
 	SKILL_STEP_MAP::iterator iList = m_mapSkillStep.begin();
 
@@ -1849,7 +1857,7 @@ MSkillDomain::~MSkillDomain()
 //----------------------------------------------------------------------
 // Set Max Level
 //----------------------------------------------------------------------
-// domainÀÇ ÃÖ°í level ±â¼ú
+// domainì˜ ìµœê³  level ê¸°ìˆ 
 //----------------------------------------------------------------------
 void		
 MSkillDomain::SetMaxLevel()
@@ -1859,7 +1867,7 @@ MSkillDomain::SetMaxLevel()
 		delete [] m_pLearnedSkillID;
 	}
 
-	m_pLearnedSkillID = new ACTIONINFO [m_MaxLevel+1];	// 0ºÎÅÍ ½ÃÀÛÇÑ´Ù.
+	m_pLearnedSkillID = new ACTIONINFO [m_MaxLevel+1];	// 0ë¶€í„° ì‹œì‘í•œë‹¤.
 	m_MaxLearnedLevel = -1;
 
 	for (int i=0; i<=m_MaxLevel; i++)
@@ -1880,7 +1888,7 @@ MSkillDomain::Clear()
 //	while (iSkill!=endItr)
 //	{		
 //		//-----------------------------------------------
-//		// ÇöÀç »ç¿ë °¡´ÉÇÑ Skill¿¡¼­ Á¦°ÅÇÑ´Ù.
+//		// í˜„ì¬ ì‚¬ìš© ê°€ëŠ¥í•œ Skillì—ì„œ ì œê±°í•œë‹¤.
 //		//-----------------------------------------------
 //		(*g_pSkillAvailable).RemoveSkill( (*iSkill).first );
 //
@@ -1893,7 +1901,7 @@ MSkillDomain::Clear()
 	ClearSkillList();
 
 	//-----------------------------------------------
-	// ¹è¿î level Á¦°Å
+	// ë°°ìš´ level ì œê±°
 	//-----------------------------------------------
 	if (m_pLearnedSkillID!=NULL)
 	{
@@ -1914,14 +1922,13 @@ MSkillDomain::ClearSkillList()
 	while (iSkill!=endItr)
 	{		
 		//-----------------------------------------------
-		// ÇöÀç »ç¿ë °¡´ÉÇÑ Skill¿¡¼­ Á¦°ÅÇÑ´Ù.
+		// í˜„ì¬ ì‚¬ìš© ê°€ëŠ¥í•œ Skillì—ì„œ ì œê±°í•œë‹¤.
 		//-----------------------------------------------
 		(*g_pSkillAvailable).RemoveSkill( (*iSkill).first );
 
 		iSkill++;
 	}
 
-	m_iterator = NULL; 
 	m_mapSkillID.clear();
 
 	if(m_pLearnedSkillID != NULL)
@@ -1934,21 +1941,21 @@ MSkillDomain::ClearSkillList()
 //----------------------------------------------------------------------
 // AddSkill
 //----------------------------------------------------------------------
-// id¿Í ±×ÀÇ ÇÏÀ§¿¡ ÀÖ´Â °ÍµéÀ» ¸ğµÎ Ãß°¡ÇÑ´Ù.
-// ´Ü idÀÇ skillÀÇ levelÀº 0ÀÌ¾î¾ß ÇÑ´Ù.
+// idì™€ ê·¸ì˜ í•˜ìœ„ì— ìˆëŠ” ê²ƒë“¤ì„ ëª¨ë‘ ì¶”ê°€í•œë‹¤.
+// ë‹¨ idì˜ skillì˜ levelì€ 0ì´ì–´ì•¼ í•œë‹¤.
 //----------------------------------------------------------------------
 bool			
 MSkillDomain::SetRootSkill(ACTIONINFO id, bool reset)
 {
 	//--------------------------------------------------
-	// ´Ù Áö¿î´Ù.
+	// ë‹¤ ì§€ìš´ë‹¤.
 	//--------------------------------------------------
 	//Clear();
 	if(reset)
 		m_DomainLevel		= 0;
 
 	//--------------------------------------------------
-	// levelÀÌ 0ÀÎ skillÀÌ¾î¾ß ÇÑ´Ù.
+	// levelì´ 0ì¸ skillì´ì–´ì•¼ í•œë‹¤.
 	//--------------------------------------------------
 //	if ((*g_pSkillInfoTable)[id].GetLevel()==0)
 	{
@@ -1964,12 +1971,12 @@ MSkillDomain::SetRootSkill(ACTIONINFO id, bool reset)
 		}
 
 		//--------------------------------------------------
-		// Á¦´ë·Î Ãß°¡µÈ °æ¿ì
+		// ì œëŒ€ë¡œ ì¶”ê°€ëœ ê²½ìš°
 		//--------------------------------------------------
 		if (bOK)
 		{
 			//--------------------------------------------------
-			// domainÀÇ skill levelÀ» ¼³Á¤ÇØÁØ´Ù.
+			// domainì˜ skill levelì„ ì„¤ì •í•´ì¤€ë‹¤.
 			//--------------------------------------------------
 			SetMaxLevel();
 		}
@@ -1981,7 +1988,7 @@ MSkillDomain::SetRootSkill(ACTIONINFO id, bool reset)
 //----------------------------------------------------------------------
 // AddSkill
 //----------------------------------------------------------------------
-// id¿Í ±×ÀÇ ÇÏÀ§¿¡ ÀÖ´Â °ÍµéÀ» ¸ğµÎ Ãß°¡ÇÑ´Ù.
+// idì™€ ê·¸ì˜ í•˜ìœ„ì— ìˆëŠ” ê²ƒë“¤ì„ ëª¨ë‘ ì¶”ê°€í•œë‹¤.
 //----------------------------------------------------------------------
 bool
 MSkillDomain::AddSkill(ACTIONINFO id)
@@ -2004,7 +2011,7 @@ MSkillDomain::AddSkill(ACTIONINFO id)
 	int skillLevel = (*g_pSkillInfoTable)[id].GetLevel();
 
 	//--------------------------------------------------
-	// domain ÃÖ°í skill levelÀ» Ã£´Â´Ù.
+	// domain ìµœê³  skill levelì„ ì°¾ëŠ”ë‹¤.
 	//--------------------------------------------------
 	if (m_MaxLevel < skillLevel)
 	{
@@ -2012,12 +2019,12 @@ MSkillDomain::AddSkill(ACTIONINFO id)
 	}
 
 	//-----------------------------------------------
-	// ¾ÆÁ÷ ¾ø´Â SkillÀÌ¸é Ãß°¡	
+	// ì•„ì§ ì—†ëŠ” Skillì´ë©´ ì¶”ê°€	
 	//-----------------------------------------------
 	if (iSkill == m_mapSkillID.end() )
 	{		
 		//-----------------------------------------------
-		// root levelÀÌ¸é ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Â °É·Î Ã¼Å©ÇÑ´Ù.
+		// root levelì´ë©´ ë‹¤ìŒì— ë°°ìš¸ ìˆ˜ ìˆëŠ” ê±¸ë¡œ ì²´í¬í•œë‹¤.
 		//-----------------------------------------------
 		if(id == SKILL_ABERRATION)
 			int a =0 ;
@@ -2031,7 +2038,7 @@ MSkillDomain::AddSkill(ACTIONINFO id)
 		}	
 		
 		//-----------------------------------------------
-		// ÀÌ skillÀÇ SkillStep¿¡ °üÇÑ Á¤º¸¸¦ ¼³Á¤ÇÑ´Ù.
+		// ì´ skillì˜ SkillStepì— ê´€í•œ ì •ë³´ë¥¼ ì„¤ì •í•œë‹¤.
 		//-----------------------------------------------
 
 		SKILL_STEP skillStep = (*g_pSkillInfoTable)[id].GetSkillStep();
@@ -2052,7 +2059,7 @@ MSkillDomain::AddSkill(ACTIONINFO id)
 		}
 
 		//--------------------------------------------------
-		// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Â °ÍµéÀ» Ã£¾Æ¼­ Ãß°¡ÇÑ´Ù.
+		// ë‹¤ìŒì— ë°°ìš¸ ìˆ˜ ìˆëŠ” ê²ƒë“¤ì„ ì°¾ì•„ì„œ ì¶”ê°€í•œë‹¤.
 		//--------------------------------------------------
 		const SKILLINFO_NODE::SKILLID_LIST& listNextSkill = (*g_pSkillInfoTable)[id].GetNextSkillList();
 
@@ -2061,12 +2068,12 @@ MSkillDomain::AddSkill(ACTIONINFO id)
 		while (iNextSkill != listNextSkill.end())
 		{
 			//--------------------------------------------------
-			// ID°¡ *iNextSkilÀÎ Skill¸¦ Ã£´Â´Ù.
+			// IDê°€ *iNextSkilì¸ Skillë¥¼ ì°¾ëŠ”ë‹¤.
 			//--------------------------------------------------
 			iSkill = m_mapSkillID.find( *iNextSkill );
 
 			//--------------------------------------------------
-			// ¾ÆÁ÷ ¾ø´Â °æ¿ì¿¡ Ãß°¡ÇÑ´Ù.
+			// ì•„ì§ ì—†ëŠ” ê²½ìš°ì— ì¶”ê°€í•œë‹¤.
 			//--------------------------------------------------
 			if (iSkill == m_mapSkillID.end())
 			{
@@ -2080,7 +2087,7 @@ MSkillDomain::AddSkill(ACTIONINFO id)
 	}
 
 	//-----------------------------------------------
-	// ÀÌ¹Ì ÀÖ´Â SkillÀÌ¸é false
+	// ì´ë¯¸ ìˆëŠ” Skillì´ë©´ false
 	//-----------------------------------------------
 	return false;
 }
@@ -2089,7 +2096,7 @@ MSkillDomain::AddSkill(ACTIONINFO id)
 //----------------------------------------------------------------------
 // Set SkillStatus
 //----------------------------------------------------------------------
-// skillÀÇ »óÅÂ¸¦ º¯°æÇÑ´Ù.
+// skillì˜ ìƒíƒœë¥¼ ë³€ê²½í•œë‹¤.
 //----------------------------------------------------------------------
 /*
 bool		
@@ -2100,7 +2107,7 @@ MSkillDomain::SetSkillStatus(ACTIONINFO id, SKILLSTATUS status)
 	iSkill = m_mapSkillID.find( id );
 	
 	//-----------------------------------------------
-	// domain¿¡ ÀÖ´Â SkillÀÌ¸é..
+	// domainì— ìˆëŠ” Skillì´ë©´..
 	//-----------------------------------------------
 	if (iSkill != m_mapSkillID.end())
 	{
@@ -2108,18 +2115,18 @@ MSkillDomain::SetSkillStatus(ACTIONINFO id, SKILLSTATUS status)
 
 		switch (status)
 		{
-			case SKILLSTATUS_LEARNED :		// ¹è¿ü´Ù.
+			case SKILLSTATUS_LEARNED :		// ë°°ì› ë‹¤.
 				//-----------------------------------------------
-				// ÇöÀç »ç¿ë °¡´ÉÇÑ Skill¿¡ Ãß°¡ÇÑ´Ù.
+				// í˜„ì¬ ì‚¬ìš© ê°€ëŠ¥í•œ Skillì— ì¶”ê°€í•œë‹¤.
 				//-----------------------------------------------
 				//(*g_pSkillAvailable).AddSkill( id );
 				LearnSkill(id);
 			break;
 
-			case SKILLSTATUS_NEXT :				// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Ù.
-			case SKILLSTATUS_OTHER :			// ¾ÆÁ÷Àº ¹è¿ï ¼ö ¾ø´Ù
+			case SKILLSTATUS_NEXT :				// ë‹¤ìŒì— ë°°ìš¸ ìˆ˜ ìˆë‹¤.
+			case SKILLSTATUS_OTHER :			// ì•„ì§ì€ ë°°ìš¸ ìˆ˜ ì—†ë‹¤
 				//-----------------------------------------------
-				// ÇöÀç »ç¿ë °¡´ÉÇÑ Skill¿¡¼­ Á¦°ÅÇÑ´Ù.
+				// í˜„ì¬ ì‚¬ìš© ê°€ëŠ¥í•œ Skillì—ì„œ ì œê±°í•œë‹¤.
 				//-----------------------------------------------
 				(*g_pSkillAvailable).RemoveSkill( id );
 			break;
@@ -2129,7 +2136,7 @@ MSkillDomain::SetSkillStatus(ACTIONINFO id, SKILLSTATUS status)
 	}
 
 	//-----------------------------------------------
-	// ÀÌ¹Ì ÀÖ´Â SkillÀÌ¸é false
+	// ì´ë¯¸ ìˆëŠ” Skillì´ë©´ false
 	//-----------------------------------------------
 	return false;
 }
@@ -2138,7 +2145,7 @@ MSkillDomain::SetSkillStatus(ACTIONINFO id, SKILLSTATUS status)
 //----------------------------------------------------------------------
 // Get SkillStatus
 //----------------------------------------------------------------------
-// idÀÇ »óÅÂ´Â?
+// idì˜ ìƒíƒœëŠ”?
 //----------------------------------------------------------------------
 MSkillDomain::SKILLSTATUS		
 MSkillDomain::GetSkillStatus(ACTIONINFO id) const
@@ -2146,12 +2153,12 @@ MSkillDomain::GetSkillStatus(ACTIONINFO id) const
 	SKILLID_MAP::const_iterator	iSkill;
 
 	//--------------------------------------------------
-	// ID°¡ idÀÎ Skill¸¦ Ã£´Â´Ù.
+	// IDê°€ idì¸ Skillë¥¼ ì°¾ëŠ”ë‹¤.
 	//--------------------------------------------------
 	iSkill = m_mapSkillID.find(id);
 
 	//--------------------------------------------------
-	// ¾øÀ» °æ¿ì NULLÀ» returnÇÑ´Ù.
+	// ì—†ì„ ê²½ìš° NULLì„ returní•œë‹¤.
 	//--------------------------------------------------
 	if (iSkill == m_mapSkillID.end()) 
 	{
@@ -2159,7 +2166,7 @@ MSkillDomain::GetSkillStatus(ACTIONINFO id) const
 	}
 
 	//--------------------------------------------------
-	// ÀÖÀ¸¸é ±× Skill¸¦ returnÇÑ´Ù.
+	// ìˆìœ¼ë©´ ê·¸ Skillë¥¼ returní•œë‹¤.
 	//--------------------------------------------------
 	return (*iSkill).second;
 }
@@ -2167,7 +2174,7 @@ MSkillDomain::GetSkillStatus(ACTIONINFO id) const
 //----------------------------------------------------------------------
 // Remove Skill
 //----------------------------------------------------------------------
-// mapSkill¿¡¼­ Á¦°ÅÇÏ°í SkillÀÇ pointer¸¦ ³Ñ°ÜÁØ´Ù.
+// mapSkillì—ì„œ ì œê±°í•˜ê³  Skillì˜ pointerë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 //----------------------------------------------------------------------
 /*
 bool
@@ -2176,12 +2183,12 @@ MSkillDomain::RemoveSkill(ACTIONINFO id)
 	SKILLID_MAP::iterator	iSkill;
 
 	//--------------------------------------------------
-	// ID°¡ idÀÎ Skill¸¦ Ã£´Â´Ù.
+	// IDê°€ idì¸ Skillë¥¼ ì°¾ëŠ”ë‹¤.
 	//--------------------------------------------------
 	iSkill = m_mapSkillID.find(id);
     
 	//--------------------------------------------------
-	// ±×·± id¸¦ °¡Áø SkillÀÌ ¾ø´Â °æ¿ì
+	// ê·¸ëŸ° idë¥¼ ê°€ì§„ Skillì´ ì—†ëŠ” ê²½ìš°
 	//--------------------------------------------------
 	if (iSkill == m_mapSkillID.end())
 	{
@@ -2189,9 +2196,9 @@ MSkillDomain::RemoveSkill(ACTIONINFO id)
 	}
 
 	//--------------------------------------------------
-	// Ã£Àº °æ¿ì --> Á¦°Å	
+	// ì°¾ì€ ê²½ìš° --> ì œê±°	
 	//--------------------------------------------------
-	// map¿¡¼­ Á¦°Å
+	// mapì—ì„œ ì œê±°
 	m_mapSkillID.erase( iSkill );
 
 	return true;
@@ -2201,7 +2208,7 @@ MSkillDomain::RemoveSkill(ACTIONINFO id)
 //----------------------------------------------------------------------
 // Add NextSkill
 //----------------------------------------------------------------------
-// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Â ±â¼úµéÀ» Ã¼Å©ÇÑ´Ù.
+// ë‹¤ìŒì— ë°°ìš¸ ìˆ˜ ìˆëŠ” ê¸°ìˆ ë“¤ì„ ì²´í¬í•œë‹¤.
 //----------------------------------------------------------------------
 void
 MSkillDomain::AddNextSkill(ACTIONINFO id)
@@ -2213,15 +2220,15 @@ MSkillDomain::AddNextSkill(ACTIONINFO id)
 	while (iNextSkill != listNextSkill.end())
 	{
 		//--------------------------------------------------
-		// ID°¡ *iNextSkilÀÎ Skill¸¦ Ã£´Â´Ù.
+		// IDê°€ *iNextSkilì¸ Skillë¥¼ ì°¾ëŠ”ë‹¤.
 		//--------------------------------------------------
 		SKILLID_MAP::iterator iSkill = m_mapSkillID.find( *iNextSkill );
 
 		//--------------------------------------------------
-		// ÀÖÀ¸¸é ±× SkillÀÇ °ªÀ» ¹Ù²Û´Ù.
+		// ìˆìœ¼ë©´ ê·¸ Skillì˜ ê°’ì„ ë°”ê¾¼ë‹¤.
 		//--------------------------------------------------
-		// ¹°·Ğ, ÇöÀç domain¿¡ ¼ÓÇØÀÖ´Â °æ¿ì¿¡¸¸ °¡´ÉÇÏ°í
-		// ¾ÆÁ÷ ¹è¿ìÁö ¾ÊÀº °ÍÀÏ °æ¿ì¿¡¸¸ NEXT·Î ¼³Á¤ÇÑ´Ù.
+		// ë¬¼ë¡ , í˜„ì¬ domainì— ì†í•´ìˆëŠ” ê²½ìš°ì—ë§Œ ê°€ëŠ¥í•˜ê³ 
+		// ì•„ì§ ë°°ìš°ì§€ ì•Šì€ ê²ƒì¼ ê²½ìš°ì—ë§Œ NEXTë¡œ ì„¤ì •í•œë‹¤.
 		//--------------------------------------------------
 		if (iSkill != m_mapSkillID.end())
 		{
@@ -2249,27 +2256,27 @@ MSkillDomain::AddNextSkillForce(ACTIONINFO id)
 //	while (iNextSkill != listNextSkill.end())
 //	{
 //		//--------------------------------------------------
-//		// ID°¡ *iNextSkilÀÎ Skill¸¦ Ã£´Â´Ù.
+//		// IDê°€ *iNextSkilì¸ Skillë¥¼ ì°¾ëŠ”ë‹¤.
 //		//--------------------------------------------------
 //		SKILLID_MAP::iterator iSkill = m_mapSkillID.find( *iNextSkill );
 //
 //		//--------------------------------------------------
-//		// ÀÖÀ¸¸é ±× SkillÀÇ °ªÀ» ¹Ù²Û´Ù.
+//		// ìˆìœ¼ë©´ ê·¸ Skillì˜ ê°’ì„ ë°”ê¾¼ë‹¤.
 //		//--------------------------------------------------
-//		// ¹°·Ğ, ÇöÀç domain¿¡ ¼ÓÇØÀÖ´Â °æ¿ì¿¡¸¸ °¡´ÉÇÏ°í
-//		// ¾ÆÁ÷ ¹è¿ìÁö ¾ÊÀº °ÍÀÏ °æ¿ì¿¡¸¸ NEXT·Î ¼³Á¤ÇÑ´Ù.
+//		// ë¬¼ë¡ , í˜„ì¬ domainì— ì†í•´ìˆëŠ” ê²½ìš°ì—ë§Œ ê°€ëŠ¥í•˜ê³ 
+//		// ì•„ì§ ë°°ìš°ì§€ ì•Šì€ ê²ƒì¼ ê²½ìš°ì—ë§Œ NEXTë¡œ ì„¤ì •í•œë‹¤.
 //		//--------------------------------------------------
 //		if (iSkill != m_mapSkillID.end())
 //		{
 //			if ((*iSkill).second==SKILLSTATUS_LEARNED)
 //			{		
-//				HasChildSkill = true; // ÀÚ±â ¹Ø¿¡ µş¸° ½ºÅ³Áß¿¡ ¹è¿î½ºÅ³ÀÌ ¾ø¾î¾ß ÇÑ´Ù.
+//				HasChildSkill = true; // ìê¸° ë°‘ì— ë”¸ë¦° ìŠ¤í‚¬ì¤‘ì— ë°°ìš´ìŠ¤í‚¬ì´ ì—†ì–´ì•¼ í•œë‹¤.
 //			}
 //		}
 //
 //		iNextSkill++;
 //	}
-	if(!HasChildSkill && (*g_pSkillInfoTable)[id].CanDelete)// ÀÚ±â¹Ø¿¡ µş¸° ½ºÅ³ÀÌ ¾ø°í »èÁ¦ °¡´ÉÇÑ ½ºÅ³ÀÌ¸é
+	if(!HasChildSkill && (*g_pSkillInfoTable)[id].CanDelete)// ìê¸°ë°‘ì— ë”¸ë¦° ìŠ¤í‚¬ì´ ì—†ê³  ì‚­ì œ ê°€ëŠ¥í•œ ìŠ¤í‚¬ì´ë©´
 	{
 		SKILLID_MAP::iterator	iSkill = m_mapSkillID.find( id );
 		if (iSkill != m_mapSkillID.end())
@@ -2287,7 +2294,7 @@ MSkillDomain::AddNextSkillForce(ACTIONINFO id)
 //----------------------------------------------------------------------
 // Remove NextSkill
 //----------------------------------------------------------------------
-// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ°Ô Ç¥½ÃµÈ ±â¼úµéÀ» Á¦°ÅÇÑ´Ù.
+// ë‹¤ìŒì— ë°°ìš¸ ìˆ˜ ìˆê²Œ í‘œì‹œëœ ê¸°ìˆ ë“¤ì„ ì œê±°í•œë‹¤.
 //----------------------------------------------------------------------
 void
 MSkillDomain::RemoveNextSkill(ACTIONINFO id)
@@ -2299,12 +2306,12 @@ MSkillDomain::RemoveNextSkill(ACTIONINFO id)
 
 	SKILLID_MAP::iterator iPreviousSkill = m_mapSkillID.find( id );
 
-	// ¹Ù·Î Àü¿¡ ¹è¿ü´ø ±â¼úÀÇ ID		
+	// ë°”ë¡œ ì „ì— ë°°ì› ë˜ ê¸°ìˆ ì˜ ID		
 	ACTIONINFO previousID = (*iPreviousSkill).first;
 
 	//--------------------------------------------------
 	//
-	// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Â °ÍµéÀ» Ã£¾Æ¼­ ¼³Á¤ÇÑ´Ù.
+	// ë‹¤ìŒì— ë°°ìš¸ ìˆ˜ ìˆëŠ” ê²ƒë“¤ì„ ì°¾ì•„ì„œ ì„¤ì •í•œë‹¤.
 	//
 	//--------------------------------------------------
 	const SKILLINFO_NODE::SKILLID_LIST& listNextSkill = (*g_pSkillInfoTable)[previousID].GetNextSkillList();
@@ -2314,15 +2321,15 @@ MSkillDomain::RemoveNextSkill(ACTIONINFO id)
 	while (iNextSkill != listNextSkill.end())
 	{
 		//--------------------------------------------------
-		// ID°¡ *iNextSkilÀÎ Skill¸¦ Ã£´Â´Ù.
+		// IDê°€ *iNextSkilì¸ Skillë¥¼ ì°¾ëŠ”ë‹¤.
 		//--------------------------------------------------
 		SKILLID_MAP::iterator	iSkill = m_mapSkillID.find( *iNextSkill );
 
 		//--------------------------------------------------
-		// ÀÖÀ¸¸é ±× SkillÀÇ °ªÀ» ¹Ù²Û´Ù.
+		// ìˆìœ¼ë©´ ê·¸ Skillì˜ ê°’ì„ ë°”ê¾¼ë‹¤.
 		//--------------------------------------------------
-		// ¹°·Ğ, ÇöÀç domain¿¡ ¼ÓÇØÀÖ´Â °æ¿ì¿¡¸¸ °¡´ÉÇÏ°í
-		// NEXTÀÌ¸é OTHER·Î ¹Ù²Û´Ù.
+		// ë¬¼ë¡ , í˜„ì¬ domainì— ì†í•´ìˆëŠ” ê²½ìš°ì—ë§Œ ê°€ëŠ¥í•˜ê³ 
+		// NEXTì´ë©´ OTHERë¡œ ë°”ê¾¼ë‹¤.
 		//--------------------------------------------------
 		if (iSkill != m_mapSkillID.end())
 		{
@@ -2339,17 +2346,17 @@ MSkillDomain::RemoveNextSkill(ACTIONINFO id)
 //----------------------------------------------------------------------
 // Learn Skill
 //----------------------------------------------------------------------
-// idÀÇ skillÀ» Learn»óÅÂ·Î ¹Ù²Û´Ù.
-// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Â skillµéÀ» Next»óÅÂ·Î ¹Ù²Û´Ù.
+// idì˜ skillì„ Learnìƒíƒœë¡œ ë°”ê¾¼ë‹¤.
+// ë‹¤ìŒì— ë°°ìš¸ ìˆ˜ ìˆëŠ” skillë“¤ì„ Nextìƒíƒœë¡œ ë°”ê¾¼ë‹¤.
 //
-// °°Àº levelÀÇ ±â¼úÀº ÇÏ³ª¹Û¿¡ ¹è¿ï ¼ö ¾ø´Ù.
-// ±×·¸°Ô µÇ¸é, ÇöÀç ¹è¿ï ¼ö ÀÖ´Â ±â¼úÀº ÃÖ°íÀÇ levelÀÎ ±â¼úÀÌ´Ù. (m_MaxLevel)
+// ê°™ì€ levelì˜ ê¸°ìˆ ì€ í•˜ë‚˜ë°–ì— ë°°ìš¸ ìˆ˜ ì—†ë‹¤.
+// ê·¸ë ‡ê²Œ ë˜ë©´, í˜„ì¬ ë°°ìš¸ ìˆ˜ ìˆëŠ” ê¸°ìˆ ì€ ìµœê³ ì˜ levelì¸ ê¸°ìˆ ì´ë‹¤. (m_MaxLevel)
 //----------------------------------------------------------------------
 bool
 MSkillDomain::LearnSkill(ACTIONINFO id)
 {
 	//--------------------------------------------------
-	// »õ·Î¿î ±â¼úÀ» ¹è¿ï ¼ö ¾øÀ¸¸é..
+	// ìƒˆë¡œìš´ ê¸°ìˆ ì„ ë°°ìš¸ ìˆ˜ ì—†ìœ¼ë©´..
 	//--------------------------------------------------
 	if (!m_bNewSkill)
 	{
@@ -2358,7 +2365,7 @@ MSkillDomain::LearnSkill(ACTIONINFO id)
 
 
 	//--------------------------------------------------
-	// ÀÌ¹ø¿¡ ¹è¿ï ¼ö ÀÖ´Â levelÀÇ ±â¼úÀÌ ¾Æ´Ï¸é return
+	// ì´ë²ˆì— ë°°ìš¸ ìˆ˜ ìˆëŠ” levelì˜ ê¸°ìˆ ì´ ì•„ë‹ˆë©´ return
 	//--------------------------------------------------
 	if ((*g_pSkillInfoTable)[id].GetLevel()!=m_MaxLearnedLevel+1)
 	{
@@ -2368,12 +2375,12 @@ MSkillDomain::LearnSkill(ACTIONINFO id)
 	SKILLID_MAP::iterator	iSkill;
 
 	//--------------------------------------------------
-	// ID°¡ idÀÎ Skill¸¦ Ã£´Â´Ù.
+	// IDê°€ idì¸ Skillë¥¼ ì°¾ëŠ”ë‹¤.
 	//--------------------------------------------------
 	iSkill = m_mapSkillID.find(id);
 
 	//--------------------------------------------------
-	// ¾øÀ» °æ¿ì NULLÀ» returnÇÑ´Ù.
+	// ì—†ì„ ê²½ìš° NULLì„ returní•œë‹¤.
 	//--------------------------------------------------
 	if (iSkill == m_mapSkillID.end()) 
 	{
@@ -2381,7 +2388,7 @@ MSkillDomain::LearnSkill(ACTIONINFO id)
 	}
 
 	//--------------------------------------------------
-	// ÀÌ¹Ì ¹è¿î °ÍÀÌ¸é return false
+	// ì´ë¯¸ ë°°ìš´ ê²ƒì´ë©´ return false
 	//--------------------------------------------------
 	if ((*iSkill).second==SKILLSTATUS_LEARNED)
 	{
@@ -2390,16 +2397,16 @@ MSkillDomain::LearnSkill(ACTIONINFO id)
 
 	
 	//-----------------------------------------------
-	// ÇöÀç »ç¿ë °¡´ÉÇÑ Skill¿¡ Ãß°¡ÇÑ´Ù.
+	// í˜„ì¬ ì‚¬ìš© ê°€ëŠ¥í•œ Skillì— ì¶”ê°€í•œë‹¤.
 	//-----------------------------------------------
 	(*g_pSkillAvailable).AddSkill( id );
 
 	//-----------------------------------------------
-	// ¹è¿î ±â¼ú level Ã¼Å©
+	// ë°°ìš´ ê¸°ìˆ  level ì²´í¬
 	//-----------------------------------------------
 	int skillLevel = (*g_pSkillInfoTable)[id].GetLevel();
 
-	// ÇöÀç level¿¡¼­ ¹è¿î ±â¼ú ¼³Á¤
+	// í˜„ì¬ levelì—ì„œ ë°°ìš´ ê¸°ìˆ  ì„¤ì •
 	m_pLearnedSkillID[skillLevel] = id;
 
 	if (skillLevel > m_MaxLearnedLevel)
@@ -2408,10 +2415,10 @@ MSkillDomain::LearnSkill(ACTIONINFO id)
 
 		//--------------------------------------------------
 		//
-		// ÇöÀç¿¡ ¹è¿ï ¼ö ÀÖ°Ô Ç¥½ÃµÈ °ÍµéÀ» ¸ğµÎ ¾ø¾ÖÁØ´Ù.
+		// í˜„ì¬ì— ë°°ìš¸ ìˆ˜ ìˆê²Œ í‘œì‹œëœ ê²ƒë“¤ì„ ëª¨ë‘ ì—†ì• ì¤€ë‹¤.
 		//
 		//--------------------------------------------------
-		// ¹Ù·Î Àü levelÀÇ ÇÏÀ§ level
+		// ë°”ë¡œ ì „ levelì˜ í•˜ìœ„ level
 		//--------------------------------------------------
 		//if (m_MaxLearnedLevel > 0)
 		//{	
@@ -2419,7 +2426,7 @@ MSkillDomain::LearnSkill(ACTIONINFO id)
 		//}
 
 		//--------------------------------------------------
-		// ¹è¿ï ¼ö ÀÖ´Ù°í Ç¥½ÃµÈ°Å ¸ğµÎ Á¦°Å
+		// ë°°ìš¸ ìˆ˜ ìˆë‹¤ê³  í‘œì‹œëœê±° ëª¨ë‘ ì œê±°
 		//--------------------------------------------------
 		SKILLID_MAP::iterator iSkill2 = m_mapSkillID.begin();
 
@@ -2434,13 +2441,13 @@ MSkillDomain::LearnSkill(ACTIONINFO id)
 		}
 
 		//--------------------------------------------------
-		// ¹è¿ü´Ù°í Ã¼Å©ÇÑ´Ù.
+		// ë°°ì› ë‹¤ê³  ì²´í¬í•œë‹¤.
 		//--------------------------------------------------
 		(*iSkill).second = SKILLSTATUS_LEARNED;	
 
 		//--------------------------------------------------
 		//
-		// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Â °ÍµéÀ» Ã£¾Æ¼­ ¼³Á¤ÇÑ´Ù.
+		// ë‹¤ìŒì— ë°°ìš¸ ìˆ˜ ìˆëŠ” ê²ƒë“¤ì„ ì°¾ì•„ì„œ ì„¤ì •í•œë‹¤.
 		//
 		//--------------------------------------------------
 		AddNextSkill( id );
@@ -2448,7 +2455,7 @@ MSkillDomain::LearnSkill(ACTIONINFO id)
 	else
 	{
 		//--------------------------------------------------
-		// ¹è¿ü´Ù°í Ã¼Å©ÇÑ´Ù.
+		// ë°°ì› ë‹¤ê³  ì²´í¬í•œë‹¤.
 		//--------------------------------------------------
 		(*iSkill).second = SKILLSTATUS_LEARNED;	
 	}
@@ -2461,17 +2468,17 @@ MSkillDomain::LearnSkill(ACTIONINFO id)
 //----------------------------------------------------------------------
 // UnLearn Skill
 //----------------------------------------------------------------------
-// idÀÇ skillÀ» ¾È ¹è¿î »óÅÂ·Î ¹Ù²Û´Ù.
+// idì˜ skillì„ ì•ˆ ë°°ìš´ ìƒíƒœë¡œ ë°”ê¾¼ë‹¤.
 //
-// Á¦°ÅµÈ °Íµé Áß¿¡¼­ ÃÖ°í levelÀÇ ±â¼úÀÇ
-// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Â skillµéÀ» Next»óÅÂ·Î ¹Ù²Û´Ù.
+// ì œê±°ëœ ê²ƒë“¤ ì¤‘ì—ì„œ ìµœê³  levelì˜ ê¸°ìˆ ì˜
+// ë‹¤ìŒì— ë°°ìš¸ ìˆ˜ ìˆëŠ” skillë“¤ì„ Nextìƒíƒœë¡œ ë°”ê¾¼ë‹¤.
 //
 //----------------------------------------------------------------------
 bool
 MSkillDomain::UnLearnSkill(ACTIONINFO id)
 {
 	//--------------------------------------------------
-	// ÇöÀç ÃÖ°í levelÀÇ ±â¼ú¸¸ Á¦°ÅÇÒ ¼ö ÀÖ´Ù.
+	// í˜„ì¬ ìµœê³  levelì˜ ê¸°ìˆ ë§Œ ì œê±°í•  ìˆ˜ ìˆë‹¤.
 	//--------------------------------------------------
 	if ((*g_pSkillInfoTable)[id].GetLevel()!=m_MaxLearnedLevel)
 	{
@@ -2481,12 +2488,12 @@ MSkillDomain::UnLearnSkill(ACTIONINFO id)
 	SKILLID_MAP::iterator	iSkill;
 
 	//--------------------------------------------------
-	// ID°¡ idÀÎ Skill¸¦ Ã£´Â´Ù.
+	// IDê°€ idì¸ Skillë¥¼ ì°¾ëŠ”ë‹¤.
 	//--------------------------------------------------
 	iSkill = m_mapSkillID.find(id);
 
 	//--------------------------------------------------
-	// ¾øÀ» °æ¿ì NULLÀ» returnÇÑ´Ù.
+	// ì—†ì„ ê²½ìš° NULLì„ returní•œë‹¤.
 	//--------------------------------------------------
 	if (iSkill == m_mapSkillID.end()) 
 	{
@@ -2495,38 +2502,38 @@ MSkillDomain::UnLearnSkill(ACTIONINFO id)
 
 	//--------------------------------------------------
 	//
-	// SkillÀÇ °ªÀ» UnLearned·Î ¹Ù²Û´Ù.
+	// Skillì˜ ê°’ì„ UnLearnedë¡œ ë°”ê¾¼ë‹¤.
 	//
 	//--------------------------------------------------
-	// ¹è¿î °ÍÀÌ¸é ¾Æ´Ï¸é return false
+	// ë°°ìš´ ê²ƒì´ë©´ ì•„ë‹ˆë©´ return false
 	if ((*iSkill).second!=SKILLSTATUS_LEARNED)
 	{
 		return false;
 	}
 	
 	//--------------------------------------------------
-	// Á¦°ÅÇÒ·Á´Â ±â¼úÀÇ ´ÙÀ½ ±â¼úµéÀ» 
-	// ¸ø ¹è¿ì´Â °É·Î Ã¼Å©ÇÑ´Ù.
+	// ì œê±°í• ë ¤ëŠ” ê¸°ìˆ ì˜ ë‹¤ìŒ ê¸°ìˆ ë“¤ì„ 
+	// ëª» ë°°ìš°ëŠ” ê±¸ë¡œ ì²´í¬í•œë‹¤.
 	//--------------------------------------------------
 	RemoveNextSkill( m_pLearnedSkillID[m_MaxLearnedLevel] );
 
 	//--------------------------------------------------
-	// ±â¼ú level ¾ø¾ÖÁÖ±â
+	// ê¸°ìˆ  level ì—†ì• ì£¼ê¸°
 	//--------------------------------------------------
 	m_pLearnedSkillID[m_MaxLearnedLevel] = MAX_ACTIONINFO;//ACTIONINFO_NULL;
 	m_MaxLearnedLevel--;
 	
 
-	(*iSkill).second = SKILLSTATUS_OTHER;	// ½ÇÁ¦·Î´Â NEXTSKILLÀÌÁö¸¸..¸Ó..
+	(*iSkill).second = SKILLSTATUS_OTHER;	// ì‹¤ì œë¡œëŠ” NEXTSKILLì´ì§€ë§Œ..ë¨¸..
 
 	//-----------------------------------------------
-	// ÇöÀç »ç¿ë °¡´ÉÇÑ Skill¿¡¼­ Á¦°ÅÇÑ´Ù.
+	// í˜„ì¬ ì‚¬ìš© ê°€ëŠ¥í•œ Skillì—ì„œ ì œê±°í•œë‹¤.
 	//-----------------------------------------------
 	(*g_pSkillAvailable).RemoveSkill( id );
 	
 	//--------------------------------------------------
 	//
-	// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Â °ÍµéÀ» Ã£¾Æ¼­ ¼³Á¤ÇÑ´Ù.
+	// ë‹¤ìŒì— ë°°ìš¸ ìˆ˜ ìˆëŠ” ê²ƒë“¤ì„ ì°¾ì•„ì„œ ì„¤ì •í•œë‹¤.
 	//
 	//--------------------------------------------------
 	if (m_MaxLearnedLevel>=0)
@@ -2582,7 +2589,7 @@ MSkillDomain::AddSkillStep(SKILL_STEP ss, ACTIONINFO ai)
 
 	if (iList == m_mapSkillStep.end())
 	{
-		// ¾øÀ¸¸é newÇØ¼­ Ãß°¡ÇÑ´Ù.
+		// ì—†ìœ¼ë©´ newí•´ì„œ ì¶”ê°€í•œë‹¤.
 		pList = new SKILL_STEP_LIST;
 	}
 	else
@@ -2590,7 +2597,7 @@ MSkillDomain::AddSkillStep(SKILL_STEP ss, ACTIONINFO ai)
 		pList = iList->second;
 	}
 
-	// list¿¡ aiÃß°¡
+	// listì— aiì¶”ê°€
 	SKILL_STEP_LIST list = *pList;
 	bool bExist = false;
 	for(int i=0;i<list.size();i++)
@@ -2635,25 +2642,25 @@ MSkillDomain::AddSkillStep(SKILL_STEP ss, ACTIONINFO ai)
 		}
 	}
 
-	// (´Ù½Ã) ¼³Á¤ÇÑ´Ù.
+	// (ë‹¤ì‹œ) ì„¤ì •í•œë‹¤.
 	m_mapSkillStep[ss] = pList;
 }
 
 //----------------------------------------------------------------------
 // Save To File
 //----------------------------------------------------------------------
-// Skill ID¸¦ File¿¡ ÀúÀåÇÑ´Ù.
+// Skill IDë¥¼ Fileì— ì €ì¥í•œë‹¤.
 //----------------------------------------------------------------------
 void		
-MSkillDomain::SaveToFile(class ofstream& file)
+MSkillDomain::SaveToFile(std::ofstream& file)
 {
 	SKILLID_MAP::iterator	iSkill = m_mapSkillID.begin();
 
-	// sizeÀúÀå
+	// sizeì €ì¥
 	int size = m_mapSkillID.size();
 	file.write((const char*)&size, 4);
 
-	// °¢ idÀúÀå
+	// ê° idì €ì¥
 	while (iSkill != m_mapSkillID.end())
 	{
 		WORD id = (*iSkill).first;
@@ -2669,19 +2676,19 @@ MSkillDomain::SaveToFile(class ofstream& file)
 //----------------------------------------------------------------------
 // Load From File
 //----------------------------------------------------------------------
-// Skill ID¸¦ File¿¡¼­ ÀĞ¾î¿Â´Ù.
+// Skill IDë¥¼ Fileì—ì„œ ì½ì–´ì˜¨ë‹¤.
 //----------------------------------------------------------------------
 void		
-MSkillDomain::LoadFromFile(class ifstream& file)
+MSkillDomain::LoadFromFile(std::ifstream& file)
 {
 	Clear();
 	//m_mapSkillID.clear();
 	
-	// sizeÀĞ¾î¿À±â
+	// sizeì½ì–´ì˜¤ê¸°
 	int size;
 	file.read((char*)&size, 4);
 
-	// ÀĞ¾î¿Í¼­ ÀúÀå
+	// ì½ì–´ì™€ì„œ ì €ì¥
 	WORD id;
 	BYTE status;
 	for (int i=0; i<size; i++)
@@ -2699,13 +2706,13 @@ MSkillDomain::LoadFromFile(class ifstream& file)
 // LoadFromFileServerDomainInfo
 //----------------------------------------------------------------------
 void		
-MSkillDomain::LoadFromFileServerDomainInfo(class ifstream& file)
+MSkillDomain::LoadFromFileServerDomainInfo(std::ifstream& file)
 {	
 	int level;
 
 	file.read((char*)&level, 4);
 
-	// level¿¡ ¸ÂÃç¼­ loading..
+	// levelì— ë§ì¶°ì„œ loading..
 	m_DomainExpTable[level].LoadFromFile( file );	
 }
 
@@ -2719,7 +2726,7 @@ MSkillDomain::IsAvailableDeleteSkill(ACTIONINFO id)
 	while (iNextSkill != listNextSkill.end())
 	{
 		//--------------------------------------------------
-		// ID°¡ *iNextSkilÀÎ Skill¸¦ Ã£´Â´Ù.
+		// IDê°€ *iNextSkilì¸ Skillë¥¼ ì°¾ëŠ”ë‹¤.
 		//--------------------------------------------------
 		int TempSkillID = *iNextSkill;
 		if(false == (*g_pSkillInfoTable)[*iNextSkill].CanDelete)
@@ -2769,12 +2776,12 @@ MSkillManager::Init()
 {
 	//--------------------------------------------------
 	//
-	// Skill Tree ÃÊ±âÈ­
+	// Skill Tree ì´ˆê¸°í™”
 	//
 	//--------------------------------------------------
 	CTypeTable<MSkillDomain>::Init( MAX_SKILLDOMAIN );
 	//--------------------------------------------------
-	// ±âº» ±â¼ú·ÎºÎÅÍ skill tree¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+	// ê¸°ë³¸ ê¸°ìˆ ë¡œë¶€í„° skill treeë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 	//--------------------------------------------------
 
 	m_pTypeInfo[SKILLDOMAIN_BLADE].SetRootSkill( SKILL_SINGLE_BLOW );
@@ -2789,9 +2796,9 @@ MSkillManager::Init()
 
 	#ifdef __GAME_CLIENT__
 		//------------------------------------------------
-		// Server Á¤º¸¸¦ loadingÇÑ´Ù.
+		// Server ì •ë³´ë¥¼ loadingí•œë‹¤.
 		//------------------------------------------------
-		class ifstream serverDomainInfoFile;//(FILE_INFO_skill, ios::binary);
+		std::ifstream serverDomainInfoFile;//(FILE_INFO_skill, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_SKILL_DOMAIN_EXP").c_str(), serverDomainInfoFile))
 			return;
 
@@ -2822,18 +2829,18 @@ MSkillManager::InitSkillList()
 // LoadFromFileServerSkillInfo
 //----------------------------------------------------------------------
 void		
-MSkillManager::LoadFromFileServerDomainInfo(class ifstream& file)
+MSkillManager::LoadFromFileServerDomainInfo(std::ifstream& file)
 {
 	int num, domain;
 
 	file.read((char*)&num, 4);
 
-	// °³¼ö¸¸Å­..
+	// ê°œìˆ˜ë§Œí¼..
 	for (int i=0; i<num; i++)
 	{		
 		file.read((char*)&domain, 4);
 
-		// domain¿¡ ¸ÂÃç¼­ loadingÇÑ´Ù.
+		// domainì— ë§ì¶°ì„œ loadingí•œë‹¤.
 		m_pTypeInfo[domain].LoadFromFileServerDomainInfo( file );
 	}
 }

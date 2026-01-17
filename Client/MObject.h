@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MObject.h
 //----------------------------------------------------------------------
-// È­¸é¿¡ Ãâ·ÂµÇ´Â Object
+// í™”ë©´ì— ì¶œë ¥ë˜ëŠ” Object
 //----------------------------------------------------------------------
 /* class hierachy
 
@@ -21,9 +21,10 @@
 #ifndef	__MOBJECT_H__
 #define	__MOBJECT_H__
 
-class ofstream;
-class ifstream;
+#include "Client_PCH.h"
 #include "MTypeDef.h"
+#include <fstream>
+using namespace std;
 
 
 class MObject {
@@ -40,34 +41,34 @@ class MObject {
 		TYPE_OBJECTID	GetID()	const			{ return m_ID; }
 
 		//--------------------------------------------------------
-		// Sector¿¡¼­ÀÇ ÁÂÇ¥
+		// Sectorì—ì„œì˜ ì¢Œí‘œ
 		//--------------------------------------------------------
 		void		SetPosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y)	{ m_X = x; m_Y = y; }
 		void		SetX(TYPE_SECTORPOSITION x)		{ m_X = x; }
 		void		SetY(TYPE_SECTORPOSITION y)		{ m_Y = y; }
-		TYPE_SECTORPOSITION		GetX()	const		{ return m_X; }		// ÁÂÇ¥X
-		TYPE_SECTORPOSITION		GetY()	const		{ return m_Y; }		// ÁÂÇ¥Y
+		TYPE_SECTORPOSITION		GetX()	const		{ return m_X; }		// ì¢Œí‘œX
+		TYPE_SECTORPOSITION		GetY()	const		{ return m_Y; }		// ì¢Œí‘œY
 
 		//------------------------------------------------------
-		// È­¸é¿¡¼­ÀÇ ¿µ¿ª
+		// í™”ë©´ì—ì„œì˜ ì˜ì—­
 		//------------------------------------------------------
 		//extern BOOL g_MyFull;
 		/*  edit by coffee 2007-01-01
 		void				ClearScreenRect()	
 		{ 
-			// ÃÖ´ë/ÃÖ¼Ò°ªÀ» ±¸ÇÏ±â À§ÇÑ °ÍÀÌ¹Ç·Î.. °Å²Ù·Î ³Ö¾î¾ß ÇÑ´Ù.
+			// ìµœëŒ€/ìµœì†Œê°’ì„ êµ¬í•˜ê¸° ìœ„í•œ ê²ƒì´ë¯€ë¡œ.. ê±°ê¾¸ë¡œ ë„£ì–´ì•¼ í•œë‹¤.
 			// add by Sonic 2006.9.26
 			if(g_MyFull)
 			{
-				m_ScreenRect.left = 1024;	// ¹Ù·Î °ªÀ» ½á¹ö¸°´ç.
-				m_ScreenRect.top = 768;		// -_-; ÀÌ·¯¸é ¾ÈµÇÁö¸¸ °íÄ¡±â Â¯³­´Ù~
+				m_ScreenRect.left = 1024;	// ë°”ë¡œ ê°’ì„ ì¨ë²„ë¦°ë‹¹.
+				m_ScreenRect.top = 768;		// -_-; ì´ëŸ¬ë©´ ì•ˆë˜ì§€ë§Œ ê³ ì¹˜ê¸° ì§±ë‚œë‹¤~
 				m_ScreenRect.right = 0;
 				m_ScreenRect.bottom = 0;
 			}
 			else
 			{
-				m_ScreenRect.left = 800;	// ¹Ù·Î °ªÀ» ½á¹ö¸°´ç.
-				m_ScreenRect.top = 600;		// -_-; ÀÌ·¯¸é ¾ÈµÇÁö¸¸ °íÄ¡±â Â¯³­´Ù~
+				m_ScreenRect.left = 800;	// ë°”ë¡œ ê°’ì„ ì¨ë²„ë¦°ë‹¹.
+				m_ScreenRect.top = 600;		// -_-; ì´ëŸ¬ë©´ ì•ˆë˜ì§€ë§Œ ê³ ì¹˜ê¸° ì§±ë‚œë‹¤~
 				m_ScreenRect.right = 0;
 				m_ScreenRect.bottom = 0;
 			}
@@ -76,8 +77,8 @@ class MObject {
 		*/  //end edit
 		void				ClearScreenRect()	
 		{
-				m_ScreenRect.left = 800;	// ¹Ù·Î °ªÀ» ½á¹ö¸°´ç.
-				m_ScreenRect.top = 600;		// -_-; ÀÌ·¯¸é ¾ÈµÇÁö¸¸ °íÄ¡±â Â¯³­´Ù~
+				m_ScreenRect.left = 800;	// ë°”ë¡œ ê°’ì„ ì¨ë²„ë¦°ë‹¹.
+				m_ScreenRect.top = 600;		// -_-; ì´ëŸ¬ë©´ ì•ˆë˜ì§€ë§Œ ê³ ì¹˜ê¸° ì§±ë‚œë‹¤~
 				m_ScreenRect.right = 0;
 				m_ScreenRect.bottom = 0;
 		}
@@ -98,12 +99,12 @@ class MObject {
 		//--------------------------------------------------------
 		// file I/O
 		//--------------------------------------------------------
-		virtual void	SaveToFile(class ofstream& file);
-		virtual void	LoadFromFile(class ifstream& file);
+		virtual void	SaveToFile(std::ofstream& file);
+		virtual void	LoadFromFile(std::ifstream& file);
 
 	public :
 		//--------------------------------------------------------
-		// Object Á¾·ù¿¡ ´ëÇÑ Á¤ÀÇ : class ID
+		// Object ì¢…ë¥˜ì— ëŒ€í•œ ì •ì˜ : class ID
 		//--------------------------------------------------------
 		enum OBJECT_TYPE 
 		{
@@ -120,13 +121,13 @@ class MObject {
 		};
 
 	protected :
-		BYTE				m_ObjectType;	// ObjectÀÇ Á¾·ù
+		BYTE				m_ObjectType;	// Objectì˜ ì¢…ë¥˜
 		TYPE_OBJECTID		m_ID;			// Object's instance ID
 		
-		// À§Ä¡
-		TYPE_SECTORPOSITION				m_X, m_Y;		// Sector ÁÂÇ¥ (pixel´ÜÀ§ ¾Æ´Ô!)
+		// ìœ„ì¹˜
+		TYPE_SECTORPOSITION				m_X, m_Y;		// Sector ì¢Œí‘œ (pixelë‹¨ìœ„ ì•„ë‹˜!)
 
-		// È­¸é¿¡¼­ÀÇ SpriteÃæµ¹ »ç°¢ ¿µ¿ª
+		// í™”ë©´ì—ì„œì˜ Spriteì¶©ëŒ ì‚¬ê° ì˜ì—­
 		RECT					m_ScreenRect;
 };
 

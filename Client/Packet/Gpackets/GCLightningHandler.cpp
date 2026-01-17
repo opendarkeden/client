@@ -18,7 +18,8 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCLightningHandler::execute ( GCLightning * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -29,9 +30,9 @@ void GCLightningHandler::execute ( GCLightning * pPacket , Player * pPlayer )
 	#endif
 
 
-	// server : 10 = 1ÃÊ
-	// client : 1000 = 1ÃÊ
-	// ±×·¡¼­.. *100.. À½ÇÏÇÏ..
+	// server : 10 = 1ì´ˆ
+	// client : 1000 = 1ì´ˆ
+	// ê·¸ëž˜ì„œ.. *100.. ìŒí•˜í•˜..
 	SetLightning( pPacket->getDelay()*100 );
 
 #endif

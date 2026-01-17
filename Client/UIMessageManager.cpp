@@ -1,12 +1,14 @@
 //-----------------------------------------------------------------------------
 // UIMessageManager.cpp
 //-----------------------------------------------------------------------------
-// QuickSlot¿¡ ¹º°¡ ÇÒ·Á´Â °æ¿ì¿¡.. QuickSlotÀÌ ¾ø¾îÁú ¼ö°¡ ÀÖ´Ù... 
-// Áö±İ UI¿¡¼­ Å¸ÀÌ¹Ö ¹®Á¦°¡ ÀÖ¾î¼­ ¸ø °íÄ¡°í ÀÖÀ½.
+// QuickSlotÂ¿Â¡ Â¹ÂºÂ°Â¡ Ã‡Ã’Â·ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬Â¿Â¡.. QuickSlotÃ€ÃŒ Â¾Ã¸Â¾Ã®ÃÃº Â¼Ã¶Â°Â¡ Ã€Ã–Â´Ã™... 
+// ÃÃ¶Â±Ã UIÂ¿Â¡Â¼Â­ Ã…Â¸Ã€ÃŒÂ¹Ã– Â¹Â®ÃÂ¦Â°Â¡ Ã€Ã–Â¾Ã®Â¼Â­ Â¸Ã¸ Â°Ã­Ã„Â¡Â°Ã­ Ã€Ã–Ã€Â½.
 //-----------------------------------------------------------------------------
 #include "Client_PCH.h"
+#ifdef PLATFORM_WINDOWS
 #include <io.h>
 #include <process.h>
+#endif
 #include <stdio.h>
 #include "Client.h"
 #include "UIMessageManager.h"
@@ -46,36 +48,36 @@
 #include "CGameUpdate.h"
 #include "MTestDef.h"
 
-#include "Packet\CPackets\CGRequestNewbieItem.h"
-#include "Packet\CPackets\CGSilverCoating.h"
-#include "Packet\CPackets\CLChangeServer.h"
-#include "Packet\CPackets\CLGetServerList.h"
-#include "Packet\CPackets\CGSelectPortal.h"
-#include "Packet\CPackets\CGSelectWayPoint.h"
-#include "Packet\CPackets\CGPartyInvite.h"
-#include "Packet\CPackets\CGPartyLeave.h"
-#include "packet\Cpackets\CGResurrect.h"
-#include "packet\Cpackets\CLSelectWorld.h"
-#include "packet\Cpackets\CLSelectServer.h"
-#include "packet\Cpackets\CLQueryCharacterName.h"
-#include "packet\CPackets\CGRelicToObject.h"
-#include "packet\CPackets\CGSelectGuild.h"
-#include "packet\CPackets\CGSelectGuildMember.h"
-#include "packet\CPackets\CGRequestGuildMemberList.h"
-#include "packet\CPackets\CGTryJoinGuild.h"
-#include "packet\CPackets\CGJoinGuild.h"
-#include "packet\CPackets\CGRegistGuild.h"
-#include "packet\CPackets\CGModifyGuildMember.h"
-#include "packet\CPackets\CGAddItemToItem.h"
-#include "packet\CPackets\CGModifyGuildIntro.h"
-#include "packet\CPackets\CGModifyGuildMemberIntro.h"
-#include "packet\CPackets\CGSkillToNamed.H"
-#include "packet\CPackets\CGSelectRankBonus.H"
-#include "packet\CPackets\CGWithdrawTax.H"
-#include "packet\CPackets\CGTypeStringList.h"
-#include "packet\CPackets\CGLotterySelect.h"
-#include "packet\CPackets\CGTakeOutGood.h"
-#include "packet/CPackets/CGMixItem.h"					// -_- ºñ¢O ¾î½Ã½ºÆ®¿¡¼­ ÀÌ·¸°Ô ÇÏ¸é ³ª¿Â´Ù°íÇÏ±æ·¡
+#include "Packet/CPackets/CGRequestNewbieItem.h"
+#include "Packet/CPackets/CGSilverCoating.h"
+#include "Packet/CPackets/CLChangeServer.h"
+#include "Packet/CPackets/CLGetServerList.h"
+#include "Packet/CPackets/CGSelectPortal.h"
+#include "Packet/CPackets/CGSelectWayPoint.h"
+#include "Packet/CPackets/CGPartyInvite.h"
+#include "Packet/CPackets/CGPartyLeave.h"
+#include "packet/Cpackets/CGResurrect.h"
+#include "packet/Cpackets/CLSelectWorld.h"
+#include "packet/Cpackets/CLSelectServer.h"
+#include "packet/Cpackets/CLQueryCharacterName.h"
+#include "packet/CPackets/CGRelicToObject.h"
+#include "packet/CPackets/CGSelectGuild.h"
+#include "packet/CPackets/CGSelectGuildMember.h"
+#include "packet/CPackets/CGRequestGuildMemberList.h"
+#include "packet/CPackets/CGTryJoinGuild.h"
+#include "packet/CPackets/CGJoinGuild.h"
+#include "packet/CPackets/CGRegistGuild.h"
+#include "packet/CPackets/CGModifyGuildMember.h"
+#include "packet/CPackets/CGAddItemToItem.h"
+#include "packet/CPackets/CGModifyGuildIntro.h"
+#include "packet/CPackets/CGModifyGuildMemberIntro.h"
+#include "packet/CPackets/CGSkillToNamed.H"
+#include "packet/CPackets/CGSelectRankBonus.H"
+#include "packet/CPackets/CGWithdrawTax.H"
+#include "packet/CPackets/CGTypeStringList.h"
+#include "packet/CPackets/CGLotterySelect.h"
+#include "packet/CPackets/CGTakeOutGood.h"
+#include "packet/CPackets/CGMixItem.h"					// -_- ÂºÃ±Â¢O Â¾Ã®Â½ÃƒÂ½ÂºÃ†Â®Â¿Â¡Â¼Â­ Ã€ÃŒÂ·Â¸Â°Ã” Ã‡ÃÂ¸Ã© Â³ÂªÂ¿Ã‚Â´Ã™Â°Ã­Ã‡ÃÂ±Ã¦Â·Â¡
 #include "packet/CPackets/CGDownSkill.h"
 #include "packet/GPackets/GCMiniGameScores.h"
 #include "packet/CPackets/CGSubmitScore.h"
@@ -84,27 +86,27 @@
 #include "packet/CPackets/CGSelectRegenZone.h"
 #include "packet/CPackets/CGTameMonster.h"
 #include "packet/CPackets/CGPetGamble.h"
-#include "packet\CPackets\CGUseMessageItemFromInventory.h"
-#include "packet\Cpackets\CGPartySay.h"
-#include "packet\Cpackets\CGDepositPet.h"
-#include "packet\Cpackets\CGWithdrawPet.h"
-#include "packet\Cpackets\CGSMSSend.h"
-#include "packet\Cpackets\CGSMSAddressList.h"
-#include "packet\Cpackets\CGDeleteSMSAddress.h"
-#include "packet\Cpackets\CGAddSMSAddress.h"
-#include "packet\Cpackets\CGSelectNickname.h"
-#include "packet\Cpackets\CGModifyNickname.h"
-#include "packet\Cpackets\CGGQuestAccept.h"
-#include "packet\Cpackets\CGGQuestCancel.h"
-#include "packet\Cpackets\CGUseItemFromGQuestInventory.h"
+#include "packet/CPackets/CGUseMessageItemFromInventory.h"
+#include "packet/Cpackets/CGPartySay.h"
+#include "packet/Cpackets/CGDepositPet.h"
+#include "packet/Cpackets/CGWithdrawPet.h"
+#include "packet/Cpackets/CGSMSSend.h"
+#include "packet/Cpackets/CGSMSAddressList.h"
+#include "packet/Cpackets/CGDeleteSMSAddress.h"
+#include "packet/Cpackets/CGAddSMSAddress.h"
+#include "packet/Cpackets/CGSelectNickname.h"
+#include "packet/Cpackets/CGModifyNickname.h"
+#include "packet/Cpackets/CGGQuestAccept.h"
+#include "packet/Cpackets/CGGQuestCancel.h"
+#include "packet/Cpackets/CGUseItemFromGQuestInventory.h"
 
 #include "RequestFunction.h"
 #include "RequestServerPlayerManager.h"
 #include "RequestUserManager.h"
 #include "ClientCommunicationManager.h"
 #include "WhisperManager.h"
-#include "packet\Rpackets\RCSay.h"
-#include "packet\Cpackets\CGGuildChat.h"
+#include "packet/Rpackets/RCSay.h"
+#include "packet/Cpackets/CGGuildChat.h"
 #include "CMP3.h"
 #include "RankBonusTable.h"
 #include "Profiler.h"
@@ -118,31 +120,31 @@
 #include "MTimeItemManager.h"
 #include "MFakeCreature.h"
 
-#include "packet\Cpackets\CGRequestUnion.h"
-#include "packet\Cpackets\CGQuitUnion.h"
-#include "packet\Cpackets\CGExpelGuild.h"
-#include "Packet\Cpackets\CGRequestGuildList.h"
-#include "Packet\Cpackets\CGRequestUnionInfo.h"
-#include "Packet\Cpackets\CGAcceptUnion.h"
-#include "Packet\Cpackets\CGDenyUnion.h"
-#include "Packet\Cpackets\CGQuitUnionAccept.h"
-#include "Packet\Cpackets\CGQuitUnionDeny.h"
-#include "Packet\Cpackets\CGRangerSay.h"
-#include "Packet\Cpackets\CGModifyTaxRatio.h"
-#include "Packet\Cpackets\CGAppointSubmaster.h"
+#include "packet/Cpackets/CGRequestUnion.h"
+#include "packet/Cpackets/CGQuitUnion.h"
+#include "packet/Cpackets/CGExpelGuild.h"
+#include "Packet/Cpackets/CGRequestGuildList.h"
+#include "Packet/Cpackets/CGRequestUnionInfo.h"
+#include "Packet/Cpackets/CGAcceptUnion.h"
+#include "Packet/Cpackets/CGDenyUnion.h"
+#include "Packet/Cpackets/CGQuitUnionAccept.h"
+#include "Packet/Cpackets/CGQuitUnionDeny.h"
+#include "Packet/Cpackets/CGRangerSay.h"
+#include "Packet/Cpackets/CGModifyTaxRatio.h"
+#include "Packet/Cpackets/CGAppointSubmaster.h"
 //
-#include "packet\Cpackets\CGRequestUnion.h"
-#include "packet\Cpackets\CGQuitUnion.h"
-#include "packet\Cpackets\CGExpelGuild.h"
-#include "Packet\Cpackets\CGRequestGuildList.h"
-#include "Packet\Cpackets\CGRequestUnionInfo.h"
-#include "Packet\Cpackets\CGAcceptUnion.h"
-#include "Packet\Cpackets\CGDenyUnion.h"
-#include "Packet\Cpackets\CGQuitUnionAccept.h"
-#include "Packet\Cpackets\CGQuitUnionDeny.h"
-#include "Packet\Cpackets\CGRangerSay.h"
-#include "Packet\Cpackets\CGModifyTaxRatio.h"
-#include "Packet\Cpackets\CGAppointSubmaster.h"
+#include "packet/Cpackets/CGRequestUnion.h"
+#include "packet/Cpackets/CGQuitUnion.h"
+#include "packet/Cpackets/CGExpelGuild.h"
+#include "Packet/Cpackets/CGRequestGuildList.h"
+#include "Packet/Cpackets/CGRequestUnionInfo.h"
+#include "Packet/Cpackets/CGAcceptUnion.h"
+#include "Packet/Cpackets/CGDenyUnion.h"
+#include "Packet/Cpackets/CGQuitUnionAccept.h"
+#include "Packet/Cpackets/CGQuitUnionDeny.h"
+#include "Packet/Cpackets/CGRangerSay.h"
+#include "Packet/Cpackets/CGModifyTaxRatio.h"
+#include "Packet/Cpackets/CGAppointSubmaster.h"
 
 #include "Packet/Cpackets/CGDisplayItem.h"
 #include "Packet/Cpackets/CGUndisplayItem.h"
@@ -157,33 +159,33 @@
 #include "Packet/Gpackets/GCAddStoreItem.h"
 //
 
-#include "Packet\Cpackets\CGUsePowerPoint.h"
-#include "Packet\Cpackets\CGRequestPowerPoint.h"
-#include "Packet\Cpackets\CGDonationMoney.h"
-#include "Packet\Cpackets\CGGetEventItem.h"
-#include "Packet\Cpackets\CGUseMessageItemFromInventory.h"
+#include "Packet/Cpackets/CGUsePowerPoint.h"
+#include "Packet/Cpackets/CGRequestPowerPoint.h"
+#include "Packet/Cpackets/CGDonationMoney.h"
+#include "Packet/Cpackets/CGGetEventItem.h"
+#include "Packet/Cpackets/CGUseMessageItemFromInventory.h"
 
 //add by viva
-#include "Packet\Cpackets\CGConnectSetKey.h"
-#include "Packet\Gpackets\GCFriendChatting.h"
+#include "Packet/Cpackets/CGConnectSetKey.h"
+#include "Packet/Gpackets/GCFriendChatting.h"
 //end
 
 //-----------------------------------------------------------------------------
-// Chat¿¡¼­ »ç¿ëÇÏ´Â Æ¯¼öÇÑ ¹®ÀÚ
+// ChatÂ¿Â¡Â¼Â­ Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Ã†Â¯Â¼Ã¶Ã‡Ã‘ Â¹Â®Ã€Ãš
 //-----------------------------------------------------------------------------
-#define	SYMBOL_GLOBALCHAT			'!'			// zone Ã¤ÆÃ
-#define	SYMBOL_WHISPER				'/'			// ±Ó¼Ó¸»
-#define	SYMBOL_COMMAND				'@'			// Æ¯¼ö ¸í·É¾î
-#define SYMBOL_MASTER_COMMAND		'*'			// ¿î¿µÀÚ¿ë Æ¯¼ö ¸í·É¾î
+#define	SYMBOL_GLOBALCHAT			'!'			// zone ÃƒÂ¤Ã†Ãƒ
+#define	SYMBOL_WHISPER				'/'			// Â±Ã“Â¼Ã“Â¸Â»
+#define	SYMBOL_COMMAND				'@'			// Ã†Â¯Â¼Ã¶ Â¸Ã­Â·Ã‰Â¾Ã®
+#define SYMBOL_MASTER_COMMAND		'*'			// Â¿Ã®Â¿ÂµÃ€ÃšÂ¿Ã« Ã†Â¯Â¼Ã¶ Â¸Ã­Â·Ã‰Â¾Ã®
 
-#define	STRING_IGNORE				"°ÅºÎ"		// ´ëÈ­ °ÅºÎ
-#define	STRING_IGNORE_ENG			"ignore"	// ´ëÈ­ °ÅºÎ
-#define	STRING_ACCEPT				"Çã¿ë"		// ´ëÈ­ Çã¿ë
-#define	STRING_ACCEPT_ENG			"accept"	// ´ëÈ­ Çã¿ë
-#define	STRING_ACCEPT_CURSE			"¹¹¶ó°í?"	// ³ª»Û¸» º¸±â
-#define	STRING_ACCEPT_CURSE_ENG		"what?"		// ³ª»Û¸» º¸±â
-#define	STRING_FILTER_CURSE			"¹Ù¸¥¸»"	// ¹Ù¸¥¸»¸¸ º¸±â
-#define	STRING_FILTER_CURSE_ENG		"filter"	// ¹Ù¸¥¸»¸¸ º¸±â
+#define	STRING_IGNORE				"Â°Ã…ÂºÃ"		// Â´Ã«ÃˆÂ­ Â°Ã…ÂºÃ
+#define	STRING_IGNORE_ENG			"ignore"	// Â´Ã«ÃˆÂ­ Â°Ã…ÂºÃ
+#define	STRING_ACCEPT				"Ã‡Ã£Â¿Ã«"		// Â´Ã«ÃˆÂ­ Ã‡Ã£Â¿Ã«
+#define	STRING_ACCEPT_ENG			"accept"	// Â´Ã«ÃˆÂ­ Ã‡Ã£Â¿Ã«
+#define	STRING_ACCEPT_CURSE			"Â¹Â¹Â¶Ã³Â°Ã­?"	// Â³ÂªÂ»Ã›Â¸Â» ÂºÂ¸Â±Ã¢
+#define	STRING_ACCEPT_CURSE_ENG		"what?"		// Â³ÂªÂ»Ã›Â¸Â» ÂºÂ¸Â±Ã¢
+#define	STRING_FILTER_CURSE			"Â¹Ã™Â¸Â¥Â¸Â»"	// Â¹Ã™Â¸Â¥Â¸Â»Â¸Â¸ ÂºÂ¸Â±Ã¢
+#define	STRING_FILTER_CURSE_ENG		"filter"	// Â¹Ã™Â¸Â¥Â¸Â»Â¸Â¸ ÂºÂ¸Â±Ã¢
 
 int g_C2G = 0;
 
@@ -224,7 +226,7 @@ void
 ExecuteLogout()
 {
 	//--------------------------------------------------
-	// »ì¾ÆÀÖ´Â °æ¿ì
+	// Â»Ã¬Â¾Ã†Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 	//--------------------------------------------------
 	if (g_Mode==MODE_GAME)
 	{
@@ -232,11 +234,11 @@ ExecuteLogout()
 
 		UI_SaveUserOption();
 
-		// ³¯¾¾ ¸ØÃã
+		// Â³Â¯Â¾Â¾ Â¸Ã˜ÃƒÃ£
 		SetWeather(WEATHER_CLEAR, 0);
 
-		// Á×¾úÀ¸¸é ºÎÈ° ÆĞÅ¶À» º¸³»°í LogoutÇÑ´Ù.
-		// ±Ùµ¥.. ½ÇÁ¦ Ã³¸®µÉ¶§ º° ÀÇ¹Ì°¡ ¾ø³×.. - -;
+		// ÃÃ—Â¾ÃºÃ€Â¸Â¸Ã© ÂºÃÃˆÂ° Ã†ÃÃ…Â¶Ã€Â» ÂºÂ¸Â³Â»Â°Ã­ LogoutÃ‡Ã‘Â´Ã™.
+		// Â±Ã™ÂµÂ¥.. Â½Ã‡ÃÂ¦ ÃƒÂ³Â¸Â®ÂµÃ‰Â¶Â§ ÂºÂ° Ã€Ã‡Â¹ÃŒÂ°Â¡ Â¾Ã¸Â³Ã—.. - -;
 		if (!g_pPlayer->IsAlive())
 		{
 				CGResurrect _CGResurrect;
@@ -251,7 +253,7 @@ ExecuteLogout()
 		if (1)//g_pPlayer->IsAlive())
 		{
 			//--------------------------------------------------
-			// À½¾Ç ¸ØÃá´Ù.
+			// Ã€Â½Â¾Ã‡ Â¸Ã˜ÃƒÃ¡Â´Ã™.
 			//--------------------------------------------------
 			if (g_pUserOption->PlayWaveMusic)
 			{
@@ -271,15 +273,15 @@ ExecuteLogout()
 			}
 
 			//--------------------------------------------------
-			// Thread Loading Á¾·á..
+			// Thread Loading ÃÂ¾Â·Ã¡..
 			//--------------------------------------------------
 			StopLoadingThread();
 
 			//
-			// Client, Server¿¡ logout packet º¸³¿.
+			// Client, ServerÂ¿Â¡ logout packet ÂºÂ¸Â³Â¿.
 			//
 			//--------------------------------------------------
-			// °ÔÀÓ ¼­¹ö·Î CGLogout ÆĞÅ¶À» º¸³½´Ù.
+			// Â°Ã”Ã€Ã“ Â¼Â­Â¹Ã¶Â·Ã CGLogout Ã†ÃÃ…Â¶Ã€Â» ÂºÂ¸Â³Â½Â´Ã™.
 			//--------------------------------------------------
 				UI_SaveHotKeyToServer();
 
@@ -295,7 +297,7 @@ ExecuteLogout()
 				
 				//g_pSocket->disconnect();
 
-				// 2001.6.12 : releaseÇÏÁö ¾Ê°í ÀçÁ¢ÇÑ´Ù.
+				// 2001.6.12 : releaseÃ‡ÃÃÃ¶ Â¾ÃŠÂ°Ã­ Ã€Ã§ÃÂ¢Ã‡Ã‘Â´Ã™.
 				//ReleaseSocket();
 
 			/*
@@ -304,11 +306,11 @@ ExecuteLogout()
 				g_pZone->RemovePlayer();
 				g_pPlayer->SetStop();
 				g_pPlayer->SetAction( ACTION_STAND );
-				//g_pZone->UnSetLight(g_pPlayer->GetX(), g_pPlayer->GetY(), g_pPlayer->GetLightSight());	// ½Ã¾ß Á¦°Å
+				//g_pZone->UnSetLight(g_pPlayer->GetX(), g_pPlayer->GetY(), g_pPlayer->GetLightSight());	// Â½ÃƒÂ¾ÃŸ ÃÂ¦Â°Ã…
 			}
 			*/
 
-			// Ä³¸¯ÅÍ ¼±ÅÃÃ¢À¸·Î °£´Ù´Â message
+			// Ã„Â³Â¸Â¯Ã…Ã Â¼Â±Ã…ÃƒÃƒÂ¢Ã€Â¸Â·Ã Â°Â£Â´Ã™Â´Ã‚ message
 			/*
 			if (g_pCGameUpdate!=NULL)
 			{
@@ -324,17 +326,17 @@ ExecuteLogout()
 			}
 			*/
 
-			// ³¯¾¾ ¸ØÃã..
+			// Â³Â¯Â¾Â¾ Â¸Ã˜ÃƒÃ£..
 			//SetWeather(WEATHER_CLEAR, 0);
 			ReleaseGameObject();
 
-			// 2001.6.12 : ÀçÁ¢¼Ó~
+			// 2001.6.12 : Ã€Ã§ÃÂ¢Â¼Ã“~
 			//SetMode( MODE_MAINMENU );	
 			SetMode( MODE_WAIT_RECONNECT_LOGIN );
 
 			//------------------------------------------------------
 			// [ TEST CODE ]
-			// ¿©±â¼­ sound¸¦ ÃÊ±âÈ­ÇØµµ µÇ³²??
+			// Â¿Â©Â±Ã¢Â¼Â­ soundÂ¸Â¦ ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡Ã˜ÂµÂµ ÂµÃ‡Â³Â²??
 			//------------------------------------------------------
 			//InitSound();
 			g_CurrentFrame		= 0;
@@ -349,7 +351,7 @@ ExecuteLogout()
 
 
 			//------------------------------------------------------
-			// ¸ğµÎ ´ëÈ­ Çã¿ë
+			// Â¸Ã°ÂµÃ Â´Ã«ÃˆÂ­ Ã‡Ã£Â¿Ã«
 			//------------------------------------------------------
 			g_pChatManager->ClearID();
 			g_pChatManager->SetAcceptMode();
@@ -357,7 +359,7 @@ ExecuteLogout()
 //			gC_vs_ui.ServerDisconnectMessage();
 //			gC_vs_ui.CloseAllDialog();
 
-			// TitleÈ­¸é UI½ÃÀÛ
+			// TitleÃˆÂ­Â¸Ã© UIÂ½ÃƒÃ€Ã›
 			//gC_vs_ui.EndTitle();
 			gC_vs_ui.StartTitle();	
 		
@@ -365,18 +367,18 @@ ExecuteLogout()
 
 			g_bUIInput = FALSE;
 
-			// ±Ó¼Ó¸» ´ë»óÀ» Áö¿öÁØ´Ù.
+			// Â±Ã“Â¼Ã“Â¸Â» Â´Ã«Â»Ã³Ã€Â» ÃÃ¶Â¿Ã¶ÃÃ˜Â´Ã™.
 			g_pUserInformation->WhisperID.Release();
 
 			//----------------------------------------------
-			// message Á¦°Å
+			// message ÃÂ¦Â°Ã…
 			//----------------------------------------------
 			g_pSystemMessage->Clear();
 			g_pGameMessage->Clear();
 			g_pNoticeMessage->Clear();
 
 			//------------------------------------------------------
-			// À½¾Ç ½ÃÀÛ
+			// Ã€Â½Â¾Ã‡ Â½ÃƒÃ€Ã›
 			//------------------------------------------------------
 			if (g_pUserOption->PlayWaveMusic)
 			{
@@ -417,7 +419,7 @@ ExecuteLogout()
 							if( g_oggfile != NULL )
 							{
 								g_pOGG->streamLoad( g_oggfile, NULL );
-								g_pOGG->streamPlay( SOUND_PLAY_ONCE );
+								g_pOGG->streamPlay( 0 );
 								int volume = (g_pUserOption->VolumeMusic - 15) * 250;
 								g_pOGG->streamVolume( max( -10000, min( -1, volume ) ) );
 							}
@@ -459,7 +461,7 @@ void
 PlayTitleMusic()
 {
 	//----------------------------------------------------------------
-	// WAV Ãâ·Â
+	// WAV ÃƒÃ¢Â·Ã‚
 	//----------------------------------------------------------------
 	if (g_pUserOption->PlayWaveMusic)
 	{
@@ -501,7 +503,7 @@ PlayTitleMusic()
 
 						g_pOGG->streamVolume( max( -10000, min( -1, volume ) ) );
 						g_pOGG->streamLoad( g_oggfile,NULL );
-						g_pOGG->streamPlay( SOUND_PLAY_ONCE );					
+						g_pOGG->streamPlay( 0 );					
 					}
 				}
 #endif
@@ -521,7 +523,7 @@ PlayTitleMusic()
 		}
 	}
 	//----------------------------------------------------------------
-	// MID Ãâ·Â
+	// MID ÃƒÃ¢Â·Ã‚
 	//----------------------------------------------------------------
 	else
 	{
@@ -586,7 +588,7 @@ void
 PlayGameMusic()
 {
 	//----------------------------------------------------------------
-	// WAV Ãâ·Â
+	// WAV ÃƒÃ¢Â·Ã‚
 	//----------------------------------------------------------------
 	if (g_pUserOption->PlayWaveMusic)
 	{
@@ -625,7 +627,7 @@ PlayGameMusic()
 		}
 	}
 	//----------------------------------------------------------------
-	// MID Ãâ·Â
+	// MID ÃƒÃ¢Â·Ã‚
 	//----------------------------------------------------------------
 	else
 	{
@@ -691,7 +693,7 @@ UIMessageManager::UIMessageManager()
 
 UIMessageManager::~UIMessageManager()
 {
-	// ´ÜÁö Å×½ºÆ®¿ë.. - -;
+	// Â´ÃœÃÃ¶ Ã…Ã—Â½ÂºÃ†Â®Â¿Ã«.. - -;
 	for (int i=0; i<MAX_UI_MESSAGE; i++)
 	{
 		m_UIMessageFunction[i] = NULL;
@@ -731,24 +733,24 @@ UIMessageManager::Init()
 	//
 	// PDS
 	//
-//	m_UIMessageFunction[UI_CHANGE_PCS_CONNECTED_SLOT] = Execute_UI_CHANGE_PCS_CONNECTED_SLOT;		// ÀÌ¹Ì ¿¬°áµÈ ´Ù¸¥ »ç¶÷À» clickÇÏ¿´´Ù.
-//	m_UIMessageFunction[UI_PLEASE_PCS_CONNECT_ME] = Execute_UI_PLEASE_PCS_CONNECT_ME;			// »ç¶÷ÀÌ ÀÖ´Â wait roomÀ» clickÇÏ¿´´Ù.
-	//m_UIMessageFunction[UI_PCS_CONNECTOR_GRANTED] = Execute_UI_PCS_CONNECTOR_GRANTED;			// wait room¿¡ ÀÖ´Â connector¿Í ¿¬°áÀ» ½Â³«ÇÏ¿´´Ù.
-//	m_UIMessageFunction[UI_QUIT_PCS_ONLINE_MODE] = Execute_UI_QUIT_PCS_ONLINE_MODE;			// PCS online mode¿¡¼­ quit ¹öÆ°À» ´­·¶´Ù.
-//	m_UIMessageFunction[UI_END_PCS] = Execute_UI_END_PCS;								// sending ÇÏ°í ÀÖÀ» ¶§, end¸¦ ´­·¶´Ù.
+//	m_UIMessageFunction[UI_CHANGE_PCS_CONNECTED_SLOT] = Execute_UI_CHANGE_PCS_CONNECTED_SLOT;		// Ã€ÃŒÂ¹ÃŒ Â¿Â¬Â°Ã¡ÂµÃˆ Â´Ã™Â¸Â¥ Â»Ã§Â¶Ã·Ã€Â» clickÃ‡ÃÂ¿Â´Â´Ã™.
+//	m_UIMessageFunction[UI_PLEASE_PCS_CONNECT_ME] = Execute_UI_PLEASE_PCS_CONNECT_ME;			// Â»Ã§Â¶Ã·Ã€ÃŒ Ã€Ã–Â´Ã‚ wait roomÃ€Â» clickÃ‡ÃÂ¿Â´Â´Ã™.
+	//m_UIMessageFunction[UI_PCS_CONNECTOR_GRANTED] = Execute_UI_PCS_CONNECTOR_GRANTED;			// wait roomÂ¿Â¡ Ã€Ã–Â´Ã‚ connectorÂ¿Ã Â¿Â¬Â°Ã¡Ã€Â» Â½Ã‚Â³Â«Ã‡ÃÂ¿Â´Â´Ã™.
+//	m_UIMessageFunction[UI_QUIT_PCS_ONLINE_MODE] = Execute_UI_QUIT_PCS_ONLINE_MODE;			// PCS online modeÂ¿Â¡Â¼Â­ quit Â¹Ã¶Ã†Â°Ã€Â» Â´Â­Â·Â¶Â´Ã™.
+//	m_UIMessageFunction[UI_END_PCS] = Execute_UI_END_PCS;								// sending Ã‡ÃÂ°Ã­ Ã€Ã–Ã€Â» Â¶Â§, endÂ¸Â¦ Â´Â­Â·Â¶Â´Ã™.
 //	m_UIMessageFunction[UI_SEND_PCS_NUMBER] = Execute_UI_SEND_PCS_NUMBER;
-//	m_UIMessageFunction[UI_PDS_CLOSED] = Execute_UI_PDS_CLOSED;							// slayer pds°¡ ´İÇû´Ù. !ÇöÀç ¿¬°áÀº À¯ÁöÇÑ´Ù.
+//	m_UIMessageFunction[UI_PDS_CLOSED] = Execute_UI_PDS_CLOSED;							// slayer pdsÂ°Â¡ Â´ÃÃ‡Ã»Â´Ã™. !Ã‡Ã¶Ã€Ã§ Â¿Â¬Â°Ã¡Ã€Âº Ã€Â¯ÃÃ¶Ã‡Ã‘Â´Ã™.
 
-//	m_UIMessageFunction[UI_PLEASE_SET_SLAYER_VALUE] = Execute_UI_PLEASE_SET_SLAYER_VALUE;		// slayer pds¿¡¼­ gage menu¸¦ ½ÇÇàÇÏ¿´´Ù.
+//	m_UIMessageFunction[UI_PLEASE_SET_SLAYER_VALUE] = Execute_UI_PLEASE_SET_SLAYER_VALUE;		// slayer pdsÂ¿Â¡Â¼Â­ gage menuÂ¸Â¦ Â½Ã‡Ã‡Ã Ã‡ÃÂ¿Â´Â´Ã™.
 
-//	m_UIMessageFunction[UI_LEARN_SLAYER_SKILL] = Execute_UI_LEARN_SLAYER_SKILL;				// skill tree¿¡¼­ ¹è¿ï ¼ö ÀÖ´Â skillÀ» ¼±ÅÃÇÏ¿´´Ù.
+//	m_UIMessageFunction[UI_LEARN_SLAYER_SKILL] = Execute_UI_LEARN_SLAYER_SKILL;				// skill treeÂ¿Â¡Â¼Â­ Â¹Ã¨Â¿Ã¯ Â¼Ã¶ Ã€Ã–Â´Ã‚ skillÃ€Â» Â¼Â±Ã…ÃƒÃ‡ÃÂ¿Â´Â´Ã™.
 //	m_UIMessageFunction[UI_CLOSE_SKILL_VIEW] = Execute_UI_CLOSE_SKILL_VIEW;
 
-	m_UIMessageFunction[UI_BACKGROUND_MOUSE_FOCUS] = Execute_UI_BACKGROUND_MOUSE_FOCUS;			// Mouse pointer°¡ UI Window¿¡¼­ ÀÌµ¿¾øÀÌ ÀÏÀ» ¶§, ±× Window°¡ »ç¶óÁú °æ¿ì Client¿¡ Àü´Ş.
-	m_UIMessageFunction[UI_REMOVE_BACKGROUND_MOUSE_FOCUS] = Execute_UI_REMOVE_BACKGROUND_MOUSE_FOCUS;// Game Menu¿Í °°Àº topmost Window°¡ Ãâ·ÂµÇ¾úÀ» ¶§´Â background focus¸¦ Á¦°ÅÇÏ´Â °ÍÀÌ ÁÁ´Ù.
+	m_UIMessageFunction[UI_BACKGROUND_MOUSE_FOCUS] = Execute_UI_BACKGROUND_MOUSE_FOCUS;			// Mouse pointerÂ°Â¡ UI WindowÂ¿Â¡Â¼Â­ Ã€ÃŒÂµÂ¿Â¾Ã¸Ã€ÃŒ Ã€ÃÃ€Â» Â¶Â§, Â±Ã— WindowÂ°Â¡ Â»Ã§Â¶Ã³ÃÃº Â°Ã¦Â¿Ã¬ ClientÂ¿Â¡ Ã€Ã¼Â´Ã.
+	m_UIMessageFunction[UI_REMOVE_BACKGROUND_MOUSE_FOCUS] = Execute_UI_REMOVE_BACKGROUND_MOUSE_FOCUS;// Game MenuÂ¿Ã Â°Â°Ã€Âº topmost WindowÂ°Â¡ ÃƒÃ¢Â·Ã‚ÂµÃ‡Â¾ÃºÃ€Â» Â¶Â§Â´Ã‚ background focusÂ¸Â¦ ÃÂ¦Â°Ã…Ã‡ÃÂ´Ã‚ Â°ÃÃ€ÃŒ ÃÃÂ´Ã™.
 
 	//
-	// »óÁ¡ Message
+	// Â»Ã³ÃÂ¡ Message
 	//
 	m_UIMessageFunction[UI_BUY_ITEM] = Execute_UI_BUY_ITEM;
 
@@ -766,30 +768,30 @@ UIMessageManager::Init()
 	m_UIMessageFunction[UI_CANCEL_EXCHANGE] = Execute_UI_CANCEL_EXCHANGE;
 	m_UIMessageFunction[UI_OK_EXCHANGE] = Execute_UI_OK_EXCHANGE;
 
-	m_UIMessageFunction[UI_CHARACTER_MANAGER_FINISHED] = Execute_UI_CHARACTER_MANAGER_FINISHED;	// Characters Window¿¡¼­ ÃÊ±âÈ­¸éÀ¸·Î °¥ ¶§ ¾Ë·ÁÁØ´Ù.
-	m_UIMessageFunction[UI_TERMINATION] = Execute_UI_TERMINATION;						// Á¾·á
-	m_UIMessageFunction[UI_LOGIN] = Execute_UI_LOGIN;								// »ç¿ëÀÚ login ¿äÃ»
+	m_UIMessageFunction[UI_CHARACTER_MANAGER_FINISHED] = Execute_UI_CHARACTER_MANAGER_FINISHED;	// Characters WindowÂ¿Â¡Â¼Â­ ÃƒÃŠÂ±Ã¢ÃˆÂ­Â¸Ã©Ã€Â¸Â·Ã Â°Â¥ Â¶Â§ Â¾Ã‹Â·ÃÃÃ˜Â´Ã™.
+	m_UIMessageFunction[UI_TERMINATION] = Execute_UI_TERMINATION;						// ÃÂ¾Â·Ã¡
+	m_UIMessageFunction[UI_LOGIN] = Execute_UI_LOGIN;								// Â»Ã§Â¿Ã«Ã€Ãš login Â¿Ã¤ÃƒÂ»
 	m_UIMessageFunction[UI_LOGOUT] = Execute_UI_LOGOUT;								
-	//m_UIMessageFunction[UI_NEW_USER_REGISTRATION] = Execute_UI_NEW_USER_REGISTRATION;			// »õ »ç¿ëÀÚ µî·Ï ¿äÃ»
+	//m_UIMessageFunction[UI_NEW_USER_REGISTRATION] = Execute_UI_NEW_USER_REGISTRATION;			// Â»Ãµ Â»Ã§Â¿Ã«Ã€Ãš ÂµÃ®Â·Ã Â¿Ã¤ÃƒÂ»
 	m_UIMessageFunction[UI_CONNECT] = Execute_UI_CONNECT;							   // Game connection.
-	m_UIMessageFunction[UI_CHAT_RETURN] = Execute_UI_CHAT_RETURN;						// Ã¤ÆÃÃ¢ ÀÔ·Â.
-//	m_UIMessageFunction[UI_CHAT_SELECT_NAME] = Execute_UI_CHAT_SELECT_NAME;						// Ã¤ÆÃÃ¢ ÀÌ¸§ ¼±ÅÃ.
+	m_UIMessageFunction[UI_CHAT_RETURN] = Execute_UI_CHAT_RETURN;						// ÃƒÂ¤Ã†ÃƒÃƒÂ¢ Ã€Ã”Â·Ã‚.
+//	m_UIMessageFunction[UI_CHAT_SELECT_NAME] = Execute_UI_CHAT_SELECT_NAME;						// ÃƒÂ¤Ã†ÃƒÃƒÂ¢ Ã€ÃŒÂ¸Â§ Â¼Â±Ã…Ãƒ.
 	m_UIMessageFunction[UI_SELECT_SKILL] = Execute_UI_SELECT_SKILL;						// Skill selection.
-	m_UIMessageFunction[UI_CANCEL_SELECT_SKILL] = Execute_UI_CANCEL_SELECT_SKILL;				// Skill ¼±ÅÃÀÌ Ãë¼ÒµÇ¾ú´Ù.
+	m_UIMessageFunction[UI_CANCEL_SELECT_SKILL] = Execute_UI_CANCEL_SELECT_SKILL;				// Skill Â¼Â±Ã…ÃƒÃ€ÃŒ ÃƒÃ«Â¼Ã’ÂµÃ‡Â¾ÃºÂ´Ã™.
 
 	//
 	// Item message
 	//
 
 	// drop
-	m_UIMessageFunction[UI_ITEM_DROP_TO_CLIENT] = Execute_UI_ITEM_DROP_TO_CLIENT;				// ItemÀ» ¹Ù´Ú¿¡ ¶³¾î¶ß·È´Ù.
-	m_UIMessageFunction[UI_ITEM_DROP_TO_INVENTORY] = Execute_UI_ITEM_DROP_TO_INVENTORY; 		// Inventory¿¡ ³õ´Â´Ù.
-	//m_UIMessageFunction[UI_ITEM_DROP_TO_TRADEGRID] = Execute_UI_ITEM_DROP_TO_TRADEGRID;			// ±³È¯Ã¢ ±×¸®µå¿¡ ³õ´Â´Ù.
-	m_UIMessageFunction[UI_ITEM_DROP_TO_GEAR] = Execute_UI_ITEM_DROP_TO_GEAR;				// Gear¿¡ ³õ´Â´Ù.
-	m_UIMessageFunction[UI_ITEM_DROP_TO_QUICKSLOT] = Execute_UI_ITEM_DROP_TO_QUICKSLOT;			// Quick Slot¿¡ ³õ´Â´Ù.
+	m_UIMessageFunction[UI_ITEM_DROP_TO_CLIENT] = Execute_UI_ITEM_DROP_TO_CLIENT;				// ItemÃ€Â» Â¹Ã™Â´ÃšÂ¿Â¡ Â¶Â³Â¾Ã®Â¶ÃŸÂ·ÃˆÂ´Ã™.
+	m_UIMessageFunction[UI_ITEM_DROP_TO_INVENTORY] = Execute_UI_ITEM_DROP_TO_INVENTORY; 		// InventoryÂ¿Â¡ Â³ÃµÂ´Ã‚Â´Ã™.
+	//m_UIMessageFunction[UI_ITEM_DROP_TO_TRADEGRID] = Execute_UI_ITEM_DROP_TO_TRADEGRID;			// Â±Â³ÃˆÂ¯ÃƒÂ¢ Â±Ã—Â¸Â®ÂµÃ¥Â¿Â¡ Â³ÃµÂ´Ã‚Â´Ã™.
+	m_UIMessageFunction[UI_ITEM_DROP_TO_GEAR] = Execute_UI_ITEM_DROP_TO_GEAR;				// GearÂ¿Â¡ Â³ÃµÂ´Ã‚Â´Ã™.
+	m_UIMessageFunction[UI_ITEM_DROP_TO_QUICKSLOT] = Execute_UI_ITEM_DROP_TO_QUICKSLOT;			// Quick SlotÂ¿Â¡ Â³ÃµÂ´Ã‚Â´Ã™.
 
 	// pick up
-	// Client¿¡¼­ ÁıÀ» ¶§´Â Client -> UI ÀÌ´Ù.
+	// ClientÂ¿Â¡Â¼Â­ ÃÃ½Ã€Â» Â¶Â§Â´Ã‚ Client -> UI Ã€ÃŒÂ´Ã™.
 	//m_UIMessageFunction[UI_ITEM_PICKUP_FROM_TRADEGRID] = Execute_UI_ITEM_PICKUP_FROM_TRADEGRID;
 	m_UIMessageFunction[UI_ITEM_PICKUP_FROM_INVENTORY] = Execute_UI_ITEM_PICKUP_FROM_INVENTORY;
 	m_UIMessageFunction[UI_ITEM_PICKUP_FROM_GEAR] = Execute_UI_ITEM_PICKUP_FROM_GEAR;
@@ -799,11 +801,11 @@ UIMessageManager::Init()
 	//m_UIMessageFunction[UI_ITEM_INSERT_FROM_TRADEGRID] = Execute_UI_ITEM_INSERT_FROM_TRADEGRID;
 	m_UIMessageFunction[UI_ITEM_INSERT_FROM_INVENTORY] = Execute_UI_ITEM_INSERT_FROM_INVENTORY;
 	m_UIMessageFunction[UI_ITEM_INSERT_FROM_GEAR] = Execute_UI_ITEM_INSERT_FROM_GEAR;
-	m_UIMessageFunction[UI_ITEM_INSERT_FROM_QUICKSLOT] = Execute_UI_ITEM_INSERT_FROM_QUICKSLOT;  // ½×ÀÌ´Â °æ¿ì - ¾ÆÁ÷ Áö¿ø¾ÈÇÔ -
+	m_UIMessageFunction[UI_ITEM_INSERT_FROM_QUICKSLOT] = Execute_UI_ITEM_INSERT_FROM_QUICKSLOT;  // Â½Ã—Ã€ÃŒÂ´Ã‚ Â°Ã¦Â¿Ã¬ - Â¾Ã†ÃÃ· ÃÃ¶Â¿Ã¸Â¾ÃˆÃ‡Ã” -
 
 	// use
-	m_UIMessageFunction[UI_ITEM_USE] = Execute_UI_ITEM_USE;							// Inventory¿¡¼­ »ç¿ë.
-	m_UIMessageFunction[UI_ITEM_USE_QUICKSLOT] = Execute_UI_ITEM_USE_QUICKSLOT;				// Quick Item Slot¿¡¼­ »ç¿ë.
+	m_UIMessageFunction[UI_ITEM_USE] = Execute_UI_ITEM_USE;							// InventoryÂ¿Â¡Â¼Â­ Â»Ã§Â¿Ã«.
+	m_UIMessageFunction[UI_ITEM_USE_QUICKSLOT] = Execute_UI_ITEM_USE_QUICKSLOT;				// Quick Item SlotÂ¿Â¡Â¼Â­ Â»Ã§Â¿Ã«.
 
 	//
 	// Character management
@@ -875,8 +877,8 @@ UIMessageManager::Init()
 	m_UIMessageFunction[UI_JOIN_READY_TEAM] = Execute_UI_JOIN_READY_TEAM;				// void_ptr = TEAM_NAME
 	m_UIMessageFunction[UI_JOIN_REGIST_TEAM] = Execute_UI_JOIN_REGIST_TEAM;			// void_ptr = TEAM_NAME
 
-	m_UIMessageFunction[UI_REGIST_GUILD_MEMBER] = Execute_UI_REGIST_GUILD_MEMBER;			// void_ptr = introduction max:150byte Ã¢ ´İ¾ÆÁÙ°Í!
-	m_UIMessageFunction[UI_REGIST_GUILD_TEAM] = Execute_UI_REGIST_GUILD_TEAM;			// left = TEAM_NAME, void_ptr = introduction max:150byte Ã¢ ´İ¾ÆÁÙ°Í!
+	m_UIMessageFunction[UI_REGIST_GUILD_MEMBER] = Execute_UI_REGIST_GUILD_MEMBER;			// void_ptr = introduction max:150byte ÃƒÂ¢ Â´ÃÂ¾Ã†ÃÃ™Â°Ã!
+	m_UIMessageFunction[UI_REGIST_GUILD_TEAM] = Execute_UI_REGIST_GUILD_TEAM;			// left = TEAM_NAME, void_ptr = introduction max:150byte ÃƒÂ¢ Â´ÃÂ¾Ã†ÃÃ™Â°Ã!
 
 	m_UIMessageFunction[UI_CLOSE_FILE_DIALOG] = Execute_UI_CLOSE_FILE_DIALOG;
 
@@ -969,15 +971,15 @@ UIMessageManager::Init()
 	m_UIMessageFunction[UI_PET_GAMBLE] = Execute_UI_PET_GAMBLE;
 	m_UIMessageFunction[UI_CLOSE_USE_PET_FOOD] = Execute_UI_CLOSE_USE_PET_FOOD;
 
-	// 2004, 5, 11 sobeit add start - Æê º¸°ü¼Ò
+	// 2004, 5, 11 sobeit add start - Ã†Ãª ÂºÂ¸Â°Ã¼Â¼Ã’
 	m_UIMessageFunction[UI_CLOSE_PETSTORAGE] = Execute_UI_CLOSE_PETSTORAGE;
 	m_UIMessageFunction[UI_CLOSE_KEEP_PETITEM] = Execute_UI_CLOSE_KEEP_PETITEM;
 	m_UIMessageFunction[UI_CLOSE_GET_KEEP_PETITEM] = Execute_UI_CLOSE_GET_KEEP_PETITEM;
 	m_UIMessageFunction[UI_KEEP_PETITEM] = Execute_UI_KEEP_PETITEM;
 	m_UIMessageFunction[UI_GET_KEEP_PETITEM] = Execute_UI_GET_KEEP_PETITEM;
-	// 2004, 5, 11 sobeit add end - Æê º¸°ü¼Ò
+	// 2004, 5, 11 sobeit add end - Ã†Ãª ÂºÂ¸Â°Ã¼Â¼Ã’
 
-	// 2004, 5, 28 sobeit add start - sms °ü·Ã
+	// 2004, 5, 28 sobeit add start - sms Â°Ã¼Â·Ãƒ
 	m_UIMessageFunction[UI_CLOSE_SMS_MESSAGE] = Execute_UI_CLOSE_SMS_MESSAGE;
 	m_UIMessageFunction[UI_SEND_SMS_MESSAGE] = Execute_UI_SEND_SMS_MESSAGE;
 	m_UIMessageFunction[UI_SMS_OPEN_LIST] = Execute_UI_SMS_OPEN_LIST;
@@ -988,7 +990,7 @@ UIMessageManager::Init()
 	m_UIMessageFunction[UI_SMS_ADD_SEND_LIST] = Execute_UI_SMS_ADD_SEND_LIST;
 	// 2004, 5, 28 sobeit add end
 
-	// 2004, 6, 15 sobeit add start - nameing °ü·Ã
+	// 2004, 6, 15 sobeit add start - nameing Â°Ã¼Â·Ãƒ
 	m_UIMessageFunction[UI_CLOSE_NAMING] = Execute_UI_CLOSE_NAMING;
 	m_UIMessageFunction[UI_CHANGE_CUSTOM_NAMING] = Execute_UI_CHANGE_CUSTOM_NAMING;
 	m_UIMessageFunction[UI_SELECT_NAMING] = Execute_UI_SELECT_NAMING;
@@ -996,7 +998,7 @@ UIMessageManager::Init()
 	m_UIMessageFunction[UI_RUN_NAMING_CHANGE] = Execute_UI_RUN_NAMING_CHANGE;
 	// 2004, 6, 15 sobeit add end
 
-	// 2004, 7, 12 sobeit add start - quest °ü·Ã
+	// 2004, 7, 12 sobeit add start - quest Â°Ã¼Â·Ãƒ
 	m_UIMessageFunction[UI_CLOSE_QUEST_MANAGER] = Execute_UI_CLOSE_QUEST_MANAGER;
 	m_UIMessageFunction[UI_CLOSE_QUEST_LIST] = Execute_UI_CLOSE_QUEST_LIST;
 	m_UIMessageFunction[UI_CLOSE_QUEST_DETAIL] = Execute_UI_CLOSE_QUEST_DETAIL;
@@ -1006,11 +1008,11 @@ UIMessageManager::Init()
 	m_UIMessageFunction[UI_GQUEST_ACCEPT] = Execute_UI_GQUEST_ACCEPT;
 	m_UIMessageFunction[UI_GQUEST_GIVEUP] = Execute_UI_GQUEST_GIVEUP;
 
-	// 2004, 7, 12 sobeit add end - quest °ü·Ã
+	// 2004, 7, 12 sobeit add end - quest Â°Ã¼Â·Ãƒ
 
 	m_UIMessageFunction[UI_ITEM_USE_GQUEST_ITEM] = Execute_UI_ITEM_USE_GQUEST_ITEM;
 
-	// 2004,10.9 csm guild °ü·Ã 
+	// 2004,10.9 csm guild Â°Ã¼Â·Ãƒ 
 	m_UIMessageFunction[UI_REQUEST_UNION] =	 Execute_UI_ITEM_USE_REQUEST_UNION;
 	m_UIMessageFunction[UI_REQUEST_UNION_QUIT] =	 Execute_UI_ITEM_USE_QUIT;
 	m_UIMessageFunction[UI_REQUEST_UNION_EXPERGUILD] =	 Execute_UI_ITEM_USE_EXPER;
@@ -1060,7 +1062,7 @@ UIMessageManager::Init()
 
 	m_UIMessageFunction[UI_REQUEST_EVENT_ITEM] =	 Execute_UI_REQUEST_EVENT_ITEM;
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
 		m_UIMessageFunction[UI_CLOSE_INVENTORY_SUB]			=	 Execute_UI_CLOSE_INVENTORY_SUB;
 		m_UIMessageFunction[UI_ITEM_DROP_TO_INVENTORY_SUB]		=	 Execute_UI_ITEM_DROP_TO_INVENTORY_SUB;
 		m_UIMessageFunction[UI_ITEM_PICKUP_FROM_INVENTORY_SUB]	=	 Execute_UI_ITEM_PICKUP_FROM_INVENTORY_SUB;
@@ -1072,13 +1074,13 @@ UIMessageManager::Init()
 //-----------------------------------------------------------------------------
 // Execute
 //-----------------------------------------------------------------------------
-// message¿Í ¿¬°áµÇ¾î ÀÖ´Â ÀûÀıÇÑ Ã³¸® ÇÔ¼ö¸¦ È£ÃâÇÑ´Ù.
+// messageÂ¿Ã Â¿Â¬Â°Ã¡ÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã‚ Ã€Ã»Ã€Ã½Ã‡Ã‘ ÃƒÂ³Â¸Â® Ã‡Ã”Â¼Ã¶Â¸Â¦ ÃˆÂ£ÃƒÃ¢Ã‡Ã‘Â´Ã™.
 //-----------------------------------------------------------------------------
 void			
 UIMessageManager::Execute(DWORD message, int left, int right, void* void_ptr)
 {
-	// ±âº»ÀûÀ¸·Î MODE_GAMEÀÌ¸é
-	// NULLÀÌ ¾Æ´Ï¾î¾ß ÇÏ´Â °ªµéÀÌ ÀÖ´Ù..
+	// Â±Ã¢ÂºÂ»Ã€Ã»Ã€Â¸Â·Ã MODE_GAMEÃ€ÃŒÂ¸Ã©
+	// NULLÃ€ÃŒ Â¾Ã†Â´ÃÂ¾Ã®Â¾ÃŸ Ã‡ÃÂ´Ã‚ Â°ÂªÂµÃ©Ã€ÃŒ Ã€Ã–Â´Ã™..
 	if (g_Mode==MODE_GAME
 		&& (g_pZone==NULL
 			|| g_pPlayer==NULL
@@ -1113,7 +1115,7 @@ UIMessageManager::Execute(DWORD message, int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// »õ Ä³¸¯ÅÍ ¸¸µé±â
+// Â»Ãµ Ã„Â³Â¸Â¯Ã…Ã Â¸Â¸ÂµÃ©Â±Ã¢
 //
 //-----------------------------------------------------------------------------
 void
@@ -1146,7 +1148,7 @@ UIMessageManager::Execute_UI_NEW_CHARACTER(int left, int right, void* void_ptr)
 	BOOL bAllOK = TRUE;
 
 	//---------------------------------------------
-	// ÀÌ¸§ ±æÀÌ Ã¼Å©
+	// Ã€ÃŒÂ¸Â§ Â±Ã¦Ã€ÃŒ ÃƒÂ¼Ã…Â©
 	//---------------------------------------------
 	int len = strlen(pChar->sz_name);	
 	
@@ -1163,7 +1165,7 @@ UIMessageManager::Execute_UI_NEW_CHARACTER(int left, int right, void* void_ptr)
 		if (!IsValidID(pChar->sz_name, "-_"))
 		{
 			//---------------------------------------------
-			// Àß¸øµÈ IDÀÎ °æ¿ì
+			// Ã€ÃŸÂ¸Ã¸ÂµÃˆ IDÃ€Ã Â°Ã¦Â¿Ã¬
 			//---------------------------------------------						
 			g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_USER_REGISTER_INVALID_ID].GetString() );
 			bAllOK = FALSE;
@@ -1173,7 +1175,7 @@ UIMessageManager::Execute_UI_NEW_CHARACTER(int left, int right, void* void_ptr)
 			char strName[80];
 			strcpy(strName, pChar->sz_name);
 
-			// ¾È ÁÁÀº ¸»ÀÌ µé¾îÀÖ´Â °æ¿ì´Â Çã¿ëÀÌ ¾ÈµÈ´Ù
+			// Â¾Ãˆ ÃÃÃ€Âº Â¸Â»Ã€ÃŒ ÂµÃ©Â¾Ã®Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Â´Ã‚ Ã‡Ã£Â¿Ã«Ã€ÃŒ Â¾ÃˆÂµÃˆÂ´Ã™
 			if (g_pChatManager->RemoveCurse(strName))
 			{
 				g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_USER_REGISTER_INVALID_ID].GetString() );
@@ -1194,7 +1196,7 @@ UIMessageManager::Execute_UI_NEW_CHARACTER(int left, int right, void* void_ptr)
 	}
 
 	//---------------------------------------------
-	// ¸ğµç data°¡ Á¤»óÀûÀÌ¸é...
+	// Â¸Ã°ÂµÃ§ dataÂ°Â¡ ÃÂ¤Â»Ã³Ã€Ã»Ã€ÃŒÂ¸Ã©...
 	//---------------------------------------------
 	if (bAllOK)
 	{
@@ -1202,7 +1204,7 @@ UIMessageManager::Execute_UI_NEW_CHARACTER(int left, int right, void* void_ptr)
 			//char wansungName[16];
 
 			//---------------------------------------------
-			// Á¶ÇÕÇü --> ¿Ï¼ºÇü
+			// ÃÂ¶Ã‡Ã•Ã‡Ã¼ --> Â¿ÃÂ¼ÂºÃ‡Ã¼
 			//---------------------------------------------
 			//UI_JohapToWansung( pChar->sz_name, wansungName );
 
@@ -1219,7 +1221,7 @@ UIMessageManager::Execute_UI_NEW_CHARACTER(int left, int right, void* void_ptr)
 				HAIR_STYLE3
 			};
 
-			// »ö±ò È®ÀÎ
+			// Â»Ã¶Â±Ã² ÃˆÂ®Ã€Ã
 			pChar->hair_color = max(0, min(pChar->hair_color, MAX_COLORSET-1));
 			pChar->skin_color = max(0, min(pChar->skin_color, MAX_COLORSET-1));
 			
@@ -1261,7 +1263,7 @@ UIMessageManager::Execute_UI_RUN_NEWUSER_REGISTRATION(int left, int right, void*
 	switch (g_pClientConfig->NEW_USER_REGISTERATION_MODE)
 	{
 		//-----------------------------------------------------------
-		// CLIENT - »õ »ç¿ëÀÚ µî·Ï °¡´É
+		// CLIENT - Â»Ãµ Â»Ã§Â¿Ã«Ã€Ãš ÂµÃ®Â·Ã Â°Â¡Â´Ã‰
 		//-----------------------------------------------------------
 		case ClientConfig::NUR_CLIENT :
 		{
@@ -1270,15 +1272,16 @@ UIMessageManager::Execute_UI_RUN_NEWUSER_REGISTRATION(int left, int right, void*
 //		break;
 
 		//-----------------------------------------------------------
-		// HOMEPAGE - È¨ÆäÀÌÁö¸¦ ¶ç¿öÁÖ¸é¼­ µî·Ï
+		// HOMEPAGE - ÃˆÂ¨Ã†Ã¤Ã€ÃŒÃÃ¶Â¸Â¦ Â¶Ã§Â¿Ã¶ÃÃ–Â¸Ã©Â¼Â­ ÂµÃ®Â·Ã
 		//-----------------------------------------------------------
 		case ClientConfig::NUR_HOMEPAGE :		
 		{
 			g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_USER_REGISTER_HOMEPAGE].GetString() );			
 
-			// Á¾·á..
+			// ÃÂ¾Â·Ã¡..
 			SetMode( MODE_QUIT );
 
+#ifdef PLATFORM_WINDOWS
 			char str[256];
 
 			GetWindowsDirectory(
@@ -1287,12 +1290,13 @@ UIMessageManager::Execute_UI_RUN_NEWUSER_REGISTRATION(int left, int right, void*
 			);
 
 			sprintf(str, "%s\\Explorer.exe", str);
-			
+
 			CDirectDraw::GetDD()->RestoreDisplayMode();
 #ifdef __YHDK2__
 			_spawnl(_P_NOWAIT, str, "Explorer.exe", "http://www.yhdk2.cn", NULL);
 #else
 			_spawnl(_P_NOWAIT, str, "Explorer.exe", "http://www.ttdk2.com", NULL);
+#endif
 #endif
 
 			//_spawnl(_P_NOWAIT, str, "Explorer.exe", "http://www.ttdk2.cn", NULL);
@@ -1300,7 +1304,7 @@ UIMessageManager::Execute_UI_RUN_NEWUSER_REGISTRATION(int left, int right, void*
 		break;
 
 		//-----------------------------------------------------------
-		// MESSAGE_HOMEPAGE - È¨ÆäÀÌÁö¿¡¼­ µî·ÏÇÏ¶ó´Â message
+		// MESSAGE_HOMEPAGE - ÃˆÂ¨Ã†Ã¤Ã€ÃŒÃÃ¶Â¿Â¡Â¼Â­ ÂµÃ®Â·ÃÃ‡ÃÂ¶Ã³Â´Ã‚ message
 		//-----------------------------------------------------------
 		case ClientConfig::NUR_MESSAGE_HOMEPAGE :	
 		{
@@ -1309,7 +1313,7 @@ UIMessageManager::Execute_UI_RUN_NEWUSER_REGISTRATION(int left, int right, void*
 		break;
 		
 		//-----------------------------------------------------------
-		// DENY - »õ »ç¿ëÀÚ µî·Ï ºÒ°¡		
+		// DENY - Â»Ãµ Â»Ã§Â¿Ã«Ã€Ãš ÂµÃ®Â·Ã ÂºÃ’Â°Â¡		
 		//-----------------------------------------------------------
 		case ClientConfig::NUR_DENY :				
 		{
@@ -1356,7 +1360,7 @@ UIMessageManager::Execute_UI_CHECK_EXIST_ID(int left, int right, void* void_ptr)
 	const char* pName = (const char*)void_ptr;
 
 	//--------------------------------------------------
-	// ID Ã¼Å©
+	// ID ÃƒÂ¼Ã…Â©
 	//--------------------------------------------------
 	if (IsValidID(pName, NULL))
 	{
@@ -1365,13 +1369,13 @@ UIMessageManager::Execute_UI_CHECK_EXIST_ID(int left, int right, void* void_ptr)
 		if (len<PlayerInfo::minIDLength || len>PlayerInfo::maxIDLength)
 		{
 			char strTemp[128];
-			sprintf(strTemp, "ID´Â %d~%dÀÚÀÔ´Ï´Ù", PlayerInfo::minIDLength, PlayerInfo::maxIDLength);
+			sprintf(strTemp, "IDÂ´Ã‚ %d~%dÃ€ÃšÃ€Ã”Â´ÃÂ´Ã™", PlayerInfo::minIDLength, PlayerInfo::maxIDLength);
 			g_pUIDialog->PopupFreeMessageDlg( strTemp );						
 		}
 		else
 		{
 			//--------------------------------------------------
-			// socket ÃÊ±âÈ­
+			// socket ÃƒÃŠÂ±Ã¢ÃˆÂ­
 			//--------------------------------------------------
 			if (!InitSocket())
 			{						
@@ -1388,8 +1392,8 @@ UIMessageManager::Execute_UI_CHECK_EXIST_ID(int left, int right, void* void_ptr)
 				g_pSocket->setPlayerStatus( CPS_AFTER_SENDING_CL_QUERY_PLAYER_ID );
 
 
-			//gC_vs_ui.AleadyExistIdMessage(); // »ç¿ëºÒ°¡
-			//gC_vs_ui.NoAleadyExistIdMessage(); // »ç¿ë°¡´É						
+			//gC_vs_ui.AleadyExistIdMessage(); // Â»Ã§Â¿Ã«ÂºÃ’Â°Â¡
+			//gC_vs_ui.NoAleadyExistIdMessage(); // Â»Ã§Â¿Ã«Â°Â¡Â´Ã‰						
 		}
 	}
 	else
@@ -1397,14 +1401,14 @@ UIMessageManager::Execute_UI_CHECK_EXIST_ID(int left, int right, void* void_ptr)
 		g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_USER_REGISTER_INVALID_ID].GetString() );
 	}
 
-	// Áö¿öµµ µÇ´Â°Ô ¸Â´ÂÁö.. Èì *_*;
+	// ÃÃ¶Â¿Ã¶ÂµÂµ ÂµÃ‡Â´Ã‚Â°Ã” Â¸Ã‚Â´Ã‚ÃÃ¶.. ÃˆÃ¬ *_*;
 	DeleteNewArray( void_ptr );
 }
 
 
 //-----------------------------------------------------------------------------
 //
-//		Ä³¸¯ÅÍ »èÁ¦
+//		Ã„Â³Â¸Â¯Ã…Ã Â»Ã¨ÃÂ¦
 //
 //-----------------------------------------------------------------------------
 void
@@ -1421,9 +1425,9 @@ UIMessageManager::Execute_UI_DELETE_CHARACTER(int left, int right, void* void_pt
 	DELETE_CHARACTER *pChar = (DELETE_CHARACTER*)void_ptr;
 
 	//--------------------------------------------------
-	// ÁÖ¹Îµî·Ï¹øÈ£ Ã¼Å©
+	// ÃÃ–Â¹ÃÂµÃ®Â·ÃÂ¹Ã¸ÃˆÂ£ ÃƒÂ¼Ã…Â©
 	//--------------------------------------------------
-	// ³İ¸¶ºí¿ë
+	// Â³ÃÂ¸Â¶ÂºÃ­Â¿Ã«
 	if (g_pUserInformation->IsNetmarble || g_pUserInformation->bChinese || IsValidSSN( pChar->sz_part1, pChar->sz_part2 ))
 	{
 		char strTemp[20];
@@ -1434,7 +1438,7 @@ UIMessageManager::Execute_UI_DELETE_CHARACTER(int left, int right, void* void_pt
 		} else
 		if(!g_pUserInformation->IsNetmarble)
 		{
-			// xxxxxx-xxxxxxx Çü½ÄÀ¸·Î ¸¸µç´Ù.
+			// xxxxxx-xxxxxxx Ã‡Ã¼Â½Ã„Ã€Â¸Â·Ã Â¸Â¸ÂµÃ§Â´Ã™.
 			sprintf(strTemp, "%s-%s", pChar->sz_part1, pChar->sz_part2);
 		}
 		else
@@ -1452,21 +1456,21 @@ UIMessageManager::Execute_UI_DELETE_CHARACTER(int left, int right, void* void_pt
 			g_pSocket->setPlayerStatus( CPS_AFTER_SENDING_CL_DELETE_PC );
 			
 
-		// ÁÖ¹Îµî·Ï¹øÈ£
+		// ÃÃ–Â¹ÃÂµÃ®Â·ÃÂ¹Ã¸ÃˆÂ£
 		//pChar->sz_part1
 		//pChar->sz_part2					
 
-		// ÁÖ¹Îµî·Ï¹øÈ£°¡ Æ²·ÈÀ» ¶§ÀÇ message
+		// ÃÃ–Â¹ÃÂµÃ®Â·ÃÂ¹Ã¸ÃˆÂ£Â°Â¡ Ã†Â²Â·ÃˆÃ€Â» Â¶Â§Ã€Ã‡ message
 		//gC_vs_ui.Invalid_SSN_Message();
 
-		// Ä³¸¯ÅÍ »èÁ¦
+		// Ã„Â³Â¸Â¯Ã…Ã Â»Ã¨ÃÂ¦
 		//gC_vs_ui.DeleteCharacter(slot);
 
 		//
 		// ((DELETE_CHARACTER *)void_ptr) = sz_part1, sz_part2, slot
 		//
 
-		// ³İ¸¶ºí¿ë
+		// Â³ÃÂ¸Â¶ÂºÃ­Â¿Ã«
 		if(!g_pUserInformation->IsNetmarble)
 		{
 			DeleteNewArray( pChar->sz_part1 );
@@ -1477,7 +1481,7 @@ UIMessageManager::Execute_UI_DELETE_CHARACTER(int left, int right, void* void_pt
 		//gC_vs_ui.DeleteCharacter( pChar->slot );
 
 		//--------------------------------------------
-		// »èÁ¦ÇÒ·Á´Â slotÀúÀå
+		// Â»Ã¨ÃÂ¦Ã‡Ã’Â·ÃÂ´Ã‚ slotÃ€ÃºÃ€Ã¥
 		//--------------------------------------------
 		g_pUserInformation->Slot = pChar->slot;
 
@@ -1492,7 +1496,7 @@ UIMessageManager::Execute_UI_DELETE_CHARACTER(int left, int right, void* void_pt
 	
 //-----------------------------------------------------------------------------
 //
-//		ÇÁ·Î±×·¥ Á¾·á
+//		Ã‡ÃÂ·ÃÂ±Ã—Â·Â¥ ÃÂ¾Â·Ã¡
 //
 //-----------------------------------------------------------------------------
 void
@@ -1511,7 +1515,7 @@ UIMessageManager::Execute_UI_TERMINATION(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// »õ »ç¿ëÀÚ µî·Ï
+// Â»Ãµ Â»Ã§Â¿Ã«Ã€Ãš ÂµÃ®Â·Ã
 //
 //-----------------------------------------------------------------------------
 /*
@@ -1523,7 +1527,7 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 	//
 	// ((NEW_REGISTRATION *)void_ptr) = ...
 	//
-	// // !string ptrÀ» ÀúÀåÇÏ¸é ¾ÈµÈ´Ù.
+	// // !string ptrÃ€Â» Ã€ÃºÃ€Ã¥Ã‡ÃÂ¸Ã© Â¾ÃˆÂµÃˆÂ´Ã™.
 	//
 	//struct NEW_REGISTRATION
 	//{
@@ -1533,8 +1537,8 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 	//	char *	sz_name;
 	//	char *	sz_email;
 	//	char *	sz_address;
-	//	char *	sz_ssn_number_part1; // ÁÖ¹Î¹øÈ£
-	//	char *	sz_ssn_number_part2; // ÁÖ¹Î¹øÈ£
+	//	char *	sz_ssn_number_part1; // ÃÃ–Â¹ÃÂ¹Ã¸ÃˆÂ£
+	//	char *	sz_ssn_number_part2; // ÃÃ–Â¹ÃÂ¹Ã¸ÃˆÂ£
 	//	char *	sz_homepage;
 	//	char *	sz_woo;
 	//	char *	sz_phone;
@@ -1548,7 +1552,7 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 	BOOL AllOK = TRUE;
 
 	//--------------------------------------------------
-	// string ±æÀÌ Ã¼Å©
+	// string Â±Ã¦Ã€ÃŒ ÃƒÂ¼Ã…Â©
 	//--------------------------------------------------
 	if (pReg->sz_id==NULL 
 		|| pReg->sz_password==NULL
@@ -1557,7 +1561,7 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 		|| pReg->sz_ssn_number_part2==NULL
 		|| pReg->sz_email==NULL)
 	{
-		// ÇÊ¼öÇ×¸ñÀÌ ÀÔ·Â ¾ÈµÈ °æ¿ì
+		// Ã‡ÃŠÂ¼Ã¶Ã‡Ã—Â¸Ã±Ã€ÃŒ Ã€Ã”Â·Ã‚ Â¾ÃˆÂµÃˆ Â°Ã¦Â¿Ã¬
 		AllOK = FALSE;
 
 		g_pUIDialog->PopupFreeMessageDlg((*g_pGameStringTable)[STRING_USER_REGISTER_EMPTY_FIELD].GetString());
@@ -1569,7 +1573,7 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 			
 		
 		//--------------------------------------------------
-		// ID ±æÀÌ Ã¼Å©
+		// ID Â±Ã¦Ã€ÃŒ ÃƒÂ¼Ã…Â©
 		//--------------------------------------------------
 		len = strlen(pReg->sz_id);	
 		
@@ -1581,7 +1585,7 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 		}
 
 		//---------------------------------------------
-		// Àß¸øµÈ IDÀÎÁö Ã¼Å©ÇÑ´Ù.
+		// Ã€ÃŸÂ¸Ã¸ÂµÃˆ IDÃ€ÃÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
 		//---------------------------------------------						
 		if (AllOK)
 		{
@@ -1595,7 +1599,7 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 				char strName[80];
 				strcpy(strName, pReg->sz_id);
 
-				// ¾È ÁÁÀº ¸»ÀÌ µé¾îÀÖ´Â °æ¿ì´Â Çã¿ëÀÌ ¾ÈµÈ´Ù.
+				// Â¾Ãˆ ÃÃÃ€Âº Â¸Â»Ã€ÃŒ ÂµÃ©Â¾Ã®Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Â´Ã‚ Ã‡Ã£Â¿Ã«Ã€ÃŒ Â¾ÃˆÂµÃˆÂ´Ã™.
 				if (g_pChatManager->RemoveCurse(strName))
 				{
 					g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_USER_REGISTER_INVALID_ID].GetString() );
@@ -1605,7 +1609,7 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 		}
 		
 		//--------------------------------------------------
-		// Password ±æÀÌ Ã¼Å©
+		// Password Â±Ã¦Ã€ÃŒ ÃƒÂ¼Ã…Â©
 		//--------------------------------------------------
 		if (AllOK)
 		{
@@ -1618,23 +1622,23 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 				AllOK = FALSE;
 			}
 			else if (!IsValidPassword(pReg->sz_id))
-			//else if (!IsValidID(pReg->sz_id))	// ¿ø·¡´Â ÀÌ°Å ½á¾ßµÇ´Âµ¥
-			// ÀÌ¹Ì ¸¸µé¾îÁø ¾ÆÀÌµğ Áß¿¡..  ID»ı¼º·ê¿¡ ÀûÇÕÇÏÁö ¾ÊÀº °Íµµ ÀÖ¾î¼­..
+			//else if (!IsValidID(pReg->sz_id))	// Â¿Ã¸Â·Â¡Â´Ã‚ Ã€ÃŒÂ°Ã… Â½Ã¡Â¾ÃŸÂµÃ‡Â´Ã‚ÂµÂ¥
+			// Ã€ÃŒÂ¹ÃŒ Â¸Â¸ÂµÃ©Â¾Ã®ÃÃ¸ Â¾Ã†Ã€ÃŒÂµÃ° ÃÃŸÂ¿Â¡..  IDÂ»Ã½Â¼ÂºÂ·ÃªÂ¿Â¡ Ã€Ã»Ã‡Ã•Ã‡ÃÃÃ¶ Â¾ÃŠÃ€Âº Â°ÃÂµÂµ Ã€Ã–Â¾Ã®Â¼Â­..
 			{
-				// ID¿¡ Æ¯¼ö¹®ÀÚ°¡ µé¾î°£ °æ¿ì
+				// IDÂ¿Â¡ Ã†Â¯Â¼Ã¶Â¹Â®Ã€ÃšÂ°Â¡ ÂµÃ©Â¾Ã®Â°Â£ Â°Ã¦Â¿Ã¬
 				g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_USER_REGISTER_ID_SPECIAL].GetString() );
 				AllOK = FALSE;
 			}			
 			else if (!IsValidPassword(pReg->sz_password))
 			{
-				// ÆĞ½º¿öµå°¡ Àß¸øµÈ °æ¿ì
+				// Ã†ÃÂ½ÂºÂ¿Ã¶ÂµÃ¥Â°Â¡ Ã€ÃŸÂ¸Ã¸ÂµÃˆ Â°Ã¦Â¿Ã¬
 				g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_USER_REGISTER_PASSWORD_SPECIAL].GetString() );
 				AllOK = FALSE;
 			}
 			else
 			{
 				//--------------------------------------------------
-				// ¼ıÀÚ¸¸ »ç¿ëÇÏ¸é ¾ÈµÈ´Ù.
+				// Â¼Ã½Ã€ÃšÂ¸Â¸ Â»Ã§Â¿Ã«Ã‡ÃÂ¸Ã© Â¾ÃˆÂµÃˆÂ´Ã™.
 				//--------------------------------------------------
 				char* str = pReg->sz_password;
 				
@@ -1651,7 +1655,7 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 					}
 				}
 
-				if (AllNumber)	// ÀüºÎ ¼ıÀÚÀÎ °æ¿ì..
+				if (AllNumber)	// Ã€Ã¼ÂºÃ Â¼Ã½Ã€ÃšÃ€Ã Â°Ã¦Â¿Ã¬..
 				{
 					g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_USER_REGISTER_PASSWORD_NUMBER].GetString() );
 					AllOK = FALSE;
@@ -1661,7 +1665,7 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 		}
 
 		//--------------------------------------------------
-		// ÀÌ¸§
+		// Ã€ÃŒÂ¸Â§
 		//--------------------------------------------------
 		if (AllOK)
 		{
@@ -1676,11 +1680,11 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 		}
 
 		//--------------------------------------------------
-		// ÀÌ¸§
+		// Ã€ÃŒÂ¸Â§
 		//--------------------------------------------------
 		if (AllOK)
 		{
-			// Á¦´ë·Î ÀÔ·ÂµÈ °æ¿ì
+			// ÃÂ¦Â´Ã«Â·Ã Ã€Ã”Â·Ã‚ÂµÃˆ Â°Ã¦Â¿Ã¬
 			if (//strlen(pReg->sz_ssn_number) == 6+1+7
 				//&& pReg->sz_ssn_number[6]=='-')
 				1)
@@ -1699,7 +1703,7 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 				strcpy(ssn2, pReg->sz_ssn_number_part2);
 
 				//--------------------------------------------------
-				// ÁÖ¹Îµî·Ï¹øÈ£ Ã¼Å©
+				// ÃÃ–Â¹ÃÂµÃ®Â·ÃÂ¹Ã¸ÃˆÂ£ ÃƒÂ¼Ã…Â©
 				//--------------------------------------------------
 				if (!IsValidSSN( ssn1, ssn2 ))
 				{
@@ -1719,7 +1723,7 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 	}
 
 	//--------------------------------------------------
-	// ¸ğµÎ Á¤»óÀÌ¸é..
+	// Â¸Ã°ÂµÃ ÃÂ¤Â»Ã³Ã€ÃŒÂ¸Ã©..
 	//--------------------------------------------------
 	if (AllOK)
 	{
@@ -1739,7 +1743,7 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 				if (!g_bTestMode)
 				{
 					int version;
-					class ifstream versionFile;//(FILE_INFO_ACTION, ios::binary);
+					std::ifstream versionFile;//(FILE_INFO_ACTION, ios::binary);
 					if (!FileOpenBinary(FILE_INFO_VERSION, versionFile))
 						return;
 					versionFile.read((char*)&version, 4);
@@ -1763,7 +1767,7 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 			CLRegisterPlayer	_CLRegisterPlayer;
 			
 			//--------------------------------------------------
-			// ÇÊ¼öÇ×¸ñ
+			// Ã‡ÃŠÂ¼Ã¶Ã‡Ã—Â¸Ã±
 			//--------------------------------------------------
 			_CLRegisterPlayer.setID( pReg->sz_id );
 			_CLRegisterPlayer.setPassword( pReg->sz_password );
@@ -1779,7 +1783,7 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 
 
 			//--------------------------------------------------
-			// ÇÊ¼öÇ×¸ñÀÌ ¾Æ´Ñ °Íµé
+			// Ã‡ÃŠÂ¼Ã¶Ã‡Ã—Â¸Ã±Ã€ÃŒ Â¾Ã†Â´Ã‘ Â°ÃÂµÃ©
 			//--------------------------------------------------
 			if (pReg->sz_address!=NULL)
 			{
@@ -1827,7 +1831,7 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 			}
 
 			//--------------------------------------------------
-			// Áö±İ ¾ø´Ù.. 
+			// ÃÃ¶Â±Ã Â¾Ã¸Â´Ã™.. 
 			//--------------------------------------------------
 			_CLRegisterPlayer.setProfile( "profile" );
 
@@ -1837,7 +1841,7 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 			
 		#endif	
 
-		// id±â¾ï
+		// idÂ±Ã¢Â¾Ã¯
 		g_pUserInformation->UserID = pReg->sz_id;
 
 		SetMode( MODE_WAIT_REGISTERPLAYEROK );
@@ -1883,7 +1887,7 @@ UIMessageManager::Execute_UI_LOGIN(int left, int right, void* void_ptr)
 	//
 	// ((C_VS_UI::LOGIN *)void_ptr) = id, password
 	//
-	// !string ptrÀ» ÀúÀåÇÏ¸é ¾ÈµÈ´Ù.
+	// !string ptrÃ€Â» Ã€ÃºÃ€Ã¥Ã‡ÃÂ¸Ã© Â¾ÃˆÂµÃˆÂ´Ã™.
 	//
 	LOGIN*	login = (LOGIN*)void_ptr;
 
@@ -1896,14 +1900,14 @@ UIMessageManager::Execute_UI_LOGIN(int left, int right, void* void_ptr)
 		return;
 	}	
 
-	// ½½·¹ÀÌ¾î ±×¸² ÀÏºÎ ·Îµù - 2001.8.20
+	// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â±Ã—Â¸Â² Ã€ÃÂºÃ Â·ÃÂµÃ¹ - 2001.8.20
 	LoadingAddonSPK( false );
 
 	if (login->sz_id!=NULL && login->sz_password!=NULL)
 	{
 		//if (IsValidID(login->sz_id, NULL))
 		{
-			// ID±â¾ï
+			// IDÂ±Ã¢Â¾Ã¯
 			//UI_BackupLoginID(((LOGIN *)void_ptr)->sz_id);
 			
 			if (IsValidPassword(login->sz_password))
@@ -1923,22 +1927,22 @@ UIMessageManager::Execute_UI_LOGIN(int left, int right, void* void_ptr)
 					//char wansungID[16];
 
 					//---------------------------------------------
-					// Á¶ÇÕÇü --> ¿Ï¼ºÇü
+					// ÃÂ¶Ã‡Ã•Ã‡Ã¼ --> Â¿ÃÂ¼ÂºÃ‡Ã¼
 					//---------------------------------------------
 					//UI_JohapToWansung( login->sz_id, wansungID );
 	
 					//--------------------------------------------------
-					// ·Î±×ÀÎ ¼­¹ö¿¡ ¿¬°áÇÑ ÈÄ 
-					// °¡Àå ¸ÕÀú º¸³»¾ß ÇÏ´Â ÆĞÅ¶Àº CLLogin ÆĞÅ¶ÀÌ´Ù.
-					// ±Ùµ¥,
-					// VersionÃ¼Å© packetÀÌ ¸ÕÀú´Ù. - -;
+					// Â·ÃÂ±Ã—Ã€Ã Â¼Â­Â¹Ã¶Â¿Â¡ Â¿Â¬Â°Ã¡Ã‡Ã‘ ÃˆÃ„ 
+					// Â°Â¡Ã€Ã¥ Â¸Ã•Ã€Ãº ÂºÂ¸Â³Â»Â¾ÃŸ Ã‡ÃÂ´Ã‚ Ã†ÃÃ…Â¶Ã€Âº CLLogin Ã†ÃÃ…Â¶Ã€ÃŒÂ´Ã™.
+					// Â±Ã™ÂµÂ¥,
+					// VersionÃƒÂ¼Ã…Â© packetÃ€ÃŒ Â¸Ã•Ã€ÃºÂ´Ã™. - -;
 					//--------------------------------------------------
 					//--------------------------------------------------
 					// CLVersionCheck
 					//--------------------------------------------------
 					#if !defined(_DEBUG) && !defined(OUTPUT_DEBUG)
 						int version = g_pUserInformation->GameVersion;
-//						class ifstream versionFile;//(FILE_INFO_ACTION, ios::binary);
+//						std::ifstream versionFile;//(FILE_INFO_ACTION, ios::binary);
 //						if (!FileOpenBinary(FILE_INFO_VERSION, versionFile))
 //						{
 //							DeleteNewArray(login->sz_id);
@@ -1971,7 +1975,7 @@ UIMessageManager::Execute_UI_LOGIN(int left, int right, void* void_ptr)
 					//clLogin.setID("Reiot");
 					//clLogin.setPassword("fpdldhxm");
 
-					// ³İ¸¶ºí¿ë
+					// Â³ÃÂ¸Â¶ÂºÃ­Â¿Ã«
 					std::string temp_id;
 					DEBUG_ADD("[Execute_UI_LOGIN] #");
 					#ifdef __METROTECH_TEST__
@@ -2003,7 +2007,7 @@ UIMessageManager::Execute_UI_LOGIN(int left, int right, void* void_ptr)
 					DEBUG_ADD("[Execute_UI_LOGIN] SendPacket OK");
 
 					//----------------------------------------------------
-					// UserInformation¿¡ ÀúÀåÇÑ´Ù.
+					// UserInformationÂ¿Â¡ Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
 					//----------------------------------------------------
 					g_pUserInformation->UserID = login->sz_id;
 					//g_pUserInformation->UserIDW = wansungID;
@@ -2018,12 +2022,12 @@ UIMessageManager::Execute_UI_LOGIN(int left, int right, void* void_ptr)
 			}
 			else
 			{
-				// ÆĞ½º¿öµå°¡ Àß¸øµÈ °æ¿ì
+				// Ã†ÃÂ½ÂºÂ¿Ã¶ÂµÃ¥Â°Â¡ Ã€ÃŸÂ¸Ã¸ÂµÃˆ Â°Ã¦Â¿Ã¬
 				g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_USER_REGISTER_PASSWORD_SPECIAL].GetString() );
 			}
 		}
 		//---------------------------------------------
-		// Àß¸øµÈ IDÀÎ °æ¿ì
+		// Ã€ÃŸÂ¸Ã¸ÂµÃˆ IDÃ€Ã Â°Ã¦Â¿Ã¬
 		//---------------------------------------------
 		//else
 		//{
@@ -2032,7 +2036,7 @@ UIMessageManager::Execute_UI_LOGIN(int left, int right, void* void_ptr)
 	}
 	
 
-	// (!) ¿ø·¡´Â Ä³¸¯ÅÍ ¼±ÅÃ Ã¢À» ¶ç¿ö¾ß ÇÑ´Ù.
+	// (!) Â¿Ã¸Â·Â¡Â´Ã‚ Ã„Â³Â¸Â¯Ã…Ã Â¼Â±Ã…Ãƒ ÃƒÂ¢Ã€Â» Â¶Ã§Â¿Ã¶Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 
 	//gC_vs_ui.StartGame();
 	//gC_vs_ui.StartCharacterManager();
@@ -2044,7 +2048,7 @@ UIMessageManager::Execute_UI_LOGIN(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// Ä³¸¯ÅÍ ¼±ÅÃ Ã¢¿¡¼­ main menu·Î µ¹¾Æ°¥¶§
+// Ã„Â³Â¸Â¯Ã…Ã Â¼Â±Ã…Ãƒ ÃƒÂ¢Â¿Â¡Â¼Â­ main menuÂ·Ã ÂµÂ¹Â¾Ã†Â°Â¥Â¶Â§
 //
 //-----------------------------------------------------------------------------
 void
@@ -2059,7 +2063,7 @@ UIMessageManager::Execute_UI_CHARACTER_MANAGER_FINISHED(int left, int right, voi
 		return;
 	}
 
-	// ³İ¸¶ºí¿ë
+	// Â³ÃÂ¸Â¶ÂºÃ­Â¿Ã«
 	if(g_pUserInformation->IsNetmarble)
 	{
 		SetMode( MODE_MAINMENU );
@@ -2067,15 +2071,15 @@ UIMessageManager::Execute_UI_CHARACTER_MANAGER_FINISHED(int left, int right, voi
 	}
 
 	//
-	// Client, Server¿¡ logout packet º¸³¿.
+	// Client, ServerÂ¿Â¡ logout packet ÂºÂ¸Â³Â¿.
 	//
 	//--------------------------------------------------
-	// Login ¼­¹ö·Î CLLogout ÆĞÅ¶À» º¸³½´Ù.
+	// Login Â¼Â­Â¹Ã¶Â·Ã CLLogout Ã†ÃÃ…Â¶Ã€Â» ÂºÂ¸Â³Â½Â´Ã™.
 	//--------------------------------------------------
 	/*
 	#ifdef	CONNECT_SERVER		
 		
-		// hot key saveÇÑ´Ù.
+		// hot key saveÃ‡Ã‘Â´Ã™.
 		//UI_SaveHotKeyToServer();
 
 		CLLogout clLogout;
@@ -2098,10 +2102,10 @@ UIMessageManager::Execute_UI_CHARACTER_MANAGER_FINISHED(int left, int right, voi
 
 //-----------------------------------------------------------------------------
 //
-// UI_CONNECT - Ä³¸¯ÅÍ ¼±ÅÃ ÇßÀ» ¶§
+// UI_CONNECT - Ã„Â³Â¸Â¯Ã…Ã Â¼Â±Ã…Ãƒ Ã‡ÃŸÃ€Â» Â¶Â§
 //
 //-----------------------------------------------------------------------------
-// °ÔÀÓ ½ÃÀÛÇÏ·Á°í ÇÒ¶§...
+// Â°Ã”Ã€Ã“ Â½ÃƒÃ€Ã›Ã‡ÃÂ·ÃÂ°Ã­ Ã‡Ã’Â¶Â§...
 void
 UIMessageManager::Execute_UI_CONNECT(int left, int right, void* void_ptr)
 {
@@ -2114,7 +2118,7 @@ UIMessageManager::Execute_UI_CONNECT(int left, int right, void* void_ptr)
 	}
 
 	//------------------------------------------------------------
-	// À½¾Ç ÁßÁö - 2001.8.20
+	// Ã€Â½Â¾Ã‡ ÃÃŸÃÃ¶ - 2001.8.20
 	//------------------------------------------------------------
 	if (g_pUserOption!=NULL)
 	{
@@ -2147,7 +2151,7 @@ UIMessageManager::Execute_UI_CONNECT(int left, int right, void* void_ptr)
 	}
 
 	//------------------------------------------------------------
-	// Á¢¼ÓÇØ¾ßµÈ´Ù°í Ãâ·ÂÇØÁØ´Ù.
+	// ÃÂ¢Â¼Ã“Ã‡Ã˜Â¾ÃŸÂµÃˆÂ´Ã™Â°Ã­ ÃƒÃ¢Â·Ã‚Ã‡Ã˜ÃÃ˜Â´Ã™.
 	//------------------------------------------------------------
 	if (g_pUIDialog!=NULL)
 	{
@@ -2172,7 +2176,7 @@ UIMessageManager::Execute_UI_CONNECT(int left, int right, void* void_ptr)
 			//gC_vs_ui.DrawMousePointer();
 
 			//-----------------------------------------------------------------
-			// Last¸¦ BackÀ¸·Î copy - 3D HALÀÌ ¾Æ´Ñ °æ¿ì¸¸..
+			// LastÂ¸Â¦ BackÃ€Â¸Â·Ã copy - 3D HALÃ€ÃŒ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¸Â¸..
 			//-----------------------------------------------------------------		
 			point.x = 0;
 			point.y = 0;
@@ -2181,7 +2185,7 @@ UIMessageManager::Execute_UI_CONNECT(int left, int right, void* void_ptr)
 		}
 		CDirectDraw::Flip();
 
-		// È­¸é¿¡ ±×·ÁÁÖ°í Áö¿ì¸é µÈ´ç.. ¤»¤»
+		// ÃˆÂ­Â¸Ã©Â¿Â¡ Â±Ã—Â·ÃÃÃ–Â°Ã­ ÃÃ¶Â¿Ã¬Â¸Ã© ÂµÃˆÂ´Ã§.. Â¤Â»Â¤Â»
 		DEBUG_ADD("close msg dlg");
 		g_pUIDialog->CloseMessageDlg();
 	}
@@ -2191,15 +2195,15 @@ UIMessageManager::Execute_UI_CONNECT(int left, int right, void* void_ptr)
 	//------------------------------------------------------------
 	// Test 2001.8.20
 	//------------------------------------------------------------
-	// Ä³¸¯ ¼±ÅÃ ÈÄ¿¡ ¹Ù·Î
-	// ½½·¹ÀÌ¾î ±×¸² ÀÏºÎ ·Îµù - 2001.8.20
+	// Ã„Â³Â¸Â¯ Â¼Â±Ã…Ãƒ ÃˆÃ„Â¿Â¡ Â¹Ã™Â·Ã
+	// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â±Ã—Â¸Â² Ã€ÃÂºÃ Â·ÃÂµÃ¹ - 2001.8.20
 	LoadingAddonSPK( false );
 	
 
 	DEBUG_ADD_FORMAT("CLSelectPC(%d)", left);
 
 	CLSelectPC clSelectPC;
-	// CGConnect ¶§ »ç¿ëÇÏ·Á¸é ¿©±â¼­ ÀúÀåÇØµÖ¾ß ÇÑ´Ù.					
+	// CGConnect Â¶Â§ Â»Ã§Â¿Ã«Ã‡ÃÂ·ÃÂ¸Ã© Â¿Â©Â±Ã¢Â¼Â­ Ã€ÃºÃ€Ã¥Ã‡Ã˜ÂµÃ–Â¾ÃŸ Ã‡Ã‘Â´Ã™.					
 	//clSelectPC.setPCName( (const char *)g_pUserInformation->CharacterW[left] );//"sigi");
 	clSelectPC.setPCName( (const char *)g_pUserInformation->Character[left] );//"sigi");
 	clSelectPC.setPCType( (PCType)(g_pUserInformation->Race[left]));
@@ -2215,15 +2219,15 @@ UIMessageManager::Execute_UI_CONNECT(int left, int right, void* void_ptr)
 	g_pUserInformation->FaceStyle = g_pUserInformation->FaceStyleSlot[left];	
 	g_pUserInformation->IsMaster = 
 		strncmp( g_pUserInformation->CharacterID, (*g_pGameStringTable)[UI_STRING_MESSAGE_MASTER_NAME].GetString(), (*g_pGameStringTable)[UI_STRING_MESSAGE_MASTER_NAME].GetLength() ) == 0 
-//		(strstr(g_pUserInformation->CharacterID, "¿î¿µÀÚ")!=NULL)
+//		(strstr(g_pUserInformation->CharacterID, "Â¿Ã®Â¿ÂµÃ€Ãš")!=NULL)
 		|| g_pInventory->FindItem(ITEM_CLASS_ETC, 0);
 //		|| g_pPlayer->GetCreatureType()==CREATURETYPE_SLAYER_OPERATOR
 //		|| g_pPlayer->GetCreatureType()==CREATURETYPE_VAMPIRE_OPERATOR;
-//		g_pPlayer °¡ ¾ø¾î¼­ »¶³ª³× °Ë»çÇÒ±î...»ı°¢ÇßÁö¸¸..½ß~
+//		g_pPlayer Â°Â¡ Â¾Ã¸Â¾Ã®Â¼Â­ Â»Â¶Â³ÂªÂ³Ã— Â°Ã‹Â»Ã§Ã‡Ã’Â±Ã®...Â»Ã½Â°Â¢Ã‡ÃŸÃÃ¶Â¸Â¸..Â½ÃŸ~
 
 	#ifdef OUTPUT_DEBUG
 		DEBUG_ADD("MasterCheck");
-		class ifstream file("master.txt", ios::nocreate);
+		std::ifstream file("master.txt", );
 
 		char str[256];
 		while (!file.eof())
@@ -2249,7 +2253,7 @@ UIMessageManager::Execute_UI_CONNECT(int left, int right, void* void_ptr)
 	g_pSocket->sendPacket( &clSelectPC );
 	g_pSocket->setPlayerStatus( CPS_AFTER_SENDING_CL_SELECT_PC );
 
-	// ¹Ù·Î º¸³½´Ù.
+	// Â¹Ã™Â·Ã ÂºÂ¸Â³Â½Â´Ã™.
 	UpdateSocketOutput();
 
 	SaveLastSelectedCharacter( left );
@@ -2258,12 +2262,12 @@ UIMessageManager::Execute_UI_CONNECT(int left, int right, void* void_ptr)
 	SetMode(MODE_WAIT_RECONNECT);
 #endif
 	//------------------------------
-	// °ÔÀÓ UI
+	// Â°Ã”Ã€Ã“ UI
 	//------------------------------
 	//gC_vs_ui.StartGame();
 					
 	//
-	// SkillÀº StartGame()ÀÌ ½ÇÇàµÈ ÀÌÈÄ¿¡ Ãß°¡ÇØ¾ß ÇÑ´Ù.
+	// SkillÃ€Âº StartGame()Ã€ÃŒ Â½Ã‡Ã‡Ã ÂµÃˆ Ã€ÃŒÃˆÃ„Â¿Â¡ ÃƒÃŸÂ°Â¡Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 	//
 	//gC_vs_ui.AddSlayerSkill(SKILL_FLASH_SLASHER);
 }
@@ -2271,19 +2275,19 @@ UIMessageManager::Execute_UI_CONNECT(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// Chat¿¡¼­ Enter´­·¶À» ¶§
+// ChatÂ¿Â¡Â¼Â­ EnterÂ´Â­Â·Â¶Ã€Â» Â¶Â§
 //
 //-----------------------------------------------------------------------------
-// Ã¤ÆÃÃ¢ ÀÔ·Â
+// ÃƒÂ¤Ã†ÃƒÃƒÂ¢ Ã€Ã”Â·Ã‚
 void
 UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 {
 	//
-	// left = trueÀÌ¸é pcs¿¡¼­ ÀÔ·ÂÇÑ °ÍÀÌ°í, false¸®¸é ÀÏ¹İÃ¤ÆÃÀÓ.
+	// left = trueÃ€ÃŒÂ¸Ã© pcsÂ¿Â¡Â¼Â­ Ã€Ã”Â·Ã‚Ã‡Ã‘ Â°ÃÃ€ÃŒÂ°Ã­, falseÂ¸Â®Â¸Ã© Ã€ÃÂ¹ÃÃƒÂ¤Ã†ÃƒÃ€Ã“.
 	//
-	// ! pcs¿¡¼­ ÀÔ·ÂµÈ °æ¿ì slot ¹øÈ£¸¦ ¾Ë±â À§ÇØ¼­´Â ´ÙÀ½ ÇÔ¼ö¸¦ ½ÇÇàÇÑ´Ù.
+	// ! pcsÂ¿Â¡Â¼Â­ Ã€Ã”Â·Ã‚ÂµÃˆ Â°Ã¦Â¿Ã¬ slot Â¹Ã¸ÃˆÂ£Â¸Â¦ Â¾Ã‹Â±Ã¢ Ã€Â§Ã‡Ã˜Â¼Â­Â´Ã‚ Â´Ã™Ã€Â½ Ã‡Ã”Â¼Ã¶Â¸Â¦ Â½Ã‡Ã‡Ã Ã‡Ã‘Â´Ã™.
 	//   => gC_vs_ui.GetSendPossibleSlot();
-	//      À¯È¿ÇÑ ¼ıÀÚ´Â 0, 1, 2 ÀÌ¸ç, NOT_SELECTEDÀÌ¸é ¾î¶°ÇÑ slotµµ ¾Æ´Ï´Ù.
+	//      Ã€Â¯ÃˆÂ¿Ã‡Ã‘ Â¼Ã½Ã€ÃšÂ´Ã‚ 0, 1, 2 Ã€ÃŒÂ¸Ã§, NOT_SELECTEDÃ€ÃŒÂ¸Ã© Â¾Ã®Â¶Â°Ã‡Ã‘ slotÂµÂµ Â¾Ã†Â´ÃÂ´Ã™.
 	//
 	// void_ptr = input string
 	//	right = color
@@ -2302,10 +2306,10 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 	char* chatString = (char*)void_ptr; 
 //	g_pChatManager->RemoveCurse(chatString);
 	//-------------------------------------------------------------
-	// ÆÄÆ¼ Ã¤ÆÃÀÎ °æ¿ì
+	// Ã†Ã„Ã†Â¼ ÃƒÂ¤Ã†ÃƒÃ€Ã Â°Ã¦Â¿Ã¬
 	//-------------------------------------------------------------
 	if (chatString!=NULL 
-		&& chatString[0]!=SYMBOL_WHISPER	// ±Ó¼Ó¸»ÀÌ ¾Æ´Ñ °æ¿ì¿¡..
+		&& chatString[0]!=SYMBOL_WHISPER	// Â±Ã“Â¼Ã“Â¸Â»Ã€ÃŒ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡..
 		//&& chatString[0]!=SYMBOL_MASTER_COMMAND
 		&& left==CLD_PARTY)
 	{
@@ -2319,9 +2323,9 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 
 		}
 	}
-	// ±æµå Ã¤ÆÃ
+	// Â±Ã¦ÂµÃ¥ ÃƒÂ¤Ã†Ãƒ
 	else if (chatString!=NULL 
-		&& chatString[0]!=SYMBOL_WHISPER	// ±Ó¼Ó¸»ÀÌ ¾Æ´Ñ °æ¿ì¿¡..
+		&& chatString[0]!=SYMBOL_WHISPER	// Â±Ã“Â¼Ã“Â¸Â»Ã€ÃŒ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡..
 		&& chatString[0]!=SYMBOL_MASTER_COMMAND
 		&& (left==CLD_GUILD || left == CLD_UNION))
 	{
@@ -2341,7 +2345,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 		}
 	}
 	//-------------------------------------------------------------
-	// Player°¡ »ì¾ÆÀÖ´Â °æ¿ì¸¸... chatting°¡´É.. Çß¾úÁö¸¸..   --;
+	// PlayerÂ°Â¡ Â»Ã¬Â¾Ã†Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Â¸Â¸... chattingÂ°Â¡Â´Ã‰.. Ã‡ÃŸÂ¾ÃºÃÃ¶Â¸Â¸..   --;
 	//-------------------------------------------------------------
 	else //if (g_pPlayer->IsAlive())
 	{
@@ -2351,7 +2355,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 		#ifdef __GAME_CLIENT__
 			if (g_pSystemMessage!=NULL)
 			{
-				// ¼­ºñ½º.. - -;;
+				// Â¼Â­ÂºÃ±Â½Âº.. - -;;
 				g_pSystemMessage->Add((*g_pGameStringTable)[STRING_MESSAGE_CHAT_BE_GOOD].GetString());
 			}
 		#endif
@@ -2389,17 +2393,17 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 		//}
 		//-------------------------------------------------------------
 		//
-		// ÀÏ¹İ Ã¤ÆÃ
+		// Ã€ÃÂ¹Ã ÃƒÂ¤Ã†Ãƒ
 		//
 		//-------------------------------------------------------------
 		//else
 		{
 			//
-			// chat history Window¿¡ º¸³»±â... ÀÏ´Ü ¹Ù·Î º¸³»º¸ÀÚ.
+			// chat history WindowÂ¿Â¡ ÂºÂ¸Â³Â»Â±Ã¢... Ã€ÃÂ´Ãœ Â¹Ã™Â·Ã ÂºÂ¸Â³Â»ÂºÂ¸Ã€Ãš.
 			//
 			//break;
 
-			// server·Î message º¸³»±â
+			// serverÂ·Ã message ÂºÂ¸Â³Â»Â±Ã¢
 			//g_Socket.Send(g_String);
 			char* strUI = chatString;
 			char* strOrg = new char[128];
@@ -2415,7 +2419,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 					
 				if (str!=NULL && str[0]!=NULL)
 				{
-					// 2004, 10, 25, sobeit add start - µå·¹°ï ¾ÆÀÌ °ü·Ã
+					// 2004, 10, 25, sobeit add start - ÂµÃ¥Â·Â¹Â°Ã¯ Â¾Ã†Ã€ÃŒ Â°Ã¼Â·Ãƒ
 					if(g_pPlayer->HasEffectStatus(EFFECTSTATUS_DRAGON_EYES))
 					{
 						if(0 == strncmp(str, (*g_pGameStringTable)[UI_STRING_MESSAGE_RANGER_SAY].GetString(),(*g_pGameStringTable)[UI_STRING_MESSAGE_RANGER_SAY].GetLength()))
@@ -2427,10 +2431,10 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 
 							g_pSocket->sendPacket( &_CGRangerSay );
 										
-							// PlayerÀÇ Chat pWansungStringing¿¡ Ãß°¡
+							// PlayerÃ€Ã‡ Chat pWansungStringingÂ¿Â¡ ÃƒÃŸÂ°Â¡
 							g_pPlayer->SetChatString( str );//+1 );
 
-							// history¿¡ Ãß°¡
+							// historyÂ¿Â¡ ÃƒÃŸÂ°Â¡
 							char temp[128];
 							strcpy(temp, str );//+1);
 							//sprintf(temp, "[%s] %s", g_pUserInformation->CharacterID.GetString(), str+1);
@@ -2439,20 +2443,20 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 							return;
 						}
 					}
-					// ×Ô¶¯Ê¹ÓÃÈ«¾ÖÁÄÌì
+					// Ã—Ã”Â¶Â¯ÃŠÂ¹Ã“ÃƒÃˆÂ«Â¾Ã–ÃÃ„ÃŒÃ¬
 					//UI_STRING_MESSAGE_PLAYER_SAY
 					if(0 == strncmp(str, (*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY].GetString(),(*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY].GetLength()))
 					{
-						// ²éÕÒÎïÆ·
-						// ²éÕÒÂÌÉ«
+						// Â²Ã©Ã•Ã’ÃÃ¯Ã†Â·
+						// Â²Ã©Ã•Ã’Ã‚ÃŒÃ‰Â«
 						MItem* pItem = g_pInventory->FindItem(ITEM_CLASS_EFFECT_ITEM,10);
 						if (pItem == NULL)
 						{
-							// ²éÕÒÀ¶É«
+							// Â²Ã©Ã•Ã’Ã€Â¶Ã‰Â«
 							pItem = g_pInventory->FindItem(ITEM_CLASS_EFFECT_ITEM,11);
 							if (pItem == NULL)
 							{
-								// ²éÕÒ»ÆÉ«
+								// Â²Ã©Ã•Ã’Â»Ã†Ã‰Â«
 								pItem = g_pInventory->FindItem(ITEM_CLASS_EFFECT_ITEM,12);
 							}
 						}
@@ -2482,14 +2486,14 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 						}
 						return;
 					}
-					// 2004, 10, 25, sobeit add end - µå·¹°ï ¾ÆÀÌ °ü·Ã
+					// 2004, 10, 25, sobeit add end - ÂµÃ¥Â·Â¹Â°Ã¯ Â¾Ã†Ã€ÃŒ Â°Ã¼Â·Ãƒ
 					if (bZoneChat && str[0]!=SYMBOL_WHISPER
 						&& str[0]!=SYMBOL_COMMAND && str[0]!=SYMBOL_MASTER_COMMAND)			
 					{
 						// system message test
 						//------------------------------------------------------------
 						//
-						// '!'¸¦ ÀÔ·ÂÇÏ¸é globalÃ¤ÆÃÀÌ´Ù.
+						// '!'Â¸Â¦ Ã€Ã”Â·Ã‚Ã‡ÃÂ¸Ã© globalÃƒÂ¤Ã†ÃƒÃ€ÃŒÂ´Ã™.
 						//
 						//------------------------------------------------------------
 						//case SYMBOL_GLOBALCHAT :	//if (str[0]=='!')//pWansungString[0]=='/')
@@ -2497,8 +2501,8 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 							//if (strlen(str) > 1 )	//pWansungString) > 1)
 							{		
 								//---------------------------------------------------------
-								// ¼û¾î ÀÖÀ»¶§´Â ¸» ¸øÇÑ´Ù.
-								// ´Á´ë³ª ¹ÚÁãÀÎ °æ¿ì ¸» ¸øÇÑ´Ù.
+								// Â¼Ã»Â¾Ã® Ã€Ã–Ã€Â»Â¶Â§Â´Ã‚ Â¸Â» Â¸Ã¸Ã‡Ã‘Â´Ã™.
+								// Â´ÃÂ´Ã«Â³Âª Â¹ÃšÃÃ£Ã€Ã Â°Ã¦Â¿Ã¬ Â¸Â» Â¸Ã¸Ã‡Ã‘Â´Ã™.
 								//---------------------------------------------------------
 								if (g_pPlayer->IsUndergroundCreature()
 									|| g_pPlayer->IsInCasket()
@@ -2506,7 +2510,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 									|| g_pPlayer->GetCreatureType()==CREATURETYPE_WOLF
 									|| g_pPlayer->GetCreatureType()==CREATURETYPE_WER_WOLF)
 								{
-									// history¿¡ Ãß°¡
+									// historyÂ¿Â¡ ÃƒÃŸÂ°Â¡
 									//char temp[128];
 									//sprintf(temp, "[%s] .....", g_pUserInformation->CharacterID.GetString());
 									//UI_AddChatToHistory( temp );								
@@ -2518,7 +2522,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 								else
 								{
 									//---------------------------------------------------------
-									// delay°¡ ¾È ³¡³µÀ¸¸é ¸» ¸øÇÑ´Ù.
+									// delayÂ°Â¡ Â¾Ãˆ Â³Â¡Â³ÂµÃ€Â¸Â¸Ã© Â¸Â» Â¸Ã¸Ã‡Ã‘Â´Ã™.
 									//---------------------------------------------------------
 									if (1)//g_CurrentTime > g_pUserInformation->GlobalSayTime+g_pClientConfig->DELAY_GLOBAL_SAY
 										//#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
@@ -2532,27 +2536,27 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 										g_pSocket->sendPacket( &_CGGlobalChat );
 
 										
-										// PlayerÀÇ Chat pWansungStringing¿¡ Ãß°¡
+										// PlayerÃ€Ã‡ Chat pWansungStringingÂ¿Â¡ ÃƒÃŸÂ°Â¡
 										g_pPlayer->SetChatString( str, right );//+1 );
 
-										// history¿¡ Ãß°¡
+										// historyÂ¿Â¡ ÃƒÃŸÂ°Â¡
 										char temp[128];
 										strcpy(temp, str );//+1);
 										//sprintf(temp, "[%s] %s", g_pUserInformation->CharacterID.GetString(), str+1);
 										//UI_AddChatToHistory( temp );								
 										UI_AddChatToHistory( temp, g_pUserInformation->CharacterID.GetString(), CLD_ZONECHAT, right );
 
-										// ÇöÀç ½Ã°£À» ¼³Á¤ÇØµĞ´Ù.
+										// Ã‡Ã¶Ã€Ã§ Â½ÃƒÂ°Â£Ã€Â» Â¼Â³ÃÂ¤Ã‡Ã˜ÂµÃÂ´Ã™.
 										//g_pUserInformation->GlobalSayTime = g_CurrentTime;
 
-										// [µµ¿ò¸»] ¿ÜÄ¡±â ÇÒ ¶§
+										// [ÂµÂµÂ¿Ã²Â¸Â»] Â¿ÃœÃ„Â¡Â±Ã¢ Ã‡Ã’ Â¶Â§
 //										__BEGIN_HELP_EVENT
 ////											ExecuteHelpEvent( HE_CHAT_SHOUT );	
 //										__END_HELP_EVENT
 									}
 									//else
 									//{
-										// Áö±İÀº ¿ÜÄ¡±â ÇÒ ¼ö ¾ø´Ù°í Ç¥½Ã
+										// ÃÃ¶Â±ÃÃ€Âº Â¿ÃœÃ„Â¡Â±Ã¢ Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™Â°Ã­ Ã‡Â¥Â½Ãƒ
 									//	UI_AddChatToHistory( (*g_pGameStringTable)[STRING_MESSAGE_CANNOT_GLOBAL_SAY].GetString(), NULL, CLD_INFO );
 									//}
 								}
@@ -2561,11 +2565,11 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 						//break;
 
 					}					
-					else // À¸À½.. ÀÌ ºÎºĞ ÄÚµå°¡ ¾È ÀÌ»Ú³×.. - -;;
+					else // Ã€Â¸Ã€Â½.. Ã€ÃŒ ÂºÃÂºÃ Ã„ÃšÂµÃ¥Â°Â¡ Â¾Ãˆ Ã€ÃŒÂ»ÃšÂ³Ã—.. - -;;
 					switch ( str[0] )
 					{
 						//------------------------------
-						// Á¶ÇÕÇü --> ¿Ï¼ºÇü
+						// ÃÂ¶Ã‡Ã•Ã‡Ã¼ --> Â¿ÃÂ¼ÂºÃ‡Ã¼
 						//------------------------------
 						//char* pWansungString = new char [strlen(str)+1];
 
@@ -2574,21 +2578,21 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 						
 						//------------------------------------------------------------
 						//
-						// '/'¸¦ ÀÔ·ÂÇÏ¸é whisper´Ù.
+						// '/'Â¸Â¦ Ã€Ã”Â·Ã‚Ã‡ÃÂ¸Ã© whisperÂ´Ã™.
 						//
 						//------------------------------------------------------------
 						case SYMBOL_WHISPER :						
 						{
-							// VampireÀÎ °æ¿ì¿¡						
+							// VampireÃ€Ã Â°Ã¦Â¿Ã¬Â¿Â¡						
 							//else if (//g_pPlayer->IsVampire() && 
 									//str[0]=='/')
 
 							if (strlen(str) > 1 )
 							{
-								// '/'»©°í ³ª¸ÓÁö Ãß°¡..
+								// '/'Â»Â©Â°Ã­ Â³ÂªÂ¸Ã“ÃÃ¶ ÃƒÃŸÂ°Â¡..
 								CToken strToken(str+1);
 
-								// [ÀÌ¸§]+[ ]+[ÇÒ¸»] ·Î ÀÌ·ç¾îÁ®ÀÖ´Ù°í º¸¸é µÈ´Ù.										
+								// [Ã€ÃŒÂ¸Â§]+[ ]+[Ã‡Ã’Â¸Â»] Â·Ã Ã€ÃŒÂ·Ã§Â¾Ã®ÃÂ®Ã€Ã–Â´Ã™Â°Ã­ ÂºÂ¸Â¸Ã© ÂµÃˆÂ´Ã™.										
 								const char* pName = strToken.GetToken();
 								const char* pMessage = strToken.GetEnd();										
 								
@@ -2597,7 +2601,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 									int nameLen = strlen(pName);
 									
 									//------------------------------------------------------
-									// ID±æÀÌ°¡ Àß¸øµÈ °æ¿ì										
+									// IDÂ±Ã¦Ã€ÃŒÂ°Â¡ Ã€ÃŸÂ¸Ã¸ÂµÃˆ Â°Ã¦Â¿Ã¬										
 									//------------------------------------------------------
 									if (nameLen<PlayerInfo::minIDLength || nameLen>PlayerInfo::maxIDLength)
 									{
@@ -2609,18 +2613,18 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 										UI_AddChatToHistory( strTemp, NULL, CLD_INFO, right );
 									}
 									//------------------------------------------------------
-									// Á¤»óÀûÀÎ ±Ó¼Ó¸»...ÀÏ±î?
+									// ÃÂ¤Â»Ã³Ã€Ã»Ã€Ã Â±Ã“Â¼Ã“Â¸Â»...Ã€ÃÂ±Ã®?
 									//------------------------------------------------------
 									else
 									{
 										if (g_pUserInformation->CharacterID==pName)
 										{
-											// ÀÚ½Å¿¡°Ô ±Ó¼Ó¸»ÇÏ´Â °æ¿ì
+											// Ã€ÃšÂ½Ã…Â¿Â¡Â°Ã” Â±Ã“Â¼Ã“Â¸Â»Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 											UI_AddChatToHistory( (*g_pGameStringTable)[STRING_MESSAGE_WHISPER_SELF].GetString(), NULL, CLD_INFO, right );
 										}
 										else
 										{
-											// ±Ó¼Ó¸» ´ë»ó ¼³Á¤ : ID + ' '
+											// Â±Ã“Â¼Ã“Â¸Â» Â´Ã«Â»Ã³ Â¼Â³ÃÂ¤ : ID + ' '
 											char strWhisperID[128];
 											sprintf(strWhisperID, "%s ", pName);
 											g_pUserInformation->WhisperID = strWhisperID;
@@ -2640,11 +2644,11 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 											//sprintf(temp, "[%s] <%s> %s", g_pUserInformation->CharacterID.GetString(), pName, pMessage);
 											//UI_AddChatToHistory( temp );
 											strcpy(strMessage, pMessage);
-											// "[³»°¡] ´©±¸¿¡°Ô> ¹¹¶ó°í"¶ó´Â ½ÄÀ¸·Î Ç¥ÇöµÈ´Ù.
+											// "[Â³Â»Â°Â¡] Â´Â©Â±Â¸Â¿Â¡Â°Ã”> Â¹Â¹Â¶Ã³Â°Ã­"Â¶Ã³Â´Ã‚ Â½Ã„Ã€Â¸Â·Ã Ã‡Â¥Ã‡Ã¶ÂµÃˆÂ´Ã™.
 											sprintf(strName, "[%s] %s", g_pUserInformation->CharacterID.GetString(), pName);
 											UI_AddChatToHistory( strMessage, strName, CLD_WHISPER, right );
 
-											// [µµ¿ò¸»] ±Ó¼Ó¸» ÇÒ ¶§
+											// [ÂµÂµÂ¿Ã²Â¸Â»] Â±Ã“Â¼Ã“Â¸Â» Ã‡Ã’ Â¶Â§
 //											__BEGIN_HELP_EVENT
 ////												ExecuteHelpEvent( HE_CHAT_WHISPER );	
 //											__END_HELP_EVENT
@@ -2657,7 +2661,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 
 						//------------------------------------------------------------
 						//
-						// '@'¸¦ ÀÔ·ÂÇÏ¸é Æ¯¼ö ¸í·É¾î´Ù.
+						// '@'Â¸Â¦ Ã€Ã”Â·Ã‚Ã‡ÃÂ¸Ã© Ã†Â¯Â¼Ã¶ Â¸Ã­Â·Ã‰Â¾Ã®Â´Ã™.
 						//
 						//------------------------------------------------------------
 						case SYMBOL_COMMAND :
@@ -2666,55 +2670,62 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 						{
 							if (strlen(str) > 1 )
 							{
-								// '@'»©°í ³ª¸ÓÁö Ãß°¡..
+								// '@'Â»Â©Â°Ã­ Â³ÂªÂ¸Ã“ÃÃ¶ ÃƒÃŸÂ°Â¡..
 								CToken strToken(str+1);
 
-								// [¸í·É]+[ ]+[³»¿ë] À¸·Î ÀÌ·ç¾îÁ®ÀÖ´Ù°í º¸¸é µÈ´Ù.										
+								// [Â¸Ã­Â·Ã‰]+[ ]+[Â³Â»Â¿Ã«] Ã€Â¸Â·Ã Ã€ÃŒÂ·Ã§Â¾Ã®ÃÂ®Ã€Ã–Â´Ã™Â°Ã­ ÂºÂ¸Â¸Ã© ÂµÃˆÂ´Ã™.
 								const char* pCommand = strToken.GetToken();
 								const char* pData = strToken.GetEnd();
 
 								char pLwrCommand[128];
 								strcpy(pLwrCommand, pCommand);
+#ifdef PLATFORM_WINDOWS
 								strcpy(pLwrCommand, _strlwr(pLwrCommand));
+#else
+								// Simple lowercase conversion for macOS
+								for (int i = 0; pLwrCommand[i]; i++) {
+									pLwrCommand[i] = tolower(pLwrCommand[i]);
+								}
+#endif
 
-								
+
 								DEBUG_ADD_FORMAT("[Command] %s %s", pCommand, pData);
 								
 								//-------------------------------------------------------
-								// ´ëÈ­ °ÅºÎ
+								// Â´Ã«ÃˆÂ­ Â°Ã…ÂºÃ
 								//-------------------------------------------------------
 								if (strcmp(pCommand, STRING_IGNORE)==0
 									|| strcmp(pLwrCommand, STRING_IGNORE_ENG)==0)
 								{
 									//-------------------------------------------------------
-									// ¸ğµç »ç¶÷ÀÇ ´ëÈ­¸¦ °ÅºÎÇÑ´Ù.
+									// Â¸Ã°ÂµÃ§ Â»Ã§Â¶Ã·Ã€Ã‡ Â´Ã«ÃˆÂ­Â¸Â¦ Â°Ã…ÂºÃÃ‡Ã‘Â´Ã™.
 									//-------------------------------------------------------
 									if (pData==NULL)
 									{
 										g_pChatManager->ClearID();
 										g_pChatManager->SetIgnoreMode();	
 
-										// ÀÚ±â ID´Â Ãß°¡ÇØµĞ´Ù.
+										// Ã€ÃšÂ±Ã¢ IDÂ´Ã‚ ÃƒÃŸÂ°Â¡Ã‡Ã˜ÂµÃÂ´Ã™.
 										g_pChatManager->AddID( g_pUserInformation->CharacterID.GetString() );
 
 										char strTemp[128];
 										sprintf(strTemp, (*g_pGameStringTable)[STRING_MESSAGE_CHAT_IGNORE_ALL].GetString(), pData);
 										UI_AddChatToHistory( strTemp, NULL, CLD_INFO, right );
 
-										// [µµ¿ò¸»] ´ëÈ­°ÅºÎ
+										// [ÂµÂµÂ¿Ã²Â¸Â»] Â´Ã«ÃˆÂ­Â°Ã…ÂºÃ
 //										__BEGIN_HELP_EVENT
 ////											ExecuteHelpEvent( HE_CHAT_REJECT );	
 //										__END_HELP_EVENT
 									}
 									//-------------------------------------------------------
-									// ÇÑ »ç¶÷ÀÇ ´ëÈ­¸¦ °ÅºÎÇÑ´Ù.
+									// Ã‡Ã‘ Â»Ã§Â¶Ã·Ã€Ã‡ Â´Ã«ÃˆÂ­Â¸Â¦ Â°Ã…ÂºÃÃ‡Ã‘Â´Ã™.
 									//-------------------------------------------------------
 									else
 									{
 										int nameLen = strlen( pData );
 
 										//------------------------------------------------------
-										// ID±æÀÌ°¡ Àß¸øµÈ °æ¿ì										
+										// IDÂ±Ã¦Ã€ÃŒÂ°Â¡ Ã€ÃŸÂ¸Ã¸ÂµÃˆ Â°Ã¦Â¿Ã¬										
 										//------------------------------------------------------
 										if (nameLen<PlayerInfo::minIDLength || nameLen>PlayerInfo::maxIDLength)
 										{
@@ -2726,7 +2737,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 											UI_AddChatToHistory( strTemp, NULL, CLD_INFO, right );
 										}
 										//------------------------------------------------------
-										// Á¤»ó
+										// ÃÂ¤Â»Ã³
 										//------------------------------------------------------
 										else
 										{
@@ -2743,7 +2754,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 											sprintf(strTemp, (*g_pGameStringTable)[STRING_MESSAGE_CHAT_IGNORE].GetString(), pData);
 											UI_AddChatToHistory( strTemp, NULL, CLD_INFO, right );
 
-											// [µµ¿ò¸»] ´ëÈ­°ÅºÎ ÇÑ ¸í
+											// [ÂµÂµÂ¿Ã²Â¸Â»] Â´Ã«ÃˆÂ­Â°Ã…ÂºÃ Ã‡Ã‘ Â¸Ã­
 //											__BEGIN_HELP_EVENT
 ////												ExecuteHelpEvent( HE_CHAT_REJECT_USER );	
 //											__END_HELP_EVENT
@@ -2751,13 +2762,13 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 									}
 								}
 								//-------------------------------------------------------
-								// ´ëÈ­ Çã¿ë
+								// Â´Ã«ÃˆÂ­ Ã‡Ã£Â¿Ã«
 								//-------------------------------------------------------
 								else if (strcmp(pCommand, STRING_ACCEPT)==0
 										|| strcmp(pLwrCommand, STRING_ACCEPT_ENG)==0)
 								{
 									//-------------------------------------------------------
-									// ¸ğµç »ç¶÷ÀÇ ´ëÈ­¸¦ Çã¿ëÇÑ´Ù.
+									// Â¸Ã°ÂµÃ§ Â»Ã§Â¶Ã·Ã€Ã‡ Â´Ã«ÃˆÂ­Â¸Â¦ Ã‡Ã£Â¿Ã«Ã‡Ã‘Â´Ã™.
 									//-------------------------------------------------------
 									if (pData==NULL)
 									{
@@ -2769,14 +2780,14 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 										UI_AddChatToHistory( strTemp, NULL, CLD_INFO, right );
 									}
 									//-------------------------------------------------------
-									// ÇÑ »ç¶÷ÀÇ ´ëÈ­¸¦ Çã¿ëÇÑ´Ù.
+									// Ã‡Ã‘ Â»Ã§Â¶Ã·Ã€Ã‡ Â´Ã«ÃˆÂ­Â¸Â¦ Ã‡Ã£Â¿Ã«Ã‡Ã‘Â´Ã™.
 									//-------------------------------------------------------
 									else
 									{
 										int nameLen = strlen( pData );
 
 										//------------------------------------------------------
-										// ID±æÀÌ°¡ Àß¸øµÈ °æ¿ì										
+										// IDÂ±Ã¦Ã€ÃŒÂ°Â¡ Ã€ÃŸÂ¸Ã¸ÂµÃˆ Â°Ã¦Â¿Ã¬										
 										//------------------------------------------------------
 										if (nameLen<PlayerInfo::minIDLength || nameLen>PlayerInfo::maxIDLength)
 										{
@@ -2788,7 +2799,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 											UI_AddChatToHistory( strTemp, NULL, CLD_INFO, right );
 										}
 										//------------------------------------------------------
-										// Á¤»ó
+										// ÃÂ¤Â»Ã³
 										//------------------------------------------------------
 										else
 										{
@@ -2808,7 +2819,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 									}
 								}
 								//-------------------------------------------------------
-								// ³ª»Û¸»µµ º¸±â
+								// Â³ÂªÂ»Ã›Â¸Â»ÂµÂµ ÂºÂ¸Â±Ã¢
 								//-------------------------------------------------------
 								else if (strcmp(pCommand, STRING_ACCEPT_CURSE)==0
 										|| strcmp(pLwrCommand, STRING_ACCEPT_CURSE_ENG)==0)
@@ -2820,7 +2831,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 									UI_AddChatToHistory( strTemp, NULL, CLD_INFO, right );
 								}
 								//-------------------------------------------------------
-								// ¹Ù¸¥¸»¸¸ º¸±â
+								// Â¹Ã™Â¸Â¥Â¸Â»Â¸Â¸ ÂºÂ¸Â±Ã¢
 								//-------------------------------------------------------
 								else if (strcmp(pCommand, STRING_FILTER_CURSE)==0
 										|| strcmp(pLwrCommand, STRING_FILTER_CURSE_ENG)==0)
@@ -2834,7 +2845,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 
 								#if defined(OUTPUT_DEBUG) //&& defined(_DEBUG)
 									//-------------------------------------------------------
-									// Á¢¼ÓÇÏ±â
+									// ÃÂ¢Â¼Ã“Ã‡ÃÂ±Ã¢
 									//-------------------------------------------------------
 									else if (strcmp(pCommand, "connect")==0
 											|| strcmp(pLwrCommand, "connect")==0)
@@ -2857,7 +2868,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 										}
 									}
 									//-------------------------------------------------------
-									// Á¢¼Ó²÷±â
+									// ÃÂ¢Â¼Ã“Â²Ã·Â±Ã¢
 									//-------------------------------------------------------
 									else if (strcmp(pCommand, "disconnect")==0
 											|| strcmp(pLwrCommand, "disconnect")==0)
@@ -2875,7 +2886,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 										}
 									}
 									//-------------------------------------------------------
-									// Profile ¿äÃ» Å×½ºÆ®
+									// Profile Â¿Ã¤ÃƒÂ» Ã…Ã—Â½ÂºÃ†Â®
 									//-------------------------------------------------------
 									else if (strcmp(pCommand, "profile")==0
 											|| strcmp(pLwrCommand, "profile")==0)
@@ -2889,7 +2900,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 										}
 									}
 									//-------------------------------------------------------
-									// ¸»ÇÏ±â
+									// Â¸Â»Ã‡ÃÂ±Ã¢
 									//-------------------------------------------------------
 									else if (strcmp(pCommand, "say")==0
 											|| strcmp(pLwrCommand, "say")==0)
@@ -2927,7 +2938,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 										}
 									}
 									//-------------------------------------------------------
-									// npc ¼ö ¼³Á¤
+									// npc Â¼Ã¶ Â¼Â³ÃÂ¤
 									//-------------------------------------------------------
 									else if (strcmp(pCommand, "npc")==0
 											|| strcmp(pLwrCommand, "npc")==0)
@@ -2935,7 +2946,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 										g_MaxNPC = atoi( pData );
 									}									
 									//-------------------------------------------------------
-									// ProfilerInfoName ¼³Á¤
+									// ProfilerInfoName Â¼Â³ÃÂ¤
 									//-------------------------------------------------------
 									else if (strcmp(pCommand, "profileName")==0
 											|| strcmp(pLwrCommand, "profilename")==0)
@@ -2946,7 +2957,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 										}
 									}
 									//-------------------------------------------------------
-									// ProfilerInfoName ¼³Á¤
+									// ProfilerInfoName Â¼Â³ÃÂ¤
 									//-------------------------------------------------------
 									else if (strcmp(pCommand, "profileClear")==0
 											|| strcmp(pLwrCommand, "profileclear")==0)
@@ -2957,7 +2968,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 										}
 									}
 									//-------------------------------------------------------
-									// °¨¸¶ ¼³Á¤
+									// Â°Â¨Â¸Â¶ Â¼Â³ÃÂ¤
 									//-------------------------------------------------------
 									else if (strcmp(pCommand, "gamma")==0
 											|| strcmp(pLwrCommand, "gamma")==0)
@@ -2989,7 +3000,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 							char *pMessage = str;
 							static bool bInvincible = false;
 
-							if(strcmp(str, "*iddqd") == 0 || strcmp(str, "*Tnrrkt") == 0 || strcmp(str, "*¾¦°«") == 0)
+							if(strcmp(str, "*iddqd") == 0 || strcmp(str, "*Tnrrkt") == 0 || strcmp(str, "*Â¾Â¦Â°Â«") == 0)
 							{
 								if(bInvincible == true)
 									strTempCommand = "*command invincible off";
@@ -2999,7 +3010,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 
 								pMessage = const_cast<char*>(strTempCommand.c_str());
 							}
-							else if(strcmp(str, "*gaonashi") == 0 || strcmp(str, "*gaonasi") == 0 || strcmp(str, "*rkdhsktl") == 0 || strcmp(str, "*°¡¿À³ª½Ã") == 0 || strcmp(str,"*ghost") == 0)
+							else if(strcmp(str, "*gaonashi") == 0 || strcmp(str, "*gaonasi") == 0 || strcmp(str, "*rkdhsktl") == 0 || strcmp(str, "*Â°Â¡Â¿Ã€Â³ÂªÂ½Ãƒ") == 0 || strcmp(str,"*ghost") == 0)
 							{
 								if(g_pPlayer->HasEffectStatus(EFFECTSTATUS_GHOST))
 									strTempCommand = "*command ghost off";
@@ -3126,14 +3137,14 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 
 						//------------------------------------------------------------
 						//
-						//	ÀÏ¹İ ´ëÈ­
+						//	Ã€ÃÂ¹Ã Â´Ã«ÃˆÂ­
 						//
 						//------------------------------------------------------------
 						default :
 						{
 							//------------------------------
-							// ¼û¾î ÀÖÀ»¶§´Â ¸» ¸øÇÑ´Ù.
-							// ´Á´ë³ª ¹ÚÁãÀÎ °æ¿ì ¸» ¸øÇÑ´Ù.
+							// Â¼Ã»Â¾Ã® Ã€Ã–Ã€Â»Â¶Â§Â´Ã‚ Â¸Â» Â¸Ã¸Ã‡Ã‘Â´Ã™.
+							// Â´ÃÂ´Ã«Â³Âª Â¹ÃšÃÃ£Ã€Ã Â°Ã¦Â¿Ã¬ Â¸Â» Â¸Ã¸Ã‡Ã‘Â´Ã™.
 							//------------------------------
 							if (g_pPlayer->IsUndergroundCreature()
 								|| g_pPlayer->IsInCasket()
@@ -3141,7 +3152,7 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 								|| g_pPlayer->GetCreatureType()==CREATURETYPE_WOLF
 								|| g_pPlayer->GetCreatureType()==CREATURETYPE_WER_WOLF)
 							{
-								// history¿¡ Ãß°¡
+								// historyÂ¿Â¡ ÃƒÃŸÂ°Â¡
 								//char temp[128];
 								//sprintf(temp, "[%s] .....", g_pUserInformation->CharacterID.GetString());
 								//UI_AddChatToHistory( temp );
@@ -3155,10 +3166,10 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 								g_pSocket->sendPacket( &_CGSay );
 
 									
-								// PlayerÀÇ Chat pWansungStringing¿¡ Ãß°¡
+								// PlayerÃ€Ã‡ Chat pWansungStringingÂ¿Â¡ ÃƒÃŸÂ°Â¡
 								g_pPlayer->SetChatString( str, right );
 
-								// history¿¡ Ãß°¡
+								// historyÂ¿Â¡ ÃƒÃŸÂ°Â¡
 								//char temp[256];
 								//sprintf(temp, "%s> %s", g_pUserInformation->CharacterID.GetString(), str);
 								//UI_AddChatToHistory( temp );
@@ -3208,22 +3219,22 @@ UIMessageManager::Execute_UI_LOGOUT(int left, int right, void* void_ptr)
 	}
 	
 	//-------------------------------------------------------------------
-	// Logout ½Ã°£ÀÌ ¼³Á¤µÇ¾î ÀÖÁö ¾ÊÀ¸¸é ¼³Á¤ÇÏ°í
-	// ¼³Á¤µÇ¾îÀÖ´Ù¸é ³²Àº ½Ã°£À» Ãâ·ÂÇØÁØ´Ù.
+	// Logout Â½ÃƒÂ°Â£Ã€ÃŒ Â¼Â³ÃÂ¤ÂµÃ‡Â¾Ã® Ã€Ã–ÃÃ¶ Â¾ÃŠÃ€Â¸Â¸Ã© Â¼Â³ÃÂ¤Ã‡ÃÂ°Ã­
+	// Â¼Â³ÃÂ¤ÂµÃ‡Â¾Ã®Ã€Ã–Â´Ã™Â¸Ã© Â³Â²Ã€Âº Â½ÃƒÂ°Â£Ã€Â» ÃƒÃ¢Â·Ã‚Ã‡Ã˜ÃÃ˜Â´Ã™.
 	//-------------------------------------------------------------------
 	int zoneID	= (g_bZonePlayerInLarge?g_nZoneLarge : g_nZoneSmall);
 
 	//ZONETABLE_INFO* pZoneInfo = g_pZoneTable->Get( zoneID );
 	
 	//-------------------------------------------------------------------
-	// ¾ÈÀüÁö´ë¸é ¹Ù·Î logout½ÃÅ²´Ù.
-	// ÀÚ±â È¥ÀÚ ÀÖÀ»¶§..
+	// Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¸Ã© Â¹Ã™Â·Ã logoutÂ½ÃƒÃ…Â²Â´Ã™.
+	// Ã€ÃšÂ±Ã¢ ÃˆÂ¥Ã€Ãš Ã€Ã–Ã€Â»Â¶Â§..
 	//-------------------------------------------------------------------
 	if (g_bZoneSafe //pZoneInfo!=NULL	&& pZoneInfo->Safety
-		// ¾ÈÀüÁö´ë Å¸ÀÏÀÌ¸é..
+		// Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã« Ã…Â¸Ã€ÃÃ€ÃŒÂ¸Ã©..
 		|| g_pPlayer->IsInSafeSector()
-		|| g_pZone->GetID() == 8000				// ÀÌº¥Æ®°æ±âÀå ÓŞ¸é ¹Ù·Î Á¾·á
-		// Á×¾î¼­ ¸îÃÊ Áö³µÀ¸¸é...
+		|| g_pZone->GetID() == 8000				// Ã€ÃŒÂºÂ¥Ã†Â®Â°Ã¦Â±Ã¢Ã€Ã¥ Ã“ÃÂ¸Ã© Â¹Ã™Â·Ã ÃÂ¾Â·Ã¡
+		// ÃÃ—Â¾Ã®Â¼Â­ Â¸Ã®ÃƒÃŠ ÃÃ¶Â³ÂµÃ€Â¸Â¸Ã©...
 //		|| g_pPlayer->IsDead() && g_pPlayer->GetDeadDelayLast() < 4)
 		//|| g_pZone->GetCreatureNumber()==1)
 #ifdef __METROTECH_TEST__
@@ -3234,13 +3245,13 @@ UIMessageManager::Execute_UI_LOGOUT(int left, int right, void* void_ptr)
 		ExecuteLogout();
 	}
 	//-------------------------------------------------------------------
-	// ¾Æ´Ï¸é 5ÃÊÈÄ logout ½ÃÅ²´Ù.
+	// Â¾Ã†Â´ÃÂ¸Ã© 5ÃƒÃŠÃˆÃ„ logout Â½ÃƒÃ…Â²Â´Ã™.
 	//-------------------------------------------------------------------
 	else if (g_pPlayer!=NULL && g_pPlayer->IsAlive())
 	{		
 		if (g_pUserInformation->LogoutTime == 0)
 		{
-			// 5ÃÊ ÈÄ °­Á¦ Logout ½ÃÅ²´Ù.
+			// 5ÃƒÃŠ ÃˆÃ„ Â°Â­ÃÂ¦ Logout Â½ÃƒÃ…Â²Â´Ã™.
 			
 			#ifdef _DEBUG
 				g_pUserInformation->LogoutTime = g_CurrentTime + 2000;
@@ -3283,7 +3294,7 @@ UIMessageManager::Execute_UI_LOGOUT(int left, int right, void* void_ptr)
 		gC_vs_ui.HotKey_ESC();
 	}
 	//-------------------------------------------------------------------
-	// Á×Àº °æ¿ì..
+	// ÃÃ—Ã€Âº Â°Ã¦Â¿Ã¬..
 	//-------------------------------------------------------------------
 	else
 	{
@@ -3296,7 +3307,7 @@ UIMessageManager::Execute_UI_LOGOUT(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// SkillÀÌ ¼±ÅÃµÇ¾úÀ» ¶§
+// SkillÃ€ÃŒ Â¼Â±Ã…ÃƒÂµÃ‡Â¾ÃºÃ€Â» Â¶Â§
 //
 //-----------------------------------------------------------------------------
 void
@@ -3317,12 +3328,12 @@ UIMessageManager::Execute_UI_SELECT_SKILL(int left, int right, void* void_ptr)
 	{
 		g_pPlayer->SetSpecialActionInfo( left );
 		
-		// ¹İº¹µ¿ÀÛÁß¿¡ actionCount°¡ ÀÌ»óÇØÁö´Â °æ¿ì°¡ ÀÖ¾î¼­
-		// ÀÌ°Å ÇØ¾ßµÇ´Âµ¥.. ±â¼ú¾µ¶§ ´ä´äÇÏ´Ù´Â ÀÌÀ¯·Î.. ÀÏ´Ü.. - -;
+		// Â¹ÃÂºÂ¹ÂµÂ¿Ã€Ã›ÃÃŸÂ¿Â¡ actionCountÂ°Â¡ Ã€ÃŒÂ»Ã³Ã‡Ã˜ÃÃ¶Â´Ã‚ Â°Ã¦Â¿Ã¬Â°Â¡ Ã€Ã–Â¾Ã®Â¼Â­
+		// Ã€ÃŒÂ°Ã… Ã‡Ã˜Â¾ÃŸÂµÃ‡Â´Ã‚ÂµÂ¥.. Â±Ã¢Â¼ÃºÂ¾ÂµÂ¶Â§ Â´Ã¤Â´Ã¤Ã‡ÃÂ´Ã™Â´Ã‚ Ã€ÃŒÃ€Â¯Â·Ã.. Ã€ÃÂ´Ãœ.. - -;
 		//g_pPlayer->UnSetRepeatAction();
 	}
 
-	// [µµ¿ò¸»] Skill icon¹Ù²ğ ¶§
+	// [ÂµÂµÂ¿Ã²Â¸Â»] Skill iconÂ¹Ã™Â²Ã° Â¶Â§
 //	__BEGIN_HELP_EVENT
 ////		ExecuteHelpEvent( HE_SKILL_ICON_CHANGE );
 //	__END_HELP_EVENT
@@ -3330,7 +3341,7 @@ UIMessageManager::Execute_UI_SELECT_SKILL(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// Skill ¼±ÅÃ Ãë¼Ò
+// Skill Â¼Â±Ã…Ãƒ ÃƒÃ«Â¼Ã’
 //
 //-----------------------------------------------------------------------------
 void
@@ -3345,7 +3356,7 @@ UIMessageManager::Execute_UI_CANCEL_SELECT_SKILL(int left, int right, void* void
 	}
 
 	//
-	// Skill ¼±ÅÃ Ãë¼Ò.
+	// Skill Â¼Â±Ã…Ãƒ ÃƒÃ«Â¼Ã’.
 	//
 	if (g_pPlayer!=NULL)
 	{
@@ -3353,7 +3364,7 @@ UIMessageManager::Execute_UI_CANCEL_SELECT_SKILL(int left, int right, void* void
 	}
 }
 
-// ÇØ´ç Å©¸®ÃÄÀÇ ÁÖº¯¿¡ ¿øÇÏ´Â ½ÃÃ¼°¡ ÀÖ´ÂÁö °Ë»çÇÑ´Ù.
+// Ã‡Ã˜Â´Ã§ Ã…Â©Â¸Â®ÃƒÃ„Ã€Ã‡ ÃÃ–ÂºÂ¯Â¿Â¡ Â¿Ã¸Ã‡ÃÂ´Ã‚ Â½ÃƒÃƒÂ¼Â°Â¡ Ã€Ã–Â´Ã‚ÃÃ¶ Â°Ã‹Â»Ã§Ã‡Ã‘Â´Ã™.
 bool IsExistCorpseFromPlayer(MCreature* OriginCreature, int creature_type)
 {
 	int sx, sy;
@@ -3385,7 +3396,7 @@ bool IsExistCorpseFromPlayer(MCreature* OriginCreature, int creature_type)
 
 //-----------------------------------------------------------------------------
 //
-// mouse¿¡¼­ ZoneÀ¸·Î ItemÀ» ¶³¾î¶ß¸± ¶§,
+// mouseÂ¿Â¡Â¼Â­ ZoneÃ€Â¸Â·Ã ItemÃ€Â» Â¶Â³Â¾Ã®Â¶ÃŸÂ¸Â± Â¶Â§,
 //
 //-----------------------------------------------------------------------------
 void
@@ -3401,9 +3412,9 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_CLIENT(int left, int right, void* void
 
 	MItem* pItem = UI_GetMouseItem();//(MItem*)void_ptr;		
 
-	// Capture The Flag ¿ë ÇÏµåÄÚµù
-	// ³ª¸¦ ÁÖº¯À¸·Î 3Å¸ÀÏÀ» °Ë»çÇÑ´Ù.		
-	// ±ê¹ß ¾ÆÀÌÅÛÀÌ ¾Æ´Ï¸é °Ë»çÇÑ´Ù.
+	// Capture The Flag Â¿Ã« Ã‡ÃÂµÃ¥Ã„ÃšÂµÃ¹
+	// Â³ÂªÂ¸Â¦ ÃÃ–ÂºÂ¯Ã€Â¸Â·Ã 3Ã…Â¸Ã€ÃÃ€Â» Â°Ã‹Â»Ã§Ã‡Ã‘Â´Ã™.		
+	// Â±ÃªÂ¹ÃŸ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Â¾Ã†Â´ÃÂ¸Ã© Â°Ã‹Â»Ã§Ã‡Ã‘Â´Ã™.
 
 	if(!( pItem != NULL && pItem->GetItemClass() == ITEM_CLASS_EVENT_ITEM && pItem->GetItemType() == 27 ) )
 	{
@@ -3415,9 +3426,9 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_CLIENT(int left, int right, void* void
 	}
 				
 	if (!g_bWatchMode
-		// ±³È¯ Áß¿¡´Â ¹ö¸± ¼ö ¾ø´Ù.
+		// Â±Â³ÃˆÂ¯ ÃÃŸÂ¿Â¡Â´Ã‚ Â¹Ã¶Â¸Â± Â¼Ã¶ Â¾Ã¸Â´Ã™.
 		&& !UI_IsRunningExchange()
-		// ±³È¯ Ã¢ÀÌ ¶á ÈÄ.. ÀÏÁ¤ ½Ã°£ µ¿¾ÈÀº ¹ö¸± ¼ö ¾ø´Ù.
+		// Â±Â³ÃˆÂ¯ ÃƒÂ¢Ã€ÃŒ Â¶Ã¡ ÃˆÃ„.. Ã€ÃÃÂ¤ Â½ÃƒÂ°Â£ ÂµÂ¿Â¾ÃˆÃ€Âº Â¹Ã¶Â¸Â± Â¼Ã¶ Â¾Ã¸Â´Ã™.
 		&& g_pUserInformation->ItemDropEnableTime < g_CurrentTime)
 	{
 		//void_ptr = MItem *
@@ -3437,7 +3448,7 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_CLIENT(int left, int right, void* void
 			pItem->GetItemClass() == ITEM_CLASS_SWEEPER || pItem->GetItemClass() == ITEM_CLASS_PET_FOOD
 			))
 		{
-			// ¼º¹°À» ¼º¹° º¸°ü´ë¿¡ Å¬¸¯ÇÏ¸é ??-_-;
+			// Â¼ÂºÂ¹Â°Ã€Â» Â¼ÂºÂ¹Â° ÂºÂ¸Â°Ã¼Â´Ã«Â¿Â¡ Ã…Â¬Â¸Â¯Ã‡ÃÂ¸Ã© ??-_-;
 			int CreatureID = g_pTopView->GetSelectedCreature();
 
 			MCreature *pCreature = NULL;
@@ -3466,12 +3477,12 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_CLIENT(int left, int right, void* void
 
 			if(g_pPlayer->IsItemCheckBufferNULL() && pCreature != NULL)
 			{
-				if(bCorpse)	// ½ÃÃ¼¿¡ ¾ÆÀÌÅÛÀ» ³ÖÀğ
+				if(bCorpse)	// Â½ÃƒÃƒÂ¼Â¿Â¡ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» Â³Ã–Ã€Ã°
 				{
 					if(pCreature->GetCreatureType() >= 371 && pCreature->GetCreatureType() <= 376 || 
 						pCreature->GetCreatureType() >= 560 && pCreature->GetCreatureType() <= 563 ||
 						pCreature->GetCreatureType() >= 526 && pCreature->GetCreatureType() <= 549 ||
-						pCreature->GetCreatureType() == 670	&& pItem->GetItemClass() == ITEM_CLASS_EVENT_ITEM || // ±ê¹ßÀÏ°æ¿ì
+						pCreature->GetCreatureType() == 670	&& pItem->GetItemClass() == ITEM_CLASS_EVENT_ITEM || // Â±ÃªÂ¹ÃŸÃ€ÃÂ°Ã¦Â¿Ã¬
 						pCreature->GetCreatureType() == 672 && pItem->GetItemClass() == ITEM_CLASS_SWEEPER
 					)
 					{
@@ -3490,10 +3501,10 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_CLIENT(int left, int right, void* void
 						return;
 					}
 				}
-				else	// ¸ó½ºÅÍ¿¡ ¾ÆÀÌÅÛÀ» ³ÖÀğ
+				else	// Â¸Ã³Â½ÂºÃ…ÃÂ¿Â¡ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» Â³Ã–Ã€Ã°
 				{
 					if(pItem->GetItemClass() == ITEM_CLASS_PET_FOOD &&
-						pCreature->GetCreatureType() == 687 && pItem->GetNumber() == 1)	// ³ªÁß¿¡ Å©¸®ÃÄ Å¸ÀÔÀ» ³Ö¾îÁÖÀğ
+						pCreature->GetCreatureType() == 687 && pItem->GetNumber() == 1)	// Â³ÂªÃÃŸÂ¿Â¡ Ã…Â©Â¸Â®ÃƒÃ„ Ã…Â¸Ã€Ã”Ã€Â» Â³Ã–Â¾Ã®ÃÃ–Ã€Ã°
 					{
 						if(abs(g_pPlayer->GetX()-pCreature->GetX()) < 3 && abs(g_pPlayer->GetY()-pCreature->GetY()) < 3)
 						{
@@ -3508,7 +3519,7 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_CLIENT(int left, int right, void* void
 						}
 						return;
 					}
-					// Äù½ºÆ®¿ë »ı¸íÀÇ ³ª¼± ¾ÆÀÌÅÛ ÀÏ ¶§
+					// Ã„Ã¹Â½ÂºÃ†Â®Â¿Ã« Â»Ã½Â¸Ã­Ã€Ã‡ Â³ÂªÂ¼Â± Â¾Ã†Ã€ÃŒÃ…Ã› Ã€Ã Â¶Â§
 					else if(pItem->GetItemClass() == ITEM_CLASS_EVENT_ITEM && pItem->GetItemType() == 31 &&
 						(pCreature->GetCreatureType() == 793 || pCreature->GetCreatureType() == 794 || pCreature->GetCreatureType() == 795))
 					{
@@ -3526,12 +3537,12 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_CLIENT(int left, int right, void* void
 		}
 
 		//-----------------------------------------------------------------
-		// °ËÁõ¹ŞÀ» °Ô ¾ø´Â °æ¿ì
+		// Â°Ã‹ÃÃµÂ¹ÃÃ€Â» Â°Ã” Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 		//-----------------------------------------------------------------
 		if (pItem!=NULL 
 			&& !pItem->IsQuestItem()
 			&& g_pPlayer->IsItemCheckBufferNULL()
-			// »¡°£»ö Event GiftBox ¾ÆÀÌÅÛÀÎ °æ¿ì ¸ø ¹ö¸°´Ù.
+			// Â»Â¡Â°Â£Â»Ã¶ Event GiftBox Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã Â°Ã¦Â¿Ã¬ Â¸Ã¸ Â¹Ã¶Â¸Â°Â´Ã™.
 			&& !(pItem->GetItemClass()==ITEM_CLASS_EVENT_GIFT_BOX&& pItem->GetItemType()==1)
 			&& !(pItem->GetItemClass()==ITEM_CLASS_COUPLE_RING)
 			&& !(pItem->GetItemClass()==ITEM_CLASS_VAMPIRE_COUPLE_RING 
@@ -3542,19 +3553,19 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_CLIENT(int left, int right, void* void
 			)
 		{
 			//-----------------------------------------------------------------------
-			// ±³È¯ÁßÀÌ ¾Æ´Ò ¶§¸¸ ¶³¾î¶ß¸°´Ù.
+			// Â±Â³ÃˆÂ¯ÃÃŸÃ€ÃŒ Â¾Ã†Â´Ã’ Â¶Â§Â¸Â¸ Â¶Â³Â¾Ã®Â¶ÃŸÂ¸Â°Â´Ã™.
 			//-----------------------------------------------------------------------
 			if (g_pTradeManager==NULL)
 			{
 					//---------------------------------------------------
-					// itemÀ» °¡Áö°í °ËÁõ¹ŞÀ» ÀÏÀÌ ¾ø´Â °æ¿ì..
+					// itemÃ€Â» Â°Â¡ÃÃ¶Â°Ã­ Â°Ã‹ÃÃµÂ¹ÃÃ€Â» Ã€ÃÃ€ÃŒ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬..
 					//---------------------------------------------------
 					//if (g_pPlayer->IsItemCheckBufferNULL())
 					{
 						//---------------------------------------------------
-						// Server·Î itemÀ» ¶³¾î¶ß¸°´Ù´Â packetÀ» º¸³½´Ù.
-						// ½ÇÁ¦·Î ¶³¾îÁö´Â °ÍÀº.. 
-						// server¿¡¼­ itemÀ» zoneÀ¸·Î Ãß°¡ÇÑ °æ¿ìÀÌ´Ù.
+						// ServerÂ·Ã itemÃ€Â» Â¶Â³Â¾Ã®Â¶ÃŸÂ¸Â°Â´Ã™Â´Ã‚ packetÃ€Â» ÂºÂ¸Â³Â½Â´Ã™.
+						// Â½Ã‡ÃÂ¦Â·Ã Â¶Â³Â¾Ã®ÃÃ¶Â´Ã‚ Â°ÃÃ€Âº.. 
+						// serverÂ¿Â¡Â¼Â­ itemÃ€Â» zoneÃ€Â¸Â·Ã ÃƒÃŸÂ°Â¡Ã‡Ã‘ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™.
 						//---------------------------------------------------
 						CGAddMouseToZone _CGAddMouseToZone;
 						_CGAddMouseToZone.setObjectID( pItem->GetID() );
@@ -3563,22 +3574,22 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_CLIENT(int left, int right, void* void
 
 						
 						//---------------------------------------------------
-						// ÀÌ ºÎºĞÀº.. ³ªÁß¿¡ AddNewItemÀ» ¹Ş°í ÇØ¾ßÇÏ´Â°Ô ¾Æ´Ò±î..
-						// timing ¹®Á¦°¡ ¾Ö¸ÅÇÏ´Ù.
+						// Ã€ÃŒ ÂºÃÂºÃÃ€Âº.. Â³ÂªÃÃŸÂ¿Â¡ AddNewItemÃ€Â» Â¹ÃÂ°Ã­ Ã‡Ã˜Â¾ÃŸÃ‡ÃÂ´Ã‚Â°Ã” Â¾Ã†Â´Ã’Â±Ã®..
+						// timing Â¹Â®ÃÂ¦Â°Â¡ Â¾Ã–Â¸Ã…Ã‡ÃÂ´Ã™.
 						//---------------------------------------------------
-						// mouse¿¡¼­ itemÀ» ¾ø¾Ö°í
+						// mouseÂ¿Â¡Â¼Â­ itemÃ€Â» Â¾Ã¸Â¾Ã–Â°Ã­
 						//gC_vs_ui.DropItem();
 
-						// buffer¿¡ itemÀ» ÀúÀåÇØµĞ´Ù. (»õ·Î¿î itemÀ» »ı¼ºÇÑ´Ù)
+						// bufferÂ¿Â¡ itemÃ€Â» Ã€ÃºÃ€Ã¥Ã‡Ã˜ÂµÃÂ´Ã™. (Â»ÃµÂ·ÃÂ¿Ã® itemÃ€Â» Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™)
 						g_pPlayer->SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_DROP_TO_ZONE );
 
-						// itemÀ» »èÁ¦ÇÑ´Ù.
+						// itemÃ€Â» Â»Ã¨ÃÂ¦Ã‡Ã‘Â´Ã™.
 						//delete pItem;
 					}
 
 			}
 			//-----------------------------------------------------------------------
-			// ±³È¯ÁßÀÏ¶§´Â ¾ÆÀÌÅÛÀ» ¶³¾î¶ß¸®Áö ¾Ê´Â´Ù.
+			// Â±Â³ÃˆÂ¯ÃÃŸÃ€ÃÂ¶Â§Â´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» Â¶Â³Â¾Ã®Â¶ÃŸÂ¸Â®ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 			//-----------------------------------------------------------------------
 			else
 			{
@@ -3586,7 +3597,7 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_CLIENT(int left, int right, void* void
 			}
 		}
 		//-----------------------------------------------------------------
-		// °ËÁõ ¹Ş¾Æ¾ßÇÒ ´Ù¸¥ ¾ÆÀÌÅÛÀÌ ÀÖ´Â °æ¿ì
+		// Â°Ã‹ÃÃµ Â¹ÃÂ¾Ã†Â¾ÃŸÃ‡Ã’ Â´Ã™Â¸Â¥ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 		//-----------------------------------------------------------------
 		else
 		{
@@ -3602,7 +3613,7 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_CLIENT(int left, int right, void* void
 
 //-----------------------------------------------------------------------------
 //
-// mouseÀÇ ItemÀ» Inventory¿¡ Ãß°¡ÇÑ °æ¿ì
+// mouseÃ€Ã‡ ItemÃ€Â» InventoryÂ¿Â¡ ÃƒÃŸÂ°Â¡Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 //
 //-----------------------------------------------------------------------------
 void
@@ -3617,33 +3628,33 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_INVENTORY(int left, int right, void* v
 	}
 	//
 	// left = grid_x, right = grid_y
-	// void_ptr = MItem *		// Ãß°¡µÈ item
-	//							// bAcceptMyTradeÀÌ¸é inventoryÀÇ itemÀÌ´Ù.
+	// void_ptr = MItem *		// ÃƒÃŸÂ°Â¡ÂµÃˆ item
+	//							// bAcceptMyTradeÃ€ÃŒÂ¸Ã© inventoryÃ€Ã‡ itemÃ€ÃŒÂ´Ã™.
 	//
-	MItem* pItem = (MItem*)void_ptr;		// inventory¿¡ ÀÖ´Â ¾ÆÀÌÅÛ(NULLÀÏ ¼öµµ ÀÖ´Ù)
-	MItem* pMouseItem = UI_GetMouseItem();	// ÇöÀç mouseÀÇ item
+	MItem* pItem = (MItem*)void_ptr;		// inventoryÂ¿Â¡ Ã€Ã–Â´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›(NULLÃ€Ã Â¼Ã¶ÂµÂµ Ã€Ã–Â´Ã™)
+	MItem* pMouseItem = UI_GetMouseItem();	// Ã‡Ã¶Ã€Ã§ mouseÃ€Ã‡ item
 
-	// pMouseItemÀ» pItem°ú ¹Ù²Ù´øÁö..
-	// pMouseItemÀÌ ±×³É µé¾î°¡´øÁö...
+	// pMouseItemÃ€Â» pItemÂ°Ãº Â¹Ã™Â²Ã™Â´Ã¸ÃÃ¶..
+	// pMouseItemÃ€ÃŒ Â±Ã—Â³Ã‰ ÂµÃ©Â¾Ã®Â°Â¡Â´Ã¸ÃÃ¶...
 	
 	BOOL bAcceptMyTrade = (g_pTradeManager!=NULL && g_pTradeManager->IsAcceptMyTrade());
 	BOOL bAcceptOtherTrade = (g_pTradeManager!=NULL && g_pTradeManager->IsAcceptOtherTrade());
 
 	//-----------------------------------------------------------------
-	// °ËÁõ¹ŞÀ»°Ô ¾ø´Â °æ¿ì
+	// Â°Ã‹ÃÃµÂ¹ÃÃ€Â»Â°Ã” Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 	//-----------------------------------------------------------------
 	if (g_pPlayer->IsItemCheckBufferNULL() && pMouseItem!=NULL
 		&& g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
 	{		
-		BOOL bSendPacketTradeRemove = FALSE;	// ±âÁ¸¿¡²¨ Á¦°Å
+		BOOL bSendPacketTradeRemove = FALSE;	// Â±Ã¢ÃÂ¸Â¿Â¡Â²Â¨ ÃÂ¦Â°Ã…
 		BOOL bSendPacket = TRUE;				// mouse --> inventory
-		BOOL bSendPacketTradeAdd = FALSE;		// Ãß°¡µÈ°Å ±³È¯ÇÒ°É·Î ¼³Á¤
+		BOOL bSendPacketTradeAdd = FALSE;		// ÃƒÃŸÂ°Â¡ÂµÃˆÂ°Ã… Â±Â³ÃˆÂ¯Ã‡Ã’Â°Ã‰Â·Ã Â¼Â³ÃÂ¤
 		
 		TYPE_OBJECTID removeItemID = OBJECTID_NULL;
 		TYPE_OBJECTID toInventoryItemID = (pMouseItem==NULL)? OBJECTID_NULL : pMouseItem->GetID();
 
 		//---------------------------------------------------
-		// ±³È¯ »óÅÂ¿¡¼­´Â °ËÁõ¹Ş¾Æ¾ß ÇÑ´Ù.
+		// Â±Â³ÃˆÂ¯ Â»Ã³Ã…Ã‚Â¿Â¡Â¼Â­Â´Ã‚ Â°Ã‹ÃÃµÂ¹ÃÂ¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 		//---------------------------------------------------
 		if (bAcceptMyTrade)
 		{
@@ -3661,7 +3672,7 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_INVENTORY(int left, int right, void* v
 				//toInventoryItemID = pMouseItem->GetID();
 
 				//-------------------------------------------------------------
-				// inventory¿¡ ÀÖ´Â itemÀÌ ±³È¯ÇÒ·Á°í ¼±ÅÃµÈ °ÍÀÌ¸é Á¦°ÅÇÑ´Ù.
+				// inventoryÂ¿Â¡ Ã€Ã–Â´Ã‚ itemÃ€ÃŒ Â±Â³ÃˆÂ¯Ã‡Ã’Â·ÃÂ°Ã­ Â¼Â±Ã…ÃƒÂµÃˆ Â°ÃÃ€ÃŒÂ¸Ã© ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 				//-------------------------------------------------------------
 				if (pItem!=NULL && pItem->IsTrade())
 				{
@@ -3678,12 +3689,12 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_INVENTORY(int left, int right, void* v
 			}
 		}	
 		//---------------------------------------------------
-		// ³õÀº ¾ÆÀÌÅÛÀÌ ±³È¯ÇÒ·Á°í ¼±ÅÃµÈ °ÍÀÎ °æ¿ì
+		// Â³ÃµÃ€Âº Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Â±Â³ÃˆÂ¯Ã‡Ã’Â·ÃÂ°Ã­ Â¼Â±Ã…ÃƒÂµÃˆ Â°ÃÃ€Ã Â°Ã¦Â¿Ã¬
 		//---------------------------------------------------
 		else if (gC_vs_ui.IsRunningExchange())
 		{
 			//---------------------------------------------------
-			// ±âÁ¸¿¡ ÀÖ´ø ¾ÆÀÌÅÛ ±³È¯ÇÒ °Í¿¡¼­ Á¦°Å..
+			// Â±Ã¢ÃÂ¸Â¿Â¡ Ã€Ã–Â´Ã¸ Â¾Ã†Ã€ÃŒÃ…Ã› Â±Â³ÃˆÂ¯Ã‡Ã’ Â°ÃÂ¿Â¡Â¼Â­ ÃÂ¦Â°Ã…..
 			//---------------------------------------------------
 			if (pItem!=NULL && pItem->IsTrade())
 			{
@@ -3693,20 +3704,20 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_INVENTORY(int left, int right, void* v
 			}
 
 			//---------------------------------------------------
-			// ±³È¯¿¡¼­ ¼±ÅÃµÈ ¾ÆÀÌÅÛ
+			// Â±Â³ÃˆÂ¯Â¿Â¡Â¼Â­ Â¼Â±Ã…ÃƒÂµÃˆ Â¾Ã†Ã€ÃŒÃ…Ã›
 			//---------------------------------------------------
 			if (pMouseItem->IsTrade())
 			{
 				bSendPacketTradeAdd = TRUE;
 
-				// ´Ù¸¥ »ç¶÷ÀÌ OK´©¸¥ »óÅÂ¶ó¸é..
+				// Â´Ã™Â¸Â¥ Â»Ã§Â¶Ã·Ã€ÃŒ OKÂ´Â©Â¸Â¥ Â»Ã³Ã…Ã‚Â¶Ã³Â¸Ã©..
 				if (bAcceptOtherTrade)
 				{
 					g_pTradeManager->RefuseOtherTrade();
 				}
 			}
 			//---------------------------------------------------
-			// ¾Æ´Ï¸é.. ¼öµ¿À¸·Î OKÃë¼Ò¸¦ º¸³½´Ù.
+			// Â¾Ã†Â´ÃÂ¸Ã©.. Â¼Ã¶ÂµÂ¿Ã€Â¸Â·Ã OKÃƒÃ«Â¼Ã’Â¸Â¦ ÂºÂ¸Â³Â½Â´Ã™.
 			//---------------------------------------------------
 			else
 			{
@@ -3738,15 +3749,15 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_INVENTORY(int left, int right, void* v
 		}
 
 		//---------------------------------------------------
-		// packetÀ» º¸³¾ ÇÊ¿ä°¡ ÀÖ´Â °æ¿ì
+		// packetÃ€Â» ÂºÂ¸Â³Â¾ Ã‡ÃŠÂ¿Ã¤Â°Â¡ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 		//---------------------------------------------------
 		if (bSendPacket)
 		{
 
 				//---------------------------------------------------
-				// mouse¿¡ ÀÖ´ø itemÀ» Inventory¿¡ Ãß°¡Çß´Ù°í
-				// server·Î packetÀ» º¸³½´Ù.
-				// pItemÀÇ gridÁÂÇ¥°¡ inventory¿¡¼­ÀÇ ÁÂÇ¥ÀÌ´Ù.
+				// mouseÂ¿Â¡ Ã€Ã–Â´Ã¸ itemÃ€Â» InventoryÂ¿Â¡ ÃƒÃŸÂ°Â¡Ã‡ÃŸÂ´Ã™Â°Ã­
+				// serverÂ·Ã packetÃ€Â» ÂºÂ¸Â³Â½Â´Ã™.
+				// pItemÃ€Ã‡ gridÃÃ‚Ã‡Â¥Â°Â¡ inventoryÂ¿Â¡Â¼Â­Ã€Ã‡ ÃÃ‚Ã‡Â¥Ã€ÃŒÂ´Ã™.
 				//---------------------------------------------------
 				CGAddMouseToInventory _CGAddMouseToInventory;
 				_CGAddMouseToInventory.setObjectID( toInventoryItemID );
@@ -3758,7 +3769,7 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_INVENTORY(int left, int right, void* v
 		}
 
 		//---------------------------------------------------
-		// ±³È¯¿¡¼­ ¼±ÅÃÇÏ´Â ¾ÆÀÌÅÛ...
+		// Â±Â³ÃˆÂ¯Â¿Â¡Â¼Â­ Â¼Â±Ã…ÃƒÃ‡ÃÂ´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›...
 		//---------------------------------------------------
 		if (bSendPacketTradeAdd)
 		{
@@ -3771,16 +3782,16 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_INVENTORY(int left, int right, void* v
 		}
 
 		//---------------------------------------------------
-		// ½ÇÁ¦·Î Ã³¸®ÇÑ´Ù.
+		// Â½Ã‡ÃÂ¦Â·Ã ÃƒÂ³Â¸Â®Ã‡Ã‘Â´Ã™.
 		//---------------------------------------------------
 		if (!bAcceptMyTrade)
 		{
 			MItem* pOldItem = NULL;
-			if (g_pInventory->ReplaceItem(pMouseItem,		// Ãß°¡ÇÒ item
-												left, right,	// Ãß°¡ÇÒ À§Ä¡ 
-												pOldItem))		// ¿ø·¡ÀÖ´ø item
+			if (g_pInventory->ReplaceItem(pMouseItem,		// ÃƒÃŸÂ°Â¡Ã‡Ã’ item
+												left, right,	// ÃƒÃŸÂ°Â¡Ã‡Ã’ Ã€Â§Ã„Â¡ 
+												pOldItem))		// Â¿Ã¸Â·Â¡Ã€Ã–Â´Ã¸ item
 			{
-				if (pOldItem != NULL) // replace µÇ¾ú´Â°¡?
+				if (pOldItem != NULL) // replace ÂµÃ‡Â¾ÃºÂ´Ã‚Â°Â¡?
 				{				
 					UI_PickUpItem( pOldItem );
 				}
@@ -3790,7 +3801,7 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_INVENTORY(int left, int right, void* v
 				}
 			}
 
-			// Å©¸®½º¸¶½º Æ®¸®¿ë ÇÏµåÄÚµù
+			// Ã…Â©Â¸Â®Â½ÂºÂ¸Â¶Â½Âº Ã†Â®Â¸Â®Â¿Ã« Ã‡ÃÂµÃ¥Ã„ÃšÂµÃ¹
 			if(pMouseItem->GetItemClass() == ITEM_CLASS_EVENT_TREE 
 				&& pMouseItem->GetItemType() != 12
 				&& pMouseItem->GetItemType() != 25
@@ -3848,7 +3859,7 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_INVENTORY(int left, int right, void* v
 		}
 	}
 	//-----------------------------------------------------------------
-	// °ËÁõ ¹Ş¾Æ¾ßÇÒ ´Ù¸¥ ¾ÆÀÌÅÛÀÌ ÀÖ´Â °æ¿ì
+	// Â°Ã‹ÃÃµ Â¹ÃÂ¾Ã†Â¾ÃŸÃ‡Ã’ Â´Ã™Â¸Â¥ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 	//-----------------------------------------------------------------
 	else
 	{
@@ -3862,13 +3873,13 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_INVENTORY(int left, int right, void* v
 			DEBUG_ADD_FORMAT("[ITEMPDROP] g_pTempInformation->Mode!=TempInformation::MODE_NULL %d", g_pTempInformation->Mode);
 	}
 
-	// Áö¿ö¾ß µÇ´Â codeÀÌ´Ù. *_*;
+	// ÃÃ¶Â¿Ã¶Â¾ÃŸ ÂµÃ‡Â´Ã‚ codeÃ€ÃŒÂ´Ã™. *_*;
 	//gC_vs_ui.DropItem();
 }
 
 //-----------------------------------------------------------------------------
 //
-// QuickSlot¿¡ ItemÀ» ³ÖÀº °æ¿ì
+// QuickSlotÂ¿Â¡ ItemÃ€Â» Â³Ã–Ã€Âº Â°Ã¦Â¿Ã¬
 //
 //-----------------------------------------------------------------------------
 void
@@ -3910,10 +3921,10 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_QUICKSLOT(int left, int right, void* v
 	// void_ptr = MItem *
 	//
 	//---------------------------------------------------
-	// Áö±İ UI¿¡¼­´Â ¹Ù·Î Ãß°¡ÇÏ°Å³ª..
-	// ¹Ù·Î ±³È¯ÇØ¹ö¸°´Ù.
-	// ±×·¯¹Ç·Î, µÎ °³¸¦ ¹Ù²ã¼­ ÀĞ¾î¾ß ÇÑ´Ù. - -;
-	// ¿´À¸³ª Å¬¶óÀÌ¾ğÆ®¿¡¼­ Ã³¸®ÇØÁÖ´Â°É·Î ¹Ù²Ş by larosel
+	// ÃÃ¶Â±Ã UIÂ¿Â¡Â¼Â­Â´Ã‚ Â¹Ã™Â·Ã ÃƒÃŸÂ°Â¡Ã‡ÃÂ°Ã…Â³Âª..
+	// Â¹Ã™Â·Ã Â±Â³ÃˆÂ¯Ã‡Ã˜Â¹Ã¶Â¸Â°Â´Ã™.
+	// Â±Ã—Â·Â¯Â¹Ã‡Â·Ã, ÂµÃ Â°Â³Â¸Â¦ Â¹Ã™Â²Ã£Â¼Â­ Ã€ÃÂ¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™. - -;
+	// Â¿Â´Ã€Â¸Â³Âª Ã…Â¬Â¶Ã³Ã€ÃŒÂ¾Ã°Ã†Â®Â¿Â¡Â¼Â­ ÃƒÂ³Â¸Â®Ã‡Ã˜ÃÃ–Â´Ã‚Â°Ã‰Â·Ã Â¹Ã™Â²Ã by larosel
 	//---------------------------------------------------
 	MItem* pSlotItem = NULL ;// = (MItem*)g_pQuickSlot->GetItem( left );;//gpC_mouse_pointer->GetPickUpItem();
 	if( g_pPlayer->IsSlayer() )
@@ -3932,7 +3943,7 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_QUICKSLOT(int left, int right, void* v
 
 	if (Replace)
 	{
-		if (pSlotItem) // replace µÇ¾ú´Â°¡?
+		if (pSlotItem) // replace ÂµÃ‡Â¾ÃºÂ´Ã‚Â°Â¡?
 		{
 			gpC_mouse_pointer->PickUpItem((MItem *)pSlotItem);
 		}
@@ -3944,19 +3955,19 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_QUICKSLOT(int left, int right, void* v
 	}
 	
 	//-----------------------------------------------------------------
-	// °ËÁõ¹ŞÀ»°Ô ¾ø´Â °æ¿ì
+	// Â°Ã‹ÃÃµÂ¹ÃÃ€Â»Â°Ã” Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 	//-----------------------------------------------------------------
 	if (g_pTempInformation->GetMode()==TempInformation::MODE_NULL)//g_pPlayer->IsItemCheckBufferNULL())
 	{
-		// ¹«Á¶°Ç packetÀ» º¸³»¸é µÈ´Ù.
+		// Â¹Â«ÃÂ¶Â°Ã‡ packetÃ€Â» ÂºÂ¸Â³Â»Â¸Ã© ÂµÃˆÂ´Ã™.
 		if (1)//g_pQuickSlot->GetItem( left )==NULL)
 		{
 
 				//MItem* pItem = (MItem*)void_ptr;
 
 				//---------------------------------------------------
-				// mouse¿¡ ÀÖ´ø itemÀ» QuickSlot¿¡ Ãß°¡Çß´Ù°í
-				// server·Î packetÀ» º¸³½´Ù.
+				// mouseÂ¿Â¡ Ã€Ã–Â´Ã¸ itemÃ€Â» QuickSlotÂ¿Â¡ ÃƒÃŸÂ°Â¡Ã‡ÃŸÂ´Ã™Â°Ã­
+				// serverÂ·Ã packetÃ€Â» ÂºÂ¸Â³Â½Â´Ã™.
 				//---------------------------------------------------
 				CGAddMouseToQuickSlot _CGAddMouseToQuickSlot;
 				_CGAddMouseToQuickSlot.setObjectID( pMouseItem->GetID() );
@@ -3974,9 +3985,9 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_QUICKSLOT(int left, int right, void* v
 				g_pSocket->sendPacket( &_CGAddMouseToQuickSlot );
 		
 				//---------------------------------------------------
-				// UI¿¡¼­ ÇÏ±â ¶§¹®¿¡.. ÇÏ¸é ¾ÈµÈ´Ù.
+				// UIÂ¿Â¡Â¼Â­ Ã‡ÃÂ±Ã¢ Â¶Â§Â¹Â®Â¿Â¡.. Ã‡ÃÂ¸Ã© Â¾ÃˆÂµÃˆÂ´Ã™.
 				//---------------------------------------------------
-				// ¹Ù·Î QuickSlot¿¡ Ãß°¡ÇÑ´Ù.
+				// Â¹Ã™Â·Ã QuickSlotÂ¿Â¡ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 				//g_pQuickSlot->AddItem( pItem, left );
 				
 				//UI_DropItem();
@@ -3984,7 +3995,7 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_QUICKSLOT(int left, int right, void* v
 			PlaySound( pMouseItem->GetInventorySoundID() );
 		}
 		//---------------------------------------------------
-		// ¹º°¡ ÀÌ¹Ì ÀÖ´Â °æ¿ì.. 
+		// Â¹ÂºÂ°Â¡ Ã€ÃŒÂ¹ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬.. 
 		//---------------------------------------------------
 		else
 		{						
@@ -3992,7 +4003,7 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_QUICKSLOT(int left, int right, void* v
 		}
 	}
 	//-----------------------------------------------------------------
-	// °ËÁõ ¹Ş¾Æ¾ßÇÒ ´Ù¸¥ ¾ÆÀÌÅÛÀÌ ÀÖ´Â °æ¿ì
+	// Â°Ã‹ÃÃµ Â¹ÃÂ¾Ã†Â¾ÃŸÃ‡Ã’ Â´Ã™Â¸Â¥ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 	//-----------------------------------------------------------------
 	else
 	{
@@ -4003,7 +4014,7 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_QUICKSLOT(int left, int right, void* v
 
 //-----------------------------------------------------------------------------
 //
-// Gear¿¡ ItemÀ» Âø¿ëÇÑ °æ¿ì
+// GearÂ¿Â¡ ItemÃ€Â» Ã‚Ã¸Â¿Ã«Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 //
 //-----------------------------------------------------------------------------				
 void
@@ -4018,27 +4029,27 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_GEAR(int left, int right, void* void_p
 	}
 	//
 	// left = slot enum
-	// void_ptr = MItem * ±³È¯µÉ item(NULLÀÏ¼ö ÀÖ´Ù.)
+	// void_ptr = MItem * Â±Â³ÃˆÂ¯ÂµÃ‰ item(NULLÃ€ÃÂ¼Ã¶ Ã€Ã–Â´Ã™.)
 	//
 
 	if (!g_bWatchMode)
 	{
 		//-----------------------------------------------------------------
-		// °ËÁõ¹ŞÀ»°Ô ¾ø´Â °æ¿ì
+		// Â°Ã‹ÃÃµÂ¹ÃÃ€Â»Â°Ã” Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 		//-----------------------------------------------------------------
 		if (g_pPlayer->IsItemCheckBufferNULL()
 			&& g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
 		{
-			MItem* pMouseItem = (MItem*)gpC_mouse_pointer->GetPickUpItem();	// µé°í ÀÖ´Â item
-			MItem* pGearItem = (MItem*)void_ptr;	// gear¿¡ ÀÖ´Ù¸é.. ±³È¯µÉ ¾ÆÀÌÅÛ
+			MItem* pMouseItem = (MItem*)gpC_mouse_pointer->GetPickUpItem();	// ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã‚ item
+			MItem* pGearItem = (MItem*)void_ptr;	// gearÂ¿Â¡ Ã€Ã–Â´Ã™Â¸Ã©.. Â±Â³ÃˆÂ¯ÂµÃ‰ Â¾Ã†Ã€ÃŒÃ…Ã›
 			
 			//-----------------------------------------------------------------
-			// mouse¿¡ ¹º°¡¸¦ µé°í ÀÖ¾î¾ß ÇÑ´Ù.
+			// mouseÂ¿Â¡ Â¹ÂºÂ°Â¡Â¸Â¦ ÂµÃ©Â°Ã­ Ã€Ã–Â¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			//-----------------------------------------------------------------
 			if (pMouseItem!=NULL)
 			{
 				//-----------------------------------------------------------------
-				// Âø¿ëÇÒ ¼ö ÀÖ´Â »óÈ²ÀÌ µÇ¸é..
+				// Ã‚Ã¸Â¿Ã«Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â»Ã³ÃˆÂ²Ã€ÃŒ ÂµÃ‡Â¸Ã©..
 				//-----------------------------------------------------------------
 				if (g_pPlayer->SetAddonItem( pMouseItem ))
 				{				
@@ -4051,7 +4062,7 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_GEAR(int left, int right, void* void_p
 						g_pSlayerGear->ReplaceItem( pMouseItem, (MSlayerGear::GEAR_SLAYER)left, pRemovedItem );
 						
 						//-----------------------------------------------------------
-						// belt¸¦ ³õ°Å³ª Áı¾úÀ» °æ¿ì´Â quick itemÀ» resetÇØ¾ß ÇÑ´Ù.
+						// beltÂ¸Â¦ Â³ÃµÂ°Ã…Â³Âª ÃÃ½Â¾ÃºÃ€Â» Â°Ã¦Â¿Ã¬Â´Ã‚ quick itemÃ€Â» resetÃ‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 						//-----------------------------------------------------------
 						if ((MSlayerGear::GEAR_SLAYER)left == MSlayerGear::GEAR_SLAYER_BELT)
 						{
@@ -4071,7 +4082,7 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_GEAR(int left, int right, void* void_p
 					UI_DropItem();
 
 					//-----------------------------------------------------------
-					// ±³È¯µÇ´Â °æ¿ì
+					// Â±Â³ÃˆÂ¯ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬
 					//-----------------------------------------------------------
 					if (pRemovedItem!=NULL)
 					{
@@ -4079,13 +4090,13 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_GEAR(int left, int right, void* void_p
 					}								
 
 					//----------------------------------------------------
-					// Skill Ã¼Å©
+					// Skill ÃƒÂ¼Ã…Â©
 					//----------------------------------------------------
 					g_pSkillAvailable->SetAvailableSkills();
 
 						//---------------------------------------------------
-						// mouse¿¡ ÀÖ´ø item1À» Gear¿¡ Ãß°¡Çß´Ù°í
-						// server·Î packetÀ» º¸³½´Ù.
+						// mouseÂ¿Â¡ Ã€Ã–Â´Ã¸ item1Ã€Â» GearÂ¿Â¡ ÃƒÃŸÂ°Â¡Ã‡ÃŸÂ´Ã™Â°Ã­
+						// serverÂ·Ã packetÃ€Â» ÂºÂ¸Â³Â½Â´Ã™.
 						//---------------------------------------------------
 						CGAddMouseToGear _CGAddMouseToGear;
 						_CGAddMouseToGear.setObjectID( pMouseItem->GetID() );
@@ -4095,57 +4106,57 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_GEAR(int left, int right, void* void_p
 						
 
 					//----------------------------------------------------
-					// Âø¿ëÇÑ ¾ÆÀÌÅÛ¿¡ µû¸¥ µµ¿ò¸»
+					// Ã‚Ã¸Â¿Ã«Ã‡Ã‘ Â¾Ã†Ã€ÃŒÃ…Ã›Â¿Â¡ ÂµÃ»Â¸Â¥ ÂµÂµÂ¿Ã²Â¸Â»
 					//----------------------------------------------------
 //					__BEGIN_HELP_EVENT
 //						ITEM_CLASS itemClass = pMouseItem->GetItemClass();
 //
 //						//----------------------------------------------------
-//						// ÃÑ
+//						// ÃƒÃ‘
 //						//----------------------------------------------------
 //						if (pMouseItem->IsGunItem())
 //						{
-//							// [µµ¿ò¸»] ÃÑ Âø¿ëÇÑ °æ¿ì
+//							// [ÂµÂµÂ¿Ã²Â¸Â»] ÃƒÃ‘ Ã‚Ã¸Â¿Ã«Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 ////							ExecuteHelpEvent( HE_ITEM_WEAR_GUN );
 //						}
 //						//----------------------------------------------------
-//						// º§Æ®
+//						// ÂºÂ§Ã†Â®
 //						//----------------------------------------------------
 //						else if (itemClass==ITEM_CLASS_BELT)
 //						{
-//							// [µµ¿ò¸»] º§Æ® Âø¿ëÇÑ °æ¿ì
+//							// [ÂµÂµÂ¿Ã²Â¸Â»] ÂºÂ§Ã†Â® Ã‚Ã¸Â¿Ã«Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 ////							ExecuteHelpEvent( HE_ITEM_WEAR_BELT );
 //						}
 //						//----------------------------------------------------
-//						// °Ë
+//						// Â°Ã‹
 //						//----------------------------------------------------
 //						else if (itemClass==ITEM_CLASS_SWORD)
 //						{
-//							// [µµ¿ò¸»] °Ë Âø¿ëÇÑ °æ¿ì
+//							// [ÂµÂµÂ¿Ã²Â¸Â»] Â°Ã‹ Ã‚Ã¸Â¿Ã«Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 ////							ExecuteHelpEvent( HE_ITEM_WEAR_SWORD );
 //						}
 //						//----------------------------------------------------
-//						// µµ
+//						// ÂµÂµ
 //						//----------------------------------------------------
 //						else if (itemClass==ITEM_CLASS_BLADE)
 //						{
-//							// [µµ¿ò¸»] µµ Âø¿ëÇÑ °æ¿ì
+//							// [ÂµÂµÂ¿Ã²Â¸Â»] ÂµÂµ Ã‚Ã¸Â¿Ã«Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 ////							ExecuteHelpEvent( HE_ITEM_WEAR_BLADE );
 //						}
 //						//----------------------------------------------------
-//						// ½ÊÀÚ°¡
+//						// Â½ÃŠÃ€ÃšÂ°Â¡
 //						//----------------------------------------------------
 //						else if (itemClass==ITEM_CLASS_CROSS)
 //						{
-//							// [µµ¿ò¸»] ½ÊÀÚ°¡ Âø¿ëÇÑ °æ¿ì
+//							// [ÂµÂµÂ¿Ã²Â¸Â»] Â½ÃŠÃ€ÃšÂ°Â¡ Ã‚Ã¸Â¿Ã«Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 ////							ExecuteHelpEvent( HE_ITEM_WEAR_CROSS );
 //						}
 //						//----------------------------------------------------
-//						// ¸ŞÀÌ½º
+//						// Â¸ÃÃ€ÃŒÂ½Âº
 //						//----------------------------------------------------
 //						else if (itemClass==ITEM_CLASS_MACE)
 //						{
-//							// [µµ¿ò¸»] ¸ŞÀÌ½º Âø¿ëÇÑ °æ¿ì
+//							// [ÂµÂµÂ¿Ã²Â¸Â»] Â¸ÃÃ€ÃŒÂ½Âº Ã‚Ã¸Â¿Ã«Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 ////							ExecuteHelpEvent( HE_ITEM_WEAR_MACE );
 //						}				
 //					__END_HELP_EVENT
@@ -4157,7 +4168,7 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_GEAR(int left, int right, void* void_p
 			}
 		}
 		//-----------------------------------------------------------------
-		// °ËÁõ ¹Ş¾Æ¾ßÇÒ ´Ù¸¥ ¾ÆÀÌÅÛÀÌ ÀÖ´Â °æ¿ì
+		// Â°Ã‹ÃÃµ Â¹ÃÂ¾Ã†Â¾ÃŸÃ‡Ã’ Â´Ã™Â¸Â¥ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 		//-----------------------------------------------------------------
 		else
 		{
@@ -4170,17 +4181,17 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_GEAR(int left, int right, void* void_p
 	}
 
 	//-------------------------------------------------
-	// Player°¡ Á¤ÁöÇØ ÀÖ´Â °æ¿ì¿¡¸¸ °¡´ÉÇÏ´Ù..
+	// PlayerÂ°Â¡ ÃÂ¤ÃÃ¶Ã‡Ã˜ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Â¿Â¡Â¸Â¸ Â°Â¡Â´Ã‰Ã‡ÃÂ´Ã™..
 	//-------------------------------------------------
 	//if (g_pPlayer->IsStop())
 	{
 		//-----------------------------------------
-		// player°¡ pItemÀ» ÀåÂøÇÑ´Ù.
+		// playerÂ°Â¡ pItemÃ€Â» Ã€Ã¥Ã‚Ã¸Ã‡Ã‘Â´Ã™.
 		//-----------------------------------------
 		//g_pPlayer->SetAddonItem( pItem );
 
 		//-----------------------------------------
-		// UI¿¡¼­ ItemÀ» Gear¿¡ ÀåÂøÇÑ´Ù.
+		// UIÂ¿Â¡Â¼Â­ ItemÃ€Â» GearÂ¿Â¡ Ã€Ã¥Ã‚Ã¸Ã‡Ã‘Â´Ã™.
 		//-----------------------------------------
 		//gC_vs_ui.DropItem();
 	}
@@ -4193,7 +4204,7 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_GEAR(int left, int right, void* void_p
 
 //-----------------------------------------------------------------------------
 //
-// QuickSlot¿¡ ÀÖ´ø itemÀ» mouse·Î ÁıÀº °æ¿ì
+// QuickSlotÂ¿Â¡ Ã€Ã–Â´Ã¸ itemÃ€Â» mouseÂ·Ã ÃÃ½Ã€Âº Â°Ã¦Â¿Ã¬
 //
 //-----------------------------------------------------------------------------
 void
@@ -4233,8 +4244,8 @@ UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_QUICKSLOT(int left, int right, voi
 		MItem* pItem = (MItem*)void_ptr;
 
 			//---------------------------------------------------
-			// QuickSlot¿¡ ÀÖ´ø itemÀ» mouse¿¡ ºÙ¿´´Ù(-_-;)°í
-			// server·Î packetÀ» º¸³½´Ù.
+			// QuickSlotÂ¿Â¡ Ã€Ã–Â´Ã¸ itemÃ€Â» mouseÂ¿Â¡ ÂºÃ™Â¿Â´Â´Ã™(-_-;)Â°Ã­
+			// serverÂ·Ã packetÃ€Â» ÂºÂ¸Â³Â½Â´Ã™.
 			//---------------------------------------------------
 			CGAddQuickSlotToMouse _CGAddQuickSlotToMouse;
 			_CGAddQuickSlotToMouse.setObjectID( pItem->GetID() );
@@ -4250,7 +4261,7 @@ UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_QUICKSLOT(int left, int right, voi
 			g_pSocket->sendPacket( &_CGAddQuickSlotToMouse );
 			
 
-		// ¹Ù·Î QuickSlot¿¡¼­ Á¦°ÅÇÏ°í mouse¿¡ µé°Ô ÇÑ´Ù.
+		// Â¹Ã™Â·Ã QuickSlotÂ¿Â¡Â¼Â­ ÃÂ¦Â°Ã…Ã‡ÃÂ°Ã­ mouseÂ¿Â¡ ÂµÃ©Â°Ã” Ã‡Ã‘Â´Ã™.
 		
 		if( g_pPlayer->IsSlayer() )
 			g_pQuickSlot->RemoveItem( pItem->GetID() );
@@ -4267,7 +4278,7 @@ UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_QUICKSLOT(int left, int right, voi
 
 //-----------------------------------------------------------------------------
 //
-// Inventory¿¡ ÀÖ´ø itemÀ» mouse·Î ÁıÀº °æ¿ì
+// InventoryÂ¿Â¡ Ã€Ã–Â´Ã¸ itemÃ€Â» mouseÂ·Ã ÃÃ½Ã€Âº Â°Ã¦Â¿Ã¬
 //
 //-----------------------------------------------------------------------------				
 void
@@ -4297,7 +4308,7 @@ UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_INVENTORY(int left, int right, voi
 		BOOL bAcceptOtherTrade = (g_pTradeManager!=NULL && g_pTradeManager->IsAcceptOtherTrade());
 
 		//---------------------------------------------------------
-		// ±³È¯Áß¿¡ OK ´­·¶À»¶§´Â °ËÁõÀ» ¹Ş¾Æ¾ß ÇÑ´Ù.
+		// Â±Â³ÃˆÂ¯ÃÃŸÂ¿Â¡ OK Â´Â­Â·Â¶Ã€Â»Â¶Â§Â´Ã‚ Â°Ã‹ÃÃµÃ€Â» Â¹ÃÂ¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 		//---------------------------------------------------------
 		if (bAcceptMyTrade)
 		{
@@ -4323,12 +4334,12 @@ UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_INVENTORY(int left, int right, voi
 			}
 		}
 		//---------------------------------------------------------
-		// ±³È¯ÇÒ·Á°í Ã¼Å©µÈ itemÀ» µé ¶§,
+		// Â±Â³ÃˆÂ¯Ã‡Ã’Â·ÃÂ°Ã­ ÃƒÂ¼Ã…Â©ÂµÃˆ itemÃ€Â» ÂµÃ© Â¶Â§,
 		//---------------------------------------------------------
 		else if (gC_vs_ui.IsRunningExchange())
 		{
 			//---------------------------------------------------
-			// ¼±ÅÃµÇ¾î ÀÖ´ø ¾ÆÀÌÅÛÀÌ¸é.. Á¦°Å
+			// Â¼Â±Ã…ÃƒÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã¸ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒÂ¸Ã©.. ÃÂ¦Â°Ã…
 			//---------------------------------------------------
 			if (pItem->IsTrade())
 			{
@@ -4336,14 +4347,14 @@ UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_INVENTORY(int left, int right, voi
 
 				bSendPacketTradeRemove = TRUE;
 				
-				// ´Ù¸¥ »ç¶÷ÀÌ OK´©¸¥ »óÅÂ¶ó¸é..
+				// Â´Ã™Â¸Â¥ Â»Ã§Â¶Ã·Ã€ÃŒ OKÂ´Â©Â¸Â¥ Â»Ã³Ã…Ã‚Â¶Ã³Â¸Ã©..
 				if (bAcceptOtherTrade)
 				{
 					g_pTradeManager->RefuseOtherTrade();
 				}
 			}
 			//---------------------------------------------------
-			// ¾Æ´Ï¸é.. ¼öµ¿À¸·Î OKÃë¼Ò¸¦ º¸³½´Ù.
+			// Â¾Ã†Â´ÃÂ¸Ã©.. Â¼Ã¶ÂµÂ¿Ã€Â¸Â·Ã OKÃƒÃ«Â¼Ã’Â¸Â¦ ÂºÂ¸Â³Â½Â´Ã™.
 			//---------------------------------------------------
 			else
 			{
@@ -4388,8 +4399,8 @@ UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_INVENTORY(int left, int right, voi
 		if (bSendPacket)
 		{
 				//---------------------------------------------------
-				// Inventory¿¡ ÀÖ´ø itemÀ» mouse¿¡ ºÙ¿´´Ù(-_-;)°í
-				// server·Î packetÀ» º¸³½´Ù.
+				// InventoryÂ¿Â¡ Ã€Ã–Â´Ã¸ itemÃ€Â» mouseÂ¿Â¡ ÂºÃ™Â¿Â´Â´Ã™(-_-;)Â°Ã­
+				// serverÂ·Ã packetÃ€Â» ÂºÂ¸Â³Â½Â´Ã™.
 				//---------------------------------------------------
 				CGAddInventoryToMouse _CGAddInventoryToMouse;
 				_CGAddInventoryToMouse.setObjectID( pItem->GetID() );
@@ -4404,7 +4415,7 @@ UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_INVENTORY(int left, int right, voi
 
 //-----------------------------------------------------------------------------
 //
-// Gear¿¡ Âø¿ëÇÏ°í ÀÖ´ø itemÀ» mouse·Î ÁıÀº °æ¿ì
+// GearÂ¿Â¡ Ã‚Ã¸Â¿Ã«Ã‡ÃÂ°Ã­ Ã€Ã–Â´Ã¸ itemÃ€Â» mouseÂ·Ã ÃÃ½Ã€Âº Â°Ã¦Â¿Ã¬
 //
 //-----------------------------------------------------------------------------				
 void
@@ -4425,24 +4436,24 @@ UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_GEAR(int left, int right, void* vo
 	if (!g_bWatchMode)
 	{
 		int itemSlot = left;
-		MItem* pItem = (MItem*)void_ptr;	// gear¿¡ ÀÖ´Â item
+		MItem* pItem = (MItem*)void_ptr;	// gearÂ¿Â¡ Ã€Ã–Â´Ã‚ item
 
 		if (pItem!=NULL)
 		{
 			//-------------------------------------------------
-			// Player°¡ Á¤ÁöÇØ ÀÖ´Â °æ¿ì¿¡¸¸.
+			// PlayerÂ°Â¡ ÃÂ¤ÃÃ¶Ã‡Ã˜ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Â¿Â¡Â¸Â¸.
 			//-------------------------------------------------
 			//if (g_pPlayer->IsStop())
 			{
 				//---------------------------------------------
-				// AddonItemÀ» ÀåÂø ÇØÁ¦ÇÑ´Ù.
+				// AddonItemÃ€Â» Ã€Ã¥Ã‚Ã¸ Ã‡Ã˜ÃÂ¦Ã‡Ã‘Â´Ã™.
 				//---------------------------------------------
 				if (g_pPlayer->RemoveAddonItem( pItem ))
 				{
 					MItem* pRemovedItem = NULL;
 
 					//---------------------------------------------
-					// gear¿¡¼­ Á¦°ÅÇÑ´Ù.
+					// gearÂ¿Â¡Â¼Â­ ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 					//---------------------------------------------
 					switch(g_pPlayer->GetRace())
 					{
@@ -4450,7 +4461,7 @@ UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_GEAR(int left, int right, void* vo
 						pRemovedItem = g_pSlayerGear->RemoveItem( (MSlayerGear::GEAR_SLAYER)itemSlot );
 						
 						//-----------------------------------------------------------
-						// belt¸¦ ³õ°Å³ª Áı¾úÀ» °æ¿ì´Â quick itemÀ» resetÇØ¾ß ÇÑ´Ù.
+						// beltÂ¸Â¦ Â³ÃµÂ°Ã…Â³Âª ÃÃ½Â¾ÃºÃ€Â» Â°Ã¦Â¿Ã¬Â´Ã‚ quick itemÃ€Â» resetÃ‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 						//-----------------------------------------------------------
 						if (pRemovedItem!=NULL 
 							&& pRemovedItem->GetItemSlot() == MSlayerGear::GEAR_SLAYER_BELT)
@@ -4470,15 +4481,15 @@ UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_GEAR(int left, int right, void* vo
 
 
 					//---------------------------------------------
-					// UI¿¡¼­ GearÀÇ ItemÀ» pickupÇÏ°Ô ÇÑ´Ù.
+					// UIÂ¿Â¡Â¼Â­ GearÃ€Ã‡ ItemÃ€Â» pickupÃ‡ÃÂ°Ã” Ã‡Ã‘Â´Ã™.
 					//---------------------------------------------
 					if (pRemovedItem!=NULL)
 					{
 						UI_PickUpItem( pRemovedItem );
 						
 							//---------------------------------------------------
-							// Inventory¿¡ ÀÖ´ø itemÀ» mouse¿¡ ºÙ¿´´Ù(-_-;)°í
-							// server·Î packetÀ» º¸³½´Ù.
+							// InventoryÂ¿Â¡ Ã€Ã–Â´Ã¸ itemÃ€Â» mouseÂ¿Â¡ ÂºÃ™Â¿Â´Â´Ã™(-_-;)Â°Ã­
+							// serverÂ·Ã packetÃ€Â» ÂºÂ¸Â³Â½Â´Ã™.
 							//---------------------------------------------------
 							CGAddGearToMouse _CGAddGearToMouse;
 							_CGAddGearToMouse.setObjectID( pRemovedItem->GetID() );
@@ -4488,7 +4499,7 @@ UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_GEAR(int left, int right, void* vo
 					}
 
 					//----------------------------------------------------
-					// Skill Ã¼Å©
+					// Skill ÃƒÂ¼Ã…Â©
 					//----------------------------------------------------
 					g_pSkillAvailable->SetAvailableSkills();
 				}			
@@ -4507,7 +4518,7 @@ UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_GEAR(int left, int right, void* vo
 
 //-----------------------------------------------------------------------------
 //
-// Inventory¿¡¼­ ItemÀ» »ç¿ëÇÑ °æ¿ì
+// InventoryÂ¿Â¡Â¼Â­ ItemÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 //
 //-----------------------------------------------------------------------------
 void
@@ -4527,7 +4538,7 @@ UIMessageManager::Execute_UI_ITEM_USE(int left, int right, void* void_ptr)
 
 	if (pItem!=NULL && g_pPlayer->IsItemCheckBufferNULL())
 	{
-		// ÀÚ±âÁ¾Á· ¾ÆÀÌÅÛ¸¸ ¾²Àğ-¤µ-;
+		// Ã€ÃšÂ±Ã¢ÃÂ¾ÃÂ· Â¾Ã†Ã€ÃŒÃ…Ã›Â¸Â¸ Â¾Â²Ã€Ã°-Â¤Âµ-;
 		if(g_pPlayer->IsSlayer() && pItem->IsSlayerItem() ||
 			g_pPlayer->IsVampire() && pItem->IsVampireItem() ||
 			g_pPlayer->IsOusters() && pItem->IsOustersItem())
@@ -4555,7 +4566,7 @@ UIMessageManager::Execute_UI_ITEM_USE(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// QuickSlot¿¡¼­ ItemÀ» »ç¿ëÇÑ °æ¿ì
+// QuickSlotÂ¿Â¡Â¼Â­ ItemÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 //
 //-----------------------------------------------------------------------------
 void
@@ -4615,12 +4626,12 @@ UIMessageManager::Execute_UI_ITEM_USE_QUICKSLOT(int left, int right, void* void_
 //				__BEGIN_HELP_EVENT
 //					if (bByFunctionKey)
 //					{
-//						// [µµ¿ò¸»] functionKey·Î »ç¿ëÇÑ ¾ÆÀÌÅÛÀÎ°¡?
+//						// [ÂµÂµÂ¿Ã²Â¸Â»] functionKeyÂ·Ã Â»Ã§Â¿Ã«Ã‡Ã‘ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃÂ°Â¡?
 ////						ExecuteHelpEvent( HE_PRESSED_FUNCTION_KEY_FOR_QUICKITEM );
 //					}
 //				__END_HELP_EVENT
 
-				// ÀÚ±âÁ¾Á· ¾ÆÀÌÅÛ¸¸ ¾²Àğ-¤µ-;
+				// Ã€ÃšÂ±Ã¢ÃÂ¾ÃÂ· Â¾Ã†Ã€ÃŒÃ…Ã›Â¸Â¸ Â¾Â²Ã€Ã°-Â¤Âµ-;
 				if(g_pPlayer->IsSlayer() && pItem->IsSlayerItem() ||
 					g_pPlayer->IsVampire() && pItem->IsVampireItem() ||
 					g_pPlayer->IsOusters() && pItem->IsOustersItem())
@@ -4650,12 +4661,12 @@ UIMessageManager::Execute_UI_ITEM_USE_QUICKSLOT(int left, int right, void* void_
 
 //-----------------------------------------------------------------------------
 //
-// mouseÀÇ ItemÀ» InventoryÀÇ Item¿¡ Ãß°¡ÇÒ ¶§
+// mouseÃ€Ã‡ ItemÃ€Â» InventoryÃ€Ã‡ ItemÂ¿Â¡ ÃƒÃŸÂ°Â¡Ã‡Ã’ Â¶Â§
 //
 //-----------------------------------------------------------------------------
-// ½×ÀÌ´Â ºÎºĞÀº °ËÁõ¹ŞÁö ¾Ê°í Ã³¸®ÇÑ´Ù.
-// max °³¼ö¸¦ ÃÊ°úÇÏ¸é °³¼ö¸¸ ¹Ù²ãÁÖ°í
-// ¾Æ´Ï¸é.. µé°í ÀÖ´ø °ÍÀº ¾ø¾îÁø´Ù.
+// Â½Ã—Ã€ÃŒÂ´Ã‚ ÂºÃÂºÃÃ€Âº Â°Ã‹ÃÃµÂ¹ÃÃÃ¶ Â¾ÃŠÂ°Ã­ ÃƒÂ³Â¸Â®Ã‡Ã‘Â´Ã™.
+// max Â°Â³Â¼Ã¶Â¸Â¦ ÃƒÃŠÂ°ÃºÃ‡ÃÂ¸Ã© Â°Â³Â¼Ã¶Â¸Â¸ Â¹Ã™Â²Ã£ÃÃ–Â°Ã­
+// Â¾Ã†Â´ÃÂ¸Ã©.. ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã¸ Â°ÃÃ€Âº Â¾Ã¸Â¾Ã®ÃÃ¸Â´Ã™.
 //-----------------------------------------------------------------------------
 void
 UIMessageManager::Execute_UI_ITEM_INSERT_FROM_INVENTORY(int left, int right, void* void_ptr)
@@ -4668,9 +4679,9 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_INVENTORY(int left, int right, voi
 		return;
 	}
 
-	// gpC_mouse_pointer->GetPickUpItem()		// µé°í ÀÖ´Â °Í
-	//void_ptr = MItem *		// µé¾î°¥ °÷
-	// InventoryÁÂÇ¥(left,right)
+	// gpC_mouse_pointer->GetPickUpItem()		// ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã‚ Â°Ã
+	//void_ptr = MItem *		// ÂµÃ©Â¾Ã®Â°Â¥ Â°Ã·
+	// InventoryÃÃ‚Ã‡Â¥(left,right)
 	MItem* pItem = (MItem*)void_ptr;
 	MItem* pMouseItem = gpC_mouse_pointer->GetPickUpItem();
 
@@ -4685,7 +4696,7 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_INVENTORY(int left, int right, voi
 		DEBUG_ADD("[Error] InvenItem is NULL");
 		return;
 	}
-	// add by Coffee 2006.11.4  ĞŞÕıÈÎÎñÎïÆ·²»ÄÜµş¼Ó
+	// add by Coffee 2006.11.4  ÃÃÃ•Ã½ÃˆÃÃÃ±ÃÃ¯Ã†Â·Â²Â»Ã„ÃœÂµÃ¾Â¼Ã“
 	if (pItem->IsQuestItem())
 	{
 		return;
@@ -4705,12 +4716,12 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_INVENTORY(int left, int right, voi
 			BOOL bAcceptOtherTrade = (g_pTradeManager!=NULL && g_pTradeManager->IsAcceptOtherTrade());
 
 			//---------------------------------------------------------
-			// ±³È¯Áß¿¡ OK ´­·¶À»¶§´Â °ËÁõÀ» ¹Ş¾Æ¾ß ÇÑ´Ù.
+			// Â±Â³ÃˆÂ¯ÃÃŸÂ¿Â¡ OK Â´Â­Â·Â¶Ã€Â»Â¶Â§Â´Ã‚ Â°Ã‹ÃÃµÃ€Â» Â¹ÃÂ¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			//---------------------------------------------------------
 			if (bAcceptMyTrade)
 			{	
-				// ÀÌ »óÅÂ¿¡¼­´Â UI¿¡¼­ ¹Ù·Î ³ÖÁö ¾Ê´Â´Ù.
-				// pItemÀº µé°í ÀÖ´Â itemÀÌ´Ù.
+				// Ã€ÃŒ Â»Ã³Ã…Ã‚Â¿Â¡Â¼Â­Â´Ã‚ UIÂ¿Â¡Â¼Â­ Â¹Ã™Â·Ã Â³Ã–ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
+				// pItemÃ€Âº ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã‚ itemÃ€ÃŒÂ´Ã™.
 				if (g_pTempInformation->GetMode() == TempInformation::MODE_NULL
 					&& g_pPlayer->IsItemCheckBufferNULL())
 				{	
@@ -4733,7 +4744,7 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_INVENTORY(int left, int right, voi
 				MItem* pMouseItem = gpC_mouse_pointer->GetPickUpItem();
 
 				//----------------------------------------------------
-				// pMouseItemÀ» pItem¿¡ Ãß°¡½ÃÅ²´Ù.
+				// pMouseItemÃ€Â» pItemÂ¿Â¡ ÃƒÃŸÂ°Â¡Â½ÃƒÃ…Â²Â´Ã™.
 				//----------------------------------------------------
 				int total = pMouseItem->GetNumber() + pItem->GetNumber();
 				//yckou
@@ -4746,7 +4757,7 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_INVENTORY(int left, int right, voi
 					}
 					else
 					{
-						// ¸ğµÎ pItem¿¡ Ãß°¡µÉ ¼ö ÀÖ´Â °æ¿ì
+						// Â¸Ã°ÂµÃ pItemÂ¿Â¡ ÃƒÃŸÂ°Â¡ÂµÃ‰ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 						pItem->SetNumber( total );
 						UI_DropItem();
 						
@@ -4758,13 +4769,13 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_INVENTORY(int left, int right, voi
 				
 				if ( total > pItem->GetMaxNumber())
 				{
-					// ÇÑ°è ¼öÄ¡¸¦ ³Ñ¾î°¥ °æ¿ì
+					// Ã‡Ã‘Â°Ã¨ Â¼Ã¶Ã„Â¡Â¸Â¦ Â³Ã‘Â¾Ã®Â°Â¥ Â°Ã¦Â¿Ã¬
 					pMouseItem->SetNumber( total - pItem->GetMaxNumber() );
 					pItem->SetNumber( pItem->GetMaxNumber() );
 				}
 				else
 				{
-					// ¸ğµÎ pItem¿¡ Ãß°¡µÉ ¼ö ÀÖ´Â °æ¿ì
+					// Â¸Ã°ÂµÃ pItemÂ¿Â¡ ÃƒÃŸÂ°Â¡ÂµÃ‰ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 					pItem->SetNumber( total );
 					UI_DropItem();
 
@@ -4772,13 +4783,13 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_INVENTORY(int left, int right, voi
 				}
 
 				//----------------------------------------------------
-				// ±³È¯Áß¿¡ ¼±ÅÃµÈ ¾ÆÀÌÅÛÀÎ °æ¿ì
+				// Â±Â³ÃˆÂ¯ÃÃŸÂ¿Â¡ Â¼Â±Ã…ÃƒÂµÃˆ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã Â°Ã¦Â¿Ã¬
 				//----------------------------------------------------
 				// Remove and Add - -;
 				if (gC_vs_ui.IsRunningExchange() && pItem->IsTrade())
 				{
 						//----------------------------------------------------
-						// ³õ¿© ÀÖ´ø°Å Á¦°Å
+						// Â³ÃµÂ¿Â© Ã€Ã–Â´Ã¸Â°Ã… ÃÂ¦Â°Ã…
 						//----------------------------------------------------
 						CGTradeRemoveItem _CGTradeRemoveItem;
 						_CGTradeRemoveItem.setTargetObjectID( g_pTradeManager->GetOtherID() );
@@ -4790,7 +4801,7 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_INVENTORY(int left, int right, voi
 
 						
 						//----------------------------------------------------
-						// ¾ÆÀÌÅÛ Ãß°¡ --> °³¼ö Áõ°¡
+						// Â¾Ã†Ã€ÃŒÃ…Ã› ÃƒÃŸÂ°Â¡ --> Â°Â³Â¼Ã¶ ÃÃµÂ°Â¡
 						//----------------------------------------------------
 						CGAddMouseToInventory _CGAddMouseToInventory;
 						_CGAddMouseToInventory.setObjectID( mouseItemID );
@@ -4803,7 +4814,7 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_INVENTORY(int left, int right, voi
 
 						
 						//----------------------------------------------------
-						// ´Ù½Ã ±³È¯Ã¢¿¡ ¾ÆÀÌÅÛ Ãß°¡
+						// Â´Ã™Â½Ãƒ Â±Â³ÃˆÂ¯ÃƒÂ¢Â¿Â¡ Â¾Ã†Ã€ÃŒÃ…Ã› ÃƒÃŸÂ°Â¡
 						//----------------------------------------------------
 						CGTradeAddItem _CGTradeAddItem;
 						_CGTradeAddItem.setTargetObjectID( g_pTradeManager->GetOtherID() );
@@ -4812,7 +4823,7 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_INVENTORY(int left, int right, voi
 						g_pSocket->sendPacket( &_CGTradeAddItem );
 						
 
-					// ´Ù¸¥ »ç¶÷ÀÌ OK´©¸¥ »óÅÂ¶ó¸é..
+					// Â´Ã™Â¸Â¥ Â»Ã§Â¶Ã·Ã€ÃŒ OKÂ´Â©Â¸Â¥ Â»Ã³Ã…Ã‚Â¶Ã³Â¸Ã©..
 					if (bAcceptOtherTrade)
 					{
 						g_pTradeManager->RefuseOtherTrade();
@@ -4823,7 +4834,7 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_INVENTORY(int left, int right, voi
 			}
 
 			//----------------------------------------------------
-			// Server¿¡ Á¢¼ÓÇÑ °æ¿ì
+			// ServerÂ¿Â¡ ÃÂ¢Â¼Ã“Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 			//----------------------------------------------------
 				if (bSendPacket)
 				{
@@ -4836,7 +4847,7 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_INVENTORY(int left, int right, voi
 
 					
 					//----------------------------------------------------
-					// °¢ Item class¿¡ µû¸¥ Ã³¸®
+					// Â°Â¢ Item classÂ¿Â¡ ÂµÃ»Â¸Â¥ ÃƒÂ³Â¸Â®
 					//----------------------------------------------------
 					//if (pItem->GetItemClass()==ITEM_CLASS_MONEY)
 					//{
@@ -4849,7 +4860,7 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_INVENTORY(int left, int right, voi
 
 //-----------------------------------------------------------------------------
 //
-// mouseÀÇ ItemÀ» GearÀÇ Item¿¡ Ãß°¡ÇÒ ¶§
+// mouseÃ€Ã‡ ItemÃ€Â» GearÃ€Ã‡ ItemÂ¿Â¡ ÃƒÃŸÂ°Â¡Ã‡Ã’ Â¶Â§
 //
 //-----------------------------------------------------------------------------
 void
@@ -4863,8 +4874,8 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_GEAR(int left, int right, void* vo
 		return;
 	}
 
-	// gpC_mouse_pointer->GetPickUpItem()		// µé°í ÀÖ´Â °Í
-	//void_ptr = MItem *		// µé¾î°¥ °÷
+	// gpC_mouse_pointer->GetPickUpItem()		// ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã‚ Â°Ã
+	//void_ptr = MItem *		// ÂµÃ©Â¾Ã®Â°Â¥ Â°Ã·
 	// Gear Slot(left)
 
 	if (!g_bWatchMode
@@ -4879,11 +4890,11 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_GEAR(int left, int right, void* vo
 		if (pItem->GetItemClass()==ITEM_CLASS_MAGAZINE)
 		{
 			//----------------------------------------------------
-			// Server¿¡ Á¢¼ÓÇÑ °æ¿ì
+			// ServerÂ¿Â¡ ÃÂ¢Â¼Ã“Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 			//----------------------------------------------------
 				//---------------------------------------------------
-				// mouse¿¡ ÀÖ´ø itemÀ» Gear¿¡ Ãß°¡Çß´Ù°í
-				// server·Î packetÀ» º¸³½´Ù.
+				// mouseÂ¿Â¡ Ã€Ã–Â´Ã¸ itemÃ€Â» GearÂ¿Â¡ ÃƒÃŸÂ°Â¡Ã‡ÃŸÂ´Ã™Â°Ã­
+				// serverÂ·Ã packetÃ€Â» ÂºÂ¸Â³Â½Â´Ã™.
 				//---------------------------------------------------
 				CGAddMouseToGear _CGAddMouseToGear;
 				_CGAddMouseToGear.setObjectID( pMouseItem->GetID() );
@@ -4892,17 +4903,17 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_GEAR(int left, int right, void* vo
 				g_pSocket->sendPacket( &_CGAddMouseToGear );
 
 				
-				// °ËÁõ¹Ş±â¸¦ ±â´Ù·Á¾ßÇÑ´Ù.
+				// Â°Ã‹ÃÃµÂ¹ÃÂ±Ã¢Â¸Â¦ Â±Ã¢Â´Ã™Â·ÃÂ¾ÃŸÃ‡Ã‘Â´Ã™.
 				g_pPlayer->SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_INSERT_FROM_GEAR );
 
-				// °ËÁõ¹ŞÀ¸¸é m_p_current_pickup_itemÀ» pItemÀ» Ãß°¡ÇØ¾ßÇÑ´Ù.
+				// Â°Ã‹ÃÃµÂ¹ÃÃ€Â¸Â¸Ã© m_p_current_pickup_itemÃ€Â» pItemÃ€Â» ÃƒÃŸÂ°Â¡Ã‡Ã˜Â¾ÃŸÃ‡Ã‘Â´Ã™.
 		}
 		//----------------------------------------------------
-		// ¾Æ´Ñ °æ¿ì.
+		// Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬.
 		//----------------------------------------------------
 		else
 		{
-			// »ç¿ë¾ÈÇÔ.. - -;
+			// Â»Ã§Â¿Ã«Â¾ÃˆÃ‡Ã”.. - -;
 		}
 	}
 	else
@@ -4914,7 +4925,7 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_GEAR(int left, int right, void* vo
 
 //-----------------------------------------------------------------------------
 //
-// mouseÀÇ ItemÀ» QuickSlotÀÇ Item¿¡ Ãß°¡ÇÒ ¶§
+// mouseÃ€Ã‡ ItemÃ€Â» QuickSlotÃ€Ã‡ ItemÂ¿Â¡ ÃƒÃŸÂ°Â¡Ã‡Ã’ Â¶Â§
 //
 //-----------------------------------------------------------------------------
 void
@@ -4931,9 +4942,9 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_QUICKSLOT(int left, int right, voi
 	
 	if (g_pPlayer->IsItemCheckBufferNULL())
 	{
-		// gpC_mouse_pointer->GetPickUpItem()		// µé°í ÀÖ´Â °Í
-		//void_ptr = MItem *		// µé¾î°¥ °÷
-		// QuickSlotÁÂÇ¥(left)
+		// gpC_mouse_pointer->GetPickUpItem()		// ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã‚ Â°Ã
+		//void_ptr = MItem *		// ÂµÃ©Â¾Ã®Â°Â¥ Â°Ã·
+		// QuickSlotÃÃ‚Ã‡Â¥(left)
 		MItem* pItem = (MItem*)void_ptr;
 		MItem* pMouseItem = (MItem*)gpC_mouse_pointer->GetPickUpItem();
 
@@ -4941,7 +4952,7 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_QUICKSLOT(int left, int right, voi
 			&& pItem->GetItemType()==pMouseItem->GetItemType())
 		{
 			//----------------------------------------------------
-			// Server¿¡ Á¢¼ÓÇÑ °æ¿ì
+			// ServerÂ¿Â¡ ÃÂ¢Â¼Ã“Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 			//----------------------------------------------------
 				CGAddMouseToQuickSlot _CGAddMouseToQuickSlot;
 				_CGAddMouseToQuickSlot.setObjectID( pMouseItem->GetID() );
@@ -4962,24 +4973,24 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_QUICKSLOT(int left, int right, voi
 				g_pSocket->sendPacket( &_CGAddMouseToQuickSlot );
 
 				
-				// °ËÁõ¹Ş±â À§ÇØ¼­ ±â´Ù·Á¾ß ÇÑ´Ù.
-				// °ËÁõ¹ŞÀ¸¸é m_p_current_pickup_itemÀ» pItemÀ» Ãß°¡ÇØ¾ßÇÑ´Ù.
+				// Â°Ã‹ÃÃµÂ¹ÃÂ±Ã¢ Ã€Â§Ã‡Ã˜Â¼Â­ Â±Ã¢Â´Ã™Â·ÃÂ¾ÃŸ Ã‡Ã‘Â´Ã™.
+				// Â°Ã‹ÃÃµÂ¹ÃÃ€Â¸Â¸Ã© m_p_current_pickup_itemÃ€Â» pItemÃ€Â» ÃƒÃŸÂ°Â¡Ã‡Ã˜Â¾ÃŸÃ‡Ã‘Â´Ã™.
 				//g_pPlayer->SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_INSERT_FROM_INVENTORY );
 				//MItem* pMouseItem = (MItem*)gpC_mouse_pointer->GetPickUpItem();
 
 				//----------------------------------------------------
-				// pMouseItemÀ» pItem¿¡ Ãß°¡½ÃÅ²´Ù.
+				// pMouseItemÃ€Â» pItemÂ¿Â¡ ÃƒÃŸÂ°Â¡Â½ÃƒÃ…Â²Â´Ã™.
 				//----------------------------------------------------
 				int total = pMouseItem->GetNumber() + pItem->GetNumber();
 				if ( total > pItem->GetMaxNumber() )
 				{
-					// ÇÑ°è ¼öÄ¡¸¦ ³Ñ¾î°¥ °æ¿ì
+					// Ã‡Ã‘Â°Ã¨ Â¼Ã¶Ã„Â¡Â¸Â¦ Â³Ã‘Â¾Ã®Â°Â¥ Â°Ã¦Â¿Ã¬
 					pMouseItem->SetNumber( total - pItem->GetMaxNumber() );
 					pItem->SetNumber( pItem->GetMaxNumber() );
 				}
 				else
 				{
-					// ¸ğµÎ pItem¿¡ Ãß°¡µÉ ¼ö ÀÖ´Â °æ¿ì
+					// Â¸Ã°ÂµÃ pItemÂ¿Â¡ ÃƒÃŸÂ°Â¡ÂµÃ‰ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 					pItem->SetNumber( total );
 					UI_DropItem();
 
@@ -4989,7 +5000,7 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_QUICKSLOT(int left, int right, voi
 				PlaySound( pItem->GetInventorySoundID() );
 
 				//----------------------------------------------------
-				// °¢ Item class¿¡ µû¸¥ Ã³¸®
+				// Â°Â¢ Item classÂ¿Â¡ ÂµÃ»Â¸Â¥ ÃƒÂ³Â¸Â®
 				//----------------------------------------------------
 				//if (pItem->GetItemClass()==ITEM_CLASS_MONEY)
 				//{
@@ -5002,7 +5013,7 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_QUICKSLOT(int left, int right, voi
 
 //-----------------------------------------------------------------------------
 //
-// »óÁ¡ ´İÀ» ¶§,
+// Â»Ã³ÃÂ¡ Â´ÃÃ€Â» Â¶Â§,
 //
 //-----------------------------------------------------------------------------
 void
@@ -5021,18 +5032,18 @@ UIMessageManager::Execute_UI_CLOSE_SHOP(int left, int right, void* void_ptr)
 	{
 		gC_vs_ui.CloseShop();
 
-		// shopÀ» ¾ø¾Ø´Ù.
+		// shopÃ€Â» Â¾Ã¸Â¾Ã˜Â´Ã™.
 		gC_vs_ui.SetShop( NULL );
 
 
-		// ´Ù½Ã ¹º°¡¸¦?¼±ÅÃÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+		// Â´Ã™Â½Ãƒ Â¹ÂºÂ°Â¡Â¸Â¦?Â¼Â±Ã…ÃƒÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â°Ã” Ã‡Ã‘Â´Ã™.
 		g_pUIDialog->ShowPCTalkDlg();
 	}
 }
 
 //-----------------------------------------------------------------------------
 //
-// »óÁ¡¿¡¼­ »ì·Á´Â ¹°°ÇÀ» ¼±ÅÃÇßÀ» ¶§,
+// Â»Ã³ÃÂ¡Â¿Â¡Â¼Â­ Â»Ã¬Â·ÃÂ´Ã‚ Â¹Â°Â°Ã‡Ã€Â» Â¼Â±Ã…ÃƒÃ‡ÃŸÃ€Â» Â¶Â§,
 //
 //-----------------------------------------------------------------------------
 //
@@ -5051,12 +5062,12 @@ UIMessageManager::Execute_UI_BUY_ITEM(int left, int right, void* void_ptr)
 		return;
 	}
 
-	// °ËÁõÇÒ°Ô ¾ø´Â °æ¿ì
+	// Â°Ã‹ÃÃµÃ‡Ã’Â°Ã” Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 	if (g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
 	{
-		int index = left;					// »ì·Á´Â ¾ÆÀÌÅÛÀÇ À§Ä¡
-		int number = right;					// »ì·Á´Â °³¼ö
-		MShop* pShop = (MShop*)void_ptr;	// »óÁ¡
+		int index = left;					// Â»Ã¬Â·ÃÂ´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã‡ Ã€Â§Ã„Â¡
+		int number = right;					// Â»Ã¬Â·ÃÂ´Ã‚ Â°Â³Â¼Ã¶
+		MShop* pShop = (MShop*)void_ptr;	// Â»Ã³ÃÂ¡
 		int npcID = (*g_pPCTalkBox).GetNPCID();					
 
 		if (pShop!=NULL)
@@ -5074,7 +5085,7 @@ UIMessageManager::Execute_UI_BUY_ITEM(int left, int right, void* void_ptr)
 					int oldNumber = pItem->GetNumber();					
 
 					//-------------------------------------------------
-					// »ì ¼ö ÀÖ´ÂÁö Ã¼Å©ÇÑ´Ù.
+					// Â»Ã¬ Â¼Ã¶ Ã€Ã–Â´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
 					//-------------------------------------------------							
 					bool bBuyPossible = false;
 					//GAME_STRINGID buyImpossibleMessage = STRING_MESSAGE_CANNOT_BUY;
@@ -5083,7 +5094,7 @@ UIMessageManager::Execute_UI_BUY_ITEM(int left, int right, void* void_ptr)
 					switch (pShop->GetShopType())
 					{
 						//-------------------------------------------------
-						// º¸Åë »óÁ¡
+						// ÂºÂ¸Ã…Ã« Â»Ã³ÃÂ¡
 						//-------------------------------------------------
 						case MShop::SHOP_NORMAL :
 						{
@@ -5097,7 +5108,7 @@ UIMessageManager::Execute_UI_BUY_ITEM(int left, int right, void* void_ptr)
 						break;
 
 						//-------------------------------------------------
-						// ÀÌº¥Æ®º° »óÁ¡
+						// Ã€ÃŒÂºÂ¥Ã†Â®ÂºÂ° Â»Ã³ÃÂ¡
 						//-------------------------------------------------
 						case MShop::SHOP_EVENT_STAR :
 						{
@@ -5107,14 +5118,14 @@ UIMessageManager::Execute_UI_BUY_ITEM(int left, int right, void* void_ptr)
 
 							if (starPrice.type!=-1 && starPrice.number!=0)
 							{
-								// ¸î°³³ª ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+								// Â¸Ã®Â°Â³Â³Âª Ã€Ã–Â´Ã‚ÃÃ¶ ÃƒÂ£Â¾Ã†ÂºÂ»Â´Ã™.
 								MItemClassTypeNumberFinder starFinder(ITEM_CLASS_EVENT_STAR, 
 																		starPrice.type);
 
 
 								((MItemManager*)g_pInventory)->FindItem( starFinder );
 
-								// °¡Áö°í ÀÖ´Â°Ô ´õ ¸¹¾Æ¾ß ÇÑ´Ù.
+								// Â°Â¡ÃÃ¶Â°Ã­ Ã€Ã–Â´Ã‚Â°Ã” Â´Ãµ Â¸Â¹Â¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 								bBuyPossible = (starFinder.GetTotalNumber() >= starPrice.number);
 
 								buyImpossibleMessage = STRING_MESSAGE_CANNOT_BUY_NO_STAR;
@@ -5125,12 +5136,12 @@ UIMessageManager::Execute_UI_BUY_ITEM(int left, int right, void* void_ptr)
 					}
 
 					//-------------------------------------------------
-					// µ·ÀÌ ÃæºĞÇÑ °æ¿ì
+					// ÂµÂ·Ã€ÃŒ ÃƒÃ¦ÂºÃÃ‡Ã‘ Â°Ã¦Â¿Ã¬
 					//-------------------------------------------------
 					if (bBuyPossible)
 					{								
 						//-------------------------------------------------
-						// inventory¿¡ ³ÖÀ» À§Ä¡¸¦ Ã£´Â´Ù.
+						// inventoryÂ¿Â¡ Â³Ã–Ã€Â» Ã€Â§Ã„Â¡Â¸Â¦ ÃƒÂ£Â´Ã‚Â´Ã™.
 						//-------------------------------------------------
 						pItem->SetNumber( number );
 
@@ -5151,7 +5162,7 @@ UIMessageManager::Execute_UI_BUY_ITEM(int left, int right, void* void_ptr)
 
 								
 								//-------------------------------------------------
-								// °ËÁõÀ» À§ÇÑ Temp Information¼³Á¤
+								// Â°Ã‹ÃÃµÃ€Â» Ã€Â§Ã‡Ã‘ Temp InformationÂ¼Â³ÃÂ¤
 								//-------------------------------------------------
 								(*g_pTempInformation).Mode	= TempInformation::MODE_SHOP_BUY;
 								(*g_pTempInformation).Value1 = pShop->GetCurrent();
@@ -5161,16 +5172,16 @@ UIMessageManager::Execute_UI_BUY_ITEM(int left, int right, void* void_ptr)
 								(*g_pTempInformation).pValue = (void*)pShop;
 
 								//-------------------------------------------------
-								// ´Ù¸¥ ¾ÆÀÌÅÛ¿¡ Á¢±Ù ¸øÇÏµµ·Ï..
+								// Â´Ã™Â¸Â¥ Â¾Ã†Ã€ÃŒÃ…Ã›Â¿Â¡ ÃÂ¢Â±Ã™ Â¸Ã¸Ã‡ÃÂµÂµÂ·Ã..
 								//-------------------------------------------------
 								UI_LockItemTrade();
 						}
 						else
 						{
-							// inventory°¡ ²ËÂ÷¼­ ¸ø »ê´Ù!
+							// inventoryÂ°Â¡ Â²Ã‹Ã‚Ã·Â¼Â­ Â¸Ã¸ Â»ÃªÂ´Ã™!
 							g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_MESSAGE_CANNOT_BUY_NO_SPACE ].GetString());
 							
-							// 2004, 5, 7 , sobeit add start - ÀÎº¥¿¡ ÀÚ¸®°¡ ¾øÀ¸¸é º¸°üÇÔ »ç¶ó°í µµ¿ò¸» º¸¿©ÁÜ
+							// 2004, 5, 7 , sobeit add start - Ã€ÃÂºÂ¥Â¿Â¡ Ã€ÃšÂ¸Â®Â°Â¡ Â¾Ã¸Ã€Â¸Â¸Ã© ÂºÂ¸Â°Ã¼Ã‡Ã” Â»Ã§Â¶Ã³Â°Ã­ ÂµÂµÂ¿Ã²Â¸Â» ÂºÂ¸Â¿Â©ÃÃœ
 							ExecuteHelpEvent( HELP_EVENT_STORAGE_BUY );
 							// 2004, 5, 6, sobeit add end
 						}
@@ -5179,7 +5190,7 @@ UIMessageManager::Execute_UI_BUY_ITEM(int left, int right, void* void_ptr)
 
 					}
 					//-------------------------------------------------
-					// µ· È¤Àº º°ÀÌ.. ºÎÁ·ÇÑ °æ¿ì
+					// ÂµÂ· ÃˆÂ¤Ã€Âº ÂºÂ°Ã€ÃŒ.. ÂºÃÃÂ·Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 					//-------------------------------------------------					
 					else
 					{
@@ -5188,19 +5199,19 @@ UIMessageManager::Execute_UI_BUY_ITEM(int left, int right, void* void_ptr)
 				}
 				else
 				{
-					// ¼±¹İÀÇ index À§Ä¡¿¡ ¾ÆÀÌÅÛÀÌ ¾ø´Â °æ¿ì
+					// Â¼Â±Â¹ÃÃ€Ã‡ index Ã€Â§Ã„Â¡Â¿Â¡ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 					DEBUG_ADD_FORMAT("[Error] There is NO Item in index=%d", index);
 				}
 			}
 			else
 			{
-				// ¼±¹İÀÌ ¼³Á¤ ¾È µÈ °æ¿ì
+				// Â¼Â±Â¹ÃÃ€ÃŒ Â¼Â³ÃÂ¤ Â¾Ãˆ ÂµÃˆ Â°Ã¦Â¿Ã¬
 				DEBUG_ADD_FORMAT("[Error] There is NO Shelf type=%d", (int)pShop->GetCurrent());
 			}
 		}
 		else
 		{
-			// shopÀÌ ¼³Á¤ ¾È µÈ °æ¿ì
+			// shopÃ€ÃŒ Â¼Â³ÃÂ¤ Â¾Ãˆ ÂµÃˆ Â°Ã¦Â¿Ã¬
 			DEBUG_ADD_FORMAT("[Error] There is NO Shop. npc id=%d", npcID);
 		}
 	}
@@ -5208,7 +5219,7 @@ UIMessageManager::Execute_UI_BUY_ITEM(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// ¹°°Ç ÆÈ±â dialog ´İÀ» ¶§
+// Â¹Â°Â°Ã‡ Ã†ÃˆÂ±Ã¢ dialog Â´ÃÃ€Â» Â¶Â§
 //
 //-----------------------------------------------------------------------------
 void
@@ -5228,14 +5239,14 @@ UIMessageManager::Execute_UI_ITEM_SELL_FINISHED(int left, int right, void* void_
 	{
 		gC_vs_ui.FinishItemSelling();
 
-		// ´Ù½Ã ¹º°¡¸¦?¼±ÅÃÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+		// Â´Ã™Â½Ãƒ Â¹ÂºÂ°Â¡Â¸Â¦?Â¼Â±Ã…ÃƒÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â°Ã” Ã‡Ã‘Â´Ã™.
 		g_pUIDialog->ShowPCTalkDlg();
 	}
 }
 
 //-----------------------------------------------------------------------------
 //
-// ÆÈ·Á´Â ¹°°ÇÀ» ¼±ÅÃÇßÀ» ¶§,
+// Ã†ÃˆÂ·ÃÂ´Ã‚ Â¹Â°Â°Ã‡Ã€Â» Â¼Â±Ã…ÃƒÃ‡ÃŸÃ€Â» Â¶Â§,
 //
 //-----------------------------------------------------------------------------
 //
@@ -5255,20 +5266,20 @@ UIMessageManager::Execute_UI_SELL_ITEM(int left, int right, void* void_ptr)
 
 	
 	//MItem* pItem = (MItem*)void_ptr;
-	// °ËÁõÇÒ°Ô ¾ø´Â °æ¿ì
+	// Â°Ã‹ÃÃµÃ‡Ã’Â°Ã” Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 	if (g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
 	{
 		const MItem* pItem = g_pInventory->GetItem( left, right );
 
 		if (pItem!=NULL && g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
 		{
-			// Event GiftBox ¾ÆÀÌÅÛÀÎ °æ¿ì ¸ø ³õ´Â´Ù.
+			// Event GiftBox Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã Â°Ã¦Â¿Ã¬ Â¸Ã¸ Â³ÃµÂ´Ã‚Â´Ã™.
 			
 			if (//pItem->GetItemClass()!=ITEM_CLASS_EVENT_GIFT_BOX &&
 				!pItem->IsUniqueItem() || (g_pTimeItemManager->IsExist( pItem->GetID())))
 			{
 				//-----------------------------------------------------
-				// ¾ÆÀÌÅÛÀ» ÆÈ±â À§ÇÑ packetÀ» º¸³½´Ù.
+				// Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» Ã†ÃˆÂ±Ã¢ Ã€Â§Ã‡Ã‘ packetÃ€Â» ÂºÂ¸Â³Â½Â´Ã™.
 				//-----------------------------------------------------
 					CGShopRequestSell	_CGShopRequestSell;
 
@@ -5280,13 +5291,13 @@ UIMessageManager::Execute_UI_SELL_ITEM(int left, int right, void* void_ptr)
 			
 						
 					//-------------------------------------------------
-					// °ËÁõÀ» À§ÇÑ Temp Information¼³Á¤
+					// Â°Ã‹ÃÃµÃ€Â» Ã€Â§Ã‡Ã‘ Temp InformationÂ¼Â³ÃÂ¤
 					//-------------------------------------------------
 					(*g_pTempInformation).Mode	= TempInformation::MODE_SHOP_SELL;
 					(*g_pTempInformation).pValue = (void*)pItem;
 
 					//-------------------------------------------------
-					// ´Ù¸¥ ¾ÆÀÌÅÛ¿¡ Á¢±Ù ¸øÇÏµµ·Ï..
+					// Â´Ã™Â¸Â¥ Â¾Ã†Ã€ÃŒÃ…Ã›Â¿Â¡ ÃÂ¢Â±Ã™ Â¸Ã¸Ã‡ÃÂµÂµÂ·Ã..
 					//-------------------------------------------------
 					UI_LockItemTrade();
 			}
@@ -5305,7 +5316,7 @@ UIMessageManager::Execute_UI_SELL_ITEM(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// ÆÈ·Á´Â ¹°°ÇÀ» ¼±ÅÃÇßÀ» ¶§,
+// Ã†ÃˆÂ·ÃÂ´Ã‚ Â¹Â°Â°Ã‡Ã€Â» Â¼Â±Ã…ÃƒÃ‡ÃŸÃ€Â» Â¶Â§,
 //
 //-----------------------------------------------------------------------------
 //
@@ -5325,11 +5336,11 @@ UIMessageManager::Execute_UI_SELL_ALL_ITEM(int left, int right, void* void_ptr)
 
 	
 	//MItem* pItem = (MItem*)void_ptr;
-	// °ËÁõÇÒ°Ô ¾ø´Â °æ¿ì
+	// Â°Ã‹ÃÃµÃ‡Ã’Â°Ã” Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 	if (g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
 	{
 		//-----------------------------------------------------
-		// ¾ÆÀÌÅÛÀ» ÆÈ±â À§ÇÑ packetÀ» º¸³½´Ù.
+		// Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» Ã†ÃˆÂ±Ã¢ Ã€Â§Ã‡Ã‘ packetÃ€Â» ÂºÂ¸Â³Â½Â´Ã™.
 		//-----------------------------------------------------
 			CGShopRequestSell	_CGShopRequestSell;
 
@@ -5341,12 +5352,12 @@ UIMessageManager::Execute_UI_SELL_ALL_ITEM(int left, int right, void* void_ptr)
 	
 				
 			//-------------------------------------------------
-			// °ËÁõÀ» À§ÇÑ Temp Information¼³Á¤
+			// Â°Ã‹ÃÃµÃ€Â» Ã€Â§Ã‡Ã‘ Temp InformationÂ¼Â³ÃÂ¤
 			//-------------------------------------------------
 			(*g_pTempInformation).Mode	= TempInformation::MODE_SHOP_SELL_ALL_SKULL;
 			
 			//-------------------------------------------------
-			// ´Ù¸¥ ¾ÆÀÌÅÛ¿¡ Á¢±Ù ¸øÇÏµµ·Ï..
+			// Â´Ã™Â¸Â¥ Â¾Ã†Ã€ÃŒÃ…Ã›Â¿Â¡ ÃÂ¢Â±Ã™ Â¸Ã¸Ã‡ÃÂµÂµÂ·Ã..
 			//-------------------------------------------------
 			UI_LockItemTrade();
 	}
@@ -5384,7 +5395,7 @@ UIMessageManager::Execute_UI_BACKGROUND_MOUSE_FOCUS(int left, int right, void* v
 /*
 //-----------------------------------------------------------------------------
 //
-// Skill View¸¦ ´İÀ» ¶§,
+// Skill ViewÂ¸Â¦ Â´ÃÃ€Â» Â¶Â§,
 //
 //-----------------------------------------------------------------------------
 void
@@ -5401,17 +5412,17 @@ UIMessageManager::Execute_UI_CLOSE_SKILL_VIEW(int left, int right, void* void_pt
 	
 	gC_vs_ui.CloseSkillView();
 
-	// ´Ù½Ã ¹º°¡¸¦?¼±ÅÃÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+	// Â´Ã™Â½Ãƒ Â¹ÂºÂ°Â¡Â¸Â¦?Â¼Â±Ã…ÃƒÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â°Ã” Ã‡Ã‘Â´Ã™.
 	//g_pUIDialog->ShowPCTalkDlg();
 
-	// mode Á¦°Å
+	// mode ÃÂ¦Â°Ã…
 	//(*g_pTempInformation).Mode = TempInformation::MODE_NULL;
 }
 
 
 //-----------------------------------------------------------------------------
 //
-//	SkillÀ» ¹è¿î´Ù°í ÇßÀ» ¶§,
+//	SkillÃ€Â» Â¹Ã¨Â¿Ã®Â´Ã™Â°Ã­ Ã‡ÃŸÃ€Â» Â¶Â§,
 //
 //-----------------------------------------------------------------------------
 void
@@ -5450,7 +5461,7 @@ UIMessageManager::Execute_UI_LEARN_SLAYER_SKILL(int left, int right, void* void_
 */
 //-----------------------------------------------------------------------------
 //
-// PDS¸¦ ´İÀ» ¶§,
+// PDSÂ¸Â¦ Â´ÃÃ€Â» Â¶Â§,
 //
 //-----------------------------------------------------------------------------
 /*
@@ -5465,7 +5476,7 @@ UIMessageManager::Execute_UI_PDS_CLOSED(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// Slayer Á¤º¸ º¸±â Àü¿¡ °ª ¼³Á¤ÇØÁÖ±â..
+// Slayer ÃÂ¤ÂºÂ¸ ÂºÂ¸Â±Ã¢ Ã€Ã¼Â¿Â¡ Â°Âª Â¼Â³ÃÂ¤Ã‡Ã˜ÃÃ–Â±Ã¢..
 //
 //-----------------------------------------------------------------------------
 /*
@@ -5495,7 +5506,7 @@ UIMessageManager::Execute_UI_PLEASE_SET_SLAYER_VALUE(int left, int right, void* 
 
 //-----------------------------------------------------------------------------
 //
-// PCS ¹øÈ£¸¦ ¹ŞÀ» ¶§ --> ´Ù¸¥ »ç¶÷°ú ÅëÈ­ÇÒ·Á°í..
+// PCS Â¹Ã¸ÃˆÂ£Â¸Â¦ Â¹ÃÃ€Â» Â¶Â§ --> Â´Ã™Â¸Â¥ Â»Ã§Â¶Ã·Â°Ãº Ã…Ã«ÃˆÂ­Ã‡Ã’Â·ÃÂ°Ã­..
 //
 //-----------------------------------------------------------------------------
 /*
@@ -5511,7 +5522,7 @@ UIMessageManager::Execute_UI_SEND_PCS_NUMBER(int left, int right, void* void_ptr
 
 
 	//-------------------------------------------
-	// Server¿¡ Á¢¼ÓÇØ ÀÖÀ» ¶§,
+	// ServerÂ¿Â¡ ÃÂ¢Â¼Ã“Ã‡Ã˜ Ã€Ã–Ã€Â» Â¶Â§,
 	//-------------------------------------------
 	#ifdef CONNECT_SERVER
 		CGDialUp _CGDialUp;
@@ -5529,19 +5540,19 @@ UIMessageManager::Execute_UI_SEND_PCS_NUMBER(int left, int right, void* void_ptr
 		UI_OnLinePCS(str, left);
 	#endif
 
-	//gC_vs_ui.OnLinePCS(); // PCS°¡ ¿¬°áµÇ¾úÀ» ¶§ ÇØÁà¾ß ÇÑ´Ù!
+	//gC_vs_ui.OnLinePCS(); // PCSÂ°Â¡ Â¿Â¬Â°Ã¡ÂµÃ‡Â¾ÃºÃ€Â» Â¶Â§ Ã‡Ã˜ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™!
 }
  */
 
 //-----------------------------------------------------------------------------
 //
-// Á¢¼Ó µÆÀ» ¶§
+// ÃÂ¢Â¼Ã“ ÂµÃ†Ã€Â» Â¶Â§
 //
 //-----------------------------------------------------------------------------
 /*
 case UI_PCS_CONNECTOR_GRANTED:
 //
-// ´ë±â¹æ¿¡ ÀÖ´Â »ç¶÷°ú ¿¬°áÇÔ.
+// Â´Ã«Â±Ã¢Â¹Ã¦Â¿Â¡ Ã€Ã–Â´Ã‚ Â»Ã§Â¶Ã·Â°Ãº Â¿Â¬Â°Ã¡Ã‡Ã”.
 //
 // left = pcs number
 //
@@ -5553,10 +5564,10 @@ break;
 
 //-----------------------------------------------------------------------------
 //
-// PCS Á¢¼ÓÁß¿¡ ³¡³¾¶§..
+// PCS ÃÂ¢Â¼Ã“ÃÃŸÂ¿Â¡ Â³Â¡Â³Â¾Â¶Â§..
 //
 //-----------------------------------------------------------------------------
-// PCS Ã¢¿¡¼­ PCS number¸¦ sendÇÏ°í connecting Áß¿¡ END¸¦ ´­·¶´Ù.
+// PCS ÃƒÂ¢Â¿Â¡Â¼Â­ PCS numberÂ¸Â¦ sendÃ‡ÃÂ°Ã­ connecting ÃÃŸÂ¿Â¡ ENDÂ¸Â¦ Â´Â­Â·Â¶Â´Ã™.
 /*
 void
 UIMessageManager::Execute_UI_END_PCS(int left, int right, void* void_ptr) 
@@ -5564,7 +5575,7 @@ UIMessageManager::Execute_UI_END_PCS(int left, int right, void* void_ptr)
 	DEBUG_ADD("[UI] UI_END_PCS");
 	
 	//------------------------------------------------
-	// ¸ğµç Á¢¼ÓÀ» ´Ù ²÷´Â´Ù.
+	// Â¸Ã°ÂµÃ§ ÃÂ¢Â¼Ã“Ã€Â» Â´Ã™ Â²Ã·Â´Ã‚Â´Ã™.
 	//------------------------------------------------
 	#ifdef	CONNECT_SERVER			
 		CGPhoneDisconnect _CGPhoneDisconnect;
@@ -5585,7 +5596,7 @@ UIMessageManager::Execute_UI_END_PCS(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// Online »óÅÂ¿¡¼­ PCS³¡³¾¶§
+// Online Â»Ã³Ã…Ã‚Â¿Â¡Â¼Â­ PCSÂ³Â¡Â³Â¾Â¶Â§
 //
 //-----------------------------------------------------------------------------
 /*
@@ -5593,12 +5604,12 @@ void
 UIMessageManager::Execute_UI_QUIT_PCS_ONLINE_MODE(int left, int right, void* void_ptr)
 {
 	//
-	// PCS online mode¿¡¼­ quit ¹öÆ°À» ´­·¶´Ù.
+	// PCS online modeÂ¿Â¡Â¼Â­ quit Â¹Ã¶Ã†Â°Ã€Â» Â´Â­Â·Â¶Â´Ã™.
 	//
 	DEBUG_ADD("[UI] UI_QUIT_PCS_ONLINE_MODE");
 	
 	//------------------------------------------------
-	// ¸ğµç Á¢¼ÓÀ» ´Ù ²÷´Â´Ù.
+	// Â¸Ã°ÂµÃ§ ÃÂ¢Â¼Ã“Ã€Â» Â´Ã™ Â²Ã·Â´Ã‚Â´Ã™.
 	//------------------------------------------------
 	#ifdef	CONNECT_SERVER			
 		CGPhoneDisconnect _CGPhoneDisconnect;
@@ -5621,7 +5632,7 @@ UIMessageManager::Execute_UI_QUIT_PCS_ONLINE_MODE(int left, int right, void* voi
 
 //-----------------------------------------------------------------------------
 //
-// ´Ù¸¥ »ç¶÷À¸·Î ¹Ù²Ş.
+// Â´Ã™Â¸Â¥ Â»Ã§Â¶Ã·Ã€Â¸Â·Ã Â¹Ã™Â²Ã.
 //
 //-----------------------------------------------------------------------------
 /*
@@ -5629,7 +5640,7 @@ void
 UIMessageManager::Execute_UI_CHANGE_PCS_CONNECTED_SLOT(int left, int right, void* void_ptr)
 {
 	//
-	// ¶Ç ´Ù¸¥ ¿¬°áµÈ »ç¶÷À¸·Î ¹Ù²Ş.
+	// Â¶Ã‡ Â´Ã™Â¸Â¥ Â¿Â¬Â°Ã¡ÂµÃˆ Â»Ã§Â¶Ã·Ã€Â¸Â·Ã Â¹Ã™Â²Ã.
 	//
 	// left = pcs number
 	// right = slot 
@@ -5644,16 +5655,16 @@ UIMessageManager::Execute_UI_CHANGE_PCS_CONNECTED_SLOT(int left, int right, void
 
 //-----------------------------------------------------------------------------
 //
-// Online »óÅÂ¿¡¼­ PCS³¡³¾¶§
+// Online Â»Ã³Ã…Ã‚Â¿Â¡Â¼Â­ PCSÂ³Â¡Â³Â¾Â¶Â§
 //
 //-----------------------------------------------------------------------------
-// ´ë±â¹æ click! (ÀÌ¹Ì ¿¬°á-duplex-µÇÁö ¾Ê¾ÒÀ½)
+// Â´Ã«Â±Ã¢Â¹Ã¦ click! (Ã€ÃŒÂ¹ÃŒ Â¿Â¬Â°Ã¡-duplex-ÂµÃ‡ÃÃ¶ Â¾ÃŠÂ¾Ã’Ã€Â½)
 /*
 void
 UIMessageManager::Execute_UI_PLEASE_PCS_CONNECT_ME(int left, int right, void* void_ptr)
 {
 	//
-	// »ç¶÷ÀÌ ÀÖ´Â ´ë±â¹æÀ» Å¬¸¯ÇÏ¿´´Ù. (¸Ş½ÃÁö¸¦ ¼Û½Å ÇÏ±â À§ÇØ¼­)
+	// Â»Ã§Â¶Ã·Ã€ÃŒ Ã€Ã–Â´Ã‚ Â´Ã«Â±Ã¢Â¹Ã¦Ã€Â» Ã…Â¬Â¸Â¯Ã‡ÃÂ¿Â´Â´Ã™. (Â¸ÃÂ½ÃƒÃÃ¶Â¸Â¦ Â¼Ã›Â½Ã… Ã‡ÃÂ±Ã¢ Ã€Â§Ã‡Ã˜Â¼Â­)
 	//
 	// left = pcs number
 	// right = slot 
@@ -5662,7 +5673,7 @@ UIMessageManager::Execute_UI_PLEASE_PCS_CONNECT_ME(int left, int right, void* vo
 	
 	int slot = right;
 
-	// Å¬¸¯µÈ slot°ú ¿¬°áÇÔ.
+	// Ã…Â¬Â¸Â¯ÂµÃˆ slotÂ°Ãº Â¿Â¬Â°Ã¡Ã‡Ã”.
 	gC_vs_ui.GrantPCSWaitRoomToDuplex( slot );
 }
 */
@@ -5713,7 +5724,7 @@ UIMessageManager::Execute_UI_DROP_MONEY(int left, int right, void* void_ptr)
 {
 	return;
 	//
-	// ÀÎº¥Åä¸®¿¡¼­ µ·À» dropÇÑ´Ù.
+	// Ã€ÃÂºÂ¥Ã…Ã¤Â¸Â®Â¿Â¡Â¼Â­ ÂµÂ·Ã€Â» dropÃ‡Ã‘Â´Ã™.
 	//
 	// left = money
 	//
@@ -5728,7 +5739,7 @@ UIMessageManager::Execute_UI_DROP_MONEY(int left, int right, void* void_ptr)
 
 	
 	//-----------------------------------------------------------------------------
-	// µ·ÀÌ 0ÀÌ¸é ¾ÈµÈ´Ù.
+	// ÂµÂ·Ã€ÃŒ 0Ã€ÃŒÂ¸Ã© Â¾ÃˆÂµÃˆÂ´Ã™.
 	//-----------------------------------------------------------------------------
 	if (left > 0)
 	{
@@ -5742,7 +5753,7 @@ UIMessageManager::Execute_UI_DROP_MONEY(int left, int right, void* void_ptr)
 				
 
 			//-----------------------------------------------
-			// µ· ÁÙ¿©¹ö¸°´Ù.
+			// ÂµÂ· ÃÃ™Â¿Â©Â¹Ã¶Â¸Â°Â´Ã™.
 			//-----------------------------------------------
 			g_pMoneyManager->UseMoney( left );
 		}
@@ -5755,16 +5766,16 @@ UIMessageManager::Execute_UI_DROP_MONEY(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// Click Bonus Point - º¸³Ê½º Æ÷ÀÎÆ® ¿Ã¸±¶§,
+// Click Bonus Point - ÂºÂ¸Â³ÃŠÂ½Âº Ã†Ã·Ã€ÃÃ†Â® Â¿ÃƒÂ¸Â±Â¶Â§,
 //
 //-----------------------------------------------------------------------------
 void
 UIMessageManager::Execute_UI_CLICK_BONUS_POINT(int left, int right, void* void_ptr)
 {
 	//
-	// vampire bonus point¸¦ ¿Ã¸®±â À§ÇØ ¹öÆ°À» ´­·¶´Ù.
+	// vampire bonus pointÂ¸Â¦ Â¿ÃƒÂ¸Â®Â±Ã¢ Ã€Â§Ã‡Ã˜ Â¹Ã¶Ã†Â°Ã€Â» Â´Â­Â·Â¶Â´Ã™.
 	//
-	// g_char_slot_ingameÀÇ bonus point¸¦ °Ë»öÇÏ¸é ¾ó¸¶³ª ³²¾Ò´ÂÁö ¾Ë ¼ö ÀÖ´Ù.
+	// g_char_slot_ingameÃ€Ã‡ bonus pointÂ¸Â¦ Â°Ã‹Â»Ã¶Ã‡ÃÂ¸Ã© Â¾Ã³Â¸Â¶Â³Âª Â³Â²Â¾Ã’Â´Ã‚ÃÃ¶ Â¾Ã‹ Â¼Ã¶ Ã€Ã–Â´Ã™.
 	//
 	// left = { 0:STR, 1:DEX, 2:INT }
 	//
@@ -5785,19 +5796,19 @@ UIMessageManager::Execute_UI_CLICK_BONUS_POINT(int left, int right, void* void_p
 		INC_INT
 	};
 
-	// ±â¾ïÇØµÎ±â À§ÇØ¼­...
+	// Â±Ã¢Â¾Ã¯Ã‡Ã˜ÂµÃÂ±Ã¢ Ã€Â§Ã‡Ã˜Â¼Â­...
 	if ((*g_pTempInformation).Mode==TempInformation::MODE_NULL)
 	{
 		int bonusPoint = g_pPlayer->GetBonusPoint();
 
 		//----------------------------------------------
-		// vampireÀÌ°í bonuspoint°¡ ÀÖÀ» ¶§,
+		// vampireÃ€ÃŒÂ°Ã­ bonuspointÂ°Â¡ Ã€Ã–Ã€Â» Â¶Â§,
 		//----------------------------------------------
-		// 2005, 1, 18, sobeit modify start - ½ÂÁ÷ ½½·¹´Â º¸³Ê½º Æ÷ÀÎÆ®°¡ ÀÖ´Ù.
+		// 2005, 1, 18, sobeit modify start - Â½Ã‚ÃÃ· Â½Â½Â·Â¹Â´Ã‚ ÂºÂ¸Â³ÃŠÂ½Âº Ã†Ã·Ã€ÃÃ†Â®Â°Â¡ Ã€Ã–Â´Ã™.
 //		if (!g_pPlayer->IsSlayer()// || g_pPlayer->IsOusters()
 //			&& bonusPoint > 0)
 		if(bonusPoint > 0)
-		// 2005, 1, 18, sobeit modify end - ½ÂÁ÷ ½½·¹´Â º¸³Ê½º Æ÷ÀÎÆ®°¡ ÀÖ´Ù.
+		// 2005, 1, 18, sobeit modify end - Â½Ã‚ÃÃ· Â½Â½Â·Â¹Â´Ã‚ ÂºÂ¸Â³ÃŠÂ½Âº Ã†Ã·Ã€ÃÃ†Â®Â°Â¡ Ã€Ã–Â´Ã™.
 		{
 			
 				CGUseBonusPoint _CGUseBonusPoint;
@@ -5808,7 +5819,7 @@ UIMessageManager::Execute_UI_CLICK_BONUS_POINT(int left, int right, void* void_p
 
 				
 				//----------------------------------------------
-				// ¼±ÅÃÇÑ ºÎºĞ ±â¾ï
+				// Â¼Â±Ã…ÃƒÃ‡Ã‘ ÂºÃÂºÃ Â±Ã¢Â¾Ã¯
 				//----------------------------------------------
 				(*g_pTempInformation).Mode = TempInformation::MODE_BONUSPOINT_USE;
 				(*g_pTempInformation).Value1 = bonusPart[left];				
@@ -5821,14 +5832,14 @@ UIMessageManager::Execute_UI_CLICK_BONUS_POINT(int left, int right, void* void_p
 
 //-----------------------------------------------------------------------------
 //
-// CharInfo ¹öÆ°À» ´­·¶À» ¶§,
+// CharInfo Â¹Ã¶Ã†Â°Ã€Â» Â´Â­Â·Â¶Ã€Â» Â¶Â§,
 //
 //-----------------------------------------------------------------------------
 void
 UIMessageManager::Execute_UI_INFO(int left, int right, void* void_ptr)
 {
 	//
-	// character info buttonÀ» ´­·¶´Ù. ÀÚ½ÅÀÇ Á¤º¸¸¦ º¸¿©Áà¾ß ÇÑ´Ù!
+	// character info buttonÃ€Â» Â´Â­Â·Â¶Â´Ã™. Ã€ÃšÂ½Ã…Ã€Ã‡ ÃÂ¤ÂºÂ¸Â¸Â¦ ÂºÂ¸Â¿Â©ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™!
 	//
 //	DEBUG_ADD("[UI] UI_CHARINFO");
 //	
@@ -5846,20 +5857,20 @@ UIMessageManager::Execute_UI_INFO(int left, int right, void* void_ptr)
 //	}
 //
 //	//----------------------------------------------
-//	// ¿­·ÁÀÖÀ¸¸é ´İ´Â´Ù.
+//	// Â¿Â­Â·ÃÃ€Ã–Ã€Â¸Â¸Ã© Â´ÃÂ´Ã‚Â´Ã™.
 //	//----------------------------------------------
 //	if (gC_vs_ui.IsRunningCharInfo())
 //	{
 //		gC_vs_ui.CloseCharInfo();
 //	}
 //	//----------------------------------------------
-//	// ¶ç¿î´Ù.
+//	// Â¶Ã§Â¿Ã®Â´Ã™.
 //	//----------------------------------------------
 //	else
 //	{
 //		// set slot
 //
-//		// g_char_slot_ingame °ÔÀÓ½ÇÇà Áß °Ô¼Ó ¼³Á¤ÇØÁà¾ß ÇÑ´Ù.
+//		// g_char_slot_ingame Â°Ã”Ã€Ã“Â½Ã‡Ã‡Ã  ÃÃŸ Â°Ã”Â¼Ã“ Â¼Â³ÃÂ¤Ã‡Ã˜ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 //		/*
 //		g_char_slot_ingame.sz_name = "yaho";
 //		g_char_slot_ingame.bl_vampire = true;//false;
@@ -5981,7 +5992,7 @@ UIMessageManager::Execute_UI_INFO(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// ¼ö¸®ÇÒ·Á´Â ¹°°ÇÀ» ¼±ÅÃÇßÀ» ¶§,
+// Â¼Ã¶Â¸Â®Ã‡Ã’Â·ÃÂ´Ã‚ Â¹Â°Â°Ã‡Ã€Â» Â¼Â±Ã…ÃƒÃ‡ÃŸÃ€Â» Â¶Â§,
 //
 //-----------------------------------------------------------------------------
 //
@@ -6000,19 +6011,19 @@ UIMessageManager::Execute_UI_REPAIR_ITEM(int left, int right, void* void_ptr)
 	}
 
 	
-	// °ËÁõÇÒ°Ô ¾ø´Â °æ¿ì
+	// Â°Ã‹ÃÃµÃ‡Ã’Â°Ã” Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 	if (g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
 	{
 		MItem* pItem = NULL;// = (MItem*)void_ptr;
 		int itemID = left;
 
 		//-------------------------------------------------------------
-		// itemID°¡ 0ÀÎ °æ¿ì´Â ÀüÃ¼ ´Ù ¼ö¸®
+		// itemIDÂ°Â¡ 0Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ Ã€Ã¼ÃƒÂ¼ Â´Ã™ Â¼Ã¶Â¸Â®
 		//-------------------------------------------------------------
 		if (itemID==0)
 		{
 			//-----------------------------------------------------
-			// ¾ÆÀÌÅÛÀ» ¼ö¸®ÇÏ±â À§ÇÑ packetÀ» º¸³½´Ù.
+			// Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» Â¼Ã¶Â¸Â®Ã‡ÃÂ±Ã¢ Ã€Â§Ã‡Ã‘ packetÃ€Â» ÂºÂ¸Â³Â½Â´Ã™.
 			//-----------------------------------------------------
 				CGRequestRepair	_CGRequestRepair;
 
@@ -6021,20 +6032,20 @@ UIMessageManager::Execute_UI_REPAIR_ITEM(int left, int right, void* void_ptr)
 				g_pSocket->sendPacket( &_CGRequestRepair );
 			
 				//-------------------------------------------------
-				// °ËÁõÀ» À§ÇÑ Temp Information¼³Á¤
+				// Â°Ã‹ÃÃµÃ€Â» Ã€Â§Ã‡Ã‘ Temp InformationÂ¼Â³ÃÂ¤
 				//-------------------------------------------------
 				(*g_pTempInformation).Mode		= TempInformation::MODE_SHOP_REPAIR;
-				(*g_pTempInformation).Value1	= false;	// inventory¿¡ ÀÖ´Â itemÀÎ°¡?
-				(*g_pTempInformation).Value2	= true;		// gear¿¡ ÀÖ´Â itemÀÎ°¡?
+				(*g_pTempInformation).Value1	= false;	// inventoryÂ¿Â¡ Ã€Ã–Â´Ã‚ itemÃ€ÃÂ°Â¡?
+				(*g_pTempInformation).Value2	= true;		// gearÂ¿Â¡ Ã€Ã–Â´Ã‚ itemÃ€ÃÂ°Â¡?
 				(*g_pTempInformation).pValue	= NULL;
 
 				//-------------------------------------------------
-				// ´Ù¸¥ ¾ÆÀÌÅÛ¿¡ Á¢±Ù ¸øÇÏµµ·Ï..
+				// Â´Ã™Â¸Â¥ Â¾Ã†Ã€ÃŒÃ…Ã›Â¿Â¡ ÃÂ¢Â±Ã™ Â¸Ã¸Ã‡ÃÂµÂµÂ·Ã..
 				//-------------------------------------------------
 				UI_LockItemTrade();
 		}
 		//-------------------------------------------------------------
-		// item ÇÏ³ª¸¸ ¼ö¸®
+		// item Ã‡ÃÂ³ÂªÂ¸Â¸ Â¼Ã¶Â¸Â®
 		//-------------------------------------------------------------
 		else
 		{
@@ -6042,14 +6053,14 @@ UIMessageManager::Execute_UI_REPAIR_ITEM(int left, int right, void* void_ptr)
 			BOOL bInGear = FALSE;
 
 			//------------------------------------------------------------------------------
-			// inventory¿¡¼­ Ã£´Â´Ù.
+			// inventoryÂ¿Â¡Â¼Â­ ÃƒÂ£Â´Ã‚Â´Ã™.
 			//------------------------------------------------------------------------------
 			pItem = g_pInventory->GetItemToModify( itemID );
 
 			if (pItem==NULL)
 			{
 				//------------------------------------------------------------------------------
-				// gear¿¡¼­ Ã£´Â´Ù.
+				// gearÂ¿Â¡Â¼Â­ ÃƒÂ£Â´Ã‚Â´Ã™.
 				//------------------------------------------------------------------------------
 				switch(g_pPlayer->GetRace())
 				{
@@ -6087,13 +6098,13 @@ UIMessageManager::Execute_UI_REPAIR_ITEM(int left, int right, void* void_ptr)
 			}
 
 			//-------------------------------------------------
-			// inventory³ª gear¿¡ ÀÖ´Ù¸é ¼ö¸®ÇÑ´Ù.
+			// inventoryÂ³Âª gearÂ¿Â¡ Ã€Ã–Â´Ã™Â¸Ã© Â¼Ã¶Â¸Â®Ã‡Ã‘Â´Ã™.
 			//-------------------------------------------------
 			if (bInInventory || bInGear)
 			{
 				//-------------------------------------------------
-				// ¼ö¸®ÇÒ ¼ö ÀÖ´Â itemÀÎÁö Ã¼Å©ÇÑ´Ù.
-				// ¿­¼è´Â ¿ÀÅä¹ÙÀÌ ¼ö¸®¸¦ ÀÇ¹ÌÇÑ´Ù.
+				// Â¼Ã¶Â¸Â®Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã‚ itemÃ€ÃÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
+				// Â¿Â­Â¼Ã¨Â´Ã‚ Â¿Ã€Ã…Ã¤Â¹Ã™Ã€ÃŒ Â¼Ã¶Â¸Â®Â¸Â¦ Ã€Ã‡Â¹ÃŒÃ‡Ã‘Â´Ã™.
 				//-------------------------------------------------
 				if (pItem->GetItemClass() != ITEM_CLASS_VAMPIRE_AMULET
 					|| !pItem->IsUniqueItem()
@@ -6103,24 +6114,24 @@ UIMessageManager::Execute_UI_REPAIR_ITEM(int left, int right, void* void_ptr)
 					|| pItem->IsChargeItem())
 				{
 					//-------------------------------------------------
-					// µ·ÀÌ ÃæºĞÇÑÁö Ã¼Å©ÇÑ´Ù.
+					// ÂµÂ·Ã€ÃŒ ÃƒÃ¦ÂºÃÃ‡Ã‘ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
 					//-------------------------------------------------
 					int price = g_pPriceManager->GetItemPrice(pItem, MPriceManager::REPAIR);
 					int money = g_pMoneyManager->GetMoney();
 
 					//-------------------------------------------------					
-					// °¡°İÀÌ 0ÀÌ¸é ¼ö¸®ÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
-					// ´Ü, key´Â ¿ÀÅä¹ÙÀÌ ¼ö¸®¿¡ ÀÌ¿ëµÈ´Ù.
+					// Â°Â¡Â°ÃÃ€ÃŒ 0Ã€ÃŒÂ¸Ã© Â¼Ã¶Â¸Â®Ã‡Ã’ Ã‡ÃŠÂ¿Ã¤Â°Â¡ Â¾Ã¸Â´Ã™.
+					// Â´Ãœ, keyÂ´Ã‚ Â¿Ã€Ã…Ã¤Â¹Ã™Ã€ÃŒ Â¼Ã¶Â¸Â®Â¿Â¡ Ã€ÃŒÂ¿Ã«ÂµÃˆÂ´Ã™.
 					//-------------------------------------------------					
 					if (price!=0 || pItem->GetItemClass()==ITEM_CLASS_KEY)
 					{
 						//-------------------------------------------------
-						// µ·ÀÌ ÃæºĞÇÑ °æ¿ì
+						// ÂµÂ·Ã€ÃŒ ÃƒÃ¦ÂºÃÃ‡Ã‘ Â°Ã¦Â¿Ã¬
 						//-------------------------------------------------
 						if (money!=0 && price <= money)
 						{														
 							//-----------------------------------------------------
-							// ¾ÆÀÌÅÛÀ» ¼ö¸®ÇÏ±â À§ÇÑ packetÀ» º¸³½´Ù.
+							// Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» Â¼Ã¶Â¸Â®Ã‡ÃÂ±Ã¢ Ã€Â§Ã‡Ã‘ packetÃ€Â» ÂºÂ¸Â³Â½Â´Ã™.
 							//-----------------------------------------------------
 								CGRequestRepair	_CGRequestRepair;
 
@@ -6129,20 +6140,20 @@ UIMessageManager::Execute_UI_REPAIR_ITEM(int left, int right, void* void_ptr)
 								g_pSocket->sendPacket( &_CGRequestRepair );
 							
 								//-------------------------------------------------
-								// °ËÁõÀ» À§ÇÑ Temp Information¼³Á¤
+								// Â°Ã‹ÃÃµÃ€Â» Ã€Â§Ã‡Ã‘ Temp InformationÂ¼Â³ÃÂ¤
 								//-------------------------------------------------
 								(*g_pTempInformation).Mode		= TempInformation::MODE_SHOP_REPAIR;
-								(*g_pTempInformation).Value1	= bInInventory;	// inventory¿¡ ÀÖ´Â itemÀÎ°¡?
-								(*g_pTempInformation).Value2	= bInGear;		// gear¿¡ ÀÖ´Â itemÀÎ°¡?
+								(*g_pTempInformation).Value1	= bInInventory;	// inventoryÂ¿Â¡ Ã€Ã–Â´Ã‚ itemÃ€ÃÂ°Â¡?
+								(*g_pTempInformation).Value2	= bInGear;		// gearÂ¿Â¡ Ã€Ã–Â´Ã‚ itemÃ€ÃÂ°Â¡?
 								(*g_pTempInformation).pValue	= (void*)pItem;
 
 								//-------------------------------------------------
-								// ´Ù¸¥ ¾ÆÀÌÅÛ¿¡ Á¢±Ù ¸øÇÏµµ·Ï..
+								// Â´Ã™Â¸Â¥ Â¾Ã†Ã€ÃŒÃ…Ã›Â¿Â¡ ÃÂ¢Â±Ã™ Â¸Ã¸Ã‡ÃÂµÂµÂ·Ã..
 								//-------------------------------------------------
 								UI_LockItemTrade();
 						}
 						//-------------------------------------------------
-						// µ·ÀÌ ºÎÁ·ÇÑ °æ¿ì
+						// ÂµÂ·Ã€ÃŒ ÂºÃÃÂ·Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 						//-------------------------------------------------					
 						else
 						{
@@ -6150,7 +6161,7 @@ UIMessageManager::Execute_UI_REPAIR_ITEM(int left, int right, void* void_ptr)
 						}
 					}
 					//-------------------------------------------------
-					// ¼ö¸®ÇÒ ÇÊ¿ä°¡ ¾ø´Â °æ¿ì
+					// Â¼Ã¶Â¸Â®Ã‡Ã’ Ã‡ÃŠÂ¿Ã¤Â°Â¡ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 					//-------------------------------------------------
 					else
 					{
@@ -6158,7 +6169,7 @@ UIMessageManager::Execute_UI_REPAIR_ITEM(int left, int right, void* void_ptr)
 					}
 				}
 				//-------------------------------------------------
-				// ¼ö¸®ÇÒ ÇÊ¿ä°¡ ¾ø´Â °æ¿ì
+				// Â¼Ã¶Â¸Â®Ã‡Ã’ Ã‡ÃŠÂ¿Ã¤Â°Â¡ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 				//-------------------------------------------------
 				else
 				{
@@ -6171,7 +6182,7 @@ UIMessageManager::Execute_UI_REPAIR_ITEM(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// Silvering ¹°°ÇÀ» ¼±ÅÃÇßÀ» ¶§,
+// Silvering Â¹Â°Â°Ã‡Ã€Â» Â¼Â±Ã…ÃƒÃ‡ÃŸÃ€Â» Â¶Â§,
 //
 //-----------------------------------------------------------------------------
 //
@@ -6190,7 +6201,7 @@ UIMessageManager::Execute_UI_SILVERING_ITEM(int left, int right, void* void_ptr)
 	}
 
 	
-	// °ËÁõÇÒ°Ô ¾ø´Â °æ¿ì
+	// Â°Ã‹ÃÃµÃ‡Ã’Â°Ã” Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 	if (g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
 	{
 		MItem* pItem = NULL;// = (MItem*)void_ptr;
@@ -6200,14 +6211,14 @@ UIMessageManager::Execute_UI_SILVERING_ITEM(int left, int right, void* void_ptr)
 		BOOL bInGear = FALSE;
 
 		//------------------------------------------------------------------------------
-		// inventory¿¡¼­ Ã£´Â´Ù.
+		// inventoryÂ¿Â¡Â¼Â­ ÃƒÂ£Â´Ã‚Â´Ã™.
 		//------------------------------------------------------------------------------
 		pItem = g_pInventory->GetItemToModify( itemID );
 
 		if (pItem==NULL)
 		{
 			//------------------------------------------------------------------------------
-			// gear¿¡¼­ Ã£´Â´Ù.
+			// gearÂ¿Â¡Â¼Â­ ÃƒÂ£Â´Ã‚Â´Ã™.
 			//------------------------------------------------------------------------------
 			switch(g_pPlayer->GetRace())
 			{
@@ -6245,33 +6256,33 @@ UIMessageManager::Execute_UI_SILVERING_ITEM(int left, int right, void* void_ptr)
 		}
 
 		//-------------------------------------------------
-		// inventory³ª gear¿¡ ÀÖ´Ù¸é silveringÇÑ´Ù..
+		// inventoryÂ³Âª gearÂ¿Â¡ Ã€Ã–Â´Ã™Â¸Ã© silveringÃ‡Ã‘Â´Ã™..
 		//-------------------------------------------------
 		if (bInInventory || bInGear)
 		{
 			//-------------------------------------------------
-			// Silvering ÇÒ ¼ö ÀÖ´Â itemÀÎÁö Ã¼Å©ÇÑ´Ù.
+			// Silvering Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã‚ itemÃ€ÃÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
 			//-------------------------------------------------
 			if (pItem->GetSilverMax() > 0)
 			{
 				//-------------------------------------------------
-				// µ·ÀÌ ÃæºĞÇÑÁö Ã¼Å©ÇÑ´Ù.
+				// ÂµÂ·Ã€ÃŒ ÃƒÃ¦ÂºÃÃ‡Ã‘ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
 				//-------------------------------------------------
 				int price = (*g_pPriceManager).GetItemPrice(pItem, MPriceManager::SILVERING);
 				int money = (*g_pMoneyManager).GetMoney();
 
 				//-------------------------------------------------					
-				// °¡°İÀÌ 0ÀÌ¸é silvering ÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+				// Â°Â¡Â°ÃÃ€ÃŒ 0Ã€ÃŒÂ¸Ã© silvering Ã‡Ã’ Ã‡ÃŠÂ¿Ã¤Â°Â¡ Â¾Ã¸Â´Ã™.
 				//-------------------------------------------------					
 				if (price!=0)
 				{
 					//-------------------------------------------------
-					// µ·ÀÌ ÃæºĞÇÑ °æ¿ì
+					// ÂµÂ·Ã€ÃŒ ÃƒÃ¦ÂºÃÃ‡Ã‘ Â°Ã¦Â¿Ã¬
 					//-------------------------------------------------
 					if (money!=0 && price <= money)
 					{														
 						//-----------------------------------------------------
-						// ¾ÆÀÌÅÛÀ» silverigÇÏ±â À§ÇÑ packetÀ» º¸³½´Ù.
+						// Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» silverigÃ‡ÃÂ±Ã¢ Ã€Â§Ã‡Ã‘ packetÃ€Â» ÂºÂ¸Â³Â½Â´Ã™.
 						//-----------------------------------------------------
 							CGSilverCoating	_CGSilverCoating;
 
@@ -6280,20 +6291,20 @@ UIMessageManager::Execute_UI_SILVERING_ITEM(int left, int right, void* void_ptr)
 							g_pSocket->sendPacket( &_CGSilverCoating );
 						
 							//-------------------------------------------------
-							// °ËÁõÀ» À§ÇÑ Temp Information¼³Á¤
+							// Â°Ã‹ÃÃµÃ€Â» Ã€Â§Ã‡Ã‘ Temp InformationÂ¼Â³ÃÂ¤
 							//-------------------------------------------------
 							(*g_pTempInformation).Mode		= TempInformation::MODE_SHOP_SILVERING;
-							(*g_pTempInformation).Value1	= bInInventory;	// inventory¿¡ ÀÖ´Â itemÀÎ°¡?
-							(*g_pTempInformation).Value2	= bInGear;		// gear¿¡ ÀÖ´Â itemÀÎ°¡?
+							(*g_pTempInformation).Value1	= bInInventory;	// inventoryÂ¿Â¡ Ã€Ã–Â´Ã‚ itemÃ€ÃÂ°Â¡?
+							(*g_pTempInformation).Value2	= bInGear;		// gearÂ¿Â¡ Ã€Ã–Â´Ã‚ itemÃ€ÃÂ°Â¡?
 							(*g_pTempInformation).pValue	= (void*)pItem;
 
 							//-------------------------------------------------
-							// ´Ù¸¥ ¾ÆÀÌÅÛ¿¡ Á¢±Ù ¸øÇÏµµ·Ï..
+							// Â´Ã™Â¸Â¥ Â¾Ã†Ã€ÃŒÃ…Ã›Â¿Â¡ ÃÂ¢Â±Ã™ Â¸Ã¸Ã‡ÃÂµÂµÂ·Ã..
 							//-------------------------------------------------
 							UI_LockItemTrade();
 					}
 					//-------------------------------------------------
-					// µ·ÀÌ ºÎÁ·ÇÑ °æ¿ì
+					// ÂµÂ·Ã€ÃŒ ÂºÃÃÂ·Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 					//-------------------------------------------------					
 					else
 					{
@@ -6301,7 +6312,7 @@ UIMessageManager::Execute_UI_SILVERING_ITEM(int left, int right, void* void_ptr)
 					}
 				}
 				//-------------------------------------------------
-				// SilveringÇÒ ÇÊ¿ä°¡ ¾ø´Â °æ¿ì
+				// SilveringÃ‡Ã’ Ã‡ÃŠÂ¿Ã¤Â°Â¡ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 				//-------------------------------------------------
 				else
 				{
@@ -6309,7 +6320,7 @@ UIMessageManager::Execute_UI_SILVERING_ITEM(int left, int right, void* void_ptr)
 				}
 			}
 			//-------------------------------------------------
-			// ¼ö¸®ÇÒ ÇÊ¿ä°¡ ¾ø´Â °æ¿ì
+			// Â¼Ã¶Â¸Â®Ã‡Ã’ Ã‡ÃŠÂ¿Ã¤Â°Â¡ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 			//-------------------------------------------------
 			else
 			{
@@ -6321,7 +6332,7 @@ UIMessageManager::Execute_UI_SILVERING_ITEM(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// ¼ö¸® ±×¸¸µÎ±â
+// Â¼Ã¶Â¸Â® Â±Ã—Â¸Â¸ÂµÃÂ±Ã¢
 //
 //-----------------------------------------------------------------------------
 void
@@ -6341,14 +6352,14 @@ UIMessageManager::Execute_UI_ITEM_REPAIR_FINISHED(int left, int right, void* voi
 	{
 		gC_vs_ui.FinishItemRepairing();
 
-		// ´Ù½Ã ¹º°¡¸¦?¼±ÅÃÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+		// Â´Ã™Â½Ãƒ Â¹ÂºÂ°Â¡Â¸Â¦?Â¼Â±Ã…ÃƒÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â°Ã” Ã‡Ã‘Â´Ã™.
 		g_pUIDialog->ShowPCTalkDlg();
 	}
 }
 
 //-----------------------------------------------------------------------------
 //
-// silvering ±×¸¸µÎ±â
+// silvering Â±Ã—Â¸Â¸ÂµÃÂ±Ã¢
 //
 //-----------------------------------------------------------------------------
 void
@@ -6369,14 +6380,14 @@ UIMessageManager::Execute_UI_ITEM_SILVERING_FINISHED(int left, int right, void* 
 	{
 		gC_vs_ui.FinishItemSilvering();
 
-		// ´Ù½Ã ¹º°¡¸¦?¼±ÅÃÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+		// Â´Ã™Â½Ãƒ Â¹ÂºÂ°Â¡Â¸Â¦?Â¼Â±Ã…ÃƒÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â°Ã” Ã‡Ã‘Â´Ã™.
 		g_pUIDialog->ShowPCTalkDlg();
 	}
 }
 
 //-----------------------------------------------------------------------------
 //
-// ´É·ÂÄ¡
+// Â´Ã‰Â·Ã‚Ã„Â¡
 //
 //-----------------------------------------------------------------------------
 void
@@ -6397,7 +6408,7 @@ UIMessageManager::Execute_UI_FINISH_LEVELUP_BUTTON(int left, int right, void* vo
 
 //-----------------------------------------------------------------------------
 //
-// °ÔÀÓ¸Ş´º ¶ç¿ï¶§, ´Ù¸¥ °Å ´Ù ´İ´Â´Ù.
+// Â°Ã”Ã€Ã“Â¸ÃÂ´Âº Â¶Ã§Â¿Ã¯Â¶Â§, Â´Ã™Â¸Â¥ Â°Ã… Â´Ã™ Â´ÃÂ´Ã‚Â´Ã™.
 //
 //-----------------------------------------------------------------------------
 void
@@ -6420,10 +6431,10 @@ UIMessageManager::Execute_UI_RUNNING_GAMEMENU(int left, int right, void* void_pt
 
 //-----------------------------------------------------------------------------
 //
-// º¸°üÇÔ »ç±â
+// ÂºÂ¸Â°Ã¼Ã‡Ã” Â»Ã§Â±Ã¢
 //
 //-----------------------------------------------------------------------------
-// left = »ê´Ù(TRUE), ¾È»ê´Ù(FALSE)
+// left = Â»ÃªÂ´Ã™(TRUE), Â¾ÃˆÂ»ÃªÂ´Ã™(FALSE)
 void
 UIMessageManager::Execute_UI_STORAGE_BUY(int left, int right, void* void_ptr)
 {
@@ -6440,14 +6451,14 @@ UIMessageManager::Execute_UI_STORAGE_BUY(int left, int right, void* void_ptr)
 	BOOL buy = (BOOL)left;
 
 	//-----------------------------------------------------------------------------
-	// º¸°üÇÔÀ» »ì·Á´Â »óÅÂ..
+	// ÂºÂ¸Â°Ã¼Ã‡Ã”Ã€Â» Â»Ã¬Â·ÃÂ´Ã‚ Â»Ã³Ã…Ã‚..
 	//-----------------------------------------------------------------------------
 	if (buy)
 	{
 		if (g_pTempInformation->GetMode()==TempInformation::MODE_STORAGE_BUY)
 		{		
 			//--------------------------------------------------------
-			// µ· Ã¼Å©
+			// ÂµÂ· ÃƒÂ¼Ã…Â©
 			//--------------------------------------------------------
 			if (g_pMoneyManager->GetMoney() >= g_pTempInformation->Value1)
 			{
@@ -6455,16 +6466,16 @@ UIMessageManager::Execute_UI_STORAGE_BUY(int left, int right, void* void_ptr)
 					
 					g_pSocket->sendPacket( &_CGStashRequestBuy );					
 
-				// mode ¼³Á¤
+				// mode Â¼Â³ÃÂ¤
 				g_pTempInformation->SetMode(TempInformation::MODE_STORAGE_BUY_WAIT);
 
 			}
 			//--------------------------------------------------------
-			// µ·ÀÌ ºÎÁ·ÇÑ °æ¿ì
+			// ÂµÂ·Ã€ÃŒ ÂºÃÃÂ·Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 			//--------------------------------------------------------
 			else
 			{
-				// ´Ù½Ã ¹º°¡¸¦?¼±ÅÃÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+				// Â´Ã™Â½Ãƒ Â¹ÂºÂ°Â¡Â¸Â¦?Â¼Â±Ã…ÃƒÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â°Ã” Ã‡Ã‘Â´Ã™.
 				g_pUIDialog->ShowPCTalkDlg();
 
 				g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_MESSAGE_CANNOT_BUY_NO_MONEY ].GetString());
@@ -6477,15 +6488,15 @@ UIMessageManager::Execute_UI_STORAGE_BUY(int left, int right, void* void_ptr)
 			DEBUG_ADD("[Error] Mode is Not MODE_STORAGE_BUY");
 		}
 
-		// »ç´Â °æ¿ì´Â.. °á°ú packetÀ» ¹ŞÀ»¶§±îÁö
-		// NPC´ëÈ­ dialog¸¦ ¾È ¶ç¿î´Ù.
+		// Â»Ã§Â´Ã‚ Â°Ã¦Â¿Ã¬Â´Ã‚.. Â°Ã¡Â°Ãº packetÃ€Â» Â¹ÃÃ€Â»Â¶Â§Â±Ã®ÃÃ¶
+		// NPCÂ´Ã«ÃˆÂ­ dialogÂ¸Â¦ Â¾Ãˆ Â¶Ã§Â¿Ã®Â´Ã™.
 	}
 	//-----------------------------------------------------------------------------
-	// º¸°üÇÔ ¾È »ê´Ù.
+	// ÂºÂ¸Â°Ã¼Ã‡Ã” Â¾Ãˆ Â»ÃªÂ´Ã™.
 	//-----------------------------------------------------------------------------
 	else
 	{
-		// ´Ù½Ã ¹º°¡¸¦?¼±ÅÃÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+		// Â´Ã™Â½Ãƒ Â¹ÂºÂ°Â¡Â¸Â¦?Â¼Â±Ã…ÃƒÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â°Ã” Ã‡Ã‘Â´Ã™.
 		g_pUIDialog->ShowPCTalkDlg();
 
 		g_pTempInformation->SetMode(TempInformation::MODE_NULL);
@@ -6494,7 +6505,7 @@ UIMessageManager::Execute_UI_STORAGE_BUY(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// º¸°üÇÔÀÇ slotÀ» ¼±ÅÃÇÏ¿´´Ù.
+// ÂºÂ¸Â°Ã¼Ã‡Ã”Ã€Ã‡ slotÃ€Â» Â¼Â±Ã…ÃƒÃ‡ÃÂ¿Â´Â´Ã™.
 //
 //-----------------------------------------------------------------------------
 // left = tab (0, 1, 2)
@@ -6515,7 +6526,7 @@ UIMessageManager::Execute_UI_SELECT_STORAGE_SLOT(int left, int right, void* void
 	if(g_pStorage == NULL)
 		return;
 
-	g_pStorage->SetCurrent( left );	// È®ÀÎ¿ë
+	g_pStorage->SetCurrent( left );	// ÃˆÂ®Ã€ÃÂ¿Ã«
 
 	int slot = right;
 
@@ -6523,12 +6534,12 @@ UIMessageManager::Execute_UI_SELECT_STORAGE_SLOT(int left, int right, void* void
 	const MItem* pStorageItem = g_pStorage->GetItem( slot );
 
 	//-----------------------------------------------------------------------------
-	// º¸°üÇÔ¿¡¼­ ¹º°¡¸¦ ÁıÀ»·Á´Â °æ¿ì
+	// ÂºÂ¸Â°Ã¼Ã‡Ã”Â¿Â¡Â¼Â­ Â¹ÂºÂ°Â¡Â¸Â¦ ÃÃ½Ã€Â»Â·ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 	//-----------------------------------------------------------------------------
 	if (pMouseItem==NULL)
 	{
 		//---------------------------------------------------
-		// ¼±ÅÃÇÑ slot¿¡ itemÀÌ ÀÖÀ¸¸é Áı´Â´Ù.
+		// Â¼Â±Ã…ÃƒÃ‡Ã‘ slotÂ¿Â¡ itemÃ€ÃŒ Ã€Ã–Ã€Â¸Â¸Ã© ÃÃ½Â´Ã‚Â´Ã™.
 		//---------------------------------------------------
 		if (pStorageItem!=NULL)
 		{
@@ -6548,7 +6559,7 @@ UIMessageManager::Execute_UI_SELECT_STORAGE_SLOT(int left, int right, void* void
 		}
 	}
 	//-----------------------------------------------------------------------------
-	// µé°í ÀÖ´Â itemÀ» º¸°üÇÔ¿¡ ³õÀ»·Á´Â °æ¿ì
+	// ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã‚ itemÃ€Â» ÂºÂ¸Â°Ã¼Ã‡Ã”Â¿Â¡ Â³ÃµÃ€Â»Â·ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 	//-----------------------------------------------------------------------------
 	else 
 	{
@@ -6556,7 +6567,7 @@ UIMessageManager::Execute_UI_SELECT_STORAGE_SLOT(int left, int right, void* void
 
 		TYPE_OBJECTID mouseItemID = pMouseItem->GetID();		
 	
-		// Event GiftBox ¾ÆÀÌÅÛÀÎ °æ¿ì ¸ø ³õ´Â´Ù.
+		// Event GiftBox Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã Â°Ã¦Â¿Ã¬ Â¸Ã¸ Â³ÃµÂ´Ã‚Â´Ã™.
 		if (pMouseItem->GetItemClass()!=ITEM_CLASS_EVENT_GIFT_BOX
 			&& pMouseItem->GetItemClass()!=ITEM_CLASS_VAMPIRE_AMULET
 			&& pMouseItem->GetItemClass()!=ITEM_CLASS_COUPLE_RING
@@ -6570,28 +6581,28 @@ UIMessageManager::Execute_UI_SELECT_STORAGE_SLOT(int left, int right, void* void
 			)
 		{
 			//---------------------------------------------------
-			// ±× ÀÚ¸®¿¡ ¾Æ¹«°Íµµ ¾øÀ¸¸é item ³Ö´Â´Ù.
+			// Â±Ã— Ã€ÃšÂ¸Â®Â¿Â¡ Â¾Ã†Â¹Â«Â°ÃÂµÂµ Â¾Ã¸Ã€Â¸Â¸Ã© item Â³Ã–Â´Ã‚Â´Ã™.
 			//---------------------------------------------------
 			if (pStorageItem==NULL)
 			{
-				UI_DropItem();	// mouse¿¡¼­ item¶¾´Ù.
+				UI_DropItem();	// mouseÂ¿Â¡Â¼Â­ itemÂ¶Â¾Â´Ã™.
 
 				g_pStorage->SetItem( slot, pMouseItem );							
 			}
 			//---------------------------------------------------
-			// ¹º°¡ ÀÖ´Ù¸é...
+			// Â¹ÂºÂ°Â¡ Ã€Ã–Â´Ã™Â¸Ã©...
 			//---------------------------------------------------
 			else
 			{
 				//---------------------------------------------------
-				// ½×ÀÏ ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÎ °æ¿ì
+				// Â½Ã—Ã€Ã Â¼Ã¶ Ã€Ã–Â´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã Â°Ã¦Â¿Ã¬
 				//---------------------------------------------------
 				if (pStorageItem->IsPileItem()
 					&& pStorageItem->GetItemClass()==pMouseItem->GetItemClass()
 					&& pStorageItem->GetItemType()==pMouseItem->GetItemType())
 				{
 					//---------------------------------------------------
-					// ´õ ½×ÀÏ ¼ö ÀÖ´Ù¸é
+					// Â´Ãµ Â½Ã—Ã€Ã Â¼Ã¶ Ã€Ã–Â´Ã™Â¸Ã©
 					//---------------------------------------------------
 					if (pStorageItem->GetNumber() < pStorageItem->GetMaxNumber())
 					{
@@ -6600,18 +6611,18 @@ UIMessageManager::Execute_UI_SELECT_STORAGE_SLOT(int left, int right, void* void
 						MItem* pModifyStorageItem = g_pStorage->RemoveItem( slot );
 
 						//----------------------------------------------------
-						// pMouseItemÀ» pStorageItem¿¡ Ãß°¡½ÃÅ²´Ù.
+						// pMouseItemÃ€Â» pStorageItemÂ¿Â¡ ÃƒÃŸÂ°Â¡Â½ÃƒÃ…Â²Â´Ã™.
 						//----------------------------------------------------
 						int total = pMouseItem->GetNumber() + pStorageItem->GetNumber();
 						if ( total > pStorageItem->GetMaxNumber() )
 						{
-							// ÇÑ°è ¼öÄ¡¸¦ ³Ñ¾î°¥ °æ¿ì
+							// Ã‡Ã‘Â°Ã¨ Â¼Ã¶Ã„Â¡Â¸Â¦ Â³Ã‘Â¾Ã®Â°Â¥ Â°Ã¦Â¿Ã¬
 							pMouseItem->SetNumber( total - pStorageItem->GetMaxNumber() );
 							pModifyStorageItem->SetNumber( pStorageItem->GetMaxNumber() );
 						}
 						else
 						{
-							// ¸ğµÎ pItem¿¡ Ãß°¡µÉ ¼ö ÀÖ´Â °æ¿ì
+							// Â¸Ã°ÂµÃ pItemÂ¿Â¡ ÃƒÃŸÂ°Â¡ÂµÃ‰ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 							pModifyStorageItem->SetNumber( total );
 							UI_DropItem();
 
@@ -6619,13 +6630,13 @@ UIMessageManager::Execute_UI_SELECT_STORAGE_SLOT(int left, int right, void* void
 						}	
 
 						//----------------------------------------------------
-						// ¹Ù²Û°Å¸¦ ´Ù½Ã ¼³Á¤ÇÑ´Ù.
+						// Â¹Ã™Â²Ã›Â°Ã…Â¸Â¦ Â´Ã™Â½Ãƒ Â¼Â³ÃÂ¤Ã‡Ã‘Â´Ã™.
 						//----------------------------------------------------
 						g_pStorage->SetItem( slot, pModifyStorageItem );					
 						
 					}
 					//---------------------------------------------------
-					// ´õ ½×ÀÏ ¼ö ¾ø´Ù¸é.. ±â³É µĞ´Ù.
+					// Â´Ãµ Â½Ã—Ã€Ã Â¼Ã¶ Â¾Ã¸Â´Ã™Â¸Ã©.. Â±Ã¢Â³Ã‰ ÂµÃÂ´Ã™.
 					//---------------------------------------------------				
 					else
 					{
@@ -6633,7 +6644,7 @@ UIMessageManager::Execute_UI_SELECT_STORAGE_SLOT(int left, int right, void* void
 					}
 				}
 				//---------------------------------------------------				
-				// ½×ÀÏ ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÎ °æ¿ì --> ¹Ù²Û´Ù.
+				// Â½Ã—Ã€Ã Â¼Ã¶ Â¾Ã¸Â´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã Â°Ã¦Â¿Ã¬ --> Â¹Ã™Â²Ã›Â´Ã™.
 				//---------------------------------------------------				
 				else
 				{				
@@ -6641,7 +6652,7 @@ UIMessageManager::Execute_UI_SELECT_STORAGE_SLOT(int left, int right, void* void
 					
 					UI_PickUpItem( (MItem*)pStorageItem );
 
-					g_pStorage->RemoveItem( slot );	// ÀÌ°Ô ½ÇÆĞÇÏ¸é.. - -;
+					g_pStorage->RemoveItem( slot );	// Ã€ÃŒÂ°Ã” Â½Ã‡Ã†ÃÃ‡ÃÂ¸Ã©.. - -;
 
 					g_pStorage->SetItem( slot, pTempItem );
 				}
@@ -6668,7 +6679,7 @@ UIMessageManager::Execute_UI_SELECT_STORAGE_SLOT(int left, int right, void* void
 
 //-----------------------------------------------------------------------------
 //
-// º¸°üÇÔ¿¡ µ· ÀúÀåÇÒ¶§,
+// ÂºÂ¸Â°Ã¼Ã‡Ã”Â¿Â¡ ÂµÂ· Ã€ÃºÃ€Ã¥Ã‡Ã’Â¶Â§,
 //
 //-----------------------------------------------------------------------------
 // left = money
@@ -6687,7 +6698,7 @@ UIMessageManager::Execute_UI_DEPOSIT_MONEY(int left, int right, void* void_ptr)
 
 	
 	//-----------------------------------------------------------------------------
-	// µ·ÀÌ 0ÀÌ¸é ¾ÈµÈ´Ù.
+	// ÂµÂ·Ã€ÃŒ 0Ã€ÃŒÂ¸Ã© Â¾ÃˆÂµÃˆÂ´Ã™.
 	//-----------------------------------------------------------------------------
 	if (left > 0)
 	{
@@ -6699,7 +6710,7 @@ UIMessageManager::Execute_UI_DEPOSIT_MONEY(int left, int right, void* void_ptr)
 				g_pSocket->sendPacket( &_CGStashDeposit );				
 
 			//-----------------------------------------------
-			// µ·À» º¸°üÇÔÀ¸·Î ¿Å±ä´Ù.
+			// ÂµÂ·Ã€Â» ÂºÂ¸Â°Ã¼Ã‡Ã”Ã€Â¸Â·Ã Â¿Ã…Â±Ã¤Â´Ã™.
 			//-----------------------------------------------
 			g_pMoneyManager->UseMoney( left );
 			g_pStorage->GetMoneyManager()->AddMoney( left );
@@ -6713,7 +6724,7 @@ UIMessageManager::Execute_UI_DEPOSIT_MONEY(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// º¸°üÇÔÀÇ µ·À» Ã£À»¶§,
+// ÂºÂ¸Â°Ã¼Ã‡Ã”Ã€Ã‡ ÂµÂ·Ã€Â» ÃƒÂ£Ã€Â»Â¶Â§,
 //
 //-----------------------------------------------------------------------------
 // left = money
@@ -6732,7 +6743,7 @@ UIMessageManager::Execute_UI_WITHDRAW_MONEY(int left, int right, void* void_ptr)
 
 	
 	//-----------------------------------------------------------------------------
-	// µ·ÀÌ 0ÀÌ¸é ¾ÈµÈ´Ù.
+	// ÂµÂ·Ã€ÃŒ 0Ã€ÃŒÂ¸Ã© Â¾ÃˆÂµÃˆÂ´Ã™.
 	//-----------------------------------------------------------------------------
 	if (left > 0)
 	{
@@ -6744,7 +6755,7 @@ UIMessageManager::Execute_UI_WITHDRAW_MONEY(int left, int right, void* void_ptr)
 				g_pSocket->sendPacket( &_CGStashWithdraw );				
 
 			//-----------------------------------------------
-			// º¸°üÇÔÀÇ µ·À» player¿¡°Ô ¿Å±ä´Ù.
+			// ÂºÂ¸Â°Ã¼Ã‡Ã”Ã€Ã‡ ÂµÂ·Ã€Â» playerÂ¿Â¡Â°Ã” Â¿Ã…Â±Ã¤Â´Ã™.
 			//-----------------------------------------------
 			g_pStorage->GetMoneyManager()->UseMoney( left );
 			g_pMoneyManager->AddMoney( left );						
@@ -6758,7 +6769,7 @@ UIMessageManager::Execute_UI_WITHDRAW_MONEY(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-//	º¸°üÇÔ ´İÀ» ¶§
+//	ÂºÂ¸Â°Ã¼Ã‡Ã” Â´ÃÃ€Â» Â¶Â§
 //
 //-----------------------------------------------------------------------------
 void
@@ -6775,16 +6786,16 @@ UIMessageManager::Execute_UI_CLOSE_STORAGE(int left, int right, void* void_ptr)
 	
 	UI_CloseStorage();		
 
-	// ´Ù½Ã ¹º°¡¸¦?¼±ÅÃÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+	// Â´Ã™Â½Ãƒ Â¹ÂºÂ°Â¡Â¸Â¦?Â¼Â±Ã…ÃƒÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â°Ã” Ã‡Ã‘Â´Ã™.
 	g_pUIDialog->ShowPCTalkDlg();
 }
 
 //-----------------------------------------------------------------------------
 //
-// ±³È¯Ã¢¿¡ µ·À» ³Ö´Â´Ù.
+// Â±Â³ÃˆÂ¯ÃƒÂ¢Â¿Â¡ ÂµÂ·Ã€Â» Â³Ã–Â´Ã‚Â´Ã™.
 //
 //-----------------------------------------------------------------------------
-// left = bGive - ³²ÇÑÅ× ÁÖ´Â µ·ÀÎ°¡?
+// left = bGive - Â³Â²Ã‡Ã‘Ã…Ã— ÃÃ–Â´Ã‚ ÂµÂ·Ã€ÃÂ°Â¡?
 // right = money
 //
 void
@@ -6809,7 +6820,7 @@ UIMessageManager::Execute_UI_EXCHANGE_MONEY(int left, int right, void* void_ptr)
 		int code;		
 
 		//---------------------------------------------------------
-		// ±³È¯Áß¿¡ OK ´­·¶À»¶§´Â °ËÁõÀ» ¹Ş¾Æ¾ß ÇÑ´Ù.
+		// Â±Â³ÃˆÂ¯ÃÃŸÂ¿Â¡ OK Â´Â­Â·Â¶Ã€Â»Â¶Â§Â´Ã‚ Â°Ã‹ÃÃµÃ€Â» Â¹ÃÂ¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 		//---------------------------------------------------------
 		if (bAcceptMyTrade)
 		{	
@@ -6830,19 +6841,19 @@ UIMessageManager::Execute_UI_EXCHANGE_MONEY(int left, int right, void* void_ptr)
 			}
 		}
 		//---------------------------------------------------------
-		// OK ¾È ´­·ÁÀÖ´Â º¸Åë ¶§..
+		// OK Â¾Ãˆ Â´Â­Â·ÃÃ€Ã–Â´Ã‚ ÂºÂ¸Ã…Ã« Â¶Â§..
 		//---------------------------------------------------------
 		else
 		{
 			/*
 			//-----------------------------------------------------------
-			// ¹º°¡ ¹Ù²ï´Ù¸é... OKÃë¼Ò
+			// Â¹ÂºÂ°Â¡ Â¹Ã™Â²Ã¯Â´Ã™Â¸Ã©... OKÃƒÃ«Â¼Ã’
 			//-----------------------------------------------------------
 			g_pTradeManager->RefuseOtherTrade();
 			g_pTradeManager->RefuseMyTrade();
 		
 			//-----------------------------------------------------------
-			// client µ· ÀÌµ¿
+			// client ÂµÂ· Ã€ÃŒÂµÂ¿
 			//-----------------------------------------------------------
 			if (bGive)
 			{
@@ -6868,7 +6879,7 @@ UIMessageManager::Execute_UI_EXCHANGE_MONEY(int left, int right, void* void_ptr)
 		}	
 
 		//-----------------------------------------------------------
-		// client µ· ÀÌµ¿
+		// client ÂµÂ· Ã€ÃŒÂµÂ¿
 		//-----------------------------------------------------------
 		if (bGive)
 		{
@@ -6880,7 +6891,7 @@ UIMessageManager::Execute_UI_EXCHANGE_MONEY(int left, int right, void* void_ptr)
 		}
 		
 		//-----------------------------------------------------------
-		// server¿¡ ¾Ë¸²
+		// serverÂ¿Â¡ Â¾Ã‹Â¸Â²
 		//-----------------------------------------------------------
 			CGTradeMoney _CGTradeMoney;
 			_CGTradeMoney.setTargetObjectID( g_pTradeManager->GetOtherID() );
@@ -6901,18 +6912,18 @@ UIMessageManager::Execute_UI_EXCHANGE_MONEY(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// ±³È¯Ã¢ÀÇ ¾ÆÀÌÅÛÀ» ¼±ÅÃÇÒ¶§ 
+// Â±Â³ÃˆÂ¯ÃƒÂ¢Ã€Ã‡ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» Â¼Â±Ã…ÃƒÃ‡Ã’Â¶Â§ 
 //
 //-----------------------------------------------------------------------------
 // gridXY = (left,right)
-// µé·Á´Â item = (MItem*)void_ptr
+// ÂµÃ©Â·ÃÂ´Ã‚ item = (MItem*)void_ptr
 /*
 void
 UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_TRADEGRID(int left, int right, void* void_ptr)
 {
 	//
-	// hi/low dw_left´Â grid (x, y)°ªÀÌ´Ù.
-	//        dw_right´Â itemÀÇ screen ÁÂÇ¥ÀÌ´Ù.
+	// hi/low dw_leftÂ´Ã‚ grid (x, y)Â°ÂªÃ€ÃŒÂ´Ã™.
+	//        dw_rightÂ´Ã‚ itemÃ€Ã‡ screen ÃÃ‚Ã‡Â¥Ã€ÃŒÂ´Ã™.
 	//
 	DEBUG_ADD("[UI] UI_ITEM_PICKUP_FROM_TRADEGRID");
 	
@@ -6926,11 +6937,11 @@ UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_TRADEGRID(int left, int right, voi
 
 //-----------------------------------------------------------------------------
 //
-// ±³È¯Ã¢ÀÇ ¾ÆÀÌÅÛ¿¡ Ãß°¡µÉ¶§,
+// Â±Â³ÃˆÂ¯ÃƒÂ¢Ã€Ã‡ Â¾Ã†Ã€ÃŒÃ…Ã›Â¿Â¡ ÃƒÃŸÂ°Â¡ÂµÃ‰Â¶Â§,
 //
 //-----------------------------------------------------------------------------
 // gridXY = (left, right)
-// ³õ¿©ÀÖ´ø item = (MItem*)void_ptr
+// Â³ÃµÂ¿Â©Ã€Ã–Â´Ã¸ item = (MItem*)void_ptr
 /*
 void
 UIMessageManager::Execute_UI_ITEM_INSERT_FROM_TRADEGRID(int left, int right, void* void_ptr)
@@ -6946,11 +6957,11 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_TRADEGRID(int left, int right, voi
 
 //-----------------------------------------------------------------------------
 //
-// ±³È¯Ã¢¿¡ ¾ÆÀÌÅÛ ³õÀ» ¶§,
+// Â±Â³ÃˆÂ¯ÃƒÂ¢Â¿Â¡ Â¾Ã†Ã€ÃŒÃ…Ã› Â³ÃµÃ€Â» Â¶Â§,
 //
 //-----------------------------------------------------------------------------
 // gridXY = (left, right)
-// ³õ±â ¹Ù·Î Àü¿¡ µé°í ÀÖ´ø item = (MItem*)void_ptr
+// Â³ÃµÂ±Ã¢ Â¹Ã™Â·Ã Ã€Ã¼Â¿Â¡ ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã¸ item = (MItem*)void_ptr
 /*
 void
 UIMessageManager::Execute_UI_ITEM_DROP_TO_TRADEGRID(int left, int right, void* void_ptr)
@@ -6965,11 +6976,11 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_TRADEGRID(int left, int right, void* v
 
 //-----------------------------------------------------------------------------
 //
-// ±³È¯Ã¢¿¡ ¾ÆÀÌÅÛ ³õÀ» ¶§,
+// Â±Â³ÃˆÂ¯ÃƒÂ¢Â¿Â¡ Â¾Ã†Ã€ÃŒÃ…Ã› Â³ÃµÃ€Â» Â¶Â§,
 //
 //-----------------------------------------------------------------------------
 // gridXY = (left, right)
-// ³õ±â ¹Ù·Î Àü¿¡ µé°í ÀÖ´ø item = (MItem*)void_ptr
+// Â³ÃµÂ±Ã¢ Â¹Ã™Â·Ã Ã€Ã¼Â¿Â¡ ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã¸ item = (MItem*)void_ptr
 void
 UIMessageManager::Execute_UI_ITEM_SELECT_EXCHANGE(int left, int right, void* void_ptr)
 {
@@ -6989,20 +7000,21 @@ UIMessageManager::Execute_UI_ITEM_SELECT_EXCHANGE(int left, int right, void* voi
 
 		BOOL bAcceptMyTrade = g_pTradeManager->IsAcceptMyTrade();		
 
-		// ¼±¹° »óÀÚ ÇÏµå ÄÚµù-¤µ-;
+		// Â¼Â±Â¹Â° Â»Ã³Ã€Ãš Ã‡ÃÂµÃ¥ Ã„ÃšÂµÃ¹-Â¤Âµ-;
 		if(pItem->GetItemClass() == ITEM_CLASS_EVENT_GIFT_BOX && pItem->GetItemType() > 1 && pItem->IsTrade() == false)	//
 		{
-			MItem* pFindItem = ((MItemManager*)g_pInventory)->FindItem( MEventGiftBoxItemFinder() );
+			MEventGiftBoxItemFinder finder;
+			MItem* pFindItem = ((MItemManager*)g_pInventory)->FindItem( finder );
 			if(pFindItem != NULL)
 			{
-				// ÀÌ¹Ì ±³È¯¿¡ ¿Ã¶ó°£°Ô ÀÖ´Ù
+				// Ã€ÃŒÂ¹ÃŒ Â±Â³ÃˆÂ¯Â¿Â¡ Â¿ÃƒÂ¶Ã³Â°Â£Â°Ã” Ã€Ã–Â´Ã™
 				return;
 			}
 		}
 	
 
 		//---------------------------------------------------------
-		// ±³È¯Áß¿¡ OK ´­·¶À»¶§´Â °ËÁõÀ» ¹Ş¾Æ¾ß ÇÑ´Ù.
+		// Â±Â³ÃˆÂ¯ÃÃŸÂ¿Â¡ OK Â´Â­Â·Â¶Ã€Â»Â¶Â§Â´Ã‚ Â°Ã‹ÃÃµÃ€Â» Â¹ÃÂ¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 		//---------------------------------------------------------
 		if (bAcceptMyTrade)
 		{	
@@ -7015,7 +7027,7 @@ UIMessageManager::Execute_UI_ITEM_SELECT_EXCHANGE(int left, int right, void* voi
 				g_pTempInformation->pValue = pItem;
 
 				//-----------------------------------------------------------
-				// ¼±ÅÃµÇ¾î ÀÖ´ø ¾ÆÀÌÅÛ --> Ãë¼Ò
+				// Â¼Â±Ã…ÃƒÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã¸ Â¾Ã†Ã€ÃŒÃ…Ã› --> ÃƒÃ«Â¼Ã’
 				//-----------------------------------------------------------
 				if (pItem->IsTrade())
 				{
@@ -7031,13 +7043,13 @@ UIMessageManager::Execute_UI_ITEM_SELECT_EXCHANGE(int left, int right, void* voi
 
 						g_pTradeManager->SetNextAcceptTime();
 
-					// [µµ¿ò¸»] ±³È¯ Áß - ¾ÆÀÌÅÛ Ãë¼Ò
+					// [ÂµÂµÂ¿Ã²Â¸Â»] Â±Â³ÃˆÂ¯ ÃÃŸ - Â¾Ã†Ã€ÃŒÃ…Ã› ÃƒÃ«Â¼Ã’
 //					__BEGIN_HELP_EVENT
 ////						ExecuteHelpEvent( HE_TRADE_ITEM_REMOVE );	
 //					__END_HELP_EVENT
 				}
 				//-----------------------------------------------------------
-				// ¾ÆÀÌÅÛ ¼±ÅÃ
+				// Â¾Ã†Ã€ÃŒÃ…Ã› Â¼Â±Ã…Ãƒ
 				//-----------------------------------------------------------
 				else
 				{
@@ -7052,7 +7064,7 @@ UIMessageManager::Execute_UI_ITEM_SELECT_EXCHANGE(int left, int right, void* voi
 						g_pSocket->sendPacket( &_CGTradeAddItem );
 						
 
-					// [µµ¿ò¸»] ±³È¯ Áß - ¾ÆÀÌÅÛ ¼±ÅÃ
+					// [ÂµÂµÂ¿Ã²Â¸Â»] Â±Â³ÃˆÂ¯ ÃÃŸ - Â¾Ã†Ã€ÃŒÃ…Ã› Â¼Â±Ã…Ãƒ
 //					__BEGIN_HELP_EVENT
 ////						ExecuteHelpEvent( HE_TRADE_ITEM_ADD );	
 //					__END_HELP_EVENT
@@ -7060,17 +7072,17 @@ UIMessageManager::Execute_UI_ITEM_SELECT_EXCHANGE(int left, int right, void* voi
 			}			
 		}
 		//---------------------------------------------------------
-		// OK ¾È ´­·ÁÀÖ´Â º¸Åë ¶§..
+		// OK Â¾Ãˆ Â´Â­Â·ÃÃ€Ã–Â´Ã‚ ÂºÂ¸Ã…Ã« Â¶Â§..
 		//---------------------------------------------------------
 		else
 		{		
 			//-----------------------------------------------------------
-			// ¼±ÅÃµÇ¾î ÀÖ´ø ¾ÆÀÌÅÛ --> Ãë¼Ò
+			// Â¼Â±Ã…ÃƒÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã¸ Â¾Ã†Ã€ÃŒÃ…Ã› --> ÃƒÃ«Â¼Ã’
 			//-----------------------------------------------------------
 			if (pItem->IsTrade())
 			{
 				//-----------------------------------------------------------
-				// ¹º°¡ ¹Ù²ï´Ù¸é... OKÃë¼Ò
+				// Â¹ÂºÂ°Â¡ Â¹Ã™Â²Ã¯Â´Ã™Â¸Ã©... OKÃƒÃ«Â¼Ã’
 				//-----------------------------------------------------------
 				g_pTradeManager->RefuseOtherTrade();
 				g_pTradeManager->RefuseMyTrade();
@@ -7085,24 +7097,24 @@ UIMessageManager::Execute_UI_ITEM_SELECT_EXCHANGE(int left, int right, void* voi
 
 					g_pTradeManager->SetNextAcceptTime();
 
-				// [µµ¿ò¸»] ±³È¯ Áß - ¾ÆÀÌÅÛ Ãë¼Ò
+				// [ÂµÂµÂ¿Ã²Â¸Â»] Â±Â³ÃˆÂ¯ ÃÃŸ - Â¾Ã†Ã€ÃŒÃ…Ã› ÃƒÃ«Â¼Ã’
 //				__BEGIN_HELP_EVENT
 ////					ExecuteHelpEvent( HE_TRADE_ITEM_REMOVE );	
 //				__END_HELP_EVENT
 			}
 			//-----------------------------------------------------------
-			// ¼±ÅÃµÇ¾î ÀÖÁö ¾Ê´ø ¾ÆÀÌÅÛ --> ¼±ÅÃ
+			// Â¼Â±Ã…ÃƒÂµÃ‡Â¾Ã® Ã€Ã–ÃÃ¶ Â¾ÃŠÂ´Ã¸ Â¾Ã†Ã€ÃŒÃ…Ã› --> Â¼Â±Ã…Ãƒ
 			//-----------------------------------------------------------
 			else
 			{
-				// »¡°£»ö ¼±¹°»óÀÚ´Â ±³È¯µÇÁö ¾Ê´Â´Ù.
+				// Â»Â¡Â°Â£Â»Ã¶ Â¼Â±Â¹Â°Â»Ã³Ã€ÃšÂ´Ã‚ Â±Â³ÃˆÂ¯ÂµÃ‡ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 				if (pItem->GetItemClass()==ITEM_CLASS_EVENT_GIFT_BOX
 					&& pItem->GetItemType()==1)
 				{
 				}
 				else
 				{
-					// ¼±¹°»óÀÚÀÎ °æ¿ì´Â °ËÁõÀÌ ÇÊ¿äÇÏ´Ù.
+					// Â¼Â±Â¹Â°Â»Ã³Ã€ÃšÃ€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ Â°Ã‹ÃÃµÃ€ÃŒ Ã‡ÃŠÂ¿Ã¤Ã‡ÃÂ´Ã™.
 					if (pItem->GetItemClass()==ITEM_CLASS_EVENT_GIFT_BOX)// && pItem->GetItemClass() < 2)
 					{
 						g_pTempInformation->SetMode(TempInformation::MODE_TRADE_VERIFY_ADD_ITEM);
@@ -7110,11 +7122,11 @@ UIMessageManager::Execute_UI_ITEM_SELECT_EXCHANGE(int left, int right, void* voi
 						
 						g_pPlayer->SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_TRADE_ADD );
 					}
-					// ±× ¿Ü¿¡´Â ±×³É ³ÖÀ¸¸é µÈ´Ù.
+					// Â±Ã— Â¿ÃœÂ¿Â¡Â´Ã‚ Â±Ã—Â³Ã‰ Â³Ã–Ã€Â¸Â¸Ã© ÂµÃˆÂ´Ã™.
 					else
 					{
 						//-----------------------------------------------------------
-						// ¹º°¡ ¹Ù²ï´Ù¸é... OKÃë¼Ò
+						// Â¹ÂºÂ°Â¡ Â¹Ã™Â²Ã¯Â´Ã™Â¸Ã©... OKÃƒÃ«Â¼Ã’
 						//-----------------------------------------------------------
 						g_pTradeManager->RefuseOtherTrade();
 						g_pTradeManager->RefuseMyTrade();
@@ -7129,7 +7141,7 @@ UIMessageManager::Execute_UI_ITEM_SELECT_EXCHANGE(int left, int right, void* voi
 						g_pSocket->sendPacket( &_CGTradeAddItem );
 						
 
-					// [µµ¿ò¸»] ±³È¯ Áß - ¾ÆÀÌÅÛ ¼±ÅÃ
+					// [ÂµÂµÂ¿Ã²Â¸Â»] Â±Â³ÃˆÂ¯ ÃÃŸ - Â¾Ã†Ã€ÃŒÃ…Ã› Â¼Â±Ã…Ãƒ
 //					__BEGIN_HELP_EVENT
 ////						ExecuteHelpEvent( HE_TRADE_ITEM_ADD );	
 //					__END_HELP_EVENT
@@ -7146,7 +7158,7 @@ UIMessageManager::Execute_UI_ITEM_SELECT_EXCHANGE(int left, int right, void* voi
 
 //-----------------------------------------------------------------------------
 //
-// ±³È¯ È®ÀÎ
+// Â±Â³ÃˆÂ¯ ÃˆÂ®Ã€Ã
 //
 //-----------------------------------------------------------------------------
 void
@@ -7167,8 +7179,8 @@ UIMessageManager::Execute_UI_OK_EXCHANGE(int left, int right, void* void_ptr)
 		MItem* pMouseItem = UI_GetMouseItem();
 
 		//--------------------------------------------------------
-		// ±³È¯ÀÌ °¡´ÉÇÑ °æ¿ì
-		// ¼±¹°»óÀÚ¸¦ µé°í ÀÖÀ¸¸é ±³È¯ÀÌ ¾ÈµÈ´Ù.
+		// Â±Â³ÃˆÂ¯Ã€ÃŒ Â°Â¡Â´Ã‰Ã‡Ã‘ Â°Ã¦Â¿Ã¬
+		// Â¼Â±Â¹Â°Â»Ã³Ã€ÃšÂ¸Â¦ ÂµÃ©Â°Ã­ Ã€Ã–Ã€Â¸Â¸Ã© Â±Â³ÃˆÂ¯Ã€ÃŒ Â¾ÃˆÂµÃˆÂ´Ã™.
 		//--------------------------------------------------------
 		if ((pMouseItem==NULL || pMouseItem->GetItemClass()!=ITEM_CLASS_EVENT_GIFT_BOX)
 			&& g_pTradeManager->CanTrade())
@@ -7183,12 +7195,12 @@ UIMessageManager::Execute_UI_OK_EXCHANGE(int left, int right, void* void_ptr)
 				
 		}
 		//--------------------------------------------------------
-		// ±³È¯ÀÌ ºÒ°¡´ÉÇÑ °æ¿ì
+		// Â±Â³ÃˆÂ¯Ã€ÃŒ ÂºÃ’Â°Â¡Â´Ã‰Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 		//--------------------------------------------------------
 		else
 		{
-			// ±³È¯ÇÒ ¼ö ¾ø´Ù¸é..
-			// ÀÏ´ÜÀº.. °ø°£ ºÎÁ·ÀÌ¶ó°í º»´Ù.
+			// Â±Â³ÃˆÂ¯Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™Â¸Ã©..
+			// Ã€ÃÂ´ÃœÃ€Âº.. Â°Ã¸Â°Â£ ÂºÃÃÂ·Ã€ÃŒÂ¶Ã³Â°Ã­ ÂºÂ»Â´Ã™.
 			g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_MESSAGE_CANNOT_TRADE_NO_SPACE].GetString() );
 		}
 	}
@@ -7200,7 +7212,7 @@ UIMessageManager::Execute_UI_OK_EXCHANGE(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// ±³È¯ Ãë¼Ò
+// Â±Â³ÃˆÂ¯ ÃƒÃ«Â¼Ã’
 //
 //-----------------------------------------------------------------------------
 void
@@ -7222,7 +7234,7 @@ UIMessageManager::Execute_UI_CANCEL_EXCHANGE(int left, int right, void* void_ptr
 		BOOL bAcceptMyTrade = g_pTradeManager->IsAcceptMyTrade();
 
 		//---------------------------------------------------------------
-		// OK ´©¸¥ »óÅÂ¿¡¼­´Â °ËÁõÀ» ¹Ş¾Æ¾ß ÇÑ´Ù.
+		// OK Â´Â©Â¸Â¥ Â»Ã³Ã…Ã‚Â¿Â¡Â¼Â­Â´Ã‚ Â°Ã‹ÃÃµÃ€Â» Â¹ÃÂ¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 		//---------------------------------------------------------------
 		if (bAcceptMyTrade)
 		{
@@ -7238,12 +7250,12 @@ UIMessageManager::Execute_UI_CANCEL_EXCHANGE(int left, int right, void* void_ptr
 			}
 		}
 		//---------------------------------------------------------------
-		// ±×³É °ÅºÎ (ÀÖÀ» ¼ö ¾ø´Â °æ¿ìÀİ¾Æ - -;;)
+		// Â±Ã—Â³Ã‰ Â°Ã…ÂºÃ (Ã€Ã–Ã€Â» Â¼Ã¶ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃÂ¾Ã† - -;;)
 		//---------------------------------------------------------------
 		else
 		{		
 			//---------------------------------------------------------------
-			// ±³È¯ °ÅºÎ´ç..
+			// Â±Â³ÃˆÂ¯ Â°Ã…ÂºÃÂ´Ã§..
 			//---------------------------------------------------------------
 			g_pTradeManager->RefuseMyTrade();
 			
@@ -7256,7 +7268,7 @@ UIMessageManager::Execute_UI_CANCEL_EXCHANGE(int left, int right, void* void_ptr
 	}
 
 	//---------------------------------------------------------------
-	// ³» OK¸¦ Ãë¼ÒÇÏ´Â packet
+	// Â³Â» OKÂ¸Â¦ ÃƒÃ«Â¼Ã’Ã‡ÃÂ´Ã‚ packet
 	//---------------------------------------------------------------
 	if (bSendPacket)
 	{
@@ -7271,7 +7283,7 @@ UIMessageManager::Execute_UI_CANCEL_EXCHANGE(int left, int right, void* void_ptr
 
 //-----------------------------------------------------------------------------
 //
-// ±³È¯Ã¢ ´İ±â
+// Â±Â³ÃˆÂ¯ÃƒÂ¢ Â´ÃÂ±Ã¢
 //
 //-----------------------------------------------------------------------------
 void
@@ -7293,7 +7305,7 @@ UIMessageManager::Execute_UI_CLOSE_EXCHANGE(int left, int right, void* void_ptr)
 	int otherID;
 
 	//---------------------------------------------------------------
-	// OK ´©¸¥ »óÅÂ¿¡¼­´Â °ËÁõÀ» ¹Ş¾Æ¾ß ÇÑ´Ù.
+	// OK Â´Â©Â¸Â¥ Â»Ã³Ã…Ã‚Â¿Â¡Â¼Â­Â´Ã‚ Â°Ã‹ÃÃµÃ€Â» Â¹ÃÂ¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 	//---------------------------------------------------------------
 	if (bAcceptMyTrade)
 	{
@@ -7311,7 +7323,7 @@ UIMessageManager::Execute_UI_CLOSE_EXCHANGE(int left, int right, void* void_ptr)
 		}
 	}
 	//---------------------------------------------------------------
-	// ±×³É Ãë¼Ò..
+	// Â±Ã—Â³Ã‰ ÃƒÃ«Â¼Ã’..
 	//---------------------------------------------------------------
 	else
 	{		
@@ -7325,13 +7337,13 @@ UIMessageManager::Execute_UI_CLOSE_EXCHANGE(int left, int right, void* void_ptr)
 		}
 
 		//---------------------------------------------------------------
-		// ±³È¯ ¾È ÇØ~~ ³¡~ÀÌ´ç
+		// Â±Â³ÃˆÂ¯ Â¾Ãˆ Ã‡Ã˜~~ Â³Â¡~Ã€ÃŒÂ´Ã§
 		//---------------------------------------------------------------
 		UI_CloseExchange();	
 	}
 	
 	//---------------------------------------------------------------
-	// ±³È¯À» ³¡³»´Â packet
+	// Â±Â³ÃˆÂ¯Ã€Â» Â³Â¡Â³Â»Â´Ã‚ packet
 	//---------------------------------------------------------------
 	if (bSendPacket)
 	{
@@ -7345,11 +7357,11 @@ UIMessageManager::Execute_UI_CLOSE_EXCHANGE(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// Ã¤ÆÃÃ¢¿¡¼­ ÀÌ¸§ ¼±ÅÃ
+// ÃƒÂ¤Ã†ÃƒÃƒÂ¢Â¿Â¡Â¼Â­ Ã€ÃŒÂ¸Â§ Â¼Â±Ã…Ãƒ
 //
 //-----------------------------------------------------------------------------
-// left = ÀÔ·ÂÀÇ Á¾·ù
-// void_ptr = Ä³¸¯ÅÍÀÌ¸§(!=NULL)
+// left = Ã€Ã”Â·Ã‚Ã€Ã‡ ÃÂ¾Â·Ã¹
+// void_ptr = Ã„Â³Â¸Â¯Ã…ÃÃ€ÃŒÂ¸Â§(!=NULL)
 /*
 void
 UIMessageManager::Execute_UI_CHAT_SELECT_NAME(int left, int right, void* void_ptr)
@@ -7381,10 +7393,10 @@ UIMessageManager::Execute_UI_CHAT_SELECT_NAME(int left, int right, void* void_pt
 
 //-----------------------------------------------------------------------------
 //
-// ±³È¯ÇÒ·¡? Y/N¿¡ ´ëÇÑ ÀÀ´ä
+// Â±Â³ÃˆÂ¯Ã‡Ã’Â·Â¡? Y/NÂ¿Â¡ Â´Ã«Ã‡Ã‘ Ã€Ã€Â´Ã¤
 //
 //-----------------------------------------------------------------------------
-// left = (BOOL)±³È¯¿©ºÎ
+// left = (BOOL)Â±Â³ÃˆÂ¯Â¿Â©ÂºÃ
 //
 void
 UIMessageManager::Execute_UI_EXCHANGE_ACCEPT(int left, int right, void* void_ptr)
@@ -7403,24 +7415,24 @@ UIMessageManager::Execute_UI_EXCHANGE_ACCEPT(int left, int right, void* void_ptr
 	int code;
 
 	//---------------------------------------------------------
-	// ±³È¯ÇÒ·¡? Y/N¿¡ ´ëÇÑ ÀÀ´ä
+	// Â±Â³ÃˆÂ¯Ã‡Ã’Â·Â¡? Y/NÂ¿Â¡ Â´Ã«Ã‡Ã‘ Ã€Ã€Â´Ã¤
 	//---------------------------------------------------------
 	if (g_pTempInformation->GetMode() == TempInformation::MODE_TRADE_REQUEST)
 	{
 		//---------------------------------------------------------
-		// Çã¿ë
+		// Ã‡Ã£Â¿Ã«
 		//---------------------------------------------------------
 		if (accept)
 		{
 			code = CG_TRADE_PREPARE_CODE_ACCEPT;
 
 			//---------------------------------------------------------
-			// ±³È¯Ã¢À» ¶ç¿î´Ù.
+			// Â±Â³ÃˆÂ¯ÃƒÂ¢Ã€Â» Â¶Ã§Â¿Ã®Â´Ã™.
 			//---------------------------------------------------------
-			UI_RunExchange( g_pTempInformation->Value1 );	// otherID ¼³Á¤
+			UI_RunExchange( g_pTempInformation->Value1 );	// otherID Â¼Â³ÃÂ¤
 		}
 		//---------------------------------------------------------
-		// °ÅºÎ
+		// Â°Ã…ÂºÃ
 		//---------------------------------------------------------
 		else
 		{	
@@ -7444,7 +7456,7 @@ UIMessageManager::Execute_UI_EXCHANGE_ACCEPT(int left, int right, void* void_ptr
 
 //-----------------------------------------------------------------------------
 //
-// ±³È¯Ãë¼ÒÇÒ·¡?
+// Â±Â³ÃˆÂ¯ÃƒÃ«Â¼Ã’Ã‡Ã’Â·Â¡?
 //
 //-----------------------------------------------------------------------------
 void
@@ -7460,7 +7472,7 @@ UIMessageManager::Execute_UI_EXCHANGE_REQUEST_CANCEL(int left, int right, void* 
 
 	
 	//---------------------------------------------------------
-	// ±³È¯ÇÒ·¡? Y/N¿¡ ´ëÇÑ ÀÀ´ä
+	// Â±Â³ÃˆÂ¯Ã‡Ã’Â·Â¡? Y/NÂ¿Â¡ Â´Ã«Ã‡Ã‘ Ã€Ã€Â´Ã¤
 	//---------------------------------------------------------
 	if (g_pTempInformation->GetMode() == TempInformation::MODE_TRADE_REQUEST)
 	{	
@@ -7477,7 +7489,7 @@ UIMessageManager::Execute_UI_EXCHANGE_REQUEST_CANCEL(int left, int right, void* 
 	
 		g_pTempInformation->SetMode(TempInformation::MODE_NULL);
 		
-		// ±³È¯ Ãë¼ÒÇÒ·¡?¸¦ Á¦°ÅÇÑ´Ù.
+		// Â±Â³ÃˆÂ¯ ÃƒÃ«Â¼Ã’Ã‡Ã’Â·Â¡?Â¸Â¦ ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 		UI_CloseExchangeCancel();
 	}	
 }
@@ -7485,11 +7497,11 @@ UIMessageManager::Execute_UI_EXCHANGE_REQUEST_CANCEL(int left, int right, void* 
 /*
 //-----------------------------------------------------------------------------
 //
-// Game Option ¹Ù²Ù±â
+// Game Option Â¹Ã™Â²Ã™Â±Ã¢
 //
 //-----------------------------------------------------------------------------
-// left = ¹Ù²î´Â option
-// right = °ª
+// left = Â¹Ã™Â²Ã®Â´Ã‚ option
+// right = Â°Âª
 void
 UIMessageManager::Execute_UI_CHANGE_GAME_OPTION(int left, int right, void* void_ptr)
 {
@@ -7614,7 +7626,7 @@ UIMessageManager::Execute_UI_CHANGE_GAME_OPTION(int left, int right, void* void_
 					//g_DXSound.AddVolume( g_pDXSoundStream->GetBuffer(), 0 );
 					g_pDXSoundStream->SetVolumeLimit( volume );
 
-					// ¿ø·¡ÀÇ max volumeÀ¸·Î µ¹¸°´Ù.
+					// Â¿Ã¸Â·Â¡Ã€Ã‡ max volumeÃ€Â¸Â·Ã ÂµÂ¹Â¸Â°Â´Ã™.
 					//g_DXSound.SetVolumeLimit( maxVolume );
 				}
 				else
@@ -7636,7 +7648,7 @@ UIMessageManager::Execute_UI_CHANGE_GAME_OPTION(int left, int right, void* void_
 		break;
 
 		//-------------------------------------------------------------------
-		// Ä³¸¯ÅÍ HP¹Ù Åõ¸í/ºÒÅõ¸í 
+		// Ã„Â³Â¸Â¯Ã…Ã HPÂ¹Ã™ Ã…ÃµÂ¸Ã­/ÂºÃ’Ã…ÃµÂ¸Ã­ 
 		//-------------------------------------------------------------------
 		case C_VS_UI_GAMEMENU_OPTION::PARTY_HPBAR_ALPHA :
 			g_pUserOption->DrawTransHPBar = (BOOL)value;
@@ -7648,7 +7660,7 @@ UIMessageManager::Execute_UI_CHANGE_GAME_OPTION(int left, int right, void* void_
 
 //-----------------------------------------------------------------------------
 //
-// GameOption ´İ±â
+// GameOption Â´ÃÂ±Ã¢
 //
 //-----------------------------------------------------------------------------
 void
@@ -7666,7 +7678,7 @@ UIMessageManager::Execute_UI_CLOSE_GAME_OPTION(int left, int right, void* void_p
 	gC_vs_ui.CloseGameMenuOption();
 
 	//---------------------------------------------------------------
-	// ±×³É ÀúÀåÇØ¹ö¸°´Ù. - -;
+	// Â±Ã—Â³Ã‰ Ã€ÃºÃ€Ã¥Ã‡Ã˜Â¹Ã¶Â¸Â°Â´Ã™. - -;
 	//---------------------------------------------------------------
 	g_pUserOption->SaveToFile( FILE_INFO_USEROPTION );
 }
@@ -7674,11 +7686,11 @@ UIMessageManager::Execute_UI_CLOSE_GAME_OPTION(int left, int right, void* void_p
 
 //-----------------------------------------------------------------------------
 //
-// Title Option ¹Ù²Ù±â
+// Title Option Â¹Ã™Â²Ã™Â±Ã¢
 //
 //-----------------------------------------------------------------------------
-// left = ¹Ù²î´Â option
-// right = °ª
+// left = Â¹Ã™Â²Ã®Â´Ã‚ option
+// right = Â°Âª
 void
 UIMessageManager::Execute_UI_CHANGE_OPTION(int left, int right, void* void_ptr)
 {
@@ -7814,7 +7826,7 @@ UIMessageManager::Execute_UI_CHANGE_OPTION(int left, int right, void* void_ptr)
 					g_DXSound.SetVolumeLimit( volume );
 					g_DXSound.AddVolume( g_pDXSoundStream->GetBuffer(), 0 );
 
-					// ¿ø·¡ÀÇ max volumeÀ¸·Î µ¹¸°´Ù.
+					// Â¿Ã¸Â·Â¡Ã€Ã‡ max volumeÃ€Â¸Â·Ã ÂµÂ¹Â¸Â°Â´Ã™.
 					g_DXSound.SetVolumeLimit( maxVolume );
 					*/
 //					LONG volume = value*16*257;//*SOUND_DEGREE + SOUND_MIN;
@@ -7855,7 +7867,7 @@ UIMessageManager::Execute_UI_CHANGE_OPTION(int left, int right, void* void_ptr)
 		break;
 
 		//-------------------------------------------------------------------
-		// Ä³¸¯ÅÍ HP¹Ù Åõ¸í/ºÒÅõ¸í 
+		// Ã„Â³Â¸Â¯Ã…Ã HPÂ¹Ã™ Ã…ÃµÂ¸Ã­/ÂºÃ’Ã…ÃµÂ¸Ã­ 
 		//-------------------------------------------------------------------
 //		case C_VS_UI_OPTION::PARTY_HPBAR_ALPHA :
 //			g_pUserOption->DrawTransHPBar = (BOOL)value;
@@ -7866,7 +7878,7 @@ UIMessageManager::Execute_UI_CHANGE_OPTION(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// Option ´İ±â
+// Option Â´ÃÂ±Ã¢
 //
 //-----------------------------------------------------------------------------
 void
@@ -7884,24 +7896,26 @@ UIMessageManager::Execute_UI_CLOSE_OPTION(int left, int right, void* void_ptr)
 	gC_vs_ui.CloseOption();
 
 	//---------------------------------------------------------------
-	// ±×³É ÀúÀåÇØ¹ö¸°´Ù. - -;
+	// Â±Ã—Â³Ã‰ Ã€ÃºÃ€Ã¥Ã‡Ã˜Â¹Ã¶Â¸Â°Â´Ã™. - -;
 	//---------------------------------------------------------------
 	g_pClientConfig->SaveToFile( g_pFileDef->getProperty("FILE_INFO_CLIENTCONFIG").c_str());
 	g_pUserOption->SaveToFile( g_pFileDef->getProperty("FILE_INFO_USEROPTION").c_str());
 
 	if (g_Mode==MODE_MAINMENU)
 	{
+#ifdef PLATFORM_WINDOWS
 		if (CDirect3D::IsHAL())
 		{
-			// 3D°¡¼Ó ÁßÀÎµ¥.. °¡¼Ó ²ô´Â °æ¿ì
+			// 3DÂ°Â¡Â¼Ã“ ÃÃŸÃ€ÃÂµÂ¥.. Â°Â¡Â¼Ã“ Â²Ã´Â´Ã‚ Â°Ã¦Â¿Ã¬
 			if (!g_pUserOption->Use3DHAL)
 			{
 				g_Mode = MODE_CHANGE_OPTION;
 			}
 		}
 		else
+#endif
 		{
-			// 3D°¡¼Ó ¾Æ´Ñµ¥.. °¡¼Ó ÇÏ´Â °æ¿ì
+			// 3DÂ°Â¡Â¼Ã“ Â¾Ã†Â´Ã‘ÂµÂ¥.. Â°Â¡Â¼Ã“ Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 			if (g_bEnable3DHAL && g_pUserOption->Use3DHAL)
 			{
 				g_Mode = MODE_CHANGE_OPTION;
@@ -7912,7 +7926,7 @@ UIMessageManager::Execute_UI_CLOSE_OPTION(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// Bookcase ´İ±â
+// Bookcase Â´ÃÂ±Ã¢
 //
 //-----------------------------------------------------------------------------
 void
@@ -7933,7 +7947,7 @@ UIMessageManager::Execute_UI_CLOSE_BOOKCASE(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// Briefing ´İ±â
+// Briefing Â´ÃÂ±Ã¢
 //
 //-----------------------------------------------------------------------------
 void
@@ -7954,7 +7968,7 @@ UIMessageManager::Execute_UI_CLOSE_BRIEFING(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// Computer ´İ±â
+// Computer Â´ÃÂ±Ã¢
 //
 //-----------------------------------------------------------------------------
 void
@@ -7974,7 +7988,7 @@ UIMessageManager::Execute_UI_CLOSE_COMPUTER(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// Tutorial¿¡¼­ ºüÁ®³ª°¥¶§, ¹«±â ÇÏ³ª ¼±ÅÃ
+// TutorialÂ¿Â¡Â¼Â­ ÂºÃ¼ÃÂ®Â³ÂªÂ°Â¥Â¶Â§, Â¹Â«Â±Ã¢ Ã‡ÃÂ³Âª Â¼Â±Ã…Ãƒ
 //
 //-----------------------------------------------------------------------------
 void
@@ -7992,7 +8006,7 @@ UIMessageManager::Execute_UI_CLOSE_TUTORIAL_EXIT(int left, int right, void* void
 	
 	UI_CloseTutorialExit();
 
-	int arms = left;	// 0: µµ 1: °Ë 2: ¸ŞÀÌ½º 3: ½ÊÀÚ°¡ 4: AR 5: TR 6: SMG 7:SG
+	int arms = left;	// 0: ÂµÂµ 1: Â°Ã‹ 2: Â¸ÃÃ€ÃŒÂ½Âº 3: Â½ÃŠÃ€ÃšÂ°Â¡ 4: AR 5: TR 6: SMG 7:SG
 
 	if (arms >= 0 && arms <=7)
 	{
@@ -8021,7 +8035,7 @@ UIMessageManager::Execute_UI_CLOSE_TUTORIAL_EXIT(int left, int right, void* void
 
 //-----------------------------------------------------------------------------
 //
-// Desc Dialog ´İÀ» ¶§
+// Desc Dialog Â´ÃÃ€Â» Â¶Â§
 //
 //-----------------------------------------------------------------------------
 void	
@@ -8042,7 +8056,7 @@ UIMessageManager::Execute_UI_CLOSE_DESC_DIALOG(int left, int right, void* void_p
 
 //-----------------------------------------------------------------------------
 //
-// Elevator´İÀ» ¶§
+// ElevatorÂ´ÃÃ€Â» Â¶Â§
 //
 //-----------------------------------------------------------------------------
 void	
@@ -8063,7 +8077,7 @@ UIMessageManager::Execute_UI_CLOSE_ELEVATOR(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// Elevator ¼±ÅÃÇÒ ¶§
+// Elevator Â¼Â±Ã…ÃƒÃ‡Ã’ Â¶Â§
 //
 //-----------------------------------------------------------------------------
 void	
@@ -8079,11 +8093,11 @@ UIMessageManager::Execute_UI_SELECT_ELEVATOR(int left, int right, void* void_ptr
 	}
 
 	
-	// left 0 : 4Ãş ....
+	// left 0 : 4ÃƒÃ¾ ....
 	//		1 : 3
 	//		2 : 2
 	//		3 : 1
-	//		4 : ÁöÇÏ 1Ãş
+	//		4 : ÃÃ¶Ã‡Ã 1ÃƒÃ¾
 	int selectPortal = 4-left;
 
 	if (selectPortal <= 4)
@@ -8107,9 +8121,9 @@ UIMessageManager::Execute_UI_SELECT_ELEVATOR(int left, int right, void* void_ptr
 
 			int zoneID = portalInfo.ZoneID;
 
-			// zoneID·Î ÀÌµ¿ÇÑ´Ù.
+			// zoneIDÂ·Ã Ã€ÃŒÂµÂ¿Ã‡Ã‘Â´Ã™.
 			//-----------------------------------------------------
-			// Packet º¸³»±â
+			// Packet ÂºÂ¸Â³Â»Â±Ã¢
 			//-----------------------------------------------------
 				CGSelectPortal _CGSelectPortal;
 
@@ -8124,7 +8138,7 @@ UIMessageManager::Execute_UI_SELECT_ELEVATOR(int left, int right, void* void_ptr
 
 //-----------------------------------------------------------------------------
 //
-// Server ¼±ÅÃÇÒ ¶§
+// Server Â¼Â±Ã…ÃƒÃ‡Ã’ Â¶Â§
 //
 //-----------------------------------------------------------------------------
 /*
@@ -8146,12 +8160,12 @@ UIMessageManager::Execute_UI_SELECT_SERVER(int left, int right, void* void_ptr)
 
 
 	//-----------------------------------------------------
-	// ServerÁ¤º¸ °»½Å
+	// ServerÃÂ¤ÂºÂ¸ Â°Â»Â½Ã…
 	//-----------------------------------------------------
 	if (g_pServerInformation!=NULL)
 	{
 		//-----------------------------------------------------
-		// ¼­¹ö ÀÌ¸§ ÀĞ¾î¿À±â
+		// Â¼Â­Â¹Ã¶ Ã€ÃŒÂ¸Â§ Ã€ÃÂ¾Ã®Â¿Ã€Â±Ã¢
 		//-----------------------------------------------------
 		const ServerGroup* pGroup = g_pServerInformation->GetData( selectedGroup );
 
@@ -8160,19 +8174,19 @@ UIMessageManager::Execute_UI_SELECT_SERVER(int left, int right, void* void_ptr)
 			const char* pGroupName = pGroup->GetGroupName();
 
 			//-----------------------------------------------------
-			// ÇöÀç ¼±ÅÃµÇ¾î ÀÖ´Â server¶û ´Ù¸£¸é...
+			// Ã‡Ã¶Ã€Ã§ Â¼Â±Ã…ÃƒÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã‚ serverÂ¶Ã» Â´Ã™Â¸Â£Â¸Ã©...
 			//-----------------------------------------------------
 			if (pGroupName != g_pServerInformation->GetServerGroupName())
 			{
 				char str[80];
 				strcpy(str, pGroupName);	
 				
-				// UI¿¡ ¼³Á¤
+				// UIÂ¿Â¡ Â¼Â³ÃÂ¤
 				//gC_vs_ui.SetServerDefault( str, selectedGroup );
 
 			
 				//-----------------------------------------------------
-				// Packet º¸³»±â
+				// Packet ÂºÂ¸Â³Â»Â±Ã¢
 				//-----------------------------------------------------
 				#ifdef CONNECT_SERVER
 					CLChangeServer _CLChangeServer;
@@ -8184,7 +8198,7 @@ UIMessageManager::Execute_UI_SELECT_SERVER(int left, int right, void* void_ptr)
 					gC_vs_ui.CharManagerDisable();
 				#endif
 
-				// ServerÁ¤º¸¿¡ ¼³Á¤
+				// ServerÃÂ¤ÂºÂ¸Â¿Â¡ Â¼Â³ÃÂ¤
 				g_pServerInformation->SetServerGroupName( pGroupName );			
 			}
 		}
@@ -8194,7 +8208,7 @@ UIMessageManager::Execute_UI_SELECT_SERVER(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// Server ¼±ÅÃÇÒ ¶§
+// Server Â¼Â±Ã…ÃƒÃ‡Ã’ Â¶Â§
 //
 //-----------------------------------------------------------------------------
 /*
@@ -8243,14 +8257,14 @@ UIMessageManager::Execute_UI_ITEM_TO_QUICKITEMSLOT(int left, int right, void* vo
 //	}
 //				
 //	//-----------------------------------------------------------------
-//	// °ËÁõ¹ŞÀ»°Ô ¾ø´Â °æ¿ì
+//	// Â°Ã‹ÃÃµÂ¹ÃÃ€Â»Â°Ã” Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 //	//-----------------------------------------------------------------
 //	if (g_pTempInformation->GetMode()==TempInformation::MODE_NULL
 //		&& g_pPlayer->IsItemCheckBufferNULL())
 //	{
 //		if (gC_vs_ui.IsRunningExchange())
 //		{
-//			// ±³È¯ Áß¿¡´Â ±×³É Mouse¿¡ ºÙÀÎ´Ù.
+//			// Â±Â³ÃˆÂ¯ ÃÃŸÂ¿Â¡Â´Ã‚ Â±Ã—Â³Ã‰ MouseÂ¿Â¡ ÂºÃ™Ã€ÃÂ´Ã™.
 //			Execute_UI_ITEM_PICKUP_FROM_INVENTORY(left, right, void_ptr);
 //		}
 //		else
@@ -8258,8 +8272,8 @@ UIMessageManager::Execute_UI_ITEM_TO_QUICKITEMSLOT(int left, int right, void* vo
 //			MItem* pItem = (MItem*)void_ptr;
 //
 //			//---------------------------------------------------------
-//			// ½×ÀÏ ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÌ°í..
-//			// QuickSlotÀÌ ÀÖ´ÂÁö È®ÀÎ
+//			// Â½Ã—Ã€Ã Â¼Ã¶ Ã€Ã–Â´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒÂ°Ã­..
+//			// QuickSlotÃ€ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶ ÃˆÂ®Ã€Ã
 //			//---------------------------------------------------------
 //			if (pItem->IsQuickItem() && g_pQuickSlot!=NULL)
 //			{		
@@ -8273,14 +8287,14 @@ UIMessageManager::Execute_UI_ITEM_TO_QUICKITEMSLOT(int left, int right, void* vo
 //				int addIndex = -1;
 //
 //				//---------------------------------------------------------
-//				// QuickSlotÀÇ ¾îµğ¿¡ µé¾î°¥ ¼ö ÀÖÀ»±î?
+//				// QuickSlotÃ€Ã‡ Â¾Ã®ÂµÃ°Â¿Â¡ ÂµÃ©Â¾Ã®Â°Â¥ Â¼Ã¶ Ã€Ã–Ã€Â»Â±Ã®?
 //				//---------------------------------------------------------
 //				for (int i=0; i<num; i++)
 //				{
 //					MItem* pQuickItem = g_pQuickSlot->GetItem( i );
 //
 //					//---------------------------------------------------------
-//					// ¾Æ¹«°Íµµ ¾ø´Â °÷ÀÌ¸é ±×³É ³ÖÀ¸¸é µÈ´Ù.
+//					// Â¾Ã†Â¹Â«Â°ÃÂµÂµ Â¾Ã¸Â´Ã‚ Â°Ã·Ã€ÃŒÂ¸Ã© Â±Ã—Â³Ã‰ Â³Ã–Ã€Â¸Â¸Ã© ÂµÃˆÂ´Ã™.
 //					//---------------------------------------------------------
 //					if (pQuickItem==NULL)
 //					{						
@@ -8295,27 +8309,27 @@ UIMessageManager::Execute_UI_ITEM_TO_QUICKITEMSLOT(int left, int right, void* vo
 //						break;
 //					}
 //					//---------------------------------------------------------
-//					// ¹º°¡ ÀÖÀ¸¸é.. ±×°÷¿¡ ½×ÀÏ ¼ö ÀÖ´ÂÁö ¾Ë¾Æº»´Ù.
+//					// Â¹ÂºÂ°Â¡ Ã€Ã–Ã€Â¸Â¸Ã©.. Â±Ã—Â°Ã·Â¿Â¡ Â½Ã—Ã€Ã Â¼Ã¶ Ã€Ã–Â´Ã‚ÃÃ¶ Â¾Ã‹Â¾Ã†ÂºÂ»Â´Ã™.
 //					//---------------------------------------------------------
 //					else
 //					{
 //						//--------------------------------------------------------
-//						// ½×ÀÏ ¼ö ÀÖ´Â itemÀÎÁö °ËÁõÇØ ÁØ´Ù.
+//						// Â½Ã—Ã€Ã Â¼Ã¶ Ã€Ã–Â´Ã‚ itemÃ€ÃÃÃ¶ Â°Ã‹ÃÃµÃ‡Ã˜ ÃÃ˜Â´Ã™.
 //						//--------------------------------------------------------
 //						if (pQuickItem->GetItemClass()==pItem->GetItemClass()
 //							&& pQuickItem->GetItemType()==pItem->GetItemType())
 //						{
 //							//----------------------------------------------------
-//							// ´õÇÑ °³¼ö°¡ max¸¦ ³ÑÁö ¾Ê¾Æ¾ß ÇÑ´Ù.
+//							// Â´ÃµÃ‡Ã‘ Â°Â³Â¼Ã¶Â°Â¡ maxÂ¸Â¦ Â³Ã‘ÃÃ¶ Â¾ÃŠÂ¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 //							//----------------------------------------------------
 //							addTotal = pQuickItem->GetNumber() + pItem->GetNumber();
 //							if ( addTotal <= pQuickItem->GetMaxNumber() )
 //							{
-//								// i¹øÂ°¿¡ Ãß°¡ °¡´ÉÇÏ´Ù°í ÆÇ´ÜÇÑ´Ù.								
+//								// iÂ¹Ã¸Ã‚Â°Â¿Â¡ ÃƒÃŸÂ°Â¡ Â°Â¡Â´Ã‰Ã‡ÃÂ´Ã™Â°Ã­ Ã†Ã‡Â´ÃœÃ‡Ã‘Â´Ã™.								
 //								addIndex = i;
 //
 //								//---------------------------------------------------
-//								// InventoryÀÇ ¾ÆÀÌÅÛÀº Á¦°ÅÇÑ´Ù.
+//								// InventoryÃ€Ã‡ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Âº ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 //								//---------------------------------------------------
 //								MItem* pRemoveItem = g_pInventory->RemoveItem( itemX, itemY );
 //								if (pRemoveItem!=NULL)
@@ -8338,11 +8352,11 @@ UIMessageManager::Execute_UI_ITEM_TO_QUICKITEMSLOT(int left, int right, void* vo
 //				{
 //					//---------------------------------------------------------
 //					// SendPacket - Inventory to QuickItem
-//					// ½ÇÁ¦·Î´Â Inventory --> Mouse --> QuickItemÀÌ´Ù.
+//					// Â½Ã‡ÃÂ¦Â·ÃÂ´Ã‚ Inventory --> Mouse --> QuickItemÃ€ÃŒÂ´Ã™.
 //					//---------------------------------------------------------
 //						//---------------------------------------------------
-//						// Inventory¿¡ ÀÖ´ø itemÀ» mouse¿¡ ºÙ¿´´Ù(-_-;)°í
-//						// server·Î packetÀ» º¸³½´Ù.
+//						// InventoryÂ¿Â¡ Ã€Ã–Â´Ã¸ itemÃ€Â» mouseÂ¿Â¡ ÂºÃ™Â¿Â´Â´Ã™(-_-;)Â°Ã­
+//						// serverÂ·Ã packetÃ€Â» ÂºÂ¸Â³Â½Â´Ã™.
 //						//---------------------------------------------------
 //						CGAddInventoryToMouse _CGAddInventoryToMouse;
 //						_CGAddInventoryToMouse.setObjectID( itemID );
@@ -8352,8 +8366,8 @@ UIMessageManager::Execute_UI_ITEM_TO_QUICKITEMSLOT(int left, int right, void* vo
 //						g_pSocket->sendPacket( &_CGAddInventoryToMouse );
 //
 //						//---------------------------------------------------
-//						// mouse¿¡ ÀÖ´ø itemÀ» QuickSlot¿¡ Ãß°¡Çß´Ù°í
-//						// server·Î packetÀ» º¸³½´Ù.
+//						// mouseÂ¿Â¡ Ã€Ã–Â´Ã¸ itemÃ€Â» QuickSlotÂ¿Â¡ ÃƒÃŸÂ°Â¡Ã‡ÃŸÂ´Ã™Â°Ã­
+//						// serverÂ·Ã packetÃ€Â» ÂºÂ¸Â³Â½Â´Ã™.
 //						//---------------------------------------------------
 //						CGAddMouseToQuickSlot _CGAddMouseToQuickSlot;
 //						_CGAddMouseToQuickSlot.setObjectID( itemID );
@@ -8365,13 +8379,13 @@ UIMessageManager::Execute_UI_ITEM_TO_QUICKITEMSLOT(int left, int right, void* vo
 //
 //			}
 //			//---------------------------------------------------------
-//			// Quick slot¿¡ ¾È µé¾î°¡´Â °Å¸é..
-//			// Gear·Î ³Ö¾î¹ö¸®ÀÚ. -_-;
+//			// Quick slotÂ¿Â¡ Â¾Ãˆ ÂµÃ©Â¾Ã®Â°Â¡Â´Ã‚ Â°Ã…Â¸Ã©..
+//			// GearÂ·Ã Â³Ã–Â¾Ã®Â¹Ã¶Â¸Â®Ã€Ãš. -_-;
 //			//---------------------------------------------------------
 //			else
 //			{
 //				//---------------------------------------------------------
-//				// ÀÏ´Ü..  mouse·Î µé°í..
+//				// Ã€ÃÂ´Ãœ..  mouseÂ·Ã ÂµÃ©Â°Ã­..
 //				//---------------------------------------------------------
 //				g_pInventory->RemoveItem( pItem->GetID() );
 //				Execute_UI_ITEM_PICKUP_FROM_INVENTORY(left, right, void_ptr);
@@ -8379,7 +8393,7 @@ UIMessageManager::Execute_UI_ITEM_TO_QUICKITEMSLOT(int left, int right, void* vo
 //				int maxSlot;
 //
 //				//---------------------------------------------------------
-//				// gear¿¡ µé¾î°¥ ¼ö ÀÖ´ÂÁö Ã¼Å©
+//				// gearÂ¿Â¡ ÂµÃ©Â¾Ã®Â°Â¥ Â¼Ã¶ Ã€Ã–Â´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©
 //				//---------------------------------------------------------
 //				if (g_pPlayer->IsSlayer())
 //				{
@@ -8405,8 +8419,8 @@ UIMessageManager::Execute_UI_ITEM_TO_QUICKITEMSLOT(int left, int right, void* vo
 //						addSlot = slot;
 //						pChangeItem = pGearItem;
 //
-//						// ºó °÷ÀÌ¸é ¹Ù·Î ³Ö¾î¹ö¸®¸é µÈ´Ù.
-//						// ºó °÷ÀÌ ¾Æ´Ï¶ó¸é.. ´ÙÀ½°É Ã£´Â´Ù.
+//						// ÂºÃ³ Â°Ã·Ã€ÃŒÂ¸Ã© Â¹Ã™Â·Ã Â³Ã–Â¾Ã®Â¹Ã¶Â¸Â®Â¸Ã© ÂµÃˆÂ´Ã™.
+//						// ÂºÃ³ Â°Ã·Ã€ÃŒ Â¾Ã†Â´ÃÂ¶Ã³Â¸Ã©.. Â´Ã™Ã€Â½Â°Ã‰ ÃƒÂ£Â´Ã‚Â´Ã™.
 //						if (pGearItem==NULL)
 //						{
 //							break;
@@ -8415,7 +8429,7 @@ UIMessageManager::Execute_UI_ITEM_TO_QUICKITEMSLOT(int left, int right, void* vo
 //				}
 //				
 //				//---------------------------------------------------------
-//				// gear¿¡ ³ÖÀÚ..
+//				// gearÂ¿Â¡ Â³Ã–Ã€Ãš..
 //				//---------------------------------------------------------
 //				if (addSlot != -1)
 //				{
@@ -8425,7 +8439,7 @@ UIMessageManager::Execute_UI_ITEM_TO_QUICKITEMSLOT(int left, int right, void* vo
 //		}		
 //	}
 //	//-----------------------------------------------------------------
-//	// °ËÁõ ¹Ş¾Æ¾ßÇÒ ´Ù¸¥ ¾ÆÀÌÅÛÀÌ ÀÖ´Â °æ¿ì
+//	// Â°Ã‹ÃÃµ Â¹ÃÂ¾Ã†Â¾ÃŸÃ‡Ã’ Â´Ã™Â¸Â¥ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 //	//-----------------------------------------------------------------
 //	else
 //	{
@@ -8515,7 +8529,7 @@ UIMessageManager::Execute_UI_SLAYER_PORTAL(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// ÆÄÆ¼ ¿äÃ»¹ŞÀº°Å ´İÀ»¶§
+// Ã†Ã„Ã†Â¼ Â¿Ã¤ÃƒÂ»Â¹ÃÃ€ÂºÂ°Ã… Â´ÃÃ€Â»Â¶Â§
 //
 //-----------------------------------------------------------------------------
 void	
@@ -8537,7 +8551,7 @@ UIMessageManager::Execute_UI_FINISH_REQUEST_PARTY_BUTTON(int left, int right, vo
 
 	if (bTimeout)
 	{
-			// ÆÄÆ¼ ÃÊ´ë¸¦ °ÅºÎÇÑ´Ù.
+			// Ã†Ã„Ã†Â¼ ÃƒÃŠÂ´Ã«Â¸Â¦ Â°Ã…ÂºÃÃ‡Ã‘Â´Ã™.
 			CGPartyInvite _CGPartyInvite;
 			_CGPartyInvite.setTargetObjectID( g_pTempInformation->PartyInviter );
 			_CGPartyInvite.setCode( CG_PARTY_INVITE_REJECT );	
@@ -8548,7 +8562,7 @@ UIMessageManager::Execute_UI_FINISH_REQUEST_PARTY_BUTTON(int left, int right, vo
 
 //-----------------------------------------------------------------------------
 //
-// ÆÄÆ¼ ¿äÃ»¹ŞÀº°Å Ãë¼Ò
+// Ã†Ã„Ã†Â¼ Â¿Ã¤ÃƒÂ»Â¹ÃÃ€ÂºÂ°Ã… ÃƒÃ«Â¼Ã’
 //
 //-----------------------------------------------------------------------------
 void	
@@ -8566,7 +8580,7 @@ UIMessageManager::Execute_UI_PARTY_REQUEST_CANCEL(int left, int right, void* voi
 
 	
 	//---------------------------------------------------------
-	// ÆÄÆ¼ÇÒ·¡? Y/N¿¡ ´ëÇÑ ÀÀ´ä
+	// Ã†Ã„Ã†Â¼Ã‡Ã’Â·Â¡? Y/NÂ¿Â¡ Â´Ã«Ã‡Ã‘ Ã€Ã€Â´Ã¤
 	//---------------------------------------------------------
 	if (g_pTempInformation->GetMode() == TempInformation::MODE_PARTY_REQUEST)
 	{	
@@ -8583,14 +8597,14 @@ UIMessageManager::Execute_UI_PARTY_REQUEST_CANCEL(int left, int right, void* voi
 	
 		g_pTempInformation->SetMode(TempInformation::MODE_NULL);
 		
-		// ÆÄÆ¼ Ãë¼ÒÇÒ·¡?¸¦ Á¦°ÅÇÑ´Ù.
+		// Ã†Ã„Ã†Â¼ ÃƒÃ«Â¼Ã’Ã‡Ã’Â·Â¡?Â¸Â¦ ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
 		UI_ClosePartyCancel();
 	}	
 }
 
 //-----------------------------------------------------------------------------
 //
-// ÆÄÆ¼ ¿äÃ» ÀÀ´ä
+// Ã†Ã„Ã†Â¼ Â¿Ã¤ÃƒÂ» Ã€Ã€Â´Ã¤
 //
 //-----------------------------------------------------------------------------
 void	
@@ -8611,19 +8625,19 @@ UIMessageManager::Execute_UI_PARTY_ACCEPT(int left, int right, void* void_ptr)
 	int code;
 
 	//---------------------------------------------------------
-	// ±³È¯ÇÒ·¡? Y/N¿¡ ´ëÇÑ ÀÀ´ä
+	// Â±Â³ÃˆÂ¯Ã‡Ã’Â·Â¡? Y/NÂ¿Â¡ Â´Ã«Ã‡Ã‘ Ã€Ã€Â´Ã¤
 	//---------------------------------------------------------
 	//if (g_pTempInformation->Mode == TempInformation::MODE_PARTY_REQUEST)
 	{
 		//---------------------------------------------------------
-		// Çã¿ë
+		// Ã‡Ã£Â¿Ã«
 		//---------------------------------------------------------
 		if (accept)
 		{
 			code = CG_PARTY_INVITE_ACCEPT;
 		}
 		//---------------------------------------------------------
-		// °ÅºÎ
+		// Â°Ã…ÂºÃ
 		//---------------------------------------------------------
 		else
 		{	
@@ -8668,7 +8682,7 @@ UIMessageManager::Execute_UI_CLOSE_PARTY_MANAGER(int left, int right, void* void
 
 //-----------------------------------------------------------------------------
 //
-// ÆÄÆ¼ Å»Åğ/Ãß¹æ
+// Ã†Ã„Ã†Â¼ Ã…Â»Ã…Ã°/ÃƒÃŸÂ¹Ã¦
 //
 //-----------------------------------------------------------------------------
 void	
@@ -8684,14 +8698,14 @@ UIMessageManager::Execute_UI_AWAY_PARTY(int left, int right, void* void_ptr)
 	}
 
 
-	// ÆÄÆ¼ Å»Åğ Ãß¹æ 
-	// left :: -1 == Å»Åğ, 0~4 == Ãß¹æ
+	// Ã†Ã„Ã†Â¼ Ã…Â»Ã…Ã° ÃƒÃŸÂ¹Ã¦ 
+	// left :: -1 == Ã…Â»Ã…Ã°, 0~4 == ÃƒÃŸÂ¹Ã¦
 	BOOL bLeftParty = (left==-1);
 
 	if (g_pPlayer->IsWaitVerifyNULL())
 	{
 		//-----------------------------------------------------------------
-		// ³»°¡ ÆÄÆ¼¸¦ ¶°³ª´Â °æ¿ì
+		// Â³Â»Â°Â¡ Ã†Ã„Ã†Â¼Â¸Â¦ Â¶Â°Â³ÂªÂ´Ã‚ Â°Ã¦Â¿Ã¬
 		//-----------------------------------------------------------------
 		if (bLeftParty)
 		{
@@ -8707,7 +8721,7 @@ UIMessageManager::Execute_UI_AWAY_PARTY(int left, int right, void* void_ptr)
 			}
 		}
 		//-----------------------------------------------------------------
-		// ³»°¡ ´Ù¸¥ ´©±¸¸¦ Ãß¹æÇÏ´Â °æ¿ì
+		// Â³Â»Â°Â¡ Â´Ã™Â¸Â¥ Â´Â©Â±Â¸Â¸Â¦ ÃƒÃŸÂ¹Ã¦Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 		//-----------------------------------------------------------------
 		else
 		{
@@ -8739,7 +8753,7 @@ UIMessageManager::Execute_UI_AWAY_PARTY(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// ÆÄÆ¼ Å»Åğ/Ãß¹æ
+// Ã†Ã„Ã†Â¼ Ã…Â»Ã…Ã°/ÃƒÃŸÂ¹Ã¦
 //
 //-----------------------------------------------------------------------------
 void	
@@ -8755,7 +8769,7 @@ UIMessageManager::Execute_UI_FINISH_REQUEST_DIE_BUTTON(int left, int right, void
 	}
 
 
-	// ´ÙÀÌ-_-¿äÃ» ´İ±â left == TRUE : timeout
+	// Â´Ã™Ã€ÃŒ-_-Â¿Ã¤ÃƒÂ» Â´ÃÂ±Ã¢ left == TRUE : timeout
 	BOOL bTimeout = left;
 
 	if (g_pPlayer->IsDead() && !g_pPlayer->IsWaitVerify())
@@ -8779,8 +8793,8 @@ UIMessageManager::Execute_UI_FINISH_REQUEST_DIE_BUTTON(int left, int right, void
 			
 			g_pSocket->sendPacket( &_CGResurrect );
 		}	
-			// ÀÌ°Å¸»°í Verify¸¦ ÇÏ³ª ¸¸µé¾î¾ß µÇ´Âµ¥
-			// ÄÄÆÄÀÏ ÇÏ±â ½È¾î¼­ ÀÏ´Ü... - -;
+			// Ã€ÃŒÂ°Ã…Â¸Â»Â°Ã­ VerifyÂ¸Â¦ Ã‡ÃÂ³Âª Â¸Â¸ÂµÃ©Â¾Ã®Â¾ÃŸ ÂµÃ‡Â´Ã‚ÂµÂ¥
+			// Ã„Ã„Ã†Ã„Ã€Ã Ã‡ÃÂ±Ã¢ Â½ÃˆÂ¾Ã®Â¼Â­ Ã€ÃÂ´Ãœ... - -;
 		g_pPlayer->SetWaitVerify( MPlayer::WAIT_VERIFY_RESURRECT );
 
 		gC_vs_ui.FinishRequestDie();
@@ -8791,7 +8805,7 @@ UIMessageManager::Execute_UI_FINISH_REQUEST_DIE_BUTTON(int left, int right, void
 
 //-----------------------------------------------------------------------------
 //
-// ¼­¹ö ¼±ÅÃÇÒ ¶§
+// Â¼Â­Â¹Ã¶ Â¼Â±Ã…ÃƒÃ‡Ã’ Â¶Â§
 //
 //-----------------------------------------------------------------------------
 void	
@@ -8810,7 +8824,7 @@ UIMessageManager::Execute_UI_CONNECT_SERVER(int left, int right, void* void_ptr)
 	int	selectID = right;
 
 	//-------------------------------------------------------
-	// World¸¦ ¼±ÅÃÇÑ °æ¿ì
+	// WorldÂ¸Â¦ Â¼Â±Ã…ÃƒÃ‡Ã‘ Â°Ã¦Â¿Ã¬
 	//-------------------------------------------------------
 	if (bSelectGroup)
 	{
@@ -8834,7 +8848,7 @@ UIMessageManager::Execute_UI_CONNECT_SERVER(int left, int right, void* void_ptr)
 		}
 	}
 	//-------------------------------------------------------
-	// Server¸¦ ¼±ÅÃÇÑ °æ¿ì
+	// ServerÂ¸Â¦ Â¼Â±Ã…ÃƒÃ‡Ã‘ Â°Ã¦Â¿Ã¬
 	//-------------------------------------------------------
 	else
 	{
@@ -8864,7 +8878,7 @@ UIMessageManager::Execute_UI_CONNECT_SERVER(int left, int right, void* void_ptr)
 
 //-----------------------------------------------------------------------------
 //
-// server ¼±ÅÃ ´İÀ» ¶§
+// server Â¼Â±Ã…Ãƒ Â´ÃÃ€Â» Â¶Â§
 //
 //-----------------------------------------------------------------------------
 void	
@@ -8877,14 +8891,14 @@ UIMessageManager::Execute_UI_CLOSE_SERVER_SELECT(int left, int right, void* void
 	BOOL bSelectGroup = left;
 
 	//------------------------------------------------------------
-	// group¼±ÅÃ¿¡¼­ backÇÏ¸é ÃÊ±âÈ­¸éÀ¸·Î
+	// groupÂ¼Â±Ã…ÃƒÂ¿Â¡Â¼Â­ backÃ‡ÃÂ¸Ã© ÃƒÃŠÂ±Ã¢ÃˆÂ­Â¸Ã©Ã€Â¸Â·Ã
 	//------------------------------------------------------------
 	if (bSelectGroup)
 	{
 		SetMode( MODE_MAINMENU );
 	}
 	//------------------------------------------------------------
-	// server¼±ÅÃ¿¡¼­ backÇÏ¸é group¼±ÅÃÀ¸·Î..
+	// serverÂ¼Â±Ã…ÃƒÂ¿Â¡Â¼Â­ backÃ‡ÃÂ¸Ã© groupÂ¼Â±Ã…ÃƒÃ€Â¸Â·Ã..
 	//------------------------------------------------------------
 	else
 	{
@@ -8896,7 +8910,7 @@ UIMessageManager::Execute_UI_CLOSE_SERVER_SELECT(int left, int right, void* void
 
 //-----------------------------------------------------------------------------
 //
-// Ä³¸¯ÅÍ ÀÌ¸§ È®ÀÎÇÒ¶§
+// Ã„Â³Â¸Â¯Ã…Ã Ã€ÃŒÂ¸Â§ ÃˆÂ®Ã€ÃÃ‡Ã’Â¶Â§
 //
 //-----------------------------------------------------------------------------
 void	
@@ -8911,7 +8925,7 @@ UIMessageManager::Execute_UI_NEWCHARACTER_CHECK(int left, int right, void* void_
 		if (g_pUserInformation->WhisperID.GetLength()==0)
 		{
 			//---------------------------------------------
-			// ÀÌ¸§ ±æÀÌ Ã¼Å©
+			// Ã€ÃŒÂ¸Â§ Â±Ã¦Ã€ÃŒ ÃƒÂ¼Ã…Â©
 			//---------------------------------------------
 			BOOL bAllOK = TRUE;
 
@@ -8930,7 +8944,7 @@ UIMessageManager::Execute_UI_NEWCHARACTER_CHECK(int left, int right, void* void_
 				if (!IsValidID(pName, "-_"))
 				{
 					//---------------------------------------------
-					// Àß¸øµÈ IDÀÎ °æ¿ì
+					// Ã€ÃŸÂ¸Ã¸ÂµÃˆ IDÃ€Ã Â°Ã¦Â¿Ã¬
 					//---------------------------------------------						
 					g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_USER_REGISTER_INVALID_ID].GetString() );
 					bAllOK = FALSE;
@@ -8940,7 +8954,7 @@ UIMessageManager::Execute_UI_NEWCHARACTER_CHECK(int left, int right, void* void_
 					char strName[80];
 					strcpy(strName, pName);
 
-					// ¾È ÁÁÀº ¸»ÀÌ µé¾îÀÖ´Â °æ¿ì´Â Çã¿ëÀÌ ¾ÈµÈ´Ù
+					// Â¾Ãˆ ÃÃÃ€Âº Â¸Â»Ã€ÃŒ ÂµÃ©Â¾Ã®Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Â´Ã‚ Ã‡Ã£Â¿Ã«Ã€ÃŒ Â¾ÃˆÂµÃˆÂ´Ã™
 					if (g_pChatManager->RemoveCurse(strName))
 					{
 						g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_USER_REGISTER_INVALID_ID].GetString() );
@@ -8968,7 +8982,7 @@ UIMessageManager::Execute_UI_NEWCHARACTER_CHECK(int left, int right, void* void_
 
 					g_pSocket->sendPacket( &clQueryCharacterName );
 
-					// ÀÓ½Ã·Î.. -_-;;
+					// Ã€Ã“Â½ÃƒÂ·Ã.. -_-;;
 					g_pUserInformation->WhisperID = pName;
 			}
 		}
@@ -8978,7 +8992,7 @@ UIMessageManager::Execute_UI_NEWCHARACTER_CHECK(int left, int right, void* void_
 
 //-----------------------------------------------------------------------------
 //
-// Áö·Ú/ÆøÅº ¸¸µé²¨ ¼±ÅÃÇÒ¶§
+// ÃÃ¶Â·Ãš/Ã†Ã¸Ã…Âº Â¸Â¸ÂµÃ©Â²Â¨ Â¼Â±Ã…ÃƒÃ‡Ã’Â¶Â§
 //
 //-----------------------------------------------------------------------------
 /*
@@ -8987,18 +9001,18 @@ UIMessageManager::Execute_UI_SELECT_EXPLOSIVE(int left, int right, void* void_pt
 {
 	DEBUG_ADD("[UI] Execute_UI_SELECT_EXPLOSIVE");
 	
-	int type = left;		// Áö·Ú(2) / ÆøÅº(3)
-	int itemType = right;	// Á¾·ù(Áö·Ú:0~3, ÆøÅº:0~5)
+	int type = left;		// ÃÃ¶Â·Ãš(2) / Ã†Ã¸Ã…Âº(3)
+	int itemType = right;	// ÃÂ¾Â·Ã¹(ÃÃ¶Â·Ãš:0~3, Ã†Ã¸Ã…Âº:0~5)
 
 
 	//--------------------------------------------------------
-	// °ËÁõ¹ŞÀ»°Ô ¾ø´Â °æ¿ì
+	// Â°Ã‹ÃÃµÂ¹ÃÃ€Â»Â°Ã” Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 	//--------------------------------------------------------
 	if (g_pPlayer->IsItemCheckBufferNULL()
 		&& g_pTempInformation->Mode==TempInformation::MODE_NULL)
 	{
 		//--------------------------------------------------------
-		// Á¤»óÀûÀÎ °æ¿ì
+		// ÃÂ¤Â»Ã³Ã€Ã»Ã€Ã Â°Ã¦Â¿Ã¬
 		//--------------------------------------------------------
 		if (type==2 && itemType>=0 && itemType<6
 			|| type==3 && itemType>=0 && itemType<4)
@@ -9015,23 +9029,23 @@ UIMessageManager::Execute_UI_SELECT_EXPLOSIVE(int left, int right, void* void_pt
 				
 			#endif	
 
-			// item ±â¾ï
+			// item Â±Ã¢Â¾Ã¯
 			g_pTempInformation->Mode = TempInformation::MODE_SKILL_MAKE_ITEM;
 			g_pTempInformation->Value1 = itemClass;
 			g_pTempInformation->Value2 = itemType;
 
-			// ¸ø ¿òÁ÷ÀÌ°Ô ¸·±â
+			// Â¸Ã¸ Â¿Ã²ÃÃ·Ã€ÃŒÂ°Ã” Â¸Â·Â±Ã¢
 			UI_LockItem();
 			
-			// ¼±ÅÃÃ¢À» ´İ´Â´Ù.
+			// Â¼Â±Ã…ÃƒÃƒÂ¢Ã€Â» Â´ÃÂ´Ã‚Â´Ã™.
 			UI_CloseSelectExplosive();
 		}
 		//--------------------------------------------------------
-		// ¹º°¡ Àß¸øµÈ °æ¿ì
+		// Â¹ÂºÂ°Â¡ Ã€ÃŸÂ¸Ã¸ÂµÃˆ Â°Ã¦Â¿Ã¬
 		//--------------------------------------------------------
 		else
 		{
-			// ¸¸µé²¨¸®¸¦ Á¦´ë·Î ¼±ÅÃÇÏ½Ã¶ó~~
+			// Â¸Â¸ÂµÃ©Â²Â¨Â¸Â®Â¸Â¦ ÃÂ¦Â´Ã«Â·Ã Â¼Â±Ã…ÃƒÃ‡ÃÂ½ÃƒÂ¶Ã³~~
 			g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_ERROR_ETC_ERROR].GetString() );
 		}
 	}
@@ -9044,7 +9058,7 @@ UIMessageManager::Execute_UI_SELECT_EXPLOSIVE(int left, int right, void* void_pt
 
 //-----------------------------------------------------------------------------
 //
-// Áö·Ú/ÆøÅº ¼±ÅÃÇÏ´Â°Å ´İÀ» ¶§
+// ÃÃ¶Â·Ãš/Ã†Ã¸Ã…Âº Â¼Â±Ã…ÃƒÃ‡ÃÂ´Ã‚Â°Ã… Â´ÃÃ€Â» Â¶Â§
 //
 //-----------------------------------------------------------------------------
 /*
@@ -9076,7 +9090,7 @@ UIMessageManager::Execute_UI_CLOSE_TEAM_LIST(int left, int right, void* void_ptr
 		g_pUIDialog->UnSetLockInputPCTalk();
 //		g_pUIDialog->ClosePCTalkDlg();
 //		g_pPlayer->SetWaitVerifyNULL();
-		// ´Ù½Ã ¹º°¡¸¦?¼±ÅÃÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+		// Â´Ã™Â½Ãƒ Â¹ÂºÂ°Â¡Â¸Â¦?Â¼Â±Ã…ÃƒÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â°Ã” Ã‡Ã‘Â´Ã™.
 		//g_pUIDialog->ShowPCTalkDlg();
 	}
 }
@@ -9107,7 +9121,7 @@ UIMessageManager::Execute_UI_CLOSE_TEAM_REGIST(int left, int right, void* void_p
 	
 	if (g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
 	{
-		// ´Ù½Ã ¹º°¡¸¦?¼±ÅÃÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+		// Â´Ã™Â½Ãƒ Â¹ÂºÂ°Â¡Â¸Â¦?Â¼Â±Ã…ÃƒÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â°Ã” Ã‡Ã‘Â´Ã™.
 		if(!gC_vs_ui.ReturnTeamRegistMember())
 			g_pUIDialog->ShowPCTalkDlg();
 
@@ -9131,7 +9145,7 @@ UIMessageManager::Execute_UI_CLOSE_TEAM_MEMBER_LIST(int left, int right, void* v
 //	if (g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
 //	{
 //
-//		// ´Ù½Ã ¹º°¡¸¦?¼±ÅÃÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+//		// Â´Ã™Â½Ãƒ Â¹ÂºÂ°Â¡Â¸Â¦?Â¼Â±Ã…ÃƒÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â°Ã” Ã‡Ã‘Â´Ã™.
 //		g_pUIDialog->ShowPCTalkDlg();
 //	}
 }
@@ -9335,12 +9349,12 @@ UIMessageManager::Execute_UI_JOIN_REGIST_TEAM(int left, int right, void* void_pt
 
 	
 void
-UIMessageManager::Execute_UI_REGIST_GUILD_MEMBER(int left, int right, void* void_ptr)			// void_ptr = introduction max:150byte Ã¢ ´İ¾ÆÁÙ°Í!
+UIMessageManager::Execute_UI_REGIST_GUILD_MEMBER(int left, int right, void* void_ptr)			// void_ptr = introduction max:150byte ÃƒÂ¢ Â´ÃÂ¾Ã†ÃÃ™Â°Ã!
 {
 
 	if(void_ptr == NULL)
 	{
-		// ¿¡·¯¸Ş¼¼Áö Ãâ·Â
+		// Â¿Â¡Â·Â¯Â¸ÃÂ¼Â¼ÃÃ¶ ÃƒÃ¢Â·Ã‚
 		g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_INTRO].GetString() );
 		return;
 	}
@@ -9356,12 +9370,12 @@ UIMessageManager::Execute_UI_REGIST_GUILD_MEMBER(int left, int right, void* void
 }
 
 void
-UIMessageManager::Execute_UI_REGIST_GUILD_TEAM(int left, int right, void* void_ptr)			// left = TEAM_NAME, void_ptr = introduction max:150byte Ã¢ ´İ¾ÆÁÙ°Í!
+UIMessageManager::Execute_UI_REGIST_GUILD_TEAM(int left, int right, void* void_ptr)			// left = TEAM_NAME, void_ptr = introduction max:150byte ÃƒÂ¢ Â´ÃÂ¾Ã†ÃÃ™Â°Ã!
 {
 
 	if(void_ptr == NULL || (char *)left == NULL)
 	{
-		// ¿¡·¯¸Ş¼¼Áö Ãâ·Â
+		// Â¿Â¡Â·Â¯Â¸ÃÂ¼Â¼ÃÃ¶ ÃƒÃ¢Â·Ã‚
 		g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_INTRO].GetString() );
 		return;
 	}
@@ -9400,8 +9414,8 @@ UIMessageManager::Execute_UI_CLOSE_FILE_DIALOG(int left, int right, void* void_p
 				
 				if (LoadImageToSurface(p_str, bmpSurface))
 				{
-					// surfaceÀÇ Å©±â°¡ default ProfileÅ©±â¿Í ´Ù¸£´Ù¸é
-					// size¸¦ º¯°æ½ÃÄÑÁà¾ß ÇÑ´Ù..	
+					// surfaceÃ€Ã‡ Ã…Â©Â±Ã¢Â°Â¡ default ProfileÃ…Â©Â±Ã¢Â¿Ã Â´Ã™Â¸Â£Â´Ã™Â¸Ã©
+					// sizeÂ¸Â¦ ÂºÂ¯Â°Ã¦Â½ÃƒÃ„Ã‘ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™..	
 					RECT bmpRect = { 0, 0, bmpSurface.GetWidth(), bmpSurface.GetHeight() };
 
 					// BigSize
@@ -9429,7 +9443,7 @@ UIMessageManager::Execute_UI_CLOSE_FILE_DIALOG(int left, int right, void* void_p
 
 //-----------------------------------------------------------------------------
 //
-// mouseÀÇ Item(EVENT_STAR)À¸·Î InventoryÀÇ ItemÀ» EnchantÇÒ ¶§
+// mouseÃ€Ã‡ Item(EVENT_STAR)Ã€Â¸Â·Ã InventoryÃ€Ã‡ ItemÃ€Â» EnchantÃ‡Ã’ Â¶Â§
 //
 //-----------------------------------------------------------------------------
 void
@@ -9443,9 +9457,9 @@ UIMessageManager::Execute_UI_ENCHANT_ACCEPT(int left, int right, void* void_ptr)
 		return;
 	}
 
-	// gpC_mouse_pointer->GetPickUpItem()		// µé°í ÀÖ´Â °Í
-	//void_ptr = MItem *		// µé¾î°¥ °÷
-	// InventoryÁÂÇ¥(left,right)
+	// gpC_mouse_pointer->GetPickUpItem()		// ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã‚ Â°Ã
+	//void_ptr = MItem *		// ÂµÃ©Â¾Ã®Â°Â¥ Â°Ã·
+	// InventoryÃÃ‚Ã‡Â¥(left,right)
 	MItem* pItem = (MItem*)void_ptr;
 	MItem* pMouseItem = gpC_mouse_pointer->GetPickUpItem();
 
@@ -9463,14 +9477,14 @@ UIMessageManager::Execute_UI_ENCHANT_ACCEPT(int left, int right, void* void_ptr)
 
 	TYPE_OBJECTID mouseItemID = ((pMouseItem==NULL)?OBJECTID_NULL : pMouseItem->GetID());
 
-	// ±³È¯ÁßÀÏ¶§´Â EnchantÇÒ ¼ö ¾ø´Ù!
+	// Â±Â³ÃˆÂ¯ÃÃŸÃ€ÃÂ¶Â§Â´Ã‚ EnchantÃ‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™!
 	if (g_pTradeManager!=NULL)
 		return;
 	
 	//g_pPlayer->SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_INSERT_FROM_INVENTORY );
 	
 	//----------------------------------------------------
-	// Server¿¡ Á¢¼ÓÇÑ °æ¿ì
+	// ServerÂ¿Â¡ ÃÂ¢Â¼Ã“Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 	//----------------------------------------------------
 	if(g_pTempInformation->GetMode() == TempInformation::MODE_NULL && g_pPlayer->IsItemCheckBufferNULL())
 	{
@@ -9534,7 +9548,7 @@ void UIMessageManager::Execute_UI_MODIFY_GUILD_MEMBER_INTRO(int left, int right,
 
 void UIMessageManager::Execute_UI_SEND_NAME_FOR_SOUL_CHAIN(int left, int right, void* void_ptr)
 {
-	// ÀÌ¹Ì ÃßÀû¹öÆ°À» ´©¸¥»óÅÂÀÏ°æ¿ì
+	// Ã€ÃŒÂ¹ÃŒ ÃƒÃŸÃ€Ã»Â¹Ã¶Ã†Â°Ã€Â» Â´Â©Â¸Â¥Â»Ã³Ã…Ã‚Ã€ÃÂ°Ã¦Â¿Ã¬
 	if(g_pPlayer->IsWaitVerify())
 		return;
 
@@ -9555,7 +9569,7 @@ void UIMessageManager::Execute_UI_SEND_NAME_FOR_SOUL_CHAIN(int left, int right, 
 void UIMessageManager::Execute_UI_CLOSE_TRACE_WINDOW(int left, int right, void* void_ptr)
 {
 //	//------------------------------------------------------------------
-//	// Player°¡ ±â´Ù¸®´ø skillÀÇ ¼º°øÀ¯¹«¸¦ °ËÁõ¹Ş¾Ò´Ù.
+//	// PlayerÂ°Â¡ Â±Ã¢Â´Ã™Â¸Â®Â´Ã¸ skillÃ€Ã‡ Â¼ÂºÂ°Ã¸Ã€Â¯Â¹Â«Â¸Â¦ Â°Ã‹ÃÃµÂ¹ÃÂ¾Ã’Â´Ã™.
 //	//------------------------------------------------------------------	
 //	if (g_pPlayer->GetWaitVerify()==MPlayer::WAIT_VERIFY_SKILL_SUCCESS)
 //	{		
@@ -9567,7 +9581,7 @@ void UIMessageManager::Execute_UI_CLOSE_TRACE_WINDOW(int left, int right, void* 
 //	}
 //
 //	//------------------------------------------------------------------
-//	// Item LockÀ» Ç¬´Ù.
+//	// Item LockÃ€Â» Ã‡Â¬Â´Ã™.
 //	//------------------------------------------------------------------
 //	if (g_pPlayer->GetItemCheckBufferStatus()==MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY)
 //	{
@@ -9577,7 +9591,7 @@ void UIMessageManager::Execute_UI_CLOSE_TRACE_WINDOW(int left, int right, void* 
 	gC_vs_ui.CloseTraceWindow();
 }
 
-// ³İ¸¶ºí¿ë ¼öÁ¤
+// Â³ÃÂ¸Â¶ÂºÃ­Â¿Ã« Â¼Ã¶ÃÂ¤
 void UIMessageManager::Execute_UI_RUN_CONNECT(int left, int right, void* void_ptr)
 {
 	UI_RunConnect();
@@ -9608,7 +9622,7 @@ void UIMessageManager::Excute_UI_USE_XMAS_TREE(int left, int right, void* void_p
 
 	if(sz_ptr == NULL)
 	{
-		// ºóÇ×¸ñÀÌ ÀÖ½À´Ï´Ù.
+		// ÂºÃ³Ã‡Ã—Â¸Ã±Ã€ÃŒ Ã€Ã–Â½Ã€Â´ÃÂ´Ã™.
 		g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_MESSAGE_XMAS_CARD_CANNOT_USE].GetString() );
 		return;
 	}
@@ -9639,15 +9653,15 @@ void UIMessageManager::Excute_UI_CLOSE_XMAS_CARD_WINDOW(int left, int right, voi
 
 void UIMessageManager::Excute_UI_SEND_BRING_FEE(int left,int right, void* void_ptr)
 {
-	// °ËÁõÇÒ°Ô ÀÖÀ¸¸é ¸®ÅÏ.
+	// Â°Ã‹ÃÃµÃ‡Ã’Â°Ã” Ã€Ã–Ã€Â¸Â¸Ã© Â¸Â®Ã…Ã.
 	if(g_pTempInformation->GetMode() != TempInformation::MODE_NULL)
 	{
 		DEBUG_ADD("Excute_UI_SEND_BRING_FEE TempInformation is not NULL");
 		return;
 	}
-	// ¼¼±İ °¡Á®¿À±â
+	// Â¼Â¼Â±Ã Â°Â¡ÃÂ®Â¿Ã€Â±Ã¢
 	DEBUG_ADD("Excute_UI_SEND_BRING_FEE");
-	// °¡Á®¿À±â ÇßÀ»¶© °ËÁõ ÆĞÅ¶ ³¯¶ó¿À±âÀü±îÁø ³ÀµÎÀÚ.
+	// Â°Â¡ÃÂ®Â¿Ã€Â±Ã¢ Ã‡ÃŸÃ€Â»Â¶Â© Â°Ã‹ÃÃµ Ã†ÃÃ…Â¶ Â³Â¯Â¶Ã³Â¿Ã€Â±Ã¢Ã€Ã¼Â±Ã®ÃÃ¸ Â³Ã€ÂµÃÃ€Ãš.
 
 	g_pTempInformation->SetMode(TempInformation::MODE_WAIT_BRING_FEE);
 	g_pTempInformation->Value1 = left;
@@ -9662,7 +9676,7 @@ void UIMessageManager::Excute_UI_SEND_BRING_FEE(int left,int right, void* void_p
 
 void UIMessageManager::Excute_UI_CLOSE_BRING_FEE_WINDOW(int left,int right, void* void_ptr)
 {
-	// °ËÁõÇÒ°Ô ¾øÀ»°æ¿ì
+	// Â°Ã‹ÃÃµÃ‡Ã’Â°Ã” Â¾Ã¸Ã€Â»Â°Ã¦Â¿Ã¬
 	if (g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
 	{
 		gC_vs_ui.CloseBringFeeWindow();
@@ -9734,7 +9748,7 @@ void UIMessageManager::Execute_UI_CLOSE_INPUT_NAME_WINDOW(int left, int right, v
 
 //-----------------------------------------------------------------------------
 //
-// Gear¿¡¼­ ItemÀ» »ç¿ëÇÑ °æ¿ì
+// GearÂ¿Â¡Â¼Â­ ItemÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 //
 //-----------------------------------------------------------------------------
 void
@@ -9761,7 +9775,7 @@ UIMessageManager::Execute_UI_ITEM_USE_GEAR(int left, int right, void* void_ptr)
 
 			if (g_pPlayer->IsItemCheckBufferNULL())
 			{
-				// ÀÚ±âÁ¾Á· ¾ÆÀÌÅÛ¸¸ ¾²Àğ-¤µ-;
+				// Ã€ÃšÂ±Ã¢ÃÂ¾ÃÂ· Â¾Ã†Ã€ÃŒÃ…Ã›Â¸Â¸ Â¾Â²Ã€Ã°-Â¤Âµ-;
 				if(g_pPlayer->IsSlayer() && pSlotItem->IsSlayerItem() ||
 					g_pPlayer->IsVampire() && pSlotItem->IsVampireItem() ||
 					g_pPlayer->IsOusters() && pSlotItem->IsOustersItem())
@@ -9794,22 +9808,24 @@ UIMessageManager::Execute_GO_BILING_PAGE(int left, int right, void* void_ptr)
 {
 	if(left == TRUE)
 	{
-		// Á¾·á..
+		// ÃÂ¾Â·Ã¡..
 		SetMode( MODE_QUIT );
-		
+
+#ifdef PLATFORM_WINDOWS
 		char str[256];
-		
+
 		GetWindowsDirectory(
 			str,  // address of buffer for Windows directory
 			255        // size of directory buffer
 			);
-		
+
 		sprintf(str, "%s\\Explorer.exe", str);
-		
+
 		CDirectDraw::GetDD()->RestoreDisplayMode();
-		
+
 	//	_spawnl(_P_NOWAIT, str, "Explorer.exe", g_pClientConfig->URL_HOMEPAGE_BILING.GetString(), NULL);
-	}	
+#endif
+	}
 }
 
 void 
@@ -9851,7 +9867,7 @@ UIMessageManager::Execute_UI_CLOSE_LOTTERY_CARD(int left, int right, void *void_
 void 
 UIMessageManager::Execute_UI_LOTTERY_CARD_STATUS(int left, int right, void *void_ptr)
 {
-	// left = step, right = »óÇ° ID
+	// left = step, right = Â»Ã³Ã‡Â° ID
 	
 	CGLotterySelect _CGLotterySelect;
 	
@@ -9918,9 +9934,9 @@ UIMessageManager::Execute_UI_TRANS_ITEM_ACCEPT(int left, int right, void *void_p
 		DEBUG_ADD("Not Mode MODE_GAME or Dead");
 		return;
 	}
-	// gpC_mouse_pointer->GetPickUpItem()		// µé°í ÀÖ´Â °Í
-	//void_ptr = MItem *		// µé¾î°¥ °÷
-	// InventoryÁÂÇ¥(left,right)
+	// gpC_mouse_pointer->GetPickUpItem()		// ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã‚ Â°Ã
+	//void_ptr = MItem *		// ÂµÃ©Â¾Ã®Â°Â¥ Â°Ã·
+	// InventoryÃÃ‚Ã‡Â¥(left,right)
 	MItem* pItem = (MItem*)void_ptr;
 	MItem* pMouseItem = gpC_mouse_pointer->GetPickUpItem();
 
@@ -9936,14 +9952,14 @@ UIMessageManager::Execute_UI_TRANS_ITEM_ACCEPT(int left, int right, void *void_p
 	}
 	TYPE_OBJECTID mouseItemID = ((pMouseItem==NULL)?OBJECTID_NULL : pMouseItem->GetID());
 
-	// ±³È¯ÁßÀÏ¶§´Â EnchantÇÒ ¼ö ¾ø´Ù!
+	// Â±Â³ÃˆÂ¯ÃÃŸÃ€ÃÂ¶Â§Â´Ã‚ EnchantÃ‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™!
 	if (g_pTradeManager!=NULL)
 		return;
 	
 	//g_pPlayer->SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_INSERT_FROM_INVENTORY );
 	
 	//----------------------------------------------------
-	// Server¿¡ Á¢¼ÓÇÑ °æ¿ì
+	// ServerÂ¿Â¡ ÃÂ¢Â¼Ã“Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 	//----------------------------------------------------
 	if(g_pTempInformation->GetMode() == TempInformation::MODE_NULL && g_pPlayer->IsItemCheckBufferNULL())
 	{
@@ -10154,7 +10170,7 @@ UIMessageManager::Execute_UI_OUSTERS_DOWN_SKILL(int left, int right, void *void_
 
 	int curLevel = (*g_pSkillInfoTable)[left].GetExpLevel();
 
-	// 2004, 11, 8, sobeit modify start - ¾Æ¿ì½ºÅÍÁî ½ºÅ³¿¡ µû¶ó 0·¹º§·Îµµ ¸¸µé¼ö ÀÖ´Ù.
+	// 2004, 11, 8, sobeit modify start - Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÃÃ® Â½ÂºÃ…Â³Â¿Â¡ ÂµÃ»Â¶Ã³ 0Â·Â¹ÂºÂ§Â·ÃÂµÂµ Â¸Â¸ÂµÃ©Â¼Ã¶ Ã€Ã–Â´Ã™.
 	if( curLevel > 30 || (curLevel == 1 && (*g_pSkillInfoTable)[left].CanDelete == 0) )
 		return;	
 	// 2004, 11, 8, sobeit modify end
@@ -10174,7 +10190,7 @@ UIMessageManager::Execute_UI_CLEAR_ALL_STAGE(int left, int right, void *void_ptr
 	// LEFT = GAMETYPE
 	switch( left )
 	{
-	case 0 :				// ´ÙƒÚ´Ù!!!!
+	case 0 :				// Â´Ã™ÂƒÃšÂ´Ã™!!!!
 		break;
 	case 1 :
 		break;
@@ -10248,18 +10264,18 @@ UIMessageManager::Execute_UI_CLEAR_STAGE(int left, int right, void *void_ptr)
 void
 UIMessageManager::Execute_UI_FORCE_DIE(int left, int right, void *void_ptr)
 {
-	// ³ª¸¦ Á×¿©ÁÒ
+	// Â³ÂªÂ¸Â¦ ÃÃ—Â¿Â©ÃÃ’
 	gC_vs_ui.CloseAllDialog();
 	
 	switch(left)
 	{
-	case 10 :						// ArrowTile ÇÏ´Ù°¡ Á×¾úÀ»¶§
+	case 10 :						// ArrowTile Ã‡ÃÂ´Ã™Â°Â¡ ÃÃ—Â¾ÃºÃ€Â»Â¶Â§
 		break;
-	case 11 :						// CrazyMine ÇÏ´Ù°¡ Á×¾úÀ»¶§			
+	case 11 :						// CrazyMine Ã‡ÃÂ´Ã™Â°Â¡ ÃÃ—Â¾ÃºÃ€Â»Â¶Â§			
 		break;
 	}
 	
-	// ¼­¹ö¿¡ ³ª Á×¿©ÁÒ ÆĞÅ¶À» º¸³½´Ù.
+	// Â¼Â­Â¹Ã¶Â¿Â¡ Â³Âª ÃÃ—Â¿Â©ÃÃ’ Ã†ÃÃ…Â¶Ã€Â» ÂºÂ¸Â³Â½Â´Ã™.
 	CGFailQuest		_CGFailQuest;
 	
 	_CGFailQuest.setFail( true );
@@ -10324,7 +10340,7 @@ UIMessageManager::Execute_UI_POPUP_MESSAGE_OK(int left, int right, void* void_pt
 
 	switch(recvID)
 	{
-	// ÃÊº¸Á¸
+	// ÃƒÃŠÂºÂ¸ÃÂ¸
 	case 1:
 		zoneID = 1122;
 		break;
@@ -10333,12 +10349,12 @@ UIMessageManager::Execute_UI_POPUP_MESSAGE_OK(int left, int right, void* void_pt
 		zoneID = 1122;
 		break;
 		
-	// ·¹º§ ÀüÀï ½ÃÀÛ
+	// Â·Â¹ÂºÂ§ Ã€Ã¼Ã€Ã¯ Â½ÃƒÃ€Ã›
 	case 4:
 		zoneID = 1131;
 		break;
 
-	// Á¾Á· ÀüÀï ½ÃÀÛ
+	// ÃÂ¾ÃÂ· Ã€Ã¼Ã€Ã¯ Â½ÃƒÃ€Ã›
 	case 6:
 		zoneID = 72;
 		break;
@@ -10357,7 +10373,7 @@ UIMessageManager::Execute_UI_POPUP_MESSAGE_OK(int left, int right, void* void_pt
 void 
 UIMessageManager::Execute_UI_CLOSE_SHRINE_MINIMAP(int left, int right, void* void_ptr)
 {
-	// Random-_- À¸·Î º¸³»ÀÚ. °­Á¦·Î ´İÀº °æ¿ìÀÌ´Ù. 
+	// Random-_- Ã€Â¸Â·Ã ÂºÂ¸Â³Â»Ã€Ãš. Â°Â­ÃÂ¦Â·Ã Â´ÃÃ€Âº Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™. 
 
 	bool bSended = false;
 
@@ -10419,7 +10435,7 @@ UIMessageManager::Execute_UI_PET_GAMBLE(int left, int right, void* void_ptr)
 {
 	CGPetGamble _CGPetGamble;
 	g_pSocket->sendPacket( &_CGPetGamble );
-	// °×ºíÇÏ´Âµ¿¾È ¾ÆÀÌÅÛ ¸ø»©°Ô
+	// Â°Ã—ÂºÃ­Ã‡ÃÂ´Ã‚ÂµÂ¿Â¾Ãˆ Â¾Ã†Ã€ÃŒÃ…Ã› Â¸Ã¸Â»Â©Â°Ã”
 	UI_LockItem();
 }
 
@@ -10445,17 +10461,17 @@ UIMessageManager::Execute_UI_CLOSE_PETSTORAGE(int left, int right, void* void_pt
 
 	gC_vs_ui.ClosePetStorage();
 	
-	// º¸°üÇÔ ÁßÁö
+	// ÂºÂ¸Â°Ã¼Ã‡Ã” ÃÃŸÃÃ¶
 	if (g_pStorage!=NULL)
 	{
 		delete g_pStorage;
 		g_pStorage = NULL;
 	}
 
-	// storage¸¦ ¾ø¾Ø´Ù.
+	// storageÂ¸Â¦ Â¾Ã¸Â¾Ã˜Â´Ã™.
 	gC_vs_ui.SetPetStorage( NULL );
 
-//	// ´Ù½Ã ¹º°¡¸¦?¼±ÅÃÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+//	// Â´Ã™Â½Ãƒ Â¹ÂºÂ°Â¡Â¸Â¦?Â¼Â±Ã…ÃƒÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â°Ã” Ã‡Ã‘Â´Ã™.
 //	g_pUIDialog->ShowPCTalkDlg();
 
 	g_pTempInformation->SetMode(TempInformation::MODE_NULL);
@@ -10606,7 +10622,7 @@ UIMessageManager::Execute_UI_SMS_OPEN_LIST(int left, int right, void* void_ptr)
 	if (g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
 	{
 		gC_vs_ui.RunSMSList();
-		// sms ÁÖ¼Ò ¿äÃ» ÆĞÅ¶ º¸³¿
+		// sms ÃÃ–Â¼Ã’ Â¿Ã¤ÃƒÂ» Ã†ÃÃ…Â¶ ÂºÂ¸Â³Â¿
 		CGSMSAddressList _CGSMSAddressList;
 		g_pSocket->sendPacket( &_CGSMSAddressList );
 	}
@@ -10632,7 +10648,7 @@ UIMessageManager::Execute_UI_SMS_RECORD(int left, int right, void* void_ptr)
 		g_pTempInformation->SetMode(TempInformation::MODE_SMS_ADD_ADDRESS);
 		g_pTempInformation->Value1 = (int)left;
 		g_pTempInformation->Value2 = (int)right;
-		g_pTempInformation->Value3 = (int)void_ptr;
+		g_pTempInformation->Value3 = (int)(intptr_t)void_ptr;
 
 	}
 
@@ -10648,7 +10664,7 @@ UIMessageManager::Execute_UI_SMS_DELETE(int left, int right, void* void_ptr)
 		return;
 	}
 
-	// µî·Ï ¿äÃ» ÆĞÅ¶ º¸³¿
+	// ÂµÃ®Â·Ã Â¿Ã¤ÃƒÂ» Ã†ÃÃ…Â¶ ÂºÂ¸Â³Â¿
 	if (g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
 	{
 		CGDeleteSMSAddress	_CGDeleteSMSAddress;
@@ -10765,9 +10781,9 @@ UIMessageManager::Execute_UI_CHANGE_CUSTOM_NAMING(int left, int right, void* voi
 		DEBUG_ADD("Not Mode MODE_GAME");
 		return;
 	}
-	// ¼­¹ö ¼¼ÆÃ ³¡³ª°í Å×½ºÆ® ÈÄ return Ç®ÀÚ..
+	// Â¼Â­Â¹Ã¶ Â¼Â¼Ã†Ãƒ Â³Â¡Â³ÂªÂ°Ã­ Ã…Ã—Â½ÂºÃ†Â® ÃˆÃ„ return Ã‡Â®Ã€Ãš..
 //	return;
-	// left : name, right : item ID(0=¿ï¹ö¸°) void_ptr:penitem pointer
+	// left : name, right : item ID(0=Â¿Ã¯Â¹Ã¶Â¸Â°) void_ptr:penitem pointer
 	if (g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
 	{
 		char szTemp[22];
@@ -10784,7 +10800,7 @@ UIMessageManager::Execute_UI_CHANGE_CUSTOM_NAMING(int left, int right, void* voi
 //			char strName[80];
 //			strcpy(strName, pChar->sz_name);
 //
-//			// ¾È ÁÁÀº ¸»ÀÌ µé¾îÀÖ´Â °æ¿ì´Â Çã¿ëÀÌ ¾ÈµÈ´Ù
+//			// Â¾Ãˆ ÃÃÃ€Âº Â¸Â»Ã€ÃŒ ÂµÃ©Â¾Ã®Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Â´Ã‚ Ã‡Ã£Â¿Ã«Ã€ÃŒ Â¾ÃˆÂµÃˆÂ´Ã™
 //			if (g_pChatManager->RemoveCurse(strName))
 //			{
 //				g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_USER_REGISTER_INVALID_ID].GetString() );
@@ -10793,7 +10809,7 @@ UIMessageManager::Execute_UI_CHANGE_CUSTOM_NAMING(int left, int right, void* voi
 //		}
 		g_pChatManager->RemoveCurse(szTemp );
 
-		// ÀÌÂë¿¡¼­ effect status¸¦ °Ë»ö ÇØ¼­ ¾ÆÀÌÅÛ »ç¿ë ÆĞÅ¶À» º¸³»´Â°Ô ÁÁÀ»µí..
+		// Ã€ÃŒÃ‚Ã«Â¿Â¡Â¼Â­ effect statusÂ¸Â¦ Â°Ã‹Â»Ã¶ Ã‡Ã˜Â¼Â­ Â¾Ã†Ã€ÃŒÃ…Ã› Â»Ã§Â¿Ã« Ã†ÃÃ…Â¶Ã€Â» ÂºÂ¸Â³Â»Â´Ã‚Â°Ã” ÃÃÃ€Â»ÂµÃ­..
 		MItem* pItem = NULL;	
 		
 		if(right != 0)
@@ -10806,26 +10822,26 @@ UIMessageManager::Execute_UI_CHANGE_CUSTOM_NAMING(int left, int right, void* voi
 
 			if(right != 0)
 			{ 
-				// ¸ÕÀú ¾ÆÀÌÅÛ ½è´Ù°í ÆĞÅ¶ º¸³»°í - ¾Èº¸³»±â·ç ¼³Á¤
+				// Â¸Ã•Ã€Ãº Â¾Ã†Ã€ÃŒÃ…Ã› Â½Ã¨Â´Ã™Â°Ã­ Ã†ÃÃ…Â¶ ÂºÂ¸Â³Â»Â°Ã­ - Â¾ÃˆÂºÂ¸Â³Â»Â±Ã¢Â·Ã§ Â¼Â³ÃÂ¤
 			//	Execute_UI_ITEM_USE(pItem->GetID(), 0, (void*)pItem);
-				// ´Ğ³×ÀÓ Ã¼ÀÎÁö ÆĞÅ¶À» º¸³»Àå..
+				// Â´ÃÂ³Ã—Ã€Ã“ ÃƒÂ¼Ã€ÃÃÃ¶ Ã†ÃÃ…Â¶Ã€Â» ÂºÂ¸Â³Â»Ã€Ã¥..
 				_CGModifyNickname.setNicknameID(pItem->GetID());
 				g_pSocket->sendPacket( &_CGModifyNickname );
 
 				g_pTempInformation->SetMode(TempInformation::MODE_NICKNAME_CHANGE_CUSTOM);
-				g_pTempInformation->Value1 = left;					// ¹Ù²ï ´Ğ³×ÀÓ ¾ÆÀÌµğ
-				g_pTempInformation->Value2 = pItem->GetItemType();  // ¾ÆÀÌÅÛ Å¸ÀÔ
+				g_pTempInformation->Value1 = left;					// Â¹Ã™Â²Ã¯ Â´ÃÂ³Ã—Ã€Ã“ Â¾Ã†Ã€ÃŒÂµÃ°
+				g_pTempInformation->Value2 = pItem->GetItemType();  // Â¾Ã†Ã€ÃŒÃ…Ã› Ã…Â¸Ã€Ã”
 
-				if(25 != g_pTempInformation->Value2)  // ½Ã°£Á¦ ¤¿¤·ÀÌÅÛ
+				if(25 != g_pTempInformation->Value2)  // Â½ÃƒÂ°Â£ÃÂ¦ Â¤Â¿Â¤Â·Ã€ÃŒÃ…Ã›
 					g_pPlayer->SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
 			}
 			else
 			{
-				// ¿ï¹ö¸°ÀÏ¶© ¾ÆÀÌÅÛ ¾øÀÌ ¹Ù²Û´ç..
+				// Â¿Ã¯Â¹Ã¶Â¸Â°Ã€ÃÂ¶Â© Â¾Ã†Ã€ÃŒÃ…Ã› Â¾Ã¸Ã€ÃŒ Â¹Ã™Â²Ã›Â´Ã§..
 				_CGModifyNickname.setNicknameID(0);
 				g_pSocket->sendPacket( &_CGModifyNickname );
 				g_pTempInformation->SetMode(TempInformation::MODE_NICKNAME_CHANGE_CUSTOM);
-				g_pTempInformation->Value1 = left;					// ¹Ù²ï ´Ğ³×ÀÓ ¾ÆÀÌµğ
+				g_pTempInformation->Value1 = left;					// Â¹Ã™Â²Ã¯ Â´ÃÂ³Ã—Ã€Ã“ Â¾Ã†Ã€ÃŒÂµÃ°
 				g_pTempInformation->Value2 = 0;  // 
 			}
 		}
@@ -10848,21 +10864,21 @@ UIMessageManager::Execute_UI_RUN_NAMING_CHANGE(int left, int right, void* void_p
 		MItem* pItem = (MItem*)left;
 		if(pItem->GetItemClass() != ITEM_CLASS_EVENT_GIFT_BOX)
 			return;
-		// pItem ÀÌ Ä³¸¯ÅÍ ´Ğ³×ÀÓ ¹Ù²Ù´Â ¾ÆÀÌÅÛ ÀÌ¸é
-			// 1È¸¿ë (2°¡Áö) - ±âÁ¸´Ğ³×ÀÓ ¼öÁ¤, »õ·Î¿î ´Ğ³×ÀÓ Ãß°¡
-			// ½Ã°£Á¦ (1°¡Áö) - Æ¯Á¤ ½Ã°£µ¿¾È ±âÁ¸ ´Ğ³×ÀÓ ¹«Á¦ÇÑ ¼öÁ¤°¡´É
-		// pItemÀÌ Æê ´Ğ³×ÀÓ ¹Ù²Ù´Â ¾ÆÀÌÅÛÀÌ¸é ÆêÀÌ ¼ÒÈ¯ »óÅÂ¿©¾ß¸¸ »ç¿ë °¡´É
-			// ¿ï¹ö¸°ÀÇ °æ¿ì ¾ÆÀÌÅÛÀÌ ÇÊ¿ä ¾øÀ½
+		// pItem Ã€ÃŒ Ã„Â³Â¸Â¯Ã…Ã Â´ÃÂ³Ã—Ã€Ã“ Â¹Ã™Â²Ã™Â´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã› Ã€ÃŒÂ¸Ã©
+			// 1ÃˆÂ¸Â¿Ã« (2Â°Â¡ÃÃ¶) - Â±Ã¢ÃÂ¸Â´ÃÂ³Ã—Ã€Ã“ Â¼Ã¶ÃÂ¤, Â»ÃµÂ·ÃÂ¿Ã® Â´ÃÂ³Ã—Ã€Ã“ ÃƒÃŸÂ°Â¡
+			// Â½ÃƒÂ°Â£ÃÂ¦ (1Â°Â¡ÃÃ¶) - Ã†Â¯ÃÂ¤ Â½ÃƒÂ°Â£ÂµÂ¿Â¾Ãˆ Â±Ã¢ÃÂ¸ Â´ÃÂ³Ã—Ã€Ã“ Â¹Â«ÃÂ¦Ã‡Ã‘ Â¼Ã¶ÃÂ¤Â°Â¡Â´Ã‰
+		// pItemÃ€ÃŒ Ã†Ãª Â´ÃÂ³Ã—Ã€Ã“ Â¹Ã™Â²Ã™Â´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒÂ¸Ã© Ã†ÃªÃ€ÃŒ Â¼Ã’ÃˆÂ¯ Â»Ã³Ã…Ã‚Â¿Â©Â¾ÃŸÂ¸Â¸ Â»Ã§Â¿Ã« Â°Â¡Â´Ã‰
+			// Â¿Ã¯Â¹Ã¶Â¸Â°Ã€Ã‡ Â°Ã¦Â¿Ã¬ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Ã‡ÃŠÂ¿Ã¤ Â¾Ã¸Ã€Â½
 		
-		if(pItem->GetItemType() == 22 || pItem->GetItemType() == 25) // À¯Àú ´Ğ³×ÀÓ ¼öÁ¤
+		if(pItem->GetItemType() == 22 || pItem->GetItemType() == 25) // Ã€Â¯Ã€Ãº Â´ÃÂ³Ã—Ã€Ã“ Â¼Ã¶ÃÂ¤
 			gC_vs_ui.RunNamingChange(pItem, (char*)g_pPlayer->GetNickName().c_str());
-//		// ´Ğ³×ÀÓ Ãß°¡
-		else if(pItem->GetItemType() == 24) // extra naming pen // ³×ÀÌ¹Ö Ãß°¡ ¾ÆÀÌÅÛ
+//		// Â´ÃÂ³Ã—Ã€Ã“ ÃƒÃŸÂ°Â¡
+		else if(pItem->GetItemType() == 24) // extra naming pen // Â³Ã—Ã€ÃŒÂ¹Ã– ÃƒÃŸÂ°Â¡ Â¾Ã†Ã€ÃŒÃ…Ã›
 			gC_vs_ui.RunNamingChange(pItem, (char*)(*g_pGameStringTable)[UI_STRING_MESSAGE_ADD_PLAYER_NICKNAME].GetString());
-//		// ½Ã°£Á¦ ¾ÆÀÌÅÛ
-//		else if(pItem->GetItemType() == 25) // limited naming pen // ³×ÀÌ¹Ö º¯°æ ½Ã°£ ¾ÆÀÌÅÛ
+//		// Â½ÃƒÂ°Â£ÃÂ¦ Â¾Ã†Ã€ÃŒÃ…Ã›
+//		else if(pItem->GetItemType() == 25) // limited naming pen // Â³Ã—Ã€ÃŒÂ¹Ã– ÂºÂ¯Â°Ã¦ Â½ÃƒÂ°Â£ Â¾Ã†Ã€ÃŒÃ…Ã›
 //			gC_vs_ui.RunNamingChange(pItem, (char*)g_pPlayer->GetNickName().c_str());
-		else if(pItem->GetItemType() == 23) // Æê ´Ğ³×ÀÓ ¼öÁ¤
+		else if(pItem->GetItemType() == 23) // Ã†Ãª Â´ÃÂ³Ã—Ã€Ã“ Â¼Ã¶ÃÂ¤
 		{
 			MFakeCreature *pFakeCreature = (MFakeCreature *)g_pZone->GetFakeCreature(g_pPlayer->GetPetID());
 			if(NULL != pFakeCreature)
@@ -10870,7 +10886,7 @@ UIMessageManager::Execute_UI_RUN_NAMING_CHANGE(int left, int right, void* void_p
 				MPetItem *pPetItem = pFakeCreature->GetPetItem();
 				if(pPetItem != NULL)
 				{
-					if(2 == pPetItem->GetItemType()) // ¿ï¹ö¸° ÀÏ¶© Ææ ¾ÆÀÌÅÛ ÇÊ¿ä ¾øÀ½
+					if(2 == pPetItem->GetItemType()) // Â¿Ã¯Â¹Ã¶Â¸Â° Ã€ÃÂ¶Â© Ã†Ã¦ Â¾Ã†Ã€ÃŒÃ…Ã› Ã‡ÃŠÂ¿Ã¤ Â¾Ã¸Ã€Â½
 						UI_PopupMessage( UI_STRING_MESSAGE_PET_NAMING_WOLVERINE );
 					else
 						gC_vs_ui.RunNamingChange(pItem, (char*)pFakeCreature->GetNickName().c_str());
@@ -11002,7 +11018,7 @@ UIMessageManager::Execute_UI_GQUEST_GIVEUP(int left, int right, void* void_ptr)
 }
 //-----------------------------------------------------------------------------
 //
-// GQuest Inventory¿¡¼­ ItemÀ» »ç¿ëÇÑ °æ¿ì
+// GQuest InventoryÂ¿Â¡Â¼Â­ ItemÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã‘ Â°Ã¦Â¿Ã¬
 //
 //-----------------------------------------------------------------------------
 void
@@ -11057,7 +11073,7 @@ UIMessageManager::Execute_UI_ITEM_USE_REQUEST_UNION(int left, int right, void* v
 {
 	DEBUG_ADD("[UI] Execute_UI_ITEM_USE_REQUEST_UNION");
 	
-	if(g_pUserInformation->GuildGrade != 1) // ±æµå¸¶½ºÅÍ°¡ ¾Æ´Ï¶ó¸é
+	if(g_pUserInformation->GuildGrade != 1) // Â±Ã¦ÂµÃ¥Â¸Â¶Â½ÂºÃ…ÃÂ°Â¡ Â¾Ã†Â´ÃÂ¶Ã³Â¸Ã©
 	{
 		UI_PopupMessage(UI_STRING_MESSAGE_REQUEST_UNION_ERROR_1);
 		return;
@@ -11078,7 +11094,7 @@ UIMessageManager::Execute_UI_ITEM_USE_QUIT(int left, int right, void* void_ptr)
 {	
 	DEBUG_ADD("[UI] Execute_UI_ITEM_USE_REQUEST_DENY");
 
-	if(g_pUserInformation->GuildGrade != 1) // ±æµå¸¶½ºÅÍ°¡ ¾Æ´Ï¶ó¸é
+	if(g_pUserInformation->GuildGrade != 1) // Â±Ã¦ÂµÃ¥Â¸Â¶Â½ÂºÃ…ÃÂ°Â¡ Â¾Ã†Â´ÃÂ¶Ã³Â¸Ã©
 	{
 		UI_PopupMessage(UI_STRING_MESSAGE_REQUEST_UNION_ERROR_1);
 		return;
@@ -11096,7 +11112,7 @@ void
 UIMessageManager::Execute_UI_ITEM_USE_EXPER(int left, int right, void* void_ptr)
 {
 	DEBUG_ADD("[UI] Execute_UI_ITEM_USE_EXPER"); 
-	if(g_pUserInformation->GuildGrade != 1) // ±æµå¸¶½ºÅÍ°¡ ¾Æ´Ï¶ó¸é
+	if(g_pUserInformation->GuildGrade != 1) // Â±Ã¦ÂµÃ¥Â¸Â¶Â½ÂºÃ…ÃÂ°Â¡ Â¾Ã†Â´ÃÂ¶Ã³Â¸Ã©
 	{
 		UI_PopupMessage(UI_STRING_MESSAGE_REQUEST_UNION_ERROR_1);
 		return;
@@ -11221,7 +11237,7 @@ UIMessageManager::Execute_UI_DISPLAY_ITEM(int left, int right, void* void_ptr)
 
 
 	MItem* pItem = (MItem*)void_ptr;
-	g_pStorage2->SetCurrent( 0 );	// È®ÀÎ¿ë
+	g_pStorage2->SetCurrent( 0 );	// ÃˆÂ®Ã€ÃÂ¿Ã«
  
  	int slot = right;
 
@@ -11229,7 +11245,7 @@ UIMessageManager::Execute_UI_DISPLAY_ITEM(int left, int right, void* void_ptr)
 	const MItem* pStorageItem = g_pStorage2->GetItem( slot );
 	//TYPE_OBJECTID mouseItemID = pMouseItem->GetID();		
 	
-	// Event GiftBox ¾ÆÀÌÅÛÀÎ °æ¿ì ¸ø ³õ´Â´Ù.
+	// Event GiftBox Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã Â°Ã¦Â¿Ã¬ Â¸Ã¸ Â³ÃµÂ´Ã‚Â´Ã™.
 	if (pItem->GetItemClass()!=ITEM_CLASS_EVENT_GIFT_BOX
 		//&& pItem->GetItemClass()!=ITEM_CLASS_VAMPIRE_AMULET
 //		&& pItem->GetItemClass()!=ITEM_CLASS_COUPLE_RING
@@ -11251,7 +11267,7 @@ UIMessageManager::Execute_UI_DISPLAY_ITEM(int left, int right, void* void_ptr)
 			{
 				const MItem *p_slot_item = g_pStorage2->GetItem(i);
 				
-				// ½½¶ùÀÌ ºñ¾úÀ¸¸é °Á~ ³Ö´Â´Ù
+				// Â½Â½Â¶Ã¹Ã€ÃŒ ÂºÃ±Â¾ÃºÃ€Â¸Â¸Ã© Â°Ã~ Â³Ã–Â´Ã‚Â´Ã™
 				if(p_slot_item == NULL)
 				{
 					CGDisplayItem _CGDisplayItem;
@@ -11382,7 +11398,7 @@ UIMessageManager::Execute_UI_REQUEST_STORE_INFO(int left, int right, void* void_
 UIMessageManager::Execute_UI_MY_STORE_INFO(int left, int right, void* void_ptr)
  {
 
-	 DEBUG_ADD("[UI] Execute_UI_MY_STORE_INFO"); // ¾ÆÀÌÅÛ Á¤º¸ ¸®½ºÆ® 
+	 DEBUG_ADD("[UI] Execute_UI_MY_STORE_INFO"); // Â¾Ã†Ã€ÃŒÃ…Ã› ÃÂ¤ÂºÂ¸ Â¸Â®Â½ÂºÃ†Â® 
 	 
 	 GCMyStoreInfo _GCMyStoreInfo;
 	 _GCMyStoreInfo.getStoreInfo();
@@ -11419,7 +11435,7 @@ UIMessageManager::Execute_UI_BUY_STORE_ITEM(int left, int right, void* void_ptr)
 	
 	if(g_pTopView->GetSelectedCreature() == NULL)
 		return;
-	MItem* pItem = (MItem*)void_ptr;		// inventory¿¡ ÀÖ´Â ¾ÆÀÌÅÛ(NULLÀÏ ¼öµµ ÀÖ´Ù)
+	MItem* pItem = (MItem*)void_ptr;		// inventoryÂ¿Â¡ Ã€Ã–Â´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›(NULLÃ€Ã Â¼Ã¶ÂµÂµ Ã€Ã–Â´Ã™)
 	
 	if(pItem != NULL)		
 	{
@@ -11522,12 +11538,12 @@ UIMessageManager::Execute_UI_SWAPADVANCEMENTITEM(int left, int right, void* void
 
 		if (pItem!=NULL && g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
 		{
-			// Event GiftBox ¾ÆÀÌÅÛÀÎ °æ¿ì ¸ø ³õ´Â´Ù.
+			// Event GiftBox Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã Â°Ã¦Â¿Ã¬ Â¸Ã¸ Â³ÃµÂ´Ã‚Â´Ã™.
 			
 			if (!pItem->IsUniqueItem() && !pItem->IsQuestItem())
 			{
 				//-----------------------------------------------------
-				// ¾ÆÀÌÅÛÀ» ÆÈ±â À§ÇÑ packetÀ» º¸³½´Ù.
+				// Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» Ã†ÃˆÂ±Ã¢ Ã€Â§Ã‡Ã‘ packetÃ€Â» ÂºÂ¸Â³Â½Â´Ã™.
 				//-----------------------------------------------------
 					CGShopRequestSell	_CGShopRequestSell;
 
@@ -11539,13 +11555,13 @@ UIMessageManager::Execute_UI_SWAPADVANCEMENTITEM(int left, int right, void* void
 			
 						
 					//-------------------------------------------------
-					// °ËÁõÀ» À§ÇÑ Temp Information¼³Á¤
+					// Â°Ã‹ÃÃµÃ€Â» Ã€Â§Ã‡Ã‘ Temp InformationÂ¼Â³ÃÂ¤
 					//-------------------------------------------------
 					(*g_pTempInformation).Mode	= TempInformation::MODE_SHOP_SELL;
 					(*g_pTempInformation).pValue = (void*)pItem;
 
 					//-------------------------------------------------
-					// ´Ù¸¥ ¾ÆÀÌÅÛ¿¡ Á¢±Ù ¸øÇÏµµ·Ï..
+					// Â´Ã™Â¸Â¥ Â¾Ã†Ã€ÃŒÃ…Ã›Â¿Â¡ ÃÂ¢Â±Ã™ Â¸Ã¸Ã‡ÃÂµÂµÂ·Ã..
 					//-------------------------------------------------
 					UI_LockItemTrade();
 			}
@@ -11573,13 +11589,13 @@ UIMessageManager::Execute_UI_LEARN_ADVANCE_SKILL(int left, int right, void* void
 	g_pSocket->sendPacket( &_CGLearnSkill );
 }
 
-// 2005, 1, 11, sobeit add start - ºÒ¿ìÀÌ¿ô µ½±â ¼º±İ °ü·Ã
+// 2005, 1, 11, sobeit add start - ÂºÃ’Â¿Ã¬Ã€ÃŒÂ¿Ã´ ÂµÂ½Â±Ã¢ Â¼ÂºÂ±Ã Â°Ã¼Â·Ãƒ
 void
 UIMessageManager::Execute_UI_CAMPAIGN_HELP(int left, int right, void* void_ptr)
 {
 	DEBUG_ADD("[UI] Execute_UI_CAMPAIGN_HELP");
 	
-	// ¼º±İ °ü·Ã ÆĞÅ¶ º¸³»±â - ±İ¾× * 10000
+	// Â¼ÂºÂ±Ã Â°Ã¼Â·Ãƒ Ã†ÃÃ…Â¶ ÂºÂ¸Â³Â»Â±Ã¢ - Â±ÃÂ¾Ã— * 10000
 
 	if(left>0)
 	{
@@ -11588,14 +11604,14 @@ UIMessageManager::Execute_UI_CAMPAIGN_HELP(int left, int right, void* void_ptr)
 		_CGDonationMoney.setDonationType(right);
 		g_pSocket->sendPacket( &_CGDonationMoney );
 	}
-// 2005, 1, 11, sobeit add end - ºÒ¿ìÀÌ¿ô µ½±â ¼º±İ °ü·Ã
+// 2005, 1, 11, sobeit add end - ÂºÃ’Â¿Ã¬Ã€ÃŒÂ¿Ã´ ÂµÂ½Â±Ã¢ Â¼ÂºÂ±Ã Â°Ã¼Â·Ãƒ
 }
 
-// 2005, 1, 20, sobeit add start - Äù½ºÆ® °ü·Ã 
+// 2005, 1, 20, sobeit add start - Ã„Ã¹Â½ÂºÃ†Â® Â°Ã¼Â·Ãƒ 
 void
 UIMessageManager::Execute_UI_RUN_NEXT_GQUEST_EXCUTE_ELEMENT(int left, int right, void* void_ptr)
 {
-	// quest element List¿¡ ÀúÀåµÈ ´ÙÀ½ element¸¦ ½ÇÇà ÇÑ´Ù.
+	// quest element ListÂ¿Â¡ Ã€ÃºÃ€Ã¥ÂµÃˆ Â´Ã™Ã€Â½ elementÂ¸Â¦ Â½Ã‡Ã‡Ã  Ã‡Ã‘Â´Ã™.
 	DEBUG_ADD("[UI] Execute_UI_RUN_NEXT_GQUEST_EXCUTE_ELEMENT");
 	gC_vs_ui.RunNextGQuestExcuteElement();
 }
@@ -11604,7 +11620,7 @@ void
 UIMessageManager::Execute_UI_GQUEST_SET_ACTION(int left, int right, void* void_ptr)
 {
 	DEBUG_ADD("[UI] Execute_UI_GQUEST_SET_ACTION");
-	// Æ¯Á¤ element ½ÇÇà ½Ã Æ¯Á¤ µ¿ÀÛÀ» ÇÑ´Ù.
+	// Ã†Â¯ÃÂ¤ element Â½Ã‡Ã‡Ã  Â½Ãƒ Ã†Â¯ÃÂ¤ ÂµÂ¿Ã€Ã›Ã€Â» Ã‡Ã‘Â´Ã™.
 	if(left == 1) // dead
 	{
 		g_pPlayer->SetDead();
@@ -11616,24 +11632,24 @@ void
 UIMessageManager::Execute_UI_GQUEST_ENDING_EVENT(int left, int right, void* void_ptr)
 {
 	DEBUG_ADD("[UI] Execute_UI_GQUEST_ENDING_EVENT");
-	// Æ¯Á¤ Äù½ºÆ® ¿Ï·á½Ã °ü·Ã ÀÌº¥Æ®¸¦ ÁøÇà ÇÑ´Ù.
+	// Ã†Â¯ÃÂ¤ Ã„Ã¹Â½ÂºÃ†Â® Â¿ÃÂ·Ã¡Â½Ãƒ Â°Ã¼Â·Ãƒ Ã€ÃŒÂºÂ¥Ã†Â®Â¸Â¦ ÃÃ¸Ã‡Ã  Ã‡Ã‘Â´Ã™.
 	MEvent event;
 	event.eventID = EVENTID_ADVANCEMENT_QUEST_ENDING;
 	event.eventType = EVENTTYPE_ZONE;
 	event.eventFlag = EVENTFLAG_ONLY_EVENT_BACKGROUND | EVENTFLAG_NOT_DRAW_UI | EVENTFLAG_NOT_DRAW_CREATURE | EVENTFLAG_NOT_DRAW_INFORMATION | EVENTFLAG_NOT_DRAW_CREATURE_SHADOW | EVENTFLAG_NOT_DRAW_ITEM | EVENTFLAG_NOT_DRAW_MOUSE_POINTER | EVENTFLAG_NOT_DRAW_EFFECT | EVENTFLAG_DENY_INPUT | EVENTFLAG_NOT_FADE_SCREEN | EVENTFLAG_NOT_PLAY_SOUND;
 	switch(left)
 	{
-	case 1: // ½½·¹ÀÌ¾î ½ÂÁ÷ Äù½ºÆ® ¿£µù ÀÌº¥Æ®
+	case 1: // Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â½Ã‚ÃÃ· Ã„Ã¹Â½ÂºÃ†Â® Â¿Â£ÂµÃ¹ Ã€ÃŒÂºÂ¥Ã†Â®
 		event.parameter1 = 0;
 		event.parameter4 = 1;
 		g_pEventManager->AddEvent(event);
 		break;
-	case 2: // ¹ìÆÄÀÌ¾î ½ÂÁ÷ Äù½ºÆ® ¿£µù ÀÌº¥Æ®
+	case 2: // Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â½Ã‚ÃÃ· Ã„Ã¹Â½ÂºÃ†Â® Â¿Â£ÂµÃ¹ Ã€ÃŒÂºÂ¥Ã†Â®
 		event.parameter1 = 0;
 		event.parameter4 = 3;
 		g_pEventManager->AddEvent(event);
 		break;
-	case 3: // ¾Æ¿ì½ºÅÍÁî ½ÂÁ÷ Äù½ºÆ® ¿£µù ÀÌº¥Æ®
+	case 3: // Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÃÃ® Â½Ã‚ÃÃ· Ã„Ã¹Â½ÂºÃ†Â® Â¿Â£ÂµÃ¹ Ã€ÃŒÂºÂ¥Ã†Â®
 		event.parameter1 = 0;
 		event.parameter4 = 5;
 		g_pEventManager->AddEvent(event);
@@ -11641,9 +11657,9 @@ UIMessageManager::Execute_UI_GQUEST_ENDING_EVENT(int left, int right, void* void
 	}
 	
 }
-// 2005, 1, 20, sobeit add end - Äù½ºÆ® °ü·Ã 
+// 2005, 1, 20, sobeit add end - Ã„Ã¹Â½ÂºÃ†Â® Â°Ã¼Â·Ãƒ 
 
-// 2005, 1, 24, sobeit add start - ¾ÆÀÌÅÛ ¹Ş±â ÀÌº¥Æ® °ü·Ã
+// 2005, 1, 24, sobeit add start - Â¾Ã†Ã€ÃŒÃ…Ã› Â¹ÃÂ±Ã¢ Ã€ÃŒÂºÂ¥Ã†Â® Â°Ã¼Â·Ãƒ
 void
 UIMessageManager::Execute_UI_REQUEST_EVENT_ITEM(int left, int right, void* void_ptr)
 {
@@ -11654,9 +11670,9 @@ UIMessageManager::Execute_UI_REQUEST_EVENT_ITEM(int left, int right, void* void_
 		g_pSocket->sendPacket( &_CGGetEventItem );
 	}
 }
-// 2005, 1, 24, sobeit add end - ¾ÆÀÌÅÛ ¹Ş±â ÀÌº¥Æ® °ü·Ã
-#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
-	// 2005, 2, 25, sobeit add start - ¼­ºê ÀÎº¥Åä¸®¸¦ ´İ´Â´Ù.
+// 2005, 1, 24, sobeit add end - Â¾Ã†Ã€ÃŒÃ…Ã› Â¹ÃÂ±Ã¢ Ã€ÃŒÂºÂ¥Ã†Â® Â°Ã¼Â·Ãƒ
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ã”Ã¶Â¼Ã“Â°Ã¼Ã–ÃÂ°Ã¼
+	// 2005, 2, 25, sobeit add start - Â¼Â­ÂºÃª Ã€ÃÂºÂ¥Ã…Ã¤Â¸Â®Â¸Â¦ Â´ÃÂ´Ã‚Â´Ã™.
 	void
 	UIMessageManager::Execute_UI_CLOSE_INVENTORY_SUB(int left, int right, void* void_ptr)
 	{
@@ -11682,11 +11698,11 @@ UIMessageManager::Execute_UI_REQUEST_EVENT_ITEM(int left, int right, void* void_
 		if(NULL == pMultiPackItem)
 			return;
 
-		MItem* pMouseItem = UI_GetMouseItem();	// ÇöÀç mouseÀÇ item
+		MItem* pMouseItem = UI_GetMouseItem();	// Ã‡Ã¶Ã€Ã§ mouseÃ€Ã‡ item
 
 
 		//-----------------------------------------------------------------
-		// °ËÁõ¹ŞÀ»°Ô ¾ø´Â °æ¿ì
+		// Â°Ã‹ÃÃµÂ¹ÃÃ€Â»Â°Ã” Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 		//-----------------------------------------------------------------
 		if (g_pPlayer->IsItemCheckBufferNULL() && pMouseItem!=NULL
 			&& g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
@@ -11704,11 +11720,11 @@ UIMessageManager::Execute_UI_REQUEST_EVENT_ITEM(int left, int right, void* void_
 			g_pSocket->sendPacket( &_CGAddMouseToInventory );
 
 			MItem* pOldItem = NULL;
-			if (gC_vs_ui.ReplaceSubInventoryItem(pMouseItem,		// Ãß°¡ÇÒ item
-												left, right,	// Ãß°¡ÇÒ À§Ä¡ 
-												pOldItem))		// ¿ø·¡ÀÖ´ø item
+			if (gC_vs_ui.ReplaceSubInventoryItem(pMouseItem,		// ÃƒÃŸÂ°Â¡Ã‡Ã’ item
+												left, right,	// ÃƒÃŸÂ°Â¡Ã‡Ã’ Ã€Â§Ã„Â¡ 
+												pOldItem))		// Â¿Ã¸Â·Â¡Ã€Ã–Â´Ã¸ item
 			{
-				if (pOldItem != NULL) // replace µÇ¾ú´Â°¡?
+				if (pOldItem != NULL) // replace ÂµÃ‡Â¾ÃºÂ´Ã‚Â°Â¡?
 				{				
 					UI_PickUpItem( pOldItem );
 				}
@@ -11719,7 +11735,7 @@ UIMessageManager::Execute_UI_REQUEST_EVENT_ITEM(int left, int right, void* void_
 			}
 		}
 		//-----------------------------------------------------------------
-		// °ËÁõ ¹Ş¾Æ¾ßÇÒ ´Ù¸¥ ¾ÆÀÌÅÛÀÌ ÀÖ´Â °æ¿ì
+		// Â°Ã‹ÃÃµ Â¹ÃÂ¾Ã†Â¾ÃŸÃ‡Ã’ Â´Ã™Â¸Â¥ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 		//-----------------------------------------------------------------
 		else
 		{
@@ -11753,8 +11769,8 @@ UIMessageManager::Execute_UI_REQUEST_EVENT_ITEM(int left, int right, void* void_
 
 		UI_PickUpItem( pItem );
 		//---------------------------------------------------
-		// Inventory¿¡ ÀÖ´ø itemÀ» mouse¿¡ ºÙ¿´´Ù(-_-;)°í
-		// server·Î packetÀ» º¸³½´Ù.
+		// InventoryÂ¿Â¡ Ã€Ã–Â´Ã¸ itemÃ€Â» mouseÂ¿Â¡ ÂºÃ™Â¿Â´Â´Ã™(-_-;)Â°Ã­
+		// serverÂ·Ã packetÃ€Â» ÂºÂ¸Â³Â½Â´Ã™.
 		//---------------------------------------------------
 		CGAddInventoryToMouse _CGAddInventoryToMouse;
 		_CGAddInventoryToMouse.setObjectID( pItem->GetID() );
@@ -11765,7 +11781,7 @@ UIMessageManager::Execute_UI_REQUEST_EVENT_ITEM(int left, int right, void* void_
 		g_pSocket->sendPacket( &_CGAddInventoryToMouse );				
 	}
 
-	// 2005, 2, 25, sobeit add end - ¼­ºê ÀÎº¥Åä¸®¸¦ ´İ´Â´Ù.
+	// 2005, 2, 25, sobeit add end - Â¼Â­ÂºÃª Ã€ÃÂºÂ¥Ã…Ã¤Â¸Â®Â¸Â¦ Â´ÃÂ´Ã‚Â´Ã™.
 
 
 	// 2005, 3, 2, sobeit add start
@@ -11788,7 +11804,7 @@ UIMessageManager::Execute_UI_REQUEST_EVENT_ITEM(int left, int right, void* void_
 
 		if (pItem!=NULL && g_pPlayer->IsItemCheckBufferNULL())
 		{
-			// ÀÚ±âÁ¾Á· ¾ÆÀÌÅÛ¸¸ ¾²Àğ-¤µ-;
+			// Ã€ÃšÂ±Ã¢ÃÂ¾ÃÂ· Â¾Ã†Ã€ÃŒÃ…Ã›Â¸Â¸ Â¾Â²Ã€Ã°-Â¤Âµ-;
 			if(g_pPlayer->IsSlayer() && pItem->IsSlayerItem() ||
 				g_pPlayer->IsVampire() && pItem->IsVampireItem() ||
 				g_pPlayer->IsOusters() && pItem->IsOustersItem())

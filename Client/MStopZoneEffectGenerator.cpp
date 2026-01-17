@@ -31,11 +31,11 @@ MStopZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	TYPE_FRAMEID newFrameID = FRAMEID_NULL;
 
 	//-----------------------------------------------------------
-	// ´ÙÅ©´Ï½ºÀÇ °æ¿ì ´Ù¾çÇÏ°Ô Âï¾îÁÖ±â...
-	// ÀÓ½Ã ¶«»§ ÄÚµå.. ÄÉÄÉ~
+	// ë‹¤í¬ë‹ˆìŠ¤ì˜ ê²½ìš° ë‹¤ì–‘í•˜ê²Œ ì°ì–´ì£¼ê¸°...
+	// ì„ì‹œ ë•œë¹µ ì½”ë“œ.. ì¼€ì¼€~
 	//-----------------------------------------------------------
-	// frameID°¡ ¾Æ´Ï°í effectSpriteTypeÀ¸·Î ÇØ¾ßµÇ´Âµ¥
-	// ÀÏ´ÜÀº alphaSprite¶ó¼­ ¼öÄ¡°¡ ¸Â¾Æ¶³¾îÁø´Ù - -;;
+	// frameIDê°€ ì•„ë‹ˆê³  effectSpriteTypeìœ¼ë¡œ í•´ì•¼ë˜ëŠ”ë°
+	// ì¼ë‹¨ì€ alphaSpriteë¼ì„œ ìˆ˜ì¹˜ê°€ ë§ì•„ë–¨ì–´ì§„ë‹¤ - -;;
 	if (est>=EFFECTSPRITETYPE_DARKNESS_1_1
 		&& est<=EFFECTSPRITETYPE_DARKNESS_3_5 ||
 		est>=EFFECTSPRITETYPE_GRAY_DARKNESS_1_1 &&
@@ -103,7 +103,7 @@ MStopZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 
 	//-----------------------------------------------------------
-	// Sword Wave¸¦ À§ÇÑ ÀÓ½Ã(-_-;) ÄÚµå..
+	// Sword Waveë¥¼ ìœ„í•œ ì„ì‹œ(-_-;) ì½”ë“œ..
 	//-----------------------------------------------------------
 	if (est==EFFECTSPRITETYPE_SWORD_WAVE_1)
 	{
@@ -120,7 +120,7 @@ MStopZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 	
 	//-----------------------------------------------------------
-	// ¸ŞÅ×¿À¸¦ À§ÇÑ ÀÓ½Ã(-_-;) ÄÚµå..
+	// ë©”í…Œì˜¤ë¥¼ ìœ„í•œ ì„ì‹œ(-_-;) ì½”ë“œ..
 	//-----------------------------------------------------------
 	if(est == EFFECTSPRITETYPE_METEOR_ROCK)
 	{
@@ -134,7 +134,7 @@ MStopZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	}
 
 	//---------------------------------------------
-	// pixelÁÂÇ¥¸¦ MapÀÇ ÁÂÇ¥·Î ¹Ù²ãÁØ´Ù.
+	// pixelì¢Œí‘œë¥¼ Mapì˜ ì¢Œí‘œë¡œ ë°”ê¿”ì¤€ë‹¤.
 	//---------------------------------------------
 	TYPE_SECTORPOSITION	sX, sY;
 	sX = g_pTopView->PixelToMapX(egInfo.x0);
@@ -142,13 +142,13 @@ MStopZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 	int maxFrame = g_pTopView->GetMaxEffectFrame(bltType, frameID);
 
-	// Zone¿¡ Ãß°¡ÇÑ´Ù.
+	// Zoneì— ì¶”ê°€í•œë‹¤.
 	
 	if( egInfo.nActionInfo == RESULT_SKILL_STONE_AUGER || 
 		egInfo.nActionInfo == RESULT_STEP_SKILL_STONE_AUGER_2 ||
 		egInfo.nActionInfo == RESULT_STEP_SKILL_STONE_AUGER_3 )
 	{
-		// ½ÊÀÚ ¸ğ¾çÀ¸·Î.
+		// ì‹­ì ëª¨ì–‘ìœ¼ë¡œ.
 		POINT pt[] = 
 		{
 			{ 0, 1 },
@@ -208,7 +208,7 @@ MStopZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	{
 			MEffect*	pEffect;
 			//---------------------------------------------
-			// Effect »ı¼º
+			// Effect ìƒì„±
 			//---------------------------------------------
 			pEffect = new MEffect(bltType);
 			
@@ -221,21 +221,21 @@ MStopZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 				)
 				pEffect->SetPixelPosition( egInfo.x0, egInfo.y0, egInfo.z0 );
 			else
-				pEffect->SetPosition(sX, sY);		// Sector ÁÂÇ¥		
+				pEffect->SetPosition(sX, sY);		// Sector ì¢Œí‘œ		
 			pEffect->SetZ(egInfo.z0);			
-			pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
-			pEffect->SetCount( egInfo.count, egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+			pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ì…í•´ì¤€ë‹¤.
+			pEffect->SetCount( egInfo.count, egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 			
-			// ¹æÇâ ¼³Á¤
+			// ë°©í–¥ ì„¤ì •
 			pEffect->SetDirection( direction );
 			
-			// À§·Â
+			// ìœ„ë ¥
 			pEffect->SetPower(egInfo.power);
 			
-			// ºûÀÇ ¹à±â
+			// ë¹›ì˜ ë°ê¸°
 			//pEffect->SetLight( light );
 			
-			// Áßº¹ °¡´ÉÇÑ°¡
+			// ì¤‘ë³µ ê°€ëŠ¥í•œê°€
 			if(
 				(est == EFFECTSPRITETYPE_FIRE_CRACKER_1 ||
 				est == EFFECTSPRITETYPE_FIRE_CRACKER_2 ||
@@ -257,12 +257,12 @@ MStopZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 		if (bAdd)
 		{
-			// ´ÙÀ½ Effect »ı¼º Á¤º¸
+			// ë‹¤ìŒ Effect ìƒì„± ì •ë³´
 			pEffect->SetLink( egInfo.nActionInfo, egInfo.pEffectTarget );
 		
 			//---------------------------------------------
-			// ¹İº¹µÇ´Â frameÀÌ¸é..
-			// ½ÃÀÛ frameÀ» ´Ù¸£°Ô ÇÑ´Ù.
+			// ë°˜ë³µë˜ëŠ” frameì´ë©´..
+			// ì‹œì‘ frameì„ ë‹¤ë¥´ê²Œ í•œë‹¤.
 			//---------------------------------------------
 			if (repeatFrame)
 			{

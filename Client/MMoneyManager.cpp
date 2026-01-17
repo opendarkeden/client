@@ -18,7 +18,7 @@ MMoneyManager*		g_pMoneyManager = NULL;
 //-----------------------------------------------------------------------------
 MMoneyManager::MMoneyManager()
 {
-	m_MoneyLimit	= 2000000000;		// 20¾ï
+	m_MoneyLimit	= 2000000000;		// 20ì–µ
 	m_Money			= 0;
 }
 
@@ -43,7 +43,7 @@ MMoneyManager::~MMoneyManager()
 bool
 MMoneyManager::SetMoney(int money)
 {
-	// 0ÀÌÇÏ°Å³ª ÇÑ°è¸¦ ³Ñ¾î°¡¸é ¾ÈµÈ´Ù.
+	// 0ì´í•˜ê±°ë‚˜ í•œê³„ë¥¼ ë„˜ì–´ê°€ë©´ ì•ˆëœë‹¤.
 	if (money<0 || money > m_MoneyLimit)
 	{
 		return false; 
@@ -51,7 +51,7 @@ MMoneyManager::SetMoney(int money)
 
 	m_Money = money;
 
-	// 2004, 5, 6, sobeit add start - µ·ÀÌ 10 ¸¸ÀÌ ³ÑÀ¸¸é º¸°üÇÔ µµ¿ò¸»
+	// 2004, 5, 6, sobeit add start - ëˆì´ 10 ë§Œì´ ë„˜ìœ¼ë©´ ë³´ê´€í•¨ ë„ì›€ë§
 #ifdef __GAME_CLIENT__
 	static bool CanBuyStorage = false;
 	if( false == CanBuyStorage && m_Money>100000 )

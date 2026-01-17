@@ -15,20 +15,21 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCPhoneDisconnectedHandler::execute ( GCPhoneDisconnected * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 
 	//------------------------------------------------------------------
-	// ¡¢º”¿Ã ≤˜±‰ slot √º≈©«—¥Ÿ.
+	// Ï†ëÏÜçÏù¥ ÎÅäÍ∏¥ slot Ï≤¥ÌÅ¨ÌïúÎã§.
 	//------------------------------------------------------------------
 	int slot = pPacket->getSlotID();
 	g_pUserInformation->OtherPCSNumber[ slot ] = 0;
 	g_pUserInformation->PCSUserName[ slot ].Release();
 
 	//------------------------------------------------------------------
-	// PCS ¡¢º” «ÿ¡¶
+	// PCS Ï†ëÏÜç Ìï¥Ï†ú
 	//------------------------------------------------------------------
 	//UI_AcquireQuitPCSOnlineModeMessage();
 //	UI_DisconnectPCS( slot );

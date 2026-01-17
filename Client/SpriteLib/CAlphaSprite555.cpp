@@ -12,20 +12,20 @@
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// fstream¿¡ save ÇÑ´Ù.    ( file¿¡´Â 5:6:5·Î ÀúÀåÇÑ´Ù. )
+// fstreamì— save í•œë‹¤.    ( fileì—ëŠ” 5:6:5ë¡œ ì €ì¥í•œë‹¤. )
 //----------------------------------------------------------------------
 bool
 CAlphaSprite555::SaveToFile(ofstream& file)
 {
-	// width¿Í height¸¦ ÀúÀåÇÑ´Ù.
+	// widthì™€ heightë¥¼ ì €ì¥í•œë‹¤.
 	file.write((const char*)&m_Width , 2);
 	file.write((const char*)&m_Height, 2);
 
-	// NULLÀÌ¸é ÀúÀåÇÏÁö ¾Ê´Â´Ù. ±æÀÌ¸¸ ÀúÀåµÇ´Â °ÍÀÌ´Ù.
+	// NULLì´ë©´ ì €ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤. ê¸¸ì´ë§Œ ì €ì¥ë˜ëŠ” ê²ƒì´ë‹¤.
 	if (m_Pixels==NULL || m_Width==0 || m_Height==0)
 		return false;
 	
-	// ¾ĞÃà µÈ °Í ÀúÀå
+	// ì••ì¶• ëœ ê²ƒ ì €ì¥
 	WORD index;	
 
 	register int i;
@@ -35,45 +35,45 @@ CAlphaSprite555::SaveToFile(ofstream& file)
 	//--------------------------------
 	// 5:5:5
 	//--------------------------------
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
-		// ¹İº¹ È¸¼öÀÇ 2 byte
+		// ë°˜ë³µ íšŒìˆ˜ì˜ 2 byte
 		int	count = m_Pixels[i][0], 
 				colorCount;
 		index	= 1;
 
-		// °¢ line¸¶´Ù byte¼ö¸¦ ¼¼¾î¼­ ÀúÀåÇØ¾ßÇÑ´Ù.
+		// ê° lineë§ˆë‹¤ byteìˆ˜ë¥¼ ì„¸ì–´ì„œ ì €ì¥í•´ì•¼í•œë‹¤.
 		for (j=0; j<count; j++)
 		{
 			//transCount = m_Pixels[i][index];
 			colorCount = m_Pixels[i][index+1];				
 
-			index+=2;	// µÎ count ¸¸Å­
+			index+=2;	// ë‘ count ë§Œí¼
 
 			// m_Pixels[i][index] ~ m_Pixels[i][index+colorCount-1]
-			// 5:5:5¸¦ 5:6:5·Î ¹Ù²ã¼­ ÀúÀåÇÏ°í ´Ù½Ã 5:5:5·Î ¹Ù²ãÁØ´Ù.
+			// 5:5:5ë¥¼ 5:6:5ë¡œ ë°”ê¿”ì„œ ì €ì¥í•˜ê³  ë‹¤ì‹œ 5:5:5ë¡œ ë°”ê¿”ì¤€ë‹¤.
 
-			// Alpha°ª skip
+			// Alphaê°’ skip
 			index++;
 			for (k=0; k<colorCount; k++)								
 			{
 				m_Pixels[i][index] = CDirectDraw::Convert555to565(m_Pixels[i][index]);
 
-				// Alpha,Color, Alpha,Color, .... ¼øÀÌ±â ¶§¹®¿¡
-				// Color´ÙÀ½¿¡ Color¸¦ ¹Ù²Ù±â À§ÇØ¼­..
+				// Alpha,Color, Alpha,Color, .... ìˆœì´ê¸° ë•Œë¬¸ì—
+				// Colorë‹¤ìŒì— Colorë¥¼ ë°”ê¾¸ê¸° ìœ„í•´ì„œ..
 				index+=2;
 			}
 			index--;
 
-			//index += colorCount;	// Åõ¸í»ö ¾Æ´Ñ°Í¸¸Å­ +				
+			//index += colorCount;	// íˆ¬ëª…ìƒ‰ ì•„ë‹Œê²ƒë§Œí¼ +				
 		}
 
-		// byte¼ö¿Í ½ÇÁ¦ data¸¦ ÀúÀåÇÑ´Ù.
+		// byteìˆ˜ì™€ ì‹¤ì œ dataë¥¼ ì €ì¥í•œë‹¤.
 		file.write((const char*)&index, 2);			
 		file.write((const char*)m_Pixels[i], index<<1);
 
 
-		// ´Ù½Ã 5:5:5·Î ¹Ù²ãÁØ´Ù.						
+		// ë‹¤ì‹œ 5:5:5ë¡œ ë°”ê¿”ì¤€ë‹¤.						
 		index	= 1;
 			
 		for (j=0; j<count; j++)
@@ -81,10 +81,10 @@ CAlphaSprite555::SaveToFile(ofstream& file)
 			//transCount = m_Pixels[i][index];
 			colorCount = m_Pixels[i][index+1];				
 
-			index+=2;	// µÎ count ¸¸Å­
+			index+=2;	// ë‘ count ë§Œí¼
 
 			// m_Pixels[i][index] ~ m_Pixels[i][index+colorCount-1]
-			// 5:5:5¸¦ 5:6:5·Î ¹Ù²ã¼­ ÀúÀåÇÏ°í ´Ù½Ã 5:5:5·Î ¹Ù²ãÁØ´Ù.
+			// 5:5:5ë¥¼ 5:6:5ë¡œ ë°”ê¿”ì„œ ì €ì¥í•˜ê³  ë‹¤ì‹œ 5:5:5ë¡œ ë°”ê¿”ì¤€ë‹¤.
 			index++;
 			for (k=0; k<colorCount; k++)								
 			{					
@@ -93,7 +93,7 @@ CAlphaSprite555::SaveToFile(ofstream& file)
 			}
 			index--;
 
-			//index += colorCount;	// Åõ¸í»ö ¾Æ´Ñ°Í¸¸Å­ +				
+			//index += colorCount;	// íˆ¬ëª…ìƒ‰ ì•„ë‹Œê²ƒë§Œí¼ +				
 		}
 	}
 
@@ -101,19 +101,19 @@ CAlphaSprite555::SaveToFile(ofstream& file)
 }
 
 //----------------------------------------------------------------------
-// fstream¿¡¼­ loadÇÑ´Ù.
+// fstreamì—ì„œ loadí•œë‹¤.
 //----------------------------------------------------------------------
 bool	
 CAlphaSprite555::LoadFromFile(ifstream& file)
 {
-	// ÀÌ¹Ì ÀâÇôÀÖ´Â memory¸¦ releaseÇÑ´Ù.
+	// ì´ë¯¸ ì¡í˜€ìˆëŠ” memoryë¥¼ releaseí•œë‹¤.
 	Release();
 
-	// width¿Í height¸¦ ÀúÀåÇÑ´Ù.
+	// widthì™€ heightë¥¼ ì €ì¥í•œë‹¤.
 	file.read((char*)&m_Width , 2);
 	file.read((char*)&m_Height, 2);	
 
-	// ±æÀÌ°¡ 0ÀÌ¸é ´õ LoadÇÒ°Ô ¾ø°ÚÁö..
+	// ê¸¸ì´ê°€ 0ì´ë©´ ë” Loadí• ê²Œ ì—†ê² ì§€..
 	if (m_Width==0 || m_Height==0) 
 	{	
 		m_bInit = true;
@@ -135,15 +135,15 @@ CAlphaSprite555::LoadFromFile(ifstream& file)
 	//--------------------------------
 	// 5:5:5
 	//--------------------------------
-	// 5:6:5·Î ÀúÀåµÈ°É ÀĞ¾ú±â ¶§¹®¿¡ 5:6:5¸¦ 5:5:5·Î ¹Ù²ãÁà¾ß ÇÑ´Ù.	
+	// 5:6:5ë¡œ ì €ì¥ëœê±¸ ì½ì—ˆê¸° ë•Œë¬¸ì— 5:6:5ë¥¼ 5:5:5ë¡œ ë°”ê¿”ì¤˜ì•¼ í•œë‹¤.	
 	int	count, index, colorCount;
 
 	register int i;
 	register int j;
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{			
-		// byte¼ö¿Í ½ÇÁ¦ data¸¦ LoadÇÑ´Ù.
+		// byteìˆ˜ì™€ ì‹¤ì œ dataë¥¼ Loadí•œë‹¤.
 		file.read((char*)&len, 2);
 		m_Pixels[i] = new WORD [len];
 		file.read((char*)m_Pixels[i], len<<1);
@@ -156,11 +156,11 @@ CAlphaSprite555::LoadFromFile(ifstream& file)
 			//transCount = m_Pixels[i][index];
 			colorCount = m_Pixels[i][index+1];				
 
-			index+=2;	// µÎ count ¸¸Å­
+			index+=2;	// ë‘ count ë§Œí¼
 
 			// m_Pixels[i][index] ~ m_Pixels[i][index+colorCount-1]
-			// 5:5:5¸¦ 5:6:5·Î ¹Ù²ã¼­ ÀúÀåÇÏ°í ´Ù½Ã 5:5:5·Î ¹Ù²ãÁØ´Ù.
-			index++;	// Alpha°ª skip
+			// 5:5:5ë¥¼ 5:6:5ë¡œ ë°”ê¿”ì„œ ì €ì¥í•˜ê³  ë‹¤ì‹œ 5:5:5ë¡œ ë°”ê¿”ì¤€ë‹¤.
+			index++;	// Alphaê°’ skip
 			for (int j=0; j<colorCount; j++)								
 			{					
 				m_Pixels[i][index] = CDirectDraw::Convert565to555(m_Pixels[i][index]);
@@ -168,7 +168,7 @@ CAlphaSprite555::LoadFromFile(ifstream& file)
 			}
 			index--;
 
-			//index += colorCount;	// Åõ¸í»ö ¾Æ´Ñ°Í¸¸Å­ +				
+			//index += colorCount;	// íˆ¬ëª…ìƒ‰ ì•„ë‹Œê²ƒë§Œí¼ +				
 		}
 	}
 

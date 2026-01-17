@@ -2,16 +2,48 @@
 //
 // Filename    : Properties.cpp
 // Written By  : Reiot
-// Description : 
+// Description : Cross-platform properties file handling with path conversion
 //
 //--------------------------------------------------------------------------------
 
 // include files
 #include "Client_PCH.h"
+#ifdef PLATFORM_WINDOWS
 #include <wtypes.h>
+#endif
 #include "Properties.h"
 #include <stdlib.h>			// atoi()
-#include "fstream"
+#include <fstream>
+#include <iostream>
+
+//--------------------------------------------------------------------------------
+// Helper function to convert Windows path separators to Unix format
+//--------------------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
+	/* On Windows, no conversion needed - inline function for efficiency */
+	static inline std::string ConvertPathSeparators(const std::string& path) {
+		return path;  // Return unchanged on Windows
+	}
+#else
+	/* On Unix/macOS, convert \\ to / */
+	static inline std::string ConvertPathSeparators(const std::string& path) {
+		std::string result = path;
+		size_t pos = 0;
+		/* Replace all \\ with / */
+		while ((pos = result.find("\\\\", pos)) != std::string::npos) {
+			result.replace(pos, 2, "/");
+			pos += 1;  // Move past the replaced /
+		}
+		/* Also replace single \ with / (for edge cases) */
+		pos = 0;
+		while ((pos = result.find('\\', pos)) != std::string::npos) {
+			result.replace(pos, 1, "/");
+			pos += 1;  // Move past the replaced /
+		}
+		return result;
+	}
+#endif
+
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 const char Properties::Comment = '#';
@@ -46,7 +78,7 @@ Properties::~Properties ()
 {	
 	__BEGIN_TRY
 		
-	// ¸ğµç pair ¸¦ »èÁ¦ÇÑ´Ù.
+	// ëª¨ë“  pair ë¥¼ ì‚­ì œí•œë‹¤.
 	m_Properties.clear();
 
 	__END_CATCH
@@ -64,7 +96,7 @@ void Properties::load ()
 	if ( m_Filename.empty() )
 		throw Error("filename not specified");
 		
-	std::ifstream ifile( m_Filename.c_str() , ios::in );
+	std::ifstream ifile( m_Filename.c_str() , std::ios::in );
 	
 	if ( ! ifile )
 		throw FileNotExistException( m_Filename.c_str() );
@@ -73,51 +105,56 @@ void Properties::load ()
 
 		std::string line;
 		std::getline( ifile , line );
-		
+
 		if ( ifile.eof() )
 			break;
 
-		// ÄÚ¸àÆ® ¶óÀÎÀÌ°Å³ª ºó ¶óÀÎÀÌ¹Ç·Î skip ÇÑ´Ù.
-		if ( line[0] == Comment || line.size() == 0 )	
+		// Remove trailing \r (Windows CRLF files on Unix/macOS)
+		if ( !line.empty() && line[line.size() - 1] == '\r' ) {
+			line.erase( line.size() - 1 );
+		}
+
+		// ì½”ë©˜íŠ¸ ë¼ì¸ì´ê±°ë‚˜ ë¹ˆ ë¼ì¸ì´ë¯€ë¡œ skip í•œë‹¤.
+		if ( line[0] == Comment || line.size() == 0 )
 			continue;
 
-		// key ÀÇ ½ÃÀÛ¹®ÀÚ(white space°¡ ¾Æ´Ñ ¹®ÀÚ)¸¦ Ã£´Â´Ù. 
+		// key ì˜ ì‹œì‘ë¬¸ì(white spaceê°€ ì•„ë‹Œ ë¬¸ì)ë¥¼ ì°¾ëŠ”ë‹¤. 
 		uint key_begin = line.find_first_not_of( WhiteSpaces );
 		
-		// key_beginÀÌ npos ¶ó´Â ¶æÀº ±×·± ¹®ÀÚ¸¦ Ã£Áö ¸øÇß´Ù´Â ¶æÀÌ´Ù.
-		// Áï, ¿ÂÅë white space ·Î¸¸ µÇ¾î ÀÖ´Â ¶óÀÎÀÌ¹Ç·Î skip ÇÑ´Ù.
+		// key_beginì´ npos ë¼ëŠ” ëœ»ì€ ê·¸ëŸ° ë¬¸ìë¥¼ ì°¾ì§€ ëª»í–ˆë‹¤ëŠ” ëœ»ì´ë‹¤.
+		// ì¦‰, ì˜¨í†µ white space ë¡œë§Œ ë˜ì–´ ìˆëŠ” ë¼ì¸ì´ë¯€ë¡œ skip í•œë‹¤.
 		if ( key_begin == std::string::npos )
 			continue;
 
-		// key ¿Í value ¸¦ ±¸ºĞÁş´Â separator ¸¦ Ã£´Â´Ù.
-		// key_end º¸´Ù sep ¸¦ ¸ÕÀú Ã£´Â ÀÌÀ¯´Â find_last_not_of()¸¦ ½á¼­
-		// sep ¿¡¼­ºÎÅÍ ¿ªÀ¸·Î key_end ¸¦ Ã£±â À§ÇØ¼­ÀÌ´Ù. ^^;
+		// key ì™€ value ë¥¼ êµ¬ë¶„ì§“ëŠ” separator ë¥¼ ì°¾ëŠ”ë‹¤.
+		// key_end ë³´ë‹¤ sep ë¥¼ ë¨¼ì € ì°¾ëŠ” ì´ìœ ëŠ” find_last_not_of()ë¥¼ ì¨ì„œ
+		// sep ì—ì„œë¶€í„° ì—­ìœ¼ë¡œ key_end ë¥¼ ì°¾ê¸° ìœ„í•´ì„œì´ë‹¤. ^^;
 		uint sep = line.find( Separator , key_begin );
 
-		// Separator ¸¦ ¹ß°ßÇÏÁö ¸øÇßÀ» °æ¿ì´Â ÆÄ½Ì ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+		// Separator ë¥¼ ë°œê²¬í•˜ì§€ ëª»í–ˆì„ ê²½ìš°ëŠ” íŒŒì‹± ì—ëŸ¬ë¡œ ê°„ì£¼í•œë‹¤.
 		if ( sep == std::string::npos )
 			throw IOException("missing separator");
 		
-		// sep ¿¡¼­ºÎÅÍ ¿ªÀ¸·Î key_end ¸¦ Ã£¾Æ³ª°£´Ù.
+		// sep ì—ì„œë¶€í„° ì—­ìœ¼ë¡œ key_end ë¥¼ ì°¾ì•„ë‚˜ê°„ë‹¤.
 		uint key_end = line.find_last_not_of( WhiteSpaces , sep - 1 );
 		
-		// sep ¿¡¼­ºÎÅÍ value_begin À» Ã£´Â´Ù.
+		// sep ì—ì„œë¶€í„° value_begin ì„ ì°¾ëŠ”ë‹¤.
 		uint value_begin = line.find_first_not_of( WhiteSpaces , sep + 1 );
 		
-		// key ´Â ÀÖÁö¸¸ value °¡ ¾ø´Â »óÅÂÀÌ´Ù. 
+		// key ëŠ” ìˆì§€ë§Œ value ê°€ ì—†ëŠ” ìƒíƒœì´ë‹¤. 
 		if ( value_begin == std::string::npos )
 			throw IOException("missing value");
 		
-		// ¸Ç ³¡¿¡¼­ºÎÅÍ ¿ªÀ¸·Î value_end ¸¦ Ã£´Â´Ù. 
-		// ( value_begin ÀÌ ÀÖÀ¸¸é value_end ´Â ¹«Á¶°Ç Á¸ÀçÇÑ´Ù.)
+		// ë§¨ ëì—ì„œë¶€í„° ì—­ìœ¼ë¡œ value_end ë¥¼ ì°¾ëŠ”ë‹¤. 
+		// ( value_begin ì´ ìˆìœ¼ë©´ value_end ëŠ” ë¬´ì¡°ê±´ ì¡´ì¬í•œë‹¤.)
 		uint value_end = line.find_last_not_of( WhiteSpaces ); 
 
-		// key_begin,key_end ¿Í value_begin,value_end ¸¦ »ç¿ëÇØ¼­ 
-		// line ÀÇ substring ÀÎ key ¿Í value ¸¦ »ı¼ºÇÑ´Ù.
+		// key_begin,key_end ì™€ value_begin,value_end ë¥¼ ì‚¬ìš©í•´ì„œ 
+		// line ì˜ substring ì¸ key ì™€ value ë¥¼ ìƒì„±í•œë‹¤.
 		std::string key = line.substr( key_begin , key_end - key_begin + 1 );
 		std::string value = line.substr( value_begin , value_end - value_begin + 1 );
 
-		// property ·Î µî·ÏÇÑ´Ù.
+		// property ë¡œ ë“±ë¡í•œë‹¤.
 		setProperty( key , value );
 	}
 	
@@ -138,7 +175,7 @@ void Properties::save ()
 	if ( m_Filename.empty() )
 		throw Error("filename not specified");
 
-	std::ofstream ofile( m_Filename.c_str() , ios::out | ios::trunc );
+	std::ofstream ofile( m_Filename.c_str() , std::ios::out | std::ios::trunc );
 	
 	for ( std::map< std::string , std::string , StringCompare >::iterator itr = m_Properties.begin() ;
 		  itr != m_Properties.end() ;
@@ -154,12 +191,14 @@ void Properties::save ()
 //--------------------------------------------------------------------------------
 // get property
 //--------------------------------------------------------------------------------
-std::string Properties::getProperty ( std::string key ) const 
+std::string Properties::getProperty ( std::string key ) const
 	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 
-		return getProperty(key.c_str());
+		std::string value = getProperty(key.c_str());
+		/* Convert path separators for cross-platform compatibility */
+		return ConvertPathSeparators(value);
 
 	__END_CATCH
 }
@@ -167,22 +206,23 @@ std::string Properties::getProperty ( std::string key ) const
 //--------------------------------------------------------------------------------
 // get property
 //--------------------------------------------------------------------------------
-std::string Properties::getProperty ( const char* key ) const 
+std::string Properties::getProperty ( const char* key ) const
 throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
-		
+
 		std::string value;
-	
+
 	std::map< std::string , std::string , StringCompare >::const_iterator itr = m_Properties.find( key );
-	
+
 	if ( itr != m_Properties.end() )
 		value = itr->second;
 	else
 		throw NoSuchElementException(key);
-	
-	return value;
-	
+
+	/* Convert path separators for cross-platform compatibility */
+	return ConvertPathSeparators(value);
+
 	__END_CATCH
 }
 
@@ -222,7 +262,7 @@ void Properties::setProperty ( std::string key , std::string value )
 {
 	__BEGIN_TRY
 		
-	// ÀÌ¹Ì Å°°¡ Á¸ÀçÇÒ °æ¿ì, value ¸¦ µ¤¾î¾´´Ù.
+	// ì´ë¯¸ í‚¤ê°€ ì¡´ì¬í•  ê²½ìš°, value ë¥¼ ë®ì–´ì“´ë‹¤.
 	m_Properties[ key ] = value;
 
 	__END_CATCH

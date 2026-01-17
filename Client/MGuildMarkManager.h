@@ -3,73 +3,73 @@
 //----------------------------------------------------------------------
 /*
 
-  [ file ¿¡¼­ ]
+  [ file ì—ì„œ ]
 
-	CSpritePack			guildMarkSPK;			// ±æµå ¸¶Å© ±×¸²µé
-	SpriteIDMapper		guildMarkSpriteMapper;	// ±æµåID --> SpriteID·Î mapping
+	CSpritePack			guildMarkSPK;			// ê¸¸ë“œ ë§ˆí¬ ê·¸ë¦¼ë“¤
+	SpriteIDMapper		guildMarkSpriteMapper;	// ê¸¸ë“œID --> SpriteIDë¡œ mapping
 
-	* ±æµåID¸¦ guildMarkSpriteMapper¿¡¼­ Ã£À¸¸é.. °ü·ÃµÈ SpriteID¸¦ ¾Ë ¼ö ÀÖ´Ù.
-	  guildMarkSPKIndex¿¡¼­ ±× SpriteID·Î ±× ±æµåSpriteÀÇ SpriteIndex¸¦ 
-	  ¾Ë ¼ö ÀÖÀ¸¹Ç·Î.. ¹Ù·Î LoadÇØ¿Ã ¼ö ÀÖ´Ù.
+	* ê¸¸ë“œIDë¥¼ guildMarkSpriteMapperì—ì„œ ì°¾ìœ¼ë©´.. ê´€ë ¨ëœ SpriteIDë¥¼ ì•Œ ìˆ˜ ìˆë‹¤.
+	  guildMarkSPKIndexì—ì„œ ê·¸ SpriteIDë¡œ ê·¸ ê¸¸ë“œSpriteì˜ SpriteIndexë¥¼ 
+	  ì•Œ ìˆ˜ ìˆìœ¼ë¯€ë¡œ.. ë°”ë¡œ Loadí•´ì˜¬ ìˆ˜ ìˆë‹¤.
 
-	* ÀúÀåÇÒ¶§´Â.. guildMarkSPK(+SPKIndex)¿¡ Ãß°¡ÇÏ°í ±× ¶§ÀÇ ID¸¦
-	  ±× ±æµåID¿Í ¿¬°áÇØ¼­ guildMarkSpriteMapper¿¡ Ãß°¡ÇØµÎ¸é µÈ´Ù.
+	* ì €ì¥í• ë•ŒëŠ”.. guildMarkSPK(+SPKIndex)ì— ì¶”ê°€í•˜ê³  ê·¸ ë•Œì˜ IDë¥¼
+	  ê·¸ ê¸¸ë“œIDì™€ ì—°ê²°í•´ì„œ guildMarkSpriteMapperì— ì¶”ê°€í•´ë‘ë©´ ëœë‹¤.
 
-	* guildMarkSpriteMapper¿¡ mappingÀÌ µÇÁö ¾Ê´Â guildMarkSprite´Â ¹ö·ÁÁø´Ù.
-	  ¿ë·®ÀÌ ±×¸® Å©Áö ¾ÊÀ¸¹Ç·Î Á¤¸®ÇÏ´Â ½Ã°£À» ÁÙÀÌ´Â°Ô ³´´Ù°í ÆÇ´ÜÇØ¼­ÀÌ´Ù.
+	* guildMarkSpriteMapperì— mappingì´ ë˜ì§€ ì•ŠëŠ” guildMarkSpriteëŠ” ë²„ë ¤ì§„ë‹¤.
+	  ìš©ëŸ‰ì´ ê·¸ë¦¬ í¬ì§€ ì•Šìœ¼ë¯€ë¡œ ì •ë¦¬í•˜ëŠ” ì‹œê°„ì„ ì¤„ì´ëŠ”ê²Œ ë‚«ë‹¤ê³  íŒë‹¨í•´ì„œì´ë‹¤.
 
-	* Å¬¶óÀÌ¾ğÆ®¸¶´Ù guildMarkSPK¿Í guildMarkSpriteMapper´Â ´Ù¸¦ ¼ö ÀÖ´Ù.
+	* í´ë¼ì´ì–¸íŠ¸ë§ˆë‹¤ guildMarkSPKì™€ guildMarkSpriteMapperëŠ” ë‹¤ë¥¼ ìˆ˜ ìˆë‹¤.
 
 
 
-  [ memory ¿¡¼­ ]
+  [ memory ì—ì„œ ]
 
-	map< ±æµåID, ±æµå¸¶Å©Sprite* >
+	map< ê¸¸ë“œID, ê¸¸ë“œë§ˆí¬Sprite* >
 
-	// ±æµå ¸¶Å©¸¦ »ı¼ºÇÏ´Â °æ¿ì(
-	bool		CreateGuildMark(±æµåID, *.bmp || *.jpg);
+	// ê¸¸ë“œ ë§ˆí¬ë¥¼ ìƒì„±í•˜ëŠ” ê²½ìš°(
+	bool		CreateGuildMark(ê¸¸ë“œID, *.bmp || *.jpg);
 
-	// ±æµå ¸¶Å©¸¦ Ãß°¡ÇÏ´Â °æ¿ì
-	bool		AddGuildMark(±æµåID, CSprite*);
+	// ê¸¸ë“œ ë§ˆí¬ë¥¼ ì¶”ê°€í•˜ëŠ” ê²½ìš°
+	bool		AddGuildMark(ê¸¸ë“œID, CSprite*);
 
-	// ±æµå ¸¶Å©¸¦ Ãâ·ÂÇÏ·Á°í sprite¸¦ ¾ò´Â °æ¿ì
-	CSprite*	GetGuildMark(±æµåID);
+	// ê¸¸ë“œ ë§ˆí¬ë¥¼ ì¶œë ¥í•˜ë ¤ê³  spriteë¥¼ ì–»ëŠ” ê²½ìš°
+	CSprite*	GetGuildMark(ê¸¸ë“œID);
 
-	// ±æµå ¸¶Å©¸¦ È­ÀÏ¿¡¼­ ÀĞ°í/¾²±â
-	bool		LoadGuildMark(±æµåID);
-	bool		SaveGuildMark(±æµåID);
+	// ê¸¸ë“œ ë§ˆí¬ë¥¼ í™”ì¼ì—ì„œ ì½ê³ /ì“°ê¸°
+	bool		LoadGuildMark(ê¸¸ë“œID);
+	bool		SaveGuildMark(ê¸¸ë“œID);
 
 
 
 	//-------------------------------------------------
-	// guild mark Ãâ·Â ¿¹Á¦
+	// guild mark ì¶œë ¥ ì˜ˆì œ
 	//-------------------------------------------------
 	int guildID = ...
 
 	//-------------------------------------------------
-	// loadµÇ¾î ÀÖ´ÂÁö º»´Ù.
+	// loadë˜ì–´ ìˆëŠ”ì§€ ë³¸ë‹¤.
 	//-------------------------------------------------
 	CSprite* pSprite = g_pGuildMarkManager->GetGuildMark(guildID);
 
 	if (pSprite==NULL)
 	{		
 		//-------------------------------------------------
-		// file¿¡ ÀÖ´ÂÁö º»´Ù.
+		// fileì— ìˆëŠ”ì§€ ë³¸ë‹¤.
 		//-------------------------------------------------
 		g_pGuildMarkManager->LoadGuildMark(guildID);
 
 		//-------------------------------------------------
-		// file¿¡¼­ loadµÇ¾ú´ÂÁö ´Ù½Ã Ã¼Å©
+		// fileì—ì„œ loadë˜ì—ˆëŠ”ì§€ ë‹¤ì‹œ ì²´í¬
 		//-------------------------------------------------
 		pSprite = g_pGuildMarkManager->GetGuildMark(guildID);
 
 		//-------------------------------------------------
-		// file¿¡µµ ¾ø´Â °æ¿ì..
-		// guildMark°ü¸®¼­¹ö?¿¡¼­ ¹Ş¾Æ¿Â´Ù.
+		// fileì—ë„ ì—†ëŠ” ê²½ìš°..
+		// guildMarkê´€ë¦¬ì„œë²„?ì—ì„œ ë°›ì•„ì˜¨ë‹¤.
 		//-------------------------------------------------
 		if (pSprite==NULL)
 		{
-			// ¿©±â¼­´Â.. ÀÓ½Ã·Î È­ÀÏ¿¡¼­ »ı¼ºÇÑ´Ù.
+			// ì—¬ê¸°ì„œëŠ”.. ì„ì‹œë¡œ í™”ì¼ì—ì„œ ìƒì„±í•œë‹¤.
 			char str[256];
 			sprintf(str, "Data\\Guild\\Guild%d.bmp", guildID);
 			g_pGuildMarkManager->CreateGuildMark( guildID, str );
@@ -77,7 +77,7 @@
 	}
 	else
 	{			
-		// ÀÛÀº°Åµµ °Á ÇÔ Âï¾îº»´Ù.
+		// ì‘ì€ê±°ë„ ê± í•¨ ì°ì–´ë³¸ë‹¤.
 		CSprite* pSpriteSmall = g_pGuildMarkManager->GetGuildMarkSmall(guildID);
 
 		m_pSurface->Lock();
@@ -107,6 +107,7 @@
 #include "CSpritePack.h"
 #include "MString.h"
 #include "RaceType.h"
+#include <map>
 
 #define GRADE_MARK_MAX 50
 //----------------------------------------------------------------------
@@ -146,7 +147,7 @@ class MGuildMarkManager {
 		void			Release();
 
 		//----------------------------------------------------------
-		// Create( guildID, pFilenameÀº *.bmp || *.jpg )
+		// Create( guildID, pFilenameì€ *.bmp || *.jpg )
 		//----------------------------------------------------------
 		bool			CreateGuildMark(WORD guildID, const char* pFilename);
 		static bool		CreateGuildMark(const char* pFilename, CSprite *&pSprite, CSprite *&pSpriteSmall);

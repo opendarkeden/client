@@ -17,27 +17,27 @@
 MAttachEffect::MAttachEffect(TYPE_EFFECTSPRITETYPE type, DWORD last, DWORD linkCount)
 : MMovingEffect( (type < g_pEffectSpriteTypeTable->GetSize()? (*g_pEffectSpriteTypeTable)[type].BltType : BLT_EFFECT) )
 {
-	// classÁ¾·ù
+	// classì¢…ë¥˜
 	//m_EffectType	= EFFECT_ATTACH;
 
-	// µû¶ó°¡´Â Creature ID
+	// ë”°ë¼ê°€ëŠ” Creature ID
 	m_CreatureID	= OBJECTID_NULL;
 
 	m_bEffectSprite = true;
 
-	// EffectSprite Á¾·ù
+	// EffectSprite ì¢…ë¥˜
 	m_EffectSpriteType	= type;
 	
-	// ³¡³ª´Â ½Ã°£ = ÇöÀç ½Ã°£ + Áö¼Ó ½Ã°£
-	// 2004, 12, 9, sobeit add start - Á¤¸» ¹«ÇÑ?
+	// ëë‚˜ëŠ” ì‹œê°„ = í˜„ì¬ ì‹œê°„ + ì§€ì† ì‹œê°„
+	// 2004, 12, 9, sobeit add start - ì •ë§ ë¬´í•œ?
 	if(last == 0xFFFF)
 		m_EndFrame			= 0xFFFFFFFF;
 	else
 	// 2004, 12, 9, sobeit add end
 		m_EndFrame			= g_CurrentFrame + last - 1;
 	
-	// Æ¯º°È÷ »ö±ò ¹Ù²î´Â ºÎÀ§ ¾øÀ½...
-	// ÀüÃ¼°¡ ¹Ù²ï´Ù´Â°É ÀÇ¹ÌÇÏ±âµµ ÇÑ´Ù. - -;
+	// íŠ¹ë³„íˆ ìƒ‰ê¹” ë°”ë€ŒëŠ” ë¶€ìœ„ ì—†ìŒ...
+	// ì „ì²´ê°€ ë°”ë€ë‹¤ëŠ”ê±¸ ì˜ë¯¸í•˜ê¸°ë„ í•œë‹¤. - -;
 	m_bEffectColorPart = ADDON_NULL;
 
 	// linkCount
@@ -51,7 +51,7 @@ MAttachEffect::MAttachEffect(TYPE_EFFECTSPRITETYPE type, DWORD last, DWORD linkC
 	}
 
 	//-------------------------------------------------------
-	// Á¦´ë·Î µÈ typeÀÎ °æ¿ì.. ¾Æ´Ñ °æ¿ì´Â »ö±òÀÌ°Å³ª ¹¹..±×·¸´Ù - -;
+	// ì œëŒ€ë¡œ ëœ typeì¸ ê²½ìš°.. ì•„ë‹Œ ê²½ìš°ëŠ” ìƒ‰ê¹”ì´ê±°ë‚˜ ë­..ê·¸ë ‡ë‹¤ - -;
 	//-------------------------------------------------------
 	if (type < g_pEffectSpriteTypeTable->GetSize())
 	{
@@ -64,7 +64,7 @@ MAttachEffect::MAttachEffect(TYPE_EFFECTSPRITETYPE type, DWORD last, DWORD linkC
 
 		SetFrameID( frameID, maxFrame );
 
-		// default·Î EffectÀÇ ¹à±â¸¦ ÁöÁ¤ÇÑ´Ù.
+		// defaultë¡œ Effectì˜ ë°ê¸°ë¥¼ ì§€ì •í•œë‹¤.
 		if (m_BltType == BLT_EFFECT)
 		{
 			m_Light = g_pTopView->m_EffectAlphaFPK[m_FrameID][m_Direction][m_CurrentFrame].GetLight();
@@ -94,7 +94,7 @@ MAttachEffect::~MAttachEffect()
 //----------------------------------------------------------------------
 // Move
 //----------------------------------------------------------------------
-// ¸Å ¼ø°£¸¶´Ù StepX~Z°¡ ´Ş¶óÁø´Ù.
+// ë§¤ ìˆœê°„ë§ˆë‹¤ StepX~Zê°€ ë‹¬ë¼ì§„ë‹¤.
 //----------------------------------------------------------------------
 void				
 MAttachEffect::SetAttachCreatureID(TYPE_OBJECTID id)
@@ -126,7 +126,7 @@ MAttachEffect::SetAttachCreatureID(TYPE_OBJECTID id)
 bool
 MAttachEffect::SetAttachCreature(MCreature* pCreature)
 {	
-	// Creature°¡ »ç¶óÁ³À» °æ¿ì..
+	// Creatureê°€ ì‚¬ë¼ì¡Œì„ ê²½ìš°..
 	if (pCreature == NULL)
 	{
 		m_EndFrame = 0;
@@ -135,24 +135,24 @@ MAttachEffect::SetAttachCreature(MCreature* pCreature)
 
 	m_CreatureID = pCreature->GetID(); 
 
-	// ÇöÀçÀÇ ÁÂÇ¥¸¦ ÀĞ¾î¿Â´Ù.
+	// í˜„ì¬ì˜ ì¢Œí‘œë¥¼ ì½ì–´ì˜¨ë‹¤.
 	POINT point;// = MTopView::MapToPixel(pCreature->GetX(), pCreature->GetY());
 	//point.x += pCreature->GetSX();
 	//point.y += pCreature->GetSY();
 	point.x = pCreature->GetPixelX();
 	point.y = pCreature->GetPixelY();
 
-	// »õ·Î¿î ÁÂÇ¥ ¼³Á¤	
+	// ìƒˆë¡œìš´ ì¢Œí‘œ ì„¤ì •	
 	m_PixelX = point.x;
 	m_PixelY = point.y;
 	m_PixelZ = pCreature->GetZ();
 
 	//--------------------------------
-	// Sector ÁÂÇ¥¸¦ ¸ÂÃá´Ù.
+	// Sector ì¢Œí‘œë¥¼ ë§ì¶˜ë‹¤.
 	//--------------------------------
 	AffectPosition();
 
-	// ÁÂÇ¥
+	// ì¢Œí‘œ
 	//#ifdef	OUTPUT_DEBUG
 	//	sprintf(g_pDebugMessage->GetCurrent(), "Set AttachEffect : Type=%d, Light=%d, (%d, %d)", pEffect->GetFrameID(), m_Light, m_X, m_Y);	
 	//	g_pDebugMessage->Next();
@@ -169,10 +169,10 @@ MAttachEffect::Update()
 {	
 	if (g_CurrentFrame < m_EndFrame)
 	{	
-		// FrameÀ» ¹Ù²ãÁØ´Ù.
+		// Frameì„ ë°”ê¿”ì¤€ë‹¤.
 		NextFrame();
 
-		// Counter¸¦ ÇÏ³ª ÁÙÀÎ´Ù.
+		// Counterë¥¼ í•˜ë‚˜ ì¤„ì¸ë‹¤.
 		//m_Count--;
 
 		if (m_BltType == BLT_EFFECT)
@@ -183,8 +183,8 @@ MAttachEffect::Update()
 		return true;
 	}
 
-	// Ä³¸¯ÅÍ ÁÂÇ¥¿¡ ºÙ´Â´Ù. 
-	// ´ÙÀ½ Effect·Î ¿¬°áÇÏ±â À§ÇØ¼­..ÁÂÇ¥¸¦ ¼³Á¤ÇÑ´Ù.
+	// ìºë¦­í„° ì¢Œí‘œì— ë¶™ëŠ”ë‹¤. 
+	// ë‹¤ìŒ Effectë¡œ ì—°ê²°í•˜ê¸° ìœ„í•´ì„œ..ì¢Œí‘œë¥¼ ì„¤ì •í•œë‹¤.
 	//AttachCreature();
 
 	return false;

@@ -1,8 +1,8 @@
 //----------------------------------------------------------------------
 // MZoneInfo.h
 //----------------------------------------------------------------------
-// ¾ÈÀüÁö´ë Ç¥½Ã.. µîµî..
-// ÀÚÁÖ ¹Ù²ğ°Å °°¾Æ¼­.. mapÈ­ÀÏ°ú ºĞ¸®ÇÑ´Ù.
+// ì•ˆì „ì§€ëŒ€ í‘œì‹œ.. ë“±ë“±..
+// ìì£¼ ë°”ë€”ê±° ê°™ì•„ì„œ.. mapí™”ì¼ê³¼ ë¶„ë¦¬í•œë‹¤.
 //----------------------------------------------------------------------
 
 
@@ -11,7 +11,11 @@
 
 #pragma warning(disable:4786)
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "MSectorInfo.h"
 
 
@@ -34,8 +38,8 @@ class MZoneInfo {
 		//                  File I/O
 		//
 		//------------------------------------------------------------------
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);
 
 		//------------------------------------------------------------------
 		// Safety

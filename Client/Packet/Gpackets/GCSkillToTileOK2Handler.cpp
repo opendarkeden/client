@@ -17,21 +17,22 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCSkillToTileOK2Handler::execute ( GCSkillToTileOK2 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 #ifdef __GAME_CLIENT__
 
 	//------------------------------------------------------------------
-	// »óÅÂ°ªÀ» ¹Ù²Û´Ù.
+	// ìƒíƒœê°’ì„ ë°”ê¾¼ë‹¤.
 	//------------------------------------------------------------------
 	AffectModifyInfo(g_pPlayer, pPacket);
 
 	int delayFrame = ConvertDurationToFrame( pPacket->getDuration() );
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{ 
@@ -39,13 +40,13 @@ void GCSkillToTileOK2Handler::execute ( GCSkillToTileOK2 * pPacket , Player * pP
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		//------------------------------------------------------
-		// Player°¡ »ç¿ëÇÑ ±â¼úÀÌ¶ó°í packetÀÌ ³¯¾Æ¿Â °æ¿ì
-		// --> Error´Ù
+		// Playerê°€ ì‚¬ìš©í•œ ê¸°ìˆ ì´ë¼ê³  packetì´ ë‚ ì•„ì˜¨ ê²½ìš°
+		// --> Errorë‹¤
 		//------------------------------------------------------
 		if (pPacket->getObjectID()==g_pPlayer->GetID())
 		{
@@ -54,7 +55,7 @@ void GCSkillToTileOK2Handler::execute ( GCSkillToTileOK2 * pPacket , Player * pP
 		else
 		{
 			//------------------------------------------------------
-			// »ç¿ëÀÚ
+			// ì‚¬ìš©ì
 			//------------------------------------------------------
 			int creatureID = pPacket->getObjectID();
 			MCreature* pCreature = g_pZone->GetCreature( creatureID );
@@ -106,14 +107,14 @@ void GCSkillToTileOK2Handler::execute ( GCSkillToTileOK2 * pPacket , Player * pP
 			}
 
 			//------------------------------------------------------
-			// TileOK2·Î ÀÎÇÑ °á°ú 
+			// TileOK2ë¡œ ì¸í•œ ê²°ê³¼ 
 			//------------------------------------------------------				
 			int size = pPacket->getCListNum();
 
 			MActionResult* pResult = new MActionResult;
 
 			//------------------------------------------------------------------
-			// effect status¸¦ Àû¿ë½ÃÅ²´Ù.
+			// effect statusë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 			//------------------------------------------------------------------
 			if (g_pPlayer->GetEFFECT_STAT()!=EFFECTSTATUS_NULL)
 			{
@@ -163,15 +164,15 @@ void GCSkillToTileOK2Handler::execute ( GCSkillToTileOK2 * pPacket , Player * pP
 		
 			if (size!=0)
 			{
-				// °á°ú¸¦ ´çÇÏ´Â °¢°¢ÀÇ creature¿¡ ´ëÇØ¼­ °á°ú Ç¥Çö
+				// ê²°ê³¼ë¥¼ ë‹¹í•˜ëŠ” ê°ê°ì˜ creatureì— ëŒ€í•´ì„œ ê²°ê³¼ í‘œí˜„
 				for (int i=0; i<size; i++)
 				{
 					//MCreature* pTargetCreature = g_pZone->GetCreature( pPacket->getCListElement() );
 						
-					// Creature¿¡°Ô Damage ÀÔÈû
+					// Creatureì—ê²Œ Damage ì…í˜
 					//if (pTargetCreature != NULL)
 					//{
-						// ³»(Player)°¡ ´©±º°¡°¡ »ç¿ëÇÑ SKillÀ» ¸ÂÀº °æ¿ì..
+						// ë‚´(Player)ê°€ ëˆ„êµ°ê°€ê°€ ì‚¬ìš©í•œ SKillì„ ë§ì€ ê²½ìš°..
 						// [ TEST CODE ]
 						
 					//	pResult->Add( new MActionResultNodeActionInfo( 
@@ -192,7 +193,7 @@ void GCSkillToTileOK2Handler::execute ( GCSkillToTileOK2 * pPacket , Player * pP
 						DEBUG_ADD("TCNotNULL");
 
 						//------------------------------------------------------
-						// EffectStatus°¡ ÀÖ´Ù¸é ºÙÀÎ´Ù.
+						// EffectStatusê°€ ìˆë‹¤ë©´ ë¶™ì¸ë‹¤.
 						//------------------------------------------------------
 						EFFECTSTATUS es = (*g_pActionInfoTable)[skillID].GetEffectStatus();
 						
@@ -203,7 +204,7 @@ void GCSkillToTileOK2Handler::execute ( GCSkillToTileOK2 * pPacket , Player * pP
 
 						//------------------------------------------------------
 						//
-						// skill¿¡ °á°ú°¡ ÀÖÀ¸¸é Àû¿ë ½ÃÅ²´Ù.
+						// skillì— ê²°ê³¼ê°€ ìˆìœ¼ë©´ ì ìš© ì‹œí‚¨ë‹¤.
 						//
 						//------------------------------------------------------
 						MActionResultNode* pActionResultNode = NULL;
@@ -211,7 +212,7 @@ void GCSkillToTileOK2Handler::execute ( GCSkillToTileOK2 * pPacket , Player * pP
 						switch ((*g_pActionInfoTable)[skillID].GetActionResultID())
 						{
 							//------------------------------------------------------
-							// ´Ù¸¥ ActionInfo ½ÇÇà
+							// ë‹¤ë¥¸ ActionInfo ì‹¤í–‰
 							//------------------------------------------------------
 							case ACTIONRESULTNODE_ACTIONINFO :
 								
@@ -229,7 +230,7 @@ void GCSkillToTileOK2Handler::execute ( GCSkillToTileOK2 * pPacket , Player * pP
 							break;
 
 							//------------------------------------------------------
-							// Burrow µîµî.. 
+							// Burrow ë“±ë“±.. 
 							//------------------------------------------------------
 							default :
 								DEBUG_ADD("default");
@@ -237,7 +238,7 @@ void GCSkillToTileOK2Handler::execute ( GCSkillToTileOK2 * pPacket , Player * pP
 						}
 
 						//------------------------------------------------------
-						// NULLÀÌ ¾Æ´Ï¸é °°ÀÌ Àû¿ë
+						// NULLì´ ì•„ë‹ˆë©´ ê°™ì´ ì ìš©
 						//------------------------------------------------------
 						if (pActionResultNode!=NULL)
 						{
@@ -257,7 +258,7 @@ void GCSkillToTileOK2Handler::execute ( GCSkillToTileOK2 * pPacket , Player * pP
 			DEBUG_ADD("pCreture?");
 
 			//------------------------------------------------------
-			// »ç¿ëÇÑ Ä³¸¯ÅÍ°¡ ¾ø´Â °æ¿ì --> °á°ú ¹Ù·Î Ç¥Çö
+			// ì‚¬ìš©í•œ ìºë¦­í„°ê°€ ì—†ëŠ” ê²½ìš° --> ê²°ê³¼ ë°”ë¡œ í‘œí˜„
 			//------------------------------------------------------
 			if (pCreature==NULL)
 			{
@@ -266,7 +267,7 @@ void GCSkillToTileOK2Handler::execute ( GCSkillToTileOK2 * pPacket , Player * pP
 				int direction = 0;
 
 				//------------------------------------------------------
-				// range¸¦ direction¿¡ Àû¿ë½ÃÅ°´Â °æ¿ì
+				// rangeë¥¼ directionì— ì ìš©ì‹œí‚¤ëŠ” ê²½ìš°
 				//------------------------------------------------------
 				if ((*g_pActionInfoTable)[skillID].IsOptionRangeToDirection())
 				{
@@ -274,34 +275,34 @@ void GCSkillToTileOK2Handler::execute ( GCSkillToTileOK2 * pPacket , Player * pP
 				}
 
 				ExecuteActionInfoFromMainNode(
-							skillID,										// »ç¿ë ±â¼ú ¹øÈ£
+							skillID,										// ì‚¬ìš© ê¸°ìˆ  ë²ˆí˜¸
 						
 							pPacket->getX(), pPacket->getY(), 0,
-							direction,														// »ç¿ë ¹æÇâ
+							direction,														// ì‚¬ìš© ë°©í–¥
 							
-							OBJECTID_NULL,		// 2002.3.6¿¡ ¹Ù²Ş. ¿ø·¡´Â pPacket->getObjectID()¿´´Ù.
+							OBJECTID_NULL,		// 2002.3.6ì— ë°”ê¿ˆ. ì›ë˜ëŠ” pPacket->getObjectID()ì˜€ë‹¤.
 							pPacket->getX(), pPacket->getY(), 0,
 							
-							delayFrame,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+							delayFrame,													// ê¸°ìˆ ì˜ (ë‚¨ì€) ì§€ì† ì‹œê°„		
 							
 							pResult,
 							
-							false);			// ±â¼ú Ã·ºÎÅÍ ½ÃÀÛÇÑ´Ù.);
+							false);			// ê¸°ìˆ  ì²¨ë¶€í„° ì‹œì‘í•œë‹¤.);
 			}
 			//------------------------------------------------------
-			// Á¤»ó
+			// ì •ìƒ
 			//------------------------------------------------------
 			else
 			{				
 				DEBUG_ADD("C-OK");
 
 				//------------------------------------------------------
-				// ¹æÇâÀ» ¹Ù¶óº¸±â
+				// ë°©í–¥ì„ ë°”ë¼ë³´ê¸°
 				//------------------------------------------------------
 				pCreature->SetDirectionToPosition(pPacket->getX(), pPacket->getY());		
 
 				//------------------------------------------------------
-				// range¸¦ direction¿¡ Àû¿ë½ÃÅ°´Â °æ¿ì
+				// rangeë¥¼ directionì— ì ìš©ì‹œí‚¤ëŠ” ê²½ìš°
 				//------------------------------------------------------
 				if ((*g_pActionInfoTable)[pPacket->getSkillType()].IsOptionRangeToDirection())
 				{
@@ -309,7 +310,7 @@ void GCSkillToTileOK2Handler::execute ( GCSkillToTileOK2 * pPacket , Player * pP
 				}
 
 				//------------------------------------------------------
-				// TileOK2·Î ÀÎÇÑ °á°ú Ãß°¡
+				// TileOK2ë¡œ ì¸í•œ ê²°ê³¼ ì¶”ê°€
 				//------------------------------------------------------
 				//Duration_t	m_Duration;
 				DEBUG_ADD("AtoSector");
@@ -317,7 +318,7 @@ void GCSkillToTileOK2Handler::execute ( GCSkillToTileOK2 * pPacket , Player * pP
 				pCreature->PacketSpecialActionToSector(
 									skillID, 
 									pPacket->getX(), pPacket->getY(),
-									pResult						// °á°ú
+									pResult						// ê²°ê³¼
 				);
 
 				DEBUG_ADD("AtoSectorOK");
@@ -329,7 +330,7 @@ void GCSkillToTileOK2Handler::execute ( GCSkillToTileOK2 * pPacket , Player * pP
 
 	
 	//------------------------------------------------------------
-	// Delay Frame ¼³Á¤
+	// Delay Frame ì„¤ì •
 	//------------------------------------------------------------
 	//g_pPlayer->SetEffectDelayFrame( resultActionInfo, delayFrame );
 
@@ -337,8 +338,8 @@ void GCSkillToTileOK2Handler::execute ( GCSkillToTileOK2 * pPacket , Player * pP
 
 
 	//------------------------------------------------------------------
-	// UI¿¡ º¸ÀÌ´Â °ÍÀ» ¹Ù²ãÁØ´Ù.
-	// ºñ±³¿¬»êÇÏ´Â°Åº¸´Ù ÀÌ°Ô ´õ ºü¸£Áö ¾ÊÀ»±î.. À½.. - -;
+	// UIì— ë³´ì´ëŠ” ê²ƒì„ ë°”ê¿”ì¤€ë‹¤.
+	// ë¹„êµì—°ì‚°í•˜ëŠ”ê±°ë³´ë‹¤ ì´ê²Œ ë” ë¹ ë¥´ì§€ ì•Šì„ê¹Œ.. ìŒ.. - -;
 	//------------------------------------------------------------------
 	//UI_SetHP( g_pPlayer->GetHP(), g_pPlayer->GetMAX_HP() );
 	//UI_SetMP( g_pPlayer->GetMP(), g_pPlayer->GetMAX_MP() );

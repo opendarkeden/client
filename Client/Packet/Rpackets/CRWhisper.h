@@ -18,9 +18,9 @@
 //
 // class CRWhisper;
 //
-// °ÔÀÓ ¼­¹ö°¡ Æ¯Á¤ ÇÃ·¹ÀÌ¾îÀÇ Whisper ¸¦ ´Ù¸¥ ÇÃ·¹ÀÌ¾îµé¿¡°Ô ºê·ÎµåÄ³½ºÆ®
-// ÇÒ ¶§ Àü¼ÛÇÏ´Â ÆĞÅ¶ÀÌ´Ù. ³»ºÎ¿¡ Ä³¸¯ÅÍ¸í°ú Whisper ½ºÆ®¸µÀ» µ¥ÀÌÅ¸
-// ÇÊµå·Î °¡Áö°í ÀÖ´Ù.
+// ê²Œì„ ì„œë²„ê°€ íŠ¹ì • í”Œë ˆì´ì–´ì˜ Whisper ë¥¼ ë‹¤ë¥¸ í”Œë ˆì´ì–´ë“¤ì—ê²Œ ë¸Œë¡œë“œìºìŠ¤íŠ¸
+// í•  ë•Œ ì „ì†¡í•˜ëŠ” íŒ¨í‚·ì´ë‹¤. ë‚´ë¶€ì— ìºë¦­í„°ëª…ê³¼ Whisper ìŠ¤íŠ¸ë§ì„ ë°ì´íƒ€
+// í•„ë“œë¡œ ê°€ì§€ê³  ìˆë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -31,10 +31,10 @@ public :
 	CRWhisper();
 	~CRWhisper();
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write ( SocketOutputStream & oStream ) const throw ( ProtocolException , Error );
 
 	// execute packet's handler
@@ -54,11 +54,11 @@ public :
 		std::string toString () const throw ();
 	#endif
 
-	// º¸³½ »ç¶÷
+	// ë³´ë‚¸ ì‚¬ëŒ
 	std::string getName() const throw () { return m_Name ; }
 	void setName ( const std::string & Name ) throw () { m_Name = Name ; }
 
-	// ¹Ş´Â »ç¶÷
+	// ë°›ëŠ” ì‚¬ëŒ
 	std::string getTargetName() const throw () { return m_TargetName ; }
 	void setTargetName ( const std::string & Name ) throw () { m_TargetName = Name ; }
 
@@ -125,7 +125,7 @@ public :
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static CRWhisperPacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+	// const static CRWhisperPacketMaxSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
 	PacketSize_t getPacketMaxSize () const throw () { return szBYTE + 10 + szBYTE + 10 + szBYTE + 32768 + szBYTE + szBYTE; }
 
 };

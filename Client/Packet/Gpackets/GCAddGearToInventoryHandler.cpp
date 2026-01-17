@@ -17,7 +17,7 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCAddGearToInventoryHandler::execute ( GCAddGearToInventory * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -26,7 +26,7 @@ void GCAddGearToInventoryHandler::execute ( GCAddGearToInventory * pPacket , Pla
 
 
 	//----------------------------------------------------------------------
-	// SlayerÀÎ °æ¿ì	
+	// Slayerì¸ ê²½ìš°	
 	//----------------------------------------------------------------------
 	switch(g_pPlayer->GetRace())
 	{
@@ -35,23 +35,23 @@ void GCAddGearToInventoryHandler::execute ( GCAddGearToInventory * pPacket , Pla
 				const MItem* pItem = g_pSlayerGear->GetItem( (MSlayerGear::GEAR_SLAYER)pPacket->getSlotID() );
 				
 				//----------------------------------------------------------------------
-				// ±×·± id¸¦ °¡Áø itemÀÌ ¾ø´Â °æ¿ì
+				// ê·¸ëŸ° idë¥¼ ê°€ì§„ itemì´ ì—†ëŠ” ê²½ìš°
 				//----------------------------------------------------------------------
 				if (pItem==NULL)
 				{
 					DEBUG_ADD_FORMAT("[Error] Item does not exist in SlayerGear! slot=%d", (int)pPacket->getSlotID());
 				}
 				//----------------------------------------------------------------------
-				// itemÀÌ ÀÖ´Â °æ¿ì --> Gear¿¡¼­ Á¦°ÅÇØ¼­ Inventory¿¡ Ãß°¡ÇÑ´Ù.
+				// itemì´ ìžˆëŠ” ê²½ìš° --> Gearì—ì„œ ì œê±°í•´ì„œ Inventoryì— ì¶”ê°€í•œë‹¤.
 				//----------------------------------------------------------------------
 				else
 				{
 					MItem* pRemovedItem = g_pSlayerGear->RemoveItem( pItem->GetID() );
 					
-					// Inventory(x,y)¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+					// Inventory(x,y)ì— pItemì„ ì¶”ê°€í•œë‹¤.
 					if (!g_pInventory->AddItem( pRemovedItem, pPacket->getInvenX(), pPacket->getInvenY() ))
 					{
-						// Ãß°¡ ½ÇÆÐÇÑ °æ¿ì
+						// ì¶”ê°€ ì‹¤íŒ¨í•œ ê²½ìš°
 						DEBUG_ADD_FORMAT("[Error] Cannot Add Item to Inventory(%d,%d), slot=%d", (int)pPacket->getInvenX(), (int)pPacket->getInvenY(), (int)pPacket->getSlotID());
 					}
 				}
@@ -63,23 +63,23 @@ void GCAddGearToInventoryHandler::execute ( GCAddGearToInventory * pPacket , Pla
 				const MItem* pItem = g_pVampireGear->GetItem( (MVampireGear::GEAR_VAMPIRE)pPacket->getSlotID() );
 				
 				//----------------------------------------------------------------------
-				// ±×·± id¸¦ °¡Áø itemÀÌ ¾ø´Â °æ¿ì
+				// ê·¸ëŸ° idë¥¼ ê°€ì§„ itemì´ ì—†ëŠ” ê²½ìš°
 				//----------------------------------------------------------------------
 				if (pItem==NULL)
 				{
 					DEBUG_ADD_FORMAT("[Error] Item does not exist in VampireGear! slot=%d", (int)pPacket->getSlotID());
 				}
 				//----------------------------------------------------------------------
-				// itemÀÌ ÀÖ´Â °æ¿ì --> Gear¿¡¼­ Á¦°ÅÇØ¼­ Inventory¿¡ Ãß°¡ÇÑ´Ù.
+				// itemì´ ìžˆëŠ” ê²½ìš° --> Gearì—ì„œ ì œê±°í•´ì„œ Inventoryì— ì¶”ê°€í•œë‹¤.
 				//----------------------------------------------------------------------
 				else
 				{
 					MItem* pRemovedItem = g_pVampireGear->RemoveItem( pItem->GetID() );
 					
-					// Inventory(x,y)¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+					// Inventory(x,y)ì— pItemì„ ì¶”ê°€í•œë‹¤.
 					if (!g_pInventory->AddItem( pRemovedItem, pPacket->getInvenX(), pPacket->getInvenY() ))
 					{
-						// Ãß°¡ ½ÇÆÐÇÑ °æ¿ì
+						// ì¶”ê°€ ì‹¤íŒ¨í•œ ê²½ìš°
 						DEBUG_ADD_FORMAT("[Error] Cannot Add Item to Inventory(%d,%d), slot=%d", (int)pPacket->getInvenX(), (int)pPacket->getInvenY(), (int)pPacket->getSlotID());
 					}
 				}
@@ -91,23 +91,23 @@ void GCAddGearToInventoryHandler::execute ( GCAddGearToInventory * pPacket , Pla
 				const MItem* pItem = g_pOustersGear->GetItem( (MOustersGear::GEAR_OUSTERS)pPacket->getSlotID() );
 				
 				//----------------------------------------------------------------------
-				// ±×·± id¸¦ °¡Áø itemÀÌ ¾ø´Â °æ¿ì
+				// ê·¸ëŸ° idë¥¼ ê°€ì§„ itemì´ ì—†ëŠ” ê²½ìš°
 				//----------------------------------------------------------------------
 				if (pItem==NULL)
 				{
 					DEBUG_ADD_FORMAT("[Error] Item does not exist in OustersGear! slot=%d", (int)pPacket->getSlotID());
 				}
 				//----------------------------------------------------------------------
-				// itemÀÌ ÀÖ´Â °æ¿ì --> Gear¿¡¼­ Á¦°ÅÇØ¼­ Inventory¿¡ Ãß°¡ÇÑ´Ù.
+				// itemì´ ìžˆëŠ” ê²½ìš° --> Gearì—ì„œ ì œê±°í•´ì„œ Inventoryì— ì¶”ê°€í•œë‹¤.
 				//----------------------------------------------------------------------
 				else
 				{
 					MItem* pRemovedItem = g_pOustersGear->RemoveItem( pItem->GetID() );
 					
-					// Inventory(x,y)¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+					// Inventory(x,y)ì— pItemì„ ì¶”ê°€í•œë‹¤.
 					if (!g_pInventory->AddItem( pRemovedItem, pPacket->getInvenX(), pPacket->getInvenY() ))
 					{
-						// Ãß°¡ ½ÇÆÐÇÑ °æ¿ì
+						// ì¶”ê°€ ì‹¤íŒ¨í•œ ê²½ìš°
 						DEBUG_ADD_FORMAT("[Error] Cannot Add Item to Inventory(%d,%d), slot=%d", (int)pPacket->getInvenX(), (int)pPacket->getInvenY(), (int)pPacket->getSlotID());
 					}
 				}

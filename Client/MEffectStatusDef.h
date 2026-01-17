@@ -8,10 +8,10 @@
 enum EFFECTSTATUS {
 		
 	////////////////////////////////////////////////////////////
-	// ป๕ทฮ ร฿ฐกตวดย ฑโผ๚ภบ มฆภฯ นุฟก ณึพ๎มึผผฟไ!!!!!!!!!!!
+	// ยปรตยทร รรยฐยกยตรยดร ยฑรขยผรบร€ยบ รยฆร€ร ยนรยฟยก ยณร–ยพรฎรร–ยผยผยฟรค!!!!!!!!!!!
 	////////////////////////////////////////////////////////////
 	//
-	// ผบม๗ ฐüทร ภฬฦๅฦฎ
+	// ยผยบรรท ยฐรผยทร ร€รรรฅรยฎ
 	EFFECTSTATUS_LIGHT,
 	EFFECTSTATUS_DETECT_HIDDEN,
 	EFFECTSTATUS_PROTECTION_FROM_POISON,
@@ -19,14 +19,14 @@ enum EFFECTSTATUS {
 	EFFECTSTATUS_PROTECTION_FROM_ACID,
 	EFFECTSTATUS_BLESS,
 	EFFECTSTATUS_STRIKING,
-	EFFECTSTATUS_CONTINUAL_LIGHT,        // Continual Lightธฆ ฐษพ๚ภปถง.
-	EFFECTSTATUS_DETECT_INVISIBILITY,    // DetectInvisibility ภป ฐษพ๚ภป ถง.
+	EFFECTSTATUS_CONTINUAL_LIGHT,        // Continual Lightยธยฆ ยฐรยพรบร€ยปยถยง.
+	EFFECTSTATUS_DETECT_INVISIBILITY,    // DetectInvisibility ร€ยป ยฐรยพรบร€ยป ยถยง.
 	EFFECTSTATUS_REGENERATION,
 	EFFECTSTATUS_AURA_SHIELD,
 	EFFECTSTATUS_SAINT_AURA,
 	EFFECTSTATUS_FLARE,
 
-	// นซป็ ฐüทร ภฬฦๅฦฎ
+	// ยนยซยปรง ยฐรผยทร ร€รรรฅรยฎ
 	EFFECTSTATUS_CROSS_COUNTER,          // final blow & cross counter
 	EFFECTSTATUS_CHARGING_POWER,
 	EFFECTSTATUS_LIGHTNING_HAND,
@@ -34,42 +34,42 @@ enum EFFECTSTATUS {
 	EFFECTSTATUS_DANCING_SWORD,
 	EFFECTSTATUS_GHOST_BLADE,
 
-	// น์วม ฐüทร ภฬฦๅฦฎ
-	EFFECTSTATUS_HIDE ,					// Hide ธฆ ฐษพ๚ภปถง.
-	EFFECTSTATUS_ACID_TOUCH,			// AcidTouch ธฆ ฐษพ๚ภปถง.
-	EFFECTSTATUS_POISON ,				// Poisonous Handsภว ฐ๘ฐÝภป ด็ว฿ภปถง.
-	EFFECTSTATUS_POISONOUS_HANDS ,		// Poisonous Hands ธฆ ฐษฐํ ภึภปถง.
-	EFFECTSTATUS_BLOOD_DRAIN,			// ศํว๗ ด็ว฿ภปถง.
+	// ยนรฌรร ยฐรผยทร ร€รรรฅรยฎ
+	EFFECTSTATUS_HIDE ,					// Hide ยธยฆ ยฐรยพรบร€ยปยถยง.
+	EFFECTSTATUS_ACID_TOUCH,			// AcidTouch ยธยฆ ยฐรยพรบร€ยปยถยง.
+	EFFECTSTATUS_POISON ,				// Poisonous Handsร€ร ยฐรธยฐรร€ยป ยดรงรรร€ยปยถยง.
+	EFFECTSTATUS_POISONOUS_HANDS ,		// Poisonous Hands ยธยฆ ยฐรยฐรญ ร€ร–ร€ยปยถยง.
+	EFFECTSTATUS_BLOOD_DRAIN,			// รรญรรท ยดรงรรร€ยปยถยง.
 	EFFECTSTATUS_CURSE_PARALYSIS,
 	EFFECTSTATUS_CURSE_DOOM,
 	EFFECTSTATUS_GREEN_POISON,
 	EFFECTSTATUS_YELLOW_POISON,
-	EFFECTSTATUS_YELLOW_POISON_TO_CREATURE,	// ฤณธฏลอฟก ฐษทมภึดย Yellow Poison ศฟฐ๚
+	EFFECTSTATUS_YELLOW_POISON_TO_CREATURE,	// รยณยธยฏร…รยฟยก ยฐรยทรร€ร–ยดร Yellow Poison รยฟยฐรบ
 	EFFECTSTATUS_DARKNESS,
-	EFFECTSTATUS_INVISIBILITY,           // Invisibility ธฆ ฐษพ๚ภปถง.
+	EFFECTSTATUS_INVISIBILITY,           // Invisibility ยธยฆ ยฐรยพรบร€ยปยถยง.
 	EFFECTSTATUS_ACID_SWAMP,
-	EFFECTSTATUS_ACID_BALL,              // AcidBallภฬ นูดฺฟก .
+	EFFECTSTATUS_ACID_BALL,              // AcidBallร€ร ยนรยดรยฟยก .
 	EFFECTSTATUS_GREEN_STALKER,
 	EFFECTSTATUS_DARKBLUE_POISON,
 	EFFECTSTATUS_DARKBLUE_POISON_TO_CREATURE,
 	EFFECTSTATUS_TRANSFORM_TO_WOLF,
 	EFFECTSTATUS_TRANSFORM_TO_BAT,
 
-	// ฑบภฮ ฐüทร ภฬฦๅฦฎ
-	EFFECTSTATUS_RELOAD_TIMER,			// passive skill "FAST RELOAD"ธฆ ภงวุผญ..
+	// ยฑยบร€ร ยฐรผยทร ร€รรรฅรยฎ
+	EFFECTSTATUS_RELOAD_TIMER,			// passive skill "FAST RELOAD"ยธยฆ ร€ยงรรยผยญ..
 	EFFECTSTATUS_DETECT_MINE,
-	EFFECTSTATUS_INSTALL,                // mine install( installตวธ้ พศบธภฮดู)
+	EFFECTSTATUS_INSTALL,                // mine install( installยตรยธรฉ ยพรยบยธร€รยดร)
 	EFFECTSTATUS_FADE_OUT,
 	EFFECTSTATUS_SNIPPING_MODE,
 
 	// etc
-	EFFECTSTATUS_DECAY_CORPSE,			// ภฯมค ฝรฐฃภฬ ม๖ณชธ้ ฝรรผฐก ป็ถ๓มü
-	EFFECTSTATUS_DEAD_CREATURE, 		// ภฯมค ฝรฐฃภฬ ม๖ณชธ้ มืภฝ รณธฎธฆ วุมÜ.
-	EFFECTSTATUS_SHUT_DOWN, 			// ภฯมค ฝรฐฃภฬ ม๖ณชธ้ ผญน๖ธฆ มพทแวัดู.
+	EFFECTSTATUS_DECAY_CORPSE,			// ร€รรยค ยฝรยฐยฃร€ร รรถยณยชยธรฉ ยฝรรยผยฐยก ยปรงยถรณรรผ
+	EFFECTSTATUS_DEAD_CREATURE, 		// ร€รรยค ยฝรยฐยฃร€ร รรถยณยชยธรฉ รร—ร€ยฝ รยณยธยฎยธยฆ รรรร.
+	EFFECTSTATUS_SHUT_DOWN, 			// ร€รรยค ยฝรยฐยฃร€ร รรถยณยชยธรฉ ยผยญยนรถยธยฆ รยพยทรกรร‘ยดร.
 	EFFECTSTATUS_DECAY_ITEM, 			// 
 
 	////////////////////////////////////////////////////////////
-	// ป๕ทฮ ร฿ฐกตวดย ฑโผ๚ภบ มฆภฯ นุฟก ณึพ๎มึผผฟไ!!!!!!!!!!!
+	// ยปรตยทร รรยฐยกยตรยดร ยฑรขยผรบร€ยบ รยฆร€ร ยนรยฟยก ยณร–ยพรฎรร–ยผยผยฟรค!!!!!!!!!!!
 	////////////////////////////////////////////////////////////
 
 	// Increase HP
@@ -78,7 +78,7 @@ enum EFFECTSTATUS {
 
 	EFFECTSTATUS_SACRIFICE,
 
-	// ผญน๖ ภüฟ๋
+	// ยผยญยนรถ ร€รผยฟรซ
 	EFFECTSTATUS_AFTER_MATH,
 	EFFECTSTATUS_ALIGNMENT_RECOVERY,
 	EFFECTSTATUS_ENEMY_ERASE,
@@ -105,7 +105,7 @@ enum EFFECTSTATUS {
 	EFFECTSTATUS_PRECEDENCE,						// 69
 	EFFECTSTATUS_RESTORE,							// 70
 
-	// 2002.3.23 ร฿ฐก
+	// 2002.3.23 รรยฐยก
 	EFFECTSTATUS_CURE_CRITICAL_WOUNDS,				// 71
 	EFFECTSTATUS_EXTREME,							// 72
 	EFFECTSTATUS_HYPNOSIS,							// 73
@@ -127,10 +127,10 @@ enum EFFECTSTATUS {
 	EFFECTSTATUS_VIGOR_DROP,						// 86
 	EFFECTSTATUS_VIGOR_DROP_TO_CREATURE,			// 87
 
-	// 2002.4.17 ร฿ฐก by larosel
+	// 2002.4.17 รรยฐยก by larosel
 	EFFECTSTATUS_CAUSE_CRITICAL_WOUNDS,				// 88
 
-	// 2002.6.12 ภüภ๏ ฐüทร ภฬฦๅฦฎ
+	// 2002.6.12 ร€รผร€รฏ ยฐรผยทร ร€รรรฅรยฎ
 	EFFECTSTATUS_TRANSPORT_ITEM,					// 89
 	EFFECTSTATUS_ADD_ITEM,							// 90
 
@@ -265,8 +265,8 @@ enum EFFECTSTATUS {
 	EFFECTSTATUS_SHRINE_HOLY_AROSA,					// 185
 	EFFECTSTATUS_SHRINE_HOLY_CHASPA,				// 186
 
-	EFFECTSTATUS_SHRINE_GUARD_WARP,					// 187		ผ๖ศฃผบดÜฟกผญ ฟ๖วมตษถง
-	EFFECTSTATUS_SHRINE_HOLY_WARP,					// 188		ผบม๖ผบดÜฟกผญ ฟ๖วมตษถง
+	EFFECTSTATUS_SHRINE_GUARD_WARP,					// 187		ยผรถรยฃยผยบยดรยฟยกยผยญ ยฟรถรรยตรยถยง
+	EFFECTSTATUS_SHRINE_HOLY_WARP,					// 188		ยผยบรรถยผยบยดรยฟยกยผยญ ยฟรถรรยตรยถยง
 	EFFECTSTATUS_CHANGE_CASTLE_CHANGED,				// 189
 
 	EFFECTSTATUS_SHRINE_SHIELD,						// 190
@@ -274,11 +274,11 @@ enum EFFECTSTATUS {
 
 	EFFECTSTATUS_TRANSPORT_ITEM_TO_CORPSE,          // 192
 	EFFECTSTATUS_ADD_ITEM_TO_CORPSE,                // 193
-	EFFECTSTATUS_WARP_BLOOD_BIBLE_FROM_ME,			// 194 ณปฐก ฐกม๖ฐํภึด๘ ววภวผบผญฐก ฟ๖วมตษถง ธำธฎฟก ย๏พ๎มึดย-_- ภฬฦๅฦฎ
-	EFFECTSTATUS_WARP_BLOOD_BIBLE_FROM_TILE,		// 195 ถฅฟก ถณพ๎มฎภึด๘ ววภวผบผญฐก ฟ๖วมตษถง ฑื ลธภฯฟก ย๏พ๎มึดย ภฬฦๅฦฎ
+	EFFECTSTATUS_WARP_BLOOD_BIBLE_FROM_ME,			// 194 ยณยปยฐยก ยฐยกรรถยฐรญร€ร–ยดรธ รรร€รยผยบยผยญยฐยก ยฟรถรรยตรยถยง ยธร“ยธยฎยฟยก รรฏยพรฎรร–ยดร-_- ร€รรรฅรยฎ
+	EFFECTSTATUS_WARP_BLOOD_BIBLE_FROM_TILE,		// 195 ยถยฅยฟยก ยถยณยพรฎรยฎร€ร–ยดรธ รรร€รยผยบยผยญยฐยก ยฟรถรรยตรยถยง ยฑร— ร…ยธร€รยฟยก รรฏยพรฎรร–ยดร ร€รรรฅรยฎ
 
-	EFFECTSTATUS_WARP_HOLY_LAND_VAMPIRE,			// 196 น์ฦฤภฬพ๎ฐก ฦ๗ลปทฮ ภฬตฟวาถง
-	EFFECTSTATUS_WARP_HOLY_LAND_SLAYER,				// 197 ฝฝทนภฬพ๎ฐก ฦ๗ลปทฮ ภฬตฟวาถง
+	EFFECTSTATUS_WARP_HOLY_LAND_VAMPIRE,			// 196 ยนรฌรรร€รยพรฎยฐยก รรทร…ยปยทร ร€รยตยฟรร’ยถยง
+	EFFECTSTATUS_WARP_HOLY_LAND_SLAYER,				// 197 ยฝยฝยทยนร€รยพรฎยฐยก รรทร…ยปยทร ร€รยตยฟรร’ยถยง
 
 	EFFECTSTATUS_AMBER_OF_GUARD,					// 198
 	EFFECTSTATUS_AMBER_OF_AVENGER,					// 199
@@ -298,10 +298,10 @@ enum EFFECTSTATUS {
 	EFFECTSTATUS_PK_ZONE_RESURRECTION,				// 210
 
 	// 2003.3.31		by sonee
-	EFFECTSTATUS_MAGIC_ELUSION,						// 211		Tile		ฟมลธบฮฝบ		ศๆวฅนü
-	EFFECTSTATUS_POISON_MESH,						// 212		Object		ลืธฃฦผฟ์ฝบ		ฟ๋
-	EFFECTSTATUS_ILLUSION_OF_AVENGE,				// 213		Object		ผมฦผนซฝบ		ผา
-	EFFECTSTATUS_WILL_OF_LIFE,						// 214		Object		ฤํพฦธฃล๕ฝบ		บาป็มถ
+	EFFECTSTATUS_MAGIC_ELUSION,						// 211		Tile		ยฟรร…ยธยบรยฝยบ		รรฆรยฅยนรผ
+	EFFECTSTATUS_POISON_MESH,						// 212		Object		ร…ร—ยธยฃรยผยฟรฌยฝยบ		ยฟรซ
+	EFFECTSTATUS_ILLUSION_OF_AVENGE,				// 213		Object		ยผรรยผยนยซยฝยบ		ยผร’
+	EFFECTSTATUS_WILL_OF_LIFE,						// 214		Object		รรญยพรยธยฃร…รตยฝยบ		ยบร’ยปรงรยถ
 
 	EFFECTSTATUS_DENIAL_MAGIC,                      // 215
 	EFFECTSTATUS_DENIAL_MAGIC_DAMAGED,              // 216
@@ -400,7 +400,7 @@ enum EFFECTSTATUS {
 
 	EFFECTSTATUS_ACID_ERUPTION,                     // 290
 
-	EFFECTSTATUS_JUST_LOGIN,                        // 291			ลฌถ๓ภฬพ๐ฦฎ ป็ฟ๋ พศวิ.
+	EFFECTSTATUS_JUST_LOGIN,                        // 291			ร…ยฌยถรณร€รยพรฐรยฎ ยปรงยฟรซ ยพรรร”.
 
 	EFFECTSTATUS_HAS_SWEEPER,                       // 292
 	EFFECTSTATUS_HAS_SWEEPER_2,                     // 293
@@ -576,19 +576,19 @@ enum EFFECTSTATUS {
 	EFFECTSTATUS_SIEGE_ATTACKER_4,					// 417
 	EFFECTSTATUS_SIEGE_ATTACKER_5,					// 418
 	
-	EFFECTSTATUS_SHARE_HP,                      // 419  // HP ฐ๘ภฏวฯฑโ~
-	EFFECTSTATUS_LAND_MINE_EXPLOSION,           // 420  // ทฃตๅธถภฮ ลอม๖ดย ภฬฦๅฦฎ
-    EFFECTSTATUS_CLAYMORE_EXPLOTION,            // 421  // ลฉทนธ๐พ๎ ลอม๖ดย ภฬฦๅฦฎ
-    EFFECTSTATUS_PLEASURE_EXPLOSION,            // 422  // วรทนมฎ ฝบลืภฬผว ลอม๖ดย ภฬฦๅฦฎ
-    EFFECTSTATUS_TURRET_LASER,                  // 423  // ลอทฟ ทนภฬภ๚ 1ลธภฯ
-    EFFECTSTATUS_TURRET_LASER_ATTACK,           // 424  // ลอทฟ ทนภฬภ๚ ฐ๘ฐÝ 1ลธภฯ (ฐ๘ฐÝร๘ฟกตต บธภำ)
-	EFFECTSTATUS_AUTO_TURRET,                   // 425  // ฟภลไ ลอทฟ ผญภึดยฐล
-	EFFECTSTATUS_HIDE_TO_ATTACKER,              // 426  // ฐ๘ผบ ฐ๘ฐÝร๘ฟกดย พศ บธภฮดู.
+	EFFECTSTATUS_SHARE_HP,                      // 419  // HP ยฐรธร€ยฏรรยฑรข~
+	EFFECTSTATUS_LAND_MINE_EXPLOSION,           // 420  // ยทยฃยตรฅยธยถร€ร ร…รรรถยดร ร€รรรฅรยฎ
+    EFFECTSTATUS_CLAYMORE_EXPLOTION,            // 421  // ร…ยฉยทยนยธรฐยพรฎ ร…รรรถยดร ร€รรรฅรยฎ
+    EFFECTSTATUS_PLEASURE_EXPLOSION,            // 422  // รรยทยนรยฎ ยฝยบร…ร—ร€รยผร ร…รรรถยดร ร€รรรฅรยฎ
+    EFFECTSTATUS_TURRET_LASER,                  // 423  // ร…รยทยฟ ยทยนร€รร€รบ 1ร…ยธร€ร
+    EFFECTSTATUS_TURRET_LASER_ATTACK,           // 424  // ร…รยทยฟ ยทยนร€รร€รบ ยฐรธยฐร 1ร…ยธร€ร (ยฐรธยฐรรรธยฟยกยตยต ยบยธร€ร“)
+	EFFECTSTATUS_AUTO_TURRET,                   // 425  // ยฟร€ร…รค ร…รยทยฟ ยผยญร€ร–ยดรยฐร…
+	EFFECTSTATUS_HIDE_TO_ATTACKER,              // 426  // ยฐรธยผยบ ยฐรธยฐรรรธยฟยกยดร ยพร ยบยธร€รยดร.
 
-	EFFECTSTATUS_REPUTO_FACTUM,                 // 427  // ธยพาภปถง ภฬฦๅฦฎ
-	EFFECTSTATUS_REPUTO_FACTUM_LAST,            // 428  // ม๖ผำภฬฦๅฦฎ
+	EFFECTSTATUS_REPUTO_FACTUM,                 // 427  // ยธรยพร’ร€ยปยถยง ร€รรรฅรยฎ
+	EFFECTSTATUS_REPUTO_FACTUM_LAST,            // 428  // รรถยผร“ร€รรรฅรยฎ
 
-	EFFECTSTATUS_SWORD_OF_THOR,                 // 429  // ลธภฯฟก บูพ๎ผญ ลอม๖ดย ฤฎ
+	EFFECTSTATUS_SWORD_OF_THOR,                 // 429  // ร…ยธร€รยฟยก ยบรยพรฎยผยญ ร…รรรถยดร รยฎ
 
     EFFECTSTATUS_BURNING_SOL_CHARGE_1,          // 430
     EFFECTSTATUS_BURNING_SOL_CHARGE_2,          // 431
@@ -603,14 +603,14 @@ enum EFFECTSTATUS {
 
 	EFFECTSTATUS_ROCKET_LUNCHER,                // 437
 
-	EFFECTSTATUS_PLASMA_ROCKET_LAUNCHER,        // 438 - ศ์..ณป ศญธ้ฟก พ๎ถฒ ณัภฬ ต้พ๎ฟิดยตฅ..ฑืณัวัลื นฬป็ภฯภฬ บูพ๚ดูณื..
+	EFFECTSTATUS_PLASMA_ROCKET_LAUNCHER,        // 438 - รรฌ..ยณยป รยญยธรฉยฟยก ยพรฎยถยฒ ยณร‘ร€ร ยตรฉยพรฎยฟร”ยดรยตยฅ..ยฑร—ยณร‘รร‘ร…ร— ยนรยปรงร€รร€ร ยบรยพรบยดรยณร—..
     EFFECTSTATUS_INTIMATE_GRAIL,                // 439
 
 	EFFECTSTATUS_ICE_HORIZON,					// 440
 	EFFECTSTATUS_SET_AFIRE_ATTACK,				// 441
 	
-	EFFECTSTATUS_FURY_OF_GNOME,                 // 442 // ดÜม๖ ลธภฯ ป๓ลย
-	EFFECTSTATUS_FURY_OF_GNOME_MARK,            // 443 // ภฬฦๅฦฎ..
+	EFFECTSTATUS_FURY_OF_GNOME,                 // 442 // ยดรรรถ ร…ยธร€ร ยปรณร…ร
+	EFFECTSTATUS_FURY_OF_GNOME_MARK,            // 443 // ร€รรรฅรยฎ..
 
 	EFFECTSTATUS_SUMMON_MIGA_FIRE,				// 444
 
@@ -642,34 +642,34 @@ enum EFFECTSTATUS {
 
 	EFFECTSTATUS_TILE_PORTAL,                   // 464
 	// add by Coffee 2007-5-20
-	EFFECTSTATUS_BLOOD_BLLODY_SCARIFY,			// ัชึฎภำำก(ฮüัชนํ)
-	EFFECTSTATUS_BLOOD_CURSE,					// ัชึฎิ{ึไ(ฮüัชนํ)
-	// add by Coffee 2007-3-6 พÞลฺบไีจ  ศหฮ๏ษหบฆะงน๛ // 465
+	EFFECTSTATUS_BLOOD_BLLODY_SCARIFY,			// ร‘ยชร–ยฎร€ร“ร“ยก(รรผร‘ยชยนรญ)
+	EFFECTSTATUS_BLOOD_CURSE,					// ร‘ยชร–ยฎร”{ร–รค(รรผร‘ยชยนรญ)
+	// add by Coffee 2007-3-6 ยพรร…รยบรคร•ยจ  รรรรฏรรยบยฆรยงยนรป // 465
 	EFFECTSTATUS_BOMB_CRASH_WALK_TO_ENEMY,
-	EFFECTSTATUS_SATELLITE_BOMB_AIM,		//ฮภะวบไป๗ ะงน๛ถจาๅ (ศหภเ)
-	EFFECTSTATUS_SATELLITE_BOMB_POINT,		//ฮภะวบไป๗ ะงน๛ถจาๅ (ศหภเ)
+	EFFECTSTATUS_SATELLITE_BOMB_AIM,		//รร€รรยบรคยปรท รยงยนรปยถยจร’รฅ (รรร€ร )
+	EFFECTSTATUS_SATELLITE_BOMB_POINT,		//รร€รรยบรคยปรท รยงยนรปยถยจร’รฅ (รรร€ร )
 	EFFECTSTATUS_SATELLITE_BOMB_FIRE,
-	EFFECTSTATUS_HEAVEN_GROUND,				//ทจสฆฬ์ษ๑ฝตมู
+	EFFECTSTATUS_HEAVEN_GROUND,				//ยทยจรยฆรรฌรรฑยฝยตรร
 	// add by Coffee 2007-5-2
-	EFFECTSTATUS_DUMMY_DRAKE,				//ตยภืฟหฟþภÜ(ฤงม้ป๐ทจ)
-	EFFECTSTATUS_HYDRO_CONVERGENCE,			//ธดบฯหฎมฦ(ฤงม้หฎทจ)
-	EFFECTSTATUS_SUMMON_CLAY,				//  Summon Clay  ีณอมีูปฝ    (ฤงม้ะยผผฤÜ อมทจ)
-	EFFECTSTATUS_HETER_CHAKRAM,	//475			//  Heter Chakram ฯฤฒผภ๛ป๙า๒  (ฤงม้ะยผผฤÜ  ีฝสฟ)
+	EFFECTSTATUS_DUMMY_DRAKE,				//ยตรร€ร—ยฟรยฟรพร€ร(รยงรรฉยปรฐยทยจ)
+	EFFECTSTATUS_HYDRO_CONVERGENCE,			//ยธยดยบรรยฎรร(รยงรรฉรยฎยทยจ)
+	EFFECTSTATUS_SUMMON_CLAY,				//  Summon Clay  ร•ยณรรร•รยปยฝ    (รยงรรฉรรยผยผรร รรยทยจ)
+	EFFECTSTATUS_HETER_CHAKRAM,	//475			//  Heter Chakram รรยฒยผร€รปยปรนร’รฒ  (รยงรรฉรรยผยผรร  ร•ยฝรยฟ)
 
 	//add by viva
-	EFFECTSTATUS_SLAYER_GUN_BOMB_XRL_MISSILE,	//XRL ีจมัตผตฏ
+	EFFECTSTATUS_SLAYER_GUN_BOMB_XRL_MISSILE,	//XRL ร•ยจรร‘ยตยผยตยฏ
 	EFFECTSTATUS_UNKOWN_VIVA2,
 	EFFECTSTATUS_UNKOWN_VIVA3,
 	EFFECTSTATUS_UNKOWN_VIVA4,
 
-	EFFECTSTATUS_SLAYER_ENCHANT_BRAMBLE_HALO,//Original Action:390 //พฃผฌนโปท //ืฃธฃ
+	EFFECTSTATUS_SLAYER_ENCHANT_BRAMBLE_HALO,//Original Action:390 //ยพยฃยผยฌยนรขยปยท //ร—ยฃยธยฃ
 	EFFECTSTATUS_UNKOWN_VIVA5, //EffectSpriteType:1134
 	EFFECTSTATUS_OUSTERS_WATER_RAPID_FREEZE,	//Original Action:396
 	EFFECTSTATUS_OUSTERS_COMBAT_PENETRATE_WHEEL,	//Orginal Action : 393
 	EFFECTSTATUS_UNKOWN_VIVA6,
 	EFFECTSTATUS_VAMPIRE_TRANSFORM_TO_D_BAT,//Original Action : 409
 	EFFECTSTATUS_VAMPIRE_TRANSFORM_TO_D_ANGEL,//Original Action : 410
-	EFFECTSTATUS_SUMMON_SYLPH1,//ีูปฝพซม้//ousters//Original Action : 247
+	EFFECTSTATUS_SUMMON_SYLPH1,//ร•รยปยฝยพยซรรฉ//ousters//Original Action : 247
 	EFFECTSTATUS_SUMMON_SYLPH2,
 	EFFECTSTATUS_UNKOWN_VIVA7,
 	

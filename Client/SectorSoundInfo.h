@@ -9,14 +9,15 @@
 
 #include "MTypeDef.h"
 #include <list>
-class ofstream;
-class ifstream;
+
+#include <fstream>
+using namespace std;
 
 
 //----------------------------------------------------------------------
 // SectorSoundInfo
 //----------------------------------------------------------------------
-// ZoneSoundID∞° (x, y)ø°º≠ º“∏Æ∞° ≥≠¥Ÿ..¥¬ ¡§∫∏.
+// ZoneSoundIDÍ∞Ä (x, y)ÏóêÏÑú ÏÜåÎ¶¨Í∞Ä ÎÇúÎã§..Îäî Ï†ïÎ≥¥.
 //----------------------------------------------------------------------
 class SECTORSOUND_INFO
 {
@@ -53,8 +54,8 @@ class SECTORSOUND_INFO
 					||	Y!=info.Y;
 		}
 
-		void	SaveToFile(class ofstream& file) const;
-		void	LoadFromFile(class ifstream& file);
+		void	SaveToFile(std::ofstream& file) const;
+		void	LoadFromFile(std::ifstream& file);
 };
 
 

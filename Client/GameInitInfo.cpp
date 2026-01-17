@@ -1,14 +1,16 @@
 //---------------------------------------------------------------------------
 // GameInitInfo.cpp
 //---------------------------------------------------------------------------
-// Information Tableø° ¥Î«— √ ±‚»≠∏¶ «—¥Ÿ.
+// Information TableÏóê ÎåÄÌïú Ï¥àÍ∏∞ÌôîÎ•º ÌïúÎã§.
 //---------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // Include files
 //-----------------------------------------------------------------------------
 #include "Client_PCH.h"
+#ifdef PLATFORM_WINDOWS
 #include <MMSystem.h>
+#endif
 //#include "MFileDef.h"
 #include "Properties.h"
 #include "Client.h"
@@ -62,7 +64,7 @@ InitClientConfig()
 	DEBUG_ADD("[ InitGame ]  ClientConfig");
 	
 	//---------------------------------------------------------------------
-	// ∏ﬁ∏∏Æ ¿‚±‚
+	// Î©îÎ™®Î¶¨ Ïû°Í∏∞
 	//---------------------------------------------------------------------
 	if (g_pClientConfig==NULL)
 	{
@@ -71,7 +73,7 @@ InitClientConfig()
 
 	//---------------------------------------------------------------------
 	//
-	//			Client Config º≥¡§
+	//			Client Config ÏÑ§Ï†ï
 	//
 	//---------------------------------------------------------------------
 	///*
@@ -86,7 +88,7 @@ InitClientConfig()
 		//return FALSE;
 	}
 
-	// ¥ŸΩ√ «— π¯ ¿˙¿Â«ÿµ–¥Ÿ.
+	// Îã§Ïãú Ìïú Î≤à Ï†ÄÏû•Ìï¥ÎëîÎã§.
 	g_pClientConfig->SaveToFile(g_pFileDef->getProperty("FILE_INFO_CLIENTCONFIG").c_str());
 
 	return TRUE;
@@ -102,7 +104,7 @@ InitUserOption()
 	DEBUG_ADD("[ InitGame ]  UserOption");
 	
 	//---------------------------------------------------------------------
-	// ∏ﬁ∏∏Æ ¿‚±‚
+	// Î©îÎ™®Î¶¨ Ïû°Í∏∞
 	//---------------------------------------------------------------------
 	if (g_pUserOption==NULL)
 	{
@@ -111,7 +113,7 @@ InitUserOption()
 
 	//---------------------------------------------------------------------
 	//
-	//			User Option º≥¡§
+	//			User Option ÏÑ§Ï†ï
 	//
 	//---------------------------------------------------------------------
 	///*
@@ -143,7 +145,7 @@ InitInfomation()
 	DEBUG_ADD("[ InitGame ]  Information");
 	
 	//---------------------------------------------------------------------
-	// ∏ﬁ∏∏Æ ¿‚±‚
+	// Î©îÎ™®Î¶¨ Ïû°Í∏∞
 	//---------------------------------------------------------------------
 	SAFE_DELETE( g_pRegenTowerInfoManager );
 	SAFE_DELETE( g_pQuestInfoManager );
@@ -195,8 +197,8 @@ InitInfomation()
 	{
 		g_pKeyAccelerator = new KeyAccelerator;
 		g_pKeyAccelerator->Init( MAX_ACCELERATOR );
-		SetDefaultAccelerator();		// ¿œ¥‹¿∫..
-		//g_pKeyAccelerator->LoadFromFile( ) ¿Ã ≥™¿ª µÌ..
+		SetDefaultAccelerator();		// ÏùºÎã®ÏùÄ..
+		//g_pKeyAccelerator->LoadFromFile( ) Ïù¥ ÎÇòÏùÑ ÎìØ..
 	}
 
 	if (g_pWarManager == NULL)
@@ -237,10 +239,10 @@ InitInfomation()
 	if (g_pGuildInfoMapper==NULL)
 	{
 		g_pGuildInfoMapper = new MGuildInfoMapper;
-		
-		// ¿Ã »≠¿œ¿∫ æ¯¿ª ºˆµµ ¿÷¥Ÿ.
-		class ifstream guildInfoFile(g_pFileDef->getProperty("FILE_INFO_GUILD_INFO_MAPPER").c_str(), ios::binary | ios::nocreate);
-		
+
+		// Ïù¥ ÌôîÏùºÏùÄ ÏóÜÏùÑ ÏàòÎèÑ ÏûàÎã§.
+		std::ifstream guildInfoFile(g_pFileDef->getProperty("FILE_INFO_GUILD_INFO_MAPPER").c_str(), std::ios::binary);
+
 		if (guildInfoFile.is_open())
 		{
 			g_pGuildInfoMapper->LoadFromFile(guildInfoFile);
@@ -442,7 +444,7 @@ InitInfomation()
 	//int i;
 	//---------------------------------------------------------------------
 	//
-	//			Global ¡§∫∏ º≥¡§
+	//			Global Ï†ïÎ≥¥ ÏÑ§Ï†ï
 	//
 	//---------------------------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - PacketItemTable");
@@ -451,7 +453,7 @@ InitInfomation()
 
 	//---------------------------------------------------------------------
 	//
-	//          classø° ¿÷¥¬ ¡§∫∏ º≥¡§..
+	//          classÏóê ÏûàÎäî Ï†ïÎ≥¥ ÏÑ§Ï†ï..
 	//
 	//---------------------------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - InitMoveTable");
@@ -464,7 +466,7 @@ InitInfomation()
 
 	//---------------------------------------------------------------------
 	//
-	//      EffectGenerator ª˝º∫
+	//      EffectGenerator ÏÉùÏÑ±
 	//
 	//---------------------------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - EffectGenerator");
@@ -480,10 +482,10 @@ InitInfomation()
 	// Load
 	//------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - ChatManager");
-	class ifstream chatInfoFile2;//(g_pFileDef->getProperty("FILE_INFO_USINGCOLORSET").c_str(), ios::binary);
+	std::ifstream chatInfoFile2;//(g_pFileDef->getProperty("FILE_INFO_USINGCOLORSET").c_str(), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_CHAT").c_str(), chatInfoFile2))
 		return FALSE;
-	chatInfoFile2.close();		// file√º≈©øÎ. - -;
+	chatInfoFile2.close();		// fileÏ≤¥ÌÅ¨Ïö©. - -;
 
 	g_pChatManager->LoadFromFile(g_pFileDef->getProperty("FILE_INFO_CHAT").c_str());
 	
@@ -496,7 +498,7 @@ InitInfomation()
 	// Help Manager
 	//---------------------------------------------------------------------
 //	DEBUG_ADD("[ InitGame ]  Information - HelpManager");
-//	class ifstream helpManagerFile;//(g_pFileDef->getProperty("FILE_INFO_USINGCOLORSET").c_str(), ios::binary);
+//	std::ifstream helpManagerFile;//(g_pFileDef->getProperty("FILE_INFO_USINGCOLORSET").c_str(), ios::binary);
 //	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_SMART_HELP").c_str(), helpManagerFile))
 //		return FALSE;
 //	g_pHelpManager->LoadFromFile( helpManagerFile );
@@ -506,7 +508,7 @@ InitInfomation()
 	// Help String Table
 	//---------------------------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - HelpString");
-	class ifstream helpStringTableFile;//(g_pFileDef->getProperty("FILE_INFO_USINGCOLORSET").c_str(), ios::binary);
+	std::ifstream helpStringTableFile;//(g_pFileDef->getProperty("FILE_INFO_USINGCOLORSET").c_str(), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_SMART_HELP_STRING").c_str(), helpStringTableFile))
 		return FALSE;
 	g_pHelpStringTable->LoadFromFile( helpStringTableFile );
@@ -520,7 +522,7 @@ InitInfomation()
 	//---------------------------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - LevelName");
 
-	class ifstream levelNameTableFile;//(g_pFileDef->getProperty("FILE_INFO_USINGCOLORSET").c_str(), ios::binary);
+	std::ifstream levelNameTableFile;//(g_pFileDef->getProperty("FILE_INFO_USINGCOLORSET").c_str(), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_LEVEL_NAME").c_str(), levelNameTableFile))
 		return FALSE;
 	g_pLevelNameTable->LoadFromFile( levelNameTableFile );
@@ -533,7 +535,7 @@ InitInfomation()
 	//---------------------------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - MonsterName");
 
-	class ifstream MonsterNameTableFile;//(g_pFileDef->getProperty("FILE_INFO_USINGCOLORSET").c_str(), ios::binary);
+	std::ifstream MonsterNameTableFile;//(g_pFileDef->getProperty("FILE_INFO_USINGCOLORSET").c_str(), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_MONSTER_NAME").c_str(), MonsterNameTableFile))
 		return FALSE;
 	g_pMonsterNameTable->LoadFromFile( MonsterNameTableFile );
@@ -542,7 +544,7 @@ InitInfomation()
 
 	//---------------------------------------------------------------------
 	//
-	//          UsingColor ¡§∫∏ ª˝º∫
+	//          UsingColor Ï†ïÎ≥¥ ÏÉùÏÑ±
 	//
 	//---------------------------------------------------------------------
 	/*
@@ -552,14 +554,14 @@ InitInfomation()
 		(*g_pUsingColorSetTable)[USINGCOLORSET_NONE].Disable(0, MAX_USINGCOLORSET);
 		(*g_pUsingColorSetTable)[USINGCOLORSET_ALL].Enable(0, MAX_USINGCOLORSET);
 		
-		for (i=0; i<MAX_COLORSET; i++)
+		for (int i=0; i<MAX_COLORSET; i++)
 		{
 			(*g_pUsingColorSetTable)[USINGCOLORSET_SKIN].Enable(i*MAX_COLORSET_SEED_MODIFY);
 			(*g_pUsingColorSetTable)[USINGCOLORSET_SKIN].Enable(i*MAX_COLORSET_SEED_MODIFY + 1);
 			(*g_pUsingColorSetTable)[USINGCOLORSET_SKIN].Enable(i*MAX_COLORSET_SEED_MODIFY + 2);
 		}
 
-		for (i=0; i<MAX_COLORSET; i++)
+		for (int i=0; i<MAX_COLORSET; i++)
 		{
 			(*g_pUsingColorSetTable)[USINGCOLORSET_ITEM].Enable(i*MAX_COLORSET_SEED_MODIFY);
 			(*g_pUsingColorSetTable)[USINGCOLORSET_ITEM].Enable(i*MAX_COLORSET_SEED_MODIFY + 7);
@@ -569,7 +571,7 @@ InitInfomation()
 		//------------------------------------------------
 		// Save
 		//------------------------------------------------
-		class ofstream usingColorSetTable(g_pFileDef->getProperty("FILE_INFO_USINGCOLORSET").c_str(), ios::binary);
+		std::ofstream usingColorSetTable(g_pFileDef->getProperty("FILE_INFO_USINGCOLORSET").c_str(), ios::binary);
 		(*g_pUsingColorSetTable).SaveToFile(usingColorSetTable);
 		usingColorSetTable.close();
 	#endif
@@ -580,7 +582,7 @@ InitInfomation()
 	//------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - UsingColorSet");
 
-	class ifstream usingColorSetTable2;//(g_pFileDef->getProperty("FILE_INFO_USINGCOLORSET").c_str(), ios::binary);
+	std::ifstream usingColorSetTable2;//(g_pFileDef->getProperty("FILE_INFO_USINGCOLORSET").c_str(), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_USINGCOLORSET").c_str(), usingColorSetTable2))
 		return FALSE;
 	(*g_pUsingColorSetTable).LoadFromFile(usingColorSetTable2);
@@ -592,7 +594,7 @@ InitInfomation()
 	//------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - SoundTable");
 
-	class ifstream soundTable2;//(g_pFileDef->getProperty("FILE_INFO_SOUND").c_str(), ios::binary);
+	std::ifstream soundTable2;//(g_pFileDef->getProperty("FILE_INFO_SOUND").c_str(), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_SOUND").c_str(), soundTable2))
 		return FALSE;
 	(*g_pSoundTable).LoadFromFile(soundTable2);
@@ -604,7 +606,7 @@ InitInfomation()
 	//------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - MusicTable");
 
-	class ifstream musicTable2;//(g_pFileDef->getProperty("FILE_INFO_MUSIC").c_str(), ios::binary);
+	std::ifstream musicTable2;//(g_pFileDef->getProperty("FILE_INFO_MUSIC").c_str(), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_MUSIC").c_str(), musicTable2))
 		return FALSE;
 	(*g_pMusicTable).LoadFromFile(musicTable2);
@@ -615,7 +617,7 @@ InitInfomation()
 	//------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - ZoneTable");
 
-	class ifstream zoneTable2;//(g_pFileDef->getProperty("FILE_INFO_ZONE").c_str(), ios::binary);
+	std::ifstream zoneTable2;//(g_pFileDef->getProperty("FILE_INFO_ZONE").c_str(), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_ZONE").c_str(), zoneTable2))
 		return FALSE;
 	(*g_pZoneTable).LoadFromFile(zoneTable2);
@@ -626,7 +628,7 @@ InitInfomation()
 	// Load
 	//------------------------------------------------
 	DEBUG_ADD_FORMAT("[ InitGame ]  Information - ItemTable(%s)", g_pFileDef->getProperty("FILE_INFO_ITEM").c_str());	
-	class ifstream itemTable2;//(g_pFileDef->getProperty("FILE_INFO_ITEM").c_str(), ios::binary);
+	std::ifstream itemTable2;//(g_pFileDef->getProperty("FILE_INFO_ITEM").c_str(), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_ITEM").c_str(), itemTable2))
 		return FALSE;
 	(*g_pItemTable).LoadFromFile(itemTable2);
@@ -634,11 +636,11 @@ InitInfomation()
 
 	DEBUG_ADD("[ InitGame ]  Information - ItemOptionTable");
 
-	class ifstream itemOptionTable2(g_pFileDef->getProperty("FILE_INFO_ITEMOPTION").c_str(), ios::binary);
+	std::ifstream itemOptionTable2(g_pFileDef->getProperty("FILE_INFO_ITEMOPTION").c_str(), ios::binary);
 	(*g_pItemOptionTable).LoadFromFile( itemOptionTable2 );
 	itemOptionTable2.close();
 
-	// 0¿ª √ﬂ∞°«—¥Ÿ.
+	// 0ÏùÑ Ï∂îÍ∞ÄÌïúÎã§.
 	/*
 	ITEMOPTION_TABLE ItemOptionTable;
 	ItemOptionTable.Init( (*g_pItemOptionTable).GetSize()+1 );
@@ -655,14 +657,14 @@ InitInfomation()
 		ItemOptionTable[o+1] = (*g_pItemOptionTable)[o];
 	}
 
-	class ofstream itemOptionTable(g_pFileDef->getProperty("FILE_INFO_ITEMOPTION").c_str(), ios::binary);
+	std::ofstream itemOptionTable(g_pFileDef->getProperty("FILE_INFO_ITEMOPTION").c_str(), ios::binary);
 	ItemOptionTable.SaveToFile( itemOptionTable );
 	itemOptionTable.close();
 	*/
 
 	//---------------------------------------------------------------------
 	//
-	//    InteractionObjectTableø° ¥Î«— ¡§∫∏ º≥¡§
+	//    InteractionObjectTableÏóê ÎåÄÌïú Ï†ïÎ≥¥ ÏÑ§Ï†ï
 	//
 	//---------------------------------------------------------------------
 	/*
@@ -680,7 +682,7 @@ InitInfomation()
 	//------------------------------------------------
 	// Save
 	//------------------------------------------------
-	class ofstream interactionObjectTable(g_pFileDef->getProperty("FILE_INFO_INTERACTIONOBJECT"), ios::binary);
+	std::ofstream interactionObjectTable(g_pFileDef->getProperty("FILE_INFO_INTERACTIONOBJECT"), ios::binary);
 	(*g_pInteractionObjectTable).SaveToFile(interactionObjectTable);
 	interactionObjectTable.close();
 #endif
@@ -691,7 +693,7 @@ InitInfomation()
 	//------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - InteractionObjectTable");
 
-	class ifstream interactionObjectTable2;//(g_pFileDef->getProperty("FILE_INFO_INTERACTIONOBJECT"), ios::binary);
+	std::ifstream interactionObjectTable2;//(g_pFileDef->getProperty("FILE_INFO_INTERACTIONOBJECT"), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_INTERACTIONOBJECT").c_str(), interactionObjectTable2))
 		return FALSE;
 	(*g_pInteractionObjectTable).LoadFromFile(interactionObjectTable2);
@@ -701,7 +703,7 @@ InitInfomation()
 	//------------------------------------------------
 	// Load
 	//------------------------------------------------
-	class ifstream creatureSpriteTable2;//(g_pFileDef->getProperty("FILE_INFO_CREATURE"), ios::binary);
+	std::ifstream creatureSpriteTable2;//(g_pFileDef->getProperty("FILE_INFO_CREATURE"), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_CREATURESPRITE").c_str(), creatureSpriteTable2))
 		return FALSE;
 	g_pCreatureSpriteTable->LoadFromFile(creatureSpriteTable2);
@@ -710,7 +712,7 @@ InitInfomation()
 	//------------------------------------------------
 	// Addon SpriteTable
 	//------------------------------------------------
-//	class ifstream addonSpriteTable2;//(g_pFileDef->getProperty("FILE_INFO_CREATURE"), ios::binary);
+//	std::ifstream addonSpriteTable2;//(g_pFileDef->getProperty("FILE_INFO_CREATURE"), ios::binary);
 //	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_ADDONSPRITE").c_str(), addonSpriteTable2))
 //		return FALSE;
 //	g_pAddonSpriteTable->LoadFromFile(addonSpriteTable2);
@@ -721,7 +723,7 @@ InitInfomation()
 	//------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - CreatureActionSpriteTable");
 
-//	class ifstream creatureActionSpriteTable2;//(g_pFileDef->getProperty("FILE_INFO_CREATURE"), ios::binary);
+//	std::ifstream creatureActionSpriteTable2;//(g_pFileDef->getProperty("FILE_INFO_CREATURE"), ios::binary);
 //	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_CREATUREACTIONSPRITE"), creatureActionSpriteTable2))
 //		return FALSE;
 //	g_pCreatureActionSpriteTable->LoadFromFile(creatureActionSpriteTable2);
@@ -733,7 +735,7 @@ InitInfomation()
 	//------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - CreatureTable");
 
-	class ifstream creatureTable2;//(g_pFileDef->getProperty("FILE_INFO_CREATURE"), ios::binary);
+	std::ifstream creatureTable2;//(g_pFileDef->getProperty("FILE_INFO_CREATURE"), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_CREATURE").c_str(), creatureTable2))
 		return FALSE;
 	(*g_pCreatureTable).LoadFromFile(creatureTable2);
@@ -750,7 +752,7 @@ InitInfomation()
 	//------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - CreatureSpriteTypeMapper");
 
-	class ifstream CreatureSpriteTypeMapper2;//(g_pFileDef->getProperty("FILE_INFO_CREATURE"), ios::binary);
+	std::ifstream CreatureSpriteTypeMapper2;//(g_pFileDef->getProperty("FILE_INFO_CREATURE"), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_CREATURESPRITE_MAPPER").c_str(), CreatureSpriteTypeMapper2))
 		return FALSE;
 	g_pCreatureSpriteTypeMapper->LoadFromFile(CreatureSpriteTypeMapper2);
@@ -762,7 +764,7 @@ InitInfomation()
 	//------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - ShopTemplate");
 
-	class ifstream ShopTemplateTable2;//(g_pFileDef->getProperty("FILE_INFO_SHOPTEMPLATE"), ios::binary);
+	std::ifstream ShopTemplateTable2;//(g_pFileDef->getProperty("FILE_INFO_SHOPTEMPLATE"), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_SHOPTEMPLATE").c_str(), ShopTemplateTable2))
 		return FALSE;
 	(*g_pShopTemplateTable).LoadFromFile(ShopTemplateTable2);
@@ -774,7 +776,7 @@ InitInfomation()
 	//------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - NPCTable");
 
-	class ifstream NPCTable2;//(g_pFileDef->getProperty("FILE_INFO_CREATURE"), ios::binary);
+	std::ifstream NPCTable2;//(g_pFileDef->getProperty("FILE_INFO_CREATURE"), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_NPC").c_str(), NPCTable2))
 		return FALSE;
 	(*g_pNPCTable).LoadFromFile(NPCTable2);
@@ -782,7 +784,7 @@ InitInfomation()
 
 	//---------------------------------------------------------------------
 	//
-	//    NPC Scriptø° ¥Î«— ¡§∫∏ º≥¡§
+	//    NPC ScriptÏóê ÎåÄÌïú Ï†ïÎ≥¥ ÏÑ§Ï†ï
 	//
 	//---------------------------------------------------------------------	
 
@@ -791,7 +793,7 @@ InitInfomation()
 	//------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - NPCScript");
 
-	class ifstream NPCScriptTable;//(g_pFileDef->getProperty("FILE_INFO_CREATURE"), ios::binary);
+	std::ifstream NPCScriptTable;//(g_pFileDef->getProperty("FILE_INFO_CREATURE"), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_NPC_SCRIPT_INFO").c_str(), NPCScriptTable))
 		return FALSE;
 	g_pNPCScriptTable->LoadFromFile(NPCScriptTable);
@@ -803,7 +805,7 @@ InitInfomation()
 	//------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - EffectSpriteTypeTable");
 
-	class ifstream effectSpriteTypeTable2;//(g_pFileDef->getProperty("FILE_INFO_EFFECTSPRITETYPE"), ios::binary);
+	std::ifstream effectSpriteTypeTable2;//(g_pFileDef->getProperty("FILE_INFO_EFFECTSPRITETYPE"), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_EFFECTSPRITETYPE").c_str(), effectSpriteTypeTable2))
 		return FALSE;
 	(*g_pEffectSpriteTypeTable).LoadFromFile(effectSpriteTypeTable2);
@@ -812,7 +814,7 @@ InitInfomation()
 	//------------------------------------------------
 	// Load
 	//------------------------------------------------
-	class ifstream actionEffectSpriteTypeTable2;//(g_pFileDef->getProperty("FILE_INFO_EFFECTSPRITETYPE"), ios::binary);
+	std::ifstream actionEffectSpriteTypeTable2;//(g_pFileDef->getProperty("FILE_INFO_EFFECTSPRITETYPE"), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_ACTIONEFFECTSPRITETYPE").c_str(), actionEffectSpriteTypeTable2))
 		return FALSE;
 	g_pActionEffectSpriteTypeTable->LoadFromFile(actionEffectSpriteTypeTable2);
@@ -825,7 +827,7 @@ InitInfomation()
 	//------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - EffectStatusTable");
 
-	class ifstream EffectStatusTable2;//(g_pFileDef->getProperty("FILE_INFO_EffectStatus"), ios::binary);
+	std::ifstream EffectStatusTable2;//(g_pFileDef->getProperty("FILE_INFO_EffectStatus"), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_EFFECTSTATUS").c_str(), EffectStatusTable2))
 		return FALSE;
 	(*g_pEffectStatusTable).LoadFromFile(EffectStatusTable2);
@@ -835,7 +837,7 @@ InitInfomation()
 
 	//---------------------------------------------------------------------
 	//
-	//    SkillInfoTableø° ¥Î«— ¡§∫∏ º≥¡§
+	//    SkillInfoTableÏóê ÎåÄÌïú Ï†ïÎ≥¥ ÏÑ§Ï†ï
 	//
 	//---------------------------------------------------------------------
 	//------------------------------------------------
@@ -843,18 +845,18 @@ InitInfomation()
 	//------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - SkillInfoTable");
 
-	class ifstream skillTable2;//(g_pFileDef->getProperty("FILE_INFO_skill"), ios::binary);
+	std::ifstream skillTable2;//(g_pFileDef->getProperty("FILE_INFO_skill"), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_SKILL").c_str(), skillTable2))
 		return FALSE;
 	g_pSkillInfoTable->LoadFromFile(skillTable2);
 	skillTable2.close();
 
 	//------------------------------------------------
-	// Server ¡§∫∏∏¶ loading«—¥Ÿ.
+	// Server Ï†ïÎ≥¥Î•º loadingÌïúÎã§.
 	//------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - ServerSkillInfo");
 
-	class ifstream serverSkillInfoFile;//(g_pFileDef->getProperty("FILE_INFO_skill"), ios::binary);
+	std::ifstream serverSkillInfoFile;//(g_pFileDef->getProperty("FILE_INFO_skill"), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_SKILL_INFO").c_str(), serverSkillInfoFile))
 		return FALSE;
 
@@ -863,19 +865,19 @@ InitInfomation()
 
 	//---------------------------------------------------------------------
 	//
-	//    RankBonusTableø° ¥Î«— ¡§∫∏ º≥¡§
+	//    RankBonusTableÏóê ÎåÄÌïú Ï†ïÎ≥¥ ÏÑ§Ï†ï
 	//
 	//---------------------------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - rankBonusInfoFile");
 
-	class ifstream rankBonusInfoFile;//(g_pFileDef->getProperty("FILE_INFO_skill"), ios::binary);
+	std::ifstream rankBonusInfoFile;//(g_pFileDef->getProperty("FILE_INFO_skill"), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_RANK_BONUS").c_str(), rankBonusInfoFile))
 		return FALSE;
 
 	g_pRankBonusTable->LoadFromFile( rankBonusInfoFile );
 	rankBonusInfoFile.close();
 
-	class ifstream fameInfoFile;
+	std::ifstream fameInfoFile;
 
 	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_FAME_LIMIT").c_str(), fameInfoFile))
 		return FALSE;
@@ -886,22 +888,22 @@ InitInfomation()
 
 	//---------------------------------------------------------------------
 	//
-	//    ExperienceTableø° ¥Î«— ¡§∫∏ º≥¡§
+	//    ExperienceTableÏóê ÎåÄÌïú Ï†ïÎ≥¥ ÏÑ§Ï†ï
 	//
 	//---------------------------------------------------------------------
 	//------------------------------------------------
 	// Load
 	//------------------------------------------------
-	class ifstream strExpFile;
-	class ifstream dexExpFile;
-	class ifstream intExpFile;
-	class ifstream vampireExpFile;
-	class ifstream oustersExpFile;
-	class ifstream slayerRankExpFile;
-	class ifstream vampireRankExpFile;
-	class ifstream oustersRankExpFile;
-	class ifstream advancementExp;
-	class ifstream petExpFile;
+	std::ifstream strExpFile;
+	std::ifstream dexExpFile;
+	std::ifstream intExpFile;
+	std::ifstream vampireExpFile;
+	std::ifstream oustersExpFile;
+	std::ifstream slayerRankExpFile;
+	std::ifstream vampireRankExpFile;
+	std::ifstream oustersRankExpFile;
+	std::ifstream advancementExp;
+	std::ifstream petExpFile;
 
 	//------------------------------------------------
 	// STR
@@ -1014,14 +1016,14 @@ InitInfomation()
 	//-----------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - ActionInfoTable");
 
-	class ifstream actionInfoFile2;//(g_pFileDef->getProperty("FILE_INFO_ACTION"), ios::binary);
+	std::ifstream actionInfoFile2;//(g_pFileDef->getProperty("FILE_INFO_ACTION"), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_ACTION").c_str(), actionInfoFile2))
 		return FALSE;
 	g_pActionInfoTable->LoadFromFile(actionInfoFile2);
 	actionInfoFile2.close();
 
 	DEBUG_ADD("[ InitGame ]  Information - MonsterKillQuest");
-	class ifstream MonsterKillQuestInfoFile;
+	std::ifstream MonsterKillQuestInfoFile;
 	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_MONSTER_KILL_QUEST").c_str(), MonsterKillQuestInfoFile))
 		return FALSE;
 

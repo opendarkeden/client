@@ -3,7 +3,7 @@
 #include "CDirectDraw.h"
 
 #include <vector>
-#include <fstream.h>
+#include <fstream>
 
 MPalette::MPalette()
 {
@@ -37,7 +37,7 @@ void MPalette::Init(BYTE size)
 
 void MPalette::operator = (const MPalette& pal)
 {
-	// ¸Ş¸ğ¸® ÇØÁ¦
+	// ë©”ëª¨ë¦¬ í•´ì œ
 	Release();
 	
 	m_Size = pal.m_Size;
@@ -48,8 +48,8 @@ void MPalette::operator = (const MPalette& pal)
 }
 
 
-// file save´Â 565¸¦ ±âÁØÀ¸·Î ÇÑ´Ù.
-bool MPalette555::LoadFromFile(class ifstream &file)
+// file saveëŠ” 565ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•œë‹¤.
+bool MPalette555::LoadFromFile(std::ifstream &file)
 {
 	Release();
 	
@@ -66,8 +66,8 @@ bool MPalette555::LoadFromFile(class ifstream &file)
 	return true;
 }
 
-// file save´Â 565¸¦ ±âÁØÀ¸·Î ÇÑ´Ù.
-bool MPalette555::SaveToFile(class ofstream &file)
+// file saveëŠ” 565ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•œë‹¤.
+bool MPalette555::SaveToFile(std::ofstream &file)
 {
 	file.write((const char *)&m_Size, 1);
 	
@@ -83,7 +83,7 @@ bool MPalette555::SaveToFile(class ofstream &file)
 	return true;
 }
 
-bool MPalette565::LoadFromFile(class ifstream &file)
+bool MPalette565::LoadFromFile(std::ifstream &file)
 {
 	Release();
 	
@@ -99,7 +99,7 @@ bool MPalette565::LoadFromFile(class ifstream &file)
 	return true;
 }
 
-bool MPalette565::SaveToFile(class ofstream &file)
+bool MPalette565::SaveToFile(std::ofstream &file)
 {
 	file.write((const char *)&m_Size, 1);
 	
@@ -150,7 +150,7 @@ void MPalettePack::Init(WORD size, bool b565)
 
 bool MPalettePack::LoadFromFile(LPCTSTR lpszFilename, bool b565)
 {
-	ifstream file(lpszFilename, ios::binary);
+	std::ifstream file(lpszFilename, std::ios::binary);
 	bool re = LoadFromFile(file, b565);
 	file.close();
 	
@@ -159,14 +159,14 @@ bool MPalettePack::LoadFromFile(LPCTSTR lpszFilename, bool b565)
 
 bool MPalettePack::SaveToFile(LPCTSTR lpszFilename)
 {
-	ofstream file(lpszFilename, ios::binary);
+	std::ofstream file(lpszFilename, std::ios::binary);
 	bool re = SaveToFile(file);
 	file.close();
 	
 	return re;
 }
 
-bool MPalettePack::LoadFromFile(class ifstream &file, bool b565)
+bool MPalettePack::LoadFromFile(std::ifstream &file, bool b565)
 {
 	Release();
 	
@@ -182,7 +182,7 @@ bool MPalettePack::LoadFromFile(class ifstream &file, bool b565)
 	return true;
 }
 
-bool MPalettePack::SaveToFile(class ofstream &file)
+bool MPalettePack::SaveToFile(std::ofstream &file)
 {
 	DWORD flag = 0;
 	
@@ -201,15 +201,15 @@ BYTE CSpritePal::s_Colorkey = 0xFF;
 
 CSpritePal::CSpritePal()
 {
-	m_Width = 0;		// °¡·Î pixel¼ö
-	m_Height = 0;		// ¼¼·Î pixel¼ö		
-	m_Size = 0;			// ½ºÇÁ¶óÀÌÆ®ÀÇ size
+	m_Width = 0;		// ê°€ë¡œ pixelìˆ˜
+	m_Height = 0;		// ì„¸ë¡œ pixelìˆ˜		
+	m_Size = 0;			// ìŠ¤í”„ë¼ì´íŠ¸ì˜ size
 	
 	m_pPixels = NULL;		// pixels point array
 	m_pData = NULL;			// data
 	
-	m_bInit = false;		// data°¡ ÀÖ´Â°¡?
-	m_bLoading = false;		// LoadingÁßÀÎ°¡?
+	m_bInit = false;		// dataê°€ ìˆëŠ”ê°€?
+	m_bLoading = false;		// Loadingì¤‘ì¸ê°€?
 }
 
 CSpritePal::~CSpritePal()
@@ -219,9 +219,9 @@ CSpritePal::~CSpritePal()
 
 void CSpritePal::Release()
 {
-	m_Width = 0;		// °¡·Î pixel¼ö
-	m_Height = 0;		// ¼¼·Î pixel¼ö		
-	m_Size = 0;			// ½ºÇÁ¶óÀÌÆ®ÀÇ size
+	m_Width = 0;		// ê°€ë¡œ pixelìˆ˜
+	m_Height = 0;		// ì„¸ë¡œ pixelìˆ˜		
+	m_Size = 0;			// ìŠ¤í”„ë¼ì´íŠ¸ì˜ size
 
 	if(m_pData != NULL)
 	{
@@ -230,8 +230,8 @@ void CSpritePal::Release()
 		m_pPixels = NULL;
 	}
 	
-	m_bInit = false;		// data°¡ ÀÖ´Â°¡?
-	m_bLoading = false;		// LoadingÁßÀÎ°¡?
+	m_bInit = false;		// dataê°€ ìˆëŠ”ê°€?
+	m_bLoading = false;		// Loadingì¤‘ì¸ê°€?
 }
 
 void CSpritePal::SetEmptySprite()
@@ -242,27 +242,27 @@ void CSpritePal::SetEmptySprite()
 
 void CSpritePal::SetPixel(BYTE *pSource, WORD pitch, WORD width, WORD height)
 {
-	// memoryÇØÁ¦
+	// memoryí•´ì œ
 	Release();
 
 	m_Width = width;
 	m_Height = height;
 
-	// ÀÏ´Ü memory¸¦ Àû´çÈ÷ Àâ¾ÆµĞ´Ù.	
+	// ì¼ë‹¨ memoryë¥¼ ì ë‹¹íˆ ì¡ì•„ë‘”ë‹¤.	
 	BYTE*	data = new BYTE[m_Width*2+10];
 
-	int		index,				// dataÀÇ index·Î »ç¿ë
-			lastColorIndex;		// Åõ¸íÀÌ ¾Æ´Ñ»ö °³¼öÀÇ ÃÖ±Ù index
-	int		count;				// ¹İº¹¼ö
-	int		trans,				// Åõ¸í»ö °³¼ö
-			color;				// Åõ¸íÀÌ ¾Æ´Ñ»ö °³¼ö
+	int		index,				// dataì˜ indexë¡œ ì‚¬ìš©
+			lastColorIndex;		// íˆ¬ëª…ì´ ì•„ë‹Œìƒ‰ ê°œìˆ˜ì˜ ìµœê·¼ index
+	int		count;				// ë°˜ë³µìˆ˜
+	int		trans,				// íˆ¬ëª…ìƒ‰ ê°œìˆ˜
+			color;				// íˆ¬ëª…ì´ ì•„ë‹Œìƒ‰ ê°œìˆ˜
 
-	BOOL	bCheckTrans;		// ÃÖ±Ù¿¡ °Ë»çÇÑ°Ô Åõ¸í»öÀÎ°¡?
+	BOOL	bCheckTrans;		// ìµœê·¼ì— ê²€ì‚¬í•œê²Œ íˆ¬ëª…ìƒ‰ì¸ê°€?
 
 	BYTE	*pSourceTemp;
 
 
-	// heightÁÙ ¸¸Å­ memoryÀâ±â
+	// heightì¤„ ë§Œí¼ memoryì¡ê¸°
 	m_pPixels = new BYTE* [height];
 	BYTE **Pixels = new BYTE* [height];
 	std::vector<int> PixelSize;
@@ -270,7 +270,7 @@ void CSpritePal::SetPixel(BYTE *pSource, WORD pitch, WORD width, WORD height)
 	register int i;
 	register int j;
 
-	for (i=0; i<height; i++)
+	for (int i=0; i<height; i++)
 	{
 		index = 0;
 		count = 0;
@@ -280,16 +280,16 @@ void CSpritePal::SetPixel(BYTE *pSource, WORD pitch, WORD width, WORD height)
 
 		pSourceTemp = pSource;
 
-		// °¢ line¿¡ ´ëÇØ¼­ ¾ĞÃà~
+		// ê° lineì— ëŒ€í•´ì„œ ì••ì¶•~
 		for (j=0; j<width; j++)
 		{
-			// 0¹ø color¿¡ ´ëÇØ¼­ ¾ĞÃà
+			// 0ë²ˆ colorì— ëŒ€í•´ì„œ ì••ì¶•
 			if (*pSourceTemp==s_Colorkey)
 			{
-				// ÃÖ±Ù¿¡ °Ë»çÇÑ°Ô Åõ¸í»öÀÌ ¾Æ´Ï¾ú´Ù¸é
+				// ìµœê·¼ì— ê²€ì‚¬í•œê²Œ íˆ¬ëª…ìƒ‰ì´ ì•„ë‹ˆì—ˆë‹¤ë©´
 				if (!bCheckTrans)
 				{
-					// ' (Åõ¸í,»ö±ò¼ö,»ö±òµé) 'ÀÇ ÇÑ set°¡ ³¡³µÀ½À» ÀÇ¹ÌÇÏ¹Ç·Î
+					// ' (íˆ¬ëª…,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤) 'ì˜ í•œ setê°€ ëë‚¬ìŒì„ ì˜ë¯¸í•˜ë¯€ë¡œ
 					count++;
 					
 					data[lastColorIndex] = color;
@@ -302,18 +302,18 @@ void CSpritePal::SetPixel(BYTE *pSource, WORD pitch, WORD width, WORD height)
 			}
 			else
 			{
-				// ÃÖ±Ù¿¡ °Ë»çÇÑ°Ô Åõ¸í»öÀÌ¾ú´Ù¸é..
+				// ìµœê·¼ì— ê²€ì‚¬í•œê²Œ íˆ¬ëª…ìƒ‰ì´ì—ˆë‹¤ë©´..
 				if (bCheckTrans)
 				{						
-					data[index++] = trans;		// »óÀ§ byte¿¡ Åõ¸í¼ö¸¦ ³Ö´Â´Ù.
+					data[index++] = trans;		// ìƒìœ„ byteì— íˆ¬ëª…ìˆ˜ë¥¼ ë„£ëŠ”ë‹¤.
 					trans = 0;
 
-					lastColorIndex=index++;			// »ö±ò¼ö¸¦ ³ÖÀ» À§Ä¡¸¦ ±â¾ï					
+					lastColorIndex=index++;			// ìƒ‰ê¹”ìˆ˜ë¥¼ ë„£ì„ ìœ„ì¹˜ë¥¼ ê¸°ì–µ					
 
 					bCheckTrans = FALSE;
 				}
 
-				data[index++] = *pSourceTemp;	// ½ÇÁ¦ »ö±òÀ» ÀúÀåÇÑ´Ù.
+				data[index++] = *pSourceTemp;	// ì‹¤ì œ ìƒ‰ê¹”ì„ ì €ì¥í•œë‹¤.
 
 				color++;								
 			}
@@ -321,24 +321,24 @@ void CSpritePal::SetPixel(BYTE *pSource, WORD pitch, WORD width, WORD height)
 			pSourceTemp++;
 		}
 		
-		// ÇÑ ÁÙÀÇ ¸¶Áö¸· Á¡ÀÌ Åõ¸í»öÀÎ°¡?
+		// í•œ ì¤„ì˜ ë§ˆì§€ë§‰ ì ì´ íˆ¬ëª…ìƒ‰ì¸ê°€?
 		if (bCheckTrans)
 		{
-			// Åõ¸í»öÀÌ¸é º°´Ù¸¥ Ã³¸®¸¦ ¾ÈÇØÁàµµ µÉ°Å °°´Ù.
+			// íˆ¬ëª…ìƒ‰ì´ë©´ ë³„ë‹¤ë¥¸ ì²˜ë¦¬ë¥¼ ì•ˆí•´ì¤˜ë„ ë ê±° ê°™ë‹¤.
 		}	
-		// Åõ¸í»öÀÌ ¾Æ´Ñ °æ¿ì, Á¡ÀÇ °³¼ö¸¦ ÀúÀå½ÃÄÑÁà¾ß ÇÑ´Ù.
+		// íˆ¬ëª…ìƒ‰ì´ ì•„ë‹Œ ê²½ìš°, ì ì˜ ê°œìˆ˜ë¥¼ ì €ì¥ì‹œì¼œì¤˜ì•¼ í•œë‹¤.
 		else
 		{			
 			count++;
 			data[lastColorIndex] = color;
 		}
 		
-		// memory¸¦ ´Ù½Ã Àâ´Â´Ù.
+		// memoryë¥¼ ë‹¤ì‹œ ì¡ëŠ”ë‹¤.
 		Pixels[i] = new BYTE [index+1];
 		m_Size += index+1;
 
-		// m_pPixels[i]¸¦ ¾ĞÃàÇßÀ¸¹Ç·Î data·Î ´ëÃ¼ÇÑ´Ù.
-		// m_pPixels[i][0]¿¡´Â count¸¦ ³Ö¾î¾ß ÇÑ´Ù.
+		// m_pPixels[i]ë¥¼ ì••ì¶•í–ˆìœ¼ë¯€ë¡œ dataë¡œ ëŒ€ì²´í•œë‹¤.
+		// m_pPixels[i][0]ì—ëŠ” countë¥¼ ë„£ì–´ì•¼ í•œë‹¤.
 		Pixels[i][0] = count;
 		memcpy(Pixels[i]+1, data, index);
 		PixelSize.push_back(index+1);
@@ -388,17 +388,17 @@ void CSpritePal::Blt(int x, int y, WORD* pDest, int pitch, MPalette &pal)
 			pPixels		= m_pPixels[i];
 			pDestTemp = (WORD*)((BYTE*)pDest + i*pitch);
 			
-			// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+			// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 			count	= *pPixels++;		
-			// ÇÑ ÁÙ Ãâ·Â
+			// í•œ ì¤„ ì¶œë ¥
 			if (count > 0)
 			{	
 				j = count;
 				do {
-					pDestTemp += *pPixels++;			// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+					pDestTemp += *pPixels++;			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 					
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 					for(k = 0; k < colorCount; k++)
 					{
 						memcpy((void*)(pDestTemp+k), (void*)(&pal[*(pPixels+k)]), 2);
@@ -413,13 +413,13 @@ void CSpritePal::Blt(int x, int y, WORD* pDest, int pitch, MPalette &pal)
 	}
 }
 
-bool CSpritePal::LoadFromFile(class ifstream &file)
+bool CSpritePal::LoadFromFile(std::ifstream &file)
 {
 	Release();
 	
 	file.read((char *)&m_Size, 4);
 
-//	// size °¡ ¾øÀ¸¸é ¸®ÅÏÇÏÀğ
+//	// size ê°€ ì—†ìœ¼ë©´ ë¦¬í„´í•˜ìŸˆ
 //	if(m_Size == 0)
 //		return true;
 
@@ -439,7 +439,7 @@ bool CSpritePal::LoadFromFile(class ifstream &file)
 
 	BYTE *tempData = m_pData;
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		m_pPixels[i] = tempData;
 		tempData += indexArray[i];
@@ -452,11 +452,11 @@ bool CSpritePal::LoadFromFile(class ifstream &file)
 	return true;
 }
 
-bool CSpritePal::SaveToFile(class ofstream &file)
+bool CSpritePal::SaveToFile(std::ofstream &file)
 {
 	if(IsNotInit())
 	{
-		MessageBox(NULL, "¾Æ¹«°Íµµ ¾ø´Âµ¥ ¸Ö ÀúÀåÇØ-_-", "CSpritePal", MB_OK);
+		MessageBox(NULL, "ì•„ë¬´ê²ƒë„ ì—†ëŠ”ë° ë©€ ì €ì¥í•´-_-", "CSpritePal", MB_OK);
 		return false;
 	}
 
@@ -467,7 +467,7 @@ bool CSpritePal::SaveToFile(class ofstream &file)
 
 	file.write((const char *)&m_Size, 4);
 
-//	// size°¡ 0ÀÌ¸é ¸®ÅÏÇÏÀğ
+//	// sizeê°€ 0ì´ë©´ ë¦¬í„´í•˜ìŸˆ
 //	if(m_Size == 0)
 //		return true;
 
@@ -479,7 +479,7 @@ bool CSpritePal::SaveToFile(class ofstream &file)
 
 	WORD index;
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		if(i == m_Height -1)
 		{
@@ -487,7 +487,7 @@ bool CSpritePal::SaveToFile(class ofstream &file)
 		}
 		else
 			index = m_pPixels[i+1] - m_pPixels[i];
-		// byte¼ö¿Í ½ÇÁ¦ data¸¦ ÀúÀåÇÑ´Ù.
+		// byteìˆ˜ì™€ ì‹¤ì œ dataë¥¼ ì €ì¥í•œë‹¤.
 		file.write((const char*)&index, 2);
 	}
 
@@ -496,7 +496,7 @@ bool CSpritePal::SaveToFile(class ofstream &file)
 
 void CSpritePal::operator = (const CSpritePal& sprite)
 {
-	// ¸Ş¸ğ¸® ÇØÁ¦
+	// ë©”ëª¨ë¦¬ í•´ì œ
 	Release();
 
 	m_Size = sprite.m_Size;
@@ -551,7 +551,7 @@ void CSpritePalPack::Init(WORD size)
 
 bool CSpritePalPack::LoadFromFile(LPCTSTR lpszFilename)
 {
-	ifstream file(lpszFilename, ios::binary);
+	std::ifstream file(lpszFilename, std::ios::binary);
 	bool re = LoadFromFile(file);
 	file.close();
 
@@ -560,7 +560,7 @@ bool CSpritePalPack::LoadFromFile(LPCTSTR lpszFilename)
 
 bool CSpritePalPack::SaveToFile(LPCTSTR lpszFilename)
 {
-	ofstream file(lpszFilename, ios::binary);
+	std::ofstream file(lpszFilename, std::ios::binary);
 	bool re = SaveToFile(file);
 	file.close();
 
@@ -568,7 +568,7 @@ bool CSpritePalPack::SaveToFile(LPCTSTR lpszFilename)
 }
 
 
-bool CSpritePalPack::LoadFromFile(class ifstream &file)
+bool CSpritePalPack::LoadFromFile(std::ifstream &file)
 {
 	Release();
 	
@@ -586,7 +586,7 @@ bool CSpritePalPack::LoadFromFile(class ifstream &file)
 	return true;
 }
 
-bool CSpritePalPack::SaveToFile(class ofstream &file)
+bool CSpritePalPack::SaveToFile(std::ofstream &file)
 {
 	file.write((const char *)&m_Size, 2);
 	WORD realSize = m_Size;

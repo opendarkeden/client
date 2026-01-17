@@ -42,7 +42,7 @@ extern int SKILLDOMAIN_NAME[MAX_SKILLDOMAIN];
 // Skill Step
 //----------------------------------------------------------------------
 enum SKILL_STEP {
-	SKILL_STEP_NULL,			// ������� �͵�
+	SKILL_STEP_NULL,			// °ü°è¾ø´Â °Íµé
 
 	// Slayer
 	SKILL_STEP_APPRENTICE,
@@ -80,11 +80,11 @@ enum SKILL_STEP {
 };
 
 //----------------------------------------------------------------------
-// SkillID == ActionInfo ����
+// SkillID == ActionInfo Á¤ÀÇ
 //----------------------------------------------------------------------
 enum ACTIONINFO
 {
-		// �˰迭,
+		// °Ë°è¿­,
 	SKILL_ATTACK_MELEE = 0,						// 0
 	SKILL_ATTACK_ARMS,							// 1
 	SKILL_SELF,									// 2
@@ -105,7 +105,7 @@ enum ACTIONINFO
 	SKILL_FIVE_STORM_CRASH,	 				 	// 15
 	SKILL_HEAVENS_SWORD,		  			  	// 16
 
-	// �� �迭,
+	// µµ °è¿­,
 	SKILL_SINGLE_BLOW,						    // 17
 	SKILL_SPIRAL_SLAY,						    // 18
 	SKILL_TRIPLE_BREAK,						    // 19
@@ -120,7 +120,7 @@ enum ACTIONINFO
 	SKILL_SOUL_SHOCK,			   				// 27
 	SKILL_SAINT_BLADE,			   			  	// 28
 
-	// ��, ������ �迭
+	// °Ç, ¶óÀÌÇÃ °è¿­
 	SKILL_FAST_RELOAD,						    // 30
 	SKILL_QUICK_FIRE,							//
 	SKILL_SMG_MASTERY,							// 
@@ -137,15 +137,15 @@ enum ACTIONINFO
 	SKILL_INSTALL_MINE,						    // 37
 	SKILL_MAKE_MINE,			  			    // 38
     
-	// ��������,
-	// ��þ �迭
+	// ¼ºÁ÷¸¶¹ý,
+	// ÀÎÃ¾ °è¿­
 	MAGIC_CREATE_HOLY_WATER, 			 		// 39
 	MAGIC_LIGHT,				      			// 40
 	MAGIC_DETECT_HIDDEN,	   	 				// 41
 	MAGIC_AURA_BALL,	     		 		 	// 55
 	MAGIC_BLESS,			       		 		// 45
 	MAGIC_CONTINUAL_LIGHT,	 			 		// 46
-	MAGIC_FLARE,								// ���ϱ� �ٽ� ���� �ؾ���
+	MAGIC_FLARE,								// ¾ó¸¶ÀÏ±î ´Ù½Ã Á¤¸® ÇØ¾ßÁö
 	MAGIC_PURIFY,    						// 43
 	MAGIC_AURA_RING,		  	  		  		// 42
 	MAGIC_STRIKING,		      					// 44
@@ -157,28 +157,28 @@ enum ACTIONINFO
 	MAGIC_CHAIN_AURA,							// 50
 	MAGIC_SAINT_AURA,							// 51
 
-	// �� �迭
+	// Èú °è¿­
 	MAGIC_CURE_LIGHT_WOUNDS,					// 52
 	MAGIC_CURE_POISON,							// 54
 	MAGIC_PROTECTION_FROM_POISON,				// 53
-	MAGIC_CAUSE_LIGHT_WOUNDS,					// ���ϱ� �ٽ� ���� �ؾ���
+	MAGIC_CAUSE_LIGHT_WOUNDS,					// ¾ó¸¶ÀÏ±î ´Ù½Ã Á¤¸® ÇØ¾ßÁö
 	MAGIC_CURE_SERIOUS_WOUNDS,					// 56
 	MAGIC_REMOVE_CURSE,							// 89
 	MAGIC_PROTECTION_FROM_CURSE,				// 59
-	MAGIC_CAUSE_SERIOUS_WOUNDS,					// ���ϱ� �ٽ� ���� �ؾ���
+	MAGIC_CAUSE_SERIOUS_WOUNDS,					// ¾ó¸¶ÀÏ±î ´Ù½Ã Á¤¸® ÇØ¾ßÁö
 	MAGIC_CURE_CRITICAL_WOUNDS,					// 
 	MAGIC_PROTECTION_FROM_ACID,					//
 	MAGIC_SACRIFICE,							//
-	MAGIC_CAUSE_CRITICAL_WOUNDS,				// ���ϱ� �ٽ� ���� �ؾ���
+	MAGIC_CAUSE_CRITICAL_WOUNDS,				// ¾ó¸¶ÀÏ±î ´Ù½Ã Á¤¸® ÇØ¾ßÁö
 	MAGIC_CURE_ALL,								// 62
 	MAGIC_REGENERATION,							// 61
 	MAGIC_MASS_CURE,							//
 	MAGIC_MASS_HEAL,							//
 
-	// �������,
+	// ¹ìÇÁ±â¼ú,
 	SKILL_BLOOD_DRAIN,							// 65
 
-	// ��������,
+	// ¹ìÇÁ¸¶¹ý,
 	// Poison
 	MAGIC_POISONOUS_HANDS,						// 67
 	MAGIC_GREEN_POISON,							// 69
@@ -213,7 +213,7 @@ enum ACTIONINFO
 	MAGIC_TRANSFORM_TO_WOLF,					// 77
 	MAGIC_TRANSFORM_TO_BAT,						// 80
 
-	// ���
+	// ½á¸ó
 	MAGIC_SUMMON_WOLF,							// 87
 	MAGIC_SUMMON_CASKET,						// 88
 	MAGIC_RAISING_DEAD,							// 88
@@ -225,11 +225,11 @@ enum ACTIONINFO
 	MAGIC_UN_INVISIBILITY,
 	MAGIC_THROW_HOLY_WATER,						// 91
 
-	// ���� ���
+	// ´Á´ë ±â¼ú
 	MAGIC_EAT_CORPSE,
 	MAGIC_HOWL,
 
-	// NPC ���
+	// NPC ±â¼ú
 	MAGIC_RESTORE,								// 90
 
 	MAGIC_BLOODY_MARK,
@@ -243,7 +243,7 @@ enum ACTIONINFO
 	MAGIC_PRAYER,
 	MAGIC_MEDITATION,
 
-	// 2001.12.4 �߰�
+	// 2001.12.4 Ãß°¡
 	SKILL_THUNDER_BOLT,							// 122
 	SKILL_EXPANSION, 							// 123
 	SKILL_MIRACLE_SHIELD, 						// 124
@@ -297,11 +297,11 @@ enum ACTIONINFO
 	
 	SKILL_CURE_EFFECT,			// cure
 	SKILL_CRITICAL_EFFECT,
-	SKILL_CRITICAL_GROUND,		// critical�� ����ϴ� ���	
+	SKILL_CRITICAL_GROUND,		// criticalÀ» »ç¿ëÇÏ´Â °æ¿ì	
 	
 	SKILL_VIGOR_DROP,
 	
-	// [�����]
+	// [»õ±â¼ú]
 	SKILL_SWORD_MASTERY,                        // 166
     SKILL_SHIELD_MASTERY,                       // 167
     SKILL_THUNDER_STORM,                        // 168
@@ -485,7 +485,7 @@ enum ACTIONINFO
 	SKILL_FABULOUS_SOUL,						//305
 	SKILL_WILL_OF_IRON,							//306
 
- // ���巹 ��ų
+ // Áúµå·¹ ½ºÅ³
     SKILL_WIDE_ICE_FIELD,                       // 307
     SKILL_GLACIER_1,                            // 308
     SKILL_GLACIER_2,                            // 309
@@ -521,11 +521,11 @@ enum ACTIONINFO
     SKILL_REACTIVE_ARMOR_MASTERY,             // 335
 
 	SKILL_THROWING_AXE,                         // 336
-    SKILL_CHOPPING_FIREWOOD,                    // 337 �����б�	
+    SKILL_CHOPPING_FIREWOOD,                    // 337 ÀåÀÛÆÐ±â	
 
 	SKILL_CHAIN_THROWING_AXE,                   // 338
     SKILL_MULTI_THROWING_AXE,                   // 339
-    SKILL_PLAYING_WITH_FIRE,                    // 340 ���峭
+    SKILL_PLAYING_WITH_FIRE,                    // 340 ºÒÀå³­
 
 	SKILL_INFINITY_THUNDERBOLT,                 // 341
     SKILL_SPIT_STREAM,                          // 342
@@ -536,17 +536,17 @@ enum ACTIONINFO
     SKILL_NOOSE_OF_WRAITH,                      // 347
 
     SKILL_SHARP_HAIL,                           // 348
-    SKILL_SUMMON_MIGA,                          // 349  // �ƿ콺��� ���� ��ų
-    SKILL_SUMMON_MIGA_ATTACK,                   // 350  // ��ȯ�ȳ��� ���� ��ų
+    SKILL_SUMMON_MIGA,                          // 349  // ¾Æ¿ì½ºÅÍÁî°¡ ¾²´Â ½ºÅ³
+    SKILL_SUMMON_MIGA_ATTACK,                   // 350  // ¼ÒÈ¯µÈ³ðÀÌ ¾²´Â ½ºÅ³
     SKILL_ICE_HORIZON,                          // 351
     SKILL_FURY_OF_GNOME,                        // 352
 	
-	SKILL_CANNONADE,                          // 353  // ����
-    SKILL_SELF_DESTRUCTION,                   // 354  // ��������
+	SKILL_CANNONADE,                          // 353  // Æ÷°Ý
+    SKILL_SELF_DESTRUCTION,                   // 354  // ÀÚÆø°ø°Ý
 
-	SKILL_AR_ATTACK,                            // 355  // ���Ϳ�
-    SKILL_SMG_ATTACK,                           // 356  // ���Ϳ�
-    SKILL_GRENADE_ATTACK,                       // 357  // ���Ϳ�
+	SKILL_AR_ATTACK,                            // 355  // ¸ó½ºÅÍ¿ë
+    SKILL_SMG_ATTACK,                           // 356  // ¸ó½ºÅÍ¿ë
+    SKILL_GRENADE_ATTACK,                       // 357  // ¸ó½ºÅÍ¿ë
 
 	SKILL_DRAGON_TORNADO,                       // 358
     SKILL_BIKE_CRASH,                           // 359
@@ -560,7 +560,7 @@ enum ACTIONINFO
     SKILL_FIERCE_FLAME,                         // 367
     SKILL_SHADOW_OF_STORM,                      // 368
 	
-	SKILL_HEAL_PASS,                            // 369 // �Űܰ��� ��
+	SKILL_HEAL_PASS,                            // 369 // ¿Å°Ü°¡´Â Èú
 
 	SKILL_TRASLA_ATTACK,                      // 370
     SKILL_PUSCA_ATTACK,                       // 371
@@ -571,41 +571,41 @@ enum ACTIONINFO
 
 	// 2007-2-15 Coffee add start
 	//SkillID: 409 EN: Bloody Scarify  
-	SKILL_BLLODY_SCARIFY,		//374  Ѫ֮��ӡ  (��Ѫ���¼��� )
-	SKILL_BLOOD_CURSE,		    //375  Ѫ֮�{��  
+	SKILL_BLLODY_SCARIFY,		//374  ÑªÖ®ÀÓÓ¡  (ÎüÑª¹íÐÂ¼¼ÄÜ )
+	SKILL_BLOOD_CURSE,		    //375  ÑªÖ®Ô{Öä  
 	//////////////////////////////////////////////////////////////////////////
-	//���༼��
-	SKILL_SHINE_SWORD,			//376  ��ҫ֮��
-	SKILL_BOMB_CRASH_WALK,		//377  ���ں�ը
-	SKILL_SATELLITE_BOMB,		//378  ���Ǻ��
-	SKILL_ILLUSION_INVERSION,	//379  �ֲ��þ�
-	SKILL_HEAVEN_GROUND,		//380  ������
-		// �ֲ��þ�����������ʾЧ��
+	//ÈËÀà¼¼ÄÜ
+	SKILL_SHINE_SWORD,			//376  ÉÁÒ«Ö®½£
+	SKILL_BOMB_CRASH_WALK,		//377  ¾ÞÅÚºäÕ¨
+	SKILL_SATELLITE_BOMB,		//378  ÎÀÐÇºä»÷
+	SKILL_ILLUSION_INVERSION,	//379  ¿Ö²À»Ã¾õ
+	SKILL_HEAVEN_GROUND,		//380  ÌìÉñ½µÁÙ
+		// ¿Ö²À»Ã¾õ·ÖÉíµ¥¸öÏÔÊ¾Ð§¹û
 	TEMP_SKILL_ILLUSION_INVERSION,//381
 	//////////////////////////////////////////////////////////////////////////
-	// ħ���¼���
+	// Ä§ÁéÐÂ¼¼ÄÜ
 	// 2007-2-15 Coffee add end
-	SKILL_DUMMY_DRAKE,       // 382 ���׿˿���(��)
-	SKILL_HYDRO_CONVERGENCE, // 383 ����ˮ��(ˮ)
-	SKILL_SUMMON_CLAY,		 // 384 ճ���ٻ�(��)
-	SKILL_HETER_CHAKRAM,			 // 385 �Ĳ�������(սʿ)
+	SKILL_DUMMY_DRAKE,       // 382 µÂÀ×¿Ë¿þÀÜ(»ð)
+	SKILL_HYDRO_CONVERGENCE, // 383 ¸´ºÏË®ÁÆ(Ë®)
+	SKILL_SUMMON_CLAY,		 // 384 Õ³ÍÁÕÙ»½(ÍÁ)
+	SKILL_HETER_CHAKRAM,			 // 385 ÏÄ²¼Àû»ùÒò(Õ½Ê¿)
 
 #endif
 	//add by viva 
 	//new Slayer
-	SKILL_SLAYER_SWORD_SKY_FIRE,	//���׻�
-	SKILL_SLAYER_BLADE_CUT_STORM,	//���з籩
-	SKILL_SLAYER_GUN_BOMB_XRL_MISSILE,	//XRL ը�ѵ���
-	SKILL_SLAYER_HEAL_SACRED_STAMP,	//��Դʥӡ
-	SKILL_SLAYER_ENCHANT_BRAMBLE_HALO,	//�����⻷
+	SKILL_SLAYER_SWORD_SKY_FIRE,	//ÌìÀ×»ð»¨
+	SKILL_SLAYER_BLADE_CUT_STORM,	//¾âÈÐ·ç±©
+	SKILL_SLAYER_GUN_BOMB_XRL_MISSILE,	//XRL Õ¨ÁÑµ¼µ¯
+	SKILL_SLAYER_HEAL_SACRED_STAMP,	//ÆðÔ´Ê¥Ó¡
+	SKILL_SLAYER_ENCHANT_BRAMBLE_HALO,	//¾£¼¬¹â»·
 	//New Vampire
-	SKILL_VAMPIRE_INNATE_DEADLY_CLAW,	//������צ
-	SKILL_VAMPIRE_POISON_VOODOO_RING,	//�׶�֮��
+	SKILL_VAMPIRE_INNATE_DEADLY_CLAW,	//ÖÁÉËÁÑ×¦
+	SKILL_VAMPIRE_POISON_VOODOO_RING,	//Î×¶¾Ö®»·
 	//New Ousters
-	SKILL_OUSTERS_COMBAT_PENETRATE_WHEEL,	//�ᴩ֮��
-	SKILL_OUSTERS_FIRE_FIRE_METEOR,	//�ٻ�����
-	SKILL_OUSTERS_EARTH_BIG_ROCKFALL,	//��ʯ����
-	SKILL_OUSTERS_WATER_RAPID_FREEZE,	//��������
+	SKILL_OUSTERS_COMBAT_PENETRATE_WHEEL,	//¹á´©Ö®ÂÖ
+	SKILL_OUSTERS_FIRE_FIRE_METEOR,	//·Ù»ðÁ÷ÐÇ
+	SKILL_OUSTERS_EARTH_BIG_ROCKFALL,	//¾ÞÊ¯ÔÉÂä
+	SKILL_OUSTERS_WATER_RAPID_FREEZE,	//¼«¶³±ù»·
 	///////////////////
 	SKILL_UNKOWN1,
 	SKILL_UNKOWN2,
@@ -625,9 +625,9 @@ enum ACTIONINFO
 
 
 	//------------------------------------------------------------
-	// ������ʹ� client ���� SKILL ID
+	// ¿©±âºÎÅÍ´Â client Àü¿ë SKILL ID
 	//------------------------------------------------------------
-	// �ӽ÷� �߰�	
+	// ÀÓ½Ã·Î Ãß°¡	
 	
 	MAGIC_BLOODY_TUNNEL_INTO,
 //	MAGIC_OPEN_CASKET,
@@ -652,16 +652,16 @@ enum ACTIONINFO
 	MINE_COBRA,
 
 	// gun
-	SKILL_ATTACK_GUN_SR,			// ��1
-	SKILL_ATTACK_GUN_SG,			// ��2
-	SKILL_ATTACK_GUN_AR,			// ��3
-	SKILL_ATTACK_GUN_SMG,			// ��4
+	SKILL_ATTACK_GUN_SR,			// ÃÑ1
+	SKILL_ATTACK_GUN_SG,			// ÃÑ2
+	SKILL_ATTACK_GUN_AR,			// ÃÑ3
+	SKILL_ATTACK_GUN_SMG,			// ÃÑ4
 
 	// sword
-	SKILL_ATTACK_SWORD,		// Į1
-	SKILL_ATTACK_BLADE,		// Į2	
+	SKILL_ATTACK_SWORD,		// Ä®1
+	SKILL_ATTACK_BLADE,		// Ä®2	
 
-	// �ѿ� ���� holy shooting
+	// ÃÑ¿¡ µû¸¥ holy shooting
 	SKILL_HOLY_SHOOTING_TR,					//	Holy shooting
 	SKILL_HOLY_SHOOTING_SG,					//	Holy shooting
 	SKILL_HOLY_SHOOTING_AR,					//	Holy shooting
@@ -681,12 +681,12 @@ enum ACTIONINFO
 	FAMILY_BONUS,
 
 	//------------------------------------------------------------------------------
-	// ��ų �ܰ迡 ���� ��ų
+	// ½ºÅ³ ´Ü°è¿¡ µû¸¥ ½ºÅ³
 	//------------------------------------------------------------------------------
-	STEP_SKILL_FLOURISH_2,							// 2�ܰ� FLOURISH
-	STEP_SKILL_FLOURISH_3,							// 3�ܰ� FLOURISH
-	STEP_SKILL_SHARP_ROUND_2,						// 2�ܰ� Sharp Round
-	STEP_SKILL_SHARP_ROUND_3,						// 3�ܰ� Sharp Round
+	STEP_SKILL_FLOURISH_2,							// 2´Ü°è FLOURISH
+	STEP_SKILL_FLOURISH_3,							// 3´Ü°è FLOURISH
+	STEP_SKILL_SHARP_ROUND_2,						// 2´Ü°è Sharp Round
+	STEP_SKILL_SHARP_ROUND_3,						// 3´Ü°è Sharp Round
 	STEP_SKILL_GAMMA_CHOP_2,
 	STEP_SKILL_GAMMA_CHOP_3,
 	STEP_SKILL_CROSS_GUARD_2,
@@ -718,63 +718,63 @@ enum ACTIONINFO
 	//------------------------------------------------------------------------------
 
 	// enchant
-	MAGIC_ENCHANT_OPTION_NULL,				// �ɼ��� ��������
-	MAGIC_ENCHANT_OPTION_PLUS,				// �ɼ��� �ϳ� �ö󰣴�
-	MAGIC_ENCHANT_REMOVE_ITEM,				// �������� ��������
+	MAGIC_ENCHANT_OPTION_NULL,				// ¿É¼ÇÀÌ ¾ø¾îÁø´Ù
+	MAGIC_ENCHANT_OPTION_PLUS,				// ¿É¼ÇÀÌ ÇÏ³ª ¿Ã¶ó°£´Ù
+	MAGIC_ENCHANT_REMOVE_ITEM,				// ¾ÆÀÌÅÛÀÌ ¾ø¾îÁø´Ù
 	MAGIC_UNKOWN1,			//add by viva
 	
 	// HolyLandBonus Skills 2003.2.10
-	SKILL_HOLYLAND_BLOOD_BIBLE_ARMEGA,				// ��� ���� MP(HP)�Ҹ� 50% ����  
-	SKILL_HOLYLAND_BLOOD_BIBLE_MIHOLE,				// Ÿ������ ��� �뿪  
+	SKILL_HOLYLAND_BLOOD_BIBLE_ARMEGA,				// ±â¼ú »ç¿ë½Ã MP(HP)¼Ò¸ð·® 50% °¨¼Ò  
+	SKILL_HOLYLAND_BLOOD_BIBLE_MIHOLE,				// Å¸Á¾Á·ÀÇ ¾ð¾î Åë¿ª  
 	SKILL_HOLYLAND_BLOOD_BIBLE_KIRO,				// INT+5, DEX +5  
-	SKILL_HOLYLAND_BLOOD_BIBLE_INI,					// �������� ������ +10  
-	SKILL_HOLYLAND_BLOOD_BIBLE_GREGORI,				// ���ప 50% ����  
+	SKILL_HOLYLAND_BLOOD_BIBLE_INI,					// ¹°¸®°ø°Ý µ¥¹ÌÁö +10  
+	SKILL_HOLYLAND_BLOOD_BIBLE_GREGORI,				// ¹°¾à°ª 50% ÇÒÀÎ  
 	SKILL_HOLYLAND_BLOOD_BIBLE_CONCILIA,			// HP +50  
-	SKILL_HOLYLAND_BLOOD_BIBLE_LEGIOS,				// �������ݵ����� +10  
-	SKILL_HOLYLAND_BLOOD_BIBLE_HILLEL,				// ��� +10  
-	SKILL_HOLYLAND_BLOOD_BIBLE_JAVE,				// �׺����� 50% ����  
-	SKILL_HOLYLAND_BLOOD_BIBLE_NEMA,				// �þ� +5, ��� �ɷ�ġ +3  
-	SKILL_HOLYLAND_BLOOD_BIBLE_AROSA,				// ��� ���׷� +9  
+	SKILL_HOLYLAND_BLOOD_BIBLE_LEGIOS,				// ¸¶¹ý°ø°Ýµ¥¹ÌÁö +10  
+	SKILL_HOLYLAND_BLOOD_BIBLE_HILLEL,				// Çà¿î +10  
+	SKILL_HOLYLAND_BLOOD_BIBLE_JAVE,				// °×ºí°¡°Ý 50% ÇÒÀÎ  
+	SKILL_HOLYLAND_BLOOD_BIBLE_NEMA,				// ½Ã¾ß +5, ¸ðµç ´É·ÂÄ¡ +3  
+	SKILL_HOLYLAND_BLOOD_BIBLE_AROSA,				// ¸ðµç ÀúÇ×·Â +9  
 	SKILL_HOLYLAND_BLOOD_BIBLE_CHASPA,				// STR +5, INT +5 
 
-	SKILL_LOVE_CHAIN,								// ���� ü�� ��ų	
+	SKILL_LOVE_CHAIN,								// ·¯ºê Ã¼ÀÎ ½ºÅ³	
 	
 	MAGIC_TRANS_ITEM_OK,	
 	SKILL_TRANSLATION,
 	
-	SKILL_SWEEPER_BONUS_1,							// ������ ���ʽ�
-	SKILL_SWEEPER_BONUS_2,							// ������ ���ʽ�
-	SKILL_SWEEPER_BONUS_3,							// ������ ���ʽ�
-	SKILL_SWEEPER_BONUS_4,							// ������ ���ʽ�
-	SKILL_SWEEPER_BONUS_5,							// ������ ���ʽ�
-	SKILL_SWEEPER_BONUS_6,							// ������ ���ʽ�
-	SKILL_SWEEPER_BONUS_7,							// ������ ���ʽ�
-	SKILL_SWEEPER_BONUS_8,							// ������ ���ʽ�
-	SKILL_SWEEPER_BONUS_9,							// ������ ���ʽ�
-	SKILL_SWEEPER_BONUS_10,							// ������ ���ʽ�
-	SKILL_SWEEPER_BONUS_11,							// ������ ���ʽ�
-	SKILL_SWEEPER_BONUS_12,							// ������ ���ʽ�
+	SKILL_SWEEPER_BONUS_1,							// ½ºÀ§ÆÛ º¸³Ê½º
+	SKILL_SWEEPER_BONUS_2,							// ½ºÀ§ÆÛ º¸³Ê½º
+	SKILL_SWEEPER_BONUS_3,							// ½ºÀ§ÆÛ º¸³Ê½º
+	SKILL_SWEEPER_BONUS_4,							// ½ºÀ§ÆÛ º¸³Ê½º
+	SKILL_SWEEPER_BONUS_5,							// ½ºÀ§ÆÛ º¸³Ê½º
+	SKILL_SWEEPER_BONUS_6,							// ½ºÀ§ÆÛ º¸³Ê½º
+	SKILL_SWEEPER_BONUS_7,							// ½ºÀ§ÆÛ º¸³Ê½º
+	SKILL_SWEEPER_BONUS_8,							// ½ºÀ§ÆÛ º¸³Ê½º
+	SKILL_SWEEPER_BONUS_9,							// ½ºÀ§ÆÛ º¸³Ê½º
+	SKILL_SWEEPER_BONUS_10,							// ½ºÀ§ÆÛ º¸³Ê½º
+	SKILL_SWEEPER_BONUS_11,							// ½ºÀ§ÆÛ º¸³Ê½º
+	SKILL_SWEEPER_BONUS_12,							// ½ºÀ§ÆÛ º¸³Ê½º
 	
 	// 2004, 6, 15 sobeit add start 
-	SKILL_CLIENT_CAN_ENTER_GDR_LAIR, //- ���巹 ���� ����
-	SKILL_CLIENT_BLINDNESS,			// ��ũ�Ͻ��� ���� ȿ��
+	SKILL_CLIENT_CAN_ENTER_GDR_LAIR, //- Áúµå·¹ µé¾î°¥¼ö ÀÖÀ½
+	SKILL_CLIENT_BLINDNESS,			// ´ÙÅ©´Ï½º¿Í °°Àº È¿°ú
 	// 2004, 6, 15 sobeit add end - 
-	SKILL_CLIENT_DRAGON_EYES,	// �巹�� ������
+	SKILL_CLIENT_DRAGON_EYES,	// µå·¹°ï ¾ÆÀÌÁî
 
-	SKILL_CLIENT_EXP_BONUS_EVENT, // ����ġ ���ʽ�
+	SKILL_CLIENT_EXP_BONUS_EVENT, // °æÇèÄ¡ º¸³Ê½º
 
 	SKILL_ClIENT_UNKOWN1,	//add by viva
 	//-----------------------------------------------------------------
 	// RESULT_ACTIONINFO
 	//-----------------------------------------------------------------		
-	// �⺻ ���
+	// ±âº» ±â¼ú
 	RESULT_SKILL_ATTACK_MELEE,						// 0
 	RESULT_SKILL_ATTACK_ARMS,							// 1
 	RESULT_SKILL_SELF,									// 2
 	RESULT_SKILL_TILE,									// 3
 	RESULT_SKILL_OBJECT,	    						// 4
 
-	// �˰迭,	
+	// °Ë°è¿­,	
 	RESULT_SKILL_DOUBLE_IMPACT,  					  	// 5
 	RESULT_SKILL_TRIPLE_SLASHER,				  	  	// 6
 	RESULT_SKILL_RAINBOW_SLASHER,					  	// 7
@@ -789,7 +789,7 @@ enum ACTIONINFO
 	RESULT_SKILL_FIVE_STORM_CRASH,	 				 	// 15
 	RESULT_SKILL_HEAVENS_SWORD,		  			  	// 16
 
-	// �� �迭,
+	// µµ °è¿­,
 	RESULT_SKILL_SINGLE_BLOW,						    // 17
 	RESULT_SKILL_SPIRAL_SLAY,						    // 18
 	RESULT_SKILL_TRIPLE_BREAK,						    // 19
@@ -804,7 +804,7 @@ enum ACTIONINFO
 	RESULT_SKILL_SOUL_SHOCK,			   				// 27
 	RESULT_SKILL_SAINT_BLADE,			   			  	// 28
 
-	// ��, ������ �迭
+	// °Ç, ¶óÀÌÇÃ °è¿­
 	RESULT_SKILL_FAST_RELOAD,						    // 30
 	RESULT_SKILL_QUICK_FIRE,							//
 	RESULT_SKILL_SMG_MASTERY,							// 
@@ -821,15 +821,15 @@ enum ACTIONINFO
 	RESULT_SKILL_INSTALL_MINE,						    // 37
 	RESULT_SKILL_MAKE_MINE,			  			    // 38
     
-	// ��������,
-	// ��þ �迭
+	// ¼ºÁ÷¸¶¹ý,
+	// ÀÎÃ¾ °è¿­
 	RESULT_MAGIC_CREATE_HOLY_WATER, 			 		// 39
 	RESULT_MAGIC_LIGHT,				      			// 40
 	RESULT_MAGIC_DETECT_HIDDEN,	   	 				// 41
 	RESULT_MAGIC_AURA_BALL,	     		 		 	// 55
 	RESULT_MAGIC_BLESS,			       		 		// 45
 	RESULT_MAGIC_CONTINUAL_LIGHT,	 			 		// 46
-	RESULT_MAGIC_FLARE,								// ���ϱ� �ٽ� ���� �ؾ���
+	RESULT_MAGIC_FLARE,								// ¾ó¸¶ÀÏ±î ´Ù½Ã Á¤¸® ÇØ¾ßÁö
 	RESULT_MAGIC_PURIFY,    						// 43
 	RESULT_MAGIC_AURA_RING,		  	  		  		// 42
 	RESULT_MAGIC_STRIKING,		      					// 44
@@ -841,28 +841,28 @@ enum ACTIONINFO
 	RESULT_MAGIC_CHAIN_AURA,							// 50
 	RESULT_MAGIC_SAINT_AURA,							// 51
 
-	// �� �迭
+	// Èú °è¿­
 	RESULT_MAGIC_CURE_LIGHT_WOUNDS,					// 52
 	RESULT_MAGIC_CURE_POISON,							// 54
 	RESULT_MAGIC_PROTECTION_FROM_POISON,				// 53
-	RESULT_MAGIC_CAUSE_LIGHT_WOUNDS,					// ���ϱ� �ٽ� ���� �ؾ���
+	RESULT_MAGIC_CAUSE_LIGHT_WOUNDS,					// ¾ó¸¶ÀÏ±î ´Ù½Ã Á¤¸® ÇØ¾ßÁö
 	RESULT_MAGIC_CURE_SERIOUS_WOUNDS,					// 56
 	RESULT_MAGIC_REMOVE_CURSE,							// 89
 	RESULT_MAGIC_PROTECTION_FROM_CURSE,				// 59
-	RESULT_MAGIC_CAUSE_SERIOUS_WOUNDS,					// ���ϱ� �ٽ� ���� �ؾ���
+	RESULT_MAGIC_CAUSE_SERIOUS_WOUNDS,					// ¾ó¸¶ÀÏ±î ´Ù½Ã Á¤¸® ÇØ¾ßÁö
 	RESULT_MAGIC_CURE_CRITICAL_WOUNDS,					// 
 	RESULT_MAGIC_PROTECTION_FROM_ACID,					//
 	RESULT_MAGIC_SACRIFICE,							//
-	RESULT_MAGIC_CAUSE_CRITICAL_WOUNDS,				// ���ϱ� �ٽ� ���� �ؾ���
+	RESULT_MAGIC_CAUSE_CRITICAL_WOUNDS,				// ¾ó¸¶ÀÏ±î ´Ù½Ã Á¤¸® ÇØ¾ßÁö
 	RESULT_MAGIC_CURE_ALL,								// 62
 	RESULT_MAGIC_REGENERATION,							// 61
 	RESULT_MAGIC_MASS_CURE,							//
 	RESULT_MAGIC_MASS_HEAL,							//
 
-	// �������,
+	// ¹ìÇÁ±â¼ú,
 	RESULT_SKILL_BLOOD_DRAIN,							// 65
 
-	// ��������,
+	// ¹ìÇÁ¸¶¹ý,
 	// Poison
 	RESULT_MAGIC_POISONOUS_HANDS,						// 67
 	RESULT_MAGIC_GREEN_POISON,							// 69
@@ -897,7 +897,7 @@ enum ACTIONINFO
 	RESULT_MAGIC_TRANSFORM_TO_WOLF,					// 77
 	RESULT_MAGIC_TRANSFORM_TO_BAT,						// 80
 
-	// ���
+	// ½á¸ó
 	RESULT_MAGIC_SUMMON_WOLF,							// 87
 	RESULT_MAGIC_SUMMON_CASKET,						// 88
 	RESULT_MAGIC_RAISING_DEAD,							// 88
@@ -909,7 +909,7 @@ enum ACTIONINFO
 	RESULT_MAGIC_UN_INVISIBILITY,
 	RESULT_MAGIC_THROW_HOLY_WATER,						// 91
 
-	// ���� ���
+	// ´Á´ë ±â¼ú
 	RESULT_MAGIC_EAT_CORPSE,
 	RESULT_MAGIC_HOWL,
 
@@ -926,7 +926,7 @@ enum ACTIONINFO
 	RESULT_MAGIC_PRAYER,
 	RESULT_MAGIC_MEDITATION,
 
-	// 2001.12.4 �߰�
+	// 2001.12.4 Ãß°¡
 	RESULT_SKILL_THUNDER_BOLT,							// 122
 	RESULT_SKILL_EXPANSION, 							// 123
 	RESULT_SKILL_MIRACLE_SHIELD, 						// 124
@@ -962,7 +962,7 @@ enum ACTIONINFO
 	RESULT_SKILL_BLOODY_STRIKE,						// 149
 	RESULT_SKILL_BLOODY_STORM,							// 150
 
-	// �߰� 2002.3.23
+	// Ãß°¡ 2002.3.23
 	RESULT_SKILL_SUMMON_BAT,
 	RESULT_SKILL_CHARM,
 	RESULT_SKILL_POLYMORPH,
@@ -978,11 +978,11 @@ enum ACTIONINFO
 
 	RESULT_SKILL_CURE_EFFECT,			// cure
 	RESULT_SKILL_CRITICAL_EFFECT,
-	RESULT_SKILL_CRITICAL_GROUND,		// critical�� ����ϴ� ���	
+	RESULT_SKILL_CRITICAL_GROUND,		// criticalÀ» »ç¿ëÇÏ´Â °æ¿ì	
 
 	RESULT_SKILL_VIGOR_DROP,
 
-	// [�����]
+	// [»õ±â¼ú]
 	RESULT_SKILL_SWORD_MASTERY,                        // 166
     RESULT_SKILL_SHIELD_MASTERY,                       // 167
     RESULT_SKILL_THUNDER_STORM,                        // 168
@@ -1164,7 +1164,7 @@ enum ACTIONINFO
 	
 	RESULT_SKILL_FABULOUS_SOUL,						//305
 	RESULT_SKILL_WILL_OF_IRON,							//306
-	// ���巹 ��ų
+	// Áúµå·¹ ½ºÅ³
     RESULT_SKILL_WIDE_ICE_FIELD,                       // 307
     RESULT_SKILL_GLACIER_1,                            // 308
     RESULT_SKILL_GLACIER_2,                            // 309
@@ -1200,11 +1200,11 @@ enum ACTIONINFO
     RESULT_SKILL_REACTIVE_ARMOR_MASTERY,             // 335
 
 	RESULT_SKILL_THROWING_AXE,                         // 336
-    RESULT_SKILL_CHOPPING_FIREWOOD,                    // 337 �����б�	
+    RESULT_SKILL_CHOPPING_FIREWOOD,                    // 337 ÀåÀÛÆÐ±â	
 
 	RESULT_SKILL_CHAIN_THROWING_AXE,                   // 338
     RESULT_SKILL_MULTI_THROWING_AXE,                   // 339
-    RESULT_SKILL_PLAYING_WITH_FIRE,                    // 340 ���峭
+    RESULT_SKILL_PLAYING_WITH_FIRE,                    // 340 ºÒÀå³­
 
 	RESULT_SKILL_INFINITY_THUNDERBOLT,                 // 341
     RESULT_SKILL_SPIT_STREAM,                          // 342
@@ -1215,17 +1215,17 @@ enum ACTIONINFO
     RESULT_SKILL_NOOSE_OF_WRAITH,                      // 347
 
 	RESULT_SKILL_SHARP_HAIL,                           // 348
-    RESULT_SKILL_SUMMON_MIGA,                          // 349  // �ƿ콺��� ���� ��ų
-    RESULT_SKILL_SUMMON_MIGA_ATTACK,                   // 350  // ��ȯ�ȳ��� ���� ��ų
+    RESULT_SKILL_SUMMON_MIGA,                          // 349  // ¾Æ¿ì½ºÅÍÁî°¡ ¾²´Â ½ºÅ³
+    RESULT_SKILL_SUMMON_MIGA_ATTACK,                   // 350  // ¼ÒÈ¯µÈ³ðÀÌ ¾²´Â ½ºÅ³
     RESULT_SKILL_ICE_HORIZON,                          // 351
     RESULT_SKILL_FURY_OF_GNOME,                        // 352
 	
-	RESULT_SKILL_CANNONADE,								// 353  // ����
-    RESULT_SKILL_SELF_DESTRUCTION,						// 354  // ��������
+	RESULT_SKILL_CANNONADE,								// 353  // Æ÷°Ý
+    RESULT_SKILL_SELF_DESTRUCTION,						// 354  // ÀÚÆø°ø°Ý
 
-	RESULT_SKILL_AR_ATTACK,                            // 355  // ���Ϳ�
-    RESULT_SKILL_SMG_ATTACK,                           // 356  // ���Ϳ�
-    RESULT_SKILL_GRENADE_ATTACK, //by viva ousters(problem)(RESULT_SKILL_GUN_SHOT_GUIDANCE)                     // 357  // ���Ϳ�
+	RESULT_SKILL_AR_ATTACK,                            // 355  // ¸ó½ºÅÍ¿ë
+    RESULT_SKILL_SMG_ATTACK,                           // 356  // ¸ó½ºÅÍ¿ë
+    RESULT_SKILL_GRENADE_ATTACK, //by viva ousters(problem)(RESULT_SKILL_GUN_SHOT_GUIDANCE)                     // 357  // ¸ó½ºÅÍ¿ë
 
 	RESULT_SKILL_DRAGON_TORNADO,                       // 358
     RESULT_SKILL_BIKE_CRASH,                           // 359
@@ -1239,7 +1239,7 @@ enum ACTIONINFO
     RESULT_SKILL_FIERCE_FLAME,                         // 367
     RESULT_SKILL_SHADOW_OF_STORM,                      // 368
 
-	RESULT_SKILL_HEAL_PASS,                            // 369 // �Űܰ��� ��
+	RESULT_SKILL_HEAL_PASS,                            // 369 // ¿Å°Ü°¡´Â Èú
 
 	RESULT_SKILL_TRASLA_ATTACK,                      // 370
     RESULT_SKILL_PUSCA_ATTACK,                       // 371
@@ -1249,18 +1249,18 @@ enum ACTIONINFO
 #ifdef __NEW_SKILL__
 	RESULT_SKILL_BLLODY_SCARIFY,					// 374
 	RESULT_SKILL_BLOOD_CURSE,						// 375
-	RESULT_SKILL_SHINE_SWORD,						// 376  ��ҫ֮��
-	RESULT_SKILL_BOMB_CRASH_WALK,					// 377  ���ں�ը
-	RESULT_SKILL_SATELLITE_BOMB,					// 378  ���Ǻ��
-	RESULT_SKILL_ILLUSION_INVERSION,				// 379  �ֲ��þ�
-	RESULT_SKILL_HEAVEN_GROUND,						// 380  ������
-	// �ֲ��þ�����������ʾЧ��
+	RESULT_SKILL_SHINE_SWORD,						// 376  ÉÁÒ«Ö®½£
+	RESULT_SKILL_BOMB_CRASH_WALK,					// 377  ¾ÞÅÚºäÕ¨
+	RESULT_SKILL_SATELLITE_BOMB,					// 378  ÎÀÐÇºä»÷
+	RESULT_SKILL_ILLUSION_INVERSION,				// 379  ¿Ö²À»Ã¾õ
+	RESULT_SKILL_HEAVEN_GROUND,						// 380  ÌìÉñ½µÁÙ
+	// ¿Ö²À»Ã¾õ·ÖÉíµ¥¸öÏÔÊ¾Ð§¹û
 	RESULT_TEMP_SKILL_ILLUSION_INVERSION,			// 
-	// ħ�鼼��
-	RESULT_SKILL_DUMMY_DRAKE,        // 382 ���׿˿���(��)
-	RESULT_SKILL_HYDRO_CONVERGENCE,  // 383 ����ˮ��(ˮ)
-	RESULT_SKILL_SUMMON_CLAY,		 // 384 ճ���ٻ�(��)
-	RESULT_SKILL_HETER_CHAKRAM,			 // 385 �Ĳ�������(սʿ)
+	// Ä§Áé¼¼ÄÜ
+	RESULT_SKILL_DUMMY_DRAKE,        // 382 µÂÀ×¿Ë¿þÀÜ(»ð)
+	RESULT_SKILL_HYDRO_CONVERGENCE,  // 383 ¸´ºÏË®ÁÆ(Ë®)
+	RESULT_SKILL_SUMMON_CLAY,		 // 384 Õ³ÍÁÕÙ»½(ÍÁ)
+	RESULT_SKILL_HETER_CHAKRAM,			 // 385 ÏÄ²¼Àû»ùÒò(Õ½Ê¿)
 #endif
 	// 2007-2-15 add by coffee end
 
@@ -1295,7 +1295,7 @@ enum ACTIONINFO
 	//------------------------------------------------------------------------
 	//------------------------------------------------------------------------
 	
-	// �ӽ÷� �߰�
+	// ÀÓ½Ã·Î Ãß°¡
 	RESULT_MAGIC_BLOODY_TUNNEL_INTO,
 //	RESULT_MAGIC_OPEN_CASKET,
 	RESULT_SUMMON_HELICOPTER,		
@@ -1318,16 +1318,16 @@ enum ACTIONINFO
 	RESULT_MINE_COBRA,
 
 	// Gun
-	RESULT_SKILL_ATTACK_GUN_SR,			// ��1
-	RESULT_SKILL_ATTACK_GUN_SG,			// ��2
-	RESULT_SKILL_ATTACK_GUN_AR,			// ��3
-	RESULT_SKILL_ATTACK_GUN_SMG,		// ��4
+	RESULT_SKILL_ATTACK_GUN_SR,			// ÃÑ1
+	RESULT_SKILL_ATTACK_GUN_SG,			// ÃÑ2
+	RESULT_SKILL_ATTACK_GUN_AR,			// ÃÑ3
+	RESULT_SKILL_ATTACK_GUN_SMG,		// ÃÑ4
 	
 	// Sword
-	RESULT_SKILL_ATTACK_SWORD,			// Į
-	RESULT_SKILL_ATTACK_BLADE,			// ��
+	RESULT_SKILL_ATTACK_SWORD,			// Ä®
+	RESULT_SKILL_ATTACK_BLADE,			// µµ
 
-	// �ѿ� ���� holy shooting
+	// ÃÑ¿¡ µû¸¥ holy shooting
 	RESULT_SKILL_HOLY_SHOOTING_TR,					//	Holy shooting
 	RESULT_SKILL_HOLY_SHOOTING_SG,					//	Holy shooting
 	RESULT_SKILL_HOLY_SHOOTING_AR,					//	Holy shooting
@@ -1347,12 +1347,12 @@ enum ACTIONINFO
 
 	
 	//-----------------------------------------------------------------------------
-	// ��ų �ܰ�
+	// ½ºÅ³ ´Ü°è
 	//-----------------------------------------------------------------------------
-	RESULT_STEP_SKILL_FLOURISH_2,							// 2�ܰ� FLOURISH
-	RESULT_STEP_SKILL_FLOURISH_3,							// 3�ܰ� FLOURISH
-	RESULT_STEP_SKILL_SHARP_ROUND_2,						// 2�ܰ� Sharp Round
-	RESULT_STEP_SKILL_SHARP_ROUND_3,						// 3�ܰ� Sharp Round
+	RESULT_STEP_SKILL_FLOURISH_2,							// 2´Ü°è FLOURISH
+	RESULT_STEP_SKILL_FLOURISH_3,							// 3´Ü°è FLOURISH
+	RESULT_STEP_SKILL_SHARP_ROUND_2,						// 2´Ü°è Sharp Round
+	RESULT_STEP_SKILL_SHARP_ROUND_3,						// 3´Ü°è Sharp Round
 	RESULT_STEP_SKILL_GAMMA_CHOP_2,
 	RESULT_STEP_SKILL_GAMMA_CHOP_3,
 	RESULT_STEP_SKILL_CROSS_GUARD_2,
@@ -1381,7 +1381,7 @@ enum ACTIONINFO
 	RESULT_STEP_SKILL_MAGNUM_SPEAR_3,
 	//-----------------------------------------------------------------------------
 
-	// client ����
+	// client Àü¿ë
 	RESULT_SLAYER_DIE,
 	RESULT_VAMPIRE_DIE,
 	RESULT_OUSTERS_DIE,
@@ -1400,22 +1400,22 @@ enum ACTIONINFO
 	CASTING_GROUND2,
 	CASTING_WATER2,
 
-	// �� ȿ���� ���� ���ؼ�..
+	// ¹æ¾î¸· È¿°ú¸¦ ³»±â À§ÇØ¼­..
 	REFLECT_AURA_PRISM,				//	
 	REFLECT_AURA_SHIELD,				//	
 	PROTECTION_FROM_ACID,
-	REFLECT_REFLECTION,				//	SKILL_REFLECTION�� ���Ѱ�
+	REFLECT_REFLECTION,				//	SKILL_REFLECTION¿¡ ÀÇÇÑ°Í
 
-	// �ٴڿ� �긮�� ��
+	// ¹Ù´Ú¿¡ Èê¸®´Â ÇÇ
 	BLOOD_DROP_GROUND,
 	BLOOD_CRITICAL_HIT,	
 	BLOOD_RESURRECT,
 	
-	// �Ƹ��Ե� 2002.3.4
-	ARMAGEDDON_CRASH_1,			// ù��° �μ����°�
-	ARMAGEDDON_CRASH_2,			// �ι�°
-	ARMAGEDDON_CRASH_3,			// ����°
-	ARMAGEDDON_CRASH_4,			// ������ ����
+	// ¾Æ¸¶°Ôµ· 2002.3.4
+	ARMAGEDDON_CRASH_1,			// Ã¹¹øÂ° ºÎ¼­Áö´Â°Å
+	ARMAGEDDON_CRASH_2,			// µÎ¹øÂ°
+	ARMAGEDDON_CRASH_3,			// ¼¼¹øÂ°
+	ARMAGEDDON_CRASH_4,			// ¸¶Áö¸· ³²±â
 	
 	// bloody_wall_single
 	RESULT_MAGIC_BLOODY_WALL_SINGLE,
@@ -1446,18 +1446,18 @@ enum ACTIONINFO
 	SHRINE_SHIELD,
 	DROP_BLOOD_BIBLE,
 
-	ARMEGA_TILE,					// �Ƹ��ް�
-	MIHOLE_TILE,					// ��ȣ��
-	KIRO_TILE,						// Ű��
-	INI_TILE,						// ���̴�
-	GREGORI_TILE,					// �׸����� ����Ʈ(Ÿ�Ͽ� �ٴ°�)
-	CONCILIA_TILE,					// ��ĥ����
-	LEGIOS_TILE,					// ��������
-	HILLEL_TILE,					// ����
-	JAVE_TILE,						// ���
-	NEMA_TILE,						// �׸�
-	AROSA_TILE,						// �Ʒλ�
-	CHASPA_TILE,					// ������
+	ARMEGA_TILE,					// ¾Æ¸£¸Þ°¡
+	MIHOLE_TILE,					// ¹ÌÈ£·¹
+	KIRO_TILE,						// Å°·Î
+	INI_TILE,						// ¾ÆÀÌ´Ï
+	GREGORI_TILE,					// ±×¸®°í¸® ÀÌÆåÆ®(Å¸ÀÏ¿¡ ºÙ´Â°Í)
+	CONCILIA_TILE,					// ÄÜÄ¥¸®¾Æ
+	LEGIOS_TILE,					// ·¹Áö¿À½º
+	HILLEL_TILE,					// Èú¸±
+	JAVE_TILE,						// Àðºê
+	NEMA_TILE,						// ³×¸¶
+	AROSA_TILE,						// ¾Æ·Î»ç
+	CHASPA_TILE,					// Â÷½ºÆÄ
 
 	HOLY_LAND_WARP_VAMPIRE,
 	HOLY_LAND_WARP_SLAYER,
@@ -1472,17 +1472,17 @@ enum ACTIONINFO
 	SKILL_DENIAL_MAGIC_DAMAGED,
 	SKILL_DRAGON_FIRE_CRACKER,
 
-	SKILL_FIRE_CRACKER_4,			// �߰�
+	SKILL_FIRE_CRACKER_4,			// Ãß°¡
 	
-	SKILL_FIRE_CRACKER_VOLLEY_1,		// 3���� ����-_-
-	SKILL_FIRE_CRACKER_VOLLEY_2,		// 3���� ����-_-
-	SKILL_FIRE_CRACKER_VOLLEY_3,		// 3���� ����-_-
-	SKILL_FIRE_CRACKER_VOLLEY_4,		// 3���� ����-_-
+	SKILL_FIRE_CRACKER_VOLLEY_1,		// 3¿¬¹ß ÆøÁ×-_-
+	SKILL_FIRE_CRACKER_VOLLEY_2,		// 3¿¬¹ß ÆøÁ×-_-
+	SKILL_FIRE_CRACKER_VOLLEY_3,		// 3¿¬¹ß ÆøÁ×-_-
+	SKILL_FIRE_CRACKER_VOLLEY_4,		// 3¿¬¹ß ÆøÁ×-_-
 	
-	SKILL_FIRE_CRACKER_WIDE_VOLLEY_1,	// 3���� ���� ����
-	SKILL_FIRE_CRACKER_WIDE_VOLLEY_2,	// 3���� ���� ����
-	SKILL_FIRE_CRACKER_WIDE_VOLLEY_3,	// 3���� ���� ����
-	SKILL_FIRE_CRACKER_WIDE_VOLLEY_4,	// 3���� ���� ����
+	SKILL_FIRE_CRACKER_WIDE_VOLLEY_1,	// 3¿¬¹ß ±¤¿ª ÆøÁ×
+	SKILL_FIRE_CRACKER_WIDE_VOLLEY_2,	// 3¿¬¹ß ±¤¿ª ÆøÁ×
+	SKILL_FIRE_CRACKER_WIDE_VOLLEY_3,	// 3¿¬¹ß ±¤¿ª ÆøÁ×
+	SKILL_FIRE_CRACKER_WIDE_VOLLEY_4,	// 3¿¬¹ß ±¤¿ª ÆøÁ×
 
 	SKILL_FIRE_CRACKER_STORM,
 	SAND_OF_SOUL_STONE,
@@ -1500,10 +1500,10 @@ enum ACTIONINFO
 	TRAP_TRIGGERED,
 	TRAPPED,
 	
-	REGEN_TOWER_TRING_POSITION,			// ������ Ÿ�� ��Ż Ÿ��
-	REGEN_TOWER_THROW_LIGHT,			// ������ �� ��ġ�°� 
-	REGEN_TOWER_TRING_POSITION_LIGHT,	// ������ Ÿ�� ��Ż Ÿ�Ͽ� �ö�����
-	REGEN_TOWER_FLASH_BEAD,				// ������ Ÿ�� ���� ��¦�Ÿ��°�.
+	REGEN_TOWER_TRING_POSITION,			// ¸®Á¨Á¸ Å¸¿ö ÀïÅ» Å¸ÀÏ
+	REGEN_TOWER_THROW_LIGHT,			// ¸®Á¨Á¸ ºû ºñÄ¡´Â°Å 
+	REGEN_TOWER_TRING_POSITION_LIGHT,	// ¸®Á¨Á¸ Å¸¿ö ÀïÅ» Å¸ÀÏ¿¡ ¿Ã¶úÀ»¶§
+	REGEN_TOWER_FLASH_BEAD,				// ¸®Á¨Á¸ Å¸¿ö ±¸½½ ¹ÝÂ¦°Å¸®´Â°Å.
 
 	SKILL_CLIENT_TELEPORT,
 	SKILL_CLIENT_TELEPORT2,
@@ -1522,7 +1522,7 @@ enum ACTIONINFO
 	SKILL_CLIENT_TANK_ATTACKED,
 
 
-	// 2004,3,6 sobeit add start - �� ��ų
+	// 2004,3,6 sobeit add start - Æê ½ºÅ³
 	SKILL_CLIENT_STIRGE_BLOOD_DRAIN_1,
 	SKILL_CLIENT_STIRGE_BLOOD_DRAIN_2,
 	SKILL_CLIENT_STIRGE_BLOOD_DRAIN_3,
@@ -1534,9 +1534,9 @@ enum ACTIONINFO
 	SKILL_CLIENT_PIXIE_ABSORB_SOUL_3,
 	SKILL_CLIENT_PIXIE_ABSORB_SOUL_4,
 	SKILL_CLIENT_PIXIE_ABSORB_SOUL_5,
-	// 2004,3,6 sobeit add end - �� ��ų
+	// 2004,3,6 sobeit add end - Æê ½ºÅ³
 
-	// 2004,3,22 sobeit add start - ���� ���
+	// 2004,3,22 sobeit add start - °ËÀº ±â¿î
 	MAP_BLACK_LARGE_SMOKE,
 	MAP_BLACK_HALL,
 	MAP_BLACK_SMALL_SMOKE_1,
@@ -1546,16 +1546,16 @@ enum ACTIONINFO
 	MAP_ELECTRIC_POST,
 	MAP_GHOST_1,
 	MAP_GHOST_2,
-	// 2004,3,22 sobeit add end - ���� ���
+	// 2004,3,22 sobeit add end - °ËÀº ±â¿î
 	
-	// 2004, 3, 30 sobeit add start - ����� ���ö� ����Ʈ
+	// 2004, 3, 30 sobeit add start - ¿ï¹ö¸° ³ª¿Ã¶§ ÀÌÆåÆ®
 	RESULT_SUMMON_ULBERINE,
-	// 2004, 3, 30 sobeit add end - ����� ���ö� ����Ʈ
+	// 2004, 3, 30 sobeit add end - ¿ï¹ö¸° ³ª¿Ã¶§ ÀÌÆåÆ®
 
-	// 2004, 4,2  sobeit add start - ����� ���ζ�(���� Ŭ�ι�)
+	// 2004, 4,2  sobeit add start - Çà¿îÀÇ ¿À·Î¶ó(³×ÀÙ Å¬·Î¹Ù)
 	RESULT_LUCKY_AURA,
 	RESULT_MISFORTUNE_AURA,
-	// 2004, 4,2 sobeit add end - ����� ���ζ�(���� Ŭ�ι�)
+	// 2004, 4,2 sobeit add end - Çà¿îÀÇ ¿À·Î¶ó(³×ÀÙ Å¬·Î¹Ù)
 
 	// 2004, 5, 6, sobeit add start
 	AMBER_OF_LIFE_TILE,
@@ -1563,27 +1563,27 @@ enum ACTIONINFO
 	// 2004, 5, 6, sobeit add end
 
 	// 2004, 5, 18 sobeit add start
-	SKILL_CLIENT_TRAP_ICICLE_DROP,					// �������� ���� Ʈ��
+	SKILL_CLIENT_TRAP_ICICLE_DROP,					// ¶³¾îÁö´Â ¾óÀ½ Æ®·¦
 	SKILL_CLIENT_TRAP_ICICLE_DROP_SIGN,
 
 	SKILL_CLIENT_TRAP_ICICLE_AUGER,
 	SKILL_CLIENT_TRAP_ICICLE_AUGER_SIGN,
 
-	SKILL_CLIENT_TRAP_ICE_STICK_SW,		// ����
-	SKILL_CLIENT_TRAP_ICE_STICK_SW_SIGN,// ����
-	SKILL_CLIENT_TRAP_ICE_STICK_SE,		// ����
-	SKILL_CLIENT_TRAP_ICE_STICK_SE_SIGN,// ����
-	SKILL_CLIENT_TRAP_ICE_STICK_NE,		// ���
-	SKILL_CLIENT_TRAP_ICE_STICK_NE_SIGN,// ���
-	SKILL_CLIENT_TRAP_ICE_STICK_NW,		// �»�
-	SKILL_CLIENT_TRAP_ICE_STICK_NW_SIGN,// �»�
+	SKILL_CLIENT_TRAP_ICE_STICK_SW,		// ÁÂÇÏ
+	SKILL_CLIENT_TRAP_ICE_STICK_SW_SIGN,// ÁÂÇÏ
+	SKILL_CLIENT_TRAP_ICE_STICK_SE,		// ¿ìÇÏ
+	SKILL_CLIENT_TRAP_ICE_STICK_SE_SIGN,// ¿ìÇÏ
+	SKILL_CLIENT_TRAP_ICE_STICK_NE,		// ¿ì»ó
+	SKILL_CLIENT_TRAP_ICE_STICK_NE_SIGN,// ¿ì»ó
+	SKILL_CLIENT_TRAP_ICE_STICK_NW,		// ÁÂ»ó
+	SKILL_CLIENT_TRAP_ICE_STICK_NW_SIGN,// ÁÂ»ó
 
 	SKILL_CLIENT_TRAP_ICICLE_LARGE_AUGER,
 	SKILL_CLIENT_TRAP_ICICLE_LARGE_AUGER_SIGN,
 	// 2004, 5, 18 sobeit add start
 	
 
-	// 2004, 6, 8 sobeit add start - ���巹 �ֺ� ����Ʈ
+	// 2004, 6, 8 sobeit add start - Áúµå·¹ ÁÖº¯ ÀÌÆåÆ®
 //	SKILL_CLIENT_SUMMON_GDR, 
 //    SKILL_CLIENT_GDR_SATELLITE,
 //    SKILL_CLIENT_GDR_FLOATING, 
@@ -1591,7 +1591,7 @@ enum ACTIONINFO
 //	SKILL_CLIENT_SLAYER_MASTER_130,
 //	SKILL_CLIENT_SLAYER_MASTER_150,
 //	SKILL_CLIENT_VAMPIRE_MASTER_130,
-//	SKILL_CLIENT_VAMPIRE_MASTER_150, // 150 ���� ������ ����Ʈ
+//	SKILL_CLIENT_VAMPIRE_MASTER_150, // 150 ·¹º§ ¸¶½ºÅÍ ÀÌÆåÆ®
 //	SKILL_CLIENT_OUSTERS_MASTER_130,
 //	SKILL_CLIENT_OUSTERS_MASTER_150,
 	// 2004, 6, 8 sobeit add end
@@ -1603,50 +1603,50 @@ enum ACTIONINFO
 	// 2004, 6, 15 sobeit add end - gdr skill - glacier
 
 	// 2004, 6, 26 sobeit add start
-	MAP_GDR_LAIR_POTAL,	// ���巹 ��Ż ����Ʈ
+	MAP_GDR_LAIR_POTAL,	// Áúµå·¹ Æ÷Å» ÀÌÆåÆ®
 	// 2004, 6, 26 sobeit add end
 
 	// 2004, 8, 5 sobeit add start
-	SKILL_CLIENT_CASTLE_GATE_DEAD, // ���� �μ�����(������) ū ��������Ʈ
-	SKILL_CLIENT_CASTLE_GATE_DAMAGED,// ���� Ÿ�� ���� ��
-	SKILL_CLIENT_GUILD_TOWER_DEAD, // ���Ÿ�� �μ�����(������) ū ��������Ʈ
-	SKILL_CLIENT_GUILD_TOWER_PROTECT, // ���Ÿ�� ��ȣ ����Ʈ
+	SKILL_CLIENT_CASTLE_GATE_DEAD, // ¼º¹® ºÎ¼­Áú¶§(Á×À»¶§) Å« ¸ÕÁöÀÌÆåÆ®
+	SKILL_CLIENT_CASTLE_GATE_DAMAGED,// ¼º¹® Å¸°Ý ¹ÞÀ» ¶§
+	SKILL_CLIENT_GUILD_TOWER_DEAD, // ±æµåÅ¸¿ö ºÎ¼­Áú¶§(Á×À»¶§) Å« ¸ÕÁöÀÌÆåÆ®
+	SKILL_CLIENT_GUILD_TOWER_PROTECT, // ±æµåÅ¸¿ö º¸È£ ÀÌÆåÆ®
 	// 2004, 8, 5 sobeit add end
 
 	// 2004, 8, 31, sobeit add start
-	SKILL_CLIENT_LAND_MINE_LIGHT,		// ���帶�ο� ��� �پ� �ִ� ����Ʈ
-	SKILL_CLIENT_PLEASUER_STATION_LIGHT,// ������ �����̼ǿ� ��� �پ� �ִ� ����Ʈ
+	SKILL_CLIENT_LAND_MINE_LIGHT,		// ·£µå¸¶ÀÎ¿¡ °è¼Ó ºÙ¾î ÀÖ´Â ÀÌÆåÆ®
+	SKILL_CLIENT_PLEASUER_STATION_LIGHT,// ÇÁ·¹Á® ½ºÅ×ÀÌ¼Ç¿¡ °è¼Ó ºÙ¾î ÀÖ´Â ÀÌÆåÆ®
 	// 2004, 8, 31, sobeit add end
 
 	// 2004, 9, 2, sobeit add start
-	SKILL_CLIENT_TURRET_LASER,					// �ͷ� ������ 1Ÿ��
-	SKILL_CLIENT_TURRET_LASER_ATTACK,           // �ͷ� ������ ���� 1Ÿ�� (���������� ����) 
+	SKILL_CLIENT_TURRET_LASER,					// ÅÍ·¿ ·¹ÀÌÀú 1Å¸ÀÏ
+	SKILL_CLIENT_TURRET_LASER_ATTACK,           // ÅÍ·¿ ·¹ÀÌÀú °ø°Ý 1Å¸ÀÏ (°ø°ÝÃø¿¡µµ º¸ÀÓ) 
 	// 2004, 9, 2, sobeit add end
 
-	// 2004, 9, 6, sobeit add start - ���巹 �ױ� ����Ʈ , ��Ǫ�� ���� Ÿ��
+	// 2004, 9, 6, sobeit add start - Áúµå·¹ Á×±â ÀÌÆåÆ® , ¸®ÇªÅä ÆåÅÒ Å¸°Ý
 	SKILL_CLIENT_GDR_DEAD,
 	SKILL_CLIENT_HIT_REPUTO_FACTUM,
-	// 2004, 9, 6, sobeit add end - ���巹 �ױ� ����Ʈ
+	// 2004, 9, 6, sobeit add end - Áúµå·¹ Á×±â ÀÌÆåÆ®
 
-	SKILL_CLIENT_SWEEP_VICE,// ��æ ���� ���̽� 1�ܰ�
-	SKILL_CLIENT_SWORD_OF_THOR, // �ҵ� ���� �丣 ���� �Ǵ°�
+	SKILL_CLIENT_SWEEP_VICE,// ÀÎÃ¦ ½ºÀ¬ ¹ÙÀÌ½º 1´Ü°è
+	SKILL_CLIENT_SWORD_OF_THOR, // ¼Òµå ¿Àºê Åä¸£ Áö¼Ó µÇ´Â°Å
 
-	SKILL_CLIENT_BURNING_SOL_1, // ���� ���׼� 1�ܰ�
-	SKILL_CLIENT_BURNING_SOL_2, // ���� ���׼� 2�ܰ�
-	SKILL_CLIENT_BURNING_SOL_3, // ���� ���׼� 3�ܰ�
-	SKILL_CLIENT_BURNING_SOL_4, // ���� ���׼� 4�ܰ�
-	RESULT_CLIENT_BURNING_SOL_1, // ���� ���׼� 1�ܰ�
-	RESULT_CLIENT_BURNING_SOL_2, // ���� ���׼� 2�ܰ�
-	RESULT_CLIENT_BURNING_SOL_3, // ���� ���׼� 3�ܰ�
-	RESULT_CLIENT_BURNING_SOL_4, // ���� ���׼� 4�ܰ�
+	SKILL_CLIENT_BURNING_SOL_1, // µµ½½ ¹ö´×¼Ö 1´Ü°è
+	SKILL_CLIENT_BURNING_SOL_2, // µµ½½ ¹ö´×¼Ö 2´Ü°è
+	SKILL_CLIENT_BURNING_SOL_3, // µµ½½ ¹ö´×¼Ö 3´Ü°è
+	SKILL_CLIENT_BURNING_SOL_4, // µµ½½ ¹ö´×¼Ö 4´Ü°è
+	RESULT_CLIENT_BURNING_SOL_1, // µµ½½ ¹ö´×¼Ö 1´Ü°è
+	RESULT_CLIENT_BURNING_SOL_2, // µµ½½ ¹ö´×¼Ö 2´Ü°è
+	RESULT_CLIENT_BURNING_SOL_3, // µµ½½ ¹ö´×¼Ö 3´Ü°è
+	RESULT_CLIENT_BURNING_SOL_4, // µµ½½ ¹ö´×¼Ö 4´Ü°è
 	
-	// 2004, 10, 21, sobeit add start - �׷���Ʈ ���Ǿ� ����
-	SKILL_CLIENT_GREAT_RUFFIAN_ALIVE, // 2�� �����ɶ� ����Ʈ
-	SKILL_CLIENT_GREAT_RUFFIAN_BODY, // ���� �ٴ� ����Ʈ
-	SKILL_CLIENT_GREAT_RUFFIAN_DIE, // ������ ������ ����Ʈ
+	// 2004, 10, 21, sobeit add start - ±×·¹ÀÌÆ® ·¯ÇÇ¾ð °ü·Ã
+	SKILL_CLIENT_GREAT_RUFFIAN_ALIVE, // 2Â÷ »ý¼ºµÉ¶§ ÀÌÆåÆ®
+	SKILL_CLIENT_GREAT_RUFFIAN_BODY, // ¸ö¿¡ ºÙ´Â ÀÌÆåÆ®
+	SKILL_CLIENT_GREAT_RUFFIAN_DIE, // Á×À»¶§ ³ª¿À´Â ÀÌÆåÆ®
 	// 2004, 10, 21, sobeit add end
 
-	// 2004, 11, 11, sobeit add start - �� 140 �����°�
+	// 2004, 11, 11, sobeit add start - ÃÑ 140 ÅÍÁö´Â°Å
 	SKILL_CLIENT_PLASMA_ROCKET_LAUNCHER_BLOW,
 	// 2004, 11, 11, sobeit add end - 
 
@@ -1668,7 +1668,7 @@ enum ACTIONINFO
 	SKILL_CLIENT_ROTTEN_APPLE,
 	// 2004, 12, 30, sobeit add end
 
-	SKILL_CLIENT_CANDLE, // �к� ����Ʈ
+	SKILL_CLIENT_CANDLE, // ÃÐºÒ ÀÌÆåÆ®
 	
 	SKILL_CLIENT_ADVANCEMENT_SUMMON_SYLPH_START,
 	SKILL_CLIENT_ADVANCEMENT_SUMMON_SYLPH_END,
@@ -1676,23 +1676,23 @@ enum ACTIONINFO
 	SKILL_CLIENT_QUEST_MAGIC_ZONE,
 	SKILL_CLIENT_QUEST_MAGIC_ZONE_POTAL,
 
-	// 2004, 10, 15, sobeit add start - �׽�Ʈ��
-	TEMP_SKILL_INFINITY_THUNDERBLOT, // �˽� 140
-	TEMP_SKILL_SPIT_STREAM, // ���� 140
-	TEMP_SKILL_PLASMA_ROCKET_LAUNCHER, //�� 140
-	TEMP_SKILL_INTIMATE_GRAIL, // ��þ 140
-	TEMP_SKILL_BOMBING_STAR, // �� 140,
-	TEMP_SKILL_SET_AFIRE, // ������ 140
-	TEMP_SKILL_NOOSE_OF_WRAITH, // ������ 140
+	// 2004, 10, 15, sobeit add start - Å×½ºÆ®¿ë
+	TEMP_SKILL_INFINITY_THUNDERBLOT, // °Ë½½ 140
+	TEMP_SKILL_SPIT_STREAM, // µµ½½ 140
+	TEMP_SKILL_PLASMA_ROCKET_LAUNCHER, //ÃÑ 140
+	TEMP_SKILL_INTIMATE_GRAIL, // ÀÎÃ¾ 140
+	TEMP_SKILL_BOMBING_STAR, // Èú 140,
+	TEMP_SKILL_SET_AFIRE, // ÀüÅõ¹ì 140
+	TEMP_SKILL_NOOSE_OF_WRAITH, // ¸¶¹ý¹ì 140
 
-	RESULT_TEMP_SKILL_INFINITY_THUNDERBLOT, // �˽� 140
-	RESULT_TEMP_SKILL_SPIT_STREAM, // ���� 140
-	RESULT_TEMP_SKILL_PLASMA_ROCKET_LAUNCHER, //�� 140
-	RESULT_TEMP_SKILL_INTIMATE_GRAIL, // ��þ 140
-	RESULT_TEMP_SKILL_BOMBING_STAR, // �� 140,
-	RESULT_TEMP_SKILL_SET_AFIRE, // ������ 140
-	RESULT_TEMP_SKILL_NOOSE_OF_WRAITH, // ������ 140
-	// 2004, 10, 15, sobeit add end - �׽�Ʈ��
+	RESULT_TEMP_SKILL_INFINITY_THUNDERBLOT, // °Ë½½ 140
+	RESULT_TEMP_SKILL_SPIT_STREAM, // µµ½½ 140
+	RESULT_TEMP_SKILL_PLASMA_ROCKET_LAUNCHER, //ÃÑ 140
+	RESULT_TEMP_SKILL_INTIMATE_GRAIL, // ÀÎÃ¾ 140
+	RESULT_TEMP_SKILL_BOMBING_STAR, // Èú 140,
+	RESULT_TEMP_SKILL_SET_AFIRE, // ÀüÅõ¹ì 140
+	RESULT_TEMP_SKILL_NOOSE_OF_WRAITH, // ¸¶¹ý¹ì 140
+	// 2004, 10, 15, sobeit add end - Å×½ºÆ®¿ë
 // add by Coffee 2007-3-17
 #ifdef __NEW_SKILL__
 
@@ -1702,7 +1702,7 @@ enum ACTIONINFO
 	SKILL_CLIENT_HYDRO_CONVERGENCE,
 	//SKILL_HETER_CHAKRAM,//SKILL_CLIENT_SKILL_DUMMY_DRAKE,//by viva ousters
 	SKILL_CLIENT_SKILL_DUMMY_DRAKE,
-	SKILL_CLIENT_BLOOD_CURSE, //��Ѫ���¼���(Ѫ֮����)
+	SKILL_CLIENT_BLOOD_CURSE, //ÎüÑª¹íÐÂ¼¼ÄÜ(ÑªÖ®×çÖä)
 #endif
 // end
 	SKILL_CLIENT_XRL_ROCKET_LAUNCHER_BLOW,	//add by viva

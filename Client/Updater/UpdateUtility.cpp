@@ -12,25 +12,25 @@
 #define	NULL	0
 
 //----------------------------------------------------------------------
-// PackÀÇ SizeÀÇ byte ¼ö
+// Packì˜ Sizeì˜ byte ìˆ˜
 //----------------------------------------------------------------------
 typedef	unsigned short		TYPE_PACKSIZE;
 #define	SIZE_PACKSIZE		2
 
-// ÇÑ¹ø¿¡ Ä«ÇÇÇÏ´Â byte¼ö
+// í•œë²ˆì— ì¹´í”¼í•˜ëŠ” byteìˆ˜
 #define	SIZE_BUFFER			4096
 
 
 //----------------------------------------------------------------------
 // Has Permission
 //----------------------------------------------------------------------
-// Directory³ª File Á¢±Ù½Ã¿¡.. ´Ù¸¥ Directory¿¡ ÀÖ´Â°É °ÇµéÀÌ¸é ¾ÈµÈ´Ù.
+// Directoryë‚˜ File ì ‘ê·¼ì‹œì—.. ë‹¤ë¥¸ Directoryì— ìˆëŠ”ê±¸ ê±´ë“¤ì´ë©´ ì•ˆëœë‹¤.
 //----------------------------------------------------------------------
 bool
 UUFHasPermission(const char* filename)
 {	
 	//------------------------------------------------------------
-	// filenameÀÌ ¾øÀ» °æ¿ì 
+	// filenameì´ ì—†ì„ ê²½ìš° 
 	//------------------------------------------------------------
 	if (filename==NULL)
 	{	
@@ -38,8 +38,8 @@ UUFHasPermission(const char* filename)
 	}
 
 	//------------------------------------------------------------
-	// Ã¹ ¹®ÀÚ°¡ "\"ÀÌ¸é ¾ÈµÈ´Ù. 
-	// (ÃÖ»óÀ§ µğ·ºÅä¸®·Î Á¢±Ù...°¡´ÉÇÑ°¡? - -;; ±×³É ÇÔ ÇØº½..)
+	// ì²« ë¬¸ìê°€ "\"ì´ë©´ ì•ˆëœë‹¤. 
+	// (ìµœìƒìœ„ ë””ë ‰í† ë¦¬ë¡œ ì ‘ê·¼...ê°€ëŠ¥í•œê°€? - -;; ê·¸ëƒ¥ í•¨ í•´ë´„..)
 	//------------------------------------------------------------
 	if (filename[0]=='\\' || filename[0]=='/')
 	{
@@ -47,7 +47,7 @@ UUFHasPermission(const char* filename)
 	}
 
 	//------------------------------------------------------------
-	// ":"ÀÌ µé¾î°¡¸é ¾ÈµÈ´Ù. (µå¶óÀÌºê¸¦ ¹Ù²Ü ¼ö ÀÖ´Ù.)
+	// ":"ì´ ë“¤ì–´ê°€ë©´ ì•ˆëœë‹¤. (ë“œë¼ì´ë¸Œë¥¼ ë°”ê¿€ ìˆ˜ ìˆë‹¤.)
 	//------------------------------------------------------------
 	if (strchr( filename, ':' )!=NULL)
 	{
@@ -55,7 +55,7 @@ UUFHasPermission(const char* filename)
 	}
 	
 	//------------------------------------------------------------
-	// ".." ÀÌ µé¾î°¡¸é ¾ÈµÈ´Ù. (»óÀ§ µğ·ºÅä¸®ÀÌ¹Ç·Î)
+	// ".." ì´ ë“¤ì–´ê°€ë©´ ì•ˆëœë‹¤. (ìƒìœ„ ë””ë ‰í† ë¦¬ì´ë¯€ë¡œ)
 	//------------------------------------------------------------
 //	if (strstr( filename, ".." )!=NULL)
 //	{
@@ -69,17 +69,17 @@ UUFHasPermission(const char* filename)
 //----------------------------------------------------------------------
 // Create Directory
 //----------------------------------------------------------------------
-// dirName : ÇöÀç directory ¹Ø¿¡ »ı¼ºÇÒ·Á´Â directory ÀÌ¸§
+// dirName : í˜„ì¬ directory ë°‘ì— ìƒì„±í• ë ¤ëŠ” directory ì´ë¦„
 //----------------------------------------------------------------------
-// »õ·Î¿î Directory¸¦ »ı¼ºÇÑ´Ù.
+// ìƒˆë¡œìš´ Directoryë¥¼ ìƒì„±í•œë‹¤.
 //----------------------------------------------------------------------
 bool
 UUFCreateDirectory(const char* dirName)
 {
-	// Directory »ı¼º
+	// Directory ìƒì„±
 	if (UUFHasPermission( dirName ))
 	{
-		// Á¦´ë·Î »ı¼ºÇÑ °æ¿ì
+		// ì œëŒ€ë¡œ ìƒì„±í•œ ê²½ìš°
 		if (_mkdir( dirName )==0)
 		{
 			return true;
@@ -92,42 +92,42 @@ UUFCreateDirectory(const char* dirName)
 //----------------------------------------------------------------------
 // Remove Directory
 //----------------------------------------------------------------------
-// dirName : Áö¿ï·Á´Â directory ÀÌ¸§
+// dirName : ì§€ìš¸ë ¤ëŠ” directory ì´ë¦„
 //----------------------------------------------------------------------
-// Directory¸¦ Áö¿î´Ù.
+// Directoryë¥¼ ì§€ìš´ë‹¤.
 //----------------------------------------------------------------------
 bool
 UUFDeleteDirectory(const char* dirName)
 {
 	if (UUFHasPermission( dirName ))
 	{
-		// Á¦´ë·Î Áö¿î °æ¿ì
+		// ì œëŒ€ë¡œ ì§€ìš´ ê²½ìš°
 		if (_rmdir( dirName )==0)
 		{
 			return true;
 		}
-		// ¹º°¡ ÀÖ¾î¼­ ¾È Áö¿öÁø °æ¿ì..
+		// ë­”ê°€ ìˆì–´ì„œ ì•ˆ ì§€ì›Œì§„ ê²½ìš°..
 		else //if (errno!=ENOENT)
 		{
 			char CWD[_MAX_PATH];
 
-			// ÇöÀç directory¸¦ ±â¾ïÇØµĞ´Ù.				
+			// í˜„ì¬ directoryë¥¼ ê¸°ì–µí•´ë‘”ë‹¤.				
 			GetCurrentDirectory(_MAX_PATH, CWD);
 			
 			if (_chdir( dirName ) == 0)
 			{
 				//---------------------------------------------------
-				// fileÇÏ³ªÇÏ³ª¸¦ Áö¿öÁØ´Ù. T_T;
+				// fileí•˜ë‚˜í•˜ë‚˜ë¥¼ ì§€ì›Œì¤€ë‹¤. T_T;
 				//---------------------------------------------------
 				struct _finddata_t	FileData;
 				long				hFile;
 
-				// ¸ğµç È­ÀÏÀ» ÀĞ¾î¿Â´Ù.
+				// ëª¨ë“  í™”ì¼ì„ ì½ì–´ì˜¨ë‹¤.
 				if( (hFile = _findfirst( "*.*", &FileData )) != -1L )					
 				{
 					do
 					{
-						// .À¸·Î ½ÃÀÛÇÏ´Â °Ç Áö¿ï ÇÊ¿ä ¾ø´ç..
+						// .ìœ¼ë¡œ ì‹œì‘í•˜ëŠ” ê±´ ì§€ìš¸ í•„ìš” ì—†ë‹¹..
 						if (FileData.name[0] != '.')
 						{
 							remove( FileData.name );
@@ -135,7 +135,7 @@ UUFDeleteDirectory(const char* dirName)
 					}
 					while (_findnext( hFile, &FileData ) == 0);
 
-					// ³¡
+					// ë
 					_findclose( hFile );			
 				}
 				else
@@ -147,7 +147,7 @@ UUFDeleteDirectory(const char* dirName)
 				SetCurrentDirectory(CWD);
 				if (_rmdir( dirName )==0)
 				{
-					// Àß Áö¿öÁ³´Ù.
+					// ì˜ ì§€ì›Œì¡Œë‹¤.
 					return true;
 				}
 			}		
@@ -164,9 +164,9 @@ UUFDeleteDirectory(const char* dirName)
 //----------------------------------------------------------------------
 // Remove Files
 //----------------------------------------------------------------------
-// dirName : Áö¿ï·Á´Â directory ÀÌ¸§
+// dirName : ì§€ìš¸ë ¤ëŠ” directory ì´ë¦„
 //----------------------------------------------------------------------
-// Directory¾ÈÀÇ ÆÄÀÏµéÀ» Áö¿î´Ù.
+// Directoryì•ˆì˜ íŒŒì¼ë“¤ì„ ì§€ìš´ë‹¤.
 //----------------------------------------------------------------------
 bool
 UUFDeleteFiles(const char *path, const char *fileext)
@@ -177,17 +177,17 @@ UUFDeleteFiles(const char *path, const char *fileext)
 	if (_chdir( path ) == 0)
 	{
 		//---------------------------------------------------
-		// fileÇÏ³ªÇÏ³ª¸¦ Áö¿öÁØ´Ù. T_T;
+		// fileí•˜ë‚˜í•˜ë‚˜ë¥¼ ì§€ì›Œì¤€ë‹¤. T_T;
 		//---------------------------------------------------
 		struct _finddata_t	FileData;
 		long				hFile;
 		
-		// ¸ğµç È­ÀÏÀ» ÀĞ¾î¿Â´Ù.
+		// ëª¨ë“  í™”ì¼ì„ ì½ì–´ì˜¨ë‹¤.
 		if( (hFile = _findfirst( fileext, &FileData )) != -1L )					
 		{
 			do
 			{
-				// .À¸·Î ½ÃÀÛÇÏ´Â °Ç Áö¿ï ÇÊ¿ä ¾ø´ç..
+				// .ìœ¼ë¡œ ì‹œì‘í•˜ëŠ” ê±´ ì§€ìš¸ í•„ìš” ì—†ë‹¹..
 				if (FileData.name[0] != '.')
 				{
 					remove( FileData.name );
@@ -195,7 +195,7 @@ UUFDeleteFiles(const char *path, const char *fileext)
 			}
 			while (_findnext( hFile, &FileData ) == 0);
 			
-			// ³¡
+			// ë
 			_findclose( hFile );			
 		}
 		
@@ -208,25 +208,25 @@ UUFDeleteFiles(const char *path, const char *fileext)
 //----------------------------------------------------------------------
 // Copy File
 //----------------------------------------------------------------------
-// SourceFile : ¿øº»
-// TargetFile : ¸ñÀû filename
+// SourceFile : ì›ë³¸
+// TargetFile : ëª©ì  filename
 //----------------------------------------------------------------------
-// SourceFileÀ» TargetFile·Î copyÇØ¼­ »õ·Î¿î fileÀ» »ı¼ºÇÑ´Ù.
+// SourceFileì„ TargetFileë¡œ copyí•´ì„œ ìƒˆë¡œìš´ fileì„ ìƒì„±í•œë‹¤.
 //----------------------------------------------------------------------
 bool
 UUFCopyFile(const char* FilenameSource, const char* FilenameTarget)
 {				
 	if (UUFHasPermission( FilenameTarget ) && UUFHasPermission( FilenameSource))				
 	{
-		class ifstream fileSource(FilenameSource, ios::binary);
-		class ofstream fileTarget(FilenameTarget, ios::binary);
+		std::ifstream fileSource(FilenameSource, ios::binary);
+		std::ofstream fileTarget(FilenameTarget, ios::binary);
 		
-		// Ãß°¡
+		// ì¶”ê°€
 		char buffer[SIZE_BUFFER];
 		int n;
 		
 		//---------------------------------------------------------------
-		// addFileÀ» ÀĞ¾î¼­ originalFileÀÇ ³¡¿¡ ºÙÀÎ´Ù.
+		// addFileì„ ì½ì–´ì„œ originalFileì˜ ëì— ë¶™ì¸ë‹¤.
 		//---------------------------------------------------------------
 		while (1)
 		{
@@ -256,10 +256,10 @@ UUFCopyFile(const char* FilenameSource, const char* FilenameTarget)
 //----------------------------------------------------------------------
 // Move File
 //----------------------------------------------------------------------
-// SourceFile : ¿øº»
-// TargetFile : ¸ñÀû filename
+// SourceFile : ì›ë³¸
+// TargetFile : ëª©ì  filename
 //----------------------------------------------------------------------
-// SourceFileÀ» TargetFile·Î renameÇØ¼­ »õ·Î¿î fileÀ» »ı¼ºÇÑ´Ù.
+// SourceFileì„ TargetFileë¡œ renameí•´ì„œ ìƒˆë¡œìš´ fileì„ ìƒì„±í•œë‹¤.
 //----------------------------------------------------------------------
 bool
 UUFMoveFile(const char* FilenameSource, const char* FilenameTarget)
@@ -268,21 +268,21 @@ UUFMoveFile(const char* FilenameSource, const char* FilenameTarget)
 	{
 		ifstream file;
 
-		file.open(FilenameTarget, ios::binary | ios::nocreate);
+		file.open(FilenameTarget, ios::binary | );
 		
 		if (file.is_open())
 		{
 			file.close();
 
-			// ¿ø·¡ ÀÖ´ø°Ô ÀÖÀ¸¸é Áö¿î´Ù.
+			// ì›ë˜ ìˆë˜ê²Œ ìˆìœ¼ë©´ ì§€ìš´ë‹¤.
 			if (remove( FilenameTarget )!=0)
 			{
-				// ¸ø Áö¿î °æ¿ì
+				// ëª» ì§€ìš´ ê²½ìš°
 				return false;
 			}
 		}		
 	
-		// È­ÀÏÀÌ¸§À» ¹Ù²Û´Ù.				
+		// í™”ì¼ì´ë¦„ì„ ë°”ê¾¼ë‹¤.				
 		if (rename( FilenameSource, FilenameTarget )==0)
 		{
 			return true;
@@ -295,14 +295,14 @@ UUFMoveFile(const char* FilenameSource, const char* FilenameTarget)
 //----------------------------------------------------------------------
 // Delete File
 //----------------------------------------------------------------------
-// TargetFile : »èÁ¦ÇÒ filename
+// TargetFile : ì‚­ì œí•  filename
 //----------------------------------------------------------------------
-// TargetFileÀ» Áö¿î´Ù.
+// TargetFileì„ ì§€ìš´ë‹¤.
 //----------------------------------------------------------------------
 bool
 UUFDeleteFile(const char* FilenameTarget)
 {
-	// fileÀ» Áö¿î´Ù.
+	// fileì„ ì§€ìš´ë‹¤.
 	if (UUFHasPermission( FilenameTarget ))
 	{
 		if (remove( FilenameTarget )==0)
@@ -321,13 +321,13 @@ UUFDeleteFile(const char* FilenameTarget)
 // SourceFile : old filename
 // TargetFile : new filename
 //----------------------------------------------------------------------
-// SourceFileÀ» TargetFile·Î ÀÌ¸§À» ¹Ù²Û´Ù.
-// Directory nameµµ ¹Ù²Ü ¼ö ÀÖ´Ù.
+// SourceFileì„ TargetFileë¡œ ì´ë¦„ì„ ë°”ê¾¼ë‹¤.
+// Directory nameë„ ë°”ê¿€ ìˆ˜ ìˆë‹¤.
 //----------------------------------------------------------------------
 bool
 UUFRenameFile(const char* FilenameSource, const char* FilenameTarget)
 {
-	// È­ÀÏÀÌ¸§À» ¹Ù²Û´Ù.
+	// í™”ì¼ì´ë¦„ì„ ë°”ê¾¼ë‹¤.
 	if (UUFHasPermission( FilenameTarget ))
 	{
 		if (rename( FilenameSource, FilenameTarget )==0)
@@ -348,15 +348,15 @@ UUFRenameFile(const char* FilenameSource, const char* FilenameTarget)
 // SourceIndexFile	: PackIndex(to add)
 // TargetIndexFile	: PackIndex(original)
 //----------------------------------------------------------------------
-// TargetFileÀÇ ³¡¿¡ SourceFileÀ» Ãß°¡ÇÑ´Ù.
-// ´Ü, TargetFileÀÇ ÀüÃ¼ °³¼ö¸¦ Ãß°¡µÈ °Í ¸¸Å­ Áõ°¡ÇØ¾ß ÇÑ´Ù.    
+// TargetFileì˜ ëì— SourceFileì„ ì¶”ê°€í•œë‹¤.
+// ë‹¨, TargetFileì˜ ì „ì²´ ê°œìˆ˜ë¥¼ ì¶”ê°€ëœ ê²ƒ ë§Œí¼ ì¦ê°€í•´ì•¼ í•œë‹¤.    
 //----------------------------------------------------------------------
 bool
 UUFAppendPack(const char* FilenameAdd, const char* FilenameOriginal,
 			const char* FilenameIndexAdd, const char* FilenameIndexOriginal)
 {	
 	//--------------------------------------------------
-	// Indexµµ Ãß°¡ÇÏ´Â°¡?
+	// Indexë„ ì¶”ê°€í•˜ëŠ”ê°€?
 	//--------------------------------------------------
 	bool bAppendIndex;
 
@@ -370,57 +370,57 @@ UUFAppendPack(const char* FilenameAdd, const char* FilenameOriginal,
 	}
 
 	//--------------------------------------------------
-	// permission Ã¼Å©
+	// permission ì²´í¬
 	//--------------------------------------------------
 	if (UUFHasPermission( FilenameOriginal ) 
 		&& UUFHasPermission( FilenameAdd)
 
-		// index°¡ ¾ø°Å³ª.. ÀÖÀ»¶§´Â permissionÀÖ¾î¾ß ÇÑ´Ù.
+		// indexê°€ ì—†ê±°ë‚˜.. ìˆì„ë•ŒëŠ” permissionìˆì–´ì•¼ í•œë‹¤.
 		&& (!bAppendIndex ||
 			UUFHasPermission( FilenameIndexOriginal ) 
 			&& UUFHasPermission( FilenameIndexAdd )
 		))		
 	{
 		//---------------------------------------------------------------
-		// Á¤ÇØÁø Filesize¶û °°Àº°¡?
+		// ì •í•´ì§„ Filesizeë‘ ê°™ì€ê°€?
 		//---------------------------------------------------------------
 		//if (!IsFileSizeBeforeOK())
 		//{
-			// UpdateÇÏ·Á°í ÇÏ´Âµ¥ ¿øÇÏ´Â Filesize°¡ ¾Æ´Ï¸é.. ½É°¢ÇÏ´Ù!!						
+			// Updateí•˜ë ¤ê³  í•˜ëŠ”ë° ì›í•˜ëŠ” Filesizeê°€ ì•„ë‹ˆë©´.. ì‹¬ê°í•˜ë‹¤!!						
 		//	return false;
 		//}
 
 		//---------------------------------------------------------------
 		//
-		//					PackÀ» Ãß°¡ÇÑ´Ù.
+		//					Packì„ ì¶”ê°€í•œë‹¤.
 		//
 		//---------------------------------------------------------------
-		// Ãß°¡ÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
-		class ifstream addFile(FilenameAdd, ios::binary);
+		// ì¶”ê°€í•  ìˆ˜ ìˆê²Œ í•œë‹¤.
+		std::ifstream addFile(FilenameAdd, ios::binary);
 		class fstream originalFile(FilenameOriginal, ios::in | ios::out | ios::binary);
 
 		TYPE_PACKSIZE	sourceCount, targetCount;
 		
 		//---------------------------------------------------------------
-		// sourceÀÇ °³¼ö¸¦ ÀúÀåÇØ µĞ´Ù.
+		// sourceì˜ ê°œìˆ˜ë¥¼ ì €ì¥í•´ ë‘”ë‹¤.
 		//---------------------------------------------------------------
 		addFile.read((char*)&sourceCount, SIZE_PACKSIZE);
 
 		//---------------------------------------------------------------
-		// target File Pointer¸¦ ³¡À¸·Î..
+		// target File Pointerë¥¼ ëìœ¼ë¡œ..
 		//---------------------------------------------------------------
 		originalFile.seekp(0, ios::end);
 
 		//---------------------------------------------------------------
-		// Original FileÀÇ Å©±â¸¦ ±â¾ïÇØµĞ´Ù.
+		// Original Fileì˜ í¬ê¸°ë¥¼ ê¸°ì–µí•´ë‘”ë‹¤.
 		//---------------------------------------------------------------
 		long originalPackFileSize = originalFile.tellp();
 
-		// Ãß°¡
+		// ì¶”ê°€
 		char buffer[SIZE_BUFFER];
 		int n;
 		//---------------------------------------------------------------
-		// addFileÀ» ÀĞ¾î¼­ originalFileÀÇ ³¡¿¡ ºÙÀÎ´Ù.
+		// addFileì„ ì½ì–´ì„œ originalFileì˜ ëì— ë¶™ì¸ë‹¤.
 		//---------------------------------------------------------------
 		while (1)
 		{
@@ -439,7 +439,7 @@ UUFAppendPack(const char* FilenameAdd, const char* FilenameOriginal,
 		}
 
 		//---------------------------------------------------------------
-		// °³¼ö¸¦ º¯°æ½ÃÄÑÁØ´Ù. (originalFile + addFile)
+		// ê°œìˆ˜ë¥¼ ë³€ê²½ì‹œì¼œì¤€ë‹¤. (originalFile + addFile)
 		//---------------------------------------------------------------
 		originalFile.seekg(0, ios::beg);
 		originalFile.read((char*)&targetCount, SIZE_PACKSIZE);
@@ -449,65 +449,65 @@ UUFAppendPack(const char* FilenameAdd, const char* FilenameOriginal,
 		originalFile.seekp(0, ios::beg);				
 		originalFile.write((const char*)&targetCount, SIZE_PACKSIZE);
 
-		// ³¡
+		// ë
 		addFile.close();
 		originalFile.close();
 
 		//---------------------------------------------------------------
-		// Á¤ÇØÁø Filesize¶û °°Àº°¡?
+		// ì •í•´ì§„ Filesizeë‘ ê°™ì€ê°€?
 		//---------------------------------------------------------------
 		//if (!IsFileSizeAfterOK())
 		//{
-			// Update¸¦ Çß´Âµ¥ ¿øÇÏ´Â Filesize°¡ ¾Æ´Ï¸é.. ½É°¢ÇÏ´Ù!!
-			// ½É°¢ÇÑ °æ¿ìÀÌ´Ù.
+			// Updateë¥¼ í–ˆëŠ”ë° ì›í•˜ëŠ” Filesizeê°€ ì•„ë‹ˆë©´.. ì‹¬ê°í•˜ë‹¤!!
+			// ì‹¬ê°í•œ ê²½ìš°ì´ë‹¤.
 		//	return false;
 		//}
 
 		
 		//---------------------------------------------------------------
 		//
-		//					Pack Index¸¦ Ãß°¡ÇÑ´Ù.
+		//					Pack Indexë¥¼ ì¶”ê°€í•œë‹¤.
 		//
 		//---------------------------------------------------------------	
 		
-		// Index¸¦ Ãß°¡ÇÒ·Á´Â °æ¿ì¿¡¸¸..
+		// Indexë¥¼ ì¶”ê°€í• ë ¤ëŠ” ê²½ìš°ì—ë§Œ..
 		if (bAppendIndex)
 		{
 			//---------------------------------------------------------------
-			// Á¤ÇØÁø Filesize¶û °°Àº°¡?
+			// ì •í•´ì§„ Filesizeë‘ ê°™ì€ê°€?
 			//---------------------------------------------------------------
 			//if (!IsFileSizeBeforeOK())
 			//{
-				// UpdateÇÏ·Á°í ÇÏ´Âµ¥ ¿øÇÏ´Â Filesize°¡ ¾Æ´Ï¸é.. ½É°¢ÇÏ´Ù!!						
+				// Updateí•˜ë ¤ê³  í•˜ëŠ”ë° ì›í•˜ëŠ” Filesizeê°€ ì•„ë‹ˆë©´.. ì‹¬ê°í•˜ë‹¤!!						
 			//	return false;
 			//}
 
 
-			// Ãß°¡ÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
-			class ifstream addIndexFile(FilenameIndexAdd, ios::binary);
+			// ì¶”ê°€í•  ìˆ˜ ìˆê²Œ í•œë‹¤.
+			std::ifstream addIndexFile(FilenameIndexAdd, ios::binary);
 			class fstream originalIndexFile(FilenameIndexOriginal, ios::in | ios::out | ios::binary);	
 
 			TYPE_PACKSIZE	targetCount;
 
 			//---------------------------------------------------------------
-			// source index¸¦ loadÇÑ´Ù.
+			// source indexë¥¼ loadí•œë‹¤.
 			//---------------------------------------------------------------
 			CFileIndexTable	sourceIndexFile;
 			sourceIndexFile.LoadFromFile( addIndexFile );
 
 			//---------------------------------------------------------------
-			// target File Pointer¸¦ ³¡À¸·Î..
+			// target File Pointerë¥¼ ëìœ¼ë¡œ..
 			//---------------------------------------------------------------
 			originalIndexFile.seekp(0, ios::end);
 			
 			//---------------------------------------------------------------
-			// OriginalFileÀÇ Å©±â¿¡¼­ºÎÅÍ file pointer°¡ ½ÃÀÛµÇ¹Ç·Î
+			// OriginalFileì˜ í¬ê¸°ì—ì„œë¶€í„° file pointerê°€ ì‹œì‘ë˜ë¯€ë¡œ
 			//---------------------------------------------------------------
 			long targetEnd = originalPackFileSize - SIZE_PACKSIZE;
 
 			//---------------------------------------------------------------
-			// SourceÀÇ °¢ file positionÀ» 
-			// targetEnd¸¸Å­ Áõ°¡½ÃÄÑ¼­ originalIndexFile¿¡ Ãß°¡ÇÑ´Ù.
+			// Sourceì˜ ê° file positionì„ 
+			// targetEndë§Œí¼ ì¦ê°€ì‹œì¼œì„œ originalIndexFileì— ì¶”ê°€í•œë‹¤.
 			//---------------------------------------------------------------
 			long sourceIndex;
 			for (int i=0; i<sourceIndexFile.GetSize(); i++)
@@ -517,7 +517,7 @@ UUFAppendPack(const char* FilenameAdd, const char* FilenameOriginal,
 			}								
 
 			//---------------------------------------------------------------
-			// °³¼ö¸¦ º¯°æ½ÃÄÑÁØ´Ù. (originalIndexFile + addIndexFile)
+			// ê°œìˆ˜ë¥¼ ë³€ê²½ì‹œì¼œì¤€ë‹¤. (originalIndexFile + addIndexFile)
 			//---------------------------------------------------------------
 			originalIndexFile.seekg(0, ios::beg);
 			originalIndexFile.read((char*)&targetCount, SIZE_PACKSIZE);
@@ -527,17 +527,17 @@ UUFAppendPack(const char* FilenameAdd, const char* FilenameOriginal,
 			originalIndexFile.seekp(0, ios::beg);				
 			originalIndexFile.write((const char*)&targetCount, SIZE_PACKSIZE);
 
-			// ³¡
+			// ë
 			addIndexFile.close();
 			originalIndexFile.close();
 
 			//---------------------------------------------------------------
-			// Á¤ÇØÁø Filesize¶û °°Àº°¡?
+			// ì •í•´ì§„ Filesizeë‘ ê°™ì€ê°€?
 			//---------------------------------------------------------------
 			//if (!IsFileSizeAfterOK())
 			//{
-				// Update¸¦ Çß´Âµ¥ ¿øÇÏ´Â Filesize°¡ ¾Æ´Ï¸é.. ½É°¢ÇÏ´Ù!!
-				// ½É°¢ÇÑ °æ¿ìÀÌ´Ù.
+				// Updateë¥¼ í–ˆëŠ”ë° ì›í•˜ëŠ” Filesizeê°€ ì•„ë‹ˆë©´.. ì‹¬ê°í•˜ë‹¤!!
+				// ì‹¬ê°í•œ ê²½ìš°ì´ë‹¤.
 			//	return false;
 			//}	
 		}
@@ -553,11 +553,11 @@ UUFAppendPack(const char* FilenameAdd, const char* FilenameOriginal,
 //----------------------------------------------------------------------
 // Append Info
 //----------------------------------------------------------------------
-// FilenameAdd		: Ãß°¡µÉ Information File
-// FilenameOriginal : ¿ø·¡ÀÇ Information File
+// FilenameAdd		: ì¶”ê°€ë  Information File
+// FilenameOriginal : ì›ë˜ì˜ Information File
 //----------------------------------------------------------------------
-// TargetFileÀÇ ³¡¿¡ SourceFileÀ» Ãß°¡ÇÑ´Ù.
-// ´Ü, TargetFileÀÇ ÀüÃ¼ °³¼ö¸¦ Ãß°¡µÈ °Í ¸¸Å­ Áõ°¡ÇØ¾ß ÇÑ´Ù.    
+// TargetFileì˜ ëì— SourceFileì„ ì¶”ê°€í•œë‹¤.
+// ë‹¨, TargetFileì˜ ì „ì²´ ê°œìˆ˜ë¥¼ ì¶”ê°€ëœ ê²ƒ ë§Œí¼ ì¦ê°€í•´ì•¼ í•œë‹¤.    
 //----------------------------------------------------------------------
 bool
 UUFAppendInfo(const char* FilenameAdd, const char* FilenameOriginal)
@@ -565,30 +565,30 @@ UUFAppendInfo(const char* FilenameAdd, const char* FilenameOriginal)
 	if (UUFHasPermission( FilenameOriginal ) && UUFHasPermission( FilenameAdd))				
 	{			
 		//------------------------------------------
-		// Á¤ÇØÁø Filesize¶û °°Àº°¡?
+		// ì •í•´ì§„ Filesizeë‘ ê°™ì€ê°€?
 		//------------------------------------------
 		//if (!IsFileSizeBeforeOK())
 		//{
-			// UpdateÇÏ·Á°í ÇÏ´Âµ¥ ¿øÇÏ´Â Filesize°¡ ¾Æ´Ï¸é.. ½É°¢ÇÏ´Ù!!						
+			// Updateí•˜ë ¤ê³  í•˜ëŠ”ë° ì›í•˜ëŠ” Filesizeê°€ ì•„ë‹ˆë©´.. ì‹¬ê°í•˜ë‹¤!!						
 		//	return false;
 		//}
 
-		// Ãß°¡ÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
-		class ifstream sourceFile(FilenameAdd, ios::binary);
+		// ì¶”ê°€í•  ìˆ˜ ìˆê²Œ í•œë‹¤.
+		std::ifstream sourceFile(FilenameAdd, ios::binary);
 		class fstream targetFile(FilenameOriginal, ios::in | ios::out | ios::binary);
 		
 
 		int sourceCount, targetCount;
-		// sourceÀÇ °³¼ö¸¦ ÀúÀåÇØ µĞ´Ù.
+		// sourceì˜ ê°œìˆ˜ë¥¼ ì €ì¥í•´ ë‘”ë‹¤.
 		sourceFile.read((char*)&sourceCount, 4);
 
-		// target File Pointer¸¦ ³¡À¸·Î..
+		// target File Pointerë¥¼ ëìœ¼ë¡œ..
 		targetFile.seekp(0, ios::end);
 
-		// Ãß°¡
+		// ì¶”ê°€
 		char buffer[SIZE_BUFFER];
 		int n;
-		// SourceFileÀ» ÀĞ¾î¼­ TargetFileÀÇ ³¡¿¡ ºÙÀÎ´Ù.
+		// SourceFileì„ ì½ì–´ì„œ TargetFileì˜ ëì— ë¶™ì¸ë‹¤.
 		while (1)
 		{
 			sourceFile.read(buffer, SIZE_BUFFER);
@@ -605,7 +605,7 @@ UUFAppendInfo(const char* FilenameAdd, const char* FilenameOriginal)
 			}
 		}
 
-		// °³¼ö¸¦ º¯°æ½ÃÄÑÁØ´Ù. (targetFile + sourceFile)
+		// ê°œìˆ˜ë¥¼ ë³€ê²½ì‹œì¼œì¤€ë‹¤. (targetFile + sourceFile)
 		targetFile.seekg(0, ios::beg);
 		targetFile.read((char*)&targetCount, 4);
 
@@ -614,18 +614,18 @@ UUFAppendInfo(const char* FilenameAdd, const char* FilenameOriginal)
 		targetFile.seekp(0, ios::beg);				
 		targetFile.write((const char*)&targetCount, 4);
 
-		// ³¡
+		// ë
 		sourceFile.close();
 		targetFile.close();
 
 
 		//------------------------------------------
-		// Á¤ÇØÁø Filesize¶û °°Àº°¡?
+		// ì •í•´ì§„ Filesizeë‘ ê°™ì€ê°€?
 		//------------------------------------------
 		//if (!IsFileSizeAfterOK())
 		//{
-			// Update¸¦ Çß´Âµ¥ ¿øÇÏ´Â Filesize°¡ ¾Æ´Ï¸é.. ½É°¢ÇÏ´Ù!!
-			// ½É°¢ÇÑ °æ¿ìÀÌ´Ù.
+			// Updateë¥¼ í–ˆëŠ”ë° ì›í•˜ëŠ” Filesizeê°€ ì•„ë‹ˆë©´.. ì‹¬ê°í•˜ë‹¤!!
+			// ì‹¬ê°í•œ ê²½ìš°ì´ë‹¤.
 		//	return false;
 		//}
 	}
@@ -636,7 +636,7 @@ UUFAppendInfo(const char* FilenameAdd, const char* FilenameOriginal)
 //----------------------------------------------------------------------
 // Update SpritePack
 //----------------------------------------------------------------------
-// SpritePack¿¡¼­ Æ¯Á¤ÇÑ spriteµé¸¸ ±³Ã¼ÇÑ´Ù.
+// SpritePackì—ì„œ íŠ¹ì •í•œ spriteë“¤ë§Œ êµì²´í•œë‹¤.
 //----------------------------------------------------------------------
 /*
 bool		
@@ -650,7 +650,7 @@ UUFUpdateSpritePack(const char* FilenameNew,
 	{
 		int i;
 		//-----------------------------------------------------
-		// FilenameNewÀÇ È®ÀåÀÚ¸¦ Ã£´Â´Ù.
+		// FilenameNewì˜ í™•ì¥ìë¥¼ ì°¾ëŠ”ë‹¤.
 		//-----------------------------------------------------
 		int len = strlen(FilenameNew);
 		char fileExtNew[10];
@@ -659,7 +659,7 @@ UUFUpdateSpritePack(const char* FilenameNew,
 		{
 			if (FilenameNew[i]=='.')
 			{
-				// ¼Ò¹®ÀÚ·Î ÀúÀå
+				// ì†Œë¬¸ìë¡œ ì €ì¥
 				char temp[80];
 				strcpy(temp, FilenameNew+i+1);
 				strcpy(fileExtNew, _strlwr( temp ));
@@ -668,7 +668,7 @@ UUFUpdateSpritePack(const char* FilenameNew,
 		}
 
 		//-----------------------------------------------------
-		// FilenameOriginalÀÇ È®ÀåÀÚ¸¦ Ã£´Â´Ù.
+		// FilenameOriginalì˜ í™•ì¥ìë¥¼ ì°¾ëŠ”ë‹¤.
 		//-----------------------------------------------------
 		len = strlen(FilenameOriginal);
 		char fileExtOriginal[10];
@@ -678,12 +678,12 @@ UUFUpdateSpritePack(const char* FilenameNew,
 		{
 			if (FilenameOriginal[i]=='.')
 			{
-				// ¼Ò¹®ÀÚ·Î ÀúÀå
+				// ì†Œë¬¸ìë¡œ ì €ì¥
 				char temp[80];
 				strcpy(temp, FilenameOriginal+i+1);
 				strcpy(fileExtOriginal, _strlwr( temp ));
 				
-				// filenameÀ» ±¸ÇÑ´Ù.
+				// filenameì„ êµ¬í•œë‹¤.
 				for (int j=0; j<i; j++)
 				{
 					filenameOriginal[j] = FilenameOriginal[j];
@@ -695,8 +695,8 @@ UUFUpdateSpritePack(const char* FilenameNew,
 		}
 
 		//-----------------------------------------------------
-		// µÎ È­ÀÏÀÇ È®ÀåÀÚ°¡ ´Ù¸¥ °æ¿ì´Â 
-		// UpdateºÒ°¡!
+		// ë‘ í™”ì¼ì˜ í™•ì¥ìê°€ ë‹¤ë¥¸ ê²½ìš°ëŠ” 
+		// Updateë¶ˆê°€!
 		//-----------------------------------------------------
 		if (strcmp(fileExtNew, fileExtOriginal)!=0)
 		{
@@ -709,7 +709,7 @@ UUFUpdateSpritePack(const char* FilenameNew,
 		//
 		//-----------------------------------------------------
 		CSpriteIDTable	SIDT;
-		class ifstream idFile(FilenameID, ios::binary);
+		std::ifstream idFile(FilenameID, ios::binary);
 		SIDT.LoadFromFile( idFile );
 		idFile.close();
 
@@ -763,7 +763,7 @@ UUFUpdateSpritePack(const char* FilenameNew,
 		// New SPK File
 		//
 		//-----------------------------------------------------
-		class ifstream newSPKFile(FilenameNew, ios::binary);		
+		std::ifstream newSPKFile(FilenameNew, ios::binary);		
 		pSPKNew->LoadFromFile( newSPKFile );
 		newSPKFile.close();
 
@@ -772,33 +772,33 @@ UUFUpdateSpritePack(const char* FilenameNew,
 		// Original SPK File
 		//
 		//-----------------------------------------------------		
-		class ifstream originalSPKFile(FilenameOriginal, ios::binary);				
+		std::ifstream originalSPKFile(FilenameOriginal, ios::binary);				
 		pSPKOriginal->LoadFromFile( originalSPKFile );
 		originalSPKFile.close();
 
 
 		//-----------------------------------------------------
 		//
-		//   ºÎºĞÀûÀ¸·Î ±³Ã¼ÇÑ´Ù.
+		//   ë¶€ë¶„ì ìœ¼ë¡œ êµì²´í•œë‹¤.
 		//
 		//-----------------------------------------------------
 		for (i=0; i<SIDT.GetSize(); i++)
 		{
 			//-----------------------------------------------------
-			// new¿¡¼­ i¹øÂ°´Â 
-			// original¿¡¼­ SIDT[i]¹øÂ° sprite°¡ µÈ´Ù.
+			// newì—ì„œ ië²ˆì§¸ëŠ” 
+			// originalì—ì„œ SIDT[i]ë²ˆì§¸ spriteê°€ ëœë‹¤.
 			//-----------------------------------------------------
 			*((*pSPKOriginal)[ SIDT[i] ]) = *((*pSPKNew)[i]);
 		}
 
 		//-----------------------------------------------------
-		// Save : ¹Ù²ï °ÍÀ» ´Ù½Ã ÀúÀåÇÑ´Ù.
+		// Save : ë°”ë€ ê²ƒì„ ë‹¤ì‹œ ì €ì¥í•œë‹¤.
 		//-----------------------------------------------------
 		char indexFilename[80];
 		sprintf(indexFilename, "%s.i%s", filenameOriginal, fileExtNew);
 
-		class ofstream originalSPKFile2(FilenameOriginal, ios::binary);
-		class ofstream originalSPKIndexFile2(indexFilename, ios::binary);
+		std::ofstream originalSPKFile2(FilenameOriginal, ios::binary);
+		std::ofstream originalSPKIndexFile2(indexFilename, ios::binary);
 	
 		pSPKOriginal->SaveToFile( originalSPKFile2, originalSPKIndexFile2 );
 
@@ -806,7 +806,7 @@ UUFUpdateSpritePack(const char* FilenameNew,
 		originalSPKIndexFile2.close();
 
 		//-----------------------------------------------------
-		// ¸Ş¸ğ¸®¿¡¼­ Á¦°Å
+		// ë©”ëª¨ë¦¬ì—ì„œ ì œê±°
 		//-----------------------------------------------------
 		delete pSPKNew;
 		delete pSPKOriginal;		
@@ -818,7 +818,7 @@ UUFUpdateSpritePack(const char* FilenameNew,
 //----------------------------------------------------------------------
 // Delete SpritePack
 //----------------------------------------------------------------------
-// SpritePack¿¡¼­ Æ¯Á¤ÇÑ SpriteµéÀ» »èÁ¦ÇÑ´Ù.
+// SpritePackì—ì„œ íŠ¹ì •í•œ Spriteë“¤ì„ ì‚­ì œí•œë‹¤.
 //----------------------------------------------------------------------
 bool		
 UUFDeleteSpritePack(const char* FilenameID, const char* FilenameOriginal)
@@ -827,7 +827,7 @@ UUFDeleteSpritePack(const char* FilenameID, const char* FilenameOriginal)
 		&& UUFHasPermission( FilenameOriginal ) )
 	{
 		//-----------------------------------------------------
-		// FilenameOriginalÀÇ È®ÀåÀÚ¸¦ Ã£´Â´Ù.
+		// FilenameOriginalì˜ í™•ì¥ìë¥¼ ì°¾ëŠ”ë‹¤.
 		//-----------------------------------------------------
 		int len = strlen(FilenameOriginal);
 		char fileExtOriginal[10];
@@ -837,12 +837,12 @@ UUFDeleteSpritePack(const char* FilenameID, const char* FilenameOriginal)
 		{
 			if (FilenameOriginal[i]=='.')
 			{
-				// ¼Ò¹®ÀÚ·Î ÀúÀå
+				// ì†Œë¬¸ìë¡œ ì €ì¥
 				char temp[80];
 				strcpy(temp, FilenameOriginal+i+1);
 				strcpy(fileExtOriginal, _strlwr( temp ));
 				
-				// filenameÀ» ±¸ÇÑ´Ù.
+				// filenameì„ êµ¬í•œë‹¤.
 				for (int j=0; j<i; j++)
 				{
 					filenameOriginal[j] = FilenameOriginal[j];
@@ -899,7 +899,7 @@ UUFDeleteSpritePack(const char* FilenameID, const char* FilenameOriginal)
 		// Original SPK File
 		//
 		//-----------------------------------------------------		
-		class ifstream originalSPKFile(FilenameOriginal, ios::binary);				
+		std::ifstream originalSPKFile(FilenameOriginal, ios::binary);				
 		pSPKOriginal->LoadFromFile( originalSPKFile );
 		originalSPKFile.close();
 
@@ -910,31 +910,31 @@ UUFDeleteSpritePack(const char* FilenameID, const char* FilenameOriginal)
 		//
 		//-----------------------------------------------------
 		CSpriteIDTable	SIDT;
-		class ifstream idFile(FilenameID, ios::binary);
+		std::ifstream idFile(FilenameID, ios::binary);
 		SIDT.LoadFromFile( idFile );
 		idFile.close();
 
 		//-----------------------------------------------------
 		//
-		//   Á¦°ÅÇÑ´Ù. == ´Ù½Ã SaveÇÒ¶§ »«´Ù..
+		//   ì œê±°í•œë‹¤. == ë‹¤ì‹œ Saveí• ë•Œ ëº€ë‹¤..
 		//
 		//-----------------------------------------------------
 		//-----------------------------------------------------
-		// Save : ¹Ù²ï °ÍÀ» ´Ù½Ã ÀúÀåÇÑ´Ù.
+		// Save : ë°”ë€ ê²ƒì„ ë‹¤ì‹œ ì €ì¥í•œë‹¤.
 		//-----------------------------------------------------
 		char indexFilename[80];
 		sprintf(indexFilename, "%s.i%s", filenameOriginal, fileExtOriginal);
 
-		class ofstream spkFile(FilenameOriginal, ios::binary);
-		class ofstream indexFile(indexFilename, ios::binary);
+		std::ofstream spkFile(FilenameOriginal, ios::binary);
+		std::ofstream indexFile(indexFilename, ios::binary);
 	
 		//--------------------------------------------------
-		// index fileÀ» »ı¼ºÇÏ±â À§ÇÑ Á¤º¸
+		// index fileì„ ìƒì„±í•˜ê¸° ìœ„í•œ ì •ë³´
 		//--------------------------------------------------
 		long*	pIndex = new long [pSPKOriginal->GetSize()];
 
 		//--------------------------------------------------
-		// Size ÀúÀå
+		// Size ì €ì¥
 		//--------------------------------------------------
 		TYPE_SPRITEID size = pSPKOriginal->GetSize() - SIDT.GetSize();
 
@@ -942,17 +942,17 @@ UUFDeleteSpritePack(const char* FilenameID, const char* FilenameOriginal)
 		indexFile.write((const char *)&size, SIZE_SPRITEID); 
 
 		//--------------------------------------------------
-		// SpritePack¿¡¼­ SIDT¿¡ ¾ø´Â °Í¸¸ ÀúÀåÇÑ´Ù.
+		// SpritePackì—ì„œ SIDTì— ì—†ëŠ” ê²ƒë§Œ ì €ì¥í•œë‹¤.
 		//--------------------------------------------------
 		int k=0;
 		for (i=0; i<pSPKOriginal->GetSize(); i++)
 		{
 			//--------------------------------------------------
-			// ÀÖ´ÂÁö ¾ø´ÂÁö º»´Ù..
+			// ìˆëŠ”ì§€ ì—†ëŠ”ì§€ ë³¸ë‹¤..
 			//--------------------------------------------------
 			bool bDelete = false;
-			// À½.. ÀÌ·± ¹«½ÄÇÑ ¾Ë°í¸®ÁòÀ» ¾²´Ù´Ï..
-			// ¾Æ. ±ÍÂú´Ù.. - -;;
+			// ìŒ.. ì´ëŸ° ë¬´ì‹í•œ ì•Œê³ ë¦¬ì¦˜ì„ ì“°ë‹¤ë‹ˆ..
+			// ì•„. ê·€ì°®ë‹¤.. - -;;
 			for (int j=0; j<SIDT.GetSize(); j++)
 			{
 				if (i == SIDT[j])
@@ -963,7 +963,7 @@ UUFDeleteSpritePack(const char* FilenameID, const char* FilenameOriginal)
 			}
 
 			//--------------------------------------------------
-			// Áö¿ö¾ß ÇÏ´Â °ÍÀÌ¸é skipÇÑ´Ù.
+			// ì§€ì›Œì•¼ í•˜ëŠ” ê²ƒì´ë©´ skipí•œë‹¤.
 			//--------------------------------------------------
 			if (bDelete)
 			{
@@ -971,24 +971,24 @@ UUFDeleteSpritePack(const char* FilenameID, const char* FilenameOriginal)
 			}
 
 			//--------------------------------------------------
-			// SpritePack file¿¡ ¾²¿©Áö´Â index¸¦ ÀúÀå
+			// SpritePack fileì— ì“°ì—¬ì§€ëŠ” indexë¥¼ ì €ì¥
 			//--------------------------------------------------
 			pIndex[k++] = spkFile.tellp();
 
 			//--------------------------------------------------
-			// SpriteÀúÀå
+			// Spriteì €ì¥
 			//--------------------------------------------------
-			((*pSPKOriginal)[i])->SaveToFile(spkFile);		// CSpriteÀúÀå				
+			((*pSPKOriginal)[i])->SaveToFile(spkFile);		// CSpriteì €ì¥				
 		}
 
 		if (k!=size)
 		{
-			// ½É°¢ÇÑ °æ¿ì´Ù. - -;;
+			// ì‹¬ê°í•œ ê²½ìš°ë‹¤. - -;;
 			return false;
 		}
 
 		//--------------------------------------------------
-		// index ÀúÀå
+		// index ì €ì¥
 		//--------------------------------------------------
 		for (i=0; i<size; i++)
 		{
@@ -1002,7 +1002,7 @@ UUFDeleteSpritePack(const char* FilenameID, const char* FilenameOriginal)
 		indexFile.close();
 
 		//-----------------------------------------------------
-		// ¸Ş¸ğ¸®¿¡¼­ Á¦°Å
+		// ë©”ëª¨ë¦¬ì—ì„œ ì œê±°
 		//-----------------------------------------------------
 		delete pSPKOriginal;		
 	}
@@ -1013,7 +1013,7 @@ UUFDeleteSpritePack(const char* FilenameID, const char* FilenameOriginal)
 //----------------------------------------------------------------------
 // Make SpritePack Index
 //----------------------------------------------------------------------
-// SpritePackÀÇ Index¸¦ »ı¼ºÇÑ´Ù.
+// SpritePackì˜ Indexë¥¼ ìƒì„±í•œë‹¤.
 //----------------------------------------------------------------------
 bool		
 UUFMakeSpritePackIndex(const char* Filename)
@@ -1022,7 +1022,7 @@ UUFMakeSpritePackIndex(const char* Filename)
 	{
 		int i;
 		//-----------------------------------------------------
-		// FilenameÀÇ È®ÀåÀÚ¸¦ Ã£´Â´Ù.
+		// Filenameì˜ í™•ì¥ìë¥¼ ì°¾ëŠ”ë‹¤.
 		//-----------------------------------------------------
 		int len = strlen(Filename);
 		char filename[80];
@@ -1032,12 +1032,12 @@ UUFMakeSpritePackIndex(const char* Filename)
 		{
 			if (Filename[i]=='.')
 			{
-				// ¼Ò¹®ÀÚ·Î ÀúÀå
+				// ì†Œë¬¸ìë¡œ ì €ì¥
 				char temp[80];
 				strcpy(temp, Filename+i+1);
 				strcpy(fileExt, _strlwr( temp ));
 
-				// filenameÀ» ±¸ÇÑ´Ù.
+				// filenameì„ êµ¬í•œë‹¤.
 				for (int j=0; j<i; j++)
 				{
 					filename[j] = Filename[j];
@@ -1093,18 +1093,18 @@ UUFMakeSpritePackIndex(const char* Filename)
 		//  SPK File
 		//
 		//-----------------------------------------------------
-		class ifstream SPKFile(Filename, ios::binary);		
+		std::ifstream SPKFile(Filename, ios::binary);		
 		pSPK->LoadFromFile( SPKFile );
 		SPKFile.close();
 
 		//-----------------------------------------------------
-		// Save : ´Ù½Ã ÀúÀåÇÑ´Ù. --> Index»ı¼º
+		// Save : ë‹¤ì‹œ ì €ì¥í•œë‹¤. --> Indexìƒì„±
 		//-----------------------------------------------------
 		char indexFilename[80];
 		sprintf(indexFilename, "%s.%si", filename, fileExt);
 
-		class ofstream SPKFile2(Filename, ios::binary);
-		class ofstream SPKIndexFile2(indexFilename, ios::binary);
+		std::ofstream SPKFile2(Filename, ios::binary);
+		std::ofstream SPKIndexFile2(indexFilename, ios::binary);
 	
 		pSPK->SaveToFile( SPKFile2, SPKIndexFile2 );
 
@@ -1112,7 +1112,7 @@ UUFMakeSpritePackIndex(const char* Filename)
 		SPKIndexFile2.close();
 
 		//-----------------------------------------------------
-		// ¸Ş¸ğ¸®¿¡¼­ Á¦°Å
+		// ë©”ëª¨ë¦¬ì—ì„œ ì œê±°
 		//-----------------------------------------------------
 		delete pSPK;
 	}

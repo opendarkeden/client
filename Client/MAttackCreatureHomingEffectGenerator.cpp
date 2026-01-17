@@ -27,10 +27,10 @@ MAttackCreatureHomingEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egIn
 	BLT_TYPE		bltType = (*g_pEffectSpriteTypeTable)[egInfo.effectSpriteType].BltType;
 	TYPE_FRAMEID	frameID	= (*g_pEffectSpriteTypeTable)[egInfo.effectSpriteType].FrameID;
 
-	// creatureÀÇ ÁÂÇ¥
+	// creatureì˜ ì¢Œí‘œ
 	int cx, cy, cz;	
 
-	// ¸ñÇ¥ À§Ä¡ PixelÁÂÇ¥
+	// ëª©í‘œ ìœ„ì¹˜ Pixelì¢Œí‘œ
 	MCreature* pCreature = g_pZone->GetCreature( egInfo.creatureID );
 
 	if (pCreature == NULL)
@@ -51,10 +51,10 @@ MAttackCreatureHomingEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egIn
 		135
 	};
 
-	// ½ÃÀÛ °¢µµ
+	// ì‹œìž‘ ê°ë„
 	currentAngle = angles[egInfo.direction];
 
-	// ²©´Â °¢µµ
+	// êº½ëŠ” ê°ë„
 	stepAngle = 13;
 
 	int fixZPos = TILE_Y;
@@ -76,7 +76,7 @@ MAttackCreatureHomingEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egIn
 		currentAngle = angles[TempDir];
 	}
 
-	// Æ÷¹°¼± Effect»ý¼º
+	// í¬ë¬¼ì„  Effectìƒì„±
 
 	MHomingEffect* pEffect = new MHomingEffect(bltType, currentAngle, stepAngle);	
 	int maxFrame = g_pTopView->GetMaxEffectFrame(bltType, frameID);
@@ -86,27 +86,27 @@ MAttackCreatureHomingEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egIn
 	
 	cx = g_pTopView->MapToPixelX( pCreature->GetX() );
 	cy = g_pTopView->MapToPixelY( pCreature->GetY() );
-	cz = pCreature->GetZ() + fixZPos;	// ÇÑ Å¸ÀÏÁ¤µµ À§·Î »©ÁØ´Ù.
+	cz = pCreature->GetZ() + fixZPos;	// í•œ íƒ€ì¼ì •ë„ ìœ„ë¡œ ë¹¼ì¤€ë‹¤.
 
 
-	// ¹ß»ç À§Ä¡ PixelÁÂÇ¥	- ÇÑ Å¸ÀÏÁ¤µµ À§·Î »©ÁØ´Ù.
+	// ë°œì‚¬ ìœ„ì¹˜ Pixelì¢Œí‘œ	- í•œ íƒ€ì¼ì •ë„ ìœ„ë¡œ ë¹¼ì¤€ë‹¤.
 	pEffect->SetPixelPosition( egInfo.x0, egInfo.y0, egInfo.z0+fixZPos );	
 					
-	// ¹æÇâ ¼³Á¤
+	// ë°©í–¥ ì„¤ì •
 	pEffect->SetDirection( egInfo.direction );
 	pEffect->SetTraceCreatureID( egInfo.creatureID );	
 
-	// ¸ñÇ¥ À§Ä¡ PixelÁÂÇ¥
+	// ëª©í‘œ ìœ„ì¹˜ Pixelì¢Œí‘œ
 	pEffect->SetTarget( cx,cy,cz, egInfo.step );
 
-	// Áö¼ÓµÇ´Â Frame (¸ñÇ¥°¡ ÀÖ´Ù¸é º°·Î °ü°è ¾øÀ½ - -;)
+	// ì§€ì†ë˜ëŠ” Frame (ëª©í‘œê°€ ìžˆë‹¤ë©´ ë³„ë¡œ ê´€ê³„ ì—†ìŒ - -;)
 	pEffect->SetCount( TempEndFrame, egInfo.linkCount );
 
-	// À§·Â
+	// ìœ„ë ¥
 	pEffect->SetPower(egInfo.power);
 	
 	pEffect->SetMulti(true);
-	// ºûÀÇ ¹à±â
+	// ë¹›ì˜ ë°ê¸°
 	//pEffect->SetLight( light );
 
 	if (g_pZone->AddEffect( pEffect ))

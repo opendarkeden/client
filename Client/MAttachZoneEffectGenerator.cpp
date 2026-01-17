@@ -1,7 +1,7 @@
  //----------------------------------------------------------------------
 // MAttachZoneEffectGenerator.cpp
 //----------------------------------------------------------------------
-// Tile°ú ¸ÂºÙÀº EffectµéÀ» »ý¼ºÇÑ´Ù.
+// Tileê³¼ ë§žë¶™ì€ Effectë“¤ì„ ìƒì„±í•œë‹¤.
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
 #include "MAttachZoneEffectGenerator.h"
@@ -40,10 +40,10 @@ bool	MercyGroundEffect( const EFFECTGENERATOR_INFO& egInfo )
 			pEffect->SetPixelPosition(
 				pt.x , 
 				pt.y , 
-				egInfo.z0);		// pixelÁÂÇ¥
+				egInfo.z0);		// pixelì¢Œí‘œ
 			
-			pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
-			pEffect->SetCount( egInfo.count, egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+			pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ìž…í•´ì¤€ë‹¤.
+			pEffect->SetCount( egInfo.count, egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 			pEffect->SetDirection( egInfo.direction );			
 			pEffect->SetPower(egInfo.power);			
 			if (g_pZone->AddGroundEffect( pEffect ) )
@@ -82,7 +82,7 @@ MAttachZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	}
 	
 	//---------------------------------------------
-	// pixelÁÂÇ¥¸¦ MapÀÇ ÁÂÇ¥·Î ¹Ù²ãÁØ´Ù.
+	// pixelì¢Œí‘œë¥¼ Mapì˜ ì¢Œí‘œë¡œ ë°”ê¿”ì¤€ë‹¤.
 	//---------------------------------------------
 	/*
 	int	sX, sY;
@@ -90,7 +90,7 @@ MAttachZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	sY = g_pTopView->PixelToMapY(egInfo.y0);
 	
 	  //---------------------------------------------
-	  // MapÁÂÇ¥¸¦ ´Ù½Ã pixelÁÂÇ¥·Î ¹Ù²Û´Ù.
+	  // Mapì¢Œí‘œë¥¼ ë‹¤ì‹œ pixelì¢Œí‘œë¡œ ë°”ê¾¼ë‹¤.
 	  //---------------------------------------------
 	  POINT pixelPoint;
 	  pixelPoint = g_pTopView->MapToPixel(sX, sY);
@@ -100,35 +100,35 @@ MAttachZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	
 	
 	//----------------------------------------------------------------
-	// ¹Ù´Ú¿¡ ¶³¾îÁö´Â ÇÇ Á¾·ù ·£´ýÇÏ°Ô.. ÇÏµå ÄÚµù.. ¿¡ÈÞ~
+	// ë°”ë‹¥ì— ë–¨ì–´ì§€ëŠ” í”¼ ì¢…ë¥˜ ëžœë¤í•˜ê²Œ.. í•˜ë“œ ì½”ë”©.. ì—íœ´~
 	//----------------------------------------------------------------
 	if (est==EFFECTSPRITETYPE_GREEN_BLOOD_GROUND_2_1)
 	{
 		est = EFFECTSPRITETYPE_GREEN_BLOOD_GROUND_2_1 + rand()%4;
 		
 		pixelPoint.x += (rand()%TILE_X_HALF) - (TILE_X_HALF>>1);
-		pixelPoint.y += (rand()%g_TILE_Y_HALF) - (g_TILE_Y_HALF>>1);
+		pixelPoint.y += (rand()%24) - (24>>1);
 	}
 	else if (est==EFFECTSPRITETYPE_GREEN_BLOOD_GROUND_1_1)
 	{
 		est = EFFECTSPRITETYPE_GREEN_BLOOD_GROUND_1_1 + rand()%5;
 		
 		pixelPoint.x += (rand()%TILE_X_HALF) - (TILE_X_HALF>>1);
-		pixelPoint.y += (rand()%g_TILE_Y_HALF) - (g_TILE_Y_HALF>>1);
+		pixelPoint.y += (rand()%24) - (24>>1);
 	}
 	if (est==EFFECTSPRITETYPE_BLOOD_GROUND_2_1)
 	{
 		est = EFFECTSPRITETYPE_BLOOD_GROUND_2_1 + rand()%4;
 		
 		pixelPoint.x += (rand()%TILE_X_HALF) - (TILE_X_HALF>>1);
-		pixelPoint.y += (rand()%g_TILE_Y_HALF) - (g_TILE_Y_HALF>>1);
+		pixelPoint.y += (rand()%24) - (24>>1);
 	}
 	else if (est==EFFECTSPRITETYPE_BLOOD_GROUND_1_1)
 	{
 		est = EFFECTSPRITETYPE_BLOOD_GROUND_1_1 + rand()%5;
 		
 		pixelPoint.x += (rand()%TILE_X_HALF) - (TILE_X_HALF>>1);
-		pixelPoint.y += (rand()%g_TILE_Y_HALF) - (g_TILE_Y_HALF>>1);
+		pixelPoint.y += (rand()%24) - (24>>1);
 	}
 	else if( est == EFFECTSPRITETYPE_GREAT_RUFFIAN_1_AXE_GROUND)
 	{
@@ -150,50 +150,50 @@ MAttachZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	TYPE_FRAMEID	frameID	= (*g_pEffectSpriteTypeTable)[est].FrameID;
 	
 	//---------------------------------------------
-	// MaxFrameÀÇ °ªÀ» ¾Ë¾Æ¿Â´Ù.
+	// MaxFrameì˜ ê°’ì„ ì•Œì•„ì˜¨ë‹¤.
 	//---------------------------------------------
 	int maxFrame = g_pTopView->GetMaxEffectFrame(bltType, frameID);
 	int currentPhase = egInfo.pEffectTarget != NULL ?egInfo.pEffectTarget->GetCurrentPhase() : -1;
 	
-	// À¸ÈæÈæ..¤Ñ.¤Ì
+	// ìœ¼í‘í‘..ã…¡.ã…œ
 	if( egInfo.temp1 == 0 )				// UseActionGrade
 	{
 		MEffect*	pEffect;
 		//---------------------------------------------
-		// Effect »ý¼º
+		// Effect ìƒì„±
 		//---------------------------------------------
 		pEffect = new MEffect(bltType);
 		
 		pEffect->SetFrameID( frameID, maxFrame );	
 		
-		pEffect->SetPixelPosition(pixelPoint.x, pixelPoint.y, egInfo.z0);		// pixelÁÂÇ¥		
+		pEffect->SetPixelPosition(pixelPoint.x, pixelPoint.y, egInfo.z0);		// pixelì¢Œí‘œ		
 		
-		pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
+		pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ìž…í•´ì¤€ë‹¤.
 		
-		pEffect->SetCount( egInfo.count, egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+		pEffect->SetCount( egInfo.count, egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 		
-		// ¹æÇâ ¼³Á¤
+		// ë°©í–¥ ì„¤ì •
 		pEffect->SetDirection( egInfo.direction );
 		
-		// À§·Â
+		// ìœ„ë ¥
 		pEffect->SetPower(egInfo.power);
 		
-		// ºûÀÇ ¹à±â
+		// ë¹›ì˜ ë°ê¸°
 		//pEffect->SetLight( light );
 		
 		
-		// Ground Effect·Î..
-		// Zone¿¡ Ãß°¡ÇÑ´Ù.
+		// Ground Effectë¡œ..
+		// Zoneì— ì¶”ê°€í•œë‹¤.
 		if (g_pZone->AddGroundEffect( pEffect ))
 		{
-			// ´ÙÀ½ Effect »ý¼º Á¤º¸
+			// ë‹¤ìŒ Effect ìƒì„± ì •ë³´
 			pEffect->SetLink( egInfo.nActionInfo, egInfo.pEffectTarget );
 			
 			return true;
 		}
 	} else
 	{
-		// ActionGrade ¸¦ »ç¿ëÇÑ´Ù.
+		// ActionGrade ë¥¼ ì‚¬ìš©í•œë‹¤.
 		std::vector<POINT> effectlist;
 		POINT pt = g_pTopView->PixelToMap( pixelPoint.x, pixelPoint.y );
 		
@@ -240,9 +240,9 @@ MAttachZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 			pEffect = new MEffect(bltType);
 			
 			pEffect->SetFrameID( frameID, maxFrame );				
-			pEffect->SetPixelPosition(g_pTopView->MapToPixelX( effectlist[i].x), g_pTopView->MapToPixelY(effectlist[i].y), egInfo.z0);		// pixelÁÂÇ¥
-			pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
-			pEffect->SetCount( egInfo.count, egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+			pEffect->SetPixelPosition(g_pTopView->MapToPixelX( effectlist[i].x), g_pTopView->MapToPixelY(effectlist[i].y), egInfo.z0);		// pixelì¢Œí‘œ
+			pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ìž…í•´ì¤€ë‹¤.
+			pEffect->SetCount( egInfo.count, egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 			pEffect->SetDirection( egInfo.direction );			
 			pEffect->SetPower(egInfo.power);			
 			if (g_pZone->AddGroundEffect( pEffect ) && i == 0)

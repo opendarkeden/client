@@ -2,8 +2,8 @@
 // 
 // Filename    : GCSkillToObjectOK4.h 
 // Written By  : elca@ewestsoft.com
-// Description : ±â¼úÀÌ ¼º°øÇßÀ»¶§ º¸³»´Â ÆĞÅ¶À» À§ÇÑ Å¬·¡½º Á¤ÀÇ
-// 				±â¼ú¿¡ ´çÇÑ »ç¶÷À» º¼ ¼ö ÀÖ´Â ºĞµéÀÌ ¹ŞÀ¸½Ã´Â ÆĞÅ¶(±â¼úÀ» »ç¿ëÇÑ »ç¶÷Àº º¼¼ö ¾ø´Â)
+// Description : ê¸°ìˆ ì´ ì„±ê³µí–ˆì„ë•Œ ë³´ë‚´ëŠ” íŒ¨í‚·ì„ ìœ„í•œ í´ë˜ìŠ¤ ì •ì˜
+// 				ê¸°ìˆ ì— ë‹¹í•œ ì‚¬ëŒì„ ë³¼ ìˆ˜ ìˆëŠ” ë¶„ë“¤ì´ ë°›ìœ¼ì‹œëŠ” íŒ¨í‚·(ê¸°ìˆ ì„ ì‚¬ìš©í•œ ì‚¬ëŒì€ ë³¼ìˆ˜ ì—†ëŠ”)
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -20,7 +20,7 @@
 //
 // class GCSkillToObjectOK4;
 //
-// °ÔÀÓ¼­¹ö¿¡¼­ Å¬¶óÀÌ¾ğÆ®·Î ÀÚ½ÅÀÇ ±â¼úÀÌ ¼º°øÀ» ¾Ë·ÁÁÖ±â À§ÇÑ Å¬·¡½º
+// ê²Œì„ì„œë²„ì—ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ìì‹ ì˜ ê¸°ìˆ ì´ ì„±ê³µì„ ì•Œë ¤ì£¼ê¸° ìœ„í•œ í´ë˜ìŠ¤
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -39,10 +39,10 @@ public :
 	
 	
 
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream & iStream) throw(ProtocolException, Error);
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
 
 	// execute packet's handler
@@ -52,7 +52,7 @@ public :
 	PacketID_t getPacketID() const throw() { return PACKET_GC_SKILL_TO_OBJECT_OK_4; }
 	
 	// get packet's body size
-	// ÃÖÀûÈ­½Ã, ¹Ì¸® °è»êµÈ Á¤¼ö¸¦ »ç¿ëÇÑ´Ù.
+	// ìµœì í™”ì‹œ, ë¯¸ë¦¬ ê³„ì‚°ëœ ì •ìˆ˜ë¥¼ ì‚¬ìš©í•œë‹¤.
 	PacketSize_t getPacketSize() const throw() { return szObjectID + szSkillType + szDuration + szBYTE; }
 
 #ifdef __DEBUG_OUTPUT__
@@ -158,7 +158,7 @@ class GCSkillToObjectOK4Handler {
 public :
 
 	// execute packet's handler
-	static void execute(GCSkillToObjectOK4* pGCSkillToObjectOK4, Player* pPlayer) throw(Error);
+	static void execute(GCSkillToObjectOK4* pGCSkillToObjectOK4, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

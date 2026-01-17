@@ -17,29 +17,30 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCUseOKHandler::execute ( GCUseOK * pPacket , Player * pPlayer )
-	 throw ( ProtocolException, Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-#if __GAME_CLIENT__
+#ifdef __GAME_CLIENT__
 
 	// message
 
-	// À½.. cut & pasteÀÇ °ÉÀÛ.. - -;;
+	// ìŒ.. cut & pasteì˜ ê±¸ìž‘.. - -;;
 
 	UseItemOK();
 
 	//------------------------------------------------------------------
 	//
-	//						»óÅÂ°ªÀ» ¹Ù²Û´Ù.
+	//						ìƒíƒœê°’ì„ ë°”ê¾¼ë‹¤.
 	//
 	//------------------------------------------------------------------
 	AffectModifyInfo( g_pPlayer, pPacket );
 
 
 	//------------------------------------------------------------------
-	// UI¿¡ º¸ÀÌ´Â °ÍÀ» ¹Ù²ãÁØ´Ù.
-	// ºñ±³¿¬»êÇÏ´Â°Åº¸´Ù ÀÌ°Ô ´õ ºü¸£Áö ¾ÊÀ»±î.. À½.. - -;
+	// UIì— ë³´ì´ëŠ” ê²ƒì„ ë°”ê¿”ì¤€ë‹¤.
+	// ë¹„êµì—°ì‚°í•˜ëŠ”ê±°ë³´ë‹¤ ì´ê²Œ ë” ë¹ ë¥´ì§€ ì•Šì„ê¹Œ.. ìŒ.. - -;
 	//------------------------------------------------------------------
 	//UI_SetHP( g_pPlayer->GetHP(), g_pPlayer->GetMAX_HP() );
 	//UI_SetMP( g_pPlayer->GetMP(), g_pPlayer->GetMAX_MP() );
@@ -50,29 +51,31 @@ void GCUseOKHandler::execute ( GCUseOK * pPacket , Player * pPlayer )
 }
 
 void GCUseSkillCardOKHandler::execute ( GCUseSkillCardOK * pPacket , Player * pPlayer )
-	 throw ( ProtocolException, Error )
+	 
+
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-#if __GAME_CLIENT__
+#ifdef __GAME_CLIENT__
 
 	// message
 
-	// À½.. cut & pasteÀÇ °ÉÀÛ.. - -;;
+	// ìŒ.. cut & pasteì˜ ê±¸ìž‘.. - -;;
 
 	UseSkillCardOK(pPacket->getCardType());
 
 	//------------------------------------------------------------------
 	//
-	//						»óÅÂ°ªÀ» ¹Ù²Û´Ù.
+	//						ìƒíƒœê°’ì„ ë°”ê¾¼ë‹¤.
 	//
 	//------------------------------------------------------------------
 //	AffectModifyInfo( g_pPlayer, pPacket );
 
 
 	//------------------------------------------------------------------
-	// UI¿¡ º¸ÀÌ´Â °ÍÀ» ¹Ù²ãÁØ´Ù.
-	// ºñ±³¿¬»êÇÏ´Â°Åº¸´Ù ÀÌ°Ô ´õ ºü¸£Áö ¾ÊÀ»±î.. À½.. - -;
+	// UIì— ë³´ì´ëŠ” ê²ƒì„ ë°”ê¿”ì¤€ë‹¤.
+	// ë¹„êµì—°ì‚°í•˜ëŠ”ê±°ë³´ë‹¤ ì´ê²Œ ë” ë¹ ë¥´ì§€ ì•Šì„ê¹Œ.. ìŒ.. - -;
 	//------------------------------------------------------------------
 	//UI_SetHP( g_pPlayer->GetHP(), g_pPlayer->GetMAX_HP() );
 	//UI_SetMP( g_pPlayer->GetMP(), g_pPlayer->GetMAX_MP() );

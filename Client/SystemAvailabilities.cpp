@@ -8,7 +8,7 @@ SystemAvailabilitiesManager *g_pSystemAvailableManager = NULL;
 
 SystemAvailabilitiesManager::SystemAvailabilitiesManager()
 {
-	// Default ·Î ¸ğµÎ °¡´É »óÅÂ·Î µÇ¾îÀÖ´Ù.
+	// Default ë¡œ ëª¨ë‘ ê°€ëŠ¥ ìƒíƒœë¡œ ë˜ì–´ìˆë‹¤.
 	for(int i = 0; i < m_Flag.size(); i++ )
 		m_Flag.set(i);
 
@@ -32,7 +32,7 @@ bool	SystemAvailabilitiesManager::ScriptFiltering(int scriptid, int answerid)
 		if( Filter.empty() )
 			continue;
 
-		if( CheckScript( Filter, scriptid, answerid ) == false )		// ÇØ´ç ½ºÅ©¸³Æ®¸¦ »ç¿ëÇÒ ¼ö ¾øÀ¸¸é false ¸¦ ¸®ÅÏ
+		if( CheckScript( Filter, scriptid, answerid ) == false )		// í•´ë‹¹ ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ìœ¼ë©´ false ë¥¼ ë¦¬í„´
 			return false;
 	}	
 
@@ -94,7 +94,7 @@ bool	SystemAvailabilitiesManager::CheckScript( const std::list<FilterScript>& Li
 
 		itr++;
 	}
-	return true;			// ¸®½ºÆ®¿¡ ¾øÀ¸¸é »ç¿ë °¡´É
+	return true;			// ë¦¬ìŠ¤íŠ¸ì— ì—†ìœ¼ë©´ ì‚¬ìš© ê°€ëŠ¥
 }
 
 bool	SystemAvailabilitiesManager::LoadFromFile(const char *szFileName)
@@ -126,7 +126,7 @@ bool	SystemAvailabilitiesManager::LoadFromFile(const char *szFileName)
 
 	while( rarfile.GetString( szLine, 512 ) )
 	{
-		// * ´Â key, ; ´Â ÁÖ¼®
+		// * ëŠ” key, ; ëŠ” ì£¼ì„
 		if( strlen( szLine ) <= 0 )
 			continue;
 		
@@ -135,7 +135,7 @@ bool	SystemAvailabilitiesManager::LoadFromFile(const char *szFileName)
 
 		if( szLine[0] == '*' )
 		{
-			sscanf(szLine+1,"%d %d",&key,&count);		// key ´Â enum(SystemKind) °ª.
+			sscanf(szLine+1,"%d %d",&key,&count);		// key ëŠ” enum(SystemKind) ê°’.
 			ScriptList.clear();
 			count--;
 			Kind = SCRIPT_PARSE;
@@ -144,7 +144,7 @@ bool	SystemAvailabilitiesManager::LoadFromFile(const char *szFileName)
 
 		if( szLine[0] == 'Z' )
 		{
-			sscanf(szLine+1,"%d",&key);					// key ´Â È¸Â÷
+			sscanf(szLine+1,"%d",&key);					// key ëŠ” íšŒì°¨
 			ZoneList.clear();
 			Kind = ZONE_PARSE;
 			continue;
@@ -152,7 +152,7 @@ bool	SystemAvailabilitiesManager::LoadFromFile(const char *szFileName)
 		
 		if( szLine[0] == 'S' )
 		{
-			sscanf(szLine+1,"%d %d",&key,&count);		// key ´Â ¹«È¿-_-
+			sscanf(szLine+1,"%d %d",&key,&count);		// key ëŠ” ë¬´íš¨-_-
 			ScriptListByDegree.clear();
 			count--;
 			Kind = DEGREE_SCRIPT_PARSE;

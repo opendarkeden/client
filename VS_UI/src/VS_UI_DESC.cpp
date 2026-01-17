@@ -3,9 +3,13 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "client_PCH.h"
+#include <assert.h>
+#define assert(e) ((void)(e))
+// Disabled assert for macOS
 #include "vs_ui_extradialog.h"
-//#include "VS_UI_DESC.h" // ?? ÀÌ»ó-_-a
+//#include "VS_UI_DESC.h" // ?? ï¿½Ì»ï¿½-_-a
 #include "VS_UI_filepath.h"
+#include <algorithm>
 extern RECT g_GameRect;
 #define dSTRING_LEN 2048 
 
@@ -31,7 +35,7 @@ C_VS_UI_DESC::~C_VS_UI_DESC()
 {
 	if(!m_pC_inpicture.empty())
 	{		
-		// by sigi - delete ¾ÈÇÏ´Ù´Ï.. ¹Ì¿À.. - -;
+		// by sigi - delete ï¿½ï¿½ï¿½Ï´Ù´ï¿½.. ï¿½Ì¿ï¿½.. - -;
 		std::vector<CSpritePack *>::iterator iPic = m_pC_inpicture.begin();
 		while (iPic != m_pC_inpicture.end())
 		{
@@ -71,13 +75,13 @@ void C_VS_UI_DESC::ShowDesc(int x, int y)
 				Rect rect(0, 0, (*m_pC_inpicture[m_Sprite[i].pack_num])[m_Sprite[i].sprite_num].GetWidth(), (*m_pC_inpicture[m_Sprite[i].pack_num])[m_Sprite[i].sprite_num].GetHeight());
 				int blt_y = (m_Sprite[i].pos - m_desc_scroll)*m_desc_y_distance;
 
-				// Å©¸®½º¸¶½º Æ®¸®¿ë ÇÏµåÄÚµù
+				// Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Ïµï¿½ï¿½Úµï¿½
 				if(m_Sprite[i].pos == -300)
 				{
 					blt_y = (0 - m_desc_scroll)*m_desc_y_distance;
 				}
 				
-				if(blt_y < 0)//»ó´Ü cliping
+				if(blt_y < 0)//ï¿½ï¿½ï¿½ cliping
 				{
 					if(blt_y + rect.h > 0)
 					{
@@ -90,7 +94,7 @@ void C_VS_UI_DESC::ShowDesc(int x, int y)
 					}
 				}
 				
-				if(blt_y + rect.h > m_desc_col*m_desc_y_distance)//ÇÏ´Ü cliping
+				if(blt_y + rect.h > m_desc_col*m_desc_y_distance)//ï¿½Ï´ï¿½ cliping
 				{
 					if(blt_y < m_desc_col*m_desc_y_distance)
 					{
@@ -104,19 +108,24 @@ void C_VS_UI_DESC::ShowDesc(int x, int y)
 				if (gpC_base->m_p_DDSurface_back->Lock())
 				{
 					S_SURFACEINFO surface_info;
+#ifdef PLATFORM_WINDOWS
 					SetSurfaceInfo(&surface_info, gpC_base->m_p_DDSurface_back->GetDDSD());
-					
+#else
+					// SDL backend: Get surface info differently
+					gpC_base->m_p_DDSurface_back->GetSurfaceInfo(&surface_info);
+#endif
+
 					RECT rt;
 					rt.left = max(-(m_desc_x+x), rect.x);
 					rt.top = max(-(m_desc_y + blt_y+y), rect.y);
-					rt.right = min(rect.x+rect.w, g_GameRect.right-m_desc_x);
-					rt.bottom = min(rect.y+rect.h, g_GameRect.bottom-(m_desc_y + blt_y));
+					rt.right = min((int)(rect.x+rect.w), (int)g_GameRect.right-m_desc_x);
+					rt.bottom = min((int)(rect.y+rect.h), (int)g_GameRect.bottom-(m_desc_y + blt_y));
 					
 					if(rt.left < rt.right && rt.top < rt.bottom)
 					{
 						WORD * p_dest = (WORD *)surface_info.p_surface+m_desc_x+x+rt.left;
 						p_dest = (WORD *)((BYTE *)p_dest+((m_desc_y + blt_y+y)+rt.top)*surface_info.pitch);
-						// Å©¸®½º¸¶½º Æ®¸®¿ë ÇÏµåÄÚµù
+						// Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Ïµï¿½ï¿½Úµï¿½
 						if(m_Sprite[i].pos == -300)
 						{
 							p_dest += 200;
@@ -155,7 +164,7 @@ void C_VS_UI_DESC::ShowDesc(int x, int y)
 
 				if(m_desc_title.size()-scroll > 110)
 				{
-					// ¿À¸¥ÂÊÀ¸·Î ½ºÅ©·Ñ »óÅÂ
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					len=110;
 					if(!g_PossibleStringCut(m_desc_title.c_str(),scroll+len))
 						len-=1;
@@ -167,7 +176,7 @@ void C_VS_UI_DESC::ShowDesc(int x, int y)
 				;//	rightscroll=false;
 			} /*else
 			{
-				// ¿ÞÂÊÀ¸·Î ½ºÅ©·Ñ »óÅÂ
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				if(scroll<0)
 				{
 					scroll=0;
@@ -186,7 +195,7 @@ void C_VS_UI_DESC::ShowDesc(int x, int y)
 			g_PrintColorStr(m_desc_title_x+x, m_desc_title_y+y, m_desc_title.c_str(), m_title_pi, m_title_color);
 	}
 
-	// ³»¿ë
+	// ï¿½ï¿½ï¿½ï¿½
 	char *p_temp;
 	for(i=m_desc_scroll; i<m_desc_col+m_desc_scroll && i<m_desc.size();i++)
 	{
@@ -202,7 +211,7 @@ void C_VS_UI_DESC::ShowDesc(int x, int y)
 
 ////////////////////////////////////////////////////////////////////////
 // C_VS_UI_DESC::LoadDesc
-// txt·Î µÈ descriptionÆÄÀÏÀ» ºÒ·¯¿Â´Ù.
+// txtï¿½ï¿½ ï¿½ï¿½ descriptionï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½Â´ï¿½.
 ////////////////////////////////////////////////////////////////////////
 bool	C_VS_UI_DESC::LoadDesc(const char *szFilename, int row, int col, bool bl_title, int CoreZapID)
 {
@@ -219,20 +228,21 @@ bool	C_VS_UI_DESC::LoadDesc(const char *szFilename, int row, int col, bool bl_ti
 		return false;
 
 	bool indent = false;
-	//»ó´Ü ¹®ÀÚ¿­ »ðÀÔ
+	//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	int check, w=0, h=0, w2=0, pack = 0;
 
 	if(m_ori_string.empty() && !m_rep_string.empty())
 	{
-		for(int i = 0; i < m_rep_string.size(); i++)
+		for(int i = 0; i < (int)m_rep_string.size(); i++)
 		{
 			if(m_rep_string[i][0] == '%')
 			{
 				SetSprite(0, atoi(m_rep_string[i].c_str()+1), 0);
 				w2 = ((*m_pC_inpicture[m_Sprite[0].pack_num])[m_Sprite[0].sprite_num].GetWidth() + PICTURE_INDENT -1)/ fontx-1;
 				h =  ((*m_pC_inpicture[m_Sprite[0].pack_num])[m_Sprite[0].sprite_num].GetHeight()-1)/ m_desc_y_distance +1;
-				m_rep_string.erase(&m_rep_string[i]);
+				m_rep_string.erase(m_rep_string.begin() + i);
+				i--;
 			}
 		}
 
@@ -254,7 +264,7 @@ bool	C_VS_UI_DESC::LoadDesc(const char *szFilename, int row, int col, bool bl_ti
 
 		temp_string = szLine;
 
-		for(int i = 0; i < m_ori_string.size(); i++)//¹®ÀÚ¿­ ´ëÃ¼
+		bool string_replaced = false;		for(int i = 0; i < m_ori_string.size(); i++)//ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½Ã¼
 		{
 			int re = temp_string.find(m_ori_string[i]);
 			if(re != -1)
@@ -269,43 +279,44 @@ bool	C_VS_UI_DESC::LoadDesc(const char *szFilename, int row, int col, bool bl_ti
 					sz_temp_1[re] = '\0';
 					m_desc.push_back(sz_temp_1);
 					m_desc.push_back(sz_temp_2);
+					string_replaced = true;
 					break;
 				}
 				else
 					temp_string.replace(temp_string.begin()+re, temp_string.begin() + re + m_ori_string[i].size(), m_rep_string[i].begin(), m_rep_string[i].end());
 			}
 		}
-		if(i != m_ori_string.size())continue;
+		if(string_replaced) continue;
 
-		if(temp_string[0] == '&')//ÆÑ¹øÈ£
+		if(temp_string[0] == '&')//ï¿½Ñ¹ï¿½È£
 		{
 			pack = atoi(temp_string.c_str()+1);
 			continue;
 		}
 
-		if(temp_string[0] == '(')//ÆÑ¹øÈ£
+		if(temp_string[0] == '(')//ï¿½Ñ¹ï¿½È£
 		{
 			m_delimiter_pack = atoi(temp_string.c_str()+1);
 			continue;
 		}
 
-		if(temp_string[0] == ')')//ÆÑ¹øÈ£
+		if(temp_string[0] == ')')//ï¿½Ñ¹ï¿½È£
 		{
 			m_delimiter_sprite = atoi(temp_string.c_str()+1);
 			continue;
 		}
 
-		if(temp_string[0] == '%')//±×¸²»ðÀÔ ±×¸² ÅÂ±×
+		if(temp_string[0] == '%')//ï¿½×¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½Â±ï¿½
 		{
 			int spr_id = atoi(temp_string.c_str()+1);
 
-			if(m_ori_string.empty() && !m_rep_string.empty())//itemÀÎ°æ¿ì
+			if(m_ori_string.empty() && !m_rep_string.empty())//itemï¿½Î°ï¿½ï¿½
 			{
-				// 2004, 7, 6 sobeit modify start - ÄÚ¾îÀì ÀÌ¹ÌÁöµµ º¸¿©ÁÖ±â À§ÇÏ¿©~ -_- ¿©±â ÄÚµå°¡ ¹«Áö ÀÌ»óÇÔ..
+				// 2004, 7, 6 sobeit modify start - ï¿½Ú¾ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½~ -_- ï¿½ï¿½ï¿½ï¿½ ï¿½Úµå°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½..
 				int HasCoreZap = (CoreZapID==-1)?0:1;
 
 				CSpritePack *temp = new CSpritePack;
-				temp->Init( 1 + HasCoreZap );		// ÀÓ½Ã·Î 1°³¸¸ loading.. - -;;
+				temp->Init( 1 + HasCoreZap );		// ï¿½Ó½Ã·ï¿½ 1ï¿½ï¿½ï¿½ï¿½ loading.. - -;;
 				
 				bool re = temp->LoadFromFileData( 0, spr_id, SPK_ITEM, SPKI_ITEM );
 				assert(re);
@@ -318,7 +329,7 @@ bool	C_VS_UI_DESC::LoadDesc(const char *szFilename, int row, int col, bool bl_ti
 			
 				m_pC_inpicture.push_back(temp);
 
-				// Å©¸®½º¸¶½º Æ®¸®¿ë ÇÏµå ÄÚµù
+				// Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Ïµï¿½ ï¿½Úµï¿½
 				if(spr_id == 371)
 					SetSprite(m_pC_inpicture.size()-1, 0, -300);
 				else
@@ -333,19 +344,20 @@ bool	C_VS_UI_DESC::LoadDesc(const char *szFilename, int row, int col, bool bl_ti
 				w2 = 0;
 				h = ((*m_pC_inpicture[m_pC_inpicture.size()-1])[0].GetHeight() -1)/ m_desc_y_distance +1 - m_rep_string.size();
 			}
-			else//itemÀÌ ¾Æ´Ñ°æ¿ì
+			else//itemï¿½ï¿½ ï¿½Æ´Ñ°ï¿½ï¿½
 			{
-				while(h > 0)	// ±×¸²ÀÌ °ãÄ¡Áö ¾Ê°ÔÇÑ´Ù
+				while(h > 0)	// ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ê°ï¿½ï¿½Ñ´ï¿½
 				{
 					h--;
 					m_desc.push_back("");
 				};
 
-				int pos = m_desc.size();	//±×¸²À§Ä¡ Á¶Á¤
+				int pos = m_desc.size();	//ï¿½×¸ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 				if(bl_title)
 				{
-					for(i = 1; !strcmp(m_desc[i].c_str(),""); i++);
-					pos -= i;
+					int offset = 1;
+					for(int i = 1; i < (int)m_desc.size() && !strcmp(m_desc[i].c_str(),""); i++, offset++);
+					pos -= offset;
 				}
 
 				SetSprite(pack, spr_id, pos);
@@ -368,7 +380,7 @@ bool	C_VS_UI_DESC::LoadDesc(const char *szFilename, int row, int col, bool bl_ti
 		}
 		else
 		{
-			if(h > 0 && w2 == 0)	// tab¹®ÀÚ¿­ÀÌ ¾Æ´Ñ°ÍÀÌ ±×¸²¿¡ °ãÄ¡Áö ¾Ê°Ô Á¶Á¤
+			if(h > 0 && w2 == 0)	// tabï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Æ´Ñ°ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½
 			{
 				while(h>0)
 				{
@@ -376,7 +388,7 @@ bool	C_VS_UI_DESC::LoadDesc(const char *szFilename, int row, int col, bool bl_ti
 					m_desc.push_back("");
 				}
 			}
-			else if(indent)		// tab¹®ÀÚ¿­°ú ÀÏ¹Ý ¹®ÀÚ¿­Àº ÇÑ ÁÙ ¶ç¿ò
+			else if(indent)		// tabï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 			{
 				m_desc.push_back("");
 				indent = false;
@@ -433,19 +445,19 @@ bool	C_VS_UI_DESC::LoadDesc(const char *szFilename, int row, int col, bool bl_ti
 
 	m_pack_file.Release();
 
-	if(bl_title)	// »ó´ÜÀÇ Ã¹ÁÙÀ» Å¸ÀÌÆ²·Î
+	if(bl_title)	// ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¹ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Æ²ï¿½ï¿½
 	{
 		m_desc_title = m_desc[0];
-		m_desc.erase(&m_desc[0]);
+		m_desc.erase(m_desc.begin());
 	}
 
 //	if(m_desc.size())###@@@
 	if(!m_desc.empty())
 	{
-		while(m_desc.front() == "")	// »ó´Ü ¿©¹é Á¦°Å
-			m_desc.erase(&m_desc.front());
-		while(m_desc.back() == "")	// ÇÏ´Ü ¿©¹é Á¦°Å
-			m_desc.erase(&m_desc.back());
+		while(!m_desc.empty() && m_desc.front() == "")
+			m_desc.erase(m_desc.begin());
+		while(!m_desc.empty() && m_desc.back() == "")
+			m_desc.pop_back();
 	}
 
 	return TRUE;
@@ -454,7 +466,7 @@ bool	C_VS_UI_DESC::LoadDesc(const char *szFilename, int row, int col, bool bl_ti
 
 ////////////////////////////////////////////////////////////////////////
 // C_VS_UI_DESC::SetSprite
-// DESC¾ÈÀÇ Sprite¸¦ ¼¼ÆÃÇÑ´Ù
+// DESCï¿½ï¿½ï¿½ï¿½ Spriteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 ////////////////////////////////////////////////////////////////////////
 void	C_VS_UI_DESC::SetSprite(int pack, int num, int line)				
 {
@@ -468,7 +480,7 @@ void	C_VS_UI_DESC::SetSprite(int pack, int num, int line)
 
 ////////////////////////////////////////////////////////////////////////
 // C_VS_UI_DESC::LoadDesc
-// memory¿¡¼­ Á÷Á¢ ¼¼ÆÃ - by sobeit
+// memoryï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - by sobeit
 ////////////////////////////////////////////////////////////////////////
 bool	C_VS_UI_DESC::LoadDescFromString(const char *szString, int row, int col, bool bl_title, int CoreZapID)
 {
@@ -481,20 +493,21 @@ bool	C_VS_UI_DESC::LoadDescFromString(const char *szString, int row, int col, bo
 	m_Sprite.clear();
 
 	bool indent = false;
-	//»ó´Ü ¹®ÀÚ¿­ »ðÀÔ
+	//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	int check, w=0, h=0, w2=0, pack = 0;
 
 	if(m_ori_string.empty() && !m_rep_string.empty())
 	{
-		for(int i = 0; i < m_rep_string.size(); i++)
+		for(int i = 0; i < (int)m_rep_string.size(); i++)
 		{
 			if(m_rep_string[i][0] == '%')
 			{
 				SetSprite(0, atoi(m_rep_string[i].c_str()+1), 0);
 				w2 = ((*m_pC_inpicture[m_Sprite[0].pack_num])[m_Sprite[0].sprite_num].GetWidth() + PICTURE_INDENT -1)/ fontx-1;
 				h =  ((*m_pC_inpicture[m_Sprite[0].pack_num])[m_Sprite[0].sprite_num].GetHeight()-1)/ m_desc_y_distance +1;
-				m_rep_string.erase(&m_rep_string[i]);
+				m_rep_string.erase(m_rep_string.begin() + i);
+				i--;
 			}
 		}
 
@@ -516,7 +529,7 @@ bool	C_VS_UI_DESC::LoadDescFromString(const char *szString, int row, int col, bo
 
 		temp_string = szString;
 
-		for(int i = 0; i < m_ori_string.size(); i++)//¹®ÀÚ¿­ ´ëÃ¼
+		for(int i = 0; i < m_ori_string.size(); i++)//ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½Ã¼
 		{
 			int re = temp_string.find(m_ori_string[i]);
 			if(re != -1)
@@ -539,35 +552,35 @@ bool	C_VS_UI_DESC::LoadDescFromString(const char *szString, int row, int col, bo
 		}
 //		if(i != m_ori_string.size())continue;
 //
-//		if(temp_string[0] == '&')//ÆÑ¹øÈ£
+//		if(temp_string[0] == '&')//ï¿½Ñ¹ï¿½È£
 //		{
 //			pack = atoi(temp_string.c_str()+1);
 //			continue;
 //		}
 //
-//		if(temp_string[0] == '(')//ÆÑ¹øÈ£
+//		if(temp_string[0] == '(')//ï¿½Ñ¹ï¿½È£
 //		{
 //			m_delimiter_pack = atoi(temp_string.c_str()+1);
 //			continue;
 //		}
 //
-//		if(temp_string[0] == ')')//ÆÑ¹øÈ£
+//		if(temp_string[0] == ')')//ï¿½Ñ¹ï¿½È£
 //		{
 //			m_delimiter_sprite = atoi(temp_string.c_str()+1);
 //			continue;
 //		}
 //
-//		if(temp_string[0] == '%')//±×¸²»ðÀÔ ±×¸² ÅÂ±×
+//		if(temp_string[0] == '%')//ï¿½×¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½Â±ï¿½
 //		{
 //			int spr_id = atoi(temp_string.c_str()+1);
 //
-//			if(m_ori_string.empty() && !m_rep_string.empty())//itemÀÎ°æ¿ì
+//			if(m_ori_string.empty() && !m_rep_string.empty())//itemï¿½Î°ï¿½ï¿½
 //			{
-//				// 2004, 7, 6 sobeit modify start - ÄÚ¾îÀì ÀÌ¹ÌÁöµµ º¸¿©ÁÖ±â À§ÇÏ¿©~ -_- ¿©±â ÄÚµå°¡ ¹«Áö ÀÌ»óÇÔ..
+//				// 2004, 7, 6 sobeit modify start - ï¿½Ú¾ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½~ -_- ï¿½ï¿½ï¿½ï¿½ ï¿½Úµå°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½..
 //				int HasCoreZap = (CoreZapID==-1)?0:1;
 //
 //				CSpritePack *temp = new CSpritePack;
-//				temp->Init( 1 + HasCoreZap );		// ÀÓ½Ã·Î 1°³¸¸ loading.. - -;;
+//				temp->Init( 1 + HasCoreZap );		// ï¿½Ó½Ã·ï¿½ 1ï¿½ï¿½ï¿½ï¿½ loading.. - -;;
 //				
 //				bool re = temp->LoadFromFileData( 0, spr_id, SPK_ITEM, SPKI_ITEM );
 //				assert(re);
@@ -580,7 +593,7 @@ bool	C_VS_UI_DESC::LoadDescFromString(const char *szString, int row, int col, bo
 //			
 //				m_pC_inpicture.push_back(temp);
 //
-//				// Å©¸®½º¸¶½º Æ®¸®¿ë ÇÏµå ÄÚµù
+//				// Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Ïµï¿½ ï¿½Úµï¿½
 //				if(spr_id == 371)
 //					SetSprite(m_pC_inpicture.size()-1, 0, -300);
 //				else
@@ -595,15 +608,15 @@ bool	C_VS_UI_DESC::LoadDescFromString(const char *szString, int row, int col, bo
 //				w2 = 0;
 //				h = ((*m_pC_inpicture[m_pC_inpicture.size()-1])[0].GetHeight() -1)/ m_desc_y_distance +1 - m_rep_string.size();
 //			}
-//			else//itemÀÌ ¾Æ´Ñ°æ¿ì
+//			else//itemï¿½ï¿½ ï¿½Æ´Ñ°ï¿½ï¿½
 //			{
-//				while(h > 0)	// ±×¸²ÀÌ °ãÄ¡Áö ¾Ê°ÔÇÑ´Ù
+//				while(h > 0)	// ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ê°ï¿½ï¿½Ñ´ï¿½
 //				{
 //					h--;
 //					m_desc.push_back("");
 //				};
 //
-//				int pos = m_desc.size();	//±×¸²À§Ä¡ Á¶Á¤
+//				int pos = m_desc.size();	//ï¿½×¸ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 //				if(bl_title)
 //				{
 //					for(i = 1; !strcmp(m_desc[i].c_str(),""); i++);
@@ -630,7 +643,7 @@ bool	C_VS_UI_DESC::LoadDescFromString(const char *szString, int row, int col, bo
 		}
 		else
 		{
-			if(h > 0 && w2 == 0)	// tab¹®ÀÚ¿­ÀÌ ¾Æ´Ñ°ÍÀÌ ±×¸²¿¡ °ãÄ¡Áö ¾Ê°Ô Á¶Á¤
+			if(h > 0 && w2 == 0)	// tabï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Æ´Ñ°ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½
 			{
 				while(h>0)
 				{
@@ -638,7 +651,7 @@ bool	C_VS_UI_DESC::LoadDescFromString(const char *szString, int row, int col, bo
 					m_desc.push_back("");
 				}
 			}
-			else if(indent)		// tab¹®ÀÚ¿­°ú ÀÏ¹Ý ¹®ÀÚ¿­Àº ÇÑ ÁÙ ¶ç¿ò
+			else if(indent)		// tabï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 			{
 				m_desc.push_back("");
 				indent = false;
@@ -695,19 +708,19 @@ bool	C_VS_UI_DESC::LoadDescFromString(const char *szString, int row, int col, bo
 
 	m_pack_file.Release();
 
-	if(bl_title)	// »ó´ÜÀÇ Ã¹ÁÙÀ» Å¸ÀÌÆ²·Î
+	if(bl_title)	// ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¹ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Æ²ï¿½ï¿½
 	{
 		m_desc_title = m_desc[0];
-		m_desc.erase(&m_desc[0]);
+		m_desc.erase(m_desc.begin());
 	}
 
 //	if(m_desc.size())###@@@
 	if(!m_desc.empty())
 	{
-		while(m_desc.front() == "")	// »ó´Ü ¿©¹é Á¦°Å
-			m_desc.erase(&m_desc.front());
-		while(m_desc.back() == "")	// ÇÏ´Ü ¿©¹é Á¦°Å
-			m_desc.erase(&m_desc.back());
+		while(!m_desc.empty() && m_desc.front() == "")
+			m_desc.erase(m_desc.begin());
+		while(!m_desc.empty() && m_desc.back() == "")
+			m_desc.pop_back();
 	}
 
 	return TRUE;

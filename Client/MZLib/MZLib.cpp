@@ -40,7 +40,7 @@ MFileInfo::Set( const char* filename )
 {
 	m_Filename = filename;
 
-	class ifstream file(filename, ios::binary | ios::nocreate);
+	std::ifstream file(filename, ios::binary);
 
 	if (!file.is_open())
 	{
@@ -62,7 +62,7 @@ MFileInfo::Set( const char* filename )
 // Save To File
 //--------------------------------------------------------------------------
 void
-MFileInfo::SaveToFile(class ofstream& file)
+MFileInfo::SaveToFile(std::ofstream& file)
 {
 	m_Filename.SaveToFile( file );
 	file.write((const char*)&m_Filesize, 4);
@@ -74,7 +74,7 @@ MFileInfo::SaveToFile(class ofstream& file)
 // Load From File
 //--------------------------------------------------------------------------
 void
-MFileInfo::LoadFromFile(class ifstream& file)
+MFileInfo::LoadFromFile(std::ifstream& file)
 {
 	m_Filename.LoadFromFile( file );
 	file.read((char*)&m_Filesize, 4);
@@ -130,7 +130,7 @@ MZLib::AddFileInfo(MFileInfo* pInfo)
 //--------------------------------------------------------------------------
 // Add File
 //--------------------------------------------------------------------------
-// ¿œ¥‹ size√º≈©∏∏ ≥°≥ª∞Ì 
+// ÏùºÎã® sizeÏ≤¥ÌÅ¨Îßå ÎÅùÎÇ¥Í≥† 
 //--------------------------------------------------------------------------
 bool				
 MZLib::AddFile(const char* filename)
@@ -162,20 +162,20 @@ MZLib::Compress(const char* filename)
 		return false;
 	}
 
-	class ofstream packFile(filename, ios::binary | ios::trunc);
+	std::ofstream packFile(filename, ios::binary | ios::trunc);
 
 	//--------------------------------------------------------------
-	// header ¿˙¿Â
+	// header Ï†ÄÏû•
 	//--------------------------------------------------------------
 	packFile.write((const char*)m_ZLibHeader, MZLIB_HEADER_SIZE);
 
-	// fileInfo∞° ¿˙¿Âµ» ¿ßƒ°
+	// fileInfoÍ∞Ä Ï†ÄÏû•Îêú ÏúÑÏπò
 	long fpFileInfoFP = packFile.tellp();	
 	packFile.write((const char*)&fpFileInfoFP, 4);
 
 
 	//--------------------------------------------------------------
-	// ¿¸√º filesize ∞ËªÍ
+	// Ï†ÑÏ≤¥ filesize Í≥ÑÏÇ∞
 	//--------------------------------------------------------------
 	FILEINFO_LIST::iterator iInfo = m_listFileInfo.begin();
 
@@ -184,13 +184,13 @@ MZLib::Compress(const char* filename)
 		MFileInfo* pInfo = *iInfo;
 
 		//--------------------------------------------------------------
-		// æ–√‡
+		// ÏïïÏ∂ï
 		//--------------------------------------------------------------
 		// compress(buffer, bufferSize, data, dataSize)
 		//
-		// [Ω««‡ »ƒ]
-		// buffer¥¬ data∞° æ–√‡µ«æÓ ¿˙¿Âµ»¥Ÿ.
-		// bufferSize¥¬ æ–√‡µ» buffer¿« size∞° µ»¥Ÿ.
+		// [Ïã§Ìñâ ÌõÑ]
+		// bufferÎäî dataÍ∞Ä ÏïïÏ∂ïÎêòÏñ¥ Ï†ÄÏû•ÎêúÎã§.
+		// bufferSizeÎäî ÏïïÏ∂ïÎêú bufferÏùò sizeÍ∞Ä ÎêúÎã§.
 		// 
 		long filesize = pInfo->GetFilesize();
 		unsigned long compLen = max((float)filesize*1.5f , filesize+4096);
@@ -222,12 +222,12 @@ MZLib::Compress(const char* filename)
 	}
 
 	//--------------------------------------------------------------
-	// FileInfo∏¶ packFile≥°ø° ¿˙¿Â
+	// FileInfoÎ•º packFileÎÅùÏóê Ï†ÄÏû•
 	//--------------------------------------------------------------
 	long fpFileInfo = packFile.tellp();	
 	WriteFileInfoToFile( packFile );
 
-	// fileInfo∞° ¿˙¿Âµ» ¿ßƒ°∏¶ ¿˙¿Â«—¥Ÿ.
+	// fileInfoÍ∞Ä Ï†ÄÏû•Îêú ÏúÑÏπòÎ•º Ï†ÄÏû•ÌïúÎã§.
 	packFile.seekp( fpFileInfoFP );
 	packFile.write((const char*)&fpFileInfo, 4);	
 
@@ -243,7 +243,7 @@ MZLib::Compress(const char* filename)
 bool
 MZLib::Uncompress(const char* filename)
 {
-	class ifstream packFile(filename, ios::binary | ios::nocreate);
+	std::ifstream packFile(filename, ios::binary);
 
 	if (!packFile.is_open())
 	{
@@ -251,7 +251,7 @@ MZLib::Uncompress(const char* filename)
 	}
 
 	//-------------------------------------------------------------
-	// Header ¿–±‚
+	// Header ÏùΩÍ∏∞
 	//-------------------------------------------------------------
 	char str[MZLIB_HEADER_SIZE+1];
 
@@ -264,7 +264,7 @@ MZLib::Uncompress(const char* filename)
 	}
 
 	//-------------------------------------------------------------
-	// FileInfo¿–±‚
+	// FileInfoÏùΩÍ∏∞
 	//-------------------------------------------------------------
 	long fpFileInfo;
 	packFile.read((char*)&fpFileInfo, 4);
@@ -276,10 +276,10 @@ MZLib::Uncompress(const char* filename)
 		return false;
 	}
 
-	packFile.seekg( fpCurrent );	// « ø‰ æ¯≥ﬂ..
+	packFile.seekg( fpCurrent );	// ÌïÑÏöî ÏóÜÎÑπ..
 
 	//-------------------------------------------------------------
-	// ∞¢∞¢¿« fileinfo∏¶ ¿ÃøÎ«ÿº≠ æ–√‡ «ÿ¡¶
+	// Í∞ÅÍ∞ÅÏùò fileinfoÎ•º Ïù¥Ïö©Ìï¥ÏÑú ÏïïÏ∂ï Ìï¥Ï†ú
 	//-------------------------------------------------------------
 	FILEINFO_LIST::iterator iInfo = m_listFileInfo.begin();
 
@@ -303,7 +303,7 @@ MZLib::Uncompress(const char* filename)
 
 		uncompress((Bytef*)m_pFileBuffer, &uncompLen, (const Bytef*)m_pPackBuffer, bufferLen);
 
-		class ofstream file( writeFilename, ios::binary | ios::trunc );		
+		std::ofstream file( writeFilename, ios::binary | ios::trunc );		
 		file.write((const char*)m_pFileBuffer, uncompLen);
 		file.close();
 
@@ -374,7 +374,7 @@ MZLib::InitFileBuffer(long bytes)
 bool
 MZLib::ReadBufferFromFile(const char* filename)
 {
-	class ifstream file(filename, ios::binary | ios::nocreate);
+	std::ifstream file(filename, ios::binary);
 
 	if (!file.is_open())
 	{
@@ -400,7 +400,7 @@ MZLib::ReadBufferFromFile(const char* filename)
 // Write Buffer To File
 //--------------------------------------------------------------------------
 void
-MZLib::WriteBufferToFile(class ofstream& packFile, long bytes)
+MZLib::WriteBufferToFile(std::ofstream& packFile, long bytes)
 {
 	packFile.write((const char*)m_pPackBuffer, bytes);
 }
@@ -409,7 +409,7 @@ MZLib::WriteBufferToFile(class ofstream& packFile, long bytes)
 // Read Buffer From File
 //--------------------------------------------------------------------------
 void
-MZLib::ReadBufferFromFile(class ifstream& packFile, long bytes)
+MZLib::ReadBufferFromFile(std::ifstream& packFile, long bytes)
 {
 	packFile.read((char*)m_pPackBuffer, bytes);
 }
@@ -418,7 +418,7 @@ MZLib::ReadBufferFromFile(class ifstream& packFile, long bytes)
 // Write Buffer To File
 //--------------------------------------------------------------------------
 void
-MZLib::WriteFileInfoToFile(class ofstream& packFile)
+MZLib::WriteFileInfoToFile(std::ofstream& packFile)
 {
 	long numSize = m_listFileInfo.size();
 
@@ -440,7 +440,7 @@ MZLib::WriteFileInfoToFile(class ofstream& packFile)
 // Read Buffer To File
 //--------------------------------------------------------------------------
 bool				
-MZLib::ReadFileInfoFromFile(class ifstream& packFile)
+MZLib::ReadFileInfoFromFile(std::ifstream& packFile)
 {
 	ReleaseFileInfo();	
 	

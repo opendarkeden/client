@@ -14,7 +14,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCModifyInformationHandler::execute ( GCModifyInformation * pPacket, Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -23,26 +24,26 @@ void GCModifyInformationHandler::execute ( GCModifyInformation * pPacket, Player
 	// message
 
 	//------------------------------------------------------------------
-	// »óÅÂ°ªÀ» ¹Ù²Û´Ù.
+	// ìƒíƒœê°’ì„ ë°”ê¾¼ë‹¤.
 	//------------------------------------------------------------------
 	AffectModifyInfo(g_pPlayer, pPacket);
 
 	//------------------------------------------------------------------
-	// effect status¸¦ Àû¿ë½ÃÅ²´Ù.
+	// effect statusë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 	//------------------------------------------------------------------
 	if (g_pPlayer->GetEFFECT_STAT()!=EFFECTSTATUS_NULL)
 	{
 		int esDelayFrame = ConvertDurationToFrame( g_pPlayer->GetDURATION() );
 
-		// effect¸¦ ºÙÀÎ´Ù.
+		// effectë¥¼ ë¶™ì¸ë‹¤.
 		g_pPlayer->AddEffectStatus((EFFECTSTATUS)g_pPlayer->GetEFFECT_STAT(), esDelayFrame);	
 		
 		g_pPlayer->SetStatus( MODIFY_EFFECT_STAT, EFFECTSTATUS_NULL );
 	}
 
 	//------------------------------------------------------------------
-	// UI¿¡ º¸ÀÌ´Â °ÍÀ» ¹Ù²ãÁØ´Ù.
-	// ºñ±³¿¬»êÇÏ´Â°Åº¸´Ù ÀÌ°Ô ´õ ºü¸£Áö ¾ÊÀ»±î.. À½.. - -;
+	// UIì— ë³´ì´ëŠ” ê²ƒì„ ë°”ê¿”ì¤€ë‹¤.
+	// ë¹„êµì—°ì‚°í•˜ëŠ”ê±°ë³´ë‹¤ ì´ê²Œ ë” ë¹ ë¥´ì§€ ì•Šì„ê¹Œ.. ìŒ.. - -;
 	//------------------------------------------------------------------
 	//UI_SetHP( g_pPlayer->GetHP(), g_pPlayer->GetMAX_HP() );
 	//UI_SetMP( g_pPlayer->GetMP(), g_pPlayer->GetMAX_MP() );

@@ -18,11 +18,11 @@
 //
 // class ClientPlayer
 //
-// Å¬¶óÀÌ¾ğÆ®¿ë ÇÃ·¹ÀÌ¾î Å¬·¡½º
+// í´ë¼ì´ì–¸íŠ¸ìš© í”Œë ˆì´ì–´ í´ë˜ìŠ¤
 //
 //--------------------------------------------------------------------------------
 
-// ÀúÀåÇØ³õÀ» ÀÌÀü ÆĞÅ¶ÀÇ °³¼ö
+// ì €ì¥í•´ë†“ì„ ì´ì „ íŒ¨í‚·ì˜ ê°œìˆ˜
 const BYTE nPacketHistory = 10;
 
 class ClientPlayer : public Player {
@@ -30,10 +30,10 @@ class ClientPlayer : public Player {
 public :
 	
 	// constructor
-	ClientPlayer ( Socket * pSocket ) throw ( Error );
+	ClientPlayer ( Socket * pSocket ) throw ( ProtocolException , Error );
 	
 	// destructor
-	~ClientPlayer () throw ( Error );
+	~ClientPlayer () throw ( ProtocolException , Error );
 
 public :
 
@@ -47,23 +47,23 @@ public :
 	//virtual void processOutput () throw ( IOException , Error );
 	
 	// send packet to player's output buffer
-	//virtual void sendPacket ( Packet * packet ) throw ( Error );
+	//virtual void sendPacket ( Packet * packet ) throw ( ProtocolException , Error );
 
 	// disconnect
-	// Á¤½Ä ·Î±×¾Æ¿ôÀÇ °æ¿ì disconnect(UNDISCONNECTED)
-	virtual void disconnect ( bool bDisconnected = DISCONNECTED ) throw ( Error );
+	// ì •ì‹ ë¡œê·¸ì•„ì›ƒì˜ ê²½ìš° disconnect(UNDISCONNECTED)
+	virtual void disconnect ( bool bDisconnected = DISCONNECTED ) throw ( ProtocolException , Error );
 	
 	// get debug std::string
-	virtual std::string toString () const throw ( Error );
+	virtual std::string toString () const throw ( ProtocolException , Error );
 	
 public :
 
 	// return recent N-th packet
-	// ÃÖ±Ù Àü¼ÛµÈ N ¹øÂ° ÆĞÅ¶À» ¸®ÅÏÇÑ´Ù.
+	// ìµœê·¼ ì „ì†¡ëœ N ë²ˆì§¸ íŒ¨í‚·ì„ ë¦¬í„´í•œë‹¤.
 	Packet * getOldPacket ( uint prev = 0 ) throw ( OutOfBoundException , NoSuchElementException );
 
 	// return recent packet which has packetID
-	// Æ¯Á¤ ID¸¦ °¡Áø ÆĞÅ¶ Áß °¡Àå ÃÖ±ÙÀÇ ÆĞÅ¶À» ¸®ÅÏÇÑ´Ù.
+	// íŠ¹ì • IDë¥¼ ê°€ì§„ íŒ¨í‚· ì¤‘ ê°€ì¥ ìµœê·¼ì˜ íŒ¨í‚·ì„ ë¦¬í„´í•œë‹¤.
 	Packet * getOldPacket ( PacketID_t packetID ) throw ( NoSuchElementException );
 
 	// get player's status
@@ -92,7 +92,7 @@ public :
 
 	void setXY ( Coord_t x , Coord_t y ) throw () { m_X = x; m_Y = y; }
 
-	// ¾ÏÈ£È­ ÄÚµå¸¦ ¼³Á¤ÇÑ´Ù.
+	// ì•”í˜¸í™” ì½”ë“œë¥¼ ì„¤ì •í•œë‹¤.
 	void setEncryptCode() throw( Error );
 
 private :

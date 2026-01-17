@@ -1,67 +1,74 @@
-////////////////////////////////////////////////////////////////////////////////
-//	created:	2004/12/22
-//	file base:	client_pch.h
-// 
-////////////////////////////////////////////////////////////////////////////////
+/*-----------------------------------------------------------------------------
 
-#pragma once
+	client_PCH.h
 
-#pragma warning(disable:4290)
-#pragma warning(disable:4018)
-#pragma warning(disable:4244)
-#pragma warning(disable:4018)
-#pragma warning(disable:4786)
+	Minimal precompiled header for CMake builds.
+	Replaces the original VC6 precompiled header.
 
+	2025.01.14
 
-#pragma warning(push)
+-----------------------------------------------------------------------------*/
 
-#include <string>
-#include <assert.h>
-#include <vector>
-#include <map>
-#include <list>
-#include <deque>
-#include <bitset>
-#include <algorithm>
-#include <iostream.h>
-#include <fstream.h>
-#include <windows.h>
-#include <MMSystem.h>
-#include <Digitalv.h>
-#include <DDraw.h>
+#ifndef __CLIENT_PCH_H__
+#define __CLIENT_PCH_H__
+
+/* Define this as a game client build */
+#define __GAME_CLIENT__
+
+/* Platform types */
+#include "../basic/Platform.h"
+
+/* Standard C++ library */
 #include <stdio.h>
-#include <stdarg.h>
-#include <io.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h> 
-//#include "GAME1024.h"
-#pragma warning(pop)
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <time.h>
+#include <iostream>
 
-using std::string;
-using std::vector;
-using std::map;
-using std::list;
-using std::deque;
-using std::bitset;
+/* Use standard namespace for convenience */
+using namespace std;
 
-extern BOOL g_MyFull;
-extern RECT g_GameRect;
-//extern GAME1024 g_NewMode;
-extern	LONG g_SECTOR_WIDTH;
-extern	LONG g_SECTOR_HEIGHT;
-extern	LONG g_SECTOR_WIDTH_HALF;
-extern	LONG g_SECTOR_HEIGHT_HALF;
-extern	LONG g_SECTOR_SKIP_PLAYER_LEFT;
-extern	LONG g_SECTOR_SKIP_PLAYER_UP;
+/* LONG type for non-Windows platforms */
+#ifndef PLATFORM_WINDOWS
+#ifndef LONG
+typedef long LONG;
+#endif
+#endif
 
-extern	LONG g_TILESURFACE_SECTOR_WIDTH;
-extern	LONG g_TILESURFACE_SECTOR_HEIGHT;
-extern	LONG g_TILESURFACE_SECTOR_OUTLINE_RIGHT;
-extern	LONG g_TILESURFACE_SECTOR_OUTLINE_DOWN;
-extern	LONG g_TILESURFACE_WIDTH;
-extern	LONG g_TILESURFACE_HEIGHT;
-extern	LONG g_TILESURFACE_OUTLINE_RIGHT;
-extern	LONG g_TILESURFACE_OUTLINE_DOWN;
-extern	LONG g_TILE_X_HALF;
-extern	LONG g_TILE_Y_HALF;
+/* RECT definition for non-Windows platforms */
+#ifndef PLATFORM_WINDOWS
+#ifndef RECT_DEFINED
+#define RECT_DEFINED
+typedef struct tagRECT {
+	LONG left;
+	LONG top;
+	LONG right;
+	LONG bottom;
+} RECT, *PRECT, *LPRECT;
+#endif
+
+/* POINT definition */
+#ifndef POINT_DEFINED
+#define POINT_DEFINED
+typedef struct tagPOINT {
+	LONG x;
+	LONG y;
+} POINT, *PPOINT, *LPPOINT;
+#endif
+
+/* SIZE definition */
+#ifndef SIZE_DEFINED
+#define SIZE_DEFINED
+typedef struct tagSIZE {
+	LONG cx;
+	LONG cy;
+} SIZE, *PSIZE, *LPSIZE;
+#endif
+
+#endif /* PLATFORM_WINDOWS */
+
+/* Exception handling for Packet system */
+#include "Packet/Exception.h"
+
+#endif /* __CLIENT_PCH_H__ */

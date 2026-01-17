@@ -1,7 +1,11 @@
 #ifndef HUFFMAN_H
 #define HUFFMAN_H
 
+#ifdef PLATFORM_WINDOWS
 #include <wtypes.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "bit_res.h"
 
 

@@ -2,7 +2,7 @@
 // Filename    : GCExecuteElement.h 
 // Written By  : elca@ewestsoft.com
 // Description : 
-// ±â¼úÀÌ ¼º°øÇßÀ»¶§ º¸³»´Â ÆĞÅ¶À» À§ÇÑ Å¬·¡½º Á¤ÀÇ
+// ê¸°ìˆ ì´ ì„±ê³µí–ˆì„ë•Œ ë³´ë‚´ëŠ” íŒ¨í‚·ì„ ìœ„í•œ í´ë˜ìŠ¤ ì •ì˜
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_EXECUTE_ELEMENT_H__
@@ -15,7 +15,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCExecuteElement;
-// °ÔÀÓ¼­¹ö¿¡¼­ Å¬¶óÀÌ¾ğÆ®·Î ÀÚ½ÅÀÇ ±â¼úÀÌ ¼º°øÀ» ¾Ë·ÁÁÖ±â À§ÇÑ Å¬·¡½º
+// ê²Œì„ì„œë²„ì—ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ìì‹ ì˜ ê¸°ìˆ ì´ ì„±ê³µì„ ì•Œë ¤ì£¼ê¸° ìœ„í•œ í´ë˜ìŠ¤
 //////////////////////////////////////////////////////////////////////////////
 
 class GCExecuteElement : public Packet 
@@ -44,9 +44,9 @@ public:
 	void	setIndex(WORD idx) { m_Index = idx; }
 
 private:
-	DWORD	m_dwQuestID;	// Äù½ºÆ® ID
-	BYTE	m_Condition;	// ¾î´À Á¶°Ç¿¡ ÀÖ´Â°¡ 0 : Happen, 1 : Complete, 2 : Fail, 3 : Reward
-	WORD	m_Index;		// ÇØ´ç Á¶°ÇÀÇ ¸î¹øÂ° elementÀÎ°¡
+	DWORD	m_dwQuestID;	// í€˜ìŠ¤íŠ¸ ID
+	BYTE	m_Condition;	// ì–´ëŠ ì¡°ê±´ì— ìˆëŠ”ê°€ 0 : Happen, 1 : Complete, 2 : Fail, 3 : Reward
+	WORD	m_Index;		// í•´ë‹¹ ì¡°ê±´ì˜ ëª‡ë²ˆì§¸ elementì¸ê°€
 };
 
 
@@ -76,7 +76,7 @@ public:
 class GCExecuteElementHandler 
 {
 public:
-	static void execute(GCExecuteElement* pGCExecuteElement, Player* pPlayer) throw(Error);
+	static void execute(GCExecuteElement* pGCExecuteElement, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

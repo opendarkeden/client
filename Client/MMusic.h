@@ -3,17 +3,17 @@
 //----------------------------------------------------------------------
 /*
 
-  notifyÃ³¸® ¹æ¹ý
+  notifyì²˜ë¦¬ ë°©ë²•
 
-  À©µµ¿ì ÇÚµé(g_hWnd)À» ´ëÀÔÇÑ »óÅÂÀÌ¸é..
-  ±× À©µµ¿ì·Î MM_MCINOTIFY°¡ °£´Ù.
+  ìœˆë„ìš° í•¸ë“¤(g_hWnd)ì„ ëŒ€ìž…í•œ ìƒíƒœì´ë©´..
+  ê·¸ ìœˆë„ìš°ë¡œ MM_MCINOTIFYê°€ ê°„ë‹¤.
 
 	case MM_MCINOTIFY :
 		{
-			// Mid°¡ ´Ù ¿¬ÁÖµÇ¾ú´Ù´Â ¸»ÀÌ´Ù.
+			// Midê°€ ë‹¤ ì—°ì£¼ë˜ì—ˆë‹¤ëŠ” ë§ì´ë‹¤.
 			if (wParam==MCI_NOTIFY_SUCCESSFUL)
 			{
-				// ¹Ýº¹ÇØ¼­ ¿¬ÁÖÇÑ´Ù.
+				// ë°˜ë³µí•´ì„œ ì—°ì£¼í•œë‹¤.
 				g_Music.RePlay();
 			}
 		}
@@ -25,25 +25,25 @@
 //#include <MMSystem.h>
 
 
-// Å¬·¡½º
+// í´ëž˜ìŠ¤
 class MMusic
 {
 protected:
 	HWND		m_hwnd;
 
 
-	LPSTR		MIDI_ERROR_MSG[80];				// ¿¡·¯ ¸Þ¼¼Áö ÀúÀå 
+	LPSTR		MIDI_ERROR_MSG[80];				// ì—ëŸ¬ ë©”ì„¸ì§€ ì €ìž¥ 
 
 public:
 	bool		m_bInit;
-	bool		m_bLoad;						// È­ÀÏÀÌ ·ÎµåÁßÀÎÁö?
-	bool		m_bPlay;						// À½¾ÇÀÌ ÁøÇàÁßÀÎÁö?
-	bool		m_bPause;						// Á¤Áö½ÃÄ×³ª?
+	bool		m_bLoad;						// í™”ì¼ì´ ë¡œë“œì¤‘ì¸ì§€?
+	bool		m_bPlay;						// ìŒì•…ì´ ì§„í–‰ì¤‘ì¸ì§€?
+	bool		m_bPause;						// ì •ì§€ì‹œì¼°ë‚˜?
 	WORD		m_Volume;
 
 	
 protected:
-	bool		ErrorMsg();						// ¸Þ¼¼Áö Ãâ·Â
+	bool		ErrorMsg();						// ë©”ì„¸ì§€ ì¶œë ¥
 
 
 public:

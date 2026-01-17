@@ -1,4 +1,6 @@
 #include "client_PCH.h"
+#define assert(e) ((void)(e))
+// Disabled assert for macOS
 
 // VS_UI_Dialog.cpp
 #pragma warning(disable:4786)
@@ -101,8 +103,8 @@ void C_VS_UI_DIALOG::UnacquireMouseFocus()
 //-----------------------------------------------------------------------------
 C_VS_UI_DIALOG::C_VS_UI_DIALOG(int _x, int _y, int width, int height, void (*exec_fp)(C_VS_UI_DIALOG *, id_t), WORD dd_button)
 {
-	if(width < 10)width = (width+2)*81;		//±âÁ¸ ÄÚµå¿Í È£È¯
-	if(height < 10 && height!=-1)height = (height+2)*81;	//±âÁ¸ ÄÚµå¿Í È£È¯
+	if(width < 10)width = (width+2)*81;		//ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ È£È¯
+	if(height < 10 && height!=-1)height = (height+2)*81;	//ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ È£È¯
 
 	m_bOkOnly = false;
 	m_TempValue1 = 0;
@@ -161,8 +163,8 @@ C_VS_UI_DIALOG::C_VS_UI_DIALOG(int _x, int _y, int width, int height, void (*exe
 	else
 		y = _y;
 
-	// xÁÂÇ¥ º¸Á¤
-	// È­¸é¹ÛÀ¸·Î ³Ñ¾î°¡¸é ¶¯±è...
+	// xï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½
+	// È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½...
 	if (Right() >= g_GameRect.right)
 		x = g_GameRect.right - w;
 	if (x < 0)
@@ -186,7 +188,7 @@ C_VS_UI_DIALOG::C_VS_UI_DIALOG(int _x, int _y, int width, int height, void (*exe
 	}
 
 	// set Client rect
-	// Window´Â MoveµÇÁö ¾ÊÀ» °ÍÀÓÀ» °¡Á¤ÇÑ´Ù.
+	// Windowï¿½ï¿½ Moveï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	const int _EXTRA = 30;//2;
 	m_client_rect.x = x+DECORATE_GAP+_EXTRA;
 	m_client_rect.w = w-DECORATE_GAP*2-_EXTRA*2;
@@ -203,7 +205,7 @@ C_VS_UI_DIALOG::C_VS_UI_DIALOG(int _x, int _y, int width, int height, void (*exe
 	{
 		m_pC_button_group->Add(	new C_VS_UI_EVENT_BUTTON(DIALOG_BUTTON_POS(BS_OK), DIALOG_BUTTON_Y, DIALOG_BUTTON_WIDTH, DIALOG_BUTTON_HEIGHT, DIALOG_EXECID_OK, this, C_GLOBAL_RESOURCE::AB_BUTTON_OK));
 		//m_pC_button_group->Add(	new C_VS_UI_EVENT_BUTTON(150, DIALOG_BUTTON_Y, DIALOG_BUTTON_WIDTH, DIALOG_BUTTON_HEIGHT, DIALOG_EXECID_OK, this, C_GLOBAL_RESOURCE::AB_BUTTON_OK));
-		// µÎ ¹öÆ° ´Ù ÀÖ´Â °æ¿ì
+		// ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
 		if (m_ddb & DIALOG_CANCEL)
 		{
 			m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(DIALOG_BUTTON_POS(BS_CANCEL), DIALOG_BUTTON_Y, DIALOG_BUTTON_WIDTH, DIALOG_BUTTON_HEIGHT, DIALOG_EXECID_CANCEL, this, C_GLOBAL_RESOURCE::AB_BUTTON_CANCEL));
@@ -212,7 +214,7 @@ C_VS_UI_DIALOG::C_VS_UI_DIALOG(int _x, int _y, int width, int height, void (*exe
 	}
 	else
 	{
-		// cancel¸¸ ÀÖ´Â °æ¿ì
+		// cancelï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
 		if (m_ddb & DIALOG_CANCEL && h != -1)
 		{
 			m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(DIALOG_BUTTON_POS(BS_OK), DIALOG_BUTTON_Y, DIALOG_BUTTON_WIDTH, DIALOG_BUTTON_HEIGHT, DIALOG_EXECID_CANCEL, this, C_GLOBAL_RESOURCE::AB_BUTTON_CANCEL));
@@ -271,7 +273,7 @@ void	C_VS_UI_DIALOG::CancelPushState()
 //-----------------------------------------------------------------------------
 // GetButtonGap
 //
-// buttonÀÌ ÀÖ³Ä¾ø³Ä¸¦ °áÁ¤ÇÏ¿© button height gapÀ» ¹ÝÈ¯ÇÑ´Ù.
+// buttonï¿½ï¿½ ï¿½Ö³Ä¾ï¿½ï¿½Ä¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ button height gapï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 int C_VS_UI_DIALOG::GetButtonGap() const
 {
@@ -305,8 +307,8 @@ void C_VS_UI_DIALOG::Run(id_t id)
 
 		case DIALOG_EXECID_OK:
 #ifdef _LIB
-			if(true == g_pUserInformation->IsAutoLogIn) // À¥ ÀÚµ¿ ·Î±ä ÀÏ °æ¿ì 
-				gpC_base->SendMessage(UI_TERMINATION, 0, 0); // ¸ðµå°¡ ¸ÞÀÎ ¸Þ´º ÀÏ ¶§
+			if(true == g_pUserInformation->IsAutoLogIn) // ï¿½ï¿½ ï¿½Úµï¿½ ï¿½Î±ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ 
+				gpC_base->SendMessage(UI_TERMINATION, 0, 0); // ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ ï¿½ï¿½
 #endif
 			Finish();
 			break;
@@ -324,7 +326,7 @@ void C_VS_UI_DIALOG::Run(id_t id)
 //		// change scroll tag position
 //		double proportion = Proportion(m_scrollbar.GetPercentToScroll(), PERCENTAGE, m_remained_track);
 //
-//		// ¼Ò¼ö Ã¹Â°ÀÚ¸® ¹Ý¿Ã¸².
+//		// ï¿½Ò¼ï¿½ Ã¹Â°ï¿½Ú¸ï¿½ ï¿½Ý¿Ã¸ï¿½.
 //		proportion += 0.5;
 //		m_tag_rect.y = m_tag_up_limit+(int)floor(proportion);
 //	}
@@ -353,12 +355,12 @@ void C_VS_UI_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 	{
 		switch (key)
 		{
-			case VK_RETURN: // ok·Î °£ÁÖ. !cancelÀº ¹Ýµå½Ã ok¿Í ÇÔ²² ÀÖ´Ù.
+			case VK_RETURN: // okï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. !cancelï¿½ï¿½ ï¿½Ýµï¿½ï¿½ okï¿½ï¿½ ï¿½Ô²ï¿½ ï¿½Ö´ï¿½.
 				if (m_ddb & DIALOG_OK)
 					Run(DIALOG_EXECID_OK);
 				break;
 
-			case VK_ESCAPE: // ¾Æ¹«°Íµµ ¾ÈÇÔ.
+			case VK_ESCAPE: // ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½.
 				if(true == m_bOkOnly)
 					Run(DIALOG_EXECID_OK);
 				else
@@ -485,7 +487,7 @@ void C_VS_UI_DIALOG::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 {
 	int i;
 
-	// Menu button°ú ±×³É ButtonÀ» ´Ù¸£°Ô Ã³¸®. 
+	// Menu buttonï¿½ï¿½ ï¿½×³ï¿½ Buttonï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½. 
 	if (p_button->GetID() == DIALOG_EXECID_OK ||
 		 p_button->GetID() == DIALOG_EXECID_CANCEL ||
 		 p_button->GetID() == DIALOG_EXECID_FRIEND_BLACK
@@ -521,7 +523,7 @@ void C_VS_UI_DIALOG::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 		{
 			PrintInfo * p_pi;
 			
-			// ¸Þ´º ÀÌµ¿¿¡ µû¸¥ ¹öÆ° ÁÂÇ¥ º¸Á¤ °ª
+			// ï¿½Þ´ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 			int y_skip_line=0;
 			if(m_pC_menu_scroll_bar!=NULL)
 			{
@@ -529,7 +531,7 @@ void C_VS_UI_DIALOG::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 				if(p_button->m_image_index>0&&m_button_y_list!=NULL&&GetScrollPos()>0)
 					y_skip_line=m_button_y_list[GetScrollPos()]-m_temp_menu_rect_y;
 			}
-			y_skip_line+=m_menu_y_size;			// m_menu_y_size ´Â ¸Þ´ºRect Å©±â°¡ º¯°æµÇ¾úÀ»¶§ º¸Á¤ÇÒ °ªÀÌ´Ù.
+			y_skip_line+=m_menu_y_size;			// m_menu_y_size ï¿½ï¿½ ï¿½Þ´ï¿½Rect Å©ï¿½â°¡ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
 
 
 			if (p_button->GetFocusState())
@@ -584,7 +586,7 @@ void C_VS_UI_DIALOG::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 					g_FL2_GetDC();
 					for(i=0; i < m_p_menu[p_button->m_image_index].sz_menu_str.size(); i++)
 					{
-						// À­ÁÙÀ» ÄÆÇØÁØ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 						if(p_button->y-i*TEXT_EXTRA_HGAP-y_skip_line+m_menu_str_height*i<m_menu_rect.y+m_menu_rect.h)
 						{
 							//m_p_menu[p_button->m_image_index].sz_menu_str[i].c_str()
@@ -617,7 +619,7 @@ void C_VS_UI_DIALOG::Show()
 //	Rect rect;
 //	rect.Set(0, 0, w-2, h-2);
 //
-//	// alpha°¡ ¼¼ÆÃµÇ¾î ÀÖÀ¸¸é ¹ÝÅõ¸íÃ¢À¸·Î Ãâ·Â :)
+//	// alphaï¿½ï¿½ ï¿½ï¿½ï¿½ÃµÇ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ :)
 //	if(GetAttributes()->alpha)
 //	{
 //		RECT alpha_rect;
@@ -651,7 +653,7 @@ void C_VS_UI_DIALOG::Show()
 //	gpC_global_resource->m_pC_assemble_box_spk->BltLocked(_x, _y, C_GLOBAL_RESOURCE::AB_RIGHTDOWN);
 //
 //	// center
-//	// !°¢ blockÀÇ Å©±â°¡ ´Ù¸¦ ¼ö ÀÖ´Ù.
+//	// !ï¿½ï¿½ blockï¿½ï¿½ Å©ï¿½â°¡ ï¿½Ù¸ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
 //	_y = y+gpC_global_resource->m_pC_assemble_box_spk->GetHeight(C_GLOBAL_RESOURCE::AB_LEFTUP);
 //	for (j=0; j < m_center_y; j++)
 //	{
@@ -804,7 +806,7 @@ void C_VS_UI_DIALOG::Start()
 //-----------------------------------------------------------------------------
 // StartByPinMode
 //
-// pin mode·Î StartÇÑ´Ù.
+// pin modeï¿½ï¿½ Startï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_DIALOG::StartByPinMode()
 {
@@ -830,18 +832,18 @@ void C_VS_UI_DIALOG::Finish()
 // SetMessage
 //
 // - Message rect = (Client rect - Menu rect - Button rect)
-// - height¸¦ ±¸ÇÏÁö ¸øÇÏ¸é Ãâ·ÂµÇÁö ¾ÊÀ» °ÍÀÌ´Ù. => ¾ÆÁ÷±¸Çö¾ÈÇÔ.
+// - heightï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½Âµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½. => ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 //
 // parameter format>
 //							char * pp_msg[] = {"line1", "line2", ...} // global or local static
 //							SetMessage(pp_msg, line_x);
 //
-// 2002³â 7¿ù 23ÀÏ Ãß°¡»çÇ× -by sonee
-// ±âÁ¸ÀÇ SetMessage ´Â ±×´ë·Î À¯ÁöÇÏµÇ, m_flag_menu ¸¦ µÎ¾î, ¸Þ´º°¡ ÀÖÀ»½Ã¿¡¸¸ ½ºÅ©·Ñ ÀÚµ¿Ã³¸®°¡ µÇµµ·Ï
-// ¼öÁ¤ÇÏ¿´´Ù.
-// ¹Ýµå½Ã SetMenu °¡ ÀÌ·ç¾îÁøÈÄ SetMessage ¸¦ ÇØ¾ß ¸Þ´ºÀÇ ½ºÅ©·ÑÀÌ Á¦´ë·Î Àû¿ë µÉ ¼ö ÀÖ´Ù.
-// ¸¸¾à ÀÏ¹Ý ´ÙÀÌ¾Ë·Î±×¿¡¼­ ¹®Á¦°¡ »ý±æ½Ã ÁÖ¼®Ã³¸®µÈ ----[Fix] ºÎºÐÀ» ÁÖ¼®Ã³¸®¸¦ ÇØÁ¦ÇØÁÖµµ·Ï ÇÑ´Ù.
-// ¼öÁ¤»çÇ×¿¡¼­´Â ÀÌºÎºÐ¸¸ º¯°æµÇ¾ú´Ù.
+// 2002ï¿½ï¿½ 7ï¿½ï¿½ 23ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ -by sonee
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SetMessage ï¿½ï¿½ ï¿½×´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½, m_flag_menu ï¿½ï¿½ ï¿½Î¾ï¿½, ï¿½Þ´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½Úµï¿½Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½Çµï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½.
+// ï¿½Ýµï¿½ï¿½ SetMenu ï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SetMessage ï¿½ï¿½ ï¿½Ø¾ï¿½ ï¿½Þ´ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½Ì¾Ë·Î±×¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ ----[Fix] ï¿½Îºï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÌºÎºÐ¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE_OPTION mode)
 {
@@ -892,7 +894,7 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 	const int _EXTRA = 30;//2;
 	if(h == -1)
 	{
-		h = m_line_count*m_message_str_height;		// Rect ÀÇ ³ôÀÌ´Â ¸Þ½ÃÁöÃ¢ÀÇ ±æÀÌ·Î Á¤ÇÑ´Ù. 
+		h = m_line_count*m_message_str_height;		// Rect ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½. 
 		if(m_menu_count > 0)
 			h += 14 + m_menu_rect.h;
 
@@ -906,8 +908,8 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 
 		int plus = 0;
 		int width, height;
-		
-		for (i=0; i < m_menu_count; i++, plus += (m_menu_str_height-TEXT_EXTRA_HGAP)*height+TEXT_EXTRA_HGAP)
+
+		for (int i=0; i < m_menu_count; i++, plus += (m_menu_str_height-TEXT_EXTRA_HGAP)*height+TEXT_EXTRA_HGAP)
 		{
 			if(!m_p_menu[i].sz_menu_str.empty())
 			{
@@ -927,7 +929,7 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 				(m_menu_str_height-TEXT_EXTRA_HGAP)*height,
 				m_p_menu[i].exec_id, 
 				this, 
-				i)); // m_p_menuÀÇ stringÀ» ÂüÁ¶ÇÏ±â À§ÇØ¼­ index¸¦ ³Ö´Â´Ù.
+				i)); // m_p_menuï¿½ï¿½ stringï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ indexï¿½ï¿½ ï¿½Ö´Â´ï¿½.
 		}
 	}
 
@@ -935,9 +937,9 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 	m_msg_rect.w = m_client_rect.w;
 	m_msg_rect.y = m_client_rect.y;	
 	
-	// 2002³â 7¿ù 23ÀÏ ¼öÁ¤ ºÎºÐ.
-	// ¸Þ´º°¡ ÀÖÀ¸¸é ÇöÀç ´ÙÀÌ¾Ë·Î±×ÀÇ ³ôÀÌÀÇ ¹ÝÀ» ±âÁØÀ» Àâ´Â´Ù.
-	// ±×·¸Áö ¾ÊÀº°æ¿ì´Â ±âÁ¸ÀÇ °ª ±×´ë·Î »ç¿ë.
+	// 2002ï¿½ï¿½ 7ï¿½ï¿½ 23ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½.
+	// ï¿½Þ´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾Ë·Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â´ï¿½.
+	// ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½×´ï¿½ï¿½ ï¿½ï¿½ï¿½.
 	
 	if(m_flag_menu)
 	{
@@ -953,9 +955,9 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 	// set print line count
 	m_print_line_count = (m_msg_rect.h)/m_message_str_height;//+MSG_EXTRA_HGAP
 	
-	if(m_pC_menu_scroll_bar==NULL&&m_flag_menu)		// ¾Æ·¡ÂÊ ¸Þ´ºÆÇ¿¡ ½ºÅ©·Ñ¹Ù°¡ »ý±âÁö ¾Ê¾ÒÀ»°æ¿ì
+	if(m_pC_menu_scroll_bar==NULL&&m_flag_menu)		// ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ï¿½Ç¿ï¿½ ï¿½ï¿½Å©ï¿½Ñ¹Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
-		// ±æÀÌ¸¦ ´Ã·ÁÁØ´Ù.
+		// ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ã·ï¿½ï¿½Ø´ï¿½.
 		m_msg_rect.h=m_client_rect.h-m_menu_rect.h-28;
 		m_print_line_count = (m_msg_rect.h)/m_message_str_height;
 	}
@@ -963,9 +965,9 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 	{		
 		m_nofit_mode_msg_y = m_msg_rect.y+m_msg_rect.h/2-(m_message_str_height*line_count)/2; // sort in center
 	}
-	else if (m_line_count > m_print_line_count)				// Ãâ·Â¹üÀ§°¡ Á¼À¸¹Ç·Î ScrollBar ¸¦ »ý¼ºÇÑ´Ù.
+	else if (m_line_count > m_print_line_count)				// ï¿½ï¿½Â¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ScrollBar ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	{
-		// ½ºÅ©·Ñ¹Ù¶§¹®¿¡ ´Ù½Ã ±Û¾¾¸¦ ÀÚ¸¥´Ù.
+		// ï¿½ï¿½Å©ï¿½Ñ¹Ù¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½.
 		m_vs_msg.clear();
 		for(int i = 0; i < line_count; i++)
 		{
@@ -1004,13 +1006,13 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 		m_pC_msg_scroll_bar = new C_VS_UI_SCROLL_BAR(m_line_count-m_print_line_count+1, 
 			Rect(m_msg_rect.w, m_msg_rect.y-m_client_rect.y+10, -1, m_msg_rect.h-30));
 	} else
-	if(m_flag_menu)				// ¸Þ´º°¡ ÀÖÀ» °æ¿ì
+	if(m_flag_menu)				// ï¿½Þ´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	{
-		// À§ÂÊÀÌ Á¼±â ¶§¹®¿¡ ½ºÅ©·Ñ¹Ù°¡ ÀÖÀ» °æ¿ì ¸Þ´ºrect ¸¦ À§·Î ³ÐÇôÁØ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½Ñ¹Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½rect ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 		if(m_pC_menu_scroll_bar!=NULL)
 		{
-			// linelen Àº °æ°è¶óÀÎ Æ÷ÇÔÇØ¼­ ¸Þ½ÃÁöÀÇ h Å©±âÀÌ´Ù.
-			// m_client.h/2-linelen Àº ºó¿µ¿ªÀÌ¸ç, ¸Þ´º¸¦ ²ø¾î ¿Ã¸± ¼ö ÀÖ´Â ±æÀÌÀÌ´Ù.
+			// linelen ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ h Å©ï¿½ï¿½ï¿½Ì´ï¿½.
+			// m_client.h/2-linelen ï¿½ï¿½ ï¿½ó¿µ¿ï¿½ï¿½Ì¸ï¿½, ï¿½Þ´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 			int linelen=(m_line_count+1)*m_message_str_height;
 			
 			m_msg_rect.y=m_client_rect.y;
@@ -1025,8 +1027,8 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 			
 			int len_menu=m_button_y_list[m_menu_count]-m_temp_menu_rect_y;
 			
-			// ±æÀÌ¸¦ ´Ã¸®°í³ª¼­, ¹öÆ°µéÀ» ¸ðµÎ Ãâ·ÂÇÒ ¼ö ÀÖÀ»¶§¿¡´Â, Ã¢¿¡ ¸Â°Ô Àç¹èÄ¡ÇÏ°í,
-			// ½ºÅ©·ÑÀ» »ý¼ºÇÏÁö ¾Ê´Â´Ù. 
+			// ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Ã¢ï¿½ï¿½ ï¿½Â°ï¿½ ï¿½ï¿½ï¿½Ä¡ï¿½Ï°ï¿½,
+			// ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½. 
 			if(len_menu<m_menu_rect.h)
 			{
 				len_menu=m_menu_rect.h-len_menu;
@@ -1043,14 +1045,14 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 //-----------------------------------------------------------------------------
 // SetMenu
 //
-// - Client rect¿¡¼­ Menu rect°ø°£À» È®º¸ÇÏÁö ¸øÇÏ¸é Ãâ·ÂµÇÁö ¾ÊÀ» °ÍÀÌ´Ù.
-// - µÎ ¹ø ÀÌ»ó ¼³Á¤ÇÒ ¼ö ¾ø´Ù.
-// - menu_only°¡ trueÀÌ¸é dialog center¿¡ ¸ÂÃß°í falseÀÌ¸é message °ø°£À» À§ÇØ
-//   rect ÇÏ´Ü¿¡ À§Ä¡½ÃÅ²´Ù.
+// - Client rectï¿½ï¿½ï¿½ï¿½ Menu rectï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½Âµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
+// - ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+// - menu_onlyï¿½ï¿½ trueï¿½Ì¸ï¿½ dialog centerï¿½ï¿½ ï¿½ï¿½ï¿½ß°ï¿½ falseï¿½Ì¸ï¿½ message ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+//   rect ï¿½Ï´Ü¿ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½Å²ï¿½ï¿½.
 // 
-// 2002³â 7¿ù 23ÀÏ ¼öÁ¤»çÇ×				-by sonee
-// - Menu Rect °ø°£À» È®º¸ÇÏÁö ¸øÇÏ¿´À»°æ¿ì ÀÚµ¿ ½ºÅ©·Ñ¹Ù°¡ ºÙÀ¸¸ç, ¸Þ½ÃÁö rect
-//  ¿Í ºñ±³ÇÏ¿© ÀÚµ¿À¸·Î °ø°£À» È®º¸ÇÑ´Ù.
+// 2002ï¿½ï¿½ 7ï¿½ï¿½ 23ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½				-by sonee
+// - Menu Rect ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½Å©ï¿½Ñ¹Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Þ½ï¿½ï¿½ï¿½ rect
+//  ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_DIALOG::SetMenu(const DIALOG_MENU * p_dialog_menu, UINT menu_count, bool menu_only)
 {
@@ -1074,7 +1076,7 @@ void C_VS_UI_DIALOG::SetMenu(const DIALOG_MENU * p_dialog_menu, UINT menu_count,
 
 	m_p_menu = new DIALOG_MENU_INNER[m_menu_count];
 
-	// Menu ±ÛÀÚ ³Ñ¾î°¡´Â°Å ÀÚ¸£±â.
+	// Menu ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¡ï¿½Â°ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½.
 	for (i=0; i < m_menu_count; i++)
 	{
 		m_p_menu[i].exec_id = p_dialog_menu[i].exec_id;
@@ -1124,10 +1126,10 @@ void C_VS_UI_DIALOG::SetMenu(const DIALOG_MENU * p_dialog_menu, UINT menu_count,
 	}
 
 	//
-	// ! SetMessage()¿¡ ÀÇÇØ¼­ Message°¡ ¸ÕÀú ¼³Á¤µÉ ¼ö ÀÖÁö¸¸, ±×°ÍÀ» °í·ÁÇÏÁö ¾Ê´Â´Ù.
-	// ±×·¯´Ï±î VS_UI_Dialog classÀÇ ¿Ã¹Ù¸¥ »ç¿ëÀº, SetMenu()¸¦ ¸ÕÀú ÇØÁØ ÈÄ SetMessage()¸¦
-	// ÇØÁÖ´Â °ÍÀÌ´Ù. Menu rect´Â ¹«Á¶°Ç Client rectÀÇ ÇÏ´Ü¿¡¼­ ¸ðµç Menu¸¦ ¹èÄ¡ÇÒ ¼ö ÀÖ´Â
-	// rect·Î ¼³Á¤µÈ´Ù. ±×·¡¼­ ³²Àº Client rect°¡ Message ¿µ¿ªÀ¸·Î µÇ´Â °ÍÀÌ´Ù.
+	// ! SetMessage()ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ Messageï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½×°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
+	// ï¿½×·ï¿½ï¿½Ï±ï¿½ VS_UI_Dialog classï¿½ï¿½ ï¿½Ã¹Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, SetMenu()ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ SetMessage()ï¿½ï¿½
+	// ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½. Menu rectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Client rectï¿½ï¿½ ï¿½Ï´Ü¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Menuï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½
+	// rectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½. ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Client rectï¿½ï¿½ Message ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
 	//
 	//	m_menu_str_height;
 
@@ -1193,7 +1195,7 @@ void C_VS_UI_DIALOG::SetMenu(const DIALOG_MENU * p_dialog_menu, UINT menu_count,
 				(m_menu_str_height-TEXT_EXTRA_HGAP)*height,
 				m_p_menu[i].exec_id, 
 				this, 
-				i)); // m_p_menuÀÇ stringÀ» ÂüÁ¶ÇÏ±â À§ÇØ¼­ index¸¦ ³Ö´Â´Ù. ÀÌ°ªÀº imageindex ¿¡ ÀúÀåµÈ´Ù.			
+				i)); // m_p_menuï¿½ï¿½ stringï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ indexï¿½ï¿½ ï¿½Ö´Â´ï¿½. ï¿½Ì°ï¿½ï¿½ï¿½ imageindex ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È´ï¿½.			
 		}
 		m_button_y_list[i]=m_menu_rect.y+plus;		
 	
@@ -1219,7 +1221,7 @@ int C_VS_UI_DIALOG::GetScrollPos()
 	{
 		now_len=m_button_y_list[i]-m_temp_menu_rect_y;
 		// |-----+-----|
-		//    +- ÀÌ°æ¿ì 
+		//    +- ï¿½Ì°ï¿½ï¿½ 
 		if(NowPos>=now_len&&NowPos<now_len+(m_button_y_list[i+1]-m_button_y_list[i])/2)
 		{
 			m_pC_menu_scroll_bar->SetScrollPos(m_button_y_list[i]-m_temp_menu_rect_y);
@@ -1238,7 +1240,7 @@ int C_VS_UI_DIALOG::GetScrollPos()
 // --------------------------------------------------------------------------------------
 //  C_VS_UI_DIALOG::ProcessMenuScrollBar();
 //  
-//  Pixel º°·Î ½ºÅ©·ÑÀ» ÇÏ±â ¶§¹®¿¡, ±âÁ¸¿¡ ½ºÅ©·Ñ¹Ù¸¦ »ç¿ëÇÏ¸é¼­ ¼öÁ¤À» °¡ÇÔ.
+//  Pixel ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½Ñ¹Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸é¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
 void C_VS_UI_DIALOG::ProcessMenuScrollBar()
 {
@@ -1261,12 +1263,12 @@ void C_VS_UI_DIALOG::ProcessMenuScrollBar()
 		{
 			half=(m_button_y_list[i+1]-m_button_y_list[i])>>1;
 
-			// ½ºÅ©·ÑÀ» ¾Æ·¡·Î ÇÏ´Â°æ¿ì
+			// ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Ï´Â°ï¿½ï¿½
 			if(NowPos>m_button_y_list[i]-m_temp_menu_rect_y&&NowPos<m_button_y_list[i+1]-m_temp_menu_rect_y-half)
 			{				
 				NowPos=m_button_y_list[i+1]-m_temp_menu_rect_y;
 
-				// ÇÑ È­¸é¿¡ Ãâ·ÂÀÌ µÇ´Â°æ¿ì PosMax ¸¦ ´Ù½Ã ¼¼ÆÃÇØÁØ´Ù.
+				// ï¿½ï¿½ È­ï¿½é¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´Â°ï¿½ï¿½ PosMax ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 				if(!(m_button_y_list[m_menu_count]-m_temp_menu_rect_y<NowPos+m_menu_rect.h))
 					m_pC_menu_scroll_bar->SetScrollPos(NowPos);
 				else
@@ -1278,7 +1280,7 @@ void C_VS_UI_DIALOG::ProcessMenuScrollBar()
 		if(i>0)
 		{
 			half=(m_button_y_list[i]-m_button_y_list[i-1])>>1;
-			// ½ºÅ©·ÑÀ» À§·Î ÇÏ´Â °æ¿ì
+			// ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½
 			if(NowPos<m_button_y_list[i]-m_temp_menu_rect_y&&NowPos>m_button_y_list[i-1]-m_temp_menu_rect_y+half)
 			{
 				NowPos=m_button_y_list[i-1]-m_temp_menu_rect_y;

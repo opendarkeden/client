@@ -30,33 +30,33 @@ MAttackZoneBombEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	
 	int maxFrame = g_pTopView->GetMaxEffectFrame(bltType, frameID);
 	
-	pEffect->SetFrameID( frameID, maxFrame );		// 0¹ø Effect, Max 3 Frame					
+	pEffect->SetFrameID( frameID, maxFrame );		// 0ë²ˆ Effect, Max 3 Frame					
 
 	
-	// ¹æÇâÀ¸·Î ¹Ù²î´Â °ª
-	// ±× ¹æÇâÀ¸·Î ÇÑ Å¸ÀÏ ´õ ¾È °£´Ù. - -;
+	// ë°©í–¥ìœ¼ë¡œ ë°”ë€ŒëŠ” ê°’
+	// ê·¸ ë°©í–¥ìœ¼ë¡œ í•œ íƒ€ì¼ ë” ì•ˆ ê°„ë‹¤. - -;
 	//POINT cxy = MTopView::GetChangeValueToDirection( egInfo.direction );
 
 	int tx = egInfo.x1; // + cxy.x * TILE_X;
 	int ty = egInfo.y1; // + cxy.y * TILE_Y;
 
-	// ¹ß»ç À§Ä¡ PixelÁÂÇ¥	
+	// ë°œì‚¬ ìœ„ì¹˜ Pixelì¢Œí‘œ	
 	//pEffect->SetPixelPosition( egInfo.x0, egInfo.y0, egInfo.z0+TILE_Y );	
 	pEffect->SetPixelPosition( egInfo.x0, egInfo.y0, egInfo.z0+(TILE_Y<<1) );	
 
-	// ¹æÇâ ¼³Á¤
+	// ë°©í–¥ ì„¤ì •
 	pEffect->SetDirection( egInfo.direction );
 					
-	// ¸ñÇ¥ À§Ä¡ PixelÁÂÇ¥
+	// ëª©í‘œ ìœ„ì¹˜ Pixelì¢Œí‘œ
 	pEffect->SetTarget( tx, ty, egInfo.z1, egInfo.step );	
 
-	// Áö¼ÓµÇ´Â Frame (¸ñÇ¥°¡ ÀÖ´Ù¸é º°·Î °ü°è ¾øÀ½ - -;)
+	// ì§€ì†ë˜ëŠ” Frame (ëª©í‘œê°€ ìžˆë‹¤ë©´ ë³„ë¡œ ê´€ê³„ ì—†ìŒ - -;)
 	pEffect->SetCount( egInfo.count, egInfo.linkCount );
 
-	// À§·Â
+	// ìœ„ë ¥
 	pEffect->SetPower(egInfo.power);
 
-	// ºûÀÇ ¹à±â
+	// ë¹›ì˜ ë°ê¸°
 	//pEffect->SetLight( light );
 
 	if (g_pZone->AddEffect( pEffect ))

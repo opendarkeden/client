@@ -18,7 +18,7 @@
 #include <io.h>			// for _open()
 #include <fcntl.h>		// for _open()/_close()/_read()/_write()...
 #include <string.h>		// for memcpy()
-#elif __LINUX__
+#elif __LINUX__ || defined(__APPLE__) || defined(__APPLE__)
 #include <sys/types.h>	// for open()
 #include <sys/stat.h>	// for open()
 #include <unistd.h>		// for fcntl()
@@ -31,7 +31,7 @@
 //////////////////////////////////////////////////
 // external variables
 //////////////////////////////////////////////////
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 extern int errno;
 #endif
 
@@ -42,14 +42,14 @@ int FileAPI::open_ex ( const char * filename , int flags )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	int fd = open(filename,flags);
 #elif __WINDOWS__
 	int fd = _open(filename,flags);
 #endif
 	if ( fd < 0 ) {
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 		switch ( errno ) {
 		case EEXIST : 
 			throw FileAlreadyExistException("pathname already exists and O_CREAT and O_EXCL were used.");
@@ -103,14 +103,14 @@ int FileAPI::open_ex ( const char * filename , int flags , int mode )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	int fd = open(filename,flags,mode);
 #elif __WINDOWS__
 	int fd = _open(filename,flags,mode);
 #endif
 
 	if ( fd < 0 ) {
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 		switch ( errno ) {
 		case EEXIST : 
 			throw FileAlreadyExistException("pathname already exists and O_CREAT and O_EXCL were used.");
@@ -182,7 +182,7 @@ uint FileAPI::read_ex ( int fd , void * buf , uint len )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	int result = read ( fd , buf , len );
 #elif __WINDOWS__
 	int result = _read ( fd , buf , len );
@@ -190,7 +190,7 @@ uint FileAPI::read_ex ( int fd , void * buf , uint len )
 
 	if ( result < 0 ) {
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 		switch ( errno ) {
 			case EINTR : 
 				throw InterruptedIOException("The call was interrupted by a signal before any data was read.");
@@ -247,7 +247,7 @@ uint FileAPI::write_ex ( int fd , const void * buf , uint len )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	int result = write ( fd , buf , len );
 #elif __WINDOWS__
 	int result = _write ( fd , buf , len );
@@ -255,7 +255,7 @@ uint FileAPI::write_ex ( int fd , const void * buf , uint len )
 
 	if ( result < 0 ) {
 		
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 		switch ( errno ) {
 			case EAGAIN : 
 				throw NonBlockingIOException("Non-blocking I/O has been selected using O_NONBLOCK and there was no room in the pipe or socket connected to fd to write the data immediately.");
@@ -313,7 +313,7 @@ void FileAPI::close_ex ( int fd )
 	__BEGIN_TRY
 
 	if ( close(fd) < 0 ) {
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 		switch ( errno ) {
 			case EBADF : 
 				throw FileNotOpenedException("fd isn't a valid open file descriptor.");
@@ -343,12 +343,12 @@ void FileAPI::close_ex ( int fd )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-int FileAPI::fcntl_ex ( int fd , int cmd ) 
-	throw ( Error )
+int FileAPI::fcntl_ex ( int fd , int cmd )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	int result = fcntl ( fd , cmd );
 	if ( result < 0 ) {
 		switch ( errno ) {
@@ -395,12 +395,12 @@ int FileAPI::fcntl_ex ( int fd , int cmd )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-int FileAPI::fcntl_ex ( int fd , int cmd , long arg ) 
-	throw ( Error )
+int FileAPI::fcntl_ex ( int fd , int cmd , long arg )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	int result = fcntl ( fd , cmd , arg );
 	if ( result < 0 ) {
 		switch ( errno ) {
@@ -450,12 +450,12 @@ int FileAPI::fcntl_ex ( int fd , int cmd , long arg )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-bool FileAPI::getfilenonblocking_ex ( int fd ) 
-     throw ( Error )
+bool FileAPI::getfilenonblocking_ex ( int fd )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	int flags = fcntl_ex( fd , F_GETFL , 0 );
 	return flags | O_NONBLOCK;
 #elif __WINDOWS__
@@ -483,12 +483,12 @@ bool FileAPI::getfilenonblocking_ex ( int fd )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-void FileAPI::setfilenonblocking_ex ( int fd , bool on ) 
-     throw ( Error )
+void FileAPI::setfilenonblocking_ex ( int fd , bool on )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	int flags = fcntl_ex( fd , F_GETFL , 0 );
 
 	if ( on )
@@ -526,11 +526,11 @@ void FileAPI::setfilenonblocking_ex ( int fd , bool on )
 //
 //////////////////////////////////////////////////////////////////////
 void FileAPI::ioctl_ex ( int fd , int request , void * argp )
-    throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	if ( ioctl(fd,request,argp) < 0 ) {
 		switch ( errno ) {
 		case EBADF : 
@@ -571,11 +571,11 @@ void FileAPI::ioctl_ex ( int fd , int request , void * argp )
 //
 //////////////////////////////////////////////////////////////////////
 void FileAPI::setfilenonblocking_ex2 ( int fd , bool on )
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	ulong arg = ( on == true ? 1 : 0 );
 	ioctl_ex(fd,FIONBIO,&arg);
 #elif __WINDOWS__
@@ -604,13 +604,13 @@ void FileAPI::setfilenonblocking_ex2 ( int fd , bool on )
 //
 //////////////////////////////////////////////////////////////////////
 uint FileAPI::availablefile_ex ( int fd )
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
-	// ½Ç¼ö·Î FIONBIO ÆÄ¶ó¹ÌÅÍ¸¦ ÁÖ´Â ¹Ù¶÷¿¡ ÇÁ·Î±×·¥ÀÌ °³°¡ µÇ¾ú´Ù.
-	// °ªÀ» ¹Þ¾Æ¿À¹Ç·Î 0 À¸·Î ÃÊ±âÈ­½ÃÄÑÁÖ¸é ÈÎ¾À ¾ÈÀüÇÒ °Í °°´Ù.
+#if __LINUX__ || defined(__APPLE__)
+	// ì‹¤ìˆ˜ë¡œ FIONBIO íŒŒë¼ë¯¸í„°ë¥¼ ì£¼ëŠ” ë°”ëžŒì— í”„ë¡œê·¸ëž¨ì´ ê°œê°€ ë˜ì—ˆë‹¤.
+	// ê°’ì„ ë°›ì•„ì˜¤ë¯€ë¡œ 0 ìœ¼ë¡œ ì´ˆê¸°í™”ì‹œì¼œì£¼ë©´ í›¨ì”¬ ì•ˆì „í•  ê²ƒ ê°™ë‹¤.
 	uint arg = 0;
 	ioctl_ex(fd,FIONREAD,&arg);
 	return arg;
@@ -629,18 +629,18 @@ uint FileAPI::availablefile_ex ( int fd )
 //
 //////////////////////////////////////////////////////////////////////
 int FileAPI::dup_ex ( int fd )
-    throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	int newfd = dup(fd);
 #elif __WINDOWS__
 	int newfd = _dup(fd);
 #endif
 
 	if ( newfd < 0 ) {
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 		switch ( errno ) {
 		case EBADF : 
 			throw Error("oldfd isn't an open file descriptor, or newfd is out of the allowed range for file descriptors.");
@@ -666,11 +666,11 @@ int FileAPI::dup_ex ( int fd )
 //
 //////////////////////////////////////////////////////////////////////
 long FileAPI::lseek_ex ( int fd , long offset , int whence )
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
-#if __LINUX__
+#if __LINUX__ || defined(__APPLE__)
 	long result = lseek(fd,offset,whence);
 	if ( result < 0 ) {
 		switch ( errno ) {

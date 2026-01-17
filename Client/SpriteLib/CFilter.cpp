@@ -35,13 +35,13 @@ CFilter::Init(WORD width, WORD height)
 	if (width==0 || height==0)
 		return;
 
-	// ÀÏ´Ü ÇØÁ¦
+	// ì¼ë‹¨ í•´ì œ
 	Release();
 
 	m_Width = width;
 	m_Height = height;
 	
-	// linear·Î memory»ı¼º
+	// linearë¡œ memoryìƒì„±
 	m_ppFilter = new BYTE* [m_Height];
 
 	for (int i=0; i<m_Height; i++)
@@ -72,19 +72,19 @@ CFilter::Release()
 //----------------------------------------------------------------------
 // Set Filter
 //----------------------------------------------------------------------
-// pSurfaceÀÇ °¢ Á¡À» ÀĞ¾î¼­ ±×¿¡ µû¸¥ Filter°ªÀ» ¸¸µé¾îÁØ´Ù.
-// Filter´Â ÇÑ Á¡¿¡ ´ëÇØ¼­ ÇÏ³ªÀÇ °ªÀÎµ¥,
-// ÇÑ Á¡Àº (R,G,B)·Î ÀÌ·ç¾îÁ® ÀÖÀ¸¹Ç·Î...
+// pSurfaceì˜ ê° ì ì„ ì½ì–´ì„œ ê·¸ì— ë”°ë¥¸ Filterê°’ì„ ë§Œë“¤ì–´ì¤€ë‹¤.
+// FilterëŠ” í•œ ì ì— ëŒ€í•´ì„œ í•˜ë‚˜ì˜ ê°’ì¸ë°,
+// í•œ ì ì€ (R,G,B)ë¡œ ì´ë£¨ì–´ì ¸ ìˆìœ¼ë¯€ë¡œ...
 //
-// ÀÏ¹İÀûÀ¸·Î Filter·Î »ç¿ëµÉ (R,G,B)ÀÇ °ª¿¡¼­ R==G==BÀÌ¶ó°í °¡Á¤ÇÏ°í..
-// ±× Áß¿¡¼­ B¸¦ ¼±ÅÃÇÏµµ·Ï ÇÑ´Ù. ±×³É.. *_*;
+// ì¼ë°˜ì ìœ¼ë¡œ Filterë¡œ ì‚¬ìš©ë  (R,G,B)ì˜ ê°’ì—ì„œ R==G==Bì´ë¼ê³  ê°€ì •í•˜ê³ ..
+// ê·¸ ì¤‘ì—ì„œ Bë¥¼ ì„ íƒí•˜ë„ë¡ í•œë‹¤. ê·¸ëƒ¥.. *_*;
 // 
 //----------------------------------------------------------------------
 void		
 CFilter::SetFilter(WORD* pSurface, WORD pitch, WORD width, WORD height)
 {
 	//------------------------------------------------------------
-	// ÇöÀç ÀâÇôÀÖ´Â ¸Ş¸ğ¸®¿Í ¿ë·®ÀÌ ´Ù¸¦ °æ¿ì memoryÀâ±â
+	// í˜„ì¬ ì¡í˜€ìˆëŠ” ë©”ëª¨ë¦¬ì™€ ìš©ëŸ‰ì´ ë‹¤ë¥¼ ê²½ìš° memoryì¡ê¸°
 	//------------------------------------------------------------
 	if (width!=m_Width || height!=m_Height)
 		Init(width, height);
@@ -95,11 +95,11 @@ CFilter::SetFilter(WORD* pSurface, WORD pitch, WORD width, WORD height)
 			
 
 	//------------------------------------------------------------
-	// pSurfaceÀÇ °¢ Á¡¿¡ ´ëÇÑ Á¤º¸¸¦ ÀĞ¾î¼­ m_pFilter¿¡ ÀúÀå
+	// pSurfaceì˜ ê° ì ì— ëŒ€í•œ ì •ë³´ë¥¼ ì½ì–´ì„œ m_pFilterì— ì €ì¥
 	//------------------------------------------------------------
 	WORD*	pSurfaceTemp;
 	BYTE*	pFilter;
-	for (i=0; i<height; i++)
+	for (int i=0; i<height; i++)
 	{
 		pSurfaceTemp = pSurface;
 
@@ -108,32 +108,32 @@ CFilter::SetFilter(WORD* pSurface, WORD pitch, WORD width, WORD height)
 		j = width;
 		do
 		{
-			*pFilter = (BYTE)(*pSurfaceTemp & 0x1F);	// Blue°ª
+			*pFilter = (BYTE)(*pSurfaceTemp & 0x1F);	// Blueê°’
 
 			pFilter++;
 			pSurfaceTemp++;
 			
 		} while (--j);
 
-		// ´ÙÀ½ ÁÙ
+		// ë‹¤ìŒ ì¤„
 		pSurface = (WORD*)((BYTE*)pSurface + pitch);
 	}
 }
 
 //----------------------------------------------------------------------
-// ´Ù¸¥ Filter¸¦ ´ëÀÔÇÑ´Ù.
+// ë‹¤ë¥¸ Filterë¥¼ ëŒ€ì…í•œë‹¤.
 //----------------------------------------------------------------------
 void		
 CFilter::SetFilter(const CFilter& filter)
 {
-	// size°¡ 0ÀÌ¸é return
+	// sizeê°€ 0ì´ë©´ return
 	if (filter.m_Width==0 || filter.m_Height==0)
 		return;
 
-	// memory Àâ±â
+	// memory ì¡ê¸°
 	Init( filter.m_Width, filter.m_Height );
 
-	// byte¼ö
+	// byteìˆ˜
 	int width2 = m_Width << 1;
 
 	for (int i=0; i<m_Height; i++)
@@ -143,23 +143,23 @@ CFilter::SetFilter(const CFilter& filter)
 }
 
 //----------------------------------------------------------------------
-// ´Ù¸¥ Filter¸¦ ¾îµÓ°Ô ÇØ¼­.. ´ëÀÔÇÑ´Ù.
+// ë‹¤ë¥¸ Filterë¥¼ ì–´ë‘¡ê²Œ í•´ì„œ.. ëŒ€ì…í•œë‹¤.
 //----------------------------------------------------------------------
 void		
 CFilter::SetFilterDarkness(const CFilter& filter, BYTE DarkBits)
 {
-	// size°¡ 0ÀÌ¸é return
+	// sizeê°€ 0ì´ë©´ return
 	if (filter.m_Width==0 || filter.m_Height==0)
 		return;
 
-	// memory Àâ±â
+	// memory ì¡ê¸°
 	Init( filter.m_Width, filter.m_Height );
 
 	register int i;
 	register int j;
 
-	// °¢ filter°ª¸¶´Ù DarkBits¸¸Å­ ¾îµÓ°Ô ÇÑ´Ù.
-	for (i=0; i<m_Height; i++)
+	// ê° filterê°’ë§ˆë‹¤ DarkBitsë§Œí¼ ì–´ë‘¡ê²Œ í•œë‹¤.
+	for (int i=0; i<m_Height; i++)
 	{
 		for (j=0; j<m_Width; j++)
 		{
@@ -174,15 +174,15 @@ CFilter::SetFilterDarkness(const CFilter& filter, BYTE DarkBits)
 bool		
 CFilter::SaveToFile(ofstream& file)
 {
-	// Size ÀúÀå
+	// Size ì €ì¥
 	file.write((const char*)&m_Width, 2);
 	file.write((const char*)&m_Height, 2);
 
-	// ÀúÀåµÈ ³»¿ëÀÌ ¾øÀ¸¸é return
+	// ì €ì¥ëœ ë‚´ìš©ì´ ì—†ìœ¼ë©´ return
 	if (m_Width==0 || m_Height==0 || m_ppFilter==NULL)
 		return false;
 
-	// Filter ³»¿ëÀ» ÀúÀåÇÑ´Ù.
+	// Filter ë‚´ìš©ì„ ì €ì¥í•œë‹¤.
 	for (int i=0; i<m_Height; i++)
 	{
 		file.write((const char*)m_ppFilter[i], m_Width);
@@ -200,14 +200,14 @@ CFilter::LoadFromFile(ifstream& file)
 	file.read((char*)&m_Width, 2);
 	file.read((char*)&m_Height, 2);
 
-	// size°¡ 0ÀÌ¸é return
+	// sizeê°€ 0ì´ë©´ return
 	if (m_Width==0 || m_Height==0)
 		return false;
 
-	// memory Àâ±â
+	// memory ì¡ê¸°
 	Init( m_Width, m_Height );	
 
-	// Filter ³»¿ëÀ» ÀĞ¾î¿Â´Ù.
+	// Filter ë‚´ìš©ì„ ì½ì–´ì˜¨ë‹¤.
 	for (int i=0; i<m_Height; i++)
 	{
 		file.read((char*)m_ppFilter[i], m_Width);
@@ -218,41 +218,41 @@ CFilter::LoadFromFile(ifstream& file)
 //----------------------------------------------------------------------
 // Blt Filter
 //----------------------------------------------------------------------
-// (x,y)¿¡ filter¸¦ Ãâ·ÂÇÑ´Ù.
+// (x,y)ì— filterë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void		
 CFilter::BltFilter(int x, int y, const CFilter& filter)
 {
-	BYTE	*pDest;			// Ãâ·ÂÇÒ·Á´Â À§Ä¡
-	BYTE	*pSource;		// Ãâ·ÂÇÒ·Á´Â À§Ä¡
+	BYTE	*pDest;			// ì¶œë ¥í• ë ¤ëŠ” ìœ„ì¹˜
+	BYTE	*pSource;		// ì¶œë ¥í• ë ¤ëŠ” ìœ„ì¹˜
 
-	int startY, endY;						// y°ü·Ã
-	int sourceStartX, destStartX, width;	// x°ü·Ã
+	int startY, endY;						// yê´€ë ¨
+	int sourceStartX, destStartX, width;	// xê´€ë ¨
 	
 	register int sourceIndex;
 	register int destIndex;
 
 	//-------------------------------------------------
-	// YÃâ·Â ¹üÀ§ ÁöÁ¤
+	// Yì¶œë ¥ ë²”ìœ„ ì§€ì •
 	//-------------------------------------------------
-	// È­¸éÀ» ³Ñ¾î°¡´Â °æ¿ì
+	// í™”ë©´ì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°
 	if (y > m_Height)
 	{
 		return;	
 	}
-	// 0º¸´Ù ÀûÀº °æ¿ì
+	// 0ë³´ë‹¤ ì ì€ ê²½ìš°
 	if (y < 0)
 	{		
-		// ¸¶Áö¸·ÁÙµµ È­¸é¿¡ ³ªÅ¸³ªÁö ¾Ê´Â °æ¿ì
+		// ë§ˆì§€ë§‰ì¤„ë„ í™”ë©´ì— ë‚˜íƒ€ë‚˜ì§€ ì•ŠëŠ” ê²½ìš°
 		if (y+filter.m_Height <= 0)
 		{
 			return;
 		}
 
-		// À§ÂÊ clip
+		// ìœ„ìª½ clip
 		startY = -y;
 
-		// ¾Æ·¡ÂÊ clipµµ µÇ´Â °æ¿ì
+		// ì•„ë˜ìª½ clipë„ ë˜ëŠ” ê²½ìš°
 		if (y+filter.m_Height > m_Height)
 		{
 			endY = startY + m_Height;
@@ -264,15 +264,15 @@ CFilter::BltFilter(int x, int y, const CFilter& filter)
 
 		destIndex = 0;
 	}
-	// 0ÀÌ»ó
-	// ¾Æ·¡ÂÊ clip
+	// 0ì´ìƒ
+	// ì•„ë˜ìª½ clip
 	else if (y+filter.m_Height > m_Height)
 	{
 		startY = 0;
 		endY = m_Height - y;
 		destIndex = y;
 	}	
-	// y clipÀÌ ¾ø´Â °æ¿ì
+	// y clipì´ ì—†ëŠ” ê²½ìš°
 	else 
 	{
 		startY = 0;
@@ -281,23 +281,23 @@ CFilter::BltFilter(int x, int y, const CFilter& filter)
 	}
 
 	//-------------------------------------------------
-	// XÃâ·Â ¹üÀ§ ÁöÁ¤
+	// Xì¶œë ¥ ë²”ìœ„ ì§€ì •
 	//-------------------------------------------------
-	// È­¸éÀ» ³Ñ¾î°¡´Â °æ¿ì
+	// í™”ë©´ì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°
 	if (x > m_Width)
 	{
 		return;	
 	}
-	// 0º¸´Ù ÀûÀº °æ¿ì
+	// 0ë³´ë‹¤ ì ì€ ê²½ìš°
 	if (x < 0)
 	{		
-		// ¸¶Áö¸·ÁÙµµ È­¸é¿¡ ³ªÅ¸³ªÁö ¾Ê´Â °æ¿ì
+		// ë§ˆì§€ë§‰ì¤„ë„ í™”ë©´ì— ë‚˜íƒ€ë‚˜ì§€ ì•ŠëŠ” ê²½ìš°
 		if (x+filter.m_Width <= 0)
 		{
 			return;
 		}
 
-		// ¿À¸¥ÂÊ Clipµµ ÇÊ¿äÇÑ °æ¿ì
+		// ì˜¤ë¥¸ìª½ Clipë„ í•„ìš”í•œ ê²½ìš°
 		if (x+filter.m_Width > m_Width)
 		{
 			width = m_Width;
@@ -307,19 +307,19 @@ CFilter::BltFilter(int x, int y, const CFilter& filter)
 			width = filter.m_Width + x;
 		}
 
-		// ¿ŞÂÊ clip
+		// ì™¼ìª½ clip
 		sourceStartX = -x;
 		destStartX = 0;		
 	}
-	// 0ÀÌ»ó
-	// ¾Æ·¡ÂÊ clip
+	// 0ì´ìƒ
+	// ì•„ë˜ìª½ clip
 	else if (x+filter.m_Width > m_Width)
 	{
 		sourceStartX = 0;
 		destStartX = x;
 		width = m_Width - x;		
 	}	
-	// X clipÀÌ ¾ø´Â °æ¿ì
+	// X clipì´ ì—†ëŠ” ê²½ìš°
 	else 
 	{
 		sourceStartX = 0;		
@@ -329,56 +329,56 @@ CFilter::BltFilter(int x, int y, const CFilter& filter)
 
 
 	//-------------------------------------------------
-	// startY¿¡¼­ endY±îÁöÀÇ source¸¦ dest·Î...
+	// startYì—ì„œ endYê¹Œì§€ì˜ sourceë¥¼ destë¡œ...
 	//-------------------------------------------------
 	for (sourceIndex=startY; sourceIndex<endY; destIndex++, sourceIndex++)
 	{
 		pSource = filter.m_ppFilter[sourceIndex] + sourceStartX;
 		pDest	= m_ppFilter[destIndex] + destStartX;
 
-		// width¸¸Å­ pDest¿¡ pSource¸¦ bltÇÑ´Ù.
+		// widthë§Œí¼ pDestì— pSourceë¥¼ bltí•œë‹¤.
 		memcpy(pDest, pSource, width);		
 	}
 }
 
 //----------------------------------------------------------------------
-// Blt Filter Add (31±îÁö)
+// Blt Filter Add (31ê¹Œì§€)
 //----------------------------------------------------------------------
-// (x,y)¿¡ filter¸¦ LightenÀ¸·Î Ãâ·ÂÇÑ´Ù.
+// (x,y)ì— filterë¥¼ Lightenìœ¼ë¡œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void		
 CFilter::BltFilterAdd(int x, int y, const CFilter& filter)
 {
-	BYTE	*pDest;			// Ãâ·ÂÇÒ·Á´Â À§Ä¡
-	BYTE	*pSource;		// Ãâ·ÂÇÒ·Á´Â À§Ä¡
+	BYTE	*pDest;			// ì¶œë ¥í• ë ¤ëŠ” ìœ„ì¹˜
+	BYTE	*pSource;		// ì¶œë ¥í• ë ¤ëŠ” ìœ„ì¹˜
 
-	int startY, endY;						// y°ü·Ã
-	int sourceStartX, destStartX, width;	// x°ü·Ã
+	int startY, endY;						// yê´€ë ¨
+	int sourceStartX, destStartX, width;	// xê´€ë ¨
 	
 	register int sourceIndex;
 	register int destIndex;
 
 	//-------------------------------------------------
-	// YÃâ·Â ¹üÀ§ ÁöÁ¤
+	// Yì¶œë ¥ ë²”ìœ„ ì§€ì •
 	//-------------------------------------------------
-	// È­¸éÀ» ³Ñ¾î°¡´Â °æ¿ì
+	// í™”ë©´ì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°
 	if (y > m_Height)
 	{
 		return;	
 	}
-	// 0º¸´Ù ÀûÀº °æ¿ì
+	// 0ë³´ë‹¤ ì ì€ ê²½ìš°
 	if (y < 0)
 	{		
-		// ¸¶Áö¸·ÁÙµµ È­¸é¿¡ ³ªÅ¸³ªÁö ¾Ê´Â °æ¿ì
+		// ë§ˆì§€ë§‰ì¤„ë„ í™”ë©´ì— ë‚˜íƒ€ë‚˜ì§€ ì•ŠëŠ” ê²½ìš°
 		if (y+filter.m_Height <= 0)
 		{
 			return;
 		}
 
-		// À§ÂÊ clip
+		// ìœ„ìª½ clip
 		startY = -y;
 
-		// ¾Æ·¡ÂÊ clipµµ µÇ´Â °æ¿ì
+		// ì•„ë˜ìª½ clipë„ ë˜ëŠ” ê²½ìš°
 		if (y+filter.m_Height > m_Height)
 		{
 			endY = startY + m_Height;
@@ -390,15 +390,15 @@ CFilter::BltFilterAdd(int x, int y, const CFilter& filter)
 
 		destIndex = 0;
 	}
-	// 0ÀÌ»ó
-	// ¾Æ·¡ÂÊ clip
+	// 0ì´ìƒ
+	// ì•„ë˜ìª½ clip
 	else if (y+filter.m_Height > m_Height)
 	{
 		startY = 0;
 		endY = m_Height - y;
 		destIndex = y;
 	}	
-	// y clipÀÌ ¾ø´Â °æ¿ì
+	// y clipì´ ì—†ëŠ” ê²½ìš°
 	else 
 	{
 		startY = 0;
@@ -407,23 +407,23 @@ CFilter::BltFilterAdd(int x, int y, const CFilter& filter)
 	}
 
 	//-------------------------------------------------
-	// XÃâ·Â ¹üÀ§ ÁöÁ¤
+	// Xì¶œë ¥ ë²”ìœ„ ì§€ì •
 	//-------------------------------------------------
-	// È­¸éÀ» ³Ñ¾î°¡´Â °æ¿ì
+	// í™”ë©´ì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°
 	if (x > m_Width)
 	{
 		return;	
 	}
-	// 0º¸´Ù ÀûÀº °æ¿ì
+	// 0ë³´ë‹¤ ì ì€ ê²½ìš°
 	if (x < 0)
 	{		
-		// ¸¶Áö¸·ÁÙµµ È­¸é¿¡ ³ªÅ¸³ªÁö ¾Ê´Â °æ¿ì
+		// ë§ˆì§€ë§‰ì¤„ë„ í™”ë©´ì— ë‚˜íƒ€ë‚˜ì§€ ì•ŠëŠ” ê²½ìš°
 		if (x+filter.m_Width <= 0)
 		{
 			return;
 		}
 
-		// ¿À¸¥ÂÊ Clipµµ ÇÊ¿äÇÑ °æ¿ì
+		// ì˜¤ë¥¸ìª½ Clipë„ í•„ìš”í•œ ê²½ìš°
 		if (x+filter.m_Width > m_Width)
 		{
 			width = m_Width;
@@ -433,19 +433,19 @@ CFilter::BltFilterAdd(int x, int y, const CFilter& filter)
 			width = filter.m_Width + x;
 		}
 
-		// ¿ŞÂÊ clip
+		// ì™¼ìª½ clip
 		sourceStartX = -x;
 		destStartX = 0;		
 	}
-	// 0ÀÌ»ó
-	// ¾Æ·¡ÂÊ clip
+	// 0ì´ìƒ
+	// ì•„ë˜ìª½ clip
 	else if (x+filter.m_Width > m_Width)
 	{
 		sourceStartX = 0;
 		destStartX = x;
 		width = m_Width - x;		
 	}	
-	// X clipÀÌ ¾ø´Â °æ¿ì
+	// X clipì´ ì—†ëŠ” ê²½ìš°
 	else 
 	{
 		sourceStartX = 0;		
@@ -457,7 +457,7 @@ CFilter::BltFilterAdd(int x, int y, const CFilter& filter)
 	//int d, s, t;
 	int t;
 	//-------------------------------------------------
-	// startY¿¡¼­ endY±îÁöÀÇ source¸¦ dest·Î...
+	// startYì—ì„œ endYê¹Œì§€ì˜ sourceë¥¼ destë¡œ...
 	//-------------------------------------------------
 	for (sourceIndex=startY; sourceIndex<endY; destIndex++, sourceIndex++)
 	{
@@ -466,9 +466,9 @@ CFilter::BltFilterAdd(int x, int y, const CFilter& filter)
 
 		//------------------------------------------------------------	
 		// Lighten : min(source, dest)
-		// filter°ªÀº 0ÀÌ ¿¶Àº»öÀÌ µÈ´Ù. 0xFF°¡ ÃÖ°í...
+		// filterê°’ì€ 0ì´ ì˜…ì€ìƒ‰ì´ ëœë‹¤. 0xFFê°€ ìµœê³ ...
 		//------------------------------------------------------------
-		// width¸¸Å­ pDest¿¡ pSource¸¦ bltÇÑ´Ù.
+		// widthë§Œí¼ pDestì— pSourceë¥¼ bltí•œë‹¤.
 		//memcpyLighten( pDest, pSource, width );		
 		register int i = width;
 		
@@ -501,41 +501,41 @@ CFilter::BltFilterAdd(int x, int y, const CFilter& filter)
 //----------------------------------------------------------------------
 // Blt Filter Subtract
 //----------------------------------------------------------------------
-// (x,y)¿¡ filter¸¦ LightenÀ¸·Î Ãâ·ÂÇÑ´Ù.
+// (x,y)ì— filterë¥¼ Lightenìœ¼ë¡œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void		
 CFilter::BltFilterSub(int x, int y, const CFilter& filter)
 {
-	BYTE	*pDest;			// Ãâ·ÂÇÒ·Á´Â À§Ä¡
-	BYTE	*pSource;		// Ãâ·ÂÇÒ·Á´Â À§Ä¡
+	BYTE	*pDest;			// ì¶œë ¥í• ë ¤ëŠ” ìœ„ì¹˜
+	BYTE	*pSource;		// ì¶œë ¥í• ë ¤ëŠ” ìœ„ì¹˜
 
-	int startY, endY;						// y°ü·Ã
-	int sourceStartX, destStartX, width;	// x°ü·Ã
+	int startY, endY;						// yê´€ë ¨
+	int sourceStartX, destStartX, width;	// xê´€ë ¨
 	
 	register int sourceIndex;
 	register int destIndex;
 
 	//-------------------------------------------------
-	// YÃâ·Â ¹üÀ§ ÁöÁ¤
+	// Yì¶œë ¥ ë²”ìœ„ ì§€ì •
 	//-------------------------------------------------
-	// È­¸éÀ» ³Ñ¾î°¡´Â °æ¿ì
+	// í™”ë©´ì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°
 	if (y > m_Height)
 	{
 		return;	
 	}
-	// 0º¸´Ù ÀûÀº °æ¿ì
+	// 0ë³´ë‹¤ ì ì€ ê²½ìš°
 	if (y < 0)
 	{		
-		// ¸¶Áö¸·ÁÙµµ È­¸é¿¡ ³ªÅ¸³ªÁö ¾Ê´Â °æ¿ì
+		// ë§ˆì§€ë§‰ì¤„ë„ í™”ë©´ì— ë‚˜íƒ€ë‚˜ì§€ ì•ŠëŠ” ê²½ìš°
 		if (y+filter.m_Height <= 0)
 		{
 			return;
 		}
 
-		// À§ÂÊ clip
+		// ìœ„ìª½ clip
 		startY = -y;
 
-		// ¾Æ·¡ÂÊ clipµµ µÇ´Â °æ¿ì
+		// ì•„ë˜ìª½ clipë„ ë˜ëŠ” ê²½ìš°
 		if (y+filter.m_Height > m_Height)
 		{
 			endY = startY + m_Height;
@@ -547,15 +547,15 @@ CFilter::BltFilterSub(int x, int y, const CFilter& filter)
 
 		destIndex = 0;
 	}
-	// 0ÀÌ»ó
-	// ¾Æ·¡ÂÊ clip
+	// 0ì´ìƒ
+	// ì•„ë˜ìª½ clip
 	else if (y+filter.m_Height > m_Height)
 	{
 		startY = 0;
 		endY = m_Height - y;
 		destIndex = y;
 	}	
-	// y clipÀÌ ¾ø´Â °æ¿ì
+	// y clipì´ ì—†ëŠ” ê²½ìš°
 	else 
 	{
 		startY = 0;
@@ -564,23 +564,23 @@ CFilter::BltFilterSub(int x, int y, const CFilter& filter)
 	}
 
 	//-------------------------------------------------
-	// XÃâ·Â ¹üÀ§ ÁöÁ¤
+	// Xì¶œë ¥ ë²”ìœ„ ì§€ì •
 	//-------------------------------------------------
-	// È­¸éÀ» ³Ñ¾î°¡´Â °æ¿ì
+	// í™”ë©´ì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°
 	if (x > m_Width)
 	{
 		return;	
 	}
-	// 0º¸´Ù ÀûÀº °æ¿ì
+	// 0ë³´ë‹¤ ì ì€ ê²½ìš°
 	if (x < 0)
 	{		
-		// ¸¶Áö¸·ÁÙµµ È­¸é¿¡ ³ªÅ¸³ªÁö ¾Ê´Â °æ¿ì
+		// ë§ˆì§€ë§‰ì¤„ë„ í™”ë©´ì— ë‚˜íƒ€ë‚˜ì§€ ì•ŠëŠ” ê²½ìš°
 		if (x+filter.m_Width <= 0)
 		{
 			return;
 		}
 
-		// ¿À¸¥ÂÊ Clipµµ ÇÊ¿äÇÑ °æ¿ì
+		// ì˜¤ë¥¸ìª½ Clipë„ í•„ìš”í•œ ê²½ìš°
 		if (x+filter.m_Width > m_Width)
 		{
 			width = m_Width;
@@ -590,19 +590,19 @@ CFilter::BltFilterSub(int x, int y, const CFilter& filter)
 			width = filter.m_Width + x;
 		}
 
-		// ¿ŞÂÊ clip
+		// ì™¼ìª½ clip
 		sourceStartX = -x;
 		destStartX = 0;		
 	}
-	// 0ÀÌ»ó
-	// ¾Æ·¡ÂÊ clip
+	// 0ì´ìƒ
+	// ì•„ë˜ìª½ clip
 	else if (x+filter.m_Width > m_Width)
 	{
 		sourceStartX = 0;
 		destStartX = x;
 		width = m_Width - x;		
 	}	
-	// X clipÀÌ ¾ø´Â °æ¿ì
+	// X clipì´ ì—†ëŠ” ê²½ìš°
 	else 
 	{
 		sourceStartX = 0;		
@@ -614,7 +614,7 @@ CFilter::BltFilterSub(int x, int y, const CFilter& filter)
 	//int d, s, t;
 	int t, d, s;
 	//-------------------------------------------------
-	// startY¿¡¼­ endY±îÁöÀÇ source¸¦ dest·Î...
+	// startYì—ì„œ endYê¹Œì§€ì˜ sourceë¥¼ destë¡œ...
 	//-------------------------------------------------
 	for (sourceIndex=startY; sourceIndex<endY; destIndex++, sourceIndex++)
 	{
@@ -623,9 +623,9 @@ CFilter::BltFilterSub(int x, int y, const CFilter& filter)
 
 		//------------------------------------------------------------	
 		// Lighten : min(source, dest)
-		// filter°ªÀº 0ÀÌ ¿¶Àº»öÀÌ µÈ´Ù. 0xFF°¡ ÃÖ°í...
+		// filterê°’ì€ 0ì´ ì˜…ì€ìƒ‰ì´ ëœë‹¤. 0xFFê°€ ìµœê³ ...
 		//------------------------------------------------------------
-		// width¸¸Å­ pDest¿¡ pSource¸¦ bltÇÑ´Ù.
+		// widthë§Œí¼ pDestì— pSourceë¥¼ bltí•œë‹¤.
 		//memcpyLighten( pDest, pSource, width );		
 		register int i = width;
 		
@@ -650,14 +650,14 @@ CFilter::BltFilterSub(int x, int y, const CFilter& filter)
 				}
 
 				/*
-				// s°¡ ¹à´Ù
+				// sê°€ ë°ë‹¤
                 if (d > s)
                 {
                         t = s - ((15 - d)>>1);
                         if (t < 0) t = 0;
                         *pDest = t;
                 }
-				// d°¡ ¹à´Ù
+				// dê°€ ë°ë‹¤
                 else
                 {
                         t = d - ((15 - s)>>1);
@@ -679,11 +679,11 @@ CFilter::BltFilterSub(int x, int y, const CFilter& filter)
 //----------------------------------------------------------------------
 // Blt 4444
 //----------------------------------------------------------------------
-// Texture¿ëÀ¸·Î »ç¿ëÇÒ ¼ö ÀÖµµ·Ï Filter¸¦ pSurface¿¡ Ãâ·ÂÇÑ´Ù.
-// Filter´Â Alpha°ªÀ» ÀÇ¹ÌÇÏ°Ô µÈ´Ù.
+// Textureìš©ìœ¼ë¡œ ì‚¬ìš©í•  ìˆ˜ ìˆë„ë¡ Filterë¥¼ pSurfaceì— ì¶œë ¥í•œë‹¤.
+// FilterëŠ” Alphaê°’ì„ ì˜ë¯¸í•˜ê²Œ ëœë‹¤.
 //
-// (-_-;;) Surface¿Í FilterÀÇ Width¿Í Height´Â °°´Ù°í º»´Ù.
-// ´Ù¸¦ °æ¿ì´Â ... ¿¡·¯°¡ ³¯ ¼öµµ.. ¿ìÇÏ.. 
+// (-_-;;) Surfaceì™€ Filterì˜ Widthì™€ HeightëŠ” ê°™ë‹¤ê³  ë³¸ë‹¤.
+// ë‹¤ë¥¼ ê²½ìš°ëŠ” ... ì—ëŸ¬ê°€ ë‚  ìˆ˜ë„.. ìš°í•˜.. 
 //----------------------------------------------------------------------
 void
 CFilter::Blt4444(WORD* pSurface, WORD pitch)
@@ -694,7 +694,7 @@ CFilter::Blt4444(WORD* pSurface, WORD pitch)
 	BYTE* pFilter;
 	WORD* pSurfaceTemp;
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		pSurfaceTemp = pSurface;
 		pFilter = m_ppFilter[i];
@@ -702,7 +702,7 @@ CFilter::Blt4444(WORD* pSurface, WORD pitch)
 		j = m_Width;
 		do 
 		{
-			// ±âÁ¸ÀÇ RGB°ªÀ» »ì¸± °æ¿ì..
+			// ê¸°ì¡´ì˜ RGBê°’ì„ ì‚´ë¦´ ê²½ìš°..
 			//*pSurfaceTemp = (*pFilter << 12) | (*pSurfaceTemp & 0x0FFF);
 
 			*pSurfaceTemp = (*pFilter << 12);
@@ -717,16 +717,16 @@ CFilter::Blt4444(WORD* pSurface, WORD pitch)
 //----------------------------------------------------------------------
 // Blt 4444
 //----------------------------------------------------------------------
-// Texture¿ëÀ¸·Î »ç¿ëÇÒ ¼ö ÀÖµµ·Ï Filter¸¦ pSurface¿¡ Ãâ·ÂÇÑ´Ù.
-// Filter´Â Alpha°ªÀ» ÀÇ¹ÌÇÏ°Ô µÈ´Ù.
+// Textureìš©ìœ¼ë¡œ ì‚¬ìš©í•  ìˆ˜ ìˆë„ë¡ Filterë¥¼ pSurfaceì— ì¶œë ¥í•œë‹¤.
+// FilterëŠ” Alphaê°’ì„ ì˜ë¯¸í•˜ê²Œ ëœë‹¤.
 //
-// (-_-;;) Surface¿Í FilterÀÇ Width¿Í Height´Â °°´Ù°í º»´Ù.
-// ´Ù¸¦ °æ¿ì´Â ... ¿¡·¯°¡ ³¯ ¼öµµ.. ¿ìÇÏ.. 
+// (-_-;;) Surfaceì™€ Filterì˜ Widthì™€ HeightëŠ” ê°™ë‹¤ê³  ë³¸ë‹¤.
+// ë‹¤ë¥¼ ê²½ìš°ëŠ” ... ì—ëŸ¬ê°€ ë‚  ìˆ˜ë„.. ìš°í•˜.. 
 //----------------------------------------------------------------------
 void
 CFilter::Blt4444Color(WORD* pSurface, WORD pitch, WORD color)
 {
-	// R:G:B¸¸ »ì¸°´Ù.
+	// R:G:Bë§Œ ì‚´ë¦°ë‹¤.
 	color &= 0x0FFF;
 
 	register int i;
@@ -735,7 +735,7 @@ CFilter::Blt4444Color(WORD* pSurface, WORD pitch, WORD color)
 	BYTE* pFilter;
 	WORD* pSurfaceTemp;
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		pSurfaceTemp = pSurface;
 		pFilter = m_ppFilter[i];
@@ -743,7 +743,7 @@ CFilter::Blt4444Color(WORD* pSurface, WORD pitch, WORD color)
 		j = m_Width;
 		do 
 		{
-			// ±âÁ¸ÀÇ RGB°ªÀ» »ì¸± °æ¿ì..
+			// ê¸°ì¡´ì˜ RGBê°’ì„ ì‚´ë¦´ ê²½ìš°..
 			*pSurfaceTemp = (*pFilter << 12) | color;
 
 			//*pSurfaceTemp = (*pFilter << 12);

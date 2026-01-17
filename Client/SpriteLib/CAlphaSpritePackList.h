@@ -1,7 +1,8 @@
+#include <fstream>
 //----------------------------------------------------------------------
 // CAlphaSpritePackList.h
 //----------------------------------------------------------------------
-// ³»ºÎÀûÀ¸·Î stlÀÇ list¸¦ »ç¿ëÇß´Ù.
+// ë‚´ë¶€ì ìœ¼ë¡œ stlì˜ listë¥¼ ì‚¬ìš©í–ˆë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef	__CALPHASPRITEPACKLIST_H__
@@ -40,7 +41,7 @@ class CAlphaSpritePackList {
 		CAlphaSprite*	GetSprite(TYPE_SPRITEID n) const;
 
 		//---------------------------------------------------
-		// Ã¹¹øÂ° À§Ä¡ÀÇ List Iterater¸¦ ³Ñ°ÜÁØ´Ù.
+		// ì²«ë²ˆì§¸ ìœ„ì¹˜ì˜ List Iteraterë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 		//---------------------------------------------------
 		ALPHASPRITE_LIST::const_iterator	GetIterator() const	{ return m_listSprite.begin(); }
 		ALPHASPRITE_LIST* GetListPtr() { return &m_listSprite; }
@@ -53,11 +54,11 @@ class CAlphaSpritePackList {
 		//---------------------------------------------------
 		// file I/O
 		//---------------------------------------------------
-		bool				SaveToFile(class ofstream& spkFile, class ofstream& indexFile);
-		virtual void		LoadFromFile(class ifstream& file) = 0;
+		bool				SaveToFile(std::ofstream& spkFile, std::ofstream& indexFile);
+		virtual void		LoadFromFile(std::ifstream& file) = 0;
 
 	protected :		
-		ALPHASPRITE_LIST		m_listSprite;		// CAlphaSpriteµéÀ» ÀúÀåÇØµĞ´Ù.
+		ALPHASPRITE_LIST		m_listSprite;		// CAlphaSpriteë“¤ì„ ì €ì¥í•´ë‘”ë‹¤.
 };
 
 #endif

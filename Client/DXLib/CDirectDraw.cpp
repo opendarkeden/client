@@ -4,6 +4,9 @@
 
 #include "CDirectDraw.h"
 
+// Only compile Windows-specific DirectDraw implementation on Windows platforms
+#ifdef PLATFORM_WINDOWS
+
 /*-----------------------------------------------------------------------------
   GLOBALS
 -----------------------------------------------------------------------------*/
@@ -62,7 +65,7 @@ BYTE								CDirectDraw::s_bSHIFT4_R;
 BYTE								CDirectDraw::s_bSHIFT4_G;
 BYTE								CDirectDraw::s_bSHIFT4_B;
 
-// ±âº» »ö»ó
+// ê¸°ë³¸ ìƒ‰ìƒ
 WORD								CDirectDraw::RED	= 0xF800;
 WORD								CDirectDraw::GREEN	= 0x07D0;
 WORD								CDirectDraw::BLUE	= 0x001F;
@@ -83,14 +86,14 @@ CDirectDraw::CDirectDraw()
 
 CDirectDraw::~CDirectDraw()
 {
-	//ReleaseAll(); // ¿ÜºÎ¿¡¼­ ÇØÁà¾ß ÇÑ´Ù.
+	//ReleaseAll(); // ì™¸ë¶€ì—ì„œ í•´ì¤˜ì•¼ í•œë‹¤.
 }
 
 /*-----------------------------------------------------------------------------
 - Init
-- DirectDraw¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+- DirectDrawë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 
-  <ÀÎÀÚ ¼³¸í>
+  <ì¸ì ì„¤ëª…>
   HWND hWnd									= window handle
   WORD wWidth, WORD wHeight			= surface size
   enum CDirectDraw::SCREENMODE mode = screen mode option
@@ -149,7 +152,7 @@ bool CDirectDraw::Init(HWND hWnd, WORD wWidth, WORD wHeight, enum CDirectDraw::S
 		//-------------------------------------
 		m_b565			= Check565();
 
-		// 5:6:5  or 5:5:5¿¡ ¸Â´Â mask¸¦ settingÇÑ´Ù.
+		// 5:6:5  or 5:5:5ì— ë§ëŠ” maskë¥¼ settingí•œë‹¤.
 		InitMask(m_b565);
 	}
 
@@ -195,7 +198,7 @@ bool CDirectDraw::InitFullscreen(WORD wWidth, WORD wHeight)
 						   DDSCAPS_COMPLEX;
 
 	//------------------------------------------------------
-	// D3D¸¦ »ç¿ëÇÑ´Ù¸é..
+	// D3Dë¥¼ ì‚¬ìš©í•œë‹¤ë©´..
 	//------------------------------------------------------
 	if (m_b3D)
 	{
@@ -329,7 +332,7 @@ bool CDirectDraw::InitWindowMode(WORD wWidth, WORD wHeight)
 	ddsd.dwHeight		= wHeight;
 
 	//------------------------------------------------------
-	// D3D¸¦ »ç¿ëÇÑ´Ù¸é..
+	// D3Dë¥¼ ì‚¬ìš©í•œë‹¤ë©´..
 	//------------------------------------------------------
 	if (m_b3D)
 	{		
@@ -433,7 +436,7 @@ bool CDirectDraw::RestoreAllSurfaces()
 {
 	//
 	// IDirectDraw7::RestoreAllSurfaces()
-	// `»ı¼ºµÈ ¸ğµç Ç¥¸éÀ» RestoreÇÑ´Ù. offscreen±îÁöµµ ÇÏ´Â Áö´Â È®ÀÎÇÏÁö ¾Ê¾Ò´Ù.
+	// `ìƒì„±ëœ ëª¨ë“  í‘œë©´ì„ Restoreí•œë‹¤. offscreenê¹Œì§€ë„ í•˜ëŠ” ì§€ëŠ” í™•ì¸í•˜ì§€ ì•Šì•˜ë‹¤.
 	//
 	if (m_pDD != NULL)
 	{
@@ -468,7 +471,7 @@ void CDirectDraw::Flip()
 	while (1)
 	{
 		//-------------------------------------------------------
-		// Fullscreen Mode¸¦ »ç¿ëÇÏ°í ÀÖÀ» °æ¿ì
+		// Fullscreen Modeë¥¼ ì‚¬ìš©í•˜ê³  ìˆì„ ê²½ìš°
 		//-------------------------------------------------------
 		if (m_bFullscreen)
 		{
@@ -479,7 +482,7 @@ void CDirectDraw::Flip()
 		}
 
 		//-------------------------------------------------------
-		// Window Mode¸¦ »ç¿ëÇÏ°í ÀÖÀ» °æ¿ì
+		// Window Modeë¥¼ ì‚¬ìš©í•˜ê³  ìˆì„ ê²½ìš°
 		//-------------------------------------------------------
 		else
 		{			
@@ -490,7 +493,7 @@ void CDirectDraw::Flip()
 			break;
 
 		//-------------------------------------------------------
-		// Lost µÈ Surface º¹±¸
+		// Lost ëœ Surface ë³µêµ¬
 		//-------------------------------------------------------	
 		if (hRet == DDERR_SURFACELOST)
 		{
@@ -514,7 +517,7 @@ void CDirectDraw::FlipToGDISurface()
 //----------------------------------------------------------------------
 // Init Mask
 //----------------------------------------------------------------------
-// LockÀ» »ç¿ëÇØ Draw¸¦ ÇÒ¶§, ÇÊ¿äÇÑ Maskº¯¼öµéÀ» ÃÊ±âÈ­ÇÑ´Ù.
+// Lockì„ ì‚¬ìš©í•´ Drawë¥¼ í• ë•Œ, í•„ìš”í•œ Maskë³€ìˆ˜ë“¤ì„ ì´ˆê¸°í™”í•œë‹¤.
 //----------------------------------------------------------------------
 void CDirectDraw::InitMask(bool b565)
 {
@@ -614,7 +617,7 @@ void CDirectDraw::InitMask(bool b565)
 		s_bSHIFT4_B		= 1; 		
 
 		//---------------------------------------------
-		// ±âº» »ö»ó
+		// ê¸°ë³¸ ìƒ‰ìƒ
 		//---------------------------------------------
 		RED				= 0xF800;
 		GREEN			= 0x07E0;
@@ -714,7 +717,7 @@ void CDirectDraw::InitMask(bool b565)
 		s_bSHIFT4_B		= 1;	
 		
 		//---------------------------------------------
-		// ±âº» »ö»ó
+		// ê¸°ë³¸ ìƒ‰ìƒ
 		//---------------------------------------------
 		RED				= 0x7C00;
 		GREEN			= 0x03E0;
@@ -724,9 +727,9 @@ void CDirectDraw::InitMask(bool b565)
 }
 
 //----------------------------------------------------------------------
-// Gamma ControlÀ» Áö¿øÇÏ´ÂÁö¿¡ ´ëÇÑ check
+// Gamma Controlì„ ì§€ì›í•˜ëŠ”ì§€ì— ëŒ€í•œ check
 //
-// `FullMode½Ã Àß¸øµÈ È­¸éÅ©±â ÁöÁ¤½Ã¿¡ ´ëÀÀÇÏ´Â ¿¹¿ÜÃ³¸®°¡ ¾ÈµÊ.
+// `FullModeì‹œ ì˜ëª»ëœ í™”ë©´í¬ê¸° ì§€ì •ì‹œì— ëŒ€ì‘í•˜ëŠ” ì˜ˆì™¸ì²˜ë¦¬ê°€ ì•ˆë¨.
 //----------------------------------------------------------------------
 bool CDirectDraw::CheckGammaControl()
 {
@@ -740,7 +743,7 @@ bool CDirectDraw::CheckGammaControl()
 	::ZeroMemory(&driver, sizeof(driver));
 	driver.dwSize = sizeof(driver);
 
-	// DirectDrawÀÇ Cap..À» ÀĞ¾î¿Â´Ù.
+	// DirectDrawì˜ Cap..ì„ ì½ì–´ì˜¨ë‹¤.
 	if ( m_pDD->GetCaps(&driver, NULL) != DD_OK )
 	{
 		DirectDrawFailed("GetCaps() Error");		
@@ -756,7 +759,7 @@ bool CDirectDraw::CheckGammaControl()
 			return false;
 		}
 
-		// ÇöÀçÀÇ GammaRamp¸¦ ÀúÀåÇÑ´Ù.
+		// í˜„ì¬ì˜ GammaRampë¥¼ ì €ì¥í•œë‹¤.
 		m_pDDGammaControl->GetGammaRamp(0, &m_DDGammaRamp);
 
 		return true;
@@ -766,9 +769,9 @@ bool CDirectDraw::CheckGammaControl()
 }
 
 //----------------------------------------------------------------------
-// GammaRamp °ªÀ» ¿ø·¡ÀÇ °ÍÀ¸·Î ¹Ù²Û´Ù.
+// GammaRamp ê°’ì„ ì›ë˜ì˜ ê²ƒìœ¼ë¡œ ë°”ê¾¼ë‹¤.
 //----------------------------------------------------------------------
-// test¿ë ÇÔ¼ö
+// testìš© í•¨ìˆ˜
 //----------------------------------------------------------------------
 void CDirectDraw::RestoreGammaRamp()
 {	
@@ -779,11 +782,11 @@ void CDirectDraw::RestoreGammaRamp()
 }
 
 //----------------------------------------------------------------------
-// GammaRamp °ªÀ» ¹Ù²Û´Ù.
+// GammaRamp ê°’ì„ ë°”ê¾¼ë‹¤.
 //----------------------------------------------------------------------
-// 0(¾îµÎ¿ò) ~ 100(ÇöÀç) ~ 200(¹àÀ½)
-// Å×½ºÆ® ÇØº» °á°ú...
-// 50 ~ 150 Á¤µµ »çÀÌÀÇ °ª¸¸ ¾²´Â°Ô ÁÁ´Ù°í »ı°¢µÈ´Ù
+// 0(ì–´ë‘ì›€) ~ 100(í˜„ì¬) ~ 200(ë°ìŒ)
+// í…ŒìŠ¤íŠ¸ í•´ë³¸ ê²°ê³¼...
+// 50 ~ 150 ì •ë„ ì‚¬ì´ì˜ ê°’ë§Œ ì“°ëŠ”ê²Œ ì¢‹ë‹¤ê³  ìƒê°ëœë‹¤
 //----------------------------------------------------------------------
 void CDirectDraw::SetGammaRamp(WORD step)
 {
@@ -850,8 +853,8 @@ void	CDirectDraw::SetAddGammaRamp(WORD rStep, WORD gStep, WORD bStep)
 //----------------------------------------------------------------------
 // Check 5:5:5 or 5:6:5?
 //----------------------------------------------------------------------
-// ÀÓÀÇÀÇ Surface¸¦ ÇÏ³ª ¸¸µé¾î¼­ 
-// ÇÑ Á¡À» Âï¾îº¸°í 5:5:5ÀÎÁö 5:6:5ÀÎÁö ÆÇ´ÜÇÑ´Ù.
+// ì„ì˜ì˜ Surfaceë¥¼ í•˜ë‚˜ ë§Œë“¤ì–´ì„œ 
+// í•œ ì ì„ ì°ì–´ë³´ê³  5:5:5ì¸ì§€ 5:6:5ì¸ì§€ íŒë‹¨í•œë‹¤.
 //----------------------------------------------------------------------
 bool CDirectDraw::Check565()
 {
@@ -859,8 +862,8 @@ bool CDirectDraw::Check565()
 	LPDIRECTDRAWSURFACE7	pDDSurface = NULL;
 	DDSURFACEDESC2			ddsd;	
 	
-	// Surface¿¡ ´ëÇÑ Á¤º¸ ¼³Á¤
-	// m_pSurface¸¦ OffScreenÀ¸·Î ¼³Á¤ÇÑ´Ù.
+	// Surfaceì— ëŒ€í•œ ì •ë³´ ì„¤ì •
+	// m_pSurfaceë¥¼ OffScreenìœ¼ë¡œ ì„¤ì •í•œë‹¤.
 	ZeroMemory(&ddsd, sizeof(ddsd));
 	ddsd.dwSize = sizeof( ddsd );
 	ddsd.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH;
@@ -877,7 +880,7 @@ bool CDirectDraw::Check565()
 	// check for 16bit 5:6:5 or 5:5:5
 	HDC hDC;	
 
-	// (0,0)¿¡  ÇÑ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// (0,0)ì—  í•œ ì ì„ ì¶œë ¥í•œë‹¤.
 	pDDSurface->GetDC(&hDC);
 	SetPixel(hDC,0,0,RGB(255,255,255));
 	pDDSurface->ReleaseDC(hDC);
@@ -885,7 +888,7 @@ bool CDirectDraw::Check565()
 	ZeroMemory(&ddsd, sizeof(ddsd));
 	ddsd.dwSize = sizeof(ddsd);
 
-	// LockÀ» °É°í Ãâ·ÂÇÑ Á¡À» ÀĞ¾î¿Â´Ù.
+	// Lockì„ ê±¸ê³  ì¶œë ¥í•œ ì ì„ ì½ì–´ì˜¨ë‹¤.
 	pDDSurface->Lock(NULL, &ddsd, 0, NULL);
 	*/
 	/*
@@ -928,10 +931,10 @@ bool CDirectDraw::Check565()
 	//unsigned short* lpSurface = (WORD*)ddsd.lpSurface;
 	//pDDSurface->Unlock(NULL);
 
-	// release ÇØ ÁØ´Ù.
+	// release í•´ ì¤€ë‹¤.
 	//pDDSurface->Release();
 
-	// (0,0)ÀÇ Á¡À¸·Î ÆÇ´Ü
+	// (0,0)ì˜ ì ìœ¼ë¡œ íŒë‹¨
 	//return  *lpSurface == 0xFFFF;
 
 	
@@ -954,7 +957,7 @@ bool CDirectDraw::Check565()
 }
 
 //----------------------------------------------------------------------
-// MMX¸¦ Áö¿øÇÏ´Â systemÀÎ°¡?
+// MMXë¥¼ ì§€ì›í•˜ëŠ” systemì¸ê°€?
 //----------------------------------------------------------------------
 bool CDirectDraw::CheckMMX()
 {
@@ -1001,7 +1004,7 @@ bool CDirectDraw::CheckMMX()
 //----------------------------------------------------------------------
 void CDirectDraw::DirectDrawFailed(const char * str) 
 {
-	// DirectDraw¸¦ ³¡³½´Ù.
+	// DirectDrawë¥¼ ëë‚¸ë‹¤.
 	ReleaseAll();
 
 	MessageBox(m_hWnd, str, NULL, MB_OK);
@@ -1010,7 +1013,7 @@ void CDirectDraw::DirectDrawFailed(const char * str)
 
 /*-----------------------------------------------------------------------------
 - OnMove
-- Window modeÀÏ °æ¿ì Window moveÇÒ ¶§(WM_MOVE) ½ÇÇàÇÑ´Ù.
+- Window modeì¼ ê²½ìš° Window moveí•  ë•Œ(WM_MOVE) ì‹¤í–‰í•œë‹¤.
 -----------------------------------------------------------------------------*/
 void CDirectDraw::OnMove()
 {
@@ -1027,7 +1030,7 @@ void CDirectDraw::OnMove()
 
 /*-----------------------------------------------------------------------------
 - Get_Count_Rbit
-- redÀÇ bit mask count¸¦ ±¸ÇÑ´Ù.
+- redì˜ bit mask countë¥¼ êµ¬í•œë‹¤.
 -----------------------------------------------------------------------------*/
 int CDirectDraw::Get_Count_Rbit()
 {
@@ -1045,7 +1048,7 @@ int CDirectDraw::Get_Count_Rbit()
 
 /*-----------------------------------------------------------------------------
 - Get_Count_Gbit
-- greenÀÇ bit mask count¸¦ ±¸ÇÑ´Ù.
+- greenì˜ bit mask countë¥¼ êµ¬í•œë‹¤.
 -----------------------------------------------------------------------------*/
 int CDirectDraw::Get_Count_Gbit()
 {
@@ -1063,7 +1066,7 @@ int CDirectDraw::Get_Count_Gbit()
 
 /*-----------------------------------------------------------------------------
 - Get_Count_Bbit
-- blutÀÇ bit mask count¸¦ ±¸ÇÑ´Ù.
+- blutì˜ bit mask countë¥¼ êµ¬í•œë‹¤.
 -----------------------------------------------------------------------------*/
 int CDirectDraw::Get_Count_Bbit()
 {
@@ -1081,7 +1084,7 @@ int CDirectDraw::Get_Count_Bbit()
 
 /*-----------------------------------------------------------------------------
 - Get_R_Bitmask
-- redÀÇ bit mask¸¦ ±¸ÇÑ´Ù.
+- redì˜ bit maskë¥¼ êµ¬í•œë‹¤.
 -----------------------------------------------------------------------------*/
 DWORD CDirectDraw::Get_R_Bitmask()
 {
@@ -1094,7 +1097,7 @@ DWORD CDirectDraw::Get_R_Bitmask()
 
 /*-----------------------------------------------------------------------------
 - Get_G_Bitmask
-- greenÀÇ bit mask¸¦ ±¸ÇÑ´Ù.
+- greenì˜ bit maskë¥¼ êµ¬í•œë‹¤.
 -----------------------------------------------------------------------------*/
 DWORD CDirectDraw::Get_G_Bitmask()
 {
@@ -1107,7 +1110,7 @@ DWORD CDirectDraw::Get_G_Bitmask()
 
 /*-----------------------------------------------------------------------------
 - Get_B_Bitmask
-- blueÀÇ bit mask¸¦ ±¸ÇÑ´Ù.
+- blueì˜ bit maskë¥¼ êµ¬í•œë‹¤.
 -----------------------------------------------------------------------------*/
 DWORD CDirectDraw::Get_B_Bitmask()
 {
@@ -1133,3 +1136,59 @@ DWORD CDirectDraw::Get_BPP()
 
    return ddpf.dwRGBBitCount;
 }
+
+#endif /* PLATFORM_WINDOWS */
+
+//-------------------------------------------------------------------------------------------------
+// Non-Windows (macOS/Linux) Stub Implementations
+//-------------------------------------------------------------------------------------------------
+#ifndef PLATFORM_WINDOWS
+
+// Static member initialization for macOS
+//-------------------------------------------------------------------------------------------------
+// Bitmask methods for macOS
+//-------------------------------------------------------------------------------------------------
+
+int CDirectDraw::Get_Count_Rbit()
+{
+	// For 5:6:5 format, R uses 5 bits
+	return 5;
+}
+
+int CDirectDraw::Get_Count_Gbit()
+{
+	// For 5:6:5 format, G uses 6 bits
+	return 6;
+}
+
+int CDirectDraw::Get_Count_Bbit()
+{
+	// For 5:6:5 format, B uses 5 bits
+	return 5;
+}
+
+DWORD CDirectDraw::Get_R_Bitmask()
+{
+	// 5:6:5 format: R is at bits 11-15
+	return 0xF800;
+}
+
+DWORD CDirectDraw::Get_G_Bitmask()
+{
+	// 5:6:5 format: G is at bits 5-10
+	return 0x07E0;
+}
+
+DWORD CDirectDraw::Get_B_Bitmask()
+{
+	// 5:6:5 format: B is at bits 0-4
+	return 0x001F;
+}
+
+DWORD CDirectDraw::Get_BPP()
+{
+	// SDL2 typically uses 16-bit color
+	return 16;
+}
+
+#endif /* !PLATFORM_WINDOWS */

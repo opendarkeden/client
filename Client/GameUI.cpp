@@ -1,11 +1,13 @@
  //-----------------------------------------------------------------------------
 // GameUI.cpp`
 //-----------------------------------------------------------------------------
-// UIÀÇ message¸¦ Ã³¸®ÇÏ´Â ºÎºĞÀÌ´Ù.
+// UIì˜ messageë¥¼ ì²˜ë¦¬í•˜ëŠ” ë¶€ë¶„ì´ë‹¤.
 //-----------------------------------------------------------------------------
 #include "Client_PCH.h"
 
+#ifdef PLATFORM_WINDOWS
 #include <Winuser.h>
+#endif
 
 #include "Client.h"
 #include "UIFunction.h"
@@ -17,9 +19,9 @@
 #include "MPriceManager.h"
 #include "MMoneyManager.h"
 #include "UIDialog.h"
-#include "Packet\PCSlayerInfo.h"
-#include "Packet\PCVampireInfo.h"
-#include "Packet\PCOustersInfo.h"
+#include "Packet/PCSlayerInfo.h"
+#include "Packet/PCVampireInfo.h"
+#include "Packet/PCOustersInfo.h"
 #include "SkillDef.h"
 #include "ClientFunction.h"
 #include "MGameStringTable.h"
@@ -264,7 +266,7 @@ UI_CloseSelectWayPoint()
 //-----------------------------------------------------------------------------
 // Save UserOption
 //-----------------------------------------------------------------------------
-// UIÀÇ UserOptionÁ¤º¸¸¦ È­ÀÏ·Î ÀúÀåÇÑ´Ù.
+// UIì˜ UserOptionì •ë³´ë¥¼ í™”ì¼ë¡œ ì €ì¥í•œë‹¤.
 //-----------------------------------------------------------------------------
 void		
 UI_SaveUserOption()
@@ -336,14 +338,14 @@ UI_AddEffectStatus(int es, DWORD delayFrame)
 		TYPE_ACTIONINFO ai = (*g_pEffectStatusTable)[es].OriginalActionInfo;
 
 		//---------------------------------------------------------------
-		// EffectStatus¿Í °ü·ÃµÈ ActionInfo°¡ ÀÖ´Â °æ¿ì
+		// EffectStatusì™€ ê´€ë ¨ëœ ActionInfoê°€ ìˆëŠ” ê²½ìš°
 		//---------------------------------------------------------------
 		if (ai < g_pActionInfoTable->GetMinResultActionInfo())
 		{
 			S_SLOT::UI_EFFECTSTATUS_TYPE& status = g_char_slot_ingame.STATUS;
 
 			//-----------------------------------------------------------------
-			// ÀÌ¹Ì ÀÖ´ÂÁö °Ë»ç.. À½.. vector¶ó.. - -;
+			// ì´ë¯¸ ìˆëŠ”ì§€ ê²€ì‚¬.. ìŒ.. vectorë¼.. - -;
 			//-----------------------------------------------------------------
 			S_SLOT::UI_EFFECTSTATUS_TYPE::iterator itr = status.begin(); 
 			S_SLOT::UI_EFFECTSTATUS_TYPE::iterator endItr = status.end();
@@ -351,11 +353,11 @@ UI_AddEffectStatus(int es, DWORD delayFrame)
 			while (itr != status.end())
 			{
 				//-----------------------------------------------------------------
-				// ÀÌ¹Ì ÀÖÀ¸¸é returnÀÌ´ç..
+				// ì´ë¯¸ ìˆìœ¼ë©´ returnì´ë‹¹..
 				//-----------------------------------------------------------------
 				if (itr->actionInfo == ai)
 				{
-					// 2004, 6, 11 sobeit add start - ¿ÉÀúºù¾ÆÀÌ,ºí·¹½º µîµî, delay ¹ö±×¶§¹®¿¡ delay¸¸ °»½Å
+					// 2004, 6, 11 sobeit add start - ì˜µì €ë¹™ì•„ì´,ë¸”ë ˆìŠ¤ ë“±ë“±, delay ë²„ê·¸ë•Œë¬¸ì— delayë§Œ ê°±ì‹ 
 					if(delayFrame)
 						(itr->delayFrame = timeGetTime()+delayFrame*1000/16);
 					// 2004, 6, 11 sobeit add end
@@ -366,7 +368,7 @@ UI_AddEffectStatus(int es, DWORD delayFrame)
 			}
 
 			//-----------------------------------------------------------------
-			// ¾øÀ¸¸é Ãß°¡ÇÑ´Ù.
+			// ì—†ìœ¼ë©´ ì¶”ê°€í•œë‹¤.
 			//-----------------------------------------------------------------
 			S_SLOT::UI_EFFECTSTATUS_STRUCT efs;
 			efs.actionInfo = ai;
@@ -376,7 +378,7 @@ UI_AddEffectStatus(int es, DWORD delayFrame)
 			if(ai == SKILL_BLOOD_DRAIN)
 			{
 				g_char_slot_ingame.bl_drained = true;
-				// 2004, 5, 7, sobeit add start - ÈíÇ÷ ´çÇßÀ» ¶§ µµ¿ò¸»À» º¸¿©ÁØ´Ù.
+				// 2004, 5, 7, sobeit add start - í¡í˜ˆ ë‹¹í–ˆì„ ë•Œ ë„ì›€ë§ì„ ë³´ì—¬ì¤€ë‹¤.
 			//	ExecuteHelpEvent( HELP_EVENT_DRAIN_BLOOD ); 
 				// 2004, 5, 6, sobeit add end
 			}
@@ -395,14 +397,14 @@ UI_RemoveEffectStatus(int es)
 		int ai = (*g_pEffectStatusTable)[es].OriginalActionInfo;
 
 		//---------------------------------------------------------------
-		// EffectStatus¿Í °ü·ÃµÈ ActionInfo°¡ ÀÖ´Â °æ¿ì
+		// EffectStatusì™€ ê´€ë ¨ëœ ActionInfoê°€ ìˆëŠ” ê²½ìš°
 		//---------------------------------------------------------------
 		if (ai < g_pActionInfoTable->GetMinResultActionInfo())
 		{
 			S_SLOT::UI_EFFECTSTATUS_TYPE& status = g_char_slot_ingame.STATUS;
 
 			//-----------------------------------------------------------------
-			// ÀÌ¹Ì ÀÖ´ÂÁö °Ë»ç.. mapÀ¸·Î ¹Ù²Ù°í ½ÍÁö¸¸.. °Á.. - -;
+			// ì´ë¯¸ ìˆëŠ”ì§€ ê²€ì‚¬.. mapìœ¼ë¡œ ë°”ê¾¸ê³  ì‹¶ì§€ë§Œ.. ê±.. - -;
 			//-----------------------------------------------------------------
 			S_SLOT::UI_EFFECTSTATUS_TYPE::iterator itr = status.begin();
 			S_SLOT::UI_EFFECTSTATUS_TYPE::iterator endItr = status.end();
@@ -410,7 +412,7 @@ UI_RemoveEffectStatus(int es)
 			while (itr != endItr)
 			{
 				//-----------------------------------------------------------------
-				// ÀÖ´Â °Å¸é..
+				// ìˆëŠ” ê±°ë©´..
 				//-----------------------------------------------------------------
 				if (itr->actionInfo == ai)
 				{
@@ -419,7 +421,7 @@ UI_RemoveEffectStatus(int es)
 				if(ai == SKILL_BLOOD_DRAIN)
 					g_char_slot_ingame.bl_drained = false;
 
-					// ´õ Ã¼Å©ÇÒ ÇÊ¿ä¾ø´Ù.
+					// ë” ì²´í¬í•  í•„ìš”ì—†ë‹¤.
 					return;
 				}
 
@@ -435,7 +437,7 @@ UI_RemoveEffectStatus(int es)
 void
 UI_SetWorldList()
 {	
-	// ³İ¸¶ºí¿ë
+	// ë„·ë§ˆë¸”ìš©
 	if(g_pUserInformation->IsNetmarble)
 	{
 		gpC_base->SendMessage(UI_CONNECT_SERVER, true, g_pUserInformation->WorldID);
@@ -444,7 +446,7 @@ UI_SetWorldList()
 
 	if (g_pServerInformation!=NULL)
 	{
-		// true¸é groupÀ» ¼±ÅÃÇÏ´Â °Å´Ù.
+		// trueë©´ groupì„ ì„ íƒí•˜ëŠ” ê±°ë‹¤.
 		gC_vs_ui.StartServerSelect( true );
 
 //		gC_vs_ui.CharManagerEnable();
@@ -458,7 +460,7 @@ UI_SetWorldList()
 		ServerInformation::const_iterator iGroup = g_pServerInformation->begin();
 
 		//-----------------------------------------------------
-		// UI¿¡ ³Ñ°ÜÁÙ serverÁ¤º¸ »ı¼º
+		// UIì— ë„˜ê²¨ì¤„ serverì •ë³´ ìƒì„±
 		//-----------------------------------------------------
 		for (int i=0; i<numGroup; i++)
 		{			
@@ -475,15 +477,15 @@ UI_SetWorldList()
 		}			
 
 		//-----------------------------------------------------
-		// UI¿¡ server list¸¦ º¸³½´Ù.
+		// UIì— server listë¥¼ ë³´ë‚¸ë‹¤.
 		//-----------------------------------------------------		
 		int defaultID = g_pServerInformation->GetServerGroupID();
 		gC_vs_ui.SetServerList(groupName, groupID, groupStatus, numGroup, defaultID);
 
 		//-----------------------------------------------------
-		// ¸Ş¸ğ¸®¿¡¼­ Á¦°Å
+		// ë©”ëª¨ë¦¬ì—ì„œ ì œê±°
 		//-----------------------------------------------------
-		for (i=0; i<numGroup; i++)
+		for (int i=0; i<numGroup; i++)
 		{
 			delete [] groupName[i];
 		}
@@ -502,7 +504,7 @@ UI_SetWorldList()
 void
 UI_SetServerList()
 {
-	// ³İ¸¶ºí¿ë
+	// ë„·ë§ˆë¸”ìš©
 	if(g_pUserInformation->IsNetmarble)
 	{
 		gpC_base->SendMessage(UI_CONNECT_SERVER, false, g_pUserInformation->ServerID);
@@ -511,7 +513,7 @@ UI_SetServerList()
 
 	if (g_pServerInformation!=NULL)
 	{
-		// false¸é server¸¦ ¼±ÅÃÇÏ´Â °Å´Ù.
+		// falseë©´ serverë¥¼ ì„ íƒí•˜ëŠ” ê±°ë‹¤.
 		gC_vs_ui.StartServerSelect( false );
 
 //		gC_vs_ui.CharManagerEnable();
@@ -528,7 +530,7 @@ UI_SetServerList()
 		ServerGroup::const_iterator iServer = pServerGroup->begin();
 
 		//-----------------------------------------------------
-		// UI¿¡ ³Ñ°ÜÁÙ serverÁ¤º¸ »ı¼º
+		// UIì— ë„˜ê²¨ì¤„ serverì •ë³´ ìƒì„±
 		//-----------------------------------------------------		
 		for (int i=0; i<numServer; i++)
 		{			
@@ -547,15 +549,15 @@ UI_SetServerList()
 		}			
 
 		//-----------------------------------------------------
-		// UI¿¡ server list¸¦ º¸³½´Ù.
+		// UIì— server listë¥¼ ë³´ë‚¸ë‹¤.
 		//-----------------------------------------------------		
 		int defaultID = g_pServerInformation->GetServerID();
 		gC_vs_ui.SetServerList(serverName, serverID, serverStatus, numServer, defaultID);
 
 		//-----------------------------------------------------
-		// ¸Ş¸ğ¸®¿¡¼­ Á¦°Å
+		// ë©”ëª¨ë¦¬ì—ì„œ ì œê±°
 		//-----------------------------------------------------
-		for (i=0; i<numServer; i++)
+		for (int i=0; i<numServer; i++)
 		{
 			delete [] serverName[i];
 		}
@@ -758,7 +760,7 @@ UI_RunComputer()
 
 	DEBUG_ADD("g_pUserInformation keep");
 
-	// Á¢¼Ó À¯Áö
+	// ì ‘ì† ìœ ì§€
 	g_pUserInformation->KeepConnection = TRUE;
 
 	DEBUG_ADD("UI_RunComputer OK");
@@ -800,7 +802,7 @@ UI_CloseComputer()
 		g_pUIDialog->ShowPCTalkDlg();
 	}
 
-	// Á¢¼Ó ÇØÁ¦
+	// ì ‘ì† í•´ì œ
 	g_pUserInformation->KeepConnection = FALSE;
 }
 
@@ -830,13 +832,13 @@ UI_RunExchangeAsk(TYPE_OBJECTID otherID)
 	{
 		gC_vs_ui.RunExchangeAsk( pCreature->GetName() );
 		
-		// ±³È¯ÁßÀÌ¶ó´Â ÀÇ¹Ì..
+		// êµí™˜ì¤‘ì´ë¼ëŠ” ì˜ë¯¸..
 		g_pPlayer->SetWaitVerify( MPlayer::WAIT_VERIFY_TRADE );
 		
 		g_pTempInformation->SetMode(TempInformation::MODE_TRADE_REQUEST);
 		g_pTempInformation->Value1 = otherID;
 		
-		// [µµ¿ò¸»] ±³È¯½ÅÃ» ¹ŞÀ» ¶§
+		// [ë„ì›€ë§] êµí™˜ì‹ ì²­ ë°›ì„ ë•Œ
 		//		__BEGIN_HELP_EVENT
 		//			ExecuteHelpEvent( HE_TRADE_REQUESTED );	
 		//		__END_HELP_EVENT
@@ -855,7 +857,7 @@ UI_RunExchangeCancel(const char* pName)
 {
 	gC_vs_ui.RunExchangeCancel(pName);
 
-	// [µµ¿ò¸»] ±³È¯½ÅÃ» ÇÏ°í ³ª¼­
+	// [ë„ì›€ë§] êµí™˜ì‹ ì²­ í•˜ê³  ë‚˜ì„œ
 //	__BEGIN_HELP_EVENT
 //		ExecuteHelpEvent( HE_TRADE_REQUEST );	
 //	__END_HELP_EVENT
@@ -870,7 +872,7 @@ UI_RunExchange(TYPE_OBJECTID otherID)
 	UI_CloseExchangeCancel();
 
 	//-----------------------------------------------------------
-	// ¾ø´Â »ç¶÷ÀÌ¸é ¾ÈµÈ´ç..
+	// ì—†ëŠ” ì‚¬ëŒì´ë©´ ì•ˆëœë‹¹..
 	//-----------------------------------------------------------
 	MCreature* pCreature = g_pZone->GetCreature( otherID );
 
@@ -889,7 +891,7 @@ UI_RunExchange(TYPE_OBJECTID otherID)
 		g_pTradeManager->SetOtherName( pCreature->GetName() );
 		
 		//-----------------------------------------------------------
-		// mouse itemÀ» ¼±ÅÃÇÏÁö ¾ÊÀº »óÅÂ·Î..
+		// mouse itemì„ ì„ íƒí•˜ì§€ ì•Šì€ ìƒíƒœë¡œ..
 		//-----------------------------------------------------------
 		MItem* pMouseItem = UI_GetMouseItem();
 
@@ -899,7 +901,7 @@ UI_RunExchange(TYPE_OBJECTID otherID)
 		}
 
 		//-----------------------------------------------------------
-		// inventoryÀÇ ¸ğµç ¾ÆÀÌÅÛÀ» ¼±ÅÃÇÏÁö ¾ÊÀº »óÅÂ·Î ¸¸µç´Ù.
+		// inventoryì˜ ëª¨ë“  ì•„ì´í…œì„ ì„ íƒí•˜ì§€ ì•Šì€ ìƒíƒœë¡œ ë§Œë“ ë‹¤.
 		//-----------------------------------------------------------
 		g_pInventory->SetBegin();
 
@@ -913,7 +915,7 @@ UI_RunExchange(TYPE_OBJECTID otherID)
 		}
 
 		//-----------------------------------------------------------
-		// gearÀÇ ¸ğµç ¾ÆÀÌÅÛÀ» ¼±ÅÃÇÏÁö ¾ÊÀº »óÅÂ·Î ¸¸µç´Ù.
+		// gearì˜ ëª¨ë“  ì•„ì´í…œì„ ì„ íƒí•˜ì§€ ì•Šì€ ìƒíƒœë¡œ ë§Œë“ ë‹¤.
 		//-----------------------------------------------------------
 		MPlayerGear* pGear = g_pPlayer->GetGear();
 
@@ -930,11 +932,11 @@ UI_RunExchange(TYPE_OBJECTID otherID)
 
 	
 		//-----------------------------------------------------------
-		// ±³È¯Ã¢ ¶ç¿î´Ù
+		// êµí™˜ì°½ ë„ìš´ë‹¤
 		//-----------------------------------------------------------
 		gC_vs_ui.RunExchange();
 
-		// ±³È¯ÁßÀÌ¶ó´Â ÀÇ¹Ì·Î ¼³Á¤ÇØµĞ´Ù...
+		// êµí™˜ì¤‘ì´ë¼ëŠ” ì˜ë¯¸ë¡œ ì„¤ì •í•´ë‘”ë‹¤...
 		g_pPlayer->SetWaitVerify( MPlayer::WAIT_VERIFY_TRADE );
 	}
 	else
@@ -979,17 +981,17 @@ UI_CloseStorage()
 {
 	gC_vs_ui.CloseStorage();
 
-	// º¸°üÇÔ ÁßÁö
+	// ë³´ê´€í•¨ ì¤‘ì§€
 	if (g_pStorage!=NULL)
 	{
 		g_pStorage->UnSetActive();
 	}
 
-	// storage¸¦ ¾ø¾Ø´Ù.
+	// storageë¥¼ ì—†ì•¤ë‹¤.
 	gC_vs_ui.SetStorage( NULL );
 
-	// º¸°üÇÔ¿¡µµ skill icon°ú °ü°èµÈ ¾ÆÀÌÅÛÀÌ µé¾î°¥ ¼ö ÀÖ´Ù.
-	// PacketFunction.cpp¿¡ ÀÖ´Ù. compile ½Ã°£ °ü°è»ó..
+	// ë³´ê´€í•¨ì—ë„ skill iconê³¼ ê´€ê³„ëœ ì•„ì´í…œì´ ë“¤ì–´ê°ˆ ìˆ˜ ìˆë‹¤.
+	// PacketFunction.cppì— ìˆë‹¤. compile ì‹œê°„ ê´€ê³„ìƒ..
 	if (g_pSkillAvailable!=NULL)
 	{
 		g_pSkillAvailable->SetAvailableSkills();
@@ -1010,7 +1012,7 @@ UI_CloseExchange()
 	{
 		gC_vs_ui.CloseExchange();
 
-		// ±³È¯³¡
+		// êµí™˜ë
 		if (g_pPlayer->GetWaitVerify()==MPlayer::WAIT_VERIFY_TRADE)
 		{
 			g_pPlayer->SetWaitVerifyNULL();
@@ -1023,7 +1025,7 @@ UI_CloseExchange()
 			delete g_pTradeManager;			
 			g_pTradeManager = NULL;
 
-			// trade ÈÄ item¶³¾îÁö±â°¡ °¡´ÉÇØÁö´Â ½Ã°£
+			// trade í›„ itemë–¨ì–´ì§€ê¸°ê°€ ê°€ëŠ¥í•´ì§€ëŠ” ì‹œê°„
 			g_pUserInformation->ItemDropEnableTime = g_CurrentTime 
 													+ g_pClientConfig->AFTER_TRADE_ITEM_DROP_DELAY;
 		}
@@ -1038,7 +1040,7 @@ UI_CloseExchangeAsk()
 {
 	gC_vs_ui.CloseExchangeAsk();
 
-	// ±³È¯³¡
+	// êµí™˜ë
 	if (g_pPlayer->GetWaitVerify()==MPlayer::WAIT_VERIFY_TRADE)
 	{
 		g_pPlayer->SetWaitVerifyNULL();
@@ -1098,12 +1100,12 @@ UI_CloseAllDialog()
 
 	gC_vs_ui.CloseAllDialog();
 
-	// dialog´İ´Â ÇÔ¼ö·Î ÀÌ¿ëµÇ°í ÀÖ´Â Áß..
+	// dialogë‹«ëŠ” í•¨ìˆ˜ë¡œ ì´ìš©ë˜ê³  ìˆëŠ” ì¤‘..
 	//gC_vs_ui.ServerDisconnectMessage();
 }
 
 //--------------------------------------------------------------------------------
-// ¾òÀ» ¶§
+// ì–»ì„ ë•Œ
 //--------------------------------------------------------------------------------
 void
 UI_SaveHotKeyToServer()
@@ -1112,7 +1114,7 @@ UI_SaveHotKeyToServer()
 //		if (g_pPlayer!=NULL)
 //		{
 //			//---------------------------------------------------------------
-//			// SlayerÀÎ °æ¿ì
+//			// Slayerì¸ ê²½ìš°
 //			//---------------------------------------------------------------
 //			if (g_pPlayer->IsSlayer())
 //			{
@@ -1125,7 +1127,7 @@ UI_SaveHotKeyToServer()
 //					//if (id != NOT_SELECTED)
 //					//{
 //						// save(i, id)
-//						// ¼±ÅÃ ¾ÈµÈ °ÍÀÌ¶óµµ.. ±×´ë·Î ÀúÀå½ÃÄ×´Ù°¡ ¹Ş¾Æ¿À¸é µÈ´Ù.
+//						// ì„ íƒ ì•ˆëœ ê²ƒì´ë¼ë„.. ê·¸ëŒ€ë¡œ ì €ì¥ì‹œì¼°ë‹¤ê°€ ë°›ì•„ì˜¤ë©´ ëœë‹¤.
 //						_CGSetSlayerHotKey.setHotKey( i, id );
 //					//}
 //				}
@@ -1133,7 +1135,7 @@ UI_SaveHotKeyToServer()
 //				g_pSocket->sendPacket( &_CGSetSlayerHotKey );
 //			}
 //			//---------------------------------------------------------------
-//			// VampireÀÎ °æ¿ì
+//			// Vampireì¸ ê²½ìš°
 //			//---------------------------------------------------------------
 //			else
 //			{
@@ -1146,7 +1148,7 @@ UI_SaveHotKeyToServer()
 //					//if (id != NOT_SELECTED)
 //					//{
 //						// save(i, id)
-//						// ¼±ÅÃ ¾ÈµÈ °ÍÀÌ¶óµµ.. ±×´ë·Î ÀúÀå½ÃÄ×´Ù°¡ ¹Ş¾Æ¿À¸é µÈ´Ù.
+//						// ì„ íƒ ì•ˆëœ ê²ƒì´ë¼ë„.. ê·¸ëŒ€ë¡œ ì €ì¥ì‹œì¼°ë‹¤ê°€ ë°›ì•„ì˜¤ë©´ ëœë‹¤.
 //						_CGSetVampireHotKey.setHotKey( i, id );
 //					//}
 //				}
@@ -1159,7 +1161,7 @@ UI_SaveHotKeyToServer()
 }
 
 //--------------------------------------------------------------------------------
-// UI_SetHotkey - ½ºÅ³ ´ÜÃàÅ° ÁöÁ¤ÇÒ¶§,
+// UI_SetHotkey - ìŠ¤í‚¬ ë‹¨ì¶•í‚¤ ì§€ì •í• ë•Œ,
 //--------------------------------------------------------------------------------
 void
 UI_SetHotKey(int hotkey, int id)
@@ -1491,7 +1493,7 @@ UI_GetInterfaceRace()
 void
 UI_AlreadyExistIDMessage()
 {
-	gC_vs_ui.AleadyExistIdMessage(); // »ç¿ëºÒ°¡		
+	gC_vs_ui.AleadyExistIdMessage(); // ì‚¬ìš©ë¶ˆê°€		
 }
 
 //-----------------------------------------------------------------------------
@@ -1500,7 +1502,7 @@ UI_AlreadyExistIDMessage()
 void
 UI_NoAlreadyExistIDMessage()
 {
-	gC_vs_ui.NoAleadyExistIdMessage(); // »ç¿ë°¡´É
+	gC_vs_ui.NoAleadyExistIdMessage(); // ì‚¬ìš©ê°€ëŠ¥
 }
 
 //-----------------------------------------------------------------------------
@@ -1606,7 +1608,7 @@ UI_ChangeInterfaceRace(Race race)
 	if(bLevelUp)
 		gC_vs_ui.LevelUp();
 
-	// UI¿¡ Á¤º¸ ¼³Á¤
+	// UIì— ì •ë³´ ì„¤ì •
 	int zoneID = (g_bZonePlayerInLarge? g_nZoneLarge : g_nZoneSmall);
 
 	if (g_pZone!=NULL)
@@ -1615,7 +1617,7 @@ UI_ChangeInterfaceRace(Race race)
 		gC_vs_ui.SetZone( zoneID );
 		gC_vs_ui.SetSize( zoneSize );
 
-		// ¾ÈÀüÁö´ë Á¤º¸ µî.. ´Ù½Ã ¼³Á¤ÇØÁØ´Ù.
+		// ì•ˆì „ì§€ëŒ€ ì •ë³´ ë“±.. ë‹¤ì‹œ ì„¤ì •í•´ì¤€ë‹¤.
 		LoadZoneInfo(zoneID);
 	}
 
@@ -1632,7 +1634,7 @@ UI_ChangeInterfaceRace(Race race)
 //
 //	gC_vs_ui.ChangeToSlayerInterface();
 //
-//	// UI¿¡ Á¤º¸ ¼³Á¤
+//	// UIì— ì •ë³´ ì„¤ì •
 //	int zoneID = (g_bZonePlayerInLarge? g_nZoneLarge : g_nZoneSmall);
 //
 //	if (g_pZone!=NULL)
@@ -1641,7 +1643,7 @@ UI_ChangeInterfaceRace(Race race)
 //		gC_vs_ui.SetZone( zoneID );
 //		gC_vs_ui.SetSize( zoneSize );
 //
-//		// ¾ÈÀüÁö´ë Á¤º¸ µî.. ´Ù½Ã ¼³Á¤ÇØÁØ´Ù.
+//		// ì•ˆì „ì§€ëŒ€ ì •ë³´ ë“±.. ë‹¤ì‹œ ì„¤ì •í•´ì¤€ë‹¤.
 //		LoadZoneInfo(zoneID);		
 //	}
 //	
@@ -1713,40 +1715,40 @@ UI_RunSkillTree(int domain, int maxLevel)
 {
 	/*
 	BOOL bExistSkillTree = FALSE;
-	// ÀûÀıÇÑ SkillTree¸¦ ¶ç¿î´Ù.
+	// ì ì ˆí•œ SkillTreeë¥¼ ë„ìš´ë‹¤.
 	SKILLDOMAIN sd = (enum SKILLDOMAIN)domain;
 
 	switch (sd)
 	{	
 		//-----------------------------------------------------
-		// µµ
+		// ë„
 		//-----------------------------------------------------
 		case SKILLDOMAIN_BLADE : gC_vs_ui.RunBladeSkillTree(); bExistSkillTree=TRUE; break;
 
 		//-----------------------------------------------------
-		// °Ë
+		// ê²€
 		//-----------------------------------------------------
 		case SKILLDOMAIN_SWORD : gC_vs_ui.RunSwordSkillTree(); bExistSkillTree=TRUE; break;
 
 		//-----------------------------------------------------
-		// ÃÑ
+		// ì´
 		//-----------------------------------------------------
 		case SKILLDOMAIN_GUN : 
 		//case SKILLDOMAIN_RIFLE : 
 			gC_vs_ui.RunGunSkillTree(); bExistSkillTree=TRUE; break;
 			
 		//-----------------------------------------------------
-		// ÀÎÃ¦Æ®
+		// ì¸ì±ˆíŠ¸
 		//-----------------------------------------------------
 		case SKILLDOMAIN_ENCHANT : gC_vs_ui.RunEnchantSkillTree(); bExistSkillTree=TRUE; break;
 
 		//-----------------------------------------------------
-		// Èú
+		// í
 		//-----------------------------------------------------
 		case SKILLDOMAIN_HEAL : gC_vs_ui.RunHealSkillTree(); bExistSkillTree=TRUE; break;
 
 		//-----------------------------------------------------
-		// ¹ìÆÄÀÌ¾î
+		// ë±€íŒŒì´ì–´
 		//-----------------------------------------------------
 		case SKILLDOMAIN_VAMPIRE : gC_vs_ui.RunVampireSkillTree(); bExistSkillTree=TRUE; break;
 
@@ -1757,7 +1759,7 @@ UI_RunSkillTree(int domain, int maxLevel)
 	//gC_vs_ui.RunSkillView();
 
 	//----------------------------------------------------
-	// NPC´ëÈ­ÇÏ´Â dialog¸¦ ¼û±ä´Ù 
+	// NPCëŒ€í™”í•˜ëŠ” dialogë¥¼ ìˆ¨ê¸´ë‹¤ 
 	//----------------------------------------------------
 	//if (bExistSkillTree)
 	//{
@@ -1776,16 +1778,16 @@ UI_RunSkillTree(int domain, int maxLevel)
 		g_pPCTalkBox->SetType( PCTalkBox::SKILL_LEARN );
 
 		//---------------------------------------------------
-		// PC Talk BoxÀÇ Á¤º¸ ¼³Á¤
+		// PC Talk Boxì˜ ì •ë³´ ì„¤ì •
 		//---------------------------------------------------
 		char str[192];
 
 		//g_pPCTalkBox->SetNPCID( pPacket->getObjectID() );
-		//g_pPCTalkBox->SetCreatureType( pCreature->GetCreatureType() );	// ÀÌ¹Ì ¼³Á¤µÇ¾î ÀÖ´Ù°í º»´Ù.
+		//g_pPCTalkBox->SetCreatureType( pCreature->GetCreatureType() );	// ì´ë¯¸ ì„¤ì •ë˜ì–´ ìˆë‹¤ê³  ë³¸ë‹¤.
 		//g_pPCTalkBox->SetScriptID( pPacket->getScriptID() );
 
 		//---------------------------------------------------
-		// Domain¿¡¼­ ¹è¿ï ¼ö ÀÖ´Â ±â¼úµé Ãß°¡
+		// Domainì—ì„œ ë°°ìš¸ ìˆ˜ ìˆëŠ” ê¸°ìˆ ë“¤ ì¶”ê°€
 		//---------------------------------------------------
 		MSkillDomain& domainInfo = (*g_pSkillManager)[domain];
 
@@ -1813,8 +1815,8 @@ UI_RunSkillTree(int domain, int maxLevel)
 			int skillLevel = (*g_pSkillInfoTable)[skillID].GetLearnLevel();
 
 			//---------------------------------------------------
-			// ¾ÆÁ÷ ¾È ¹è¿î ±â¼úµé Áß¿¡¼­..
-			// ¹è¿ï ¼ö ÀÖ´Â ·¹º§ÀÌ µÈ ±â¼úµé..
+			// ì•„ì§ ì•ˆ ë°°ìš´ ê¸°ìˆ ë“¤ ì¤‘ì—ì„œ..
+			// ë°°ìš¸ ìˆ˜ ìˆëŠ” ë ˆë²¨ì´ ëœ ê¸°ìˆ ë“¤..
 			//---------------------------------------------------
 			if ((status==MSkillDomain::SKILLSTATUS_NEXT || status==MSkillDomain::SKILLSTATUS_OTHER)
 				&& skillLevel>0 && skillLevel<150 && skillLevel <= domainLevel)
@@ -1832,14 +1834,14 @@ UI_RunSkillTree(int domain, int maxLevel)
 			domainInfo.Next();
 		}
 
-		// ³¡³»±â Ãß°¡
+		// ëë‚´ê¸° ì¶”ê°€
 		std::string szMsg;
 		szMsg += "999";
 		szMsg += (*g_pGameStringTable)[UI_STRING_MESSAGE_CANCEL_LEARN_SKILL].GetString();
 		g_pPCTalkBox->AddString( szMsg.c_str() );
 
 		//---------------------------------------------------
-		// ½ºÅ³ ¹¹ ¹è¿ï·¡?
+		// ìŠ¤í‚¬ ë­ ë°°ìš¸ë˜?
 		//---------------------------------------------------
 		if (availableSkills==0)
 		{
@@ -1864,7 +1866,7 @@ UI_RunSkillTree(int domain, int maxLevel)
 void
 UI_OpenInventoryToSell()
 {
-	// NPC´ëÈ­ÇÏ´Â dialog¸¦ ¼û±ä´Ù 
+	// NPCëŒ€í™”í•˜ëŠ” dialogë¥¼ ìˆ¨ê¸´ë‹¤ 
 	g_pUIDialog->HidePCTalkDlg();
 
 	gC_vs_ui.OpenInventoryToSell();
@@ -1876,7 +1878,7 @@ UI_OpenInventoryToSell()
 void
 UI_OpenInventoryToRepair()
 {
-	// NPC´ëÈ­ÇÏ´Â dialog¸¦ ¼û±ä´Ù 
+	// NPCëŒ€í™”í•˜ëŠ” dialogë¥¼ ìˆ¨ê¸´ë‹¤ 
 	g_pUIDialog->HidePCTalkDlg();
 
 	gC_vs_ui.OpenInventoryToRepair();
@@ -1888,7 +1890,7 @@ UI_OpenInventoryToRepair()
 void
 UI_OpenInventoryToSilvering()
 {
-	// NPC´ëÈ­ÇÏ´Â dialog¸¦ ¼û±ä´Ù 
+	// NPCëŒ€í™”í•˜ëŠ” dialogë¥¼ ìˆ¨ê¸´ë‹¤ 
 	g_pUIDialog->HidePCTalkDlg();
 
 	gC_vs_ui.OpenInventoryToSilvering();
@@ -1928,9 +1930,9 @@ UI_CloseSell()
 void
 UI_RunShop()
 {
-	// NPC´ëÈ­ÇÏ´Â dialog¸¦ ¼û±ä´Ù
+	// NPCëŒ€í™”í•˜ëŠ” dialogë¥¼ ìˆ¨ê¸´ë‹¤
 	g_pUIDialog->HidePCTalkDlg();
-	// 2004, 8, 17, sobeit add start - »óÁ¡Ã¢ ¿©´Â µ¿½Ã¿¡ escÅ° ´­·¯¼­ Ä¡·á´ëÈ­¸¦ ÀÌ¿ëÇÏ´Â ¹ö±× ¶§¹®¿¡ Ãß°¡
+	// 2004, 8, 17, sobeit add start - ìƒì ì°½ ì—¬ëŠ” ë™ì‹œì— escí‚¤ ëˆŒëŸ¬ì„œ ì¹˜ë£ŒëŒ€í™”ë¥¼ ì´ìš©í•˜ëŠ” ë²„ê·¸ ë•Œë¬¸ì— ì¶”ê°€
 	g_pUIDialog->SetLockInputPCTalk();
 	// 2004, 8, 17, sobeit add end
 	gC_vs_ui.RunShop();
@@ -1948,12 +1950,12 @@ UI_SetShop(MShop* pShop)
 //-----------------------------------------------------------------------------
 // Run Storage Buy
 //-----------------------------------------------------------------------------
-// º¸°üÇÔ »ì·¡¸»·¡? °¡°İÀº price
+// ë³´ê´€í•¨ ì‚´ë˜ë§ë˜? ê°€ê²©ì€ price
 //-----------------------------------------------------------------------------
 void		
 UI_RunStorageBuy(int price)
 {
-	// NPC´ëÈ­ÇÏ´Â dialog¸¦ ¼û±ä´Ù
+	// NPCëŒ€í™”í•˜ëŠ” dialogë¥¼ ìˆ¨ê¸´ë‹¤
 	g_pUIDialog->HidePCTalkDlg();
 
 	gC_vs_ui.RunStorageBuy( price );
@@ -1965,12 +1967,12 @@ UI_RunStorageBuy(int price)
 void
 UI_RunStorage()
 {
-	// NPC´ëÈ­ÇÏ´Â dialog¸¦ ¼û±ä´Ù
+	// NPCëŒ€í™”í•˜ëŠ” dialogë¥¼ ìˆ¨ê¸´ë‹¤
 	g_pUIDialog->HidePCTalkDlg();
 
 	gC_vs_ui.RunStorage();
 
-	// º¸°üÇÔ ÀÛµ¿ÁßÀÌ¶ó°í ¼³Á¤ÇÑ´Ù.
+	// ë³´ê´€í•¨ ì‘ë™ì¤‘ì´ë¼ê³  ì„¤ì •í•œë‹¤.
 	g_pStorage->SetActive();
 }
 //-----------------------------------------------------------------------------
@@ -1979,12 +1981,12 @@ UI_RunStorage()
 void
 UI_RunPetStorage()
 {
-//	// NPC´ëÈ­ÇÏ´Â dialog¸¦ ¼û±ä´Ù
+//	// NPCëŒ€í™”í•˜ëŠ” dialogë¥¼ ìˆ¨ê¸´ë‹¤
 //	g_pUIDialog->HidePCTalkDlg();
 
 	gC_vs_ui.RunPetStorage();
 
-	// º¸°üÇÔ ÀÛµ¿ÁßÀÌ¶ó°í ¼³Á¤ÇÑ´Ù.
+	// ë³´ê´€í•¨ ì‘ë™ì¤‘ì´ë¼ê³  ì„¤ì •í•œë‹¤.
 	g_pStorage->SetActive();
 }
 //-----------------------------------------------------------------------------
@@ -2016,7 +2018,7 @@ UI_StartCharacterManager()
 //-----------------------------------------------------------------------------
 // New Character Create OK
 //-----------------------------------------------------------------------------
-// »õ Ä³¸¯ÅÍ »ı¼º ¼º°ø
+// ìƒˆ ìºë¦­í„° ìƒì„± ì„±ê³µ
 //-----------------------------------------------------------------------------
 void	
 UI_NewCharacterCreateOk()
@@ -2027,7 +2029,7 @@ UI_NewCharacterCreateOk()
 //-----------------------------------------------------------------------------
 // New Character Create Failed
 //-----------------------------------------------------------------------------
-// »õ Ä³¸¯ÅÍ »ı¼ºÀÌ ½ÇÆĞÇÑ °æ¿ì
+// ìƒˆ ìºë¦­í„° ìƒì„±ì´ ì‹¤íŒ¨í•œ ê²½ìš°
 //-----------------------------------------------------------------------------
 void	
 UI_NewCharacterCreateFailed(int error)
@@ -2038,24 +2040,24 @@ UI_NewCharacterCreateFailed(int error)
 //-----------------------------------------------------------------------------
 // Delete Character OK
 //-----------------------------------------------------------------------------
-// Ä³¸¯ÅÍ »èÁ¦ ¼º°ø
+// ìºë¦­í„° ì‚­ì œ ì„±ê³µ
 //-----------------------------------------------------------------------------
 void	
 UI_DeleteCharacterOK()
 {	
-	// Ä³¸¯ÅÍ »èÁ¦
+	// ìºë¦­í„° ì‚­ì œ
 	gC_vs_ui.DeleteCharacter( g_pUserInformation->Slot );	
 }
 
 //-----------------------------------------------------------------------------
 // Delete Character Failed
 //-----------------------------------------------------------------------------
-// Ä³¸¯ÅÍ »èÁ¦ ½ÇÆĞ - ÁÖ¹Îµî·Ï¹øÈ£.. ¹®Á¦. - -;
+// ìºë¦­í„° ì‚­ì œ ì‹¤íŒ¨ - ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸.. ë¬¸ì œ. - -;
 //-----------------------------------------------------------------------------
 void	
 UI_DeleteCharacterFailed()
 {
-	// ÁÖ¹Îµî·Ï¹øÈ£°¡ Æ²·ÈÀ» ¶§ÀÇ message
+	// ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸ê°€ í‹€ë ¸ì„ ë•Œì˜ message
 	gC_vs_ui.Invalid_SSN_Message();	
 }
 
@@ -2075,7 +2077,7 @@ UI_StartGame()
 	UI_AffectUserOption();
 	DEBUG_ADD("AFFECT");
 
-	// minimapÀº ¹«Á¶°Ç ÄÑµĞ´Ù.
+	// minimapì€ ë¬´ì¡°ê±´ ì¼œë‘”ë‹¤.
 	gC_vs_ui.RunMinimap();	
 	DEBUG_ADD("MINIMAP");
 }
@@ -2084,7 +2086,7 @@ UI_StartGame()
 //-----------------------------------------------------------------------------
 // Set NPC Info
 //-----------------------------------------------------------------------------
-// Zone¿¡ Á¸ÀçÇÏ´Â NPC¿¡ ´ëÇÑ Á¤º¸¸¦ ¼³Á¤ÇÑ´Ù.
+// Zoneì— ì¡´ì¬í•˜ëŠ” NPCì— ëŒ€í•œ ì •ë³´ë¥¼ ì„¤ì •í•œë‹¤.
 //-----------------------------------------------------------------------------
 void
 UI_SetNPCInfo( const char* pName, int npcID, int x, int y )
@@ -2141,10 +2143,10 @@ UI_SetCharacter(int slotID, PCSlayerInfo * pInfo)
 		SKILLDOMAIN_ENCHANT,
 	};
 
-	// ÀÓ½Ã!!
+	// ì„ì‹œ!!
 	g_StatusManager.SetCurrentWeaponDomain( weaponDomain[pInfo->getWeaponType()], 1 );
 
-	// status °ªÀ» ¾ò¾î³½´Ù.
+	// status ê°’ì„ ì–»ì–´ë‚¸ë‹¤.
 	g_StatusManager.Set(pInfo->getSTR(), pInfo->getDEX(), pInfo->getINT());
 
 	//slot.CC		= g_StatusManager.GetCC();
@@ -2159,7 +2161,7 @@ UI_SetCharacter(int slotID, PCSlayerInfo * pInfo)
 	slot.GRADE	= pInfo->getRank();
 	//slot.NOTERITY = pInfo->getNotoriety();
 
-	// °¡Àå ³ôÀº domain levelÀ» Ã£´Â´Ù.
+	// ê°€ì¥ ë†’ì€ domain levelì„ ì°¾ëŠ”ë‹¤.
 	int maxDomainLevel = 1;
 
 	/*
@@ -2172,7 +2174,7 @@ UI_SetCharacter(int slotID, PCSlayerInfo * pInfo)
 	slot.level = maxDomainLevel;
 
 	//------------------------------------------------------------
-	// domain level ¼³Á¤
+	// domain level ì„¤ì •
 	//------------------------------------------------------------
 	slot.DOMAIN_SWORD	= pInfo->getSkillDomainLevel( SKILL_DOMAIN_SWORD );
 	slot.DOMAIN_BLADE	= pInfo->getSkillDomainLevel( SKILL_DOMAIN_BLADE );
@@ -2182,9 +2184,9 @@ UI_SetCharacter(int slotID, PCSlayerInfo * pInfo)
 	
 
 	//------------------------------------------------------------
-	// º¹Àå Á¤º¸ ¼³Á¤
+	// ë³µì¥ ì •ë³´ ì„¤ì •
 	//------------------------------------------------------------
-	// ¿©ÀÚÀÎ °æ¿ì
+	// ì—¬ìì¸ ê²½ìš°
 	//------------------------------------------------------------
 	if (slot.bl_female)
 	{
@@ -2254,7 +2256,7 @@ UI_SetCharacter(int slotID, PCSlayerInfo * pInfo)
 		slot.woman_info.left = uiShieldFemale[pInfo->getShieldType()];
 	}
 	//------------------------------------------------------------
-	// ³²ÀÚÀÎ °æ¿ì
+	// ë‚¨ìì¸ ê²½ìš°
 	//------------------------------------------------------------
 	else
 	{
@@ -2324,7 +2326,7 @@ UI_SetCharacter(int slotID, PCSlayerInfo * pInfo)
 		slot.man_info.left = uiShieldMale[pInfo->getShieldType()];
 	}
 
-	// º¹Àå Á¤º¸
+	// ë³µì¥ ì •ë³´
 	/*
 	pInfo->getHairStyle();	//	HAIR_STYLE1 , 	HAIR_STYLE2 , 	HAIR_STYLE3 
 	pInfo->getHelmetType();	// HELMET_NONE , HELMET1 , HELMET2 ,
@@ -2333,7 +2335,7 @@ UI_SetCharacter(int slotID, PCSlayerInfo * pInfo)
 	*/
 
 	//------------------------------------------------------------
-	// »ö±ò Á¤º¸
+	// ìƒ‰ê¹” ì •ë³´
 	//------------------------------------------------------------
 	slot.skin_color	= pInfo->getSkinColor();
 	slot.hair_color	= pInfo->getHairColor();
@@ -2392,7 +2394,7 @@ UI_SetCharacter(int slotID, PCSlayerInfo * pInfo)
 			slot.right_color = (*g_pItemOptionTable)[pInfo->getWeaponColor()].ColorSet;
 	}
 
-	// »ö±ò È®ÀÎ
+	// ìƒ‰ê¹” í™•ì¸
 	if(slot.skin_color != UNIQUE_ITEM_COLOR && slot.skin_color != QUEST_ITEM_COLOR)
 		slot.skin_color = max(0, min(slot.skin_color, MAX_COLORSET-1));
 	if(slot.helmet_color != UNIQUE_ITEM_COLOR && slot.helmet_color != QUEST_ITEM_COLOR)
@@ -2445,7 +2447,7 @@ UI_SetCharacter(int slotID, PCVampireInfo * pInfo)
 	
 	slot.STATUS.clear();
 
-	// status °ªÀ» ¾ò¾î³½´Ù.
+	// status ê°’ì„ ì–»ì–´ë‚¸ë‹¤.
 	g_StatusManager.SetCurrentWeaponDomain( SKILLDOMAIN_VAMPIRE, pInfo->getExp() );
 
 	g_StatusManager.Set(pInfo->getSTR(), pInfo->getDEX(), pInfo->getINT());
@@ -2480,7 +2482,7 @@ UI_SetCharacter(int slotID, PCVampireInfo * pInfo)
 	slot.helmet_color = 0;
 	slot.trouser_color = 0;
 
-	// ¹ìÆÄ ¿ÊÃß°¡
+	// ë±€íŒŒ ì˜·ì¶”ê°€
 	int creatureType = 0;
 	if(slot.bl_female)
 		creatureType = (*g_pItemTable)[ITEM_CLASS_VAMPIRE_COAT][coatType].AddonFemaleFrameID;
@@ -2491,7 +2493,7 @@ UI_SetCharacter(int slotID, PCVampireInfo * pInfo)
 	int coat = (*g_pCreatureSpriteTable)[spriteType].FrameID;
 	
 	slot.woman_info.helmet = W_NO_WEAR;
-	slot.woman_info.coat = (CHAR_WOMAN)coat;		// coatType¿¡ µû¶ó¼­ ¹Ù²ã¾ß ÇÑ´Ù.. ³ªÁß¿¡~
+	slot.woman_info.coat = (CHAR_WOMAN)coat;		// coatTypeì— ë”°ë¼ì„œ ë°”ê¿”ì•¼ í•œë‹¤.. ë‚˜ì¤‘ì—~
 	slot.woman_info.trouser = W_NO_WEAR;
 	slot.woman_info.face = W_FACE1;	// default
 	slot.woman_info.hair = W_NO_WEAR;
@@ -2499,7 +2501,7 @@ UI_SetCharacter(int slotID, PCVampireInfo * pInfo)
 	slot.woman_info.left = W_NO_WEAR;
 
 	slot.man_info.helmet = M_NO_WEAR;
-	slot.man_info.coat = (CHAR_MAN)coat;		// coatType¿¡ µû¶ó¼­ ¹Ù²ã¾ß ÇÑ´Ù.. ³ªÁß¿¡~
+	slot.man_info.coat = (CHAR_MAN)coat;		// coatTypeì— ë”°ë¼ì„œ ë°”ê¿”ì•¼ í•œë‹¤.. ë‚˜ì¤‘ì—~
 	slot.man_info.trouser = M_NO_WEAR;
 	slot.man_info.face = M_FACE1;	// default
 	slot.man_info.hair = M_NO_WEAR;
@@ -2507,17 +2509,17 @@ UI_SetCharacter(int slotID, PCVampireInfo * pInfo)
 	slot.man_info.left = M_NO_WEAR;
 
 	//------------------------------------------------------------
-	// ¿©ÀÚ
+	// ì—¬ì
 	//------------------------------------------------------------
 	slot.coat_color = coatColor;//(*g_pItemOptionTable)[coatOption].ColorSet;
 	/*
 	if (slot.bl_female)
 	{
-		// default .. ³ªÁß¿¡ ¹Ù²ã¾ß ÇÑ´Ù.
+		// default .. ë‚˜ì¤‘ì— ë°”ê¿”ì•¼ í•œë‹¤.
 		slot.coat_color = 38;
 	}
 	//------------------------------------------------------------
-	// ³²ÀÚ
+	// ë‚¨ì
 	//------------------------------------------------------------
 	else
 	{
@@ -2526,7 +2528,7 @@ UI_SetCharacter(int slotID, PCVampireInfo * pInfo)
 	}
 	*/
 
-	// »ö±ò È®ÀÎ
+	// ìƒ‰ê¹” í™•ì¸
 	if(slot.skin_color != UNIQUE_ITEM_COLOR && slot.skin_color != QUEST_ITEM_COLOR)
 		slot.skin_color = max(0, min(slot.skin_color, MAX_COLORSET-1));
 	if(slot.helmet_color != UNIQUE_ITEM_COLOR && slot.helmet_color != QUEST_ITEM_COLOR)
@@ -2578,7 +2580,7 @@ UI_SetCharacter(int slotID, PCOustersInfo * pInfo)
 	
 	slot.STATUS.clear();
 
-	// status °ªÀ» ¾ò¾î³½´Ù.
+	// status ê°’ì„ ì–»ì–´ë‚¸ë‹¤.
 	g_StatusManager.SetCurrentWeaponDomain( SKILLDOMAIN_OUSTERS, pInfo->getLevel() );
 
 	g_StatusManager.Set(pInfo->getSTR(), pInfo->getDEX(), pInfo->getINT());
@@ -2618,7 +2620,7 @@ UI_SetCharacter(int slotID, PCOustersInfo * pInfo)
 	slot.helmet_color = 0;
 	slot.trouser_color = 0;
 
-	// ¹ìÆÄ ¿ÊÃß°¡
+	// ë±€íŒŒ ì˜·ì¶”ê°€
 //	int creatureType = 0;
 //	if(slot.bl_female)
 //		creatureType = (*g_pItemTable)[ITEM_CLASS_VAMPIRE_COAT][coatType].AddonFemaleFrameID;
@@ -2629,7 +2631,7 @@ UI_SetCharacter(int slotID, PCOustersInfo * pInfo)
 	int spriteType = (*g_pItemTable)[ITEM_CLASS_OUSTERS_COAT][g_pPacketItemOustersCoat[coatType]->GetItemType()].AddonMaleFrameID;
 	
 	slot.woman_info.helmet = W_NO_WEAR;
-	slot.woman_info.coat = (CHAR_WOMAN)(spriteType);		// coatType¿¡ µû¶ó¼­ ¹Ù²ã¾ß ÇÑ´Ù.. ³ªÁß¿¡~
+	slot.woman_info.coat = (CHAR_WOMAN)(spriteType);		// coatTypeì— ë”°ë¼ì„œ ë°”ê¿”ì•¼ í•œë‹¤.. ë‚˜ì¤‘ì—~
 	slot.woman_info.trouser = W_NO_WEAR;
 	slot.woman_info.face = W_FACE1;	// default
 	slot.woman_info.hair = W_NO_WEAR;
@@ -2637,7 +2639,7 @@ UI_SetCharacter(int slotID, PCOustersInfo * pInfo)
 	slot.woman_info.left = (CHAR_WOMAN)weaponType;
 
 	slot.man_info.helmet = M_NO_WEAR;
-	slot.man_info.coat = (CHAR_MAN)(spriteType);		// coatType¿¡ µû¶ó¼­ ¹Ù²ã¾ß ÇÑ´Ù.. ³ªÁß¿¡~
+	slot.man_info.coat = (CHAR_MAN)(spriteType);		// coatTypeì— ë”°ë¼ì„œ ë°”ê¿”ì•¼ í•œë‹¤.. ë‚˜ì¤‘ì—~
 	slot.man_info.trouser = M_NO_WEAR;
 	slot.man_info.face = M_FACE1;	// default
 	slot.man_info.hair = M_NO_WEAR;
@@ -2645,7 +2647,7 @@ UI_SetCharacter(int slotID, PCOustersInfo * pInfo)
 	slot.man_info.left = (CHAR_MAN)weaponType;
 
 	//------------------------------------------------------------
-	// ¿©ÀÚ
+	// ì—¬ì
 	//------------------------------------------------------------
 	slot.coat_color = coatColor;//(*g_pItemOptionTable)[coatOption].ColorSet;
 	slot.left_color = weaponColor;
@@ -2655,11 +2657,11 @@ UI_SetCharacter(int slotID, PCOustersInfo * pInfo)
 	/*
 	if (slot.bl_female)
 	{
-		// default .. ³ªÁß¿¡ ¹Ù²ã¾ß ÇÑ´Ù.
+		// default .. ë‚˜ì¤‘ì— ë°”ê¿”ì•¼ í•œë‹¤.
 		slot.coat_color = 38;
 	}
 	//------------------------------------------------------------
-	// ³²ÀÚ
+	// ë‚¨ì
 	//------------------------------------------------------------
 	else
 	{
@@ -2668,7 +2670,7 @@ UI_SetCharacter(int slotID, PCOustersInfo * pInfo)
 	}
 	*/
 
-	// »ö±ò È®ÀÎ
+	// ìƒ‰ê¹” í™•ì¸
 	if(slot.skin_color != UNIQUE_ITEM_COLOR && slot.skin_color != QUEST_ITEM_COLOR)
 		slot.skin_color = max(0, min(slot.skin_color, MAX_COLORSET-1));
 	if(slot.helmet_color != UNIQUE_ITEM_COLOR && slot.helmet_color != QUEST_ITEM_COLOR)
@@ -2699,7 +2701,7 @@ UI_StartProgress(int zoneID)
 	DEBUG_ADD("[UI] Start Progress");
 	
 	//---------------------------------------
-	// À½¾Ç ¸ØÃá´Ù.
+	// ìŒì•… ë©ˆì¶˜ë‹¤.
 	//---------------------------------------
 	if (g_pUserOption!=NULL)
 	{
@@ -2913,16 +2915,16 @@ UI_SetHP(int current, int max)
 	}
 
 	//---------------------------------------------------------------
-	// HP ³·Àº °æ¿ì Ã¼Å©
+	// HP ë‚®ì€ ê²½ìš° ì²´í¬
 	//---------------------------------------------------------------
 	__BEGIN_HELP_EVENT
 		static int lastPercent = 100;
 		int percent = ((max==0)?0 : current*100 / max);
 
-		// ¹æ±İ Àü¿¡´Â 30%ÀÌ»óÀÌ¾ú´Âµ¥.. Áö±İ ÀÌÇÏ°¡ µÈ °æ¿ì
+		// ë°©ê¸ˆ ì „ì—ëŠ” 30%ì´ìƒì´ì—ˆëŠ”ë°.. ì§€ê¸ˆ ì´í•˜ê°€ ëœ ê²½ìš°
 		if (percent <= 30 && lastPercent > 30)
 		{
-			// [µµ¿ò¸»] HP ³·Àº °æ¿ì
+			// [ë„ì›€ë§] HP ë‚®ì€ ê²½ìš°
 			ExecuteHelpEvent( HELP_EVENT_USE_POTION );
 		}
 		lastPercent = percent;
@@ -2932,13 +2934,13 @@ UI_SetHP(int current, int max)
 	DEBUG_ADD_FORMAT("[UI] Set HP  (%d / %d)", current, max);
 	
 	//---------------------------------------------------------------
-	// ¹°·ÈÀ»¶§ HP bar º¯°æ
+	// ë¬¼ë ¸ì„ë•Œ HP bar ë³€ê²½
 	//---------------------------------------------------------------
 //	if (g_pPlayer->IsSlayer())
 //	{
 //		if (g_pPlayer->GetConversionDelayTime() > g_CurrentTime)
 //		{
-//			// ¹°·È´ç..
+//			// ë¬¼ë ¸ë‹¹..
 //			gC_vs_ui.SetHP(current, max, TRUE);
 //		}
 //		else
@@ -2956,13 +2958,13 @@ UI_SetHP(int current, int max)
 	{
 		float ratio = (max==0)? 1 : (float)current/max;
 
-		// hp°¡ 30%ÀÌÇÏ¸é..
+		// hpê°€ 30%ì´í•˜ë©´..
 		if (ratio < 0.3f)
 		{
 			//g_DXMusic.SetCurrentTempo( g_DXMusic.GetOriginalTempo() * (float)(1.3f - ratio) );
 			g_DXMusic.SetCurrentTempo( g_DXMusic.GetOriginalTempo() * 1.3f );
 		}	
-		// 100ÀÌ ¾Æ´Ï¸é..
+		// 100ì´ ì•„ë‹ˆë©´..
 		else if (g_DXMusic.GetCurrentTempo()!=g_DXMusic.GetOriginalTempo())	
 		{
 			g_DXMusic.SetOriginalTempo();
@@ -3000,16 +3002,16 @@ UI_SetMP(int current, int max)
 	}
 
 	//---------------------------------------------------------------
-	// MP ³·Àº °æ¿ì Ã¼Å©
+	// MP ë‚®ì€ ê²½ìš° ì²´í¬
 	//---------------------------------------------------------------
 	__BEGIN_HELP_EVENT
 		static int lastPercent = 100;
 		int percent = ((max==0)?0 : current*100 / max);
 
-		// ¹æ±İ Àü¿¡´Â 30%ÀÌ»óÀÌ¾ú´Âµ¥.. Áö±İ ÀÌÇÏ°¡ µÈ °æ¿ì
+		// ë°©ê¸ˆ ì „ì—ëŠ” 30%ì´ìƒì´ì—ˆëŠ”ë°.. ì§€ê¸ˆ ì´í•˜ê°€ ëœ ê²½ìš°
 		if (percent <= 30 && lastPercent > 30)
 		{
-			// [µµ¿ò¸»] MP ³·Àº °æ¿ì
+			// [ë„ì›€ë§] MP ë‚®ì€ ê²½ìš°
 			ExecuteHelpEvent( HELP_EVENT_USE_POTION );
 			ExecuteHelpEvent( HELP_EVENT_ABSORB_SOUL );
 
@@ -3026,7 +3028,7 @@ UI_SetMP(int current, int max)
 // Add Chat To History
 //-----------------------------------------------------------------------------
 void
-UI_AddChatToHistory(char* str, char* sz_id, int cond, DWORD color) // const·Î ÇÏ¸é ¾ÈµÊ! (6/23, KJTINC)
+UI_AddChatToHistory(char* str, char* sz_id, int cond, DWORD color) // constë¡œ í•˜ë©´ ì•ˆë¨! (6/23, KJTINC)
 {
 	if(g_pUserOption->ChatWhite)
 		color = gpC_base->m_chatting_pi.text_color;
@@ -3039,12 +3041,12 @@ UI_AddChatToHistory(char* str, char* sz_id, int cond, DWORD color) // const·Î ÇÏ
 	CHAT_LINE_CONDITION condition = (CHAT_LINE_CONDITION)cond;
 
 	//-----------------------------------------------------------
-	// ÀÌ¸§ÀÌ ÀÖ´Ù¸é.. Ãâ·ÂÇØµµ µÇ´Â »ç¶÷²«Áö È®ÀÎÇÑ´Ù.
+	// ì´ë¦„ì´ ìˆë‹¤ë©´.. ì¶œë ¥í•´ë„ ë˜ëŠ” ì‚¬ëŒê»€ì§€ í™•ì¸í•œë‹¤.
 	//-----------------------------------------------------------
 	/*
 	if (sz_id!=NULL)
 	{
-		// Çã¿ëÀÌ ¾ÈµÇ´Â IDÀÌ¸é Ãâ·ÂÇÏÁö ¾Ê´Â´Ù.
+		// í—ˆìš©ì´ ì•ˆë˜ëŠ” IDì´ë©´ ì¶œë ¥í•˜ì§€ ì•ŠëŠ”ë‹¤.
 		if (!g_pChatManager->IsAcceptID( sz_id ))
 		{
 			return;
@@ -3097,7 +3099,7 @@ UI_DropItem()
 void
 UI_PickUpItem(MItem* pItem)
 {
-	// ¼Ò¸® ³½´Ù..
+	// ì†Œë¦¬ ë‚¸ë‹¤..
 	PlaySound( pItem->GetInventorySoundID() );
 
 	gC_vs_ui.PickUpItem( pItem );
@@ -3148,7 +3150,7 @@ UI_UnlockGear()
 }
 
 //-----------------------------------------------------------------------------
-// UI ¸Ş¼¼Áö Ã³¸®
+// UI ë©”ì„¸ì§€ ì²˜ë¦¬
 //-----------------------------------------------------------------------------
 void UI_ResultReceiver(DWORD message, int left, int right, void *void_ptr)
 {
@@ -3188,7 +3190,7 @@ UI_RunPartyRequest(TYPE_OBJECTID otherID)
 	}
 
 	//-------------------------------------------
-	// ÆÄÆ¼ Á¤º¸Ã¢ ¶ç¿î´Ù.
+	// íŒŒí‹° ì •ë³´ì°½ ë„ìš´ë‹¤.
 	//-------------------------------------------
 	MCreature* pCreature = g_pZone->GetCreature( otherID );
 
@@ -3196,8 +3198,8 @@ UI_RunPartyRequest(TYPE_OBJECTID otherID)
 	{
 		gC_vs_ui.RequestParty( pCreature->GetName(), 30000 );
 
-		// ÆÄÆ¼ ½ÅÃ»ÁßÀÌ¶ó´Â ÀÇ¹Ì..
-		// °ËÁõ ¾øÀÌ Ã³¸®ÇÑ´Ù.
+		// íŒŒí‹° ì‹ ì²­ì¤‘ì´ë¼ëŠ” ì˜ë¯¸..
+		// ê²€ì¦ ì—†ì´ ì²˜ë¦¬í•œë‹¤.
 		//g_pPlayer->SetWaitVerify( MPlayer::WAIT_VERIFY_PARTY );
 
 		//g_pTempInformation->Mode = TempInformation::MODE_PARTY_REQUEST;
@@ -3205,7 +3207,7 @@ UI_RunPartyRequest(TYPE_OBJECTID otherID)
 
 		g_pTempInformation->PartyInviter = otherID;
 
-		// [µµ¿ò¸»] ±³È¯½ÅÃ» ¹ŞÀ» ¶§
+		// [ë„ì›€ë§] êµí™˜ì‹ ì²­ ë°›ì„ ë•Œ
 		//__BEGIN_HELP_EVENT
 		//	ExecuteHelpEvent( HE_TRADE_REQUESTED );	
 		//__END_HELP_EVENT
@@ -3236,7 +3238,7 @@ UI_RunPartyAsk(TYPE_OBJECTID otherID)
 		}
 		
 		//-------------------------------------------
-		// ÆÄÆ¼ Á¤º¸Ã¢ ¶ç¿î´Ù.
+		// íŒŒí‹° ì •ë³´ì°½ ë„ìš´ë‹¤.
 		//-------------------------------------------
 		MCreature* pCreature = g_pZone->GetCreature( otherID ); 
 		
@@ -3245,13 +3247,13 @@ UI_RunPartyAsk(TYPE_OBJECTID otherID)
 			// C_VS_UI_REQUEST_PARTY::REQUEST
 			gC_vs_ui.RunPartyAsk( pCreature->GetName(), C_VS_UI_REQUEST_PARTY::INVITE );
 			
-			// ÆÄÆ¼ °ËÁõ¾ÈÇÑ´Ù.
+			// íŒŒí‹° ê²€ì¦ì•ˆí•œë‹¤.
 			//g_pPlayer->SetWaitVerify( MPlayer::WAIT_VERIFY_PARTY );
 			
 			//g_pTempInformation->Mode = TempInformation::MODE_PARTY_REQUEST;
 			g_pTempInformation->PartyInviter = otherID;
 			
-			// [µµ¿ò¸»] ±³È¯½ÅÃ» ¹ŞÀ» ¶§
+			// [ë„ì›€ë§] êµí™˜ì‹ ì²­ ë°›ì„ ë•Œ
 			//__BEGIN_HELP_EVENT
 			//	ExecuteHelpEvent( HE_TRADE_REQUESTED );	
 			//__END_HELP_EVENT
@@ -3272,7 +3274,7 @@ UI_RunPartyCancel(const char* pName)
 {
 	gC_vs_ui.RunPartyCancel(pName);
 
-	// [µµ¿ò¸»] ±³È¯½ÅÃ» ÇÏ°í ³ª¼­
+	// [ë„ì›€ë§] êµí™˜ì‹ ì²­ í•˜ê³  ë‚˜ì„œ
 	//__BEGIN_HELP_EVENT
 	//	ExecuteHelpEvent( HE_TRADE_REQUEST );	
 	//__END_HELP_EVENT
@@ -3305,7 +3307,7 @@ UI_ClosePartyAsk()
 {
 	gC_vs_ui.ClosePartyAsk();
 
-	// ±³È¯³¡
+	// êµí™˜ë
 	if (g_pPlayer->GetWaitVerify()==MPlayer::WAIT_VERIFY_PARTY)
 	{
 		g_pPlayer->SetWaitVerifyNULL();
@@ -3360,7 +3362,7 @@ UI_SetWaitGuildList()
 void
 UI_ShowWaitGuildList( GCWaitGuildList *pPacket)
 {
-	// NPC´ëÈ­ÇÏ´Â dialog¸¦ ¼û±ä´Ù 
+	// NPCëŒ€í™”í•˜ëŠ” dialogë¥¼ ìˆ¨ê¸´ë‹¤ 
 	g_pUIDialog->HidePCTalkDlg();
 
 	DEBUG_ADD_FORMAT( "[GCWaitGuildList] Start");
@@ -3389,7 +3391,7 @@ UI_ShowWaitGuildList( GCWaitGuildList *pPacket)
 void		
 UI_ShowActiveGuildList( GCActiveGuildList *pPacket)
 {
-	// NPC´ëÈ­ÇÏ´Â dialog¸¦ ¼û±ä´Ù 
+	// NPCëŒ€í™”í•˜ëŠ” dialogë¥¼ ìˆ¨ê¸´ë‹¤ 
 	g_pUIDialog->HidePCTalkDlg();
 
 	DEBUG_ADD_FORMAT( "[GCActiveGuildList] Start");
@@ -3404,7 +3406,7 @@ UI_ShowActiveGuildList( GCActiveGuildList *pPacket)
 		regist_team_info.guild_id = pInfo->getGuildID();
 		regist_team_info.TEAM_NAME = pInfo->getGuildName();
 		regist_team_info.LEADER_NAME = pInfo->getGuildMaster();
-		// ·©Å· ³ªÁß¿¡ ³ÖÀğ¤Ğ.¤Ğ
+		// ë­í‚¹ ë‚˜ì¤‘ì— ë„£ìŸˆã… .ã… 
 		regist_team_info.RANKING = 0;
 		regist_team_info.MEMBERS = pInfo->getGuildMemberCount();
 
@@ -3455,7 +3457,7 @@ UI_ShowGuildMemberList( GCGuildMemberList *pPacket)
 		if(false == SetServerName)
 		{
 			member_info.SERVER_NAME = (*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_LOGINED].GetString();
-			member_info.bLogOn = false; // ¼­¹ö³×ÀÓ Ã£À»¼ö ¾ø´Â°Å´Â ±×³É ºñ ·Î±×ÀÎÀ¸·Î ÇÏÀÚ..¤»¤»
+			member_info.bLogOn = false; // ì„œë²„ë„¤ì„ ì°¾ì„ìˆ˜ ì—†ëŠ”ê±°ëŠ” ê·¸ëƒ¥ ë¹„ ë¡œê·¸ì¸ìœ¼ë¡œ í•˜ì..ã…‹ã…‹
 		}
 		// 2004, 10, 8, sobeit add end
 		gC_vs_ui.AddTeamMemberInfo(member_info, bAvailableRecall); 
@@ -3468,7 +3470,7 @@ UI_ShowGuildMemberList( GCGuildMemberList *pPacket)
 void		
 UI_ShowGuildRegist(DWORD reg_fee)
 {
-	// NPC´ëÈ­ÇÏ´Â dialog¸¦ ¼û±ä´Ù 
+	// NPCëŒ€í™”í•˜ëŠ” dialogë¥¼ ìˆ¨ê¸´ë‹¤ 
 	g_pUIDialog->HidePCTalkDlg();
 	
 	gC_vs_ui.RunTeamRegist(false, reg_fee);
@@ -3518,7 +3520,7 @@ UI_ShowGuildInfo(GCShowGuildInfo *pPacket)
 	team_info.REGISTERED_DATE = "";
 	team_info.RANKING = 0;
 
-	// 2004, 10, 19, sobeit add start - ÇöÀç ¶° ÀÖ´Â ±æµå ¸®½ºÆ®°¡ ¿¬ÇÕ¸®½ºÆ® ÀÎÁö ±×³É ±æµå ¸®½ºÆ® ÀÎÁö..¿¡ÈŞ..
+	// 2004, 10, 19, sobeit add start - í˜„ì¬ ë–  ìˆëŠ” ê¸¸ë“œ ë¦¬ìŠ¤íŠ¸ê°€ ì—°í•©ë¦¬ìŠ¤íŠ¸ ì¸ì§€ ê·¸ëƒ¥ ê¸¸ë“œ ë¦¬ìŠ¤íŠ¸ ì¸ì§€..ì—íœ´..
 	bool IsUnionTeamInfo = gC_vs_ui.IsRunningTeamList(true); //  
 	// 2004, 10, 19, sobeit add end
 	gC_vs_ui.RunTeamInfo(false, (void *)&team_info, IsUnionTeamInfo);
@@ -3564,7 +3566,7 @@ UI_ShowUnionGuildMemberInfo(GCShowUnionInfo *pPacket)
 		regist_team_info.guild_id = pInfo->getGuildID();
 		regist_team_info.TEAM_NAME = pInfo->getGuildName();
 		regist_team_info.LEADER_NAME = pInfo->getGuildMaster();
-		// ·©Å· ³ªÁß¿¡ ³ÖÀğ¤Ğ.¤Ğ
+		// ë­í‚¹ ë‚˜ì¤‘ì— ë„£ìŸˆã… .ã… 
 		regist_team_info.RANKING = 0;
 		regist_team_info.MEMBERS = pInfo->getGuildMemberCount();
 	
@@ -3722,14 +3724,14 @@ const char *UI_GetOtherInfoName()
 
 extern std::string g_CpCookie;
 
-// ³İ¸¶ºí¿ë
+// ë„·ë§ˆë¸”ìš©
 void	UI_RunConnect()
 {
 
 	if(g_pUserInformation->IsNetmarble)
 	{
 		static LOGIN	login;
-		// ¹æ½Ä ¹Ù²ñ.   2003.12.12 by sonee
+		// ë°©ì‹ ë°”ë€œ.   2003.12.12 by sonee
 		//login.sz_id = new char [g_pUserInformation->NetmarbleID.GetLength()+1];
 		//strcpy(login.sz_id, g_pUserInformation->NetmarbleID.GetString());
 		//		login.sz_password = new char [g_pUserInformation->NetmarblePassword.GetLength()+1];
@@ -3746,11 +3748,11 @@ void	UI_RunConnect()
 	else
 	{
 		// 2004, 7, 15, sobeit modify start
-		if(false == g_pUserInformation->IsAutoLogIn) // ¼öµ¿ ·Î±×ÀÎ
+		if(false == g_pUserInformation->IsAutoLogIn) // ìˆ˜ë™ ë¡œê·¸ì¸
 			gC_vs_ui.RunConnect();
-		else // À¥ ·Î±×ÀÎ
+		else // ì›¹ ë¡œê·¸ì¸
 		{
-			//edit by Coffee 2006.11.7  ÎªÍøÁªÔö¼Ó×Ô¶¯µÇÂ½½Ó¿Ú
+			//edit by Coffee 2006.11.7  æ§¨è²¢ì ¬è—¤ì†è±ë•¡ë˜ì©ìŒˆì™¯
 /*
 			if(NULL != g_pUserInformation->pLogInClientPlayer)
 			{
@@ -3794,7 +3796,7 @@ void	UI_OpenBringFee(UINT totalfee)
 
 void	UI_SetTotalFee(UINT fee)
 {
-	// ÇöÀç Ã¢¿¡ ³ª¿ÍÀÖ´Â ÃÑ ±İ¾×°ú ¼­¹ö·ÎºÎÅÍ ³²Àº µ·ÀÌ ³¯¶ó¿À´Â°É ºñ±³ÇØ¼­ ±× Â÷ÀÌ¸¸Å­ ³»µ·¿¡ ´õÇØÁØ´Ù.		
+	// í˜„ì¬ ì°½ì— ë‚˜ì™€ìˆëŠ” ì´ ê¸ˆì•¡ê³¼ ì„œë²„ë¡œë¶€í„° ë‚¨ì€ ëˆì´ ë‚ ë¼ì˜¤ëŠ”ê±¸ ë¹„êµí•´ì„œ ê·¸ ì°¨ì´ë§Œí¼ ë‚´ëˆì— ë”í•´ì¤€ë‹¤.		
 	gC_vs_ui.SetTotalFee(fee);
 	gC_vs_ui.SetBringFee(0);
 }
@@ -3833,7 +3835,7 @@ void	UI_RunWarList(GCWarScheduleList* pPacket)
 		wi.month	= info->month;
 		wi.day		= info->day;
 		wi.hour		= info->hour;
-		if(0 == info->warType) // ±æµåÀüÀÏ¶§ - 2004,10,2,sobeit modify
+		if(0 == info->warType) // ê¸¸ë“œì „ì¼ë•Œ - 2004,10,2,sobeit modify
 		{
 			for(int i = 0; i<5; i++)
 			{
@@ -3951,7 +3953,7 @@ void		UI_RunQuestList(GCSelectQuestID *pPacket)
 	g_pPCTalkBox->Release();	
 	g_pPCTalkBox->SetType( PCTalkBox::SELECT_QUEST );
 
-	if( g_pPCTalkBox->GetCreatureType() == 17 || g_pPCTalkBox->GetCreatureType() == 255 || g_pPCTalkBox->GetCreatureType() == 653)			// Ä«ÀÌÀú¸é, ·¹º£Ä«¸é
+	if( g_pPCTalkBox->GetCreatureType() == 17 || g_pPCTalkBox->GetCreatureType() == 255 || g_pPCTalkBox->GetCreatureType() == 653)			// ì¹´ì´ì €ë©´, ë ˆë² ì¹´ë©´
 	{
 		char tempstr[128] = {0,};
 			
@@ -4054,7 +4056,7 @@ void		UI_RunQuestList(GCSelectQuestID *pPacket)
 			g_pPCTalkBox->SetContent( (*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_QUEST_OUSTERS].GetString() );
 		}
 		else
-			return;				// ¾Æ¿ì½ºÅÍÁî¿ë ¤»¤»
+			return;				// ì•„ìš°ìŠ¤í„°ì¦ˆìš© ã…‹ã…‹
 		
 		char str[256];
 		
@@ -4224,12 +4226,12 @@ void		UI_RunItemShop( GCGoodsList *pPacket )
 					break;
 				}
 			}			
-			// ÀÇ¹Ì ¾øÀ½
+			// ì˜ë¯¸ ì—†ìŒ
 			pMagazine->ClearItemOption();			
-			// ÅºÃ¢ °³¼ö
+			// íƒ„ì°½ ê°œìˆ˜
 			pMagazine->SetNumber( pInfo->num );			
 			//------------------------------------
-			// ÅºÃ¢ ¼³Á¤
+			// íƒ„ì°½ ì„¤ì •
 			//------------------------------------
 			MGunItem* pGunItem = (MGunItem*)pItem;
 			pGunItem->SetMagazine( pMagazine );
@@ -4264,7 +4266,7 @@ void		UI_CloseTransItem()
 
 void		UI_OkMixingForge(DWORD parameter, MItem* pItem, MItem* pItem2)
 {
-	WORD	FirstOption = (parameter & 0xffff0000) >> 16;		// paramter >> 16 ÇÏµçÁö-_- ¤»¤» 
+	WORD	FirstOption = (parameter & 0xffff0000) >> 16;		// paramter >> 16 í•˜ë“ ì§€-_- ã…‹ã…‹ 
 	WORD	SecondOption = parameter & 0xffff;
 	
 	if( pItem == NULL || pItem2 == NULL || 
@@ -4289,7 +4291,7 @@ void		UI_OkMixingForge(DWORD parameter, MItem* pItem, MItem* pItem2)
 		return;		
 	}
 	
-	// ¿É¼Ç °ËÁõÀÌ ³¡³ª¸é.
+	// ì˜µì…˜ ê²€ì¦ì´ ëë‚˜ë©´.
 	
 	MItem* pModifyItem = g_pInventory->GetItem( pItem->GetID() );
 	if(pModifyItem != NULL)
@@ -4377,13 +4379,13 @@ void		UI_MasterLairMessage(BYTE type, short value, TYPE_ZONEID ZoneID)
 	
 	switch( type ) 
 	{
-	case 0 :			// ¸¶½ºÅÍ·¹¾î°¡ ¿­·È½À´Ï´Ù.
+	case 0 :			// ë§ˆìŠ¤í„°ë ˆì–´ê°€ ì—´ë ¸ìŠµë‹ˆë‹¤.
 		msg.Format((*g_pGameStringTable)[STRING_MESSAGE_OPEN_LAIR].GetString(), g_pZoneTable->Get( ZoneID )->Name.GetString() );
 		break;
-	case 1 :			// ¸¶½ºÅÍ·¹¾î°¡ ´İÇû½À´Ï´Ù.
+	case 1 :			// ë§ˆìŠ¤í„°ë ˆì–´ê°€ ë‹«í˜”ìŠµë‹ˆë‹¤.
 		msg.Format((*g_pGameStringTable)[STRING_MESSAGE_CLOSED_LAIR].GetString(), g_pZoneTable->Get( ZoneID )->Name.GetString() );
 		break;
-	case 2 :			// ¸¶½ºÅÍ·¹¾îÀÇ ÃâÀÔ°¡´É ½Ã°£ÀÌ %d ºĞ ³²¾Ò½À´Ï´Ù.
+	case 2 :			// ë§ˆìŠ¤í„°ë ˆì–´ì˜ ì¶œì…ê°€ëŠ¥ ì‹œê°„ì´ %d ë¶„ ë‚¨ì•˜ìŠµë‹ˆë‹¤.
 		msg.Format((*g_pGameStringTable)[STRING_MESSAGE_LEFT_TIME_LAIR].GetString(), g_pZoneTable->Get( ZoneID )->Name.GetString() , value );
 		break;
 	default :
@@ -4434,8 +4436,8 @@ void		UI_MiniGameScores(GCMiniGameScores* pPacket)
 	BYTE Level = pPacket->getLevel();	
 	int Size = pPacket->getSize();
 
-	// Size °¡ 0ÀÌ¸é ¾Æ¹«µµ ¾ÈÇÑ°Í.
-	// 1ÀÌ¸é top score ¸¸ ÀÖ´Â°Í	
+	// Size ê°€ 0ì´ë©´ ì•„ë¬´ë„ ì•ˆí•œê²ƒ.
+	// 1ì´ë©´ top score ë§Œ ìˆëŠ”ê²ƒ	
 	
 	switch(Type)
 	{
@@ -4552,7 +4554,7 @@ UI_RunNotice(DWORD sendID, DWORD parameter)
 	char szDate[128];
 	switch(sendID)
 	{
-	// ÃÊº¸ÀÚ ¸Ş¼¼Áö
+	// ì´ˆë³´ì ë©”ì„¸ì§€
 	case 1:
 		FileName = "BeginnerZone";
 //		bOpen = true;
@@ -4564,7 +4566,7 @@ UI_RunNotice(DWORD sendID, DWORD parameter)
 		bOpen = true;
 		break;
 
-	// ·¹º§ ÀüÀï ¿¹°í
+	// ë ˆë²¨ ì „ìŸ ì˜ˆê³ 
 	case 3:
 		if(parameter/100000000 != GetMyLevelWarStair())
 			return;
@@ -4573,7 +4575,7 @@ UI_RunNotice(DWORD sendID, DWORD parameter)
 		FileName += '0'+GetMyLevelWarStair();
 		break;
 	
-	// ·¹º§ ÀüÀï ½ÃÀÛ
+	// ë ˆë²¨ ì „ìŸ ì‹œì‘
 	case 4:
 		if(parameter/100000000 != GetMyLevelWarStair())
 			return;
@@ -4583,18 +4585,18 @@ UI_RunNotice(DWORD sendID, DWORD parameter)
 		bOpen = true;
 		break;
 
-	// Á¾Á· ÀüÀï ¿¹°í
+	// ì¢…ì¡± ì „ìŸ ì˜ˆê³ 
 	case 5:
 		FileName = "RaceWar";
 		break;
 
-	// Á¾Á· ÀüÀï ½ÃÀÛ
+	// ì¢…ì¡± ì „ìŸ ì‹œì‘
 	case 6:
 		FileName = "StartRaceWar";
 		bOpen = true;
 		break;
 
-	// 2Â÷ Æê Äù½ºÆ®
+	// 2ì°¨ í« í€˜ìŠ¤íŠ¸
 	case 7:
 		sprintf(szDate, "%02d%02d%02d",	(g_pGameTime->GetYear()+100)%100,
 									g_pGameTime->GetMonth(),
@@ -4727,7 +4729,7 @@ UI_SMS_ERROR(DWORD param)
 void 
 UI_RunModifyTax()
 {
-	// NPC´ëÈ­ÇÏ´Â dialog¸¦ ¼û±ä´Ù
+	// NPCëŒ€í™”í•˜ëŠ” dialogë¥¼ ìˆ¨ê¸´ë‹¤
 	g_pUIDialog->HidePCTalkDlg();
 
 	gC_vs_ui.RunModifyTax();
@@ -4770,11 +4772,11 @@ void UI_ShowTargetArrow(int x, int y)
 	gC_vs_ui.DrawTargetArrow(x,y);
 }
 
-// 2005, 1, 3, sobeit add start - ½ÂÁ÷ ¾ÆÀÌÅÛ ±³È¯
+// 2005, 1, 3, sobeit add start - ìŠ¹ì§ ì•„ì´í…œ êµí™˜
 void
 UI_Show_Swap_Advancement_Item()
 {
-	// NPC´ëÈ­ÇÏ´Â dialog¸¦ ¼û±ä´Ù 
+	// NPCëŒ€í™”í•˜ëŠ” dialogë¥¼ ìˆ¨ê¸´ë‹¤ 
 	g_pUIDialog->HidePCTalkDlg();
 
 	gC_vs_ui.OpenInventoryToSwapAdvanceItem();
@@ -4785,22 +4787,22 @@ bool		UI_IsRunningSwapAdvancementItem()
 }
 // 2005, 1, 3, sobeit add end
 
-// 2005, 1, 11, sobeit add start - ºÒ¿ì ÀÌ¿ôµ½±â ¼º±İ Ã¢
+// 2005, 1, 11, sobeit add start - ë¶ˆìš° ì´ì›ƒë•ê¸° ì„±ê¸ˆ ì°½
 void 
 UI_Run_Campaign_Help_Unfortunate_Neighbors(int value)
 {
-	// NPC´ëÈ­ÇÏ´Â dialog¸¦ ¼û±ä´Ù
+	// NPCëŒ€í™”í•˜ëŠ” dialogë¥¼ ìˆ¨ê¸´ë‹¤
 //	g_pUIDialog->HidePCTalkDlg();
 
 	gC_vs_ui.Run_Campaign_Help_Unfortunate_Neighbors(value);
 }
 // 2005, 1, 11, sobeit add end
 
-// 2005, 1, 24, sobeit add start - ÀÌº¥Æ® ¾ÆÀÌÅÛ ¹Ş±â
+// 2005, 1, 24, sobeit add start - ì´ë²¤íŠ¸ ì•„ì´í…œ ë°›ê¸°
 void 
 UI_Run_Confirm_GetEventItem(int value)
 {
-	// NPC´ëÈ­ÇÏ´Â dialog¸¦ ¼û±ä´Ù
+	// NPCëŒ€í™”í•˜ëŠ” dialogë¥¼ ìˆ¨ê¸´ë‹¤
 //	g_pUIDialog->HidePCTalkDlg();
 
 	gC_vs_ui.Run_Confirm_GetItemEvent(value);
@@ -4864,10 +4866,10 @@ UI_Close_WebBrowser()
 void 
 UI_ShowWindowCursor()
 {
-	// Á¤»óÀûÀ¸·Î Ã³¸® µÆÀ» °æ¿ì TempCount °ªÀÌ 0ÀÌ µé¾î¿Â´Ù.
+	// ì •ìƒì ìœ¼ë¡œ ì²˜ë¦¬ ëì„ ê²½ìš° TempCount ê°’ì´ 0ì´ ë“¤ì–´ì˜¨ë‹¤.
 	int TempCount = ShowCursor( TRUE );
 		
-	// È¤½Ã¶óµµ ÀÖÀ»Áö ¸ğ¸¦ Cursor °ü·Ã ¿¡·¯ ¹æÁö. ShowCursor°¡ À©µµ ³»ºÎÀûÀ¸·Î Áßº¹µÇ±â ¶«½Ã..
+	// í˜¹ì‹œë¼ë„ ìˆì„ì§€ ëª¨ë¥¼ Cursor ê´€ë ¨ ì—ëŸ¬ ë°©ì§€. ShowCursorê°€ ìœˆë„ ë‚´ë¶€ì ìœ¼ë¡œ ì¤‘ë³µë˜ê¸° ë•œì‹œ..
 	if(TempCount != 0)
 	{
 		int MaxChange = 10;
@@ -4891,10 +4893,10 @@ UI_ShowWindowCursor()
 void 
 UI_HiddenWindowCursor()
 {
-	// Á¤»óÀûÀ¸·Î Ã³¸® µÆÀ» °æ¿ì TempCount °ªÀÌ -1ÀÌ µé¾î¿Â´Ù.
+	// ì •ìƒì ìœ¼ë¡œ ì²˜ë¦¬ ëì„ ê²½ìš° TempCount ê°’ì´ -1ì´ ë“¤ì–´ì˜¨ë‹¤.
 	int TempCount = ShowCursor( FALSE );
 
-	// È¤½Ã¶óµµ ÀÖÀ»Áö ¸ğ¸¦ Cursor °ü·Ã ¿¡·¯ ¹æÁö. ShowCursor°¡ À©µµ ³»ºÎÀûÀ¸·Î Áßº¹µÇ±â ¶«½Ã..
+	// í˜¹ì‹œë¼ë„ ìˆì„ì§€ ëª¨ë¥¼ Cursor ê´€ë ¨ ì—ëŸ¬ ë°©ì§€. ShowCursorê°€ ìœˆë„ ë‚´ë¶€ì ìœ¼ë¡œ ì¤‘ë³µë˜ê¸° ë•œì‹œ..
 	if(TempCount != -1)
 	{
 		int MaxChange = 10;
@@ -4916,7 +4918,7 @@ UI_HiddenWindowCursor()
 }
 
 
-#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 
 	void UI_RunSubInventory(MItem* pItem)
 	{

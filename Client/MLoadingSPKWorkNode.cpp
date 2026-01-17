@@ -4,12 +4,12 @@
 #include "Client_PCH.h"
 #include "MLoadingSPKWorkNode.h"
 
-extern bool		FileOpenBinary(const char* filename, class ifstream& file);
+extern bool		FileOpenBinary(const char* filename, std::ifstream& file);
 
 //----------------------------------------------------------------------
 // MLoadingSPKWorkNode1 :: Execute
 //----------------------------------------------------------------------
-//		= FilePosition¿¡¼­ SFPArray¸¦ ÀĞ¾î¼­ SPK¿¡ loadÇÑ´Ù.
+//		= FilePositionì—ì„œ SFPArrayë¥¼ ì½ì–´ì„œ SPKì— loadí•œë‹¤.
 //		CSpritePack*	SPK
 //		long			FilePosition
 //
@@ -18,7 +18,7 @@ extern bool		FileOpenBinary(const char* filename, class ifstream& file);
 BOOL
 MLoadingSPKWorkNode1::Execute(MWorkNode*& pRemainNode)
 {
-	// ½ÇÇàÁß
+	// ì‹¤í–‰ì¤‘
 	//m_bExecute = TRUE;
 
 	//---------------------------------------------------
@@ -26,7 +26,7 @@ MLoadingSPKWorkNode1::Execute(MWorkNode*& pRemainNode)
 	// Load SpriteFilePositionArray 
 	//
 	//---------------------------------------------------
-	class ifstream file;
+	std::ifstream file;
 	if (!FileOpenBinary(m_SFPAFilename, file))
 	{
 		// -_-;;
@@ -43,7 +43,7 @@ MLoadingSPKWorkNode1::Execute(MWorkNode*& pRemainNode)
 	// SPK Load
 	//
 	//---------------------------------------------------
-	class ifstream spkFile;
+	std::ifstream spkFile;
 	if (!FileOpenBinary(m_SPKFilename, spkFile))
 	{
 		// -_-;;
@@ -56,33 +56,33 @@ MLoadingSPKWorkNode1::Execute(MWorkNode*& pRemainNode)
 	for (int i=0; i<size; i++)
 	{
 		//---------------------------------------------------
-		// °è¼Ó loadÁßÀÎ °æ¿ì..
+		// ê³„ì† loadì¤‘ì¸ ê²½ìš°..
 		//---------------------------------------------------
 		if (m_bExecute)
 		{
-			// LoadÇÒ·Á´Â À§Ä¡±îÁö FilePositionÀ» ÀÌµ¿ÇÑ´Ù.
+			// Loadí• ë ¤ëŠ” ìœ„ì¹˜ê¹Œì§€ FilePositionì„ ì´ë™í•œë‹¤.
 			spkFile.seekg( SFPA[i].FilePosition, ios::beg );
 
 			CSprite& sprite = (*m_pSPK)[SFPA[i].SpriteID];
 
 			//---------------------------------------------------
-			// Sprite¸¦ LoadÇÑ´Ù.
+			// Spriteë¥¼ Loadí•œë‹¤.
 			//---------------------------------------------------
-			// ¾ÆÁ÷ LoadµÇÁö ¾ÊÀº °æ¿ì¿¡¸¸ LoadÇÑ´Ù.
+			// ì•„ì§ Loadë˜ì§€ ì•Šì€ ê²½ìš°ì—ë§Œ Loadí•œë‹¤.
 			if (sprite.IsInit())
 				continue;
 
 			sprite.LoadFromFile( spkFile );
 		}
 		//---------------------------------------------------
-		// Stop µÈ °æ¿ì..
+		// Stop ëœ ê²½ìš°..
 		//---------------------------------------------------
 		else
 		{
 			//---------------------------------------------------
-			// ÁßÁöµÈ °æ¿ìÀÌ´Ù.
+			// ì¤‘ì§€ëœ ê²½ìš°ì´ë‹¤.
 			//---------------------------------------------------
-			// ³²Àº SFPA¸¦ »õ·Î¿î SFPA·Î »ı¼ºÇÑ´Ù.
+			// ë‚¨ì€ SFPAë¥¼ ìƒˆë¡œìš´ SFPAë¡œ ìƒì„±í•œë‹¤.
 			// --> Node2	
 			CSpriteFilePositionArray* pRemainSFPA = new CSpriteFilePositionArray;
 
@@ -90,7 +90,7 @@ MLoadingSPKWorkNode1::Execute(MWorkNode*& pRemainNode)
 
 			pRemainSFPA->Init( remainSize );			
 
-			// m_SFPAÀÇ ³²Àº ºÎºĞÀ» º¹»çÇÑ´Ù.
+			// m_SFPAì˜ ë‚¨ì€ ë¶€ë¶„ì„ ë³µì‚¬í•œë‹¤.
 			for (int j=0; j<remainSize; j++)
 			{
 				(*pRemainSFPA)[j] = SFPA[i + j];
@@ -101,7 +101,7 @@ MLoadingSPKWorkNode1::Execute(MWorkNode*& pRemainNode)
 			pNode->SetSPK( m_pSPK, m_SPKFilename );
 			pNode->SetType( m_Type );
 
-			// ³²Àº ÀÏÀ» ³Ñ°ÜÁØ´Ù.
+			// ë‚¨ì€ ì¼ì„ ë„˜ê²¨ì¤€ë‹¤.
 			spkFile.close();
 			pRemainNode = pNode;
 			return FALSE;
@@ -109,10 +109,10 @@ MLoadingSPKWorkNode1::Execute(MWorkNode*& pRemainNode)
 	}
 	spkFile.close();
 
-	// ½ÇÇà ³¡
+	// ì‹¤í–‰ ë
 	m_bExecute = FALSE;
 
-	// Á¤»óÀûÀÎ Á¾·á..
+	// ì •ìƒì ì¸ ì¢…ë£Œ..
 	pRemainNode = NULL;
 	return TRUE;
 }
@@ -121,7 +121,7 @@ MLoadingSPKWorkNode1::Execute(MWorkNode*& pRemainNode)
 //----------------------------------------------------------------------
 // MLoadingSPKWorkNode2 :: Execute
 //----------------------------------------------------------------------
-//		= SFPArray¸¦ ÀÌ¿ëÇØ¼­ SPK¿¡´Ù loadÇÑ´Ù.
+//		= SFPArrayë¥¼ ì´ìš©í•´ì„œ SPKì—ë‹¤ loadí•œë‹¤.
 //
 //		SFPArray*		SFPA
 //
@@ -137,7 +137,7 @@ MLoadingSPKWorkNode2::Execute(MWorkNode*& pRemainNode)
 	// SPK Load
 	//
 	//---------------------------------------------------
-	class ifstream spkFile;
+	std::ifstream spkFile;
 	if (!FileOpenBinary(m_SPKFilename, spkFile))
 	{
 		// -_-;;
@@ -152,26 +152,26 @@ MLoadingSPKWorkNode2::Execute(MWorkNode*& pRemainNode)
 		SPRITE_FILEPOSITION_NODE& node = (*m_pSFPA)[i];
 
 		//---------------------------------------------------
-		// °è¼Ó loadÁßÀÎ °æ¿ì..
+		// ê³„ì† loadì¤‘ì¸ ê²½ìš°..
 		//---------------------------------------------------
 		if (m_bExecute)
 		{
-			// LoadÇÒ·Á´Â À§Ä¡±îÁö FilePositionÀ» ÀÌµ¿ÇÑ´Ù.
+			// Loadí• ë ¤ëŠ” ìœ„ì¹˜ê¹Œì§€ FilePositionì„ ì´ë™í•œë‹¤.
 			spkFile.seekg( node.FilePosition, ios::beg );
 
 			CSprite& sprite = (*m_pSPK)[node.SpriteID];
 
 			//---------------------------------------------------
-			// Sprite¸¦ LoadÇÑ´Ù.
+			// Spriteë¥¼ Loadí•œë‹¤.
 			//---------------------------------------------------
-			// ¾ÆÁ÷ LoadµÇÁö ¾ÊÀº °æ¿ì¿¡¸¸ LoadÇÑ´Ù.
+			// ì•„ì§ Loadë˜ì§€ ì•Šì€ ê²½ìš°ì—ë§Œ Loadí•œë‹¤.
 			if (sprite.IsInit())
 				continue;
 
 			sprite.LoadFromFile( spkFile );
 		}
 		//---------------------------------------------------
-		// Stop µÈ °æ¿ì..
+		// Stop ëœ ê²½ìš°..
 		//---------------------------------------------------
 		else
 		{
@@ -181,7 +181,7 @@ MLoadingSPKWorkNode2::Execute(MWorkNode*& pRemainNode)
 
 			pRemainSFPA->Init( remainSize );			
 
-			// m_SFPAÀÇ ³²Àº ºÎºĞÀ» º¹»çÇÑ´Ù.
+			// m_SFPAì˜ ë‚¨ì€ ë¶€ë¶„ì„ ë³µì‚¬í•œë‹¤.
 			for (int j=0; j<remainSize; j++)
 			{
 				(*pRemainSFPA)[j] = (*m_pSFPA)[i + j];
@@ -192,7 +192,7 @@ MLoadingSPKWorkNode2::Execute(MWorkNode*& pRemainNode)
 			pNode->SetSPK( m_pSPK, m_SPKFilename );
 			pNode->SetType( m_Type );
 
-			// ³²Àº ÀÏÀ» ³Ñ°ÜÁØ´Ù.
+			// ë‚¨ì€ ì¼ì„ ë„˜ê²¨ì¤€ë‹¤.
 			spkFile.close();
 			pRemainNode = pNode;
 			return FALSE;
@@ -200,10 +200,10 @@ MLoadingSPKWorkNode2::Execute(MWorkNode*& pRemainNode)
 	}
 	spkFile.close();
 
-	// ½ÇÇà ³¡
+	// ì‹¤í–‰ ë
 	m_bExecute = FALSE;
 
-	// Á¤»óÀûÀ¸·Î ³¡³­ °æ¿ì
+	// ì •ìƒì ìœ¼ë¡œ ëë‚œ ê²½ìš°
 	pRemainNode = NULL;
 	return TRUE;
 }
@@ -224,11 +224,11 @@ MLoadingSPKWorkNode3::Execute(MWorkNode*& pRemainNode)
 	CSprite& sprite = (*m_pSPK)[m_SpriteID];
 
 	//-------------------------------------------------------------
-	// ¾ÆÁ÷ LoadingµÇÁö ¾ÊÀº °æ¿ì¿¡¸¸ loadingÇÑ´Ù.
+	// ì•„ì§ Loadingë˜ì§€ ì•Šì€ ê²½ìš°ì—ë§Œ loadingí•œë‹¤.
 	//-------------------------------------------------------------
 	if (sprite.IsNotInit())
 	{	
-		class ifstream spkFile;
+		std::ifstream spkFile;
 		if (!FileOpenBinary(m_SPKFilename, spkFile))
 		{
 			// -_-;;
@@ -237,11 +237,11 @@ MLoadingSPKWorkNode3::Execute(MWorkNode*& pRemainNode)
 			return FALSE;
 		}
 
-		// loadingÇÒ·Á´Â sprite¿¡ Á¢±ÙÇÑ´Ù.
+		// loadingí• ë ¤ëŠ” spriteì— ì ‘ê·¼í•œë‹¤.
 		spkFile.seekg(m_FilePosition, ios::beg);
 		
 		//--------------------------------------------------
-		// Sprite ÇÏ³ª Loading
+		// Sprite í•˜ë‚˜ Loading
 		//--------------------------------------------------
 		if (sprite.LoadFromFile( spkFile ))
 		{
@@ -249,7 +249,7 @@ MLoadingSPKWorkNode3::Execute(MWorkNode*& pRemainNode)
 		else
 		{
 			// -_-;;
-			// ¹¹Áö.. ÀÌ·² ¼ö ÀÖ³ª..
+			// ë­ì§€.. ì´ëŸ´ ìˆ˜ ìˆë‚˜..
 			int a =0;
 		}
 		spkFile.close();
@@ -276,7 +276,7 @@ MLoadingSPKWorkNode4::Execute(MWorkNode*& pRemainNode)
 {
 	//m_bExecute = TRUE;
 
-	class ifstream spkFile;
+	std::ifstream spkFile;
 	if (!FileOpenBinary(m_SPKFilename, spkFile))
 	{
 		// -_-;;
@@ -286,26 +286,26 @@ MLoadingSPKWorkNode4::Execute(MWorkNode*& pRemainNode)
 	}
 
 	//-------------------------------------------------------
-	// FirstSprite¿¡ Á¢±Ù..
+	// FirstSpriteì— ì ‘ê·¼..
 	//-------------------------------------------------------
 	spkFile.seekg(m_FilePosition, ios::beg);
 
 	//-------------------------------------------------------
-	// FirstSpriteID ~ LastSpriteID¸¦ LoadingÇÑ´Ù.
+	// FirstSpriteID ~ LastSpriteIDë¥¼ Loadingí•œë‹¤.
 	//-------------------------------------------------------
 	for (TYPE_SPRITEID i=m_FirstSpriteID; i<m_LastSpriteID; i++)
 	{
 		//---------------------------------------------------
-		// °è¼Ó loadÁßÀÎ °æ¿ì..
+		// ê³„ì† loadì¤‘ì¸ ê²½ìš°..
 		//---------------------------------------------------
 		if (m_bExecute)
 		{
 			CSprite& sprite = (*m_pSPK)[i];
 
 			//---------------------------------------------------
-			// ¾ÆÁ÷ loadingµÇÁö ¾ÊÀº °æ¿ì¿¡¸¸ loadingÇÑ´Ù.
-			// (!) ¾ÈµÈ´Ù.. file positionÀ» Áõ°¡½ÃÄÑ¾ß µÇ±â ¶§¸Ş..
-			// ¹«Á¶°Ç loading!
+			// ì•„ì§ loadingë˜ì§€ ì•Šì€ ê²½ìš°ì—ë§Œ loadingí•œë‹¤.
+			// (!) ì•ˆëœë‹¤.. file positionì„ ì¦ê°€ì‹œì¼œì•¼ ë˜ê¸° ë•Œë©”..
+			// ë¬´ì¡°ê±´ loading!
 			//---------------------------------------------------
 			//if (sprite.IsNotInit())
 			{
@@ -313,12 +313,12 @@ MLoadingSPKWorkNode4::Execute(MWorkNode*& pRemainNode)
 			}
 		}
 		//---------------------------------------------------
-		// StopµÈ °æ¿ì
+		// Stopëœ ê²½ìš°
 		//---------------------------------------------------
 		else
 		{
 			//---------------------------------------------------
-			// firstSpriteID¸¦ ÇöÀçÀÇ i·Î ¼³Á¤ÇØ¼­ node¸¦ »ı¼ºÇÑ´Ù.
+			// firstSpriteIDë¥¼ í˜„ì¬ì˜ ië¡œ ì„¤ì •í•´ì„œ nodeë¥¼ ìƒì„±í•œë‹¤.
 			//---------------------------------------------------
 			MLoadingSPKWorkNode4* pNode = new MLoadingSPKWorkNode4( 
 													i,					// first SpriteID

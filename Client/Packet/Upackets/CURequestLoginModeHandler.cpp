@@ -20,11 +20,12 @@
 
 //--------------------------------------------------------------------------------
 //
-// ·Î±×ÀÎ ¸ğµå¸¦ È®ÀÎÇØ¼­ ¾Ë·ÁÁØ´Ù
+// ë¡œê·¸ì¸ ëª¨ë“œë¥¼ í™•ì¸í•´ì„œ ì•Œë ¤ì¤€ë‹¤
 //
 //--------------------------------------------------------------------------------
 void CURequestLoginModeHandler::execute ( CURequestLoginMode * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		

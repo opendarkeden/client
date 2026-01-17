@@ -18,7 +18,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCMoveErrorHandler::execute ( GCMoveError * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -34,11 +35,11 @@ void GCMoveErrorHandler::execute ( GCMoveError * pPacket , Player * pPlayer )
 #elif __WINDOWS__
 */
 
-	// ¼­¹ö ÁÂÇ¥ ¼³Á¤
-	// 2001.10.8 Á¦°Å
+	// ì„œë²„ ì¢Œí‘œ ì„¤ì •
+	// 2001.10.8 ì œê±°
 	g_pPlayer->SetServerPosition( pPacket->getX(), pPacket->getY() );
 
-	// MoveOK message°¡ ÇÏ³ª ¾È ³¯¾Æ¿Â´Ù´Â°É ¾Ë ¼ö ÀÖ´Ù.
+	// MoveOK messageê°€ í•˜ë‚˜ ì•ˆ ë‚ ì•„ì˜¨ë‹¤ëŠ”ê±¸ ì•Œ ìˆ˜ ìžˆë‹¤.
 	g_pPlayer->PacketMoveNO();
 	
 

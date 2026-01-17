@@ -18,7 +18,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCRemoveEffectHandler::execute ( GCRemoveEffect * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -26,7 +27,7 @@ void GCRemoveEffectHandler::execute ( GCRemoveEffect * pPacket , Player * pPlaye
 
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -34,7 +35,7 @@ void GCRemoveEffectHandler::execute ( GCRemoveEffect * pPacket , Player * pPlaye
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
@@ -42,7 +43,7 @@ void GCRemoveEffectHandler::execute ( GCRemoveEffect * pPacket , Player * pPlaye
 		
 		MCreature* pCreature = g_pZone->GetCreature(CreatureID);
 
-		// ¼º¹°º¸°ü´ë ¾ò¾î¿À±â À§ÇØ¼­
+		// ì„±ë¬¼ë³´ê´€ëŒ€ ì–»ì–´ì˜¤ê¸° ìœ„í•´ì„œ
 		if (pCreature == NULL)
 		{
 			MItem *selectedItem = g_pZone->GetItem(CreatureID);
@@ -93,7 +94,7 @@ void GCRemoveEffectHandler::execute ( GCRemoveEffect * pPacket , Player * pPlaye
 				{
 					DEBUG_ADD_FORMAT("[Error] Failed to Remove EffectStatus %d", effectStatus);
 				}
-				if( g_pPlayer->GetID() == pCreature->GetID() ) // -_- ³» ÀÚ½ÅÀÌ¸é
+				if( g_pPlayer->GetID() == pCreature->GetID() ) // -_- ë‚´ ìì‹ ì´ë©´
 				{
 					ACTIONINFO actionInfo = (ACTIONINFO) (*g_pEffectStatusTable)[effectStatus].OriginalActionInfo;
 					switch(actionInfo)

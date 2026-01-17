@@ -2,8 +2,8 @@
 // 
 // Filename    : GCMoveError.cpp
 // Written By  : elca@ewestsoft.com
-// Description : CGMove°¡ ³¯¾Æ ¿ÓÀ»¶§ ÀÚ±â ÀÚ½Å¿¡°Ô Error »çÀÎÀ» ³¯¸®±â
-//               À§ÇÑ ÆÐÅ¶ Å¬·¡½º ÇÔ¼ö Á¤ÀÇ
+// Description : CGMoveê°€ ë‚ ì•„ ì™“ì„ë•Œ ìžê¸° ìžì‹ ì—ê²Œ Error ì‚¬ì¸ì„ ë‚ ë¦¬ê¸°
+//               ìœ„í•œ íŒ¨í‚· í´ëž˜ìŠ¤ í•¨ìˆ˜ ì •ì˜
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -17,7 +17,7 @@
 
 
 //////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void GCMoveError::read ( SocketInputStream & iStream ) 
 	 throw ( ProtocolException , Error )
@@ -46,7 +46,7 @@ void GCMoveError::read ( SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////
 void GCMoveError::write ( SocketOutputStream & oStream ) const 
      throw ( ProtocolException , Error )

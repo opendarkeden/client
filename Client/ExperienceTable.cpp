@@ -19,12 +19,12 @@ ExperienceTable* g_pExperienceTable = NULL;
 //---------------------------------------------------------------------------------
 ExperienceTable::ExperienceTable()
 {
-	// ³È³È..
+	// ëƒ ëƒ ..
 }
 
 ExperienceTable::~ExperienceTable()
 {
-	// À½³Ä.. ¾ÈÇØµµ µÇ´Âµ¥.. °Á..
+	// ìŒëƒ.. ì•ˆí•´ë„ ë˜ëŠ”ë°.. ê±..
 	Release();
 }
 
@@ -49,19 +49,19 @@ ExperienceTable::Release()
 // LoadFromFileSTR
 //---------------------------------------------------------------------------------
 void		
-ExperienceTable::LoadFromFileSTR(class ifstream& file)
+ExperienceTable::LoadFromFileSTR(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
 
-	// file¿¡´Â 1 levelºÎÅÍ µé¾î°¡ÀÖ´Â°É·Î °¡Á¤ÇÏ±â ¶§¹®¿¡...
+	// fileì—ëŠ” 1 levelë¶€í„° ë“¤ì–´ê°€ìˆëŠ”ê±¸ë¡œ ê°€ì •í•˜ê¸° ë•Œë¬¸ì—...
 	m_STRExp.Init( num + 1 );
 
 	for (int i=0; i<num; i++)
 	{
 		file.read((char*)&level, 4);
 		
-		// level¿¡ ¸Â°Ô loadingÇÑ´Ù.
+		// levelì— ë§ê²Œ loadingí•œë‹¤.
 		m_STRExp[level].LoadFromFile( file );		
 	}
 }
@@ -70,19 +70,19 @@ ExperienceTable::LoadFromFileSTR(class ifstream& file)
 // Load From File DEX
 //---------------------------------------------------------------------------------
 void		
-ExperienceTable::LoadFromFileDEX(class ifstream& file)
+ExperienceTable::LoadFromFileDEX(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
 
-	// file¿¡´Â 1 levelºÎÅÍ µé¾î°¡ÀÖ´Â°É·Î °¡Á¤ÇÏ±â ¶§¹®¿¡...
+	// fileì—ëŠ” 1 levelë¶€í„° ë“¤ì–´ê°€ìˆëŠ”ê±¸ë¡œ ê°€ì •í•˜ê¸° ë•Œë¬¸ì—...
 	m_DEXExp.Init( num + 1 );
 
 	for (int i=0; i<num; i++)
 	{
 		file.read((char*)&level, 4);
 		
-		// level¿¡ ¸Â°Ô loadingÇÑ´Ù.
+		// levelì— ë§ê²Œ loadingí•œë‹¤.
 		m_DEXExp[level].LoadFromFile( file );		
 	}
 }
@@ -91,19 +91,19 @@ ExperienceTable::LoadFromFileDEX(class ifstream& file)
 // Load From File INT
 //---------------------------------------------------------------------------------
 void		
-ExperienceTable::LoadFromFileINT(class ifstream& file)
+ExperienceTable::LoadFromFileINT(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
 
-	// file¿¡´Â 1 levelºÎÅÍ µé¾î°¡ÀÖ´Â°É·Î °¡Á¤ÇÏ±â ¶§¹®¿¡...
+	// fileì—ëŠ” 1 levelë¶€í„° ë“¤ì–´ê°€ìˆëŠ”ê±¸ë¡œ ê°€ì •í•˜ê¸° ë•Œë¬¸ì—...
 	m_INTExp.Init( num + 1 );
 
 	for (int i=0; i<num; i++)
 	{
 		file.read((char*)&level, 4);
 		
-		// level¿¡ ¸Â°Ô loadingÇÑ´Ù.
+		// levelì— ë§ê²Œ loadingí•œë‹¤.
 		m_INTExp[level].LoadFromFile( file );		
 	}
 }
@@ -112,19 +112,19 @@ ExperienceTable::LoadFromFileINT(class ifstream& file)
 // Load From File Vampire
 //---------------------------------------------------------------------------------
 void		
-ExperienceTable::LoadFromFileVampire(class ifstream& file)
+ExperienceTable::LoadFromFileVampire(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
 
-	// file¿¡´Â 1 levelºÎÅÍ µé¾î°¡ÀÖ´Â°É·Î °¡Á¤ÇÏ±â ¶§¹®¿¡...
+	// fileì—ëŠ” 1 levelë¶€í„° ë“¤ì–´ê°€ìˆëŠ”ê±¸ë¡œ ê°€ì •í•˜ê¸° ë•Œë¬¸ì—...
 	m_VampireExp.Init( num + 1 );
 
 	for (int i=0; i<num; i++)
 	{
 		file.read((char*)&level, 4);
 		
-		// level¿¡ ¸Â°Ô loadingÇÑ´Ù.
+		// levelì— ë§ê²Œ loadingí•œë‹¤.
 		m_VampireExp[level].LoadFromFile( file );		
 	}
 }
@@ -133,19 +133,19 @@ ExperienceTable::LoadFromFileVampire(class ifstream& file)
 // Load From File Ousters
 //---------------------------------------------------------------------------------
 void		
-ExperienceTable::LoadFromFileOusters(class ifstream& file)
+ExperienceTable::LoadFromFileOusters(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
 	
-	// file¿¡´Â 1 levelºÎÅÍ µé¾î°¡ÀÖ´Â°É·Î °¡Á¤ÇÏ±â ¶§¹®¿¡...
+	// fileì—ëŠ” 1 levelë¶€í„° ë“¤ì–´ê°€ìˆëŠ”ê±¸ë¡œ ê°€ì •í•˜ê¸° ë•Œë¬¸ì—...
 	m_OustersExp.Init( num + 1 );
 	
 	for (int i=0; i<num; i++)
 	{
 		file.read((char*)&level, 4);
 		
-		// level¿¡ ¸Â°Ô loadingÇÑ´Ù.
+		// levelì— ë§ê²Œ loadingí•œë‹¤.
 		m_OustersExp[level].LoadFromFile( file );		
 	}
 }
@@ -154,19 +154,19 @@ ExperienceTable::LoadFromFileOusters(class ifstream& file)
 // Load From File Slayer Rank
 //---------------------------------------------------------------------------------
 void		
-ExperienceTable::LoadFromFileSlayerRank(class ifstream& file)
+ExperienceTable::LoadFromFileSlayerRank(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
 
-	// file¿¡´Â 1 levelºÎÅÍ µé¾î°¡ÀÖ´Â°É·Î °¡Á¤ÇÏ±â ¶§¹®¿¡...
+	// fileì—ëŠ” 1 levelë¶€í„° ë“¤ì–´ê°€ìˆëŠ”ê±¸ë¡œ ê°€ì •í•˜ê¸° ë•Œë¬¸ì—...
 	m_SlayerRankExp.Init( num + 1 );
 
 	for (int i=0; i<num; i++)
 	{
 		file.read((char*)&level, 4);
 		
-		// level¿¡ ¸Â°Ô loadingÇÑ´Ù.
+		// levelì— ë§ê²Œ loadingí•œë‹¤.
 		m_SlayerRankExp[level].LoadFromFile( file );		
 	}
 }
@@ -175,19 +175,19 @@ ExperienceTable::LoadFromFileSlayerRank(class ifstream& file)
 // Load From File Vampire Rank
 //---------------------------------------------------------------------------------
 void		
-ExperienceTable::LoadFromFileVampireRank(class ifstream& file)
+ExperienceTable::LoadFromFileVampireRank(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
 
-	// file¿¡´Â 1 levelºÎÅÍ µé¾î°¡ÀÖ´Â°É·Î °¡Á¤ÇÏ±â ¶§¹®¿¡...
+	// fileì—ëŠ” 1 levelë¶€í„° ë“¤ì–´ê°€ìˆëŠ”ê±¸ë¡œ ê°€ì •í•˜ê¸° ë•Œë¬¸ì—...
 	m_VampireRankExp.Init( num + 1 );
 
 	for (int i=0; i<num; i++)
 	{
 		file.read((char*)&level, 4);
 		
-		// level¿¡ ¸Â°Ô loadingÇÑ´Ù.
+		// levelì— ë§ê²Œ loadingí•œë‹¤.
 		m_VampireRankExp[level].LoadFromFile( file );		
 	}
 }
@@ -196,19 +196,19 @@ ExperienceTable::LoadFromFileVampireRank(class ifstream& file)
 // Load From File Ousters Rank
 //---------------------------------------------------------------------------------
 void		
-ExperienceTable::LoadFromFileOustersRank(class ifstream& file)
+ExperienceTable::LoadFromFileOustersRank(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
 	
-	// file¿¡´Â 1 levelºÎÅÍ µé¾î°¡ÀÖ´Â°É·Î °¡Á¤ÇÏ±â ¶§¹®¿¡...
+	// fileì—ëŠ” 1 levelë¶€í„° ë“¤ì–´ê°€ìˆëŠ”ê±¸ë¡œ ê°€ì •í•˜ê¸° ë•Œë¬¸ì—...
 	m_OustersRankExp.Init( num + 1 );
 	
 	for (int i=0; i<num; i++)
 	{
 		file.read((char*)&level, 4);
 		
-		// level¿¡ ¸Â°Ô loadingÇÑ´Ù.
+		// levelì— ë§ê²Œ loadingí•œë‹¤.
 		m_OustersRankExp[level].LoadFromFile( file );		
 	}
 }
@@ -217,37 +217,37 @@ ExperienceTable::LoadFromFileOustersRank(class ifstream& file)
 // Load From File Ousters Rank
 //---------------------------------------------------------------------------------
 void		
-ExperienceTable::LoadFromFilePetExp(class ifstream& file)
+ExperienceTable::LoadFromFilePetExp(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
 	
-	// file¿¡´Â 1 levelºÎÅÍ µé¾î°¡ÀÖ´Â°É·Î °¡Á¤ÇÏ±â ¶§¹®¿¡...
+	// fileì—ëŠ” 1 levelë¶€í„° ë“¤ì–´ê°€ìˆëŠ”ê±¸ë¡œ ê°€ì •í•˜ê¸° ë•Œë¬¸ì—...
 	m_PetExp.Init( num + 1 );
 	
 	for (int i=0; i<num; i++)
 	{
 		file.read((char*)&level, 4);
 		
-		// level¿¡ ¸Â°Ô loadingÇÑ´Ù.
+		// levelì— ë§ê²Œ loadingí•œë‹¤.
 		m_PetExp[level].LoadFromFile( file );		
 	}
 }
 
 void
-ExperienceTable::LoadFromFileAdvanceMent(class ifstream& file)
+ExperienceTable::LoadFromFileAdvanceMent(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
 	
-	// file¿¡´Â 1 levelºÎÅÍ µé¾î°¡ÀÖ´Â°É·Î °¡Á¤ÇÏ±â ¶§¹®¿¡...
+	// fileì—ëŠ” 1 levelë¶€í„° ë“¤ì–´ê°€ìˆëŠ”ê±¸ë¡œ ê°€ì •í•˜ê¸° ë•Œë¬¸ì—...
 	m_advanceSkillExp.Init( num + 1 );
 	
 	for (int i=0; i<num; i++)
 	{
 		file.read((char*)&level, 4);
 		
-		// level¿¡ ¸Â°Ô loadingÇÑ´Ù.
+		// levelì— ë§ê²Œ loadingí•œë‹¤.
 		m_advanceSkillExp[level].LoadFromFile( file );		
 	}
 }

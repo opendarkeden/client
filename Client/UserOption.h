@@ -1,13 +1,17 @@
 //----------------------------------------------------------------------
 // UserOption.h
 //----------------------------------------------------------------------
-// »ç¿ëÀÚ°¡ ¹Ù²Ü ¼ö ÀÖ´Â °Í
+// ì‚¬ìš©ìê°€ ë°”ê¿€ ìˆ˜ ìˆëŠ” ê²ƒ
 //----------------------------------------------------------------------
 
 #ifndef	__USEROPTION_H__
 #define	__USEROPTION_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 
 class UserOption {
 	public :
@@ -25,29 +29,29 @@ class UserOption {
 		BOOL	Korean;
 		BOOL	Japanese;
 		BOOL	English;
-		BOOL	Use3DHAL;					// 3D°¡¼Ó »ç¿ëÇÒ ¼ö ÀÖ´ÂÁö Å×½ºÆ® ÇÑ´Ù.
-		BOOL	UseSmoothCursor;			// ºÎµå·¯¿î(?) cursor¸¦ »ç¿ëÇÒ±î?
-		BOOL	DrawMinimap;				// minimapÀ» ±×¸±±î?
-		BOOL	DrawZoneName;				// ZoneÀÌ¸§ Ãâ·Â
-		BOOL	DrawGameTime;				/// °ÔÀÓ ½Ã°£ Ãâ·Â
-		BOOL	DrawInterface;				// interface¸¦ Ãâ·ÂÇÒ±î?
-		BOOL	DrawFPS;					// FPS¸¦ Ãâ·ÂÇÒ±î?
-		BOOL	BlendingShadow;				// ±×¸²ÀÚ¸¦ ¹İÅõ¸íÇØ¼­ Ãâ·ÂÇÒ±î?
-		BOOL	FilteringCurse;				// ³ª»Û ¸» Á¦°Å ÇÒ±î?
-		BOOL	PlayMusic;					// ³ë·¡ Ãâ·ÂÇÒ±î?
-		BOOL	PlaySound;					// È¿°úÀ½ Ãâ·ÂÇÒ±î?
-		int		VolumeMusic;				// À½¾Ç º¼·ı
-		int		VolumeSound;				// È¿°úÀ½ º¼·ı
-		BOOL	UseHelpEvent;				// HelpEvent¸¦ »ç¿ëÇÏ´Â°¡?
-		BOOL	PlayWaveMusic;				// wave·Î À½¾ÇÀ» µè´Â°¡?
-		BOOL	BloodDrop;					// HP ³·À» ¶§ ÇÇ Èê¸®±â
-		BOOL	OpenQuickSlot;				// QuickSlotÀº ¿­·ÁÀÖ´Â°¡?
-		BOOL	UseHalfFrame;				// Frame ÁÙÀÎ°É º¸¿©ÁÙ±î?
-		BOOL	DrawTransHPBar;				// Åõ¸íÇÑ HP ¹Ú½ºÀÎ°¡?
-		BOOL	UseForceFeel;				// Áøµ¿ ¸¶¿ì½º »ç¿ë?
-		BOOL	UseGammaControl;			// °¨¸¶ °ª º¯°æÇÏ´Â°É »ç¿ëÇÏ´Â°¡?
-		BOOL	GammaValue;					// °¨¸¶ °ª( 50 ~ 100(±âº») ~ 150(¹àÀ½) )
-		BOOL	DrawChatBoxOutline;			// Ä³¸¯ÅÍ ¸Ó¸® À§¿¡ ¶ß´Â Ã¤ÆÃ±ÛÀÚ ¿Ü°û¿¡ ¼± ±×¸®±â
+		BOOL	Use3DHAL;					// 3Dê°€ì† ì‚¬ìš©í•  ìˆ˜ ìˆëŠ”ì§€ í…ŒìŠ¤íŠ¸ í•œë‹¤.
+		BOOL	UseSmoothCursor;			// ë¶€ë“œëŸ¬ìš´(?) cursorë¥¼ ì‚¬ìš©í• ê¹Œ?
+		BOOL	DrawMinimap;				// minimapì„ ê·¸ë¦´ê¹Œ?
+		BOOL	DrawZoneName;				// Zoneì´ë¦„ ì¶œë ¥
+		BOOL	DrawGameTime;				/// ê²Œì„ ì‹œê°„ ì¶œë ¥
+		BOOL	DrawInterface;				// interfaceë¥¼ ì¶œë ¥í• ê¹Œ?
+		BOOL	DrawFPS;					// FPSë¥¼ ì¶œë ¥í• ê¹Œ?
+		BOOL	BlendingShadow;				// ê·¸ë¦¼ìë¥¼ ë°˜íˆ¬ëª…í•´ì„œ ì¶œë ¥í• ê¹Œ?
+		BOOL	FilteringCurse;				// ë‚˜ìœ ë§ ì œê±° í• ê¹Œ?
+		BOOL	PlayMusic;					// ë…¸ë˜ ì¶œë ¥í• ê¹Œ?
+		BOOL	PlaySound;					// íš¨ê³¼ìŒ ì¶œë ¥í• ê¹Œ?
+		int		VolumeMusic;				// ìŒì•… ë³¼ë¥¨
+		int		VolumeSound;				// íš¨ê³¼ìŒ ë³¼ë¥¨
+		BOOL	UseHelpEvent;				// HelpEventë¥¼ ì‚¬ìš©í•˜ëŠ”ê°€?
+		BOOL	PlayWaveMusic;				// waveë¡œ ìŒì•…ì„ ë“£ëŠ”ê°€?
+		BOOL	BloodDrop;					// HP ë‚®ì„ ë•Œ í”¼ í˜ë¦¬ê¸°
+		BOOL	OpenQuickSlot;				// QuickSlotì€ ì—´ë ¤ìˆëŠ”ê°€?
+		BOOL	UseHalfFrame;				// Frame ì¤„ì¸ê±¸ ë³´ì—¬ì¤„ê¹Œ?
+		BOOL	DrawTransHPBar;				// íˆ¬ëª…í•œ HP ë°•ìŠ¤ì¸ê°€?
+		BOOL	UseForceFeel;				// ì§„ë™ ë§ˆìš°ìŠ¤ ì‚¬ìš©?
+		BOOL	UseGammaControl;			// ê°ë§ˆ ê°’ ë³€ê²½í•˜ëŠ”ê±¸ ì‚¬ìš©í•˜ëŠ”ê°€?
+		BOOL	GammaValue;					// ê°ë§ˆ ê°’( 50 ~ 100(ê¸°ë³¸) ~ 150(ë°ìŒ) )
+		BOOL	DrawChatBoxOutline;			// ìºë¦­í„° ë¨¸ë¦¬ ìœ„ì— ëœ¨ëŠ” ì±„íŒ…ê¸€ì ì™¸ê³½ì— ì„  ê·¸ë¦¬ê¸°
 		
 		// new interface
 		char	BackupID[11];
@@ -59,23 +63,23 @@ class UserOption {
 		BOOL	TribeChange;
 		BOOL	DenyPartyInvite;
 		BOOL	DenyPartyRequest;
-		BOOL	AutoHideSmoothScroll;		// Ã¢ ÀÚµ¿¼û±è ºÎµå·´°Ô ÇÏ´Â°¡?
+		BOOL	AutoHideSmoothScroll;		// ì°½ ìë™ìˆ¨ê¹€ ë¶€ë“œëŸ½ê²Œ í•˜ëŠ”ê°€?
 		COLORREF ChattingColor;
 		BYTE	ALPHA_DEPTH;
 		BOOL	DefaultAlpha;
 		BOOL	IsPreLoadMonster;
-		BOOL	ChatWhite;					// Ã¤ÆÃ ¸ğµÎ Èò»öÀ¸·Î º¸±â
-		BOOL	UseTeenVersion;				// Æ¾¹öÀüÀ¸·Î °ÔÀÓÇÏ±â
-		BOOL	PopupChatByWhisper;			// ±Ó¼Ó¸» ¿ÔÀ»¶§ Ã¤ÆÃÃ¢ Àá±ñ º¸ÀÌ±â
-		BOOL	NotSendMyInfo;				// ³» Á¤º¸ ³²¿¡°Ô º¸ÀÌÁö ¾Ê±â
-		BOOL	DoNotShowWarMsg;			// ÀüÀï¸Ş½ÃÁö º¸Áö ¾Ê±â
-		BOOL	DoNotShowLairMsg;			// ·¹¾î¸¶½ºÅÍ ¸Ş½ÃÁö º¸Áö ¾Ê±â 
-		BOOL	DoNotShowHolyLandMsg;		// ¾Æ´ãÀÇ ¼ºÁö ¸Ş½ÃÁö º¸Áö ¾Ê±â
+		BOOL	ChatWhite;					// ì±„íŒ… ëª¨ë‘ í°ìƒ‰ìœ¼ë¡œ ë³´ê¸°
+		BOOL	UseTeenVersion;				// í‹´ë²„ì „ìœ¼ë¡œ ê²Œì„í•˜ê¸°
+		BOOL	PopupChatByWhisper;			// ê·“ì†ë§ ì™”ì„ë•Œ ì±„íŒ…ì°½ ì ê¹ ë³´ì´ê¸°
+		BOOL	NotSendMyInfo;				// ë‚´ ì •ë³´ ë‚¨ì—ê²Œ ë³´ì´ì§€ ì•Šê¸°
+		BOOL	DoNotShowWarMsg;			// ì „ìŸë©”ì‹œì§€ ë³´ì§€ ì•Šê¸°
+		BOOL	DoNotShowLairMsg;			// ë ˆì–´ë§ˆìŠ¤í„° ë©”ì‹œì§€ ë³´ì§€ ì•Šê¸° 
+		BOOL	DoNotShowHolyLandMsg;		// ì•„ë‹´ì˜ ì„±ì§€ ë©”ì‹œì§€ ë³´ì§€ ì•Šê¸°
 		int		persnalShopupdatetime;
-		// 2004, 12, 21, sobeit add start - °ÔÀÓ¸Ó´Ï º¸ÀÌ´Â ¹æ½Ä
+		// 2004, 12, 21, sobeit add start - ê²Œì„ë¨¸ë‹ˆ ë³´ì´ëŠ” ë°©ì‹
 		BOOL	ShowGameMoneyWithHANGUL;
 		// 2004, 12, 21, sobeit add end
-		// 2005, 1, 20, sobeit add start - °³ÀÎ»óÁ¡ ¸Ş¼¼Áö ¾Èº¸±â
+		// 2005, 1, 20, sobeit add start - ê°œì¸ìƒì  ë©”ì„¸ì§€ ì•ˆë³´ê¸°
 		BOOL	DoNotShowPersnalShopMsg;
 		// 2005, 1, 20, sobeit add end
 };

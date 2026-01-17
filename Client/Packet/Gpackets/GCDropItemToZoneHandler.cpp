@@ -16,7 +16,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCDropItemToZoneHandler::execute ( GCDropItemToZone * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -35,7 +36,7 @@ void GCDropItemToZoneHandler::execute ( GCDropItemToZone * pPacket , Player * pP
 		AddItemToZone( (GCAddItemToZone*) pPacket, TRUE );		
 
 		TYPE_OBJECTID id = pPacket->getDropPetOID();
-		if(id != 0)	// ¸Õ°¡°¡ ¶³±É´Ù-_-
+		if(id != 0)	// ë¨¼ê°€ê°€ ë–¨ê¶œë‹¤-_-
 		{
 			MCreature *pCreature = g_pZone->GetCreature(id);
 			if(pCreature != NULL)
@@ -48,12 +49,12 @@ void GCDropItemToZoneHandler::execute ( GCDropItemToZone * pPacket , Player * pP
 
 					if(pPet != NULL)
 					{
-						pPet->SetAction(ACTION_DRAINED);		// ÆêÀº ÈíÇ÷´çÇÏ±â°¡ Æê Â¢±âÀÌ´Ù.
+						pPet->SetAction(ACTION_DRAINED);		// íŽ«ì€ í¡í˜ˆë‹¹í•˜ê¸°ê°€ íŽ« ì§–ê¸°ì´ë‹¤.
 
 						MPetItem *pPetItem = pPet->GetPetItem();
 						if(pPetItem != NULL)
 						{
-							if(pPetItem->GetItemType()<3) // 2Â÷ ÆêÀÌ ¾Æ´Ò ¶§
+							if(pPetItem->GetItemType()<3) // 2ì°¨ íŽ«ì´ ì•„ë‹ ë•Œ
 							{
 								if(pPetItem->GetNumber() >= 30)
 								{
@@ -64,8 +65,8 @@ void GCDropItemToZoneHandler::execute ( GCDropItemToZone * pPacket , Player * pP
 									PlaySound(SOUND_WORLD_DOG_BARK, false, pPacket->getX(), pPacket->getY());
 								}
 							}
-							else if(pPetItem->GetItemType() == 3) // ½½·¹ÀÌ¾î ÆêÀÏ ¶§
-							{	// ½½·¡ Æê(ÅÊÅ©)Àº ·çÆÃÇÒ¶§ »ç¿îµå°¡ ÀÖ´Ù.
+							else if(pPetItem->GetItemType() == 3) // ìŠ¬ë ˆì´ì–´ íŽ«ì¼ ë•Œ
+							{	// ìŠ¬ëž˜ íŽ«(íƒ±í¬)ì€ ë£¨íŒ…í• ë•Œ ì‚¬ìš´ë“œê°€ ìžˆë‹¤.
 								TYPE_SOUNDID soundID = (*g_pCreatureTable)[pPet->GetCreatureType()].GetActionSound( ACTION_DRAINED );
 								if (soundID!=SOUNDID_NULL  )
 								{

@@ -26,14 +26,14 @@ GCActiveGuildList::~GCActiveGuildList()
 {
 	__BEGIN_TRY
 	
-	// ±æµå ¸®½ºÆ®ÀÇ ¸ğµç °´Ã¼¸¦ »èÁ¦
+	// ê¸¸ë“œ ë¦¬ìŠ¤íŠ¸ì˜ ëª¨ë“  ê°ì²´ë¥¼ ì‚­ì œ
 	clearGuildInfoList();
 
 	__END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void GCActiveGuildList::read ( SocketInputStream & iStream ) 
 	 throw ( ProtocolException , Error )
@@ -55,7 +55,7 @@ void GCActiveGuildList::read ( SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////
 void GCActiveGuildList::write ( SocketOutputStream & oStream ) const 
      throw ( ProtocolException , Error )
@@ -83,7 +83,7 @@ void GCActiveGuildList::clearGuildInfoList()
 {
 	__BEGIN_TRY
 
-	// GuildInfoList ¸¦ »èÁ¦ÇÑ´Ù
+	// GuildInfoList ë¥¼ ì‚­ì œí•œë‹¤
 	while( !m_GuildInfoList.empty() )
 	{
 		GuildInfo* pGuildInfo = m_GuildInfoList.front();

@@ -15,14 +15,15 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCThrowBombOK3Handler::execute ( GCThrowBombOK3 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 #ifdef __GAME_CLIENT__
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -30,14 +31,14 @@ void GCThrowBombOK3Handler::execute ( GCThrowBombOK3 * pPacket , Player * pPlaye
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 
 
-		// Creature°¡ Tile¿¡ ¹º°¡¸¦?...
+		// Creatureê°€ Tileì— ë­”ê°€ë¥¼?...
 		if (pCreature != NULL)
 		{			
 			int skillID = GetBombActionInfo( pPacket->getItemType() );//pPacket->getSkillType();	
@@ -61,10 +62,10 @@ void GCThrowBombOK3Handler::execute ( GCThrowBombOK3 * pPacket , Player * pPlaye
 				}
 			}
 
-			// °á°ú »ý¼º
+			// ê²°ê³¼ ìƒì„±
 			MActionResult* pResult = new MActionResult;
 		
-			// ÀÇ¹Ì¾ø´Ù.
+			// ì˜ë¯¸ì—†ë‹¤.
 			DWORD delayFrame = 16;//ConvertDurationToFrame( pPacket->getDuration() );
 
 			int targetID = pCreature->GetID();
@@ -94,7 +95,7 @@ void GCThrowBombOK3Handler::execute ( GCThrowBombOK3 * pPacket , Player * pPlaye
 				//					delayFrame ) );
 				//------------------------------------------------------
 				//
-				// skill¿¡ °á°ú°¡ ÀÖÀ¸¸é Àû¿ë ½ÃÅ²´Ù.
+				// skillì— ê²°ê³¼ê°€ ìžˆìœ¼ë©´ ì ìš© ì‹œí‚¨ë‹¤.
 				//
 				//------------------------------------------------------
 				int targetID = pPacket->popCListElement();
@@ -104,7 +105,7 @@ void GCThrowBombOK3Handler::execute ( GCThrowBombOK3 * pPacket , Player * pPlaye
 				if (pTargetCreature!=NULL)
 				{
 					//------------------------------------------------------
-					// EffectStatus°¡ ÀÖ´Ù¸é ºÙÀÎ´Ù.
+					// EffectStatusê°€ ìžˆë‹¤ë©´ ë¶™ì¸ë‹¤.
 					//------------------------------------------------------
 					EFFECTSTATUS es = (*g_pActionInfoTable)[skillID].GetEffectStatus();
 							
@@ -118,7 +119,7 @@ void GCThrowBombOK3Handler::execute ( GCThrowBombOK3 * pPacket , Player * pPlaye
 					switch ((*g_pActionInfoTable)[skillID].GetActionResultID())
 					{
 						//------------------------------------------------------
-						// ´Ù¸¥ ActionInfo ½ÇÇà
+						// ë‹¤ë¥¸ ActionInfo ì‹¤í–‰
 						//------------------------------------------------------
 						case ACTIONRESULTNODE_ACTIONINFO :
 							pActionResultNode =  new MActionResultNodeActionInfo( 
@@ -138,7 +139,7 @@ void GCThrowBombOK3Handler::execute ( GCThrowBombOK3 * pPacket , Player * pPlaye
 					}
 
 					//------------------------------------------------------
-					// NULLÀÌ ¾Æ´Ï¸é °°ÀÌ Àû¿ë
+					// NULLì´ ì•„ë‹ˆë©´ ê°™ì´ ì ìš©
 					//------------------------------------------------------
 					if (pActionResultNode!=NULL)
 					{
@@ -148,23 +149,23 @@ void GCThrowBombOK3Handler::execute ( GCThrowBombOK3 * pPacket , Player * pPlaye
 			}
 
 			//------------------------------------------------------
-			// ¹æÇâ º¸±â
+			// ë°©í–¥ ë³´ê¸°
 			//------------------------------------------------------
 			pCreature->SetDirectionToPosition(pPacket->getX(), pPacket->getY());
 			
 			//------------------------------------------------------
-			// range¸¦ direction¿¡ Àû¿ë½ÃÅ°´Â °æ¿ì
+			// rangeë¥¼ directionì— ì ìš©ì‹œí‚¤ëŠ” ê²½ìš°
 			//------------------------------------------------------
 			pCreature->SetDirection( pPacket->getDir() );
 
 			//------------------------------------------------------
-			// Çàµ¿ÇÏ´Â ¸ð½À ¼³Á¤
+			// í–‰ë™í•˜ëŠ” ëª¨ìŠµ ì„¤ì •
 			//------------------------------------------------------
 			//Duration_t	m_Duration;
 			pCreature->PacketSpecialActionToSector(
 								skillID, 
 								pPacket->getX(), pPacket->getY(),
-								pResult		// °á°ú
+								pResult		// ê²°ê³¼
 			);		
 
 		

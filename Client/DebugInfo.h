@@ -1,10 +1,13 @@
 //-----------------------------------------------------------------------------
 // DebugInfo.h
 //-----------------------------------------------------------------------------
-// CMessageArray¸¦ ÅëÇÑ..
-// DebugÁ¤º¸¸¦ Ç¥½ÃÇØÁÖ´Â°¡?
+// CMessageArrayë¥¼ í†µí•œ..
+// Debugì •ë³´ë¥¼ í‘œì‹œí•´ì£¼ëŠ”ê°€?
 //-----------------------------------------------------------------------------
+
+#ifdef PLATFORM_WINDOWS
 #include "MinTr.h"
+#endif
 
 #ifndef	__DEBUGINFO_H__
 #define	__DEBUGINFO_H__
@@ -73,7 +76,7 @@
 		void	DEBUG_ADD_WAR(const char* message);
 		void	DEBUG_CMD(int cmd, const char* message);
 
-	// debug°¡ ¾Æ´Ñ °æ¿ì..
+	// debugê°€ ì•„ë‹Œ ê²½ìš°..
 	#else
 		#define	DEBUG_MESSAGE(debugMessage)	((void)0)
 		

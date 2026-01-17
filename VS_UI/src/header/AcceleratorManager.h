@@ -5,7 +5,12 @@
 #ifndef __ACCELERATORMANAGER_H__
 #define __ACCELERATORMANAGER_H__
 
-#include <Windows.h>
+#ifdef PLATFORM_WINDOWS
+	#include <Windows.h>
+#else
+	#include "../../basic/Platform.h"
+	#include <SDL2/SDL.h>
+#endif
 #include "MFunctionManager.h"
 
 class AcceleratorManager : public MFunctionManager {

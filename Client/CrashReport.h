@@ -5,16 +5,22 @@
 	file path:	D:\study\smodulelib
 	file base:	CrashReport
 	file ext:	h
-	author:		¾¦°«
+	author:		ì‘¥ê°“
 	
-	purpose:	Ä¡¸íÀûÀÎ ¿À·ù°¡ ³µÀ»¶§ ·Î±×¸¦ ³²±ä´Ù.
+	purpose:	ì¹˜ëª…ì ì¸ ì˜¤ë¥˜ê°€ ë‚¬ì„ë•Œ ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
 *********************************************************************/
 
 #pragma once
 
+#ifdef PLATFORM_WINDOWS
 extern LONG __stdcall RecordExceptionInfo( _EXCEPTION_POINTERS* pExp );
+#else
+// Declaration for non-Windows platforms (implementation in CrashReport.cpp)
+// Note: Must match LPTOP_LEVEL_EXCEPTION_FILTER signature: long (*)(struct _EXCEPTION_POINTERS*)
+LONG __stdcall RecordExceptionInfo( struct _EXCEPTION_POINTERS* pExp );
+#endif
 
-// ·Î±× ÆÄÀÏ¸íÀ» ¹Ù²Ù°í ½ÍÀ¸¸é ¿©±æ ¹Ù²Ù¼À
+// ë¡œê·¸ íŒŒì¼ëª…ì„ ë°”ê¾¸ê³  ì‹¶ìœ¼ë©´ ì—¬ê¸¸ ë°”ê¾¸ì…ˆ
 #define OLD_CRASH_LOG_FILENAME	"CrashReport.log"
 #define CRASH_LOG_FILENAME		"CrashReport2.log"
 

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 //
 // Filename    : GCShopSoldHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //
 //////////////////////////////////////////////////////////////////////
@@ -17,14 +17,17 @@
 
 
 void GCShopSoldHandler::execute ( GCShopSold * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+
+
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	
 #ifdef __GAME_CLIENT__
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -32,7 +35,7 @@ void GCShopSoldHandler::execute ( GCShopSold * pPacket , Player * pPlayer )
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
@@ -63,7 +66,7 @@ void GCShopSoldHandler::execute ( GCShopSold * pPacket , Player * pPlayer )
 				else
 				{
 					//------------------------------------------------------
-					// Normal shelf°¡ ¾Æ´Ñ °æ¿ì¿¡¸¸ deleteÇÑ´Ù.
+					// Normal shelfê°€ ì•„ë‹Œ ê²½ìš°ì—ë§Œ deleteí•œë‹¤.
 					//------------------------------------------------------
 					if (pPacket->getShopType()==SHOP_RACK_SPECIAL)
 					{
@@ -71,15 +74,15 @@ void GCShopSoldHandler::execute ( GCShopSold * pPacket , Player * pPlayer )
 
 						if (pRemovedItem!=NULL)
 						{
-							// itemÁ¤º¸ Á¦°Å
+							// itemì •ë³´ ì œê±°
 							UI_RemoveDescriptor( (void*)pRemovedItem );
 
-							// ÆÈ¸° ¾ÆÀÌÅÛ Á¦°Å
+							// íŒ”ë¦° ì•„ì´í…œ ì œê±°
 							delete pRemovedItem;
 						}
 					}
 
-					// »õ·Î¿î ¹öÀü ¼³Á¤
+					// ìƒˆë¡œìš´ ë²„ì „ ì„¤ì •
 					pShopShelf->SetVersion( pPacket->getShopVersion() );									
 				}
 			}

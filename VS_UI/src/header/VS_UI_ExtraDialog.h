@@ -18,7 +18,7 @@
 //-----------------------------------------------------------------------------
 // class C_VS_UI_DESC_DIALOG
 //
-// Item ¶Ç´Â Skill¼³¸í
+// Item ï¿½Ç´ï¿½ Skillï¿½ï¿½ï¿½ï¿½
 //
 //-----------------------------------------------------------------------------
 class C_VS_UI_DESC_DIALOG : public Window, public C_VS_UI_DESC, public Exec, public ButtonVisual
@@ -83,7 +83,7 @@ public:
 //-----------------------------------------------------------------------------
 // class C_VS_UI_FILE_DIALOG
 //
-// file ¼±ÅÃ
+// file ï¿½ï¿½ï¿½ï¿½
 //
 //-----------------------------------------------------------------------------
 class C_VS_UI_FILE_DIALOG : public Window, public Exec, public ButtonVisual
@@ -136,7 +136,11 @@ private:
 	int  mi_open_drive_count;
 	int  mi_open_drive_index;
 	int m_mode;
+#ifdef PLATFORM_WINDOWS
 	CDirectDrawSurface m_temp_face;
+#else
+	CSpriteSurface m_temp_face;
+#endif
 
 
 public:
@@ -146,9 +150,9 @@ public:
 		MODE_SENDFILE_SELECT,
 	};
 
-	// ÇØ´ç ¹øÈ£¿¡ ´ëÇÑ ÆÄÀÏ ÃßÃâ
+	// ï¿½Ø´ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	static const std::string GetFileNameInString(char *str,int n);
-	// ÆÄÀÏÀÌ¸§¿¡¼­ ÆÄÀÏÀÇ ÃÑ °¹¼ö
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	static int GetSizeFileInString(char *str);
 
 	C_VS_UI_FILE_DIALOG(MODE Mode = MODE_PROFILE_SELECT);
@@ -182,9 +186,9 @@ public:
 //-----------------------------------------------------------------------------
 // class C_VS_UI_EDIT_DIALOG
 //
-// Dialog box¿¡¼­ °ª(digit only)À» ÀÔ·ÂÇÒ ¼ö ÀÖ´Â dialog boxÀÌ´Ù.
+// Dialog boxï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½(digit only)ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ dialog boxï¿½Ì´ï¿½.
 //
-// ! »óÁ¡¿¡¼­ º¹¼ö°³ ¹°°Ç»ç±â Àü¿ëÀ¸·Î ¾´´Ù.
+// ! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 //-----------------------------------------------------------------------------
 class C_VS_UI_EDIT_DIALOG : public C_VS_UI_DIALOG
 {
@@ -251,7 +255,7 @@ public:
 //-----------------------------------------------------------------------------
 // class C_VS_UI_MONEY_DIALOG
 //
-// µ·À» ¹ö¸®´Â dialog boxÀÌ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ dialog boxï¿½Ì´ï¿½.
 //-----------------------------------------------------------------------------
 class C_VS_UI_MONEY_DIALOG : public C_VS_UI_DIALOG
 {
@@ -283,8 +287,8 @@ private:
 
 	Point							m_money_dialog_pt;
 
-	//static char *				m_sz_question_msg[1];	// ÁÖ¼®Ã³¸® by sigi
-	//static char *				m_sz_question_msg_for_storage[1];	// ÁÖ¼®Ã³¸® by sigi
+	//static char *				m_sz_question_msg[1];	// ï¿½Ö¼ï¿½Ã³ï¿½ï¿½ by sigi
+	//static char *				m_sz_question_msg_for_storage[1];	// ï¿½Ö¼ï¿½Ã³ï¿½ï¿½ by sigi
 	char *					m_sz_question_msg[MAX_MONEY_DIALOG_TYPE][1];		// by sigi
 
 	TYPE_MONEY_DIALOG		m_type;	// dialog type	 by sigi
@@ -292,7 +296,7 @@ private:
 	void	ScrollButton(bool up);
 
 public:
-	C_VS_UI_MONEY_DIALOG(int _x, int _y, int center_x, int center_y, void (*exec_fp)(C_VS_UI_DIALOG *, id_t), WORD dd_button, int digit_count, TYPE_MONEY_DIALOG type); // type Ãß°¡  by sigi
+	C_VS_UI_MONEY_DIALOG(int _x, int _y, int center_x, int center_y, void (*exec_fp)(C_VS_UI_DIALOG *, id_t), WORD dd_button, int digit_count, TYPE_MONEY_DIALOG type); // type ï¿½ß°ï¿½  by sigi
 	~C_VS_UI_MONEY_DIALOG();
 
 	void	Start();
@@ -306,7 +310,7 @@ public:
 //-----------------------------------------------------------------------------
 // class C_VS_UI_ASK_DIALOG
 //
-// message³ª¿À°í OK/NO¸¦ ¼±ÅÃÇÏ´Â dialog
+// messageï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ OK/NOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ dialog
 //
 //-----------------------------------------------------------------------------
 class C_VS_UI_ASK_DIALOG : public C_VS_UI_DIALOG
@@ -327,11 +331,11 @@ public :
 		ASK_BRINGFEE_LIMIT,
 		ASK_TRANS_ITEM,
 		ASK_USE_PET_FOOD,
-		ASK_KEEP_PETITEM,		// ÆêÀ» º¸°ü ÇÏ½Ã°Ú½À´Ï±î?
-		ASK_GET_KEEP_PETITEM,	// "%s ÆêÀ» Ã£À¸½Ã°Ú½À´Ï±î?";
-		ASK_USE_SMSITEM,		// sms item À» »ç¿ëÇÏ½Ã°Ú½À´Ï±î?
-		ASK_USE_NAMINGITEM,		// ³×ÀÌ¹Ö ¾ÆÀÌÅÛÀ» »ç¿ë ÇÏ°Ú½À´Ï±î?
-		ASK_GET_EVENT_ITEM,		// ÀÌº¥Æ® ¾ÆÀÌÅÛÀ» ¹ÞÀ¸½Ã°Ú½À´Ï±î?
+		ASK_KEEP_PETITEM,		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï½Ã°Ú½ï¿½ï¿½Ï±ï¿½?
+		ASK_GET_KEEP_PETITEM,	// "%s ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½Ã°Ú½ï¿½ï¿½Ï±ï¿½?";
+		ASK_USE_SMSITEM,		// sms item ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï½Ã°Ú½ï¿½ï¿½Ï±ï¿½?
+		ASK_USE_NAMINGITEM,		// ï¿½ï¿½ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ï°Ú½ï¿½ï¿½Ï±ï¿½?
+		ASK_GET_EVENT_ITEM,		// ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã°Ú½ï¿½ï¿½Ï±ï¿½?
 		//add by viva : ask_friend_request
 		ASK_FRIEND_REQUEST,
 		ASK_FRIEND_REFUSE,
@@ -370,7 +374,7 @@ public:
 //-----------------------------------------------------------------------------
 // class C_VS_UI_NPC_DIALOG
 //
-// DIALOG¿Í °°À¸³ª NPCÀÇ »çÁøÀ» ³ÖÀ»¼ö ÀÖ´Ù.
+// DIALOGï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ NPCï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 //
 //-----------------------------------------------------------------------------
 class C_VS_UI_NPC_DIALOG : public C_VS_UI_DIALOG

@@ -2,7 +2,7 @@
 // 
 // Filename    : EffectInfo.cpp 
 // Written By  : elca@ewestsoft.com
-// Description : ÀÌÆåÆ® Á¤º¸ ¸®½ºÆ® ¸â¹ö Á¤ÀÇ.
+// Description : ì´í™íŠ¸ ì •ë³´ ë¦¬ìŠ¤íŠ¸ ë©¤ë²„ ì •ì˜.
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -38,14 +38,14 @@ EffectInfo::~EffectInfo ()
 
 
 //////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void EffectInfo::read ( SocketInputStream & iStream ) 
 	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-	// ÃÖÀûÈ­ ÀÛ¾÷½Ã ½ÇÁ¦ Å©±â¸¦ ¸í½ÃÇÏµµ·Ï ÇÑ´Ù.
+	// ìµœì í™” ì‘ì—…ì‹œ ì‹¤ì œ í¬ê¸°ë¥¼ ëª…ì‹œí•˜ë„ë¡ í•œë‹¤.
 	iStream.read( m_ListNum );
 
 	WORD m_Value;
@@ -59,14 +59,14 @@ void EffectInfo::read ( SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////
 void EffectInfo::write ( SocketOutputStream & oStream ) 
      const throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-	// ÃÖÀûÈ­ ÀÛ¾÷½Ã ½ÇÁ¦ Å©±â¸¦ ¸í½ÃÇÏµµ·Ï ÇÑ´Ù.
+	// ìµœì í™” ì‘ì—…ì‹œ ì‹¤ì œ í¬ê¸°ë¥¼ ëª…ì‹œí•˜ë„ë¡ í•œë‹¤.
 	oStream.write( m_ListNum );
 
     for ( std::list<WORD>:: const_iterator itr = m_EList.begin(); itr!= m_EList.end(); itr++) {
@@ -80,7 +80,7 @@ void EffectInfo::write ( SocketOutputStream & oStream )
 //
 // EffectInfo::addListElement()
 // 
-// ( º¯È­ºÎÀ§, º¯È­¼öÄ¡ ) ÀÇ ÇÑ ¼ÂÀ» ¸®½ºÆ®¿¡ ³Ö±â À§ÇÑ ¸â¹ö ÇÔ¼ö. 
+// ( ë³€í™”ë¶€ìœ„, ë³€í™”ìˆ˜ì¹˜ ) ì˜ í•œ ì…‹ì„ ë¦¬ìŠ¤íŠ¸ì— ë„£ê¸° ìœ„í•œ ë©¤ë²„ í•¨ìˆ˜. 
 //
 //////////////////////////////////////////////////////////////////////
 void EffectInfo::addListElement( EffectID_t EffectID , WORD Value )
@@ -88,13 +88,13 @@ void EffectInfo::addListElement( EffectID_t EffectID , WORD Value )
 {
 	__BEGIN_TRY
 
-	// º¯ÇÏ´Â °ÍÀÌ ¹«¾ùÀÎÁö List¿¡ ³Ö´Â´Ù.
+	// ë³€í•˜ëŠ” ê²ƒì´ ë¬´ì—‡ì¸ì§€ Listì— ë„£ëŠ”ë‹¤.
 	m_EList.push_back( EffectID );
 
-	// º¯ÇÏ´Â ¼öÄ¡¸¦ List¿¡ ³Ö´Â´Ù.
+	// ë³€í•˜ëŠ” ìˆ˜ì¹˜ë¥¼ Listì— ë„£ëŠ”ë‹¤.
 	m_EList.push_back( Value );
 
-	// º¯È­ ¼ÂÀÇ °¹¼ö¸¦ ÇÏ³ª Áõ°¡ ½ÃÅ²´Ù.
+	// ë³€í™” ì…‹ì˜ ê°¯ìˆ˜ë¥¼ í•˜ë‚˜ ì¦ê°€ ì‹œí‚¨ë‹¤.
 	m_ListNum++;
 
 	__END_CATCH

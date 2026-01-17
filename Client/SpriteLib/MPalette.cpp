@@ -1,6 +1,6 @@
 #include "client_PCH.h"
 #include "MPalette.h"
-#include <fstream.h>
+#include <fstream>\nusing namespace std;
 
 MPalette::MPalette()
 {
@@ -34,7 +34,7 @@ void MPalette::Init(BYTE size)
 
 void MPalette::operator = (const MPalette& pal)
 {
-	// ¸Þ¸ð¸® ÇØÁ¦
+	// ë©”ëª¨ë¦¬ í•´ì œ
 	Release();
 	
 	m_Size = pal.m_Size;
@@ -45,8 +45,8 @@ void MPalette::operator = (const MPalette& pal)
 }
 
 
-// file save´Â 565¸¦ ±âÁØÀ¸·Î ÇÑ´Ù.
-bool MPalette555::LoadFromFile(class ifstream &file)
+// file saveëŠ” 565ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•œë‹¤.
+bool MPalette555::LoadFromFile(std::ifstream &file)
 {
 	Release();
 	
@@ -63,8 +63,8 @@ bool MPalette555::LoadFromFile(class ifstream &file)
 	return true;
 }
 
-// file save´Â 565¸¦ ±âÁØÀ¸·Î ÇÑ´Ù.
-bool MPalette555::SaveToFile(class ofstream &file)
+// file saveëŠ” 565ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•œë‹¤.
+bool MPalette555::SaveToFile(std::ofstream &file)
 {
 	file.write((const char *)&m_Size, 1);
 	
@@ -80,7 +80,7 @@ bool MPalette555::SaveToFile(class ofstream &file)
 	return true;
 }
 
-bool MPalette565::LoadFromFile(class ifstream &file)
+bool MPalette565::LoadFromFile(std::ifstream &file)
 {
 	Release();
 	
@@ -96,7 +96,7 @@ bool MPalette565::LoadFromFile(class ifstream &file)
 	return true;
 }
 
-bool MPalette565::SaveToFile(class ofstream &file)
+bool MPalette565::SaveToFile(std::ofstream &file)
 {
 	file.write((const char *)&m_Size, 1);
 	

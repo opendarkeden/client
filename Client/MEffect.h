@@ -1,44 +1,44 @@
 //----------------------------------------------------------------------
 // MEffect.h
 //----------------------------------------------------------------------
-// È­¸é¿¡ Ãâ·ÂµÇ´Â Effect
+// í™”ë©´ì— ì¶œë ¥ë˜ëŠ” Effect
 //----------------------------------------------------------------------
 //
-// < Effect¶õ? >
-//   - È­¸é¿¡¼­ º¸¿©Áö´Â È¿°ú.
-//   - Ä³¸¯ÅÍ, ¾ÆÀÌÅÛ, °Ç¹°, Àå¾Ö¹°.. µîÀ» Á¦¿ÜÇÑ °Íµé Áß(¹¹°¡ ÀÖÀ»·¡³ª)¿¡¼­
-//     AnimationÀÌ µÇ´Â °ÍµéÀ» ¸»ÇÑ´Ù.
-//   - Effect´Â ¸ğµÎ CAlphaSprite¸¦ ÀÌ¿ëÇØ¼­ ¾ËÆÄÃ¤³Îºí·»µù~À¸·Î Ç¥ÇöÇÑ´Ù.
-//   - Ä³¸¯ÅÍ°¡ Ä®~À» ÈÖµÑ·¶À» ¶§ÀÇ °Ë±â³ª ½ÅºÎÀÇ ¿À¿À¶ó °°Àº°Ç
-//     ¿©±â¼­ ¸»ÇÏ´Â Effect¿¡ Æ÷ÇÔµÇÁö ¾Ê´Â´Ù.
-//   - Effect´Â µ¶¸³ÀûÀÎ ÇÏ³ªÀÇ °´Ã¼¶ó°í ÇÒ ¼ö ÀÖ´Ù.
+// < Effectë€? >
+//   - í™”ë©´ì—ì„œ ë³´ì—¬ì§€ëŠ” íš¨ê³¼.
+//   - ìºë¦­í„°, ì•„ì´í…œ, ê±´ë¬¼, ì¥ì• ë¬¼.. ë“±ì„ ì œì™¸í•œ ê²ƒë“¤ ì¤‘(ë­ê°€ ìˆì„ë˜ë‚˜)ì—ì„œ
+//     Animationì´ ë˜ëŠ” ê²ƒë“¤ì„ ë§í•œë‹¤.
+//   - EffectëŠ” ëª¨ë‘ CAlphaSpriteë¥¼ ì´ìš©í•´ì„œ ì•ŒíŒŒì±„ë„ë¸”ë Œë”©~ìœ¼ë¡œ í‘œí˜„í•œë‹¤.
+//   - ìºë¦­í„°ê°€ ì¹¼~ì„ íœ˜ë‘˜ë €ì„ ë•Œì˜ ê²€ê¸°ë‚˜ ì‹ ë¶€ì˜ ì˜¤ì˜¤ë¼ ê°™ì€ê±´
+//     ì—¬ê¸°ì„œ ë§í•˜ëŠ” Effectì— í¬í•¨ë˜ì§€ ì•ŠëŠ”ë‹¤.
+//   - EffectëŠ” ë…ë¦½ì ì¸ í•˜ë‚˜ì˜ ê°ì²´ë¼ê³  í•  ìˆ˜ ìˆë‹¤.
 //
 //
-// < EffectÀÇ Á¾·ù >
-//   = ¹Ì»çÀÏ ·ù
-//     - Pixel´ÜÀ§ÀÇ ¿òÁ÷ÀÓ.
-//     - ¹ß»çÀ§Ä¡ºÎÅÍ --> ¸ñÇ¥À§Ä¡±îÁö AnimationµÇ¸é¼­ 
-//       ÀÏÁ¤ ¼Óµµ(pixel)·Î ÀÌµ¿ÇÔ
-//     - À¯µµ¹Ì»çÀÏÀÎ °æ¿ì¿Í ¾Æ´Ñ °æ¿ì°¡ ÀÖÀ½.
-//     - Àå¾Ö¹°, Ä³¸¯ÅÍ, °Ç¹° µî¿¡ ºÎµúÈ÷¸é ¼Ò¸êµÉ ¼öµµ ÀÖÀ½.
-//     - ¸ñÇ¥À§Ä¡¿¡ µµÂøÇÏ¸é ¼Ò¸ê.
+// < Effectì˜ ì¢…ë¥˜ >
+//   = ë¯¸ì‚¬ì¼ ë¥˜
+//     - Pixelë‹¨ìœ„ì˜ ì›€ì§ì„.
+//     - ë°œì‚¬ìœ„ì¹˜ë¶€í„° --> ëª©í‘œìœ„ì¹˜ê¹Œì§€ Animationë˜ë©´ì„œ 
+//       ì¼ì • ì†ë„(pixel)ë¡œ ì´ë™í•¨
+//     - ìœ ë„ë¯¸ì‚¬ì¼ì¸ ê²½ìš°ì™€ ì•„ë‹Œ ê²½ìš°ê°€ ìˆìŒ.
+//     - ì¥ì• ë¬¼, ìºë¦­í„°, ê±´ë¬¼ ë“±ì— ë¶€ë”ªíˆë©´ ì†Œë©¸ë  ìˆ˜ë„ ìˆìŒ.
+//     - ëª©í‘œìœ„ì¹˜ì— ë„ì°©í•˜ë©´ ì†Œë©¸.
 //            
-//   = Tile¸¶¹ı ·ù
-//     - Æ¯Á¤ Tile¿¡¼­ AnimationµÊ.
-//     - Å©±â´Â Tileº¸´Ù Ä¿µµ »ó°ü¾øÀ½.
-//     - Ãâ·Â ½ÃÁ¡Àº ±× Tile¿¡¼­ °¡Àå ³ªÁß¿¡ Ãâ·ÂÇÑ´Ù.
-//     - ÀÏÁ¤ FrameÀÌ Áö³ª¸é ¼Ò¸ê.
+//   = Tileë§ˆë²• ë¥˜
+//     - íŠ¹ì • Tileì—ì„œ Animationë¨.
+//     - í¬ê¸°ëŠ” Tileë³´ë‹¤ ì»¤ë„ ìƒê´€ì—†ìŒ.
+//     - ì¶œë ¥ ì‹œì ì€ ê·¸ Tileì—ì„œ ê°€ì¥ ë‚˜ì¤‘ì— ì¶œë ¥í•œë‹¤.
+//     - ì¼ì • Frameì´ ì§€ë‚˜ë©´ ì†Œë©¸.
 //         
 //----------------------------------------------------------------------
-// - ¸ğµç Effect´Â ZoneÀÇ ÇÑ Sector¿¡´Â ¼ÓÇØ¾ß ÇÒ °ÍÀÌ´Ù.
-//   Ãâ·Â ¼ø¼­°¡ yÁÂÇ¥·Î SortµÅ¾ßÇÏ±â ¶§¹®¿¡, SectorÀÇ ObjectÃâ·Â¿¡ ¸ÂÃß¾î
-//   Ãâ·ÂÇÏ±â À§ÇØ¼­.. Sector¿¡ ³Ö±â·Î °áÁ¤..
+// - ëª¨ë“  EffectëŠ” Zoneì˜ í•œ Sectorì—ëŠ” ì†í•´ì•¼ í•  ê²ƒì´ë‹¤.
+//   ì¶œë ¥ ìˆœì„œê°€ yì¢Œí‘œë¡œ Sortë¼ì•¼í•˜ê¸° ë•Œë¬¸ì—, Sectorì˜ Objectì¶œë ¥ì— ë§ì¶”ì–´
+//   ì¶œë ¥í•˜ê¸° ìœ„í•´ì„œ.. Sectorì— ë„£ê¸°ë¡œ ê²°ì •..
 //
-// - Effect´Â ÀÏÁ¤ ½Ã°£ Áö¼ÓµÈ´Ù. 
-//   Áï, Counter¸¦ µÎ¾î¼­ 0ÀÌ µÇ¸é ³¡³ªµµ·Ï...
+// - EffectëŠ” ì¼ì • ì‹œê°„ ì§€ì†ëœë‹¤. 
+//   ì¦‰, Counterë¥¼ ë‘ì–´ì„œ 0ì´ ë˜ë©´ ëë‚˜ë„ë¡...
 //----------------------------------------------------------------------
 //
-//              Effect´Â File·Î ÀúÀåµÇÁö ¾Ê´Â´Ù.
+//              EffectëŠ” Fileë¡œ ì €ì¥ë˜ì§€ ì•ŠëŠ”ë‹¤.
 //
 //----------------------------------------------------------------------
 /* class hierarchy
@@ -48,7 +48,7 @@
 								
 
 
-   MEffect : Tile¿¡ °íÁ¤µÈ Effect
+   MEffect : Tileì— ê³ ì •ëœ Effect
 */
 //----------------------------------------------------------------------
 
@@ -57,13 +57,14 @@
 
 #pragma warning(disable:4786)
 
-#include "FrameLib\CAnimationFrame.h"
+#include "framelib/CAnimationFrame.h"
 #include "MTypeDef.h"
 #include "MObject.h"
 #include "MEffectTarget.h"
 
-class ofstream;
-class ifstream;
+#include <fstream>
+using namespace std;
+
 
 
 extern DWORD	g_CurrentFrame;
@@ -74,16 +75,16 @@ class MEffect : public MObject, public CAnimationFrame {
 	public :
 		enum EFFECT_TYPE 
 		{
-			EFFECT_SECTOR = 0,		// Sector¿¡ °íÁ¤ 
-			EFFECT_MOVING,			// ¿òÁ÷ÀÌ´Â Effect
-			EFFECT_LINEAR,			// Á÷¼± ÀÌµ¿
-			EFFECT_GUIDANCE,		// ÃßÀû(À¯µµ)ÇÏ°í ³¡³²
-			EFFECT_HOMING,			// °î¼±ÇüÀÇ À¯µµÅº
-			EFFECT_PARABOLA,		// Æ÷¹°¼±
-			EFFECT_ATTACH,			// (Ä³¸¯ÅÍ¿¡) ºÙÀ½
-			EFFECT_SCREEN,			// È­¸éÁÂÇ¥·Î Ç¥Çö
-			EFFECT_CHASE,			// ÃßÀûÇÏ¸é¼­ °è¼Ó ºÙ¾î ´Ù´Ô
-			EFFECT_ATTACH_ORBIT,	// Ä³¸¯ÅÍ¿¡ ºÙ¾î¼­ ºùºù~ µ¹¸é¼­ ºÙ¾î´Ù´Ô
+			EFFECT_SECTOR = 0,		// Sectorì— ê³ ì • 
+			EFFECT_MOVING,			// ì›€ì§ì´ëŠ” Effect
+			EFFECT_LINEAR,			// ì§ì„  ì´ë™
+			EFFECT_GUIDANCE,		// ì¶”ì (ìœ ë„)í•˜ê³  ëë‚¨
+			EFFECT_HOMING,			// ê³¡ì„ í˜•ì˜ ìœ ë„íƒ„
+			EFFECT_PARABOLA,		// í¬ë¬¼ì„ 
+			EFFECT_ATTACH,			// (ìºë¦­í„°ì—) ë¶™ìŒ
+			EFFECT_SCREEN,			// í™”ë©´ì¢Œí‘œë¡œ í‘œí˜„
+			EFFECT_CHASE,			// ì¶”ì í•˜ë©´ì„œ ê³„ì† ë¶™ì–´ ë‹¤ë‹˜
+			EFFECT_ATTACH_ORBIT,	// ìºë¦­í„°ì— ë¶™ì–´ì„œ ë¹™ë¹™~ ëŒë©´ì„œ ë¶™ì–´ë‹¤ë‹˜
 		};
 
 	public :
@@ -108,9 +109,9 @@ class MEffect : public MObject, public CAnimationFrame {
 		virtual bool		IsSelectable() const		{ return false; }		
 
 		//--------------------------------------------------------
-		// ³¡³ª´Â ½Ã°£...
+		// ëë‚˜ëŠ” ì‹œê°„...
 		//--------------------------------------------------------		
-		// ÇöÀç ½Ã°£ + last±îÁö ÀÛµ¿		
+		// í˜„ì¬ ì‹œê°„ + lastê¹Œì§€ ì‘ë™		
 		void			SetCount(DWORD last, DWORD linkCount=0xFFFF);
 		DWORD			GetEndFrame() const			{ return m_EndFrame; }
 		DWORD			GetEndLinkFrame() const		{ return m_EndLinkFrame; }
@@ -118,12 +119,12 @@ class MEffect : public MObject, public CAnimationFrame {
 
 		
 		//--------------------------------------------------------
-		// ÇÑ ¹øÀÇ Update¿¡ È£ÃâµÉ ÇÔ¼ö..
+		// í•œ ë²ˆì˜ Updateì— í˜¸ì¶œë  í•¨ìˆ˜..
 		//--------------------------------------------------------
 		virtual bool	Update();
 		
 		//--------------------------------------------------------
-		// Sector¿¡¼­ÀÇ ÁÂÇ¥
+		// Sectorì—ì„œì˜ ì¢Œí‘œ
 		//--------------------------------------------------------	
 		void			SetPosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y);
 		void			SetX(TYPE_SECTORPOSITION x);
@@ -135,7 +136,7 @@ class MEffect : public MObject, public CAnimationFrame {
 
 	
 		//--------------------------------------------------------
-		// Pixel ÁÂÇ¥ ¼³Á¤
+		// Pixel ì¢Œí‘œ ì„¤ì •
 		//--------------------------------------------------------
 		void			SetPixelPosition(int x, int y, int z);
 
@@ -160,16 +161,16 @@ class MEffect : public MObject, public CAnimationFrame {
 		WORD			GetStepPixel() const	{ return m_StepPixel; }
 
 		//--------------------------------------------------------
-		// Effect ¿¬°áÀ» À§ÇÑ Á¤º¸
+		// Effect ì—°ê²°ì„ ìœ„í•œ ì •ë³´
 		//--------------------------------------------------------
 		void			SetLink(TYPE_ACTIONINFO nActionInfo, MEffectTarget* pEffectTarget);		
 
 		void			SetEffectTargetNULL();
 
-		// ¸î ¹øÂ° ActionInfoÀÎ°¡?
+		// ëª‡ ë²ˆì§¸ ActionInfoì¸ê°€?
 		TYPE_ACTIONINFO	GetActionInfo()	const { return m_nActionInfo; }
 
-		// ³²Àº Effect°³¼ö¸¦ returnÇÑ´Ù.
+		// ë‚¨ì€ Effectê°œìˆ˜ë¥¼ returní•œë‹¤.
 		MEffectTarget*	GetEffectTarget()		{ return m_pEffectTarget; }
 		int				GetLinkSize()			{ return (m_pEffectTarget==NULL || m_pEffectTarget->IsEnd())? 0 : m_pEffectTarget->GetCurrentPhase(); }	
 
@@ -179,17 +180,17 @@ class MEffect : public MObject, public CAnimationFrame {
 		void			SetDelayFrame(DWORD frame);
 		bool			IsDelayFrame() const;
 
-		// 2004, 10, 15, sobeit add start - ÀÌÆåÆ® »ı¼ºÀ» ±â´Ù¸°´Ù.
+		// 2004, 10, 15, sobeit add start - ì´í™íŠ¸ ìƒì„±ì„ ê¸°ë‹¤ë¦°ë‹¤.
 		void			SetWaitFrame(DWORD frame);
 		bool			IsWaitFrame() const;
 		// 2004, 10, 15, sobeit add end
 
-		// 2004, 9, 30, sobeit add start - º¸¿©ÁÙÁö ¸»Áö..
+		// 2004, 9, 30, sobeit add start - ë³´ì—¬ì¤„ì§€ ë§ì§€..
 		bool			IsSkipDraw() const			{ return m_bDrawSkip; }
 		void			SetDrawSkip(bool bSkip)		{ m_bDrawSkip = bSkip;}
 		// 2004, 9, 30, sobeit add end
 	protected :
-		// PixelPositonÀ¸·Î¼­ SectorÁÂÇ¥¸¦ ¼³Á¤ÇÑ´Ù.
+		// PixelPositonìœ¼ë¡œì„œ Sectorì¢Œí‘œë¥¼ ì„¤ì •í•œë‹¤.
 		void			AffectPosition();
 
 
@@ -199,16 +200,16 @@ class MEffect : public MObject, public CAnimationFrame {
 		
 		int	m_est;
 
-		// ³¡³ª´Â ½Ã°£
+		// ëë‚˜ëŠ” ì‹œê°„
 		DWORD					m_EndFrame;
-		DWORD					m_EndLinkFrame;	// ´ÙÀ½ link·Î ³Ñ¾î°¡´Â frame
+		DWORD					m_EndLinkFrame;	// ë‹¤ìŒ linkë¡œ ë„˜ì–´ê°€ëŠ” frame
 		
-		BYTE					m_Direction;	// ¹æÇâ
+		BYTE					m_Direction;	// ë°©í–¥
 
-		// EffectÀÇ ¹à±â 
+		// Effectì˜ ë°ê¸° 
 		char					m_Light;
 
-		// Effect°¡ Á¸ÀçÇÏ´Â Zone¿¡¼­ÀÇ PixelÁÂÇ¥(ÇöÀç À§Ä¡)
+		// Effectê°€ ì¡´ì¬í•˜ëŠ” Zoneì—ì„œì˜ Pixelì¢Œí‘œ(í˜„ì¬ ìœ„ì¹˜)
 		float			m_PixelX;
 		float			m_PixelY;
 		float			m_PixelZ;
@@ -216,13 +217,13 @@ class MEffect : public MObject, public CAnimationFrame {
 
 		BYTE			m_Power;
 
-		// ´ÙÀ½ Effect·ÎÀÇ ¿¬°áÀ» À§ÇÑ Á¤º¸
+		// ë‹¤ìŒ Effectë¡œì˜ ì—°ê²°ì„ ìœ„í•œ ì •ë³´
 		TYPE_ACTIONINFO			m_nActionInfo;
 		MEffectTarget*			m_pEffectTarget;
 
-		static TYPE_OBJECTID	s_ID;			// ID¹ß±ŞÀ» À§ÇÑ...
+		static TYPE_OBJECTID	s_ID;			// IDë°œê¸‰ì„ ìœ„í•œ...
 
-		// Áßº¹ °¡´ÉÇÑ°¡
+		// ì¤‘ë³µ ê°€ëŠ¥í•œê°€
 		bool			m_bMulti;
 
 		bool			m_bDrawSkip;
@@ -230,7 +231,7 @@ class MEffect : public MObject, public CAnimationFrame {
 };
 
 //----------------------------------------------------------------------
-// MSelectableEffect - ¸¶¿ì½º·Î ¼±ÅÃµÇ´Â effect
+// MSelectableEffect - ë§ˆìš°ìŠ¤ë¡œ ì„ íƒë˜ëŠ” effect
 //----------------------------------------------------------------------
 class MSelectableEffect : public MEffect {
 	public :

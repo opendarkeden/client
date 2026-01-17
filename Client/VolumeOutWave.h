@@ -3,7 +3,18 @@
 // Developer : Alex Chmut
 // Created : 8/11/98
 #pragma once
+
+#ifdef PLATFORM_WINDOWS
 #include "IVolume.h"
+#else
+#include "IVolume.h"
+
+// Define LRESULT for non-Windows platforms
+#ifndef LRESULT
+typedef long LRESULT;
+#endif
+
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 class CVolumeOutWave

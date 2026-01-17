@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    :  GCSkillFailed1.h 
 // Written By  :  elca@ewestsoft.com
-// Description :  Å
+// Description :  Ã…
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -80,7 +80,7 @@ public:
 class  GCSkillFailed1Handler 
 {
 public:
-	static void execute( GCSkillFailed1* pGCSkillFailed1, Player* pPlayer) throw(Error);
+	static void execute( GCSkillFailed1* pGCSkillFailed1, Player* pPlayer) throw ( ProtocolException , Error );
 };
 
 #endif	// __GC_SKILL_FAILED_1_H__

@@ -1,6 +1,9 @@
 // VS_UI_Description.cpp
 
 #include "client_PCH.h"
+#include <assert.h>
+#define assert(e) ((void)(e))
+// Disabled assert for macOS
 
 #include "VS_UI_Description.h"
 #include "VS_UI_GameCommon.h"
@@ -229,7 +232,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 		for(int i = 0; i < strlen(sz_name); i++)
 			sz_name[i] = '?';
 		
-		for(i = 0; i < strlen(sz_ename); i++)
+		for(int i = 0; i < strlen(sz_ename); i++)
 			sz_ename[i] = '?';
 	}
 

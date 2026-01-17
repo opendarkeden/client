@@ -14,16 +14,17 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCAddVampireCorpseHandler::execute ( GCAddVampireCorpse * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 #ifdef __GAME_CLIENT__
 
 
-	// Creature¸¦ »ý¼ºÇØ¼­ MCorpse¿¡ Ãß°¡ÇØ¼­ Zone¿¡ ³Ö´Â´Ù.
+	// Creatureë¥¼ ìƒì„±í•´ì„œ MCorpseì— ì¶”ê°€í•´ì„œ Zoneì— ë„£ëŠ”ë‹¤.
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -31,30 +32,30 @@ void GCAddVampireCorpseHandler::execute ( GCAddVampireCorpse * pPacket , Player 
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{		
 		const PCVampireInfo3 & vi = pPacket->getVampireInfo();
 
 		//----------------------------------------	
-		// ÀÌ¹Ì ÀÖ´Â CreatureÀÎ°¡?
+		// ì´ë¯¸ ìžˆëŠ” Creatureì¸ê°€?
 		//----------------------------------------	
 		MCreature* pCreature = g_pZone->GetCreatureOnly( vi.getObjectID() );
 		
 		//---------------------------------------------------------
 		//
-		//					Zone¿¡ ¾ø´Â °æ¿ì
+		//					Zoneì— ì—†ëŠ” ê²½ìš°
 		//
 		//---------------------------------------------------------
 		if (pCreature==NULL)
 		{
-			// ÀÌ¹Ì ½ÃÃ¼°¡ ÀÖ³ª?
+			// ì´ë¯¸ ì‹œì²´ê°€ ìžˆë‚˜?
 			MItem* pItem = g_pZone->GetItem( vi.getObjectID() );
 
 			//---------------------------------------------------------
 			//
-			// »õ·Î¿î ½ÃÃ¼¸¦ »ý¼º
+			// ìƒˆë¡œìš´ ì‹œì²´ë¥¼ ìƒì„±
 			//
 			//---------------------------------------------------------
 			if (pItem==NULL)
@@ -65,7 +66,7 @@ void GCAddVampireCorpseHandler::execute ( GCAddVampireCorpse * pPacket , Player 
 
 				//----------------------------------------	
 				//
-				// Á×Àº Creature¸¦ »ý¼ºÇÑ´Ù.
+				// ì£½ì€ Creatureë¥¼ ìƒì„±í•œë‹¤.
 				//
 				//----------------------------------------	
 				DEBUG_ADD("New VampireCorpse");
@@ -75,9 +76,9 @@ void GCAddVampireCorpseHandler::execute ( GCAddVampireCorpse * pPacket , Player 
 
 				pDeadCreature->SetZone( g_pZone );
 				
-				// creatureTypeÀÌ Vamp³²ÀÚ¸é 2, Vamp¿©ÀÚ¸é 3
+				// creatureTypeì´ Vampë‚¨ìžë©´ 2, Vampì—¬ìžë©´ 3
 				//--------------------------------------------------
-				// CreatureType ¼³Á¤
+				// CreatureType ì„¤ì •
 				//--------------------------------------------------
 				Shape_t shape	= vi.getShape();
 				bool bMale		= vi.getSex()==MALE;
@@ -96,7 +97,7 @@ void GCAddVampireCorpseHandler::execute ( GCAddVampireCorpse * pPacket , Player 
 
 				pDeadCreature->SetMale( bMale );				
 				
-				// º° ÀÇ¹Ì ¾øÁö¸¸
+				// ë³„ ì˜ë¯¸ ì—†ì§€ë§Œ
 				if (pDeadCreature->GetCreatureType()==CREATURETYPE_BAT)
 				{
 					pDeadCreature->SetFlyingCreature();
@@ -115,17 +116,17 @@ void GCAddVampireCorpseHandler::execute ( GCAddVampireCorpse * pPacket , Player 
 				pDeadCreature->SetStatus( MODIFY_MAX_HP, vi.getMaxHP() );
 				pDeadCreature->SetStatus( MODIFY_CURRENT_HP, 0 );
 				
-				// ½ÃÃ¼·Î ¹Ù²Û´Ù.
+				// ì‹œì²´ë¡œ ë°”ê¾¼ë‹¤.
 				pDeadCreature->SetCorpse();
 				pDeadCreature->SetName( vi.getName().c_str() );
 
-				// ÀÓ½Ã·Î
+				// ìž„ì‹œë¡œ
 				pDeadCreature->SetGuildNumber( vi.getGuildID() );
 
 				pDeadCreature->SetWeaponSpeed( vi.getAttackSpeed() );
 				pDeadCreature->SetStatus( MODIFY_ALIGNMENT, vi.getAlignment() );
 
-				// »ö±ò
+				// ìƒ‰ê¹”
 				pDeadCreature->SetBodyColor1( vi.getSkinColor() );
 				pDeadCreature->SetBodyColor2( vi.getCoatColor() );
 				
@@ -133,7 +134,7 @@ void GCAddVampireCorpseHandler::execute ( GCAddVampireCorpse * pPacket , Player 
 				//--------------------------------------------------
 				// [ TEST CODE ]
 				//--------------------------------------------------
-				// ¿Ê »ö±ò ¼³Á¤ÇÏ±â
+				// ì˜· ìƒ‰ê¹” ì„¤ì •í•˜ê¸°
 				//--------------------------------------------------
 				/*
 				if (pDeadCreature->IsMale())
@@ -148,7 +149,7 @@ void GCAddVampireCorpseHandler::execute ( GCAddVampireCorpse * pPacket , Player 
 
 				//----------------------------------------	
 				//
-				// ½ÃÃ¼itemÀ» »ý¼ºÇÑ´Ù.
+				// ì‹œì²´itemì„ ìƒì„±í•œë‹¤.
 				//
 				//----------------------------------------	
 				MCorpse* pCorpse = (MCorpse*)MItem::NewItem( ITEM_CLASS_CORPSE );
@@ -160,13 +161,13 @@ void GCAddVampireCorpseHandler::execute ( GCAddVampireCorpse * pPacket , Player 
 				pCorpse->SetNumber( pPacket->getTreasureCount() );
 
 				//----------------------------------------
-				// Zone¿¡ ItemÃß°¡
+				// Zoneì— Itemì¶”ê°€
 				//----------------------------------------
 				if (!g_pZone->AddItem( pCorpse ))
 				{
 					//---------------------------------------------------------
-					// Ãß°¡°¡ ¾ÈµÈ °æ¿ì
-					// ÀÌ¹Ì ÀÖ´Â ItemÀ» Á¦°ÅÇÏ°í ´Ù½Ã Ãß°¡ÇÑ´Ù.
+					// ì¶”ê°€ê°€ ì•ˆëœ ê²½ìš°
+					// ì´ë¯¸ ìžˆëŠ” Itemì„ ì œê±°í•˜ê³  ë‹¤ì‹œ ì¶”ê°€í•œë‹¤.
 					//---------------------------------------------------------
 					TYPE_OBJECTID oldItemID = g_pZone->GetItemID( vi.getX(), vi.getY() );
 
@@ -174,7 +175,7 @@ void GCAddVampireCorpseHandler::execute ( GCAddVampireCorpse * pPacket , Player 
 						
 					if (g_pZone->RemoveItem( oldItemID ))				
 					{
-						// ´Ù½Ã Ãß°¡ÇÑ´Ù.
+						// ë‹¤ì‹œ ì¶”ê°€í•œë‹¤.
 						if (!g_pZone->AddItem( pCorpse ))
 						{
 							DEBUG_ADD_FORMAT("[Error] Can't add Corpse to Zone, too. id=%d, xy=(%d, %d)", vi.getObjectID(), vi.getX(), vi.getY());
@@ -184,7 +185,7 @@ void GCAddVampireCorpseHandler::execute ( GCAddVampireCorpse * pPacket , Player 
 					}
 					else
 					{
-						// ÀÌ¹Ì ÀÖ´Â itemÀ» Á¦°ÅÇÒ ¼ö ¾ø´Â °æ¿ì
+						// ì´ë¯¸ ìžˆëŠ” itemì„ ì œê±°í•  ìˆ˜ ì—†ëŠ” ê²½ìš°
 						DEBUG_ADD_FORMAT("[Error] Can't remove old Item. id=%d, xy=(%d, %d)", oldItemID, vi.getX(), vi.getY());
 						
 						delete pCorpse;
@@ -193,7 +194,7 @@ void GCAddVampireCorpseHandler::execute ( GCAddVampireCorpse * pPacket , Player 
 			}
 			//---------------------------------------------------------
 			//
-			// ÀÌ¹Ì ½ÃÃ¼°¡ ÀÖ´Â °æ¿ì 
+			// ì´ë¯¸ ì‹œì²´ê°€ ìžˆëŠ” ê²½ìš° 
 			//
 			//---------------------------------------------------------
 			else
@@ -203,8 +204,8 @@ void GCAddVampireCorpseHandler::execute ( GCAddVampireCorpse * pPacket , Player 
 				if (pItem->GetItemClass()==ITEM_CLASS_CORPSE)
 				{
 					//---------------------------------------------------------					
-					// ½ÃÃ¼°¡ ÀÌ¹Ì ÀÖ´Â °æ¿ì
-					// ½ÃÃ¼¿¡ µé¾îÀÖ´Â Item °³¼ö ¼³Á¤
+					// ì‹œì²´ê°€ ì´ë¯¸ ìžˆëŠ” ê²½ìš°
+					// ì‹œì²´ì— ë“¤ì–´ìžˆëŠ” Item ê°œìˆ˜ ì„¤ì •
 					//---------------------------------------------------------
 					pItem->SetNumber( pPacket->getTreasureCount() );
 				}
@@ -216,7 +217,7 @@ void GCAddVampireCorpseHandler::execute ( GCAddVampireCorpse * pPacket , Player 
 		}
 		//---------------------------------------------------------
 		//
-		//				Zone¿¡ ÀÌ¹Ì ÀÖ´Â °æ¿ì
+		//				Zoneì— ì´ë¯¸ ìžˆëŠ” ê²½ìš°
 		//
 		//---------------------------------------------------------		
 		else
@@ -258,11 +259,11 @@ void GCAddVampireCorpseHandler::execute ( GCAddVampireCorpse * pPacket , Player 
 			pCreature->SetWeaponSpeed( vi.getAttackSpeed() );
 			pCreature->SetStatus( MODIFY_ALIGNMENT, vi.getAlignment() );
 
-			// ÀÓ½Ã·Î
+			// ìž„ì‹œë¡œ
 			pCreature->SetGuildNumber( vi.getGuildID() );
 
 			//---------------------------------------------------------
-			// Creature¸¦ Á×¿©¾ß ÇÑ´Ù.
+			// Creatureë¥¼ ì£½ì—¬ì•¼ í•œë‹¤.
 			//---------------------------------------------------------
 			if (!pCreature->IsDead())
 			{

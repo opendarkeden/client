@@ -12,14 +12,14 @@
 #include "Player.h"
 #include "PlayerStatus.h"
 #include "Packet.h"
-#include "types\RequestTypes.h"
+#include "types/RequestTypes.h"
 
 //--------------------------------------------------------------------------------
 //
 // class RequestClientPlayer
 //
-// ´Ù¸¥ Å¬¶óÀÌ¾ğÆ®¿¡ Á¢¼ÓÇØ¼­ ¹º°¡ ¿äÃ»ÇÑ´Ù..
-// ÇÏ³ªÀÇ RequestServerPlayer¿Í Á¢¼ÓÇÏ°Ô µÈ´Ù.
+// ë‹¤ë¥¸ í´ë¼ì´ì–¸íŠ¸ì— ì ‘ì†í•´ì„œ ë­”ê°€ ìš”ì²­í•œë‹¤..
+// í•˜ë‚˜ì˜ RequestServerPlayerì™€ ì ‘ì†í•˜ê²Œ ëœë‹¤.
 //
 //--------------------------------------------------------------------------------
 
@@ -28,10 +28,10 @@ class RequestClientPlayer : public Player {
 public :
 	
 	// constructor
-	RequestClientPlayer ( Socket * pSocket ) throw ( Error );
+	RequestClientPlayer ( Socket * pSocket ) throw ( ProtocolException , Error );
 	
 	// destructor
-	~RequestClientPlayer () throw ( Error );
+	~RequestClientPlayer () throw ( ProtocolException , Error );
 
 public :
 
@@ -45,7 +45,7 @@ public :
 	//virtual void processOutput () throw ( IOException , Error );
 	
 	// send packet to player's output buffer
-	//virtual void sendPacket ( Packet * packet ) throw ( Error );
+	//virtual void sendPacket ( Packet * packet ) throw ( ProtocolException , Error );
 	
 	uint getInputStreamLength () const throw();
 	uint readInputStream ( char * buf , uint len ) 	throw ( ProtocolException , Error );
@@ -58,11 +58,11 @@ public :
 	const std::string&	getRequestServerIP() const	{ return m_RequestServerIP; }
 
 	// disconnect
-	// Á¤½Ä ·Î±×¾Æ¿ôÀÇ °æ¿ì disconnect(UNDISCONNECTED)
-	virtual void disconnect ( bool bDisconnected = DISCONNECTED ) throw ( Error );
+	// ì •ì‹ ë¡œê·¸ì•„ì›ƒì˜ ê²½ìš° disconnect(UNDISCONNECTED)
+	virtual void disconnect ( bool bDisconnected = DISCONNECTED ) throw ( ProtocolException , Error );
 	
 	// get debug string
-	virtual std::string toString () const throw ( Error );
+	virtual std::string toString () const throw ( ProtocolException , Error );
 	
 public :
 
@@ -80,7 +80,7 @@ private :
 	std::string					m_RequestServerName;
 	std::string					m_RequestServerIP;
 
-	// RequestÇÏ°í ÀÖ´Â °Í
+	// Requestí•˜ê³  ìˆëŠ” ê²ƒ
 	REQUEST_CLIENT_MODE			m_RequestMode;
 
 	DWORD						m_ExpireTime;

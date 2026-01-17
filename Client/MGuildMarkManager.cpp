@@ -39,7 +39,7 @@ MGuildMarkManager::MGuildMarkManager(const char* pGuildMarkSPKFilename,
 //	m_SlayerGradeMarkSPKFilename = pSlayerGradeMarkSPKFilename;
 //	m_VampireGradeMarkSPKFilename = pVampireGradeMarkSPKFilename;
 
-	// SpriteIDMapper¸¦ È­ÀÏ¿¡¼­ ÀĞ¾îµéÀÎ´Ù.
+	// SpriteIDMapperë¥¼ í™”ì¼ì—ì„œ ì½ì–´ë“¤ì¸ë‹¤.
 	if (pGuildInfoMapperFilename!=NULL)
 	{
 		m_GuildMarkSpriteMapperFilename = pGuildInfoMapperFilename;		
@@ -88,42 +88,43 @@ MGuildMarkManager::Release()
 //----------------------------------------------------------------------
 // Create GuildMark( guildID, pFilename )
 //
-// pFilenameÀº *.bmpÀÌ°Å³ª *.jpg
+// pFilenameì€ *.bmpì´ê±°ë‚˜ *.jpg
 //
-// imageÈ­ÀÏÀÎ pFilenameÀ» ÀĞ¾î¼­
-// CSprite·Î ¸¸µç ÈÄ, 
-// guildMarkSPK(+SPKIndex)¿¡ Ãß°¡ÇÏ°í ±× ¶§ÀÇ ID¸¦
-// guildID¿Í ¿¬°áÇØ¼­ guildMarkSpriteMapper¿¡ Ãß°¡ÇØµÎ¸é µÈ´Ù.
+// imageí™”ì¼ì¸ pFilenameì„ ì½ì–´ì„œ
+// CSpriteë¡œ ë§Œë“  í›„, 
+// guildMarkSPK(+SPKIndex)ì— ì¶”ê°€í•˜ê³  ê·¸ ë•Œì˜ IDë¥¼
+// guildIDì™€ ì—°ê²°í•´ì„œ guildMarkSpriteMapperì— ì¶”ê°€í•´ë‘ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
-bool		
+bool
 MGuildMarkManager::CreateGuildMark(WORD guildID, const char* pFilename)
 {
 #if defined(__GAME_CLIENT__) || defined(__GUILD_MANAGER_TOOL__)
+#ifdef PLATFORM_WINDOWS
 	if (pFilename==NULL)
 	{
 		return false;
 	}
 
 	//-----------------------------------------------------
-	// pFilenameÀ» Surface¿¡ loadÇÑ´Ù.
+	// pFilenameì„ Surfaceì— loadí•œë‹¤.
 	//-----------------------------------------------------
 	CDirectDrawSurface bmpSurface;
 	if (!LoadImageToSurface(pFilename, bmpSurface))
 	{
 		return false;
 	}
-	
+
 	const POINT bigSize = { 40, 40 };
 	const POINT smallSize = { 20, 20 };
-	
+
 	CDirectDrawSurface surface;
 	surface.InitOffsurface( bigSize.x, bigSize.y, DDSCAPS_SYSTEMMEMORY );
-		
+
 	RECT destBigRect = { 0, 0, bigSize.x, bigSize.y };
 	RECT destSmallRect = { 0, 0, smallSize.x, smallSize.y };
-	
+
 	//-----------------------------------------------------
-	// CSprite»ı¼º
+	// CSpriteìƒì„±
 	//-----------------------------------------------------
 	CSprite* pSprite = NULL;
 	CSprite* pSpriteSmall = NULL;
@@ -147,7 +148,7 @@ MGuildMarkManager::CreateGuildMark(WORD guildID, const char* pFilename)
 
 	RECT bmpRect = { 0, 0, bmpSurface.GetWidth(), bmpSurface.GetHeight() };
 
-	// ÆÄ¶õ»öÀÌ Åõ¸í»öÀÌ´Ù.
+	// íŒŒë€ìƒ‰ì´ íˆ¬ëª…ìƒ‰ì´ë‹¤.
 	CSprite::SetColorkey( 0x001F );
 
 	// BigSize
@@ -155,19 +156,20 @@ MGuildMarkManager::CreateGuildMark(WORD guildID, const char* pFilename)
 	surface.Blt(&destBigRect, &bmpSurface, &bmpRect);
 	surface.LockW(lpSurface, pitch);
 	pSprite->SetPixel(lpSurface, pitch, bigSize.x, bigSize.y);
-	surface.Unlock();	
+	surface.Unlock();
 
 	// SmallSize
 	surface.FillSurface( 0 );
 	surface.Blt(&destSmallRect, &bmpSurface, &bmpRect);
-	surface.LockW(lpSurface, pitch);				
+	surface.LockW(lpSurface, pitch);
 	pSpriteSmall->SetPixel(lpSurface, pitch, smallSize.x, smallSize.y);
-	surface.Unlock();	
+	surface.Unlock();
 
 	//-----------------------------------------------------
 	// add
 	//-----------------------------------------------------
 	AddGuildMark(guildID, pSprite, pSpriteSmall);
+#endif // PLATFORM_WINDOWS
 #endif
 	return true;
 }
@@ -180,13 +182,13 @@ MGuildMarkManager::AddGuildMark(WORD guildID, CSprite* pSprite, CSprite* pSprite
 {
 	if (!SaveGuildMark(guildID, pSprite, pSpriteSmall))
 	{
-		// ÀúÀå ¾ÈµÅµµ ÀÏ´Ü memory¿¡ ÀÖÀ¸¸é ¾µ ¼ö ÀÖ´Ù.		
+		// ì €ì¥ ì•ˆë¼ë„ ì¼ë‹¨ memoryì— ìˆìœ¼ë©´ ì“¸ ìˆ˜ ìˆë‹¤.		
 		//return false;
 	}
 
 	GUILDMARK_MAP::iterator iMark = m_GuildMarks.find(guildID);
 
-	// ÀÌ¹Ì ÀÖ´Ù¸é ±âÁ¸¿¡²¨ deleteÇØ¾ß ÇÑ´Ù.
+	// ì´ë¯¸ ìˆë‹¤ë©´ ê¸°ì¡´ì—êº¼ deleteí•´ì•¼ í•œë‹¤.
 	if (iMark != m_GuildMarks.end())
 	{
 		CSprite* pSprite = iMark->second.pSprite;
@@ -259,14 +261,14 @@ MGuildMarkManager::HasGuildMark(WORD guildID) const
 //----------------------------------------------------------------------
 // Load GuildMark
 //----------------------------------------------------------------------
-// ±æµåID¸¦ guildMarkSpriteMapper¿¡¼­ Ã£À¸¸é.. °ü·ÃµÈ SpriteID¸¦ ¾Ë ¼ö ÀÖ´Ù.
-// guildMarkSPKIndex¿¡¼­ ±× SpriteID·Î ±× ±æµåSpriteÀÇ SpriteIndex¸¦ 
-// ¾Ë ¼ö ÀÖÀ¸¹Ç·Î.. ¹Ù·Î LoadÇØ¿Ã ¼ö ÀÖ´Ù.
+// ê¸¸ë“œIDë¥¼ guildMarkSpriteMapperì—ì„œ ì°¾ìœ¼ë©´.. ê´€ë ¨ëœ SpriteIDë¥¼ ì•Œ ìˆ˜ ìˆë‹¤.
+// guildMarkSPKIndexì—ì„œ ê·¸ SpriteIDë¡œ ê·¸ ê¸¸ë“œSpriteì˜ SpriteIndexë¥¼ 
+// ì•Œ ìˆ˜ ìˆìœ¼ë¯€ë¡œ.. ë°”ë¡œ Loadí•´ì˜¬ ìˆ˜ ìˆë‹¤.
 //----------------------------------------------------------------------
 bool		
 MGuildMarkManager::LoadGuildMark(WORD guildID)
 {
-	// ÀÌ¹Ì ÀÖÀ¸¸é load ¾ÈÇÑ´Ù.
+	// ì´ë¯¸ ìˆìœ¼ë©´ load ì•ˆí•œë‹¤.
 	GUILDMARK_MAP::iterator iMark = m_GuildMarks.find(guildID);
 
 	if (iMark != m_GuildMarks.end())
@@ -282,7 +284,7 @@ MGuildMarkManager::LoadGuildMark(WORD guildID)
 		TYPE_SPRITEID spriteID	= pInfo->GetSpriteID();
 
 		//---------------------------------------------------------
-		// fileÀÌ¸§ ÁØºñ..
+		// fileì´ë¦„ ì¤€ë¹„..
 		//---------------------------------------------------------
 		char spkiFilename[256];
 
@@ -290,8 +292,8 @@ MGuildMarkManager::LoadGuildMark(WORD guildID)
 		strcpy(spkiFilename, m_GuildMarkSPKFilename.GetString());
 		strcat(spkiFilename, "i");
 
-		class ifstream spkFile(m_GuildMarkSPKFilename.GetString(), ios::binary | ios::nocreate);
-		class ifstream spkiFile(spkiFilename, ios::binary | ios::nocreate);
+		std::ifstream spkFile(m_GuildMarkSPKFilename.GetString(), ios::binary );
+		std::ifstream spkiFile(spkiFilename, ios::binary );
 
 		TYPE_SPRITEID maxSpkSize = 0;
 
@@ -299,17 +301,17 @@ MGuildMarkManager::LoadGuildMark(WORD guildID)
 			&& spkiFile.is_open())
 		{			
 			//---------------------------------------------------------
-			// SpriteÀÇ °³¼ö¸¦ ¾Ë¾Æ³½´Ù.
+			// Spriteì˜ ê°œìˆ˜ë¥¼ ì•Œì•„ë‚¸ë‹¤.
 			//---------------------------------------------------------
 			spkiFile.seekg( 0, ios::beg );
 			spkiFile.read((char*)&maxSpkSize, 2);			
 
-			if (spriteID < maxSpkSize)	// spriteIDÃ¼Å©
+			if (spriteID < maxSpkSize)	// spriteIDì²´í¬
 			{
 				long fp = 0;
 
 				//-----------------------------------------------------
-				// ¾îµğ µé¾ú´ÂÁö Ã£±â
+				// ì–´ë”” ë“¤ì—ˆëŠ”ì§€ ì°¾ê¸°
 				//-----------------------------------------------------
 				spkiFile.seekg( 2 + spriteID*sizeof(long), ios::beg );
 				spkiFile.read((char*)&fp, 4);				
@@ -318,7 +320,7 @@ MGuildMarkManager::LoadGuildMark(WORD guildID)
 				spkFile.seekg( fp, ios::beg );
 
 				//-----------------------------------------------------
-				// CSprite»ı¼º
+				// CSpriteìƒì„±
 				//-----------------------------------------------------
 				CSprite* pSprite = NULL;
 				CSprite* pSpriteSmall = NULL;
@@ -335,7 +337,7 @@ MGuildMarkManager::LoadGuildMark(WORD guildID)
 				}
 
 				//-----------------------------------------------------
-				// Load ÇØ¼­ 
+				// Load í•´ì„œ 
 				//-----------------------------------------------------
 				pSprite->LoadFromFile( spkFile );
 				pSpriteSmall->LoadFromFile( spkFile );	
@@ -349,8 +351,8 @@ MGuildMarkManager::LoadGuildMark(WORD guildID)
 		}		
 	}
 
-	// È­ÀÏ¿¡ ¾ø´Ù´Â ¾ê±â´Ï±î..
-	// ´Ù½Ã Ã¼Å©¾ÈÇÏµµ·Ï NULL·Î ³Ö¾îµĞ´Ù.
+	// í™”ì¼ì— ì—†ë‹¤ëŠ” ì–˜ê¸°ë‹ˆê¹Œ..
+	// ë‹¤ì‹œ ì²´í¬ì•ˆí•˜ë„ë¡ NULLë¡œ ë„£ì–´ë‘”ë‹¤.
 	m_GuildMarks[guildID] = GUILD_SPRITES( NULL, NULL );
 
 	return false;
@@ -359,11 +361,11 @@ MGuildMarkManager::LoadGuildMark(WORD guildID)
 //----------------------------------------------------------------------
 // Save GuildMark
 //----------------------------------------------------------------------
-// m_GuildMarkSPKFilename¿¡¼­ max SpriteID¸¦ Ã£¾Æº¸°í..
-// È­ÀÏÀÇ ³¡¿¡ CSprite¸¦ Ãß°¡ÇÑ´Ù.
-// m_GuildMarkSPKIndexFilename¿¡µµ Ãß°¡ÇØ¾ßµÈ´Ù..
+// m_GuildMarkSPKFilenameì—ì„œ max SpriteIDë¥¼ ì°¾ì•„ë³´ê³ ..
+// í™”ì¼ì˜ ëì— CSpriteë¥¼ ì¶”ê°€í•œë‹¤.
+// m_GuildMarkSPKIndexFilenameì—ë„ ì¶”ê°€í•´ì•¼ëœë‹¤..
 //
-// ¹æ±İ Ãß°¡µÈ spriteID¸¦ returnÇÏ¸é µÈ´Ù.
+// ë°©ê¸ˆ ì¶”ê°€ëœ spriteIDë¥¼ returní•˜ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 bool		
 MGuildMarkManager::SaveGuildMark(WORD guildID, CSprite* pSprite, CSprite* pSpriteSmall)
@@ -373,7 +375,7 @@ MGuildMarkManager::SaveGuildMark(WORD guildID, CSprite* pSprite, CSprite* pSprit
 		&& pSpriteSmall!=NULL)
 	{
 		//---------------------------------------------------------
-		// fileÀÌ¸§ ÁØºñ..
+		// fileì´ë¦„ ì¤€ë¹„..
 		//---------------------------------------------------------
 		char spkiFilename[256];
 
@@ -383,17 +385,17 @@ MGuildMarkManager::SaveGuildMark(WORD guildID, CSprite* pSprite, CSprite* pSprit
 
 		
 		//---------------------------------------------------------
-		// file¿¡ sprite¸¦ Ãß°¡ÇÑ´Ù.
-		// indexµµ Ãß°¡ÇØ¾ß ÇÑ´Ù.
+		// fileì— spriteë¥¼ ì¶”ê°€í•œë‹¤.
+		// indexë„ ì¶”ê°€í•´ì•¼ í•œë‹¤.
 		//---------------------------------------------------------
-		class ifstream spkInputFile(m_GuildMarkSPKFilename.GetString(), ios::binary | ios::nocreate);
+		std::ifstream spkInputFile(m_GuildMarkSPKFilename.GetString(), ios::binary );
 
 		TYPE_SPRITEID maxSpkSize = 0;
 
 		if (spkInputFile.is_open())
 		{			
 			//---------------------------------------------------------
-			// SpriteÀÇ °³¼ö¸¦ ¾Ë¾Æ³½´Ù.
+			// Spriteì˜ ê°œìˆ˜ë¥¼ ì•Œì•„ë‚¸ë‹¤.
 			//---------------------------------------------------------
 			spkInputFile.seekg( 0, ios::beg );
 			spkInputFile.read((char*)&maxSpkSize, 2);
@@ -401,8 +403,8 @@ MGuildMarkManager::SaveGuildMark(WORD guildID, CSprite* pSprite, CSprite* pSprit
 		}
 
 		
-		class ofstream spkFile(m_GuildMarkSPKFilename.GetString(), ios::binary | ios::ate);
-		class ofstream spkiFile(spkiFilename, ios::binary | ios::ate);
+		std::ofstream spkFile(m_GuildMarkSPKFilename.GetString(), ios::binary | ios::ate);
+		std::ofstream spkiFile(spkiFilename, ios::binary | ios::ate);
 		
 		if (spkFile.is_open()
 			&& spkiFile.is_open())
@@ -414,7 +416,7 @@ MGuildMarkManager::SaveGuildMark(WORD guildID, CSprite* pSprite, CSprite* pSprit
 			//---------------------------------------------------------			
 
 			//---------------------------------------------------------
-			// sprite°³¼ö ¼öÁ¤
+			// spriteê°œìˆ˜ ìˆ˜ì •
 			//---------------------------------------------------------
 			TYPE_SPRITEID newSpkSize = maxSpkSize + 2;
 			
@@ -422,14 +424,14 @@ MGuildMarkManager::SaveGuildMark(WORD guildID, CSprite* pSprite, CSprite* pSprit
 			spkFile.write((const char*)&newSpkSize, 2);
 			
 			//---------------------------------------------------------
-			// SpriteÈ­ÀÏÀÇ ³¡¿¡ CSprite¸¦ Ãß°¡ÇÑ´Ù.			
+			// Spriteí™”ì¼ì˜ ëì— CSpriteë¥¼ ì¶”ê°€í•œë‹¤.			
 			//---------------------------------------------------------
 			spkFile.seekp( 0, ios::end );
 
-			long fp = spkFile.tellp();		// index file¿¡ ÀúÀåÇÒ fp			
+			long fp = spkFile.tellp();		// index fileì— ì €ì¥í•  fp			
 			pSprite->SaveToFile( spkFile );
 
-			long fpSmall = spkFile.tellp();		// index file¿¡ ÀúÀåÇÒ fp
+			long fpSmall = spkFile.tellp();		// index fileì— ì €ì¥í•  fp
 			pSpriteSmall->SaveToFile( spkFile );
 
 			
@@ -438,13 +440,13 @@ MGuildMarkManager::SaveGuildMark(WORD guildID, CSprite* pSprite, CSprite* pSprit
 			//					SpritePack Index
 			//
 			//---------------------------------------------------------					
-			// SpriteIndex file °³¼ö ¼öÁ¤
+			// SpriteIndex file ê°œìˆ˜ ìˆ˜ì •
 			//---------------------------------------------------------
 			spkiFile.seekp( 0, ios::beg );
 			spkiFile.write((const char*)&newSpkSize, 2);
 
 			//---------------------------------------------------------
-			// SpriteIndex file¿¡ fp¸¦ ÀúÀåÇÑ´Ù.
+			// SpriteIndex fileì— fpë¥¼ ì €ì¥í•œë‹¤.
 			//---------------------------------------------------------
 			spkiFile.seekp( 0, ios::end );
 			spkiFile.write((const char*)&fp, 4);
@@ -468,7 +470,7 @@ MGuildMarkManager::SaveGuildMark(WORD guildID, CSprite* pSprite, CSprite* pSprit
 			}
 			else
 			{
-				// ¾øÀ¸¸é »ı¼º			
+				// ì—†ìœ¼ë©´ ìƒì„±			
 				pInfo = new GUILD_INFO;
 
 				// default
@@ -479,18 +481,18 @@ MGuildMarkManager::SaveGuildMark(WORD guildID, CSprite* pSprite, CSprite* pSprit
 				g_pGuildInfoMapper->Set(guildID, pInfo);
 			}			
 			
-			// file¿¡¼­ guildIDºÎºĞ¸¸ newSpriteID·Î ¹Ù²Ù¸é µÈ´Ù.
+			// fileì—ì„œ guildIDë¶€ë¶„ë§Œ newSpriteIDë¡œ ë°”ê¾¸ë©´ ëœë‹¤.
 			//class fstream mapperFile(m_GuildMarkSpriteMapperFilename.GetString(), ios::binary | ios::ate | ios::in | ios::out);
 			//g_pGuildInfoMapper->ChangeValueToFile(m_GuildMarkSpriteMapperFilename.GetString(), guildID);
 
-			class ofstream file(m_GuildMarkSpriteMapperFilename.GetString(), ios::binary);
+			std::ofstream file(m_GuildMarkSpriteMapperFilename.GetString(), ios::binary);
 
 			if (file.is_open())
 			{
 				g_pGuildInfoMapper->SaveToFile(file);
 			}
 
-			// GuildSpriteIDMapper °³¼ö ¼öÁ¤
+			// GuildSpriteIDMapper ê°œìˆ˜ ìˆ˜ì •
 			
 			return true;
 		}
@@ -502,8 +504,8 @@ MGuildMarkManager::SaveGuildMark(WORD guildID, CSprite* pSprite, CSprite* pSprit
 //----------------------------------------------------------------------
 // MergeGuildMark
 //----------------------------------------------------------------------
-// org¿¡ app¸¦ Ãß°¡ÇÏ°í
-// app¸¦ Áö¿î´Ù.
+// orgì— appë¥¼ ì¶”ê°€í•˜ê³ 
+// appë¥¼ ì§€ìš´ë‹¤.
 //----------------------------------------------------------------------
 bool		
 MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg, 
@@ -521,7 +523,7 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 		}
 
 		//---------------------------------------------------------
-		// fileÀÌ¸§ ÁØºñ..
+		// fileì´ë¦„ ì¤€ë¹„..
 		//---------------------------------------------------------
 		char pSPKIFilenameOrg[256];
 		char pSPKIFilenameApp[256];
@@ -531,29 +533,29 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 		
 
 		//---------------------------------------------------------
-		// SPKOrgÀÇ maxSprite°³¼ö¸¦ ±â¾ïÇØµĞ´Ù.
-		// (SPKAppÀÇ 0 --> orgSize°¡ µÈ´Ù)
-		// (SPKAppIndexÀÇ 0 --> fpOrg-2(sizeºÎºĞ)°¡ µÈ´Ù.)
+		// SPKOrgì˜ maxSpriteê°œìˆ˜ë¥¼ ê¸°ì–µí•´ë‘”ë‹¤.
+		// (SPKAppì˜ 0 --> orgSizeê°€ ëœë‹¤)
+		// (SPKAppIndexì˜ 0 --> fpOrg-2(sizeë¶€ë¶„)ê°€ ëœë‹¤.)
 		//---------------------------------------------------------
-		class ifstream spkInputFile(pSPKFilenameOrg, ios::binary | ios::nocreate);
-		class ifstream spkInputFileApp(pSPKFilenameApp, ios::binary | ios::nocreate);
-		class ifstream spkiInputFileApp(pSPKIFilenameApp, ios::binary | ios::nocreate);
+		std::ifstream spkInputFile(pSPKFilenameOrg, ios::binary );
+		std::ifstream spkInputFileApp(pSPKFilenameApp, ios::binary );
+		std::ifstream spkiInputFileApp(pSPKIFilenameApp, ios::binary );
 
-		TYPE_SPRITEID orgSize = 0;			// ¿ø·¡ °³¼ö
-		TYPE_SPRITEID appSize = 0;			// Ãß°¡ÇÒ °³¼ö
-		TYPE_SPRITEID orgiSize = 0;			// ¿ø·¡ °³¼ö
-		TYPE_SPRITEID appiSize = 0;			// Ãß°¡ÇÒ °³¼ö
-		long orgFP = 0;						// ¿ø·¡ fileÀÇ Å©±â
-		long appFP = 0;						// ¿ø·¡ fileÀÇ Å©±â
+		TYPE_SPRITEID orgSize = 0;			// ì›ë˜ ê°œìˆ˜
+		TYPE_SPRITEID appSize = 0;			// ì¶”ê°€í•  ê°œìˆ˜
+		TYPE_SPRITEID orgiSize = 0;			// ì›ë˜ ê°œìˆ˜
+		TYPE_SPRITEID appiSize = 0;			// ì¶”ê°€í•  ê°œìˆ˜
+		long orgFP = 0;						// ì›ë˜ fileì˜ í¬ê¸°
+		long appFP = 0;						// ì›ë˜ fileì˜ í¬ê¸°
 
 		if (!spkInputFileApp.is_open()
-			|| !spkiInputFileApp.is_open())	// Ãß°¡ÇÒ°Ô ¾ø´Â °æ¿ì
+			|| !spkiInputFileApp.is_open())	// ì¶”ê°€í• ê²Œ ì—†ëŠ” ê²½ìš°
 		{
 			return false;
 		}
 
 		//---------------------------------------------------------
-		// SpriteÀÇ °³¼ö¸¦ ¾Ë¾Æ³½´Ù.
+		// Spriteì˜ ê°œìˆ˜ë¥¼ ì•Œì•„ë‚¸ë‹¤.
 		//---------------------------------------------------------
 		if (spkInputFile.is_open())
 		{				
@@ -566,7 +568,7 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 		}
 
 		//---------------------------------------------------------
-		// Sprite AppÀÇ °³¼ö¸¦ ¾Ë¾Æ³½´Ù.
+		// Sprite Appì˜ ê°œìˆ˜ë¥¼ ì•Œì•„ë‚¸ë‹¤.
 		//---------------------------------------------------------
 		spkInputFileApp.read((char*)&appSize, 2);
 		spkiInputFileApp.read((char*)&appiSize, 2);
@@ -594,7 +596,7 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 
 		int errorCode = 0;	
 		
-		g_bUseProgressBar = false;	// execute patchÇÒ¶§ dialog ¾È ¶ç¿ì±â - -;
+		g_bUseProgressBar = false;	// execute patchí• ë•Œ dialog ì•ˆ ë„ìš°ê¸° - -;
 
 		if (ap.ExecutePatch())
 		{
@@ -616,22 +618,22 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 		}
 
 		//-----------------------------------------------------------------------------
-		// GuildMark.spki ¸¦ ¼öÁ¤ÇØ¼­ Ãß°¡ÇÑ´Ù.
+		// GuildMark.spki ë¥¼ ìˆ˜ì •í•´ì„œ ì¶”ê°€í•œë‹¤.
 		//-----------------------------------------------------------------------------
-		class ofstream spkiFileOrg(pSPKIFilenameOrg, ios::binary | ios::ate);
-		class ifstream spkiFileApp(pSPKIFilenameApp, ios::binary | ios::nocreate);
+		std::ofstream spkiFileOrg(pSPKIFilenameOrg, ios::binary | ios::ate);
+		std::ifstream spkiFileApp(pSPKIFilenameApp, ios::binary );
 
 		TYPE_SPRITEID newSize = orgSize + appSize;
 
-		// °³¼ö ¼öÁ¤
+		// ê°œìˆ˜ ìˆ˜ì •
 		spkiFileOrg.seekp( 0, ios::beg );
 		spkiFileOrg.write((char*)&newSize, 2);
 		
-		spkiFileOrg.seekp( 0, ios::end );		// ³¡À¸·Î
-		spkiFileApp.seekg( 2 );					// sizeºÎºĞ °Ç³Ê¶ç°í fp ºÎºĞÀÇ Ã³À½À¸·Î
+		spkiFileOrg.seekp( 0, ios::end );		// ëìœ¼ë¡œ
+		spkiFileApp.seekg( 2 );					// sizeë¶€ë¶„ ê±´ë„ˆë„ê³  fp ë¶€ë¶„ì˜ ì²˜ìŒìœ¼ë¡œ
 
 		long fp;
-		long addFP = orgFP - 2;					// sizeºÎºĞ »©°í ¿ø·¡ È­ÀÏ(org) ¸¸Å­ µÚ·Î.
+		long addFP = orgFP - 2;					// sizeë¶€ë¶„ ë¹¼ê³  ì›ë˜ í™”ì¼(org) ë§Œí¼ ë’¤ë¡œ.
 		for (int i=0; i<appiSize; i++)
 		{
 			spkiFileApp.read((char*)&fp, 4);
@@ -645,16 +647,16 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 		spkiFileApp.close();
 		
 		//-----------------------------------------------------------------------------
-		// MapperOrg, MapperApp¸¦ loadÇÏ°í
+		// MapperOrg, MapperAppë¥¼ loadí•˜ê³ 
 		//
-		// MapperAppÀÇ °¢ spriteID¸¦ spriteID + maxSpkSize·Î ¼öÁ¤ÇØ¼­
-		// MapperOrg¿¡ Ãß°¡(¼öÁ¤)ÇÑ´Ù.
+		// MapperAppì˜ ê° spriteIDë¥¼ spriteID + maxSpkSizeë¡œ ìˆ˜ì •í•´ì„œ
+		// MapperOrgì— ì¶”ê°€(ìˆ˜ì •)í•œë‹¤.
 		//-----------------------------------------------------------------------------
 		MGuildInfoMapper mapperOrg;
 		MGuildInfoMapper mapperApp;
 
-		class ifstream mapperFileOrg(pIDMapperFilenameOrg, ios::binary | ios::nocreate);
-		class ifstream mapperFileApp(pIDMapperFilenameApp, ios::binary | ios::nocreate);
+		std::ifstream mapperFileOrg(pIDMapperFilenameOrg, ios::binary );
+		std::ifstream mapperFileApp(pIDMapperFilenameApp, ios::binary );
 
 		if (mapperFileOrg.is_open())
 		{
@@ -668,7 +670,7 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 			mapperFileApp.close();
 		}
 
-		// app¸¦ org¿¡ Ãß°¡ÇÑ´Ù.
+		// appë¥¼ orgì— ì¶”ê°€í•œë‹¤.
 		MGuildInfoMapper::const_iterator iMapper = mapperApp.begin();
 
 		while (iMapper != mapperApp.end())
@@ -677,22 +679,22 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 			GUILD_INFO*		pAppInfo	= iMapper->second;
 			TYPE_SPRITEID	newSpriteID = pAppInfo->GetSpriteID() + orgSize;
 
-			// ÀÖ´ÂÁö Ã¼Å©..
+			// ìˆëŠ”ì§€ ì²´í¬..
 			GUILD_INFO* pInfo = mapperOrg.Get(guildID);
 
 			if (pInfo!=NULL)
 			{
-				// sprite ID º¯°æ
+				// sprite ID ë³€ê²½
 				pInfo->SetSpriteID( newSpriteID );
 			}
 			else
 			{
-				// ¾øÀ¸¸é »ı¼º			
+				// ì—†ìœ¼ë©´ ìƒì„±			
 				pInfo = new GUILD_INFO;
 
 				*pInfo = *pAppInfo;
 
-				// sprite ID º¯°æ
+				// sprite ID ë³€ê²½
 				pInfo->SetSpriteID( newSpriteID );
 
 				mapperOrg.Set( guildID, pInfo );
@@ -701,15 +703,15 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 			iMapper ++;
 		}
 
-		// MapperOrg¸¦ ´Ù½Ã ÀúÀåÇÑ´Ù.
-		class ofstream mapperOutputFileOrg(pIDMapperFilenameOrg, ios::binary);
+		// MapperOrgë¥¼ ë‹¤ì‹œ ì €ì¥í•œë‹¤.
+		std::ofstream mapperOutputFileOrg(pIDMapperFilenameOrg, ios::binary);
 		mapperOrg.SaveToFile( mapperOutputFileOrg );
 		mapperOutputFileOrg.close();
 
 		//-----------------------------------------------------------------------------
-		// SPKApp, MapperApp¸¦ Áö¿î´Ù.
+		// SPKApp, MapperAppë¥¼ ì§€ìš´ë‹¤.
 		//-----------------------------------------------------------------------------
-		//remove(pSPKFilenameApp);		// appendÇÏ¸é¼­ Áö¿öÁø´Ù.
+		//remove(pSPKFilenameApp);		// appendí•˜ë©´ì„œ ì§€ì›Œì§„ë‹¤.
 		remove(pSPKIFilenameApp);
 		remove(pIDMapperFilenameApp);
 	#endif
@@ -724,14 +726,14 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 //bool		
 //MGuildMarkManager::LoadGradeMark(WORD gradeSpriteID)
 //{
-//	// ÀÌ¹Ì ÀÖ´Â °æ¿ì´Â ¸®ÅÏ
+//	// ì´ë¯¸ ìˆëŠ” ê²½ìš°ëŠ” ë¦¬í„´
 //	if(m_GradeMarks[gradeSpriteID].IsInit())
 //		return true;
 //
 //	MString *filename = NULL;
 //	int fileSpriteID = 0;
 //
-//	// ¹ìÆÄÀÌ¾î¿Í ½½·¹ÀÌ¾îÀÇ GradeMark°¡ µû·Îµû·Î µÇÀÖ´Ù.
+//	// ë±€íŒŒì´ì–´ì™€ ìŠ¬ë ˆì´ì–´ì˜ GradeMarkê°€ ë”°ë¡œë”°ë¡œ ë˜ìˆë‹¤.
 //	if(gradeSpriteID < GRADE_MARK_MAX*2)
 //	{
 //		filename = &m_SlayerGradeMarkSPKFilename;
@@ -743,12 +745,12 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 //		fileSpriteID = gradeSpriteID - GRADE_MARK_MAX*2;
 //	}
 //
-//	// ÆÄÀÏÀÌ¸§ÀÌ ¾øÀ¸¸é retuen false;
+//	// íŒŒì¼ì´ë¦„ì´ ì—†ìœ¼ë©´ retuen false;
 //	if(filename->GetLength() == 0)
 //		return false;
 //	
 //	//---------------------------------------------------------
-//	// fileÀÌ¸§ ÁØºñ..
+//	// fileì´ë¦„ ì¤€ë¹„..
 //	//---------------------------------------------------------
 //	char spkiFilename[256];
 //	
@@ -805,34 +807,35 @@ MGuildMarkManager::GetLevelMarkSmall(WORD level)
 
 
 
-bool		
+bool
 MGuildMarkManager::CreateGuildMark(const char* pFilename, CSprite *&pSprite, CSprite *&pSpriteSmall)
 {
+#ifdef PLATFORM_WINDOWS
 	if (pFilename==NULL)
 	{
 		return false;
 	}
 
 	//-----------------------------------------------------
-	// pFilenameÀ» Surface¿¡ loadÇÑ´Ù.
+	// pFilenameì„ Surfaceì— loadí•œë‹¤.
 	//-----------------------------------------------------
 	CDirectDrawSurface bmpSurface;
 	if (!LoadImageToSurface(pFilename, bmpSurface))
 	{
 		return false;
 	}
-	
+
 	const POINT bigSize = { 40, 40 };
 	const POINT smallSize = { 20, 20 };
-	
+
 	CDirectDrawSurface surface;
 	surface.InitOffsurface( bigSize.x, bigSize.y, DDSCAPS_SYSTEMMEMORY );
-		
+
 	RECT destBigRect = { 0, 0, bigSize.x, bigSize.y };
 	RECT destSmallRect = { 0, 0, smallSize.x, smallSize.y };
-	
+
 	//-----------------------------------------------------
-	// CSprite»ı¼º
+	// CSpriteìƒì„±
 	//-----------------------------------------------------
 	if (CDirectDraw::Is565())
 	{
@@ -853,7 +856,7 @@ MGuildMarkManager::CreateGuildMark(const char* pFilename, CSprite *&pSprite, CSp
 
 	RECT bmpRect = { 0, 0, bmpSurface.GetWidth(), bmpSurface.GetHeight() };
 
-	// ÆÄ¶õ»öÀÌ Åõ¸í»öÀÌ´Ù.
+	// íŒŒë€ìƒ‰ì´ íˆ¬ëª…ìƒ‰ì´ë‹¤.
 	CSprite::SetColorkey( 0x001F );
 
 	// BigSize
@@ -861,18 +864,22 @@ MGuildMarkManager::CreateGuildMark(const char* pFilename, CSprite *&pSprite, CSp
 	surface.Blt(&destBigRect, &bmpSurface, &bmpRect);
 	surface.LockW(lpSurface, pitch);
 	pSprite->SetPixel(lpSurface, pitch, bigSize.x, bigSize.y);
-	surface.Unlock();	
+	surface.Unlock();
 
 	// SmallSize
 	surface.FillSurface( 0 );
 	surface.Blt(&destSmallRect, &bmpSurface, &bmpRect);
-	surface.LockW(lpSurface, pitch);				
+	surface.LockW(lpSurface, pitch);
 	pSpriteSmall->SetPixel(lpSurface, pitch, smallSize.x, smallSize.y);
-	surface.Unlock();	
+	surface.Unlock();
 
 	//-----------------------------------------------------
 	// add
 	//-----------------------------------------------------
 //	AddGuildMark(guildID, pSprite, pSpriteSmall);
 	return true;
+#else
+	// SDL backend: not implemented
+	return false;
+#endif
 }

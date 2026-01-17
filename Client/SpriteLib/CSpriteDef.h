@@ -1,3 +1,4 @@
+#include <fstream>
 //----------------------------------------------------------------------
 // CSpriteDef.h
 //----------------------------------------------------------------------
@@ -9,14 +10,14 @@
 #include <list>
 #include "DrawTypeDef.h"
 #include "TArray.h"
-class ifstream;
-class ofstream;
+std::ifstream;
+std::ofstream;
 
 // int list
 typedef	std::list<int>	INT_LIST;
 
 //----------------------------------------------------------------------
-// (SpriteID, FilePosition)¿« List∏¶ πﬁæ∆º≠ Load«—¥Ÿ.
+// (SpriteID, FilePosition)Ïùò ListÎ•º Î∞õÏïÑÏÑú LoadÌïúÎã§.
 //----------------------------------------------------------------------
 class SPRITE_FILEPOSITION_NODE
 {
@@ -25,13 +26,13 @@ class SPRITE_FILEPOSITION_NODE
 		long				FilePosition;
 
 	public :
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);
 
 };
 
 //----------------------------------------------------------------------
-// FilePosition Array ¡§¿«
+// FilePosition Array Ï†ïÏùò
 //----------------------------------------------------------------------
 typedef	TArray<SPRITE_FILEPOSITION_NODE, TYPE_SPRITEID>	CSpriteFilePositionArray;
 

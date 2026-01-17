@@ -56,7 +56,7 @@ MString::~MString()
 //--------------------------------------------------------------------------
 // Init( len )
 //--------------------------------------------------------------------------
-// size¸¸Å­ memoryÈ®º¸
+// sizeë§Œí¼ memoryí™•ë³´
 //--------------------------------------------------------------------------
 void	
 MString::Init(int len)
@@ -71,7 +71,7 @@ MString::Init(int len)
 //--------------------------------------------------------------------------
 // Relase
 //--------------------------------------------------------------------------
-// memory¿¡¼­ Á¦°Å
+// memoryì—ì„œ ì œê±°
 //--------------------------------------------------------------------------
 void	
 MString::Release()
@@ -119,7 +119,7 @@ void
 MString::operator = (const MString& str)
 {
 	//--------------------------------
-	// ±æÀÌ°¡ 0ÀÎ °æ¿ì..
+	// ê¸¸ì´ê°€ 0ì¸ ê²½ìš°..
 	//--------------------------------
 	if (str.m_Length==0)
 	{
@@ -131,7 +131,7 @@ MString::operator = (const MString& str)
 		}		
 	}
 	//--------------------------------
-	// ±æÀÌ°¡ 0 ÀÌ»óÀÎ °æ¿ì...
+	// ê¸¸ì´ê°€ 0 ì´ìƒì¸ ê²½ìš°...
 	//--------------------------------
 	else
 	{
@@ -150,7 +150,7 @@ MString::operator = (const MString& str)
 //--------------------------------------------------------------------------
 // Format
 //--------------------------------------------------------------------------
-// ÀûÀıÇÑ Çü½ÄÀ¸·Î stringÀ» ¸¸µç´Ù.
+// ì ì ˆí•œ í˜•ì‹ìœ¼ë¡œ stringì„ ë§Œë“ ë‹¤.
 //--------------------------------------------------------------------------
 void
 MString::Format(const char* format, ...)
@@ -168,11 +168,11 @@ MString::Format(const char* format, ...)
 // Save To File
 //--------------------------------------------------------------------------
 void		
-MString::SaveToFile(class ofstream& file)
+MString::SaveToFile(std::ofstream& file)
 {
 	file.write((const char*)&m_Length, 4);
 
-	// length°¡ 0ÀÌ ¾Æ´Ñ °æ¿ì¿¡¸¸..
+	// lengthê°€ 0ì´ ì•„ë‹Œ ê²½ìš°ì—ë§Œ..
 	if (m_Length!=0)
 	{
 		file.write((const char*)m_pString, static_cast<int>(m_Length));
@@ -183,7 +183,7 @@ MString::SaveToFile(class ofstream& file)
 // Load From File
 //--------------------------------------------------------------------------
 void		
-MString::LoadFromFile(class ifstream& file)
+MString::LoadFromFile(std::ifstream& file)
 {
 	if (m_pString!=NULL)
 	{
@@ -193,7 +193,7 @@ MString::LoadFromFile(class ifstream& file)
 
 	file.read((char*)&m_Length, 4);
 
-	// lenÀÌ 0ÀÌ ¾Æ´Ñ °æ¿ì¿¡¸¸...
+	// lenì´ 0ì´ ì•„ë‹Œ ê²½ìš°ì—ë§Œ...
 	if (m_Length!=0)
 	{
 		m_pString = new char [m_Length + 1];

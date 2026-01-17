@@ -173,4 +173,6 @@ string PCVampireInfo3::toString () const
 		<< ")";
 	return msg.toString();
 }
+
+//----------------------------------------------------------------------
 #endif

@@ -14,7 +14,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCKnocksTargetBackOK5Handler::execute ( GCKnocksTargetBackOK5 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -23,7 +24,7 @@ void GCKnocksTargetBackOK5Handler::execute ( GCKnocksTargetBackOK5 * pPacket , P
 	// message
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -34,14 +35,14 @@ void GCKnocksTargetBackOK5Handler::execute ( GCKnocksTargetBackOK5 * pPacket , P
 	}	
 
 	//------------------------------------------------------
-	// ´ë»óÀÌ µÇ´Â creature¸¦ ¾ò´Â´Ù.
+	// ëŒ€ìƒì´ ë˜ëŠ” creatureë¥¼ ì–»ëŠ”ë‹¤.
 	//------------------------------------------------------
 	MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 	MCreature* pTargetCreature = g_pZone->GetCreature( pPacket->getTargetObjectID() );
 	
 	if (pCreature==NULL)
 	{
-		// ±×·± creature°¡ ¾øÀ» °æ¿ì
+		// ê·¸ëŸ° creatureê°€ ì—†ì„ ê²½ìš°
 		DEBUG_ADD_FORMAT("There's no such creature : ID=%d, Skill=%d", pPacket->getObjectID(), pPacket->getSkillType());				
 		
 		return;
@@ -49,7 +50,7 @@ void GCKnocksTargetBackOK5Handler::execute ( GCKnocksTargetBackOK5 * pPacket , P
 
 	if (pTargetCreature==NULL)
 	{
-		// ±×·± creature°¡ ¾øÀ» °æ¿ì
+		// ê·¸ëŸ° creatureê°€ ì—†ì„ ê²½ìš°
 		DEBUG_ADD_FORMAT("There's no such creature : TargetID=%d, Skill=%d", pPacket->getTargetObjectID(), pPacket->getSkillType());
 		
 		return;
@@ -65,20 +66,20 @@ void GCKnocksTargetBackOK5Handler::execute ( GCKnocksTargetBackOK5 * pPacket , P
 	}
 
 	//------------------------------------------------------
-	// ¹°·¯³ª´Â¹æÇâ(direction)Àû¿ë..
+	// ë¬¼ëŸ¬ë‚˜ëŠ”ë°©í–¥(direction)ì ìš©..
 	//------------------------------------------------------	
 	unsigned short x = pPacket->getX();
 	unsigned short y = pPacket->getY();
 
-	// ÀÌµ¿ÇÑ ÈÄÀÇ ÁÂÇ¥°¡ ¿Â´Ù.
+	// ì´ë™í•œ í›„ì˜ ì¢Œí‘œê°€ ì˜¨ë‹¤.
 	//MCreature::GetPositionToDirection(x, y, pPacket->getDir());
 
 	//------------------------------------------------------
-	// °á°ú(´Ù¸¥ Ä³¸¯ÅÍ°¡ ¸Â´Â ¸ð½À)¸¦ ¼³Á¤ÇÑ´Ù.
+	// ê²°ê³¼(ë‹¤ë¥¸ ìºë¦­í„°ê°€ ë§žëŠ” ëª¨ìŠµ)ë¥¼ ì„¤ì •í•œë‹¤.
 	//------------------------------------------------------
 	MActionResult* pResult = new MActionResult;
 	pResult->Add( new MActionResultNodeActionInfo( 
-								skillType, // ÃÑ °ø°Ý									
+								skillType, // ì´ ê³µê²©									
 								pPacket->getObjectID(), 
 								pPacket->getTargetObjectID(),
 								pTargetCreature->GetX(),
@@ -86,30 +87,30 @@ void GCKnocksTargetBackOK5Handler::execute ( GCKnocksTargetBackOK5 * pPacket , P
 								 ) 
 				);
 
-	// target objectÀÇ ÁÂÇ¥°¡ ¹Ù²ñ
+	// target objectì˜ ì¢Œí‘œê°€ ë°”ë€œ
 	pResult->Add( new MActionResultNodeChangePosition( 
 								pPacket->getTargetObjectID(),
 								x, y)
 				);
 								
 	//------------------------------------------------------
-	// Çàµ¿ÇÏ´Â Creature°¡ TargetCreature¸¦ ¹Ù¶óº¸µµ·Ï ÇÑ´Ù.
+	// í–‰ë™í•˜ëŠ” Creatureê°€ TargetCreatureë¥¼ ë°”ë¼ë³´ë„ë¡ í•œë‹¤.
 	//------------------------------------------------------
 	pCreature->SetDirectionToPosition( pTargetCreature->GetX(), pTargetCreature->GetY() );
 
 	//------------------------------------------------------
-	// Creature°¡ Çàµ¿À» ÃëÇÏµµ·Ï ÇÑ´Ù.
+	// Creatureê°€ í–‰ë™ì„ ì·¨í•˜ë„ë¡ í•œë‹¤.
 	//------------------------------------------------------
 	pCreature->PacketSpecialActionToOther(
-					// ÃÑ °ø°Ý
+					// ì´ ê³µê²©
 					skillType	, 
 					pPacket->getTargetObjectID(), 
 					pResult
 	);
 
 	//------------------------------------------------------
-	// µ¿±âÈ­ ¹®Á¦ ¶§¹®¿¡..
-	// ¼­¹ö À§Ä¡´Â ¹Ù·Î ÁöÁ¤ÇÑ´Ù.
+	// ë™ê¸°í™” ë¬¸ì œ ë•Œë¬¸ì—..
+	// ì„œë²„ ìœ„ì¹˜ëŠ” ë°”ë¡œ ì§€ì •í•œë‹¤.
 	//------------------------------------------------------
 	pTargetCreature->SetServerPosition( x, y );
 

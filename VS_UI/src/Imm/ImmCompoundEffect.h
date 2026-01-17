@@ -42,10 +42,12 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
+#ifdef PLATFORM_WINDOWS
 #ifndef _IFCDLL_
 #define DLLIFC __declspec(dllimport)
 #else
 #define DLLIFC __declspec(dllexport)
+#endif
 #endif
 
 /*

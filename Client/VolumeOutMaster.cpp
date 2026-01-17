@@ -2,7 +2,9 @@
 // Developer : Alex Chmut
 // Created : 8/11/98
 #include "VolumeLib_PCH.h"
+#ifdef PLATFORM_WINDOWS
 #include <MMSystem.h>
+#endif
 #include "VolumeOutMaster.h"
 //#include "DebugInfo.h"
 

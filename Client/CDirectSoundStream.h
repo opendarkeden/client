@@ -1,8 +1,8 @@
 //----------------------------------------------------------------------
 // CDirectSoundStream.h
 //----------------------------------------------------------------------
-// øÏ«Ï«Ï..
-// DirectX ª˘«√¿ª ±‹æÓº≠ ±ﬁ¡∂µ» « ªÏ «„¡¢ class.. - -;
+// Ïö∞Ìó§Ìó§..
+// DirectX ÏÉòÌîåÏùÑ Í∏ÅÏñ¥ÏÑú Í∏âÏ°∞Îêú ÌïÑÏÇ¥ ÌóàÏ†ë class.. - -;
 //----------------------------------------------------------------------
 
 #ifndef __CDIRECTSOUNDSTREAM_H__
@@ -11,8 +11,49 @@
 
 #define NUM_PLAY_NOTIFICATIONS  16
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
 #include <DSound.h>
+#else
+#include "../../basic/Platform.h"
+
+/* Forward declarations for DirectSound types */
+struct IDirectSound;
+struct IDirectSoundBuffer;
+struct IDirectSoundNotify;
+
+/* Type definitions */
+#ifndef LPDIRECTSOUNDBUFFER
+typedef struct IDirectSoundBuffer* LPDIRECTSOUNDBUFFER;
+#endif
+typedef struct IDirectSoundNotify* LPDIRECTSOUNDNOTIFY;
+typedef void* HMMIO;
+typedef DWORD FOURCC;
+
+/* Multimedia structures */
+typedef struct {
+    DWORD   dwFlags;
+    DWORD   dwOffset;
+    DWORD   dwCallback;
+} DSBPOSITIONNOTIFY;
+
+typedef struct {
+    FOURCC  ckid;
+    FOURCC  fccType;
+    DWORD   dwDataOffset;
+    DWORD   dwSize;
+} MMCKINFO;
+
+
+/* Multimedia constants */
+#define MMIO_READ      0
+#define MMIO_ALLOCBUF  0x10000
+#define FOURCC(a,b,c,d) (((DWORD)(a)<<0)|((DWORD)(b)<<8)|((DWORD)(c)<<16)|((DWORD)(d)<<24))
+
+/* Volume constants */
+#define DSBVOLUME_MAX     0
+#define DSBVOLUME_MIN    -10000
+#endif
 
 class CDirectSoundStream {
 	public :
@@ -33,7 +74,7 @@ class CDirectSoundStream {
 		void					SetVolumeLimit(LONG volume);
 		LONG					GetVolumeLimit() const	{ return m_MaxVolume; }
 
-		// main loopø°º≠ µπ∑¡¡‡æﬂ «—¥Ÿ.
+		// main loopÏóêÏÑú ÎèåÎ†§Ï§òÏïº ÌïúÎã§.
 		void					Update();
 
 		// get
@@ -61,7 +102,7 @@ class CDirectSoundStream {
 
 		HANDLE					m_hNotificationEvents[2];
 
-		// ¿Ω«Ï«Ï...
+		// ÏùåÌó§Ìó§...
 		DWORD					m_dwBufferSize;
 		DWORD					m_dwNotifySize;
 		DWORD					m_dwNextWriteOffset;
@@ -69,13 +110,13 @@ class CDirectSoundStream {
 		DWORD					m_dwLastPos;
 		BOOL					m_bFoundEnd;
 
-		// ∞°¿Â √÷±Ÿø° load«— Wavø° ¥Î«— ¡§∫∏
+		// Í∞ÄÏû• ÏµúÍ∑ºÏóê loadÌïú WavÏóê ÎåÄÌïú Ï†ïÎ≥¥
 		WAVEFORMATEX			m_wavefmt;        // Pointer to WAVEFORMATEX structure
 		HMMIO					m_hmmioIn;     // MM I/O handle for the WAVE
 		MMCKINFO				m_ckIn;        // Multimedia RIFF chunk
 		MMCKINFO				m_ckInRiff;    // Use in opening a WAVE file
 
-		LONG					m_MaxVolume;		// «ˆ¿Á¿« √÷¥Î º“∏Æ ≈©±‚
+		LONG					m_MaxVolume;		// ÌòÑÏû¨Ïùò ÏµúÎåÄ ÏÜåÎ¶¨ ÌÅ¨Í∏∞
 };
 
 #endif

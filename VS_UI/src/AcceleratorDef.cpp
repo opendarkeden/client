@@ -5,7 +5,7 @@
 
 #include "client_PCH.h"
 #include "KeyAccelerator.h"
-#include "CDirectInput.h"
+#include "DIK_Defines.h"
 #include "mgamestringtable.h"
 
 //#include "VS_UI_Widget.h"
@@ -56,7 +56,7 @@ const char* ACCELERATOR_NAME[MAX_ACCELERATOR] =
 //----------------------------------------------------------------------
 // Set DefaultAccelerator
 //----------------------------------------------------------------------
-// default fileÀ» »ý¼ºÇØµÎ°í loadÇÏ´Â °Íµµ ±¦ÂúÀ»°Å °°´Ù.
+// default fileï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ØµÎ°ï¿½ loadï¿½Ï´ï¿½ ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 //----------------------------------------------------------------------
 void	
 SetDefaultAccelerator()

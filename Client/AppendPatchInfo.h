@@ -1,10 +1,10 @@
 //-----------------------------------------------------------------------------
 // AppendPatchInfo.h
 //-----------------------------------------------------------------------------
-// OriginalFile°ú FirstSize¸¦ ¾Ë°í ÀÖÀ¸¸é 
-// AppendFile°ú AppendSize¸¦ °è»êÇØ¼­ ÆÐÄ¡¸¦ ÇÒ ¼ö ÀÖ´Ù.
+// OriginalFileï¿½ï¿½ FirstSizeï¿½ï¿½ ï¿½Ë°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+// AppendFileï¿½ï¿½ AppendSizeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
 //
-// ÀÌ Á¤º¸¸¦ È­ÀÏ·Î »©µÎ¸é ½ÇÇàÈ­ÀÏ ¹Ù²Ü ÇÊ¿ä ¾ø´Ù.
+// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½Ï·ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½Ù²ï¿½ ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½.
 //-----------------------------------------------------------------------------
 
 #ifndef __APPENDPATCHINFO_H__
@@ -14,9 +14,8 @@
 
 #include "MString.h"
 #include "CTypeTable.h"
-class ifstream;
-class ofstream;
-#include <vector> 
+#include <fstream>
+#include <vector>
 using namespace std;
 
 //-----------------------------------------------------------------------------
@@ -27,8 +26,8 @@ class APPEND_PATCH_NODE
 	public :
 		bool		Append(const char* orgFilename) const;
 
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);
 
 	public :
 		MString		appendFilename;
@@ -70,14 +69,14 @@ class AppendPatch {
 		// Execute / Check
 		//------------------------------------------------------------------
 		bool		ExecutePatch() const;
-		bool		CheckFinalInfo() const;			// final fileÀ» ÀÐ¾îºÁ¼­
-		bool		CalculateFinalInfo() const;		// °è»êÀ¸·Î
+		bool		CheckFinalInfo() const;			// final fileï¿½ï¿½ ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½
+		bool		CalculateFinalInfo() const;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		//------------------------------------------------------------------
 		// File I / O
 		//------------------------------------------------------------------
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);
 		const APPEND_PATCH_VECTOR	GetAppendPatchNode() { return m_AppendPatch; }
 
 

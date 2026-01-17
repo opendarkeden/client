@@ -2,26 +2,32 @@
 // MInternetConnection.h
 //-----------------------------------------------------------------------------
 //
-// < »ç¿ëÇÏ´Â libµé >
+// < ì‚¬ìš©í•˜ëŠ” libë“¤ >
 //
 //   WinINet.lib
-//   Shlwapi.lib - PathIsURL() ¶§¹®¿¡ T_T;
+//   Shlwapi.lib - PathIsURL() ë•Œë¬¸ì— T_T;
 //
 //
 // < MInternetConnection >
-//							: internet¿¡ ¿¬°áÇÑ´Ù.
+//							: internetì— ì—°ê²°í•œë‹¤.
 //
 //
 // < MInternetFile >
-//							: internet¿¡¼­ fileÀ» °¡Á®¿Â´Ù.
+//							: internetì—ì„œ fileì„ ê°€ì ¸ì˜¨ë‹¤.
 //
 //-----------------------------------------------------------------------------
 
 #ifndef __MINTERNET_CONNECTION_H__
 #define __MINTERNET_CONNECTION_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
 #include <WinINet.h>
+#else
+#include "../basic/Platform.h"
+// macOS: Define stub types for Windows Internet API
+typedef void* HINTERNET;
+#endif
 #include <fstream>
 
 

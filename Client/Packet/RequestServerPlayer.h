@@ -12,13 +12,13 @@
 #include "Player.h"
 #include "PlayerStatus.h"
 #include "Packet.h"
-#include "types\RequestTypes.h"
+#include "types/RequestTypes.h"
 
 //--------------------------------------------------------------------------------
 //
 // class RequestServerPlayer
 //
-// ´Ù¸¥ Å¬¶óÀÌ¾ğÆ®ÀÇ ¿äÃ»À» Ã³¸®ÇÏ´Â ÇÃ·¹ÀÌ¾î Å¬·¡½º
+// ë‹¤ë¥¸ í´ë¼ì´ì–¸íŠ¸ì˜ ìš”ì²­ì„ ì²˜ë¦¬í•˜ëŠ” í”Œë ˆì´ì–´ í´ë˜ìŠ¤
 //
 //--------------------------------------------------------------------------------
 
@@ -27,10 +27,10 @@ class RequestServerPlayer : public Player {
 public :
 	
 	// constructor
-	RequestServerPlayer ( Socket * pSocket ) throw ( Error );
+	RequestServerPlayer ( Socket * pSocket ) throw ( ProtocolException , Error );
 	
 	// destructor
-	~RequestServerPlayer () throw ( Error );
+	~RequestServerPlayer () throw ( ProtocolException , Error );
 
 public :
 
@@ -44,21 +44,21 @@ public :
 	//virtual void processOutput () throw ( IOException , Error );
 	
 	// send packet to player's output buffer
-	//virtual void sendPacket ( Packet * packet ) throw ( Error );
+	//virtual void sendPacket ( Packet * packet ) throw ( ProtocolException , Error );
 
 
 	uint	send(const char* pBuffer, uint nBytes) throw( ProtocolException , Error );
 	
 
 	// disconnect
-	// Á¤½Ä ·Î±×¾Æ¿ôÀÇ °æ¿ì disconnect(UNDISCONNECTED)
-	virtual void disconnect ( bool bDisconnected = DISCONNECTED ) throw ( Error );
+	// ì •ì‹ ë¡œê·¸ì•„ì›ƒì˜ ê²½ìš° disconnect(UNDISCONNECTED)
+	virtual void disconnect ( bool bDisconnected = DISCONNECTED ) throw ( ProtocolException , Error );
 	
 	void				setName(const char* pName)	{ m_Name = pName; }
 	const std::string&	getName() const	{ return m_Name; }
 
 	// get debug string
-	virtual std::string toString () const throw ( Error );
+	virtual std::string toString () const throw ( ProtocolException , Error );
 	
 public :
 
@@ -76,7 +76,7 @@ private :
 	DWORD		m_ExpireTime;
 	std::string		m_Name;
 
-	// RequestÇÏ°í ÀÖ´Â °Í
+	// Requestí•˜ê³  ìˆëŠ” ê²ƒ
 	REQUEST_CLIENT_MODE			m_RequestMode;
 
 	// player status

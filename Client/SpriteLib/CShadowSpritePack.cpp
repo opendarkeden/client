@@ -5,7 +5,7 @@
 #include "CSpriteSurface.h"
 #include "CShadowSprite.h"
 #include "CShadowSpritePack.h"
-#include <fstream.h>
+#include <fstream>
 
 //----------------------------------------------------------------------
 //
@@ -21,7 +21,7 @@ CShadowSpritePack::CShadowSpritePack()
 
 CShadowSpritePack::~CShadowSpritePack()
 {
-	// array¸¦ ¸Ş¸ğ¸®¿¡¼­ Á¦°ÅÇÑ´Ù.
+	// arrayë¥¼ ë©”ëª¨ë¦¬ì—ì„œ ì œê±°í•œë‹¤.
 	Release();
 	
 	m_listLoad.clear();
@@ -39,14 +39,14 @@ CShadowSpritePack::~CShadowSpritePack()
 void
 CShadowSpritePack::Init(TYPE_SPRITEID count)
 {
-	// °³¼ö°¡ ¾øÀ» °æ¿ì 
+	// ê°œìˆ˜ê°€ ì—†ì„ ê²½ìš° 
 	if (count==0) 
 		return;
 
-	// ÀÏ´Ü ÇØÁ¦
+	// ì¼ë‹¨ í•´ì œ
 	Release();
 
-	// ¸Ş¸ğ¸® Àâ±â
+	// ë©”ëª¨ë¦¬ ì¡ê¸°
 	m_nSprites = count;
 
 	m_pSprites = new CShadowSprite [m_nSprites];
@@ -61,7 +61,7 @@ CShadowSpritePack::Release()
 {
 	if (m_pSprites != NULL)
 	{
-		// ¸ğµç CShadowSprite¸¦ Áö¿î´Ù.
+		// ëª¨ë“  CShadowSpriteë¥¼ ì§€ìš´ë‹¤.
 		delete [] m_pSprites;
 		m_pSprites = NULL;
 		
@@ -74,12 +74,12 @@ CShadowSpritePack::Release()
 //----------------------------------------------------------------------
 // Release Part
 //----------------------------------------------------------------------
-// firstSpriteID ~ lastSpriteID±îÁö¸¸ ¸Ş¸ğ¸®¿¡¼­ Á¦°ÅÇÑ´Ù.
+// firstSpriteID ~ lastSpriteIDê¹Œì§€ë§Œ ë©”ëª¨ë¦¬ì—ì„œ ì œê±°í•œë‹¤.
 //----------------------------------------------------------------------
 void			
 CShadowSpritePack::ReleasePart(TYPE_SPRITEID firstSpriteID, TYPE_SPRITEID lastSpriteID)
 {
-	// SpritePackÀÇ memory°¡ ÀâÇôÀÖÁö ¾ÊÀ¸¸é ±×³É returnÇÑ´Ù.	
+	// SpritePackì˜ memoryê°€ ì¡í˜€ìˆì§€ ì•Šìœ¼ë©´ ê·¸ëƒ¥ returní•œë‹¤.	
 	if (m_pSprites==NULL
 		|| firstSpriteID >= m_nSprites)
 		return;
@@ -90,16 +90,16 @@ CShadowSpritePack::ReleasePart(TYPE_SPRITEID firstSpriteID, TYPE_SPRITEID lastSp
 	{
 		m_pSprites[id].Release();
 
-		// m_listLoad¿¡¼­µµ Áö¿ö¾ß ÇÏ´Âµ¥,
-		// ´À¸± ¼ö ÀÖ¾î¼­... »¯´Ù. - -;;		
+		// m_listLoadì—ì„œë„ ì§€ì›Œì•¼ í•˜ëŠ”ë°,
+		// ëŠë¦´ ìˆ˜ ìˆì–´ì„œ... ëºë‹¤. - -;;		
 	}
 }
 
 //----------------------------------------------------------------------
 // Release Loaded
 //----------------------------------------------------------------------
-// m_listLoad¿¡´Â ÇöÀç LoadµÈ SpriteID°¡ ÀÖ´Ù.
-// ÀÌ°Å¸¦ ¸ğµÎ ReleaseÇØÁà¾ß ÇÑ´Ù.
+// m_listLoadì—ëŠ” í˜„ì¬ Loadëœ SpriteIDê°€ ìˆë‹¤.
+// ì´ê±°ë¥¼ ëª¨ë‘ Releaseí•´ì¤˜ì•¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSpritePack::ReleaseLoaded()
@@ -119,48 +119,48 @@ CShadowSpritePack::ReleaseLoaded()
 //----------------------------------------------------------------------
 // Save To File
 //----------------------------------------------------------------------
-// map ÀüÃ¼¸¦ µû¶ó°¡¸é¼­ file¿¡ ÀúÀåÇØ¾ßÇÑ´Ù.
+// map ì „ì²´ë¥¼ ë”°ë¼ê°€ë©´ì„œ fileì— ì €ì¥í•´ì•¼í•œë‹¤.
 //----------------------------------------------------------------------
 bool		
 CShadowSpritePack::SaveToFile(ofstream& spkFile, ofstream& indexFile)
 {
-	// ÃÊ±âÈ­µÇÁö ¾Ê¾ÒÀ¸¸é 
+	// ì´ˆê¸°í™”ë˜ì§€ ì•Šì•˜ìœ¼ë©´ 
 	if (m_nSprites==0 || m_pSprites==NULL)
 		return false;
 	
 	//--------------------------------------------------
-	// index fileÀ» »ı¼ºÇÏ±â À§ÇÑ Á¤º¸
+	// index fileì„ ìƒì„±í•˜ê¸° ìœ„í•œ ì •ë³´
 	//--------------------------------------------------
 	long*	pIndex = new long [m_nSprites];
 
 
 	//--------------------------------------------------
-	// Size ÀúÀå
+	// Size ì €ì¥
 	//--------------------------------------------------
 	spkFile.write((const char *)&m_nSprites, SIZE_SPRITEID); 
 	indexFile.write((const char *)&m_nSprites, SIZE_SPRITEID); 
 
 	//--------------------------------------------------
 	//
-	// SpritePack¿¡ ArrayÀÇ ¸ğµç Sprite¸¦ ÀúÀåÇÑ´Ù.
+	// SpritePackì— Arrayì˜ ëª¨ë“  Spriteë¥¼ ì €ì¥í•œë‹¤.
 	//
 	//--------------------------------------------------
 	for (TYPE_SPRITEID i=0; i<m_nSprites; i++)
 	{
-		// SpritePack file¿¡ ¾²¿©Áö´Â index¸¦ ÀúÀå
+		// SpritePack fileì— ì“°ì—¬ì§€ëŠ” indexë¥¼ ì €ì¥
 		pIndex[i] = spkFile.tellp();
 
-		// m_pSprites[i]¿¡ ÀúÀåµÈ pixelÀÌ ¾ø¾îµµ
-		// CShadowSprite ³»ºÎÀûÀ¸·Î ±æÀÌ¸¸ ÀúÀåÇÏ¹Ç·Î 
-		// ´ÙÀ½¿¡ LoadÇÒ ¶§ ¹®Á¦°¡ ¾øÀ» °ÍÀÌ´Ù.
+		// m_pSprites[i]ì— ì €ì¥ëœ pixelì´ ì—†ì–´ë„
+		// CShadowSprite ë‚´ë¶€ì ìœ¼ë¡œ ê¸¸ì´ë§Œ ì €ì¥í•˜ë¯€ë¡œ 
+		// ë‹¤ìŒì— Loadí•  ë•Œ ë¬¸ì œê°€ ì—†ì„ ê²ƒì´ë‹¤.
 
-		m_pSprites[i].SaveToFile(spkFile);		// CShadowSpriteÀúÀå	
+		m_pSprites[i].SaveToFile(spkFile);		// CShadowSpriteì €ì¥	
 	}
 
 	//--------------------------------------------------
-	// index ÀúÀå
+	// index ì €ì¥
 	//--------------------------------------------------
-	for (i=0; i<m_nSprites; i++)
+	for (int i=0; i<m_nSprites; i++)
 	{
 		indexFile.write((const char*)&pIndex[i], 4);
 	}
@@ -173,30 +173,30 @@ CShadowSpritePack::SaveToFile(ofstream& spkFile, ofstream& indexFile)
 //----------------------------------------------------------------------
 // Save To File
 //----------------------------------------------------------------------
-// map ÀüÃ¼¸¦ µû¶ó°¡¸é¼­ file¿¡ ÀúÀåÇØ¾ßÇÑ´Ù.
+// map ì „ì²´ë¥¼ ë”°ë¼ê°€ë©´ì„œ fileì— ì €ì¥í•´ì•¼í•œë‹¤.
 //----------------------------------------------------------------------
 bool
 CShadowSpritePack::SaveToFileSpriteOnly(ofstream& spkFile, long &filePosition)
 {
-	// ÃÊ±âÈ­µÇÁö ¾Ê¾ÒÀ¸¸é 
+	// ì´ˆê¸°í™”ë˜ì§€ ì•Šì•˜ìœ¼ë©´ 
 	if (m_nSprites==0 || m_pSprites==NULL)
 		return false;
 
-	// SpritePack file¿¡ ¾²¿©Áö´Â index¸¦ ÀúÀå
+	// SpritePack fileì— ì“°ì—¬ì§€ëŠ” indexë¥¼ ì €ì¥
 	filePosition = spkFile.tellp();
 	
 	//--------------------------------------------------
 	//
-	// SpritePack¿¡ ArrayÀÇ ¸ğµç Sprite¸¦ ÀúÀåÇÑ´Ù.
+	// SpritePackì— Arrayì˜ ëª¨ë“  Spriteë¥¼ ì €ì¥í•œë‹¤.
 	//
 	//--------------------------------------------------
 	for (TYPE_SPRITEID i=0; i<m_nSprites; i++)
 	{
-		// m_pSprites[i]¿¡ ÀúÀåµÈ pixelÀÌ ¾ø¾îµµ
-		// CShadowSprite ³»ºÎÀûÀ¸·Î ±æÀÌ¸¸ ÀúÀåÇÏ¹Ç·Î 
-		// ´ÙÀ½¿¡ LoadÇÒ ¶§ ¹®Á¦°¡ ¾øÀ» °ÍÀÌ´Ù.
+		// m_pSprites[i]ì— ì €ì¥ëœ pixelì´ ì—†ì–´ë„
+		// CShadowSprite ë‚´ë¶€ì ìœ¼ë¡œ ê¸¸ì´ë§Œ ì €ì¥í•˜ë¯€ë¡œ 
+		// ë‹¤ìŒì— Loadí•  ë•Œ ë¬¸ì œê°€ ì—†ì„ ê²ƒì´ë‹¤.
 
-		m_pSprites[i].SaveToFile(spkFile);		// CShadowSpriteÀúÀå	
+		m_pSprites[i].SaveToFile(spkFile);		// CShadowSpriteì €ì¥	
 	}
 
 	return true;
@@ -205,26 +205,26 @@ CShadowSpritePack::SaveToFileSpriteOnly(ofstream& spkFile, long &filePosition)
 //----------------------------------------------------------------------
 // Load From File
 //----------------------------------------------------------------------
-// file¿¡¼­ ID¿Í Sprite¸¦ ÀĞ¾î¿Í¼­ ÇÏ³ª¾¿ ÀúÀåÇÑ´Ù.
+// fileì—ì„œ IDì™€ Spriteë¥¼ ì½ì–´ì™€ì„œ í•˜ë‚˜ì”© ì €ì¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSpritePack::LoadFromFile(ifstream& file)
 {
-	// memory¿¡¼­ mapÁ¦°Å
+	// memoryì—ì„œ mapì œê±°
 	Release();
 
-	// file¿¡¼­ sprite °³¼ö¸¦ ÀĞ¾î¿Â´Ù.	
+	// fileì—ì„œ sprite ê°œìˆ˜ë¥¼ ì½ì–´ì˜¨ë‹¤.	
 	file.read((char*)&m_nSprites, SIZE_SPRITEID);
 
-	// memoryÀâ´Â´Ù.
+	// memoryì¡ëŠ”ë‹¤.
 	Init(m_nSprites);
 
-	// file¿¡ ÀÖ´Â SpriteµéÀ» Load	
+	// fileì— ìˆëŠ” Spriteë“¤ì„ Load	
 	for (TYPE_SPRITEID i=0; i<m_nSprites; i++)
 	{			
-		m_pSprites[i].LoadFromFile(file);	// Sprite ÀĞ¾î¿À±â
+		m_pSprites[i].LoadFromFile(file);	// Sprite ì½ì–´ì˜¤ê¸°
 
-		// loadÇÑ °ÍµéÀ» list¿¡ À¯ÁöÇÑ´Ù. (ÀÌ°Å´Â ÇÊ¿ä¾øÀ»°Åµµ °°Àºµ¥..)
+		// loadí•œ ê²ƒë“¤ì„ listì— ìœ ì§€í•œë‹¤. (ì´ê±°ëŠ” í•„ìš”ì—†ì„ê±°ë„ ê°™ì€ë°..)
 		//m_listLoad.push_back( id );
 	}
 }
@@ -232,10 +232,10 @@ CShadowSpritePack::LoadFromFile(ifstream& file)
 //----------------------------------------------------------------------
 // Load From File Part
 //----------------------------------------------------------------------
-// file¿¡¼­ ÀÏºÎÀÇ Spriteµé¸¸ ÀĞ¾îµéÀÎ´Ù.
+// fileì—ì„œ ì¼ë¶€ì˜ Spriteë“¤ë§Œ ì½ì–´ë“¤ì¸ë‹¤.
 // 
-// fileÀÇ filePosition¿¡¼­ºÎÅÍ ÀĞ¾îµéÀÌ°í..
-// FirstSpriteIDºÎÅÍ SpriteSize°³¸¸Å­¸¸ ÀĞ¾îµéÀÎ´Ù.
+// fileì˜ filePositionì—ì„œë¶€í„° ì½ì–´ë“¤ì´ê³ ..
+// FirstSpriteIDë¶€í„° SpriteSizeê°œë§Œí¼ë§Œ ì½ì–´ë“¤ì¸ë‹¤.
 //----------------------------------------------------------------------
 void			
 CShadowSpritePack::LoadFromFilePart(ifstream& file, long filePosition,
@@ -244,19 +244,19 @@ CShadowSpritePack::LoadFromFilePart(ifstream& file, long filePosition,
 	if (firstSpriteID==SPRITEID_NULL || lastSpriteID==SPRITEID_NULL)
 		return;
 
-	// SpritePackÀÇ memory°¡ ÀâÇôÀÖÁö ¾ÊÀ¸¸é ±×³É returnÇÑ´Ù.	
+	// SpritePackì˜ memoryê°€ ì¡í˜€ìˆì§€ ì•Šìœ¼ë©´ ê·¸ëƒ¥ returní•œë‹¤.	
 	if (m_pSprites==NULL)
 		return;
 
-	// LoadÇÒ·Á´Â À§Ä¡±îÁö FilePositionÀ» ÀÌµ¿ÇÑ´Ù.
+	// Loadí• ë ¤ëŠ” ìœ„ì¹˜ê¹Œì§€ FilePositionì„ ì´ë™í•œë‹¤.
 	file.seekg( filePosition, ios::beg );
 
-	// firstSpriteID ~ lastSpriteID±îÁöÀÇ Sprite¸¦ LoadÇÑ´Ù.
+	// firstSpriteID ~ lastSpriteIDê¹Œì§€ì˜ Spriteë¥¼ Loadí•œë‹¤.
 	for (TYPE_SPRITEID id=firstSpriteID; id<=lastSpriteID; id++)
 	{
 		m_pSprites[id].LoadFromFile( file );
 
-		// loadµÈ sprite list¿¡ µî·Ï.
+		// loadëœ sprite listì— ë“±ë¡.
 		m_listLoad.push_back( id );
 	}
 }
@@ -264,28 +264,28 @@ CShadowSpritePack::LoadFromFilePart(ifstream& file, long filePosition,
 //----------------------------------------------------------------------
 // Load From File Part
 //----------------------------------------------------------------------
-// file¿¡¼­ ÀÏºÎÀÇ Spriteµé¸¸ ÀĞ¾îµéÀÎ´Ù.
+// fileì—ì„œ ì¼ë¶€ì˜ Spriteë“¤ë§Œ ì½ì–´ë“¤ì¸ë‹¤.
 // 
-// fpArrayÀÇ (SpriteID, FilePosition)À» ÀÌ¿ëÇØ¼­
-// SpriteIDÀÇ Sprite¸¦ FilePosition¿¡¼­ ÀĞ¾îµéÀÎ´Ù.
+// fpArrayì˜ (SpriteID, FilePosition)ì„ ì´ìš©í•´ì„œ
+// SpriteIDì˜ Spriteë¥¼ FilePositionì—ì„œ ì½ì–´ë“¤ì¸ë‹¤.
 //
 //----------------------------------------------------------------------
 void			
-CShadowSpritePack::LoadFromFilePart(class ifstream& spkFile, const CSpriteFilePositionArray& fpArray)
+CShadowSpritePack::LoadFromFilePart(std::ifstream& spkFile, const CSpriteFilePositionArray& fpArray)
 {
-	// SpritePackÀÇ memory°¡ ÀâÇôÀÖÁö ¾ÊÀ¸¸é ±×³É returnÇÑ´Ù.	
+	// SpritePackì˜ memoryê°€ ì¡í˜€ìˆì§€ ì•Šìœ¼ë©´ ê·¸ëƒ¥ returní•œë‹¤.	
 	if (m_pSprites==NULL)
 		return;
 
 	for (int i=0; i<fpArray.GetSize(); i++)
 	{
-		// LoadÇÒ·Á´Â À§Ä¡±îÁö FilePositionÀ» ÀÌµ¿ÇÑ´Ù.
+		// Loadí• ë ¤ëŠ” ìœ„ì¹˜ê¹Œì§€ FilePositionì„ ì´ë™í•œë‹¤.
 		spkFile.seekg( fpArray[i].FilePosition, ios::beg );
 
-		// Sprite¸¦ LoadÇÑ´Ù.
+		// Spriteë¥¼ Loadí•œë‹¤.
 		m_pSprites[fpArray[i].SpriteID].LoadFromFile( spkFile );
 
-		// loadµÈ sprite list¿¡ µî·Ï.
+		// loadëœ sprite listì— ë“±ë¡.
 		m_listLoad.push_back( fpArray[i].SpriteID );
 	}
 }
@@ -298,7 +298,7 @@ CShadowSpritePack::LoadFromFilePart(class ifstream& spkFile, const CSpriteFilePo
 void			
 CShadowSpritePack::InitPart(CIndexSpritePack& ISPK, TYPE_SPRITEID firstShadowSpriteID, TYPE_SPRITEID lastShadowSpriteID)
 {
-	// ¸ğµç IndexSprite¸¦ ÀÌ¿ëÇØ¼­ ShadowSprite¸¦ ¸¸µç´Ù.
+	// ëª¨ë“  IndexSpriteë¥¼ ì´ìš©í•´ì„œ ShadowSpriteë¥¼ ë§Œë“ ë‹¤.
 	for (int i=firstShadowSpriteID; i<lastShadowSpriteID; i++)
 	{
 		m_pSprites[i].SetPixel( ISPK[i] );

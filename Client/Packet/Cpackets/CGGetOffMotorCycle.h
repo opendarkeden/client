@@ -35,10 +35,10 @@ public :
 public :
 	
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write ( SocketOutputStream & oStream ) const throw ( ProtocolException , Error );
 
 	// execute packet's handler
@@ -53,6 +53,14 @@ public :
 	// get/set ObjectID
 	ObjectID_t getObjectID() const throw()  { return m_ObjectID; }
 	void setObjectID( ObjectID_t ObjectID ) throw() { m_ObjectID = ObjectID; }
+
+	#ifndef __GAME_CLIENT__
+		// get packet name (required when not GAME_CLIENT)
+		std::string getPacketName () const throw () { return "CGGetOffMotorCycle"; }
+
+		// get packet's debug string (required when not GAME_CLIENT)
+		std::string toString () const throw () { return "CGGetOffMotorCycle"; }
+	#endif
 
 	#ifdef __DEBUG_OUTPUT__
 		// get packet name
@@ -120,7 +128,7 @@ public :
 	public :
 
 		// execute packet's handler
-		static void execute ( CGGetOffMotorCycle * pCGGetOffMotorCycle , Player * pPlayer ) throw ( Error );
+		static void execute ( CGGetOffMotorCycle * pCGGetOffMotorCycle , Player * pPlayer ) throw ( ProtocolException , Error );
 
 	};
 #endif

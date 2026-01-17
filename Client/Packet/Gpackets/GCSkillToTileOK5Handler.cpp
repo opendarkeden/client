@@ -16,14 +16,15 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCSkillToTileOK5Handler::execute ( GCSkillToTileOK5 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 #ifdef __GAME_CLIENT__
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -31,14 +32,14 @@ void GCSkillToTileOK5Handler::execute ( GCSkillToTileOK5 * pPacket , Player * pP
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 
 
-		// Creature°¡ Tile¿¡ ¹º°¡¸¦?...
+		// Creatureê°€ Tileì— ë­”ê°€ë¥¼?...
 		if (pCreature != NULL)
 		{			
 			int skillID = pPacket->getSkillType();
@@ -81,7 +82,7 @@ void GCSkillToTileOK5Handler::execute ( GCSkillToTileOK5 * pPacket , Player * pP
 				useSkillID = skillID = (*g_pActionInfoTable)[skillID].GetActionStep( pPacket->getGrade() - 1);
 
 			
-			// °á°ú »ý¼º
+			// ê²°ê³¼ ìƒì„±
 			MActionResult* pResult = new MActionResult;
 		
 			DWORD delayFrame = ConvertDurationToFrame( pPacket->getDuration() );
@@ -136,7 +137,7 @@ void GCSkillToTileOK5Handler::execute ( GCSkillToTileOK5 * pPacket , Player * pP
 				//					delayFrame ) );
 				//------------------------------------------------------
 				//
-				// skill¿¡ °á°ú°¡ ÀÖÀ¸¸é Àû¿ë ½ÃÅ²´Ù.
+				// skillì— ê²°ê³¼ê°€ ìžˆìœ¼ë©´ ì ìš© ì‹œí‚¨ë‹¤.
 				//
 				//------------------------------------------------------
 				int targetID = pPacket->popCListElement();
@@ -146,7 +147,7 @@ void GCSkillToTileOK5Handler::execute ( GCSkillToTileOK5 * pPacket , Player * pP
 				if (pTargetCreature!=NULL)
 				{
 					//------------------------------------------------------
-					// EffectStatus°¡ ÀÖ´Ù¸é ºÙÀÎ´Ù.
+					// EffectStatusê°€ ìžˆë‹¤ë©´ ë¶™ì¸ë‹¤.
 					//------------------------------------------------------
 					EFFECTSTATUS es = (*g_pActionInfoTable)[skillID].GetEffectStatus();
 							
@@ -160,7 +161,7 @@ void GCSkillToTileOK5Handler::execute ( GCSkillToTileOK5 * pPacket , Player * pP
 					switch ((*g_pActionInfoTable)[skillID].GetActionResultID())
 					{
 						//------------------------------------------------------
-						// ´Ù¸¥ ActionInfo ½ÇÇà
+						// ë‹¤ë¥¸ ActionInfo ì‹¤í–‰
 						//------------------------------------------------------
 						case ACTIONRESULTNODE_ACTIONINFO :
 							pActionResultNode =  new MActionResultNodeActionInfo( 
@@ -180,7 +181,7 @@ void GCSkillToTileOK5Handler::execute ( GCSkillToTileOK5 * pPacket , Player * pP
 					}
 
 					//------------------------------------------------------
-					// NULLÀÌ ¾Æ´Ï¸é °°ÀÌ Àû¿ë
+					// NULLì´ ì•„ë‹ˆë©´ ê°™ì´ ì ìš©
 					//------------------------------------------------------
 					if (pActionResultNode!=NULL)
 					{
@@ -190,12 +191,12 @@ void GCSkillToTileOK5Handler::execute ( GCSkillToTileOK5 * pPacket , Player * pP
 			}
 
 			//------------------------------------------------------
-			// ¹æÇâ º¸±â
+			// ë°©í–¥ ë³´ê¸°
 			//------------------------------------------------------
 			pCreature->SetDirectionToPosition(pPacket->getX(), pPacket->getY());
 			
 			//------------------------------------------------------
-			// range¸¦ direction¿¡ Àû¿ë½ÃÅ°´Â °æ¿ì
+			// rangeë¥¼ directionì— ì ìš©ì‹œí‚¤ëŠ” ê²½ìš°
 			//------------------------------------------------------
 			if ((*g_pActionInfoTable)[pPacket->getSkillType()].IsOptionRangeToDirection())
 			{
@@ -203,13 +204,13 @@ void GCSkillToTileOK5Handler::execute ( GCSkillToTileOK5 * pPacket , Player * pP
 			}
 
 			//------------------------------------------------------
-			// Çàµ¿ÇÏ´Â ¸ð½À ¼³Á¤
+			// í–‰ë™í•˜ëŠ” ëª¨ìŠµ ì„¤ì •
 			//------------------------------------------------------
 			//Duration_t	m_Duration;
 			pCreature->PacketSpecialActionToSector(
 								skillID, 
 								pPacket->getX(), pPacket->getY(),
-								pResult		// °á°ú
+								pResult		// ê²°ê³¼
 			);		
 
 //			_MinTrace("Incomming GCSkillToTileOK5Handler(SkillType:%d X:%d Y:%d Dir:%d",

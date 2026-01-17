@@ -57,7 +57,7 @@ MEventManager::~MEventManager()
 }
 
 //--------------------------------------------------
-// ÀÌº¥Æ®¸¦ µî·ÏÇÑ´Ù
+// ì´ë²¤íŠ¸ë¥¼ ë“±ë¡í•œë‹¤
 //--------------------------------------------------
 void	MEventManager::AddEvent(MEvent &event)
 {
@@ -72,7 +72,7 @@ void	MEventManager::AddEvent(MEvent &event)
 }
 
 //--------------------------------------------------
-// ÀÌº¥Æ®¸¦ °¡Á®¿Â´Ù
+// ì´ë²¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤
 //--------------------------------------------------
 const MEvent*	MEventManager::GetEvent(EVENT_ID id)
 {
@@ -86,7 +86,7 @@ const MEvent*	MEventManager::GetEvent(EVENT_ID id)
 }
 
 //--------------------------------------------------
-// ÀÌº¥Æ®°¡ ÀÖ´Â°¡ º»´Ù
+// ì´ë²¤íŠ¸ê°€ ìˆëŠ”ê°€ ë³¸ë‹¤
 //--------------------------------------------------
 bool	MEventManager::IsEvent(EVENT_ID id)
 {
@@ -94,7 +94,7 @@ bool	MEventManager::IsEvent(EVENT_ID id)
 }
 
 //--------------------------------------------------
-// ÀÌº¥Æ®¸¦ Áö¿î´Ù
+// ì´ë²¤íŠ¸ë¥¼ ì§€ìš´ë‹¤
 //--------------------------------------------------
 void	MEventManager::RemoveEvent(EVENT_ID id)
 {
@@ -123,7 +123,7 @@ void	MEventManager::RemoveEvent(EVENT_ID id)
 }
 
 //--------------------------------------------------
-// ¸ğµç ÀÌº¥Æ®¸¦ Áö¿î´Ù
+// ëª¨ë“  ì´ë²¤íŠ¸ë¥¼ ì§€ìš´ë‹¤
 //--------------------------------------------------
 void	MEventManager::RemoveAllEvent()
 { 
@@ -141,7 +141,7 @@ void	MEventManager::RemoveAllEvent()
 
 }
 //--------------------------------------------------
-// Å¸ÀÔº° ÀÌº¥Æ®¸¦ Áö¿î´Ù
+// íƒ€ì…ë³„ ì´ë²¤íŠ¸ë¥¼ ì§€ìš´ë‹¤
 //--------------------------------------------------
 void	MEventManager::RemoveAllEventByType(EVENT_TYPE type)
 {
@@ -161,7 +161,7 @@ void	MEventManager::RemoveAllEventByType(EVENT_TYPE type)
 }
 
 //--------------------------------------------------
-// Flagº° °³¼ö
+// Flagë³„ ê°œìˆ˜
 //--------------------------------------------------
 const int	MEventManager::GetEventCountByFlag(DWORD flag)
 {
@@ -182,7 +182,7 @@ const int	MEventManager::GetEventCountByFlag(DWORD flag)
 }
 
 //--------------------------------------------------
-// Flag·Î empty°Ë»ö
+// Flagë¡œ emptyê²€ìƒ‰
 //--------------------------------------------------
 const bool		MEventManager::IsEmptyEventByFlag(DWORD flag)
 {
@@ -202,7 +202,7 @@ const bool		MEventManager::IsEmptyEventByFlag(DWORD flag)
 }
 
 //--------------------------------------------------
-// Flag·Î GetEventÇØ¿Â´Ù
+// Flagë¡œ GetEventí•´ì˜¨ë‹¤
 //--------------------------------------------------
 const MEvent*	MEventManager::GetEventByFlag(DWORD flag, int count)
 {
@@ -242,7 +242,7 @@ void	MEventManager::ProcessEvent()
 				itr++;
 				RemoveEvent(delete_id);
 #ifdef __GAME_CLIENT__				
-				// 2004, 6, 21, sobeit add start - Áúµå·¹ ¿¬Ãâ - 5ÃÊ°£ Èçµé·ÈÀ¸¸é 10ÃÊ°£ ¾îµÎ¿öÁü
+				// 2004, 6, 21, sobeit add start - ì§ˆë“œë ˆ ì—°ì¶œ - 5ì´ˆê°„ í”ë“¤ë ¸ìœ¼ë©´ 10ì´ˆê°„ ì–´ë‘ì›Œì§
 				if(delete_id == EVENTID_GDR_PRESENT)
 					SetFadeStart(31, -1, 1, 0,0,0, 4);
 				// 2004, 6, 21, sobeit add end

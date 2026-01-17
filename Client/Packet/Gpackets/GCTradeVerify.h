@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : GCTradeVerify.h 
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description : 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -11,45 +11,45 @@
 #include "PacketFactory.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¿¡·¯ ÄÚµå
+// ì—ëŸ¬ ì½”ë“œ
 ////////////////////////////////////////////////////////////////////////////////
 
 enum
 {
-	// ±³È¯ ´ë»óÀ¸·Î ¾ÆÀÌÅÛÀ» Ãß°¡ÇÏ´Â °ÍÀ» ÀÎÁõ
+	// êµí™˜ ëŒ€ìƒìœ¼ë¡œ ì•„ì´í…œì„ ì¶”ê°€í•˜ëŠ” ê²ƒì„ ì¸ì¦
 	GC_TRADE_VERIFY_CODE_ADD_ITEM_WHEN_ACCEPT,
 
-	// ±³È¯ ´ë»ó¿¡¼­ ¾ÆÀÌÅÛÀ» Á¦°ÅÇÏ´Â °ÍÀ» ÀÎÁõ
+	// êµí™˜ ëŒ€ìƒì—ì„œ ì•„ì´í…œì„ ì œê±°í•˜ëŠ” ê²ƒì„ ì¸ì¦
 	GC_TRADE_VERIFY_CODE_REMOVE_ITEM,
 
-	// ±³È¯ ´ë»ó¿¡¼­ µ·À» Ãß°¡ÇÏ´Â °ÍÀ» ÀÎÁõ
+	// êµí™˜ ëŒ€ìƒì—ì„œ ëˆì„ ì¶”ê°€í•˜ëŠ” ê²ƒì„ ì¸ì¦
 	GC_TRADE_VERIFY_CODE_MONEY_INCREASE,
 
-	// ±³È¯ ´ë»ó¿¡¼­ µ·À» Á¦°ÅÇÏ´Â °ÍÀ» ÀÎÁõ
+	// êµí™˜ ëŒ€ìƒì—ì„œ ëˆì„ ì œê±°í•˜ëŠ” ê²ƒì„ ì¸ì¦
 	GC_TRADE_VERIFY_CODE_MONEY_DECREASE,
 
-	// ±³È¯ ¼º¸³À» È®ÀÎÇÏ´Â °ÍÀ» ÀÎÁõ
+	// êµí™˜ ì„±ë¦½ì„ í™•ì¸í•˜ëŠ” ê²ƒì„ ì¸ì¦
 	GC_TRADE_VERIFY_CODE_FINISH_ACCEPT,
 
-	// ±³È¯ ¼º¸³À» Ãë¼ÒÇÏ´Â °ÍÀ» ÀÎÁõ
+	// êµí™˜ ì„±ë¦½ì„ ì·¨ì†Œí•˜ëŠ” ê²ƒì„ ì¸ì¦
 	GC_TRADE_VERIFY_CODE_FINISH_REJECT,
 
-	// ±³È¯ ¼º¸³À» Àç°í·ÁÇÏ´Â °ÍÀ» ÀÎÁõ
+	// êµí™˜ ì„±ë¦½ì„ ìž¬ê³ ë ¤í•˜ëŠ” ê²ƒì„ ì¸ì¦
 	GC_TRADE_VERIFY_CODE_FINISH_RECONSIDER,
 
-	// ±³È¯À» ÇÏ°í ÀÖÀ» ¶§ ¸¶¿ì½º¿¡ ÀÎº¥Åä¸®·Î ¾ÆÀÌÅÛÀ» ¿Å±â´Â °ÍÀ» °ËÁõ
+	// êµí™˜ì„ í•˜ê³  ìžˆì„ ë•Œ ë§ˆìš°ìŠ¤ì— ì¸ë²¤í† ë¦¬ë¡œ ì•„ì´í…œì„ ì˜®ê¸°ëŠ” ê²ƒì„ ê²€ì¦
 	GC_TRADE_VERIFY_CODE_MOUSE_TO_INVENTORY_OK,
 	GC_TRADE_VERIFY_CODE_MOUSE_TO_INVENTORY_FAIL,
 
-	// ±³È¯À» ÇÏ°í ÀÖÀ» ¶§ ÀÎº¥Åä¸®¿¡¼­ ¸¶¿ì½º·Î ¾ÆÀÌÅÛÀ» ¿Å±â´Â °ÍÀ» °ËÁõ
+	// êµí™˜ì„ í•˜ê³  ìžˆì„ ë•Œ ì¸ë²¤í† ë¦¬ì—ì„œ ë§ˆìš°ìŠ¤ë¡œ ì•„ì´í…œì„ ì˜®ê¸°ëŠ” ê²ƒì„ ê²€ì¦
 	GC_TRADE_VERIFY_CODE_INVENTORY_TO_MOUSE_OK,
 	GC_TRADE_VERIFY_CODE_INVENTORY_TO_MOUSE_FAIL,
 
-	// GCTradeAddItemÀ» °ËÁõ ¹Þ¾Æ¾ß ÇÏ´Â °æ¿ì¿¡..
+	// GCTradeAddItemì„ ê²€ì¦ ë°›ì•„ì•¼ í•˜ëŠ” ê²½ìš°ì—..
 	GC_TRADE_VERIFY_CODE_ADD_ITEM_OK,
 	GC_TRADE_VERIFY_CODE_ADD_ITEM_FAIL,
 
-	// ¿¡·¯´å.
+	// ì—ëŸ¬ë‹·.
 	GC_TRADE_VERIFY_CODE_MAX
 };
 
@@ -77,7 +77,7 @@ public:
 	void setCode(BYTE code) throw() { m_Code = code; }
 
 private:
-	BYTE       m_Code;           // ÄÚµå
+	BYTE       m_Code;           // ì½”ë“œ
 
 };
 

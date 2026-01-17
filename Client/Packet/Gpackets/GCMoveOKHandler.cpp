@@ -20,7 +20,8 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCMoveOKHandler::execute ( GCMoveOK * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -36,7 +37,7 @@ void GCMoveOKHandler::execute ( GCMoveOK * pPacket , Player * pPlayer )
 	
 
 	//--------------------------------------------------
-	// °ËÁõµÈ Tile¿¡ ´ëÇÑ ÀÌµ¿
+	// ê²€ì¦ëœ Tileì— ëŒ€í•œ ì´ë™
 	//--------------------------------------------------
 	g_pPlayer->PacketMoveOK(pPacket->getX(), pPacket->getY(), pPacket->getDir());
 

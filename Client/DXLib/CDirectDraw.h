@@ -12,20 +12,143 @@
 #ifndef	__CDIRECTDRAW_H__
 #define	__CDIRECTDRAW_H__
 
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
+/* Platform-specific includes */
+#ifdef PLATFORM_WINDOWS
+	#ifndef WIN32_LEAN_AND_MEAN
+	#define WIN32_LEAN_AND_MEAN
+	#endif
+
+	#include <DDraw.h>
+	typedef	unsigned __int64		QWORD;
+#else
+	/* Non-Windows platform: Use stub types */
+	#include "../basic/Platform.h"
+	#include <cstring>
+
+	/* Basic type definitions if not already defined */
+	#ifndef LONG_DEFINED
+	#define LONG_DEFINED
+	typedef long LONG;
+	#endif
+
+	#ifndef LPVOID_DEFINED
+	#define LPVOID_DEFINED
+	typedef void* LPVOID;
+	#endif
+
+	/* Forward declarations for DirectDraw types */
+	typedef struct IDirectDraw* LPDIRECTDRAW7;
+	typedef struct IDirectDrawSurface* LPDIRECTDRAWSURFACE7;
+	typedef struct IDirectDrawGammaControl* LPDIRECTDRAWGAMMACONTROL;
+
+	/* DDPIXELFORMAT structure - must be defined before DDSURFACEDESC2 */
+	/* Only define if not already defined */
+#ifndef TAGPIXELFORMAT_DEFINED
+#define TAGPIXELFORMAT_DEFINED
+	typedef struct tagPIXELFORMAT {
+		DWORD dwSize;
+		DWORD dwFlags;
+		DWORD dwFourCC;
+		DWORD dwRGBBitCount;
+		DWORD dwRBitMask;
+		DWORD dwGBitMask;
+		DWORD dwBBitMask;
+		DWORD dwRGBAlphaBitMask;
+	} DDPIXELFORMAT, *LPDDPIXELFORMAT;
+	#define DDPIXELFORMAT_DEFINED
+#endif // TAGPIXELFORMAT_DEFINED
+
+	/* DDSCAPS2 structure */
+	typedef struct {
+		DWORD dwCaps;
+		DWORD dwCaps2;
+		DWORD dwCaps3;
+		DWORD dwCaps4;
+		DWORD dwVolumeDepth;
+	} DDSCAPS2;
+
+	typedef struct {
+		DWORD dwSize;
+		DWORD dwFlags;
+		DWORD dwHeight;
+		DWORD dwWidth;
+		LPVOID lpSurface;
+		DDPIXELFORMAT ddpfPixelFormat;
+		DDSCAPS2 ddsCaps;
+		LONG lPitch;
+	} DDSURFACEDESC2;
+
+	typedef struct {
+		WORD red[256];
+		WORD green[256];
+		WORD blue[256];
+	} DDGAMMARAMP;
+
+	/* Common Windows types - define if not already defined */
+	#ifndef RECT_DEFINED
+	#define RECT_DEFINED
+	typedef struct tagRECT {
+		LONG left;
+		LONG top;
+		LONG right;
+		LONG bottom;
+	} RECT, *PRECT, *LPRECT;
+	#endif
+
+	#ifndef POINT_DEFINED
+	#define POINT_DEFINED
+	typedef struct tagPOINT {
+		LONG x;
+		LONG y;
+	} POINT, *PPOINT, *LPPOINT;
+	#endif
+
+	#ifndef COLORREF_DEFINED
+	#define COLORREF_DEFINED
+	typedef DWORD COLORREF;
+	#endif
+
+	#ifndef SIZE_DEFINED
+	#define SIZE_DEFINED
+	typedef struct tagSIZE {
+		LONG cx;
+		LONG cy;
+	} SIZE, *PSIZE, *LPSIZE;
+	#endif
+
+	/* Use uint64_t for QWORD on non-Windows */
+	#include <cstdint>
+	typedef uint64_t QWORD;
+
+	/* DirectDraw constants */
+	#define DDSD_CAPS 0x00000001
+	#define DDSD_HEIGHT 0x00000002
+	#define DDSD_WIDTH 0x00000004
+	#define DDSD_PITCH 0x00000008
+	#define DDSD_PIXELFORMAT 0x00001000
+	#define DDSD_LPSURFACE 0x00000800
+
+	/* GDI types */
+	#ifndef HBITMAP_DEFINED
+	#define HBITMAP_DEFINED
+	typedef void* HBITMAP;
+	#endif
+
+	/* Memory utilities */
+	#ifndef ZeroMemory
+	#define ZeroMemory(p, s) memset((p), 0, (s))
+	#endif
+
+	#define DDSCL_FULLSCREEN 0
+	#define DDSCL_EXCLUSIVE 0
 #endif
-
-#include <DDraw.h>
-
-
-typedef	unsigned __int64		QWORD;
 
 
 /*-----------------------------------------------------------------------------
   Class DirectDraw
-  `CDirectDrawSurface¿¡¼­ »ó¼Ó¹Þ´Â´Ù. µû¶ó¼­ memberµéÀ» staticÀ¸·Î ÇÏ¿©¾ß ÇÑ´Ù.
+  `CDirectDrawSurfaceï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ó¹Þ´Â´ï¿½. ï¿½ï¿½ï¿½ï¿½ memberï¿½ï¿½ï¿½ï¿½ staticï¿½ï¿½ï¿½ï¿½ ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 -----------------------------------------------------------------------------*/
+#ifdef PLATFORM_WINDOWS
 class CDirectDraw
 {	
 protected:
@@ -40,13 +163,13 @@ protected:
 
 	static HWND								m_hWnd;
 
-	// SurfaceÀÇ Å©±â
+	// Surfaceï¿½ï¿½ Å©ï¿½ï¿½
 	static WORD								m_ScreenWidth;
 	static WORD								m_ScreenHeight;
 
 	static bool								m_b565;
 
-	// 3D »ç¿ë?
+	// 3D ï¿½ï¿½ï¿½?
 	static bool								m_b3D;
 
 	static bool								m_bMMX;
@@ -55,7 +178,7 @@ protected:
 	static WORD								m_GammaStep;
 	static WORD								m_AddGammaStep[3];
 
-	// Ã¢¸ðµå¿¡ ÇÊ¿äÇÑ °Íµé
+	// Ã¢ï¿½ï¿½å¿¡ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½Íµï¿½
 	static RECT								m_rcWindow;		// Saves the window size & pos.
 	static RECT								m_rcViewport;	// Pos. & size to blt from
 	static RECT								m_rcScreen;		// Screen pos. for blt
@@ -97,7 +220,7 @@ public:
 	static const LPDIRECTDRAW7 GetDD()	{ return m_pDD; }
 
 	//------------------------------------
-	// Window Message Ã³¸®
+	// Window Message Ã³ï¿½ï¿½
 	//------------------------------------
 	static void		OnMove();
 
@@ -122,7 +245,7 @@ public:
 
 	//     0RRRRRGG GGGBBBBB 
 	// --> RRRRRGGG GG0BBBBB
-	static inline WORD	Convert555to565(WORD pixel)		// 5:5:5¸¦ 5:6:5·Î ¹Ù²Ü ¶§
+	static inline WORD	Convert555to565(WORD pixel)		// 5:5:5ï¿½ï¿½ 5:6:5ï¿½ï¿½ ï¿½Ù²ï¿½ ï¿½ï¿½
 	{
 		return ((pixel & 0x7FE0)<<1)	// RRRRRGGG GG000000
 				| (pixel & 0x001F);		// 00000000 000BBBBB										
@@ -130,7 +253,7 @@ public:
 
 	//     RRRRRGGG GGGBBBBB
 	// --> 0RRRRRGG GGGBBBBB 
-	static inline WORD Convert565to555(WORD pixel)		// 5:6:5¸¦ 5:5:5·Î ¹Ù²Ü ¶§
+	static inline WORD Convert565to555(WORD pixel)		// 5:6:5ï¿½ï¿½ 5:5:5ï¿½ï¿½ ï¿½Ù²ï¿½ ï¿½ï¿½
 	{
 		return (((pixel & 0xFFE0) >> 1)		// 0RRRRRGG GGGG0000
 				& 0x7FE0)					// 0RRRRRGG GGG00000
@@ -140,21 +263,21 @@ public:
 	//-----------------------------------
 	// (R,G,B) <--> RGB
 	//-----------------------------------
-	// 5:5:5ÀÌ¸é (32,32,32)
-	// 5:6:5ÀÌ¸é (32,64,32)
-	// `´Ü¼øÈ÷ ÇÕÄ¡±â¸¸ ÇÑ´Ù.
+	// 5:5:5ï¿½Ì¸ï¿½ (32,32,32)
+	// 5:6:5ï¿½Ì¸ï¿½ (32,64,32)
+	// `ï¿½Ü¼ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½â¸¸ ï¿½Ñ´ï¿½.
 	static inline WORD	Color(const BYTE& r, const BYTE& g, const BYTE& b)
 	{			
 		return (r << s_bSHIFT_R) | (g << s_bSHIFT_G) | b;
 	}
 
-	// Red°ª
+	// Redï¿½ï¿½
 	static inline BYTE	Red(const WORD& c)
 	{			
 		return (c >> s_bSHIFT_R);
 	}
 
-	// Green°ª
+	// Greenï¿½ï¿½
 	static inline BYTE	Green(const WORD& c)
 	{
 		//return ((c >> s_bSHIFT_G) & s_bMASK_G);	
@@ -165,7 +288,7 @@ public:
 		return g;			
 	}
 
-	// Blue°ª
+	// Blueï¿½ï¿½
 	static inline BYTE	Blue(const WORD& c)
 	{
 		return (c & 0x1F);
@@ -200,7 +323,7 @@ public :
 	static BYTE		s_bSHIFT4_G;	
 	static BYTE		s_bSHIFT4_B;
 	
-	// ±âº» »ö»ó
+	// ï¿½âº» ï¿½ï¿½ï¿½ï¿½
 	static WORD		RED;
 	static WORD		GREEN;
 	static WORD		BLUE;
@@ -208,6 +331,114 @@ public :
 
 	static bool		s_bUseIMEHandle;
 };
+#elif defined(PLATFORM_MACOS) || defined(PLATFORM_LINUX)
+//-------------------------------------------------------------------------------------------------
+// Non-Windows (macOS/Linux) Stub Class Definition
+//-------------------------------------------------------------------------------------------------
+
+class CDirectDraw
+{
+public:
+	// Static methods for color conversion (inline implementations)
+	static inline WORD	Color(const BYTE& r, const BYTE& g, const BYTE& b)
+	{
+		// For 5:6:5 format: R at bits 11-15, G at bits 5-10, B at bits 0-4
+		return ((r & 0x1F) << 11) | ((g & 0x3F) << 5) | (b & 0x1F);
+	}
+
+	static inline BYTE	Red(const WORD& c)
+	{
+		// Extract R component (bits 11-15)
+		return (c >> 11) & 0x1F;
+	}
+
+	static inline BYTE	Green(const WORD& c)
+	{
+		// Extract G component (bits 5-10)
+		return (c >> 5) & 0x3F;
+	}
+
+	static inline BYTE	Blue(const WORD& c)
+	{
+		// Extract B component (bits 0-4)
+		return c & 0x1F;
+	}
+
+	// Bitmask methods (declared here, implemented in .cpp)
+	static int		Get_Count_Rbit();
+	static int		Get_Count_Gbit();
+	static int		Get_Count_Bbit();
+	static DWORD		Get_R_Bitmask();
+	static DWORD		Get_G_Bitmask();
+	static DWORD		Get_B_Bitmask();
+	static DWORD		Get_BPP();
+
+	// Simple property methods
+	static inline bool		IsFullscreen()			{ return true; }
+	static inline WORD		GetScreenWidth()		{ return 800; }
+	static inline WORD		GetScreenHeight()		{ return 600; }
+	static inline bool		IsMMX()	 				{ return false; }
+	static inline bool		IsSupportGammaControl()	{ return false; }
+	static inline bool		Is565()	 				{ return true; }
+
+	// Gamma control methods (stub implementations for macOS - no-op)
+	static inline void		SetGammaRamp(WORD step = (WORD)-1) { }
+	static inline void		RestoreGammaRamp() { }
+	static inline void		SetAddGammaRamp(WORD rStep = 0, WORD gStep = 0, WORD bStep = 0) { }
+
+	// Display methods (stub implementations for macOS - no-op)
+	static inline void		Flip() { }
+	static inline void		FlipToGDISurface() { }
+	static inline void		OnMove() { }
+	static inline bool		RestoreAllSurfaces() { return true; }
+	static inline void		ReleaseSurface() { }
+	static inline void		ReleaseAll() { }
+
+	// Color conversion (5:5:5 to 5:6:5 and vice versa)
+	static inline WORD	Convert555to565(WORD pixel)
+	{
+		return ((pixel & 0x7FE0) << 1) | (pixel & 0x001F);
+	}
+
+	static inline WORD	Convert565to555(WORD pixel)
+	{
+		return (((pixel & 0xFFE0) >> 1) & 0x7FE0) | (pixel & 0x001F);
+	}
+
+public:
+	// Static member variables
+	static WORD		s_wMASK_SHIFT[5];
+	static DWORD	s_dwMASK_SHIFT[5];
+	static QWORD	s_qwMASK_SHIFT[5];
+
+	static WORD		s_wMASK_RGB[6];
+	static DWORD	s_dwMASK_RGB[6];
+	static QWORD	s_qwMASK_RGB[6];
+
+	static QWORD	s_qwMASK_ALPHA0;
+	static QWORD	s_qwMASK_ALPHA1;
+	static DWORD	s_dwMASK_ALPHA0;
+	static DWORD	s_dwMASK_ALPHA1;
+	static WORD		s_wMASK_ALPHA0;
+	static WORD		s_wMASK_ALPHA1;
+
+	static BYTE		s_bSHIFT_R;
+	static BYTE		s_bSHIFT_G;
+	static BYTE		s_bSHIFT_B;
+
+	static BYTE		s_bSHIFT4_R;
+	static BYTE		s_bSHIFT4_G;
+	static BYTE		s_bSHIFT4_B;
+
+	static WORD		RED;
+	static WORD		GREEN;
+	static WORD		BLUE;
+	static WORD		WHITE;
+
+	static bool		s_bUseIMEHandle;
+};
+
+#endif // PLATFORM_WINDOWS || PLATFORM_MACOS || PLATFORM_LINUX
 
 
 #endif

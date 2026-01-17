@@ -41,7 +41,7 @@
 #include "VS_UI_ExtraDialog.h"
 #include "DebugInfo.h"
 
-#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ğ°ï¿½
 	#include "MItemFinder.h"
 #endif
 
@@ -139,14 +139,14 @@ int g_HISTORY_LINE = 4;
 
 #define FONT_GAP							17
 
-char g_mark[MARK_MAX][9][3] =
+char g_mark[MARK_MAX][9][10] =
 {
-	{"££","£¦","£ª","£À","¡×","¡Ø","¡Ù","¡Ú","¡Û"},
-	{"¡Ü","¡İ","¡Ş","¡ß","¡à","¡á","¡â","¡ã","¡ä"},
-	{"¡å","¡æ","¡ç","¡è","¡é","¡ê","¡ë","¢·","¢¸"},
-	{"¢¹","¢º","¢»","¢¼","¢½","¢¾","¢¿","¢À","¢Á"},
-	{"¢Â","¢Ã","¢Ä","¢Å","¢Æ","¢Ç","¢È","¢É","¢Ê"},
-	{"¢Ë","¢Ì","¢Í","¢Î","¢Ï","¢Ğ","¢Ñ","¢Ò","¢Ó"},
+	{"ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½"},
+	{"ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½"},
+	{"ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½"},
+	{"ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½"},
+	{"ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½"},
+	{"ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½"},
 };
 
 COLORREF g_color[4][4] = 
@@ -160,8 +160,8 @@ COLORREF g_color[4][4] =
 //
 // g_char_slot_ingame
 //
-// °ÔÀÓÁß¿¡ °è¼Ó update½ÃÅ°´Â char-slotÀÌ´Ù.
-// ÀÌ°ÍÀÌ ½Ç½Ã°£À¸·Î updateµÇ¾î¾ß info Window¿¡ ¿Ç¹Ù·Î Ç¥½ÃµÈ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ updateï¿½ï¿½Å°ï¿½ï¿½ char-slotï¿½Ì´ï¿½.
+// ï¿½Ì°ï¿½ï¿½ï¿½ ï¿½Ç½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ updateï¿½Ç¾ï¿½ï¿½ info Windowï¿½ï¿½ ï¿½Ç¹Ù·ï¿½ Ç¥ï¿½ÃµÈ´ï¿½.
 //
 S_SLOT	g_char_slot_ingame; // any character info slot in game.
 
@@ -180,9 +180,9 @@ int ga_item_blink_color_table[INTERFACE_BLINK_VALUE_MAX] = {
 };
 
 //
-// Inventory/Gear/QuickItem ... ¿¡¼­ itemÀ» Æ¯Á¤À§Ä¡¿¡ ³õÀ» ¶§ ÂüÁ¶ÇÏ´Â °ª.
-// [global effect. slayer/vampire Inventory, Gear µî¿¡¼­ ÂüÁ¶ÇÑ´Ù. Áï, 
-//  Game classÀÇ object°¡ ÂüÁ¶ÇÑ´Ù.
+// Inventory/Gear/QuickItem ... ï¿½ï¿½ï¿½ï¿½ itemï¿½ï¿½ Æ¯ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½.
+// [global effect. slayer/vampire Inventory, Gear ï¿½î¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. ï¿½ï¿½, 
+//  Game classï¿½ï¿½ objectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //
 //           +-------+
 //           | 1   2 |
@@ -191,9 +191,9 @@ int ga_item_blink_color_table[INTERFACE_BLINK_VALUE_MAX] = {
 //           +-------+
 //					(a item)
 //
-// item¿¡ ´ëÇÑ 'ÂüÁ¶Á¡' 4°³¸¦ ¼³Á¤ÇÑ´Ù. ÀÌ°ÍÀº item Å©±â¿¡µû¶ó ÀûÀıÇÏ°Ô À§Ä¡
-// ÇÏ¿©¾ß ÇÑ´Ù. ÀÌ°ÍÀº ¿øÁ¡À¸·ÎºÎÅÍÀÇ °Å¸®ÀÌ´Ù.
-// Inventory³ª Gear¿¡¼­´Â ÀÌ Á¡À» ¼ø¼­´ë·Î °Ë»öÇÏ¿© itemÀÌ ³õÀÏ À§Ä¡¸¦ °áÁ¤ÇÑ´Ù.
+// itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½' 4ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. ï¿½Ì°ï¿½ï¿½ï¿½ item Å©ï¿½â¿¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½Ä¡
+// ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½. ï¿½Ì°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½Ì´ï¿½.
+// Inventoryï¿½ï¿½ Gearï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï¿ï¿½ itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //
 Point g_item_ref_point[ITEM_REF_POINT_COUNT];
 
@@ -202,7 +202,7 @@ MItem* g_pTempItem = NULL;
 //-----------------------------------------------------------------------------
 // g_SetItemRefPoint
 //
-// ÂüÁ¶Á¡À» ¼³Á¤ÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 #define REFPOINT_DISTANCE_DEFAULT	5
 void g_SetItemRefPoint(int item_rect_w, int item_rect_h)
@@ -540,7 +540,7 @@ void g_StartSwapConfirmDialog(int _x, int _y)
 //-----------------------------------------------------------------------------
 void g_StartSellAllConfirmDialog(int _x, int _y, int price)
 {
-	// ºñ»ó¿ëÀ¸·Î ¶«»§.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	DeleteNew(gpC_dialog_sellall_confirm);
 	
 	gpC_dialog_sellall_confirm = new C_VS_UI_DIALOG(_x, _y, 2, 0, ExecF_SellAllConfirm, DIALOG_OK|DIALOG_CANCEL);
@@ -570,7 +570,7 @@ void g_StartSellAllConfirmDialog(int _x, int _y, int price)
 //-----------------------------------------------------------------------------
 void g_StartRepairAllConfirmDialog(int _x, int _y, int price)
 {
-	//ºñ»ó¿ë ¶«»§ 
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 	DeleteNew(gpC_dialog_repairall_confirm);
 	
 	gpC_dialog_repairall_confirm = new C_VS_UI_DIALOG(_x, _y, 2, 0, ExecF_RepairAllConfirm, DIALOG_OK|DIALOG_CANCEL);
@@ -637,7 +637,7 @@ void g_StartSwapAdvanceItemDialog(int _x, int _y)
 //-----------------------------------------------------------------------------
 // g_StartRepairConfirmDialog
 //
-// Gear/Inventory¿¡ ÇØ´çÇÏ¹Ç·Î global·Î ÇÔ.
+// Gear/Inventoryï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï¹Ç·ï¿½ globalï¿½ï¿½ ï¿½ï¿½.
 //-----------------------------------------------------------------------------
 void g_StartRepairConfirmDialog(int _x, int _y, bool bChargeItem)
 {
@@ -678,7 +678,7 @@ void g_StartRepairFinishDialog(int _x, int _y)
 
 // g_StartSilveringConfirmDialog
 //
-// Gear/Inventory¿¡ ÇØ´çÇÏ¹Ç·Î global·Î ÇÔ.
+// Gear/Inventoryï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï¹Ç·ï¿½ globalï¿½ï¿½ ï¿½ï¿½.
 //-----------------------------------------------------------------------------
 void g_StartSilveringConfirmDialog(int _x, int _y)
 {
@@ -745,7 +745,7 @@ C_VS_UI_TRIBE::C_VS_UI_TRIBE()
 	//C_VS_UI_FRIEND_INFO::This_FRIEND_INFO = m_pC_friend;
 	//end
 
-	//  add by Coffee Ìí¼ÓÊÀ½çµØÍ¼
+	//  add by Coffee ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
 //	m_pC_worldmap = new C_VS_UI_WORLDMAP;
 	//  end 
 	m_pC_chatting = NULL;
@@ -785,7 +785,7 @@ C_VS_UI_TRIBE::~C_VS_UI_TRIBE()
 	DeleteNew(m_pC_quest_status);	
 	DeleteNew(m_pC_effect_status);
 	DeleteNew(m_pC_minimap);
-	// add by Coffee 2007-3-6 Ìí¼ÓÊÀ½çµØÍ¼
+	// add by Coffee 2007-3-6 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
 //	DeleteNew(m_pC_worldmap);
 	// end 
 	DeleteNew(m_pC_inventory);
@@ -965,10 +965,10 @@ void	C_VS_UI_TRIBE::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 		// Guild Tab
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_INFO].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_MEMBER_LIST].GetString(),
-//		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_COMMAND_WINDOW],// = "Å¬·£ ¸í·É(Clan Command)";
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_LIST_WINDOW],// = "Å¬·£ ¸ñ·Ï(Clan List)";
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_WAIT_LIST_WINDOW],// = "´ë±â Å¬·£ ¸ñ·Ï(Wait Clan List)";
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_UNION_WINDOW],// = "Å¬·£ ¿¬ÇÕ(Clan Union)";
+//		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_COMMAND_WINDOW],// = "Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(Clan Command)";
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_LIST_WINDOW],// = "Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½(Clan List)";
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_WAIT_LIST_WINDOW],// = "ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½(Wait Clan List)";
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_UNION_WINDOW],// = "Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(Clan Union)";
 
 		// util tab
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_PERSONAL_STORE].GetString(),
@@ -1012,10 +1012,10 @@ void	C_VS_UI_TRIBE::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 		// Guild Tab
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_INFO].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_MEMBER_LIST].GetString(),
-//		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_COMMAND_WINDOW],// = "±æµå ¸í·É(Guild Command)";
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_LIST_WINDOW],// = "±æµå ¸ñ·Ï(Guild List)";
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_WAIT_LIST_WINDOW],// = "´ë±â ±æµå ¸ñ·Ï(Wait Guild List)";
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_UNION_WINDOW],// = "±æµå ¿¬ÇÕ(Guild Union)";
+//		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_COMMAND_WINDOW],// = "ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(Guild Command)";
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_LIST_WINDOW],// = "ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(Guild List)";
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_WAIT_LIST_WINDOW],// = "ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(Wait Guild List)";
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_UNION_WINDOW],// = "ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(Guild Union)";
 			
 		// util tab
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_PERSONAL_STORE].GetString(),
@@ -1204,15 +1204,15 @@ void	C_VS_UI_TRIBE::Run(id_t id)
 			gpC_base->SendMessage(UI_REQUEST_GUILD_MEMBER_LIST);
 		}
 		break;
-//	case TEAM_COMMAND_ID: // ±æµå ¸í·É
+//	case TEAM_COMMAND_ID: // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //		break;
-	case TEAM_LIST_ID: // ±æµå ¸®½ºÆ®
+	case TEAM_LIST_ID: // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 		  gpC_base->SendMessage(UI_REQUEST_UNION_REQUEST_GUILD_LIST, 1,0,NULL);
 			break;
-	case TEAM_WAIT_LIST_ID: // ´ë±â ±æµå ¸®½ºÆ®
+	case TEAM_WAIT_LIST_ID: // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 		gpC_base->SendMessage(UI_REQUEST_UNION_REQUEST_GUILD_LIST, 0,0,NULL);
 		break;
-	case TEAM_UNION_ID:		// ¿¬ÇÕ ¸í·É
+	case TEAM_UNION_ID:		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		gpC_base->SendMessage(UI_REQUEST_UNION_REQUEST_INFO,0,0,NULL);
 		break;
 
@@ -1443,7 +1443,7 @@ void C_VS_UI_TRIBE::SetChattingInterface(C_VS_UI_CHATTING * p_chatting)
 // Shop RunningAnnounced
 //-----------------------------------------------------------------------------
 void	
-C_VS_UI_TRIBE::ShopRunningAnnounced() // ShopÀ» À§ÇÑ ÇÊ¿äÇÑ Window¸¦ ¶ç¿î´Ù.
+C_VS_UI_TRIBE::ShopRunningAnnounced() // Shopï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ Windowï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 {
 	switch(g_eRaceInterface)
 	{
@@ -1519,7 +1519,7 @@ C_VS_UI_TRIBE::ExchangeRunningAnnounced()
 //-----------------------------------------------------------------------------
 // C_VS_UI_TRIBE::CloseInventoryGearWindow
 //
-// event lock°É·ÁÀÖÀ¸¸é ´İÁö ¸øÇÑ´Ù.
+// event lockï¿½É·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 bool C_VS_UI_TRIBE::CloseInventoryGearWindow()
 {
@@ -1591,7 +1591,7 @@ void C_VS_UI_TRIBE::HotKey_Friend()
 //
 // 
 //-----------------------------------------------------------------------------
-#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ğ°ï¿½
 	void C_VS_UI_TRIBE::HotKey_Inventory(bool IsCheckSubInventory)
 #else
 	void C_VS_UI_TRIBE::HotKey_Inventory()
@@ -1600,18 +1600,18 @@ void C_VS_UI_TRIBE::HotKey_Friend()
 {
 	if (gpC_base == NULL || gpC_base->EventOccured() == true)
 		return;
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ğ°ï¿½
 		if (!GetInventoryOpenState())
 			OpenInventory();
 		else
 		{
-			// 2005, 3, 7, sobeit modify start - ¼­ºêÀÎº¥ Ã³¸® 
+			// 2005, 3, 7, sobeit modify start - ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ Ã³ï¿½ï¿½ 
 			//CloseInventory();
 			if(!IsCheckSubInventory)
 				CloseInventory();
 			else
 			{
-				// ¼­ºê ÀÎº¥ÀÌ ¿­·ÈÀ¸¸é µÑ´Ù ´İ´Â´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½ ï¿½İ´Â´ï¿½.
 				if(gC_vs_ui.IsRunningSubInventory())
 				{
 					gC_vs_ui.CloseSubInventory();
@@ -1620,7 +1620,7 @@ void C_VS_UI_TRIBE::HotKey_Friend()
 				else
 				{
 					bool IsSubWindowOpen = false;
-					// ¼­ºê ÀÎº¥ÀÌ ÀÖÀ¸¸é ¼­ºê ÀÎº¥À» ¿¬´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 					if(NULL != g_pInventory)
 					{
 						MItem* pSubInventory = ((MItemManager*)g_pInventory)->FindItem( MItemClassFinder(ITEM_CLASS_SUB_INVENTORY) );
@@ -1630,12 +1630,12 @@ void C_VS_UI_TRIBE::HotKey_Friend()
 							IsSubWindowOpen = true;
 						}
 					}
-					// ¼­ºê ÀÎº¥ÀÌ ¾øÀ¸¸é °Á ÀÎº¥À» ´İ´Â´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ ï¿½İ´Â´ï¿½.
 					if(!IsSubWindowOpen)
 						CloseInventory();
 				}
 			}
-			// 2005, 3, 7, sobeit modify end - ¼­ºêÀÎº¥ Ã³¸® 
+			// 2005, 3, 7, sobeit modify end - ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ Ã³ï¿½ï¿½ 
 		}
 	#else
 		if (!GetInventoryOpenState())
@@ -2128,7 +2128,7 @@ void C_VS_UI_TRIBE::HotKey_SummonPet()
 	if(	gbl_item_lock || gbl_gear_lock )
 		return;
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ğ°ï¿½
 		MItem* pSubInventory = NULL;
 		MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( MItemClassFinder(ITEM_CLASS_PET_ITEM) , pSubInventory);
 		
@@ -2147,7 +2147,7 @@ void C_VS_UI_TRIBE::HotKey_SummonPet()
 		{
 			const MItem * p_item = g_pInventory->GetItem(i, j);
 
-			if (p_item) // ItemÀÌ ÀÖ´Ù.
+			if (p_item) // Itemï¿½ï¿½ ï¿½Ö´ï¿½.
 			{
 				if(p_item->GetItemClass() == ITEM_CLASS_PET_ITEM)
 				{
@@ -2163,7 +2163,7 @@ void C_VS_UI_TRIBE::HotKey_SummonPet()
 void	C_VS_UI_TRIBE::DoCommonActionBeforeEventOccured()
 {
 	//
-	// ºÒÇÊ¿äÇÑ WindowµéÀ» ´İ´Â´Ù.
+	// ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ Windowï¿½ï¿½ï¿½ï¿½ ï¿½İ´Â´ï¿½.
 	//
 	gC_vs_ui.CloseInfo();
 	CloseInventory();
@@ -2209,7 +2209,7 @@ bool C_VS_UI_TRIBE::MouseControl(UINT message, int _x, int _y)
 		break;
 		
 	case TAB_EXP_ID:
-		// EXP ´Â ¹öÆ°ÀÌ ¾ø´Ù
+		// EXP ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if(g_eRaceInterface == RACE_SLAYER)
 		{
 //			char* exp_bar_string[1] = 
@@ -2273,8 +2273,8 @@ bool C_VS_UI_TRIBE::MouseControl(UINT message, int _x, int _y)
 						num[1] = (goal_exp - num[0])*100/max(1, (goal_exp));
 //						num[2] = g_pExperienceTable->GetSTRInfo(g_char_slot_ingame.STR_PURE).AccumExp - g_char_slot_ingame.STR_EXP_CUR;
 						
-						// µµ¸ŞÀÎ ·¹º§ÀÌ 100ÀÌÇÏÀÌ¸é¼­ ´É·ÂÄ¡ ÃÑÇÕÀÌ 300ÀÌÇÏÀÌ¸é..
-						// ÇÏ³ªÀÇ ´É·ÂÄ¡´Â 200À» ³ÑÀ» ¼ö ¾ø´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 100ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸é¼­ ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 300ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½..
+						// ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ï¿½ï¿½ 200ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 						if( DomainLevelMax <= MAX_SLAYER_DOMAIN_SUM_OLD && TotalAttr <= MAX_SLAYER_ATTR_SUM_OLD )
 						{
 							if( g_char_slot_ingame.STR_PURE >= MAX_SLAYER_ATTR_OLD )
@@ -2291,8 +2291,8 @@ bool C_VS_UI_TRIBE::MouseControl(UINT message, int _x, int _y)
 						num[1] = (goal_exp - num[0])*100/max(1, (goal_exp));
 //						num[2] = g_pExperienceTable->GetSTRInfo(g_char_slot_ingame.STR_PURE).AccumExp - g_char_slot_ingame.STR_EXP_CUR;
 						
-						// µµ¸ŞÀÎ ·¹º§ÀÌ 100ÀÌÇÏÀÌ¸é¼­ ´É·ÂÄ¡ ÃÑÇÕÀÌ 300ÀÌÇÏÀÌ¸é..
-						// ÇÏ³ªÀÇ ´É·ÂÄ¡´Â 200À» ³ÑÀ» ¼ö ¾ø´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 100ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸é¼­ ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 300ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½..
+						// ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ï¿½ï¿½ 200ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 						if( DomainLevelMax <= MAX_SLAYER_DOMAIN_SUM_OLD && TotalAttr <= MAX_SLAYER_ATTR_SUM_OLD )
 						{
 							if( g_char_slot_ingame.DEX_PURE >= MAX_SLAYER_ATTR_OLD )
@@ -2309,8 +2309,8 @@ bool C_VS_UI_TRIBE::MouseControl(UINT message, int _x, int _y)
 						num[1] = (goal_exp - num[0])*100/max(1, (goal_exp));
 //						num[2] = g_pExperienceTable->GetSTRInfo(g_char_slot_ingame.STR_PURE).AccumExp - g_char_slot_ingame.STR_EXP_CUR;
 						
-						// µµ¸ŞÀÎ ·¹º§ÀÌ 100ÀÌÇÏÀÌ¸é¼­ ´É·ÂÄ¡ ÃÑÇÕÀÌ 300ÀÌÇÏÀÌ¸é..
-						// ÇÏ³ªÀÇ ´É·ÂÄ¡´Â 200À» ³ÑÀ» ¼ö ¾ø´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 100ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸é¼­ ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 300ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½..
+						// ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ï¿½ï¿½ 200ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 						if( DomainLevelMax <= MAX_SLAYER_DOMAIN_SUM_OLD && TotalAttr <= MAX_SLAYER_ATTR_SUM_OLD )
 						{
 							if( g_char_slot_ingame.INT_PURE >= MAX_SLAYER_ATTR_OLD )
@@ -2325,8 +2325,8 @@ bool C_VS_UI_TRIBE::MouseControl(UINT message, int _x, int _y)
 						int domainIndex = domain[0];
 						int level = (*g_pSkillManager)[domainIndex].GetDomainLevel();
 						int exp_remain = (*g_pSkillManager)[domainIndex].GetDomainExpRemain();
-						
-						if(level >= 0 && exp >= 0)
+
+						if(level >= 0 && exp_remain >= 0)
 						{
 //							int next_exp = (*g_pSkillManager)[domainIndex].GetExpInfo(level).AccumExp;
 							const __int64 goal_exp = (*g_pSkillManager)[domainIndex].GetExpInfo(level).GoalExp;
@@ -2349,8 +2349,8 @@ bool C_VS_UI_TRIBE::MouseControl(UINT message, int _x, int _y)
 						int domainIndex = domain[1];
 						int level = (*g_pSkillManager)[domainIndex].GetDomainLevel();
 						int exp_remain = (*g_pSkillManager)[domainIndex].GetDomainExpRemain();
-						
-						if(level >= 0 && exp >= 0)
+
+						if(level >= 0 && exp_remain >= 0)
 						{
 //							int next_exp = (*g_pSkillManager)[domainIndex].GetExpInfo(level).AccumExp;
 							const __int64 goal_exp = (*g_pSkillManager)[domainIndex].GetExpInfo(level).GoalExp;
@@ -2373,8 +2373,8 @@ bool C_VS_UI_TRIBE::MouseControl(UINT message, int _x, int _y)
 						int domainIndex = domain[2];
 						int level = (*g_pSkillManager)[domainIndex].GetDomainLevel();
 						int exp_remain = (*g_pSkillManager)[domainIndex].GetDomainExpRemain();
-						
-						if(level >= 0 && exp >= 0)
+
+						if(level >= 0 && exp_remain >= 0)
 						{
 //							int next_exp = (*g_pSkillManager)[domainIndex].GetExpInfo(level).AccumExp;
 							const __int64 goal_exp = (*g_pSkillManager)[domainIndex].GetExpInfo(level).GoalExp;
@@ -2393,11 +2393,11 @@ bool C_VS_UI_TRIBE::MouseControl(UINT message, int _x, int _y)
 				}
 				
 				
-				// ¼ıÀÚ»çÀÌ¿¡ ,³Ö±â
+				// ï¿½ï¿½ï¿½Ú»ï¿½ï¿½Ì¿ï¿½ ,ï¿½Ö±ï¿½
 				wsprintf(temp_str[0], (*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_EXP_DESCRIPTION_NEW].GetString(), g_GetNumberString(num[0]).c_str(), g_GetNumberString(num[1]).c_str());
 				
 				if(num[0] < 0)
-					bMax = true;	// ·¹º§¾÷¸Æ½º
+					bMax = true;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½
 								
 				if(bMax)
 				{
@@ -2460,13 +2460,13 @@ bool C_VS_UI_TRIBE::MouseControl(UINT message, int _x, int _y)
 					wsprintf(szTemp,"%d",(goal_exp-g_char_slot_ingame.EXP_REMAIN)*100/max(1, (goal_exp)));
 					
 					temp[1] = szTemp;
-					for(i = 3; i <= 13; i += 4)
+					for(int i = 3; i <= 13; i += 4)
 					{
 						if(temp[1].size() > i)temp[1].insert(temp[1].size()-i, ",");
 					}
 //					wsprintf(szTemp,"%d",LeftExp);
 //					temp[2] = szTemp;
-//					for(i = 3; i <= 13; i += 4)
+//					for(int i = 3; i <= 13; i += 4)
 //					{
 //						if(temp[2].size() > i)temp[2].insert(temp[2].size()-i, ",");
 //					}
@@ -2543,7 +2543,7 @@ C_VS_UI_GEAR::C_VS_UI_GEAR()
 	{
 	case RACE_SLAYER:
 		// by csm 2004.12.31
-//		if(g_char_slot_ingame.m_AdvancementLevel> 0) // 2Â÷ ÀüÁ÷ ¿ë ±â¾î ÀÎÅÍÆäÀÌ½º 
+//		if(g_char_slot_ingame.m_AdvancementLevel> 0) // 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ 
 //		{
 			m_bl_Abvencement = true;
 			m_pC_gear_spk = new C_SPRITE_PACK(SPK_SLAYER_ADVANCEMENTGEAR);	
@@ -2575,7 +2575,7 @@ C_VS_UI_GEAR::C_VS_UI_GEAR()
 
 	case RACE_VAMPIRE:
 
-//		if(g_char_slot_ingame.m_AdvancementLevel> 0) // 2Â÷ ÀüÁ÷ ¿ë ±â¾î ÀÎÅÍÆäÀÌ½º 
+//		if(g_char_slot_ingame.m_AdvancementLevel> 0) // 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ 
 //		{
 			m_bl_Abvencement = true;
 			m_pC_gear_spk = new C_SPRITE_PACK(SPK_VAMPIRE_ADVANCEMENTGEAR);
@@ -2605,7 +2605,7 @@ C_VS_UI_GEAR::C_VS_UI_GEAR()
 		break;
 		
 	case RACE_OUSTERS:
-//		if(g_char_slot_ingame.m_AdvancementLevel > 0) // 2Â÷ ÀüÁ÷ ¿ë ±â¾î ÀÎÅÍÆäÀÌ½º 
+//		if(g_char_slot_ingame.m_AdvancementLevel > 0) // 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ 
 //		{
 			m_bl_Abvencement = true;
 			m_pC_gear_spk = new C_SPRITE_PACK(SPK_OUSTERS_ADVANCEMENTGEAR);
@@ -2872,7 +2872,7 @@ bool C_VS_UI_GEAR::MouseControl(UINT message, int _x, int _y)
 						
 						//						if (loop == ITEM_REF_POINT_COUNT)
 						//						{
-						//							// slot¿¡ µé¾î°¥ ¼ö ÀÖ´Â ItemÀÎ°¡?
+						//							// slotï¿½ï¿½ ï¿½ï¿½î°¥ ï¿½ï¿½ ï¿½Ö´ï¿½ Itemï¿½Î°ï¿½?
 						//							MItem * p_old_item;
 						//							if (gC_vs_ui.CanReplaceItemInGear(gpC_mouse_pointer->GetPickUpItem(), i, p_old_item) == false)
 						//								continue;
@@ -2882,7 +2882,7 @@ bool C_VS_UI_GEAR::MouseControl(UINT message, int _x, int _y)
 						else
 						{
 							const MItem* pAddedItem = gC_vs_ui.GetGearCoreZapItem(m_focus_slot);
-							g_descriptor_manager.Set(DID_ITEM, x+m_p_slot_rect[m_focus_slot].x, y+m_p_slot_rect[m_focus_slot].y, (void *)p_selected_item, 0, (int)pAddedItem);
+							g_descriptor_manager.Set(DID_ITEM, x+m_p_slot_rect[m_focus_slot].x, y+m_p_slot_rect[m_focus_slot].y, (void *)p_selected_item, 0, (int)(intptr_t)pAddedItem);
 						}
 					}
 					//						m_focus_slot = NOT_SELECTED;
@@ -2899,9 +2899,9 @@ bool C_VS_UI_GEAR::MouseControl(UINT message, int _x, int _y)
 		
 	case M_LEFTBUTTON_DOWN:
 	case M_LB_DOUBLECLICK:
-		if (gpC_mouse_pointer->GetPickUpItem() == false 
-			&& re 
-			&& gC_vs_ui.GetGearItem(m_focus_slot) == false 
+		if (gpC_mouse_pointer->GetPickUpItem() == NULL
+			&& re
+			&& gC_vs_ui.GetGearItem(m_focus_slot) == NULL
 			&& gC_vs_ui.GetGearCoreZapItem(m_focus_slot) == NULL)
 			//				 TestSlotRect(_x, _y) == false && re)
 		{
@@ -2911,12 +2911,12 @@ bool C_VS_UI_GEAR::MouseControl(UINT message, int _x, int _y)
 		}
 		
 		//
-		// ItemÀ» Áı´ø°¡ ³õ´Â´Ù.
+		// Itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 		//
 		{
 			bool ret = Click(x, y, m_p_slot_rect);
 			
-			// belt¸¦ ³õ°Å³ª Áı¾úÀ» °æ¿ì´Â quick itemÀ» resetÇØ¾ß ÇÑ´Ù.
+			// beltï¿½ï¿½ ï¿½ï¿½ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ quick itemï¿½ï¿½ resetï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 			//if ((MSlayerGear::GEAR_SLAYER)m_focus_slot == MSlayerGear::GEAR_SLAYER_BELT)
 			//{
 			//	gC_vs_ui.ResetSlayerQuickItemSize();
@@ -3162,7 +3162,7 @@ void C_VS_UI_GEAR::Show()
 
 			if(GetAttributes()->alpha && g_eRaceInterface == RACE_VAMPIRE)
 			{
-				if(i<C_VS_UI_VAMPIRE_GEAR::SN_COREZAP1 || i>C_VS_UI_VAMPIRE_GEAR::SN_COREZAP4) // ÄÚ¾îÀì Àº ¾ÈÂï´Â´Ù..-_-; ÀÏ´Ü..ÀÌ·¸°Ô
+				if(i<C_VS_UI_VAMPIRE_GEAR::SN_COREZAP1 || i>C_VS_UI_VAMPIRE_GEAR::SN_COREZAP4) // ï¿½Ú¾ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Â´ï¿½..-_-; ï¿½Ï´ï¿½..ï¿½Ì·ï¿½ï¿½ï¿½
 				{
 					RECT alpha_rect;
 					alpha_rect.left = m_p_slot_rect[i].x+x;
@@ -3202,7 +3202,7 @@ void C_VS_UI_GEAR::Show()
 			}
 			else
 			{
-				// ItemÀÌ ÀÖ´Â slot
+				// Itemï¿½ï¿½ ï¿½Ö´ï¿½ slot
 				
 				TYPE_FRAMEID frame_id = p_item->GetInventoryFrameID();
 				
@@ -3284,7 +3284,7 @@ void C_VS_UI_GEAR::Show()
 			}
 		}
 		
-		// ³õ´Â À§Ä¡ ¹Ì¸® ¾Ë ¼ö ÀÖµµ·Ï ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½Ì¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 		if (gpC_mouse_pointer->GetPickUpItem() && 
 			m_focus_slot != NOT_SELECTED)
 		{
@@ -3421,10 +3421,10 @@ void C_VS_UI_GEAR::UnacquireMouseFocus()
 //-----------------------------------------------------------------------------
 // Click
 //
-// ÇöÀç ItemÀ» µé°í ÀÖÀ¸¸é ³õ´ø°¡(³õÀ» ¼ö ÀÖÀ¸¸é) ±³Ã¼ÇÏ°í, µé°í ÀÖÁö ¾ÊÀ¸¸é
-// Gear¿¡ ÀÖ´Â °ÍÀ» Áı´Â´Ù.
+// ï¿½ï¿½ï¿½ï¿½ Itemï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½Ã¼ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// Gearï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 //
-// ¹º°¡ ÇßÀ¸¸é true¸¦, ±×·¸Áö¾ÊÀ¸¸é false¸¦ ¹İÈ¯ÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ trueï¿½ï¿½, ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ falseï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 bool C_VS_UI_GEAR::Click(int window_x, int window_y, Rect * slot_rect)
 {
@@ -3437,20 +3437,20 @@ bool C_VS_UI_GEAR::Click(int window_x, int window_y, Rect * slot_rect)
 	
 	int item_x, item_y;
 	
-	if (gpC_mouse_pointer->GetPickUpItem()) // µé°í ÀÖ´Â°¡?
+	if (gpC_mouse_pointer->GetPickUpItem()) // ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½?
 	{
 		const MItem* p_cur_item = gC_vs_ui.GetGearItem(m_focus_slot);
 		
 		if (gpC_mouse_pointer->GetPickUpItem()->IsInsertToItem( p_cur_item ))
 		{
-			// ÀÌÀü¿¡ ÀÖ´ø item¿¡ Ãß°¡µÉ ¼ö ÀÖ´Â °æ¿ì
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ itemï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
 			
-			// ´ë»ó Item°ú µé°í ÀÖ´Â(Ãß°¡ÇÒ Item)À» Client¿¡¼­ ¾Ë¾Æ¾ß ÇÑ´Ù.
-			// µé°í ÀÖ´Â ItemÀº Client¿¡¼­ accessÇÒ ¼ö ÀÖÀ¸¹Ç·Î ´ë»ó ItemÀ» º¸³½´Ù.
+			// ï¿½ï¿½ï¿½ Itemï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½(ï¿½ß°ï¿½ï¿½ï¿½ Item)ï¿½ï¿½ Clientï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ¾ï¿½ ï¿½Ñ´ï¿½.
+			// ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Itemï¿½ï¿½ Clientï¿½ï¿½ï¿½ï¿½ accessï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ Itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 			gpC_base->SendMessage(UI_ITEM_INSERT_FROM_GEAR,
 				m_focus_slot, 
 				0, 
-				(void *)p_cur_item); // ´ë»ó Item
+				(void *)p_cur_item); // ï¿½ï¿½ï¿½ Item
 		}
 		else
 		{
@@ -3458,7 +3458,7 @@ bool C_VS_UI_GEAR::Click(int window_x, int window_y, Rect * slot_rect)
 			
 			if (gC_vs_ui.CanReplaceItemInGear(gpC_mouse_pointer->GetPickUpItem(), m_focus_slot, p_old_item))
 			{
-				if (p_old_item != NULL) // replace µÇ´Â°¡?
+				if (p_old_item != NULL) // replace ï¿½Ç´Â°ï¿½?
 				{
 					item_x = window_x+slot_rect[m_focus_slot].x+slot_rect[m_focus_slot].w/2-gpC_item->GetWidth(p_old_item->GetInventoryFrameID());
 					item_y = window_y+slot_rect[m_focus_slot].y+slot_rect[m_focus_slot].h/2-gpC_item->GetHeight(p_old_item->GetInventoryFrameID());
@@ -3466,9 +3466,9 @@ bool C_VS_UI_GEAR::Click(int window_x, int window_y, Rect * slot_rect)
 					gpC_base->SendMessage(UI_ITEM_DROP_TO_GEAR,
 						m_focus_slot, 
 						MAKEDWORD(item_x, item_y), 
-						p_old_item); // ±³È¯µÉ °Å
+						p_old_item); // ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½
 					
-					// UI¿¡¼­ ¹Ù²ã¾ß ÇÑ´Ù.
+					// UIï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ ï¿½Ñ´ï¿½.
 					//gpC_mouse_pointer->PickUpItem((MItem *)p_old_item);
 				}
 				else
@@ -3480,11 +3480,11 @@ bool C_VS_UI_GEAR::Click(int window_x, int window_y, Rect * slot_rect)
 						0, 
 						NULL);
 					
-					// 100% ³õÀ» ¼ö ÀÖÀ¸´Ï±î UI¿¡¼­ drop½ÃÅ²´Ù.
+					// 100% ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ UIï¿½ï¿½ï¿½ï¿½ dropï¿½ï¿½Å²ï¿½ï¿½.
 					//gpC_mouse_pointer->DropItem();
 				}
 				
-				// ±â¾î¿¡ ³ÖÀº ¾ÆÀÌÅÛÀÌ º§Æ®¶ó¸é º§Æ®¸¦ ¿¬´Ù.
+				// ï¿½ï¿½î¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				if(gpC_mouse_pointer->GetPickUpItem()->GetItemClass() == ITEM_CLASS_BELT)
 					gC_vs_ui.RunQuickItemSlot();
 				
@@ -3498,11 +3498,11 @@ bool C_VS_UI_GEAR::Click(int window_x, int window_y, Rect * slot_rect)
 	}
 	else
 	{
-		// Áı´Â´Ù.
-		// GetGearItem_PickUp()´Â m_focus_slot¸¦ ¹Ù²Ü¼öµµ ÀÖ´Ù. by sobeit - ÄÚ¾îÀì ¶§¹®¿¡
+		// ï¿½ï¿½ï¿½Â´ï¿½.
+		// GetGearItem_PickUp()ï¿½ï¿½ m_focus_slotï¿½ï¿½ ï¿½Ù²Ü¼ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½. by sobeit - ï¿½Ú¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		const MItem * p_item = gC_vs_ui.GetGearItem_PickUp(m_focus_slot);
 		
-		if (p_item != NULL) // ItemÀÌ ÀÖ´Ù.
+		if (p_item != NULL) // Itemï¿½ï¿½ ï¿½Ö´ï¿½.
 		{
 			if(gpC_mouse_pointer->IsCursorDescription())
 			{
@@ -3520,7 +3520,7 @@ bool C_VS_UI_GEAR::Click(int window_x, int window_y, Rect * slot_rect)
 			// 2004, 10, 21, sobeit add start
 			else if(p_item->GetItemClass() == ITEM_CLASS_BLOOD_BIBLE_SIGN )
 			{
-				return false; // ±â¾îÃ¢¿¡¼­ ºí·¯µå ¹ÙÀÌºíÀº Ã³¸® ÇÏÁö ¾Ê´Â´Ù.
+				return false; // ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 			}
 			// 2004, 10, 21, sobeit add end
 			else if (gbl_repair_running == true)
@@ -3534,7 +3534,7 @@ bool C_VS_UI_GEAR::Click(int window_x, int window_y, Rect * slot_rect)
 					!p_item->IsUniqueItem() &&
 					!p_item->IsQuestItem())
 				{
-					// repair °¡°İÀÌ 0º¸´Ù Å¬ ¶§... by sigi
+					// repair ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å¬ ï¿½ï¿½... by sigi
 					if (g_pPriceManager->GetItemPrice((MItem*)p_item, MPriceManager::REPAIR) > 0)
 					{
 						m_p_repair_item = (MItem *)p_item;
@@ -3552,7 +3552,7 @@ bool C_VS_UI_GEAR::Click(int window_x, int window_y, Rect * slot_rect)
 			{
 				if (gbl_item_trade_lock == false)
 				{
-					// silvering °¡°İÀÌ 0º¸´Ù Å¬ ¶§... by larosel
+					// silvering ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å¬ ï¿½ï¿½... by larosel
 					if (g_pPriceManager->GetItemPrice((MItem*)p_item, MPriceManager::SILVERING) > 0)
 					{
 						m_p_silvering_item = (MItem *)p_item;
@@ -3570,7 +3570,7 @@ bool C_VS_UI_GEAR::Click(int window_x, int window_y, Rect * slot_rect)
 					m_focus_slot, 
 					MAKEDWORD(item_x, item_y), 
 					(MItem *)p_item);
-				// SHIFT´©¸£°í Å¬¸¯ÇßÀ»¶§ ¾ÆÀÌÅÛ ÀÚµ¿ ÀÌµ¿ Ã³¸® -> ÀÎº¥Åä¸®
+				// SHIFTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½Ìµï¿½ Ã³ï¿½ï¿½ -> ï¿½Îºï¿½ï¿½ä¸®
 				if(g_pDXInput->KeyDown(DIK_LSHIFT))
 				{
 					POINT point;
@@ -3578,26 +3578,26 @@ bool C_VS_UI_GEAR::Click(int window_x, int window_y, Rect * slot_rect)
 					{
 						const MItem* p_cur_item = g_pInventory->GetItem(point.x, point.y);
 						
-						// ÃÑ¿¡ ÅºÃ¢À» ³¢¿ì´Â °Í°ú °°Àº °ÍÀÌ insert itemÀÌ´Ù.
-						// À§Ä¡°¡ ¿ÏÀüÈ÷ ÀÏÄ¡ÇÒ°æ¿ì¿¡¸¸ Ãß°¡ÇÑ´Ù.
+						// ï¿½Ñ¿ï¿½ ÅºÃ¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ insert itemï¿½Ì´ï¿½.
+						// ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ò°ï¿½ì¿¡ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
 						if (p_item->IsInsertToItem( p_cur_item ) && p_cur_item->GetGridX() == point.x && p_cur_item->GetGridY() == point.y)
 						{
-							// ÀÌÀü¿¡ ÀÖ´ø item¿¡ Ãß°¡µÉ ¼ö ÀÖ´Â °æ¿ì
+							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ itemï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
 							
-							// ´ë»ó Item°ú µé°í ÀÖ´Â(Ãß°¡ÇÒ Item)À» Client¿¡¼­ ¾Ë¾Æ¾ß ÇÑ´Ù.
-							// µé°í ÀÖ´Â ItemÀº Client¿¡¼­ accessÇÒ ¼ö ÀÖÀ¸¹Ç·Î ´ë»ó ItemÀ» º¸³½´Ù.
+							// ï¿½ï¿½ï¿½ Itemï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½(ï¿½ß°ï¿½ï¿½ï¿½ Item)ï¿½ï¿½ Clientï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ¾ï¿½ ï¿½Ñ´ï¿½.
+							// ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Itemï¿½ï¿½ Clientï¿½ï¿½ï¿½ï¿½ accessï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ Itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 							gpC_base->SendMessage(UI_ITEM_INSERT_FROM_INVENTORY,
 								point.x, point.y,
-								(void *)p_cur_item); // ´ë»ó Item
+								(void *)p_cur_item); // ï¿½ï¿½ï¿½ Item
 						}
 						else
 						{	
-							// Ãß°¡µÉ ¼ö ¾ø´Â °æ¿ì
+							// ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 							MItem* p_old_item  = NULL;
 							
-							if (g_pInventory->CanReplaceItem((MItem *)p_item,		// Ãß°¡ÇÒ item
-								point.x, point.y,	// Ãß°¡ÇÒ À§Ä¡ 
-								p_old_item))								// ¿ø·¡ÀÖ´ø item
+							if (g_pInventory->CanReplaceItem((MItem *)p_item,		// ï¿½ß°ï¿½ï¿½ï¿½ item
+								point.x, point.y,	// ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ 
+								p_old_item))								// ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ item
 							{
 								
 								gpC_base->SendMessage(UI_ITEM_DROP_TO_INVENTORY, 
@@ -3655,7 +3655,7 @@ void C_VS_UI_GEAR::Use()
 		
 		const MItem * p_item = pGear->GetItem(m_focus_slot);
 		
-		if (p_item) // ItemÀÌ ÀÖ´Ù.
+		if (p_item) // Itemï¿½ï¿½ ï¿½Ö´ï¿½.
 		{
 			if(IsPlayerInSafePosition() && (p_item->GetItemClass() == ITEM_CLASS_COUPLE_RING || p_item->GetItemClass() == ITEM_CLASS_VAMPIRE_COUPLE_RING))
 				return;
@@ -3712,9 +3712,9 @@ bool C_VS_UI_GEAR::IsPixel(int _x, int _y)
 //-----------------------------------------------------------------------------
 // C_VS_UI_GEAR::AnyMatchWindowPixel
 //
-// Window imageÀÇ pixelÀÌ (x, y) ÇÑ Á¡ÀÌ¶óµµ ÀÏÄ¡ÇÏ¸é true¸¦ ¾Æ´Ï¸é false¸¦ ¹İÈ¯ÇÑ´Ù.
+// Window imageï¿½ï¿½ pixelï¿½ï¿½ (x, y) ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½Ä¡ï¿½Ï¸ï¿½ trueï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ falseï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 //
-// ItemÀ» µé°í ÀÖÀ» ¶§¿¡´Â 'item ÂüÁ¶Æ÷ÀÎÆ®'¿¡ µû¶ó ÁøÇàÇÑ´Ù.
+// Itemï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 'item ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 bool C_VS_UI_GEAR::AnyMatchWindowPixel(int _x, int _y) const
 {
@@ -3823,11 +3823,11 @@ void C_VS_UI_CHATTING::ResetScroll()
 //-----------------------------------------------------------------------------
 // RestoreHistoryTemp
 //
-// History temp¿¡ ÀÖ´Â °ÍµéÀ» History¿¡ ÀÔ·ÂÇÑ´Ù.
+// History tempï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Íµï¿½ï¿½ï¿½ Historyï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_CHATTING::RestoreHistoryTemp()
 {
-	// ¿¾³¯ °ÍºÎÅÍ ÀÔ·ÂÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Íºï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ñ´ï¿½.
 	
 	//	m_bl_whisper_stacked = false;
 	//	switch(CHAT)
@@ -3877,7 +3877,7 @@ void C_VS_UI_CHATTING::RestoreHistoryTemp()
 
 //-----------------------------------------------------------------------------
 // C_VS_UI_CHATTING::SetGuildChat
-// ±æµåÃ¤ÆÃ <-> ÀÏ¹İÃ¤ÆÃ º¯È¯
+// ï¿½ï¿½ï¿½Ã¤ï¿½ï¿½ <-> ï¿½Ï¹ï¿½Ã¤ï¿½ï¿½ ï¿½ï¿½È¯
 //-----------------------------------------------------------------------------
 void C_VS_UI_CHATTING::SetGuildChat(bool guild)
 {
@@ -3888,17 +3888,17 @@ void C_VS_UI_CHATTING::SetGuildChat(bool guild)
 
 /*-----------------------------------------------------------------------------
 - AddChatToHistory
-- history buffer¿¡ Ãß°¡ÇÑ´Ù.
+- history bufferï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
 
-  //`buffer size¸¦ ³ÑÀ¸¸é ´Ù½Ã bufÀÇ ¸Ç ¾Õ¿¡ Ãß°¡ÇÏ´Â µ¥, m_insert_index´Â 
-  //¹Ù·Î 1¼øÀ§ chat stringÀÌ ÀÖ´Â indexÀÌ´Ù. m_insert_index°¡ nÀÌ¸é, n ÀÌÀü °ÍÀº
-  //2¼øÀ§ chat stringÀÌ°í, n ´ÙÀ½ °ÍÀº °¡Àå ¿¾³¯ chat stringÀÌ´Ù.
+  //`buffer sizeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ bufï¿½ï¿½ ï¿½ï¿½ ï¿½Õ¿ï¿½ ï¿½ß°ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½, m_insert_indexï¿½ï¿½ 
+  //ï¿½Ù·ï¿½ 1ï¿½ï¿½ï¿½ï¿½ chat stringï¿½ï¿½ ï¿½Ö´ï¿½ indexï¿½Ì´ï¿½. m_insert_indexï¿½ï¿½ nï¿½Ì¸ï¿½, n ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+  //2ï¿½ï¿½ï¿½ï¿½ chat stringï¿½Ì°ï¿½, n ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ chat stringï¿½Ì´ï¿½.
 -----------------------------------------------------------------------------*/
 void C_VS_UI_CHATTING::AddChatToHistory(const char * str, const char * sz_id, enum CHAT_LINE_CONDITION condition, DWORD color)
 {
 	assert(str);
 	
-	// history¸¦ º¸°í ÀÖÀ» °æ¿ì¿¡´Â ÀÔ·ÂÇÏÁö ¾Ê´Â´Ù.
+	// historyï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 #ifndef _LIB
 	if (m_pC_scroll_bar->GetScrollPos() > 0)
 #else
@@ -3964,7 +3964,7 @@ void C_VS_UI_CHATTING::AddChatToHistory(const char * str, const char * sz_id, en
 			break;
 			
 		case CLD_WHISPER:
-			//		// ½ºÅ©·ÑÀÌ ¾ÈµÇÀÖ´Â »óÅÂ¿¡¼­ WHISPER°¡ ½ºÅÃµÉ¼ö ¾ø´Ù
+			//		// ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ ï¿½Èµï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ WHISPERï¿½ï¿½ ï¿½ï¿½ï¿½ÃµÉ¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 			
 			break;
 		}
@@ -3982,7 +3982,7 @@ void C_VS_UI_CHATTING::AddChatToHistory(const char * str, const char * sz_id, en
 //-----------------------------------------------------------------------------
 // C_VS_UI_CHATTING::AddToChatHistory
 //
-// //chat history¿¡ sz_strÀ» ³Ö°í ½ºÅ©·Ñ¹Ù¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// //chat historyï¿½ï¿½ sz_strï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½Å©ï¿½Ñ¹Ù¸ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void	C_VS_UI_CHATTING::AddToChatHistory(const char * sz_str, const char * sz_id, CHAT_LINE_CONDITION condition, DWORD color)
 {
@@ -3991,9 +3991,9 @@ void	C_VS_UI_CHATTING::AddToChatHistory(const char * sz_str, const char * sz_id,
 	
 	
 	//
-	// stringÀÌ chatting WindowÀÇ ³ĞÀÌ¸¦ ³ÑÀ¸¸é ÀÚ¸¥´Ù.
+	// stringï¿½ï¿½ chatting Windowï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½.
 	//
-	// !½ÇÁ¦·Î Ãâ·ÂÇÏ´Â format°ú °°°Ô ÇÑ ÈÄ ³ĞÀÌ¸¦ Å×½ºÆ®ÇØ¾ß ÇÑ´Ù.
+	// !ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ formatï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½×½ï¿½Æ®ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 	//
 	//	char * p_temp = NULL;
 	//	int size = 0;
@@ -4043,7 +4043,7 @@ bool C_VS_UI_CHATTING::MouseControl(UINT message, int _x, int _y)
 	if(m_sub_window != 0 && m_sub_rect.IsInRect(_x, _y))
 	{
 		gpC_mouse_pointer->SetCursorDefault();
-		// sub window ¾È¿¡ ÀÖÀ¸¸é sub scroll
+		// sub window ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sub scroll
 		if(m_sub_window != 2)
 			re &= m_pC_sub_scroll_bar->MouseControl(message, _x-m_sub_rect.x, _y-m_sub_rect.y);
 		switch(message)
@@ -4056,13 +4056,13 @@ bool C_VS_UI_CHATTING::MouseControl(UINT message, int _x, int _y)
 				{
 					m_sub_selected.x = (_x - m_sub_rect.x-MARK_X)/14;
 					m_sub_selected.y = (_y - m_sub_rect.y-MARK_Y)/14+m_pC_sub_scroll_bar->GetScrollPos();
-					// 2004, 5, 10 sobeit add start - Å¬¸¯ À§Ä¡ º¸Á¤
+					// 2004, 5, 10 sobeit add start - Å¬ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 					if(RACE_OUSTERS == g_eRaceInterface)
 					{
 						m_sub_selected.x -= 1;
 						m_sub_selected.y -= 1;
 					}
-					// 2004, 5, 10 sobeit add end - Å¬¸¯ À§Ä¡ º¸Á¤
+					// 2004, 5, 10 sobeit add end - Å¬ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 					if(m_sub_selected.x < 0 || m_sub_selected.x > 8 || m_sub_selected.y < 0 || m_sub_selected.y >= MARK_MAX)
 						m_sub_selected.x = -1;
 					if(m_sub_selected.x != -1 && !(g_pUserOption->UseEnterChat && m_bl_input_mode == false))
@@ -4187,7 +4187,7 @@ bool C_VS_UI_CHATTING::MouseControl(UINT message, int _x, int _y)
 				break;
 			}
 		}
-		if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+		if (gpC_mouse_pointer->GetPickUpItem() == NULL && re)
 		{
 			if(m_resize != RESIZE_NOT)
 			{
@@ -4241,7 +4241,7 @@ bool C_VS_UI_CHATTING::MouseControl(UINT message, int _x, int _y)
 		  }
 		  
 			//------------------------------------------------------------
-			// ÀÏ´Ü, ÀüÃ¼ ¿µ¿ª¿¡ Æ÷ÇÔµÇ´ÂÁö º»´Ù.
+			// ï¿½Ï´ï¿½, ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÇ´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			//------------------------------------------------------------
 			if (x > rect.left && x < rect.right
 			&& y > rect.top && y < rect.bottom)
@@ -4255,9 +4255,9 @@ bool C_VS_UI_CHATTING::MouseControl(UINT message, int _x, int _y)
 			if (x > rect.left && x < rect.left + 120)
 			{
 			//------------------------------------------------------------
-			// Ã¤ÆÃÃ¢¿¡¼­ ÀÌ¸§ ¼±ÅÃÇÏ±â - by sigi
+			// Ã¤ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ - by sigi
 			//------------------------------------------------------------				
-			// FONT_GAPÀ¸·Î ¸î¹øÂ° ÁÙÀÎÁö ÆÇ´ÜÇÑ´Ù.
+			// FONT_GAPï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½Ñ´ï¿½.
 			int yLine = -((y - (CHAT_HISTORY_START_Y+FONT_GAP)) / FONT_GAP);				
 			
 			  //	by larosel
@@ -4285,7 +4285,7 @@ bool C_VS_UI_CHATTING::MouseControl(UINT message, int _x, int _y)
 					  if (pID!=NULL)
 					  {
 					  //							gpC_base->SendMessage(UI_CHAT_SELECT_NAME, message, 0, (void*)pID);												
-					  if(m_lev_chatting.GetString()[0] == '*')	// ¿î¿µÀÚ ¸í·É¾îÀÎ°æ¿ì Ã¤ÆÃÃ¢¿¡ ³Ö¾îÁØ´Ù
+					  if(m_lev_chatting.GetString()[0] == '*')	// ï¿½î¿µï¿½ï¿½ ï¿½ï¿½ï¿½É¾ï¿½ï¿½Î°ï¿½ï¿½ Ã¤ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ø´ï¿½
 					  {
 					  m_lev_chatting.AddString(" ");
 					  m_lev_chatting.AddString(pID);
@@ -4293,7 +4293,7 @@ bool C_VS_UI_CHATTING::MouseControl(UINT message, int _x, int _y)
 					  else
 					  {
 					  //									AddWhisperID(pID);
-					  // ³»°¡ ±Ó¼Ó¸» º¸³¾¶§ '[¾¦°«] ÃÊº¯ÅÂ>¾îÂ¼±¸' ¸¦ Å¬¸¯ÇÏ¸é '[¾¦°«] ÃÊº¯ÅÂ'°¡ ±Ó¸» ¾ÆÀÌµğ¿¡ µé¾î°¡´Â°Å ¹æÁö
+					  // ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼Ó¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ '[ï¿½ï¿½ï¿½ï¿½] ï¿½Êºï¿½ï¿½ï¿½>ï¿½ï¿½Â¼ï¿½ï¿½' ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ï¸ï¿½ '[ï¿½ï¿½ï¿½ï¿½] ï¿½Êºï¿½ï¿½ï¿½'ï¿½ï¿½ ï¿½Ó¸ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½î°¡ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½
 					  if(strchr(pID, ' ') != NULL)
 					  SetWhisperID(strchr(pID,' ')+1);
 					  else
@@ -4332,9 +4332,9 @@ bool C_VS_UI_CHATTING::MouseControl(UINT message, int _x, int _y)
 								case M_LB_DOUBLECLICK:	
 								{
 								//------------------------------------------------------------
-								// ½ºÇÁ·¹µåµÈ ¾ÆÀÌµğ Ã¢¿¡¼­ ¾ÆÀÌµğ ¼±ÅÃÇÏ±â by larosel
+								// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ by larosel
 								//------------------------------------------------------------				
-								// FONT_GAPÀ¸·Î ¸î¹øÂ° ÁÙÀÎÁö ÆÇ´ÜÇÑ´Ù.
+								// FONT_GAPï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½Ñ´ï¿½.
 								int yLine = (y - rect.top)/FONT_GAP;
 								SetWhisperID((char *)GetWhisperID(yLine).c_str());
 								
@@ -4383,11 +4383,11 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 		return;
 	}
 	
-	// Hiding Áß¿¡´Â Å°º¸µå ÀÔ·Â ¾È¹ŞÀ½
+	// Hiding ï¿½ß¿ï¿½ï¿½ï¿½ Å°ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½È¹ï¿½ï¿½ï¿½
 	if((x < 0 || x+w > g_GameRect.right || y < 0 || y+h > g_GameRect.bottom) && g_pUserOption->UseEnterChat)
 		return;
 	
-	// ½ºÅ©·ÑÁß¿¡ ¿£ÅÍ¸¦ ¾È¹Ş´Â°Ç ¿Ö³Ä-¤µ- ÀÔ·ÂµÇ¸é ½ºÅ©·Ñ µ¹¸®±¸ ÀÔ·ÂÇØ¾ßÁö-_-;
+	// ï¿½ï¿½Å©ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½È¹Ş´Â°ï¿½ ï¿½Ö³ï¿½-ï¿½ï¿½- ï¿½Ô·ÂµÇ¸ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½-_-;
 	if (message == WM_KEYDOWN && key == VK_RETURN && m_pC_scroll_bar->GetScrollPos() > 0)
 	{
 		RestoreHistoryTemp();
@@ -4427,29 +4427,29 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 				ChangeWhisperFocus();
 				break;
 			}
-			// ÀÔ·ÂµÈ °ÍÀÌ ¾øÀ¸¸é ¹«È¿ÀÌ´Ù.
+			// ï¿½Ô·Âµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¿ï¿½Ì´ï¿½.
 			if (m_lev_chatting.Size() > 0)
 			{
 				//
 				// sz_chat_str
 				//
-				// DBCS¸¦ ASCII·Î ¹Ù²Ü ¶§ »ç¿ëÇÏ´Â buf.
-				// ½ÇÁ¦·Î UI_CHAT_RETURNÀ» ¹ŞÀ» ¶§ chatting stringÀÌ¹Ç·Î ¸Ş½ÃÁö¸¦ Ã³¸®ÇÏ°í³ª¼­ ¹İµå½Ã DeleteNewArray¸¦
-				// ÇØÁà¾ß ÇÑ´Ù.
+				// DBCSï¿½ï¿½ ASCIIï¿½ï¿½ ï¿½Ù²ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ buf.
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ UI_CHAT_RETURNï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ chatting stringï¿½Ì¹Ç·ï¿½ ï¿½Ş½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½İµï¿½ï¿½ DeleteNewArrayï¿½ï¿½
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 				//
-				// UI¿¡¼­ ÀÌ ptrÀ» °ü¸®ÇÏ¸é µ¿±âÈ­¹®Á¦ÀÎÁö¸ô¶óµµ ±ÛÀÚ°¡ ±úÁö´Â °æ¿ì°¡ ÀÖ´Ù. UI_CHAT_RETURNÀÌ
-				// Ã³¸®µÇÁö ¾ÊÀº »óÅÂ¿¡¼­ g_Convert_DBCS_Ascii2SingleByte()°¡ ½ÇÇàµÇ¼­ ±×·± °Í °°´Ù.
+				// UIï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ptrï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì°¡ ï¿½Ö´ï¿½. UI_CHAT_RETURNï¿½ï¿½
+				// Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ g_Convert_DBCS_Ascii2SingleByte()ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¼ï¿½ ï¿½×·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				//
 				
 				char * sz_chat_str = NULL;
 				g_Convert_DBCS_Ascii2SingleByte(m_lev_chatting.GetString(), m_lev_chatting.Size(), sz_chat_str);
 
-				// Å¸ÀÌÇÎ Çß´ø ¹®Àå ±â¾ïÇÏ±â
+				// Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ß´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 				if(m_history.size() == m_history_line)
 				{
 					if(m_history.size() == 20)
 					{
-						m_history.erase(&m_history[0]);
+						m_history.erase(m_history.begin());
 					}
 					
 					PAPERING_HISTORY temp_history;
@@ -4474,24 +4474,24 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 						}
 						else
 						{
-							temp_history.m_timer.erase(&temp_history.m_timer[0]);
+							temp_history.m_timer.erase(temp_history.m_timer.begin());
 						}
 					}
 
 
 					
-					m_history.erase(&m_history[m_history_line]);
+					m_history.erase(m_history.begin() + m_history_line);
 					temp_history.m_string = sz_chat_str;
 					temp_history.m_timer.push_back(GetTickCount());
 					m_history.push_back(temp_history);
 					m_history_line = m_history.size();
 				}
-				// Ôö¼Ó¶ÔÊ¹ÓÃ¸ß¼¶¶Ô½²»úÎïÆ·ÎŞÊ±¼äÏŞÖÆÖ§³Ö
+				// ï¿½ï¿½ï¿½Ó¶ï¿½Ê¹ï¿½Ã¸ß¼ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½
 // 				if(0 == strncmp(sz_chat_str, (*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY].GetString(),(*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY].GetLength()))
 // 				{
-// 					temp_history.m_timer.erase(&temp_history.m_timer[0]);
+// 					temp_history.m_timer.erase(temp_history.m_timer.begin());
 // 				}
-				// °É·ÁÀÖ´Â ½ºÅ³Áß¿¡ ¹ÂÆ® ½ºÅ³ÀÌ ÀÖÀ¸¸é ¸»ÇÒ ¼ö ¾ø´Ù
+				// ï¿½É·ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Å³ï¿½ß¿ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				bool bFoundMute = false;
 				S_SLOT::UI_EFFECTSTATUS_TYPE::iterator itr = g_char_slot_ingame.STATUS.begin();
 				S_SLOT::UI_EFFECTSTATUS_TYPE::iterator endItr = g_char_slot_ingame.STATUS.end();
@@ -4507,7 +4507,7 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 				if(bFoundMute)
 					break;
 
-				// 2ÃÊµ¿¾È 5¹®Àå ¸»ÇÏ¸é ¸·±â
+				// 2ï¿½Êµï¿½ï¿½ï¿½ 5ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 				if(strstr(sz_chat_str, "*command") == NULL && m_dw_rep_tickcount.size()==5 && m_dw_rep_tickcount[0] + 2000 > GetTickCount() && strstr(g_char_slot_ingame.sz_name.c_str(), (*g_pGameStringTable)[UI_STRING_MESSAGE_MASTER_NAME].GetString()) == NULL
 					&& strncmp(sz_chat_str, (*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY].GetString(),(*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY].GetLength()) != NULL)
@@ -4520,7 +4520,7 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 				
 				if(m_dw_rep_tickcount.size() == 5)
 				{
-					m_dw_rep_tickcount.erase(&m_dw_rep_tickcount[0]);
+					m_dw_rep_tickcount.erase(m_dw_rep_tickcount.begin());
 				}
 				m_dw_rep_tickcount.push_back(GetTickCount());
 				
@@ -4565,15 +4565,15 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 				
 				//					m_bl_spreadID = false;
 				
-				// message¸¦ º¸³»°í °ğ¹Ù·Î È®ÀÎÇÑ´Ù. ¿Ö³ÄÇÏ¸é lack¿¡ ÀÇÇØ ´Ê¾îÁú ¼ö ÀÖ±â ¶§¹®ÀÌ´Ù.
-				// ÀÌ°ÍÀº ¹Ù·Î ¹İÀÀÇØ¾ß ÇÏ´Â °ÍÀÌ´Ù.
+				// messageï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù·ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½. ï¿½Ö³ï¿½ï¿½Ï¸ï¿½ lackï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
+				// ï¿½Ì°ï¿½ï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
 				RestoreHistoryTemp();
 				ResetScroll();	// by larosel
 				
 				if(!g_pUserOption->UseEnterChat)
 					TimerHide(true);
 				}
-				// ÀÔ·ÂµÈ °ÍÀÌ ¾øÀ»¶§
+				// ï¿½Ô·Âµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				else
 				{
 					if(g_pUserOption->UseEnterChat && m_bl_input_mode)
@@ -4712,7 +4712,7 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 }
 
 //-----------------------------------------------------------------------------
-// ÀÔ·ÂÁßÀÎ stringÀ» ¹Ù·Î ¼³Á¤ÇÑ´Ù. by sigi
+// ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ stringï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. by sigi
 //-----------------------------------------------------------------------------
 void	
 C_VS_UI_CHATTING::SetInputString(const char* pString)
@@ -4726,7 +4726,7 @@ C_VS_UI_CHATTING::SetInputString(const char* pString)
 }
 
 //-----------------------------------------------------------------------------
-// ÀÔ·ÂÁßÀÎ stringÀ» ¹Ù·Î ¼³Á¤ÇÑ´Ù. by sigi
+// ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ stringï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. by sigi
 //-----------------------------------------------------------------------------
 void	
 C_VS_UI_CHATTING::AddInputString(const char* pString)
@@ -4883,16 +4883,16 @@ void C_VS_UI_CHATTING::Show()
 	}
 	m_pC_scroll_bar->Show(x, y);
 	
-	// ÀÌ°÷ÀÌ µµ¿ò¸» ÆÄÀÏ ºÒ·¯¿À°Ô Çß´ø ºÎºĞ. process ·Î ¿Å±è by  sonee
+	// ï¿½Ì°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß´ï¿½ ï¿½Îºï¿½. process ï¿½ï¿½ ï¿½Å±ï¿½ by  sonee
 	
-	// Å¸ÀÌ¸Ó·Î ÀÔ·Â ±Û¾¾¸¦ GRAY,RED ¼³Á¤Çß´øºÎºĞ. process ·Î ¿Å±è by sonee
+	// Å¸ï¿½Ì¸Ó·ï¿½ ï¿½Ô·ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ GRAY,RED ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½ï¿½Îºï¿½. process ï¿½ï¿½ ï¿½Å±ï¿½ by sonee
 	
-	// Å¸ÀÌ¸Ó¿¡ ¸Â°Ô ÇïÇÁ ¸Ş½ÃÁö Ãß°¡ÇØÁÖ´Â ºÎºĞ. process ·Î ¿Å±è  by sonee
+	// Å¸ï¿½Ì¸Ó¿ï¿½ ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ş½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Îºï¿½. process ï¿½ï¿½ ï¿½Å±ï¿½  by sonee
 	
 	
 	if(!g_pUserOption->UseEnterChat || m_bl_input_mode)
 	{
-		// °É·ÁÀÖ´Â ½ºÅ³Áß¿¡ ¹ÂÆ® ½ºÅ³ÀÌ ÀÖÀ¸¸é ¸»ÇÒ ¼ö ¾ø´Ù
+		// ï¿½É·ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Å³ï¿½ß¿ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		bool bFoundMute = false;
 		S_SLOT::UI_EFFECTSTATUS_TYPE::iterator itr = g_char_slot_ingame.STATUS.begin();
 		S_SLOT::UI_EFFECTSTATUS_TYPE::iterator endItr = g_char_slot_ingame.STATUS.end();
@@ -4926,7 +4926,7 @@ void C_VS_UI_CHATTING::Show()
 			if(g_pUserOption->ChatWhite)
 				m_lev_chatting.SetInputStringColor(gpC_base->m_chatting_pi.text_color);
 			else
-				if(!Timer())				// Chating Color Setting. Timer....(µµ¹è ¹× Á¸ Ã¤ÆÃ½Ã Á¦¿Ü)
+				if(!Timer())				// Chating Color Setting. Timer....(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ Ã¤ï¿½Ã½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 					m_lev_chatting.SetInputStringColor(g_pUserOption->ChattingColor);
 			m_lev_chatting.Show();
 		}
@@ -4957,8 +4957,8 @@ void C_VS_UI_CHATTING::Show()
 				
 				if(p_line->GetCondition() == CLD_ZONECHAT)
 				{
-					//À¸¾Æ¾Ç~~!!! ÇÏµåÄÚµùÀÌ´Ù¾Æ¾Æ¾Æ!!!!
-					// BOLD¸¦ ¸Ô¿©º¸¸®¸é ÇÑ±ÛÀÌ¶û ¿µ¹®ÀÌ¶û ±Û¾¾Å©±â°¡ Á¦¸Ú´ë·ÎÀÚ³ª-¤µ-					
+					//ï¿½ï¿½ï¿½Æ¾ï¿½~~!!! ï¿½Ïµï¿½ï¿½Úµï¿½ï¿½Ì´Ù¾Æ¾Æ¾ï¿½!!!!
+					// BOLDï¿½ï¿½ ï¿½Ô¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ±ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½Û¾ï¿½Å©ï¿½â°¡ ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ú³ï¿½-ï¿½ï¿½-					
 					char sz_temp[130];
 					int smart_size = CHAT_WINDOW_WIDTH  - g_GetStringWidth(p_line->GetIdString(), gpC_base->m_user_id_pi.hfont) -g_GetStringWidth(g_sz_chat_id_divisor[p_line->GetCondition()], gpC_base->m_chatting_pi.hfont) -_ID_GAP;
 					cut_index = strlen(p_temp);
@@ -4986,7 +4986,7 @@ void C_VS_UI_CHATTING::Show()
 					assert(cut_index > 0);
 				}
 				
-				// ½ºÅ©·Ñ Ã¼Å©.. ¿Ö ¿©±â¼­ ÇÏÁö-.-
+				// ï¿½ï¿½Å©ï¿½ï¿½ Ã¼Å©.. ï¿½ï¿½ ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½ï¿½-.-
 				if(scroll < m_pC_scroll_bar->GetScrollPos())
 				{
 					if(bl_backup)
@@ -5089,24 +5089,27 @@ void C_VS_UI_CHATTING::Show()
 				
 				int len = m_sz_whisper_backup.size();
 				int len2 = m_lev_chatting.ReachSizeOfBox()+1;
-				
+
+#ifdef PLATFORM_WINDOWS
 				HDC hdc;
 				gpC_fl2_surface->GetDC(&hdc);
 				DeleteObject( SelectObject(hdc, gpC_base->m_chatting_pi.hfont) );
-				
-				
+
+
 				//
 				// set format
 				//
 				SetBkMode(hdc, gpC_base->m_chatting_pi.bk_mode);
 				SetTextColor(hdc, m_color_tab[CLD_NORMAL]);
 				SetBkColor(hdc, gpC_base->m_chatting_pi.back_color);
-				
+
 				TextOut(hdc, CHAT_LINE_START_X +105, CHAT_LINE_START_Y, m_sz_whisper_backup.c_str(), min(len, len2));
-				
+
 				gpC_fl2_surface->ReleaseDC(hdc);
-				
-				//				g_PrintColorStr(CHAT_LINE_START_X +100, CHAT_LINE_START_Y, m_sz_whisper_backup.c_str(), gpC_base->m_chatting_pi, m_color_tab[CLD_NORMAL]);
+#else
+				// SDL backend: use print function instead of GDI
+				g_PrintColorStr(CHAT_LINE_START_X +100, CHAT_LINE_START_Y, m_sz_whisper_backup.c_str(), gpC_base->m_chatting_pi, m_color_tab[CLD_NORMAL]);
+#endif
 			}
 		}
 		else
@@ -5410,7 +5413,7 @@ void	C_VS_UI_CHATTING::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 		"",						// 0xFE
 		"",						// 0xFF
 	};
-	// ÁÖÀÇ : Â¼~¾î±â ¹Ø¿¡ ALPHA_ID,PUSHPIN_ID´Â ÇÏµå ÄÚµùÀÌ¶ó..Áß°£¿¡ Ãß°¡ µÉ¶© ÁÖÀÇÇÏ±æ..by sobeit
+	// ï¿½ï¿½ï¿½ï¿½ : Â¼~ï¿½ï¿½ï¿½ ï¿½Ø¿ï¿½ ALPHA_ID,PUSHPIN_IDï¿½ï¿½ ï¿½Ïµï¿½ ï¿½Úµï¿½ï¿½Ì¶ï¿½..ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½É¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½..by sobeit
 	const static char* m_chatting_button_string[26] = 
 	{
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ALPHA_WINDOW].GetString(),
@@ -5504,7 +5507,7 @@ void	C_VS_UI_CHATTING::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 	
 	static char string[50];
 
-	// ±Ó¼Ó¸» ¾ÆÀÌµğ ´ë»ó ¹öÆ°.
+	// ï¿½Ó¼Ó¸ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°.
 	if(p_button->GetID() == 5)
 	{
 		if(!m_bl_whisper_mode) return;
@@ -6034,7 +6037,7 @@ void C_VS_UI_CHATTING::Process()
 {
 	if(m_v_help_check.empty())
 	{
-		// µµ¿ò¸»¿ë ÆÄÀÏ ÀĞ±â
+		// ï¿½ï¿½ï¿½ò¸»¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ±ï¿½
 #define dSTRING_LEN 2048 
 		
 		char szLine[dSTRING_LEN]; 
@@ -6267,7 +6270,7 @@ C_VS_UI_CHATTING::C_VS_UI_CHATTING()
 	m_bl_whisper_mode = false;	// by larosel
 	m_whisper_index = -1;		// by larosel
 	
-	//	m_bl_guild = false;		// ±æµå Ã¤ÆÃ by larosel
+	//	m_bl_guild = false;		// ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ by larosel
 	m_bl_spreadID = false;
 	
 	m_history_line = 0;
@@ -6370,7 +6373,7 @@ bool C_VS_UI_CHATTING::IsPixel(int _x, int _y)
 //-----------------------------------------------------------------------------
 // C_VS_UI_CHATTING::TribeChanged
 //
-// Á¾Á·ÀÌ ¹Ù²î¾úÀ» ¶§ ½ÇÇàÇÒ°Í.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò°ï¿½.
 //-----------------------------------------------------------------------------
 void	C_VS_UI_CHATTING::TribeChanged()
 {
@@ -6468,7 +6471,7 @@ void	C_VS_UI_CHATTING::TribeChanged()
 //-----------------------------------------------------------------------------
 // C_VS_UI_CHATTING::SlayerChatMode
 //
-// chatting mode¸¦ ¹Ù²Û´Ù.
+// chatting modeï¿½ï¿½ ï¿½Ù²Û´ï¿½.
 //-----------------------------------------------------------------------------
 bool	C_VS_UI_CHATTING::SlayerWhisperMode(bool mode)
 {
@@ -6557,8 +6560,8 @@ void C_VS_UI_CHATTING::Finish()
 
 //-----------------------------------------------------------------------------
 // GetWhisperID
-// ±Ó¼Ó¸» ¾ÆÀÌµğ¸¦ ¸®ÅÏÇÑ´Ù.
-// µğÆúÆ®´Â °¡Àå ÃÖ±ÙÀÇ ¾ÆÀÌµğ
+// ï¿½Ó¼Ó¸ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+// ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
 //-----------------------------------------------------------------------------
 std::string C_VS_UI_CHATTING::GetWhisperID(int num)
 {
@@ -6580,7 +6583,7 @@ std::string C_VS_UI_CHATTING::GetWhisperID(int num)
 
 //-----------------------------------------------------------------------------
 // ChangeWhisperFocus
-// ±Ó¸»¿¡¼­ ¾ÆÀÌµğ<->³»¿ë »çÀÌÀÇ Æ÷Ä¿½º ÀÌµ¿
+// ï¿½Ó¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½<->ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¿ï¿½ï¿½ ï¿½Ìµï¿½
 // 
 //-----------------------------------------------------------------------------
 void C_VS_UI_CHATTING::ChangeWhisperFocus()
@@ -6626,7 +6629,7 @@ void C_VS_UI_CHATTING::ChangeWhisperFocus()
 
 //-----------------------------------------------------------------------------
 // AddWhisperID
-// ±Ó¼Ó¸» ¾ÆÀÌµğ¸¦ µî·ÏÇÑ´Ù.
+// ï¿½Ó¼Ó¸ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 // 
 //-----------------------------------------------------------------------------
 bool C_VS_UI_CHATTING::AddWhisperID(const char *sz_ID)
@@ -6642,17 +6645,17 @@ bool C_VS_UI_CHATTING::AddWhisperID(const char *sz_ID)
 	
 	strcpy(szTemp, sz_ID);
 	
-	for(i = 0; i < 11 && szTemp[i] != ' ' && szTemp[i] != '\0'; i++);
+	for(int i = 0; i < 11 && szTemp[i] != ' ' && szTemp[i] != '\0'; i++);
 	szTemp[i] = '\0';
 	
 	
 	std::string temp = szTemp;
 	
-	for(i = 0; i < GetWhisperSize(); i++)
+	for(int i = 0; i < GetWhisperSize(); i++)
 	{
 		if(m_sz_whisper_id[i] == temp)
 		{
-			m_sz_whisper_id.erase(&m_sz_whisper_id[i]);
+			m_sz_whisper_id.erase(m_sz_whisper_id.begin() + i);
 			break;
 		}
 	}
@@ -6877,11 +6880,11 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 			
 			if(p_item->IsPileItem())
 			{
-				for(i = 0; i < storage_max; i++)
+				for(int i = 0; i < storage_max; i++)
 				{
 					const MItem *p_slot_item = g_pStorage->GetItem(i);
 					
-					// ½½·Ô¿¡ ¸Ó°¡ ÀÖ´Â°æ¿ì ¾ÆÀÌÅÛ Á¾·ù°¡ °°ÀºÁö º¸°í, ½×À»¼ö ÀÖ´Â°¡ º¸°í ½×´Â´Ù.
+					// ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½Ó°ï¿½ ï¿½Ö´Â°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×´Â´ï¿½.
 					if(p_item->IsInsertToItem( p_slot_item ))
 					{
 						int total_number = p_slot_item->GetNumber()+p_item->GetNumber();
@@ -6890,12 +6893,12 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 						{
 							g_pInventory->RemoveItem(grid_x, grid_y);
 							
-							// ÀÌÀü¿¡ ÀÖ´ø item¿¡ Ãß°¡µÉ ¼ö ÀÖ´Â °æ¿ì
+							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ itemï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
 							
-							// ´ë»ó Item°ú µé°í ÀÖ´Â(Ãß°¡ÇÒ Item)À» Client¿¡¼­ ¾Ë¾Æ¾ß ÇÑ´Ù.
-							// µé°í ÀÖ´Â ItemÀº Client¿¡¼­ accessÇÒ ¼ö ÀÖÀ¸¹Ç·Î ´ë»ó ItemÀ» º¸³½´Ù.
-							// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ÇÈ¾÷µÈ ¾ÆÀÌÅÛÀ» ÂüÁ¶ÇÏ¹Ç·Î ¸ÕÀú ÇÈ¾÷
-							// ÇÈ¾÷ÇÒ¶§ÀÇ ÀÎÀÚ´Â ¾Æ¹«°Å³ª º¸³»µµ »ó°ü¾ø´Ù ¹Ù·Î ¶³¾î¶ß¸±²¨´Ï±î
+							// ï¿½ï¿½ï¿½ Itemï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½(ï¿½ß°ï¿½ï¿½ï¿½ Item)ï¿½ï¿½ Clientï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ¾ï¿½ ï¿½Ñ´ï¿½.
+							// ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Itemï¿½ï¿½ Clientï¿½ï¿½ï¿½ï¿½ accessï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ Itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+							// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½È¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È¾ï¿½
+							// ï¿½È¾ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½Æ¹ï¿½ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 #ifdef _LIB
 							gpC_base->SendMessage(UI_ITEM_PICKUP_FROM_INVENTORY,
 								grid_x, grid_y,
@@ -6926,11 +6929,11 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 			//g_pStorage->SetCurrent(j);
 			g_pStorage->SetCurrent(current_storage);
 			
-			for(i = 0; i < storage_max; i++)
+			for(int i = 0; i < storage_max; i++)
 			{
 				const MItem *p_slot_item = g_pStorage->GetItem(i);
 				
-				// ½½¶ùÀÌ ºñ¾úÀ¸¸é °Á~ ³Ö´Â´Ù
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½~ ï¿½Ö´Â´ï¿½
 				if(p_slot_item == NULL)
 				{
 					g_pInventory->RemoveItem(grid_x, grid_y);
@@ -6959,9 +6962,9 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 			if(current_storage >= storage_size)
 				current_storage = 0;
 		}
-		// Storage¿¡ ¾ÆÀÌÅÛÀ» ³ÖÀ» °ø°£ÀÌ ¾ø´Ù¸é ¿©±â±îÁö ¿À°Ô µÇ°í, ±×·¸´Ù¸é ¿ø·¡ÀÇ ½ºÅä¸®Áö¸¦ ¼±ÅÃ
+		// Storageï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç°ï¿½, ï¿½×·ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		g_pStorage->SetCurrent(current_storage);
-	}	// Äü½½¶ù¿¡ µé¾î°¥ ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÎ°¡ º¸°í Äü½½¶ùÀÌ ÀÖ´Â°¡ º»´Ù.
+	}	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¥ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	else if(p_item->IsQuickItem() == true && !p_item->IsGearItem() &&
 		(
 		(g_eRaceInterface == RACE_SLAYER && g_pQuickSlot != NULL) ||
@@ -6969,8 +6972,8 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 		)
 		)
 	{
-		// Å£½½¶ù °³¼ö¸¸Å­ ³ÖÀ»¼ö ÀÖ´Â°¡ °Ë»çÇÑ´Ù
-		// Ã³À½¿¡ ½×À»¼ö ÀÖ´Â°¡¸¦ ¾Ë¾Æº¸°í ½×À»¼ö ÀÖ´Â°÷ÀÌ ¾øÀ¸¸é ºó°÷¿¡ ³Ö´Â´Ù												
+		// Å£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½ ï¿½Ë»ï¿½ï¿½Ñ´ï¿½
+		// Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½ï¿½ï¿½ ï¿½Ë¾Æºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½												
 		int quick_slot_max=0;
 		if( g_eRaceInterface == RACE_OUSTERS )
 		{
@@ -6992,7 +6995,7 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 					p_slot_item = g_pQuickSlot->GetItem( i );
 				//MItem *p_slot_item = g_pQuickSlot->GetItem(i);
 				
-				// ½½·Ô¿¡ ¸Ó°¡ ÀÖ´Â°æ¿ì ¾ÆÀÌÅÛ Á¾·ù°¡ °°ÀºÁö º¸°í, ½×À»¼ö ÀÖ´Â°¡ º¸°í ½×´Â´Ù.
+				// ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½Ó°ï¿½ ï¿½Ö´Â°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×´Â´ï¿½.
 				if(p_item->IsInsertToItem( p_slot_item ))
 				{
 					int total_number = p_slot_item->GetNumber()+p_item->GetNumber();
@@ -7001,12 +7004,12 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 					{
 						g_pInventory->RemoveItem(grid_x, grid_y);
 						
-						// ÀÌÀü¿¡ ÀÖ´ø item¿¡ Ãß°¡µÉ ¼ö ÀÖ´Â °æ¿ì
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ itemï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
 						
-						// ´ë»ó Item°ú µé°í ÀÖ´Â(Ãß°¡ÇÒ Item)À» Client¿¡¼­ ¾Ë¾Æ¾ß ÇÑ´Ù.
-						// µé°í ÀÖ´Â ItemÀº Client¿¡¼­ accessÇÒ ¼ö ÀÖÀ¸¹Ç·Î ´ë»ó ItemÀ» º¸³½´Ù.
-						// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ÇÈ¾÷µÈ ¾ÆÀÌÅÛÀ» ÂüÁ¶ÇÏ¹Ç·Î ¸ÕÀú ÇÈ¾÷
-						// ÇÈ¾÷ÇÒ¶§ÀÇ ÀÎÀÚ´Â ¾Æ¹«°Å³ª º¸³»µµ »ó°ü¾ø´Ù ¹Ù·Î ¶³¾î¶ß¸±²¨´Ï±î
+						// ï¿½ï¿½ï¿½ Itemï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½(ï¿½ß°ï¿½ï¿½ï¿½ Item)ï¿½ï¿½ Clientï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ¾ï¿½ ï¿½Ñ´ï¿½.
+						// ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Itemï¿½ï¿½ Clientï¿½ï¿½ï¿½ï¿½ accessï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ Itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+						// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½È¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È¾ï¿½
+						// ï¿½È¾ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½Æ¹ï¿½ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 #ifdef _LIB
 						gpC_base->SendMessage(UI_ITEM_PICKUP_FROM_INVENTORY,
 							grid_x, grid_y,
@@ -7022,7 +7025,7 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 //							(MItem *)p_item);
 #endif
 						gpC_base->SendMessage(UI_ITEM_INSERT_FROM_QUICKSLOT,
-							i, 0, (void *)p_slot_item); // ´ë»ó Item
+							i, 0, (void *)p_slot_item); // ï¿½ï¿½ï¿½ Item
 						
 						return;
 					}
@@ -7038,7 +7041,7 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 			else
 				p_slot_item = g_pQuickSlot->GetItem( i );
 			
-			// ½½¶ùÀÌ ºñ¾úÀ¸¸é °Á~ ³Ö´Â´Ù
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½~ ï¿½Ö´Â´ï¿½
 			if(p_slot_item == NULL)
 			{
 				g_pInventory->RemoveItem(grid_x, grid_y);
@@ -7060,29 +7063,29 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 				
 				if( g_eRaceInterface == RACE_OUSTERS )
 				{
-					// Ã¹¹øÂ° ¾Ï½º¹êµåÀÎ°Å¸é
+					// Ã¹ï¿½ï¿½Â° ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½Î°Å¸ï¿½
 					if( g_pArmsBand1 != NULL && g_pArmsBand1->GetPocketNumber() > i )
 					{
 						if (g_pArmsBand1->CanReplaceItem(p_item, i, p_slot_item))
 						{
-							gpC_base->SendMessage(UI_ITEM_DROP_TO_QUICKSLOT,i); // µé°í ÀÖ´ø °ÍÀ» º¸³½´Ù.												
+							gpC_base->SendMessage(UI_ITEM_DROP_TO_QUICKSLOT,i); // ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.												
 							return;
 						}										
 					} else
 					{
-						// µÎ¹øÂ° ¾Ï½º¹êµåÀÎ°Å¸é 
+						// ï¿½Î¹ï¿½Â° ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½Î°Å¸ï¿½ 
 						if( g_pArmsBand1 != NULL )
 						{
 							if (g_pArmsBand2->CanReplaceItem(p_item, i - g_pArmsBand1->GetPocketNumber() , p_slot_item))
 							{
-								gpC_base->SendMessage(UI_ITEM_DROP_TO_QUICKSLOT,i); // µé°í ÀÖ´ø °ÍÀ» º¸³½´Ù.													
+								gpC_base->SendMessage(UI_ITEM_DROP_TO_QUICKSLOT,i); // ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.													
 								return;
 							}											
 						} else
 						{
 							if (g_pArmsBand2->CanReplaceItem(p_item, i, p_slot_item))
 							{
-								gpC_base->SendMessage(UI_ITEM_DROP_TO_QUICKSLOT,i); // µé°í ÀÖ´ø °ÍÀ» º¸³½´Ù.													
+								gpC_base->SendMessage(UI_ITEM_DROP_TO_QUICKSLOT,i); // ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.													
 								return;
 							}											
 						}
@@ -7093,7 +7096,7 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 					if (g_pQuickSlot->CanReplaceItem(p_item, i, p_slot_item))
 					{
 						gpC_base->SendMessage(UI_ITEM_DROP_TO_QUICKSLOT,
-							i); // µé°í ÀÖ´ø °ÍÀ» º¸³½´Ù.
+							i); // ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 						
 						return;
 					}
@@ -7105,13 +7108,13 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 			}
 		}
 	}
-	// ±â¾îÃ¢¿¡ µé¾î°¥ ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÎ°¡ º¸°í ³Ö´Â´Ù
+	// ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½î°¥ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â´ï¿½
 	else if(p_item->IsGearItem() && gbl_gear_lock == false && gC_vs_ui.IsRunningGearWindow())
 	{
 		int slot_max = 0;
 		
-		// ½½·Ô°³¼ö ¸¸Å­ µ¹¸é¼­ ¾ÆÀÌÅÛÀÌ µé¾î°¡³ª º»´Ù.
-		// ¹ìÆÄÀÌ¾î¿Í ½½·¹ÀÌ¾îÀÇ ½½·Ô °³¼ö´Â Æ²¸®¹Ç·Î µû·Îµû·Î
+		// ï¿½ï¿½ï¿½Ô°ï¿½ï¿½ï¿½ ï¿½ï¿½Å­ ï¿½ï¿½ï¿½é¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ²ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½
 		switch(g_eRaceInterface)
 		{
 		case RACE_SLAYER:
@@ -7137,8 +7140,8 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 			{
 				add_slot = i;
 				pChangeItem = p_slot_item;
-				// ºó °÷ÀÌ¸é ¹Ù·Î ³Ö¾î¹ö¸®¸é µÈ´Ù.
-				// ºó °÷ÀÌ ¾Æ´Ï¶ó¸é.. ´ÙÀ½°É Ã£´Â´Ù.
+				// ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ù·ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È´ï¿½.
+				// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½.. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Â´ï¿½.
 				if(p_slot_item == NULL)
 				{
 					break;
@@ -7148,9 +7151,9 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 		
 		if(add_slot != -1)
 		{
-			// µü°É·È´Ù
-			// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ÇÈ¾÷µÈ ¾ÆÀÌÅÛÀ» ÂüÁ¶ÇÏ¹Ç·Î ¸ÕÀú ÇÈ¾÷
-			// ÇÈ¾÷ÇÒ¶§ÀÇ ÀÎÀÚ´Â ¾Æ¹«°Å³ª º¸³»µµ »ó°ü¾ø´Ù ¹Ù·Î ¶³¾î¶ß¸±²¨´Ï±î
+			// ï¿½ï¿½ï¿½É·È´ï¿½
+			// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½È¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È¾ï¿½
+			// ï¿½È¾ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½Æ¹ï¿½ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 			g_pInventory->RemoveItem(grid_x, grid_y);
 #ifdef _LIB
 			gpC_base->SendMessage(UI_ITEM_PICKUP_FROM_INVENTORY,
@@ -7167,42 +7170,42 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 //				(MItem *)p_item);
 #endif
 			
-			// ±â¾î¿¡ ³Ö´Â´Ù
+			// ï¿½ï¿½î¿¡ ï¿½Ö´Â´ï¿½
 			gpC_base->SendMessage(UI_ITEM_DROP_TO_GEAR, 
 				add_slot, 
 				0, 
 				NULL);
 			
-			// ±â¾î¿¡ ³ÖÀº ¾ÆÀÌÅÛÀÌ º§Æ®¶ó¸é º§Æ®¸¦ ¿¬´Ù.
+			// ï¿½ï¿½î¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			if(p_item->GetItemClass() == ITEM_CLASS_BELT)
 				gC_vs_ui.RunQuickItemSlot();
 			
 			return;
 		}
 	}
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
-	// sub inventory ·Î ÀÌµ¿ 
-	else if( //p_item->GetItemClass() != ITEM_CLASS_PET_ITEM && // ¿ä°Ç ´ã¿¡ »èÁ¦
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ğ°ï¿½
+	// sub inventory ï¿½ï¿½ ï¿½Ìµï¿½ 
+	else if( //p_item->GetItemClass() != ITEM_CLASS_PET_ITEM && // ï¿½ï¿½ï¿½ ï¿½ã¿¡ ï¿½ï¿½ï¿½ï¿½
 		!gC_vs_ui.IsRunningExchange() &&
 		gC_vs_ui.IsRunningSubInventory() && p_item->GetItemClass() != ITEM_CLASS_SUB_INVENTORY)
 	{
 
-		// Ãß°¡µÉ ¼ö ¾ø´Â °æ¿ì
-		// ´ÙÀ½ÀÇ ¾ÆÀÌÅÛÀº ¸ÖÆ¼ÆÑ¿¡ Ãß°¡ÇÒ ¼ö ¾ø´Ù. by bezz
+		// ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½Ñ¿ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. by bezz
 		ITEM_CLASS ItemClass = p_item->GetItemClass();
 		TYPE_ITEMTYPE ItemType = p_item->GetItemType() ;
-		if ( ( ItemClass == ITEM_CLASS_RELIC )								// ¼º¹°
-			|| ( ItemClass == ITEM_CLASS_BLOOD_BIBLE )						// ÇÇÀÇ ¼º¼­
-			|| ( ItemClass == ITEM_CLASS_CASTLE_SYMBOL )					// ¼º »óÂ¡
-			|| ( ItemClass == ITEM_CLASS_WAR_ITEM )							// ÀüÀï ¾ÆÀÌÅÛ/ µå·¡°ï ¾ÆÀÌ
-			|| ( ItemClass == ITEM_CLASS_EVENT_ITEM && ItemType == 27 )		// ±ê¹ß
+		if ( ( ItemClass == ITEM_CLASS_RELIC )								// ï¿½ï¿½ï¿½ï¿½
+			|| ( ItemClass == ITEM_CLASS_BLOOD_BIBLE )						// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			|| ( ItemClass == ITEM_CLASS_CASTLE_SYMBOL )					// ï¿½ï¿½ ï¿½ï¿½Â¡
+			|| ( ItemClass == ITEM_CLASS_WAR_ITEM )							// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ ï¿½å·¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			|| ( ItemClass == ITEM_CLASS_EVENT_ITEM && ItemType == 27 )		// ï¿½ï¿½ï¿½
 
 			// sjheon 2004.04.28 add
-			|| ( ItemClass == ITEM_CLASS_EVENT_ETC && ItemType == 18 )		// ÆĞ¹Ğ¸® ÄÚÀÎ
-			|| ( ItemClass == ITEM_CLASS_EVENT_ITEM && (ItemType >= 32 && ItemType <= 36) )		// Ç³¼± ¸Ó¸®¶ì 
+			|| ( ItemClass == ITEM_CLASS_EVENT_ETC && ItemType == 18 )		// ï¿½Ğ¹Ğ¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+			|| ( ItemClass == ITEM_CLASS_EVENT_ITEM && (ItemType >= 32 && ItemType <= 36) )		// Ç³ï¿½ï¿½ ï¿½Ó¸ï¿½ï¿½ï¿½ 
 			// sjheon 2004.04.28 add
 							
-			|| ( ItemClass == ITEM_CLASS_SWEEPER ) )						// ½ºÀ§ÆÛ
+			|| ( ItemClass == ITEM_CLASS_SWEEPER ) )						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			return ;
 		}
@@ -7223,26 +7226,26 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 
 			const MItem* p_cur_item = pSubInventoryItem->GetItem(point.x, point.y);
 			
-			// ÃÑ¿¡ ÅºÃ¢À» ³¢¿ì´Â °Í°ú °°Àº °ÍÀÌ insert itemÀÌ´Ù.
-			// À§Ä¡°¡ ¿ÏÀüÈ÷ ÀÏÄ¡ÇÒ°æ¿ì¿¡¸¸ Ãß°¡ÇÑ´Ù.
+			// ï¿½Ñ¿ï¿½ ÅºÃ¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ insert itemï¿½Ì´ï¿½.
+			// ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ò°ï¿½ì¿¡ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
 			if (p_item->IsInsertToItem( p_cur_item ) && p_cur_item->GetGridX() == point.x && p_cur_item->GetGridY() == point.y)
 			{
-				// ÀÌÀü¿¡ ÀÖ´ø item¿¡ Ãß°¡µÉ ¼ö ÀÖ´Â °æ¿ì
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ itemï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
 				
-				// ´ë»ó Item°ú µé°í ÀÖ´Â(Ãß°¡ÇÒ Item)À» Client¿¡¼­ ¾Ë¾Æ¾ß ÇÑ´Ù.
-				// µé°í ÀÖ´Â ItemÀº Client¿¡¼­ accessÇÒ ¼ö ÀÖÀ¸¹Ç·Î ´ë»ó ItemÀ» º¸³½´Ù.
+				// ï¿½ï¿½ï¿½ Itemï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½(ï¿½ß°ï¿½ï¿½ï¿½ Item)ï¿½ï¿½ Clientï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ¾ï¿½ ï¿½Ñ´ï¿½.
+				// ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Itemï¿½ï¿½ Clientï¿½ï¿½ï¿½ï¿½ accessï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ Itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 				gpC_base->SendMessage(UI_ITEM_INSERT_FROM_INVENTORY,
 					point.x, point.y,
-					(void *)p_cur_item); // ´ë»ó Item
+					(void *)p_cur_item); // ï¿½ï¿½ï¿½ Item
 			}
 			else
 			{	
-				// Ãß°¡µÉ ¼ö ¾ø´Â °æ¿ì
+				// ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				MItem* p_old_item  = NULL;
 				
-				if (pSubInventoryItem->CanReplaceItem(p_item,		// Ãß°¡ÇÒ item
-					point.x, point.y,	// Ãß°¡ÇÒ À§Ä¡ 
-					p_old_item))								// ¿ø·¡ÀÖ´ø item
+				if (pSubInventoryItem->CanReplaceItem(p_item,		// ï¿½ß°ï¿½ï¿½ï¿½ item
+					point.x, point.y,	// ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ 
+					p_old_item))								// ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ item
 				{
 						
 					gpC_base->SendMessage(UI_ITEM_DROP_TO_INVENTORY_SUB, 
@@ -7292,7 +7295,7 @@ void C_VS_UI_INVENTORY::Start(bool bl_set_load)
 		}
 	}
 
-	// 2004, 5, 6 sobeit add start - Âø¿ë ¾ÆÀÌÅÛ µµ¿ò¸» 
+	// 2004, 5, 6 sobeit add start - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 	static bool FirstOpened = true;
 
 	if(FirstOpened == true)
@@ -7300,7 +7303,7 @@ void C_VS_UI_INVENTORY::Start(bool bl_set_load)
 		gC_vs_ui.AddHelpMail(HELP_EVENT_EQUIP_ITEM);
 		FirstOpened = false;
 	}
-	// 2004, 5, 6 sobeit add end - Âø¿ë ¾ÆÀÌÅÛ µµ¿ò¸» 
+	// 2004, 5, 6 sobeit add end - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 	
 	PI_Processor::Start();
 	
@@ -7452,8 +7455,8 @@ void C_VS_UI_INVENTORY::Run(id_t id)
 		break;
 		
 	case MONEY_ID:
-		// money buttonÀÌ ´­·È´Ù.
-		// µ·À» ¹ö¸°´Ù.
+		// money buttonï¿½ï¿½ ï¿½ï¿½ï¿½È´ï¿½.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		if(m_pC_dialog_drop_money)
 			DeleteNew(m_pC_dialog_drop_money);
 		
@@ -7479,7 +7482,7 @@ void C_VS_UI_INVENTORY::Run(id_t id)
 		break;
 		
 	case CLOSE_ID:
-		// close buttonÀÌ ´­·È´Ù.
+		// close buttonï¿½ï¿½ ï¿½ï¿½ï¿½È´ï¿½.
 		
 		if (gbl_sell_running)
 		{
@@ -7535,9 +7538,9 @@ void C_VS_UI_INVENTORY::Run(id_t id)
 //-----------------------------------------------------------------------------
 // C_VS_UI_INVENTORY::AnyMatchWindowPixel
 //
-// Window imageÀÇ pixelÀÌ (x, y) ÇÑ Á¡ÀÌ¶óµµ ÀÏÄ¡ÇÏ¸é true¸¦ ¾Æ´Ï¸é false¸¦ ¹İÈ¯ÇÑ´Ù.
+// Window imageï¿½ï¿½ pixelï¿½ï¿½ (x, y) ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½Ä¡ï¿½Ï¸ï¿½ trueï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ falseï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 //
-// ItemÀ» µé°í ÀÖÀ» ¶§¿¡´Â 'item ÂüÁ¶Æ÷ÀÎÆ®'¿¡ µû¶ó ÁøÇàÇÑ´Ù.
+// Itemï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 'item ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 bool C_VS_UI_INVENTORY::AnyMatchWindowPixel(int _x, int _y) const
 {
@@ -7587,7 +7590,7 @@ bool C_VS_UI_INVENTORY::AllMatchWindowPixel(int _x, int _y) const
 //-----------------------------------------------------------------------------
 // C_VS_UI_INVENTORY::TestGridRect
 //
-// Grid rect À§¿¡ ÀÖÀ¸¸é true, ¾Æ´Ï¸é false¸¦ ¹İÈ¯ÇÑ´Ù.
+// Grid rect ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ true, ï¿½Æ´Ï¸ï¿½ falseï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 bool C_VS_UI_INVENTORY::TestGridRect(int _x, int _y) const
 {
@@ -7714,42 +7717,42 @@ void C_VS_UI_INVENTORY::Show()
 		{
 			
 			RECT alpha_rect;
-			//½½·¹ÀÌ¾î ÀÎÅÍÆäÀÌ½º ¾ËÆÄ´Â Ã¢ ±¸¼®ºÎºĞ ¾ËÆÄÃ³¸®-_-;
+			//ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½Ä´ï¿½ Ã¢ ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½-_-;
 			switch(g_eRaceInterface)
 			{
 				case RACE_SLAYER:
-					// À§
+					// ï¿½ï¿½
 					SetRect(&alpha_rect, x+10, y+12, x+315, y+21);
 					DrawAlphaBox(&alpha_rect, 0, 2, 2, g_pUserOption->ALPHA_DEPTH);
 					
-					// ¾Æ·¡
+					// ï¿½Æ·ï¿½
 					SetRect(&alpha_rect, x+5, y+209, x+321, y+245);
 					DrawAlphaBox(&alpha_rect, 0, 2, 2, g_pUserOption->ALPHA_DEPTH);
 					
-					// ¿ŞÂÊ
+					// ï¿½ï¿½ï¿½ï¿½
 					SetRect(&alpha_rect, x+5, y+24, x+9, y+245);
 					DrawAlphaBox(&alpha_rect, 0, 2, 2, g_pUserOption->ALPHA_DEPTH);
 					
-					// ¿À¸¥ÂÊ
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					SetRect(&alpha_rect, x+317, y+24, x+321, y+245);
 					DrawAlphaBox(&alpha_rect, 0, 2, 2, g_pUserOption->ALPHA_DEPTH);
 					
 				break;
 
 				case RACE_OUSTERS:
-					// À§
+					// ï¿½ï¿½
 					SetRect(&alpha_rect, x+25, y+14, x+325, y+31);
 					DrawAlphaBox(&alpha_rect, 0, 4, 0, g_pUserOption->ALPHA_DEPTH);
 					
-					// ¾Æ·¡
+					// ï¿½Æ·ï¿½
 					SetRect(&alpha_rect, x+21, y+219, x+329, y+262);
 					DrawAlphaBox(&alpha_rect, 0, 4, 0, g_pUserOption->ALPHA_DEPTH);
 					
-					// ¿ŞÂÊ
+					// ï¿½ï¿½ï¿½ï¿½
 					SetRect(&alpha_rect, x+16, y+24, x+21, y+245);
 					DrawAlphaBox(&alpha_rect, 0, 4, 0, g_pUserOption->ALPHA_DEPTH);
 					
-					// ¿À¸¥ÂÊ
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					SetRect(&alpha_rect, x+329, y+46, x+333, y+230);
 					DrawAlphaBox(&alpha_rect, 0, 4, 0, g_pUserOption->ALPHA_DEPTH);
 					
@@ -7781,7 +7784,7 @@ void C_VS_UI_INVENTORY::Show()
 		}
 
 		if(g_eRaceInterface == RACE_VAMPIRE)
-			// ¹ìÆÄÀÌ¾î ÀÎÅÍÆäÀÌ½º´Â ÇÏ´Ü ÇÕÃ¼
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½Ã¼
 			m_pC_inventory_spk->BltLocked(x, y+rect.h, INVENTORY_WINDOW_BOTTOM);
 		
 		
@@ -7794,7 +7797,7 @@ void C_VS_UI_INVENTORY::Show()
 		const MItem * p_selected_item = g_pInventory->GetItem(m_focus_grid_x, m_focus_grid_y);
 		
 		g_pInventory->SetBegin();
-		bool bl_alpha[10][6];	// Ä¿Çä-_- ÇÏµåÄÚµù ¾ÆÀÌÅÛ ³õÀÎ°÷Àº ´Ù¸£°Ô Ç¥ÇöÇØ¾ß ÇÏ´Ï±î.. ³²ÀººÎºĞÀº µû·Î Ã³¸®
+		bool bl_alpha[10][6];	// Ä¿ï¿½ï¿½-_- ï¿½Ïµï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ï´Ï±ï¿½.. ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 		ZeroMemory(bl_alpha, 10*6*sizeof(bool));
 		WriteLogLine(__LINE__);
 		while (g_pInventory->IsNotEnd())
@@ -7803,7 +7806,7 @@ void C_VS_UI_INVENTORY::Show()
 			MItem * p_item = g_pInventory->Get();
 			
 			
-			// p_itemÀº NULLÀÌ ¹İµå½Ã ¾Æ´Ï´Ù. ¿Ö³ÄÇÏ¸é Á¸ÀçÇÏ´Â °Í¸¸ Get()ÇÏ±â ¶§¹®ÀÌ´Ù.
+			// p_itemï¿½ï¿½ NULLï¿½ï¿½ ï¿½İµï¿½ï¿½ ï¿½Æ´Ï´ï¿½. ï¿½Ö³ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Í¸ï¿½ Get()ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 			assert(p_item);
 
 			// frame id -> sprite id
@@ -7839,7 +7842,7 @@ void C_VS_UI_INVENTORY::Show()
 					break;
 				}				
 				
-				// ItemÀÌ ³õ¿©ÀÖ´Â ¿µ¿ª Ç¥½Ã
+				// Itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
 				for (int j = 0; j < p_item->GetGridHeight(); j++)
 				{
 					for (int i = 0; i < p_item->GetGridWidth(); i++)
@@ -7877,7 +7880,7 @@ void C_VS_UI_INVENTORY::Show()
 				item_y += (p_item->GetGridHeight()*GRID_UNIT_PIXEL_Y)/2-gpC_item->GetHeight(frame_id)/2;
 				
 				
-				// Å©¸®½º¸¶½º Æ®¸®¿ë ÇÏµåÄÚµù
+				// Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Ïµï¿½ï¿½Úµï¿½
 				if(p_item->GetItemClass() == ITEM_CLASS_EVENT_TREE 
 					&& p_item->GetItemType() != 12
 					&& p_item->GetItemType() != 25
@@ -7898,21 +7901,21 @@ void C_VS_UI_INVENTORY::Show()
 					
 					MItem *pTreeItem = NULL;
 				
-					// À§ÂÊ
+					// ï¿½ï¿½ï¿½ï¿½
 					pTreeItem = g_pInventory->GetItem(p_item->GetGridX(), p_item->GetGridY()-1);
 					if(pTreeItem != NULL &&
 						pTreeItem->GetItemClass() == ITEM_CLASS_EVENT_TREE &&
 						pTreeItem->GetItemType() == p_item->GetItemType()-3)
 						bTreeItem = true;
 					
-					// ¾Æ·¡ÂÊ
+					// ï¿½Æ·ï¿½ï¿½ï¿½
 					pTreeItem = g_pInventory->GetItem(p_item->GetGridX(), p_item->GetGridY()+1);
 					if(pTreeItem != NULL &&
 						pTreeItem->GetItemClass() == ITEM_CLASS_EVENT_TREE &&
 						pTreeItem->GetItemType() == p_item->GetItemType()+3)
 						bTreeItem = true;
 					
-					// ¿ŞÂÊ
+					// ï¿½ï¿½ï¿½ï¿½
 					pTreeItem = g_pInventory->GetItem(p_item->GetGridX()-1, p_item->GetGridY());
 					if(pTreeItem != NULL &&
 						pTreeItem->GetItemClass() == ITEM_CLASS_EVENT_TREE &&
@@ -7920,7 +7923,7 @@ void C_VS_UI_INVENTORY::Show()
 						(p_item->GetItemType()-temp)%3 != 0)
 						bTreeItem = true;
 					
-					// ¿À¸¥ÂÊ
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					pTreeItem = g_pInventory->GetItem(p_item->GetGridX()+1, p_item->GetGridY());
 					if(pTreeItem != NULL &&
 						pTreeItem->GetItemClass() == ITEM_CLASS_EVENT_TREE &&
@@ -8075,7 +8078,7 @@ void C_VS_UI_INVENTORY::Show()
 			
 		}
 		//
-		// ItemÀ» µé°í ÀÖÀ¸¸é grid À§Ä¡¸¦ ¹Ì¸® ¾Ë ¼ö ÀÖµµ·Ï ÇÑ´Ù.
+		// Itemï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ grid ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 		//
 		if (gpC_mouse_pointer->GetPickUpItem() && 
 			m_focus_grid_x != NOT_SELECTED && 
@@ -8105,12 +8108,12 @@ void C_VS_UI_INVENTORY::Show()
 			}
 		}
 
-		//Áö·Ú ¼³Ä¡ Progress Bar
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ Progress Bar
 		if(gbl_mine_progress)
 		{
 			const MItem * p_item = g_pInventory->GetItem(m_mine_grid_x, m_mine_grid_y);
 			
-			if (p_item && (p_item->GetItemClass() == ITEM_CLASS_MINE || p_item->GetItemClass() == ITEM_CLASS_BOMB_MATERIAL)) // ItemÀÌ ÀÖ´Ù.
+			if (p_item && (p_item->GetItemClass() == ITEM_CLASS_MINE || p_item->GetItemClass() == ITEM_CLASS_BOMB_MATERIAL)) // Itemï¿½ï¿½ ï¿½Ö´ï¿½.
 			{
 				if(Timer())
 				{
@@ -8140,7 +8143,7 @@ void C_VS_UI_INVENTORY::Show()
 		gpC_base->m_p_DDSurface_back->Unlock();
 	}
 	//
-	// ¾ÆÀÌÅÛ °³¼ö Ç¥½Ã
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
 	//
 	int len = 0;
 	RECT rect[60];
@@ -8154,9 +8157,9 @@ void C_VS_UI_INVENTORY::Show()
 		
 		const MItem * p_item = g_pInventory->Get();
 		
-		// p_itemÀº NULLÀÌ ¹İµå½Ã ¾Æ´Ï´Ù. ¿Ö³ÄÇÏ¸é Á¸ÀçÇÏ´Â °Í¸¸ Get()ÇÏ±â ¶§¹®ÀÌ´Ù.
+		// p_itemï¿½ï¿½ NULLï¿½ï¿½ ï¿½İµï¿½ï¿½ ï¿½Æ´Ï´ï¿½. ï¿½Ö³ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Í¸ï¿½ Get()ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 		
-				// ¾ÆÀÌÅÛ °³¼öÇ¥½Ã
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½
 
 		if( p_item == NULL )
 		{			
@@ -8172,9 +8175,10 @@ void C_VS_UI_INVENTORY::Show()
 			RECT rt;
 			
 			rt.right = x+GetFocusedItemGridX(p_item) + p_item->GetGridWidth()*GRID_UNIT_PIXEL_X-1;
-			
-			for(int depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
-			
+
+			int depth, number;
+			for(depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
+
 			if(depth == 0) depth = 1;
 			rt.left = rt.right - 7*depth;
 			
@@ -8211,7 +8215,7 @@ void C_VS_UI_INVENTORY::Show()
 	WriteLogLine(__LINE__);
 	// show money
 
-	// 2004, 12, 14, sobeit modify start - ¿À¸¥ÂÊ Á¤·Ä ÆùÆ® »ç¿ë
+	// 2004, 12, 14, sobeit modify start - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½
 	if(NULL != g_pMoneyManager)
 	{
 		if(gC_ci->IsKorean() && g_pUserOption->ShowGameMoneyWithHANGUL)
@@ -8227,7 +8231,7 @@ void C_VS_UI_INVENTORY::Show()
 			
 			std::string sstr = money_buf;
 			
-			for(i = 3; i <= 13; i += 4)
+			for(int i = 3; i <= 13; i += 4)
 				if(sstr.size() > i)sstr.insert(sstr.size()-i, ",");
 			
 			WriteLogLine(__LINE__);
@@ -8263,13 +8267,13 @@ void C_VS_UI_INVENTORY::Show()
 		S_RECT			rect;
 		SetSurfaceInfo(&surface_info, gpC_base->m_p_DDSurface_back->GetDDSD());
 		
-		  // Grid ÀüÃ¼¿µ¿ª Ç¥½Ã 
+		  // Grid ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ 
 		  rectangle(&surface_info, &m_grid_rect, GREEN);
 		  
 			//rectangle(&surface_info, &m_money_button_rect, WHITE);
 			//rectangle(&surface_info, &m_close_button_rect, WHITE);
 			
-			  // ¸¶¿ì½º focusµÈ Grid ÇÑ Ä­ Ç¥½Ã
+			  // ï¿½ï¿½ï¿½ì½º focusï¿½ï¿½ Grid ï¿½ï¿½ Ä­ Ç¥ï¿½ï¿½
 			  if (m_focus_grid_x != NOT_SELECTED && m_focus_grid_y != NOT_SELECTED)
 			  {
 			  SetRect(rect, m_grid_rect.x+(GRID_UNIT_PIXEL_X)*m_focus_grid_x,
@@ -8356,7 +8360,7 @@ bool C_VS_UI_INVENTORY::MouseControl(UINT message, int _x, int _y)
 				
 				if (loop == ITEM_REF_POINT_COUNT)
 				{
-					// itemÀÌ grid ¿µ¿ª¿¡ ¾î´ÀÁ¤µµ µé¾î¿À¸é ¾ÈÀ¸·Î À§Ä¡½ÃÅ²´Ù.
+					// itemï¿½ï¿½ grid ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½Å²ï¿½ï¿½.
 					const MItem * p_pickup_item = gpC_mouse_pointer->GetPickUpItem();
 					int a, b;
 					switch (i)
@@ -8414,7 +8418,7 @@ bool C_VS_UI_INVENTORY::MouseControl(UINT message, int _x, int _y)
 			if(gC_vs_ui.inventory_mode == 2) 
 				return false;
 
-			// by csm °³ÀÎ»óÁ¡¿¡ ÀÖ´Â ¹°°ÇÀ» ÁıÀ» ¼ö ¾ø´Ù. 
+			// by csm ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. 
 			g_pInventory->SetBegin();
 			while (g_pInventory->IsNotEnd())
 			{
@@ -8432,7 +8436,7 @@ bool C_VS_UI_INVENTORY::MouseControl(UINT message, int _x, int _y)
 			}
 
 
-			if(gC_vs_ui.inventory_mode != 1)// °³ÀÎ»óÁ¡ ¿ÀÇÂ¸ğµå 
+			if(gC_vs_ui.inventory_mode != 1)// ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ï¿½ 
 			{
 				if (gC_vs_ui.inventory_mode == NULL && gpC_mouse_pointer->GetPickUpItem() == NULL && re && g_pInventory->GetItem(m_focus_grid_x, m_focus_grid_y) == NULL)
 					//TestGridRect(_x, _y) == false && re)
@@ -8443,7 +8447,7 @@ bool C_VS_UI_INVENTORY::MouseControl(UINT message, int _x, int _y)
 				}
 				
 				//
-				// ItemÀ» Áı´ø°¡ ³õ´Â´Ù.
+				// Itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 				//
 				{
 					bool ret = Click(m_grid_rect.x, m_grid_rect.y);
@@ -8475,7 +8479,7 @@ bool C_VS_UI_INVENTORY::MouseControl(UINT message, int _x, int _y)
 		
 	case M_RIGHTBUTTON_DOWN:
 		//
-		// ItemÀ» »ç¿ëÇÑ´Ù.
+		// Itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		//
 		if(gC_vs_ui.inventory_mode == 1)
 		{
@@ -8543,7 +8547,7 @@ bool C_VS_UI_INVENTORY::MouseControl(UINT message, int _x, int _y)
 //-----------------------------------------------------------------------------
 // C_VS_UI_INVENTORY::ResetRect
 //
-// ÀüÃ¼ Grid rect¸¦ ¼³Á¤ÇÑ´Ù. ÀÌ°ÍÀº InventoryÀÇ ÀÌµ¿ÀÌ ÀÖÀ» ¶§¸¶´Ù ÇØÁà¾ß ÇÑ´Ù.
+// ï¿½ï¿½Ã¼ Grid rectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. ï¿½Ì°ï¿½ï¿½ï¿½ Inventoryï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_INVENTORY::ResetRect()
 {
@@ -8571,7 +8575,7 @@ void C_VS_UI_INVENTORY::Use()
 	{
 		const MItem * p_item = g_pInventory->GetItem(m_focus_grid_x, m_focus_grid_y);
 		
-		if (p_item) // ItemÀÌ ÀÖ´Ù.
+		if (p_item) // Itemï¿½ï¿½ ï¿½Ö´ï¿½.
 		{
 			m_mine_grid_x = m_focus_grid_x;
 			m_mine_grid_y = m_focus_grid_y;
@@ -8600,7 +8604,7 @@ void C_VS_UI_INVENTORY::Use()
 				}
 			}
 			else 
-			if(p_item->GetItemClass() == ITEM_CLASS_PET_ITEM && p_item->GetItemType() >2) // 2Â÷ Æê ¼ÒÈ¯¾ÆÀÌÅÛ ÀÌ¸é
+			if(p_item->GetItemClass() == ITEM_CLASS_PET_ITEM && p_item->GetItemType() >2) // 2ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
 			{
 				switch(g_eRaceInterface)
 				{
@@ -8614,7 +8618,7 @@ void C_VS_UI_INVENTORY::Use()
 //							g_char_slot_ingame.DOMAIN_ENCHANT	< 40 &&
 //							g_char_slot_ingame.DOMAIN_GUN		< 40 &&
 //							g_char_slot_ingame.DOMAIN_HEAL		< 40 &&
-//							g_char_slot_ingame.DOMAIN_SWORD) // ·¾ 40 ÀÌÇÏ´Â ¸ø ¾´´Ù.
+//							g_char_slot_ingame.DOMAIN_SWORD) // ï¿½ï¿½ 40 ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 							{
 								gpC_base->SendMessage(UI_MESSAGE_BOX, UI_STRING_MESSAGE_CANNOT_SUMMON_2ND_PET, 0, 	NULL);
 								return;
@@ -8649,7 +8653,7 @@ void C_VS_UI_INVENTORY::Use()
 
 			if(p_item->GetItemClass() == ITEM_CLASS_DYE_POTION && p_item->GetItemType() == 48)
 			{
-				// ÀçÈ®ÀÎÇØ¾ßÇÏ´Â°Å¸é
+				// ï¿½ï¿½È®ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ï´Â°Å¸ï¿½
 				g_pTempItem = const_cast<MItem*>(p_item);
 				g_StartConfirmChangeSex( -1, -1 );				
 			} 
@@ -8678,7 +8682,7 @@ bool C_VS_UI_INVENTORY::StartInstallMineProgress(int focus_grid_x, int focus_gri
 		g_pSkillAvailable->IsEnableSkill( SKILL_INSTALL_MINE )
 		&& (*g_pSkillInfoTable)[SKILL_INSTALL_MINE].IsEnable()
 		&& (*g_pSkillInfoTable)[SKILL_INSTALL_MINE].IsAvailableTime()
-		)	// Áö·ÚÀÎ°æ¿ì Áö·Ú progress¹Ù º¸¿©ÁÜ
+		)	// ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ progressï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		int mine_level = (*g_pSkillInfoTable)[SKILL_INSTALL_MINE].GetExpLevel();
 //		m_dw_millisec = min(30, max(20, 30-mine_level/10))*100;
@@ -8708,7 +8712,7 @@ bool C_VS_UI_INVENTORY::StartCreateMineProgress(int focus_grid_x, int focus_grid
 		g_pSkillAvailable->IsEnableSkill( SKILL_MAKE_MINE )
 		&& (*g_pSkillInfoTable)[SKILL_MAKE_MINE].IsEnable()
 		&& (*g_pSkillInfoTable)[SKILL_MAKE_MINE].IsAvailableTime()
-		)	// Áö·ÚÀÎ°æ¿ì Áö·Ú progress¹Ù º¸¿©ÁÜ
+		)	// ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ progressï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		int mine_level = (*g_pSkillInfoTable)[SKILL_MAKE_MINE].GetExpLevel();
 		m_dw_millisec = min(30, max(20, 30-mine_level/10))*100;
@@ -8739,7 +8743,7 @@ bool C_VS_UI_INVENTORY::StartCreateBombProgress(int focus_grid_x, int focus_grid
 		g_pSkillAvailable->IsEnableSkill( SKILL_MAKE_BOMB )
 		&& (*g_pSkillInfoTable)[SKILL_MAKE_BOMB].IsEnable()
 		&& (*g_pSkillInfoTable)[SKILL_MAKE_BOMB].IsAvailableTime()
-		)	// Áö·ÚÀÎ°æ¿ì Áö·Ú progress¹Ù º¸¿©ÁÜ
+		)	// ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ progressï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		int mine_level = (*g_pSkillInfoTable)[SKILL_MAKE_BOMB].GetExpLevel();
 		m_dw_millisec = min(30, max(20, 30-mine_level/10))*100;
@@ -8757,13 +8761,13 @@ bool C_VS_UI_INVENTORY::StartCreateBombProgress(int focus_grid_x, int focus_grid
 //-----------------------------------------------------------------------------
 // C_VS_UI_INVENTORY::Click
 //
-// ÇöÀç ItemÀ» µé°í ÀÖÀ¸¸é ³õ´ø°¡ ±³Ã¼ÇÏ°í, µé°í ÀÖÁö ¾ÊÀ¸¸é Inventory¿¡ ÀÖ´Â
-// °ÍÀ» Áı´Â´Ù.
+// ï¿½ï¿½ï¿½ï¿½ Itemï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Inventoryï¿½ï¿½ ï¿½Ö´ï¿½
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 //
-// ¹º°¡ Çß´Ù¸é true¸¦, ±×·¸Áö¾ÊÀ¸¸é false¸¦ ¹İÈ¯ÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ß´Ù¸ï¿½ trueï¿½ï¿½, ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ falseï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 //
-// grid_start_x, grid_start_y´Â inventory grid ½ÃÀÛÁ¡ÀÌ´Ù. ÀÌ°ÍÀ» ÂüÁ¶ÇÏ¿© item
-// (x, y)¸¦ ±¸ÇÑ´Ù.
+// grid_start_x, grid_start_yï¿½ï¿½ inventory grid ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½. ï¿½Ì°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ item
+// (x, y)ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 {
@@ -8778,11 +8782,11 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 	
 	const MItem* pMouseItem = gpC_mouse_pointer->GetPickUpItem();
 	
-	if (pMouseItem) // µé°í ÀÖ´Â°¡?
+	if (pMouseItem) // ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½?
 	{
 		const MItem* p_cur_item = g_pInventory->GetItem(m_focus_grid_x, m_focus_grid_y);
 
-		// Æê Ç»¸®Å¸½º
+		// ï¿½ï¿½ Ç»ï¿½ï¿½Å¸ï¿½ï¿½
 		if(pMouseItem->GetItemClass() == ITEM_CLASS_MIXING_ITEM && pMouseItem->GetItemType() >= 9 && pMouseItem->GetItemType() <= 17 &&
 			p_cur_item != NULL && p_cur_item->GetItemClass() == ITEM_CLASS_PET_ITEM && p_cur_item->GetItemOptionListCount() > 0)
 		{
@@ -8793,25 +8797,25 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 			return false;
 		}
 
-		// Æê ÀÎÃ¾Æ®
+		// ï¿½ï¿½ ï¿½ï¿½Ã¾Æ®
 		if(pMouseItem->GetItemClass() == ITEM_CLASS_PET_ENCHANT_ITEM &&
 			p_cur_item != NULL && p_cur_item->GetItemClass() == ITEM_CLASS_PET_ITEM)
 		{
 			int bCanUpgrade = 0;
 
-			if((p_cur_item->GetItemType() < 13 || p_cur_item->GetItemType() >= 16 && p_cur_item->GetItemType() <= 19) &&	// 12±îÁö´Â ·¹µå µå·Ó
-				p_cur_item->GetSilver() == 0 &&		// silver´Â AttrLevelÀÌ 0ÀÎ °æ¿ì´Â ¼Ó¼ºÀÌ ¾ø´Ù°í º¸°í ÀÎÃ¾Æ® °¡´É
-				p_cur_item->GetNumber() >= 10)		// Æê ·¹º§ 10ÀÌ»óÀÎ°æ¿ì
+			if((p_cur_item->GetItemType() < 13 || p_cur_item->GetItemType() >= 16 && p_cur_item->GetItemType() <= 19) &&	// 12ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+				p_cur_item->GetSilver() == 0 &&		// silverï¿½ï¿½ AttrLevelï¿½ï¿½ 0ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¾Æ® ï¿½ï¿½ï¿½ï¿½
+				p_cur_item->GetNumber() >= 10)		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 10ï¿½Ì»ï¿½ï¿½Î°ï¿½ï¿½
 				bCanUpgrade = 1;
 
-			if((pMouseItem->GetItemType() == 13 || pMouseItem->GetItemType() == 14)	&&	// 13, 14´Â ºÎÈ°
-				p_cur_item->GetCurrentDurability() == 0)		// ÇöÀç HP°¡ 0ÀÏ¶§
+			if((pMouseItem->GetItemType() == 13 || pMouseItem->GetItemType() == 14)	&&	// 13, 14ï¿½ï¿½ ï¿½ï¿½È°
+				p_cur_item->GetCurrentDurability() == 0)		// ï¿½ï¿½ï¿½ï¿½ HPï¿½ï¿½ 0ï¿½Ï¶ï¿½
 				bCanUpgrade = 2;
 
-			if(pMouseItem->GetItemType() == 15 && p_cur_item->GetItemOptionListCount() == 0)// 15´Â ·¹µå ¹öµå
+			if(pMouseItem->GetItemType() == 15 && p_cur_item->GetItemOptionListCount() == 0)// 15ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				bCanUpgrade = 1;
 
-			if(pMouseItem->GetItemType() == 20 && p_cur_item->GetItemType() == 1)// 20Àº µ¹¿¬º¯ÀÌ ¾ÆÀÌÅÛ
+			if(pMouseItem->GetItemType() == 20 && p_cur_item->GetItemType() == 1)// 20ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				bCanUpgrade = 4;
 
 			if(bCanUpgrade != 0)
@@ -8832,12 +8836,12 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 			p_cur_item->GetItemClass() != ITEM_CLASS_BLOOD_BIBLE &&
 			p_cur_item->GetItemClass() != ITEM_CLASS_COUPLE_RING &&
 			p_cur_item->GetItemClass() != ITEM_CLASS_VAMPIRE_COUPLE_RING
-			)//p_cur_item->GetItemOptionListCount() <= 1)		// ·¹¾î ¾ÆÀÌÅÛÀÏ°æ¿ì
+			)//p_cur_item->GetItemOptionListCount() <= 1)		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½
 		{	
 
 			bool bCanUpgrade = false;
 			
-			// ¼ÛÆíÀÏ¶§
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½
 			if(pMouseItem->GetItemType() == 16)
 			{
 				if(!p_cur_item->IsGenderForAll())
@@ -8845,37 +8849,37 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 				else
 					bCanUpgrade = false;
 			} else
-			if(pMouseItem->GetItemType() == 12)			// ºí·ç¹öµåÀÏ¶§
+			if(pMouseItem->GetItemType() == 12)			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½
 			{
 				if(p_cur_item->GetItemOptionListCount() == 2)
 					bCanUpgrade = true;
 				else
 					bCanUpgrade = false;
 			} else
-			// add by svi 2009-07-01   ÈÃ»Æ «Ë®µÎ¿ÉÒÔ ı¼?ÊôĞÔºÍ2ÊôĞÔ×°±¸
-			if(pMouseItem->GetItemType() == 22)			// »Æ «Ë®µÎ
+			// add by svi 2009-07-01   ï¿½Ã»ï¿½ ï¿½Ë®ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½?ï¿½ï¿½ï¿½Ôºï¿½2ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½
+			if(pMouseItem->GetItemType() == 22)			// ï¿½ï¿½ ï¿½Ë®ï¿½ï¿½
 			{
 				if(p_cur_item->GetItemOptionListCount() == 1 || p_cur_item->GetItemOptionListCount() == 2)
 					bCanUpgrade = true;
 				else
 					bCanUpgrade = false;
 			} else
-			// add by svi 2009-07-15 ÊôĞÔÏû³ı±¦Ê¯
-			if(pMouseItem->GetItemType() == 24 )			// ÔÂ¹âÊ¯
+			// add by svi 2009-07-15 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¯
+			if(pMouseItem->GetItemType() == 24 )			// ï¿½Â¹ï¿½Ê¯
 			{
 				if(p_cur_item->GetItemOptionListCount() >= 1 && p_cur_item->GetItemOptionListCount() <= 3)
 					bCanUpgrade = true;
 				else
 					bCanUpgrade = false;
 			}else
-			if(pMouseItem->GetItemType() == 25 )			// ×ÏÑ»Ê¯
+			if(pMouseItem->GetItemType() == 25 )			// ï¿½ï¿½Ñ»Ê¯
 			{
 				if(p_cur_item->GetItemOptionListCount() == 2 || p_cur_item->GetItemOptionListCount() == 3)
 					bCanUpgrade = true;
 				else
 					bCanUpgrade = false;
 			}else
-			if(pMouseItem->GetItemType() == 26 )			// ÁâĞ¿Ê¯
+			if(pMouseItem->GetItemType() == 26 )			// ï¿½ï¿½Ğ¿Ê¯
 			{
 				if(p_cur_item->GetItemOptionListCount() == 3)
 					bCanUpgrade = true;
@@ -8884,7 +8888,7 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 			}else
 			// end
 
-			if( pMouseItem->GetItemType() == 23) // Ô¶¹ÅË®µÎ
+			if( pMouseItem->GetItemType() == 23) // Ô¶ï¿½ï¿½Ë®ï¿½ï¿½
 			{
 				// modified by svi 2009-06-25 :  "> 0" -> ">= 0"  
 				if(p_cur_item->GetGrade() >= 0 &&  p_cur_item->GetGrade() <= 10)
@@ -8896,7 +8900,7 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 				if(p_cur_item->GetItemOptionListCount() == 0)
 					bCanUpgrade = true;
 			}
-			else	// ¼ÛÆíÀÌ ¾Æ´Ñ ÀÏ¹İ º°ÀÏ¶§
+			else	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½Ï¶ï¿½
 			{
 				const std::list<TYPE_ITEM_OPTION> &optionList=p_cur_item->GetItemOptionList();
 				std::list<TYPE_ITEM_OPTION>::const_iterator itr=optionList.begin();	
@@ -8937,34 +8941,34 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 			{
 				gpC_base->SendMessage(UI_ITEM_INSERT_FROM_INVENTORY,
 				m_focus_grid_x, m_focus_grid_y,
-				(void *)p_cur_item); // ´ë»ó Item
+				(void *)p_cur_item); // ï¿½ï¿½ï¿½ Item
 			} else
 			if ( C_VS_UI_REMOVE_OPTION::IsCanRemoveOption_Puritas( pMouseItem, p_cur_item ) )
 			{
 				gC_vs_ui.RunRemoveOptionFromRareItem( pMouseItem, p_cur_item );
 			}
 		}
-		// ÃÑ¿¡ ÅºÃ¢À» ³¢¿ì´Â °Í°ú °°Àº °ÍÀÌ insert itemÀÌ´Ù.
-		// À§Ä¡°¡ ¿ÏÀüÈ÷ ÀÏÄ¡ÇÒ°æ¿ì¿¡¸¸ Ãß°¡ÇÑ´Ù.
+		// ï¿½Ñ¿ï¿½ ÅºÃ¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ insert itemï¿½Ì´ï¿½.
+		// ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ò°ï¿½ì¿¡ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
 		else
 		if (pMouseItem->IsInsertToItem( p_cur_item ) && p_cur_item->GetGridX() == m_focus_grid_x && p_cur_item->GetGridY() == m_focus_grid_y)
 		{
-			// ÀÌÀü¿¡ ÀÖ´ø item¿¡ Ãß°¡µÉ ¼ö ÀÖ´Â °æ¿ì
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ itemï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
 				
-			// ´ë»ó Item°ú µé°í ÀÖ´Â(Ãß°¡ÇÒ Item)À» Client¿¡¼­ ¾Ë¾Æ¾ß ÇÑ´Ù.
-			// µé°í ÀÖ´Â ItemÀº Client¿¡¼­ accessÇÒ ¼ö ÀÖÀ¸¹Ç·Î ´ë»ó ItemÀ» º¸³½´Ù.
+			// ï¿½ï¿½ï¿½ Itemï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½(ï¿½ß°ï¿½ï¿½ï¿½ Item)ï¿½ï¿½ Clientï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ¾ï¿½ ï¿½Ñ´ï¿½.
+			// ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Itemï¿½ï¿½ Clientï¿½ï¿½ï¿½ï¿½ accessï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ Itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 			gpC_base->SendMessage(UI_ITEM_INSERT_FROM_INVENTORY,
 				m_focus_grid_x, m_focus_grid_y,
-				(void *)p_cur_item); // ´ë»ó Item
+				(void *)p_cur_item); // ï¿½ï¿½ï¿½ Item
 		}
 		else
 		{	
-			// Ãß°¡µÉ ¼ö ¾ø´Â °æ¿ì
+			// ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			MItem* p_old_item  = NULL;
 				
-			if (g_pInventory->CanReplaceItem(gpC_mouse_pointer->GetPickUpItem(),		// Ãß°¡ÇÒ item
-				m_focus_grid_x, m_focus_grid_y,	// Ãß°¡ÇÒ À§Ä¡ 
-				p_old_item))								// ¿ø·¡ÀÖ´ø item
+			if (g_pInventory->CanReplaceItem(gpC_mouse_pointer->GetPickUpItem(),		// ï¿½ß°ï¿½ï¿½ï¿½ item
+				m_focus_grid_x, m_focus_grid_y,	// ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ 
+				p_old_item))								// ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ item
 			{
 				
 				gpC_base->SendMessage(UI_ITEM_DROP_TO_INVENTORY, 
@@ -8981,10 +8985,10 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 	}
 	else
 	{
-		// Áı´Â´Ù.
+		// ï¿½ï¿½ï¿½Â´ï¿½.
 		MItem * p_item = g_pInventory->GetItem(m_focus_grid_x, m_focus_grid_y);
 		
-		if (p_item != NULL) // ItemÀÌ ÀÖ´Ù.
+		if (p_item != NULL) // Itemï¿½ï¿½ ï¿½Ö´ï¿½.
 		{
 			int number = p_item->GetNumber();
 			
@@ -9020,7 +9024,7 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 					!p_item->IsUniqueItem() &&
 					!p_item->IsQuestItem() )
 				{					
-					// repair °¡°İÀÌ 0º¸´Ù Å¬ ¶§... by sigi
+					// repair ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å¬ ï¿½ï¿½... by sigi
 					if (g_pPriceManager->GetItemPrice((MItem*)p_item, MPriceManager::REPAIR) > 0)
 					{
 						m_p_repair_item = (MItem *)p_item;
@@ -9043,7 +9047,7 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 					&& p_item->GetItemClass() != ITEM_CLASS_EVENT_GIFT_BOX
 					&& p_item->GetItemClass() != ITEM_CLASS_EVENT_STAR)
 				{
-					// silvering °¡°İÀÌ 0º¸´Ù Å¬ ¶§... by larosel
+					// silvering ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å¬ ï¿½ï¿½... by larosel
 					if (g_pPriceManager->GetItemPrice((MItem*)p_item, MPriceManager::SILVERING) > 0)
 					{
 						m_p_silvering_item = (MItem *)p_item;
@@ -9067,7 +9071,7 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 			else
 			{
 				//#ifdef _LIB
-				// SHIFT´©¸£°í Å¬¸¯ÇßÀ»¶§ ¾ÆÀÌÅÛ ÀÚµ¿ ÀÌµ¿ Ã³¸® -> Äü¾ÆÀÌÅÛ -> ±â¾îÃ¢ -> º¸°üÇÔ
+				// SHIFTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½Ìµï¿½ Ã³ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½Ã¢ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				if(g_pDXInput->KeyDown(DIK_LSHIFT))
 				{
 					AutoMove( m_focus_grid_x, m_focus_grid_y );
@@ -9078,7 +9082,7 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 				else
 				{
 					//#endif
-				#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+				#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ğ°ï¿½
 					if(gC_vs_ui.IsRunningSubInventory() && p_item->GetItemClass() == ITEM_CLASS_SUB_INVENTORY )
 						gpC_base->SendMessage(UI_CLOSE_INVENTORY_SUB);
 				#endif
@@ -9244,7 +9248,7 @@ C_VS_UI_SKILL::C_VS_UI_SKILL()
 	(*g_pSkillInfoTable)[MAGIC_CONTINUAL_LIGHT].SetPassive();
 	
 	g_pSkillAvailable->AddSkill(MAGIC_HIDE);
-	for(i = 200; i< 270;i++)
+	for(int i = 200; i< 270;i++)
 		g_pSkillAvailable->AddSkill((ACTIONINFO) i );
 	//	g_pSkillAvailable->DisableSkill(MAGIC_HIDE);
 	//	g_pSkillAvailable->AddSkill(MAGIC_DARKNESS);
@@ -9445,7 +9449,8 @@ void	C_VS_UI_SKILL::SetHotkey(HOTKEY hotkey, ACTIONINFO id)
 			if (m_skill_hotkey_buf[i][j] == id)
 			{
 				//				m_skill_hotkey_buf[i][j] = NOT_SELECTED;
-				for(int k = j; k < GRADE_MAX-1; k++)
+				int k;
+				for(k = j; k < GRADE_MAX-1; k++)
 					m_skill_hotkey_buf[i][k] = m_skill_hotkey_buf[i][k+1];
 				m_skill_hotkey_buf[i][k] = NOT_SELECTED;
 				return;
@@ -9463,7 +9468,7 @@ void	C_VS_UI_SKILL::SetHotkey(HOTKEY hotkey, ACTIONINFO id)
 	}
 	if(j == GRADE_MAX)
 	{
-		for(i = 0; i < GRADE_MAX-1; i++)
+		for(int i = 0; i < GRADE_MAX-1; i++)
 		{
 			m_skill_hotkey_buf[hotkey][i] = m_skill_hotkey_buf[hotkey][i+1];
 		}
@@ -9482,9 +9487,9 @@ void	C_VS_UI_SKILL::ToggleWindow()
 	ResetHotkey();
 	if (m_bl_open == false)
 	{
-		// skill interface°¡ ¿­¸°´Ù.
+		// skill interfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		
-		g_pSkillAvailable->SetAvailableSkills(); // ¿­¸± ¶§ ÇÑ ¹ø¸¸ ÇØÁØ´Ù.
+		g_pSkillAvailable->SetAvailableSkills(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 		
 		switch(g_eRaceInterface)
 		{
@@ -9532,7 +9537,7 @@ bool	C_VS_UI_SKILL::NoPassive(int n)
 //-----------------------------------------------------------------------------
 // CloseInterface
 //
-// ÆîÃÄÁ®ÀÖ´Ù¸é.. ´İ´Â´Ù. ¿ÜºÎ¿¡¼­ ´İ±â¸¦ ¿äÃ»ÇÒ ¶§ ½ÇÇàµÈ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´Ù¸ï¿½.. ï¿½İ´Â´ï¿½. ï¿½ÜºÎ¿ï¿½ï¿½ï¿½ ï¿½İ±â¸¦ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È´ï¿½.
 //-----------------------------------------------------------------------------
 void	C_VS_UI_SKILL::CloseInterface()
 {
@@ -9545,7 +9550,7 @@ void	C_VS_UI_SKILL::CloseInterface()
 //-----------------------------------------------------------------------------
 // AbleToUse
 //
-// »ç¿ë°¡´ÉÇÑ ¸¶¹ıÀÎ°¡?
+// ï¿½ï¿½ë°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½?
 //-----------------------------------------------------------------------------
 bool C_VS_UI_SKILL::AbleToUse(int id) const
 {
@@ -9560,7 +9565,7 @@ bool C_VS_UI_SKILL::AbleToUse(int id) const
 //-----------------------------------------------------------------------------
 // IsEnableSkill
 //
-// »ç¿ëºÒ°¡µÈ ±â¼úÀÌ ¾Æ´Ñ°¡?(µµ¸ŞÀÎµîµîÀÇ ÀÌÀ¯)
+// ï¿½ï¿½ï¿½Ò°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ñ°ï¿½?(ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 //-----------------------------------------------------------------------------
 bool C_VS_UI_SKILL::IsEnableSkill(int id) const
 {
@@ -9570,7 +9575,7 @@ bool C_VS_UI_SKILL::IsEnableSkill(int id) const
 //-----------------------------------------------------------------------------
 // GetDelay
 //
-// Delay°¡ ¾ó¸¶³ª ³²¾Ò³ª %
+// Delayï¿½ï¿½ ï¿½ó¸¶³ï¿½ ï¿½ï¿½ï¿½Ò³ï¿½ %
 //-----------------------------------------------------------------------------
 //int C_VS_UI_SKILL::GetDelay(int id) const
 //{
@@ -9595,7 +9600,7 @@ int C_VS_UI_SKILL::GetDelay(int id) const
 //-----------------------------------------------------------------------------
 // GetSkillID
 //
-// ½ÇÆĞÇÏ¸é NOT_SELECTEDÀ» ¹İÈ¯ÇÏ°í ¼º°øÇÏ¸é n¹øÂ° skill id¸¦ ¹İÈ¯ÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ NOT_SELECTEDï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ nï¿½ï¿½Â° skill idï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 int C_VS_UI_SKILL::GetSkillID(int n)
 {
@@ -9605,12 +9610,12 @@ int C_VS_UI_SKILL::GetSkillID(int n)
 		MSkillSet::SKILLID_MAP::iterator iNode = g_pSkillAvailable->begin();
 		while (iNode != g_pSkillAvailable->end())
 		{
-			// skillÀÇ id¿Í status
+			// skillï¿½ï¿½ idï¿½ï¿½ status
 			ACTIONINFO id = ((*iNode).second).SkillID;
 			
-			// ´ÙÀ½
+			// ï¿½ï¿½ï¿½ï¿½
 			iNode++;
-			// 2004, 11, 26, sobeit add start - »ç¿ë ºÒ°¡ ½ºÅ³Àº ¾Æ¿¹ Ç¥½ÃÇÏÁö ¸»¾Æ´Ş¶ó°í ¿äÃ»ÀÌ ¿Í¼­..^^
+			// 2004, 11, 26, sobeit add start - ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½Æ¿ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ´Ş¶ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½Í¼ï¿½..^^
 			if(IsEnableSkill(id))
 			// 2004, 11, 26, sobeit add end
 				i++;
@@ -9661,7 +9666,7 @@ int C_VS_UI_SKILL::GetFocusSlot(int _x, int _y) const
 //-----------------------------------------------------------------------------
 // C_VS_UI_SKILL::GetIconPoint
 //
-// n¹øÂ° iconÀÇ point¸¦ ¹İÈ¯ÇÑ´Ù.
+// nï¿½ï¿½Â° iconï¿½ï¿½ pointï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 Point	C_VS_UI_SKILL::GetIconPoint(int n) const
 {
@@ -9676,7 +9681,7 @@ Point	C_VS_UI_SKILL::GetIconPoint(int n) const
 //-----------------------------------------------------------------------------
 // ResetSize
 //
-// !°¡´ÉÇÑ skillÀÌ ÇÏ³ªµÎ ¾øÀ» ¶§´Â openµÇÁö ¾Ê´Â´Ù.
+// !ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ skillï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ openï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_SKILL::ResetSize()
 {
@@ -9785,8 +9790,8 @@ void C_VS_UI_SKILL::KeyboardControl(UINT message, UINT key, long extra)
 - MouseControl
 - Skill Mouse Control.
 
-  `SkillÀº È­¸é ¾îµğ¿¡³ª ³ª¿Ã ¼ö ÀÖÀ¸¹Ç·Î Skill ÇÏ³ªÇÏ³ªÀÇ ÁÂÇ¥¸¦ °Ë»çÇØ¼­
-  UI ÀÔ·Â ¿©ºÎ¸¦ °áÁ¤ÇØ¾ß ÇÑ´Ù.
+  `Skillï¿½ï¿½ È­ï¿½ï¿½ ï¿½ï¿½ğ¿¡³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ Skill ï¿½Ï³ï¿½ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ø¼ï¿½
+  UI ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 -----------------------------------------------------------------------------*/
 bool C_VS_UI_SKILL::MouseControl(UINT message, int _x, int _y)
 {
@@ -9796,11 +9801,11 @@ bool C_VS_UI_SKILL::MouseControl(UINT message, int _x, int _y)
 	{
 	case M_MOVING:
 		//
-		// »ç¿ëºÒ°¡´ÉÇÑ °ÍÀº 0¹ø slotÀ» »©°í ¼±ÅÃµÇÁö ¾Ê´Â´Ù.
-		// ¿©±â¼­ °áÁ¤ÇØ¾ß ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ slotï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
+		// ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 		//
 		{
-			int focused_slot = GetFocusSlot(_x, _y); // m_focused_slotÀº Áß¿äÇÏ´Ï±î...
+			int focused_slot = GetFocusSlot(_x, _y); // m_focused_slotï¿½ï¿½ ï¿½ß¿ï¿½ï¿½Ï´Ï±ï¿½...
 			
 			int id;
 			if (focused_slot == 0 && m_selected_skillid != NOT_SELECTED)
@@ -9917,16 +9922,16 @@ void C_VS_UI_SKILL::Show2()
 	//
 	// Show Skill icon
 	//
-	// skill guard À§¿¡ push/unpush buttonÀÌ ³õÀÎ´Ù.
-	// skillÀ» ¼±ÅÃÇÏ¸é ±×°ÍÀÌ buttonÀ¸·Î ´ëÃ¼µÈ´Ù.
+	// skill guard ï¿½ï¿½ï¿½ï¿½ push/unpush buttonï¿½ï¿½ ï¿½ï¿½ï¿½Î´ï¿½.
+	// skillï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½×°ï¿½ï¿½ï¿½ buttonï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½È´ï¿½.
 	//
-	// ¼±ÅÃµÈ skillÀÌ Á¦ÀÏ Ã³À½ Ãâ·ÂµÈ´Ù. ±× lineÀº ±×°ÍÀ» Æ÷ÇÔÇØ¼­ SPREAD_X_MAXÀÌ´Ù.
+	// ï¿½ï¿½ï¿½Ãµï¿½ skillï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ÂµÈ´ï¿½. ï¿½ï¿½ lineï¿½ï¿½ ï¿½×°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ SPREAD_X_MAXï¿½Ì´ï¿½.
 	//
 	int i = 0;
 	CSprite * p_sprite;
 	SPRITE_ID spr_id;
 	
-	// ¼±ÅÃµÈ skillÀ» Ãâ·ÂÇÑ´Ù.
+	// ï¿½ï¿½ï¿½Ãµï¿½ skillï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	if (m_selected_skillid != NOT_SELECTED && g_pSkillAvailable->find( (ACTIONINFO) m_selected_skillid ) != g_pSkillAvailable->end())
 	{
 		spr_id = (*g_pSkillInfoTable)[(ACTIONINFO)m_selected_skillid].GetSpriteID();
@@ -9935,7 +9940,7 @@ void C_VS_UI_SKILL::Show2()
 		if (p_sprite != NULL)
 		{
 			POINT point;
-			point.x = m_skill_start_x+2; // °íÁ¤µÈ À§Ä¡ÀÌ´Ù.
+			point.x = m_skill_start_x+2; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ì´ï¿½.
 			point.y = m_skill_start_y+1;
 			
 			if (m_bl_pushed == true && m_focused_slot == 0)
@@ -9949,7 +9954,7 @@ void C_VS_UI_SKILL::Show2()
 			
 			if (gpC_base->m_p_DDSurface_back->Lock())
 			{
-				// »ç¿ëÇÒ ¼ö ¾øÀ¸¸é »¡°£»öÀ¸·Î..
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..
 				if(IsEnableSkill(m_selected_skillid) == false)
 				{
 					CSpriteSurface::SetEffect(CSpriteSurface::EFFECT_GRAY_SCALE);
@@ -10003,15 +10008,15 @@ void C_VS_UI_SKILL::Show2()
 	
 	if (m_bl_open == true)
 	{
-		// ¼±ÅÃµÈ skillÀ» Á¦¿ÜÇÏ°í °¡´ÉÇÑ skillÀ» ¸ğµÎ Ãâ·ÂÇÑ´Ù.
+		// ï¿½ï¿½ï¿½Ãµï¿½ skillï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ skillï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		MSkillSet::SKILLID_MAP::iterator iNode = g_pSkillAvailable->begin();
 		while (iNode != g_pSkillAvailable->end())
 		{
-			// skillÀÇ id¿Í status
+			// skillï¿½ï¿½ idï¿½ï¿½ status
 			SKILLID_NODE node = ((*iNode).second);
 			ACTIONINFO id		= node.SkillID;
 			
-			// 2004, 11, 26, sobeit add start - »ç¿ë ºÒ°¡ ½ºÅ³Àº ¾Æ¿¹ Ç¥½ÃÇÏÁö ¸»¾Æ´Ş¶ó°í ¿äÃ»ÀÌ ¿Í¼­..^^
+			// 2004, 11, 26, sobeit add start - ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½Æ¿ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ´Ş¶ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½Í¼ï¿½..^^
 			if(IsEnableSkill(id) == false)
 			{
 				iNode ++;
@@ -10021,8 +10026,8 @@ void C_VS_UI_SKILL::Show2()
 			spr_id = (*g_pSkillInfoTable)[id].GetSpriteID();
 			
 			//---------------------------------------
-			// id¸¦ ¾Ë¸é (*g_pSkillInfoTable)¿¡¼­ 
-			// ±× idÀÇ skill¿¡ ´ëÇÑ Á¤º¸¸¦ ¾òÀ» ¼ö ÀÖ´Ù.
+			// idï¿½ï¿½ ï¿½Ë¸ï¿½ (*g_pSkillInfoTable)ï¿½ï¿½ï¿½ï¿½ 
+			// ï¿½ï¿½ idï¿½ï¿½ skillï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
 			//---------------------------------------
 			//logFile << "[" << id << "] " << (*g_pSkillInfoTable)[id].GetName()
 			//		<< " = " << (int)status << endl;
@@ -10047,7 +10052,7 @@ void C_VS_UI_SKILL::Show2()
 				
 				if (gpC_base->m_p_DDSurface_back->Lock())
 				{
-					// »ç¿ëÇÒ ¼ö ¾øÀ¸¸é »¡°£»öÀ¸·Î..
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..
 					if(IsEnableSkill(id) == false)
 					{
 						CSpriteSurface::SetEffect(CSpriteSurface::EFFECT_GRAY_SCALE);
@@ -10099,13 +10104,13 @@ void C_VS_UI_SKILL::Show2()
 				
 				if (m_bl_pushed == true && m_focused_slot == (i+1))
 					m_etc_spk.BltColor(point.x-2, point.y-1, SKILL_GUARD, rgb_GREEN);
-				//else if (m_selected_skillid != NOT_SELECTED && GetSkillID(i) == m_selected_skillid) // ±×µé Áß ÇöÀç ¼±ÅÃµÈ °Å...
+				//else if (m_selected_skillid != NOT_SELECTED && GetSkillID(i) == m_selected_skillid) // ï¿½×µï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½...
 				//	m_etc_spk.BltColor(point.x-2, point.y-1, SKILL_GUARD, rgb_BLUE);
 				else
 					m_etc_spk.Blt(point.x-2, point.y-1, SKILL_GUARD);
 				
 				// print hotkey mark
-				// ±ÛÀÚ»öÀÌ ¸¹ÀÌ Æ¤´Ù´Â ÀÌÀ¯·Î °íÄ¡¶ø´Ï´Ù.. by sigi
+				// ï¿½ï¿½ï¿½Ú»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Æ¤ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½Ï´ï¿½.. by sigi
 				const char hotkey_mark[8][4][10] = 
 				{
 					{"F9:1", "F9:2", "F9:3", "F9:4"},
@@ -10156,7 +10161,7 @@ void C_VS_UI_SKILL::Show2()
 				
 				const int heightMark = 14;//g_GetStringHeight(hotkey_mark[0], gpC_base->m_item_desc_pi.hfont);
 				
-				// °ËÀº»ö ¹Ú½º Ãâ·Â..
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½..
 				if (gpC_base->m_p_DDSurface_back->Lock())
 				{
 					RECT rect;
@@ -10198,7 +10203,7 @@ void C_VS_UI_SKILL::Show2()
 				g_FL2_ReleaseDC();
 			}
 			
-			// ´ÙÀ½
+			// ï¿½ï¿½ï¿½ï¿½
 			iNode++;
 			i++;
 		}
@@ -10235,7 +10240,7 @@ void C_VS_UI_SKILL::Show2()
 			  //		g_descriptor_manager.Unset();
 			  //	}
 			  
-			  //Áö·Ú ¼³Ä¡ Progress Bar
+			  //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ Progress Bar
 			  if(gbl_mine_progress)
 			  {
 				  const MItem * p_item = g_pInventory->GetItem(C_VS_UI_INVENTORY::m_mine_grid_x, C_VS_UI_INVENTORY::m_mine_grid_y);
@@ -10244,7 +10249,7 @@ void C_VS_UI_SKILL::Show2()
 					  (p_item->GetItemClass() == ITEM_CLASS_MINE && (GetSelectedSkillID() == SKILL_INSTALL_MINE || GetSelectedSkillID() == MINE_ANKLE_KILLER || GetSelectedSkillID() == MINE_POMZ || GetSelectedSkillID() == MINE_AP_C1 || GetSelectedSkillID() == MINE_DIAMONDBACK || GetSelectedSkillID() == MINE_SWIFT_EX || GetSelectedSkillID() == MINE_SIDEWINDER || GetSelectedSkillID() == MINE_COBRA)) ||
 					  (p_item->GetItemClass() == ITEM_CLASS_BOMB_MATERIAL && p_item->GetItemType() > 4 && GetSelectedSkillID() == SKILL_MAKE_MINE) ||
 					  (p_item->GetItemClass() == ITEM_CLASS_BOMB_MATERIAL && p_item->GetItemType() < 5 && GetSelectedSkillID() == SKILL_MAKE_BOMB)
-					  ) // ItemÀÌ ÀÖ´Ù.
+					  ) // Itemï¿½ï¿½ ï¿½Ö´ï¿½.
 				  {
 					  if(!gpC_mouse_pointer->RightMousePushed())
 						  gC_vs_ui.EndInstallMineProgress();
@@ -10342,8 +10347,8 @@ bool C_VS_UI_SKILL::findSkillAvailable(ACTIONINFO id)
 
 void	C_VS_UI_SKILL::ResetSkillSet()
 {
-	// ¾Æ¾Æ.. ¿©±â¼­ ÀÚ²Ù ¹ö±×°¡ ³­´Ù..
-	// °á±¹... Love Chain ¸¸ ¸·À»±î³¶-_-;
+	// ï¿½Æ¾ï¿½.. ï¿½ï¿½ï¿½â¼­ ï¿½Ú²ï¿½ ï¿½ï¿½ï¿½×°ï¿½ ï¿½ï¿½ï¿½ï¿½..
+	// ï¿½á±¹... Love Chain ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î³¶-_-;
 	ACTIONINFO id = (ACTIONINFO) m_selected_skillid;
 
 	switch( id )
@@ -10365,7 +10370,7 @@ void	C_VS_UI_SKILL::ResetSkillSet()
 
 void	C_VS_UI_SKILL::ResetHotkey()
 {
-	// 5°³ ÀÌÇÏ´Â ´ÜÃàÅ° ¸®¼Â ¾ÈÇÑ´Ù.
+	// 5ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½Å° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 //	if( g_pSkillAvailable->size() < 5 )
 		return;
 
@@ -10376,7 +10381,7 @@ void	C_VS_UI_SKILL::ResetHotkey()
 			ACTIONINFO id = (ACTIONINFO)m_skill_hotkey_buf[hk][hl];
 			if(! findSkillAvailable ( id ) )
 			{
-				// disable µÈ skill ÀÌ¸é ´ÜÃàÅ°¸¦ Áö¿öÁØ´Ù.
+				// disable ï¿½ï¿½ skill ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 				if( m_selected_skillid == m_skill_hotkey_buf[hk][hl])
 					m_selected_skillid  = NOT_SELECTED;			
 				
@@ -11121,7 +11126,7 @@ void	C_VS_UI_PARTY_MANAGER::RefreshFaceImage()
 void	C_VS_UI_PARTY_MANAGER::Show()
 {
 	Rect window_rect;
-	// Ousters ÇÈ¼¿Å©±â ³ôÀÌ°¡ 3Â÷ÀÌ°¡ ³ª¼­ window_default_height ¿¡ ¸ğµÎ inc_y¸¦ ´õÇÔ
+	// Ousters ï¿½È¼ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ 3ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ window_default_height ï¿½ï¿½ ï¿½ï¿½ï¿½ inc_yï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	int inc_y = 0;
 	if( g_eRaceInterface == RACE_OUSTERS )
 		inc_y = 3;
@@ -11219,19 +11224,19 @@ void	C_VS_UI_PARTY_MANAGER::Show()
 					break;
 				}
 				
-				//±æµå ¸¶Å© ·Îµù
-				// ÀÛÀº°Å
+				//ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½Îµï¿½
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				p_guild_mark = g_pGuildMarkManager->GetGuildMarkSmall(g_char_slot_ingame.GUILD_ID);
 				
 				if (p_guild_mark==NULL)
 				{		
 					//-------------------------------------------------
-					// file¿¡ ÀÖ´ÂÁö º»´Ù.
+					// fileï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 					//-------------------------------------------------
 					g_pGuildMarkManager->LoadGuildMark(g_char_slot_ingame.GUILD_ID);
 					
 					//-------------------------------------------------
-					// file¿¡¼­ loadµÇ¾ú´ÂÁö ´Ù½Ã Ã¼Å©
+					// fileï¿½ï¿½ï¿½ï¿½ loadï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ Ã¼Å©
 					//-------------------------------------------------
 					p_guild_mark = g_pGuildMarkManager->GetGuildMarkSmall(g_char_slot_ingame.GUILD_ID);
 				}
@@ -11261,42 +11266,43 @@ void	C_VS_UI_PARTY_MANAGER::Show()
 					break;					
 				}
 				
-				//±æµå ¸¶Å© ·Îµù
-				// ÀÛÀº°Å
+				//ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½Îµï¿½
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				p_guild_mark = g_pGuildMarkManager->GetGuildMarkSmall(g_pParty->GetMemberInfo(i-1)->guildID);
 				
 				if (p_guild_mark==NULL)
 				{		
 					//-------------------------------------------------
-					// file¿¡ ÀÖ´ÂÁö º»´Ù.
+					// fileï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 					//-------------------------------------------------
 					g_pGuildMarkManager->LoadGuildMark(g_pParty->GetMemberInfo(i-1)->guildID);
 					
 					//-------------------------------------------------
-					// file¿¡¼­ loadµÇ¾ú´ÂÁö ´Ù½Ã Ã¼Å©
+					// fileï¿½ï¿½ï¿½ï¿½ loadï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ Ã¼Å©
 					//-------------------------------------------------
 					p_guild_mark = g_pGuildMarkManager->GetGuildMarkSmall(g_pParty->GetMemberInfo(i-1)->guildID);
 				}
 			}
-			
-			
-			for(int find = 0; find < m_v_face_name.size(); find++)
+
+
+			int idx;
+			for(idx = 0; idx < m_v_face_name.size(); idx++)
 			{
-				if(strcmp(m_v_face_name[find].c_str(), name.c_str()) == 0)break;
+				if(strcmp(m_v_face_name[idx].c_str(), name.c_str()) == 0)break;
 			}
-			
-			if(find == m_v_face_name.size())	// ÀÌ¸§ ÀÚÃ¼°¡ µî·ÏÀÌ ¾ÈµÇÀÖÀ¸¸é search&load
+
+			if(idx == m_v_face_name.size())	// ì´ë¦„ ì „ì²´ë¥¼ ì°¾ì§€ ëª»í–ˆìœ¼ë©´ search&load
 			{
 				C_SPRITE_PACK *temp_spk = NULL;
 				if(g_pProfileManager->HasProfile(name.c_str()))
 				{
 					const char *filename = g_pProfileManager->GetFilename(name.c_str());
 					temp_spk = new C_SPRITE_PACK(filename);
-					
+
 					m_vp_face.push_back(temp_spk);
 					m_v_face_name.push_back(name);
 				}
-				
+
 				if(g_pProfileManager->HasProfileNULL(name.c_str()))
 				{
 					if(temp_spk)
@@ -11308,10 +11314,10 @@ void	C_VS_UI_PARTY_MANAGER::Show()
 					m_v_face_name.push_back(name);
 				}
 			}
-			
+
 			point.x = x + 9;
 			point.y = y + window_default_height + inc_y + i*window_gap +1;
-			
+
 			m_p_image_spk->BltLocked(point.x -1, point.y -1, FACE_GRID);
 			m_p_image_spk->BltLocked(point.x +33, point.y +24, NAME_GRID);
 			if(i == 0)
@@ -11343,8 +11349,8 @@ void	C_VS_UI_PARTY_MANAGER::Show()
 				else
 					m_p_image_spk->BltLocked(x +away_x, y +away_y +window_default_height + inc_y + i*window_gap, AWAY_BUTTON);
 			}
-			
-			if(m_v_face_name.empty() || find == m_v_face_name.size() || (find < m_v_face_name.size() && m_vp_face[find] == NULL))
+
+			if(m_v_face_name.empty() || idx == m_v_face_name.size() || (idx < m_v_face_name.size() && m_vp_face[idx] == NULL))
 			{	// default face
 				if(spriteID < 0 || spriteID >= m_p_face_spk->GetSize())spriteID = 0;
 				
@@ -11359,13 +11365,13 @@ void	C_VS_UI_PARTY_MANAGER::Show()
 				//user face
 				if(i == 0 && g_char_slot_ingame.HP == 0 || i != 0 && g_pParty->GetMemberInfo(i-1)->HP == 0)
 				{
-					m_vp_face[find]->BltLockedColor(point.x, point.y, 0, rgb_RED);
+					m_vp_face[idx]->BltLockedColor(point.x, point.y, 0, rgb_RED);
 				}
 				else
-					m_vp_face[find]->BltLocked(point.x, point.y, 0);
+					m_vp_face[idx]->BltLocked(point.x, point.y, 0);
 			}
 			
-			//±æµå ¸¶Å© Âï±â
+			//ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½ï¿½ï¿½
 			if (p_guild_mark!=NULL)
 			{			
 				POINT guild_point = { point.x+33, point.y+2 };
@@ -11374,7 +11380,7 @@ void	C_VS_UI_PARTY_MANAGER::Show()
 			
 			if(Timer() && i == m_away_focused)
 			{
-				if(m_v_face_name.empty() || find == m_v_face_name.size() || (find < m_v_face_name.size() && m_vp_face[find] == NULL))
+				if(m_v_face_name.empty() || idx == m_v_face_name.size() || (idx < m_v_face_name.size() && m_vp_face[idx] == NULL))
 				{	// default face
 					if(spriteID < 0 || spriteID >= m_p_face_spk->GetSize())spriteID = 0;
 					
@@ -11384,7 +11390,7 @@ void	C_VS_UI_PARTY_MANAGER::Show()
 				else
 				{
 					//user face
-					m_vp_face[find]->BltLocked(point.x-65, point.y, 1);
+					m_vp_face[idx]->BltLocked(point.x-65, point.y, 1);
 				}
 				
 			}
@@ -11568,7 +11574,7 @@ bool	C_VS_UI_PARTY_MANAGER::MouseControl(UINT message, int _x, int _y)
 	
 	Window::MouseControl(message, _x, _y);
 	
-	_x-=x;_y-=y;//Ã¢ÀÌµ¿ °¡´ÉÇÏ°Ô ÇÏ±â À§ÇÑ
+	_x-=x;_y-=y;//Ã¢ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½
 	
 	bool re = true;
 	
@@ -11593,7 +11599,7 @@ bool	C_VS_UI_PARTY_MANAGER::MouseControl(UINT message, int _x, int _y)
 			else
 				m_away_button_focused = false;
 			
-			// Ä³¸¯ÅÍ ¾ó±¼ µğ½ºÅ©¸³¼Ç (zoneid, x, y)
+			// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ (zoneid, x, y)
 			if(m_p_face_spk && _x >= 9 && _x <= 9 +m_p_face_spk->GetWidth() && (_y-window_default_height)%window_gap >= 1 && (_y-window_default_height)%window_gap <= 1 +m_p_face_spk->GetHeight())
 			{
 				if(m_away_focused > 0 && m_away_focused < g_pParty->GetSize()+1)
@@ -11612,7 +11618,7 @@ bool	C_VS_UI_PARTY_MANAGER::MouseControl(UINT message, int _x, int _y)
 					}
 				}
 			}
-			// Å»Åğ Ãß¹æ µğ½ºÅ©¸³¼Ç
+			// Å»ï¿½ï¿½ ï¿½ß¹ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½
 			else if(m_p_image_spk && _x >= away_x && _x <= away_x + m_p_image_spk->GetWidth(AWAY_BUTTON) && (_y-window_default_height)%window_gap >= away_y && (_y-window_default_height)%window_gap <= away_y +m_p_image_spk->GetHeight(AWAY_BUTTON))
 			{
 				if(!g_pParty->IsKickAvailableTime() && m_away_focused != 0 || g_pParty->GetSize() == 0)
@@ -11623,7 +11629,7 @@ bool	C_VS_UI_PARTY_MANAGER::MouseControl(UINT message, int _x, int _y)
 					g_descriptor_manager.Set(DID_INFO, x+away_x, y+away_y+window_gap*m_away_focused+window_default_height, (void *)m_buttoninfo_string[(m_away_focused==0)?0:1],0,0);
 				}
 			}
-			// ±æµå ¸¶Å© µğ½ºÅ©¸³¼Ç
+			// ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½
 			else if(_x >= 42 && _x <= 42+20 && (_y-window_default_height)%window_gap >= 2 && (_y-window_default_height)%window_gap <= 2+20)
 			{
 				if(m_away_focused > 0 && m_away_focused < g_pParty->GetSize()+1)
@@ -11664,7 +11670,7 @@ bool	C_VS_UI_PARTY_MANAGER::MouseControl(UINT message, int _x, int _y)
 				m_away_pushed = true;
 			}
 			else
-			if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+			if (gpC_mouse_pointer->GetPickUpItem() == NULL && re)
 			{
 				MoveReady();
 				SetOrigin(_x, _y);
@@ -11967,7 +11973,7 @@ C_VS_UI_INFO::C_VS_UI_INFO()
 	
 	g_RegisterWindow(this);
 	
-	//½ºÅ©·Ñ¹Ù
+	//ï¿½ï¿½Å©ï¿½Ñ¹ï¿½
 	m_pC_char_scroll_bar = NULL;
 	m_pC_skill_scroll_bar = NULL;
 	m_pC_skill_scroll_bar_width = NULL;
@@ -11996,7 +12002,7 @@ C_VS_UI_INFO::C_VS_UI_INFO()
 	}	
 	m_pC_grade3_scroll_bar = new C_VS_UI_SCROLL_BAR(0, Rect(298, 100+4, -1, 141));
 	m_pC_grade3_scroll_bar->SetPosMax(4);
-	//close¹öÆ° ÁÂÇ¥ ¼¼ÆÃ
+	//closeï¿½ï¿½Æ° ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½
 	int close_x = w-24, close_y = h-19;
 	int help_x = w-24-20, help_y = h-19;
 	int alpha_x = 6, alpha_y = h-21;
@@ -12011,7 +12017,7 @@ C_VS_UI_INFO::C_VS_UI_INFO()
 		alpha_y -= 5;
 	}	
 	
-	//°øÅë¹öÆ°
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Æ°
 	m_pC_common_button_group = new ButtonGroup(this);
 	m_pC_common_button_group->Add(new C_VS_UI_EVENT_BUTTON(close_x, close_y, gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::BUTTON_CLOSE), gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::BUTTON_CLOSE), CLOSE_ID, this,C_GLOBAL_RESOURCE:: BUTTON_CLOSE));
 	m_pC_common_button_group->Add(new C_VS_UI_EVENT_BUTTON(help_x, help_y, gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::BUTTON_HELP), gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::BUTTON_HELP), HELP_ID, this, C_GLOBAL_RESOURCE::BUTTON_HELP));
@@ -12019,7 +12025,7 @@ C_VS_UI_INFO::C_VS_UI_INFO()
 
 	m_pC_common_button_group->Add(new C_VS_UI_EVENT_BUTTON(0, 0, 0, 0, PET_INFO_ID, this, 0));
 	
-	// ÀÌ¹ÌÁö º¯°æ
+	// ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	POINT point = {m_rt_char_box.x, m_rt_char_box.Down()};
 	switch(g_eRaceInterface)
 	{
@@ -12039,7 +12045,7 @@ C_VS_UI_INFO::C_VS_UI_INFO()
 		break;
 	}
 	
-	//charinfo ¹öÆ°
+	//charinfo ï¿½ï¿½Æ°
 	int plus_x = 60, plus_y = 104, plus_gap = 20;
 	m_pC_char_button_group = new ButtonGroup(this);
 	if(g_eRaceInterface == RACE_SLAYER)
@@ -12055,7 +12061,7 @@ C_VS_UI_INFO::C_VS_UI_INFO()
 		m_pC_char_button_group->Add(new C_VS_UI_EVENT_BUTTON(plus_x, plus_y+plus_gap*3, gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::BONUS_BUTTON), gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::BONUS_BUTTON), INT_PLUS_ID, this, C_GLOBAL_RESOURCE::BONUS_BUTTON));
 
 	}
-	//skillinfo ¹öÆ°
+	//skillinfo ï¿½ï¿½Æ°
 	m_pC_skill_button_group = new ButtonGroup(this);
 	
 	switch(g_eRaceInterface)
@@ -12093,10 +12099,10 @@ C_VS_UI_INFO::C_VS_UI_INFO()
 		break;		
 	}
 	
-	// gradeskillinfo ¹öÆ°
+	// gradeskillinfo ï¿½ï¿½Æ°
 	m_pC_grade1_button_group = new ButtonGroup(this);
 	m_pC_grade2_button_group = new ButtonGroup(this);
-	// by csm 2004.12.31 ÀüÁ÷ÀÎÆ÷ ¹öÆ° 
+	// by csm 2004.12.31 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° 
 	m_pC_grade3_button_group = new ButtonGroup(this);
 	
 	switch(g_eRaceInterface)
@@ -12173,7 +12179,7 @@ C_VS_UI_INFO::C_VS_UI_INFO()
 						Button_ID+i, this, i));
 				}
 
-				for(i=0 ;i<3;i++)
+				for(int i=0;i<3;i++)
 				{
 					int eeg = button_x+10+C_VS_UI_SKILL::m_C_spk[0].GetWidth()+(C_VS_UI_SKILL::m_C_spk[0].GetWidth()*(i/4))+gap_x*(i/4);
 					m_pC_grade3_button_group->Add(new C_VS_UI_EVENT_BUTTON(
@@ -12184,7 +12190,7 @@ C_VS_UI_INFO::C_VS_UI_INFO()
 
 				}
 
-//				for(i=0 ;i<10;i++)
+//				for(int i=0;i<10;i++)
 //				{
 //						m_pC_grade3_button_group->Add(new C_VS_UI_EVENT_BUTTON(
 //						button_x+(i*25),
@@ -12271,7 +12277,7 @@ C_VS_UI_INFO::C_VS_UI_INFO()
 						Button_ID+i, this, i));			
 				}
 				
-				for(i=0 ;i<3;i++)
+				for(int i=0;i<3;i++)
 				{
 					m_pC_grade3_button_group->Add(new C_VS_UI_EVENT_BUTTON(
 						button_x+10+C_VS_UI_SKILL::m_C_spk[0].GetWidth()+(C_VS_UI_SKILL::m_C_spk[0].GetWidth()*(i/4))+gap_x*(i/4),
@@ -12313,7 +12319,7 @@ C_VS_UI_INFO::C_VS_UI_INFO()
 						Button_ID+i, this, i));
 				}
 
-				for(i=0 ;i<3;i++)
+				for(int i=0;i<3;i++)
 				{
 					m_pC_grade3_button_group->Add(new C_VS_UI_EVENT_BUTTON(
 						button_x+10+C_VS_UI_SKILL::m_C_spk[0].GetWidth()+(C_VS_UI_SKILL::m_C_spk[0].GetWidth()*(i/4))+gap_x*(i/4),
@@ -12738,44 +12744,44 @@ void	C_VS_UI_INFO::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_SOUL_ABSORB].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_MYSTIC_RULE].GetString(),
 
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_PERCEPTION].GetString(),//] = "¸ğ´É +2";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_STONE_OF_SAGE].GetString(),//] = "Áö½Ä(INT) +5";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_FOOT_OF_RANGER].GetString(),//] = "¹ÎÃ¸¼º(DEX) +5";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_WARRIORS_FIST].GetString(),//] = "Èû(STR) +5";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_PERCEPTION].GetString(),//] = "ï¿½ï¿½ï¿½ +2";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_STONE_OF_SAGE].GetString(),//] = "ï¿½ï¿½ï¿½ï¿½(INT) +5";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_FOOT_OF_RANGER].GetString(),//] = "ï¿½ï¿½Ã¸ï¿½ï¿½(DEX) +5";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_WARRIORS_FIST].GetString(),//] = "ï¿½ï¿½(STR) +5";
 
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_ACID_INQUIRY].GetString(),//] = "¾Ö½Ãµå(Acid) ÀúÇ× +10%";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_BLOODY_INQUIRY].GetString(),//] = "ºí·¯µå(Blood) ÀúÇ× +10%";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_CURSE_INQUIRY].GetString(),//] = "Ä¿½º(Curse) ÀúÇ×+10%";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_POISON_INQUIRY].GetString(),//] = "Æ÷ÀÌÁğ(Poison) ÀúÇ× +10%";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_INQUIRY_MASTERY].GetString(),//] = "¸ğµç ÀúÇ× +3%";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_ACID_INQUIRY].GetString(),//] = "ï¿½Ö½Ãµï¿½(Acid) ï¿½ï¿½ï¿½ï¿½ +10%";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_BLOODY_INQUIRY].GetString(),//] = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(Blood) ï¿½ï¿½ï¿½ï¿½ +10%";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_CURSE_INQUIRY].GetString(),//] = "Ä¿ï¿½ï¿½(Curse) ï¿½ï¿½ï¿½ï¿½+10%";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_POISON_INQUIRY].GetString(),//] = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(Poison) ï¿½ï¿½ï¿½ï¿½ +10%";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_INQUIRY_MASTERY].GetString(),//] = "ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ +3%";
 
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_POWER_OF_SPIRIT].GetString(),//] = "¹æ¾îÀ²(Protection) 5%Áõ°¡";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_WIND_OF_SPIRIT].GetString(),//] = "È¸ÇÇÀ²(Defense) 5%Áõ°¡";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_PIXIES_EYES].GetString(),//] = "¸íÁß·ü(To hit) 5%Áõ°¡";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_GROUND_OF_SPIRIT].GetString(),//] = "¸¶¹ı·Â(MP) 5%Áõ°¡";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_FIRE_OF_SPIRIT].GetString(),//] = "Å©¸®Æ¼ÄÃ(Critical) °ø°İ·Â 5%Áõ°¡";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_POWER_OF_SPIRIT].GetString(),//] = "ï¿½ï¿½ï¿½ï¿½ï¿½(Protection) 5%ï¿½ï¿½ï¿½ï¿½";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_WIND_OF_SPIRIT].GetString(),//] = "È¸ï¿½ï¿½ï¿½ï¿½(Defense) 5%ï¿½ï¿½ï¿½ï¿½";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_PIXIES_EYES].GetString(),//] = "ï¿½ï¿½ï¿½ß·ï¿½(To hit) 5%ï¿½ï¿½ï¿½ï¿½";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_GROUND_OF_SPIRIT].GetString(),//] = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(MP) 5%ï¿½ï¿½ï¿½ï¿½";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_FIRE_OF_SPIRIT].GetString(),//] = "Å©ï¿½ï¿½Æ¼ï¿½ï¿½(Critical) ï¿½ï¿½ï¿½İ·ï¿½ 5%ï¿½ï¿½ï¿½ï¿½";
 
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_EVOLUTION_IMMORTAL_HEART].GetString(),//] = "»ı¸í·Â(HP) 5% Áõ°¡";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_BEHEMOTH_ARMOR_2].GetString(),//] = "È¸ÇÇÀ²(Defense) 5%Áõ°¡ ";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_DRAGON_EYE_2].GetString(),//] = "¸íÁß·ü(To hit) 5%Áõ°¡";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_EVOLUTION_RELIANCE_BRAIN].GetString(),//] = "¸¶¹ı·Â(MP) 5%Áõ°¡";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_HEAT_CONTROL].GetString(),//] = "Å©¸®Æ¼ÄÃ(Critical) °ø°İ·Â 5%Áõ°¡";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_EVOLUTION_IMMORTAL_HEART].GetString(),//] = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(HP) 5% ï¿½ï¿½ï¿½ï¿½";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_BEHEMOTH_ARMOR_2].GetString(),//] = "È¸ï¿½ï¿½ï¿½ï¿½(Defense) 5%ï¿½ï¿½ï¿½ï¿½ ";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_DRAGON_EYE_2].GetString(),//] = "ï¿½ï¿½ï¿½ß·ï¿½(To hit) 5%ï¿½ï¿½ï¿½ï¿½";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_EVOLUTION_RELIANCE_BRAIN].GetString(),//] = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(MP) 5%ï¿½ï¿½ï¿½ï¿½";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_HEAT_CONTROL].GetString(),//] = "Å©ï¿½ï¿½Æ¼ï¿½ï¿½(Critical) ï¿½ï¿½ï¿½İ·ï¿½ 5%ï¿½ï¿½ï¿½ï¿½";
 
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_ACID_MASTERY].GetString(),//] = "»ó´ë¹æ ¾Ö½Ãµå(Acid) ÀúÇ× 10% °¨¼Ò";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_BLOODY_MASTERY].GetString(),//] = "»ó´ë¹æ ºí·¯µå(Blood) ÀúÇ× 10% °¨¼Ò";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_CURSE_MASTERY].GetString(),//] = "»ó´ë¹æ Ä¿½º(Curse) ÀúÇ× 10%°¨¼Ò";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_POISON_MASTERY].GetString(),//] = "»ó´ë¹æ Æ÷ÀÌÁğ(Poison) ÀúÇ× 10%°¨¼Ò";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_SKILL_MASTERY].GetString(),//] = "»ó´ë¹æ ¸ğµç ÀúÇ× 3% °¨¼Ò";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_ACID_MASTERY].GetString(),//] = "ï¿½ï¿½ï¿½ï¿½ ï¿½Ö½Ãµï¿½(Acid) ï¿½ï¿½ï¿½ï¿½ 10% ï¿½ï¿½ï¿½ï¿½";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_BLOODY_MASTERY].GetString(),//] = "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(Blood) ï¿½ï¿½ï¿½ï¿½ 10% ï¿½ï¿½ï¿½ï¿½";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_CURSE_MASTERY].GetString(),//] = "ï¿½ï¿½ï¿½ï¿½ Ä¿ï¿½ï¿½(Curse) ï¿½ï¿½ï¿½ï¿½ 10%ï¿½ï¿½ï¿½ï¿½";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_POISON_MASTERY].GetString(),//] = "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(Poison) ï¿½ï¿½ï¿½ï¿½ 10%ï¿½ï¿½ï¿½ï¿½";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_SKILL_MASTERY].GetString(),//] = "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 3% ï¿½ï¿½ï¿½ï¿½";
 
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_SALAMANDERS_KNOWLEDGE].GetString(),//] = "ºÒ°è¿­ Á¤·É +1";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_UNDINES_KNOWLEDGE].GetString(),//] = "¹°°è¿­ Á¤·É +1";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_GNOMES_KNOWLEDGE].GetString(),//] = "´ëÁö°è¿­ Á¤·É +1";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_SALAMANDERS_KNOWLEDGE].GetString(),//] = "ï¿½Ò°è¿­ ï¿½ï¿½ï¿½ï¿½ +1";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_UNDINES_KNOWLEDGE].GetString(),//] = "ï¿½ï¿½ï¿½è¿­ ï¿½ï¿½ï¿½ï¿½ +1";
+    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_GNOMES_KNOWLEDGE].GetString(),//] = "ï¿½ï¿½ï¿½ï¿½ï¿½è¿­ ï¿½ï¿½ï¿½ï¿½ +1";
 	};
 
 	if( p_button->GetID() == CHANGE_IMAGE_ID && m_info_mode != CHARACTER_INFO_MODE )
 		return;
 	
-	// ÅøÆÁ
+	// ï¿½ï¿½ï¿½ï¿½
 	if(p_button->GetID() == PET_INFO_ID)
 		g_descriptor_manager.Set(DID_INFO, p_button->x+x, p_button->y+y, (void *)m_info_button_string[26],0,0);
 	else
@@ -12865,20 +12871,20 @@ void	C_VS_UI_INFO::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 			case RankBonusInfo::STATUS_NULL :
 				if((g_char_slot_ingame.GRADE-1)/5 >= MyGrade)
 				{
-					// Áö±İ ¹è¿ï ¼ö ÀÖ½À´Ï´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
 					grade_desc[2] = (*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_LEARN_SKILL_NOW].GetString();
 				} else
 				{
-					// ¾ÆÁ÷ ¹è¿ï ¼ö ¾ø½À´Ï´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
 					grade_desc[2] = (*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_LEARN_SKILL_YET].GetString();
 				}
 				break;
 			case RankBonusInfo::STATUS_CANNOT_LEARN :
 				grade_desc[2] = (*g_pGameStringTable)[UI_STRING_MESSAGE_NEVER_CANNOT_LEARN_SKILL].GetString();
-				//      ¹è¿ï ¼ö ¾ø½À´Ï´Ù.
+				//      ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
 				break;
 			case RankBonusInfo::STATUS_LEARNED :
-				//     ÀÌ¹Ì ¹è¿î ½ºÅ³ÀÔ´Ï´Ù.
+				//     ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½Ô´Ï´ï¿½.
 				grade_desc[2] = (*g_pGameStringTable)[UI_STRING_MESSAGE_ALREADY_LEARNED_SKILL].GetString();
 				break;
 			}
@@ -12887,7 +12893,7 @@ void	C_VS_UI_INFO::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 	}
 	else if(p_button->GetID() >= GRADE2_BUTTON1_ID && p_button->GetID() <= GRADE3_BUTTON6_ID)
 	{
-			//bycsm skill info ¿¡¼­ Ãâ·ÂÇØÁØ´Ù --.
+			//bycsm skill info ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ --.
 	}
 	else 
 		g_descriptor_manager.Set(DID_INFO, p_button->x+x, p_button->y+y, (void *)m_info_button_string[p_button->GetID()],0,0);
@@ -12932,7 +12938,7 @@ void	C_VS_UI_INFO::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 		else
 			gpC_global_resource->m_pC_assemble_box_button_spk->BltLocked(p_button->x+x, p_button->y+y, C_GLOBAL_RESOURCE::AB_BUTTON_ALPHA_PUSHED);
 	}
-	//Close¹öÆ°
+	//Closeï¿½ï¿½Æ°
 	else if(p_button->GetID() == CLOSE_ID || p_button->GetID() == HELP_ID)
 	{
 		gpC_global_resource->m_pC_info_spk->BltLocked(x+p_button->x-5, y+p_button->y-5, C_GLOBAL_RESOURCE::BUTTON_CLOSE_BACK);
@@ -12992,7 +12998,7 @@ void	C_VS_UI_INFO::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 	} 
 	else if(p_button->GetID() >= GRADE1_BUTTON1_ID && p_button->GetID() <= GRADE2_BUTTON8_ID)
 	{
-		// °è±Ş ½ºÅ³ ¹öÆ°µé
+		// ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½Æ°ï¿½ï¿½
 		int TempVal = 0;
 		if(m_info_mode == GRADE1_INFO_MODE)
 			 TempVal = GRADE1_BUTTON1_ID;
@@ -13039,11 +13045,11 @@ void	C_VS_UI_INFO::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 				}
 
 
-				// Å¬¸¯ ÇÏ¿´À»¶§					
+				// Å¬ï¿½ï¿½ ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½					
 				switch(RankBonus.GetStatus())
 				{
 				case RankBonusInfo::STATUS_NULL :
-					if((g_char_slot_ingame.GRADE-1)/5 >= MyGrade)		// ÃÊ·Ï»ö 						
+					if((g_char_slot_ingame.GRADE-1)/5 >= MyGrade)		// ï¿½Ê·Ï»ï¿½ 						
 					{
 						if(p_button->GetPressState())
 						{
@@ -13069,7 +13075,7 @@ void	C_VS_UI_INFO::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 			}
 			else
 			{
-				// ÀÏ¹İ Ãâ·Â
+				// ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½
 				switch(g_eRaceInterface)
 				{
 				case RACE_SLAYER:
@@ -13088,7 +13094,7 @@ void	C_VS_UI_INFO::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 				switch(RankBonus.GetStatus())
 				{
 				case RankBonusInfo::STATUS_NULL :
-					if((g_char_slot_ingame.GRADE-1)/5 >= MyGrade)		// ÃÊ·Ï»ö 						
+					if((g_char_slot_ingame.GRADE-1)/5 >= MyGrade)		// ï¿½Ê·Ï»ï¿½ 						
 						gpC_base->m_p_DDSurface_back->BltSpriteColor(&pt,&C_VS_UI_SKILL::m_C_spk[RankBonus.GetSkillIconID()],rgb_GREEN);
 					else
 						gpC_base->m_p_DDSurface_back->BltSpriteEffect(&pt,&C_VS_UI_SKILL::m_C_spk[RankBonus.GetSkillIconID()]);
@@ -13316,7 +13322,7 @@ void C_VS_UI_INFO::Run(id_t id)
 				break;
 			}
 			
-			// ½ºÅ³ »óÅÂ°¡ NULL ÀÌ¾î¾ß ÇÏ°í, ÇöÀç ¼±ÅÃÇÑ °è±ŞÀÌ ÀÚ±â °è±Ş°ú °°°Å³ª ³·¾Æ¾ß ÇÑ´Ù.
+			// ï¿½ï¿½Å³ ï¿½ï¿½ï¿½Â°ï¿½ NULL ï¿½Ì¾ï¿½ï¿½ ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú±ï¿½ ï¿½ï¿½Ş°ï¿½ ï¿½ï¿½ï¿½Å³ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½Ñ´ï¿½.
 			if(RankBonusInfo::STATUS_NULL==RankBonus.GetStatus() && ((g_char_slot_ingame.GRADE-1)/5)>=MyGrade)
 			{
 			//	gpC_base->SendMessage(UI_SELECT_GRADE_SKILL,(int)RankBonus.GetType(),0,NULL);
@@ -13516,7 +13522,7 @@ void C_VS_UI_INFO::Run(id_t id)
 						static const char *ppmsg[] = {(*g_pGameStringTable)[UI_STRING_MESSAGE_LEARN_SKILL].GetString()	};
 						static const char *ppmsg2[] = { (*g_pGameStringTable)[UI_STRING_MESSAGE_LEARN_SKILL2].GetString() };
 						
-						if(m_ousters_Magic== -1) // ½ºÅ³À» ¼±ÅÃÇß´Ù¸é 
+						if(m_ousters_Magic== -1) // ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´Ù¸ï¿½ 
 							m_pC_learn_grade_skill_confirm->SetMessage((char**)ppmsg2,1,SMO_NOFIT);
 						else
 							m_pC_learn_grade_skill_confirm->SetMessage((char**)ppmsg,1,SMO_NOFIT);
@@ -13620,7 +13626,7 @@ void C_VS_UI_INFO::Run(id_t id)
 	case INNATE_ID:
 		m_skill_domain = SKILLDOMAIN_VAMPIRE;
 		m_iDomain = INNATE_ID;
-		// etc ¶«»§
+		// etc ï¿½ï¿½ï¿½ï¿½
 		m_pC_skill_scroll_bar->SetPosMax(((*g_pSkillManager)[SKILLDOMAIN_VAMPIRE].GetSkillStepList((SKILL_STEP)(m_iDomain-POISON_ID+SKILL_STEP_VAMPIRE_POISON)))->size()-7);
 		break;
 		
@@ -13978,7 +13984,7 @@ bool	C_VS_UI_INFO::CharacterInfoMouseControl(UINT message, int _x, int _y)
 				}
 				num2 = (goal_exp - *(&g_char_slot_ingame.STR_EXP_REMAIN + select))*100/max(1, (goal_exp));
 
-				// ¼ıÀÚ»çÀÌ¿¡ ,³Ö±â
+				// ï¿½ï¿½ï¿½Ú»ï¿½ï¿½Ì¿ï¿½ ,ï¿½Ö±ï¿½
 				wsprintf(temp, "%d", num1);
 				std::string sstr1 = temp;
 				for(int i = 3; i <= 13; i += 4)
@@ -13986,10 +13992,10 @@ bool	C_VS_UI_INFO::CharacterInfoMouseControl(UINT message, int _x, int _y)
 					if(sstr1.size() > i)sstr1.insert(sstr1.size()-i, ",");
 				}
 
-				// ¼ıÀÚ»çÀÌ¿¡ ,³Ö±â
+				// ï¿½ï¿½ï¿½Ú»ï¿½ï¿½Ì¿ï¿½ ,ï¿½Ö±ï¿½
 				wsprintf(temp, "%d", num2);
 				std::string sstr2 = temp;
-				for(i = 3; i <= 13; i += 4)
+				for(int i = 3; i <= 13; i += 4)
 				{
 					if(sstr2.size() > i)sstr2.insert(sstr2.size()-i, ",");
 				}
@@ -13997,7 +14003,7 @@ bool	C_VS_UI_INFO::CharacterInfoMouseControl(UINT message, int _x, int _y)
 				sprintf(temp_str[0], (*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_EXP_DESCRIPTION_NEW].GetString(), sstr1.c_str(), sstr2.c_str());
 //					strcat(temp_str[j], sstr.c_str());
 					
-				if(num1 < 0)bMax = true;	// ·¹º§¾÷¸Æ½º
+				if(num1 < 0)bMax = true;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½
 				
 				if(bMax)
 				{
@@ -14015,19 +14021,19 @@ bool	C_VS_UI_INFO::CharacterInfoMouseControl(UINT message, int _x, int _y)
 			
 			switch(num)
 			{
-			case 0 : // »ı¸í·Â
+			case 0 : // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				wsprintf(temp_str[0],"%s",info_slayer_title_string[num]);
 				wsprintf(temp_str[2],"%d/%d",g_char_slot_ingame.HP,g_char_slot_ingame.HP_MAX);
 				break;
-			case 1 : // ¸¶¹ı·Â
+			case 1 : // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				wsprintf(temp_str[0],"%s",info_slayer_title_string[num]);
 				wsprintf(temp_str[2],"%d/%d",g_char_slot_ingame.MP,g_char_slot_ingame.MP_MAX);
 				break;
-			case 2 : // ¸íÁß·ü
+			case 2 : // ï¿½ï¿½ï¿½ß·ï¿½
 				wsprintf(temp_str[0],"%s",info_slayer_title_string[num]);
 				wsprintf(temp_str[2],"%d",g_char_slot_ingame.TOHIT);
 				break;
-			case 3 : // µ¥¹ÌÁö
+			case 3 : // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
 					int dam1, dam2;
 					dam1 = g_char_slot_ingame.DAM + g_char_slot_ingame.SILVER_DAM;
@@ -14040,11 +14046,11 @@ bool	C_VS_UI_INFO::CharacterInfoMouseControl(UINT message, int _x, int _y)
 						wsprintf(temp_str[2],"%d~%d",dam2,dam1);								
 				}
 				break;
-			case 4 : //È¸ÇÇÀ²
+			case 4 : //È¸ï¿½ï¿½ï¿½ï¿½
 				wsprintf(temp_str[0],"%s",info_slayer_title_string[num]);
 				wsprintf(temp_str[2],"%d",g_char_slot_ingame.DEFENSE);
 				break;
-			case 5 : // ¹æ¾îÀ² 
+			case 5 : // ï¿½ï¿½ï¿½ï¿½ï¿½ 
 				wsprintf(temp_str[0],"%s",info_slayer_title_string[num]);
 				wsprintf(temp_str[2],"%d",g_char_slot_ingame.PROTECTION);
 				break;
@@ -14172,7 +14178,7 @@ bool	C_VS_UI_INFO::CharacterInfoMouseControl(UINT message, int _x, int _y)
 					strcat(temp_str[0],g_char_slot_ingame.sz_guild_name.c_str());
 				} else
 				{
-					goto grade;									// goto ´Â ¾È¾²´Â°Ô ÁÁ±äÇÏÁö¸¸ ¹¹-_-
+					goto grade;									// goto ï¿½ï¿½ ï¿½È¾ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-_-
 				}
 				str[2]=NULL;								
 				break;
@@ -14184,7 +14190,7 @@ bool	C_VS_UI_INFO::CharacterInfoMouseControl(UINT message, int _x, int _y)
 grade :			str[2]=NULL;
 				if(g_char_slot_ingame.GRADE > 0 &&g_char_slot_ingame.GRADE <= GRADE_MARK_MAX)
 				{
-					// °è±Ş Description                   °è±Ş ÀÌ¸§, °è±Ş ·¹º§ 
+					// ï¿½ï¿½ï¿½ Description                   ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 					wsprintf(temp_str[0],"%s%s",(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_NAME].GetString(),slayer_grade[(g_char_slot_ingame.GRADE-1)/5]);
 					wsprintf(temp_str[1],"%s%d",(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_LEVEL].GetString(),g_char_slot_ingame.GRADE);
 					__int64 goal_exp = g_pExperienceTable->GetRankInfo(g_char_slot_ingame.GRADE, g_eRaceInterface).GoalExp;
@@ -14276,7 +14282,7 @@ grade :			str[2]=NULL;
 				const __int64 goal_exp = g_pExperienceTable->GetVampireInfo(g_char_slot_ingame.level).GoalExp;
 				wsprintf(szTemp,"%d", (goal_exp - g_char_slot_ingame.EXP_REMAIN)*100/max(1, (goal_exp)));
 				temp[1] = szTemp;
-				for(i = 3; i <= 13; i += 4)
+				for(int i = 3; i <= 13; i += 4)
 					if(temp[1].size() > i)temp[1].insert(temp[1].size()-i, ",");
 				wsprintf(temp_str[0], (*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_EXP_DESCRIPTION_NEW].GetString(), temp[0].c_str(), temp[1].c_str());
 				int fame = g_pFameInfoTable->GetFameForLevel( SKILLDOMAIN_VAMPIRE, g_char_slot_ingame.level );
@@ -14307,13 +14313,13 @@ grade :			str[2]=NULL;
 			
 			switch(num)
 			{
-			case 0 ://ÆÀ
+			case 0 ://ï¿½ï¿½
 				if(g_char_slot_ingame.sz_guild_name.size()>0)
 					wsprintf(temp_str[0],"%s%s",(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_CLAN_NAME].GetString(),g_char_slot_ingame.sz_guild_name.c_str());
 				else
 					wsprintf(temp_str[0],"%s",(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_JOIN_ANY_CLAN].GetString());
 				break;
-			case 1 ://°è±Ş
+			case 1 ://ï¿½ï¿½ï¿½
 				if(g_char_slot_ingame.GRADE > 0 &&g_char_slot_ingame.GRADE <= GRADE_MARK_MAX)
 				{								
 					wsprintf(temp_str[0],"%s : %s",(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_NAME].GetString(),vampire_grade[(g_char_slot_ingame.GRADE-1)/5]);
@@ -14326,7 +14332,7 @@ grade :			str[2]=NULL;
 				else
 					str[0]=NULL;
 				break;
-			case 2 : // ¸í¼º
+			case 2 : // ï¿½ï¿½ï¿½ï¿½
 				wsprintf(temp_str[0],"%s",(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_FAME].GetString());
 				wsprintf(temp_str[1],"%d",g_char_slot_ingame.FAME);
 				{
@@ -14479,7 +14485,7 @@ grade :			str[2]=NULL;
 					const __int64 goal_exp = g_pExperienceTable->GetOustersInfo(g_char_slot_ingame.level).GoalExp;
 					wsprintf(szTemp,"%d", (goal_exp - g_char_slot_ingame.EXP_REMAIN)*100/max(1, (goal_exp)));
 					temp[1] = szTemp;
-					for(i = 3; i <= 13; i += 4)
+					for(int i = 3; i <= 13; i += 4)
 						if(temp[1].size() > i)temp[1].insert(temp[1].size()-i, ",");
 					wsprintf(temp_str[0], (*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_EXP_DESCRIPTION_NEW].GetString(), temp[0].c_str(), temp[1].c_str());
 					int fame = g_pFameInfoTable->GetFameForLevel( SKILLDOMAIN_OUSTERS, g_char_slot_ingame.level );
@@ -14509,13 +14515,13 @@ grade :			str[2]=NULL;
 				
 				switch(num)
 				{
-				case 0 ://ÆÀ
+				case 0 ://ï¿½ï¿½
 					if(g_char_slot_ingame.sz_guild_name.size()>0)
 						wsprintf(temp_str[0],"%s%s",(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_CLAN_NAME].GetString(),g_char_slot_ingame.sz_guild_name.c_str());
 					else
 						wsprintf(temp_str[0],"%s",(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_JOIN_ANY_CLAN].GetString());
 					break;
-				case 1 ://°è±Ş
+				case 1 ://ï¿½ï¿½ï¿½
 					if(g_char_slot_ingame.GRADE > 0 &&g_char_slot_ingame.GRADE <= GRADE_MARK_MAX)
 					{								
 						wsprintf(temp_str[0],"%s%s",(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_NAME].GetString(),ousters_grade[(g_char_slot_ingame.GRADE-1)/5]);
@@ -14528,7 +14534,7 @@ grade :			str[2]=NULL;
 					else
 						str[0]=NULL;
 					break;
-				case 2 : // ¸í¼º
+				case 2 : // ï¿½ï¿½ï¿½ï¿½
 					wsprintf(temp_str[0],"%s",(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_FAME].GetString());
 					wsprintf(temp_str[1],"%d",g_char_slot_ingame.FAME);
 					{
@@ -14639,7 +14645,7 @@ bool	C_VS_UI_INFO::SkillInfoMouseControl(UINT message, int _x, int _y)
 		}
 		else
 		{
-			if(m_CenterPos.x != -1)	// °¡¿îµ¥ ¹öÆ° ´©¸£°í ½ºÅ©·Ñ
+			if(m_CenterPos.x != -1)	// ï¿½ï¿½ï¿½îµ¥ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½
 			{
 				m_pC_skill_scroll_bar_width->SetScrollPos(m_pC_skill_scroll_bar_width->GetScrollPos()+m_CenterPos.x-_x);
 				m_CenterPos.x = _x;
@@ -14696,7 +14702,7 @@ bool	C_VS_UI_INFO::SkillInfoMouseControl(UINT message, int _x, int _y)
 						int level = (*g_pSkillManager)[m_skill_domain].GetDomainLevel();
 						int exp_remain = (*g_pSkillManager)[m_skill_domain].GetDomainExpRemain();
 						
-						if(level >= 0 && exp >= 0)
+						if(level >= 0 && exp_remain >= 0)
 						{
 							char sz_temp[100];
 							std::string sstr;
@@ -14704,16 +14710,16 @@ bool	C_VS_UI_INFO::SkillInfoMouseControl(UINT message, int _x, int _y)
 							
 							//						int next_exp = (*g_pSkillManager)[m_skill_domain].GetExpInfo(level).AccumExp;
 							
-							// ¼ıÀÚ»çÀÌ¿¡ ,³Ö±â
+							// ï¿½ï¿½ï¿½Ú»ï¿½ï¿½Ì¿ï¿½ ,ï¿½Ö±ï¿½
 							wsprintf(sz_temp, "%d", exp_remain);
 							sstr = sz_temp;
-							for(i = 3; i <= 13; i += 4)
+							for(int i = 3; i <= 13; i += 4)
 								if(sstr.size() > i)sstr.insert(sstr.size()-i, ",");
 								
 								const __int64 goal_exp = (*g_pSkillManager)[m_skill_domain].GetExpInfo(level).GoalExp;
 								wsprintf(sz_temp, "%d", (goal_exp - exp_remain)*100/max(1, (goal_exp)));
 								std::string sstr2 = sz_temp;
-								for(i = 3; i <= 13; i += 4)
+								for(int i = 3; i <= 13; i += 4)
 									if(sstr2.size() > i)sstr2.insert(sstr2.size()-i, ",");
 									
 									wsprintf(temp_str[0], (*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_EXP_DESCRIPTION_NEW].GetString(), sstr.c_str(), sstr2.c_str());
@@ -14748,7 +14754,7 @@ bool	C_VS_UI_INFO::SkillInfoMouseControl(UINT message, int _x, int _y)
 					}
 				}
 			}
-			// ÀüÁ÷½ºÅ³¼³¸í 
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ 
 			if(_x >= m_rcSkillDesciption.left-19 && _y >= m_rcSkillDesciption.top-20 && _x < m_rcSkillDesciption.right-200 && _y < m_rcSkillDesciption.bottom && m_info_mode == GRADE3_INFO_MODE)
 			{
 				const SKILL_STEP step = (SKILL_STEP)(SKILL_STEP_SLAYER_BLADE_ADVANCEMENT + m_skill_domain);
@@ -14788,7 +14794,7 @@ bool	C_VS_UI_INFO::SkillInfoMouseControl(UINT message, int _x, int _y)
 	case RACE_VAMPIRE:
 		{
 			const SKILL_STEP step = (SKILL_STEP)(m_iDomain-POISON_ID+SKILL_STEP_VAMPIRE_POISON);
-						// ÀüÁ÷½ºÅ³¼³¸í 
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ 
 			//if(_x >= m_rcSkillDesciption.left-19 && _y >= m_rcSkillDesciption.top&& _x < m_rcSkillDesciption.right-200 && _y < m_rcSkillDesciption.bottom +45 && m_info_mode == GRADE3_INFO_MODE)
 			//if(_x >= m_rcSkillDesciption.left-19 && _y >= m_rcSkillDesciption.top+25 && _x < m_rcSkillDesciption.right-200 && _y < m_rcSkillDesciption.bottom && m_info_mode == GRADE3_INFO_MODE)
 			if(_x >= m_rcSkillDesciption.left-19 && _y >= m_rcSkillDesciption.top+40 && _x < m_rcSkillDesciption.right-200 && _y < m_rcSkillDesciption.bottom+80 && m_info_mode == GRADE3_INFO_MODE)
@@ -14948,7 +14954,7 @@ bool	C_VS_UI_INFO::SkillInfoMouseControl(UINT message, int _x, int _y)
 					}
 				}
 			}
-			//by csm ÀüÁ÷½ºÅ³¿ë 
+			//by csm ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³ï¿½ï¿½ 
 			if(_x >= m_rcSkillDesciption.left-19 && _y >= m_rcSkillDesciption.top+40 && _x < m_rcSkillDesciption.right-200 && _y < m_rcSkillDesciption.bottom+80 && m_info_mode == GRADE3_INFO_MODE)
 			{
 				int num = ((_y - m_rcSkillDesciption.top) - 40)/60+max(0,m_pC_grade3_scroll_bar->GetScrollPos());
@@ -15351,7 +15357,7 @@ bool C_VS_UI_INFO::MouseControl(UINT message, int _x, int _y)
 
 	case GRADE1_INFO_MODE :
 		{
-			// È­¸é¿¡ Ãâ·ÂµÇ¾î¾ß ÇÒ ¹öÆ° ¼ö 			 
+			// È­ï¿½é¿¡ ï¿½ï¿½ÂµÇ¾ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ 			 
 		
 			C_VS_UI_EVENT_BUTTON *pButton=m_pC_grade1_button_group->IsInRect(_x,_y);
 			if(pButton == NULL)
@@ -15368,7 +15374,7 @@ bool C_VS_UI_INFO::MouseControl(UINT message, int _x, int _y)
 		break;
 	case GRADE2_INFO_MODE :
 		{
-			// È­¸é¿¡ Ãâ·ÂµÇ¾î¾ß ÇÒ ¹öÆ° ¼ö 			 
+			// È­ï¿½é¿¡ ï¿½ï¿½ÂµÇ¾ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ 			 
 		
 			C_VS_UI_EVENT_BUTTON *pButton=m_pC_grade2_button_group->IsInRect(_x,_y);
 			if(pButton == NULL)
@@ -15561,7 +15567,7 @@ bool C_VS_UI_INFO::MouseControl(UINT message, int _x, int _y)
 	case M_LEFTBUTTON_DOWN:
 	case M_LB_DOUBLECLICK:
 		{
-			// ÀÌ¹ÌÁö º¯°æÀ» ±âÁ¸¿¡ ÀÌ¹ÌÁö¸¦ ´­·¯¼­ ÇÏ´ø°Í¿¡¼­ ¹öÆ° Ãß°¡¸¦ ÇÏ¸é¼­ ÁÖ¼®Ã³¸®Çß´Ù
+			// ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ß°ï¿½ï¿½ï¿½ ï¿½Ï¸é¼­ ï¿½Ö¼ï¿½Ã³ï¿½ï¿½ï¿½ß´ï¿½
 //			int fix_face_x = 2, fix_face_y = 10;
 //			if( g_eRaceInterface != RACE_OUSTERS )
 //			{
@@ -15762,7 +15768,7 @@ void C_VS_UI_INFO::RefreshImage()
 }
 
 //-----------------------------------------------------------------------------------
-// Show °¡ ±æ¾îÁ®¼­ ºĞ¸®Çß´Ù.			by sonee
+// Show ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ¸ï¿½ï¿½ß´ï¿½.			by sonee
 // _Show1()
 //   >> Skill Info
 //-----------------------------------------------------------------------------------
@@ -15783,7 +15789,7 @@ void	C_VS_UI_INFO::_Show1()
 			const __int64 goal_exp = (*g_pSkillManager)[m_skill_domain].GetExpInfo(domain_level).GoalExp;
 			const int skip_y=4;
 			
-			if(gpC_base->m_p_DDSurface_back->Lock())	//±×¸² Ãâ·ÂÇÒ°Ô ¸¹À¸¹Ç·Î lock°Ç »óÅÂ¿¡¼­ ÇÑ´Ù.
+			if(gpC_base->m_p_DDSurface_back->Lock())	//ï¿½×¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ lockï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 			{
 				if(GetAttributes()->alpha && m_iDomain != TOTAL_ID)
 				{
@@ -15807,14 +15813,14 @@ void	C_VS_UI_INFO::_Show1()
 					
 					gpC_global_resource->DrawDialogOnlyLocked(x, y, w, h);
 				}
-				//by csm 2004.12.30 Ui¼öÁ¤ 
+				//by csm 2004.12.30 Uiï¿½ï¿½ï¿½ï¿½ 
 				//else
 				//	gpC_global_resource->DrawDialogLocked(x, y, w, h, GetAttributes()->alpha);
 				
 				if(m_iDomain != TOTAL_ID && !GetAttributes()->alpha)
 				{
 					gpC_base->m_p_DDSurface_back->Unlock();
-					//µµ¸ŞÀÎ¹Ù µÚ¿¡ °ËÀº»ö Ä¥ÇÏ±â
+					//ï¿½ï¿½ï¿½ï¿½ï¿½Î¹ï¿½ ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä¥ï¿½Ï±ï¿½
 					RECT rect = {x+124, y+69+skip_y, x+124+gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::DOMAIN_BAR), y+69+gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::DOMAIN_BAR)+skip_y };
 					gpC_base->m_p_DDSurface_back->FillRect(&rect, 0);
 					rect.top += 20;
@@ -15824,34 +15830,34 @@ void	C_VS_UI_INFO::_Show1()
 				}
 				
 				gpC_global_resource->m_pC_info_spk->BltLocked(x+m_rt_tab.x -m_modify_wide-10, y+m_rt_tab.y, C_GLOBAL_RESOURCE::TAB_SKILL);
-				//¾Æ¿ô¶óÀÎ
+				//ï¿½Æ¿ï¿½ï¿½ï¿½ï¿½ï¿½
 				gpC_global_resource->DrawOutBoxLocked(x+8, y+44+skip_y, 304, 249);
-				//½ºÅ³¼±ÅÃ ÅÇ
+				//ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				gpC_global_resource->m_pC_info_spk->BltLocked(x+m_pC_skill_button_group->GetButton(m_iDomain)->x, y+m_pC_skill_button_group->GetButton(m_iDomain)->y-1, m_pC_skill_button_group->GetButton(m_iDomain)->m_image_index+1);
 				
 				if(m_iDomain != TOTAL_ID)
 				{
-					//µµ¸ŞÀÎ ¹Ù
+					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					gpC_global_resource->m_pC_info_spk->BltLocked(x+25, y+68+skip_y, C_GLOBAL_RESOURCE::TITLE_DOMAINLEVEL);
 					gpC_global_resource->m_pC_info_spk->BltLocked(x+25, y+88+skip_y, C_GLOBAL_RESOURCE::TITLE_DOMAINEXP);
 					
 					gpC_global_resource->m_pC_info_spk->BltLocked(x+110, y+66+skip_y, C_GLOBAL_RESOURCE::DOMAIN_BACK);
 					gpC_global_resource->m_pC_info_spk->BltLocked(x+110, y+86+skip_y, C_GLOBAL_RESOURCE::DOMAIN_BACK);
 					
-					//µµ¸ŞÀÎ ·¹º§ ¹Ù
+					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					Rect rect;
 					rect.Set(0, 0, gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::DOMAIN_BAR)*domain_level/MAX_LEVEL, gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::DOMAIN_BAR));
 					gpC_global_resource->m_pC_info_spk->BltLockedClip(x+domain_bar_x, y+domain_bar_y+skip_y, rect, C_GLOBAL_RESOURCE::DOMAIN_BAR);
 					
-					//µµ¸ŞÀÎ °æÇèÄ¡ ¹Ù
+					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½
 					rect.Set(0, 0, gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::DOMAIN_BAR)*(goal_exp - exp_remain)/max(1, goal_exp), gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::DOMAIN_BAR));
 					gpC_global_resource->m_pC_info_spk->BltLockedClip(x+domain_bar_x, y+domain_bar_y+20+skip_y, rect, C_GLOBAL_RESOURCE::DOMAIN_BAR);
 					
-					//½ºÅ³ ¸®½ºÆ®
+					//ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½Æ®
 					gpC_global_resource->m_pC_info_spk->BltLocked(x+15, y+108+skip_y, C_GLOBAL_RESOURCE::SKILL_TITLE);
 					gpC_global_resource->m_pC_info_spk->BltLocked(x+15, y+108+skip_y, C_GLOBAL_RESOURCE::SKILL_BOX);
 					
-					// SKILL STEPÀÌ ÀÖÀ¸¸é ½ºÅ³µéÀ» Ãâ·ÂÇÑ´Ù
+					// SKILL STEPï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 					if(m_iDomain >= BLADE_ID && m_iDomain <= ENCHANT_ID)
 					{
 						int i = 0; 
@@ -15865,7 +15871,7 @@ void	C_VS_UI_INFO::_Show1()
 							
 							const int level_plus = 127;
 							DWORD shadow_color = RGB_BLACK;
-							for(i = 0; i < min( 8, list.size() - max(0,m_pC_skill_scroll_bar->GetScrollPos()) ); i++)
+							for(int i = 0; i < min( 8, list.size() - max(0,m_pC_skill_scroll_bar->GetScrollPos()) ); i++)
 							{
 								const ACTIONINFO SkillID = (ACTIONINFO)*ss;
 								MSkillDomain::SKILLSTATUS status = (*g_pSkillManager)[m_skill_domain].GetSkillStatus(SkillID);
@@ -15875,11 +15881,11 @@ void	C_VS_UI_INFO::_Show1()
 									sprID = 12;
 								
 								//---------------------------------------
-								// status´Â ´ÙÀ½°ú °°´Ù. 
+								// statusï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. 
 								//---------------------------------------
-								//	MSkillDomain::SKILLSTATUS_LEARNED		// ¹è¿ü´Ù.
-								//	MSkillDomain::SKILLSTATUS_NEXT			// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Ù.
-								//	MSkillDomain::SKILLSTATUS_OTHER			// ¾ÆÁ÷Àº ¹è¿ï ¼ö ¾ø´Ù.	
+								//	MSkillDomain::SKILLSTATUS_LEARNED		// ï¿½ï¿½ï¿½ï¿½ï¿½.
+								//	MSkillDomain::SKILLSTATUS_NEXT			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
+								//	MSkillDomain::SKILLSTATUS_OTHER			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.	
 								//---------------------------------------
 								
 								POINT p = {x+16, y+128+i*19+skip_y};
@@ -15944,7 +15950,7 @@ void	C_VS_UI_INFO::_Show1()
 								
 							}
 						}			
-						//½ºÅ³°³¼ö°¡ 8°³°¡ ¾ÈµÉ°æ¿ì ³ª¸ÓÁöºÎºĞ Ãâ·Â
+						//ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 8ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÉ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ ï¿½ï¿½ï¿½
 						for(; i < 8; i++)
 						{
 							POINT p = { x+16, y+128+i*19+skip_y };
@@ -15960,14 +15966,14 @@ void	C_VS_UI_INFO::_Show1()
 						}
 				}
 			}
-			else	// TOTAL_ID ÀÎ°æ¿ì
+			else	// TOTAL_ID ï¿½Î°ï¿½ï¿½
 			{
 				if(!GetAttributes()->alpha)
 				{
 					gpC_base->m_p_DDSurface_back->Unlock();
 					for(int i = 0; i < 6; i++)
 					{
-						//µµ¸ŞÀÎ¹Ù µÚ¿¡ °ËÀº»ö Ä¥ÇÏ±â
+						//ï¿½ï¿½ï¿½ï¿½ï¿½Î¹ï¿½ ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä¥ï¿½Ï±ï¿½
 						RECT rect = {x+104, y+69+i*30+skip_y, x+104+gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::DOMAIN_BAR), y+69+i*30+gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::DOMAIN_BAR)+skip_y };
 						gpC_base->m_p_DDSurface_back->FillRect(&rect, 0);
 					}
@@ -15984,8 +15990,8 @@ void	C_VS_UI_INFO::_Show1()
 					gpC_global_resource->m_pC_info_spk->BltLockedClip(x+25, y+61+i*30+skip_y, rect, C_GLOBAL_RESOURCE::DM_BLADE+i*2);
 					gpC_global_resource->m_pC_info_spk->BltLocked(x+90, y+66+i*30+skip_y, C_GLOBAL_RESOURCE::DOMAIN_BACK);
 					
-					//µµ¸ŞÀÎ ·¹º§ ¹Ù
-					if(i == 5)	// totalÀÎ °æ¿ì´Â µû·Î Ã³¸®
+					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+					if(i == 5)	// totalï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 						dm_level = dm_sum;
 					else
 					{
@@ -16005,7 +16011,7 @@ void	C_VS_UI_INFO::_Show1()
 			if(m_iDomain != TOTAL_ID)
 				m_pC_skill_scroll_bar->Show(x, y);
 		}
-		//±Û¾¾ Âï±â
+		//ï¿½Û¾ï¿½ ï¿½ï¿½ï¿½
 		if(m_iDomain != TOTAL_ID)
 		{
 			g_FL2_GetDC();
@@ -16016,7 +16022,7 @@ void	C_VS_UI_INFO::_Show1()
 			g_PrintColorStrOut(x+domain_bar_x+gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::DOMAIN_BAR)/2-g_GetStringWidth(sz_temp, gpC_base->m_chatting_pi.hfont)/2, y+domain_bar_y+20+skip_y, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE, RGB_BLACK);
 			
 			
-			// SKILL STEPÀÌ ÀÖÀ¸¸é ½ºÅ³ÀÌ¸§µéÀ» Ãâ·ÂÇÑ´Ù
+			// SKILL STEPï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 			if(m_iDomain >= BLADE_ID && m_iDomain <= ENCHANT_ID)
 			{
 				
@@ -16062,11 +16068,11 @@ void	C_VS_UI_INFO::_Show1()
 						POINT p = {x+137, y+132+i*19+skip_y};
 						
 						//---------------------------------------
-						// status´Â ´ÙÀ½°ú °°´Ù. 
+						// statusï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. 
 						//---------------------------------------
-						//	MSkillDomain::SKILLSTATUS_LEARNED		// ¹è¿ü´Ù.
-						//	MSkillDomain::SKILLSTATUS_NEXT			// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Ù.
-						//	MSkillDomain::SKILLSTATUS_OTHER			// ¾ÆÁ÷Àº ¹è¿ï ¼ö ¾ø´Ù.	
+						//	MSkillDomain::SKILLSTATUS_LEARNED		// ï¿½ï¿½ï¿½ï¿½ï¿½.
+						//	MSkillDomain::SKILLSTATUS_NEXT			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
+						//	MSkillDomain::SKILLSTATUS_OTHER			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.	
 						//---------------------------------------
 						
 						switch(status)
@@ -16142,7 +16148,7 @@ void	C_VS_UI_INFO::_Show1()
 			m_pC_common_button_group->ShowDescription();
 			g_FL2_ReleaseDC();
 		}
-		else	// TOTAL_ID ÀÎ°æ¿ì
+		else	// TOTAL_ID ï¿½Î°ï¿½ï¿½
 		{
 			g_FL2_GetDC();
 			
@@ -16151,8 +16157,8 @@ void	C_VS_UI_INFO::_Show1()
 			
 			for(int i = 0; i < 6; i++)
 			{
-				//µµ¸ŞÀÎ ·¹º§ ¹Ù
-				if(i == 5)	// totalÀÎ °æ¿ì´Â µû·Î Ã³¸®
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+				if(i == 5)	// totalï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 					dm_level = dm_sum;
 				else
 				{
@@ -16173,7 +16179,7 @@ void	C_VS_UI_INFO::_Show1()
 	case RACE_VAMPIRE:
 		{
 			const int skip_y=4;
-			if(gpC_base->m_p_DDSurface_back->Lock())	//±×¸² Ãâ·ÂÇÒ°Ô ¸¹À¸¹Ç·Î lock°Ç »óÅÂ¿¡¼­ ÇÑ´Ù.
+			if(gpC_base->m_p_DDSurface_back->Lock())	//ï¿½×¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ lockï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 			{
 				
 				if(GetAttributes()->alpha)
@@ -16202,13 +16208,13 @@ void	C_VS_UI_INFO::_Show1()
 					//gpC_global_resource->DrawDialogLocked(x, y, w, h, GetAttributes()->alpha);
 				
 				gpC_global_resource->m_pC_info_spk->BltLocked(x+m_rt_tab.x-m_modify_wide-7, y+m_rt_tab.y, C_GLOBAL_RESOURCE::TAB_SKILL);
-				//¾Æ¿ô¶óÀÎ
+				//ï¿½Æ¿ï¿½ï¿½ï¿½ï¿½ï¿½
 				gpC_global_resource->DrawOutBoxLocked(x+16, y+40+skip_y, 303, 236);
-				//½ºÅ³¼±ÅÃ ÅÇ
+				//ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				gpC_global_resource->m_pC_info_spk->BltLocked(x+m_pC_skill_button_group->GetButton(m_iDomain)->x, 
 					y+m_pC_skill_button_group->GetButton(m_iDomain)->y-1, m_pC_skill_button_group->GetButton(m_iDomain)->m_image_index+1);
 				
-				//½ºÅ³ ¸®½ºÆ®
+				//ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½Æ®
 				gpC_global_resource->m_pC_info_spk->BltLocked(x+23, y+63+skip_y, C_GLOBAL_RESOURCE::SKILL_TITLE);
 				gpC_global_resource->m_pC_info_spk->BltLocked(x+23, y+63+skip_y, C_GLOBAL_RESOURCE::SKILL_BOX);
 				
@@ -16220,7 +16226,8 @@ void	C_VS_UI_INFO::_Show1()
 					{
 						MSkillDomain::SKILL_STEP_LIST list = *((*g_pSkillManager)[SKILLDOMAIN_VAMPIRE].GetSkillStepList(step));
 						MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin()+max(m_pC_skill_scroll_bar->GetScrollPos(),0);
-						for(int i = 0; i < min( 8, list.size() - max(m_pC_skill_scroll_bar->GetScrollPos(),0)); i++)
+						int i;
+						for(i = 0; i < min( 8, list.size() - max(m_pC_skill_scroll_bar->GetScrollPos(),0)); i++)
 						{
 							const ACTIONINFO SkillID = (ACTIONINFO)*ss;
 							MSkillDomain::SKILLSTATUS status = (*g_pSkillManager)[SKILLDOMAIN_VAMPIRE].GetSkillStatus(SkillID);
@@ -16231,11 +16238,11 @@ void	C_VS_UI_INFO::_Show1()
 							
 							
 							//---------------------------------------
-							// status´Â ´ÙÀ½°ú °°´Ù. 
+							// statusï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. 
 							//---------------------------------------
-							//	MSkillDomain::SKILLSTATUS_LEARNED		// ¹è¿ü´Ù.
-							//	MSkillDomain::SKILLSTATUS_NEXT			// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Ù.
-							//	MSkillDomain::SKILLSTATUS_OTHER			// ¾ÆÁ÷Àº ¹è¿ï ¼ö ¾ø´Ù.	
+							//	MSkillDomain::SKILLSTATUS_LEARNED		// ï¿½ï¿½ï¿½ï¿½ï¿½.
+							//	MSkillDomain::SKILLSTATUS_NEXT			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
+							//	MSkillDomain::SKILLSTATUS_OTHER			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.	
 							//---------------------------------------
 							POINT p = {x+24, y+83+i*19+skip_y};
 							
@@ -16297,7 +16304,7 @@ void	C_VS_UI_INFO::_Show1()
 							ss++;
 						}
 						
-						//½ºÅ³ÀÌ ²ËÂù»óÅÂ°¡ ¾Æ´Ò¶§ÀÇ ¿©ºĞÃ³¸®
+						//ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Æ´Ò¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
 						for(; i < 8; i++)
 						{
 							POINT p = {x+24, y+83+i*19+skip_y};
@@ -16320,7 +16327,7 @@ void	C_VS_UI_INFO::_Show1()
 				m_pC_skill_scroll_bar->Show(x, y);
 		}
 		
-		//±Û¾¾ Âï±â
+		//ï¿½Û¾ï¿½ ï¿½ï¿½ï¿½
 		g_FL2_GetDC();
 		
 		char sz_temp[80];
@@ -16343,11 +16350,11 @@ void	C_VS_UI_INFO::_Show1()
 					MSkillDomain::SKILLSTATUS status = (*g_pSkillManager)[SKILLDOMAIN_VAMPIRE].GetSkillStatus(SkillID);
 					
 					//---------------------------------------
-					// status´Â ´ÙÀ½°ú °°´Ù. 
+					// statusï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. 
 					//---------------------------------------
-					//	MSkillDomain::SKILLSTATUS_LEARNED		// ¹è¿ü´Ù.
-					//	MSkillDomain::SKILLSTATUS_NEXT			// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Ù.
-					//	MSkillDomain::SKILLSTATUS_OTHER			// ¾ÆÁ÷Àº ¹è¿ï ¼ö ¾ø´Ù.	
+					//	MSkillDomain::SKILLSTATUS_LEARNED		// ï¿½ï¿½ï¿½ï¿½ï¿½.
+					//	MSkillDomain::SKILLSTATUS_NEXT			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
+					//	MSkillDomain::SKILLSTATUS_OTHER			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.	
 					//---------------------------------------
 					POINT p = {x+145, y+87+i*19+skip_y};
 					
@@ -16433,14 +16440,14 @@ void	C_VS_UI_INFO::_Show1()
 			// skill point
 			int skill_x = x+35, skill_y = y+32;
 
-			if(gpC_base->m_p_DDSurface_back->Lock())	//±×¸² Ãâ·ÂÇÒ°Ô ¸¹À¸¹Ç·Î lock°Ç »óÅÂ¿¡¼­ ÇÑ´Ù.
+			if(gpC_base->m_p_DDSurface_back->Lock())	//ï¿½×¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ lockï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 			{
 				
 				//gpC_global_resource->DrawDialogLocked(x, y, w, h, GetAttributes()->alpha);
 				
 				gpC_global_resource->m_pC_info_spk->BltLocked(x+m_rt_tab.x-m_modify_wide-5, y+m_rt_tab.y, C_GLOBAL_RESOURCE::TAB_SKILL);
 
-				//½ºÅ³¼±ÅÃ ÅÇ
+				//ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				gpC_global_resource->m_pC_info_spk->BltLocked(x+m_pC_skill_button_group->GetButton(m_iDomain)->x, 
 					y+m_pC_skill_button_group->GetButton(m_iDomain)->y-1, m_pC_skill_button_group->GetButton(m_iDomain)->m_image_index+1);
 				
@@ -16448,7 +16455,7 @@ void	C_VS_UI_INFO::_Show1()
 
 				Rect rtOutline(x+m_rcSkillDesciption.left, y+m_rcSkillDesciption.top, m_rcSkillDesciption.right, m_rcSkillDesciption.bottom);
 				
-				//¾Æ¿ô¶óÀÎ
+				//ï¿½Æ¿ï¿½ï¿½ï¿½ï¿½ï¿½
 				gpC_global_resource->DrawOutBoxLocked(rtOutline.x, rtOutline.y, rtOutline.w, rtOutline.h);
 
 				RECT clipRect = { rtOutline.x+3, rtOutline.y+3, rtOutline.x+rtOutline.w-3, rtOutline.y+rtOutline.h-3 };
@@ -16514,7 +16521,7 @@ void	C_VS_UI_INFO::_Show1()
 
 								gpC_base->m_p_DDSurface_back->Line(source.x, source.y, dest.x, dest.y, c);
 
-								// ÇöÀç ¶óµğ¾È
+								// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 								float Radian = atan2f( float(dest.x - source.x), float(dest.y - source.y) );
 								Radian += float( -60 ) * ( 3.141592f / 180.0f );
 								int tx[2],ty[2],length = 5;
@@ -16621,7 +16628,7 @@ void	C_VS_UI_INFO::_Show1()
 
 								gpC_base->m_p_DDSurface_back->Line(source.x, source.y, dest.x, dest.y, c);
 
-								// ÇöÀç ¶óµğ¾È
+								// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 								float Radian = atan2f( float(dest.x - source.x), float(dest.y - source.y) );
 								Radian += float( -60 ) * ( 3.141592f / 180.0f );
 								int tx[2],ty[2],length = 5;
@@ -16719,11 +16726,11 @@ void	C_VS_UI_INFO::_Show1()
 							}
 							
 							//---------------------------------------
-							// status´Â ´ÙÀ½°ú °°´Ù. 
+							// statusï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. 
 							//---------------------------------------
-							//	MSkillDomain::SKILLSTATUS_LEARNED		// ¹è¿ü´Ù.
-							//	MSkillDomain::SKILLSTATUS_NEXT			// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Ù.
-							//	MSkillDomain::SKILLSTATUS_OTHER			// ¾ÆÁ÷Àº ¹è¿ï ¼ö ¾ø´Ù.	
+							//	MSkillDomain::SKILLSTATUS_LEARNED		// ï¿½ï¿½ï¿½ï¿½ï¿½.
+							//	MSkillDomain::SKILLSTATUS_NEXT			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
+							//	MSkillDomain::SKILLSTATUS_OTHER			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.	
 							//---------------------------------------
 							POINT p = {rtOutline.x+sprX, rtOutline.y+sprY};
 							p.x -= m_pC_skill_scroll_bar_width->GetScrollPos();
@@ -16831,11 +16838,11 @@ void	C_VS_UI_INFO::_Show1()
 							}
 							
 							//---------------------------------------
-							// status´Â ´ÙÀ½°ú °°´Ù. 
+							// statusï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. 
 							//---------------------------------------
-							//	MSkillDomain::SKILLSTATUS_LEARNED		// ¹è¿ü´Ù.
-							//	MSkillDomain::SKILLSTATUS_NEXT			// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Ù.
-							//	MSkillDomain::SKILLSTATUS_OTHER			// ¾ÆÁ÷Àº ¹è¿ï ¼ö ¾ø´Ù.	
+							//	MSkillDomain::SKILLSTATUS_LEARNED		// ï¿½ï¿½ï¿½ï¿½ï¿½.
+							//	MSkillDomain::SKILLSTATUS_NEXT			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
+							//	MSkillDomain::SKILLSTATUS_OTHER			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.	
 							//---------------------------------------
 							POINT p = {rtOutline.x+sprX, rtOutline.y+sprY};
 							p.x -= m_pC_skill_scroll_bar_width->GetScrollPos();
@@ -16998,14 +17005,14 @@ const char * C_VS_UI_INFO::GetChinhoLevel(int level)
 	last_num = level%10;
 	static char strtemp[256];
 	memset(strtemp,0,256);
-	// edit by Coffee 2007-5-20 ĞŞÕı×ªÖ°ÒµÏÔÊ¾ÎÊÌâ
+	// edit by Coffee 2007-5-20 ï¿½ï¿½ï¿½ï¿½×ªÖ°Òµï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
 	//wsprintf(strtemp, chingho_name[cur_ching_num],  last_num);
 	wsprintf(strtemp, chingho_name[0],  level);
 	return strtemp;
 }
 
 //-------------------------------------------------------------------------------
-//	Show ¿¡¼­ ºĞ¸®			by sonee
+//	Show ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ¸ï¿½			by sonee
 //  _Show2()
 //		>> Character Info
 //-------------------------------------------------------------------------------
@@ -17060,7 +17067,7 @@ void	C_VS_UI_INFO::_Show2()
 					gpC_base->m_p_DDSurface_back->FillRect(&rect, 0);
 				}
 				
-				//by csm ½½·¹ÀÌ¾î ÄªÈ£ 
+				//by csm ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ÄªÈ£ 
 				if(g_char_slot_ingame.m_AdvancementLevel>0)
 				{
 					rect.top = y+field1_y; rect.bottom = rect.top + bar_height;
@@ -17074,7 +17081,7 @@ void	C_VS_UI_INFO::_Show2()
 				rect.left = x +field2_x2;
 				rect.right = rect.left + bar_width;
 				
-				for(i = 8; i > 2; i--)
+				for(int i = 8; i > 2; i--)
 				{
 					rect.top = y+field2_y+field2_gap*i;
 					rect.bottom = rect.top+bar_height;
@@ -17082,13 +17089,13 @@ void	C_VS_UI_INFO::_Show2()
 				}
 				
 				bar_height = gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::SMALL_BAR);
-				for(i = 2; i >= 0; i--)
+				for(int i = 2; i >= 0; i--)
 				{
 					rect.top = y+field2_y+field2_gap*i;
 					rect.bottom = rect.top+bar_height;
 					gpC_base->m_p_DDSurface_back->FillRect(&rect, 0);
 				}
-				if(g_char_slot_ingame.bonus_point > 0)	// º¸³Ê½º Æ÷ÀÎÆ®°¡ ¾øÀ»¶© Ãâ·ÂÇÏÁö ¾Ê´Â´Ù.
+				if(g_char_slot_ingame.bonus_point > 0)	// ï¿½ï¿½ï¿½Ê½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 				{
 					rect.left = x +280;
 					rect.top = y+82;
@@ -17100,7 +17107,7 @@ void	C_VS_UI_INFO::_Show2()
 				}
 			}
 			
-			if(gpC_base->m_p_DDSurface_back->Lock())	//±×¸² Ãâ·ÂÇÒ°Ô ¸¹À¸¹Ç·Î lock°Ç »óÅÂ¿¡¼­ ÇÑ´Ù.
+			if(gpC_base->m_p_DDSurface_back->Lock())	//ï¿½×¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ lockï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 			{
 				gpC_global_resource->m_pC_info_spk->BltLocked(x+m_rt_tab.x-m_modify_wide-10, y+m_rt_tab.y, C_GLOBAL_RESOURCE::TAB_CHAR);
 				
@@ -17109,7 +17116,7 @@ void	C_VS_UI_INFO::_Show2()
 				
 				gpC_global_resource->m_pC_info_spk->BltLocked(x+desc_box_x, y+desc_box_y, C_GLOBAL_RESOURCE::DESC_BOX);
 				
-				//¾ó±¼ Âï±â
+				//ï¿½ï¿½ ï¿½ï¿½ï¿½
 				POINT point = {x+m_rt_char_box.x+1, y+m_rt_char_box.y+1};
 				
 				if(m_p_face && m_p_face->GetSize() > 0)
@@ -17117,7 +17124,7 @@ void	C_VS_UI_INFO::_Show2()
 					gpC_base->m_p_DDSurface_back->BltSprite(&point, &(*m_p_face)[0]);
 				}
 				
-				//name, fame, align, guildÃâ·Â
+				//name, fame, align, guildï¿½ï¿½ï¿½
 				POINT	AddPosition = pSkin->GetPoint(slayerpos+2);
 				AddPosition.x += x + field1_x;
 				AddPosition.y += y + field1_y;
@@ -17131,7 +17138,7 @@ void	C_VS_UI_INFO::_Show2()
 				
 					
 				
-				//±æµå¸¶Å©°¡ ÀÖÀ¸¸é ±æµå ¸¶Å©¸¦ Ãâ·ÂÇÏ°í, ¾øÀ¸¸é Clan¶ó´Â ±ÛÀÚ¸¦ Ãâ·Â, ±æµå ÀÚÃ¼°¡ ¾øÀ¸¸é ¾Æ¿¹ Ãâ·Â ¾ÈÇÔ
+				//ï¿½ï¿½å¸¶Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Clanï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				int gap_line=3;
 				if(g_char_slot_ingame.sz_guild_name.c_str() != NULL && strlen(g_char_slot_ingame.sz_guild_name.c_str()) > 0)
 				{
@@ -17146,7 +17153,7 @@ void	C_VS_UI_INFO::_Show2()
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x2+gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::LARGE_BAR), y+field1_y+field1_gap*3, C_GLOBAL_RESOURCE::LARGE_BAR_RIGHT);
 					gap_line++;
 				}			
-				// °è±Ş ÀÌ¹ÌÁö				
+				// ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½				
 				if(g_char_slot_ingame.GRADE > 0 &&g_char_slot_ingame.GRADE <= GRADE_MARK_MAX)				
 				{
 					CSprite* GradeMark=g_pGuildMarkManager->GetGradeMarkSmall(g_char_slot_ingame.GRADE-1,g_eRaceInterface);
@@ -17160,7 +17167,7 @@ void	C_VS_UI_INFO::_Show2()
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x+2,y+field1_y+field1_gap*gap_line+3,C_GLOBAL_RESOURCE::TITLE_GRADE);
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x2,y+field1_y+field1_gap*gap_line, C_GLOBAL_RESOURCE::LARGE_BAR);
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x2+gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::LARGE_BAR), y+field1_y+field1_gap*gap_line, C_GLOBAL_RESOURCE::LARGE_BAR_RIGHT);
-				//by csm Ui ¼öÁ¤ 
+				//by csm Ui ï¿½ï¿½ï¿½ï¿½ 
 				//gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x2, y+field1_y+field1_gap*0, C_GLOBAL_RESOURCE::LARGE_BAR);
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x2, y+field1_y+field1_gap*0, C_GLOBAL_RESOURCE::SMALL_BAR2);
 				if(g_char_slot_ingame.m_AdvancementLevel>0)
@@ -17181,7 +17188,7 @@ void	C_VS_UI_INFO::_Show2()
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x2+gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::LARGE_BAR), y+field1_y+field1_gap*1, C_GLOBAL_RESOURCE::LARGE_BAR_RIGHT);
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x2+gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::LARGE_BAR), y+field1_y+field1_gap*2, C_GLOBAL_RESOURCE::LARGE_BAR_RIGHT);
 				
-				//str, dx, int, hp, mp, tohit, damage, defence, protectionÃâ·Â
+				//str, dx, int, hp, mp, tohit, damage, defence, protectionï¿½ï¿½ï¿½
 				AddPosition.x = x + field2_x;
 				AddPosition.y = y + field2_y;
 
@@ -17194,6 +17201,7 @@ void	C_VS_UI_INFO::_Show2()
 				gpC_global_resource->m_pC_info_spk->BltLocked(AddPosition.x + pSkin->GetPoint( slayerpos+ 4 + 3 ).x,   
 					AddPosition.y+field2_gap*4+ pSkin->GetPoint( slayerpos+ 4 + 3 ).y, C_GLOBAL_RESOURCE::TITLE_MP);
 
+				int i;
 				for(i = 5; i <= 8; i++ )
 				{
 					gpC_global_resource->m_pC_info_spk->BltLocked(AddPosition.x + pSkin->GetPoint( slayerpos + i + 3 ).x,
@@ -17234,7 +17242,7 @@ void	C_VS_UI_INFO::_Show2()
 				if(/*g_eRaceInterface != RACE_SLAYER && */g_char_slot_ingame.bonus_point > 0)
 					m_pC_char_button_group->Show();
 				
-				if(g_char_slot_ingame.bonus_point > 0)	// º¸³Ê½º Æ÷ÀÎÆ®°¡ ¾øÀ»¶© Ãâ·ÂÇÏÁö ¾Ê´Â´Ù.
+				if(g_char_slot_ingame.bonus_point > 0)	// ï¿½ï¿½ï¿½Ê½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 				{
 					gpC_global_resource->m_pC_info_spk->BltLocked(x + 285, y+70, 	C_GLOBAL_RESOURCE::ADVANCEMENT_BONUS_POINT);
 					
@@ -17246,7 +17254,7 @@ void	C_VS_UI_INFO::_Show2()
 				gpC_base->m_p_DDSurface_back->Unlock();
 			}
 			
-			//±ÛÀÚ Ãâ·ÂÇÒ°Ô ¸¹À¸¹Ç·Î µû·Î ¸ğ¾Æ¼­ ÇÑ´Ù.
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ ï¿½Ñ´ï¿½.
 			g_FL2_GetDC();
 			char sz_temp[50];
 			std::string sstr;
@@ -17255,7 +17263,7 @@ void	C_VS_UI_INFO::_Show2()
 			//name
 			g_PrintColorStr(x+field1_x2+5, y+field1_y+field1_gap*0+5, g_char_slot_ingame.sz_name.c_str(), gpC_base->m_chatting_pi, RGB_WHITE);
 
-			if(g_char_slot_ingame.m_AdvancementLevel > 0) // 2Â÷ ÀüÁ÷ ¿ë ±â¾î ÀÎÅÍÆäÀÌ½º 
+			if(g_char_slot_ingame.m_AdvancementLevel > 0) // 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ 
 				g_PrintColorStr(x+field1_x2+105, y+field1_y+field1_gap*0+5, GetChinhoLevel(g_char_slot_ingame.m_AdvancementLevel), gpC_base->m_chatting_pi, RGB_WHITE);
 //			else
 //				g_PrintColorStr(x+field1_x2+105, y+field1_y+field1_gap*0+5, " " , gpC_base->m_chatting_pi, RGB_WHITE);
@@ -17263,7 +17271,7 @@ void	C_VS_UI_INFO::_Show2()
 			//gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x2+130, y+field1_y+field1_gap*0, C_GLOBAL_RESOURCE::SMALL_BAR2);
 
 			//fame
-			// ¼ıÀÚ»çÀÌ¿¡ ,³Ö±â
+			// ï¿½ï¿½ï¿½Ú»ï¿½ï¿½Ì¿ï¿½ ,ï¿½Ö±ï¿½
 			wsprintf(sz_temp, "%d", g_char_slot_ingame.FAME);
 			sstr = sz_temp;
 			
@@ -17336,7 +17344,7 @@ void	C_VS_UI_INFO::_Show2()
 			wsprintf(sz_temp, "%d", g_char_slot_ingame.TOHIT);
 			g_PrintColorStr(x+field2_x2+5, y+field2_y+field2_gap*5+4, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE);
 			
-			if(g_char_slot_ingame.bonus_point > 0)//º¸³Ê½º Æ÷ÀÎÆ®°¡ ¾øÀ»¶© Ãâ·ÂÇÏÁö ¾Ê´Â´Ù.
+			if(g_char_slot_ingame.bonus_point > 0)//ï¿½ï¿½ï¿½Ê½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 			{
 				wsprintf(sz_temp, "%d", g_char_slot_ingame.bonus_point);
 				g_PrintColorStr(x+290, y+86, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE);
@@ -17447,7 +17455,7 @@ void	C_VS_UI_INFO::_Show2()
 				
 				rect.left = x +field1_x2;
 				rect.right = rect.left + 65;
-				for(i = 0; i < 2; i++)
+				for(int i = 0; i < 2; i++)
 				{
 					rect.top = y+field1_y+field1_gap*i;
 					rect.bottom = rect.top+bar_height;
@@ -17485,7 +17493,7 @@ void	C_VS_UI_INFO::_Show2()
 				rect.bottom = rect.top+bar_height+3;
 				gpC_base->m_p_DDSurface_back->FillRect(&rect, 0);
 				
-				if(g_char_slot_ingame.bonus_point > 0)	// º¸³Ê½º Æ÷ÀÎÆ®°¡ ¾øÀ»¶© Ãâ·ÂÇÏÁö ¾Ê´Â´Ù.
+				if(g_char_slot_ingame.bonus_point > 0)	// ï¿½ï¿½ï¿½Ê½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 				{
 					rect.left = x +field1_x4+53;
 					rect.top = y+field1_y+field1_gap*3+3;
@@ -17499,7 +17507,7 @@ void	C_VS_UI_INFO::_Show2()
 				rect.left = x +field2_x2;
 				rect.right = rect.left + bar_width;
 				
-				for(i = 7; i >= 0; i--)
+				for(int i = 7; i >= 0; i--)
 				{
 					rect.top = y+field2_y+field2_gap*i;
 					rect.bottom = rect.top+bar_height;
@@ -17507,13 +17515,13 @@ void	C_VS_UI_INFO::_Show2()
 				}
 			}
 			
-			if(gpC_base->m_p_DDSurface_back->Lock())	// ±×¸² Ãâ·ÂÇÒ°Ô ¸¹À¸¹Ç·Î lock°Ç »óÅÂ¿¡¼­ ÇÑ´Ù.
+			if(gpC_base->m_p_DDSurface_back->Lock())	// ï¿½×¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ lockï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 			{
 				gpC_global_resource->m_pC_info_spk->BltLocked(x+m_rt_tab.x -m_modify_wide-7, y+m_rt_tab.y, C_GLOBAL_RESOURCE::TAB_CHAR);
 				gpC_global_resource->m_pC_info_spk->BltLocked(x+m_rt_char_box.x, y+m_rt_char_box.y, C_GLOBAL_RESOURCE::CHAR_BOX);
 				gpC_global_resource->m_pC_info_spk->BltLocked(x+desc_box_x, y+desc_box_y, C_GLOBAL_RESOURCE::DESC_BOX);
 				
-				//¾ó±¼ Âï±â
+				//ï¿½ï¿½ ï¿½ï¿½ï¿½
 				POINT point = {x+m_rt_char_box.x+1, y+m_rt_char_box.y+1};
 				if(m_p_face && m_p_face->GetSize() > 0)
 				{
@@ -17521,13 +17529,13 @@ void	C_VS_UI_INFO::_Show2()
 				}
 				
 				Rect rect;
-				//name, align, clanÃâ·Â
+				//name, align, clanï¿½ï¿½ï¿½
 				POINT AddPosition = { x + field1_x + pSkin->GetPoint( vampirepos + 3 ).x , y + field1_y + pSkin->GetPoint( vampirepos + 3).y };
 				gpC_global_resource->m_pC_info_spk->BltLocked(AddPosition.x, AddPosition.y+field1_gap*0, C_GLOBAL_RESOURCE::TITLE_NAME);
 				gpC_global_resource->m_pC_info_spk->BltLocked(AddPosition.x, AddPosition.y+field1_gap*1, C_GLOBAL_RESOURCE::TITLE_ALIGN);
 				
 				int gap_line=2;
-				//±æµå¸¶Å©°¡ ÀÖÀ¸¸é ±æµå ¸¶Å©¸¦ Ãâ·ÂÇÏ°í, ¾øÀ¸¸é GUILD¶ó´Â ±ÛÀÚ¸¦ Ãâ·Â, ±æµå ÀÚÃ¼°¡ ¾øÀ¸¸é ¾Æ¿¹ ¸¸´Ù-_-;
+				//ï¿½ï¿½å¸¶Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ GUILDï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½-_-;
 				if(g_char_slot_ingame.sz_guild_name.c_str() != NULL && strlen(g_char_slot_ingame.sz_guild_name.c_str()) > 0)
 				{
 					if(m_p_guild_mark)
@@ -17542,7 +17550,7 @@ void	C_VS_UI_INFO::_Show2()
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x2+113, y+field1_y+field1_gap*2+5, C_GLOBAL_RESOURCE::LARGE_BAR_RIGHT);
 					gap_line++;
 				}
-				// Grade Ãâ·Â
+				// Grade ï¿½ï¿½ï¿½
 				if(g_char_slot_ingame.GRADE > 0 &&g_char_slot_ingame.GRADE <= GRADE_MARK_MAX)				
 				{
 					POINT GradePoint = { x + 232, y + field1_y + field1_gap * gap_line + 6};
@@ -17564,7 +17572,7 @@ void	C_VS_UI_INFO::_Show2()
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x2+113, y+field1_y+field1_gap*gap_line+5, C_GLOBAL_RESOURCE::LARGE_BAR_RIGHT);
 				gap_line ++;
 				
-				// ¹ìÆÄÀÌ¾î ¸í¼º
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 				gpC_global_resource->m_pC_info_spk->BltLocked( x+ field1_x+pSkin->GetPoint( vampirepos + 12 ).x, 
 					y+ field1_y + field1_gap * gap_line + pSkin->GetPoint( vampirepos + 12 ).y, 
 					C_GLOBAL_RESOURCE::VAMPIRE_FAME);
@@ -17572,7 +17580,7 @@ void	C_VS_UI_INFO::_Show2()
 				gpC_global_resource->m_pC_info_spk->BltLockedClip(x +field1_x2, y+field1_y+field1_gap*gap_line+5, rect, C_GLOBAL_RESOURCE::LARGE_BAR);
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x2+113, y+field1_y+field1_gap*gap_line+5, C_GLOBAL_RESOURCE::LARGE_BAR_RIGHT);
 				
-				// level, exp, bonusÃâ·Â
+				// level, exp, bonusï¿½ï¿½ï¿½
 				if(g_char_slot_ingame.m_AdvancementLevel> 0) 
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x3+pSkin->GetPoint( vampirepos + 13 ).x, y+field1_y+field1_gap*0+pSkin->GetPoint( vampirepos + 13 ).y, 
 					C_GLOBAL_RESOURCE::ADVANCEMENT_VAMPIRE_CHINGHO_NAME);
@@ -17582,24 +17590,25 @@ void	C_VS_UI_INFO::_Show2()
 
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x3+pSkin->GetPoint( vampirepos + 14 ).x, y+field1_y+field1_gap*1+pSkin->GetPoint( vampirepos + 14).y, 
 					C_GLOBAL_RESOURCE::TITLE_EXP);
-				if(g_char_slot_ingame.bonus_point > 0)	// º¸³Ê½º Æ÷ÀÎÆ®°¡ ¾øÀ»¶© Ãâ·ÂÇÏÁö ¾Ê´Â´Ù.
+				if(g_char_slot_ingame.bonus_point > 0)	// ï¿½ï¿½ï¿½Ê½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x4+pSkin->GetPoint( vampirepos + 15).x, y+field1_y+field1_gap*2+pSkin->GetPoint( vampirepos + 15).y, 
 					C_GLOBAL_RESOURCE::TITLE_BONUS);
 				
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x4, y+field1_y+field1_gap*0, C_GLOBAL_RESOURCE::SMALL_BAR);
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x4, y+field1_y+field1_gap*1, C_GLOBAL_RESOURCE::SMALL_BAR);
 				
-				if(g_char_slot_ingame.bonus_point > 0)	// º¸³Ê½º Æ÷ÀÎÆ®°¡ ¾øÀ»¶© Ãâ·ÂÇÏÁö ¾Ê´Â´Ù.
+				if(g_char_slot_ingame.bonus_point > 0)	// ï¿½ï¿½ï¿½Ê½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 				{
 					rect.Set(0, 0, 40, gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::LARGE_BAR));
 					gpC_global_resource->m_pC_info_spk->BltLockedClip(x +field1_x4+53, y+field1_y+field1_gap*3+3, rect, C_GLOBAL_RESOURCE::LARGE_BAR);
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x4+93, y+field1_y+field1_gap*3+3, C_GLOBAL_RESOURCE::LARGE_BAR_RIGHT);
 				}
-				
-				// str, dex, int, hp, mp, tohit, damage, defence, protectionÃâ·Â
+
+				// str, dex, int, hp, mp, tohit, damage, defence, protectionì˜
 				AddPosition.x = x + field2_x;
 				AddPosition.y = y + field2_y;
-				for( int i = 0; i < 8 ; i ++ )
+				int i;
+				for( i = 0; i < 8 ; i ++ )
 				{
 					gpC_global_resource->m_pC_info_spk->BltLocked( AddPosition.x + pSkin->GetPoint( vampirepos + 4+i ).x,
 						AddPosition.y + pSkin->GetPoint( vampirepos + 4 +i ).y + field2_gap * i,
@@ -17629,7 +17638,7 @@ void	C_VS_UI_INFO::_Show2()
 				gpC_base->m_p_DDSurface_back->Unlock();
 			}
 				
-			//±ÛÀÚ Ãâ·ÂÇÒ°Ô ¸¹À¸¹Ç·Î µû·Î ¸ğ¾Æ¼­ ÇÑ´Ù.
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ ï¿½Ñ´ï¿½.
 			g_FL2_GetDC();
 			char sz_temp[50];
 			std::string sstr;
@@ -17695,7 +17704,7 @@ void	C_VS_UI_INFO::_Show2()
 			//exp
 			g_PrintColorStr(x+field1_x4+5, y+field1_y+field1_gap*1+5, g_GetNumberString(g_char_slot_ingame.EXP_REMAIN).c_str(), gpC_base->m_chatting_pi, RGB_WHITE);
 			//bonus
-			if(g_char_slot_ingame.bonus_point > 0)//º¸³Ê½º Æ÷ÀÎÆ®°¡ ¾øÀ»¶© Ãâ·ÂÇÏÁö ¾Ê´Â´Ù.
+			if(g_char_slot_ingame.bonus_point > 0)//ï¿½ï¿½ï¿½Ê½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 			{
 				wsprintf(sz_temp, "%d", g_char_slot_ingame.bonus_point);
 				g_PrintColorStr(x+field1_x4+53+5, y+field1_y+field1_gap*3+5+3, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE);
@@ -17820,7 +17829,7 @@ void	C_VS_UI_INFO::_Show2()
 				
 				rect.left = x +field1_x2;
 				rect.right = rect.left + 65;
-				for(i = 0; i < 2; i++)
+				for(int i = 0; i < 2; i++)
 				{
 					rect.top = y+field1_y+field1_gap*i;
 					rect.bottom = rect.top+bar_height;
@@ -17858,7 +17867,7 @@ void	C_VS_UI_INFO::_Show2()
 				rect.bottom = rect.top+bar_height+3;
 				gpC_base->m_p_DDSurface_back->FillRect(&rect, 0);
 				
-				if(g_char_slot_ingame.bonus_point > 0)	// º¸³Ê½º Æ÷ÀÎÆ®°¡ ¾øÀ»¶© Ãâ·ÂÇÏÁö ¾Ê´Â´Ù.
+				if(g_char_slot_ingame.bonus_point > 0)	// ï¿½ï¿½ï¿½Ê½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 				{
 					rect.left = x +field1_x4+53;
 					rect.top = y+field1_y+field1_gap*3+3;
@@ -17872,7 +17881,7 @@ void	C_VS_UI_INFO::_Show2()
 				rect.left = x +field2_x2;
 				rect.right = rect.left + bar_width;
 				
-				for(i = 8; i >= 0; i--)
+				for(int i = 8; i >= 0; i--)
 				{
 					rect.top = y+field2_y+field2_gap*i;
 					rect.bottom = rect.top+bar_height;
@@ -17880,14 +17889,14 @@ void	C_VS_UI_INFO::_Show2()
 				}
 			}
 			
-			if(gpC_base->m_p_DDSurface_back->Lock())	// ±×¸² Ãâ·ÂÇÒ°Ô ¸¹À¸¹Ç·Î lock°Ç »óÅÂ¿¡¼­ ÇÑ´Ù.
+			if(gpC_base->m_p_DDSurface_back->Lock())	// ï¿½×¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ lockï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 			{
 				const int fix_face_x = 2, fix_face_y = 10;
 				gpC_global_resource->m_pC_info_spk->BltLocked(x+m_rt_tab.x -m_modify_wide-5, y+m_rt_tab.y, C_GLOBAL_RESOURCE::TAB_CHAR);
 				gpC_global_resource->m_pC_info_spk->BltLocked(x+m_rt_char_box.x+fix_face_x, y+m_rt_char_box.y+fix_face_y, C_GLOBAL_RESOURCE::CHAR_BOX);
 				gpC_global_resource->m_pC_info_spk->BltLocked(x+desc_box_x, y+desc_box_y, C_GLOBAL_RESOURCE::DESC_BOX);
 				
-				//¾ó±¼ Âï±â
+				//ï¿½ï¿½ ï¿½ï¿½ï¿½
 				POINT point = {x+m_rt_char_box.x+1+fix_face_x, y+m_rt_char_box.y+1+fix_face_y};
 				if(m_p_face && m_p_face->GetSize() > 0)
 				{
@@ -17895,13 +17904,13 @@ void	C_VS_UI_INFO::_Show2()
 				}
 				
 				Rect rect;
-				//name, align, clanÃâ·Â
+				//name, align, clanï¿½ï¿½ï¿½
 				POINT AddPosition = { x+ field1_x + pSkin->GetPoint( ousterspos + 3).x, y+field1_y+pSkin->GetPoint( ousterspos + 3).y };
 				gpC_global_resource->m_pC_info_spk->BltLocked(AddPosition.x, AddPosition.y+field1_gap*0, C_GLOBAL_RESOURCE::TITLE_NAME);
 				gpC_global_resource->m_pC_info_spk->BltLocked(AddPosition.x, AddPosition.y+field1_gap*1, C_GLOBAL_RESOURCE::TITLE_ALIGN);
 				
 				int gap_line=2;
-				//±æµå¸¶Å©°¡ ÀÖÀ¸¸é ±æµå ¸¶Å©¸¦ Ãâ·ÂÇÏ°í, ¾øÀ¸¸é GUILD¶ó´Â ±ÛÀÚ¸¦ Ãâ·Â, ±æµå ÀÚÃ¼°¡ ¾øÀ¸¸é ¾Æ¿¹ ¸¸´Ù-_-;
+				//ï¿½ï¿½å¸¶Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ GUILDï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½-_-;
 				if(g_char_slot_ingame.sz_guild_name.c_str() != NULL && strlen(g_char_slot_ingame.sz_guild_name.c_str()) > 0)
 				{
 					if(m_p_guild_mark)
@@ -17917,7 +17926,7 @@ void	C_VS_UI_INFO::_Show2()
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x2+113, y+field1_y+field1_gap*2+5, C_GLOBAL_RESOURCE::LARGE_BAR_RIGHT);
 					gap_line++;
 				}
-				// Grade Ãâ·Â
+				// Grade ï¿½ï¿½ï¿½
 				if(g_char_slot_ingame.GRADE > 0 &&g_char_slot_ingame.GRADE <= GRADE_MARK_MAX)				
 				{
 					POINT GradePoint = { x + 232, y + field1_y + field1_gap * gap_line + 6};
@@ -17940,14 +17949,14 @@ void	C_VS_UI_INFO::_Show2()
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x2+113, y+field1_y+field1_gap*gap_line+5, C_GLOBAL_RESOURCE::LARGE_BAR_RIGHT);
 				gap_line ++;
 				
-				// ¹ìÆÄÀÌ¾î ¸í¼º
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 				gpC_global_resource->m_pC_info_spk->BltLocked( x+ field1_x+pSkin->GetPoint( ousterspos + 6 ).x, y+ field1_y + field1_gap * gap_line +pSkin->GetPoint( ousterspos + 6 ).y, 
 					C_GLOBAL_RESOURCE::OUSTERS_FAME);
 				rect.Set(0, 0, 113, gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::LARGE_BAR));
 				gpC_global_resource->m_pC_info_spk->BltLockedClip(x +field1_x2, y+field1_y+field1_gap*gap_line+5, rect, C_GLOBAL_RESOURCE::LARGE_BAR);
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x2+113, y+field1_y+field1_gap*gap_line+5, C_GLOBAL_RESOURCE::LARGE_BAR_RIGHT);
 				
-				// level, exp, bonusÃâ·Â
+				// level, exp, bonusï¿½ï¿½ï¿½
 				if(g_char_slot_ingame.m_AdvancementLevel> 0) 
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x3+pSkin->GetPoint(ousterspos+7).x, y+field1_y+field1_gap*0+pSkin->GetPoint(ousterspos+7).y, 
 						C_GLOBAL_RESOURCE::ADVANCEMENT_OUSTERS_CHINGHO_NAME);
@@ -17957,7 +17966,7 @@ void	C_VS_UI_INFO::_Show2()
 
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x3+pSkin->GetPoint(ousterspos+8).x, y+field1_y+field1_gap*1+pSkin->GetPoint(ousterspos+8).y, 
 					C_GLOBAL_RESOURCE::TITLE_EXP);
-				if(g_char_slot_ingame.bonus_point > 0)	// º¸³Ê½º Æ÷ÀÎÆ®°¡ ¾øÀ»¶© Ãâ·ÂÇÏÁö ¾Ê´Â´Ù.
+				if(g_char_slot_ingame.bonus_point > 0)	// ï¿½ï¿½ï¿½Ê½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x4+pSkin->GetPoint(ousterspos+9).x, y+field1_y+field1_gap*2+pSkin->GetPoint(ousterspos+9).y, 
 					C_GLOBAL_RESOURCE::TITLE_BONUS);
 				
@@ -17967,18 +17976,19 @@ void	C_VS_UI_INFO::_Show2()
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x4, y+field1_y+field1_gap*0, C_GLOBAL_RESOURCE::SMALL_BAR);
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x4, y+field1_y+field1_gap*1, C_GLOBAL_RESOURCE::SMALL_BAR);
 				
-				if(g_char_slot_ingame.bonus_point > 0)	// º¸³Ê½º Æ÷ÀÎÆ®°¡ ¾øÀ»¶© Ãâ·ÂÇÏÁö ¾Ê´Â´Ù.
+				if(g_char_slot_ingame.bonus_point > 0)	// ï¿½ï¿½ï¿½Ê½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 				{
 					rect.Set(0, 0, 40, gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::LARGE_BAR));
 					gpC_global_resource->m_pC_info_spk->BltLockedClip(x +field1_x4+53, y+field1_y+field1_gap*3+3, rect, C_GLOBAL_RESOURCE::LARGE_BAR);
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x4+93, y+field1_y+field1_gap*3+3, C_GLOBAL_RESOURCE::LARGE_BAR_RIGHT);
 				}
 				
-				// str, dex, int, hp, mp, tohit, damage, defence, protectionÃâ·Â
+				// str, dex, int, hp, mp, tohit, damage, defence, protectionï¿½ï¿½ï¿½
 				int line_count = 0; 
 				AddPosition.x = x+ field2_x;
 				AddPosition.y = y+field2_y;
-				for( int i =0;i<4;i++ )
+				int i;
+				for( i =0;i<4;i++ )
 				{
 					gpC_global_resource->m_pC_info_spk->BltLocked( AddPosition.x + pSkin->GetPoint( ousterspos + 10 + i).x,
 						AddPosition.y + pSkin->GetPoint( ousterspos+10+i).y + field2_gap*i, C_GLOBAL_RESOURCE::TITLE_STR + i );
@@ -17993,7 +18003,7 @@ void	C_VS_UI_INFO::_Show2()
 						AddPosition.y + pSkin->GetPoint( ousterspos + 10 + i ).y + field2_gap * i, C_GLOBAL_RESOURCE::TITLE_TOHIT+i-5);
 				}
 				
-				for(i=0;i<9;i++)
+				for(int i=0;i<9;i++)
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field2_x2, y+field2_y+field2_gap*i, C_GLOBAL_RESOURCE::SMALL_BAR2);
 //				
 //				//EXP BAR
@@ -18016,7 +18026,7 @@ void	C_VS_UI_INFO::_Show2()
 				gpC_base->m_p_DDSurface_back->Unlock();
 			}
 				
-			//±ÛÀÚ Ãâ·ÂÇÒ°Ô ¸¹À¸¹Ç·Î µû·Î ¸ğ¾Æ¼­ ÇÑ´Ù.
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ ï¿½Ñ´ï¿½.
 			g_FL2_GetDC();
 			char sz_temp[50];
 			std::string sstr;
@@ -18083,10 +18093,10 @@ void	C_VS_UI_INFO::_Show2()
 			}
 
 			//exp
-			// ¼ıÀÚ»çÀÌ¿¡ ,³Ö±â
+			// ï¿½ï¿½ï¿½Ú»ï¿½ï¿½Ì¿ï¿½ ,ï¿½Ö±ï¿½
 			g_PrintColorStr(x+field1_x4+5, y+field1_y+field1_gap*1+5, g_GetNumberString(g_char_slot_ingame.EXP_REMAIN).c_str(), gpC_base->m_chatting_pi, RGB_WHITE);
 			//bonus
-			if(g_char_slot_ingame.bonus_point > 0)//º¸³Ê½º Æ÷ÀÎÆ®°¡ ¾øÀ»¶© Ãâ·ÂÇÏÁö ¾Ê´Â´Ù.
+			if(g_char_slot_ingame.bonus_point > 0)//ï¿½ï¿½ï¿½Ê½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 			{
 				wsprintf(sz_temp, "%d", g_char_slot_ingame.bonus_point);
 				g_PrintColorStr(x+field1_x4+53+5, y+field1_y+field1_gap*3+5+3, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE);
@@ -18206,14 +18216,14 @@ void	C_VS_UI_INFO::_Show2()
 }
 
 //------------------------------------------------------------------------------
-//	Show ¿¡¼­ ºĞ¸®			by sonee
+//	Show ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ¸ï¿½			by sonee
 //	_Show3()
 //		>> Grade1
 //------------------------------------------------------------------------------
 void	C_VS_UI_INFO::_Show3()
 {
 	int grade_text_x=37,grade_text_y=40;
-	////by csm 2004.12.30 Ui¼öÁ¤ 
+	////by csm 2004.12.30 Uiï¿½ï¿½ï¿½ï¿½ 
 	//gpC_global_resource->DrawDialog(x, y, w, h, GetAttributes()->alpha);
 
 	switch(g_eRaceInterface)
@@ -18469,7 +18479,7 @@ void	C_VS_UI_INFO::_Show3()
 }
 
 //------------------------------------------------------------------------------
-//  Show ¿¡¼­ ºĞ¸®			by sonee
+//  Show ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ¸ï¿½			by sonee
 //	_Show4()
 //		>> Grade2
 //------------------------------------------------------------------------------
@@ -18484,7 +18494,7 @@ void	C_VS_UI_INFO::_Show4()
 //	}
 //	m_pC_common_button_group->ShowDescription();
 	int grade_text_x=37,grade_text_y=40;
-	//by csm 2004.12.30 Ui¼öÁ¤ 
+	//by csm 2004.12.30 Uiï¿½ï¿½ï¿½ï¿½ 
 	//gpC_global_resource->DrawDialog(x, y, w, h, GetAttributes()->alpha);
 
 	switch(g_eRaceInterface)
@@ -18737,14 +18747,14 @@ void	C_VS_UI_INFO::_Show4()
 
 
 //------------------------------------------------------------------------------
-//	Show ¿¡¼­ ºĞ¸®			by sonee
+//	Show ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ¸ï¿½			by sonee
 //	_Show3()
 //		>> Grade1
 //------------------------------------------------------------------------------
 void	C_VS_UI_INFO::_Show5()
 {
 	int grade_text_x=37,grade_text_y=20;
-	////by csm 2004.12.30 Ui¼öÁ¤ 
+	////by csm 2004.12.30 Uiï¿½ï¿½ï¿½ï¿½ 
 	//gpC_global_resource->DrawDialog(x, y, w, h, GetAttributes()->alpha);
 	CSpriteSurface::SetEffect(CSpriteSurface::EFFECT_GRAY_SCALE);
 	const InterfaceInformation *Skin = &g_pSkinManager->Get(SkinManager::INFO);
@@ -18774,7 +18784,7 @@ void	C_VS_UI_INFO::_Show5()
 					const int level_plus = 127;
 					DWORD shadow_color = RGB_BLACK;
 					m_advance_skill_count = list.size();
-					for(i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
+					for(int i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
 					{
 						const ACTIONINFO SkillID = (ACTIONINFO)*ss;
 						MSkillDomain::SKILLSTATUS status = (*g_pSkillManager)[m_skill_domain].GetSkillStatus(SkillID);
@@ -18784,11 +18794,11 @@ void	C_VS_UI_INFO::_Show5()
 							sprID = 12;
 						
 						//---------------------------------------
-						// status´Â ´ÙÀ½°ú °°´Ù. 
+						// statusï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. 
 						//---------------------------------------
-						//	MSkillDomain::SKILLSTATUS_LEARNED		// ¹è¿ü´Ù.
-						//	MSkillDomain::SKILLSTATUS_NEXT			// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Ù.
-						//	MSkillDomain::SKILLSTATUS_OTHER			// ¾ÆÁ÷Àº ¹è¿ï ¼ö ¾ø´Ù.	
+						//	MSkillDomain::SKILLSTATUS_LEARNED		// ï¿½ï¿½ï¿½ï¿½ï¿½.
+						//	MSkillDomain::SKILLSTATUS_NEXT			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
+						//	MSkillDomain::SKILLSTATUS_OTHER			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.	
 						//---------------------------------------
 						POINT p = {x+40, y+123+i*60+skip_y};
 						switch(status)
@@ -18936,7 +18946,7 @@ void	C_VS_UI_INFO::_Show5()
 				if(m_advance_skill_count > 2)
 					m_pC_grade3_scroll_bar->Show(x+5, y+25);
 				
-				////////////////////// ¹®ÀÚ Ãâ·Â 
+				////////////////////// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 
 				g_FL2_GetDC();
 				char sz_temp[80];
 				g_PrintColorStr(x+100, y+22, GetChinhoLevel(g_char_slot_ingame.m_AdvancementLevel), 
@@ -18969,7 +18979,7 @@ void	C_VS_UI_INFO::_Show5()
 					
 					const int level_plus = 127;
 					DWORD shadow_color = RGB_BLACK;
-					for(i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
+					for(int i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
 					{
 						const ACTIONINFO SkillID = (ACTIONINFO)*ss;
 						
@@ -19075,7 +19085,7 @@ void	C_VS_UI_INFO::_Show5()
 					const int level_plus = 127;
 					DWORD shadow_color = RGB_BLACK;
 					m_advance_skill_count = list.size();
-					for(i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
+					for(int i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
 					{
 
 						const ACTIONINFO SkillID = (ACTIONINFO)*ss;
@@ -19239,7 +19249,7 @@ void	C_VS_UI_INFO::_Show5()
 						m_pC_grade3_scroll_bar->Show(x+5, y+25);
 
 				
-				////////////////////// ¹®ÀÚ Ãâ·Â 
+				////////////////////// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 
 				g_FL2_GetDC();
 				char sz_temp[80];
 
@@ -19258,7 +19268,7 @@ void	C_VS_UI_INFO::_Show5()
 				if((*g_pSkillManager)[SKILLDOMAIN_VAMPIRE].IsExistSkillStep(step))
 				{
 					MSkillDomain::SKILL_STEP_LIST list = *((*g_pSkillManager)[SKILLDOMAIN_VAMPIRE].GetSkillStepList(step));
-					// eidt by coffee 2007-2-25 start  ĞŞÕıÏÔÊ¾¼¼ÄÜÎ»ÖÃ
+					// eidt by coffee 2007-2-25 start  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 					//MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin();//+max(0,m_pC_skill_scroll_bar->GetScrollPos());
 					MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin() + max(0,m_pC_grade3_scroll_bar->GetScrollPos());
 					// end
@@ -19266,7 +19276,7 @@ void	C_VS_UI_INFO::_Show5()
 					int aa = list.size();
 					const int level_plus = 127;
 					DWORD shadow_color = RGB_BLACK;
-					for(i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
+					for(int i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
 					{
 						const ACTIONINFO SkillID = (ACTIONINFO)*ss;
 						
@@ -19360,7 +19370,7 @@ void	C_VS_UI_INFO::_Show5()
 			// By Csm // 
 			SKILL_STEP step;
 
-			for(i = 0; i < 4 ; i++)
+			for(int i = 0; i < 4 ; i++)
 			{
 				step = (SKILL_STEP)(SKILL_STEP_OUSTERS_COMBAT_ADVANCEMENT+i);
 				if((*g_pSkillManager)[SKILLDOMAIN_OUSTERS].IsExistSkillStep(step))
@@ -19380,7 +19390,7 @@ void	C_VS_UI_INFO::_Show5()
 			}
 			if(m_ousters_Magic == -1)
 			{
-				for(i = 0; i < min( 3, 4 - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
+				for(int i = 0; i < min( 3, 4 - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
 				{
 					step = (SKILL_STEP)(SKILL_STEP_OUSTERS_COMBAT_ADVANCEMENT+i);
 					if((*g_pSkillManager)[SKILLDOMAIN_OUSTERS].IsExistSkillStep(step))
@@ -19399,7 +19409,7 @@ void	C_VS_UI_INFO::_Show5()
 								const int level_plus = 127;
 								DWORD shadow_color = RGB_BLACK;
 								m_advance_skill_count = 4;
-								//							for(i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
+								//							for(int i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
 								{
 									const ACTIONINFO SkillID = (ACTIONINFO)*ss;
 									MSkillDomain::SKILLSTATUS status = (*g_pSkillManager)[SKILLDOMAIN_OUSTERS].GetSkillStatus(SkillID);
@@ -19557,7 +19567,7 @@ void	C_VS_UI_INFO::_Show5()
 							if(m_advance_skill_count > 2)
 								m_pC_grade3_scroll_bar->Show(x+5, y+25);
 							
-							////////////////////// ¹®ÀÚ Ãâ·Â 
+							////////////////////// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 
 							g_FL2_GetDC();
 							
 							
@@ -19687,7 +19697,7 @@ void	C_VS_UI_INFO::_Show5()
 					const int level_plus = 127;
 					DWORD shadow_color = RGB_BLACK;
 					
-					for(i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
+					for(int i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
 					{
 						const ACTIONINFO SkillID = (ACTIONINFO)*ss;
 						MSkillDomain::SKILLSTATUS status = (*g_pSkillManager)[SKILLDOMAIN_OUSTERS].GetSkillStatus(SkillID);
@@ -19843,7 +19853,7 @@ void	C_VS_UI_INFO::_Show5()
 				gpC_base->m_p_DDSurface_back->Unlock();
 				if(m_advance_skill_count > 2)
 					m_pC_grade3_scroll_bar->Show(x+5, y+25);
-				////////////////////// ¹®ÀÚ Ãâ·Â 
+				////////////////////// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 
 				g_FL2_GetDC();
 				char sz_temp[80];
 
@@ -19882,7 +19892,7 @@ void	C_VS_UI_INFO::_Show5()
 
 					const int level_plus = 127;
 					DWORD shadow_color = RGB_BLACK;
-					for(i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
+					for(int i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
 					{
 						const ACTIONINFO SkillID = (ACTIONINFO)*ss;
 						
@@ -20039,18 +20049,18 @@ void C_VS_UI_INFO::Start(INFO_MODE	Info_Mode)
 		y = rect.y;
 	}
 	
-	//±æµå¸¶Å© ·Îµù
+	//ï¿½ï¿½å¸¶Å© ï¿½Îµï¿½
 	m_p_guild_mark = g_pGuildMarkManager->GetGuildMarkSmall(g_char_slot_ingame.GUILD_ID);
 	
 	if (m_p_guild_mark==NULL)
 	{
 		//-------------------------------------------------
-		// file¿¡ ÀÖ´ÂÁö º»´Ù.
+		// fileï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		//-------------------------------------------------
 		g_pGuildMarkManager->LoadGuildMark(g_char_slot_ingame.GUILD_ID);
 		
 		//-------------------------------------------------
-		// file¿¡¼­ loadµÇ¾ú´ÂÁö ´Ù½Ã Ã¼Å©
+		// fileï¿½ï¿½ï¿½ï¿½ loadï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ Ã¼Å©
 		//-------------------------------------------------
 		m_p_guild_mark = g_pGuildMarkManager->GetGuildMarkSmall(g_char_slot_ingame.GUILD_ID);
 	}
@@ -20074,7 +20084,7 @@ void C_VS_UI_INFO::Start(INFO_MODE	Info_Mode)
 
 	m_bOustersDownSkill = false;
 
-	// 2004, 11, 25, sobeit add start - ½½·¹ÀÏ °æ¿ì ÀÚ±â µµ¸ŞÀÎ ½ºÅ³ÀÌ ³ª¿Àµµ·Ï..
+	// 2004, 11, 25, sobeit add start - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ú±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..
 	switch(g_eRaceInterface)
 	{
 	case RACE_SLAYER:
@@ -20141,18 +20151,18 @@ void C_VS_UI_INFO::Start(INFO_MODE	Info_Mode)
 //		y = rect.y;
 //	}
 //	
-//	//±æµå¸¶Å© ·Îµù
+//	//ï¿½ï¿½å¸¶Å© ï¿½Îµï¿½
 //	m_p_guild_mark = g_pGuildMarkManager->GetGuildMarkSmall(g_char_slot_ingame.GUILD_ID);
 //	
 //	if (m_p_guild_mark==NULL)
 //	{
 //		//-------------------------------------------------
-//		// file¿¡ ÀÖ´ÂÁö º»´Ù.
+//		// fileï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 //		//-------------------------------------------------
 //		g_pGuildMarkManager->LoadGuildMark(g_char_slot_ingame.GUILD_ID);
 //		
 //		//-------------------------------------------------
-//		// file¿¡¼­ loadµÇ¾ú´ÂÁö ´Ù½Ã Ã¼Å©
+//		// fileï¿½ï¿½ï¿½ï¿½ loadï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ Ã¼Å©
 //		//-------------------------------------------------
 //		m_p_guild_mark = g_pGuildMarkManager->GetGuildMarkSmall(g_char_slot_ingame.GUILD_ID);
 //	}
@@ -20277,7 +20287,7 @@ C_VS_UI_HPBAR::C_VS_UI_HPBAR()
 	}	
 	Set(0, 0, m_pC_hpbar_spk->GetWidth(), m_pC_hpbar_spk->GetHeight());
 	
-	//skillinfo ¹öÆ°
+	//skillinfo ï¿½ï¿½Æ°
 	m_pC_width_button_group = new ButtonGroup(this);
 	m_pC_height_button_group = new ButtonGroup(this);
 	m_pC_small_width_button_group = new ButtonGroup(this);
@@ -20795,7 +20805,7 @@ bool C_VS_UI_HPBAR::MouseControl(UINT message, int _x, int _y)
 		
 	case M_LEFTBUTTON_DOWN:
 	case M_LB_DOUBLECLICK:
-		if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+		if (gpC_mouse_pointer->GetPickUpItem() == NULL && re)
 		{
 			MoveReady();
 			SetOrigin(_x, _y);
@@ -21527,7 +21537,7 @@ bool C_VS_UI_EFFECT_STATUS::MouseControl(UINT message, int _x, int _y)
 
 			if(select != -1 && select < g_char_slot_ingame.STATUS.size() + g_pUserInformation->WarInfo.size() )
 			{
-				if(select >= g_char_slot_ingame.STATUS.size() && select <= g_char_slot_ingame.STATUS.size() + g_pUserInformation->WarInfo.size())		// »óÅÂ°¡ ¾Æ´Ï¶ó ÀüÀï °ü·ÃÀÌ¸é
+				if(select >= g_char_slot_ingame.STATUS.size() && select <= g_char_slot_ingame.STATUS.size() + g_pUserInformation->WarInfo.size())		// ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Æ´Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
 				{
 					int count = select - g_char_slot_ingame.STATUS.size();
 					const WAR_INFO& ifo = g_pUserInformation->WarInfo[count];					
@@ -21672,7 +21682,7 @@ bool C_VS_UI_EFFECT_STATUS::MouseControl(UINT message, int _x, int _y)
 						if(day > 0)
 						{
 							wsprintf(temp_string, (*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_CHANGE_VAMPIRE_DAY].GetString(), day, time, minute);
-							color = 0;	// °ËÀº»öÀÌ ¾Æ´Ï´Ù default°ªÀÌ´Ù
+							color = 0;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï´ï¿½ defaultï¿½ï¿½ï¿½Ì´ï¿½
 						}
 						else if(time > 0)
 						{
@@ -21699,7 +21709,7 @@ bool C_VS_UI_EFFECT_STATUS::MouseControl(UINT message, int _x, int _y)
 					effectstatus_string[1] = temp_string;
 					effectstatus_string[1] += " : ";
 
-					// ¾Õ¿¡²² ÂïÈ÷¸é ±×µÚ´Â °ªÀÌ ¾ø¾îµµ Âï´Â´Ù
+					// ï¿½Õ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×µÚ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½îµµ ï¿½ï¿½Â´ï¿½
 					bool bPrint = false;
 
 					if(day > 0)
@@ -21726,7 +21736,7 @@ bool C_VS_UI_EFFECT_STATUS::MouseControl(UINT message, int _x, int _y)
 						bPrint = true;
 					}
 					
-					// ÃÊ´Â ¹«Á¶°Ç Âï´Â´Ù
+					// ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â´ï¿½
 					sprintf(temp_string, (*g_pGameStringTable)[UI_STRING_MESSAGE_SECOND].GetString(), second);
 					effectstatus_string[1] += temp_string;
 					
@@ -21746,7 +21756,7 @@ bool C_VS_UI_EFFECT_STATUS::MouseControl(UINT message, int _x, int _y)
 	case M_LB_DOUBLECLICK:
 		if(skill_id != -1)
 			gC_vs_ui.RunDescDialog(DID_SKILL, (void *)skill_id);
-		if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+		if (gpC_mouse_pointer->GetPickUpItem() == NULL && re)
 		{
 			MoveReady();
 			SetOrigin(_x, _y);
@@ -21793,14 +21803,14 @@ void C_VS_UI_EFFECT_STATUS::Show()
 	bool bDrained = false;
 	
 	if(m_width_mode)
-		// °¡·Î ¸ğµå
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	{
 		/*
-		»óÂ¡¹° ¼®»ó: ¼º ¹® ¾Õ¿¡¼­ ÃâÀÔÀ» ÅëÁ¦ÇÏ´Â ¿ªÇÒÀ» ÇÕ´Ï´Ù. °¢ ¼ºÀÇ »óÂ¡¹°¿¡ ¸Â°Ô 4Á¾·ùÀÇ ¼®»óÀ» °¢°¢ ¼º ¾Õ¿¡ 4°³¾¿ ¹èÄ¡ÇÏ¸é µË´Ï´Ù.
-¿ÁÅ¸ºÎ½º(nw): ¹ÚÁã³¯°³¸¦ ´Ş°í ÀÖ´Â ÈæÇ¥¹ü.
-¼ÁÆ¼¹«½º(sw): Á÷¸³º¸ÇàÀÇ ±ä »ÔÀÇ ºÓÀº ¼Ò
-Å×¸£Æ¼¿ì½º(ne): ¿ë
-Äí¾Æ¸£Åõ½º(se): ºÒ»çÁ¶(Phoenix)
+		ï¿½ï¿½Â¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: ï¿½ï¿½ ï¿½ï¿½ ï¿½Õ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½. ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¡ï¿½ï¿½ï¿½ï¿½ ï¿½Â°ï¿½ 4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Õ¿ï¿½ 4ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï¸ï¿½ ï¿½Ë´Ï´ï¿½.
+ï¿½ï¿½Å¸ï¿½Î½ï¿½(nw): ï¿½ï¿½ï¿½ã³¯ï¿½ï¿½ï¿½ï¿½ ï¿½Ş°ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½.
+ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½(sw): ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+ï¿½×¸ï¿½Æ¼ï¿½ì½º(ne): ï¿½ï¿½
+ï¿½ï¿½ï¿½Æ¸ï¿½ï¿½ï¿½ï¿½ï¿½(se): ï¿½Ò»ï¿½ï¿½ï¿½(Phoenix)
 */
 		if(gpC_base->m_p_DDSurface_back->Lock())
 		{
@@ -21813,7 +21823,7 @@ void C_VS_UI_EFFECT_STATUS::Show()
 			{
 				DWORD CurrentFrame = timeGetTime();
 
-				for(i = 0; i < min(10, g_char_slot_ingame.STATUS.size()); i++)
+				for(int i = 0; i < min(10, g_char_slot_ingame.STATUS.size()); i++)
 				{
 					const int skill_id = g_char_slot_ingame.STATUS[i+m_scroll].actionInfo;
 					if(skill_id == ACTIONINFO_NULL || skill_id < 0 || skill_id >= g_pSkillInfoTable->GetSize())
@@ -21861,37 +21871,37 @@ void C_VS_UI_EFFECT_STATUS::Show()
 						{
 						case 1201 :
 							sprite_id = 226;
-							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ±æµåÀüÀÎ°æ¿ì
+							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½
 								color_set = 155;
 							break;
 
 						case 1202 :
 							sprite_id = 227;
-							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ±æµåÀüÀÎ°æ¿ì
+							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½
 								color_set = 25;
 							break;
 						
 						case 1203 :
 							sprite_id = 228;
-							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ±æµåÀüÀÎ°æ¿ì
+							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½
 								color_set = 85;
 							break;
 						
 						case 1204 :
 							sprite_id = 229;
-							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ±æµåÀüÀÎ°æ¿ì
+							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½
 								color_set = 40;
 							break;
 
 						case 1205 :
 							sprite_id = 355;
-							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ±æµåÀüÀÎ°æ¿ì
+							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½
 								color_set = 40;
 							break;
 							
 						case 1206 :
 							sprite_id = 354;
-							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ±æµåÀüÀÎ°æ¿ì
+							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½
 								color_set = 40;
 							break;
 							
@@ -21913,7 +21923,7 @@ void C_VS_UI_EFFECT_STATUS::Show()
 		}		
 	}
 	else
-		// ¼¼·Î ¸ğµå
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	{
 		if(gpC_base->m_p_DDSurface_back->Lock())
 		{
@@ -21973,37 +21983,37 @@ void C_VS_UI_EFFECT_STATUS::Show()
 						{
 						case 1201 :
 							sprite_id = 226;
-							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ±æµåÀüÀÎ°æ¿ì
+							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½
 								color_set = 155;
 							break;
 
 						case 1202 :
 							sprite_id = 227;
-							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ±æµåÀüÀÎ°æ¿ì
+							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½
 								color_set = 25;
 							break;
 						
 						case 1203 :
 							sprite_id = 228;
-							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ±æµåÀüÀÎ°æ¿ì
+							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½
 								color_set = 85;
 							break;
 						
 						case 1204 :
 							sprite_id = 229;
-							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ±æµåÀüÀÎ°æ¿ì
+							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½
 								color_set = 40;
 							break;
 
 						case 1205 :
 							sprite_id = 355;
-							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ±æµåÀüÀÎ°æ¿ì
+							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½
 								color_set = 40;
 							break;
 							
 						case 1206 :
 							sprite_id = 354;
-							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ±æµåÀüÀÎ°æ¿ì
+							if(g_pUserInformation->WarInfo[a].war_type == WAR_GUILD)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½
 								color_set = 40;
 							break;
 						}					
@@ -22061,7 +22071,7 @@ void C_VS_UI_EFFECT_STATUS::Show()
 //-----------------------------------------------------------------------------
 void C_VS_UI_EFFECT_STATUS::ResetSize()
 {
-	//13°³°¡ ³ÑÀ¸¸é ½ºÅ©·Ñ ¹öÆ° ³ª¿Â´ÙÇÏ!
+	//13ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½!
 }
 
 //-----------------------------------------------------------------------------
@@ -22146,24 +22156,24 @@ const int zone_id_size = 73;
 //-----------------------------------------------------------------------------
 // GetZoneNumber
 //
-// ZoneID¸¦ ¹Ş¾Æ¼­ ÄÁ¹öÆÃ
+// ZoneIDï¿½ï¿½ ï¿½Ş¾Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 //int C_VS_UI_MINIMAP::GetZoneNumber(int zone_id)
 //{
 //	int id[zone_id_size] = {
-//		11, 12, 13, 14, 21, 22, 23 ,24, 31, 32, 33, 34, 41, 42, 43, 44, 51, 52, 53, 54, 61, 62, 63, 64, // ÇÊµå
-//		1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, // ´øÁ¯&¸¶À»
-//		1100, 1101, 1102, 1103, 1104, 1105, // ¹ÙÅä¸® ´øÀü
-//		1111, 1112, 1113, 1114, // ¶ó¼¾¼º
-//		1121, 1122, 1123, 1124, // ¼ºÁö
-//		2000, 2001, 2002, 2003, 2004, 2010, 2011, 2012, 2013, 2014, 2020, 2021, 2022, 2023, 2024,//°Ç¹°
-//		//			2101, 2102, 2103, 2104, 2105, 2106,//Æ©Åä¸®¾ó
+//		11, 12, 13, 14, 21, 22, 23 ,24, 31, 32, 33, 34, 41, 42, 43, 44, 51, 52, 53, 54, 61, 62, 63, 64, // ï¿½Êµï¿½
+//		1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, // ï¿½ï¿½ï¿½ï¿½&ï¿½ï¿½ï¿½ï¿½
+//		1100, 1101, 1102, 1103, 1104, 1105, // ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½
+//		1111, 1112, 1113, 1114, // ï¿½ó¼¾¼ï¿½
+//		1121, 1122, 1123, 1124, // ï¿½ï¿½ï¿½ï¿½
+//		2000, 2001, 2002, 2003, 2004, 2010, 2011, 2012, 2013, 2014, 2020, 2021, 2022, 2023, 2024,//ï¿½Ç¹ï¿½
+//		//			2101, 2102, 2103, 2104, 2105, 2106,//Æ©ï¿½ä¸®ï¿½ï¿½
 //		2101, 2102,
 //		10001, 20001, 
-//		1011, 1012,	// ·Î½ºÆ® Å¸ÀÌ¾á
-//		1013, // ¾Æ½Ç¸®¿Â
+//		1011, 1012,	// ï¿½Î½ï¿½Æ® Å¸ï¿½Ì¾ï¿½
+//		1013, // ï¿½Æ½Ç¸ï¿½ï¿½ï¿½
 //		
-//		60000, 60001, 60002};//Å¬¶óÀÌ¾ğÆ®¿ë °¡Â¥ ¾ÆÀÌµğ
+//		60000, 60001, 60002};//Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½Ìµï¿½
 //		
 //	for(int i = 0; i < zone_id_size; i++)
 //		if(zone_id == id[i])break;
@@ -22175,7 +22185,7 @@ const int zone_id_size = 73;
 //-----------------------------------------------------------------------------
 // GetZoneName
 //
-// ZoneID¸¦ ¹Ş¾Æ¼­ Á¸ÀÌ¸§À» ¹İÈ¯ÇÑ´Ù
+// ZoneIDï¿½ï¿½ ï¿½Ş¾Æ¼ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½
 //-----------------------------------------------------------------------------
 //char * C_VS_UI_MINIMAP::GetZoneName(int zone_id)
 //{
@@ -22296,7 +22306,7 @@ C_VS_UI_MINIMAP::C_VS_UI_MINIMAP()
 
 	Set(g_GameRect.right-m_pC_minimap_spk->GetWidth(MINIMAP_MAIN)-m_pC_minimap_spk->GetWidth(MINIMAP_RIGHT), 0, m_pC_minimap_spk->GetWidth(MINIMAP_MAIN)+m_pC_minimap_spk->GetWidth(MINIMAP_RIGHT), m_pC_minimap_spk->GetHeight(MINIMAP_MAIN));
 	
-	//skillinfo ¹öÆ°
+	//skillinfo ï¿½ï¿½Æ°
 	m_pC_button_group = new ButtonGroup(this);
 	
 	int alpha_button_offset_x, alpha_button_offset_y;
@@ -22320,7 +22330,7 @@ C_VS_UI_MINIMAP::C_VS_UI_MINIMAP()
 	
 	m_p_minimap_surface = new CSpriteSurface;
 	
-	m_p_minimap_surface->InitOffsurface(200, 100, DDSCAPS_SYSTEMMEMORY);
+	m_p_minimap_surface->InitOffsurface(200, 100);
 	m_p_minimap_surface->SetTransparency(0xffff);
 	
 	m_surface_w = 200;
@@ -22513,8 +22523,8 @@ bool C_VS_UI_MINIMAP::MouseControl(UINT message, int _x, int _y)
 		
 	case M_LEFTBUTTON_DOWN:
 	case M_LB_DOUBLECLICK:
-		// ¹İÅõ¸í »óÅÂ¿¡¼­ ¸Ê Å¬¸¯ÇÏ¸é ÀÌµ¿µÇ°Ô
-		if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½Ìµï¿½ï¿½Ç°ï¿½
+		if (gpC_mouse_pointer->GetPickUpItem() == NULL && re)
 		{
 			MoveReady();
 			SetOrigin(_x, _y);
@@ -22538,7 +22548,7 @@ void C_VS_UI_MINIMAP::MouseControlExtra(UINT message, int _x, int _y)
 	switch(message)
 	{
 	case M_MOVING:
-		// ¹Ì´Ï¸Ê À§¿¡ ¸¶¿ì½º°¡ ÀÖ´Ù.
+		// ï¿½Ì´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ ï¿½Ö´ï¿½.
 		{
 			int map_w = m_surface_w, map_h = m_surface_h;
 			//			if(m_map_w != m_map_h)
@@ -22547,7 +22557,8 @@ void C_VS_UI_MINIMAP::MouseControlExtra(UINT message, int _x, int _y)
 			//				if(m_map_h > m_map_w)map_w = map_w * m_map_w / m_map_h;
 			//			}
 			
-			for(int i = 0; i < m_portal.size(); i++)
+			int i;
+	for(i = 0; i < m_portal.size(); i++)
 			{
 				int x = m_map_start_point.x + (m_portal[i].left+m_portal[i].right)/2*map_w/m_map_w;
 				int y = m_map_start_point.y + (m_portal[i].top+m_portal[i].bottom)/2*map_h/m_map_h;
@@ -22579,7 +22590,7 @@ void C_VS_UI_MINIMAP::MouseControlExtra(UINT message, int _x, int _y)
 				}
 			}
 			
-			for(i = 0; i < m_npc.size(); i++)
+			for(int i = 0; i < m_npc.size(); i++)
 			{
 				int x = m_map_start_point.x + m_npc[i].x*map_w/m_map_w;
 				int y = m_map_start_point.y + m_npc[i].y*map_h/m_map_h;
@@ -22610,7 +22621,7 @@ void C_VS_UI_MINIMAP::MouseControlExtra(UINT message, int _x, int _y)
 				}
 			}
 			
-			for(i = 0; i < m_shrine.size(); i++)
+			for(int i = 0; i < m_shrine.size(); i++)
 			{
 				int x = m_map_start_point.x + m_shrine[i].x*map_w/m_map_w;
 				int y = m_map_start_point.y + m_shrine[i].y*map_h/m_map_h;
@@ -22622,7 +22633,7 @@ void C_VS_UI_MINIMAP::MouseControlExtra(UINT message, int _x, int _y)
 				}
 			}
 
-			for(i = 0; i < g_pParty->GetSize(); i++)
+			for(int i = 0; i < g_pParty->GetSize(); i++)
 			{
 				PARTY_INFO *info = g_pParty->GetMemberInfo(i);
 				if(info != NULL && info->zoneID == GetZoneID())
@@ -22650,7 +22661,7 @@ void C_VS_UI_MINIMAP::MouseControlExtra(UINT message, int _x, int _y)
 				}
 			}
 			
-			for(i = 0; i < m_Flag.size(); i++)
+			for(int i = 0; i < m_Flag.size(); i++)
 			{
 				int x = m_map_start_point.x + m_Flag[i].x*map_w/m_map_w;
 				int y = m_map_start_point.y + m_Flag[i].y*map_h/m_map_h;
@@ -22686,14 +22697,14 @@ void C_VS_UI_MINIMAP::KeyboardControl(UINT message, UINT key, long extra)
 //-----------------------------------------------------------------------------
 void C_VS_UI_MINIMAP::Show()
 {
-	// ¸ÊÀÌ ¹Ù²î¾úÀ¸¸é ÅØ½ºÃÄ ¼¼ÆÃÀ» ´Ù½Ã ÇØÁà¾ß ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 //	if(m_bl_refresh == true)
 //	{
 //		InitMinimap(m_p_minimap_surface);
 //		m_bl_refresh = false;
 //	}
 	
-	// ¸ÊÃâ·Â
+	// ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(GetAttributes()->alpha)
 	{
 		RECT rt = {0,0,m_p_minimap_surface->GetWidth(),m_p_minimap_surface->GetHeight()};
@@ -22722,12 +22733,12 @@ void C_VS_UI_MINIMAP::Show()
 		}
 	}
 	
-	// ¹Ì´Ï¸ÊÀ§¿¡ ±âÅ¸µîµî Ãâ·Â
+	// ï¿½Ì´Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	if(gpC_base->m_p_DDSurface_back->Lock())
 	{
 		m_pC_minimap_spk->BltLocked(x+m_board_x, y+m_board_y, MINIMAP_BOARD);
 		
-		// ¸ÊÅ×µÎ¸®
+		// ï¿½ï¿½ï¿½×µÎ¸ï¿½
 		Rect rect(0, 0, w-m_pC_minimap_spk->GetWidth(MINIMAP_RIGHT), h);
 		if(GetAttributes()->alpha)
 		{
@@ -22763,7 +22774,7 @@ void C_VS_UI_MINIMAP::Show()
 			m_pC_minimap_spk->BltLockedClip(x+w-m_pC_minimap_spk->GetWidth(MINIMAP_RIGHT), y-(100-m_surface_h), rect, MINIMAP_RIGHT);
 		}
 		
-		// hidingÁß¿¡´Â ±âÅ¸µîµî »ı·«
+		// hidingï¿½ß¿ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		//		if(GetAttributes()->autohide && x < 0 || x+w > g_GameRect.right || y < 0 || y+h > g_GameRect.bottom)
 		//		{
 		//			gpC_base->m_p_DDSurface_back->Unlock();
@@ -22799,12 +22810,12 @@ void C_VS_UI_MINIMAP::Show()
 		int i, _x, _y;
 		WORD _color, _color2;
 		
-		// Æ÷Å» À§Ä¡ Ç¥½Ã ¡ä
+		// ï¿½ï¿½Å» ï¿½ï¿½Ä¡ Ç¥ï¿½ï¿½ ï¿½ï¿½
 		r = color, g = color-10, b = color;
 		_color = CDirectDraw::Color(r, g, b);
 		r = color*2/3, g = (color-10)*2/3, b = color*2/3;
 		_color2 = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < m_portal.size(); i++)
+	for(i = 0; i < m_portal.size(); i++)
 		{
 			_x = x+m_map_start_point.x + (m_portal[i].left+m_portal[i].right)/2*map_w/m_map_w;
 			_y = y+m_map_start_point.y + (m_portal[i].top+m_portal[i].bottom)/2*map_h/m_map_h;
@@ -22833,12 +22844,12 @@ void C_VS_UI_MINIMAP::Show()
 			
 		}
 
-				// Æ÷Å» À§Ä¡ Ç¥½Ã ¡ä
+				// ï¿½ï¿½Å» ï¿½ï¿½Ä¡ Ç¥ï¿½ï¿½ ï¿½ï¿½
 		r = color, g = color-10, b = color;
 		_color = CDirectDraw::Color(r, g, b);
 		r = color*2/3, g = (color-10)*2/3, b = color*2/3;
 		_color2 = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < m_Block.size(); i++)
+		for(int i = 0; i < m_Block.size(); i++)
 		{
 			_x = x+m_map_start_point.x + (m_Block[i].x)*map_w/m_map_w;
 			_y = y+m_map_start_point.y + (m_Block[i].y)*map_h/m_map_h;
@@ -22860,15 +22871,15 @@ void C_VS_UI_MINIMAP::Show()
 //				wmemset(&mem[(j)*pitch_div_2 + _x], _color, flagsize*map_w/m_map_w);
 //		}
 		
-		// npcÀ§Ä¡ Ç¥½Ã ¢Ó
+		// npcï¿½ï¿½Ä¡ Ç¥ï¿½ï¿½ ï¿½ï¿½
 		r = color-10, g = color, b = color-10;
 		_color = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < m_npc.size(); i++)
+		for(int i = 0; i < m_npc.size(); i++)
 		{
 			_x = x+m_map_start_point.x + m_npc[i].x*map_w/m_map_w;
 			_y = y+m_map_start_point.y + m_npc[i].y*map_h/m_map_h;
 
-			if(m_npc[i].id == 659)	// µÅÁöÁ¤·É
+			if(m_npc[i].id == 659)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				gpC_global_resource->m_pC_info_spk->BltLocked(_x-gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::OUSTERS_HORN)/2, _y-gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::OUSTERS_HORN)+5, C_GLOBAL_RESOURCE::OUSTERS_HORN);
 			}
@@ -22897,12 +22908,12 @@ void C_VS_UI_MINIMAP::Show()
 			}
 		}
 
-		// shrineÀ§Ä¡ Ç¥½Ã ¢Ó
+		// shrineï¿½ï¿½Ä¡ Ç¥ï¿½ï¿½ ï¿½ï¿½
 		r = color-10, g = color-10, b = color;
 		_color = CDirectDraw::Color(r, g, b);
 		r = (color-10)*2/3, g = (color-10)*2/3, b = color*2/3;
 		_color2 = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < m_shrine.size(); i++)
+		for(int i = 0; i < m_shrine.size(); i++)
 		{
 			_x = x+m_map_start_point.x + m_shrine[i].x*map_w/m_map_w;
 			_y = y+m_map_start_point.y + m_shrine[i].y*map_h/m_map_h;
@@ -22937,12 +22948,12 @@ void C_VS_UI_MINIMAP::Show()
 		}
 
 		/*		
-		// ÆÄÆ¼¿øÀ§Ä¡ Ç¥½Ã x
+		// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½Ä¡ Ç¥ï¿½ï¿½ x
 		if(g_pParty->GetSize())
 		{
 		r = color, g = color-5, b = color-5;
 		_color = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < g_pParty->GetSize(); i++)
+		for(int i = 0; i < g_pParty->GetSize(); i++)
 		{
 		if(g_pParty->GetMemberInfo(i) != NULL && g_pParty->GetMemberInfo(i)->zoneID == m_zone_id)
 		{
@@ -22974,7 +22985,7 @@ void C_VS_UI_MINIMAP::Show()
 			}
 			}
 			
-			  //ÀÚ±â À§Ä¡ Ç¥½Ã x
+			  //ï¿½Ú±ï¿½ ï¿½ï¿½Ä¡ Ç¥ï¿½ï¿½ x
 			  _x = x+m_map_start_point.x + m_map_x*map_w/m_map_w;
 			  _y = y+m_map_start_point.y + m_map_y*map_h/m_map_h;
 			  
@@ -23000,8 +23011,8 @@ void C_VS_UI_MINIMAP::Show()
 				  mem[(_y+2)*pitch_div_2 + _x+1] = 0;
 				  }
 		*/
-		// ÆÄÆ¼ À§Ä¡ Ç¥½Ã
-		for(i = 0; i < g_pParty->GetSize(); i++)
+		// ï¿½ï¿½Æ¼ ï¿½ï¿½Ä¡ Ç¥ï¿½ï¿½
+		for(int i = 0; i < g_pParty->GetSize(); i++)
 		{
 			if(g_pParty->GetMemberInfo(i) != NULL && g_pParty->GetMemberInfo(i)->zoneID == m_zone_id)
 			{
@@ -23012,7 +23023,7 @@ void C_VS_UI_MINIMAP::Show()
 			}
 		}
 		
-		// ÀÚ±â À§Ä¡ Ç¥½Ã
+		// ï¿½Ú±ï¿½ ï¿½ï¿½Ä¡ Ç¥ï¿½ï¿½
 		if(m_map_w != 0 && m_map_h != 0)
 		{
 			_x = x+m_map_start_point.x + m_map_x*map_w/m_map_w;
@@ -23103,16 +23114,16 @@ void C_VS_UI_MINIMAP::SetZone(int zone_id)
 	m_bl_refresh = true;
 	
 	//	int spk_id[zone_id_size] = 
-	//	{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,//ÇÊµå
-	//	12, 13, 14, 13, 15, 21, 40, 45, //´øÁ¯&¸¶À»
-	//	39, 28, 29, 30, 31, 32,//¹ÙÅä¸®´øÁ¯
-	//	41, 42, 43, 44, //¶ó¼¾¼º
-	//	20, 16, 17, 18, 19,//±ºÀÎ±æµå
-	//	20, 22, 23, 24, 19,//¼ºÁ÷ÀÚ±æµå
-	//	20, 25, 26, 27, 19,//¹«»ç±æµå
-	//	19, 20, 21, 22, 23, 25,//Æ©Åä¸®¾ó
-	//	33, 34,					//Æ©Åä¸®¾ó
-	//	-1, -1, -1};//Å¬¶óÀÌ¾ğÆ®¿ë
+	//	{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,//ï¿½Êµï¿½
+	//	12, 13, 14, 13, 15, 21, 40, 45, //ï¿½ï¿½ï¿½ï¿½&ï¿½ï¿½ï¿½ï¿½
+	//	39, 28, 29, 30, 31, 32,//ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½
+	//	41, 42, 43, 44, //ï¿½ó¼¾¼ï¿½
+	//	20, 16, 17, 18, 19,//ï¿½ï¿½ï¿½Î±ï¿½ï¿½
+	//	20, 22, 23, 24, 19,//ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½
+	//	20, 25, 26, 27, 19,//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//	19, 20, 21, 22, 23, 25,//Æ©ï¿½ä¸®ï¿½ï¿½
+	//	33, 34,					//Æ©ï¿½ä¸®ï¿½ï¿½
+	//	-1, -1, -1};//Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½
 	
 	//	bool bl_statch = (x+w >= g_GameRect.right-1);
 	//	int statch_w = w;
@@ -23122,18 +23133,18 @@ void C_VS_UI_MINIMAP::SetZone(int zone_id)
 	
 	//-------------------------------------------------------------------
 	//
-	// ÇÊ¿äÇÑ minimap sprite¸¦ ÇÏ³ª ÀĞ¾î¿À±â À§ÇØ¼­.
+	// ï¿½Ê¿ï¿½ï¿½ï¿½ minimap spriteï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½Ğ¾ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½.
 	//
 	//-------------------------------------------------------------------
 	// by sigi 2001.9.5
 	CSpritePack	minimapSPK;
-	minimapSPK.Init( 1 );		// ÀÓ½Ã·Î 1°³¸¸ loading.. - -;;
+	minimapSPK.Init( 1 );		// ï¿½Ó½Ã·ï¿½ 1ï¿½ï¿½ï¿½ï¿½ loading.. - -;;
 	
 	bool re = minimapSPK.LoadFromFileData( 0, g_pZoneTable->Get(zone_id)->MinimapSpriteID, SPK_MINIMAP, SPKI_MINIMAP );
 	assert(re && "Minimap Not Load");
 	
 	//-------------------------------------------------------------------
-	// È­¸é¿¡ Ãâ·Â
+	// È­ï¿½é¿¡ ï¿½ï¿½ï¿½
 	//-------------------------------------------------------------------
 	if(re)
 	{
@@ -23143,9 +23154,15 @@ void C_VS_UI_MINIMAP::SetZone(int zone_id)
 		POINT point = {0, 0};
 		DeleteNew(m_p_minimap_surface);
 		m_p_minimap_surface = new CSpriteSurface;
-		m_p_minimap_surface->InitOffsurface(m_surface_w, m_surface_h, DDSCAPS_SYSTEMMEMORY);
+		m_p_minimap_surface->InitOffsurface(m_surface_w, m_surface_h);
 		m_p_minimap_surface->SetTransparency( 0xffff );
+#ifdef PLATFORM_WINDOWS
 		m_p_minimap_surface->FillSurface(0x0000);
+#else
+		// SDL backend: Fill the entire surface with color 0x0000
+		RECT fillRect = {0, 0, m_surface_w, m_surface_h};
+		m_p_minimap_surface->FillRect(&fillRect, 0x0000);
+#endif
 		
 		m_p_minimap_surface->Lock();
 		m_p_minimap_surface->BltSprite(&point, &minimapSPK[0]);
@@ -23218,7 +23235,7 @@ void	C_VS_UI_MINIMAP::SetFlagArea(POINT pt)
 //-----------------------------------------------------------------------------
 // SetSafetyZone
 //
-// ¾ÈÀüÁö´ë ¼³Á¤
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_MINIMAP::SetSafetyZone(RECT rect, bool my_zone)
 {
@@ -23284,17 +23301,18 @@ void C_VS_UI_MINIMAP::SetSafetyZone(RECT rect, bool my_zone)
 //-----------------------------------------------------------------------------
 // SetNPC
 //
-// NPC ¼³Á¤
+// NPC ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_MINIMAP::SetNPC(MINIMAP_NPC npc)
 {
-	if(npc.id >= 560 && npc.id <= 563)	// ¼º »óÂ¡¹° ¹ŞÄ§´ë
+	if(npc.id >= 560 && npc.id <= 563)	// ï¿½ï¿½ ï¿½ï¿½Â¡ï¿½ï¿½ ï¿½ï¿½Ä§ï¿½ï¿½
 	{
-		for(int i = 0; i < m_shrine.size(); i++)
+		int i;
+		for(i = 0; i < m_shrine.size(); i++)
 		{
 			if(npc.id == m_shrine[i].id)break;
 		}
-		
+
 		if(i == m_shrine.size())
 		{
 			MINIMAP_SHRINE shrine;
@@ -23306,13 +23324,14 @@ void C_VS_UI_MINIMAP::SetNPC(MINIMAP_NPC npc)
 			m_shrine.push_back(shrine);
 		}
 	}
-	else if(npc.id >= 526 && npc.id <= 537)	// ¼öÈ£¼º´Ü
+	else if(npc.id >= 526 && npc.id <= 537)	// ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½
 	{
-		for(int i = 0; i < m_shrine.size(); i++)
+		int i;
+		for(i = 0; i < m_shrine.size(); i++)
 		{
 			if(npc.id == m_shrine[i].id)break;
 		}
-		
+
 		if(i == m_shrine.size())
 		{
 			MINIMAP_SHRINE shrine;
@@ -23324,13 +23343,14 @@ void C_VS_UI_MINIMAP::SetNPC(MINIMAP_NPC npc)
 			m_shrine.push_back(shrine);
 		}
 	}
-	else if(npc.id >= 538 && npc.id <= 549)	// ¼ºÁö ¼º´Ü
+	else if(npc.id >= 538 && npc.id <= 549)	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
-		for(int i = 0; i < m_shrine.size(); i++)
+		int i;
+		for(i = 0; i < m_shrine.size(); i++)
 		{
 			if(npc.id == m_shrine[i].id)break;
 		}
-		
+
 		if(i == m_shrine.size())
 		{
 			MINIMAP_SHRINE shrine;
@@ -23352,11 +23372,12 @@ void C_VS_UI_MINIMAP::SetNPC(MINIMAP_NPC npc)
 	}
 	else
 	{
-		for(int i = 0; i < m_npc.size(); i++)
+		int i;
+		for(i = 0; i < m_npc.size(); i++)
 		{
-			if(npc.id == m_npc[i].id && npc.id != 659 && npc.id != 672 && npc.id != 673 )break; // µÅÁö Á¤·ÉÀº »ı±îÀğ
+			if(npc.id == m_npc[i].id && npc.id != 659 && npc.id != 672 && npc.id != 673 )break; // ì¤‘ë³µnpcëŠ” ì œì™¸í•œë‹¤
 		}
-		
+
 		if(i == m_npc.size())
 		{
 			m_npc.push_back(npc);
@@ -23367,7 +23388,7 @@ void C_VS_UI_MINIMAP::SetNPC(MINIMAP_NPC npc)
 //-----------------------------------------------------------------------------
 // SetPortal
 //
-// Æ÷Å» ¼³Á¤
+// ï¿½ï¿½Å» ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_MINIMAP::SetPortal(RECT rect, int id)
 {
@@ -23376,7 +23397,8 @@ void C_VS_UI_MINIMAP::SetPortal(RECT rect, int id)
 		/*|| */!g_pSystemAvailableManager->ZoneFiltering( id ) )
 		return;
 	
-	for(int i = 0; i < m_portal.size(); i++)
+	int i;
+	for(i = 0; i < m_portal.size(); i++)
 	{
 		if(m_portal_zone_id[i] == id &&
 			m_portal[i].top <= rect.bottom +5 &&
@@ -23439,7 +23461,7 @@ void C_VS_UI_WINDOW_MANAGER::SetDefault()
 		for(j=0; j < C_VS_UI_SKILL::GRADE_MAX; j++)
 			m_skill_hotkey_buf[i][j] = NOT_SELECTED;
 		
-	for(i = 0; i < CLD_TOTAL; i++)
+	for(int i = 0; i < CLD_TOTAL; i++)
 		SetFilter((CHAT_LINE_CONDITION)i, true);
 		
 	for( i = 0; i < WINDOW_TOTAL; i++)
@@ -23456,7 +23478,7 @@ void C_VS_UI_WINDOW_MANAGER::SetDefault()
 
 	m_i_main_tab = 0;
 
-	// effectstatus´Â ¼û°Ü³í´Ù
+	// effectstatusï¿½ï¿½ ï¿½ï¿½ï¿½Ü³ï¿½ï¿½ï¿½
 	SetAutoHide(EFFECT_STATUS, Window::ATTRIBUTES_HIDE_HEIGHT);		
 
 	// 2004, 6, 4, sobeit add start
@@ -23502,7 +23524,7 @@ void C_VS_UI_WINDOW_MANAGER::SaveToFile(ofstream &file)
 	BYTE hotkey_num = C_VS_UI_SKILL::HOTKEY_MAX, grade_num = C_VS_UI_SKILL::GRADE_MAX;
 	file.write((const char *)&hotkey_num, sizeof(BYTE));
 	file.write((const char *)&grade_num, sizeof(BYTE));
-	for(i = 0; i < hotkey_num; i++)
+	for(int i = 0; i < hotkey_num; i++)
 	{
 		for(j = 0; j < grade_num; j++)
 		{
@@ -23512,14 +23534,14 @@ void C_VS_UI_WINDOW_MANAGER::SaveToFile(ofstream &file)
 	
 	BYTE filter_num = CLD_TOTAL;
 	file.write((const char *)&filter_num, sizeof(BYTE));
-	for(i = 0; i < filter_num; i++)
+	for(int i = 0; i < filter_num; i++)
 	{
 		file.write((const char *)&m_filter[i], sizeof(bool));
 	}
 	
 	int window_num = QUEST_STATUS_WINDOW;
 	file.write((const char *)&window_num, sizeof(int));
-	for(i = 0; i < window_num; i++)
+	for(int i = 0; i < window_num; i++)
 	{
 		file.write((const char *)&m_alpha[i], sizeof(bool));
 		file.write((const char *)&m_autohide[i], sizeof(Window::ATTRIBUTES_HIDE));
@@ -23545,7 +23567,7 @@ void C_VS_UI_WINDOW_MANAGER::SaveToFile(ofstream &file)
 
 void C_VS_UI_WINDOW_MANAGER::LoadFromFile(ifstream &file)
 {
-	// °¢°¢ °³¼ö°¡ ´Ã°Å³ª ÁÙ¾úÀ»¶§¿¡ ´ëÇÑ Ã³¸®´Â.... ±ÍÂúÀ¸´Ï±î ³ªÁß¿¡ ÇÏÀğ-.-;
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°Å³ï¿½ ï¿½Ù¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½.... ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½-.-;
 	int i = 0, j = 0;
 	
 	DWORD flag = 0;
@@ -23554,7 +23576,7 @@ void C_VS_UI_WINDOW_MANAGER::LoadFromFile(ifstream &file)
 	BYTE hotkey_num = C_VS_UI_SKILL::HOTKEY_MAX, grade_num = C_VS_UI_SKILL::GRADE_MAX;
 	file.read((char *)&hotkey_num, sizeof(BYTE));
 	file.read((char *)&grade_num, sizeof(BYTE));
-	for(i = 0; i < hotkey_num; i++)
+	for(int i = 0; i < hotkey_num; i++)
 	{
 		for(j = 0; j < grade_num; j++)
 		{
@@ -23564,14 +23586,14 @@ void C_VS_UI_WINDOW_MANAGER::LoadFromFile(ifstream &file)
 	
 	BYTE filter_num = CLD_TOTAL;
 	file.read((char *)&filter_num, sizeof(BYTE));
-	for(i = 0; i < filter_num; i++)
+	for(int i = 0; i < filter_num; i++)
 	{
 		file.read((char *)&m_filter[i], sizeof(bool));
 	}
 	
 	int window_num = QUEST_STATUS_WINDOW;
 	file.read((char *)&window_num, sizeof(int));
-	for(i = 0; i < window_num; i++)
+	for(int i = 0; i < window_num; i++)
 	{
 		file.read((char *)&m_alpha[i], sizeof(bool));
 		file.read((char *)&m_autohide[i], sizeof(Window::ATTRIBUTES_HIDE));
@@ -23666,18 +23688,18 @@ C_VS_UI_TEAM_LIST::C_VS_UI_TEAM_LIST(bool ready, bool IsUnion)
 		help_x+=20; x_x+=20;
 	}	
 	
-	//help, x¹öÆ°
+	//help, xï¿½ï¿½Æ°
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + help_x, y + button_y, m_guild_spk.GetWidth(HELP_BUTTON), m_guild_spk.GetHeight(HELP_BUTTON), HELP_ID, this, HELP_BUTTON));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + x_x, y + button_y, m_guild_spk.GetWidth(X_BUTTON), m_guild_spk.GetHeight(X_BUTTON), X_ID, this, X_BUTTON));
 	
-	//scroll up, down ¹öÆ°
+	//scroll up, down ï¿½ï¿½Æ°
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + scroll_x, y + scroll_up_y, m_guild_spk.GetWidth(SCROLL_UP_BUTTON), m_guild_spk.GetHeight(SCROLL_UP_BUTTON), SCROLL_UP_ID, this, SCROLL_UP_BUTTON));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + scroll_x, y + scroll_down_y, m_guild_spk.GetWidth(SCROLL_DOWN_BUTTON), m_guild_spk.GetHeight(SCROLL_DOWN_BUTTON), SCROLL_DOWN_ID, this, SCROLL_DOWN_BUTTON));
 	
-	//team_list ¹öÆ°
+	//team_list ï¿½ï¿½Æ°
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + w/2-m_guild_spk.GetWidth(TITLE_TEAM_LIST)/2, y + 50, m_guild_spk.GetWidth(TITLE_TEAM_LIST), m_guild_spk.GetHeight(TITLE_TEAM_LIST), TEAM_LIST_ID, this, TITLE_TEAM_LIST));
 	
-	//index¹öÆ°
+	//indexï¿½ï¿½Æ°
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(m_print_x[0] - m_guild_spk.GetWidth(INDEX_TEAM)/2-10, m_print_y+m_print_gap*-1, m_guild_spk.GetWidth(INDEX_TEAM), m_guild_spk.GetHeight(INDEX_TEAM), INDEX_TEAM_ID, this, INDEX_TEAM));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(m_print_x[1] - m_guild_spk.GetWidth(INDEX_LEADER)/2, m_print_y+m_print_gap*-1, m_guild_spk.GetWidth(INDEX_LEADER), m_guild_spk.GetHeight(INDEX_LEADER), INDEX_LEADER_ID, this, INDEX_LEADER));
 	if(m_bl_ready)
@@ -23691,7 +23713,7 @@ C_VS_UI_TEAM_LIST::C_VS_UI_TEAM_LIST(bool ready, bool IsUnion)
 		m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(m_print_x[3] - m_guild_spk.GetWidth(INDEX_RANKING)/2, m_print_y+m_print_gap*-1, m_guild_spk.GetWidth(INDEX_RANKING), m_guild_spk.GetHeight(INDEX_RANKING), INDEX_RANKING_ID, this, INDEX_RANKING));
 	}
 	
-	//search¹öÆ°
+	//searchï¿½ï¿½Æ°
 	int search_x, search_x2, search_y;
 	switch(g_eRaceInterface)
 	{
@@ -23717,7 +23739,7 @@ C_VS_UI_TEAM_LIST::C_VS_UI_TEAM_LIST(bool ready, bool IsUnion)
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(search_x, search_y, m_guild_spk.GetWidth(SEARCH_NAME), m_guild_spk.GetHeight(SEARCH_NAME), SEARCH_TYPE_ID, this, SEARCH_NAME));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(search_x2, search_y, m_guild_spk.GetWidth(SEARCH_SEARCH), m_guild_spk.GetHeight(SEARCH_SEARCH), SEARCH_ID, this, SEARCH_SEARCH));
 	
-	//CLOSE¹öÆ°
+	//CLOSEï¿½ï¿½Æ°
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+w-14, y+h-49, m_guild_spk.GetWidth(CLOSE_BUTTON), m_guild_spk.GetHeight(CLOSE_BUTTON), CLOSE_ID, this, CLOSE_BUTTON));
 	
 	m_scroll = 0;
@@ -23819,7 +23841,7 @@ void C_VS_UI_TEAM_LIST::Show()
 {
 	int scroll_tag_x = x+365+m_vampire_point.x, scroll_tag_y = y+108+m_vampire_point.y, scroll_tag_height = 198;
 	
-	// Lock ºÎºĞ ¸ğÀ¸±â~
+	// Lock ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~
 	if(gpC_base->m_p_DDSurface_back->Lock())
 	{
 		m_guild_spk.BltLocked(x, y);
@@ -23846,12 +23868,12 @@ void C_VS_UI_TEAM_LIST::Show()
 		m_guild_spk.BltLocked(m_print_x[0]-71, m_print_y-5+m_print_gap*-1,BAR_DARKEN);	
 		if(m_iFocus != -1)
 			m_guild_spk.BltLocked(m_print_x[0]-71, m_print_y-5+m_print_gap*m_iFocus, BAR_HILIGHTED);
-		//½ºÅ©·ÑTAGÂï±â
+		//ï¿½ï¿½Å©ï¿½ï¿½TAGï¿½ï¿½ï¿½
 		int list_size_search=m_bl_ready ? m_v_ready_team_search_list.size() : m_v_regist_team_search_list.size() ;
 		int list_size=m_bl_ready ? m_v_ready_team_list.size() : m_v_regist_team_list.size() ;
 		if(list_size_search)
 		{
-			if(list_size_search > 9)	// ½ºÅ©·ÑÀÌ »ı±â´Â °æ¿ì¿¡¸¸
+			if(list_size_search > 9)	// ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½
 			{
 				if(m_bl_scrolling)
 					m_guild_spk.BltLocked(scroll_tag_x, min(max(gpC_mouse_pointer->GetY(), scroll_tag_y), scroll_tag_y+scroll_tag_height), SCROLL_TAG);
@@ -23860,7 +23882,7 @@ void C_VS_UI_TEAM_LIST::Show()
 			}
 		}
 		else
-		if(list_size > 9)	// ½ºÅ©·ÑÀÌ »ı±â´Â °æ¿ì¿¡¸¸
+		if(list_size > 9)	// ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½
 		{
 			if(m_bl_scrolling)
 				m_guild_spk.BltLocked(scroll_tag_x, min(max(gpC_mouse_pointer->GetY(), scroll_tag_y), scroll_tag_y+scroll_tag_height), SCROLL_TAG);
@@ -23883,7 +23905,7 @@ void C_VS_UI_TEAM_LIST::Show()
 	gpC_base->m_p_DDSurface_back->VLine(m_print_x[2]+35, m_print_y-6+m_print_gap*-1, m_print_gap*10, 0);
 	gpC_base->m_p_DDSurface_back->VLine(m_print_x[3]+32, m_print_y-6+m_print_gap*-1, m_print_gap*10+1, 0);	
 	
-	if(m_bl_ready)	// ´ë±â list
+	if(m_bl_ready)	// ï¿½ï¿½ï¿½ list
 	{
 		for(int i = 0; i < 9; i++)
 		{
@@ -23903,14 +23925,14 @@ void C_VS_UI_TEAM_LIST::Show()
 			string = info->TEAM_NAME.c_str();
 			g_PrintColorStr(m_print_x[0]-g_GetStringWidth(string, gpC_base->m_chatting_pi.hfont)/2, m_print_y+i*m_print_gap, string, gpC_base->m_chatting_pi, RGB_BLACK);
 			
-			// ´ë±â ¸®½ºÆ®ÀÎ°æ¿ì ±æµå ¸¶Å© ´ë½Å ºó ¹Ú½º¸¦ Ãâ·ÂÇÒ¶ó´Ù °Á Ãâ·Â-¤µ-
+			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Î°ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½-ï¿½ï¿½-
 			RECT rect;
 			rect.left = m_print_x[0]-70;
 			rect.right = rect.left +20;
 			rect.top = m_print_y+i*m_print_gap-4;
 			rect.bottom = rect.top+20;
 			
-			// ±æµå ¸¶Å© Ãâ·Â
+			// ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½ï¿½ï¿½
 			CSprite *p_guild_mark;
 			p_guild_mark=g_pGuildMarkManager->GetGuildMarkSmall(info->guild_id);
 			if(p_guild_mark==NULL)
@@ -23919,7 +23941,7 @@ void C_VS_UI_TEAM_LIST::Show()
 				p_guild_mark = g_pGuildMarkManager->GetGuildMarkSmall(info->guild_id);			
 			}
 			POINT guild_point = { rect.left,rect.top };
-			if(p_guild_mark != NULL)	// ¾Ç!! CSpriteÁ÷Á¢ ¾µ¶§´Â LockÇÒ°Í!! by ¾¦°«
+			if(p_guild_mark != NULL)	// ï¿½ï¿½!! CSpriteï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Lockï¿½Ò°ï¿½!! by ï¿½ï¿½ï¿½ï¿½
 			{
 				if(gpC_base->m_p_DDSurface_back->Lock())
 				{
@@ -23945,7 +23967,7 @@ void C_VS_UI_TEAM_LIST::Show()
 			g_FL2_ReleaseDC();
 		}
 	}
-	else	//µî·ÏµÈ list
+	else	//ï¿½ï¿½Ïµï¿½ list
 	{
 		for(int i = 0; i < 9; i++)
 		{
@@ -23970,7 +23992,7 @@ void C_VS_UI_TEAM_LIST::Show()
 			rect.top = m_print_y+i*m_print_gap-4;
 			//			rect.bottom = rect.top+20;
 			
-			// ±æµå ¸¶Å© Ãâ·Â
+			// ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½ï¿½ï¿½
 			CSprite *p_guild_mark;
 			p_guild_mark=g_pGuildMarkManager->GetGuildMarkSmall(info->guild_id);
 			if(p_guild_mark==NULL)
@@ -23979,7 +24001,7 @@ void C_VS_UI_TEAM_LIST::Show()
 				p_guild_mark = g_pGuildMarkManager->GetGuildMarkSmall(info->guild_id);			
 			}
 			POINT guild_point = { rect.left,rect.top };
-			if(p_guild_mark != NULL)	// ¾Ç!! CSpriteÁ÷Á¢ ¾µ¶§´Â LockÇÒ°Í!! by ¾¦°«
+			if(p_guild_mark != NULL)	// ï¿½ï¿½!! CSpriteï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Lockï¿½Ò°ï¿½!! by ï¿½ï¿½ï¿½ï¿½
 			{
 				if(gpC_base->m_p_DDSurface_back->Lock())
 				{
@@ -24201,7 +24223,7 @@ bool	C_VS_UI_TEAM_LIST::MouseControl(UINT message, int _x, int _y)
 					m_scroll = (m_v_ready_team_search_list.size()-9)*(_y - scroll_tag_y + scroll_tag_height/(m_v_ready_team_search_list.size()-9)/2)/scroll_tag_height;
 				}
 				else
-					if(m_v_ready_team_list.size() > 9)	// ½ºÅ©·ÑÀÌ »ı±â´Â °æ¿ì¿¡¸¸
+					if(m_v_ready_team_list.size() > 9)	// ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½
 					{
 						m_bl_scrolling = true;
 						m_scroll = (m_v_ready_team_list.size()-9)*(_y - scroll_tag_y + scroll_tag_height/(m_v_ready_team_list.size()-9)/2)/scroll_tag_height;
@@ -24209,13 +24231,13 @@ bool	C_VS_UI_TEAM_LIST::MouseControl(UINT message, int _x, int _y)
 			}
 			else
 			{
-				if(m_v_regist_team_search_list.size() > 9)	// ½ºÅ©·ÑÀÌ »ı±â´Â °æ¿ì¿¡¸¸
+				if(m_v_regist_team_search_list.size() > 9)	// ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½
 				{
 					m_bl_scrolling = true;
 					m_scroll = (m_v_regist_team_search_list.size()-9)*(_y - scroll_tag_y + scroll_tag_height/(m_v_regist_team_search_list.size()-9)/2)/scroll_tag_height;
 				}
 				else
-					if(m_v_regist_team_list.size() > 9)	// ½ºÅ©·ÑÀÌ »ı±â´Â °æ¿ì¿¡¸¸
+					if(m_v_regist_team_list.size() > 9)	// ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½
 					{
 						m_bl_scrolling = true;
 						m_scroll = (m_v_regist_team_list.size()-9)*(_y - scroll_tag_y + scroll_tag_height/(m_v_regist_team_list.size()-9)/2)/scroll_tag_height;
@@ -24343,7 +24365,7 @@ C_VS_UI_TEAM_MEMBER_LIST::C_VS_UI_TEAM_MEMBER_LIST()
 	
 	m_pC_scroll_bar = new C_VS_UI_SCROLL_BAR(0, Rect(w-25, m_print_y+15, -1, m_print_gap*12-30));
 	m_pC_scroll_bar->SetPosMax(0);
-	//CLOSE¹öÆ°
+	//CLOSEï¿½ï¿½Æ°
 	//m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(196, h-35, m_guild_member_list_spk.GetWidth(BUTTON_CLOSE), m_guild_member_list_spk.GetHeight(BUTTON_CLOSE), CLOSE_ID, this, BUTTON_CLOSE));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(296, h-35, m_guild_member_list_spk.GetWidth(BUTTON_CLOSE), m_guild_member_list_spk.GetHeight(BUTTON_CLOSE), CLOSE_ID, this, BUTTON_CLOSE));
 
@@ -24448,8 +24470,8 @@ void C_VS_UI_TEAM_MEMBER_LIST::Show()
 	int i = 0;
 	
 	
-	// ¼±±ß±â
-	for(i = 1; i < 12; i++)
+	// ï¿½ï¿½ï¿½ß±ï¿½
+	for(int i = 1; i < 12; i++)
 	{
 		gpC_base->m_p_DDSurface_back->HLine(x+10, y+m_print_y+m_print_gap*i, w-40, 0);
 	}	
@@ -24463,7 +24485,7 @@ void C_VS_UI_TEAM_MEMBER_LIST::Show()
 		guildNameY = 8;
 	}
 
-	// ±æµå¸¶Å© Ãâ·Â ºÎºĞ
+	// ï¿½ï¿½å¸¶Å© ï¿½ï¿½ï¿½ ï¿½Îºï¿½
 	CSprite *p_guild_mark;
 	p_guild_mark=g_pGuildMarkManager->GetGuildMarkSmall(g_char_slot_ingame.GUILD_ID);
 	if(p_guild_mark==NULL)
@@ -24500,7 +24522,7 @@ void C_VS_UI_TEAM_MEMBER_LIST::Show()
 //	g_PrintColorStr(x+m_print_x[0], y+m_print_y+8, menu_string[0], gpC_base->m_chatting_pi, RGB_YELLOW);
 //	g_PrintColorStr(x+m_print_x[1]-150, y+m_print_y+8, menu_string[1], gpC_base->m_chatting_pi, RGB_YELLOW);
 
-	for(i = 0; i<3; i++)
+	for(int i = 0; i<3; i++)
 	{
 		int TempValue = 30;
 		if(i == 2)
@@ -24516,9 +24538,9 @@ void C_VS_UI_TEAM_MEMBER_LIST::Show()
 	int ScrollPos = m_pC_scroll_bar->GetScrollPos();
 //	if(ScrollPos < 0)
 //		ScrollPos = -1;
-	for(i = 0; i < min(m_v_member_list.size()-ScrollPos, 11); i++)
+	for(int i = 0; i < min(m_v_member_list.size()-ScrollPos, 11); i++)
 	{
-		// Á¤·Ä 1 2 0 3
+		// ï¿½ï¿½ï¿½ï¿½ 1 2 0 3
 		// 0 : normal
 		// 1 : master
 		// 2 : sub master
@@ -24527,7 +24549,7 @@ void C_VS_UI_TEAM_MEMBER_LIST::Show()
 		
 		if(m_focus == i+ScrollPos)
 		{
-			// ±æµå¿ø ·Î±×¿ÂÀÎ°¡?
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½Î±×¿ï¿½ï¿½Î°ï¿½?
 		//	if(m_v_member_list[i+m_pC_scroll_bar->GetScrollPos()].bLogOn)
 		//		g_PrintColorStr(x+m_print_x[0]-10, y+m_print_y+m_print_gap*i+8, "*", gpC_base->m_chatting_pi, RGB_YELLOW);
 			
@@ -24861,17 +24883,18 @@ bool	C_VS_UI_TEAM_MEMBER_LIST::IsPixel(int _x, int _y)
 //-----------------------------------------------------------------------------
 void	C_VS_UI_TEAM_MEMBER_LIST::AddMemberList(const TEAM_MEMBER_LIST &member_list, BYTE bType)
 {
-	int convert_table[5] = { 2, 0, 1, 3, 4 }; // ¿ì¼±¼øÀ§
+	int convert_table[5] = { 2, 0, 1, 3, 4 }; // ï¿½ì¼±ï¿½ï¿½ï¿½ï¿½
 	
 	if(m_v_member_list.empty())
 		m_v_member_list.push_back(member_list);
 	else
 	{
-		for(int i = 0; i < m_v_member_list.size(); i++)
+		int i;
+		for(i = 0; i < m_v_member_list.size(); i++)
 		{
 			if(convert_table[member_list.member_grade] < convert_table[m_v_member_list[i].member_grade])
 			{
-				m_v_member_list.insert(&m_v_member_list[i], member_list);
+				m_v_member_list.insert(m_v_member_list.begin() + i, member_list);
 				break;
 			}
 		}
@@ -24879,18 +24902,18 @@ void	C_VS_UI_TEAM_MEMBER_LIST::AddMemberList(const TEAM_MEMBER_LIST &member_list
 			m_v_member_list.push_back(member_list);
 	}
 	
-	// ½ºÅ©·Ñ¹Ù ¼¼ÆÃÇØÁÖ±â
+	// ï¿½ï¿½Å©ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 	//m_pC_scroll_bar->SetPosMax(max(0, m_v_member_list.size() - 11 +1));
 	m_pC_scroll_bar->SetPosMax(max(0,m_v_member_list.size()-1));
 	m_pC_scroll_bar->SetScrollPos(0);
 	
-	SetAvailableRecall(bType); // ÀÌ°Ô 0ÀÌ ¾Æ´Ï¸é ±æ¿ø ¸®½ºÆ® º¼¶§ ³»°¡ ±æ¸¶¸é recall À» ÇØ¾ßÇÑ´Ù.
+	SetAvailableRecall(bType); // ï¿½Ì°ï¿½ 0ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½æ¸¶ï¿½ï¿½ recall ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 	///////////////////////////////////////////////////////////////
 	//
-	// ¸¶½ºÅÍ, ¼­ºê¸¶½ºÅÍ, È¸¿ø, ´ë±âÀÚ ¼øÀ¸·Î Á¤·ÄÇÏ´Â Å×ÀÌºí »ı¼º
-	// Á» ¹«½ÄÇÏÁö¸¸-_-;; 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ê¸¶ï¿½ï¿½ï¿½ï¿½, È¸ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-_-;; 
 	// 1 2 0 3	
-	// focus ÂüÁ¶ÇÒ¶§³ª ¼ø¼­ ´ë·Î Ãâ·ÂÇÒ¶§ ÂüÁ¶
+	// focus ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½ï¿½
 	//
 }
 
@@ -25274,7 +25297,7 @@ void	C_VS_UI_TEAM_LIST::Run(id_t id)
 		
 	case SEARCH_ID:
 		{
-			//¾îÂ¼±¸ ÀúÂ¼±¸
+			//ï¿½ï¿½Â¼ï¿½ï¿½ ï¿½ï¿½Â¼ï¿½ï¿½
 			m_scroll = 0;
 			char * p_temp = NULL;
 			g_Convert_DBCS_Ascii2SingleByte(m_lev_search.GetString(), m_lev_search.Size(), p_temp);
@@ -25305,7 +25328,7 @@ void	C_VS_UI_TEAM_LIST::Run(id_t id)
 						break;
 						
 					case SEARCH_ALL:
-						// ´ë±âÁßÀÎ ÆÀ ¸®½ºÆ®´Â Members, Ranking ÀÌ ¾ø´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Members, Ranking ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 						if(strstr(itr->TEAM_NAME.c_str(), p_temp) || strstr(itr->LEADER_NAME.c_str(), p_temp))
 							m_v_ready_team_search_list.push_back(*itr);
 						
@@ -25487,7 +25510,7 @@ void	C_VS_UI_FRIEND_INFO::Start(bool bl_set_load)
 //look by viva : friend show
 void	C_VS_UI_FRIEND_INFO::Show()
 {
-	const barHeight = scroll_down_y - (scroll_up_y+m_friend_spk.GetHeight(SCROLL_UP_BUTTON)) - m_friend_spk.GetHeight(SCROLL_TAG);
+	const int barHeight = scroll_down_y - (scroll_up_y+m_friend_spk.GetHeight(SCROLL_UP_BUTTON)) - m_friend_spk.GetHeight(SCROLL_TAG);
 
 	if(m_ButtonID_Down == KIND_ID)
 	{
@@ -26103,7 +26126,7 @@ void C_VS_UI_FRIEND_CHATTING_INFO::Show()
 		m_lev_send.SetPosition(x+history_x, y+145+40);
 	m_lev_send.Show();
 
-	std::string str = "Óë " + m_pList->Name + " ÁÄÌìÖĞ";
+	std::string str = "ï¿½ï¿½ " + m_pList->Name + " ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
 	g_FL2_GetDC();
 	if(g_eRaceInterface == RACE_VAMPIRE)
 		g_PrintColorStr(x+80+50,y+10+20, str.c_str(), gpC_base->m_chatting_pi, RGB_WHITE);
@@ -26129,7 +26152,7 @@ void C_VS_UI_FRIEND_CHATTING_INFO::Show()
 //	//		m_v_pHistory_List.push_back(pHistory);
 //		}
 //	}
-	const barHeight = scroll_down_y - (scroll_up_y+m_chatting_spk.GetHeight(SCROLL_UP_BUTTON)) - m_chatting_spk.GetHeight(SCROLL_TAG);
+	const int barHeight = scroll_down_y - (scroll_up_y+m_chatting_spk.GetHeight(SCROLL_UP_BUTTON)) - m_chatting_spk.GetHeight(SCROLL_TAG);
 	if(m_pList->blIsShow == 1)
 	{
 		while(m_scroll+9 < m_pList->m_v_pHistory_List.size())
@@ -26410,11 +26433,11 @@ C_VS_UI_TEAM_INFO::C_VS_UI_TEAM_INFO(bool ready, void *info, bool IsUnion)
 	
 	
 	
-	//help, x¹öÆ°
+	//help, xï¿½ï¿½Æ°
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + help_x, y + button_y, m_guild_spk.GetWidth(HELP_BUTTON), m_guild_spk.GetHeight(HELP_BUTTON), HELP_ID, this, HELP_BUTTON));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + x_x, y + button_y, m_guild_spk.GetWidth(X_BUTTON), m_guild_spk.GetHeight(X_BUTTON), X_ID, this, X_BUTTON));
 	
-	//scroll up, down ¹öÆ°
+	//scroll up, down ï¿½ï¿½Æ°
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + scroll_x, y + scroll_up_y, m_guild_spk.GetWidth(SCROLL_UP_BUTTON), m_guild_spk.GetHeight(SCROLL_UP_BUTTON), SCROLL_UP_ID, this, SCROLL_UP_BUTTON));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + scroll_x, y + scroll_down_y, m_guild_spk.GetWidth(SCROLL_DOWN_BUTTON), m_guild_spk.GetHeight(SCROLL_DOWN_BUTTON), SCROLL_DOWN_ID, this, SCROLL_DOWN_BUTTON));
 	
@@ -26434,7 +26457,7 @@ C_VS_UI_TEAM_INFO::C_VS_UI_TEAM_INFO(bool ready, void *info, bool IsUnion)
 		m_regist_info = *(REGIST_TEAM_INFO *)info;
 	}
 	
-	if(g_pUserInformation->GuildName.GetLength() > 0)		// ÆÀ¿¡ µî·Ï µÇ¾î ÀÖÀ¸¸é
+	if(g_pUserInformation->GuildName.GetLength() > 0)		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		const char *team_name = m_bl_ready ? m_ready_info.TEAM_NAME.c_str() : m_regist_info.TEAM_NAME.c_str();
 		const char *leader_name = m_bl_ready ? m_ready_info.LEADER_NAME.c_str() : m_regist_info.LEADER_NAME.c_str();
@@ -26444,45 +26467,45 @@ C_VS_UI_TEAM_INFO::C_VS_UI_TEAM_INFO(bool ready, void *info, bool IsUnion)
 			if(!strcmp(team_name,g_pUserInformation->GuildName.GetString()))
 			{
 				if(g_pUserInformation->GuildGrade == 1)// && !strcmp(leader_name,g_pUserInformation->)
-					// ÀÏ´Ü µî·ÏµÈ ÆÀÀ¸·Î ÇÑÁ¤ÇØµÎÀÚ.
+					// ï¿½Ï´ï¿½ ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½.
 					if(!m_bl_ready)
 					{
 						m_master = true;
-						// Modify ¹öÆ°. ±æµå ÀÌ¸§ÀÌ °°À¸¸é¼­ µî±ŞÀÌ 0ÀÌ¸é 
+						// Modify ï¿½ï¿½Æ°. ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½é¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½Ì¸ï¿½ 
 					}
 			}
-			else // ¿ì¸® ±æµå°¡ ¾Æ´Ò¶§
+			else // ï¿½ì¸® ï¿½ï¿½å°¡ ï¿½Æ´Ò¶ï¿½
 			{
-				if(!m_bl_ready && g_pUserInformation->GuildGrade == 1)// ³»°¡ ¸¶½ºÅÍ ÀÌ¸é
+				if(!m_bl_ready && g_pUserInformation->GuildGrade == 1)// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
 				{
-					if(g_pUserInformation->dwUnionID == 0 ) //¿¬ÇÕ ÁßÀÌ ¾Æ´Ï¸é
+					if(g_pUserInformation->dwUnionID == 0 ) //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½
 						m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+w-2, y+h-200, m_guild_spk.GetWidth(INDEX_UNITED_JOIN), m_guild_spk.GetHeight(INDEX_UNITED_JOIN), UNITED_JOIN_ID, this, INDEX_UNITED_JOIN));	
 					else
 					{
-						if(m_IsUnion && g_pUserInformation->bUnionGrade == 0 ) //¿¬ÇÕ ¸¶½ºÅÍ Ãß¹æ°¡´É Å»Åğ ºÒ°¡
+						if(m_IsUnion && g_pUserInformation->bUnionGrade == 0 ) //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß¹æ°¡ï¿½ï¿½ Å»ï¿½ï¿½ ï¿½Ò°ï¿½
 							m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+w-2, y+h-140, m_guild_spk.GetWidth(INDEX_UNITED_EXPEL), m_guild_spk.GetHeight(INDEX_UNITED_EXPEL), UNUTED_EXPEL_ID, this, INDEX_UNITED_EXPEL));	
-					//	else // Å»Åğ °¡´É Ãß¹æ ºÒ°¡
+					//	else // Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß¹ï¿½ ï¿½Ò°ï¿½
 					//		m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+w-2, y+h-170, m_guild_spk.GetWidth(INDEX_UNITED_WITHDRAWAL), m_guild_spk.GetHeight(INDEX_UNITED_WITHDRAWAL), UNITED_WITHDRAWAL_ID, this, INDEX_UNITED_WITHDRAWAL));	
 					}
 				}
 			}
 		}
-		if(m_master) // ¿ì¸® ±æµå°í ³»°¡ ¸¶½ºÅÍ ÀÏ‹š
+		if(m_master) // ï¿½ì¸® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï‹ï¿½
 		{
 			m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+w-2,y+h-49-30,m_guild_spk.GetWidth(MODIFY_BUTTON), m_guild_spk.GetHeight(MODIFY_BUTTON),MODIFY_ID, this, MODIFY_BUTTON));
-			if(m_IsUnion && g_pUserInformation->dwUnionID != 0 && g_pUserInformation->bUnionGrade != 0 ) //¿¬ÇÕ ÁßÀÌ°í ¿¬ÇÕ¸¶½ºÅÍ°¡ ¾Æ´Ò
+			if(m_IsUnion && g_pUserInformation->dwUnionID != 0 && g_pUserInformation->bUnionGrade != 0 ) //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½Õ¸ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Æ´ï¿½
 			{
 				m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+w-2, y+h-170, m_guild_spk.GetWidth(INDEX_UNITED_WITHDRAWAL), m_guild_spk.GetHeight(INDEX_UNITED_WITHDRAWAL), UNITED_WITHDRAWAL_ID, this, INDEX_UNITED_WITHDRAWAL));	
 			}
 
 		}
 	} 
-	else		// ¾î¶°ÇÑ ÆÀ¿¡µµ µî·ÏµÇ¾î ÀÖÁö ¾ÊÀ¸¸é.
+	else		// ï¿½î¶°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ÏµÇ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		if(g_pUserInformation->GuildName.GetLength() == 0)
 			m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+w-2, y+h-49-30, m_guild_spk.GetWidth(JOIN_BUTTON), m_guild_spk.GetHeight(JOIN_BUTTON), JOIN_ID, this, JOIN_BUTTON));
 
 	
-	//JOIN, CLOSE¹öÆ°	
+	//JOIN, CLOSEï¿½ï¿½Æ°	
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+w-2, y+h-49, m_guild_spk.GetWidth(CLOSE_BUTTON), m_guild_spk.GetHeight(CLOSE_BUTTON), CLOSE_ID, this, CLOSE_BUTTON));
 
 //	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+w-2, y+h-200, m_guild_spk.GetWidth(INDEX_UNITED_JOIN), m_guild_spk.GetHeight(INDEX_UNITED_JOIN), UNITED_JOIN_ID, this, INDEX_UNITED_JOIN));	
@@ -26625,10 +26648,10 @@ void C_VS_UI_TEAM_INFO::Show()
 		
 		if(m_scroll < 3)
 		{
-			// ¼ıÀÚ»çÀÌ¿¡ ,³Ö±â
+			// ï¿½ï¿½ï¿½Ú»ï¿½ï¿½Ì¿ï¿½ ,ï¿½Ö±ï¿½
 			wsprintf(sz_string, "%d", m_ready_info.REG_FEE);
 			std::string sstr = sz_string;
-			for(i = 3; i <= 13; i += 4)
+			for(int i = 3; i <= 13; i += 4)
 				if(sstr.size() > i)sstr.insert(sstr.size()-i, ",");
 				
 				wsprintf(sz_string, (*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_REG_FEE].GetString(), sstr.c_str());
@@ -26643,7 +26666,7 @@ void C_VS_UI_TEAM_INFO::Show()
 		bool b_member_num = false;
 		
 		gpC_base->m_p_DDSurface_back->HLine(print_x, py+line_gap, w - (print_x - x) -30, 0);
-		for(i = 0; i < m_ready_info.MEMBERS_NAME.size(); i++)
+		for(int i = 0; i < m_ready_info.MEMBERS_NAME.size(); i++)
 		{
 			if(g_GetStringWidth(m_ready_info.MEMBERS_NAME[i].c_str(), gpC_base->m_chatting_pi.hfont)+vx > x+w-30)
 			{
@@ -26690,7 +26713,7 @@ void C_VS_UI_TEAM_INFO::Show()
 			
 			char *sz_string2 = sz_string;
 			
-			while(*sz_string2 == ' ')		// ¾ÕÀÇ °ø¹éÁ¦°Å
+			while(*sz_string2 == ' ')		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				sz_string2++;
 				next++;
@@ -26702,7 +26725,7 @@ void C_VS_UI_TEAM_INFO::Show()
 			sz_string2[cut_pos] = NULL;
 			
 			char *return_char = NULL;
-			if((return_char = strchr(sz_string2, '\n')) != NULL)	// return Ã³¸®
+			if((return_char = strchr(sz_string2, '\n')) != NULL)	// return Ã³ï¿½ï¿½
 			{
 				cut_pos = return_char - sz_string2+1;
 				sz_string2[cut_pos-1] = NULL;
@@ -26932,7 +26955,7 @@ bool	C_VS_UI_TEAM_INFO::MouseControl(UINT message, int _x, int _y)
 	case M_LB_DOUBLECLICK:
 		if(_x >= scroll_tag_x && _x <= scroll_tag_x+m_guild_spk.GetWidth(SCROLL_BAR) && _y >= scroll_tag_y && _y <= scroll_tag_y+scroll_tag_height)
 		{
-			//			if(m_v_ready_team_list.size() > 9)	// ½ºÅ©·ÑÀÌ »ı±â´Â °æ¿ì¿¡¸¸
+			//			if(m_v_ready_team_list.size() > 9)	// ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½
 			{
 				m_bl_scrolling = true;
 				m_scroll = (m_scroll_max)*(_y - scroll_tag_y + scroll_tag_height/(m_scroll_max)/2)/scroll_tag_height;
@@ -26987,7 +27010,7 @@ C_VS_UI_TEAM_INFO::REGIST_TEAM_INFO		C_VS_UI_TEAM_INFO::m_regist_info;
 void ExecF_united(C_VS_UI_DIALOG * p_this_dialog, id_t id)
 {
 	if(id == 0)
-		gpC_base->SendMessage(UI_REQUEST_UNION, C_VS_UI_TEAM_INFO::GetGuildId(), 0); // ¿¬ÇÕ±æµå ½ÅÃ» 
+		gpC_base->SendMessage(UI_REQUEST_UNION, C_VS_UI_TEAM_INFO::GetGuildId(), 0); // ï¿½ï¿½ï¿½Õ±ï¿½ï¿½ ï¿½ï¿½Ã» 
 }
 
 void ExecF_united_draw(C_VS_UI_DIALOG * p_this_dialog, id_t id) 
@@ -27014,7 +27037,7 @@ void ExecF_united_draw(C_VS_UI_DIALOG * p_this_dialog, id_t id)
 void ExecF_united_exper(C_VS_UI_DIALOG * p_this_dialog, id_t id)
 {
 	if(id == 0)
-		gpC_base->SendMessage(UI_REQUEST_UNION_EXPERGUILD, C_VS_UI_TEAM_INFO::GetGuildId(), 0); // ¿¬ÇÕ±æµå ½ÅÃ» 
+		gpC_base->SendMessage(UI_REQUEST_UNION_EXPERGUILD, C_VS_UI_TEAM_INFO::GetGuildId(), 0); // ï¿½ï¿½ï¿½Õ±ï¿½ï¿½ ï¿½ï¿½Ã» 
 }
 
 
@@ -27028,13 +27051,13 @@ void	C_VS_UI_TEAM_INFO::Run(id_t id)
 
 
 	
-	DIALOG_MENU d_menu[] = {	{"¿¹", 0},
-								{"¾Æ´Ï¿À", DIALOG_EXECID_EXIT},
+	DIALOG_MENU d_menu[] = {	{"ï¿½ï¿½", 0},
+								{"ï¿½Æ´Ï¿ï¿½", DIALOG_EXECID_EXIT},
 	};
 
 	DIALOG_MENU d_menu2[] = {	{(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_LEAVE_MSG].GetString(), 0},
 								{(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_LEAVE_MSG2].GetString(), 1},
-								{"¾Æ´Ï¿À", DIALOG_EXECID_EXIT},
+								{"ï¿½Æ´Ï¿ï¿½", DIALOG_EXECID_EXIT},
 	};
 	
 	static char * pp_dmsg_union[] = { (*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_JOIN_ASK].GetString() };
@@ -27156,31 +27179,31 @@ C_VS_UI_TEAM_MEMBER_INFO::C_VS_UI_TEAM_MEMBER_INFO(MEMBER_INFO *info)
 	
 	
 	
-	//help, x¹öÆ°
+	//help, xï¿½ï¿½Æ°
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + help_x, y + button_y, m_guild_member_spk.GetWidth(HELP_BUTTON), m_guild_member_spk.GetHeight(HELP_BUTTON), HELP_ID, this, HELP_BUTTON));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + x_x, y + button_y, m_guild_member_spk.GetWidth(X_BUTTON), m_guild_member_spk.GetHeight(X_BUTTON), X_ID, this, X_BUTTON));
 	
-	//scroll up, down ¹öÆ°
+	//scroll up, down ï¿½ï¿½Æ°
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + scroll_x, y + scroll_up_y, m_guild_member_spk.GetWidth(SCROLL_UP_BUTTON), m_guild_member_spk.GetHeight(SCROLL_UP_BUTTON), SCROLL_UP_ID, this, SCROLL_UP_BUTTON));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + scroll_x, y + scroll_down_y, m_guild_member_spk.GetWidth(SCROLL_DOWN_BUTTON), m_guild_member_spk.GetHeight(SCROLL_DOWN_BUTTON), SCROLL_DOWN_ID, this, SCROLL_DOWN_BUTTON));
 	
-	//JOIN, CLOSE¹öÆ°
+	//JOIN, CLOSEï¿½ï¿½Æ°
 	//	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+w-2, y+h-49-30, m_guild_member_spk.GetWidth(JOIN_BUTTON), m_guild_member_spk.GetHeight(JOIN_BUTTON), JOIN_ID, this, JOIN_BUTTON));
-	// ³»°¡ ±æ¸¶ÀÌ¸é
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½æ¸¶ï¿½Ì¸ï¿½
 	if(g_pUserInformation->GuildGrade == 1 || g_pUserInformation->GuildGrade == 2)
 	{
-		if(info->GRADE == 3)	// ´ë±âÀÚÀÎ°æ¿ì
+		if(info->GRADE == 3)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½
 		{
 			m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+w-2, y+h-49-60, m_guild_member_spk.GetWidth(ACCEPT_BUTTON), m_guild_member_spk.GetHeight(ACCEPT_BUTTON), ACCEPT_ID, this, ACCEPT_BUTTON));
 			
-			if(g_pUserInformation->GuildGrade == 1)	// denyµµ ¸¶½ºÅÍ¸¸ µÈ´Ù
+			if(g_pUserInformation->GuildGrade == 1)	// denyï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½È´ï¿½
 				m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+w-2, y+h-49-90, m_guild_member_spk.GetWidth(DENY_BUTTON), m_guild_member_spk.GetHeight(DENY_BUTTON), DENY_ID, this, DENY_BUTTON));
 		}
-		else if(info->GRADE != 1 && g_pUserInformation->GuildGrade == 1)	// Ãß¹æÀº ¸¶½ºÅÍ¸¸ µÈ´Ù
+		else if(info->GRADE != 1 && g_pUserInformation->GuildGrade == 1)	// ï¿½ß¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½È´ï¿½
 		{
 			m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+w-2, y+h-49-60, m_guild_member_spk.GetWidth(EXPEL_BUTTON), m_guild_member_spk.GetHeight(EXPEL_BUTTON), EXPEL_ID, this, EXPEL_BUTTON));
 
-			if(info->GRADE != 2) // ¼­ºê¸¶½ºÅÍ°¡ ¾Æ´Ï¸é ÀÓ¸í ¹öÆ°
+			if(info->GRADE != 2) // ï¿½ï¿½ï¿½ê¸¶ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½Ó¸ï¿½ ï¿½ï¿½Æ°
 				m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+w-2, y+h-49-90, m_guild_member_spk.GetWidth(INDEX_GUILD_APPOINT), m_guild_member_spk.GetHeight(INDEX_GUILD_APPOINT), APPOINT_ID, this, INDEX_GUILD_APPOINT));
 		}
 	}
@@ -27192,7 +27215,7 @@ C_VS_UI_TEAM_MEMBER_INFO::C_VS_UI_TEAM_MEMBER_INFO(MEMBER_INFO *info)
 	
 	m_member_info = *info;
 	
-	// Ä³¸¯ÅÍ ÀÌ¸§°ú ¼±ÅÃÇÑ Á¤º¸ÀÇ ÀÌ¸§ÀÌ °°À¸¸é ÀÚ±â ÀÚ½Å Á¤º¸ÀÌ´Ù.
+	// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú±ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 	if(!strcmp(m_member_info.NAME.c_str(),g_char_slot_ingame.sz_name.c_str()))
 		m_own_info = true;
 
@@ -27343,7 +27366,7 @@ void C_VS_UI_TEAM_MEMBER_INFO::Show()
 		
 		char *sz_string2 = sz_string;
 		
-		while(*sz_string2 == ' ')		// ¾ÕÀÇ °ø¹éÁ¦°Å
+		while(*sz_string2 == ' ')		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			sz_string2++;
 			next++;
@@ -27356,7 +27379,7 @@ void C_VS_UI_TEAM_MEMBER_INFO::Show()
 		sz_string2[cut_pos] = NULL;
 		
 		char *return_char = NULL;
-		if((return_char = strchr(sz_string2, '\n')) != NULL)	// return Ã³¸®
+		if((return_char = strchr(sz_string2, '\n')) != NULL)	// return Ã³ï¿½ï¿½
 		{
 			cut_pos = return_char - sz_string2+1;
 			sz_string2[cut_pos-1] = NULL;
@@ -27385,8 +27408,8 @@ void C_VS_UI_TEAM_MEMBER_INFO::Show()
 		py += print_gap;
 	}
 	m_pC_button_group->ShowDescription();
-	/*					 ±æµå ¸â¹ö Á¤º¸¿¡ ±æµå¸¶Å© x
-	// ±æµå ¸¶Å© Ãâ·Â
+	/*					 ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½å¸¶Å© x
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½ï¿½ï¿½
 	CSprite *p_guild_mark;
 	p_guild_mark=g_pGuildMarkManager->GetGuildMark(m_member_info.guild_id);
 	if(p_guild_mark==NULL)
@@ -27551,18 +27574,18 @@ bool	C_VS_UI_TEAM_MEMBER_INFO::IsPixel(int _x, int _y)
 	}
 	if(re == false && g_pUserInformation->GuildGrade == 1 || g_pUserInformation->GuildGrade == 2)
 	{
-		if(m_member_info.GRADE == 3)	// ´ë±âÀÚÀÏ¶§
+		if(m_member_info.GRADE == 3)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½
 		{
 			if(m_guild_member_spk.IsPixel(_x - (x+w-2), _y - (y+h-49-60), ACCEPT_BUTTON) ||
 				m_guild_member_spk.IsPixel(_x - (x+w-2), _y - (y+h-49-90), DENY_BUTTON))
 			re = true;
 		}
-		else if(m_member_info.GRADE != 1 && g_pUserInformation->GuildGrade == 1) // ³»°¡ ¸¶½ºÅÍ ÀÏ¶§¸¸ Ãß¹æ
+		else if(m_member_info.GRADE != 1 && g_pUserInformation->GuildGrade == 1) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¶ï¿½ï¿½ï¿½ ï¿½ß¹ï¿½
 		{
-			// Ãß¹æ ¹öÆ°
+			// ï¿½ß¹ï¿½ ï¿½ï¿½Æ°
 			if(m_guild_member_spk.IsPixel(_x - (x+w-2), _y - (y+h-49-60), EXPEL_BUTTON))// ||
 				re = true;
-			if(m_member_info.GRADE != 2) // ¼­ºê¸¶½ºÅÍ°¡ ¾Æ´Ï¸é ÀÓ¸í ¹öÆ°
+			if(m_member_info.GRADE != 2) // ï¿½ï¿½ï¿½ê¸¶ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½Ó¸ï¿½ ï¿½ï¿½Æ°
 				if(m_guild_member_spk.IsPixel(_x - (x+w-2), _y - (y+h-49-90), INDEX_GUILD_APPOINT))// ||
 					re = true;
 
@@ -27730,11 +27753,11 @@ C_VS_UI_TEAM_REGIST::C_VS_UI_TEAM_REGIST(bool member, int reg_fee, int rank, cha
 	m_pC_button_group = new ButtonGroup(this);
 	
 	
-	//help, x¹öÆ°
+	//help, xï¿½ï¿½Æ°
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + help_x, y + button_y, m_guild_spk.GetWidth(HELP_BUTTON), m_guild_spk.GetHeight(HELP_BUTTON), HELP_ID, this, HELP_BUTTON));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + x_x, y + button_y, m_guild_spk.GetWidth(X_BUTTON), m_guild_spk.GetHeight(X_BUTTON), X_ID, this, X_BUTTON));
 	
-	//REGIST, CLOSE¹öÆ°
+	//REGIST, CLOSEï¿½ï¿½Æ°
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(button_x, regist_y, m_guild_spk.GetWidth(REGISTER_BUTTON), m_guild_spk.GetHeight(REGISTER_BUTTON), REGIST_ID, this, REGISTER_BUTTON));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(button_x, close_y, m_guild_spk.GetWidth(CLOSE_BUTTON), m_guild_spk.GetHeight(CLOSE_BUTTON), CLOSE_ID, this, CLOSE_BUTTON));
 	
@@ -27899,7 +27922,7 @@ void C_VS_UI_TEAM_REGIST::Show()
 		gpC_base->m_p_DDSurface_back->HLine(m_print_x, py+line_gap, w - (m_print_x - x) -30, 0);
 		py += m_print_gap;
 		
-		// ¼ıÀÚ»çÀÌ¿¡ ,³Ö±â
+		// ï¿½ï¿½ï¿½Ú»ï¿½ï¿½Ì¿ï¿½ ,ï¿½Ö±ï¿½
 		if(m_reg_fee != 0)
 		{
 			wsprintf(sz_string, "%d", m_reg_fee);
@@ -27935,7 +27958,7 @@ void C_VS_UI_TEAM_REGIST::Show()
 	}
 	else	// team regist
 	{
-		//ÆÄÀÏ ¹Ş¾Æ¿À±â
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½Ş¾Æ¿ï¿½ï¿½ï¿½
 		//		if(gC_vs_ui.GetFileName())
 		//		{
 		//			m_guild_mark = new CDirectDrawSurface;
@@ -27959,7 +27982,7 @@ void C_VS_UI_TEAM_REGIST::Show()
 			gpC_base->m_p_DDSurface_back->Unlock();
 		}
 		
-		// ±æµå ¸¶Å© Âï±â
+		// ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½ï¿½ï¿½
 		//		if(m_guild_mark == NULL)
 		//		{
 		//			RECT rect;
@@ -27986,7 +28009,7 @@ void C_VS_UI_TEAM_REGIST::Show()
 		gpC_base->m_p_DDSurface_back->HLine(m_print_x, py+line_gap, w - (m_print_x - x) -30+vampire_width, 0);
 		py += m_print_gap;
 		
-		// ¼ıÀÚ»çÀÌ¿¡ ,³Ö±â
+		// ï¿½ï¿½ï¿½Ú»ï¿½ï¿½Ì¿ï¿½ ,ï¿½Ö±ï¿½
 		wsprintf(sz_string, "%d", m_reg_fee);
 		std::string sstr = sz_string;
 		for(int i = 3; i <= 13; i += 4)
@@ -28041,7 +28064,7 @@ void C_VS_UI_TEAM_REGIST::Show()
 			gpC_base->m_p_DDSurface_back->HLine(m_print_x, py+line_gap, w - (m_print_x - x) -30+vampire_width, 0);
 			py += m_print_gap;
 		}
-		// ½½·¹ÀÌ¾î°¡ ÇÑÁÙ ¸ğÀÚ¸£´õ¶ó .-_-
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ .-_-
 		if(g_eRaceInterface == RACE_SLAYER)
 		{
 			gpC_base->m_p_DDSurface_back->HLine(m_print_x, py+line_gap, w - (m_print_x - x) -30+vampire_width, 0);
@@ -28181,7 +28204,7 @@ bool	C_VS_UI_TEAM_REGIST::MouseControl(UINT message, int _x, int _y)
 		//		{
 		//			if(m_bl_ready)
 		//			{
-		//				if(m_v_ready_team_list.size() > 9)	// ½ºÅ©·ÑÀÌ »ı±â´Â °æ¿ì¿¡¸¸
+		//				if(m_v_ready_team_list.size() > 9)	// ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½
 		//				{
 		//					m_bl_scrolling = true;
 		//					m_scroll = (m_v_ready_team_list.size()-9)*(_y - scroll_tag_y + scroll_tag_height/(m_v_ready_team_list.size()-9)/2)/scroll_tag_height;
@@ -28278,7 +28301,7 @@ void	C_VS_UI_TEAM_REGIST::Run(id_t id)
 				m_introduction = sz_intro;
 				m_team_name = sz_team_name;
 				
-				gpC_base->SendMessage(UI_REGIST_GUILD_TEAM, (int)m_team_name.c_str(), 0, (void *)m_introduction.c_str());
+				gpC_base->SendMessage(UI_REGIST_GUILD_TEAM, (int)(intptr_t)m_team_name.c_str(), 0, (void *)m_introduction.c_str());
 				
 				DeleteNew(sz_intro);
 				DeleteNew(sz_team_name);
@@ -28330,7 +28353,7 @@ C_VS_UI_OTHER_INFO::C_VS_UI_OTHER_INFO()
 	AttrTopmost(false);
 	
 	g_RegisterWindow(this);
-	//close¹öÆ° ÁÂÇ¥ ¼¼ÆÃ
+	//closeï¿½ï¿½Æ° ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½
 	int close_x = w-24, close_y = h-19;
 	int help_x = w-24-20, help_y = h-19;		
 	int alpha_x = 6, alpha_y = h-21;
@@ -28344,7 +28367,7 @@ C_VS_UI_OTHER_INFO::C_VS_UI_OTHER_INFO()
 		alpha_y -= 5;
 	}	
 	
-	//°øÅë¹öÆ°
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Æ°
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(close_x, close_y, gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::BUTTON_CLOSE), gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::BUTTON_CLOSE), CLOSE_ID, this, C_GLOBAL_RESOURCE::BUTTON_CLOSE));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(help_x, help_y, gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::BUTTON_HELP), gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::BUTTON_HELP), HELP_ID, this, C_GLOBAL_RESOURCE::BUTTON_HELP));
@@ -28507,7 +28530,7 @@ void	C_VS_UI_OTHER_INFO::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 		else
 			gpC_global_resource->m_pC_assemble_box_button_spk->BltLocked(p_button->x+x, p_button->y+y, C_GLOBAL_RESOURCE::AB_BUTTON_ALPHA_PUSHED);
 	}
-	//Close¹öÆ°
+	//Closeï¿½ï¿½Æ°
 	else if(p_button->GetID() == CLOSE_ID || p_button->GetID() == HELP_ID)
 	{
 		gpC_global_resource->m_pC_info_spk->BltLocked(x+p_button->x-5, y+p_button->y-5, C_GLOBAL_RESOURCE::BUTTON_CLOSE_BACK);
@@ -28699,7 +28722,7 @@ bool	C_VS_UI_OTHER_INFO::MouseControl(UINT message, int _x, int _y)
 					} else
 					if(_x>86 && _y>79 && _x < 184 && _y < 94)
 					{
-						// Ä³¸¯ÅÍ ÀÌ¸§
+						// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
 	//					DEBUG_ADD("[ OtherInfo ] MouseControl - Character Name [S]");
 						static char name[50];
 						wsprintf(name,"%s%s",(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_NAME].GetString(),m_player_info.PLAYER_NAME.c_str());
@@ -28726,7 +28749,7 @@ bool	C_VS_UI_OTHER_INFO::MouseControl(UINT message, int _x, int _y)
 					/*if(_x>120&&_y>175&&_x<186&&_y<215)
 					{
 						static char temp_str[20];
-						// À½¼ö ¿©ºÎ ÆÇ´ÜÇØ¼­ + ¸¦ Ãâ·ÂÇÏÁö ¾Ê°Ô ÇØÁØ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½Ø¼ï¿½ + ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 						if(m_player_info.ALIGNMENT_NUM > 0 )
 							wsprintf(temp_str, "(+%d)",m_player_info.ALIGNMENT_NUM);
 						else
@@ -28794,7 +28817,7 @@ bool	C_VS_UI_OTHER_INFO::MouseControl(UINT message, int _x, int _y)
 			case RACE_OUSTERS :
 			case RACE_VAMPIRE:
 				{
-					// ¹ìÆÄÀÌ¾î °è±Ş
+					// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½
 					const static char* grade[10] = 
 					{
 						(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_RITTER].GetString(),
@@ -28822,10 +28845,10 @@ bool	C_VS_UI_OTHER_INFO::MouseControl(UINT message, int _x, int _y)
 						(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_CHOKMA].GetString(),
 						(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_KEATHER].GetString(),
 					};
-					// °è±Ş, ±æµå, ·¹º§ºÎºĞ Description
+					// ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ Description
 					if(_x>guildmark_rect.left && _x < guildmark_rect.right && _y > guildmark_rect.top && _y < guildmark_rect.bottom)
 					{
-						// ÆÀ ÀÌ¸§ÀÌ ºñÁö ¾Ê¾ÒÀ¸¸é.
+						// ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½.
 						//if(m_player_info.TEAM_NAME.size()>0)###@@@
 						if( g_pGuildInfoMapper->IsExistGuildName( m_player_info.guild_id ) )
 						{
@@ -28882,7 +28905,7 @@ bool	C_VS_UI_OTHER_INFO::MouseControl(UINT message, int _x, int _y)
 						case 2 : // level
 							{
 	//							DEBUG_ADD("[ OtherInfo ] MouseControl - Level");
-								// -_- »à½Î¸®. ÅøÆÁ ¿·ºÎºÎºĞ ³ª°¡±æ·¡ ÀÓ½Ã·Î ¸·¾Æ³õÀ½... ¾Æ·¡ str ÂÊÀ¸·Î »©ÀÚ.
+								// -_- ï¿½ï¿½Î¸ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÎºÎºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½æ·¡ ï¿½Ó½Ã·ï¿½ ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½... ï¿½Æ·ï¿½ str ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 								if(_x > 101)
 									return true;
 								wsprintf(temp_str[0],"%s: %d",(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_LEVEL].GetString(),m_player_info.LEVEL);
@@ -28891,7 +28914,7 @@ bool	C_VS_UI_OTHER_INFO::MouseControl(UINT message, int _x, int _y)
 						default :
 							str_g[0] = NULL;
 						}
-						// µÎ¹øÂ°ÁÙÀÌ NULL ÀÌ ¾Æ´Ï¸é µÎÁÙÀ» Ãâ·ÂÇÏµµ·Ï ÇÑ´Ù.
+						// ï¿½Î¹ï¿½Â°ï¿½ï¿½ï¿½ï¿½ NULL ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 						if(str_g[0] != NULL)
 						{
 							if(str_g[1]!=NULL)
@@ -28900,10 +28923,10 @@ bool	C_VS_UI_OTHER_INFO::MouseControl(UINT message, int _x, int _y)
 								g_descriptor_manager.Set(DID_STRINGS, x+_x, y+_y, (void *)str_g,1);
 						}
 
-					} else			// Ä³¸¯ÅÍ ÀÌ¸§.
+					} else			// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½.
 					if(_x>86 && _y>79 && _x < 184 && _y < 94)
 					{
-						// Ä³¸¯ÅÍ ÀÌ¸§ 
+						// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ 
 						static char name[30];
 	//					DEBUG_ADD("[ OtherInfo ] MouseControl - CharacterName");
 						wsprintf(name,"%s%s",(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_NAME].GetString(),m_player_info.PLAYER_NAME.c_str());
@@ -28911,7 +28934,7 @@ bool	C_VS_UI_OTHER_INFO::MouseControl(UINT message, int _x, int _y)
 							name,
 						};
 						g_descriptor_manager.Set(DID_STRINGS, x+_x, y+_y, (void *)str,1);
-					} else				// °è±Ş ¸¶Å©
+					} else				// ï¿½ï¿½ï¿½ ï¿½ï¿½Å©
 					if(_x>grade_rect.left && _x < grade_rect.right && _y > grade_rect.top && _y < grade_rect.bottom && 
 						m_player_info.GRADE > 0 && m_player_info.GRADE <= GRADE_MARK_MAX )
 						
@@ -28927,11 +28950,11 @@ bool	C_VS_UI_OTHER_INFO::MouseControl(UINT message, int _x, int _y)
 							temp_str[1],
 						};
 						g_descriptor_manager.Set(DID_STRINGS, x+_x, y+_y, (void *)str_s,2);
-					} /*else				// ¼ºÇâ
+					} /*else				// ï¿½ï¿½ï¿½ï¿½
 					if(_x>120&&_y>145&&_x<186&&_y<175)
 					{
 						static char temp_str[20];					
-						// À½¼ö ¿©ºÎ ÆÇ´ÜÇØ¼­ + ¸¦ Ãâ·ÂÇÏÁö ¾Ê°Ô ÇØÁØ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½Ø¼ï¿½ + ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 						if(m_player_info.ALIGNMENT_NUM>0)
 							wsprintf(temp_str, "(+%d)",m_player_info.ALIGNMENT_NUM);
 						else
@@ -29055,25 +29078,25 @@ void	C_VS_UI_OTHER_INFO::Show()
 			int field_y = 100;
 			int bar_height = gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::LARGE_BAR);	
 			int bar_width = gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::LARGE_BAR),x_gap_from_image=30;
-			// ÀÌ¸§ GRADE,TEAM,LEVEL,FAMEºÎºĞ
+			// ï¿½Ì¸ï¿½ GRADE,TEAM,LEVEL,FAMEï¿½Îºï¿½
 			
 			field_rect.left=x+field_x+x_gap_from_image;
 			field_rect.right=field_rect.left+bar_width;
 			field_rect.top=y+field_y-3;		
 			
-			for(i=0; i < 4; i++)
+			for(int i=0; i < 4; i++)
 			{			
 				field_rect.bottom=field_rect.top+bar_height;
 				gpC_base->m_p_DDSurface_back->FillRect(&field_rect, 0);			
 				field_rect.top+=field_gap;
 			}
 
-			// STR,DEX,INT ºÎºĞ
+			// STR,DEX,INT ï¿½Îºï¿½
 			bar_height = gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::SMALL_BAR2);	
 			bar_width = gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::SMALL_BAR2);
 			field_rect.right=field_rect.left+bar_width-19;
 			
-			for(i=0; i < 3; i++)
+			for(int i=0; i < 3; i++)
 			{	
 				field_rect.bottom=field_rect.top+bar_height;
 				gpC_base->m_p_DDSurface_back->FillRect(&field_rect, 0);			
@@ -29093,17 +29116,17 @@ void	C_VS_UI_OTHER_INFO::Show()
 			field_rect.bottom=field_rect.top+gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::LARGE_BAR);
 			gpC_base->m_p_DDSurface_back->FillRect(&field_rect, 0);
 
-			// ¸ğ¾Æ¼­
+			// ï¿½ï¿½Æ¼ï¿½
 			if(gpC_base->m_p_DDSurface_back->Lock())
 			{	
 	//			DEBUG_ADD("[ OtherInfo ] Show Slayer Face");
-				// ¾ó±¼ 
+				// ï¿½ï¿½ 
 	//			if(m_p_face)
 				{
 					Rect Face_rect(face_rect.left-2,face_rect.top-2,59,74);
 					gpC_global_resource->m_pC_info_spk->BltLocked(face_rect.left-1,face_rect.top-1, C_GLOBAL_RESOURCE::CHAR_BOX);
 					
-					//¾ó±¼ Âï±â
+					//ï¿½ï¿½ ï¿½ï¿½ï¿½
 					POINT point = {face_rect.left,face_rect.top};
 					
 					if(m_p_face && m_p_face->GetSize() > 0)
@@ -29143,7 +29166,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 				gpC_base->m_p_DDSurface_back->VLine(guild_point.x+40,guild_point.y,40,DARKGRAY);
 				gpC_base->m_p_DDSurface_back->Lock();
 	*/
-				// ±æµå ¸¶Å© Ãâ·Â. ±æµå ¸¶Å©´Â SetOtherInfo ¿¡¼­ ¹Ì¸® ÀĞ¾î¿È.
+				// ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ SetOtherInfo ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½Ğ¾ï¿½ï¿½.
 				if(m_p_guild_mark!=NULL)
 					gpC_base->m_p_DDSurface_back->BltSprite(&guild_point, m_p_guild_mark);
 
@@ -29164,7 +29187,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field_x+x_gap_from_image+gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::LARGE_BAR), y+field_y-3, C_GLOBAL_RESOURCE::LARGE_BAR_RIGHT);
 				field_y+=field_gap;
 				
-				// LEVEL Àº DomainLevel ¿¡¼­ Cut ÇØ¼­ Âï´Â´Ù. ÈåÈå-.-
+				// LEVEL ï¿½ï¿½ DomainLevel ï¿½ï¿½ï¿½ï¿½ Cut ï¿½Ø¼ï¿½ ï¿½ï¿½Â´ï¿½. ï¿½ï¿½ï¿½ï¿½-.-
 				clip_name.Set(27,0,gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::TITLE_DOMAINLEVEL)-27,gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::TITLE_DOMAINLEVEL));
 				gpC_global_resource->m_pC_info_spk->BltLockedClip(x +field_x-28, y+field_y+2,clip_name, C_GLOBAL_RESOURCE::TITLE_DOMAINLEVEL);
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field_x+x_gap_from_image, y+field_y-3, C_GLOBAL_RESOURCE::LARGE_BAR);
@@ -29178,7 +29201,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 				
 				clip_name.Set(0,0,bar_width-22,bar_height);
 				
-				for(i=0; i < 3; i++)
+				for(int i=0; i < 3; i++)
 				{
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field_x, y+field_y+2, C_GLOBAL_RESOURCE::TITLE_STR+i);				
 					gpC_global_resource->m_pC_info_spk->BltLockedClip(x +field_x+x_gap_from_image, y+field_y-3, clip_name,C_GLOBAL_RESOURCE::LARGE_BAR);				
@@ -29196,8 +29219,8 @@ void	C_VS_UI_OTHER_INFO::Show()
 				m_pC_button_group->Show();
 				gpC_base->m_p_DDSurface_back->Unlock();
 
-				// Lock ÇØµµ »ó°ü¾ø³ª?-_- ÀÏ´Ü Unlock »óÅÂ¿¡¼­ ÇØÁà¾ß ÇÏ±â ¶§¹®¿¡ µÚ·Î »©³õÀ½.
-				// ±æµå¸¶Å© Å×µÎ¸®
+				// Lock ï¿½Øµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?-_- ï¿½Ï´ï¿½ Unlock ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+				// ï¿½ï¿½å¸¶Å© ï¿½×µÎ¸ï¿½
 
 				if(m_p_guild_mark!=NULL)
 				{
@@ -29207,7 +29230,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 					gpC_base->m_p_DDSurface_back->VLine(guild_point.x+40,guild_point.y,40,DARKGRAY);
 				}
 
-				// °è±Ş ¸¶Å© Å×µÎ¸®
+				// ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½×µÎ¸ï¿½
 				if(GradeMark!=NULL)
 				{
 					gpC_base->m_p_DDSurface_back->HLine(grade_point.x-1,grade_point.y-1,42,GRAY);
@@ -29225,14 +29248,14 @@ void	C_VS_UI_OTHER_INFO::Show()
 
 			field_y=80;			
 			
-			// ÀÌ¸§
+			// ï¿½Ì¸ï¿½
 			//if(m_player_info.PLAYER_NAME.size()>0)###@@@
 			if(!m_player_info.PLAYER_NAME.empty())
 				g_PrintColorStr(x+85+3,y+field_y+1,m_player_info.PLAYER_NAME.c_str(), gpC_base->m_chatting_pi, RGB_WHITE);
 			
 			field_y+=field_gap;
 			
-			// °è±ŞÀº 1ºÎÅÍ 50±îÁöÀÇ °ªÀÌ µé¾î¿À¹Ç·Î °è»ê½Ã -1ÇØÁÖ±â.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ 50ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ -1ï¿½ï¿½ï¿½Ö±ï¿½.
 			// Grade
 			if(m_player_info.GRADE > 0 && m_player_info.GRADE <= GRADE_MARK_MAX )		
 				g_PrintColorStr(x+field_x+x_gap_from_image+3,y+field_y+1,grade[(m_player_info.GRADE-1)/5], gpC_base->m_chatting_pi, RGB_WHITE);
@@ -29248,7 +29271,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 			
 			field_y+=field_gap;
 			
-			// SkillDef.h ¿¡ Á¤ÀÇµÇ¾îÀÖ´Â enum ¼ø¼­´ë·Î.
+			// SkillDef.h ï¿½ï¿½ ï¿½ï¿½ï¿½ÇµÇ¾ï¿½ï¿½Ö´ï¿½ enum ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 			// Level
 			const static char *SlayerJob[5] = {
 				(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_BLADE2].GetString(),
@@ -29258,7 +29281,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 				(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_ENCHANT2].GetString(),
 			};
 			
-			// Á¦ÀÏ ³ôÀº µµ¸ŞÀÎ. skilldef.h ¿¡ Á¤ÀÇµÇ¾î ÀÖ´Â ¼ø¼­´ë·ÎÀÓ
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. skilldef.h ï¿½ï¿½ ï¿½ï¿½ï¿½ÇµÇ¾ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 			if(TopDomain>=0 && TopDomain<5)
 			{
@@ -29269,7 +29292,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 			}
 			field_y+=field_gap;
 			
-			// ¼ºÇâ
+			// ï¿½ï¿½ï¿½ï¿½
 			sprintf(sz_temp,"%d",m_player_info.FAME);
 			
 			std::string sstr = sz_temp;
@@ -29315,23 +29338,23 @@ void	C_VS_UI_OTHER_INFO::Show()
 			int field_y = 100;
 			int bar_height = gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::LARGE_BAR);	
 			int bar_width = gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::LARGE_BAR),x_gap_from_image=30;
-			// ÀÌ¸§ GRADE,TEAM,LEVEL,FAMEºÎºĞ
+			// ï¿½Ì¸ï¿½ GRADE,TEAM,LEVEL,FAMEï¿½Îºï¿½
 			
 			field_rect.left=x+field_x+x_gap_from_image;
 			field_rect.right=field_rect.left+bar_width;
 			field_rect.top=y+field_y-3;
 			
-			for(i=0;i<2;i++)
+			for(int i=0;i<2;i++)
 			{			
 				field_rect.bottom=field_rect.top+bar_height;
 				gpC_base->m_p_DDSurface_back->FillRect(&field_rect, 0);			
 				field_rect.top+=field_gap;
 			}
-			// STR,DEX,INT ºÎºĞ
+			// STR,DEX,INT ï¿½Îºï¿½
 			bar_height = gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::SMALL_BAR2);	
 			bar_width = gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::SMALL_BAR2);
 			field_rect.right=field_rect.left+bar_width-19;		
-			for(i=0;i<4;i++)
+			for(int i=0;i<4;i++)
 			{	
 				field_rect.bottom=field_rect.top+bar_height;
 				gpC_base->m_p_DDSurface_back->FillRect(&field_rect, 0);			
@@ -29358,13 +29381,13 @@ void	C_VS_UI_OTHER_INFO::Show()
 				RECT guild_rect={guildmark_rect.left,guildmark_rect.top,guildmark_rect.left+40,guildmark_rect.top+40};
 
 	//			DEBUG_ADD("[ OtherInfo ] Show Vampire Face");
-				// ¾ó±¼ 
+				// ï¿½ï¿½ 
 				//			if(m_p_face)
 				{
 					Rect Face_rect(face_rect.left-2,face_rect.top-2,59,74);
 					gpC_global_resource->m_pC_info_spk->BltLocked(face_rect.left-1,face_rect.top-1, C_GLOBAL_RESOURCE::CHAR_BOX);
 					
-					//¾ó±¼ Âï±â
+					//ï¿½ï¿½ ï¿½ï¿½ï¿½
 					POINT point = {face_rect.left,face_rect.top};
 					
 					if(m_p_face && m_p_face->GetSize() > 0)
@@ -29400,7 +29423,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 				gpC_base->m_p_DDSurface_back->VLine(guild_point.x-1,guild_point.y-1,42,GRAY);
 				gpC_base->m_p_DDSurface_back->VLine(guild_point.x+40,guild_point.y,40,DARKGRAY);
 				gpC_base->m_p_DDSurface_back->Lock();*/
-				// ±æµå ¸¶Å© Âï±â. ±æµå ¸¶Å©´Â SetOtherInfo ¿¡¼­ ¹Ì¸® ÀĞ¾î ¿Â´Ù.
+				// ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ SetOtherInfo ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½Ğ¾ï¿½ ï¿½Â´ï¿½.
 	//			DEBUG_ADD("[ OtherInfo ] Show Vampire Guild");
 				if(m_p_guild_mark != NULL)
 					gpC_base->m_p_DDSurface_back->BltSprite(&guild_point, m_p_guild_mark);
@@ -29427,7 +29450,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field_x+x_gap_from_image+bar_width-22, y+field_y-3, C_GLOBAL_RESOURCE::LARGE_BAR_RIGHT);
 				field_y+=field_gap;
 				
-				for(i=0;i<3;i++)
+				for(int i=0;i<3;i++)
 				{
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field_x, y+field_y+2, C_GLOBAL_RESOURCE::TITLE_STR+i);				
 					gpC_global_resource->m_pC_info_spk->BltLockedClip(x +field_x+x_gap_from_image, y+field_y-3, clip_name,C_GLOBAL_RESOURCE::LARGE_BAR);
@@ -29444,8 +29467,8 @@ void	C_VS_UI_OTHER_INFO::Show()
 				m_pC_button_group->Show();
 				gpC_base->m_p_DDSurface_back->Unlock();
 
-				// Lock ÇØµµ »ó°ü¾ø³ª?-_- ÀÏ´Ü Unlock »óÅÂ¿¡¼­ ÇØÁà¾ß ÇÏ±â ¶§¹®¿¡ µÚ·Î »©³õÀ½.
-				// ±æµå¸¶Å© Å×µÎ¸®
+				// Lock ï¿½Øµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?-_- ï¿½Ï´ï¿½ Unlock ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+				// ï¿½ï¿½å¸¶Å© ï¿½×µÎ¸ï¿½
 				if(m_p_guild_mark != NULL)
 				{
 					gpC_base->m_p_DDSurface_back->HLine(guild_point.x-1,guild_point.y-1,42,GRAY);
@@ -29453,7 +29476,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 					gpC_base->m_p_DDSurface_back->VLine(guild_point.x-1,guild_point.y-1,42,GRAY);
 					gpC_base->m_p_DDSurface_back->VLine(guild_point.x+40,guild_point.y,40,DARKGRAY);
 				}
-				// °è±Ş¸¶Å© Å×µÎ¸®			
+				// ï¿½ï¿½Ş¸ï¿½Å© ï¿½×µÎ¸ï¿½			
 				if(GradeMark != NULL)
 				{
 					gpC_base->m_p_DDSurface_back->HLine(grade_point.x-1,grade_point.y-1,42,GRAY);
@@ -29476,12 +29499,12 @@ void	C_VS_UI_OTHER_INFO::Show()
 				g_PrintColorStr(x+85+3,y+field_y+1,m_player_info.PLAYER_NAME.c_str(), gpC_base->m_chatting_pi, RGB_WHITE);		
 			field_y+=field_gap;		
 			
-			// Grade ´Â 0ºÎÅÍ 49±îÁö µé¾î¿À´Â°Ô ¾Æ´Ï¶ó 1 ºÎÅÍ 50±îÁö µé¾î¿À¹Ç·Î °è»ê½Ã¿¡´Â 1À» »©¼­ °è»êÀ» ÇØÁÖµµ·Ï!
+			// Grade ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ 49ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Æ´Ï¶ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ 50ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½!
 			if(m_player_info.GRADE > 0 && m_player_info.GRADE <= GRADE_MARK_MAX )
 				g_PrintColorStr(x+field_x+x_gap_from_image+3,y+field_y+1,grade[((m_player_info.GRADE-1)/5)], gpC_base->m_chatting_pi, RGB_WHITE);
 			
 			field_y+=field_gap;		
-			// ÆÀÀÌ¸§ÀÌ ¾øÀ¸¸é °¡ÀÔµÈ ±æµå°¡ ¾ø°í, ÀÖÀ¸¸é, ÆÀ ÀÌ¸§ Âï¾îÁÜ
+			// ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ôµï¿½ ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 			//if(m_player_info.TEAM_NAME.size()>0)
 			if( g_pGuildInfoMapper->IsExistGuildName( m_player_info.guild_id ) )
 				g_PrintColorStr(x+field_x+x_gap_from_image+3,y+field_y+1,
@@ -29530,24 +29553,24 @@ void	C_VS_UI_OTHER_INFO::Show()
 			int field_y = 100;
 			int bar_height = gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::LARGE_BAR);	
 			int bar_width = gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::LARGE_BAR),x_gap_from_image=30;
-			// ÀÌ¸§ GRADE,TEAM,LEVEL,FAMEºÎºĞ
+			// ï¿½Ì¸ï¿½ GRADE,TEAM,LEVEL,FAMEï¿½Îºï¿½
 			
 			field_rect.left=x+field_x+x_gap_from_image+3;
 			field_rect.right=field_rect.left+bar_width-3;
 			field_rect.top=y+field_y-3;
 			
-			for(i=0;i<2;i++)
+			for(int i=0;i<2;i++)
 			{			
 				field_rect.bottom=field_rect.top+bar_height;
 				gpC_base->m_p_DDSurface_back->FillRect(&field_rect, 0);			
 				field_rect.top+=field_gap;
 			}
-			// STR,DEX,INT ºÎºĞ
+			// STR,DEX,INT ï¿½Îºï¿½
 			bar_height = gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::SMALL_BAR2);	
 			bar_width = gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::SMALL_BAR2);
 			field_rect.right=field_rect.left+bar_width-19;		
 
-			for(i=0;i<4;i++)
+			for(int i=0;i<4;i++)
 			{	
 				field_rect.bottom=field_rect.top+bar_height;
 				gpC_base->m_p_DDSurface_back->FillRect(&field_rect, 0);			
@@ -29574,13 +29597,13 @@ void	C_VS_UI_OTHER_INFO::Show()
 				RECT guild_rect={guildmark_rect.left,guildmark_rect.top,guildmark_rect.left+40,guildmark_rect.top+40};
 
 	//			DEBUG_ADD("[ OtherInfo ] Show Vampire Face");
-				// ¾ó±¼ 
+				// ï¿½ï¿½ 
 				//			if(m_p_face)
 				{
 					Rect Face_rect(face_rect.left-2,face_rect.top-2,59,74);
 					gpC_global_resource->m_pC_info_spk->BltLocked(face_rect.left-1,face_rect.top-1, C_GLOBAL_RESOURCE::CHAR_BOX);
 					
-					//¾ó±¼ Âï±â
+					//ï¿½ï¿½ ï¿½ï¿½ï¿½
 					POINT point = {face_rect.left,face_rect.top};
 					
 					if(m_p_face && m_p_face->GetSize() > 0)
@@ -29616,7 +29639,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 				gpC_base->m_p_DDSurface_back->VLine(guild_point.x-1,guild_point.y-1,42,GRAY);
 				gpC_base->m_p_DDSurface_back->VLine(guild_point.x+40,guild_point.y,40,DARKGRAY);
 				gpC_base->m_p_DDSurface_back->Lock();*/
-				// ±æµå ¸¶Å© Âï±â. ±æµå ¸¶Å©´Â SetOtherInfo ¿¡¼­ ¹Ì¸® ÀĞ¾î ¿Â´Ù.
+				// ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ SetOtherInfo ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½Ğ¾ï¿½ ï¿½Â´ï¿½.
 	//			DEBUG_ADD("[ OtherInfo ] Show Vampire Guild");
 				if(m_p_guild_mark != NULL)
 					gpC_base->m_p_DDSurface_back->BltSprite(&guild_point, m_p_guild_mark);
@@ -29635,7 +29658,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 					gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::LARGE_BAR)-3, 
 					gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::LARGE_BAR));
 				
-				for(i=0;i<2;i++)
+				for(int i=0;i<2;i++)
 				{
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field_x-2, y+field_y+2, C_GLOBAL_RESOURCE::OUSTERS_TITLE_GRADE2+i);
 					gpC_global_resource->m_pC_info_spk->BltLockedClip(x +field_x+x_gap_from_image+3, y+field_y-3,clip_name, C_GLOBAL_RESOURCE::LARGE_BAR);
@@ -29649,7 +29672,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field_x+x_gap_from_image+bar_width-19, y+field_y-3, C_GLOBAL_RESOURCE::LARGE_BAR_RIGHT);
 				field_y+=field_gap;			
 				
-				for(i=0;i<3;i++)
+				for(int i=0;i<3;i++)
 				{
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field_x, y+field_y+2, C_GLOBAL_RESOURCE::TITLE_STR+i);				
 					gpC_global_resource->m_pC_info_spk->BltLockedClip(field_rect.left, y+field_y-3, clip_name,C_GLOBAL_RESOURCE::LARGE_BAR);
@@ -29666,8 +29689,8 @@ void	C_VS_UI_OTHER_INFO::Show()
 				m_pC_button_group->Show();
 				gpC_base->m_p_DDSurface_back->Unlock();
 
-				// Lock ÇØµµ »ó°ü¾ø³ª?-_- ÀÏ´Ü Unlock »óÅÂ¿¡¼­ ÇØÁà¾ß ÇÏ±â ¶§¹®¿¡ µÚ·Î »©³õÀ½.
-				// ±æµå¸¶Å© Å×µÎ¸®
+				// Lock ï¿½Øµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?-_- ï¿½Ï´ï¿½ Unlock ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+				// ï¿½ï¿½å¸¶Å© ï¿½×µÎ¸ï¿½
 				if(m_p_guild_mark != NULL)
 				{
 					gpC_base->m_p_DDSurface_back->HLine(guild_point.x-1,guild_point.y-1,42,GRAY);
@@ -29675,7 +29698,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 					gpC_base->m_p_DDSurface_back->VLine(guild_point.x-1,guild_point.y-1,42,GRAY);
 					gpC_base->m_p_DDSurface_back->VLine(guild_point.x+40,guild_point.y,40,DARKGRAY);
 				}
-				// °è±Ş¸¶Å© Å×µÎ¸®			
+				// ï¿½ï¿½Ş¸ï¿½Å© ï¿½×µÎ¸ï¿½			
 				if(GradeMark != NULL)
 				{
 					gpC_base->m_p_DDSurface_back->HLine(grade_point.x-1,grade_point.y-1,42,GRAY);
@@ -29702,12 +29725,12 @@ void	C_VS_UI_OTHER_INFO::Show()
 				g_PrintColorStr(x+85+3,y+field_y+1,m_player_info.PLAYER_NAME.c_str(), gpC_base->m_chatting_pi, RGB_WHITE);		
 			field_y+=field_gap;		
 			
-			// Grade ´Â 0ºÎÅÍ 49±îÁö µé¾î¿À´Â°Ô ¾Æ´Ï¶ó 1 ºÎÅÍ 50±îÁö µé¾î¿À¹Ç·Î °è»ê½Ã¿¡´Â 1À» »©¼­ °è»êÀ» ÇØÁÖµµ·Ï!
+			// Grade ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ 49ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Æ´Ï¶ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ 50ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½!
 			if(m_player_info.GRADE > 0 && m_player_info.GRADE <= GRADE_MARK_MAX )
 				g_PrintColorStr(field_rect.left+3,y+field_y+1,grade[((m_player_info.GRADE-1)/5)], gpC_base->m_chatting_pi, RGB_WHITE);
 			
 			field_y+=field_gap;		
-			// ÆÀÀÌ¸§ÀÌ ¾øÀ¸¸é °¡ÀÔµÈ ±æµå°¡ ¾ø°í, ÀÖÀ¸¸é, ÆÀ ÀÌ¸§ Âï¾îÁÜ
+			// ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ôµï¿½ ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 			//if(m_player_info.TEAM_NAME.size()>0)
 			if( g_pGuildInfoMapper->IsExistGuildName( m_player_info.guild_id ) )
 				g_PrintColorStr(field_rect.left+3,y+field_y+1,
@@ -29826,7 +29849,7 @@ void	C_VS_UI_OTHER_INFO::SetOtherInfo(PLAYER_INFO &info)
 
 	m_p_guild_mark = NULL;
 
-	// Á¦ÀÏ ³ôÀº µµ¸ŞÀÎÀ» Ã£´Â´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Â´ï¿½.
 	for( int i = 0 ; i < 5; i++ )
 	{
 		if(m_player_info.DOMAINLEVEL[TopDomain] < m_player_info.DOMAINLEVEL[i])
@@ -29921,7 +29944,7 @@ C_VS_UI_TRACE::C_VS_UI_TRACE()
 	AttrTopmost(true);
 	AttrKeyboardControl(true);
 	
-	//°øÅë¹öÆ°
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Æ°
 	m_pC_button_group = new ButtonGroup(this);
 	
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(17, 227, m_pC_trace_spk->GetWidth(TRACE_START), 
@@ -30007,7 +30030,7 @@ void	C_VS_UI_TRACE::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 				m_pC_trace_spk->Blt(x+p_button->x,y+p_button->y,p_button->m_image_index);
 		} else
 		{
-			// È°¼ºÈ­ »óÅÂ°¡ ¾Æ´Ô
+			// È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Æ´ï¿½
 			POINT dark = {x+p_button->x,y+p_button->y};
 			m_pC_trace_spk->BltDarkness(dark,p_button->m_image_index,1);
 		}
@@ -30064,7 +30087,7 @@ void	C_VS_UI_TRACE::WindowEventReceiver(id_t event)
 //-----------------------------------------------------------------------------
 void	C_VS_UI_TRACE::Run(id_t id)
 {
-	// ¹öÆ°ÀÌ ºñÈ°¼º»óÅÂÀÌ¸é ¸®ÅÏ!
+	// ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½!
 	if(status == true) return;
 
 	switch (id)
@@ -30283,7 +30306,7 @@ C_VS_UI_XMAS_CARD::C_VS_UI_XMAS_CARD(const MItem *pItem)
 	AttrTopmost(true);
 	AttrKeyboardControl(true);
 	
-	//°øÅë¹öÆ°
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Æ°
 	m_pC_button_group = new ButtonGroup(this);
 	
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(130, 146, m_pC_card_spk->GetWidth(BUTTON_OK), 
@@ -30396,7 +30419,7 @@ void	C_VS_UI_XMAS_CARD::WindowEventReceiver(id_t event)
 //-----------------------------------------------------------------------------
 void	C_VS_UI_XMAS_CARD::Run(id_t id)
 {
-	// ¹öÆ°ÀÌ ºñÈ°¼º»óÅÂÀÌ¸é ¸®ÅÏ!
+	// ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½!
 	if(status == true) return;
 
 	switch (id)
@@ -30429,7 +30452,7 @@ void	C_VS_UI_XMAS_CARD::Run(id_t id)
 				m_szTreeMessage += "%";
 				m_szTreeMessage += psz_from;
 				
-				gpC_base->SendMessage(UI_USE_XMAS_TREE, (int)m_pItem, 0, (void*)m_szTreeMessage.c_str());
+				gpC_base->SendMessage(UI_USE_XMAS_TREE, (int)(intptr_t)m_pItem, 0, (void*)m_szTreeMessage.c_str());
 
 				DeleteNew(psz_to);
 				DeleteNew(psz_msg);
@@ -30437,8 +30460,8 @@ void	C_VS_UI_XMAS_CARD::Run(id_t id)
 			}
 			else
 			{
-				// ºóÇ×¸ñÀÌ ÀÖ½À´Ï´Ù.
-				gpC_base->SendMessage(UI_USE_XMAS_TREE, (int)m_pItem, 0, NULL);
+				// ï¿½ï¿½ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
+				gpC_base->SendMessage(UI_USE_XMAS_TREE, (int)(intptr_t)m_pItem, 0, NULL);
 			}
 		}
 		break;
@@ -30703,7 +30726,7 @@ bool	C_VS_UI_XMAS_CARD::IsPixel(int _x, int _y)
 //------------------------------------------------------------------------------
 // C_VS_UI_BRING_FEE
 //
-// ¼ºÁö¿¡¼­ ¼¼±İÀ» °¡Á®¿Â´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
 //------------------------------------------------------------------------------
 C_VS_UI_BRING_FEE::C_VS_UI_BRING_FEE(UINT totalfee, UINT bringfee)
 {	
@@ -30815,7 +30838,7 @@ void	C_VS_UI_BRING_FEE::Show()
 		wsprintf(money_buf, "%d", m_BringFee);
 		sstr = money_buf;
 		
-		for(i = 3; i <= 13; i += 4)
+		for(int i = 3; i <= 13; i += 4)
 			if(sstr.size() > i)
 				sstr.insert(sstr.size()-i, ",");
 			
@@ -30845,7 +30868,7 @@ void	C_VS_UI_BRING_FEE::Show()
 			
 			char *sz_string2 = sz_string;
 			
-			while(*sz_string2 == ' ')		// ¾ÕÀÇ °ø¹éÁ¦°Å
+			while(*sz_string2 == ' ')		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				sz_string2++;
 				next++;
@@ -30858,7 +30881,7 @@ void	C_VS_UI_BRING_FEE::Show()
 			sz_string2[cut_pos] = NULL;
 			
 			char *return_char = NULL;
-			if((return_char = strchr(sz_string2, '\n')) != NULL)	// return Ã³¸®
+			if((return_char = strchr(sz_string2, '\n')) != NULL)	// return Ã³ï¿½ï¿½
 			{
 				cut_pos = return_char - sz_string2+1;
 				sz_string2[cut_pos-1] = NULL;
@@ -31031,17 +31054,17 @@ C_VS_UI_WAR_LIST::C_VS_UI_WAR_LIST()
 	scroll_down_y = 94+m_vampire_point.y + 218;
 	
 	
-	//help, x¹öÆ°
+	//help, xï¿½ï¿½Æ°
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + help_x, y + button_y, m_guild_spk.GetWidth(HELP_BUTTON), 
 		m_guild_spk.GetHeight(HELP_BUTTON), HELP_ID, this, HELP_BUTTON));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + x_x, y + button_y, m_guild_spk.GetWidth(X_BUTTON), m_guild_spk.GetHeight(X_BUTTON), X_ID, this, X_BUTTON));
 			
-	//CLOSE¹öÆ°
+	//CLOSEï¿½ï¿½Æ°
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+w-14, y+h-49, m_guild_spk.GetWidth(CLOSE_BUTTON), m_guild_spk.GetHeight(CLOSE_BUTTON), CLOSE_ID, this, CLOSE_BUTTON));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+129+m_vampire_point.x,y+49+m_vampire_point.y,m_guild_spk.GetWidth(TITLE_WAR_LIST),m_guild_spk.GetHeight(TITLE_WAR_LIST),
 		WAR_LIST_ID, this, TITLE_WAR_LIST));
 
-	//scroll up, down ¹öÆ°
+	//scroll up, down ï¿½ï¿½Æ°
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + scroll_x, 23+ y + scroll_up_y, m_guild_spk.GetWidth(SCROLL_UP_BUTTON), m_guild_spk.GetHeight(SCROLL_UP_BUTTON), SCROLL_UP_ID, this, SCROLL_UP_BUTTON));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x + scroll_x, 23+ y + scroll_down_y, m_guild_spk.GetWidth(SCROLL_DOWN_BUTTON), m_guild_spk.GetHeight(SCROLL_DOWN_BUTTON), SCROLL_DOWN_ID, this, SCROLL_DOWN_BUTTON));
 }
@@ -31124,7 +31147,7 @@ void C_VS_UI_WAR_LIST::Show()
 	tab_y[0] = 94 + m_vampire_point.y;
 	tab_y[1] = tab_y[0] + 23;
 	tab_y[2] = tab_y[1] + 207+23;
-	// Lock ºÎºĞ ¸ğÀ¸±â~
+	// Lock ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~
 
 	int scroll_tag_x = x+tab_x[2]+5, scroll_tag_y = y+tab_y[0]+14, scroll_tag_height = 198;
 	int gap;
@@ -31166,9 +31189,9 @@ void C_VS_UI_WAR_LIST::Show()
 				itr ++;
 				continue;
 			}
-			if(itr->warType == 0) // µ¿Á·°£				
+			if(itr->warType == 0) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½				
 			{
-				// ±æµå ¸¶Å© Ãâ·Â
+				// ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½ï¿½ï¿½
 				CSprite *p_guild_mark;
 				p_guild_mark=g_pGuildMarkManager->GetGuildMarkSmall(itr->challengerGuildID);
 				if(p_guild_mark==NULL)
@@ -31177,7 +31200,7 @@ void C_VS_UI_WAR_LIST::Show()
 					p_guild_mark = g_pGuildMarkManager->GetGuildMarkSmall(itr->challengerGuildID);
 				}
 				POINT guild_point = { x+tab_x[0]+2, y+tab_y[1]+gap+2 };
-				if(p_guild_mark != NULL)	// ¾Ç!! CSpriteÁ÷Á¢ ¾µ¶§´Â LockÇÒ°Í!! by ¾¦°«
+				if(p_guild_mark != NULL)	// ï¿½ï¿½!! CSpriteï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Lockï¿½Ò°ï¿½!! by ï¿½ï¿½ï¿½ï¿½
 				{
 					if(gpC_base->m_p_DDSurface_back->Lock())
 					{
@@ -31199,7 +31222,7 @@ void C_VS_UI_WAR_LIST::Show()
 				g_FL2_ReleaseDC();
 			} else
 			{
-				// Á¾Á·°£ BAR_HILIGHTED		
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ BAR_HILIGHTED		
 
 				std::string challenger = (*g_pGameStringTable)[UI_STRING_MESSAGE_RACE_WAR].GetString();
 				m_guild_spk.BltAlpha(x + tab_x[0] , y + tab_y[1] + gap + 1, BAR_HILIGHTED,12);
@@ -31335,7 +31358,7 @@ bool	C_VS_UI_WAR_LIST::MouseControl(UINT message, int _x, int _y)
 	tab_y[0] = 94 + m_vampire_point.y;
 	tab_y[1] = tab_y[0] + 23;
 	tab_y[2] = tab_y[1] + 207;
-	// Lock ºÎºĞ ¸ğÀ¸±â~
+	// Lock ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~
 
 			
 	int scroll_tag_x = x+tab_x[2]+5, scroll_tag_y = y+tab_y[0]+14+23, scroll_tag_height = 198;
@@ -31399,7 +31422,7 @@ bool	C_VS_UI_WAR_LIST::IsPixel(int _x, int _y)
 
 void	C_VS_UI_WAR_LIST::AddWarList(const WarInfo	&war_info)
 {
-	if(0 == war_info.warType) // ±æµåÀü
+	if(0 == war_info.warType) // ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		if(war_info.reinforceGuildID != 0)
 		{
@@ -31503,7 +31526,7 @@ C_VS_UI_BLOOD_BIBLE_STATUS::C_VS_UI_BLOOD_BIBLE_STATUS()
 
 	Set(g_GameRect.right/2-window_w/2, g_GameRect.bottom/2 - window_h/2, window_w, window_h);
 	
-	//close¹öÆ° ÁÂÇ¥ ¼¼ÆÃ
+	//closeï¿½ï¿½Æ° ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½
 	int close_x = w-24, close_y = h-19;
 	int help_x = w-24-20, help_y = h-19;
 	int alpha_x = 6, alpha_y = h-21;
@@ -31517,7 +31540,7 @@ C_VS_UI_BLOOD_BIBLE_STATUS::C_VS_UI_BLOOD_BIBLE_STATUS()
 		alpha_y -= 5;
 	}
 	
-	//°øÅë¹öÆ°
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Æ°
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(close_x, close_y, 
 		gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN), 
@@ -31783,7 +31806,7 @@ bool	C_VS_UI_BLOOD_BIBLE_STATUS::MouseControl(UINT message, int _x, int _y)
 		break;
 	case M_LEFTBUTTON_DOWN:
 	case M_LB_DOUBLECLICK:
-		if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+		if (gpC_mouse_pointer->GetPickUpItem() == NULL && re)
 		{
 			MoveReady();
 			SetOrigin(_x, _y);
@@ -31831,7 +31854,7 @@ void	C_VS_UI_BLOOD_BIBLE_STATUS::Show()
 		m_pC_button_group->Show();
 
 		int i;
-		for(i = 0; i < 12; i++)
+		for(int i = 0; i < 12; i++)
 		{			
 			POINT point = {start_x,start_y + i*20 };
 			if(C_VS_UI_SKILL::m_C_spk_mini.GetSize() > skill_id + i)
@@ -31841,7 +31864,7 @@ void	C_VS_UI_BLOOD_BIBLE_STATUS::Show()
 		}
 		gpC_base->m_p_DDSurface_back->Unlock();
 
-		for(i = 0; i < 12; i++)
+		for(int i = 0; i < 12; i++)
 		{			
 			POINT point = {start_x,start_y + i*20 };
 
@@ -31981,7 +32004,7 @@ bool	C_VS_UI_BLOOD_BIBLE_STATUS::IsPixel(int _x, int _y)
 
 void	C_VS_UI_BLOOD_BIBLE_STATUS::SetBloodBible(int blood_bible_id, BLOOD_BIBLE_STATUS &blood_bible_status)
 {
-	if(blood_bible_id < 0 || blood_bible_id >= 12)				// ÇÇÀÇ ¼º¼­°¡ ¾Æ´Ò °æ¿ì
+	if(blood_bible_id < 0 || blood_bible_id >= 12)				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½
 		return;
 
 	m_BloodBibleStatus[blood_bible_id] = blood_bible_status;
@@ -31997,7 +32020,7 @@ void	C_VS_UI_BLOOD_BIBLE_STATUS::UnSetBloodBible(int blood_bible_id)
 //------------------------------------------------------------------------------
 // C_VS_UI_INPUT_NAME
 //
-// ¼ºÁö¿¡¼­ ¼¼±İÀ» °¡Á®¿Â´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
 //------------------------------------------------------------------------------
 C_VS_UI_INPUT_NAME::C_VS_UI_INPUT_NAME(INPUT_NAME_MODE_LIST mode)
 {	
@@ -32121,7 +32144,7 @@ void	C_VS_UI_INPUT_NAME::Show()
 			
 			char *sz_string2 = sz_string;
 			
-			while(*sz_string2 == ' ')		// ¾ÕÀÇ °ø¹éÁ¦°Å
+			while(*sz_string2 == ' ')		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				sz_string2++;
 				next++;
@@ -32134,7 +32157,7 @@ void	C_VS_UI_INPUT_NAME::Show()
 			sz_string2[cut_pos] = NULL;
 			
 			char *return_char = NULL;
-			if((return_char = strchr(sz_string2, '\n')) != NULL)	// return Ã³¸®
+			if((return_char = strchr(sz_string2, '\n')) != NULL)	// return Ã³ï¿½ï¿½
 			{
 				cut_pos = return_char - sz_string2+1;
 				sz_string2[cut_pos-1] = NULL;
@@ -32341,7 +32364,7 @@ const char* C_VS_UI_INPUT_NAME::GetCurrentName()
 //------------------------------------------------------------------------------
 // C_VS_UI_POPUP_MESSAGE
 //
-// ÆË¾÷Ã¢À» ¶ç¿î´Ù.
+// ï¿½Ë¾ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 //------------------------------------------------------------------------------
 C_VS_UI_POPUP_MESSAGE::C_VS_UI_POPUP_MESSAGE(const char *str, POPUP_TYPE type)
 {	
@@ -32596,7 +32619,7 @@ void	C_VS_UI_POPUP_MESSAGE::Show()
 			
 			char *sz_string2 = sz_string;
 			
-			while(*sz_string2 == ' ')		// ¾ÕÀÇ °ø¹éÁ¦°Å
+			while(*sz_string2 == ' ')		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				sz_string2++;
 				next++;
@@ -32610,7 +32633,7 @@ void	C_VS_UI_POPUP_MESSAGE::Show()
 			sz_string2[cut_pos] = NULL;
 			
 			char *return_char = NULL;
-			if((return_char = strstr(sz_string2, "\\n")) != NULL)	// return Ã³¸®
+			if((return_char = strstr(sz_string2, "\\n")) != NULL)	// return Ã³ï¿½ï¿½
 			{
 				cut_pos = return_char - sz_string2+2;
 				sz_string2[cut_pos-2] = NULL;
@@ -32734,21 +32757,21 @@ void	C_VS_UI_POPUP_MESSAGE::Run(id_t id)
 //		else
 			gpC_base->SendMessage(UI_POPUP_MESSAGE_OK, m_SendID);
 
-		// 2004, 5, 6 sobeit add start - À£ÄÄ Ã¢ ¶á´ÙÀ½ ÀÎÅÍÆäÀÌ½º µµ¿ò¸» ¸ŞÀÏ ¹ß¼Û ^^
+		// 2004, 5, 6 sobeit add start - ï¿½ï¿½ï¿½ï¿½ Ã¢ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß¼ï¿½ ^^
 		if(POPUP_WELCOME == m_Type)
 			gC_vs_ui.AddHelpMail(HELP_EVENT_INTERFACE);
 
-		// 2004.10.10 ¿¬ÇÕ±æµå °ü·Ã 
+		// 2004.10.10 ï¿½ï¿½ï¿½Õ±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 		if(m_Str == (*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_LEAVE_OK].GetString())
-				gpC_base->SendMessage(UI_REQUEST_UNION_QUIT, C_VS_UI_TEAM_INFO::GetGuildId(), 0); // ¿¬ÇÕ±æµå ½ÅÃ» 
+				gpC_base->SendMessage(UI_REQUEST_UNION_QUIT, C_VS_UI_TEAM_INFO::GetGuildId(), 0); // ï¿½ï¿½ï¿½Õ±ï¿½ï¿½ ï¿½ï¿½Ã» 
 
 		if(m_Str == (*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_LEAVE_CANCEL].GetString())
-				gpC_base->SendMessage(UI_REQUEST_UNION_QUIT, C_VS_UI_TEAM_INFO::GetGuildId(), 1); // ¿¬ÇÕ±æµå ½ÅÃ» 
+				gpC_base->SendMessage(UI_REQUEST_UNION_QUIT, C_VS_UI_TEAM_INFO::GetGuildId(), 1); // ï¿½ï¿½ï¿½Õ±ï¿½ï¿½ ï¿½ï¿½Ã» 
 		break;
 	case CANCEL_ID :
 		gpC_base->SendMessage(UI_CLOSE_POPUP_MESSAGE, m_SendID);
 
-		// 2004, 5, 6 sobeit add start - À£ÄÄ Ã¢ ¶á´ÙÀ½ ÀÎÅÍÆäÀÌ½º µµ¿ò¸» ¸ŞÀÏ ¹ß¼Û ^^
+		// 2004, 5, 6 sobeit add start - ï¿½ï¿½ï¿½ï¿½ Ã¢ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß¼ï¿½ ^^
 		if(POPUP_WELCOME == m_Type)
 			gC_vs_ui.AddHelpMail(HELP_EVENT_INTERFACE);
 
@@ -32766,7 +32789,7 @@ void	C_VS_UI_POPUP_MESSAGE::Process()
 //------------------------------------------------------------------------------
 // C_VS_UI_QUEST
 //
-// Äù½ºÆ® Á¤º¸Ã¢
+// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½Ã¢
 //------------------------------------------------------------------------------
 C_VS_UI_QUEST_STATUS::C_VS_UI_QUEST_STATUS()
 {	
@@ -32793,7 +32816,7 @@ C_VS_UI_QUEST_STATUS::C_VS_UI_QUEST_STATUS()
 	int close_x = w-24, close_y = h-19;		
 	int alpha_x = 6, alpha_y = h-21;
 		
-	//°øÅë¹öÆ°
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Æ°
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(pin_x, pin_y, 
 		gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN), 
@@ -32832,7 +32855,7 @@ C_VS_UI_QUEST_STATUS::C_VS_UI_QUEST_STATUS()
 	str += (*g_pCreatureTable)[4].Name;
 	str += ",";
 	str += (*g_pCreatureTable)[6].Name;
-// 	str = "ÅÍ´×µ¥µå,ÅÍ´×¼Ò¿ï,µ¥µå¹Ùµğ,Å°µå";
+// 	str = "ï¿½Í´×µï¿½ï¿½ï¿½,ï¿½Í´×¼Ò¿ï¿½,ï¿½ï¿½ï¿½ï¿½Ùµï¿½,Å°ï¿½ï¿½";
 	m_hard_cording.push_back( str );
 	str = (*g_pCreatureTable)[9].Name;
 	str += ",";
@@ -32845,7 +32868,7 @@ C_VS_UI_QUEST_STATUS::C_VS_UI_QUEST_STATUS()
 	str += (*g_pCreatureTable)[107].Name;
 	str += ",";
 	str += (*g_pCreatureTable)[187].Name;
-//	str = "¼ÖÁ®,Ä¸Æ¾,¾ËÄ­,¾ÆÀÌ¾ğÆ¼¾²,·¹µå¾ÆÀÌ,¹ÂÅºÆ®";
+//	str = "ï¿½ï¿½ï¿½ï¿½,Ä¸Æ¾,ï¿½ï¿½Ä­,ï¿½ï¿½ï¿½Ì¾ï¿½Æ¼ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ÅºÆ®";
 	m_hard_cording.push_back( str );
 	str = (*g_pCreatureTable)[218].Name;
 	str += ",";
@@ -32858,41 +32881,41 @@ C_VS_UI_QUEST_STATUS::C_VS_UI_QUEST_STATUS()
 	str += (*g_pCreatureTable)[197].Name;
 	str += ",";
 	str += (*g_pCreatureTable)[240].Name;
-//	str = "¸ğµ¥¶ó½º,º¥µ¨¶óÀÌÀú,´õÆ¼½ºÆ®¶óÀÌ´õ,¿¡½ºÆ®·ÎÀÌ´õ,À§µµ¿ì½º,ºòÆØ";
+//	str = "ï¿½ğµ¥¶ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Æ¼ï¿½ï¿½Æ®ï¿½ï¿½ï¿½Ì´ï¿½,ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½Ì´ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ì½º,ï¿½ï¿½ï¿½ï¿½";
 	m_hard_cording.push_back( str );
 	str = (*g_pCreatureTable)[165].Name;
 	str += ",";
 	str = (*g_pCreatureTable)[465].Name;
 	str += ",";
 	str = (*g_pCreatureTable)[467].Name;
-//	str = "È£ºí,ºí·¯µå¿ö·Ï,°ñ·¹¸Ó";
+//	str = "È£ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ñ·¹¸ï¿½";
 	m_hard_cording.push_back( str );
 	str = (*g_pCreatureTable)[166].Name;
 	str += ",";
 	str = (*g_pCreatureTable)[286].Name;
 	str += ",";
 	str = (*g_pCreatureTable)[328].Name;
-//	str = "½¦µµ¿ìÀ®,Å©¸²½¼½½·ÎÅÍ,¸®ÆÛ";
+//	str = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½";
 	m_hard_cording.push_back( str );
 	str = (*g_pCreatureTable)[476].Name;
 	str += ",";
 	str = (*g_pCreatureTable)[479].Name;
 	str += ",";
 	str = (*g_pCreatureTable)[266].Name;
-//	str = "Ä«¿À½º³ªÀÌÆ®,ÇïÀ§ÀÚµå,´ÙÅ©½ºÅ©¸®¸Ó";
+//	str = "Ä«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®,ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½,ï¿½ï¿½Å©ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½";
 	m_hard_cording.push_back( str );
 	str = (*g_pCreatureTable)[147].Name;
 	str += ",";
 	str = (*g_pCreatureTable)[338].Name;
-//	str = "Ä«¿À½º°¡µğ¾ğ,Çï°¡µğ¾ğ";
+//	str = "Ä«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï°¡ï¿½ï¿½ï¿½";
 	m_hard_cording.push_back( str );
 	str = (*g_pCreatureTable)[377].Name;
 	str += ",";
 	str = (*g_pCreatureTable)[387].Name;
-//	str = "´ÙÅ©°¡µğ¾ğ,·ÎµåÄ«¿À½º";
+//	str = "ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½Îµï¿½Ä«ï¿½ï¿½ï¿½ï¿½";
 	m_hard_cording.push_back( str );
 	str = (*g_pCreatureTable)[478].Name;
-//	str = "·Îµå´ÙÅ©´Ï½º";
+//	str = "ï¿½Îµï¿½ï¿½Å©ï¿½Ï½ï¿½";
 	m_hard_cording.push_back( str );
 	str = (*g_pCreatureTable)[417].Name;
 	str += ",";
@@ -32907,14 +32930,14 @@ C_VS_UI_QUEST_STATUS::C_VS_UI_QUEST_STATUS()
 	str = (*g_pCreatureTable)[438].Name;
 	str += ",";
 	str = (*g_pCreatureTable)[448].Name;
-//	str = "´ÙÅ©ÇìÀÌÁî,ÇïÆæµå,Ä«¿À½º±×¸®µå,´ø¿ïÇÁ¾ÆÅ©,¸Ø¸²¸ó,»ş¸Õ¿ÀÇÁ";
+//	str = "ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½,Ä«ï¿½ï¿½ï¿½ï¿½ï¿½×¸ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å©,ï¿½Ø¸ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Õ¿ï¿½ï¿½ï¿½";
 	m_hard_cording.push_back( str );
 	str = (*g_pCreatureTable)[604].Name;
 	str += ",";
 	str = (*g_pCreatureTable)[483].Name;
 	str += ",";
 	str = (*g_pCreatureTable)[614].Name;
-//	str = "µõ°¡°íÀÏ,´ÙÅ©º£¸®Æ®,º¼¹Ù¸ŞµÎ»ç";
+//	str = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½Æ®,ï¿½ï¿½ï¿½Ù¸ŞµÎ»ï¿½";
 	m_hard_cording.push_back( str );
 	str = (*g_pCreatureTable)[504].Name;
 	str += ",";
@@ -32923,7 +32946,7 @@ C_VS_UI_QUEST_STATUS::C_VS_UI_QUEST_STATUS()
 	str = (*g_pCreatureTable)[503].Name;
 	str += ",";
 	str = (*g_pCreatureTable)[493].Name;
-//	str = "ÀÚÀÌ¾ğÆ®¿À½º,¾Ö½¬¹ß·Ï,¸¶¿îÆ®Å©·¡±×,¸®Ä¡Á©";
+//	str = "ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½,ï¿½Ö½ï¿½ï¿½ß·ï¿½,ï¿½ï¿½ï¿½ï¿½Æ®Å©ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ä¡ï¿½ï¿½";
 	m_hard_cording.push_back( str );
 
 }
@@ -33058,7 +33081,7 @@ void	C_VS_UI_QUEST_STATUS::Show()
 		break;
 	}
 
-	//µµ¸ŞÀÎ¹Ù µÚ¿¡ °ËÀº»ö Ä¥ÇÏ±â
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Î¹ï¿½ ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä¥ï¿½Ï±ï¿½
 	if( QuestInfo->GetType() == QUEST_INFO_MONSTER_KILL)
 	{
 		if(m_quest_status.current_point < QuestInfo->GetGoal() || QuestInfo->GetID() != SECOND_PET_QUEST)
@@ -33166,19 +33189,19 @@ void	C_VS_UI_QUEST_STATUS::Show()
 
 		int time_check = Timer();
 	
-		// Å¸ÀÌÆ² ÂïÈ÷´Â ºÎºĞ
+		// Å¸ï¿½ï¿½Æ² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½
 		COLORREF ColorTitle = RGB_WHITE, BackTitle = RGB_BLACK;
 
 		if( QuestInfo->GetType() == QUEST_INFO_TYPE_NULL || !m_bl_active )
 		{
-			//Äù½ºÆ®ÁßÀÌ ¾Æ´Ò¶§
+			//ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ò¶ï¿½
 			wsprintf(sz_temp, (*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_IN_QUEST].GetString() );
 		} else
 		{
-			// Äù½ºÆ® ÁßÀÌ¸é ½Ã°£ÀÌ ´Ù µÇ¾ú°Å³ª, ¿Ï·á µÇ¾ú°Å³ª, ÁøÇàÁß
+			// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½Å³ï¿½, ï¿½Ï·ï¿½ ï¿½Ç¾ï¿½ï¿½Å³ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if( m_quest_status.quest_time <= timeGetTime()/1000 && QuestInfo->GetType() == QUEST_INFO_MONSTER_KILL)
 			{
-				//Äù½ºÆ® ½ÇÆĞ
+				//ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 				if( time_check )
 				{
 					if( (time_check)/500&0x1)
@@ -33191,7 +33214,7 @@ void	C_VS_UI_QUEST_STATUS::Show()
 			} else
 			if( m_quest_status.current_point >= QuestInfo->GetGoal() && QuestInfo->GetType() == QUEST_INFO_MONSTER_KILL) 
 			{
-				// ¸ñÇ¥ ´Ş¼º
+				// ï¿½ï¿½Ç¥ ï¿½Ş¼ï¿½
 				if( time_check )
 				{
 					if( (time_check)/500&0x1)
@@ -33202,7 +33225,7 @@ void	C_VS_UI_QUEST_STATUS::Show()
 				}
 				wsprintf(sz_temp, (*g_pGameStringTable)[UI_STRING_MESSAGE_COMPLETE_QUEST].GetString() );
 				if(SECOND_PET_QUEST == QuestInfo->GetID())
-				{// 2Â÷Æê Äù½ºÆ® ¸ñÇ¥ ´Ş¼º ÇßÀ» ¶§
+				{// 2ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ç¥ ï¿½Ş¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					g_PrintColorStrOut( x+20+tab_x, y+20+tab_y, sz_temp, gpC_base->m_chatting_pi, ColorTitle, BackTitle);		
 					char* szNpc;
 					switch(g_eRaceInterface)
@@ -33226,7 +33249,7 @@ void	C_VS_UI_QUEST_STATUS::Show()
 				}
 			} else
 			{
-				// Äù½ºÆ® ÁøÇàÁß
+				// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				switch(QuestInfo->GetType())
 				{
 				case QUEST_INFO_MONSTER_KILL:
@@ -33250,7 +33273,7 @@ void	C_VS_UI_QUEST_STATUS::Show()
 			wsprintf(sz_temp, (*g_pGameStringTable)[UI_STRING_MESSAGE_STATUS_LEFT_TIME].GetString());
 			g_PrintColorStrOut( x+20+tab_x, y+55+tab_y, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE, RGB_BLACK);
 		}
-		// Å¸ÀÌÆ² °ÔÀÌÁö ÂÊ¿¡ Ãâ·ÂµÇ´Â ºÎºĞ
+		// Å¸ï¿½ï¿½Æ² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ ï¿½ï¿½ÂµÇ´ï¿½ ï¿½Îºï¿½
 		ColorTitle = RGB_WHITE;
 		BackTitle = RGB_BLACK;
 		if( m_bl_active )
@@ -33272,7 +33295,7 @@ void	C_VS_UI_QUEST_STATUS::Show()
 
 			case QUEST_INFO_MEET_NPC:
 				if(m_quest_status.current_point == 0)
-					wsprintf(sz_temp, "¿Ï·áµÇ¾ú½À´Ï´Ù");
+					wsprintf(sz_temp, "ï¿½Ï·ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½");
 				else
 					wsprintf(sz_temp, (*g_pGameStringTable)[UI_STRING_MESSAGE_MEET_NPC].GetString(), (*g_pCreatureTable)[m_quest_status.current_point].Name.GetString());
 				break;
@@ -33295,7 +33318,7 @@ void	C_VS_UI_QUEST_STATUS::Show()
 					else if (QuestInfo->GetGameType() == MINI_GAME_TYPE_ARROW )
 						wsprintf(sz_temp,(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_STATUS_ARROW_TILES].GetString());
 					else
-						wsprintf(sz_temp,"¾Ë ¼ö ¾øÀ½");
+						wsprintf(sz_temp,"ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 				}
 				break;
 			}
@@ -33307,7 +33330,7 @@ void	C_VS_UI_QUEST_STATUS::Show()
 		ColorTitle = RGB_WHITE;
 		BackTitle = RGB_BLACK;
 
-		// ½Ã°£ Ç¥½Ã
+		// ï¿½Ã°ï¿½ Ç¥ï¿½ï¿½
 		//if( QuestInfo.GetType() != QUEST_INFO_TYPE_NULL && m_bl_active && QuestInfo.GetTimeLimit() ) 
 		if( QuestInfo->GetTimeLimit() > 0 && QuestInfo->GetType() == QUEST_INFO_MONSTER_KILL )
 		{				
@@ -33346,7 +33369,7 @@ void	C_VS_UI_QUEST_STATUS::Show()
 			}
 			else 
 			{
-				//Á¦ÇÑ ½Ã°£ ÃÊ°ú
+				//ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½Ê°ï¿½
 				wsprintf(sz_temp, (*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_TIME_OVER_QUEST].GetString());
 				Timer2(6000);
 				time_check = Timer2();
@@ -33403,7 +33426,7 @@ void	C_VS_UI_QUEST_STATUS::ShowDesc(int strX,int strY,const char *str)
 		
 		char *sz_string2 = sz_string;
 		
-		while(*sz_string2 == ' ')		// ¾ÕÀÇ °ø¹éÁ¦°Å
+		while(*sz_string2 == ' ')		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			sz_string2++;
 			next++;
@@ -33416,7 +33439,7 @@ void	C_VS_UI_QUEST_STATUS::ShowDesc(int strX,int strY,const char *str)
 		sz_string2[cut_pos] = NULL;
 		
 		char *return_char = NULL;
-		if((return_char = strstr(sz_string2, "\\n")) != NULL)	// return Ã³¸®
+		if((return_char = strstr(sz_string2, "\\n")) != NULL)	// return Ã³ï¿½ï¿½
 		{
 			cut_pos = return_char - sz_string2+2;
 			sz_string2[cut_pos-2] = NULL;
@@ -33604,7 +33627,7 @@ void	C_VS_UI_QUEST_STATUS::ShowQuestDescription(int _x, int _y)
 	Rect rect;
 	Point point(_x+x,_y+y);	
 	
-	// Å¸ÀÌÆ² °ÔÀÌÁö
+	// Å¸ï¿½ï¿½Æ² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	rect.Set(x+tab_x,y+38+tab_y,128,10);	
 	if(rect.IsInRect(point))
 	{
@@ -33617,7 +33640,7 @@ void	C_VS_UI_QUEST_STATUS::ShowQuestDescription(int _x, int _y)
 		switch(QuestInfo->GetType())
 		{
 		case QUEST_INFO_MONSTER_KILL:
-			// ¸ó½ºÅÍ »ç³É Äù½ºÆ®
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 			// %s (%d/%d)
 			wsprintf(temp_str[0], (*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_MONSTER_KILL].GetString());
 			if( m_quest_status.quest_time < timeGetTime()/1000)	
@@ -33632,13 +33655,13 @@ void	C_VS_UI_QUEST_STATUS::ShowQuestDescription(int _x, int _y)
 				wsprintf(temp_str[1], "%s (%d/%d)", QuestInfo->GetName(), min(m_quest_status.current_point,QuestInfo->GetGoal()), QuestInfo->GetGoal());					
 			break;
 		case QUEST_INFO_MEET_NPC :
-			// NPC ¸¸³ª±â Äù½ºÆ®
+			// NPC ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 			// %s
 			wsprintf(temp_str[0], (*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_MEET_NPC].GetString());
 			wsprintf(temp_str[1], "%s", (*g_pCreatureTable)[QuestInfo->GetCreatureType()].Name.GetString());
 			break;
 		case QUEST_INFO_GATHER_ITEM :
-			// ¾ÆÀÌÅÛ ±¸ÇÏ±â Äù½ºÆ®
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 			// %s
 			wsprintf(temp_str[0], (*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_GATHER_ITEM].GetString());
 			wsprintf(temp_str[1], "%s", QuestInfo->GetName());				
@@ -33651,13 +33674,13 @@ void	C_VS_UI_QUEST_STATUS::ShowQuestDescription(int _x, int _y)
 		str[2] = NULL;
 		g_descriptor_manager.Set(DID_STRINGS, _x+x, _y+y, (void *)str, 2);
 	}
-	//½Ã°£ °ÔÀÌÁö
+	//ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	rect.Set(x+tab_x,y+73+tab_y,128,10);
 	if(rect.IsInRect(point))
 	{
-		// ÃÑ Á¦ÇÑ½Ã°£ : %d
-		// °æ °ú ½Ã °£ : %d
-		// ³² Àº ½Ã °£ : %d
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ½Ã°ï¿½ : %d
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ : %d
+		// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ : %d
 		
 		QUEST_INFO* QuestInfo = g_pQuestInfoManager->GetInfo( m_quest_status.QuestID );	
 		if( NULL == QuestInfo)
@@ -33889,8 +33912,8 @@ void	C_VS_UI_QUEST_STATUS::Run(id_t id)
 	case DETAIL_ID :
 		if( m_quest_status.QuestID == 57 || m_quest_status.QuestID == 72 || m_quest_status.QuestID ==  87 )
 		{
-			// 5´Ü°è Äù½ºÆ®ÀÏ°æ¿ì¿¡¸¸
-			std::string		detail_info = "¸ó½ºÅÍ : ";
+			// 5ï¿½Ü°ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ï°ï¿½ì¿¡ï¿½ï¿½
+			std::string		detail_info = "ï¿½ï¿½ï¿½ï¿½ : ";
 			detail_info+=GetDetailInfo();
 			
 			gC_vs_ui.RunPopupMessage( detail_info.c_str(), C_VS_UI_POPUP_MESSAGE::POPUP_MINI_WINDOW);
@@ -33916,7 +33939,7 @@ int		C_VS_UI_QUEST_STATUS::Timer( int timer )
 
 	if( timer > 0 )
 	{
-		// Å¸ÀÌ¸Ó¸¦ ¼¼ÆÃÇØÁØ´Ù.
+		// Å¸ï¿½Ì¸Ó¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 		m_timer = current_time + timer;
 	}
 
@@ -33939,7 +33962,7 @@ int		C_VS_UI_QUEST_STATUS::Timer2( int timer )
 
 	if( timer > 0 && m_bl_timeover == false)
 	{
-		// Å¸ÀÌ¸Ó¸¦ ¼¼ÆÃÇØÁØ´Ù.
+		// Å¸ï¿½Ì¸Ó¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 		Timer(4000);
 		m_timer2 =  current_time + timer;
 		m_bl_timeover = true;
@@ -33972,7 +33995,7 @@ int		C_VS_UI_QUEST_STATUS::Timer2( int timer )
 //------------------------------------------------------------------------------
 // C_VS_UI_LOTTERY_CARD
 //
-// º¹±Ç
+// ï¿½ï¿½ï¿½ï¿½
 //------------------------------------------------------------------------------
 
 class EventGiftInfo
@@ -34003,13 +34026,13 @@ C_VS_UI_LOTTERY_CARD::C_VS_UI_LOTTERY_CARD( int step)
 	
 	Set(g_GameRect.right/2-window_w/2, g_GameRect.bottom/2 - window_h/2, window_w, window_h);
 	
-	//°øÅë¹öÆ°
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Æ°
 	m_pC_button_group = new ButtonGroup(this);
 
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(141, 99+(19*5), m_pC_lottery_spk->GetWidth(LOTTERY_READY),
 		m_pC_lottery_spk->GetHeight(LOTTERY_READY), BUTTON_ID, this, LOTTERY_READY));
 
-	//¶óµğ¿À ¹öÆ°
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
 	m_pC_radio_group = new ButtonGroup(this);
 
 	for(int i=0; i<m_GiftList.size(); i++)
@@ -34018,7 +34041,7 @@ C_VS_UI_LOTTERY_CARD::C_VS_UI_LOTTERY_CARD( int step)
 			m_pC_lottery_spk->GetHeight(RADIO_BACK), RADIO1+i, this, RADIO_BACK));
 	}
 
-	// ¼­ÆäÀÌ½º »ı¼º
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	CSpritePack	coverSPK;
 	coverSPK.Init( 1 );	
 	bool re = coverSPK.LoadFromFileData( 0, COVER, SPK_LOTTERY_CARD, SPKI_LOTTERY_CARD );
@@ -34028,7 +34051,7 @@ C_VS_UI_LOTTERY_CARD::C_VS_UI_LOTTERY_CARD( int step)
 		POINT point = {0, 0};
 		
 		m_p_cover_surface = new CSpriteSurface;
-		m_p_cover_surface->InitOffsurface(coverSPK[0].GetWidth(), coverSPK[0].GetHeight(), DDSCAPS_SYSTEMMEMORY);
+		m_p_cover_surface->InitOffsurface(coverSPK[0].GetWidth(), coverSPK[0].GetHeight());
 		m_p_cover_surface->SetTransparency(0xffff);
 		
 		m_p_cover_surface->Lock();
@@ -34162,7 +34185,7 @@ void	C_VS_UI_LOTTERY_CARD::Show()
 		case LOTTERY_TYPE_SCRATCH:
 		case LOTTERY_TYPE_CLEARING:
 		case LOTTERY_TYPE_CLOSE:
-			// ´çÃ·¿¡ À¯¹«¿¡ ¸Â´Â ÀÌ¹ÌÁö Ãâ·Â
+			// ï¿½ï¿½Ã·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â´ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			m_pC_lottery_spk->BltLocked(x+20, y+14, m_backimage[0]);
 			m_pC_lottery_spk->BltLocked(x+20+68, y+14, m_backimage[1]);
 			m_pC_lottery_spk->BltLocked(x+20+68*2, y+14, m_backimage[2]);
@@ -34174,7 +34197,7 @@ void	C_VS_UI_LOTTERY_CARD::Show()
 		gpC_base->m_p_DDSurface_back->Unlock();
 	}
 	
-	// Cover ¼­ÆäÀÌ½º Âï¾îÁÖ±â
+	// Cover ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 	RECT rt = {0,0,m_p_cover_surface->GetWidth(),m_p_cover_surface->GetHeight()};
 	POINT point = {x+6, y+6};
 	gpC_base->m_p_DDSurface_back->Blt(&point, m_p_cover_surface, &rt);
@@ -34191,7 +34214,7 @@ void	C_VS_UI_LOTTERY_CARD::Show()
 			wsprintf(sz_temp, (*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_EVENT_GIFT].GetString(), m_step);
 			g_PrintColorStrOut( x+14, y+83, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE, RGB_BLACK);			
 			
-			for(i=0;i<m_GiftList.size();i++)
+			for(int i=0;i<m_GiftList.size();i++)
 			{		
 				if( m_Type == LOTTERY_TYPE_WAIT_CLIENT )
 				{
@@ -34287,7 +34310,7 @@ void	C_VS_UI_LOTTERY_CARD::ShowDesc(int strX,int strY,const char *str)
 		
 		char *sz_string2 = sz_string;
 		
-		while(*sz_string2 == ' ')		// ¾ÕÀÇ °ø¹éÁ¦°Å
+		while(*sz_string2 == ' ')		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			sz_string2++;
 			next++;
@@ -34300,7 +34323,7 @@ void	C_VS_UI_LOTTERY_CARD::ShowDesc(int strX,int strY,const char *str)
 		sz_string2[cut_pos] = NULL;
 		
 		char *return_char = NULL;
-		if((return_char = strstr(sz_string2, "\\n")) != NULL)	// return Ã³¸®
+		if((return_char = strstr(sz_string2, "\\n")) != NULL)	// return Ã³ï¿½ï¿½
 		{
 			cut_pos = return_char - sz_string2+2;
 			sz_string2[cut_pos-2] = NULL;
@@ -34465,7 +34488,7 @@ void	C_VS_UI_LOTTERY_CARD::Run(id_t id)
 	case BUTTON_ID:
 		if(m_Type == LOTTERY_TYPE_READY)
 		{
-			// Å¬¶óÀÌ¾ğÆ®¿¡ ÁØºñµÇ´Â ¸Ş¼¼Áö ³¯¸²
+			// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½Øºï¿½Ç´ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			m_Type = LOTTERY_TYPE_WAIT_CLIENT;
 			gpC_base->SendMessage( UI_LOTTERY_CARD_STATUS, m_step,(int) m_GiftList[m_radio_select-1]->id);			
 		}
@@ -34625,7 +34648,7 @@ void	C_VS_UI_LOTTERY_CARD::SetResult(bool	bSuccess)
 		
 		if(bSuccess )
 		{
-			// ÀÌ¹ÌÁö ¼º°ø ¼¼ÆÃ
+			// ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			m_bl_result = true;
 			m_backimage[0] = m_GiftList[m_radio_select-1]->image;
 			m_backimage[1] = m_GiftList[m_radio_select-1]->image;
@@ -34633,7 +34656,7 @@ void	C_VS_UI_LOTTERY_CARD::SetResult(bool	bSuccess)
 		} 
 		else
 		{
-			// ÀÌ¹ÌÁö ½ÇÆĞ ¼¼ÆÃ
+			// ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			srand(timeGetTime());
 			m_backimage[0] = m_GiftList[m_radio_select-1]->image;
 			m_backimage[1] = m_GiftList[m_radio_select-1]->image;
@@ -34657,7 +34680,7 @@ void C_VS_UI_QUEST_STATUS::IncreaseQuestPoint()
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÊÀ½çµØÖ· Ìí¼Ó Coffee 2007-3-6
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ö· ï¿½ï¿½ï¿½ï¿½ Coffee 2007-3-6
 //////////////////////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
 // C_VS_UI_WORLDMAP
@@ -34688,7 +34711,7 @@ C_VS_UI_WORLDMAP::C_VS_UI_WORLDMAP()
 
 	Set(g_GameRect.right-m_pC_minimap_spk->GetWidth(MINIMAP_MAIN), 0, m_pC_minimap_spk->GetWidth(MINIMAP_MAIN), m_pC_minimap_spk->GetHeight(MINIMAP_MAIN));
 	
-	//skillinfo ¹öÆ°
+	//skillinfo ï¿½ï¿½Æ°
 	m_pC_button_group = new ButtonGroup(this);
 	
 	int alpha_button_offset_x, alpha_button_offset_y;
@@ -34712,7 +34735,7 @@ C_VS_UI_WORLDMAP::C_VS_UI_WORLDMAP()
 	
 	m_p_minimap_surface = new CSpriteSurface;
 	
-	m_p_minimap_surface->InitOffsurface(m_pC_minimap_spk->GetWidth(MINIMAP_MAIN), m_pC_minimap_spk->GetHeight(MINIMAP_MAIN), DDSCAPS_SYSTEMMEMORY);
+	m_p_minimap_surface->InitOffsurface(m_pC_minimap_spk->GetWidth(MINIMAP_MAIN), m_pC_minimap_spk->GetHeight(MINIMAP_MAIN));
 	m_p_minimap_surface->SetTransparency(0xffff);
 	
 	m_surface_w = m_pC_minimap_spk->GetWidth(MINIMAP_MAIN);
@@ -34905,8 +34928,8 @@ bool C_VS_UI_WORLDMAP::MouseControl(UINT message, int _x, int _y)
 		
 	case M_LEFTBUTTON_DOWN:
 	case M_LB_DOUBLECLICK:
-		// ¹İÅõ¸í »óÅÂ¿¡¼­ ¸Ê Å¬¸¯ÇÏ¸é ÀÌµ¿µÇ°Ô
-		if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½Ìµï¿½ï¿½Ç°ï¿½
+		if (gpC_mouse_pointer->GetPickUpItem() == NULL && re)
 		{
 			MoveReady();
 			SetOrigin(_x, _y);
@@ -34930,7 +34953,7 @@ void C_VS_UI_WORLDMAP::MouseControlExtra(UINT message, int _x, int _y)
 	switch(message)
 	{
 	case M_MOVING:
-		// ¹Ì´Ï¸Ê À§¿¡ ¸¶¿ì½º°¡ ÀÖ´Ù.
+		// ï¿½Ì´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ ï¿½Ö´ï¿½.
 		{
 			int map_w = m_surface_w, map_h = m_surface_h;
 			//			if(m_map_w != m_map_h)
@@ -34939,7 +34962,8 @@ void C_VS_UI_WORLDMAP::MouseControlExtra(UINT message, int _x, int _y)
 			//				if(m_map_h > m_map_w)map_w = map_w * m_map_w / m_map_h;
 			//			}
 			
-			for(int i = 0; i < m_portal.size(); i++)
+			int i;
+	for(i = 0; i < m_portal.size(); i++)
 			{
 				int x = m_map_start_point.x + (m_portal[i].left+m_portal[i].right)/2*map_w/m_map_w;
 				int y = m_map_start_point.y + (m_portal[i].top+m_portal[i].bottom)/2*map_h/m_map_h;
@@ -34971,7 +34995,7 @@ void C_VS_UI_WORLDMAP::MouseControlExtra(UINT message, int _x, int _y)
 				}
 			}
 			
-			for(i = 0; i < m_npc.size(); i++)
+			for(int i = 0; i < m_npc.size(); i++)
 			{
 				int x = m_map_start_point.x + m_npc[i].x*map_w/m_map_w;
 				int y = m_map_start_point.y + m_npc[i].y*map_h/m_map_h;
@@ -35002,7 +35026,7 @@ void C_VS_UI_WORLDMAP::MouseControlExtra(UINT message, int _x, int _y)
 				}
 			}
 			
-			for(i = 0; i < m_shrine.size(); i++)
+			for(int i = 0; i < m_shrine.size(); i++)
 			{
 				int x = m_map_start_point.x + m_shrine[i].x*map_w/m_map_w;
 				int y = m_map_start_point.y + m_shrine[i].y*map_h/m_map_h;
@@ -35014,7 +35038,7 @@ void C_VS_UI_WORLDMAP::MouseControlExtra(UINT message, int _x, int _y)
 				}
 			}
 
-			for(i = 0; i < g_pParty->GetSize(); i++)
+			for(int i = 0; i < g_pParty->GetSize(); i++)
 			{
 				PARTY_INFO *info = g_pParty->GetMemberInfo(i);
 				if(info != NULL && info->zoneID == GetZoneID())
@@ -35042,7 +35066,7 @@ void C_VS_UI_WORLDMAP::MouseControlExtra(UINT message, int _x, int _y)
 				}
 			}
 			
-			for(i = 0; i < m_Flag.size(); i++)
+			for(int i = 0; i < m_Flag.size(); i++)
 			{
 				int x = m_map_start_point.x + m_Flag[i].x*map_w/m_map_w;
 				int y = m_map_start_point.y + m_Flag[i].y*map_h/m_map_h;
@@ -35078,14 +35102,14 @@ void C_VS_UI_WORLDMAP::KeyboardControl(UINT message, UINT key, long extra)
 //-----------------------------------------------------------------------------
 void C_VS_UI_WORLDMAP::Show()
 {
-	// ¸ÊÀÌ ¹Ù²î¾úÀ¸¸é ÅØ½ºÃÄ ¼¼ÆÃÀ» ´Ù½Ã ÇØÁà¾ß ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 //	if(m_bl_refresh == true)
 //	{
 //		InitMinimap(m_p_minimap_surface);
 //		m_bl_refresh = false;
 //	}
 	
-	// ¸ÊÃâ·Â
+	// ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(GetAttributes()->alpha)
 	{
 		RECT rt = {0,0,m_p_minimap_surface->GetWidth(),m_p_minimap_surface->GetHeight()};
@@ -35114,12 +35138,12 @@ void C_VS_UI_WORLDMAP::Show()
 		}
 	}
 	
-	// ¹Ì´Ï¸ÊÀ§¿¡ ±âÅ¸µîµî Ãâ·Â
+	// ï¿½Ì´Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	if(gpC_base->m_p_DDSurface_back->Lock())
 	{
 		//m_pC_minimap_spk->BltLocked(x+m_board_x, y+m_board_y, MINIMAP_BOARD);
 		
-		// ¸ÊÅ×µÎ¸®
+		// ï¿½ï¿½ï¿½×µÎ¸ï¿½
 		Rect rect(0, 0, w-0, h);
 		if(GetAttributes()->alpha)
 		{
@@ -35155,7 +35179,7 @@ void C_VS_UI_WORLDMAP::Show()
 			m_pC_minimap_spk->BltLockedClip(x+w-m_pC_minimap_spk->GetWidth(0), y-(100-m_surface_h), rect, 0);
 		}
 		
-		// hidingÁß¿¡´Â ±âÅ¸µîµî »ı·«
+		// hidingï¿½ß¿ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		//		if(GetAttributes()->autohide && x < 0 || x+w > g_GameRect.right || y < 0 || y+h > g_GameRect.bottom)
 		//		{
 		//			gpC_base->m_p_DDSurface_back->Unlock();
@@ -35191,12 +35215,12 @@ void C_VS_UI_WORLDMAP::Show()
 		int i, _x, _y;
 		WORD _color, _color2;
 		
-		// Æ÷Å» À§Ä¡ Ç¥½Ã ¡ä
+		// ï¿½ï¿½Å» ï¿½ï¿½Ä¡ Ç¥ï¿½ï¿½ ï¿½ï¿½
 		r = color, g = color-10, b = color;
 		_color = CDirectDraw::Color(r, g, b);
 		r = color*2/3, g = (color-10)*2/3, b = color*2/3;
 		_color2 = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < m_portal.size(); i++)
+	for(i = 0; i < m_portal.size(); i++)
 		{
 			_x = x+m_map_start_point.x + (m_portal[i].left+m_portal[i].right)/2*map_w/m_map_w;
 			_y = y+m_map_start_point.y + (m_portal[i].top+m_portal[i].bottom)/2*map_h/m_map_h;
@@ -35225,12 +35249,12 @@ void C_VS_UI_WORLDMAP::Show()
 			
 		}
 
-				// Æ÷Å» À§Ä¡ Ç¥½Ã ¡ä
+				// ï¿½ï¿½Å» ï¿½ï¿½Ä¡ Ç¥ï¿½ï¿½ ï¿½ï¿½
 		r = color, g = color-10, b = color;
 		_color = CDirectDraw::Color(r, g, b);
 		r = color*2/3, g = (color-10)*2/3, b = color*2/3;
 		_color2 = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < m_Block.size(); i++)
+		for(int i = 0; i < m_Block.size(); i++)
 		{
 			_x = x+m_map_start_point.x + (m_Block[i].x)*map_w/m_map_w;
 			_y = y+m_map_start_point.y + (m_Block[i].y)*map_h/m_map_h;
@@ -35252,15 +35276,15 @@ void C_VS_UI_WORLDMAP::Show()
 //				wmemset(&mem[(j)*pitch_div_2 + _x], _color, flagsize*map_w/m_map_w);
 //		}
 		
-		// npcÀ§Ä¡ Ç¥½Ã ¢Ó
+		// npcï¿½ï¿½Ä¡ Ç¥ï¿½ï¿½ ï¿½ï¿½
 		r = color-10, g = color, b = color-10;
 		_color = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < m_npc.size(); i++)
+		for(int i = 0; i < m_npc.size(); i++)
 		{
 			_x = x+m_map_start_point.x + m_npc[i].x*map_w/m_map_w;
 			_y = y+m_map_start_point.y + m_npc[i].y*map_h/m_map_h;
 
-			if(m_npc[i].id == 659)	// µÅÁöÁ¤·É
+			if(m_npc[i].id == 659)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				gpC_global_resource->m_pC_info_spk->BltLocked(_x-gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::OUSTERS_HORN)/2, _y-gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::OUSTERS_HORN)+5, C_GLOBAL_RESOURCE::OUSTERS_HORN);
 			}
@@ -35289,12 +35313,12 @@ void C_VS_UI_WORLDMAP::Show()
 			}
 		}
 
-		// shrineÀ§Ä¡ Ç¥½Ã ¢Ó
+		// shrineï¿½ï¿½Ä¡ Ç¥ï¿½ï¿½ ï¿½ï¿½
 		r = color-10, g = color-10, b = color;
 		_color = CDirectDraw::Color(r, g, b);
 		r = (color-10)*2/3, g = (color-10)*2/3, b = color*2/3;
 		_color2 = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < m_shrine.size(); i++)
+		for(int i = 0; i < m_shrine.size(); i++)
 		{
 			_x = x+m_map_start_point.x + m_shrine[i].x*map_w/m_map_w;
 			_y = y+m_map_start_point.y + m_shrine[i].y*map_h/m_map_h;
@@ -35329,12 +35353,12 @@ void C_VS_UI_WORLDMAP::Show()
 		}
 
 		/*		
-		// ÆÄÆ¼¿øÀ§Ä¡ Ç¥½Ã x
+		// ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½Ä¡ Ç¥ï¿½ï¿½ x
 		if(g_pParty->GetSize())
 		{
 		r = color, g = color-5, b = color-5;
 		_color = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < g_pParty->GetSize(); i++)
+		for(int i = 0; i < g_pParty->GetSize(); i++)
 		{
 		if(g_pParty->GetMemberInfo(i) != NULL && g_pParty->GetMemberInfo(i)->zoneID == m_zone_id)
 		{
@@ -35366,7 +35390,7 @@ void C_VS_UI_WORLDMAP::Show()
 			}
 			}
 			
-			  //ÀÚ±â À§Ä¡ Ç¥½Ã x
+			  //ï¿½Ú±ï¿½ ï¿½ï¿½Ä¡ Ç¥ï¿½ï¿½ x
 			  _x = x+m_map_start_point.x + m_map_x*map_w/m_map_w;
 			  _y = y+m_map_start_point.y + m_map_y*map_h/m_map_h;
 			  
@@ -35392,8 +35416,8 @@ void C_VS_UI_WORLDMAP::Show()
 				  mem[(_y+2)*pitch_div_2 + _x+1] = 0;
 				  }
 		*/
-		// ÆÄÆ¼ À§Ä¡ Ç¥½Ã
-		for(i = 0; i < g_pParty->GetSize(); i++)
+		// ï¿½ï¿½Æ¼ ï¿½ï¿½Ä¡ Ç¥ï¿½ï¿½
+		for(int i = 0; i < g_pParty->GetSize(); i++)
 		{
 			if(g_pParty->GetMemberInfo(i) != NULL && g_pParty->GetMemberInfo(i)->zoneID == m_zone_id)
 			{
@@ -35404,7 +35428,7 @@ void C_VS_UI_WORLDMAP::Show()
 			}
 		}
 		
-		// ÀÚ±â À§Ä¡ Ç¥½Ã
+		// ï¿½Ú±ï¿½ ï¿½ï¿½Ä¡ Ç¥ï¿½ï¿½
 		if(m_map_w != 0 && m_map_h != 0)
 		{
 			_x = x+m_map_start_point.x + m_map_x*map_w/m_map_w;
@@ -35495,16 +35519,16 @@ void C_VS_UI_WORLDMAP::SetZone(int zone_id)
 	m_bl_refresh = true;
 	
 	//	int spk_id[zone_id_size] = 
-	//	{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,//ÇÊµå
-	//	12, 13, 14, 13, 15, 21, 40, 45, //´øÁ¯&¸¶À»
-	//	39, 28, 29, 30, 31, 32,//¹ÙÅä¸®´øÁ¯
-	//	41, 42, 43, 44, //¶ó¼¾¼º
-	//	20, 16, 17, 18, 19,//±ºÀÎ±æµå
-	//	20, 22, 23, 24, 19,//¼ºÁ÷ÀÚ±æµå
-	//	20, 25, 26, 27, 19,//¹«»ç±æµå
-	//	19, 20, 21, 22, 23, 25,//Æ©Åä¸®¾ó
-	//	33, 34,					//Æ©Åä¸®¾ó
-	//	-1, -1, -1};//Å¬¶óÀÌ¾ğÆ®¿ë
+	//	{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,//ï¿½Êµï¿½
+	//	12, 13, 14, 13, 15, 21, 40, 45, //ï¿½ï¿½ï¿½ï¿½&ï¿½ï¿½ï¿½ï¿½
+	//	39, 28, 29, 30, 31, 32,//ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½
+	//	41, 42, 43, 44, //ï¿½ó¼¾¼ï¿½
+	//	20, 16, 17, 18, 19,//ï¿½ï¿½ï¿½Î±ï¿½ï¿½
+	//	20, 22, 23, 24, 19,//ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½
+	//	20, 25, 26, 27, 19,//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//	19, 20, 21, 22, 23, 25,//Æ©ï¿½ä¸®ï¿½ï¿½
+	//	33, 34,					//Æ©ï¿½ä¸®ï¿½ï¿½
+	//	-1, -1, -1};//Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½
 	
 	//	bool bl_statch = (x+w >= g_GameRect.right-1);
 	//	int statch_w = w;
@@ -35514,18 +35538,18 @@ void C_VS_UI_WORLDMAP::SetZone(int zone_id)
 	
 	//-------------------------------------------------------------------
 	//
-	// ÇÊ¿äÇÑ minimap sprite¸¦ ÇÏ³ª ÀĞ¾î¿À±â À§ÇØ¼­.
+	// ï¿½Ê¿ï¿½ï¿½ï¿½ minimap spriteï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½Ğ¾ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½.
 	//
 	//-------------------------------------------------------------------
 	// by sigi 2001.9.5
 	CSpritePack	minimapSPK;
-	minimapSPK.Init( 1 );		// ÀÓ½Ã·Î 1°³¸¸ loading.. - -;;
+	minimapSPK.Init( 1 );		// ï¿½Ó½Ã·ï¿½ 1ï¿½ï¿½ï¿½ï¿½ loading.. - -;;
 	
 	bool re = minimapSPK.LoadFromFileData( 0, g_pZoneTable->Get(zone_id)->MinimapSpriteID, SPK_MINIMAP, SPKI_MINIMAP );
 	assert(re && "Minimap Not Load");
 	
 	//-------------------------------------------------------------------
-	// È­¸é¿¡ Ãâ·Â
+	// È­ï¿½é¿¡ ï¿½ï¿½ï¿½
 	//-------------------------------------------------------------------
 	if(re)
 	{
@@ -35535,9 +35559,15 @@ void C_VS_UI_WORLDMAP::SetZone(int zone_id)
 		POINT point = {0, 0};
 		DeleteNew(m_p_minimap_surface);
 		m_p_minimap_surface = new CSpriteSurface;
-		m_p_minimap_surface->InitOffsurface(m_surface_w, m_surface_h, DDSCAPS_SYSTEMMEMORY);
+		m_p_minimap_surface->InitOffsurface(m_surface_w, m_surface_h);
 		m_p_minimap_surface->SetTransparency( 0xffff );
+#ifdef PLATFORM_WINDOWS
 		m_p_minimap_surface->FillSurface(0x0000);
+#else
+		// SDL backend: Fill the entire surface with color 0x0000
+		RECT fillRect = {0, 0, m_surface_w, m_surface_h};
+		m_p_minimap_surface->FillRect(&fillRect, 0x0000);
+#endif
 		
 		m_p_minimap_surface->Lock();
 		m_p_minimap_surface->BltSprite(&point, &minimapSPK[0]);
@@ -35609,7 +35639,7 @@ void	C_VS_UI_WORLDMAP::SetFlagArea(POINT pt)
 //-----------------------------------------------------------------------------
 // SetSafetyZone
 //
-// ¾ÈÀüÁö´ë ¼³Á¤
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_WORLDMAP::SetSafetyZone(RECT rect, bool my_zone)
 {
@@ -35675,17 +35705,18 @@ void C_VS_UI_WORLDMAP::SetSafetyZone(RECT rect, bool my_zone)
 //-----------------------------------------------------------------------------
 // SetNPC
 //
-// NPC ¼³Á¤
+// NPC ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_WORLDMAP::SetNPC(MINIMAP_NPC npc)
 {
-	if(npc.id >= 560 && npc.id <= 563)	// ¼º »óÂ¡¹° ¹ŞÄ§´ë
+	if(npc.id >= 560 && npc.id <= 563)	// ï¿½ï¿½ ï¿½ï¿½Â¡ï¿½ï¿½ ï¿½ï¿½Ä§ï¿½ï¿½
 	{
-		for(int i = 0; i < m_shrine.size(); i++)
+		int i;
+		for(i = 0; i < m_shrine.size(); i++)
 		{
 			if(npc.id == m_shrine[i].id)break;
 		}
-		
+
 		if(i == m_shrine.size())
 		{
 			MINIMAP_SHRINE shrine;
@@ -35697,13 +35728,14 @@ void C_VS_UI_WORLDMAP::SetNPC(MINIMAP_NPC npc)
 			m_shrine.push_back(shrine);
 		}
 	}
-	else if(npc.id >= 526 && npc.id <= 537)	// ¼öÈ£¼º´Ü
+	else if(npc.id >= 526 && npc.id <= 537)	// ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½
 	{
-		for(int i = 0; i < m_shrine.size(); i++)
+		int i;
+		for(i = 0; i < m_shrine.size(); i++)
 		{
 			if(npc.id == m_shrine[i].id)break;
 		}
-		
+
 		if(i == m_shrine.size())
 		{
 			MINIMAP_SHRINE shrine;
@@ -35715,13 +35747,14 @@ void C_VS_UI_WORLDMAP::SetNPC(MINIMAP_NPC npc)
 			m_shrine.push_back(shrine);
 		}
 	}
-	else if(npc.id >= 538 && npc.id <= 549)	// ¼ºÁö ¼º´Ü
+	else if(npc.id >= 538 && npc.id <= 549)	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
-		for(int i = 0; i < m_shrine.size(); i++)
+		int i;
+		for(i = 0; i < m_shrine.size(); i++)
 		{
 			if(npc.id == m_shrine[i].id)break;
 		}
-		
+
 		if(i == m_shrine.size())
 		{
 			MINIMAP_SHRINE shrine;
@@ -35743,11 +35776,12 @@ void C_VS_UI_WORLDMAP::SetNPC(MINIMAP_NPC npc)
 	}
 	else
 	{
-		for(int i = 0; i < m_npc.size(); i++)
+		int i;
+		for(i = 0; i < m_npc.size(); i++)
 		{
-			if(npc.id == m_npc[i].id && npc.id != 659 && npc.id != 672 && npc.id != 673 )break; // µÅÁö Á¤·ÉÀº »ı±îÀğ
+			if(npc.id == m_npc[i].id && npc.id != 659 && npc.id != 672 && npc.id != 673 )break; // ì¤‘ë³µnpcëŠ” ì œì™¸í•œë‹¤
 		}
-		
+
 		if(i == m_npc.size())
 		{
 			m_npc.push_back(npc);
@@ -35758,7 +35792,7 @@ void C_VS_UI_WORLDMAP::SetNPC(MINIMAP_NPC npc)
 //-----------------------------------------------------------------------------
 // SetPortal
 //
-// Æ÷Å» ¼³Á¤
+// ï¿½ï¿½Å» ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_WORLDMAP::SetPortal(RECT rect, int id)
 {
@@ -35767,7 +35801,8 @@ void C_VS_UI_WORLDMAP::SetPortal(RECT rect, int id)
 		/*|| */!g_pSystemAvailableManager->ZoneFiltering( id ) )
 		return;
 	
-	for(int i = 0; i < m_portal.size(); i++)
+	int i;
+	for(i = 0; i < m_portal.size(); i++)
 	{
 		if(m_portal_zone_id[i] == id &&
 			m_portal[i].top <= rect.bottom +5 &&

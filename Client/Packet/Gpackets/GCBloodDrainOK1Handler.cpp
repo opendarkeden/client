@@ -14,7 +14,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCBloodDrainOK1Handler::execute ( GCBloodDrainOK1 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -22,7 +23,7 @@ void GCBloodDrainOK1Handler::execute ( GCBloodDrainOK1 * pPacket , Player * pPla
 
 
 	//------------------------------------------------------------------
-	// Player°¡ ±â´Ù¸®´ø skillÀÇ ¼º°øÀ¯¹«¸¦ °ËÁõ¹Þ¾Ò´Ù.
+	// Playerê°€ ê¸°ë‹¤ë¦¬ë˜ skillì˜ ì„±ê³µìœ ë¬´ë¥¼ ê²€ì¦ë°›ì•˜ë‹¤.
 	//------------------------------------------------------------------
 	if (g_pPlayer->GetWaitVerify()==MPlayer::WAIT_VERIFY_SKILL_SUCCESS)
 	{		
@@ -34,22 +35,22 @@ void GCBloodDrainOK1Handler::execute ( GCBloodDrainOK1 * pPacket , Player * pPla
 	}
 
 	//------------------------------------------------------------------
-	// Player°¡ SkillÀ» ¼º°ø½ÃÅ² °æ¿ì¿¡ ³¯¾Æ¿À´Â PacketÀÌ¹Ç·Î
-	// °á°ú¸¦ ¹Ý¿µ½ÃÄÑ¾ß ÇÑ´Ù.
+	// Playerê°€ Skillì„ ì„±ê³µì‹œí‚¨ ê²½ìš°ì— ë‚ ì•„ì˜¤ëŠ” Packetì´ë¯€ë¡œ
+	// ê²°ê³¼ë¥¼ ë°˜ì˜ì‹œì¼œì•¼ í•œë‹¤.
 	//------------------------------------------------------------------
-	// »óÅÂ°ªÀ» ¹Ù²Û´Ù.
+	// ìƒíƒœê°’ì„ ë°”ê¾¼ë‹¤.
 	//------------------------------------------------------------------
 	AffectModifyInfo(g_pPlayer, pPacket);
 
 	//------------------------------------------------------------------
-	// UI¿¡ º¸ÀÌ´Â °ÍÀ» ¹Ù²ãÁØ´Ù.
-	// ºñ±³¿¬»êÇÏ´Â°Åº¸´Ù ÀÌ°Ô ´õ ºü¸£Áö ¾ÊÀ»±î.. À½.. - -;
+	// UIì— ë³´ì´ëŠ” ê²ƒì„ ë°”ê¿”ì¤€ë‹¤.
+	// ë¹„êµì—°ì‚°í•˜ëŠ”ê±°ë³´ë‹¤ ì´ê²Œ ë” ë¹ ë¥´ì§€ ì•Šì„ê¹Œ.. ìŒ.. - -;
 	//------------------------------------------------------------------
 	//UI_SetHP( g_pPlayer->GetHP(), g_pPlayer->GetMAX_HP() );
 	//UI_SetMP( g_pPlayer->GetMP(), g_pPlayer->GetMAX_MP() );
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -57,19 +58,19 @@ void GCBloodDrainOK1Handler::execute ( GCBloodDrainOK1 * pPacket , Player * pPla
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 
-		// Creature¿¡°Ô Damage ÀÔÈû
+		// Creatureì—ê²Œ Damage ìž…íž˜
 		if (pCreature != NULL)
 		{	
-			// Creature¿¡°Ô ³»°¡ ÈíÇ÷ÇÏ°í ÀÖ´Ù°í ¾Ë·ÁÁØ´Ù
+			// Creatureì—ê²Œ ë‚´ê°€ í¡í˜ˆí•˜ê³  ìžˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤
 			pCreature->SetDrainCreatureID( g_pPlayer->GetID() );
 
-			// °á°ú ¹Ù·Î Ç¥Çö
+			// ê²°ê³¼ ë°”ë¡œ í‘œí˜„
 			pCreature->PacketSpecialActionResult( 
 					SKILL_BLOOD_DRAIN + (*g_pActionInfoTable).GetMinResultActionInfo(),
 					pCreature->GetID(),
@@ -77,10 +78,10 @@ void GCBloodDrainOK1Handler::execute ( GCBloodDrainOK1 * pPacket , Player * pPla
 					pCreature->GetY()
 			);	
 
-			int delayFrame = 691200;	// 12½Ã°£*60ºÐ*60ÃÊ*16frame = 12*60*60*16;
+			int delayFrame = 691200;	// 12ì‹œê°„*60ë¶„*60ì´ˆ*16frame = 12*60*60*16;
 			pCreature->AddEffectStatus( EFFECTSTATUS_BLOOD_DRAIN, delayFrame );	
 			
-//			// 2004, 6, 9 sobeit add start - Å×½ºÆ®, ÈíÇ÷ ¼º°ø ¸Þ¼¼Áö ¿Â´ã¿¡ µ¿ÀÛÇÏ°Ô..-_-
+//			// 2004, 6, 9 sobeit add start - í…ŒìŠ¤íŠ¸, í¡í˜ˆ ì„±ê³µ ë©”ì„¸ì§€ ì˜¨ë‹´ì— ë™ìž‘í•˜ê²Œ..-_-
 //			if(g_pPlayer->IsVampire())
 //			{
 //				g_pPlayer->SetDirectionToPosition(pCreature->GetX(), pCreature->GetY());
