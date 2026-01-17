@@ -13,6 +13,8 @@ project(DarkEdenClient VERSION 1.0.0)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # Build options
 option(BUILD_TESTS "Build test programs" ON)
 

@@ -2,7 +2,7 @@
 //
 // Filename    : Properties.cpp
 // Written By  : Reiot
-// Description : 
+// Description : Cross-platform properties file handling with path conversion
 //
 //--------------------------------------------------------------------------------
 
@@ -15,6 +15,35 @@
 #include <stdlib.h>			// atoi()
 #include <fstream>
 #include <iostream>
+
+//--------------------------------------------------------------------------------
+// Helper function to convert Windows path separators to Unix format
+//--------------------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
+	/* On Windows, no conversion needed - inline function for efficiency */
+	static inline std::string ConvertPathSeparators(const std::string& path) {
+		return path;  // Return unchanged on Windows
+	}
+#else
+	/* On Unix/macOS, convert \\ to / */
+	static inline std::string ConvertPathSeparators(const std::string& path) {
+		std::string result = path;
+		size_t pos = 0;
+		/* Replace all \\ with / */
+		while ((pos = result.find("\\\\", pos)) != std::string::npos) {
+			result.replace(pos, 2, "/");
+			pos += 1;  // Move past the replaced /
+		}
+		/* Also replace single \ with / (for edge cases) */
+		pos = 0;
+		while ((pos = result.find('\\', pos)) != std::string::npos) {
+			result.replace(pos, 1, "/");
+			pos += 1;  // Move past the replaced /
+		}
+		return result;
+	}
+#endif
+
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 const char Properties::Comment = '#';
@@ -76,12 +105,17 @@ void Properties::load ()
 
 		std::string line;
 		std::getline( ifile , line );
-		
+
 		if ( ifile.eof() )
 			break;
 
+		// Remove trailing \r (Windows CRLF files on Unix/macOS)
+		if ( !line.empty() && line[line.size() - 1] == '\r' ) {
+			line.erase( line.size() - 1 );
+		}
+
 		// 코멘트 라인이거나 빈 라인이므로 skip 한다.
-		if ( line[0] == Comment || line.size() == 0 )	
+		if ( line[0] == Comment || line.size() == 0 )
 			continue;
 
 		// key 의 시작문자(white space가 아닌 문자)를 찾는다. 
@@ -157,12 +191,14 @@ void Properties::save ()
 //--------------------------------------------------------------------------------
 // get property
 //--------------------------------------------------------------------------------
-std::string Properties::getProperty ( std::string key ) const 
+std::string Properties::getProperty ( std::string key ) const
 	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 
-		return getProperty(key.c_str());
+		std::string value = getProperty(key.c_str());
+		/* Convert path separators for cross-platform compatibility */
+		return ConvertPathSeparators(value);
 
 	__END_CATCH
 }
@@ -170,22 +206,23 @@ std::string Properties::getProperty ( std::string key ) const
 //--------------------------------------------------------------------------------
 // get property
 //--------------------------------------------------------------------------------
-std::string Properties::getProperty ( const char* key ) const 
+std::string Properties::getProperty ( const char* key ) const
 throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
-		
+
 		std::string value;
-	
+
 	std::map< std::string , std::string , StringCompare >::const_iterator itr = m_Properties.find( key );
-	
+
 	if ( itr != m_Properties.end() )
 		value = itr->second;
 	else
 		throw NoSuchElementException(key);
-	
-	return value;
-	
+
+	/* Convert path separators for cross-platform compatibility */
+	return ConvertPathSeparators(value);
+
 	__END_CATCH
 }
 

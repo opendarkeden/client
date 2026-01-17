@@ -1528,6 +1528,8 @@ InitGameUpdate()
 BOOL
 InitGame()
 {	
+	g_pFileDef = new Properties;
+	g_pFileDef->load("Data/Info/FileDef.inf");			
 
 	//---------------------------------------------------------------------
 	// Profiler
