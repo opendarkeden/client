@@ -275,6 +275,9 @@ class CSpriteSurface {
 		void				GetSurfaceInfo(S_SURFACEINFO* info);
 		// GetDDSD compatibility wrapper - returns pointer to internal surface info
 		S_SURFACEINFO*		GetDDSD();
+
+		// Get backend surface handle (for presenting to SDL renderer)
+		spritectl_surface_t	GetBackendSurface() const { return m_backend_surface; }
 #endif
 		bool				InitTextureSurface(int width, int height, void* pixels = NULL, void* pixelFormat = NULL);
 

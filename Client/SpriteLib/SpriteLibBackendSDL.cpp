@@ -917,3 +917,47 @@ cleanup:
 
 	return result;
 }
+
+/* ============================================================================
+ * Present Surface to Renderer
+ * ============================================================================ */
+
+int spritectl_present_surface(spritectl_surface_t surface, void* renderer_ptr) {
+	if (!surface || !renderer_ptr) {
+		return -1;
+	}
+
+	SDL_Renderer* renderer = (SDL_Renderer*)renderer_ptr;
+
+	/* Get SDL surface from backend surface */
+	SDL_Surface* sdl_surface = surface->surface;
+	if (!sdl_surface) {
+		fprintf(stderr, "SpriteLib Backend: Surface has no SDL surface\n");
+		return -1;
+	}
+
+	/* Create texture from surface */
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, sdl_surface);
+	if (!texture) {
+		fprintf(stderr, "SpriteLib Backend: Failed to create texture: %s\n", SDL_GetError());
+		return -1;
+	}
+
+	/* Render texture to screen */
+	SDL_Rect dest_rect;
+	dest_rect.x = 0;
+	dest_rect.y = 0;
+	dest_rect.w = sdl_surface->w;
+	dest_rect.h = sdl_surface->h;
+
+	if (SDL_RenderCopy(renderer, texture, NULL, &dest_rect) != 0) {
+		fprintf(stderr, "SpriteLib Backend: Failed to render texture: %s\n", SDL_GetError());
+		SDL_DestroyTexture(texture);
+		return -1;
+	}
+
+	/* Clean up texture */
+	SDL_DestroyTexture(texture);
+
+	return 0;
+}

@@ -11,7 +11,7 @@
 
 class CWaitPacketUpdate : public CWinUpdate {
 	public :
-		CWaitPacketUpdate()	{ m_DelayLimit = 0xFFFFFFFF; }
+		CWaitPacketUpdate()	{ m_DelayLimit = 0xFFFFFFFF; }  // Will be set by SetDelay()
 		~CWaitPacketUpdate() {}
 
 		// 초기화

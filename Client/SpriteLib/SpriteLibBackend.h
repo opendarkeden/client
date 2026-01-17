@@ -146,6 +146,15 @@ int spritectl_clear_surface(spritectl_surface_t surface, uint32_t color);
  */
 int spritectl_get_surface_size(spritectl_surface_t surface, int* width, int* height);
 
+/**
+ * Present surface to SDL renderer (for displaying on screen)
+ * This function converts the surface to a texture and renders it.
+ * @param surface Surface handle to present
+ * @param renderer SDL renderer to present to
+ * @return 0 on success, non-zero on failure
+ */
+int spritectl_present_surface(spritectl_surface_t surface, void* renderer);
+
 /* ============================================================================
  * Sprite Functions
  * ============================================================================ */

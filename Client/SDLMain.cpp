@@ -25,11 +25,18 @@
 #include "../VS_UI/src/hangul/Ci.h"
 #include "UserInformation.h"
 #include "SpriteLib/SpriteLibBackend.h"
+#include "CGameUpdate.h"
+#include "CSpriteSurface.h"
 
 /* Forward declarations for game functions (defined in GameInit.cpp, ClientFunction.cpp, etc.) */
 extern bool InitGame();
-extern void RunGame();
 extern void ReleaseAllObjects();
+
+/* Global game update object */
+extern CGameUpdate* g_pCGameUpdate;
+
+/* Global back buffer surface */
+extern CSpriteSurface* g_pBack;
 
 /* Language detection and character input initialization */
 enum DARKEDEN_LANGUAGE
@@ -154,6 +161,9 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
+	/* Set game as active (will get focus when window is shown) */
+	g_bActiveApp = TRUE;
+
 	/* Create renderer */
 	SDL_Renderer* renderer = SDL_CreateRenderer(
 		window,
@@ -240,10 +250,14 @@ int main(int argc, char* argv[])
 	}
 
 	printf("Game initialization complete.\n");
+	fflush(stdout);
 	printf("\n");
 	printf("Starting game loop...\n");
+	fflush(stdout);
 	printf("Press Ctrl+C or close window to exit.\n");
+	fflush(stdout);
 	printf("\n");
+	fflush(stdout);
 
 	/* Main game loop */
 	SDL_Event event;
@@ -290,14 +304,17 @@ int main(int argc, char* argv[])
 		/* Only update game if active */
 		if (g_bActiveApp) {
 			/* Call game update/render function */
-			/* TODO: Integrate with existing game loop */
-			/* RunGame(); */
+			if (g_pCGameUpdate != NULL) {
+				g_pCGameUpdate->Update();
+			}
 
-			/* Clear screen */
-			SDL_RenderClear(renderer);
-
-			/* TODO: Render game scene */
-			/* This will call into MTopView and other rendering code */
+			/* Present back buffer to screen */
+			if (g_pBack != NULL) {
+				spritectl_surface_t backend_surface = g_pBack->GetBackendSurface();
+				if (backend_surface != SPRITECTL_INVALID_SURFACE) {
+					spritectl_present_surface(backend_surface, renderer);
+				}
+			}
 
 			/* Present rendered frame */
 			SDL_RenderPresent(renderer);
