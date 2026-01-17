@@ -324,18 +324,28 @@ int spritectl_blt_sprite(spritectl_surface_t dest, int x, int y,
 		return -1;
 	}
 
-	/* Lock destination surface */
-	if (SDL_MUSTLOCK(dest->surface)) {
-		SDL_LockSurface(dest->surface);
+	// CRITICAL: Destination surface must NOT be locked when blitting
+	// This check is always enabled (not just DEBUG) to prevent crashes
+	if (dest->locked > 0) {
+		fprintf(stderr, "WARNING: SDL_BlitSurface cannot blit to locked surface!\n");
+		fprintf(stderr, "         Surface lock_count=%d\n", dest->locked);
+		fprintf(stderr, "         Auto-unlocking to prevent crash\n");
+		// Attempt recovery: unlock the surface
+		while (dest->locked > 0) {
+			SDL_UnlockSurface(dest->surface);
+			dest->locked--;
+		}
 	}
+
+	/* NOTE: We do NOT lock the destination surface here.
+	 * SDL_BlitSurface will handle any necessary locking internally.
+	 * Locking the destination surface before blitting is incorrect and will cause errors.
+	 */
 
 	/* Create temporary surface from sprite pixels */
 	src_surface = SDL_CreateRGBSurface(0, sprite->width, sprite->height, 32,
 	                                  0xFF, 0xFF00, 0xFF0000, 0xFF000000);
 	if (!src_surface) {
-		if (SDL_MUSTLOCK(dest->surface)) {
-			SDL_UnlockSurface(dest->surface);
-		}
 		return -1;
 	}
 
@@ -343,9 +353,6 @@ int spritectl_blt_sprite(spritectl_surface_t dest, int x, int y,
 	rgba_pixels = (uint32_t*)malloc(sprite->width * sprite->height * sizeof(uint32_t));
 	if (!rgba_pixels) {
 		SDL_FreeSurface(src_surface);
-		if (SDL_MUSTLOCK(dest->surface)) {
-			SDL_UnlockSurface(dest->surface);
-		}
 		return -1;
 	}
 
@@ -387,9 +394,6 @@ int spritectl_blt_sprite(spritectl_surface_t dest, int x, int y,
 
 	/* Cleanup */
 	SDL_FreeSurface(src_surface);
-	if (SDL_MUSTLOCK(dest->surface)) {
-		SDL_UnlockSurface(dest->surface);
-	}
 
 	return result;
 }

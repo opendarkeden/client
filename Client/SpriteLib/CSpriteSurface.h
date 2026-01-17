@@ -265,6 +265,13 @@ class CSpriteSurface {
 		bool				LockSDL();  // Renamed to avoid conflict with Lock()
 		void				UnlockSDL();
 		bool				IsLock();
+
+#ifdef SPRITELIB_BACKEND_SDL
+		// NEW: Query actual lock state (for debugging)
+		bool				IsLocked() const { return m_lock_count > 0; }
+		int					GetLockCount() const { return m_lock_count; }
+#endif
+
 		void				GetSurfaceInfo(S_SURFACEINFO* info);
 		// GetDDSD compatibility wrapper - returns pointer to internal surface info
 		S_SURFACEINFO*		GetDDSD();
@@ -310,6 +317,9 @@ class CSpriteSurface {
 		int m_width;
 		int m_height;
 		int m_transparency;  // Transparency value for compatibility
+
+		// Lock state tracking to prevent double-locking
+		int m_lock_count;    // Number of times Lock() was called
 
 		// Clipping rectangles (compatibility with CDirectDrawSurface)
 		int m_ClipLeft;

@@ -3726,7 +3726,17 @@ void C_VS_UI::Init(CSpriteSurface *surface, void (*fp)(DWORD, int, int, void *))
 	}
 
 #ifndef _LIB
-	g_pMoneyManager->SetMoney(2000000000);
+	// Safety check: g_pMoneyManager should be initialized before this call
+	// This is called when compiling the game executable (not the static library)
+	if (g_pMoneyManager != NULL)
+	{
+		g_pMoneyManager->SetMoney(2000000000);
+	}
+	else
+	{
+		// This should never happen if InitGame() follows correct initialization order
+		assert(false && "g_pMoneyManager is NULL! InitGameObject() must be called before InitSurface()");
+	}
 #endif	
 
 	gpC_base = new Base;

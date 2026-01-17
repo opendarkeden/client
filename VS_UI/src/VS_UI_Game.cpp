@@ -64,7 +64,7 @@ bool gbl_trans_item_running;
 bool	gbl_skip_escape = false;
 
 bool gbl_swap_advancement_item_running; // ���� �����۰� ��ȯ��
-Race	g_eRaceInterface;
+Race	g_eRaceInterface = RACE_SLAYER;  // Default to Slayer interface
 
 extern int					g_Dimension ;
 extern RECT g_GameRect;

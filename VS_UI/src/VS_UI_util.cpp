@@ -659,7 +659,12 @@ void C_SPRITE_PACK::Open(const char *sz_filename)
 //	}
 
 	//m_pC_spk_list->LoadFromFile(file);
-	m_SPK.LoadFromFileRunning( sz_filename );
+
+	// Convert path separators for cross-platform compatibility
+	// On Windows: no conversion (keeps backslashes)
+	// On Unix/macOS: converts backslashes to forward slashes
+	std::string convertedPath = ConvertGamePath(sz_filename);
+	m_SPK.LoadFromFileRunning( convertedPath.c_str() );
 }
 
 /*-----------------------------------------------------------------------------

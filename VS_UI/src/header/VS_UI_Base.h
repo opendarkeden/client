@@ -335,4 +335,28 @@ extern bool gbl_item_trade_lock;
 //extern bool gbl_vampire_interface;
 extern Race g_eRaceInterface;
 extern bool gbl_swap_advancement_item_running; // ��� ��..
+
+//-----------------------------------------------------------------------------
+// Cross-platform path conversion utilities
+//-----------------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
+	// On Windows, no conversion needed
+	inline std::string ConvertGamePath(const char* path) {
+		return std::string(path);
+	}
+#else
+	// On Unix/macOS, convert backslashes to forward slashes
+	inline std::string ConvertGamePath(const char* path) {
+		if (!path) return std::string();
+		std::string result = path;
+		size_t pos = 0;
+		// Replace all backslashes with forward slashes
+		while ((pos = result.find('\\', pos)) != std::string::npos) {
+			result.replace(pos, 1, "/");
+			pos += 1;
+		}
+		return result;
+	}
+#endif
+
 #endif

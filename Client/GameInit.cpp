@@ -1737,14 +1737,14 @@ InitGame()
 		InitUserOption() &&
 
 		InitVolume() &&
-		InitInput() &&	
+		InitInput() &&
 		//InitSound()  &&
 		InitDraw() &&
-		
+
 		//InitThread() &&		// 2001.8.20 주석처리 - 로딩 Thread사용 안함
+		InitGameObject() &&    // GameObject must be initialized before Surface
+		                        // because gC_vs_ui.Init() in InitSurface() depends on g_pMoneyManager
 		InitSurface() &&
-		
-		InitGameObject() &&
 
 		InitGameUpdate()
 		)		

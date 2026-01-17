@@ -22,11 +22,26 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_main.h>
 #include <string.h>
+#include "../VS_UI/src/hangul/Ci.h"
+#include "UserInformation.h"
+#include "SpriteLib/SpriteLibBackend.h"
 
 /* Forward declarations for game functions (defined in GameInit.cpp, ClientFunction.cpp, etc.) */
 extern bool InitGame();
 extern void RunGame();
 extern void ReleaseAllObjects();
+
+/* Language detection and character input initialization */
+enum DARKEDEN_LANGUAGE
+{
+	DARKEDEN_KOREAN = 0,
+	DARKEDEN_CHINESE,
+	DARKEDEN_JAPANESE,
+	DARKEDEN_ENGLISH,
+	DARKEDEN_TAIWAN,
+	DARKEDEN_LANGUAGE_MAX
+};
+extern DARKEDEN_LANGUAGE CheckDarkEdenLanguage();
 
 /* Game mode flags from command line */
 enum GameMode {
@@ -94,6 +109,13 @@ int main(int argc, char* argv[])
 	/* Set up clean shutdown via atexit */
 	atexit(SDL_Quit);
 
+	/* Initialize SpriteLib SDL backend */
+	if (spritectl_init() != 0) {
+		fprintf(stderr, "ERROR: SpriteLib backend initialization failed\n");
+		return 1;
+	}
+	atexit(spritectl_shutdown);
+
 	/* Create window and renderer based on mode */
 	int windowWidth = 800;
 	int windowHeight = 600;
@@ -148,6 +170,42 @@ int main(int argc, char* argv[])
 	printf("SDL initialization complete.\n");
 	printf("\n");
 
+	//-----------------------------------------------------------------
+	// Initialize language and character input (IM E)
+	// This MUST be done before InitGame() - same order as WinMain
+	//-----------------------------------------------------------------
+	printf("Detecting language and initializing IME...\n");
+	DARKEDEN_LANGUAGE Language = CheckDarkEdenLanguage();
+
+	// Override to Chinese for macOS/Linux builds with Chinese resources
+	// (Windows detection might not work properly on these platforms)
+	Language = DARKEDEN_CHINESE;
+
+	switch (Language)
+	{
+	case DARKEDEN_CHINESE:
+		gC_ci = new CI_CHINESE;
+		printf("Language: Chinese (Simplified)\n");
+		break;
+
+	case DARKEDEN_KOREAN:
+		gC_ci = new CI_KOREAN;
+		printf("Language: Korean\n");
+		break;
+
+	default:
+		// Default to Chinese for non-Windows platforms
+		gC_ci = new CI_CHINESE;
+		printf("Language: Chinese (Simplified - default)\n");
+		break;
+	}
+
+#ifndef _DEBUG
+	// Crash report initialization (Windows only, skip on non-Windows platforms)
+	// if (gC_ci->IsKorean() == true)
+	//     InitCrashReport();
+#endif
+
 	/* Initialize game */
 	printf("Initializing game...\n");
 	if (!InitGame()) {
@@ -155,6 +213,30 @@ int main(int argc, char* argv[])
 		SDL_DestroyRenderer(renderer);
 		SDL_DestroyWindow(window);
 		return 1;
+	}
+
+	//-----------------------------------------------------------------
+	// Set user language based on detected language
+	// This MUST be done after InitGame() - matches WinMain order
+	//-----------------------------------------------------------------
+	extern UserInformation* g_pUserInformation;
+	if (g_pUserInformation != NULL)
+	{
+		if (gC_ci->IsKorean())
+		{
+			g_pUserInformation->SetKorean();
+			printf("User language set to: Korean\n");
+		}
+		else if (gC_ci->IsChinese())
+		{
+			g_pUserInformation->SetChinese();
+			printf("User language set to: Chinese\n");
+		}
+		else if (gC_ci->IsJapanese())
+		{
+			g_pUserInformation->SetJapanese();
+			printf("User language set to: Japanese\n");
+		}
 	}
 
 	printf("Game initialization complete.\n");
@@ -238,6 +320,11 @@ int main(int argc, char* argv[])
 	printf("Shutting down...\n");
 
 	ReleaseAllObjects();
+
+	// Clean up character input object (must be done after ReleaseAllObjects)
+	// This matches the cleanup order in WinMain
+	delete gC_ci;
+	gC_ci = NULL;
 
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);

@@ -48,6 +48,7 @@ CSpriteSurface::CSpriteSurface()
 	, m_width(0)
 	, m_height(0)
 	, m_transparency(0)
+	, m_lock_count(0)  // Initialize lock counter
 {
 }
 
@@ -523,12 +524,19 @@ void* CSpriteSurface::GetSurfacePointer()
 {
 	if (m_backend_surface == SPRITECTL_INVALID_SURFACE) return NULL;
 
-	// Lock surface to get pointer
+#ifdef _DEBUG
+	static bool warning_shown = false;
+	if (!warning_shown) {
+		fprintf(stderr, "WARNING: GetSurfacePointer() is deprecated and leaks locks!\n");
+		fprintf(stderr, "         Use Lock() + GetSurfacePointer() + Unlock() instead\n");
+		warning_shown = true;
+	}
+#endif
+
 	spritectl_surface_info_t info;
 	if (spritectl_lock_surface(m_backend_surface, &info) == 0) {
-		// Note: In a real implementation, you'd keep this locked
-		// For now, return the pointer (caller is responsible for unlocking)
-		return info.pixels;
+		m_lock_count++;  // Track this lock
+		return info.pixels;  // Caller MUST call Unlock()!
 	}
 	return NULL;
 }
@@ -537,11 +545,19 @@ void* CSpriteSurface::Lock(RECT* rect, unsigned long* pitch)
 {
 	if (m_backend_surface == SPRITECTL_INVALID_SURFACE) return NULL;
 
+#ifdef _DEBUG
+	// Warn if already locked (potential double-lock)
+	if (m_lock_count > 0) {
+		fprintf(stderr, "WARNING: CSpriteSurface::Lock() called while already locked (lock_count=%d)\n", m_lock_count);
+	}
+#endif
+
 	spritectl_surface_info_t info;
 	if (spritectl_lock_surface(m_backend_surface, &info) == 0) {
 		if (pitch != NULL) {
 			*pitch = info.pitch;
 		}
+		m_lock_count++;  // Track lock
 		return info.pixels;
 	}
 	return NULL;
@@ -550,6 +566,17 @@ void* CSpriteSurface::Lock(RECT* rect, unsigned long* pitch)
 void CSpriteSurface::Unlock()
 {
 	if (m_backend_surface != SPRITECTL_INVALID_SURFACE) {
+#ifdef _DEBUG
+		// Warn if not locked (potential double-unlock)
+		if (m_lock_count <= 0) {
+			fprintf(stderr, "WARNING: CSpriteSurface::Unlock() called but not locked!\n");
+		} else {
+			m_lock_count--;  // Track unlock
+		}
+#else
+		m_lock_count--;
+#endif
+
 		spritectl_unlock_surface(m_backend_surface);
 	}
 }

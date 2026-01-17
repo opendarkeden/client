@@ -8,6 +8,7 @@
 #include "MItemManager.h"
 #include "MItemOptionTable.h"
 #include "../SpriteLib/CSpriteOutlineManager.h"
+#include "Properties.h"
 #endif
 
 #ifndef _LIB
@@ -222,7 +223,9 @@ C_VS_UI_ITEM::C_VS_UI_ITEM()
 #ifndef _LIB
 	
 	// Item option table load.
-	ifstream file("data\\info\\itemoption.inf",ios::binary);
+    std::string result = g_pFileDef->getProperty("FILE_INFO_ITEMOPTION");
+	const char* fileName = result.c_str();
+	ifstream file(fileName, ios::binary);
 	g_pItemOptionTable->LoadFromFile( file );
 	file.close();
 

@@ -1165,7 +1165,8 @@ void	C_VS_UI_IMAGE_NOTICE::AddNotice(const char* name, DWORD id)
 std::string C_VS_UI_IMAGE_NOTICE::LoadInfo(DWORD ID)
 {
 	CEventGiftInfo *Event = new CEventGiftInfo;
-	ifstream info("data\\info\\eventquest.inf", ios::binary );
+	std::string convertedPath = ConvertGamePath("data\\info\\eventquest.inf");
+	ifstream info(convertedPath.c_str(), ios::binary );
 	Event->LoadFromFile ( info );
 	info.close();
 	
@@ -17985,10 +17986,11 @@ void	C_VS_UI_POWER_JJANG::ReleaseItemList()
 void	C_VS_UI_POWER_JJANG::SetItemList()
 {
 	ReleaseItemList();
-	
+
 	// ����..Ŭ���� ����� ����Ÿ..
 	BYTE MaxItem = 0;
-	ifstream file("data\\info\\PowerjjangItem.inf",ios::binary);
+	std::string convertedPath = ConvertGamePath("data\\info\\PowerjjangItem.inf");
+	ifstream file(convertedPath.c_str(), ios::binary);
 	file.read((char*)&MaxItem, 1);
 	file.read((char*)&m_AvailablePoint, 2);
 	for(int i = 0; i < MaxItem; i++)
