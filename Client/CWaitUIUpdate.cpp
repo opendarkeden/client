@@ -212,25 +212,18 @@ CWaitUIUpdate::Update()
 		
 		//------------------------------------------
 		// Input
-		//------------------------------------------	
-		// edit by coffee 錦攣槨눗왯뺏冷攣끽鞫刻
-		extern bool	g_bTestMode;
-		if (g_bActiveGame
-#ifdef OUTPUT_DEBUG
-			|| g_bTestMode
-#endif
-			)
-		{
-			UpdateInput();
-			ProcessInput();			
-		}
-		
+		//------------------------------------------
+		// Always call UpdateInput and ProcessInput for all modes (including main menu)
+		// SDL2 backend needs to process events every frame
+		UpdateInput();
+		ProcessInput();
+
 		#ifdef OUTPUT_DEBUG_UPDATE_LOOP
 			DEBUG_ADD("UP");
 		#endif
 
 		gC_vs_ui.Process();
-	
+
 		#ifdef OUTPUT_DEBUG_UPDATE_LOOP
 			DEBUG_ADD("UP2");
 		#endif
@@ -240,17 +233,17 @@ CWaitUIUpdate::Update()
 
 		//------------------------------------------
 		// Socket Output부분 처리
-		//------------------------------------------	
+		//------------------------------------------
 		if (!UpdateSocketOutput())
 		{
-			return;	
-		}		
+			return;
+		}
 
-		//------------------------------------------	
+		//------------------------------------------
 		// [ TEST CODE]
-		//------------------------------------------	
+		//------------------------------------------
 		// UI 기다리는 모드가 아닐 경우...
-		//------------------------------------------	
+		//------------------------------------------
 		if (g_Mode!=MODE_MAINMENU &&
 			g_Mode!=MODE_NEWUSER &&
 			g_Mode!=MODE_WAIT_SELECTPC &&
@@ -383,9 +376,9 @@ CWaitUIUpdate::ProcessInput()
 	}
 	*/
   
-	//---------------------------------------------------	
+	//---------------------------------------------------
 	// UI Input
-	//---------------------------------------------------	
+	//---------------------------------------------------
 	gC_vs_ui.MouseControl(M_MOVING, g_x, g_y);
 	if (g_pDXInput->m_lb_down)
 	{

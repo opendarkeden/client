@@ -181,6 +181,13 @@ static int g_mouse_y = 0;
 static int g_mouse_wheel = 0;
 static int g_mouse_buttons[3] = {0, 0, 0};
 
+/* Legacy global mouse coordinates (used by CWaitUIUpdate) */
+extern int g_x, g_y;
+
+/* Global game state (from SDLMain.cpp) */
+extern bool g_bRunning;
+extern BOOL g_bActiveApp;
+
 /* DIK to SDL scancode mapping table */
 static SDL_Scancode g_dik_to_scancode[256] = {SDL_SCANCODE_UNKNOWN};
 
@@ -332,24 +339,55 @@ void dxlib_input_release(void) {
 }
 
 void dxlib_input_update(void) {
-	if (!g_input_initialized) return;
+	if (!g_input_initialized) {
+		static int notInitCount = 0;
+		if (++notInitCount <= 3) {
+			printf("WARNING: dxlib_input_update called but not initialized!\n");
+			fflush(stdout);
+		}
+		return;
+	}
 
 	/* Update SDL events */
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
+			case SDL_QUIT:
+				g_bRunning = false;
+				break;
+
+			case SDL_WINDOWEVENT:
+				if (event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
+					g_bActiveApp = TRUE;
+				} else if (event.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
+					// Don't deactivate - keep game running in background
+					// g_bActiveApp = FALSE;
+				}
+				break;
+
 			case SDL_KEYDOWN:
 			case SDL_KEYUP:
 				/* Keyboard state is updated by SDL_GetKeyboardState */
+				/* Handle ESCAPE key to quit */
+				if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
+					g_bRunning = false;
+				}
 				break;
 
 			case SDL_MOUSEMOTION:
 				g_mouse_x = event.motion.x;
 				g_mouse_y = event.motion.y;
+				// Also update global g_x and g_y for legacy code
+				g_x = event.motion.x;
+				g_y = event.motion.y;
 				break;
 
 			case SDL_MOUSEBUTTONDOWN:
 			case SDL_MOUSEBUTTONUP:
+				// Update global g_x and g_y for legacy code
+				g_x = event.button.x;
+				g_y = event.button.y;
+
 				if (event.button.button == SDL_BUTTON_LEFT) {
 					g_mouse_buttons[0] = (event.type == SDL_MOUSEBUTTONDOWN) ? 1 : 0;
 				} else if (event.button.button == SDL_BUTTON_RIGHT) {
@@ -367,7 +405,13 @@ void dxlib_input_update(void) {
 
 	/* Update keyboard state */
 	const Uint8* state = SDL_GetKeyboardState(NULL);
+
+	/* Update mouse position from SDL (as fallback if no events received) */
 	SDL_GetMouseState(&g_mouse_x, &g_mouse_y);
+
+	/* Also update global g_x, g_y for legacy code (IMPORTANT!) */
+	g_x = g_mouse_x;
+	g_y = g_mouse_y;
 }
 
 int dxlib_input_key_down(int dik_key) {

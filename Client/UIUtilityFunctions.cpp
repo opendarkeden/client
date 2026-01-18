@@ -107,7 +107,10 @@ int UI_GetFaceStyle(bool bMale, int index)
 /*
 void UpdateInput()
 {
-    // Stub: SDL input system handles this
+    // Update DirectInput state (mouse buttons, keyboard, etc.)
+    if (g_pDXInput) {
+        g_pDXInput->UpdateInput();
+    }
 }
 
 void UpdateMouse()

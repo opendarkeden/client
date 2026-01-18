@@ -432,6 +432,9 @@ int main(int argc, char* argv[])
 
 		g_bActiveApp = TRUE;
 
+		// Ensure window has focus for mouse input
+		SDL_RaiseWindow(g_pSDLWindow);
+
 		printf("\n");
 		printf("Starting game loop...\n");
 		printf("Press Ctrl+C or close window to exit.\n");
@@ -443,7 +446,8 @@ int main(int argc, char* argv[])
 		//-----------------------------------------------------------------
 		// Main game loop (from WinMain lines 4244-4341)
 		//-----------------------------------------------------------------
-		SDL_Event event;
+		// Note: All SDL events are now handled by dxlib_input_update() in DXLibBackendSDL.cpp
+		// This prevents event queue conflicts and ensures mouse events are properly processed
 		static int loopCount = 0;
 
 		// Frame rate tracking variables
@@ -459,35 +463,6 @@ int main(int argc, char* argv[])
 //						loopCount, g_bActiveApp, g_bRunning);
 //				fflush(stderr);
 //			}
-
-			// Process SDL events (replaces PeekMessage/GetMessage)
-			while (SDL_PollEvent(&event))
-			{
-				switch (event.type)
-				{
-				case SDL_QUIT:
-					g_bRunning = false;
-					break;
-
-				case SDL_WINDOWEVENT:
-					if (event.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
-				//		g_bActiveApp = FALSE;
-					}
-					else if (event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
-						g_bActiveApp = TRUE;
-					}
-					break;
-
-				case SDL_KEYDOWN:
-					if (event.key.keysym.sym == SDLK_ESCAPE) {
-						g_bRunning = false;
-					}
-					break;
-
-				// Note: Mouse and keyboard events are handled by dxlib_input_update()
-				// via CDirectInput_Adapter::UpdateInput()
-				}
-			}
 
 			// Game update when active
 			if (g_bActiveApp)
