@@ -199,9 +199,6 @@ void	MTopView::DrawFadeOutForACSlayer( POINT *pPoint, MCreature* pCreature, int 
 	int clothes;
 	BYTE clothesType;
 	MCreatureWear*	pCreatureWear = (MCreatureWear*)pCreature;
-	//by viva
-	CCreatureFramePack& newslayerFPK = pCreature->IsMale() ? m_NewSlayerManFPK : m_NewSlayerWomanFPK;
-	CIndexSpritePack& newaddonISPK = pCreature->IsMale() ? m_NewSlayerManSPK : m_NewSlayerWomanSPK;
 
 	CCreatureFramePack& slayerFPK = pCreature->IsMale() ? m_AdvancementSlayerManFPK : m_AdvancementSlayerWomanFPK;
 	CIndexSpritePack& addonISPK = pCreature->IsMale() ? m_AdvancementSlayerManSPK : m_AdvancementSlayerWomanSPK;
@@ -240,10 +237,10 @@ void	MTopView::DrawFadeOutForACSlayer( POINT *pPoint, MCreature* pCreature, int 
 				{							
 					clothes=addonInfo.FrameID + i;
 					if( clothes == -1 ) continue;
-					if( clothes > newslayerFPK.GetSize() -1 ) continue;
-					if(action_viva > newslayerFPK[clothes].GetSize() -1) continue;
+					if( clothes > slayerFPK.GetSize() -1 ) continue;
+					if(action_viva > slayerFPK[clothes].GetSize() -1) continue;
 					try{
-					FRAME_ARRAY& FA = newslayerFPK[ clothes ][ action_viva ][ direction ];
+					FRAME_ARRAY& FA = slayerFPK[ clothes ][ action_viva ][ direction ];
 					// 있는 동작인 경우
 					if (FA.GetSize() > frame)
 					{
@@ -253,7 +250,7 @@ void	MTopView::DrawFadeOutForACSlayer( POINT *pPoint, MCreature* pCreature, int 
 						int cy		= Frame.GetCY();	//m_AddonFPK[clothes][action][direction][frame].GetCY();
 						
 						
-						CIndexSprite* pSprite = &newaddonISPK[ sprite ];					
+						CIndexSprite* pSprite = &addonISPK[ sprite ];					
 						
 						// 복장Sprite가 초기화 되지 않은 경우
 						//							if (pSprite->IsNotInit())
@@ -537,9 +534,6 @@ void	MTopView::DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int 
 	BYTE clothesType;
 	MCreatureWear*	pCreatureWear = (MCreatureWear*)pCreature;
 	
-	//by viva
-	CCreatureFramePack& newslayerFPK = pCreature->IsMale() ? m_NewSlayerManFPK : m_NewSlayerWomanFPK;
-	CIndexSpritePack& newaddonISPK = pCreature->IsMale() ? m_NewSlayerManSPK : m_NewSlayerWomanSPK;
 	
 	CCreatureFramePack& slayerFPK = pCreature->IsMale() ? m_AdvancementSlayerManFPK : m_AdvancementSlayerWomanFPK;
 	CIndexSpritePack& addonISPK = pCreature->IsMale() ? m_AdvancementSlayerManSPK : m_AdvancementSlayerWomanSPK;
@@ -576,10 +570,10 @@ void	MTopView::DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int 
 				{							
 					clothes=addonInfo.FrameID + i;
 					if( clothes == -1 ) continue;
-					if( clothes > newslayerFPK.GetSize() -1 ) continue;
-					if(action_viva > newslayerFPK[clothes].GetSize() -1) continue;
+					if( clothes > slayerFPK.GetSize() -1 ) continue;
+					if(action_viva > slayerFPK[clothes].GetSize() -1) continue;
 					try{
-					FRAME_ARRAY& FA = newslayerFPK[ clothes ][ action_viva ][ direction ];
+					FRAME_ARRAY& FA = slayerFPK[ clothes ][ action_viva ][ direction ];
 					
 					// 있는 동작인 경우
 					if (FA.GetSize() > frame)
@@ -590,7 +584,7 @@ void	MTopView::DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int 
 						int cy		= Frame.GetCY();	//m_AddonFPK[clothes][action][direction][frame].GetCY();
 						
 						
-						CIndexSprite* pSprite = &newaddonISPK[ sprite ];					
+						CIndexSprite* pSprite = &addonISPK[ sprite ];					
 						
 						
 						pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
@@ -929,11 +923,8 @@ void	MTopView::DrawInvisibleForACSlayer(POINT* pPoint, MCreature* pCreature, int
 	MCreatureWear*	pCreatureWear = (MCreatureWear*)pCreature;
 	
 	//by viva
-	CCreatureFramePack& newslayerFPK = pCreature->IsMale() ? m_NewSlayerManFPK : m_NewSlayerWomanFPK;
-	CIndexSpritePack& newaddonISPK = pCreature->IsMale() ? m_NewSlayerManSPK : m_NewSlayerWomanSPK;
-	
-	CCreatureFramePack& slayerFPK = pCreature->IsMale() ? m_AdvancementSlayerManFPK : m_AdvancementSlayerWomanFPK;
 	CIndexSpritePack& addonISPK = pCreature->IsMale() ? m_AdvancementSlayerManSPK : m_AdvancementSlayerWomanSPK;
+	CCreatureFramePack& slayerFPK = pCreature->IsMale() ? m_AdvancementSlayerManFPK : m_AdvancementSlayerWomanFPK;
 	
 	
 	//-----------------------------------------------------------
@@ -967,10 +958,10 @@ void	MTopView::DrawInvisibleForACSlayer(POINT* pPoint, MCreature* pCreature, int
 				{							
 					clothes=addonInfo.FrameID + i;
 					if( clothes == -1 ) continue;
-					if( clothes > newslayerFPK.GetSize() -1 ) continue;
-					if(action_viva > newslayerFPK[clothes].GetSize() -1) continue;
+					if( clothes > slayerFPK.GetSize() -1 ) continue;
+					if(action_viva > slayerFPK[clothes].GetSize() -1) continue;
 					try{
-					FRAME_ARRAY& FA = newslayerFPK[ clothes ][ action_viva ][ direction ];
+					FRAME_ARRAY& FA = slayerFPK[ clothes ][ action_viva ][ direction ];
 					
 					// 있는 동작인 경우
 					if (FA.GetSize() > frame)
@@ -981,7 +972,7 @@ void	MTopView::DrawInvisibleForACSlayer(POINT* pPoint, MCreature* pCreature, int
 						int cy		= Frame.GetCY();	//m_AddonFPK[clothes][action][direction][frame].GetCY();
 						
 						
-						CIndexSprite* pSprite = &newaddonISPK[ sprite ];					
+						CIndexSprite* pSprite = &addonISPK[ sprite ];					
 						
 						
 						pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
@@ -1342,9 +1333,6 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 	MCreatureWear*	pCreatureWear = (MCreatureWear*)pCreature;
 	
 	//by viva
-	CCreatureFramePack& newslayerFPK = pCreature->IsMale() ? m_NewSlayerManFPK : m_NewSlayerWomanFPK;
-	CIndexSpritePack& newaddonISPK = pCreature->IsMale() ? m_NewSlayerManSPK : m_NewSlayerWomanSPK;
-	
 	/*
 	action = ConvAdvancementSlayerActionFromSlayerAction( action, dynamic_cast< MCreatureWear* >(pCreature) );
 	
@@ -1389,10 +1377,10 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 				{							
 					clothes=addonInfo.FrameID + i;
 					if( clothes == -1 ) continue;
-					if( clothes > newslayerFPK.GetSize() -1 ) continue;
-					if(action_viva > newslayerFPK[clothes].GetSize() -1) continue;
+					if( clothes > slayerFPK.GetSize() -1 ) continue;
+					if(action_viva > slayerFPK[clothes].GetSize() -1) continue;
 					try{
-					FRAME_ARRAY& FA = newslayerFPK[ clothes ][ action_viva ][ direction ];
+					FRAME_ARRAY& FA = slayerFPK[ clothes ][ action_viva ][ direction ];
 					
 					// 있는 동작인 경우
 					if (FA.GetSize() > frame)
@@ -1403,7 +1391,7 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 						int cy		= Frame.GetCY();	//m_AddonFPK[clothes][action][direction][frame].GetCY();
 						
 						
-						CIndexSprite* pSprite = &newaddonISPK[ sprite ];					
+						CIndexSprite* pSprite = &addonISPK[ sprite ];					
 						
 						
 						pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
@@ -1454,7 +1442,7 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 								CFrame &Frame_f = FA[frame-f];					
 								int sprite_f	= Frame_f.GetSpriteID();	//m_AddonFPK[clothes][action][direction][frame].GetSpriteID();
 								
-								CIndexSprite* pSprite_f = &newaddonISPK[ sprite_f ];					
+								CIndexSprite* pSprite_f = &addonISPK[ sprite_f ];					
 								
 								int cx_f		= Frame_f.GetCX();	//m_AddonFPK[clothes][action][direction][frame].GetCX();
 								int cy_f		= Frame_f.GetCY();	//m_AddonFPK[clothes][action][direction][frame].GetCY();

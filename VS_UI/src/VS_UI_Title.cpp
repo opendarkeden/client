@@ -5084,9 +5084,13 @@ void C_VS_UI_TITLE::Finish()
 //-----------------------------------------------------------------------------
 void C_VS_UI_TITLE::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 {
-	if(p_button->GetPressState())
+	// Always show button - fix for SDL2 port (buttons were invisible initially)
+	if (p_button->GetPressState())
 		m_title_menu_default.BltLocked(p_button->x, p_button->y, (p_button->m_image_index)+1);
 	else if (p_button->GetFocusState())
+		m_title_menu_default.BltLocked(p_button->x, p_button->y, (p_button->m_image_index));
+	else
+		// Default state - show button even when not focused/pressed
 		m_title_menu_default.BltLocked(p_button->x, p_button->y, (p_button->m_image_index));
 	
 //	if (p_button->GetFocusState() && p_button->GetPressState())
@@ -5211,7 +5215,7 @@ void C_VS_UI_TITLE::Show()
 			
 			gpC_base->m_p_DDSurface_back->Unlock();
 
-			char sz_temp[50];
+			char sz_temp[256];  // Increased buffer size to prevent stack overflow
 			if(g_pUserInformation->IsNetmarble)
 				sprintf(sz_temp, "%s : %1.2f", (*g_pGameStringTable)[UI_STRING_MESSAGE_NETMARBLE_CLIENT_VERSION].GetString(),(float)g_pUserInformation->GameVersion/100+3);
 			else

@@ -24,6 +24,9 @@
 #include <string.h>
 #include <stdio.h>
 
+// Client.h - must be included to access g_pUpdate declaration
+#include "Client.h"
+
 // VS_UI headers
 #include "../VS_UI/src/hangul/Ci.h"
 #include "../VS_UI/src/header/VS_UI.h"
@@ -38,13 +41,6 @@
 #include "MPlayer.h"
 #include "../basic/Platform.h"
 #include "Packet/Exception.h"  // For NoSuchElementException, Throwable
-
-// External globals and functions
-extern bool InitGame();
-extern void ReleaseAllObjects();
-extern CGameUpdate* g_pCGameUpdate;
-extern CSpriteSurface* g_pBack;
-extern BOOL g_bActiveApp;
 
 // Language detection
 enum DARKEDEN_LANGUAGE
@@ -211,11 +207,18 @@ static void CleanupSDL()
  *-----------------------------------------------------------------------------*/
 int main(int argc, char* argv[])
 {
+	// Immediate debug output (flushed)
+	fprintf(stderr, "DEBUG: Dark Eden SDL2 starting...\n");
+	fflush(stderr);
+
 	// Parse command line
 	const char* cmdLine = "0000000001";  // Default: window mode
 	if (argc > 1 && argv[1] != NULL) {
 		cmdLine = argv[1];
 	}
+
+	fprintf(stderr, "Command line: %s\n", cmdLine);
+	fflush(stderr);
 
 	printf("========================================\n");
 	printf("Dark Eden Client (SDL2 Backend)\n");
@@ -223,6 +226,7 @@ int main(int argc, char* argv[])
 	printf("========================================\n");
 	printf("Command line: %s\n", cmdLine);
 	printf("\n");
+	fflush(stdout);
 
 	// Global variables from WinMain
 	extern bool g_MyFull;
@@ -377,10 +381,11 @@ int main(int argc, char* argv[])
 	const int g_FrameGood = 15;  // Minimum acceptable FPS (from Client.cpp line 154)
 	DWORD g_FrameCount = 0;  // Local frame counter
 
-	if (InitApp(nCmdShow))
-	{
-		// Set default video memory for non-Windows platforms
-		g_dwVideoMemory = 256 * 1024 * 1024;  // 256 MB default
+	try {
+		if (InitApp(nCmdShow))
+		{
+			// Set default video memory for non-Windows platforms
+			g_dwVideoMemory = 256 * 1024 * 1024;  // 256 MB default
 
 		//-----------------------------------------------------------------
 		// Set user language based on detected language
@@ -431,25 +436,30 @@ int main(int argc, char* argv[])
 		printf("Starting game loop...\n");
 		printf("Press Ctrl+C or close window to exit.\n");
 		printf("\n");
+		fflush(stdout);
+		fprintf(stderr, "DEBUG: Entering game loop, g_bActiveApp = %d\n", g_bActiveApp);
+		fflush(stderr);
 
 		//-----------------------------------------------------------------
 		// Main game loop (from WinMain lines 4244-4341)
 		//-----------------------------------------------------------------
 		SDL_Event event;
+		static int loopCount = 0;
 
 		// Frame rate tracking variables
-		extern DWORD g_CurrentTime;
-		extern DWORD g_StartTime;
-		extern DWORD g_StartFrameCount;
-		extern DWORD g_FrameRate;
-		extern bool g_bGoodFPS;
-
 		g_StartTime = SDL_GetTicks();
 		g_StartFrameCount = 0;
 		g_FrameCount = 0;
 
 		while (g_bRunning)
 		{
+			// Debug: Print loop status periodically
+			if (++loopCount % 60 == 1) {
+				fprintf(stderr, "DEBUG: Loop iteration %d, g_bActiveApp = %d, g_bRunning = %d\n",
+						loopCount, g_bActiveApp, g_bRunning);
+				fflush(stderr);
+			}
+
 			// Process SDL events (replaces PeekMessage/GetMessage)
 			while (SDL_PollEvent(&event))
 			{
@@ -461,7 +471,7 @@ int main(int argc, char* argv[])
 
 				case SDL_WINDOWEVENT:
 					if (event.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
-						g_bActiveApp = FALSE;
+				//		g_bActiveApp = FALSE;
 					}
 					else if (event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
 						g_bActiveApp = TRUE;
@@ -485,10 +495,20 @@ int main(int argc, char* argv[])
 				g_CurrentTime = SDL_GetTicks();  // Replaces timeGetTime()
 
 				// Game update (from WinMain lines 4275-4290)
-				if (g_pCGameUpdate != NULL)
+				if (g_pUpdate != NULL)
 				{
-					CGameUpdate* pCurrentUpdate = g_pCGameUpdate;
-					pCurrentUpdate->Update();
+					static int updateCount = 0;
+					if (++updateCount % 60 == 1) {
+						printf("Game update: g_pUpdate = %p, Update count = %d\n", g_pUpdate, updateCount);
+					}
+					g_pUpdate->Update();
+				}
+				else
+				{
+					static int nullCount = 0;
+					if (++nullCount % 60 == 1) {
+						printf("WARNING: g_pUpdate is NULL! Count = %d\n", nullCount);
+					}
 				}
 
 				// Frame rate tracking (from WinMain lines 4320-4333)
@@ -524,6 +544,23 @@ int main(int argc, char* argv[])
 	else
 	{
 		fprintf(stderr, "ERROR: InitApp failed\n");
+	}
+	}
+	catch (FileNotExistException& e) {
+		fprintf(stderr, "ERROR: FileNotExistException: %s\n", e.toString().c_str());
+		return 1;
+	}
+	catch (Throwable& t) {
+		fprintf(stderr, "ERROR: Throwable: %s\n", t.toString().c_str());
+		return 1;
+	}
+	catch (std::exception& e) {
+		fprintf(stderr, "ERROR: std::exception: %s\n", e.what());
+		return 1;
+	}
+	catch (...) {
+		fprintf(stderr, "ERROR: Unknown exception\n");
+		return 1;
 	}
 
 	//-----------------------------------------------------------------
