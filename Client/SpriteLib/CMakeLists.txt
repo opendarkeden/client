@@ -75,8 +75,8 @@ set(SPRITELIB_SOURCES
 	# Other sprite classes (minimal set)
 	CSpriteDef.cpp
 	CSpriteOutlineManager.cpp
-	# CSpriteSet.cpp  # Temporarily disabled
-	# CSpriteSetManager.cpp  # Temporarily disabled
+	CSpriteSet.cpp
+	CSpriteSetManager.cpp
 	CSpritePal.cpp
 
 	# Palette

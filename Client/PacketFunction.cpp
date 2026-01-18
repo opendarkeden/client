@@ -8,12 +8,14 @@
 #include "Client_PCH.h"
 #ifdef PLATFORM_WINDOWS
 #include <WINDOWS.H>
+#include <nb30.h>
+#include <wsipx.h>
+#include <wsnwlink.h>
 #else
 #include <netinet/in.h>
+// Windows networking headers not available on macOS/Linux
+// NetBIOS, IPX/SPX are Windows-specific protocols
 #endif
-#include < nb30.h >
-#include < wsipx.h >
-#include < wsnwlink.h >
 #include "MGameDef.h"
 #include "MTopView.h"
 #include "ClientDef.h"
@@ -44,24 +46,24 @@
 #include "ServerInfo.h"
 // packet
 #include "packet/PetInfo.h"
-#include "Packet\PCSlayerInfo3.h"
+#include "Packet/PCSlayerInfo3.h"
 #include "Packet/PCOustersInfo3.h"
 #include "ExperienceTable.h"
 
-#include "Packet\GPackets\GCAddItemToZone.h"
-#include "Packet\GPackets\GCAddMonster.h"
-#include "Packet\PCSlayerInfo2.h"
-#include "Packet\PCVampireInfo2.h"
-#include "Packet\PCOustersInfo2.h"
-#include "Packet\InventoryInfo.h"
-#include "Packet\GearInfo.h"
-#include "Packet\ExtraInfo.h"
+#include "Packet/GPackets/GCAddItemToZone.h"
+#include "Packet/GPackets/GCAddMonster.h"
+#include "Packet/PCSlayerInfo2.h"
+#include "Packet/PCVampireInfo2.h"
+#include "Packet/PCOustersInfo2.h"
+#include "Packet/InventoryInfo.h"
+#include "Packet/GearInfo.h"
+#include "Packet/ExtraInfo.h"
 #include "Packet/Cpackets/CGSay.h"
 #include "Packet/cpackets/CGCrashReport.h"
 #include "EffectInfo.h"
 #include "MScreenEffectManager.h"
 #include "TempInformation.h"
-#include "Packet\ModifyInfo.h"
+#include "Packet/ModifyInfo.h"
 #include "CrashReport.h"
 #include "MCrashReportManager.h"
 //#include "MFileDef.h"
@@ -2266,7 +2268,7 @@ void SetBloodBibleSlot(BloodBibleSignInfo* pBloodBibleInfo)
 
 			g_pSlayerGear->SetBloodBibleOpenSlot(pBloodBibleInfo->getOpenNum());
 
-			for(i = 0; i<TempSignList.size() ; i++)
+			for(int i = 0; i<TempSignList.size() ; i++)
 			{
 				MItem* pItem = MItem::NewItem( ITEM_CLASS_BLOOD_BIBLE_SIGN );
 				pItem->SetItemType(	TempSignList[i] );
@@ -2286,7 +2288,7 @@ void SetBloodBibleSlot(BloodBibleSignInfo* pBloodBibleInfo)
 			}
 			g_pVampireGear->SetBloodBibleOpenSlot(pBloodBibleInfo->getOpenNum());
 
-			for(i = 0; i<TempSignList.size() ; i++)
+			for(int i = 0; i<TempSignList.size() ; i++)
 			{
 				MItem* pItem = MItem::NewItem( ITEM_CLASS_BLOOD_BIBLE_SIGN );
 				pItem->SetItemType(	TempSignList[i] );
@@ -2306,7 +2308,7 @@ void SetBloodBibleSlot(BloodBibleSignInfo* pBloodBibleInfo)
 			}
 			g_pOustersGear->SetBloodBibleOpenSlot(pBloodBibleInfo->getOpenNum());
 
-			for(i = 0; i<TempSignList.size() ; i++)
+			for(int i = 0; i<TempSignList.size() ; i++)
 			{ 
 				MItem* pItem = MItem::NewItem( ITEM_CLASS_BLOOD_BIBLE_SIGN );
 				pItem->SetItemType(	TempSignList[i] );
@@ -5398,13 +5400,14 @@ void	SetFlagTo( bool bTae )
 	}
 }
 
+#ifdef PLATFORM_WINDOWS
 BOOL GetMacAddressFromNetBIOS(LPBYTE lpMacAddress)
 {
     NCB ncb ;
     LANA_ENUM le ;
-    
+
 	int MacAddressSize = 6; // 6byte
-	
+
     struct tagADAPTER
     {
         ADAPTER_STATUS adapt ;
@@ -5415,8 +5418,8 @@ BOOL GetMacAddressFromNetBIOS(LPBYTE lpMacAddress)
 		return FALSE;
 //    ASSERT(lpMacAddress!=(LPBYTE)NULL) ;
 
-    memset(&ncb,0x00,sizeof(NCB)) ;                  
-    memset(&le,0x00,sizeof(LANA_ENUM)) ;             
+    memset(&ncb,0x00,sizeof(NCB)) ;
+    memset(&le,0x00,sizeof(LANA_ENUM)) ;
     ncb.ncb_command = NCBENUM ;
     ncb.ncb_buffer = (UCHAR*)&le ;
     ncb.ncb_length = sizeof(LANA_ENUM) ;
@@ -5425,17 +5428,17 @@ BOOL GetMacAddressFromNetBIOS(LPBYTE lpMacAddress)
     {
         memset(&ncb,0x00,sizeof(NCB)) ;
         ncb.ncb_command = NCBRESET ;
-//          ncb.ncb_callname[0] = 20 ;                   
-        ncb.ncb_lana_num = le.lana[0] ;              
+//          ncb.ncb_callname[0] = 20 ;
+        ncb.ncb_lana_num = le.lana[0] ;
 
         if(Netbios(&ncb)==NRC_GOODRET)
         {
             memset(&ncb,0x00,sizeof(NCB)) ;
             memset(&ncb.ncb_callname,' ',NCBNAMSZ) ;
             ncb.ncb_callname[0] = '*' ;
-//              ncb.ncb_callname[NCBNAMSZ-1] = NULL ;    
+//              ncb.ncb_callname[NCBNAMSZ-1] = NULL ;
             ncb.ncb_command = NCBASTAT ;
-            ncb.ncb_lana_num = le.lana[0] ;          
+            ncb.ncb_lana_num = le.lana[0] ;
             ncb.ncb_buffer = (UCHAR*)&adapter ;
             ncb.ncb_length = sizeof(tagADAPTER) ;
 
@@ -5449,7 +5452,17 @@ BOOL GetMacAddressFromNetBIOS(LPBYTE lpMacAddress)
     }
     return(FALSE) ;
 }
+#else
+// NetBIOS is Windows-specific
+BOOL GetMacAddressFromNetBIOS(LPBYTE lpMacAddress)
+{
+	(void)lpMacAddress;
+    return(FALSE) ;
+}
+#endif
 
+#ifdef PLATFORM_WINDOWS
+// IPX/SPX is Windows-specific (legacy NetWare protocol)
 BOOL GetMacAddressFromSock()
 {
     int          iAdapters ;
@@ -5519,6 +5532,13 @@ BOOL GetMacAddressFromSock()
     }
     return(bRet) ;
 }
+#else
+// IPX/SPX not available on non-Windows platforms
+BOOL GetMacAddressFromSock()
+{
+    return(FALSE) ;
+}
+#endif
 
 // 2004, 8, 26, sobeit add start - mac address 체크해서 윈도 모드 변경
 std::string GetLocalIP()

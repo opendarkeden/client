@@ -1863,8 +1863,13 @@ InitGame()
 			//gC_vs_ui.EndProgress();
 
 			// Login Mode로 시작한다.
-			//SetMode( MODE_OPENING );		
-			SetMode( MODE_MAINMENU );	
+			//SetMode( MODE_OPENING );
+
+			// Debug: Check g_Mode before and after SetMode
+			extern enum CLIENT_MODE g_Mode;
+			printf("DEBUG: Before SetMode, g_Mode = %d\n", g_Mode);
+			SetMode( MODE_MAINMENU );
+			printf("DEBUG: After SetMode, g_Mode = %d\n", g_Mode);
 			//SetMode( MODE_WAIT_POSITION );
 		///*
 		// Server에 접속이 안될 때 사용하는 code

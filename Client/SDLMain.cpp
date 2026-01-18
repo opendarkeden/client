@@ -27,6 +27,10 @@
 #include "SpriteLib/SpriteLibBackend.h"
 #include "CGameUpdate.h"
 #include "CSpriteSurface.h"
+#include "ClientDef.h"  // For CLIENT_MODE enum definitions
+#include "../VS_UI/src/header/VS_UI.h"  // For C_VS_UI class
+#include "../basic/Platform.h"  // For basic types
+#include "MTopView.h"  // For PrintInfo, etc.
 
 /* Forward declarations for game functions (defined in GameInit.cpp, ClientFunction.cpp, etc.) */
 extern bool InitGame();
@@ -49,6 +53,85 @@ enum DARKEDEN_LANGUAGE
 	DARKEDEN_LANGUAGE_MAX
 };
 extern DARKEDEN_LANGUAGE CheckDarkEdenLanguage();
+
+//-----------------------------------------------------------------------------
+// Cross-platform SetMode implementation (simplified)
+//-----------------------------------------------------------------------------
+// NOTE: SetMode() is implemented in GameMain.cpp - this stub commented out to avoid duplicate symbol
+// g_Mode is defined in MissingGlobals.cpp
+extern enum CLIENT_MODE g_Mode;
+extern C_VS_UI gC_vs_ui;
+
+/*
+// SetMode() implementation moved to GameMain.cpp
+void SetMode(enum CLIENT_MODE mode)
+{
+	printf("DEBUG: SetMode called with mode=%d\n", mode);
+
+	g_Mode = mode;
+
+	// Handle MODE_MAINMENU specifically
+	if (g_Mode == MODE_MAINMENU)
+	{
+		printf("DEBUG: Processing MODE_MAINMENU\n");
+
+		// Initialize sound (if needed)
+		extern void InitSound();
+		InitSound();
+
+		// Start the title UI
+		gC_vs_ui.StartTitle();
+
+		printf("DEBUG: StartTitle() completed\n");
+	}
+}
+*/
+
+//-----------------------------------------------------------------------------
+// Stub implementations for functions from GameMain.cpp that are not available
+// on non-Windows platforms. These are needed to resolve linker errors.
+//-----------------------------------------------------------------------------
+
+// Stub for ExecuteActionInfoFromMainNode
+void ExecuteActionInfoFromMainNode(
+	unsigned short, unsigned short, unsigned short, int, int, unsigned int,
+	unsigned short, unsigned short, int, unsigned long,
+	struct MActionResult*, bool, int, int)
+{
+	// Stub - do nothing on SDL platform
+}
+
+// NOTE: ReleaseUselessCreatureSPKExcept() is implemented in GameMain.cpp
+// Stub removed to avoid duplicate symbol
+/*
+void ReleaseUselessCreatureSPKExcept(class COrderedList<int> const&)
+{
+	// Stub - do nothing on SDL platform
+}
+*/
+
+// Stub for g_Print
+void g_Print(int x, int y, const char* str, struct PrintInfo* pInfo)
+{
+	(void)x; (void)y;
+	if (str && str[0]) {
+		printf("g_Print: %s\n", str);
+	}
+}
+
+// Stub for FillRect
+void FillRect(S_SURFACEINFO* pInfo, struct Rect* pRect, int color)
+{
+	(void)pInfo; (void)pRect; (void)color;
+	// Stub - do nothing on SDL platform
+}
+
+// Stub for rectangle
+void rectangle(S_SURFACEINFO* pInfo, struct Rect* pRect, int color)
+{
+	(void)pInfo; (void)pRect; (void)color;
+	// Stub - do nothing on SDL platform
+}
 
 /* Game mode flags from command line */
 enum GameMode {
@@ -266,11 +349,22 @@ int main(int argc, char* argv[])
 
 	g_bRunning = true;
 
+	/* Debug: Print initial g_Mode value */
+	extern enum CLIENT_MODE g_Mode;
+	printf("DEBUG: Initial g_Mode = %d (MAINMENU=%d, GAME=%d, NULL=%d)\n",
+	       g_Mode, MODE_MAINMENU, MODE_GAME, MODE_NULL);
+
 	while (g_bRunning) {
 		/* Calculate delta time */
 		Uint32 currentFrameTime = SDL_GetTicks();
 		Uint32 deltaTime = currentFrameTime - lastFrameTime;
 		lastFrameTime = currentFrameTime;
+
+		/* Debug: Print g_Mode every 60 frames (approx 1 second) */
+		static Uint32 debugFrameCount = 0;
+		if ((++debugFrameCount % 60) == 0) {
+			printf("DEBUG: Frame %u, g_Mode = %d\n", debugFrameCount, g_Mode);
+		}
 
 		/* Process SDL events */
 		while (SDL_PollEvent(&event)) {

@@ -102,6 +102,9 @@ int UI_GetFaceStyle(bool bMale, int index)
 //----------------------------------------------------------------------
 // Input Update Functions
 //----------------------------------------------------------------------
+// NOTE: UpdateInput() and UpdateMouse() are implemented in GameMain.cpp
+// Stub implementations removed to avoid duplicate symbols
+/*
 void UpdateInput()
 {
     // Stub: SDL input system handles this
@@ -111,10 +114,14 @@ void UpdateMouse()
 {
     // Stub: SDL input system handles this
 }
+*/
 
 //----------------------------------------------------------------------
 // File I/O Helper
 //----------------------------------------------------------------------
+// NOTE: FileOpenBinary() is implemented in GameMain.cpp
+// Stub implementation removed to avoid duplicate symbol
+/*
 bool FileOpenBinary(const char* pFilename, std::ifstream& file)
 {
     if (pFilename == NULL)
@@ -123,6 +130,7 @@ bool FileOpenBinary(const char* pFilename, std::ifstream& file)
     file.open(pFilename, std::ios::binary);
     return file.is_open();
 }
+*/
 
 //----------------------------------------------------------------------
 // SPRITE_FILEPOSITION_NODE

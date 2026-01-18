@@ -6,13 +6,19 @@
 // Include files
 //-----------------------------------------------------------------------------
 #include "Client_PCH.h"
+
+#ifdef PLATFORM_WINDOWS
 #include <MMSystem.h>
 #include <process.h>
+#include <io.h>
+#include <direct.h>
+#else
+#include <unistd.h>
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <io.h>
-#include <direct.h>
+#endif
+
 #include "Client.h"
 #include "UIFunction.h"
 //#include "MFileDef.h"
@@ -59,11 +65,20 @@
 #include "CMP3.h"
 #include "MEventManager.h"
 #include "MNpc.h"
-#include "packet\Cpackets\CGVerifyTime.h"
+#ifdef PLATFORM_WINDOWS
+#include "packet/Cpackets/CGVerifyTime.h"
+#else
+// These packets are Windows-specific
+#pragma message "Warning: CGVerifyTime and CGPortCheck packets not available on this platform"
+#endif
 #include "UtilityFunction.h"
 
 // 2002.6.28 [UDP¼öÁ¤]
-#include "packet\Cpackets\CGPortCheck.h"
+#ifdef PLATFORM_WINDOWS
+#include "packet/Cpackets/CGPortCheck.h"
+#else
+#pragma message "Warning: CGPortCheck packet not available on this platform"
+#endif
 
 //#include "MZoneInfo.h"
 
@@ -493,9 +508,9 @@ CheckTime()
 			
 			if ((g_dSHGetTime > 0) && (g_dSHGetTime1 > 0))
 			{
-				if (abs((dCount1 - g_dSHGetTime1) - (dTimer - g_dSHTimerTime)) > 70)
+				if (std::abs((int)((dCount1 - g_dSHGetTime1) - (dTimer - g_dSHTimerTime))) > 70)
 					g_iSHFakeCount ++;
-				else if (abs((dCount - g_dSHGetTime) - (dTimer - g_dSHTimerTime)) > 70)
+				else if (std::abs((int)((dCount - g_dSHGetTime) - (dTimer - g_dSHTimerTime))) > 70)
 					g_iSHFakeCount ++;
 				else
 					g_iSHFakeCount = 0;
@@ -515,11 +530,11 @@ CheckTime()
 			g_dSHGetTime = dCount;
 			g_dSHGetTime1 = dCount1;
 			g_dSHTimerTime = dTimer;
-			
+
 			nextHackTime = g_dSHCurrentTime + 1000;
-			
-			
-			//ÒÔÏÂÕâ¶Î¼ì²â·Ç·¨½ø³Ì
+
+#ifdef PLATFORM_WINDOWS
+			//ÒÔÏÂÕâ¶Î¼ì²â·Ç·¨½ø³Ì (Windows-specific anti-cheat check)
 			if (g_bCheckHack)
 			{
 				HWND hCurrentWindow;
@@ -535,9 +550,9 @@ CheckTime()
 							if(isupper(szText[j]) != 0)
 								szText[j] = tolower(szText[j]);
 						}
-						
+
 						std::string strTemp = szText;
-						
+
 						if( FindWindow("PROCEXPL", "") != NULL )
 						{
 								g_bCheckHack = false;
@@ -550,7 +565,7 @@ CheckTime()
 								g_ModeNext = MODE_QUIT;
 								g_bCheckHack = true;
 						}
-						
+
 						for (int i=0;i<MAX_INVALID_PROCESS;i++)
 						{
 							if ((strTemp.find(g_strBadProcessList[i]) != -1) &&
@@ -575,6 +590,7 @@ CheckTime()
 					hCurrentWindow = GetWindow(hCurrentWindow, GW_HWNDNEXT);
 				}
 			}
+#endif // PLATFORM_WINDOWS
 		}
 	}
 }
@@ -582,7 +598,8 @@ CheckTime()
 //¼ì²â·Ç·¨½ø³Ì yckou
 bool CheckInvalidProcess()
 {
-	//ÒÔÏÂÕâ¶Î¼ì²â·Ç·¨½ø³Ì
+#ifdef PLATFORM_WINDOWS
+	//ÒÔÏÂÕâ¶Î¼ì²â·Ç·¨½ø³Ì (Windows-specific anti-cheat check)
 	if (g_bCheckHack)
 	{
 		HWND hCurrentWindow;
@@ -598,9 +615,9 @@ bool CheckInvalidProcess()
 					if(isupper(szText[j]) != 0)
 						szText[j] = tolower(szText[j]);
 				}
-				
+
 				std::string strTemp = szText;
-				
+
 				for (int i=0;i<MAX_INVALID_PROCESS;i++)
 				{
 					if ((strTemp.find(g_strBadProcessList[i]) != -1) &&
@@ -625,6 +642,10 @@ bool CheckInvalidProcess()
 			hCurrentWindow = GetWindow(hCurrentWindow, GW_HWNDNEXT);
 		}
 	}
+#else
+	// Anti-cheat process checking is Windows-specific
+	// On other platforms, simply return true (no invalid processes detected)
+#endif
 	return true;
 }
 
@@ -682,17 +703,19 @@ SetMode(enum CLIENT_MODE mode)
 		//------------------------------------------------------
 		// ¹º°¡ optionÀ» ¹Ù²Û´Ù. - -;
 		//------------------------------------------------------
-		case MODE_CHANGE_OPTION :			
+		case MODE_CHANGE_OPTION :
+#ifdef PLATFORM_WINDOWS
 			if (// 3D°¡¼Ó ÁßÀÎµ¥.. °¡¼Ó ²ô´Â °æ¿ì
 				CDirect3D::IsHAL() && !g_pUserOption->Use3DHAL
 				// 3D°¡¼Ó ¾Æ´Ñµ¥.. °¡¼Ó ÇÏ´Â °æ¿ì
 				|| !CDirect3D::IsHAL() && g_pUserOption->Use3DHAL)
 			{
+#endif // PLATFORM_WINDOWS
 				//if (g_pTopView!=NULL)
 				{
 				//	delete g_pTopView;//->Release();
 				//	g_pTopView = NULL;
-				}			
+				}
 				//--------------------------------------------------
 				// À½¾Ç ¸ØÃá´Ù.
 				//--------------------------------------------------
@@ -713,23 +736,24 @@ SetMode(enum CLIENT_MODE mode)
 					g_Music.Stop();
 				}
 
-
+#ifdef PLATFORM_WINDOWS
 				if (CDirect3D::IsHAL())
 				{
 					CDirect3D::Release();
 				}
+#endif // PLATFORM_WINDOWS
 
 				CDirectDraw::RestoreGammaRamp();
 				CDirectDraw::ReleaseAll();
 
 				InitDraw();
 				InitSurface();
-				
+
 				//-----------------------------------------------------------------
 				// Àá½Ã ±â´Ù·Á ´Þ¶ó°í Ãâ·Â..
 				//-----------------------------------------------------------------
 				g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_MESSAGE_WAIT].GetString(), -1, -1, 0 );
-				
+
 				gC_vs_ui.Process();
 				gC_vs_ui.Show();
 
@@ -744,7 +768,7 @@ SetMode(enum CLIENT_MODE mode)
 					POINT point = { 0, 0 };
 					RECT rect = { 0, 0, g_GameRect.right, g_GameRect.bottom };
 
-					g_pBack->BltNoColorkey( &point, g_pLast, &rect );	
+					g_pBack->BltNoColorkey( &point, g_pLast, &rect );
 				}
 
 				CDirectDraw::Flip();
@@ -756,9 +780,11 @@ SetMode(enum CLIENT_MODE mode)
 				{
 					g_pTopView->InitChanges();
 				}
-				
+
 				g_pUIDialog->CloseMessageDlg();
-			}			
+#ifdef PLATFORM_WINDOWS
+			}
+#endif // PLATFORM_WINDOWS
 
 			// ¹Ù·Î ´ÙÀ½¿¡ MAINMENU·Î.. - -;
 			SetMode( MODE_MAINMENU );
@@ -842,7 +868,7 @@ SetMode(enum CLIENT_MODE mode)
 #ifdef __USE_MP3__
 				g_pMP3->Stop();
 #else
-				
+#ifdef PLATFORM_WINDOWS
 				if( g_DXSound.IsInit() )
 				{
 					if( g_pSoundBufferForOGG == NULL )
@@ -853,10 +879,17 @@ SetMode(enum CLIENT_MODE mode)
 						g_pOGG = new COGGSTREAM(g_hWnd, g_pSoundBufferForOGG, 44100, 11025, 8800);
 #else
 						g_pOGG = new COGGSTREAM(g_hWnd, g_pSoundBufferForOGG, 44100, 11025, 8800,1);
-#endif						
+#endif
 
 					g_pOGG->streamClose();
 				}
+#else
+				// DirectSound is Windows-specific - needs alternative implementation for macOS/Linux
+				if( g_DXSound.IsInit() )
+				{
+					g_pOGG->streamClose();
+				}
+#endif // PLATFORM_WINDOWS
 #endif
 				DEBUG_ADD("MP3 STOP2 OK");
 
@@ -876,11 +909,12 @@ SetMode(enum CLIENT_MODE mode)
 //						g_pDXSoundStream->Load( (*g_pMusicTable)[ musicID ].FilenameWav );
 //						g_pDXSoundStream->Play( FALSE );
 #else
+#ifdef PLATFORM_WINDOWS
 						if( g_oggfile != NULL )
 							fclose(g_oggfile);
 
 						g_oggfile = NULL;
-						
+
 						if( g_DXSound.IsInit() )
 						{
 							g_oggfile = fopen( (*g_pMusicTable)[ musicID ].FilenameWav ,"rb");
@@ -889,6 +923,9 @@ SetMode(enum CLIENT_MODE mode)
 							int volume = (g_pUserOption->VolumeMusic - 15) * 250;
 							g_pOGG->streamVolume( max( -10000, min( -1, volume ) ) );
 						}
+#else
+						// DirectSound is Windows-specific - needs alternative implementation for macOS/Linux
+#endif // PLATFORM_WINDOWS
 #endif
 					}
 				}
@@ -1406,12 +1443,16 @@ SetMode(enum CLIENT_MODE mode)
 		//------------------------------------------------------
 		case MODE_GAME :
 			DEBUG_ADD("---------- Start Game ---------- ");
-			
+
 			DEBUG_ADD("CDirectDraw::RestoreAllSurfaces()");
 			CDirectDraw::RestoreAllSurfaces();
 
+#ifdef PLATFORM_WINDOWS
 			DEBUG_ADD("CDirect3D::Restore()");
 			CDirect3D::Restore();
+#else
+			DEBUG_ADD("CDirect3D::Restore() - skipped on non-Windows platform");
+#endif // PLATFORM_WINDOWS
 
 			DEBUG_ADD("TempInformation");
 
@@ -1535,7 +1576,13 @@ SetMode(enum CLIENT_MODE mode)
 
 			// window ´Ý±â
 			g_bActiveApp = FALSE;
+#ifdef PLATFORM_WINDOWS
 			PostMessage(g_hWnd, WM_CLOSE, 0, 0);
+#else
+			// On non-Windows platforms, set running flag to false to exit game loop
+			extern bool g_bRunning;
+			g_bRunning = false;
+#endif // PLATFORM_WINDOWS
 		break;
 	}
 
@@ -1612,33 +1659,34 @@ CheckActivate(BOOL bActiveGame)
 			CDirectDraw::RestoreAllSurfaces();
 
 			DEBUG_ADD("WM_ACTIVATEAPP : Restore Surfaces");
-			
+
 
 			//----------------------------------------------------
 			// global setting
 			//----------------------------------------------------
 			g_bActiveGame = TRUE;
 
+#ifdef PLATFORM_WINDOWS
 			if (CDirect3D::IsHAL())
 			{
 				//CDirect3D::Restore();
 
 				DEBUG_ADD("IsHAL : Before CDirect3D::Release()");
-				
+
 				CDirect3D::Release();
 
 				DEBUG_ADD("IsHAL : Before CDirect3D::Init()");
-				
-				CDirect3D::Init();		// ´Ù½Ã... 
 
-				
+				CDirect3D::Init();		// ´Ù½Ã...
+
+
 				DEBUG_ADD("IsHAL : Before CDirect3D::Restore()");
-				
+
 				CDirect3D::Restore();
 			}
 
 			if (g_bFullScreen)
-			{				
+			{
 				DEBUG_ADD("FullScreen : Before DD::SetDisplayMode()");
 				if(g_MyFull)
 				{
@@ -1650,25 +1698,33 @@ CheckActivate(BOOL bActiveGame)
 				}
 				// end
 			}
+#else
+			// Direct3D and DirectDraw fullscreen switching are Windows-specific
+			// On macOS/Linux, SDL handles display mode changes
+#endif // PLATFORM_WINDOWS
 
 			DEBUG_ADD("Before Restore All Surfaces");
-			
+
 			CDirectDraw::RestoreAllSurfaces();
-			
+
 			DEBUG_ADD("Before Restore");
-			
+
+#ifdef PLATFORM_WINDOWS
 			CDirect3D::Restore();
-			
+#else
+			DEBUG_ADD("CDirect3D::Restore() - skipped on non-Windows platform");
+#endif // PLATFORM_WINDOWS
+
 			DEBUG_ADD("if g_pTopView");
-			
+
 			if (g_pTopView!=NULL && g_pTopView->IsInit())
 			{
 				DEBUG_ADD("Before g_pTopView->RestoreSurface");
-				
+
 				g_pTopView->RestoreSurface();
-				
+
 				DEBUG_ADD("After g_pTopView->RestoreSurface");
-				
+
 				g_pTopView->SetFirstDraw();
 			}
 
@@ -1717,6 +1773,7 @@ CheckActivate(BOOL bActiveGame)
 //								g_pDXSoundStream->Load( (*g_pMusicTable)[ musicID ].FilenameWav );
 //								g_pDXSoundStream->Play( FALSE );
 #else
+#ifdef PLATFORM_WINDOWS
 								if( g_DXSound.IsInit() )
 								{
 									g_pOGG->streamClose();
@@ -1731,6 +1788,13 @@ CheckActivate(BOOL bActiveGame)
 										g_pOGG->streamVolume( max( -10000, min( -1, volume ) ) );
 									}
 								}
+#else
+								// DirectSound is Windows-specific
+								if( g_DXSound.IsInit() )
+								{
+									g_pOGG->streamClose();
+								}
+#endif // PLATFORM_WINDOWS
 #endif
 							}
 						}
@@ -1796,12 +1860,17 @@ CheckActivate(BOOL bActiveGame)
 		//----------------------------------------------------
 		else
 		{
+#ifdef PLATFORM_WINDOWS
 			if (g_bFullScreen)
 			{
 				//CDirectDraw::RestoreGammaRamp();
 				CDirectDraw::GetDD()->RestoreDisplayMode();
 				//CDirectDraw::RestoreGammaRamp();
 			}
+#else
+			// DirectDraw fullscreen restoration is Windows-specific
+			// On macOS/Linux, SDL handles display mode changes
+#endif // PLATFORM_WINDOWS
 
 			#ifdef OUTPUT_DEBUG
 				if (g_pDebugMessage != NULL)
@@ -2348,7 +2417,12 @@ LoadZone(int n)
 	// priority¸¦ ÃÖ´ëÇÑ ³·Ãá´Ù.
 	if (g_pLoadingThread!=NULL)
 	{
+#ifdef PLATFORM_WINDOWS
 		g_pLoadingThread->SetPriority( THREAD_PRIORITY_IDLE );
+#else
+		// Thread priority settings are Windows-specific
+		// On macOS/Linux, use pthread scheduling if needed
+#endif // PLATFORM_WINDOWS
 	}
 
 	//----------------------------------------------------------------------
@@ -2973,13 +3047,13 @@ LoadZone(int n)
 		}
 	}
 #endif
-	
+
 #ifndef __METROTECH_TEST__
 	if(gpC_base != NULL && g_pUserInformation->bCompetence == true && g_pUserInformation->bCompetenceShape != true &&
 		g_pZoneTable->Get( g_pZone->GetID() )->CompetenceZone == false
 		)
 	{
-		gpC_base->SendMessage(UI_CHAT_RETURN, CLD_NORMAL, 0, "*command ghost on");
+		gpC_base->SendMessage(UI_CHAT_RETURN, CLD_NORMAL, 0, (void*)"*command ghost on");
 	}
 #endif
 	
@@ -3044,7 +3118,7 @@ LoadZoneInfo(int n)
 	// ZoneInfo
 	//------------------------------------------------
 //	MZoneInfo zoneInfo;
-	std::ifstream zoneInfoFile(pZoneInfo->InfoFilename.GetString(), ios::binary | );
+	std::ifstream zoneInfoFile(pZoneInfo->InfoFilename.GetString(), ios::binary);
 
 	//------------------------------------------------
 	// FileÀÌ ÀÖ´Â °æ¿ì¸¸ loadingÇÑ´Ù.
@@ -3087,10 +3161,10 @@ LoadZoneInfo(int n)
 			RECT rect;
 				
 			for (int i=0; i<numPortal; i++)
-			{			
+			{
 				portal.LoadFromFile( zoneInfoFile );
 
-				std::vector<WORD>& zoneID = portal.GetZoneID();
+				const std::vector<WORD>& zoneID = portal.GetZoneID();
 
 				int numZoneID = zoneID.size();
 
@@ -3208,8 +3282,8 @@ LoadZoneInfo(int n)
 			DEBUG_ADD("Horn Setting Start");
 			// ousters hornÀ» ¸Ê¿¡ ½É´Â´Ù
 			UI_PORTAL_LIST portalList;
-			
-			for(i = 0; i < g_pZone->GetHorn().size(); i++)
+
+			for(int i = 0; i < g_pZone->GetHorn().size(); i++)
 			{
 				portalList = g_pZone->GetHorn()[i];
 				
@@ -3623,13 +3697,21 @@ MakeScreenShot()
 		maxScreenShot = 1000;
 	#endif
 
+#ifdef PLATFORM_WINDOWS
 	_mkdir("ScreenShot");
+#else
+	mkdir("ScreenShot", 0755);
+#endif // PLATFORM_WINDOWS
 	// MAX_SCREENSHOT°³ÀÇ ScreenCapture¸¸ °¡´ÉÇÏ´Ù.
 	for (; g_ScreenShotNumber<maxScreenShot; g_ScreenShotNumber++)
-	{		
+	{
 		sprintf(str, "%s%03d.jpg", g_pFileDef->getProperty("PATH_SCREENSHOT").c_str(), g_ScreenShotNumber);
-		
+
+#ifdef PLATFORM_WINDOWS
 		int fd = _open( str, _O_RDONLY );
+#else
+		int fd = open( str, O_RDONLY );
+#endif // PLATFORM_WINDOWS
 
 		// fileÀÌ ¾ø´Â °æ¿ì¿¡ saveÇÏ±â À§ÇØ¼­..
 		if( fd == -1 )
@@ -3664,15 +3746,29 @@ MakeScreenShot()
 			#endif
 
 //			g_pBack->SaveToBMP(str);
+#ifdef PLATFORM_WINDOWS
 			SaveSurfaceToImage(str, *g_pBack);
-			
+#else
+			// Screenshot saving is Windows-specific (uses GDI+ for JPEG)
+			// TODO: Implement cross-platform screenshot using SDL or stb_image_write
+			printf("Screenshot functionality not yet implemented on this platform\n");
+#endif // PLATFORM_WINDOWS
+
+#ifdef PLATFORM_WINDOWS
 			_close(fd);
+#else
+			close(fd);
+#endif // PLATFORM_WINDOWS
 			g_ScreenShotNumber++;
-			return;	
+			return;
 		}
 		else
 		{
+#ifdef PLATFORM_WINDOWS
 			_close(fd);
+#else
+			close(fd);
+#endif // PLATFORM_WINDOWS
 		}
 	}
 
@@ -3754,19 +3850,30 @@ PlaySound(TYPE_SOUNDID soundID, bool repeat, int x, int y)
 			if (pBuffer==NULL)
 			{
 				(*g_pSoundTable)[soundID].Filename.Release();
+#ifdef PLATFORM_WINDOWS
 				DEBUG_ADD_FORMAT("[Error] Failed to Load WAV. id=%d, fn=%s", soundID, (*g_pSoundTable)[soundID].Filename );
+#else
+				// MString debug output on non-Windows
+				printf("[Error] Failed to Load WAV. id=%d\n", soundID);
+#endif // PLATFORM_WINDOWS
 			}
 			else
 			//-----------------------------------------------------------
-			// Load¿¡ ¼º°ø ÇßÀ¸¸é...			
+			// Load¿¡ ¼º°ø ÇßÀ¸¸é...
 			//-----------------------------------------------------------
 			{
+#ifdef PLATFORM_WINDOWS
 				// ReplaceµÆÀ¸¸é ¿ø·¡°ÍÀ» ¸Þ¸ð¸®¿¡¼­ Áö¿î´Ù.
 				LPDIRECTSOUNDBUFFER pOld;
 				if ((*g_pSoundManager).SetData( soundID, pBuffer, pOld )!=0xFFFF)
 				{
 					pOld->Release();
 				}
+#else
+				// DirectSound is Windows-specific
+				LPDIRECTSOUNDBUFFER pOld;
+				(*g_pSoundManager).SetData(soundID, pBuffer, pOld);
+#endif // PLATFORM_WINDOWS
 
 				int gapX = x - g_pPlayer->GetX();
 				int gapY = y - g_pPlayer->GetY();
@@ -3938,19 +4045,30 @@ PlaySound(TYPE_SOUNDID soundID)
 		if (pBuffer==NULL)
 		{
 			(*g_pSoundTable)[soundID].Filename.Release();
+#ifdef PLATFORM_WINDOWS
 			DEBUG_ADD_FORMAT("[Error] Failed to Load WAV. id=%d, fn=%s", soundID, (*g_pSoundTable)[soundID].Filename );
+#else
+			// MString debug output on non-Windows
+			printf("[Error] Failed to Load WAV. id=%d\n", soundID);
+#endif // PLATFORM_WINDOWS
 		}
 		//-----------------------------------------------------------
 		// Load¿¡ ¼º°ø ÇßÀ¸¸é...
 		//-----------------------------------------------------------
-		else		
+		else
 		{
+#ifdef PLATFORM_WINDOWS
 			// ReplaceµÆÀ¸¸é ¿ø·¡°ÍÀ» ¸Þ¸ð¸®¿¡¼­ Áö¿î´Ù.
 			LPDIRECTSOUNDBUFFER pOld;
 			if ((*g_pSoundManager).SetData( soundID, pBuffer, pOld )!=0xFFFF)
 			{
 				pOld->Release();
 			}
+#else
+			// DirectSound is Windows-specific
+			LPDIRECTSOUNDBUFFER pOld;
+			(*g_pSoundManager).SetData(soundID, pBuffer, pOld);
+#endif // PLATFORM_WINDOWS
 
 			g_DXSound.CenterPan( pBuffer );						
 		
@@ -4059,19 +4177,30 @@ void PlaySoundForce(TYPE_SOUNDID soundID)
 		if (pBuffer==NULL)
 		{
 			(*g_pSoundTable)[soundID].Filename.Release();
+#ifdef PLATFORM_WINDOWS
 			DEBUG_ADD_FORMAT("[Error] Failed to Load WAV. id=%d, fn=%s", soundID, (*g_pSoundTable)[soundID].Filename );
+#else
+			// MString debug output on non-Windows
+			printf("[Error] Failed to Load WAV. id=%d\n", soundID);
+#endif // PLATFORM_WINDOWS
 		}
 		//-----------------------------------------------------------
 		// Load¿¡ ¼º°ø ÇßÀ¸¸é...
 		//-----------------------------------------------------------
-		else		
+		else
 		{
+#ifdef PLATFORM_WINDOWS
 			// ReplaceµÆÀ¸¸é ¿ø·¡°ÍÀ» ¸Þ¸ð¸®¿¡¼­ Áö¿î´Ù.
 			LPDIRECTSOUNDBUFFER pOld;
 			if ((*g_pSoundManager).SetData( soundID, pBuffer, pOld )!=0xFFFF)
 			{
 				pOld->Release();
 			}
+#else
+			// DirectSound is Windows-specific
+			LPDIRECTSOUNDBUFFER pOld;
+			(*g_pSoundManager).SetData(soundID, pBuffer, pOld);
+#endif // PLATFORM_WINDOWS
 
 			g_DXSound.CenterPan( pBuffer );						
 		
@@ -4337,6 +4466,7 @@ PlayMusicCurrentZone()
 //					g_pDXSoundStream->Load( (*g_pMusicTable)[ musicID ].FilenameWav );
 //					g_pDXSoundStream->Play( FALSE );
 #else
+#ifdef PLATFORM_WINDOWS
 					if( g_oggfile != NULL )
 						fclose(g_oggfile);
 
@@ -4360,6 +4490,13 @@ PlayMusicCurrentZone()
 							// 2004, 11, 8, sobeit add end - ±×³É ¿¡·¯ Ã¼Å©
 						}
 					}
+#else
+					// DirectSound OGG playback is Windows-specific
+					if( g_DXSound.IsInit() )
+					{
+						g_pOGG->streamClose();
+					}
+#endif // PLATFORM_WINDOWS
 #endif
 				}
 				else
@@ -4515,7 +4652,7 @@ FileOpenBinary(const char* filename, std::ifstream& file)
 		file.close();
 	}
 
-	file.open(filename, ios::binary | );
+	file.open(filename, ios::binary);
 	
 	if (!file.is_open())
 	{
