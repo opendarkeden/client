@@ -17,9 +17,9 @@ ITEMCLASS_TABLE::InitItem2()
 
 InitClass( ITEM_CLASS_DYE_POTION,63 );
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].HName = "染发剂 1";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].HName = "脠戮路垄录脕 1";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].EName = "Hair-Dye 1";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].SetFrameID( 523, 537, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].SetDropFrameID( 523 );
@@ -47,9 +47,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].HName = "染发剂 2";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].HName = "脠戮路垄录脕 2";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].EName = "Hair-Dye 2";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].SetFrameID( 524, 538, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].SetDropFrameID( 524 );
@@ -77,9 +77,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].HName = "染发剂 3";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].HName = "脠戮路垄录脕 3";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].EName = "Hair-Dye 3";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].SetFrameID( 525, 539, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].SetDropFrameID( 525 );
@@ -107,9 +107,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].HName = "染发剂 4";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].HName = "脠戮路垄录脕 4";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].EName = "Hair-Dye 4";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].SetFrameID( 526, 540, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].SetDropFrameID( 526 );
@@ -137,9 +137,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].HName = "染发剂 5";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].HName = "脠戮路垄录脕 5";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].EName = "Hair-Dye 5";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].SetFrameID( 527, 541, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].SetDropFrameID( 527 );
@@ -167,9 +167,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].HName = "染发剂 6";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].HName = "脠戮路垄录脕 6";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].EName = "Hair-Dye 6";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].SetFrameID( 528, 542, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].SetDropFrameID( 528 );
@@ -197,9 +197,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].HName = "染发剂 7";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].HName = "脠戮路垄录脕 7";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].EName = "Hair-Dye 7";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].SetFrameID( 529, 543, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].SetDropFrameID( 529 );
@@ -227,9 +227,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].HName = "染发剂 8";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].HName = "脠戮路垄录脕 8";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].EName = "Hair-Dye 8";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].SetFrameID( 530, 544, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].SetDropFrameID( 530 );
@@ -257,9 +257,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].HName = "染发剂 9";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].HName = "脠戮路垄录脕 9";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].EName = "Hair-Dye 9";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].SetFrameID( 531, 545, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].SetDropFrameID( 531 );
@@ -287,9 +287,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].HName = "染发剂 10";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].HName = "脠戮路垄录脕 10";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].EName = "Hair-Dye 10";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].SetFrameID( 532, 546, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].SetDropFrameID( 532 );
@@ -317,9 +317,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].HName = "染发剂 11";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].HName = "脠戮路垄录脕 11";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].EName = "Hair-Dye 11";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].SetFrameID( 533, 547, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].SetDropFrameID( 533 );
@@ -347,9 +347,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].HName = "染发剂 12";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].HName = "脠戮路垄录脕 12";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].EName = "Hair-Dye 12";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].SetFrameID( 534, 548, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].SetDropFrameID( 534 );
@@ -377,9 +377,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].HName = "染发剂 13";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].HName = "脠戮路垄录脕 13";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].EName = "Hair-Dye 13";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].SetFrameID( 535, 549, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].SetDropFrameID( 535 );
@@ -407,9 +407,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].HName = "染发剂 14";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].HName = "脠戮路垄录脕 14";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].EName = "Hair-Dye 14";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].SetFrameID( 536, 550, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].SetDropFrameID( 536 );
@@ -437,9 +437,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].HName = "染发剂 15";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].HName = "脠戮路垄录脕 15";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].EName = "Hair-Dye 15";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].SetFrameID( 537, 551, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].SetDropFrameID( 537 );
@@ -467,9 +467,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].HName = "染发剂 16";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].HName = "脠戮路垄录脕 16";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].EName = "Hair-Dye 16";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].SetFrameID( 538, 552, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].SetDropFrameID( 538 );
@@ -497,9 +497,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].HName = "染发剂 17";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].HName = "脠戮路垄录脕 17";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].EName = "Hair-Dye 17";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].SetFrameID( 539, 553, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].SetDropFrameID( 539 );
@@ -527,9 +527,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].HName = "染发剂 18";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].HName = "脠戮路垄录脕 18";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].EName = "Hair-Dye 18";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].SetFrameID( 540, 554, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].SetDropFrameID( 540 );
@@ -557,9 +557,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].HName = "染发剂 19";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].HName = "脠戮路垄录脕 19";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].EName = "Hair-Dye 19";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].SetFrameID( 541, 555, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].SetDropFrameID( 541 );
@@ -587,9 +587,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].HName = "染发剂 20";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].HName = "脠戮路垄录脕 20";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].EName = "Hair-Dye 20";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].SetFrameID( 542, 556, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].SetDropFrameID( 542 );
@@ -617,9 +617,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].HName = "染发剂 21";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].HName = "脠戮路垄录脕 21";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].EName = "Hair-Dye 21";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].SetFrameID( 543, 557, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].SetDropFrameID( 543 );
@@ -647,9 +647,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].HName = "染发剂 22";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].HName = "脠戮路垄录脕 22";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].EName = "Hair-Dye 22";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].SetFrameID( 544, 558, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].SetDropFrameID( 544 );
@@ -677,9 +677,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].HName = "染发剂 23";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].HName = "脠戮路垄录脕 23";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].EName = "Hair-Dye 23";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].SetFrameID( 545, 559, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].SetDropFrameID( 545 );
@@ -707,9 +707,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].HName = "染发剂 24";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].HName = "脠戮路垄录脕 24";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].EName = "Hair-Dye 24";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].Description = "染发（吸血鬼不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].Description = "脠戮路垄拢篓脦眉脩陋鹿铆虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].SetFrameID( 546, 560, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].SetDropFrameID( 546 );
@@ -737,9 +737,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].HName = "肤色转换剂1";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].HName = "路么脡芦脳陋禄禄录脕1";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].EName = "Skin-Dye 1";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].SetFrameID( 547, 561, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].SetDropFrameID( 547 );
@@ -767,9 +767,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].HName = "肤色转换剂2";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].HName = "路么脡芦脳陋禄禄录脕2";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].EName = "Skin-Dye 2";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].SetFrameID( 548, 562, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].SetDropFrameID( 548 );
@@ -797,9 +797,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].HName = "肤色转换剂3";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].HName = "路么脡芦脳陋禄禄录脕3";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].EName = "Skin-Dye 3";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].SetFrameID( 549, 563, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].SetDropFrameID( 549 );
@@ -827,9 +827,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].HName = "肤色转换剂4";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].HName = "路么脡芦脳陋禄禄录脕4";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].EName = "Skin-Dye 4";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].SetFrameID( 550, 564, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].SetDropFrameID( 550 );
@@ -857,9 +857,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].HName = "肤色转换剂5";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].HName = "路么脡芦脳陋禄禄录脕5";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].EName = "Skin-Dye 5";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].SetFrameID( 551, 565, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].SetDropFrameID( 551 );
@@ -887,9 +887,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].HName = "肤色转换剂6";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].HName = "路么脡芦脳陋禄禄录脕6";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].EName = "Skin-Dye 6";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].SetFrameID( 552, 566, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].SetDropFrameID( 552 );
@@ -917,9 +917,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].HName = "肤色转换剂7";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].HName = "路么脡芦脳陋禄禄录脕7";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].EName = "Skin-Dye 7";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].SetFrameID( 553, 567, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].SetDropFrameID( 553 );
@@ -947,9 +947,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].HName = "肤色转换剂8";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].HName = "路么脡芦脳陋禄禄录脕8";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].EName = "Skin-Dye 8";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].SetFrameID( 554, 568, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].SetDropFrameID( 554 );
@@ -977,9 +977,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].HName = "肤色转换剂9";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].HName = "路么脡芦脳陋禄禄录脕9";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].EName = "Skin-Dye 9";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].SetFrameID( 555, 569, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].SetDropFrameID( 555 );
@@ -1007,9 +1007,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].HName = "肤色转换剂10";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].HName = "路么脡芦脳陋禄禄录脕10";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].EName = "Skin-Dye 10";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].SetFrameID( 556, 570, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].SetDropFrameID( 556 );
@@ -1037,9 +1037,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].HName = "肤色转换剂11";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].HName = "路么脡芦脳陋禄禄录脕11";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].EName = "Skin-Dye 11";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].SetFrameID( 557, 571, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].SetDropFrameID( 557 );
@@ -1067,9 +1067,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].HName = "肤色转换剂12";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].HName = "路么脡芦脳陋禄禄录脕12";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].EName = "Skin-Dye 12";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].SetFrameID( 558, 572, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].SetDropFrameID( 558 );
@@ -1097,9 +1097,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].HName = "肤色转换剂13";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].HName = "路么脡芦脳陋禄禄录脕13";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].EName = "Skin-Dye 13";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].SetFrameID( 559, 573, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].SetDropFrameID( 559 );
@@ -1127,9 +1127,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].HName = "肤色转换剂14";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].HName = "路么脡芦脳陋禄禄录脕14";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].EName = "Skin-Dye 14";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].SetFrameID( 560, 574, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].SetDropFrameID( 560 );
@@ -1157,9 +1157,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].HName = "肤色转换剂15";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].HName = "路么脡芦脳陋禄禄录脕15";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].EName = "Skin-Dye 15";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].SetFrameID( 561, 575, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].SetDropFrameID( 561 );
@@ -1187,9 +1187,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].HName = "肤色转换剂16";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].HName = "路么脡芦脳陋禄禄录脕16";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].EName = "Skin-Dye 16";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].SetFrameID( 562, 576, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].SetDropFrameID( 562 );
@@ -1217,9 +1217,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].HName = "肤色转换剂17";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].HName = "路么脡芦脳陋禄禄录脕17";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].EName = "Skin-Dye 17";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].SetFrameID( 563, 577, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].SetDropFrameID( 563 );
@@ -1247,9 +1247,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].HName = "肤色转换剂18";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].HName = "路么脡芦脳陋禄禄录脕18";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].EName = "Skin-Dye 18";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].SetFrameID( 564, 578, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].SetDropFrameID( 564 );
@@ -1277,9 +1277,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].HName = "肤色转换剂19";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].HName = "路么脡芦脳陋禄禄录脕19";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].EName = "Skin-Dye 19";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].SetFrameID( 565, 579, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].SetDropFrameID( 565 );
@@ -1307,9 +1307,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].HName = "肤色转换剂20";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].HName = "路么脡芦脳陋禄禄录脕20";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].EName = "Skin-Dye 20";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].SetFrameID( 566, 580, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].SetDropFrameID( 566 );
@@ -1337,9 +1337,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].HName = "肤色转换剂21";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].HName = "路么脡芦脳陋禄禄录脕21";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].EName = "Skin-Dye 21";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].SetFrameID( 567, 581, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].SetDropFrameID( 567 );
@@ -1367,9 +1367,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].HName = "肤色转换剂22";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].HName = "路么脡芦脳陋禄禄录脕22";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].EName = "Skin-Dye 22";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].SetFrameID( 568, 582, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].SetDropFrameID( 568 );
@@ -1397,9 +1397,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].HName = "肤色转换剂23";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].HName = "路么脡芦脳陋禄禄录脕23";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].EName = "Skin-Dye 23";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].SetFrameID( 569, 583, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].SetDropFrameID( 569 );
@@ -1427,9 +1427,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].HName = "肤色转换剂24";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].HName = "路么脡芦脳陋禄禄录脕24";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].EName = "Skin-Dye 24";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].Description = "改变皮肤颜色（魔灵不能使用）";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].Description = "赂脛卤盲脝陇路么脩脮脡芦拢篓脛搂脕茅虏禄脛脺脢鹿脫脙拢漏";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].SetFrameID( 570, 584, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].SetDropFrameID( 570 );
@@ -1457,9 +1457,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].HName = "变性药水";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].HName = "卤盲脨脭脪漏脣庐";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].EName = "SEX Conversion Potion";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].Description = "变性";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].Description = "卤盲脨脭";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].SetFrameID( 711, 725, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].SetDropFrameID( 711 );
@@ -1487,7 +1487,7 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][49].HName = "绿色变色药水";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][49].HName = "脗脤脡芦卤盲脡芦脪漏脣庐";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][49].EName = "Green Chameleon Potion";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][49].Description = "";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][49].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -1517,7 +1517,7 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][49].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][49].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][50].HName = "蓝色变色药水";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][50].HName = "脌露脡芦卤盲脡芦脪漏脣庐";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][50].EName = "Blue Chameleon Potion";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][50].Description = "";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][50].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -1547,7 +1547,7 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][50].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][50].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][51].HName = "红色变色药水";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][51].HName = "潞矛脡芦卤盲脡芦脪漏脣庐";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][51].EName = "Red Chameleon Potion";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][51].Description = "";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][51].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -1577,7 +1577,7 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][51].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][51].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][52].HName = "黄色变色药水";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][52].HName = "禄脝脡芦卤盲脡芦脪漏脣庐";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][52].EName = "Yellow Chameleon Potion";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][52].Description = "";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][52].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -1607,7 +1607,7 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][52].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][52].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][53].HName = "白色变色药水";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][53].HName = "掳脳脡芦卤盲脡芦脪漏脣庐";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][53].EName = "White Chameleon Potion";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][53].Description = "";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][53].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -1637,7 +1637,7 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][53].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][53].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][54].HName = "天青色变色药水";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][54].HName = "脤矛脟脿脡芦卤盲脡芦脪漏脣庐";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][54].EName = "Sky Blue Chameleon Potion";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][54].Description = "";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][54].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -1667,7 +1667,7 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][54].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][54].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][55].HName = "紫色变色药水";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][55].HName = "脳脧脡芦卤盲脡芦脪漏脣庐";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][55].EName = "Lilac Chameleon Potion";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][55].Description = "";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][55].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -1697,7 +1697,7 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][55].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][55].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][56].HName = "黑色变色药水";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][56].HName = "潞脷脡芦卤盲脡芦脪漏脣庐";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][56].EName = "Black Chameleon Potion";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][56].Description = "";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][56].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -1727,7 +1727,7 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][56].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][56].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][57].HName = "自然变色药水";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][57].HName = "脳脭脠禄卤盲脡芦脪漏脣庐";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][57].EName = "Natural Chameleon Potion";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][57].Description = "";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][57].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -1757,9 +1757,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][57].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][57].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].HName = "恐惧光环石";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].HName = "驴脰戮氓鹿芒禄路脢炉";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].EName = "Fear Aura Stone";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].Description = "达到大师水准的人，利用自身散发的力气表现在外部。此时使用数百年前流传下来提炼出的魔法石就能变化自己的力气让光环反映出特有的颜色。";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].Description = "麓茂碌陆麓贸脢娄脣庐脳录碌脛脠脣拢卢脌没脫脙脳脭脡铆脡垄路垄碌脛脕娄脝酶卤铆脧脰脭脷脥芒虏驴隆拢麓脣脢卤脢鹿脫脙脢媒掳脵脛锚脟掳脕梅麓芦脧脗脌麓脤谩脕露鲁枚碌脛脛搂路篓脢炉戮脥脛脺卤盲禄炉脳脭录潞碌脛脕娄脝酶脠脙鹿芒禄路路麓脫鲁鲁枚脤脴脫脨碌脛脩脮脡芦隆拢";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].SetFrameID( 982, 1016, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].SetDropFrameID( 982 );
@@ -1787,9 +1787,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].HName = "残酷光环石";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].HName = "虏脨驴谩鹿芒禄路脢炉";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].EName = "Cruel Aura Stone";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].Description = "达到大师水准的人，利用自身散发的力气表现在外部。此时使用数百年前流传下来提炼出的魔法石就能变化自己的力气让光环反映出特有的颜色。";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].Description = "麓茂碌陆麓贸脢娄脣庐脳录碌脛脠脣拢卢脌没脫脙脳脭脡铆脡垄路垄碌脛脕娄脝酶卤铆脧脰脭脷脥芒虏驴隆拢麓脣脢卤脢鹿脫脙脢媒掳脵脛锚脟掳脕梅麓芦脧脗脌麓脤谩脕露鲁枚碌脛脛搂路篓脢炉戮脥脛脺卤盲禄炉脳脭录潞碌脛脕娄脝酶脠脙鹿芒禄路路麓脫鲁鲁枚脤脴脫脨碌脛脩脮脡芦隆拢";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].SetFrameID( 983, 1017, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].SetDropFrameID( 983 );
@@ -1817,9 +1817,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].HName = "希望光环石";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].HName = "脧拢脥没鹿芒禄路脢炉";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].EName = "Hope Aura Stone";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].Description = "达到大师水准的人，利用自身散发的力气表现在外部。此时使用数百年前流传下来提炼出的魔法石就能变化自己的力气让光环反映出特有的颜色。";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].Description = "麓茂碌陆麓贸脢娄脣庐脳录碌脛脠脣拢卢脌没脫脙脳脭脡铆脡垄路垄碌脛脕娄脝酶卤铆脧脰脭脷脥芒虏驴隆拢麓脣脢卤脢鹿脫脙脢媒掳脵脛锚脟掳脕梅麓芦脧脗脌麓脤谩脕露鲁枚碌脛脛搂路篓脢炉戮脥脛脺卤盲禄炉脳脭录潞碌脛脕娄脝酶脠脙鹿芒禄路路麓脫鲁鲁枚脤脴脫脨碌脛脩脮脡芦隆拢";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].SetFrameID( 984, 1018, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].SetDropFrameID( 984 );
@@ -1847,9 +1847,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].HName = "自然光环石";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].HName = "脳脭脠禄鹿芒禄路脢炉";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].EName = "Natural Aura Stone";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].Description = "达到大师水准的人，利用自身散发的力气表现在外部。此时使用数百年前流传下来提炼出的魔法石就能变化自己的力气让光环反映出特有的颜色。";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].Description = "麓茂碌陆麓贸脢娄脣庐脳录碌脛脠脣拢卢脌没脫脙脳脭脡铆脡垄路垄碌脛脕娄脝酶卤铆脧脰脭脷脥芒虏驴隆拢麓脣脢卤脢鹿脫脙脢媒掳脵脛锚脟掳脕梅麓芦脧脗脌麓脤谩脕露鲁枚碌脛脛搂路篓脢炉戮脥脛脺卤盲禄炉脳脭录潞碌脛脕娄脝酶脠脙鹿芒禄路路麓脫鲁鲁枚脤脴脫脨碌脛脩脮脡芦隆拢";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].SetFrameID( 981, 1015, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].SetDropFrameID( 981 );
@@ -1877,9 +1877,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][62].HName = "突变光环石";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][62].HName = "脥禄卤盲鹿芒禄路脢炉";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][62].EName = "Aura Stone";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][62].Description = "达到大师水准的人，利用自身散发的力气表现在外部。此时使用数百年前流传下来提炼出的魔法石就能变化自己的力气让光环反映出特有的颜色。";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][62].Description = "麓茂碌陆麓贸脢娄脣庐脳录碌脛脠脣拢卢脌没脫脙脳脭脡铆脡垄路垄碌脛脕娄脝酶卤铆脧脰脭脷脥芒虏驴隆拢麓脣脢卤脢鹿脫脙脢媒掳脵脛锚脟掳脕梅麓芦脧脗脌麓脤谩脕露鲁枚碌脛脛搂路篓脢炉戮脥脛脺卤盲禄炉脳脭录潞碌脛脕娄脝酶脠脙鹿芒禄路路麓脫鲁鲁枚脤脴脫脨碌脛脩脮脡芦隆拢";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][62].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][62].SetFrameID( 981, 1015, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][62].SetDropFrameID( 981 );
@@ -1910,9 +1910,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
 
 InitClass( ITEM_CLASS_RESURRECT_ITEM,2 );
 
- m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].HName = "复活卷轴";
+ m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].HName = "赂麓禄卯戮铆脰谩";
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].EName = "Resurrection Scroll";
- m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].Description = "濒临死亡时才使用的道具。";
+ m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].Description = "卤么脕脵脣脌脥枚脢卤虏脜脢鹿脫脙碌脛碌脌戮脽隆拢";
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].SetFrameID( 589, 603, 0 );
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].SetDropFrameID( 589 );
@@ -1940,9 +1940,9 @@ InitClass( ITEM_CLASS_RESURRECT_ITEM,2 );
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][1].HName = "炼金卷轴";
+ m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][1].HName = "脕露陆冒戮铆脰谩";
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][1].EName = "Elixir Scroll";
- m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][1].Description = "濒临死亡时复活，或者解除一切异常状态时使用的道具。";
+ m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][1].Description = "卤么脕脵脣脌脥枚脢卤赂麓禄卯拢卢禄貌脮脽陆芒鲁媒脪禄脟脨脪矛鲁拢脳麓脤卢脢卤脢鹿脫脙碌脛碌脌戮脽隆拢";
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][1].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][1].SetFrameID( 588, 602, 0 );
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][1].SetDropFrameID( 588 );
@@ -1973,9 +1973,9 @@ InitClass( ITEM_CLASS_RESURRECT_ITEM,2 );
 
 InitClass( ITEM_CLASS_MIXING_ITEM,25 );
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].HName = "武器合成A型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].HName = "脦盲脝梅潞脧鲁脡A脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].EName = "Weapon Mixing Forge Type A";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].Description = "将不同属性的道具合成在一起";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].Description = "陆芦虏禄脥卢脢么脨脭碌脛碌脌戮脽潞脧鲁脡脭脷脪禄脝冒";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].SetFrameID( 582, 596, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].SetDropFrameID( 582 );
@@ -2003,9 +2003,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].HName = "武器合成B型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].HName = "脦盲脝梅潞脧鲁脡B脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].EName = "Weapon Mixing Forge Type B";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].Description = "将不同属性的道具合成在一起";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].Description = "陆芦虏禄脥卢脢么脨脭碌脛碌脌戮脽潞脧鲁脡脭脷脪禄脝冒";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].SetFrameID( 582, 596, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].SetDropFrameID( 582 );
@@ -2033,9 +2033,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].HName = "武器合成C型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].HName = "脦盲脝梅潞脧鲁脡C脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].EName = "Weapon Mixing Forge Type C";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].Description = "将不同属性的道具合成在一起";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].Description = "陆芦虏禄脥卢脢么脨脭碌脛碌脌戮脽潞脧鲁脡脭脷脪禄脝冒";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].SetFrameID( 582, 596, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].SetDropFrameID( 582 );
@@ -2063,9 +2063,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].HName = "防具合成A型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].HName = "路脌戮脽潞脧鲁脡A脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].EName = "Armor Mixing Forge Type A";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].Description = "将不同属性的道具合成在一起";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].Description = "陆芦虏禄脥卢脢么脨脭碌脛碌脌戮脽潞脧鲁脡脭脷脪禄脝冒";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].SetFrameID( 584, 598, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].SetDropFrameID( 584 );
@@ -2093,9 +2093,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].HName = "防具合成B型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].HName = "路脌戮脽潞脧鲁脡B脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].EName = "Armor Mixing Forge Type B";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].Description = "将不同属性的道具合成在一起";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].Description = "陆芦虏禄脥卢脢么脨脭碌脛碌脌戮脽潞脧鲁脡脭脷脪禄脝冒";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].SetFrameID( 584, 598, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].SetDropFrameID( 584 );
@@ -2123,9 +2123,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].HName = "防具合成C型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].HName = "路脌戮脽潞脧鲁脡C脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].EName = "Armor Mixing Forge Type C";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].Description = "将不同属性的道具合成在一起";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].Description = "陆芦虏禄脥卢脢么脨脭碌脛碌脌戮脽潞脧鲁脡脭脷脪禄脝冒";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].SetFrameID( 584, 598, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].SetDropFrameID( 584 );
@@ -2153,9 +2153,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].HName = "饰品合成A型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].HName = "脢脦脝路潞脧鲁脡A脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].EName = "Accessory Mixing Forge Type A";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].Description = "将不同属性的道具合成在一起";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].Description = "陆芦虏禄脥卢脢么脨脭碌脛碌脌戮脽潞脧鲁脡脭脷脪禄脝冒";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].SetFrameID( 583, 597, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].SetDropFrameID( 583 );
@@ -2183,9 +2183,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].HName = "饰品合成B型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].HName = "脢脦脝路潞脧鲁脡B脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].EName = "Accessory Mixing Forge Type B";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].Description = "将不同属性的道具合成在一起";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].Description = "陆芦虏禄脥卢脢么脨脭碌脛碌脌戮脽潞脧鲁脡脭脷脪禄脝冒";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].SetFrameID( 583, 597, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].SetDropFrameID( 583 );
@@ -2213,9 +2213,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].HName = "饰品合成C型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].HName = "脢脦脝路潞脧鲁脡C脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].EName = "Accessory Mixing Forge Type C";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].Description = "将不同属性的道具合成在一起";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].Description = "陆芦虏禄脥卢脢么脨脭碌脛碌脌戮脽潞脧鲁脡脭脷脪禄脝冒";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].SetFrameID( 583, 597, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].SetDropFrameID( 583 );
@@ -2243,9 +2243,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].HName = "武器分解A型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].HName = "脦盲脝梅路脰陆芒A脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].EName = "Weapon Puritas Type A";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].Description = "可以删除珍贵物品的不必要属性";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].Description = "驴脡脪脭脡戮鲁媒脮盲鹿贸脦茂脝路碌脛虏禄卤脴脪陋脢么脨脭";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].SetFrameID( 594, 608, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].SetDropFrameID( 594 );
@@ -2273,9 +2273,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].HName = "武器分解B型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].HName = "脦盲脝梅路脰陆芒B脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].EName = "Weapon Puritas Type B";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].Description = "可以删除珍贵物品的不必要属性";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].Description = "驴脡脪脭脡戮鲁媒脮盲鹿贸脦茂脝路碌脛虏禄卤脴脪陋脢么脨脭";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].SetFrameID( 594, 608, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].SetDropFrameID( 594 );
@@ -2303,9 +2303,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].HName = "武器分解C型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].HName = "脦盲脝梅路脰陆芒C脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].EName = "Weapon Puritas Type C";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].Description = "可以删除珍贵物品的不必要属性";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].Description = "驴脡脪脭脡戮鲁媒脮盲鹿贸脦茂脝路碌脛虏禄卤脴脪陋脢么脨脭";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].SetFrameID( 594, 608, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].SetDropFrameID( 594 );
@@ -2333,9 +2333,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].HName = "盔甲分解A型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].HName = "驴酶录脳路脰陆芒A脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].EName = "Armor Puritas Type A";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].Description = "可以删除珍贵物品的不必要属性";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].Description = "驴脡脪脭脡戮鲁媒脮盲鹿贸脦茂脝路碌脛虏禄卤脴脪陋脢么脨脭";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].SetFrameID( 595, 609, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].SetDropFrameID( 595 );
@@ -2363,9 +2363,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].HName = "盔甲分解B型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].HName = "驴酶录脳路脰陆芒B脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].EName = "Armor Puritas Type B";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].Description = "可以删除珍贵物品的不必要属性";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].Description = "驴脡脪脭脡戮鲁媒脮盲鹿贸脦茂脝路碌脛虏禄卤脴脪陋脢么脨脭";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].SetFrameID( 595, 609, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].SetDropFrameID( 595 );
@@ -2393,9 +2393,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].HName = "盔甲分解C型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].HName = "驴酶录脳路脰陆芒C脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].EName = "Armor Puritas Type C";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].Description = "可以删除珍贵物品的不必要属性";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].Description = "驴脡脪脭脡戮鲁媒脮盲鹿贸脦茂脝路碌脛虏禄卤脴脪陋脢么脨脭";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].SetFrameID( 595, 609, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].SetDropFrameID( 595 );
@@ -2423,9 +2423,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].HName = "饰品分解A型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].HName = "脢脦脝路路脰陆芒A脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].EName = "Accessory Puritas Type A";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].Description = "可以删除珍贵物品的不必要属性";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].Description = "驴脡脪脭脡戮鲁媒脮盲鹿贸脦茂脝路碌脛虏禄卤脴脪陋脢么脨脭";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].SetFrameID( 596, 610, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].SetDropFrameID( 596 );
@@ -2453,9 +2453,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].HName = "饰品分解B型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].HName = "脢脦脝路路脰陆芒B脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].EName = "Accessory Puritas Type B";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].Description = "可以删除珍贵物品的不必要属性";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].Description = "驴脡脪脭脡戮鲁媒脮盲鹿贸脦茂脝路碌脛虏禄卤脴脪陋脢么脨脭";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].SetFrameID( 596, 610, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].SetDropFrameID( 596 );
@@ -2483,9 +2483,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].HName = "饰品分解C型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].HName = "脢脦脝路路脰陆芒C脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].EName = "Accessory Puritas Type C";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].Description = "可以删除珍贵物品的不必要属性";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].Description = "驴脡脪脭脡戮鲁媒脮盲鹿贸脦茂脝路碌脛虏禄卤脴脪陋脢么脨脭";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].SetFrameID( 596, 610, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].SetDropFrameID( 596 );
@@ -2513,7 +2513,7 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][18].HName = "福勺";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][18].HName = "赂拢脡脳";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][18].EName = "Bokjory";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][18].Description = "?? ?? ???? ??? ????? ???? ???";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][18].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
@@ -2543,9 +2543,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][18].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][18].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].HName = "武器合成D型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].HName = "脦盲脝梅潞脧鲁脡D脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].EName = "Weapon Mixing Forge Type D";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].Description = "将不同属性的道具合成在一起";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].Description = "陆芦虏禄脥卢脢么脨脭碌脛碌脌戮脽潞脧鲁脡脭脷脪禄脝冒";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].SetFrameID( 582, 596, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].SetDropFrameID( 582 );
@@ -2573,9 +2573,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].HName = "防具合成D型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].HName = "路脌戮脽潞脧鲁脡D脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].EName = "Armor Mixing Forge Type D";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].Description = "将不同属性的道具合成在一起";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].Description = "陆芦虏禄脥卢脢么脨脭碌脛碌脌戮脽潞脧鲁脡脭脷脪禄脝冒";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].SetFrameID( 584, 598, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].SetDropFrameID( 584 );
@@ -2603,9 +2603,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].HName = "饰品合成D型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].HName = "脢脦脝路潞脧鲁脡D脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].EName = "Accessory Mixing Forge Type D";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].Description = "将不同属性的道具合成在一起";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].Description = "陆芦虏禄脥卢脢么脨脭碌脛碌脌戮脽潞脧鲁脡脭脷脪禄脝冒";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].SetFrameID( 583, 597, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].SetDropFrameID( 583 );
@@ -2633,9 +2633,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].HName = "武器分解D型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].HName = "脦盲脝梅路脰陆芒D脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].EName = "Weapon Puritas Type D";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].Description = "可以删除珍贵物品的不必要属性";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].Description = "驴脡脪脭脡戮鲁媒脮盲鹿贸脦茂脝路碌脛虏禄卤脴脪陋脢么脨脭";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].SetFrameID( 594, 608, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].SetDropFrameID( 594 );
@@ -2663,9 +2663,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].HName = "盔甲分解D型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].HName = "驴酶录脳路脰陆芒D脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].EName = "Armor Puritas Type D";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].Description = "可以删除珍贵物品的不必要属性";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].Description = "驴脡脪脭脡戮鲁媒脮盲鹿贸脦茂脝路碌脛虏禄卤脴脪陋脢么脨脭";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].SetFrameID( 595, 609, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].SetDropFrameID( 595 );
@@ -2693,9 +2693,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][24].HName = "饰品分解D型";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][24].HName = "脢脦脝路路脰陆芒D脨脥";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][24].EName = "Accessory Puritas Type D";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][24].Description = "可以删除珍贵物品的不必要属性";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][24].Description = "驴脡脪脭脡戮鲁媒脮盲鹿贸脦茂脝路碌脛虏禄卤脴脪陋脢么脨脭";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][24].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][24].SetFrameID( 596, 610, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][24].SetDropFrameID( 596 );
@@ -2726,7 +2726,7 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
 
 InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][0].HName = "木制臂环";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][0].HName = "脛戮脰脝卤脹禄路";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][0].EName = "Wood Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][0].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -2756,7 +2756,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][1].HName = "宝石臂环";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][1].HName = "卤娄脢炉卤脹禄路";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][1].EName = "Ayurvedic Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][1].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -2786,7 +2786,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][2].HName = "水虹臂环";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][2].HName = "脣庐潞莽卤脹禄路";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][2].EName = "Rainbow Wave Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][2].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -2816,7 +2816,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][3].HName = "古代臂环";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][3].HName = "鹿脜麓煤卤脹禄路";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][3].EName = "Guduen's Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][3].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -2846,7 +2846,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][4].HName = "锦花臂环";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][4].HName = "陆玫禄篓卤脹禄路";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][4].EName = "Blossom Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][4].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -2876,7 +2876,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][5].HName = "斯拉格臂环";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][5].HName = "脣鹿脌颅赂帽卤脹禄路";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][5].EName = "Selge Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][5].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -2906,7 +2906,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][6].HName = "悲悯臂环";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][6].HName = "卤炉脙玫卤脹禄路";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][6].EName = "Priest Herihor Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][6].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -2936,7 +2936,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][7].HName = "苍月臂环";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][7].HName = "虏脭脭脗卤脹禄路";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][7].EName = "Zaret Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][7].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -2966,7 +2966,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][8].HName = "圣翼天使臂环";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][8].HName = "脢楼脪铆脤矛脢鹿卤脹禄路";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][8].EName = "Gurgan Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][8].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -2996,7 +2996,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][9].HName = "诸神黄昏";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][9].HName = "脰卯脡帽禄脝禄猫";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][9].EName = "Kugnas Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][9].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -3026,7 +3026,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][10].HName = "魔翼天蝉";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][10].HName = "脛搂脪铆脤矛虏玫";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][10].EName = "Cicada Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][10].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -3056,7 +3056,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][11].HName = "疾风炎阳";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][11].HName = "录虏路莽脩脳脩么";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][11].EName = "Muladhara Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][11].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -3086,7 +3086,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][12].HName = "旋花臂环";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][12].HName = "脨媒禄篓卤脹禄路";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][12].EName = "Bindrune Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][12].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -3119,7 +3119,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][13].HName = "树妖臂环";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][13].HName = "脢梅脩媒卤脹禄路";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][13].EName = "Dryadric Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][13].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][13].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -3152,7 +3152,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
 
 InitClass( ITEM_CLASS_OUSTERS_BOOTS,13 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][0].HName = "树妖之靴";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][0].HName = "脢梅脩媒脰庐脩楼";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][0].EName = "Dryad's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][0].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3182,7 +3182,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][1].HName = "山妖之靴";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][1].HName = "脡陆脩媒脰庐脩楼";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][1].EName = "Oread's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][1].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3212,7 +3212,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][2].HName = "精灵之靴";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][2].HName = "戮芦脕茅脰庐脩楼";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][2].EName = "Sprite's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][2].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3242,7 +3242,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][3].HName = "圣甲战靴";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][3].HName = "脢楼录脳脮陆脩楼";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][3].EName = "Fisthrom's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][3].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3272,7 +3272,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][4].HName = "明王之靴";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][4].HName = "脙梅脥玫脰庐脩楼";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][4].EName = "Leprekaun's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][4].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3302,7 +3302,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][5].HName = "天狼之靴";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][5].HName = "脤矛脌脟脰庐脩楼";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][5].EName = "Desirish's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][5].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3332,7 +3332,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][6].HName = "神喻战靴";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][6].HName = "脡帽脫梅脮陆脩楼";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][6].EName = "Will O' the Wisp's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][6].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3362,7 +3362,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][7].HName = "暗影战靴";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][7].HName = "掳碌脫掳脮陆脩楼";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][7].EName = "Shade's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][7].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3392,7 +3392,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][8].HName = "圣者战靴";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][8].HName = "脢楼脮脽脮陆脩楼";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][8].EName = "Fateris's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][8].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3422,7 +3422,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][9].HName = "幻魔靴";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][9].HName = "禄脙脛搂脩楼";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][9].EName = "Epereal's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][9].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3452,7 +3452,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][10].HName = "凄惶之靴";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][10].HName = "脝脿禄脤脰庐脩楼";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][10].EName = "Amaterasu's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][10].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3485,7 +3485,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][11].HName = "精灵之靴";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][11].HName = "戮芦脕茅脰庐脩楼";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][11].EName = "Naphne Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][11].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3515,7 +3515,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][12].HName = "紫焉之靴";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][12].HName = "脳脧脩脡脰庐脩楼";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][12].EName = "Praelium Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][12].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3548,7 +3548,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,13 );
 
 InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,15 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][0].HName = "月环轮";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][0].HName = "脭脗禄路脗脰";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][0].EName = "Tou Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][0].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3578,7 +3578,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][1].HName = "日环轮";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][1].HName = "脠脮禄路脗脰";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][1].EName = "Perv Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][1].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3608,7 +3608,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][2].HName = "飞翼之轮";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][2].HName = "路脡脪铆脰庐脗脰";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][2].EName = "Aves Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][2].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3638,7 +3638,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][3].HName = "因巴斯之轮";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][3].HName = "脪貌掳脥脣鹿脰庐脗脰";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][3].EName = "Nuevo Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][3].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3668,7 +3668,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][4].HName = "生命之轮";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][4].HName = "脡煤脙眉脰庐脗脰";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][4].EName = "Anima Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][4].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3698,7 +3698,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][5].HName = "幽冥之轮";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][5].HName = "脫脛脷陇脰庐脗脰";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][5].EName = "Raetra Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][5].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3728,7 +3728,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][6].HName = "破月";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][6].HName = "脝脝脭脗";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][6].EName = "Pesuy's Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][6].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3758,7 +3758,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][7].HName = "灭日";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][7].HName = "脙冒脠脮";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][7].EName = "Brabus Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][7].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3788,7 +3788,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][8].HName = "飞花流云";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][8].HName = "路脡禄篓脕梅脭脝";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][8].EName = "Meduh Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][8].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3818,7 +3818,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][9].HName = "月华无双";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][9].HName = "脭脗禄陋脦脼脣芦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][9].EName = "Cruor Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][9].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3848,7 +3848,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][10].HName = "苍风赤月";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][10].HName = "虏脭路莽鲁脿脭脗";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][10].EName = "Moon of Haisa Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][10].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3878,7 +3878,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][11].HName = "玄武之澜";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][11].HName = "脨镁脦盲脰庐脌陆";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][11].EName = "Ajna Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][11].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3908,7 +3908,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][12].HName = "悲鸣之风";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][12].HName = "卤炉脙霉脰庐路莽";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][12].EName = "Wind God Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][12].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3940,7 +3940,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][13].HName = "悲痛之环";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][13].HName = "卤炉脥麓脰庐禄路";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][13].EName = "Rudra Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][13].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][13].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3970,7 +3970,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][13].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][14].HName = "梅利斯之环";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][14].HName = "脙路脌没脣鹿脰庐禄路";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][14].EName = "Melis Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][14].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][14].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -4003,7 +4003,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,15 );
 
 InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][0].HName = "银制发圈";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][0].HName = "脪酶脰脝路垄脠娄";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][0].EName = "Silver Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][0].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4033,7 +4033,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][1].HName = "圆月发圈";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][1].HName = "脭虏脭脗路垄脠娄";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][1].EName = "Circlet of Full Moon";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][1].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4063,7 +4063,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][2].HName = "五星发圈";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][2].HName = "脦氓脨脟路垄脠娄";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][2].EName = "Pentacle Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][2].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4093,7 +4093,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][3].HName = "树森之冠";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][3].HName = "脢梅脡颅脰庐鹿脷";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][3].EName = "Sylvana Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][3].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4123,7 +4123,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][4].HName = "水苍之冠";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][4].HName = "脣庐虏脭脰庐鹿脷";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][4].EName = "Column of Water Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][4].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4153,7 +4153,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][5].HName = "秩序之冠";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][5].HName = "脰脠脨貌脰庐鹿脷";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][5].EName = "Lothar Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][5].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4183,7 +4183,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][6].HName = "月神之冠";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][6].HName = "脭脗脡帽脰庐鹿脷";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][6].EName = "Cretra Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][6].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4213,7 +4213,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][7].HName = "首领之冠";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][7].HName = "脢脳脕矛脰庐鹿脷";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][7].EName = "Hunz Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][7].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4243,7 +4243,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][8].HName = "太阳神发圈";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][8].HName = "脤芦脩么脡帽路垄脠娄";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][8].EName = "Prominence Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][8].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4273,7 +4273,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][9].HName = "王权之冠";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][9].HName = "脥玫脠篓脰庐鹿脷";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][9].EName = "Diadem Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][9].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4303,7 +4303,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][10].HName = "金牛之冠";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][10].HName = "陆冒脜拢脰庐鹿脷";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][10].EName = "Alcyone Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][10].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4333,7 +4333,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][11].HName = "堕天使之怒";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][11].HName = "露茅脤矛脢鹿脰庐脜颅";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][11].EName = "Mastema Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][11].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4363,7 +4363,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][12].HName = "凄惶之冠";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][12].HName = "脝脿禄脤脰庐鹿脷";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][12].EName = "Taira Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][12].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4395,7 +4395,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][13].HName = "吉雷欧之冠";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][13].HName = "录陋脌脳脜路脰庐鹿脷";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][13].EName = "Gilleot Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][13].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][13].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4428,7 +4428,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
 
 InitClass( ITEM_CLASS_OUSTERS_COAT,13 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][0].HName = "树妖之衣";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][0].HName = "脢梅脩媒脰庐脪脗";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][0].EName = "Dryad's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][0].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4458,7 +4458,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][1].HName = "山妖之衣";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][1].HName = "脡陆脩媒脰庐脪脗";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][1].EName = "Oread's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][1].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4488,7 +4488,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][2].HName = "精灵之衣";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][2].HName = "戮芦脕茅脰庐脪脗";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][2].EName = "Sprite's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][2].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4518,7 +4518,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][3].HName = "圣甲战衣";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][3].HName = "脢楼录脳脮陆脪脗";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][3].EName = "Fisthrom's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][3].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4548,7 +4548,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][4].HName = "明王之铠";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][4].HName = "脙梅脥玫脰庐卯酶";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][4].EName = "Leprekaun's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][4].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4578,7 +4578,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][5].HName = "天狼之铠";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][5].HName = "脤矛脌脟脰庐卯酶";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][5].EName = "Desirish's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][5].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4608,7 +4608,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][6].HName = "神喻战衣";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][6].HName = "脡帽脫梅脮陆脪脗";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][6].EName = "Will o' the wisp's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][6].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4638,7 +4638,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][7].HName = "暗影战衣";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][7].HName = "掳碌脫掳脮陆脪脗";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][7].EName = "Shade's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][7].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4668,7 +4668,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][8].HName = "圣者战衣";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][8].HName = "脢楼脮脽脮陆脪脗";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][8].EName = "Fateris's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][8].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4698,7 +4698,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][9].HName = "幻魔甲";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][9].HName = "禄脙脛搂录脳";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][9].EName = "Epereal's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][9].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4728,7 +4728,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][10].HName = "凄惶之铠";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][10].HName = "脝脿禄脤脰庐卯酶";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][10].EName = "Amaterasu's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][10].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4761,7 +4761,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][11].HName = "精灵外套";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][11].HName = "戮芦脕茅脥芒脤脳";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][11].EName = "Naphne Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][11].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4791,7 +4791,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,13 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][12].HName = "紫焉背心";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][12].HName = "脳脧脩脡卤鲁脨脛";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][12].EName = "Praelium Vestio";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][12].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4824,7 +4824,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,13 );
 
 InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][0].HName = "小圆挂饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][0].HName = "脨隆脭虏鹿脪脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][0].EName = "Revers Dot Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][0].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -4854,7 +4854,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][1].HName = "奥里萨挂饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][1].HName = "掳脗脌茂脠酶鹿脪脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][1].EName = "Orissa Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][1].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -4884,7 +4884,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][2].HName = "神秘挂饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][2].HName = "脡帽脙脴鹿脪脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][2].EName = "Mystic Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][2].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -4914,7 +4914,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][3].HName = "天地挂饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][3].HName = "脤矛碌脴鹿脪脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][3].EName = "Yggdrasil Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][3].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -4944,7 +4944,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][4].HName = "圣水挂饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][4].HName = "脢楼脣庐鹿脪脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][4].EName = "Sinui's Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][4].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -4974,7 +4974,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][5].HName = "何露斯之眼";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][5].HName = "潞脦脗露脣鹿脰庐脩脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][5].EName = "Eyes of Horus Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][5].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5004,7 +5004,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][6].HName = "人面挂饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][6].HName = "脠脣脙忙鹿脪脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][6].EName = "Ent Face Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][6].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5034,7 +5034,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][7].HName = "魔王之悲";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][7].HName = "脛搂脥玫脰庐卤炉";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][7].EName = "Fibula Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][7].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5064,7 +5064,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][8].HName = "菲拉尔挂饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][8].HName = "路脝脌颅露没鹿脪脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][8].EName = "Fairie Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][8].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5094,7 +5094,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][9].HName = "苍鹰之链";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][9].HName = "虏脭脫楼脰庐脕麓";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][9].EName = "Egyptian Falcon Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][9].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5124,7 +5124,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][10].HName = "残月挂饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][10].HName = "虏脨脭脗鹿脪脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][10].EName = "Fig Tree Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][10].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5154,7 +5154,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][11].HName = "泯灭之心";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][11].HName = "茫媒脙冒脰庐脨脛";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][11].EName = "Opalus Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][11].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5184,7 +5184,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][12].HName = "精灵挂饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][12].HName = "戮芦脕茅鹿脪脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][12].EName = "Kabbala Tree Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][12].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5217,7 +5217,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][13].HName = "莱西护身符";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][13].HName = "脌鲁脦梅禄陇脡铆路没";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][13].EName = "Leshy Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][13].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][13].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5250,7 +5250,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
 
 InitClass( ITEM_CLASS_OUSTERS_RING,14 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][0].HName = "棕榈戒指";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][0].HName = "脳脴茅碌陆盲脰赂";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][0].EName = "Hemp's Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][0].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5280,7 +5280,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][1].HName = "钟鸣戒指";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][1].HName = "脰脫脙霉陆盲脰赂";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][1].EName = "Celesta Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][1].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5310,7 +5310,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][2].HName = "保护之戒";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][2].HName = "卤拢禄陇脰庐陆盲";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][2].EName = "Safeguard Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][2].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5340,7 +5340,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][3].HName = "精灵密语";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][3].HName = "戮芦脕茅脙脺脫茂";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][3].EName = "Whisper of Elf Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][3].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5370,7 +5370,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][4].HName = "远古戒指";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][4].HName = "脭露鹿脜陆盲脰赂";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][4].EName = "Mpos Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][4].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5400,7 +5400,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][5].HName = "彗星之戒";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][5].HName = "氓莽脨脟脰庐陆盲";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][5].EName = "Tails of Shine Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][5].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5430,7 +5430,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][6].HName = "蛛眼之戒";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][6].HName = "脰毛脩脹脰庐陆盲";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][6].EName = "Spider Eyes Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][6].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5460,7 +5460,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][7].HName = "孤星之戒";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][7].HName = "鹿脗脨脟脰庐陆盲";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][7].EName = "Solitary Star Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][7].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5490,7 +5490,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][8].HName = "幻魔戒";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][8].HName = "禄脙脛搂陆盲";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][8].EName = "Macsan's Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][8].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5520,7 +5520,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][9].HName = "永恒之戒";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][9].HName = "脫脌潞茫脰庐陆盲";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][9].EName = "Immortality Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][9].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5550,7 +5550,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][10].HName = "安达鲁西亚戒指";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][10].HName = "掳虏麓茂脗鲁脦梅脩脟陆盲脰赂";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][10].EName = "Andalusia Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][10].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5580,7 +5580,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][11].HName = "太阳神戒指";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][11].HName = "脤芦脩么脡帽陆盲脰赂";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][11].EName = "Marduk Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][11].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5610,7 +5610,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][12].HName = "孔雀石戒指";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][12].HName = "驴脳脠赂脢炉陆盲脰赂";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][12].EName = "Malachite Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][12].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5643,7 +5643,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][13].HName = "塞壬之戒";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][13].HName = "脠没脠脡脰庐陆盲";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][13].EName = "Siren Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][13].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][13].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5676,7 +5676,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
 
 InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][0].HName = "火灵石1";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][0].HName = "禄冒脕茅脢炉1";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][0].EName = "Fire ElementalStone 1";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][0].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -5706,7 +5706,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][0].Elemental = 1;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][1].HName = "火灵石2";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][1].HName = "禄冒脕茅脢炉2";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][1].EName = "Fire ElementalStone 2";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][1].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -5736,7 +5736,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][1].Elemental = 2;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][2].HName = "火灵石3";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][2].HName = "禄冒脕茅脢炉3";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][2].EName = "Fire ElementalStone 3";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][2].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -5766,7 +5766,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][2].Elemental = 3;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][3].HName = "火灵石4";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][3].HName = "禄冒脕茅脢炉4";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][3].EName = "Fire ElementalStone 4";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][3].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -5796,7 +5796,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][3].Elemental = 4;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][4].HName = "火灵石5";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][4].HName = "禄冒脕茅脢炉5";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][4].EName = "Fire ElementalStone 5";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][4].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -5826,7 +5826,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][4].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][5].HName = "水灵石1";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][5].HName = "脣庐脕茅脢炉1";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][5].EName = "Water ElementalStone 1";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][5].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -5856,7 +5856,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][5].Elemental = 1;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][6].HName = "水灵石2";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][6].HName = "脣庐脕茅脢炉2";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][6].EName = "Water ElementalStone 2";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][6].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -5886,7 +5886,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][6].Elemental = 2;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][7].HName = "水灵石3";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][7].HName = "脣庐脕茅脢炉3";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][7].EName = "Water ElementalStone 3";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][7].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -5916,7 +5916,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][7].Elemental = 3;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][8].HName = "水灵石4";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][8].HName = "脣庐脕茅脢炉4";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][8].EName = "Water ElementalStone 4";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][8].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -5946,7 +5946,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][8].Elemental = 4;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][9].HName = "水灵石5";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][9].HName = "脣庐脕茅脢炉5";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][9].EName = "Water ElementalStone 5";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][9].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -5976,7 +5976,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][9].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][10].HName = "土元素石1";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][10].HName = "脥脕脭陋脣脴脢炉1";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][10].EName = "Earth ElementalStone 1";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][10].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -6006,7 +6006,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][10].Elemental = 1;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][11].HName = "土元素石2";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][11].HName = "脥脕脭陋脣脴脢炉2";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][11].EName = "Earth ElementalStone 2";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][11].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -6036,7 +6036,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][11].Elemental = 2;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][12].HName = "土元素石3";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][12].HName = "脥脕脭陋脣脴脢炉3";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][12].EName = "Earth ElementalStone 3";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][12].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -6066,7 +6066,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][12].Elemental = 3;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][13].HName = "土元素石4";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][13].HName = "脥脕脭陋脣脴脢炉4";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][13].EName = "Earth ElementalStone 4";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][13].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][13].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -6096,7 +6096,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][13].Elemental = 4;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][14].HName = "土元素石5";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][14].HName = "脥脕脭陋脣脴脢炉5";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][14].EName = "Earth ElementalStone 5";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][14].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][14].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -6129,7 +6129,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
 
 InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][0].HName = "自然腕饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][0].HName = "脳脭脠禄脥贸脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][0].EName = "Natural Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][0].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6159,7 +6159,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][0].Elemental = 1;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][1].HName = "藤蔓腕饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][1].HName = "脤脵脗没脥贸脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][1].EName = "Vine Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][1].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6189,7 +6189,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][1].Elemental = 1;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][2].HName = "黄铜之臂";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][2].HName = "禄脝脥颅脰庐卤脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][2].EName = "Lardun Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][2].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6219,7 +6219,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][2].Elemental = 2;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][3].HName = "洪荒之臂";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][3].HName = "潞茅禄脛脰庐卤脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][3].EName = "Yohwen's Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][3].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6249,7 +6249,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][3].Elemental = 2;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][4].HName = "水晶之臂";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][4].HName = "脣庐戮搂脰庐卤脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][4].EName = "Nixflos Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][4].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6279,7 +6279,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][4].Elemental = 3;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][5].HName = "泪之腕饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][5].HName = "脌谩脰庐脥贸脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][5].EName = "Lacrima Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][5].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6309,7 +6309,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][5].Elemental = 3;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][6].HName = "白银之臂";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][6].HName = "掳脳脪酶脰庐卤脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][6].EName = "Sempitrnus Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][6].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6339,7 +6339,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][6].Elemental = 4;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][7].HName = "芒杜腕饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][7].HName = "脙垄露脜脥贸脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][7].EName = "Mundus Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][7].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6369,7 +6369,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][7].Elemental = 4;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][8].HName = "众神腕饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][8].HName = "脰脷脡帽脥贸脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][8].EName = "Sanctus Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][8].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6399,7 +6399,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][8].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][9].HName = "炙炎腕饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][9].HName = "脰脣脩脳脥贸脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][9].EName = "Torrid Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][9].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6429,7 +6429,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][9].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][10].HName = "自然腕饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][10].HName = "脳脭脠禄脥贸脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][10].EName = "Natural Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][10].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6459,7 +6459,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][10].Elemental = 1;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][11].HName = "藤蔓腕饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][11].HName = "脤脵脗没脥贸脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][11].EName = "Vine Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][11].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6489,7 +6489,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][11].Elemental = 1;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][12].HName = "黄铜之臂";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][12].HName = "禄脝脥颅脰庐卤脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][12].EName = "Lardun Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][12].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6519,7 +6519,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][12].Elemental = 2;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][13].HName = "洪荒之臂";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][13].HName = "潞茅禄脛脰庐卤脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][13].EName = "Yohwen's Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][13].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][13].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6549,7 +6549,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][13].Elemental = 2;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][14].HName = "水晶之臂";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][14].HName = "脣庐戮搂脰庐卤脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][14].EName = "Nixflos Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][14].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][14].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6579,7 +6579,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][14].Elemental = 3;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][15].HName = "泪之腕饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][15].HName = "脌谩脰庐脥贸脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][15].EName = "Lacrima Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][15].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][15].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6609,7 +6609,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][15].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][15].Elemental = 3;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][16].HName = "白银之臂";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][16].HName = "掳脳脪酶脰庐卤脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][16].EName = "Sempitrnus Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][16].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][16].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6639,7 +6639,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][16].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][16].Elemental = 4;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][17].HName = "芒杜腕饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][17].HName = "脙垄露脜脥贸脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][17].EName = "Mundus Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][17].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][17].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6669,7 +6669,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][17].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][17].Elemental = 4;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][18].HName = "众神腕饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][18].HName = "脰脷脡帽脥贸脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][18].EName = "Sanctus Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][18].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][18].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6699,7 +6699,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][18].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][18].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][19].HName = "炙炎腕饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][19].HName = "脰脣脩脳脥贸脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][19].EName = "Torrid Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][19].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][19].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6729,7 +6729,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][19].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][19].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][20].HName = "自然腕饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][20].HName = "脳脭脠禄脥贸脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][20].EName = "Natural Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][20].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][20].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6759,7 +6759,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][20].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][20].Elemental = 1;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][21].HName = "藤蔓腕饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][21].HName = "脤脵脗没脥贸脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][21].EName = "Vine Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][21].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][21].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6789,7 +6789,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][21].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][21].Elemental = 1;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][22].HName = "黄铜之臂";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][22].HName = "禄脝脥颅脰庐卤脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][22].EName = "Lardun Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][22].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][22].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6819,7 +6819,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][22].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][22].Elemental = 2;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][23].HName = "洪荒之臂";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][23].HName = "潞茅禄脛脰庐卤脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][23].EName = "Yohwen's Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][23].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][23].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6849,7 +6849,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][23].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][23].Elemental = 2;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][24].HName = "水晶之臂";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][24].HName = "脣庐戮搂脰庐卤脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][24].EName = "Nixflos Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][24].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][24].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6879,7 +6879,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][24].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][24].Elemental = 3;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][25].HName = "泪之腕饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][25].HName = "脌谩脰庐脥贸脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][25].EName = "Lacrima Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][25].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][25].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6909,7 +6909,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][25].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][25].Elemental = 3;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][26].HName = "白银之臂";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][26].HName = "掳脳脪酶脰庐卤脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][26].EName = "Sempitrnus Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][26].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][26].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6939,7 +6939,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][26].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][26].Elemental = 4;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][27].HName = "芒杜腕饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][27].HName = "脙垄露脜脥贸脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][27].EName = "Mundus Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][27].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][27].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6969,7 +6969,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][27].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][27].Elemental = 4;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][28].HName = "众神腕饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][28].HName = "脰脷脡帽脥贸脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][28].EName = "Sanctus Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][28].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][28].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6999,7 +6999,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][28].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][28].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][29].HName = "炙炎腕饰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][29].HName = "脰脣脩脳脥贸脢脦";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][29].EName = "Torrid Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][29].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][29].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7029,7 +7029,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][29].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][29].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][30].HName = "狂嗜";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][30].HName = "驴帽脢脠";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][30].EName = "Damballah Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][30].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][30].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7059,7 +7059,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][30].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][30].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][31].HName = "毁灭";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][31].HName = "禄脵脙冒";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][31].EName = "Nekhbet Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][31].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][31].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7089,7 +7089,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][31].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][31].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][32].HName = "狂嗜";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][32].HName = "驴帽脢脠";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][32].EName = "Damballah Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][32].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][32].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7119,7 +7119,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][32].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][32].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][33].HName = "毁灭";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][33].HName = "禄脵脙冒";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][33].EName = "Nekhbet Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][33].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][33].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7149,7 +7149,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][33].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][33].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][34].HName = "狂嗜";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][34].HName = "驴帽脢脠";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][34].EName = "Damballah Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][34].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][34].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7179,7 +7179,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][34].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][34].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][35].HName = "毁灭";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][35].HName = "禄脵脙冒";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][35].EName = "Nekhbet Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][35].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][35].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7209,7 +7209,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][35].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][35].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][36].HName = "裁决之炎";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][36].HName = "虏脙戮枚脰庐脩脳";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][36].EName = "Cosmic Egg Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][36].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][36].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7242,7 +7242,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][36].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][36].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][37].HName = "裁决之炎";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][37].HName = "虏脙戮枚脰庐脩脳";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][37].EName = "Cosmic Egg Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][37].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][37].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7275,7 +7275,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][37].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][37].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][38].HName = "裁决之炎";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][38].HName = "虏脙戮枚脰庐脩脳";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][38].EName = "Cosmic Egg Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][38].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][38].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7308,7 +7308,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][38].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][38].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][39].HName = "帕尔瓦蒂之臂";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][39].HName = "脜脕露没脥脽碌脵脰庐卤脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][39].EName = "Palvati Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][39].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][39].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7338,7 +7338,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][39].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][39].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][40].HName = "帕尔瓦蒂之臂";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][40].HName = "脜脕露没脥脽碌脵脰庐卤脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][40].EName = "Palvati Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][40].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][40].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7368,7 +7368,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][40].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][40].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][41].HName = "帕尔瓦蒂之臂";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][41].HName = "脜脕露没脥脽碌脵脰庐卤脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][41].EName = "Palvati Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][41].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][41].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7398,7 +7398,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][41].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][41].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][42].HName = "堕落精灵之臂";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][42].HName = "露茅脗盲戮芦脕茅脰庐卤脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][42].EName = "Nepirim Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][42].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][42].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7428,7 +7428,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][42].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][42].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][43].HName = "堕落精灵之臂";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][43].HName = "露茅脗盲戮芦脕茅脰庐卤脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][43].EName = "Nepirim Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][43].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][43].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7458,7 +7458,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][43].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][43].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][44].HName = "堕落精灵之臂";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][44].HName = "露茅脗盲戮芦脕茅脰庐卤脹";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][44].EName = "Nepirim Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][44].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][44].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7491,7 +7491,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,45 );
 
 InitClass( ITEM_CLASS_LARVA,5 );
 
- m_pTypeInfo[ITEM_CLASS_LARVA][0].HName = "绿色幼虫";
+ m_pTypeInfo[ITEM_CLASS_LARVA][0].HName = "脗脤脡芦脫脳鲁忙";
  m_pTypeInfo[ITEM_CLASS_LARVA][0].EName = "Green Larva";
  m_pTypeInfo[ITEM_CLASS_LARVA][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_LARVA][0].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -7521,7 +7521,7 @@ InitClass( ITEM_CLASS_LARVA,5 );
  m_pTypeInfo[ITEM_CLASS_LARVA][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_LARVA][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_LARVA][1].HName = "新鲜幼虫";
+ m_pTypeInfo[ITEM_CLASS_LARVA][1].HName = "脨脗脧脢脫脳鲁忙";
  m_pTypeInfo[ITEM_CLASS_LARVA][1].EName = "Fresh Larva";
  m_pTypeInfo[ITEM_CLASS_LARVA][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_LARVA][1].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -7551,7 +7551,7 @@ InitClass( ITEM_CLASS_LARVA,5 );
  m_pTypeInfo[ITEM_CLASS_LARVA][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_LARVA][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_LARVA][2].HName = "中等幼虫";
+ m_pTypeInfo[ITEM_CLASS_LARVA][2].HName = "脰脨碌脠脫脳鲁忙";
  m_pTypeInfo[ITEM_CLASS_LARVA][2].EName = "Adequate Larva";
  m_pTypeInfo[ITEM_CLASS_LARVA][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_LARVA][2].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -7581,7 +7581,7 @@ InitClass( ITEM_CLASS_LARVA,5 );
  m_pTypeInfo[ITEM_CLASS_LARVA][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_LARVA][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_LARVA][3].HName = "饱满幼虫";
+ m_pTypeInfo[ITEM_CLASS_LARVA][3].HName = "卤楼脗煤脫脳鲁忙";
  m_pTypeInfo[ITEM_CLASS_LARVA][3].EName = "Ample Larva";
  m_pTypeInfo[ITEM_CLASS_LARVA][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_LARVA][3].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -7611,7 +7611,7 @@ InitClass( ITEM_CLASS_LARVA,5 );
  m_pTypeInfo[ITEM_CLASS_LARVA][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_LARVA][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_LARVA][4].HName = "肥大幼虫";
+ m_pTypeInfo[ITEM_CLASS_LARVA][4].HName = "路脢麓贸脫脳鲁忙";
  m_pTypeInfo[ITEM_CLASS_LARVA][4].EName = "Swell Larva";
  m_pTypeInfo[ITEM_CLASS_LARVA][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_LARVA][4].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -7644,7 +7644,7 @@ InitClass( ITEM_CLASS_LARVA,5 );
 
 InitClass( ITEM_CLASS_PUPA,6 );
 
- m_pTypeInfo[ITEM_CLASS_PUPA][0].HName = "绿色的蛹";
+ m_pTypeInfo[ITEM_CLASS_PUPA][0].HName = "脗脤脡芦碌脛脫录";
  m_pTypeInfo[ITEM_CLASS_PUPA][0].EName = "Green Pupa";
  m_pTypeInfo[ITEM_CLASS_PUPA][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_PUPA][0].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_PUPA );
@@ -7674,7 +7674,7 @@ InitClass( ITEM_CLASS_PUPA,6 );
  m_pTypeInfo[ITEM_CLASS_PUPA][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PUPA][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PUPA][1].HName = "新鲜的蛹";
+ m_pTypeInfo[ITEM_CLASS_PUPA][1].HName = "脨脗脧脢碌脛脫录";
  m_pTypeInfo[ITEM_CLASS_PUPA][1].EName = "Fresh Pupa";
  m_pTypeInfo[ITEM_CLASS_PUPA][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_PUPA][1].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_PUPA );
@@ -7704,7 +7704,7 @@ InitClass( ITEM_CLASS_PUPA,6 );
  m_pTypeInfo[ITEM_CLASS_PUPA][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PUPA][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PUPA][2].HName = "中等的蛹";
+ m_pTypeInfo[ITEM_CLASS_PUPA][2].HName = "脰脨碌脠碌脛脫录";
  m_pTypeInfo[ITEM_CLASS_PUPA][2].EName = "Adequate Pupa";
  m_pTypeInfo[ITEM_CLASS_PUPA][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_PUPA][2].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_PUPA );
@@ -7734,7 +7734,7 @@ InitClass( ITEM_CLASS_PUPA,6 );
  m_pTypeInfo[ITEM_CLASS_PUPA][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PUPA][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PUPA][3].HName = "饱满的蛹";
+ m_pTypeInfo[ITEM_CLASS_PUPA][3].HName = "卤楼脗煤碌脛脫录";
  m_pTypeInfo[ITEM_CLASS_PUPA][3].EName = "Ample Pupa";
  m_pTypeInfo[ITEM_CLASS_PUPA][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_PUPA][3].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_PUPA );
@@ -7764,7 +7764,7 @@ InitClass( ITEM_CLASS_PUPA,6 );
  m_pTypeInfo[ITEM_CLASS_PUPA][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PUPA][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PUPA][4].HName = "肥大的蛹";
+ m_pTypeInfo[ITEM_CLASS_PUPA][4].HName = "路脢麓贸碌脛脫录";
  m_pTypeInfo[ITEM_CLASS_PUPA][4].EName = "Swell Pupa";
  m_pTypeInfo[ITEM_CLASS_PUPA][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_PUPA][4].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_PUPA );
@@ -7794,7 +7794,7 @@ InitClass( ITEM_CLASS_PUPA,6 );
  m_pTypeInfo[ITEM_CLASS_PUPA][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PUPA][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PUPA][5].HName = "秘丹";
+ m_pTypeInfo[ITEM_CLASS_PUPA][5].HName = "脙脴碌陇";
  m_pTypeInfo[ITEM_CLASS_PUPA][5].EName = "Green Candy";
  m_pTypeInfo[ITEM_CLASS_PUPA][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_PUPA][5].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_PUPA );
@@ -7827,7 +7827,7 @@ InitClass( ITEM_CLASS_PUPA,6 );
 
 InitClass( ITEM_CLASS_COMPOS_MEI,5 );
 
- m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][0].HName = "绿色果实";
+ m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][0].HName = "脗脤脡芦鹿没脢碌";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][0].EName = "Green Mei";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][0].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_MEI );
@@ -7857,7 +7857,7 @@ InitClass( ITEM_CLASS_COMPOS_MEI,5 );
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][1].HName = "新鲜果实";
+ m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][1].HName = "脨脗脧脢鹿没脢碌";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][1].EName = "Fresh Mei";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][1].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_MEI );
@@ -7887,7 +7887,7 @@ InitClass( ITEM_CLASS_COMPOS_MEI,5 );
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][2].HName = "中等果实";
+ m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][2].HName = "脰脨碌脠鹿没脢碌";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][2].EName = "Adequate Mei";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][2].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_MEI );
@@ -7917,7 +7917,7 @@ InitClass( ITEM_CLASS_COMPOS_MEI,5 );
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][3].HName = "饱满果实";
+ m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][3].HName = "卤楼脗煤鹿没脢碌";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][3].EName = "Ample Mei";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][3].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_MEI );
@@ -7947,7 +7947,7 @@ InitClass( ITEM_CLASS_COMPOS_MEI,5 );
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][4].HName = "硕大果实";
+ m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][4].HName = "脣露麓贸鹿没脢碌";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][4].EName = "Swell Mei";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][4].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_MEI );
@@ -7980,7 +7980,7 @@ InitClass( ITEM_CLASS_COMPOS_MEI,5 );
 
 InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][0].HName = "初级风精灵召唤石";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][0].HName = "鲁玫录露路莽戮芦脕茅脮脵禄陆脢炉";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][0].EName = "Sylph Summon Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][0].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8010,7 +8010,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][1].HName = "中级风精灵召唤石";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][1].HName = "脰脨录露路莽戮芦脕茅脮脵禄陆脢炉";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][1].EName = "Sylaphe Summon Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][1].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8040,7 +8040,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][2].HName = "高级风精灵召唤石";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][2].HName = "赂脽录露路莽戮芦脕茅脮脵禄陆脢炉";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][2].EName = "Sylairon Summon Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][2].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8070,7 +8070,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][3].HName = "绿色精灵宝石";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][3].HName = "脗脤脡芦戮芦脕茅卤娄脢炉";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][3].EName = "Green Summon Imp Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][3].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8100,7 +8100,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][4].HName = "橙色精灵石";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][4].HName = "鲁脠脡芦戮芦脕茅脢炉";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][4].EName = "Orange Summon Imp Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][4].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8130,7 +8130,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][5].HName = "红色精灵石";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][5].HName = "潞矛脡芦戮芦脕茅脢炉";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][5].EName = "Red Summon Imp Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][5].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8160,7 +8160,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][6].HName = "黄色精灵石";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][6].HName = "禄脝脡芦戮芦脕茅脢炉";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][6].EName = "Yellow Summon Imp Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][6].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8190,7 +8190,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][7].HName = "白色精灵石";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][7].HName = "掳脳脡芦戮芦脕茅脢炉";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][7].EName = "White Summon Imp Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][7].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8220,7 +8220,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][8].HName = "褐色精灵石";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][8].HName = "潞脰脡芦戮芦脕茅脢炉";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][8].EName = "Brown Summon Imp Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][8].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8250,7 +8250,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][9].HName = "紫色精灵石";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][9].HName = "脳脧脡芦戮芦脕茅脢炉";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][9].EName = "Lilac Summon Imp Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][9].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8280,7 +8280,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][10].HName = "黑色精灵石";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][10].HName = "潞脷脡芦戮芦脕茅脢炉";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][10].EName = "Black Summon Imp Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][10].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8313,7 +8313,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
 
 InitClass( ITEM_CLASS_EFFECT_ITEM,7 );
 
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][0].HName = "对讲机1";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][0].HName = "露脭陆虏禄煤1";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][0].EName = "Megaphone 1";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][0].Description = "??? ?? ???? ???? ? ????.";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][0].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8343,7 +8343,7 @@ InitClass( ITEM_CLASS_EFFECT_ITEM,7 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][1].HName = "对讲机2";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][1].HName = "露脭陆虏禄煤2";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][1].EName = "Megaphone 2";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][1].Description = "??? ?? ???? ???? ? ????.";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][1].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8373,7 +8373,7 @@ InitClass( ITEM_CLASS_EFFECT_ITEM,7 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][2].HName = "对讲机3";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][2].HName = "露脭陆虏禄煤3";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][2].EName = "Megaphone 3";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][2].Description = "??? ?? ???? ???? ? ????.";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][2].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8403,9 +8403,9 @@ InitClass( ITEM_CLASS_EFFECT_ITEM,7 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].HName = "语言翻译器";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].HName = "脫茂脩脭路颅脪毛脝梅";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].EName = "Translator";
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].Description = "可以使用右边的按键。";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].Description = "驴脡脪脭脢鹿脫脙脫脪卤脽碌脛掳麓录眉隆拢";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].SetSoundID( SOUND_ITEM_MOVE_C4,SOUND_ITEM_MOVE_C4,SOUNDID_NULL,SOUND_ITEM_USE_C4 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].SetFrameID( 579, 593, 0 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].SetDropFrameID( 579 );
@@ -8433,9 +8433,9 @@ InitClass( ITEM_CLASS_EFFECT_ITEM,7 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].HName = "沙漏";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].HName = "脡鲁脗漏";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].EName = "L-grade Hourglass";
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].Description = "感恩节奖励道具";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].Description = "赂脨露梅陆脷陆卤脌酶碌脌戮脽";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].SetSoundID( SOUND_ITEM_MOVE_C4,SOUND_ITEM_MOVE_C4,SOUNDID_NULL,SOUND_ITEM_USE_C4 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].SetFrameID( 972, 1006, 0 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].SetDropFrameID( 972 );
@@ -8463,9 +8463,9 @@ InitClass( ITEM_CLASS_EFFECT_ITEM,7 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].HName = "沙漏";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].HName = "脡鲁脗漏";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].EName = "M-grade Hourglass";
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].Description = "感恩节奖励道具";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].Description = "赂脨露梅陆脷陆卤脌酶碌脌戮脽";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].SetSoundID( SOUND_ITEM_MOVE_C4,SOUND_ITEM_MOVE_C4,SOUNDID_NULL,SOUND_ITEM_USE_C4 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].SetFrameID( 971, 1005, 0 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].SetDropFrameID( 971 );
@@ -8493,9 +8493,9 @@ InitClass( ITEM_CLASS_EFFECT_ITEM,7 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][6].HName = "沙漏";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][6].HName = "脡鲁脗漏";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][6].EName = "S-grade Hourglass";
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][6].Description = "感恩节奖励道具";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][6].Description = "赂脨露梅陆脷陆卤脌酶碌脌戮脽";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][6].SetSoundID( SOUND_ITEM_MOVE_C4,SOUND_ITEM_MOVE_C4,SOUNDID_NULL,SOUND_ITEM_USE_C4 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][6].SetFrameID( 970, 1004, 0 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][6].SetDropFrameID( 970 );
@@ -8526,9 +8526,9 @@ InitClass( ITEM_CLASS_EFFECT_ITEM,7 );
 
 InitClass( ITEM_CLASS_CODE_SHEET,2 );
 
- m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].HName = "密码表";
+ m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].HName = "脙脺脗毛卤铆";
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].EName = "Code Sheet";
- m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].Description = "用右边的按键可以打开密码表。";
+ m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].Description = "脫脙脫脪卤脽碌脛掳麓录眉驴脡脪脭麓貌驴陋脙脺脗毛卤铆隆拢";
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].SetFrameID( 491, 505, 0 );
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].SetDropFrameID( 491 );
@@ -8556,9 +8556,9 @@ InitClass( ITEM_CLASS_CODE_SHEET,2 );
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_CODE_SHEET][1].HName = "密码表";
+ m_pTypeInfo[ITEM_CLASS_CODE_SHEET][1].HName = "脙脺脗毛卤铆";
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][1].EName = "Code Sheet";
- m_pTypeInfo[ITEM_CLASS_CODE_SHEET][1].Description = "用右边的按键可以打开密码表。";
+ m_pTypeInfo[ITEM_CLASS_CODE_SHEET][1].Description = "脫脙脫脪卤脽碌脛掳麓录眉驴脡脪脭麓貌驴陋脙脺脗毛卤铆隆拢";
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][1].SetFrameID( 491, 505, 0 );
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][1].SetDropFrameID( 491 );
@@ -8589,9 +8589,9 @@ InitClass( ITEM_CLASS_CODE_SHEET,2 );
 
 InitClass( ITEM_CLASS_MOON_CARD,8 );
 
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].HName = "半月卡";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].HName = "掳毛脭脗驴篓";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].EName = "The Half Moon Card";
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].Description = "你要收集的多一些。";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].Description = "脛茫脪陋脢脮录炉碌脛露脿脪禄脨漏隆拢";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].SetFrameID( 770, 784, 0 );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].SetDropFrameID( 770 );
@@ -8619,7 +8619,7 @@ InitClass( ITEM_CLASS_MOON_CARD,8 );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][1].HName = "月牙卡";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][1].HName = "脭脗脩脌驴篓";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][1].EName = "The New Moon Card";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
@@ -8651,7 +8651,7 @@ InitClass( ITEM_CLASS_MOON_CARD,8 );
 
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][2].HName = "Netmarble card";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][2].EName = "The Netmarble Card";
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][2].Description = "你要收集的多一些。";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][2].Description = "脛茫脪陋脢脮录炉碌脛露脿脪禄脨漏隆拢";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][2].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][2].SetFrameID( 838, 861, 0 );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][2].SetDropFrameID( 838 );
@@ -8679,9 +8679,9 @@ InitClass( ITEM_CLASS_MOON_CARD,8 );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].HName = " 门票 ";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].HName = " 脙脜脝卤 ";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].EName = "Ticket";
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].Description = "进入打宝地图门票。";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].Description = "陆酶脠毛麓貌卤娄碌脴脥录脙脜脝卤隆拢";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].SetFrameID( 117, 37, 0 );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].SetDropFrameID( 117 );
@@ -8709,7 +8709,7 @@ InitClass( ITEM_CLASS_MOON_CARD,8 );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][4].HName = "劳雷尔的皇冠";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][4].HName = "脌脥脌脳露没碌脛禄脢鹿脷";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][4].EName = "Son's Laurel Crown";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][4].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
@@ -8739,7 +8739,7 @@ InitClass( ITEM_CLASS_MOON_CARD,8 );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][5].HName = "技能使用卡 人类";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][5].HName = "录录脛脺脢鹿脫脙驴篓 脠脣脌脿";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][5].EName = "Skill Card For Slayer";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][5].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
@@ -8769,7 +8769,7 @@ InitClass( ITEM_CLASS_MOON_CARD,8 );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][6].HName = "技能使用卡 吸血鬼";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][6].HName = "录录脛脺脢鹿脫脙驴篓 脦眉脩陋鹿铆";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][6].EName = "SkillCard For Vampire";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][6].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
@@ -8799,7 +8799,7 @@ InitClass( ITEM_CLASS_MOON_CARD,8 );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][7].HName = "技能使用卡 魔灵";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][7].HName = "录录脛脺脢鹿脫脙驴篓 脛搂脕茅";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][7].EName = "SkillCard For Ousters";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][7].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
@@ -9194,9 +9194,9 @@ InitClass( ITEM_CLASS_SWEEPER,12 );
 
 InitClass( ITEM_CLASS_PET_ITEM,6 );
 
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].HName = "假的";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].HName = "录脵碌脛";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].EName = "Gara Bezz";
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].Description = "布拉德给我滚吧！滚！";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].Description = "虏录脌颅碌脗赂酶脦脪鹿枚掳脡拢隆鹿枚拢隆";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].SetFrameID( 797, 820, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].SetDropFrameID( 797 );
@@ -9224,9 +9224,9 @@ InitClass( ITEM_CLASS_PET_ITEM,6 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].HName = "小狗项圈";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].HName = "脨隆鹿路脧卯脠娄";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].EName = "Wolfdog Leash";
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].Description = "召唤小狗时使用的狗链";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].Description = "脮脵禄陆脨隆鹿路脢卤脢鹿脫脙碌脛鹿路脕麓";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].SetFrameID( 797, 820, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].SetDropFrameID( 797 );
@@ -9254,9 +9254,9 @@ InitClass( ITEM_CLASS_PET_ITEM,6 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].HName = "狼狗项圈";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].HName = "脌脟鹿路脧卯脠娄";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].EName = "Wolverine Leash";
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].Description = "召唤狼狗时使用的狗链";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].Description = "脮脵禄陆脌脟鹿路脢卤脢鹿脫脙碌脛鹿路脕麓";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].SetFrameID( 803, 826, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].SetDropFrameID( 803 );
@@ -9284,9 +9284,9 @@ InitClass( ITEM_CLASS_PET_ITEM,6 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].HName = "无线调整器";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].HName = "脦脼脧脽碌梅脮没脝梅";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].EName = "Radio Controller";
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].Description = "召唤坦克时使用的道具";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].Description = "脮脵禄陆脤鹿驴脣脢卤脢鹿脫脙碌脛碌脌戮脽";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].SetFrameID( 839, 862, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].SetDropFrameID( 839 );
@@ -9314,9 +9314,9 @@ InitClass( ITEM_CLASS_PET_ITEM,6 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].HName = "蝙蝠皮包";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].HName = "貌霉貌冒脝陇掳眉";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].EName = "Stirge Bag";
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].Description = "召唤恶魔蝙蝠时使用的道具";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].Description = "脮脵禄陆露帽脛搂貌霉貌冒脢卤脢鹿脫脙碌脛碌脌戮脽";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].SetFrameID( 840, 863, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].SetDropFrameID( 840 );
@@ -9344,9 +9344,9 @@ InitClass( ITEM_CLASS_PET_ITEM,6 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][5].HName = "召唤石";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][5].HName = "脮脵禄陆脢炉";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][5].EName = "Summon Pixie";
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][5].Description = "交换小精灵时使用的道具。";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][5].Description = "陆禄禄禄脨隆戮芦脕茅脢卤脢鹿脫脙碌脛碌脌戮脽隆拢";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][5].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][5].SetFrameID( 845, 868, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][5].SetDropFrameID( 845 );
@@ -9377,9 +9377,9 @@ InitClass( ITEM_CLASS_PET_ITEM,6 );
 
 InitClass( ITEM_CLASS_PET_FOOD,18 );
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].HName = "碎肉";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].HName = "脣茅脠芒";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].EName = "Mini Meat";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].Description = "6小时的小狗/狼狗的食物";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].Description = "6脨隆脢卤碌脛脨隆鹿路/脌脟鹿路碌脛脢鲁脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].SetFrameID( 792, 815, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].SetDropFrameID( 792 );
@@ -9407,9 +9407,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].HName = "小块的肉";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].HName = "脨隆驴茅碌脛脠芒";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].EName = "Light Meat";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].Description = "22小时的小狗/狼狗食物";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].Description = "22脨隆脢卤碌脛脨隆鹿路/脌脟鹿路脢鲁脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].SetFrameID( 793, 816, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].SetDropFrameID( 793 );
@@ -9437,9 +9437,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].HName = "中等大小的肉";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].HName = "脰脨碌脠麓贸脨隆碌脛脠芒";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].EName = "Half Meat";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].Description = "36小时的小狗/狼狗食物";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].Description = "36脨隆脢卤碌脛脨隆鹿路/脌脟鹿路脢鲁脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].SetFrameID( 794, 817, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].SetDropFrameID( 794 );
@@ -9467,9 +9467,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].HName = "大块的肉";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].HName = "麓贸驴茅碌脛脠芒";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].EName = "Large Meat";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].Description = "50小时的小狗/狼狗食物";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].Description = "50脨隆脢卤碌脛脨隆鹿路/脌脟鹿路脢鲁脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].SetFrameID( 795, 818, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].SetDropFrameID( 795 );
@@ -9497,9 +9497,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].HName = "加强饲料";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].HName = "录脫脟驴脣脟脕脧";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].EName = "Fodder";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].Description = "7天的小狗/狼狗食物";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].Description = "7脤矛碌脛脨隆鹿路/脌脟鹿路脢鲁脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].SetFrameID( 804, 827, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].SetDropFrameID( 804 );
@@ -9527,9 +9527,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].HName = "加强饲料";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].HName = "录脫脟驴脣脟脕脧";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].EName = "Ultra Fodder";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].Description = "15天的小狗/狼狗食物";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].Description = "15脤矛碌脛脨隆鹿路/脌脟鹿路脢鲁脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].SetFrameID( 796, 819, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].SetDropFrameID( 796 );
@@ -9557,9 +9557,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].HName = "中型力量包";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].HName = "脰脨脨脥脕娄脕驴掳眉";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].EName = "Half Power Pack";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].Description = "22小时坦克用的电池";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].Description = "22脨隆脢卤脤鹿驴脣脫脙碌脛碌莽鲁脴";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].SetFrameID( 846, 869, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].SetDropFrameID( 846 );
@@ -9587,9 +9587,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].HName = "巨型力量包";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].HName = "戮脼脨脥脕娄脕驴掳眉";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].EName = "Large Power Pack";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].Description = "36小时坦克用的电池";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].Description = "36脨隆脢卤脤鹿驴脣脫脙碌脛碌莽鲁脴";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].SetFrameID( 847, 870, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].SetDropFrameID( 847 );
@@ -9617,9 +9617,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].HName = "中型超级力量包";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].HName = "脰脨脨脥鲁卢录露脕娄脕驴掳眉";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].EName = "Half Super Power Pack";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].Description = "50小时坦克用的电池";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].Description = "50脨隆脢卤脤鹿驴脣脫脙碌脛碌莽鲁脴";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].SetFrameID( 848, 871, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].SetDropFrameID( 848 );
@@ -9647,9 +9647,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].HName = "巨型超级力量包";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].HName = "戮脼脨脥鲁卢录露脕娄脕驴掳眉";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].EName = "Large Super Power Pack";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].Description = "7天的坦克的电池";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].Description = "7脤矛碌脛脤鹿驴脣碌脛碌莽鲁脴";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].SetFrameID( 849, 872, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].SetDropFrameID( 849 );
@@ -9677,9 +9677,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].HName = "血包";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].HName = "脩陋掳眉";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].EName = "Blood Pack";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].Description = "22小时的恶魔蝙蝠食物";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].Description = "22脨隆脢卤碌脛露帽脛搂貌霉貌冒脢鲁脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].SetFrameID( 841, 864, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].SetDropFrameID( 841 );
@@ -9707,9 +9707,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].HName = "浓缩血包";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].HName = "脜篓脣玫脩陋掳眉";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].EName = "Enriched Blood Pack";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].Description = "36小时的恶魔蝙蝠食物";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].Description = "36脨隆脢卤碌脛露帽脛搂貌霉貌冒脢鲁脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].SetFrameID( 842, 865, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].SetDropFrameID( 842 );
@@ -9737,9 +9737,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].HName = "高浓缩血包";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].HName = "赂脽脜篓脣玫脩陋掳眉";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].EName = "Super Enriched Blood Pack";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].Description = "50小时的恶魔蝙蝠食物";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].Description = "50脨隆脢卤碌脛露帽脛搂貌霉貌冒脢鲁脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].SetFrameID( 843, 866, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].SetDropFrameID( 843 );
@@ -9767,9 +9767,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].HName = "超浓缩血包";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].HName = "鲁卢脜篓脣玫脩陋掳眉";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].EName = "Ultra Enriched Blood Pack";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].Description = "7天的恶魔蝙蝠的食物";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].Description = "7脤矛碌脛露帽脛搂貌霉貌冒碌脛脢鲁脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].SetFrameID( 844, 867, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].SetDropFrameID( 844 );
@@ -9797,9 +9797,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].HName = "微型露水";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].HName = "脦垄脨脥脗露脣庐";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].EName = "Mini Dew";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].Description = "22小时的小精灵食物";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].Description = "22脨隆脢卤碌脛脨隆戮芦脕茅脢鲁脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].SetFrameID( 850, 873, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].SetDropFrameID( 850 );
@@ -9827,9 +9827,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].HName = "小露水";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].HName = "脨隆脗露脣庐";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].EName = "Light Dew";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].Description = "36小时的小精灵食物";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].Description = "36脨隆脢卤碌脛脨隆戮芦脕茅脢鲁脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].SetFrameID( 851, 874, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].SetDropFrameID( 851 );
@@ -9857,9 +9857,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].HName = "中型露水";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].HName = "脰脨脨脥脗露脣庐";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].EName = "Half Dew";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].Description = "50小时的小精灵食物";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].Description = "50脨隆脢卤碌脛脨隆戮芦脕茅脢鲁脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].SetFrameID( 852, 875, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].SetDropFrameID( 852 );
@@ -9887,7 +9887,7 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][17].HName = "大露水";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][17].HName = "麓贸脗露脣庐";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][17].EName = "Large Dew";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][17].Description = "7? ?? ??? ?????.";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][17].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
@@ -9920,9 +9920,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
 
 InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].HName = "红色水滴";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].HName = "潞矛脡芦脣庐碌脦";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].EName = "Red Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].Description = "可以训练宠物";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].Description = "驴脡脪脭脩碌脕路鲁猫脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].SetFrameID( 798, 821, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].SetDropFrameID( 798 );
@@ -9950,9 +9950,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].HName = "黄色力量水滴";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].HName = "禄脝脡芦脕娄脕驴脣庐碌脦";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].EName = "STR Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].Description = "可以训练宠物";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].Description = "驴脡脪脭脩碌脕路鲁猫脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].SetDropFrameID( 802 );
@@ -9980,9 +9980,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].HName = "黄色敏捷水滴";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].HName = "禄脝脡芦脙么陆脻脣庐碌脦";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].EName = "DEX Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].Description = "可以训练宠物";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].Description = "驴脡脪脭脩碌脕路鲁猫脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].SetDropFrameID( 802 );
@@ -10010,9 +10010,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].HName = "黄色智力水滴";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].HName = "禄脝脡芦脰脟脕娄脣庐碌脦";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].EName = "INT Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].Description = "可以训练宠物";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].Description = "驴脡脪脭脩碌脕路鲁猫脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].SetDropFrameID( 802 );
@@ -10040,9 +10040,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].HName = "黄色回避水滴";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].HName = "禄脝脡芦禄脴卤脺脣庐碌脦";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].EName = "Defense Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].Description = "可以训练宠物";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].Description = "驴脡脪脭脩碌脕路鲁猫脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].SetDropFrameID( 802 );
@@ -10070,9 +10070,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].HName = "黄色防御水滴";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].HName = "禄脝脡芦路脌脫霉脣庐碌脦";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].EName = "Protection Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].Description = "可以训练宠物";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].Description = "驴脡脪脭脩碌脕路鲁猫脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].SetDropFrameID( 802 );
@@ -10100,9 +10100,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].HName = "黄色幸运水滴";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].HName = "禄脝脡芦脨脪脭脣脣庐碌脦";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].EName = "Luck Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].Description = "可以训练宠物";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].Description = "驴脡脪脭脩碌脕路鲁猫脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].SetDropFrameID( 802 );
@@ -10130,9 +10130,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].HName = "黄色视野水滴";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].HName = "禄脝脡芦脢脫脪掳脣庐碌脦";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].EName = "Vision Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].Description = "可以训练宠物";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].Description = "驴脡脪脭脩碌脕路鲁猫脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].SetDropFrameID( 802 );
@@ -10160,9 +10160,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].HName = "黄色损害水滴";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].HName = "禄脝脡芦脣冒潞娄脣庐碌脦";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].EName = "Damage Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].Description = "可以训练宠物";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].Description = "驴脡脪脭脩碌脕路鲁猫脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].SetDropFrameID( 802 );
@@ -10190,9 +10190,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].HName = "黄色魔法攻击力水滴";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].HName = "禄脝脡芦脛搂路篓鹿楼禄梅脕娄脣庐碌脦";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].EName = "Magic Damage Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].Description = "可以训练宠物";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].Description = "驴脡脪脭脩碌脕路鲁猫脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].SetDropFrameID( 802 );
@@ -10220,9 +10220,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].HName = "黄色生命力再生水滴";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].HName = "禄脝脡芦脡煤脙眉脕娄脭脵脡煤脣庐碌脦";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].EName = "HP Regen Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].Description = "可以训练宠物";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].Description = "驴脡脪脭脩碌脕路鲁猫脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].SetDropFrameID( 802 );
@@ -10250,9 +10250,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].HName = "黄色生命力水滴";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].HName = "禄脝脡芦脡煤脙眉脕娄脣庐碌脦";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].EName = "HP Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].Description = "可以训练宠物";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].Description = "驴脡脪脭脩碌脕路鲁猫脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].SetDropFrameID( 802 );
@@ -10280,9 +10280,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].HName = "黄色命中率水滴";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].HName = "禄脝脡芦脙眉脰脨脗脢脣庐碌脦";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].EName = "ToHit Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].Description = "可以训练宠物";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].Description = "驴脡脪脭脩碌脕路鲁猫脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].SetDropFrameID( 802 );
@@ -10310,9 +10310,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].HName = "恢复设置";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].HName = "禄脰赂麓脡猫脰脙";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].EName = "Revival Set";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].Description = "可以把死去的宠物救活，但是有一定的几率失败。";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].Description = "驴脡脪脭掳脩脣脌脠楼碌脛鲁猫脦茂戮脠禄卯拢卢碌芦脢脟脫脨脪禄露篓碌脛录赂脗脢脢搂掳脺隆拢";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].SetFrameID( 800, 823, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].SetDropFrameID( 800 );
@@ -10340,9 +10340,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].HName = "调整复活费用";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].HName = "碌梅脮没赂麓禄卯路脩脫脙";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].EName = "Premium Revival Set";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].Description = "可以把死去的宠物救活，但是有一定的几率失败。";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].Description = "驴脡脪脭掳脩脣脌脠楼碌脛鲁猫脦茂戮脠禄卯拢卢碌芦脢脟脫脨脪禄露篓碌脛录赂脗脢脢搂掳脺隆拢";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].SetFrameID( 801, 824, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].SetDropFrameID( 801 );
@@ -10370,9 +10370,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].HName = "红鸟";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].HName = "潞矛脛帽";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].EName = "Red Bird";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].Description = "可以训练宠物";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].Description = "驴脡脪脭脩碌脕路鲁猫脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].SetFrameID( 799, 822, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].SetDropFrameID( 799 );
@@ -10400,9 +10400,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].HName = "黄色全部能力值水滴";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].HName = "禄脝脡芦脠芦虏驴脛脺脕娄脰碌脣庐碌脦";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].EName = "All Attribute Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].Description = "可以训练宠物";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].Description = "驴脡脪脭脩碌脕路鲁猫脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].SetDropFrameID( 802 );
@@ -10430,9 +10430,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].HName = "黄色魔力水滴";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].HName = "禄脝脡芦脛搂脕娄脣庐碌脦";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].EName = "MP Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].Description = "可以训练宠物";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].Description = "驴脡脪脭脩碌脕路鲁猫脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].SetDropFrameID( 802 );
@@ -10460,9 +10460,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].HName = "黄色有效打击水滴";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].HName = "禄脝脡芦脫脨脨搂麓貌禄梅脣庐碌脦";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].EName = "Critical Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].Description = "可以训练宠物";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].Description = "驴脡脪脭脩碌脕路鲁猫脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].SetDropFrameID( 802 );
@@ -10490,9 +10490,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].HName = "黄色攻速水滴";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].HName = "禄脝脡芦鹿楼脣脵脣庐碌脦";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].EName = "Attack Speed Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].Description = "可以训练宠物";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].Description = "驴脡脪脭脩碌脕路鲁猫脦茂";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].SetDropFrameID( 802 );
@@ -10520,9 +10520,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][20].HName = "变异注射液";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][20].HName = "卤盲脪矛脳垄脡盲脪潞";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][20].EName = "Mutant Injection";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][20].Description = "如果使用的话会永久性的变身为狼狗，不可返回";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][20].Description = "脠莽鹿没脢鹿脫脙碌脛禄掳禄谩脫脌戮脙脨脭碌脛卤盲脡铆脦陋脌脟鹿路拢卢虏禄驴脡路碌禄脴";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][20].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][20].SetFrameID( 857, 880, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][20].SetDropFrameID( 857 );
@@ -10553,7 +10553,7 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
 
 InitClass( ITEM_CLASS_LUCKY_BAG,4 );
 
- m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][0].HName = "绿色宝袋";
+ m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][0].HName = "脗脤脡芦卤娄麓眉";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][0].EName = "The Green Lucky Bag";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][0].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -10583,7 +10583,7 @@ InitClass( ITEM_CLASS_LUCKY_BAG,4 );
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][1].HName = "蓝色宝袋";
+ m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][1].HName = "脌露脡芦卤娄麓眉";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][1].EName = "The Blue Lucky Bag";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][1].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -10613,7 +10613,7 @@ InitClass( ITEM_CLASS_LUCKY_BAG,4 );
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][2].HName = "金色宝袋";
+ m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][2].HName = "陆冒脡芦卤娄麓眉";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][2].EName = "The Gold Lucky Bag";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][2].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -10643,9 +10643,9 @@ InitClass( ITEM_CLASS_LUCKY_BAG,4 );
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][3].HName = "优惠费用";
+ m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][3].HName = "脫脜禄脻路脩脫脙";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][3].EName = "Premium Coupon";
- m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][3].Description = "50张入手后可以打开一个新的世界";
+ m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][3].Description = "50脮脜脠毛脢脰潞贸驴脡脪脭麓貌驴陋脪禄赂枚脨脗碌脛脢脌陆莽";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][3].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][3].SetFrameID( 855, 878, 0 );
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][3].SetDropFrameID( 855 );
@@ -10676,7 +10676,7 @@ InitClass( ITEM_CLASS_LUCKY_BAG,4 );
 
 InitClass( ITEM_CLASS_SMS_ITEM,9 );
 
- m_pTypeInfo[ITEM_CLASS_SMS_ITEM][0].HName = "U2A 无线电 (SMS) 12";
+ m_pTypeInfo[ITEM_CLASS_SMS_ITEM][0].HName = "U2A 脦脼脧脽碌莽 (SMS) 12";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][0].EName = "U2A Wireless Set (SMS) 12";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][0].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -10706,7 +10706,7 @@ InitClass( ITEM_CLASS_SMS_ITEM,9 );
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SMS_ITEM][1].HName = "带血蝙蝠 (SMS) 12";
+ m_pTypeInfo[ITEM_CLASS_SMS_ITEM][1].HName = "麓酶脩陋貌霉貌冒 (SMS) 12";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][1].EName = "Blood Carrier Bat (SMS) 12";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][1].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -10736,7 +10736,7 @@ InitClass( ITEM_CLASS_SMS_ITEM,9 );
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SMS_ITEM][2].HName = "阿尔塞德斯树叶(SMS) 12";
+ m_pTypeInfo[ITEM_CLASS_SMS_ITEM][2].HName = "掳垄露没脠没碌脗脣鹿脢梅脪露(SMS) 12";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][2].EName = "Alseides Leef (SMS) 12";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][2].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -10766,7 +10766,7 @@ InitClass( ITEM_CLASS_SMS_ITEM,9 );
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SMS_ITEM][3].HName = "U2A 无线电 (SMS) 25";
+ m_pTypeInfo[ITEM_CLASS_SMS_ITEM][3].HName = "U2A 脦脼脧脽碌莽 (SMS) 25";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][3].EName = "U2A Wireless Set (SMS) 25";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][3].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -10796,7 +10796,7 @@ InitClass( ITEM_CLASS_SMS_ITEM,9 );
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SMS_ITEM][4].HName = "带血蝙蝠 (SMS) 25";
+ m_pTypeInfo[ITEM_CLASS_SMS_ITEM][4].HName = "麓酶脩陋貌霉貌冒 (SMS) 25";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][4].EName = "Blood Carrier Bat (SMS) 25";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][4].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -10826,7 +10826,7 @@ InitClass( ITEM_CLASS_SMS_ITEM,9 );
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SMS_ITEM][5].HName = "阿尔塞德斯树叶(SMS) 25";
+ m_pTypeInfo[ITEM_CLASS_SMS_ITEM][5].HName = "掳垄露没脠没碌脗脣鹿脢梅脪露(SMS) 25";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][5].EName = "Alseides Leef (SMS) 25";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][5].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -10856,7 +10856,7 @@ InitClass( ITEM_CLASS_SMS_ITEM,9 );
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SMS_ITEM][6].HName = "U2A 无线电 (SMS) 60";
+ m_pTypeInfo[ITEM_CLASS_SMS_ITEM][6].HName = "U2A 脦脼脧脽碌莽 (SMS) 60";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][6].EName = "U2A Wireless Set (SMS) 60";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][6].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -10886,7 +10886,7 @@ InitClass( ITEM_CLASS_SMS_ITEM,9 );
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SMS_ITEM][7].HName = "带血蝙蝠 (SMS) 60";
+ m_pTypeInfo[ITEM_CLASS_SMS_ITEM][7].HName = "麓酶脩陋貌霉貌冒 (SMS) 60";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][7].EName = "Blood Carrier Bat (SMS) 60";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][7].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -10916,7 +10916,7 @@ InitClass( ITEM_CLASS_SMS_ITEM,9 );
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SMS_ITEM][8].HName = "阿尔塞德斯树叶(SMS) 60";
+ m_pTypeInfo[ITEM_CLASS_SMS_ITEM][8].HName = "掳垄露没脠没碌脗脣鹿脢梅脪露(SMS) 60";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][8].EName = "Alseides Leef (SMS) 60";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][8].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -10949,7 +10949,7 @@ InitClass( ITEM_CLASS_SMS_ITEM,9 );
 
 InitClass( ITEM_CLASS_CORE_ZAP,4 );
 
- m_pTypeInfo[ITEM_CLASS_CORE_ZAP][0].HName = "Gilles de Rais Core Zap黑";
+ m_pTypeInfo[ITEM_CLASS_CORE_ZAP][0].HName = "Gilles de Rais Core Zap潞脷";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][0].EName = "Gilles de Rais Core Zap Black";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][0].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUNDID_NULL );
@@ -10979,7 +10979,7 @@ InitClass( ITEM_CLASS_CORE_ZAP,4 );
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_CORE_ZAP][1].HName = "Gilles de Rais Core Zap红";
+ m_pTypeInfo[ITEM_CLASS_CORE_ZAP][1].HName = "Gilles de Rais Core Zap潞矛";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][1].EName = "Gilles de Rais Core Zap Red";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][1].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUNDID_NULL );
@@ -11009,7 +11009,7 @@ InitClass( ITEM_CLASS_CORE_ZAP,4 );
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_CORE_ZAP][2].HName = "Gilles de Rais Core Zap蓝";
+ m_pTypeInfo[ITEM_CLASS_CORE_ZAP][2].HName = "Gilles de Rais Core Zap脌露";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][2].EName = "Gilles de Rais Core Zap Blue";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][2].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUNDID_NULL );
@@ -11039,7 +11039,7 @@ InitClass( ITEM_CLASS_CORE_ZAP,4 );
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_CORE_ZAP][3].HName = "Gilles de Rais Core Zap绿";
+ m_pTypeInfo[ITEM_CLASS_CORE_ZAP][3].HName = "Gilles de Rais Core Zap脗脤";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][3].EName = "Gilles de Rais Core Zap Green";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][3].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUNDID_NULL );
@@ -11072,7 +11072,7 @@ InitClass( ITEM_CLASS_CORE_ZAP,4 );
 
 InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][0].HName = "布里科拉卡斯的信";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][0].HName = "虏录脌茂驴脝脌颅驴篓脣鹿碌脛脨脜";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][0].EName = "Bricolakas's Letter";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -11102,7 +11102,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][1].HName = "拉里巴的信";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][1].HName = "脌颅脌茂掳脥碌脛脨脜";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][1].EName = "Larva's Letter";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -11132,7 +11132,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][2].HName = "补给券";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][2].HName = "虏鹿赂酶脠炉";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][2].EName = "Supply Ticket";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][2].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
@@ -11162,7 +11162,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][3].HName = "数据磁盘";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][3].HName = "脢媒戮脻麓脜脜脤";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][3].EName = "Data Disk";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][3].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -11192,7 +11192,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][4].HName = "鲜血之石1";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][4].HName = "脧脢脩陋脰庐脢炉1";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][4].EName = "Bloody Stone 1";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][4].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -11222,7 +11222,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][5].HName = "鲜血之石2";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][5].HName = "脧脢脩陋脰庐脢炉2";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][5].EName = "Bloody Stone 2";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][5].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -11252,7 +11252,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][6].HName = "鲜血之石3";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][6].HName = "脧脢脩陋脰庐脢炉3";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][6].EName = "Bloody Stone 3";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][6].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -11282,7 +11282,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][7].HName = "教授证1";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][7].HName = "陆脤脢脷脰陇1";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][7].EName = "Professor License 1";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][7].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -11312,7 +11312,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][8].HName = "教授证2";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][8].HName = "陆脤脢脷脰陇2";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][8].EName = "Professor License 2";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][8].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -11342,7 +11342,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][9].HName = "教授证3";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][9].HName = "陆脤脢脷脰陇3";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][9].EName = "Professor License 3";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][9].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -11372,7 +11372,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][10].HName = "向导之翼1";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][10].HName = "脧貌碌录脰庐脪铆1";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][10].EName = "Guide Wing 1";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][10].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -11402,7 +11402,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][11].HName = "向导之翼2";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][11].HName = "脧貌碌录脰庐脪铆2";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][11].EName = "Guide Wing 2";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][11].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -11432,7 +11432,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][12].HName = "向导之翼3";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][12].HName = "脧貌碌录脰庐脪铆3";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][12].EName = "Guide Wing 3";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][12].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -11462,7 +11462,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][13].HName = "红色礼品盒";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][13].HName = "潞矛脡芦脌帽脝路潞脨";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][13].EName = "Red Present Box";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][13].Description = "?? 5??? ? ? ????.";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][13].SetSoundID( SOUND_XMAS_GIFTBOX,SOUND_XMAS_GIFTBOX,SOUNDID_NULL,SOUND_XMAS_GIFTBOX );
@@ -11492,7 +11492,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][13].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][14].HName = "橙色礼品盒";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][14].HName = "鲁脠脡芦脌帽脝路潞脨";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][14].EName = "Orange Present Box";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][14].Description = "?? 10??? ? ? ????.";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][14].SetSoundID( SOUND_XMAS_GIFTBOX,SOUND_XMAS_GIFTBOX,SOUNDID_NULL,SOUND_XMAS_GIFTBOX );
@@ -11522,7 +11522,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][14].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][15].HName = "黄色礼品盒";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][15].HName = "禄脝脡芦脌帽脝路潞脨";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][15].EName = "Yellow Present Box";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][15].Description = "?? 15??? ? ? ????.";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][15].SetSoundID( SOUND_XMAS_GIFTBOX,SOUND_XMAS_GIFTBOX,SOUNDID_NULL,SOUND_XMAS_GIFTBOX );
@@ -11552,7 +11552,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][15].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][15].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][16].HName = "绿色礼品盒";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][16].HName = "脗脤脡芦脌帽脝路潞脨";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][16].EName = "Green Present Box";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][16].Description = "?? 20??? ? ? ????.";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][16].SetSoundID( SOUND_XMAS_GIFTBOX,SOUND_XMAS_GIFTBOX,SOUNDID_NULL,SOUND_XMAS_GIFTBOX );
@@ -11582,7 +11582,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][16].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][16].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][17].HName = "蓝色礼品盒";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][17].HName = "脌露脡芦脌帽脝路潞脨";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][17].EName = "Blue Present Box";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][17].Description = "?? 25??? ? ? ????.";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][17].SetSoundID( SOUND_XMAS_GIFTBOX,SOUND_XMAS_GIFTBOX,SOUNDID_NULL,SOUND_XMAS_GIFTBOX );
@@ -11612,7 +11612,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][17].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][17].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][18].HName = "深蓝色礼品盒";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][18].HName = "脡卯脌露脡芦脌帽脝路潞脨";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][18].EName = "Deep Blue Present Box";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][18].Description = "?? 30??? ? ? ????.";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][18].SetSoundID( SOUND_XMAS_GIFTBOX,SOUND_XMAS_GIFTBOX,SOUNDID_NULL,SOUND_XMAS_GIFTBOX );
@@ -11642,7 +11642,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][18].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][18].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][19].HName = "紫色礼品盒";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][19].HName = "脳脧脡芦脌帽脝路潞脨";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][19].EName = "Violet Present Box";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][19].Description = "?? 35??? ? ? ????.";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][19].SetSoundID( SOUND_XMAS_GIFTBOX,SOUND_XMAS_GIFTBOX,SOUNDID_NULL,SOUND_XMAS_GIFTBOX );
@@ -11672,7 +11672,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][19].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][19].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][20].HName = "黑色礼品盒";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][20].HName = "潞脷脡芦脌帽脝路潞脨";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][20].EName = "Black Present Box";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][20].Description = "?? 40??? ? ? ????.";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][20].SetSoundID( SOUND_XMAS_GIFTBOX,SOUND_XMAS_GIFTBOX,SOUNDID_NULL,SOUND_XMAS_GIFTBOX );
@@ -11702,7 +11702,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][20].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][20].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][21].HName = "来自EVE的最高机密信件";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][21].HName = "脌麓脳脭EVE碌脛脳卯赂脽禄煤脙脺脨脜录镁";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][21].EName = "Top Secret Letter from EVE";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][21].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][21].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -11732,7 +11732,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][21].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][21].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][22].HName = "吸血鬼的回复";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][22].HName = "脦眉脩陋鹿铆碌脛禄脴赂麓";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][22].EName = "Reply from Vampire";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][22].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][22].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -11762,7 +11762,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][22].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][22].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][23].HName = "来自吸血鬼的最高机密信件";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][23].HName = "脌麓脳脭脦眉脩陋鹿铆碌脛脳卯赂脽禄煤脙脺脨脜录镁";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][23].EName = "Top Secret Letter from Vampire";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][23].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][23].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -11792,7 +11792,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][23].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][23].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][24].HName = "EVE的回复";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][24].HName = "EVE碌脛禄脴赂麓";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][24].EName = "Reply from EVE";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][24].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][24].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -11822,7 +11822,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][24].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][24].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][25].HName = "拉维亚的凭证";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][25].HName = "脌颅脦卢脩脟碌脛脝戮脰陇";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][25].EName = "Labinia's Voucher";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][25].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][25].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -11852,7 +11852,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][25].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][25].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][26].HName = "拉里巴的信";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][26].HName = "脌颅脌茂掳脥碌脛脨脜";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][26].EName = "Larba's Letter";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][26].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][26].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -11885,7 +11885,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
 
 InitClass( ITEM_CLASS_TRAP_ITEM,10 );
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][0].HName = "地雷";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][0].HName = "碌脴脌脳";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][0].EName = "Land Mine";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -11915,7 +11915,7 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][1].HName = "迷惑炮弹";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][1].HName = "脙脭禄贸脜脷碌炉";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][1].EName = "Pleasure Station";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -11945,7 +11945,7 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][2].HName = "破片陷阱";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][2].HName = "脝脝脝卢脧脻脷氓";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][2].EName = "Claymore Trap";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][2].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -11975,7 +11975,7 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][3].HName = "自动炮台";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][3].HName = "脳脭露炉脜脷脤篓";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][3].EName = "Auto Turret";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][3].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -12005,7 +12005,7 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][4].HName = "鼓";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][4].HName = "鹿脛";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][4].EName = "Drum";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][4].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -12035,7 +12035,7 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][5].HName = "三脚架A";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][5].HName = "脠媒陆脜录脺A";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][5].EName = "Tripod A";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][5].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -12065,7 +12065,7 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][6].HName = "三脚架B";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][6].HName = "脠媒陆脜录脺B";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][6].EName = "Tripod B";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][6].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -12095,7 +12095,7 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][7].HName = "三脚架C";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][7].HName = "脠媒陆脜录脺C";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][7].EName = "Tripod C";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][7].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -12125,7 +12125,7 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][8].HName = "路障A";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][8].HName = "脗路脮脧A";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][8].EName = "Obstacle A";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][8].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -12155,7 +12155,7 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][9].HName = "路障B";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][9].HName = "脗路脮脧B";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][9].EName = "Obstacle B";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][9].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -12188,9 +12188,9 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
 
 InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].HName = "亚麦加";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].HName = "脩脟脗贸录脫";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].EName = "Armega";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].Description = "血之圣书";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].Description = "脩陋脰庐脢楼脢茅";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].SetFrameID( 419, 963, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].SetDropFrameID( 419 );
@@ -12218,9 +12218,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].HName = "米霍尔";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].HName = "脙脳禄么露没";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].EName = "Mihole";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].Description = "血之圣书";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].Description = "脩陋脰庐脢楼脢茅";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].SetFrameID( 420, 964, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].SetDropFrameID( 420 );
@@ -12248,9 +12248,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].HName = "基罗";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].HName = "禄霉脗脼";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].EName = "Kiro";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].Description = "血之圣书";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].Description = "脩陋脰庐脢楼脢茅";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].SetFrameID( 421, 965, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].SetDropFrameID( 421 );
@@ -12278,9 +12278,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].HName = "阿伊尼";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].HName = "掳垄脪脕脛谩";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].EName = "Ini";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].Description = "血之圣书";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].Description = "脩陋脰庐脢楼脢茅";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].SetFrameID( 416, 966, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].SetDropFrameID( 416 );
@@ -12308,9 +12308,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].HName = "格利高里";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].HName = "赂帽脌没赂脽脌茂";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].EName = "Gregori";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].Description = "血之圣书";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].Description = "脩陋脰庐脢楼脢茅";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].SetFrameID( 418, 967, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].SetDropFrameID( 418 );
@@ -12338,9 +12338,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].HName = "孔切里亚";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].HName = "驴脳脟脨脌茂脩脟";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].EName = "Concilia";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].Description = "血之圣书";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].Description = "脩陋脰庐脢楼脢茅";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].SetFrameID( 417, 968, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].SetDropFrameID( 417 );
@@ -12368,9 +12368,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].HName = "雷吉斯";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].HName = "脌脳录陋脣鹿";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].EName = "Legios";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].Description = "血之圣书";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].Description = "脩陋脰庐脢楼脢茅";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].SetFrameID( 410, 969, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].SetDropFrameID( 410 );
@@ -12398,9 +12398,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].HName = "希而里";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].HName = "脧拢露酶脌茂";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].EName = "Hillel";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].Description = "血之圣书";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].Description = "脩陋脰庐脢楼脢茅";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].SetFrameID( 412, 970, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].SetDropFrameID( 412 );
@@ -12428,9 +12428,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].HName = "扎夫";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].HName = "脭煤路貌";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].EName = "Jave";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].Description = "血之圣书";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].Description = "脩陋脰庐脢楼脢茅";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].SetFrameID( 411, 971, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].SetDropFrameID( 411 );
@@ -12458,9 +12458,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].HName = "内玛";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].HName = "脛脷脗锚";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].EName = "Nema";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].Description = "血之圣书";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].Description = "脩陋脰庐脢楼脢茅";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].SetFrameID( 414, 972, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].SetDropFrameID( 414 );
@@ -12488,9 +12488,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].HName = "阿罗萨";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].HName = "掳垄脗脼脠酶";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].EName = "Arosa";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].Description = "血之圣书";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].Description = "脩陋脰庐脢楼脢茅";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].SetFrameID( 415, 973, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].SetDropFrameID( 415 );
@@ -12518,9 +12518,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][11].HName = "察斯法";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][11].HName = "虏矛脣鹿路篓";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][11].EName = "Chaspa";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][11].Description = "血之圣书";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][11].Description = "脩陋脰庐脢楼脢茅";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][11].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][11].SetFrameID( 413, 974, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][11].SetDropFrameID( 413 );
@@ -12551,7 +12551,7 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
 
 InitClass( ITEM_CLASS_WAR_ITEM,1 );
 
- m_pTypeInfo[ITEM_CLASS_WAR_ITEM][0].HName = "龙之眼";
+ m_pTypeInfo[ITEM_CLASS_WAR_ITEM][0].HName = "脕煤脰庐脩脹";
  m_pTypeInfo[ITEM_CLASS_WAR_ITEM][0].EName = "Dragon Eye";
  m_pTypeInfo[ITEM_CLASS_WAR_ITEM][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_WAR_ITEM][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -12584,7 +12584,7 @@ InitClass( ITEM_CLASS_WAR_ITEM,1 );
 
 InitClass( ITEM_CLASS_CARRYING_RECEIVER,1 );
 
- m_pTypeInfo[ITEM_CLASS_CARRYING_RECEIVER][0].HName = "信息碎片";
+ m_pTypeInfo[ITEM_CLASS_CARRYING_RECEIVER][0].HName = "脨脜脧垄脣茅脝卢";
  m_pTypeInfo[ITEM_CLASS_CARRYING_RECEIVER][0].EName = "Info Scrap";
  m_pTypeInfo[ITEM_CLASS_CARRYING_RECEIVER][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_CARRYING_RECEIVER][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -12617,7 +12617,7 @@ InitClass( ITEM_CLASS_CARRYING_RECEIVER,1 );
 
 InitClass( ITEM_CLASS_SHOULDER_ARMOR,1 );
 
- m_pTypeInfo[ITEM_CLASS_SHOULDER_ARMOR][0].HName = "蛤蟆背";
+ m_pTypeInfo[ITEM_CLASS_SHOULDER_ARMOR][0].HName = "赂貌贸隆卤鲁";
  m_pTypeInfo[ITEM_CLASS_SHOULDER_ARMOR][0].EName = "Toad Back";
  m_pTypeInfo[ITEM_CLASS_SHOULDER_ARMOR][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_SHOULDER_ARMOR][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -12650,7 +12650,7 @@ InitClass( ITEM_CLASS_SHOULDER_ARMOR,1 );
 
 InitClass( ITEM_CLASS_DERMIS,2 );
 
- m_pTypeInfo[ITEM_CLASS_DERMIS][0].HName = "觉醒之冠";
+ m_pTypeInfo[ITEM_CLASS_DERMIS][0].HName = "戮玫脨脩脰庐鹿脷";
  m_pTypeInfo[ITEM_CLASS_DERMIS][0].EName = "Arouse Crest";
  m_pTypeInfo[ITEM_CLASS_DERMIS][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_DERMIS][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -12713,7 +12713,7 @@ InitClass( ITEM_CLASS_DERMIS,2 );
 
 InitClass( ITEM_CLASS_PERSONA,2 );
 
- m_pTypeInfo[ITEM_CLASS_PERSONA][0].HName = "怨灵面具";
+ m_pTypeInfo[ITEM_CLASS_PERSONA][0].HName = "脭鹿脕茅脙忙戮脽";
  m_pTypeInfo[ITEM_CLASS_PERSONA][0].EName = "Crafty Veil";
  m_pTypeInfo[ITEM_CLASS_PERSONA][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_PERSONA][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -12776,7 +12776,7 @@ InitClass( ITEM_CLASS_PERSONA,2 );
 
 InitClass( ITEM_CLASS_FASCIA,1 );
 
- m_pTypeInfo[ITEM_CLASS_FASCIA][0].HName = "帕尔玛腰带";
+ m_pTypeInfo[ITEM_CLASS_FASCIA][0].HName = "脜脕露没脗锚脩眉麓酶";
  m_pTypeInfo[ITEM_CLASS_FASCIA][0].EName = "Palma Fascia";
  m_pTypeInfo[ITEM_CLASS_FASCIA][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_FASCIA][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -12809,7 +12809,7 @@ InitClass( ITEM_CLASS_FASCIA,1 );
 
 InitClass( ITEM_CLASS_MITTEN,1 );
 
- m_pTypeInfo[ITEM_CLASS_MITTEN][0].HName = "紫焉手套";
+ m_pTypeInfo[ITEM_CLASS_MITTEN][0].HName = "脳脧脩脡脢脰脤脳";
  m_pTypeInfo[ITEM_CLASS_MITTEN][0].EName = "Praelium Gloves";
  m_pTypeInfo[ITEM_CLASS_MITTEN][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_MITTEN][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -12842,7 +12842,7 @@ InitClass( ITEM_CLASS_MITTEN,1 );
 
 InitClass( ITEM_CLASS_SUB_INVENTORY,1 );
 
- m_pTypeInfo[ITEM_CLASS_SUB_INVENTORY][0].HName = "2x4背包";
+ m_pTypeInfo[ITEM_CLASS_SUB_INVENTORY][0].HName = "2x4卤鲁掳眉";
  m_pTypeInfo[ITEM_CLASS_SUB_INVENTORY][0].EName = "2x4 Pack";
  m_pTypeInfo[ITEM_CLASS_SUB_INVENTORY][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_SUB_INVENTORY][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );

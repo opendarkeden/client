@@ -2,7 +2,7 @@
 
 	VS_UI_item.h
 
-	Item을 관리하는 객체.
+	Item  .
 
 	2000.2.29. KJTINC
 

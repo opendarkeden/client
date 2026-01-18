@@ -16,9 +16,9 @@
 //
 // template class
 //
-// data의 추가, 삭제, 검색을 수행한다.
-// data는 어떠한 것이라도(NULL 조차..) 들어올 수 있다. 그러나 같은 것이 또 
-// 들어올 수는 없다.
+
+
+
 //-----------------------------------------------------------------------------
 template <class Ta> 
 class SimpleDataList
@@ -66,7 +66,7 @@ SimpleDataList<Ta>::~SimpleDataList()
 //-----------------------------------------------------------------------------
 // Find
 //
-// data가 존재하면 true를 반환한다.
+
 //-----------------------------------------------------------------------------
 template <class Ta>
 bool SimpleDataList<Ta>::Find(Ta data) const
@@ -81,7 +81,7 @@ bool SimpleDataList<Ta>::Find(Ta data) const
 //-----------------------------------------------------------------------------
 // Data
 //
-// 저장된 data를 반환한다.
+
 //-----------------------------------------------------------------------------
 template <class Ta>
 bool SimpleDataList<Ta>::Data(int index, Ta &data) const
@@ -97,9 +97,9 @@ bool SimpleDataList<Ta>::Data(int index, Ta &data) const
 //-----------------------------------------------------------------------------
 // Add
 //
-// 이미 data가 존재하면 실패이다.
+
 //
-// 성공하면 true, 실패하면 false를 반환한다.
+
 //-----------------------------------------------------------------------------
 template <class Ta>
 bool SimpleDataList<Ta>::Add(Ta data)
@@ -138,7 +138,7 @@ bool SimpleDataList<Ta>::Add(Ta data)
 //-----------------------------------------------------------------------------
 // Delete
 //
-// 성공하면 true, 실패하면 false를 반환한다.
+
 //-----------------------------------------------------------------------------
 template <class Ta>
 bool SimpleDataList<Ta>::Delete(Ta data)

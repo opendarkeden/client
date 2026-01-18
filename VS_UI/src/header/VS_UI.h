@@ -26,7 +26,6 @@
 //-----------------------------------------------------------------------------
 // C_VS_UI
 //
-// VS UI 최상위 Object. Client 접근 가능하다.
 //-----------------------------------------------------------------------------
 class C_VS_UI : public HotKey
 {
@@ -53,12 +52,11 @@ private:
 	bool	m_bl_hotkey;
 
 	TYPE_OBJECTID m_otherojectid;
-	//Logitech iFeel Mouse 지원 코드
 
 public:
 	C_VS_UI();
 	~C_VS_UI();
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+	#ifdef __TEST_SUB_INVENTORY__
 		void	RunUsePetFood(DWORD UsingObjectID = 0, MItem* SubInventory = NULL);
 	#else
 		void	RunUsePetFood();
@@ -66,7 +64,6 @@ public:
 	
 	void	CloseUsePetFood();
 
-	// 2004, 5, 11 sobeit add start - 펫 보관소
 	void	RunKeepPetItemDialog();
 	void	CloseKeepPetItemDialog();
 	void	RunGetKeepPetItemDialog();
@@ -80,7 +77,6 @@ public:
 	void	CloseOtherInfo();
 	void	SetBloodBibleStatusTimer(DWORD sec)	{ if(m_pC_game != NULL)m_pC_game->SetBloodBibleStatusTimer(sec); }
 
-	// 넷마블용
 	void	RunConnect()				{ if(m_pC_title != NULL) m_pC_title->RunConnect(); }
 
 	bool	IsRunningTitle()			{ if(m_pC_title != NULL)return true; return false; }
@@ -92,17 +88,14 @@ public:
 	void	CloseAllDialog();
 	bool	IsInputMode()	{ if(m_pC_game == NULL)return false; return m_pC_game->IsInputMode(); }
 
-	//지뢰설치
 	void	StartInstallMineProgress(int focus_grid_x, int focus_grid_y)
 	{ if(m_pC_game)m_pC_game->StartInstallMineProgress(focus_grid_x, focus_grid_y); }
 	bool	IsInstallMineProgress()		{ return gbl_mine_progress; }
 	void	EndInstallMineProgress()	{ gbl_mine_progress = false; }
-	//지뢰만들기
 	void	StartCreateMineProgress(int focus_grid_x, int focus_grid_y)
 	{ if(m_pC_game)m_pC_game->StartCreateMineProgress(focus_grid_x, focus_grid_y); }
 	bool	IsCreateMineProgress()		{ return gbl_mine_progress; }
 	void	EndCreateMineProgress()	{ gbl_mine_progress = false; }
-	//폭탄만들기
 	void	StartCreateBombProgress(int focus_grid_x, int focus_grid_y)
 	{ if(m_pC_game)m_pC_game->StartCreateBombProgress(focus_grid_x, focus_grid_y); }
 	bool	IsCreateBombProgress()		{ return gbl_mine_progress; }
@@ -113,7 +106,7 @@ public:
 	void	CloseOption();
 	bool	IsRunningOption(){ return (m_pC_option != NULL); }	// by larosel
 
-	void	SelectCharacter(int n)	{ if(m_pC_title)m_pC_title->SelectCharacter(n); }	// 캐릭터선택에서 임의선택
+	void	SelectCharacter(int n)	{ if(m_pC_title)m_pC_title->SelectCharacter(n); }
 //	void	UsedID(bool used)	{ if(m_pC_title)m_pC_title->UsedID(used); }
 
 	const char *GetFileName()	{ if(m_pC_game)return m_pC_game->GetFileName(); return NULL; }
@@ -154,7 +147,7 @@ public:
 
 //server name by larosel
 	void	SetServerList(LPSTR *name, int *id, int *status, int size, int default_id)	{ if(m_pC_title)m_pC_title->SetServerList(name, id, status, size, default_id); }
-	void	SetCurrentServerName(const char *world_name, const char *server_name, int status) { if(m_pC_progress)m_pC_progress->SetServerName(world_name, server_name, status); } // StartProgress 후에 해준다.
+	void	SetCurrentServerName(const char *world_name, const char *server_name, int status) { if(m_pC_progress)m_pC_progress->SetServerName(world_name, server_name, status); }
 
 	bool	IsGameMode()const		{ if(m_pC_game)return true; return false; }
 	bool	IsRunningStorage() const;
@@ -212,9 +205,9 @@ public:
 	bool	CanReplaceItemInGear(MItem* pItem, int slot, MItem*& pOldItem);
 	const MItem * GetGearItem(int slot) const;
 	const MItem * GetGearItem_PickUp(int &slot) const;
-	const MItem * GetGearCoreZapItem(int slot) const; // 특정 슬롯에 붙어 있는 코어잽을 리턴, slot : 코어잽 밑의 슬롯
-	const MItem * GetGearCoreZapedItem(int slot) const ;// 코어잽 밑에 깔린 아이템을 리턴, slot : 코어잽 슬롯
-	const bool IsHasAllCoreZap(int CoreZapType = 0) const; // 모든 종류의 코어잽이 착용 됐는지..검사
+	const MItem * GetGearCoreZapItem(int slot) const;
+	const MItem * GetGearCoreZapedItem(int slot) const ;
+	const bool IsHasAllCoreZap(int CoreZapType = 0) const;
 	const bool IsCloseBloodBibleSlot(int slot) const;
 	const int GetGearSize() const;
 
@@ -598,7 +591,6 @@ public:
 	void	CloseRequestShrineMinimap();
 	bool	IsRunningRequestShrineMinimap();
 	
-		// 헬프 메세지 desc // 
 	void	RunHelpDesc(const char *detail,const char *title,DWORD id);
 	void	CloseHelpDesc();
 	bool	IsRunningHelpDesc();
@@ -686,7 +678,6 @@ public:
 	void	RunNextGQuestExcuteElement();
 	// 2004, 7, 5 sobeit add end
 	
-	// 2004, 10, 25, sobeit add start - 세율 변경
 	void	RunModifyTax();
 	void	RunRangerChat();
 	bool	IsRunngingRangerChat();
@@ -707,15 +698,11 @@ public:
 	bool	IsRunningSwapAdvancementItem();
 	// 2005, 1, 3, sobeit add end
 
-	// 2005, 1, 11, sobeit add start - 불우이웃돕기 창
 	void	Run_Campaign_Help_Unfortunate_Neighbors(int value = 0);
 	// 2005, 1, 11, sobeit add end
 	
-	// 2005, 1, 17, sobeit add start - 퀘스트 관련
 	void	SetQuestNpcDialog(void* pVoid);
-	// 2005, 1, 17, sobeit add end - 퀘스트 관련
 
-	// 2005, 1, 24, sobeit add start - 아이템 받기 이벤트
 	void	Run_Confirm_GetItemEvent(int value);
 	// 2005, 1, 24, sobeit add end
 
@@ -746,7 +733,7 @@ public:
 	void HotKey_PartyChat();	// ctrl + a
 	void HotKey_Quest();		// ctrl + q
 	void HotKey_Party();		// ctrl + p
-	void HotKey_Mark();			// '한자'키
+	void HotKey_Mark();
 	void HotKey_Help();			// ctrl + i
 	void HotKey_SkillInfo();	// ctrl + k
 	void HotKey_Minimap();		// ctrl + m
@@ -756,7 +743,7 @@ public:
 	void HotKey_Grade2Info();	// ctrl + i
 
 //	void HotKey_WindowToggle();
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+	#ifdef __TEST_SUB_INVENTORY__
 		void HotKey_Inventory(bool IsCheckSubInventory = false);
 	#else
 		void HotKey_Inventory();

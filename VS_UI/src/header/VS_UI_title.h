@@ -28,7 +28,7 @@
 
 #include <vector>
 
-enum MAIN_SPK_INDEX // C_VS_UI_NEWCHAR 에서도 사용하므로...
+enum MAIN_SPK_INDEX
 {
 	MAIN,
 	HEART_LEFT,
@@ -52,8 +52,6 @@ enum
 };
 
 //
-// character 생성시 character part...
-// CFPK 순서
 //
 enum CHAR_MAN
 {
@@ -130,8 +128,8 @@ struct MAN_INFO
 	CHAR_MAN		helmet;
 	CHAR_MAN		coat;
 	CHAR_MAN		trouser;
-	CHAR_MAN		right; // 무기
-	CHAR_MAN		left;  // 방어구
+	CHAR_MAN		right;
+	CHAR_MAN		left;
 };
 
 struct WOMAN_INFO
@@ -141,8 +139,8 @@ struct WOMAN_INFO
 	CHAR_WOMAN		helmet;
 	CHAR_WOMAN		coat;
 	CHAR_WOMAN		trouser;
-	CHAR_WOMAN		right; // 무기
-	CHAR_WOMAN		left;  // 방어구
+	CHAR_WOMAN		right;
+	CHAR_WOMAN		left;
 };
 
 enum ALIGNMENT
@@ -158,10 +156,10 @@ enum ALIGNMENT
 struct S_SLOT
 {
 	S_SLOT() { m_AdvancementLevel = 0; }
-	bool								bl_set; // slot이 설정되었는가?
+	bool								bl_set;
 //	bool								bl_vampire;
 	bool								bl_female;
-	bool								bl_drained; //흡혈된 상태인가?
+	bool								bl_drained;
 	MAN_INFO							man_info;
 	WOMAN_INFO							woman_info;
 	
@@ -186,7 +184,7 @@ struct S_SLOT
 	int									DEX_MAX;	// by larosel
 	int									INT_PURE;	// by larosel
 	int									INT_CUR;	// by larosel
-	int									INT_MAXX;	// by larosel	//INT_MAX 는 못씀
+	int									INT_MAXX;
 	int									STR_EXP_REMAIN;
 	int									DEX_EXP_REMAIN;
 	int									INT_EXP_REMAIN;
@@ -195,7 +193,7 @@ struct S_SLOT
 	int									DAM2;			// min
 	int									SILVER_DAM;		//max
 	int									SILVER_DAM2;	//min
-	int									CHANGE_VAMPIRE;	// 뱀파이어로 변하는 남은 시간 분
+	int									CHANGE_VAMPIRE;
 //	int									AC;
 	int									DEFENSE;	// by larosel
 	int									PROTECTION;	// by larosel
@@ -227,7 +225,6 @@ struct S_SLOT
 	typedef std::vector<UI_EFFECTSTATUS_STRUCT>			UI_EFFECTSTATUS_TYPE;
 	UI_EFFECTSTATUS_TYPE				STATUS;	
 	
-	// Vampire일 경우 mp는 무시한다.
 //	WORD									hp_cur_line;
 //	WORD									mp_cur_line;	// slayer only
 //	WORD									hp_percent;
@@ -250,7 +247,7 @@ struct S_SLOT
 	
 	int									m_SMS_Charge;
 	int									m_Powerjjang_Point;
-	int									m_AdvancementLevel;	// 전직 레벨 
+	int									m_AdvancementLevel;
 //	BYTE								m_NickNameType;
 //	std::string							m_NickName;
 };	
@@ -273,7 +270,6 @@ private:
 		PUSHED_CANCEL,
 	};
 
-	//enum INPUT_POSITION // 입력 위치
 	//{
 	//	ID,
 	//	PASSWORD,
@@ -359,7 +355,7 @@ private:
 		ISS_STATE,
 		ISS_SSN,
 		ISS_ADDRESS,
-		ISS_WOO, // 우편번호
+		ISS_WOO,
 		ISS_PHONE,
 		ISS_HOMEPAGE,
 		ISS_EMAIL,
@@ -445,7 +441,6 @@ private:
 //	C_SPRITE_PACK *			m_pC_image_spk;
 	ButtonGroup *				m_pC_button_group;
 
-	// 주민등록번호(SSN) string buffer.
 	LineEditorVisual			m_lev_ssn_part1;
 	LineEditorVisual			m_lev_ssn_part2;
 	bool							m_bl_ssn_ip_part1; // input position
@@ -477,7 +472,6 @@ public:
 //-----------------------------------------------------------------------------
 // C_VS_UI_CHAR_APPEARANCE
 //
-// Chacter 외모 변경 class.
 //-----------------------------------------------------------------------------
 /*
 class C_VS_UI_CHAR_APPEARANCE : public Window, public Exec
@@ -525,14 +519,13 @@ private:
 	};
 
 	//
-	// Color Window 관련
 	//
-	BYTE							m_b_hair_colorset; // 선택된 color set
-	BYTE							m_b_skin_colorset; // 선택된 color set
-	int							m_focused_x; // color 선택 focus
+	BYTE							m_b_hair_colorset;
+	BYTE							m_b_skin_colorset;
+	int							m_focused_x;
 	int							m_focused_y;
 	BYTE							m_b_colorset_array[COLORSET_Y][COLORSET_X];
-	bool							m_bl_colorset1; // Appearance Window에서 colorset1이 선택되었는가?
+	bool							m_bl_colorset1;
 	bool							m_bl_push_colorset;
 
 	C_VS_UI_BUTTON *			m_pC_button[MENU_COUNT];
@@ -745,8 +738,8 @@ private:
 	int							m_focused_help;
 
 //	bool							m_bl_skin_color_control;
-	S_SLOT *						m_p_slot; // character manager의 slot중 하나를 가리킨다.
-	int							m_selected_slot; // 선택된 slot: char manager에 있지만, 필요함.
+	S_SLOT *						m_p_slot;
+	int							m_selected_slot;
 //	WORD *						m_p_hp_buf;
 //	WORD *						m_p_mp_buf;
 //	int							m_hp_width;
@@ -775,8 +768,6 @@ private:
 	int							m_iSave[3];
 
 	//
-	// face 선택 list.
-	// 현재 선택된 face가 맨 먼저 나오게 된다. 다른 것을 선택하면 다른 것이 먼저 나오고...
 	//
 //	int							m_man_face_list[3]; // 3 = face count
 //	int							m_woman_face_list[3];
@@ -1114,48 +1105,42 @@ public :
 	{
 		//CONTROL
 		CHECK_CONTROL_TAB,
-		CHECK_NORMAL_CHAT = CHECK_CONTROL_TAB,	//옵션만
-		CHECK_ENTER_CHAT,						//옵션만
-//		CHECK_MOUSE_SPEED,						//메세지??
-		CHECK_IFEEL,							//UI처리
+		CHECK_NORMAL_CHAT = CHECK_CONTROL_TAB,
+		CHECK_ENTER_CHAT,
+		CHECK_IFEEL,
 
 		//GRAPHIC
 		CHECK_GRAPHIC_TAB,
-		CHECK_3D = CHECK_GRAPHIC_TAB,			//옵션만
-		CHECK_ALPHA_HPBAR,						//옵션만
-		CHECK_BLOOD_DROP,						//옵션만
-		CHECK_AUTOHIDE_SMOOTH,					//옵션만
-		CHECK_GAMMA,							//UI처리
-		CHECK_CHATBOX,							//옵션만
-		CHECK_FPS,								//옵션만
-		CHECK_DEFAULT_ALPHA,					//옵션만 ? 혹시 다른 처리도-.-
-		CHECK_ALPHA_DEPTH,						//옵션만
-		CHECK_DO_NOT_SHOW_PERSNALSHOP_MSG,		// 개인상점 스트링 안보기
+		CHECK_3D = CHECK_GRAPHIC_TAB,
+		CHECK_ALPHA_HPBAR,
+		CHECK_BLOOD_DROP,
+		CHECK_AUTOHIDE_SMOOTH,
+		CHECK_GAMMA,
+		CHECK_CHATBOX,
+		CHECK_FPS,
+		CHECK_DEFAULT_ALPHA,
+		CHECK_ALPHA_DEPTH,
+		CHECK_DO_NOT_SHOW_PERSNALSHOP_MSG,
 
 		//SOUND
 		CHECK_SOUND_TAB,
-//		CHECK_YELL = CHECK_SOUND_TAB,			//옵션만
-		CHECK_SOUND = CHECK_SOUND_TAB,							//메세지
-		CHECK_MUSIC,							//메세지
-		CHECK_WAV,								//메세지
-		CHECK_MIDI,								//메세지
+		CHECK_SOUND = CHECK_SOUND_TAB,
+		CHECK_MUSIC,
+		CHECK_WAV,
+		CHECK_MIDI,
 
 		//GAME
 		CHECK_GAME_TAB,
-		CHECK_HELP = CHECK_GAME_TAB,			//옵션만
-		CHECK_FILTERING,						//옵션만
+		CHECK_HELP = CHECK_GAME_TAB,
+		CHECK_FILTERING,
 		CHECK_PRELOAD_MONSTER,
-		CHECK_CHAT_WHITE,						//옵션만
+		CHECK_CHAT_WHITE,
 		CHECK_TEEN_VERSION,
 		CHECK_POPUPCHAT_BY_WHISPER,
-		CHECK_DO_NOT_SHOW_WAR_MSG,				// 전쟁 메시지 보지 않기
-		CHECK_DO_NOT_SHOW_LAIR_MSG,				// 레어마스터 메시지 보지 않기
-		CHECK_DO_NOT_SHOW_HOLY_LAND_MSG,		// 아담의 성지 메시지 보지 않기
-		CHECK_SHOW_GAMEMONEY_WITH_HANGUL,		// 게임머니 한글 병행 표시
-//		CHECK_NOT_SEND_MY_INFO,			// 아직.
-//		CHECK_CHANGE,							//옵션만
-//		CHECK_PARTY_INVITE,						//옵션만
-//		CHECK_PARTY_REQUEST,					//옵션만
+		CHECK_DO_NOT_SHOW_WAR_MSG,
+		CHECK_DO_NOT_SHOW_LAIR_MSG,
+		CHECK_DO_NOT_SHOW_HOLY_LAND_MSG,
+		CHECK_SHOW_GAMEMONEY_WITH_HANGUL,
 
 
 		//VALUE
@@ -1392,7 +1377,6 @@ public:
 	C_VS_UI_TITLE();
 	~C_VS_UI_TITLE();
 
-	// 넷마블용
 	void	RunConnect()			{ if(m_pC_login) m_pC_login->Start(); }
 
 	void	RunCannotPlayMessage();

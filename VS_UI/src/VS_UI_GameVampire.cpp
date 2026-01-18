@@ -24,23 +24,23 @@ int		C_VS_UI_VAMPIRE_GEAR::m_slot_image[SLOT_SIZE] = {
 // help string
 //
 /*static S_DEFAULT_HELP_STRING	g_help_string[9] = {
-	{"Inventory", "(¾ÆÀÌÅÛÃ¢)", "TAB"},
-	{"PartyManager", "(ÆÄÆ¼Ã¢)", "Ctrl+P"},
-	{"Character Info", "(Ä³¸¯ÅÍ Á¤º¸)", "Ctrl+I"},
-	{"Magic Info", "(¸¶¹ý Á¤º¸)", "Ctrl+K"},
-	{"Help", "(µµ¿ò¸»)", "Ctrl+H"},
-	{"Gear", "(ÀåÂøÃ¢)", "Ctrl+TAB"},
-	{"Game Menu", "(°ÔÀÓ ¸Þ´º)", "ESC"},
-	{"Mini-Map", "(¹Ì´Ï¸Ê)", "Ctrl+M"},
-	{"Mark", "(Æ¯¼ö¹®ÀÚ)", "Ctrl+X"},
+	{"Inventory", "(ì•„ì´í…œì°½)", "TAB"},
+	{"PartyManager", "(íŒŒí‹°ì°½)", "Ctrl+P"},
+	{"Character Info", "(ìºë¦­í„° ì •ë³´)", "Ctrl+I"},
+	{"Magic Info", "(ë§ˆë²• ì •ë³´)", "Ctrl+K"},
+	{"Help", "(ë„ì›€ë§)", "Ctrl+H"},
+	{"Gear", "(ìž¥ì°©ì°½)", "Ctrl+TAB"},
+	{"Game Menu", "(ê²Œìž„ ë©”ë‰´)", "ESC"},
+	{"Mini-Map", "(ë¯¸ë‹ˆë§µ)", "Ctrl+M"},
+	{"Mark", "(íŠ¹ìˆ˜ë¬¸ìž)", "Ctrl+X"},
 };
 
 static S_DEFAULT_HELP_STRING	g_chat_help_string[5] = {
-	{"Extend Window", "(Ã¤ÆÃÃ¢ È®Àå)", "Ctrl+E"},
-	{"Chat", "(ÀÏ¹Ý Ã¤ÆÃ)", "Ctrl+C"},
-	{"Clan/Party Chat", "(Å¬·£/ÆÄÆ¼ Ã¤ÆÃ)", "Ctrl+G"},
-	{"Whisper", "(±Ó¼Ó¸»)", "Ctrl+W"},
-	{"ZoneChat", "(¿ÜÄ¡±â)", "Ctrl+Z"},
+	{"Extend Window", "(ì±„íŒ…ì°½ í™•ìž¥)", "Ctrl+E"},
+	{"Chat", "(ì¼ë°˜ ì±„íŒ…)", "Ctrl+C"},
+	{"Clan/Party Chat", "(í´ëžœ/íŒŒí‹° ì±„íŒ…)", "Ctrl+G"},
+	{"Whisper", "(ê·“ì†ë§)", "Ctrl+W"},
+	{"ZoneChat", "(ì™¸ì¹˜ê¸°)", "Ctrl+Z"},
 };*/
 
 //----------------------------------------------------------------------------
@@ -68,7 +68,7 @@ C_VS_UI_VAMPIRE::C_VS_UI_VAMPIRE():C_VS_UI_TRIBE()
 	tab_x += m_pC_sys_button_spk->GetWidth(TAB_GUILD);
 //	m_pC_common_button_group->Add( new C_VS_UI_EVENT_BUTTON(tab_x, tab_y, m_pC_sys_button_spk->GetWidth(TAB_MSG), m_pC_sys_button_spk->GetHeight(TAB_MSG), TAB_MSG_ID, this, TAB_MSG) );
 //	tab_x += m_pC_sys_button_spk->GetWidth(TAB_MSG);
-	// 2004, 12, 2, sobeit add start - ±â´É
+
 	m_pC_common_button_group->Add( new C_VS_UI_EVENT_BUTTON(tab_x, tab_y, m_pC_sys_button_spk->GetWidth(TAB_GUILD), m_pC_sys_button_spk->GetHeight(TAB_UTIL), TAB_UTIL_ID, this, TAB_UTIL) );
 	tab_x += m_pC_sys_button_spk->GetWidth(TAB_UTIL);
 	// 2004, 12, 2, sobeit add end
@@ -93,7 +93,7 @@ C_VS_UI_VAMPIRE::C_VS_UI_VAMPIRE():C_VS_UI_TRIBE()
 	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*1, button_y+button_y_gap, m_pC_sys_button_spk->GetWidth(BUTTON_QUEST), m_pC_sys_button_spk->GetHeight(BUTTON_QUEST), QUEST_ID, this, BUTTON_QUEST) );
 	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*2, button_y+button_y_gap, m_pC_sys_button_spk->GetWidth(BUTTON_MAIL), m_pC_sys_button_spk->GetHeight(BUTTON_MAIL), MAIL_ID, this, BUTTON_MAIL) );
 
-	// sms ¹öÆ° 
+
 //add by zdj 2005.5.17
 // add by Coffee 2006.11.26
 //	if(false == g_pUserInformation->IsNetmarble)
@@ -104,22 +104,22 @@ C_VS_UI_VAMPIRE::C_VS_UI_VAMPIRE():C_VS_UI_TRIBE()
 	// guild buttons
 	m_pC_guild_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*0, button_y+button_y_gap*0, m_pC_sys_button_spk->GetWidth(BUTTON_TEAM_INFO), m_pC_sys_button_spk->GetHeight(BUTTON_TEAM_INFO), TEAM_INFO_ID, this, BUTTON_TEAM_INFO) );
 	m_pC_guild_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*1, button_y+button_y_gap*0, m_pC_sys_button_spk->GetWidth(BUTTON_TEAM_MEMBER_LIST), m_pC_sys_button_spk->GetHeight(BUTTON_TEAM_MEMBER_LIST), TEAM_MEMBER_LIST_ID, this, BUTTON_TEAM_MEMBER_LIST) );
-	// 2004, 10, 12, sobeit add start - ±æµå ¸í·É ¾ÆÀÌÄÜ
-//	if(false == g_pUserInformation->IsNetmarble) // 2005, 1, 12, sobeit modify - ³Ý¸¶ºí ±æµå ¿¬ÇÕ µé¾î°¨
+
+
 	{
 		m_pC_guild_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*0, button_y+button_y_gap*1, m_pC_sys_button_spk->GetWidth(BUTTON_GUILD_LIST), m_pC_sys_button_spk->GetHeight(BUTTON_GUILD_LIST), TEAM_LIST_ID, this, BUTTON_GUILD_LIST) );
 		m_pC_guild_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*1, button_y+button_y_gap*1, m_pC_sys_button_spk->GetWidth(BUTTON_WAIT_GUILD_LIST), m_pC_sys_button_spk->GetHeight(BUTTON_WAIT_GUILD_LIST), TEAM_WAIT_LIST_ID, this, BUTTON_WAIT_GUILD_LIST) );
 		m_pC_guild_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*2, button_y+button_y_gap*1, m_pC_sys_button_spk->GetWidth(BUTTON_UNION), m_pC_sys_button_spk->GetHeight(BUTTON_UNION), TEAM_UNION_ID, this, BUTTON_UNION) );
 	}
-	// 2004, 10, 12, sobeit add end - ±æµå ¸í·É ¾ÆÀÌÄÜ
 
-	// 2004, 12, 2, sobeit add start - ±â´É
+
+
 	m_pC_util_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*0, button_y, m_pC_sys_button_spk->GetWidth(BUTTON_STORE), m_pC_sys_button_spk->GetHeight(BUTTON_STORE), UTIL_STORE_ID, this, BUTTON_STORE) );
-	if(false == g_pUserInformation->IsNetmarble && false == g_pUserInformation->IsTestServer) // º»¼·¸¸
+	if(false == g_pUserInformation->IsNetmarble && false == g_pUserInformation->IsTestServer)
 	{
 //add by zdj 2005.5.16
 // add by Coffee 2006.11.26
-		// edit by Coffee 2006.11.19  ³é½±ÏµÍ³
+
 		m_pC_util_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*1, button_y, m_pC_sys_button_spk->GetWidth(BUTTON_POWER_JJANG), m_pC_sys_button_spk->GetHeight(BUTTON_POWER_JJANG), UTIL_POWER_JJANG_ID, this, BUTTON_POWER_JJANG) );
 		// End by Coffee 2006.11.19
 	}
@@ -169,7 +169,7 @@ C_VS_UI_VAMPIRE::~C_VS_UI_VAMPIRE()
 //-----------------------------------------------------------------------------
 // DrawEnergy
 //
-// HP¸¦ Ãâ·ÂÇÑ´Ù.
+
 //-----------------------------------------------------------------------------
 void C_VS_UI_VAMPIRE::DrawEnergy()
 {
@@ -200,7 +200,7 @@ void C_VS_UI_VAMPIRE::DrawEnergy()
 	g_FL2_ReleaseDC();
 
 	
-	// ÀÌÁ¦ ÀÌ°Å Ãâ·Â¾ÈÇÒ¶§°¡ µÈ°Å °°¾Æ¼­.. by sigi
+
 //	char sz_info_buf[15];
 //	sprintf(sz_info_buf, "(%d/%d)", m_hp_cur, m_hp_max);
 //	g_Print(270, 9, sz_info_buf);
@@ -211,7 +211,7 @@ void C_VS_UI_VAMPIRE::DrawEnergy()
 //-----------------------------------------------------------------------------
 // DrawMinimap
 //
-// ¹Ì´Ï¸Ê, ÁÂÇ¥, Á¸ÀÌ¸§À» Ç¥½ÃÇÑ´Ù
+
 //-----------------------------------------------------------------------------
 void C_VS_UI_VAMPIRE::DrawMinimap()
 {
@@ -344,7 +344,7 @@ void C_VS_UI_VAMPIRE::DrawMinimap()
 //-----------------------------------------------------------------------------
 // SetZone
 //
-// ZoneID¸¦ ¹Þ¾Æ¼­ ¹Ì´Ï¸ÊÀ» ºÒ·¯¿Â´Ù & Á¸ÀÌ¸§ ¼¼ÆÃ
+
 //-----------------------------------------------------------------------------
 void C_VS_UI_VAMPIRE::SetZone(int zone_id)
 {
@@ -352,21 +352,21 @@ void C_VS_UI_VAMPIRE::SetZone(int zone_id)
 	int id[id_size] = {11, 12, 13, 14, 21, 22, 23 ,24, 31, 32, 33, 34, 1001, 1002, 1003, 1004, 1005, 1006, 2000, 2001, 2002, 2003, 2004, 2010, 2011, 2012, 2013, 2014, 2020, 2021, 2022, 2023, 2024, 2101, 2102, 2103, 2104, 2105, 2106};
 	char map_name[id_size][20] =
 	{
-		// ÇÊµå
-		"¿¡½½¶ó´Ï¾Æ NE", "¿¡½½¶ó´Ï¾Æ NW", "¿¡½½¶ó´Ï¾Æ SE", "¿¡½½¶ó´Ï¾Æ SW",
-		"¸²º¸¼º NE", "¸²º¸¼º NW", "¸²º¸¼º SE", "¸²º¸¼º SW",
-		"µå·Îº£Å¸ NE", "µå·Îº£Å¸ NW", "µå·Îº£Å¸ SE", "µå·Îº£Å¸ SW",
 
-		// ´øÁ¯ & ¸¶À»
-		"ÁöÇÏ ¼ö·ÃÀå", "¿¡½½¶ó´Ï¾Æ ´øÀü", "¹ìÆÄÀÌ¾î ¸¶À»", "¸²º¸¼º ´øÀü", "ÀÌº¥Æ® OX", "ÀÌº¥Æ® °æ±âÀå",
+		"ì—ìŠ¬ë¼ë‹ˆì•„ NE", "ì—ìŠ¬ë¼ë‹ˆì•„ NW", "ì—ìŠ¬ë¼ë‹ˆì•„ SE", "ì—ìŠ¬ë¼ë‹ˆì•„ SW",
+		"ë¦¼ë³´ì„± NE", "ë¦¼ë³´ì„± NW", "ë¦¼ë³´ì„± SE", "ë¦¼ë³´ì„± SW",
+		"ë“œë¡œë² íƒ€ NE", "ë“œë¡œë² íƒ€ NW", "ë“œë¡œë² íƒ€ SE", "ë“œë¡œë² íƒ€ SW",
 
-		// °Ç¹°
-		"±ºÀÎ ±æµå B1", "±ºÀÎ ±æµå 1F", "±ºÀÎ ±æµå 2F", "±ºÀÎ ±æµå 3F", "±ºÀÎ ±æµå ¿Á»ó",
-		"¼ºÁ÷ÀÚ ±æµå B1", "¼ºÁ÷ÀÚ ±æµå 1F", "¼ºÁ÷ÀÚ ±æµå 2F", "¼ºÁ÷ÀÚ ±æµå 3F", "¼ºÁ÷ÀÚ ±æµå ¿Á»ó",
-		"¹«»ç ±æµå B1", "¹«»ç ±æµå 1F", "¹«»ç ±æµå 2F", "¹«»ç ±æµå 3F", "¹«»ç ±æµå ¿Á»ó",
 
-		// Æ©Åä¸®¾ó
-		"º¹µµ", "ºê¸®ÇÎ·ë", "ÄÄÇ»ÅÍ½Ç", "¹«±âÁ¡", "µµ¼­°ü", "Çï±âÀå",
+		"ì§€í•˜ ìˆ˜ë ¨ìž¥", "ì—ìŠ¬ë¼ë‹ˆì•„ ë˜ì „", "ë±€íŒŒì´ì–´ ë§ˆì„", "ë¦¼ë³´ì„± ë˜ì „", "ì´ë²¤íŠ¸ OX", "ì´ë²¤íŠ¸ ê²½ê¸°ìž¥",
+
+
+		"êµ°ì¸ ê¸¸ë“œ B1", "êµ°ì¸ ê¸¸ë“œ 1F", "êµ°ì¸ ê¸¸ë“œ 2F", "êµ°ì¸ ê¸¸ë“œ 3F", "êµ°ì¸ ê¸¸ë“œ ì˜¥ìƒ",
+		"ì„±ì§ìž ê¸¸ë“œ B1", "ì„±ì§ìž ê¸¸ë“œ 1F", "ì„±ì§ìž ê¸¸ë“œ 2F", "ì„±ì§ìž ê¸¸ë“œ 3F", "ì„±ì§ìž ê¸¸ë“œ ì˜¥ìƒ",
+		"ë¬´ì‚¬ ê¸¸ë“œ B1", "ë¬´ì‚¬ ê¸¸ë“œ 1F", "ë¬´ì‚¬ ê¸¸ë“œ 2F", "ë¬´ì‚¬ ê¸¸ë“œ 3F", "ë¬´ì‚¬ ê¸¸ë“œ ì˜¥ìƒ",
+
+
+		"ë³µë„", "ë¸Œë¦¬í•‘ë£¸", "ì»´í“¨í„°ì‹¤", "ë¬´ê¸°ì ", "ë„ì„œê´€", "í—¬ê¸°ìž¥",
 	};
 
 	int spk_id[id_size] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
@@ -405,7 +405,7 @@ void C_VS_UI_VAMPIRE::SetZone(int zone_id)
 //-----------------------------------------------------------------------------
 // SetSafetyZone
 //
-// ¾ÈÀüÁö´ë ¼³Á¤
+
 //-----------------------------------------------------------------------------
 void C_VS_UI_VAMPIRE::SetSafetyZone(RECT rect)
 {
@@ -526,7 +526,7 @@ void C_VS_UI_VAMPIRE::Start()
 	m_pC_effect_status->Start();
 	m_pC_minimap->Start();
 
-	// add by Coffee 2007-3-6 Ìí¼ÓÊÀ½çµØÍ¼
+
 //	m_pC_worldmap->Start();
 	// end 
 	
@@ -558,16 +558,16 @@ void C_VS_UI_VAMPIRE::Show()
 		hour = atoi(sz_temp);
 		
 		const int icon_x = 88, icon_y = 35;
-		if(hour >= 8 && hour < 16)	// ³·ÀÌ´Ù
+		if(hour >= 8 && hour < 16)
 			m_pC_main_spk->BltLocked(x+icon_x, y+icon_y, ICON_SUN);
-		else if(hour >= 20 || hour < 4)	// ¹ãÀÌ´Ù
+		else if(hour >= 20 || hour < 4)
 			m_pC_main_spk->BltLocked(x+icon_x+3, y+icon_y, ICON_MOON);
-		else	// ³·¹ã ±³Ã¼ÀÇ ½Ã±â-_- ½Ã±â-_-?;;
+		else
 		{
-			if(hour >=4 && hour < 8)	// ÇØ¶ß´Â ½Ã°£
+			if(hour >=4 && hour < 8)
 			{
 				int time = (hour-4)*60+min;
-				// ÇØ¶û ´ÞÀÌ¶û »çÀÌÁî°¡ ´Þ¶ó¼­ ±ÍÂú³×-_-;
+
 				Rect rect(0, 0, m_pC_main_spk->GetWidth(ICON_MOON), m_pC_main_spk->GetHeight(ICON_MOON)*(240-time)/240);
 				rect.y = m_pC_main_spk->GetHeight(ICON_MOON)-rect.h;
 				m_pC_main_spk->BltLockedClip(x+icon_x+3, y+icon_y-rect.y, rect, ICON_MOON);
@@ -576,10 +576,10 @@ void C_VS_UI_VAMPIRE::Show()
 				rect.y = 0;
 				m_pC_main_spk->BltLockedClip(x+icon_x, y+icon_y+m_pC_main_spk->GetHeight(ICON_SUN)-rect.h, rect, ICON_SUN);
 			}
-			else						// ¾Æ´Ï¸é ÇØÁö´Â ½Ã°£ÀÌ°ÚÁö-_-
+			else
 			{
 				int time = (hour-16)*60+min;
-				// ÇØ¶û ´ÞÀÌ¶û »çÀÌÁî°¡ ´Þ¶ó¼­ ±ÍÂú³×-_-;
+
 				Rect rect(0, 0, m_pC_main_spk->GetWidth(ICON_SUN), m_pC_main_spk->GetHeight(ICON_SUN)*(240-time)/240);
 				rect.y = m_pC_main_spk->GetHeight(ICON_SUN)-rect.h;
 				m_pC_main_spk->BltLockedClip(x+icon_x, y+icon_y-rect.y, rect, ICON_SUN);
@@ -753,7 +753,7 @@ void C_VS_UI_VAMPIRE::Process()
 //bool C_VS_UI_VAMPIRE::MouseControl(UINT message, int _x, int _y)
 //{
 //
-//	if (gpC_mouse_pointer->GetPickUpItem() == NULL) // ItemÀ» µé°í ÀÖÀ¸¸é ÀÔ·ÂÇÒ ¼ö ¾ø´Ù.
+
 //	{
 //		m_pC_chatting->MouseControl(message, _x, _y);
 //		m_pC_button_group->MouseControl(message, _x, _y);
@@ -763,7 +763,7 @@ void C_VS_UI_VAMPIRE::Process()
 	{
 	case M_MOVING:
 		{
-			// ¹Ì´Ï¸Ê À§¿¡ ¸¶¿ì½º°¡ ÀÖ´Ù.
+
 			if(_x >= m_map_start_point.x && _y >= m_map_start_point.y && _x < m_map_start_point.x+200 && _y < m_map_start_point.y+100)
 			{
 				int map_w = 200, map_h = 100;
@@ -939,20 +939,20 @@ void C_VS_UI_VAMPIRE::HotKey_F1()
 
 	const MItem * p_item = g_pInventory->FindItem( ITEM_CLASS_SERUM );
 	if(p_item == NULL)
-		p_item = g_pInventory->FindItem( ITEM_CLASS_EVENT_ETC, 14 ); // ³ë¶õ»çÅÁ - 3Á¾Á· ¸ðµÎ »ç¿ë°¡´É
+		p_item = g_pInventory->FindItem( ITEM_CLASS_EVENT_ETC, 14 );
 	//add by sonic 2006.9.20
-	/******** Ôö¼ÓÖ§³Ö Ó£ÌÒÃÛ¹û ±¡ºÉÃÛ¹û ÀóÖ¦ÃÛ¹û ²Ù×÷********/
+// Block comment with non-ASCII removed
 	if(p_item == NULL)
-		p_item = g_pInventory->FindItem( ITEM_CLASS_EVENT_ETC, 15 ); // ³ë¶õ»çÅÁ - 3Á¾Á· ¸ðµÎ »ç¿ë°¡´É
+		p_item = g_pInventory->FindItem( ITEM_CLASS_EVENT_ETC, 15 );
 	
 	if(p_item == NULL)
-		p_item = g_pInventory->FindItem( ITEM_CLASS_EVENT_ETC, 16 ); // ³ë¶õ»çÅÁ - 3Á¾Á· ¸ðµÎ »ç¿ë°¡´É
+		p_item = g_pInventory->FindItem( ITEM_CLASS_EVENT_ETC, 16 );
 	
 	if(p_item == NULL)
-		p_item = g_pInventory->FindItem( ITEM_CLASS_EVENT_ETC, 17 ); // ³ë¶õ»çÅÁ - 3Á¾Á· ¸ðµÎ »ç¿ë°¡´É
+		p_item = g_pInventory->FindItem( ITEM_CLASS_EVENT_ETC, 17 );
 	//end by sonic 2006.9.20
 
-	if (p_item) // ItemÀÌ ÀÖ´Ù.
+	if (p_item)
 	{
 		gpC_base->SendMessage(UI_ITEM_USE,
 								  p_item->GetID(), 0,
@@ -973,7 +973,7 @@ C_VS_UI_VAMPIRE_GEAR::C_VS_UI_VAMPIRE_GEAR()
 {
 	assert(MVampireGear::MAX_GEAR_VAMPIRE == SLOT_SIZE);
 	
-//	if(g_char_slot_ingame.m_AdvancementLevel== 0)// 2Â÷ÀüÁ÷ bycsm 2004.12.31
+
 //	{
 		m_slot_rect[SN_NECKLACE].Set(108, 14, 30, 30);
 		m_slot_rect[SN_COAT].Set(93, 105, 60, 90);

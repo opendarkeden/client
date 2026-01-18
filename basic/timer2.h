@@ -25,7 +25,6 @@ class C_TIMER2
 {
 private:
 	//
-	// 타이머 개체 정보 구조체
 	//
 	struct S_TIMERUNIT
 	{
@@ -36,7 +35,6 @@ private:
 		//
 		// tid
 		//
-		// unique한 id로써 하나의 timer와 대응한다.
 		//
 		timer_id_t		tid;
 		void				(*fp_proc)(void);	// method to execute
@@ -56,8 +54,6 @@ private:
 	//
 	// m_id_generator
 	//
-	// unique한 id를 생성한다.
-	// 이 것은 계속 증가는 것으로 tid가 delete되어도 변하지 않는다.
 	//
 	timer_id_t			m_id_generator;
 

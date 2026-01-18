@@ -12,7 +12,7 @@
 #include "VS_UI_Mouse_pointer.h"
 #include "VS_UI.h"
 
-//domainÀÇ ¼ø¼­°¡ ±×·¡ÇÈÀÇ ¼ø¼­¿Í ¼­¹ö»óÀÇ ¼ø¼­°¡ Æ²·Á¼­ º¯È¯¿ë Å×ÀÌºí
+
 int temp_domain[5] = {1,0,2,3,4};
 
 //-----------------------------------------------------------------------------
@@ -309,7 +309,7 @@ void C_VS_UI_SKILL_VIEW::Show()
 				m_p_skill_view_grade_spk->BltLocked(grade_x, grade_y, m_iGrade);
 		}
 		
-		// SKILL STEPÀÌ ÀÖÀ¸¸é ½ºÅ³µéÀ» Ãâ·ÂÇÑ´Ù
+
 		if(!gbl_vampire_interface || m_iGrade == 0)
 		{
 			if((gbl_vampire_interface && m_iDomain >=0 && m_iDomain < 6 && m_iScroll >= 0 && m_skill_domain == SKILLDOMAIN_VAMPIRE) || 
@@ -327,11 +327,11 @@ void C_VS_UI_SKILL_VIEW::Show()
 						MSkillDomain::SKILLSTATUS status = (*g_pSkillManager)[m_skill_domain].GetSkillStatus((ACTIONINFO)*ss);
 						int sprID = (*g_pSkillInfoTable)[(ACTIONINFO)*ss].GetSpriteID();
 						//---------------------------------------
-						// status´Â ´ÙÀ½°ú °°´Ù. 
+
 						//---------------------------------------
-						//	MSkillDomain::SKILLSTATUS_LEARNED		// ¹è¿ü´Ù.
-						//	MSkillDomain::SKILLSTATUS_NEXT			// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Ù.
-						//	MSkillDomain::SKILLSTATUS_OTHER			// ¾ÆÁ÷Àº ¹è¿ï ¼ö ¾ø´Ù.	
+
+
+
 						//---------------------------------------
 						m_p_skill_view_spk->BltLocked(x+m_skill_x + skill%3 * m_skill_x_gap, y+m_skill_y + skill/3*m_skill_y_gap, SKILL_GUARD);
 						
@@ -362,7 +362,7 @@ void C_VS_UI_SKILL_VIEW::Show()
 									
 									if(!gbl_vampire_interface)
 									{
-										// ¹è¿îºÎºÐ¸¸ ¹à°Ô Ç¥½Ã
+
 										//									gpC_base->m_p_DDSurface_back->ChangeBrightnessBit(&rect, 1);
 										if(rect.bottom > 0 && rect.right > 0 && rect.left < 800 && rect.top < 600)
 											DrawAlphaBox(&rect, 0, 0, 0, 15);
@@ -423,7 +423,7 @@ void C_VS_UI_SKILL_VIEW::Show()
 //-----------------------------------------------------------------------------
 // C_VS_UI_SKILL_VIEW::Run
 //
-// id´Â ACTIONINFOÀÌ´Ù.
+
 //-----------------------------------------------------------------------------
 void C_VS_UI_SKILL_VIEW::Run(id_t id)
 {
@@ -515,11 +515,11 @@ void C_VS_UI_SKILL_VIEW::Run(id_t id)
 //
 //		default:
 //			//
-//			// ¹è¿ï ¼ö ÀÖ´Â °Í¸¸ ¼±ÅÃÇØ¼­ Client·Î º¸³»ÁØ´Ù.
+
 //			//
 //			assert(m_skill_domain != MAX_SKILLDOMAIN);
 //
-//			// »õ·Î¿î skillÀ» ¹è¿ï ¼ö ÀÖ´Â »óÅÂÀÎÁö Ã¼Å©.. by sigi
+
 //			if ((*g_pSkillManager)[m_skill_domain].HasNewSkill())
 //			{
 //				MSkillDomain::SKILLSTATUS status = (*g_pSkillManager)[m_skill_domain].GetSkillStatus((ACTIONINFO)id);
@@ -577,33 +577,33 @@ void	C_VS_UI_SKILL_VIEW::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 	int button_pushed = 0;
 	static char m_default_string[2][30] = 
 	{
-		"SkillInfoÃ¢À» ´Ý½À´Ï´Ù",
-		"SkillInfoÃ¢ÀÇ µµ¿ò¸»À» º¾´Ï´Ù",
+		"SkillInfoì°½ì„ ë‹«ìŠµë‹ˆë‹¤",
+		"SkillInfoì°½ì˜ ë„ì›€ë§ì„ ë´…ë‹ˆë‹¤",
 	};
 
 	static char m_grade_string[2][30] = 
 	{
-		"ÀÌÀü ´Ü°è¸¦ º¾´Ï´Ù",
-		"´ÙÀ½ ´Ü°è¸¦ º¾´Ï´Ù",
+		"ì´ì „ ë‹¨ê³„ë¥¼ ë´…ë‹ˆë‹¤",
+		"ë‹¤ìŒ ë‹¨ê³„ë¥¼ ë´…ë‹ˆë‹¤",
 	};
 
 	static char m_skill_string[5][30] = 
 	{
-		"°Ë °è¿­",
-		"µµ °è¿­",
-		"ÃÑ/ÆøÅº °è¿­",
-		"È¸º¹ °è¿­",
-		"Ãàº¹ °è¿­",
+		"ê²€ ê³„ì—´",
+		"ë„ ê³„ì—´",
+		"ì´/í­íƒ„ ê³„ì—´",
+		"íšŒë³µ ê³„ì—´",
+		"ì¶•ë³µ ê³„ì—´",
 	};
 
 	static char m_magic_string[6][30] = 
 	{
-		"µ¶ °è¿­",
-		"»ê °è¿­",
-		"ÀúÁÖ °è¿­",
-		"¼ÒÈ¯ °è¿­",
-		"ÇÇ °è¿­",
-		"°íÀ¯ °è¿­",
+		"ë… ê³„ì—´",
+		"ì‚° ê³„ì—´",
+		"ì €ì£¼ ê³„ì—´",
+		"ì†Œí™˜ ê³„ì—´",
+		"í”¼ ê³„ì—´",
+		"ê³ ìœ  ê³„ì—´",
 	};
 
 	if (p_button->GetFocusState())
@@ -659,9 +659,9 @@ void	C_VS_UI_SKILL_VIEW::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 							int next_exp = (*g_pSkillManager)[temp_domain[domain]].GetExpInfo(level).AccumExp;
 							
 							wsprintf(temp_str[1], "Level : %d", level);
-							wsprintf(temp_str[2], "ÇöÀç°æÇèÄ¡ : %d", exp);
-							wsprintf(temp_str[3], "´ÙÀ½  ·¹º§ : %d", next_exp);
-							wsprintf(temp_str[4], "³²Àº°æÇèÄ¡ : %d", next_exp - exp);
+							wsprintf(temp_str[2], "í˜„ìž¬ê²½í—˜ì¹˜ : %d", exp);
+							wsprintf(temp_str[3], "ë‹¤ìŒ  ë ˆë²¨ : %d", next_exp);
+							wsprintf(temp_str[4], "ë‚¨ì€ê²½í—˜ì¹˜ : %d", next_exp - exp);
 //							strcat(temp_str[2], "%");
 							
 							g_descriptor_manager.Set(DID_STRINGS, x+p_button->x, y+p_button->y, (void *)str, 5);//3);
@@ -735,7 +735,7 @@ void	C_VS_UI_SKILL_VIEW::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 bool	C_VS_UI_SKILL_VIEW::MouseControl(UINT message, int _x, int _y)
 {
 	Window::MouseControl(message, _x, _y);
-	_x-=x;_y-=y;//Ã¢ÀÌµ¿ °¡´ÉÇÏ°Ô ÇÏ±â À§ÇÑ
+	_x-=x;_y-=y;
 	bool re = m_pC_button_group->MouseControl(message, _x, _y);
 
 	switch (message)

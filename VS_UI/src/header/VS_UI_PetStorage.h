@@ -32,7 +32,6 @@
 //-----------------------------------------------------------------------------
 // C_VS_UI_PETSTORAGE
 //
-// 보관함. 보관한 1, 2, 3으로 tab이 있다. Shop 인터페이스와 같은 형태이다.
 //-----------------------------------------------------------------------------
 class C_VS_UI_PETSTORAGE: public Window, public Exec, public ButtonVisual
 {
@@ -116,15 +115,15 @@ private:
 	enum INFO_SPK
 	{
 			PERSNALSHOP_MARK,
-			INPUT_MESSAGE,			// 수락 버튼
-			INPUT_MESSAGE_HILIGHT,	// 수락 버튼 하이라이트
-			INPUT_MESSAGE_PUSH,		// 수락 버튼 푸쉬
-			SHOP_OPEN_MESSAGE,			// 수락 버튼
-			SHOP_OPEN_MESSAGE_HILIGHT,	// 수락 버튼 하이라이트
-			SHOP_OPEN_MESSAGE_PUSH,		// 수락 버튼 푸쉬
-			SHOP_CLOSE_MESSAGE,			// 수락 버튼
-			SHOP_CLOSE_MESSAGE_HILIGHT,	// 수락 버튼 하이라이트
-			SHOP_CLOSE_MESSAGE_PUSH,		// 수락 버튼 푸쉬
+			INPUT_MESSAGE,
+			INPUT_MESSAGE_HILIGHT,
+			INPUT_MESSAGE_PUSH,
+			SHOP_OPEN_MESSAGE,
+			SHOP_OPEN_MESSAGE_HILIGHT,
+			SHOP_OPEN_MESSAGE_PUSH,
+			SHOP_CLOSE_MESSAGE,
+			SHOP_CLOSE_MESSAGE_HILIGHT,
+			SHOP_CLOSE_MESSAGE_PUSH,
 	};
 
 	enum

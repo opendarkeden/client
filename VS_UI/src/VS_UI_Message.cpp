@@ -77,7 +77,7 @@ void g_InitMessage()
 	g_msg_left_bonus_point->SetMessage(pp_dmsg_left_bonus_point, 1, SMO_NOFIT);
 	
 //	g_msg_server_disconnect = new C_VS_UI_DIALOG(-1, -1, 2, 0, g_ExecF, DIALOG_OK);
-//	static char * pp_dmsg_server_disconnect[] ={ {"서버와의 연결이 끊어졌습니다."}};
+
 //	g_msg_server_disconnect->SetMessage(pp_dmsg_server_disconnect, 1, SMO_NOFIT);
 
 	g_msg_server_connect_failed = new C_VS_UI_DIALOG(-1, -1, 2, 0, g_ExecF, DIALOG_OK);
@@ -105,11 +105,11 @@ void g_InitMessage()
 	g_msg_character_create_failed->SetMessage(pp_dmsg_character_create_failed, 1, SMO_NOFIT);
 
 //	g_msg_character_used_id = new C_VS_UI_DIALOG(-1, -1, 2, 0, g_ExecF, DIALOG_OK);
-//	static char * pp_dmsg_character_used_id[] = {"이미 사용하고 있습니다."};
+
 //	g_msg_character_used_id->SetMessage(pp_dmsg_character_used_id, 1, SMO_NOFIT);
 
 //	g_msg_character_empty_id = new C_VS_UI_DIALOG(-1, -1, 2, 0, g_ExecF, DIALOG_OK);
-//	static char * pp_dmsg_character_empty_id[] = {"사용하실 수 있습니다."};
+
 //	g_msg_character_empty_id->SetMessage(pp_dmsg_character_empty_id, 1, SMO_NOFIT);
 
 	g_msg_new_user_not_completed = new C_VS_UI_DIALOG(-1, -1, 3, 0, g_ExecF, DIALOG_OK);
@@ -129,7 +129,7 @@ void g_InitMessage()
 	g_msg_password_mismatch->SetMessage(pp_dmsg_password_mismatch, 1, SMO_NOFIT);
 
 //	g_msg_not_empty_slot = new C_VS_UI_DIALOG(-1, -1, 2, 0, g_ExecF, DIALOG_OK);
-//	static char * pp_dmsg_not_empty_slot[] = {"캐릭터가 이미 생성되어 있습니다."};
+
 //	g_msg_not_empty_slot->SetMessage(pp_dmsg_not_empty_slot, 1, SMO_NOFIT);
 }
 

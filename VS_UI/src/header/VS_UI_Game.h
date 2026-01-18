@@ -36,7 +36,6 @@
 //-----------------------------------------------------------------------------
 // class C_VS_UI_GAMEMENU_OPTION
 //
-// GameMenu에서 나오는 option 
 //
 // by sigi
 //
@@ -87,7 +86,7 @@ private:
 	ButtonGroup *				m_pC_button_group;
 
 
-	C_VS_UI_EVENT_BUTTON*		m_pC_button[MENU_COUNT];	// 그냥 참조용. delete하면 안된다.
+	C_VS_UI_EVENT_BUTTON*		m_pC_button[MENU_COUNT];
 
 	static GAMEMENU_SPK_INDEX			m_sprite_id[MENU_COUNT][4];
 
@@ -367,20 +366,16 @@ public:
 	void	MouseControlExtra(UINT message, int _x, int _y) { if(m_pC_tribe_interface != NULL) m_pC_tribe_interface->MouseControlExtra(message, _x, _y); }
 
 	bool	IsInputMode()				{ if(m_pC_chatting == NULL) return false; return m_pC_chatting->IsInputMode();	}
-	// 윈도우 세팅 세이브 할까?
 //	void	SetSaveSet(bool bl_save)	{ m_bl_set_save = bl_save; }
 
-	// 지뢰설치
 	void	StartInstallMineProgress(int focus_grid_x, int focus_grid_y)
 	{ if(m_pC_tribe_interface)m_pC_tribe_interface->StartInstallMineProgress(focus_grid_x, focus_grid_y); }
 	bool	IsInstallMineProgress()		{ return gbl_mine_progress; }
 	void	EndInstallMineProgress()	{ gbl_mine_progress = false; }
-	// 지뢰만들기
 	void	StartCreateMineProgress(int focus_grid_x, int focus_grid_y)
 	{ if(m_pC_tribe_interface)m_pC_tribe_interface->StartCreateMineProgress(focus_grid_x, focus_grid_y); }
 	bool	IsCreateMineProgress()		{ return gbl_mine_progress; }
 	void	EndCreateMineProgress()	{ gbl_mine_progress = false; }
-	//폭탄만들기
 	void	StartCreateBombProgress(int focus_grid_x, int focus_grid_y)
 	{ if(m_pC_tribe_interface)m_pC_tribe_interface->StartCreateBombProgress(focus_grid_x, focus_grid_y); }
 	bool	IsCreateBombProgress()		{ return gbl_mine_progress; }
@@ -686,7 +681,7 @@ public:
 	void	RequestParty(const char *name, DWORD timer);
 	bool	IsRunningRequestParty() const;
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+	#ifdef __TEST_SUB_INVENTORY__
 		void	RunUsePetFood(DWORD UsingObjectID = 0, MItem* SubInventory = NULL);
 	#else
 		void	RunUsePetFood();
@@ -694,7 +689,6 @@ public:
 
 	
 	void	CloseUsePetFood();
-	//2004, 5, 11 sobeit add start - 펫 보관소
 	void	RunKeepPetItemDialog();
 	void	CloseKeepPetItemDialog();
 	void	RunGetKeepPetItemDialog();
@@ -825,7 +819,6 @@ public:
 	void	ClosePetInfo();
 	bool	IsRunningPetInfo();
 
-	// 헬프 메세지 desc // 
 	void	RunHelpDesc(const char *detail,const char *title,DWORD id);
 	void	CloseHelpDesc();
 	bool	IsRunningHelpDesc();
@@ -920,7 +913,6 @@ public:
 	// 2004, 7, 5 sobeit add end
 	void	DeleteQuestItem(int nSlot);
 	
-	// 2004, 10, 25, sobeit add start - 세율 변경
 	void	RunModifyTax();
 	void	RunRangerChat();
 	bool	IsRunngingRangerChat();
@@ -941,15 +933,11 @@ public:
 	bool IsRunningSwapAdvancementItem() const;
 	// 2005, 1, 3, sobeit add end
 	
-	// 2005, 1, 11, sobeit add start - 불우이웃돕기 창
 	void	Run_Campaign_Help_Unfortunate_Neighbors(int value);
 	// 2005, 1, 11, sobeit add end
 
-	// 2005, 1, 17, sobeit add start - 퀘스트 관련
 	void	SetQuestNpcDialog(void* pVoid);
-	// 2005, 1, 17, sobeit add end - 퀘스트 관련
 	
-	// 2005, 1, 24, sobeit add start - 아이템 받기 이벤트
 	void	Run_Confirm_GetItemEvent(int value);
 	// 2005, 1, 24, sobeit add end
 
@@ -971,7 +959,6 @@ public:
 	// 2005, 2, 25, sobeit add end
 	
 	//---------------------------------------------------------------
-	// 입력중인 문자열을 바로 설정한다.by sigi
 	//---------------------------------------------------------------
 	void	SetInputString(const char* pString)
 	{
@@ -979,7 +966,6 @@ public:
 	}
 
 	//---------------------------------------------------------------
-	// 입력중인 문자열에 추가 by sigi
 	//---------------------------------------------------------------
 	void	AddInputString(const char* pString)
 	{
@@ -987,7 +973,6 @@ public:
 	}
 
 	//---------------------------------------------------------------
-	// 입력중인 문자열 읽어오기 by sigi
 	//---------------------------------------------------------------
 	const char* GetInputString() const
 	{
@@ -995,7 +980,6 @@ public:
 	}
 
 	//---------------------------------------------------------------
-	// 입력중인 글자의 색깔 바꾸기 by sigi
 	//---------------------------------------------------------------
 	void	SetInputStringColor(COLORREF rgb)
 	{
@@ -1003,7 +987,6 @@ public:
 	}
 
 	//---------------------------------------------------------------
-	// -_- 현재 탭 알아내기
 	int		GetSelectedMainTab()
 	{
 		if(m_pC_tribe_interface != NULL)
@@ -1029,7 +1012,7 @@ public:
 	void HotKey_PartyChat();	// ctrl + a
 	void HotKey_Quest();		// ctrl + q
 	void HotKey_Party();		// ctrl + p
-	void HotKey_Mark();			// '한자'키
+	void HotKey_Mark();
 	void HotKey_Help();			// ctrl +h
 	void HotKey_SkillInfo();	// ctrl +k
 	void HotKey_Minimap();		// ctrl + m
@@ -1037,7 +1020,7 @@ public:
 	void HotKey_Grade1Info();	// ctrl + i
 	void HotKey_Grade2Info();	// ctrl + i
 //	void HotKey_WindowToggle();
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+	#ifdef __TEST_SUB_INVENTORY__
 		void HotKey_Inventory(bool IsCheckSubInventory = false);
 	#else
 		void HotKey_Inventory();

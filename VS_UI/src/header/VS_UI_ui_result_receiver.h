@@ -29,9 +29,9 @@ public:
 /*-----------------------------------------------------------------------------
   Class VS UI - UI Result Receiver
 
-  `어떤 상태에서 message를 곧바로 보내지 않는다. 왜냐하면 그 process가 종료되기
-   전에 message를 받아 처리하면 때로는 그 process를 kill할 수 있기 때문이다.
-	따라서 message는 message queue에 저장한다.
+  `  message   .   process 
+    message     process kill   .
+	 message message queue .
 -----------------------------------------------------------------------------*/
 class C_VS_UI_UI_RESULT_RECEIVER
 {

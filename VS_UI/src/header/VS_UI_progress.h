@@ -13,7 +13,7 @@
 
 #include "VS_UI_Base.h"
 #include "VS_UI_util.h"
-#include "VS_UI_extradialog.h"	//VS_UI_DESC를 불러오면 extradialog가 에러난다 왜그럴까-_-a
+#include "VS_UI_extradialog.h"
 /*
 enum PROGRESS_SPK_INDEX
 {
@@ -104,7 +104,6 @@ public:
 	int GetServerStatus() { return m_server_status; }
 
 	//
-	// !gC_vs_ui.StartProgress() 후에 설정한다.
 	//
 //	void	SetProgressStyle(PROGRESS_SPK_INDEX style);
 };
