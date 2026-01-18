@@ -454,11 +454,11 @@ int main(int argc, char* argv[])
 		while (g_bRunning)
 		{
 			// Debug: Print loop status periodically
-			if (++loopCount % 60 == 1) {
-				fprintf(stderr, "DEBUG: Loop iteration %d, g_bActiveApp = %d, g_bRunning = %d\n",
-						loopCount, g_bActiveApp, g_bRunning);
-				fflush(stderr);
-			}
+//			if (++loopCount % 60 == 1) {
+//				fprintf(stderr, "DEBUG: Loop iteration %d, g_bActiveApp = %d, g_bRunning = %d\n",
+//						loopCount, g_bActiveApp, g_bRunning);
+//				fflush(stderr);
+//			}
 
 			// Process SDL events (replaces PeekMessage/GetMessage)
 			while (SDL_PollEvent(&event))
@@ -497,10 +497,10 @@ int main(int argc, char* argv[])
 				// Game update (from WinMain lines 4275-4290)
 				if (g_pUpdate != NULL)
 				{
-					static int updateCount = 0;
-					if (++updateCount % 60 == 1) {
-						printf("Game update: g_pUpdate = %p, Update count = %d\n", g_pUpdate, updateCount);
-					}
+//					static int updateCount = 0;
+//					if (++updateCount % 60 == 1) {
+//						printf("Game update: g_pUpdate = %p, Update count = %d\n", g_pUpdate, updateCount);
+//					}
 					g_pUpdate->Update();
 				}
 				else
