@@ -206,9 +206,15 @@ CGameUpdate::Init()
 
 	// mouse event Ã³¸®
 	g_pDXInput->SetMouseEventReceiver( DXMouseEvent );
-	
+
 	// keyboard event Ã³¸®
 	g_pDXInput->SetKeyboardEventReceiver( DXKeyboardEvent );
+
+#ifdef DXLIB_BACKEND_SDL
+	// text input Ã³¸® (SDL2 only)
+	dxlib_input_set_textinput_callback(SDLTextInputEvent);
+	dxlib_input_start_text();  // Enable SDL text input
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -3061,6 +3067,63 @@ ProcessInputRButtonDown(MObject* pObject, bool bForceAttack = false)
 		DEBUG_ADD("RbOK");
 	#endif
 }
+
+//-----------------------------------------------------------------------------
+// SDLTextInputEvent
+//-----------------------------------------------------------------------------
+#ifdef DXLIB_BACKEND_SDL
+#include "DXLibBackend.h"
+
+void CGameUpdate::SDLTextInputEvent(const char* text, int* window_coords)
+{
+	// Convert SDL text input (UTF-8) to WM_CHAR messages
+	// This allows the IME system to handle text input properly
+	if (text == NULL || text[0] == '\0') {
+		return;
+	}
+
+	// Process each character in the UTF-8 string
+	int i = 0;
+	while (text[i] != '\0') {
+		// Get the Unicode code point from UTF-8
+		UINT char_code = 0;
+		BYTE c = (BYTE)text[i];
+
+		if (c < 0x80) {
+			// ASCII character (1 byte)
+			char_code = c;
+			i += 1;
+		} else if ((c & 0xE0) == 0xC0) {
+			// 2-byte UTF-8
+			if (text[i+1] != '\0') {
+				char_code = ((c & 0x1F) << 6) | (text[i+1] & 0x3F);
+				i += 2;
+			} else {
+				break;
+			}
+		} else if ((c & 0xF0) == 0xE0) {
+			// 3-byte UTF-8
+			if (text[i+1] != '\0' && text[i+2] != '\0') {
+				char_code = ((c & 0x0F) << 12) | ((text[i+1] & 0x3F) << 6) | (text[i+2] & 0x3F);
+				i += 3;
+			} else {
+				break;
+			}
+		} else if ((c & 0xF8) == 0xF0) {
+			// 4-byte UTF-8 (beyond BMP, convert to replacement char)
+			char_code = '?';  // Replacement character
+			i += 4;
+		} else {
+			// Invalid UTF-8, skip
+			i += 1;
+			continue;
+		}
+
+		// Send WM_CHAR message to the IME system
+		gC_vs_ui.KeyboardControl(WM_CHAR, char_code, 0);
+	}
+}
+#endif
 
 //---------------------------------------------------------------------------
 // Process Game Input

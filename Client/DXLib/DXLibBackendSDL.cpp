@@ -181,6 +181,9 @@ static int g_mouse_y = 0;
 static int g_mouse_wheel = 0;
 static int g_mouse_buttons[3] = {0, 0, 0};
 
+/* Text input callback */
+static dxlib_textinput_callback g_textinput_callback = NULL;
+
 /* Legacy global mouse coordinates (used by CWaitUIUpdate) */
 extern int g_x, g_y;
 
@@ -400,6 +403,14 @@ void dxlib_input_update(void) {
 			case SDL_MOUSEWHEEL:
 				g_mouse_wheel += event.wheel.y;
 				break;
+
+			case SDL_TEXTINPUT:
+				/* Handle text input for IME and text entry */
+				if (g_textinput_callback != NULL && event.text.text[0] != '\0') {
+					int coords[2] = {g_mouse_x, g_mouse_y};
+					g_textinput_callback(event.text.text, coords);
+				}
+				break;
 		}
 	}
 
@@ -443,6 +454,18 @@ void dxlib_input_get_mouse_buttons(int* left, int* right, int* center) {
 
 void dxlib_input_set_mouse_pos(int x, int y) {
 	SDL_WarpMouseInWindow(NULL, x, y);
+}
+
+void dxlib_input_set_textinput_callback(dxlib_textinput_callback callback) {
+	g_textinput_callback = callback;
+}
+
+void dxlib_input_start_text(void) {
+	SDL_StartTextInput();
+}
+
+void dxlib_input_stop_text(void) {
+	SDL_StopTextInput();
 }
 
 /* ============================================================================
