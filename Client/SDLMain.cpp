@@ -524,6 +524,12 @@ int main(int argc, char* argv[])
 				}
 
 				// Present back buffer to screen
+				// CRITICAL: First copy g_pLast to g_pBack (UI renders to g_pLast)
+				if (g_pLast != NULL && g_pBack != NULL) {
+					POINT origin = {0, 0};
+					g_pBack->Blt(&origin, g_pLast, NULL);  // Copy entire g_pLast to g_pBack
+				}
+
 				if (g_pBack != NULL) {
 					spritectl_surface_t backend_surface = g_pBack->GetBackendSurface();
 					if (backend_surface != SPRITECTL_INVALID_SURFACE) {

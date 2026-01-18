@@ -695,8 +695,9 @@ CWaitUIUpdate::UpdateDraw()
 //	else
 	{
 		POINT point;
-		
+
 		static DWORD oldTime = timeGetTime();
+
 		gC_vs_ui.Show();
 
 		if(g_TitleSpriteAlpha > 0)
