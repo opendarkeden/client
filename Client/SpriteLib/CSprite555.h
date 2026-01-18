@@ -22,6 +22,9 @@ std::ifstream;
 
 class CSprite555 : public CSprite {
 	public :
+		CSprite555() = default;
+		virtual ~CSprite555() = default;
+
 		//---------------------------------------------------------
 		// fstream에서 save/load를 한다.
 		//---------------------------------------------------------

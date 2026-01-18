@@ -478,7 +478,7 @@ template <class TypeBase, class Type1, class Type2>
 void CTypePack2<TypeBase, Type1, Type2>::Release()
 {
 	m_bRunningLoad = false;
-	
+
 	if(m_file != NULL)
 	{
 		delete m_file;
@@ -493,7 +493,12 @@ void CTypePack2<TypeBase, Type1, Type2>::Release()
 
 	if(m_pData != NULL)
 	{
-		delete []m_pData;
+		// IMPORTANT: Delete with correct type to match new Type1[size] or new Type2[size]
+		// Using base class pointer to delete derived class array is UB even with virtual destructor
+		if(m_bSecond)
+			delete [] ((Type2*)m_pData);
+		else
+			delete [] ((Type1*)m_pData);
 		m_pData = NULL;
 		m_Size = 0;
 	}

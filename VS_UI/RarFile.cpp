@@ -7,6 +7,22 @@
 #include <algorithm>
 
 //////////////////////////////////////////////////////////////////////
+// Error Reporting Macro (cross-platform)
+//////////////////////////////////////////////////////////////////////
+#ifdef PLATFORM_WINDOWS
+	#define RARFILE_ERROR(msg) { \
+		OutputDebugStringA("[RARFile ERROR] "); \
+		OutputDebugStringA(msg); \
+		OutputDebugStringA("\n"); \
+	}
+#else
+	#define RARFILE_ERROR(msg) { \
+		fprintf(stderr, "[RARFile ERROR] %s\n", msg); \
+		fflush(stderr); \
+	}
+#endif
+
+//////////////////////////////////////////////////////////////////////
 // Construction
 //////////////////////////////////////////////////////////////////////
 CRarFile::CRarFile()
@@ -98,6 +114,7 @@ bool CRarFile::Open(const char *in_filename)
 {
 	if (in_filename == NULL || in_filename[0] == '\0')
 	{
+		RARFILE_ERROR("Open called with NULL or empty filename");
 		return false;
 	}
 
@@ -110,6 +127,12 @@ bool CRarFile::Open(const char *in_filename)
 	FILE* file = fopen(fullPath.c_str(), "rb");
 	if (file == NULL)
 	{
+		// Log detailed error information
+		char errorMsg[512];
+		snprintf(errorMsg, sizeof(errorMsg),
+				"Failed to open file: %s (base_dir=%s, filename=%s)",
+				fullPath.c_str(), m_base_dir.c_str(), in_filename);
+		RARFILE_ERROR(errorMsg);
 		return false;
 	}
 
@@ -120,6 +143,10 @@ bool CRarFile::Open(const char *in_filename)
 
 	if (fileSize <= 0)
 	{
+		char errorMsg[256];
+		snprintf(errorMsg, sizeof(errorMsg),
+				"File has invalid size: %s (size=%ld)", fullPath.c_str(), fileSize);
+		RARFILE_ERROR(errorMsg);
 		fclose(file);
 		return false;
 	}
@@ -128,6 +155,7 @@ bool CRarFile::Open(const char *in_filename)
 	m_data = (char*)malloc(fileSize + 1);
 	if (m_data == NULL)
 	{
+		RARFILE_ERROR("Memory allocation failed for file data");
 		fclose(file);
 		return false;
 	}
@@ -135,8 +163,12 @@ bool CRarFile::Open(const char *in_filename)
 	size_t bytesRead = fread(m_data, 1, fileSize, file);
 	fclose(file);
 
-	if (bytesRead != (size_t)fileSize)
-	{
+	if (bytesRead != (size_t)fileSize) {
+		char errorMsg[256];
+		snprintf(errorMsg, sizeof(errorMsg),
+				"Read size mismatch: %s (expected=%ld, actual=%zu)",
+				fullPath.c_str(), fileSize, bytesRead);
+		RARFILE_ERROR(errorMsg);
 		free(m_data);
 		m_data = NULL;
 		return false;

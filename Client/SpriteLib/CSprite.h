@@ -62,7 +62,7 @@ class CSprite
 {
 	public :
 		CSprite();
-		~CSprite();
+		virtual ~CSprite();
 
 		bool		IsNotInit() const	{ return !m_bInit; }
 		bool		IsInit() const		{ return m_bInit; }
