@@ -4466,15 +4466,36 @@ bool C_VS_UI_LOGIN::MouseControl(UINT message, int _x, int _y)
 			{
 				Rect id_rt(LOGIN_ID_X, LOGIN_ID_Y, 130, 23);
 				Rect pass_rt(LOGIN_PASSWORD_X, LOGIN_PASSWORD_Y, 130, 23);
+
+				// Debug output
+				static int debug_count = 0;
+				if (debug_count < 10) {
+					printf("DEBUG C_VS_UI_LOGIN::MouseControl: message=%d, _x=%d, _y=%d (after offset: x=%d, y=%d)\n",
+						   message, _x, _y, x, y);
+					printf("  ID rect: x=%d, y=%d, w=%d, h=%d\n", id_rt.x, id_rt.y, id_rt.w, id_rt.h);
+					printf("  PASS rect: x=%d, y=%d, w=%d, h=%d\n", pass_rt.x, pass_rt.y, pass_rt.w, pass_rt.h);
+					printf("  m_lev_id.IsAcquire()=%d, m_lev_password.IsAcquire()=%d\n",
+						   m_lev_id.IsAcquire(), m_lev_password.IsAcquire());
+					debug_count++;
+				}
+
 				if (id_rt.IsInRect(_x, _y))
 				{
+					printf("  ID box clicked!\n");
 					if (!m_lev_id.IsAcquire())
+					{
+						printf("  Calling ChangeFocus()...\n");
 						ChangeFocus();
+					}
 				}
 				else if (pass_rt.IsInRect(_x, _y))
 				{
+					printf("  Password box clicked!\n");
 					if (!m_lev_password.IsAcquire())
+					{
+						printf("  Calling ChangeFocus()...\n");
 						ChangeFocus();
+					}
 				}
 			}
 	}
@@ -5048,7 +5069,6 @@ void C_VS_UI_TITLE::Start()
 	PI_Processor::Start();
 
 	m_pC_char_manager->Finish();
-	m_pC_login->Finish();
 	m_pC_server_select->Finish();
 //	m_pC_newuser->Finish();
 
@@ -5058,6 +5078,12 @@ void C_VS_UI_TITLE::Start()
 	g_descriptor_manager.Unset();
 
 	g_eRaceInterface = RACE_SLAYER;
+
+	// Start login window so text boxes are active
+	if (m_pC_login != NULL)
+	{
+		m_pC_login->Start();
+	}
 
 #ifndef _LIB
 	//m_pC_dialog->Start();
@@ -5269,6 +5295,12 @@ bool C_VS_UI_TITLE::MouseControl(UINT message, int _x, int _y)
 	Window::MouseControl(message, _x, _y);
 
 	m_pC_button_group->MouseControl(message, _x, _y);
+
+	// Also forward mouse events to login window for text box handling
+	if (m_pC_login != NULL)
+	{
+		m_pC_login->MouseControl(message, _x, _y);
+	}
 
 	return true; // no game, then 'true'
 }

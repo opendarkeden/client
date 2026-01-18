@@ -26,6 +26,7 @@
 #include "packet/cpackets/CLChangeServer.h"
 #include "CWaitUIUpdate.h"
 #include "MTestDef.h"
+#include "DXLibBackend.h"  // For SDL text input functions
 
 extern bool	LoadingAddonSPK(bool bLoadingAll);
 extern bool	g_AddonSPKAllLoaded;
@@ -62,11 +63,11 @@ CWaitUIUpdate::Init()
 	// keyboard event 처리
 	g_pDXInput->SetKeyboardEventReceiver( DXKeyboardEvent );
 
-#ifdef DXLIB_BACKEND_SDL
 	// text input 처리 (SDL2 only)
 	dxlib_input_set_textinput_callback(SDLTextInputEvent);
 	dxlib_input_start_text();  // Enable SDL text input
-#endif
+	printf("DEBUG: SDL text input enabled, callback set to %p\n", (void*)SDLTextInputEvent);
+	fflush(stdout);
 }
 
 //-----------------------------------------------------------------------------
@@ -127,15 +128,20 @@ CWaitUIUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //-----------------------------------------------------------------------------
 // SDLTextInputEvent
 //-----------------------------------------------------------------------------
-#ifdef DXLIB_BACKEND_SDL
-#include "DXLibBackend.h"
 
 void CWaitUIUpdate::SDLTextInputEvent(const char* text, int* window_coords)
 {
+	static int debug_count = 0;
+
 	// Convert SDL text input (UTF-8) to WM_CHAR messages
 	// This allows the IME system to handle text input properly
 	if (text == NULL || text[0] == '\0') {
 		return;
+	}
+
+	if (debug_count < 10) {
+		printf("DEBUG SDLTextInputEvent: text='%s', coords=[%d,%d]\n", text, window_coords[0], window_coords[1]);
+		debug_count++;
 	}
 
 	// Process each character in the UTF-8 string
@@ -175,11 +181,14 @@ void CWaitUIUpdate::SDLTextInputEvent(const char* text, int* window_coords)
 			continue;
 		}
 
+		if (debug_count < 10) {
+			printf("  Sending WM_CHAR: char_code=%d (0x%x) '%c'\n", char_code, char_code, (char)char_code);
+		}
+
 		// Send WM_CHAR message to the IME system
 		gC_vs_ui.KeyboardControl(WM_CHAR, char_code, 0);
 	}
 }
-#endif
 
 //-----------------------------------------------------------------------------
 // DXMouseEvent
@@ -214,7 +223,7 @@ CWaitUIUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int
 				}
 			}				
 
-			//gC_vs_ui.MouseControl(M_LEFTBUTTON_DOWN, g_x, g_y);
+			gC_vs_ui.MouseControl(M_LEFTBUTTON_DOWN, g_x, g_y);
 			last_click_time = GetTickCount();
 			double_click_x = g_x;
 			double_click_y = g_y;

@@ -406,9 +406,17 @@ void dxlib_input_update(void) {
 
 			case SDL_TEXTINPUT:
 				/* Handle text input for IME and text entry */
-				if (g_textinput_callback != NULL && event.text.text[0] != '\0') {
-					int coords[2] = {g_mouse_x, g_mouse_y};
-					g_textinput_callback(event.text.text, coords);
+				{
+					static int text_debug_count = 0;
+					if (text_debug_count < 5) {
+						printf("DEBUG SDL_TEXTINPUT: text='%s', callback=%p\n",
+							   event.text.text, (void*)g_textinput_callback);
+						text_debug_count++;
+					}
+					if (g_textinput_callback != NULL && event.text.text[0] != '\0') {
+						int coords[2] = {g_mouse_x, g_mouse_y};
+						g_textinput_callback(event.text.text, coords);
+					}
 				}
 				break;
 		}
@@ -458,6 +466,8 @@ void dxlib_input_set_mouse_pos(int x, int y) {
 
 void dxlib_input_set_textinput_callback(dxlib_textinput_callback callback) {
 	g_textinput_callback = callback;
+	printf("DEBUG: dxlib_input_set_textinput_callback called with callback=%p\n", (void*)callback);
+	fflush(stdout);
 }
 
 void dxlib_input_start_text(void) {

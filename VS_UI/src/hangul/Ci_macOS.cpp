@@ -12,6 +12,7 @@
 #include "Client_PCH.h"
 #include "CI.h"
 #include "Timer2.h"
+#include "Vs_ui.h"  // For C_VS_UI class
 
 CI *gC_ci = NULL;
 
@@ -98,8 +99,12 @@ void CI::SetEngInput(bool bHangul)
 //----------------------------------------------------------------------------
 void CI_KOREAN::IME_MessageProcessor(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	/* Stub: Korean IME not implemented on macOS */
-	(void)message; (void)wParam; (void)lParam;
+	// On macOS/SDL2, bypass IME and directly send keyboard events to UI
+	// The C_VS_UI::KeyboardControl will handle routing to LineEditor
+	if (message == WM_CHAR || message == WM_KEYDOWN)
+	{
+		gC_vs_ui.KeyboardControl(message, wParam, lParam);
+	}
 }
 
 void CI_KOREAN::IME_NextComposition()
@@ -117,8 +122,12 @@ void CI_KOREAN::IME_Composition()
 //----------------------------------------------------------------------------
 void CI_CHINESE::IME_MessageProcessor(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	/* Stub: Chinese IME not implemented on macOS */
-	(void)message; (void)wParam; (void)lParam;
+	// On macOS/SDL2, bypass IME and directly send keyboard events to UI
+	// The C_VS_UI::KeyboardControl will handle routing to LineEditor
+	if (message == WM_CHAR || message == WM_KEYDOWN)
+	{
+		gC_vs_ui.KeyboardControl(message, wParam, lParam);
+	}
 }
 
 void CI_CHINESE::IME_NextComposition()

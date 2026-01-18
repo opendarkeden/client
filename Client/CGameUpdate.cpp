@@ -28,6 +28,7 @@
 #include "UIDialog.h"
 #include "DebugInfo.h"
 #include "CGameUpdate.h"
+#include "DXLibBackend.h"  // For SDL text input functions
 #include "MMoneyManager.h"
 #include "MGameStringTable.h"
 #include "MObjectSelector.h"
@@ -204,17 +205,15 @@ CGameUpdate::Init()
 {
 	g_bPreviousMove = false;
 
-	// mouse event Ã³¸®
+	// mouse event 처리
 	g_pDXInput->SetMouseEventReceiver( DXMouseEvent );
 
-	// keyboard event Ã³¸®
+	// keyboard event 처리
 	g_pDXInput->SetKeyboardEventReceiver( DXKeyboardEvent );
 
-#ifdef DXLIB_BACKEND_SDL
-	// text input Ã³¸® (SDL2 only)
+	// text input 처리 (SDL2 only)
 	dxlib_input_set_textinput_callback(SDLTextInputEvent);
 	dxlib_input_start_text();  // Enable SDL text input
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -260,7 +259,7 @@ CGameUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z
 //					}
 //				}				
 //				
-				//gC_vs_ui.MouseControl(M_LEFTBUTTON_DOWN, g_x, g_y);
+				gC_vs_ui.MouseControl(M_LEFTBUTTON_DOWN, g_x, g_y);
 				last_click_time = GetTickCount();
 				double_click_x = g_x;
 				double_click_y = g_y;
@@ -3071,8 +3070,6 @@ ProcessInputRButtonDown(MObject* pObject, bool bForceAttack = false)
 //-----------------------------------------------------------------------------
 // SDLTextInputEvent
 //-----------------------------------------------------------------------------
-#ifdef DXLIB_BACKEND_SDL
-#include "DXLibBackend.h"
 
 void CGameUpdate::SDLTextInputEvent(const char* text, int* window_coords)
 {
@@ -3123,7 +3120,6 @@ void CGameUpdate::SDLTextInputEvent(const char* text, int* window_coords)
 		gC_vs_ui.KeyboardControl(WM_CHAR, char_code, 0);
 	}
 }
-#endif
 
 //---------------------------------------------------------------------------
 // Process Game Input
