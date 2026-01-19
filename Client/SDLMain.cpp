@@ -472,10 +472,6 @@ int main(int argc, char* argv[])
 				// Game update (from WinMain lines 4275-4290)
 				if (g_pUpdate != NULL)
 				{
-//					static int updateCount = 0;
-//					if (++updateCount % 60 == 1) {
-//						printf("Game update: g_pUpdate = %p, Update count = %d\n", g_pUpdate, updateCount);
-//					}
 					g_pUpdate->Update();
 				}
 				else

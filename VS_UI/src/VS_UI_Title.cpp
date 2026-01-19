@@ -5094,7 +5094,7 @@ void C_VS_UI_TITLE::Start()
 	// Start login window so text boxes are active
 	if (m_pC_login != NULL)
 	{
-		m_pC_login->Start();
+//		m_pC_login->Start();
 	}
 
 #ifndef _LIB

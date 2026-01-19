@@ -19,16 +19,16 @@
 	#define _DATA_DIR_INFO_ROOT				"data\\info\\"
 	#define _PROFILE_ROOT					"UserSet\\"
 #else
-	// Unix/macOS uses forward slashes
-	#define _ROOT							"data/ui/"
+	// Unix/macOS uses forward slashes (note: actual directories use capital letters)
+	#define _ROOT							"Data/Ui/"
 	#define TXT_ROOT						_ROOT"txt/"
 	#define IFR_ROOT						_ROOT"txt/"
 	#define SPK_ROOT						_ROOT"spk/"
 	#define ISPK_ROOT						_ROOT"ispk/"
 	#define CFPK_ROOT						_ROOT"cfpk/"
-	#define _DATA_DIR_ROOT					"data/"
+	#define _DATA_DIR_ROOT					"Data/"
 	#define _DATA_DIR_IMAGE_ROOT			_DATA_DIR_ROOT"Image/"
-	#define _DATA_DIR_INFO_ROOT				"data/info/"
+	#define _DATA_DIR_INFO_ROOT				"Data/info/"
 	#define _PROFILE_ROOT					"UserSet/"
 #endif
 

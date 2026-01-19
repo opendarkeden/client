@@ -532,8 +532,15 @@ TypeBase &CTypePack2<TypeBase, Type1, Type2>::Get(WORD n)
 {
 	if(m_bRunningLoad && !m_pData[n].IsInit())
 	{
+		// Safety check: if file is closed, disable lazy loading
+		if (m_file == NULL)
+		{
+			m_bRunningLoad = false;
+			return m_pData[n];
+		}
+
 		m_file->seekg(m_file_index[n]);
-		// file�� �ִ� Sprite���� Load	
+		// file�� �ִ� Sprite���� Load
 		m_pData[n].LoadFromFile(*m_file);	// Sprite �о����
 		if(++m_nLoadData >= m_Size)
 		{
@@ -545,7 +552,7 @@ TypeBase &CTypePack2<TypeBase, Type1, Type2>::Get(WORD n)
 			m_file_index = NULL;
 		}
 	}
-	
+
 	return m_pData[n];
 }
 
