@@ -6,6 +6,7 @@ CTestTestfile.cmake
 Makefile
 *.cmake
 !CMakeLists.txt
+.cache
 
 # Build directory
 build/

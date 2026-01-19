@@ -15,9 +15,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Build options
-option(BUILD_TESTS "Build test programs" ON)
-
 # Auto-enable SDL backend on non-Windows platforms
 if(WIN32)
 	option(USE_SDL_BACKEND "Use SDL backend instead of native Windows APIs" OFF)
@@ -345,11 +342,6 @@ target_link_libraries(map_viewer PRIVATE
 set_target_properties(map_viewer PROPERTIES
 	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
-
-if(BUILD_TESTS)
-	enable_testing()
-	add_subdirectory(tests)
-endif()
 
 # Examples (always built if backend is enabled)
 if(USE_SDL_BACKEND OR NOT WIN32)

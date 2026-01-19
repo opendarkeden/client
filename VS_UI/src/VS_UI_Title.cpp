@@ -4609,12 +4609,26 @@ void C_VS_UI_LOGIN::KeyboardControl(UINT message, UINT key, long extra)
 //	}
 
 
+	// On macOS/SDL2, bypass the Windows IME system
+#ifndef PLATFORM_WINDOWS
+	if (message == WM_CHAR) {
+		// Directly route character input to the focused LineEditor
+		// LineEditorVisual inherits from LineEditor, so we can call KeyboardControl directly
+		if (m_lev_id.IsAcquire()) {
+			m_lev_id.LineEditor::KeyboardControl(message, key, extra);
+		} else if (m_lev_password.IsAcquire()) {
+			m_lev_password.LineEditor::KeyboardControl(message, key, extra);
+		}
+	}
+	// Note: We still call Window::KeyboardControl for WM_KEYDOWN handling
+#else
 	Window::KeyboardControl(message, key, extra);
+#endif
 
 	switch (message)
 	{
 		case WM_KEYDOWN:
-			// 
+			//
 			// input position ����.
 			//
 			if (key == VK_TAB)

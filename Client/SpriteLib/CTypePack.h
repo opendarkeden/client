@@ -539,6 +539,9 @@ TypeBase &CTypePack2<TypeBase, Type1, Type2>::Get(WORD n)
 			return m_pData[n];
 		}
 
+if (m_file->gcount() <= m_file_index[n]) {
+    printf("hi there! %ld\n", m_file->gcount());
+}
 		m_file->seekg(m_file_index[n]);
 		// file�� �ִ� Sprite���� Load
 		m_pData[n].LoadFromFile(*m_file);	// Sprite �о����

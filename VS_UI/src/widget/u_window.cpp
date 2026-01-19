@@ -514,7 +514,15 @@ bool Window::MouseControl(UINT message, int _x, int _y)
 //-----------------------------------------------------------------------------
 void Window::KeyboardControl(UINT message, UINT key, long extra)
 {
+#ifdef PLATFORM_WINDOWS
 	gC_ci->IME_MessageProcessor(message, key, extra);
+#else
+	// On macOS/SDL2, the CI::IME_MessageProcessor is a stub
+	// Windows that need keyboard input should override this method
+	(void)message;
+	(void)key;
+	(void)extra;
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1417,7 +1425,8 @@ void WindowManager::KeyboardControl(UINT message, UINT key, long extra)
 {
 //	static Window * m_pC_keydown_window;
 
-	if (message == WM_KEYDOWN)// || message == WM_IME_STARTCOMPOSITION)
+	if (message == WM_KEYDOWN ||
+	message == WM_CHAR)// || message == WM_IME_STARTCOMPOSITION)
 	{
 		m_pC_keydown_window = NULL;
 		if (m_pC_topmost_window != NULL)// && m_pC_topmost_window->GetAttributes()->keyboard_control == true)
