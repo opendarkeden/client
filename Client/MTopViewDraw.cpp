@@ -2743,8 +2743,6 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 			action_viva = ConvNewSlayerActionFromSlayerAction(action_viva, dynamic_cast< MCreatureWear* >(pCreature));
 //			if(action_viva>32)	
 //				action_viva=36;
-			CCreatureFramePack& newslayerFPK = pCreature->IsMale() ? m_NewSlayerManFPK : m_NewSlayerWomanFPK;
-			CIndexSpritePack& newaddonISPK = pCreature->IsMale() ? m_NewSlayerManSPK : m_NewSlayerWomanSPK;
 			
 			CCreatureFramePack& slayerFPK = pCreature->IsMale() ? m_AdvancementSlayerManFPK : m_AdvancementSlayerWomanFPK;
 			CIndexSpritePack& addonISPK = pCreature->IsMale() ? m_AdvancementSlayerManSPK : m_AdvancementSlayerWomanSPK;
@@ -2778,10 +2776,10 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 						//	else
 								clothes=addonInfo.FrameID + i;
 							if( clothes == -1 ) continue;
-							if( clothes > newslayerFPK.GetSize() -1 ) continue;
-							if(action_viva > newslayerFPK[clothes].GetSize() -1) continue;
+							if( clothes > slayerFPK.GetSize() -1 ) continue;
+							if(action_viva > slayerFPK[clothes].GetSize() -1) continue;
 							try{
-							FRAME_ARRAY& FA = newslayerFPK[ clothes ][ action_viva ][ direction ];
+							FRAME_ARRAY& FA = slayerFPK[ clothes ][ action_viva ][ direction ];
 							
 							if( FA.GetSize() > frame )
 							{
@@ -2790,7 +2788,7 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 								int cx		= Frame.GetCX();	//m_AddonFPK[clothes][action][direction][frame].GetCX();
 								int cy		= Frame.GetCY();	//m_AddonFPK[clothes][action][direction][frame].GetCY();
 								
-								CIndexSprite* pSprite = &newaddonISPK[ sprite ];
+								CIndexSprite* pSprite = &addonISPK[ sprite ];
 								pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 								pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 								
@@ -2944,8 +2942,8 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 
 	//CCreatureFramePack& advanceVampireFPK = pCreature->IsMale() ? m_AdvancementVampireManFPK : m_AdvancementVampireWomanFPK;
 	//CIndexSpritePack& advanceVampireSPK = pCreature->IsMale() ? m_AdvancementVampireManSPK : m_AdvancementVampireWomanSPK;
-	CCreatureFramePack& advanceVampireFPK = (creature_type>=807&&creature_type<=812) ? m_NewVampireFPK : pCreature->IsMale() ? m_AdvancementVampireManFPK : m_AdvancementVampireWomanFPK;
-	CIndexSpritePack& advanceVampireSPK = (creature_type>=807&&creature_type<=812) ? m_NewVampireSPK : pCreature->IsMale() ? m_AdvancementVampireManSPK : m_AdvancementVampireWomanSPK;
+	CCreatureFramePack& advanceVampireFPK = (creature_type>=807&&creature_type<=812) ? m_AdvancementVampireManFPK : pCreature->IsMale() ? m_AdvancementVampireManFPK : m_AdvancementVampireWomanFPK;
+	CIndexSpritePack& advanceVampireSPK = (creature_type>=807&&creature_type<=812) ? m_AdvancementVampireManSPK : pCreature->IsMale() ? m_AdvancementVampireManSPK : m_AdvancementVampireWomanSPK;
 
 //end
 
@@ -3808,8 +3806,8 @@ void	MTopView::DrawSelectedAdvancementVampireCreature( POINT* pPoint, MCreature*
 	//CCreatureFramePack& advanceVampireFPK = pCreature->IsMale() ? m_AdvancementVampireManFPK : m_AdvancementVampireWomanFPK;
 	//CIndexSpritePack& advanceVampireSPK = pCreature->IsMale() ? m_AdvancementVampireManSPK : m_AdvancementVampireWomanSPK;	
 	
-	CCreatureFramePack& advanceVampireFPK = creature_type>=807&&creature_type<=812 ? m_NewVampireFPK : pCreature->IsMale() ? m_AdvancementVampireManFPK : m_AdvancementVampireWomanFPK;
-	CIndexSpritePack& advanceVampireSPK = (creature_type>=807&&creature_type<=812) ? m_NewVampireSPK : pCreature->IsMale() ? m_AdvancementVampireManSPK : m_AdvancementVampireWomanSPK;
+	CCreatureFramePack& advanceVampireFPK = creature_type>=807&&creature_type<=812 ? m_AdvancementVampireManFPK : pCreature->IsMale() ? m_AdvancementVampireManFPK : m_AdvancementVampireWomanFPK;
+	CIndexSpritePack& advanceVampireSPK = (creature_type>=807&&creature_type<=812) ? m_AdvancementVampireManSPK : pCreature->IsMale() ? m_AdvancementVampireManSPK : m_AdvancementVampireWomanSPK;
 
 //end
 
@@ -4021,8 +4019,6 @@ void	MTopView::DrawSelectedAdvancementSlayerCreature( POINT* pPoint, MCreature* 
 	//by viva AdvancemnetSlayer
 	action_viva = ConvNewSlayerActionFromSlayerAction(action_viva, dynamic_cast< MCreatureWear* >(pCreature));
 	
-	CCreatureFramePack& newslayerFPK = pCreature->IsMale() ? m_NewSlayerManFPK : m_NewSlayerWomanFPK;
-	CIndexSpritePack& newaddonISPK = pCreature->IsMale() ? m_NewSlayerManSPK : m_NewSlayerWomanSPK;
 	
 	CCreatureFramePack& slayerFPK = pCreature->IsMale() ? m_AdvancementSlayerManFPK : m_AdvancementSlayerWomanFPK;
 	CIndexSpritePack& addonISPK = pCreature->IsMale() ? m_AdvancementSlayerManSPK : m_AdvancementSlayerWomanSPK;
@@ -4052,10 +4048,10 @@ void	MTopView::DrawSelectedAdvancementSlayerCreature( POINT* pPoint, MCreature* 
 				{							
 					clothes=addonInfo.FrameID + i;
 					if( clothes == -1 ) continue;
-					if( clothes > newslayerFPK.GetSize() -1 ) continue;
-					if(action_viva > newslayerFPK[clothes].GetSize() -1) continue;
+					if( clothes > slayerFPK.GetSize() -1 ) continue;
+					if(action_viva > slayerFPK[clothes].GetSize() -1) continue;
 					
-					FRAME_ARRAY& FA = newslayerFPK[ clothes ][ action_viva ][ direction ];
+					FRAME_ARRAY& FA = slayerFPK[ clothes ][ action_viva ][ direction ];
 					// 있는 동작인 경우
 					if (FA.GetSize() > frame)
 					{
@@ -4067,7 +4063,7 @@ void	MTopView::DrawSelectedAdvancementSlayerCreature( POINT* pPoint, MCreature* 
 						pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 						pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 						
-						CIndexSprite* pSprite = &newaddonISPK[ sprite ];
+						CIndexSprite* pSprite = &addonISPK[ sprite ];
 						
 						// 복장Sprite가 초기화 되지 않은 경우
 						//						if (pSprite->IsNotInit())

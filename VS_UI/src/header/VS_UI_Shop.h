@@ -22,8 +22,6 @@
 //-----------------------------------------------------------------------------
 // C_VS_UI_SHOP
 //
-// 세 종류의 Item, Normal/Special/Mysterious을 구입할 수 있는 인터페이스이다.
-// 구입시 개수를 결정할 수 있다.
 //-----------------------------------------------------------------------------
 #define NORMAL_TAB_ID					0
 #define SPECIAL_TAB_ID					1
@@ -34,8 +32,8 @@
 class C_VS_UI_SHOP : public Window, public Exec, public ButtonVisual
 {
 public:
-	static bool					m_bl_mysterious_tab; // item description price 얻을 때 check한다.
-	static MShop::SHOP_TYPE		m_shop_type; // item description price 얻을 때 check한다.
+	static bool					m_bl_mysterious_tab;
+	static MShop::SHOP_TYPE		m_shop_type;
 
 	enum IMAGE_SPK_INDEX
 	{

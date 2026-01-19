@@ -27,37 +27,37 @@ class C_VS_UI_OUSTERS_GEAR : public C_VS_UI_GEAR
 public:
 	enum SLOT_NAME
 	{
-		SN_CIRCLET,			// 서클릿
-		SN_COAT,				// 옷
-		SN_LEFTHAND,			// 왼손
-		SN_RIGHTHAND,			// 오른손
-		SN_BOOTS,				// 신발
-		SN_ARMSBAND1,			// 암스밴드1
-		SN_ARMSBAND2,			// 암스밴드2
-		SN_RING1,				// 링1
-		SN_RING2,				// 링2
-		SN_PENDENT1,			// 목걸이1
-		SN_PENDENT2,			// 목걸이2
-		SN_PENDENT3,			// 목걸이3
-		SN_STONE1,			// 정령석1
-		SN_STONE2,			// 정령석2
-		SN_STONE3,			// 정령석3
-		SN_STONE4,			// 정령석4
+		SN_CIRCLET,
+		SN_COAT,
+		SN_LEFTHAND,
+		SN_RIGHTHAND,
+		SN_BOOTS,
+		SN_ARMSBAND1,
+		SN_ARMSBAND2,
+		SN_RING1,
+		SN_RING2,
+		SN_PENDENT1,
+		SN_PENDENT2,
+		SN_PENDENT3,
+		SN_STONE1,
+		SN_STONE2,
+		SN_STONE3,
+		SN_STONE4,
 
-		SN_COREZAP1,		// 코어잽1
-		SN_COREZAP2,		// 코어잽2
-		SN_COREZAP3,		// 코어잽3
-		SN_COREZAP4,		// 코어잽4
+		SN_COREZAP1,
+		SN_COREZAP2,
+		SN_COREZAP3,
+		SN_COREZAP4,
 		
-		SN_FASCIA,			// 승직용 허리장식
-        SN_MITTEN,			// 승직용 장갑?
+		SN_FASCIA,
+        SN_MITTEN,
 
-		SN_BLOODBIBLE1,		// 블러디바이블1
-		SN_BLOODBIBLE2,		// 블러디바이블2
-		SN_BLOODBIBLE3,		// 블러디바이블3
-		SN_BLOODBIBLE4,		// 블러디바이블4
-		SN_BLOODBIBLE5,		// 블러디바이블5
-		SN_BLOODBIBLE6,		// 블러디바이블6
+		SN_BLOODBIBLE1,
+		SN_BLOODBIBLE2,
+		SN_BLOODBIBLE3,
+		SN_BLOODBIBLE4,
+		SN_BLOODBIBLE5,
+		SN_BLOODBIBLE6,
 
 		SLOT_SIZE,	
 	};
@@ -127,12 +127,12 @@ public:
 //	bool	MouseControl(UINT message, int _x, int _y);
 	void	KeyboardControl(UINT message, UINT key, long extra);
 
-	void	HotKey_F1();	//혈청 사용하기
-	void	HotKey_F2();	//혈청 사용하기
-	void	HotKey_F3();	//혈청 사용하기
-	void	HotKey_F4();	//혈청 사용하기
-	void	HotKey_F5();	//혈청 사용하기
-	void	HotKey_F6();	//혈청 사용하기	
+	void	HotKey_F1();
+	void	HotKey_F2();
+	void	HotKey_F3();
+	void	HotKey_F4();
+	void	HotKey_F5();
+	void	HotKey_F6();
 	void	HotKey_F7();
 	void	HotKey_F8();
 	void	HotKey_QuickItemSlot();

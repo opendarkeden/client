@@ -44,20 +44,20 @@ public:
 		SN_AMULET3,
 		SN_AMULET4,
 		
-		SN_COREZAP1,		// 코어잽1
-		SN_COREZAP2,		// 코어잽2
-		SN_COREZAP3,		// 코어잽3
-		SN_COREZAP4,		// 코어잽4
+		SN_COREZAP1,
+		SN_COREZAP2,
+		SN_COREZAP3,
+		SN_COREZAP4,
 
-        SN_PERSONA,	// 승직용 페르소나
-		SN_DERMIS,		// 승직용 문신?
+        SN_PERSONA,
+		SN_DERMIS,
 		
-		SN_BLOODBIBLE1,		// 블러디바이블1
-		SN_BLOODBIBLE2,		// 블러디바이블2
-		SN_BLOODBIBLE3,		// 블러디바이블3
-		SN_BLOODBIBLE4,		// 블러디바이블4
-		SN_BLOODBIBLE5,		// 블러디바이블5
-		SN_BLOODBIBLE6,		// 블러디바이블6
+		SN_BLOODBIBLE1,
+		SN_BLOODBIBLE2,
+		SN_BLOODBIBLE3,
+		SN_BLOODBIBLE4,
+		SN_BLOODBIBLE5,
+		SN_BLOODBIBLE6,
 
 	
 		SLOT_SIZE,
@@ -80,8 +80,8 @@ private:
 		//SHOES,
 
 		BLOODBIBLE,
-		DERMIS,//문신 
-		PERSONA,//가면 
+		DERMIS,
+		PERSONA,
 
 	};
 
@@ -122,7 +122,7 @@ public:
 //	bool	MouseControl(UINT message, int _x, int _y);
 	void	KeyboardControl(UINT message, UINT key, long extra);
 
-	void	HotKey_F1();	//혈청 사용하기
+	void	HotKey_F1();
 	void	HotKey_F5();	
 	void	HotKey_F6();
 	void	HotKey_F7();

@@ -22,11 +22,12 @@ class CGameUpdate : public CWinUpdate {
 		void		UpdateDraw();
 
 	protected :
-		void		ProcessInput();		
+		void		ProcessInput();
 		void		UpdateDrawHelp();
 
 		static void	DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z);
 		static void	DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT, DWORD);
+		static void	SDLTextInputEvent(const char* text, int* window_coords);
 };
 
 extern CGameUpdate*		g_pCGameUpdate;

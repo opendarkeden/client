@@ -1674,38 +1674,38 @@ if(gbl_info_show)
 {
 
 	// message
-	char msg_buf[512];
-	sprintf(msg_buf, "msg_queue = %d", gpC_base->GetMessageSize());
-	g_Print(0, TEXT_LINE(8), msg_buf);
+//	char msg_buf[512];
+//	sprintf(msg_buf, "msg_queue = %d", gpC_base->GetMessageSize());
+//	g_Print(0, TEXT_LINE(8), msg_buf);
 
-	char win_buf[100];
-	sprintf(win_buf, "m_focus_window = 0x%X", gpC_window_manager->GetMouseFocusedWindow());
-	g_Print(0, TEXT_LINE(9), win_buf);
+//	char win_buf[100];
+//	sprintf(win_buf, "m_focus_window = 0x%X", gpC_window_manager->GetMouseFocusedWindow());
+//	g_Print(0, TEXT_LINE(9), win_buf);
 
-	sprintf(win_buf, "event flag = %d", gpC_base->EventOccured());
-	g_Print(0, TEXT_LINE(10), win_buf);
+//	sprintf(win_buf, "event flag = %d", gpC_base->EventOccured());
+//	g_Print(0, TEXT_LINE(10), win_buf);
 
-	sprintf(win_buf, "item id = %d", g_item_select);
-	g_Print(0, TEXT_LINE(11), win_buf);
+//	sprintf(win_buf, "item id = %d", g_item_select);
+//	g_Print(0, TEXT_LINE(11), win_buf);
 
 //	sprintf(win_buf, "elevator = %d", gC_vs_ui.IsRunningElevator());
 //	g_Print(0, TEXT_LINE(12), win_buf);
 
 	if(gpC_window_manager->GetMouseFocusedWindow())
 	{
-		extern int g_mouse_x, g_mouse_y;
-		sprintf(win_buf, "point = (%d, %d)", g_mouse_x - gpC_window_manager->GetMouseFocusedWindow()->x, g_mouse_y - gpC_window_manager->GetMouseFocusedWindow()->y);
-		g_Print(0, TEXT_LINE(11), win_buf);
+//		extern int g_mouse_x, g_mouse_y;
+//		sprintf(win_buf, "point = (%d, %d)", g_mouse_x - gpC_window_manager->GetMouseFocusedWindow()->x, g_mouse_y - gpC_window_manager->GetMouseFocusedWindow()->y);
+//		g_Print(0, TEXT_LINE(11), win_buf);
 	}
 
-extern EventButton *g_EventButton;
-	C_VS_UI_EVENT_BUTTON *button = (C_VS_UI_EVENT_BUTTON *)g_EventButton;
+//    extern EventButton *g_EventButton;
+//	C_VS_UI_EVENT_BUTTON *button = (C_VS_UI_EVENT_BUTTON *)g_EventButton;
 
-	if(button)
-		sprintf(msg_buf, "EventButton(%d:%d) = %d, %d", button->GetID(), button->m_image_index, button->x, button->y);
-	else
-		sprintf(msg_buf, "EventButton Nothing");
-	g_Print(5, TEXT_LINE(24), msg_buf);
+//	if(button)
+//		sprintf(msg_buf, "EventButton(%d:%d) = %d, %d", button->GetID(), button->m_image_index, button->x, button->y);
+//	else
+//		sprintf(msg_buf, "EventButton Nothing");
+//	g_Print(5, TEXT_LINE(24), msg_buf);
 
 }	
 

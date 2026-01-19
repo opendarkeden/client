@@ -17,7 +17,7 @@
 class Point
 {
 public:
-	int		x, y; // 외부에서 참조하므로 m_ 붙이지 않음.
+	int		x, y;
 
 	Point(int _x, int _y);
 	Point();
@@ -33,7 +33,7 @@ public:
 class Rect
 {
 public:
-	int		x, y, w, h; // 외부에서 참조하므로 m_ 붙이지 않음.
+	int		x, y, w, h;
 
 	Rect(int _x, int _y, int _w, int _h);
 	Rect();

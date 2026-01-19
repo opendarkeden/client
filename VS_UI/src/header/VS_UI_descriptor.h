@@ -4,7 +4,7 @@
 
 	Descriptor class.
 
-	°´Ã¼¿¡ ´ëÇÑ ¼³¸í ¶Ç´Â Á¤º¸¸¦ Ãâ·ÂÇÏ´Â °´Ã¼ÀÌ´Ù.
+	ê°ì²´ì— ëŒ€í•œ ì„¤ëª… ë˜ëŠ” ì •ë³´ë¥¼ ì¶œë ¥í•˜ëŠ” ê°ì²´ì´ë‹¤.
 
 	2000.7.3. KJTINC
 	2000.12.9.
@@ -27,21 +27,21 @@ struct DESCRIBED_UNIT
 //-----------------------------------------------------------------------------
 // class DescriptorManager
 //
-// > tool-tip°ú °°Àº ÇÏ³ªÀÇ ÀÛÀº info-box¸¦ descriptionÀÌ¶ó Á¤ÀÇÇÑ´Ù.
+
 //
-// DESCRIBED_UNITÀº ÇÏ³ªÀÇ ÅëÀÏµÈ descriptionÀ» À§ÇÑ group(descriptor)À» ÀÇ¹ÌÇÑ´Ù.
-// ¾î¶² °ÍÀº Áï½Ã descriptionµÇ±æ ¿øÇÏ°ÚÁö¸¸, ¾î¶² °ÍÀº delay¸¦ ¿øÇÑ´Ù.
-// Áï ÀÌ·¯ÇÑ Æ¯Â¡ÀÌ ÇÏ³ªÀÇ groupÀÌ °¡Áú ¼ö ÀÖ´Â °ÍÀÌ´Ù. ÀÌ°ÍÀº ±×µé¸¸ÀÇ formatÀ¸·Î
-// Ãâ·ÂÇÒ ¼ö ÀÖ°í, rect¸¦ °è»êÇÒ ¼ö ÀÖ´Ù.
+
+
+
+
 //
-// »ç¿ë¹ı>
-//				AddDescribeUnitÀ¸·Î Ãß°¡ÇÑ´Ù. °Å±â¿¡ Ã¹¹øÂ°ÀÎÀÚ·Î Á¤ÀÇÇÑ id´Â groupÀ»
-//				¼±ÅÃÇÏ´Âµ¥ ÇÊ¿äÇÏ´Ù.
-//				SetÀ» ÇÏ¸é descriptionÀÌ Ãâ·ÂµÉ ÁØºñ¸¦ ¸ğµÎ ¼öÇàÇÑ´Ù. rect¸¦ °è»êÇÏ°í
-//				±× Á¤º¸¸¦ Áï½Ã m_fp_show_param¿¡ ¼³Á¤ÇÏ¸ç ÇØ´ç show fp ptrÀ» m_fp_show¿¡
-//				¼³Á¤ÇÏ¹Ç·Î½á ¹Ù·Î º¸¿©Áö°Ô ÇÑ´Ù.
+
+
+
+
+
+
 //
-//				descriptionÀ» ÇØÁ¦ÇÏ±â À§ÇØ¼­´Â ´Ü¼øÈ÷ unsetÀ» ½ÇÇàÇÏ¸é µÈ´Ù.
+
 //-----------------------------------------------------------------------------
 class DescriptorManager : public SimpleDataList<DESCRIBED_UNIT *>
 {
@@ -49,8 +49,8 @@ private:
 	//
 	// m_fp_show
 	//
-	// ÇöÀç Ãâ·ÂÇÒ descrition show ptr.
-	// ÀÌ°ÍÀÌ nullÀÌ ¾Æ´Ñ µ¿¾ÈÀº °è¼Ó Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+
+
 	//
 	void							(*m_fp_show)(Rect, void *, long, long);
 
@@ -71,7 +71,7 @@ public:
 	void	Set(id_t id, int x, int y, void * void_ptr, long left=0, long right=0);
 	//void	Unset();
 
-	// °°Àº Á¾·ùÀÇ pointerÀÎ °æ¿ì¸¸ Á¦°ÅÇÑ´Ù.
+
 	void	Unset(void* pPtr=NULL);	// by sigi
 
 	void	Show();

@@ -231,10 +231,11 @@ bool GetMakeItemFitPosition(MItem* pItem, ITEM_CLASS cls, int type, tagPOINT& po
 }
 
 // Mode and display functions
-void SetMode(CLIENT_MODE mode)
-{
-	(void)mode;
-}
+// SetMode() is implemented in GameMain.cpp - this stub removed to avoid duplicate symbol
+// void SetMode(CLIENT_MODE mode)
+// {
+// 	(void)mode;
+// }
 
 void SetFadeStart(char r, char g, char b, BYTE r2, BYTE g2, BYTE b2, WORD speed)
 {

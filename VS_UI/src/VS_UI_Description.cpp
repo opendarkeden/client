@@ -33,7 +33,7 @@ enum
 	SIDE_GAP = 14,
 	SIDE_GAP_HALF = 7,
 	NORMAL_FONT_Y_GAP = 18,
-	NAME_STRING_LEN = 100, // 100 ÀÌÇÏ°ÚÁö?
+	NAME_STRING_LEN = 100,
 	VALUE_GAP = 5,
 };
 
@@ -65,13 +65,13 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 		return;
 
 	MItem* p_AddItem = (MItem*)right;
-//#ifdef _LIB // Client¿¡¼­´Â 3D¿ëÀ¸·Î »ç¿ëÇÒ ¼ö ÀÖ´Ù. -.-
+
 	RECT _rect;
 	
 	SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
 	DrawAlphaBox(&_rect, 0, 0, 0, g_pUserOption->ALPHA_DEPTH);
 	
-//	SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h); // -.- TransparentBlt16()¿¡¼­ °ªÀ» º¯°æÇÔ.. ¾Æ´Ï ÀÌ·²¼ö°¡!
+
 	gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
 
 //#endif
@@ -90,7 +90,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 //		//SetRect(src_rect, 0, 0, rect.w, rect.h);
 //		//filledRect(&src_surface, &src_rect, BLACK);
 //#endif
-//		if (gpC_base->m_p_DDSurface_back->Lock()) // Descriptor common background¸¦ Ãâ·ÂÇÑ´Ù.
+
 //		{
 //			SetSurfaceInfo(&dest_surface, gpC_base->m_p_DDSurface_back->GetDDSD());
 //			SetRect(dest_rect, rect.x, rect.y, rect.w, rect.h);
@@ -116,7 +116,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 	int py = rect.y+SIDE_GAP_HALF;
 //	gpC_base->m_item_name_pi.text_color = ITEM_NAME_NORMAL_RGB;
 
-	// nameÀÌ Á¦ÀÏ ±æ ¼ö ÀÖ±â ¶§¹®¿¡ nameÀ» ±âÁØÀ¸·Î Á¤ÇÑ´Ù.
+
 	char sz_name[NAME_STRING_LEN];
 	char sz_ename[NAME_STRING_LEN];
 	sz_name[0] = '\0'; // for strcat()
@@ -127,7 +127,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 	COLORREF shadow_color = ITEM_NAME_NORMAL_SHADE;
 
 	strcat(sz_ename, "(");
-	// identifyµÈ ¾ÆÀÌÅÛÀÎ °æ¿ì.. by sigi
+
 	if (g_pTimeItemManager->IsExist( p_item->GetID() ) )
 	{
 		strcat( sz_name, (*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_HAN].GetString() );
@@ -175,7 +175,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 				p_item->GetItemClass() != ITEM_CLASS_VAMPIRE_COUPLE_RING
 				&& p_item->GetItemClass() != ITEM_CLASS_CODE_SHEET )
 		{
-				//add by sonic 2006.10.28 ÏÔÊ¾Èý¸öÊôÐÔ×°±¸Ãû×Ö
+
 			//for(int i=0;i<min(2,p_item->GetItemOptionListCount());i++)
 			for(int i=0;i<min(3,p_item->GetItemOptionListCount());i++)
 			{
@@ -190,20 +190,20 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 					strcat(sz_ename, " "); // add 'space'
 				}
 			}
-			if(p_item->GetItemOptionListCount() == 2 )			// Rare ¾ÆÀÌÅÛÀÎ °æ¿ì
+			if(p_item->GetItemOptionListCount() == 2 )
 			{
 				name_color = g_pClientConfig->COLOR_NAME_ITEM_RARE_OPTION;
 				shadow_color = ITEM_NAME_RARE_OPTION_SHADE;
 				ename_color = ITEM_ENAME_RARE_COLOR;
 			} 
-			// add by Sonic 2006.10.28 Ôö¼ÓÏÔÊ¾ÈýÊôÐÔ×°±¸ÎªºìÉ«
+
 			else if(p_item->GetItemOptionListCount() > 2)
 			{
 				name_color = g_pClientConfig->COLOR_NAME_VAMPIRE; //Red
 				shadow_color = 0;//g_pClientConfig->COLOR_NAME_VAMPIRE; //Red
 				ename_color = g_pClientConfig->COLOR_NAME_VAMPIRE; //Red
 			}
-			// end by Sonic 2006.10.28 Ôö¼ÓÏÔÊ¾ÈýÊôÐÔ×°±¸ÎªºìÉ«
+
 			else
 			{
 				name_color = ITEM_NAME_OPTION_COLOR;
@@ -240,7 +240,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 
 	g_FL2_GetDC();
 	// name
-	// optionÀÌ ºÙ¾îÀÖÀ¸¸é ´Ù¸¥ »öÀ¸·Î Ãâ·ÂÇÑ´Ù.
+
 	g_PrintColorStr(px+1, py+1, sz_name, gpC_base->m_item_name_pi, shadow_color);
 	g_PrintColorStr(px, py, sz_name, gpC_base->m_item_name_pi, name_color);
 	py += NORMAL_FONT_Y_GAP;
@@ -252,7 +252,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 
 	const COLORREF required_rgb = RGB(255, 128, 64);
 
-	// identifyµÈ ¾ÆÀÌÅÛÀÎ °æ¿ì.. by sigi
+
 //	if (p_item->IsIdentified())
 	{
 		// weight
@@ -262,7 +262,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 
 //		py += SMALL_FONT_Y_GAP;
 
-		// gun °è¿­
+
 //		if(p_item->IsGunItem())
 		{
 
@@ -329,29 +329,29 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 			}
 		}
 		
-		// Identified ºÐ¸®
+
 		if(p_item->IsIdentified())
 		{
 			const int itemClass = p_item->GetItemClass();
 			const int itemType = p_item->GetItemType();
 
-			// Æê ¾ÆÀÌÅÛ Á¤º¸ Ãâ·Â ¿ö³« Æ¯ÀÌÇØ¼­ µû·Î Ã³¸®
+
 			if(itemClass == ITEM_CLASS_PET_ITEM)
 			{
-				// Æê ·¹º§Àº Num¿¡ ÀÖ´Ù
+
 				vx = g_PrintColorStr(px, py, (*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_LEVEL].GetString(), gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
 				sprintf(sz_buf, "%d", p_item->GetNumber());				
 				g_PrintColorStr(vx, py, sz_buf, gpC_base->m_item_desc_pi, RGB_WHITE);				
 				py += SMALL_FONT_Y_GAP;
 
-				// ÆêÀº enchant levelÀ» Æê¼Ó¼ºÀ¸·Î Ãâ·ÂÇÑ´Ù
-				// enchant level Àº ÀÎÃ¾Æ®¿Í´Â ¾Æ¹« °ü·Ã ¾øÀ¸¸ç »ç½ÇÀº ChargeItemÀÇ Charge¼ö¸¦ ¹ÞÀ» ¶§ ¾´´Ù
-				// »ç½Ç ¹ÞÀ»¶§´Â Enchant Level·Î ¹ÞÁö¸¸ ÀúÀåÀº Number¿¡ ÀúÀåÇÑ´Ù. ±×·¡¼­ Â÷Áö ¾ÆÀÌÅÛ¿¡¼­
-				// GetEnchantLevelÀ» ÇØµµ ¾Æ¹«°Íµµ ¾È³ª¿Â´Ù.
-				// ±×°Ç Â÷Áö ¾ÆÀÌÅÛ¸¸ÀÌ°í ÆêÀº ±×³É EnchantLevel ±×´ë·Î ¾´´Ù
-				// Æê ¼Ó¼º ¼öÄ¡´Â Silver°ªÀ» ¾´´Ù.
 
-				// 2Â÷ ´É·ÂÀÌ ÀÖÀ» ¶§
+
+
+
+
+
+
+
 				if(((MPetItem*)p_item)->IsCanCutHead())
 				{
 					vx = g_PrintColorStr(px, py, (*g_pGameStringTable)[UI_STRING_MESSAGE_PET_CAN_CUT_HEAD].GetString(), gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
@@ -366,16 +366,16 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 					py += SMALL_FONT_Y_GAP;
 				}
 
-				// Á×¾ú´Ù
+
 				if( p_item->GetGrade() != -1 )
 				{
 					sprintf(sz_buf, (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_PET_DEAD_DAY].GetString(), p_item->GetGrade());				
 					g_PrintColorStr(vx, py, sz_buf, gpC_base->m_item_desc_pi, RGB_WHITE);				
 					py += SMALL_FONT_Y_GAP;
 				}
-				else	// ¾ÈÁ×¾ú´Ù
+				else
 				{
-					// ÆêÀº durÀ» ³²Àº ¸ÔÀÌ¾çÀ¸·Î Ãâ·ÂÇÑ´Ù
+
 					vx = g_PrintColorStr(px, py, (*g_pGameStringTable)[UI_STRING_MESSAGE_PET_DESC_DURABILITY].GetString(), gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
 					TYPE_ITEM_DURATION leftTime = p_item->GetCurrentDurability();
 					int timeGap = ((timeGetTime() - ((MPetItem *)p_item)->GetUpdateTime())/1000/60);
@@ -460,7 +460,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 					py += SMALL_FONT_Y_GAP;
 				}			
 				// Damage
-				if (p_item->GetMaxDamage() != -1) // damage°¡ ÀÖ´Â°¡?
+				if (p_item->GetMaxDamage() != -1)
 				{
 					int stringID = UI_STRING_MESSAGE_DESC_DAMAGE;
 					if(p_item->GetItemClass() == ITEM_CLASS_OUSTERS_WRISTLET)
@@ -481,7 +481,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 				}
 
 				// critical hit
-				if (p_item->GetCriticalHit() != -1)//Å©¸®Æ®ÄÃ È÷Æ®°¡ ÀÖ´Â°¡?
+				if (p_item->GetCriticalHit() != -1)
 				{
 					vx = g_PrintColorStr(px, py, (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CRITICALHIT].GetString(), gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
 					sprintf(sz_buf, "%d", p_item->GetCriticalHit());
@@ -583,7 +583,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 					py += SMALL_FONT_Y_GAP;
 				}
 				
-				// ¾Æ¿ì½ºÅÍÁî Á¤·É¼Ó¼º
+
 				if(itemClass == ITEM_CLASS_OUSTERS_WRISTLET || itemClass == ITEM_CLASS_OUSTERS_STONE)
 				{
 					static COLORREF stoneRGB[5] = { RGB(255, 100, 100), RGB(100, 100, 255), RGB(255, 180, 100), RGB(100, 100, 255), ITEM_DESC_RGB };
@@ -602,7 +602,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 				if(itemClass == ITEM_CLASS_CORE_ZAP && itemType >= 0 && itemType <= 3)
 				{
 					vx = g_PrintColorStr(px, py,(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_OPTION].GetString(), gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
-					// ÄÚ¾îÀì ¿É¼Ç
+
 					sprintf(sz_buf, (*g_pGameStringTable)[UI_STRING_CORE_ZAP_BLACK+p_item->GetItemType()].GetString(), p_item->GetGrade());
 					g_PrintColorStr(vx, py, sz_buf, gpC_base->m_item_desc_pi, RGB_PEARL);				
 					py += SMALL_FONT_Y_GAP;
@@ -636,7 +636,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 			}
 			
 			// Damage
-			if (p_item->GetMaxDamage() != -1) // damage°¡ ÀÖ´Â°¡?
+			if (p_item->GetMaxDamage() != -1)
 			{
 				vx = g_PrintColorStr(px, py, (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DAMAGE].GetString(), gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
 				sprintf(sz_buf, "???~???");				
@@ -645,7 +645,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 			}
 			
 			// Damage
-			if (p_item->GetOriginalSpeed() > 0) // damage°¡ ÀÖ´Â°¡?
+			if (p_item->GetOriginalSpeed() > 0)
 			{
 				vx = g_PrintColorStr(px, py, (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ATTACK_SPEED].GetString(), gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
 				sprintf(sz_buf, "???");				
@@ -654,7 +654,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 			}
 
 			// critical hit
-			if (p_item->GetCriticalHit() != -1)//Å©¸®Æ®ÄÃ È÷Æ®°¡ ÀÖ´Â°¡?
+			if (p_item->GetCriticalHit() != -1)
 			{
 				vx = g_PrintColorStr(px, py, (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CRITICALHIT].GetString(), gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
 				sprintf(sz_buf, "???");				
@@ -789,7 +789,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 		}
 		
 		// Damage
-		if (p_item->GetMaxDamage() != -1) // damage°¡ ÀÖ´Â°¡?
+		if (p_item->GetMaxDamage() != -1)
 		{
 			vx = g_PrintColorStr(px, py, (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DAMAGE].GetString(), gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
 			if(p_item->IsIdentified())
@@ -802,7 +802,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 		}
 		
 		// critical hit
-		if (p_item->GetCriticalHit() != -1)//Å©¸®Æ®ÄÃ È÷Æ®°¡ ÀÖ´Â°¡?
+		if (p_item->GetCriticalHit() != -1)
 		{
 			vx = g_PrintColorStr(px, py, (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CRITICALHIT].GetString(), gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
 			if(p_item->IsIdentified())
@@ -981,16 +981,16 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 				ITEMOPTION_INFO& optionInfo = (*g_pItemOptionTable)[option];
 				
 				char pPartName[20];
-				strcpy(pPartName, ITEMOPTION_INFO::ITEMOPTION_PARTNAME[optionInfo.Part]); // OptionÀÌ Àû¿ëµÇ´Â ¼öÄ¡ÀÇ ÀÌ¸§
+				strcpy(pPartName, ITEMOPTION_INFO::ITEMOPTION_PARTNAME[optionInfo.Part]);
 				if(p_item->IsVampireItem() && strstr(pPartName,"MP") != NULL)
 					*strstr(pPartName,"MP") = 'H';
 				
-				BYTE PlusPoint	= optionInfo.PlusPoint; // Àû¿ëµÇ´Â ¼öÄ¡
+				BYTE PlusPoint	= optionInfo.PlusPoint;
 				
 				if (pPartName)
 				{
 					fOptionCheck=TRUE;
-					vx = g_PrintColorStr(px, py, "¿É¼Ç : ", gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
+					vx = g_PrintColorStr(px, py, "Â¿Ã‰Â¼Ã‡ : ", gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
 					if(optionInfo.Part == ITEMOPTION_INFO::PART_DURABILITY)
 					{
 						sprintf(sz_buf, "%s +%d", pPartName, PlusPoint-100);
@@ -1022,7 +1022,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 							*strstr(pPartName,"MP") = 'E';
 					}
 					
-					BYTE PlusPoint	= optionInfo.PlusPoint; // Àû¿ëµÇ´Â ¼öÄ¡
+					BYTE PlusPoint	= optionInfo.PlusPoint;
 					
 					if (pPartName)
 					{
@@ -1074,7 +1074,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 							*strstr(pPartName,"MP") = 'E';
 					}
 					
-					BYTE PlusPoint	= optionInfo.PlusPoint; // Àû¿ëµÇ´Â ¼öÄ¡
+					BYTE PlusPoint	= optionInfo.PlusPoint;
 					
 					if (pPartName)
 					{
@@ -1263,7 +1263,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 							py += SMALL_FONT_Y_GAP;
 						}
 					}
-					// 2005, 1, 18, sobeit add start - ÇÊ¿ä ½ÂÁ÷ ·¹º§
+
 					int RequireAdvancementLevel = (*g_pItemTable)[p_item->GetItemClass()][p_item->GetItemType()].GetRequireAdvancementLevel();
 					if( RequireAdvancementLevel > 0 )
 					{
@@ -1275,7 +1275,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 						
 						int LevelGrade = (RequireAdvancementLevel-1)/10;
 						int LevelUnits = (RequireAdvancementLevel-1)%10;
-						// edit by Coffee  2007-5-20 ÐÞÕý×°±¸ÏÔÊ¾¶þ×ªµÈ¼¶²»ÕýÎÊÌâ
+
 						//sprintf(sz_buf, (*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_0+LevelGrade].GetString(), LevelUnits+1);
 						sprintf(sz_buf, (*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_0+LevelGrade].GetString(), RequireAdvancementLevel);
 						// edit end 
@@ -1287,7 +1287,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 						py += SMALL_FONT_Y_GAP;
 
 					}
-					// 2005, 1, 18, sobeit add end - ÇÊ¿ä ½ÂÁ÷ ·¹º§
+
 				}
 				
 				bool bSlayer = !p_item->IsSlayerItem() && g_eRaceInterface == RACE_SLAYER;
@@ -1638,7 +1638,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 				itr++;
 			}
 		}
-		if(pMouseItem->GetItemType() == 12)					// ºí·ç ¹öµå´Â ¿É¼Ç µÎ°³¸¸
+		if(pMouseItem->GetItemType() == 12)
 		{
 			if(p_item->GetItemOptionListCount() != 2)
 				bCanUpgrade = false;
@@ -1661,8 +1661,8 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 		if(p_item->GetItemOptionListCount()>1)
 			bCanUpgrade = false;
 
-// add by Coffee 2006.11.4  ÐÞÕý×ãÇòÎªÀ¶±¦Ê¯£¬²¢ÏÔÊ¾ÄÜ³äÈýÊôÐÔ×°±¸
-		if(pMouseItem->GetItemType() == 6)					// ºí·ç ¹öµå´Â ¿É¼Ç µÎ°³¸¸
+
+		if(pMouseItem->GetItemType() == 6)
 		{
 			if(p_item->GetItemOptionListCount() != 3)
 				bCanUpgrade = false;
@@ -1689,16 +1689,16 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 		if(p_item->GetItemOptionListCount()>2)
 			bCanUpgrade = false;
 
-// end by Coffee À¶±¦Ê¯Ð§¹û
-		if(pMouseItem->GetItemType() == 16 )			// Æ®·£½º ¾ÆÀÌÅÛ Å°Æ®
+
+		if(pMouseItem->GetItemType() == 16 )
 		{
 			if(!p_item->IsGenderForAll())
 				bCanUpgrade = true;
 			else
 				bCanUpgrade = false;
 		} else
-		// add by svi 2009-07-01 ÏÔÊ¾»ÆÉ«Ë®µÎ¿ÉÒÔÉý¼¶1,2ÊôÐÔÎïÆ·
-		if(pMouseItem->GetItemType() == 22 )			// »ÆÉ«Ë®µÎ
+
+		if(pMouseItem->GetItemType() == 22 )
 		{
 			if(p_item->GetItemOptionListCount() == 1 || p_item->GetItemOptionListCount() == 2)
 				bCanUpgrade = true;
@@ -1706,7 +1706,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 				bCanUpgrade = false;
 		} else
 
-		if( pMouseItem->GetItemType() == 23) // Ô¶¹ÅË®µÎ
+		if( pMouseItem->GetItemType() == 23)
 		{
 			// modified by svi 2009-06-25 :  "> 0" -> ">= 0"  
 			if(p_item->GetGrade() >= 0 &&  p_item->GetGrade() <= 10)
@@ -1714,22 +1714,22 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 		} else
 		// end
 
-		// add by svi 2009-07-15 ÊôÐÔÏû³ý±¦Ê¯
-		if(pMouseItem->GetItemType() == 24 )			// ÔÂ¹âÊ¯
+
+		if(pMouseItem->GetItemType() == 24 )
 		{
 			if(p_item->GetItemOptionListCount() >= 1 && p_item->GetItemOptionListCount() <= 3)
 				bCanUpgrade = true;
 			else
 				bCanUpgrade = false;
 		}else
-		if(pMouseItem->GetItemType() == 25 )			// ×ÏÑ»Ê¯
+		if(pMouseItem->GetItemType() == 25 )
 		{
 			if(p_item->GetItemOptionListCount() == 2 || p_item->GetItemOptionListCount() == 3)
 				bCanUpgrade = true;
 			else
 				bCanUpgrade = false;
 		}else
-		if(pMouseItem->GetItemType() == 26 )			// ÁâÐ¿Ê¯
+		if(pMouseItem->GetItemType() == 26 )
 		{
 			if(p_item->GetItemOptionListCount() == 3)
 				bCanUpgrade = true;
@@ -1769,20 +1769,20 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 		MPetItem* pPetItem = (MPetItem*)p_item;
 		int bCanUpgrade = 0;
 		
-		if((pMouseItem->GetItemType() < 13 || pMouseItem->GetItemType() >= 16 && pMouseItem->GetItemType() <= 19) &&	// 12±îÁö´Â ·¹µå µå·Ó
-			pPetItem->GetSilver() == 0 &&		// silver´Â AttrLevelÀÌ 0ÀÎ °æ¿ì´Â ¼Ó¼ºÀÌ ¾ø´Ù°í º¸°í ÀÎÃ¾Æ® °¡´É
-			pPetItem->GetNumber() >= 10)		// Æê ·¹º§ 10ÀÌ»óÀÎ°æ¿ì
+		if((pMouseItem->GetItemType() < 13 || pMouseItem->GetItemType() >= 16 && pMouseItem->GetItemType() <= 19) &&
+			pPetItem->GetSilver() == 0 &&
+			pPetItem->GetNumber() >= 10)
 			bCanUpgrade = 1;
 		
 		if(pMouseItem->GetItemType() == 13 || pMouseItem->GetItemType() == 14)
 		{
-			if(pPetItem->GetCurrentDurability() == 0)		// ÇöÀç HP°¡ 0ÀÏ¶§
+			if(pPetItem->GetCurrentDurability() == 0)
 				bCanUpgrade = 2;
 			else
 				bCanUpgrade = 3;
 		}
 		
-		if(pMouseItem->GetItemType() == 15 && // 15´Â ·¹µå ¹öµå
+		if(pMouseItem->GetItemType() == 15 &&
 			pPetItem->GetNumber() == 49 && pPetItem->GetItemOptionListCount() == 0)
 			bCanUpgrade = 1;
 
@@ -1914,7 +1914,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 //-----------------------------------------------------------------------------
 void	_Skill_Description_Show(Rect rect, void * void_ptr, long left, long right)
 {
-//#ifdef _LIB // Client¿¡¼­´Â 3D¿ëÀ¸·Î »ç¿ëÇÒ ¼ö ÀÖ´Ù. -.-
+
 	RECT _rect;
 	SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
 	DrawAlphaBox(&_rect, 0, 0, 0, g_pUserOption->ALPHA_DEPTH);
@@ -1934,7 +1934,7 @@ void	_Skill_Description_Show(Rect rect, void * void_ptr, long left, long right)
 //		//SetRect(src_rect, 0, 0, rect.w, rect.h);
 //		//filledRect(&src_surface, &src_rect, BLACK);
 //#endif
-//		if (gpC_base->m_p_DDSurface_back->Lock()) // Descriptor common background¸¦ Ãâ·ÂÇÑ´Ù.
+
 //		{
 //			SetSurfaceInfo(&dest_surface, gpC_base->m_p_DDSurface_back->GetDDSD());
 //			SetRect(dest_rect, rect.x, rect.y, rect.w, rect.h);
@@ -1943,7 +1943,7 @@ void	_Skill_Description_Show(Rect rect, void * void_ptr, long left, long right)
 //			//TransparentBlt16(&dest_surface, &src_surface, &dest_rect, &src_rect);
 //			filledRect(&dest_surface, &dest_rect, BLACK);
 //#endif
-			SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h); // -.- TransparentBlt16()¿¡¼­ °ªÀ» º¯°æÇÔ.. ¾Æ´Ï ÀÌ·²¼ö°¡!
+			SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
 			gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
 //			rectangle(&dest_surface, dest_rect.x, dest_rect.y, dest_rect.x+dest_rect.w-1, dest_rect.y+dest_rect.h-1, LIGHT_MAGENTA);
 //
@@ -1965,7 +1965,7 @@ void	_Skill_Description_Show(Rect rect, void * void_ptr, long left, long right)
 
 	g_FL2_GetDC();
 	// name
-	// optionÀÌ ºÙ¾îÀÖÀ¸¸é ´Ù¸¥ »öÀ¸·Î Ãâ·ÂÇÑ´Ù.
+
 	const char *szSkillName;
 	char szTemp2[10] = "???";
 	bool bEnable = true;
@@ -2091,7 +2091,7 @@ void	_BloodBible_Description_Show(Rect rect, void * void_ptr, long left, long ri
 	SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
 
 	DrawAlphaBox(&_rect, 0, 0, 0, g_pUserOption->ALPHA_DEPTH);
-	SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h); // -.- TransparentBlt16()¿¡¼­ °ªÀ» º¯°æÇÔ.. ¾Æ´Ï ÀÌ·²¼ö°¡!
+	SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
 	gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
 
 	int px = rect.x+SIDE_GAP_HALF;
@@ -2100,7 +2100,7 @@ void	_BloodBible_Description_Show(Rect rect, void * void_ptr, long left, long ri
 
 	g_FL2_GetDC();
 	// name
-	// optionÀÌ ºÙ¾îÀÖÀ¸¸é ´Ù¸¥ »öÀ¸·Î Ãâ·ÂÇÑ´Ù.
+
 	
 	if(desc->sz_name != NULL)
 	{
@@ -2164,7 +2164,7 @@ void	_Strings_Description_Show(Rect rect, void * void_ptr, long left, long right
 {
 	LPSTR* ptr = (LPSTR *)void_ptr;
 
-//#ifdef _LIB // Client¿¡¼­´Â 3D¿ëÀ¸·Î »ç¿ëÇÒ ¼ö ÀÖ´Ù. -.-
+
 	RECT _rect;
 	SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
 	DrawAlphaBox(&_rect, 0, 0, 0, g_pUserOption->ALPHA_DEPTH);
@@ -2184,7 +2184,7 @@ void	_Strings_Description_Show(Rect rect, void * void_ptr, long left, long right
 //		//SetRect(src_rect, 0, 0, rect.w, rect.h);
 //		//filledRect(&src_surface, &src_rect, BLACK);
 //#endif
-//		if (gpC_base->m_p_DDSurface_back->Lock()) // Descriptor common background¸¦ Ãâ·ÂÇÑ´Ù.
+
 //		{
 //			SetSurfaceInfo(&dest_surface, gpC_base->m_p_DDSurface_back->GetDDSD());
 //			SetRect(dest_rect, rect.x, rect.y, rect.w, rect.h);
@@ -2193,7 +2193,7 @@ void	_Strings_Description_Show(Rect rect, void * void_ptr, long left, long right
 //			//TransparentBlt16(&dest_surface, &src_surface, &dest_rect, &src_rect);
 //			filledRect(&dest_surface, &dest_rect, BLACK);
 //#endif
-			SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h); // -.- TransparentBlt16()¿¡¼­ °ªÀ» º¯°æÇÔ.. ¾Æ´Ï ÀÌ·²¼ö°¡!
+			SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
 			gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
 //			rectangle(&dest_surface, dest_rect.x, dest_rect.y, dest_rect.x+dest_rect.w-1, dest_rect.y+dest_rect.h-1, LIGHT_MAGENTA);
 //
@@ -2229,7 +2229,7 @@ void	_Strings_Description_Show(Rect rect, void * void_ptr, long left, long right
 //-----------------------------------------------------------------------------
 void	_Info_Description_Show(Rect rect, void * void_ptr, long left, long right)
 {
-//#ifdef _LIB // Client¿¡¼­´Â 3D¿ëÀ¸·Î »ç¿ëÇÒ ¼ö ÀÖ´Ù. -.-
+
 	RECT _rect;
 	SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
 	DrawAlphaBox(&_rect, 0, 0, 0, g_pUserOption->ALPHA_DEPTH);
@@ -2249,7 +2249,7 @@ void	_Info_Description_Show(Rect rect, void * void_ptr, long left, long right)
 //		//SetRect(src_rect, 0, 0, rect.w, rect.h);
 //		//filledRect(&src_surface, &src_rect, BLACK);
 //#endif
-//		if (gpC_base->m_p_DDSurface_back->Lock()) // Descriptor common background¸¦ Ãâ·ÂÇÑ´Ù.
+
 //		{
 //			SetSurfaceInfo(&dest_surface, gpC_base->m_p_DDSurface_back->GetDDSD());
 //			SetRect(dest_rect, rect.x, rect.y, rect.w, rect.h);
@@ -2258,7 +2258,7 @@ void	_Info_Description_Show(Rect rect, void * void_ptr, long left, long right)
 //			//TransparentBlt16(&dest_surface, &src_surface, &dest_rect, &src_rect);
 //			filledRect(&dest_surface, &dest_rect, BLACK);
 //#endif
-			SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h); // -.- TransparentBlt16()¿¡¼­ °ªÀ» º¯°æÇÔ.. ¾Æ´Ï ÀÌ·²¼ö°¡!
+			SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
 			gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
 //			rectangle(&dest_surface, dest_rect.x, dest_rect.y, dest_rect.x+dest_rect.w-1, dest_rect.y+dest_rect.h-1, LIGHT_MAGENTA);
 //
@@ -2288,7 +2288,7 @@ void	_Info_Description_Show(Rect rect, void * void_ptr, long left, long right)
 //-----------------------------------------------------------------------------
 void	_SkillTree_Description_Show(Rect rect, void * void_ptr, long left, long right)
 {
-//#ifdef _LIB // Client¿¡¼­´Â 3D¿ëÀ¸·Î »ç¿ëÇÒ ¼ö ÀÖ´Ù. -.-
+
 	RECT _rect;
 	SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
 	DrawAlphaBox(&_rect, 0, 0, 0, g_pUserOption->ALPHA_DEPTH);
@@ -2308,7 +2308,7 @@ void	_SkillTree_Description_Show(Rect rect, void * void_ptr, long left, long rig
 //		//SetRect(src_rect, 0, 0, rect.w, rect.h);
 //		//filledRect(&src_surface, &src_rect, BLACK);
 //#endif
-//		if (gpC_base->m_p_DDSurface_back->Lock()) // Descriptor common background¸¦ Ãâ·ÂÇÑ´Ù.
+
 //		{
 //			SetSurfaceInfo(&dest_surface, gpC_base->m_p_DDSurface_back->GetDDSD());
 //			SetRect(dest_rect, rect.x, rect.y, rect.w, rect.h);
@@ -2317,7 +2317,7 @@ void	_SkillTree_Description_Show(Rect rect, void * void_ptr, long left, long rig
 //			//TransparentBlt16(&dest_surface, &src_surface, &dest_rect, &src_rect);
 //			filledRect(&dest_surface, &dest_rect, BLACK);
 //#endif
-			SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h); // -.- TransparentBlt16()¿¡¼­ °ªÀ» º¯°æÇÔ.. ¾Æ´Ï ÀÌ·²¼ö°¡!
+			SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
 			gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
 //			rectangle(&dest_surface, dest_rect.x, dest_rect.y, dest_rect.x+dest_rect.w-1, dest_rect.y+dest_rect.h-1, LIGHT_MAGENTA);
 //
@@ -2351,7 +2351,7 @@ void	_SkillTree_Description_Show(Rect rect, void * void_ptr, long left, long rig
 
 	g_FL2_GetDC();
 	// name
-	// optionÀÌ ºÙ¾îÀÖÀ¸¸é ´Ù¸¥ »öÀ¸·Î Ãâ·ÂÇÑ´Ù.
+
 	g_PrintColorStr(px+1, py+1, szSkillName, gpC_base->m_item_name_pi, RGB(100,100,0) );
 	g_PrintColorStr(px, py, szSkillName, gpC_base->m_item_name_pi, RGB_WHITE );
 
@@ -2475,7 +2475,7 @@ void	_SkillTree_Description_Show(Rect rect, void * void_ptr, long left, long rig
 
 //	assert(status != MSkillDomain::SKILLSTATUS_NULL);
 
-	// »õ·Î¿î skillÀ» ¹è¿ï ¼ö ÀÖ´Â »óÅÂÀÎÁö Ã¼Å©ÇØ¾ßÇÔ... by sigi
+
 	if(status==MSkillDomain::SKILLSTATUS_LEARNED)
 	{
 		if(g_eRaceInterface == RACE_SLAYER)
@@ -2537,7 +2537,7 @@ void	_SkillTree_Description_Show(Rect rect, void * void_ptr, long left, long rig
 	{
 //		switch (status)
 //		{
-//			default: // ÀÌÁ¦ ¹è¿ï ¼ö ÀÖ´Ù.
+
 
 //#ifdef _DEBUG
 //		(*g_pSkillManager)[SKILLDOMAIN_VAMPIRE].SetDomainLevel(21);
@@ -2623,7 +2623,7 @@ void	_SkillTree_Description_Show(Rect rect, void * void_ptr, long left, long rig
 	}
 //	else if (status==MSkillDomain::SKILLSTATUS_OTHER		// by sigi
 //			|| status==MSkillDomain::SKILLSTATUS_NEXT)
-//				g_PrintColorStr(px, py, "\"¾ÆÁ÷ ¹è¿ï ¼ö ¾ø½À´Ï´Ù.\"", gpC_base->m_item_desc_pi, RGB_RED);				
+
 	
 
 	if(g_eRaceInterface == RACE_OUSTERS && left <365)
@@ -2645,7 +2645,7 @@ void	_SkillTree_Description_Show(Rect rect, void * void_ptr, long left, long rig
 //-----------------------------------------------------------------------------
 void	_Help_Description_Show(Rect rect, void * void_ptr, long left, long right)
 {
-//#ifdef _LIB // Client¿¡¼­´Â 3D¿ëÀ¸·Î »ç¿ëÇÒ ¼ö ÀÖ´Ù. -.-
+
 	RECT _rect;
 	SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
 	DrawAlphaBox(&_rect, 0, 0, 0, g_pUserOption->ALPHA_DEPTH);
@@ -2665,7 +2665,7 @@ void	_Help_Description_Show(Rect rect, void * void_ptr, long left, long right)
 //		//SetRect(src_rect, 0, 0, rect.w, rect.h);
 //		//filledRect(&src_surface, &src_rect, BLACK);
 //#endif
-//		if (gpC_base->m_p_DDSurface_back->Lock()) // Descriptor common background¸¦ Ãâ·ÂÇÑ´Ù.
+
 //		{
 //			SetSurfaceInfo(&dest_surface, gpC_base->m_p_DDSurface_back->GetDDSD());
 //			SetRect(dest_rect, rect.x, rect.y, rect.w, rect.h);
@@ -2674,7 +2674,7 @@ void	_Help_Description_Show(Rect rect, void * void_ptr, long left, long right)
 //			//TransparentBlt16(&dest_surface, &src_surface, &dest_rect, &src_rect);
 //			filledRect(&dest_surface, &dest_rect, BLACK);
 //#endif
-			SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h); // -.- TransparentBlt16()¿¡¼­ °ªÀ» º¯°æÇÔ.. ¾Æ´Ï ÀÌ·²¼ö°¡!
+			SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
 			gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
 //			rectangle(&dest_surface, dest_rect.x, dest_rect.y, dest_rect.x+dest_rect.w-1, dest_rect.y+dest_rect.h-1, LIGHT_MAGENTA);
 //
@@ -2740,23 +2740,23 @@ void _Item_Description_Calculator(void (*fp_show)(Rect, void *, long, long), int
 	if (p_item == NULL)
 		return;
 
-	int line_count = 2;//2; // default: name, weight -> ºüÁü
+	int line_count = 2;
 	
 	if( g_pTimeItemManager->IsExist( p_item->GetID() ) )
 		line_count++;
 
-	// 2004, 7, 1, sobeit add start - corezap °ü·Ã
+
 	if(pAddItem != NULL)
 	{
 		if(pAddItem->GetItemClass() == ITEM_CLASS_CORE_ZAP)
 		{
-			if(pAddItem->GetItemType() >= 0 && pAddItem->GetItemType() <=3) // Áúµå·¹ ÄÚ¾îÀì
-				line_count+= 3; // ¾ÆÀÌÅÛ ÀÚÃ¼ ¿É¼Ç 1°³, 4°³ ¸ð¾ÒÀ»¶§ ¿É¼Ç 2°³
+			if(pAddItem->GetItemType() >= 0 && pAddItem->GetItemType() <=3)
+				line_count+= 3;
 		}
 	}
-	// 2004, 7, 1, sobeit add end - corezap °ü·Ã
 
-	// identifyµÈ ¾ÆÀÌÅÛÀÎ °æ¿ì.. by sigi
+
+
 //	if (p_item->IsIdentified())
 	{
 		const int itemClass = p_item->GetItemClass();
@@ -2775,25 +2775,25 @@ void _Item_Description_Calculator(void (*fp_show)(Rect, void *, long, long), int
 		line_count+=(*g_pItemTable)[itemClass][itemType].DefaultOptionList.size();
 
 
-		// ÆêÀº ¿ö³« Æ¯ÀÌÇØ¼­ µû·ÎÃ³¸®
+
 		if(itemClass == ITEM_CLASS_PET_ITEM)
 		{
-			// ÆêÀº durÀ» ³²Àº ¸ÔÀÌ¾çÀ¸·Î Ãâ·ÂÇÑ´Ù
+
 			line_count++;
 
-			// Æê ·¹º§Àº Num¿¡ ÀÖ´Ù
+
 			line_count++;
 
-			// 2Â÷ ´É·ÂÀÌ ÀÖÀ» ¶§
+
 			if(((MPetItem*)p_item)->IsCanCutHead())
 				line_count++;
 
-			// ÆêÀº enchant levelÀ» Æê¼Ó¼ºÀ¸·Î Ãâ·ÂÇÑ´Ù
-			// enchant level Àº ÀÎÃ¾Æ®¿Í´Â ¾Æ¹« °ü·Ã ¾øÀ¸¸ç »ç½ÇÀº ChargeItemÀÇ Charge¼ö¸¦ ¹ÞÀ» ¶§ ¾´´Ù
-			// »ç½Ç ¹ÞÀ»¶§´Â Enchant Level·Î ¹ÞÁö¸¸ ÀúÀåÀº Number¿¡ ÀúÀåÇÑ´Ù. ±×·¡¼­ Â÷Áö ¾ÆÀÌÅÛ¿¡¼­
-			// GetEnchantLevelÀ» ÇØµµ ¾Æ¹«°Íµµ ¾È³ª¿Â´Ù.
-			// ±×°Ç Â÷Áö ¾ÆÀÌÅÛ¸¸ÀÌ°í ÆêÀº ±×³É EnchantLevel ±×´ë·Î ¾´´Ù
-			// Æê ¼Ó¼º ¼öÄ¡´Â Silver°ªÀ» ¾´´Ù.
+
+
+
+
+
+
 
 			if(g_pTimeItemManager->IsExist( p_item->GetID() ) )
 			{
@@ -2946,10 +2946,10 @@ void _Item_Description_Calculator(void (*fp_show)(Rect, void *, long, long), int
 							if (p_item->GetRequireLevel() > 0)
 								line_count++;
 						}
-						// 2005, 1, 18, sobeit add start - ÇÊ¿ä ½ÂÁ÷ ·¹º§
+
 						if((*g_pItemTable)[p_item->GetItemClass()][p_item->GetItemType()].GetRequireAdvancementLevel()>0)
 							line_count++;
-						// 2005, 1, 18, sobeit add end - ÇÊ¿ä ½ÂÁ÷ ·¹º§
+
 					}
 					
 					if(!p_item->IsSlayerItem() && g_eRaceInterface == RACE_SLAYER ||
@@ -3057,7 +3057,7 @@ void _Item_Description_Calculator(void (*fp_show)(Rect, void *, long, long), int
 //		rect.w = max(rect.w, g_GetStringWidth((*g_pItemTable)[p_item->GetItemClass()][p_item->GetItemType()].Description.GetString(), gpC_base->m_item_desc_pi.hfont));
 
 	
-	// ¼ÕÈñ½Â ¹Ùº¸ ¿ìÇìÇì
+
 	if(g_pTimeItemManager->IsExist( p_item->GetID() ) )
 	{
 		char	temp[256] = {0,};	
@@ -3576,7 +3576,7 @@ void _Multiline_Info_Calculator(void (*fp_show)(Rect, void *, long, long), int x
 	
 	int line_count = 0;
 
-	if(right != 0) // ÇÑ¶óÀÎ¿¡ Ç¥½ÃÇÒ ½ºÆ®¸µ
+	if(right != 0)
 	{
 		if(NULL != void_ptr)
 		{	
@@ -3619,7 +3619,7 @@ void _Multiline_Info_Calculator(void (*fp_show)(Rect, void *, long, long), int x
 //-----------------------------------------------------------------------------
 void	_Multiline_Info_Show(Rect rect, void * void_ptr, long left, long right)
 {
-//#ifdef _LIB // Client¿¡¼­´Â 3D¿ëÀ¸·Î »ç¿ëÇÒ ¼ö ÀÖ´Ù. -.-
+
 	if(NULL == void_ptr)
 		return;
 	RECT _rect;
@@ -3641,7 +3641,7 @@ void	_Multiline_Info_Show(Rect rect, void * void_ptr, long left, long right)
 //		//SetRect(src_rect, 0, 0, rect.w, rect.h);
 //		//filledRect(&src_surface, &src_rect, BLACK);
 //#endif
-//		if (gpC_base->m_p_DDSurface_back->Lock()) // Descriptor common background¸¦ Ãâ·ÂÇÑ´Ù.
+
 //		{
 //			SetSurfaceInfo(&dest_surface, gpC_base->m_p_DDSurface_back->GetDDSD());
 //			SetRect(dest_rect, rect.x, rect.y, rect.w, rect.h);
@@ -3650,7 +3650,7 @@ void	_Multiline_Info_Show(Rect rect, void * void_ptr, long left, long right)
 //			//TransparentBlt16(&dest_surface, &src_surface, &dest_rect, &src_rect);
 //			filledRect(&dest_surface, &dest_rect, BLACK);
 //#endif
-			SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h); // -.- TransparentBlt16()¿¡¼­ °ªÀ» º¯°æÇÔ.. ¾Æ´Ï ÀÌ·²¼ö°¡!
+			SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
 			gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
 //			rectangle(&dest_surface, dest_rect.x, dest_rect.y, dest_rect.x+dest_rect.w-1, dest_rect.y+dest_rect.h-1, LIGHT_MAGENTA);
 //

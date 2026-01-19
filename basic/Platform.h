@@ -1826,6 +1826,18 @@ static inline int wsprintf(char* buf, const char* fmt, ...) {
 #ifndef VK_CONTROL
 #define VK_CONTROL 0x11
 #endif
+#ifndef VK_HOME
+#define VK_HOME 0x24
+#endif
+#ifndef VK_END
+#define VK_END 0x23
+#endif
+#ifndef VK_DELETE
+#define VK_DELETE 0x2E
+#endif
+#ifndef VK_INSERT
+#define VK_INSERT 0x2D
+#endif
 
 /* DirectInput Key Codes */
 #ifndef DIK_LCONTROL

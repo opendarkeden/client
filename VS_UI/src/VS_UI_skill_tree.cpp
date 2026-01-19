@@ -10,11 +10,11 @@
 #define ADD_CLOSE_BUTTON	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(Right()-94, Down()-66, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE), SKILLTREE_CLOSE_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE));
 
 //
-// ! SkillTree에 skill 위치를 지정하는 방법은 다음과 같다.
-//   skill을 배우는 순서를 따라가되 skill tree가 나오면 좌에서 우로 번호를
-//   매긴다.
+
+
+
 //
-// ! 아직없는 것은 나중에 Sprite Pack 뒤에 추가된다. (중간에 있는것들도)
+
 //
 SKILLTREE_SKILL C_VS_UI_SKILL_TREE_ENCHANT::m_skill_icon_tab[ENCHANT_SKILL_COUNT] = {
 	MAGIC_CREATE_HOLY_WATER,
@@ -173,7 +173,7 @@ void C_VS_UI_SKILL_TREE::Show()
 //-----------------------------------------------------------------------------
 // C_VS_UI_SKILL_TREE::Run
 //
-// id는 ACTIONINFO이다.
+
 //-----------------------------------------------------------------------------
 void C_VS_UI_SKILL_TREE::Run(id_t id)
 {
@@ -185,11 +185,11 @@ void C_VS_UI_SKILL_TREE::Run(id_t id)
 
 		default:
 			//
-			// 배울 수 있는 것만 선택해서 Client로 보내준다.
+
 			//
 			assert(m_skill_domain != MAX_SKILLDOMAIN);
 
-			// 새로운 skill을 배울 수 있는 상태인지 체크.. by sigi
+
 			if ((*g_pSkillManager)[m_skill_domain].HasNewSkill())
 			{
 				MSkillDomain::SKILLSTATUS status = (*g_pSkillManager)[m_skill_domain].GetSkillStatus((ACTIONINFO)id);
@@ -252,7 +252,7 @@ void	C_VS_UI_SKILL_TREE::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 	else if(p_button->m_image_index != -1)
 	{
 		//*
-		assert(m_skill_domain != MAX_SKILLDOMAIN); // 설정되었는가?
+		assert(m_skill_domain != MAX_SKILLDOMAIN);
 
 		MSkillDomain::SKILLSTATUS status = (*g_pSkillManager)[m_skill_domain].GetSkillStatus((ACTIONINFO)p_button->GetID());
 
@@ -260,18 +260,18 @@ void	C_VS_UI_SKILL_TREE::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 
 		if (status == MSkillDomain::SKILLSTATUS_LEARNED)
 		{
-			// 이미 배운 skill은 highlight된 icon으로 출력한다.
+
 			m_skill_icon_bright_image_spk.Blt(p_button->x+m_extra_offset_x, p_button->y+m_extra_offset_y, p_button->m_image_index);
 			m_p_etc_image_spk->BltColor(p_button->x, p_button->y, ICON_GUARD, rgb_BLUE);
 		}
 		else if (status == MSkillDomain::SKILLSTATUS_NEXT
-					// 새로운 skill을 배울 수 있는 상태인지 체크.. by sigi
+
 					&& (*g_pSkillManager)[m_skill_domain].HasNewSkill() )
 		{
-			// 배울 수 있는 skill은 guard색으로 구별시킨다.
+
 			m_p_etc_image_spk->BltColor(p_button->x, p_button->y, ICON_GUARD, rgb_GREEN);
 
-			// 배우기 위해 click하는가?
+
 			if (p_button->GetFocusState() && p_button->GetPressState())
 			{
 				m_skill_icon_bright_image_spk.Blt(p_button->x+m_extra_offset_x, p_button->y+m_extra_offset_y, p_button->m_image_index);
@@ -294,21 +294,21 @@ void	C_VS_UI_SKILL_TREE::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 		domain.SetBegin();
 		while (domain.IsNotEnd())
 		{
-			// skill의 id와 status
+
 			ACTIONINFO						id			= domain.GetSkillID();
 			MSkillDomain::SKILLSTATUS	status	= domain.GetSkillStatus();
 
 			//---------------------------------------
-			// status는 다음과 같다. 
+
 			//---------------------------------------
-			//	MSkillDomain::SKILLSTATUS_LEARNED		// 배웠다.
-			//	MSkillDomain::SKILLSTATUS_NEXT			// 다음에 배울 수 있다.
-			//	MSkillDomain::SKILLSTATUS_OTHER			// 아직은 배울 수 없다.	
+
+
+
 			//---------------------------------------
 			
 			//---------------------------------------
-			// id를 알면 g_SkillInfoTable에서 
-			// 그 id의 skill에 대한 정보를 얻을 수 있다.
+
+
 			//---------------------------------------
 			//logFile << "[" << id << "] " << g_SkillInfoTable[id].GetName()
 			//		<< " = " << (int)status << endl;
@@ -320,7 +320,7 @@ void	C_VS_UI_SKILL_TREE::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 			m_p_etc_image_spk->Blt(p_button->x, p_button->y, ICON_GUARD);
 			}
 
-			// 다음
+
 			domain.Next();
 		}*//*
 	}
@@ -427,14 +427,14 @@ C_VS_UI_SKILL_TREE_ENCHANT::C_VS_UI_SKILL_TREE_ENCHANT()
 #ifndef _LIB 
 	//---------------------------------------------------------------------
 	//
-	// (*g_pSkillManager)에서
-	// Sword Domain의 Skill들을 가지고 작업한다.
+
+
 	//
 	//---------------------------------------------------------------------
 	MSkillDomain& enchantDomain = (*g_pSkillManager)[SKILLDOMAIN_ENCHANT];
 
 	//---------------------------------------------------------------------
-	// 몇가지 skill을 배웠다고 표시한다.
+
 	//---------------------------------------------------------------------
 	enchantDomain.SetNewSkill();
 	enchantDomain.LearnSkill( MAGIC_CREATE_HOLY_WATER );
@@ -515,14 +515,14 @@ C_VS_UI_SKILL_TREE_SWORD::C_VS_UI_SKILL_TREE_SWORD()
 #ifndef _LIB 
 	//---------------------------------------------------------------------
 	//
-	// (*g_pSkillManager)에서
-	// Sword Domain의 Skill들을 가지고 작업한다.
+
+
 	//
 	//---------------------------------------------------------------------
 	MSkillDomain& swordDomain = (*g_pSkillManager)[SKILLDOMAIN_SWORD];
 
 	//---------------------------------------------------------------------
-	// 몇가지 skill을 배웠다고 표시한다.
+
 	//---------------------------------------------------------------------
 	swordDomain.SetNewSkill();
 	swordDomain.LearnSkill( SKILL_DOUBLE_IMPACT );
@@ -605,7 +605,7 @@ C_VS_UI_SKILL_TREE_VAMPIRE::C_VS_UI_SKILL_TREE_VAMPIRE()
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+163, y+270, SKILL_GUARD_X, SKILL_GUARD_Y, m_skill_icon_tab[14].id, this, 14));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+104, y+270, SKILL_GUARD_X, SKILL_GUARD_Y, m_skill_icon_tab[15].id, this, 15));
 
-	// 요사이에 두개가 앞으로 추가될 것임.
+
 	//m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+104, y+328, SKILL_GUARD_X, SKILL_GUARD_Y, m_skill_icon_tab[16].id, this, 16));
 	//m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+163, y+328, SKILL_GUARD_X, SKILL_GUARD_Y, m_skill_icon_tab[17].id, this, 17));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+223, y+328, SKILL_GUARD_X, SKILL_GUARD_Y, m_skill_icon_tab[16].id, this, 16));
@@ -619,14 +619,14 @@ C_VS_UI_SKILL_TREE_VAMPIRE::C_VS_UI_SKILL_TREE_VAMPIRE()
 #ifndef _LIB 
 	//---------------------------------------------------------------------
 	//
-	// (*g_pSkillManager)에서
-	// Sword Domain의 Skill들을 가지고 작업한다.
+
+
 	//
 	//---------------------------------------------------------------------
 	MSkillDomain& vampireDomain = (*g_pSkillManager)[SKILLDOMAIN_VAMPIRE];
 
 	//---------------------------------------------------------------------
-	// 몇가지 skill을 배웠다고 표시한다.
+
 	//---------------------------------------------------------------------
 	vampireDomain.SetNewSkill();
 	vampireDomain.LearnSkill( MAGIC_HIDE );
@@ -684,14 +684,14 @@ C_VS_UI_SKILL_TREE_BLADE::C_VS_UI_SKILL_TREE_BLADE()
 #ifndef _LIB 
 	//---------------------------------------------------------------------
 	//
-	// (*g_pSkillManager)에서
-	// blade Domain의 Skill들을 가지고 작업한다.
+
+
 	//
 	//---------------------------------------------------------------------
 	MSkillDomain& bladeDomain = (*g_pSkillManager)[SKILLDOMAIN_BLADE];
 
 	//---------------------------------------------------------------------
-	// 몇가지 skill을 배웠다고 표시한다.
+
 	//---------------------------------------------------------------------
 	bladeDomain.SetNewSkill();
 	bladeDomain.LearnSkill( SKILL_SINGLE_BLOW );
@@ -771,14 +771,14 @@ C_VS_UI_SKILL_TREE_HEAL::C_VS_UI_SKILL_TREE_HEAL()
 #ifndef _LIB 
 	//---------------------------------------------------------------------
 	//
-	// (*g_pSkillManager)에서
-	// Sword Domain의 Skill들을 가지고 작업한다.
+
+
 	//
 	//---------------------------------------------------------------------
 	MSkillDomain& healDomain = (*g_pSkillManager)[SKILLDOMAIN_HEAL];
 
 	//---------------------------------------------------------------------
-	// 몇가지 skill을 배웠다고 표시한다.
+
 	//---------------------------------------------------------------------
 	healDomain.SetNewSkill();
 	healDomain.LearnSkill( MAGIC_PROTECTION_FROM_POISON );
@@ -870,14 +870,14 @@ C_VS_UI_SKILL_TREE_GUN::C_VS_UI_SKILL_TREE_GUN()
 #ifndef _LIB 
 	//---------------------------------------------------------------------
 	//
-	// (*g_pSkillManager)에서
-	// Sword Domain의 Skill들을 가지고 작업한다.
+
+
 	//
 	//---------------------------------------------------------------------
 	MSkillDomain& gunDomain = (*g_pSkillManager)[SKILLDOMAIN_GUN];
 
 	//---------------------------------------------------------------------
-	// 몇가지 skill을 배웠다고 표시한다.
+
 	//---------------------------------------------------------------------
 	gunDomain.SetNewSkill();
 	gunDomain.LearnSkill( SKILL_SHARP_SHOOTING );

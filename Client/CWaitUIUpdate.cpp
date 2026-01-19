@@ -26,6 +26,7 @@
 #include "packet/cpackets/CLChangeServer.h"
 #include "CWaitUIUpdate.h"
 #include "MTestDef.h"
+#include "DXLibBackend.h"  // For SDL text input functions
 
 extern bool	LoadingAddonSPK(bool bLoadingAll);
 extern bool	g_AddonSPKAllLoaded;
@@ -61,6 +62,12 @@ CWaitUIUpdate::Init()
 
 	// keyboard event 처리
 	g_pDXInput->SetKeyboardEventReceiver( DXKeyboardEvent );
+
+	// text input 처리 (SDL2 only)
+	dxlib_input_set_textinput_callback(SDLTextInputEvent);
+	dxlib_input_start_text();  // Enable SDL text input
+	printf("DEBUG: SDL text input enabled, callback set to %p\n", (void*)SDLTextInputEvent);
+	fflush(stdout);
 }
 
 //-----------------------------------------------------------------------------
@@ -70,7 +77,43 @@ void
 CWaitUIUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 {
 		if (event==CDirectInput::KEYDOWN)
-		{			
+		{
+			// Convert DIK scan codes to VK virtual key codes for control keys
+			// These keys need WM_KEYDOWN messages for text editing to work
+			UINT vk_key = 0;
+			bool is_control_key = false;
+
+			// DIK constants that might not be defined in all build configurations
+			enum {
+				DIK_CONST_BACK = 0x0E,
+				DIK_CONST_DELETE = 0xD3,
+				DIK_CONST_INSERT = 0xD2
+			};
+
+			switch (key) {
+				case DIK_TAB:      vk_key = VK_TAB; is_control_key = true; break;
+				case DIK_CONST_BACK:     vk_key = VK_BACK; is_control_key = true; break;
+				case DIK_RETURN:   vk_key = VK_RETURN; is_control_key = true; break;
+				case DIK_ESCAPE:   vk_key = VK_ESCAPE; is_control_key = true; break;
+				case DIK_LEFT:     vk_key = VK_LEFT; is_control_key = true; break;
+				case DIK_RIGHT:    vk_key = VK_RIGHT; is_control_key = true; break;
+				case DIK_UP:       vk_key = VK_UP; is_control_key = true; break;
+				case DIK_DOWN:     vk_key = VK_DOWN; is_control_key = true; break;
+				case DIK_HOME:     vk_key = VK_HOME; is_control_key = true; break;
+				case DIK_END:      vk_key = VK_END; is_control_key = true; break;
+				case DIK_CONST_DELETE:   vk_key = VK_DELETE; is_control_key = true; break;
+				case DIK_CONST_INSERT:   vk_key = VK_INSERT; is_control_key = true; break;
+			}
+
+			if (is_control_key) {
+				static int keydown_debug_count = 0;
+				if (keydown_debug_count < 10) {
+					printf("  DXKeyboardEvent: Sending WM_KEYDOWN, vk_key=%u (DIK=%lu)\n", vk_key, (unsigned long)key);
+					keydown_debug_count++;
+				}
+				gC_vs_ui.KeyboardControl(WM_KEYDOWN, vk_key, 0);
+			}
+
 			gC_vs_ui.DIKeyboardControl(event, key);
 	
 			#ifdef OUTPUT_DEBUG
@@ -119,6 +162,71 @@ CWaitUIUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 }
 
 //-----------------------------------------------------------------------------
+// SDLTextInputEvent
+//-----------------------------------------------------------------------------
+
+void CWaitUIUpdate::SDLTextInputEvent(const char* text, int* window_coords)
+{
+	static int debug_count = 0;
+
+	// Convert SDL text input (UTF-8) to WM_CHAR messages
+	// This allows the IME system to handle text input properly
+	if (text == NULL || text[0] == '\0') {
+		return;
+	}
+
+	if (debug_count < 10) {
+		printf("DEBUG SDLTextInputEvent: text='%s', coords=[%d,%d]\n", text, window_coords[0], window_coords[1]);
+		debug_count++;
+	}
+
+	// Process each character in the UTF-8 string
+	int i = 0;
+	while (text[i] != '\0') {
+		// Get the Unicode code point from UTF-8
+		UINT char_code = 0;
+		BYTE c = (BYTE)text[i];
+
+		if (c < 0x80) {
+			// ASCII character (1 byte)
+			char_code = c;
+			i += 1;
+		} else if ((c & 0xE0) == 0xC0) {
+			// 2-byte UTF-8
+			if (text[i+1] != '\0') {
+				char_code = ((c & 0x1F) << 6) | (text[i+1] & 0x3F);
+				i += 2;
+			} else {
+				break;
+			}
+		} else if ((c & 0xF0) == 0xE0) {
+			// 3-byte UTF-8
+			if (text[i+1] != '\0' && text[i+2] != '\0') {
+				char_code = ((c & 0x0F) << 12) | ((text[i+1] & 0x3F) << 6) | (text[i+2] & 0x3F);
+				i += 3;
+			} else {
+				break;
+			}
+		} else if ((c & 0xF8) == 0xF0) {
+			// 4-byte UTF-8 (beyond BMP, convert to replacement char)
+			char_code = '?';  // Replacement character
+			i += 4;
+		} else {
+			// Invalid UTF-8, skip
+			i += 1;
+			continue;
+		}
+
+		if (debug_count < 10) {
+			printf("  Sending WM_CHAR: char_code=%d (0x%x) '%c'\n", char_code, char_code, (char)char_code);
+		}
+
+		// Send WM_CHAR message to the IME system
+		gC_vs_ui.KeyboardControl(WM_CHAR, char_code, 0);
+	}
+}
+
+//-----------------------------------------------------------------------------
 // DXMouseEvent
 //-----------------------------------------------------------------------------
 void		
@@ -151,7 +259,7 @@ CWaitUIUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int
 				}
 			}				
 
-			//gC_vs_ui.MouseControl(M_LEFTBUTTON_DOWN, g_x, g_y);
+			gC_vs_ui.MouseControl(M_LEFTBUTTON_DOWN, g_x, g_y);
 			last_click_time = GetTickCount();
 			double_click_x = g_x;
 			double_click_y = g_y;
@@ -212,25 +320,18 @@ CWaitUIUpdate::Update()
 		
 		//------------------------------------------
 		// Input
-		//------------------------------------------	
-		// edit by coffee 錦攣槨눗왯뺏冷攣끽鞫刻
-		extern bool	g_bTestMode;
-		if (g_bActiveGame
-#ifdef OUTPUT_DEBUG
-			|| g_bTestMode
-#endif
-			)
-		{
-			UpdateInput();
-			ProcessInput();			
-		}
-		
+		//------------------------------------------
+		// Always call UpdateInput and ProcessInput for all modes (including main menu)
+		// SDL2 backend needs to process events every frame
+		UpdateInput();
+		ProcessInput();
+
 		#ifdef OUTPUT_DEBUG_UPDATE_LOOP
 			DEBUG_ADD("UP");
 		#endif
 
 		gC_vs_ui.Process();
-	
+
 		#ifdef OUTPUT_DEBUG_UPDATE_LOOP
 			DEBUG_ADD("UP2");
 		#endif
@@ -240,17 +341,17 @@ CWaitUIUpdate::Update()
 
 		//------------------------------------------
 		// Socket Output부분 처리
-		//------------------------------------------	
+		//------------------------------------------
 		if (!UpdateSocketOutput())
 		{
-			return;	
-		}		
+			return;
+		}
 
-		//------------------------------------------	
+		//------------------------------------------
 		// [ TEST CODE]
-		//------------------------------------------	
+		//------------------------------------------
 		// UI 기다리는 모드가 아닐 경우...
-		//------------------------------------------	
+		//------------------------------------------
 		if (g_Mode!=MODE_MAINMENU &&
 			g_Mode!=MODE_NEWUSER &&
 			g_Mode!=MODE_WAIT_SELECTPC &&
@@ -383,9 +484,9 @@ CWaitUIUpdate::ProcessInput()
 	}
 	*/
   
-	//---------------------------------------------------	
+	//---------------------------------------------------
 	// UI Input
-	//---------------------------------------------------	
+	//---------------------------------------------------
 	gC_vs_ui.MouseControl(M_MOVING, g_x, g_y);
 	if (g_pDXInput->m_lb_down)
 	{
@@ -695,8 +796,9 @@ CWaitUIUpdate::UpdateDraw()
 //	else
 	{
 		POINT point;
-		
+
 		static DWORD oldTime = timeGetTime();
+
 		gC_vs_ui.Show();
 
 		if(g_TitleSpriteAlpha > 0)

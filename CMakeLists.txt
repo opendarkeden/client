@@ -161,7 +161,8 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		Client/DebugInfo.cpp
 		Client/ClientConfig.cpp
 		Client/UtilityFunction.cpp
-		Client/GameFunctions.cpp
+		# GameFunctions.cpp - Moved to CLIENT_MAIN_SOURCES to avoid duplicates with GameMain.cpp
+		Client/GamePacketFunctions.cpp
 		Client/RenderingFunctions.cpp
 		Client/UIUtilityFunctions.cpp
 
@@ -259,6 +260,12 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/GCNotifyWin.cpp
 		# Exclude MitemTableinit2.cpp - duplicates InitItem2() from MitemTableInit.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/MitemTableinit2.cpp
+		# Exclude MissingGlobals.cpp - duplicates globals with GameMain.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/MissingGlobals.cpp
+		# Exclude GameHelpers.cpp - duplicates NewFakeCreature with GamePacketFunctions.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/GameHelpers.cpp
+		# Exclude GameFunctions.cpp - duplicates functions with GameMain.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/GameFunctions.cpp
 	)
 
 	# Note: Cpackets contains CG (Client to Game) handlers
@@ -272,7 +279,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*Imm.*")
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*D3D.*")
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*Direct3.*")
-		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*GameMain.*")
+		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*GameMain.*")  # Re-enabled for cross-platform support
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*EXECryptor.*")
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*GetWinVer.*")
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*\\.bak.*")
@@ -286,6 +293,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		# MWorkThread and MMusic are needed on all platforms
 		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*MWorkThread.*")
 		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*MMusic\\.cpp")
+		# Note: PacketFunction.cpp excluded temporarily - has many Windows-specific networking APIs (NetBIOS, IPX/SPX)
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*PacketFunction\\.cpp")
 		# ProfileManager needed on all platforms
 		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*ProfileManager\\.cpp")

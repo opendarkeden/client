@@ -201,9 +201,12 @@ typedef struct DIDEVICEOBJECTDATA {
 #define DIK_8               0x09
 #define DIK_9               0x0A
 #define DIK_0               0x0B
+#define DIK_TAB             0x0F
 #define DIK_RETURN          0x1C
 #define DIK_LCONTROL        0x1D
 #define DIK_LSHIFT          0x2A
+#define DIK_RMENU           0xB8    /* right Alt */
+#define DIK_LMENU           0x38    /* left Alt */
 #define DIK_SPACE           0x39
 #define DIK_F1              0x3B
 #define DIK_F2              0x3C
@@ -223,6 +226,7 @@ typedef struct DIDEVICEOBJECTDATA {
 #define DIK_DOWN            0xD0
 #define DIK_LEFT            0xCB
 #define DIK_RIGHT           0xCD
+#define DIK_NUMPADENTER     0x9C    /* Enter on numeric keypad */
 
 /* GUID definitions (simplified) */
 #ifndef GUID_DEFINED

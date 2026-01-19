@@ -28,7 +28,7 @@ void Scrollbar::Init()
 //-----------------------------------------------------------------------------
 // IncreaseAmountToScroll
 //
-// m_dw_amount_to_scroll을 1 증가시킨다.
+
 //-----------------------------------------------------------------------------
 void Scrollbar::IncreaseAmountToScroll()
 {
@@ -39,7 +39,7 @@ void Scrollbar::IncreaseAmountToScroll()
 //-----------------------------------------------------------------------------
 // DecreaseAmountToScroll
 //
-// m_dw_amount_to_scroll을 1 감소시킨다.
+
 //-----------------------------------------------------------------------------
 void Scrollbar::DecreaseAmountToScroll()
 {
@@ -50,7 +50,7 @@ void Scrollbar::DecreaseAmountToScroll()
 //-----------------------------------------------------------------------------
 // SetAmountForScroll
 //
-// m_dw_amount_to_scroll은 그대로 놔둔다. 외부에서 알아서 해야한다.
+
 //-----------------------------------------------------------------------------
 void Scrollbar::SetAmountForScroll(DWORD amount_for_scroll)
 {
@@ -74,7 +74,7 @@ void Scrollbar::SetAmountToScroll(DWORD amount_to_scroll)
 //-----------------------------------------------------------------------------
 // SetAmountToScrollByPercent
 //
-// percent로 scroll한 양을 구한다.
+
 //-----------------------------------------------------------------------------
 void Scrollbar::SetAmountToScrollByPercent(double percent)
 {
@@ -82,7 +82,7 @@ void Scrollbar::SetAmountToScrollByPercent(double percent)
 
 	double val = Proportion(percent, PERCENTAGE, m_dw_amount_for_scroll);
 
-	// 소수 첫째 자리 반올림한다.
+
 	val += 0.5;
 	m_dw_amount_to_scroll = (DWORD)floor(val);
 }
@@ -90,7 +90,7 @@ void Scrollbar::SetAmountToScrollByPercent(double percent)
 //-----------------------------------------------------------------------------
 // NoScroll
 //
-// scroll이 되지 않았으면 true를 반환하고, 그렇지 않으면 false를 반환한다.
+
 //-----------------------------------------------------------------------------
 bool Scrollbar::NoScroll()
 {
@@ -100,9 +100,9 @@ bool Scrollbar::NoScroll()
 //-----------------------------------------------------------------------------
 // GetPercentToScroll
 //
-// scroll한 양을 percent로 바꾸어 반환한다.
+
 //
-// 정밀함을 위하여 double type으로 한다.
+
 //-----------------------------------------------------------------------------
 int Scrollbar::GetPercentToScroll() const
 {
@@ -110,7 +110,7 @@ int Scrollbar::GetPercentToScroll() const
 
 	double percent = Percentage(m_dw_amount_to_scroll, m_dw_amount_for_scroll);
 
-	// 소수 첫째 자리 반올림한다.
+
 	percent += 0.5;
 	int integer = (int)floor(percent);
 

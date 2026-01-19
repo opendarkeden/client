@@ -2,7 +2,7 @@
 
 	VS_UI_GlobalResource.h
 
-	특정 Object의 자원이 아닌 것들.
+	 Object   .
 
 	2000.8.9. KJTINC
 
@@ -23,10 +23,8 @@ class C_GLOBAL_RESOURCE
 {
 public:
 	//
-	// 외부에서 직접 접근한다.
 	//
 	//C_ANI_OBJECT *				m_pC_ao_ani_button;
-//	Tga *							m_pic_box_back; // 조립박스 배경
 //	C_SPRITE_PACK *			m_pC_box_line_spk;
 //	C_SPRITE_PACK *			m_pC_ok_spk;
 
@@ -44,7 +42,6 @@ public:
 //		NEXT_BUTTON_OFFSET = 9, // 3x3
 //	};
 
-//	C_SPRITE_PACK *			m_pC_common_button; // toggle용 작은버튼, OK, Cancel ...
 
 	//
 	//	(1) (2) (3)
@@ -73,7 +70,6 @@ public:
 		AB_DOWN2,
 		AB_RIGHTDOWN2,
 
-		// 여기부턴 아우스터즈만 있음
 		AB_DOWN4,
 		AB_RIGHTDOWN4,
 	};
@@ -556,12 +552,10 @@ public:
 	void	DrawDialogLocked2(int x, int y, int w, int h, bool alpha = false);
 	void	DrawDialogLocked2(Rect &rect, bool alpha = false);
 	
-	// 아우스터즈 배경 바꾼거
 	void	DrawDialog4(int x, int y, int w, int h, bool alpha = false);
 	void	DrawDialog4(Rect &rect, bool alpha = false);
 	void	DrawDialogLocked4(int x, int y, int w, int h, bool alpha = false);
 	void	DrawDialogLocked4(Rect &rect, bool alpha = false);
-	// 알파는 빼고 테두리만
 	void	DrawDialogOnly(int x, int y, int w, int h);
 	void	DrawDialogOnly(Rect &rect);
 	void	DrawDialogOnlyLocked(int x, int y, int w, int h);

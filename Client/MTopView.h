@@ -487,11 +487,6 @@ class MTopView : public MRequestMode {
 		CCreatureFramePack		m_AdvancementVampireManFPK;				// Player addon frames
 		CCreatureFramePack		m_AdvancementVampireWomanFPK;				// Player addon frames
 		CCreatureFramePack		m_AdvancementOustersFPK;			// Ousters frames
-		//add by viva 
-		CCreatureFramePack		m_NewVampireFPK;
-		CCreatureFramePack		m_NewSlayerManFPK;
-		CCreatureFramePack		m_NewSlayerWomanFPK;
-		//end
 
 		CImageFramePack			m_ItemTileFPK;			// Tile에 있는 Item에 대한..
 		CAnimationFramePack		m_ItemDropFPK;			// 바닥으로 떨어지는 Item에 대한..
@@ -515,14 +510,6 @@ class MTopView : public MRequestMode {
 		CCreatureFramePack		m_AdvancementOustersShadowFPK;			// Ousters addon frames
 
 		//add by viva
-		CCreatureFramePack		m_NewVampireShadowFPK;
-		CCreatureFramePack		m_NewSlayerManShadowFPK;
-		CCreatureFramePack		m_NewSlayerWomanShadowFPK;
-		//end
-		
-		
-		//------------------------------------------------------
-		//
 		//                   Sprite
 		//
 		//------------------------------------------------------
@@ -542,10 +529,6 @@ class MTopView : public MRequestMode {
 		CIndexSpritePack		m_AdvancementVampireWomanSPK;		// Sprite들		
 		CIndexSpritePack		m_AdvancementOustersSPK;		// Sprite들	
 		
-		//add by viva
-		CIndexSpritePack		m_NewVampireSPK;
-		CIndexSpritePack		m_NewSlayerManSPK;
-		CIndexSpritePack		m_NewSlayerWomanSPK;
 		//end
 		
 		//CSpritePack				m_ItemTileSPK;			// Sprite들		
@@ -575,6 +558,7 @@ class MTopView : public MRequestMode {
 		CShadowSpritePack		m_AddonSSPK;			// Sprite들		
 		CShadowSpritePack		m_CreatureSSPK;
 		CShadowSpritePack		m_OustersSSPK;
+		CShadowSpritePack		m_ImageObjectSSPK;
 
 		CShadowSpritePack		m_AdvancementSlayerManSSPK;			// Sprite들		
 		CShadowSpritePack		m_AdvancementSlayerWomanSSPK;			// Sprite들		
@@ -582,21 +566,10 @@ class MTopView : public MRequestMode {
 		CShadowSpritePack		m_AdvancementVampireWomanSSPK;
 		CShadowSpritePack		m_AdvancementOustersSSPK;
 		//add by viva
-		CShadowSpritePack		m_NewVampireSSPK;
-		CShadowSpritePack		m_NewSlayerManSSPK;
-		CShadowSpritePack		m_NewSlayerWomanSSPK;
-		//end
-
-		CShadowSpritePack		m_ImageObjectSSPK;
 //		CShadowSpritePack		m_InteractionObjectSSPK;
 
 		//CShadowSpritePack		m_CreatureSSPK;
 
-
-	protected :
-
-//		CSprite*				m_pMinimapSPR;
-//		float					m_SectorToMinimapWidth;
 //		float					m_SectorToMinimapHeight;
 //		CSpriteSurface*			m_pMinimapTexture;
 //		int						m_MinimapTextureWidth;

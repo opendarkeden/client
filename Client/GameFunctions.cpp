@@ -438,10 +438,11 @@ void SetServerGroupName(const char* pName)
 //----------------------------------------------------------------------
 // Mode
 //----------------------------------------------------------------------
-void SetMode(int mode)
-{
-    // Stub implementation
-}
+// SetMode() is implemented in GameMain.cpp - this stub removed to avoid duplicate symbol
+// void SetMode(int mode)
+// {
+//     // Stub implementation
+// }
 
 //----------------------------------------------------------------------
 // Packet Item Table

@@ -6,7 +6,7 @@
 #define __IFC_H__
 
 
-//Logitech iFeel Mouse 지원코드
+
 #include "ifc.h"
 #include <vector>
 
@@ -45,12 +45,12 @@ private:
 	bool						m_bPlay;
 	CImmDevice					*m_pDevice;
 
-	//UI는 몇개 안되고 자주 사용되므로 미리 로딩해 놓는다.
-	//나머지는 파일에서 직접 사용
-	CImmProject					*m_ProjectAction;		//특정동작 할때
-	CImmProject					*m_ProjectSkill;		//스킬쓸때
-	CImmProject					*m_ProjectInventory;	//아이템 집을때
-	CImmProject					*m_ProjectUseItem;		//아이템 사용할때
+
+
+	CImmProject					*m_ProjectAction;
+	CImmProject					*m_ProjectSkill;
+	CImmProject					*m_ProjectInventory;
+	CImmProject					*m_ProjectUseItem;
 
 	std::vector<CImmPeriodic*>	m_vUI;
 //	std::string					m_strAction[FORCE_ACTION_MAX];
@@ -63,12 +63,12 @@ public:
 	void	Disable();
 	bool	IsDevice()	{ return m_pDevice != NULL; }
 
-	//Force함수들
+
 	void	ForceUI(const unsigned int ID) const;						//UI
-	void	ForceAction(const int sound_id) const;					//특정동작할때
-	void	ForceSkill(const int sound_id) const;			//스킬쓸때 wav파일이름 넣어줄것
-	void	ForceInventory(const int sound_id) const;		//아이템 집을때
-	void	ForceUseItem(const int sound_id) const;		//아이템 사용할때
+	void	ForceAction(const int sound_id) const;
+	void	ForceSkill(const int sound_id) const;
+	void	ForceInventory(const int sound_id) const;
+	void	ForceUseItem(const int sound_id) const;
 
 
 };

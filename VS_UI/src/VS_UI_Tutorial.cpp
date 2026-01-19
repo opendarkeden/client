@@ -54,10 +54,9 @@ C_VS_UI_BOOKCASE::C_VS_UI_BOOKCASE()
 				
 //	FindClose( h);
 
-// BOOKLIST파일 LOAD
 /*	assert(TXT_TUTORIAL_BOOKLIST);
 
-	FILE *fp=fopen(TXT_TUTORIAL_BOOKLIST,"rt"); // 파일 열기 
+	FILE *fp=fopen(TXT_TUTORIAL_BOOKLIST,"rt");
 
 	if(!fp)_Error(FAILED_JOB);
 
@@ -229,9 +228,8 @@ void C_VS_UI_BOOKCASE::Show()
 				memcpy( tempstr, (*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_0+num].GetString(), size-1 );
 				tempstr[size-1] = 0;
 				
-				rect.right = g_GetStringWidth(tempstr, gpC_base->m_chatting_pi.hfont); //이함수 호출할때 외부에서 락걸면 안됨
+				rect.right = g_GetStringWidth(tempstr, gpC_base->m_chatting_pi.hfont);
 
-				// 검은색 박스 출력..
 	//			if (gpC_base->m_p_DDSurface_back->Lock())
 				{		
 
@@ -642,11 +640,11 @@ void C_VS_UI_BOOK::KeyboardControl(UINT message, UINT key, long extra)
 	{
 		switch (key)
 		{
-			case VK_RETURN: // ok로 간주. !cancel은 반드시 ok와 함께 있다.
+			case VK_RETURN:
 				Run(BOOK_NEXT_ID);
 				break;
 
-			case VK_ESCAPE: // 아무것도 안함.
+			case VK_ESCAPE:
 				Run(BOOK_CLOSE_ID);
 				break;
 		}
@@ -689,7 +687,6 @@ void	C_VS_UI_BOOK::Run(id_t id)
 /*
 ////////////////////////////////////////////////////////////////////////
 // C_VS_UI_BOOK_Load
-// txt로 된 book파일을 불러온다.
 ////////////////////////////////////////////////////////////////////////
 bool	C_VS_UI_BOOK::Load(const char *szFilename, int row, int col)
 {
@@ -699,7 +696,7 @@ bool	C_VS_UI_BOOK::Load(const char *szFilename, int row, int col)
 	std::string spkname = TXT_TUTORIAL_BOOKROOT;
 	filename += szFilename;
 
-	FILE *fp=fopen(filename.c_str(),"rt"); // 파일 열기 
+	FILE *fp=fopen(filename.c_str(),"rt");
 
 	if(!fp)_Error(FAILED_JOB);
 	assert(fp);
@@ -718,7 +715,7 @@ bool	C_VS_UI_BOOK::Load(const char *szFilename, int row, int col)
 		int ret=strlen(szLine)-1;
 		if(szLine[ret] == '\n')szLine[ret]='\0';
 
-		if(szLine[0] == '&')// 그림삽입 그림 파일명
+		if(szLine[0] == '&')
 		{
 			spkname += &szLine[1];
 			m_pC_inpicture = new C_SPRITE_PACK(spkname.c_str());
@@ -726,7 +723,7 @@ bool	C_VS_UI_BOOK::Load(const char *szFilename, int row, int col)
 			continue;
 		}
 
-		if(szLine[0] == '^')//그림삽입 그림 태그
+		if(szLine[0] == '^')
 		{
 			int num = szLine[1] - '0';
 			w = (m_pC_inpicture->GetWidth(num) + fontx -1)/fontx;
@@ -832,7 +829,6 @@ C_VS_UI_BRIEFING::C_VS_UI_BRIEFING()
 	m_char_y = 20;
 	m_char_y_distance = 20;
 
-//	BRIEFING파일 LOAD
 	m_briefing_file.SetRAR(RPK_TUTORIAL_ETC, RPK_PASSWORD);
 
 	assert(TXT_TUTORIAL_BRIEFING);
@@ -941,7 +937,7 @@ void	C_VS_UI_BRIEFING::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 	assert(p_button);
 
 	static char	m_help_string[1][30] = {
-		"Briefing창을 닫습니다",
+		"Briefing ",
 	};
 
 	if (p_button->GetFocusState())
@@ -1040,7 +1036,6 @@ bool	C_VS_UI_BRIEFING::Timer()
 
 ////////////////////////////////////////////////////////////////////////
 // C_VS_UI_BRIEFING::Load
-// txt로 된 브리핑내용을 불러온다.
 ////////////////////////////////////////////////////////////////////////
 bool	C_VS_UI_BRIEFING::Load(const char *szFilename)
 {
@@ -1048,7 +1043,6 @@ bool	C_VS_UI_BRIEFING::Load(const char *szFilename)
 	assert(szFilename);
 
 	m_briefing_file.Open(szFilename);
-//	FILE *fp=fopen(szFilename,"rt"); // 파일 열기 
 
 //	if(!fp)_Error(FAILED_JOB);
 //	assert(fp);
@@ -1410,7 +1404,6 @@ void	C_VS_UI_COMPUTER::Run(id_t id)
 
 ////////////////////////////////////////////////////////////////////////
 // C_VS_UI_COMPUTER_LOAD_TREE
-// tre(text)로 된 트리파일을 불러온다.
 ////////////////////////////////////////////////////////////////////////
 //char szLine[dSTRING_LEN+1]; 
 	
@@ -1420,7 +1413,6 @@ bool	C_VS_UI_COMPUTER::LoadTree(const char* szFilename)
 
 	std::string spkname = _ROOT"spk\\";
 
-//	FILE *fp=fopen(szFilename,"rt"); // 파일 열기 
 
 //	if(!fp)_Error(FAILED_JOB);
 //	assert(fp);
@@ -1544,7 +1536,6 @@ bool	C_VS_UI_COMPUTER::LoadTree(const char* szFilename)
 //
 //		for(int i=0; i < dSTRING_LEN && i < ret+1 && (szLine[i] == ' ' || szLine[i] == '\t'); i++);
 //		
-//		if(szLine[0] == '&')// 그림삽입 그림 파일명
 //		{
 //			spkname += &szLine[1];
 //
@@ -1604,7 +1595,6 @@ bool	C_VS_UI_COMPUTER::LoadTree(const char* szFilename)
 
 ////////////////////////////////////////////////////////////////////////
 // C_VS_UI_COMPUTER_PrintTree
-// 트리를 화면에 출력한다.
 ////////////////////////////////////////////////////////////////////////
 int	C_VS_UI_COMPUTER::PrintTree(int _x, int _y, int y_distance, int depth, int &limit, bool close, std::vector<C_TREE_BASE> &tree)
 {
@@ -1680,7 +1670,6 @@ int	C_VS_UI_COMPUTER::PrintTree(int _x, int _y, int y_distance, int depth, int &
 
 ////////////////////////////////////////////////////////////////////////
 // C_VS_UI_COMPUTER_OpenTree
-// 트리를 index 번호에 따라 연다.
 ////////////////////////////////////////////////////////////////////////
 bool C_VS_UI_COMPUTER::OpenTree(int &index, std::vector<C_TREE_BASE> &tree)
 {
@@ -1698,14 +1687,14 @@ bool C_VS_UI_COMPUTER::OpenTree(int &index, std::vector<C_TREE_BASE> &tree)
 		if(itemClass != old_itemClass)itemType = 0;
 		old_itemClass = itemClass;
 
-		if(index == 0)	// 찾았다
+		if(index == 0)
 		{
-			if(tree[i].open > 0)	// 트리가 열려있는경우
+			if(tree[i].open > 0)
 			{
 				tree[i].open = -tree[i].open;
 				OpenTree(index, tree[i].Tree);
 			}
-			else // 트리가 닫혀있는경우
+			else
 			{
 				tree[i].open = 1;
 				OpenTree(index, tree[i].Tree);
@@ -1905,8 +1894,8 @@ void	C_VS_UI_TUTORIAL_EXIT::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 	assert(p_button);
 
 	static char	m_help_string[2][30] = {
-		"무기를 결정합니다",
-		"무기선택을 취소합니다",
+		" ",
+		" ",
 	};
 
 	if ((p_button->GetID() == OK_ID || p_button->GetID() == CANCEL_ID) && p_button->GetFocusState())
@@ -1973,9 +1962,8 @@ void	C_VS_UI_TUTORIAL_EXIT::Run(id_t id)
 	case OK_ID:
 		{
 			if(m_select == -1)return;
-			static char select_name[8][20] = {"도", "검", "메이스", "십자가", "AR", "TR", "SMG", "SG"};
+			static char select_name[8][20] = {"", "", "", "", "AR", "TR", "SMG", "SG"};
 			
-			// message 필요없음 by sigi
 			//gpC_base->SendMessage(UI_CONFIRM_TUTORIAL_EXIT, m_select-2, 0, select_name[m_select-2]);
 			gC_vs_ui.RunTutorialExitAsk(m_select-2, select_name[m_select-2]);
 		}
@@ -2008,7 +1996,6 @@ void	C_VS_UI_TUTORIAL_EXIT::Accept()
 	//gpC_base->SendMessage(UI_TUTORIAL_EXIT_SELECT, m_select-2);
 	//gpC_base->SendMessage(UI_CLOSE_TUTORIAL_EXIT);
 
-	// message 하나만..  by sigi
 	gpC_base->SendMessage(UI_CLOSE_TUTORIAL_EXIT, m_select-2);
 }
 

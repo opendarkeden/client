@@ -72,11 +72,11 @@ bool C_VS_UI_WEBBROWSER::Start(HWND hwndApp,  char* pURL, void* pWebOjbect)
 	SetWebBrowserStyle(dwStyle);
 	
 	
-//	m_pWebBrowser->put_Width(100);                  // 가로 폭
-//	m_pWebBrowser->put_Height(100);                //  세로 폭
+
+
 	m_pWebBrowser->put_Left(0);
 	m_pWebBrowser->put_Top(0);
-	m_pWebBrowser->put_AddressBar(FALSE);  // 주소창 없앰
+	m_pWebBrowser->put_AddressBar(FALSE);
 	m_pWebBrowser->put_MenuBar(FALSE);
 	m_pWebBrowser->put_StatusBar(FALSE);
 	m_pWebBrowser->put_ToolBar(FALSE);
@@ -96,7 +96,7 @@ bool C_VS_UI_WEBBROWSER::Start(HWND hwndApp,  char* pURL, void* pWebOjbect)
 //
 //    CComVariant vtTarget;
 //    vtTarget.vt = VT_BSTR;
-//    vtTarget.bstrVal = BSTR("_SELF");  //타겟 브라우져 이름 입력
+
 
 	hr = m_pWebBrowser->Navigate(url, &vtEmpty, &vtEmpty, &vtEmpty, &vtEmpty);
 
@@ -166,7 +166,7 @@ DWORD C_VS_UI_WEBBROWSER::GetWebBrowserStyle()
 
 //-----------------------------------------------------------------------------
 // GetMouseCursorInfo
-//	return value == 0 : 변경할 필요 없음
+
 // 	return value == 1 : ShowCursor(TRUE)
 //	return value == -1 : ShowCursor(FALSE)
 //-----------------------------------------------------------------------------

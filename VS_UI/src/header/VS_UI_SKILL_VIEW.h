@@ -106,7 +106,6 @@ private:
 
 	int							m_skill_x, m_skill_y, m_skill_x_gap, m_skill_y_gap;
 
-//	int							m_extra_offset_x, m_extra_offset_y; // 상속받는 곳에서 set할 것.
 
 //	enum
 //	{

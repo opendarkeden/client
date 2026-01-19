@@ -44,7 +44,7 @@ C_VS_UI_PROGRESS::C_VS_UI_PROGRESS()
 
 		if(g_pUserInformation->GoreLevel == false)
 		{
-			// 틴버전 하드코딩
+
 			Check[4] = true;
 			Check[9] = true;
 			Check[11] = true;
@@ -204,7 +204,7 @@ C_VS_UI_PROGRESS::C_VS_UI_PROGRESS()
 
 //	m_p_bar_buf = new WORD[m_bar_width*m_bar_height];
 
-	// bar image를 offscreen에 blt한다.
+
 //	gpC_base->m_DDSurface_offscreen.FillSurface(BAR_COLORKEY);
 //	m_pC_progress->BltOffscreen(0, 0, BAR);
 
@@ -351,7 +351,7 @@ void C_VS_UI_PROGRESS::SetProgress(WORD cur_val, WORD max_val)
 //		float t = n;
 //		float r = f - t;
 //		if (r > 0.)
-//			n += 1; // 반올림.
+
 //
 //		if (m_percent < 100 && n >= TOTAL_BAR_LINE)
 //			n = TOTAL_BAR_LINE - 1;
@@ -403,7 +403,7 @@ void C_VS_UI_PROGRESS::Show()
 	{
 		if(m_pC_event_progress != NULL)	// EVENT_PROGRESS
 		{
-			// 하드코딩
+
 			Rect rect;
 			m_pC_event_progress->BltLocked(0, 0, (m_Event_Num*2));
 			rect.Set(0, m_pC_event_progress->GetHeight(m_Event_Num)*(100-m_percent)/100, m_pC_event_progress->GetWidth(m_Event_Num), m_pC_event_progress->GetHeight(m_Event_Num)*(m_percent)/100);
@@ -411,13 +411,13 @@ void C_VS_UI_PROGRESS::Show()
 		}
 		else
 		{
-			//BACK찍기
+
 			gpC_base->m_p_DDSurface_back->BltSprite(&p, &(*m_pC_progress)[BACK]);
 			
-			//캐릭터 찍기
+
 			p.x = 200 - (*m_pC_character)[0].GetWidth()/2;
 			p.y = 300 - (*m_pC_character)[0].GetHeight()/2;
-			gpC_base->m_p_DDSurface_back->s_Value1 = m_percent*32/100; 	// 0이면 완전 gray, 32이면 원래색깔
+			gpC_base->m_p_DDSurface_back->s_Value1 = m_percent*32/100;
 			
 			gpC_base->m_p_DDSurface_back->SetEffect( CSpriteSurface::EFFECT_GRAY_SCALE );//EFFECT_NET);//
 			
@@ -481,7 +481,7 @@ void C_VS_UI_PROGRESS::Show()
 			gpC_base->m_p_DDSurface_back->BltSpriteEffect(&p, &(*m_pC_progress)[PROGRESS_BAR]);
 			
 			
-			//캐릭터이름찍기(하단큰거)
+
 			// add by Sonic 2006.9.26
 			if(g_MyFull)
 			{
@@ -512,7 +512,7 @@ void C_VS_UI_PROGRESS::Show()
 		gpC_base->m_p_DDSurface_back->Unlock();
 	}
 
-	//현재 서버이름 표시
+
 	COLORREF focus_color;
 	focus_color = RGB_WHITE;
 	if(m_pC_event_progress != NULL)
@@ -559,7 +559,7 @@ void C_VS_UI_PROGRESS::Show()
 		ShowDesc(x, y);
 		
 		p.x = m_desc_title_x + g_GetStringWidth(m_desc_title.c_str())/2 - (*m_pC_progress)[CHAR_NAME_ALPHA].GetWidth()/2;
-		//캐릭터 이름위에 알파
+
 		if(gpC_base->m_p_DDSurface_back->Lock())
 		{
 			p.y = m_desc_title_y-4;
@@ -572,7 +572,7 @@ void C_VS_UI_PROGRESS::Show()
 
 //	DrawBar();
 
-	// percent 출력
+
 #ifndef _LIB
 //	char str[5];
 //	sprintf(str, "%d%%", m_percent);

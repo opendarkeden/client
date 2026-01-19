@@ -28,7 +28,6 @@ struct S_TGAHEAD
 	// WORD colormaplength
 	//
 	// `*to ignore VC word align!!!
-	// `8bit image를 위한 것이므로 중요하지 않음!
 	//
 	//WORD colormapstart; 
 	BYTE colormapstart1;
@@ -49,7 +48,6 @@ struct S_TGAHEAD
 //-----------------------------------------------------------------------------
 // TGA class
 //
-// 하나의 TGA object.
 //-----------------------------------------------------------------------------
 class DllClass Tga
 {

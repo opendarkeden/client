@@ -75,7 +75,7 @@ void	DescriptorManager::Set(id_t id, int x, int y, void * void_ptr, long left, l
 //
 // by sigi
 // 
-// NULL인 경우는 그냥 UnSet
+
 //-----------------------------------------------------------------------------
 void	DescriptorManager::Unset(void* pPtr)
 {
@@ -87,7 +87,7 @@ void	DescriptorManager::Unset(void* pPtr)
 
 	if (m_fp_show)
 	{		
-		// 같은 pointer인 경우만 제거한다.
+
 		if (pPtr==m_fp_show_param.void_ptr)
 		{
 			m_fp_show = NULL;

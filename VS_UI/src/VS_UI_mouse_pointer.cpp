@@ -112,7 +112,7 @@ int C_VS_UI_MOUSE_POINTER::GetPointerY()
 //-----------------------------------------------------------------------------
 // PickUpItem
 //
-// item lock ¿©ºÎ¸¦ checkÇÑ´Ù.
+
 //-----------------------------------------------------------------------------
 void C_VS_UI_MOUSE_POINTER::PickUpItem(MItem * p_item, int item_x, int item_y)
 {
@@ -128,14 +128,14 @@ void C_VS_UI_MOUSE_POINTER::PickUpItem(MItem * p_item, int item_x, int item_y)
 //-----------------------------------------------------------------------------
 // PickUpItem
 //
-// ItemÀ» Áý¾ú´Ù.
-// `ItemÀ» ÁýÀ¸¸é Mouse pointer°¡ ItemÀ¸·Î º¯ÇÑ´Ù.
+
+
 //
-// item_x, item_y´Â itemÀÌ Ãâ·ÂµÇ°í ÀÖ´Â À§Ä¡ÀÌ´Ù. ÀÌ °ªÀÌ -1ÀÌ¸é, Ãâ·ÂµÇ´Â
-// »óÅÂ¸¦ ¹«½ÃÇÑ °Í Áï, Mouse pointer¸¦ item Áß½É¿¡ À§Ä¡½ÃÅ²´Ù. ½ÇÁ¦·Î´Â Mouse
-// pointer´Â °¡¸¸È÷ ÀÖ°í itemÀÌ ¿òÁ÷¿©Áö´Â °ÍÀÌ´Ù. µû¶ó¼­ ÀÌ·¸°Ô ÇÏ¸é °©ÀÚ±â
-// itemÀÌ ÀÌµ¿ÇÏ´Â Çö»óÀÌ ÀÏ¾î³­´Ù. ÀÌ°ÍÀ» ÇØ°áÇÏ±â À§ÇØ¼­ item_x, item_y °ªÀ»
-// ÁØ´Ù. ±×·¯¸é ÀÌ °ªÀ» ÂüÁ¶ÇÏ¿© ±×·¯ÇÑ Çö»óÀÌ ÀÏ¾î³ªÁö ¾Êµµ·Ï ÇÑ´Ù.
+
+
+
+
+
 //-----------------------------------------------------------------------------
 void C_VS_UI_MOUSE_POINTER::PickUpItem(int item_x, int item_y)
 {
@@ -144,8 +144,8 @@ void C_VS_UI_MOUSE_POINTER::PickUpItem(int item_x, int item_y)
 	assert(m_p_current_pickup_item);
 	TYPE_FRAMEID frame_id = m_p_current_pickup_item->GetInventoryFrameID();
 
-	// !Item SPK´Â Áßº¹µÇÁö ¾ÊÀ¸¸ç, ¿ª½Ã ±×°Í¿¡ 1:1 ´ëÀÀÇÏ´Â Inventory FRR ¶ÇÇÑ 
-	// Áßº¹µÇÁö ¾Ê´Â´Ù. µû¶ó¼­ frame id´Â °ð sprite id°¡ µÈ´Ù.
+
+
 
 	if (item_x == INT_MIN || item_y == INT_MIN)
 	{
@@ -155,10 +155,10 @@ void C_VS_UI_MOUSE_POINTER::PickUpItem(int item_x, int item_y)
 	else
 	{
 		//
-		// ¿©±â¼­ m_half´Â (item_x, item_y)¿¡¼­ Mouse pointer±îÁöÀÇ °Å¸®ÀÌ´Ù.
+
 		//
-		// Mouse pointer´Â grid¿¡ À§Ä¡ÇÏ°í item_x´Â grid ³»ºÎ¿¡ À§Ä¡ÇÏ¹Ç·Î,
-		// À½¼ö°¡ ³ª¿Ã ¼ö ÀÖ´Ù.
+
+
 		//
 		m_half_x = m_mouse_x - item_x;
 		m_half_y = m_mouse_y - item_y;
@@ -170,7 +170,7 @@ void C_VS_UI_MOUSE_POINTER::PickUpItem(int item_x, int item_y)
 //-----------------------------------------------------------------------------
 // DropItem
 //
-// ItemÀ» ³õ¾Ò´Ù.
+
 //-----------------------------------------------------------------------------
 void C_VS_UI_MOUSE_POINTER::DropItem()
 {
@@ -182,9 +182,9 @@ void C_VS_UI_MOUSE_POINTER::DropItem()
 
 /*-----------------------------------------------------------------------------
 - Show
-- Mouse pointer image¸¦ ±×¸°´Ù.
+- Mouse pointer imageë¥¼ ê·¸ë¦°ë‹¤.
 
-  `Mouse pointer ÁÂÇ¥´Â ¼Óµµ¸¦ À§ÇØ ³»ºÎ¿¡¼­ ÀÐ´Â´Ù.
+  `Mouse pointer ì¢Œí‘œëŠ” ì†ë„ë¥¼ ìœ„í•´ ë‚´ë¶€ì—ì„œ ì½ëŠ”ë‹¤.
 -----------------------------------------------------------------------------*/
 void	C_VS_UI_MOUSE_POINTER::DrawTargetArrow(int TargetX, int TargetY)
 {
@@ -204,7 +204,7 @@ void C_VS_UI_MOUSE_POINTER::Show()
 		
 
 	//
-	// ItemÀ» Áý¾úÀ¸¸é, C_VS_UI::m_current_pickup_itemÀ» Mouse Pointer·Î½á Ãâ·ÂÇÑ´Ù.
+
 	//
 	if (m_bl_pickup_item)
 	{
@@ -233,7 +233,7 @@ void C_VS_UI_MOUSE_POINTER::Show()
 					eType == ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH
 					)
 				{
-					// 2004, 3, 9 sobeit - x,y º¯°æ
+
 					//gpC_global_resource->m_pC_info_spk->BltLocked(m_mouse_x-(m_p_current_pickup_item->GetGridWidth()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_X)/2, m_mouse_y-(m_p_current_pickup_item->GetGridHeight()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_Y)/2, C_GLOBAL_RESOURCE::OUSTERS_ELEMENTAL_MARK_FIRE+eType);
 					gpC_global_resource->m_pC_info_spk->BltLocked(m_mouse_x-m_half_x-6, m_mouse_y-m_half_y-14, C_GLOBAL_RESOURCE::OUSTERS_ELEMENTAL_MARK_FIRE+eType);
 				}
@@ -278,7 +278,7 @@ void C_VS_UI_MOUSE_POINTER::Show()
 			else
 				m_pC_mouse_pointer_spk->Blt(m_mouse_x + g_mouse_point_fix[temp_cursor].x, m_mouse_y + g_mouse_point_fix[temp_cursor].y, temp_cursor + frame);
 		}
-		//UIÀ§¿¡ ÀÖ°Å³ª ¹Ì´Ï¸Ê À§¿¡ ÀÖÀ¸¸é Ä¿¼­ default·Î
+
 		else if(gpC_window_manager->GetMouseFocusedWindow())
 		{
 			extern Window* g_desc_dialog_window_id;
@@ -345,7 +345,7 @@ void C_VS_UI_MOUSE_POINTER::Show()
 					}
 				}
 				else
-					// ¾ÆÀÌÅÛ ÀÌ¸§
+
 					g_PrintColorStr(rect.left +5, rect.top +4, m_string.c_str(), gpC_base->m_item_pi, m_color);
 				g_FL2_ReleaseDC();
 			}

@@ -4281,11 +4281,18 @@ void C_VS_UI_LOGIN::AcquireFirstSequence()
 //-----------------------------------------------------------------------------
 void C_VS_UI_LOGIN::ChangeFocus()
 {
+	static int debug_count = 0;
+
 	if (m_lev_id.IsAcquire())
 	{
 		if(m_lev_id.Size() == 0)
 			m_lev_id.AddString(m_lev_id_backup.c_str());
 		m_lev_password.Acquire();
+
+		if (debug_count < 5) {
+			printf("DEBUG ChangeFocus: Password box acquired\n");
+			debug_count++;
+		}
 	}
 	else
 	{
@@ -4302,6 +4309,11 @@ void C_VS_UI_LOGIN::ChangeFocus()
 		}
 		m_lev_id.Acquire();
 		m_lev_id.EraseAll();
+
+		if (debug_count < 5) {
+			printf("DEBUG ChangeFocus: ID box acquired, erased\n");
+			debug_count++;
+		}
 	}
 }
 
@@ -4466,15 +4478,36 @@ bool C_VS_UI_LOGIN::MouseControl(UINT message, int _x, int _y)
 			{
 				Rect id_rt(LOGIN_ID_X, LOGIN_ID_Y, 130, 23);
 				Rect pass_rt(LOGIN_PASSWORD_X, LOGIN_PASSWORD_Y, 130, 23);
+
+				// Debug output
+				static int debug_count = 0;
+				if (debug_count < 10) {
+					printf("DEBUG C_VS_UI_LOGIN::MouseControl: message=%d, _x=%d, _y=%d (after offset: x=%d, y=%d)\n",
+						   message, _x, _y, x, y);
+					printf("  ID rect: x=%d, y=%d, w=%d, h=%d\n", id_rt.x, id_rt.y, id_rt.w, id_rt.h);
+					printf("  PASS rect: x=%d, y=%d, w=%d, h=%d\n", pass_rt.x, pass_rt.y, pass_rt.w, pass_rt.h);
+					printf("  m_lev_id.IsAcquire()=%d, m_lev_password.IsAcquire()=%d\n",
+						   m_lev_id.IsAcquire(), m_lev_password.IsAcquire());
+					debug_count++;
+				}
+
 				if (id_rt.IsInRect(_x, _y))
 				{
+					printf("  ID box clicked!\n");
 					if (!m_lev_id.IsAcquire())
+					{
+						printf("  Calling ChangeFocus()...\n");
 						ChangeFocus();
+					}
 				}
 				else if (pass_rt.IsInRect(_x, _y))
 				{
+					printf("  Password box clicked!\n");
 					if (!m_lev_password.IsAcquire())
+					{
+						printf("  Calling ChangeFocus()...\n");
 						ChangeFocus();
+					}
 				}
 			}
 	}
@@ -5048,7 +5081,6 @@ void C_VS_UI_TITLE::Start()
 	PI_Processor::Start();
 
 	m_pC_char_manager->Finish();
-	m_pC_login->Finish();
 	m_pC_server_select->Finish();
 //	m_pC_newuser->Finish();
 
@@ -5058,6 +5090,12 @@ void C_VS_UI_TITLE::Start()
 	g_descriptor_manager.Unset();
 
 	g_eRaceInterface = RACE_SLAYER;
+
+	// Start login window so text boxes are active
+	if (m_pC_login != NULL)
+	{
+//		m_pC_login->Start();
+	}
 
 #ifndef _LIB
 	//m_pC_dialog->Start();
@@ -5084,9 +5122,13 @@ void C_VS_UI_TITLE::Finish()
 //-----------------------------------------------------------------------------
 void C_VS_UI_TITLE::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 {
-	if(p_button->GetPressState())
+	// Always show button - fix for SDL2 port (buttons were invisible initially)
+	if (p_button->GetPressState())
 		m_title_menu_default.BltLocked(p_button->x, p_button->y, (p_button->m_image_index)+1);
 	else if (p_button->GetFocusState())
+		m_title_menu_default.BltLocked(p_button->x, p_button->y, (p_button->m_image_index));
+	else
+		// Default state - show button even when not focused/pressed
 		m_title_menu_default.BltLocked(p_button->x, p_button->y, (p_button->m_image_index));
 	
 //	if (p_button->GetFocusState() && p_button->GetPressState())
@@ -5211,7 +5253,7 @@ void C_VS_UI_TITLE::Show()
 			
 			gpC_base->m_p_DDSurface_back->Unlock();
 
-			char sz_temp[50];
+			char sz_temp[256];  // Increased buffer size to prevent stack overflow
 			if(g_pUserInformation->IsNetmarble)
 				sprintf(sz_temp, "%s : %1.2f", (*g_pGameStringTable)[UI_STRING_MESSAGE_NETMARBLE_CLIENT_VERSION].GetString(),(float)g_pUserInformation->GameVersion/100+3);
 			else
@@ -5265,6 +5307,12 @@ bool C_VS_UI_TITLE::MouseControl(UINT message, int _x, int _y)
 	Window::MouseControl(message, _x, _y);
 
 	m_pC_button_group->MouseControl(message, _x, _y);
+
+	// Also forward mouse events to login window for text box handling
+	if (m_pC_login != NULL)
+	{
+		m_pC_login->MouseControl(message, _x, _y);
+	}
 
 	return true; // no game, then 'true'
 }

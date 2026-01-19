@@ -2014,18 +2014,7 @@ MTopView::InitSprites()
 	
 	m_AdvancementVampireWomanSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_ISPRITE_ADVANCEMENT_CLASS_VAMPIRE_WOMAN" ).c_str() );
 	m_AdvancementVampireWomanSSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_SSPRITE_ADVANCEMENT_CLASS_VAMPIRE_WOMAN" ).c_str() );
-	
-	//add by viva
-	/////////////////////////////////NewVampireSPK, NewVampireSSPK
-	m_NewVampireSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_ISPRITE_NEW_CLASS_VAMPIRE").c_str());
-	m_NewVampireSSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SSPRITE_NEW_CLASS_VAMPIRE").c_str());
-	/////////////////////////////////NewSlayerManSPK, NewSlayerManSSPK
-	m_NewSlayerManSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_ISPRITE_SLAYER_MAN").c_str());
-	m_NewSlayerManSSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SSPRITE_SLAYER_MAN").c_str());
-	/////////////////////////////////NewSlayerWomanSPK, NewSlayerWomanSSPK
-	m_NewSlayerWomanSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_ISPRITE_SLAYER_WOMAN").c_str());
-	m_NewSlayerWomanSSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SSPRITE_SLAYER_WOMAN").c_str());
-	//end
+
 /*
 	m_AdvancementSlayerSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_ISPRITE_ADVANCEMENT_CLASS_SLAYER" ).c_str() );
 	
@@ -4097,40 +4086,6 @@ MTopView::InitCreatureFrames()
 	m_AdvancementVampireManFPK.LoadFromFile( AdvancementVampireManFile );
 	AdvancementVampireManFile.close();
 
-	//add by viva
-	//--------------------------------vampire.cfpk
-	std::ifstream NewVampireFile;
-	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_NEW_CLASS_VAMPIRE").c_str(), NewVampireFile))	return false;
-	m_NewVampireFPK.LoadFromFile( NewVampireFile );
-	NewVampireFile.close();
-	//--------------------------------vampireShdow.cfpk
-	std::ifstream NewVampireShadowFile;
-	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_NEW_CLASS_VAMPIRE_SHADOW").c_str(), NewVampireShadowFile))	return false;
-	m_NewVampireShadowFPK.LoadFromFile( NewVampireShadowFile );
-	NewVampireShadowFile.close();
-
-	//--------------------------------SlayerMan.cfpk(AddonMan.cfpk)
-	std::ifstream NewSlayerManFile;
-	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_SLAYER_MAN").c_str(), NewSlayerManFile))	return false;
-	m_NewSlayerManFPK.LoadFromFile( NewSlayerManFile );
-	NewSlayerManFile.close();
-	//--------------------------------SlayerManShadow.cfpk(AddonManShadow.cfpk)
-	std::ifstream NewSlayerManShadowFile;
-	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_SLAYER_MAN_SHADOW").c_str(), NewSlayerManShadowFile))	return false;
-	m_NewSlayerManShadowFPK.LoadFromFile( NewSlayerManShadowFile );
-	NewSlayerManShadowFile.close();
-
-	//---------------------------------SlayerWoman.cfpk(AddonWoman.cfpk)
-	std::ifstream NewSlayerWomanFile;
-	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_SLAYER_WOMAN").c_str(), NewSlayerWomanFile))	return false;
-	m_NewSlayerWomanFPK.LoadFromFile( NewSlayerWomanFile );
-	NewSlayerWomanFile.close();
-	//---------------------------------SlayerWoman.cfpk(AddonManShadow.cfpk)
-	std::ifstream NewSlayerWomanShadowFile;
-	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_SLAYER_WOMAN_SHADOW").c_str(), NewSlayerWomanShadowFile))	return false;
-	m_NewSlayerWomanShadowFPK.LoadFromFile( NewSlayerWomanShadowFile );
-	NewSlayerWomanShadowFile.close();
-	////end
 
 	std::ifstream AdvancementVampireManShadowFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE_MAN_SHADOW").c_str(), 

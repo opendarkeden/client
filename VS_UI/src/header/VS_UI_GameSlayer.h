@@ -153,7 +153,6 @@ public:
 // Slayer only Personal Data System Interface Object.
 //
 // - no Window property.
-// - slayer main interface에서 직접 제어한다.
 //-----------------------------------------------------------------------------
 class C_VS_UI_SLAYER_PDS : public Rect, public Exec, public ButtonVisual
 {
@@ -299,48 +298,32 @@ private:
 	PCS_STATE					m_pcs_state;
 
 	long							m_last_dialing_pcs_num;
-	bool							m_bl_ring; // 전화가 왔는가?
+	bool							m_bl_ring;
 
 	//-----------------------------------------------------------------------------------
-	// PCS 대기 room이다.
 	//
-	// 상대방은 일단 wait room에 들어오길 희망한다. 비어있는 wait room에 들어가면
-	// phone image가 깜빡이어 wait room에 사람이 있음을 알린다. 자신은 wait room에
-	// 있는 사람이 누군지 알아보고(mouse pointer를 가져가면 정보가 나온다) 연결여부를
-	// 결정한다.
 	//
-	// bl_granted가 set된 사람으로부터 메시지를 받을 수 있다. 받을 수만 있다는것이다.
-	// 그러니까 동시에 모든 대기방의 사람(3명)으로부터 메시지를 받을 수 있다.
-	// 메시지를 송신하는 것은 동시에 한 명만 가능하다. 그러니까 내 메시지를 받을 사람을
-	// 선택해야 한다.
 	//
 	// < chatting mode >
 	//
-	// 하나의 room은 다음 네 가지 상태에 있을 수 있다.
 	//
-	// (1) 비어있는 상태(연결끊김)
-	// (2) 대기상태
-	// (3) 수신가능 상태
-	// (4) 송수신가능 상태
 	//
-	// 송수신가능 상태에서 어떤 특정 상대방과 연결을 완전히 끊어버릴 수 있다.
 	//-----------------------------------------------------------------------------------
 	struct S_PCS_WAIT_ROOM
 	{
-		char *	sz_name;		// 연결된 사람의 이름
-		long		pcs_number;	// 연결된 사람의 pcs 번호
-		bool		bl_set;		// 대기방에 들어왔는가?
-		bool		bl_granted; // 대기방에 들어와있는 사람과 연결되었다. (메시지 수신만 가능)
+		char *	sz_name;
+		long		pcs_number;
+		bool		bl_set;
+		bool		bl_granted;
 	};
 
 	S_PCS_WAIT_ROOM			m_pcs_wait_room[PCS_WAIT_ROOM_MAX];
 	S_PCS_WAIT_ROOM			m_backup_room;
-	int							m_pcs_who_connection; // 송수신가능한 오직 한 slot을 가리킨다.
+	int							m_pcs_who_connection;
 
 	//
 	// m_pcs_chatting
 	//
-	// PCS로 연결된 사람과 대화하는 전용 chatting창이다.
 	//
 	C_VS_UI_CHATTING			m_pcs_chatting[PCS_WAIT_ROOM_MAX];
 
@@ -411,20 +394,20 @@ public:
 		SN_LEFTRING2,
 		SN_SHOES,
 		
-		SN_COREZAP1,		// 코어잽1
-		SN_COREZAP2,		// 코어잽2
-		SN_COREZAP3,		// 코어잽3
-		SN_COREZAP4,		// 코어잽4
+		SN_COREZAP1,
+		SN_COREZAP2,
+		SN_COREZAP3,
+		SN_COREZAP4,
 
-		SN_PDA,		// 승직용 pda
-        SN_SHOULDER,	// 승직용 어깨
+		SN_PDA,
+        SN_SHOULDER,
 	
-		SN_BLOODBIBLE1,		// 블러디바이블1
-		SN_BLOODBIBLE2,		// 블러디바이블2
-		SN_BLOODBIBLE3,		// 블러디바이블3
-		SN_BLOODBIBLE4,		// 블러디바이블4
-		SN_BLOODBIBLE5,		// 블러디바이블5
-		SN_BLOODBIBLE6,		// 블러디바이블6
+		SN_BLOODBIBLE1,
+		SN_BLOODBIBLE2,
+		SN_BLOODBIBLE3,
+		SN_BLOODBIBLE4,
+		SN_BLOODBIBLE5,
+		SN_BLOODBIBLE6,
 
 		SLOT_SIZE,
 		};
@@ -480,20 +463,9 @@ protected:
 //		SN_LEFTRING2,
 //		SN_SHOES,
 //		
-//		SN_COREZAP1,		// 코어잽1
-//		SN_COREZAP2,		// 코어잽2
-//		SN_COREZAP3,		// 코어잽3
-//		SN_COREZAP4,		// 코어잽4
 //		
-//		SN_BLOODBIBLE1,		// 블러디바이블1
-//		SN_BLOODBIBLE2,		// 블러디바이블2
-//		SN_BLOODBIBLE3,		// 블러디바이블3
-//		SN_BLOODBIBLE4,		// 블러디바이블4
-//		SN_BLOODBIBLE5,		// 블러디바이블5
-//		SN_BLOODBIBLE6,		// 블러디바이블6
 //
 //		SN_PDA,				// PDA
-//		SN_SHOULDER,			// 어깨
 //
 //
 //		SLOT_SIZE,
@@ -533,7 +505,6 @@ protected:
 // C_VS_UI_SLAYER
 //
 // Slayer Main interface.
-// chatting창을 포함한 기본적인 부분이다. 이것도 하나의 Window이다.
 //-----------------------------------------------------------------------------
 class C_VS_UI_SLAYER : public C_VS_UI_TRIBE
 {
@@ -541,7 +512,6 @@ private:
 	// data object
 	C_VS_UI_SLAYER_GEAR *		m_pC_gear;
 //	C_VS_UI_ADVANCEMENTSLAYER_GEAR * m_pC_advence_gear;
-	// 화면 끝에 딱 붙이는게 좋다고 바꾸래요.. by sigi
 
 public:
 	C_VS_UI_SLAYER();

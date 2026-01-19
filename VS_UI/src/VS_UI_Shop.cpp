@@ -17,7 +17,7 @@
 #include "MGameStringTABLE.h"
 #include "SystemAvailabilities.h"
 
-// dialog exec func에서 사용하므로 여기다..
+
 static MShop *		m_pShop;
 static int			m_focused_slot;
 static UINT			m_select_item_slot;
@@ -37,7 +37,7 @@ void ExecF_BuyConfirm(C_VS_UI_DIALOG * p_this_dialog, id_t id)
 	{
 		case DIALOG_EXECID_OK:
 			//
-			// 살 개수를 함께 넘겨준다. (Normal을 제외한 것은 한 개씩만 있다)
+
 			//
 			assert(m_select_item_slot != NOT_SELECTED);
 
@@ -76,7 +76,7 @@ void C_VS_UI_SHOP::UnacquireMouseFocus()
 //-----------------------------------------------------------------------------
 C_VS_UI_SHOP::C_VS_UI_SHOP()
 {
-	m_pShop = NULL; // 확인용... by sigi
+	m_pShop = NULL;
 
 	g_RegisterWindow(this);
 
@@ -164,7 +164,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	MItem*		pItem;
 
 	//----------------------------------------------------
-	// 3개의 shelf를 가진 상점
+
 	//----------------------------------------------------
 	m_pShop = new MShop;
 	pShop = m_pShop;
@@ -179,7 +179,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf = new MShopFixedShelf;
 	
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_RING );
 	pItem->SetID( 0 );
@@ -189,7 +189,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf->SetItem( 0, pItem );
 
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_MAGAZINE );
 	pItem->SetID( 1 );
@@ -199,7 +199,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf->SetItem( 1, pItem );
 
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_POTION );
 	pItem->SetID( 2 );
@@ -209,7 +209,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf->SetItem( 2, pItem );
 
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_RING );
 	pItem->SetID( 3 );
@@ -219,7 +219,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf->SetItem( 3, pItem );
 
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_RING );
 	pItem->SetID( 4 );
@@ -229,7 +229,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf->SetItem( 4, pItem );
 
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_POTION );
 	pItem->SetID( 5 );
@@ -240,8 +240,8 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 
 	if (!pShop->SetShelf(0, pShelf))
 	{
-		// 추가가 안 된 경우는 외부에서 delete해줘야 한다.
-		// shelf 번호가 상점 전체 개수보다 큰 경우에 추가 실패당..
+
+
 		delete pShelf;
 	}
   
@@ -254,7 +254,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf = new MShopSpecialShelf;
 	
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_SWORD );
 	pItem->SetID( 100 );
@@ -264,7 +264,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf->SetItem( 0, pItem );
 
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_SWORD );
 	pItem->SetID( 101 );
@@ -274,7 +274,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf->SetItem( 1, pItem );
 
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_SWORD );
 	pItem->SetID( 102 );
@@ -284,7 +284,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf->SetItem( 2, pItem );
 
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_SWORD );
 	pItem->SetID( 103 );
@@ -294,7 +294,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf->SetItem( 3, pItem );
 
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_SWORD );
 	pItem->SetID( 104 );
@@ -304,7 +304,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf->SetItem( 4, pItem );
 
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_SWORD );
 	pItem->SetID( 105 );
@@ -314,7 +314,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf->SetItem( 5, pItem );
 
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_SWORD );
 	pItem->SetID( 106 );
@@ -335,7 +335,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf = new MShopUnknownShelf;
 	
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_BRACELET );
 	pItem->SetID( 100 );
@@ -346,7 +346,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf->SetItem( 0, pItem );
 
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_SWORD );
 	pItem->SetID( 101 );
@@ -357,7 +357,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf->SetItem( 1, pItem );
 
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_RING );
 	pItem->SetID( 102 );
@@ -368,7 +368,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf->SetItem( 2, pItem );
 
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_BLADE );
 	pItem->SetID( 103 );
@@ -379,7 +379,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf->SetItem( 3, pItem );
 
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_COAT );
 	pItem->SetID( 104 );
@@ -390,7 +390,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf->SetItem( 4, pItem );
 
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_TROUSER );
 	pItem->SetID( 105 );
@@ -401,7 +401,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf->SetItem( 5, pItem );
 
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_SHIELD );
 	pItem->SetID( 106 );
@@ -413,7 +413,7 @@ C_VS_UI_SHOP::C_VS_UI_SHOP()
 	pShelf->SetEnable();
 
 	//----------------------------------------------------
-	// Item 생성 --> 추가
+
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_BELT );
 	pItem->SetID( 107 );
@@ -444,7 +444,7 @@ C_VS_UI_SHOP::~C_VS_UI_SHOP()
 	DeleteNew(m_pShop);
 #endif
 
-	m_pShop = NULL; // 다음 check를 위해서..
+	m_pShop = NULL;
 
 	if(m_pC_dialog_multi_buy_confirm != NULL)
 		DeleteNew(m_pC_dialog_multi_buy_confirm);
@@ -469,11 +469,11 @@ void	C_VS_UI_SHOP::CancelPushState()
 //-----------------------------------------------------------------------------
 // GetSlotItem
 //
-// slot에 item이 있는가?
+
 //-----------------------------------------------------------------------------
 MItem * C_VS_UI_SHOP::GetSlotItem(int slot) const
 {
-	if (m_pShop!=NULL)	// 확인용... by sigi
+	if (m_pShop!=NULL)
 	{
 		MShopShelf* pShopShelf = m_pShop->GetCurrentShelf();
 
@@ -521,7 +521,7 @@ int C_VS_UI_SHOP::GetSlotY(int slot) const
 //-----------------------------------------------------------------------------
 // GetDialogShowX
 //
-// Dialog box가 출력될 곳의 x좌표를 반환한다.
+
 //-----------------------------------------------------------------------------
 int C_VS_UI_SHOP::GetDialogShowX() const
 {
@@ -534,7 +534,7 @@ int C_VS_UI_SHOP::GetDialogShowX() const
 //-----------------------------------------------------------------------------
 // GetDialogShowY
 //
-// Dialog box가 출력될 곳의 Y좌표를 반환한다.
+
 //-----------------------------------------------------------------------------
 int C_VS_UI_SHOP::GetDialogShowY() const
 {
@@ -547,7 +547,7 @@ int C_VS_UI_SHOP::GetDialogShowY() const
 //-----------------------------------------------------------------------------
 // StartBuyConfirmDialog
 //
-// dialog 내부에서 좌표를 변경할 수 없기도하고...
+
 //-----------------------------------------------------------------------------
 void C_VS_UI_SHOP::StartBuyConfirmDialog(int _x, int _y, int num)
 {
@@ -560,7 +560,7 @@ void C_VS_UI_SHOP::StartBuyConfirmDialog(int _x, int _y, int num)
 
 	if (selected_item != NULL)
 	{
-		// by sigi - 살려고할 때 decription이 가려저서리..
+
 		g_descriptor_manager.Unset();	// by sigi
 
 		if (selected_item->IsPileItem())
@@ -603,7 +603,7 @@ void C_VS_UI_SHOP::SetShop(MShop* pShop)
 
 	m_pShop = pShop;
 
-	// normal을 default로 설정.. by sigi
+
 	m_bl_mysterious_tab = false;
 	m_shop_type = pShop->GetShopType();
 
@@ -641,13 +641,13 @@ void C_VS_UI_SHOP::Show()
 		m_image_spk.BltLocked(x+GetSlotX(SLOT_X_COUNT*3), y+GetSlotY(SLOT_X_COUNT*3), MAIN_WINDOW);
 
 		//
-		// Shop의 Item을 출력시킨다.
+
 		//
-		// 현재 사용중인 shelf
+
 		//
 		MShopShelf* pShopShelf = m_pShop->GetCurrentShelf();
 		
-		if (pShopShelf!=NULL)	// 확인.. by sigi
+		if (pShopShelf!=NULL)
 		{
 			for (int i=0; i<SHOP_SHELF_SLOT; i++)
 			{
@@ -664,10 +664,10 @@ void C_VS_UI_SHOP::Show()
 					
 					int item_x = x+GetSlotX(i);
 					
-					// 바닦에 놓이게 한다.
+
 					int item_y = y+GetSlotY(i)+SLOT_HEIGHT-gpC_item->GetHeight(frame_id)-4;
 					
-					// item을 center에 맞춘다.
+
 					item_x += SLOT_WIDTH/2-gpC_item->GetWidth(frame_id)/2;
 					
 					if(m_bl_mysterious_tab)
@@ -687,7 +687,7 @@ void C_VS_UI_SHOP::Show()
 					}
 					else
 					{
-						// identify된 아이템인 경우.. by sigi
+
 						if (p_item->IsIdentified())
 						{
 							if(p_item->IsQuestItem())
@@ -700,7 +700,7 @@ void C_VS_UI_SHOP::Show()
 						}
 						else
 						{
-							// identify 안 된 경우는 무조건 흰색
+
 //							CIndexSprite::SetUsingColorSet(378, 378);
 						}
 						
@@ -830,7 +830,7 @@ void C_VS_UI_SHOP::Run(id_t id)
 				break;
 			m_bl_mysterious_tab = false;
 			m_what_tab = NORMAL_TAB_ID;
-			if (m_pShop!=NULL)	// 확인용 by sigi
+			if (m_pShop!=NULL)
 			{
 				m_pShop->SetCurrent(MShopShelf::SHELF_FIXED);
 			}
@@ -841,7 +841,7 @@ void C_VS_UI_SHOP::Run(id_t id)
 				break;
 			m_bl_mysterious_tab = false;
 			m_what_tab = SPECIAL_TAB_ID;
-			if (m_pShop!=NULL)	// 확인용 by sigi
+			if (m_pShop!=NULL)
 			{
 				m_pShop->SetCurrent(MShopShelf::SHELF_SPECIAL);
 			}
@@ -854,7 +854,7 @@ void C_VS_UI_SHOP::Run(id_t id)
 
 			m_bl_mysterious_tab = true;
 			m_what_tab = MYSTERIOUS_TAB_ID;	
-			if (m_pShop!=NULL)	// 확인용 by sigi
+			if (m_pShop!=NULL)
 			{
 				m_pShop->SetCurrent(MShopShelf::SHELF_UNKNOWN);
 			}
@@ -976,7 +976,7 @@ bool C_VS_UI_SHOP::MouseControl(UINT message, int _x, int _y)
 
 					m_focused_slot = i;
 
-					// by sigi - 살려고할 때 decription이 가려저서리.. 근데 딴 방법이 있지 않나?? 싶은데 - -;
+
 					if (m_pC_dialog_multi_buy_confirm==NULL && m_pC_dialog_buy_confirm==NULL
 						|| m_pC_dialog_multi_buy_confirm!=NULL && !m_pC_dialog_multi_buy_confirm->Running()
 						|| m_pC_dialog_buy_confirm!=NULL && !m_pC_dialog_buy_confirm->Running()) 
@@ -1001,7 +1001,7 @@ bool C_VS_UI_SHOP::MouseControl(UINT message, int _x, int _y)
 		case M_LEFTBUTTON_DOWN:
 		case M_LB_DOUBLECLICK:
 			//
-			// Item을 선택한다.
+
 			//
 			if (m_focused_slot != NOT_SELECTED)
 			{
@@ -1032,7 +1032,7 @@ bool C_VS_UI_SHOP::MouseControl(UINT message, int _x, int _y)
 
 		case M_RIGHTBUTTON_DOWN:
 			//
-			// Item을 선택한다.
+
 			//
 			if (m_focused_slot != NOT_SELECTED)
 			{

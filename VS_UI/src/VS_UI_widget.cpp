@@ -26,7 +26,7 @@ void C_VS_UI_BUTTON::SetPosition(int x, int y)
 //-----------------------------------------------------------------------------
 // C_VS_UI_BUTTON
 //
-// set_end는 ani button을 focus rect의 끝 정렬여부를 결정한다.
+
 //-----------------------------------------------------------------------------
 C_VS_UI_BUTTON::C_VS_UI_BUTTON(int _x, int _y, int _w, int _h, id_t id, Exec * pC_exec_handler, bool set_end, bool image_show) : 
 						EventButton(_x, _y, _w, _h, id, pC_exec_handler)
@@ -78,7 +78,7 @@ void C_VS_UI_BUTTON::Refresh()
 //-----------------------------------------------------------------------------
 // Show
 //
-// Button을 보인다.
+
 //-----------------------------------------------------------------------------
 void C_VS_UI_BUTTON::Show()
 {

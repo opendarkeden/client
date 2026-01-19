@@ -325,12 +325,12 @@ int spritectl_blt_sprite(spritectl_surface_t dest, int x, int y,
 	}
 
 	// CRITICAL: Destination surface must NOT be locked when blitting
-	// This check is always enabled (not just DEBUG) to prevent crashes
-	if (dest->locked > 0) {
-		fprintf(stderr, "WARNING: SDL_BlitSurface cannot blit to locked surface!\n");
-		fprintf(stderr, "         Surface lock_count=%d\n", dest->locked);
-		fprintf(stderr, "         Auto-unlocking to prevent crash\n");
-		// Attempt recovery: unlock the surface
+	// Unlock before blit, then re-lock after to maintain expected state
+	bool was_locked = (dest->locked > 0);
+	int saved_lock_count = dest->locked;
+
+	if (was_locked) {
+		// Unlock the surface for blitting
 		while (dest->locked > 0) {
 			SDL_UnlockSurface(dest->surface);
 			dest->locked--;
@@ -394,6 +394,14 @@ int spritectl_blt_sprite(spritectl_surface_t dest, int x, int y,
 
 	/* Cleanup */
 	SDL_FreeSurface(src_surface);
+
+	// Re-lock the surface if it was locked before (to maintain expected state)
+	if (was_locked) {
+		for (int i = 0; i < saved_lock_count; i++) {
+			SDL_LockSurface(dest->surface);
+			dest->locked++;
+		}
+	}
 
 	return result;
 }

@@ -37,6 +37,9 @@ using namespace std;
 #include "VolumeLib.h"
 #ifdef PLATFORM_WINDOWS
 #include "WinLib.h"
+#else
+// Forward declaration for non-Windows platforms
+class CWinUpdate;
 #endif
 
 
@@ -180,6 +183,7 @@ extern int					g_StartFrameCount;
 extern DWORD				g_StartTime;
 extern DWORD				g_EndTime;
 extern int					g_FrameRate;
+extern bool				g_bGoodFPS;
 
 // Chat string
 #ifdef	OUTPUT_DEBUG
@@ -223,9 +227,7 @@ extern int				g_MaxNPC;
 extern bool				g_bHAL;
 extern bool				g_bMusicSW;
 
-#ifdef PLATFORM_WINDOWS
 extern CWinUpdate*				g_pUpdate;
-#endif
 
 
 

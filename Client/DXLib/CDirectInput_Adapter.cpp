@@ -100,13 +100,12 @@ void CDirectInput::UpdateInput()
 	// Update backend
 	dxlib_input_update();
 
-	// Reset button states
-	m_lb_down = FALSE;
-	m_rb_down = FALSE;
-	m_cb_down = FALSE;
+	// Reset UP events (they should only be true for one frame)
 	m_lb_up = FALSE;
 	m_rb_up = FALSE;
 	m_cb_up = FALSE;
+
+	// NOTE: Don't reset DOWN states here - they should persist until button is released
 
 	// Update keyboard state
 	for (int i = 0; i < 256; i++) {

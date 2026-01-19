@@ -91,6 +91,29 @@ void dxlib_input_get_mouse_buttons(int* left, int* right, int* center);
  */
 void dxlib_input_set_mouse_pos(int x, int y);
 
+/**
+ * Text input event callback
+ * @param text UTF-8 encoded text input (one or more characters)
+ * @param window_coords Window coordinates array [x, y] for cursor position
+ */
+typedef void (*dxlib_textinput_callback)(const char* text, int* window_coords);
+
+/**
+ * Set text input event receiver callback
+ * @param callback Function to call when text is entered
+ */
+void dxlib_input_set_textinput_callback(dxlib_textinput_callback callback);
+
+/**
+ * Start text input (enables SDL_TEXTINPUT events)
+ */
+void dxlib_input_start_text(void);
+
+/**
+ * Stop text input (disables SDL_TEXTINPUT events)
+ */
+void dxlib_input_stop_text(void);
+
 /* ============================================================================
  * Sound Backend Interface
  * ============================================================================ */
