@@ -146,20 +146,39 @@ int spritectl_decode_rle_sprite(const uint8_t* compressed, size_t compressed_siz
 
 /**
  * Extract RGB components from RGB565 pixel
+ * Uses optimized shift algorithm for accurate 5/6-bit to 8-bit conversion
  */
 static inline void spritectl_565_to_rgb(uint16_t pixel, uint8_t* r, uint8_t* g, uint8_t* b) {
-	*r = ((pixel >> 11) & 0x1F) << 3;  /* 5 bits -> 8 bits */
-	*g = ((pixel >> 5) & 0x3F) << 2;   /* 6 bits -> 8 bits */
-	*b = (pixel & 0x1F) << 3;          /* 5 bits -> 8 bits */
+	/* Extract components */
+	uint8_t r5 = (pixel >> 11) & 0x1F;  /* 5 bits */
+	uint8_t g6 = (pixel >> 5) & 0x3F;   /* 6 bits */
+	uint8_t b5 = pixel & 0x1F;          /* 5 bits */
+
+	/* Convert to 8-bit using optimized shift algorithm
+	 * 5-bit to 8-bit: (value << 3) | (value >> 2) ≈ (value * 255) / 31
+	 * 6-bit to 8-bit: (value << 2) | (value >> 4) ≈ (value * 255) / 63
+	 */
+	*r = (r5 << 3) | (r5 >> 2);
+	*g = (g6 << 2) | (g6 >> 4);
+	*b = (b5 << 3) | (b5 >> 2);
 }
 
 /**
  * Extract RGB components from RGB555 pixel
+ * Uses optimized shift algorithm for accurate 5-bit to 8-bit conversion
  */
 static inline void spritectl_555_to_rgb(uint16_t pixel, uint8_t* r, uint8_t* g, uint8_t* b) {
-	*r = ((pixel >> 10) & 0x1F) << 3;  /* 5 bits -> 8 bits */
-	*g = ((pixel >> 5) & 0x1F) << 3;   /* 5 bits -> 8 bits */
-	*b = (pixel & 0x1F) << 3;          /* 5 bits -> 8 bits */
+	/* Extract components */
+	uint8_t r5 = (pixel >> 10) & 0x1F;  /* 5 bits */
+	uint8_t g5 = (pixel >> 5) & 0x1F;   /* 5 bits */
+	uint8_t b5 = pixel & 0x1F;          /* 5 bits */
+
+	/* Convert to 8-bit using optimized shift algorithm
+	 * 5-bit to 8-bit: (value << 3) | (value >> 2) ≈ (value * 255) / 31
+	 */
+	*r = (r5 << 3) | (r5 >> 2);
+	*g = (g5 << 3) | (g5 >> 2);
+	*b = (b5 << 3) | (b5 >> 2);
 }
 
 /**

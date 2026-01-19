@@ -3,6 +3,7 @@
 
 .PHONY: all debug release test clean fmt fmt-check help
 .PHONY: check-resources extract-resources clean-resources
+.PHONY: sprite-viewer creature-viewer item-viewer map-viewer zone-parser
 
 # Default target
 all: debug
@@ -88,6 +89,30 @@ clean-resources:
 	@rm -f $(INF_FILE)
 	@echo "Clean complete"
 
+# ============================================================
+# Resource Viewing Tools
+# ============================================================
+
+# Sprite Viewer
+sprite-viewer: build/debug/bin/sprite_viewer
+	@echo "Sprite viewer built: build/debug/bin/sprite_viewer"
+
+# Creature Viewer
+creature-viewer: build/debug/bin/creature_viewer
+	@echo "Creature viewer built: build/debug/bin/creature_viewer"
+
+# Map Viewer
+map-viewer: build/debug/bin/map_viewer
+	@echo "Map viewer built: build/debug/bin/map_viewer"
+
+# Item Viewer
+item-viewer: build/debug/bin/item_viewer
+	@echo "Item viewer built: build/debug/bin/item_viewer"
+
+# Zone Parser
+zone-parser: build/debug/bin/zone_parser
+	@echo "Zone parser built: build/debug/bin/zone_parser"
+
 # Show help
 help:
 	@echo "OpenDarkEden Client - Available targets:"
@@ -106,6 +131,13 @@ help:
 	@echo "  make extract-resources      - Extract .inf from .h file"
 	@echo "  make clean-resources        - Clean generated .inf file"
 	@echo ""
+	@echo "Resource Viewing Tools:"
+	@echo "  make sprite-viewer         - Build sprite viewer"
+	@echo "  make creature-viewer       - Build creature viewer"
+	@echo "  make item-viewer           - Build item viewer"
+	@echo "  make map-viewer            - Build map viewer"
+	@echo "  make zone-parser           - Build zone parser"
+	@echo ""
 	@echo "Resource Management Options:"
 	@echo "  DARKEDEN_DIR=<path>  - Specify DarkEden data directory (default: DarkEden)"
 	@echo ""
@@ -119,5 +151,6 @@ help:
 	@echo "  make clean                # Clean all builds"
 	@echo "  make NPROCS=8             # Build with 8 parallel jobs"
 	@echo "  make check-resources      # Validate resources in DarkEden/"
+	@echo "  make sprite-viewer        # Build and use sprite viewer"
 	@echo "  make check-resources DARKEDEN_DIR=/path/to/game  # Custom data dir"
 

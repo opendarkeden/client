@@ -240,6 +240,112 @@ set_target_properties(resource_validator PROPERTIES
 	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
 
+# ============================================================
+# Resource Viewing Tools
+# ============================================================
+
+# Sprite Viewer - view .spk sprite pack files (C++ version using Client/SpriteLib)
+add_executable(sprite_viewer
+	tools/viewers/sprite_viewer/main.cpp
+)
+
+target_include_directories(sprite_viewer PRIVATE
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+)
+
+target_link_libraries(sprite_viewer PRIVATE
+	SpriteLib
+	dxlib
+	basic
+	SDL2::SDL2
+)
+
+set_target_properties(sprite_viewer PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+# Zone Parser - parse and dump .map zone files (standalone C++ version)
+add_executable(zone_parser
+	tools/viewers/zone_parser/main.cpp
+)
+
+target_link_libraries(zone_parser PRIVATE)
+
+set_target_properties(zone_parser PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+# Item Viewer - view .ispk indexed sprite pack files (C++ version using Client/SpriteLib)
+add_executable(item_viewer
+	tools/viewers/item_viewer/main.cpp
+)
+
+target_include_directories(item_viewer PRIVATE
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+)
+
+target_link_libraries(item_viewer PRIVATE
+	SpriteLib
+	dxlib
+	basic
+	SDL2::SDL2
+)
+
+set_target_properties(item_viewer PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+# Creature Viewer - view creature animations (C++ version using Client/SpriteLib + Client/framelib)
+add_executable(creature_viewer
+	tools/viewers/creature_viewer/main.cpp
+)
+
+target_include_directories(creature_viewer PRIVATE
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/framelib
+)
+
+target_link_libraries(creature_viewer PRIVATE
+	SpriteLib
+	framelib
+	dxlib
+	basic
+	SDL2::SDL2
+)
+
+set_target_properties(creature_viewer PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+# Map Viewer - browse zone maps with pan/zoom (C++ version using Client/SpriteLib)
+add_executable(map_viewer
+	tools/viewers/map_viewer/main.cpp
+	tools/viewers/map_viewer/zoneloader.cpp
+)
+
+target_include_directories(map_viewer PRIVATE
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+)
+
+target_link_libraries(map_viewer PRIVATE
+	SpriteLib
+	dxlib
+	basic
+	SDL2::SDL2
+)
+
+set_target_properties(map_viewer PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
 if(BUILD_TESTS)
 	enable_testing()
 	add_subdirectory(tests)
