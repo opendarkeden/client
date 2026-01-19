@@ -1,4 +1,12 @@
 #include "LineEditor.h"
+#include "../hangul/CI.h"
+
+// Forward declare FL2 functions (defined in hangul/FL2.cpp)
+extern void g_Print(int x, int y, const char* sz_str, void* p_print_info);
+extern int g_GetStringWidth(const char* sz_str, void* hfont);
+
+// External reference to global CI (for cursor blink state)
+extern CI* gC_ci;
 
 // LineEditor implementation
 LineEditor::LineEditor()
@@ -144,5 +152,35 @@ bool LineEditorVisual::ReachSizeOfBox() const
 
 void LineEditorVisual::Show() const
 {
-	// Stub: Would render the text editor
+	// Get the text to display
+	const char* textToDisplay = m_Editor.m_Buffer;
+
+	// Handle password mode (show asterisks instead of actual text)
+	char displayBuffer[1024];
+	if (m_bPasswordMode) {
+		int len = strlen(m_Editor.m_Buffer);
+		for (int i = 0; i < len && i < (int)sizeof(displayBuffer) - 1; i++) {
+			displayBuffer[i] = '*';
+		}
+		displayBuffer[len] = '\0';
+		textToDisplay = displayBuffer;
+	}
+
+	// Render the text using FL2's g_Print function (with NULL for default PrintInfo)
+	g_Print(m_X, m_Y, textToDisplay, NULL);
+
+	// Draw cursor if this editor has focus
+	if (m_Editor.m_bAcquired && gC_ci != NULL && gC_ci->GetCursorBlink()) {
+		// Calculate cursor position based on text width
+		int cursorX = m_X;
+		if (m_Editor.m_CursorPos > 0) {
+			char cursorBuffer[1024];
+			strncpy(cursorBuffer, textToDisplay, m_Editor.m_CursorPos);
+			cursorBuffer[m_Editor.m_CursorPos] = '\0';
+			cursorX = m_X + g_GetStringWidth(cursorBuffer, NULL);
+		}
+
+		// Draw a simple cursor line (this would need proper rendering implementation)
+		// For now, just a placeholder - cursor rendering would need more work
+	}
 }

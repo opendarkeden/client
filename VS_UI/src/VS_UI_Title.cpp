@@ -4281,11 +4281,18 @@ void C_VS_UI_LOGIN::AcquireFirstSequence()
 //-----------------------------------------------------------------------------
 void C_VS_UI_LOGIN::ChangeFocus()
 {
+	static int debug_count = 0;
+
 	if (m_lev_id.IsAcquire())
 	{
 		if(m_lev_id.Size() == 0)
 			m_lev_id.AddString(m_lev_id_backup.c_str());
 		m_lev_password.Acquire();
+
+		if (debug_count < 5) {
+			printf("DEBUG ChangeFocus: Password box acquired\n");
+			debug_count++;
+		}
 	}
 	else
 	{
@@ -4302,6 +4309,11 @@ void C_VS_UI_LOGIN::ChangeFocus()
 		}
 		m_lev_id.Acquire();
 		m_lev_id.EraseAll();
+
+		if (debug_count < 5) {
+			printf("DEBUG ChangeFocus: ID box acquired, erased\n");
+			debug_count++;
+		}
 	}
 }
 

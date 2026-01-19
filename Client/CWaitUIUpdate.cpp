@@ -77,7 +77,43 @@ void
 CWaitUIUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 {
 		if (event==CDirectInput::KEYDOWN)
-		{			
+		{
+			// Convert DIK scan codes to VK virtual key codes for control keys
+			// These keys need WM_KEYDOWN messages for text editing to work
+			UINT vk_key = 0;
+			bool is_control_key = false;
+
+			// DIK constants that might not be defined in all build configurations
+			enum {
+				DIK_CONST_BACK = 0x0E,
+				DIK_CONST_DELETE = 0xD3,
+				DIK_CONST_INSERT = 0xD2
+			};
+
+			switch (key) {
+				case DIK_TAB:      vk_key = VK_TAB; is_control_key = true; break;
+				case DIK_CONST_BACK:     vk_key = VK_BACK; is_control_key = true; break;
+				case DIK_RETURN:   vk_key = VK_RETURN; is_control_key = true; break;
+				case DIK_ESCAPE:   vk_key = VK_ESCAPE; is_control_key = true; break;
+				case DIK_LEFT:     vk_key = VK_LEFT; is_control_key = true; break;
+				case DIK_RIGHT:    vk_key = VK_RIGHT; is_control_key = true; break;
+				case DIK_UP:       vk_key = VK_UP; is_control_key = true; break;
+				case DIK_DOWN:     vk_key = VK_DOWN; is_control_key = true; break;
+				case DIK_HOME:     vk_key = VK_HOME; is_control_key = true; break;
+				case DIK_END:      vk_key = VK_END; is_control_key = true; break;
+				case DIK_CONST_DELETE:   vk_key = VK_DELETE; is_control_key = true; break;
+				case DIK_CONST_INSERT:   vk_key = VK_INSERT; is_control_key = true; break;
+			}
+
+			if (is_control_key) {
+				static int keydown_debug_count = 0;
+				if (keydown_debug_count < 10) {
+					printf("  DXKeyboardEvent: Sending WM_KEYDOWN, vk_key=%u (DIK=%lu)\n", vk_key, (unsigned long)key);
+					keydown_debug_count++;
+				}
+				gC_vs_ui.KeyboardControl(WM_KEYDOWN, vk_key, 0);
+			}
+
 			gC_vs_ui.DIKeyboardControl(event, key);
 	
 			#ifdef OUTPUT_DEBUG

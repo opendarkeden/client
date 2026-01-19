@@ -385,6 +385,14 @@ void LineEditor::SetInputCharCount(int char_count)
 //-----------------------------------------------------------------------------
 void LineEditor::KeyboardControl(UINT message, UINT key, long extra)
 {
+	static int debug_count = 0;
+
+	if (debug_count < 10) {
+		printf("DEBUG LineEditor::KeyboardControl: message=%d, key=%d, extra=%ld\n",
+			   message, key, extra);
+		debug_count++;
+	}
+
 //	DEBUG_ADD("[LineEditor] KeyboardControl");
 	switch (message)
 	{
@@ -511,6 +519,16 @@ void LineEditor::KeyboardControl(UINT message, UINT key, long extra)
 			//
 
 
+			static int char_debug_count = 0;
+
+			if (char_debug_count < 10) {
+				printf("  DEBUG WM_CHAR: key=%d ('%c'), IsAcquire()=%d\n",
+					   key, (char)key, IsAcquire());
+				printf("    m_cursor=%zu, m_string.size()=%zu\n",
+					   m_cursor, m_string.size());
+				fflush(stdout);
+			}
+
 			if ((char)key >= 32 && (char)key <= 126)
 			{
 				if (m_bl_digit_only)
@@ -537,6 +555,14 @@ void LineEditor::KeyboardControl(UINT message, UINT key, long extra)
 
 				IncreaseCursor();
 				gC_ci->ForceShowCursor();
+
+				if (char_debug_count < 10) {
+					printf("    After insert: m_cursor=%zu, m_string.size()=%zu\n",
+						   m_cursor, m_string.size());
+					printf("    m_string content: '%s'\n", m_string.c_str());
+					fflush(stdout);
+					char_debug_count++;
+				}
 			}
 			break;
 	}

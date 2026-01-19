@@ -99,12 +99,17 @@ void CI::SetEngInput(bool bHangul)
 //----------------------------------------------------------------------------
 void CI_KOREAN::IME_MessageProcessor(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	// On macOS/SDL2, bypass IME and directly send keyboard events to UI
-	// The C_VS_UI::KeyboardControl will handle routing to LineEditor
-	if (message == WM_CHAR || message == WM_KEYDOWN)
-	{
-		gC_vs_ui.KeyboardControl(message, wParam, lParam);
-	}
+	// On macOS/SDL2, we bypass the Windows IME system entirely.
+	// Keyboard events are already routed through the normal event flow:
+	// DXKeyboardEvent → gC_vs_ui.KeyboardControl → WindowManager → Window
+	//
+	// We should NOT forward messages here as it would cause infinite loops:
+	// KeyboardControl → IME_MessageProcessor → KeyboardControl → ...
+	//
+	// This function is kept as a stub for compatibility.
+	(void)message;
+	(void)wParam;
+	(void)lParam;
 }
 
 void CI_KOREAN::IME_NextComposition()
@@ -122,12 +127,17 @@ void CI_KOREAN::IME_Composition()
 //----------------------------------------------------------------------------
 void CI_CHINESE::IME_MessageProcessor(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	// On macOS/SDL2, bypass IME and directly send keyboard events to UI
-	// The C_VS_UI::KeyboardControl will handle routing to LineEditor
-	if (message == WM_CHAR || message == WM_KEYDOWN)
-	{
-		gC_vs_ui.KeyboardControl(message, wParam, lParam);
-	}
+	// On macOS/SDL2, we bypass the Windows IME system entirely.
+	// Keyboard events are already routed through the normal event flow:
+	// DXKeyboardEvent → gC_vs_ui.KeyboardControl → WindowManager → Window
+	//
+	// We should NOT forward messages here as it would cause infinite loops:
+	// KeyboardControl → IME_MessageProcessor → KeyboardControl → ...
+	//
+	// This function is kept as a stub for compatibility.
+	(void)message;
+	(void)wParam;
+	(void)lParam;
 }
 
 void CI_CHINESE::IME_NextComposition()
