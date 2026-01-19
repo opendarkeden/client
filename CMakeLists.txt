@@ -223,6 +223,23 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 	message(STATUS "VS_UI library will be built from ${VS_UI_SRC_SOURCES} VS_UI files + ${VS_UI_CLIENT_SOURCES} Client files")
 endif()
 
+# ============================================================
+# Resource Management Tools
+# ============================================================
+
+# Resource Validator - checks all resource files for integrity
+add_executable(resource_validator
+	Client/tools/resource_validator.cpp
+)
+
+target_include_directories(resource_validator PRIVATE
+	${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+set_target_properties(resource_validator PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
 if(BUILD_TESTS)
 	enable_testing()
 	add_subdirectory(tests)
