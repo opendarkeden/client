@@ -69,6 +69,43 @@ add_subdirectory(Client/VolumeLib)
 add_subdirectory(Client/framelib)
 add_subdirectory(Client/DEUtil)
 
+# ============================================================
+# TextLib - Text Rendering Library (Font Atlas + SpriteBatch)
+# ============================================================
+if(USE_SDL_BACKEND OR NOT WIN32)
+	# TextLib source files
+	set(TEXTLIB_SOURCES
+		Client/TextLib/CGlyphCache.cpp
+		Client/TextLib/CTextLayout.cpp
+	)
+
+	# Create TextLib static library
+	add_library(TextLib STATIC ${TEXTLIB_SOURCES})
+
+	# Include directories
+	target_include_directories(TextLib PUBLIC
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/TextLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+		${CMAKE_CURRENT_SOURCE_DIR}/basic
+		${SDL2_INCLUDE_DIRS}
+	)
+
+	# Link libraries
+	target_link_libraries(TextLib PUBLIC
+		SDL2::SDL2
+		SDL2::SDL2main
+		SDL2_image::SDL2_image
+		SDL2_ttf::SDL2_ttf
+	)
+
+	# Platform-specific definitions
+	if(NOT WIN32)
+		target_compile_definitions(TextLib PRIVATE PLATFORM_MACOS)
+	endif()
+
+	message(STATUS "TextLib library will be built from ${TEXTLIB_SOURCES}")
+endif()
+
 if(BUILD_ENGINE)
 	add_subdirectory(engine/sprite)
 	add_subdirectory(engine/ui)
@@ -186,6 +223,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/widget
 		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/hangul
 		${CMAKE_CURRENT_SOURCE_DIR}/Client
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/TextLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/D3DLib
@@ -203,6 +241,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		volumelib
 		framelib
 		deutil
+		TextLib
 		SDL2::SDL2
 		SDL2::SDL2main
 		SDL2_image::SDL2_image
@@ -427,7 +466,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 	)
 
-	# Link libraries (now includes VS_UI)
+	# Link libraries (now includes VS_UI and TextLib)
 	target_link_libraries(DarkEden PRIVATE
 		SpriteLib
 		dxlib
@@ -437,6 +476,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		framelib
 		deutil
 		VS_UI
+		TextLib
 		SDL2::SDL2
 		SDL2::SDL2main
 	)
@@ -454,6 +494,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_SOURCE_DIR}/basic
 		${CMAKE_CURRENT_SOURCE_DIR}/Client
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/TextLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/D3DLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib

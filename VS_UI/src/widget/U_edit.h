@@ -90,6 +90,13 @@ public:
     PrintInfo m_PrintInfo;
     unsigned long m_CursorColor;
 
+#ifdef PLATFORM_MACOS
+    // Font Atlas rendering system
+    void* m_GlyphCache;      // CGlyphCache* (void* to avoid header dependency)
+    void* m_Layout;          // CTextLayout* (void* to avoid header dependency)
+    bool m_LayoutDirty;      // Flag to rebuild layout
+#endif
+
     LineEditorVisual();
     ~LineEditorVisual();
 

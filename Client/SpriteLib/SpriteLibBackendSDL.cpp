@@ -363,6 +363,14 @@ int spritectl_blt_sprite(spritectl_surface_t dest, int x, int y,
 	} else if (sprite->format == SPRITECTL_FORMAT_RGB555) {
 		spritectl_convert_555_to_rgba(sprite->pixels, rgba_pixels,
 		                              sprite->width * sprite->height, 0xFFFF);
+	} else if (sprite->format == SPRITECTL_FORMAT_RGBA32) {
+		/* Sprite is already in RGBA32 format, just copy it */
+		memcpy(rgba_pixels, sprite->pixels, sprite->data_size);
+	} else {
+		/* Unknown format, fill with opaque white */
+		for (int i = 0; i < sprite->width * sprite->height; i++) {
+			rgba_pixels[i] = 0xFFFFFFFF;
+		}
 	}
 
 	/* Copy to temporary surface */
@@ -447,6 +455,14 @@ int spritectl_blt_sprite_scaled(spritectl_surface_t dest, int x, int y,
 	} else if (sprite->format == SPRITECTL_FORMAT_RGB555) {
 		spritectl_convert_555_to_rgba(sprite->pixels, rgba_pixels,
 		                              sprite->width * sprite->height, 0xFFFF);
+	} else if (sprite->format == SPRITECTL_FORMAT_RGBA32) {
+		/* Sprite is already in RGBA32 format, just copy it */
+		memcpy(rgba_pixels, sprite->pixels, sprite->data_size);
+	} else {
+		/* Unknown format, fill with opaque white */
+		for (int i = 0; i < sprite->width * sprite->height; i++) {
+			rgba_pixels[i] = 0xFFFFFFFF;
+		}
 	}
 
 	/* Copy to temporary surface */

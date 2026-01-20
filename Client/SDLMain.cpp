@@ -21,6 +21,7 @@
 #include "Client_PCH.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_main.h>
+#include <SDL_ttf.h>
 #include <string.h>
 #include <stdio.h>
 
@@ -341,6 +342,14 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 	atexit(SDL_Quit);
+
+	// Initialize SDL_ttf for font rendering
+	printf("Initializing SDL_ttf...\n");
+	if (TTF_Init() < 0) {
+		fprintf(stderr, "ERROR: TTF_Init failed: %s\n", TTF_GetError());
+		return 1;
+	}
+	atexit(TTF_Quit);
 
 	//-----------------------------------------------------------------
 	// Initialize language and character input (IME)
