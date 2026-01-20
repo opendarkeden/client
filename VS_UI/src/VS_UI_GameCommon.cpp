@@ -4285,7 +4285,7 @@ bool C_VS_UI_CHATTING::MouseControl(UINT message, int _x, int _y)
 					  if (pID!=NULL)
 					  {
 					  //							gpC_base->SendMessage(UI_CHAT_SELECT_NAME, message, 0, (void*)pID);												
-					  if(m_lev_chatting.GetString()[0] == '*')	// ��� ���ɾ��ΰ�� ä��â�� �־��ش�
+					  if(m_lev_chatting.GetStringWide()[0] == '*')	// ��� ���ɾ��ΰ�� ä��â�� �־��ش�
 					  {
 					  m_lev_chatting.AddString(" ");
 					  m_lev_chatting.AddString(pID);
@@ -4442,7 +4442,7 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 				//
 				
 				char * sz_chat_str = NULL;
-				g_Convert_DBCS_Ascii2SingleByte(m_lev_chatting.GetString(), m_lev_chatting.Size(), sz_chat_str);
+				g_Convert_DBCS_Ascii2SingleByte(m_lev_chatting.GetStringWide(), m_lev_chatting.Size(), sz_chat_str);
 
 				// Ÿ���� �ߴ� ���� ����ϱ�
 				if(m_history.size() == m_history_line)
@@ -6593,7 +6593,7 @@ void C_VS_UI_CHATTING::ChangeWhisperFocus()
 	std::string temp;
 	
 	//	strcpy(temp, m_sz_whisper_backup);
-	g_Convert_DBCS_Ascii2SingleByte(m_lev_chatting.GetString(), m_lev_chatting.Size(), sz_chat_str);
+	g_Convert_DBCS_Ascii2SingleByte(m_lev_chatting.GetStringWide(), m_lev_chatting.Size(), sz_chat_str);
 	if(sz_chat_str)
 	{
 		temp = sz_chat_str;
@@ -25300,7 +25300,7 @@ void	C_VS_UI_TEAM_LIST::Run(id_t id)
 			//��¼�� ��¼��
 			m_scroll = 0;
 			char * p_temp = NULL;
-			g_Convert_DBCS_Ascii2SingleByte(m_lev_search.GetString(), m_lev_search.Size(), p_temp);
+			g_Convert_DBCS_Ascii2SingleByte(m_lev_search.GetStringWide(), m_lev_search.Size(), p_temp);
 			
 			if(p_temp == NULL)
 			{
@@ -26248,7 +26248,7 @@ void	C_VS_UI_FRIEND_CHATTING_INFO::Run(id_t id)
 	case SEND_ID:
 		{
 			char* sz_send = NULL;
-			g_Convert_DBCS_Ascii2SingleByte(m_lev_send.GetString(), m_lev_send.Size(), sz_send);
+			g_Convert_DBCS_Ascii2SingleByte(m_lev_send.GetStringWide(), m_lev_send.Size(), sz_send);
 			if(sz_send == NULL)
 				break;
 			if(strlen(sz_send)<=0 || strlen(sz_send)>512)
@@ -27101,7 +27101,7 @@ void	C_VS_UI_TEAM_INFO::Run(id_t id)
 		{
 			char *sz_intro = NULL;
 
-			g_Convert_DBCS_Ascii2SingleByte(m_lev_intro.GetString(), m_lev_intro.Size(), sz_intro);
+			g_Convert_DBCS_Ascii2SingleByte(m_lev_intro.GetStringWide(), m_lev_intro.Size(), sz_intro);
 
 			if(sz_intro != NULL)
 			{
@@ -27613,7 +27613,7 @@ void	C_VS_UI_TEAM_MEMBER_INFO::Run(id_t id)
 	case MODIFY_ID :
 		{
 			char *sz_intro = NULL;
-			g_Convert_DBCS_Ascii2SingleByte(m_lev_intro.GetString(),m_lev_intro.Size(),sz_intro);
+			g_Convert_DBCS_Ascii2SingleByte(m_lev_intro.GetStringWide(),m_lev_intro.Size(),sz_intro);
 			if(sz_intro != NULL)
 			{
 				m_member_info.INTRODUCTION = sz_intro;
@@ -28279,7 +28279,7 @@ void	C_VS_UI_TEAM_REGIST::Run(id_t id)
 		if(m_bl_member)
 		{			
 			char *sz_intro = NULL;
-			g_Convert_DBCS_Ascii2SingleByte(m_lev_intro.GetString(), m_lev_intro.Size(), sz_intro);
+			g_Convert_DBCS_Ascii2SingleByte(m_lev_intro.GetStringWide(), m_lev_intro.Size(), sz_intro);
 
 			if(sz_intro!=NULL)
 			{
@@ -28293,8 +28293,8 @@ void	C_VS_UI_TEAM_REGIST::Run(id_t id)
 		{
 			char *sz_intro = NULL, *sz_team_name = NULL;			
 			
-			g_Convert_DBCS_Ascii2SingleByte(m_lev_team_name.GetString(), m_lev_team_name.Size(), sz_team_name);
-			g_Convert_DBCS_Ascii2SingleByte(m_lev_intro.GetString(), m_lev_intro.Size(), sz_intro);
+			g_Convert_DBCS_Ascii2SingleByte(m_lev_team_name.GetStringWide(), m_lev_team_name.Size(), sz_team_name);
+			g_Convert_DBCS_Ascii2SingleByte(m_lev_intro.GetStringWide(), m_lev_intro.Size(), sz_intro);
 
 			if(sz_intro != NULL && sz_team_name != NULL)
 			{
@@ -30095,7 +30095,7 @@ void	C_VS_UI_TRACE::Run(id_t id)
 	case OK_ID:		
 		{
 			char *str=NULL;
-			g_Convert_DBCS_Ascii2SingleByte(m_lev_name.GetString(),m_lev_name.Size(),str);
+			g_Convert_DBCS_Ascii2SingleByte(m_lev_name.GetStringWide(),m_lev_name.Size(),str);
 			if(str!=NULL&&status==false)
 			{
 				m_lev_name.Unacquire();
@@ -30428,9 +30428,9 @@ void	C_VS_UI_XMAS_CARD::Run(id_t id)
 		{
 			char *psz_to, *psz_msg, *psz_from = NULL;
 
-			g_Convert_DBCS_Ascii2SingleByte(m_lev_to.GetString(), m_lev_to.Size(), psz_to);
-			g_Convert_DBCS_Ascii2SingleByte(m_lev_message.GetString(), m_lev_message.Size(), psz_msg);
-		//	g_Convert_DBCS_Ascii2SingleByte(m_lev_from.GetString(), m_lev_from.Size(), psz_from);
+			g_Convert_DBCS_Ascii2SingleByte(m_lev_to.GetStringWide(), m_lev_to.Size(), psz_to);
+			g_Convert_DBCS_Ascii2SingleByte(m_lev_message.GetStringWide(), m_lev_message.Size(), psz_msg);
+		//	g_Convert_DBCS_Ascii2SingleByte(m_lev_from.GetStringWide(), m_lev_from.Size(), psz_from);
 
 			psz_from = (char*)g_char_slot_ingame.sz_name.c_str();
 			if(psz_to != NULL && psz_msg != NULL && psz_from != NULL)
@@ -32226,7 +32226,7 @@ void	C_VS_UI_INPUT_NAME::KeyboardControl(UINT message, UINT key, long extra)
 		case VK_RETURN :
 			{			
 				char *str=NULL;
-				g_Convert_DBCS_Ascii2SingleByte(m_lev_name.GetString(),m_lev_name.Size(),str);
+				g_Convert_DBCS_Ascii2SingleByte(m_lev_name.GetStringWide(),m_lev_name.Size(),str);
 				if(str != NULL && m_Status == INPUT_STATUS_NORMAL)
 				{
 					m_name = str;
@@ -32308,7 +32308,7 @@ void	C_VS_UI_INPUT_NAME::Run(id_t id)
 	case OK_ID :
 		{			
 			char *str=NULL;
-			g_Convert_DBCS_Ascii2SingleByte(m_lev_name.GetString(),m_lev_name.Size(),str);
+			g_Convert_DBCS_Ascii2SingleByte(m_lev_name.GetStringWide(),m_lev_name.Size(),str);
 			if(str != NULL && m_Status == INPUT_STATUS_NORMAL)
 			{
 				m_name = str;
@@ -32350,7 +32350,7 @@ void	C_VS_UI_INPUT_NAME::SetName(const char* name)
 const char* C_VS_UI_INPUT_NAME::GetCurrentName()
 {
 	char *str=NULL;
-	g_Convert_DBCS_Ascii2SingleByte(m_lev_name.GetString(),m_lev_name.Size(),str);
+	g_Convert_DBCS_Ascii2SingleByte(m_lev_name.GetStringWide(),m_lev_name.Size(),str);
 	if(str != NULL)
 		m_name = str;
 	else

@@ -105,6 +105,21 @@ typedef void (*dxlib_textinput_callback)(const char* text, int* window_coords);
 void dxlib_input_set_textinput_callback(dxlib_textinput_callback callback);
 
 /**
+ * Text editing event callback (for IME composition)
+ * @param text UTF-8 encoded text being composed
+ * @param start Start position of composition text
+ * @param length Length of composition text
+ * @param window_coords Window coordinates array [x, y] for cursor position
+ */
+typedef void (*dxlib_textediting_callback)(const char* text, int start, int length, int* window_coords);
+
+/**
+ * Set text editing event receiver callback
+ * @param callback Function to call when text is being composed (IME)
+ */
+void dxlib_input_set_textediting_callback(dxlib_textediting_callback callback);
+
+/**
  * Start text input (enables SDL_TEXTINPUT events)
  */
 void dxlib_input_start_text(void);

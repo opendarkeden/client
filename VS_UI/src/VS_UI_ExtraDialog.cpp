@@ -108,7 +108,7 @@ int	C_VS_UI_EDIT_DIALOG::GetValue() const
 {
 	int cur_val;
 	char * p_temp = NULL;
-	g_Convert_DBCS_Ascii2SingleByte(m_lev_value.GetString(), m_lev_value.Size(), p_temp);
+	g_Convert_DBCS_Ascii2SingleByte(m_lev_value.GetStringWide(), m_lev_value.Size(), p_temp);
 	if (p_temp == NULL)
 	{
 		// string�� ����.
@@ -264,7 +264,7 @@ void	C_VS_UI_EDIT_DIALOG::ScrollButton(bool up)
 
 	int cur_val;
 	char * p_temp = NULL;
-	g_Convert_DBCS_Ascii2SingleByte(m_lev_value.GetString(), m_lev_value.Size(), p_temp);
+	g_Convert_DBCS_Ascii2SingleByte(m_lev_value.GetStringWide(), m_lev_value.Size(), p_temp);
 	if (p_temp == NULL)
 	{
 		// string�� ����. backspace�ϰ� ���� ��.
@@ -509,7 +509,7 @@ int	C_VS_UI_MONEY_DIALOG::GetValue() const
 {
 	__int64 cur_val;
 	char * p_temp = NULL;
-	g_Convert_DBCS_Ascii2SingleByte(m_lev_value.GetString(), m_lev_value.Size(), p_temp);
+	g_Convert_DBCS_Ascii2SingleByte(m_lev_value.GetStringWide(), m_lev_value.Size(), p_temp);
 	if (p_temp == NULL)
 	{
 		// string�� ����.

@@ -92,8 +92,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		# Exclude Windows-specific Korean input method files (except macOS stub)
 		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/src/hangul/Ci\\.cpp")
 		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/src/hangul/FL2\\.cpp")
-		# Exclude Windows-specific edit widget (uses IMM/GDI)
-		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*U_edit.*")
+		# U_edit is now cross-platform (SDL-based), so don't exclude it
 		# Exclude problematic files in VS_UI root directory
 		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/DebugInfo\\.cpp")
 		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/MitemTableInit\\.cpp")

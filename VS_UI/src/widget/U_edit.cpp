@@ -1,1443 +1,475 @@
-// u_edit.cpp
+#include "U_edit.h"
+#include "../hangul/CI.h"
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
 
-#include "client_PCH.h"
+// Forward declare FL2 functions (defined in hangul/FL2.cpp)
+extern void g_Print(int x, int y, const char* sz_str, void* p_print_info);
+extern int g_GetStringWidth(const char* sz_str, void* hfont);
 
-#include "debuginfo.h"
-#include "u_edit.h"
-#include <vector>
+// External reference to global CI (for cursor blink state)
+extern CI* gC_ci;
 
+// ============================================================================
+// UTF-8 <-> UTF-32 Conversion (from textbox_demo.c)
+// ============================================================================
 
-//
-// gpC_focused_line_editor
-//
+static int utf8_to_utf32(const char* s, uint32_t* out, int cap) {
+	int n = 0;
+	while (*s && n < cap) {
+		uint32_t c;
+		unsigned char b = *s++;
 
-
-//
-
-
-//
-static LineEditor *	gpC_focused_line_editor = NULL;
-extern HWND g_hWnd;
-
-void SetImePosition(int x,int y)
-{	
-	static int mx=0,my=0;
-	
-	if(mx==x&&my==y) return;
-
-	mx=max(0,x);
-	my=max(0,y);
-
-	HIMC m_hIMC=NULL;
-	m_hIMC = ImmGetContext(g_hWnd);
-
-	POINT temps={mx,my};	
-	const int ImeMaxY=800;
-	while(temps.y>ImeMaxY)
-		temps.y = ImeMaxY - (temps.y-ImeMaxY);	
-	RECT temprect={mx,my-16,mx+60,my};	
-
-	COMPOSITIONFORM comp;	
-	comp.dwStyle=CFS_FORCE_POSITION;
-	comp.ptCurrentPos=temps;
-	comp.rcArea=temprect;
-
-	ImmSetCompositionWindow(m_hIMC,&comp);
-	ImmSetStatusWindowPos(m_hIMC,&temps);
-	ImmReleaseContext(g_hWnd,m_hIMC);
+		if (b < 0x80) {
+			c = b;
+		} else if ((b >> 5) == 0x6) {
+			c = ((b & 0x1F) << 6) | (*s++ & 0x3F);
+		} else if ((b >> 4) == 0xE) {
+			c = ((b & 0x0F) << 12) |
+			    ((*s++ & 0x3F) << 6) |
+			    (*s++ & 0x3F);
+		} else if ((b >> 3) == 0x1E) {
+			c = ((b & 0x07) << 18) |
+			    ((*s++ & 0x3F) << 12) |
+			    ((*s++ & 0x3F) << 6) |
+			    (*s++ & 0x3F);
+		} else {
+			continue;  // Invalid UTF-8
+		}
+		out[n++] = c;
+	}
+	return n;
 }
 
-//-----------------------------------------------------------------------------
-// Operations
-//-----------------------------------------------------------------------------
+static int utf32_to_utf8(uint32_t c, char out[5]) {
+	if (c < 0x80) {
+		out[0] = c;
+		out[1] = 0;
+		return 1;
+	} else if (c < 0x800) {
+		out[0] = 0xC0 | (c >> 6);
+		out[1] = 0x80 | (c & 0x3F);
+		out[2] = 0;
+		return 2;
+	} else if (c < 0x10000) {
+		out[0] = 0xE0 | (c >> 12);
+		out[1] = 0x80 | ((c >> 6) & 0x3F);
+		out[2] = 0x80 | (c & 0x3F);
+		out[3] = 0;
+		return 3;
+	} else {
+		out[0] = 0xF0 | (c >> 18);
+		out[1] = 0x80 | ((c >> 12) & 0x3F);
+		out[2] = 0x80 | ((c >> 6) & 0x3F);
+		out[3] = 0x80 | (c & 0x3F);
+		out[4] = 0;
+		return 4;
+	}
+}
 
-//-----------------------------------------------------------------------------
-// LineEditor
-//
-//
-//-----------------------------------------------------------------------------
+// ============================================================================
+// LineEditor implementation
+// ============================================================================
+
 LineEditor::LineEditor()
 {
-	Init();
+	memset(m_Text, 0, sizeof(m_Text));
+	m_CursorPos = 0;
+	m_TextLen = 0;
+	m_Limit = MAX_TEXT - 1;
+	m_bAcquired = false;
+	memset(m_Composing, 0, sizeof(m_Composing));
+	m_ComposingLen = 0;
 }
 
-LineEditor::LineEditor(int logical_size)
-{
-	Init();
-//	SetLogicalSize(logical_size);
-}
-
-//-----------------------------------------------------------------------------
-// ~LineEditor
-//
-// 
-//-----------------------------------------------------------------------------
-LineEditor::~LineEditor()
-{
-	if(IsAcquire())
-		Unacquire();
-}
-
-//-----------------------------------------------------------------------------
-// LineEditor::AddString
-//
-
-//-----------------------------------------------------------------------------
-void	LineEditor::AddString(const char * sz_str)
-{
-	/*
-	if (sz_str != NULL)
-	{
-		for (int i=0; i < strlen(sz_str); i++)
-		{
-			EditToCursorPosition((char_t)sz_str[i]);
-
-			IncreaseCursor();
-		}
-	}*/
-
-	if (sz_str != NULL)
-	{
-		char_t * p_new_buf = NULL;
-		int dbcs_len = g_ConvertAscii2DBCS(sz_str, strlen(sz_str), p_new_buf);
-		if (p_new_buf)
-		{
-			m_string.insert(Size(), p_new_buf);
-			m_cursor += dbcs_len;
-		}
-
-		DeleteNewArray(p_new_buf);
-	}
-}
-
-//-----------------------------------------------------------------------------
-// CheckInputCharLimit
-//
-
-//-----------------------------------------------------------------------------
-bool LineEditor::CheckInputCharLimit() const
-{
-	return (m_char_input_count < m_string.size()+1);
-}
-
-//-----------------------------------------------------------------------------
-// SetByteLimit
-//
-// 
-//-----------------------------------------------------------------------------
-void LineEditor::SetByteLimit(int byte)
-{
-	m_byte_limit = byte;
-}
-
-//-----------------------------------------------------------------------------
-// CheckInputLimit
-//
-
-//-----------------------------------------------------------------------------
-bool LineEditor::CheckInputLimit(char_t will_input_char)
-{
-	//if (EndOfLogicalSize() == false) // logical size limit
-//	if (ReachEndOfBox(will_input_char) == true)
-	{
-		// check byte limit
-		if (m_byte_limit > -1)
-		{
-			char * str_buf = NULL;
-			int len = g_Convert_DBCS_Ascii2SingleByte(m_string.c_str(), m_string.size(), str_buf);
-			DeleteNewArray(str_buf);
-
-			int add;
-			if (will_input_char == 0) // DBCS
-				add = 2;
-			else
-				add = 1;
-			if (len+add > m_byte_limit)
-				return true;
-//			if (ReachEndOfBox(will_input_char) == true)
-//				m_scroll++;
-
-		}
-
-		if (CheckInputCharLimit() == false)
-		{
-			return false;
-		}
-	}
-
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// EraseCharacterFrontCursor
-//
-
-//-----------------------------------------------------------------------------
-bool LineEditor::EraseCharacterFrontCursor()
-{
-	if (m_cursor > 0)
-	{
-		m_string.erase(m_cursor-1, 1);
-		DecreaseCursor();
-		if(m_scroll > 0 && !ReachEndOfBox(-1))m_scroll--;
-		return true;
-	}
-
-	return false;
-}
-
-bool LineEditor::EraseCharacterBegin()
-{
-	if(m_string.size() > 0)
-	{
-		m_string.erase(0, 1);
-		DecreaseCursor();
-		if(m_scroll > 0 && !ReachEndOfBox(-1))m_scroll--;
-		return true;
-	}
-
-	return false;
-}
-
-
-//-----------------------------------------------------------------------------
-// EraseAll
-//
-
-//-----------------------------------------------------------------------------
-void LineEditor::EraseAll()
-{ 
-	m_cursor = 0;
-	m_scroll = 0;
-	m_string.erase(); 
-}
-
-//-----------------------------------------------------------------------------
-// InsertGap
-//
-
-//-----------------------------------------------------------------------------
-bool LineEditor::InsertGap()
-{
-//	DEBUG_ADD("[LineEditor] InsertGap");
-	char_t buf[2];
-	buf[0] = 0x0020; // space
-	buf[1] = 0;
-
-	m_string.insert(m_cursor, buf);
-
-	if(m_editor_height > 0 && GetLineCount() > m_editor_height)
-	{
-		m_string.erase(&m_string[m_cursor]);
-//		DEBUG_ADD("[LineEditor] InsertGap FALSE");
-		return false;
-	}
-
-//	DEBUG_ADD("[LineEditor] InsertGap OK");
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// IncreaseCursor
-//
-// 
-//-----------------------------------------------------------------------------
-int LineEditor::IncreaseCursor()
-{ 
-	if (m_cursor < m_string.size())
-	{
-		m_cursor++;
-		if(m_gap == 0)
-		{
-			char *str_buf;
-			if(ReachEndOfBox(0))
-			{
-				int len;
-				do{
-					len = g_Convert_DBCS_Ascii2SingleByte(m_string.c_str()+m_scroll, m_cursor-m_scroll, str_buf);
-					DeleteNew(str_buf);
-					if(len > m_reach_limit)m_scroll++;
-					{
-						len = g_Convert_DBCS_Ascii2SingleByte(m_string.c_str()+m_scroll, m_cursor-m_scroll, str_buf);
-						DeleteNew(str_buf);
-					}
-				}while(len > m_reach_limit);
-			}
-		}
-		if(m_string[m_cursor-1] & 0xff00)
-			return 2;
-		else
-			return 1;
-	}
-
-	return 0;
-}
-
-//-----------------------------------------------------------------------------
-// DecreaseCursor
-//
-// 
-//-----------------------------------------------------------------------------
-int LineEditor::DecreaseCursor()
-{ 
-	if (m_cursor > 0)
-	{
-		m_cursor--;
-		if(m_cursor < m_scroll)m_scroll--;
-		if(m_string[m_cursor] & 0xff00)
-			return 2;
-		else
-			return 1;
-	}
-
-	return 0;
-}
-
-//-----------------------------------------------------------------------------
-// HomeCursor
-//
-// 
-//-----------------------------------------------------------------------------
-bool LineEditor::HomeCursor()
-{ 
-	if (m_cursor != 0)
-	{
-		m_cursor = 0;
-		m_scroll = 0;
-		return true;
-	}
-
-	return false;
-}
-
-//-----------------------------------------------------------------------------
-// EndCursor
-//
-// 
-//-----------------------------------------------------------------------------
-bool LineEditor::EndCursor()
-{ 
-//	if (m_cursor != m_string.size())
-//	{
-//		m_cursor = m_string.size(); 
-//		return true;
-//	}
-	if(m_cursor != m_string.size())
-	{
-		while(IncreaseCursor());
-		return true;
-	}
-
-	return false;
-}
-
-//-----------------------------------------------------------------------------
-// Init
-//
-// 
-//-----------------------------------------------------------------------------
-void LineEditor::Init()
-{
-	m_editor_height = 0;
-	m_reach_limit = 100;
-	m_byte_limit = -1;
-	m_char_input_count = -1;
-	m_scroll = 0;
-	m_cursor = 0;
-	//m_logical_size = 0;
-	m_bl_digit_only = false;
-	m_bl_password_mode = false;
-	m_gap = 0;
-}
-
-//-----------------------------------------------------------------------------
-// SetLogicalSize
-//
-// 
-//-----------------------------------------------------------------------------
-/*void LineEditor::SetLogicalSize(int logical_size)
-{
-
-
-
-	assert(logical_size > -1);
-
-	if (logical_size < 0)
-		_Error(FAILED_JOB);
-
-	m_logical_size = logical_size;
-}*/
-
-//-----------------------------------------------------------------------------
-// SetInputCharCount
-//
-
-//-----------------------------------------------------------------------------
-void LineEditor::SetInputCharCount(int char_count)
-{
-	m_char_input_count = char_count;
-}
-
-//-----------------------------------------------------------------------------
-// KeyboardControl
-//
-// 
-//-----------------------------------------------------------------------------
-void LineEditor::KeyboardControl(UINT message, UINT key, long extra)
-{
-	static int debug_count = 0;
-
-	if (debug_count < 10) {
-		printf("DEBUG LineEditor::KeyboardControl: message=%d, key=%d, extra=%ld\n",
-			   message, key, extra);
-		debug_count++;
-	}
-
-//	DEBUG_ADD("[LineEditor] KeyboardControl");
-	switch (message)
-	{
-		case WM_KEYDOWN:
-			switch (key)
-			{
-				case VK_LEFT:
-					gC_ci->FinishImeRunning();
-					if (DecreaseCursor())
-						gC_ci->ForceShowCursor();
-					break;
-
-				case VK_RIGHT:
-					gC_ci->FinishImeRunning();
-					if (IncreaseCursor())
-							gC_ci->ForceShowCursor();
-					break;
-
-				case VK_HOME:
-					gC_ci->FinishImeRunning();
-					if (HomeCursor() == true)
-						gC_ci->ForceShowCursor();
-					break;
-
-				case VK_END:
-					gC_ci->FinishImeRunning();
-					if (EndCursor() == true)
-						gC_ci->ForceShowCursor();
-					break;
-
-				case VK_INSERT:
-					gC_ci->ToggleInsertMode();
-					break;
-
-				case VK_BACK:
-					gC_ci->FinishImeRunning();
-					if (EraseCharacterFrontCursor() == true)
-						gC_ci->ForceShowCursor();
-					break;
-
-				case VK_RETURN:
-					if(m_gap)
-					{
-						if(m_editor_height > 0 && GetLineCount()+1 > m_editor_height)
-							return;
-
-						if (gC_ci->GetInsertModeState() == true) // insert?
-						{
-							if (CheckInputLimit('\n') == true)
-								return;
-							
-							//InsertToCursorPosition((char_t)key);
-							if(InsertGap())
-								EditToCursorPosition((char_t)'\n');							
-						}
-						else
-						{
-							if (m_cursor == m_string.size()) // at end?
-								if (CheckInputLimit(key) == true)
-									return;
-								
-								EditToCursorPosition((char_t)'\n');								
-						}
-						IncreaseCursor();
-						gC_ci->ForceShowCursor();
-					}
-					break;
-
-				case VK_UP:
-					if(m_gap)
-					{
-						gC_ci->FinishImeRunning();
-						int sum = 0;
-						while(sum < m_reach_limit+1)
-						{
-							int num = DecreaseCursor();
-							if(num == 0 || m_string[m_cursor] == '\n')break;
-							sum += num;
-						}
-						if(sum > m_reach_limit+1)
-							IncreaseCursor();
-
-						gC_ci->ForceShowCursor();
-					}
-					break;
-
-				case VK_DOWN:
-					if(m_gap)
-					{
-						gC_ci->FinishImeRunning();
-						int sum = 0;
-						while(sum < m_reach_limit+1)
-						{
-							int num = IncreaseCursor();
-							if(num == 0 || m_string[m_cursor-1] == '\n')break;
-							sum += num;
-						}
-						if(sum > m_reach_limit+1)
-							DecreaseCursor();
-
-						gC_ci->ForceShowCursor();
-					}
-					break;
-
-				case VK_DELETE:
-					if (m_cursor < m_string.size())
-					{
-						IncreaseCursor();
-						if (EraseCharacterFrontCursor() == true)
-							gC_ci->ForceShowCursor();
-					}
-					break;
-			}
-			break;
-
-		case WM_CHAR:
-			//
-
-
-
-
-			//
-
-			//
-
-
-			static int char_debug_count = 0;
-
-			if (char_debug_count < 10) {
-				printf("  DEBUG WM_CHAR: key=%d ('%c'), IsAcquire()=%d\n",
-					   key, (char)key, IsAcquire());
-				printf("    m_cursor=%zu, m_string.size()=%zu\n",
-					   m_cursor, m_string.size());
-				fflush(stdout);
-			}
-
-			if ((char)key >= 32 && (char)key <= 126)
-			{
-				if (m_bl_digit_only)
-					if (!((char)key >= '0' && (char)key <= '9'))
-						return;
-											
-				if (gC_ci->GetInsertModeState() == true) // insert?
-				{
-					if (CheckInputLimit(key) == true)
-						return;
-
-					//InsertToCursorPosition((char_t)key);
-					if(InsertGap())
-						EditToCursorPosition((char_t)key);
-				}
-				else
-				{
-					if (m_cursor == m_string.size()) // at end?
-						if (CheckInputLimit(key) == true)
-							return;
-
-					EditToCursorPosition((char_t)key);
-				}
-
-				IncreaseCursor();
-				gC_ci->ForceShowCursor();
-
-				if (char_debug_count < 10) {
-					printf("    After insert: m_cursor=%zu, m_string.size()=%zu\n",
-						   m_cursor, m_string.size());
-					printf("    m_string content: '%s'\n", m_string.c_str());
-					fflush(stdout);
-					char_debug_count++;
-				}
-			}
-			break;
-	}
-//	DEBUG_ADD("[LineEditor] KeyboardControl OK");
-}
-
-//-----------------------------------------------------------------------------
-// IsAcquire
-//
-//
-//-----------------------------------------------------------------------------
-bool LineEditor::IsAcquire() const
-{
-
-	return (gpC_focused_line_editor == (LineEditor *)this);
-}
-
-//-----------------------------------------------------------------------------
-// Acquire
-//
-
-//-----------------------------------------------------------------------------
 void LineEditor::Acquire()
 {
-	gpC_focused_line_editor = this;
-	gC_ci->ForceShowCursor();
-	gC_ci->ClearCurrentIMEComposition();
+	m_bAcquired = true;
 }
 
-//-----------------------------------------------------------------------------
-// Unacquire
-//
-
-//-----------------------------------------------------------------------------
 void LineEditor::Unacquire()
 {
-	gpC_focused_line_editor = NULL;
+	m_bAcquired = false;
 }
 
-//-----------------------------------------------------------------------------
-// InsertToCursorPosition
-//
-
-//-----------------------------------------------------------------------------
-//void LineEditor::InsertToCursorPosition(char_t a_char)
-//{
-//	if (m_cursor > m_string.size())
-//		_Error(FAILED_JOB);
-//
-//	char_t buf[2];
-//	buf[0] = a_char;
-//	buf[1] = 0;
-//
-//	m_string.insert(m_cursor, buf);
-//}
-
-//-----------------------------------------------------------------------------
-// InsertToCursorPositionForIME
-//
-// 
-//-----------------------------------------------------------------------------
-//void LineEditor::InsertToCursorPositionForIME(char_t a_char)
-//{
-
-//}
-
-//-----------------------------------------------------------------------------
-// EditToCursorPosition
-//
-
-//-----------------------------------------------------------------------------
-void LineEditor::EditToCursorPosition(char_t a_char)
+bool LineEditor::IsAcquire() const
 {
-	if (m_cursor > m_string.size())
-		_Error(FAILED_JOB);
+	return m_bAcquired;
+}
 
-	if (m_cursor == m_string.size()) // end of string?
-	{
-		//InsertToCursorPosition(a_char);
-		if(InsertGap())
-			m_string[m_cursor] = a_char;
-		return;
+// Insert UTF-32 text at cursor position
+void LineEditor::InsertText(const uint32_t* text, int len)
+{
+	if (len <= 0) return;
+	if (m_TextLen + len > m_Limit) return;
+
+	// Move existing text to make room
+	memmove(&m_Text[m_CursorPos + len],
+	        &m_Text[m_CursorPos],
+	        (m_TextLen - m_CursorPos) * sizeof(uint32_t));
+
+	// Insert new text
+	memcpy(&m_Text[m_CursorPos], text, len * sizeof(uint32_t));
+
+	m_CursorPos += len;
+	m_TextLen += len;
+}
+
+// Insert single UTF-32 character
+void LineEditor::InsertChar(uint32_t c)
+{
+	InsertText(&c, 1);
+}
+
+// Delete character at offset
+void LineEditor::DeleteChar(int offset)
+{
+	if (offset < 0 || offset >= m_TextLen) return;
+
+	memmove(&m_Text[offset],
+	        &m_Text[offset + 1],
+	        (m_TextLen - offset - 1) * sizeof(uint32_t));
+
+	m_TextLen--;
+	if (m_CursorPos > m_TextLen) {
+		m_CursorPos = m_TextLen;
 	}
-	//else
-	m_string[m_cursor] = a_char;
 }
 
-//-----------------------------------------------------------------------------
-// EditToCursorPositionForIME
-//
-
-//-----------------------------------------------------------------------------
-void LineEditor::EditToCursorPositionForIME(char_t a_char)
+// Delete character before cursor (backspace)
+void LineEditor::Backspace()
 {
-	if (m_cursor == 0  || m_cursor > m_string.size())
-		_Error(FAILED_JOB);
-
-	m_string[m_cursor-1] = a_char;
-
-
-	if (a_char == 0)
-		EraseCharacterFrontCursor();
-}
-
-void LineEditor::InsertMark(char_t a_char)
-{
-	if (gC_ci->GetInsertModeState() == true) // insert?
-	{
-		if (CheckInputLimit(a_char) == true)
-			return;
-		
-		//InsertToCursorPosition((char_t)key);
-		if(InsertGap())
-			EditToCursorPosition(a_char);
+	if (m_CursorPos > 0) {
+		DeleteChar(m_CursorPos - 1);
+		m_CursorPos--;
 	}
-	else
-	{
-		if (m_cursor == m_string.size()) // at end?
-			if (CheckInputLimit(a_char) == true)
-				return;
-	
-		EditToCursorPosition(a_char);
+}
+
+// Move cursor by delta characters
+void LineEditor::MoveCursor(int delta)
+{
+	int newPos = m_CursorPos + delta;
+	if (newPos < 0) newPos = 0;
+	if (newPos > m_TextLen) newPos = m_TextLen;
+	m_CursorPos = newPos;
+}
+
+// Set cursor to absolute position
+void LineEditor::SetCursor(int pos)
+{
+	if (pos < 0) pos = 0;
+	if (pos > m_TextLen) pos = m_TextLen;
+	m_CursorPos = pos;
+}
+
+// Handle SDL_TEXTINPUT event (committed text)
+void LineEditor::HandleTextInput(const char* text)
+{
+	if (text == NULL || text[0] == '\0') return;
+
+	uint32_t utf32[32];
+	int len = utf8_to_utf32(text, utf32, 32);
+
+	if (IsComposing()) {
+		EndComposition();
 	}
-				
-	IncreaseCursor();
-	gC_ci->ForceShowCursor();
+
+	InsertText(utf32, len);
 }
 
-//----------------------------------------------------------------------------
-
-//----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// IME_EndComposition - auto call
-//
-
-//-----------------------------------------------------------------------------
-void IME_EndComposition()
+// Handle SDL_TEXTEDITING event (IME composition in progress)
+void LineEditor::HandleTextEditing(const char* text, int start, int length)
 {
+	if (length > 0) {
+		// Currently composing - store composition text
+		m_ComposingLen = utf8_to_utf32(text, m_Composing, MAX_TEXT);
+	} else {
+		// Composition ended
+		EndComposition();
+	}
 }
 
-//-----------------------------------------------------------------------------
-// IME_Composition - auto call
-//
-// 
-//-----------------------------------------------------------------------------
-void CI_KOREAN::IME_Composition()
+// Start IME composition
+void LineEditor::StartComposition(const char* text, int start, int length)
 {
-	if (gpC_focused_line_editor != NULL && gpC_focused_line_editor->GetDigitOnlyMode() == false)
+	HandleTextEditing(text, start, length);
+}
+
+// Update IME composition
+void LineEditor::UpdateComposition(const char* text, int start, int length)
+{
+	HandleTextEditing(text, start, length);
+}
+
+// End IME composition (commit composed text)
+void LineEditor::EndComposition()
+{
+	if (m_ComposingLen > 0) {
+		InsertText(m_Composing, m_ComposingLen);
+		m_ComposingLen = 0;
+	}
+}
+
+// Get text as UTF-8 string (for compatibility)
+const char* LineEditor::GetBuffer() const
+{
+	static char utf8_buffer[MAX_TEXT * 4 + 1];  // Worst case: 4 bytes per UTF-32 char
+	int offset = 0;
+
+	for (int i = 0; i < m_TextLen && offset < (int)sizeof(utf8_buffer) - 4; i++) {
+		char buf[5];
+		int len = utf32_to_utf8(m_Text[i], buf);
+		memcpy(&utf8_buffer[offset], buf, len);
+		offset += len;
+	}
+	utf8_buffer[offset] = '\0';
+
+	return utf8_buffer;
+}
+
+// Legacy: Add UTF-8 string (converts to UTF-32 internally)
+void LineEditor::AddString(const char* pStr)
+{
+	if (pStr == NULL) return;
+
+	uint32_t utf32[MAX_TEXT];
+	int len = utf8_to_utf32(pStr, utf32, MAX_TEXT);
+
+	if (m_TextLen + len <= m_Limit) {
+		InsertText(utf32, len);
+	}
+}
+
+// Legacy: Clear all text
+void LineEditor::EraseAll()
+{
+	m_TextLen = 0;
+	m_CursorPos = 0;
+	memset(m_Text, 0, sizeof(m_Text));
+	m_ComposingLen = 0;
+}
+
+// Legacy: Delete character before cursor
+void LineEditor::EraseCharacterBegin()
+{
+	Backspace();
+}
+
+// Legacy: Insert special mark
+void LineEditor::InsertMark(unsigned short mark)
+{
+	InsertChar((uint32_t)mark);
+}
+
+// KeyboardControl - main entry point for keyboard messages
+void LineEditor::KeyboardControl(unsigned int message, unsigned int key, long extra)
+{
+	switch (message)
 	{
-		if (gC_ci->ImeRunning() == true)
+	case WM_CHAR:
+		// Legacy: Single character input
+		InsertChar((uint32_t)key);
+		break;
+
+	case WM_TEXTINPUT:
+		// SDL_TEXTINPUT event (extra is text pointer)
 		{
-			gpC_focused_line_editor->EditToCursorPositionForIME(gC_ci->GetComposingChar());
-			gC_ci->ForceShowCursor();
+			const char* text = (const char*)extra;
+			HandleTextInput(text);
 		}
-	}
-}
+		break;
 
-//-----------------------------------------------------------------------------
-// IME_StartComposition - auto call
-//
+	case WM_TEXTEDITING:
+		// SDL_TEXTEDITING event (composition)
+		// Note: This is a simplified handling - actual implementation would need the text
+		// For now, we just clear composition state when we get this message
+		m_ComposingLen = 0;
+		break;
 
-//-----------------------------------------------------------------------------
-void IME_StartComposition()
-{
-	if (gpC_focused_line_editor != NULL && gpC_focused_line_editor->GetDigitOnlyMode() == false)
-	{
-		if (gC_ci->GetInsertModeState() == true)
+	case WM_KEYDOWN:
+		// Control keys
+		switch (key)
 		{
-			if (gpC_focused_line_editor->CheckInputLimit(0) == false)
-			{
-				if(gpC_focused_line_editor->InsertGap() == false)
-				{
-					gC_ci->FinishImeRunning();
-					return;
-				}
-			}
-			else
-			{
-				gC_ci->FinishImeRunning();
-				return;
-			}
-		}
-		else
-		{
-			if (gpC_focused_line_editor->GetCursor() == gpC_focused_line_editor->Size())
-			{
-				if (gpC_focused_line_editor->CheckInputLimit(0) == false)
-				{
-					if(gpC_focused_line_editor->InsertGap() == false)
-					{
-						gC_ci->FinishImeRunning();
-						return;
-					}
-				}
-				else
-				{
-					gC_ci->FinishImeRunning();
-					return;
-				}
-			}
-		}
-
-		gpC_focused_line_editor->IncreaseCursor();
-	}
-}
-
-//-----------------------------------------------------------------------------
-// IME_NextComposition - auto call
-//
-
-//
-
-//-----------------------------------------------------------------------------
-void CI_KOREAN::IME_NextComposition()
-{
-	if (gpC_focused_line_editor != NULL && gpC_focused_line_editor->GetDigitOnlyMode() == false)
-	{
-		if (gC_ci->GetEndOfIME() == false)
-		{
-			//
-
-			//
-
-
-			//
-			if (gC_ci->ImeRunning() == true)
-				gpC_focused_line_editor->EditToCursorPositionForIME(gC_ci->GetComposingChar());
-
-			if (gC_ci->GetInsertModeState() == true)
-			{
-				if (gpC_focused_line_editor->CheckInputLimit(0/*gC_ci->GetComposingChar()*/) == false)
-				{
-					if(gpC_focused_line_editor->InsertGap() == false)
-					{
-						gC_ci->FinishImeRunning();
-						return;
-					}
-				}
-				else
-				{
-					gC_ci->FinishImeRunning();
-					return;
-				}
-			}
-			else
-			{
-				if (gpC_focused_line_editor->GetCursor() == gpC_focused_line_editor->Size())
-				{
-					if (gpC_focused_line_editor->CheckInputLimit(0/*gC_ci->GetComposingChar()*/) == false)
-					{
-						if(gpC_focused_line_editor->InsertGap() == false)
-						{
-							gC_ci->FinishImeRunning();
-							return;
-						}
-					}
-					else
-					{
-						{
-							gC_ci->FinishImeRunning();
-							return;
-						}
-					}
-				}
-			}
-
-			gpC_focused_line_editor->IncreaseCursor();
-			gC_ci->ForceShowCursor();
-		}
-	}
-}
-
-//-----------------------------------------------------------------------------
-// IME_Normal - auto call
-//
-
-//-----------------------------------------------------------------------------
-void IME_Normal(UINT message, WPARAM wParam, LPARAM lParam)
-{
-	if (gpC_focused_line_editor != NULL)
-	{
-		gpC_focused_line_editor->KeyboardControl(message, wParam, lParam);
-	}
-}
-
-//-----------------------------------------------------------------------------
-// LineEditorVisual
-//
-// 
-//-----------------------------------------------------------------------------
-LineEditorVisual::LineEditorVisual()
-{
-	m_print_info.bk_mode = TRANSPARENT;
-	m_print_info.back_color = RGB(0, 0, 0);
-	m_print_info.text_color = RGB(255, 255, 255);
-	m_print_info.hfont = NULL;
-	m_print_info.text_align = TA_LEFT;
-
-//	m_reach_limit = 0;
-	m_abs_width = -1;
-	m_cursor_color = RGB(255, 255, 255);
-}
-
-//-----------------------------------------------------------------------------
-// ~LineEditorVisual
-//
-// 
-//-----------------------------------------------------------------------------
-LineEditorVisual::~LineEditorVisual()
-{
-	
-}
-
-//-----------------------------------------------------------------------------
-// SetPrintInfo
-//
-
-//-----------------------------------------------------------------------------
-void LineEditorVisual::SetPrintInfo(PrintInfo &print_info)
-{
-	m_print_info = print_info;
-}
-
-//-----------------------------------------------------------------------------
-// ReachEndOfBox
-//
-
-//-----------------------------------------------------------------------------
-bool LineEditorVisual::ReachEndOfBox(char_t will_input_char) const
-{
-	char * str_buf = NULL;
-
-	String temp_string;
-	temp_string = m_string;
-	if(will_input_char != 0)
-	{
-		if (will_input_char > 0) // ASCII?
-			temp_string += (char_t)'a';
-		else
-			temp_string += *((char_t *)"김");
-	}
-
-	int len = g_Convert_DBCS_Ascii2SingleByte(temp_string.c_str()+m_scroll, temp_string.size(), str_buf);
-
-	int str_width = g_GetStringWidth(str_buf, m_print_info.hfont);
-
-	DeleteNewArray(str_buf);
-
-	if (m_abs_width > -1 && m_abs_width < str_width)
-		return true;
-
-	return false;
-}
-
-//-----------------------------------------------------------------------------
-// ReachEndOfBox
-//
-
-//-----------------------------------------------------------------------------
-int LineEditorVisual::ReachSizeOfBox() const
-{
-	int str_width = g_GetStringWidth("a", m_print_info.hfont);
-
-	return m_abs_width/str_width;
-}
-
-//-----------------------------------------------------------------------------
-// SetAbsWidth
-//
-// 
-//-----------------------------------------------------------------------------
-void LineEditorVisual::SetAbsWidth(int width)
-{
-	m_abs_width = width;
-	m_reach_limit = ReachSizeOfBox();
-}
-
-//-----------------------------------------------------------------------------
-// PasswordMode
-//
-// 
-//-----------------------------------------------------------------------------
-void LineEditorVisual::PasswordMode(bool enable)
-{
-	m_bl_password_mode = enable;
-}
-
-//-----------------------------------------------------------------------------
-// EndOfLogicalSize
-//
-
-//-----------------------------------------------------------------------------
-//bool LineEditorVisual::EndOfLogicalSize() const
-//{
-	/*
-	int len = g_Convert_DBCS_Ascii2SingleByte(m_string.c_str(), m_string.size(), str_buf);
-
-	SIZE size;
-	GetTextExtentPoint32(hdc, str_buf, len, &size);*/
-
-//	return true;
-//}
-
-//-----------------------------------------------------------------------------
-// SetCursorColor
-//
-// 
-//-----------------------------------------------------------------------------
-void LineEditorVisual::SetCursorColor(COLORREF color)
-{
-	m_cursor_color = color;
-}
-
-//-----------------------------------------------------------------------------
-// SetPosition
-//
-
-//-----------------------------------------------------------------------------
-void LineEditorVisual::SetPosition(int x, int y)
-{
-	m_xy.Set(x, y);
-}
-
-//-----------------------------------------------------------------------------
-// Show
-//
-
-//-----------------------------------------------------------------------------
-void LineEditorVisual::Show() const
-{
-//	DEBUG_ADD("[LineEditorVisual] Show");
-
-	if (gpC_fl2_surface == NULL)
-	{
-//		DEBUG_ADD("[LineEditorVisual] Show FALSE");
-		return;
-	}
-
-	g_FL2_ReleaseDC();
-
-	int text_width = g_GetStringWidth("a", m_print_info.hfont);
-
-	HDC hdc;
-	gpC_fl2_surface->GetDC(&hdc);
-	if( m_print_info.hfont != NULL )
-		SelectObject(hdc, m_print_info.hfont);
-
-	//
-	// set format
-	//
-	SetBkMode(hdc, m_print_info.bk_mode);
-	SetTextColor(hdc, m_print_info.text_color);
-	SetBkColor(hdc, m_print_info.back_color);
-	
-//	DEBUG_ADD("[LineEditorVisual] Show 1");
-
-	String password_string;
-	int len = 0;
-	char * str_buf = NULL;
-
-	int print_y = m_xy.y, next = 0;
-	
-	if (m_bl_password_mode == true)
-	{
-		for (int i=0; i < m_string.size(); i++)
-			password_string += (char_t)'*';
-		if(m_gap == 0)
-			len = g_Convert_DBCS_Ascii2SingleByte(password_string.c_str()+m_scroll, password_string.size(), str_buf);
-		else
-			len = g_Convert_DBCS_Ascii2SingleByte(password_string.c_str(), password_string.size(), str_buf);
-	}
-	else
-	{
-		if(m_gap == 0)
-			len = g_Convert_DBCS_Ascii2SingleByte(m_string.c_str()+m_scroll, m_string.size(), str_buf);
-		else
-			len = g_Convert_DBCS_Ascii2SingleByte(m_string.c_str(), m_string.size(), str_buf);
-	}
-	
-//	DEBUG_ADD("[LineEditorVisual] Show 2");
-
-	std::vector<int> v_cut;
-	
-
-	if(str_buf)
-	{
-		if(m_gap == 0)
-		{
-			TextOut(hdc, m_xy.x, print_y, str_buf, min(len, m_reach_limit+1));
-		}
-		else
-		{
-			do
-			{
-				if(str_buf+next == NULL)
-					break;
-				
-				int cut = false;
-				char *enter_pos = strchr(str_buf+next, '\n');
-				if(enter_pos != NULL && enter_pos - (str_buf+next) < min(len-next, m_reach_limit+1))
-				{
-					TextOut(hdc, m_xy.x, print_y, str_buf+next, enter_pos - (str_buf+next));
-					v_cut.push_back(m_reach_limit - (enter_pos - (str_buf+next)));
-					next += enter_pos - (str_buf+next)+1;
-				}
-				else
-				{
-					TextOut(hdc, m_xy.x, print_y, str_buf+next, min(len-next, m_reach_limit+1));
-					if(min(len-next, m_reach_limit+1) < strlen(str_buf))
-						if(!g_PossibleStringCut(str_buf+next, min(len-next, m_reach_limit+1)))
-						{
-							next--;
-							cut = 1;
-						}
-					v_cut.push_back(cut);
-					next += min(len, m_reach_limit+1);
-				}
-				
-				print_y += m_gap;
-
-				if(m_editor_height != 0 && v_cut.size() >= m_editor_height)
-					break;
-			}while(next < strlen(str_buf));
-//			if(m_editor_height != 0 && v_cut.size() == m_editor_height && next > 0 && str_buf[next-1] == '\n')
-//				v_cut.push_back(0);
-		}
-	}
-	//	char str_color[80];
-	//	wsprintf(str_color, "%x", m_print_info.text_color);
-	//	TextOut(hdc, m_xy.x, m_xy.y, str_color, strlen(str_color));
-	
-//	DEBUG_ADD("[LineEditorVisual] Show 3");
-
-
-	//
-	// cursor
-	//
-//	if(!(m_editor_height != 0 && v_cut.size() > m_editor_height))// && (strlen(str_buf+next) != 0 || next > 0 && str_buf[next-1] == '\n')))
-	{
-		if(str_buf != NULL)
-			DeleteNewArray(str_buf);
-
-//		DEBUG_ADD("[LineEditorVisual] Show 4");
-
-		if (gC_ci->GetCursorBlink() == true && IsAcquire() == true)
-		{
-			if (m_bl_password_mode == true)
-				len = g_Convert_DBCS_Ascii2SingleByte(password_string.c_str(), m_cursor, str_buf);
-			else
-			{
-				if(m_gap == 0)
-					len = g_Convert_DBCS_Ascii2SingleByte(m_string.c_str()+m_scroll, m_cursor-m_scroll, str_buf);// - g_Convert_DBCS_Ascii2SingleByte(m_string.c_str(), m_scroll, str_buf);
-				else
-					len = g_Convert_DBCS_Ascii2SingleByte(m_string.c_str(), m_cursor, str_buf);// - g_Convert_DBCS_Ascii2SingleByte(m_string.c_str(), m_scroll, str_buf);
-			}
-			
-//			DEBUG_ADD("[LineEditorVisual] Show 4-1");
-
-			SIZE size;
-			GetTextExtentPoint32(hdc, str_buf, len, &size);
-			
-			int px, py;
-			TEXTMETRIC tm;
-			GetTextMetrics(hdc, &tm);
-			
-			//		SetROP2(hdc, R2_XORPEN);
-			
-//			DEBUG_ADD("[LineEditorVisual] Show 4-2");
-			
-			if (gC_ci->ImeRunning() == true && m_bl_password_mode == false)
-			{
-//				DEBUG_ADD("[LineEditorVisual] Show 4-3");
-
-				HBRUSH hbrush = CreateSolidBrush(m_cursor_color);
-				HBRUSH holdbrush = (HBRUSH)SelectObject(hdc, hbrush);
-				
-				// DBCS width
-
-				SIZE dbcs_size;
-				char str[] = "김";
-				GetTextExtentPoint32(hdc, str, 2, &dbcs_size);
-				
-				px = m_xy.x+size.cx-dbcs_size.cx-1;
-				py = m_xy.y-1;
-				
-//				DEBUG_ADD("[LineEditorVisual] Show 4-4");
-
-				if(m_gap != 0)
-				{
-					std::vector<int>::iterator itr = v_cut.begin();
-					
-					while(px > m_xy.x + (m_reach_limit-1)*text_width || itr != NULL && *itr > 1 && px - (m_reach_limit-1 - *itr)*text_width > m_xy.x)
-					{
-						px -= (m_reach_limit+1)*text_width;
-						py += m_gap;
-						px += (*itr)*text_width;
-						itr++;
-					}
-				}
-
-//				DEBUG_ADD("[LineEditorVisual] Show 4-5");
-				
-				if(!(m_editor_height != 0 && (py - (m_xy.y-1))/m_gap >= m_editor_height))
-				{
-					Rectangle(hdc, px, py, px+dbcs_size.cx+2, py+tm.tmHeight+2);
-					
-					if(str_buf)
-					{
-						SetTextColor(hdc, m_cursor_color^0xffffff);
-						TextOut(hdc, px+1, py+1, str_buf+strlen(str_buf)-2, 2);
-					}
-				}
-				
-//				DEBUG_ADD("[LineEditorVisual] Show 4-6");
-
-				DeleteObject(hbrush);
-				
-				SelectObject(hdc, holdbrush);
-
-//				DEBUG_ADD("[LineEditorVisual] Show 4-7");
-			}
-			else
-			{
-//				DEBUG_ADD("[LineEditorVisual] Show 4-8");
-
-				HPEN hpen = CreatePen(PS_SOLID, 2, m_cursor_color);
-				HPEN holdpen = (HPEN)SelectObject(hdc, hpen);
-				
-				px = m_xy.x+size.cx+1;
-				py = m_xy.y;
-				
-
-				if(m_gap != 0)
-				{
-					std::vector<int>::iterator itr = v_cut.begin();
-					while(itr != v_cut.end() && (px > m_xy.x + (m_reach_limit+1)*text_width || itr != NULL && *itr > 1 && px - (m_reach_limit+1 - *itr)*text_width > m_xy.x))
-					{
-						px -= (m_reach_limit+1)*text_width;
-						py += m_gap;
-						px += (*itr)*text_width;
-						itr++;
-					}
-				}
-				
-//				DEBUG_ADD("[LineEditorVisual] Show 4-9");
-
-				if(!(m_editor_height != 0 && (py - (m_xy.y-1))/m_gap >= m_editor_height))
-				{
-				MoveToEx(hdc, px, py, NULL);
-				LineTo(hdc, px, py+tm.tmHeight-1);
-				}
-				
-				SelectObject(hdc, holdpen);
-				DeleteObject(hpen);			
-
-//				DEBUG_ADD("[LineEditorVisual] Show 4-10");
-			}
-			if(gC_ci->IsChinese())
-				SetImePosition(px,py);
-		}
-		
-	}
-
-//	DEBUG_ADD("[LineEditorVisual] Show 5");
-
-	if(str_buf != NULL)
-		DeleteNewArray(str_buf);
-	
-	gpC_fl2_surface->ReleaseDC(hdc);
-
-//	DEBUG_ADD("[LineEditorVisual] Show OK");
-
-}
-/*
-//-----------------------------------------------------------------------------
-// EditManager
-//
-// 
-//-----------------------------------------------------------------------------
-EditManager::EditManager()
-{
-
-}
-
-//-----------------------------------------------------------------------------
-// ~EditManager
-//
-// 
-//-----------------------------------------------------------------------------
-EditManager::~EditManager()
-{
-
-}
-
-//-----------------------------------------------------------------------------
-// Register
-//
-// 
-//-----------------------------------------------------------------------------
-void EditManager::Register(DocumentEditor * p_de)
-{
-	if (p_de == NULL)
-		_Error(NULL_REF);
-
-	Add(p_de);
-}
-
-//-----------------------------------------------------------------------------
-// Unregister
-//
-// 
-//-----------------------------------------------------------------------------
-void EditManager::Unregister(DocumentEditor * p_de)
-{
-	if (p_de == NULL)
-		_Error(NULL_REF);
-
-	Delete(p_de);
-}
-
-//-----------------------------------------------------------------------------
-// EditManager::Show
-//
-// 
-//-----------------------------------------------------------------------------
-void EditManager::Show(HDC hdc) const
-{
-
-}*/
-
-const int LineEditorVisual::GetLineCount() const
-{
-	char * str_buf = NULL;
-
-	int count = 0, next = 0, len = 0;
-	
-	if(m_gap == 0)
-		len = g_Convert_DBCS_Ascii2SingleByte(m_string.c_str()+m_scroll, m_string.size(), str_buf);
-	else
-		len = g_Convert_DBCS_Ascii2SingleByte(m_string.c_str(), m_string.size(), str_buf);
-
-	if(str_buf == NULL)
-		return 0;
-
-	do
-	{
-		int cut = false;
-
-		char *enter_pos = strchr(str_buf+next, '\n');
-		if(enter_pos != NULL && enter_pos - (str_buf+next) < min(len-next, m_reach_limit+1))
-		{
-			count++;
-			next += enter_pos - (str_buf+next)+1;
-		}
-		else
-		{
-			if(min(len-next, m_reach_limit+1) < strlen(str_buf))
-			{
-				if(!g_PossibleStringCut(str_buf+next, min(len-next, m_reach_limit+1)))
-				{
-					next--;
-					cut = 1;
-				}
-			}
-			count++;
-			next += min(len, m_reach_limit+1);
-		}
-		
-		if(m_editor_height != 0 && count > m_editor_height)
-		{
-// 			count++;
+		case VK_BACK:
+			Backspace();
+			break;
+		case VK_LEFT:
+			MoveCursor(-1);
+			break;
+		case VK_RIGHT:
+			MoveCursor(1);
+			break;
+		case VK_HOME:
+			SetCursor(0);
+			break;
+		case VK_END:
+			SetCursor(m_TextLen);
+			break;
+		case VK_DELETE:
+			DeleteChar(m_CursorPos);
 			break;
 		}
-	}while(next < strlen(str_buf));
-
-	DeleteNewArray(str_buf);
-	
-	return count;
+		break;
+	}
 }
 
+// ============================================================================
+// LineEditorVisual implementation
+// ============================================================================
 
-void CI_CHINESE::IME_Composition()
+LineEditorVisual::LineEditorVisual()
 {
-//	if (gpC_focused_line_editor != NULL && gpC_focused_line_editor->GetDigitOnlyMode() == false)
-//	{
-//		if (gC_ci->ImeRunning() == true)
-//		{
-//			gpC_focused_line_editor->EditToCursorPositionForIME(gC_ci->GetComposingChar());
-//			gC_ci->ForceShowCursor();
-//		}
-//	}
+	// Debug: print offset
+	printf("DEBUG LineEditorVisual::LineEditorVisual: this=%p, &m_Editor=%p, &m_Editor.m_CursorPos=%p\n",
+	       this, &m_Editor, &m_Editor.m_CursorPos);
+
+	m_X = 0;
+	m_Y = 0;
+	m_AbsWidth = 100;
+	m_MaxWidth = 100;
+	m_bPasswordMode = false;
+	m_bAcquired = false;
+	m_PrintInfo.hfont = NULL;
+	m_PrintInfo.text_color = 0xFFFFFF;
+	m_PrintInfo.back_color = 0;
+	m_PrintInfo.bk_mode = 0;
+	m_PrintInfo.text_align = 0;
+	m_CursorColor = 0xFFFFFF;
 }
 
-//-----------------------------------------------------------------------------
-// IME_NextComposition - auto call
-//
-
-//
-
-//-----------------------------------------------------------------------------
-void CI_CHINESE::IME_NextComposition()
+LineEditorVisual::~LineEditorVisual()
 {
+}
 
-//by viva
-	bool LastErase=false;
-	const char *temp_str=gC_ci->GetComposingStringPtr();
-	char_t *temps;
-	
-	int len=strlen(temp_str);	
+void LineEditorVisual::Acquire()
+{
+	m_Editor.Acquire();
+	m_bAcquired = true;
 
-	if(len <= 0)
-		return;
+#ifdef PLATFORM_MACOS
+	// Enable SDL text input on macOS
+	SDL_StartTextInput();
+#endif
+}
 
-	IME_StartComposition();
-	for(int j=0;j<min(98,len);)
-	{
-		bool bAscii=false;
+void LineEditorVisual::Unacquire()
+{
+	m_Editor.Unacquire();
+	m_bAcquired = false;
 
-		if(temp_str[j] >= 32 && temp_str[j] <= 126) bAscii=true;
+#ifdef PLATFORM_MACOS
+	// Disable SDL text input on macOS
+	SDL_StopTextInput();
+#endif
+}
 
-		temps=(char_t*)&temp_str[j];
-		char_t ascii_temp=(char_t)temp_str[j]&0xff;
+void LineEditorVisual::SetPosition(int x, int y)
+{
+	m_X = x;
+	m_Y = y;
+}
 
-		if(bAscii)
-		{
-			// Skip Ascii.
-			gpC_focused_line_editor->EditToCursorPosition( ascii_temp );
-		//	gpC_focused_line_editor->EditToCursorPositionForIME( ascii_temp );
-			j++;
-		//	gpC_focused_line_editor->IncreaseCursor();
-		//	gC_ci->ForceShowCursor();
-			continue;
+void LineEditorVisual::SetAbsWidth(int width)
+{
+	m_AbsWidth = width;
+}
+
+void LineEditorVisual::SetPrintInfo(PrintInfo& info)
+{
+	m_PrintInfo = info;
+}
+
+void LineEditorVisual::SetCursorColor(unsigned long color)
+{
+	m_CursorColor = color;
+}
+
+void LineEditorVisual::PasswordMode(bool bPassword)
+{
+	m_bPasswordMode = bPassword;
+}
+
+int LineEditorVisual::GetLineCount() const
+{
+	return 1;
+}
+
+bool LineEditorVisual::ReachSizeOfBox() const
+{
+	// Use a default font size since PrintInfo doesn't have a size field
+	const int DEFAULT_FONT_SIZE = 12;
+	int len = m_Editor.GetTextLen();
+	return (len * DEFAULT_FONT_SIZE) >= m_MaxWidth;
+}
+
+// Compatibility method: convert UTF-8 to wide string (char_t)
+const char_t* LineEditorVisual::GetStringWide() const
+{
+	static char_t wide_buffer[LineEditor::MAX_TEXT];
+	const char* utf8 = m_Editor.GetString();
+
+	// Simple UTF-8 to char_t conversion (ASCII only for now)
+	int len = strlen(utf8);
+	for (int i = 0; i < len && i < LineEditor::MAX_TEXT - 1; i++) {
+		wide_buffer[i] = (char_t)(unsigned char)utf8[i];
+	}
+	wide_buffer[len] = 0;
+
+	return wide_buffer;
+}
+
+void LineEditorVisual::Show() const
+{
+	// Get the text to display (as UTF-8)
+	const char* textToDisplay = m_Editor.GetBuffer();
+
+	// Handle password mode (show asterisks instead of actual text)
+	char displayBuffer[1024];
+	if (m_bPasswordMode) {
+		int len = strlen(textToDisplay);
+		for (int i = 0; i < len && i < (int)sizeof(displayBuffer) - 1; i++) {
+			displayBuffer[i] = '*';
 		}
+		displayBuffer[len] = '\0';
+		textToDisplay = displayBuffer;
+	}
 
-		if (gpC_focused_line_editor != NULL && gpC_focused_line_editor->GetDigitOnlyMode() == false)
-		{
-			if (gC_ci->GetEndOfIME() == false)
-			{
-				gpC_focused_line_editor->EditToCursorPositionForIME(*temps);					
+	// Render the text using FL2's g_Print function (with NULL for default PrintInfo)
+	g_Print(m_X, m_Y, textToDisplay, (void*)NULL);
 
-				if (gC_ci->GetInsertModeState() == true)
-				{
-					if (gpC_focused_line_editor->CheckInputLimit(*temps) == false)
-					{
-						gpC_focused_line_editor->InsertGap();
-					}
+	// Draw cursor if this editor has focus
+	if (m_Editor.m_bAcquired && gC_ci != NULL && gC_ci->GetCursorBlink()) {
+		// Calculate cursor position based on text width
+		int cursorX = m_X;
+		if (m_Editor.m_CursorPos > 0) {
+			// Get substring up to cursor position
+			char cursorBuffer[1024];
+			const char* fullText = m_Editor.GetBuffer();
+
+			// Convert cursor position from characters to bytes (approximate)
+			int bytePos = 0;
+			int charPos = 0;
+			while (charPos < m_Editor.m_CursorPos && fullText[bytePos] != '\0') {
+				if ((fullText[bytePos] & 0xC0) != 0x80) {  // Not a continuation byte
+					charPos++;
 				}
-				else
-				{
-					if (gpC_focused_line_editor->GetCursor() == gpC_focused_line_editor->Size())
-					{
-						if (gpC_focused_line_editor->CheckInputLimit(*temps) == false)
-						{
-							gpC_focused_line_editor->InsertGap();
-							LastErase = true;
-						}
-					}
-				}
-				gpC_focused_line_editor->IncreaseCursor();
-				gC_ci->ForceShowCursor();
+				bytePos++;
 			}
+
+			strncpy(cursorBuffer, fullText, bytePos);
+			cursorBuffer[bytePos] = '\0';
+			cursorX = m_X + g_GetStringWidth(cursorBuffer, NULL);
 		}
-		j+=2;
-	}
 
-	gC_ci->FinishImeRunning();
+		// Draw a simple cursor line (this would need proper rendering implementation)
+		// For now, just a placeholder - cursor rendering would need more work
+	}
+}
 
-	if(gC_ci->GetInsertModeState())
-	{
-		gpC_focused_line_editor->EraseCharacterFrontCursor();
-	}
-	else
-	{
-		gpC_focused_line_editor->DecreaseCursor();			// decrease cursor			
-	}
-	gC_ci->FinishImeRunning();	
+Point LineEditorVisual::GetPosition() const
+{
+	Point p;
+	p.Set(m_X, m_Y);
+	return p;
 }

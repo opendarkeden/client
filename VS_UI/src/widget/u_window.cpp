@@ -1425,8 +1425,8 @@ void WindowManager::KeyboardControl(UINT message, UINT key, long extra)
 {
 //	static Window * m_pC_keydown_window;
 
-	if (message == WM_KEYDOWN ||
-	message == WM_CHAR)// || message == WM_IME_STARTCOMPOSITION)
+	if (message == WM_KEYDOWN || message == WM_CHAR ||
+	    message == WM_TEXTINPUT || message == WM_TEXTEDITING)// || message == WM_IME_STARTCOMPOSITION)
 	{
 		m_pC_keydown_window = NULL;
 		if (m_pC_topmost_window != NULL)// && m_pC_topmost_window->GetAttributes()->keyboard_control == true)
