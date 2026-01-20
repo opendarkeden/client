@@ -4293,10 +4293,13 @@ void C_VS_UI_LOGIN::ChangeFocus()
 	{
 		if(m_lev_id.Size() == 0)
 			m_lev_id.AddString(m_lev_id_backup.c_str());
+
+		// CRITICAL: Unacquire ID box before acquiring password box
+		m_lev_id.Unacquire();
 		m_lev_password.Acquire();
 
 		if (debug_count < 5) {
-			printf("DEBUG ChangeFocus: Password box acquired\n");
+			printf("DEBUG ChangeFocus: ID box unacquired, Password box acquired\n");
 			debug_count++;
 		}
 	}
@@ -4313,11 +4316,14 @@ void C_VS_UI_LOGIN::ChangeFocus()
 			m_lev_id_backup = p_temp;
 			DeleteNewArray(p_temp);
 		}
+
+		// CRITICAL: Unacquire password box before acquiring ID box
+		m_lev_password.Unacquire();
 		m_lev_id.Acquire();
 		m_lev_id.EraseAll();
 
 		if (debug_count < 5) {
-			printf("DEBUG ChangeFocus: ID box acquired, erased\n");
+			printf("DEBUG ChangeFocus: Password box unacquired, ID box acquired, erased\n");
 			debug_count++;
 		}
 	}
@@ -4680,6 +4686,13 @@ void C_VS_UI_LOGIN::KeyboardControl(UINT message, UINT key, long extra)
 			//
 			if (key == VK_TAB)
 			{
+				static int tab_debug_count = 0;
+				if (tab_debug_count < 10) {
+					printf("DEBUG C_VS_UI_LOGIN::KeyboardControl: VK_TAB pressed, calling ChangeFocus()\n");
+					printf("  m_lev_id.IsAcquire()=%d, m_lev_password.IsAcquire()=%d\n",
+						   m_lev_id.IsAcquire(), m_lev_password.IsAcquire());
+					tab_debug_count++;
+				}
 				//NextFocus();
 				ChangeFocus();
 			}
