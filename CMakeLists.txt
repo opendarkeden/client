@@ -15,9 +15,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Build options
-option(BUILD_TESTS "Build test programs" ON)
-
 # Auto-enable SDL backend on non-Windows platforms
 if(WIN32)
 	option(USE_SDL_BACKEND "Use SDL backend instead of native Windows APIs" OFF)
@@ -72,6 +69,43 @@ add_subdirectory(Client/VolumeLib)
 add_subdirectory(Client/framelib)
 add_subdirectory(Client/DEUtil)
 
+# ============================================================
+# TextLib - Text Rendering Library (Font Atlas + SpriteBatch)
+# ============================================================
+if(USE_SDL_BACKEND OR NOT WIN32)
+	# TextLib source files
+	set(TEXTLIB_SOURCES
+		Client/TextLib/CGlyphCache.cpp
+		Client/TextLib/CTextLayout.cpp
+	)
+
+	# Create TextLib static library
+	add_library(TextLib STATIC ${TEXTLIB_SOURCES})
+
+	# Include directories
+	target_include_directories(TextLib PUBLIC
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/TextLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+		${CMAKE_CURRENT_SOURCE_DIR}/basic
+		${SDL2_INCLUDE_DIRS}
+	)
+
+	# Link libraries
+	target_link_libraries(TextLib PUBLIC
+		SDL2::SDL2
+		SDL2::SDL2main
+		SDL2_image::SDL2_image
+		SDL2_ttf::SDL2_ttf
+	)
+
+	# Platform-specific definitions
+	if(NOT WIN32)
+		target_compile_definitions(TextLib PRIVATE PLATFORM_MACOS)
+	endif()
+
+	message(STATUS "TextLib library will be built from ${TEXTLIB_SOURCES}")
+endif()
+
 if(BUILD_ENGINE)
 	add_subdirectory(engine/sprite)
 	add_subdirectory(engine/ui)
@@ -95,8 +129,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		# Exclude Windows-specific Korean input method files (except macOS stub)
 		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/src/hangul/Ci\\.cpp")
 		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/src/hangul/FL2\\.cpp")
-		# Exclude Windows-specific edit widget (uses IMM/GDI)
-		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*U_edit.*")
+		# U_edit is now cross-platform (SDL-based), so don't exclude it
 		# Exclude problematic files in VS_UI root directory
 		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/DebugInfo\\.cpp")
 		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/MitemTableInit\\.cpp")
@@ -190,6 +223,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/widget
 		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/hangul
 		${CMAKE_CURRENT_SOURCE_DIR}/Client
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/TextLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/D3DLib
@@ -207,6 +241,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		volumelib
 		framelib
 		deutil
+		TextLib
 		SDL2::SDL2
 		SDL2::SDL2main
 		SDL2_image::SDL2_image
@@ -240,10 +275,111 @@ set_target_properties(resource_validator PROPERTIES
 	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
 
-if(BUILD_TESTS)
-	enable_testing()
-	add_subdirectory(tests)
-endif()
+# ============================================================
+# Resource Viewing Tools
+# ============================================================
+
+# Sprite Viewer - view .spk sprite pack files (C++ version using Client/SpriteLib)
+add_executable(sprite_viewer
+	tools/viewers/sprite_viewer/main.cpp
+)
+
+target_include_directories(sprite_viewer PRIVATE
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+)
+
+target_link_libraries(sprite_viewer PRIVATE
+	SpriteLib
+	dxlib
+	basic
+	SDL2::SDL2
+)
+
+set_target_properties(sprite_viewer PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+# Zone Parser - parse and dump .map zone files (standalone C++ version)
+add_executable(zone_parser
+	tools/viewers/zone_parser/main.cpp
+)
+
+target_link_libraries(zone_parser PRIVATE)
+
+set_target_properties(zone_parser PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+# Item Viewer - view .ispk indexed sprite pack files (C++ version using Client/SpriteLib)
+add_executable(item_viewer
+	tools/viewers/item_viewer/main.cpp
+)
+
+target_include_directories(item_viewer PRIVATE
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+)
+
+target_link_libraries(item_viewer PRIVATE
+	SpriteLib
+	dxlib
+	basic
+	SDL2::SDL2
+)
+
+set_target_properties(item_viewer PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+# Creature Viewer - view creature animations (C++ version using Client/SpriteLib + Client/framelib)
+add_executable(creature_viewer
+	tools/viewers/creature_viewer/main.cpp
+)
+
+target_include_directories(creature_viewer PRIVATE
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/framelib
+)
+
+target_link_libraries(creature_viewer PRIVATE
+	SpriteLib
+	framelib
+	dxlib
+	basic
+	SDL2::SDL2
+)
+
+set_target_properties(creature_viewer PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+# Map Viewer - browse zone maps with pan/zoom (C++ version using Client/SpriteLib)
+add_executable(map_viewer
+	tools/viewers/map_viewer/main.cpp
+	tools/viewers/map_viewer/zoneloader.cpp
+)
+
+target_include_directories(map_viewer PRIVATE
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+)
+
+target_link_libraries(map_viewer PRIVATE
+	SpriteLib
+	dxlib
+	basic
+	SDL2::SDL2
+)
+
+set_target_properties(map_viewer PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
 
 # Examples (always built if backend is enabled)
 if(USE_SDL_BACKEND OR NOT WIN32)
@@ -330,7 +466,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 	)
 
-	# Link libraries (now includes VS_UI)
+	# Link libraries (now includes VS_UI and TextLib)
 	target_link_libraries(DarkEden PRIVATE
 		SpriteLib
 		dxlib
@@ -340,6 +476,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		framelib
 		deutil
 		VS_UI
+		TextLib
 		SDL2::SDL2
 		SDL2::SDL2main
 	)
@@ -357,6 +494,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_SOURCE_DIR}/basic
 		${CMAKE_CURRENT_SOURCE_DIR}/Client
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/TextLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/D3DLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib

@@ -25,6 +25,7 @@ class CWaitUIUpdate : public CWinUpdate {
 		static void DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z);
 		static void	DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT, DWORD);
 		static void	SDLTextInputEvent(const char* text, int* window_coords);
+		static void	SDLTextEditingEvent(const char* text, int start, int length, int* window_coords);
 };
 
 extern CWaitUIUpdate*		g_pCWaitUIUpdate;

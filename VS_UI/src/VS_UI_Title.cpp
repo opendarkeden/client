@@ -542,8 +542,8 @@ void C_VS_UI_CHAR_DELETE::SendCharacterDeleteToClient()
 	// �ݸ�����
 	if(!g_pUserInformation->IsNetmarble)
 	{
-		g_Convert_DBCS_Ascii2SingleByte(m_lev_ssn_part1.GetString(), m_lev_ssn_part1.Size(), S_delete_char.sz_part1);
-		g_Convert_DBCS_Ascii2SingleByte(m_lev_ssn_part2.GetString(), m_lev_ssn_part2.Size(), S_delete_char.sz_part2);
+		g_Convert_DBCS_Ascii2SingleByte(m_lev_ssn_part1.GetStringWide(), m_lev_ssn_part1.Size(), S_delete_char.sz_part1);
+		g_Convert_DBCS_Ascii2SingleByte(m_lev_ssn_part2.GetStringWide(), m_lev_ssn_part2.Size(), S_delete_char.sz_part2);
 	}
 	S_delete_char.slot = m_selected_slot;
 
@@ -795,7 +795,7 @@ void C_VS_UI_CHAR_DELETE::Run(id_t id)
 				if (
 					 ( ( gC_ci->IsKorean()&& (	m_lev_ssn_part1.Size() == SSN_PART1_CHAR_COUNT &&
 					 m_lev_ssn_part2.Size() == SSN_PART2_CHAR_COUNT ) ) ||
-					 ( !gC_ci->IsKorean() && ( char_t_wcscmp(m_lev_ssn_part1.GetString(), L"DeletePc") == 0 ) )
+					 ( !gC_ci->IsKorean() && ( char_t_wcscmp(m_lev_ssn_part1.GetStringWide(), L"DeletePc") == 0 ) )
 					 )
 					 || g_pUserInformation->IsNetmarble)
 				{
@@ -992,7 +992,7 @@ void C_VS_UI_NEWCHAR::SendNewCharacterToClient()
 //	DeleteNew(m_p_slot->sz_name);
 
 	char *sz_temp;
-	g_Convert_DBCS_Ascii2SingleByte(m_lev_name.GetString(), m_lev_name.Size(), sz_temp);
+	g_Convert_DBCS_Ascii2SingleByte(m_lev_name.GetStringWide(), m_lev_name.Size(), sz_temp);
 
 	m_p_slot->sz_name = sz_temp;
 	DeleteNew(sz_temp);
@@ -2093,7 +2093,7 @@ void C_VS_UI_NEWCHAR::Run(id_t id)
 			{
 //				DeleteNew(m_p_slot->sz_name);
 				char *sz_temp;
-				g_Convert_DBCS_Ascii2SingleByte(m_lev_name.GetString(), m_lev_name.Size(), sz_temp);
+				g_Convert_DBCS_Ascii2SingleByte(m_lev_name.GetStringWide(), m_lev_name.Size(), sz_temp);
 				m_p_slot->sz_name = sz_temp;
 				DeleteNew(sz_temp);
 				gpC_base->SendMessage(UI_NEWCHARACTER_CHECK, 0, 0, (void *)m_p_slot->sz_name.c_str());
@@ -2908,7 +2908,13 @@ C_VS_UI_CHAR_MANAGER::C_VS_UI_CHAR_MANAGER()
 
 	AttrKeyboardControl(true);
 
+	// Debug: print class sizes
+	printf("DEBUG: sizeof(C_VS_UI_NEWCHAR)=%lu, sizeof(Window)=%lu, sizeof(Exec)=%lu, sizeof(ButtonVisual)=%lu\n",
+	       sizeof(C_VS_UI_NEWCHAR), sizeof(Window), sizeof(Exec), sizeof(ButtonVisual));
+
 	m_pC_newchar = new C_VS_UI_NEWCHAR;
+	printf("DEBUG: Allocated C_VS_UI_NEWCHAR at %p, expecting size %lu bytes\n",
+	       m_pC_newchar, sizeof(C_VS_UI_NEWCHAR));
 //	m_pC_char_info = NULL;
 	m_pC_char_delete = NULL;
 	m_pC_biling = NULL;
@@ -4287,17 +4293,20 @@ void C_VS_UI_LOGIN::ChangeFocus()
 	{
 		if(m_lev_id.Size() == 0)
 			m_lev_id.AddString(m_lev_id_backup.c_str());
+
+		// CRITICAL: Unacquire ID box before acquiring password box
+		m_lev_id.Unacquire();
 		m_lev_password.Acquire();
 
 		if (debug_count < 5) {
-			printf("DEBUG ChangeFocus: Password box acquired\n");
+			printf("DEBUG ChangeFocus: ID box unacquired, Password box acquired\n");
 			debug_count++;
 		}
 	}
 	else
 	{
 		char * p_temp = NULL;
-		g_Convert_DBCS_Ascii2SingleByte(m_lev_id.GetString(), m_lev_id.Size(), p_temp);
+		g_Convert_DBCS_Ascii2SingleByte(m_lev_id.GetStringWide(), m_lev_id.Size(), p_temp);
 		if(p_temp == NULL)
 		{
 			m_lev_id_backup = "";
@@ -4307,11 +4316,14 @@ void C_VS_UI_LOGIN::ChangeFocus()
 			m_lev_id_backup = p_temp;
 			DeleteNewArray(p_temp);
 		}
+
+		// CRITICAL: Unacquire password box before acquiring ID box
+		m_lev_password.Unacquire();
 		m_lev_id.Acquire();
 		m_lev_id.EraseAll();
 
 		if (debug_count < 5) {
-			printf("DEBUG ChangeFocus: ID box acquired, erased\n");
+			printf("DEBUG ChangeFocus: Password box unacquired, ID box acquired, erased\n");
 			debug_count++;
 		}
 	}
@@ -4579,8 +4591,8 @@ void C_VS_UI_LOGIN::SendLoginToClient()
 	static LOGIN S_login; 
 	//S_login.sz_id = (char *)m_string_line_ID.c_str();
 	//S_login.sz_password = (char *)m_string_line_PASSWORD.c_str();
-	g_Convert_DBCS_Ascii2SingleByte(m_lev_id.GetString(), m_lev_id.Size(), S_login.sz_id);
-	g_Convert_DBCS_Ascii2SingleByte(m_lev_password.GetString(), m_lev_password.Size(), S_login.sz_password);
+	g_Convert_DBCS_Ascii2SingleByte(m_lev_id.GetStringWide(), m_lev_id.Size(), S_login.sz_id);
+	g_Convert_DBCS_Ascii2SingleByte(m_lev_password.GetStringWide(), m_lev_password.Size(), S_login.sz_password);
 	strcpy(g_pUserOption->BackupID, S_login.sz_id);
 
 	gpC_base->SendMessage(UI_LOGIN, 0, 0, &S_login);
@@ -4609,16 +4621,78 @@ void C_VS_UI_LOGIN::KeyboardControl(UINT message, UINT key, long extra)
 //	}
 
 
+	// On macOS/SDL2, bypass the Windows IME system
+#ifndef PLATFORM_WINDOWS
+	// Route SDL text input events directly to LineEditor
+	if (message == WM_TEXTINPUT) {
+		// SDL_TEXTINPUT event (committed text)
+		const char* text = (const char*)extra;
+		if (m_lev_id.IsAcquire()) {
+			m_lev_id.m_Editor.HandleTextInput(text);
+		} else if (m_lev_password.IsAcquire()) {
+			m_lev_password.m_Editor.HandleTextInput(text);
+		}
+	} else if (message == WM_TEXTEDITING) {
+		// SDL_TEXTEDITING event (IME composition in progress)
+		int start = (int)key;
+		int length = (int)extra;
+		if (m_lev_id.IsAcquire()) {
+			m_lev_id.m_Editor.HandleTextEditing("", start, length);
+		} else if (m_lev_password.IsAcquire()) {
+			m_lev_password.m_Editor.HandleTextEditing("", start, length);
+		}
+	} else if (message == WM_KEYDOWN) {
+		// Control keys
+		LineEditor* pEditor = NULL;
+		if (m_lev_id.IsAcquire()) {
+			pEditor = &m_lev_id.m_Editor;
+		} else if (m_lev_password.IsAcquire()) {
+			pEditor = &m_lev_password.m_Editor;
+		}
+
+		if (pEditor) {
+			switch (key) {
+			case VK_BACK:
+				pEditor->Backspace();
+				break;
+			case VK_LEFT:
+				pEditor->MoveCursor(-1);
+				break;
+			case VK_RIGHT:
+				pEditor->MoveCursor(1);
+				break;
+			case VK_HOME:
+				pEditor->SetCursor(0);
+				break;
+			case VK_END:
+				pEditor->SetCursor(pEditor->GetTextLen());
+				break;
+			case VK_DELETE:
+				pEditor->DeleteChar(pEditor->GetCursorPos());
+				break;
+			}
+		}
+	}
+	// Note: We don't call Window::KeyboardControl for SDL platforms
+#else
 	Window::KeyboardControl(message, key, extra);
+#endif
 
 	switch (message)
 	{
 		case WM_KEYDOWN:
-			// 
+			//
 			// input position ����.
 			//
 			if (key == VK_TAB)
 			{
+				static int tab_debug_count = 0;
+				if (tab_debug_count < 10) {
+					printf("DEBUG C_VS_UI_LOGIN::KeyboardControl: VK_TAB pressed, calling ChangeFocus()\n");
+					printf("  m_lev_id.IsAcquire()=%d, m_lev_password.IsAcquire()=%d\n",
+						   m_lev_id.IsAcquire(), m_lev_password.IsAcquire());
+					tab_debug_count++;
+				}
 				//NextFocus();
 				ChangeFocus();
 			}

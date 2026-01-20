@@ -184,6 +184,9 @@ static int g_mouse_buttons[3] = {0, 0, 0};
 /* Text input callback */
 static dxlib_textinput_callback g_textinput_callback = NULL;
 
+/* Text editing callback */
+static dxlib_textediting_callback g_textediting_callback = NULL;
+
 /* Legacy global mouse coordinates (used by CWaitUIUpdate) */
 extern int g_x, g_y;
 
@@ -407,15 +410,34 @@ void dxlib_input_update(void) {
 			case SDL_TEXTINPUT:
 				/* Handle text input for IME and text entry */
 				{
-					static int text_debug_count = 0;
-					if (text_debug_count < 5) {
-						printf("DEBUG SDL_TEXTINPUT: text='%s', callback=%p\n",
-							   event.text.text, (void*)g_textinput_callback);
-						text_debug_count++;
-					}
+//					static int text_debug_count = 0;
+//					if (text_debug_count < 5) {
+//						printf("DEBUG SDL_TEXTINPUT: text='%s', callback=%p\n",
+//							   event.text.text, (void*)g_textinput_callback);
+//						text_debug_count++;
+//					}
 					if (g_textinput_callback != NULL && event.text.text[0] != '\0') {
 						int coords[2] = {g_mouse_x, g_mouse_y};
 						g_textinput_callback(event.text.text, coords);
+					}
+				}
+				break;
+
+			case SDL_TEXTEDITING:
+				/* Handle IME composition (text editing in progress) */
+				{
+					static int editing_debug_count = 0;
+					if (editing_debug_count < 5) {
+						printf("DEBUG SDL_TEXTEDITING: text='%s', start=%d, length=%d\n",
+							   event.edit.text, event.edit.start, event.edit.length);
+						editing_debug_count++;
+					}
+
+					/* Call text editing callback if registered */
+					if (g_textediting_callback != NULL) {
+						int coords[2] = {g_mouse_x, g_mouse_y};
+						g_textediting_callback(event.edit.text, event.edit.start,
+						                     event.edit.length, coords);
 					}
 				}
 				break;
@@ -467,6 +489,12 @@ void dxlib_input_set_mouse_pos(int x, int y) {
 void dxlib_input_set_textinput_callback(dxlib_textinput_callback callback) {
 	g_textinput_callback = callback;
 	printf("DEBUG: dxlib_input_set_textinput_callback called with callback=%p\n", (void*)callback);
+	fflush(stdout);
+}
+
+void dxlib_input_set_textediting_callback(dxlib_textediting_callback callback) {
+	g_textediting_callback = callback;
+	printf("DEBUG: dxlib_input_set_textediting_callback called with callback=%p\n", (void*)callback);
 	fflush(stdout);
 }
 

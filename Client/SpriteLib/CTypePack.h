@@ -405,6 +405,15 @@ bool CTypePack<Type>::LoadFromFileData(int dataID, int fileID, LPCTSTR packFilen
 template <class TypeBase, class Type1, class Type2>
 class CTypePack2
 {
+private:
+	// Disable copy constructor and copy assignment to prevent issues with m_file pointer
+	CTypePack2(const CTypePack2&) = delete;
+	CTypePack2& operator=(const CTypePack2&) = delete;
+
+	// Disable move constructor and move assignment to prevent m_file pointer from being moved
+	CTypePack2(CTypePack2&&) = delete;
+	CTypePack2& operator=(CTypePack2&&) = delete;
+
 public:
 	CTypePack2();
 	virtual ~CTypePack2();
@@ -477,10 +486,12 @@ CTypePack2<TypeBase, Type1, Type2>::~CTypePack2()
 template <class TypeBase, class Type1, class Type2>
 void CTypePack2<TypeBase, Type1, Type2>::Release()
 {
+	printf("DEBUG Release: this=%p, m_file=%p, m_bRunningLoad=%d\n", this, m_file, m_bRunningLoad);
 	m_bRunningLoad = false;
 
 	if(m_file != NULL)
 	{
+		printf("DEBUG Release: this=%p, deleting m_file=%p\n", this, m_file);
 		delete m_file;
 		m_file = NULL;
 	}
@@ -532,16 +543,47 @@ TypeBase &CTypePack2<TypeBase, Type1, Type2>::Get(WORD n)
 {
 	if(m_bRunningLoad && !m_pData[n].IsInit())
 	{
-		// Safety check: if file is closed, disable lazy loading
+		// Safety check: disable lazy loading if file pointer is invalid
 		if (m_file == NULL)
 		{
 			m_bRunningLoad = false;
 			return m_pData[n];
 		}
 
-		m_file->seekg(m_file_index[n]);
-		// file�� �ִ� Sprite���� Load
-		m_pData[n].LoadFromFile(*m_file);	// Sprite �о����
+		// Validate sprite index
+		if (n >= m_Size)
+		{
+			printf("WARNING Get[%d]: this=%p, sprite index %d out of range (size=%d)\n",
+			       n, this, n, m_Size);
+			m_bRunningLoad = false;
+			return m_pData[n];
+		}
+
+		// Debug: print object and file pointer info BEFORE using m_file
+		printf("DEBUG Get[%d]: this=%p, m_file=%p, m_nLoadData=%d, m_Size=%d\n",
+		       n, this, m_file, m_nLoadData, m_Size);
+
+		// Try to load sprite - use exception handler to detect file corruption
+		try {
+			// Check if file stream is valid before using it
+			if (!m_file->good())
+			{
+				printf("WARNING Get[%d]: this=%p, m_file=%p is not good(), disabling lazy loading\n",
+				       n, this, m_file);
+				m_bRunningLoad = false;
+				return m_pData[n];
+			}
+			m_file->seekg(m_file_index[n]);
+			m_pData[n].LoadFromFile(*m_file);	// Sprite �о����
+		}
+		catch (...)
+		{
+			// File operation failed, disable lazy loading
+			printf("WARNING: Failed to load sprite %d from file, disabling lazy loading\n", n);
+			m_bRunningLoad = false;
+			return m_pData[n];
+		}
+
 		if(++m_nLoadData >= m_Size)
 		{
 			m_bRunningLoad = false;
@@ -615,29 +657,74 @@ bool CTypePack2<TypeBase, Type1, Type2>::LoadFromFileRunning(LPCTSTR lpszFilenam
 	std::string filename = lpszFilename;
 	filename += 'i';
 	std::ifstream indexFile(filename.c_str(), ios::binary);
-	indexFile.read((char *)&m_Size, 2); 
+
+	// Check if index file opened successfully
+	if (!indexFile.is_open() || !indexFile.good())
+	{
+		printf("ERROR: Failed to open index file: %s\n", filename.c_str());
+		return false;
+	}
+
+	indexFile.read((char *)&m_Size, 2);
+
+	if (!indexFile.good())
+	{
+		printf("ERROR: Failed to read size from index file: %s\n", filename.c_str());
+		indexFile.close();
+		return false;
+	}
+
 	Init(m_Size);
 
 	if(m_file == NULL)
 	{
 		m_file = new std::ifstream;
+		printf("DEBUG LoadFromFileRunning: Created new m_file=%p for %s\n", (void*)m_file, lpszFilename);
 	}
-	
+	else
+	{
+		printf("DEBUG LoadFromFileRunning: Reusing existing m_file=%p for %s\n", (void*)m_file, lpszFilename);
+	}
+
 	m_file_index = new int[m_Size];
 	for (int i = 0; i < m_Size; i++)
 	{
 		indexFile.read((char*)&m_file_index[i], 4);
 	}
 	indexFile.close();
-	
-	// file���� sprite ������ �о�´�.	
+
+	// file���� sprite ������ �о�´�.
 	m_file->open(lpszFilename, ios::binary);
-	
+
+	// Check if data file opened successfully
+	if (!m_file->is_open() || !m_file->good())
+	{
+		printf("ERROR: Failed to open data file: %s\n", lpszFilename);
+		delete []m_file_index;
+		m_file_index = NULL;
+		m_bRunningLoad = false;
+		return false;
+	}
+
 	m_file->read((char*)&m_Size, 2);
-	
+
+	if (!m_file->good())
+	{
+		printf("ERROR: Failed to read size from data file: %s\n", lpszFilename);
+		m_file->close();
+		delete m_file;
+		m_file = NULL;
+		delete []m_file_index;
+		m_file_index = NULL;
+		m_bRunningLoad = false;
+		return false;
+	}
+
 	m_bRunningLoad = true;
 	m_nLoadData = 0;
-	
+
+	printf("DEBUG LoadFromFileRunning: Successfully loaded %s (size=%d)\n", lpszFilename, m_Size);
+
 	return true;
 }
 

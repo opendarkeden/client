@@ -1,265 +1,148 @@
-/*-----------------------------------------------------------------------------
+#ifndef __LINE_EDITOR_H__
+#define __LINE_EDITOR_H__
 
-	u_edit.h
+#include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
 
-	Edit Widget.
+// Get PrintInfo definition from Fl2.h
+#include "../hangul/Fl2.h"
 
-	2000.6.7. KJTINC
+// Get Point class definition
+#include "../../../basic/BasicData.h"
 
------------------------------------------------------------------------------*/
-
-#ifndef __U_EDIT_H__
-#define __U_EDIT_H__
-
-#include <string>
-#include "FL2.h"
-#include "SimpleDataList.h"
-
-//-----------------------------------------------------------------------------
-// LineEditor
-//
-// Single-line editor.
-//
-
-//
-// < edit box >
-//
-
-
-
-
-
-//
-
-//
-
-
-
-
-//
-// < cursor >
-//
-
-
-//
-
-//
-
-
-
-
-
-//-----------------------------------------------------------------------------
-typedef std::basic_string<char_t> String;
+/**
+ * LineEditor - Simplified Windows IMM (Input Method Manager) replacement for macOS
+ * This provides basic text editing functionality with UTF-32 support for SDL text input
+ */
 
 class LineEditor
 {
-protected:
-	String						m_string;
-	int								m_gap;
-	int								m_editor_height;
-
-	//
-	// m_logical_size
-	//
-
-	//
-	//int							m_logical_size;
-
-	//
-	// m_char_input_count
-	//
-
-
-	//
-	int							m_char_input_count;
-
-	//
-	// m_cursor
-	//
-
-
-	//
-	int							m_scroll;
-	int							m_cursor;
-
-	//
-	// m_byte_limit
-	//
-
-
-
-	//
-	int							m_byte_limit;
-	int							m_reach_limit;
-
-	bool							m_bl_digit_only;
-	// m_bl_password_mode
-	//
-
-	//
-	bool							m_bl_password_mode;
-
 public:
-	LineEditor();
-	LineEditor(int logical_size);
-	~LineEditor();
+    static const int MAX_TEXT = 1024;
 
-	void	Init();
+    // UTF-32 text buffer for proper multilingual support
+    uint32_t m_Text[MAX_TEXT];
+    int m_CursorPos;                // Cursor position (in characters)
+    int m_TextLen;                 // Text length (in characters)
+    int m_Limit;                   // Maximum character count
+    bool m_bAcquired;
 
-	//----------------------
-	// Acquire/Unacquire
-	//----------------------
-	void	Acquire();
-	void	Unacquire();
-	bool	IsAcquire() const;
+    // IME composition buffer (text being composed)
+    uint32_t m_Composing[MAX_TEXT];
+    int m_ComposingLen;
 
-	//----------------------
-	// Input
-	//----------------------
-	void	KeyboardControl(UINT message, UINT key, long extra);
-//	void	InsertToCursorPosition(char_t a_char);
-//	void	InsertToCursorPositionForIME(char_t a_char);
-	void	EditToCursorPosition(char_t a_char);
-	void	EditToCursorPositionForIME(char_t a_char);
-	void	InsertMark(char_t a_char);
-	bool	InsertGap();
+    LineEditor();
+    ~LineEditor() = default;
 
-	virtual const int GetLineCount() const { return 0; }
+    // Basic methods
+    void Acquire();
+    void Unacquire();
+    bool IsAcquire() const;
 
-	//----------------------
-	// Check input limit
-	//----------------------
-public:
+    // New SDL text input methods
+    void HandleTextInput(const char* text);
+    void HandleTextEditing(const char* text, int start, int length);
 
-	virtual bool	ReachEndOfBox(char_t will_input_char) const { return false; }
-	bool	CheckInputLimit(char_t will_input_char);
-	bool	CheckInputCharLimit() const;
+    // Text manipulation methods
+    void InsertText(const uint32_t* text, int len);
+    void InsertChar(uint32_t c);
+    void DeleteChar(int offset);
+    void Backspace();
+    void MoveCursor(int delta);
+    void SetCursor(int pos);
+    int GetCursorPos() const { return m_CursorPos; }
+    int GetTextLen() const { return m_TextLen; }
 
-	bool	IsPasswordMode() const { return m_bl_password_mode; }
+    // IME composition
+    void StartComposition(const char* text, int start, int length);
+    void UpdateComposition(const char* text, int start, int length);
+    void EndComposition();
+    bool IsComposing() const { return m_ComposingLen > 0; }
 
-public:
+    // Legacy compatibility methods (operate on UTF-8)
+    void AddString(const char* pStr);
+    void EraseAll();
+    void EraseCharacterBegin();
+    void HomeCursor() { SetCursor(0); }
+    void EndCursor() { SetCursor(m_TextLen); }
+    void SetByteLimit(int limit) { m_Limit = limit; }
+    void InsertMark(unsigned short mark);
+    void KeyboardControl(unsigned int message, unsigned int key, long extra);
 
-	//----------------------
-	// Get
-	//----------------------
-	const char_t * GetString() const { return m_string.c_str(); }
-	const char_t * GetStringScroll() const;
-	int	Size() const { return m_string.size(); }
-	int	GetCursor() const { return m_cursor; }
-
-	//----------------------
-	// Set
-	//----------------------
-	//void	SetLogicalSize(int logical_size);
-	void	SetInputCharCount(int char_count);
-	void	SetByteLimit(int byte);
-	void	AddString(const char * sz_str);
-	void	SetDigitOnlyMode(bool state) { m_bl_digit_only = state; }
-	bool	GetDigitOnlyMode() const { return m_bl_digit_only; }
-
-	//----------------------
-	// Cursor movement
-	//----------------------
-	int		IncreaseCursor();
-	int		DecreaseCursor();
-	bool	HomeCursor();
-	bool	EndCursor();
-
-	//----------------------
-	// Erase string
-	//----------------------
-//private:
-	bool	EraseCharacterFrontCursor();
-
-public:
-	void	EraseAll();
-	bool	EraseCharacterBegin();
+    // Get text as UTF-8 string (for compatibility)
+    const char* GetBuffer() const;  // Returns temporary UTF-8 buffer
+    const char* GetString() const { return GetBuffer(); }  // Alias for GetBuffer()
+    int Size() const { return m_TextLen; }  // Character count
+    int GetCursor() const { return m_CursorPos; }  // Cursor position
 };
 
-//-----------------------------------------------------------------------------
-// LineEditorVisual
-//
-
-//-----------------------------------------------------------------------------
-class LineEditorVisual : public LineEditor
+class LineEditorVisual
 {
-private:
-	Point							m_xy;
-	int							m_abs_width;
-	COLORREF						m_cursor_color;
-
-	//
-
-	PrintInfo					m_print_info;
-	
 public:
-	LineEditorVisual();
-	~LineEditorVisual();
+    LineEditor m_Editor;
+    int m_X;
+    int m_Y;
+    int m_AbsWidth;
+    int m_MaxWidth;
+    bool m_bPasswordMode;
+    bool m_bAcquired;
+    PrintInfo m_PrintInfo;
+    unsigned long m_CursorColor;
 
-	void	SetAbsWidth(int width);
-	void	SetCursorColor(COLORREF color);
-	void	SetPosition(int x, int y);
-	Point	GetPosition() { return m_xy; }
-	void	Show() const;
-	void	SetEditorMode(int gap, int height = 0) { m_gap = gap; m_editor_height = height; }
-
-	bool		ReachEndOfBox(char_t will_input_char = 0) const;
-	int		ReachSizeOfBox() const;
-
-	//bool	EndOfLogicalSize() const;
-
-	void	PasswordMode(bool enable);
-	void	SetPrintInfo(PrintInfo &print_info);
-	PrintInfo &GetPrintInfo()	{ return m_print_info; }	// by sigi
-	void	SetInputStringColor(COLORREF rgb) { m_print_info.text_color = rgb; }
-
-	const int GetLineCount() const;
-	
-
-};
-
-//-----------------------------------------------------------------------------
-// DocumentEditor
-//
-// Multi-line editor
-//-----------------------------------------------------------------------------
-class DocumentEditor
-{
-private:
-	//LineEditor		m_line_editor[line];
-
-public:
-};
-
-//-----------------------------------------------------------------------------
-// EditManager
-//
-
-
-
-
-
-//
-
-
-//-----------------------------------------------------------------------------
-/*
-class EditManager : public SimpleDataList<DocumentEditor *>
-{
-private:
-
-public:
-	EditManager();
-	~EditManager();
-
-	//
-	// Register/Unregister
-	//
-	void	Register(DocumentEditor * p_de);
-	void	Unregister(DocumentEditor * p_de);
-
-	void	Show(HDC hdc) const;
-};*/
-
+#ifdef PLATFORM_MACOS
+    // Font Atlas rendering system
+    void* m_GlyphCache;      // CGlyphCache* (void* to avoid header dependency)
+    void* m_Layout;          // CTextLayout* (void* to avoid header dependency)
+    bool m_LayoutDirty;      // Flag to rebuild layout
 #endif
+
+    LineEditorVisual();
+    ~LineEditorVisual();
+
+    void Acquire();
+    void Unacquire();
+    bool IsAcquire() const { return m_bAcquired; }
+
+    // Forwarding methods to m_Editor for compatibility
+    void AddString(const char* pStr) { m_Editor.AddString(pStr); }
+    void EraseAll() { m_Editor.EraseAll(); }
+    void EraseCharacterBegin() { m_Editor.EraseCharacterBegin(); }
+    void SetByteLimit(int limit) { m_Editor.SetByteLimit(limit); }
+    void KeyboardControl(unsigned int message, unsigned int key, long extra) {
+        m_Editor.KeyboardControl(message, key, extra);
+    }
+    const char* GetString() const { return m_Editor.GetString(); }
+
+    // Compatibility method: return const char_t* (wide string) for old code
+    const char_t* GetStringWide() const;
+
+    int Size() const { return m_Editor.Size(); }
+    int GetCursor() const { return m_Editor.GetCursor(); }
+    void InsertMark(char_t ch) { m_Editor.InsertMark((unsigned short)ch); }
+
+    // Cursor movement
+    void HomeCursor() { m_Editor.HomeCursor(); }
+    void EndCursor() { m_Editor.EndCursor(); }
+
+    // Set text color
+    void SetInputStringColor(unsigned long rgb) { m_CursorColor = rgb; }  // Use cursor color for text color
+
+    // Editor mode (stub for compatibility)
+    void SetEditorMode(int gap, int height = 0) { /* Stub: not needed for SDL implementation */ }
+    void SetDigitOnlyMode(bool enable) { /* Stub: not needed for SDL implementation */ }
+
+    void SetPosition(int x, int y);
+    void SetAbsWidth(int width);
+    void SetPrintInfo(PrintInfo& info);
+    void SetCursorColor(unsigned long color);
+    void PasswordMode(bool bPassword);
+    int GetLineCount() const;
+    bool ReachSizeOfBox() const;
+    void Show() const;
+
+    // GetPosition method - returns BasicData::Point
+    Point GetPosition() const;  // Implementation in cpp file
+};
+
+#endif // __LINE_EDITOR_H__

@@ -634,6 +634,10 @@ typedef WORD			char_t;
 	#define WM_IME_STARTCOMPOSITION 0x010D
 	#define WM_IME_ENDCOMPOSITION 0x010E
 
+	/* SDL text input messages */
+	#define WM_TEXTINPUT 0x0111  /* SDL text input event (committed text) */
+	#define WM_TEXTEDITING 0x0110  /* SDL text editing event (IME composition) */
+
 	/* Window messages */
 	#define WM_DESTROY 0x0002
 	#define WM_CLOSE 0x0010

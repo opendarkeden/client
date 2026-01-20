@@ -65,6 +65,7 @@ CWaitUIUpdate::Init()
 
 	// text input 처리 (SDL2 only)
 	dxlib_input_set_textinput_callback(SDLTextInputEvent);
+	dxlib_input_set_textediting_callback(SDLTextEditingEvent);
 	dxlib_input_start_text();  // Enable SDL text input
 	printf("DEBUG: SDL text input enabled, callback set to %p\n", (void*)SDLTextInputEvent);
 	fflush(stdout);
@@ -169,8 +170,8 @@ void CWaitUIUpdate::SDLTextInputEvent(const char* text, int* window_coords)
 {
 	static int debug_count = 0;
 
-	// Convert SDL text input (UTF-8) to WM_CHAR messages
-	// This allows the IME system to handle text input properly
+	// Send WM_TEXTINPUT with the full UTF-8 text
+	// The LineEditor will handle UTF-8 to UTF-32 conversion internally
 	if (text == NULL || text[0] == '\0') {
 		return;
 	}
@@ -180,50 +181,29 @@ void CWaitUIUpdate::SDLTextInputEvent(const char* text, int* window_coords)
 		debug_count++;
 	}
 
-	// Process each character in the UTF-8 string
-	int i = 0;
-	while (text[i] != '\0') {
-		// Get the Unicode code point from UTF-8
-		UINT char_code = 0;
-		BYTE c = (BYTE)text[i];
+	// Send WM_TEXTINPUT message with text pointer as extra parameter
+	gC_vs_ui.KeyboardControl(WM_TEXTINPUT, 0, (long)text);
+}
 
-		if (c < 0x80) {
-			// ASCII character (1 byte)
-			char_code = c;
-			i += 1;
-		} else if ((c & 0xE0) == 0xC0) {
-			// 2-byte UTF-8
-			if (text[i+1] != '\0') {
-				char_code = ((c & 0x1F) << 6) | (text[i+1] & 0x3F);
-				i += 2;
-			} else {
-				break;
-			}
-		} else if ((c & 0xF0) == 0xE0) {
-			// 3-byte UTF-8
-			if (text[i+1] != '\0' && text[i+2] != '\0') {
-				char_code = ((c & 0x0F) << 12) | ((text[i+1] & 0x3F) << 6) | (text[i+2] & 0x3F);
-				i += 3;
-			} else {
-				break;
-			}
-		} else if ((c & 0xF8) == 0xF0) {
-			// 4-byte UTF-8 (beyond BMP, convert to replacement char)
-			char_code = '?';  // Replacement character
-			i += 4;
-		} else {
-			// Invalid UTF-8, skip
-			i += 1;
-			continue;
-		}
+//-----------------------------------------------------------------------------
+// SDLTextEditingEvent
+//-----------------------------------------------------------------------------
 
-		if (debug_count < 10) {
-			printf("  Sending WM_CHAR: char_code=%d (0x%x) '%c'\n", char_code, char_code, (char)char_code);
-		}
+void CWaitUIUpdate::SDLTextEditingEvent(const char* text, int start, int length, int* window_coords)
+{
+	static int debug_count = 0;
 
-		// Send WM_CHAR message to the IME system
-		gC_vs_ui.KeyboardControl(WM_CHAR, char_code, 0);
+	// Send WM_TEXTEDITING for IME composition
+	if (debug_count < 10) {
+		printf("DEBUG SDLTextEditingEvent: text='%s', start=%d, length=%d, coords=[%d,%d]\n",
+		       text ? text : "(null)", start, length, window_coords[0], window_coords[1]);
+		debug_count++;
 	}
+
+	// Send WM_TEXTEDITING message with start and length parameters
+	// Note: The actual composition text would need to be passed separately
+	// For now, we just send the start and length information
+	gC_vs_ui.KeyboardControl(WM_TEXTEDITING, start, length);
 }
 
 //-----------------------------------------------------------------------------

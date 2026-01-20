@@ -44,13 +44,14 @@ KeyAccelerator::~KeyAccelerator()
 //----------------------------------------------------------------------
 // Init ( max )
 //----------------------------------------------------------------------
-void				
+void
 KeyAccelerator::Init( int max )
 {
 	m_Keys.clear();
 	m_Accelerators.clear();
 
-	m_Accelerators.reserve( max );
+	// Use resize() instead of reserve() to actually allocate elements
+	m_Accelerators.resize( max, 0 );
 }
 
 //----------------------------------------------------------------------
@@ -59,24 +60,25 @@ KeyAccelerator::Init( int max )
 // key�� ������ accel�� ����ȴ�..�� �ǹ�.
 // accel�� key�� ����Ǿ��ִ�..�� �ǹ̵� �ǰ�..
 //----------------------------------------------------------------------
-void				
+void
 KeyAccelerator::SetAcceleratorKey(BYTE accel, WORD key)
 {
-	if (accel >= m_Accelerators.capacity())
+	// Check against size() not capacity(), and resize if needed
+	if (accel >= m_Accelerators.size())
 	{
-		return;
+		m_Accelerators.resize(accel + 1, 0);
 	}
 
 	KEY_MAP::iterator iKey = m_Keys.find( m_Accelerators[accel] );
 
 	if (iKey != m_Keys.end())
 	{
-		// �̹� ������ key�� �־��ٸ� �����Ѵ�.
+		// 이미 맺어진 key가 있었다면 지운다.
 		m_Keys.erase( iKey );
 	}
 
 	m_Keys[key] = accel;
-	
+
 	m_Accelerators[accel] = key;
 }
 
