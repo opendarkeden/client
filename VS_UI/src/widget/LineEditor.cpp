@@ -98,6 +98,10 @@ void LineEditor::KeyboardControl(unsigned int nChar, unsigned int nRepCnt, long 
 // LineEditorVisual implementation
 LineEditorVisual::LineEditorVisual()
 {
+	// Debug: print offset
+	printf("DEBUG LineEditorVisual::LineEditorVisual: this=%p, &m_Editor=%p, &m_Editor.m_CursorPos=%p\n",
+	       this, &m_Editor, &m_Editor.m_CursorPos);
+
 	m_X = 0;
 	m_Y = 0;
 	m_AbsWidth = 100;

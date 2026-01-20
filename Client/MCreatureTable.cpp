@@ -480,12 +480,8 @@ CreatureSpriteTypeMapper::Init(int numSpriteTypes)
 {
 	Release();
 
-	m_CreatureSpriteTypes.reserve( numSpriteTypes );
-
-	for (int i=0; i<numSpriteTypes; i++)
-	{
-		m_CreatureSpriteTypes[i] = NULL;
-	}
+	// Use resize() instead of reserve() to actually allocate elements
+	m_CreatureSpriteTypes.resize( numSpriteTypes, NULL );
 }
 
 //----------------------------------------------------------------------
@@ -494,7 +490,8 @@ CreatureSpriteTypeMapper::Init(int numSpriteTypes)
 void	
 CreatureSpriteTypeMapper::Release()
 {
-	int numSpriteTypes = m_CreatureSpriteTypes.capacity();
+	// Use size() not capacity()
+	int numSpriteTypes = m_CreatureSpriteTypes.size();
 
 	for (int i=0; i<numSpriteTypes; i++)
 	{
@@ -560,7 +557,8 @@ CreatureSpriteTypeMapper::GetRandomCreatureType(TYPE_SPRITEID spriteID) const
 void				
 CreatureSpriteTypeMapper::SaveToFile(std::ofstream& file)
 {
-	int numSpriteTypes = m_CreatureSpriteTypes.capacity();
+	// Use size() not capacity()
+	int numSpriteTypes = m_CreatureSpriteTypes.size();
 
 	file.write((const char*)&numSpriteTypes, 4);
 
@@ -607,10 +605,11 @@ CreatureSpriteTypeMapper::LoadFromFile(std::ifstream& file)
 		m_CreatureSpriteTypes[i] = pCreatureTypes;
 
 		int numCreatureTypes;
-		
+
 		file.read((char*)&numCreatureTypes, 4);
 
-		pCreatureTypes->reserve( numCreatureTypes );
+		// Use resize() instead of reserve() to actually allocate elements
+		pCreatureTypes->resize( numCreatureTypes, 0 );
 
 		for (int j=0; j<numCreatureTypes; j++)
 		{

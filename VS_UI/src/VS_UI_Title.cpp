@@ -2908,7 +2908,13 @@ C_VS_UI_CHAR_MANAGER::C_VS_UI_CHAR_MANAGER()
 
 	AttrKeyboardControl(true);
 
+	// Debug: print class sizes
+	printf("DEBUG: sizeof(C_VS_UI_NEWCHAR)=%lu, sizeof(Window)=%lu, sizeof(Exec)=%lu, sizeof(ButtonVisual)=%lu\n",
+	       sizeof(C_VS_UI_NEWCHAR), sizeof(Window), sizeof(Exec), sizeof(ButtonVisual));
+
 	m_pC_newchar = new C_VS_UI_NEWCHAR;
+	printf("DEBUG: Allocated C_VS_UI_NEWCHAR at %p, expecting size %lu bytes\n",
+	       m_pC_newchar, sizeof(C_VS_UI_NEWCHAR));
 //	m_pC_char_info = NULL;
 	m_pC_char_delete = NULL;
 	m_pC_biling = NULL;

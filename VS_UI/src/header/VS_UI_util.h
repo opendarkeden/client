@@ -61,6 +61,14 @@ private:
 	//CSpritePackList *	m_pC_spk_list; // 565, 555�� �����ؾ��ϱ� ������ pointer��.
 	CSpritePack			m_SPK;	// by sigi
 
+	// Disable copy constructor and copy assignment to prevent issues with m_file pointer
+	C_SPRITE_PACK(const C_SPRITE_PACK&) = delete;
+	C_SPRITE_PACK& operator=(const C_SPRITE_PACK&) = delete;
+
+	// Disable move constructor and move assignment to prevent m_file pointer from being moved
+	C_SPRITE_PACK(C_SPRITE_PACK&&) = delete;
+	C_SPRITE_PACK& operator=(C_SPRITE_PACK&&) = delete;
+
 public:
 	C_SPRITE_PACK(const char *sz_filename = NULL);
 	~C_SPRITE_PACK();
