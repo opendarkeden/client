@@ -42,7 +42,8 @@ typedef unsigned long ulong;
 #if defined(__LINUX__) || defined(__WIN_CONSOLE__) || defined(PLATFORM_MACOS)
 	typedef unsigned char  BYTE;
 	typedef unsigned short WORD;
-	typedef unsigned long DWORD;
+//	typedef unsigned int DWORD;
+    typedef uint32_t DWORD;
 	typedef unsigned long long ulonglong;
 #elif defined(_MSC_VER) /* MSVC compiler */
 	typedef unsigned __int64 ulonglong;

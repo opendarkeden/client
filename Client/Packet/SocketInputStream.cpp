@@ -231,14 +231,7 @@ void SocketInputStream::read ( Packet * pPacket )
 	// 주의해야 한다.
 	pPacket->read( *this );
 
-	//  By tiancaiamao
-	#ifdef __DEBUG_OUTPUT__
-	ofstream ofile("lalala.log", ios::out | ios::app);
-		ofile << "SocketInputStream read packet: ";
-		ofile << pPacket->toString().c_str() << endl;
-		ofile.close();
-	#endif
-
+//    printf("%s:%d:%s read packet: %d size: %d\n", pPacket->getPacketID(), pPacket->getPacketSize());
 	
 	__END_CATCH
 }

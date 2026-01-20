@@ -108,7 +108,7 @@ extern "C" {
 typedef unsigned char	BYTE;
 typedef unsigned short	WORD;
 typedef unsigned int	UINT;
-typedef unsigned long   DWORD;
+typedef unsigned int   DWORD;
 typedef unsigned long   ULONG;
 typedef unsigned long long DWORD64;
 typedef unsigned long long ULONGLONG;

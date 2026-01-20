@@ -369,7 +369,7 @@ class MActionResultNodeAddEffectStatus : public MActionResultNode {
 		//------------------------------------------------------
 		void		SetCreatureID(TYPE_OBJECTID tid)	{ m_TargetID = tid; }
 		void		SetEffectStatus(EFFECTSTATUS es)	{ m_EffectStatus = es; }
-		void		SetCreatureID(DWORD df)				{ m_DelayFrame = df; }
+//		void		SetCreatureID(DWORD df)				{ m_DelayFrame = df; }
 		
 		//------------------------------------------------------
 		// 결과를 적용시킨다.

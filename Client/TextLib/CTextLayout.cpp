@@ -14,13 +14,13 @@ CTextLayout::~CTextLayout() {
 void CTextLayout::Update(const char* text, CGlyphCache* cache, int maxWidth) {
     m_positions.clear();
 
-    printf("DEBUG CTextLayout::Update: text='%s', cache=%p, maxWidth=%d\n",
-           text ? text : "(null)", cache, maxWidth);
+//    printf("DEBUG CTextLayout::Update: text='%s', cache=%p, maxWidth=%d\n",
+//           text ? text : "(null)", cache, maxWidth);
 
     if (!text || !cache) {
         m_width = 0;
         m_height = 0;
-        printf("DEBUG CTextLayout::Update: Early return (text=%p, cache=%p)\n", text, cache);
+//        printf("DEBUG CTextLayout::Update: Early return (text=%p, cache=%p)\n", text, cache);
         return;
     }
 
@@ -93,7 +93,7 @@ void CTextLayout::Update(const char* text, CGlyphCache* cache, int maxWidth) {
             x += glyph->advance_x;
             charCount++;
         } else {
-            printf("DEBUG CTextLayout::Update: Failed to get glyph for charcode 0x%X\n", charcode);
+//            printf("DEBUG CTextLayout::Update: Failed to get glyph for charcode 0x%X\n", charcode);
         }
 
         p += bytes;
@@ -108,8 +108,8 @@ void CTextLayout::Update(const char* text, CGlyphCache* cache, int maxWidth) {
     m_width = x;
     m_height = y + lineHeight;
 
-    printf("DEBUG CTextLayout::Update: Added %d glyphs, m_positions.size()=%zu\n",
-           charCount, m_positions.size());
+//    printf("DEBUG CTextLayout::Update: Added %d glyphs, m_positions.size()=%zu\n",
+//           charCount, m_positions.size());
 }
 
 void CTextLayout::GetCursorPos(int charIndex, int* x, int* y) const {

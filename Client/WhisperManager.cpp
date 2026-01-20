@@ -329,13 +329,14 @@ WhisperManager::RemoveWhisperMessage(const char* pName)
 void
 WhisperManager::Update()
 {
+	Lock();  // Must lock BEFORE accessing the container
+
 	if (m_WhisperInfos.empty())
 	{
+		Unlock();
 		return;
-	}	
+	}
 
-	Lock();
-	
 	WHISPER_INFO_MAP::iterator iInfo = m_WhisperInfos.begin();
 
 	while (iInfo != m_WhisperInfos.end())

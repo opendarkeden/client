@@ -402,6 +402,10 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		Client/nProtectStub.cpp
 		Client/NPGameLib.cpp
 		Client/COGGSTREAM.cpp
+		# Time functions extracted from PacketFunction.cpp (which has Windows-specific networking code)
+		Client/ClientTimeFunctions.cpp
+		# Action functions extracted from GameHelpers.cpp (to avoid duplicate symbols)
+		Client/ActionFunctions.cpp
 	)
 
 	# Remove files that are already compiled in VS_UI library
@@ -415,7 +419,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/MitemTableinit2.cpp
 		# Exclude MissingGlobals.cpp - duplicates globals with GameMain.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/MissingGlobals.cpp
-		# Exclude GameHelpers.cpp - duplicates NewFakeCreature with GamePacketFunctions.cpp
+		# Exclude GameHelpers.cpp - duplicates many functions with GamePacketFunctions.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/GameHelpers.cpp
 		# Exclude GameFunctions.cpp - duplicates functions with GameMain.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/GameFunctions.cpp
