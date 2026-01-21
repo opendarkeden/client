@@ -73,11 +73,23 @@ ProfileManager::Release()
 //----------------------------------------------------------------------
 // Release Require
 //----------------------------------------------------------------------
-void			
+void
 ProfileManager::ReleaseRequire()
 {
+	// Debug output before locking
+	fprintf(stderr, "[ProfileManager] ReleaseRequire: attempting to lock...\n");
+	fflush(stderr);
+
 	Lock();
+
+	fprintf(stderr, "[ProfileManager] ReleaseRequire: lock acquired, clearing...\n");
+	fflush(stderr);
+
 	m_Requires.clear();
+
+	fprintf(stderr, "[ProfileManager] ReleaseRequire: done, releasing lock...\n");
+	fflush(stderr);
+
 	Unlock();
 }
 

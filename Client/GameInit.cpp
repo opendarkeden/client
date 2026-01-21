@@ -17,6 +17,7 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 #endif
+#include "DebugLog.h"
 #include "Client.h"
 #include "GameObject.h"
 #include "AddonDef.h"
@@ -1527,21 +1528,26 @@ InitGameUpdate()
 //---------------------------------------------------------------------------
 BOOL
 InitGame()
-{	
+{
+	//---------------------------------------------------------------------
+	// Initialize logging system first (before everything else)
+	//---------------------------------------------------------------------
+	log_init();
+
 	g_pFileDef = new Properties;
-	g_pFileDef->load("Data/Info/FileDef.inf");			
+	g_pFileDef->load("Data/Info/FileDef.inf");
 
 	//---------------------------------------------------------------------
 	// Profiler
 	//---------------------------------------------------------------------
 	#ifdef OUTPUT_DEBUG
-		if (g_pProfiler!=NULL) 
-		{ 
-			g_pProfiler->Release(); 
-		} 
-		else 
-		{ 
-			g_pProfiler = new Profiler; 
+		if (g_pProfiler!=NULL)
+		{
+			g_pProfiler->Release();
+		}
+		else
+		{
+			g_pProfiler = new Profiler;
 		}
 	#endif
 

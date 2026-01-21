@@ -4,6 +4,7 @@
 #include "Client_PCH.h"
 #include <new>
 #include "DebugInfo.h"
+#include "DebugLog.h"
 #include <stdarg.h>
 //#include <io.h>
 //#include <fcntl.h>
