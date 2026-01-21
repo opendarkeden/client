@@ -108,6 +108,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 	set(TEXTLIB_SOURCES
 		Client/TextLib/CGlyphCache.cpp
 		Client/TextLib/CTextLayout.cpp
+		Client/TextLib/SDLTextRenderer.cpp
 	)
 
 	# Create TextLib static library
@@ -117,6 +118,8 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 	target_include_directories(TextLib PUBLIC
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/TextLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client
 		${CMAKE_CURRENT_SOURCE_DIR}/basic
 		${SDL2_INCLUDE_DIRS}
 	)
@@ -131,7 +134,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 
 	# Platform-specific definitions
 	if(NOT WIN32)
-		target_compile_definitions(TextLib PRIVATE PLATFORM_MACOS)
+		target_compile_definitions(TextLib PRIVATE PLATFORM_MACOS SPRITELIB_BACKEND_SDL)
 	endif()
 
 	message(STATUS "TextLib library will be built from ${TEXTLIB_SOURCES}")
@@ -481,7 +484,8 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		# MWorkThread and MMusic are needed on all platforms
 		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*MWorkThread.*")
 		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*MMusic\\.cpp")
-		# Note: PacketFunction.cpp excluded temporarily - has many Windows-specific networking APIs (NetBIOS, IPX/SPX)
+		# Note: PacketFunction.cpp excluded - has many Windows-specific networking APIs (NetBIOS, IPX/SPX)
+		# TODO: Extract platform-independent functions to GamePacketFunctions.cpp
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*PacketFunction\\.cpp")
 		# ProfileManager needed on all platforms
 		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*ProfileManager\\.cpp")

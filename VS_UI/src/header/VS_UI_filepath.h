@@ -403,9 +403,9 @@
 #define SPK_OUSTERS_SKILL_ETC			SPK_ROOT"SkillEtcOusters.spk"
 #define SPK_EXCHANGE_OUSTERS			SPK_ROOT"ExchangeOusters.spk"
 //add by viva
-#define SPK_OUSTERS_FRIEND				SPK_ROOT"OustersFriend.spk"
-#define SPK_SLAYER_FRIEND				SPK_ROOT"SlayerFriend.spk"
-#define SPK_VAMPIRE_FRIEND				SPK_ROOT"VampireFriend.spk"
+#define SPK_OUSTERS_FRIEND				SPK_ROOT"FrdWinOusters.spk"
+#define SPK_SLAYER_FRIEND				SPK_ROOT"FrdWinSlayer.spk"
+#define SPK_VAMPIRE_FRIEND				SPK_ROOT"FrdWinVampire.spk"
 
 // �ͽ� ���� 2003.5.20 by gony
 #define SPK_MIXING_FORGE				SPK_ROOT"MixingForge.spk"

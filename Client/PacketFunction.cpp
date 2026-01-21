@@ -3697,8 +3697,10 @@ UseItemOK()
 		if (g_pUserOption->UseForceFeel && gpC_Imm!=NULL && gpC_Imm->IsDevice()
 			&& pItem->GetUseSoundID() < g_pSoundTable->GetSize())
 		{
+#ifdef PLATFORM_WINDOWS
 			DEBUG_ADD_FORMAT("ForceAction-UseItemOK(%d)", pItem->GetUseSoundID());
 			gpC_Imm->ForceAction( pItem->GetUseSoundID() );
+#endif
 		}
 
 		MPlayer::ITEM_CHECK_BUFFER status =	g_pPlayer->GetItemCheckBufferStatus();
@@ -4833,11 +4835,27 @@ SetAddonToOusters(MCreatureWear* pCreature, const PCOustersInfo2* pInfo)
 {	
 }
 
-void		
+void
 SetAddonToOusters(MCreatureWear* pCreature, const PCOustersInfo3* pInfo)
-{	
-	MItem* pCoat		= g_pPacketItemOustersCoat[pInfo->getCoatType()];
-	MItem* pArm			= g_pPacketItemOustersArm[pInfo->getArmType()];	
+{
+	if (pCreature == NULL || pInfo == NULL)
+		return;
+
+	int coatType = pInfo->getCoatType();
+	int armType = pInfo->getArmType();
+
+	// Check if g_pPacketItemOustersCoat array is properly initialized
+	if (coatType < 0 || coatType >= OUSTERS_COAT_MAX) {
+		fprintf(stderr, "ERROR: SetAddonToOusters (PacketFunction): coatType=%d is out of range [0, %d)\n", coatType, OUSTERS_COAT_MAX);
+		return;
+	}
+	if (g_pPacketItemOustersCoat[coatType] == NULL) {
+		fprintf(stderr, "ERROR: SetAddonToOusters (PacketFunction): g_pPacketItemOustersCoat[%d] is NULL! InitPacketItemTable() may not have been called.\n", coatType);
+		return;
+	}
+
+	MItem* pCoat		= g_pPacketItemOustersCoat[coatType];
+	MItem* pArm			= g_pPacketItemOustersArm[armType];	
 		
 
 	pCreature->SetAddonItem( pCoat );
@@ -5541,6 +5559,8 @@ BOOL GetMacAddressFromSock()
 #endif
 
 // 2004, 8, 26, sobeit add start - mac address 체크해서 윈도 모드 변경
+
+#ifdef PLATFORM_WINDOWS
 std::string GetLocalIP()
 {
 	WORD wVersionRequested;
@@ -5548,7 +5568,8 @@ std::string GetLocalIP()
 	char name[255];
 	PHOSTENT hostinfo;
 	wVersionRequested = MAKEWORD( 2, 0 );
-	std::string ip;	
+	std::string ip;
+
 	if ( WSAStartup( wVersionRequested, &wsaData ) == 0 )
 	{
 		if( gethostname ( name, sizeof(name)) == 0)
@@ -5557,13 +5578,16 @@ std::string GetLocalIP()
 			{
 				ip = inet_ntoa (*(struct in_addr *)*hostinfo->h_addr_list);
 			}
-        }      
+        }
         WSACleanup( );
-	} 
+	}
 	return ip;
 }
+#endif
 
-void 
+
+#ifdef PLATFORM_WINDOWS
+void
 CheckMacScreenMode()
 {
 	typedef std::map<std::string,std::string>			MACINFO_MAP;
@@ -5677,6 +5701,7 @@ CheckMacScreenMode()
 	MacInfo_Map.clear();
 }
 // 2004, 8, 26, sobeit add end - mac address 체크해서 윈도 모드 변경
+#endif
 
 
 // 2004, 04, 3 sobeit add start - 질드레 맵 이펙트 추가 , 삭제
@@ -6020,11 +6045,17 @@ void Add_Race_OustersMonster(GCAddMonster * pPacket)
 
 		if(CreatureType == 800)
 		{
-			MItem* pCoat		= g_pPacketItemOustersCoat[OUSTERS_COAT_BASIC];
-			MItem* pArm			= g_pPacketItemOustersArm[OUSTERS_ARM_CHAKRAM];	
+			// Check if arrays are initialized before using them
+			if (g_pPacketItemOustersCoat[OUSTERS_COAT_BASIC] != NULL &&
+				g_pPacketItemOustersArm[OUSTERS_ARM_CHAKRAM] != NULL) {
+				MItem* pCoat		= g_pPacketItemOustersCoat[OUSTERS_COAT_BASIC];
+				MItem* pArm			= g_pPacketItemOustersArm[OUSTERS_ARM_CHAKRAM];
 
-			pCreatureWear->SetAddonItem( pCoat );
-			pCreatureWear->SetAddonItem( pArm );
+				pCreatureWear->SetAddonItem( pCoat );
+				pCreatureWear->SetAddonItem( pArm );
+			} else {
+				fprintf(stderr, "WARNING: InitPacketItemTable() not called yet, skipping addon for CreatureType=800\n");
+			}
 
 			pCreatureWear->SetAddonColorSet1(ADDON_COAT, 393);
 			pCreatureWear->SetAddonColorSet2(ADDON_COAT, 393);
@@ -6125,7 +6156,7 @@ Send_nProtect_Auth(DWORD dwVal)
 }
 // 2004, 8, 26, sobeit add end - nProtct 인증 패킷
 
-POINT GetNextTileByDirection(int TileX, int TileY, byte Dir)
+POINT GetNextTileByDirection(int TileX, int TileY, unsigned char Dir)
 {
 	POINT FinalTile;
 	FinalTile.x = TileX; 

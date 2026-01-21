@@ -29,6 +29,10 @@
 #define _P_NOWAIT 1
 #endif
 
+#ifdef PLATFORM_MACOS
+#include "../../../Client/TextLib/SDLTextRenderer.h"
+#endif
+
 // Helper function to compare char_t* with wchar_t* string
 static inline int char_t_wcscmp(const char_t* s1, const wchar_t* s2) {
     if (!s1 || !s2) return (s1 ? 1 : (s2 ? -1 : 0));
@@ -4119,12 +4123,19 @@ void C_VS_UI_SERVER_SELECT::Show()
 				break;
 			}
 		}
+#ifdef PLATFORM_MACOS
+		// SDL text rendering (white only for now)
+		SDL_RenderText(x+m_server_x+5, y+m_server_y+i*20, m_server_name[i+m_scroll].c_str());
+		SDL_RenderText(x+m_server_x+150, y+m_server_y+i*20, server_status_string);
+#else
+		// Original Windows code
 		if(i+m_scroll == m_focus_server)
 			g_PrintColorStr(x+m_server_x+5, y+m_server_y+i*20, m_server_name[i+m_scroll].c_str(), gpC_base->m_desc_menu_pi, RGB_YELLOW);
 		else
 			g_PrintColorStr(x+m_server_x+5, y+m_server_y+i*20, m_server_name[i+m_scroll].c_str(), gpC_base->m_desc_menu_pi, RGB_WHITE);
 
 		g_PrintColorStr(x+m_server_x+150, y+m_server_y+i*20, server_status_string, gpC_base->m_desc_menu_pi, statusColor);
+#endif
 	}
 	
 	char szBuffer[256];
