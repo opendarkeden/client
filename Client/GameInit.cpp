@@ -2267,7 +2267,9 @@ InitSocket()
 	#ifdef __METROTECH_TEST__
 		g_UDPTest.Init();
 	#endif
-	
+
+	// RequestServer functionality is for server mode only - not needed on macOS client
+#ifndef PLATFORM_MACOS
 	if (g_pClientConfig->MAX_REQUEST_SERVICE > 0)
 	{
 		DEBUG_ADD("[ InitGame ] new RequestServerPlayerManager");
@@ -2279,6 +2281,10 @@ InitSocket()
 		DEBUG_ADD("[ InitGame ] RequestServerPlayerManager Init");
 		g_pRequestServerPlayerManager->Init();
 	}
+#else
+	// On macOS, disable server functionality to reduce CPU usage
+	DEBUG_ADD("[ InitGame ] RequestServer functionality disabled on macOS");
+#endif
 
 
 	DEBUG_ADD("[ InitGame ] new g_pRequestUserManager");

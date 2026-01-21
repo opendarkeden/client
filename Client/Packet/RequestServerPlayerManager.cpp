@@ -498,10 +498,10 @@ WaitRequestThreadProc(LPVOID lpParameter)
 	{
 		pRequestServerPlayerManager->WaitRequest();
 
-		// Add small delay to prevent CPU busy-wait
-		// On non-Windows platforms, sleep for 1ms to reduce CPU usage
+		// Add delay to prevent CPU busy-wait
+		// On non-Windows platforms, sleep for 10ms to reduce CPU usage
 #ifndef PLATFORM_WINDOWS
-		SDL_Delay(1);
+		SDL_Delay(10);  // 10ms delay to reduce CPU from busy-wait loop
 #endif
 	}
 

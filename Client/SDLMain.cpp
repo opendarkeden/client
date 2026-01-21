@@ -42,6 +42,7 @@
 #include "MPlayer.h"
 #include "../basic/Platform.h"
 #include "Packet/Exception.h"  // For NoSuchElementException, Throwable
+#include "DXLib/DXLibBackend.h"  // For dxlib_input_update
 
 // Language detection
 enum DARKEDEN_LANGUAGE
@@ -466,6 +467,10 @@ int main(int argc, char* argv[])
 
 		while (g_bRunning)
 		{
+			// Process SDL events (IMPORTANT: prevents "Not Responding" on macOS)
+			// dxlib_input_update handles: SDL_QUIT, SDL_WINDOWEVENT, SDL_KEY*, SDL_MOUSE*, SDL_TEXT*
+			dxlib_input_update();
+
 			// Game update when active
 			if (g_bActiveApp)
 			{
