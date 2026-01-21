@@ -1,4 +1,5 @@
 #include "CGlyphCache.h"
+#include "DebugLog.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -148,11 +149,11 @@ const GlyphInfo* CGlyphCache::AddGlyph(uint32_t charcode) {
     SDL_FreeSurface(rgbaSurface);
 
     if (info.sprite == SPRITECTL_INVALID_SPRITE) {
-        fprintf(stderr, "CGlyphCache::AddGlyph: Failed to create sprite for charcode 0x%X\n", charcode);
+        LOG_ERROR("CGlyphCache::AddGlyph: Failed to create sprite for charcode 0x%X\n", charcode);
         return NULL;
     }
 
-    printf("DEBUG CGlyphCache::AddGlyph: Created sprite for U+%04X (%c), size=%dx%d, sprite=%p\n",
+    LOG_DEBUG("CGlyphCache::AddGlyph: Created sprite for U+%04X (%c), size=%dx%d, sprite=%p\n",
            charcode,
            (charcode >= 32 && charcode < 127) ? (char)charcode : '?',
            info.width, info.height, info.sprite);

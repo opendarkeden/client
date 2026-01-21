@@ -136,7 +136,7 @@ bool gbl_show_item = true;
 //-----------------------------------------------------------------------------
 // Packet system globals (not in Client.cpp)
 //-----------------------------------------------------------------------------
-MItem*					g_pPacketItemOustersCoat[OUSTERS_COAT_MAX] = { NULL };
+// g_pPacketItemOustersCoat is defined in PacketFunction.cpp
 
 //-----------------------------------------------------------------------------
 // MP3 Player (not in Client.cpp)

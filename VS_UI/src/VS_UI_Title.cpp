@@ -29,6 +29,10 @@
 #define _P_NOWAIT 1
 #endif
 
+#ifdef PLATFORM_MACOS
+#include "../../../Client/TextLib/SDLTextRenderer.h"
+#endif
+
 // Helper function to compare char_t* with wchar_t* string
 static inline int char_t_wcscmp(const char_t* s1, const wchar_t* s2) {
     if (!s1 || !s2) return (s1 ? 1 : (s2 ? -1 : 0));
@@ -4119,12 +4123,19 @@ void C_VS_UI_SERVER_SELECT::Show()
 				break;
 			}
 		}
+#ifdef PLATFORM_MACOS
+		// SDL text rendering (white only for now)
+		SDL_RenderText(x+m_server_x+5, y+m_server_y+i*20, m_server_name[i+m_scroll].c_str());
+		SDL_RenderText(x+m_server_x+150, y+m_server_y+i*20, server_status_string);
+#else
+		// Original Windows code
 		if(i+m_scroll == m_focus_server)
 			g_PrintColorStr(x+m_server_x+5, y+m_server_y+i*20, m_server_name[i+m_scroll].c_str(), gpC_base->m_desc_menu_pi, RGB_YELLOW);
 		else
 			g_PrintColorStr(x+m_server_x+5, y+m_server_y+i*20, m_server_name[i+m_scroll].c_str(), gpC_base->m_desc_menu_pi, RGB_WHITE);
 
 		g_PrintColorStr(x+m_server_x+150, y+m_server_y+i*20, server_status_string, gpC_base->m_desc_menu_pi, statusColor);
+#endif
 	}
 	
 	char szBuffer[256];
@@ -4492,6 +4503,7 @@ bool C_VS_UI_LOGIN::MouseControl(UINT message, int _x, int _y)
 				Rect pass_rt(LOGIN_PASSWORD_X, LOGIN_PASSWORD_Y, 130, 23);
 
 				// Debug output
+/*
 				static int debug_count = 0;
 				if (debug_count < 10) {
 					printf("DEBUG C_VS_UI_LOGIN::MouseControl: message=%d, _x=%d, _y=%d (after offset: x=%d, y=%d)\n",
@@ -4502,22 +4514,19 @@ bool C_VS_UI_LOGIN::MouseControl(UINT message, int _x, int _y)
 						   m_lev_id.IsAcquire(), m_lev_password.IsAcquire());
 					debug_count++;
 				}
+*/
 
 				if (id_rt.IsInRect(_x, _y))
 				{
-					printf("  ID box clicked!\n");
 					if (!m_lev_id.IsAcquire())
 					{
-						printf("  Calling ChangeFocus()...\n");
 						ChangeFocus();
 					}
 				}
 				else if (pass_rt.IsInRect(_x, _y))
 				{
-					printf("  Password box clicked!\n");
 					if (!m_lev_password.IsAcquire())
 					{
-						printf("  Calling ChangeFocus()...\n");
 						ChangeFocus();
 					}
 				}
@@ -4588,14 +4597,19 @@ void C_VS_UI_LOGIN::SendLoginToClient()
 	//
 	// �ݵ�� static���� �ϰ� member�� login check�� ������ delete ���ش�.
 	//
-	static LOGIN S_login; 
-	//S_login.sz_id = (char *)m_string_line_ID.c_str();
-	//S_login.sz_password = (char *)m_string_line_PASSWORD.c_str();
+	static LOGIN S_login;
+	S_login.sz_id = (char*)malloc(128);
+	S_login.sz_password = (char*)malloc(128);
+
+	// Convert from LineEditor (UTF-32/char_t) to single-byte char strings
 	g_Convert_DBCS_Ascii2SingleByte(m_lev_id.GetStringWide(), m_lev_id.Size(), S_login.sz_id);
 	g_Convert_DBCS_Ascii2SingleByte(m_lev_password.GetStringWide(), m_lev_password.Size(), S_login.sz_password);
-	strcpy(g_pUserOption->BackupID, S_login.sz_id);
 
-	gpC_base->SendMessage(UI_LOGIN, 0, 0, &S_login);
+	// Safety check: ensure conversion succeeded before using the pointers
+	if (S_login.sz_id != NULL && S_login.sz_password != NULL) {
+		strcpy(g_pUserOption->BackupID, S_login.sz_id);
+		gpC_base->SendMessage(UI_LOGIN, 0, 0, &S_login);
+	}
 }
 
 /*-----------------------------------------------------------------------------

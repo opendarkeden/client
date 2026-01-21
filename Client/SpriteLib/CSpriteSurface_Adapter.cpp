@@ -46,16 +46,33 @@ static spritectl_sprite_t get_backend_sprite(CSprite* pSprite)
 		size_t pixel_count = width * height;
 		size_t data_size = pixel_count * sizeof(WORD);
 
-		/* Allocate and copy pixel data */
+		/* Allocate and decompress RLE pixel data */
 		WORD* pixels = (WORD*)malloc(data_size);
 		if (!pixels) {
 			return SPRITECTL_INVALID_SPRITE;
 		}
 
+		/* Decompress RLE data line by line */
 		for (WORD y = 0; y < height; y++) {
 			WORD* src_line = pSprite->GetPixelLine(y);
 			WORD* dst_line = pixels + (y * width);
-			memcpy(dst_line, src_line, width * sizeof(WORD));
+
+			/* RLE decompression */
+			WORD* pSrc = src_line;
+			WORD* pDest = dst_line;
+			int count = *pSrc++;  /* Number of runs */
+
+			if (count > 0) {
+				for (int j = 0; j < count; j++) {
+					pDest += *pSrc++;  /* Skip transparent pixels */
+					int colorCount = *pSrc++;  /* Number of color pixels */
+
+					/* Copy color pixels */
+					memcpy(pDest, pSrc, colorCount * sizeof(WORD));
+					pDest += colorCount;
+					pSrc += colorCount;
+				}
+			}
 		}
 
 		/* Create backend sprite */

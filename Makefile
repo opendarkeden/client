@@ -4,6 +4,7 @@
 .PHONY: all debug release test clean fmt fmt-check help
 .PHONY: check-resources extract-resources clean-resources
 .PHONY: sprite-viewer creature-viewer item-viewer map-viewer zone-parser
+.PHONY: debug-asan debug-tsan run-asan run-tsan
 
 # Default target
 all: debug
@@ -11,6 +12,8 @@ all: debug
 # Build directories
 BUILD_DIR_DEBUG = build/debug
 BUILD_DIR_RELEASE = build/release
+BUILD_DIR_DEBUG_ASAN = build/debug-asan
+BUILD_DIR_DEBUG_TSAN = build/debug-tsan
 
 # DarkEden data directory (can be overridden)
 DARKEDEN_DIR ?= DarkEden
@@ -37,6 +40,36 @@ release:
 	cmake -S . -B $(BUILD_DIR_RELEASE) -DCMAKE_BUILD_TYPE=Release
 	cmake --build $(BUILD_DIR_RELEASE) -j$(NPROCS)
 
+# ============================================================
+# Sanitizer Builds
+# ============================================================
+
+# Debug build with AddressSanitizer
+debug-asan:
+	@echo "Building Debug with AddressSanitizer..."
+	cmake -S . -B $(BUILD_DIR_DEBUG_ASAN) -DCMAKE_BUILD_TYPE=Debug -DUSE_ASAN=ON
+	cmake --build $(BUILD_DIR_DEBUG_ASAN) -j$(NPROCS)
+
+# Debug build with ThreadSanitizer
+debug-tsan:
+	@echo "Building Debug with ThreadSanitizer..."
+	cmake -S . -B $(BUILD_DIR_DEBUG_TSAN) -DCMAKE_BUILD_TYPE=Debug -DUSE_TSAN=ON
+	cmake --build $(BUILD_DIR_DEBUG_TSAN) -j$(NPROCS)
+
+# Run with AddressSanitizer
+run-asan: debug-asan
+	@echo "Running with AddressSanitizer..."
+	@echo "Usage: make run-asan MODE=0000000001"
+
+# Run with ThreadSanitizer
+run-tsan: debug-tsan
+	@echo "Running with ThreadSanitizer..."
+	@echo "Usage: make run-tsan MODE=0000000001"
+
+# ============================================================
+# Testing and Validation
+# ============================================================
+
 # Run tests
 test:
 	@echo "TODO: Run tests"
@@ -57,6 +90,8 @@ clean:
 	@echo "Cleaning build directories..."
 	rm -rf build/debug
 	rm -rf build/release
+	rm -rf build/debug-asan
+	rm -rf build/debug-tsan
 	@echo "Clean complete"
 
 # ============================================================
@@ -120,6 +155,8 @@ help:
 	@echo "  make               - Build debug version (default)"
 	@echo "  make debug         - Build debug version"
 	@echo "  make release       - Build release version (optimized)"
+	@echo "  make debug-asan     - Build with AddressSanitizer (memory errors)"
+	@echo "  make debug-tsan     - Build with ThreadSanitizer (race conditions)"
 	@echo "  make test          - Run tests (TODO)"
 	@echo "  make fmt           - Format code (TODO)"
 	@echo "  make fmt-check     - Check code formatting (TODO)"
@@ -144,13 +181,20 @@ help:
 	@echo "Build directories:"
 	@echo "  Debug:   $(BUILD_DIR_DEBUG)"
 	@echo "  Release: $(BUILD_DIR_RELEASE)"
+	@echo "  ASAN:    $(BUILD_DIR_DEBUG_ASAN)"
+	@echo "  TSAN:    $(BUILD_DIR_DEBUG_TSAN)"
 	@echo ""
 	@echo "Examples:"
 	@echo "  make                      # Build debug"
 	@echo "  make release              # Build release"
+	@echo "  make debug-asan           # Build with AddressSanitizer"
 	@echo "  make clean                # Clean all builds"
 	@echo "  make NPROCS=8             # Build with 8 parallel jobs"
 	@echo "  make check-resources      # Validate resources in DarkEden/"
 	@echo "  make sprite-viewer        # Build and use sprite viewer"
 	@echo "  make check-resources DARKEDEN_DIR=/path/to/game  # Custom data dir"
+	@echo ""
+	@echo "Running with sanitizers:"
+	@echo "  build/debug-asan/bin/DarkEden 0000000001    # Run ASAN build"
+	@echo "  build/debug-tsan/bin/DarkEden 0000000001    # Run TSAN build"
 

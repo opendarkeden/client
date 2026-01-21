@@ -317,7 +317,6 @@ int spritectl_blt_sprite(spritectl_surface_t dest, int x, int y,
                          spritectl_sprite_t sprite, int flags, int alpha) {
 	SDL_Rect dest_rect;
 	SDL_Surface* src_surface = NULL;
-	uint32_t* rgba_pixels = NULL;
 	int result = -1;
 
 	if (!dest || !sprite) {
@@ -349,37 +348,54 @@ int spritectl_blt_sprite(spritectl_surface_t dest, int x, int y,
 		return -1;
 	}
 
-	/* Convert sprite pixels to RGBA32 */
-	rgba_pixels = (uint32_t*)malloc(sprite->width * sprite->height * sizeof(uint32_t));
-	if (!rgba_pixels) {
-		SDL_FreeSurface(src_surface);
-		return -1;
+	/* Use cached RGBA pixels if available, otherwise convert and cache */
+	if (sprite->rgba_pixels == NULL && sprite->format != SPRITECTL_FORMAT_RGBA32) {
+		/* Convert and cache RGBA pixels for non-RGBA32 formats */
+		sprite->rgba_pixels = (uint32_t*)malloc(sprite->width * sprite->height * sizeof(uint32_t));
+		if (sprite->rgba_pixels) {
+			if (sprite->format == SPRITECTL_FORMAT_RGB565) {
+				spritectl_convert_565_to_rgba(sprite->pixels, sprite->rgba_pixels,
+				                              sprite->width * sprite->height, 0xFFFF);
+			} else if (sprite->format == SPRITECTL_FORMAT_RGB555) {
+				spritectl_convert_555_to_rgba(sprite->pixels, sprite->rgba_pixels,
+				                              sprite->width * sprite->height, 0xFFFF);
+			} else {
+				/* Unknown format, fill with opaque white */
+				for (int i = 0; i < sprite->width * sprite->height; i++) {
+					sprite->rgba_pixels[i] = 0xFFFFFFFF;
+				}
+			}
+		}
 	}
 
-	/* Convert based on sprite format */
-	if (sprite->format == SPRITECTL_FORMAT_RGB565) {
-		spritectl_convert_565_to_rgba(sprite->pixels, rgba_pixels,
-		                              sprite->width * sprite->height, 0xFFFF);
-	} else if (sprite->format == SPRITECTL_FORMAT_RGB555) {
-		spritectl_convert_555_to_rgba(sprite->pixels, rgba_pixels,
-		                              sprite->width * sprite->height, 0xFFFF);
-	} else if (sprite->format == SPRITECTL_FORMAT_RGBA32) {
-		/* Sprite is already in RGBA32 format, just copy it */
-		memcpy(rgba_pixels, sprite->pixels, sprite->data_size);
+	/* Determine pixel source */
+	const uint32_t* pixel_src;
+	if (sprite->format == SPRITECTL_FORMAT_RGBA32) {
+		pixel_src = (const uint32_t*)sprite->pixels;
+	} else if (sprite->rgba_pixels) {
+		pixel_src = sprite->rgba_pixels;
 	} else {
-		/* Unknown format, fill with opaque white */
-		for (int i = 0; i < sprite->width * sprite->height; i++) {
-			rgba_pixels[i] = 0xFFFFFFFF;
+		/* Fallback: fill with opaque white */
+		static uint32_t* fallback_pixels = NULL;
+		static int fallback_size = 0;
+		if (!fallback_pixels || fallback_size < sprite->width * sprite->height) {
+			free(fallback_pixels);
+			fallback_pixels = (uint32_t*)malloc(sprite->width * sprite->height * sizeof(uint32_t));
+			fallback_size = sprite->width * sprite->height;
+			if (fallback_pixels) {
+				for (int i = 0; i < sprite->width * sprite->height; i++) {
+					fallback_pixels[i] = 0xFFFFFFFF;
+				}
+			}
 		}
+		pixel_src = fallback_pixels;
 	}
 
 	/* Copy to temporary surface */
 	SDL_LockSurface(src_surface);
 	uint32_t* src_pixels = (uint32_t*)src_surface->pixels;
-	memcpy(src_pixels, rgba_pixels, sprite->width * sprite->height * sizeof(uint32_t));
+	memcpy(src_pixels, pixel_src, sprite->width * sprite->height * sizeof(uint32_t));
 	SDL_UnlockSurface(src_surface);
-
-	free(rgba_pixels);
 
 	/* Handle alpha blending */
 	if (flags & SPRITECTL_BLT_ALPHA) {
@@ -418,7 +434,6 @@ int spritectl_blt_sprite_scaled(spritectl_surface_t dest, int x, int y,
                                 spritectl_sprite_t sprite, int scale, int flags) {
 	SDL_Surface* src_surface = NULL;
 	SDL_Surface* scaled_surface = NULL;
-	uint32_t* rgba_pixels = NULL;
 	int result = -1;
 	int scaled_width, scaled_height;
 
@@ -441,37 +456,54 @@ int spritectl_blt_sprite_scaled(spritectl_surface_t dest, int x, int y,
 		return -1;
 	}
 
-	/* Convert sprite pixels to RGBA32 */
-	rgba_pixels = (uint32_t*)malloc(sprite->width * sprite->height * sizeof(uint32_t));
-	if (!rgba_pixels) {
-		SDL_FreeSurface(src_surface);
-		return -1;
+	/* Use cached RGBA pixels if available, otherwise convert and cache */
+	if (sprite->rgba_pixels == NULL && sprite->format != SPRITECTL_FORMAT_RGBA32) {
+		/* Convert and cache RGBA pixels for non-RGBA32 formats */
+		sprite->rgba_pixels = (uint32_t*)malloc(sprite->width * sprite->height * sizeof(uint32_t));
+		if (sprite->rgba_pixels) {
+			if (sprite->format == SPRITECTL_FORMAT_RGB565) {
+				spritectl_convert_565_to_rgba(sprite->pixels, sprite->rgba_pixels,
+				                              sprite->width * sprite->height, 0xFFFF);
+			} else if (sprite->format == SPRITECTL_FORMAT_RGB555) {
+				spritectl_convert_555_to_rgba(sprite->pixels, sprite->rgba_pixels,
+				                              sprite->width * sprite->height, 0xFFFF);
+			} else {
+				/* Unknown format, fill with opaque white */
+				for (int i = 0; i < sprite->width * sprite->height; i++) {
+					sprite->rgba_pixels[i] = 0xFFFFFFFF;
+				}
+			}
+		}
 	}
 
-	/* Convert based on sprite format */
-	if (sprite->format == SPRITECTL_FORMAT_RGB565) {
-		spritectl_convert_565_to_rgba(sprite->pixels, rgba_pixels,
-		                              sprite->width * sprite->height, 0xFFFF);
-	} else if (sprite->format == SPRITECTL_FORMAT_RGB555) {
-		spritectl_convert_555_to_rgba(sprite->pixels, rgba_pixels,
-		                              sprite->width * sprite->height, 0xFFFF);
-	} else if (sprite->format == SPRITECTL_FORMAT_RGBA32) {
-		/* Sprite is already in RGBA32 format, just copy it */
-		memcpy(rgba_pixels, sprite->pixels, sprite->data_size);
+	/* Determine pixel source */
+	const uint32_t* pixel_src;
+	if (sprite->format == SPRITECTL_FORMAT_RGBA32) {
+		pixel_src = (const uint32_t*)sprite->pixels;
+	} else if (sprite->rgba_pixels) {
+		pixel_src = sprite->rgba_pixels;
 	} else {
-		/* Unknown format, fill with opaque white */
-		for (int i = 0; i < sprite->width * sprite->height; i++) {
-			rgba_pixels[i] = 0xFFFFFFFF;
+		/* Fallback: fill with opaque white */
+		static uint32_t* fallback_pixels = NULL;
+		static int fallback_size = 0;
+		if (!fallback_pixels || fallback_size < sprite->width * sprite->height) {
+			free(fallback_pixels);
+			fallback_pixels = (uint32_t*)malloc(sprite->width * sprite->height * sizeof(uint32_t));
+			fallback_size = sprite->width * sprite->height;
+			if (fallback_pixels) {
+				for (int i = 0; i < sprite->width * sprite->height; i++) {
+					fallback_pixels[i] = 0xFFFFFFFF;
+				}
+			}
 		}
+		pixel_src = fallback_pixels;
 	}
 
 	/* Copy to temporary surface */
 	SDL_LockSurface(src_surface);
 	uint32_t* src_pixels = (uint32_t*)src_surface->pixels;
-	memcpy(src_pixels, rgba_pixels, sprite->width * sprite->height * sizeof(uint32_t));
+	memcpy(src_pixels, pixel_src, sprite->width * sprite->height * sizeof(uint32_t));
 	SDL_UnlockSurface(src_surface);
-
-	free(rgba_pixels);
 
 	/* Create scaled surface */
 	scaled_surface = SDL_CreateRGBSurface(0, scaled_width, scaled_height, 32,

@@ -139,13 +139,6 @@ void SocketOutputStream::write ( const Packet * pPacket )
 	// 우선 패킷아이디와 패킷크기를 출력버퍼로 쓴다.
 	PacketID_t packetID = pPacket->getPacketID();
 	write( (char*)&packetID , szPacketID );
-
-//  By tiancaiamao
-//	#ifdef __DEBUG_OUTPUT__
-//		ofstream ofile("lalala.log",ios::app);
-//		ofile << "SocketOutputStream write packet: " << packetID << endl;
-//		ofile.close();
-//	#endif
 	
 	PacketSize_t packetSize = pPacket->getPacketSize();
 	write( (char*)&packetSize , szPacketSize );
@@ -153,6 +146,10 @@ void SocketOutputStream::write ( const Packet * pPacket )
 	// 속흙룐관埼죗
 	write( (char*)&m_Sequence, szSequenceSize);
 	m_Sequence++;
+
+    printf("%s:%d SocketOutputStream::write packetID: %d, packetSZ: %d sequence %d\n",
+        __FILE__, __LINE__,
+        packetID, packetSize, m_Sequence-1);
 
 	// 이제 패킷바디를 출력버퍼로 쓴다.
 		pPacket->write( *this );

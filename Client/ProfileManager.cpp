@@ -73,11 +73,20 @@ ProfileManager::Release()
 //----------------------------------------------------------------------
 // Release Require
 //----------------------------------------------------------------------
-void			
+void
 ProfileManager::ReleaseRequire()
 {
+	// Debug output before locking
+	DEBUG_ADD("[ProfileManager] ReleaseRequire: attempting to lock...\n");
+
 	Lock();
+
+	DEBUG_ADD("[ProfileManager] ReleaseRequire: lock acquired, clearing...\n");
+
 	m_Requires.clear();
+
+	DEBUG_ADD("[ProfileManager] ReleaseRequire: done, releasing lock...\n");
+
 	Unlock();
 }
 

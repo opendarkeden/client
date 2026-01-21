@@ -67,9 +67,9 @@
 //				if (g_pDebugMessage!=NULL)	\
 //					g_pDebugMessage->Add( message );
 //
-		void	DEBUG_ADD_FORMAT(const char* format, ...);		
-		void	DEBUG_ADD_FORMAT_ERR(const char* format, ...);		
-		void	DEBUG_ADD_FORMAT_WAR(const char* format, ...);		
+		void	DEBUG_ADD_FORMAT(const char* format, ...);
+		void	DEBUG_ADD_FORMAT_ERR(const char* format, ...);
+		void	DEBUG_ADD_FORMAT_WAR(const char* format, ...);
 
 		void	DEBUG_ADD(const char* message);
 		void	DEBUG_ADD_ERR(const char* message);
@@ -79,18 +79,17 @@
 	// debug가 아닌 경우..
 	#else
 		#define	DEBUG_MESSAGE(debugMessage)	((void)0)
-		
-		inline void	DEBUG_ADD( const char* message )		{}
-		inline void DEBUG_ADD_ERR( const char* message )	{}
-		inline void DEBUG_ADD_WAR( const char* message )	{}
-		inline void DEBUG_CMD( int cmd, const char* message )	{}
 
-		inline void	DEBUG_ADD_FORMAT(const char* format, ...) {}
-		inline void	DEBUG_ADD_FORMAT_ERR(const char* format, ...) {}
-		inline void	DEBUG_ADD_FORMAT_WAR(const char* format, ...) {}
-			
+		// Empty macro stubs for release builds
+		#define	DEBUG_ADD(message)				((void)0)
+		#define	DEBUG_ADD_ERR(message)			((void)0)
+		#define	DEBUG_ADD_WAR(message)			((void)0)
+		#define	DEBUG_CMD(cmd, message)			((void)0)
+		#define	DEBUG_ADD_FORMAT(format, ...)	((void)0)
+		#define	DEBUG_ADD_FORMAT_ERR(format, ...)	((void)0)
+		#define	DEBUG_ADD_FORMAT_WAR(format, ...)	((void)0)
 
-//		#define	DEBUG_NEW			new			
+//		#define	DEBUG_NEW			new
 	#endif	
 
 

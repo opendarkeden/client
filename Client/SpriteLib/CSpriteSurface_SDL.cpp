@@ -541,8 +541,9 @@ void* CSpriteSurface::GetSurfacePointer()
 	return NULL;
 }
 
-void* CSpriteSurface::Lock(RECT* rect, unsigned long* pitch)
+void* CSpriteSurface::Lock(RECT* rect, DWORD* pitch)
 {
+	(void)rect;  // Not used in SDL backend
 	if (m_backend_surface == SPRITECTL_INVALID_SURFACE) return NULL;
 
 #ifdef _DEBUG

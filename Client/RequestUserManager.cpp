@@ -225,12 +225,13 @@ RequestUserManager::RemoveRequestUserLater(const char* pName)
 void
 RequestUserManager::Update()
 {
+	Lock();
+
 	if (m_RemoveUsers.empty())
 	{
+		Unlock();
 		return;
 	}
-
-	Lock();
 
 	while (!m_RemoveUsers.empty())
 	{

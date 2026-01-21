@@ -15,6 +15,37 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# Sanitizer configuration
+option(USE_ASAN "Enable AddressSanitizer for memory error detection" OFF)
+option(USE_TSAN "Enable ThreadSanitizer for race condition detection" OFF)
+option(USE_UBSAN "Enable UndefinedBehaviorSanitizer for undefined behavior detection" OFF)
+
+if(USE_ASAN OR USE_TSAN OR USE_UBSAN)
+    if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+        set(SANITIZER_FLAGS "")
+
+        if(USE_ASAN)
+            set(SANITIZER_FLAGS "${SANITIZER_FLAGS} -fsanitize=address -fno-omit-frame-pointer")
+            set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address")
+        endif()
+
+        if(USE_TSAN)
+            set(SANITIZER_FLAGS "${SANITIZER_FLAGS} -fsanitize=thread")
+            set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=thread")
+        endif()
+
+        if(USE_UBSAN)
+            set(SANITIZER_FLAGS "${SANITIZER_FLAGS} -fsanitize=undefined")
+            set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=undefined")
+        endif()
+
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SANITIZER_FLAGS}")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${SANITIZER_FLAGS}")
+
+        message(STATUS "Sanitizer flags: ${SANITIZER_FLAGS}")
+    endif()
+endif()
+
 # Auto-enable SDL backend on non-Windows platforms
 if(WIN32)
 	option(USE_SDL_BACKEND "Use SDL backend instead of native Windows APIs" OFF)
@@ -77,6 +108,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 	set(TEXTLIB_SOURCES
 		Client/TextLib/CGlyphCache.cpp
 		Client/TextLib/CTextLayout.cpp
+		Client/TextLib/SDLTextRenderer.cpp
 	)
 
 	# Create TextLib static library
@@ -86,6 +118,8 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 	target_include_directories(TextLib PUBLIC
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/TextLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client
 		${CMAKE_CURRENT_SOURCE_DIR}/basic
 		${SDL2_INCLUDE_DIRS}
 	)
@@ -100,7 +134,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 
 	# Platform-specific definitions
 	if(NOT WIN32)
-		target_compile_definitions(TextLib PRIVATE PLATFORM_MACOS)
+		target_compile_definitions(TextLib PRIVATE PLATFORM_MACOS SPRITELIB_BACKEND_SDL)
 	endif()
 
 	message(STATUS "TextLib library will be built from ${TEXTLIB_SOURCES}")
@@ -195,7 +229,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		Client/ClientConfig.cpp
 		Client/UtilityFunction.cpp
 		# GameFunctions.cpp - Moved to CLIENT_MAIN_SOURCES to avoid duplicates with GameMain.cpp
-		Client/GamePacketFunctions.cpp
+		# GamePacketFunctions.cpp - Removed, all functions now in PacketFunction.cpp
 		Client/RenderingFunctions.cpp
 		Client/UIUtilityFunctions.cpp
 
@@ -402,6 +436,12 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		Client/nProtectStub.cpp
 		Client/NPGameLib.cpp
 		Client/COGGSTREAM.cpp
+		# Time functions extracted from PacketFunction.cpp (which has Windows-specific networking code)
+		Client/ClientTimeFunctions.cpp
+		# ActionFunctions.cpp excluded - functions now in PacketFunction.cpp
+		# Client/ActionFunctions.cpp
+		# Globals.cpp - Global variables and utility functions (from GamePacketFunctions.cpp)
+		Client/Globals.cpp
 	)
 
 	# Remove files that are already compiled in VS_UI library
@@ -415,10 +455,14 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/MitemTableinit2.cpp
 		# Exclude MissingGlobals.cpp - duplicates globals with GameMain.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/MissingGlobals.cpp
-		# Exclude GameHelpers.cpp - duplicates NewFakeCreature with GamePacketFunctions.cpp
+		# Exclude GameHelpers.cpp - duplicates many functions with GamePacketFunctions.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/GameHelpers.cpp
 		# Exclude GameFunctions.cpp - duplicates functions with GameMain.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/GameFunctions.cpp
+		# Exclude GamePacketFunctions.cpp - all functions now in PacketFunction.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/GamePacketFunctions.cpp
+		# Exclude ActionFunctions.cpp - functions now in PacketFunction.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/ActionFunctions.cpp
 	)
 
 	# Note: Cpackets contains CG (Client to Game) handlers
@@ -446,8 +490,9 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		# MWorkThread and MMusic are needed on all platforms
 		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*MWorkThread.*")
 		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*MMusic\\.cpp")
-		# Note: PacketFunction.cpp excluded temporarily - has many Windows-specific networking APIs (NetBIOS, IPX/SPX)
-		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*PacketFunction\\.cpp")
+		# Note: PacketFunction.cpp now included with proper platform guards
+		# Windows-specific NetBIOS/IPX/SPX code is wrapped in #ifdef PLATFORM_WINDOWS
+		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*PacketFunction\\.cpp")
 		# ProfileManager needed on all platforms
 		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*ProfileManager\\.cpp")
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*VolumeOut.*\\.cpp")

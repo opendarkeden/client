@@ -62,8 +62,11 @@ class RequestServerPlayerManager {
 		//----------------------------------------------------------------------
 		void		Broadcast(Packet* pPacket);
 
-		
-		int			GetSize() const			{ return m_listRequestServerPlayer.size(); }		
+
+		int			GetSize() const			{ return m_listRequestServerPlayer.size(); }
+
+		// Check if thread should continue running
+		bool		IsThreadRunning() const		{ return m_bThreadRunning; }		
 
 	protected :
 		//----------------------------------------------------------------------
@@ -87,7 +90,8 @@ class RequestServerPlayerManager {
 		ServerSocket*			m_pServerSocket;
 
 		HANDLE					m_hRequestThread;
-		
+		bool					m_bThreadRunning;
+
 		CRITICAL_SECTION		m_Lock;
 		RequestServerPlayer_LIST		m_listRequestServerPlayer;
 };

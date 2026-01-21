@@ -2813,12 +2813,15 @@ ProcessInputRButtonDown(MObject* pObject, bool bForceAttack = false)
 	// add by Sonic
 		//START_START
 		//CRYPT_START
+#ifndef PLATFORM_MACOS
+		// Windows-specific anti-cheat error check - disabled on macOS
 		if(g_CheckErrorTime>=5)
 		{
 			g_CheckErrorTime=0;
 			SetMode(MODE_QUIT);
 			return;
 		}
+#endif // PLATFORM_MACOS
 		//VM_END
 		//CRYPT_END
 	// end 
@@ -6329,8 +6332,10 @@ CGameUpdate::Update(void)
 		//------------------------------------------------------------------
 		// 1ºÐ ¸¶´Ù ÇÑ¹ø¾¿ garbarge packetÀ» º¸³½´Ù.
 		//------------------------------------------------------------------
+#ifndef PLATFORM_MACOS
+		// Windows-specific anti-cheat time verification - disabled on macOS
 		int nextTimeValue =60000;
-		
+
 		g_MyCheckTime+=72;	//modify by viva : +=73(+=72)
 		// add by Coffee 2006.11.12
 		if(g_MyCheckTime>=97620 || g_CurrentTime < 60000)
@@ -6339,7 +6344,7 @@ CGameUpdate::Update(void)
 			{
 				CGVerifyTime _CGVerifyTime;
 				g_CheckErrorTime++;
-				g_pSocket->sendPacket( &_CGVerifyTime );						
+				g_pSocket->sendPacket( &_CGVerifyTime );
 			}
 		}
 		// end by Coffee
@@ -6350,17 +6355,18 @@ CGameUpdate::Update(void)
 			{
 					g_CheckErrorTime++;
 					nextTimeValue=5390;
-					g_pSocket->sendPacket( &_CGVerifyTime );						
+					g_pSocket->sendPacket( &_CGVerifyTime );
 					nextTime = timeGetTime() + nextTimeValue;//g_CurrentTime;
 			}else
 			{
 				nextTimeValue =60000;
-				g_pSocket->sendPacket( &_CGVerifyTime );					
-				
+				g_pSocket->sendPacket( &_CGVerifyTime );
+
 				nextTime = timeGetTime() + nextTimeValue;//g_CurrentTime;
 			}
 			g_MyCheckTime=0;
 		}
+#endif // PLATFORM_MACOS
 		/*
 		g_MyCheckTime+=72;
 		if(g_MyCheckTime>=67620)
@@ -6377,13 +6383,16 @@ CGameUpdate::Update(void)
 		// ¹«½ÃÇÒ±î??
 		// µð¾ÆÃ³·³.. °©ÀÚ±â ´Þ¸®±â´Â ¾î¶³±î? -_-;
 		//¼ì²âÍâ¹Ò
-		
+
+#ifndef PLATFORM_MACOS
+		// Windows-specific anti-cheat error check - disabled on macOS
 		if(g_CheckErrorTime>=5)
 		{
 			g_CheckErrorTime=0;
 			SetMode(MODE_QUIT);
 			return;
 		}
+#endif // PLATFORM_MACOS
 		
 		static int OnetimeUpdateCount = 0;
 		if (k==0)

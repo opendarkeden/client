@@ -182,7 +182,7 @@ bool gbl_show_item = true;
 //-----------------------------------------------------------------------------
 PacketFactoryManager*	g_pPacketFactoryManager = NULL;
 PacketValidator*			g_pPacketValidator = NULL;
-MItem*					g_pPacketItemOustersCoat[OUSTERS_COAT_MAX] = { NULL };
+// g_pPacketItemOustersCoat is defined in PacketFunction.cpp
 WindowManager*			gpC_window_manager = NULL;
 
 //-----------------------------------------------------------------------------

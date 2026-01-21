@@ -17,7 +17,7 @@
 //
 // 지울때는 spr만 다 지우면 된다.
 //
-// Profile.Get(name)에서 
+// Profile.Get(name)에서
 //     내 client에 name.spr이 없다면..
 //        다른 client에 요청을 해야한다.
 //
@@ -28,6 +28,12 @@
 
 
 #pragma warning(disable:4786)
+
+#ifdef PLATFORM_WINDOWS
+	#include <Windows.h>
+#else
+	#include "../../basic/Platform.h"
+#endif
 
 #include <map>
 #include <string>
@@ -106,6 +112,10 @@ class ProfileManager {
 
 		CRITICAL_SECTION		m_Lock;
 };
+
+// Compile-time check to ensure CRITICAL_SECTION is fully defined
+// sizeof(CRITICAL_SECTION) should be at least sizeof(pthread_mutex_t) + sizeof(int) = 68+ bytes
+static_assert(sizeof(CRITICAL_SECTION) >= 68, "CRITICAL_SECTION is incomplete - Platform.h must be included before ProfileManager.h");
 
 extern ProfileManager*		g_pProfileManager;
 

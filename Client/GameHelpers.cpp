@@ -39,11 +39,8 @@ enum CLIENT_MODE {
 	CLIENT_MODE_FULLSCREEN_1024
 };
 
-// Type definitions - using platform types from Platform.h
-typedef unsigned long DWORD;
-typedef unsigned short WORD;
-typedef unsigned char BYTE;
-typedef int EXCEPTION_CODE;
+// Note: DWORD, WORD, BYTE, etc. are defined in Platform.h
+// No need to redefine them here
 
 // Forward declarations only - types are defined in Platform.h
 struct Rect;

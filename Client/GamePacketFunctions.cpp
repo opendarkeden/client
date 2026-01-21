@@ -64,6 +64,11 @@
 #define SAFE_DELETE(x)		{ if(x!=NULL) delete x; x=NULL; }
 
 extern MScreenEffectManager*	g_pInventoryEffectManager;
+extern DWORD				g_PreviousCreatureType;
+
+// Hair style IDs defined in PacketFunction.cpp
+extern int	g_PacketHairMaleID[3];
+extern int	g_PacketHairFemaleID[3];
 
 //-----------------------------------------------------------------------------
 // NewFakeCreature - Create fake creature from creature type (4 int parameters)
@@ -149,31 +154,6 @@ NewFakeCreature(MCreature* pCreature, int x, int y)
 }
 
 //-----------------------------------------------------------------------------
-// Add_GDR_Potal_Effect - GDR portal effect (일루전스 웨이 포탈)
-//-----------------------------------------------------------------------------
-void Add_GDR_Potal_Effect(int nMapID)
-{
-	if(nMapID == 1410) // 일루전스 웨이 1
-	{
-		ExecuteActionInfoFromMainNode(MAP_GDR_LAIR_POTAL,0, 0, 0,0, 0,
-				73, 80, 0, 0, NULL, false);
-		ExecuteActionInfoFromMainNode(MAP_GDR_LAIR_POTAL,0, 0, 0,0, 0,
-				118, 69, 0, 0, NULL, false);
-	}
-	else if(nMapID == 1411)
-	{
-		ExecuteActionInfoFromMainNode(MAP_GDR_LAIR_POTAL,0, 0, 0,0, 0,
-				125, 58, 0, 0, NULL, false);
-		ExecuteActionInfoFromMainNode(MAP_GDR_LAIR_POTAL,0, 0, 0,0, 0,
-				22, 85, 0, 0, NULL, false);
-		ExecuteActionInfoFromMainNode(MAP_GDR_LAIR_POTAL,0, 0, 0,0, 0,
-				9, 86, 0, 0, NULL, false);
-		ExecuteActionInfoFromMainNode(MAP_GDR_LAIR_POTAL,0, 0, 0,0, 0,
-				12, 102, 0, 0, NULL, false);
-	}
-}
-
-//-----------------------------------------------------------------------------
 // SetFadeStart - Start fade effect
 //-----------------------------------------------------------------------------
 void SetFadeStart(char start, char end, char step, BYTE r, BYTE g, BYTE b, WORD delay)
@@ -225,15 +205,6 @@ void SetEffectInfo(MCreature* pCreature, EffectInfo* pEffectInfo, int delayedFra
 {
 	(void)pCreature; (void)pEffectInfo; (void)delayedFrame;
 	// Stub implementation - effect info handling
-}
-
-//-----------------------------------------------------------------------------
-// Add_Wild_Wolf - Add wild wolf creature effect
-//-----------------------------------------------------------------------------
-void Add_Wild_Wolf(MCreature* pUserCreature, MCreature* pTargetCreature, bool bEatCorpse)
-{
-	(void)pUserCreature; (void)pTargetCreature; (void)bEatCorpse;
-	// Stub implementation - wild wolf effect
 }
 
 //-----------------------------------------------------------------------------
@@ -461,8 +432,33 @@ void SkillToSector(TYPE_ACTIONINFO nActionInfo, TYPE_SECTORPOSITION sX, TYPE_SEC
 //-----------------------------------------------------------------------------
 void SetPCSlayerInfo(PCSlayerInfo2* pInfo)
 {
-	(void)pInfo;
-	// Stub implementation - PC slayer info
+	if (pInfo == NULL || g_pPlayer == NULL) return;
+
+	DEBUG_ADD( "Set Slayer Info" );
+
+	g_pPlayer->SetID( pInfo->getObjectID() );
+	g_pPlayer->SetSight( pInfo->getSight() );
+
+	//--------------------------------------------------
+	// Player 몸 설정 - IMPORTANT: Set creature type!
+	//--------------------------------------------------
+	if (pInfo->getCompetence()==0)
+	{
+		g_pPlayer->SetCompetence( 0 );
+		g_pPlayer->SetCreatureType( CREATURETYPE_SLAYER_OPERATOR );
+		g_pPlayer->SetMale( pInfo->getSex()==MALE );
+	}
+	else
+	{
+		g_pPlayer->SetCreatureType( (pInfo->getSex()==MALE)? CREATURETYPE_SLAYER_MALE : CREATURETYPE_SLAYER_FEMALE );
+	}
+
+	g_pPlayer->SetBodyColor1( pInfo->getSkinColor() );
+	g_pPlayer->SetMasterEffectType( pInfo->getMasterEffectColor() );
+	SetAddonToSlayer( g_pPlayer, pInfo );
+
+	// TODO: Add remaining implementation from PacketFunction.cpp:2691-2953
+	// This includes guild info, rank, stats, domain levels, etc.
 }
 
 //-----------------------------------------------------------------------------
@@ -502,8 +498,21 @@ void SetAddonToOusters(MCreatureWear* pCreature, const PCOustersInfo3* pInfo)
 	if (pCreature == NULL || pInfo == NULL)
 		return;
 
-	MItem* pCoat = g_pPacketItemOustersCoat[pInfo->getCoatType()];
-	MItem* pArm = g_pPacketItemOustersArm[pInfo->getArmType()];
+	int coatType = pInfo->getCoatType();
+	int armType = pInfo->getArmType();
+
+	// Check if g_pPacketItemOustersCoat array is properly initialized
+	if (coatType < 0 || coatType >= OUSTERS_COAT_MAX) {
+		fprintf(stderr, "ERROR: SetAddonToOusters: coatType=%d is out of range [0, %d)\n", coatType, OUSTERS_COAT_MAX);
+		return;
+	}
+	if (g_pPacketItemOustersCoat[coatType] == NULL) {
+		fprintf(stderr, "ERROR: SetAddonToOusters: g_pPacketItemOustersCoat[%d] is NULL! InitPacketItemTable() may not have been called.\n", coatType);
+		return;
+	}
+
+	MItem* pCoat = g_pPacketItemOustersCoat[coatType];
+	MItem* pArm = g_pPacketItemOustersArm[armType];
 
 	pCreature->SetAddonItem( pCoat );
 	pCreature->SetAddonItem( pArm );
@@ -532,12 +541,39 @@ void AffectModifyInfo(MStatus* pStatus, ModifyInfo* pInfo)
 }
 
 //-----------------------------------------------------------------------------
+// SetAddonToSlayer - Set addon for Slayer (PCSlayerInfo2)
+//-----------------------------------------------------------------------------
+void SetAddonToSlayer(MCreatureWear* pCreature, const PCSlayerInfo2* pInfo)
+{
+	if (pCreature == NULL || pInfo == NULL) return;
+
+	//--------------------------------------------------
+	// 머리 설정
+	//--------------------------------------------------
+	if (pInfo->getSex()==MALE)
+	{
+		pCreature->SetAddonHair(g_PacketHairMaleID[(int)pInfo->getHairStyle()], pInfo->getHairColor());
+	}
+	else
+	{
+		pCreature->SetAddonHair(g_PacketHairFemaleID[(int)pInfo->getHairStyle()], pInfo->getHairColor());
+	}
+
+	if(pInfo->getAdvancementLevel()>0)
+		pCreature->SetAddonColorSet1( ADDON_COAT, pInfo->getHairColor() );
+	else
+		pCreature->SetAddonColorSet1( ADDON_COAT, pInfo->getSkinColor() );
+
+	pCreature->SetAddonColorSet1( ADDON_TROUSER, pInfo->getSkinColor() );
+}
+
+//-----------------------------------------------------------------------------
 // SetAddonToSlayer - Set addon for Slayer (PCSlayerInfo3)
 //-----------------------------------------------------------------------------
 void SetAddonToSlayer(MCreatureWear* pCreature, const PCSlayerInfo3* pInfo)
 {
 	(void)pCreature; (void)pInfo;
-	// Stub implementation
+	// Stub implementation - TODO: Add full implementation from PacketFunction.cpp:856-1150
 }
 
 //-----------------------------------------------------------------------------
@@ -563,8 +599,32 @@ void SetInventoryInfo(InventoryInfo* pInventoryInfo)
 //-----------------------------------------------------------------------------
 void SetPCOustersInfo(PCOustersInfo2* pInfo)
 {
-	(void)pInfo;
-	// Stub implementation
+	if (pInfo == NULL || g_pPlayer == NULL) return;
+
+	DEBUG_ADD( "Set Ousters Info" );
+
+	g_pPlayer->SetID( pInfo->getObjectID() );
+	g_pPlayer->SetSight( pInfo->getSight() );
+
+	//--------------------------------------------------
+	// Player 몸 설정 - IMPORTANT: Set creature type!
+	//--------------------------------------------------
+	if (pInfo->getCompetence()==0)
+	{
+		g_pPlayer->SetCompetence( 0 );
+		g_pPlayer->SetCreatureType( CREATURETYPE_OUSTERS_OPERATOR );
+		g_pPlayer->SetMale( pInfo->getSex()==MALE );
+	}
+	else
+	{
+		g_pPlayer->SetCreatureType( CREATURETYPE_OUSTERS );
+	}
+
+	g_pPlayer->SetGroundCreature();
+	g_pPlayer->SetBodyColor1( pInfo->getHairColor() );
+	g_pPlayer->SetMasterEffectType( pInfo->getMasterEffectColor() );
+
+	// TODO: Add remaining implementation from PacketFunction.cpp:3253-3370
 }
 
 //-----------------------------------------------------------------------------
@@ -572,26 +632,64 @@ void SetPCOustersInfo(PCOustersInfo2* pInfo)
 //-----------------------------------------------------------------------------
 void SetPCVampireInfo(PCVampireInfo2* pInfo)
 {
-	(void)pInfo;
-	// Stub implementation
-}
+	if (pInfo == NULL || g_pPlayer == NULL) return;
 
-//-----------------------------------------------------------------------------
-// Add_RocketRuncher - Add rocket launcher effect
-//-----------------------------------------------------------------------------
-void Add_RocketRuncher(MCreature* pUserCreature, MCreature* pTargetCreature)
-{
-	(void)pUserCreature; (void)pTargetCreature;
-	// Stub implementation
-}
+	DEBUG_ADD( "Set Vampire Info" );
 
-//-----------------------------------------------------------------------------
-// SetBloodBibleSlot - Set blood bible slot
-//-----------------------------------------------------------------------------
-void SetBloodBibleSlot(BloodBibleSignInfo* pInfo)
-{
-	(void)pInfo;
-	// Stub implementation
+	g_pPlayer->SetID( pInfo->getObjectID() );
+	g_pPlayer->SetSight( pInfo->getSight() );
+
+	//--------------------------------------------------
+	// Player 몸 설정 - IMPORTANT: Set creature type!
+	//--------------------------------------------------
+	// 박쥐나 늑대로 변신 중인 경우..
+	if (g_PreviousCreatureType==CREATURETYPE_WOLF
+		|| g_PreviousCreatureType==CREATURETYPE_BAT
+		|| g_PreviousCreatureType==CREATURETYPE_WER_WOLF)
+	{
+		g_pPlayer->SetCreatureType( g_PreviousCreatureType );
+		if( pInfo->getCompetence() == 0 )
+			g_pPlayer->SetCompetence( 0 );
+	}
+	else
+	{
+		if (pInfo->getCompetence()==0)
+		{
+			g_pPlayer->SetCompetence( 0 );
+			g_pPlayer->SetCreatureType( CREATURETYPE_VAMPIRE_OPERATOR );
+			g_pPlayer->SetMale( pInfo->getSex()==MALE );
+		}
+		else
+		{
+			int creatureType = (pInfo->getSex()==MALE)? CREATURETYPE_VAMPIRE_MALE1 : CREATURETYPE_VAMPIRE_FEMALE1;
+			g_pPlayer->SetCreatureType( creatureType );
+		}
+	}
+
+	g_pPlayer->SetMale( pInfo->getSex()==MALE );
+
+	// 지상, 공중 이동 결정
+	if (g_pPlayer->GetCreatureType()==CREATURETYPE_BAT)
+	{
+		g_pPlayer->SetFlyingCreature();
+	}
+	else
+	{
+		g_pPlayer->SetGroundCreature();
+	}
+
+	g_pPlayer->SetBodyColor1( pInfo->getSkinColor() );
+	g_pPlayer->SetMasterEffectType( pInfo->getMasterEffectColor() );
+
+	if( g_pPlayer->GetCreatureType() == CREATURETYPE_WER_WOLF )
+		g_pPlayer->SetBodyColor1( 377 );
+
+	if( pInfo->getBatColor() != 0 )
+		g_pPlayer->SetBatColor( pInfo->getBatColor() );
+	else
+		g_pPlayer->SetBatColor( 0xFFFF );
+
+	// TODO: Add remaining implementation from PacketFunction.cpp:2954-3252
 }
 
 //-----------------------------------------------------------------------------
@@ -656,24 +754,6 @@ int g_PrintColorStrShadow(int x, int y, const char* str, PrintInfo& info, DWORD 
 }
 
 //-----------------------------------------------------------------------------
-// Add_Race_SlayerMonster - Add Slayer race monster
-//-----------------------------------------------------------------------------
-void Add_Race_SlayerMonster(GCAddMonster* pPacket)
-{
-	(void)pPacket;
-	// Stub implementation
-}
-
-//-----------------------------------------------------------------------------
-// Add_Race_OustersMonster - Add Ousters race monster
-//-----------------------------------------------------------------------------
-void Add_Race_OustersMonster(GCAddMonster* pPacket)
-{
-	(void)pPacket;
-	// Stub implementation
-}
-
-//-----------------------------------------------------------------------------
 // CreateActionResultNode - Create action result node
 //-----------------------------------------------------------------------------
 void CreateActionResultNode(MCreature* pCreature, int type, BYTE count)
@@ -692,9 +772,24 @@ extern "C" {
 	int g_mouse_y = 0;
 }
 
-// Ousters packet item globals (note: no underscore prefix)
-MItem* g_pPacketItemOustersArm[OUSTERS_ARM_MAX] = {NULL};
-MItem* g_pPacketItemOustersCoat[OUSTERS_COAT_MAX] = {NULL};
+// Ousters packet item globals are defined in PacketFunction.cpp
+// MItem* g_pPacketItemOustersArm[OUSTERS_ARM_MAX] = {NULL};
+// MItem* g_pPacketItemOustersCoat[OUSTERS_COAT_MAX] = {NULL};
+
+//-----------------------------------------------------------------------------
+// Packet Item Table globals (from PacketFunction.cpp)
+// NOTE: PacketFunction.cpp is excluded on non-Windows platforms
+//-----------------------------------------------------------------------------
+MItem*		g_pPacketItemHelm[HELMET_MAX] = { NULL };
+MItem*		g_pPacketItemJacket[JACKET_MAX] = { NULL };
+MItem*		g_pPacketItemPants[PANTS_MAX] = { NULL };
+MItem*		g_pPacketItemWeapon[WEAPON_MAX] = { NULL };
+MItem*		g_pPacketItemShield[SHIELD_MAX] = { NULL };
+MItem*		g_pPacketItemMotorcycle[MOTORCYCLE_MAX] = { NULL };
+MItem*		g_pPacketItemShoulder[SHOULDER_MAX] = { NULL };
+
+MItem*		g_pPacketItemOustersCoat[OUSTERS_COAT_MAX] = { NULL };
+MItem*		g_pPacketItemOustersArm[OUSTERS_ARM_MAX] = { NULL };
 
 // Wave pack file manager (note: no underscore prefix)
 class CWavePackFileManager;
@@ -735,25 +830,6 @@ bool GetNMClipData(char* pBuffer, unsigned int bufferSize, const char* pURL, boo
 void SendBugReport(const char* pFormat, ...)
 {
 	// Stub implementation
-}
-
-//-----------------------------------------------------------------------------
-// Add_GDR_Effect - Add GDR effect
-//-----------------------------------------------------------------------------
-void Add_GDR_Effect(int effectID, bool bEnable)
-{
-	(void)effectID; (void)bEnable;
-	// Stub implementation
-}
-
-//-----------------------------------------------------------------------------
-// UseSkillCardOK - Use skill card
-//-----------------------------------------------------------------------------
-bool UseSkillCardOK(BYTE CardType)
-{
-	(void)CardType;
-	// Stub implementation
-	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -857,10 +933,168 @@ void SetServerGroupName(const char* pName)
 
 //-----------------------------------------------------------------------------
 // InitPacketItemTable - Initialize packet item table
+// NOTE: Copied from PacketFunction.cpp which is excluded on non-Windows
 //-----------------------------------------------------------------------------
 void InitPacketItemTable()
 {
-	// Stub implementation
+	//------------------------------------------------------------
+	// MOustersCoat
+	//------------------------------------------------------------
+	MOustersCoat* pOustersCoatBasic = new MOustersCoat;	 pOustersCoatBasic->SetItemType( 0 ); pOustersCoatBasic->ClearItemOption();
+	MOustersCoat* pOustersCoat1 = new MOustersCoat;	 pOustersCoat1->SetItemType( 0 ); pOustersCoat1->ClearItemOption();
+	MOustersCoat* pOustersCoat2 = new MOustersCoat;	 pOustersCoat2->SetItemType( 3 ); pOustersCoat2->ClearItemOption();
+	MOustersCoat* pOustersCoat3 = new MOustersCoat;	 pOustersCoat3->SetItemType( 6 ); pOustersCoat3->ClearItemOption();
+	MOustersCoat* pOustersCoat4 = new MOustersCoat;	 pOustersCoat4->SetItemType( 6 ); pOustersCoat4->ClearItemOption();
+
+	g_pPacketItemOustersCoat[OUSTERS_COAT_BASIC] = pOustersCoatBasic;
+	g_pPacketItemOustersCoat[OUSTERS_COAT1] = pOustersCoat1;
+	g_pPacketItemOustersCoat[OUSTERS_COAT2] = pOustersCoat2;
+	g_pPacketItemOustersCoat[OUSTERS_COAT3] = pOustersCoat3;
+	g_pPacketItemOustersCoat[OUSTERS_COAT4] = pOustersCoat4;
+
+	//------------------------------------------------------------
+	// MOustersArm
+	//------------------------------------------------------------
+	MOustersWristlet* pOustersArm1 = new MOustersWristlet;	 pOustersArm1->SetItemType( 0 ); pOustersArm1->ClearItemOption();
+	MOustersChakram* pOustersArm2 = new MOustersChakram;	 pOustersArm2->SetItemType( 0 ); pOustersArm2->ClearItemOption();
+
+	g_pPacketItemOustersArm[OUSTERS_ARM_GAUNTLET] = pOustersArm1;
+	g_pPacketItemOustersArm[OUSTERS_ARM_CHAKRAM] = pOustersArm2;
+
+	//------------------------------------------------------------
+	// HELM
+	//------------------------------------------------------------
+	MHelm* pHelm1 = new MHelm;	 pHelm1->SetItemType( 0 ); pHelm1->ClearItemOption();
+	MHelm* pHelm2 = new MHelm;	 pHelm2->SetItemType( 3 ); pHelm2->ClearItemOption();
+	MHelm* pHelm3 = new MHelm;	 pHelm3->SetItemType( 15 ); pHelm3->ClearItemOption();
+	MHelm* pHelm4 = new MHelm;	 pHelm4->SetItemType( 16 ); pHelm4->ClearItemOption();
+	MHelm* pHelm5 = new MHelm;	 pHelm5->SetItemType( 17 ); pHelm5->ClearItemOption();
+
+	g_pPacketItemHelm[HELMET_NONE]	= NULL;
+	g_pPacketItemHelm[HELMET1]		= pHelm1;
+	g_pPacketItemHelm[HELMET2]		= pHelm2;
+	g_pPacketItemHelm[HELMET3]		= pHelm3;
+	g_pPacketItemHelm[HELMET4]		= pHelm4;
+	g_pPacketItemHelm[HELMET5]		= pHelm5;
+
+	//------------------------------------------------------------
+	// COAT
+	//------------------------------------------------------------
+	MCoat* pCoat1 = new MCoat;	pCoat1->SetItemType( 0 );	pCoat1->ClearItemOption();
+	MCoat* pCoat2 = new MCoat;	pCoat2->SetItemType( 4 );	pCoat2->ClearItemOption();
+	MCoat* pCoat3 = new MCoat;	pCoat3->SetItemType( 8 );	pCoat3->ClearItemOption();
+	MCoat* pCoat4 = new MCoat;	pCoat4->SetItemType( 28 );	pCoat4->ClearItemOption();
+	MCoat* pCoat5 = new MCoat;	pCoat5->SetItemType( 30 );	pCoat5->ClearItemOption();
+	MCoat* pCoat6 = new MCoat;	pCoat6->SetItemType( 32 );	pCoat6->ClearItemOption();
+
+	g_pPacketItemJacket[JACKET_BASIC]	= NULL;
+	g_pPacketItemJacket[JACKET1]		= pCoat1;
+	g_pPacketItemJacket[JACKET2]		= pCoat2;
+	g_pPacketItemJacket[JACKET3]		= pCoat3;
+	g_pPacketItemJacket[JACKET4]		= pCoat4;
+	g_pPacketItemJacket[JACKET5]		= pCoat5;
+	g_pPacketItemJacket[JACKET6]		= pCoat6;
+
+	//------------------------------------------------------------
+	// TROUSER
+	//------------------------------------------------------------
+	MTrouser* pTrouser1 = new MTrouser;		pTrouser1->SetItemType( 0 ); pTrouser1->ClearItemOption();
+	MTrouser* pTrouser2 = new MTrouser;		pTrouser2->SetItemType( 4 ); pTrouser2->ClearItemOption();
+	MTrouser* pTrouser3 = new MTrouser;		pTrouser3->SetItemType( 8 ); pTrouser3->ClearItemOption();
+
+	g_pPacketItemPants[PANTS_BASIC]		= NULL;
+	g_pPacketItemPants[PANTS1]			= pTrouser1;
+	g_pPacketItemPants[PANTS2]			= pTrouser2;
+	g_pPacketItemPants[PANTS3]			= pTrouser3;
+
+	//------------------------------------------------------------
+	// WEAPON
+	//------------------------------------------------------------
+	MSword*	pSword = new MSword;	pSword->SetItemType( 0 );	pSword->ClearItemOption();
+	MSword*	pSword1 = new MSword;	pSword1->SetItemType( 16 );	pSword1->ClearItemOption();
+
+	MBlade*	pBlade = new MBlade;	pBlade->SetItemType( 0 );	pBlade->ClearItemOption();
+	MBlade*	pBlade1 = new MBlade;	pBlade1->SetItemType( 16 );	pBlade1->ClearItemOption();
+
+	MGunAR*	pGunAR = new MGunAR;	pGunAR->SetItemType( 0 );	pGunAR->ClearItemOption();
+	MGunAR*	pGunAR1 = new MGunAR;	pGunAR1->SetItemType( 14 );	pGunAR1->ClearItemOption();
+	MGunAR*	pGunAR2 = new MGunAR;	pGunAR2->SetItemType( 15 );	pGunAR2->ClearItemOption();
+	MGunAR*	pGunAR3 = new MGunAR;	pGunAR3->SetItemType( 16 );	pGunAR3->ClearItemOption();
+
+	MGunTR*	pGunSR = new MGunTR;	pGunSR->SetItemType( 0 );	pGunSR->ClearItemOption();
+	MGunTR*	pGunSR1 = new MGunTR;	pGunSR1->SetItemType( 14 );	pGunSR1->ClearItemOption();
+	MGunTR*	pGunSR2 = new MGunTR;	pGunSR2->SetItemType( 15 );	pGunSR2->ClearItemOption();
+	MGunTR*	pGunSR3 = new MGunTR;	pGunSR3->SetItemType( 16 );	pGunSR3->ClearItemOption();
+
+	MGunSG*	pGunSG = new MGunSG;	pGunSG->SetItemType( 0 );	pGunSG->ClearItemOption();
+
+	MGunSMG*pGunSMG = new MGunSMG;	pGunSMG->SetItemType( 0 );	pGunSMG->ClearItemOption();
+
+	MCross*	pCross = new MCross;	pCross->SetItemType( 0 );	pCross->ClearItemOption();
+	MCross*	pCross1 = new MCross;	pCross1->SetItemType( 14 );	pCross1->ClearItemOption();
+
+	MMace*  pMace  = new MMace;     pMace->SetItemType( 0 );	pMace->ClearItemOption();
+	MMace*  pMace1  = new MMace;     pMace1->SetItemType( 14 );	pMace1->ClearItemOption();
+
+	g_pPacketItemWeapon[WEAPON_NONE]			= NULL;
+	g_pPacketItemWeapon[WEAPON_SWORD]			= pSword;
+	g_pPacketItemWeapon[WEAPON_SWORD1]			= pSword1;
+
+	g_pPacketItemWeapon[WEAPON_BLADE]			= pBlade;
+	g_pPacketItemWeapon[WEAPON_BLADE1]			= pBlade1;
+
+	g_pPacketItemWeapon[WEAPON_AR]				= pGunAR;
+	g_pPacketItemWeapon[WEAPON_AR1]				= pGunAR1;
+	g_pPacketItemWeapon[WEAPON_AR2]				= pGunAR2;
+	g_pPacketItemWeapon[WEAPON_AR3]				= pGunAR3;
+
+	g_pPacketItemWeapon[WEAPON_SR]				= pGunSR;
+	g_pPacketItemWeapon[WEAPON_SR1]				= pGunSR1;
+	g_pPacketItemWeapon[WEAPON_SR2]				= pGunSR2;
+	g_pPacketItemWeapon[WEAPON_SR3]				= pGunSR3;
+
+	g_pPacketItemWeapon[WEAPON_SG]				= pGunSG;
+	g_pPacketItemWeapon[WEAPON_SMG]				= pGunSMG;
+
+	g_pPacketItemWeapon[WEAPON_CROSS]			= pCross;
+	g_pPacketItemWeapon[WEAPON_CROSS1]			= pCross1;
+
+	g_pPacketItemWeapon[WEAPON_MACE]			= pMace;
+	g_pPacketItemWeapon[WEAPON_MACE1]			= pMace1;
+
+	//------------------------------------------------------------
+	// SHIELD
+	//------------------------------------------------------------
+	MShield* pShield1 = new MShield; pShield1->SetItemType( 0 ); pShield1->ClearItemOption();
+	MShield* pShield2 = new MShield; pShield2->SetItemType( 5 ); pShield2->ClearItemOption();
+	MShield* pShield3 = new MShield; pShield3->SetItemType( 15 ); pShield3->ClearItemOption();
+	MShield* pShield4 = new MShield; pShield4->SetItemType( 17 ); pShield4->ClearItemOption();
+
+	g_pPacketItemShield[SHIELD_NONE] = NULL;
+	g_pPacketItemShield[SHIELD1] = pShield1;
+	g_pPacketItemShield[SHIELD2] = pShield2;
+	g_pPacketItemShield[SHIELD3] = pShield3;
+	g_pPacketItemShield[SHIELD4] = pShield4;
+
+	//------------------------------------------------------------
+	// motorcycle
+	//------------------------------------------------------------
+	MMotorcycle* pMotor1 = new MMotorcycle;	pMotor1->SetItemType( 0 ); pMotor1->ClearItemOption();
+	MMotorcycle* pMotor2 = new MMotorcycle;	pMotor2->SetItemType( 6 ); pMotor2->ClearItemOption();
+	MMotorcycle* pMotor3 = new MMotorcycle;	pMotor3->SetItemType( 7 ); pMotor3->ClearItemOption();
+
+	g_pPacketItemMotorcycle[MOTORCYCLE_NONE]	= NULL;
+	g_pPacketItemMotorcycle[MOTORCYCLE1]		= pMotor1;
+	g_pPacketItemMotorcycle[MOTORCYCLE2]		= pMotor2;
+	g_pPacketItemMotorcycle[MOTORCYCLE3]		= pMotor3;
+
+	//------------------------------------------------------------
+	// shoulder
+	//------------------------------------------------------------
+	MShoulderArmor* pShoulder1 = new MShoulderArmor;	pShoulder1->SetItemType( 0 ); pShoulder1->ClearItemOption();
+
+	g_pPacketItemShoulder[SHOULDER_NONE]	= NULL;
+	g_pPacketItemShoulder[SHOULDER1]		= pShoulder1;
 }
 
 //-----------------------------------------------------------------------------
@@ -893,16 +1127,6 @@ BYTE GetDirectionToPosition(int originX, int originY, int destX, int destY)
 //-----------------------------------------------------------------------------
 // Final functions needed
 //-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// GetNextTileByDirection - Get next tile by direction
-//-----------------------------------------------------------------------------
-POINT GetNextTileByDirection(int currentX, int currentY, unsigned char dir)
-{
-	// Stub implementation
-	POINT pt = {currentX, currentY};
-	return pt;
-}
 
 //-----------------------------------------------------------------------------
 // GetOustersCreatureType - Get Ousters creature type
@@ -974,13 +1198,3 @@ DWORD ConvertDurationToMillisecond(int duration)
 //-----------------------------------------------------------------------------
 // Windows-specific functions (stubs for macOS)
 //-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// GetMacAddressFromNetBIOS - Get MAC address from NetBIOS (Windows-only)
-//-----------------------------------------------------------------------------
-BOOL GetMacAddressFromNetBIOS(LPBYTE lpMacAddress)
-{
-	(void)lpMacAddress;
-	// Stub implementation - NetBIOS is Windows-specific
-	return FALSE;
-}

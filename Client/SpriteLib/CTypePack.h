@@ -486,12 +486,12 @@ CTypePack2<TypeBase, Type1, Type2>::~CTypePack2()
 template <class TypeBase, class Type1, class Type2>
 void CTypePack2<TypeBase, Type1, Type2>::Release()
 {
-	printf("DEBUG Release: this=%p, m_file=%p, m_bRunningLoad=%d\n", this, m_file, m_bRunningLoad);
+//	printf("DEBUG Release: this=%p, m_file=%p, m_bRunningLoad=%d\n", this, m_file, m_bRunningLoad);
 	m_bRunningLoad = false;
 
 	if(m_file != NULL)
 	{
-		printf("DEBUG Release: this=%p, deleting m_file=%p\n", this, m_file);
+//		printf("DEBUG Release: this=%p, deleting m_file=%p\n", this, m_file);
 		delete m_file;
 		m_file = NULL;
 	}
@@ -560,8 +560,8 @@ TypeBase &CTypePack2<TypeBase, Type1, Type2>::Get(WORD n)
 		}
 
 		// Debug: print object and file pointer info BEFORE using m_file
-		printf("DEBUG Get[%d]: this=%p, m_file=%p, m_nLoadData=%d, m_Size=%d\n",
-		       n, this, m_file, m_nLoadData, m_Size);
+//		printf("DEBUG Get[%d]: this=%p, m_file=%p, m_nLoadData=%d, m_Size=%d\n",
+//		       n, this, m_file, m_nLoadData, m_Size);
 
 		// Try to load sprite - use exception handler to detect file corruption
 		try {
@@ -679,11 +679,11 @@ bool CTypePack2<TypeBase, Type1, Type2>::LoadFromFileRunning(LPCTSTR lpszFilenam
 	if(m_file == NULL)
 	{
 		m_file = new std::ifstream;
-		printf("DEBUG LoadFromFileRunning: Created new m_file=%p for %s\n", (void*)m_file, lpszFilename);
+//		printf("DEBUG LoadFromFileRunning: Created new m_file=%p for %s\n", (void*)m_file, lpszFilename);
 	}
 	else
 	{
-		printf("DEBUG LoadFromFileRunning: Reusing existing m_file=%p for %s\n", (void*)m_file, lpszFilename);
+//		printf("DEBUG LoadFromFileRunning: Reusing existing m_file=%p for %s\n", (void*)m_file, lpszFilename);
 	}
 
 	m_file_index = new int[m_Size];
@@ -723,7 +723,7 @@ bool CTypePack2<TypeBase, Type1, Type2>::LoadFromFileRunning(LPCTSTR lpszFilenam
 	m_bRunningLoad = true;
 	m_nLoadData = 0;
 
-	printf("DEBUG LoadFromFileRunning: Successfully loaded %s (size=%d)\n", lpszFilename, m_Size);
+//	printf("DEBUG LoadFromFileRunning: Successfully loaded %s (size=%d)\n", lpszFilename, m_Size);
 
 	return true;
 }

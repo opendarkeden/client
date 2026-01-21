@@ -4644,7 +4644,7 @@ SetLightning(DWORD delay)
 //---------------------------------------------------------------------------
 // Open File
 //---------------------------------------------------------------------------
-bool 
+bool
 FileOpenBinary(const char* filename, std::ifstream& file)
 {
 	if (file.is_open())
@@ -4652,8 +4652,21 @@ FileOpenBinary(const char* filename, std::ifstream& file)
 		file.close();
 	}
 
+	// Convert Windows path separators to Unix format for macOS/Linux
+#ifndef PLATFORM_WINDOWS
+	std::string convertedPath(filename);
+	for (size_t i = 0; i < convertedPath.length(); i++)
+	{
+		if (convertedPath[i] == '\\')
+		{
+			convertedPath[i] = '/';
+		}
+	}
+	file.open(convertedPath.c_str(), ios::binary);
+#else
 	file.open(filename, ios::binary);
-	
+#endif
+
 	if (!file.is_open())
 	{
 		/*
@@ -6075,5 +6088,3 @@ Add_GDR_Ghost(int ZoneID)
 	}
 	GhostFile.Release();
 }
-// 2004, 03, 29 sobeit add end - Áúµå·¹ ¸Ê °í½ºÆ® Ãß°¡
-

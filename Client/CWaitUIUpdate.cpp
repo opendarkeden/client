@@ -176,10 +176,10 @@ void CWaitUIUpdate::SDLTextInputEvent(const char* text, int* window_coords)
 		return;
 	}
 
-	if (debug_count < 10) {
-		printf("DEBUG SDLTextInputEvent: text='%s', coords=[%d,%d]\n", text, window_coords[0], window_coords[1]);
-		debug_count++;
-	}
+//	if (debug_count < 10) {
+//		printf("DEBUG SDLTextInputEvent: text='%s', coords=[%d,%d]\n", text, window_coords[0], window_coords[1]);
+//		debug_count++;
+//	}
 
 	// Send WM_TEXTINPUT message with text pointer as extra parameter
 	gC_vs_ui.KeyboardControl(WM_TEXTINPUT, 0, (long)text);

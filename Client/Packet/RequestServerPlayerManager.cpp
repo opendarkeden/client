@@ -16,6 +16,7 @@
 #elif defined(__APPLE__) || defined(__linux__)
 	#include <pthread.h>
 	#include <unistd.h>
+	#include <SDL2/SDL.h>  // For SDL_Delay on non-Windows platforms
 
 	// Additional Windows type definitions
 	typedef DWORD* LPDWORD;
@@ -99,7 +100,8 @@ RequestServerPlayerManager::RequestServerPlayerManager()
 {
 	m_pServerSocket		= NULL;
 	m_hRequestThread	= NULL;
-	
+	m_bThreadRunning	= false;
+
 	InitializeCriticalSection(&m_Lock);
 }
 
@@ -116,11 +118,30 @@ RequestServerPlayerManager::~RequestServerPlayerManager()
 void
 RequestServerPlayerManager::Release()
 {
-	// thread 종료
-	TerminateThread(m_hRequestThread, 0);
-	CloseHandle( m_hRequestThread );
-	m_hRequestThread = NULL;
-	
+	// Signal thread to stop gracefully
+	m_bThreadRunning = false;
+
+	// Wait for thread to exit (with timeout)
+	if (m_hRequestThread != NULL)
+	{
+#ifdef PLATFORM_WINDOWS
+		// Windows: Wait up to 2 seconds for thread to exit
+		DWORD waitResult = WaitForSingleObject(m_hRequestThread, 2000);
+		if (waitResult == WAIT_TIMEOUT)
+		{
+			// Thread didn't exit gracefully, force terminate
+			TerminateThread(m_hRequestThread, 0);
+		}
+		CloseHandle(m_hRequestThread);
+#else
+		// macOS/Linux: pthread_join with timeout simulation
+		// Note: We don't force terminate on POSIX as it can corrupt heap
+		// Just close the handle and let the thread exit on its own
+		CloseHandle(m_hRequestThread);
+#endif
+		m_hRequestThread = NULL;
+	}
+
 	try {
 		if (m_pServerSocket!=NULL)
 		{
@@ -129,11 +150,11 @@ RequestServerPlayerManager::Release()
 		}
 	} catch (Throwable&) {
 	}
-	
+
 	Lock();
 
 	RequestServerPlayer_LIST::iterator iPlayer = m_listRequestServerPlayer.begin();
-		
+
 	while (iPlayer != m_listRequestServerPlayer.end())
 	{
 		RequestServerPlayer* pPlayer = *iPlayer;
@@ -142,7 +163,7 @@ RequestServerPlayerManager::Release()
 			delete pPlayer;
 		} catch (Throwable&) {
 		}
-		
+
 		iPlayer++;
 	}
 
@@ -329,20 +350,21 @@ RequestServerPlayerManager::ProcessMode(RequestServerPlayer* pPlayer)
 //--------------------------------------------------------------------------------
 // Update
 //--------------------------------------------------------------------------------
-void		
+void
 RequestServerPlayerManager::Update()
 {
+	Lock();
+
 	if (m_listRequestServerPlayer.empty())
 	{
+		Unlock();
 		return;
 	}
-
-	Lock();
 
 	try {
 
 		RequestServerPlayer_LIST::iterator iPlayer = m_listRequestServerPlayer.begin();
-			
+
 		while (iPlayer != m_listRequestServerPlayer.end())
 		{
 			RequestServerPlayer* pPlayer = *iPlayer;
@@ -355,7 +377,7 @@ RequestServerPlayerManager::Update()
 				}
 
 				ProcessMode( pPlayer );
-				
+
 				pPlayer->processInput();
 				pPlayer->processCommand();
 				pPlayer->processOutput();
@@ -366,7 +388,7 @@ RequestServerPlayerManager::Update()
 				DEBUG_ADD_ERR( t.toString().c_str() );
 
 			} catch (Throwable &t) 	{
-				
+
 				DEBUG_ADD_ERR( t.toString().c_str() );
 
 				// 내가 요청하고 있는것도 짜른다.
@@ -386,7 +408,7 @@ RequestServerPlayerManager::Update()
 
 				continue;
 			}
-			
+
 			iPlayer++;
 		}
 
@@ -410,9 +432,12 @@ RequestServerPlayerManager::Init(int port)
 
 	m_pServerSocket = new ServerSocket( port );
 
+	// Set running flag before creating thread
+	m_bThreadRunning = true;
+
 	DWORD dwChildThreadID;	// 의미 없당 -- ;
 
-	m_hRequestThread = CreateThread(NULL, 
+	m_hRequestThread = CreateThread(NULL,
 								0,	// default stack size
 								(LPTHREAD_START_ROUTINE)WaitRequestThreadProc,
 								this,
@@ -429,7 +454,19 @@ RequestServerPlayerManager::Init(int port)
 void
 RequestServerPlayerManager::WaitRequest()
 {
+	// Check if socket is still valid (may be NULL during shutdown)
+	if (m_pServerSocket == NULL || !m_bThreadRunning)
+	{
+		return;
+	}
+
 	Socket* pSocket = m_pServerSocket->accept();
+
+	// accept() returns NULL if no connection or socket closed
+	if (pSocket == NULL)
+	{
+		return;
+	}
 
 	// request에 등록
 	RequestServerPlayer* pRequestServerPlayer = new RequestServerPlayer( pSocket );
@@ -439,7 +476,7 @@ RequestServerPlayerManager::WaitRequest()
 	pSocket->setNonBlocking();
 
 	SetThreadPriority(m_hRequestThread, THREAD_PRIORITY_NORMAL);
-	
+
 	if (AddRequestServerPlayer( pRequestServerPlayer ))
 	{
 		// g_pDebugMessage에 lock걸어야 한다. - -;
@@ -452,17 +489,20 @@ RequestServerPlayerManager::WaitRequest()
 //--------------------------------------------------------------------------------
 // WaitRequest
 //--------------------------------------------------------------------------------
-LONG					
+LONG
 WaitRequestThreadProc(LPVOID lpParameter)
 {
 	RequestServerPlayerManager* pRequestServerPlayerManager = (RequestServerPlayerManager*)lpParameter;
 
-	while (1)
+	while (pRequestServerPlayerManager != NULL && pRequestServerPlayerManager->IsThreadRunning())
 	{
-		if (pRequestServerPlayerManager!=NULL)
-		{
-			pRequestServerPlayerManager->WaitRequest();
-		}
+		pRequestServerPlayerManager->WaitRequest();
+
+		// Add delay to prevent CPU busy-wait
+		// On non-Windows platforms, sleep for 10ms to reduce CPU usage
+#ifndef PLATFORM_WINDOWS
+		SDL_Delay(10);  // 10ms delay to reduce CPU from busy-wait loop
+#endif
 	}
 
 	return 0L;

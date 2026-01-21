@@ -42,6 +42,7 @@
 #include "MPlayer.h"
 #include "../basic/Platform.h"
 #include "Packet/Exception.h"  // For NoSuchElementException, Throwable
+#include "DXLib/DXLibBackend.h"  // For dxlib_input_update
 
 // Language detection
 enum DARKEDEN_LANGUAGE
@@ -84,7 +85,7 @@ void g_Print(int x, int y, const char* str, struct PrintInfo* pInfo)
 {
 	(void)x; (void)y;
 	if (str && str[0]) {
-		printf("g_Print: %s\n", str);
+//		printf("g_Print: %s\n", str);
 	}
 }
 
@@ -466,12 +467,9 @@ int main(int argc, char* argv[])
 
 		while (g_bRunning)
 		{
-			// Debug: Print loop status periodically
-//			if (++loopCount % 60 == 1) {
-//				fprintf(stderr, "DEBUG: Loop iteration %d, g_bActiveApp = %d, g_bRunning = %d\n",
-//						loopCount, g_bActiveApp, g_bRunning);
-//				fflush(stderr);
-//			}
+			// Process SDL events (IMPORTANT: prevents "Not Responding" on macOS)
+			// dxlib_input_update handles: SDL_QUIT, SDL_WINDOWEVENT, SDL_KEY*, SDL_MOUSE*, SDL_TEXT*
+			dxlib_input_update();
 
 			// Game update when active
 			if (g_bActiveApp)
@@ -482,13 +480,6 @@ int main(int argc, char* argv[])
 				if (g_pUpdate != NULL)
 				{
 					g_pUpdate->Update();
-				}
-				else
-				{
-					static int nullCount = 0;
-					if (++nullCount % 60 == 1) {
-						printf("WARNING: g_pUpdate is NULL! Count = %d\n", nullCount);
-					}
 				}
 
 				// Frame rate tracking (from WinMain lines 4320-4333)

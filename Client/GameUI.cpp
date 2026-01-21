@@ -2628,7 +2628,19 @@ UI_SetCharacter(int slotID, PCOustersInfo * pInfo)
 //		creatureType = (*g_pItemTable)[ITEM_CLASS_VAMPIRE_COAT][coatType].AddonMaleFrameID;
 //
 //	int spriteType = (*g_pCreatureTable)[creatureType].SpriteType;
-	int spriteType = (*g_pItemTable)[ITEM_CLASS_OUSTERS_COAT][g_pPacketItemOustersCoat[coatType]->GetItemType()].AddonMaleFrameID;
+
+	// Check if g_pPacketItemOustersCoat array is properly initialized
+	int spriteType = 0;  // Default fallback
+	if (coatType < 0 || coatType >= OUSTERS_COAT_MAX) {
+		fprintf(stderr, "ERROR: UI_SetCharacter: coatType=%d is out of range [0, %d)\n", coatType, OUSTERS_COAT_MAX);
+	} else if (g_pPacketItemOustersCoat[coatType] == NULL) {
+		fprintf(stderr, "ERROR: UI_SetCharacter: g_pPacketItemOustersCoat[%d] is NULL! InitPacketItemTable() may not have been called.\n", coatType);
+		fprintf(stderr, "       All g_pPacketItemOustersCoat values: [0]=%p, [1]=%p, [2]=%p, [3]=%p, [4]=%p\n",
+				g_pPacketItemOustersCoat[0], g_pPacketItemOustersCoat[1], g_pPacketItemOustersCoat[2],
+				g_pPacketItemOustersCoat[3], g_pPacketItemOustersCoat[4]);
+	} else {
+		spriteType = (*g_pItemTable)[ITEM_CLASS_OUSTERS_COAT][g_pPacketItemOustersCoat[coatType]->GetItemType()].AddonMaleFrameID;
+	}
 	
 	slot.woman_info.helmet = W_NO_WEAR;
 	slot.woman_info.coat = (CHAR_WOMAN)(spriteType);		// coatType에 따라서 바꿔야 한다.. 나중에~

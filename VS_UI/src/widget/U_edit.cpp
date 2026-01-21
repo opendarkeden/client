@@ -339,8 +339,8 @@ void LineEditor::KeyboardControl(unsigned int message, unsigned int key, long ex
 LineEditorVisual::LineEditorVisual()
 {
 	// Debug: print offset
-	printf("DEBUG LineEditorVisual::LineEditorVisual: this=%p, &m_Editor=%p, &m_Editor.m_CursorPos=%p\n",
-	       this, &m_Editor, &m_Editor.m_CursorPos);
+//	printf("DEBUG LineEditorVisual::LineEditorVisual: this=%p, &m_Editor=%p, &m_Editor.m_CursorPos=%p\n",
+//	       this, &m_Editor, &m_Editor.m_CursorPos);
 
 	m_X = 0;
 	m_Y = 0;
@@ -505,9 +505,9 @@ void LineEditorVisual::Show() const
 		// Get text content
 		const char* textToDisplay = m_Editor.GetBuffer();
 
-		printf("DEBUG LineEditorVisual::Show: textToDisplay='%s', len=%zu, m_LayoutDirty=%d\n",
-			   textToDisplay, strlen(textToDisplay), m_LayoutDirty);
-		printf("DEBUG LineEditorVisual::Show: Position m_X=%d, m_Y=%d\n", m_X, m_Y);
+//		printf("DEBUG LineEditorVisual::Show: textToDisplay='%s', len=%zu, m_LayoutDirty=%d\n",
+//			   textToDisplay, strlen(textToDisplay), m_LayoutDirty);
+//		printf("DEBUG LineEditorVisual::Show: Position m_X=%d, m_Y=%d\n", m_X, m_Y);
 
 		// Handle password mode
 		char displayBuffer[1024];
@@ -526,20 +526,20 @@ void LineEditorVisual::Show() const
 
 		// Get glyphs from layout
 		const std::vector<GlyphPosition>& glyphs = layout->GetGlyphs();
-		printf("DEBUG LineEditorVisual::Show: glyphs.size()=%zu\n", glyphs.size());
+//		printf("DEBUG LineEditorVisual::Show: glyphs.size()=%zu\n", glyphs.size());
 
 		// Get destination surface (g_pLast, where UI renders)
 		// NOTE: UI renders to g_pLast, then g_pLast is copied to g_pBack before present
 		spritectl_surface_t destSurface = g_pLast->GetBackendSurface();
-		printf("DEBUG LineEditorVisual::Show: destSurface=%p (g_pLast=%p), g_pBack=%p\n",
-			   destSurface, g_pLast, g_pBack);
+//		printf("DEBUG LineEditorVisual::Show: destSurface=%p (g_pLast=%p), g_pBack=%p\n",
+//			   destSurface, g_pLast, g_pBack);
 
 		if (destSurface != SPRITECTL_INVALID_SURFACE) {
 			// TEST: Draw a white rectangle to verify blt is working
 			spritectl_surface_info_t info;
 			if (spritectl_lock_surface(destSurface, &info) == 0) {
-				printf("DEBUG: Surface %dx%d, pitch=%d, format=%d\n",
-					   info.width, info.height, info.pitch, info.format);
+//				printf("DEBUG: Surface %dx%d, pitch=%d, format=%d\n",
+//					   info.width, info.height, info.pitch, info.format);
 
 				// Draw a white 50x20 rectangle at (m_X, m_Y)
 				uint32_t* pixels = (uint32_t*)info.pixels;
@@ -555,7 +555,7 @@ void LineEditorVisual::Show() const
 					}
 				}
 				spritectl_unlock_surface(destSurface);
-				printf("DEBUG: Drew white rectangle at (%d,%d) size %dx%d\n", m_X, m_Y, rectW, rectH);
+//				printf("DEBUG: Drew white rectangle at (%d,%d) size %dx%d\n", m_X, m_Y, rectW, rectH);
 			}
 
 			// Render each glyph using spritectl_blt_sprite
@@ -584,15 +584,16 @@ void LineEditorVisual::Show() const
 				);
 
 				if (result != 0) {
-					fprintf(stderr, "ERROR: spritectl_blt_sprite failed for charcode 0x%X, result=%d\n",
+					fprintf(stderr, "%s:%d ERROR: spritectl_blt_sprite failed for charcode 0x%X, result=%d\n",
+                            __FILE__, __LINE__,
 							pos.glyph->charcode, result);
 				} else {
 					bltCount++;
 				}
 			}
-			printf("DEBUG LineEditorVisual::Show: Blitted %d/%zu glyphs successfully\n", bltCount, glyphs.size());
+//			printf("DEBUG LineEditorVisual::Show: Blitted %d/%zu glyphs successfully\n", bltCount, glyphs.size());
 		} else {
-			fprintf(stderr, "LineEditorVisual::Show: Invalid destination surface\n");
+			fprintf(stderr, "%s:%d LineEditorVisual::Show: Invalid destination surface\n", __FILE__, __LINE__);
 		}
 
 		// Draw cursor using g_Print (simpler than creating line sprites)
@@ -610,10 +611,10 @@ void LineEditorVisual::Show() const
 
 			if (m_Editor.m_ComposingLen > 0) {
 				// During IME composition, show underline-style cursor
-				g_Print(cursorX, m_Y + 2, "_", &cursorPI);
+//				g_Print(cursorX, m_Y + 2, "_", &cursorPI);
 			} else {
 				// Normal block cursor
-				g_Print(cursorX, m_Y - 1, "▊", &cursorPI);
+//				g_Print(cursorX, m_Y - 1, "▊", &cursorPI);
 			}
 		}
 
