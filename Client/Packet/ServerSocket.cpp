@@ -78,24 +78,33 @@ void ServerSocket::close ()
 Socket * ServerSocket::accept ()
 	throw ( ProtocolException , Error )
 {
-	__BEGIN_TRY
-		
 	Socket * Client = NULL;
-	
+
 	try {
 
 		SocketImpl * impl = m_Impl->accept();
 
 		if ( impl == NULL )
-			throw UnknownError("impl == NULL");
-		
-		Client = new Socket(impl);	
+			return NULL;  // No connection pending
+
+		Client = new Socket(impl);
 
 	} catch ( NonBlockingIOException ) {
-		// ignore
+		// ignore - no connection pending
+		return NULL;
+	} catch ( Throwable & t ) {
+		// Log other Throwable exceptions and return NULL
+		fprintf(stderr, "ServerSocket::accept() caught Throwable: %s\n", t.toString().c_str());
+		return NULL;
+	} catch ( std::exception & e ) {
+		// Log standard exceptions and return NULL
+		fprintf(stderr, "ServerSocket::accept() caught std::exception: %s\n", e.what());
+		return NULL;
+	} catch ( ... ) {
+		// Catch any other exceptions and return NULL
+		fprintf(stderr, "ServerSocket::accept() caught unknown exception\n");
+		return NULL;
 	}
 
 	return Client;
-
-	__END_CATCH
 }

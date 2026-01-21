@@ -86,18 +86,8 @@ void ReduceString3(char* pStr, int maxWidth)
 //----------------------------------------------------------------------
 // Face Style
 //----------------------------------------------------------------------
-int UI_GetFaceStyle(bool bMale, int index)
-{
-    // Stub: Would return appropriate face style index
-    if (bMale)
-    {
-        return index % 5; // Assume 5 male face styles
-    }
-    else
-    {
-        return (index % 5) + 10; // Assume 5 female face styles starting at 10
-    }
-}
+// UI_GetFaceStyle - Implemented in PacketFunction.cpp
+// int UI_GetFaceStyle(bool bMale, int index) { ... }
 
 //----------------------------------------------------------------------
 // Input Update Functions

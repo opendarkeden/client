@@ -16,6 +16,7 @@
 #elif defined(__APPLE__) || defined(__linux__)
 	#include <pthread.h>
 	#include <unistd.h>
+	#include <SDL2/SDL.h>  // For SDL_Delay on non-Windows platforms
 
 	// Additional Windows type definitions
 	typedef DWORD* LPDWORD;
@@ -496,6 +497,12 @@ WaitRequestThreadProc(LPVOID lpParameter)
 	while (pRequestServerPlayerManager != NULL && pRequestServerPlayerManager->IsThreadRunning())
 	{
 		pRequestServerPlayerManager->WaitRequest();
+
+		// Add small delay to prevent CPU busy-wait
+		// On non-Windows platforms, sleep for 1ms to reduce CPU usage
+#ifndef PLATFORM_WINDOWS
+		SDL_Delay(1);
+#endif
 	}
 
 	return 0L;

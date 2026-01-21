@@ -6498,4 +6498,3 @@ void SetSubInventoryInfo(InventoryInfo* pInventoryInfo)
 }
 
 #endif
-

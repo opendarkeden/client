@@ -66,20 +66,9 @@
 extern MScreenEffectManager*	g_pInventoryEffectManager;
 extern DWORD				g_PreviousCreatureType;
 
-// Hair style IDs for Slayer characters (from PacketFunction.cpp:125-132)
-int	g_PacketHairMaleID[3] =
-{
-	151,	// 0
-	152,	// 1
-	153		// 2
-};
-
-int	g_PacketHairFemaleID[3] =
-{
-	154,	// 0
-	155,	// 1
-	156		// 2
-};
+// Hair style IDs defined in PacketFunction.cpp
+extern int	g_PacketHairMaleID[3];
+extern int	g_PacketHairFemaleID[3];
 
 //-----------------------------------------------------------------------------
 // NewFakeCreature - Create fake creature from creature type (4 int parameters)
@@ -165,31 +154,6 @@ NewFakeCreature(MCreature* pCreature, int x, int y)
 }
 
 //-----------------------------------------------------------------------------
-// Add_GDR_Potal_Effect - GDR portal effect (일루전스 웨이 포탈)
-//-----------------------------------------------------------------------------
-void Add_GDR_Potal_Effect(int nMapID)
-{
-	if(nMapID == 1410) // 일루전스 웨이 1
-	{
-		ExecuteActionInfoFromMainNode(MAP_GDR_LAIR_POTAL,0, 0, 0,0, 0,
-				73, 80, 0, 0, NULL, false);
-		ExecuteActionInfoFromMainNode(MAP_GDR_LAIR_POTAL,0, 0, 0,0, 0,
-				118, 69, 0, 0, NULL, false);
-	}
-	else if(nMapID == 1411)
-	{
-		ExecuteActionInfoFromMainNode(MAP_GDR_LAIR_POTAL,0, 0, 0,0, 0,
-				125, 58, 0, 0, NULL, false);
-		ExecuteActionInfoFromMainNode(MAP_GDR_LAIR_POTAL,0, 0, 0,0, 0,
-				22, 85, 0, 0, NULL, false);
-		ExecuteActionInfoFromMainNode(MAP_GDR_LAIR_POTAL,0, 0, 0,0, 0,
-				9, 86, 0, 0, NULL, false);
-		ExecuteActionInfoFromMainNode(MAP_GDR_LAIR_POTAL,0, 0, 0,0, 0,
-				12, 102, 0, 0, NULL, false);
-	}
-}
-
-//-----------------------------------------------------------------------------
 // SetFadeStart - Start fade effect
 //-----------------------------------------------------------------------------
 void SetFadeStart(char start, char end, char step, BYTE r, BYTE g, BYTE b, WORD delay)
@@ -241,15 +205,6 @@ void SetEffectInfo(MCreature* pCreature, EffectInfo* pEffectInfo, int delayedFra
 {
 	(void)pCreature; (void)pEffectInfo; (void)delayedFrame;
 	// Stub implementation - effect info handling
-}
-
-//-----------------------------------------------------------------------------
-// Add_Wild_Wolf - Add wild wolf creature effect
-//-----------------------------------------------------------------------------
-void Add_Wild_Wolf(MCreature* pUserCreature, MCreature* pTargetCreature, bool bEatCorpse)
-{
-	(void)pUserCreature; (void)pTargetCreature; (void)bEatCorpse;
-	// Stub implementation - wild wolf effect
 }
 
 //-----------------------------------------------------------------------------
@@ -738,24 +693,6 @@ void SetPCVampireInfo(PCVampireInfo2* pInfo)
 }
 
 //-----------------------------------------------------------------------------
-// Add_RocketRuncher - Add rocket launcher effect
-//-----------------------------------------------------------------------------
-void Add_RocketRuncher(MCreature* pUserCreature, MCreature* pTargetCreature)
-{
-	(void)pUserCreature; (void)pTargetCreature;
-	// Stub implementation
-}
-
-//-----------------------------------------------------------------------------
-// SetBloodBibleSlot - Set blood bible slot
-//-----------------------------------------------------------------------------
-void SetBloodBibleSlot(BloodBibleSignInfo* pInfo)
-{
-	(void)pInfo;
-	// Stub implementation
-}
-
-//-----------------------------------------------------------------------------
 // SkillCrossCounter - Cross Counter skill effect
 //-----------------------------------------------------------------------------
 void SkillCrossCounter(MCreature* pUserCreature, MCreature* pTargetCreature, int skillID)
@@ -814,24 +751,6 @@ int g_PrintColorStrShadow(int x, int y, const char* str, PrintInfo& info, DWORD 
 	(void)x; (void)y; (void)str; (void)info; (void)color1; (void)color2;
 	// Stub implementation
 	return 0;
-}
-
-//-----------------------------------------------------------------------------
-// Add_Race_SlayerMonster - Add Slayer race monster
-//-----------------------------------------------------------------------------
-void Add_Race_SlayerMonster(GCAddMonster* pPacket)
-{
-	(void)pPacket;
-	// Stub implementation
-}
-
-//-----------------------------------------------------------------------------
-// Add_Race_OustersMonster - Add Ousters race monster
-//-----------------------------------------------------------------------------
-void Add_Race_OustersMonster(GCAddMonster* pPacket)
-{
-	(void)pPacket;
-	// Stub implementation
 }
 
 //-----------------------------------------------------------------------------
@@ -911,25 +830,6 @@ bool GetNMClipData(char* pBuffer, unsigned int bufferSize, const char* pURL, boo
 void SendBugReport(const char* pFormat, ...)
 {
 	// Stub implementation
-}
-
-//-----------------------------------------------------------------------------
-// Add_GDR_Effect - Add GDR effect
-//-----------------------------------------------------------------------------
-void Add_GDR_Effect(int effectID, bool bEnable)
-{
-	(void)effectID; (void)bEnable;
-	// Stub implementation
-}
-
-//-----------------------------------------------------------------------------
-// UseSkillCardOK - Use skill card
-//-----------------------------------------------------------------------------
-bool UseSkillCardOK(BYTE CardType)
-{
-	(void)CardType;
-	// Stub implementation
-	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -1229,16 +1129,6 @@ BYTE GetDirectionToPosition(int originX, int originY, int destX, int destY)
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// GetNextTileByDirection - Get next tile by direction
-//-----------------------------------------------------------------------------
-POINT GetNextTileByDirection(int currentX, int currentY, unsigned char dir)
-{
-	// Stub implementation
-	POINT pt = {currentX, currentY};
-	return pt;
-}
-
-//-----------------------------------------------------------------------------
 // GetOustersCreatureType - Get Ousters creature type
 //-----------------------------------------------------------------------------
 int GetOustersCreatureType(int coatType)
@@ -1308,13 +1198,3 @@ DWORD ConvertDurationToMillisecond(int duration)
 //-----------------------------------------------------------------------------
 // Windows-specific functions (stubs for macOS)
 //-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// GetMacAddressFromNetBIOS - Get MAC address from NetBIOS (Windows-only)
-//-----------------------------------------------------------------------------
-BOOL GetMacAddressFromNetBIOS(LPBYTE lpMacAddress)
-{
-	(void)lpMacAddress;
-	// Stub implementation - NetBIOS is Windows-specific
-	return FALSE;
-}

@@ -488,14 +488,10 @@ void dxlib_input_set_mouse_pos(int x, int y) {
 
 void dxlib_input_set_textinput_callback(dxlib_textinput_callback callback) {
 	g_textinput_callback = callback;
-	printf("DEBUG: dxlib_input_set_textinput_callback called with callback=%p\n", (void*)callback);
-	fflush(stdout);
 }
 
 void dxlib_input_set_textediting_callback(dxlib_textediting_callback callback) {
 	g_textediting_callback = callback;
-	printf("DEBUG: dxlib_input_set_textediting_callback called with callback=%p\n", (void*)callback);
-	fflush(stdout);
 }
 
 void dxlib_input_start_text(void) {

@@ -229,7 +229,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		Client/ClientConfig.cpp
 		Client/UtilityFunction.cpp
 		# GameFunctions.cpp - Moved to CLIENT_MAIN_SOURCES to avoid duplicates with GameMain.cpp
-		Client/GamePacketFunctions.cpp
+		# GamePacketFunctions.cpp - Removed, all functions now in PacketFunction.cpp
 		Client/RenderingFunctions.cpp
 		Client/UIUtilityFunctions.cpp
 
@@ -438,8 +438,10 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		Client/COGGSTREAM.cpp
 		# Time functions extracted from PacketFunction.cpp (which has Windows-specific networking code)
 		Client/ClientTimeFunctions.cpp
-		# Action functions extracted from GameHelpers.cpp (to avoid duplicate symbols)
-		Client/ActionFunctions.cpp
+		# ActionFunctions.cpp excluded - functions now in PacketFunction.cpp
+		# Client/ActionFunctions.cpp
+		# Globals.cpp - Global variables and utility functions (from GamePacketFunctions.cpp)
+		Client/Globals.cpp
 	)
 
 	# Remove files that are already compiled in VS_UI library
@@ -457,6 +459,10 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/GameHelpers.cpp
 		# Exclude GameFunctions.cpp - duplicates functions with GameMain.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/GameFunctions.cpp
+		# Exclude GamePacketFunctions.cpp - all functions now in PacketFunction.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/GamePacketFunctions.cpp
+		# Exclude ActionFunctions.cpp - functions now in PacketFunction.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/ActionFunctions.cpp
 	)
 
 	# Note: Cpackets contains CG (Client to Game) handlers
@@ -484,9 +490,9 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		# MWorkThread and MMusic are needed on all platforms
 		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*MWorkThread.*")
 		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*MMusic\\.cpp")
-		# Note: PacketFunction.cpp excluded - has many Windows-specific networking APIs (NetBIOS, IPX/SPX)
-		# TODO: Extract platform-independent functions to GamePacketFunctions.cpp
-		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*PacketFunction\\.cpp")
+		# Note: PacketFunction.cpp now included with proper platform guards
+		# Windows-specific NetBIOS/IPX/SPX code is wrapped in #ifdef PLATFORM_WINDOWS
+		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*PacketFunction\\.cpp")
 		# ProfileManager needed on all platforms
 		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*ProfileManager\\.cpp")
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*VolumeOut.*\\.cpp")
