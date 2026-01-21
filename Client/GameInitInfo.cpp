@@ -7,6 +7,15 @@
 //-----------------------------------------------------------------------------
 // Include files
 //-----------------------------------------------------------------------------
+
+// IMPORTANT: Include Platform.h BEFORE PCH to get correct CRITICAL_SECTION size
+// This prevents incomplete type issues with ProfileManager
+#ifdef PLATFORM_WINDOWS
+	#include <Windows.h>
+#else
+	#include "../basic/Platform.h"
+#endif
+
 #include "Client_PCH.h"
 #ifdef PLATFORM_WINDOWS
 #include <MMSystem.h>

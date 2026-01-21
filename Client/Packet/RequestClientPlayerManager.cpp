@@ -605,22 +605,23 @@ RequestClientPlayerManager::ProcessMode(RequestClientPlayer* pRequestClientPlaye
 //--------------------------------------------------------------------------------
 // Update
 //--------------------------------------------------------------------------------
-void		
+void
 RequestClientPlayerManager::Update()
 {
+	Lock();
+
 	if (m_mapRequestClientPlayer.empty())
 	{
+		Unlock();
 		return;
 	}
-
-	Lock();
 
 	RemoveTerminatedThread();
 
 	try {
 
 		REQUESTCLIENTPLAYER_MAP::iterator iPlayer = m_mapRequestClientPlayer.begin();
-			
+
 		while (iPlayer != m_mapRequestClientPlayer.end())
 		{
 			RequestClientPlayer* pPlayer = iPlayer->second;
@@ -635,13 +636,13 @@ RequestClientPlayerManager::Update()
 					}
 
 					ProcessMode(pPlayer);
-				
+
 					pPlayer->processInput();
 					pPlayer->processCommand();
 					pPlayer->processOutput();
 
 				} catch (Throwable &t) 	{
-					
+
 					DEBUG_ADD_ERR( t.toString().c_str() );
 
 					// 나한테서도 짜른다.
@@ -662,7 +663,7 @@ RequestClientPlayerManager::Update()
 					continue;
 				}
 			}
-			
+
 			iPlayer++;
 		}
 

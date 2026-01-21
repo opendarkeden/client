@@ -15,6 +15,37 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# Sanitizer configuration
+option(USE_ASAN "Enable AddressSanitizer for memory error detection" OFF)
+option(USE_TSAN "Enable ThreadSanitizer for race condition detection" OFF)
+option(USE_UBSAN "Enable UndefinedBehaviorSanitizer for undefined behavior detection" OFF)
+
+if(USE_ASAN OR USE_TSAN OR USE_UBSAN)
+    if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+        set(SANITIZER_FLAGS "")
+
+        if(USE_ASAN)
+            set(SANITIZER_FLAGS "${SANITIZER_FLAGS} -fsanitize=address -fno-omit-frame-pointer")
+            set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address")
+        endif()
+
+        if(USE_TSAN)
+            set(SANITIZER_FLAGS "${SANITIZER_FLAGS} -fsanitize=thread")
+            set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=thread")
+        endif()
+
+        if(USE_UBSAN)
+            set(SANITIZER_FLAGS "${SANITIZER_FLAGS} -fsanitize=undefined")
+            set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=undefined")
+        endif()
+
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SANITIZER_FLAGS}")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${SANITIZER_FLAGS}")
+
+        message(STATUS "Sanitizer flags: ${SANITIZER_FLAGS}")
+    endif()
+endif()
+
 # Auto-enable SDL backend on non-Windows platforms
 if(WIN32)
 	option(USE_SDL_BACKEND "Use SDL backend instead of native Windows APIs" OFF)

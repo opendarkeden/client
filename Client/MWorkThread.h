@@ -70,20 +70,9 @@ typedef DWORD (*LPTHREAD_START_ROUTINE)(void* lpParameter);
 #define WAIT_OBJECT_0                   0
 #define WAIT_TIMEOUT                    258
 
-// CRITICAL_SECTION mapping to platform mutex
-#define CRITICAL_SECTION platform_mutex_t
-#define EnterCriticalSection(mutex) platform_mutex_lock(*(mutex))
-#define LeaveCriticalSection(mutex) platform_mutex_unlock(*(mutex))
-
-// Stub for InitializeCriticalSection
-static inline void InitializeCriticalSection(platform_mutex_t* mutex) {
-    *mutex = platform_mutex_create(0);
-}
-
-// Stub for DeleteCriticalSection
-static inline void DeleteCriticalSection(platform_mutex_t* mutex) {
-    platform_mutex_close(*mutex);
-}
+// Note: CRITICAL_SECTION is already properly defined in Platform.h using pthread_mutex_t
+// Do NOT override with macros - this breaks classes that use CRITICAL_SECTION members
+// The macros below were causing ProfileManager to be allocated with wrong size
 
 // Stub for WaitForSingleObject - maps to event wait
 static inline DWORD WaitForSingleObject(HANDLE event, DWORD timeout) {

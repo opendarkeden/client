@@ -142,12 +142,21 @@ CSprite565::LoadFromFile(ifstream& file)
 	{
 		// byte수와 실제 data를 Load한다.
 		file.read((char*)&len, 2);
-		
-		m_Pixels[i] = NULL;
-		m_Pixels[i] = new WORD [len];		
-		//m_Pixels[i] = (WORD*)malloc(sizeof(WORD)*len);		
 
-		file.read((char*)m_Pixels[i], len<<1);		
+		// len is the number of WORDs, not bytes
+		// Allocate len WORDs (len * sizeof(WORD) bytes)
+		m_Pixels[i] = NULL;
+		m_Pixels[i] = new WORD [len];
+		//m_Pixels[i] = (WORD*)malloc(sizeof(WORD)*len);
+
+		// Read len * sizeof(WORD) bytes (which is len << 1)
+		// But validate len to prevent buffer overflow
+		if (len > 0 && len <= 8192) {  // Sanity check: max 8192 WORDs per line
+			file.read((char*)m_Pixels[i], len << 1);
+		} else {
+			// Invalid length - allocate but don't read
+			memset(m_Pixels[i], 0, len * sizeof(WORD));
+		}
 	}	
 	
 	m_bInit = true;
