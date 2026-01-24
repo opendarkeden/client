@@ -200,17 +200,14 @@ static spritectl_sprite_t get_backend_shadow_sprite(CShadowSprite* pSprite)
 		size_t pixel_count = width * height;
 		size_t data_size = pixel_count * sizeof(WORD);
 
-		/* Allocate and copy pixel data */
+		/* Allocate and decode pixel data */
 		WORD* pixels = (WORD*)malloc(data_size);
 		if (!pixels) {
 			return SPRITECTL_INVALID_SPRITE;
 		}
 
-		for (WORD y = 0; y < height; y++) {
-			WORD* src_line = pSprite->GetPixelLine(y);
-			WORD* dst_line = pixels + (y * width);
-			memcpy(dst_line, src_line, width * sizeof(WORD));
-		}
+		memset(pixels, 0, data_size);
+		pSprite->Blt(pixels, width * sizeof(WORD));
 
 		/* Create backend sprite */
 		spritectl_sprite_t new_sprite = spritectl_create_sprite(
@@ -252,17 +249,13 @@ static spritectl_sprite_t get_backend_index_sprite(CIndexSprite* pSprite)
 		size_t pixel_count = width * height;
 		size_t data_size = pixel_count * sizeof(WORD);
 
-		/* Allocate and copy pixel data */
+		/* Allocate and decode pixel data (index sprites are RLE-compressed) */
 		WORD* pixels = (WORD*)malloc(data_size);
 		if (!pixels) {
 			return SPRITECTL_INVALID_SPRITE;
 		}
-
-		for (WORD y = 0; y < height; y++) {
-			WORD* src_line = pSprite->GetPixelLine(y);
-			WORD* dst_line = pixels + (y * width);
-			memcpy(dst_line, src_line, width * sizeof(WORD));
-		}
+		memset(pixels, 0, data_size);
+		pSprite->Blt(pixels, width * sizeof(WORD));
 
 		/* Create backend sprite */
 		spritectl_sprite_t new_sprite = spritectl_create_sprite(

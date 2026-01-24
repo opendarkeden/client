@@ -4066,7 +4066,12 @@ void C_VS_UI_SERVER_SELECT::Show()
 		
 		if(m_server_select >= m_scroll && m_server_select < m_scroll+12)
 		{
-			RECT rect = {x+m_server_x, y+m_server_y+(m_server_select-m_scroll)*20-2, x+m_server_x+327, y+m_server_y+(m_server_select-m_scroll)*20+20-3};
+			RECT rect;
+			SetRect(&rect,
+				x+m_server_x,
+				y+m_server_y+(m_server_select-m_scroll)*20-2,
+				x+m_server_x+327,
+				y+m_server_y+(m_server_select-m_scroll)*20+20-3);
 			DrawAlphaBox(&rect, 0, 0, 255, 20);
 		}
 
@@ -7542,5 +7547,4 @@ void C_VS_UI_GO_BILING_PAGE::KeyboardControl(UINT message, UINT key, long extra)
 		}
 	}
 }
-
 

@@ -755,7 +755,7 @@ class MCreature : public MObject, public MStatus {
 		short			GetActionDelay()		const		{ return m_DelayLastAction; }
 
 		void			SetNickName(BYTE bType, char* szNickName) { m_NickNameType = bType; m_NickName = szNickName;}
-		string			GetNickName() { return m_NickName;}
+		const string&		GetNickName() const { return m_NickName;}
 		BYTE			GetNickNameType() { return m_NickNameType;}
 
 		bool			GetIsInSiegeWar() { return (m_bSiegeWar>0)?true:false;}

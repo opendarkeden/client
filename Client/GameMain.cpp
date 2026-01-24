@@ -467,6 +467,8 @@ UpdateSocketOutput()
 void
 CheckTime()
 {
+
+    return;
 	
 	if (g_pSocket!=NULL)
 	{
@@ -1517,6 +1519,11 @@ SetMode(enum CLIENT_MODE mode)
 			DEBUG_ADD("SetUpdate");
 			g_pUpdate = g_pCGameUpdate;
 			g_pCGameUpdate->Init();
+
+#ifndef PLATFORM_WINDOWS
+			// SDL build does not receive WM_ACTIVATEAPP, so ensure input is enabled.
+			CheckActivate(TRUE);
+#endif
 			
 			ExecuteHelpEvent( HELP_EVENT_INTERFACE );
 //			if(!g_pUserInformation->IsNetmarble)

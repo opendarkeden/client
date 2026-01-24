@@ -8,6 +8,7 @@
 	#include "../basic/Platform.h"
 	#include <fstream>
 	#include <cstring>
+	#include <cstdio>
 	using namespace std;
 #endif
 #include "CSpriteSetManager.h"
@@ -17,7 +18,7 @@
 #else
 	#include "../DXLib/CDirectDraw.h"
 #endif
-#include <VECTOR>
+#include <vector>
 
 template <class Type>
 class CTypePack
@@ -168,7 +169,7 @@ template <class Type>
 bool CTypePack<Type>::SaveToFile(LPCTSTR lpszFilename)
 {
 	char szIndexFilename[512];
-	sprintf(szIndexFilename, "%si", lpszFilename);
+	snprintf(szIndexFilename, sizeof(szIndexFilename), "%si", lpszFilename);
 
 	std::ofstream dataFile(lpszFilename, ios::binary);
 	std::ofstream indexFile(szIndexFilename, ios::binary);
@@ -612,7 +613,7 @@ template <class TypeBase, class Type1, class Type2>
 bool CTypePack2<TypeBase, Type1, Type2>::SaveToFile(LPCTSTR lpszFilename)
 {
 	char szIndexFilename[512];
-	sprintf(szIndexFilename, "%si", lpszFilename);
+	snprintf(szIndexFilename, sizeof(szIndexFilename), "%si", lpszFilename);
 
 	std::ofstream dataFile(lpszFilename, ios::binary);
 	std::ofstream indexFile(szIndexFilename, ios::binary);

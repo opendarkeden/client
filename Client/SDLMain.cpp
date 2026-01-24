@@ -441,6 +441,7 @@ int main(int argc, char* argv[])
 		printf("TopView initialization complete\n");
 
 		g_bActiveApp = TRUE;
+		CheckActivate(TRUE);
 
 		// Ensure window has focus for mouse input
 		SDL_RaiseWindow(g_pSDLWindow);

@@ -2368,7 +2368,8 @@ MSkillInfoTable::~MSkillInfoTable()
 void
 MSkillInfoTable::Init()
 {
-	for (int i=0; i<MIN_RESULT_ACTIONINFO; i++)
+	const int size = GetSize();
+	for (int i = 0; i < size; i++)
 	{
 		m_pTypeInfo[i].SetExpLevel( 0 );
 		m_pTypeInfo[i].SetSkillExp( 0 );
@@ -2379,7 +2380,10 @@ MSkillInfoTable::Init()
 
 	
 	// delay ¼³Á¤
-	m_pTypeInfo[SUMMON_HELICOPTER].SetDelayTime( 3000 );
+	if (SUMMON_HELICOPTER < size)
+	{
+		m_pTypeInfo[SUMMON_HELICOPTER].SetDelayTime( 3000 );
+	}
 //	m_pTypeInfo[MAGIC_BLOODY_TUNNEL].SetDelayTime( 3000 );
 //	m_pTypeInfo[MAGIC_BLOODY_MARK].SetDelayTime( 3000 );
 }

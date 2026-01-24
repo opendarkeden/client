@@ -21,6 +21,7 @@
 #include "CFilter.h"
 #include "CSpriteSurface.h"
 #include "SpriteLibBackend.h"
+#include "SpriteLibBackendSDL.h"
 
 /* ============================================================================
  * Static Member Initialization
@@ -132,9 +133,11 @@ void CSpriteSurface::DrawRect(RECT* rect, WORD color)
 		return;
 	}
 
-	/* Convert RGB565 color to RGBA32 */
-	uint32_t rgba_color;
-	spritectl_convert_565_to_rgba(&color, &rgba_color, 1, 0);
+	spritectl_surface_s* backend = (spritectl_surface_s*)m_backend_surface;
+	SDL_Surface* surf = backend->surface;
+	if (!surf) {
+		return;
+	}
 
 	/* Fill rect using backend */
 	SDL_Rect sdl_rect;
@@ -143,10 +146,19 @@ void CSpriteSurface::DrawRect(RECT* rect, WORD color)
 	sdl_rect.w = rect->right - rect->left;
 	sdl_rect.h = rect->bottom - rect->top;
 
+	uint8_t r = 0;
+	uint8_t g = 0;
+	uint8_t b = 0;
+	if (backend->format == SPRITECTL_FORMAT_RGB555) {
+		spritectl_555_to_rgb((uint16_t)color, &r, &g, &b);
+	} else {
+		spritectl_565_to_rgb((uint16_t)color, &r, &g, &b);
+	}
+	Uint32 pixel = SDL_MapRGB(surf->format, r, g, b);
+
 	spritectl_surface_info_t info;
 	if (spritectl_lock_surface(m_backend_surface, &info) == 0) {
-		SDL_Surface* surf = (SDL_Surface*)info.pixels;  /* Cast to SDL surface */
-		SDL_FillRect(surf, &sdl_rect, rgba_color);
+		SDL_FillRect(surf, &sdl_rect, pixel);
 		spritectl_unlock_surface(m_backend_surface);
 	}
 }

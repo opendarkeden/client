@@ -375,9 +375,9 @@ void dxlib_input_update(void) {
 			case SDL_KEYUP:
 				/* Keyboard state is updated by SDL_GetKeyboardState */
 				/* Handle ESCAPE key to quit */
-				if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
-					g_bRunning = false;
-				}
+//				if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
+//					g_bRunning = false;
+//				}
 				break;
 
 			case SDL_MOUSEMOTION:

@@ -21,27 +21,6 @@ extern "C" {
 #include "../basic/Platform.h"
 
 /* ============================================================================
- * Rectangle Types (for non-Windows platforms)
- * ============================================================================ */
-
-#ifndef PLATFORM_WINDOWS
-#ifndef LONG
-typedef long LONG;
-#endif
-
-/* Only define if not already defined (e.g., by client_PCH.h) */
-#ifndef RECT_DEFINED
-#define RECT_DEFINED
-typedef struct tagRECT {
-	LONG left;
-	LONG top;
-	LONG right;
-	LONG bottom;
-} RECT, *PRECT, *LPRECT;
-#endif
-#endif
-
-/* ============================================================================
  * Backend Selection
  * ============================================================================ */
 
