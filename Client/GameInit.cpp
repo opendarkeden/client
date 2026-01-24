@@ -2621,8 +2621,11 @@ void ReleaseAllObjects()
 //		if (g_pCreatureActionSpriteTable!=NULL) g_pCreatureActionSpriteTable->Release();
 		if (g_pCreatureTable) g_pCreatureTable->Release();
 		if (g_pCreatureSpriteTypeMapper) g_pCreatureSpriteTypeMapper->Release();
-		if (g_pEffectSpriteTypeTable) g_pEffectSpriteTypeTable->Release();
-		if (g_pActionEffectSpriteTypeTable) g_pActionEffectSpriteTypeTable->Release();
+		// FIXED: Delete immediately after Release to prevent use-after-free
+		// Previously: Release() was called here, but SAFE_DELETE was 50+ lines later
+		// This created a window where the table existed with m_pTypeInfo=NULL
+		SAFE_DELETE( g_pEffectSpriteTypeTable );
+		SAFE_DELETE( g_pActionEffectSpriteTypeTable );
 		if (g_pEffectStatusTable) g_pEffectStatusTable->Release();
 		if (g_pGameMessage!=NULL) g_pGameMessage->Release();
 		if (g_pGameStringTable) g_pGameStringTable->Release();
@@ -2673,8 +2676,7 @@ void ReleaseAllObjects()
 	SAFE_DELETE( g_pGuildMarkManager );
 	SAFE_DELETE( g_pGuildInfoMapper );
 	SAFE_DELETE( g_pEventManager );
-	SAFE_DELETE( g_pEffectSpriteTypeTable );
-	SAFE_DELETE( g_pActionEffectSpriteTypeTable );
+	// g_pEffectSpriteTypeTable and g_pActionEffectSpriteTypeTable already deleted above
 	SAFE_DELETE( g_pCreatureTable );
 	SAFE_DELETE( g_pCreatureSpriteTypeMapper );
 	SAFE_DELETE( g_pItemTable );

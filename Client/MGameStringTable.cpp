@@ -16,10 +16,10 @@ MStringArray*		g_pNickNameStringTable = NULL;
 
 #ifndef __GAME_CLIENT__
 
-void				
+void
 InitGameStringTable()
-{	
-	(*g_pGameStringTable).Init( MAX_GAME_STRING );
+{
+	(*g_pGameStringTable).Init( MAX_GAME_STRING + 1 );
 	(*g_pGameStringTable)[STRING_NETWORK_CONDITION_BAD] = "Á¬½Ó×´Ì¬²»Ì«ºÃ¡£";
 	(*g_pGameStringTable)[STRING_RESURRECTION_AFTER_SECONDS] = "%dÃëÖ®ºó¿ÉÒÔ¸´»î¡£";
 	(*g_pGameStringTable)[STRING_DRAW_ZONE_NAME] = "%s (%d,%d)";

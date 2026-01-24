@@ -80,8 +80,9 @@ CFileIndexTable::LoadFromFile(ifstream& indexFile)
 	// IndexFile을 모두 읽어들인다.
 	//------------------------------------------------------
 	for (int i=0; i<m_Size; i++)
-	{		
-		indexFile.read((char*)&m_pIndex[i], 4);		
+	{
+		m_pIndex[i] = 0;
+		indexFile.read((char*)&m_pIndex[i], 4);
 	}
 
 	return true;

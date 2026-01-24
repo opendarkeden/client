@@ -19,6 +19,7 @@
 	#include "../DXLib/CDirectDraw.h"
 #endif
 #include <vector>
+#include <cstdint>
 
 template <class Type>
 class CTypePack
@@ -391,11 +392,11 @@ bool CTypePack<Type>::LoadFromFileData(int dataID, int fileID, LPCTSTR packFilen
 	//-------------------------------------------------------------------
 	// load�� data�� file pointer�� �д´�.
 	//-------------------------------------------------------------------
-	long fp;	
+int32_t fp = 0;	
 	indexFile.seekg( 2 + fileID*4 );		// 2(num) + spriteID * (4 bytes)
-	indexFile.read((char*)&fp, 4);
+indexFile.read((char*)&fp, 4);
 	
-	dataFile.seekg( fp );	
+dataFile.seekg(static_cast<std::streamoff>(fp));	
 	
 	m_pData[dataID].LoadFromFile( dataFile );
 	
@@ -880,11 +881,11 @@ bool CTypePack2<TypeBase, Type1, Type2>::LoadFromFileData(int dataID, int fileID
 	//-------------------------------------------------------------------
 	// load�� data�� file pointer�� �д´�.
 	//-------------------------------------------------------------------
-	long fp;	
+int32_t fp = 0;	
 	indexFile.seekg( 2 + fileID*4 );		// 2(num) + spriteID * (4 bytes)
-	indexFile.read((char*)&fp, 4);
+indexFile.read((char*)&fp, 4);
 	
-	dataFile.seekg( fp );	
+dataFile.seekg(static_cast<std::streamoff>(fp));	
 	
 	m_pData[dataID].LoadFromFile( dataFile );
 	

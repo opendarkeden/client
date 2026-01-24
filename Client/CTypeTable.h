@@ -30,13 +30,42 @@ class CTypeTable {
 		// Size
 		//-------------------------------------------------------
 		int				GetSize() const		{ return m_Size; }
+
+		//-------------------------------------------------------
+		// Debug/Internal access
+		//-------------------------------------------------------
+		Type*			GetInternalPointer() const { return m_pTypeInfo; }
 		
 		//-------------------------------------------------------
 		// Reference
-		//-------------------------------------------------------		
-		const Type&	operator [] (int type) const	{ return m_pTypeInfo[type]; }
-		Type&	operator [] (int type)				{ return m_pTypeInfo[type]; }
-		Type&	Get(int type)						{ return m_pTypeInfo[type]; }
+		//-------------------------------------------------------
+		const Type&	operator [] (int type) const {
+#ifdef _DEBUG
+			if (type < 0 || type >= m_Size) {
+				static Type dummy;
+				return dummy;
+			}
+#endif
+			return m_pTypeInfo[type];
+		}
+		Type&	operator [] (int type) {
+#ifdef _DEBUG
+			if (type < 0 || type >= m_Size) {
+				static Type dummy;
+				return dummy;
+			}
+#endif
+			return m_pTypeInfo[type];
+		}
+		Type&	Get(int type) {
+#ifdef _DEBUG
+			if (type < 0 || type >= m_Size) {
+				static Type dummy;
+				return dummy;
+			}
+#endif
+			return m_pTypeInfo[type];
+		}
 
 
 		//-------------------------------------------------------

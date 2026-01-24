@@ -8,6 +8,7 @@
 #pragma warning(disable:4786)
 
 #include <list>
+#include <cstdint>
 #include "DrawTypeDef.h"
 #include "TArray.h"
 std::ifstream;
@@ -23,7 +24,7 @@ class SPRITE_FILEPOSITION_NODE
 {
 	public :
 		TYPE_SPRITEID		SpriteID;
-		long				FilePosition;
+		int32_t				FilePosition;
 
 	public :
 		void		SaveToFile(std::ofstream& file);

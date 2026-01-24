@@ -17,6 +17,7 @@
 
 #include "CFrame.h"
 #include <fstream>
+#include <cstdint>
 
 
 template <class Type>
@@ -138,13 +139,14 @@ CFrameSet<Type>::LoadFromFile(std::ifstream& indexFile, std::ifstream& packFile)
 	indexFile.read((char*)&count, SIZE_FRAMEID);
 
 
-	long* pIndex = new long [count];	// file position
+	int32_t* pIndex = new int32_t [count];	// file position (32-bit)
 
 	//------------------------------------------------------
 	// FrameSet IndexFile을 모두 읽어들인다.
 	//------------------------------------------------------
 	for (TYPE_FRAMEID i=0; i<count; i++)
 	{
+		pIndex[i] = 0;
 		indexFile.read((char*)&pIndex[i], 4);
 	}
 
@@ -164,7 +166,7 @@ CFrameSet<Type>::LoadFromFile(std::ifstream& indexFile, std::ifstream& packFile)
 	//------------------------------------------------------
 	for (TYPE_FRAMEID i=0; i<count; i++)
 	{
-		packFile.seekg(pIndex[i], std::ios::beg);
+		packFile.seekg(static_cast<std::streamoff>(pIndex[i]), std::ios::beg);
 		m_pFrames[i].LoadFromFile( packFile );
 	}
 

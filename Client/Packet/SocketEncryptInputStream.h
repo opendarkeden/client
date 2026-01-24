@@ -52,8 +52,20 @@ public :
     uint readEncrypt (ushort &buf) throw (ProtocolException, Error) { uint re = read((char*)&buf, szushort); buf = m_Encrypter.convert(buf); return re; }
     uint readEncrypt (int    &buf) throw (ProtocolException, Error) { uint re = read((char*)&buf, szint   ); buf = m_Encrypter.convert(buf); return re; }
     uint readEncrypt (uint   &buf) throw (ProtocolException, Error) { uint re = read((char*)&buf, szuint  ); buf = m_Encrypter.convert(buf); return re; }
-    uint readEncrypt (long   &buf) throw (ProtocolException, Error) { uint re = read((char*)&buf, szlong  ); buf = m_Encrypter.convert(buf); return re; }
-    uint readEncrypt (ulong  &buf) throw (ProtocolException, Error) { uint re = read((char*)&buf, szulong ); buf = m_Encrypter.convert(buf); return re; }
+    uint readEncrypt (long   &buf) throw (ProtocolException, Error) {
+        int32_t tmp = 0;
+        uint re = read((char*)&tmp, szlong);
+        tmp = static_cast<int32_t>(m_Encrypter.convert(static_cast<long>(tmp)));
+        buf = static_cast<long>(tmp);
+        return re;
+    }
+    uint readEncrypt (ulong  &buf) throw (ProtocolException, Error) {
+        uint32_t tmp = 0;
+        uint re = read((char*)&tmp, szulong);
+        tmp = static_cast<uint32_t>(m_Encrypter.convert(static_cast<ulong>(tmp)));
+        buf = static_cast<ulong>(tmp);
+        return re;
+    }
 
 	void	setEncryptCode(uchar code)	{ m_Encrypter.setCode(code); }
 	uchar	getEncryptCode() const		{ return m_Encrypter.getCode(); }

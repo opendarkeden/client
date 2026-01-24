@@ -211,8 +211,20 @@ MStopZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 			// Effect 생성
 			//---------------------------------------------
 			pEffect = new MEffect(bltType);
-			
-			pEffect->SetFrameID( frameID, maxFrame );	
+
+			// Debug: Log effect creation
+			DEBUG_ADD_FORMAT("StopZoneEffect: Created pEffect=%p, bltType=%d", pEffect, bltType);
+
+			pEffect->SetFrameID( frameID, maxFrame );
+
+			// Debug: Verify effect state before AddEffect
+			#ifdef __SANITIZE_ADDRESS__
+			// With ASAN, add extra validation
+			if (pEffect) {
+				TYPE_FRAMEID testFrameID = pEffect->GetFrameID();
+				DEBUG_ADD_FORMAT("StopZoneEffect: pEffect=%p FrameID=%d before AddEffect", pEffect, testFrameID);
+			}
+			#endif	
 			if((est == EFFECTSPRITETYPE_FIRE_CRACKER_1 ||
 				est == EFFECTSPRITETYPE_FIRE_CRACKER_2 ||
 				est == EFFECTSPRITETYPE_FIRE_CRACKER_3 ) ||

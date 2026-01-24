@@ -3,6 +3,7 @@
 //----------------------------------------------------------------------
 #include "Frame_PCH.h"
 #include "CFrameSetManager.h"
+#include <cstdint>
 //----------------------------------------------------------------------
 //
 // constructor/destructor
@@ -44,13 +45,14 @@ CFrameSetManager::SaveFrameSetIndex(ofstream& setIndex, ifstream& packIndex)
 	packIndex.read((char*)&count, SIZE_FRAMEID);
 
 	// FramePack Index를 저장해둘 memory잡기
-	long* pIndex = new long [count];
+	int32_t* pIndex = new int32_t [count];
 
 	//---------------------------------------------------------------
 	// 모든 FramePack IndexFile을 Load한다.
 	//---------------------------------------------------------------
 	for (TYPE_FRAMEID i=0; i<count; i++)
 	{
+		pIndex[i] = 0;
 		packIndex.read((char*)&pIndex[i], 4);
 	}
 
@@ -77,4 +79,3 @@ CFrameSetManager::SaveFrameSetIndex(ofstream& setIndex, ifstream& packIndex)
 
 	return true;
 }
-

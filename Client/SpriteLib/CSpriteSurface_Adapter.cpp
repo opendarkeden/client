@@ -25,6 +25,34 @@
 #include "SpriteLibBackend.h"
 
 /* ============================================================================
+ * Debug Configuration
+ * ============================================================================ */
+
+// Enable detailed debug logging for Sprite adapter
+#ifndef SPRITE_ADAPTER_DEBUG
+#define SPRITE_ADAPTER_DEBUG 0
+#endif
+
+// Enable tracking of backend sprite lifecycle
+#ifndef SPRITE_ADAPTER_DEBUG_LIFECYCLE
+#define SPRITE_ADAPTER_DEBUG_LIFECYCLE 0
+#endif
+
+#if SPRITE_ADAPTER_DEBUG
+#define SA_DEBUG(fmt, ...) \
+	fprintf(stderr, "[SpriteAdapter] %s:%d: " fmt "\n", __FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+#define SA_DEBUG(fmt, ...) do {} while(0)
+#endif
+
+#if SPRITE_ADAPTER_DEBUG_LIFECYCLE
+#define SA_DEBUG_LIFECYCLE(fmt, ...) \
+	fprintf(stderr, "[SpriteAdapter LIFECYCLE] %s:%d: " fmt "\n", __FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+#define SA_DEBUG_LIFECYCLE(fmt, ...) do {} while(0)
+#endif
+
+/* ============================================================================
  * Helper Functions
  * ============================================================================ */
 
@@ -188,6 +216,9 @@ static spritectl_sprite_t get_backend_alpha_sprite(CAlphaSprite* pSprite)
  */
 static spritectl_sprite_t get_backend_shadow_sprite(CShadowSprite* pSprite)
 {
+	SA_DEBUG_LIFECYCLE("get_backend_shadow_sprite: pSprite=%p, IsInit=%d",
+	                   (void*)pSprite, pSprite ? pSprite->IsInit() : 0);
+
 	if (!pSprite || !pSprite->IsInit()) {
 		return SPRITECTL_INVALID_SPRITE;
 	}
@@ -200,11 +231,17 @@ static spritectl_sprite_t get_backend_shadow_sprite(CShadowSprite* pSprite)
 		size_t pixel_count = width * height;
 		size_t data_size = pixel_count * sizeof(WORD);
 
+		SA_DEBUG_LIFECYCLE("get_backend_shadow_sprite: Creating backend sprite, size=%dx%d (%zu pixels, %zu bytes)",
+		                   width, height, pixel_count, data_size);
+
 		/* Allocate and decode pixel data */
 		WORD* pixels = (WORD*)malloc(data_size);
 		if (!pixels) {
+			SA_DEBUG_LIFECYCLE("get_backend_shadow_sprite: Failed to allocate pixel buffer");
 			return SPRITECTL_INVALID_SPRITE;
 		}
+
+		SA_DEBUG_LIFECYCLE("get_backend_shadow_sprite: Allocated temp pixels=%p", (void*)pixels);
 
 		memset(pixels, 0, data_size);
 		pSprite->Blt(pixels, width * sizeof(WORD));
@@ -214,18 +251,33 @@ static spritectl_sprite_t get_backend_shadow_sprite(CShadowSprite* pSprite)
 			width, height, SPRITECTL_FORMAT_RGB565,
 			pixels, data_size);
 
+		SA_DEBUG_LIFECYCLE("get_backend_shadow_sprite: Created backend sprite=%p from temp pixels=%p",
+		                   (void*)new_sprite, (void*)pixels);
+
+		// Free temp pixels AFTER creating the sprite (the sprite copies the data)
 		free(pixels);
+		pixels = NULL;  // Prevent dangling pointer
+
 		pSprite->SetBackendSprite(new_sprite);
 		pSprite->SetBackendDirty(false);
+
+		SA_DEBUG_LIFECYCLE("get_backend_shadow_sprite: Set backend sprite=%p for CShadowSprite=%p",
+		                   (void*)new_sprite, (void*)pSprite);
 	}
 	/* Sync if dirty */
 	else if (pSprite->IsBackendDirty()) {
+		SA_DEBUG_LIFECYCLE("get_backend_shadow_sprite: Backend dirty, destroying old sprite=%p",
+		                   (void*)pSprite->GetBackendSprite());
 		/* Destroy old sprite and recreate */
 		spritectl_destroy_sprite(pSprite->GetBackendSprite());
 		pSprite->SetBackendSprite(SPRITECTL_INVALID_SPRITE);
 
 		/* Recreate (will be created on next call) */
 		return get_backend_shadow_sprite(pSprite);
+	}
+	else {
+		SA_DEBUG_LIFECYCLE("get_backend_shadow_sprite: Reusing existing backend sprite=%p",
+		                   (void*)pSprite->GetBackendSprite());
 	}
 
 	return pSprite->GetBackendSprite();

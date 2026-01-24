@@ -69,8 +69,18 @@ public :
 	uint read ( ushort & buf ) throw ( ProtocolException , Error ) { return read( (char*)&buf, szushort ); }
 	uint read ( int    & buf ) throw ( ProtocolException , Error ) { return read( (char*)&buf, szint    ); }
 	uint read ( uint   & buf ) throw ( ProtocolException , Error ) { return read( (char*)&buf, szuint   ); }
-	uint read ( long   & buf ) throw ( ProtocolException , Error ) { return read( (char*)&buf, szlong   ); }
-	uint read ( ulong  & buf ) throw ( ProtocolException , Error ) { return read( (char*)&buf, szulong  ); }
+	uint read ( long   & buf ) throw ( ProtocolException , Error ) {
+		int32_t tmp = 0;
+		uint ret = read( (char*)&tmp, szlong );
+		buf = static_cast<long>(tmp);
+		return ret;
+	}
+	uint read ( ulong  & buf ) throw ( ProtocolException , Error ) {
+		uint32_t tmp = 0;
+		uint ret = read( (char*)&tmp, szulong );
+		buf = static_cast<ulong>(tmp);
+		return ret;
+	}
 
 	// peek data from stream (input buffer)
 	bool peek ( char * buf , uint len ) throw ( ProtocolException , Error );
