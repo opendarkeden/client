@@ -311,6 +311,9 @@ MTopView::MTopView()
 	m_TileSurfaceFirstZonePixelX	= 0;
 	m_TileSurfaceFirstZonePixelY	= 0;
 
+	// TileRenderer (Phase 4 integration)
+	m_pTileRenderer			= NULL;
+
 
 	//m_SelectSector.x = 0;
 	//m_SelectSector.y = 0;
@@ -680,6 +683,17 @@ MTopView::Release()
 		m_pTileSurface = NULL;
 
 		DEBUG_ADD("MTV-Rel-TileSur");
+	}
+
+	//----------------------------------------------------------------------
+	// TileRenderer Á¦°Å (Phase 4 integration)
+	//----------------------------------------------------------------------
+	if (m_pTileRenderer != NULL)
+	{
+		delete m_pTileRenderer;
+		m_pTileRenderer = NULL;
+
+		DEBUG_ADD("MTV-Rel-TileRenderer");
 	}
 	
 	// imageobject TextureManager
@@ -1404,6 +1418,29 @@ MTopView::InitSurfaces()
 	//,(CDirect3D::IsHAL()? 0 : DDSCAPS_SYSTEMMEMORY));
 
 	m_pTileSurface->SetTransparency( 0 );
+
+	//----------------------------------------------------------------------
+	// Initialize TileRenderer with tile surface (Phase 4 integration)
+	//----------------------------------------------------------------------
+	if (m_pTileRenderer != NULL)
+	{
+		if (!m_pTileRenderer->Init(m_pTileSurface, &m_TileSPK))
+		{
+			DEBUG_ADD("ERROR: Failed to initialize TileRenderer with tile surface!");
+			delete m_pTileRenderer;
+			m_pTileRenderer = NULL;
+		}
+		else
+		{
+			// Set tile dimensions
+			m_pTileRenderer->SetTileDimensions(TILE_X, TILE_Y);
+
+			// Set null tile sprite ID
+			m_pTileRenderer->SetNullTileSpriteID(SPRITEID_TILE_NULL);
+
+			DEBUG_ADD("TileRenderer initialized successfully");
+		}
+	}
 
 
 
@@ -2364,6 +2401,18 @@ MTopView::InitSprites()
 	*/
 	m_TileSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SPRITE_TILE").c_str() );
 
+	//----------------------------------------------------------------------
+	// Create TileRenderer instance (Phase 4 integration)
+	// Will be initialized after m_pTileSurface is created
+	//----------------------------------------------------------------------
+	m_pTileRenderer = new TileRenderer();
+	if (m_pTileRenderer == NULL)
+	{
+		DEBUG_ADD("ERROR: Failed to create TileRenderer!");
+		return false;
+	}
+	DEBUG_ADD("TileRenderer instance created (will be initialized after tile surface)");
+
 
 
 	//------------------------------------------------------------
@@ -2371,7 +2420,7 @@ MTopView::InitSprites()
 	//
 	//                 ImageObject SpriteSet
 	//
-	//------------------------------------------------------------	
+	//------------------------------------------------------------
 	//
 	// Index¾ø´Â SPK¿¡ Index»ý¼ºÇÏ±â
 	/*
@@ -3375,12 +3424,20 @@ MTopView::InitFilters()
 	
 	}
 #endif
-	//------------------------------------------------------------	
+
+	//------------------------------------------------------------
 	//
-	//  2D ½Ã¾ßÃ³¸®¸¦ À§ÇÑ Light Filter
+	//  2D Rendering path for non-HAL platforms (SDL, macOS, Linux)
+	//  This is the PRIMARY path for SDL backend!
 	//
-	//------------------------------------------------------------	
-	else
+	//------------------------------------------------------------
+#ifndef PLATFORM_WINDOWS
+	// SDL platform always uses 2D rendering path
+	if (true)  // Force execute on SDL platforms
+#else
+	// Windows platform: use 2D path when 3D HAL is not available
+	if (!CDirect3D::IsHAL())
+#endif
 	{
 		/*
 		//------------------------------------------------------
@@ -10063,14 +10120,22 @@ MTopView::ClearLightBufferFilter2D()
 		DarkColor = max(0, DarkColor - ((g_pPlayer->GetLightSight() - g_pPlayer->GetTimeLightSight())<<1));
 
 		//--------------------------------------------------
+		// Check if filter is initialized (SDL backend defensive check)
+		//--------------------------------------------------
+		if (m_LightBufferFilter.IsNotInit()) {
+			m_nLight = 0;
+			return;
+		}
+
+		//--------------------------------------------------
 		// ÃÊ±âÈ­ - È­¸é ÀüÃ¼¸¦ Ã¤¿ï ºû..
 		//--------------------------------------------------
 		BYTE* pBuffer;
 
 		register int i = SCREENLIGHT_HEIGHT-1;
-		do {		
+		do {
 			pBuffer = m_LightBufferFilter.GetFilter( i );
-			memset(pBuffer, DarkColor, SCREENLIGHT_WIDTH);				
+			memset(pBuffer, DarkColor, SCREENLIGHT_WIDTH);
 		} while (i--);
 
 		m_nLight = 0;
@@ -16601,150 +16666,173 @@ MTopView::DrawTileSurface()
 	register int y;
 
 	DEBUG_ADD_FORMAT("[DrawTileSurface] (%d, %d) ~ (%d, %d)", sX1, sX2, sY1, sY2);
-	
+
 	//---------------------------------------
 	// LOCK
 	//---------------------------------------
 	if (!m_pTileSurface->Lock()) return;
 
-	//char str[80];
-	for (y=sY1; y<sY2; y++)
-	{				
-		// ÇÑ ÁÙÀÇ Ã¹¹øÂ° Sector					
-		tilePointTemp.x = tilePoint.x;
+	//----------------------------------------------------------------------
+	// Use TileRenderer for unified tile rendering (Phase 4 integration)
+	//----------------------------------------------------------------------
+	if (m_pTileRenderer != NULL && m_pTileRenderer->IsInit())
+	{
+		// Set the zone provider
+		m_zoneTileProvider.SetZone(m_pZone);
 
-		for (x=sX1; x<sX2; x++)
-		{				
-			point = tilePointTemp;
+		// Draw tiles using TileRenderer
+		// Note: DrawTilesNoLock is used because surface is already locked
+		m_pTileRenderer->DrawTilesNoLock(
+			&m_zoneTileProvider,
+			sX1, sY1,
+			sX2 - sX1,
+			sY2 - sY1,
+			tilePoint.x,
+			tilePoint.y
+		);
+	}
+	else
+	{
+		// Fallback to original rendering if TileRenderer is not available
+		//char str[80];
+		for (y=sY1; y<sY2; y++)
+		{
+			// ÇÑ ÁÙÀÇ Ã¹¹øÂ° Sector
+			tilePointTemp.x = tilePoint.x;
 
-			// (sX,sY) SectorÀÇ SpriteID¸¦ ÀÐ¾î¼­ Ãâ·Â
-			//m_pTileSurface->Lock();			
-		
-			int spriteID = m_pZone->GetSector(x,y).GetSpriteID();
-
-			if (spriteID==SPRITEID_NULL)
+			for (x=sX1; x<sX2; x++)
 			{
-#ifdef __DEBUG_OUTPUT__ 
-				if( g_pZone->GetID() == 3001 && m_pZone->GetSector(x,y).IsBlockAny() )
-					m_pTileSurface->BltSprite(&point, &m_EtcSPK[1]);				
+				point = tilePointTemp;
+
+				// (sX,sY) SectorÀÇ SpriteID¸¦ ÀÐ¾î¼­ Ãâ·Â
+				//m_pTileSurface->Lock();
+
+				int spriteID = m_pZone->GetSector(x,y).GetSpriteID();
+
+				if (spriteID==SPRITEID_NULL)
+				{
+	#ifdef __DEBUG_OUTPUT__
+					if( g_pZone->GetID() == 3001 && m_pZone->GetSector(x,y).IsBlockAny() )
+						m_pTileSurface->BltSprite(&point, &m_EtcSPK[1]);
+					else
+						m_pTileSurface->BltSprite(&point, &m_EtcSPK[SPRITEID_TILE_NULL]);
+	#else
+					m_pTileSurface->BltSprite(&point, &m_EtcSPK[SPRITEID_TILE_NULL]);
+	#endif
+				}
 				else
-					m_pTileSurface->BltSprite(&point, &m_EtcSPK[SPRITEID_TILE_NULL]);				
-#else
-				m_pTileSurface->BltSprite(&point, &m_EtcSPK[SPRITEID_TILE_NULL]);				
-#endif
-			}
-			else
-			{
-				#ifdef OUTPUT_DEBUG
-					//if (g_pDebugMessage)
-					//	DEBUG_ADD_FORMAT("Draw Tile (%d, %d) id=%d", x, y, spriteID);
-				#endif
+				{
+					#ifdef OUTPUT_DEBUG
+						//if (g_pDebugMessage)
+						//	DEBUG_ADD_FORMAT("Draw Tile (%d, %d) id=%d", x, y, spriteID);
+					#endif
 
-				CSprite& sprite = m_TileSPK[ spriteID ];
+					CSprite& sprite = m_TileSPK[ spriteID ];
 
-				//---------------------------------------
-				// ID°¡ spriteIDÀÎ TileÀ» LoadÇÑ´Ù.
-				//---------------------------------------
-//				#ifdef	OUTPUT_DEBUG
-//					char str[256];
-//				#endif
-//				if (sprite.IsNotInit())
-//				{
-//					#ifdef	OUTPUT_DEBUG
-//						sprintf(str, "[RunTimeLoading] Tile(%d,%d) - DrawTileSurface : sprite=%d", x, y, spriteID);
-//					#endif
-//
-//					m_TileSPKFile.seekg(m_TileSPKI[spriteID], ios::beg);
-//					//--------------------------------------------------
-//					// ¼º°øÇÑ °æ¿ì.. 
-//					//--------------------------------------------------
-//					if (m_TileSPK[spriteID].LoadFromFile( m_TileSPKFile ))
-//					{
-//						#ifdef	OUTPUT_DEBUG
-//							strcat(str, "...OK");
-//						#endif
-//					}
-//					//--------------------------------------------------
-//					// ½ÇÆÐÇÑ °æ¿ì --> ÀÌ¹Ì LoadingÇÏ°í ÀÖ´Â °æ¿ìÀÌ´Ù.				
-//					//--------------------------------------------------
-//					/*
-//					// 2001.8.20 ÁÖ¼®Ã³¸®
-//					else
-//					{
-//						#ifdef	OUTPUT_DEBUG
-//							strcat(str, "...Fail & Wait Loading");
-//						#endif
-//
-//						// file thread ¼øÀ§¸¦ ³ôÈù´Ù.
-//						//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_HIGHEST);
-//
-//						// Thread¿¡¼­ LoadingÀÌ ³¡³¯¶§±îÁö ±â´Ù¸°´Ù.
-//						//while (m_TileSPK[spriteID].IsNotInit());
-//						//while (!m_TileSPK[spriteID].LoadFromFile( m_TileSPKFile ));
-//						MLoadingSPKWorkNode3* pNode = new MLoadingSPKWorkNode3(spriteID, m_TileSPKI[spriteID]);
-//						pNode->SetSPK( &m_TileSPK, FILE_SPRITE_TILE );
-//						pNode->SetType( 1 );
-//						g_pLoadingThread->SetPriority( THREAD_PRIORITY_HIGHEST );
-//						g_pLoadingThread->AddFirst( pNode );
-//
-//						while (1)
-//						{
-//							#ifdef	OUTPUT_DEBUG
-//							//	DEBUG_ADD_FORMAT( "Check Load id=%d", spriteID );
-//							#endif	
-//
-//							if (m_TileSPK[spriteID].IsInit())
-//							{
-//								#ifdef	OUTPUT_DEBUG
-//								//	DEBUG_ADD( "Is Init" );
-//								#endif	
-//
-//								break;
-//							}
-//							else
-//							{
-//								#ifdef	OUTPUT_DEBUG
-//								//	DEBUG_ADD( "Is Not Init" );
-//								#endif	
-//							}
-//						}
-//
-//						// file thread ¼øÀ§¸¦ ³·Ãá´Ù.
-//						//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_BELOW_NORMAL);					
-//						g_pLoadingThread->SetPriority( THREAD_PRIORITY_LOWEST );
-//					}
-//					*/
-//
-//					DEBUG_ADD( str );
-//				}
+					//---------------------------------------
+					// ID°¡ spriteIDÀÎ TileÀ» LoadÇÑ´Ù.
+					//---------------------------------------
+	//				#ifdef	OUTPUT_DEBUG
+	//					char str[256];
+	//				#endif
+	//				if (sprite.IsNotInit())
+	//				{
+	//					#ifdef	OUTPUT_DEBUG
+	//						sprintf(str, "[RunTimeLoading] Tile(%d,%d) - DrawTileSurface : sprite=%d", x, y, spriteID);
+	//					#endif
+	//
+	//					m_TileSPKFile.seekg(m_TileSPKI[spriteID], ios::beg);
+	//					//--------------------------------------------------
+	//					// ¼º°øÇÑ °æ¿ì..
+	//					//--------------------------------------------------
+	//					if (m_TileSPK[spriteID].LoadFromFile( m_TileSPKFile ))
+	//					{
+	//						#ifdef	OUTPUT_DEBUG
+	//							strcat(str, "...OK");
+	//						#endif
+	//					}
+	//					//--------------------------------------------------
+	//					// ½ÇÆÐÇÑ °æ¿ì --> ÀÌ¹Ì LoadingÇÏ°í ÀÖ´Â °æ¿ìÀÌ´Ù.
+	//					//--------------------------------------------------
+	//					/*
+	//					// 2001.8.20 ÁÖ¼®Ã³¸®
+	//					else
+	//					{
+	//						#ifdef	OUTPUT_DEBUG
+	//							strcat(str, "...Fail & Wait Loading");
+	//						#endif
+	//
+	//						// file thread ¼øÀ§¸¦ ³ôÈù´Ù.
+	//						//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_HIGHEST);
+	//
+	//						// Thread¿¡¼­ LoadingÀÌ ³¡³¯¶§±îÁö ±â´Ù¸°´Ù.
+	//						//while (m_TileSPK[spriteID].IsNotInit());
+	//						//while (!m_TileSPK[spriteID].LoadFromFile( m_TileSPKFile ));
+	//						MLoadingSPKWorkNode3* pNode = new MLoadingSPKWorkNode3(spriteID, m_TileSPKI[spriteID]);
+	//						pNode->SetSPK( &m_TileSPK, FILE_SPRITE_TILE );
+	//						pNode->SetType( 1 );
+	//						g_pLoadingThread->SetPriority( THREAD_PRIORITY_HIGHEST );
+	//						g_pLoadingThread->AddFirst( pNode );
+	//
+	//						while (1)
+	//						{
+	//							#ifdef	OUTPUT_DEBUG
+	//							//	DEBUG_ADD_FORMAT( "Check Load id=%d", spriteID );
+	//							#endif
+	//
+	//							if (m_TileSPK[spriteID].IsInit())
+	//							{
+	//								#ifdef	OUTPUT_DEBUG
+	//								//	DEBUG_ADD( "Is Init" );
+	//								#endif
+	//
+	//								break;
+	//							}
+	//							else
+	//							{
+	//								#ifdef	OUTPUT_DEBUG
+	//								//	DEBUG_ADD( "Is Not Init" );
+	//								#endif
+	//							}
+	//						}
+	//
+	//						// file thread ¼øÀ§¸¦ ³·Ãá´Ù.
+	//						//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_BELOW_NORMAL);
+	//						g_pLoadingThread->SetPriority( THREAD_PRIORITY_LOWEST );
+	//					}
+	//					*/
+	//
+	//					DEBUG_ADD( str );
+	//				}
 
-				// ¶ß¾Ç~~!!!!!!! ¼Óµµ Àâ¾Æ ¸Ô´Â´Ù~!!!
-//				POINT pointTempTemp = point;
-//				m_pTileSurface->BltSprite(&pointTempTemp, &m_EtcSPK[SPRITEID_TILE_NULL]);
+					// ¶ß¾Ç~~!!!!!!! ¼Óµµ Àâ¾Æ ¸Ô´Â´Ù~!!!
+	//				POINT pointTempTemp = point;
+	//				m_pTileSurface->BltSprite(&pointTempTemp, &m_EtcSPK[SPRITEID_TILE_NULL]);
 
-				m_pTileSurface->BltSprite(&point, &sprite);
+					m_pTileSurface->BltSprite(&point, &sprite);
 
-				#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
+					#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
 					if (m_pZone->GetSector(x,y).IsBlockGround())
 					{
 						if (g_pDXInput->KeyDown(DIK_T) && g_pDXInput->KeyDown(DIK_LCONTROL))
-						{	
+						{
 							m_pTileSurface->BltSpriteColor(&point, &sprite, 0);
 						}
 					}
-				#endif				
-			}
-		
-//			m_PreviousFogSpriteID[y][x] = SPRITEID_NULL;//sector.GetFilterSpriteID();
-			//m_pTileSurface->Unlock();		
-			
+					#endif
+				}
 
-			// Ãâ·ÂÇÏ·Á´Â ÁÂÇ¥ ÀÌµ¿
-			tilePointTemp.x += TILE_X;
-		}		
-				
-		// ´ÙÀ½ ÁÙ
-		tilePointTemp.y += TILE_Y;
+	//			m_PreviousFogSpriteID[y][x] = SPRITEID_NULL;//sector.GetFilterSpriteID();
+				//m_pTileSurface->Unlock();
+
+
+				// Ãâ·ÂÇÏ·Á´Â ÁÂÇ¥ ÀÌµ¿
+				tilePointTemp.x += TILE_X;
+			}
+
+			// ´ÙÀ½ ÁÙ
+			tilePointTemp.y += TILE_Y;
+		}
 	}
 
 	//---------------------------------------
@@ -20269,21 +20357,30 @@ MTopView::GetMaxEffectFrame(BLT_TYPE bltType, TYPE_FRAMEID frameID) const
 
 	int numFrame = 0;
 
+	// Check bounds to prevent crash (SDL backend defensive fix)
+	if (frameID < 0) {
+		return 0;
+	}
+
 	switch (bltType)
 	{
 		case BLT_SCREEN :
+			if (frameID >= m_EffectScreenFPK.GetSize()) return 0;
 			numFrame = m_EffectScreenFPK[frameID][0].GetSize();
 		break;
 
 		case BLT_EFFECT :
+			if (frameID >= m_EffectAlphaFPK.GetSize()) return 0;
 			numFrame = m_EffectAlphaFPK[frameID][0].GetSize();
 		break;
 
 		case BLT_NORMAL :
+			if (frameID >= m_EffectNormalFPK.GetSize()) return 0;
 			numFrame = m_EffectNormalFPK[frameID][0].GetSize();
 		break;
-		
+
 		case BLT_SHADOW :
+			if (frameID >= m_EffectShadowFPK.GetSize()) return 0;
 			numFrame = m_EffectShadowFPK[frameID][0].GetSize();
 		break;
 	}
@@ -20298,21 +20395,34 @@ MTopView::GetMaxEffectFrame(BLT_TYPE bltType, TYPE_FRAMEID frameID) const
 //----------------------------------------------------------------
 // Get EffectLight
 //----------------------------------------------------------------
-int				
+int
 MTopView::GetEffectLight(BLT_TYPE bltType, TYPE_FRAMEID frameID, int dir, int frame) const
 {
+	// Defensive check for SDL backend
 	switch (bltType)
 	{
 		case BLT_SCREEN :
+			if (frameID >= m_EffectScreenFPK.GetSize()) return 0;
+			if (dir >= m_EffectScreenFPK[frameID].GetSize()) return 0;
+			if (frame >= m_EffectScreenFPK[frameID][dir].GetSize()) return 0;
 			return m_EffectScreenFPK[frameID][dir][frame].GetLight();
 
 		case BLT_EFFECT :
+			if (frameID >= m_EffectAlphaFPK.GetSize()) return 0;
+			if (dir >= m_EffectAlphaFPK[frameID].GetSize()) return 0;
+			if (frame >= m_EffectAlphaFPK[frameID][dir].GetSize()) return 0;
 			return m_EffectAlphaFPK[frameID][dir][frame].GetLight();
-		
+
 		case BLT_NORMAL :
-			return m_EffectNormalFPK[frameID][dir][frame].GetLight();		
+			if (frameID >= m_EffectNormalFPK.GetSize()) return 0;
+			if (dir >= m_EffectNormalFPK[frameID].GetSize()) return 0;
+			if (frame >= m_EffectNormalFPK[frameID][dir].GetSize()) return 0;
+			return m_EffectNormalFPK[frameID][dir][frame].GetLight();
 
 		case BLT_SHADOW :
+			if (frameID >= m_EffectShadowFPK.GetSize()) return 0;
+			if (dir >= m_EffectShadowFPK[frameID].GetSize()) return 0;
+			if (frame >= m_EffectShadowFPK[frameID][dir].GetSize()) return 0;
 			return m_EffectShadowFPK[frameID][dir][frame].GetLight();
 	}
 

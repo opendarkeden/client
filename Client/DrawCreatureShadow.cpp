@@ -661,6 +661,12 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 
 void	MTopView::DrawShadowSlayerCharacter( POINT *pPoint, MCreature* pCreature, int action, int direction, int frame )
 {
+	// Check if m_AddonShadowFPK is initialized (fix crash in SDL backend)
+	// CCreatureFramePack doesn't have IsNotInit(), so we check m_Size
+	if (m_AddonShadowFPK.GetSize() == 0) {
+		return;
+	}
+
 	if(pCreature->HasEffectStatus(EFFECTSTATUS_INSTALL_TURRET))
 	{
 		//frame = pCreature->GetInstallTurretCount();

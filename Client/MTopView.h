@@ -94,6 +94,10 @@ class MEffect;
 #include "CFilterPack.h"
 #include "CSpriteOutlineManager.h"
 
+// TileRenderer for unified tile rendering
+#include "TileRenderer.h"
+#include "MZoneTileProvider.h"
+
 
 //class MZoneInfo;
 class TextComparison {
@@ -696,6 +700,12 @@ class MTopView : public MRequestMode {
 									m_TileSurfaceFirstZonePixelY;
 		int							m_TileSurfaceFirstSectorX,
 									m_TileSurfaceFirstSectorY;
+
+		//------------------------------------------------------
+		// TileRenderer for unified tile rendering (Phase 4 integration)
+		//------------------------------------------------------
+		TileRenderer*				m_pTileRenderer;
+		MZoneTileProvider			m_zoneTileProvider;
 
 		//------------------------------------------------------
 		// 현재 화면에서 존재하는 ImageObject들의 정보
