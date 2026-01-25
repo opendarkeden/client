@@ -29,13 +29,6 @@
 /* Use standard namespace for convenience */
 using namespace std;
 
-/* LONG type for non-Windows platforms */
-#ifndef PLATFORM_WINDOWS
-#ifndef LONG
-typedef long LONG;
-#endif
-#endif
-
 /* RECT definition for non-Windows platforms */
 #ifndef PLATFORM_WINDOWS
 #ifndef RECT_DEFINED

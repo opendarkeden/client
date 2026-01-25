@@ -2,6 +2,7 @@
 // RenderingFunctions.cpp - macOS rendering functions
 //----------------------------------------------------------------------
 #include "../Client_PCH.h"
+#include "../basic/BasicException.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -169,14 +170,26 @@ int g_GetByteLenth(const unsigned short* pStr, int maxChars)
 void g_Convert_DBCS_Ascii2SingleByte(const unsigned short* pSrc, int srcLen,
                                       char*& pDst)
 {
-    if (pSrc == NULL || pDst == NULL)
+    if (pSrc == NULL || srcLen <= 0)
+    {
+        if (pDst != NULL)
+            pDst[0] = '\0';
         return;
+    }
+
+    if (pDst == NULL)
+    {
+        pDst = new char[srcLen + 1];
+        CheckMemAlloc(pDst);
+    }
 
     for (int i = 0; i < srcLen; i++)
     {
         // Convert wide char to single byte (simplified)
         pDst[i] = (char)(pSrc[i] & 0xFF);
     }
+
+    pDst[srcLen] = '\0';
 }
 
 // Number to string

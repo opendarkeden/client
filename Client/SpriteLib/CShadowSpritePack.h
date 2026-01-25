@@ -1,4 +1,5 @@
 #include <fstream>
+#include <cstdint>
 //----------------------------------------------------------------------
 // CShadowSpritePack.h
 //----------------------------------------------------------------------
@@ -64,9 +65,9 @@ class CShadowSpritePack {
 		// file I/O
 		//--------------------------------------------------------
 		bool			SaveToFile(std::ofstream& spkFile, std::ofstream& indexFile);
-		bool			SaveToFileSpriteOnly(std::ofstream& spkFile, long &filePosition);
+		bool			SaveToFileSpriteOnly(std::ofstream& spkFile, int32_t &filePosition);
 		void			LoadFromFile(std::ifstream& file);		
-		void			LoadFromFilePart(std::ifstream& file, long filePosition,
+		void			LoadFromFilePart(std::ifstream& file, int32_t filePosition,
 										 TYPE_SPRITEID firstShadowSpriteID, TYPE_SPRITEID lastShadowSpriteID);
 		void			LoadFromFilePart(std::ifstream& spkFile, const CSpriteFilePositionArray& fpArray);
 

@@ -7,6 +7,7 @@
 #include "CAlphaSprite565.h"
 #include "CAlphaSpritePack.h"
 #include <fstream>
+#include <cstdint>
 
 //----------------------------------------------------------------------
 //
@@ -156,7 +157,7 @@ CAlphaSpritePack::SaveToFile(ofstream& spkFile, ofstream& indexFile)
 // map 전체를 따라가면서 file에 저장해야한다.
 //----------------------------------------------------------------------
 bool
-CAlphaSpritePack::SaveToFileSpriteOnly(ofstream& spkFile, long &filePosition)
+CAlphaSpritePack::SaveToFileSpriteOnly(ofstream& spkFile, int32_t &filePosition)
 {
 	// 초기화되지 않았으면 
 	if (m_nSprites==0 || m_pSprites==NULL)
@@ -216,7 +217,7 @@ CAlphaSpritePack::LoadFromFile(ifstream& file)
 // FirstSpriteID부터 SpriteSize개만큼만 읽어들인다.
 //----------------------------------------------------------------------
 void			
-CAlphaSpritePack::LoadFromFilePart(ifstream& file, long filePosition,
+CAlphaSpritePack::LoadFromFilePart(ifstream& file, int32_t filePosition,
 							  TYPE_SPRITEID firstSpriteID, TYPE_SPRITEID lastSpriteID)
 {
 	if (firstSpriteID==SPRITEID_NULL || lastSpriteID==SPRITEID_NULL)
@@ -227,7 +228,7 @@ CAlphaSpritePack::LoadFromFilePart(ifstream& file, long filePosition,
 		return;
 
 	// Load할려는 위치까지 FilePosition을 이동한다.
-	file.seekg( filePosition, ios::beg );
+	file.seekg(static_cast<std::streamoff>(filePosition), ios::beg);
 
 	// firstSpriteID ~ lastSpriteID까지의 Sprite를 Load한다.
 	for (TYPE_SPRITEID id=firstSpriteID; id<=lastSpriteID; id++)
@@ -268,14 +269,14 @@ CAlphaSpritePack::LoadFromFileSprite(int spriteID, int fileSpriteID, std::ifstre
 	//-------------------------------------------------------------------
 	// load할 sprite의 file pointer를 읽는다.
 	//-------------------------------------------------------------------
-	long fp;	
+	int32_t fp = 0;
 	indexFile.seekg( 2 + fileSpriteID*4 );		// 2(num) + spriteID * (4 bytes)
 	indexFile.read((char*)&fp, 4);
 
 	//-------------------------------------------------------------------
 	// minimap sprite loading
 	//-------------------------------------------------------------------
-	spkFile.seekg( fp );	
+	spkFile.seekg(static_cast<std::streamoff>(fp));
 
 	m_pSprites[spriteID].LoadFromFile( spkFile );
 

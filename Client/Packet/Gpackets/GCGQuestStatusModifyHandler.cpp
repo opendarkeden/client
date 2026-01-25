@@ -20,11 +20,20 @@ throw ( ProtocolException , Error )
 	__BEGIN_TRY 
 //	__BEGIN_DEBUG_EX
 		
-#ifdef __GAME_CLIENT__ 
-	QuestStatusInfo* QuestInfo = pGCGQuestStatusModify->getInfo(); 
+#ifdef __GAME_CLIENT__
+	QuestStatusInfo* QuestInfo = pGCGQuestStatusModify->getInfo();
 
 	if(NULL != QuestInfo)
 	{
+		// DEBUG: Log quest status changes to identify which quest is failing
+		const char* typeNames[] = {"NO_MODIFY", "CURRENT", "SUCCESS", "FAIL"};
+		BYTE typeValue = pGCGQuestStatusModify->getType();
+		DEBUG_ADD_FORMAT("[GCGQuestStatusModify] QuestID=%d, Status=%d, Type=%s(%d)",
+			QuestInfo->GetQuestID(),
+			QuestInfo->GetStatus(),
+			(typeValue <= 3) ? typeNames[typeValue] : "UNKNOWN",
+			typeValue);
+
 		UI_GQuestInfo *UI_Info = new UI_GQuestInfo; 
 
 		UI_Info->dwQuestID	= QuestInfo->GetQuestID(); 

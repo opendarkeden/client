@@ -40,7 +40,9 @@ extern "C" {
 #elif defined(__APPLE__)
 	#include <TargetConditionals.h>
 	#if TARGET_OS_MAC
-		#define PLATFORM_MACOS
+		#ifndef PLATFORM_MACOS
+			#define PLATFORM_MACOS
+		#endif
 	#endif
 #else
 	#define PLATFORM_UNKNOWN
@@ -105,20 +107,20 @@ extern "C" {
 #define NOT_SELECTED						-1
 
 /* Type definitions (same as original Typedef.h) */
-typedef unsigned char	BYTE;
-typedef unsigned short	WORD;
-typedef unsigned int	UINT;
-typedef unsigned int   DWORD;
-typedef unsigned long   ULONG;
-typedef unsigned long long DWORD64;
-typedef unsigned long long ULONGLONG;
-typedef long long LONGLONG;
+typedef uint8_t			BYTE;
+typedef uint16_t		WORD;
+typedef uint32_t		UINT;
+typedef uint32_t		DWORD;
+typedef uint32_t		ULONG;
+typedef uint64_t		DWORD64;
+typedef uint64_t		ULONGLONG;
+typedef int64_t			LONGLONG;
 typedef void*			PVOID;
 typedef void*			ADDRESS_MODE;
 typedef uintptr_t		ULONG_PTR;
 typedef intptr_t		LONG_PTR;
 typedef uintptr_t		DWORD_PTR;
-typedef long			LONG;
+typedef int32_t			LONG;
 typedef int				BOOL;
 
 	/* Define id_t for cross-platform compatibility (unsigned int on all platforms) */
@@ -373,7 +375,7 @@ typedef WORD			char_t;
 		#define FALSE	0
 	#endif
 
-	typedef long			HRESULT;
+	typedef int32_t			HRESULT;
 	typedef intptr_t		LRESULT;
 	typedef uintptr_t		UINT_PTR;
 	#ifndef S_OK
@@ -397,7 +399,7 @@ typedef WORD			char_t;
 	#endif
 
 	/* Additional Windows types */
-	typedef long			LONG;
+	typedef int32_t			LONG;
 	typedef void*			LPVOID;
 	typedef void*			HWND;
 	typedef void*			HDC;
@@ -414,7 +416,7 @@ typedef WORD			char_t;
 	typedef unsigned char*	LPBYTE;
 	typedef intptr_t		LPARAM;
 	typedef intptr_t		WPARAM;
-	typedef unsigned int		UINT;
+	typedef uint32_t			UINT;
 
 	/* MessageBox constants */
 	#define MB_OK			0x00000000L
@@ -1720,7 +1722,7 @@ static inline BOOL GetVersionExA(LPOSVERSIONINFOA lpVersionInformation) {
 /* Exception handling */
 /* Exception filter type (must be defined before EXCEPTION_POINTERS) */
 #ifndef LPTOP_LEVEL_EXCEPTION_FILTER
-typedef long (*LPTOP_LEVEL_EXCEPTION_FILTER)(struct _EXCEPTION_POINTERS*);
+typedef LONG (*LPTOP_LEVEL_EXCEPTION_FILTER)(struct _EXCEPTION_POINTERS*);
 #endif
 
 #ifndef EXCEPTION_POINTERS_DEFINED
@@ -1797,7 +1799,14 @@ typedef long long __int64;
 static inline int wsprintf(char* buf, const char* fmt, ...) {
     va_list args;
     va_start(args, fmt);
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#endif
     int result = vsprintf(buf, fmt, args);
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
     va_end(args);
     return result;
 }
@@ -1937,10 +1946,18 @@ static inline void SetSurfaceInfo(S_SURFACEINFO* dest, const S_SURFACEINFO* src)
 #define DIK_RALT            DIK_RMENU
 
 /* Windows macros for creating LONG/LPARAM from values */
+#ifndef MAKELONG
 #define MAKELONG(a, b) ((LONG)(((WORD)(((DWORD_PTR)(a)) & 0xffff)) | ((DWORD_PTR)((WORD)(((DWORD_PTR)(b)) & 0xffff))) << 16))
+#endif
+#ifndef MAKEWPARAM
 #define MAKEWPARAM(l, h) ((WPARAM)(DWORD)MAKELONG(l, h))
+#endif
+#ifndef MAKELPARAM
 #define MAKELPARAM(l, h) ((LPARAM)(DWORD)MAKELONG(l, h))
+#endif
+#ifndef MAKELRESULT
 #define MAKELRESULT(l, h) ((LRESULT)(DWORD)MAKELONG(l, h))
+#endif
 #endif
 
 #ifdef __cplusplus

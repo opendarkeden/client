@@ -4,6 +4,7 @@
  *
  * 从原始 MZone 代码提取，只包含必要的文件解析功能
  * 不依赖 MZone、MSector 等复杂类
+ * 实现 ITileDataProvider 接口以支持 TileRenderer
  */
 
 #ifndef __ZONELOADER_H__
@@ -12,6 +13,7 @@
 #include <string>
 #include <cstdint>
 #include <fstream>
+#include "Client/TileRenderer.h"  // For ITileDataProvider interface
 
 // Zone 文件头信息
 struct ZoneInfo {
@@ -31,7 +33,8 @@ struct Sector {
     uint8_t  light;
 };
 
-class ZoneLoader {
+// ZoneLoader implements ITileDataProvider to work with TileRenderer
+class ZoneLoader : public ITileDataProvider {
 public:
     ZoneLoader();
     ~ZoneLoader();
@@ -49,6 +52,18 @@ public:
     // 获取 sector 数据（只读）
     const Sector* GetSector(int x, int y) const;
     const Sector* GetSectors() const { return m_sectors; }
+
+    // ITileDataProvider interface implementation
+    virtual int GetSpriteID(int sectorX, int sectorY) override
+    {
+        const Sector* sector = GetSector(sectorX, sectorY);
+        if (!sector) return -1;  // SPRITEID_NULL
+        // spriteID=0 or 0xFFFF means no tile
+        if (sector->spriteID == 0 || sector->spriteID == 0xFFFF)
+            return -1;  // SPRITEID_NULL
+        // Return spriteID directly (no conversion needed - matches game code)
+        return sector->spriteID;
+    }
 
     // 释放资源
     void Release();

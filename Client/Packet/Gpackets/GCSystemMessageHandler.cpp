@@ -107,7 +107,11 @@ throw ( ProtocolException , Error )
 
 	static char previous[128] = { NULL, };
 
-	const char* message = pPacket->getMessage().c_str();
+	// Fix: Store string in local variable to avoid use-after-free
+	// The temporary string returned by getMessage() is destroyed at end of statement
+	std::string messageStr = pPacket->getMessage();
+	const char* message = messageStr.c_str();
+
 	// add by Coffee 2007-8-2 藤속溝固斤口혐깎
 		char *pMsg = NULL;
 		if (message!=NULL && pPacket->getType() != SYSTEM_MESSAGE_PLAYER )
@@ -117,7 +121,9 @@ throw ( ProtocolException , Error )
 			pPacket->setMessage(pMsg);
 			SAFE_DELETE_ARRAY( pMsg );
 		}
-		message = pPacket->getMessage().c_str();
+		// Update message pointer after potential setMessage()
+		messageStr = pPacket->getMessage();
+		message = messageStr.c_str();
 	// add end by Coffee 2007-8-2
 	//--------------------------------------------------------------------
 	// system message에 출력

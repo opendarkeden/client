@@ -54,8 +54,16 @@ public :
     void read ( ushort & buf ) throw ( ProtocolException , Error ) { read( (char*)&buf , szushort ); }
     void read ( int    & buf ) throw ( ProtocolException , Error ) { read( (char*)&buf , szint    ); }
     void read ( uint   & buf ) throw ( ProtocolException , Error ) { read( (char*)&buf , szuint   ); }
-    void read ( long   & buf ) throw ( ProtocolException , Error ) { read( (char*)&buf , szlong   ); }
-    void read ( ulong  & buf ) throw ( ProtocolException , Error ) { read( (char*)&buf , szulong  ); }
+    void read ( long   & buf ) throw ( ProtocolException , Error ) {
+        int32_t tmp = 0;
+        read( (char*)&tmp , szlong );
+        buf = static_cast<long>(tmp);
+    }
+    void read ( ulong  & buf ) throw ( ProtocolException , Error ) {
+        uint32_t tmp = 0;
+        read( (char*)&tmp , szulong );
+        buf = static_cast<ulong>(tmp);
+    }
 
 	// write DatagramPacket into datagram's internal buffer
 	void write ( const char * buf , uint len ) throw ( ProtocolException , Error );
@@ -68,8 +76,14 @@ public :
     void write ( ushort buf ) throw ( ProtocolException , Error ) { write( (char*)&buf , szushort ); }
     void write ( int    buf ) throw ( ProtocolException , Error ) { write( (char*)&buf , szint    ); }
     void write ( uint   buf ) throw ( ProtocolException , Error ) { write( (char*)&buf , szuint   ); }
-    void write ( long   buf ) throw ( ProtocolException , Error ) { write( (char*)&buf , szlong   ); }
-    void write ( ulong  buf ) throw ( ProtocolException , Error ) { write( (char*)&buf , szulong  ); }
+    void write ( long   buf ) throw ( ProtocolException , Error ) {
+        int32_t tmp = static_cast<int32_t>(buf);
+        write( (char*)&tmp , szlong );
+    }
+    void write ( ulong  buf ) throw ( ProtocolException , Error ) {
+        uint32_t tmp = static_cast<uint32_t>(buf);
+        write( (char*)&tmp , szulong );
+    }
 
 	// get data
 	char * getData () throw () { return m_Data; }

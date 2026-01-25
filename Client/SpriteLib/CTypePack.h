@@ -8,6 +8,7 @@
 	#include "../basic/Platform.h"
 	#include <fstream>
 	#include <cstring>
+	#include <cstdio>
 	using namespace std;
 #endif
 #include "CSpriteSetManager.h"
@@ -17,7 +18,8 @@
 #else
 	#include "../DXLib/CDirectDraw.h"
 #endif
-#include <VECTOR>
+#include <vector>
+#include <cstdint>
 
 template <class Type>
 class CTypePack
@@ -168,7 +170,7 @@ template <class Type>
 bool CTypePack<Type>::SaveToFile(LPCTSTR lpszFilename)
 {
 	char szIndexFilename[512];
-	sprintf(szIndexFilename, "%si", lpszFilename);
+	snprintf(szIndexFilename, sizeof(szIndexFilename), "%si", lpszFilename);
 
 	std::ofstream dataFile(lpszFilename, ios::binary);
 	std::ofstream indexFile(szIndexFilename, ios::binary);
@@ -390,11 +392,11 @@ bool CTypePack<Type>::LoadFromFileData(int dataID, int fileID, LPCTSTR packFilen
 	//-------------------------------------------------------------------
 	// load�� data�� file pointer�� �д´�.
 	//-------------------------------------------------------------------
-	long fp;	
+int32_t fp = 0;	
 	indexFile.seekg( 2 + fileID*4 );		// 2(num) + spriteID * (4 bytes)
-	indexFile.read((char*)&fp, 4);
+indexFile.read((char*)&fp, 4);
 	
-	dataFile.seekg( fp );	
+dataFile.seekg(static_cast<std::streamoff>(fp));	
 	
 	m_pData[dataID].LoadFromFile( dataFile );
 	
@@ -612,7 +614,7 @@ template <class TypeBase, class Type1, class Type2>
 bool CTypePack2<TypeBase, Type1, Type2>::SaveToFile(LPCTSTR lpszFilename)
 {
 	char szIndexFilename[512];
-	sprintf(szIndexFilename, "%si", lpszFilename);
+	snprintf(szIndexFilename, sizeof(szIndexFilename), "%si", lpszFilename);
 
 	std::ofstream dataFile(lpszFilename, ios::binary);
 	std::ofstream indexFile(szIndexFilename, ios::binary);
@@ -879,11 +881,11 @@ bool CTypePack2<TypeBase, Type1, Type2>::LoadFromFileData(int dataID, int fileID
 	//-------------------------------------------------------------------
 	// load�� data�� file pointer�� �д´�.
 	//-------------------------------------------------------------------
-	long fp;	
+int32_t fp = 0;	
 	indexFile.seekg( 2 + fileID*4 );		// 2(num) + spriteID * (4 bytes)
-	indexFile.read((char*)&fp, 4);
+indexFile.read((char*)&fp, 4);
 	
-	dataFile.seekg( fp );	
+dataFile.seekg(static_cast<std::streamoff>(fp));	
 	
 	m_pData[dataID].LoadFromFile( dataFile );
 	

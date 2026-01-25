@@ -4,6 +4,7 @@
 
 #include "CSpriteSurface.h"
 #include "CShadowSprite.h"
+#include <cstdint>
 #include "CShadowSpritePack.h"
 #include <fstream>
 
@@ -176,7 +177,7 @@ CShadowSpritePack::SaveToFile(ofstream& spkFile, ofstream& indexFile)
 // map 전체를 따라가면서 file에 저장해야한다.
 //----------------------------------------------------------------------
 bool
-CShadowSpritePack::SaveToFileSpriteOnly(ofstream& spkFile, long &filePosition)
+CShadowSpritePack::SaveToFileSpriteOnly(ofstream& spkFile, int32_t &filePosition)
 {
 	// 초기화되지 않았으면 
 	if (m_nSprites==0 || m_pSprites==NULL)
@@ -238,7 +239,7 @@ CShadowSpritePack::LoadFromFile(ifstream& file)
 // FirstSpriteID부터 SpriteSize개만큼만 읽어들인다.
 //----------------------------------------------------------------------
 void			
-CShadowSpritePack::LoadFromFilePart(ifstream& file, long filePosition,
+CShadowSpritePack::LoadFromFilePart(ifstream& file, int32_t filePosition,
 							  TYPE_SPRITEID firstSpriteID, TYPE_SPRITEID lastSpriteID)
 {
 	if (firstSpriteID==SPRITEID_NULL || lastSpriteID==SPRITEID_NULL)
@@ -249,7 +250,7 @@ CShadowSpritePack::LoadFromFilePart(ifstream& file, long filePosition,
 		return;
 
 	// Load할려는 위치까지 FilePosition을 이동한다.
-	file.seekg( filePosition, ios::beg );
+	file.seekg(static_cast<std::streamoff>(filePosition), ios::beg);
 
 	// firstSpriteID ~ lastSpriteID까지의 Sprite를 Load한다.
 	for (TYPE_SPRITEID id=firstSpriteID; id<=lastSpriteID; id++)
@@ -280,7 +281,7 @@ CShadowSpritePack::LoadFromFilePart(std::ifstream& spkFile, const CSpriteFilePos
 	for (int i=0; i<fpArray.GetSize(); i++)
 	{
 		// Load할려는 위치까지 FilePosition을 이동한다.
-		spkFile.seekg( fpArray[i].FilePosition, ios::beg );
+		spkFile.seekg(static_cast<std::streamoff>(fpArray[i].FilePosition), ios::beg);
 
 		// Sprite를 Load한다.
 		m_pSprites[fpArray[i].SpriteID].LoadFromFile( spkFile );

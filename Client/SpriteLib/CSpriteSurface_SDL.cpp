@@ -21,6 +21,7 @@
 #include "CFilter.h"
 #include "CSpriteSurface.h"
 #include "SpriteLibBackend.h"
+#include "SpriteLibBackendSDL.h"
 
 /* ============================================================================
  * Static Member Initialization
@@ -132,9 +133,11 @@ void CSpriteSurface::DrawRect(RECT* rect, WORD color)
 		return;
 	}
 
-	/* Convert RGB565 color to RGBA32 */
-	uint32_t rgba_color;
-	spritectl_convert_565_to_rgba(&color, &rgba_color, 1, 0);
+	spritectl_surface_s* backend = (spritectl_surface_s*)m_backend_surface;
+	SDL_Surface* surf = backend->surface;
+	if (!surf) {
+		return;
+	}
 
 	/* Fill rect using backend */
 	SDL_Rect sdl_rect;
@@ -143,10 +146,19 @@ void CSpriteSurface::DrawRect(RECT* rect, WORD color)
 	sdl_rect.w = rect->right - rect->left;
 	sdl_rect.h = rect->bottom - rect->top;
 
+	uint8_t r = 0;
+	uint8_t g = 0;
+	uint8_t b = 0;
+	if (backend->format == SPRITECTL_FORMAT_RGB555) {
+		spritectl_555_to_rgb((uint16_t)color, &r, &g, &b);
+	} else {
+		spritectl_565_to_rgb((uint16_t)color, &r, &g, &b);
+	}
+	Uint32 pixel = SDL_MapRGB(surf->format, r, g, b);
+
 	spritectl_surface_info_t info;
 	if (spritectl_lock_surface(m_backend_surface, &info) == 0) {
-		SDL_Surface* surf = (SDL_Surface*)info.pixels;  /* Cast to SDL surface */
-		SDL_FillRect(surf, &sdl_rect, rgba_color);
+		SDL_FillRect(surf, &sdl_rect, pixel);
 		spritectl_unlock_surface(m_backend_surface);
 	}
 }
@@ -204,8 +216,46 @@ void CSpriteSurface::BltHalf(POINT* pPoint, CSpriteSurface* SourceSurface, RECT*
 
 void CSpriteSurface::BltNoColorkey(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect)
 {
-	/* TODO: Implement BltNoColorkey for SDL backend */
-	// Stub: Currently not implemented for SDL backend
+	/* Blt from source surface to this surface without colorkey transparency */
+	/* This is identical to Blt() in SDL backend - both copy pixels directly */
+	if (!pPoint || !SourceSurface) {
+		return;
+	}
+
+	/* Get source and destination info */
+	S_SURFACEINFO src_info, dst_info;
+	SourceSurface->GetSurfaceInfo(&src_info);
+	this->GetSurfaceInfo(&dst_info);
+
+	if (!src_info.p_surface || !dst_info.p_surface) {
+		return;
+	}
+
+	/* Calculate dimensions */
+	int src_x = pRect ? pRect->left : 0;
+	int src_y = pRect ? pRect->top : 0;
+	int src_w = pRect ? (pRect->right - pRect->left) : src_info.width;
+	int src_h = pRect ? (pRect->bottom - pRect->top) : src_info.height;
+
+	/* Clamp to source surface bounds */
+	if (src_x + src_w > src_info.width) src_w = src_info.width - src_x;
+	if (src_y + src_h > src_info.height) src_h = src_info.height - src_y;
+
+	/* Clamp to destination surface bounds */
+	if (pPoint->x + src_w > dst_info.width) src_w = dst_info.width - pPoint->x;
+	if (pPoint->y + src_h > dst_info.height) src_h = dst_info.height - pPoint->y;
+
+	/* Copy pixels line by line */
+	WORD* src_pixels = (WORD*)src_info.p_surface;
+	WORD* dst_pixels = (WORD*)dst_info.p_surface;
+
+	for (int y = 0; y < src_h; y++) {
+		for (int x = 0; x < src_w; x++) {
+			int src_offset = (src_y + y) * (src_info.pitch / 2) + (src_x + x);
+			int dst_offset = (pPoint->y + y) * (dst_info.pitch / 2) + (pPoint->x + x);
+			dst_pixels[dst_offset] = src_pixels[src_offset];
+		}
+	}
 }
 
 void CSpriteSurface::BltDarkness(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect, BYTE DarkBits)

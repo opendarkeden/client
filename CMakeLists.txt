@@ -289,6 +289,10 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		target_compile_definitions(VS_UI PUBLIC PLATFORM_MACOS)
 	endif()
 
+	# Define _LIB to match original VC6 build configuration
+	# This excludes test/debug code wrapped in #ifndef _LIB from library builds
+	target_compile_definitions(VS_UI PRIVATE _LIB)
+
 	message(STATUS "VS_UI library will be built from ${VS_UI_SRC_SOURCES} VS_UI files + ${VS_UI_CLIENT_SOURCES} Client files")
 endif()
 
@@ -332,6 +336,32 @@ target_link_libraries(sprite_viewer PRIVATE
 )
 
 set_target_properties(sprite_viewer PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+# Tile Renderer Test - test TileRenderer class with hardcoded tile data
+add_executable(tile_renderer_test
+	tools/viewers/tile_renderer_test/main.cpp
+	Client/TileRenderer.cpp
+)
+
+target_include_directories(tile_renderer_test PRIVATE
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/Client
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+	${CMAKE_CURRENT_SOURCE_DIR}/basic
+)
+
+target_link_libraries(tile_renderer_test PRIVATE
+	SpriteLib
+	dxlib
+	basic
+	SDL2::SDL2
+	SDL2_image::SDL2_image
+)
+
+set_target_properties(tile_renderer_test PROPERTIES
 	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
 
@@ -396,10 +426,12 @@ set_target_properties(creature_viewer PROPERTIES
 add_executable(map_viewer
 	tools/viewers/map_viewer/main.cpp
 	tools/viewers/map_viewer/zoneloader.cpp
+	Client/TileRenderer.cpp
 )
 
 target_include_directories(map_viewer PRIVATE
 	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/Client
 	${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
 	${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
 )

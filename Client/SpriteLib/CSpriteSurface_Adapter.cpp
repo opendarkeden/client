@@ -25,6 +25,34 @@
 #include "SpriteLibBackend.h"
 
 /* ============================================================================
+ * Debug Configuration
+ * ============================================================================ */
+
+// Enable detailed debug logging for Sprite adapter
+#ifndef SPRITE_ADAPTER_DEBUG
+#define SPRITE_ADAPTER_DEBUG 0
+#endif
+
+// Enable tracking of backend sprite lifecycle
+#ifndef SPRITE_ADAPTER_DEBUG_LIFECYCLE
+#define SPRITE_ADAPTER_DEBUG_LIFECYCLE 0
+#endif
+
+#if SPRITE_ADAPTER_DEBUG
+#define SA_DEBUG(fmt, ...) \
+	fprintf(stderr, "[SpriteAdapter] %s:%d: " fmt "\n", __FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+#define SA_DEBUG(fmt, ...) do {} while(0)
+#endif
+
+#if SPRITE_ADAPTER_DEBUG_LIFECYCLE
+#define SA_DEBUG_LIFECYCLE(fmt, ...) \
+	fprintf(stderr, "[SpriteAdapter LIFECYCLE] %s:%d: " fmt "\n", __FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+#define SA_DEBUG_LIFECYCLE(fmt, ...) do {} while(0)
+#endif
+
+/* ============================================================================
  * Helper Functions
  * ============================================================================ */
 
@@ -35,11 +63,19 @@
 static spritectl_sprite_t get_backend_sprite(CSprite* pSprite)
 {
 	if (!pSprite || !pSprite->IsInit()) {
+		static int notInitCount = 0;
+		if (notInitCount < 3) {
+			printf("[get_backend_sprite] ERROR: pSprite=%p, IsInit=%d\n", pSprite, pSprite ? pSprite->IsInit() : 0);
+			notInitCount++;
+		}
 		return SPRITECTL_INVALID_SPRITE;
 	}
 
 	/* Lazy creation: create backend sprite if doesn't exist */
 	if (pSprite->GetBackendSprite() == SPRITECTL_INVALID_SPRITE) {
+		static int createCount = 0;
+		printf("[get_backend_sprite] Creating backend sprite for CSprite width=%d, height=%d\n",
+			pSprite->GetWidth(), pSprite->GetHeight());
 		WORD width = pSprite->GetWidth();
 		WORD height = pSprite->GetHeight();
 
@@ -79,6 +115,12 @@ static spritectl_sprite_t get_backend_sprite(CSprite* pSprite)
 		spritectl_sprite_t new_sprite = spritectl_create_sprite(
 			width, height, SPRITECTL_FORMAT_RGB565,
 			pixels, data_size);
+
+		if (createCount < 3) {
+			printf("[get_backend_sprite] spritectl_create_sprite returned=%p (INVALID=%d)\n",
+				new_sprite, new_sprite == SPRITECTL_INVALID_SPRITE);
+			createCount++;
+		}
 
 		free(pixels);
 		pSprite->SetBackendSprite(new_sprite);
@@ -188,6 +230,9 @@ static spritectl_sprite_t get_backend_alpha_sprite(CAlphaSprite* pSprite)
  */
 static spritectl_sprite_t get_backend_shadow_sprite(CShadowSprite* pSprite)
 {
+	SA_DEBUG_LIFECYCLE("get_backend_shadow_sprite: pSprite=%p, IsInit=%d",
+	                   (void*)pSprite, pSprite ? pSprite->IsInit() : 0);
+
 	if (!pSprite || !pSprite->IsInit()) {
 		return SPRITECTL_INVALID_SPRITE;
 	}
@@ -200,35 +245,53 @@ static spritectl_sprite_t get_backend_shadow_sprite(CShadowSprite* pSprite)
 		size_t pixel_count = width * height;
 		size_t data_size = pixel_count * sizeof(WORD);
 
-		/* Allocate and copy pixel data */
+		SA_DEBUG_LIFECYCLE("get_backend_shadow_sprite: Creating backend sprite, size=%dx%d (%zu pixels, %zu bytes)",
+		                   width, height, pixel_count, data_size);
+
+		/* Allocate and decode pixel data */
 		WORD* pixels = (WORD*)malloc(data_size);
 		if (!pixels) {
+			SA_DEBUG_LIFECYCLE("get_backend_shadow_sprite: Failed to allocate pixel buffer");
 			return SPRITECTL_INVALID_SPRITE;
 		}
 
-		for (WORD y = 0; y < height; y++) {
-			WORD* src_line = pSprite->GetPixelLine(y);
-			WORD* dst_line = pixels + (y * width);
-			memcpy(dst_line, src_line, width * sizeof(WORD));
-		}
+		SA_DEBUG_LIFECYCLE("get_backend_shadow_sprite: Allocated temp pixels=%p", (void*)pixels);
+
+		memset(pixels, 0, data_size);
+		pSprite->Blt(pixels, width * sizeof(WORD));
 
 		/* Create backend sprite */
 		spritectl_sprite_t new_sprite = spritectl_create_sprite(
 			width, height, SPRITECTL_FORMAT_RGB565,
 			pixels, data_size);
 
+		SA_DEBUG_LIFECYCLE("get_backend_shadow_sprite: Created backend sprite=%p from temp pixels=%p",
+		                   (void*)new_sprite, (void*)pixels);
+
+		// Free temp pixels AFTER creating the sprite (the sprite copies the data)
 		free(pixels);
+		pixels = NULL;  // Prevent dangling pointer
+
 		pSprite->SetBackendSprite(new_sprite);
 		pSprite->SetBackendDirty(false);
+
+		SA_DEBUG_LIFECYCLE("get_backend_shadow_sprite: Set backend sprite=%p for CShadowSprite=%p",
+		                   (void*)new_sprite, (void*)pSprite);
 	}
 	/* Sync if dirty */
 	else if (pSprite->IsBackendDirty()) {
+		SA_DEBUG_LIFECYCLE("get_backend_shadow_sprite: Backend dirty, destroying old sprite=%p",
+		                   (void*)pSprite->GetBackendSprite());
 		/* Destroy old sprite and recreate */
 		spritectl_destroy_sprite(pSprite->GetBackendSprite());
 		pSprite->SetBackendSprite(SPRITECTL_INVALID_SPRITE);
 
 		/* Recreate (will be created on next call) */
 		return get_backend_shadow_sprite(pSprite);
+	}
+	else {
+		SA_DEBUG_LIFECYCLE("get_backend_shadow_sprite: Reusing existing backend sprite=%p",
+		                   (void*)pSprite->GetBackendSprite());
 	}
 
 	return pSprite->GetBackendSprite();
@@ -252,17 +315,13 @@ static spritectl_sprite_t get_backend_index_sprite(CIndexSprite* pSprite)
 		size_t pixel_count = width * height;
 		size_t data_size = pixel_count * sizeof(WORD);
 
-		/* Allocate and copy pixel data */
+		/* Allocate and decode pixel data (index sprites are RLE-compressed) */
 		WORD* pixels = (WORD*)malloc(data_size);
 		if (!pixels) {
 			return SPRITECTL_INVALID_SPRITE;
 		}
-
-		for (WORD y = 0; y < height; y++) {
-			WORD* src_line = pSprite->GetPixelLine(y);
-			WORD* dst_line = pixels + (y * width);
-			memcpy(dst_line, src_line, width * sizeof(WORD));
-		}
+		memset(pixels, 0, data_size);
+		pSprite->Blt(pixels, width * sizeof(WORD));
 
 		/* Create backend sprite */
 		spritectl_sprite_t new_sprite = spritectl_create_sprite(
@@ -298,7 +357,20 @@ void CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite) {
 	/* Get backend sprite */
 	spritectl_sprite_t backend_sprite = get_backend_sprite(pSprite);
 	if (!backend_sprite) {
+		static int invalidCount = 0;
+		if (invalidCount < 3) {
+			printf("[BltSprite] ERROR: get_backend_sprite returned invalid sprite! IsInit=%d\n", pSprite->IsInit());
+			invalidCount++;
+		}
 		return;
+	}
+
+	// Debug: Log first 10 successful BltSprite calls (increased from 5)
+	static int bltDebugCount = 0;
+	if (bltDebugCount < 10) {
+		printf("[BltSprite] Calling spritectl_blt_sprite: surface=%p, point=(%d,%d), sprite=%p\n",
+			m_backend_surface, pPoint->x, pPoint->y, backend_sprite);
+		bltDebugCount++;
 	}
 
 	/* Blit to backend surface */
@@ -306,6 +378,12 @@ void CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite) {
 	int alpha = 255;
 	spritectl_blt_sprite(m_backend_surface, pPoint->x, pPoint->y,
 	                    backend_sprite, flags, alpha);
+
+	static int afterBltDebugCount = 0;
+	if (afterBltDebugCount < 10) {
+		printf("[BltSprite] spritectl_blt_sprite completed\n");
+		afterBltDebugCount++;
+	}
 }
 
 void CSpriteSurface::BltSpriteNoClip(POINT* pPoint, CSprite* pSprite) {
@@ -348,7 +426,7 @@ void CSpriteSurface::BltSpriteAlpha(POINT* pPoint, CSprite* pSprite, BYTE alphaD
 	                    backend_sprite, flags, alphaDepth);
 }
 
-void CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale) {
+void CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, int scale) {
 	if (!pPoint || !pSprite) {
 		return;
 	}
@@ -359,7 +437,7 @@ void CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale)
 		return;
 	}
 
-	/* Scale parameter: 256 = 1x, 128 = 0.5x */
+	/* Scale parameter: 256 = 1x, 128 = 0.5x, 512 = 2x */
 	int scale_factor = scale;
 	int flags = 0;
 	spritectl_blt_sprite_scaled(m_backend_surface, pPoint->x, pPoint->y,

@@ -105,8 +105,9 @@ extern RECT g_GameRect;
 // ToT SafeDelete 도 없고..ToT 2003.5.11 by sonee
 
 extern int					g_Dimension ;
-// g_bEnable3DHAL is defined in VS_UI_Title.cpp (VS_UI library)
-extern BOOL g_bEnable3DHAL;
+// g_bEnable3DHAL was originally defined in VS_UI_Title.cpp when _LIB is not defined
+// Now that VS_UI is built with _LIB defined, we need to define it here
+BOOL g_bEnable3DHAL = FALSE;
 
 //----------------------------------------------------------------------
 // Title Loading - 2001.8.20 우헤헤 자꾸 늘어나는 global - -;;
@@ -2621,8 +2622,11 @@ void ReleaseAllObjects()
 //		if (g_pCreatureActionSpriteTable!=NULL) g_pCreatureActionSpriteTable->Release();
 		if (g_pCreatureTable) g_pCreatureTable->Release();
 		if (g_pCreatureSpriteTypeMapper) g_pCreatureSpriteTypeMapper->Release();
-		if (g_pEffectSpriteTypeTable) g_pEffectSpriteTypeTable->Release();
-		if (g_pActionEffectSpriteTypeTable) g_pActionEffectSpriteTypeTable->Release();
+		// FIXED: Delete immediately after Release to prevent use-after-free
+		// Previously: Release() was called here, but SAFE_DELETE was 50+ lines later
+		// This created a window where the table existed with m_pTypeInfo=NULL
+		SAFE_DELETE( g_pEffectSpriteTypeTable );
+		SAFE_DELETE( g_pActionEffectSpriteTypeTable );
 		if (g_pEffectStatusTable) g_pEffectStatusTable->Release();
 		if (g_pGameMessage!=NULL) g_pGameMessage->Release();
 		if (g_pGameStringTable) g_pGameStringTable->Release();
@@ -2673,8 +2677,7 @@ void ReleaseAllObjects()
 	SAFE_DELETE( g_pGuildMarkManager );
 	SAFE_DELETE( g_pGuildInfoMapper );
 	SAFE_DELETE( g_pEventManager );
-	SAFE_DELETE( g_pEffectSpriteTypeTable );
-	SAFE_DELETE( g_pActionEffectSpriteTypeTable );
+	// g_pEffectSpriteTypeTable and g_pActionEffectSpriteTypeTable already deleted above
 	SAFE_DELETE( g_pCreatureTable );
 	SAFE_DELETE( g_pCreatureSpriteTypeMapper );
 	SAFE_DELETE( g_pItemTable );

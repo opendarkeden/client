@@ -7,11 +7,13 @@
  * - 渲染 tile 和 ImageObject
  * - 支持平移、缩放、拖拽
  * - 测试 CSpritePack 和 zone 解析
+ * - 使用 TileRenderer 进行渲染（Phase 3 重构）
  */
 
 #include "Client/SpriteLib/CSpritePack.h"
 #include "Client/SpriteLib/CSpriteSurface.h"
 #include "Client/SpriteLib/SpriteLibBackend.h"
+#include "Client/TileRenderer.h"  // Phase 3: Use TileRenderer
 #include "zoneloader.h"
 #include <SDL2/SDL.h>
 #include <iostream>
@@ -19,7 +21,8 @@
 #include <cstdint>
 
 // 默认配置
-#define DEFAULT_CELL_PIXELS 32
+// 注意：游戏中 TILE_X=48, TILE_Y=24（见 MViewDef.h）
+#define DEFAULT_CELL_PIXELS 48  // 使用正确的 TILE_X 尺寸
 #define DEFAULT_WINDOW_WIDTH 800
 #define DEFAULT_WINDOW_HEIGHT 600
 
@@ -32,6 +35,7 @@ public:
         , m_tilePack(nullptr)
         , m_objPack(nullptr)
         , m_zoneLoader(nullptr)
+        , m_tileRenderer(nullptr)  // Phase 3: TileRenderer
         , m_cellPixels(DEFAULT_CELL_PIXELS)
         , m_cameraX(0)
         , m_cameraY(0)
@@ -108,6 +112,14 @@ public:
 
         std::cout << "Loaded " << m_tilePack->GetSize() << " tiles from pack" << std::endl;
 
+        // Phase 3: Create TileRenderer
+        m_tileRenderer = new TileRenderer();
+        if (!m_tileRenderer->Init(m_screenSurface, m_tilePack)) {
+            std::cerr << "Failed to initialize TileRenderer" << std::endl;
+            return false;
+        }
+        std::cout << "TileRenderer initialized (Phase 3: using new rendering code)" << std::endl;
+
         // Load ImageObject sprite pack if provided
         if (objSpkFile != nullptr && strlen(objSpkFile) > 0) {
             m_objPack = new CSpritePack();
@@ -158,6 +170,11 @@ public:
         if (m_objPack) {
             delete m_objPack;
             m_objPack = nullptr;
+        }
+
+        if (m_tileRenderer) {
+            delete m_tileRenderer;
+            m_tileRenderer = nullptr;
         }
 
         if (m_tilePack) {
@@ -323,7 +340,7 @@ private:
 
         // Calculate visible range
         int scaledCellW = static_cast<int>(m_cellPixels * m_zoom);
-        int scaledCellH = static_cast<int>(m_cellPixels / 2 * m_zoom);
+        int scaledCellH = static_cast<int>(m_cellPixels * m_zoom / 2);
 
         int startSectorX = m_cameraX / scaledCellW;
         int startSectorY = m_cameraY / scaledCellH;
@@ -336,29 +353,21 @@ private:
         endSectorX = (endSectorX > mapWidth) ? mapWidth : endSectorX;
         endSectorY = (endSectorY > mapHeight) ? mapHeight : endSectorY;
 
-        // Render visible sectors
+        // Render visible sectors using TileRenderer (Phase 3)
         for (int y = startSectorY; y < endSectorY; y++) {
             for (int x = startSectorX; x < endSectorX; x++) {
-                const Sector* sector = m_zoneLoader->GetSector(x, y);
-                if (!sector) continue;
-
                 // Calculate screen position
                 int screenX = x * scaledCellW - m_cameraX;
                 int screenY = y * scaledCellH - m_cameraY;
 
-                // Render tile
-                if (sector->spriteID > 0 && sector->spriteID <= m_tilePack->GetSize()) {
-                    CSprite* sprite = &m_tilePack->Get(sector->spriteID - 1); // spriteID is 1-based
-                    if (sprite != nullptr && sprite->IsInit()) {
-                        POINT point = { screenX, screenY };
-                        m_screenSurface->BltSprite(&point, sprite);
-                    }
-                }
+                // Get sprite ID from ZoneLoader (which implements ITileDataProvider)
+                // Returns -1 for empty tiles (spriteID=0 or 0xFFFF)
+                int spriteID = m_zoneLoader->GetSpriteID(x, y);
 
-                // Draw grid if enabled
-                if (m_showGrid) {
-                    // Grid rendering would require direct surface access
-                    // Skip for now
+                // Draw tile using TileRenderer (skips spriteID=-1)
+                if (spriteID >= 0) {
+                    POINT point = { screenX, screenY };
+                    m_tileRenderer->DrawTile(spriteID, &point);
                 }
             }
         }
@@ -392,8 +401,6 @@ private:
         std::cout << "\rMap: " << mapWidth << "x" << mapHeight
                   << " | Camera: (" << m_cameraX << ", " << m_cameraY << ")"
                   << " | Zoom: " << static_cast<int>(m_zoom * 100) << "%"
-                  << " | Grid: " << (m_showGrid ? "ON" : "OFF")
-                  << " | Objects: " << (m_showObjects ? "ON" : "OFF")
                   << "     ";
         std::cout.flush();
     }
@@ -405,6 +412,7 @@ private:
     CSpritePack* m_tilePack;
     CSpritePack* m_objPack;
     ZoneLoader* m_zoneLoader;
+    TileRenderer* m_tileRenderer;  // Phase 3: Use TileRenderer
 
     // Rendering settings
     int m_cellPixels;

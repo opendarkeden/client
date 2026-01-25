@@ -4,6 +4,7 @@
 #include "client_PCH.h"
 #include "CSpriteSurface.h"
 #include "CSprite565.h"
+#include <cstdint>
 #include "CSprite555.h"
 #include "CSpritePack.h"
 #include "CSpriteSet.h"
@@ -91,13 +92,14 @@ CSpriteSet::LoadFromFile(ifstream& indexFile, ifstream& packFile)
 	indexFile.read((char*)&count, SIZE_SPRITEID);
 
 
-	long* pIndex = new long [count];	// file position
+	int32_t* pIndex = new int32_t [count];	// file position (32-bit)
 
 	//------------------------------------------------------
 	// SpriteSet IndexFile을 모두 읽어들인다.
 	//------------------------------------------------------
 	for (TYPE_SPRITEID i=0; i<count; i++)
-	{		
+	{
+		pIndex[i] = 0;
 		indexFile.read((char*)&pIndex[i], 4);
 	}
 
@@ -117,7 +119,7 @@ CSpriteSet::LoadFromFile(ifstream& indexFile, ifstream& packFile)
 	//------------------------------------------------------
 	for (int i=0; i<count; i++)
 	{
-		packFile.seekg(pIndex[i], ios::beg);
+		packFile.seekg(static_cast<std::streamoff>(pIndex[i]), ios::beg);
 		m_pSprites[i].LoadFromFile( packFile );
 	}
 

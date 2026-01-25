@@ -62,8 +62,14 @@ public :
     uint write ( ushort buf ) throw ( ProtocolException , Error ) { return write( (const char*)&buf, szushort ); }
     uint write ( int    buf ) throw ( ProtocolException , Error ) { return write( (const char*)&buf, szint    ); }
     uint write ( uint   buf ) throw ( ProtocolException , Error ) { return write( (const char*)&buf, szuint   ); }
-    uint write ( long   buf ) throw ( ProtocolException , Error ) { return write( (const char*)&buf, szlong   ); }
-    uint write ( ulong  buf ) throw ( ProtocolException , Error ) { return write( (const char*)&buf, szulong  ); }
+    uint write ( long   buf ) throw ( ProtocolException , Error ) {
+        int32_t tmp = static_cast<int32_t>(buf);
+        return write( (const char*)&tmp, szlong );
+    }
+    uint write ( ulong  buf ) throw ( ProtocolException , Error ) {
+        uint32_t tmp = static_cast<uint32_t>(buf);
+        return write( (const char*)&tmp, szulong );
+    }
 
 	// flush stream (output buffer) to socket
 	uint flush () throw ( IOException , Error );

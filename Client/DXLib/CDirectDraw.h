@@ -25,12 +25,6 @@
 	#include "../basic/Platform.h"
 	#include <cstring>
 
-	/* Basic type definitions if not already defined */
-	#ifndef LONG_DEFINED
-	#define LONG_DEFINED
-	typedef long LONG;
-	#endif
-
 	#ifndef LPVOID_DEFINED
 	#define LPVOID_DEFINED
 	typedef void* LPVOID;

@@ -3,6 +3,7 @@
 //----------------------------------------------------------------------		
 #include "client_PCH.h"
 #include "CSpriteSetManager.h"
+#include <cstdint>
 //----------------------------------------------------------------------		
 //
 // member functions
@@ -49,13 +50,14 @@ CSpriteSetManager::SaveSpriteSetIndex(ofstream& setIndex, ifstream& spkIndex)
 	spkIndex.read((char*)&count, SIZE_SPRITEID);
 
 	// SpritePack Index를 저장해둘 memory잡기
-	long* pIndex = new long [count];
+	int32_t* pIndex = new int32_t [count];
 
 	//---------------------------------------------------------------
 	// 모든 SpritePack IndexFile을 Load한다.
 	//---------------------------------------------------------------
 	for (TYPE_SPRITEID i=0; i<count; i++)
 	{
+		pIndex[i] = 0;
 		spkIndex.read((char*)&pIndex[i], 4);
 	}
 

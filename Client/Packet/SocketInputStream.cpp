@@ -174,13 +174,13 @@ throw ( ProtocolException , Error ) {
 		str.assign( &m_Buffer[m_Head] , len );
 
 	} else { 					// reversed order ( m_Head > m_Tail )
-		
+
         //
         //     T  H
         // 0123456789
         // abcd...efg
         //
-	 
+
 		uint rightLen = m_BufferLen - m_Head;
 		if ( len <= rightLen ) {
 			str.assign( &m_Buffer[m_Head] , len );
@@ -189,7 +189,15 @@ throw ( ProtocolException , Error ) {
 			str.append( m_Buffer , len - rightLen );
 		}
 	}
-	
+
+	// Fix: Ensure string is properly null-terminated by resizing to actual content length
+	// This prevents strlen() from reading past the end when c_str() is used
+	// Find first null terminator or use entire length
+	size_t nullPos = str.find('\0');
+	if (nullPos != std::string::npos) {
+		str.resize(nullPos);
+	}
+
 	m_Head = ( m_Head + len ) % m_BufferLen;
 
 	/*

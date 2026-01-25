@@ -893,18 +893,18 @@ void	C_VS_UI_TRIBE::SetSelectTab(int tab)
 //-----------------------------------------------------------------------------
 void	C_VS_UI_TRIBE::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 {
-	const static char* slayer_string[EXEC_MAX+1] = 
+	const static char* slayer_string[] =
 	{
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_AUTO_HIDE_ON].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_GAME_MENU].GetString(),
-			
+
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_MENU].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_EXP].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_MESSAGE].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_UTIL].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_HELP].GetString(),
-			
+
 		// Menu TAB
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_INVENTORY].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_GEAR_WINDOW].GetString(),
@@ -914,14 +914,14 @@ void	C_VS_UI_TRIBE::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_MAILBOX].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_WINDOW].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_NAMING_WINDOW].GetString(),
-			
+
 		// Guild Tab
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_MEMBER_LIST].GetString(),
-//		(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_COMMAND_WINDOW],
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_LIST_WINDOW],
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_WAIT_LIST_WINDOW],
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_UNION_WINDOW],
+		"", // Placeholder for TEAM_COMMAND_WINDOW (commented out in enum)
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_LIST_WINDOW].GetString(),
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_WAIT_LIST_WINDOW].GetString(),
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_UNION_WINDOW].GetString(),
 
 		// util tab
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_PERSONAL_STORE].GetString(),
@@ -934,24 +934,24 @@ void	C_VS_UI_TRIBE::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_SKILL_HELP].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_HELP].GetString(),
 		//add by viva : friend button description
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND].GetString(),
+//		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND].GetString(),
 		//end
 		// MAX+
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_AUTO_HIDE_OFF].GetString(),
 	};
 	
-	const static char* vampire_string[EXEC_MAX+1] = 
+	const static char* vampire_string[] =
 	{
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_AUTO_HIDE_ON].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_GAME_MENU].GetString(),
-			
+
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_MENU].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_EXP].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_MESSAGE].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_UTIL].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_HELP].GetString(),
-		
+
 		// Menu TAB
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_INVENTORY].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_GEAR_WINDOW].GetString(),
@@ -961,14 +961,14 @@ void	C_VS_UI_TRIBE::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_MAILBOX].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_WINDOW].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_NAMING_WINDOW].GetString(),
-			
+
 		// Guild Tab
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_INFO].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_MEMBER_LIST].GetString(),
-//		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_COMMAND_WINDOW],// = "Ŭ�� ����(Clan Command)";
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_LIST_WINDOW],// = "Ŭ�� ���(Clan List)";
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_WAIT_LIST_WINDOW],// = "��� Ŭ�� ���(Wait Clan List)";
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_UNION_WINDOW],// = "Ŭ�� ����(Clan Union)";
+		"", // Placeholder for CLAN_COMMAND_WINDOW (commented out in enum)
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_LIST_WINDOW].GetString(),
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_WAIT_LIST_WINDOW].GetString(),
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_UNION_WINDOW].GetString(),
 
 		// util tab
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_PERSONAL_STORE].GetString(),
@@ -981,24 +981,24 @@ void	C_VS_UI_TRIBE::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_MAGIC_HELP].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_HELP].GetString(),
 		//add by viva : friend button description
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND].GetString(),
+//		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND].GetString(),
 		//end
 		// MAX+
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_AUTO_HIDE_OFF].GetString(),
 	};
 	
-	const static char* ousters_string[EXEC_MAX+1] = 
+	const static char* ousters_string[] =
 	{
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_AUTO_HIDE_ON].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_GAME_MENU].GetString(),
-		
+
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_MENU].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_EXP].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_MESSAGE].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_UTIL].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_HELP].GetString(),
-		
+
 		// Menu TAB
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_INVENTORY].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_GEAR_WINDOW].GetString(),
@@ -1008,19 +1008,19 @@ void	C_VS_UI_TRIBE::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_MAILBOX].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_WINDOW].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_NAMING_WINDOW].GetString(),
-		
+
 		// Guild Tab
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_INFO].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_MEMBER_LIST].GetString(),
-//		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_COMMAND_WINDOW],// = "��� ����(Guild Command)";
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_LIST_WINDOW],// = "��� ���(Guild List)";
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_WAIT_LIST_WINDOW],// = "��� ��� ���(Wait Guild List)";
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_UNION_WINDOW],// = "��� ����(Guild Union)";
-			
+		"", // Placeholder for GUILD_COMMAND_WINDOW (commented out in enum)
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_LIST_WINDOW].GetString(),
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_WAIT_LIST_WINDOW].GetString(),
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_UNION_WINDOW].GetString(),
+
 		// util tab
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_PERSONAL_STORE].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_POWER_JJANG].GetString(),
-		
+
 		// HELP TAB
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_BASIC_HELP].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_CHATTING_HELP].GetString(),
@@ -1028,7 +1028,7 @@ void	C_VS_UI_TRIBE::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_MAGIC_HELP].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_HELP].GetString(),
 		//add by viva : friend button description
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND].GetString(),
+//		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND].GetString(),
 		//end
 		// MAX+
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_AUTO_HIDE_OFF].GetString(),
@@ -1039,19 +1039,21 @@ void	C_VS_UI_TRIBE::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 	case RACE_SLAYER:
 		if(p_button->GetID() == PUSHPIN_ID && GetAttributes()->autohide)
 			g_descriptor_manager.Set(DID_INFO, p_button->x+x, p_button->y+y, (void *)slayer_string[EXEC_MAX],0,0);
-		else
+		else if(p_button->GetID() >= 0 && p_button->GetID() <= EXEC_MAX)
 			g_descriptor_manager.Set(DID_INFO, p_button->x+x, p_button->y+y, (void *)slayer_string[p_button->GetID()],0,0);
 		break;
-		
+
 	case RACE_VAMPIRE:
 		if(p_button->GetID() == PUSHPIN_ID && GetAttributes()->autohide)
-			g_descriptor_manager.Set(DID_INFO, p_button->x+x, p_button->y+y, (void *)vampire_string[EXEC_MAX],0,0);		else
+			g_descriptor_manager.Set(DID_INFO, p_button->x+x, p_button->y+y, (void *)vampire_string[EXEC_MAX],0,0);
+		else if(p_button->GetID() >= 0 && p_button->GetID() <= EXEC_MAX)
 			g_descriptor_manager.Set(DID_INFO, p_button->x+x, p_button->y+y, (void *)vampire_string[p_button->GetID()],0,0);
 		break;
-		
+
 	case RACE_OUSTERS:
 		if(p_button->GetID() == PUSHPIN_ID && GetAttributes()->autohide)
-			g_descriptor_manager.Set(DID_INFO, p_button->x+x, p_button->y+y, (void *)ousters_string[EXEC_MAX],0,0);		else
+			g_descriptor_manager.Set(DID_INFO, p_button->x+x, p_button->y+y, (void *)ousters_string[EXEC_MAX],0,0);
+		else if(p_button->GetID() >= 0 && p_button->GetID() <= EXEC_MAX)
 			g_descriptor_manager.Set(DID_INFO, p_button->x+x, p_button->y+y, (void *)ousters_string[p_button->GetID()],0,0);
 		break;
 	}
@@ -25648,14 +25650,14 @@ void	C_VS_UI_FRIEND_INFO::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 void	C_VS_UI_FRIEND_INFO::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 {
 	const static char*	m_help_string[EXEC_MAX] = {
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_LIST].GetString(),
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_BLACKLIST].GetString(),
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_TAG].GetString(),
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_UP].GetString(),
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_DOWN].GetString(),
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_FIND].GetString(),
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_ADD].GetString(),
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_SETUP].GetString(),
+//		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_LIST].GetString(),
+//		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_BLACKLIST].GetString(),
+//		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_TAG].GetString(),
+//		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_UP].GetString(),
+//		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_DOWN].GetString(),
+//		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_FIND].GetString(),
+//		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_ADD].GetString(),
+//		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_SETUP].GetString(),
 
 	};
 	

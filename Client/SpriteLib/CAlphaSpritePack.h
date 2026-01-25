@@ -1,4 +1,5 @@
 #include <fstream>
+#include <cstdint>
 //----------------------------------------------------------------------
 // CAlphaSpritePack.h
 //----------------------------------------------------------------------
@@ -32,10 +33,10 @@ class CAlphaSpritePack {
 		// file I/O
 		//------------------------------------------------------------
 		bool		SaveToFile(std::ofstream& spkFile, std::ofstream& indexFile);
-		bool		SaveToFileSpriteOnly(std::ofstream& spkFile, long &filePosition);
+		bool		SaveToFileSpriteOnly(std::ofstream& spkFile, int32_t &filePosition);
 		void		LoadFromFile(std::ifstream& file);		
-		void		LoadFromFilePart(std::ifstream& file, long filePosition,
-									 TYPE_SPRITEID firstSpriteID, TYPE_SPRITEID lastSpriteID);
+		void		LoadFromFilePart(std::ifstream& file, int32_t filePosition,
+								TYPE_SPRITEID firstSpriteID, TYPE_SPRITEID lastSpriteID);
 
 		bool		LoadFromFileSprite(int spriteID, int fileSpriteID, std::ifstream& spkFile, std::ifstream& indexFile);
 		bool		LoadFromFileSprite(int spriteID, int fileSpriteID, const char* spkFilename, const char* indexFilename);

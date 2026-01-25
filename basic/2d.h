@@ -1,7 +1,7 @@
 #ifndef __2D__
 #define __2D__
 
-#include "typedef.h"
+#include "Typedef.h"
 #ifdef PLATFORM_WINDOWS
 #include <DDraw.h>
 #endif
