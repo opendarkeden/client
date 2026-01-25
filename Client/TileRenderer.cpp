@@ -26,8 +26,6 @@ TileRenderer::~TileRenderer()
 
 bool TileRenderer::Init(CSpriteSurface* surface, CSpritePack* spritePack)
 {
-	printf("[TileRenderer::Init] surface=%p, spritePack=%p\n", surface, spritePack);
-
 	if (surface == nullptr || spritePack == nullptr)
 	{
 		printf("[TileRenderer::Init] FAILED: surface or spritePack is null!\n");
@@ -36,8 +34,6 @@ bool TileRenderer::Init(CSpriteSurface* surface, CSpritePack* spritePack)
 
 	m_surface = surface;
 	m_spritePack = spritePack;
-
-	printf("[TileRenderer::Init] SUCCESS: m_surface=%p, m_spritePack=%p\n", m_surface, m_spritePack);
 
 	return true;
 }
@@ -135,26 +131,8 @@ bool TileRenderer::DrawTileInternal(int spriteID, POINT* pPoint, float scale)
 		return false;
 	}
 
-	// Debug: log first few successful renders
-	static int successCount = 0;
-	if (successCount < 3) {
-		printf("[TileRenderer] About to draw spriteID=%d at (%d,%d), sprite width=%d, height=%d\n",
-			spriteID, pPoint->x, pPoint->y, sprite.GetWidth(), sprite.GetHeight());
-		successCount++;
-	}
-
 	// Draw the sprite
-	// Note: We don't scale the sprite itself here.
-	// The caller is responsible for positioning sprites at correct coordinates.
-	// For zoom in map_viewer, coordinate spacing is adjusted, not sprite size.
 	m_surface->BltSprite(pPoint, &sprite);
-
-	// Debug: verify BltSprite was called
-	static int afterBltCount = 0;
-	if (afterBltCount < 3) {
-		printf("[TileRenderer] BltSprite completed for spriteID=%d\n", spriteID);
-		afterBltCount++;
-	}
 
 	return true;
 }
@@ -246,22 +224,12 @@ void TileRenderer::DrawTilesNoLock(ITileDataProvider* provider,
 	if (viewportX + viewportWidth > mapWidth) viewportWidth = mapWidth - viewportX;
 	if (viewportY + viewportHeight > mapHeight) viewportHeight = mapHeight - viewportY;
 
-	// Debug output
-	static int debugCount = 0;
-	if (debugCount < 3) {
-		printf("[TileRenderer] DrawTilesNoLock: viewport=(%d,%d) size=(%d,%d) surface=(%d,%d) map=(%d,%d)\n",
-			viewportX, viewportY, viewportWidth, viewportHeight, surfaceX, surfaceY, mapWidth, mapHeight);
-		debugCount++;
-	}
-
 	// NOTE: Caller must have already called Lock() on the surface
 	// This is for use in DrawTileSurface where Lock is already called
 
 	// Render each tile
 	POINT tilePoint;
 	tilePoint.y = surfaceY;
-
-	int tileCount = 0;
 
 	for (int y = viewportY; y < viewportY + viewportHeight; y++)
 	{
@@ -272,26 +240,15 @@ void TileRenderer::DrawTilesNoLock(ITileDataProvider* provider,
 			// Get sprite ID for this sector
 			int spriteID = provider->GetSpriteID(x, y);
 
-			// Debug: log first few tiles
-			if (debugCount <= 3 && tileCount < 5) {
-				printf("[TileRenderer] Tile (%d,%d) spriteID=%d\n", x, y, spriteID);
-			}
-
 			// Draw the tile
 			DrawTileInternal(spriteID, &tilePoint);
 
 			// Move to next tile position
 			tilePoint.x += m_tileX;
-			tileCount++;
 		}
 
 		// Move to next row
 		tilePoint.y += m_tileY;
-	}
-
-	if (debugCount <= 3) {
-		printf("[TileRenderer] Drew %d tiles\n", tileCount);
-		debugCount++;
 	}
 
 	// NOTE: Caller must call Unlock() after this method returns

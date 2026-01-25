@@ -14377,89 +14377,6 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	// [ TEST CODE ]  Perspective
 	//
 	//----------------------------------------------------------------	
-	/*
-#ifdef OUTPUT_DEBUG
-
-	if (!g_pDXInput->KeyDown(DIK_LSHIFT))
-	{
-		m_pSurface->BltNoColorkey(&point, m_pTileSurface, &rectReuse);
-	}
-	else
-	{
-		if (CDirect3D::IsHAL())
-		{	
-			
-			// TileTexture ¼³Á¤
-			CSpriteSurface* m_pTileTexture = new CSpriteSurface;
-			m_pTileTexture->InitTextureSurface(256, 256);
-			
-			RECT destRect = { 0, 0, 256, 256 };
-
-			m_pTileTexture->Blt(&destRect, m_pTileSurface, &rectReuse);
-
-			CDirect3D::GetDevice()->SetTexture(0, m_pTileTexture->GetSurface());	
-			//CDirect3D::GetDevice()->SetTexture(0, NULL);	
-			
-			static CD3DObject object;
-			static bool first = true;
-
-			if (first)
-			{
-				//--------------------------------------------------------
-				// Light ¼³Á¤
-				//--------------------------------------------------------
-				D3DLIGHT7 light;
-				ZeroMemory( &light, sizeof(D3DLIGHT7) );
-				light.dltType        = D3DLIGHT_POINT;
-				light.dcvDiffuse.r   = 1.0f;
-				light.dcvDiffuse.g   = 1.0f;
-				light.dcvDiffuse.b   = 1.0f;
-				light.dcvSpecular    = light.dcvDiffuse;
-				light.dvPosition.x   = light.dvDirection.x = 0.0f;
-				light.dvPosition.y   = light.dvDirection.y = 8.5f;
-				light.dvPosition.z   = light.dvDirection.z = -5.0f;
-				light.dvAttenuation0 = 1.0f;
-				light.dvRange        = D3DLIGHT_RANGE_MAX;
-
-				CDirect3D::GetDevice()->SetLight( 0, &light );
-				CDirect3D::GetDevice()->LightEnable( 0, TRUE );
-				CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_LIGHTING, TRUE );
-
-
-				// world matrix¸¦ ±â¿ïÀÓ..
-				D3DMATRIX matWorld;
-				CDirect3D::GetDevice()->GetTransform( D3DTRANSFORMSTATE_WORLD, &matWorld );
-				CD3DMath::MultiplyRotateXMatrix(matWorld, 25*g_DEGTORAD);
-				CDirect3D::GetDevice()->SetTransform( D3DTRANSFORMSTATE_WORLD, &matWorld );
-
-				////object.CreatePlane(2.0f);
-				object.CreatePlane(6.5f);
-				object.Move(0, 0.5f, 0);		
-
-
-				D3DMATERIAL7 mtrl;
-				mtrl.dcvDiffuse.r = mtrl.dcvAmbient.r = 1.0f;
-				mtrl.dcvDiffuse.g = mtrl.dcvAmbient.g = 1.0f;
-				mtrl.dcvDiffuse.b = mtrl.dcvAmbient.b = 1.0f;
-				mtrl.dcvDiffuse.a = mtrl.dcvAmbient.a = 1.0f;		
-				
-				//g_Background.Rotate( 90.0f*g_DEGTORAD, 0, 0 );
-				mtrl.dcvEmissive.r = 0;
-				mtrl.dcvEmissive.g = 0;
-				mtrl.dcvEmissive.b = 0;
-				object.SetMaterial( mtrl );
-
-				first = false;
-			}
-			
-			object.Draw();
-
-			delete m_pTileTexture;
-		}	
-	}
-
-#else
-*/
 
 
 	bool bDrawBackGround = DrawEvent();
@@ -14509,13 +14426,6 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	// 2004, 9, 3, sobeit add end - Å¸ÀÏ µÞÂÊ¿¡ ±¸¸§-_-;
 	if(bDrawBackGround)
 	{
-		// Debug: Check tile surface blit
-		static int blitDebugCount = 0;
-		if (blitDebugCount < 5) {
-			printf("[DrawZone] Blitting m_pTileSurface to m_pSurface: point=(%d,%d), rectReuse=(%d,%d)-(%d,%d)\n",
-				point.x, point.y, rectReuse.left, rectReuse.top, rectReuse.right, rectReuse.bottom);
-			blitDebugCount++;
-		}
 		m_pSurface->BltNoColorkey(&point, m_pTileSurface, &rectReuse);
 	}
 	
@@ -14523,8 +14433,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	__END_PROFILE("ReuseBltTileSurface")
 
 	__END_PROFILE("ReuseTileSurface")
-//#endif
-		
+
 	POINT tilePointTemp;
 	int sX1, sX2, sY1, sY2;	
 
@@ -16700,19 +16609,6 @@ MTopView::DrawTileSurface()
 	//----------------------------------------------------------------------
 	// Use TileRenderer for unified tile rendering (Phase 4 integration)
 	//----------------------------------------------------------------------
-	if (m_pTileRenderer != NULL)
-	{
-		CSpriteSurface* pSurface = m_pTileRenderer->GetSurface();
-		CSpritePack* pPack = m_pTileRenderer->GetSpritePack();
-		printf("[DrawTileSurface] m_pTileRenderer=%p, m_surface=%p, m_spritePack=%p, IsInit=%d\n",
-			m_pTileRenderer, pSurface, pPack, m_pTileRenderer->IsInit());
-	}
-	else
-	{
-		printf("[DrawTileSurface] m_pTileRenderer=NULL\n");
-	}
-
-	// Use TileRenderer for unified tile rendering (Phase 4 integration)
 	if (m_pTileRenderer != NULL && m_pTileRenderer->IsInit())
 	{
 		// Set the zone provider
@@ -16720,7 +16616,6 @@ MTopView::DrawTileSurface()
 
 		// Draw tiles using TileRenderer
 		// Note: DrawTilesNoLock is used because surface is already locked
-		printf("[DrawTileSurface] Calling TileRenderer::DrawTilesNoLock\n");
 		m_pTileRenderer->DrawTilesNoLock(
 			&m_zoneTileProvider,
 			sX1, sY1,
@@ -16729,202 +16624,10 @@ MTopView::DrawTileSurface()
 			tilePoint.x,
 			tilePoint.y
 		);
-		printf("[DrawTileSurface] TileRenderer::DrawTilesNoLock completed\n");
 	}
 	else
 	{
-		printf("[DrawTileSurface] ERROR: TileRenderer not available, falling back to original rendering\n");
-		// Fallback to original rendering if TileRenderer is not available
-		//char str[80];
-		for (y=sY1; y<sY2; y++)
-		{
-			// ÇÑ ÁÙÀÇ Ã¹¹øÂ° Sector
-			tilePointTemp.x = tilePoint.x;
-
-			for (x=sX1; x<sX2; x++)
-			{
-				point = tilePointTemp;
-
-				// (sX,sY) SectorÀÇ SpriteID¸¦ ÀÐ¾î¼­ Ãâ·Â
-				//m_pTileSurface->Lock();
-
-				int spriteID = m_pZone->GetSector(x,y).GetSpriteID();
-
-				if (spriteID==SPRITEID_NULL)
-				{
-					// Debug: Check null tile sprite (limit output to first few)
-					static int nullTileDebugCount = 0;
-					if (nullTileDebugCount < 3)
-					{
-						CSprite& nullSprite = m_EtcSPK[SPRITEID_TILE_NULL];
-						printf("[DrawTileSurface] NULL tile (%d,%d), nullSprite IsInit=%d, width=%d, height=%d, point=(%d,%d)\n",
-							x, y, nullSprite.IsInit(), nullSprite.GetWidth(), nullSprite.GetHeight(), point.x, point.y);
-						nullTileDebugCount++;
-					}
-
-					// Debug: Before calling BltSprite for NULL tile
-					static int beforeNullBltCount = 0;
-					if (beforeNullBltCount < 10) {
-						printf("[DrawTileSurface] About to call BltSprite for NULL tile (%d,%d)\n", x, y);
-						beforeNullBltCount++;
-					}
-
-	#ifdef __DEBUG_OUTPUT__
-					if( g_pZone->GetID() == 3001 && m_pZone->GetSector(x,y).IsBlockAny() )
-						m_pTileSurface->BltSprite(&point, &m_EtcSPK[1]);
-					else
-						m_pTileSurface->BltSprite(&point, &m_EtcSPK[SPRITEID_TILE_NULL]);
-	#else
-					m_pTileSurface->BltSprite(&point, &m_EtcSPK[SPRITEID_TILE_NULL]);
-	#endif
-
-					// Debug: After calling BltSprite for NULL tile
-					static int afterNullBltCount = 0;
-					if (afterNullBltCount < 10) {
-						printf("[DrawTileSurface] BltSprite returned for NULL tile (%d,%d)\n", x, y);
-						afterNullBltCount++;
-					}
-				}
-				else
-				{
-					#ifdef OUTPUT_DEBUG
-						//if (g_pDebugMessage)
-						//	DEBUG_ADD_FORMAT("Draw Tile (%d, %d) id=%d", x, y, spriteID);
-					#endif
-
-					CSprite& sprite = m_TileSPK[ spriteID ];
-
-					// Debug: Check sprite initialization and size (limit output to first few tiles)
-					static int origTileDebugCount = 0;
-					if (origTileDebugCount < 5)
-					{
-						printf("[DrawTileSurface] Tile (%d,%d) spriteID=%d, IsInit=%d, width=%d, height=%d, point=(%d,%d)\n",
-							x, y, spriteID, sprite.IsInit(), sprite.GetWidth(), sprite.GetHeight(), point.x, point.y);
-						origTileDebugCount++;
-					}
-
-					// Debug: Before calling BltSprite (ALWAYS print for first 20 tiles to ensure we see it)
-					static int beforeBltCount = 0;
-					if (beforeBltCount < 20) {
-						printf("[DrawTileSurface] About to call BltSprite for tile (%d,%d) spriteID=%d\n", x, y, spriteID);
-						beforeBltCount++;
-					}
-
-					// Call BltSprite
-					m_pTileSurface->BltSprite(&point, &sprite);
-
-					// Debug: After calling BltSprite
-					static int afterBltCount = 0;
-					if (afterBltCount < 20) {
-						printf("[DrawTileSurface] BltSprite returned for tile (%d,%d)\n", x, y);
-						afterBltCount++;
-					}
-
-					//---------------------------------------
-					// ID°¡ spriteIDÀÎ TileÀ» LoadÇÑ´Ù.
-					//---------------------------------------
-	//				#ifdef	OUTPUT_DEBUG
-	//					char str[256];
-	//				#endif
-	//				if (sprite.IsNotInit())
-	//				{
-	//					#ifdef	OUTPUT_DEBUG
-	//						sprintf(str, "[RunTimeLoading] Tile(%d,%d) - DrawTileSurface : sprite=%d", x, y, spriteID);
-	//					#endif
-	//
-	//					m_TileSPKFile.seekg(m_TileSPKI[spriteID], ios::beg);
-	//					//--------------------------------------------------
-	//					// ¼º°øÇÑ °æ¿ì..
-	//					//--------------------------------------------------
-	//					if (m_TileSPK[spriteID].LoadFromFile( m_TileSPKFile ))
-	//					{
-	//						#ifdef	OUTPUT_DEBUG
-	//							strcat(str, "...OK");
-	//						#endif
-	//					}
-	//					//--------------------------------------------------
-	//					// ½ÇÆÐÇÑ °æ¿ì --> ÀÌ¹Ì LoadingÇÏ°í ÀÖ´Â °æ¿ìÀÌ´Ù.
-	//					//--------------------------------------------------
-	//					/*
-	//					// 2001.8.20 ÁÖ¼®Ã³¸®
-	//					else
-	//					{
-	//						#ifdef	OUTPUT_DEBUG
-	//							strcat(str, "...Fail & Wait Loading");
-	//						#endif
-	//
-	//						// file thread ¼øÀ§¸¦ ³ôÈù´Ù.
-	//						//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_HIGHEST);
-	//
-	//						// Thread¿¡¼­ LoadingÀÌ ³¡³¯¶§±îÁö ±â´Ù¸°´Ù.
-	//						//while (m_TileSPK[spriteID].IsNotInit());
-	//						//while (!m_TileSPK[spriteID].LoadFromFile( m_TileSPKFile ));
-	//						MLoadingSPKWorkNode3* pNode = new MLoadingSPKWorkNode3(spriteID, m_TileSPKI[spriteID]);
-	//						pNode->SetSPK( &m_TileSPK, FILE_SPRITE_TILE );
-	//						pNode->SetType( 1 );
-	//						g_pLoadingThread->SetPriority( THREAD_PRIORITY_HIGHEST );
-	//						g_pLoadingThread->AddFirst( pNode );
-	//
-	//						while (1)
-	//						{
-	//							#ifdef	OUTPUT_DEBUG
-	//							//	DEBUG_ADD_FORMAT( "Check Load id=%d", spriteID );
-	//							#endif
-	//
-	//							if (m_TileSPK[spriteID].IsInit())
-	//							{
-	//								#ifdef	OUTPUT_DEBUG
-	//								//	DEBUG_ADD( "Is Init" );
-	//								#endif
-	//
-	//								break;
-	//							}
-	//							else
-	//							{
-	//								#ifdef	OUTPUT_DEBUG
-	//								//	DEBUG_ADD( "Is Not Init" );
-	//								#endif
-	//							}
-	//						}
-	//
-	//						// file thread ¼øÀ§¸¦ ³·Ãá´Ù.
-	//						//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_BELOW_NORMAL);
-	//						g_pLoadingThread->SetPriority( THREAD_PRIORITY_LOWEST );
-	//					}
-	//					*/
-	//
-	//					DEBUG_ADD( str );
-	//				}
-
-					// ¶ß¾Ç~~!!!!!!! ¼Óµµ Àâ¾Æ ¸Ô´Â´Ù~!!!
-	//				POINT pointTempTemp = point;
-	//				m_pTileSurface->BltSprite(&pointTempTemp, &m_EtcSPK[SPRITEID_TILE_NULL]);
-
-					// Note: BltSprite already called above in the debug section
-					// m_pTileSurface->BltSprite(&point, &sprite);
-
-					#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
-					if (m_pZone->GetSector(x,y).IsBlockGround())
-					{
-						if (g_pDXInput->KeyDown(DIK_T) && g_pDXInput->KeyDown(DIK_LCONTROL))
-						{
-							m_pTileSurface->BltSpriteColor(&point, &sprite, 0);
-						}
-					}
-					#endif
-				}
-
-	//			m_PreviousFogSpriteID[y][x] = SPRITEID_NULL;//sector.GetFilterSpriteID();
-				//m_pTileSurface->Unlock();
-
-
-				// Ãâ·ÂÇÏ·Á´Â ÁÂÇ¥ ÀÌµ¿
-				tilePointTemp.x += TILE_X;
-			}
-
-			// ´ÙÀ½ ÁÙ
-			tilePointTemp.y += TILE_Y;
-		}
+		printf("[DrawTileSurface] ERROR: TileRenderer not initialized! Cannot render tiles.\n");
 	}
 
 	//---------------------------------------
