@@ -692,7 +692,7 @@ class MTopView : public MRequestMode {
 		//------------------------------------------------------
 		CSpriteSurface*				m_pTileSurface;
 		bool						m_bFirstTileDraw;
-		int							m_TileSurfaceFirstZonePixelX, 
+		int							m_TileSurfaceFirstZonePixelX,
 									m_TileSurfaceFirstZonePixelY;
 		int							m_TileSurfaceFirstSectorX,
 									m_TileSurfaceFirstSectorY;

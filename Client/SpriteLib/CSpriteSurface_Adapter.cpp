@@ -393,7 +393,7 @@ void CSpriteSurface::BltSpriteAlpha(POINT* pPoint, CSprite* pSprite, BYTE alphaD
 	                    backend_sprite, flags, alphaDepth);
 }
 
-void CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale) {
+void CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, int scale) {
 	if (!pPoint || !pSprite) {
 		return;
 	}
@@ -404,7 +404,7 @@ void CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale)
 		return;
 	}
 
-	/* Scale parameter: 256 = 1x, 128 = 0.5x */
+	/* Scale parameter: 256 = 1x, 128 = 0.5x, 512 = 2x */
 	int scale_factor = scale;
 	int flags = 0;
 	spritectl_blt_sprite_scaled(m_backend_surface, pPoint->x, pPoint->y,

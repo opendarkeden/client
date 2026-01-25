@@ -14,61 +14,12 @@
 #include <string.h>
 #include <stdio.h>
 
-// Note: Global pointer validation is handled in MZone.cpp
-// to avoid circular dependencies
-
-/* ============================================================================
- * Debug Configuration
- * ============================================================================ */
-
-// Enable detailed debug logging for SpriteLib backend
-// Set to 1 to enable, 0 to disable
-#ifndef SPRITELIB_DEBUG
-#define SPRITELIB_DEBUG 0
-#endif
-
-// Enable tracking of surface lock/unlock operations
-#ifndef SPRITELIB_DEBUG_LOCK
-#define SPRITELIB_DEBUG_LOCK 0
-#endif
-
-// Enable tracking of sprite lifecycle
-#ifndef SPRITELIB_DEBUG_SPRITE_LIFECYCLE
-#define SPRITELIB_DEBUG_SPRITE_LIFECYCLE 0
-#endif
-
-#if SPRITELIB_DEBUG
-#define SPRITE_DEBUG(fmt, ...) \
-	fprintf(stderr, "[SpriteLib DEBUG] %s:%d: " fmt "\n", __FUNCTION__, __LINE__, ##__VA_ARGS__)
-#else
-#define SPRITE_DEBUG(fmt, ...) do {} while(0)
-#endif
-
-#if SPRITELIB_DEBUG_LOCK
-#define SPRITE_DEBUG_LOCK(fmt, ...) \
-	fprintf(stderr, "[SpriteLib LOCK] %s:%d: " fmt "\n", __FUNCTION__, __LINE__, ##__VA_ARGS__)
-#else
-#define SPRITE_DEBUG_LOCK(fmt, ...) do {} while(0)
-#endif
-
-#if SPRITELIB_DEBUG_SPRITE_LIFECYCLE
-#define SPRITE_DEBUG_LIFECYCLE(fmt, ...) \
-	fprintf(stderr, "[SpriteLib LIFECYCLE] %s:%d: " fmt "\n", __FUNCTION__, __LINE__, ##__VA_ARGS__)
-#else
-#define SPRITE_DEBUG_LIFECYCLE(fmt, ...) do {} while(0)
-#endif
-
 /* ============================================================================
  * Global State
  * ============================================================================ */
 
 static int g_spritectl_initialized = 0;
 static SDL_Renderer* g_spritectl_default_renderer = NULL;
-
-// Global counters for debugging
-static uint64_t g_sprite_create_count = 0;
-static uint64_t g_sprite_destroy_count = 0;
-static uint64_t g_blt_call_count = 0;
 
 /* ============================================================================
  * Initialization
@@ -278,8 +229,6 @@ spritectl_sprite_t spritectl_create_sprite(int width, int height, int format,
 	spritectl_sprite_t sprite;
 
 	if (!pixels || data_size == 0) {
-		SPRITE_DEBUG_LIFECYCLE("create_sprite: Invalid parameters (pixels=%p, data_size=%zu)",
-		                       pixels, data_size);
 		return SPRITECTL_INVALID_SPRITE;
 	}
 
@@ -306,51 +255,28 @@ spritectl_sprite_t spritectl_create_sprite(int width, int height, int format,
 	}
 	memcpy(sprite->pixels, pixels, data_size);
 
-	g_sprite_create_count++;
-	SPRITE_DEBUG_LIFECYCLE("create_sprite: Created sprite=%p (%dx%d, fmt=%d, pixels=%p, rgba=%p), total_created=%llu, total_destroyed=%llu, alive=%llu",
-	                       (void*)sprite, width, height, format,
-	                       (void*)sprite->pixels, (void*)sprite->rgba_pixels,
-	                       g_sprite_create_count, g_sprite_destroy_count,
-	                       g_sprite_create_count - g_sprite_destroy_count);
-
 	return sprite;
 }
 
 void spritectl_destroy_sprite(spritectl_sprite_t sprite) {
 	if (!sprite) {
-		SPRITE_DEBUG_LIFECYCLE("destroy_sprite: NULL sprite");
 		return;
 	}
 
-	SPRITE_DEBUG_LIFECYCLE("destroy_sprite: sprite=%p, ref_count before decrement=%d",
-	                       (void*)sprite, sprite->ref_count);
-
 	sprite->ref_count--;
 	if (sprite->ref_count > 0) {
-		SPRITE_DEBUG_LIFECYCLE("destroy_sprite: sprite=%p still referenced (ref_count=%d), not freeing",
-		                       (void*)sprite, sprite->ref_count);
 		return;  /* Still referenced */
 	}
-
-	SPRITE_DEBUG_LIFECYCLE("destroy_sprite: Freeing sprite=%p (pixels=%p, rgba=%p)",
-	                       (void*)sprite, (void*)sprite->pixels, (void*)sprite->rgba_pixels);
 
 	/* Free pixel data */
 	if (sprite->pixels) {
 		free(sprite->pixels);
-		sprite->pixels = NULL;
 	}
 	if (sprite->rgba_pixels) {
 		free(sprite->rgba_pixels);
-		sprite->rgba_pixels = NULL;
 	}
 
 	free(sprite);
-	g_sprite_destroy_count++;
-
-	SPRITE_DEBUG_LIFECYCLE("destroy_sprite: Freed sprite, total_created=%llu, total_destroyed=%llu, alive=%llu",
-	                       g_sprite_create_count, g_sprite_destroy_count,
-	                       g_sprite_create_count - g_sprite_destroy_count);
 }
 
 int spritectl_get_sprite_info(spritectl_sprite_t sprite, spritectl_sprite_info_t* info) {
@@ -393,66 +319,21 @@ int spritectl_blt_sprite(spritectl_surface_t dest, int x, int y,
 	SDL_Surface* src_surface = NULL;
 	int result = -1;
 
-#if SPRITELIB_DEBUG
-	static uint64_t call_id = 0;
-	uint64_t this_call = ++call_id;
-	++g_blt_call_count;
-#endif
-
 	if (!dest || !sprite) {
-		SPRITE_DEBUG("[#%llu] Invalid parameters: dest=%p, sprite=%p",
-		             this_call, (void*)dest, (void*)sprite);
 		return -1;
 	}
-
-	SPRITE_DEBUG("[#%llu] blt_sprite: dest=%p (locked=%d), sprite=%p (%dx%d, fmt=%d), pos=(%d,%d)",
-	             this_call, (void*)dest, dest->locked, (void*)sprite,
-	             sprite->width, sprite->height, sprite->format, x, y);
 
 	// CRITICAL: Destination surface must NOT be locked when blitting
 	// Unlock before blit, then re-lock after to maintain expected state
 	bool was_locked = (dest->locked > 0);
 	int saved_lock_count = dest->locked;
 
-	// AGGRESSIVE UNLOCK: Ensure the surface is truly unlocked
-	// We unlock multiple times to handle cases where our lock count is out of sync with SDL
-	if (was_locked || dest->surface->pixels != NULL) {
-		SPRITE_DEBUG_LOCK("[#%llu] Dest surface needs unlock (locked=%d, pixels=%p)",
-		                  this_call, dest->locked, (void*)dest->surface->pixels);
-
-		// Unlock until our count is zero
+	if (was_locked) {
+		// Unlock the surface for blitting
 		while (dest->locked > 0) {
 			SDL_UnlockSurface(dest->surface);
 			dest->locked--;
 		}
-
-		// EXTRA: If SDL still thinks it's locked (pixels != NULL), unlock a few more times
-		// This handles cases where our count is out of sync with SDL's internal state
-		int extra_unlocks = 0;
-		while (dest->surface->pixels != NULL && extra_unlocks < 10) {
-			SPRITE_DEBUG_LOCK("[#%llu] Extra unlock #%d: pixels still=%p",
-			                  this_call, extra_unlocks, (void*)dest->surface->pixels);
-			SDL_UnlockSurface(dest->surface);
-			extra_unlocks++;
-		}
-
-		if (extra_unlocks > 0) {
-			SPRITE_DEBUG_LOCK("[#%llu] Performed %d extra unlocks, final pixels=%p",
-			                  this_call, extra_unlocks, (void*)dest->surface->pixels);
-		}
-
-		SPRITE_DEBUG_LOCK("[#%llu] Dest surface unlocked, SDL locked state should be clear now",
-		                  this_call);
-
-#if SPRITELIB_DEBUG_LOCK
-		// Verify SDL surface is actually unlocked
-		// Note: SDL doesn't expose a direct way to check lock state,
-		// but we can check if pixels pointer is NULL (unlocked surfaces have NULL pixels)
-		if (dest->surface->pixels != NULL) {
-			SPRITE_DEBUG_LOCK("[#%llu] WARNING: After unlocking, SDL surface still has pixels=%p (expected NULL)",
-			                  this_call, (void*)dest->surface->pixels);
-		}
-#endif
 	}
 
 	/* NOTE: We do NOT lock the destination surface here.
@@ -464,13 +345,8 @@ int spritectl_blt_sprite(spritectl_surface_t dest, int x, int y,
 	src_surface = SDL_CreateRGBSurface(0, sprite->width, sprite->height, 32,
 	                                  0xFF, 0xFF00, 0xFF0000, 0xFF000000);
 	if (!src_surface) {
-		SPRITE_DEBUG("[#%llu] SDL_CreateRGBSurface failed: %s",
-		             this_call, SDL_GetError());
 		return -1;
 	}
-
-	SPRITE_DEBUG("[#%llu] Created temp src_surface=%p, pixels=%p",
-	             this_call, (void*)src_surface, (void*)src_surface->pixels);
 
 	/* Use cached RGBA pixels if available, otherwise convert and cache */
 	if (sprite->rgba_pixels == NULL && sprite->format != SPRITECTL_FORMAT_RGBA32) {
@@ -516,8 +392,6 @@ int spritectl_blt_sprite(spritectl_surface_t dest, int x, int y,
 	}
 
 	/* Copy to temporary surface */
-	SPRITE_DEBUG("[#%llu] Locking src_surface and copying pixels, pixel_src=%p",
-	             this_call, (void*)pixel_src);
 	SDL_LockSurface(src_surface);
 	uint32_t* src_pixels = (uint32_t*)src_surface->pixels;
 	memcpy(src_pixels, pixel_src, sprite->width * sprite->height * sizeof(uint32_t));
@@ -535,41 +409,24 @@ int spritectl_blt_sprite(spritectl_surface_t dest, int x, int y,
 	dest_rect.h = sprite->height;
 
 	/* Blit sprite to destination */
-	SPRITE_DEBUG("[#%llu] Calling SDL_BlitSurface, src=%p, dest=%p, rect=(%d,%d,%d,%d)",
-	             this_call, (void*)src_surface, (void*)dest->surface,
-	             dest_rect.x, dest_rect.y, dest_rect.w, dest_rect.h);
 	if (SDL_BlitSurface(src_surface, NULL, dest->surface, &dest_rect) != 0) {
-		// Rate limit error messages - only print once per 100 errors to reduce spam
-		static int blit_error_count = 0;
-		if (++blit_error_count % 100 == 1) {
-			fprintf(stderr, "SpriteLib Backend: SDL_BlitSurface failed (count=%d, last error: %s)\n",
-			        blit_error_count, SDL_GetError());
-		}
-		SPRITE_DEBUG("[#%llu] SDL_BlitSurface FAILED!", this_call);
+		fprintf(stderr, "SpriteLib Backend: SDL_BlitSurface failed: %s\n", SDL_GetError());
 		result = -1;
 	} else {
-		SPRITE_DEBUG("[#%llu] SDL_BlitSurface succeeded", this_call);
 		result = 0;
 	}
 
 	/* Cleanup */
-	SPRITE_DEBUG("[#%llu] Freeing src_surface=%p", this_call, (void*)src_surface);
 	SDL_FreeSurface(src_surface);
-	src_surface = NULL;  // Prevent dangling pointer
 
 	// Re-lock the surface if it was locked before (to maintain expected state)
 	if (was_locked) {
-		SPRITE_DEBUG_LOCK("[#%llu] Re-locking dest surface (count=%d)",
-		                  this_call, saved_lock_count);
 		for (int i = 0; i < saved_lock_count; i++) {
 			SDL_LockSurface(dest->surface);
 			dest->locked++;
 		}
-		SPRITE_DEBUG_LOCK("[#%llu] Dest surface re-locked, locked=%d",
-		                  this_call, dest->locked);
 	}
 
-	SPRITE_DEBUG("[#%llu] blt_sprite returning %d", this_call, result);
 	return result;
 }
 
@@ -667,25 +524,15 @@ int spritectl_blt_sprite_scaled(spritectl_surface_t dest, int x, int y,
 	dest_rect.h = scaled_height;
 
 	if (SDL_BlitSurface(scaled_surface, NULL, dest->surface, &dest_rect) != 0) {
-		// Rate limit error messages - only print once per 100 errors to reduce spam
-		static int blit_error_count_scaled = 0;
-		if (++blit_error_count_scaled % 100 == 1) {
-			fprintf(stderr, "SpriteLib Backend: SDL_BlitSurface [scaled] failed (count=%d, last error: %s)\n",
-			        blit_error_count_scaled, SDL_GetError());
-		}
+		fprintf(stderr, "SpriteLib Backend: SDL_BlitSurface failed: %s\n", SDL_GetError());
 		result = -1;
 	} else {
 		result = 0;
 	}
 
 	/* Cleanup */
-	// IMPORTANT: Clear pointers to prevent use-after-free
-	// We set to NULL after freeing to catch any dangling pointer usage
 	SDL_FreeSurface(scaled_surface);
-	scaled_surface = NULL;  // Prevent dangling pointer
-
 	SDL_FreeSurface(src_surface);
-	src_surface = NULL;  // Prevent dangling pointer
 
 	return result;
 }
@@ -727,12 +574,7 @@ int spritectl_blt_surface(spritectl_surface_t dest,
 
 	/* Blit surface to surface */
 	if (SDL_BlitSurface(src->surface, &sdl_src_rect, dest->surface, &sdl_dest_rect) != 0) {
-		// Rate limit error messages - only print once per 100 errors to reduce spam
-		static int blit_error_count_src = 0;
-		if (++blit_error_count_src % 100 == 1) {
-			fprintf(stderr, "SpriteLib Backend: SDL_BlitSurface [src rect] failed (count=%d, last error: %s)\n",
-			        blit_error_count_src, SDL_GetError());
-		}
+		fprintf(stderr, "SpriteLib Backend: SDL_BlitSurface failed: %s\n", SDL_GetError());
 		return -1;
 	}
 

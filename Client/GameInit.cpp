@@ -105,8 +105,9 @@ extern RECT g_GameRect;
 // ToT SafeDelete 도 없고..ToT 2003.5.11 by sonee
 
 extern int					g_Dimension ;
-// g_bEnable3DHAL is defined in VS_UI_Title.cpp (VS_UI library)
-extern BOOL g_bEnable3DHAL;
+// g_bEnable3DHAL was originally defined in VS_UI_Title.cpp when _LIB is not defined
+// Now that VS_UI is built with _LIB defined, we need to define it here
+BOOL g_bEnable3DHAL = FALSE;
 
 //----------------------------------------------------------------------
 // Title Loading - 2001.8.20 우헤헤 자꾸 늘어나는 global - -;;

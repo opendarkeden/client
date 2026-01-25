@@ -117,7 +117,7 @@ class CSpriteSurface {
 		void	BltSpriteDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits);
 		void	BltSpriteColorSet(POINT* pPoint, CSprite* pSprite, WORD colorSet);
 		void	BltSpriteEffect(POINT* pPoint, CSprite* pSprite);
-		void	BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale=1);
+		void	BltSpriteScale(POINT* pPoint, CSprite* pSprite, int scale=256);
 		void	BltSpriteAlpha4444SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE alpha, BYTE shift);
 		void	BltSpriteAlpha4444NotTrans(POINT* pPoint, CSprite* pSprite, BYTE alpha);
 		void	BltSprite1555SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE shift);
@@ -404,7 +404,7 @@ class CSpriteSurface : public CDirectDrawSurface {
 		void	BltSpriteDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits);		
 		void	BltSpriteColorSet(POINT* pPoint, CSprite* pSprite, WORD colorSet);
 		void	BltSpriteEffect(POINT* pPoint, CSprite* pSprite);
-		void	BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale=1);
+		void	BltSpriteScale(POINT* pPoint, CSprite* pSprite, int scale=256);
 		void	BltSpriteAlpha4444SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE alpha, BYTE shift);
 		void	BltSpriteAlpha4444NotTrans(POINT* pPoint, CSprite* pSprite, BYTE alpha);
 		void	BltSprite1555SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE shift);

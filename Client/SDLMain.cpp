@@ -477,6 +477,11 @@ int main(int argc, char* argv[])
 			{
 				g_CurrentTime = SDL_GetTicks();  // Replaces timeGetTime()
 
+				// Clear the renderer to prevent trails/afterimages
+				// This is necessary because SDL_RenderPresent() doesn't guarantee
+				// the back buffer will be cleared between frames
+				SDL_RenderClear(g_pSDLRenderer);
+
 				// Game update (from WinMain lines 4275-4290)
 				if (g_pUpdate != NULL)
 				{

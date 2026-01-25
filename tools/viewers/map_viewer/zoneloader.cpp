@@ -70,9 +70,11 @@ bool ZoneLoader::LoadFromFile(const char* filename) {
     std::cout << "Description: " << m_info.description << std::endl;
 
     // 检查版本（从 MZone::LoadFromFile 提取）
-    if (m_info.version != "MAP_VERSION_2000_05_10" &&
-        m_info.version != "=MAP_2000_05_10=H") { // 注意：实际文件中的版本字符串可能有前导 '='
+    // 实际版本字符串定义见 MZoneDef.h: #define MAP_VERSION_2000_05_10 "=MAP_2000_05_10="
+    if (m_info.version != "=MAP_2000_05_10=" &&
+        m_info.version != "=MAP_2000_05_10=H") { // H 变体用于某些地图
         std::cout << "Warning: Unknown zone version: " << m_info.version << std::endl;
+        // 继续尝试加载，不要返回 false
     }
 
     // 读取 Tile FP 和 ImageObject FP（各 4 字节）

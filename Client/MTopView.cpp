@@ -287,7 +287,7 @@ MTopView::MTopView()
 	m_bInit = false;
 
 	m_pZone		= NULL;
-	
+
 	m_FirstSector.x = 0;
 	m_FirstSector.y = 0;
 	m_FirstZonePixel.x = 0;	
@@ -680,7 +680,7 @@ MTopView::Release()
 		m_pTileSurface = NULL;
 
 		DEBUG_ADD("MTV-Rel-TileSur");
-	}	
+	}
 	
 	// imageobject TextureManager
 	//if (m_pImageObjectTextureManager!=NULL)
@@ -2365,7 +2365,9 @@ MTopView::InitSprites()
 	m_TileSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SPRITE_TILE").c_str() );
 
 
-	//------------------------------------------------------------	
+
+	//------------------------------------------------------------
+	//
 	//
 	//                 ImageObject SpriteSet
 	//
@@ -16742,8 +16744,8 @@ MTopView::DrawTileSurface()
 		}		
 				
 		// ´ÙÀ½ ÁÙ
-		tilePointTemp.y += TILE_Y;					
-	}		
+		tilePointTemp.y += TILE_Y;
+	}
 
 	//---------------------------------------
 	// UNLOCK
