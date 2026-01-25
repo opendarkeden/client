@@ -663,23 +663,23 @@ void	C_VS_UI_ASK_DIALOG::InitString()
 	m_sz_question_msg[17][0]=(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUEST_GET_EVENT_ITEM].GetString();
 	m_sz_question_msg[17][1]="";
 //---------------------------------------------------friend string : add by viva-----------------------------------
-	m_sz_question_msg[18][0]=(*g_pGameStringTable)[UI_STRING_ASK_FRIEND_REQUEST].GetString();
-	m_sz_question_msg[18][1]="";
+//	m_sz_question_msg[18][0]=(*g_pGameStringTable)[UI_STRING_ASK_FRIEND_REQUEST].GetString();
+//	m_sz_question_msg[18][1]="";
 
-	m_sz_question_msg[19][0]=(*g_pGameStringTable)[UI_STRING_ASK_FRIEND_REFUSE].GetString();
-	m_sz_question_msg[19][1]="";
+//	m_sz_question_msg[19][0]=(*g_pGameStringTable)[UI_STRING_ASK_FRIEND_REFUSE].GetString();
+//	m_sz_question_msg[19][1]="";
 
-	m_sz_question_msg[20][0]=(*g_pGameStringTable)[UI_STRING_ASK_FRIEND_WAIT].GetString();
-	m_sz_question_msg[20][1]="";
+//	m_sz_question_msg[20][0]=(*g_pGameStringTable)[UI_STRING_ASK_FRIEND_WAIT].GetString();
+//	m_sz_question_msg[20][1]="";
 	
-	m_sz_question_msg[21][0]=(*g_pGameStringTable)[UI_STRING_ASK_FRIEND_EXSIT].GetString();
-	m_sz_question_msg[21][1]="";
+//	m_sz_question_msg[21][0]=(*g_pGameStringTable)[UI_STRING_ASK_FRIEND_EXSIT].GetString();
+//	m_sz_question_msg[21][1]="";
 
-	m_sz_question_msg[22][0]=(*g_pGameStringTable)[UI_STRING_ASK_FRIEND_BLACK].GetString();
-	m_sz_question_msg[22][1]="";
+//	m_sz_question_msg[22][0]=(*g_pGameStringTable)[UI_STRING_ASK_FRIEND_BLACK].GetString();
+//	m_sz_question_msg[22][1]="";
 
-	m_sz_question_msg[23][0]=(*g_pGameStringTable)[UI_STRING_ASK_FRIEND_DELETE].GetString();
-	m_sz_question_msg[23][1]="";
+//	m_sz_question_msg[23][0]=(*g_pGameStringTable)[UI_STRING_ASK_FRIEND_DELETE].GetString();
+//	m_sz_question_msg[23][1]="";
 }
 //-----------------------------------------------------------------------------
 // C_VS_UI_ASK_DIALOG::C_VS_UI_ASK_DIALOG
