@@ -1420,33 +1420,15 @@ MTopView::InitSurfaces()
 	m_pTileSurface->SetTransparency( 0 );
 
 	//----------------------------------------------------------------------
-	// Initialize TileRenderer with tile surface (Phase 4 integration)
+	// Note: TileRenderer initialization moved to InitSprites()
+	// to fix initialization order issue (InitSprites is called after InitSurfaces)
 	//----------------------------------------------------------------------
-	if (m_pTileRenderer != NULL)
-	{
-		if (!m_pTileRenderer->Init(m_pTileSurface, &m_TileSPK))
-		{
-			DEBUG_ADD("ERROR: Failed to initialize TileRenderer with tile surface!");
-			delete m_pTileRenderer;
-			m_pTileRenderer = NULL;
-		}
-		else
-		{
-			// Set tile dimensions
-			m_pTileRenderer->SetTileDimensions(TILE_X, TILE_Y);
-
-			// Set null tile sprite ID
-			m_pTileRenderer->SetNullTileSpriteID(SPRITEID_TILE_NULL);
-
-			DEBUG_ADD("TileRenderer initialized successfully");
-		}
-	}
 
 
 
 	UI_DrawProgress(1);
 	DrawTitleLoading();
-	
+
 	return true;
 }
 
@@ -2403,7 +2385,6 @@ MTopView::InitSprites()
 
 	//----------------------------------------------------------------------
 	// Create TileRenderer instance (Phase 4 integration)
-	// Will be initialized after m_pTileSurface is created
 	//----------------------------------------------------------------------
 	m_pTileRenderer = new TileRenderer();
 	if (m_pTileRenderer == NULL)
@@ -2411,7 +2392,42 @@ MTopView::InitSprites()
 		DEBUG_ADD("ERROR: Failed to create TileRenderer!");
 		return false;
 	}
-	DEBUG_ADD("TileRenderer instance created (will be initialized after tile surface)");
+	DEBUG_ADD("TileRenderer instance created");
+
+	//----------------------------------------------------------------------
+	// Initialize TileRenderer (moved from InitSurfaces to fix initialization order)
+	//----------------------------------------------------------------------
+	// Note: m_pTileSurface should already be created by InitSurfaces() at this point
+	if (m_pTileSurface != NULL)
+	{
+		printf("[InitSprites] Calling TileRenderer::Init with m_pTileSurface=%p, &m_TileSPK=%p\n",
+			m_pTileSurface, &m_TileSPK);
+
+		if (!m_pTileRenderer->Init(m_pTileSurface, &m_TileSPK))
+		{
+			printf("[InitSprites] ERROR: Failed to initialize TileRenderer!\n");
+			DEBUG_ADD("ERROR: Failed to initialize TileRenderer!");
+			delete m_pTileRenderer;
+			m_pTileRenderer = NULL;
+			return false;
+		}
+		else
+		{
+			// Set tile dimensions
+			m_pTileRenderer->SetTileDimensions(TILE_X, TILE_Y);
+
+			// Set null tile sprite pack (m_EtcSPK for SPRITEID_TILE_NULL)
+			m_pTileRenderer->SetNullTileSpritePack(&m_EtcSPK, SPRITEID_TILE_NULL);
+
+			printf("[InitSprites] TileRenderer initialized successfully\n");
+			DEBUG_ADD("TileRenderer initialized successfully");
+		}
+	}
+	else
+	{
+		printf("[InitSprites] WARNING: m_pTileSurface is NULL, TileRenderer will be initialized later\n");
+		// TileRenderer will be initialized in InitSurfaces after m_pTileSurface is created
+	}
 
 
 
@@ -14492,7 +14508,16 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	else
 	// 2004, 9, 3, sobeit add end - Å¸ÀÏ µÞÂÊ¿¡ ±¸¸§-_-;
 	if(bDrawBackGround)
+	{
+		// Debug: Check tile surface blit
+		static int blitDebugCount = 0;
+		if (blitDebugCount < 5) {
+			printf("[DrawZone] Blitting m_pTileSurface to m_pSurface: point=(%d,%d), rectReuse=(%d,%d)-(%d,%d)\n",
+				point.x, point.y, rectReuse.left, rectReuse.top, rectReuse.right, rectReuse.bottom);
+			blitDebugCount++;
+		}
 		m_pSurface->BltNoColorkey(&point, m_pTileSurface, &rectReuse);
+	}
 	
 
 	__END_PROFILE("ReuseBltTileSurface")
@@ -16675,6 +16700,19 @@ MTopView::DrawTileSurface()
 	//----------------------------------------------------------------------
 	// Use TileRenderer for unified tile rendering (Phase 4 integration)
 	//----------------------------------------------------------------------
+	if (m_pTileRenderer != NULL)
+	{
+		CSpriteSurface* pSurface = m_pTileRenderer->GetSurface();
+		CSpritePack* pPack = m_pTileRenderer->GetSpritePack();
+		printf("[DrawTileSurface] m_pTileRenderer=%p, m_surface=%p, m_spritePack=%p, IsInit=%d\n",
+			m_pTileRenderer, pSurface, pPack, m_pTileRenderer->IsInit());
+	}
+	else
+	{
+		printf("[DrawTileSurface] m_pTileRenderer=NULL\n");
+	}
+
+	// Use TileRenderer for unified tile rendering (Phase 4 integration)
 	if (m_pTileRenderer != NULL && m_pTileRenderer->IsInit())
 	{
 		// Set the zone provider
@@ -16682,6 +16720,7 @@ MTopView::DrawTileSurface()
 
 		// Draw tiles using TileRenderer
 		// Note: DrawTilesNoLock is used because surface is already locked
+		printf("[DrawTileSurface] Calling TileRenderer::DrawTilesNoLock\n");
 		m_pTileRenderer->DrawTilesNoLock(
 			&m_zoneTileProvider,
 			sX1, sY1,
@@ -16690,9 +16729,11 @@ MTopView::DrawTileSurface()
 			tilePoint.x,
 			tilePoint.y
 		);
+		printf("[DrawTileSurface] TileRenderer::DrawTilesNoLock completed\n");
 	}
 	else
 	{
+		printf("[DrawTileSurface] ERROR: TileRenderer not available, falling back to original rendering\n");
 		// Fallback to original rendering if TileRenderer is not available
 		//char str[80];
 		for (y=sY1; y<sY2; y++)
@@ -16711,6 +16752,23 @@ MTopView::DrawTileSurface()
 
 				if (spriteID==SPRITEID_NULL)
 				{
+					// Debug: Check null tile sprite (limit output to first few)
+					static int nullTileDebugCount = 0;
+					if (nullTileDebugCount < 3)
+					{
+						CSprite& nullSprite = m_EtcSPK[SPRITEID_TILE_NULL];
+						printf("[DrawTileSurface] NULL tile (%d,%d), nullSprite IsInit=%d, width=%d, height=%d, point=(%d,%d)\n",
+							x, y, nullSprite.IsInit(), nullSprite.GetWidth(), nullSprite.GetHeight(), point.x, point.y);
+						nullTileDebugCount++;
+					}
+
+					// Debug: Before calling BltSprite for NULL tile
+					static int beforeNullBltCount = 0;
+					if (beforeNullBltCount < 10) {
+						printf("[DrawTileSurface] About to call BltSprite for NULL tile (%d,%d)\n", x, y);
+						beforeNullBltCount++;
+					}
+
 	#ifdef __DEBUG_OUTPUT__
 					if( g_pZone->GetID() == 3001 && m_pZone->GetSector(x,y).IsBlockAny() )
 						m_pTileSurface->BltSprite(&point, &m_EtcSPK[1]);
@@ -16719,6 +16777,13 @@ MTopView::DrawTileSurface()
 	#else
 					m_pTileSurface->BltSprite(&point, &m_EtcSPK[SPRITEID_TILE_NULL]);
 	#endif
+
+					// Debug: After calling BltSprite for NULL tile
+					static int afterNullBltCount = 0;
+					if (afterNullBltCount < 10) {
+						printf("[DrawTileSurface] BltSprite returned for NULL tile (%d,%d)\n", x, y);
+						afterNullBltCount++;
+					}
 				}
 				else
 				{
@@ -16728,6 +16793,32 @@ MTopView::DrawTileSurface()
 					#endif
 
 					CSprite& sprite = m_TileSPK[ spriteID ];
+
+					// Debug: Check sprite initialization and size (limit output to first few tiles)
+					static int origTileDebugCount = 0;
+					if (origTileDebugCount < 5)
+					{
+						printf("[DrawTileSurface] Tile (%d,%d) spriteID=%d, IsInit=%d, width=%d, height=%d, point=(%d,%d)\n",
+							x, y, spriteID, sprite.IsInit(), sprite.GetWidth(), sprite.GetHeight(), point.x, point.y);
+						origTileDebugCount++;
+					}
+
+					// Debug: Before calling BltSprite (ALWAYS print for first 20 tiles to ensure we see it)
+					static int beforeBltCount = 0;
+					if (beforeBltCount < 20) {
+						printf("[DrawTileSurface] About to call BltSprite for tile (%d,%d) spriteID=%d\n", x, y, spriteID);
+						beforeBltCount++;
+					}
+
+					// Call BltSprite
+					m_pTileSurface->BltSprite(&point, &sprite);
+
+					// Debug: After calling BltSprite
+					static int afterBltCount = 0;
+					if (afterBltCount < 20) {
+						printf("[DrawTileSurface] BltSprite returned for tile (%d,%d)\n", x, y);
+						afterBltCount++;
+					}
 
 					//---------------------------------------
 					// ID°¡ spriteIDÀÎ TileÀ» LoadÇÑ´Ù.
@@ -16809,7 +16900,8 @@ MTopView::DrawTileSurface()
 	//				POINT pointTempTemp = point;
 	//				m_pTileSurface->BltSprite(&pointTempTemp, &m_EtcSPK[SPRITEID_TILE_NULL]);
 
-					m_pTileSurface->BltSprite(&point, &sprite);
+					// Note: BltSprite already called above in the debug section
+					// m_pTileSurface->BltSprite(&point, &sprite);
 
 					#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
 					if (m_pZone->GetSector(x,y).IsBlockGround())
@@ -16839,6 +16931,11 @@ MTopView::DrawTileSurface()
 	// UNLOCK
 	//---------------------------------------
 	m_pTileSurface->Unlock();
+
+	//----------------------------------------------------------------------
+	// NOTE: Tile surface to main screen blit is handled in DrawZone()
+	// via the bDrawBackGround condition. Do NOT duplicate here.
+	//----------------------------------------------------------------------
 }
 
 //----------------------------------------------------------------------

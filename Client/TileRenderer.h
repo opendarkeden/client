@@ -52,6 +52,10 @@ public:
 	// Returns true on success, false on failure
 	bool Init(CSpriteSurface* surface, CSpritePack* spritePack);
 
+	// Set the sprite pack for null tiles (e.g., m_EtcSPK)
+	// This is used when spriteID == SPRITEID_NULL
+	void SetNullTileSpritePack(CSpritePack* spritePack, int nullTileSpriteID);
+
 	// Release resources
 	void Release();
 
@@ -98,9 +102,6 @@ public:
 	// Set tile dimensions (default: TILE_X=48, TILE_Y=24)
 	void SetTileDimensions(int tileX, int tileY);
 
-	// Set the sprite ID to use for null tiles (default: SPRITEID_NULL)
-	void SetNullTileSpriteID(int spriteID);
-
 	// Get tile dimensions
 	int GetTileX() const { return m_tileX; }
 	int GetTileY() const { return m_tileY; }
@@ -133,12 +134,13 @@ private:
 	// Sprite data source
 	CSpritePack* m_spritePack;
 
+	// Null tile sprite pack (e.g., m_EtcSPK for SPRITEID_TILE_NULL)
+	CSpritePack* m_nullTileSpritePack;
+	int m_nullTileSpriteIDInPack;  // Sprite ID in nullTileSpritePack (e.g., SPRITEID_TILE_NULL=2)
+
 	// Tile dimensions (pixels)
 	int m_tileX;  // Default: 48
 	int m_tileY;  // Default: 24
-
-	// Default sprite for null tiles
-	int m_nullTileSpriteID;  // Default: SPRITEID_NULL (usually 0)
 };
 
 #endif // __TILE_RENDERER_H__

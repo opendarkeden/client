@@ -63,11 +63,19 @@
 static spritectl_sprite_t get_backend_sprite(CSprite* pSprite)
 {
 	if (!pSprite || !pSprite->IsInit()) {
+		static int notInitCount = 0;
+		if (notInitCount < 3) {
+			printf("[get_backend_sprite] ERROR: pSprite=%p, IsInit=%d\n", pSprite, pSprite ? pSprite->IsInit() : 0);
+			notInitCount++;
+		}
 		return SPRITECTL_INVALID_SPRITE;
 	}
 
 	/* Lazy creation: create backend sprite if doesn't exist */
 	if (pSprite->GetBackendSprite() == SPRITECTL_INVALID_SPRITE) {
+		static int createCount = 0;
+		printf("[get_backend_sprite] Creating backend sprite for CSprite width=%d, height=%d\n",
+			pSprite->GetWidth(), pSprite->GetHeight());
 		WORD width = pSprite->GetWidth();
 		WORD height = pSprite->GetHeight();
 
@@ -107,6 +115,12 @@ static spritectl_sprite_t get_backend_sprite(CSprite* pSprite)
 		spritectl_sprite_t new_sprite = spritectl_create_sprite(
 			width, height, SPRITECTL_FORMAT_RGB565,
 			pixels, data_size);
+
+		if (createCount < 3) {
+			printf("[get_backend_sprite] spritectl_create_sprite returned=%p (INVALID=%d)\n",
+				new_sprite, new_sprite == SPRITECTL_INVALID_SPRITE);
+			createCount++;
+		}
 
 		free(pixels);
 		pSprite->SetBackendSprite(new_sprite);
@@ -343,7 +357,20 @@ void CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite) {
 	/* Get backend sprite */
 	spritectl_sprite_t backend_sprite = get_backend_sprite(pSprite);
 	if (!backend_sprite) {
+		static int invalidCount = 0;
+		if (invalidCount < 3) {
+			printf("[BltSprite] ERROR: get_backend_sprite returned invalid sprite! IsInit=%d\n", pSprite->IsInit());
+			invalidCount++;
+		}
 		return;
+	}
+
+	// Debug: Log first 10 successful BltSprite calls (increased from 5)
+	static int bltDebugCount = 0;
+	if (bltDebugCount < 10) {
+		printf("[BltSprite] Calling spritectl_blt_sprite: surface=%p, point=(%d,%d), sprite=%p\n",
+			m_backend_surface, pPoint->x, pPoint->y, backend_sprite);
+		bltDebugCount++;
 	}
 
 	/* Blit to backend surface */
@@ -351,6 +378,12 @@ void CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite) {
 	int alpha = 255;
 	spritectl_blt_sprite(m_backend_surface, pPoint->x, pPoint->y,
 	                    backend_sprite, flags, alpha);
+
+	static int afterBltDebugCount = 0;
+	if (afterBltDebugCount < 10) {
+		printf("[BltSprite] spritectl_blt_sprite completed\n");
+		afterBltDebugCount++;
+	}
 }
 
 void CSpriteSurface::BltSpriteNoClip(POINT* pPoint, CSprite* pSprite) {
