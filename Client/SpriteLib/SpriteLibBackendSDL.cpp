@@ -245,6 +245,9 @@ spritectl_sprite_t spritectl_create_sprite(int width, int height, int format,
 	sprite->format = format;
 	sprite->data_size = data_size;
 	sprite->rgba_pixels = NULL;
+	sprite->scanline_rle = NULL;
+	sprite->scanline_lens = NULL;
+	sprite->has_rle = 0;
 	sprite->ref_count = 1;
 
 	/* Allocate and copy pixel data */
@@ -274,6 +277,19 @@ void spritectl_destroy_sprite(spritectl_sprite_t sprite) {
 	}
 	if (sprite->rgba_pixels) {
 		free(sprite->rgba_pixels);
+	}
+
+	/* Free RLE data */
+	if (sprite->scanline_rle) {
+		for (int y = 0; y < sprite->height; y++) {
+			if (sprite->scanline_rle[y]) {
+				free(sprite->scanline_rle[y]);
+			}
+		}
+		free(sprite->scanline_rle);
+	}
+	if (sprite->scanline_lens) {
+		free(sprite->scanline_lens);
 	}
 
 	free(sprite);
@@ -313,15 +329,131 @@ size_t spritectl_get_sprite_data(spritectl_sprite_t sprite, void* buffer, size_t
  * Blitting Functions
  * ============================================================================ */
 
+/**
+ * RLE-based sprite rendering - mimics original DirectX BltClipWidth
+ *
+ * This function directly processes RLE data and writes only non-transparent
+ * pixels to the destination surface, exactly like the original DirectX implementation.
+ *
+ * Key difference from SDL blitting:
+ * - Transparent pixels are SKIPPED, not blended
+ * - This means the destination surface's original content shows through
+ */
+int spritectl_blt_sprite_rle(spritectl_surface_t dest, int x, int y,
+                              spritectl_sprite_t sprite, int flags, int alpha) {
+	if (!dest || !sprite || !sprite->has_rle || !sprite->scanline_rle) {
+		return -1;
+	}
+
+	SDL_Surface* sdl_surface = dest->surface;
+	if (!sdl_surface) {
+		return -1;
+	}
+
+	/* Lock destination surface for direct pixel access */
+	if (SDL_MUSTLOCK(sdl_surface)) {
+		SDL_LockSurface(sdl_surface);
+	}
+
+	/* Get destination surface info */
+	int dest_width = sdl_surface->w;
+	int dest_height = sdl_surface->h;
+	int dest_pitch = sdl_surface->pitch;
+
+	/* Calculate clipping rect */
+	int clip_left = (x < 0) ? -x : 0;
+	int clip_top = (y < 0) ? -y : 0;
+	int clip_right = (x + sprite->width > dest_width) ? dest_width - x : sprite->width;
+	int clip_bottom = (y + sprite->height > dest_height) ? dest_height - y : sprite->height;
+
+	if (clip_left >= clip_right || clip_top >= clip_bottom) {
+		if (SDL_MUSTLOCK(sdl_surface)) {
+			SDL_UnlockSurface(sdl_surface);
+		}
+		return 0;  /* Completely clipped, but not an error */
+	}
+
+	/* Process each scanline */
+	for (int sy = clip_top; sy < clip_bottom; sy++) {
+		if (!sprite->scanline_rle[sy] || sprite->scanline_lens[sy] == 0) {
+			continue;  /* Empty scanline */
+		}
+
+		/* Get destination row pointer */
+		uint32_t* dest_row = (uint32_t*)((uint8_t*)sdl_surface->pixels + (y + sy) * dest_pitch) + x;
+
+		/* Process RLE segments */
+		uint16_t* rle_data = sprite->scanline_rle[sy];
+		int rle_index = 0;
+		int seg_count = rle_data[rle_index++];
+		int sx = 0;
+
+		for (int seg = 0; seg < seg_count && sx < sprite->width; seg++) {
+			int trans_count = rle_data[rle_index++];
+			int color_count = rle_data[rle_index++];
+
+			/* Skip transparent pixels */
+			sx += trans_count;
+
+			/* Copy color pixels */
+			for (int c = 0; c < color_count && sx < sprite->width; c++) {
+				/* Check if this pixel is within clipping bounds */
+				if (sx >= clip_left && sx < clip_right) {
+					uint16_t pixel = rle_data[rle_index];
+
+					/* Convert RGB565 to RGBA32 */
+					uint8_t r, g, b;
+					spritectl_565_to_rgb(pixel, &r, &g, &b);
+
+					/* Apply alpha blending if needed */
+					if (flags & SPRITECTL_BLT_ALPHA) {
+						/* Alpha blending with destination */
+						uint32_t dest_pixel = dest_row[sx];
+						uint8_t dest_r = dest_pixel & 0xFF;
+						uint8_t dest_g = (dest_pixel >> 8) & 0xFF;
+						uint8_t dest_b = (dest_pixel >> 16) & 0xFF;
+
+						/* Blend: src * alpha/255 + dst * (1 - alpha/255) */
+						uint8_t blend_r = (r * alpha + dest_r * (255 - alpha)) / 255;
+						uint8_t blend_g = (g * alpha + dest_g * (255 - alpha)) / 255;
+						uint8_t blend_b = (b * alpha + dest_b * (255 - alpha)) / 255;
+
+						dest_row[sx] = (255 << 24) | (blend_b << 16) | (blend_g << 8) | blend_r;
+					} else {
+						/* Opaque write */
+						dest_row[sx] = (255 << 24) | (b << 16) | (g << 8) | r;
+					}
+				}
+
+				rle_index++;  /* Consume pixel even if clipped */
+				sx++;
+			}
+		}
+	}
+
+	/* Unlock destination surface */
+	if (SDL_MUSTLOCK(sdl_surface)) {
+		SDL_UnlockSurface(sdl_surface);
+	}
+
+	return 0;
+}
+
 int spritectl_blt_sprite(spritectl_surface_t dest, int x, int y,
                          spritectl_sprite_t sprite, int flags, int alpha) {
-	SDL_Rect dest_rect;
-	SDL_Surface* src_surface = NULL;
-	int result = -1;
-
 	if (!dest || !sprite) {
 		return -1;
 	}
+
+	/* If sprite has RLE data, use RLE-based rendering (like original DirectX) */
+	if (sprite->has_rle && sprite->scanline_rle) {
+		return spritectl_blt_sprite_rle(dest, x, y, sprite, flags, alpha);
+	}
+
+	/* Fallback to old method for sprites without RLE data */
+	SDL_Rect dest_rect;
+	SDL_Surface* src_surface = NULL;
+	int result = -1;
 
 	// CRITICAL: Destination surface must NOT be locked when blitting
 	// Unlock before blit, then re-lock after to maintain expected state
@@ -400,6 +532,13 @@ int spritectl_blt_sprite(spritectl_surface_t dest, int x, int y,
 	/* Handle alpha blending */
 	if (flags & SPRITECTL_BLT_ALPHA) {
 		SDL_SetSurfaceAlphaMod(src_surface, alpha);
+	}
+
+	/* 关键: 始终启用混合模式以支持 alpha 通道 */
+	/* 即使不是 alpha 模式，也需要 BLEND 模式来处理 colorkey 产生的透明像素 */
+	if (SDL_SetSurfaceBlendMode(src_surface, SDL_BLENDMODE_BLEND) != 0) {
+		fprintf(stderr, "[SpriteLib] SDL_SetSurfaceBlendMode failed: %s\n",
+		        SDL_GetError());
 	}
 
 	/* Set up destination rectangle */
@@ -934,7 +1073,7 @@ int spritectl_load_sprite_from_file(FILE* file, spritectl_sprite_t* sprite_out,
 				int trans_count = scanline_rle[y][rle_index++];
 				int color_count = scanline_rle[y][rle_index++];
 
-				/* Skip transparent pixels (already 0) */
+				/* Skip transparent pixels (keep as 0) */
 				x += trans_count;
 
 				/* Copy color pixels */
@@ -955,6 +1094,14 @@ int spritectl_load_sprite_from_file(FILE* file, spritectl_sprite_t* sprite_out,
 	}
 
 	free(pixels);  /* Sprite copied the data */
+
+	/* Preserve RLE data for correct transparency rendering */
+	sprite->scanline_rle = scanline_rle;
+	sprite->scanline_lens = scanline_lengths;
+	sprite->has_rle = 1;
+	scanline_rle = NULL;  /* Don't free in cleanup */
+	scanline_lengths = NULL;
+
 	*sprite_out = sprite;
 	result = 0;
 
