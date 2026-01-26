@@ -132,11 +132,31 @@ public:
             }
         }
 
-        // Center camera on map
+        // Center camera on map or first ImageObject
         int mapWidth = m_zoneLoader->GetWidth();
         int mapHeight = m_zoneLoader->GetHeight();
-        m_cameraX = (mapWidth * m_cellPixels) / 2 - windowWidth / 2;
-        m_cameraY = (mapHeight * m_cellPixels / 2) / 2 - windowHeight / 2;
+
+        // Check if there are ImageObjects to center on
+        int objCount = m_zoneLoader->GetImageObjectCount();
+        if (objCount > 0) {
+            const ImageObjectData* firstObj = m_zoneLoader->GetImageObject(0);
+            if (firstObj) {
+                // Center on first ImageObject
+                // pixelX/pixelY 已经是像素坐标，直接使用
+                m_cameraX = firstObj->pixelX - windowWidth / 2;
+                m_cameraY = firstObj->pixelY - windowHeight / 2;
+                std::cout << "Centering camera on first ImageObject at pixel=("
+                          << firstObj->pixelX << "," << firstObj->pixelY << ")" << std::endl;
+            } else {
+                // Fallback to map center
+                m_cameraX = (mapWidth * m_cellPixels) / 2 - windowWidth / 2;
+                m_cameraY = (mapHeight * m_cellPixels / 2) / 2 - windowHeight / 2;
+            }
+        } else {
+            // No ImageObjects, center on map
+            m_cameraX = (mapWidth * m_cellPixels) / 2 - windowWidth / 2;
+            m_cameraY = (mapHeight * m_cellPixels / 2) / 2 - windowHeight / 2;
+        }
 
         return true;
     }
@@ -221,6 +241,7 @@ private:
                 case SDLK_i:
                     // Toggle objects
                     m_showObjects = !m_showObjects;
+                    std::cout << "Object rendering (I key): " << (m_showObjects ? "ON" : "OFF") << std::endl;
                     break;
 
                 case SDLK_1:
@@ -274,6 +295,12 @@ private:
                     // Zoom out
                     m_zoom /= 1.1f;
                     if (m_zoom < 0.25f) m_zoom = 0.25f;
+                    break;
+
+                case SDLK_o:
+                    // Toggle object rendering
+                    m_showObjects = !m_showObjects;
+                    std::cout << "Object rendering: " << (m_showObjects ? "ON" : "OFF") << std::endl;
                     break;
 
                 default:
@@ -369,6 +396,89 @@ private:
                     POINT point = { screenX, screenY };
                     m_tileRenderer->DrawTile(spriteID, &point);
                 }
+            }
+        }
+
+        // Render ImageObjects on top of tiles (if enabled and objPack is loaded)
+        if (m_showObjects && m_objPack) {
+            const auto& imageObjects = m_zoneLoader->GetAllImageObjects();
+
+            int rendered = 0;
+            int skippedInvalid = 0;
+            int skippedNoSprite = 0;
+            int skippedOffScreen = 0;
+
+            static bool debugPrinted = false;
+            if (!debugPrinted && m_showObjects && m_objPack) {
+                std::cout << "\n=== Rendering ImageObjects ===" << std::endl;
+                std::cout << "Window: " << windowWidth << "x" << windowHeight
+                          << ", Camera: (" << m_cameraX << ", " << m_cameraY << ")" << std::endl;
+                debugPrinted = true;
+            }
+
+            for (const auto& imgObj : imageObjects) {
+                // 跳过明显无效的对象
+                if (imgObj.sectorX >= mapWidth || imgObj.sectorY >= mapHeight ||
+                    imgObj.sectorX >= 10000 || imgObj.sectorY >= 10000) {
+                    skippedInvalid++;
+                    if (!debugPrinted) {
+                        std::cout << "  [SKIP] spriteID=" << imgObj.spriteID
+                                  << " at sector=(" << imgObj.sectorX << "," << imgObj.sectorY << ") - invalid coordinates" << std::endl;
+                    }
+                    continue;
+                }
+
+                // Calculate screen position from pixel coordinates
+                // ImageObject 的 pixelX/pixelY 已经是像素坐标（线性映射，不是等轴测）
+                // 屏幕坐标 = 像素坐标 * 缩放 - 摄像机偏移
+                int screenX = static_cast<int>(imgObj.pixelX * m_zoom) - m_cameraX;
+                int screenY = static_cast<int>(imgObj.pixelY * m_zoom) - m_cameraY;
+
+                // Debug output
+                if (!debugPrinted) {
+                    std::cout << "  [OBJ] spriteID=" << imgObj.spriteID
+                              << " pixel=(" << imgObj.pixelX << "," << imgObj.pixelY << ")"
+                              << " -> screen=(" << screenX << "," << screenY << ")" << std::endl;
+                }
+
+                // Check if ImageObject is visible
+                if (screenX + 100 < 0 || screenX > windowWidth ||
+                    screenY + 100 < 0 || screenY > windowHeight) {
+                    skippedOffScreen++;
+                    if (!debugPrinted) {
+                        std::cout << "        -> OFF SCREEN" << std::endl;
+                    }
+                    continue;  // Skip if off-screen
+                }
+
+                // Get sprite from objPack using operator[]
+                CSprite& sprite = (*m_objPack)[imgObj.spriteID];
+                if (sprite.IsInit()) {
+                    // Draw sprite at its position using CSpriteSurface method
+                    POINT point = { screenX, screenY };
+                    m_screenSurface->BltSprite(&point, &sprite);
+                    rendered++;
+                    if (!debugPrinted) {
+                        std::cout << "        -> RENDERED" << std::endl;
+                    }
+                } else {
+                    skippedNoSprite++;
+                    if (!debugPrinted) {
+                        std::cout << "        -> NO SPRITE" << std::endl;
+                    }
+                }
+            }
+
+            if (!debugPrinted) {
+                debugPrinted = true;
+            }
+
+            // 每 30 帧输出一次统计
+            static int frameCount = 0;
+            if (++frameCount % 30 == 0) {
+                std::cout << "\rRendered: " << rendered << " | Off-screen: " << skippedOffScreen
+                          << " | Invalid: " << skippedInvalid
+                          << " | No sprite: " << skippedNoSprite << "     " << std::flush;
             }
         }
 

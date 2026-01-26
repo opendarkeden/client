@@ -437,6 +437,7 @@ target_include_directories(map_viewer PRIVATE
 )
 
 target_link_libraries(map_viewer PRIVATE
+	sprite
 	SpriteLib
 	dxlib
 	basic
@@ -444,6 +445,51 @@ target_link_libraries(map_viewer PRIVATE
 )
 
 set_target_properties(map_viewer PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+# Map Viewer Simple - browse zone maps using original MZone class
+# Compile necessary source files directly to avoid VS_UI dependencies
+add_executable(map_viewer_simple
+	tools/viewers/map_viewer_simple/main.cpp
+	tools/viewers/map_viewer_simple/stubs.cpp
+	# MZone and dependencies
+	Client/MZone.cpp
+	Client/MObject.cpp
+	Client/MSector.cpp
+	Client/MImageObject.cpp
+	Client/MShadowObject.cpp
+	Client/MAnimationObject.cpp
+	Client/MShadowAnimationObject.cpp
+	Client/MInteractionObject.cpp
+	# Supporting files
+	Client/ZoneFileHeader.cpp
+)
+
+target_include_directories(map_viewer_simple PRIVATE
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/Client
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/framelib
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/Packet
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/TextLib
+	${CMAKE_CURRENT_SOURCE_DIR}/VS_UI
+	${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/header
+	${CMAKE_CURRENT_SOURCE_DIR}/basic
+)
+
+target_link_libraries(map_viewer_simple PRIVATE
+	SpriteLib
+	dxlib
+	basic
+	mzlib
+	framelib
+	SDL2::SDL2
+	SDL2_image::SDL2_image
+)
+
+set_target_properties(map_viewer_simple PROPERTIES
 	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
 

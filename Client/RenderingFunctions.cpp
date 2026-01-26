@@ -95,20 +95,32 @@ int g_GetStringWidth(const char* pStr, void* pFont)
 
     int width = 0;
     const char* p = pStr;
+    int maxLen = 1024;  // Safety limit to prevent infinite loops
+    int count = 0;
 
-    while (*p)
+    while (*p && count < maxLen)
     {
         if ((*p & 0x80) != 0)
         {
             // Double-byte character (Korean, etc.)
-            width += 16;
-            p += 2;
+            // Check next byte exists
+            if (*(p + 1) != 0) {
+                width += 16;
+                p += 2;
+                count += 2;
+            } else {
+                // Truncated double-byte character, treat as single
+                width += 8;
+                p++;
+                count++;
+            }
         }
         else
         {
             // Single-byte character
             width += 8;
             p++;
+            count++;
         }
     }
 
