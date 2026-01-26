@@ -26,6 +26,10 @@
 #define DEFAULT_WINDOW_WIDTH 800
 #define DEFAULT_WINDOW_HEIGHT 600
 
+// ImageObject 透明标志（来自 MImageObject.h）
+#define OBJECT_TRANS_FLAG  1  // 完全透明 - 跳过渲染
+#define OBJECT_HALF_FLAG   2  // 半透明 - 50% alpha
+
 class MapViewer {
 public:
     MapViewer()
@@ -42,6 +46,7 @@ public:
         , m_zoom(1.0f)
         , m_showGrid(true)
         , m_showObjects(true)
+        , m_showTiles(true)
         , m_dragging(false)
         , m_lastMouseX(0)
         , m_lastMouseY(0)
@@ -132,11 +137,31 @@ public:
             }
         }
 
-        // Center camera on map
+        // Center camera on map or first ImageObject
         int mapWidth = m_zoneLoader->GetWidth();
         int mapHeight = m_zoneLoader->GetHeight();
-        m_cameraX = (mapWidth * m_cellPixels) / 2 - windowWidth / 2;
-        m_cameraY = (mapHeight * m_cellPixels / 2) / 2 - windowHeight / 2;
+
+        // Check if there are ImageObjects to center on
+        int objCount = m_zoneLoader->GetImageObjectCount();
+        if (objCount > 0) {
+            const ImageObjectData* firstObj = m_zoneLoader->GetImageObject(0);
+            if (firstObj) {
+                // Center on first ImageObject
+                // pixelX/pixelY 已经是像素坐标，直接使用
+                m_cameraX = firstObj->pixelX - windowWidth / 2;
+                m_cameraY = firstObj->pixelY - windowHeight / 2;
+                std::cout << "Centering camera on first ImageObject at pixel=("
+                          << firstObj->pixelX << "," << firstObj->pixelY << ")" << std::endl;
+            } else {
+                // Fallback to map center
+                m_cameraX = (mapWidth * m_cellPixels) / 2 - windowWidth / 2;
+                m_cameraY = (mapHeight * m_cellPixels / 2) / 2 - windowHeight / 2;
+            }
+        } else {
+            // No ImageObjects, center on map
+            m_cameraX = (mapWidth * m_cellPixels) / 2 - windowWidth / 2;
+            m_cameraY = (mapHeight * m_cellPixels / 2) / 2 - windowHeight / 2;
+        }
 
         return true;
     }
@@ -221,6 +246,13 @@ private:
                 case SDLK_i:
                     // Toggle objects
                     m_showObjects = !m_showObjects;
+                    std::cout << "Object rendering (I key): " << (m_showObjects ? "ON" : "OFF") << std::endl;
+                    break;
+
+                case SDLK_t:
+                    // Toggle tiles
+                    m_showTiles = !m_showTiles;
+                    std::cout << "Tile rendering (T key): " << (m_showTiles ? "ON" : "OFF") << std::endl;
                     break;
 
                 case SDLK_1:
@@ -274,6 +306,12 @@ private:
                     // Zoom out
                     m_zoom /= 1.1f;
                     if (m_zoom < 0.25f) m_zoom = 0.25f;
+                    break;
+
+                case SDLK_o:
+                    // Toggle object rendering
+                    m_showObjects = !m_showObjects;
+                    std::cout << "Object rendering: " << (m_showObjects ? "ON" : "OFF") << std::endl;
                     break;
 
                 default:
@@ -354,8 +392,9 @@ private:
         endSectorY = (endSectorY > mapHeight) ? mapHeight : endSectorY;
 
         // Render visible sectors using TileRenderer (Phase 3)
-        for (int y = startSectorY; y < endSectorY; y++) {
-            for (int x = startSectorX; x < endSectorX; x++) {
+        if (m_showTiles) {
+            for (int y = startSectorY; y < endSectorY; y++) {
+                for (int x = startSectorX; x < endSectorX; x++) {
                 // Calculate screen position
                 int screenX = x * scaledCellW - m_cameraX;
                 int screenY = y * scaledCellH - m_cameraY;
@@ -369,6 +408,136 @@ private:
                     POINT point = { screenX, screenY };
                     m_tileRenderer->DrawTile(spriteID, &point);
                 }
+                }
+            }
+        }
+
+        // Render ImageObjects on top of tiles (if enabled and objPack is loaded)
+        if (m_showObjects && m_objPack) {
+            const auto& imageObjects = m_zoneLoader->GetAllImageObjects();
+
+            // 创建索引列表并按深度排序（等轴测渲染顺序）
+            std::vector<size_t> sorted_indices;
+            sorted_indices.reserve(imageObjects.size());
+            for (size_t i = 0; i < imageObjects.size(); i++) {
+                sorted_indices.push_back(i);
+            }
+
+            // 按 sectorY, sectorX 排序（画家算法：从上到下，从左到右）
+            std::sort(sorted_indices.begin(), sorted_indices.end(),
+                      [&imageObjects](size_t a, size_t b) {
+                          if (imageObjects[a].sectorY != imageObjects[b].sectorY) {
+                              return imageObjects[a].sectorY < imageObjects[b].sectorY;  // Y 轴优先
+                          }
+                          return imageObjects[a].sectorX < imageObjects[b].sectorX;  // 同 Y 内按 X 排序
+                      });
+
+            int rendered = 0;
+            int renderedHalf = 0;      // 半透明对象计数
+            int skippedInvalid = 0;
+            int skippedNoSprite = 0;
+            int skippedOffScreen = 0;
+            int skippedTrans = 0;      // 完全透明对象计数
+
+            static bool debugPrinted = false;
+            if (!debugPrinted && m_showObjects && m_objPack) {
+                std::cout << "\n=== Rendering ImageObjects (sorted by depth) ===" << std::endl;
+                std::cout << "Window: " << windowWidth << "x" << windowHeight
+                          << ", Camera: (" << m_cameraX << ", " << m_cameraY << ")" << std::endl;
+                debugPrinted = true;
+            }
+
+            for (size_t idx : sorted_indices) {
+                const auto& imgObj = imageObjects[idx];
+                // 跳过明显无效的对象
+                if (imgObj.sectorX >= mapWidth || imgObj.sectorY >= mapHeight ||
+                    imgObj.sectorX >= 10000 || imgObj.sectorY >= 10000) {
+                    skippedInvalid++;
+                    if (!debugPrinted) {
+                        std::cout << "  [SKIP] spriteID=" << imgObj.spriteID
+                                  << " at sector=(" << imgObj.sectorX << "," << imgObj.sectorY << ") - invalid coordinates" << std::endl;
+                    }
+                    continue;
+                }
+
+                // 检查完全透明标志
+                if (imgObj.transFlags & OBJECT_TRANS_FLAG) {
+                    skippedTrans++;
+                    if (!debugPrinted) {
+                        std::cout << "  [SKIP] spriteID=" << imgObj.spriteID
+                                  << " - FULLY TRANSPARENT (transFlags=0x"
+                                  << std::hex << (int)imgObj.transFlags << std::dec << ")" << std::endl;
+                    }
+                    continue;  // 跳过渲染
+                }
+
+                // Calculate screen position from pixel coordinates
+                // ImageObject 的 pixelX/pixelY 已经是像素坐标（线性映射，不是等轴测）
+                // 屏幕坐标 = 像素坐标 * 缩放 - 摄像机偏移
+                int screenX = static_cast<int>(imgObj.pixelX * m_zoom) - m_cameraX;
+                int screenY = static_cast<int>(imgObj.pixelY * m_zoom) - m_cameraY;
+
+                // Debug output
+                if (!debugPrinted) {
+                    std::cout << "  [OBJ] spriteID=" << imgObj.spriteID
+                              << " pixel=(" << imgObj.pixelX << "," << imgObj.pixelY << ")"
+                              << " -> screen=(" << screenX << "," << screenY << ")" << std::endl;
+                }
+
+                // Check if ImageObject is visible
+                if (screenX + 100 < 0 || screenX > windowWidth ||
+                    screenY + 100 < 0 || screenY > windowHeight) {
+                    skippedOffScreen++;
+                    if (!debugPrinted) {
+                        std::cout << "        -> OFF SCREEN" << std::endl;
+                    }
+                    continue;  // Skip if off-screen
+                }
+
+                // Get sprite from objPack using operator[]
+                CSprite& sprite = (*m_objPack)[imgObj.spriteID];
+                if (sprite.IsInit()) {
+                    POINT point = { screenX, screenY };
+
+                    // 检查半透明标志
+                    if (imgObj.transFlags & OBJECT_HALF_FLAG) {
+                        // 使用 BltSpriteAlpha 实现 50% 半透明
+                        m_screenSurface->BltSpriteAlpha(&point, &sprite, 128);
+                        renderedHalf++;
+                        if (!debugPrinted) {
+                            std::cout << "  [RENDER] spriteID=" << imgObj.spriteID
+                                      << " - HALF TRANSPARENT (transFlags=0x"
+                                      << std::hex << (int)imgObj.transFlags << std::dec << ")" << std::endl;
+                        }
+                    } else {
+                        // 正常渲染
+                        m_screenSurface->BltSprite(&point, &sprite);
+                        rendered++;
+                        if (!debugPrinted) {
+                            std::cout << "  [RENDER] spriteID=" << imgObj.spriteID
+                                      << " - NORMAL (transFlags=0x"
+                                      << std::hex << (int)imgObj.transFlags << std::dec << ")" << std::endl;
+                        }
+                    }
+                } else {
+                    skippedNoSprite++;
+                    if (!debugPrinted) {
+                        std::cout << "        -> NO SPRITE" << std::endl;
+                    }
+                }
+            }
+
+            if (!debugPrinted) {
+                debugPrinted = true;
+            }
+
+            // 每 30 帧输出一次统计
+            static int frameCount = 0;
+            if (++frameCount % 30 == 0) {
+                std::cout << "\rNormal: " << rendered << " | Half-Trans: " << renderedHalf
+                          << " | Full-Trans: " << skippedTrans
+                          << " | Off-screen: " << skippedOffScreen
+                          << " | No sprite: " << skippedNoSprite << "     " << std::flush;
             }
         }
 
@@ -421,6 +590,7 @@ private:
     float m_zoom;
     bool m_showGrid;
     bool m_showObjects;
+    bool m_showTiles;
 
     // Mouse state
     bool m_dragging;

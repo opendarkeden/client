@@ -246,7 +246,10 @@ class MZone {
 		bool		RemoveImageObject(TYPE_OBJECTID	id);			// Zone에서 ImageObject 제거
 		MImageObject*	GetImageObject(TYPE_OBJECTID id);				// Zone의 ImageObject 읽어오기
 		void		SetImageObjectSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, TYPE_OBJECTID id);	// ImageObject Sector
-		void		UnSetImageObjectSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, TYPE_OBJECTID id);	// Unset ImageObject Sector	
+		void		UnSetImageObjectSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, TYPE_OBJECTID id);	// Unset ImageObject Sector
+
+		// 添加 map_viewer 访问接口
+		const IMAGEOBJECT_MAP&	GetImageObjectMap() const { return m_mapImageObject; }	
 
 		//--------------------------------------------------------------
 		//

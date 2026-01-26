@@ -6,6 +6,7 @@
 #endif
 
 #include <stdlib.h>
+#include <stdio.h>
 
 /* 单个错误帧 */
 typedef struct {
@@ -64,7 +65,7 @@ err_msg(char *msg) {
 
 static inline Error*
 err_code(int code) {
-    Error *err = malloc(sizeof(Error));
+    Error *err = (Error*)malloc(sizeof(Error));
     if (!err) {
         panic("out of memory!");
     }

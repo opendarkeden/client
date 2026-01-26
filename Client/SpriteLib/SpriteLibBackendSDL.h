@@ -47,10 +47,13 @@ struct spritectl_sprite_s {
 	int width;
 	int height;
 	int format;                 /* SPRITECTL_FORMAT_* */
-	uint16_t* pixels;           /* Pixel data (565 or 555 format) */
+	uint16_t* pixels;           /* Decoded pixel data (565 or 555 format) - may be NULL */
+	uint16_t** scanline_rle;    /* RLE data per scanline - preserved for correct transparency */
+	uint16_t* scanline_lens;    /* Length of each scanline's RLE data */
 	uint32_t* rgba_pixels;      /* Decoded RGBA32 pixels (cached) */
 	size_t data_size;           /* Size of pixel data */
 	int ref_count;              /* Reference count */
+	int has_rle;                /* Whether RLE data is available */
 };
 
 /* ============================================================================
@@ -187,6 +190,34 @@ static inline void spritectl_555_to_rgb(uint16_t pixel, uint8_t* r, uint8_t* g, 
 static inline uint32_t spritectl_rgb_to_rgba(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
 	return (uint32_t)a << 24 | (uint32_t)b << 16 | (uint32_t)g << 8 | (uint32_t)r;
 }
+
+/**
+ * RLE-based sprite rendering (mimics original DirectX BltClipWidth)
+ * This function directly writes to destination surface using RLE data,
+ * skipping transparent pixels instead of using alpha blending.
+ */
+int spritectl_blt_sprite_rle(spritectl_surface_t dest, int x, int y,
+                              spritectl_sprite_t sprite, int flags, int alpha);
+
+/**
+ * Create sprite structure with RLE data support
+ * Allocates RLE arrays but doesn't fill them - caller must populate scanline_rle and scanline_lens
+ * @param width Sprite width
+ * @param height Sprite height
+ * @return New sprite handle or SPRITECTL_INVALID_SPRITE on failure
+ */
+spritectl_sprite_t spritectl_create_sprite_rle(int width, int height);
+
+/**
+ * Set RLE data for a specific scanline
+ * @param sprite Sprite handle (must be created with spritectl_create_sprite_rle)
+ * @param y Scanline index
+ * @param rle_data RLE data (will be copied)
+ * @param rle_size Size of RLE data in uint16_t units
+ * @return 0 on success, non-zero on failure
+ */
+int spritectl_sprite_set_scanline_rle(spritectl_sprite_t sprite, int y,
+                                       const uint16_t* rle_data, int rle_size);
 
 #ifdef __cplusplus
 }
