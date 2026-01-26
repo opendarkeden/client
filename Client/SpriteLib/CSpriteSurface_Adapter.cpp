@@ -76,44 +76,41 @@ static spritectl_sprite_t get_backend_sprite(CSprite* pSprite)
 		WORD width = pSprite->GetWidth();
 		WORD height = pSprite->GetHeight();
 
-		size_t pixel_count = width * height;
-		size_t data_size = pixel_count * sizeof(WORD);
-
-		/* Allocate and decompress RLE pixel data */
-		WORD* pixels = (WORD*)malloc(data_size);
-		if (!pixels) {
+		/* Create backend sprite with RLE data for correct transparency */
+		spritectl_sprite_t new_sprite = spritectl_create_sprite_rle(width, height);
+		if (!new_sprite) {
 			return SPRITECTL_INVALID_SPRITE;
 		}
 
-		/* Decompress RLE data line by line */
+		/* Copy RLE data from CSprite to backend sprite */
 		for (WORD y = 0; y < height; y++) {
 			WORD* src_line = pSprite->GetPixelLine(y);
-			WORD* dst_line = pixels + (y * width);
 
-			/* RLE decompression */
+			/* Get RLE data size */
 			WORD* pSrc = src_line;
-			WORD* pDest = dst_line;
 			int count = *pSrc++;  /* Number of runs */
 
+			/* Calculate total RLE data size (count + runs data) */
+			int rle_size = 1;  /* count byte */
 			if (count > 0) {
 				for (int j = 0; j < count; j++) {
-					pDest += *pSrc++;  /* Skip transparent pixels */
-					int colorCount = *pSrc++;  /* Number of color pixels */
-
-					/* Copy color pixels */
-					memcpy(pDest, pSrc, colorCount * sizeof(WORD));
-					pDest += colorCount;
+					pSrc++;  /* Skip transCount */
+					int colorCount = *pSrc++;  /* Color pixels */
+					rle_size += 2 + colorCount;  /* trans + color count + pixel data */
 					pSrc += colorCount;
+				}
+			}
+
+			/* Set RLE data using helper function */
+			if (rle_size > 1) {  /* Non-empty scanline */
+				if (spritectl_sprite_set_scanline_rle(new_sprite, y, src_line, rle_size) != 0) {
+					/* Cleanup and fall back */
+					spritectl_destroy_sprite(new_sprite);
+					return SPRITECTL_INVALID_SPRITE;
 				}
 			}
 		}
 
-		/* Create backend sprite */
-		spritectl_sprite_t new_sprite = spritectl_create_sprite(
-			width, height, SPRITECTL_FORMAT_RGB565,
-			pixels, data_size);
-
-		free(pixels);
 		pSprite->SetBackendSprite(new_sprite);
 		pSprite->SetBackendDirty(false);
 	}

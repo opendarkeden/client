@@ -359,6 +359,8 @@ int spritectl_blt_sprite_rle(spritectl_surface_t dest, int x, int y,
 	int dest_width = sdl_surface->w;
 	int dest_height = sdl_surface->h;
 	int dest_pitch = sdl_surface->pitch;
+	int dest_bytes_per_pixel = sdl_surface->format->BytesPerPixel;
+	int dest_stride = dest_pitch / dest_bytes_per_pixel;  /* Number of pixels per row */
 
 	/* Calculate clipping rect */
 	int clip_left = (x < 0) ? -x : 0;
@@ -373,55 +375,113 @@ int spritectl_blt_sprite_rle(spritectl_surface_t dest, int x, int y,
 		return 0;  /* Completely clipped, but not an error */
 	}
 
+	/* Debug: print surface info on first call */
+	static int debug_printed = 0;
+	if (debug_printed < 3) {
+		fprintf(stderr, "[RLE BLT] sprite=%dx%d, pos=(%d,%d), surface=%dx%d, bpp=%d, pitch=%d, stride=%d\n",
+		        sprite->width, sprite->height, x, y, dest_width, dest_height, dest_bytes_per_pixel, dest_pitch, dest_stride);
+		debug_printed++;
+	}
+
 	/* Process each scanline */
 	for (int sy = clip_top; sy < clip_bottom; sy++) {
 		if (!sprite->scanline_rle[sy] || sprite->scanline_lens[sy] == 0) {
 			continue;  /* Empty scanline */
 		}
 
-		/* Get destination row pointer */
-		uint32_t* dest_row = (uint32_t*)((uint8_t*)sdl_surface->pixels + (y + sy) * dest_pitch) + x;
+		/* Get destination row pointer - use uint8_t* for format flexibility */
+		uint8_t* dest_row_bytes = (uint8_t*)sdl_surface->pixels + (y + sy) * dest_pitch;
 
 		/* Process RLE segments */
 		uint16_t* rle_data = sprite->scanline_rle[sy];
+		uint16_t rle_data_size = sprite->scanline_lens[sy];
 		int rle_index = 0;
+
+		/* Validate RLE data */
+		if (rle_data_size < 1) {
+			if (debug_printed < 3) {
+				fprintf(stderr, "[RLE BLT] Invalid RLE data size: %d at scanline %d\n", rle_data_size, sy);
+			}
+			continue;
+		}
+
 		int seg_count = rle_data[rle_index++];
+		if (rle_index + seg_count * 2 > rle_data_size) {
+			if (debug_printed < 3) {
+				fprintf(stderr, "[RLE BLT] RLE data corruption: seg_count=%d, size=%d at scanline %d\n",
+				        seg_count, rle_data_size, sy);
+			}
+			continue;
+		}
+
 		int sx = 0;
 
-		for (int seg = 0; seg < seg_count && sx < sprite->width; seg++) {
+		for (int seg = 0; seg < seg_count; seg++) {
 			int trans_count = rle_data[rle_index++];
 			int color_count = rle_data[rle_index++];
 
 			/* Skip transparent pixels */
 			sx += trans_count;
 
+			/* Safety: if we've gone past sprite width, skip this entire segment */
+			if (sx >= sprite->width) {
+				rle_index += color_count;  /* Skip all color pixels in this segment */
+				continue;  /* Move to next segment */
+			}
+
 			/* Copy color pixels */
 			for (int c = 0; c < color_count && sx < sprite->width; c++) {
+				/* Check if we're about to read past RLE data */
+				if (rle_index >= rle_data_size) {
+					if (debug_printed < 3) {
+						fprintf(stderr, "[RLE BLT] RLE data overrun: rle_index=%d, size=%d, sx=%d\n",
+						        rle_index, rle_data_size, sx);
+					}
+					break;
+				}
+
 				/* Check if this pixel is within clipping bounds */
 				if (sx >= clip_left && sx < clip_right) {
 					uint16_t pixel = rle_data[rle_index];
 
-					/* Convert RGB565 to RGBA32 */
-					uint8_t r, g, b;
-					spritectl_565_to_rgb(pixel, &r, &g, &b);
+					/* Calculate actual destination position */
+					int dest_x = x + sx;
+					if (dest_x >= 0 && dest_x < dest_stride) {
+						/* Write pixel based on destination format */
+						if (dest_bytes_per_pixel == 2) {
+							/* RGB565 destination - write directly */
+							uint16_t* dest_row_16 = (uint16_t*)dest_row_bytes;
+							dest_row_16[dest_x] = pixel;
+						} else if (dest_bytes_per_pixel == 4) {
+							/* RGBA32 destination - convert RGB565 to RGBA32 */
+							uint8_t r, g, b;
+							spritectl_565_to_rgb(pixel, &r, &g, &b);
+							uint32_t* dest_row_32 = (uint32_t*)dest_row_bytes;
 
-					/* Apply alpha blending if needed */
-					if (flags & SPRITECTL_BLT_ALPHA) {
-						/* Alpha blending with destination */
-						uint32_t dest_pixel = dest_row[sx];
-						uint8_t dest_r = dest_pixel & 0xFF;
-						uint8_t dest_g = (dest_pixel >> 8) & 0xFF;
-						uint8_t dest_b = (dest_pixel >> 16) & 0xFF;
+							/* Apply alpha blending if needed */
+							if (flags & SPRITECTL_BLT_ALPHA) {
+								/* Alpha blending with destination */
+								uint32_t dest_pixel = dest_row_32[dest_x];
+								uint8_t dest_r = dest_pixel & 0xFF;
+								uint8_t dest_g = (dest_pixel >> 8) & 0xFF;
+								uint8_t dest_b = (dest_pixel >> 16) & 0xFF;
 
-						/* Blend: src * alpha/255 + dst * (1 - alpha/255) */
-						uint8_t blend_r = (r * alpha + dest_r * (255 - alpha)) / 255;
-						uint8_t blend_g = (g * alpha + dest_g * (255 - alpha)) / 255;
-						uint8_t blend_b = (b * alpha + dest_b * (255 - alpha)) / 255;
+								/* Blend: src * alpha/255 + dst * (1 - alpha/255) */
+								uint8_t blend_r = (r * alpha + dest_r * (255 - alpha)) / 255;
+								uint8_t blend_g = (g * alpha + dest_g * (255 - alpha)) / 255;
+								uint8_t blend_b = (b * alpha + dest_b * (255 - alpha)) / 255;
 
-						dest_row[sx] = (255 << 24) | (blend_b << 16) | (blend_g << 8) | blend_r;
-					} else {
-						/* Opaque write */
-						dest_row[sx] = (255 << 24) | (b << 16) | (g << 8) | r;
+								dest_row_32[dest_x] = (255 << 24) | (blend_b << 16) | (blend_g << 8) | blend_r;
+							} else {
+								/* Opaque write */
+								dest_row_32[dest_x] = (255 << 24) | (b << 16) | (g << 8) | r;
+							}
+						} else if (debug_printed < 3) {
+							fprintf(stderr, "[RLE BLT] Unsupported dest BPP: %d\n", dest_bytes_per_pixel);
+						}
+					} else if (debug_printed < 3) {
+						fprintf(stderr, "[RLE BLT] OUT OF BOUNDS: dest_x=%d, stride=%d, sx=%d, x=%d\n",
+						        dest_x, dest_stride, sx, x);
 					}
 				}
 
@@ -439,6 +499,78 @@ int spritectl_blt_sprite_rle(spritectl_surface_t dest, int x, int y,
 	return 0;
 }
 
+spritectl_sprite_t spritectl_create_sprite_rle(int width, int height) {
+	spritectl_sprite_t sprite;
+
+	if (width <= 0 || height <= 0) {
+		return SPRITECTL_INVALID_SPRITE;
+	}
+
+	/* Allocate sprite structure */
+	sprite = (spritectl_sprite_t)malloc(sizeof(struct spritectl_sprite_s));
+	if (!sprite) {
+		fprintf(stderr, "SpriteLib Backend: Failed to allocate RLE sprite\n");
+		return SPRITECTL_INVALID_SPRITE;
+	}
+
+	/* Initialize fields */
+	sprite->width = width;
+	sprite->height = height;
+	sprite->format = SPRITECTL_FORMAT_RGB565;  /* Assume RGB565 for RLE sprites */
+	sprite->data_size = 0;
+	sprite->rgba_pixels = NULL;
+	sprite->pixels = NULL;  /* RLE sprites don't have decoded pixels */
+	sprite->ref_count = 1;
+	sprite->has_rle = 1;  /* Mark as RLE sprite */
+
+	/* Allocate RLE arrays */
+	sprite->scanline_lens = (uint16_t*)calloc(height, sizeof(uint16_t));
+	if (!sprite->scanline_lens) {
+		free(sprite);
+		return SPRITECTL_INVALID_SPRITE;
+	}
+
+	sprite->scanline_rle = (uint16_t**)calloc(height, sizeof(uint16_t*));
+	if (!sprite->scanline_rle) {
+		free(sprite->scanline_lens);
+		free(sprite);
+		return SPRITECTL_INVALID_SPRITE;
+	}
+
+	return sprite;
+}
+
+int spritectl_sprite_set_scanline_rle(spritectl_sprite_t sprite, int y,
+                                       const uint16_t* rle_data, int rle_size) {
+	if (!sprite || !sprite->has_rle) {
+		return -1;
+	}
+
+	if (y < 0 || y >= sprite->height) {
+		return -1;
+	}
+
+	if (rle_size <= 0) {
+		return -1;
+	}
+
+	/* Free existing RLE data for this scanline */
+	if (sprite->scanline_rle[y]) {
+		free(sprite->scanline_rle[y]);
+	}
+
+	/* Allocate and copy RLE data */
+	sprite->scanline_rle[y] = (uint16_t*)malloc(rle_size * sizeof(uint16_t));
+	if (!sprite->scanline_rle[y]) {
+		return -1;
+	}
+
+	memcpy(sprite->scanline_rle[y], rle_data, rle_size * sizeof(uint16_t));
+	sprite->scanline_lens[y] = rle_size;
+
+	return 0;
+}
+
 int spritectl_blt_sprite(spritectl_surface_t dest, int x, int y,
                          spritectl_sprite_t sprite, int flags, int alpha) {
 	if (!dest || !sprite) {
@@ -448,6 +580,14 @@ int spritectl_blt_sprite(spritectl_surface_t dest, int x, int y,
 	/* If sprite has RLE data, use RLE-based rendering (like original DirectX) */
 	if (sprite->has_rle && sprite->scanline_rle) {
 		return spritectl_blt_sprite_rle(dest, x, y, sprite, flags, alpha);
+	}
+
+	/* Fallback to old method for sprites without RLE data */
+	static int fallback_count = 0;
+	if (fallback_count < 3) {
+		fprintf(stderr, "[SpriteLib] WARNING: Using fallback rendering for sprite without RLE data (sprite=%p, has_rle=%d)\n",
+		        (void*)sprite, sprite->has_rle);
+		fallback_count++;
 	}
 
 	/* Fallback to old method for sprites without RLE data */

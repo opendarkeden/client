@@ -416,6 +416,22 @@ private:
         if (m_showObjects && m_objPack) {
             const auto& imageObjects = m_zoneLoader->GetAllImageObjects();
 
+            // 创建索引列表并按深度排序（等轴测渲染顺序）
+            std::vector<size_t> sorted_indices;
+            sorted_indices.reserve(imageObjects.size());
+            for (size_t i = 0; i < imageObjects.size(); i++) {
+                sorted_indices.push_back(i);
+            }
+
+            // 按 sectorY, sectorX 排序（画家算法：从上到下，从左到右）
+            std::sort(sorted_indices.begin(), sorted_indices.end(),
+                      [&imageObjects](size_t a, size_t b) {
+                          if (imageObjects[a].sectorY != imageObjects[b].sectorY) {
+                              return imageObjects[a].sectorY < imageObjects[b].sectorY;  // Y 轴优先
+                          }
+                          return imageObjects[a].sectorX < imageObjects[b].sectorX;  // 同 Y 内按 X 排序
+                      });
+
             int rendered = 0;
             int renderedHalf = 0;      // 半透明对象计数
             int skippedInvalid = 0;
@@ -425,13 +441,14 @@ private:
 
             static bool debugPrinted = false;
             if (!debugPrinted && m_showObjects && m_objPack) {
-                std::cout << "\n=== Rendering ImageObjects ===" << std::endl;
+                std::cout << "\n=== Rendering ImageObjects (sorted by depth) ===" << std::endl;
                 std::cout << "Window: " << windowWidth << "x" << windowHeight
                           << ", Camera: (" << m_cameraX << ", " << m_cameraY << ")" << std::endl;
                 debugPrinted = true;
             }
 
-            for (const auto& imgObj : imageObjects) {
+            for (size_t idx : sorted_indices) {
+                const auto& imgObj = imageObjects[idx];
                 // 跳过明显无效的对象
                 if (imgObj.sectorX >= mapWidth || imgObj.sectorY >= mapHeight ||
                     imgObj.sectorX >= 10000 || imgObj.sectorY >= 10000) {

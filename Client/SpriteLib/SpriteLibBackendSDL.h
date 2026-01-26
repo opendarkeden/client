@@ -199,6 +199,26 @@ static inline uint32_t spritectl_rgb_to_rgba(uint8_t r, uint8_t g, uint8_t b, ui
 int spritectl_blt_sprite_rle(spritectl_surface_t dest, int x, int y,
                               spritectl_sprite_t sprite, int flags, int alpha);
 
+/**
+ * Create sprite structure with RLE data support
+ * Allocates RLE arrays but doesn't fill them - caller must populate scanline_rle and scanline_lens
+ * @param width Sprite width
+ * @param height Sprite height
+ * @return New sprite handle or SPRITECTL_INVALID_SPRITE on failure
+ */
+spritectl_sprite_t spritectl_create_sprite_rle(int width, int height);
+
+/**
+ * Set RLE data for a specific scanline
+ * @param sprite Sprite handle (must be created with spritectl_create_sprite_rle)
+ * @param y Scanline index
+ * @param rle_data RLE data (will be copied)
+ * @param rle_size Size of RLE data in uint16_t units
+ * @return 0 on success, non-zero on failure
+ */
+int spritectl_sprite_set_scanline_rle(spritectl_sprite_t sprite, int y,
+                                       const uint16_t* rle_data, int rle_size);
+
 #ifdef __cplusplus
 }
 #endif
