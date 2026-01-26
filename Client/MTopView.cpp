@@ -16534,6 +16534,8 @@ MTopView::DrawTileSurface()
 
 		m_pTileSurface->FillRect(&rect, 0);
 		
+		// CRITICAL FIX: Sync m_TileSurfaceFirstSectorX with adjusted sX1
+		m_TileSurfaceFirstSectorX += (-sX1);
 		sX1 = 0;	
 	}
 
@@ -16562,6 +16564,8 @@ MTopView::DrawTileSurface()
 		rect.bottom = tilePoint.y;
 		m_pTileSurface->FillRect(&rect, 0);
 		
+		// CRITICAL FIX: Sync m_TileSurfaceFirstSectorY with adjusted sY1
+		m_TileSurfaceFirstSectorY += (-sY1);
 		sY1 = 0;	
 	}
 
