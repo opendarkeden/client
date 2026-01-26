@@ -14211,148 +14211,30 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			//---------------------------------------
 			if (!m_pTileSurface->Lock()) return;
 
-			//char str[80];
-			int endY = sY2[n];
-			int endX = sX2[n];
-			for (y=sY1[n]; y<endY; y++)
-			{				
-				// ÇÑ ÁÙÀÇ Ã¹¹øÂ° Sector					
-				tilePointTemp.x = firstTilePoint[n].x;
+			//----------------------------------------------------------------------
+			// Use TileRenderer for incremental updates
+			// Ensures consistency with DrawTileSurface()
+			//----------------------------------------------------------------------
+			if (m_pTileRenderer != NULL && m_pTileRenderer->IsInit())
+			{
+				// Set the zone provider
+				m_zoneTileProvider.SetZone(m_pZone);
 
-				for (x=sX1[n]; x<endX; x++)
-				{				
-					//m_PreviousFogSpriteID[y][x] = SPRITEID_NULL;
+				// Draw new edge tiles using TileRenderer
+				m_pTileRenderer->DrawTilesNoLock(
+					&m_zoneTileProvider,
+					sX1[n], sY1[n],
+					sX2[n] - sX1[n],
+					sY2[n] - sY1[n],
+					firstTilePoint[n].x,
+					firstTilePoint[n].y
+				);
+			}
+			else
+			{
+				printf("[IncrementalUpdate] ERROR: TileRenderer not initialized! Cannot render tiles.\n");
+			}
 
-					point = tilePointTemp;					
-
-					int spriteID = m_pZone->GetSector(x,y).GetSpriteID();
-
-					if (spriteID==SPRITEID_NULL)
-					{
-#ifdef __DEBUG_OUTPUT__
-						if( m_pZone->GetID() == 3001 && m_pZone->GetSector(x,y).IsBlockAny() )
-							m_pTileSurface->BltSprite(&point, &m_EtcSPK[1]);				
-						else
-							m_pTileSurface->BltSprite(&point, &m_EtcSPK[SPRITEID_TILE_NULL]);				
-#else
-						m_pTileSurface->BltSprite(&point, &m_EtcSPK[SPRITEID_TILE_NULL]);
-#endif
-					}
-					else
-					{
-						CSprite& sprite = m_TileSPK[ spriteID ];
-
-						//---------------------------------------
-						// ID°¡ spriteIDÀÎ TileÀ» LoadÇÑ´Ù.
-						//---------------------------------------
-//						if (sprite.IsNotInit())
-//						{
-//							#ifdef	OUTPUT_DEBUG
-//								if (g_pDebugMessage!=NULL)
-//									sprintf(g_pDebugMessage->GetCurrent(), "[RunTimeLoading] Tile(%d,%d) - Draw : sprite=%d", x, y, spriteID);
-//							#endif
-//
-//							m_TileSPKFile.seekg(m_TileSPKI[spriteID], ios::beg);
-//							
-//							//--------------------------------------------------
-//							// Loading¿¡ ¼º°øÇÑ °æ¿ì
-//							//--------------------------------------------------
-//							if (m_TileSPK[spriteID].LoadFromFile( m_TileSPKFile ))
-//							{
-//								#ifdef	OUTPUT_DEBUG
-//									if (g_pDebugMessage!=NULL)
-//									{
-//										sprintf(g_pDebugMessage->GetCurrent(), "%s ...OK", g_pDebugMessage->GetCurrent());
-//										g_pDebugMessage->Next();
-//									}
-//								#endif
-//							}
-//							//--------------------------------------------------
-//							// ½ÇÆÐÇÑ °æ¿ì --> ÀÌ¹Ì LoadingÇÏ°í ÀÖ´Â °æ¿ìÀÌ´Ù.				
-//							//--------------------------------------------------
-//							/*
-//							// 2001.8.20 ÁÖ¼®Ã³¸®
-//							else
-//							{
-//								#ifdef	OUTPUT_DEBUG
-//									if (g_pDebugMessage!=NULL)
-//									{
-//										sprintf(g_pDebugMessage->GetCurrent(), "%s ...Fail & Wait Loading", g_pDebugMessage->GetCurrent());
-//										g_pDebugMessage->Next();
-//									}
-//								#endif
-//
-//		
-//								// file thread ¼øÀ§¸¦ ³ôÈù´Ù.
-//								//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_HIGHEST);
-//
-//								MLoadingSPKWorkNode3* pNode = new MLoadingSPKWorkNode3(spriteID, m_TileSPKI[spriteID]);
-//								pNode->SetSPK( &m_TileSPK, FILE_SPRITE_TILE );
-//								pNode->SetType( 1 );
-//								g_pLoadingThread->SetPriority( THREAD_PRIORITY_HIGHEST );
-//								g_pLoadingThread->AddFirst( pNode );
-//
-//								// Thread¿¡¼­ LoadingÀÌ ³¡³¯¶§±îÁö ±â´Ù¸°´Ù.
-//								int waitCount = 0;
-//								while (1)
-//								{								
-//									DEBUG_ADD_FORMAT( "Check Load id=%d", spriteID );
-//
-//									if (m_TileSPK[spriteID].IsInit())
-//									{
-//										DEBUG_ADD( "Is Init" );
-//
-//										break;
-//									}
-//									else
-//									{
-//										DEBUG_ADD( "Is Not Init" );
-//									}
-//
-//									
-//									//if (++waitCount == 1000)
-//									//{
-//									//	break;
-//									//}											
-//								}
-//								//while (!m_TileSPK[spriteID].LoadFromFile( m_TileSPKFile ));
-//
-//								// file thread ¼øÀ§¸¦ ³·Ãá´Ù.
-//								//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_BELOW_NORMAL);	
-//								g_pLoadingThread->SetPriority( THREAD_PRIORITY_LOWEST );
-//
-//							}
-//							*/
-//							
-//							//if (sprite.IsInit())
-//							//{
-//							//	m_pTileSurface->BltSprite(&point, &sprite);
-//							//}
-//						}
-						//else 
-						//{
-							// ¶ß¾Ç~~!!!!!!! ¼Óµµ Àâ¾Æ ¸Ô´Â´Ù~!!!
-//							POINT pointTempTemp = point;
-//							m_pTileSurface->BltSprite(&pointTempTemp, &m_EtcSPK[SPRITEID_TILE_NULL]);
-
-							m_pTileSurface->BltSprite(&point, &sprite);
-						//}
-						//m_pTileSurface->BltSprite(&point, &m_SpritePack[ 3 ]);
-						
-						//sprintf(str, "(%d,%d)", x, y);			
-						//m_pTileSurface->GDI_Text(point.x, point.y, str, 0);
-					}
-					
-
-					// Ãâ·ÂÇÏ·Á´Â ÁÂÇ¥ ÀÌµ¿
-					tilePointTemp.x += TILE_X;
-				}		
-						
-				// ´ÙÀ½ ÁÙ
-				tilePointTemp.y += TILE_Y;					
-			}	
-
-			//---------------------------------------
 			// UNLOCK
 			//---------------------------------------
 			m_pTileSurface->Unlock();
