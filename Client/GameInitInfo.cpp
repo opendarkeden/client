@@ -20,6 +20,8 @@
 #ifdef PLATFORM_WINDOWS
 #include <MMSystem.h>
 #endif
+#include "DebugLog.h"
+#include <algorithm>
 //#include "MFileDef.h"
 #include "Properties.h"
 #include "Client.h"
@@ -833,6 +835,25 @@ InitInfomation()
 		return FALSE;
 	(*g_pEffectSpriteTypeTable).LoadFromFile(effectSpriteTypeTable2);
 	effectSpriteTypeTable2.close();
+
+	// DEBUG: Verify table loaded correctly
+	int tableSize = (*g_pEffectSpriteTypeTable).GetSize();
+	LOG_INFO("[DEBUG] EffectSpriteType table loaded: m_Size=%d", tableSize);
+
+	if (tableSize <= 0) {
+		LOG_ERROR("[ERROR] EffectSpriteType table size is invalid: %d", tableSize);
+		LOG_ERROR("[ERROR] Table file may be corrupted or LoadFromFile failed!");
+		return FALSE;
+	}
+
+	// DEBUG: Print some sample entries
+	LOG_INFO("[DEBUG] First few entries:");
+	int sampleCount = (tableSize < 10) ? tableSize : 10;
+	for (int i = 0; i < sampleCount; i++) {
+		const EFFECTSPRITETYPETABLE_INFO& entry = (*g_pEffectSpriteTypeTable)[i];
+		LOG_INFO("[DEBUG]   [%d] FrameID=%d, BltType=%d",
+		         i, entry.FrameID, (int)entry.BltType);
+	}
 
 #ifdef __SANITIZE_ADDRESS__
 	// CRITICAL FIX: Update shadow copies after LoadFromFile reallocates m_pTypeInfo

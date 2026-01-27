@@ -16,6 +16,7 @@
 #include "ClientConfig.h"
 #include "ServerInfo.h"
 #include "DebugInfo.h"
+#include "DebugLog.h"
 #include "SkillDef.h"
 #include "MLevelNameTable.h"
 #include "EffectSpriteTypeDef.h"
@@ -2537,6 +2538,8 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 			//------------------------------------------------------------
 			if ((*g_pEffectStatusTable)[status].bAttachGround)
 			{
+				LOG_INFO("[EFFECT ADD] type=%d added to GROUND effect list (size now=%d)",
+				         type, (int)m_listGroundEffect.size() + 1);
 				m_listGroundEffect.push_back( pEffect );
 			}
 			//------------------------------------------------------------
@@ -2544,10 +2547,18 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 			//------------------------------------------------------------
 			else
 			{
+				LOG_INFO("[EFFECT ADD] type=%d added to BODY effect list (size now=%d)",
+				         type, (int)m_listEffect.size() + 1);
 				m_listEffect.push_back( pEffect );
 			}
-			
-			m_bAttachEffect[type] = true;
+
+			// Check array bounds before setting flag
+			if (type >= (*g_pEffectSpriteTypeTable).GetSize()) {
+				LOG_ERROR("[EFFECT ERROR] type=%d out of bounds! table size=%d",
+				         type, (*g_pEffectSpriteTypeTable).GetSize());
+			} else {
+				m_bAttachEffect[type] = true;
+			}
 			
 		}
 	

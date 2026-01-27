@@ -43,6 +43,7 @@
 #include "MWeather.h"
 #include "CMessageArray.h"
 #include "DXLib.h"
+#include "DebugLog.h"
 #include "SP.h"
 #include "FL2.h"
 //#include "2D.h"
@@ -495,13 +496,11 @@ MTopView::Init()
 	g_pClientConfig->MAX_TEXTUREPART_IMAGEOBJECTSHADOW	= num*2;
 	g_pClientConfig->MAX_TEXTUREPART_ADDON_SHADOW		= 1;//240 + num*7;
 
-	DEBUG_ADD_FORMAT("[MTopView::TexturePart] AlphaEffect = %d", g_pClientConfig->MAX_TEXTUREPART_EFFECT);
-	DEBUG_ADD_FORMAT("[MTopView::TexturePart] ScreenEffect = %d", g_pClientConfig->MAX_TEXTUREPART_SCREENEFFECT);
-	DEBUG_ADD_FORMAT("[MTopView::TexturePart] CreatureShadow = %d", g_pClientConfig->MAX_TEXTUREPART_CREATURESHADOW);
-	DEBUG_ADD_FORMAT("[MTopView::TexturePart] ImageObjectShadow = %d", g_pClientConfig->MAX_TEXTUREPART_IMAGEOBJECTSHADOW);
-	DEBUG_ADD_FORMAT("[MTopView::TexturePart] AddonShadow = %d", g_pClientConfig->MAX_TEXTUREPART_ADDON_SHADOW);
-		
-
+	LOG_INFO("[MTopView::TexturePart] AlphaEffect = %d", g_pClientConfig->MAX_TEXTUREPART_EFFECT);
+	LOG_INFO("[MTopView::TexturePart] ScreenEffect = %d", g_pClientConfig->MAX_TEXTUREPART_SCREENEFFECT);
+	LOG_INFO("[MTopView::TexturePart] CreatureShadow = %d", g_pClientConfig->MAX_TEXTUREPART_CREATURESHADOW);
+	LOG_INFO("[MTopView::TexturePart] ImageObjectShadow = %d", g_pClientConfig->MAX_TEXTUREPART_IMAGEOBJECTSHADOW);
+	LOG_INFO("[MTopView::TexturePart] AddonShadow = %d", g_pClientConfig->MAX_TEXTUREPART_ADDON_SHADOW);	
 
 	if (InitSurfaces() &&
 		InitColors() &&
@@ -18949,6 +18948,18 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 			int direction = pEffect->GetDirection();
 			int frameID = pEffect->GetFrameID();
 			int frame = pEffect->GetFrame();
+			BYTE bltType = pEffect->GetBltType();
+
+			// DEBUG: Print effect info before rendering
+			static int debugPrintCount = 0;
+			if (debugPrintCount < 100) {  // Print first 100 effects
+				char debugMsg[512];
+				snprintf(debugMsg, sizeof(debugMsg),
+				         "[Effect DEBUG] type=%d, FrameID=%d, BltType=%d, Frame=%d, Dir=%d",
+				         type, frameID, (int)bltType, frame, direction);
+				LOG_INFO(debugMsg);
+				debugPrintCount++;
+			}
 
 			// 2004, 9, 14, sobeit add start - ÀÎ½ºÅç ÅÍ·¿ÀÏ¶§ ÀÌÆåÆ® ¾Èº¸¿©ÁÜ
 			int TempSecreenEffect = GET_EFFECTSPRITETYPE_SCREEN( frameID );
@@ -18990,19 +19001,35 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 
 					AFFECT_ORBIT_EFFECT_POSITION( pEffect, pointTemp )
 
-					DRAW_SPRITE_WITH_EFFECTFRAME( 
-											&pointTemp2, 
-											m_EffectNormalSPK, 
-											m_EffectNormalFPK, 
+					DRAW_SPRITE_WITH_EFFECTFRAME(
+											&pointTemp2,
+											m_EffectNormalSPK,
+											m_EffectNormalFPK,
 											frameID, direction, frame )
 
-					int est = GET_EFFECTSPRITETYPE_NORMAL( frameID );
+					// FIX: Use the saved table index from effect creation time
+					// instead of recalculating from FrameID using macro
+					int est;
+					if (pEffect->GetEffectType() == MEffect::EFFECT_ATTACH) {
+						// MAttachEffect saves the table index in m_EffectSpriteType
+						est = ((MAttachEffect*)pEffect)->GetEffectSpriteType();
+					} else {
+						// For other effect types, fall back to macro (may need fixing too)
+						est = GET_EFFECTSPRITETYPE_NORMAL(frameID);
+					}
 
-					DRAW_SPRITE_WITH_EFFECTFRAME_PAIR( 
+					// Bounds check
+					if (est < 0 || est >= g_pEffectSpriteTypeTable->GetSize()) {
+						LOG_ERROR("[Effect BLT_NORMAL] est=%d out of bounds (tableSize=%d), frameID=%d, frame=%d, dir=%d",
+						         est, g_pEffectSpriteTypeTable->GetSize(), frameID, frame, direction);
+						break;  // Skip this effect to avoid crash
+					}
+
+					DRAW_SPRITE_WITH_EFFECTFRAME_PAIR(
 											est,
-											&pointTemp2, 
-											m_EffectNormalSPK, 
-											m_EffectNormalFPK, 
+											&pointTemp2,
+											m_EffectNormalSPK,
+											m_EffectNormalFPK,
 											direction, frame )
 				}
 				break;
@@ -19012,13 +19039,34 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 				//--------------------------------------------------------
 				case BLT_EFFECT :
 				{
-					int est = GET_EFFECTSPRITETYPE_EFFECT( frameID );
+					// FIX: Use the saved table index from effect creation time
+					// instead of recalculating from FrameID using macro
+					int est;
+					if (pEffect->GetEffectType() == MEffect::EFFECT_ATTACH) {
+						// MAttachEffect saves the table index in m_EffectSpriteType
+						est = ((MAttachEffect*)pEffect)->GetEffectSpriteType();
+					} else {
+						// For other effect types, fall back to macro (may need fixing too)
+						est = GET_EFFECTSPRITETYPE_EFFECT(frameID);
+					}
+
+					// Bounds check
+					if (g_pEffectSpriteTypeTable != NULL) {
+						int tableSize = g_pEffectSpriteTypeTable->GetSize();
+						if (est < 0 || est >= tableSize) {
+							LOG_ERROR("[Effect BLT_EFFECT] est=%d out of bounds (tableSize=%d), frameID=%d, frame=%d, dir=%d",
+							         est, tableSize, frameID, frame, direction);
+							break;
+						}
+					}
 
 					// action¿¡ ¸Â´Â effectFrameID¸¦ °ñ¶óÁÖ´Â °Å´ç.
 					int aest = GET_ACTION_EFFECTSPRITETYPE(est);
 					const bool bBack = (*g_pEffectSpriteTypeTable)[est].bPairFrameBack;
-					int sest = GET_EFFECTSPRITETYPE_EFFECT( frameID );
-					
+
+					// FIX: sest should use the same table index as est
+					int sest = est;
+
 					if (aest!=FRAMEID_NULL)
 					{
 						// FRAMEID_NULLÀÎ°É Ã¼Å©ÇÑ´Ù. min( , ) -_-;
@@ -19049,12 +19097,14 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 						if (actionFrameID!=FRAMEID_NULL
 							)//&& actionFrameID!=frameID)
 						{
-							frameID = actionFrameID;						
-						
+							frameID = actionFrameID;
+
 							int actionCount = ((action==ACTION_MOVE || action==ACTION_SLAYER_MOTOR_MOVE)? pCreature->GetMoveCount() : pCreature->GetActionCount());
 							frame = max( 0, min( actionCount, pEffect->GetMaxFrame()-1 ) );
 
-							sest = GET_EFFECTSPRITETYPE_EFFECT( actionFrameID );
+							// FIX: Don't recalculate sest from actionFrameID
+							// sest should remain as the saved table index (est)
+							// sest = GET_EFFECTSPRITETYPE_EFFECT( actionFrameID );
 						}
 					}
 
@@ -19082,13 +19132,25 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 					
 					EFFECTFRAME_ARRAY &EFA = m_EffectAlphaFPK[frameID][direction];
 					
-					frame = min( frame, EFA.GetSize()-1 );					
+					frame = min( frame, EFA.GetSize()-1 );
 
 					CEffectFrame &Frame = EFA[frame];
 
 					bool bFrameBackground = Frame.IsBackground();
 					AFFECT_ORBIT_EFFECT_BACKGROUND(pEffect, bFrameBackground);
-				
+
+					// DEBUG: Print rendering decision
+					static int renderDebugCount = 0;
+					if (renderDebugCount < 20) {
+						LOG_INFO("[BLT_EFFECT RENDER] type=%d, frameID=%d, frame=%d, dir=%d, bBack=%d, bFrameBackground=%d",
+						         type, frameID, frame, direction, bBack, bFrameBackground);
+
+						// Check if this frame will be rendered
+						bool willRender = (type==0 || type==1 && !bFrameBackground || type==2 && bFrameBackground);
+						LOG_INFO("[BLT_EFFECT RENDER] Will render: %s", willRender ? "YES" : "NO");
+						renderDebugCount++;
+					}
+
 					// ¾ðÁ¦ Ãâ·ÂµÇ´Â°ÇÁö Ã¼Å©ÇÔ ÇØÁØ´Ù.
 					if (HAS_PAIR_EFFECTSPRITETYPE(sest) && bBack == true )
 					{
@@ -19185,9 +19247,16 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 						}						
 					}
 
-					if (type==0 
-						|| type==1 && !bFrameBackground
-						|| type==2 && bFrameBackground)
+					// DEBUG: Log condition result before checking
+					static int conditionDebugCount = 0;
+					bool conditionMet = (type==0 || type==1 && !bFrameBackground || type==2 && bFrameBackground);
+					if (conditionDebugCount < 20) {
+						LOG_INFO("[BLT_EFFECT CONDITION] type=%d, frameID=%d, frame=%d, bFrameBackground=%d, conditionMet=%s",
+						         type, frameID, frame, bFrameBackground, conditionMet ? "YES" : "NO");
+						conditionDebugCount++;
+					}
+
+					if (conditionMet)
 					{
 						int sprite = Frame.GetSpriteID();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetSpriteID();
 
@@ -19200,10 +19269,37 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 
 							AFFECT_ORBIT_EFFECT_POSITION( pEffect, pointTemp )
 
-							DRAW_ALPHASPRITEPAL(&pointTemp, 
-												sprite, 
-												m_EffectAlphaSPK, 
-												m_EffectAlphaPPK[frameID])
+							// DEBUG: Check sprite validity before drawing
+							static int drawDebugCount = 0;
+							if (drawDebugCount < 20) {
+								CAlphaSpritePal* pSpriteCheck = &m_EffectAlphaSPK[sprite];
+								bool spriteInit = pSpriteCheck->IsInit();
+								int spriteWidth = pSpriteCheck->GetWidth();
+								int spriteHeight = pSpriteCheck->GetHeight();
+
+								LOG_INFO("[BLT_EFFECT DRAW] spriteID=%d, pos=(%d,%d), frameID=%d",
+								         sprite, pointTemp.x, pointTemp.y, frameID);
+								LOG_INFO("[BLT_EFFECT SPRITE] init=%d, size=%dx%d",
+								         spriteInit, spriteWidth, spriteHeight);
+								drawDebugCount++;
+							}
+
+							// Call the actual draw function (expanded from macro for logging)
+							{
+								CAlphaSpritePal* pSprite = &m_EffectAlphaSPK[sprite];
+
+								// DEBUG: Log before actual blit
+								if (drawDebugCount <= 20) {
+									LOG_INFO("[BLT_EFFECT BLT] Calling BltAlphaSpritePal for spriteID=%d", sprite);
+								}
+
+								m_pSurface->BltAlphaSpritePal(&pointTemp, pSprite, m_EffectAlphaPPK[frameID]);
+
+								// DEBUG: Log after actual blit
+								if (drawDebugCount <= 20) {
+									LOG_INFO("[BLT_EFFECT BLT] BltAlphaSpritePal DONE for spriteID=%d", sprite);
+								}
+							}
 //													m_EffectAlphaSPKI, 
 //													m_EffectAlphaSPKFile)
 							//-------------------------------------------------------
@@ -19364,7 +19460,27 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 				//--------------------------------------------------------
 				case BLT_SCREEN :
 				{
-					int est = GET_EFFECTSPRITETYPE_SCREEN( frameID );
+					// FIX: Use the saved table index from effect creation time
+					// instead of recalculating from FrameID using macro
+					int est;
+					if (pEffect->GetEffectType() == MEffect::EFFECT_ATTACH) {
+						// MAttachEffect saves the table index in m_EffectSpriteType
+						est = ((MAttachEffect*)pEffect)->GetEffectSpriteType();
+					} else {
+						// For other effect types, fall back to macro (may need fixing too)
+						est = GET_EFFECTSPRITETYPE_SCREEN(frameID);
+					}
+
+					// Bounds check
+					if (g_pEffectSpriteTypeTable != NULL) {
+						int tableSize = g_pEffectSpriteTypeTable->GetSize();
+						if (est < 0 || est >= tableSize) {
+							LOG_ERROR("[Effect BLT_SCREEN] est=%d out of bounds (tableSize=%d), frameID=%d, frame=%d, dir=%d",
+							         est, tableSize, frameID, frame, direction);
+							break;
+						}
+					}
+
 					bool bBack = (*g_pEffectSpriteTypeTable)[est].bPairFrameBack;
 
 					// action¿¡ ¸Â´Â effectFrameID¸¦ °ñ¶óÁÖ´Â °Å´ç.
@@ -19476,7 +19592,9 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 					//--------------------------------------------------------
 					// Pair Frame Ãâ·Â
 					//--------------------------------------------------------
-					est = GET_EFFECTSPRITETYPE_SCREEN( frameID );
+					// FIX: est already contains the saved table index from above
+					// No need to recalculate with GET_EFFECTSPRITETYPE_SCREEN(frameID)
+					// est = GET_EFFECTSPRITETYPE_SCREEN( frameID );
 
 					if (HAS_PAIR_EFFECTSPRITETYPE(est))
 					{
@@ -20150,6 +20268,10 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 	if(g_pEventManager->GetEventByFlag(EVENTFLAG_NOT_DRAW_EFFECT))
 		return;
 
+	if (!pEffect || !pPoint) {
+		return;
+	}
+
 	POINT point = *pPoint;
 
 	switch (pEffect->GetBltType())
@@ -20160,22 +20282,44 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 		//
 		//------------------------------------------------------------------
 		case BLT_NORMAL :
-		{				
-			CFrame &Frame = m_EffectNormalFPK[pEffect->GetFrameID()][pEffect->GetDirection()][pEffect->GetFrame()];
+		{
+			TYPE_FRAMEID frameID = pEffect->GetFrameID();
+			BYTE direction = pEffect->GetDirection();
+			BYTE frame = pEffect->GetFrame();
+
+			// Boundary check
+			if (frameID >= m_EffectNormalFPK.GetSize()) {
+#ifdef OUTPUT_DEBUG
+				DEBUG_ADD_FORMAT("DrawEffect(BLT_NORMAL): Invalid frameID=%d", frameID);
+#endif
+				pEffect->ClearScreenRect();
+				break;
+			}
+
+			CFrame& Frame = m_EffectNormalFPK[frameID][direction][frame];
 			int spriteID = Frame.GetSpriteID();
 
-			if (spriteID != SPRITEID_NULL)	//< m_EffectNormalSPK.GetSize())
-			{			
-				CSprite* pSprite = &m_EffectNormalSPK[ spriteID ];
+			if (spriteID != SPRITEID_NULL)
+			{
+				// Boundary check for sprite
+				if (spriteID < 0 || spriteID >= m_EffectNormalSPK.GetSize()) {
+#ifdef OUTPUT_DEBUG
+					DEBUG_ADD_FORMAT("DrawEffect(BLT_NORMAL): Invalid spriteID=%d", spriteID);
+#endif
+					pEffect->ClearScreenRect();
+					break;
+				}
+
+				CSprite* pSprite = &m_EffectNormalSPK[spriteID];
 
 				point.x += Frame.GetCX();
 				point.y += Frame.GetCY();
 
-				m_pSurface->BltSprite(&point, pSprite);				
+				m_pSurface->BltSprite(&point, pSprite);
 
-				//---------------------------------------- 		
-				// ÀÌÆåÆ® ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
-				//---------------------------------------- 	
+				//----------------------------------------
+				// Set selectable area
+				//----------------------------------------
 				if (bSelectable)
 				{
 					RECT rect;
@@ -20184,7 +20328,7 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 					rect.right	= rect.left + pSprite->GetWidth();
 					rect.bottom = rect.top + pSprite->GetHeight();
 
-					pEffect->SetScreenRect( &rect );					
+					pEffect->SetScreenRect(&rect);
 				}
 			}
 			else
@@ -20201,22 +20345,50 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 		//------------------------------------------------------------------
 		case BLT_EFFECT :
 		{
-			CEffectFrame& Frame = m_EffectAlphaFPK[pEffect->GetFrameID()][pEffect->GetDirection()][pEffect->GetFrame()];
+			TYPE_FRAMEID frameID = pEffect->GetFrameID();
+			BYTE direction = pEffect->GetDirection();
+			BYTE frame = pEffect->GetFrame();
+
+			// Boundary check
+			if (frameID >= m_EffectAlphaFPK.GetSize()) {
+#ifdef OUTPUT_DEBUG
+				DEBUG_ADD_FORMAT("DrawEffect(BLT_EFFECT): Invalid frameID=%d", frameID);
+#endif
+				break;
+			}
+
+			CEffectFrame& Frame = m_EffectAlphaFPK[frameID][direction][frame];
 			int spriteID = Frame.GetSpriteID();
-			
+
 			if (spriteID != SPRITEID_NULL)
 			{
+				// Boundary check for palette
+				if (frameID >= m_EffectAlphaPPK.GetSize()) {
+#ifdef OUTPUT_DEBUG
+					DEBUG_ADD_FORMAT("DrawEffect(BLT_EFFECT): Invalid palette frameID=%d", frameID);
+#endif
+					break;
+				}
+
+				// Boundary check for sprite
+				if (spriteID < 0 || spriteID >= m_EffectAlphaSPK.GetSize()) {
+#ifdef OUTPUT_DEBUG
+					DEBUG_ADD_FORMAT("DrawEffect(BLT_EFFECT): Invalid spriteID=%d", spriteID);
+#endif
+					break;
+				}
+
 				point.x += Frame.GetCX();
 				point.y += Frame.GetCY();
 
-				DRAW_ALPHASPRITEPAL(&point, spriteID, m_EffectAlphaSPK, m_EffectAlphaPPK[pEffect->GetFrameID()])//, m_EffectAlphaSPKI, m_EffectAlphaSPKFile)
+				DRAW_ALPHASPRITEPAL(&point, spriteID, m_EffectAlphaSPK, m_EffectAlphaPPK[frameID])
 
-				//---------------------------------------- 		
-				// ÀÌÆåÆ® ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
-				//---------------------------------------- 	
+				//----------------------------------------
+				// Set selectable area
+				//----------------------------------------
 				if (bSelectable)
 				{
-					CAlphaSpritePal* pSprite = &m_EffectAlphaSPK[ spriteID ];
+					CAlphaSpritePal* pSprite = &m_EffectAlphaSPK[spriteID];
 
 					RECT rect;
 					rect.left	= point.x;
@@ -20224,11 +20396,11 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 					rect.right	= rect.left + pSprite->GetWidth();
 					rect.bottom = rect.top + pSprite->GetHeight();
 
-					pEffect->SetScreenRect( &rect );
+					pEffect->SetScreenRect(&rect);
 				}
 
 				//-------------------------------------------------------
-				// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
+				// Hardware acceleration enabled
 				//-------------------------------------------------------
 				if (CDirect3D::IsHAL())
 				{
@@ -20310,28 +20482,54 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 		//------------------------------------------------------------------
 		case BLT_SCREEN :
 		{
-			CEffectFrame& Frame = m_EffectScreenFPK[pEffect->GetFrameID()][pEffect->GetDirection()][pEffect->GetFrame()];
+			TYPE_FRAMEID frameID = pEffect->GetFrameID();
+			BYTE direction = pEffect->GetDirection();
+			BYTE frame = pEffect->GetFrame();
+
+			// Boundary check
+			if (frameID >= m_EffectScreenFPK.GetSize()) {
+#ifdef OUTPUT_DEBUG
+				DEBUG_ADD_FORMAT("DrawEffect(BLT_SCREEN): Invalid frameID=%d", frameID);
+#endif
+				break;
+			}
+
+			CEffectFrame& Frame = m_EffectScreenFPK[frameID][direction][frame];
 			int spriteID = Frame.GetSpriteID();
-			
+
 			if (spriteID != SPRITEID_NULL)
 			{
+				// Boundary check for palette
+				if (frameID >= m_EffectScreenPPK.GetSize()) {
+#ifdef OUTPUT_DEBUG
+					DEBUG_ADD_FORMAT("DrawEffect(BLT_SCREEN): Invalid palette frameID=%d", frameID);
+#endif
+					break;
+				}
+
+				// Boundary check for sprite
+				if (spriteID < 0 || spriteID >= m_EffectScreenSPK.GetSize()) {
+#ifdef OUTPUT_DEBUG
+					DEBUG_ADD_FORMAT("DrawEffect(BLT_SCREEN): Invalid spriteID=%d", spriteID);
+#endif
+					break;
+				}
+
 				point.x += Frame.GetCX();
 				point.y += Frame.GetCY();
 
-				DRAW_NORMALSPRITEPAL_EFFECT(&point, 
-									spriteID, 
-									m_EffectScreenSPK, 
-									m_EffectScreenPPK[pEffect->GetFrameID()],
-//										m_EffectScreenSPKI, 
-//										m_EffectScreenSPKFile,
+				DRAW_NORMALSPRITEPAL_EFFECT(&point,
+									spriteID,
+									m_EffectScreenSPK,
+									m_EffectScreenPPK[frameID],
 									CSpriteSurface::EFFECT_SCREEN)
 
-				//---------------------------------------- 		
-				// ÀÌÆåÆ® ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
-				//---------------------------------------- 	
+				//----------------------------------------
+				// Set selectable area
+				//----------------------------------------
 				if (bSelectable)
 				{
-					CSpritePal* pSprite = &m_EffectScreenSPK[ spriteID ];
+					CSpritePal* pSprite = &m_EffectScreenSPK[spriteID];
 
 					RECT rect;
 					rect.left	= point.x;
@@ -20339,10 +20537,11 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 					rect.right	= rect.left + pSprite->GetWidth();
 					rect.bottom = rect.top + pSprite->GetHeight();
 
-					pEffect->SetScreenRect( &rect );
+					pEffect->SetScreenRect(&rect);
 				}
+
 				//-------------------------------------------------------
-				// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
+				// Hardware acceleration enabled
 				//-------------------------------------------------------
 				if (CDirect3D::IsHAL())
 				{
@@ -20431,11 +20630,31 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 		//------------------------------------------------------------------
 		case BLT_SHADOW :
 		{
-			CEffectFrame& Frame = m_EffectShadowFPK[pEffect->GetFrameID()][pEffect->GetDirection()][pEffect->GetFrame()];
+			TYPE_FRAMEID frameID = pEffect->GetFrameID();
+			BYTE direction = pEffect->GetDirection();
+			BYTE frame = pEffect->GetFrame();
+
+			// Boundary check
+			if (frameID >= m_EffectShadowFPK.GetSize()) {
+#ifdef OUTPUT_DEBUG
+				DEBUG_ADD_FORMAT("DrawEffect(BLT_SHADOW): Invalid frameID=%d", frameID);
+#endif
+				break;
+			}
+
+			CEffectFrame& Frame = m_EffectShadowFPK[frameID][direction][frame];
 			int spriteID = Frame.GetSpriteID();
-			
+
 			if (spriteID != SPRITEID_NULL)
 			{
+				// Boundary check for sprite
+				if (spriteID < 0 || spriteID >= m_EffectShadowSPK.GetSize()) {
+#ifdef OUTPUT_DEBUG
+					DEBUG_ADD_FORMAT("DrawEffect(BLT_SHADOW): Invalid spriteID=%d", spriteID);
+#endif
+					break;
+				}
+
 				point.x += Frame.GetCX();
 				point.y += Frame.GetCY();
 
@@ -20443,10 +20662,11 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 
 				if (pSprite->IsInit())
 				{
-					m_pSurface->BltShadowSpriteDarkness(&point, pSprite, 1 );
+					m_pSurface->BltShadowSpriteDarkness(&point, pSprite, 1);
 				}
+
 				//-------------------------------------------------------
-				// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
+				// Hardware acceleration enabled
 				//-------------------------------------------------------
 				if (CDirect3D::IsHAL())
 				{

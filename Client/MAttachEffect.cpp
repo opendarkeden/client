@@ -7,6 +7,7 @@
 #include "MAttachEffect.h"
 #include "MTopView.h"
 #include "MEffectSpriteTypeTable.h"
+#include "DebugLog.h"
 
 //----------------------------------------------------------------------
 // 
@@ -57,10 +58,13 @@ MAttachEffect::MAttachEffect(TYPE_EFFECTSPRITETYPE type, DWORD last, DWORD linkC
 	{
 		TYPE_FRAMEID	frameID = (*g_pEffectSpriteTypeTable)[type].FrameID;
 		BYTE			maxFrame;
-		
-		// BLT_NORMAL		
+
+		// BLT_NORMAL
 		BLT_TYPE bltType = (*g_pEffectSpriteTypeTable)[type].BltType;
-		maxFrame = g_pTopView->GetMaxEffectFrame(bltType, frameID);		
+		maxFrame = g_pTopView->GetMaxEffectFrame(bltType, frameID);
+
+        LOG_INFO("[EFFECT CREATE] type=%d, FrameID=%d, BltType=%d, maxFrame=%d",
+            type, frameID, (int)bltType, (int)maxFrame);
 
 		SetFrameID( frameID, maxFrame );
 

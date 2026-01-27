@@ -97,6 +97,7 @@ class MEffect;
 // TileRenderer for unified tile rendering
 #include "TileRenderer.h"
 #include "MZoneTileProvider.h"
+#include "EffectResourceContainer.h"
 
 
 //class MZoneInfo;
@@ -546,6 +547,10 @@ class MTopView : public MRequestMode {
 		MPalettePack			m_EffectScreenPPK;		// ScreenEffect
 		CSpritePack				m_EffectNormalSPK;		// NormalSprite들
 		CShadowSpritePack		m_EffectShadowSPK;		// ShadowSprite들
+
+		// Effect resource container for safe access (refactored)
+		EffectResourceContainer	m_EffectResources;
+
 		CSpritePack				m_WeatherSPK;			// WeatherSprite들
 		CSpritePack				m_GuildSPK;				// GuildMark
 

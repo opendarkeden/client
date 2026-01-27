@@ -139,6 +139,7 @@ class CREATURETABLE_INFO {
 		CREATURETRIBE			m_CreatureTribe;		// 종족
 		TYPE_SOUNDID*			m_pActionSound;			// Sound ID
 		int*					m_pActionCount;			// Action Count
+		int						m_nMaxAction;			// Max Action count (for boundary checking)
 		
 	public :
 		CREATURETABLE_INFO();
@@ -157,8 +158,8 @@ class CREATURETABLE_INFO {
 		void				SetActionCount(int n, int count)		{ m_pActionCount[n] = count; }
 
 		enum CREATURETRIBE	GetCreatureTribe() const				{ return m_CreatureTribe; }
-		int					GetActionCount(int n)					{ return m_pActionCount[n]; }		
-		TYPE_SOUNDID		GetActionSound(int n)					{ return m_pActionSound[n]; }		
+		int					GetActionCount(int n)					{ return m_pActionCount[n]; }
+		TYPE_SOUNDID		GetActionSound(int n)					{ if (n >= 0 && n < m_nMaxAction) return m_pActionSound[n]; else return SOUNDID_NULL; }		
 		int					GetActionMax() const;
 		
 		bool				IsFlyingCreature() const				{ return bFlyingCreature; }

@@ -116,18 +116,19 @@ ITEM_WEARINFO::LoadFromFile(std::ifstream& file)
 //
 //----------------------------------------------------------------------
 CREATURETABLE_INFO::CREATURETABLE_INFO()
-{ 	
+{
 	MoveTimesMotor = 1;
 	bMale			= true;
 	ColorSet		= 0;
-	m_pActionSound	= NULL; 
-	m_pActionCount	= NULL;	
+	m_pActionSound	= NULL;
+	m_pActionCount	= NULL;
+	m_nMaxAction		= 0;	// Initialize max action count
 
 	bFlyingCreature = false;
 	FlyingHeight = 0;
 	bHeadCut = false;
 	HPBarWidth = 120;
-	
+
 	ChangeColorSet = 0xFFFF;	// default는 사용하지 않는다.
 
 	pItemWearInfo = NULL;
@@ -196,8 +197,10 @@ CREATURETABLE_INFO::InitActionType(int nMaxAction)
 	int max;
 	if(0 == nMaxAction)
 		max = GetActionMax();
-	else 
+	else
 		max = nMaxAction;
+
+	m_nMaxAction = max;
 
 	m_pActionSound = new TYPE_SOUNDID [max];
 	m_pActionCount = new int [max];

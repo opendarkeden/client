@@ -546,7 +546,101 @@ void CSpriteSurface::BltAlphaSprite4444SmallNotTrans(POINT* pPoint, CAlphaSprite
 }
 
 void CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, MPalette &pal) {
-	/* TODO: Implement palette support */
+	static int debugCount = 0;
+
+	if (!pPoint || !pSprite) {
+		if (debugCount < 3) {
+			printf("[BltAlphaSpritePal] ERROR: Invalid parameters (pPoint=%p, pSprite=%p)\n", pPoint, pSprite);
+			debugCount++;
+		}
+		return;
+	}
+
+	/* Check if sprite is initialized */
+	if (pSprite->IsNotInit()) {
+		if (debugCount < 3) {
+			printf("[BltAlphaSpritePal] ERROR: Sprite not initialized\n");
+			debugCount++;
+		}
+		return;
+	}
+
+	/* Basic clipping check - skip if completely outside surface */
+	int spriteWidth = pSprite->GetWidth();
+	int spriteHeight = pSprite->GetHeight();
+
+	/* Get surface dimensions */
+	int surfaceWidth = m_width;
+	int surfaceHeight = m_height;
+
+	/* Check if sprite is completely outside the surface */
+	bool outsideBounds = (pPoint->x >= surfaceWidth) ||
+	                     (pPoint->y >= surfaceHeight) ||
+	                     (pPoint->x + spriteWidth <= 0) ||
+	                     (pPoint->y + spriteHeight <= 0);
+
+	if (outsideBounds) {
+		/* Sprite is completely outside, skip rendering */
+		static int skipCount = 0;
+		if (skipCount < 5) {
+			printf("[BltAlphaSpritePal] WARNING: Sprite at (%d,%d) size=%dx%d outside surface %dx%d, skipping\n",
+			       pPoint->x, pPoint->y, spriteWidth, spriteHeight, surfaceWidth, surfaceHeight);
+			skipCount++;
+		}
+		return;
+	}
+
+	/* Additional check: if sprite starts outside surface bounds, skip for now */
+	/* TODO: Implement proper partial clipping */
+	if (pPoint->x < 0 || pPoint->y < 0 ||
+	    pPoint->x + spriteWidth > surfaceWidth ||
+	    pPoint->y + spriteHeight > surfaceHeight) {
+		static int partialCount = 0;
+		if (partialCount < 5) {
+			printf("[BltAlphaSpritePal] WARNING: Partial clipping at (%d,%d) size=%dx%d, skipping (TODO: implement)\n",
+			       pPoint->x, pPoint->y, spriteWidth, spriteHeight);
+			partialCount++;
+		}
+		return;
+	}
+
+	/* Debug log */
+	if (debugCount < 10) {
+		printf("[BltAlphaSpritePal] Rendering sprite at (%d,%d), size=%dx%d\n",
+		       pPoint->x, pPoint->y, spriteWidth, spriteHeight);
+		debugCount++;
+	}
+
+	/* Lock backend surface for direct pixel access */
+	spritectl_surface_info_t surface_info;
+	if (spritectl_lock_surface(m_backend_surface, &surface_info) != 0) {
+		static int lockFailCount = 0;
+		if (lockFailCount < 3) {
+			printf("[BltAlphaSpritePal] ERROR: Failed to lock surface\n");
+			lockFailCount++;
+		}
+		return;
+	}
+
+	/* Get pixel pointer and pitch (pitch is in bytes, like Windows) */
+	WORD* pixels = (WORD*)surface_info.pixels;
+	int pitch = surface_info.pitch;
+
+	/* Calculate destination pointer with offset */
+	WORD* pDest = (WORD*)((BYTE*)pixels + pPoint->y * pitch + (pPoint->x << 1));
+
+	/* Call sprite's Blt method to render with palette */
+	/* Pass pitch in bytes (same as Windows version) */
+	/* TODO: Implement proper clipping for partially visible sprites */
+	pSprite->Blt(pDest, pitch, pal);
+
+	/* Debug log after render */
+	if (debugCount <= 10) {
+		printf("[BltAlphaSpritePal] Render complete\n");
+	}
+
+	/* Unlock surface */
+	spritectl_unlock_surface(m_backend_surface);
 }
 
 void CSpriteSurface::BltAlphaSpritePalAlpha(POINT* pPoint, CAlphaSpritePal* pSprite, BYTE alpha, MPalette &pal) {

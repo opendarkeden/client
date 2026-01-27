@@ -1535,6 +1535,17 @@ InitGame()
 	//---------------------------------------------------------------------
 	log_init();
 
+	// Always enable console output and INFO level logging
+	// This ensures DEBUG_ADD macros and panic messages are visible
+	log_set_console_output(true);
+
+// Conditional compilation: Remove DEBUG logs in Release builds
+#ifdef _DEBUG
+	log_set_level(LOG_LEVEL_DEBUG);
+#else
+	log_set_level(LOG_LEVEL_INFO);
+#endif
+
 	g_pFileDef = new Properties;
 	g_pFileDef->load("Data/Info/FileDef.inf");
 
