@@ -245,15 +245,32 @@ void CSpriteSurface::BltNoColorkey(POINT* pPoint, CSpriteSurface* SourceSurface,
 	if (pPoint->x + src_w > dst_info.width) src_w = dst_info.width - pPoint->x;
 	if (pPoint->y + src_h > dst_info.height) src_h = dst_info.height - pPoint->y;
 
-	/* Copy pixels line by line */
+	if (src_w <= 0 || src_h <= 0) {
+		return;
+	}
+
+	/* Copy pixels line by line (handle overlap for self-blits) */
 	WORD* src_pixels = (WORD*)src_info.p_surface;
 	WORD* dst_pixels = (WORD*)dst_info.p_surface;
+	const int src_pitch_words = src_info.pitch / 2;
+	const int dst_pitch_words = dst_info.pitch / 2;
+	const bool same_surface = (SourceSurface == this) || (src_info.p_surface == dst_info.p_surface);
 
-	for (int y = 0; y < src_h; y++) {
-		for (int x = 0; x < src_w; x++) {
-			int src_offset = (src_y + y) * (src_info.pitch / 2) + (src_x + x);
-			int dst_offset = (pPoint->y + y) * (dst_info.pitch / 2) + (pPoint->x + x);
-			dst_pixels[dst_offset] = src_pixels[src_offset];
+	if (same_surface && pPoint->y > src_y) {
+		for (int y = src_h - 1; y >= 0; --y) {
+			WORD* src_row = src_pixels + (src_y + y) * src_pitch_words + src_x;
+			WORD* dst_row = dst_pixels + (pPoint->y + y) * dst_pitch_words + pPoint->x;
+			memmove(dst_row, src_row, src_w * sizeof(WORD));
+		}
+	} else {
+		for (int y = 0; y < src_h; y++) {
+			WORD* src_row = src_pixels + (src_y + y) * src_pitch_words + src_x;
+			WORD* dst_row = dst_pixels + (pPoint->y + y) * dst_pitch_words + pPoint->x;
+			if (same_surface) {
+				memmove(dst_row, src_row, src_w * sizeof(WORD));
+			} else {
+				memcpy(dst_row, src_row, src_w * sizeof(WORD));
+			}
 		}
 	}
 }
@@ -480,15 +497,32 @@ void CSpriteSurface::Blt(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRe
 	if (pPoint->x + src_w > dst_info.width) src_w = dst_info.width - pPoint->x;
 	if (pPoint->y + src_h > dst_info.height) src_h = dst_info.height - pPoint->y;
 
-	/* Copy pixels line by line */
+	if (src_w <= 0 || src_h <= 0) {
+		return;
+	}
+
+	/* Copy pixels line by line (handle overlap for self-blits) */
 	WORD* src_pixels = (WORD*)src_info.p_surface;
 	WORD* dst_pixels = (WORD*)dst_info.p_surface;
+	const int src_pitch_words = src_info.pitch / 2;
+	const int dst_pitch_words = dst_info.pitch / 2;
+	const bool same_surface = (SourceSurface == this) || (src_info.p_surface == dst_info.p_surface);
 
-	for (int y = 0; y < src_h; y++) {
-		for (int x = 0; x < src_w; x++) {
-			int src_offset = (src_y + y) * (src_info.pitch / 2) + (src_x + x);
-			int dst_offset = (pPoint->y + y) * (dst_info.pitch / 2) + (pPoint->x + x);
-			dst_pixels[dst_offset] = src_pixels[src_offset];
+	if (same_surface && pPoint->y > src_y) {
+		for (int y = src_h - 1; y >= 0; --y) {
+			WORD* src_row = src_pixels + (src_y + y) * src_pitch_words + src_x;
+			WORD* dst_row = dst_pixels + (pPoint->y + y) * dst_pitch_words + pPoint->x;
+			memmove(dst_row, src_row, src_w * sizeof(WORD));
+		}
+	} else {
+		for (int y = 0; y < src_h; y++) {
+			WORD* src_row = src_pixels + (src_y + y) * src_pitch_words + src_x;
+			WORD* dst_row = dst_pixels + (pPoint->y + y) * dst_pitch_words + pPoint->x;
+			if (same_surface) {
+				memmove(dst_row, src_row, src_w * sizeof(WORD));
+			} else {
+				memcpy(dst_row, src_row, src_w * sizeof(WORD));
+			}
 		}
 	}
 }
