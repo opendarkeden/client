@@ -6,10 +6,19 @@ This is the **Dark Eden** game client - an isometric MMORPG similar to Diablo. D
 
 Dark Eden is a classic Korean MMORPG originally developed by Softon. This open-source client project aims to modernize and maintain the game client.
 
-**Build System:** Visual C++ 6.0 (original) / CMake (modern)
+**Build System: CMake
 **Primary Language:** C++
-**Graphics API:** DirectX 9
 **Platform:** Windows (original), with modern cross-platform efforts
+
+## How to build
+
+There is a Makefile warp cmake providing commands like `make` `make debug` `make release` etc.
+
+For development, the most commonly used one is:
+
+```
+make debug-asan 
+```
 
 ## Repository Structure
 
@@ -41,9 +50,6 @@ client/
 │   ├── Typedef.h       # Type definitions
 │   └── PlatformUtil.h  # Platform utilities
 │
-├── game/               # Game-specific code
-│   └── vs_ui/          # Game UI implementations
-│
 ├── lib/                # Third-party libraries
 │   ├── BasicS.lib      # Basic utilities library
 │   ├── GL.lib          # OpenGL utilities
@@ -53,7 +59,7 @@ client/
 │   └── rbt.lib         # Red-black tree library
 │
 ├── build/              # CMake build output
-├── DarkEden/           # Game data directory (runtime)
+├── ../DarkEden/           # Game data directory (runtime)
 │   ├── Data/           # Game data files
 │   │   ├── Info/       # Configuration files
 │   │   ├── Map/        # Map files

@@ -4049,18 +4049,37 @@ MZone::AddEffect(MEffect* pNewEffect, DWORD dwWaitCount)
 		(void)test_frame_id; // Suppress unused warning
 	}
 
-	bool bDarkNess = frameID >= (*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_DARKNESS_1_1].FrameID &&
-		frameID <= (*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_DARKNESS_3_5].FrameID ||
-		frameID >= (*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_GRAY_DARKNESS_1_1].FrameID &&
-		frameID <= (*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_GRAY_DARKNESS_3_5].FrameID;
+	// Safe access with boundary checking
+	int tableSize = g_pEffectSpriteTypeTable->GetSize();
+	bool bDarkNess = false;
+	bool bAcidSwamp = false;
+	bool bProminence = false;
 
-	bool bAcidSwamp = (*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_ACID_SWAP_1].FrameID <= frameID &&
-		(*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_ACID_SWAP_3].FrameID >= frameID;
+	if (EFFECTSPRITETYPE_DARKNESS_1_1 < tableSize &&
+	    EFFECTSPRITETYPE_DARKNESS_3_5 < tableSize &&
+	    EFFECTSPRITETYPE_GRAY_DARKNESS_1_1 < tableSize &&
+	    EFFECTSPRITETYPE_GRAY_DARKNESS_3_5 < tableSize) {
+		bDarkNess = frameID >= (*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_DARKNESS_1_1].FrameID &&
+			frameID <= (*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_DARKNESS_3_5].FrameID ||
+			frameID >= (*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_GRAY_DARKNESS_1_1].FrameID &&
+			frameID <= (*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_GRAY_DARKNESS_3_5].FrameID;
+	}
 
-	bool bProminence = (*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_PROMINENCE_ING].FrameID <= frameID &&
-		(*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_PROMINENCE_START].FrameID >= frameID ||
-		(*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_PROMINENCE2_ING].FrameID <= frameID &&
-		(*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_PROMINENCE3_START].FrameID >= frameID;
+	if (EFFECTSPRITETYPE_ACID_SWAP_1 < tableSize &&
+	    EFFECTSPRITETYPE_ACID_SWAP_3 < tableSize) {
+		bAcidSwamp = (*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_ACID_SWAP_1].FrameID <= frameID &&
+			(*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_ACID_SWAP_3].FrameID >= frameID;
+	}
+
+	if (EFFECTSPRITETYPE_PROMINENCE_ING < tableSize &&
+	    EFFECTSPRITETYPE_PROMINENCE_START < tableSize &&
+	    EFFECTSPRITETYPE_PROMINENCE2_ING < tableSize &&
+	    EFFECTSPRITETYPE_PROMINENCE3_START < tableSize) {
+		bProminence = (*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_PROMINENCE_ING].FrameID <= frameID &&
+			(*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_PROMINENCE_START].FrameID >= frameID ||
+			(*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_PROMINENCE2_ING].FrameID <= frameID &&
+			(*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_PROMINENCE3_START].FrameID >= frameID;
+	}
 
 
 	if(bDarkNess)

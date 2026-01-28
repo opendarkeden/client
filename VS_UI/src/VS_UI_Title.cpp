@@ -3395,7 +3395,7 @@ void C_VS_UI_CHAR_MANAGER::Show()
 	gpC_base->m_p_DDSurface_back->FillSurface(0);
 	if(gpC_base->m_p_DDSurface_back->Lock())
 	{
-		m_title1_spk.BltLocked(0,0);
+//		m_title1_spk.BltLocked(0,0);
 		m_common_spk.BltLocked(x, y);
 		//	m_image_spk.BltLocked(300, 150);
 		m_image_spk.BltLocked(TITLE_X - m_image_spk.GetWidth(TITLE)/2, TITLE_Y, TITLE);
@@ -4040,7 +4040,7 @@ void C_VS_UI_SERVER_SELECT::Show()
 
 	if(gpC_base->m_p_DDSurface_back->Lock())
 	{
-		m_title1_spk.BltLocked(0,0);
+//		m_title1_spk.BltLocked(0,0);
 		m_common_spk.BltLocked(x, y);
 		m_image_spk.BltLocked(300, 150);
 		

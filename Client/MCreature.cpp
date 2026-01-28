@@ -16,6 +16,7 @@
 #include "ClientConfig.h"
 #include "ServerInfo.h"
 #include "DebugInfo.h"
+#include "DebugLog.h"
 #include "SkillDef.h"
 #include "MLevelNameTable.h"
 #include "EffectSpriteTypeDef.h"
@@ -2546,8 +2547,14 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 			{
 				m_listEffect.push_back( pEffect );
 			}
-			
-			m_bAttachEffect[type] = true;
+
+			// Check array bounds before setting flag
+			if (type >= (*g_pEffectSpriteTypeTable).GetSize()) {
+				LOG_ERROR("[EFFECT ERROR] type=%d out of bounds! table size=%d",
+				         type, (*g_pEffectSpriteTypeTable).GetSize());
+			} else {
+				m_bAttachEffect[type] = true;
+			}
 			
 		}
 	
@@ -6015,8 +6022,6 @@ MCreature::ActionMove()
 								m_X,
 								m_Y);
 				}
-
-				DEBUG_ADD("[Move] OK");				
 			}
 			// ¸ø ¿òÁ÷ÀÎ °æ¿ì
 			else

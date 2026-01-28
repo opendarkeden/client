@@ -1,54 +1,48 @@
 //----------------------------------------------------------------------
 // MEffect.h
+//-------------------------------------------------------------------------
+// Effects displayed on the screen
+//----------------------------------------------------------------------------------
+//
+// < What is an Effect?
+// - Effects displayed on the screen.
+// - Excluding characters, items, buildings, obstacles, etc. (what else?),
+// these are animations.
+// - All Effects are expressed using CAlphaSprite and alpha channel blending.
+// - Things like a character swinging a sword or a priest's aura
+// are not included in the Effects discussed here.
+// - An Effect can be considered an independent object.
+///
+// < Effect Types >
+// = Missile
+// - Pixel-based movement.
+// - Animated from the launch location to the target location
+// / / Moves at a constant speed (pixels).
+// - May or may not be guided missiles. // - May be destroyed by collision with obstacles, characters, buildings, etc.
+// - Disappears upon reaching the target location.
+//
+// = Tile Magic
+// - Animated on a specific Tile.
+// - Size may be larger than the Tile.
+// - Output is displayed last on the Tile.
+// - Disappears after a certain number of frames.
+//
 //----------------------------------------------------------------------
-// 화면에 출력되는 Effect
-//----------------------------------------------------------------------
+// - All Effects must belong to a Sector within a Zone.
+// Since the output order must be sorted by y-coordinate,
+// we decided to place them in a Sector to output them according to the Sector's Object output.
 //
-// < Effect란? >
-//   - 화면에서 보여지는 효과.
-//   - 캐릭터, 아이템, 건물, 장애물.. 등을 제외한 것들 중(뭐가 있을래나)에서
-//     Animation이 되는 것들을 말한다.
-//   - Effect는 모두 CAlphaSprite를 이용해서 알파채널블렌딩~으로 표현한다.
-//   - 캐릭터가 칼~을 휘둘렀을 때의 검기나 신부의 오오라 같은건
-//     여기서 말하는 Effect에 포함되지 않는다.
-//   - Effect는 독립적인 하나의 객체라고 할 수 있다.
-//
-//
-// < Effect의 종류 >
-//   = 미사일 류
-//     - Pixel단위의 움직임.
-//     - 발사위치부터 --> 목표위치까지 Animation되면서 
-//       일정 속도(pixel)로 이동함
-//     - 유도미사일인 경우와 아닌 경우가 있음.
-//     - 장애물, 캐릭터, 건물 등에 부딪히면 소멸될 수도 있음.
-//     - 목표위치에 도착하면 소멸.
-//            
-//   = Tile마법 류
-//     - 특정 Tile에서 Animation됨.
-//     - 크기는 Tile보다 커도 상관없음.
-//     - 출력 시점은 그 Tile에서 가장 나중에 출력한다.
-//     - 일정 Frame이 지나면 소멸.
-//         
-//----------------------------------------------------------------------
-// - 모든 Effect는 Zone의 한 Sector에는 속해야 할 것이다.
-//   출력 순서가 y좌표로 Sort돼야하기 때문에, Sector의 Object출력에 맞추어
-//   출력하기 위해서.. Sector에 넣기로 결정..
-//
-// - Effect는 일정 시간 지속된다. 
-//   즉, Counter를 두어서 0이 되면 끝나도록...
+// - The Effect lasts for a certain amount of time.
+// That is, we set a counter so that it ends when it reaches 0.
 //----------------------------------------------------------------------
 //
-//              Effect는 File로 저장되지 않는다.
-//
+// The Effect is not saved to a file. //
 //----------------------------------------------------------------------
 /* class hierarchy
 
+MEffect --+-- MMovingEffect ---- ....
 
-      MEffect --+-- MMovingEffect ---- ....	            
-								
-
-
-   MEffect : Tile에 고정된 Effect
+MEffect: Effect anchored to a Tile
 */
 //----------------------------------------------------------------------
 
@@ -61,6 +55,7 @@
 #include "MTypeDef.h"
 #include "MObject.h"
 #include "MEffectTarget.h"
+#include "EffectResourceContainer.h"
 
 #include <fstream>
 using namespace std;
@@ -88,8 +83,22 @@ class MEffect : public MObject, public CAnimationFrame {
 		};
 
 	public :
+		// New constructor: supports dependency injection (requires explicit resource container)
+		MEffect(BYTE bltType, EffectResourceContainer* resources);
+
+		// Old constructor: maintain backward compatibility (no resource container)
 		MEffect(BYTE bltType);
+
 		~MEffect();
+
+		//--------------------------------------------------------
+		// Resource container management (newly added)
+		//--------------------------------------------------------
+		// Set resource container (for dependency injection)
+		void SetResourceContainer(EffectResourceContainer* resources);
+
+		// Get resource container
+		EffectResourceContainer* GetResourceContainer() const { return m_pResources; }
 
 		//--------------------------------------------------------
 		// Set FrameID
@@ -228,6 +237,9 @@ class MEffect : public MObject, public CAnimationFrame {
 
 		bool			m_bDrawSkip;
 		DWORD			m_dwWaitFrame;
+
+		// Newly added: resource container (dependency injection)
+		EffectResourceContainer*	m_pResources;
 };
 
 //----------------------------------------------------------------------
@@ -241,7 +253,7 @@ class MSelectableEffect : public MEffect {
 		//--------------------------------------------------------
 		//	Is Selectable
 		//--------------------------------------------------------
-		bool		IsSelectable() const		{ return true; }		
+		bool		IsSelectable() const		{ return true; }
 };
 
 #endif

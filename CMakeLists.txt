@@ -13,6 +13,10 @@ project(DarkEdenClient VERSION 1.0.0)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Note: We do NOT define _DEBUG here because it conflicts with DebugInfo.h
+# Instead, rely on the new DebugLog.h system which is always available
+# Debug builds will have console output enabled via log_init() in GameInit.cpp
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Sanitizer configuration
@@ -447,6 +451,46 @@ target_link_libraries(map_viewer PRIVATE
 set_target_properties(map_viewer PROPERTIES
 	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
+
+# Effect Viewer - test and debug effect system
+add_executable(effect_viewer
+	tools/viewers/effect_viewer/main.cpp
+	tools/viewers/effect_viewer/EffectSpriteTypeTable.cpp
+	tools/viewers/effect_viewer/stubs.cpp
+	Client/MObject.cpp
+	Client/EffectResourceContainer.cpp
+	Client/MEffect.cpp
+)
+
+target_include_directories(effect_viewer PRIVATE
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/Client
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+	${CMAKE_CURRENT_SOURCE_DIR}/Client/framelib
+	${CMAKE_CURRENT_SOURCE_DIR}/basic
+)
+
+target_link_libraries(effect_viewer PRIVATE
+	sprite
+	SpriteLib
+	framelib
+	dxlib
+	basic
+	SDL2::SDL2
+)
+
+# Set output directory for effect_viewer
+# Use CMAKE_BINARY_DIR to avoid nesting (build/debug-asan/bin/)
+if(CMAKE_BUILD_TYPE STREQUAL "debug-asan")
+	set_target_properties(effect_viewer PROPERTIES
+		RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+	)
+else()
+	set_target_properties(effect_viewer PROPERTIES
+		RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+	)
+endif()
 
 # Map Viewer Simple - browse zone maps using original MZone class
 # Compile necessary source files directly to avoid VS_UI dependencies

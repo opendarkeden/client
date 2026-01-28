@@ -21,9 +21,9 @@ TYPE_OBJECTID	MEffect::s_ID	= 0;
 // constructor/destructor
 //
 //----------------------------------------------------------------------
-MEffect::MEffect(BYTE bltType)	
+MEffect::MEffect(BYTE bltType)
 : CAnimationFrame(bltType)
-{ 
+{
 	// instance ID
 	m_ID			= s_ID++;
 
@@ -48,6 +48,46 @@ MEffect::MEffect(BYTE bltType)
 
 	m_bMulti = false;
 	m_bDrawSkip = false;
+
+	// 新增：资源容器初始化
+	m_pResources = nullptr;
+
+	#ifdef OUTPUT_DEBUG
+		g_EffectCount++;
+	#endif
+}
+
+// 新构造函数：支持依赖注入
+MEffect::MEffect(BYTE bltType, EffectResourceContainer* resources)
+: CAnimationFrame(bltType)
+{
+	// instance ID
+	m_ID			= s_ID++;
+
+	m_ObjectType	= TYPE_EFFECT;
+
+	m_Direction		= 0;
+
+	m_PixelX		= 0;
+	m_PixelY		= 0;
+	m_PixelZ		= 0;
+	m_StepPixel		= 0;
+
+	// 다음 Effect없음
+	m_pEffectTarget = NULL;
+
+	m_Light = 0;
+
+	m_EndFrame = 0;
+	m_EndLinkFrame = 0;
+	m_DelayFrame = 0;
+
+	m_bMulti = false;
+	m_bDrawSkip = false;
+
+	// 新增：资源容器（依赖注入）
+	m_pResources = resources;
+
 	#ifdef OUTPUT_DEBUG
 		g_EffectCount++;
 	#endif
@@ -245,4 +285,13 @@ bool
 MEffect::IsWaitFrame() const
 {
 	return g_CurrentFrame < m_dwWaitFrame;
+}
+
+//----------------------------------------------------------------------
+// SetResourceContainer - 设置资源容器（新增）
+//----------------------------------------------------------------------
+void
+MEffect::SetResourceContainer(EffectResourceContainer* resources)
+{
+	m_pResources = resources;
 }

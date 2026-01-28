@@ -33,6 +33,12 @@ client/
 - Open `Client/Client.dsw` in Visual C++ 6.0 and build.
 
 ### CMake (modern)
+
+Window native backend is deprecated, now SDL backend is the default.
+Makefile warp the cmake system providing `make` `make debug` `make release` etc.
+
+The most common used command during development is `make debug-asan`
+
 ```bash
 # Windows (native backend)
 cmake -B build -DUSE_SDL_BACKEND=OFF
@@ -43,8 +49,7 @@ cmake -B build -DUSE_SDL_BACKEND=ON
 cmake --build build
 
 # Linux/macOS (SDL backend)
-cmake -B build
-cmake --build build
+make debug-asan
 ```
 
 ## Tests

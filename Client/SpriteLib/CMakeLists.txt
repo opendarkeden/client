@@ -36,6 +36,7 @@ set(SPRITELIB_SOURCES
 	# SDL-specific CSpriteSurface implementation
 	CSpriteSurface_SDL.cpp
 	CSpriteSurface_Adapter.cpp
+	CSpriteSurface_Effects.cpp
 
 	# SDL-specific CSprite implementation
 	CSprite_SDL.cpp
@@ -71,6 +72,9 @@ set(SPRITELIB_SOURCES
 	CFilter.cpp
 	CFilterPack.cpp
 	CStorageSurface.cpp
+
+	# Debug logging
+	../DebugLog.cpp
 
 	# Other sprite classes (minimal set)
 	CSpriteDef.cpp
