@@ -346,7 +346,7 @@ void CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite) {
 	/* Get backend sprite */
 	spritectl_sprite_t backend_sprite = get_backend_sprite(pSprite);
 	if (!backend_sprite) {
-		LOG_ERROR("[BltSprite] ERROR: get_backend_sprite returned invalid sprite! IsInit=%d\n", pSprite->IsInit());
+		LOG_WARN("[BltSprite] ERROR: get_backend_sprite returned invalid sprite! IsInit=%d\n", pSprite->IsInit());
 		return;
 	}
 
