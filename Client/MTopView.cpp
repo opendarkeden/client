@@ -18950,17 +18950,6 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 			int frame = pEffect->GetFrame();
 			BYTE bltType = pEffect->GetBltType();
 
-			// DEBUG: Print effect info before rendering
-			static int debugPrintCount = 0;
-			if (debugPrintCount < 100) {  // Print first 100 effects
-				char debugMsg[512];
-				snprintf(debugMsg, sizeof(debugMsg),
-				         "[Effect DEBUG] type=%d, FrameID=%d, BltType=%d, Frame=%d, Dir=%d",
-				         type, frameID, (int)bltType, frame, direction);
-				LOG_INFO(debugMsg);
-				debugPrintCount++;
-			}
-
 			// 2004, 9, 14, sobeit add start - ÀÎ½ºÅç ÅÍ·¿ÀÏ¶§ ÀÌÆåÆ® ¾Èº¸¿©ÁÜ
 			int TempSecreenEffect = GET_EFFECTSPRITETYPE_SCREEN( frameID );
 
@@ -19139,18 +19128,6 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 					bool bFrameBackground = Frame.IsBackground();
 					AFFECT_ORBIT_EFFECT_BACKGROUND(pEffect, bFrameBackground);
 
-					// DEBUG: Print rendering decision
-					static int renderDebugCount = 0;
-					if (renderDebugCount < 20) {
-						LOG_INFO("[BLT_EFFECT RENDER] type=%d, frameID=%d, frame=%d, dir=%d, bBack=%d, bFrameBackground=%d",
-						         type, frameID, frame, direction, bBack, bFrameBackground);
-
-						// Check if this frame will be rendered
-						bool willRender = (type==0 || type==1 && !bFrameBackground || type==2 && bFrameBackground);
-						LOG_INFO("[BLT_EFFECT RENDER] Will render: %s", willRender ? "YES" : "NO");
-						renderDebugCount++;
-					}
-
 					// ¾ðÁ¦ Ãâ·ÂµÇ´Â°ÇÁö Ã¼Å©ÇÔ ÇØÁØ´Ù.
 					if (HAS_PAIR_EFFECTSPRITETYPE(sest) && bBack == true )
 					{
@@ -19248,14 +19225,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 					}
 
 					// DEBUG: Log condition result before checking
-					static int conditionDebugCount = 0;
 					bool conditionMet = (type==0 || type==1 && !bFrameBackground || type==2 && bFrameBackground);
-					if (conditionDebugCount < 20) {
-						LOG_INFO("[BLT_EFFECT CONDITION] type=%d, frameID=%d, frame=%d, bFrameBackground=%d, conditionMet=%s",
-						         type, frameID, frame, bFrameBackground, conditionMet ? "YES" : "NO");
-						conditionDebugCount++;
-					}
-
 					if (conditionMet)
 					{
 						int sprite = Frame.GetSpriteID();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetSpriteID();
@@ -19269,36 +19239,10 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 
 							AFFECT_ORBIT_EFFECT_POSITION( pEffect, pointTemp )
 
-							// DEBUG: Check sprite validity before drawing
-							static int drawDebugCount = 0;
-							if (drawDebugCount < 20) {
-								CAlphaSpritePal* pSpriteCheck = &m_EffectAlphaSPK[sprite];
-								bool spriteInit = pSpriteCheck->IsInit();
-								int spriteWidth = pSpriteCheck->GetWidth();
-								int spriteHeight = pSpriteCheck->GetHeight();
-
-								LOG_INFO("[BLT_EFFECT DRAW] spriteID=%d, pos=(%d,%d), frameID=%d",
-								         sprite, pointTemp.x, pointTemp.y, frameID);
-								LOG_INFO("[BLT_EFFECT SPRITE] init=%d, size=%dx%d",
-								         spriteInit, spriteWidth, spriteHeight);
-								drawDebugCount++;
-							}
-
 							// Call the actual draw function (expanded from macro for logging)
 							{
 								CAlphaSpritePal* pSprite = &m_EffectAlphaSPK[sprite];
-
-								// DEBUG: Log before actual blit
-								if (drawDebugCount <= 20) {
-									LOG_INFO("[BLT_EFFECT BLT] Calling BltAlphaSpritePal for spriteID=%d", sprite);
-								}
-
 								m_pSurface->BltAlphaSpritePal(&pointTemp, pSprite, m_EffectAlphaPPK[frameID]);
-
-								// DEBUG: Log after actual blit
-								if (drawDebugCount <= 20) {
-									LOG_INFO("[BLT_EFFECT BLT] BltAlphaSpritePal DONE for spriteID=%d", sprite);
-								}
 							}
 //													m_EffectAlphaSPKI, 
 //													m_EffectAlphaSPKFile)

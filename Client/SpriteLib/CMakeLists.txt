@@ -73,6 +73,9 @@ set(SPRITELIB_SOURCES
 	CFilterPack.cpp
 	CStorageSurface.cpp
 
+	# Debug logging
+	../DebugLog.cpp
+
 	# Other sprite classes (minimal set)
 	CSpriteDef.cpp
 	CSpriteOutlineManager.cpp

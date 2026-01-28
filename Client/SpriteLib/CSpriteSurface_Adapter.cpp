@@ -23,6 +23,7 @@
 #include "CFilter.h"
 
 #include "SpriteLibBackend.h"
+#include "DebugLog.h"
 
 /* ============================================================================
  * Debug Configuration
@@ -345,11 +346,7 @@ void CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite) {
 	/* Get backend sprite */
 	spritectl_sprite_t backend_sprite = get_backend_sprite(pSprite);
 	if (!backend_sprite) {
-		static int invalidCount = 0;
-		if (invalidCount < 3) {
-			printf("[BltSprite] ERROR: get_backend_sprite returned invalid sprite! IsInit=%d\n", pSprite->IsInit());
-			invalidCount++;
-		}
+		LOG_ERROR("[BltSprite] ERROR: get_backend_sprite returned invalid sprite! IsInit=%d\n", pSprite->IsInit());
 		return;
 	}
 
@@ -546,22 +543,14 @@ void CSpriteSurface::BltAlphaSprite4444SmallNotTrans(POINT* pPoint, CAlphaSprite
 }
 
 void CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, MPalette &pal) {
-	static int debugCount = 0;
-
 	if (!pPoint || !pSprite) {
-		if (debugCount < 3) {
-			printf("[BltAlphaSpritePal] ERROR: Invalid parameters (pPoint=%p, pSprite=%p)\n", pPoint, pSprite);
-			debugCount++;
-		}
+		LOG_ERROR("[BltAlphaSpritePal] ERROR: Invalid parameters (pPoint=%p, pSprite=%p)\n", pPoint, pSprite);
 		return;
 	}
 
 	/* Check if sprite is initialized */
 	if (pSprite->IsNotInit()) {
-		if (debugCount < 3) {
-			printf("[BltAlphaSpritePal] ERROR: Sprite not initialized\n");
-			debugCount++;
-		}
+		LOG_ERROR("[BltAlphaSpritePal] ERROR: Sprite not initialized\n");
 		return;
 	}
 
@@ -583,7 +572,7 @@ void CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, 
 		/* Sprite is completely outside, skip rendering */
 		static int skipCount = 0;
 		if (skipCount < 5) {
-			printf("[BltAlphaSpritePal] WARNING: Sprite at (%d,%d) size=%dx%d outside surface %dx%d, skipping\n",
+			LOG_WARN("[BltAlphaSpritePal] WARNING: Sprite at (%d,%d) size=%dx%d outside surface %dx%d, skipping\n",
 			       pPoint->x, pPoint->y, spriteWidth, spriteHeight, surfaceWidth, surfaceHeight);
 			skipCount++;
 		}
@@ -597,18 +586,11 @@ void CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, 
 	    pPoint->y + spriteHeight > surfaceHeight) {
 		static int partialCount = 0;
 		if (partialCount < 5) {
-			printf("[BltAlphaSpritePal] WARNING: Partial clipping at (%d,%d) size=%dx%d, skipping (TODO: implement)\n",
+			LOG_WARN("[BltAlphaSpritePal] WARNING: Partial clipping at (%d,%d) size=%dx%d, skipping (TODO: implement)\n",
 			       pPoint->x, pPoint->y, spriteWidth, spriteHeight);
 			partialCount++;
 		}
 		return;
-	}
-
-	/* Debug log */
-	if (debugCount < 10) {
-		printf("[BltAlphaSpritePal] Rendering sprite at (%d,%d), size=%dx%d\n",
-		       pPoint->x, pPoint->y, spriteWidth, spriteHeight);
-		debugCount++;
 	}
 
 	/* Lock backend surface for direct pixel access */
@@ -616,7 +598,7 @@ void CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, 
 	if (spritectl_lock_surface(m_backend_surface, &surface_info) != 0) {
 		static int lockFailCount = 0;
 		if (lockFailCount < 3) {
-			printf("[BltAlphaSpritePal] ERROR: Failed to lock surface\n");
+			LOG_WARN("[BltAlphaSpritePal] ERROR: Failed to lock surface\n");
 			lockFailCount++;
 		}
 		return;
@@ -633,11 +615,6 @@ void CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, 
 	/* Pass pitch in bytes (same as Windows version) */
 	/* TODO: Implement proper clipping for partially visible sprites */
 	pSprite->Blt(pDest, pitch, pal);
-
-	/* Debug log after render */
-	if (debugCount <= 10) {
-		printf("[BltAlphaSpritePal] Render complete\n");
-	}
 
 	/* Unlock surface */
 	spritectl_unlock_surface(m_backend_surface);
