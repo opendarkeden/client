@@ -144,6 +144,41 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 	message(STATUS "TextLib library will be built from ${TEXTLIB_SOURCES}")
 endif()
 
+# ============================================================
+# TextSystem - New SDL-based Text System (Abstracted)
+# ============================================================
+if(USE_SDL_BACKEND OR NOT WIN32)
+	set(TEXTSYSTEM_SOURCES
+		Client/TextSystem/TextService.cpp
+		Client/TextSystem/TextBackendSDL.cpp
+		Client/TextSystem/RenderTargetSpriteSurface.cpp
+	)
+
+	add_library(TextSystem STATIC ${TEXTSYSTEM_SOURCES})
+
+	target_include_directories(TextSystem PUBLIC
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/TextSystem
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client
+		${CMAKE_CURRENT_SOURCE_DIR}/basic
+		${SDL2_INCLUDE_DIRS}
+	)
+
+	target_link_libraries(TextSystem PUBLIC
+		SpriteLib
+		SDL2::SDL2
+		SDL2_ttf::SDL2_ttf
+	)
+
+	target_compile_definitions(TextSystem PRIVATE SPRITELIB_BACKEND_SDL USE_SDL_BACKEND)
+	if(NOT WIN32)
+		target_compile_definitions(TextSystem PRIVATE PLATFORM_MACOS)
+	endif()
+
+	message(STATUS "TextSystem library will be built from ${TEXTSYSTEM_SOURCES}")
+endif()
+
 if(BUILD_ENGINE)
 	add_subdirectory(engine/sprite)
 	add_subdirectory(engine/ui)
@@ -261,6 +296,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/widget
 		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/hangul
 		${CMAKE_CURRENT_SOURCE_DIR}/Client
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/TextSystem
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/TextLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
@@ -280,6 +316,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		framelib
 		deutil
 		TextLib
+		TextSystem
 		SDL2::SDL2
 		SDL2::SDL2main
 		SDL2_image::SDL2_image
@@ -646,6 +683,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		deutil
 		VS_UI
 		TextLib
+		TextSystem
 		SDL2::SDL2
 		SDL2::SDL2main
 	)
@@ -663,6 +701,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_SOURCE_DIR}/basic
 		${CMAKE_CURRENT_SOURCE_DIR}/Client
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/TextSystem
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/TextLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/D3DLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
