@@ -98,32 +98,59 @@ static std::string NormalizeText(const std::string& text)
 	return text;
 }
 
-static uint32_t Utf8Decode(const char* s, int* outLen)
+static uint32_t Utf8Decode(const char* s, int maxLen, int* outLen)
 {
+	if (maxLen < 1) {
+		*outLen = 0;
+		return 0xFFFD; // Replacement character for empty input
+	}
+
 	unsigned char c = static_cast<unsigned char>(*s);
+
+	// ASCII (0x00-0x7F)
 	if (c < 0x80) {
 		*outLen = 1;
 		return c;
 	}
+
+	// 2-byte sequence (0xC0-0xDF)
 	if ((c >> 5) == 0x6) {
+		if (maxLen < 2) {
+			*outLen = 1;
+			return 0xFFFD; // Truncated sequence
+		}
 		*outLen = 2;
 		return ((c & 0x1F) << 6) | (static_cast<unsigned char>(s[1]) & 0x3F);
 	}
+
+	// 3-byte sequence (0xE0-0xEF)
 	if ((c >> 4) == 0xE) {
+		if (maxLen < 3) {
+			*outLen = 1;
+			return 0xFFFD; // Truncated sequence
+		}
 		*outLen = 3;
 		return ((c & 0x0F) << 12) |
 			((static_cast<unsigned char>(s[1]) & 0x3F) << 6) |
 			(static_cast<unsigned char>(s[2]) & 0x3F);
 	}
+
+	// 4-byte sequence (0xF0-0xF7)
 	if ((c >> 3) == 0x1E) {
+		if (maxLen < 4) {
+			*outLen = 1;
+			return 0xFFFD; // Truncated sequence
+		}
 		*outLen = 4;
 		return ((c & 0x07) << 18) |
 			((static_cast<unsigned char>(s[1]) & 0x3F) << 12) |
 			((static_cast<unsigned char>(s[2]) & 0x3F) << 6) |
 			(static_cast<unsigned char>(s[3]) & 0x3F);
 	}
+
+	// Invalid UTF-8 lead byte
 	*outLen = 1;
-	return c;
+	return 0xFFFD;
 }
 
 TextService::TextService()
@@ -207,10 +234,13 @@ int TextService::MeasureLineWidth(const std::string& text, FontHandle font)
 
 	int width = 0;
 	const char* p = text.c_str();
-	while (*p) {
+	int remaining = static_cast<int>(text.size());
+	while (*p && remaining > 0) {
 		int len = 0;
-		uint32_t codepoint = Utf8Decode(p, &len);
+		uint32_t codepoint = Utf8Decode(p, remaining, &len);
+		if (len == 0) break; // Safety: no data left
 		p += len;
+		remaining -= len;
 
 		if (codepoint == '\n')
 			break;
@@ -258,9 +288,11 @@ std::vector<std::string> TextService::WrapText(const std::string& text, const Te
 	int lastBreakSkip = 0;
 
 	const char* p = normalized.c_str();
-	while (*p) {
+	int remaining = static_cast<int>(normalized.size());
+	while (*p && remaining > 0) {
 		int len = 0;
-		uint32_t codepoint = Utf8Decode(p, &len);
+		uint32_t codepoint = Utf8Decode(p, remaining, &len);
+		if (len == 0) break; // Safety: no data left
 
 		if (codepoint == '\n') {
 			lines.push_back(line);
@@ -269,12 +301,14 @@ std::vector<std::string> TextService::WrapText(const std::string& text, const Te
 			lastBreakIndex = -1;
 			lastBreakSkip = 0;
 			p += len;
+			remaining -= len;
 			continue;
 		}
 
 		GlyphMetrics metrics;
 		if (!m_backend->GetGlyphMetrics(style.font, codepoint, metrics)) {
 			p += len;
+			remaining -= len;
 			continue;
 		}
 
@@ -300,6 +334,7 @@ std::vector<std::string> TextService::WrapText(const std::string& text, const Te
 		line.append(p, len);
 		lineWidth += metrics.advance;
 		p += len;
+		remaining -= len;
 	}
 
 	if (!line.empty())
@@ -327,11 +362,14 @@ void TextService::DrawLine(RenderTarget& target, const std::string& text,
 	}
 
 	const char* p = normalized.c_str();
+	int remaining = static_cast<int>(normalized.size());
 	int penX = drawX;
-	while (*p) {
+	while (*p && remaining > 0) {
 		int len = 0;
-		uint32_t codepoint = Utf8Decode(p, &len);
+		uint32_t codepoint = Utf8Decode(p, remaining, &len);
+		if (len == 0) break; // Safety: no data left
 		p += len;
+		remaining -= len;
 
 		GlyphMetrics metrics;
 		if (!m_backend->GetGlyphMetrics(style.font, codepoint, metrics))
