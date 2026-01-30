@@ -5577,7 +5577,7 @@ CGameUpdate::UpdateDraw()
 				{
 					if (!CDirect3D::IsHAL())
 					{
-						g_SetFL2Surface( g_pBack->GetSurface() );
+						g_SetFL2Surface( g_pBack );
 					}
 
 					const COLORREF color = RGB(28<<3, 28<<3, 28<<3);				
@@ -5592,7 +5592,7 @@ CGameUpdate::UpdateDraw()
 
 					if (!CDirect3D::IsHAL())
 					{
-						g_SetFL2Surface( g_pLast->GetSurface() );
+						g_SetFL2Surface( g_pLast );
 					}
 				}
 			}
@@ -5605,7 +5605,7 @@ CGameUpdate::UpdateDraw()
 
 			if (!CDirect3D::IsHAL())
 			{
-				g_SetFL2Surface( g_pBack->GetSurface() );
+				g_SetFL2Surface( g_pBack );
 			}
 
 			///*
@@ -5725,7 +5725,7 @@ CGameUpdate::UpdateDraw()
 
 			if (!CDirect3D::IsHAL())
 			{
-				g_SetFL2Surface( g_pLast->GetSurface() );
+				g_SetFL2Surface( g_pLast );
 			}
 		}
 	#endif

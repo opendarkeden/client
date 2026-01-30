@@ -80,28 +80,7 @@ void ExecuteActionInfoFromMainNode(
 	// Stub - do nothing on SDL platform
 }
 
-// Stub for g_Print
-void g_Print(int x, int y, const char* str, struct PrintInfo* pInfo)
-{
-	(void)x; (void)y;
-	if (str && str[0]) {
-//		printf("g_Print: %s\n", str);
-	}
-}
-
-// Stub for FillRect
-void FillRect(S_SURFACEINFO* pInfo, struct Rect* pRect, int color)
-{
-	(void)pInfo; (void)pRect; (void)color;
-	// Stub - do nothing on SDL platform
-}
-
-// Stub for rectangle
-void rectangle(S_SURFACEINFO* pInfo, struct Rect* pRect, int color)
-{
-	(void)pInfo; (void)pRect; (void)color;
-	// Stub - do nothing on SDL platform
-}
+// g_Print / FillRect / rectangle are provided by RenderingFunctions.cpp
 
 /*-----------------------------------------------------------------------------
  *

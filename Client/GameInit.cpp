@@ -331,7 +331,7 @@ DrawTitleLoading()
 		{
 			if (!CDirect3D::IsHAL())
 			{
-				g_SetFL2Surface( g_pBack->GetSurface() );
+				g_SetFL2Surface( g_pBack );
 			}
 
 			PrintInfo* pPrintInfo = &gpC_base->m_info_pi;
@@ -349,7 +349,7 @@ DrawTitleLoading()
 			
 			if (!CDirect3D::IsHAL())
 			{
-				g_SetFL2Surface( g_pLast->GetSurface() );
+				g_SetFL2Surface( g_pLast );
 			}
 		}
 		*/

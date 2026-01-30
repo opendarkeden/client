@@ -8,6 +8,7 @@
 #include <windows.h>
 #else
 #include "../../basic/Platform.h"
+#include "TextSystem/FontHandleUtil.h"
 #endif
 extern RECT g_GameRect;
 //----------------------------------------------------------------------------
@@ -124,7 +125,7 @@ void Base::SetDefaultLogfont(LOGFONT &lf) const
 void Base::SetFont(PrintInfo &pi, LOGFONT &lf, COLORREF textcolor, COLORREF backcolor, int bk_mode, int align)
 {
 	(void)lf;
-	pi.hfont = (void*)1; // Stub font handle
+	pi.hfont = TextSystem::EncodeFontSizeHandle(lf.lfHeight);
 	pi.text_color = textcolor;
 	pi.back_color = backcolor;
 	pi.bk_mode = bk_mode;
@@ -406,8 +407,8 @@ void Base::InitSurface(CSpriteSurface *surface)
 	#ifdef PLATFORM_WINDOWS
 	g_SetFL2Surface(m_p_DDSurface_back->GetSurface());
 	#else
-	// SDL backend: use GetSurfacePointer() instead of GetSurface()
-	g_SetFL2Surface(m_p_DDSurface_back->GetSurfacePointer());
+	// SDL backend: use the sprite surface directly for text rendering
+	g_SetFL2Surface(m_p_DDSurface_back);
 	#endif
 }
 

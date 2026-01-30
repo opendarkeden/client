@@ -23,33 +23,9 @@ extern "C" {
 }
 
 //-----------------------------------------------------------------------------
-// Print Functions (Windows GDI-based, stubbed for macOS)
+// Print Functions
 //-----------------------------------------------------------------------------
-
-// g_Print - Defined in PacketFunction.cpp
-// g_PrintColorStr - Print colored string (Windows GDI)
-int g_PrintColorStr(int x, int y, const char* str, PrintInfo& info, DWORD color)
-{
-	(void)x; (void)y; (void)str; (void)info; (void)color;
-	// Stub implementation - Windows GDI not available on macOS
-	return 0;
-}
-
-// g_PrintColorStrOut - Print colored string with outline
-int g_PrintColorStrOut(int x, int y, const char* str, PrintInfo& info, DWORD color1, DWORD color2)
-{
-	(void)x; (void)y; (void)str; (void)info; (void)color1; (void)color2;
-	// Stub implementation - Windows GDI not available on macOS
-	return 0;
-}
-
-// g_PrintColorStrShadow - Print colored string with shadow
-int g_PrintColorStrShadow(int x, int y, const char* str, PrintInfo& info, DWORD color1, DWORD color2)
-{
-	(void)x; (void)y; (void)str; (void)info; (void)color1; (void)color2;
-	// Stub implementation - Windows GDI not available on macOS
-	return 0;
-}
+// Implemented in RenderingFunctions.cpp for SDL builds.
 
 //-----------------------------------------------------------------------------
 // Platform-Specific Functions (Windows-specific)
