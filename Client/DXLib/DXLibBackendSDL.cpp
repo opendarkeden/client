@@ -375,6 +375,33 @@ void dxlib_input_update(void) {
 				break;
 
 			case SDL_KEYDOWN:
+				/* Handle control keys for text input */
+				if (g_GetInputFocusManager().HasFocus()) {
+					SDL_Keycode key = event.key.keysym.sym;
+					unsigned int vk_code = 0;
+
+					// Map SDL key codes to Windows virtual key codes
+					switch (key) {
+					case SDLK_BACKSPACE:	vk_code = 0x08; break; // VK_BACK
+					case SDLK_TAB:		vk_code = 0x09; break; // VK_TAB
+					case SDLK_RETURN:	vk_code = 0x0D; break; // VK_RETURN
+					case SDLK_ESCAPE:	vk_code = 0x1B; break; // VK_ESCAPE
+					case SDLK_LEFT:		vk_code = 0x25; break; // VK_LEFT
+					case SDLK_UP:		vk_code = 0x26; break; // VK_UP
+					case SDLK_RIGHT:	vk_code = 0x27; break; // VK_RIGHT
+					case SDLK_DOWN:		vk_code = 0x28; break; // VK_DOWN
+					case SDLK_DELETE:	vk_code = 0x2E; break; // VK_DELETE
+					case SDLK_HOME:		vk_code = 0x24; break; // VK_HOME
+					case SDLK_END:		vk_code = 0x23; break; // VK_END
+					}
+
+					if (vk_code != 0) {
+						g_GetInputFocusManager().HandleKeyDown(vk_code);
+						break; // Don't process further
+					}
+				}
+				/* Fall through for non-text-input keys */
+
 			case SDL_KEYUP:
 				/* Keyboard state is updated by SDL_GetKeyboardState */
 				/* Handle ESCAPE key to quit */

@@ -159,7 +159,8 @@ public:
 				return false;
 			minx = 0;
 			maxx = surf->w;
-			maxy = surf->h;
+			miny = -TTF_FontAscent(ttf);  // Assume top-aligned
+			maxy = TTF_FontDescent(ttf);  // Assume baseline at bottom
 			advance = surf->w;
 			SDL_FreeSurface(surf);
 		}
@@ -168,7 +169,10 @@ public:
 		outMetrics.height = maxy - miny;
 		outMetrics.advance = advance;
 		outMetrics.bearingX = minx;
-		outMetrics.bearingY = maxy;
+		// bearingY is the distance from baseline to top of glyph
+		// miny is usually negative (distance above baseline)
+		// ascent is the distance from baseline to top of font bounding box
+		outMetrics.bearingY = TTF_FontAscent(ttf) + miny;
 		return true;
 	}
 
@@ -209,11 +213,14 @@ public:
 		Glyph glyph;
 		GlyphMetrics metrics;
 		if (!GetGlyphMetrics(font, codepoint, metrics)) {
+			// Fallback: approximate metrics from surface
+			TTF_Font* ttf = GetFont(font);
+			int ascent = ttf ? TTF_FontAscent(ttf) : 12;
 			metrics.width = rgbaSurface->w;
 			metrics.height = rgbaSurface->h;
 			metrics.advance = rgbaSurface->w;
 			metrics.bearingX = 0;
-			metrics.bearingY = rgbaSurface->h;
+			metrics.bearingY = ascent;  // Assume top-aligned
 		}
 		glyph.metrics = metrics;
 

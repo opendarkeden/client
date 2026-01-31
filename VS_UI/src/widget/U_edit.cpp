@@ -150,6 +150,12 @@ void LineEditor::DeleteChar(int offset)
 	        (m_TextLen - offset - 1) * sizeof(uint32_t));
 
 	m_TextLen--;
+
+	// Adjust cursor position if it was after the deleted character
+	if (m_CursorPos > offset) {
+		m_CursorPos--;
+	}
+	// Also ensure cursor doesn't go beyond text length
 	if (m_CursorPos > m_TextLen) {
 		m_CursorPos = m_TextLen;
 	}
@@ -159,8 +165,8 @@ void LineEditor::DeleteChar(int offset)
 void LineEditor::Backspace()
 {
 	if (m_CursorPos > 0) {
+		// DeleteChar will handle cursor adjustment
 		DeleteChar(m_CursorPos - 1);
-		m_CursorPos--;
 	}
 }
 
@@ -368,7 +374,10 @@ LineEditorVisual::LineEditorVisual()
 
 LineEditorVisual::~LineEditorVisual()
 {
-	// Cleanup handled automatically - no more CGlyphCache/CTextLayout
+	// Clear focus from InputFocusManager if this editor was focused
+	if (InputFocusManager::GetInstance().GetFocusedEditor() == this) {
+		InputFocusManager::GetInstance().SetFocusedEditor(NULL);
+	}
 }
 
 void LineEditorVisual::Acquire()
@@ -440,18 +449,34 @@ bool LineEditorVisual::ReachSizeOfBox() const
 	return (len * DEFAULT_FONT_SIZE) >= m_MaxWidth;
 }
 
-// Compatibility method: convert UTF-8 to wide string (char_t)
+// Compatibility method: convert UTF-32 to wide string (char_t/UTF-16LE)
 const char_t* LineEditorVisual::GetStringWide() const
 {
 	static char_t wide_buffer[LineEditor::MAX_TEXT];
-	const char* utf8 = m_Editor.GetString();
+	int wide_len = 0;
 
-	// Simple UTF-8 to char_t conversion (ASCII only for now)
-	int len = strlen(utf8);
-	for (int i = 0; i < len && i < LineEditor::MAX_TEXT - 1; i++) {
-		wide_buffer[i] = (char_t)(unsigned char)utf8[i];
+	// Convert directly from UTF-32 (m_Text) to UTF-16 (char_t)
+	for (int i = 0; i < m_Editor.m_TextLen && wide_len < LineEditor::MAX_TEXT - 1; i++) {
+		uint32_t c = m_Editor.m_Text[i];
+
+		// UTF-32 to UTF-16 conversion
+		if (c < 0x10000) {
+			// BMP character - single UTF-16 code unit
+			wide_buffer[wide_len++] = (char_t)c;
+		} else if (c < 0x10FFFF) {
+			// Supplementary plane - surrogate pair
+			if (wide_len + 1 >= LineEditor::MAX_TEXT - 1) break;
+
+			c -= 0x10000;
+			wide_buffer[wide_len++] = (char_t)(0xD800 + (c >> 10));      // High surrogate
+			wide_buffer[wide_len++] = (char_t)(0xDC00 + (c & 0x3FF));    // Low surrogate
+		} else {
+			// Invalid Unicode - use replacement character
+			wide_buffer[wide_len++] = (char_t)0xFFFD;
+		}
 	}
-	wide_buffer[len] = 0;
+
+	wide_buffer[wide_len] = 0;
 
 	return wide_buffer;
 }
@@ -488,6 +513,8 @@ void LineEditorVisual::Show() const
 	TextSystem::SpriteSurfaceRenderTarget target(g_pLast);
 
 	// Render text
+	// Note: TextService::DrawLine expects baseline position, but it adds GetFontAscent() internally
+	// So we pass m_Y directly as the baseline position
 	TextSystem::TextService::Get().DrawLine(target, textToDisplay, m_X, m_Y, m_MaxWidth, style);
 
 	// Draw cursor if editor is acquired and cursor blink is on
