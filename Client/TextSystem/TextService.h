@@ -28,6 +28,9 @@ public:
 
 	int GetLineHeight(const TextStyle& style) const;
 
+	// Encoding normalization: converts CP949/EUC-KR/other encodings to UTF-8
+	static std::string NormalizeText(const std::string& text);
+
 private:
 	TextService();
 	~TextService();

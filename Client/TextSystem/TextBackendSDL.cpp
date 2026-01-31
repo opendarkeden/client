@@ -196,6 +196,17 @@ public:
 			return &it->second;
 		}
 
+		// Get glyph metrics first
+		int minx = 0, maxx = 0, miny = 0, maxy = 0, advance = 0;
+		bool hasMetrics = false;
+
+		if (codepoint <= 0xFFFF) {
+			if (TTF_GlyphMetrics(ttf, static_cast<Uint16>(codepoint), &minx, &maxx, &miny, &maxy, &advance) == 0) {
+				hasMetrics = true;
+			}
+		}
+
+		// Render the glyph
 		std::string utf8 = EncodeUtf8(codepoint);
 		SDL_Color sdlColor = {color.r, color.g, color.b, color.a};
 		SDL_Surface* surface = TTF_RenderUTF8_Blended(ttf, utf8.c_str(), sdlColor);
@@ -212,10 +223,22 @@ public:
 
 		Glyph glyph;
 		GlyphMetrics metrics;
-		if (!GetGlyphMetrics(font, codepoint, metrics)) {
+
+		if (hasMetrics) {
+			int ascent = TTF_FontAscent(ttf);
+			metrics.width = maxx - minx;
+			metrics.height = maxy - miny;
+			metrics.advance = advance;
+			metrics.bearingX = minx;
+			// bearingY is distance from baseline to TOP of rendered glyph surface
+			// The rendered surface includes the full glyph, so its top is at baseline - miny
+			// Therefore bearingY should be: ascent - (surface_top_relative_to_baseline)
+			// Since miny is negative (above baseline), surface_top = baseline - miny = baseline + |miny|
+			// So bearingY = ascent + miny
+			metrics.bearingY = ascent + miny;
+		} else {
 			// Fallback: approximate metrics from surface
-			TTF_Font* ttf = GetFont(font);
-			int ascent = ttf ? TTF_FontAscent(ttf) : 12;
+			int ascent = TTF_FontAscent(ttf);
 			metrics.width = rgbaSurface->w;
 			metrics.height = rgbaSurface->h;
 			metrics.advance = rgbaSurface->w;

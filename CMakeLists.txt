@@ -686,6 +686,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		TextSystem
 		SDL2::SDL2
 		SDL2::SDL2main
+		iconv
 	)
 
 	# Link JPEG library if available

@@ -80,7 +80,8 @@ static std::string ConvertEncoding(const std::string& input, const char* fromEnc
 #endif
 }
 
-static std::string NormalizeText(const std::string& text)
+// Public static method for encoding normalization
+std::string TextService::NormalizeText(const std::string& text)
 {
 	if (text.empty())
 		return text;
@@ -365,6 +366,8 @@ void TextService::DrawLine(RenderTarget& target, const std::string& text,
 	const char* p = normalized.c_str();
 	int remaining = static_cast<int>(normalized.size());
 	int penX = drawX;
+	int ascent = m_backend->GetFontAscent(style.font);
+
 	while (*p && remaining > 0) {
 		int len = 0;
 		uint32_t codepoint = Utf8Decode(p, remaining, &len);
@@ -378,7 +381,23 @@ void TextService::DrawLine(RenderTarget& target, const std::string& text,
 
 		const Glyph* glyph = m_backend->GetGlyph(style.font, codepoint, style.color);
 		if (glyph) {
-			int drawY = y + m_backend->GetFontAscent(style.font) - metrics.bearingY;
+			// Calculate draw position
+			// y is the baseline position
+			// bearingY is the distance from baseline to the top of the glyph
+			// The rendered glyph surface starts at (baseline - ascent - miny)
+			// So we need to offset by: y - (ascent + miny - bearingY)
+			// But since bearingY = ascent + miny, this simplifies to: y
+			//
+			// Actually, TTF_RenderUTF8_Blended returns a surface that:
+			// - Has origin (0,0) at the glyph's bounding box top-left
+			// - The baseline is at position (-miny) within the surface
+			//
+			// So if we want to draw at baseline position y:
+			// - We need to offset the surface so the baseline aligns
+			// - drawY = y - (-miny) = y + miny
+			// - But miny is negative, so: drawY = y - ascent + bearingY
+
+			int drawY = y - ascent + metrics.bearingY;
 			m_backend->DrawGlyph(target, *glyph, penX + metrics.bearingX, drawY, style.color.a);
 		}
 
