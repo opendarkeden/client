@@ -22,6 +22,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* Include input focus manager */
+#include "../../VS_UI/src/InputFocusManager.h"
+
 /* For MP3/OGG support */
 #ifdef SDL_MIXER_MAJOR_VERSION
 	#include <SDL_mixer.h>
@@ -410,15 +413,9 @@ void dxlib_input_update(void) {
 			case SDL_TEXTINPUT:
 				/* Handle text input for IME and text entry */
 				{
-//					static int text_debug_count = 0;
-//					if (text_debug_count < 5) {
-//						printf("DEBUG SDL_TEXTINPUT: text='%s', callback=%p\n",
-//							   event.text.text, (void*)g_textinput_callback);
-//						text_debug_count++;
-//					}
-					if (g_textinput_callback != NULL && event.text.text[0] != '\0') {
-						int coords[2] = {g_mouse_x, g_mouse_y};
-						g_textinput_callback(event.text.text, coords);
+					// Route to InputFocusManager instead of callback
+					if (event.text.text[0] != '\0') {
+						g_GetInputFocusManager().HandleTextInput(event.text.text);
 					}
 				}
 				break;
@@ -426,19 +423,10 @@ void dxlib_input_update(void) {
 			case SDL_TEXTEDITING:
 				/* Handle IME composition (text editing in progress) */
 				{
-					static int editing_debug_count = 0;
-					if (editing_debug_count < 5) {
-						printf("DEBUG SDL_TEXTEDITING: text='%s', start=%d, length=%d\n",
-							   event.edit.text, event.edit.start, event.edit.length);
-						editing_debug_count++;
-					}
-
-					/* Call text editing callback if registered */
-					if (g_textediting_callback != NULL) {
-						int coords[2] = {g_mouse_x, g_mouse_y};
-						g_textediting_callback(event.edit.text, event.edit.start,
-						                     event.edit.length, coords);
-					}
+					// Route to InputFocusManager instead of callback
+					g_GetInputFocusManager().HandleTextEditing(event.edit.text,
+					                                         event.edit.start,
+					                                         event.edit.length);
 				}
 				break;
 		}
