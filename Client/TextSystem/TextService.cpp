@@ -88,7 +88,8 @@ static std::string NormalizeText(const std::string& text)
 	if (IsValidUtf8(text.c_str(), text.size()))
 		return text;
 
-	const char* encodings[] = {"CP949", "EUC-KR", NULL};
+	// Try common encodings: Korean first, then Chinese, then fallback
+	const char* encodings[] = {"CP949", "EUC-KR", "GBK", "GB2312", "BIG5", NULL};
 	for (int i = 0; encodings[i] != NULL; ++i) {
 		std::string converted = ConvertEncoding(text, encodings[i]);
 		if (!converted.empty())

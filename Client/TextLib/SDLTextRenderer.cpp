@@ -17,6 +17,7 @@ static void InitGlyphCache() {
     if (g_GlyphCache) return;  // Already initialized
 
     const char* fontPaths[] = {
+        "Data/Font/NotoSerifCJK.ttc",
         "Data/Font/Hiragino Sans GB.ttc",
         "Data/Font/NotoSansCJK-Regular.ttc",
         "Data/Font/NotoSans-Regular.ttf",
