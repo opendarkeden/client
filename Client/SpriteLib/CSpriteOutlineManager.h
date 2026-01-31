@@ -26,6 +26,9 @@ public:
 	void Add(int x, int y, class CIndexSprite* pSprite, unsigned short color = 0); // color parameter now has default
 	void Generate(int type = 0); // type parameter now has default
 
+	// Get access to the outline entries for drawing sprites
+	const std::vector<OutlineEntry>& GetOutlines() const { return m_Outlines; }
+
 private:
 	std::vector<OutlineEntry> m_Outlines;
 };
