@@ -4442,9 +4442,16 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 				// UI���� �� ptr�� �����ϸ� ����ȭ������������ ���ڰ� ������ ��찡 �ִ�. UI_CHAT_RETURN��
 				// ó������ ���� ���¿��� g_Convert_DBCS_Ascii2SingleByte()�� ����Ǽ� �׷� �� ����.
 				//
-				
+
 				char * sz_chat_str = NULL;
-				g_Convert_DBCS_Ascii2SingleByte(m_lev_chatting.GetStringWide(), m_lev_chatting.Size(), sz_chat_str);
+				// Use UTF-8 directly instead of converting through UTF-16
+				// GetString() returns UTF-8 encoded string
+				const char* utf8_str = m_lev_chatting.GetString();
+				if (utf8_str) {
+					int len = static_cast<int>(strlen(utf8_str));
+					sz_chat_str = new char[len + 1];
+					strcpy(sz_chat_str, utf8_str);
+				}
 
 				// Ÿ���� �ߴ� ���� ����ϱ�
 				if(m_history.size() == m_history_line)
@@ -6644,11 +6651,17 @@ bool C_VS_UI_CHATTING::AddWhisperID(const char *sz_ID)
 		m_sz_whisper_id.erase(m_sz_whisper_id.begin());
 	
 	char szTemp[512];
-	
-	strcpy(szTemp, sz_ID);
-	
-	for(int i = 0; i < 11 && szTemp[i] != ' ' && szTemp[i] != '\0'; i++);
-	szTemp[i] = '\0';
+
+	strncpy(szTemp, sz_ID, 511);
+	szTemp[511] = '\0';
+
+	// Find first space or null terminator, but limit to 11 characters
+	for(i = 0; i < 11 && szTemp[i] != '\0' && szTemp[i] != ' '; i++);
+
+	// Only terminate if i is within bounds
+	if (i < 512) {
+		szTemp[i] = '\0';
+	}
 	
 	
 	std::string temp = szTemp;

@@ -19,6 +19,8 @@
 #include "MGameStringTable.H"
 #include "ClientConfig.H"
 #include "MNpcTable.h"
+#include "TextSystem/TextService.h"
+#include "TextSystem/RenderTargetSpriteSurface.h"
 extern RECT g_GameRect;
 #include <algorithm>
 
@@ -1187,7 +1189,23 @@ void	C_VS_UI_NPC_DIALOG::Show()
 
 			char* str = m_name.GetString();
 			
-			if(str && strcmp(str, ""))g_PrintColorStr(_x + m_p_NPCFace[0].GetWidth()/2 - g_GetStringWidth(str, gpC_base->m_dialog_menu_pi.hfont)/2, _y + m_p_NPCFace[0].GetHeight()+10, str, gpC_base->m_info_pi, RGB_WHITE);
+			if(str && strcmp(str, ""))
+			{
+				TextSystem::TextService& textService = TextSystem::TextService::Get();
+				TextSystem::TextStyle nameStyle = textService.GetDefaultStyle();
+				nameStyle.color = TextSystem::ColorFromRGB(0xFFFFFF);
+				nameStyle.align = TextSystem::TextAlign::Center;
+
+				TextSystem::SpriteSurfaceRenderTarget target(gpC_base->m_p_DDSurface_back);
+				textService.DrawLine(
+					target,
+					str,
+					_x,
+					_y + m_p_NPCFace[0].GetHeight()+10,
+					m_p_NPCFace[0].GetWidth(),
+					nameStyle
+				);
+			}
 		}
 	}
 }
@@ -3372,4 +3390,3 @@ int		C_VS_UI_FILE_DIALOG::GetMode()
 {
 	return m_mode;
 }
-

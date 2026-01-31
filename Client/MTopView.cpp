@@ -21,6 +21,7 @@
 #include "DX3D.h"
 #else
 #include "DX3D.h"  // Also include on non-Windows platforms for stub definitions
+#include "TextSystem/TextService.h"
 #endif
 #include <math.h>
 #include <list>
@@ -9540,8 +9541,8 @@ MTopView::DrawItemNameList()
 		DRAWITEMNAME_NODE* pNode = *iItemName;
 
 		MItem* pItem = pNode->GetItem();
-	
-		
+
+
 		const char* pItemName = pItem->GetName();
 
 		// optionÀÌ ºÙÀº°Å´Â ÆÄ¶õ»ö..

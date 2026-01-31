@@ -4089,24 +4089,21 @@ CGameUpdate::ProcessInput()
 			else if (pObject->GetObjectType()==MObject::TYPE_ITEM)
 			{
 				MItem* pItem = (MItem*)pObject;
-				MCorpse* pCorpse = (MCorpse*) pItem;
-				MCreature* pCreature = pCorpse->GetCreature();
-				
+
 				if(g_pZone != NULL && pItem != NULL )
 				{
 					// ½½·¹ÀÌ¾î¸é ¾ÈµÇ°Ô
 					// ¹ìÆÄÀÌ¾î¸é creature Ã£¾Æ¼­ ¼º¹°ÀÎ°æ¿ì¸¸
 
-					if(!g_pZone->GetSector(pItem->GetX(), pItem->GetY()).HasDarkness() || 
+					if(!g_pZone->GetSector(pItem->GetX(), pItem->GetY()).HasDarkness() ||
 						g_pZone->GetSector(pItem->GetX(), pItem->GetY()).HasDarkness() && g_pPlayer->IsVampire() && g_pZone->GetID() != 3001||
-						g_pZone->GetSector(pItem->GetX(), pItem->GetY()).HasDarkness() && !g_pPlayer->IsVampire() && 
-						g_pPlayer->HasEffectStatus( EFFECTSTATUS_LIGHTNESS ) && g_pZone->GetID() != 3001						
+						g_pZone->GetSector(pItem->GetX(), pItem->GetY()).HasDarkness() && !g_pPlayer->IsVampire() &&
+						g_pPlayer->HasEffectStatus( EFFECTSTATUS_LIGHTNESS ) && g_pZone->GetID() != 3001
 						|| g_pPlayer->HasEffectStatus( EFFECTSTATUS_GHOST )
 #ifdef __METROTECH_TEST__
 						|| g_bLight
 #endif
-						)// &&
-						//pCreature != NULL && pCreature->GetCreatureType() >= 526 && pCreature->GetCreatureType() <= 549)
+						)
 					{
 						g_pTopView->SetSelectedItem( pItem->GetID() );			
 						
@@ -5577,7 +5574,7 @@ CGameUpdate::UpdateDraw()
 				{
 					if (!CDirect3D::IsHAL())
 					{
-						g_SetFL2Surface( g_pBack->GetSurface() );
+						g_SetFL2Surface( g_pBack );
 					}
 
 					const COLORREF color = RGB(28<<3, 28<<3, 28<<3);				
@@ -5592,7 +5589,7 @@ CGameUpdate::UpdateDraw()
 
 					if (!CDirect3D::IsHAL())
 					{
-						g_SetFL2Surface( g_pLast->GetSurface() );
+						g_SetFL2Surface( g_pLast );
 					}
 				}
 			}
@@ -5605,7 +5602,7 @@ CGameUpdate::UpdateDraw()
 
 			if (!CDirect3D::IsHAL())
 			{
-				g_SetFL2Surface( g_pBack->GetSurface() );
+				g_SetFL2Surface( g_pBack );
 			}
 
 			///*
@@ -5725,7 +5722,7 @@ CGameUpdate::UpdateDraw()
 
 			if (!CDirect3D::IsHAL())
 			{
-				g_SetFL2Surface( g_pLast->GetSurface() );
+				g_SetFL2Surface( g_pLast );
 			}
 		}
 	#endif

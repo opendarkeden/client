@@ -152,48 +152,4 @@ void CI_CHINESE::IME_Composition()
 	/* Stub: Chinese IME not implemented on macOS */
 }
 
-//----------------------------------------------------------------------------
-// g_GetStringByMoney - Format money string with Korean units (억/만)
-// Extracted from Fl2.cpp for macOS support
-//----------------------------------------------------------------------------
-std::string g_GetStringByMoney(DWORD dwMoney)
-{
-	char TempBuffer[32] = {0,};
-	std::string sstr;
-	DWORD TempMoney = 0;
-
-	if(dwMoney >= 100000000)
-	{
-		TempMoney = dwMoney / 100000000;
-		if(TempMoney)
-		{
-			sprintf(TempBuffer, "%d억", (int)TempMoney);
-			sstr += TempBuffer;
-		}
-	}
-
-	if(dwMoney >= 10000)
-	{
-		TempMoney = (dwMoney % 100000000) / 10000;
-		if(TempMoney)
-		{
-			sprintf(TempBuffer, "%d만", (int)TempMoney);
-			sstr += TempBuffer;
-		}
-	}
-
-	TempMoney = dwMoney % 10000;
-	if(TempMoney)
-	{
-		sprintf(TempBuffer, "%d", (int)TempMoney);
-		sstr += TempBuffer;
-	}
-
-	if(sstr.empty())
-	{
-		sprintf(TempBuffer, "0");
-		sstr += TempBuffer;
-	}
-
-	return sstr;
-}
+// g_GetStringByMoney is provided by RenderingFunctions.cpp for SDL builds.

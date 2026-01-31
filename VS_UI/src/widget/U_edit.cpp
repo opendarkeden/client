@@ -1,15 +1,15 @@
 #include "U_edit.h"
 #include "../hangul/CI.h"
+#include "../InputFocusManager.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 
 #ifdef PLATFORM_MACOS
 #include <SDL2/SDL.h>
-#include "../../../Client/TextLib/CGlyphCache.h"
-#include "../../../Client/TextLib/CTextLayout.h"
-#include "../../../Client/ClientDef.h"  // For g_pBack
-#include "../../../Client/SpriteLib/CSpriteSurface.h"  // For GetBackendSurface()
+#include "../../../Client/TextSystem/TextService.h"
+#include "../../../Client/TextSystem/RenderTargetSpriteSurface.h"
+#include "../../../Client/SpriteLib/CSpriteSurface.h"
 #endif
 
 // Forward declare FL2 functions (defined in hangul/FL2.cpp)
@@ -150,6 +150,12 @@ void LineEditor::DeleteChar(int offset)
 	        (m_TextLen - offset - 1) * sizeof(uint32_t));
 
 	m_TextLen--;
+
+	// Adjust cursor position if it was after the deleted character
+	if (m_CursorPos > offset) {
+		m_CursorPos--;
+	}
+	// Also ensure cursor doesn't go beyond text length
 	if (m_CursorPos > m_TextLen) {
 		m_CursorPos = m_TextLen;
 	}
@@ -159,8 +165,8 @@ void LineEditor::DeleteChar(int offset)
 void LineEditor::Backspace()
 {
 	if (m_CursorPos > 0) {
+		// DeleteChar will handle cursor adjustment
 		DeleteChar(m_CursorPos - 1);
-		m_CursorPos--;
 	}
 }
 
@@ -368,20 +374,17 @@ LineEditorVisual::LineEditorVisual()
 
 LineEditorVisual::~LineEditorVisual()
 {
-#ifdef PLATFORM_MACOS
-	if (m_GlyphCache) {
-		delete (CGlyphCache*)m_GlyphCache;
-		m_GlyphCache = NULL;
+	// Clear focus from InputFocusManager if this editor was focused
+	if (InputFocusManager::GetInstance().GetFocusedEditor() == this) {
+		InputFocusManager::GetInstance().SetFocusedEditor(NULL);
 	}
-	if (m_Layout) {
-		delete (CTextLayout*)m_Layout;
-		m_Layout = NULL;
-	}
-#endif
 }
 
 void LineEditorVisual::Acquire()
 {
+	// Register this editor as the focused editor
+	InputFocusManager::GetInstance().SetFocusedEditor(this);
+
 	m_Editor.Acquire();
 	m_bAcquired = true;
 
@@ -393,6 +396,11 @@ void LineEditorVisual::Acquire()
 
 void LineEditorVisual::Unacquire()
 {
+	// Release focus if this editor was focused
+	if (InputFocusManager::GetInstance().GetFocusedEditor() == this) {
+		InputFocusManager::GetInstance().SetFocusedEditor(NULL);
+	}
+
 	m_Editor.Unacquire();
 	m_bAcquired = false;
 
@@ -441,190 +449,40 @@ bool LineEditorVisual::ReachSizeOfBox() const
 	return (len * DEFAULT_FONT_SIZE) >= m_MaxWidth;
 }
 
-// Compatibility method: convert UTF-8 to wide string (char_t)
+// Compatibility method: convert UTF-32 to wide string (char_t/UTF-16LE)
 const char_t* LineEditorVisual::GetStringWide() const
 {
 	static char_t wide_buffer[LineEditor::MAX_TEXT];
-	const char* utf8 = m_Editor.GetString();
+	int wide_len = 0;
 
-	// Simple UTF-8 to char_t conversion (ASCII only for now)
-	int len = strlen(utf8);
-	for (int i = 0; i < len && i < LineEditor::MAX_TEXT - 1; i++) {
-		wide_buffer[i] = (char_t)(unsigned char)utf8[i];
+	// Convert directly from UTF-32 (m_Text) to UTF-16 (char_t)
+	for (int i = 0; i < m_Editor.m_TextLen && wide_len < LineEditor::MAX_TEXT - 1; i++) {
+		uint32_t c = m_Editor.m_Text[i];
+
+		// UTF-32 to UTF-16 conversion
+		if (c < 0x10000) {
+			// BMP character - single UTF-16 code unit
+			wide_buffer[wide_len++] = (char_t)c;
+		} else if (c < 0x10FFFF) {
+			// Supplementary plane - surrogate pair
+			if (wide_len + 1 >= LineEditor::MAX_TEXT - 1) break;
+
+			c -= 0x10000;
+			wide_buffer[wide_len++] = (char_t)(0xD800 + (c >> 10));      // High surrogate
+			wide_buffer[wide_len++] = (char_t)(0xDC00 + (c & 0x3FF));    // Low surrogate
+		} else {
+			// Invalid Unicode - use replacement character
+			wide_buffer[wide_len++] = (char_t)0xFFFD;
+		}
 	}
-	wide_buffer[len] = 0;
+
+	wide_buffer[wide_len] = 0;
 
 	return wide_buffer;
 }
 
 void LineEditorVisual::Show() const
 {
-#ifdef PLATFORM_MACOS
-	// Try Font Atlas rendering first
-	CGlyphCache* cache = (CGlyphCache*)m_GlyphCache;
-	CTextLayout* layout = (CTextLayout*)m_Layout;
-
-	// Lazy initialization: create Font Atlas on first use
-	if (!cache && g_pSDLRenderer) {
-		// Try to find a font file
-		const char* fontPaths[] = {
-			"Data/Font/Hiragino Sans GB.ttc",
-			"Data/Font/NotoSansCJK-Regular.ttc",
-			"Data/Font/NotoSans-Regular.ttf",
-			"Data/Font/DejaVuSans.ttf",
-			"/System/Library/Fonts/Helvetica.ttc",
-			"/System/Library/Fonts/Hiragino Sans GB.ttc",
-			NULL
-		};
-
-		for (int i = 0; fontPaths[i] != NULL; i++) {
-			// Create glyph cache
-			cache = new CGlyphCache();
-			if (cache->Init(fontPaths[i], 16)) {
-				// Success! Keep the cache
-				// Also create layout
-				layout = new CTextLayout();
-				// Cast away const for lazy initialization
-				const_cast<LineEditorVisual*>(this)->m_GlyphCache = cache;
-				const_cast<LineEditorVisual*>(this)->m_Layout = layout;
-				printf("LineEditorVisual::Show: Initialized Font Atlas with %s\n", fontPaths[i]);
-				break;
-			} else {
-				delete cache;
-				cache = NULL;
-			}
-		}
-
-		if (!cache) {
-			printf("LineEditorVisual::Show: Failed to initialize Font Atlas, falling back to g_Print()\n");
-		}
-	}
-
-	// If Font Atlas is available, use it for rendering
-	if (cache && layout) {
-		// Get text content
-		const char* textToDisplay = m_Editor.GetBuffer();
-
-//		printf("DEBUG LineEditorVisual::Show: textToDisplay='%s', len=%zu, m_LayoutDirty=%d\n",
-//			   textToDisplay, strlen(textToDisplay), m_LayoutDirty);
-//		printf("DEBUG LineEditorVisual::Show: Position m_X=%d, m_Y=%d\n", m_X, m_Y);
-
-		// Handle password mode
-		char displayBuffer[1024];
-		if (m_bPasswordMode) {
-			int len = strlen(textToDisplay);
-			for (int i = 0; i < len && i < (int)sizeof(displayBuffer) - 1; i++) {
-				displayBuffer[i] = '*';
-			}
-			displayBuffer[len] = '\0';
-			textToDisplay = displayBuffer;
-		}
-
-		// Update layout (always update for now, since text may have changed)
-		layout->Update(textToDisplay, cache, m_MaxWidth);
-		const_cast<LineEditorVisual*>(this)->m_LayoutDirty = false;
-
-		// Get glyphs from layout
-		const std::vector<GlyphPosition>& glyphs = layout->GetGlyphs();
-//		printf("DEBUG LineEditorVisual::Show: glyphs.size()=%zu\n", glyphs.size());
-
-		// Get destination surface (g_pLast, where UI renders)
-		// NOTE: UI renders to g_pLast, then g_pLast is copied to g_pBack before present
-		spritectl_surface_t destSurface = g_pLast->GetBackendSurface();
-//		printf("DEBUG LineEditorVisual::Show: destSurface=%p (g_pLast=%p), g_pBack=%p\n",
-//			   destSurface, g_pLast, g_pBack);
-
-		if (destSurface != SPRITECTL_INVALID_SURFACE) {
-			// TEST: Draw a white rectangle to verify blt is working
-			spritectl_surface_info_t info;
-			if (spritectl_lock_surface(destSurface, &info) == 0) {
-//				printf("DEBUG: Surface %dx%d, pitch=%d, format=%d\n",
-//					   info.width, info.height, info.pitch, info.format);
-
-				// Draw a white 50x20 rectangle at (m_X, m_Y)
-				uint32_t* pixels = (uint32_t*)info.pixels;
-				int rectW = 50, rectH = 20;
-				for (int dy = 0; dy < rectH && (m_Y + dy) < info.height; dy++) {
-					for (int dx = 0; dx < rectW && (m_X + dx) < info.width; dx++) {
-						int px = m_X + dx;
-						int py = m_Y + dy;
-						if (px >= 0 && py >= 0) {
-							// Set to white (0xFFFFFFFF in RGBA32)
-							pixels[py * info.pitch / 4 + px] = 0xFFFFFFFF;
-						}
-					}
-				}
-				spritectl_unlock_surface(destSurface);
-//				printf("DEBUG: Drew white rectangle at (%d,%d) size %dx%d\n", m_X, m_Y, rectW, rectH);
-			}
-
-			// Render each glyph using spritectl_blt_sprite
-			int bltCount = 0;
-			for (const auto& pos : glyphs) {
-				if (!pos.glyph) continue;
-
-				// Calculate screen position
-				int screenX = m_X + pos.x;
-				int screenY = m_Y + pos.y + cache->GetFontAscent();  // Baseline adjustment
-
-				// Verify sprite is valid before blt
-				if (pos.glyph->sprite == SPRITECTL_INVALID_SPRITE) {
-					fprintf(stderr, "ERROR: Invalid sprite for charcode 0x%X\n", pos.glyph->charcode);
-					continue;
-				}
-
-				// Blt glyph to surface (no alpha blending for now)
-				int result = spritectl_blt_sprite(
-					destSurface,
-					screenX,
-					screenY,
-					pos.glyph->sprite,
-					SPRITECTL_BLT_NONE,  // No alpha blending
-					255  // Full opacity
-				);
-
-				if (result != 0) {
-					fprintf(stderr, "%s:%d ERROR: spritectl_blt_sprite failed for charcode 0x%X, result=%d\n",
-                            __FILE__, __LINE__,
-							pos.glyph->charcode, result);
-				} else {
-					bltCount++;
-				}
-			}
-//			printf("DEBUG LineEditorVisual::Show: Blitted %d/%zu glyphs successfully\n", bltCount, glyphs.size());
-		} else {
-			fprintf(stderr, "%s:%d LineEditorVisual::Show: Invalid destination surface\n", __FILE__, __LINE__);
-		}
-
-		// Draw cursor using g_Print (simpler than creating line sprites)
-		if (m_Editor.m_bAcquired && gC_ci != NULL && gC_ci->GetCursorBlink()) {
-			// Calculate cursor X position
-			int cursorX = m_X;
-			if (m_Editor.m_CursorPos > 0 && m_Editor.m_CursorPos <= (int)glyphs.size()) {
-				cursorX = m_X + glyphs[m_Editor.m_CursorPos - 1].x +
-				          glyphs[m_Editor.m_CursorPos - 1].glyph->advance_x;
-			}
-
-			// Draw cursor using g_Print
-			PrintInfo cursorPI = m_PrintInfo;
-			cursorPI.text_color = m_CursorColor;
-
-			if (m_Editor.m_ComposingLen > 0) {
-				// During IME composition, show underline-style cursor
-//				g_Print(cursorX, m_Y + 2, "_", &cursorPI);
-			} else {
-				// Normal block cursor
-//				g_Print(cursorX, m_Y - 1, "▊", &cursorPI);
-			}
-		}
-
-		return;  // Done with Font Atlas rendering
-	}
-
-	// Fallback to g_Print() if Font Atlas is not available
-#endif
-
-	// Original g_Print() implementation (fallback)
 	// Get the text to display (as UTF-8)
 	const char* textToDisplay = m_Editor.GetBuffer();
 
@@ -639,7 +497,67 @@ void LineEditorVisual::Show() const
 		textToDisplay = displayBuffer;
 	}
 
-	// Render the text using FL2's g_Print function
+#ifdef PLATFORM_MACOS
+	// Use TextService for unified rendering
+	extern CSpriteSurface* g_pLast;
+
+	// Build text style from PrintInfo
+	TextSystem::TextStyle style;
+	style.font = TextSystem::TextService::Get().GetFont(14);  // Default font size
+	style.align = TextSystem::TextAlign::Left;
+	style.lineSpacing = 0;
+	style.color = TextSystem::ColorFromRGB(m_PrintInfo.text_color);
+	style.color.a = 255;
+
+	// Create render target
+	TextSystem::SpriteSurfaceRenderTarget target(g_pLast);
+
+	// Render text
+	// Note: TextService::DrawLine expects baseline position, but it adds GetFontAscent() internally
+	// So we pass m_Y directly as the baseline position
+	TextSystem::TextService::Get().DrawLine(target, textToDisplay, m_X, m_Y, m_MaxWidth, style);
+
+	// Draw cursor if editor is acquired and cursor blink is on
+	if (m_Editor.m_bAcquired && gC_ci != NULL && gC_ci->GetCursorBlink()) {
+		// Calculate cursor X position using TextService
+		int cursorX = m_X;
+		if (m_Editor.m_CursorPos > 0) {
+			// Get text before cursor
+			char cursorBuffer[1024];
+			const char* fullText = textToDisplay;
+
+			// Convert cursor position (characters) to byte position
+			int bytePos = 0;
+			int charPos = 0;
+			while (charPos < m_Editor.m_CursorPos && fullText[bytePos] != '\0') {
+				if ((fullText[bytePos] & 0xC0) != 0x80) {  // Not a continuation byte
+					charPos++;
+				}
+				bytePos++;
+			}
+
+			strncpy(cursorBuffer, fullText, bytePos);
+			cursorBuffer[bytePos] = '\0';
+
+			// Measure text width using TextService
+			TextSystem::Metrics metrics = TextSystem::TextService::Get().MeasureText(cursorBuffer, style, 0);
+			cursorX = m_X + metrics.width;
+		}
+
+		// Draw cursor
+		PrintInfo cursorPI = m_PrintInfo;
+		cursorPI.text_color = m_CursorColor;
+
+		if (m_Editor.m_ComposingLen > 0) {
+			// During IME composition, show underline-style cursor
+			g_Print(cursorX, m_Y + 2, "_", &cursorPI);
+		} else {
+			// Normal block cursor
+			g_Print(cursorX, m_Y - 1, "▊", &cursorPI);
+		}
+	}
+#else
+	// Windows: Use legacy g_Print() for now
 	g_Print(m_X, m_Y, textToDisplay, (void*)NULL);
 
 	// Draw cursor
@@ -668,20 +586,9 @@ void LineEditorVisual::Show() const
 		// Draw cursor using text rendering
 		PrintInfo cursorPI = m_PrintInfo;
 		cursorPI.text_color = m_CursorColor;
-
-#ifdef PLATFORM_MACOS
-		if (m_Editor.m_ComposingLen > 0) {
-			// During IME composition, show underline-style cursor
-			g_Print(cursorX, m_Y + 2, "_", &cursorPI);
-		} else {
-			// Normal block cursor
-			g_Print(cursorX, m_Y - 1, "▊", &cursorPI);
-		}
-#else
-		// Windows: simple vertical bar
 		g_Print(cursorX, m_Y - 2, "|", &cursorPI);
-#endif
 	}
+#endif
 }
 
 Point LineEditorVisual::GetPosition() const

@@ -57,6 +57,11 @@ class MString {
 		virtual void	SaveToFile(std::ofstream& file);
 		virtual void	LoadFromFile(std::ifstream& file);
 
+		//----------------------------------------------------
+		// Internal
+		//----------------------------------------------------
+		void			ConvertToUTF8IfNeeded();	// NOTE: Now a no-op - resource files should be UTF-8
+
 	protected :
 		size_t	m_Length;
 		char*	m_pString;

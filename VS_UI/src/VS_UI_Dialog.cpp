@@ -10,6 +10,8 @@
 #include "VS_UI_description.h"
 #include "ClientFunction.h"
 #include "UserOption.h"
+#include "TextSystem/TextService.h"
+#include "TextSystem/RenderTargetSpriteSurface.h"
 
 #include "mgamestringtable.h"
 #include "UserInformation.h"
@@ -522,6 +524,10 @@ void C_VS_UI_DIALOG::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 		if (m_menu_rect.w != 0 && m_menu_rect.h != 0)
 		{
 			PrintInfo * p_pi;
+			TextSystem::TextService& textService = TextSystem::TextService::Get();
+			TextSystem::SpriteSurfaceRenderTarget target(gpC_base->m_p_DDSurface_back);
+			TextSystem::TextStyle menuStyle = textService.GetDefaultStyle();
+			menuStyle.align = TextSystem::TextAlign::Left;
 			
 			// �޴� �̵��� ���� ��ư ��ǥ ���� ��
 			int y_skip_line=0;
@@ -539,6 +545,7 @@ void C_VS_UI_DIALOG::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 				gpC_base->m_dialog_menu_pi.text_color = RGB(180, 180, 255);
 
 				p_pi = &gpC_base->m_dialog_menu_pi;
+				menuStyle.color = TextSystem::ColorFromCOLORREF(gpC_base->m_dialog_menu_pi.text_color);
 
 				// arrow^^
 //				gpC_global_resource->m_pC_assemble_box_etc_spk->Blt(p_button->x-15, p_button->y+1, C_GLOBAL_RESOURCE::AB_RIGHT_ARROW);
@@ -551,6 +558,7 @@ void C_VS_UI_DIALOG::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 				gpC_base->m_dialog_menu_pi.text_color = RGB_WHITE;
 
 				p_pi = &gpC_base->m_dialog_menu_pi;
+				menuStyle.color = TextSystem::ColorFromCOLORREF(gpC_base->m_dialog_menu_pi.text_color);
 			}
 			
 			if (p_button->GetFocusState() && p_button->GetPressState())
@@ -560,13 +568,18 @@ void C_VS_UI_DIALOG::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 
 				if(!m_p_menu[p_button->m_image_index].sz_menu_str.empty())
 				{
-					g_FL2_GetDC();
 					for(i=0; i < m_p_menu[p_button->m_image_index].sz_menu_str.size(); i++)
 					{
 						if(p_button->y-i*TEXT_EXTRA_HGAP-y_skip_line+m_menu_str_height*i<m_menu_rect.y+m_menu_rect.h)
-							g_Print(p_button->x, p_button->y+6 +m_menu_str_height*i - TEXT_EXTRA_HGAP*i-y_skip_line, m_p_menu[p_button->m_image_index].sz_menu_str[i].c_str(), p_pi);
+							textService.DrawLine(
+								target,
+								m_p_menu[p_button->m_image_index].sz_menu_str[i].c_str(),
+								p_button->x,
+								p_button->y+6 +m_menu_str_height*i - TEXT_EXTRA_HGAP*i-y_skip_line,
+								m_menu_rect.w,
+								menuStyle
+							);
 					}
-					g_FL2_ReleaseDC();
 				}
 			}
 			else
@@ -583,7 +596,6 @@ void C_VS_UI_DIALOG::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 				}
 				if(!m_p_menu[p_button->m_image_index].sz_menu_str.empty())
 				{
-					g_FL2_GetDC();
 					for(i=0; i < m_p_menu[p_button->m_image_index].sz_menu_str.size(); i++)
 					{
 						// ������ �����ش�.
@@ -591,10 +603,16 @@ void C_VS_UI_DIALOG::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 						{
 							//m_p_menu[p_button->m_image_index].sz_menu_str[i].c_str()
 							if(m_p_menu != NULL && p_button->m_image_index < m_menu_count && i <= m_p_menu[p_button->m_image_index].sz_menu_str.size() && m_p_menu[p_button->m_image_index].sz_menu_str[i].size() > 0)
-								g_Print(p_button->x, p_button->y+4 +m_menu_str_height*i - TEXT_EXTRA_HGAP*i-y_skip_line, m_p_menu[p_button->m_image_index].sz_menu_str[i].c_str(), p_pi);
+								textService.DrawLine(
+									target,
+									m_p_menu[p_button->m_image_index].sz_menu_str[i].c_str(),
+									p_button->x,
+									p_button->y+4 +m_menu_str_height*i - TEXT_EXTRA_HGAP*i-y_skip_line,
+									m_menu_rect.w,
+									menuStyle
+								);
 						}
 					}
-					g_FL2_ReleaseDC();
 				}
 			}
 		}
@@ -682,6 +700,14 @@ void C_VS_UI_DIALOG::Show()
 	gpC_base->m_p_DDSurface_back->Lock();
 	if (m_msg_rect.h != 0 && !m_vs_msg.empty())
 	{
+		TextSystem::TextService& textService = TextSystem::TextService::Get();
+		TextSystem::SpriteSurfaceRenderTarget target(gpC_base->m_p_DDSurface_back);
+		TextSystem::TextStyle msgStyle = textService.GetDefaultStyle();
+		msgStyle.color = TextSystem::ColorFromCOLORREF(gpC_base->m_dialog_msg_pi.text_color);
+		msgStyle.align = TextSystem::TextAlign::Left;
+
+		const int lineHeight = textService.GetLineHeight(msgStyle) + MSG_EXTRA_HGAP;
+
 		if (m_message_mode == SMO_FIT)
 		{
 			int line;
@@ -715,13 +741,17 @@ void C_VS_UI_DIALOG::Show()
 				scrolled = m_pC_msg_scroll_bar->GetScrollPos();
 
 			gpC_base->m_p_DDSurface_back->Unlock();
-			g_FL2_GetDC();
-			for (i=0; i < line; i++)
-				g_Print(m_msg_rect.x, 
-						  m_msg_rect.y+(g_GetStringHeight(m_vs_msg[i+scrolled].c_str(), gpC_base->m_dialog_msg_pi.hfont)+MSG_EXTRA_HGAP)*i, 
-						  m_vs_msg[i+scrolled].c_str(),
-						  &gpC_base->m_dialog_msg_pi);
-			g_FL2_ReleaseDC();
+			textService.DrawLines(
+				target,
+				m_vs_msg,
+				m_msg_rect.x,
+				m_msg_rect.y,
+				m_msg_rect.w,
+				line,
+				scrolled,
+				msgStyle,
+				lineHeight
+			);
 		}
 		else
 		{
@@ -729,13 +759,18 @@ void C_VS_UI_DIALOG::Show()
 			m_line_count=m_vs_msg.size();
 			if (m_line_count <= m_print_line_count)
 			{
-				g_FL2_GetDC();
-				for (i=0; i < m_line_count; i++)
-					g_Print(m_msg_rect.x+m_msg_rect.w/2-g_GetStringWidth(m_vs_msg[i].c_str(), gpC_base->m_dialog_msg_pi.hfont)/2,
-							  m_nofit_mode_msg_y+(g_GetStringHeight(m_vs_msg[i].c_str(), gpC_base->m_dialog_msg_pi.hfont)+MSG_EXTRA_HGAP)*i, 
-							  m_vs_msg[i].c_str(), 
-							  &gpC_base->m_dialog_msg_pi);
-				g_FL2_ReleaseDC();
+				msgStyle.align = TextSystem::TextAlign::Center;
+				textService.DrawLines(
+					target,
+					m_vs_msg,
+					m_msg_rect.x,
+					m_nofit_mode_msg_y,
+					m_msg_rect.w,
+					m_line_count,
+					0,
+					msgStyle,
+					lineHeight
+				);
 			}
 		}
 
@@ -854,33 +889,20 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 		return;
 
 	m_message_mode = mode;
-	
-	
+	m_vs_msg.clear();
+	TextSystem::TextService& textService = TextSystem::TextService::Get();
+	TextSystem::TextStyle msgStyle = textService.GetDefaultStyle();
+	msgStyle.color = TextSystem::ColorFromCOLORREF(gpC_base->m_dialog_msg_pi.text_color);
+
 	for(int i = 0; i < line_count; i++)
 	{
-		char test[2] = " ";
-		int font_w = g_GetStringWidth(test, gpC_base->m_dialog_msg_pi.hfont);
-		int row = m_client_rect.w / font_w+3;
+		if (sz_msg[i] == NULL)
+			continue;
 
-		char sz_temp[4048];
-		char *cur = sz_temp;
-		char char_temp;
-
-		strcpy(sz_temp, sz_msg[i]);
-
-		while(1)
+		std::vector<std::string> wrapped = textService.WrapText(sz_msg[i], msgStyle, m_client_rect.w);
+		for (size_t w = 0; w < wrapped.size(); ++w)
 		{
-			int check;
-			if(g_PossibleStringCut(cur, row))check = 0; else check = 1;
-
-			char_temp = cur[row - check];
-			cur[row - check] = '\0';
-			m_vs_msg.push_back( cur );
-
-			if(strlen(cur) < row-check) break;
-			cur += row-check;
-			*cur = char_temp;
-			if(*cur == ' ')cur++;
+			m_vs_msg.push_back(wrapped[w]);
 		}
 	}
 
@@ -889,7 +911,7 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 	else
 		m_line_count=0;
 
-	int m_message_str_height = g_GetStringHeight(m_vs_msg[0].c_str(), gpC_base->m_dialog_msg_pi.hfont)+MSG_EXTRA_HGAP;
+	int m_message_str_height = textService.GetLineHeight(msgStyle) + MSG_EXTRA_HGAP;
 
 	const int _EXTRA = 30;//2;
 	if(h == -1)
@@ -914,8 +936,14 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 			if(!m_p_menu[i].sz_menu_str.empty())
 			{
 				height = m_p_menu[i].sz_menu_str.size();
-				if(m_p_menu[i].sz_menu_str.size() > 1)width = m_menu_rect.w;
-				else width = g_GetStringWidth(m_p_menu[i].sz_menu_str[0].c_str(), gpC_base->m_dialog_menu_pi.hfont);
+				if(m_p_menu[i].sz_menu_str.size() > 1) {
+					width = m_menu_rect.w;
+				} else {
+					TextSystem::TextStyle menuStyle = textService.GetDefaultStyle();
+					menuStyle.color = TextSystem::ColorFromCOLORREF(gpC_base->m_dialog_menu_pi.text_color);
+					TextSystem::Metrics menuMetrics = textService.MeasureText(m_p_menu[i].sz_menu_str[0], menuStyle, 0);
+					width = menuMetrics.width;
+				}
 			}
 			else 
 			{
@@ -971,29 +999,13 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 		m_vs_msg.clear();
 		for(int i = 0; i < line_count; i++)
 		{
-			char test[2] = " ";
-			int font_w = g_GetStringWidth(test, gpC_base->m_dialog_msg_pi.hfont);
-			int row = m_client_rect.w / font_w;
-			
-			char sz_temp[4048];
-			char *cur = sz_temp;
-			char char_temp;
-			
-			strcpy(sz_temp, sz_msg[i]);
-			
-			while(1)
+			if (sz_msg[i] == NULL)
+				continue;
+
+			std::vector<std::string> wrapped = textService.WrapText(sz_msg[i], msgStyle, m_client_rect.w);
+			for (size_t w = 0; w < wrapped.size(); ++w)
 			{
-				int check;
-				if(g_PossibleStringCut(cur, row))check = 0; else check = 1;
-				
-				char_temp = cur[row - check];
-				cur[row - check] = '\0';
-				m_vs_msg.push_back( cur );
-				
-				if(strlen(cur) < row-check) break;
-				cur += row-check;
-				*cur = char_temp;
-				if(*cur == ' ')cur++;
+				m_vs_msg.push_back(wrapped[w]);
 			}
 		}
 		m_line_count = m_vs_msg.size();
@@ -1076,52 +1088,18 @@ void C_VS_UI_DIALOG::SetMenu(const DIALOG_MENU * p_dialog_menu, UINT menu_count,
 
 	m_p_menu = new DIALOG_MENU_INNER[m_menu_count];
 
+	TextSystem::TextService& textService = TextSystem::TextService::Get();
+	TextSystem::TextStyle menuStyle = textService.GetDefaultStyle();
+	menuStyle.color = TextSystem::ColorFromCOLORREF(gpC_base->m_dialog_menu_pi.text_color);
+	const int menuWrapWidth = m_client_rect.w - 20;
+
 	// Menu ���� �Ѿ�°� �ڸ���.
 	for (i=0; i < m_menu_count; i++)
 	{
 		m_p_menu[i].exec_id = p_dialog_menu[i].exec_id;
-
-		char test[2] = " ";
-		int font_w = g_GetStringWidth(test, gpC_base->m_dialog_menu_pi.hfont);
-
-		if(0 == font_w) continue;
-		assert(font_w!=0);
-		
-		int row = (m_client_rect.w / font_w)-2;
-
-		assert(row > 0);
-
-		char sz_temp[2048];
-		char *cur = sz_temp;
-		char char_temp;
-
-		strcpy(sz_temp, p_dialog_menu[i].sz_menu_str);
-
-		while (*cur!='\0')
-		{
-			int check;
-
-			if (g_PossibleStringCut(cur, row))
-				check = 0; 
-			else 
-				check = 1;
-
-			int cutLen = row-check;
-			assert( cutLen > 0 && cutLen < 2048 );
-
-			char* pCut = cur+cutLen;
-			
-			char_temp = *pCut;
-			*pCut = '\0';
-			m_p_menu[i].sz_menu_str.push_back( cur );
-
-			*pCut = char_temp;
-
-			int size = strlen(cur)-1;
-			if (strlen(cur) <= cutLen) break;
-			cur += cutLen;
-			
-			while (*cur == ' ') cur++;
+		std::vector<std::string> wrapped = textService.WrapText(p_dialog_menu[i].sz_menu_str, menuStyle, menuWrapWidth);
+		for (size_t w = 0; w < wrapped.size(); ++w) {
+			m_p_menu[i].sz_menu_str.push_back(wrapped[w]);
 		}
 	}
 
@@ -1134,7 +1112,7 @@ void C_VS_UI_DIALOG::SetMenu(const DIALOG_MENU * p_dialog_menu, UINT menu_count,
 	//	m_menu_str_height;
 
 	if(!m_p_menu[0].sz_menu_str.empty())
-		m_menu_str_height = g_GetStringHeight(m_p_menu[0].sz_menu_str[0].c_str(), gpC_base->m_dialog_menu_pi.hfont)+2+TEXT_EXTRA_HGAP;
+		m_menu_str_height = textService.GetLineHeight(menuStyle) + 2 + TEXT_EXTRA_HGAP;
 	
 	m_menu_rect.x = m_client_rect.x+20;
 	m_menu_rect.w = m_client_rect.w-20;
@@ -1180,7 +1158,10 @@ void C_VS_UI_DIALOG::SetMenu(const DIALOG_MENU * p_dialog_menu, UINT menu_count,
 			{
 				height = m_p_menu[i].sz_menu_str.size();
 				if(m_p_menu[i].sz_menu_str.size() > 1)width = m_menu_rect.w;
-				else width = g_GetStringWidth(m_p_menu[i].sz_menu_str[0].c_str(), gpC_base->m_dialog_menu_pi.hfont);
+				else {
+					TextSystem::Metrics menuMetrics = textService.MeasureText(m_p_menu[i].sz_menu_str[0], menuStyle, 0);
+					width = menuMetrics.width;
+				}
 			}
 			else 
 			{
