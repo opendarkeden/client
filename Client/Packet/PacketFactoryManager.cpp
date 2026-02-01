@@ -42,6 +42,9 @@
 #include "Cpackets/CGReloadFromQuickSlot.h"
 #include "Cpackets/CGRideMotorCycle.h"
 #include "Cpackets/CGSay.h"
+// Exchange System Packets
+#include "Cpackets/CGExchangeList.h"
+#include "Cpackets/CGExchangeBuy.h"
 #include "Cpackets/CGShopRequestBuy.h"
 #include "Cpackets/CGShopRequestList.h"
 #include "Cpackets/CGShopRequestSell.h"
@@ -1190,6 +1193,10 @@ void PacketFactoryManager::init ()
 	addFactory( new GCFriendChattingFactory() );
 	addFactory( new GCUseSkillCardOKFactory() );
 	//end
+
+	// Exchange System Packets
+	addFactory( new CGExchangeListFactory() );
+	addFactory( new CGExchangeBuyFactory() );
 
 #if __OUTPUT_INIT__
 	cout << toString() << endl;

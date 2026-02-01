@@ -14,8 +14,11 @@
 #include "VS_UI_Mouse_Pointer.h"
 #include "VS_UI.h"
 #include "UserOption.h"
+#include "ServerInfo.h"
 
 // For packets
+#include "../Client/Packet/Cpackets/CGExchangeList.h"
+#include "../Client/Packet/Cpackets/CGExchangeBuy.h"
 #include "../Client/Packet/Gpackets/GCExchangeList.h"
 #include "../Client/Packet/SocketInputStream.h"
 #include "../Client/Packet/SocketOutputStream.h"
@@ -373,8 +376,20 @@ void C_VS_UI_POINT_EXCHANGE::SwitchTab(int tabID)
 
 void C_VS_UI_POINT_EXCHANGE::RefreshList()
 {
-	// Send request to server to refresh current list
-	// TODO: Implement packet sending - CGExchangeList
+	// Send CGExchangeList packet to server
+	if (!g_pSocket) return;
+
+	CGExchangeList* pPacket = new CGExchangeList();
+	pPacket->setPage(m_currentPage);
+	pPacket->setPageSize(m_pageSize);
+	pPacket->setItemClass(m_filterItemClass);
+	pPacket->setItemType(m_filterItemType);
+	pPacket->setMinPrice(m_minPrice);
+	pPacket->setMaxPrice(m_maxPrice);
+
+	g_pSocket->sendPacket(pPacket);
+
+	delete pPacket;
 }
 
 //-----------------------------------------------------------------------------
@@ -411,16 +426,16 @@ void C_VS_UI_POINT_EXCHANGE::SelectItem(ExchangeListingItem* pItem)
 
 void C_VS_UI_POINT_EXCHANGE::BuyItem()
 {
-	if (!m_pSelectedItem)
+	if (!m_pSelectedItem || !g_pSocket)
 		return;
 
 	// Send buy request to server
-	// TODO: Implement buy packet - CGExchangeBuy
-	/*
 	CGExchangeBuy* pPacket = new CGExchangeBuy();
 	pPacket->setListingID(m_pSelectedItem->listingID);
-	gpC_base->SendMessage(UI_SEND_PACKET, pPacket);
-	*/
+
+	g_pSocket->sendPacket(pPacket);
+
+	delete pPacket;
 }
 
 void C_VS_UI_POINT_EXCHANGE::CreateListing(MItem* pItem, int price)

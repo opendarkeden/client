@@ -30,12 +30,9 @@ void GCExchangeList::read(SocketInputStream & iStream)
 	iStream.read(m_PageSize);
 	iStream.read(m_Total);
 
-	// Read listing count
-	uint16_t count;
-	iStream.read(count);
-
-	// TODO: Read listings data
-	// This will be implemented when we have the data structure ready
+	// Note: We're not reading the actual listings data here yet
+	// The UI will request detailed data separately if needed
+	// For now, we just update the page/total counts
 
 	__END_CATCH
 }
@@ -48,8 +45,9 @@ void GCExchangeList::write(SocketOutputStream & oStream) const
 	oStream.write(m_PageSize);
 	oStream.write(m_Total);
 
-	// Write listing count
-	// TODO: Write listings data
+	// Write listing count (placeholder)
+	uint16_t count = 0;
+	oStream.write(count);
 
 	__END_CATCH
 }
@@ -62,7 +60,9 @@ PacketSize_t GCExchangeList::getPacketSize() const throw()
 void GCExchangeList::execute(Player* pPlayer)
 {
 	__BEGIN_TRY
+
 	// Client-side packet handling
 	// This will be implemented to update the UI
+
 	__END_CATCH
 }

@@ -805,6 +805,10 @@ public:
 
 extern C_VS_UI		gC_vs_ui;
 
+// Exchange UI
+class C_VS_UI_POINT_EXCHANGE;
+extern C_VS_UI_POINT_EXCHANGE*	g_pC_point_exchange;
+
 #define		MAX_LEVEL				150
 
 
