@@ -1515,6 +1515,10 @@ MTopView::InitColors()
 											 g_pClientConfig->COLOR_HP_BAR_BG_G,
 											 g_pClientConfig->COLOR_HP_BAR_BG_B);
 
+		// UI 박스 배경색: RGB565의 G는 6비트이므로 2배 필요
+		// 어두운 회색: R=12, G=24, B=12
+		m_ColorUIBoxBg = CDirectDraw::Color(12, 24, 12);
+
 		m_ColorBlackHalf = 0;
 	}
 
@@ -9631,7 +9635,7 @@ MTopView::DrawItemNameList()
 											FONTID_ITEM
 				);
 
-				pTextNode->SetBox( rect, m_ColorBlackHalf );		
+				pTextNode->SetBox( rect, m_ColorUIBoxBg );		
 
 				AddText( pTextNode );
 			}	
