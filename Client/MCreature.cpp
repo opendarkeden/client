@@ -16,7 +16,6 @@
 #include "ClientConfig.h"
 #include "ServerInfo.h"
 #include "DebugInfo.h"
-#include "DebugLog.h"
 #include "SkillDef.h"
 #include "MLevelNameTable.h"
 #include "EffectSpriteTypeDef.h"
@@ -35,6 +34,7 @@
 #include "MEventManager.h"
 #include "PacketFunction2.h"
 #include "RankBonusTable.h"
+#include "DebugLog.h"
 #include "RankBonusDef.h"
 #include "MTestDef.h"
 #include "MTimeItemManager.h"
@@ -958,7 +958,7 @@ MCreature::SetCreatureType(TYPE_CREATURETYPE type)
 	}
 	else
 	{
-		DEBUG_ADD_FORMAT("[Error] CreatureType is Wrong. type=%d", (int)type);
+		LOG_ERROR("[Error] CreatureType is Wrong. type=%d", (int)type);
 		
 		type = 0;
 	}
@@ -1660,7 +1660,7 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 bool
 MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 {
-	DEBUG_ADD_FORMAT("[AddEffectStatus] id=%d, status=%d, delay=%d", m_ID, (int)status, delayFrame);
+	LOG_DEBUG("[AddEffectStatus] id=%d, status=%d, delay=%d", m_ID, (int)status, delayFrame);
 //	if( status == EFFECTSTATUS_VIEW_HP )
 //	{
 //		int a = 0;
@@ -1683,7 +1683,7 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 
 	if (status>=g_pEffectStatusTable->GetSize())
 	{
-		DEBUG_ADD_FORMAT("[Error]EffectStatus exceed Max : %d", (int)status);
+		LOG_ERROR("[Error]EffectStatus exceed Max : %d", (int)status);
 		
 		return false;
 	}
@@ -6194,8 +6194,8 @@ MCreature::ActionMove()
 void	
 MCreature::AttachCastingEffect(TYPE_ACTIONINFO nUsedActionInfo, BOOL bForceAttach)
 {
-	DEBUG_ADD_FORMAT("[CheckError] AttachCastingEffect(%d, %d)", nUsedActionInfo, bForceAttach);	
 	#ifdef OUTPUT_DEBUG					
+    	DEBUG_ADD_FORMAT("[CheckError] AttachCastingEffect(%d, %d)", nUsedActionInfo, bForceAttach);	
 		if (g_bCheckError)
 		{
 			DEBUG_ADD_FORMAT("[CheckError] AttachCastingEffect(%d, %d)", nUsedActionInfo, bForceAttach);
@@ -8062,7 +8062,7 @@ MCreature::AffectMoveBuffer()
 	}
 
 
-	DEBUG_ADD_FORMAT("AffectMoveBuffer : [ID=%d] From(%d,%d) Direction(%d)", m_ID, x,y, direction);
+	LOG_DEBUG("AffectMoveBuffer : [ID=%d] From(%d,%d) Direction(%d)", m_ID, x,y, direction);
 
 	// ÀÌÀü ÁÂÇ¥¸¦ ±â¾ïÇØµÐ´Ù.		
 	int oldX = m_X;

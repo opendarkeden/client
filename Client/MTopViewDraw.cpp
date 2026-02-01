@@ -1288,20 +1288,20 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				DEBUG_ADD("SelectedCreature");
 			#endif
 
-			//---------------------------------------- 	
+			//----------------------------------------
 			// 이름 출력할 좌표 지정
-			//---------------------------------------- 	
+			//----------------------------------------
 			const int FontHeight = g_pClientConfig->FONT_HEIGHT;
 			const int FontHeight2 = FontHeight << 1;
 
-			pointTemp.x = pPoint->x;			
+			pointTemp.x = pPoint->x;
 			if (pointTemp.x<0) pointTemp.x=0;
-				
+
 			pointTemp.y = pPoint->y - pCreature->GetHeight();
-				
-			//---------------------------------------- 	
+
+			//----------------------------------------
 			// Level Name 찍을 위치도 계산
-			//---------------------------------------- 	
+			//----------------------------------------
 			if (pCreature->HasLevelName())
 			{
 				if (pointTemp.y < FontHeight2)
@@ -1309,19 +1309,19 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 					pointTemp.y = FontHeight2;
 				}
 			}
-			//---------------------------------------- 	
+			//----------------------------------------
 			// 그냥 이름만 찍을 때
-			//---------------------------------------- 	
+			//----------------------------------------
 			else
 			{
-				if (pointTemp.y < FontHeight) 
+				if (pointTemp.y < FontHeight)
 				{
 					pointTemp.y = FontHeight;
 				}
 			}
-			
+
 			m_pointChatString	= pointTemp;
-			m_pSelectedCreature = pCreature;	
+			m_pSelectedCreature = pCreature;
 
 		}
 		else

@@ -145,6 +145,12 @@ static BOOL InitApp(int nCmdShow)
 		return FALSE;
 	}
 
+	// Set the renderer's draw color to black for SDL_RenderClear
+	// This ensures the screen is cleared to black each frame
+	if (SDL_SetRenderDrawColor(g_pSDLRenderer, 0, 0, 0, 255) != 0) {
+		fprintf(stderr, "Failed to set render draw color: %s\n", SDL_GetError());
+	}
+
 	// Hide cursor
 	SDL_ShowCursor(0);
 

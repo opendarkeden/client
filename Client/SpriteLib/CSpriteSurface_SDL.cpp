@@ -146,15 +146,73 @@ void CSpriteSurface::DrawRect(RECT* rect, WORD color)
 	sdl_rect.w = rect->right - rect->left;
 	sdl_rect.h = rect->bottom - rect->top;
 
-	uint8_t r = 0;
-	uint8_t g = 0;
-	uint8_t b = 0;
-	if (backend->format == SPRITECTL_FORMAT_RGB555) {
-		spritectl_555_to_rgb((uint16_t)color, &r, &g, &b);
+	// Check surface format and handle accordingly
+	Uint32 pixel = 0;
+
+	// For 16-bit surfaces, try to use the color value directly if it matches the format
+	if (SDL_ISPIXELFORMAT_INDEXED(surf->format->format) ||
+	    surf->format->BitsPerPixel == 16) {
+		// Check if this is RGB565 format
+		if (surf->format->Rmask == 0xF800 &&
+		    surf->format->Gmask == 0x07E0 &&
+		    surf->format->Bmask == 0x001F) {
+			// RGB565 format - use color directly
+			pixel = (Uint32)color;
+
+			// DEBUG: Check for HP bar colors (gray-ish colors)
+			if ((color & 0xF800) != 0 && ((color & 0xF800) >> 11) < 25) {
+				static int debug_count = 0;
+				if (debug_count < 10) {
+					uint8_t r = (color >> 11) & 0x1F;
+					uint8_t g = (color >> 5) & 0x3F;
+					uint8_t b = color & 0x1F;
+					fprintf(stderr, "DrawRect HP color: input=0x%04X, RGB565=(%d,%d,%d), pixel=0x%08X, surface_format=%s\n",
+						(uint16_t)color, r, g, b, pixel, SDL_GetPixelFormatName(surf->format->format));
+					debug_count++;
+				}
+			}
+		} else if (surf->format->Rmask == 0x7C00 &&
+		           surf->format->Gmask == 0x03E0 &&
+		           surf->format->Bmask == 0x001F) {
+			// RGB555 format - convert from RGB565
+			uint16_t rgb565 = (uint16_t)color;
+			// Convert RGB565 to RGB555
+			pixel = ((rgb565 & 0xF800) >> 1) | ((rgb565 & 0x0600) >> 1) |  // R (5 bits)
+			        ((rgb565 & 0x07E0) >> 1) |  // G (5 bits)
+			        (rgb565 & 0x001F);         // B (5 bits)
+			static int rgb555_count = 0;
+			if (rgb555_count < 3 && (color & 0xF800) != 0) {
+				fprintf(stderr, "DrawRect: Converting RGB565 0x%04X to RGB555 0x%04X\n", rgb565, (uint16_t)pixel);
+				rgb555_count++;
+			}
+		} else {
+			// Unknown 16-bit format - fall back to SDL_MapRGB
+			uint8_t r = 0, g = 0, b = 0;
+			if (backend->format == SPRITECTL_FORMAT_RGB555) {
+				spritectl_555_to_rgb((uint16_t)color, &r, &g, &b);
+			} else {
+				spritectl_565_to_rgb((uint16_t)color, &r, &g, &b);
+			}
+			pixel = SDL_MapRGB(surf->format, r, g, b);
+			static int fallback_count = 0;
+			if (fallback_count < 3 && r > 100) {
+				fprintf(stderr, "DrawRect: Fallback to SDL_MapRGB: format=%s, Rmask=0x%08X, Gmask=0x%08X, Bmask=0x%08X, RGB=(%d,%d,%d), pixel=0x%08X\n",
+					SDL_GetPixelFormatName(surf->format->format),
+					surf->format->Rmask, surf->format->Gmask, surf->format->Bmask,
+					r, g, b, pixel);
+				fallback_count++;
+			}
+		}
 	} else {
-		spritectl_565_to_rgb((uint16_t)color, &r, &g, &b);
+		// Non-16-bit surface, use SDL_MapRGB
+		uint8_t r = 0, g = 0, b = 0;
+		if (backend->format == SPRITECTL_FORMAT_RGB555) {
+			spritectl_555_to_rgb((uint16_t)color, &r, &g, &b);
+		} else {
+			spritectl_565_to_rgb((uint16_t)color, &r, &g, &b);
+		}
+		pixel = SDL_MapRGB(surf->format, r, g, b);
 	}
-	Uint32 pixel = SDL_MapRGB(surf->format, r, g, b);
 
 	spritectl_surface_info_t info;
 	if (spritectl_lock_surface(m_backend_surface, &info) == 0) {

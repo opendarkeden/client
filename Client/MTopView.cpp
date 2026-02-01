@@ -1511,6 +1511,10 @@ MTopView::InitColors()
 											g_pClientConfig->COLOR_HP_BAR_G,
 											g_pClientConfig->COLOR_HP_BAR_B);
 
+		m_ColorHPBarBg = CDirectDraw::Color(g_pClientConfig->COLOR_HP_BAR_BG_R,
+											 g_pClientConfig->COLOR_HP_BAR_BG_G,
+											 g_pClientConfig->COLOR_HP_BAR_BG_B);
+
 		m_ColorBlackHalf = 0;
 	}
 
@@ -21292,14 +21296,28 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		int maxHP			= pCreature->GetMAX_HP();
 
 		#ifdef OUTPUT_DEBUG
-			if (g_pDXInput->KeyDown(DIK_H) && 
+			if (g_pDXInput->KeyDown(DIK_H) &&
 				(g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL)))
 			{
 				char str[128];
 				sprintf(str, "HP=%d/%d", currentHP, maxHP);
 				m_pSurface->GDI_Text(rectLeft, rectTop-20, str, 0xFFFF);
-			}					
+			}
 		#endif
+
+		//-----------------------------------------------------
+		// FIX: Handle maxHP being 0 - set to currentHP to show full bar
+		//-----------------------------------------------------
+		if (maxHP == 0 && currentHP > 0)
+		{
+			maxHP = currentHP;
+		}
+		else if (maxHP == 0 && currentHP == 0)
+		{
+			// Both are 0, show empty bar
+			maxHP = 1;
+			currentHP = 0;
+		}
 
 		//-----------------------------------------------------
 		// ¶¥¼Ó¿¡ ÀÖ´Â ¾Ö´Â HP°¡ ²Ë Âù°ÍÃ³·³ º¸¿©ÁØ´Ù.
@@ -21367,7 +21385,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 			};
 
 
-			pNodeBase->SetBox( rect, m_ColorBlackHalf );
+			pNodeBase->SetBox( rect, m_ColorHPBarBg, false );  // 不透明模式
 			AddText( pNodeBase );
 		}
 
@@ -21393,29 +21411,17 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 			//-----------------------------------------------------
 			// ÇöÀç HP¿¡ ´ëÇÑ ¹Ú½º
 			//-----------------------------------------------------
-			RECT rectHP = {	rectLeft, 
+			RECT rectHP = {	rectLeft,
 							rectTop,
 							rectLeft + currentPixels,
 							rectBottom
 			};
 
 			//-----------------------------------------------------
-			// Current HP
-			//-----------------------------------------------------				
-			if (g_pUserOption->DrawTransHPBar)
-			{
-				pNode->SetBox( rectHP, m_ColorHPBar, true );
-			}
-			else
-			{
-				// ºÒÅõ¸íÇÑ HP bar¸¦ Ãâ·ÂÇÒ¶§
-				static WORD notTransHPBar 
-					= CDirectDraw::Color(g_pClientConfig->COLOR_HP_BAR_R>>1,
-											g_pClientConfig->COLOR_HP_BAR_G>>1,
-											g_pClientConfig->COLOR_HP_BAR_B>>1);
-
-				pNode->SetBox( rectHP, notTransHPBar, false );
-			}			
+			// FIX: Force non-transparent HP bar for better visibility
+			// Force non-transparent mode regardless of user option
+			//-----------------------------------------------------
+			pNode->SetBox( rectHP, m_ColorHPBar, false );
 		}
 
 		//-----------------------------------------------------
@@ -21495,20 +21501,14 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 //									yPoint-42,
 //									nameX + namePixel+4,
 //									yPoint-23	};
-					
-					RECT rectHP = {	rectLeft -20, 
+
+					RECT rectHP = {	rectLeft -20,
 									yPoint-42,
 									rectRight + 20 ,
 									yPoint-23	};
 
-					if (g_pUserOption->DrawTransHPBar)
-					{
-						pNode->SetBox( rectHP, bgColor, true );
-					}
-					else
-					{
-						pNode->SetBox( rectHP, bgColor, false );
-					}			
+					// FIX: Force non-transparent box for better visibility
+					pNode->SetBox( rectHP, bgColor, false );
 				}	
 				AddText( pNode );			
 			}
@@ -21828,7 +21828,7 @@ MTopView::DrawCreatureMyName()
 			};
 
 
-			pNodeBase->SetBox( rect, m_ColorBlackHalf );
+			pNodeBase->SetBox( rect, m_ColorHPBarBg, false );  // 不透明模式
 			AddText( pNodeBase );
 		}
 
@@ -21854,29 +21854,17 @@ MTopView::DrawCreatureMyName()
 			//-----------------------------------------------------
 			// ÇöÀç HP¿¡ ´ëÇÑ ¹Ú½º
 			//-----------------------------------------------------
-			RECT rectHP = {	rectLeft, 
+			RECT rectHP = {	rectLeft,
 							rectTop,
 							rectLeft + currentPixels,
 							rectBottom
 			};
 
 			//-----------------------------------------------------
-			// Current HP
-			//-----------------------------------------------------				
-			if (g_pUserOption->DrawTransHPBar)
-			{
-				pNode->SetBox( rectHP, m_ColorHPBar, true );
-			}
-			else
-			{
-				// ºÒÅõ¸íÇÑ HP bar¸¦ Ãâ·ÂÇÒ¶§
-				static WORD notTransHPBar 
-					= CDirectDraw::Color(g_pClientConfig->COLOR_HP_BAR_R>>1,
-											g_pClientConfig->COLOR_HP_BAR_G>>1,
-											g_pClientConfig->COLOR_HP_BAR_B>>1);
-
-				pNode->SetBox( rectHP, notTransHPBar, false );
-			}			
+			// FIX: Force non-transparent HP bar for better visibility
+			// Force non-transparent mode regardless of user option
+			//-----------------------------------------------------
+			pNode->SetBox( rectHP, m_ColorHPBar, false );
 		}
 
 		//-----------------------------------------------------
@@ -21952,14 +21940,8 @@ MTopView::DrawCreatureMyName()
 									rectRight + 20 ,
 									yPoint-23	};
 
-					if (g_pUserOption->DrawTransHPBar)
-					{
-						pNode->SetBox( rectHP, bgColor, true );
-					}
-					else
-					{
-						pNode->SetBox( rectHP, bgColor, false );
-					}			
+					// FIX: Force non-transparent box for better visibility
+					pNode->SetBox( rectHP, bgColor, false );
 				}	
 				AddText( pNode );			
 			}

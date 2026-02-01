@@ -792,6 +792,7 @@ class MTopView : public MRequestMode {
 
 		// hp bar의 색깔
 		WORD		m_ColorHPBar;
+		WORD		m_ColorHPBarBg;  // HP bar 배경색 (최대 HP)
 
 		// 반투명 검정색
 		WORD		m_ColorBlackHalf;

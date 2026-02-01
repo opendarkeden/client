@@ -163,6 +163,11 @@ class ClientConfig {
 		BYTE		COLOR_HP_BAR_G;
 		BYTE		COLOR_HP_BAR_B;
 
+		// HP bar 배경색 (최대 HP)
+		BYTE		COLOR_HP_BAR_BG_R;
+		BYTE		COLOR_HP_BAR_BG_G;
+		BYTE		COLOR_HP_BAR_BG_B;
+
 		//--------------------------------------------------------
 		// 새 사용자 등록 mode
 		//--------------------------------------------------------
