@@ -763,6 +763,7 @@ C_VS_UI_GAME::C_VS_UI_GAME()
 	m_pC_shop = NULL;
 	m_pC_storage = NULL;
 	m_pC_exchange = NULL;
+	m_pC_point_exchange = NULL;
 	gbl_sell_running = false;
 	gbl_buy_running = false;
 	gbl_repair_running = false;
@@ -2525,7 +2526,51 @@ void C_VS_UI_GAME::CloseExchange()
 	DeleteNew(m_pC_exchange);
 
 	assert(m_pC_tribe_interface != NULL);
-	m_pC_tribe_interface->DoCommonActionAfterEventOccured();	
+	m_pC_tribe_interface->DoCommonActionAfterEventOccured();
+}
+
+//-----------------------------------------------------------------------------
+// RunPointExchange
+//
+// Opens the Point Exchange Market UI
+//-----------------------------------------------------------------------------
+void C_VS_UI_GAME::RunPointExchange()
+{
+	if (m_pC_point_exchange == NULL)
+	{
+		m_pC_point_exchange = new C_VS_UI_POINT_EXCHANGE();
+
+		assert(m_pC_tribe_interface != NULL);
+
+		m_pC_tribe_interface->DoCommonActionBeforeEventOccured();
+
+		m_pC_point_exchange->Start();
+	}
+}
+
+//-----------------------------------------------------------------------------
+// ClosePointExchange
+//
+// Closes the Point Exchange Market UI
+//-----------------------------------------------------------------------------
+void C_VS_UI_GAME::ClosePointExchange()
+{
+	if (NULL == m_pC_point_exchange)
+		return;
+
+	DeleteNew(m_pC_point_exchange);
+	assert(m_pC_tribe_interface != NULL);
+	m_pC_tribe_interface->DoCommonActionAfterEventOccured();
+}
+
+//-----------------------------------------------------------------------------
+// IsRunningPointExchange
+//
+// Returns true if Point Exchange UI is open
+//-----------------------------------------------------------------------------
+bool C_VS_UI_GAME::IsRunningPointExchange() const
+{
+	return (m_pC_point_exchange != NULL);
 }
 
 //-----------------------------------------------------------------------------
