@@ -35,7 +35,6 @@
 #include "ClientFunction.h"
 #include "MMusic.h"
 #include "CDirectInput.h"  // For DIK_* key code definitions
-#include "D3DLib/CDirect3D.h"  // For CDirect3D::IsHAL()
 #include "MZoneSoundManager.h"
 #include "TempInformation.h"
 #include "MFakeCreature.h"
@@ -5379,23 +5378,12 @@ CGameUpdate::UpdateDraw()
 		//gC_vs_ui.MouseControl(M_MOVING, point.x, point.y);
 	}
 
-	if (CDirect3D::IsHAL())
+	//-----------------------------------------------------------------
+	// Mouse ±×¸®±â
+	//-----------------------------------------------------------------
+	if (!g_pTopView->IsDrawRequest())
 	{
-		//-----------------------------------------------------------------
-		// Mouse ±×¸®±â
-		//-----------------------------------------------------------------		
-		if (!g_pTopView->IsDrawRequest())
-		{
-			gC_vs_ui.DrawMousePointer();
-		}		
-	}
-	else
-	{
-		// Ã¢¸ðµå¿¡¼­ 3D°¡¼Ó ¾ÈÇÑ °æ¿ì¿¡..
-		// ¿Ö ÀÌ°Å ÇÏ´Ï±î »¡¶óÁöÁö? - -;
-		//HDC hdc;
-		//g_pBack->GetSurface()->GetDC(&hdc);
-		//g_pBack->GetSurface()->ReleaseDC(hdc);
+		gC_vs_ui.DrawMousePointer();
 	}
 
 	//-----------------------------------------------------------------

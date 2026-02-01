@@ -1,14 +1,14 @@
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // DX3D.h
-//----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+// SDL Backend Adaptation Layer - Main D3D header stub
+// This provides the main D3D include for SDL migration
+//-----------------------------------------------------------------------------
 
-#ifndef	__DX3D_H__
-#define	__DX3D_H__
+#ifndef __DX3D_H__
+#define __DX3D_H__
 
+// Include CDirect3D compatibility stub
 #include "CDirect3D.h"
-#include "CD3DMath.h"
-#include "CTexturePack.h"
-#include "CD3DObject.h"
-#include "CD3DTextureEffect.h"
 
-#endif
+#endif // __DX3D_H__

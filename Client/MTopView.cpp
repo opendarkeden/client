@@ -11794,7 +11794,8 @@ MTopView::Draw(int firstPointX,int firstPointY)
 				DEBUG_ADD( "Clear 3D" );
 			#endif
 
-			CDirect3D::GetDevice()->Clear( 0, NULL, D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0L );
+			// SDL: Not needed - removed D3D device clear call
+			// CDirect3D::GetDevice()->Clear( 0, NULL, D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0L );
 			//*/
 			
 
