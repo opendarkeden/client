@@ -2133,18 +2133,42 @@ UI_SetCharacter(int slotID, PCSlayerInfo * pInfo)
 	slot.INT_EXP_REMAIN = pInfo->getINTExp();
 	slot.STATUS.clear();
 
-	SKILLDOMAIN weaponDomain[] =
+	// Map WeaponType to SKILLDOMAIN
+	// WeaponType enum has 19 values (0-18), so array must have WEAPON_MAX elements
+	SKILLDOMAIN weaponDomain[WEAPON_MAX] =
 	{
-		MAX_SKILLDOMAIN,
-		SKILLDOMAIN_SWORD,
-		SKILLDOMAIN_BLADE,
-		SKILLDOMAIN_GUN,
-		SKILLDOMAIN_HEAL,
-		SKILLDOMAIN_ENCHANT,
+		MAX_SKILLDOMAIN,          // WEAPON_NONE (0)
+		SKILLDOMAIN_SWORD,        // WEAPON_SWORD (1)
+		SKILLDOMAIN_SWORD,        // WEAPON_SWORD1 (2)
+		SKILLDOMAIN_BLADE,        // WEAPON_BLADE (3)
+		SKILLDOMAIN_BLADE,        // WEAPON_BLADE1 (4)
+		SKILLDOMAIN_GUN,          // WEAPON_SR (5)
+		SKILLDOMAIN_GUN,          // WEAPON_SR1 (6)
+		SKILLDOMAIN_GUN,          // WEAPON_SR2 (7)
+		SKILLDOMAIN_GUN,          // WEAPON_SR3 (8)
+		SKILLDOMAIN_GUN,          // WEAPON_AR (9)
+		SKILLDOMAIN_GUN,          // WEAPON_AR1 (10)
+		SKILLDOMAIN_GUN,          // WEAPON_AR2 (11)
+		SKILLDOMAIN_GUN,          // WEAPON_AR3 (12)
+		SKILLDOMAIN_GUN,          // WEAPON_SG (13)
+		SKILLDOMAIN_GUN,          // WEAPON_SMG (14)
+		SKILLDOMAIN_ENCHANT,      // WEAPON_CROSS (15)
+		SKILLDOMAIN_ENCHANT,      // WEAPON_CROSS1 (16)
+		SKILLDOMAIN_HEAL,         // WEAPON_MACE (17)
+		SKILLDOMAIN_HEAL,         // WEAPON_MACE1 (18)
 	};
 
-	// 임시!!
-	g_StatusManager.SetCurrentWeaponDomain( weaponDomain[pInfo->getWeaponType()], 1 );
+	// Validate weapon type before accessing array
+	WeaponType weaponType = pInfo->getWeaponType();
+	if (weaponType >= 0 && weaponType < WEAPON_MAX)
+	{
+		g_StatusManager.SetCurrentWeaponDomain( weaponDomain[weaponType], 1 );
+	}
+	else
+	{
+		// Fallback to ETC domain if weapon type is invalid
+		g_StatusManager.SetCurrentWeaponDomain( SKILLDOMAIN_ETC, 1 );
+	}
 
 	// status 값을 얻어낸다.
 	g_StatusManager.Set(pInfo->getSTR(), pInfo->getDEX(), pInfo->getINT());
@@ -2229,15 +2253,25 @@ UI_SetCharacter(int slotID, PCSlayerInfo * pInfo)
 
 		const CHAR_WOMAN uiWeaponFemale[] =
 		{
-			W_NO_WEAR,
-			W_SWORD,
-			W_BLADE,
-			W_SR,
-			W_AR,
-			W_SG,
-			W_SMG,
-			W_CROSS,
-			W_MACE
+			W_NO_WEAR,          // WEAPON_NONE (0)
+			W_SWORD,            // WEAPON_SWORD (1)
+			W_SWORD,            // WEAPON_SWORD1 (2)
+			W_BLADE,            // WEAPON_BLADE (3)
+			W_BLADE,            // WEAPON_BLADE1 (4)
+			W_SR,               // WEAPON_SR (5)
+			W_SR,               // WEAPON_SR1 (6)
+			W_SR,               // WEAPON_SR2 (7)
+			W_SR,               // WEAPON_SR3 (8)
+			W_AR,               // WEAPON_AR (9)
+			W_AR,               // WEAPON_AR1 (10)
+			W_AR,               // WEAPON_AR2 (11)
+			W_AR,               // WEAPON_AR3 (12)
+			W_SG,               // WEAPON_SG (13)
+			W_SMG,              // WEAPON_SMG (14)
+			W_CROSS,            // WEAPON_CROSS (15)
+			W_CROSS,            // WEAPON_CROSS1 (16)
+			W_MACE,             // WEAPON_MACE (17)
+			W_MACE              // WEAPON_MACE1 (18)
 		};
 
 		const CHAR_WOMAN uiShieldFemale[] =
@@ -2299,15 +2333,25 @@ UI_SetCharacter(int slotID, PCSlayerInfo * pInfo)
 
 		const CHAR_MAN uiWeaponMale[] =
 		{
-			M_NO_WEAR,
-			M_SWORD,
-			M_BLADE,
-			M_SR,
-			M_AR,
-			M_SG,
-			M_SMG,
-			M_CROSS,
-			M_MACE,
+			M_NO_WEAR,          // WEAPON_NONE (0)
+			M_SWORD,            // WEAPON_SWORD (1)
+			M_SWORD,            // WEAPON_SWORD1 (2)
+			M_BLADE,            // WEAPON_BLADE (3)
+			M_BLADE,            // WEAPON_BLADE1 (4)
+			M_SR,               // WEAPON_SR (5)
+			M_SR,               // WEAPON_SR1 (6)
+			M_SR,               // WEAPON_SR2 (7)
+			M_SR,               // WEAPON_SR3 (8)
+			M_AR,               // WEAPON_AR (9)
+			M_AR,               // WEAPON_AR1 (10)
+			M_AR,               // WEAPON_AR2 (11)
+			M_AR,               // WEAPON_AR3 (12)
+			M_SG,               // WEAPON_SG (13)
+			M_SMG,              // WEAPON_SMG (14)
+			M_CROSS,            // WEAPON_CROSS (15)
+			M_CROSS,            // WEAPON_CROSS1 (16)
+			M_MACE,             // WEAPON_MACE (17)
+			M_MACE              // WEAPON_MACE1 (18)
 		};
 
 		const CHAR_MAN uiShieldMale[] =

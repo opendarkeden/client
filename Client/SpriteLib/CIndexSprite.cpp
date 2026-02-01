@@ -85,49 +85,50 @@ CIndexSprite::SetColorSet()
 	};
 	*/
 
-	static BYTE rgbPoint[MAX_COLORSET_SEED][3] = 
+	static BYTE rgbPoint[MAX_COLORSET_SEED][3] =
 	{
+		// RGB565 format: G should be 2x R/B for neutral colors (G has 6 bits, R/B have 5 bits)
 		{ 0, 0, 31 },
-		{ 0, 31, 0 },
+		{ 0, 63, 0 },	// Pure green - G is 6-bit (0-63)
 		{ 31, 0, 0 },
-		{ 0, 31, 31 },
+		{ 0, 63, 63 },
 		{ 31, 0, 31 },
-		{ 31, 31, 0 },
+		{ 31, 63, 0 },
 
 		{ 0, 0, 16 },
-		{ 0, 16, 0 },
+		{ 0, 32, 0 },	// Dark green - G is 6-bit (0-63)
 		{ 16, 0, 0 },
-		{ 0, 16, 16 },
+		{ 0, 32, 32 },
 		{ 16, 0, 16 },
-		{ 16, 16, 0 },	
+		{ 16, 32, 0 },
 
-		{ 16, 31, 0 },
+		{ 16, 63, 0 },
 		{ 16, 0, 31 },
-		{ 31, 16, 0 },
-		{ 0, 16, 31 },
+		{ 31, 32, 0 },
+		{ 0, 32, 31 },
 		{ 31, 0, 16 },
-		{ 0, 31, 16 },
+		{ 0, 63, 16 },
 
-		{ 16, 31, 16 },
-		{ 16, 16, 31 },
-		{ 31, 16, 16 },
+		{ 16, 63, 16 },
+		{ 16, 32, 31 },
+		{ 31, 32, 16 },
 
-		{ 16, 31, 31 },
-		{ 31, 16, 31 },
-		{ 31, 31, 16 },
+		{ 16, 63, 31 },
+		{ 31, 32, 31 },
+		{ 31, 63, 16 },
 
-		{ 16, 16, 16 }, // ȸ��
-		{ 24, 24, 24 }, // ���� ȸ��
-		{ 8, 8, 8 }, // ��ο� ȸ��		
+		{ 16, 32, 16 }, // ȸ�� (gray) - G = 2x R/B for neutral gray
+		{ 24, 48, 24 }, // ���� ȸ�� (light gray) - G = 2x R/B
+		{ 8, 16, 8 },   // ��ο� ȸ�� (dark gray) - G = 2x R/B
 
-		{ 30, 24, 18 }, // ���
-		{ 25, 15, 11 },	// ����		
-		{ 21, 12, 11 },				
-		{ 19, 15, 13 }, // ������				
+		{ 30, 48, 18 }, // ��� (skin tone) - G is 6-bit
+		{ 25, 30, 11 },	// ���� (brown) - G is 6-bit
+		{ 21, 24, 11 },				// G is 6-bit
+		{ 19, 30, 13 }, // ������ (another skin tone) - G is 6-bit
 
-		{ 21, 18, 11 }, // ���� ���		
+		{ 21, 36, 11 }, // ���� ��� - G is 6-bit
 
-		{ 22, 16, 9 } // ���		
+		{ 22, 32, 9 } // ��� - G is 6-bit
 	};
 
 		
@@ -150,8 +151,8 @@ CIndexSprite::SetColorSet()
 			// ù�ٸ�
 			if (j==MAX_COLORGRADATION_HALF)
 			{
-				GetIndexColor(ColorSet[set], j, 
-							31, 31, 31, 
+				GetIndexColor(ColorSet[set], j,
+							31, 63, 31,  // RGB565 white: G is 6-bit (0-63)
 							r,g,b);
 			}
 			else
@@ -178,19 +179,19 @@ CIndexSprite::SetColorSet()
 		//GetIndexColor(ColorSet[set], MAX_COLORGRADATION, 
 		//				31, 31, 31, 
 		//				r,g,b);
-		GetIndexColor(ColorSet[set], MAX_COLORGRADATION_HALF, 
-						31, 31, 31, 
+		GetIndexColor(ColorSet[set], MAX_COLORGRADATION_HALF,
+						31, 63, 31,  // RGB565 white
 						r,g,b);
 
-		GetIndexColor(ColorSet[set]+MAX_COLORGRADATION_HALF, MAX_COLORGRADATION_HALF, 
+		GetIndexColor(ColorSet[set]+MAX_COLORGRADATION_HALF, MAX_COLORGRADATION_HALF,
 						r,g,b,
 						0, 0, 0);
-		
+
 		set++;
 
 		// White/2 ~ rgb ~~~ Black
-		GetIndexColor(ColorSet[set], MAX_COLORGRADATION_1_DIV_3, 
-						(31+r)/2, (31+g)/2, (31+b)/2, 
+		GetIndexColor(ColorSet[set], MAX_COLORGRADATION_1_DIV_3,
+						(31+r)/2, (63+g)/2, (31+b)/2,  // RGB565 white/2: G is 6-bit
 						r,g,b);
 
 		GetIndexColor(ColorSet[set]+MAX_COLORGRADATION_1_DIV_3, MAX_COLORGRADATION_2_DIV_3, 

@@ -179,9 +179,14 @@ ClientConfig::ClientConfig()
 	COLOR_OUTLINE_ATTACK_IMPOSSIBLE	= (5 << 11) | (5 << 6) | 18;
 
 	// hp bar
-	COLOR_HP_BAR_R					= 15;
-	COLOR_HP_BAR_G					= 16;
-	COLOR_HP_BAR_B					= 15;
+	COLOR_HP_BAR_R					= 20;	// Red (darker for better visibility)
+	COLOR_HP_BAR_G					= 2;	// Small green
+	COLOR_HP_BAR_B					= 2;	// Small blue
+
+	// hp bar background (max HP)
+	COLOR_HP_BAR_BG_R				= 8;	// Dark red
+	COLOR_HP_BAR_BG_G				= 8;	// Dark green
+	COLOR_HP_BAR_BG_B				= 8;	// Dark blue (dark gray)
 
 	//---------------------------------------------------------------------
 	// 새 사용자 등록 모드
@@ -385,6 +390,9 @@ ClientConfig::SaveToFile(const char* filename)
 	file.write((const char*)&COLOR_HP_BAR_R, 1);
 	file.write((const char*)&COLOR_HP_BAR_G, 1);
 	file.write((const char*)&COLOR_HP_BAR_B, 1);
+	file.write((const char*)&COLOR_HP_BAR_BG_R, 1);
+	file.write((const char*)&COLOR_HP_BAR_BG_G, 1);
+	file.write((const char*)&COLOR_HP_BAR_BG_B, 1);
 
 	//--------------------------------------------------------
 	// 새 사용자 등록 mode
@@ -563,6 +571,18 @@ ClientConfig::LoadFromFile(const char* filename)
 	file.read((char*)&COLOR_HP_BAR_R, 1);
 	file.read((char*)&COLOR_HP_BAR_G, 1);
 	file.read((char*)&COLOR_HP_BAR_B, 1);
+
+	// HP bar 배경색
+	if (file.peek() != EOF && file.good()) {
+		file.read((char*)&COLOR_HP_BAR_BG_R, 1);
+		file.read((char*)&COLOR_HP_BAR_BG_G, 1);
+		file.read((char*)&COLOR_HP_BAR_BG_B, 1);
+	} else {
+		// 如果配置文件中没有这些值，使用默认值
+		COLOR_HP_BAR_BG_R = 8;
+		COLOR_HP_BAR_BG_G = 8;
+		COLOR_HP_BAR_BG_B = 8;
+	}
 
 	//--------------------------------------------------------
 	// 새 사용자 등록 mode

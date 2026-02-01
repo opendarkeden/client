@@ -116,11 +116,14 @@ void C_VS_UI_ITEM::BltOutline(int x, int y, int color, SPRITE_ID id)
 
 	if (gpC_base->m_p_DDSurface_back->Lock())
 	{
+		// FIX: Draw the item sprite first, then the outline
+		POINT point = {x, y};
+		gpC_base->m_p_DDSurface_back->BltIndexSprite(&point, &m_item_ispk[id]);
 		gpC_base->m_p_DDSurface_back->BltSpriteOutline(&outline_o,  color);
 
 		gpC_base->m_p_DDSurface_back->Unlock();
 	}
-	
+
 	outline_o.Clear();
 }
 
@@ -154,11 +157,14 @@ void C_VS_UI_ITEM::BltOutlineOnly(int x, int y, int color, SPRITE_ID id)
 
 	if (gpC_base->m_p_DDSurface_back->Lock())
 	{
+		// FIX: Draw the item sprite first, then the outline
+		POINT point = {x, y};
+		gpC_base->m_p_DDSurface_back->BltIndexSprite(&point, &m_item_ispk[id]);
 		gpC_base->m_p_DDSurface_back->BltSpriteOutlineOnly(&outline_o,  color);
 
 		gpC_base->m_p_DDSurface_back->Unlock();
 	}
-	
+
 	outline_o.Clear();
 }
 
@@ -475,6 +481,9 @@ void C_VS_UI_ITEM::BltLockedOutline(int x, int y, int color, SPRITE_ID id)
 	outline_o.Add(x, y, &m_item_ispk[id]);
 	outline_o.Generate();
 
+	// FIX: Draw the item sprite first, then the outline
+	POINT point = {x, y};
+	gpC_base->m_p_DDSurface_back->BltIndexSprite(&point, &m_item_ispk[id]);
 	gpC_base->m_p_DDSurface_back->BltSpriteOutline(&outline_o,  color);
 
 	outline_o.Clear();
@@ -483,7 +492,7 @@ void C_VS_UI_ITEM::BltLockedOutline(int x, int y, int color, SPRITE_ID id)
 //-----------------------------------------------------------------------------
 // BltLockedOutlineOnly
 //
-// 
+//
 //-----------------------------------------------------------------------------
 void C_VS_UI_ITEM::BltLockedOutlineOnly(int x, int y, int color, SPRITE_ID id)
 {
@@ -508,6 +517,9 @@ void C_VS_UI_ITEM::BltLockedOutlineOnly(int x, int y, int color, SPRITE_ID id)
 	outline_o.Add(x, y, &m_item_ispk[id]);
 	outline_o.Generate();
 
+	// FIX: Draw the item sprite first, then the outline
+	POINT point = {x, y};
+	gpC_base->m_p_DDSurface_back->BltIndexSprite(&point, &m_item_ispk[id]);
 	gpC_base->m_p_DDSurface_back->BltSpriteOutlineOnly(&outline_o,  color);
 
 	outline_o.Clear();

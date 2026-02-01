@@ -60,33 +60,62 @@ void spritectl_shutdown(void) {
  * ============================================================================ */
 
 SDL_Surface* spritectl_sdl_create_surface(int width, int height, int format) {
-	uint32_t sdl_format;
-	int depth;
+	SDL_Surface* surf = NULL;
 
-	/* Get SDL pixel format */
-	sdl_format = spritectl_sdl_get_pixelformat(format);
-	if (sdl_format == SDL_PIXELFORMAT_UNKNOWN) {
-		fprintf(stderr, "SpriteLib Backend: Unknown pixel format %d\n", format);
-		return NULL;
-	}
-
-	/* Calculate depth */
+	/* Calculate depth and masks */
 	switch (format) {
 		case SPRITECTL_FORMAT_RGB565:
+			/* RGB565: R at bits 11-15, G at bits 5-10, B at bits 0-4 */
+			surf = SDL_CreateRGBSurface(0, width, height, 16,
+			                            0xF800,  /* R mask */
+			                            0x07E0,  /* G mask */
+			                            0x001F,  /* B mask */
+			                            0x0000); /* A mask */
+			if (surf) {
+				static int debug_565_count = 0;
+				if (debug_565_count < 3) {
+					fprintf(stderr, "Created RGB565 surface: requested format=RGB565, actual format=%s\n",
+						SDL_GetPixelFormatName(surf->format->format));
+					debug_565_count++;
+				}
+			}
+			return surf;
 		case SPRITECTL_FORMAT_RGB555:
-			depth = 16;
-			break;
+			/* RGB555: R at bits 10-14, G at bits 5-9, B at bits 0-4 */
+			surf = SDL_CreateRGBSurface(0, width, height, 16,
+			                            0x7C00,  /* R mask */
+			                            0x03E0,  /* G mask */
+			                            0x001F,  /* B mask */
+			                            0x0000); /* A mask */
+			if (surf) {
+				static int debug_555_count = 0;
+				if (debug_555_count < 3) {
+					fprintf(stderr, "Created RGB555 surface: requested format=RGB555, actual format=%s\n",
+						SDL_GetPixelFormatName(surf->format->format));
+					debug_555_count++;
+				}
+			}
+			return surf;
 		case SPRITECTL_FORMAT_RGBA32:
-			depth = 32;
-			break;
+			/* RGBA32: standard byte order */
+			return SDL_CreateRGBSurface(0, width, height, 32,
+			                            0x000000FF,  /* R mask */
+			                            0x0000FF00,  /* G mask */
+			                            0x00FF0000,  /* B mask */
+			                            0xFF000000); /* A mask */
 		default:
-			depth = 16;
-			break;
+			/* Default to RGB565 */
+			surf = SDL_CreateRGBSurface(0, width, height, 16,
+			                            0xF800,  /* R mask */
+			                            0x07E0,  /* G mask */
+			                            0x001F,  /* B mask */
+			                            0x0000); /* A mask */
+			if (surf) {
+				fprintf(stderr, "Created DEFAULT surface: actual format=%s\n",
+					SDL_GetPixelFormatName(surf->format->format));
+			}
+			return surf;
 	}
-
-	/* Create RGB surface */
-	return SDL_CreateRGBSurface(0, width, height, depth,
-	                            0, 0, 0, 0);
 }
 
 uint32_t spritectl_sdl_get_pixelformat(int format) {
@@ -1284,6 +1313,18 @@ int spritectl_present_surface(spritectl_surface_t surface, void* renderer_ptr) {
 	if (!texture) {
 		fprintf(stderr, "SpriteLib Backend: Failed to create texture: %s\n", SDL_GetError());
 		return -1;
+	}
+
+	// DEBUG: Check texture format
+	static int texture_debug_count = 0;
+	if (texture_debug_count < 3) {
+		Uint32 format;
+		if (SDL_QueryTexture(texture, &format, NULL, NULL, NULL) == 0) {
+			const char* format_name = SDL_GetPixelFormatName(format);
+			fprintf(stderr, "Texture created: surface_format=%s, texture_format=%s\n",
+				SDL_GetPixelFormatName(sdl_surface->format->format), format_name);
+			texture_debug_count++;
+		}
 	}
 
 	/* Render texture to screen */

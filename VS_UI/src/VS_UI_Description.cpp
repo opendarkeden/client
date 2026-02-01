@@ -22,9 +22,8 @@
 #include "VS_UI.h"
 #include "VS_UI_GameCommon2.h"
 
-#ifdef _LIB
+// Always include ClientFunction.h for DrawAlphaBox
 #include "ClientFunction.h"
-#endif
 
 enum 
 {
@@ -70,9 +69,9 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 	
 	SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
 	DrawAlphaBox(&_rect, 0, 0, 0, g_pUserOption->ALPHA_DEPTH);
-	
 
-	gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
+	// REMOVED: DrawRect with LIGHT_MAGENTA was overwriting the alpha-blended background
+	// gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
 
 //#endif
 
@@ -1944,7 +1943,8 @@ void	_Skill_Description_Show(Rect rect, void * void_ptr, long left, long right)
 //			filledRect(&dest_surface, &dest_rect, BLACK);
 //#endif
 			SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
-			gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
+			// REMOVED: DrawRect with LIGHT_MAGENTA was overwriting the alpha-blended background
+		// gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
 //			rectangle(&dest_surface, dest_rect.x, dest_rect.y, dest_rect.x+dest_rect.w-1, dest_rect.y+dest_rect.h-1, LIGHT_MAGENTA);
 //
 //			gpC_base->m_p_DDSurface_back->Unlock();
@@ -2091,8 +2091,8 @@ void	_BloodBible_Description_Show(Rect rect, void * void_ptr, long left, long ri
 	SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
 
 	DrawAlphaBox(&_rect, 0, 0, 0, g_pUserOption->ALPHA_DEPTH);
-	SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
-	gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
+	// REMOVED: DrawRect with LIGHT_MAGENTA was overwriting the alpha-blended background
+	// gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
 
 	int px = rect.x+SIDE_GAP_HALF;
 	int py = rect.y+SIDE_GAP_HALF;
@@ -2194,7 +2194,8 @@ void	_Strings_Description_Show(Rect rect, void * void_ptr, long left, long right
 //			filledRect(&dest_surface, &dest_rect, BLACK);
 //#endif
 			SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
-			gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
+			// REMOVED: DrawRect with LIGHT_MAGENTA was overwriting the alpha-blended background
+		// gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
 //			rectangle(&dest_surface, dest_rect.x, dest_rect.y, dest_rect.x+dest_rect.w-1, dest_rect.y+dest_rect.h-1, LIGHT_MAGENTA);
 //
 //			gpC_base->m_p_DDSurface_back->Unlock();
@@ -2259,7 +2260,8 @@ void	_Info_Description_Show(Rect rect, void * void_ptr, long left, long right)
 //			filledRect(&dest_surface, &dest_rect, BLACK);
 //#endif
 			SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
-			gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
+			// REMOVED: DrawRect with LIGHT_MAGENTA was overwriting the alpha-blended background
+		// gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
 //			rectangle(&dest_surface, dest_rect.x, dest_rect.y, dest_rect.x+dest_rect.w-1, dest_rect.y+dest_rect.h-1, LIGHT_MAGENTA);
 //
 //			gpC_base->m_p_DDSurface_back->Unlock();
@@ -2318,7 +2320,8 @@ void	_SkillTree_Description_Show(Rect rect, void * void_ptr, long left, long rig
 //			filledRect(&dest_surface, &dest_rect, BLACK);
 //#endif
 			SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
-			gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
+			// REMOVED: DrawRect with LIGHT_MAGENTA was overwriting the alpha-blended background
+		// gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
 //			rectangle(&dest_surface, dest_rect.x, dest_rect.y, dest_rect.x+dest_rect.w-1, dest_rect.y+dest_rect.h-1, LIGHT_MAGENTA);
 //
 //			gpC_base->m_p_DDSurface_back->Unlock();
@@ -2675,7 +2678,8 @@ void	_Help_Description_Show(Rect rect, void * void_ptr, long left, long right)
 //			filledRect(&dest_surface, &dest_rect, BLACK);
 //#endif
 			SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
-			gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
+			// REMOVED: DrawRect with LIGHT_MAGENTA was overwriting the alpha-blended background
+		// gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
 //			rectangle(&dest_surface, dest_rect.x, dest_rect.y, dest_rect.x+dest_rect.w-1, dest_rect.y+dest_rect.h-1, LIGHT_MAGENTA);
 //
 //			gpC_base->m_p_DDSurface_back->Unlock();
@@ -3651,7 +3655,8 @@ void	_Multiline_Info_Show(Rect rect, void * void_ptr, long left, long right)
 //			filledRect(&dest_surface, &dest_rect, BLACK);
 //#endif
 			SetRect(&_rect, rect.x, rect.y, rect.x+rect.w, rect.y+rect.h);
-			gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
+			// REMOVED: DrawRect with LIGHT_MAGENTA was overwriting the alpha-blended background
+		// gpC_base->m_p_DDSurface_back->DrawRect(&_rect, LIGHT_MAGENTA);
 //			rectangle(&dest_surface, dest_rect.x, dest_rect.y, dest_rect.x+dest_rect.w-1, dest_rect.y+dest_rect.h-1, LIGHT_MAGENTA);
 //
 //			gpC_base->m_p_DDSurface_back->Unlock();

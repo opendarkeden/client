@@ -15,11 +15,13 @@ extern RECT g_GameRect;
 	#include "MEffectGeneratorTable.h"
 	#include "MActionInfoTable.h"
 	#include "MScreenEffectManager.h"
-	#include "MScreenEffect.h"	
+	#include "MScreenEffect.h"
 	#include "UserInformation.h"
 	#include "UIFunction.h"
 	#include "DebugInfo.h"
 	#include "MPlayer.h"
+	#include "SpriteLib/SpriteLibBackend.h"  // For spritectl API
+	#include "../VS_UI/src/header/VS_UI_Base.h"  // For gpC_base
 	
 	extern MScreenEffectManager* g_pInventoryEffectManager;
 
@@ -426,11 +428,6 @@ DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 
 		if (alpha<0) alpha = 0;
 
-		// TODO: [SDL_BACKEND] DrawAlphaBox not implemented for SDL backend
-		// g_pTopView->DrawAlphaBox(pRect, r, g, b, reverseAlpha);
-	#else
-		int reverseAlpha = 31-alpha;
-
 #ifdef PLATFORM_WINDOWS
 		WORD color;
 		//------------------------------------------------
@@ -476,8 +473,114 @@ DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 			gpC_base->m_p_DDSurface_back->Unlock();
 		}
 #else
-		// SDL backend: Alpha blending not implemented for editor builds
+		// SDL backend implementation for __GAME_CLIENT__
+		// Need to use spritectl API directly since Lock() is a stub in SDL backend
+
+		// Get the SDL surface
+		spritectl_surface_t sdl_surface = (spritectl_surface_t)gpC_base->m_p_DDSurface_back->GetBackendSurface();
+		if (!sdl_surface || sdl_surface == SPRITECTL_INVALID_SURFACE) {
+			return;  // Invalid surface
+		}
+
+		// Lock the surface to get pixel access
+		spritectl_surface_info_t surface_info;
+		if (spritectl_lock_surface(sdl_surface, &surface_info) != 0) {
+			return;  // Failed to lock
+		}
+
+		// Check if color is black (0,0,0) -> use gamma correction like Windows version
+		WORD color = CDirectDraw::Color(r, g, b);
+
+		// Calculate clipping
+		int startX = (pRect->left > 0) ? pRect->left : 0;
+		int endX = (pRect->right < surface_info.width) ? pRect->right : surface_info.width;
+		int startY = (pRect->top > 0) ? pRect->top : 0;
+		int endY = (pRect->bottom < surface_info.height) ? pRect->bottom : surface_info.height;
+
+		if (color == 0)
+		{
+			// Black color: use gamma correction (darken existing pixels)
+			// Same algorithm as Windows GammaBox565
+
+			// Gamma correction: multiply by reverseAlpha then shift right by 5
+			// This darkens the area
+			for (int y = startY; y < endY; y++)
+			{
+				WORD* pDest = (WORD*)((BYTE*)surface_info.pixels + y * surface_info.pitch) + startX;
+				for (int x = startX; x < endX; x++)
+				{
+					WORD pixel = *pDest;
+
+					// RGB565 format: RRRR RGGG GGGB BBBB
+					// Apply gamma correction separately to each channel
+					WORD r = (pixel >> 11) & 0x1F;
+					WORD g = (pixel >> 5) & 0x3F;
+					WORD b = pixel & 0x1F;
+
+					// Multiply by reverseAlpha and shift right by 5
+					// This is equivalent to: value = value * reverseAlpha / 32
+					r = (r * reverseAlpha) >> 5;
+					g = (g * reverseAlpha) >> 5;
+					b = (b * reverseAlpha) >> 5;
+
+					// Clamp and recombine
+					if (r > 31) r = 31;
+					if (g > 63) g = 63;
+					if (b > 31) b = 31;
+
+					*pDest++ = (r << 11) | (g << 5) | b;
+				}
+			}
+		}
+		else
+		{
+			// Non-black color: use alpha blending
+			BYTE r565 = (color >> 11) & 0x1F;  // 5-bit red
+			BYTE g565 = (color >> 5) & 0x3F;   // 6-bit green
+			BYTE b565 = color & 0x1F;          // 5-bit blue
+
+			// Convert alpha from 5-bit (0-31) to 8-bit (0-255)
+			BYTE alpha8 = (31 - reverseAlpha) * 255 / 31;
+
+			// Draw alpha-blended rectangle
+			for (int y = startY; y < endY; y++)
+			{
+				WORD* pDest = (WORD*)((BYTE*)surface_info.pixels + y * surface_info.pitch) + startX;
+				for (int x = startX; x < endX; x++)
+				{
+					// Get destination pixel
+					WORD destPixel = *pDest;
+					BYTE destR = (destPixel >> 11) & 0x1F;
+					BYTE destG = (destPixel >> 5) & 0x3F;
+					BYTE destB = destPixel & 0x1F;
+
+					// Alpha blend: src * alpha + dest * (1 - alpha)
+					BYTE srcR = r565;
+					BYTE srcG = g565;
+					BYTE srcB = b565;
+
+					BYTE resultR = (srcR * alpha8 + destR * (255 - alpha8)) / 255;
+					BYTE resultG = (srcG * alpha8 + destG * (255 - alpha8)) / 255;
+					BYTE resultB = (srcB * alpha8 + destB * (255 - alpha8)) / 255;
+
+					// Clamp to valid range
+					if (resultR > 31) resultR = 31;
+					if (resultG > 63) resultG = 63;
+					if (resultB > 31) resultB = 31;
+
+					// Write back
+					*pDest++ = (resultR << 11) | (resultG << 5) | resultB;
+				}
+			}
+		}
+
+		// Unlock the surface
+		spritectl_unlock_surface(sdl_surface);
 #endif
+	#else
+		// Non-GAME_CLIENT build (editor/tools)
+		int reverseAlpha = 31-alpha;
+		// No-op for non-game builds
 	#endif
 }
 

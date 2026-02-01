@@ -1015,7 +1015,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 		//------------------------------------------------
 		
 		if (m_SelectCreatureID == creatureID || OutLineOption)
-		{			
+		{
 			#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 				DEBUG_ADD("Sel Creature");
 			#endif
@@ -1026,13 +1026,13 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				&& !(creature_type==217)
 				|| IsRequestMode()								// trade mode인 경우
 					// player만 된다.
-					//pCreature->GetCreatureType()<=CREATURETYPE_VAMPIRE_FEMALE				
+					//pCreature->GetCreatureType()<=CREATURETYPE_VAMPIRE_FEMALE
 				//	&& (*g_pCreatureSpriteTable)[(*g_pCreatureTable)[creature_type].SpriteType].IsPlayerOnlySprite()
 				&& (*g_pCreatureSpriteTable)[(*g_pCreatureTable)[creature_type].SpriteTypes[0]].IsPlayerOnlySprite()
 				|| !IsRequestMode()							// trade할려고 추적중인 creature인 경우
-					&& g_pPlayer->IsRequestMode() 
-					&& g_pPlayer->IsTraceCreature() 
-					&& g_pPlayer->GetTraceID()==creatureID)	
+					&& g_pPlayer->IsRequestMode()
+					&& g_pPlayer->IsTraceCreature()
+					&& g_pPlayer->GetTraceID()==creatureID)
 			{
 				m_SOMOutlineColor = m_ColorOutlineNPC;
 			}
@@ -1049,16 +1049,16 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 				DEBUG_ADD("drawBody");
 			#endif
-			
+
 			//----------------------------------------
 			//
 			//         몸이 있는 경우에 출력
 			//
-			//---------------------------------------- 		
+			//----------------------------------------
 			if (body!=FRAMEID_NULL)
 			{
-				// body 수정 필요     
-				if( pCreature->IsAdvancementClass() 
+				// body 수정 필요
+				if( pCreature->IsAdvancementClass()
 					)		//by viva Selected Vampire
 					DrawSelectedAdvancementVampireCreature( pPoint, pCreature, action, direction, frame, 0, FrameIndex );
 				else
@@ -1071,7 +1071,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				//----------------------------------------------------
 				pCreature->ClearScreenRect();
 			}
-			
+
 			#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 				DEBUG_ADD("draw clothes");
 			#endif
@@ -1107,8 +1107,23 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			// 슬레 펫인 경우는 터렛 찍어줘야 된다-ㅅ-;;;; 하드하드..아아-_-/~
 			if( bSlayerPet_ShowTurret )
 			{
-				DrawCentauroTurret( pPoint, pCreature, action, direction, frame , body);				
+				DrawCentauroTurret( pPoint, pCreature, action, direction, frame , body);
 			}
+
+			// FIX: Draw the actual sprites before drawing the outline
+			// BltSpriteOutline only draws the outline, not the sprites themselves
+			// So we need to draw the sprites first
+			const std::vector<OutlineEntry>& outlines = m_SOM.GetOutlines();
+			for (const auto& entry : outlines) {
+				if (entry.pIndexSprite) {
+					POINT spritePoint = { entry.x, entry.y };
+					m_pSurface->BltIndexSprite(&spritePoint, entry.pIndexSprite);
+				} else if (entry.pSprite) {
+					POINT spritePoint = { entry.x, entry.y };
+					m_pSurface->BltSprite(&spritePoint, entry.pSprite);
+				}
+			}
+
 			m_SOM.Generate(OutLineOption);
 			
 	//			// 2004, 8, 18 sobeit add start - 공성전 성문 타겟팅때문에 여차여차 추가..
@@ -1273,20 +1288,20 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				DEBUG_ADD("SelectedCreature");
 			#endif
 
-			//---------------------------------------- 	
+			//----------------------------------------
 			// 이름 출력할 좌표 지정
-			//---------------------------------------- 	
+			//----------------------------------------
 			const int FontHeight = g_pClientConfig->FONT_HEIGHT;
 			const int FontHeight2 = FontHeight << 1;
 
-			pointTemp.x = pPoint->x;			
+			pointTemp.x = pPoint->x;
 			if (pointTemp.x<0) pointTemp.x=0;
-				
+
 			pointTemp.y = pPoint->y - pCreature->GetHeight();
-				
-			//---------------------------------------- 	
+
+			//----------------------------------------
 			// Level Name 찍을 위치도 계산
-			//---------------------------------------- 	
+			//----------------------------------------
 			if (pCreature->HasLevelName())
 			{
 				if (pointTemp.y < FontHeight2)
@@ -1294,19 +1309,19 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 					pointTemp.y = FontHeight2;
 				}
 			}
-			//---------------------------------------- 	
+			//----------------------------------------
 			// 그냥 이름만 찍을 때
-			//---------------------------------------- 	
+			//----------------------------------------
 			else
 			{
-				if (pointTemp.y < FontHeight) 
+				if (pointTemp.y < FontHeight)
 				{
 					pointTemp.y = FontHeight;
 				}
 			}
-			
+
 			m_pointChatString	= pointTemp;
-			m_pSelectedCreature = pCreature;	
+			m_pSelectedCreature = pCreature;
 
 		}
 		else
