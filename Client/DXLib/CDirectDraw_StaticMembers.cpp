@@ -13,6 +13,7 @@
 BYTE CDirectDraw::s_bSHIFT_R = 11;
 BYTE CDirectDraw::s_bSHIFT_G = 5;
 BYTE CDirectDraw::s_bSHIFT_B = 0;
+BYTE CDirectDraw::s_bSHIFT_A = 0;
 BYTE CDirectDraw::s_bSHIFT4_R = 12;
 BYTE CDirectDraw::s_bSHIFT4_G = 8;
 BYTE CDirectDraw::s_bSHIFT4_B = 4;
@@ -32,6 +33,9 @@ DWORD CDirectDraw::s_dwMASK_ALPHA0 = 0;
 DWORD CDirectDraw::s_dwMASK_ALPHA1 = 0;
 WORD CDirectDraw::s_wMASK_ALPHA0 = 0;
 WORD CDirectDraw::s_wMASK_ALPHA1 = 0;
+
+DWORD CDirectDraw::s_dwMASK_SHIFT_COUNT[5] = {0, 0, 0, 0, 0};
+DWORD CDirectDraw::s_dwMASK_RGB_COUNT[6] = {0, 0, 0, 0, 0, 0};
 
 WORD CDirectDraw::RED = 0xF800;
 WORD CDirectDraw::GREEN = 0x07E0;
