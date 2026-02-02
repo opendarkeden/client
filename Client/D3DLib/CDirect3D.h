@@ -1,8 +1,25 @@
 //-----------------------------------------------------------------------------
 // CDirect3D.h
 //-----------------------------------------------------------------------------
-// SDL Backend Adaptation Layer - Minimal CDirect3D compatibility stub
-// This provides a minimal implementation of CDirect3D for SDL migration
+// SDL Backend Adaptation Layer - CDirect3D Compatibility Stub
+//
+// This file provides a minimal CDirect3D implementation to maintain compatibility
+// with existing code after the DirectX to SDL migration.
+//
+// MIGRATION STATUS:
+// - The original D3DLib has been removed
+// - SDL2 is now used for all graphics operations
+// - This stub class only provides methods needed for compilation
+// - Actual rendering is handled by SpriteLib with SDL backend
+//
+// ARCHITECTURE:
+// - DXLib provides the abstract interface (CDirectDraw, CDirectSound, etc.)
+// - SDL backend implementations are in DXLib/SDLBackend files
+// - This file acts as a minimal compatibility layer
+//
+// FUTURE CLEANUP:
+// - Consider refactoring code to remove CDirect3D dependencies
+// - Many CDirect3D::IsHAL() checks can be simplified (always true in SDL)
 //-----------------------------------------------------------------------------
 
 #ifndef __CDIRECT3D_H__
