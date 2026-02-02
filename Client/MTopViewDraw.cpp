@@ -1135,7 +1135,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 	//			// -_- 위,아래도 만들어 놔야 하나..-_-;
 	//		};
 	//		// 2004, 8, 18 sobeit add start
-			//if (CDirect3D::IsHAL() || 
+			//if (true || 
 			//	DarkBits==0 || 
 			//	g_pPlayer->GetID()==pCreature->GetID())
 			//{	
@@ -1387,7 +1387,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			// SDL Migration: IsHAL() always true in SDL, but we use 2D lighting
 			// 3D lighting effects are not used in SDL backend
 #ifdef PLATFORM_WINDOWS
-			if (CDirect3D::IsHAL())
+			if (true)
 			{
 				AddLightFilter3D( pX,
 									pY - (pCreature->IsFlyingCreature()? 72:0 ),	//g_pPlayer->GetZ(),
@@ -1422,7 +1422,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 
 			// 오토바이 불빛
 #ifdef PLATFORM_WINDOWS
-			if (CDirect3D::IsHAL())
+			if (true)
 			{
 				ADD_MOTORCYCLE_LIGHT_3D( pCreature, false );
 			}

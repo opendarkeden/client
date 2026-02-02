@@ -846,7 +846,7 @@ void
 MTopView::ClearShadowManager()
 {
 #ifdef PLATFORM_WINDOWS
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 	}
 #endif
@@ -872,7 +872,7 @@ MTopView::ClearShadowManager()
 //	//-----------------------------------------------
 //	// 3D Box Texture Surface
 //	//-----------------------------------------------
-//	if (CDirect3D::IsHAL())
+//	if (true)
 //	{	
 //		//-----------------------------------------------
 //		// °ËÀº»ö
@@ -902,9 +902,9 @@ MTopView::RestoreSurface()
 		CDirectDraw::RestoreAllSurfaces();
 
 #ifdef PLATFORM_WINDOWS
-		if (CDirect3D::IsHAL())
+		if (true)
 		{
-			CDirect3D::Restore();
+// CDirect3D::Restore() removed (SDL2)
 
 			/*
 			D3DRECT rect3d;
@@ -913,9 +913,8 @@ MTopView::RestoreSurface()
 			rect3d.x2 = CLIPSURFACE_WIDTH;
 			rect3d.y2 = CLIPSURFACE_HEIGHT;
 
-			CDirect3D::GetDevice()->Clear( 1UL, (D3DRECT *)&rect3d,
-										D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-										0x00000000, 1.0f, 0L );
+			// CDirect3D::GetDevice()->Clear() removed (SDL2)
+
 			*/
 		}
 #endif
@@ -946,7 +945,7 @@ MTopView::RestoreSurface()
 	// ´Ù½Ã Load.. - -;;
 	//------------------------------------------------------------
 #ifdef PLATFORM_WINDOWS
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		//------------------------------------------------------------
 		// Part Manager
@@ -1002,7 +1001,7 @@ MTopView::RestoreSurface()
 	}
 #endif // PLATFORM_WINDOWS
 	/*
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		//------------------------------------------------------------
 		//
@@ -1079,7 +1078,7 @@ MTopView::InitSurfaces()
 
 
 #ifdef PLATFORM_WINDOWS
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		{
 			DEBUG_ADD("[ InitGame ]  MTopView::InitSurface() - TileSurface vidmem failed");
@@ -1095,7 +1094,7 @@ MTopView::InitSurfaces()
 		// free
 		//-----------------------------------------------
 //		m_p3DBoxSurface = new CSpriteSurface;
-//		m_p3DBoxSurface->InitTextureSurface(1, 1, 0, CDirect3D::GetPixelFormat4444());
+//		m_p3DBoxSurface->InitTextureSurface(1, 1, 0, nullptr);
 //
 //		Set3DBoxColor( m_3DBoxCurrentPixel );
 //
@@ -1654,7 +1653,7 @@ MTopView::InitSprites()
 	m_AdvancementSlayerWomanSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_ISPRITE_ADVANCEMENT_CLASS_SLAYER_WOMAN" ).c_str() );
 	m_AdvancementSlayerWomanSSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_SSPRITE_ADVANCEMENT_CLASS_SLAYER_WOMAN" ).c_str() );
 		
-//	if (!CDirect3D::IsHAL())
+//	if (!true)
 	{
 		//------------------------------------------------------------
 		// ±×¸²ÀÚ load
@@ -2402,7 +2401,7 @@ MTopView::InitSprites()
 	//
 	//------------------------------------------------------------
 	/*
-	if (CDirect3D::IsHAL())
+	if (true)
 	{	
 		//--------------------------------------------
 		// AlphaSPKÀ» ÀÌ¿ëÇØ¼­ TexturePackÀ» »ý¼ºÇÑ´Ù.
@@ -2829,7 +2828,7 @@ MTopView::InitFilters()
 
 
 #ifdef PLATFORM_WINDOWS
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		/*
 		//------------------------------------------------------
@@ -2904,7 +2903,7 @@ MTopView::InitFilters()
 		m_LightBufferFilter.Init( SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT );		
   		
 		m_pLightBufferTexture = new CSpriteSurface;
-		m_pLightBufferTexture->InitTextureSurface(SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT, 0, CDirect3D::GetPixelFormat4444());	
+		m_pLightBufferTexture->InitTextureSurface(SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT, 0, nullptr);	
 	
 	}
 #endif
@@ -2920,7 +2919,7 @@ MTopView::InitFilters()
 	if (true)  // Force execute on SDL platforms
 #else
 	// Windows platform: use 2D path when 3D HAL is not available
-	if (!CDirect3D::IsHAL())
+	if (!true)
 #endif
 	{
 		/*
@@ -5056,7 +5055,7 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 	//------------------------------------------------------------
 	// 3D °¡¼ÓÀÌ¸é...
 	//------------------------------------------------------------
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		InitMinimapTexture();
 	}
@@ -5090,7 +5089,7 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //	//------------------------------------------------------------
 //	// 3D °¡¼ÓÀÌ¸é...
 //	//------------------------------------------------------------
-//	if (!CDirect3D::IsHAL())
+//	if (!true)
 //		return;
 //
 //
@@ -5204,7 +5203,7 @@ MTopView::UseHalfFrame(bool bUse)
 	m_CreatureSPK.Release();
 	m_CreatureSSPK.Release();
 
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		m_pCreatureShadowManager->Release();
 		
@@ -5376,7 +5375,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //				return;	
 
 		
-//			if (!CDirect3D::IsHAL())
+//			if (!true)
 			{
 				//------------------------------------------------------------
 				// Half Frame »ç¿ë
@@ -5440,7 +5439,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 		// Init ±×¸²ÀÚ TextureSurface
 		//
 		//------------------------------------------------------------
-		if (CDirect3D::IsHAL())
+		if (true)
 		{	
 			//--------------------------------------------
 			// AlphaSPKÀ» ÀÌ¿ëÇØ¼­ TexturePackÀ» »ý¼ºÇÑ´Ù.
@@ -5506,7 +5505,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //
 //		__END_PROFILE("LoadAddonAction")
 //
-//		if (!CDirect3D::IsHAL())
+//		if (!true)
 //		{			
 //			TYPE_SPRITEID first = (*g_pAddonSpriteTable)[frameID].FirstShadowSpriteID;
 //			TYPE_SPRITEID last	= (*g_pAddonSpriteTable)[frameID].LastShadowSpriteID;
@@ -5572,7 +5571,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //
 //		__END_PROFILE("LoadCreatureAction")
 //
-//		if (!CDirect3D::IsHAL())
+//		if (!true)
 //		{			
 //			TYPE_SPRITEID first = (*g_pCreatureActionSpriteTable)[frameID].FirstShadowSpriteID;
 //			TYPE_SPRITEID last	= (*g_pCreatureActionSpriteTable)[frameID].LastShadowSpriteID;
@@ -5620,7 +5619,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //		
 //		m_CreatureSPK.ReleasePart(first, last);
 //
-//		if (!CDirect3D::IsHAL())
+//		if (!true)
 //		{			
 //			TYPE_SPRITEID first = (*g_pCreatureActionSpriteTable)[frameID].FirstShadowSpriteID;
 //			TYPE_SPRITEID last	= (*g_pCreatureActionSpriteTable)[frameID].LastShadowSpriteID;
@@ -6679,7 +6678,7 @@ MTopView::SetFadeStart(char start, char end, char step, BYTE r, BYTE g, BYTE b, 
 	m_bFade		= true;
 	m_delayFrame = delay;
 #ifdef PLATFORM_WINDOWS
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		// 3D °¡¼ÓÀÎ °æ¿ì¿£ 4:4:4ÀÌ´Ù.
 		m_FadeColor = (((WORD)r>>1) << 8)
@@ -8683,7 +8682,7 @@ MTopView::DrawTextList()
 	// ±ÛÀÚ ÂïÀ» ¶§, ¹Ù·Î Á÷Àü¿¡ box¸¦ ±×·ÁÁà¾ß ÇÑ´Ù. ÄÊ...
 	//--------------------------------------------------------
 	/*
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		m_pSurface->Unlock();
 
@@ -8938,7 +8937,7 @@ MTopView::DrawTextList()
 void
 MTopView::ClearLightBufferFilter3D()
 {
-	//if (CDirect3D::IsHAL() && 
+	//if (true && 
 	//if	(m_DarkBits)
 	{
 		//--------------------------------------------------
@@ -8993,7 +8992,7 @@ MTopView::ClearLightBufferFilter3D()
 void
 MTopView::ClearLightBufferFilter2D()
 {
-	//if (1)//CDirect3D::IsHAL() && m_b3DLight && m_DarkBits)
+	//if (1)//true && m_b3DLight && m_DarkBits)
 	{
 		//--------------------------------------------------
 		// ºûÀÇ °ª ¼³Á¤
@@ -9063,7 +9062,7 @@ MTopView::AddLightFilter2D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 		range = min( max(g_pPlayer->GetSight()-3, 0), range );
 	}
 
-	if (//CDirect3D::IsHAL() && m_b3DLight && 
+	if (//true && m_b3DLight && 
 		!g_pPlayer->IsInDarkness()
 		&& range!=0 
 		&& (m_DarkBits || g_pPlayer->IsInDarkness()) 
@@ -9136,7 +9135,7 @@ MTopView::AddLightFilter3D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 		range = min( max(g_pPlayer->GetSight()-3, 0), range );
 	}
 		
-	if (//CDirect3D::IsHAL() && 
+	if (//true && 
 		!g_pPlayer->IsInDarkness()
 		&& range!=0
 		&&	(m_DarkBits	|| g_pPlayer->IsInDarkness()) 
@@ -9454,7 +9453,7 @@ MTopView::DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 		//--------------------------------------------------------
 		// 3D °¡¼ÓÀÇ °æ¿ì
 		//--------------------------------------------------------
-//		if (CDirect3D::IsHAL())
+//		if (true)
 //		{
 //			//------------------------------------------------
 //			// Unlock »óÅÂ·Î ¸¸µç´Ù.
@@ -10299,7 +10298,7 @@ MTopView::DrawTestHelp()
 		{
 			RECT rect = { 250, 25, 530, 410 };
 
-			if (CDirect3D::IsHAL())
+			if (true)
 			{
 				//DrawBox3D(&rect, 0x7000);
 				DrawAlphaBox(&rect, 0, 0, 0, 20);
@@ -10446,7 +10445,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 		DEBUG_ADD("Draw m_bFirstTileDraw: Restore");
 		
 		CDirectDraw::RestoreAllSurfaces();
-		CDirect3D::Restore();
+// CDirect3D::Restore() removed (SDL2)
 
 		DEBUG_ADD("Draw m_bFirstTileDraw: Clear");
 		
@@ -10469,8 +10468,10 @@ MTopView::Draw(int firstPointX,int firstPointY)
 		DEBUG_ADD("Draw m_bFirstTileDraw: OK");
 		
 		/*
-		CDirect3D::GetDevice()->LightEnable( 0, false );
-		CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_LIGHTING, false );
+		// CDirect3D::GetDevice()->LightEnable() removed (SDL2)
+
+		// CDirect3D::GetDevice()->SetRenderState() removed (SDL2)
+
 		
 	
 		D3DLIGHT7 light;
@@ -10492,7 +10493,8 @@ MTopView::Draw(int firstPointX,int firstPointY)
 		light.dvAttenuation0 = 1.0f;
 		light.dvFalloff		= 1.0f;
 		
-		CDirect3D::GetDevice()->SetLight( 0, &light );	
+		// CDirect3D::GetDevice()->SetLight() removed (SDL2)
+	
 		*/
 		//*/
 	}
@@ -10501,20 +10503,19 @@ MTopView::Draw(int firstPointX,int firstPointY)
 	//------------------------------------------------------------
 	//else
 	{			
-		if (CDirect3D::IsHAL())// && m_b3DLight)
+		if (true)// && m_b3DLight)
 		{
 			#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 				DEBUG_ADD( "IsLost?" );
 			#endif
 
 			// µµ¿òÀÌ µÉ±î..
-			if (CDirect3D::IsLost())
+			if (false)
 			{
 				#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 					DEBUG_ADD( "CDirect3D::Restore" );
 				#endif
-
-				CDirect3D::Restore();
+// CDirect3D::Restore() removed (SDL2)
 
 				#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 					DEBUG_ADD( "RestoreSurface" );
@@ -10527,10 +10528,10 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			// BeginScene
 			//------------------------------------------------
 			/*
-			if (CDirect3D::GetDevice()->BeginScene()!=D3D_OK)
+			if (false)  // CDirect3D::GetDevice()->BeginScene() removed (SDL2)
 			{
 				CDirectDraw::RestoreAllSurfaces();
-				CDirect3D::Restore();
+// CDirect3D::Restore() removed (SDL2)
 
 				RestoreSurface();
 
@@ -10548,16 +10549,16 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			rect3d.y1 = 0;
 			rect3d.x2 = CLIPSURFACE_WIDTH;
 			rect3d.y2 = CLIPSURFACE_HEIGHT;
-			CDirect3D::GetDevice()->Clear( 1UL, (D3DRECT *)&rect3d, 
-										D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-										0x00000000, 1.0f, 0L );
+			// CDirect3D::GetDevice()->Clear() removed (SDL2)
+
 			*/
 			#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 				DEBUG_ADD( "Clear 3D" );
 			#endif
 
 			// SDL: Not needed - removed D3D device clear call
-			// CDirect3D::GetDevice()->Clear( 0, NULL, D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0L );
+			// // CDirect3D::GetDevice()->Clear() removed (SDL2)
+
 			//*/
 			
 
@@ -10570,23 +10571,27 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			if (g_pDXInput->KeyDown(DIK_Z))
 			{
 				D3DLIGHT7 light;
-				CDirect3D::GetDevice()->GetLight( 0, &light );
+				// CDirect3D::GetDevice()->GetLight() removed (SDL2)
+
 
 				light.dvTheta -=       0.01f; //¿ø»ÔÀÇ Áß¾Ó Å©±â
 				light.dvPhi -=         0.01f; //¿ø»ÔÀÇ ¿Ü°û Å©±â
 				
-				CDirect3D::GetDevice()->SetLight( 0, &light );
+				// CDirect3D::GetDevice()->SetLight() removed (SDL2)
+
 			}
 
 			if (g_pDXInput->KeyDown(DIK_A))
 			{
 				D3DLIGHT7 light;
-				CDirect3D::GetDevice()->GetLight( 0, &light );
+				// CDirect3D::GetDevice()->GetLight() removed (SDL2)
+
 
 				light.dvTheta +=       0.01f; //¿ø»ÔÀÇ Áß¾Ó Å©±â
 				light.dvPhi +=         0.01f; //¿ø»ÔÀÇ ¿Ü°û Å©±â
 				
-				CDirect3D::GetDevice()->SetLight( 0, &light );
+				// CDirect3D::GetDevice()->SetLight() removed (SDL2)
+
 			}
 			*/
 			
@@ -10659,7 +10664,8 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			//------------------------------------------------
 			// EndScene
 			//------------------------------------------------
-			//CDirect3D::GetDevice()->EndScene();
+			//// CDirect3D::GetDevice()->EndScene() removed (SDL2)
+
 
 			//------------------------------------------------
 			// Á¦°ÅµÈ SurfaceµéÀ» Áö¿öÁà¾ß ÇÑ´Ù.
@@ -10776,7 +10782,7 @@ MTopView::DrawLightBuffer3D()
 		DEBUG_ADD( "Start DrawLightBuffer3D" );
 	#endif
 
-	if (//CDirect3D::IsHAL() && 
+	if (//true && 
 		m_DarkBits || g_pPlayer->IsInDarkness())
 	{
 		//------------------------------------------------
@@ -10835,7 +10841,7 @@ MTopView::DrawLightBuffer3D()
 void
 MTopView::DrawLightBuffer2D()
 {
-	//if (CDirect3D::IsHAL() && m_b3DLight && 
+	//if (true && m_b3DLight && 
 	if (m_DarkBits || g_pPlayer->IsInDarkness())
 	{
 		//------------------------------------------------
@@ -13082,7 +13088,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 	__END_PROFILE("AddOutputCreature")
 
-	BOOL bUnlockStatus = CDirect3D::IsHAL() && g_pUserOption->BlendingShadow;
+	BOOL bUnlockStatus = true && g_pUserOption->BlendingShadow;
 	if (bUnlockStatus)
 	{	
 		m_pSurface->Unlock();
@@ -13407,7 +13413,7 @@ if (!m_pSurface->Lock()) return;
 	//----------------------------------------------------
 	// 3D°¡¼ÓÇÒ¶§´Â UnlockÀ¸·Î ¸¸µç´Ù.
 	//----------------------------------------------------
-	BOOL bUnlockStatus = CDirect3D::IsHAL() && g_pUserOption->BlendingShadow;
+	BOOL bUnlockStatus = true && g_pUserOption->BlendingShadow;
 	if (bUnlockStatus)
 	{	
 		m_pSurface->Unlock();
@@ -14600,7 +14606,7 @@ if (!m_pSurface->Lock()) return;
 //				playerLight = 1;
 
 		//	DEBUG_ADD_FORMAT("######## Sight  (%d)", playerLight); 
-			if (CDirect3D::IsHAL())
+			if (true)
 			{ 
 				AddLightFilter3D( pX, 
 					pY - (g_pPlayer->IsFlyingCreature()? 72:0 ),	//g_pPlayer->GetZ(), 
@@ -14853,15 +14859,17 @@ if (!m_pSurface->Lock()) return;
 		point.x = g_x;
 		point.y = g_y;
 
-		if (CDirect3D::IsHAL())
+		if (true)
 		{
 			sprite = 0;//rand()%m_pImageObjectShadowManager->GetMaxIndex();
 
 			m_pSurface->Unlock();
 			// EffectTexture ¼³Á¤
-			//CDirect3D::GetDevice()->SetTexture(0, m_EffectTPK[sprite].GetSurface());
+			//// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
+
 			CSpriteSurface* pSurface = m_pImageObjectShadowManager->GetTexture(sprite);		
-			CDirect3D::GetDevice()->SetTexture(0, pSurface->GetSurface());
+			// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
+
 			
 			// ÁÂÇ¥ ¼³Á¤
 			m_SpriteVertices[0].sx = point.x;	
@@ -14876,10 +14884,8 @@ if (!m_pSurface->Lock()) return;
 			m_SpriteVertices[3].sy = m_SpriteVertices[2].sy;		
 			
 			// Ãâ·Â
-			CDirect3D::GetDevice()->DrawPrimitive(D3DPT_TRIANGLESTRIP, 
-									D3DFVF_TLVERTEX, 
-									m_SpriteVertices, 
-									4, 0);
+			// CDirect3D::GetDevice()->DrawPrimitive() removed (SDL2)
+
 
 			m_pSurface->Lock();			
 		}
@@ -15808,7 +15814,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 			
 			m_SOM.Generate();
 
-			//if (CDirect3D::IsHAL() || DarkBits==0)
+			//if (true || DarkBits==0)
 			//{
 				m_pSurface->BltSpriteOutline( &m_SOM, m_SOMOutlineColor );
 
@@ -15894,7 +15900,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 			//-------------------------------------------------------
 			//else 
 			{
-				//if (CDirect3D::IsHAL() || DarkBits==0)
+				//if (true || DarkBits==0)
 				//{			
 					
 				//-------------------------------------------------------
@@ -16151,7 +16157,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 	}
 	
 	// 3D °¡¼ÓÀÌ µÇ´Â °æ¿ì.. ¹«Á¶°Ç ¿ø·¡ »ö±òÀ» ±×´ë·Î Ãâ·ÂÇÑ´Ù.
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		DarkBits = 0;
 	}
@@ -16350,7 +16356,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					//if (DarkBits==0)
 					//{
 #ifdef __3D_IMAGE_OBJECT__
-					if (CDirect3D::IsHAL())
+					if (true)
 					{
 						m_pSurface->Unlock();
 
@@ -16359,11 +16365,15 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 
 						if( pSurface != NULL )
 						{
-							CDirect3D::GetDevice()->SetTexture(0, pSurface->GetSurface());
+							// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
 
-							CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE);					
-							CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_ONE );
-							CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_ONE );   
+
+							// CDirect3D::GetDevice()->SetTextureStageState() removed (SDL2)
+					
+							// CDirect3D::GetDevice()->SetRenderState() removed (SDL2)
+
+							// CDirect3D::GetDevice()->SetRenderState() removed (SDL2)
+   
 							
 							
 							CDirect3D::GetDevice()->BeginScene();						
@@ -16377,10 +16387,14 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 							
 							m_TextureEffect.DrawEffect2D( &rect );
 							
-							CDirect3D::GetDevice()->EndScene();
-							CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE);					
-							CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
-							CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
+							// CDirect3D::GetDevice()->EndScene() removed (SDL2)
+
+							// CDirect3D::GetDevice()->SetTextureStageState() removed (SDL2)
+					
+							// CDirect3D::GetDevice()->SetRenderState() removed (SDL2)
+
+							// CDirect3D::GetDevice()->SetRenderState() removed (SDL2)
+   
 							m_pSurface->Lock();	
 						}
 					}					
@@ -16401,13 +16415,14 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 
 					// Texture¸¸µé¾î¼­ ¹ÝÅõ¸í ÇÏ±â... 
 					/*
-					if (CDirect3D::IsHAL())
+					if (true)
 					{
 						m_pSurface->Unlock();
 
 						// Texture ¼³Á¤
 						CSpriteSurface* pSurface = m_pImageObjectTextureManager->GetTexture(spriteID);
-						CDirect3D::GetDevice()->SetTexture(0, pSurface->GetSurface());
+						// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
+
 				
 						// ÁÂÇ¥ ¼³Á¤
 						m_SpriteVertices[0].sx = pPoint->x;
@@ -16420,12 +16435,11 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						m_SpriteVertices[3].sy = m_SpriteVertices[2].sy;		
 						
 						// Ãâ·Â
-						CDirect3D::GetDevice()->DrawPrimitive(D3DPT_TRIANGLESTRIP, 
-												D3DFVF_TLVERTEX, 
-												m_SpriteVertices, 
-												4, 0);
+						// CDirect3D::GetDevice()->DrawPrimitive() removed (SDL2)
 
-						//CDirect3D::GetDevice()->EndScene();
+
+						//// CDirect3D::GetDevice()->EndScene() removed (SDL2)
+
 						m_pSurface->Lock();	
 					}
 					else
@@ -16440,7 +16454,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					//if (DarkBits==0)
 					//{
 					#ifdef __3D_IMAGE_OBJECT__
-					if (CDirect3D::IsHAL())
+					if (true)
 					{
 						m_pSurface->Unlock();
 
@@ -16449,7 +16463,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 
 						if( pSurface != NULL )
 						{
-							CDirect3D::GetDevice()->SetTexture(0, pSurface->GetSurface());
+							// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
+
 							
 							
 							CDirect3D::GetDevice()->BeginScene();						
@@ -16463,7 +16478,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 							
 							m_TextureEffect.DrawEffect2D( &rect );
 							
-							CDirect3D::GetDevice()->EndScene();
+							// CDirect3D::GetDevice()->EndScene() removed (SDL2)
+
 							m_pSurface->Lock();	
 						}
 					}					
@@ -16747,7 +16763,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						//-------------------------------------------------------
 						// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
 						//-------------------------------------------------------
-						if (CDirect3D::IsHAL())
+						if (true)
 						{
 //							
 //							DRAW_TEXTURE_SPRITEPAL_LOCKED(pPoint->x, pPoint->y, 
@@ -16812,7 +16828,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 							//-------------------------------------------------------
 							// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
 							//-------------------------------------------------------
-							if (CDirect3D::IsHAL())
+							if (true)
 							{
 //								
 //								
@@ -16904,7 +16920,7 @@ MTopView::SurfaceLockForAlphaEffect()
 {
 	BOOL bLock = m_pSurface->IsLock();
 
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		if (bLock)
 		{
@@ -17375,7 +17391,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 									//-------------------------------------------------------
 									// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
 									//-------------------------------------------------------
-									if (CDirect3D::IsHAL())
+									if (true)
 									{
 //							
 //										DRAW_TEXTURE_SPRITEPAL_LOCKED(pointTemp.x, pointTemp.y, 
@@ -17441,7 +17457,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 							//-------------------------------------------------------
 							// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
 							//-------------------------------------------------------
-							if (CDirect3D::IsHAL())
+							if (true)
 							{
 //					
 //								DRAW_TEXTURE_SPRITEPAL_LOCKED(pointTemp.x, pointTemp.y, 
@@ -17526,7 +17542,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 									//-------------------------------------------------------
 									// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
 									//-------------------------------------------------------
-									if (CDirect3D::IsHAL())
+									if (true)
 									{
 //							
 //										DRAW_TEXTURE_SPRITEPAL_LOCKED(pointTemp.x, pointTemp.y, 
@@ -17655,7 +17671,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 							//-------------------------------------------------------
 							// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
 							//-------------------------------------------------------
-							if (CDirect3D::IsHAL())
+							if (true)
 							{
 //
 //					
@@ -17742,7 +17758,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 									//-------------------------------------------------------
 									// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
 									//-------------------------------------------------------
-									if (CDirect3D::IsHAL())
+									if (true)
 									{
 //
 //							
@@ -17817,14 +17833,17 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 	//------------------------------------------------
 //	
 //			// Texture ¼³Á¤
-//			CDirect3D::GetDevice()->SetTexture(0, m_pMinimapTexture->GetSurface());
+//			// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
+
 //
 //
 //			m_TextureEffect.DrawEffect2D( &rect );		
 //			
-//			CDirect3D::GetDevice()->EndScene();		
+//			// CDirect3D::GetDevice()->EndScene() removed (SDL2)
+		
 //
-//			CDirect3D::GetDevice()->SetTexture(0, NULL);
+//			// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
+
 //
 //
 //			//------------------------------------------------
@@ -18457,7 +18476,7 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 				//-------------------------------------------------------
 				// Hardware acceleration enabled
 				//-------------------------------------------------------
-				if (CDirect3D::IsHAL())
+				if (true)
 				{
 //					
 //					DRAW_TEXTURE_SPRITEPAL_LOCKED(point.x, point.y, spriteID, m_pAlphaEffectTextureManager, pEffect->GetFrameID() ) //m_EffectAlphaPPK[pEffect->GetFrameID()])
@@ -18575,7 +18594,7 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 				//-------------------------------------------------------
 				// Hardware acceleration enabled
 				//-------------------------------------------------------
-				if (CDirect3D::IsHAL())
+				if (true)
 				{
 //
 //					
@@ -18671,7 +18690,7 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 				//-------------------------------------------------------
 				// Hardware acceleration enabled
 				//-------------------------------------------------------
-				if (CDirect3D::IsHAL())
+				if (true)
 				{
 //					DRAW_TEXTURE_SPRITE_LOCKED(point.x, point.y, spriteID, m_pEffectShadowManager)		
 

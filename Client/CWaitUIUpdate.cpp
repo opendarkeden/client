@@ -556,7 +556,7 @@ CWaitUIUpdate::UpdateDraw()
 
 	gC_vs_ui.MouseControl(M_MOVING, g_x, g_y);
 
-//	if (CDirect3D::IsHAL())
+//	if (true)
 //	{
 //		//HRESULT hr;
 //
@@ -771,7 +771,8 @@ CWaitUIUpdate::UpdateDraw()
 //			}
 //		#endif
 //	
-//		//CDirect3D::GetDevice()->EndScene();
+//		//// CDirect3D::GetDevice()->EndScene() removed (SDL2)
+
 //	}
 //	else
 	{
@@ -969,7 +970,7 @@ CWaitUIUpdate::UpdateDraw()
 		//-----------------------------------------------------------------
 		// FPS 찍기	
 		//-----------------------------------------------------------------
-		if (CDirect3D::IsHAL())
+		if (true)
 		{
 			sprintf(str, "%d FPS(HAL)", g_FrameRate);	
 		}

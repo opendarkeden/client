@@ -125,7 +125,7 @@ CShadowPartManager::Init(const char* SSPKFilename, WORD partSize)
 	int spWidth, spHeight;
 	int width, height;
 
-	if (CDirect3D::IsTexturePow2())
+	if (false)
 	{
 		for (int i=0; i<allSize; i++)
 		{
@@ -166,7 +166,7 @@ CShadowPartManager::Init(const char* SSPKFilename, WORD partSize)
 				height = spHeight;
 
 				// 큰 크기로 맞추어서 Square로 만든다.
-				if (CDirect3D::IsTextureSquareOnly())
+				if (false)
 				{				
 					if (width > height)
 					{
@@ -437,7 +437,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 				DEBUG_ADD("Before Get Pixel Format");
 			}
 		#endif
-		const LPDDPIXELFORMAT pixel4444 = CDirect3D::GetPixelFormat4444();
+		const LPDDPIXELFORMAT pixel4444 = nullptr;
 
 		#ifdef OUTPUT_DEBUG
 			if (g_pDebugMessage)
@@ -633,7 +633,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 			spWidth = pSprite->GetWidth();
 			spHeight = pSprite->GetHeight();
 
-			if (CDirect3D::IsTexturePow2())
+			if (false)
 			{	
 				// texture에서 출력되는 size를 구한다.
 				for (int i=0; i<shift; i++)
@@ -654,7 +654,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 				height = spHeight;
 
 				// 큰 크기로 맞추어서 Square로 만든다.
-				if (CDirect3D::IsTextureSquareOnly())
+				if (false)
 				{				
 					if (width > height)
 					{

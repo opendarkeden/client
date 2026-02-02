@@ -708,9 +708,9 @@ SetMode(enum CLIENT_MODE mode)
 		case MODE_CHANGE_OPTION :
 #ifdef PLATFORM_WINDOWS
 			if (// 3D°¡¼Ó ÁßÀÎµ¥.. °¡¼Ó ²ô´Â °æ¿ì
-				CDirect3D::IsHAL() && !g_pUserOption->Use3DHAL
+				true && !g_pUserOption->Use3DHAL
 				// 3D°¡¼Ó ¾Æ´Ñµ¥.. °¡¼Ó ÇÏ´Â °æ¿ì
-				|| !CDirect3D::IsHAL() && g_pUserOption->Use3DHAL)
+				|| !true && g_pUserOption->Use3DHAL)
 			{
 #endif // PLATFORM_WINDOWS
 				//if (g_pTopView!=NULL)
@@ -739,9 +739,10 @@ SetMode(enum CLIENT_MODE mode)
 				}
 
 #ifdef PLATFORM_WINDOWS
-				if (CDirect3D::IsHAL())
+				if (true)
 				{
-					CDirect3D::Release();
+// CDirect3D::Release() removed (SDL2)
+
 				}
 #endif // PLATFORM_WINDOWS
 
@@ -759,7 +760,7 @@ SetMode(enum CLIENT_MODE mode)
 				gC_vs_ui.Process();
 				gC_vs_ui.Show();
 
-//				if (CDirect3D::IsHAL())
+//				if (true)
 //				{
 //				}
 //				else
@@ -1451,7 +1452,8 @@ SetMode(enum CLIENT_MODE mode)
 
 #ifdef PLATFORM_WINDOWS
 			DEBUG_ADD("CDirect3D::Restore()");
-			CDirect3D::Restore();
+// CDirect3D::Restore() removed (SDL2)
+
 #else
 			DEBUG_ADD("CDirect3D::Restore() - skipped on non-Windows platform");
 #endif // PLATFORM_WINDOWS
@@ -1674,13 +1676,12 @@ CheckActivate(BOOL bActiveGame)
 			g_bActiveGame = TRUE;
 
 #ifdef PLATFORM_WINDOWS
-			if (CDirect3D::IsHAL())
+			if (true)
 			{
 				//CDirect3D::Restore();
 
 				DEBUG_ADD("IsHAL : Before CDirect3D::Release()");
-
-				CDirect3D::Release();
+// CDirect3D::Release() removed (SDL2)
 
 				DEBUG_ADD("IsHAL : Before CDirect3D::Init()");
 
@@ -1688,8 +1689,8 @@ CheckActivate(BOOL bActiveGame)
 
 
 				DEBUG_ADD("IsHAL : Before CDirect3D::Restore()");
+// CDirect3D::Restore() removed (SDL2)
 
-				CDirect3D::Restore();
 			}
 
 			if (g_bFullScreen)
@@ -1717,7 +1718,8 @@ CheckActivate(BOOL bActiveGame)
 			DEBUG_ADD("Before Restore");
 
 #ifdef PLATFORM_WINDOWS
-			CDirect3D::Restore();
+// CDirect3D::Restore() removed (SDL2)
+
 #else
 			DEBUG_ADD("CDirect3D::Restore() - skipped on non-Windows platform");
 #endif // PLATFORM_WINDOWS
@@ -5001,10 +5003,10 @@ UpdateDisconnected()
 	//--------------------------------------------------
 	// Á¢¼Ó ²÷°å´Ù´Â °É ¸ÕÀú ÇÑ¹ø ¶ç¿öÁØ´Ù.
 	//--------------------------------------------------
-//	if (CDirect3D::IsHAL())
+//	if (true)
 //	{
 //		POINT point;
-//		if (CDirect3D::GetDevice()->BeginScene()!=D3D_OK)
+//		if (false)  // CDirect3D::GetDevice()->BeginScene() removed (SDL2)
 //		{
 //			return;
 //		}
@@ -5032,7 +5034,8 @@ UpdateDisconnected()
 //		//gC_vs_ui.MouseControl(M_MOVING, g_x, g_y);
 //		//gC_vs_ui.DrawMousePointer();
 //	
-//		CDirect3D::GetDevice()->EndScene();
+//		// CDirect3D::GetDevice()->EndScene() removed (SDL2)
+
 //	}
 //	else
 	{
@@ -5177,9 +5180,9 @@ UpdateDisconnected()
 			}
 		
 
-//			if (CDirect3D::IsHAL())
+//			if (true)
 //			{
-//				if (CDirect3D::GetDevice()->BeginScene()!=D3D_OK)
+//				if (false)  // CDirect3D::GetDevice()->BeginScene() removed (SDL2)
 //				{
 //					return;
 //				}
@@ -5225,7 +5228,8 @@ UpdateDisconnected()
 //				gC_vs_ui.MouseControl(M_MOVING, g_x, g_y);
 //				gC_vs_ui.DrawMousePointer();
 //			
-//				CDirect3D::GetDevice()->EndScene();
+//				// CDirect3D::GetDevice()->EndScene() removed (SDL2)
+
 //			}
 //			else
 			{
@@ -5298,9 +5302,9 @@ UpdateDisconnected()
 	{
 		DEBUG_ADD("UpdateDisconnected : Now ALT+TAB Mode");
 		
-//		if (CDirect3D::IsHAL())
+//		if (true)
 //		{
-//			if (CDirect3D::GetDevice()->BeginScene()!=D3D_OK)
+//			if (false)  // CDirect3D::GetDevice()->BeginScene() removed (SDL2)
 //			{
 //				return;
 //			}
@@ -5310,7 +5314,8 @@ UpdateDisconnected()
 //			gC_vs_ui.MouseControl(M_MOVING, g_x, g_y);
 //			gC_vs_ui.DrawMousePointer();
 //		
-//			CDirect3D::GetDevice()->EndScene();
+//			// CDirect3D::GetDevice()->EndScene() removed (SDL2)
+
 //		}
 //		else
 		{

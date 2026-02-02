@@ -180,8 +180,8 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 endif()
 
 if(BUILD_ENGINE)
-	add_subdirectory(engine/sprite)
-	add_subdirectory(engine/ui)
+	add_subdirectory(tools/engine/sprite)
+	add_subdirectory(tools/engine/ui)
 endif()
 
 # ============================================================
@@ -475,6 +475,7 @@ target_include_directories(map_viewer PRIVATE
 	${CMAKE_CURRENT_SOURCE_DIR}/Client
 	${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
 	${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+	${CMAKE_CURRENT_SOURCE_DIR}/tools/engine/sprite/include
 )
 
 target_link_libraries(map_viewer PRIVATE
@@ -531,9 +532,10 @@ endif()
 
 
 # Examples (always built if backend is enabled)
-if(USE_SDL_BACKEND OR NOT WIN32)
-	add_subdirectory(examples)
-endif()
+# Examples directory removed during cleanup
+# if(USE_SDL_BACKEND OR NOT WIN32)
+# 	add_subdirectory(examples)
+# endif()
 
 # Dark Eden Client Executable
 if(USE_SDL_BACKEND OR NOT WIN32)
@@ -661,8 +663,8 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/Packet
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/framelib
-		${CMAKE_CURRENT_SOURCE_DIR}/engine/sprite/include
-		${CMAKE_CURRENT_SOURCE_DIR}/engine/ui/include
+		${CMAKE_CURRENT_SOURCE_DIR}/tools/engine/sprite/include
+		${CMAKE_CURRENT_SOURCE_DIR}/tools/engine/ui/include
 		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/header
 		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/widget
 		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/hangul

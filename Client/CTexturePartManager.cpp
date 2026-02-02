@@ -112,7 +112,7 @@ CTexturePartManager::Init(const char* aspkFilename, WORD partSize)
 	int spWidth, spHeight;
 	int width, height;
 
-	if (CDirect3D::IsTexturePow2())
+	if (false)
 	{
 		for (int i=0; i<allSize; i++)
 		{
@@ -153,7 +153,7 @@ CTexturePartManager::Init(const char* aspkFilename, WORD partSize)
 				height = spHeight;
 
 				// 큰 크기로 맞추어서 Square로 만든다.
-				if (CDirect3D::IsTextureSquareOnly())
+				if (false)
 				{				
 					if (width > height)
 					{
@@ -389,7 +389,7 @@ CTexturePartManager::GetTexture(TYPE_SPRITEID id, int index)
 		//---------------------------------------------------
 		// TextureSurface 생성
 		//---------------------------------------------------		
-		pTextureSurface->InitTextureSurface(width, height, 0, CDirect3D::GetPixelFormat4444());
+		pTextureSurface->InitTextureSurface(width, height, 0, nullptr);
 
 		POINT point;
 		point.x = 0;
@@ -482,7 +482,7 @@ CTexturePartManager::GetTexture(TYPE_SPRITEID id, int index)
 			spWidth = pSprite->GetWidth();
 			spHeight = pSprite->GetHeight();
 			
-			if (CDirect3D::IsTexturePow2())
+			if (false)
 			{	
 				// texture에서 출력되는 size를 구한다.
 				for (int i=0; i<smallShift; i++)
@@ -501,7 +501,7 @@ CTexturePartManager::GetTexture(TYPE_SPRITEID id, int index)
 				height = spHeight;
 
 				// 큰 크기로 맞추어서 Square로 만든다.
-				if (CDirect3D::IsTextureSquareOnly())
+				if (false)
 				{				
 					if (width > height)
 					{

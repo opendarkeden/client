@@ -4311,7 +4311,7 @@ _APICheck.init();
 				UpdateInput();
 				UpdateMouse();
 
-//				if (CDirect3D::IsHAL())
+//				if (true)
 //				{
 //					gC_vs_ui.Show();
 //				}

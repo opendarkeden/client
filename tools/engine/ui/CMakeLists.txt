@@ -17,7 +17,7 @@ target_include_directories(ui
         ${CMAKE_CURRENT_SOURCE_DIR}/include
         ${CMAKE_CURRENT_SOURCE_DIR}/../sprite/include
         ${CMAKE_CURRENT_SOURCE_DIR}/../../game/vs_ui/include
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../engine/basic
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../../basic
 )
 
 target_link_libraries(ui

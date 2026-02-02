@@ -1729,8 +1729,8 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 						if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
 						{
 							CDirectDraw::RestoreAllSurfaces();
-							CDirect3D::Restore();					
-								
+// CDirect3D::Restore() removed (SDL2)
+
 							if (g_pTopView!=NULL)
 							{
 								g_pTopView->RestoreSurface();
@@ -5013,7 +5013,7 @@ CGameUpdate::UpdateDraw()
 			//DEBUG_ADD("dd");//[Update-Draw] Before Draw");
 	#endif
 
-//	if (CDirect3D::IsHAL())
+//	if (true)
 //	{
 //		//-----------------------------------------------------------------
 //		// Game È­¸é Ãâ·Â
@@ -5162,7 +5162,7 @@ CGameUpdate::UpdateDraw()
 		//-----------------------------------------------------------------
 		__BEGIN_PROFILE("LastToBack")
 
-//		if(CDirect3D::IsHAL())
+//		if(true)
 //		{
 //			point.x = 0;
 //			point.y = 0;
@@ -5560,7 +5560,7 @@ CGameUpdate::UpdateDraw()
 
 				if (outputInfo)
 				{
-					if (!CDirect3D::IsHAL())
+					if (!true)
 					{
 						g_SetFL2Surface( g_pBack );
 					}
@@ -5575,7 +5575,7 @@ CGameUpdate::UpdateDraw()
 						g_Print(200 + i*40, 455 + i*8, str, pPrintInfo);
 					}				
 
-					if (!CDirect3D::IsHAL())
+					if (!true)
 					{
 						g_SetFL2Surface( g_pLast );
 					}
@@ -5588,7 +5588,7 @@ CGameUpdate::UpdateDraw()
 		{
 			g_pTopView->DrawDebugInfo( g_pBack );
 
-			if (!CDirect3D::IsHAL())
+			if (!true)
 			{
 				g_SetFL2Surface( g_pBack );
 			}
@@ -5708,7 +5708,7 @@ CGameUpdate::UpdateDraw()
 			}
 			*/
 
-			if (!CDirect3D::IsHAL())
+			if (!true)
 			{
 				g_SetFL2Surface( g_pLast );
 			}
@@ -5721,7 +5721,7 @@ CGameUpdate::UpdateDraw()
 		//-----------------------------------------------------------------
 		// FPS Âï±â	
 		//-----------------------------------------------------------------
-		if (CDirect3D::IsHAL())
+		if (true)
 		{
 			sprintf(str, "%d FPS(HAL)", g_FrameRate);	
 		}
@@ -6647,7 +6647,7 @@ CGameUpdate::Update(void)
 				// ±×·¡¼­ µÎ¹ø BltÇØÁá´Ù. - -;;
 				//------------------------------------------------------
 				// (¹æ±Ý ±×¸° È­¸é°ú ÀÌÀüÀÇ È­¸éÀÌ ´Ù¸£±â ¶§¹®¿¡.. ¶È°°ÀÌ ÇØÁØ´Ù)
-//				if (CDirect3D::IsHAL())
+//				if (true)
 //				{
 //					point.x = 0;
 //					point.y = 0;

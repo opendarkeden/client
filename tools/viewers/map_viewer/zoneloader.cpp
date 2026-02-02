@@ -4,7 +4,7 @@
  */
 
 // 必须首先包含 zone.h，在包含任何客户端头文件之前
-#include "engine/sprite/include/zone.h"
+#include "zone.h"
 
 #include "zoneloader.h"
 #include <iostream>

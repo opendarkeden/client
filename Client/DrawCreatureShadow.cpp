@@ -394,15 +394,17 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 				//pointTemp.y = pPoint->y + cy + pCreature->GetSY();
 				
 				//m_pSurface->BltSprite(&pointTemp, &m_EtcSPK[ 1 ]);
-				if (CDirect3D::IsHAL())
+				if (true)
 				{	
 					int sprite = 0;
 
 					m_pSurface->Unlock();
 					// EffectTexture 설정
-					//CDirect3D::GetDevice()->SetTexture(0, m_EffectTPK[sprite].GetSurface());
+					//// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
+
 					CSpriteSurface* pSurface = m_pCreatureShadowManager->GetTexture(sprite);
-					CDirect3D::GetDevice()->SetTexture(0, pSurface->GetSurface());
+					// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
+
 					
 					RECT rect = { pointTemp.x, 
 									pointTemp.y, 
@@ -885,7 +887,7 @@ void	MTopView::DrawShadowOustersCharacter( POINT *pPoint, MCreature* pCreature, 
 			pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 			pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 			
-			//				if(CDirect3D::IsHAL())
+			//				if(true)
 			//				{
 			//					m_pSurface->BltShadowSprite( &pointTemp, &(m_pOustersShadowManager->GetSprite(sprite)) );
 			//				}
@@ -923,7 +925,7 @@ void	MTopView::DrawShadowOustersCharacter( POINT *pPoint, MCreature* pCreature, 
 			pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 			pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 			
-			//				if(CDirect3D::IsHAL())
+			//				if(true)
 			//				{
 			//					m_pSurface->BltShadowSprite( &pointTemp, &(m_pOustersShadowManager->GetSprite(sprite)) );
 			//				}

@@ -329,7 +329,7 @@ DrawTitleLoading()
 		/*
 		if (gpC_base!=NULL)
 		{
-			if (!CDirect3D::IsHAL())
+			if (!true)
 			{
 				g_SetFL2Surface( g_pBack );
 			}
@@ -347,7 +347,7 @@ DrawTitleLoading()
 			//sprintf(str, "[%d]", g_TitleSpriteID);
 			//g_Print(330, 480, str, pPrintInfo);	
 			
-			if (!CDirect3D::IsHAL())
+			if (!true)
 			{
 				g_SetFL2Surface( g_pLast );
 			}
@@ -360,7 +360,7 @@ DrawTitleLoading()
 //			point.y = 460 - (g_pTitleLoadingSprite->GetHeight()>>1);
 //			
 			CSpriteSurface *pSurface = NULL;
-//			if (!CDirect3D::IsHAL())
+//			if (!true)
 			if(g_TitleSpriteAlpha != 32)
 			{
 				pSurface = g_pLast;
@@ -742,7 +742,7 @@ InitSurface()
 
 
 	// H/W가속 되는 경우
-//	if (CDirect3D::IsHAL())
+//	if (true)
 //	{
 //		g_pTopView->SetSurface( g_pBack );
 //	}
@@ -797,7 +797,7 @@ InitSurface()
 	gC_vs_ui.Release();
 
 	DEBUG_ADD("[ InitGame ]  Surface - InitD3D");
-//	if (CDirect3D::IsHAL())
+//	if (true)
 //	{
 //		gC_vs_ui.Init(g_pBack, UI_ResultReceiver);		
 //	} 
@@ -1277,7 +1277,7 @@ InitDraw()
 		//--------------------------------------------------------
 		// 하드웨어 가속 사용 가능
 		//--------------------------------------------------------
-		bool bUse3D = ( enoughMemory && g_bHAL && ( CDirect3D::CheckHAL() ));
+		bool bUse3D = ( enoughMemory && g_bHAL && ( true ));
 
 		if (bUse3D)
 		{
@@ -1916,7 +1916,7 @@ InitGame()
 			}
 
 			// 3D HAL?
-			if (CDirect3D::IsHAL())	
+			if (true)	
 			{
 				DEBUG_ADD("# 3D Hardware Accel.");
 			}
@@ -2754,7 +2754,8 @@ void ReleaseAllObjects()
 	DEBUG_ADD("[Release] CDirect3D");
 
 #ifdef PLATFORM_WINDOWS
-	CDirect3D::Release();
+// CDirect3D::Release() removed (SDL2)
+
 #endif
 
 	DEBUG_ADD("[Release] CDirectDraw");
