@@ -165,12 +165,6 @@ extern BOOL g_bPlayPropeller;
 // Avi
 CAVI				*g_pAvi = NULL;
 
-// Volume Á¶Àý
-IVolume				*g_pMasterVolume = NULL;
-IVolume				*g_pWaveVolume = NULL;
-DWORD				g_MasterVolumeOriginal = 0;
-DWORD				g_WaveVolumeOriginal = 0;
-
 int g_previousSoundID = SOUNDID_NULL;
 
 	

@@ -617,38 +617,9 @@ InitVolume()
 	// Debug Message
 	DEBUG_ADD("[ InitGame ]  Volume");
 
-	//--------------------------------------------------------
-	// Master volume
-	//--------------------------------------------------------
-	//g_pMasterVolume = (IVolume*)new CVolumeOutMaster;
-	if (!g_pMasterVolume || !g_pMasterVolume->IsAvailable() )
-	{
- 		//InitFail("Master Volume 조절이 안됨");
-		// Debug Message
-		DEBUG_ADD("[Error] Volume : MasterVolume Failed!");
-	}
+	// Volume control is now handled by SDL_mixer
+	// No Windows mixer support needed
 
-	//--------------------------------------------------------
-	// Wave volume
-	//--------------------------------------------------------
-	//g_pWaveVolume = (IVolume*)new CVolumeOutWave;
-	if (!g_pWaveVolume || !g_pWaveVolume->IsAvailable() )
-	{
- 		//InitFail("Wave Volume 조절이 안됨");
-		// Debug Message
-		DEBUG_ADD("[Error] Volume : WaveVolume Failed!");
-	}
-
-	if (g_pMasterVolume!=NULL)
-	{
-		g_MasterVolumeOriginal = g_pMasterVolume->GetCurrentVolume();
-	}
-
-	if (g_pWaveVolume!=NULL)
-	{
-		g_WaveVolumeOriginal = g_pWaveVolume->GetCurrentVolume();
-	}
-	
 	return TRUE;
 }
 
@@ -2604,23 +2575,7 @@ void ReleaseAllObjects()
 	// Volume
 	//----------------------------------------------------------------
 	DEBUG_ADD("[Release] Volume");
-	if (g_pWaveVolume!=NULL)
-	{
-		g_pWaveVolume->SetCurrentVolume( g_WaveVolumeOriginal );
-		g_pWaveVolume->Done();
-
-		delete g_pWaveVolume;
-		g_pWaveVolume = NULL;
-	}
-
-	if (g_pMasterVolume!=NULL)
-	{
-		g_pMasterVolume->SetCurrentVolume( g_MasterVolumeOriginal );
-		g_pMasterVolume->Done();
-
-		delete g_pMasterVolume;
-		g_pMasterVolume = NULL;
-	}
+	// Volume control is now handled by SDL_mixer
 
 	//----------------------------------------------------------------
 	// global 제거...

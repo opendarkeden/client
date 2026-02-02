@@ -28,6 +28,10 @@ public:
 
 	int GetLineHeight(const TextStyle& style) const;
 
+	// Simple text rendering API (compatibility layer for SDL_RenderText)
+	// Renders white text at the specified position
+	static void RenderText(int x, int y, const std::string& text);
+
 	// Encoding normalization: converts CP949/EUC-KR/other encodings to UTF-8
 	static std::string NormalizeText(const std::string& text);
 

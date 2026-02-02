@@ -92,12 +92,8 @@ RequestServerPlayerManager*		g_pRequestServerPlayerManager = NULL;
 //-----------------------------------------------------------------------------
 // Sound
 //-----------------------------------------------------------------------------
-IVolume*				g_pMasterVolume = NULL;
-IVolume*				g_pWaveVolume = NULL;
 CSoundPartManager*		g_pSoundManager = NULL;
 WavePackFileManager*	g_pWavePackFileManager = NULL;
-DWORD					g_MasterVolumeOriginal = 100;
-DWORD					g_WaveVolumeOriginal = 100;
 
 //-----------------------------------------------------------------------------
 // Zones

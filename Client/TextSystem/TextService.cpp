@@ -7,6 +7,12 @@
 #include <SDL.h>
 #endif
 
+#include "SpriteLib/CSpriteSurface.h"
+#include "RenderTargetSpriteSurface.h"
+
+// Global surface pointer from Client
+extern CSpriteSurface* g_pLast;
+
 namespace TextSystem {
 
 // Forward declaration of SDL backend factory
@@ -420,13 +426,39 @@ void TextService::DrawLines(RenderTarget& target, const std::vector<std::string>
 
 	int endLine = count;
 	if (maxLines > 0)
-		endLine = std::min(count, startLine + maxLines);
+		endLine = (std::min)(count, startLine + maxLines);
 
 	int drawY = y;
 	for (int i = startLine; i < endLine; ++i) {
 		DrawLine(target, lines[i], x, drawY, maxWidth, style);
 		drawY += lineHeight + style.lineSpacing;
 	}
+}
+
+void TextService::RenderText(int x, int y, const std::string& text)
+{
+	// Simple text rendering API for compatibility with SDL_RenderText
+	// Renders white text at the specified position using the global surface
+
+	auto& service = Get();
+
+	// Get global surface reference (from SpriteLib)
+	if (!::g_pLast || !::g_pLast->GetBackendSurface())
+		return;
+
+	// Create render target from global surface
+	SpriteSurfaceRenderTarget target(::g_pLast);
+
+	// Use default style with white color
+	TextStyle style = service.GetDefaultStyle();
+	// Override color to white
+	style.color.r = 255;
+	style.color.g = 255;
+	style.color.b = 255;
+	style.color.a = 255;
+
+	// Draw the text
+	service.DrawLine(target, text, x, y, 0, style);
 }
 
 } // namespace TextSystem
