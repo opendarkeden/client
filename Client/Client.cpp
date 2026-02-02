@@ -67,7 +67,6 @@ APICheck _APICheck;
 #include "MMusic.h"
 #include "UIDialog.h"
 #include "Updater/UpdateManager.h"
-#include "MZLib/MZlib.h"
 #ifdef PLATFORM_WINDOWS
 #include <Commctrl.h>
 #endif

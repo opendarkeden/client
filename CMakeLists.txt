@@ -99,7 +99,6 @@ add_subdirectory(Client/DXLib)
 add_subdirectory(Client/SpriteLib)
 
 # Additional libraries from VC6 project
-add_subdirectory(Client/MZLib)
 add_subdirectory(Client/framelib)
 
 # ============================================================
@@ -268,7 +267,6 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		basic
 		dxlib
 		SpriteLib
-		mzlib
 		framelib
 		TextSystem
 		SDL2::SDL2
@@ -585,7 +583,6 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		SpriteLib
 		dxlib
 		basic
-		mzlib
 		framelib
 		VS_UI
 		TextSystem
