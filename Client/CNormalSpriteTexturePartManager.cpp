@@ -375,73 +375,8 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 
 		width = spWidth;
 		height = spHeight;
-		CDirect3D::GetTextureSize(width, height);		
 
-		//-----------------------------------------------------------
-		// 2의 승수만 지원하는 경우..
-		//-----------------------------------------------------------
-		bool bDifferentSize;	// sprite와 texture의 크기가 다른가?
-		if (CDirect3D::IsTexturePow2())
-		{
-			bDifferentSize = true;
-
-			// width와 height가 다른 경우...
-			// 작은 쪽에 맞춰서 똑같이 한다.
-			// Square로 맞춘다..고 할 수 있지.. 음하..
-			
-			// 큰 쪽에 맞추면... detail은 높아지는데.. 
-			// 뭔가 문제가 있었던거 같기도 한데(-_-;)
-			// 지금은 생각하기 싫어서... - -;;;
-			// 작은 쪽에 맞추면 detail이 떨어진다.
-			// 암튼 이 부분 체크를 해야한다.			
-			if (width > height)
-			{
-				height = width;
-			}
-			else //if (width < height)
-			{
-				width = height;
-			}
-
-			//-----------------------------------------------------------
-			// Texture크기보다 Sprite 크기가 더 큰 경우..
-			//-----------------------------------------------------------
-			// 즉, 하드웨어에서 Sprite크기만큼의 Texture를 지원하지 못하는 경우이다.		
-			// shift를 이용해서 크기를 줄인다.
-			while (spWidth > width || spHeight > height)
-			{
-				smallShift ++;
-
-				spWidth >>= 1;
-				spHeight >>= 1;
-			}
-		}
-		//-----------------------------------------------------------
-		// 아무런 size나 관계 없는 경우
-		//-----------------------------------------------------------
-		else
-		{
-			if (CDirect3D::IsTextureSquareOnly())
-			{
-				// width와 height가 다른 경우...
-				// 큰 쪽에 맞춰서 똑같이 한다.
-				// Square로 맞춘다..고 할 수 있지.. 음하..
-				if (width > height)
-				{
-					height = width;
-					bDifferentSize = true;
-				}
-				else if (width < height)
-				{
-					width = height;
-					bDifferentSize = true;
-				}				
-			}
-			else
-			{
-				bDifferentSize = false;
-			}			
-		}		
+		bool bDifferentSize = false;
 
 		//---------------------------------------------------
 		// TextureSurface 생성

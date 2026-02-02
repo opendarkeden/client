@@ -7903,6 +7903,7 @@ UIMessageManager::Execute_UI_CLOSE_OPTION(int left, int right, void* void_ptr)
 
 	if (g_Mode==MODE_MAINMENU)
 	{
+		// SDL Migration: 3D HAL options are legacy features not used in SDL backend
 #ifdef PLATFORM_WINDOWS
 		if (CDirect3D::IsHAL())
 		{

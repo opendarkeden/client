@@ -1384,6 +1384,8 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			// player만큼의 시야라고 생각한다. - -;
 			int creatureLight = g_pPlayer->GetLightSight();// + addLight);
 
+			// SDL Migration: IsHAL() always true in SDL, but we use 2D lighting
+			// 3D lighting effects are not used in SDL backend
 #ifdef PLATFORM_WINDOWS
 			if (CDirect3D::IsHAL())
 			{

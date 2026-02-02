@@ -201,7 +201,7 @@ The project has been successfully migrated from Windows + DirectX to SDL2 for cr
 ## Development Notes
 
 - Codebase uses Hungarian notation
-- Mix of English and Korean comments
+- Currently there are mixed of English | Korean | Chinese comments in the codebase, while only **English** should be used, update them whenever possible.
 - Original code from ~2000-2010 era
 - Some legacy copy protection code (EXECryptor, ACProtect) - not functional
 - GameGuard anti-cheat integration
