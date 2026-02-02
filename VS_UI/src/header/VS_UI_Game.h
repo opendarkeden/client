@@ -26,6 +26,7 @@
 #include "VS_UI_Shop.h"
 #include "VS_UI_Storage.h"
 #include "VS_UI_Exchange.h"
+#include "VS_UI_PointExchange.h"
 #include "VS_UI_Tutorial.h" //by larosel
 #include "VS_UI_Title.h"
 //#include "VS_UI_SKILL_VIEW.h"
@@ -224,6 +225,7 @@ private:
 	C_VS_UI_SHOP *				m_pC_shop;
 	C_VS_UI_STORAGE *			m_pC_storage;
 	C_VS_UI_EXCHANGE *			m_pC_exchange;
+	C_VS_UI_POINT_EXCHANGE *	m_pC_point_exchange;
 //	C_VS_UI_SKILL_VIEW *		m_pC_skill_view;
 
 	C_VS_UI_INFO *				m_pC_info;
@@ -413,6 +415,7 @@ public:
 	bool	IsRunningStorage() const;
 	bool	IsRunningPetStorage() const;
 	bool	IsRunningExchange() const;
+	bool	IsRunningPointExchange() const;
 	bool	IsRunningShop() const;
 	bool	IsRunningRepair() const;
 	bool	IsRunningSilvering() const;
@@ -559,11 +562,13 @@ public:
 	void	RunTutorialExitAsk(const int select, const char* pName);	//by larosel
 	void	RunStorage();
 	void	RunExchange();
+	void	RunPointExchange();
 	void	RunExchangeCancel();
 	void	CloseShop();
 	void	CloseStorage();
 	void	ClosePetStorage();
 	void	CloseExchange();
+	void	ClosePointExchange();
 	void	CloseExchangeAsk();
 	void	CloseExchangeCancel();
 	void	OpenInventoryToSell();

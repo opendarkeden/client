@@ -125,7 +125,7 @@ CShadowPartManager::Init(const char* SSPKFilename, WORD partSize)
 	int spWidth, spHeight;
 	int width, height;
 
-	if (CDirect3D::IsTexturePow2())
+	if (false)
 	{
 		for (int i=0; i<allSize; i++)
 		{
@@ -166,7 +166,7 @@ CShadowPartManager::Init(const char* SSPKFilename, WORD partSize)
 				height = spHeight;
 
 				// 큰 크기로 맞추어서 Square로 만든다.
-				if (CDirect3D::IsTextureSquareOnly())
+				if (false)
 				{				
 					if (width > height)
 					{
@@ -393,71 +393,8 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 			height >>= 1;
 			shift ++;
 		}
-		
-		CDirect3D::GetTextureSize(width, height);	
 
-		//-----------------------------------------------------------
-		// 2의 승수만 지원하는 경우..
-		//-----------------------------------------------------------
-		bool bDifferentSize;	// sprite와 texture의 크기가 다른가?
-		if (CDirect3D::IsTexturePow2())
-		{
-			bDifferentSize = true;
-
-			// width와 height가 다른 경우...
-			// 작은 쪽에 맞춰서 똑같이 한다.
-			// Square로 맞춘다..고 할 수 있지.. 음하..
-
-			// 큰 쪽에 맞추면?..
-			if (width > height)
-			{
-				height = width;
-			}
-			else //if (width < height)
-			{
-				width = height;
-			}
-
-			//-----------------------------------------------------------
-			// Texture크기보다 Sprite 크기가 더 큰 경우..
-			//-----------------------------------------------------------
-			// 즉, 하드웨어에서 Sprite크기만큼의 Texture를 지원하지 못하는 경우이다.		
-			// shift를 이용해서 크기를 줄인다.
-			shift = 0;		
-			while (spWidth > width || spHeight > height)
-			{
-				shift ++;
-
-				spWidth >>= 1;
-				spHeight >>= 1;
-			}
-		}
-		//-----------------------------------------------------------
-		// 아무런 size나 관계 없는 경우
-		//-----------------------------------------------------------
-		else
-		{
-			if (CDirect3D::IsTextureSquareOnly())
-			{
-				// width와 height가 다른 경우...
-				// 큰 쪽에 맞춰서 똑같이 한다.
-				// Square로 맞춘다..고 할 수 있지.. 음하..
-				if (width > height)
-				{
-					height = width;
-					bDifferentSize = true;
-				}
-				else if (width < height)
-				{
-					width = height;
-					bDifferentSize = true;
-				}				
-			}
-			else
-			{
-				bDifferentSize = false;
-			}			
-		}	
+		bool bDifferentSize = false;
 
 		#ifdef OUTPUT_DEBUG
 			if (g_pDebugMessage)
@@ -500,7 +437,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 				DEBUG_ADD("Before Get Pixel Format");
 			}
 		#endif
-		const LPDDPIXELFORMAT pixel4444 = CDirect3D::GetPixelFormat4444();
+		const LPDDPIXELFORMAT pixel4444 = nullptr;
 
 		#ifdef OUTPUT_DEBUG
 			if (g_pDebugMessage)
@@ -689,12 +626,14 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 		//-----------------------------------------------------------
 		// 이전에 출력할 Texture Size가 정해져 있지 않은 경우
 		//-----------------------------------------------------------
+
+			// SDL Migration: IsTexturePow2() always returns false in SDL2
 		if (m_pWidth[id]==0 || m_pHeight[id]==0)
 		{
 			spWidth = pSprite->GetWidth();
 			spHeight = pSprite->GetHeight();
 
-			if (CDirect3D::IsTexturePow2())
+			if (false)
 			{	
 				// texture에서 출력되는 size를 구한다.
 				for (int i=0; i<shift; i++)
@@ -706,6 +645,8 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 				// 실제 크기
 				width = width * pSprite->GetWidth() / spWidth;
 				height = height * pSprite->GetHeight() / spHeight;		
+
+				// SDL Migration: IsTextureSquareOnly() always returns false in SDL2
 			}
 			else
 			{
@@ -713,7 +654,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 				height = spHeight;
 
 				// 큰 크기로 맞추어서 Square로 만든다.
-				if (CDirect3D::IsTextureSquareOnly())
+				if (false)
 				{				
 					if (width > height)
 					{

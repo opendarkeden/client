@@ -12,7 +12,6 @@
 #include "Client_PCH.h"
 
 #include "SocketAPI.h"
-#include "EXECryptor.h"
 #if __WINDOWS__
 #elif __LINUX__
 #include <sys/types.h>			// for accept()

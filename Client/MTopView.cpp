@@ -329,29 +329,12 @@ MTopView::MTopView()
 //	m_pImageObjectTextureManager = NULL;
 #endif
 
-	// Texture PartManager
-//	m_pAlphaEffectTextureManager = NULL;
-//	m_pScreenEffectTextureManager = NULL;
 
-	// Shadow PartManager
-//	m_pImageObjectShadowManager = NULL;
-//	m_pCreatureShadowManager = NULL;
-//	m_pAddonShadowManager = NULL;
-//	m_pOustersShadowManager = NULL;
-//	m_pEffectShadowManager = NULL;
 
 	// LightBuffer Texture
 	m_pLightBufferTexture = NULL;
 
-	// 3D Box Texture Surface
-//	m_p3DBoxSurface = NULL;	
-//	m_p3DBoxBlackSurface = NULL;	
-//	m_p3DBoxHPSurface = NULL;	
-//	m_3DBoxCurrentPixel =  0x7000;
 //
-//	// 2001.7.14 ÁÖ¼®Ã³¸®
-//	m_pMinimapSPR = NULL;	
-//	m_pMinimapTexture = NULL;
 
 	m_p2DLightPixelWidth = NULL;
 	m_p2DLightPixelHeight = NULL;
@@ -370,52 +353,14 @@ MTopView::MTopView()
 	//-----------------------------------------------
 	// AlphBox¸¦ g_pTopView->Init()Àü¿¡ »ç¿ëÇÏ±â À§ÇØ¼­.
 	//-----------------------------------------------
-//	if (CDirect3D::IsHAL())
-//	{
-//		m_p3DBoxSurface = new CSpriteSurface;
-//		m_p3DBoxSurface->InitTextureSurface(1, 1, 0, CDirect3D::GetPixelFormat4444());
 //
 //		Set3DBoxColor( m_3DBoxCurrentPixel );
 //
-//		m_p3DBoxBlackSurface = new CSpriteSurface;
-//		m_p3DBoxBlackSurface->InitTextureSurface(1, 1, 0, CDirect3D::GetPixelFormat4444());
-//		m_p3DBoxBlackSurface->Restore();
 //
-//		m_p3DBoxHPSurface = new CSpriteSurface;
-//		m_p3DBoxHPSurface->InitTextureSurface(1, 1, 0, CDirect3D::GetPixelFormat4444());
-//		m_p3DBoxHPSurface->Restore();
-//	}
 
 //	m_bTileSearchForCreature = true;
 	m_bTileSearchForCreature = false;		
 
-	// ³Ý¸¶ºí¿ë
-////	g_mapPremiumZone[31] = true;
-////	g_mapPremiumZone[32] = true;
-////	g_mapPremiumZone[33] = true;
-////	g_mapPremiumZone[34] = true;
-//	g_mapPremiumZone[51] = true;
-//	g_mapPremiumZone[52] = true;
-//	g_mapPremiumZone[53] = true;
-//	g_mapPremiumZone[54] = true;
-//	g_mapPremiumZone[61] = true;
-//	g_mapPremiumZone[62] = true;
-//	g_mapPremiumZone[63] = true;
-//	g_mapPremiumZone[64] = true;
-////	g_mapPremiumZone[1002] = true;
-//	g_mapPremiumZone[1007] = true;
-//	g_mapPremiumZone[1008] = true;
-//	g_mapPremiumZone[1009] = true;
-////	g_mapPremiumZone[1011] = true;
-////	g_mapPremiumZone[1012] = true;
-//	g_mapPremiumZone[1013] = true;
-//	g_mapPremiumZone[1111] = true;
-//	g_mapPremiumZone[1112] = true;
-//	g_mapPremiumZone[1113] = true;
-//	g_mapPremiumZone[1104] = true;
-//	g_mapPremiumZone[1106] = true;
-//	g_mapPremiumZone[1114] = true;
-//	g_mapPremiumZone[1115] = true;
 	InitMapingExceptionProc();
 }
 
@@ -575,9 +520,6 @@ MTopView::InitChanges()
 			}
 		}
 
-//		if (g_pAddonSpriteTable!=NULL)
-//		{
-//			int numSize = g_pAddonSpriteTable->GetSize();
 //
 //			for (int i=0; i<numSize; i++)
 //			{
@@ -585,9 +527,6 @@ MTopView::InitChanges()
 //			}
 //		}
 
-//		if (g_pCreatureActionSpriteTable!=NULL)
-//		{
-//			int numSize = g_pCreatureActionSpriteTable->GetSize();
 //
 //			for (int i=0; i<numSize; i++)
 //			{
@@ -632,45 +571,13 @@ MTopView::Release()
 	//------------------------------------------------
 	// File ´Ý±â
 	//------------------------------------------------
-//	if (m_TileSPKFile.is_open())
-//	{
-//		m_TileSPKFile.close();
-//	}
 //
-//	if (m_ImageObjectSPKFile.is_open())
-//	{
-//		m_ImageObjectSPKFile.close();
-//	}
 //
-//	if (m_EffectAlphaSPKFile.is_open())
-//	{
-//		m_EffectAlphaSPKFile.close();
-//	}
 //
-//	if (m_EffectScreenSPKFile.is_open())
-//	{
-//		m_EffectScreenSPKFile.close();
-//	}
 //
-//	if (m_AddonSPKFile.is_open())
-//	{
-//		m_AddonSPKFile.close();
-//	}
 //
-//	if (m_AddonSSPKFile.is_open())
-//	{
-//		m_AddonSSPKFile.close();
-//	}
 //
-//	if (m_CreatureSPKFile.is_open())
-//	{
-//		m_CreatureSPKFile.close();
-//	}
 //
-//	if (m_CreatureSSPKFile.is_open())
-//	{
-//		m_CreatureSSPKFile.close();
-//	}
 //
 	DEBUG_ADD("MTV-Rel-File closed");
 
@@ -696,12 +603,6 @@ MTopView::Release()
 		DEBUG_ADD("MTV-Rel-TileRenderer");
 	}
 	
-	// imageobject TextureManager
-	//if (m_pImageObjectTextureManager!=NULL)
-	//{
-	//	delete m_pImageObjectTextureManager;
-	//	m_pImageObjectTextureManager = NULL;
-	//}
 #ifdef __3D_IMAGE_OBJECT__
 	SAFE_DELETE( m_pImageObjectTextureManager );
 #endif
@@ -711,57 +612,15 @@ MTopView::Release()
 	//----------------------------------------------------------------------
 	// Texture Manager
 	//----------------------------------------------------------------------
-//	if (m_pAlphaEffectTextureManager!=NULL)
-//	{
-//		delete m_pAlphaEffectTextureManager;
-//		m_pAlphaEffectTextureManager = NULL;
-//		DEBUG_ADD("MTV-Rel-AlphaTex");
-//	}	
 //
-//	if (m_pScreenEffectTextureManager!=NULL)
-//	{
-//		delete m_pScreenEffectTextureManager;
-//		m_pScreenEffectTextureManager = NULL;
-//		DEBUG_ADD("MTV-Rel-ScreenTex");
-//	}	
 //
 //	//----------------------------------------------------------------------
 //	// Shadow Manager
 //	//----------------------------------------------------------------------
-//	if (m_pEffectShadowManager!=NULL)
-//	{
-//		delete m_pEffectShadowManager;
-//		m_pEffectShadowManager = NULL;
-//		DEBUG_ADD("MTV-Rel-EffectShadow");
-//	}	
 
-//	if (m_pImageObjectShadowManager!=NULL)
-//	{
-//		delete m_pImageObjectShadowManager;
-//		m_pImageObjectShadowManager = NULL;
-//		DEBUG_ADD("MTV-Rel-IMShadow");
-//	}	
 //
-//	if (m_pAddonShadowManager!=NULL)
-//	{
-//		delete m_pAddonShadowManager;
-//		m_pAddonShadowManager = NULL;
-//		DEBUG_ADD("MTV-Rel-AddonShadow");
-//	}
 //
-//	if (m_pOustersShadowManager!=NULL)
-//	{
-//		delete m_pOustersShadowManager;
-//		m_pOustersShadowManager = NULL;
-//		DEBUG_ADD("MTV-Rel-OustersShadow");
-//	}
 //	
-//	if (m_pCreatureShadowManager!=NULL)
-//	{
-//		delete m_pCreatureShadowManager;
-//		m_pCreatureShadowManager = NULL;
-//		DEBUG_ADD("MTV-Rel-CreatureShadow");
-//	}
 
 	//----------------------------------------------------------------------
 	// LightBuffer Texture
@@ -776,42 +635,13 @@ MTopView::Release()
 	//----------------------------------------------------------------------
 	// 3D Box Texture Surface
 	//----------------------------------------------------------------------
-//	if (m_p3DBoxSurface!=NULL)
-//	{
-//		delete m_p3DBoxSurface;
-//		m_p3DBoxSurface = NULL;
-//		DEBUG_ADD("MTV-Rel-3DBox");
-//	}	
 //
-//	if (m_p3DBoxBlackSurface!=NULL)
-//	{
-//		delete m_p3DBoxBlackSurface;
-//		m_p3DBoxBlackSurface = NULL;
-//		DEBUG_ADD("MTV-Rel-3DBoxBl");
-//	}	
 //
-//	if (m_p3DBoxHPSurface!=NULL)
-//	{
-//		delete m_p3DBoxHPSurface;
-//		m_p3DBoxHPSurface = NULL;
-//		DEBUG_ADD("MTV-Rel-3DBoxHP");
-//	}	
 //	
 //	//----------------------------------------------------------------------
 //	// Minimap
 //	//----------------------------------------------------------------------
-//	// 2001.7.14 ÁÖ¼®Ã³¸®
-//	if (m_pMinimapSPR != NULL)
-//	{
-//		delete m_pMinimapSPR;
-//		m_pMinimapSPR = NULL;
-//	}
 //
-//	if (m_pMinimapTexture != NULL)
-//	{
-//		delete m_pMinimapTexture;
-//		m_pMinimapTexture = NULL;
-//	}
 	
 
 	//----------------------------------------------------------------------
@@ -1016,12 +846,8 @@ void
 MTopView::ClearShadowManager()
 {
 #ifdef PLATFORM_WINDOWS
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
-//		if (m_pImageObjectShadowManager!=NULL) m_pImageObjectShadowManager->Clear();
-//		if (m_pAddonShadowManager!=NULL) m_pAddonShadowManager->Clear();
-//		if (m_pOustersShadowManager!=NULL) m_pOustersShadowManager->Clear();
-//		if (m_pCreatureShadowManager!=NULL) m_pCreatureShadowManager->Clear();
 	}
 #endif
 }
@@ -1029,12 +855,6 @@ MTopView::ClearShadowManager()
 //----------------------------------------------------------------------
 // Set 3D Box Color
 //----------------------------------------------------------------------
-//void			
-//MTopView::Set3DBoxColor(WORD pixel)
-//{
-//	#ifdef OUTPUT_DEBUG_DRAW_3DBOX
-//		DEBUG_ADD_FORMAT("Set3DBoxColor = %x", pixel);
-//	#endif
 //
 //	if (m_p3DBoxSurface->Lock())
 //	{	
@@ -1045,49 +865,26 @@ MTopView::ClearShadowManager()
 //		
 //		m_3DBoxCurrentPixel = pixel;
 //
-//		#ifdef OUTPUT_DEBUG_DRAW_3DBOX
-//			DEBUG_ADD("OK");
-//		#endif
-//	}
-//}
 //
 ////----------------------------------------------------------------------
 //// Init 3D BoxSurface
 ////----------------------------------------------------------------------
-//bool
-//MTopView::Init3DBoxSurface()
-//{
 //	//-----------------------------------------------
 //	// 3D Box Texture Surface
 //	//-----------------------------------------------
-//	if (CDirect3D::IsHAL())
+//	if (true)
 //	{	
 //		//-----------------------------------------------
 //		// °ËÀº»ö
 //		//-----------------------------------------------
-//		if (m_p3DBoxBlackSurface!=NULL)
-//		{
-//			if (m_p3DBoxBlackSurface->Lock())
-//			{	
 //				WORD *lpSurface = (WORD*)m_p3DBoxBlackSurface->GetSurfacePointer();
 //				*lpSurface = m_ColorBlackHalf;
-//				m_p3DBoxBlackSurface->Unlock();
-//			}
-//		}
 //
 //		//-----------------------------------------------
 //		// HP»ö±ò
 //		//-----------------------------------------------
-//		if (m_p3DBoxHPSurface!=NULL)
-//		{
-//			if (m_p3DBoxHPSurface->Lock())
-//			{	
 //				WORD *lpSurface = (WORD*)m_p3DBoxHPSurface->GetSurfacePointer();
 //				*lpSurface = m_ColorHPBar;
-//				m_p3DBoxHPSurface->Unlock();
-//			}
-//		}
-//	}
 //
 //	return true;
 //}
@@ -1105,9 +902,9 @@ MTopView::RestoreSurface()
 		CDirectDraw::RestoreAllSurfaces();
 
 #ifdef PLATFORM_WINDOWS
-		if (CDirect3D::IsHAL())
+		if (true)
 		{
-			CDirect3D::Restore();
+// CDirect3D::Restore() removed (SDL2)
 
 			/*
 			D3DRECT rect3d;
@@ -1116,9 +913,8 @@ MTopView::RestoreSurface()
 			rect3d.x2 = CLIPSURFACE_WIDTH;
 			rect3d.y2 = CLIPSURFACE_HEIGHT;
 
-			CDirect3D::GetDevice()->Clear( 1UL, (D3DRECT *)&rect3d,
-										D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-										0x00000000, 1.0f, 0L );
+			// CDirect3D::GetDevice()->Clear() removed (SDL2)
+
 			*/
 		}
 #endif
@@ -1149,7 +945,7 @@ MTopView::RestoreSurface()
 	// ´Ù½Ã Load.. - -;;
 	//------------------------------------------------------------
 #ifdef PLATFORM_WINDOWS
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		//------------------------------------------------------------
 		// Part Manager
@@ -1161,40 +957,12 @@ MTopView::RestoreSurface()
 //			m_pImageObjectTextureManager->Clear();
 #endif
 
-//		if (m_pAlphaEffectTextureManager!=NULL)
-//		{
-//			m_pAlphaEffectTextureManager->Clear();
-//		}
 //
-//		if (m_pScreenEffectTextureManager!=NULL)
-//		{
-//			m_pScreenEffectTextureManager->Clear();
-//		}
 
-//		if (m_pImageObjectShadowManager!=NULL)
-//		{
-//			m_pImageObjectShadowManager->Clear();
-//		}
 		
-//		if (m_pEffectShadowManager!=NULL)
-//		{
-//			m_pEffectShadowManager->Clear();
-//		}
 //
-//		if (m_pAddonShadowManager!=NULL)
-//		{
-//			m_pAddonShadowManager->Clear();
-//		}
 //
-//		if (m_pOustersShadowManager!=NULL)
-//		{
-//			m_pOustersShadowManager->Clear();
-//		}
 //		
-//		if (m_pCreatureShadowManager!=NULL)
-//		{
-//			m_pCreatureShadowManager->Clear();
-//		}
 
 		//------------------------------------------------------------
 		// Light Buffer Texture
@@ -1210,30 +978,9 @@ MTopView::RestoreSurface()
 		}
 		*/
 
-		//m_pLightBufferTexture = new CSpriteSurface;
-		//m_pLightBufferTexture->InitTextureSurface(SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT, 0, CDirect3D::GetPixelFormat4444());
-		//m_pLightBufferTexture->Restore();
 
-//		if (m_p3DBoxSurface!=NULL)
-//		{
-//			//m_p3DBoxSurface->Restore();
-//			delete m_p3DBoxSurface;	
-//			m_p3DBoxSurface = NULL;
-//		}
 //
-//		if (m_p3DBoxBlackSurface!=NULL)
-//		{
-//			//m_p3DBoxBlackSurface->Restore();
-//			delete m_p3DBoxBlackSurface;	
-//			m_p3DBoxBlackSurface = NULL;
-//		}
 //
-//		if (m_p3DBoxHPSurface!=NULL)
-//		{
-//			//m_p3DBoxHPSurface->Restore();
-//			delete m_p3DBoxHPSurface;	
-//			m_p3DBoxHPSurface = NULL;
-//		}
 
 
 		//------------------------------------------------------------
@@ -1241,17 +988,8 @@ MTopView::RestoreSurface()
 		//------------------------------------------------------------
 		DEBUG_ADD("Restore Surfaces - m_p3DBoxSurface");
 		
-//		m_p3DBoxSurface = new CSpriteSurface;
-//		m_p3DBoxSurface->InitTextureSurface(1, 1, 0, CDirect3D::GetPixelFormat4444());
-//		m_p3DBoxSurface->Restore();
 //
-//		m_p3DBoxBlackSurface = new CSpriteSurface;
-//		m_p3DBoxBlackSurface->InitTextureSurface(1, 1, 0, CDirect3D::GetPixelFormat4444());
-//		m_p3DBoxBlackSurface->Restore();
 //
-//		m_p3DBoxHPSurface = new CSpriteSurface;
-//		m_p3DBoxHPSurface->InitTextureSurface(1, 1, 0, CDirect3D::GetPixelFormat4444());
-//		m_p3DBoxHPSurface->Restore();
 //		
 //		Set3DBoxColor( m_3DBoxCurrentPixel );
 //
@@ -1260,16 +998,10 @@ MTopView::RestoreSurface()
 		//------------------------------------------------------------
 		// minimap textureÃÊ±âÈ­
 		//------------------------------------------------------------
-		// 2001.7.14 ÁÖ¼®Ã³¸®
-//		if (m_pMinimapSPR!=NULL && m_pMinimapTexture!=NULL)
-//		{
-//			m_pMinimapTexture->Restore();
-////			InitMinimapTexture();
-//		}		
 	}
 #endif // PLATFORM_WINDOWS
 	/*
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		//------------------------------------------------------------
 		//
@@ -1334,38 +1066,20 @@ MTopView::InitSurfaces()
 	//-----------------------------------------------
 	//
 	//-----------------------------------------------
-//	if (m_p3DBoxSurface!=NULL)
-//	{
-//		delete m_p3DBoxSurface;	
-//		m_p3DBoxSurface = NULL;
-//	}
 //
 //	//-----------------------------------------------
 //	//
 //	//-----------------------------------------------
-//	if (m_p3DBoxBlackSurface!=NULL)
-//	{
-//		delete m_p3DBoxBlackSurface;	
-//		m_p3DBoxBlackSurface = NULL;
-//	}
 //
 //
 //	//-----------------------------------------------
 //	//
 //	//-----------------------------------------------
-//	if (m_p3DBoxHPSurface!=NULL)
-//	{
-//		delete m_p3DBoxHPSurface;
-//		m_p3DBoxHPSurface = NULL;
-//	}
 
 
 #ifdef PLATFORM_WINDOWS
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
-		// ÀÏ´Ü video memory¿¡ »ý¼ºÀÌ µÇµµ·Ï ÇØº¸°í..
-		// ¾ÈµÇ¸é system memory¿¡ »ý¼ºÇÑ´Ù.
-//		if (!m_pTileSurface->InitOffsurface(TILESURFACE_WIDTH, TILESURFACE_HEIGHT))
 		{
 			DEBUG_ADD("[ InitGame ]  MTopView::InitSurface() - TileSurface vidmem failed");
 
@@ -1380,17 +1094,11 @@ MTopView::InitSurfaces()
 		// free
 		//-----------------------------------------------
 //		m_p3DBoxSurface = new CSpriteSurface;
-//		m_p3DBoxSurface->InitTextureSurface(1, 1, 0, CDirect3D::GetPixelFormat4444());
+//		m_p3DBoxSurface->InitTextureSurface(1, 1, 0, nullptr);
 //
 //		Set3DBoxColor( m_3DBoxCurrentPixel );
 //
-//		m_p3DBoxBlackSurface = new CSpriteSurface;
-//		m_p3DBoxBlackSurface->InitTextureSurface(1, 1, 0, CDirect3D::GetPixelFormat4444());
-//		m_p3DBoxBlackSurface->Restore();
 //
-//		m_p3DBoxHPSurface = new CSpriteSurface;
-//		m_p3DBoxHPSurface->InitTextureSurface(1, 1, 0, CDirect3D::GetPixelFormat4444());
-//		m_p3DBoxHPSurface->Restore();
 
 
 	}
@@ -1412,10 +1120,6 @@ MTopView::InitSurfaces()
 	}
 #endif
 
-	//m_pTileSurface->InitOffsurface(TILESURFACE_WIDTH, 
-	//								TILESURFACE_HEIGHT,
-	//								DDSCAPS_SYSTEMMEMORY);
-	//,(CDirect3D::IsHAL()? 0 : DDSCAPS_SYSTEMMEMORY));
 
 	m_pTileSurface->SetTransparency( 0 );
 
@@ -1495,17 +1199,7 @@ MTopView::InitColors()
 	//---------------------------------------------------
 	// 3D °¡¼Ó°ú °ü·ÃÀÌ ÀÖ´Â »ö±ò...
 	//---------------------------------------------------
-//	if (CDirect3D::IsHAL())
-//	{	
-//		// 4:4:4:4 format
-//		m_ColorHPBar = 0xA000 
-//						| ((g_pClientConfig->COLOR_HP_BAR_R >> 1) << 8)
-//						| ((g_pClientConfig->COLOR_HP_BAR_G >> 1) << 4)
-//						| (g_pClientConfig->COLOR_HP_BAR_B >> 1);			
 //
-//		m_ColorBlackHalf = 0xA000;
-//	}
-//	else
 	{
 		m_ColorHPBar = CDirectDraw::Color(g_pClientConfig->COLOR_HP_BAR_R,
 											g_pClientConfig->COLOR_HP_BAR_G,
@@ -1634,29 +1328,10 @@ MTopView::InitSprites()
 	m_ImageObjectSSPK.LoadFromFile(ImageObjectShadowFile2);
 	ImageObjectShadowFile2.close();
 	*/
-//	if (m_pImageObjectShadowManager!=NULL)
-//	{
-//		delete m_pImageObjectShadowManager;
-//		m_pImageObjectShadowManager = NULL;
-//	}		
 //
 //	//m_ImageObjectSSPK.Release();
 //
-//	if (CDirect3D::IsHAL())
-//	{	
-//		//m_pAlphaEffectTextureManager = new CTexturePartManager( FILE_ASPRITE_ALPHAEFFECT, FILE_ASPRITEINDEX_ALPHAEFFECT, 70 );
-//		//m_pImageObjectShadowManager = new CShadowPartManager( 
-//		//										&m_ImageObjectSSPK, 
-//		//										g_pClientConfig->MAX_TEXTUREPART_IMAGEOBJECTSHADOW );
-//		m_pImageObjectShadowManager = new CShadowPartManager(g_pFileDef->getProperty("FILE_SSPRITE_IMAGEOBJECT").c_str(),
-////															FILE_SSPRITEINDEX_IMAGEOBJECT, 
-//															g_pClientConfig->MAX_TEXTUREPART_IMAGEOBJECTSHADOW );
-//	}
-//	else
 	{
-// 		std::ifstream	ImageObjectShadowFile2;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
-//		if (!FileOpenBinary(FILE_SSPRITE_IMAGEOBJECT, ImageObjectShadowFile2))
-//			return false;
 		m_ImageObjectSSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SSPRITE_IMAGEOBJECT").c_str());
 // 		ImageObjectShadowFile2.close();
 	}
@@ -1690,10 +1365,6 @@ MTopView::InitSprites()
 
 		m_CreatureSPK.Init( size, CDirectDraw::Is565() );
 		*/
-//		if (m_CreatureSPKFile.is_open())
-//		{
-//			m_CreatureSPKFile.close();
-//		}
 //		
 //		// È­ÀÏ¸¸ ¿­¾îµÐ´Ù.
 //		//------------------------------------------------------------
@@ -1801,30 +1472,8 @@ MTopView::InitSprites()
 	m_CreatureSSPK.LoadFromFile(CreatureShadowFile2);
 	CreatureShadowFile2.close();
 	*/
-//	if (m_CreatureSSPKFile.is_open())
-//	{
-//		m_CreatureSSPKFile.close();
-//	}		
 //
-//	if (m_pCreatureShadowManager!=NULL)
-//	{
-//		delete m_pCreatureShadowManager;
-//		m_pCreatureShadowManager = NULL;
-//	}
-//	//m_CreatureSSPK.Release();
 //	
-//	if (CDirect3D::IsHAL())
-//	{	
-//		//m_pAlphaEffectTextureManager = new CTexturePartManager( FILE_ASPRITE_ALPHAEFFECT, FILE_ASPRITEINDEX_ALPHAEFFECT, 70 );
-//		//m_pCreatureShadowManager = new CShadowPartManager( 
-//		//									&m_CreatureSSPK,  
-//		//									g_pClientConfig->MAX_TEXTUREPART_CREATURESHADOW);
-//		m_pCreatureShadowManager = new CShadowPartManager( 
-//											g_pFileDef->getProperty("FILE_SSPRITE_CREATURE").c_str(),
-////											FILE_SSPRITEINDEX_CREATURE,  
-//											g_pClientConfig->MAX_TEXTUREPART_CREATURESHADOW);
-//	}
-//	else
 	{
 		/*
 		std::ifstream	CreatureShadowFile2;//(FILE_SSPRITE_Creature, ios::binary);
@@ -1983,15 +1632,7 @@ MTopView::InitSprites()
 		AddonFile2.close();
 	}
 */	
-//	if (m_AddonSPKFile.is_open())
-//	{
-//		m_AddonSPKFile.close();
-//	}
 //
-//	if (m_AddonSSPKFile.is_open())
-//	{
-//		m_AddonSSPKFile.close();
-//	}
 //
 //	// È­ÀÏ¸¸ ¿­¾îµÐ´Ù.
 //	//------------------------------------------------------------
@@ -2000,9 +1641,6 @@ MTopView::InitSprites()
 //	if (!FileOpenBinary(FILE_ISPRITE_ADDON, m_AddonSPKFile))
 //		return false;	
 //
-//	if (m_AddonSPK.GetSize()==0)
-//	{
-//		TYPE_SPRITEID	numAddonSPK;
 //		m_AddonSPKFile.read((char*)&numAddonSPK, SIZE_SPRITEID);
 //		m_AddonSPK.Init( numAddonSPK, CDirectDraw::Is565() );	
 //	}
@@ -2015,7 +1653,7 @@ MTopView::InitSprites()
 	m_AdvancementSlayerWomanSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_ISPRITE_ADVANCEMENT_CLASS_SLAYER_WOMAN" ).c_str() );
 	m_AdvancementSlayerWomanSSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_SSPRITE_ADVANCEMENT_CLASS_SLAYER_WOMAN" ).c_str() );
 		
-//	if (!CDirect3D::IsHAL())
+//	if (!true)
 	{
 		//------------------------------------------------------------
 		// ±×¸²ÀÚ load
@@ -2023,9 +1661,6 @@ MTopView::InitSprites()
 //		if (!FileOpenBinary(FILE_SSPRITE_ADDON, m_AddonSSPKFile))
 //			return false;
 //
-//		if (m_AddonSSPK.GetSize()==0)
-//		{
-//			TYPE_SPRITEID	numAddonSSPK;
 //			m_AddonSSPKFile.read((char*)&numAddonSSPK, SIZE_SPRITEID);
 //			m_AddonSSPK.Init( numAddonSSPK );	
 //		}
@@ -2104,34 +1739,7 @@ MTopView::InitSprites()
 	m_AddonSSPK.LoadFromFile(AddonShadowFile2);
 	AddonShadowFile2.close();
 	*/
-//	if (m_pAddonShadowManager!=NULL)
-//	{
-//		delete m_pAddonShadowManager;
-//		m_pAddonShadowManager = NULL;
-//	}
-//	if (m_pOustersShadowManager!=NULL)
-//	{
-//		delete m_pOustersShadowManager;
-//		m_pOustersShadowManager = NULL;
-//	}
-	//m_AddonSSPK.Release();
 
-//	if (CDirect3D::IsHAL())
-//	{	
-//		//m_pAlphaEffectTextureManager = new CTexturePartManager( FILE_ASPRITE_ALPHAEFFECT, FILE_ASPRITEINDEX_ALPHAEFFECT, 70 );
-//		//m_pAddonShadowManager = new CShadowPartManager( 
-//		//									&m_AddonSSPK, 
-//		//									g_pClientConfig->MAX_TEXTUREPART_ADDON_SHADOW );
-//		m_pAddonShadowManager = new CShadowPartManager( 
-//											g_pFileDef->getProperty("FILE_SSPRITE_ADDON").c_str(), 
-////											FILE_SSPRITEINDEX_ADDON,
-//											g_pClientConfig->MAX_TEXTUREPART_ADDON_SHADOW );
-//		m_pOustersShadowManager = new CShadowPartManager( 
-//											g_pFileDef->getProperty("FILE_SSPRITE_OUSTERS").c_str(), 
-//											//											FILE_SSPRITEINDEX_ADDON,
-//											g_pClientConfig->MAX_TEXTUREPART_ADDON_SHADOW );
-//	}
-//	else
 	{
 		/*
 		std::ifstream	AddonShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
@@ -2197,11 +1805,6 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_ItemTileISPK.GetSize()==0)
 	{
-//		std::ifstream	itemTileFile2;//(FILE_SPRITE_ITEMTILE, ios::binary);
-//		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_ISPRITE_ITEMTILE").c_str(), itemTileFile2))
-//			return false;
-//		m_ItemTileISPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_ISPRITE_ITEMTILE").c_str());
-//		itemTileFile2.close();
 		m_ItemTileISPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_ISPRITE_ITEMTILE").c_str());
 	}
 
@@ -2218,11 +1821,6 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_ItemDropISPK.GetSize()==0)
 	{
-//		std::ifstream	itemDropFile2;//(FILE_SPRITE_itemDrop, ios::binary);
-//		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_ISPRITE_ITEMDROP").c_str(), itemDropFile2))
-//			return false;
-//		m_ItemDropISPK.LoadFromFileRunning(itemDropFile2);
-//		itemDropFile2.close();
 		m_ItemDropISPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_ISPRITE_ITEMDROP").c_str());
 	}
 
@@ -2239,11 +1837,6 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_ItemBrokenSPK.GetSize()==0)
 	{
-//		std::ifstream	itemBrokenFile2;//(FILE_SPRITE_itemBroken, ios::binary);
-//		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_ITEMBROKEN").c_str(), itemBrokenFile2))
-//			return false;
-//		m_ItemBrokenSPK.LoadFromFileRunning(itemBrokenFile2);
-//		itemBrokenFile2.close();
 		m_ItemBrokenSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SPRITE_ITEMBROKEN").c_str());
 	}
 
@@ -2337,11 +1930,6 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	//int size;
 	///*
-//	if (m_TileSPK.GetSize()==0)
-//	{
-//		std::ifstream TilePackIndexFile;//(FILE_SPRITEINDEX_TILE, ios::binary);
-//		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITEINDEX_TILE").c_str(), TilePackIndexFile))
-//			return false;
 //		
 //		//-----------------------------------------------------------
 //		// Index¸¦ LoadÇÑ´Ù.
@@ -2352,16 +1940,8 @@ MTopView::InitSprites()
 //		m_TileSPK.Init( m_TileSPKI.GetSize() );
 //
 //		/*
-//		for (int q=0; q<m_TileSPKI.GetSize(); q++)
-//		{
-//			DEBUG_ADD_FORMAT("[%d] %ld", q, m_TileSPKI[q]);
-//		}
 //		*/
 //
-//		//m_TileSPKFile.open(FILE_SPRITE_TILE, ios::binary);
-////		if (!FileOpenBinary(FILE_SPRITE_TILE, m_TileSPKFile))
-////			return false;
-//	}
 
 //	UI_DrawProgress(9);
 //	DrawTitleLoading();
@@ -2489,9 +2069,6 @@ MTopView::InitSprites()
 	if (m_ImageObjectSPK.GetSize()==0)
 	{
 		
-//		std::ifstream ImageObjectPackIndexFile;//(FILE_SPRITEINDEX_IMAGEOBJECT, ios::binary);
-//		if (!FileOpenBinary(FILE_SPRITEINDEX_IMAGEOBJECT, ImageObjectPackIndexFile))
-//			return false;
 //
 //		//-----------------------------------------------------------
 //		// Index¸¦ LoadÇÑ´Ù.
@@ -2503,10 +2080,6 @@ MTopView::InitSprites()
 //
 //		m_ImageObjectSPKFile.open(FILE_SPRITE_IMAGEOBJECT, ios::binary);
 		m_ImageObjectSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SPRITE_IMAGEOBJECT").c_str() );
-		// ÄÀ.. ÀÌ°Å ¿Ö ´Ù ·ÎµùÇÏÁö. - -;;
-		// 2001.8.20 ÁÖ¼®Ã³¸®
-		//if (!FileOpenBinary(FILE_SPRITE_IMAGEOBJECT, m_ImageObjectSPKFile))
-		//	return false;
 
 		//m_ImageObjectSPK.LoadFromFile( m_ImageObjectSPKFile );
 
@@ -2517,15 +2090,7 @@ MTopView::InitSprites()
 	//-----------------------------------------------------------
 	
 #ifdef __3D_IMAGE_OBJECT__
-//	if (CDirect3D::IsHAL())
-//	{	
-//		//m_pAlphaEffectTextureManager = new CTexturePartManager( FILE_ASPRITE_ALPHAEFFECT, FILE_ASPRITEINDEX_ALPHAEFFECT, 70 );
-//		SAFE_DELETE( m_pImageObjectTextureManager );
 //		
-//		m_pImageObjectTextureManager = new CNormalSpriteTexturePartManager(
-//												&m_ImageObjectSPK, 
-//												g_pClientConfig->MAX_TEXTUREPART_IMAGEOBJECTSPK );
-//	}
 #endif
 	
 
@@ -2765,35 +2330,12 @@ MTopView::InitSprites()
 //	m_EffectAlphaSPKI.Release();
 //	m_EffectAlphaSPK.Release();
 	
-//	if (m_EffectAlphaSPKFile.is_open())
-//	{
-//		m_EffectAlphaSPKFile.close();
-//	}
 
-//	if (CDirect3D::IsHAL())
-//	{	
-//		//m_pAlphaEffectTextureManager = new CTexturePartManager( FILE_ASPRITE_ALPHAEFFECT, FILE_ASPRITEINDEX_ALPHAEFFECT, 70 );
-//		//m_pAlphaEffectTextureManager = new CTexturePartManager( 
-//		//								&m_EffectAlphaSPK, 
-//		//								g_pClientConfig->MAX_TEXTUREPART_EFFECT );
-//		m_pAlphaEffectTextureManager = new CTexturePartManager( 
-//										g_pFileDef->getProperty("FILE_ASPRITE_ALPHAEFFECT").c_str(),
-//// 										FILE_ASPRITEINDEX_ALPHAEFFECT, 
-//										g_pClientConfig->MAX_TEXTUREPART_EFFECT );
-////		m_EffectAlphaPPK.LoadFromFile( FILE_PALETTE_ALPHAEFFECT, CDirectDraw::Is565() );
 //
 //		
 //	}
 //	else
 	{
-		//std::ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
-		//if (!FileOpenBinary(FILE_ASPRITE_ALPHAEFFECT, effectFile2))
-		//	return false;
-		//m_EffectAlphaSPK.LoadFromFile(effectFile2);
-		//effectFile2.close();	
-//		std::ifstream effectFileIndex;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
-//		if (!FileOpenBinary(FILE_ASPRITEINDEX_ALPHAEFFECT, effectFileIndex))
-//			return false;
 //		
 //		// Index File¸¸ loadingÇÏ°í 
 //		m_EffectAlphaSPKI.LoadFromFile( effectFileIndex );
@@ -2815,42 +2357,9 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	// ScreenEffect
 	//------------------------------------------------------------
-//	if (m_pScreenEffectTextureManager!=NULL)
-//	{
-//		delete m_pScreenEffectTextureManager;
-//		m_pScreenEffectTextureManager = NULL;
-//	}
-//	m_EffectScreenSPKI.Release();
-//	m_EffectScreenSPK.Release();
-//	m_EffectScreenPPK.Release();
 	
-//	if (m_EffectScreenSPKFile.is_open())
-//	{
-//		m_EffectScreenSPKFile.close();
-//	}
 
-//	if (CDirect3D::IsHAL())
-//	{	
-//		//m_pAlphaEffectTextureManager = new CTexturePartManager( FILE_ASPRITE_ALPHAEFFECT, FILE_ASPRITEINDEX_ALPHAEFFECT, 70 );
-//		//m_pAlphaEffectTextureManager = new CTexturePartManager( 
-//		//								&m_EffectAlphaSPK, 
-//		//								g_pClientConfig->MAX_TEXTUREPART_EFFECT );
-//		m_pScreenEffectTextureManager = new CSpriteTexturePartManager( 
-//										g_pFileDef->getProperty("FILE_SPRITE_SCREENEFFECT").c_str(),
-////										FILE_SPRITEINDEX_SCREENEFFECT, 
-//										g_pClientConfig->MAX_TEXTUREPART_SCREENEFFECT );
-////		m_EffectScreenPPK.LoadFromFile( FILE_PALETTE_SCREENEFFECT, CDirectDraw::Is565() );
-//	}
-//	else
 	{
-		//std::ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
-		//if (!FileOpenBinary(FILE_ASPRITE_ALPHAEFFECT, effectFile2))
-		//	return false;
-		//m_EffectAlphaSPK.LoadFromFile(effectFile2);
-		//effectFile2.close();	
-//		std::ifstream effectFileIndex;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
-//		if (!FileOpenBinary(FILE_SPRITEINDEX_SCREENEFFECT, effectFileIndex))
-//			return false;
 //		
 //		// Index File¸¸ loadingÇÏ°í 
 //		m_EffectScreenSPKI.LoadFromFile( effectFileIndex );
@@ -2875,25 +2384,7 @@ MTopView::InitSprites()
 	//		ShadowEffect
 	//
 	//------------------------------------------------------------
-//	if (m_pEffectShadowManager!=NULL)
-//	{
-//		delete m_pEffectShadowManager;
-//		m_pEffectShadowManager = NULL;
-//	}
-//	if (CDirect3D::IsHAL())
-//	{	
-//		m_pEffectShadowManager = new CShadowPartManager( 
-//										g_pFileDef->getProperty("FILE_SSPRITE_SHADOWEFFECT").c_str(),
-////										FILE_SSPRITEINDEX_SHADOWEFFECT, 
-//										g_pClientConfig->MAX_TEXTUREPART_EFFECTSHADOW );
-//	}
-//	else
 	{
-//		std::ifstream	effectFile2;
-//		if (!FileOpenBinary(FILE_SSPRITE_SHADOWEFFECT, effectFile2))
-//			return false;
-//		m_EffectShadowSPK.LoadFromFile(effectFile2);
-//		effectFile2.close();			
 		m_EffectShadowSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SSPRITE_SHADOWEFFECT").c_str());
 	}
 
@@ -2910,7 +2401,7 @@ MTopView::InitSprites()
 	//
 	//------------------------------------------------------------
 	/*
-	if (CDirect3D::IsHAL())
+	if (true)
 	{	
 		//--------------------------------------------
 		// AlphaSPKÀ» ÀÌ¿ëÇØ¼­ TexturePackÀ» »ý¼ºÇÑ´Ù.
@@ -2993,23 +2484,10 @@ MTopView::InitSprites()
 	//                 InteractionObject SpritePack
 	//
 	//------------------------------------------------------------
-//	if (m_InteractionObjectSPK.GetSize()==0)
-//	{
-//		std::ifstream	ioFile2;//(FILE_SPRITE_ETC, ios::binary);
-//		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_INTERACTIONOBJECT").c_str(), ioFile2))
-//			return false;
-//		m_InteractionObjectSPK.LoadFromFile(ioFile2);
-//		ioFile2.close();
-//	}
 
 //	if (m_InteractionObjectSSPK.GetSize()==0)
 //	{
 //		/*
-//		std::ifstream	ioFile3;//(FILE_SPRITE_ETC, ios::binary);
-//		if (!FileOpenBinary(FILE_SSPRITE_INTERACTIONOBJECT, ioFile3))
-//			return false;
-//		m_InteractionObjectSSPK.LoadFromFile(ioFile2);
-//		ioFile3.close();
 //		*/
 //	}
 
@@ -3064,11 +2542,6 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_EffectNormalSPK.GetSize()==0)
 	{
-//		std::ifstream	NormalEffectFile2;//(FILE_SPRITE_NORMALEFFECT, ios::binary);
-//		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_NORMALEFFECT").c_str(), NormalEffectFile2))
-//			return false;
-//		m_EffectNormalSPK.LoadFromFile(NormalEffectFile2);
-//		NormalEffectFile2.close();	
 		m_EffectNormalSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SPRITE_NORMALEFFECT").c_str());
 	}
 
@@ -3147,21 +2620,7 @@ MTopView::InitSprites()
 	//				Minimap	
 	//
 	//------------------------------------------------------------
-	 // 2001.7.14 ÁÖ¼®Ã³¸®
-//	if (m_pMinimapSPR!=NULL)
-//	{
-//		delete m_pMinimapSPR;
-//		m_pMinimapSPR = NULL;
-//	}
 //
-//	if (CDirectDraw::Is565())
-//	{
-//		m_pMinimapSPR = new CSprite565;
-//	}
-//	else
-//	{
-//		m_pMinimapSPR = new CSprite555;
-//	}
 	
 
 	/*	
@@ -3369,7 +2828,7 @@ MTopView::InitFilters()
 
 
 #ifdef PLATFORM_WINDOWS
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		/*
 		//------------------------------------------------------
@@ -3444,7 +2903,7 @@ MTopView::InitFilters()
 		m_LightBufferFilter.Init( SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT );		
   		
 		m_pLightBufferTexture = new CSpriteSurface;
-		m_pLightBufferTexture->InitTextureSurface(SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT, 0, CDirect3D::GetPixelFormat4444());	
+		m_pLightBufferTexture->InitTextureSurface(SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT, 0, nullptr);	
 	
 	}
 #endif
@@ -3460,7 +2919,7 @@ MTopView::InitFilters()
 	if (true)  // Force execute on SDL platforms
 #else
 	// Windows platform: use 2D path when 3D HAL is not available
-	if (!CDirect3D::IsHAL())
+	if (!true)
 #endif
 	{
 		/*
@@ -3668,10 +3127,6 @@ MTopView::InitFilters()
 			if (k>32) k=32;
 			else if (k<1) k=1;
 
-			// [ TEST CODE ]
-			//if (k>25 && k<31)
-			//	k = (rand()%(k-22))? 32:26;
-			//else if (k>20 && k<26)
 			//	k = (rand()%(77 - k*3))? 26:32;
 			//else if (k>15 && k<21)
 			//	k = (rand()%(102 - k*5))? 26:32;
@@ -4642,20 +4097,8 @@ MTopView::InitAnimationFrames()
 //	m_InteractionObjectFPK[0][9].Set(0, 0, -48);
 //	
 //
-//	std::ofstream iopackFile(g_pFileDef->getProperty("FILE_AFRAME_INTERACTIONOBJECT").c_str(), ios::binary);
-//	std::ofstream ioindexFile(g_pFileDef->getProperty("FILE_AFRAMEINDEX_INTERACTIONOBJECT").c_str(), ios::binary);
-//	m_InteractionObjectFPK.SaveToFile(iopackFile, ioindexFile);
-//	iopackFile.close();
-//	ioindexFile.close();	
-//#endif
 
 	///*
-	// Load from File
-//	std::ifstream iofile2;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
-//	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_AFRAME_INTERACTIONOBJECT").c_str(), iofile2))
-//		return false;
-//	m_InteractionObjectFPK.LoadFromFile(iofile2);
-//	iofile2.close();
 	//*/
 
 	//------------------------------------------------------------
@@ -4669,21 +4112,10 @@ MTopView::InitAnimationFrames()
 	m_ItemDropFPK.LoadFromFile(itemdropfile2);
 	itemdropfile2.close();
 
-//	for(int kkk = 803; kkk <= 804; kkk++)
-//	{
-//		for(int bbb = 0; bbb < 6; bbb++)
-//		{
-//			CFrame &Frame = m_ItemDropFPK[ kkk ][ bbb ];
 //			int spriteID = Frame.GetSpriteID()+(kkk-802)*4;
 //			Frame.Set(spriteID, Frame.GetCX(), Frame.GetCY());
 //		}
 //
-//	}
-//	std::ofstream itemdropfile3(g_pFileDef->getProperty("FILE_AFRAME_ITEMDROP").c_str(), ios::binary);
-//	std::ofstream itemdropfile4(g_pFileDef->getProperty("FILE_AFRAMEINDEX_ITEMDROP").c_str(), ios::binary);
-//	m_ItemDropFPK.SaveToFile(itemdropfile3, itemdropfile4);
-//	itemdropfile4.close();
-//	itemdropfile3.close();
 
 	//------------------------------------------------------------	
 	// ´Ù½Ã »ý¼º
@@ -5504,28 +4936,10 @@ MTopView::InitEffectFrames()
 //
 //		m_EffectShadowFPK.Init( 1 );
 //
-//		for (int se=0; se<1; se++)
-//		{
-//			m_EffectShadowFPK[se].Init( 8 );
 //
-//			for (int d=0; d<8; d++)
-//			{
-//				m_EffectShadowFPK[se][d].Init( 3 );
 //
-//				for (int f=0; f<3; f++)
-//				{
-//					m_EffectShadowFPK[se][d][f].Set( f, -110, -115, 6 );
-//				}
-//			}
-//		}
 //		
 //
-//		std::ofstream packshadowEffectFile(g_pFileDef->getProperty("FILE_EFRAME_SHADOWEFFECT").c_str(), ios::binary);
-//		std::ofstream indexshadowEffectFile(g_pFileDef->getProperty("FILE_EFRAMEINDEX_SHADOWEFFECT").c_str(), ios::binary);
-//		m_EffectShadowFPK.SaveToFile(packshadowEffectFile, indexshadowEffectFile);
-//		packshadowEffectFile.close();
-//		indexshadowEffectFile.close();
-//	#endif
 
 	///*
 	// Load from shadowEffectFile
@@ -5641,7 +5055,7 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 	//------------------------------------------------------------
 	// 3D °¡¼ÓÀÌ¸é...
 	//------------------------------------------------------------
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		InitMinimapTexture();
 	}
@@ -5668,51 +5082,24 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //----------------------------------------------------------------------
 //void
 //MTopView::InitMinimapTexture(CSpriteSurface *minimap_surface)
-//{
-//	// ½ºÇÁ¶óÀÌÆ®¸¦ ¸¸µéÀÚ by ¾¦°«
-//	if(minimap_surface != NULL)
-//	{
-//		if(minimap_surface->Lock())
-//		{
 //			WORD *pSurface = (WORD*)minimap_surface->GetSurfacePointer();
 //			m_pMinimapSPR->SetPixelNoColorkey(pSurface, minimap_surface->GetSurfacePitch(), minimap_surface->GetWidth(), minimap_surface->GetHeight());
 //			
-//			minimap_surface->Unlock();
-//		}
-//	}
 //
 //	//------------------------------------------------------------
 //	// 3D °¡¼ÓÀÌ¸é...
 //	//------------------------------------------------------------
-//	if (!CDirect3D::IsHAL())
+//	if (!true)
 //		return;
 //
-//	// 2001.7.14 ÁÖ¼®Ã³¸®
-//	if (m_pMinimapTexture!=NULL)
-//	{
-//		delete m_pMinimapTexture;
-//		m_pMinimapTexture = NULL;
-//	}
 //
 //	m_pMinimapTexture = new CSpriteSurface;
 //
-//	if (m_pMinimapTexture==NULL)
-//	{
-//		DEBUG_ADD("[Error] m_pMinimapTexture is NULL");
 //		
 //		return;
 //	}
 //
-//	// texture size °áÁ¤
-//	int spWidth, spHeight;
-//	int width, height;
-//	BYTE smallShift = 0;
 //
-//	spWidth = m_pMinimapSPR->GetWidth();
-//	spHeight = m_pMinimapSPR->GetHeight();
-//	width = spWidth;
-//	height = spHeight;
-//	CDirect3D::GetTextureSize(width, height);		
 //
 //	//-----------------------------------------------------------
 //	//
@@ -5726,74 +5113,20 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //	//-----------------------------------------------------------
 //	// 2ÀÇ ½Â¼ö¸¸ Áö¿øÇÏ´Â °æ¿ì..
 //	//-----------------------------------------------------------
-//	bool bDifferentSize;	// sprite¿Í textureÀÇ Å©±â°¡ ´Ù¸¥°¡?
-//	if (CDirect3D::IsTexturePow2())
-//	{
-//		bDifferentSize = true;
 //
-//		// width¿Í height°¡ ´Ù¸¥ °æ¿ì...
-//		// ÀÛÀº ÂÊ¿¡ ¸ÂÃç¼­ ¶È°°ÀÌ ÇÑ´Ù.
-//		// Square·Î ¸ÂÃá´Ù..°í ÇÒ ¼ö ÀÖÁö.. À½ÇÏ..
-//		if (width < height)
-//		{
-//			height = width;
-//		}
-//		else if (width > height)
-//		{
-//			width = height;
-//		}
 //
 //		//-----------------------------------------------------------
 //		// TextureÅ©±âº¸´Ù Sprite Å©±â°¡ ´õ Å« °æ¿ì..
 //		//-----------------------------------------------------------
-//		// Áï, ÇÏµå¿þ¾î¿¡¼­ SpriteÅ©±â¸¸Å­ÀÇ Texture¸¦ Áö¿øÇÏÁö ¸øÇÏ´Â °æ¿ìÀÌ´Ù.		
-//		// shift¸¦ ÀÌ¿ëÇØ¼­ Å©±â¸¦ ÁÙÀÎ´Ù.
-//		while (spWidth > width || spHeight > height)
-//		{
-//			smallShift ++;
 //
-//			spWidth >>= 1;
-//			spHeight >>= 1;
-//		}
-//	}
 //	//-----------------------------------------------------------
 //	// ¾Æ¹«·± size³ª °ü°è ¾ø´Â °æ¿ì
 //	//-----------------------------------------------------------
-//	else
-//	{
-//		if (CDirect3D::IsTextureSquareOnly())
-//		{
-//			// width¿Í height°¡ ´Ù¸¥ °æ¿ì...
-//			// Å« ÂÊ¿¡ ¸ÂÃç¼­ ¶È°°ÀÌ ÇÑ´Ù.
-//			// Square·Î ¸ÂÃá´Ù..°í ÇÒ ¼ö ÀÖÁö.. À½ÇÏ..
-//			if (width > height)
-//			{
-//				height = width;
-//				bDifferentSize = true;
-//			}
-//			else if (width < height)
-//			{
-//				width = height;
-//				bDifferentSize = true;
-//			}		
 //			
-//			m_MinimapTextureWidth = width;
-//			m_MinimapTextureHeight = height;
-//		}
-//		else
-//		{
-//			bDifferentSize = false;
-//		}			
-//	}		
 //
 //	//---------------------------------------------------
 //	// TextureSurface »ý¼º
 //	//---------------------------------------------------		
-//	m_pMinimapTexture->InitTextureSurface(width, height, 0, CDirect3D::GetPixelFormat4444());
-//	POINT point;
-//	point.x = 0;
-//	point.y = 0;
-//	m_pMinimapTexture->Lock();
 //
 ////	int i;
 //	
@@ -5808,27 +5141,11 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //		DWORD width2 = (width - spWidth) << 1;	// *2 
 //		pSurface += spWidth;
 //
-//		// ¿À¸¥ÂÊ ¿·ºÎºÐ
-//		if (width2 > 0)
-//		{
-//			i = spHeight;		
-//			do
-//			{			
-//				memset(pSurface, 0, width2);
 //				pSurface = (WORD*)((BYTE*)pSurface + pitch);
 //			} while (--i);
 //		}
 //
-//		// ¾Æ·¡ÂÊ
-//		pSurface -= spWidth;
-//		width2 = width << 1;
-//		i = height - spHeight;
 //
-//		if (i>0)
-//		{
-//			do
-//			{			
-//				memset(pSurface, 0, width2);
 //				pSurface = (WORD*)((BYTE*)pSurface + pitch);
 //			} while (--i);
 //		}
@@ -5844,9 +5161,6 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //
 //		int width2 = width << 1;
 //
-//		for (i=0; i<height; i++)
-//		{
-//			memset(pSurface, 0, width2);
 //			pSurface = (WORD*)((BYTE*)pSurface + pitch);
 //		}
 //		*/
@@ -5858,55 +5172,13 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 //	//---------------------------------------------------
 //	// Å©±â¸¦ °í·ÁÇØ¼­..
 //
-//	 // 2001.7.14 ÁÖ¼®Ã³¸®
-//	// alpha°ªÀº 16 == ¹ÝÅõ¸í
-//	BYTE alpha = 16;
 //
-//	if (smallShift==0)
-//	{
-//		m_pMinimapTexture->BltSpriteAlpha4444NotTrans(&point, m_pMinimapSPR, alpha);
-//	}
-//	else
-//	{
-//		m_pMinimapTexture->BltSpriteAlpha4444SmallNotTrans(&point, m_pMinimapSPR, alpha, smallShift);
-//	}
 //
 //	//---------------------------------------------------------------
 //	// Ãâ·ÂÇÒ¶§ÀÇ Å©±â
 //	//---------------------------------------------------------------
-//	spWidth = m_pMinimapSPR->GetWidth();
-//	spHeight = m_pMinimapSPR->GetHeight();
-//	if (CDirect3D::IsTexturePow2())	
-//	{
-//		width = 1;
-//		height = 1;
 //
-//		// width¿Í height´Â spWidth¿Í spHeightº¸´Ù Ä¿¾ß ÇÑ´Ù.
-//		// square·Î ¸ÂÃçÁØ´Ù.
-//		while (width < spWidth || height < spHeight)
-//		{
-//			width <<= 1;
-//			height <<= 1;
-//		}
-//	}
-//	else
-//	{
-//		width = spWidth;
-//		height = spHeight;
 //
-//		// Å« Å©±â·Î ¸ÂÃß¾î¼­ Square·Î ¸¸µç´Ù.
-//		if (CDirect3D::IsTextureSquareOnly())
-//		{				
-//			if (width > height)
-//			{
-//				height = width;				
-//			}
-//			else if (width < height)
-//			{
-//				width = height;				
-//			}	
-//		}
-//	}
 //
 //	m_MinimapTextureWidth = width;
 //	m_MinimapTextureHeight = height;
@@ -5931,7 +5203,7 @@ MTopView::UseHalfFrame(bool bUse)
 	m_CreatureSPK.Release();
 	m_CreatureSSPK.Release();
 
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		m_pCreatureShadowManager->Release();
 		
@@ -6103,7 +5375,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //				return;	
 
 		
-//			if (!CDirect3D::IsHAL())
+//			if (!true)
 			{
 				//------------------------------------------------------------
 				// Half Frame »ç¿ë
@@ -6167,7 +5439,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 		// Init ±×¸²ÀÚ TextureSurface
 		//
 		//------------------------------------------------------------
-		if (CDirect3D::IsHAL())
+		if (true)
 		{	
 			//--------------------------------------------
 			// AlphaSPKÀ» ÀÌ¿ëÇØ¼­ TexturePackÀ» »ý¼ºÇÑ´Ù.
@@ -6196,9 +5468,6 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //----------------------------------------------------------------------
 // ÇöÀç º¸ÀÌ´Â AddonÀ» LoadÇÑ´Ù.
 //----------------------------------------------------------------------
-//void
-//MTopView::LoadFromFileAddonSPK(int frame, int action)
-//{
 //	int frameID = frame*ACTION_MAX_SLAYER + action;
 //
 //	if (frameID<0 || frameID >= (*g_pAddonSpriteTable).GetSize())
@@ -6214,9 +5483,6 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //	// LoadµÇ¾ú´ÂÁö Ã¼Å©ÇØº»´Ù.
 //	//----------------------------------------------------------------------
 //	if ((*g_pAddonSpriteTable)[frameID].bLoad)
-//	{
-//		// ÀÌ¹Ì LoadµÈ °æ¿ì
-//	}
 //	//----------------------------------------------------------------------
 //	// LoadÇØ¾ßµÇ´Â °æ¿ì
 //	//----------------------------------------------------------------------
@@ -6239,7 +5505,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //
 //		__END_PROFILE("LoadAddonAction")
 //
-//		if (!CDirect3D::IsHAL())
+//		if (!true)
 //		{			
 //			TYPE_SPRITEID first = (*g_pAddonSpriteTable)[frameID].FirstShadowSpriteID;
 //			TYPE_SPRITEID last	= (*g_pAddonSpriteTable)[frameID].LastShadowSpriteID;
@@ -6268,9 +5534,6 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //----------------------------------------------------------------------
 // ÇöÀç º¸ÀÌ´Â CreatureActionÀ» LoadÇÑ´Ù.
 //----------------------------------------------------------------------
-//void
-//MTopView::LoadFromFileCreatureActionSPK(int frame, int action)
-//{
 //	int frameID = frame*ACTION_MAX_VAMPIRE + action;
 //
 //	if (frameID<0 || frameID >= (*g_pCreatureActionSpriteTable).GetSize())
@@ -6286,9 +5549,6 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //	// LoadµÇ¾ú´ÂÁö Ã¼Å©ÇØº»´Ù.
 //	//----------------------------------------------------------------------
 //	if ((*g_pCreatureActionSpriteTable)[frameID].bLoad)
-//	{
-//		// ÀÌ¹Ì LoadµÈ °æ¿ì
-//	}
 //	//----------------------------------------------------------------------
 //	// LoadÇØ¾ßµÇ´Â °æ¿ì
 //	//----------------------------------------------------------------------
@@ -6311,7 +5571,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //
 //		__END_PROFILE("LoadCreatureAction")
 //
-//		if (!CDirect3D::IsHAL())
+//		if (!true)
 //		{			
 //			TYPE_SPRITEID first = (*g_pCreatureActionSpriteTable)[frameID].FirstShadowSpriteID;
 //			TYPE_SPRITEID last	= (*g_pCreatureActionSpriteTable)[frameID].LastShadowSpriteID;
@@ -6333,22 +5593,11 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //
 //		(*g_pCreatureActionSpriteTable)[frameID].bLoad = TRUE;
 //
-//		// frameID --> spriteType
-//		//int spriteType = frameID + 2;	// mapping tableÀ» ¸¸µé¾î¾ß ÇÏ´Âµ¥.
-//										// slayer³²³à¸¦ Á¦¿ÜÇÏ¸é ¼ø¼­´ë·Î´Ù..
 //
-//		// loadingµÆ´Ù°í Ç¥½ÃÇØµÖ¾ß Á¸ ÀÌµ¿ ÈÄ releaseÇÒ ¼ö ÀÖ´Ù.
-//		// mapÀ¸·Î ÇØ¾ßÇÑ´Ù.
-//		//m_listLoadedCreatureSprite.push_back( spriteType );
-//	}
-//}
 //
 ////----------------------------------------------------------------------
 //// Release CreatureActionSPK
 ////----------------------------------------------------------------------
-//void
-//MTopView::ReleaseCreatureActionSPK(int frame, int action)
-//{
 //	int frameID = frame*ACTION_MAX_VAMPIRE + action;
 //
 //	if (frameID<0 || frameID >= (*g_pCreatureActionSpriteTable).GetSize())
@@ -6370,7 +5619,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //		
 //		m_CreatureSPK.ReleasePart(first, last);
 //
-//		if (!CDirect3D::IsHAL())
+//		if (!true)
 //		{			
 //			TYPE_SPRITEID first = (*g_pCreatureActionSpriteTable)[frameID].FirstShadowSpriteID;
 //			TYPE_SPRITEID last	= (*g_pCreatureActionSpriteTable)[frameID].LastShadowSpriteID;
@@ -6393,25 +5642,11 @@ MTopView::ReleaseCreatureSPK(int n)
 //	//--------------------------------------------------------
 //	// Player±×¸²ÀÏ°æ¿ì´Â Á¦°ÅÇÏÁö ¾Ê´Â´Ù.
 //	//--------------------------------------------------------
-//	//if (n==CREATURETYPE_SLAYER_MALE
-//	//	|| n==CREATURETYPE_SLAYER_FEMALE
-//	//	|| n==CREATURETYPE_VAMPIRE_MALE
-//	//	|| n==CREATURETYPE_VAMPIRE_FEMALE
-//	//	|| n==CREATURETYPE_WOLF
-//	//	|| n==CREATURETYPE_BAT
-//	//	|| n==CREATURETYPE_SLAYER_OPERATOR
-//	//	|| n==CREATURETYPE_VAMPIRE_OPERATOR)
-//	//{
-//	//	return;
-//	//{
 //
 //	int spriteType = (*g_pCreatureTable)[n].SpriteType;
 //
 //	// Player±×¸²ÀÏ°æ¿ì´Â Á¦°ÅÇÏÁö ¾Ê´Â´Ù.
 //	if ((*g_pCreatureSpriteTable)[spriteType].IsPlayerSprite())
-//	{
-//		return;
-//	}
 //
 //	//----------------------------------------------------------------------
 //	// LoadµÇ¾ú´ÂÁö Ã¼Å©ÇØº»´Ù.
@@ -6430,12 +5665,6 @@ MTopView::ReleaseCreatureSPK(int n)
 //		*/
 ////		int frameID = (*g_pCreatureSpriteTable)[spriteType].FrameID;
 ////
-////		if (frameID!=FRAMEID_NULL)
-////		{
-////			for (int a=0; a<ACTION_MAX_VAMPIRE; a++)
-////			{
-////				ReleaseCreatureActionSPK( frameID, a );
-////			}
 //			TYPE_SPRITEID first = (*g_pCreatureSpriteTable)[spriteType].FirstSpriteID;
 //			TYPE_SPRITEID last	= (*g_pCreatureSpriteTable)[spriteType].LastSpriteID;
 //			long			fp	= (*g_pCreatureSpriteTable)[spriteType].SpriteFilePosition;
@@ -6449,28 +5678,9 @@ MTopView::ReleaseCreatureSPK(int n)
 //		m_listLoadedCreatureSprite.Remove( spriteType );
 //
 //		if ((*g_pCreatureSpriteTable)[spriteType].IsMonsterSprite())
-//		{
-//			m_listLoadedMonsterSprite.Remove( spriteType );
-//		}
-//	}
-//	else
-//	{
-//		// LoadµÇÁö ¾ÊÀº °æ¿ì
-//	}
 	//--------------------------------------------------------
 	// Player±×¸²ÀÏ°æ¿ì´Â Á¦°ÅÇÏÁö ¾Ê´Â´Ù.
 	//--------------------------------------------------------
-	//if (n==CREATURETYPE_SLAYER_MALE
-	//	|| n==CREATURETYPE_SLAYER_FEMALE
-	//	|| n==CREATURETYPE_VAMPIRE_MALE
-	//	|| n==CREATURETYPE_VAMPIRE_FEMALE
-	//	|| n==CREATURETYPE_WOLF
-	//	|| n==CREATURETYPE_BAT
-	//	|| n==CREATURETYPE_SLAYER_OPERATOR
-	//	|| n==CREATURETYPE_VAMPIRE_OPERATOR)
-	//{
-	//	return;
-	//{
 
 	//int spriteType = (*g_pCreatureTable)[n].SpriteTypes[0];
 	int spriteTypeCount = (*g_pCreatureTable)[n].SpriteTypes.GetSize();
@@ -6502,12 +5712,6 @@ MTopView::ReleaseCreatureSPK(int n)
 			*/
 			//		int frameID = (*g_pCreatureSpriteTable)[spriteType].FrameID;
 			//
-			//		if (frameID!=FRAMEID_NULL)
-			//		{
-			//			for (int a=0; a<ACTION_MAX_VAMPIRE; a++)
-			//			{
-			//				ReleaseCreatureActionSPK( frameID, a );
-			//			}
 			TYPE_SPRITEID first = (*g_pCreatureSpriteTable)[spriteType].FirstSpriteID;
 			TYPE_SPRITEID last	= (*g_pCreatureSpriteTable)[spriteType].LastSpriteID;
 			long			fp	= (*g_pCreatureSpriteTable)[spriteType].SpriteFilePosition;
@@ -6688,11 +5892,6 @@ MTopView::LoadFromFileTileAndImageObjectSet(const CSpriteSetManager &TileSSM, co
 	// Tile ÀÏºÎ Load
 	//
 	//--------------------------------------------------------
-//	std::ifstream	TileSPKFile;//(FILE_SPRITE_TILE, ios::binary);	
-//	if (!FileOpenBinary(FILE_SPRITE_TILE, TileSPKFile))
-//		return false;
-//	bool bLoad = m_TileSPK.LoadFromFilePart(TileSPKFile, m_TileSPKI, TileSSM);
-//	TileSPKFile.close();
 //
 //	if (!bLoad)
 //		return false;
@@ -6704,11 +5903,6 @@ MTopView::LoadFromFileTileAndImageObjectSet(const CSpriteSetManager &TileSSM, co
 	// ImageObject ÀÏºÎ Load
 	//
 	//--------------------------------------------------------
-//	std::ifstream	ImageObjectSPKFile;//(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
-//	if (!FileOpenBinary(FILE_SPRITE_IMAGEOBJECT, ImageObjectSPKFile))
-//		return false;
-//	bLoad = m_ImageObjectSPK.LoadFromFilePart(ImageObjectSPKFile, m_ImageObjectSPKI, ImageObjectSSM);
-//	ImageObjectSPKFile.close();	
 	m_ImageObjectSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SPRITE_IMAGEOBJECT").c_str());
 
 	return bLoad;
@@ -6777,12 +5971,6 @@ MTopView::LoadFromFileTileSPKLargeZone(std::ifstream & file)
 	
 	DEBUG_ADD_FORMAT( "Load Tile SFPArray LargeZone : size=%d", m_pTileSFPArrayLargeZone->GetSize() );
 	
-//#ifdef OUTPUT_DEBUG
-	//for (int i=0; i<m_pTileSFPArrayLargeZone->GetSize(); i++)
-	//{
-	//	DEBUG_ADD_FORMAT("SFP[%d] %ld", m_pTileSFPArrayLargeZone[i].SpriteID, m_pTileSFPArrayLargeZone[i].FilePosition);
-	//}
-//#endif
 	//------------------------------------------------------------
 	//  Load Tile SpriteSet
 	//------------------------------------------------------------
@@ -7262,15 +6450,6 @@ MTopView::SetZone(MZone* pZone)
 	//----------------------------------------
 	// ½Ã¾ß °ü·Ã..
 	//----------------------------------------
-//	int x, y;
-//	for (y=0; y<m_pZone->GetHeight(); y++)
-//	{
-//		for (x=0; x<m_pZone->GetWidth(); x++)
-//		{			
-//			m_PreviousFogSpriteID[y][x] = SPRITEID_NULL;
-//		}
-//	}
-//	m_bFogChanged = true;
 }
 
 //----------------------------------------------------------------------
@@ -7299,9 +6478,6 @@ MTopView::ScreenToPixel(int x, int y)
 	// È­¸éÁÂÇ¥ (x,y)¸¦ ´õÇØÁÖ¸é 
 	// È­¸é »óÀÇ ÁÂÇ¥°¡ ³ªÅ¸³»´Â Map¿¡¼­ÀÇ PixelÁÂÇ¥¸¦ ±¸ÇÏ´Â °ÍÀÌ´Ù
 	
-	//zonePixel = MapToPixel(m_FirstSector.x, m_FirstSector.y);
-	//zonePixel.x += m_PlusPoint.x  + x;
-	//zonePixel.y += m_PlusPoint.y  + y;
 
 	zonePixel.x = m_FirstZonePixel.x + x;
 	zonePixel.y = m_FirstZonePixel.y + y;
@@ -7502,7 +6678,7 @@ MTopView::SetFadeStart(char start, char end, char step, BYTE r, BYTE g, BYTE b, 
 	m_bFade		= true;
 	m_delayFrame = delay;
 #ifdef PLATFORM_WINDOWS
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		// 3D °¡¼ÓÀÎ °æ¿ì¿£ 4:4:4ÀÌ´Ù.
 		m_FadeColor = (((WORD)r>>1) << 8)
@@ -7540,24 +6716,9 @@ MTopView::DrawFade()
 //
 //			m_FadeValue = event->parameter1 >> 24;
 //			
-//			m_bFade = true;
-//			m_FadeInc = 1;
-//			m_FadeEnd = 31;
 //
 //			int r = (event->parameter1 >> 16)&0xff, g = (event->parameter1 >> 8)&0xff, b = (event->parameter1)&0xff;
 //			
-//			if (CDirect3D::IsHAL())
-//			{
-//				// 3D °¡¼ÓÀÎ °æ¿ì¿£ 4:4:4ÀÌ´Ù.
-//				m_FadeColor = (((WORD)r>>1) << 8)
-//					| (((WORD)g>>1) << 4)
-//					| ((WORD)b>>1);
-//			}
-//			else
-//			{
-//				m_FadeColor	= CDirectDraw::Color(r,g,b);
-//			}
-//		}
 
 		RECT rect;
 		rect.left =0;
@@ -7568,10 +6729,6 @@ MTopView::DrawFade()
 //		//--------------------------------------------------------
 //		// 3D °¡¼ÓÀÇ °æ¿ì
 //		//--------------------------------------------------------
-//		if (CDirect3D::IsHAL())
-//		{
-//			WORD alpha = (32-m_FadeValue)>>1;			
-//			WORD pixel = alpha << 12;
 //
 //			// m_FadeColor·Î È­¸éÀ» µ¤´Â´Ù.
 //			pixel |= m_FadeColor;
@@ -7889,10 +7046,6 @@ MTopView::GetSelectedObject(int x, int y)
 								//strcpy(pZoneName, "¿¤¸®º£ÀÌÅÍ");
 							}
 
-							//if (!g_bMouseInPortal)
-							//{
-							//	gpC_mouse_pointer->SetCursorPortal( pZoneName );
-							//}
 							
 							if(// (!g_pUserInformation->IsNetmarble || g_mapPremiumZone.find(zoneID) == g_mapPremiumZone.end())
 								/*&&*/ g_pSystemAvailableManager->ZoneFiltering( zoneID ))
@@ -7905,9 +7058,6 @@ MTopView::GetSelectedObject(int x, int y)
 					
 					if (!g_bMouseInPortal)
 					{
-						//char pZoneName[80];
-						//strcpy(pZoneName, "°¥ ¼ö ¾ø´Â °÷");
-						//gpC_mouse_pointer->SetCursorPortal( -1 );
 					}
 				}
 			}
@@ -8143,59 +7293,15 @@ MTopView::GetSelectedObject(int x, int y)
 	{		
 		MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectCheck).second);
 
-		// InteractionObjectÀÎ °æ¿ì¸¸ checkÇÑ´Ù.
-//		if (pImageObject->GetObjectType()==MObject::TYPE_INTERACTIONOBJECT)
-//		{
 //			MInteractionObject* const pInteractionObject = (MInteractionObject* const)pImageObject;
 //
-//			// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ì..´Â Check
-//			if (pInteractionObject->GetViewpoint() > sY2)
-//			{
 //				/*
-//				// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
-//				objectPixelPoint.x = pInteractionObject->GetPixelX() - m_FirstZonePixel.x;
-//				objectPixelPoint.y = pInteractionObject->GetPixelY() - m_FirstZonePixel.y;
 //
-//				// frame¿¡ °ü°èµÈ sprite¸¦ ±¸ÇÑ´Ù.
-//				frame = m_ImageObjectFPK[ pInteractionObject->GetFrameID() ][ pInteractionObject->GetFrame() ];
-//				sprite = frame.GetSpriteID();
 //
-//				// ÃÊ±âÈ­ µÇÁö ¾ÊÀº °æ¿ì¸é..
-//				if (m_ImageObjectSPK[ sprite ].IsNotInit())
-//				{
-//					iImageObjectCheck ++;
-//					continue;
-//				}
 //						
-//				// ÁÂÇ¥ º¸Á¤
-//				objectPixelPoint.x += frame.GetCX();
-//				objectPixelPoint.y += frame.GetCY();
 //
-//				// È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.
-//				rect.left	= objectPixelPoint.x;
-//				rect.top	= objectPixelPoint.y;
-//				rect.right	= rect.left + m_ImageObjectSPK[ sprite ].GetWidth();
-//				rect.bottom	= rect.top + m_ImageObjectSPK[ sprite ].GetHeight();
 //				*/		
-//				// ¼±ÅÃÇÑ À§Ä¡°¡ ImageObjectÀÇ ¿µ¿ª¿¡ ¼ÓÇÏ¸é
-//				if (pInteractionObject->IsPointInScreenRect(x,y))
-//				//if (x > rect.left && x < rect.right
-//				//	&& y > rect.top && y < rect.bottom)
-//				{
-//					#ifdef OUTPUT_DEBUG_DRAW_PROCESS_INPUT
-//						DEBUG_ADD("reIO9");
-//					#endif
 //
-//					//pInteractionObject->SetAction( 1 );
-//					return pInteractionObject;
-//				}
-//			}
-//			// ¾Æ´Ï¸é.. Object checkÇÒ¶§ CheckÇØ¾ßµÇ´Â °æ¿ìÀÌ´Ù.
-//			else
-//			{
-//				break;
-//			}
-//		}
 
 		iImageObjectCheck ++;
 	}
@@ -8590,58 +7696,15 @@ MTopView::GetSelectedObject(int x, int y)
 //		{
 //			MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectCheck).second);
 //
-			// InteractionObjectÀÎ °æ¿ì¸¸ checkÇÑ´Ù.
-//			if (pImageObject->GetObjectType()==MObject::TYPE_INTERACTIONOBJECT)
-//			{
 //				MInteractionObject* const pInteractionObject = (MInteractionObject* const)pImageObject;
 //
-//				// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ì..´Â Check
-//				if (pInteractionObject->GetViewpoint() == currentY)
-//				{
 //					/*
-//					// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
-//					objectPixelPoint.x = pInteractionObject->GetPixelX() - m_FirstZonePixel.x;
-//					objectPixelPoint.y = pInteractionObject->GetPixelY() - m_FirstZonePixel.y;
 //
-//					// frame¿¡ °ü°èµÈ sprite¸¦ ±¸ÇÑ´Ù.
-//					frame = m_ImageObjectFPK[ pInteractionObject->GetFrameID() ][ pInteractionObject->GetFrame() ];
-//					sprite = frame.GetSpriteID();
 //
-//					// ÃÊ±âÈ­ µÇÁö ¾ÊÀº °æ¿ì¸é..
-//					if (m_ImageObjectSPK[ sprite ].IsNotInit())
-//					{
-//						iImageObjectCheck ++;
-//						continue;
-//					}
 //							
-//					// ÁÂÇ¥ º¸Á¤
-//					objectPixelPoint.x += frame.GetCX();
-//					objectPixelPoint.y += frame.GetCY();
 //
-//					// È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.
-//					rect.left	= objectPixelPoint.x;
-//					rect.top	= objectPixelPoint.y;
-//					rect.right	= rect.left + m_ImageObjectSPK[ sprite ].GetWidth();
-//					rect.bottom	= rect.top + m_ImageObjectSPK[ sprite ].GetHeight();
 //					*/			
-//					// ¼±ÅÃÇÑ À§Ä¡°¡ ImageObjectÀÇ ¿µ¿ª¿¡ ¼ÓÇÏ¸é
-//					if (pInteractionObject->IsPointInScreenRect(x,y))
-//					//if (x > rect.left && x < rect.right
-//					//	&& y > rect.top && y < rect.bottom)
-//					{			
-//						#ifdef OUTPUT_DEBUG_DRAW_PROCESS_INPUT
-//							DEBUG_ADD("reIO");
-//						#endif
 //
-//						return pInteractionObject;
-//					}					
-//				}
-//				// ¾Æ´Ï¸é.. Object checkÇÒ¶§ CheckÇØ¾ßµÇ´Â °æ¿ìÀÌ´Ù.
-//				else
-//				{
-//					break;
-//				}
-//			}
 //
 //			iImageObjectCheck ++;
 //		}
@@ -8660,9 +7723,6 @@ MTopView::GetSelectedObject(int x, int y)
 //	{
 //		MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectCheck).second);
 //
-		// InteractionObjectÀÎ °æ¿ì¸¸ checkÇÑ´Ù.
-//		if (pImageObject->GetObjectType()==MObject::TYPE_INTERACTIONOBJECT)
-//		{
 //			MInteractionObject* const pInteractionObject = (MInteractionObject* const)pImageObject;
 //		
 //			// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
@@ -8670,39 +7730,11 @@ MTopView::GetSelectedObject(int x, int y)
 //			objectPixelPoint.x = pInteractionObject->GetPixelX() - m_FirstZonePixel.x;
 //			objectPixelPoint.y = pInteractionObject->GetPixelY() - m_FirstZonePixel.y;
 //
-//			// frame¿¡ °ü°èµÈ sprite¸¦ ±¸ÇÑ´Ù.
-//			frame = m_ImageObjectFPK[ pInteractionObject->GetFrameID() ][ pInteractionObject->GetFrame() ];
-//			sprite = frame.GetSpriteID();
 //
-//			// ÃÊ±âÈ­ µÇÁö ¾ÊÀº °æ¿ì¸é..
-//			if (m_ImageObjectSPK[ sprite ].IsNotInit())
-//			{
-//				iImageObjectCheck ++;
-//				continue;
-//			}
 //							
-//			// ÁÂÇ¥ º¸Á¤
-//			objectPixelPoint.x += frame.GetCX();
-//			objectPixelPoint.y += frame.GetCY();
 //
-//			// È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.
-//			rect.left	= objectPixelPoint.x;
-//			rect.top	= objectPixelPoint.y;
-//			rect.right	= rect.left + m_ImageObjectSPK[ sprite ].GetWidth();
-//			rect.bottom	= rect.top + m_ImageObjectSPK[ sprite ].GetHeight();
 //			*/				
-//			// ¼±ÅÃÇÑ À§Ä¡°¡ ImageObjectÀÇ ¿µ¿ª¿¡ ¼ÓÇÏ¸é
-//			if (pInteractionObject->IsPointInScreenRect(x,y))
-//			//if (x > rect.left && x < rect.right
-//			//	&& y > rect.top && y < rect.bottom)
-//			{
-//				#ifdef OUTPUT_DEBUG_DRAW_PROCESS_INPUT
-//					DEBUG_ADD("reIO");
-//				#endif
 //
-//				return pInteractionObject;
-//			}
-//		}
 //
 //		iImageObjectCheck ++;
 //	}
@@ -8721,20 +7753,7 @@ MTopView::GetSelectedObject(int x, int y)
 //	while(iEffect != iEffectEnd)
 //	{
 //		MEffect* pEffect = iEffect->second;
-//		if(pEffect != NULL)
-//		{
-//			if (pEffect->IsSelectable()
-//				&& pEffect->IsPointInScreenRect(x, y))
-//			{
-//				#ifdef OUTPUT_DEBUG_DRAW_PROCESS_INPUT
-//					DEBUG_ADD("reGE");
-//				#endif
 //
-//				return pEffect;			
-//			}
-//		}
-//		iEffect++;
-//	}
 	for (int e=0; e<effectNum; e++)
 	{
 		MEffect* pEffect = iEffect->second;
@@ -9049,44 +8068,11 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 	{		
 		MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectCheck).second);
 
-		// InteractionObjectÀÎ °æ¿ì¸¸ checkÇÑ´Ù.
-//		if (pImageObject->GetObjectType()==MObject::TYPE_INTERACTIONOBJECT)
-//		{
 //			MInteractionObject* const pInteractionObject = (MInteractionObject* const)pImageObject;
 //
-//			// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ì..´Â Check
-//			if (pInteractionObject->GetViewpoint() > sY2)
-//			{
-//				// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
-//				objectPixelPoint.x = pInteractionObject->GetPixelX() - m_FirstZonePixel.x;
-//				objectPixelPoint.y = pInteractionObject->GetPixelY() - m_FirstZonePixel.y;
 //
-//				// frame¿¡ °ü°èµÈ sprite¸¦ ±¸ÇÑ´Ù.
-//				frame = m_ImageObjectFPK[ pInteractionObject->GetFrameID() ][ pInteractionObject->GetFrame() ];
-//				sprite = frame.GetSpriteID();
 //						
-//				// ÁÂÇ¥ º¸Á¤
-//				objectPixelPoint.x += frame.GetCX();
-//				objectPixelPoint.y += frame.GetCY();
 //									
-//				// InteractionObject´Â (point.x, point.y)¿¡ Ãâ·ÂµÇ¾î ÀÖÀ» °ÍÀÌ´Ù.
-//				// mouseÁÂÇ¥°¡ Sprite¿¡ ¼ÓÇÏ´ÂÁö ¾Ë¾Æº¸±â
-//				// Sprite¿¡¼­ÀÇ ÁÂÇ¥°¡ »ö±òÀÌ ÀÖ´Â °æ¿ìÀÏ¶§
-//				if (m_ImageObjectSPK[ sprite ].IsColorPixel( 
-//						x - objectPixelPoint.x, 
-//						y - objectPixelPoint.y 
-//					))
-//				{	
-//					pInteractionObject->SetAction( 1 );
-//					return pInteractionObject;
-//				}
-//			}
-//			// ¾Æ´Ï¸é.. Object checkÇÒ¶§ CheckÇØ¾ßµÇ´Â °æ¿ìÀÌ´Ù.
-//			else
-//			{
-//				break;
-//			}
-//		}
 
 		iImageObjectCheck ++;
 	}
@@ -9259,13 +8245,7 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 							objectPixelPoint.x -= firstZonePixel.x;
 							objectPixelPoint.y -= firstZonePixel.y;
 
-							// Creature°¡ È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.	
-							// ÁÂÇ¥ º¸Á¤
-							//frame = m_CreatureFPK[pCreature->GetCreatureFrameID()][pCreature->GetAction()][pCreature->GetDirection()][pCreature->GetFrame()];
 							
-							// ÇöÀç Sprite°¡ È­¸é¿¡ Ãâ·ÂµÇ´Â À§Ä¡
-							//objectPixelPoint.x += frame.GetCX();
-							//objectPixelPoint.y += frame.GetCY();
 
 							// mouseÁÂÇ¥°¡ Sprite¿¡ ¼ÓÇÏ´ÂÁö ¾Ë¾Æº¸±â
 							// Sprite¿¡¼­ÀÇ ÁÂÇ¥°¡ »ö±òÀÌ ÀÖ´Â °æ¿ìÀÏ¶§
@@ -9320,11 +8300,6 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 							y - objectPixelPoint.y 
 						))
 					{
-						//file << "Select Item!" << endl;					
-						//#ifdef	OUTPUT_DEBUG					
-							//sprintf(g_pDebugMessage->GetCurrent(), "SelectItem(%d,%d)", x - objectPixelPoint.x, y - objectPixelPoint.y );
-							//g_pDebugMessage->Next()
-						//#endif
 
 						return pItem;
 					}					
@@ -9342,43 +8317,11 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 		{
 			MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectCheck).second);
 
-			// InteractionObjectÀÎ °æ¿ì¸¸ checkÇÑ´Ù.
-//			if (pImageObject->GetObjectType()==MObject::TYPE_INTERACTIONOBJECT)
-//			{
 //				MInteractionObject* const pInteractionObject = (MInteractionObject* const)pImageObject;
 //
-//				// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ì..´Â Check
-//				if (pInteractionObject->GetViewpoint() == currentY)
-//				{
-//					// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
-//					objectPixelPoint.x = pInteractionObject->GetPixelX() - m_FirstZonePixel.x;
-//					objectPixelPoint.y = pInteractionObject->GetPixelY() - m_FirstZonePixel.y;
 //
-//					// frame¿¡ °ü°èµÈ sprite¸¦ ±¸ÇÑ´Ù.
-//					frame = m_ImageObjectFPK[ pInteractionObject->GetFrameID() ][ pInteractionObject->GetFrame() ];
-//					sprite = frame.GetSpriteID();
 //							
-//					// ÁÂÇ¥ º¸Á¤
-//					objectPixelPoint.x += frame.GetCX();
-//					objectPixelPoint.y += frame.GetCY();
 //										
-//					// InteractionObject´Â (point.x, point.y)¿¡ Ãâ·ÂµÇ¾î ÀÖÀ» °ÍÀÌ´Ù.
-//					// mouseÁÂÇ¥°¡ Sprite¿¡ ¼ÓÇÏ´ÂÁö ¾Ë¾Æº¸±â
-//					// Sprite¿¡¼­ÀÇ ÁÂÇ¥°¡ »ö±òÀÌ ÀÖ´Â °æ¿ìÀÏ¶§
-//					if (m_ImageObjectSPK[ sprite ].IsColorPixel( 
-//							x - objectPixelPoint.x, 
-//							y - objectPixelPoint.y 
-//						))
-//					{							
-//						return pInteractionObject;
-//					}
-//				}
-//				// ¾Æ´Ï¸é.. Object checkÇÒ¶§ CheckÇØ¾ßµÇ´Â °æ¿ìÀÌ´Ù.
-//				else
-//				{
-//					break;
-//				}
-//			}
 
 			iImageObjectCheck ++;
 		}
@@ -9393,34 +8336,11 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 	{
 		MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectCheck).second);
 
-		// InteractionObjectÀÎ °æ¿ì¸¸ checkÇÑ´Ù.
-//		if (pImageObject->GetObjectType()==MObject::TYPE_INTERACTIONOBJECT)
-//		{
 //			MInteractionObject* const pInteractionObject = (MInteractionObject* const)pImageObject;
 //		
-//			// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
-//			objectPixelPoint.x = pInteractionObject->GetPixelX() - m_FirstZonePixel.x;
-//			objectPixelPoint.y = pInteractionObject->GetPixelY() - m_FirstZonePixel.y;
 //
-//			// frame¿¡ °ü°èµÈ sprite¸¦ ±¸ÇÑ´Ù.
-//			frame = m_ImageObjectFPK[ pInteractionObject->GetFrameID() ][ pInteractionObject->GetFrame() ];
-//			sprite = frame.GetSpriteID();
 //							
-//			// ÁÂÇ¥ º¸Á¤
-//			objectPixelPoint.x += frame.GetCX();
-//			objectPixelPoint.y += frame.GetCY();
 //									
-//			// InteractionObject´Â (point.x, point.y)¿¡ Ãâ·ÂµÇ¾î ÀÖÀ» °ÍÀÌ´Ù.
-//			// mouseÁÂÇ¥°¡ Sprite¿¡ ¼ÓÇÏ´ÂÁö ¾Ë¾Æº¸±â
-//			// Sprite¿¡¼­ÀÇ ÁÂÇ¥°¡ »ö±òÀÌ ÀÖ´Â °æ¿ìÀÏ¶§
-//			if (m_ImageObjectSPK[ sprite ].IsColorPixel( 
-//					x - objectPixelPoint.x, 
-//					y - objectPixelPoint.y 
-//				))
-//			{					
-//				return pInteractionObject;
-//			}
-//		}
 
 		iImageObjectCheck ++;
 	}
@@ -9558,10 +8478,6 @@ MTopView::DrawItemNameList()
 		if (pItem->IsSpecialColorItem())
 		{
 			WORD temp_color;
-//			if(pItem->IsQuestItem() )
-//				temp_color = CIndexSprite::ColorSet[MItem::GetQuestItemColorset()][16];
-//			else
-//				temp_color = CIndexSprite::ColorSet[MItem::GetUniqueItemColorset()][16];				
 			
 			temp_color = CIndexSprite::ColorSet[pItem->GetSpecialColorItemColorset()][16];
 			nameColor = RGB(CDirectDraw::Red(temp_color)<<3, CDirectDraw::Green(temp_color)<<3, CDirectDraw::Blue(temp_color)<<3);
@@ -9766,7 +8682,7 @@ MTopView::DrawTextList()
 	// ±ÛÀÚ ÂïÀ» ¶§, ¹Ù·Î Á÷Àü¿¡ box¸¦ ±×·ÁÁà¾ß ÇÑ´Ù. ÄÊ...
 	//--------------------------------------------------------
 	/*
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		m_pSurface->Unlock();
 
@@ -9822,16 +8738,7 @@ MTopView::DrawTextList()
 				//--------------------------------------------------------
 				// 3D °¡¼ÓÀÇ °æ¿ì
 				//--------------------------------------------------------
-//				if (CDirect3D::IsHAL())
-//				{
-//					// Unlock / lock... À¸¾Ç~~ ÀÌ°Å ½Ã°£ ¸¹ÀÌ Àâ¾Æ¸ÔÀ»°Çµ¥..
-//					//m_pSurface->Unlock();
 //
-//					// ¹Ú½º Ãâ·Â..
-//					#ifdef OUTPUT_DEBUG_DRAW_3DBOX
-//						DEBUG_ADD_FORMAT("TextList-Box3D( %d, %d, %d, %d ), color=%x",
-//														rect.left, rect.top, rect.right, rect.bottom, pNode->GetBoxColor());
-//					#endif
 //
 //					// ¹Ù´Ú ±ò±â
 //					WORD boxColor = pNode->GetBoxColor();
@@ -9839,11 +8746,6 @@ MTopView::DrawTextList()
 //					rect2 = rect;
 //					DrawBox3D(&rect2, boxColor);
 //
-//					if (pNode->IsExistBoxOutline())
-//					{
-//						// ¿Ü°û ¹Ú½º ±×¸®±â
-//						rect2 = rect;
-//						DRAW_CHAT_BOX_OUTLINE( rect2, pNode->GetBoxOutlineColor() )
 //
 //						
 //						// XXXXXX
@@ -9853,33 +8755,10 @@ MTopView::DrawTextList()
 //						// ..XX..
 //						// ..XX..
 //
-//						rect2.left	= rect.left + CHAT_BOX_TAIL_X;
-//						rect2.top	= rect.bottom;
-//						rect2.right = rect.left + CHAT_BOX_TAIL_X + 6;
-//						rect2.bottom = rect.bottom + 2;		
-//						DrawBox3D(&rect2, boxColor);
 //
-//						rect2.left	= rect.left + CHAT_BOX_TAIL_X+1;
-//						rect2.top	= rect.bottom + 2;
-//						rect2.right = rect.left + CHAT_BOX_TAIL_X+1 + 4;
-//						rect2.bottom = rect.bottom + 2 + 2;
-//						DrawBox3D(&rect2, boxColor);
 //
-//						rect2.left	= rect.left + CHAT_BOX_TAIL_X+2;
-//						rect2.top	= rect.bottom + 4;
-//						rect2.right = rect.left + CHAT_BOX_TAIL_X+2 + 2;
-//						rect2.bottom = rect.bottom + 4 + 2;
-//						DrawBox3D(&rect2, boxColor);
 //
-//						// ¼±
-//						m_pSurface->Lock();
-//						DRAW_CHAT_BOX_TAIL_LOCKED( rect, pNode->GetBoxOutlineColor() );
-//						m_pSurface->Unlock();
-//					}
 //
-//					//m_pSurface->Lock();
-//				}
-//				else
 				{	
 					WORD boxColor = pNode->GetBoxColor();
 						
@@ -10058,7 +8937,7 @@ MTopView::DrawTextList()
 void
 MTopView::ClearLightBufferFilter3D()
 {
-	//if (CDirect3D::IsHAL() && 
+	//if (true && 
 	//if	(m_DarkBits)
 	{
 		//--------------------------------------------------
@@ -10113,7 +8992,7 @@ MTopView::ClearLightBufferFilter3D()
 void
 MTopView::ClearLightBufferFilter2D()
 {
-	//if (1)//CDirect3D::IsHAL() && m_b3DLight && m_DarkBits)
+	//if (1)//true && m_b3DLight && m_DarkBits)
 	{
 		//--------------------------------------------------
 		// ºûÀÇ °ª ¼³Á¤
@@ -10183,16 +9062,13 @@ MTopView::AddLightFilter2D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 		range = min( max(g_pPlayer->GetSight()-3, 0), range );
 	}
 
-	if (//CDirect3D::IsHAL() && m_b3DLight && 
+	if (//true && m_b3DLight && 
 		!g_pPlayer->IsInDarkness()
 		&& range!=0 
 		&& (m_DarkBits || g_pPlayer->IsInDarkness()) 
 		&& m_nLight < g_pClientConfig->MAX_LIGHT_DRAW
 		|| bForceLight) // ¹«Á¶°Ç Ãâ·ÂÇØ¾ßÇÏ´Â ºû
 	{
-		// tile ÁÂÇ¥ º¸Á¤ 
-		 //x += 24;
-		 //y += 24;
 
 		// Light FilterÀÇ ¹üÀ§¸¦ ³ÑÁö ¾Êµµ·Ï ÇÑ´Ù.
 		if (range >= m_LightFTP.GetSize())
@@ -10259,16 +9135,13 @@ MTopView::AddLightFilter3D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 		range = min( max(g_pPlayer->GetSight()-3, 0), range );
 	}
 		
-	if (//CDirect3D::IsHAL() && 
+	if (//true && 
 		!g_pPlayer->IsInDarkness()
 		&& range!=0
 		&&	(m_DarkBits	|| g_pPlayer->IsInDarkness()) 
 		&& m_nLight < g_pClientConfig->MAX_LIGHT_DRAW
 		|| bForceLight)	// ¹«Á¶°Ç Ãâ·ÂÇØ¾ßÇÏ´Â ºû
 	{
-		// tile ÁÂÇ¥ º¸Á¤ 
-		//x += 24;
-		//y += 24;
 
 		// Light FilterÀÇ ¹üÀ§¸¦ ³ÑÁö ¾Êµµ·Ï ÇÑ´Ù.
 		if (range >= m_LightFTP.GetSize())
@@ -10510,10 +9383,6 @@ MTopView::UpdateOutputCreature(TYPE_OBJECTID id, int y0, int y1)
 //----------------------------------------------------------------------
 //void
 //MTopView::DrawBox3D(RECT* pRect, WORD pixel)
-//{
-//	#ifdef OUTPUT_DEBUG_DRAW_PROCESS
-//		DEBUG_ADD( "Start DrawBox3D" );
-//	#endif
 //
 //
 //	CSpriteSurface* pUsingSurface = NULL;
@@ -10521,44 +9390,16 @@ MTopView::UpdateOutputCreature(TYPE_OBJECTID id, int y0, int y1)
 //	//-------------------------------------------------
 //	// Color Black Bar
 //	//-------------------------------------------------
-//	if (pixel==m_ColorBlackHalf)
-//	{
-//		pUsingSurface = m_p3DBoxBlackSurface;
-//	}
 //	//-------------------------------------------------
 //	// Color HP Bar
 //	//-------------------------------------------------
-//	else if (pixel==m_ColorHPBar)
-//	{
-//		pUsingSurface = m_p3DBoxHPSurface;
-//	}
 //	//-------------------------------------------------
 //	// ´Ù¸¥ »ö±òÀÏ °æ¿ì.. ´Ù½Ã ¼³Á¤..
 //	//------------------------------------------------		
-//	else
-//	{		
-//		pUsingSurface = m_p3DBoxSurface;
 //
-//		if (pixel != m_3DBoxCurrentPixel)
-//		{
-//			Set3DBoxColor( pixel );
 //
-//			//m_3DBoxCurrentPixel = pixel;
-//		}
-//	}
 //	
-//	DRAW_TEXTURE_SURFACE( pUsingSurface, pRect )
-//	else
-//	{
-//		#ifdef OUTPUT_DEBUG_DRAW_PROCESS
-//			DEBUG_ADD( "Failed DrawBox3D" );
-//		#endif	
-//	}
 //
-//	#ifdef OUTPUT_DEBUG_DRAW_PROCESS
-//		DEBUG_ADD( "End DrawBox3D" );
-//	#endif
-//}
 
 //----------------------------------------------------------------------
 // Draw Alpha Box
@@ -10612,16 +9453,11 @@ MTopView::DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 		//--------------------------------------------------------
 		// 3D °¡¼ÓÀÇ °æ¿ì
 		//--------------------------------------------------------
-//		if (CDirect3D::IsHAL())
+//		if (true)
 //		{
 //			//------------------------------------------------
 //			// Unlock »óÅÂ·Î ¸¸µç´Ù.
 //			//------------------------------------------------
-//			BOOL bLock = m_pSurface->IsLock();
-//			if (bLock)
-//			{
-//				m_pSurface->Unlock();
-//			}
 //
 //			//------------------------------------------------
 //			// 4:4:4:4
@@ -10629,10 +9465,6 @@ MTopView::DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 //			//						1 1110b
 //			WORD color = ((32-alpha) & 0x1E) << 11;		// ((32-alpha)>>1) << 12
 //
-//			color = color 
-//					| (((WORD)r>>1) << 8)
-//					| (((WORD)g>>1) << 4)
-//					| ((WORD)b>>1);
 //
 //			
 //			CSpriteSurface* pUsingSurface = NULL;
@@ -10640,42 +9472,20 @@ MTopView::DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 //			//-------------------------------------------------
 //			// Color Black Bar
 //			//-------------------------------------------------
-//			if (color==m_ColorBlackHalf)
-//			{
-//				pUsingSurface = m_p3DBoxBlackSurface;
-//			}
 //			//-------------------------------------------------
 //			// Color HP Bar
 //			//-------------------------------------------------
-//			else if (color==m_ColorHPBar)
-//			{
-//				pUsingSurface = m_p3DBoxHPSurface;
-//			}
 //			//-------------------------------------------------
 //			// ´Ù¸¥ »ö±òÀÏ °æ¿ì.. ´Ù½Ã ¼³Á¤..
 //			//------------------------------------------------		
-//			else
-//			{		
-//				pUsingSurface = m_p3DBoxSurface;
 //
-//				if (color != m_3DBoxCurrentPixel)
-//				{
-//					Set3DBoxColor( color );
 //
-//					//m_3DBoxCurrentPixel = pixel;
-//				}
-//			}
 //
 //			DRAW_TEXTURE_SURFACE( pUsingSurface, pRect )			
 //
 //			//------------------------------------------------
 //			// ¿ø·¡ lock µÈ »óÅÂ¸é ´Ù½Ã µÇµ¹¸°´Ù.
 //			//------------------------------------------------
-//			if (bLock)
-//			{
-//				m_pSurface->Lock();
-//			}
-//		}
 //		//--------------------------------------------------------
 //		// 2D
 //		//--------------------------------------------------------
@@ -10745,10 +9555,6 @@ MTopView::DrawInformation()
 	//-----------------------------------------------------------------
 	//							Lock
 	//-----------------------------------------------------------------	
-	//if (!m_pSurface->Lock()) return;
-	// SurfaceÀÇ Á¤º¸¸¦ ÀúÀåÇØµÐ´Ù.
-	//S_SURFACEINFO		SurfaceInfo;
-	//SetSurfaceInfo(&SurfaceInfo, m_pSurface->GetDDSD());
 
 	//-----------------------------------------------------------------
 	// Font ¼±ÅÃ
@@ -11414,35 +10220,10 @@ void MTopView::DrawDebugInfo(void* pSurface)
 		}		
 		
 
-//		if (m_pAlphaEffectTextureManager!=NULL)
-//		{
-//			sprintf(str, "Effect Used/Part/Max = %d/%d/%d", m_pAlphaEffectTextureManager->GetUsed(), m_pAlphaEffectTextureManager->GetMaxPartIndex(), m_pAlphaEffectTextureManager->GetMaxIndex());
-//			pSurface->GDI_Text(10,150, str, RGB(220,220,220));	
-//		}
 //
-//		if (m_pScreenEffectTextureManager!=NULL)
-//		{
-//			sprintf(str, "ScreenEffect Used/Part/Max = %d/%d/%d", m_pScreenEffectTextureManager->GetUsed(), m_pScreenEffectTextureManager->GetMaxPartIndex(), m_pScreenEffectTextureManager->GetMaxIndex());
-//			pSurface->GDI_Text(10,165, str, RGB(220,220,220));	
-//		}
 //
-//		if (m_pImageObjectShadowManager!=NULL)
-//		{
-//			sprintf(str, "ImageObjectShadow Used/Part/Max = %d/%d/%d", m_pImageObjectShadowManager->GetUsed(), m_pImageObjectShadowManager->GetMaxPartIndex(), m_pImageObjectShadowManager->GetMaxIndex());
-//			pSurface->GDI_Text(10,180, str, RGB(220,220,220));	
-//		}
 //
-//		if (m_pAddonShadowManager!=NULL)
-//		{
-//			sprintf(str, "AddonShadow Used/Part/Max = %d/%d/%d", m_pAddonShadowManager->GetUsed(), m_pAddonShadowManager->GetMaxPartIndex(), m_pAddonShadowManager->GetMaxIndex());
-//			pSurface->GDI_Text(10,195, str, RGB(220,220,220));	
-//		}
 //
-//		if (m_pEffectShadowManager!=NULL)
-//		{
-//			sprintf(str, "EffectShadow Used/Part/Max = %d/%d/%d", m_pEffectShadowManager->GetUsed(), m_pEffectShadowManager->GetMaxPartIndex(), m_pEffectShadowManager->GetMaxIndex());
-//			pSurface->GDI_Text(10,210, str, RGB(220,220,220));	
-//		}
 
 		if (g_pRequestServerPlayerManager!=NULL
 			&& g_pRequestClientPlayerManager!=NULL)
@@ -11451,32 +10232,15 @@ void MTopView::DrawDebugInfo(void* pSurface)
 			pSurfaceCast->GDI_Text(10,225, str, RGB(220,220,220));	
 		}
 
-		//#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
-		//	sprintf(str, "Repeat = %d, UsedActionInfo = %d", (g_pPlayer->IsRepeatAction()?"True":"False"), g_pPlayer->GetUsedActionInfo());
-			//pSurface->GDI_Text(10,195, str, RGB(220,220,220));	
-		//#endif
 
 		
-		//if (g_pCurrentMagazine!=NULL)
-		//{
-		//	sprintf(str, "Bullet = %d", g_pCurrentMagazine->GetNumber());
-		//	pSurface->GDI_Text(10,136, str, RGB(220,220,220));
-		//}
 
 		//sprintf(str, "FirstPoint : X = %d, Y = %d", firstPointX, firstPointY);
 		//pSurface->GDI_Text(9,109, str, RGB(220,220,220));
 		//*/	
 
-		// Timer Ãâ·Â
-		//sprintf(str, "Timer = %ld", g_CurrentTime);	
-		//g_pBack->GDI_Text(11,11, str, RGB(20,20,20));
-		//g_pBack->GDI_Text(10,20, str, 0xFFFFFF);
 		
 
-		// MouseÁÂÇ¥ Âï±â	
-		//sprintf(str, "%d, %d", g_x, g_y);	
-		//g_pBack->GDI_Text(11,101, str, RGB(20,20,20));
-		//g_pBack->GDI_Text(10,100, str, RGB(255,255,255));
 
 		//sprintf(str, "ImageObject=%d°³", m_mapImageObject.size());
 		//pSurface->GDI_Text(100,580, str, 0xFFFFFF);
@@ -11534,7 +10298,7 @@ MTopView::DrawTestHelp()
 		{
 			RECT rect = { 250, 25, 530, 410 };
 
-			if (CDirect3D::IsHAL())
+			if (true)
 			{
 				//DrawBox3D(&rect, 0x7000);
 				DrawAlphaBox(&rect, 0, 0, 0, 20);
@@ -11672,9 +10436,6 @@ MTopView::Draw(int firstPointX,int firstPointY)
 	//------------------------------------------------------------
 	// Clip¿µ¿ª ¾È¿¡¼­¸¸ Ãâ·ÂÇÑ´Ù.
 	//------------------------------------------------------------
-// 	int clipRight = m_pSurface->GetClipRight();
-// 	int clipBottom	= m_pSurface->GetClipBottom();
-// 	m_pSurface->SetClipRightBottom(g_GameRect.right, g_GameRect.bottom);		
 
 	//------------------------------------------------------------
 	// TileÀ» Ã³À½ ±×¸± ¶§, ´Ù~ ±×¸°´Ù.
@@ -11684,7 +10445,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 		DEBUG_ADD("Draw m_bFirstTileDraw: Restore");
 		
 		CDirectDraw::RestoreAllSurfaces();
-		CDirect3D::Restore();
+// CDirect3D::Restore() removed (SDL2)
 
 		DEBUG_ADD("Draw m_bFirstTileDraw: Clear");
 		
@@ -11707,8 +10468,10 @@ MTopView::Draw(int firstPointX,int firstPointY)
 		DEBUG_ADD("Draw m_bFirstTileDraw: OK");
 		
 		/*
-		CDirect3D::GetDevice()->LightEnable( 0, false );
-		CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_LIGHTING, false );
+		// CDirect3D::GetDevice()->LightEnable() removed (SDL2)
+
+		// CDirect3D::GetDevice()->SetRenderState() removed (SDL2)
+
 		
 	
 		D3DLIGHT7 light;
@@ -11730,7 +10493,8 @@ MTopView::Draw(int firstPointX,int firstPointY)
 		light.dvAttenuation0 = 1.0f;
 		light.dvFalloff		= 1.0f;
 		
-		CDirect3D::GetDevice()->SetLight( 0, &light );	
+		// CDirect3D::GetDevice()->SetLight() removed (SDL2)
+	
 		*/
 		//*/
 	}
@@ -11739,20 +10503,19 @@ MTopView::Draw(int firstPointX,int firstPointY)
 	//------------------------------------------------------------
 	//else
 	{			
-		if (CDirect3D::IsHAL())// && m_b3DLight)
+		if (true)// && m_b3DLight)
 		{
 			#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 				DEBUG_ADD( "IsLost?" );
 			#endif
 
 			// µµ¿òÀÌ µÉ±î..
-			if (CDirect3D::IsLost())
+			if (false)
 			{
 				#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 					DEBUG_ADD( "CDirect3D::Restore" );
 				#endif
-
-				CDirect3D::Restore();
+// CDirect3D::Restore() removed (SDL2)
 
 				#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 					DEBUG_ADD( "RestoreSurface" );
@@ -11765,10 +10528,10 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			// BeginScene
 			//------------------------------------------------
 			/*
-			if (CDirect3D::GetDevice()->BeginScene()!=D3D_OK)
+			if (false)  // CDirect3D::GetDevice()->BeginScene() removed (SDL2)
 			{
 				CDirectDraw::RestoreAllSurfaces();
-				CDirect3D::Restore();
+// CDirect3D::Restore() removed (SDL2)
 
 				RestoreSurface();
 
@@ -11786,15 +10549,16 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			rect3d.y1 = 0;
 			rect3d.x2 = CLIPSURFACE_WIDTH;
 			rect3d.y2 = CLIPSURFACE_HEIGHT;
-			CDirect3D::GetDevice()->Clear( 1UL, (D3DRECT *)&rect3d, 
-										D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-										0x00000000, 1.0f, 0L );
+			// CDirect3D::GetDevice()->Clear() removed (SDL2)
+
 			*/
 			#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 				DEBUG_ADD( "Clear 3D" );
 			#endif
 
-			CDirect3D::GetDevice()->Clear( 0, NULL, D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0L );
+			// SDL: Not needed - removed D3D device clear call
+			// // CDirect3D::GetDevice()->Clear() removed (SDL2)
+
 			//*/
 			
 
@@ -11807,23 +10571,27 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			if (g_pDXInput->KeyDown(DIK_Z))
 			{
 				D3DLIGHT7 light;
-				CDirect3D::GetDevice()->GetLight( 0, &light );
+				// CDirect3D::GetDevice()->GetLight() removed (SDL2)
+
 
 				light.dvTheta -=       0.01f; //¿ø»ÔÀÇ Áß¾Ó Å©±â
 				light.dvPhi -=         0.01f; //¿ø»ÔÀÇ ¿Ü°û Å©±â
 				
-				CDirect3D::GetDevice()->SetLight( 0, &light );
+				// CDirect3D::GetDevice()->SetLight() removed (SDL2)
+
 			}
 
 			if (g_pDXInput->KeyDown(DIK_A))
 			{
 				D3DLIGHT7 light;
-				CDirect3D::GetDevice()->GetLight( 0, &light );
+				// CDirect3D::GetDevice()->GetLight() removed (SDL2)
+
 
 				light.dvTheta +=       0.01f; //¿ø»ÔÀÇ Áß¾Ó Å©±â
 				light.dvPhi +=         0.01f; //¿ø»ÔÀÇ ¿Ü°û Å©±â
 				
-				CDirect3D::GetDevice()->SetLight( 0, &light );
+				// CDirect3D::GetDevice()->SetLight() removed (SDL2)
+
 			}
 			*/
 			
@@ -11896,7 +10664,8 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			//------------------------------------------------
 			// EndScene
 			//------------------------------------------------
-			//CDirect3D::GetDevice()->EndScene();
+			//// CDirect3D::GetDevice()->EndScene() removed (SDL2)
+
 
 			//------------------------------------------------
 			// Á¦°ÅµÈ SurfaceµéÀ» Áö¿öÁà¾ß ÇÑ´Ù.
@@ -11908,13 +10677,6 @@ MTopView::Draw(int firstPointX,int firstPointY)
 
 			__BEGIN_PROFILE("ClearTexture")
 
-//			if (m_pAlphaEffectTextureManager)				m_pAlphaEffectTextureManager->DeleteRemoved();
-//			if (m_pScreenEffectTextureManager)	m_pScreenEffectTextureManager->DeleteRemoved();
-//			if (m_pImageObjectShadowManager)	m_pImageObjectShadowManager->DeleteRemoved();
-//			if (m_pAddonShadowManager)			m_pAddonShadowManager->DeleteRemoved();
-//			if (m_pOustersShadowManager)		m_pOustersShadowManager->DeleteRemoved();
-//			if (m_pEffectShadowManager)			m_pEffectShadowManager->DeleteRemoved();
-//			if (m_pCreatureShadowManager)		m_pCreatureShadowManager->DeleteRemoved();
 			
 			__END_PROFILE("ClearTexture")
 		}
@@ -11975,10 +10737,6 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			//------------------------------------------------
 			// test¿ë µµ¿ò¸»
 			//------------------------------------------------
-//			if (g_pDXInput->KeyDown(DIK_F11))
-//			{
-//				DrawTestHelp();				
-//			}
 		}	
 	}
 
@@ -11996,9 +10754,6 @@ MTopView::Draw(int firstPointX,int firstPointY)
 	//#endif	
 	
 
-	//char str[80];
-	//sprintf(str, "ImageObject=%d°³", m_mapImageObject.size());
-	//m_pSurface->GDI_Text(100,580, str, 0xFFFFFF);
 
 	//------------------------------------------------------------
 	// Á¤»óÀûÀÎ Ãâ·Â
@@ -12027,7 +10782,7 @@ MTopView::DrawLightBuffer3D()
 		DEBUG_ADD( "Start DrawLightBuffer3D" );
 	#endif
 
-	if (//CDirect3D::IsHAL() && 
+	if (//true && 
 		m_DarkBits || g_pPlayer->IsInDarkness())
 	{
 		//------------------------------------------------
@@ -12086,7 +10841,7 @@ MTopView::DrawLightBuffer3D()
 void
 MTopView::DrawLightBuffer2D()
 {
-	//if (CDirect3D::IsHAL() && m_b3DLight && 
+	//if (true && m_b3DLight && 
 	if (m_DarkBits || g_pPlayer->IsInDarkness())
 	{
 		//------------------------------------------------
@@ -12156,9 +10911,6 @@ MTopView::DrawLightBuffer2D()
 						int light	= *pFilter;
 						int	len		= *pPW;
 						
-						//if (light!=31)
-						//{
-							// lenÁ¡ Âï±â
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp1, len, light);
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp2, len, light);
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp3, len, light);
@@ -12237,9 +10989,6 @@ MTopView::DrawLightBuffer2D()
 						int light	= *pFilter;
 						int	len		= *pPW;
 						
-						//if (light!=31)
-						//{
-							// lenÁ¡ Âï±â
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp1, len, light);
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp2, len, light);
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp3, len, light);
@@ -12334,9 +11083,6 @@ MTopView::DrawLightBuffer2D()
 						int light	= *pFilter;
 						int	len		= *pPW;
 						
-						//if (light!=31)
-						//{
-							// lenÁ¡ Âï±â
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp1, len, light);
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp2, len, light);
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp3, len, light);
@@ -12413,9 +11159,6 @@ MTopView::DrawLightBuffer2D()
 						int light	= *pFilter;
 						int	len		= *pPW;
 						
-						//if (light!=31)
-						//{
-							// lenÁ¡ Âï±â
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp1, len, light);
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp2, len, light);
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp3, len, light);
@@ -12584,10 +11327,6 @@ MTopView::DetermineImageObject()
 					// °®´Â °æ¿ìµµ ÀÖ´Ù. -_-;
 					// ±×·¡¼­.. ¹«Á¶°Ç Ãß°¡ÇÑ´Ù.
 					//----------------------------------------
-					// Ãâ·Â ½ÃÁ¡ÀÌ µÆÀ¸¸é.. Ãß°¡ÇÑ´Ù.
-					//if (pImageObject->GetViewpoint()==y				// Á¤ÇØÁø ÁÙ
-					//	|| y==sY2-1									// ³¡ÁÙ
-					//	|| pImageObject->GetViewpoint() < sY1)		// Ã¹ÁÙ
 					{						
 						// ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎÇØº¸°í ¾øÀ¸¸é Ãß°¡.
 						QWORD key = GetOutputImageObjectID( pImageObject );
@@ -12690,9 +11429,6 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 		//-----------------------------------
 		if (newFirstSector.y - m_FirstSector.y < 0)
 		{
-			// ¾Æ·¡ÂÊ¿¡¼­ »ç¶óÁö´Â °Ç¹°ÀÌ ÀÖ´ÂÁö È®ÀÎÇØºÁ¾ßÇÑ´Ù.
-			// --> ÀÌÀü È­¸éÀÇ ¸¶Áö¸· ÁÙ¿¡´Â ÀÖÁö¸¸,
-			//     ÇöÀç È­¸éÀÇ ¸¶Áö¸· ÁÙ¿¡´Â ¾ø´Â °ÍµéÀº »ç¶óÁö´Â °ÍÀÌ´Ù.
 			
 			// ´Ù½Ã »ì¸± °Í
 			lastY	= newFirstSector.y + g_SECTOR_HEIGHT+1;	// ÇöÀç È­¸éÀÇ ¸¶Áö¸· ÁÙ
@@ -12846,10 +11582,6 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 					{
 						MImageObject* const pImageObject = (MImageObject* const)((*iImageObject).second);
 
-						// Ãâ·Â ½ÃÁ¡ÀÌ µÆÀ¸¸é.. Ãß°¡ÇÑ´Ù.
-						//if (pImageObject->GetViewpoint()==y				// Á¤ÇØÁø ÁÙ
-						//	|| y==sY2-1									// ³¡ÁÙ
-						//	|| pImageObject->GetViewpoint() < sY1)		// Ã¹ÁÙ
 						{		
 							QWORD key = GetOutputImageObjectID(pImageObject);
 							// ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎÇØº¸°í ¾øÀ¸¸é Ãß°¡.
@@ -12898,10 +11630,6 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 						{
 							MImageObject* const pImageObject = (MImageObject* const)((*iImageObject).second);
 							
-							// Ãâ·Â ½ÃÁ¡ÀÌ µÆÀ¸¸é.. Ãß°¡ÇÑ´Ù.						
-							//if (viewPoint==y				// Á¤ÇØÁø ÁÙ
-							//	|| viewPoint > newY2									// ³¡ÁÙ
-							//	|| viewPoint < newY1)		// Ã¹ÁÙ
 							{						
 								// ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎÇØº¸°í ¾øÀ¸¸é Ãß°¡.
 								QWORD key = GetOutputImageObjectID( pImageObject );
@@ -12978,9 +11706,6 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 		//-----------------------------------
 		if (newFirstSector.x - m_FirstSector.x < 0)
 		{
-			// ¿À¸¥ÂÊ¿¡¼­ »ç¶óÁö´Â °Ç¹°ÀÌ ÀÖ´ÂÁö È®ÀÎÇØºÁ¾ßÇÑ´Ù.
-			// --> ÀÌÀü È­¸éÀÇ ¸¶Áö¸· ÁÙ¿¡´Â ÀÖÁö¸¸,
-			//     ÇöÀç È­¸éÀÇ ¸¶Áö¸· ÁÙ¿¡´Â ¾ø´Â °ÍµéÀº »ç¶óÁö´Â °ÍÀÌ´Ù.
 			
 			// ´Ù½Ã »ì¸± °Í
 			lastX	= newFirstSector.x + g_SECTOR_WIDTH+1;	// ÇöÀç È­¸éÀÇ ¸¶Áö¸· ÁÙ
@@ -13132,10 +11857,6 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 					{
 						MImageObject* const pImageObject = (MImageObject* const)((*iImageObject).second);
 						
-						// Ãâ·Â ½ÃÁ¡ÀÌ µÆÀ¸¸é.. Ãß°¡ÇÑ´Ù.
-						//if (pImageObject->GetViewpoint()==y				// Á¤ÇØÁø ÁÙ
-							//|| y==sY2-1									// ³¡ÁÙ
-							//|| pImageObject->GetViewpoint() < sY1)		// Ã¹ÁÙ
 						{						
 							// ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎÇØº¸°í ¾øÀ¸¸é Ãß°¡.
 							QWORD key = GetOutputImageObjectID( pImageObject );
@@ -13185,10 +11906,6 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 						{
 							MImageObject* const pImageObject = (MImageObject* const)((*iImageObject).second);
 						
-							// Ãâ·Â ½ÃÁ¡ÀÌ µÆÀ¸¸é.. Ãß°¡ÇÑ´Ù.
-							//if (viewPoint<=y			// À§¿¡ ²¨
-							//	|| viewPoint > sY2)		// ³¡ÁÙ
-								//|| viewPoint < newX1)		// Ã¹ÁÙ
 							{								
 								// ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎÇØº¸°í ¾øÀ¸¸é Ãß°¡.
 								QWORD key = GetOutputImageObjectID( pImageObject );
@@ -13274,14 +11991,6 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	//-------------------------------------------------
 	// Player¸¦ °¡¸®´Â ImageObjectµé¿¡ ´ëÇÑ Á¤º¸
 	//-------------------------------------------------
-	//if (m_pZone->GetSector(g_pPlayer->GetX(), g_pPlayer->GetY()).IsImageObjectAndNotBlock())
-	//{
-		//m_BehindImageObjectID = m_pZone->GetSector(g_pPlayer->GetX(), g_pPlayer->GetY()).GetImageObject()->GetImageObjectID();
-	//}
-	//else
-	//{
-		//m_BehindImageObjectID = IMAGEOBJECTID_NULL;
-	//}
 	
 
 	//-------------------------------------------------
@@ -13539,10 +12248,6 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	// ºÎÁ·ÇÑ ºÎºÐ Ç¥½Ã	
 	BYTE bLack = 0;
 	 
-	//bLack |= (rectScreen.left <= rectTileSurface.left);				// 1
-	//bLack |= (rectScreen.right >= rectTileSurface.right) << 1;		// 2
-	//bLack |= (rectScreen.top <= rectTileSurface.top) << 2;			// 4
-	//bLack |= (rectScreen.bottom >= rectTileSurface.bottom) << 3;	// 8
 	int leftGap = rectScreen.left - rectTileSurface.left;
 	int rightGap = rectScreen.right - rectTileSurface.right;
 	int topGap = rectScreen.top - rectTileSurface.top;
@@ -13553,12 +12258,6 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	if (topGap <= 0) bLack |= FLAG_TILESURFACE_LACK_UP;
 	if (bottomGap >= 0) bLack |= FLAG_TILESURFACE_LACK_DOWN;	
 
-	//DEBUG_ADD_FORMAT("[DRAW LACK]  (%d, %d)  %s %s %s %s", 
-	//	g_pPlayer->GetX(), g_pPlayer->GetY(),
-	//	((bLack & FLAG_TILESURFACE_LACK_LEFT)? "Left":" "),
-	//	((bLack & FLAG_TILESURFACE_LACK_RIGHT)? "Right":" "),
-	//	((bLack & FLAG_TILESURFACE_LACK_UP)? "Up":" "),
-	//	((bLack & FLAG_TILESURFACE_LACK_DOWN)? "Down":" "));
 
 	//---------------------------------------------------------------------
 	//
@@ -14389,7 +13088,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 	__END_PROFILE("AddOutputCreature")
 
-	BOOL bUnlockStatus = CDirect3D::IsHAL() && g_pUserOption->BlendingShadow;
+	BOOL bUnlockStatus = true && g_pUserOption->BlendingShadow;
 	if (bUnlockStatus)
 	{	
 		m_pSurface->Unlock();
@@ -14500,11 +13199,6 @@ if (!m_pSurface->Lock()) return;
 									
 			DrawImageObject(&point, pImageObject);
 		}
-		// ¾Æ´Ï¸é.. Object Ãâ·ÂÇÒ¶§ Ãâ·ÂµÇ´Â °æ¿ìÀÌ´Ù.
-//		else
-//		{
-//			break;
-//		}
 
 		iImageObjectOutput0 ++;
 	}
@@ -14644,10 +13338,6 @@ if (!m_pSurface->Lock()) return;
 			sprite = pImageObject->GetSpriteID();
 		}
 
-		//point.y += m_ImageObjectSPK[sprite].GetHeight();
-		//point.y -= 200;
-		//m_pSurface->BltShadowSpriteDarkness(&point, &m_ImageObjectSSPK[ sprite ], 3-m_DarkBits);
-		//m_pSurface->BltShadowSprite(&point, &m_ImageObjectSSPK[ 0 ]);
 
 		iImageObjectShadowOutput ++;
 	}
@@ -14723,7 +13413,7 @@ if (!m_pSurface->Lock()) return;
 	//----------------------------------------------------
 	// 3D°¡¼ÓÇÒ¶§´Â UnlockÀ¸·Î ¸¸µç´Ù.
 	//----------------------------------------------------
-	BOOL bUnlockStatus = CDirect3D::IsHAL() && g_pUserOption->BlendingShadow;
+	BOOL bUnlockStatus = true && g_pUserOption->BlendingShadow;
 	if (bUnlockStatus)
 	{	
 		m_pSurface->Unlock();
@@ -15176,12 +13866,6 @@ if (!m_pSurface->Lock()) return;
 				//------------------------------------------------
 				// ºûÀÇ °­µµ¸¦ Ãâ·ÂÇÑ´Ù.
 				//------------------------------------------------
-				//if (x==g_SelectSector.x && y==g_SelectSector.y)
-				//{
-				//	char str[80];
-				//	sprintf(str, "%d", sector.GetLight());
-				//	gC_font.PrintStringNoConvert(&m_SurfaceInfo, str, tilePointTemp.x+25,tilePointTemp.y+12, CDirectDraw::Color(28,28,28));				
-				//}
 
 				//------------------------------------------------
 				//
@@ -15195,9 +13879,6 @@ if (!m_pSurface->Lock()) return;
 					//----------------------------------------
 					// test code : Object À§Ä¡ Ç¥½Ã
 					//----------------------------------------
-					//point = tilePointTemp;
-					//m_pSurface->Copy(&point, m_pm_pSurface[0], 
-					//				&m_SpriteSurfacePack[0][105]);
 					//
 					//----------------------------------------
 			
@@ -15257,9 +13938,6 @@ if (!m_pSurface->Lock()) return;
 				//              Effect Ãâ·Â
 				//
 				//------------------------------------------------
-				//if (sector.IsExistEffect())
-				//{				
-				//	point = tilePointTemp;				
 	//
 	//				DrawEffect(&point, sector.GetEffectIterator(), sector.GetEffectSize());
 	//			}
@@ -15308,9 +13986,6 @@ if (!m_pSurface->Lock()) return;
 
 						DrawImageObject(&point, pImageObject);
 
-						//char str[80];
-						//sprintf(str, "%d", pImageObject->GetViewpoint());
-						//m_pSurface->GDI_Text(point.x, point.y, str, 0xFFFFFF);
 					}
 				}
 				// ¾Æ´Ï¸é.. ´Ù¸¥ ÁÙÀÌ´Ù.
@@ -15533,12 +14208,6 @@ if (!m_pSurface->Lock()) return;
 					//------------------------------------------------
 					// ºûÀÇ °­µµ¸¦ Ãâ·ÂÇÑ´Ù.
 					//------------------------------------------------
-					//if (x==g_SelectSector.x && y==g_SelectSector.y)
-					//{
-					//	char str[80];
-					//	sprintf(str, "%d", sector.GetLight());
-					//	gC_font.PrintStringNoConvert(&m_SurfaceInfo, str, tilePointTemp.x+25,tilePointTemp.y+12, CDirectDraw::Color(28,28,28));				
-					//}
 
 					//------------------------------------------------
 					//
@@ -15552,9 +14221,6 @@ if (!m_pSurface->Lock()) return;
 						//----------------------------------------
 						// test code : Object À§Ä¡ Ç¥½Ã
 						//----------------------------------------
-						//point = tilePointTemp;
-						//m_pSurface->Copy(&point, m_pm_pSurface[0], 
-						//				&m_SpriteSurfacePack[0][105]);
 						//
 						//----------------------------------------
 				
@@ -15614,9 +14280,6 @@ if (!m_pSurface->Lock()) return;
 					//              Effect Ãâ·Â
 					//
 					//------------------------------------------------
-					//if (sector.IsExistEffect())
-					//{				
-					//	point = tilePointTemp;				
 		//
 		//				DrawEffect(&point, sector.GetEffectIterator(), sector.GetEffectSize());
 		//			}
@@ -15666,9 +14329,6 @@ if (!m_pSurface->Lock()) return;
 
 						DrawImageObject(&point, pImageObject);
 
-						//char str[80];
-						//sprintf(str, "%d", pImageObject->GetViewpoint());
-						//m_pSurface->GDI_Text(point.x, point.y, str, 0xFFFFFF);
 					}
 				}
 				// ¾Æ´Ï¸é.. ´Ù¸¥ ÁÙÀÌ´Ù.
@@ -15935,9 +14595,6 @@ if (!m_pSurface->Lock()) return;
 			//----------------------------------------------------------------
 			// 3D 
 			//----------------------------------------------------------------
-			// ¹ÚÁãÀÎ °æ¿ì ½Ã¾ß +3	
-			//int addLight = (g_pPlayer->GetCreatureType()==CREATURETYPE_BAT ? 3 : 0);
-//			int addLight = (g_pPlayer->IsFlyingCreature() ? 3 : 0);
 			g_pPlayer->CalculateLightSight();
 			int playerLight = g_pPlayer->GetLightSight();// + g_pPlayer->GetItemLightSight() + addLight);
 			
@@ -15949,7 +14606,7 @@ if (!m_pSurface->Lock()) return;
 //				playerLight = 1;
 
 		//	DEBUG_ADD_FORMAT("######## Sight  (%d)", playerLight); 
-			if (CDirect3D::IsHAL())
+			if (true)
 			{ 
 				AddLightFilter3D( pX, 
 					pY - (g_pPlayer->IsFlyingCreature()? 72:0 ),	//g_pPlayer->GetZ(), 
@@ -16084,9 +14741,6 @@ if (!m_pSurface->Lock()) return;
 	//-------------------------------------------------
 //	#ifdef _DEBUG
 //
-//		if (g_pDXInput->KeyDown(DIK_LCONTROL) && g_pDXInput->KeyDown(DIK_G))
-//		{		
-//			int guildID = g_pPlayer->GetX()%10;
 //
 //			//-------------------------------------------------
 //			// loadµÇ¾î ÀÖ´ÂÁö º»´Ù.
@@ -16109,17 +14763,6 @@ if (!m_pSurface->Lock()) return;
 //				// file¿¡µµ ¾ø´Â °æ¿ì..
 //				// guildMark°ü¸®¼­¹ö?¿¡¼­ ¹Þ¾Æ¿Â´Ù.
 //				//-------------------------------------------------
-//				if (pSprite==NULL)
-//				{
-//					// ¿©±â¼­´Â.. ÀÓ½Ã·Î È­ÀÏ¿¡¼­ »ý¼ºÇÑ´Ù.
-//					char str[256];
-//					sprintf(str, "Data\\Guild\\Guild%d.bmp", guildID);
-////					g_pGuildMarkManager->CreateGuildMark( guildID, str );
-//				}
-//			}
-//			else
-//			{			
-//				// ÀÛÀº°Åµµ °Á ÇÔ Âï¾îº»´Ù.
 //				CSprite* pSpriteSmall = g_pGuildMarkManager->GetGuildMarkSmall(guildID);
 //
 //				m_pSurface->Lock();
@@ -16128,17 +14771,7 @@ if (!m_pSurface->Lock()) return;
 //
 //				m_pSurface->BltSprite(&point, pSprite);
 //
-//				if (pSpriteSmall!=NULL)
-//				{
-//					point.x = 150;
-//					point.y = 100;
-//					m_pSurface->BltSprite(&point, pSpriteSmall);
-//				}
 //
-//				m_pSurface->Unlock();
-//			}		
-//		}
-//	#endif
 
 
 	//----------------------------------------------------------------
@@ -16226,15 +14859,17 @@ if (!m_pSurface->Lock()) return;
 		point.x = g_x;
 		point.y = g_y;
 
-		if (CDirect3D::IsHAL())
+		if (true)
 		{
 			sprite = 0;//rand()%m_pImageObjectShadowManager->GetMaxIndex();
 
 			m_pSurface->Unlock();
 			// EffectTexture ¼³Á¤
-			//CDirect3D::GetDevice()->SetTexture(0, m_EffectTPK[sprite].GetSurface());
+			//// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
+
 			CSpriteSurface* pSurface = m_pImageObjectShadowManager->GetTexture(sprite);		
-			CDirect3D::GetDevice()->SetTexture(0, pSurface->GetSurface());
+			// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
+
 			
 			// ÁÂÇ¥ ¼³Á¤
 			m_SpriteVertices[0].sx = point.x;	
@@ -16249,10 +14884,8 @@ if (!m_pSurface->Lock()) return;
 			m_SpriteVertices[3].sy = m_SpriteVertices[2].sy;		
 			
 			// Ãâ·Â
-			CDirect3D::GetDevice()->DrawPrimitive(D3DPT_TRIANGLESTRIP, 
-									D3DFVF_TLVERTEX, 
-									m_SpriteVertices, 
-									4, 0);
+			// CDirect3D::GetDevice()->DrawPrimitive() removed (SDL2)
+
 
 			m_pSurface->Lock();			
 		}
@@ -16301,11 +14934,6 @@ if (!m_pSurface->Lock()) return;
 	//---------------------------------------
 	// Filter¿µ¿ª »ç°¢Çü
 	//---------------------------------------
-	//rect.left = 410 - 100;
-	//rect.right = 410 + 100;
-	//rect.top = 270 - 100;
-	//rect.bottom = 270 + 100;
-	//m_pSurface->DrawRect(&rect, 0xFFFF);
 
 	/*
 	// Creature Sprite º¸¿©ÁÖ±â
@@ -16904,11 +15532,6 @@ int
 
 			AddText( pNode );
 		}
-		//else
-		//{	
-			// yÁÙ ÁÂÇ¥ return
-		//	return firstY;
-		//}
 
 		// ÇÑÁÙ¾¿ ¾Æ·¡·Î..
 		y += ChatFontHeight;
@@ -16987,28 +15610,13 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 //
 //				POINT pointTemp;
 //
-//				// ÁÂÇ¥ º¸Á¤
-//				pointTemp.x = pPoint->x - 5;
-//				pointTemp.y = pPoint->y;
 //					
 //
-//				// ¼±ÅÃµÈ °ÍÀÎ °æ¿ì
-//				// Creature¸¦ ¼±ÅÃÇÑ °ÍÃ³·³ÇØ¼­ Ãâ·Â.. »ç±â´ç. - -;
-///				if (m_SelectItemID == pItem->GetID())
-//				{
-//					m_SOMOutlineColor = m_ColorOutlineItem;
 //					
 //					m_SOM.Add( pointTemp.x, pointTemp.y, pSprite );
 //					
 //					m_SOM.Generate();
 //
-//					m_pSurface->BltSpriteOutline( &m_SOM, m_SOMOutlineColor );
-//				}
-//				else
-//				{
-//					m_pSurface->BltSprite(&pointTemp, pSprite);	
-//				}
-//			}
 			//---------------------------------------------------------
 			// ÀÏ¹Ý Ä³¸¯ÅÍ Á×Àº ¸ð½À..
 			//---------------------------------------------------------
@@ -17021,21 +15629,6 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 					TYPE_OBJECTID temp = m_SelectCreatureID;
 					m_SelectCreatureID = pCreature->GetID();
 
-//					if (
-//							(
-//							pCreature->GetCreatureType() >= 371 && pCreature->GetCreatureType() <= 376	// ¼º¹°
-//							|| pCreature->GetCreatureType() == 482	// Å©¸®½º¸¶½º Æ®¸®
-//							)
-//						||
-//							(
-//							pCreature->GetActionCount() < pCreature->GetActionCountMax()
-//							// Æ¾¹öÀüÀÏ °æ¿ì¿¡´Â ½½·¹ÀÌ¾î½ÃÃ¼ ±×¸²ÀÚ Ãâ·ÂÇØÁà¾ßÇÔ
-//							|| g_pUserInformation->GoreLevel == false
-//							&& pCreature->GetActionCount()>=pCreature->GetActionCountMax()/2
-//							&& pCreature->IsDead()
-//							)
-//						)
-//					{
 //						POINT pointTemp = *pPoint;
 //						DrawCreatureShadow(&pointTemp, pCreature);
 //					}
@@ -17046,21 +15639,6 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 				}
 				else
 				{
-//					if (
-//							(
-//							pCreature->GetCreatureType() >= 371 && pCreature->GetCreatureType() <= 376	// ¼º¹°
-//							|| pCreature->GetCreatureType() == 482	// Å©¸®½º¸¶½º Æ®¸®
-//							)
-//						||
-//							(
-//							pCreature->GetActionCount() < pCreature->GetActionCountMax()
-//							// Æ¾¹öÀüÀÏ °æ¿ì¿¡´Â ½½·¹ÀÌ¾î½ÃÃ¼ ±×¸²ÀÚ Ãâ·ÂÇØÁà¾ßÇÔ
-//							|| g_pUserInformation->GoreLevel == false
-//							&& pCreature->GetActionCount()>=pCreature->GetActionCountMax()/2
-//							&& pCreature->IsDead()
-//							)
-//						)
-//					{
 //						POINT pointTemp = *pPoint;
 //						DrawCreatureShadow(&pointTemp, pCreature);
 //					}
@@ -17154,11 +15732,6 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 		// Ãâ·Â
 		int colorSet = pItem->GetItemOptionColorSet();
 
-//		if(pItem->IsQuestItem())
-//			colorSet = MItem::GetQuestItemColorset();
-//		else
-//		if(pItem->IsUniqueItem())
-//			colorSet = MItem::GetUniqueItemColorset();
 
 		if(pItem->IsSpecialColorItem() )
 			colorSet = pItem->GetSpecialColorItemColorset();
@@ -17174,9 +15747,6 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 	//---------------------------------------------------------
 	else
 	{
-		//#ifdef OUTPUT_DEBUG
-			//	DEBUG_ADD_FORMAT("[TempDebug] Before Draw Item : %d", pItem->GetID());
-		//#endif	
 
 		int tileFrameID = pItem->GetTileFrameID();
 		//#ifdef OUTPUT_DEBUG
@@ -17213,11 +15783,6 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 
 		int colorSet = pItem->GetItemOptionColorSet();
 
-//		if(pItem->IsQuestItem())
-//			colorSet = MItem::GetQuestItemColorset();
-//		else
-//		if(pItem->IsUniqueItem())
-//			colorSet = MItem::GetUniqueItemColorset();
 		
 		if(pItem->IsSpecialColorItem() )
 			colorSet = pItem->GetSpecialColorItemColorset();
@@ -17249,14 +15814,9 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 			
 			m_SOM.Generate();
 
-			//if (CDirect3D::IsHAL() || DarkBits==0)
+			//if (true || DarkBits==0)
 			//{
 				m_pSurface->BltSpriteOutline( &m_SOM, m_SOMOutlineColor );
-			//}
-			//else
-			//{
-				//m_pSurface->BltSpriteOutlineDarkness( &m_SOM, m_SOMOutlineColor, DarkBits );
-			//}
 
 			//-------------------------------------
 			// mouse°¡ °¡¸®Å°´Â ItemÀÇ Á¤º¸ Ç¥½Ã
@@ -17323,11 +15883,6 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 				AddText( pNode );
 			}	
 			*/
-			//gC_font.PrintStringNoConvert(&m_SurfaceInfo, 
-			//							g_ItemTable[pItem->GetItemClass()][pItem->GetItemType()].GetName(), 
-			//							pointTemp.x, pointTemp.y, 
-			//							0xFFFF
-			//);
 			
 		}
 		else
@@ -17345,7 +15900,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 			//-------------------------------------------------------
 			//else 
 			{
-				//if (CDirect3D::IsHAL() || DarkBits==0)
+				//if (true || DarkBits==0)
 				//{			
 					
 				//-------------------------------------------------------
@@ -17364,11 +15919,6 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 				{					
 					m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 				}
-				//}
-				//else
-				//{
-					//m_pSurface->BltSpriteDarkness(&pointTemp, &m_ItemTileSPK[ Frame.GetSpriteID() ], DarkBits);
-				//}
 			}
 		}	
 		
@@ -17564,18 +16114,12 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 		}
 	#endif
 	
-	//#ifdef OUTPUT_DEBUG
-		//	DEBUG_ADD_FORMAT("[TempDebug] Before Draw ImageObject : %d", pImageObject->GetID());
-	//#endif	
 
 	// m_SpritePack¿¡¼­ ÀûÀýÇÑ sprite¸¦ °ñ¶ó¼­ Ãâ·ÂÇØÁØ´Ù.
 	// Player¸¦ °¡¸®´Â ±×¸²ÀÏ °æ¿ì ¹ÝÅõ¸í Ã³¸®
 	
 	//if (pImageObject->GetImageObjectID() == m_BehindImageObjectID)
 
-	//m_pSurface->HLine(410,310, 1, 0xFFFF);
-	// (410,310)Àº PlayerÀÇ È­¸é »óÀÇ ¹ßÀ§Ä¡..ÀÌ´Ù..
-	// (g_x,g_y)´Â MouseÁÂÇ¥¸¦ ±âÁØÀ¸·Î....
 
 	//------------------------------------------------------
 	// 1. ImageObject°¡ Åõ¸íÀÌ µÇ´Â °ÍÀÎ°¡?
@@ -17586,16 +16130,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 	//------------------------------------------------------
 	bool bTrans;
 
-	// playerÁÂÇ¥
-	//POINT m_FilterPosition;// = MapToPixel(g_pPlayer->GetX(), g_pPlayer->GetY());
-	//m_FilterPosition.x -= m_FirstZonePixel.x-m_PlusPoint.x;
-	//m_FilterPosition.y -= m_FirstZonePixel.y-m_PlusPoint.y;
 
-	// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
-	//m_FilterPosition.x = g_pPlayer->GetPixelX() - m_FirstZonePixel.x - filter.GetWidth();
-	//m_FilterPosition.y = g_pPlayer->GetPixelY() - m_FirstZonePixel.y - filter.GetHeight();
-	//m_FilterPosition.x = 310;	// 410 - 100;
-	//m_FilterPosition.y = 116;	// 204 - 100;
 	
 	//------------------------------------------------------
 	// ÀüÃ¼ÀûÀ¸·Î ¾îµÎ¿î °ªÀ» ÁöÁ¤ÇÑ´Ù.
@@ -17622,7 +16157,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 	}
 	
 	// 3D °¡¼ÓÀÌ µÇ´Â °æ¿ì.. ¹«Á¶°Ç ¿ø·¡ »ö±òÀ» ±×´ë·Î Ãâ·ÂÇÑ´Ù.
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		DarkBits = 0;
 	}
@@ -17644,46 +16179,13 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 
 		if (spriteID != SPRITEID_NULL)	
 		{			
-//			if (CDirect3D::IsHAL())
-//			{			
-//				if (bBlendingShadow)
-//				{
-//					DRAW_TEXTURE_SPRITE_LOCKED(pPoint->x, pPoint->y, 
-//												spriteID, m_pImageObjectShadowManager)
 //
 //
 //					/*
-//					#ifdef OUTPUT_DEBUG
-//						if (g_pDXInput->KeyDown(DIK_S) && 
-//							(g_pDXInput->KeyDown(DIK_RCONTROL)))
-//						{
-//							char str[128];
-//							sprintf(str, "iid=%d, view=%d", (int)pImageObject->GetImageObjectID(), (int)pImageObject->GetViewpoint());
-//							m_pSurface->GDI_Text(pPoint->x, pPoint->y, str, 0xFFFF);
-//						}
-//					#endif
 //					*/
-//				}
-//				else
-//				{
-//					m_pSurface->BltShadowSprite( pPoint, &(m_pImageObjectShadowManager->GetSprite(spriteID)) );
 //
-//					#ifdef OUTPUT_DEBUG
-//						if (g_pDXInput->KeyDown(DIK_S) && 
-//							(g_pDXInput->KeyDown(DIK_RCONTROL)))
-//						{
-//							m_pSurface->Unlock();
 //					
-//							char str[128];
-//							sprintf(str, "iid=%d, view=%d", (int)pImageObject->GetImageObjectID(), (int)pImageObject->GetViewpoint());
-//							m_pSurface->GDI_Text(pPoint->x, pPoint->y, str, 0xFFFF);
 //							
-//							m_pSurface->Lock();
-//						}
-//					#endif
-//				}
-//			}
-//			else
 			{	
 				if (bBlendingShadow)
 				{
@@ -17734,36 +16236,16 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //			//--------------------------------
 //			// Blt Normal
 //			//--------------------------------
-//			case BLT_NORMAL :
-//			{
-//				CFrame& Frame = m_InteractionObjectFPK[ pInteractionObject->GetFrameID() ][ pInteractionObject->GetFrame() ];
-//				sprite = Frame.GetSpriteID();
 //				
 //				/*
-//				#ifdef	OUTPUT_DEBUG
-//					sprintf(g_pDebugMessage->GetCurrent(), 
-//							"[%d] FrameID=%d, Frame=%d, sprite=%d, xy=(%d,%d)", 
-//							pInteractionObject->GetID(), pInteractionObject->GetFrameID(), pInteractionObject->GetFrame(), sprite, pInteractionObject->GetX(), pInteractionObject->GetY()
-//					);								
-//					g_pDebugMessage->Next();					
-//				#endif
 //				*/
 //
-//				// ÁÂÇ¥ º¸Á¤
-//				pPoint->x += Frame.GetCX();
-//				pPoint->y += Frame.GetCY();
 //
 //				CSprite* pSprite = &m_InteractionObjectSPK[ sprite ];		
 //				
 //				//---------------------------------------- 		
 //				// InteractionObjectÀÇ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
 //				//---------------------------------------- 	
-//				RECT rect;
-//				rect.left	= pPoint->x;
-//				rect.top	= pPoint->y;
-//				rect.right	= rect.left + pSprite->GetWidth();
-//				rect.bottom = rect.top + pSprite->GetHeight();
-//				pInteractionObject->SetScreenRect( &rect );
 //
 //
 //				// ¹ÝÅõ¸í check				
@@ -17772,60 +16254,19 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //				//--------------------------------
 //				// ¼±ÅÃµÈ InteractionObjectÀÏ °æ¿ì...
 //				//--------------------------------
-//				if (m_SelectInteractionObjectID==pInteractionObject->GetID())
-//				{			
-//					//if (m_ImageObjectSPK[ sprite ].IsInit())
-//					{
-//						m_SOMOutlineColor = m_ColorOutlineInteractionObject;						
 //
 //						m_SOM.Add( pPoint->x, pPoint->y, pSprite );
 //						
 //						m_SOM.Generate();
 //
-//						//if (DarkBits==0)
-//						//{
-//							m_pSurface->BltSpriteOutline( &m_SOM, m_SOMOutlineColor );
-//						//}
-//						//else
-//						//{
-//							//m_pSurface->BltSpriteOutlineDarkness( &m_SOM, m_SOMOutlineColor, DarkBits );
-//						//}				
-//					}
-//				}
 //				//--------------------------------
 //				// Åõ¸í Ã³¸®
 //				//--------------------------------
-//				else if (bTrans)
-//				{
-//					// ¹ÝÅõ¸í
-//					//m_pSurface->BltSpriteHalf(pPoint, &m_ImageObjectSPK[ sprite ]);
-//					// ±×¸²¿¡ ¸ÂÃá filter ÁÂÇ¥ º¸Á¤
-//					CSprite::SetFilter(m_FilterPosition.x - pPoint->x,
-//										m_FilterPosition.y - pPoint->y,
-//										&m_ImageObjectFilter);
 //
-//					//if (m_ImageObjectSPK[ sprite ].IsIntersectFilter() 
-//					//	|| DarkBits==0)
-//					//{
-//						m_pSurface->BltSpriteAlphaFilter(pPoint, pSprite);
-//					//}
-//					//else
-//					//{
-//					//	m_pSurface->BltSpriteAlphaFilterDarkness(pPoint, 
-//														//&m_ImageObjectSPK[ sprite ], DarkBits);
-//					//}					
-//				}
 //				//--------------------------------
 //				// ±×³É Ãâ·Â
 //				//--------------------------------
-//				else
-//				{
-//					//if (m_ImageObjectSPK[ sprite ].IsInit())
-//					{
 //						///*
-//						// PlayerÀÇ ½Ã¾ßÀÇ Å©±â¸¦ ¹Ý¿µÇØ¼­
-//						// ½Ã¾ß ¾È¿¡ ÀÖ´Â ImageObjectµé¸¸ º¸ÀÌ°Ô ÇÑ´Ù.
-//						//CSprite& spriteRef = m_ImageObjectSPK[ sprite ];
 //
 //						//int sight = g_pPlayer->GetMaxLightSight();
 //						//int pX = sight * TILE_X;
@@ -17833,22 +16274,6 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //						//int sX = 410-(pX>>1) - pPoint->x;
 //						//int sY = 270-(pY>>1) - pPoint->y;			
 //
-//						//if (DarkBits==0 //|| m_ImageObjectSPK[ pImageObject->GetSpriteID() ].IsIntersectFilter())
-//							// Ãâ·Â ½ÃÀÛÀ§Ä¡(s_X,s_Y)°¡ SpriteÀÇ ³¡Á¡º¸´Ù´Â ÀûÀ» °æ¿ì
-//						//	|| (sX < spriteRef.GetWidth() && sY < spriteRef.GetHeight()
-//							// FilterÀÇ ³¡Á¡ÀÌ Sprite Ã¹Á¡ º¸´Ù Å« °æ¿ì
-//						//	 &&	sX,pX > 0 && sY,pY > 0))
-//						//{
-//							m_pSurface->BltSprite(pPoint, pSprite);
-//						//}
-//						//else
-//						//{
-//						//	m_pSurface->BltSpriteDarkness(pPoint, &m_ImageObjectSPK[ sprite ], DarkBits);
-//						//}
-//					}
-//				}
-//			}
-//			break;
 //
 //			//--------------------------------
 //			// Blt Channel 
@@ -17858,23 +16283,10 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //				//--------------------------------
 //				// ¼±ÅÃµÈ InteractionObjectÀÏ °æ¿ì...
 //				//--------------------------------
-//				if (m_SelectInteractionObjectID==pInteractionObject->GetID())
-//				{
-//					//DrawSpriteOutline(pPoint, &m_ImageObjectSPK[ sprite ], 0xFFFF);
-//				}
-//				else
-//				{				
-//					m_pSurface->BltAlphaSprite(pPoint, &m_EffectAlphaSPK[ sprite ]);
-//				}
 //				*/
 //			break;
 //		}
 //
-//		if (g_bFrameChanged)
-//		{
-//			pInteractionObject->NextFrame();
-//		}
-//	}	
 	else
 	{
 		//------------------------------------------------------
@@ -17892,33 +16304,16 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //				char str[256];
 //			#endif
 //
-//			if (m_ImageObjectSPK[ spriteID ].IsNotInit())
-//			{
-//				#ifdef	OUTPUT_DEBUG
-//					sprintf(str, "[RunTimeLoading] ImageObject : sprite=%d. fp=%ld. (%d x %d)", spriteID, m_ImageObjectSPKI[spriteID], m_ImageObjectSPK[spriteID].GetWidth(), m_ImageObjectSPK[spriteID].GetHeight());
-//				#endif				
 //
 //				m_ImageObjectSPKFile.seekg(m_ImageObjectSPKI[spriteID], ios::beg);				
 //				//--------------------------------------------------
 //				// Loading¿¡ ¼º°øÇÑ °æ¿ì
 //				//--------------------------------------------------
-//				if (m_ImageObjectSPK[ spriteID ].LoadFromFile( m_ImageObjectSPKFile ))
-//				{
-//					#ifdef	OUTPUT_DEBUG
-//						sprintf(str, "%s ...OK (%d x %d)", str, m_ImageObjectSPK[spriteID].GetWidth(), m_ImageObjectSPK[spriteID].GetHeight());
 //
-//						DEBUG_ADD( str );
-//					#endif
-//				}
 //				//--------------------------------------------------
 //				// ½ÇÆÐÇÑ °æ¿ì --> ÀÌ¹Ì LoadingÇÏ°í ÀÖ´Â °æ¿ìÀÌ´Ù.				
 //				//--------------------------------------------------
 //				/*
-//				// 2001.8.20 ÁÖ¼®Ã³¸®
-//				else
-//				{
-//					#ifdef	OUTPUT_DEBUG
-//						strcat(str, " ...Fail & Wait Loading");
 //	
 //						DEBUG_ADD( str );
 //					#endif
@@ -17926,33 +16321,10 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //					// file thread ¼øÀ§¸¦ ³ôÈù´Ù.
 //					//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_HIGHEST);
 //					MLoadingSPKWorkNode3* pNode = new MLoadingSPKWorkNode3(spriteID, m_ImageObjectSPKI[spriteID]);
-//					pNode->SetSPK( &m_ImageObjectSPK, FILE_SPRITE_IMAGEOBJECT );
-//					pNode->SetType( 1 );
-//					g_pLoadingThread->SetPriority( THREAD_PRIORITY_HIGHEST );
-//					g_pLoadingThread->AddFirst( pNode );
 //
-//					// Thread¿¡¼­ LoadingÀÌ ³¡³¯¶§±îÁö ±â´Ù¸°´Ù.
-//					//while (m_ImageObjectSPK[ spriteID ].IsNotInit());
-//					while (1)
-//					{
-//						DEBUG_ADD_FORMAT( "Check Load id=%d", spriteID );
 //
-//						if (m_ImageObjectSPK[spriteID].IsInit())
-//						{
-//							DEBUG_ADD( "Is Init" );	
 //						
-//							break;
-//						}
-//						else
-//						{
-//							DEBUG_ADD( "Is Not Init" );
-//						}
-//					}
-//					//while (!m_ImageObjectSPK[spriteID].LoadFromFile( m_ImageObjectSPKFile ));
 //
-//					// file thread ¼øÀ§¸¦ ³·Ãá´Ù.
-//					//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_BELOW_NORMAL);
-//					g_pLoadingThread->SetPriority( THREAD_PRIORITY_LOWEST );
 //
 //				}
 //				*/
@@ -17964,9 +16336,6 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						&& pImageObject->IsWallTransPosition(g_pPlayer->GetX(), g_pPlayer->GetY());
 
 						
-						//&& m_ImageObjectSPK[ spriteID ].IsColorPixel(
-						//	410 - pPoint->x,
-						//	310 - pPoint->y);
 		
 			//--------------------------------
 			// Åõ¸í Ã³¸®
@@ -17987,7 +16356,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					//if (DarkBits==0)
 					//{
 #ifdef __3D_IMAGE_OBJECT__
-					if (CDirect3D::IsHAL())
+					if (true)
 					{
 						m_pSurface->Unlock();
 
@@ -17996,21 +16365,16 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 
 						if( pSurface != NULL )
 						{
-							CDirect3D::GetDevice()->SetTexture(0, pSurface->GetSurface());
+							// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
 
-							CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE);					
-							CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_ONE );
-							CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_ONE );   
+
+							// CDirect3D::GetDevice()->SetTextureStageState() removed (SDL2)
+					
+							// CDirect3D::GetDevice()->SetRenderState() removed (SDL2)
+
+							// CDirect3D::GetDevice()->SetRenderState() removed (SDL2)
+   
 							
-							// ÁÂÇ¥ ¼³Á¤
-							//						m_SpriteVertices[0].sx = pPoint->x;
-							//						m_SpriteVertices[0].sy = pPoint->y;
-							//						m_SpriteVertices[1].sx = pPoint->x,m_pImageObjectTextureManager->GetWidth(spriteID);
-							//						m_SpriteVertices[1].sy = pPoint->y;
-							//						m_SpriteVertices[2].sx = pPoint->x;
-							//						m_SpriteVertices[2].sy = pPoint->y,m_pImageObjectTextureManager->GetHeight(spriteID);
-							//						m_SpriteVertices[3].sx = m_SpriteVertices[1].sx;
-							//						m_SpriteVertices[3].sy = m_SpriteVertices[2].sy;		
 							
 							CDirect3D::GetDevice()->BeginScene();						
 							
@@ -18023,10 +16387,14 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 							
 							m_TextureEffect.DrawEffect2D( &rect );
 							
-							CDirect3D::GetDevice()->EndScene();
-							CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE);					
-							CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
-							CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
+							// CDirect3D::GetDevice()->EndScene() removed (SDL2)
+
+							// CDirect3D::GetDevice()->SetTextureStageState() removed (SDL2)
+					
+							// CDirect3D::GetDevice()->SetRenderState() removed (SDL2)
+
+							// CDirect3D::GetDevice()->SetRenderState() removed (SDL2)
+   
 							m_pSurface->Lock();	
 						}
 					}					
@@ -18044,22 +16412,17 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 														&m_ImageObjectSPK[ spriteID ]);							
 						}						
 #endif
-					//}
-					//else
-					//{
-					//	m_pSurface->BltSpriteAlphaFilterDarkness(pPoint, 
-					//								&m_ImageObjectSPK[ spriteID ], DarkBits);
-					//}	
 
 					// Texture¸¸µé¾î¼­ ¹ÝÅõ¸í ÇÏ±â... 
 					/*
-					if (CDirect3D::IsHAL())
+					if (true)
 					{
 						m_pSurface->Unlock();
 
 						// Texture ¼³Á¤
 						CSpriteSurface* pSurface = m_pImageObjectTextureManager->GetTexture(spriteID);
-						CDirect3D::GetDevice()->SetTexture(0, pSurface->GetSurface());
+						// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
+
 				
 						// ÁÂÇ¥ ¼³Á¤
 						m_SpriteVertices[0].sx = pPoint->x;
@@ -18072,12 +16435,11 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						m_SpriteVertices[3].sy = m_SpriteVertices[2].sy;		
 						
 						// Ãâ·Â
-						CDirect3D::GetDevice()->DrawPrimitive(D3DPT_TRIANGLESTRIP, 
-												D3DFVF_TLVERTEX, 
-												m_SpriteVertices, 
-												4, 0);
+						// CDirect3D::GetDevice()->DrawPrimitive() removed (SDL2)
 
-						//CDirect3D::GetDevice()->EndScene();
+
+						//// CDirect3D::GetDevice()->EndScene() removed (SDL2)
+
 						m_pSurface->Lock();	
 					}
 					else
@@ -18092,7 +16454,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					//if (DarkBits==0)
 					//{
 					#ifdef __3D_IMAGE_OBJECT__
-					if (CDirect3D::IsHAL())
+					if (true)
 					{
 						m_pSurface->Unlock();
 
@@ -18101,17 +16463,9 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 
 						if( pSurface != NULL )
 						{
-							CDirect3D::GetDevice()->SetTexture(0, pSurface->GetSurface());
+							// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
+
 							
-							// ÁÂÇ¥ ¼³Á¤
-							//						m_SpriteVertices[0].sx = pPoint->x;
-							//						m_SpriteVertices[0].sy = pPoint->y;
-							//						m_SpriteVertices[1].sx = pPoint->x,m_pImageObjectTextureManager->GetWidth(spriteID);
-							//						m_SpriteVertices[1].sy = pPoint->y;
-							//						m_SpriteVertices[2].sx = pPoint->x;
-							//						m_SpriteVertices[2].sy = pPoint->y,m_pImageObjectTextureManager->GetHeight(spriteID);
-							//						m_SpriteVertices[3].sx = m_SpriteVertices[1].sx;
-							//						m_SpriteVertices[3].sy = m_SpriteVertices[2].sy;		
 							
 							CDirect3D::GetDevice()->BeginScene();						
 							
@@ -18124,7 +16478,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 							
 							m_TextureEffect.DrawEffect2D( &rect );
 							
-							CDirect3D::GetDevice()->EndScene();
+							// CDirect3D::GetDevice()->EndScene() removed (SDL2)
+
 							m_pSurface->Lock();	
 						}
 					}					
@@ -18134,11 +16489,6 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					else
 						m_pSurface->BltSprite(pPoint, &m_ImageObjectSPK[ spriteID ]);
 #endif
-					//}
-					//else 
-					//{
-						//m_pSurface->BltSpriteDarkness(pPoint, &m_ImageObjectSPK[ spriteID ], DarkBits);		
-					//}
 				}
 				//*/
 
@@ -18153,9 +16503,6 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 				//if (m_ImageObjectSPK[ spriteID ].IsInit())
 				{
 					///*
-					// PlayerÀÇ ½Ã¾ßÀÇ Å©±â¸¦ ¹Ý¿µÇØ¼­
-					// ½Ã¾ß ¾È¿¡ ÀÖ´Â ImageObjectµé¸¸ º¸ÀÌ°Ô ÇÑ´Ù.
-					//CSprite& spriteRef = m_ImageObjectSPK[ spriteID ];
 
 					//int sight = g_pPlayer->GetMaxLightSight();
 					//int pX = sight * TILE_X;
@@ -18163,11 +16510,6 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					//int sX = 410-(pX>>1) - pPoint->x;
 					//int sY = 270-(pY>>1) - pPoint->y;			
 
-					//if (DarkBits==0 //|| m_ImageObjectSPK[ spriteID ].IsIntersectFilter())
-						// Ãâ·Â ½ÃÀÛÀ§Ä¡(s_X,s_Y)°¡ SpriteÀÇ ³¡Á¡º¸´Ù´Â ÀûÀ» °æ¿ì
-					//	|| (sX < spriteRef.GetWidth() && sY < spriteRef.GetHeight()
-						// FilterÀÇ ³¡Á¡ÀÌ Sprite Ã¹Á¡ º¸´Ù Å« °æ¿ì
-					//	 &&	sX,pX > 0 && sY,pY > 0))
 						
 					//{
 #if defined(OUTPUT_DEBUG) && defined(_DEBUG)
@@ -18264,11 +16606,6 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 	}
 	*/
 
-					//}
-					//else 
-					//{
-						//m_pSurface->BltSpriteDarkness(pPoint, &m_ImageObjectSPK[ spriteID ], DarkBits);		
-					//}
 				}
 			}
 
@@ -18339,73 +16676,24 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					//---------------------------------------
 					// ID°¡ spriteÀÎ ImageObject¸¦ LoadÇÑ´Ù.
 					//---------------------------------------
-//					if (m_ImageObjectSPK[ sprite ].IsNotInit())
-//					{
-//						#ifdef	OUTPUT_DEBUG
-//							if (g_pDebugMessage!=NULL)
-//								sprintf(g_pDebugMessage->GetCurrent(), "[RunTimeLoading] AnimationObject : sprite=%d", sprite);
-//						#endif
 //
 //						m_ImageObjectSPKFile.seekg(m_ImageObjectSPKI[sprite], ios::beg);						
 //						
 //						//--------------------------------------------------
 //						// Loading¿¡ ¼º°øÇÑ °æ¿ì
 //						//--------------------------------------------------
-//						if (m_ImageObjectSPK[ sprite ].LoadFromFile( m_ImageObjectSPKFile ))
-//						{
-//							#ifdef	OUTPUT_DEBUG
-//								if (g_pDebugMessage!=NULL)
-//								{
-//									sprintf(g_pDebugMessage->GetCurrent(), "%s ...OK", g_pDebugMessage->GetCurrent());
-//									g_pDebugMessage->Next();
-//								}
-//							#endif
-//						}
 //						//--------------------------------------------------
 //						// ½ÇÆÐÇÑ °æ¿ì --> ÀÌ¹Ì LoadingÇÏ°í ÀÖ´Â °æ¿ìÀÌ´Ù.				
 //						//--------------------------------------------------
 //						
-////						// 2001.8.20 ÁÖ¼®Ã³¸®
-////						else
-////						{
-////							#ifdef	OUTPUT_DEBUG
-////								if (g_pDebugMessage!=NULL)
-////								{
-////									sprintf(g_pDebugMessage->GetCurrent(), "%s ...Fail & Wait Loading", g_pDebugMessage->GetCurrent());
-////									g_pDebugMessage->Next();
-////								}
-////							#endif
 ////
 ////							// file thread ¼øÀ§¸¦ ³ôÈù´Ù.
 ////							//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_HIGHEST);
 ////							MLoadingSPKWorkNode3* pNode = new MLoadingSPKWorkNode3(sprite, m_ImageObjectSPKI[sprite]);
-////							pNode->SetSPK( &m_ImageObjectSPK, FILE_SPRITE_IMAGEOBJECT );
-////							pNode->SetType( 1 );
-////							g_pLoadingThread->SetPriority( THREAD_PRIORITY_HIGHEST );
-////							g_pLoadingThread->AddFirst( pNode );
 ////
-////							// Thread¿¡¼­ LoadingÀÌ ³¡³¯¶§±îÁö ±â´Ù¸°´Ù.
-////							//while (m_ImageObjectSPK[sprite].IsNotInit());
-////							while (1)
-////							{
-////								DEBUG_ADD_FORMAT( "Check Load id=%d", sprite );
 ////
-////								if (m_ImageObjectSPK[sprite].IsInit())
-////								{
-////									DEBUG_ADD( "Is Init" );
 ////								
-////									break;
-////								}
-////								else
-////								{
-////									DEBUG_ADD( "Is Not Init" );
-////								}
-////							}
-////							//while (!m_ImageObjectSPK[ sprite ].LoadFromFile( m_ImageObjectSPKFile ));
 ////
-////							// file thread ¼øÀ§¸¦ ³·Ãá´Ù.
-////							//SetThreadPriority(g_hFileThread, THREAD_PRIORITY_BELOW_NORMAL);
-////							g_pLoadingThread->SetPriority( THREAD_PRIORITY_LOWEST );
 ////
 ////						}
 //						
@@ -18418,11 +16706,6 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					if (spriteID==SPRITEID_NULL)
 					{
 						bTrans = true;
-					//	bTrans = pImageObject->IsTrans();
-								//&& pImageObject->GetViewpoint() >= g_pPlayer->GetY();
-								//&& m_ImageObjectSPK[ sprite ].IsColorPixel(
-								//	410 - pPoint->x,
-								//	310 - pPoint->y);
 					}				
 
 					//--------------------------------
@@ -18430,24 +16713,12 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					//--------------------------------
 					if (bTrans)
 					{
-						// ¹ÝÅõ¸í
-						//m_pSurface->BltSpriteHalf(pPoint, &m_ImageObjectSPK[ sprite ]);
-						// ±×¸²¿¡ ¸ÂÃá filter ÁÂÇ¥ º¸Á¤
 						CSprite::SetFilter(m_FilterPosition.x - pPoint->x,
 											m_FilterPosition.y - pPoint->y,
 											&m_ImageObjectFilter);
 
-						//if (m_ImageObjectSPK[ sprite ].IsIntersectFilter()
-						//	|| DarkBits==0)
-						//{
 							m_pSurface->BltSpriteAlphaFilter(pPoint, 
 															&m_ImageObjectSPK[ sprite ]);
-						//}
-						//else
-						//{
-							//m_pSurface->BltSpriteAlphaFilterDarkness(pPoint, 
-															//&m_ImageObjectSPK[ sprite ], DarkBits);
-						//}
 						
 					}
 					//--------------------------------
@@ -18456,9 +16727,6 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					else
 					{
 						///*
-						// PlayerÀÇ ½Ã¾ßÀÇ Å©±â¸¦ ¹Ý¿µÇØ¼­
-						// ½Ã¾ß ¾È¿¡ ÀÖ´Â ImageObjectµé¸¸ º¸ÀÌ°Ô ÇÑ´Ù.
-						//if (m_ImageObjectSPK[ sprite ].IsInit())
 						{
 							//CSprite& spriteRef = m_ImageObjectSPK[ sprite ];
 
@@ -18468,21 +16736,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 							//int sX = 410-(pX>>1) - pPoint->x;
 							//int sY = 270-(pY>>1) - pPoint->y;			
 
-							//if (DarkBits==0 //|| m_ImageObjectSPK[ spriteID ].IsIntersectFilter())
-								// Ãâ·Â ½ÃÀÛÀ§Ä¡(s_X,s_Y)°¡ SpriteÀÇ ³¡Á¡º¸´Ù´Â ÀûÀ» °æ¿ì
-							//	|| (sX < spriteRef.GetWidth() && sY < spriteRef.GetHeight()
-								// FilterÀÇ ³¡Á¡ÀÌ Sprite Ã¹Á¡ º¸´Ù Å« °æ¿ì
-							//	 &&	sX,pX > 0 && sY,pY > 0))
-							//{
-							//if( pImageObject->IsHalf() )
-							//	m_pSurface->BltSpriteHalf(pPoint, &m_ImageObjectSPK[ spriteID ]);
-							//else
 								m_pSurface->BltSprite(pPoint, &m_ImageObjectSPK[ spriteID ]);
-							//}
-							//else
-							//{
-								//m_pSurface->BltSpriteDarkness(pPoint, &m_ImageObjectSPK[ sprite ], DarkBits);
-							//}
 						}
 					}
 				}
@@ -18509,23 +16763,12 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						//-------------------------------------------------------
 						// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
 						//-------------------------------------------------------
-						if (CDirect3D::IsHAL())
+						if (true)
 						{
-//							#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
-//							CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, gtx_op );
-//							CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  gtx_src );
-//							CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, gtx_dest );	
-//							#endif
 //							
 //							DRAW_TEXTURE_SPRITEPAL_LOCKED(pPoint->x, pPoint->y, 
 //								sprite, m_pAlphaEffectTextureManager, fid )//m_EffectAlphaPPK[fid])
 //								
-//							#ifdef OUTPUT_DEBUG
-//								// ¿ø·¡´ë·Î
-//							CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE);					
-//							CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
-//							CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
-//							#endif
 							
 							
 							//------------------------------------------------
@@ -18585,23 +16828,13 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 							//-------------------------------------------------------
 							// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
 							//-------------------------------------------------------
-							if (CDirect3D::IsHAL())
+							if (true)
 							{
-								// screen test
-//								CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_ONE );
-//								CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_ONE );									
 //								
-//								#ifdef OUTPUT_DEBUG
-//								CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  gtx_src );
-//								CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, gtx_dest );									
-//								#endif
 //								
 //								DRAW_TEXTURE_SPRITEPAL_LOCKED(pPoint->x, pPoint->y, 
 //									sprite, m_pScreenEffectTextureManager, fid ) //m_EffectScreenPPK[fid])
 //									
-//									// ¿ø·¡´ë·Î
-//									CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
-//								CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
 								
 								//------------------------------------------------
 								// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
@@ -18645,11 +16878,6 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 			//---------------------------------------
 			// Test Code : Next Frame
 			//---------------------------------------
-			//if (rand()%5) 
-//			if (g_bFrameChanged)
-//			{
-//				pAnimationObject->NextFrame();
-//			}
 		}
 
 	}
@@ -18692,7 +16920,7 @@ MTopView::SurfaceLockForAlphaEffect()
 {
 	BOOL bLock = m_pSurface->IsLock();
 
-	if (CDirect3D::IsHAL())
+	if (true)
 	{
 		if (bLock)
 		{
@@ -18972,21 +17200,6 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 					continue;
 				}
 			}
-			// 2004, 9, 14, sobeit add end - ÀÎ½ºÅç ÅÍ·¿ÀÏ¶§ ÀÌÆåÆ® ¾Èº¸¿©ÁÜ
-//			if( pEffect->GetBltType() == BLT_EFFECT &&
-//				frameID >= EFFECTSPRITETYPE_PROTECTION_FROM_BLOOD_ING &&
-//				frameID <= EFFECTSPRITETYPE_PROTECTION_FROM_CURSE_ING			
-//				)
-//			{
-//				// ÇØ´ç ÀÌÆåÆ®´Â ³ª ¶Ç´Â ¿ì¸® ÆÄÆ¼¿ø¸¸ º¸¿©¾ß ÇÑ´Ù.
-//				if( ! (
-//					pCreature == g_pPlayer || pCreature->IsPlayerParty() )
-//					)
-//				{
-//					iEffect++;					
-//					continue;
-//				}
-//			}
 
 			switch ((*iEffect)->GetBltType())
 			{
@@ -19100,9 +17313,6 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 							int actionCount = ((action==ACTION_MOVE || action==ACTION_SLAYER_MOTOR_MOVE)? pCreature->GetMoveCount() : pCreature->GetActionCount());
 							frame = max( 0, min( actionCount, pEffect->GetMaxFrame()-1 ) );
 
-							// FIX: Don't recalculate sest from actionFrameID
-							// sest should remain as the saved table index (est)
-							// sest = GET_EFFECTSPRITETYPE_EFFECT( actionFrameID );
 						}
 					}
 
@@ -19181,23 +17391,12 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 									//-------------------------------------------------------
 									// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
 									//-------------------------------------------------------
-									if (CDirect3D::IsHAL())
+									if (true)
 									{
-//										#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
-//											CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, gtx_op );
-//											CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  gtx_src );
-//											CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, gtx_dest );	
-//										#endif
 //							
 //										DRAW_TEXTURE_SPRITEPAL_LOCKED(pointTemp.x, pointTemp.y, 
 //																	sprite, m_pAlphaEffectTextureManager, pairFrameID ) //m_EffectAlphaPPK[pairFrameID])
 //
-//										#ifdef OUTPUT_DEBUG
-//											// ¿ø·¡´ë·Î
-//											CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE);					
-//											CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
-//											CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
-//										#endif
 							
 
 										//------------------------------------------------
@@ -19258,23 +17457,12 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 							//-------------------------------------------------------
 							// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
 							//-------------------------------------------------------
-							if (CDirect3D::IsHAL())
+							if (true)
 							{
-//								#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
-//									CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, gtx_op );
-//									CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  gtx_src );
-//									CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, gtx_dest );	
-//								#endif
 //					
 //								DRAW_TEXTURE_SPRITEPAL_LOCKED(pointTemp.x, pointTemp.y, 
 //															sprite, m_pAlphaEffectTextureManager, frameID ) //m_EffectAlphaPPK[frameID])
 //
-//								#ifdef OUTPUT_DEBUG
-//									// ¿ø·¡´ë·Î
-//									CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE);					
-//									CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
-//									CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
-//								#endif
 					
 
 								//------------------------------------------------
@@ -19354,23 +17542,12 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 									//-------------------------------------------------------
 									// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
 									//-------------------------------------------------------
-									if (CDirect3D::IsHAL())
+									if (true)
 									{
-//										#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
-//											CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, gtx_op );
-//											CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  gtx_src );
-//											CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, gtx_dest );	
-//										#endif
 //							
 //										DRAW_TEXTURE_SPRITEPAL_LOCKED(pointTemp.x, pointTemp.y, 
 //																	sprite, m_pAlphaEffectTextureManager, pairFrameID ) //m_EffectAlphaPPK[pairFrameID])
 //
-//										#ifdef OUTPUT_DEBUG
-//											// ¿ø·¡´ë·Î
-//											CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE);					
-//											CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
-//											CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
-//										#endif
 							
 
 										//------------------------------------------------
@@ -19494,23 +17671,13 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 							//-------------------------------------------------------
 							// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
 							//-------------------------------------------------------
-							if (CDirect3D::IsHAL())
+							if (true)
 							{
-//								// screen test
-//								CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_ONE );
-//								CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_ONE );									
 //
-//							#ifdef OUTPUT_DEBUG
-//								CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  gtx_src );
-//								CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, gtx_dest );									
-//							#endif
 //					
 //								DRAW_TEXTURE_SPRITEPAL_LOCKED(pointTemp.x, pointTemp.y, 
 //															sprite, m_pScreenEffectTextureManager, frameID ) // m_EffectScreenPPK[frameID])
 //
-//								// ¿ø·¡´ë·Î
-//								CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
-//								CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
 					
 								//------------------------------------------------
 								// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
@@ -19545,9 +17712,6 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 					//--------------------------------------------------------
 					// Pair Frame Ãâ·Â
 					//--------------------------------------------------------
-					// FIX: est already contains the saved table index from above
-					// No need to recalculate with GET_EFFECTSPRITETYPE_SCREEN(frameID)
-					// est = GET_EFFECTSPRITETYPE_SCREEN( frameID );
 
 					if (HAS_PAIR_EFFECTSPRITETYPE(est))
 					{
@@ -19594,23 +17758,13 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 									//-------------------------------------------------------
 									// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
 									//-------------------------------------------------------
-									if (CDirect3D::IsHAL())
+									if (true)
 									{
-//										// screen test
-//										CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_ONE );
-//										CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_ONE );									
 //
-//									#ifdef OUTPUT_DEBUG
-//										CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  gtx_src );
-//										CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, gtx_dest );									
-//									#endif
 //							
 //										DRAW_TEXTURE_SPRITEPAL_LOCKED(pointTemp.x, pointTemp.y, 
 //																	sprite, m_pScreenEffectTextureManager, pairFrameID )//m_EffectScreenPPK[pairFrameID])
 //
-//										// ¿ø·¡´ë·Î
-//										CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
-//										CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
 							
 										//------------------------------------------------
 										// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
@@ -19673,37 +17827,23 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 	//------------------------------------------------
 	// vampireÀÎ °æ¿ì´Â Ãâ·Â¾ÈÇÑ´Ù.
 	//------------------------------------------------
-	//if (g_pPlayer->IsVampire())
-	//{
-	//	return;
-	//}
 
 	//------------------------------------------------
 	// 3D °¡¼Ó
 	//------------------------------------------------
-//	if (CDirect3D::IsHAL())
-//	{
-//		if (m_pMinimapTexture!=NULL)
-//		{
-//			if (CDirect3D::GetDevice()->BeginScene()!=D3D_OK)
-//			{
-//				return;
-//			}			
 //	
 //			// Texture ¼³Á¤
-//			CDirect3D::GetDevice()->SetTexture(0, m_pMinimapTexture->GetSurface());
+//			// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
+
 //
-//			RECT rect = { x, 
-//							y,
-//							x + m_MinimapTextureWidth,
-//							y + m_MinimapTextureHeight
-//			};
 //
 //			m_TextureEffect.DrawEffect2D( &rect );		
 //			
-//			CDirect3D::GetDevice()->EndScene();		
+//			// CDirect3D::GetDevice()->EndScene() removed (SDL2)
+		
 //
-//			CDirect3D::GetDevice()->SetTexture(0, NULL);
+//			// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
+
 //
 //
 //			//------------------------------------------------
@@ -19730,18 +17870,9 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 ////			*pSurfaceTemp++ = 0xFFFF;
 ////			*pSurfaceTemp = 0xFFFF;
 ////
-////			m_pSurface->Unlock();
-//		}
-//	}
 //	//------------------------------------------------
 //	// 2D
 //	//------------------------------------------------
-//	else
-//	{
-//		if (m_pMinimapSPR!=NULL)
-//		{
-//			if (!m_pSurface->Lock())
-//				return;
 //
 //			POINT point = { x, y };
 //			m_pSurface->BltSpriteHalf(&point, m_pMinimapSPR);
@@ -19765,9 +17896,6 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 ////			*pSurfaceTemp++ = 0xFFFF;
 ////			*pSurfaceTemp = 0xFFFF;
 ////
-//			m_pSurface->Unlock();
-//		}
-//	}
 	
 
 	/*
@@ -19835,13 +17963,6 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 			{				
 				// tile»ö±òº°·Î..
 				
-				//switch (m_pZone->GetSector(j,i).GetSpriteID())
-				//{
-				//	case 0 :	color = 0x07E0;	break;	// G
-				//	case 1 :	color = 0xC2E5;	break;	// ?
-				//	case 2 :	color = 0x001F;	break;	// B
-				//	default :	color = 0x18E3;	break;	// ,black
-				//}
 				
 				 const MSector &sector = m_pZone->GetSector(j,i);
 			
@@ -20355,33 +18476,15 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 				//-------------------------------------------------------
 				// Hardware acceleration enabled
 				//-------------------------------------------------------
-				if (CDirect3D::IsHAL())
+				if (true)
 				{
-//					#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
-//						CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, gtx_op );
-//						CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  gtx_src );
-//						CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, gtx_dest );	
-//					#endif
 //					
 //					DRAW_TEXTURE_SPRITEPAL_LOCKED(point.x, point.y, spriteID, m_pAlphaEffectTextureManager, pEffect->GetFrameID() ) //m_EffectAlphaPPK[pEffect->GetFrameID()])
 //
-//					#ifdef OUTPUT_DEBUG
-//						// ¿ø·¡´ë·Î
-//						CDirect3D::GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE);					
-//						CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
-//						CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
-//					#endif
 					
 					//---------------------------------------- 		
 					// ÀÌÆåÆ® ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
 					//---------------------------------------- 	
-//					if (bSelectable)
-//					{
-//						RECT rect;
-//						rect.left	= point.x;
-//						rect.top	= point.y;
-//						rect.right	= rect.left + m_pAlphaEffectTextureManager->GetSpriteWidth(spriteID);
-//						rect.bottom = rect.top + m_pAlphaEffectTextureManager->GetSpriteHeight(spriteID);
 //
 //						pEffect->SetScreenRect( &rect );							
 //					}
@@ -20409,11 +18512,6 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 //					{
 //						CAlphaSpritePal* pSprite = &m_EffectAlphaSPK[ spriteID ];
 //
-//						RECT rect;
-//						rect.left	= point.x;
-//						rect.top	= point.y;
-//						rect.right	= rect.left + pSprite->GetWidth();
-//						rect.bottom = rect.top + pSprite->GetHeight();
 //
 //						pEffect->SetScreenRect( &rect );
 //					}
@@ -20496,33 +18594,16 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 				//-------------------------------------------------------
 				// Hardware acceleration enabled
 				//-------------------------------------------------------
-				if (CDirect3D::IsHAL())
+				if (true)
 				{
-					// screen test
-//					CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_ONE );
-//					CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_ONE );	
 //
-//				#ifdef OUTPUT_DEBUG
-//					CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  gtx_src );
-//					CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, gtx_dest );									
-//				#endif
 //					
 //					DRAW_TEXTURE_SPRITEPAL_LOCKED(point.x, point.y, spriteID, m_pScreenEffectTextureManager, pEffect->GetFrameID() ) //m_EffectScreenPPK[pEffect->GetFrameID()])
 //
-//					// ¿ø·¡´ë·Î
-//					CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
-//					CDirect3D::GetDevice()->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
 					
 					//---------------------------------------- 		
 					// ÀÌÆåÆ® ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
 					//---------------------------------------- 	
-//					if (bSelectable)
-//					{
-//						RECT rect;
-//						rect.left	= point.x;
-//						rect.top	= point.y;
-//						rect.right	= rect.left + m_pScreenEffectTextureManager->GetSpriteWidth(spriteID);
-//						rect.bottom = rect.top + m_pScreenEffectTextureManager->GetSpriteHeight(spriteID);
 //
 //						pEffect->SetScreenRect( &rect );							
 //					}
@@ -20541,13 +18622,6 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 				//-------------------------------------------------------
 				else
 				{
-//					DRAW_NORMALSPRITEPAL_EFFECT(&point, 
-//										spriteID, 
-//										m_EffectScreenSPK, 
-//										m_EffectScreenPPK[pEffect->GetFrameID()],
-////										m_EffectScreenSPKI, 
-////										m_EffectScreenSPKFile,
-//										CSpriteSurface::EFFECT_SCREEN)
 
 //					//---------------------------------------- 		
 //					// ÀÌÆåÆ® ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
@@ -20556,11 +18630,6 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 //					{
 //						CSpritePal* pSprite = &m_EffectScreenSPK[ spriteID ];
 //
-//						RECT rect;
-//						rect.left	= point.x;
-//						rect.top	= point.y;
-//						rect.right	= rect.left + pSprite->GetWidth();
-//						rect.bottom = rect.top + pSprite->GetHeight();
 //
 //						pEffect->SetScreenRect( &rect );
 //					}
@@ -20621,7 +18690,7 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 				//-------------------------------------------------------
 				// Hardware acceleration enabled
 				//-------------------------------------------------------
-				if (CDirect3D::IsHAL())
+				if (true)
 				{
 //					DRAW_TEXTURE_SPRITE_LOCKED(point.x, point.y, spriteID, m_pEffectShadowManager)		
 
@@ -20641,9 +18710,6 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 				{
 //					CShadowSprite* pSprite = &m_EffectShadowSPK[spriteID];
 //
-//					if (pSprite->IsInit())
-//					{
-//						m_pSurface->BltShadowSpriteDarkness(&point, pSprite, 1 );
 //						
 						AddLightFilter2D( pPoint->x + 24, 
 										pPoint->y + 24, 
@@ -20893,9 +18959,6 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 			&& (*g_pCreatureSpriteTable)[(*g_pCreatureTable)[pCreature->GetCreatureType()].SpriteTypes[0]].IsPlayerOnlySprite()
 			// °ü ¼Ó¿¡ ÀÖ´Â °æ¿ì
 			&& !pCreature->IsInCasket()
-			// ¶¥¿¡ ¹¯ÇôÀÖÀ»¶© °Å·¡ ÇÑ´Ù´Â Ç¥½Ã ¾È ³ª¿À°Ô...
-			//&& !pCreature->IsUndergroundCreature()
-			// »ì¾ÆÀÖ´Â.. - -;
 			&& pCreature->IsAlive()
 			&& pCreature->GetCreatureType() != CREATURETYPE_SLAYER_OPERATOR
 			&& pCreature->GetCreatureType() != CREATURETYPE_VAMPIRE_OPERATOR
@@ -21326,11 +19389,6 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		//-----------------------------------------------------
 		// ¶¥¼Ó¿¡ ÀÖ´Â ¾Ö´Â HP°¡ ²Ë Âù°ÍÃ³·³ º¸¿©ÁØ´Ù.
 		//-----------------------------------------------------
-		//if (pCreature->IsUndergroundCreature())
-		//{
-		//	currentHP = 1;
-			//maxHP = 1;
-		//}
 
 		if (currentHP > maxHP)
 		{
@@ -21435,12 +19493,6 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 
 		// 2004, 10, 28, sobeit add start -¸ó½ºÅÍ Å³ Äù½ºÆ® ÇØ´ç ¸ó½ºÅÍ¿¡ Ç¥½Ã.
 //		if(pCreature->IsAlive() && UI_IsMonsterKillQuest_Monster((*g_pCreatureTable)[pCreature->GetCreatureType()].SpriteTypes[0]))
-//		{
-//			WORD temp_color;
-//			temp_color = CIndexSprite::ColorSet[MItem::GetQuestItemColorset()][15];
-//			color  = RGB(CDirectDraw::Red(temp_color)<<3, CDirectDraw::Green(temp_color)<<3, CDirectDraw::Blue(temp_color)<<3);
-//		}
-		// 2004, 10, 28, sobeit add end
 		//-----------------------------------------------------
 		// ÀÌ¸§ ´Ù½Ã Âï±â
 		//-----------------------------------------------------
@@ -21488,9 +19540,6 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 					color = RGB_YELLOW;
 					break;
 				}
-			//	if(guildID >0) // ±æµå¸¶Å©°¡ ¾ÈÂïÈú¶© ´Ð³×ÀÓÀ» hpbar+°è±Þ¸¶Å© Áß¾Ó¿¡ Âï°í
-			//		nameX = rectLeft + ((MAX_HP_BAR - namePixel+20)>>1);
-			//	else // ±×¿Ü¿£ hpbar Áß¾Ó¿¡ Âï´Â´Ù
 					nameX = rectLeft + ((MAX_HP_BAR - namePixel)>>1);
 
 				DRAWTEXT_NODE* pNode = new DRAWTEXT_NODE (
@@ -21501,10 +19550,6 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 												font);	//FLAG_DRAWTEXT_HANGUL_JOHAP);
 				if(bgColor != 0)
 				{
-//					RECT rectHP = {	nameX-2, 
-//									yPoint-42,
-//									nameX + namePixel+4,
-//									yPoint-23	};
 
 					RECT rectHP = {	rectLeft -20,
 									yPoint-42,
@@ -21921,9 +19966,6 @@ MTopView::DrawCreatureMyName()
 					color = RGB_YELLOW;
 					break;
 				}
-			//	if(guildID >0) // ±æµå¸¶Å©°¡ ¾ÈÂïÈú¶© ´Ð³×ÀÓÀ» hpbar+°è±Þ¸¶Å© Áß¾Ó¿¡ Âï°í
-			//		nameX = rectLeft + ((MAX_HP_BAR - namePixel+20)>>1);
-			//	else // ±×¿Ü¿£ hpbar Áß¾Ó¿¡ Âï´Â´Ù
 					nameX = rectLeft + ((MAX_HP_BAR - namePixel)>>1);
 
 				DRAWTEXT_NODE* pNode = new DRAWTEXT_NODE (
@@ -21934,10 +19976,6 @@ MTopView::DrawCreatureMyName()
 												font);	//FLAG_DRAWTEXT_HANGUL_JOHAP);
 				if(bgColor != 0)
 				{
-//					RECT rectHP = {	nameX-2, 
-//									yPoint-42,
-//									nameX + namePixel+4,
-//									yPoint-23	};
 
 					RECT rectHP = {	rectLeft -20, 
 									yPoint-42,
@@ -21984,18 +20022,6 @@ MTopView::DrawEvent()
 //		if(UI_IsMouseIn_WebBrowser())
 //		{
 //			
-//			CURSORINFO _CursorInfo;
-//			GetCursorInfo(&_CursorInfo);
-//			if(_CursorInfo.flags != CURSOR_SHOWING)
-//				ShowCursor( TRUE );
-//		}
-//		else
-//		{
-//			CURSORINFO _CursorInfo;
-//			GetCursorInfo(&_CursorInfo);
-//			if(_CursorInfo.flags == CURSOR_SHOWING)
-//				ShowCursor( FALSE );
-//		}
 			
 	// 2005, 2, 18, sobeit add end	
 	}
@@ -22072,9 +20098,6 @@ MTopView::ExcuteAdvancementQuestEnding(void *pVoid)
 			AdvancementQuestEndingEvent->eventStartTickCount = GetTickCount();
 
 			
-//			g_pBack->Lock();
-//			g_pBack->BltSprite( &pointZero, &m_AdvacementQuestEnding[SpkIndex] );
-//			g_pBack->Unlock();
 		}
 //
 		m_pSurface->Lock();
@@ -22150,9 +20173,6 @@ MTopView::ExcuteAdvancementQuestEnding(void *pVoid)
 
 		if(bFinEnd)
 		{
-//				char szTemp[512];
-//				sprintf(szTemp, "%d", (GetTickCount()-AdvancementQuestEndingEvent->eventStartTickCount)/1000);
-//				UI_AddChatToHistory( szTemp, szTemp, 0, RGB(255, 255, 255) );
 			UI_REQUEST_DIE_TIMER_RESET();
 			g_pEventManager->RemoveEvent(EVENTID_ADVANCEMENT_QUEST_ENDING);
 			m_AdvacementQuestEnding.Release();
@@ -22379,11 +20399,6 @@ MTopView::ExcuteOustersFinEvent()
 								
 								CIndexSprite* pSprite = &m_AddonSPK[ sprite ];					
 								
-								// º¹ÀåSprite°¡ ÃÊ±âÈ­ µÇÁö ¾ÊÀº °æ¿ì
-//									if (pSprite->IsNotInit())
-//									{
-//										LoadFromFileAddonSPK( clothes, action );
-//									}
 								
 								
 								POINT pointTemp;
@@ -22396,11 +20411,6 @@ MTopView::ExcuteOustersFinEvent()
 									int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
 									if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
 									{
-										// À¯´ÏÅ© ¾ÆÀÌÅÛÀÌ¸é
-										//									if(colorSet2 == QUEST_ITEM_COLOR)
-										//										colorSet2 = MItem::GetQuestItemColorset();
-										//									else
-										//										colorSet2 = MItem::GetUniqueItemColorset();										
 										
 										colorSet2 = MItem::GetSpecialColorItemColorset( colorSet2 );
 										if(addonInfo.ItemClass != ITEM_CLASS_COAT && addonInfo.ItemClass != ITEM_CLASS_TROUSER)
@@ -22420,9 +20430,6 @@ MTopView::ExcuteOustersFinEvent()
 									}
 								}						
 								
-								// Á¤»óÀûÀÎ Ãâ·Â
-								//CIndexSprite::SetUsingColorSet( addonInfo.ColorSet1, addonInfo.ColorSet2 );
-								//m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 								
 							}
 						}
@@ -22534,10 +20541,6 @@ MTopView::ExcuteOustersFinEvent()
 						
 						CIndexSprite* pSprite = &m_CreatureSPK[ sprite ];
 						
-//							if (pSprite->IsNotInit())
-//							{
-//								LoadFromFileCreatureActionSPK( body, action );
-//							}
 
 						int colorSet1 = pCreature->GetBodyColor1();
 						int colorSet2 = pCreature->GetBodyColor2();
@@ -22636,9 +20639,6 @@ MTopView::ExcuteOustersFinEvent()
 
 		if(bFinEnd)
 		{
-//				char szTemp[512];
-//				sprintf(szTemp, "%d", (GetTickCount()-OustersFinEvent->eventStartTickCount)/1000);
-//				UI_AddChatToHistory( szTemp, szTemp, 0, RGB(255, 255, 255) );
 			UI_REQUEST_DIE_TIMER_RESET();
 			g_pEventManager->RemoveEvent(EVENTID_OUSTERS_FIN);
 			m_OustersFinSPK.Release();

@@ -2898,14 +2898,14 @@ UI_DrawProgress(int percent)
 		gC_vs_ui.SetProgress(percent, 100);
 		g_pBack->FillSurface(CDirectDraw::Color(0,0,0));		
 
-		//if (CDirect3D::GetDevice()->BeginScene()!=D3D_OK)
+		//if (false)  // CDirect3D::GetDevice()->BeginScene() removed (SDL2)
 		//{
 		//	return;
 		//}
 
-//		if (CDirect3D::IsHAL())
+//		if (true)
 //		{
-//			if (CDirect3D::GetDevice()->BeginScene()!=D3D_OK)
+//			if (false)  // CDirect3D::GetDevice()->BeginScene() removed (SDL2)
 //			{
 //				return;
 //			}
@@ -2916,7 +2916,8 @@ UI_DrawProgress(int percent)
 //
 //			DEBUG_ADD("3D-After UI.Show()");
 //			
-//			CDirect3D::GetDevice()->EndScene();
+//			// CDirect3D::GetDevice()->EndScene() removed (SDL2)
+
 //		}
 //		else
 		{
@@ -2930,7 +2931,8 @@ UI_DrawProgress(int percent)
 			g_pBack->BltNoColorkey( &point, g_pLast, &rect );
 		}
 
-		//CDirect3D::GetDevice()->EndScene();
+		//// CDirect3D::GetDevice()->EndScene() removed (SDL2)
+
 
 		CDirectDraw::Flip();
 	}

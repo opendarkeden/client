@@ -329,7 +329,7 @@ DrawTitleLoading()
 		/*
 		if (gpC_base!=NULL)
 		{
-			if (!CDirect3D::IsHAL())
+			if (!true)
 			{
 				g_SetFL2Surface( g_pBack );
 			}
@@ -347,7 +347,7 @@ DrawTitleLoading()
 			//sprintf(str, "[%d]", g_TitleSpriteID);
 			//g_Print(330, 480, str, pPrintInfo);	
 			
-			if (!CDirect3D::IsHAL())
+			if (!true)
 			{
 				g_SetFL2Surface( g_pLast );
 			}
@@ -360,7 +360,7 @@ DrawTitleLoading()
 //			point.y = 460 - (g_pTitleLoadingSprite->GetHeight()>>1);
 //			
 			CSpriteSurface *pSurface = NULL;
-//			if (!CDirect3D::IsHAL())
+//			if (!true)
 			if(g_TitleSpriteAlpha != 32)
 			{
 				pSurface = g_pLast;
@@ -617,38 +617,9 @@ InitVolume()
 	// Debug Message
 	DEBUG_ADD("[ InitGame ]  Volume");
 
-	//--------------------------------------------------------
-	// Master volume
-	//--------------------------------------------------------
-	//g_pMasterVolume = (IVolume*)new CVolumeOutMaster;
-	if (!g_pMasterVolume || !g_pMasterVolume->IsAvailable() )
-	{
- 		//InitFail("Master Volume 조절이 안됨");
-		// Debug Message
-		DEBUG_ADD("[Error] Volume : MasterVolume Failed!");
-	}
+	// Volume control is now handled by SDL_mixer
+	// No Windows mixer support needed
 
-	//--------------------------------------------------------
-	// Wave volume
-	//--------------------------------------------------------
-	//g_pWaveVolume = (IVolume*)new CVolumeOutWave;
-	if (!g_pWaveVolume || !g_pWaveVolume->IsAvailable() )
-	{
- 		//InitFail("Wave Volume 조절이 안됨");
-		// Debug Message
-		DEBUG_ADD("[Error] Volume : WaveVolume Failed!");
-	}
-
-	if (g_pMasterVolume!=NULL)
-	{
-		g_MasterVolumeOriginal = g_pMasterVolume->GetCurrentVolume();
-	}
-
-	if (g_pWaveVolume!=NULL)
-	{
-		g_WaveVolumeOriginal = g_pWaveVolume->GetCurrentVolume();
-	}
-	
 	return TRUE;
 }
 
@@ -742,7 +713,7 @@ InitSurface()
 
 
 	// H/W가속 되는 경우
-//	if (CDirect3D::IsHAL())
+//	if (true)
 //	{
 //		g_pTopView->SetSurface( g_pBack );
 //	}
@@ -797,7 +768,7 @@ InitSurface()
 	gC_vs_ui.Release();
 
 	DEBUG_ADD("[ InitGame ]  Surface - InitD3D");
-//	if (CDirect3D::IsHAL())
+//	if (true)
 //	{
 //		gC_vs_ui.Init(g_pBack, UI_ResultReceiver);		
 //	} 
@@ -1277,7 +1248,7 @@ InitDraw()
 		//--------------------------------------------------------
 		// 하드웨어 가속 사용 가능
 		//--------------------------------------------------------
-		bool bUse3D = ( enoughMemory && g_bHAL && ( CDirect3D::CheckHAL() ));
+		bool bUse3D = ( enoughMemory && g_bHAL && ( true ));
 
 		if (bUse3D)
 		{
@@ -1916,7 +1887,7 @@ InitGame()
 			}
 
 			// 3D HAL?
-			if (CDirect3D::IsHAL())	
+			if (true)	
 			{
 				DEBUG_ADD("# 3D Hardware Accel.");
 			}
@@ -2604,23 +2575,7 @@ void ReleaseAllObjects()
 	// Volume
 	//----------------------------------------------------------------
 	DEBUG_ADD("[Release] Volume");
-	if (g_pWaveVolume!=NULL)
-	{
-		g_pWaveVolume->SetCurrentVolume( g_WaveVolumeOriginal );
-		g_pWaveVolume->Done();
-
-		delete g_pWaveVolume;
-		g_pWaveVolume = NULL;
-	}
-
-	if (g_pMasterVolume!=NULL)
-	{
-		g_pMasterVolume->SetCurrentVolume( g_MasterVolumeOriginal );
-		g_pMasterVolume->Done();
-
-		delete g_pMasterVolume;
-		g_pMasterVolume = NULL;
-	}
+	// Volume control is now handled by SDL_mixer
 
 	//----------------------------------------------------------------
 	// global 제거...
@@ -2754,7 +2709,8 @@ void ReleaseAllObjects()
 	DEBUG_ADD("[Release] CDirect3D");
 
 #ifdef PLATFORM_WINDOWS
-	CDirect3D::Release();
+// CDirect3D::Release() removed (SDL2)
+
 #endif
 
 	DEBUG_ADD("[Release] CDirectDraw");

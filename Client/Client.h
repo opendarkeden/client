@@ -34,7 +34,6 @@ using namespace std;
 #include "DXLib.h"
 #include "SP.h"
 #include "FR.h"
-#include "VolumeLib.h"
 #ifdef PLATFORM_WINDOWS
 #include "WinLib.h"
 #else
@@ -126,11 +125,6 @@ extern int					g_y;
 
 // mp3
 //CMySound*					g_pMP3 = NULL;
-
-extern IVolume				*g_pMasterVolume; 
-extern IVolume				*g_pWaveVolume; 
-extern DWORD				g_MasterVolumeOriginal;
-extern DWORD				g_WaveVolumeOriginal;
 
 // Avi
 extern CAVI					*g_pAvi;

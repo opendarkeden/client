@@ -67,7 +67,6 @@ APICheck _APICheck;
 #include "MMusic.h"
 #include "UIDialog.h"
 #include "Updater/UpdateManager.h"
-#include "MZLib/MZlib.h"
 #ifdef PLATFORM_WINDOWS
 #include <Commctrl.h>
 #endif
@@ -86,9 +85,7 @@ APICheck _APICheck;
 #include "Packet/Gpackets/GCSystemMessage.h"
 #endif
 
-#ifdef __NPROTECT__
-#include "nProtect.h"
-#endif
+// REMOVED: nProtect anti-cheat code (SDL migration - no longer needed)
 
 //yckou
 #include "DebugKit.h"
@@ -126,9 +123,7 @@ CMessageStringTable g_MessageStringTable;
 // Global
 //-----------------------------------------------------------------------------
 
-#ifdef __NPROTECT__
-NPROTECT_STATUS g_nProtectSTATUS = NPROTECT_NORMAL;
-#endif
+// REMOVED: nProtect anti-cheat code (SDL migration - no longer needed)
 HWND				g_hWnd;
 HINSTANCE			g_hInstance;
 int					g_x=400;
@@ -822,33 +817,7 @@ long FAR PASCAL WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
 
     switch (message)
     {
-#ifdef __NPROTECT__
-#ifdef __NPROTECT_OLD_VERSION__
-	case WM_NPROTECT_SOFTICE :
-		DEBUG_ADD("[nProtect] GameClose By nProtect (Window Message : WM_NPROTECT_SOFTICE)");
-//		SetMode( MODE_QUIT );
-		g_nProtectSTATUS = NPROTECT_SOFTICE;
-		break;
-
-	case WM_NPROTECT_EXIT_TWO :
-		DEBUG_ADD("[nProtect] GameClose By nProtect (Window Message : WM_NPROTECT_EXIT_TWO)");
-//		SetMode( MODE_QUIT );
-		g_nProtectSTATUS = NPROTECT_EXIT_TWO;
-		break;
-	case WM_NPROTECT_FORCEEXIT :
-		DEBUG_ADD("[nProtect] GameClose By nProtect (Window Message : WM_NPROTECT_FORCEEXIT)");		
-//		SetMode( MODE_QUIT );
-		g_nProtectSTATUS = NPROTECT_FORCE_EXIT;
-		break;
-	case WM_NPROTECT_SH_ERROR :
-		DEBUG_ADD("[nProtect] GameClose By nProtect (Window Message : WM_NPROTECT_SH_ERROR)");
-		g_nProtectSTATUS = NPROTECT_SH_ERROR;
-		break;
-	case WM_NPROTECT_SPEEDHACK :
-		g_nProtectSTATUS = NPROTECT_SPEEDHACK;
-		break;
-#endif
-#endif
+// REMOVED: nProtect anti-cheat code (SDL migration - no longer needed)
 
 		//---------------------------------------------------------------
 		//
@@ -1799,51 +1768,7 @@ InitApp(int nCmdShow)
         return FALSE;
 	}
 
-#ifdef __NPROTECT__
-
-#ifdef __NPROTECT_OLD_VERSION__
-
-	int nProtectResult ;
-	// ### nProtect ###
-	if( (nProtectResult = RunNPROTECT()) != NPROTECT_OK )
-	{
-		char szTemp[256];
-		//add by sonic 2006.4.11
-		//wsprintf(szTemp,"nProtect°¡ ½ÇÇàµÇÁö ¾Ê¾Ò½À´Ï´Ù.\n¸ÅÅ©·Î ÇÁ·Î±×·¥ÀÌ³ª ÇØÅ· ÇÁ·Î±×·¥À» »ç¿ëÇÑ °æ¿ì°¡ ¾Æ´Ï¶ó¸é \n bug@darkeden.com À¸·Î ¸ÞÀÏÀ» º¸³»ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.[ErrorCode:%d]",nProtectResult);
-		//MessageBox(NULL, szTemp,"nProtect Error", MB_OK);
-		//end 
-		CloseNPROTECT();
-		return FALSE;
-	}	
-	
-	if(g_bForceExitBynProtect2 )
-	{
-		CloseNPROTECT();
-		return FALSE;
-	}
-
-#elif !defined(__NPROTECT_OLD_VERSION__)
-	if( RunNPROTECT() != NPROTECT_OK )
-	{
-		char szTemp[256];
-		//add by sonic 2006.4.11
-		MessageBox(NULL, szTemp,"nProtect Error", MB_OK);
-		//end
-		CloseNPROTECT();
-		return FALSE;
-	}
-	
-	if( g_bForceExitBynProtect == true )
-	{
-		char szTemp[256];
-		//add by sonic 2006.4.11
-		//MessageBox(NULL,szTemp, "Error", MB_OK);
-		//end
-		return FALSE;
-	}
-#endif
-
-#endif
+// REMOVED: nProtect anti-cheat code (SDL migration - no longer needed)
 
 	//
     //ShowWindow(g_hWnd, nCmdShow);
@@ -4290,23 +4215,7 @@ _APICheck.init();
 #endif
 						//lastTime = g_CurrentTime;
 					}
-#ifdef __NPROTECT__
-					if (1)// g_bSuperUser == false)
-					{
-						if( CheckNPROTECT() != NPROTECT_OK )
-						{
-							//MessageBox(0,"#1","#1",MB_OK);
-							bBadTimer =  TRUE;
-							g_nProtectSTATUS = NPROTECT_CHECK_ERROR;
-						}
-					}
-					if(g_nProtectSTATUS != NPROTECT_NORMAL)
-					{
-						//MessageBox(0,"#2","#2",MB_OK);
-						bBadTimer =  TRUE;
-						break;
-					}
-#endif
+// REMOVED: nProtect anti-cheat code (SDL migration - no longer needed)
 					
 					if( g_bForceExitBynProtect )
 					{
@@ -4401,7 +4310,7 @@ _APICheck.init();
 				UpdateInput();
 				UpdateMouse();
 
-//				if (CDirect3D::IsHAL())
+//				if (true)
 //				{
 //					gC_vs_ui.Show();
 //				}
@@ -4474,9 +4383,7 @@ _APICheck.init();
 		g_pClientConfig = NULL;
 	}
 
-#ifdef __NPROTECT__
-	CloseNPROTECT();
-#endif
+// REMOVED: nProtect anti-cheat code (SDL migration - no longer needed)
 
 
 #ifndef OUTPUT_DEBUG

@@ -2158,7 +2158,7 @@ UIMessageManager::Execute_UI_CONNECT(int left, int right, void* void_ptr)
 		//g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_MESSAGE_CANNOT_LOGOUT_DIED].GetString() );
 		g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_MESSAGE_CONNECTING_SERVER].GetString(), -1, -1, 0 );
 
-//		if (CDirect3D::IsHAL())
+//		if (true)
 //		{
 //			DEBUG_ADD("UI show1");
 //			gC_vs_ui.Show();
@@ -7903,8 +7903,9 @@ UIMessageManager::Execute_UI_CLOSE_OPTION(int left, int right, void* void_ptr)
 
 	if (g_Mode==MODE_MAINMENU)
 	{
+		// SDL Migration: 3D HAL options are legacy features not used in SDL backend
 #ifdef PLATFORM_WINDOWS
-		if (CDirect3D::IsHAL())
+		if (true)
 		{
 			// 3D°¡¼Ó ÁßÀÎµ¥.. °¡¼Ó ²ô´Â °æ¿ì
 			if (!g_pUserOption->Use3DHAL)

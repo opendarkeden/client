@@ -2327,6 +2327,7 @@ void UI_ResultReceiver(DWORD message, int dw_left, int dw_right, void *void_ptr)
 		case UI_GO_BILING_PAGE :
 			if(dw_left == TRUE)
 			{							 	
+    #ifdef PLATFORM_WINDOWS
 				char str[256];
 				
 				GetWindowsDirectory(
@@ -2350,6 +2351,10 @@ void UI_ResultReceiver(DWORD message, int dw_left, int dw_right, void *void_ptr)
 //				{
 
 //					g_pTradeManager->RefuseMyTrade();
+    #else
+    	// macOS/Linux: Use system() to open browser
+    	system("xdg-open http:// 2>/dev/null || open http:// 2>/dev/null");
+    #endif
 //				}
 				
 				MItem* pOldItem = NULL;

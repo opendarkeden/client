@@ -30,7 +30,7 @@
 #endif
 
 #ifdef PLATFORM_MACOS
-#include "../../../Client/TextLib/SDLTextRenderer.h"
+#include "TextSystem/TextService.h"
 #endif
 
 // Helper function to compare char_t* with wchar_t* string
@@ -4130,8 +4130,8 @@ void C_VS_UI_SERVER_SELECT::Show()
 		}
 #ifdef PLATFORM_MACOS
 		// SDL text rendering (white only for now)
-		SDL_RenderText(x+m_server_x+5, y+m_server_y+i*20, m_server_name[i+m_scroll].c_str());
-		SDL_RenderText(x+m_server_x+150, y+m_server_y+i*20, server_status_string);
+		TextSystem::TextService::RenderText(x+m_server_x+5, y+m_server_y+i*20, m_server_name[i+m_scroll]);
+		TextSystem::TextService::RenderText(x+m_server_x+150, y+m_server_y+i*20, server_status_string);
 #else
 		// Original Windows code
 		if(i+m_scroll == m_focus_server)

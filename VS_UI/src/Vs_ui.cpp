@@ -65,6 +65,9 @@ extern HWND	g_hWnd;
 //----------------------------------------------------------------------------
 C_VS_UI	gC_vs_ui;
 
+// Exchange UI
+C_VS_UI_POINT_EXCHANGE*	g_pC_point_exchange = NULL;
+
 bool gbl_global_empty_move = false;
 
 //

@@ -99,50 +99,7 @@ add_subdirectory(Client/DXLib)
 add_subdirectory(Client/SpriteLib)
 
 # Additional libraries from VC6 project
-add_subdirectory(Client/MZLib)
-add_subdirectory(Client/VolumeLib)
 add_subdirectory(Client/framelib)
-add_subdirectory(Client/DEUtil)
-
-# ============================================================
-# TextLib - Text Rendering Library (Font Atlas + SpriteBatch)
-# ============================================================
-if(USE_SDL_BACKEND OR NOT WIN32)
-	# TextLib source files
-	set(TEXTLIB_SOURCES
-		Client/TextLib/CGlyphCache.cpp
-		Client/TextLib/CTextLayout.cpp
-		Client/TextLib/SDLTextRenderer.cpp
-	)
-
-	# Create TextLib static library
-	add_library(TextLib STATIC ${TEXTLIB_SOURCES})
-
-	# Include directories
-	target_include_directories(TextLib PUBLIC
-		${CMAKE_CURRENT_SOURCE_DIR}/Client/TextLib
-		${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
-		${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
-		${CMAKE_CURRENT_SOURCE_DIR}/Client
-		${CMAKE_CURRENT_SOURCE_DIR}/basic
-		${SDL2_INCLUDE_DIRS}
-	)
-
-	# Link libraries
-	target_link_libraries(TextLib PUBLIC
-		SDL2::SDL2
-		SDL2::SDL2main
-		SDL2_image::SDL2_image
-		SDL2_ttf::SDL2_ttf
-	)
-
-	# Platform-specific definitions
-	if(NOT WIN32)
-		target_compile_definitions(TextLib PRIVATE PLATFORM_MACOS SPRITELIB_BACKEND_SDL)
-	endif()
-
-	message(STATUS "TextLib library will be built from ${TEXTLIB_SOURCES}")
-endif()
 
 # ============================================================
 # TextSystem - New SDL-based Text System (Abstracted)
@@ -180,8 +137,8 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 endif()
 
 if(BUILD_ENGINE)
-	add_subdirectory(engine/sprite)
-	add_subdirectory(engine/ui)
+	add_subdirectory(tools/engine/sprite)
+	add_subdirectory(tools/engine/ui)
 endif()
 
 # ============================================================
@@ -297,7 +254,6 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/hangul
 		${CMAKE_CURRENT_SOURCE_DIR}/Client
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/TextSystem
-		${CMAKE_CURRENT_SOURCE_DIR}/Client/TextLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/D3DLib
@@ -311,11 +267,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		basic
 		dxlib
 		SpriteLib
-		mzlib
-		volumelib
 		framelib
-		deutil
-		TextLib
 		TextSystem
 		SDL2::SDL2
 		SDL2::SDL2main
@@ -475,6 +427,7 @@ target_include_directories(map_viewer PRIVATE
 	${CMAKE_CURRENT_SOURCE_DIR}/Client
 	${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
 	${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+	${CMAKE_CURRENT_SOURCE_DIR}/tools/engine/sprite/include
 )
 
 target_link_libraries(map_viewer PRIVATE
@@ -529,57 +482,12 @@ else()
 	)
 endif()
 
-# Map Viewer Simple - browse zone maps using original MZone class
-# Compile necessary source files directly to avoid VS_UI dependencies
-# Temporarily disabled - directory not available
-# add_executable(map_viewer_simple
-# 	tools/viewers/map_viewer_simple/main.cpp
-# 	tools/viewers/map_viewer_simple/stubs.cpp
-# 	# MZone and dependencies
-# 	Client/MZone.cpp
-# 	Client/MObject.cpp
-# 	Client/MSector.cpp
-# 	Client/MImageObject.cpp
-# 	Client/MShadowObject.cpp
-# 	Client/MAnimationObject.cpp
-# 	Client/MShadowAnimationObject.cpp
-# 	Client/MInteractionObject.cpp
-# 	# Supporting files
-# 	Client/ZoneFileHeader.cpp
-# )
-
-# Temporarily disabled - directory not available
-# target_include_directories(map_viewer_simple PRIVATE
-# 	${CMAKE_CURRENT_SOURCE_DIR}
-# 	${CMAKE_CURRENT_SOURCE_DIR}/Client
-# 	${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
-# 	${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
-# 	${CMAKE_CURRENT_SOURCE_DIR}/Client/framelib
-# 	${CMAKE_CURRENT_SOURCE_DIR}/Client/Packet
-# 	${CMAKE_CURRENT_SOURCE_DIR}/Client/TextLib
-# 	${CMAKE_CURRENT_SOURCE_DIR}/VS_UI
-# 	${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/header
-# 	${CMAKE_CURRENT_SOURCE_DIR}/basic
-# )
-#
-# target_link_libraries(map_viewer_simple PRIVATE
-# 	SpriteLib
-# 	dxlib
-# 	basic
-# 	mzlib
-# 	framelib
-# 	SDL2::SDL2
-# 	SDL2_image::SDL2_image
-# )
-#
-# set_target_properties(map_viewer_simple PROPERTIES
-# 	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-# )
 
 # Examples (always built if backend is enabled)
-if(USE_SDL_BACKEND OR NOT WIN32)
-	add_subdirectory(examples)
-endif()
+# Examples directory removed during cleanup
+# if(USE_SDL_BACKEND OR NOT WIN32)
+# 	add_subdirectory(examples)
+# endif()
 
 # Dark Eden Client Executable
 if(USE_SDL_BACKEND OR NOT WIN32)
@@ -594,8 +502,6 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 
 	# Add additional source files
 	list(APPEND CLIENT_MAIN_SOURCES
-		Client/nProtectStub.cpp
-		Client/NPGameLib.cpp
 		Client/COGGSTREAM.cpp
 		# Time functions extracted from PacketFunction.cpp (which has Windows-specific networking code)
 		Client/ClientTimeFunctions.cpp
@@ -672,17 +578,13 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 	)
 
-	# Link libraries (now includes VS_UI and TextLib)
+	# Link libraries (now includes VS_UI and TextSystem)
 	target_link_libraries(DarkEden PRIVATE
 		SpriteLib
 		dxlib
 		basic
-		mzlib
-		volumelib
 		framelib
-		deutil
 		VS_UI
-		TextLib
 		TextSystem
 		SDL2::SDL2
 		SDL2::SDL2main
@@ -703,18 +605,16 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		${CMAKE_CURRENT_SOURCE_DIR}/basic
 		${CMAKE_CURRENT_SOURCE_DIR}/Client
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/TextSystem
-		${CMAKE_CURRENT_SOURCE_DIR}/Client/TextLib
-		${CMAKE_CURRENT_SOURCE_DIR}/Client/D3DLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/D3DLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/Packet
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/framelib
-		${CMAKE_CURRENT_SOURCE_DIR}/engine/sprite/include
-		${CMAKE_CURRENT_SOURCE_DIR}/engine/ui/include
+#		${CMAKE_CURRENT_SOURCE_DIR}/tools/engine/sprite/include
+#		${CMAKE_CURRENT_SOURCE_DIR}/tools/engine/ui/include
 		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/header
 		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/widget
 		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/hangul
-		${CMAKE_CURRENT_SOURCE_DIR}/game/vs_ui
 	)
 
 	# Add Immersion library include path only on Windows
