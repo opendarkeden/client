@@ -16,7 +16,6 @@
 	//#include "Cpackets/CLGetPCList.h"
 	#include "Cpackets/CLGetWorldList.h"
 	#include "UserInformation.h"
-	#include "nProtect.h"
 	#include "MGameStringTable.h"
 	#include "UIDialog.h"
 #endif
@@ -180,8 +179,7 @@ throw ( ProtocolException , Error )
 	DEBUG_ADD_FORMAT("[LCLoginOK] g_LeftPremiumDays : %x pPacket->getLastDays() : %x g_bFamily : %s", g_LeftPremiumDays, pPacket->getLastDays(), g_bFamily?"true":"false");
 
 #if !defined(__DEBUG_OUTPUT__) && !defined(OUTPUT_DEBUG)
-	if( g_pUserInformation!=NULL && !g_pUserInformation->bChinese && !g_pUserInformation->IsNetmarble)
-		SendUserIDToGameMon(g_pUserInformation->UserID.GetString());
+	// REMOVED: nProtect SendUserIDToGameMon call (SDL migration - no longer needed)
 #endif
 	__END_CATCH
 }

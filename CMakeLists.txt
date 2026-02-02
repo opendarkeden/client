@@ -548,8 +548,6 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 
 	# Add additional source files
 	list(APPEND CLIENT_MAIN_SOURCES
-		Client/nProtectStub.cpp
-		Client/NPGameLib.cpp
 		Client/COGGSTREAM.cpp
 		# Time functions extracted from PacketFunction.cpp (which has Windows-specific networking code)
 		Client/ClientTimeFunctions.cpp
