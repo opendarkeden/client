@@ -2,11 +2,7 @@
 // CTexturePartManager.cpp
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
-#ifdef PLATFORM_WINDOWS
-#include "DX3D.h"
-#else
-#include "CDirect3D.h"
-#endif
+// DX3D.h and CDirect3D.h removed (SDL2) - Direct3D has been replaced with SDL2
 #include "CFileIndexTable.h"
 #include "CTexturePartManager.h"
 #include "Properties.h"

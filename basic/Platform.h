@@ -684,7 +684,7 @@ typedef WORD			char_t;
 	#define SC_MONITORPOWER 0xF170
 	#define SC_MAXIMIZE 0xF030
 
-	/* MCI messages */
+	/* MCI messages - still needed by some code */
 	#define MM_MCINOTIFY 0x3D9
 	#define MCI_NOTIFY_SUCCESSFUL 0x0001
 	#define MCI_NOTIFY_SUPERCEDED 0x0002

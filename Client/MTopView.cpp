@@ -17,10 +17,10 @@
 #include "Client_PCH.h"
 #pragma warning(disable:4786)
 
+// DX3D.h removed (SDL2) - Direct3D has been replaced with SDL2
 #ifdef PLATFORM_WINDOWS
-#include "DX3D.h"
+// Windows-specific headers can be added here if needed
 #else
-#include "DX3D.h"  // Also include on non-Windows platforms for stub definitions
 #include "TextSystem/TextService.h"
 #endif
 #include <math.h>
@@ -16369,33 +16369,31 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 
 
 							// CDirect3D::GetDevice()->SetTextureStageState() removed (SDL2)
-					
+
 							// CDirect3D::GetDevice()->SetRenderState() removed (SDL2)
 
 							// CDirect3D::GetDevice()->SetRenderState() removed (SDL2)
-   
-							
-							
-							CDirect3D::GetDevice()->BeginScene();						
-							
+
+							// CDirect3D::GetDevice()->BeginScene() removed (SDL2)
+
 							RECT rect;
-							
+
 							rect.left = pPoint->x;
 							rect.top = pPoint->y;
 							rect.right = rect.left + m_pImageObjectTextureManager->GetWidth( spriteID );
 							rect.bottom = rect.top + m_pImageObjectTextureManager->GetHeight( spriteID );
-							
+
 							m_TextureEffect.DrawEffect2D( &rect );
-							
+
 							// CDirect3D::GetDevice()->EndScene() removed (SDL2)
 
 							// CDirect3D::GetDevice()->SetTextureStageState() removed (SDL2)
-					
+
 							// CDirect3D::GetDevice()->SetRenderState() removed (SDL2)
 
 							// CDirect3D::GetDevice()->SetRenderState() removed (SDL2)
-   
-							m_pSurface->Lock();	
+
+							m_pSurface->Lock();
 						}
 					}					
 #else
@@ -16465,22 +16463,20 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						{
 							// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
 
-							
-							
-							CDirect3D::GetDevice()->BeginScene();						
-							
+							// CDirect3D::GetDevice()->BeginScene() removed (SDL2)
+
 							RECT rect;
-							
+
 							rect.left = pPoint->x;
 							rect.top = pPoint->y;
 							rect.right = rect.left + m_pImageObjectTextureManager->GetWidth( spriteID );
 							rect.bottom = rect.top + m_pImageObjectTextureManager->GetHeight( spriteID );
-							
+
 							m_TextureEffect.DrawEffect2D( &rect );
-							
+
 							// CDirect3D::GetDevice()->EndScene() removed (SDL2)
 
-							m_pSurface->Lock();	
+							m_pSurface->Lock();
 						}
 					}					
 #else

@@ -41,15 +41,9 @@ set(BASIC_SOURCES
 )
 
 # Platform-specific sources
-if(WIN32 AND NOT USE_SDL_BACKEND)
-	# Windows native implementation
-	list(APPEND BASIC_SOURCES PlatformWindows.cpp)
-	message(STATUS "Basic: Compiling PlatformWindows.cpp")
-else()
-	# SDL/POSIX implementation
-	list(APPEND BASIC_SOURCES PlatformSDL.cpp)
-	message(STATUS "Basic: Compiling PlatformSDL.cpp")
-endif()
+# Windows native implementation removed (SDL2 migration) - Always use SDL backend
+list(APPEND BASIC_SOURCES PlatformSDL.cpp)
+message(STATUS "Basic: Compiling PlatformSDL.cpp")
 
 # Create static library
 add_library(basic STATIC ${BASIC_SOURCES})

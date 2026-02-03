@@ -5089,36 +5089,15 @@ void C_VS_UI_CHATTING::Show()
 			
 			//			g_PrintColorStr(CHAT_LINE_START_X +90, CHAT_LINE_START_Y, "v", gpC_base->m_user_id_pi, gpC_base->m_user_id_pi.text_color);
 		}// else g_PrintColorStr(CHAT_LINE_START_X +90, CHAT_LINE_START_Y, "^", gpC_base->m_user_id_pi, gpC_base->m_user_id_pi.text_color);
-		
+
 		if(m_bl_focus_whisper)
 		{
 			//if(m_sz_whisper_backup.size() > 0)     ###@@@
 			if(!m_sz_whisper_backup.empty())
 			{
-				
-				int len = m_sz_whisper_backup.size();
-				int len2 = m_lev_chatting.ReachSizeOfBox()+1;
 
-#ifdef PLATFORM_WINDOWS
-				HDC hdc;
-				gpC_fl2_surface->GetDC(&hdc);
-				DeleteObject( SelectObject(hdc, gpC_base->m_chatting_pi.hfont) );
-
-
-				//
-				// set format
-				//
-				SetBkMode(hdc, gpC_base->m_chatting_pi.bk_mode);
-				SetTextColor(hdc, m_color_tab[CLD_NORMAL]);
-				SetBkColor(hdc, gpC_base->m_chatting_pi.back_color);
-
-				TextOut(hdc, CHAT_LINE_START_X +105, CHAT_LINE_START_Y, m_sz_whisper_backup.c_str(), min(len, len2));
-
-				gpC_fl2_surface->ReleaseDC(hdc);
-#else
-				// SDL backend: use print function instead of GDI
+				// GDI removed (SDL2) - All platforms use SDL backend
 				g_PrintColorStr(CHAT_LINE_START_X +100, CHAT_LINE_START_Y, m_sz_whisper_backup.c_str(), gpC_base->m_chatting_pi, m_color_tab[CLD_NORMAL]);
-#endif
 			}
 		}
 		else

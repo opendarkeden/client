@@ -86,24 +86,21 @@ extern RECT g_GameRect;
 																				\
 			if (pSurface!=NULL)													\
 			{																	\
-				if (CDirect3D::GetDevice()->BeginScene()==D3D_OK)				\
-				{																\
-					CDirect3D::GetDevice()->SetTexture(0, pSurface->GetSurface());	\
+				/* CDirect3D::GetDevice()->BeginScene() removed (SDL2) */		\
+				/* CDirect3D::GetDevice()->SetTexture() removed (SDL2) */		\
 																				\
-					RECT rect =													\
-					{															\
-						x,														\
-						y,														\
-						x + pTextureManager->GetWidth(spriteID),				\
-						y + pTextureManager->GetHeight(spriteID)				\
-					};															\
+				RECT rect =													\
+				{															\
+					x,														\
+					y,														\
+					x + pTextureManager->GetWidth(spriteID),				\
+					y + pTextureManager->GetHeight(spriteID)				\
+				};															\
 																				\
-					m_TextureEffect.DrawEffect2D( &rect );						\
+				m_TextureEffect.DrawEffect2D( &rect );						\
 																				\
-					CDirect3D::GetDevice()->EndScene();							\
-																				\
-					CDirect3D::GetDevice()->SetTexture(0, NULL);				\
-				}																\
+				/* CDirect3D::GetDevice()->EndScene() removed (SDL2) */		\
+				/* CDirect3D::GetDevice()->SetTexture() removed (SDL2) */		\
 			}																	\
 		}
 
@@ -161,15 +158,13 @@ extern RECT g_GameRect;
 // DRAW_TEXTURE_SURFACE
 //----------------------------------------------------------------------
 #define	DRAW_TEXTURE_SURFACE( pTextureSurface, pRect )							\
-			if (CDirect3D::GetDevice()->BeginScene()==D3D_OK)					\
+			/* CDirect3D::GetDevice()->BeginScene() removed (SDL2) */			\
+			/* CDirect3D::GetDevice()->SetTexture() removed (SDL2) */			\
 			{																	\
-				CDirect3D::GetDevice()->SetTexture(0, pTextureSurface->GetSurface());	\
-																				\
 				m_TextureEffect.DrawEffect2D( pRect );							\
 																				\
-				CDirect3D::GetDevice()->EndScene();								\
-																				\
-				CDirect3D::GetDevice()->SetTexture(0, NULL);					\
+				/* CDirect3D::GetDevice()->EndScene() removed (SDL2) */		\
+				/* CDirect3D::GetDevice()->SetTexture() removed (SDL2) */		\
 			}
 
 //----------------------------------------------------------------------

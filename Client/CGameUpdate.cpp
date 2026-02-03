@@ -64,8 +64,7 @@
 #include "COGGSTREAM.H"
 #include "SystemAvailabilities.h"
 #include "MWarManager.H"
-//#include "EXECryptor.h"
-//#include "ThemidaSDK.h"
+// EXECryptor and ThemidaSDK includes removed (SDL2) - Copy protection no longer needed
 #include "packet/Cpackets/CGVerifyTime.h"
 
 #ifdef OUTPUT_DEBUG

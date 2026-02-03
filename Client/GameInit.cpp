@@ -1254,31 +1254,25 @@ InitDraw()
 		{
 			DEBUG_ADD("[ InitGame ]  Init 3D");
 
-			if (CDirect3D::Init())
-			{
-				g_bEnable3DHAL = TRUE;
-
-
-				D3DDEVICEDESC7 devDesc;
-
-				CDirect3D::GetDevice()->GetCaps( &devDesc );
-
-				#ifdef	OUTPUT_DEBUG
-					if (devDesc.dwDevCaps & D3DDEVCAPS_TEXTURENONLOCALVIDMEM)
-					{				
-						DEBUG_ADD_FORMAT("D3DDEVCAPS_TEXTURENONLOCALVIDMEM Enable");
-					}
-					else
-					{
-						DEBUG_ADD_FORMAT("D3DDEVCAPS_TEXTURENONLOCALVIDMEM Disable");
-					}
-				#endif
-			}
-			else
-			{
-				bUse3D = false;
-			}
+			// CDirect3D::Init() removed (SDL2) - SDL2 always uses hardware acceleration
+			g_bEnable3DHAL = TRUE;
 			g_bHALAvailable = true;
+
+			/*
+			D3DDEVICEDESC7 devDesc;
+			CDirect3D::GetDevice()->GetCaps( &devDesc );
+
+			#ifdef	OUTPUT_DEBUG
+				if (devDesc.dwDevCaps & D3DDEVCAPS_TEXTURENONLOCALVIDMEM)
+				{
+					DEBUG_ADD_FORMAT("D3DDEVCAPS_TEXTURENONLOCALVIDMEM Enable");
+				}
+				else
+				{
+					DEBUG_ADD_FORMAT("D3DDEVCAPS_TEXTURENONLOCALVIDMEM Disable");
+				}
+			#endif
+			*/
 		}
 		
 		//--------------------------------------------------------

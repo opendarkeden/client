@@ -4,12 +4,9 @@
 #define assert(e) ((void)(e))
 // Disabled assert for macOS
 #include "VS_UI_Base.h"
-#ifdef PLATFORM_WINDOWS
-#include <windows.h>
-#else
+// GDI removed (SDL2) - All platforms use TextSystem (SDL + freetype2)
 #include "../../basic/Platform.h"
 #include "TextSystem/FontHandleUtil.h"
-#endif
 extern RECT g_GameRect;
 //----------------------------------------------------------------------------
 // Globals
@@ -42,53 +39,24 @@ Base::Base()
 //-----------------------------------------------------------------------------
 // ~Base
 //
-// 
+// GDI removed (SDL2) - TextSystem manages fonts automatically, no manual cleanup needed
 //-----------------------------------------------------------------------------
 Base::~Base()
 {
-	DeleteObject(m_small_pi.hfont);
-	DeleteObject(m_chatting_pi.hfont);
-	DeleteObject(m_user_id_pi.hfont);
-	DeleteObject(m_value_pi.hfont);
-	DeleteObject(m_value2_pi.hfont);
-	DeleteObject(m_item_name_pi.hfont);
-	DeleteObject(m_item_desc_pi.hfont);
-	DeleteObject(m_dialog_msg_pi.hfont);
-	DeleteObject(m_dialog_menu_pi.hfont);
-	DeleteObject(m_desc_msg_pi.hfont);
-	DeleteObject(m_desc_menu_pi.hfont);
-	DeleteObject(m_money_pi.hfont);
-	DeleteObject(m_char_value_pi.hfont);
-
-	if (m_chat_dialog_pi.hfont != NULL)
-		DeleteObject(m_chat_dialog_pi.hfont);
-	DeleteObject(m_info_pi.hfont);
-	DeleteObject(m_item_pi.hfont);
-
-	DeleteObject(m_char_name_pi.hfont);		//by larosel
-	DeleteObject(m_char_chat_pi.hfont);
-	DeleteObject(m_char_chat_large_pi.hfont);
-
-	DeleteObject(m_party_name_pi.hfont);
-	DeleteObject(m_xmas_pi.hfont);
-	
-
-	DeleteObject(m_money2_pi.hfont);
+	// TextSystem manages font lifetimes automatically
+	// No need to delete font handles
 }
 
 //-----------------------------------------------------------------------------
 // SetFont
 //
-//
+// GDI removed (SDL2) - All platforms use TextSystem
 //-----------------------------------------------------------------------------
-#ifdef PLATFORM_WINDOWS
 void Base::SetFont(PrintInfo &pi, LOGFONT &lf, COLORREF textcolor, COLORREF backcolor, int bk_mode, int align)
 {
-	HFONT hfont = CreateFontIndirect(&lf);
-	if (hfont == NULL)
-	  _Error(FAILED_JOB);
-
-	pi.hfont = hfont;
+	// GDI removed: CreateFontIndirect() was used on Windows
+	// Now using TextSystem for all platforms
+	pi.hfont = TextSystem::EncodeFontSizeHandle(lf.lfHeight);
 	pi.text_color = textcolor;
 	pi.back_color = backcolor;
 	pi.bk_mode = bk_mode;
@@ -98,42 +66,11 @@ void Base::SetFont(PrintInfo &pi, LOGFONT &lf, COLORREF textcolor, COLORREF back
 //-----------------------------------------------------------------------------
 // SetDefaultLogfont
 //
-//
+// GDI removed (SDL2) - Simplified for TextSystem (all platforms)
 //-----------------------------------------------------------------------------
 void Base::SetDefaultLogfont(LOGFONT &lf) const
 {
-	lf.lfHeight = 0; // 0 = default
-	lf.lfWidth = 0; // 0 = ���̿� �����Ͽ� �ڵ����� ������.
-	lf.lfEscapement = 0; // ���⼳�� (900, 2700)
-	lf.lfOrientation = 0;
-	lf.lfWeight = FW_NORMAL; // FW_BOLD
-	lf.lfItalic = 0; // 0 �ƴ� ���̸� italic�̴�.
-	lf.lfUnderline = 0;
-	lf.lfStrikeOut = 0;
-	if(gC_ci->IsChinese())
-		lf.lfCharSet = GB2312_CHARSET;//*/JOHAB_CHARSET;
-	else
-		lf.lfCharSet = HANGUL_CHARSET;//*/JOHAB_CHARSET;
-	lf.lfOutPrecision = OUT_DEFAULT_PRECIS;
-	lf.lfClipPrecision = CLIP_DEFAULT_PRECIS;
-	lf.lfQuality = DEFAULT_QUALITY;
-	lf.lfPitchAndFamily = DEFAULT_PITCH|FF_DONTCARE;
-	strcpy(lf.lfFaceName, "����ü");//"Times New Roman");
-}
-#else
-// Stub implementations for non-Windows platforms
-void Base::SetFont(PrintInfo &pi, LOGFONT &lf, COLORREF textcolor, COLORREF backcolor, int bk_mode, int align)
-{
-	(void)lf;
-	pi.hfont = TextSystem::EncodeFontSizeHandle(lf.lfHeight);
-	pi.text_color = textcolor;
-	pi.back_color = backcolor;
-	pi.bk_mode = bk_mode;
-	pi.text_align = align;
-}
-
-void Base::SetDefaultLogfont(LOGFONT &lf) const
-{
+	// Set default LOGFONT values for TextSystem
 	lf.lfHeight = 0;
 	lf.lfWidth = 0;
 	lf.lfEscapement = 0;
@@ -149,7 +86,6 @@ void Base::SetDefaultLogfont(LOGFONT &lf) const
 	lf.lfPitchAndFamily = DEFAULT_PITCH|FF_DONTCARE;
 	strcpy(lf.lfFaceName, "Arial");
 }
-#endif
 
 //-----------------------------------------------------------------------------
 // SelectFont
@@ -403,13 +339,8 @@ void Base::InitSurface(CSpriteSurface *surface)
 
 	m_DDSurface_offscreen.SetTransparency(m_colorkey_red); // default colorkey = red
 
-	// set Unicorn edit widget surface
-	#ifdef PLATFORM_WINDOWS
-	g_SetFL2Surface(m_p_DDSurface_back->GetSurface());
-	#else
-	// SDL backend: use the sprite surface directly for text rendering
+	// GDI removed (SDL2) - All platforms use SDL backend: use sprite surface directly for text rendering
 	g_SetFL2Surface(m_p_DDSurface_back);
-	#endif
 }
 
 //-----------------------------------------------------------------------------

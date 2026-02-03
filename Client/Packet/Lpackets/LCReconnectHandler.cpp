@@ -36,7 +36,7 @@
 	};
 #endif
 
-//#include "ACProtect.h"
+// ACProtect include removed (SDL2) - Copy protection no longer needed
 
 extern int g_Dimension;
 extern bool		UpdateSocketOutput();

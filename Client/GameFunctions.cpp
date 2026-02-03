@@ -568,10 +568,7 @@ bool GetNMClipData(char* pBuffer, unsigned int bufferSize, const char* pURL, boo
     return false;
 }
 
-//----------------------------------------------------------------------
-// nProtect (GameGuard anti-cheat)
-//----------------------------------------------------------------------
-// _NPGAMEMON_SUCCESS is defined in nProtectStub.cpp
+// GameGuard anti-cheat integration removed (SDL2) - nProtect stub no longer needed
 #ifdef PLATFORM_MACOS
 extern int _NPGAMEMON_SUCCESS;
 #endif

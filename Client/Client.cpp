@@ -1,6 +1,6 @@
 #include "Client_PCH.h"
 #define __NPROTECT__
-//#include "EXECryptor.h"
+// EXECryptor include removed (SDL2) - Copy protection no longer needed
 /* add by sonic 2006.9.14 start Ôö¼Ó¶ÔWPEÆÁ±Î*/
 #include "APICheck.h"
 APICheck _APICheck;
@@ -3585,7 +3585,7 @@ WinMain(HINSTANCE hInstance,
 
 		//add by sonic 2006.4.9  ÉèÖÃ¼ÓÃÜº¯Êý
 		DWORD GetCommand;
-		//GetCommand=EXECryptor_GetHardwareID();
+		// EXECryptor_GetHardwareID() removed (SDL2) - Copy protection no longer needed
 		GetCommand = 0x00000000;  //ÓÃÓÚµ÷ÊÔ
 		char checkStr[9];
 		memset(checkStr,0,9);

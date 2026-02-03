@@ -1679,9 +1679,7 @@ CheckActivate(BOOL bActiveGame)
 // CDirect3D::Release() removed (SDL2)
 
 				DEBUG_ADD("IsHAL : Before CDirect3D::Init()");
-
-				CDirect3D::Init();		// ´Ù½Ã...
-
+// CDirect3D::Init() removed (SDL2) - SDL2 always uses hardware acceleration
 
 				DEBUG_ADD("IsHAL : Before CDirect3D::Restore()");
 // CDirect3D::Restore() removed (SDL2)
