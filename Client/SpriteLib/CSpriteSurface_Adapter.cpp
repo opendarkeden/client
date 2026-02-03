@@ -53,6 +53,10 @@
 #define SA_DEBUG_LIFECYCLE(fmt, ...) do {} while(0)
 #endif
 
+/* Error logging - always enabled */
+#define SA_DEBUG_ERROR(fmt, ...) \
+	fprintf(stderr, "[SpriteAdapter ERROR] %s:%d: " fmt "\n", __FUNCTION__, __LINE__, ##__VA_ARGS__)
+
 /* ============================================================================
  * Helper Functions
  * ============================================================================ */
@@ -86,20 +90,56 @@ static spritectl_sprite_t get_backend_sprite(CSprite* pSprite)
 		/* Copy RLE data from CSprite to backend sprite */
 		for (WORD y = 0; y < height; y++) {
 			WORD* src_line = pSprite->GetPixelLine(y);
+			if (!src_line) {
+				SA_DEBUG_ERROR("get_backend_sprite: Invalid scanline at y=%d", y);
+				spritectl_destroy_sprite(new_sprite);
+				return SPRITECTL_INVALID_SPRITE;
+			}
 
-			/* Get RLE data size */
+			/* Get RLE data size with bounds checking */
 			WORD* pSrc = src_line;
+			WORD* pSrcStart = src_line;  /* Remember start for validation */
+
 			int count = *pSrc++;  /* Number of runs */
 
-			/* Calculate total RLE data size (count + runs data) */
+			/* Validate count to prevent infinite loops or memory corruption */
+			if (count < 0 || count > 16384) {  /* Arbitrary reasonable limit */
+				SA_DEBUG_ERROR("get_backend_sprite: Invalid RLE count=%d at y=%d", count, y);
+				spritectl_destroy_sprite(new_sprite);
+				return SPRITECTL_INVALID_SPRITE;
+			}
+
+			/* Calculate total RLE data size (count + runs data) with bounds checking */
 			int rle_size = 1;  /* count byte */
 			if (count > 0) {
 				for (int j = 0; j < count; j++) {
+					/* Check if we have enough data for transCount and colorCount */
+					if ((pSrc - pSrcStart) > width * 2) {  /* Safety check */
+						SA_DEBUG_ERROR("get_backend_sprite: RLE data exceeds bounds at segment %d, y=%d", j, y);
+						spritectl_destroy_sprite(new_sprite);
+						return SPRITECTL_INVALID_SPRITE;
+					}
+
 					pSrc++;  /* Skip transCount */
 					int colorCount = *pSrc++;  /* Color pixels */
+
+					/* Validate colorCount */
+					if (colorCount < 0 || colorCount > width) {
+						SA_DEBUG_ERROR("get_backend_sprite: Invalid colorCount=%d at segment %d, y=%d", colorCount, j, y);
+						spritectl_destroy_sprite(new_sprite);
+						return SPRITECTL_INVALID_SPRITE;
+					}
+
 					rle_size += 2 + colorCount;  /* trans + color count + pixel data */
 					pSrc += colorCount;
 				}
+			}
+
+			/* Validate final rle_size */
+			if (rle_size <= 0 || rle_size > 65535) {
+				SA_DEBUG_ERROR("get_backend_sprite: Invalid rle_size=%d at y=%d", rle_size, y);
+				spritectl_destroy_sprite(new_sprite);
+				return SPRITECTL_INVALID_SPRITE;
 			}
 
 			/* Set RLE data using helper function */

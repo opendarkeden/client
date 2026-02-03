@@ -43,7 +43,7 @@ public:
 	char		m_composing_string[128];
 
 	CI();
-	~CI();
+	virtual ~CI();
 	
 	virtual	bool	IsKorean()	{ return false; }
 	virtual bool	IsChinese() { return false; }

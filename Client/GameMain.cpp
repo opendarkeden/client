@@ -26,6 +26,7 @@
 #include "GameObject.h"
 #include "ServerInfo.h"
 #include "DebugInfo.h"
+#include "DebugLog.h"
 #include "PacketDef.h"
 #include "SoundNode.h"
 #include "AddonDef.h"
@@ -286,9 +287,9 @@ UpdateSocketInput()
 				SendBugReport( t.toString().c_str() );
 		}
 		
-		DEBUG_ADD( t.toString().c_str() );
-		DEBUG_ADD_ERR("[Error] UpdateSocketInput");			
-		DEBUG_ADD(t.toString().c_str());
+		LOG_ERROR( t.toString().c_str() );
+		LOG_ERROR("[Error] UpdateSocketInput");			
+		LOG_ERROR(t.toString().c_str());
 		
 		//InitFail("Server¿ÍÀÇ Á¢¼ÓÀÌ ²÷¾îÁ³½À´Ï´Ù.");
 		SetMode( MODE_MAINMENU );
@@ -5276,10 +5277,14 @@ UpdateDisconnected()
 				RECT rect = { 0, 0, g_GameRect.right, g_GameRect.bottom };
 
 				g_pBack->BltNoColorkey( &point, g_pLast, &rect );	
-			}	
-			
+			}
+
 			CDirectDraw::Flip();
 
+			// Yield CPU to prevent 100% usage
+			// On Windows, PeekMessage/GetMessage handle this
+			// On macOS/Linux with SDL, we need to explicitly yield
+			SDL_Delay(41);
 		}
 		
 		pSpriteDisconected->Release();

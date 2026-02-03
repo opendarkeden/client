@@ -59,7 +59,7 @@ class EFFECTGENERATOR_INFO
 class MEffectGenerator {
 	public :
 		MEffectGenerator()	{}
-		~MEffectGenerator() {}
+		virtual ~MEffectGenerator() {}
 
 		virtual TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_NULL; }
 

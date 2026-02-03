@@ -397,17 +397,16 @@ void dxlib_input_update(void) {
 
 					if (vk_code != 0) {
 						g_GetInputFocusManager().HandleKeyDown(vk_code);
-						break; // Don't process further
+						// Don't break here - let keyboard state update below
+						// This ensures dxlib_input_key_down() works correctly
 					}
 				}
-				/* Fall through for non-text-input keys */
+				/* Fall through to update keyboard state */
+				/* IMPORTANT: Keyboard state MUST be updated even when InputFocusManager has focus */
 
 			case SDL_KEYUP:
-				/* Keyboard state is updated by SDL_GetKeyboardState */
-				/* Handle ESCAPE key to quit */
-//				if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
-//					g_bRunning = false;
-//				}
+				/* Keyboard state is updated by SDL_GetKeyboardState below */
+				/* No additional handling needed */
 				break;
 
 			case SDL_MOUSEMOTION:

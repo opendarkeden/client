@@ -159,10 +159,11 @@ MEffectGeneratorTable::Release()
 			//	operator delete (m_pEffectGenerator[i], __FILE__, __LINE__);
 			//#else
 				delete m_pEffectGenerator[i];
+				m_pEffectGenerator[i] = NULL;
 			//#endif
 
 		}
-	}	
+	}
 }
 
 //----------------------------------------------------------------------
