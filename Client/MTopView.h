@@ -79,7 +79,7 @@ class MObject;
 class MMissile;
 class MItem;
 class MEffect;
-#include "SP.h"
+#include "SpriteLib/SP.h"
 #include "FR.h"
 //#include "2D.h"
 #include "CSpriteTexturePartManager.h"
@@ -89,10 +89,10 @@ class MEffect;
 #include "DrawItemNameNode.h"
 #include "COrderedList.h"
 #include "MRequestMode.h"
-#include "CIndexSpritePack.h"
-#include "CFilter.h"
-#include "CFilterPack.h"
-#include "CSpriteOutlineManager.h"
+#include "SpriteLib/CIndexSpritePack.h"
+#include "SpriteLib/CFilter.h"
+#include "SpriteLib/CFilterPack.h"
+#include "SpriteLib/CSpriteOutlineManager.h"
 
 // TileRenderer for unified tile rendering
 #include "TileRenderer.h"

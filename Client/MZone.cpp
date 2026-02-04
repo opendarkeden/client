@@ -19,7 +19,7 @@
 #include "MItem.h"
 #include "MEffect.h"
 #include "MZone.h"
-#include "MTopView.h"
+// Note: MTopView.h removed - MZone doesn't actually use MTopView (decoupled for demo/game flexibility)
 #include "UserOption.h"
 #include "MEffectGeneratorTable.h"
 #include "MZoneTable.h"
@@ -40,7 +40,7 @@
 #include "MGuildType.h"
 #include "MEffectStatusDef.h"
 
-#include "VS_UI.h"
+// Note: VS_UI.h removed - MZone doesn't actually use VS_UI classes (decoupled for demo/game flexibility)
 #include "MHelpDef.h"
 //#define	new			DEBUG_NEW
 //#define	delete		DEBUG_DELETE

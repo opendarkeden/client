@@ -13,7 +13,7 @@
 #ifdef PLATFORM_WINDOWS
 	#include <windows.h>
 	#include <process.h>
-#elif defined(__APPLE__) || defined(__linux__)
+#elif defined(__APPLE__) || defined(__linux__) || defined(__EMSCRIPTEN__)
 	#include <pthread.h>
 	#include <unistd.h>
 	#include <SDL2/SDL.h>  // For SDL_Delay on non-Windows platforms

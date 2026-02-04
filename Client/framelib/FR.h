@@ -16,6 +16,6 @@
 #include "CCreatureFrameSetManager.h"
 #include "CFrameSet.h"
 #include "CAnimationFrame.h"
-#include "CFileIndexTable.h"
+#include "../SpriteLib/CFileIndexTable.h"
 
 #endif

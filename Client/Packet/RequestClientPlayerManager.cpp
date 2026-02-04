@@ -20,7 +20,7 @@
 #ifdef PLATFORM_WINDOWS
 	#include <windows.h>
 	#include <process.h>
-#elif defined(__APPLE__) || defined(__linux__)
+#elif defined(__APPLE__) || defined(__linux__) || defined(__EMSCRIPTEN__)
 	#include <pthread.h>
 	#include <unistd.h>
 #endif
@@ -30,7 +30,7 @@
 #include "Rpackets/CRRequest.h"
 
 // Platform-specific threading macros and stubs
-#if defined(__APPLE__) || defined(__linux__)
+#if defined(__APPLE__) || defined(__linux__) || defined(__EMSCRIPTEN__)
 	// Additional Windows type definitions
 	typedef DWORD* LPDWORD;
 	typedef void* (*LPTHREAD_START_ROUTINE)(void*);

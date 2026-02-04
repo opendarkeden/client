@@ -68,10 +68,29 @@ elseif(EXISTS "/usr/local/include/SDL2")
 endif()
 
 # Find SDL2 (needed for engine and DXLib)
+# Skip for Emscripten - it uses -s USE_SDL=2 linker flags instead
 if(BUILD_ENGINE OR USE_SDL_BACKEND OR NOT WIN32)
-	find_package(SDL2 REQUIRED)
-	find_package(SDL2_image REQUIRED)
-	find_package(SDL2_ttf REQUIRED)
+	if(EMSCRIPTEN)
+		# Emscripten provides SDL2 through its port system
+		message(STATUS "Emscripten build: SDL2 will be provided through linker flags")
+		# Add linker flags globally for all executables
+		add_link_options("-sUSE_SDL=2" "-sUSE_SDL_IMAGE=2")
+		# Create interface targets for compatibility with empty link libraries
+		add_library(SDL2_interface INTERFACE IMPORTED)
+		add_library(SDL2_image_interface INTERFACE IMPORTED)
+		add_library(SDL2_ttf_interface INTERFACE IMPORTED)
+		add_library(SDL2main_interface INTERFACE IMPORTED)
+
+		# Create aliases for compatibility
+		add_library(SDL2::SDL2 ALIAS SDL2_interface)
+		add_library(SDL2::SDL2main ALIAS SDL2main_interface)
+		add_library(SDL2_image::SDL2_image ALIAS SDL2_image_interface)
+		add_library(SDL2_ttf::SDL2_ttf ALIAS SDL2_ttf_interface)
+	else()
+		find_package(SDL2 REQUIRED)
+		find_package(SDL2_image REQUIRED)
+		find_package(SDL2_ttf REQUIRED)
+	endif()
 endif()
 
 # Find JPEG library (needed for UtilityFunction.cpp)

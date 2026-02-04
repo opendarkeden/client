@@ -15,11 +15,11 @@
 #define	__CSHADOWPARTMANAGER_H__
 
 #include "CPartManager.h"
-#include "CSpriteSurface.h"
+#include "SpriteLib/CSpriteSurface.h"
 #include "DrawTypeDef.h"
 #include <list>
 #include <fstream>
-#include "CShadowSprite.h"
+#include "SpriteLib/CShadowSprite.h"
 class CFileIndexTable;
 
 using namespace std;

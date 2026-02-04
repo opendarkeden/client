@@ -30,6 +30,16 @@
 	#include <limits.h>  /* For PATH_MAX */
 #endif
 
+#ifdef __EMSCRIPTEN__
+	/* Emscripten doesn't define PATH_MAX, define a reasonable value */
+	#ifndef PATH_MAX
+		#define PATH_MAX 4096
+	#endif
+	#include <limits.h>
+	#include <stdlib.h>
+	#include <libgen.h>  /* For dirname */
+#endif
+
 #ifdef PLATFORM_MACOS
 	#include <libgen.h>
 	#include <mach-o/dyld.h>

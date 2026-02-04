@@ -34,7 +34,7 @@
 
 
 #include "DrawTypeDef.h"
-#include "CSetManager.h"
+#include "../SpriteLib/CSetManager.h"
 
 
 class CFrameSetManager : public CSetManager<TYPE_FRAMEID, TYPE_FRAMEID> {

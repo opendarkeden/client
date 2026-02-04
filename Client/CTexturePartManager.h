@@ -10,14 +10,14 @@
 #define	__CTEXTUREPARTMANAGER_H__
 
 #include "CPartManager.h"
-#include "CSpriteSurface.h"
+#include "SpriteLib/CSpriteSurface.h"
 #include <list>
 #include <map>
 //std::ifstream;
 //class CFileIndexTable;
 //class CAlphaSpritePack;
-#include "CAlphaSpritePal.h"
-#include "MPalettePack.h"
+#include "SpriteLib/CAlphaSpritePal.h"
+#include "SpriteLib/MPalettePack.h"
 
 class CTexturePartManager : public CPartManager<WORD, WORD, CSpriteSurface*>
 {

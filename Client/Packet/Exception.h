@@ -145,7 +145,7 @@ private :
 #if defined(NDEBUG) || defined(__WIN32__)
 	#define __BEGIN_DEBUG ((void)0);
 	#define __END_DEBUG ((void)0);
-#elif defined(__LINUX__) || defined(__APPLE__) || defined(__macos__) || defined(__WIN_CONSOLE__)
+#elif defined(__LINUX__) || defined(__APPLE__) || defined(__macos__) || defined(__WIN_CONSOLE__) || defined(__EMSCRIPTEN__)
 	#define __BEGIN_DEBUG \
 				try {
 	#define __END_DEBUG  \
@@ -754,5 +754,11 @@ public :
 	private :
 		uint m_ErrorCode;
 	};
+
+// Assert macro for platforms that don't have it defined
+#ifndef Assert
+	#include <assert.h>
+	#define Assert(cond) assert(cond)
+#endif
 
 #endif

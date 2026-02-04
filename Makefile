@@ -5,6 +5,7 @@
 .PHONY: check-resources extract-resources clean-resources
 .PHONY: sprite-viewer creature-viewer item-viewer map-viewer zone-parser
 .PHONY: debug-asan debug-tsan run-asan run-tsan
+.PHONY: web web-desktop web-clean web-test
 
 # Default target
 all: debug
@@ -14,9 +15,14 @@ BUILD_DIR_DEBUG = build/debug
 BUILD_DIR_RELEASE = build/release
 BUILD_DIR_DEBUG_ASAN = build/debug-asan
 BUILD_DIR_DEBUG_TSAN = build/debug-tsan
+BUILD_DIR_WEB = emscripten/build
 
 # DarkEden data directory (can be overridden)
 DARKEDEN_DIR ?= DarkEden
+
+# Emscripten SDK directory
+EMSDK_DIR ?= $(HOME)/project/emsdk
+EMSDK_ENV = $(EMSDK_DIR)/emsdk_env.sh
 
 # Number of parallel jobs
 NPROCS ?= 1
@@ -92,6 +98,7 @@ clean:
 	rm -rf build/release
 	rm -rf build/debug-asan
 	rm -rf build/debug-tsan
+	$(MAKE) web-clean
 	@echo "Clean complete"
 
 # ============================================================
@@ -148,6 +155,74 @@ item-viewer: build/debug/bin/item_viewer
 zone-parser: build/debug/bin/zone_parser
 	@echo "Zone parser built: build/debug/bin/zone_parser"
 
+# ============================================================
+# Web Demo (Emscripten)
+# ============================================================
+
+# Desktop test first (catch 90% of errors before Emscripten build)
+web-desktop:
+	@echo "======================================"
+	@echo "Desktop Test (Before Emscripten)"
+	@echo "======================================"
+	@echo ""
+	@if ! pkg-config --exists sdl2; then \
+		echo "ERROR: SDL2 not found. Install with: brew install sdl2 sdl2_image (macOS)"; \
+		exit 1; \
+	fi
+	@if ! pkg-config --exists SDL2_image; then \
+		echo "ERROR: SDL2_image not found. Install with: brew install sdl2_image (macOS)"; \
+		exit 1; \
+	fi
+	@$(MAKE) -C emscripten test_desktop.sh
+	@echo ""
+	@echo "======================================"
+	@echo "Desktop Build Successful!"
+	@echo "======================================"
+	@echo ""
+	@echo "To test: emscripten/demo_test DarkEden/Data/Map/adam_c.map DarkEden/Data/Image/tile.spk"
+
+# Web demo build (Emscripten)
+web:
+	@echo "======================================"
+	@echo "Building Web Demo with Emscripten"
+	@echo "======================================"
+	@echo ""
+	@if [ ! -f "$(EMSDK_ENV)" ]; then \
+		echo "ERROR: Emscripten SDK not found at $(EMSDK_DIR)!"; \
+		echo "Install from: https://emscripten.org/docs/getting_started/downloads.html"; \
+		echo "Or override with: make web EMSDK_DIR=/path/to/emsdk"; \
+		exit 1; \
+	fi
+	@mkdir -p $(BUILD_DIR_WEB)
+	@echo "Activating Emscripten environment..."
+	@. $(EMSDK_ENV) > /dev/null 2>&1; \
+	cd $(BUILD_DIR_WEB) && \
+	emcmake cmake ../.. > /dev/null && \
+	echo "Building with Emscripten..." && \
+	emmake make -j$(NPROCS)
+	@echo ""
+	@echo "======================================"
+	@echo "Web Demo Build Complete!"
+	@echo "======================================"
+	@echo ""
+	@echo "Output: $(BUILD_DIR_WEB)/bin/DarkEdenWebDemo.html"
+	@echo ""
+	@echo "To test in browser:"
+	@echo "  cd $(BUILD_DIR_WEB)/bin"
+	@echo "  emrun --browser chrome DarkEdenWebDemo.html"
+
+# Clean web demo build
+web-clean:
+	@echo "Cleaning web demo build..."
+	@rm -rf $(BUILD_DIR_WEB)
+	@rm -f emscripten/demo_test
+	@echo "Web demo clean complete"
+
+# Test web demo in browser
+web-test: web
+	@echo "Launching web demo in browser..."
+	@. $(EMSDK_ENV) > /dev/null 2>&1 && cd $(BUILD_DIR_WEB)/bin && emrun --browser chrome DarkEdenWebDemo.html
+
 # Show help
 help:
 	@echo "OpenDarkEden Client - Available targets:"
@@ -162,6 +237,12 @@ help:
 	@echo "  make fmt-check     - Check code formatting (TODO)"
 	@echo "  make clean         - Clean build directories"
 	@echo "  make help          - Show this help message"
+	@echo ""
+	@echo "Web Demo (Emscripten):"
+	@echo "  make web-desktop   - Test demo on desktop BEFORE Emscripten build"
+	@echo "  make web           - Build WebAssembly demo for browser"
+	@echo "  make web-test      - Build and launch web demo in browser"
+	@echo "  make web-clean     - Clean web demo build"
 	@echo ""
 	@echo "Resource Management:"
 	@echo "  make check-resources        - Validate all resource files"
@@ -183,6 +264,7 @@ help:
 	@echo "  Release: $(BUILD_DIR_RELEASE)"
 	@echo "  ASAN:    $(BUILD_DIR_DEBUG_ASAN)"
 	@echo "  TSAN:    $(BUILD_DIR_DEBUG_TSAN)"
+	@echo "  Web:    $(BUILD_DIR_WEB)"
 	@echo ""
 	@echo "Examples:"
 	@echo "  make                      # Build debug"
@@ -193,6 +275,11 @@ help:
 	@echo "  make check-resources      # Validate resources in DarkEden/"
 	@echo "  make sprite-viewer        # Build and use sprite viewer"
 	@echo "  make check-resources DARKEDEN_DIR=/path/to/game  # Custom data dir"
+	@echo ""
+	@echo "Web Demo Workflow:"
+	@echo "  make web-desktop          # Test on desktop first (recommended)"
+	@echo "  make web                  # Build for WebAssembly"
+	@echo "  make web-test             # Launch in browser"
 	@echo ""
 	@echo "Running with sanitizers:"
 	@echo "  build/debug-asan/bin/DarkEden 0000000001    # Run ASAN build"

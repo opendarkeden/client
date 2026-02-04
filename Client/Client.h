@@ -32,7 +32,7 @@ using namespace std;
 //#include "CInputManager.h"
 
 #include "DXLib.h"
-#include "SP.h"
+#include "SpriteLib/SP.h"
 #include "FR.h"
 #ifdef PLATFORM_WINDOWS
 #include "WinLib.h"
@@ -53,7 +53,7 @@ class CWinUpdate;
 #include "MWorkThread.h"
 #include "MLoadingSPKWorkNode.h"
 #include "MItem.h"
-#include "CStorageSurface.h"
+#include "SpriteLib/CStorageSurface.h"
 
 class CMessageArray;
 class Player;

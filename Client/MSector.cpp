@@ -10,8 +10,9 @@
 #include "MImageObject.h"
 #include "MEffect.h"
 #include "MSector.h"
-#include "MTopView.h"
+// Note: MTopView.h removed - MSector now uses EffectSpriteTypeHelper (decoupled for demo/game flexibility)
 #include "EffectSpriteTypeDef.h"
+#include "EffectSpriteTypeHelper.h"
 #include <fstream>
 
 //----------------------------------------------------------------------
@@ -1810,7 +1811,7 @@ MSector::AddEffect(const MEffect* pEffect)
 		if (!m_bDarkness || !m_bSanctuary)	// [새기술]
 		{
 			int fid = pEffect->GetFrameID();
-			int est = g_pTopView->GetEffectSpriteType( (BLT_TYPE)pEffect->GetBltType(), fid );
+			int est = ::GetEffectSpriteType( (BLT_TYPE)pEffect->GetBltType(), fid );
 
 //			if(est >= EFFECTSPRITETYPE_MAP_BLACK_LARGE_SMOKE &&
 //				est >= EFFECTSPRITETYPE_MAP_BLACK_SMALL_SMOKE_3)
@@ -1888,7 +1889,7 @@ MSector::RemoveEffect(TYPE_OBJECTID id)
 			if (m_bDarkness || m_bSanctuary)	// [새기술]
 			{
 				int fid = pEffect->GetFrameID();
-				int est = g_pTopView->GetEffectSpriteType( (BLT_TYPE)pEffect->GetBltType(), fid );
+				int est = ::GetEffectSpriteType( (BLT_TYPE)pEffect->GetBltType(), fid );
 
 //				if(est >= EFFECTSPRITETYPE_MAP_BLACK_LARGE_SMOKE &&
 //					est <= EFFECTSPRITETYPE_MAP_BLACK_SMALL_SMOKE_3
@@ -1954,7 +1955,7 @@ MSector::RemoveEffect(TYPE_OBJECTID id, MEffect*& pEffect)
 			if (m_bDarkness || m_bSanctuary)	// [새기술]
 			{
 				int fid = pEffect->GetFrameID();
-				int est = g_pTopView->GetEffectSpriteType( (BLT_TYPE)pEffect->GetBltType(), fid );
+				int est = ::GetEffectSpriteType( (BLT_TYPE)pEffect->GetBltType(), fid );
 
 				// darkness 있는 경우			
 				if (est>=EFFECTSPRITETYPE_DARKNESS_2_1
