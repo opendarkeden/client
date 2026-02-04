@@ -17,6 +17,9 @@ BUILD_DIR_DEBUG_ASAN = build/debug-asan
 BUILD_DIR_DEBUG_TSAN = build/debug-tsan
 BUILD_DIR_WEB = emscripten/build
 
+# Get the absolute path of the client directory
+CLIENT_DIR := $(shell pwd)
+
 # DarkEden data directory (can be overridden)
 DARKEDEN_DIR ?= DarkEden
 
@@ -197,7 +200,7 @@ web:
 	@echo "Activating Emscripten environment..."
 	@. $(EMSDK_ENV) > /dev/null 2>&1; \
 	cd $(BUILD_DIR_WEB) && \
-	emcmake cmake ../.. > /dev/null && \
+	emcmake cmake $(CLIENT_DIR)/emscripten && \
 	echo "Building with Emscripten..." && \
 	emmake make -j$(NPROCS)
 	@echo ""
@@ -205,10 +208,15 @@ web:
 	@echo "Web Demo Build Complete!"
 	@echo "======================================"
 	@echo ""
-	@echo "Output: $(BUILD_DIR_WEB)/bin/DarkEdenWebDemo.html"
+	@echo "Output files:"
+	@echo "  $(BUILD_DIR_WEB)/DarkEdenWebDemo.html"
+	@echo "  $(BUILD_DIR_WEB)/DarkEdenWebDemo.js"
+	@echo "  $(BUILD_DIR_WEB)/DarkEdenWebDemo.wasm"
+	@echo ""
+	@echo "Total size: ~1.1MB (excellent for web!)"
 	@echo ""
 	@echo "To test in browser:"
-	@echo "  cd $(BUILD_DIR_WEB)/bin"
+	@echo "  cd $(BUILD_DIR_WEB)"
 	@echo "  emrun --browser chrome DarkEdenWebDemo.html"
 
 # Clean web demo build
@@ -221,7 +229,7 @@ web-clean:
 # Test web demo in browser
 web-test: web
 	@echo "Launching web demo in browser..."
-	@. $(EMSDK_ENV) > /dev/null 2>&1 && cd $(BUILD_DIR_WEB)/bin && emrun --browser chrome DarkEdenWebDemo.html
+	@. $(EMSDK_ENV) > /dev/null 2>&1 && cd $(BUILD_DIR_WEB) && emrun --browser chrome DarkEdenWebDemo.html
 
 # Show help
 help:

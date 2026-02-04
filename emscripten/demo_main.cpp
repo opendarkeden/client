@@ -20,6 +20,17 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <memory>
+#include <cmath>
+#include <string>
+
+extern bool g_demoSkipImageObjects;
+
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
+
+// Simple test mode - just show a window without loading data
+// #define TEST_MODE_NO_DATA  // Disabled to use actual data files
 
 // Constants from game
 #define DEFAULT_CELL_PIXELS 48  // TILE_X from MViewDef.h
@@ -46,6 +57,10 @@ public:
         , m_cameraY(0)
         , m_zoom(1.0f)
         , m_running(true)
+        , m_frameCount(0)
+        , m_initialized(false)
+        , m_windowWidth(0)
+        , m_windowHeight(0)
     {
     }
 
@@ -55,6 +70,12 @@ public:
 
     bool Initialize(const char* mapFile, const char* tileSpkFile,
                     const char* objSpkFile, int windowWidth, int windowHeight) {
+#ifdef TEST_MODE_NO_DATA
+        std::cout << "======================================" << std::endl;
+        std::cout << "Running in TEST MODE (no data files)" << std::endl;
+        std::cout << "======================================" << std::endl;
+#endif
+
         // Initialize SpriteLib backend
         if (spritectl_init() != 0) {
             std::cerr << "Failed to initialize SpriteLib backend" << std::endl;
@@ -83,8 +104,14 @@ public:
         }
 
         // Create renderer
-        m_renderer = SDL_CreateRenderer(m_window, -1,
-            SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+        // Emscripten: force software renderer to avoid WebGL swap-interval setup
+        int rendererFlags = 0;
+#ifdef __EMSCRIPTEN__
+        SDL_SetHint(SDL_HINT_RENDER_DRIVER, "software");
+        SDL_SetHint(SDL_HINT_RENDER_VSYNC, "0");
+        rendererFlags = SDL_RENDERER_SOFTWARE;
+#endif
+        m_renderer = SDL_CreateRenderer(m_window, -1, rendererFlags);
         if (!m_renderer) {
             std::cerr << "SDL_CreateRenderer failed: " << SDL_GetError() << std::endl;
             return false;
@@ -97,6 +124,37 @@ public:
             return false;
         }
 
+#ifdef TEST_MODE_NO_DATA
+        // Create a minimal test zone programmatically
+        m_zone = new MZone();
+        m_zone->Init(20, 20);  // 20x20 test zone
+
+        std::cout << "Created test zone: TestZone"
+                  << " (" << m_zone->GetWidth() << "x" << m_zone->GetHeight() << ")" << std::endl;
+
+        // Create tile provider (adapter from MZone to ITileDataProvider)
+        m_tileProvider = new MZoneTileProvider();
+        m_tileProvider->SetZone(m_zone);
+
+        // Create empty tile pack (no sprites to load)
+        m_tilePack = new CSpritePack();
+        std::cout << "Test mode: No tile sprites loaded" << std::endl;
+
+        // Create TileRenderer (will work with empty pack)
+        m_tileRenderer = new TileRenderer();
+        if (!m_tileRenderer->Init(m_screenSurface, m_tilePack)) {
+            std::cerr << "Failed to initialize TileRenderer" << std::endl;
+            return false;
+        }
+
+        // Center camera on test zone
+        m_cameraX = (m_zone->GetWidth() * m_cellPixels) / 2 - windowWidth / 2;
+        m_cameraY = (m_zone->GetHeight() * m_cellPixels / 2) / 2 - windowHeight / 2;
+
+        std::cout << "Test mode initialization complete!" << std::endl;
+        return true;
+
+#else
         // Load zone using game's MZone class
         m_zone = new MZone();
         std::ifstream mapFilestream(mapFile, std::ios::binary);
@@ -136,6 +194,12 @@ public:
 
         // Load ImageObject sprite pack if provided
         if (objSpkFile != nullptr && strlen(objSpkFile) > 0) {
+#ifdef __EMSCRIPTEN__
+            if (g_demoSkipImageObjects) {
+                std::cout << "Web demo: skipping ImageObject sprite pack" << std::endl;
+            } else
+#endif
+            {
             m_objPack = new CSpritePack();
             if (!m_objPack->LoadFromFile(objSpkFile)) {
                 std::cout << "Warning: failed to load ImageObject pack: " << objSpkFile << std::endl;
@@ -144,6 +208,7 @@ public:
             } else {
                 std::cout << "Loaded " << m_objPack->GetSize() << " ImageObjects" << std::endl;
             }
+            }
         }
 
         // Center camera on map
@@ -151,23 +216,70 @@ public:
         m_cameraY = (m_zone->GetHeight() * m_cellPixels / 2) / 2 - windowHeight / 2;
 
         return true;
+#endif
+    }
+
+    void SetInitParams(const char* mapFile, const char* tileSpkFile,
+                       const char* objSpkFile, int windowWidth, int windowHeight) {
+        m_mapFile = mapFile ? mapFile : "";
+        m_tileSpkFile = tileSpkFile ? tileSpkFile : "";
+        m_objSpkFile = objSpkFile ? objSpkFile : "";
+        m_windowWidth = windowWidth;
+        m_windowHeight = windowHeight;
     }
 
     void Run() {
-        SDL_Event event;
+        std::cout << "Starting..." << std::endl << std::flush;
 
+#ifdef __EMSCRIPTEN__
+        std::cout << "Emscripten mode" << std::endl << std::flush;
+
+        // Emscripten: use asynchronous main loop
+        emscripten_set_main_loop_arg([](void* arg) {
+            MapViewerDemo* demo = static_cast<MapViewerDemo*>(arg);
+
+            if (!demo->m_initialized) {
+                std::cout << "INIT (main loop)" << std::endl << std::flush;
+                if (!demo->Initialize(demo->m_mapFile.c_str(),
+                                      demo->m_tileSpkFile.c_str(),
+                                      demo->m_objSpkFile.empty() ? nullptr : demo->m_objSpkFile.c_str(),
+                                      demo->m_windowWidth,
+                                      demo->m_windowHeight)) {
+                    std::cerr << "Failed to initialize viewer (main loop)" << std::endl;
+                    emscripten_cancel_main_loop();
+                    return;
+                }
+                demo->m_initialized = true;
+                std::cout << "INIT OK (main loop)" << std::endl << std::flush;
+            }
+
+            if (!demo->m_running) {
+                emscripten_cancel_main_loop();
+                return;
+            }
+
+            SDL_Event event;
+            while (SDL_PollEvent(&event)) {
+                demo->HandleEvent(event);
+            }
+
+            demo->Render();
+            demo->m_frameCount++;
+        }, this, 0, true);
+#else
+        std::cout << "Desktop mode" << std::endl << std::flush;
+        // Desktop: use traditional loop
+        SDL_Event event;
         while (m_running) {
-            // Process events
             while (SDL_PollEvent(&event)) {
                 HandleEvent(event);
             }
-
-            // Render
             Render();
-
-            // Cap frame rate
-            SDL_Delay(16); // ~60 FPS
+            SDL_Delay(16);
         }
+#endif
+
+        std::cout << "Setup complete" << std::endl << std::flush;
     }
 
     void Cleanup() {
@@ -248,66 +360,55 @@ private:
     }
 
     void Render() {
-        // Clear screen
-        SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
-        SDL_RenderClear(m_renderer);
+        static int renderCallCount = 0;
+        ++renderCallCount;
+#ifdef __EMSCRIPTEN__
+        if (renderCallCount < 5 || (renderCallCount % 300) == 0) {
+            std::cout << "R" << renderCallCount << std::endl << std::flush;
+        }
+#else
+        std::cout << "R" << renderCallCount << std::endl << std::flush;
+#endif
 
-        // Clear surface
-        m_screenSurface->FillSurface(0);
+        if (!m_tileRenderer || !m_tileProvider || !m_screenSurface) {
+            return;
+        }
 
-        // Get window size
-        int windowWidth, windowHeight;
+        int windowWidth = 0;
+        int windowHeight = 0;
         SDL_GetWindowSize(m_window, &windowWidth, &windowHeight);
 
-        // Calculate visible range
-        int scaledCellW = static_cast<int>(m_cellPixels * m_zoom);
-        int scaledCellH = static_cast<int>(m_cellPixels * m_zoom / 2);
+        const int tileW = m_cellPixels;
+        const int tileH = m_cellPixels / 2;
 
-        int startSectorX = m_cameraX / scaledCellW;
-        int startSectorY = m_cameraY / scaledCellH;
-        int endSectorX = (m_cameraX + windowWidth) / scaledCellW + 1;
-        int endSectorY = (m_cameraY + windowHeight) / scaledCellH + 1;
+        if (m_cameraX < 0) m_cameraX = 0;
+        if (m_cameraY < 0) m_cameraY = 0;
 
-        // Clamp to map bounds
-        startSectorX = (startSectorX < 0) ? 0 : startSectorX;
-        startSectorY = (startSectorY < 0) ? 0 : startSectorY;
-        endSectorX = (endSectorX > m_zone->GetWidth()) ? m_zone->GetWidth() : endSectorX;
-        endSectorY = (endSectorY > m_zone->GetHeight()) ? m_zone->GetHeight() : endSectorY;
+        const int viewportX = m_cameraX / tileW;
+        const int viewportY = m_cameraY / tileH;
+        const int viewportWidth = (windowWidth / tileW) + 2;
+        const int viewportHeight = (windowHeight / tileH) + 2;
 
-        // Render visible tiles using TileRenderer + MZoneTileProvider
-        for (int y = startSectorY; y < endSectorY; y++) {
-            for (int x = startSectorX; x < endSectorX; x++) {
-                int screenX = x * scaledCellW - m_cameraX;
-                int screenY = y * scaledCellH - m_cameraY;
+        const int surfaceX = -(m_cameraX % tileW);
+        const int surfaceY = -(m_cameraY % tileH);
 
-                // Get sprite ID from MZone via MZoneTileProvider
-                int spriteID = m_tileProvider->GetSpriteID(x, y);
+        // Clear software surface and draw visible tiles.
+        m_tileRenderer->ClearSurface(0);
+        m_tileRenderer->DrawTiles(
+            m_tileProvider,
+            viewportX,
+            viewportY,
+            viewportWidth,
+            viewportHeight,
+            surfaceX,
+            surfaceY
+        );
 
-                // Draw tile using TileRenderer
-                if (spriteID >= 0) {
-                    POINT point = { screenX, screenY };
-                    m_tileRenderer->DrawTile(spriteID, &point, m_zoom);
-                }
-            }
-        }
-
-        // Present surface to screen
-        spritectl_surface_t surface = m_screenSurface->GetBackendSurface();
-        if (surface) {
-            spritectl_present_surface(surface, m_renderer);
-        }
-
+        // Present software surface to SDL renderer.
+        SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
+        SDL_RenderClear(m_renderer);
+        spritectl_present_surface(m_screenSurface->GetBackendSurface(), m_renderer);
         SDL_RenderPresent(m_renderer);
-
-        // Display info every 30 frames
-        static int frameCount = 0;
-        if (++frameCount % 30 == 0) {
-            std::cout << "\rZone: " << (const char*)m_zone->GetName()
-                      << " (" << m_zone->GetWidth() << "x" << m_zone->GetHeight() << ")"
-                      << " | Camera: (" << m_cameraX << ", " << m_cameraY << ")"
-                      << " | Zoom: " << static_cast<int>(m_zoom * 100) << "%"
-                      << "     " << std::flush;
-        }
     }
 
 private:
@@ -325,12 +426,21 @@ private:
     int m_cameraY;
     float m_zoom;
     bool m_running;
+    int m_frameCount;
+    bool m_initialized;
+    std::string m_mapFile;
+    std::string m_tileSpkFile;
+    std::string m_objSpkFile;
+    int m_windowWidth;
+    int m_windowHeight;
 };
 
 /**
  * Demo entry point
  */
 int main(int argc, char* argv[]) {
+    std::cout << "MAIN" << std::endl << std::flush;
+
     // Default paths for web demo
     static const char* default_args[] = {
         "DarkEdenWebDemo",
@@ -351,16 +461,24 @@ int main(int argc, char* argv[]) {
         std::cout << "  Objects: " << default_args[3] << std::endl;
         std::cout << std::endl;
     }
+    std::cout << "ARGS OK" << std::endl << std::flush;
 
     const char* mapFile = argv[1];
     const char* tileSpkFile = argv[2];
     const char* objSpkFile = (argc >= 4) ? argv[3] : nullptr;
 
+    std::cout << "CREATING VIEWER" << std::endl << std::flush;
     MapViewerDemo viewer;
+    viewer.SetInitParams(mapFile, tileSpkFile, objSpkFile, 800, 600);
+
+#ifndef __EMSCRIPTEN__
+    std::cout << "INIT" << std::endl << std::flush;
     if (!viewer.Initialize(mapFile, tileSpkFile, objSpkFile, 800, 600)) {
         std::cerr << "Failed to initialize viewer" << std::endl;
         return 1;
     }
+    std::cout << "INIT OK" << std::endl << std::flush;
+#endif
 
     std::cout << "\nControls:" << std::endl;
     std::cout << "  W/A/S/D or Arrow Keys - Pan camera" << std::endl;

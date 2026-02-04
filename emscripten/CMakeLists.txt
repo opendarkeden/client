@@ -103,9 +103,10 @@ if(EMSCRIPTEN)
         "SHELL:-s USE_SDL_IMAGE=2"
         "SHELL:-s WASM=1"
         "SHELL:-s ALLOW_MEMORY_GROWTH=1"
-        "SHELL:-s INITIAL_MEMORY=134217728"    # 128MB
+        "SHELL:-s ASSERTIONS=1"                # Enable assertions for better error messages
+        "SHELL:-s INITIAL_MEMORY=268435456"    # 256MB (increased from 128MB)
         "SHELL:-s MAX_WEBGL_VERSION=2"
-        "SHELL:-O3"                            # Optimization
-        "SHELL:--embed-file Data@/Data"        # Embed data directory
+        "SHELL:-g"                             # Debug mode (faster compile, debug symbols)
+        "SHELL:--preload-file Data@/Data"      # Preload game data files
     )
 endif()

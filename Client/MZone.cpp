@@ -213,30 +213,33 @@ MZone::MZone(TYPE_SECTORPOSITION width, TYPE_SECTORPOSITION height)
 	m_bZoneSoundLoaded = false;
 
 	DEBUG_ADD("Load HornInfo");
-	int zoneNum, portalNum;
-	UI_PORTAL_FLAG portal;
-	UI_PORTAL_LIST portalList;
 
-	ifstream hornInfoFile(g_pFileDef->getProperty("FILE_INFO_HORN").c_str(), ios::binary);
-	hornInfoFile.read((char *)&zoneNum, sizeof(int));
-	for(int zone = 0; zone < zoneNum; zone++)
-	{
-		hornInfoFile.read((char *)&portalNum, sizeof(int));
-		for(int p = 0; p < portalNum; p++)
+	// Skip horn loading if g_pFileDef is not initialized (e.g., in demo mode)
+	if (g_pFileDef != nullptr) {
+		int zoneNum, portalNum;
+		UI_PORTAL_FLAG portal;
+		UI_PORTAL_LIST portalList;
+
+		ifstream hornInfoFile(g_pFileDef->getProperty("FILE_INFO_HORN").c_str(), ios::binary);
+		hornInfoFile.read((char *)&zoneNum, sizeof(int));
+		for(int zone = 0; zone < zoneNum; zone++)
 		{
-			hornInfoFile.read((char *)&portal.zone_id, sizeof(int));
-			hornInfoFile.read((char *)&portal.x, sizeof(int));
-			hornInfoFile.read((char *)&portal.y, sizeof(int));
-			hornInfoFile.read((char *)&portal.portal_x, sizeof(int));
-			hornInfoFile.read((char *)&portal.portal_y, sizeof(int));
-			portalList.push_back(portal);
+			hornInfoFile.read((char *)&portalNum, sizeof(int));
+			for(int p = 0; p < portalNum; p++)
+			{
+				hornInfoFile.read((char *)&portal.zone_id, sizeof(int));
+				hornInfoFile.read((char *)&portal.x, sizeof(int));
+				hornInfoFile.read((char *)&portal.y, sizeof(int));
+				hornInfoFile.read((char *)&portal.portal_x, sizeof(int));
+				hornInfoFile.read((char *)&portal.portal_y, sizeof(int));
+				portalList.push_back(portal);
+			}
+			m_horn.push_back(portalList);
+			portalList.clear();
 		}
-		m_horn.push_back(portalList);
-		portalList.clear();
+		hornInfoFile.close();
+		DEBUG_ADD("Load HornInfo OK");
 	}
-	hornInfoFile.close();
-	DEBUG_ADD("Load HornInfo OK");
-
 }
 
 MZone::~MZone()
@@ -1029,6 +1032,15 @@ MZone::LoadFromFile(std::ifstream& file)
 		// ImageObject 개수를 Load
 		//-------------------------------------------------	
 		file.read((char *)&size, 4);
+
+#ifdef __EMSCRIPTEN__
+		extern bool g_demoSkipImageObjects;
+		if (g_demoSkipImageObjects)
+		{
+			printf("Web demo: skipping ImageObject load (count=%d)\n", size);
+			return true;
+		}
+#endif
 
 		//-------------------------------------------------
 		// Zone의 ImageObject들을 Load
@@ -3350,6 +3362,21 @@ MZone::SetImageObjectSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, TYPE
 {
 	IMAGEOBJECT_MAP::iterator	theIterator;
 
+	// Guard against corrupted/out-of-range coordinates (WASM traps on OOB).
+	if (sX >= m_Width || sY >= m_Height)
+	{
+#ifdef __EMSCRIPTEN__
+		static int s_badPosCount = 0;
+		if (s_badPosCount < 5)
+		{
+			printf("WARN: ImageObject position out of bounds: (%u,%u) size=%ux%u\n",
+				(unsigned)sX, (unsigned)sY, (unsigned)m_Width, (unsigned)m_Height);
+			s_badPosCount++;
+		}
+#endif
+		return;
+	}
+
 	// ID가 id인 ImageObject를 찾는다.
 	theIterator = m_mapImageObject.find(id);
 
@@ -3369,6 +3396,11 @@ MZone::SetImageObjectSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, TYPE
 void		
 MZone::UnSetImageObjectSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, TYPE_OBJECTID id)
 {
+	if (sX >= m_Width || sY >= m_Height)
+	{
+		return;
+	}
+
 	//-------------------------------------------------------
 	// (sX,sY) Sector에 ImageObject을 set한다.
 	//-------------------------------------------------------

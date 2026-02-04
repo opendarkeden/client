@@ -74,7 +74,7 @@ if(BUILD_ENGINE OR USE_SDL_BACKEND OR NOT WIN32)
 		# Emscripten provides SDL2 through its port system
 		message(STATUS "Emscripten build: SDL2 will be provided through linker flags")
 		# Add linker flags globally for all executables
-		add_link_options("-sUSE_SDL=2" "-sUSE_SDL_IMAGE=2")
+		add_link_options("-sUSE_SDL=2" "-sUSE_SDL_IMAGE=2" "-sUSE_SDL_TTF=2")
 		# Create interface targets for compatibility with empty link libraries
 		add_library(SDL2_interface INTERFACE IMPORTED)
 		add_library(SDL2_image_interface INTERFACE IMPORTED)
@@ -576,8 +576,12 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		TextSystem
 		SDL2::SDL2
 		SDL2::SDL2main
-		iconv
 	)
+
+	# Link iconv library (not needed for Emscripten - has stub implementations)
+	if(NOT EMSCRIPTEN)
+		target_link_libraries(DarkEden PRIVATE iconv)
+	endif()
 
 	# Link JPEG library if available
 	if(JPEG_LIBRARIES)

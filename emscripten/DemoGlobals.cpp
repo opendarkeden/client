@@ -115,3 +115,10 @@ EffectSpriteTypeTable* g_pEffectSpriteTypeTable = nullptr;
 CreatureTable* g_pCreatureTable = nullptr;
 class EffectGeneratorTable;
 EffectGeneratorTable* g_pEffectGeneratorTable = nullptr;
+
+//-----------------------------------------------------------------------------
+// Demo toggles
+//-----------------------------------------------------------------------------
+// Skip loading ImageObjects from map data in the web demo to reduce load time
+// and avoid out-of-range positions that crash in WASM.
+bool g_demoSkipImageObjects = true;
