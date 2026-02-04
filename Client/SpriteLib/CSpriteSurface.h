@@ -341,7 +341,7 @@ class CSpriteSurface {
  * Windows Backend: Original implementation inheriting from CDirectDrawSurface
  * ============================================================================ */
 
-#include "CDirectDrawSurface.h"
+// CDirectDraw include removed - using ColorDraw instead
 
 class CSpriteSurface : public CDirectDrawSurface {
 	public :
@@ -476,17 +476,17 @@ class CSpriteSurface : public CDirectDrawSurface {
 			int sr,sg,sb, dr,dg,db;
 
 			// ���� ���
-			sr = CDirectDraw::Red(pSource);
-			sg = CDirectDraw::Green(pSource);
-			sb = CDirectDraw::Blue(pSource);
+			sr = ColorDraw::Red(pSource);
+			sg = ColorDraw::Green(pSource);
+			sb = ColorDraw::Blue(pSource);
 
-			dr = CDirectDraw::Red(pDest);
-			dg = CDirectDraw::Green(pDest);
-			db = CDirectDraw::Blue(pDest);		
+			dr = ColorDraw::Red(pDest);
+			dg = ColorDraw::Green(pDest);
+			db = ColorDraw::Blue(pDest);		
 			
 			return ((s_Value1 * (sb - db) >> 5) + db |
-						((s_Value1 * (sg - dg) >> 5) + dg) << CDirectDraw::s_bSHIFT_G |
-						((s_Value1 * (sr - dr) >> 5) + dr) << CDirectDraw::s_bSHIFT_R);
+						((s_Value1 * (sg - dg) >> 5) + dg) << ColorDraw::s_bSHIFT_G |
+						((s_Value1 * (sr - dr) >> 5) + dr) << ColorDraw::s_bSHIFT_R);
 		}
 
 		// memcpy..()���� �̿��ϴ� ����

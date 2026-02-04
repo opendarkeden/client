@@ -11,8 +11,8 @@
 
 -----------------------------------------------------------------------------*/
 
-#ifndef	__CDIRECTDRAW_H__
-#define	__CDIRECTDRAW_H__
+#ifndef	__CSDLGRAPHICS_H__
+#define	__CSDLGRAPHICS_H__
 
 /* Cross-platform includes */
 #include "../basic/Platform.h"
@@ -136,12 +136,12 @@ typedef void* HBITMAP;
   NOTE: Most methods are stubs. Use SDL2 functions directly instead.
 -----------------------------------------------------------------------------*/
 
-class CDirectDraw
+class CSDLGraphics
 {
 public:
 	// Constructor/Destructor (not implemented - class is deprecated)
-	CDirectDraw();
-	~CDirectDraw();
+	CSDLGraphics();
+	~CSDLGraphics();
 
 	enum SCREENMODE { FULLSCREEN, WINDOWMODE };
 

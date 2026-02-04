@@ -15,7 +15,7 @@
 #define MSB		0x80
 
 /* Global instance */
-CDirectInput*	g_pDXInput = NULL;
+CSDLInput*	g_pSDLInput = NULL;
 
 /* Keep the original key name table - it's defined in the header */
 
@@ -26,7 +26,7 @@ CDirectInput*	g_pDXInput = NULL;
 #ifdef DXLIB_BACKEND_SDL
 
 /* Constructor */
-CDirectInput::CDirectInput()
+CSDLInput::CSDLInput()
 {
 	m_pDI				= NULL;
 	m_pMouse			= NULL;
@@ -47,13 +47,13 @@ CDirectInput::CDirectInput()
 }
 
 /* Destructor */
-CDirectInput::~CDirectInput()
+CSDLInput::~CSDLInput()
 {
 	FreeDirectInput();
 }
 
 /* Clear input state */
-void CDirectInput::Clear()
+void CSDLInput::Clear()
 {
 	for (int i=0; i<256; i++)
 	{
@@ -69,7 +69,7 @@ void CDirectInput::Clear()
 }
 
 /* Initialize using SDL backend */
-BOOL CDirectInput::Init(HWND hWnd, HINSTANCE hInst, E_EXCLUSIVE ex)
+BOOL CSDLInput::Init(HWND hWnd, HINSTANCE hInst, E_EXCLUSIVE ex)
 {
 	// Initialize SDL backend
 	if (dxlib_input_init(hWnd) != 0) {
@@ -85,7 +85,7 @@ BOOL CDirectInput::Init(HWND hWnd, HINSTANCE hInst, E_EXCLUSIVE ex)
 }
 
 /* Release SDL backend */
-void CDirectInput::FreeDirectInput()
+void CSDLInput::FreeDirectInput()
 {
 	dxlib_input_release();
 
@@ -95,7 +95,7 @@ void CDirectInput::FreeDirectInput()
 }
 
 /* Update input using SDL backend */
-void CDirectInput::UpdateInput()
+void CSDLInput::UpdateInput()
 {
 	// Update backend
 	dxlib_input_update();
@@ -201,7 +201,7 @@ void CDirectInput::UpdateInput()
 }
 
 /* Set acquire (SDL backend - no-op) */
-HRESULT CDirectInput::SetAcquire(bool active_app)
+HRESULT CSDLInput::SetAcquire(bool active_app)
 {
 	if (!m_pMouse || !m_pKeyboard)
 		return S_FALSE;
@@ -209,7 +209,7 @@ HRESULT CDirectInput::SetAcquire(bool active_app)
 }
 
 /* Set mouse position (SDL backend) */
-void CDirectInput::SetMousePosition(int x, int y)
+void CSDLInput::SetMousePosition(int x, int y)
 {
 	m_mouse_x = x;
 	m_mouse_y = y;
@@ -217,19 +217,19 @@ void CDirectInput::SetMousePosition(int x, int y)
 }
 
 /* Set mouse speed (SDL backend - stub) */
-void CDirectInput::SetMouseSpeed()
+void CSDLInput::SetMouseSpeed()
 {
 	// SDL backend uses system mouse settings
 }
 
 /* Get mouse acceleration (not applicable for SDL) */
-int CDirectInput::GetMouseAcceleration(int value)
+int CSDLInput::GetMouseAcceleration(int value)
 {
 	return value;
 }
 
 /* Set mouse move limit */
-void CDirectInput::SetMouseMoveLimit(int x, int y)
+void CSDLInput::SetMouseMoveLimit(int x, int y)
 {
 	m_mouse_x = 0;
 	m_mouse_y = 0;
@@ -240,20 +240,20 @@ void CDirectInput::SetMouseMoveLimit(int x, int y)
 }
 
 /* Set event receivers */
-void CDirectInput::SetMouseEventReceiver(void (*fp_receiver)(E_MOUSE_EVENT, int, int, int))
+void CSDLInput::SetMouseEventReceiver(void (*fp_receiver)(E_MOUSE_EVENT, int, int, int))
 {
 	m_fp_mouse_event_receiver = fp_receiver;
 }
 
-void CDirectInput::SetKeyboardEventReceiver(void (*fp_receiver)(E_KEYBOARD_EVENT, DWORD))
+void CSDLInput::SetKeyboardEventReceiver(void (*fp_receiver)(E_KEYBOARD_EVENT, DWORD))
 {
 	m_fp_keyboard_event_receiver = fp_receiver;
 }
 
 /* Stub implementations for unused methods */
-void CDirectInput::OnMouseInput() { /* Handled in UpdateInput */ }
-void CDirectInput::OnKeyboardInput() { /* Handled in UpdateInput */ }
-HRESULT CDirectInput::InitDI(HWND hWnd, HINSTANCE hInst, E_EXCLUSIVE ex) { 
+void CSDLInput::OnMouseInput() { /* Handled in UpdateInput */ }
+void CSDLInput::OnKeyboardInput() { /* Handled in UpdateInput */ }
+HRESULT CSDLInput::InitDI(HWND hWnd, HINSTANCE hInst, E_EXCLUSIVE ex) { 
 	return Init(hWnd, hInst, ex) ? S_OK : S_FALSE; 
 }
 

@@ -13,7 +13,7 @@
 #include "DXLibBackend.h"
 
 /* Global instance */
-CDirectSound	g_DXSound;
+CDirectSound	g_SDLAudio;
 
 /*=============================================================================
  * SDL Backend Implementation
@@ -32,7 +32,7 @@ struct SoundBufferWrapper {
 };
 
 /* Constructor */
-CDirectSound::CDirectSound()
+CSDLAudio::CDirectSound()
 {
 	m_pDS = NULL;
 	m_bInit = false;
@@ -42,13 +42,13 @@ CDirectSound::CDirectSound()
 }
 
 /* Destructor */
-CDirectSound::~CDirectSound()
+CSDLAudio::~CDirectSound()
 {
 	Release();
 }
 
 /* Initialize SDL backend */
-bool CDirectSound::Init(HWND hWnd)
+bool CSDLAudio::Init(HWND hWnd)
 {
 	if (dxlib_sound_init(hWnd) != 0) {
 		return false;
@@ -60,7 +60,7 @@ bool CDirectSound::Init(HWND hWnd)
 }
 
 /* Release SDL backend */
-void CDirectSound::Release()
+void CSDLAudio::Release()
 {
 	// Release all duplicated buffers
 	ReleaseDuplicateBuffer();
@@ -73,7 +73,7 @@ void CDirectSound::Release()
 }
 
 /* Release all duplicated buffers */
-void CDirectSound::ReleaseDuplicateBuffer()
+void CSDLAudio::ReleaseDuplicateBuffer()
 {
 	for (LPDIRECTSOUNDBUFFER_LIST::iterator it = m_listDuplicatedBuffer.begin();
 		it != m_listDuplicatedBuffer.end(); ++it)
@@ -88,7 +88,7 @@ void CDirectSound::ReleaseDuplicateBuffer()
 }
 
 /* Load WAV file */
-LPDIRECTSOUNDBUFFER CDirectSound::LoadWav(LPSTR filename)
+LPDIRECTSOUNDBUFFER CSDLAudio::LoadWav(LPSTR filename)
 {
 	if (!m_bInit) return NULL;
 
@@ -110,7 +110,7 @@ LPDIRECTSOUNDBUFFER CDirectSound::LoadWav(LPSTR filename)
 }
 
 /* Create sound buffer from raw data */
-LPDIRECTSOUNDBUFFER CDirectSound::CreateBuffer(LPVOID sdat, DWORD size, DWORD caps, LPWAVEFORMATEX wfx)
+LPDIRECTSOUNDBUFFER CSDLAudio::CreateBuffer(LPVOID sdat, DWORD size, DWORD caps, LPWAVEFORMATEX wfx)
 {
 	if (!m_bInit) return NULL;
 
@@ -139,7 +139,7 @@ LPDIRECTSOUNDBUFFER CDirectSound::CreateBuffer(LPVOID sdat, DWORD size, DWORD ca
 }
 
 /* Release sound buffer */
-void CDirectSound::Release(LPDIRECTSOUNDBUFFER buffer)
+void CSDLAudio::Release(LPDIRECTSOUNDBUFFER buffer)
 {
 	if (!buffer) return;
 
@@ -149,7 +149,7 @@ void CDirectSound::Release(LPDIRECTSOUNDBUFFER buffer)
 }
 
 /* Duplicate sound buffer */
-LPDIRECTSOUNDBUFFER CDirectSound::DuplicateSoundBuffer(LPDIRECTSOUNDBUFFER buffer, bool bAutoRelease)
+LPDIRECTSOUNDBUFFER CSDLAudio::DuplicateSoundBuffer(LPDIRECTSOUNDBUFFER buffer, bool bAutoRelease)
 {
 	if (!buffer) return NULL;
 
@@ -179,7 +179,7 @@ LPDIRECTSOUNDBUFFER CDirectSound::DuplicateSoundBuffer(LPDIRECTSOUNDBUFFER buffe
 }
 
 /* Check if sound is playing */
-bool CDirectSound::IsPlay(LPDIRECTSOUNDBUFFER buffer) const
+bool CSDLAudio::IsPlay(LPDIRECTSOUNDBUFFER buffer) const
 {
 	if (!buffer) return false;
 
@@ -188,7 +188,7 @@ bool CDirectSound::IsPlay(LPDIRECTSOUNDBUFFER buffer) const
 }
 
 /* Play sound (restart if already playing) */
-bool CDirectSound::NewPlay(LPDIRECTSOUNDBUFFER buffer, bool bLoop)
+bool CSDLAudio::NewPlay(LPDIRECTSOUNDBUFFER buffer, bool bLoop)
 {
 	if (!buffer) return false;
 	if (m_bMute) return false;
@@ -209,7 +209,7 @@ bool CDirectSound::NewPlay(LPDIRECTSOUNDBUFFER buffer, bool bLoop)
 }
 
 /* Play sound (allow simultaneous playback) */
-bool CDirectSound::Play(LPDIRECTSOUNDBUFFER buffer, bool bLoop, bool bDuplicate)
+bool CSDLAudio::Play(LPDIRECTSOUNDBUFFER buffer, bool bLoop, bool bDuplicate)
 {
 	if (!buffer) return false;
 	if (m_bMute) return false;
@@ -233,7 +233,7 @@ bool CDirectSound::Play(LPDIRECTSOUNDBUFFER buffer, bool bLoop, bool bDuplicate)
 }
 
 /* Stop sound */
-bool CDirectSound::Stop(LPDIRECTSOUNDBUFFER buffer)
+bool CSDLAudio::Stop(LPDIRECTSOUNDBUFFER buffer)
 {
 	if (!buffer) return false;
 
@@ -242,7 +242,7 @@ bool CDirectSound::Stop(LPDIRECTSOUNDBUFFER buffer)
 }
 
 /* Release terminated duplicate buffers */
-void CDirectSound::ReleaseTerminatedDuplicateBuffer()
+void CSDLAudio::ReleaseTerminatedDuplicateBuffer()
 {
 	LPDIRECTSOUNDBUFFER_LIST::iterator it = m_listDuplicatedBuffer.begin();
 	while (it != m_listDuplicatedBuffer.end()) {
@@ -258,7 +258,7 @@ void CDirectSound::ReleaseTerminatedDuplicateBuffer()
 }
 
 /* Set max volume */
-bool CDirectSound::SetMaxVolume(LPDIRECTSOUNDBUFFER buffer)
+bool CSDLAudio::SetMaxVolume(LPDIRECTSOUNDBUFFER buffer)
 {
 	if (!buffer) return false;
 
@@ -268,7 +268,7 @@ bool CDirectSound::SetMaxVolume(LPDIRECTSOUNDBUFFER buffer)
 }
 
 /* Add volume */
-bool CDirectSound::AddVolume(LPDIRECTSOUNDBUFFER buffer, int amount)
+bool CSDLAudio::AddVolume(LPDIRECTSOUNDBUFFER buffer, int amount)
 {
 	if (!buffer) return false;
 
@@ -283,7 +283,7 @@ bool CDirectSound::AddVolume(LPDIRECTSOUNDBUFFER buffer, int amount)
 }
 
 /* Subtract volume */
-bool CDirectSound::SubVolume(LPDIRECTSOUNDBUFFER buffer, int amount)
+bool CSDLAudio::SubVolume(LPDIRECTSOUNDBUFFER buffer, int amount)
 {
 	if (!buffer) return false;
 
@@ -297,7 +297,7 @@ bool CDirectSound::SubVolume(LPDIRECTSOUNDBUFFER buffer, int amount)
 }
 
 /* Subtract volume from max */
-bool CDirectSound::SubVolumeFromMax(LPDIRECTSOUNDBUFFER buffer, int amount)
+bool CSDLAudio::SubVolumeFromMax(LPDIRECTSOUNDBUFFER buffer, int amount)
 {
 	if (!buffer) return false;
 
@@ -312,7 +312,7 @@ bool CDirectSound::SubVolumeFromMax(LPDIRECTSOUNDBUFFER buffer, int amount)
 }
 
 /* Set volume limit */
-void CDirectSound::SetVolumeLimit(LONG volume)
+void CSDLAudio::SetVolumeLimit(LONG volume)
 {
 	m_MaxVolume = volume;
 	if (m_MaxVolume > 100) m_MaxVolume = 100;
@@ -320,56 +320,56 @@ void CDirectSound::SetVolumeLimit(LONG volume)
 }
 
 /* Add frequency (not supported in SDL backend) */
-bool CDirectSound::AddFrequency(LPDIRECTSOUNDBUFFER buffer, int amount)
+bool CSDLAudio::AddFrequency(LPDIRECTSOUNDBUFFER buffer, int amount)
 {
 	// SDL_mixer does not support frequency adjustment
 	return false;
 }
 
 /* Subtract frequency (not supported in SDL backend) */
-bool CDirectSound::SubFrequency(LPDIRECTSOUNDBUFFER buffer, int amount)
+bool CSDLAudio::SubFrequency(LPDIRECTSOUNDBUFFER buffer, int amount)
 {
 	// SDL_mixer does not support frequency adjustment
 	return false;
 }
 
 /* Pan right (not supported in SDL backend) */
-bool CDirectSound::RightPan(LPDIRECTSOUNDBUFFER buffer, int amount)
+bool CSDLAudio::RightPan(LPDIRECTSOUNDBUFFER buffer, int amount)
 {
 	// SDL_mixer does not support pan control
 	return false;
 }
 
 /* Pan left (not supported in SDL backend) */
-bool CDirectSound::LeftPan(LPDIRECTSOUNDBUFFER buffer, int amount)
+bool CSDLAudio::LeftPan(LPDIRECTSOUNDBUFFER buffer, int amount)
 {
 	// SDL_mixer does not support pan control
 	return false;
 }
 
 /* Pan from center to right (not supported in SDL backend) */
-bool CDirectSound::CenterToRightPan(LPDIRECTSOUNDBUFFER buffer, int amount)
+bool CSDLAudio::CenterToRightPan(LPDIRECTSOUNDBUFFER buffer, int amount)
 {
 	// SDL_mixer does not support pan control
 	return false;
 }
 
 /* Pan from center to left (not supported in SDL backend) */
-bool CDirectSound::CenterToLeftPan(LPDIRECTSOUNDBUFFER buffer, int amount)
+bool CSDLAudio::CenterToLeftPan(LPDIRECTSOUNDBUFFER buffer, int amount)
 {
 	// SDL_mixer does not support pan control
 	return false;
 }
 
 /* Center pan (not supported in SDL backend) */
-bool CDirectSound::CenterPan(LPDIRECTSOUNDBUFFER buffer)
+bool CSDLAudio::CenterPan(LPDIRECTSOUNDBUFFER buffer)
 {
 	// SDL_mixer does not support pan control
 	return false;
 }
 
 /* Change pan (not supported in SDL backend) */
-bool CDirectSound::ChangePan(LPDIRECTSOUNDBUFFER buffer, int pan)
+bool CSDLAudio::ChangePan(LPDIRECTSOUNDBUFFER buffer, int pan)
 {
 	// SDL_mixer does not support pan control
 	// Pan range: -10000 to 10000 (DirectX) vs -100 to 100 (our backend)

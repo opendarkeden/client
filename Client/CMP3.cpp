@@ -63,7 +63,7 @@
 //	DEBUG_ADD("[CMP3] Release TerminateThread OK");
 //	if ( mp3 ) { /*MP3_Close(mp3) ;*/ mp3 = NULL ;} ;
 //	DEBUG_ADD("[CMP3] Release MP3Close OK");
-//	if ( mp3Buf ) { g_DXSound.Release(mp3Buf) ; mp3Buf = NULL; } ;
+//	if ( mp3Buf ) { g_SDLAudio.Release(mp3Buf) ; mp3Buf = NULL; } ;
 //	DEBUG_ADD("[CMP3] Release mp3buf Release OK");
 //}
 //
@@ -100,7 +100,7 @@
 //
 ////	if(mp3Buf != NULL)
 ////	{
-////		g_DXSound.Release(mp3Buf) ; mp3Buf = NULL;
+////		g_SDLAudio.Release(mp3Buf) ; mp3Buf = NULL;
 ////	}
 //
 //	DEBUG_ADD("[CMP3] MP3_CreateDSBuffer");
@@ -140,7 +140,7 @@
 ////		Sleep(1000);
 ////	}
 //
-//	g_DXSound.Play ( mp3Buf, false, false ) ;
+//	g_SDLAudio.Play ( mp3Buf, false, false ) ;
 //
 //	BOOL bEnd = FALSE ;
 //	DWORD status ;
@@ -171,7 +171,7 @@
 //
 ////	DEBUG_ADD("[CMP3] Release mp3buf inPlayMP3Buf");
 ////	mp3Buf = NULL;
-////	if ( mp3Buf ) { g_DXSound.Release(mp3Buf) ; mp3Buf = NULL; } ;
+////	if ( mp3Buf ) { g_SDLAudio.Release(mp3Buf) ; mp3Buf = NULL; } ;
 ////	DEBUG_ADD("[CMP3] Release mp3buf inPlayMP3Buf OK");
 //	// DS_Release(mp3Buf) ;
 ////	mp3Buf = NULL ;
@@ -244,7 +244,7 @@
 //
 //void CMP3::Stop()
 //{
-////	g_DXSound.Stop(mp3Buf);
+////	g_SDLAudio.Stop(mp3Buf);
 ////	Release();
 //	m_status = STATUS_STOP;
 //	if(mp3Buf != NULL)mp3Buf->Stop();
@@ -258,17 +258,17 @@
 //	{
 ////		LONG volume = volume*SOUND_DEGREE + SOUND_MIN;
 //		
-//		LONG maxVolume = g_DXSound.GetVolumeLimit();
+//		LONG maxVolume = g_SDLAudio.GetVolumeLimit();
 //		
-//		g_DXSound.SetVolumeLimit( volume );
-//		g_DXSound.AddVolume( mp3Buf, 0 );
+//		g_SDLAudio.SetVolumeLimit( volume );
+//		g_SDLAudio.AddVolume( mp3Buf, 0 );
 //		
 //		// 원래의 max volume으로 돌린다.
-//		g_DXSound.SetVolumeLimit( maxVolume );
+//		g_SDLAudio.SetVolumeLimit( maxVolume );
 //		mp3Buf->SetVolume(volume);
 //	}
 //	DEBUG_ADD("[CMP3] SetVolume OK");
-////	g_DXSound.SetVolumeLimit(volume);
+////	g_SDLAudio.SetVolumeLimit(volume);
 //}
 
 #ifdef PLATFORM_WINDOWS

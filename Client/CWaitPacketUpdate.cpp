@@ -17,10 +17,10 @@ void
 CWaitPacketUpdate::Init()
 {
 	// mouse event 처리
-	g_pDXInput->SetMouseEventReceiver( NULL );
+	g_pSDLInput->SetMouseEventReceiver( NULL );
 
 	// keyboard event 처리
-	g_pDXInput->SetKeyboardEventReceiver( NULL );
+	g_pSDLInput->SetKeyboardEventReceiver( NULL );
 }
 
 
@@ -49,11 +49,11 @@ CWaitPacketUpdate::Update()
 	//------------------------------------------
 	// Sound Stream
 	//------------------------------------------
-//	if (g_pDXSoundStream!=NULL)
+//	if (g_pSDLStream!=NULL)
 //	{
 //		//DEBUG_ADD("[WaitPacketUpdate] SoundStream");
 //
-//		g_pDXSoundStream->Update();
+//		g_pSDLStream->Update();
 //	}
 
 	//------------------------------------------

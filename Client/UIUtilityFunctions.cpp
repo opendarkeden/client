@@ -98,8 +98,8 @@ void ReduceString3(char* pStr, int maxWidth)
 void UpdateInput()
 {
     // Update DirectInput state (mouse buttons, keyboard, etc.)
-    if (g_pDXInput) {
-        g_pDXInput->UpdateInput();
+    if (g_pSDLInput) {
+        g_pSDLInput->UpdateInput();
     }
 }
 

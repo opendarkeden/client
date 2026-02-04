@@ -15,9 +15,9 @@
 
 #define MSB		0x80
 
-CDirectInput*	g_pDXInput = NULL;
+CSDLInput*	g_pSDLInput = NULL;
 
-const char*		CDirectInput::s_KeyName[256] = 
+const char*		CSDLInput::s_KeyName[256] = 
 { 	
 	"NULL",		// 0x00
 	"ESCAPE",	//0x01e
@@ -246,7 +246,7 @@ NULL, // 0xda
 - GetMouseAcceleration
 - SystemParametersInfo()로 얻은 Mouse 정보를 가지고 Mouse 가속값을 얻는다.
 -----------------------------------------------------------------------------*/
-int CDirectInput::GetMouseAcceleration(int value)
+int CSDLInput::GetMouseAcceleration(int value)
 {
 	//
 	// 제어판에서 변경할 수 있는 Mouse 속도 설정은 7단계이다.
@@ -283,7 +283,7 @@ int CDirectInput::GetMouseAcceleration(int value)
 - SetMouseSpeed
 - 제어판에 설정된 Mouse 속도를 반영한다.
 -----------------------------------------------------------------------------*/
-void CDirectInput::SetMouseSpeed()
+void CSDLInput::SetMouseSpeed()
 {
 	//
 	// m_mouse_info는 three integer array이다.
@@ -303,7 +303,7 @@ void CDirectInput::SetMouseSpeed()
 
   `일반적으로 이 값은 screen size이다.
 -----------------------------------------------------------------------------*/
-void CDirectInput::SetMouseMoveLimit(int x, int y)
+void CSDLInput::SetMouseMoveLimit(int x, int y)
 {
 	// init
 	m_mouse_x = 0;
@@ -318,7 +318,7 @@ void CDirectInput::SetMouseMoveLimit(int x, int y)
 Mouse 위치를 강제로 설정
 -----------------------------------------------------------------------------*/
 void		
-CDirectInput::SetMousePosition(int x, int y)
+CSDLInput::SetMousePosition(int x, int y)
 {
 	m_mouse_x = x;
 	m_mouse_y = y;
@@ -328,7 +328,7 @@ CDirectInput::SetMousePosition(int x, int y)
 - UpdateInput
 - Device polling.
 -----------------------------------------------------------------------------*/
-void CDirectInput::UpdateInput()
+void CSDLInput::UpdateInput()
 {
 	OnMouseInput();
 	OnKeyboardInput();
@@ -338,7 +338,7 @@ void CDirectInput::UpdateInput()
 - SetMouseEventReceiver
 -
 -----------------------------------------------------------------------------*/
-void CDirectInput::SetMouseEventReceiver(void (*fp_receiver)(E_MOUSE_EVENT, int, int, int))
+void CSDLInput::SetMouseEventReceiver(void (*fp_receiver)(E_MOUSE_EVENT, int, int, int))
 {
 	m_fp_mouse_event_receiver = fp_receiver;
 }
@@ -347,7 +347,7 @@ void CDirectInput::SetMouseEventReceiver(void (*fp_receiver)(E_MOUSE_EVENT, int,
 - SetMouseEventReceiver
 -
 -----------------------------------------------------------------------------*/
-void CDirectInput::SetKeyboardEventReceiver(void (*fp_receiver)(E_KEYBOARD_EVENT, DWORD))
+void CSDLInput::SetKeyboardEventReceiver(void (*fp_receiver)(E_KEYBOARD_EVENT, DWORD))
 {
 	m_fp_keyboard_event_receiver = fp_receiver;
 }
@@ -356,7 +356,7 @@ void CDirectInput::SetKeyboardEventReceiver(void (*fp_receiver)(E_KEYBOARD_EVENT
 - OnKeyboardInput
 -
 -----------------------------------------------------------------------------*/
-void CDirectInput::OnKeyboardInput()
+void CSDLInput::OnKeyboardInput()
 {
     if (m_pKeyboard)
     {
@@ -419,7 +419,7 @@ void CDirectInput::OnKeyboardInput()
 
 				if (m_fp_keyboard_event_receiver)
 				{
-					m_fp_keyboard_event_receiver(CDirectInput::KEYDOWN, key);
+					m_fp_keyboard_event_receiver(CSDLInput::KEYDOWN, key);
 				}
 			}
 			else
@@ -427,7 +427,7 @@ void CDirectInput::OnKeyboardInput()
 				m_key[key] = FALSE;
 				if (m_fp_keyboard_event_receiver)
 				{
-					m_fp_keyboard_event_receiver(CDirectInput::KEYUP, key);
+					m_fp_keyboard_event_receiver(CSDLInput::KEYUP, key);
 				}
 			}
 		}
@@ -438,7 +438,7 @@ void CDirectInput::OnKeyboardInput()
 - OnMouseInput
 -
 -----------------------------------------------------------------------------*/
-void CDirectInput::OnMouseInput()
+void CSDLInput::OnMouseInput()
 {
     BOOL                bDone;
     DIDEVICEOBJECTDATA  od;
@@ -604,7 +604,7 @@ void CDirectInput::OnMouseInput()
 						m_mouse_x = m_limit_x;
 
 					if (m_fp_mouse_event_receiver)
-						m_fp_mouse_event_receiver(CDirectInput::MOVE, m_mouse_x, m_mouse_y, m_mouse_z);
+						m_fp_mouse_event_receiver(CSDLInput::MOVE, m_mouse_x, m_mouse_y, m_mouse_z);
                 break;
 
             case DIMOFS_Y:  // Mouse vertical motion 
@@ -617,7 +617,7 @@ void CDirectInput::OnMouseInput()
 						m_mouse_y = m_limit_y;
 
 					if (m_fp_mouse_event_receiver)
-						m_fp_mouse_event_receiver(CDirectInput::MOVE, m_mouse_x, m_mouse_y, m_mouse_z);
+						m_fp_mouse_event_receiver(CSDLInput::MOVE, m_mouse_x, m_mouse_y, m_mouse_z);
                 break;
 
             case DIMOFS_Z:       // Mouse vertical motion 
@@ -626,9 +626,9 @@ void CDirectInput::OnMouseInput()
 					{
 						// m_mouse_z을 변환해서 넘겨줄까?
 						if ((int)od.dwData < 0)
-							m_fp_mouse_event_receiver(CDirectInput::WHEELDOWN, m_mouse_x, m_mouse_y, m_mouse_z);
+							m_fp_mouse_event_receiver(CSDLInput::WHEELDOWN, m_mouse_x, m_mouse_y, m_mouse_z);
 						else
-							m_fp_mouse_event_receiver(CDirectInput::WHEELUP, m_mouse_x, m_mouse_y, m_mouse_z);
+							m_fp_mouse_event_receiver(CSDLInput::WHEELUP, m_mouse_x, m_mouse_y, m_mouse_z);
 					}
                 break;
 
@@ -642,14 +642,14 @@ void CDirectInput::OnMouseInput()
 						{ 
 								m_lb_down = TRUE;
 								if (m_fp_mouse_event_receiver)
-									m_fp_mouse_event_receiver(CDirectInput::LEFTDOWN, m_mouse_x, m_mouse_y, m_mouse_z);
+									m_fp_mouse_event_receiver(CSDLInput::LEFTDOWN, m_mouse_x, m_mouse_y, m_mouse_z);
 						}
 						  else
 						  {
 								//m_lb_down = FALSE;
 								m_lb_up = TRUE;
 								if (m_fp_mouse_event_receiver)
-									m_fp_mouse_event_receiver(CDirectInput::LEFTUP, m_mouse_x, m_mouse_y, m_mouse_z);
+									m_fp_mouse_event_receiver(CSDLInput::LEFTUP, m_mouse_x, m_mouse_y, m_mouse_z);
 						  }
                 }
 
@@ -661,14 +661,14 @@ void CDirectInput::OnMouseInput()
                     {  
 							m_rb_down = TRUE;
 							if (m_fp_mouse_event_receiver)
-								m_fp_mouse_event_receiver(CDirectInput::RIGHTDOWN, m_mouse_x, m_mouse_y, m_mouse_z);
+								m_fp_mouse_event_receiver(CSDLInput::RIGHTDOWN, m_mouse_x, m_mouse_y, m_mouse_z);
 					}
 					  else
 					  {
 							//m_rb_down = FALSE;
 							m_rb_up = TRUE;
 							if (m_fp_mouse_event_receiver)
-								m_fp_mouse_event_receiver(CDirectInput::RIGHTUP, m_mouse_x, m_mouse_y, m_mouse_z);
+								m_fp_mouse_event_receiver(CSDLInput::RIGHTUP, m_mouse_x, m_mouse_y, m_mouse_z);
 					  }
                 }
 
@@ -680,14 +680,14 @@ void CDirectInput::OnMouseInput()
 					  {  
 							m_cb_down = TRUE;
 								if (m_fp_mouse_event_receiver)
-									m_fp_mouse_event_receiver(CDirectInput::CENTERDOWN, m_mouse_x, m_mouse_y, m_mouse_z);
+									m_fp_mouse_event_receiver(CSDLInput::CENTERDOWN, m_mouse_x, m_mouse_y, m_mouse_z);
 					  }
 					  else
 					  {
 						  //m_cb_down = FALSE;
 						  m_cb_up = TRUE;
 								if (m_fp_mouse_event_receiver)
-									m_fp_mouse_event_receiver(CDirectInput::CENTERUP, m_mouse_x, m_mouse_y, m_mouse_z);
+									m_fp_mouse_event_receiver(CSDLInput::CENTERUP, m_mouse_x, m_mouse_y, m_mouse_z);
 					  }
 
 					  bDone = TRUE;
@@ -700,7 +700,7 @@ void CDirectInput::OnMouseInput()
 - FreeDirectInput
 -
 -----------------------------------------------------------------------------*/
-void CDirectInput::FreeDirectInput()
+void CSDLInput::FreeDirectInput()
 {
     // Unacquire and release any DirectInputDevice objects.
     if ( m_pMouse ) 
@@ -735,7 +735,7 @@ void CDirectInput::FreeDirectInput()
 - CDirectInput
 -
 -----------------------------------------------------------------------------*/
-CDirectInput::CDirectInput()
+CSDLInput::CSDLInput()
 {
 	m_pDI				= NULL;
 	m_pMouse			= NULL;
@@ -759,7 +759,7 @@ CDirectInput::CDirectInput()
 - ~CDirectInput
 -
 -----------------------------------------------------------------------------*/
-CDirectInput::~CDirectInput()
+CSDLInput::~CSDLInput()
 {
 	FreeDirectInput();
 }
@@ -768,7 +768,7 @@ CDirectInput::~CDirectInput()
 - SetAcquire
 - Set DirectInput acquire.
 -----------------------------------------------------------------------------*/
-HRESULT CDirectInput::SetAcquire(bool active_app)
+HRESULT CSDLInput::SetAcquire(bool active_app)
 {
    // nothing to do if m_pMouse is NULL 
 	if (m_pMouse)
@@ -817,7 +817,7 @@ HRESULT CDirectInput::SetAcquire(bool active_app)
 // Input값을 초기화 시킨다.
 //------------------------------------------------------------------------
 void
-CDirectInput::Clear()
+CSDLInput::Clear()
 {
 	for (int i=0; i<256; i++)
 	{
@@ -839,7 +839,7 @@ CDirectInput::Clear()
   `DirectDraw를 사용하지 않고 DirectInput만 사용할 수 있으므로 Window handle을 
    인자로 받는다. 곧, hWnd에 독점 DirectInput를 사용한다.
 -----------------------------------------------------------------------------*/
-HRESULT CDirectInput::InitDI(HWND hWnd, HINSTANCE hInst, E_EXCLUSIVE ex)
+HRESULT CSDLInput::InitDI(HWND hWnd, HINSTANCE hInst, E_EXCLUSIVE ex)
 {
     HRESULT hr;
 
@@ -953,7 +953,7 @@ HRESULT CDirectInput::InitDI(HWND hWnd, HINSTANCE hInst, E_EXCLUSIVE ex)
 - Init
 -
 -----------------------------------------------------------------------------*/
-BOOL CDirectInput::Init(HWND hWnd, HINSTANCE hInst, E_EXCLUSIVE ex)
+BOOL CSDLInput::Init(HWND hWnd, HINSTANCE hInst, E_EXCLUSIVE ex)
 {
 	if (InitDI(hWnd, hInst, ex) == S_OK)
 	{

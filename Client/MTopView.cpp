@@ -319,7 +319,7 @@ MTopView::MTopView()
 
 	//m_SelectSector.x = 0;
 	//m_SelectSector.y = 0;
-	
+
 	// ½Ã¾ß
 	m_DarkBits = 0;
 
@@ -401,10 +401,10 @@ MTopView::Init()
 	DWORD dwFree;
 	ZeroMemory(&ddsCaps2, sizeof(ddsCaps2)); 
 	ddsCaps2.dwCaps = DDSCAPS_TEXTURE; 
-	HRESULT hr = CDirectDraw::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
+	HRESULT hr = CSDLGraphics::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
 
 	DEBUG_ADD_FORMAT("[TextureMemory] Before Init View = %d/%d", dwFree, dwTotal);
-	
+
 	//------------------------------------------
 	// ÀûÀýÇÑ effect texture°³¼ö
 	//------------------------------------------
@@ -416,7 +416,7 @@ MTopView::Init()
 	if (freeMemory < 0) freeMemory = 0;
 
 	int num = freeMemory / 20000 / 12;   	
-	
+
 	num = max(num, 30);	// 30º¸´Ù´Â Ä¿¾ßÇÑ´Ù.
 	num = min(num, 60);	// 60ÀÌ ÃÖ°í´Ù.
 #else
@@ -424,7 +424,7 @@ MTopView::Init()
 	int num = 30;  // Default number of effect textures
 	DEBUG_ADD("[TextureMemory] Using default value for macOS");
 #endif
-	
+
 	//num = 20;
 
 	// Àç¼³Á¤.. - -;
@@ -468,18 +468,18 @@ MTopView::Init()
 			DWORD dwFree;
 			ZeroMemory(&ddsCaps2, sizeof(ddsCaps2)); 
 			ddsCaps2.dwCaps = DDSCAPS_TEXTURE; 
-			HRESULT hr = CDirectDraw::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
+			HRESULT hr = CSDLGraphics::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
 
 			DEBUG_ADD_FORMAT("[TextureMemory] After Init View = %d/%d", dwFree, dwTotal);			
 		#endif
 
 		m_bInit = true;
-		
+
 		PrecalculateAdvancementClassCreatureFrames();
 
 		return true;
 	}
-	
+
 	return false;
 }
 
@@ -536,7 +536,7 @@ MTopView::InitChanges()
 
 		return true;
 	}
-	
+
 	return false;
 }
 
@@ -602,7 +602,7 @@ MTopView::Release()
 
 		DEBUG_ADD("MTV-Rel-TileRenderer");
 	}
-	
+
 #ifdef __3D_IMAGE_OBJECT__
 	SAFE_DELETE( m_pImageObjectTextureManager );
 #endif
@@ -642,7 +642,7 @@ MTopView::Release()
 //	// Minimap
 //	//----------------------------------------------------------------------
 //
-	
+
 
 	//----------------------------------------------------------------------
 	// 2D Light Pixel
@@ -708,13 +708,13 @@ MTopView::Release()
 	m_EffectScreenFPK.Release();
 	m_EffectShadowFPK.Release();		// Effect¿¡ ´ëÇÑ frames
 	m_EffectNormalFPK.Release();		// Effect¿¡ ´ëÇÑ frames
-		
+
 	DEBUG_ADD("MTV-Rel-CFPK");
 
 	m_CreatureShadowFPK.Release();			// Creature frames
 	m_AddonShadowFPK.Release();			// Player addon frames	
 	m_OustersShadowFPK.Release();			// Player addon frames	
-		
+
 	//------------------------------------------------------
 	// SpritePack Á¦°Å
 	//------------------------------------------------------		
@@ -726,7 +726,7 @@ MTopView::Release()
 	m_CreatureSPK.Release();			// Creature Spriteµé
 	m_AddonSPK.Release();		// Spriteµé		
 	m_OustersSPK.Release();
-	
+
 	DEBUG_ADD("MTV-Rel-ItemSPK");
 
 	m_ItemTileISPK.Release();			// Spriteµé		
@@ -899,7 +899,7 @@ MTopView::RestoreSurface()
 
 	//for (int i=0; i<4; i++)
 	{
-		CDirectDraw::RestoreAllSurfaces();
+		CSDLGraphics::RestoreAllSurfaces();
 
 #ifdef PLATFORM_WINDOWS
 		if (true)
@@ -919,7 +919,7 @@ MTopView::RestoreSurface()
 		}
 #endif
 
-	//	CDirectDraw::Flip();
+	//	CSDLGraphics::Flip();
 	}
 
 	if (m_pSurface!=NULL)
@@ -931,10 +931,10 @@ MTopView::RestoreSurface()
 	{
 		m_pTileSurface->Restore();
 	}
-	
+
 	// ¸ðµÎ ´Ù½Ã ±×·ÁÁØ´Ù.
 	//m_bFirstTileDraw = true;
-	
+
 	ClearOutputCreature();
 
 	ClearItemNameList();
@@ -951,7 +951,7 @@ MTopView::RestoreSurface()
 		// Part Manager
 		//------------------------------------------------------------
 		DEBUG_ADD("Restore Surfaces - m_pAlphaEffectTextureManager");
-		
+
 #ifdef __3D_IMAGE_OBJECT__
 //		if( m_pImageObjectTextureManager != NULL )
 //			m_pImageObjectTextureManager->Clear();
@@ -959,7 +959,7 @@ MTopView::RestoreSurface()
 
 //
 
-		
+
 //
 //
 //		
@@ -968,7 +968,7 @@ MTopView::RestoreSurface()
 		// Light Buffer Texture
 		//------------------------------------------------------------
 		DEBUG_ADD("Restore Surfaces - m_pLightBufferTexture");
-		
+
 		InitFilters();
 			/*
 		if (m_pLightBufferTexture!=NULL)
@@ -987,7 +987,7 @@ MTopView::RestoreSurface()
 		// 3DBox Surface
 		//------------------------------------------------------------
 		DEBUG_ADD("Restore Surfaces - m_p3DBoxSurface");
-		
+
 //
 //
 //		
@@ -1051,7 +1051,7 @@ MTopView::InitSurfaces()
 	}
 
 	m_pTileSurface = new CSpriteSurface;
-		
+
 
 
 	//
@@ -1155,7 +1155,7 @@ MTopView::InitColors()
 	m_ColorNameVampire				= g_pClientConfig->COLOR_NAME_VAMPIRE;
 	m_ColorNameSlayer				= g_pClientConfig->COLOR_NAME_SLAYER;
 	m_ColorNameNPC					= g_pClientConfig->COLOR_NAME_NPC;
-	
+
 	m_ColorNameAlignment[0]			= g_pClientConfig->COLOR_NAME_EVIL_MORE;
 	m_ColorNameAlignment[1]			= g_pClientConfig->COLOR_NAME_EVIL;
 	m_ColorNameAlignment[2]			= g_pClientConfig->COLOR_NAME_NEUTRAL;
@@ -1166,7 +1166,7 @@ MTopView::InitColors()
 	//---------------------------------------------------
 	// 5:6:5ÀÎ °æ¿ì´Â ¹Ù·Î °ªÀ» ÀÐÀ¸¸é µÈ´Ù.
 	//---------------------------------------------------
-	if (CDirectDraw::Is565())
+	if (CSDLGraphics::Is565())
 	{
 		// interactionObject
 //		m_ColorOutlineInteractionObject	= g_pClientConfig->COLOR_OUTLINE_INTERACTIONOBJECT;
@@ -1184,15 +1184,15 @@ MTopView::InitColors()
 	else
 	{
 		// interactionObject
-//		m_ColorOutlineInteractionObject	= CDirectDraw::Convert565to555(g_pClientConfig->COLOR_OUTLINE_INTERACTIONOBJECT);
+//		m_ColorOutlineInteractionObject	= CSDLGraphics::Convert565to555(g_pClientConfig->COLOR_OUTLINE_INTERACTIONOBJECT);
 
 		// item
-		m_ColorOutlineItem				= CDirectDraw::Convert565to555(g_pClientConfig->COLOR_OUTLINE_ITEM);
+		m_ColorOutlineItem				= CSDLGraphics::Convert565to555(g_pClientConfig->COLOR_OUTLINE_ITEM);
 
 		// °ø°Ý °¡´É?
-		m_ColorOutlineNPC				= CDirectDraw::Convert565to555(g_pClientConfig->COLOR_OUTLINE_NPC);
-		m_ColorOutlineAttackPossible	= CDirectDraw::Convert565to555(g_pClientConfig->COLOR_OUTLINE_ATTACK_POSSIBLE);
-		m_ColorOutlineAttackImpossible	= CDirectDraw::Convert565to555(g_pClientConfig->COLOR_OUTLINE_ATTACK_IMPOSSIBLE);
+		m_ColorOutlineNPC				= CSDLGraphics::Convert565to555(g_pClientConfig->COLOR_OUTLINE_NPC);
+		m_ColorOutlineAttackPossible	= CSDLGraphics::Convert565to555(g_pClientConfig->COLOR_OUTLINE_ATTACK_POSSIBLE);
+		m_ColorOutlineAttackImpossible	= CSDLGraphics::Convert565to555(g_pClientConfig->COLOR_OUTLINE_ATTACK_IMPOSSIBLE);
 	}
 
 
@@ -1201,24 +1201,24 @@ MTopView::InitColors()
 	//---------------------------------------------------
 //
 	{
-		m_ColorHPBar = CDirectDraw::Color(g_pClientConfig->COLOR_HP_BAR_R,
+		m_ColorHPBar = CSDLGraphics::Color(g_pClientConfig->COLOR_HP_BAR_R,
 											g_pClientConfig->COLOR_HP_BAR_G,
 											g_pClientConfig->COLOR_HP_BAR_B);
 
-		m_ColorHPBarBg = CDirectDraw::Color(g_pClientConfig->COLOR_HP_BAR_BG_R,
+		m_ColorHPBarBg = CSDLGraphics::Color(g_pClientConfig->COLOR_HP_BAR_BG_R,
 											 g_pClientConfig->COLOR_HP_BAR_BG_G,
 											 g_pClientConfig->COLOR_HP_BAR_BG_B);
 
 		// UI 박스 배경색: RGB565의 G는 6비트이므로 2배 필요
 		// 어두운 회색: R=12, G=24, B=12
-		m_ColorUIBoxBg = CDirectDraw::Color(12, 24, 12);
+		m_ColorUIBoxBg = CSDLGraphics::Color(12, 24, 12);
 
 		m_ColorBlackHalf = 0;
 	}
 
 	return true;
 }
-	
+
 
 //----------------------------------------------------------------------
 // SpritePackÀ» ÀÐ¾î¼­  memory¿¡ LoadÇÑ´Ù.
@@ -1229,7 +1229,7 @@ MTopView::InitSprites()
 	// Sprite
 	/*
 	WORD		spriteID = 0;
-		
+
 	WORD	*lpSurface, 
 			*lpSurfaceTemp,
 			*lpSurfaceTemp2;
@@ -1242,7 +1242,7 @@ MTopView::InitSprites()
 	CSpriteSurface TempSurface;
 	*/
 
-	
+
 
 	/*
 	m_ImageObjectSSPK.Init( 42 );
@@ -1291,7 +1291,7 @@ MTopView::InitSprites()
 	m_ImageObjectSSPK[ 36 ].SetPixel(lpSurfaceTemp, lPitch, 49, 50);	
 	m_ImageObjectSSPK[ 38 ].SetPixel(lpSurfaceTemp, lPitch, 49, 50);
 	m_ImageObjectSSPK[ 40 ].SetPixel(lpSurfaceTemp, lPitch, 49, 50);
-	
+
 	lpSurfaceTemp = lpSurface + 286;
 	m_ImageObjectSSPK[ 37 ].SetPixel(lpSurfaceTemp, lPitch, 51, 41);
 	m_ImageObjectSSPK[ 39 ].SetPixel(lpSurfaceTemp, lPitch, 51, 41);	
@@ -1338,7 +1338,7 @@ MTopView::InitSprites()
 
 //	UI_DrawProgress(2);
 //	DrawTitleLoading();
-	
+
 	//------------------------------------------------------------
 	//
 	//
@@ -1363,7 +1363,7 @@ MTopView::InitSprites()
 		CreaturePackIndexFile.read((char*)&size, 2);	// SpriteÀÇ °³¼ö
 		CreaturePackIndexFile.close();	
 
-		m_CreatureSPK.Init( size, CDirectDraw::Is565() );
+		m_CreatureSPK.Init( size, CSDLGraphics::Is565() );
 		*/
 //		
 //		// È­ÀÏ¸¸ ¿­¾îµÐ´Ù.
@@ -1373,9 +1373,6 @@ MTopView::InitSprites()
 //		if (!FileOpenBinary(FILE_ISPRITE_CREATURE, m_CreatureSPKFile))
 //			return false;	
 //
-//		TYPE_SPRITEID	numCreatureSPK;
-//		m_CreatureSPKFile.read((char*)&numCreatureSPK, SIZE_SPRITEID);
-//		m_CreatureSPK.Init( numCreatureSPK, CDirectDraw::Is565() );			
 		m_CreatureSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_ISPRITE_CREATURE").c_str() );
 
 	}
@@ -1385,7 +1382,7 @@ MTopView::InitSprites()
 
 	//m_CreatureSSPK.Init( size );
 	//m_CreatureTPK.Init( size );
-	
+
 	//------------------------------------------------------------	
 	//
 	//			Creature Shadow SpritePack	
@@ -1452,7 +1449,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	// 3d°¡¼ÓÀÌ µÇ¸é m_pAlphaEffectTextureManager¸¦ »ç¿ëÇÏ°í
 	// ¾Æ´Ï¸é, m_EffectAlphaSPK¸¦ »ç¿ëÇÑ´Ù.
-	
+
 	// ÀüÃ¼ °³¼ö¸¸ Àâ¾ÆµÐ´Ù.
 	/*
 	std::ifstream CreatureShadowPackIndexFile;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
@@ -1518,7 +1515,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	/*
 	CSpritePack	ClothesSPK;
-	ClothesSPK.Init( 160, CDirectDraw::Is565() );
+	ClothesSPK.Init( 160, CSDLGraphics::Is565() );
 
 	//------------------------------------------------------------
 	// Shirts
@@ -1558,7 +1555,7 @@ MTopView::InitSprites()
 		lpSurface = (WORD*)((BYTE*)lpSurface + lPitch*64);
 	}
 	TempSurface.Unlock();
-	
+
 
 	//------------------------------------------------------------
 	// Boots
@@ -1609,7 +1606,7 @@ MTopView::InitSprites()
 	clothesFile.close();
 	clothesIndexFile.close();
 	*/	
-	
+
 	//------------------------------------------------------------	
 	// Load  Clothes SpritePack	
 	//------------------------------------------------------------
@@ -1620,15 +1617,11 @@ MTopView::InitSprites()
 		std::ifstream	AddonFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 		if (!FileOpenBinary(FILE_ISPRITE_ADDON, AddonFile2))
 			return false;
-		
-		// 2001.8.20 ÁÖ¼®Ã³¸®..
-		//m_AddonSPK.LoadFromFile(AddonFile2);
-		//m_AddonSPK.Init( 20000, CDirectDraw::Is565() );
-		
+
 		// °³¼ö¸¸ Àâ¾ÆµÐ´Ù.
 		TYPE_SPRITEID addonSize;
 		AddonFile2.read((char*)&addonSize, SIZE_SPRITEID);
-		m_AddonSPK.Init( addonSize, CDirectDraw::Is565() );
+		m_AddonSPK.Init( addonSize, CSDLGraphics::Is565() );
 		AddonFile2.close();
 	}
 */	
@@ -1642,7 +1635,7 @@ MTopView::InitSprites()
 //		return false;	
 //
 //		m_AddonSPKFile.read((char*)&numAddonSPK, SIZE_SPRITEID);
-//		m_AddonSPK.Init( numAddonSPK, CDirectDraw::Is565() );	
+//		m_AddonSPK.Init( numAddonSPK, CSDLGraphics::Is565() );	
 //	}
 	m_AddonSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_ISPRITE_ADDON").c_str() );
 	m_OustersSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_ISPRITE_OUSTERS").c_str() );
@@ -1652,7 +1645,7 @@ MTopView::InitSprites()
 
 	m_AdvancementSlayerWomanSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_ISPRITE_ADVANCEMENT_CLASS_SLAYER_WOMAN" ).c_str() );
 	m_AdvancementSlayerWomanSSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_SSPRITE_ADVANCEMENT_CLASS_SLAYER_WOMAN" ).c_str() );
-		
+
 //	if (!true)
 	{
 		//------------------------------------------------------------
@@ -1670,19 +1663,19 @@ MTopView::InitSprites()
 
 	m_AdvancementOustersSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_ISPRITE_ADVANCEMENT_CLASS_OUSTERS" ).c_str() );
 	m_AdvancementOustersSSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_SSPRITE_ADVANCEMENT_CLASS_OUSTERS" ).c_str() );// ***
-	
+
 	m_AdvancementVampireManSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_ISPRITE_ADVANCEMENT_CLASS_VAMPIRE_MAN" ).c_str() );
 	m_AdvancementVampireManSSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_SSPRITE_ADVANCEMENT_CLASS_VAMPIRE_MAN" ).c_str() );
-	
+
 	m_AdvancementVampireWomanSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_ISPRITE_ADVANCEMENT_CLASS_VAMPIRE_WOMAN" ).c_str() );
 	m_AdvancementVampireWomanSSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_SSPRITE_ADVANCEMENT_CLASS_VAMPIRE_WOMAN" ).c_str() );
 
 /*
 	m_AdvancementSlayerSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_ISPRITE_ADVANCEMENT_CLASS_SLAYER" ).c_str() );
-	
+
 	m_AdvancementSlayerSSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_SSPRITE_ADVANCEMENT_CLASS_SLAYER" ).c_str() );
 	m_AdvancementVampireSSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_SSPRITE_ADVANCEMENT_CLASS_VAMPIRE" ).c_str() );
-	
+
 */
 
 	//------------------------------------------------------------	
@@ -1761,9 +1754,9 @@ MTopView::InitSprites()
 	//
 	//------------------------------------------------------------	
 	/*
-	m_ItemTileSPK.Init( 5, CDirectDraw::Is565() );
+	m_ItemTileSPK.Init( 5, CSDLGraphics::Is565() );
 
-	
+
 	TempSurface.InitFromBMP("ItemTile.bmp", 800,600, DDSCAPS_SYSTEMMEMORY);	
 	TempSurface.LockW(lpSurface, lPitch);
 
@@ -1857,9 +1850,9 @@ MTopView::InitSprites()
 	//                 Tile SpritePack
 	//
 	//------------------------------------------------------------		
-	m_TileSPK.Init( 20, CDirectDraw::Is565() );
+	m_TileSPK.Init( 20, CSDLGraphics::Is565() );
 
-	
+
 	TempSurface.InitFromBMP("Tile.bmp", 800,600, DDSCAPS_SYSTEMMEMORY);	
 	TempSurface.LockW(lpSurface, lPitch);
 
@@ -1899,7 +1892,7 @@ MTopView::InitSprites()
 	tileFile2.close();
 	*/
 
-	
+
 	//------------------------------------------------------------	
 	//
 	//                 Tile SpriteSet
@@ -1947,7 +1940,7 @@ MTopView::InitSprites()
 //	DrawTitleLoading();
 
 	//*/
-	
+
 	/* TILE INDEX ¸¸µé±â
 	CSpritePack spk;
 	std::ifstream TilePackIndexFile(FILE_SPRITE_TILE, ios::binary);
@@ -1960,7 +1953,7 @@ MTopView::InitSprites()
 	TilePackIndexFile2.close();
 	TilePackIndexFile3.close();
 
-	m_TileSPK.Init( spk.GetSize(), CDirectDraw::Is565() );
+	m_TileSPK.Init( spk.GetSize(), CSDLGraphics::Is565() );
 	*/
 
 
@@ -2068,7 +2061,7 @@ MTopView::InitSprites()
 	//int size;
 	if (m_ImageObjectSPK.GetSize()==0)
 	{
-		
+
 //
 //		//-----------------------------------------------------------
 //		// Index¸¦ LoadÇÑ´Ù.
@@ -2076,7 +2069,7 @@ MTopView::InitSprites()
 //		m_ImageObjectSPKI.LoadFromFile( ImageObjectPackIndexFile );
 //		ImageObjectPackIndexFile.close();	
 //
-//		m_ImageObjectSPK.Init( m_ImageObjectSPKI.GetSize(), CDirectDraw::Is565() );
+//		m_ImageObjectSPK.Init( m_ImageObjectSPKI.GetSize(), CSDLGraphics::Is565() );
 //
 //		m_ImageObjectSPKFile.open(FILE_SPRITE_IMAGEOBJECT, ios::binary);
 		m_ImageObjectSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SPRITE_IMAGEOBJECT").c_str() );
@@ -2088,11 +2081,11 @@ MTopView::InitSprites()
 	//-----------------------------------------------------------
 	// ImageObject TextureManager
 	//-----------------------------------------------------------
-	
+
 #ifdef __3D_IMAGE_OBJECT__
 //		
 #endif
-	
+
 
 //	UI_DrawProgress(10);
 //	DrawTitleLoading();
@@ -2111,8 +2104,8 @@ MTopView::InitSprites()
 	//
 	//------------------------------------------------------------
 	/*
-	m_EffectAlphaSPK.Init( 67, CDirectDraw::Is565() );
-	
+	m_EffectAlphaSPK.Init( 67, CSDLGraphics::Is565() );
+
 	spriteID = 0;
 	CAlphaSprite::SetColorkey( 0x001F );
 	//------------------------------------------------------------
@@ -2181,7 +2174,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	TempSurface.InitFromBMP("Aura.bmp", DDSCAPS_SYSTEMMEMORY);	
 	TempSurface.LockW(lpSurface, lPitch);
-	
+
 	lpSurfaceTemp2 = lpSurface;
 	lpSurfaceTemp = (WORD*)((BYTE*)lpSurface + lPitch*32*4);
 
@@ -2194,11 +2187,11 @@ MTopView::InitSprites()
 		lpSurface += 64*3;
 		lpSurfaceTemp += 64*3;
 	}	
-	
-	
+
+
 	lpSurface = (WORD*)((BYTE*)lpSurfaceTemp2 + lPitch*32*8);
 	lpSurfaceTemp = (WORD*)((BYTE*)lpSurfaceTemp2 + lPitch*32*4);
-	
+
 	for (i=0; i<3; i++)
 	{		
 		m_EffectAlphaSPK[spriteID++].SetPixel(lpSurface, lPitch, 
@@ -2253,7 +2246,7 @@ MTopView::InitSprites()
 
 	TempSurface.Unlock();
 
-	
+
 	//------------------------------------------------------------	
 	// Star Effect
 	//------------------------------------------------------------	
@@ -2329,7 +2322,7 @@ MTopView::InitSprites()
 //	SAFE_DELETE( m_pImageObjectTextureManager );
 //	m_EffectAlphaSPKI.Release();
 //	m_EffectAlphaSPK.Release();
-	
+
 
 //
 //		
@@ -2341,7 +2334,7 @@ MTopView::InitSprites()
 //		m_EffectAlphaSPKI.LoadFromFile( effectFileIndex );
 //
 //		// °³¼ö¸¸Å­ ÃÊ±âÈ­¸¸ ÇØµÐ´Ù.
-//		m_EffectAlphaSPK.Init( m_EffectAlphaSPKI.GetSize(), CDirectDraw::Is565() );
+//		m_EffectAlphaSPK.Init( m_EffectAlphaSPKI.GetSize(), CSDLGraphics::Is565() );
 //
 //		effectFileIndex.close();	
 //
@@ -2357,7 +2350,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	// ScreenEffect
 	//------------------------------------------------------------
-	
+
 
 	{
 //		
@@ -2365,7 +2358,7 @@ MTopView::InitSprites()
 //		m_EffectScreenSPKI.LoadFromFile( effectFileIndex );
 //
 //		// °³¼ö¸¸Å­ ÃÊ±âÈ­¸¸ ÇØµÐ´Ù.
-//		m_EffectScreenSPK.Init( m_EffectScreenSPKI.GetSize(), CDirectDraw::Is565() );
+//		m_EffectScreenSPK.Init( m_EffectScreenSPKI.GetSize(), CSDLGraphics::Is565() );
 //
 //		effectFileIndex.close();	
 //
@@ -2378,7 +2371,7 @@ MTopView::InitSprites()
 		//m_EffectScreenSPK.LoadFromFile(g_pFileDef->getProperty("FILE_SPRITE_SCREENEFFECT").c_str());
 		m_EffectScreenPPK.LoadFromFile( g_pFileDef->getProperty("FILE_PALETTE_SCREENEFFECT").c_str() );
 	}
-	
+
 	//------------------------------------------------------------
 	//
 	//		ShadowEffect
@@ -2394,7 +2387,7 @@ MTopView::InitSprites()
 	//std::ifstream	effectFile2(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
 	//m_EffectAlphaSPK.LoadFromFile(effectFile2);
 	//effectFile2.close();	
-	
+
 	//------------------------------------------------------------
 	//
 	// Init Effect TextureSurface
@@ -2426,9 +2419,9 @@ MTopView::InitSprites()
 	//
 	//------------------------------------------------------------	
 	/*
-	m_EtcSPK.Init( 13, CDirectDraw::Is565() );
+	m_EtcSPK.Init( 13, CSDLGraphics::Is565() );
 
-	
+
 	TempSurface.InitFromBMP("Etc.bmp", DDSCAPS_SYSTEMMEMORY);	
 	TempSurface.LockW(lpSurface, lPitch);
 
@@ -2497,7 +2490,7 @@ MTopView::InitSprites()
 	//      Effect Normal
 	//
 	//------------------------------------------------------------
-	m_EffectNormalSPK.Init( 3, CDirectDraw::Is565() );
+	m_EffectNormalSPK.Init( 3, CSDLGraphics::Is565() );
 
 	CSprite::SetColorkey( 0 );
 	//------------------------------------------------------------
@@ -2527,7 +2520,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  NormalEffect Shadow SpritePack	
 	//------------------------------------------------------------
-	
+
 	std::ofstream	NormalEffectFile(FILE_SPRITE_NORMALEFFECT, ios::binary);	
 	std::ofstream	NormalEffectIndexFile(FILE_SPRITEINDEX_NORMALEFFECT, ios::binary);	
 
@@ -2574,8 +2567,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	/*
 	CAlphaSpritePack	ShadowASPK;
-	ShadowASPK.Init( 1, CDirectDraw::Is565() );
-	
+	ShadowASPK.Init( 1, CSDLGraphics::Is565() );
+
 	spriteID = 0;
 	CAlphaSprite::SetColorkey( 0xFFFF );
 	//------------------------------------------------------------
@@ -2614,19 +2607,19 @@ MTopView::InitSprites()
 	//------------------------------------------------------------		
 	ShadowASPK.Release();
 	*/
-	
+
 	//------------------------------------------------------------
 	//
 	//				Minimap	
 	//
 	//------------------------------------------------------------
 //
-	
+
 
 	/*	
 	CSprite::SetColorkey( 0x001F );
-	
-	
+
+
 	//------------------------------------------------------------
 	// MinimapSprite
 	//------------------------------------------------------------
@@ -2757,7 +2750,7 @@ MTopView::InitFilters()
 	//------------------------------------------------------------	
 	/*
 	m_Filter.Init( 105 );
-	
+
 	TempSurface.InitFromBMP("FogTile48.bmp", DDSCAPS_SYSTEMMEMORY);	
 	TempSurface.LockW(lpSurface, lPitch);
 
@@ -2773,7 +2766,7 @@ MTopView::InitFilters()
 			m_Filter[filterID++].SetFilter(lpSurfaceTemp, lPitch, TILE_X, TILE_Y);
 
 			lpSurfaceTemp += TILE_X;
-			
+
 			if (filterID%35==0) break;
 		}
 		lpSurface = (WORD*)((BYTE*)lpSurface + lPitch*TILE_Y);
@@ -2864,7 +2857,7 @@ MTopView::InitFilters()
 							);
 
 					k = (float)k * gap;
-				
+
 					if (k <= maxCenter) k = 0;			// maxCenter±îÁö´Â 0
 					else if (k >= maxK) k = maxLight;	// ³ÑÀ¸¸é maxLight
 					else k = k - maxCenter;				// ³ª¸ÓÁö´Â - maxCenter
@@ -2878,7 +2871,7 @@ MTopView::InitFilters()
 				}
 			}
 		}		
-		
+
 		//------------------------------------------------------------	
 		// Save  Light3D FilterPack
 		//------------------------------------------------------------
@@ -2887,7 +2880,7 @@ MTopView::InitFilters()
 		LightFilter3DFile.close();	
 
 		*/
-		
+
 		//------------------------------------------------------------	
 		// Load  Light3D FilterPack
 		//------------------------------------------------------------	
@@ -2901,10 +2894,10 @@ MTopView::InitFilters()
 		// lightBuffer ÃÊ±âÈ­
 		//------------------------------------------------------		
 		m_LightBufferFilter.Init( SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT );		
-  		
+
 		m_pLightBufferTexture = new CSpriteSurface;
 		m_pLightBufferTexture->InitTextureSurface(SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT, 0, nullptr);	
-	
+
 	}
 #endif
 
@@ -2956,7 +2949,7 @@ MTopView::InitFilters()
 							);
 
 					k = (float)k * gap;
-				
+
 					if (k <= maxCenter) k = 0;			// maxCenter±îÁö´Â 0
 					else if (k >= maxK) k = maxLight;	// ³ÑÀ¸¸é maxLight
 					else k = k - maxCenter;				// ³ª¸ÓÁö´Â - maxCenter
@@ -2970,7 +2963,7 @@ MTopView::InitFilters()
 				}
 			}
 		}	
-		
+
 		//------------------------------------------------------------	
 		// Save  Light2D FilterPack
 		//------------------------------------------------------------
@@ -2983,7 +2976,7 @@ MTopView::InitFilters()
 		// lightBuffer ÃÊ±âÈ­
 		//------------------------------------------------------		
 		m_LightBufferFilter.Init( SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT );	
-		
+
 		//------------------------------------------------------------	
 		// Load  Light2D FilterPack
 		//------------------------------------------------------------	
@@ -3069,7 +3062,7 @@ MTopView::InitFilters()
 		//----------------------------------------------------------------
 		const int pPixelHeight[SCREENLIGHT_HEIGHT] = 
 		{
-			
+
 			12,12,12,12, 12,12,12,12,
 			12,12,12,12, 12,12,12,12,
 			12,12,12,12, 12,12,12,12,
@@ -3122,7 +3115,7 @@ MTopView::InitFilters()
 			k >>= 2;	// ºÎµå·¯¿î(?) °ø°£
 
 			k += 5;
-			
+
 
 			if (k>32) k=32;
 			else if (k<1) k=1;
@@ -3130,7 +3123,7 @@ MTopView::InitFilters()
 			//	k = (rand()%(77 - k*3))? 26:32;
 			//else if (k>15 && k<21)
 			//	k = (rand()%(102 - k*5))? 26:32;
-			
+
 			// 0°ú 1°ª¸¸...
 			if (k > 26) 
 				k = 1;
@@ -3148,7 +3141,7 @@ MTopView::InitFilters()
 	m_ImageObjectFilter.SaveToFile(ImageObjectFilterFile);
 	ImageObjectFilterFile.close();	
 	*/
-	
+
 	//------------------------------------------------------------	
 	// Load  Light3D FilterPack
 	//------------------------------------------------------------	
@@ -3177,7 +3170,7 @@ MTopView::InitCreatureFrames()
 	//  Creature BodyÀÇ Frame Á¤º¸¸¦ »ý¼ºÇÑ´Ù.
 	//
 	//------------------------------------------------------------
-		 
+
 	/*
 	m_CreatureFPK.Init(MAX_CREATURE_BODY);	
 
@@ -3200,7 +3193,7 @@ MTopView::InitCreatureFrames()
 	{
 		for (k=0; k<ACTION_MAX; k++)
 			m_CreatureFPK[0][k][i].Init(8);		
-		
+
 		// 8°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
 		for (j=0; j<8; j++)
 		{
@@ -3233,7 +3226,7 @@ MTopView::InitCreatureFrames()
 	{
 		for (k=0; k<ACTION_MAX; k++)
 			m_CreatureFPK[1][k][i].Init(8);		
-		
+
 		// 8°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
 		for (j=0; j<8; j++)
 		{			
@@ -3253,7 +3246,7 @@ MTopView::InitCreatureFrames()
 
 	// n¹øÂ° Sprite
 	n = 104;
-	
+
 	// °¢ µ¿ÀÛ¿¡ 8¹æÇâÀÇ FrameArray°¡ ÀÖ´Ù.
 	for (k=0; k<ACTION_MAX_VAMPIRE; k++)
 		m_CreatureFPK[2][k].Init(8);
@@ -3265,7 +3258,7 @@ MTopView::InitCreatureFrames()
 	{
 		// ¹æÇâ´ç Frame¼ö 
 		m_CreatureFPK[2][ACTION_STAND][i].Init(16);
-		
+
 		int index = 0;
 		// 4°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
 		for (j=0; j<4; j++)
@@ -3285,7 +3278,7 @@ MTopView::InitCreatureFrames()
 	{
 		// ¹æÇâ´ç Frame¼ö 
 		m_CreatureFPK[2][ACTION_MOVE][i].Init(8);
-		
+
 		// 8°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
 		for (j=0; j<7; j++)
 		{
@@ -3304,7 +3297,7 @@ MTopView::InitCreatureFrames()
 	{
 		// ¹æÇâ´ç Frame¼ö 
 		m_CreatureFPK[2][ACTION_ATTACK][i].Init(8);
-		
+
 		// 8°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
 		for (j=0; j<8; j++)
 		{
@@ -3320,7 +3313,7 @@ MTopView::InitCreatureFrames()
 	{
 		// ¹æÇâ´ç Frame¼ö 
 		m_CreatureFPK[2][ACTION_MAGIC][i].Init(8);
-		
+
 		// 8°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
 		k=0;
 		int kk=6;
@@ -3331,7 +3324,7 @@ MTopView::InitCreatureFrames()
 			//m_CreatureFPK[2][ACTION_MAGIC][i][index++].Set(n, 15,-60-k);
 			m_CreatureFPK[2][ACTION_MAGIC][i][j].Set(n, 15,-60-k);
 			n ++;
-		
+
 			if (j==4) kk=-6;
 			k += kk;
 		}
@@ -3344,7 +3337,7 @@ MTopView::InitCreatureFrames()
 	{
 		// ¹æÇâ´ç Frame¼ö 
 		m_CreatureFPK[2][ACTION_DAMAGED][i].Init(6);
-		
+
 		// 6°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
 		for (j=0; j<6; j++)
 		{
@@ -3360,7 +3353,7 @@ MTopView::InitCreatureFrames()
 	{
 		// ¹æÇâ´ç Frame¼ö 
 		m_CreatureFPK[2][ACTION_DRAINED][i].Init(7);
-		
+
 		// 7°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
 		for (j=0; j<5; j++)
 		{
@@ -3379,7 +3372,7 @@ MTopView::InitCreatureFrames()
 	{
 		// ¹æÇâ´ç Frame¼ö 
 		m_CreatureFPK[2][ACTION_DIE][i].Init(4);
-		
+
 		// 4°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
 		for (j=0; j<4; j++)
 		{
@@ -3395,7 +3388,7 @@ MTopView::InitCreatureFrames()
 	{
 		// ¹æÇâ´ç Frame¼ö 
 		m_CreatureFPK[2][ACTION_VAMPIRE_DRAIN][i].Init(7);
-		
+
 		// 7°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
 		for (j=0; j<5; j++)
 		{
@@ -3407,14 +3400,14 @@ MTopView::InitCreatureFrames()
 		m_CreatureFPK[2][ACTION_VAMPIRE_DRAIN][i][6].Set(n-4, 15,-60);
 	}
 
-	
+
 	std::ofstream packFile(FILE_CFRAME_CREATURE, ios::binary);
 	std::ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, ios::binary);
 	m_CreatureFPK.SaveToFile(packFile, indexFile);	
 	packFile.close();
 	indexFile.close();	
 	*/
-	
+
 	///*
 	// Load from File
 	std::ifstream file;//(FILE_CFRAME_CREATURE, ios::binary);
@@ -3441,7 +3434,7 @@ MTopView::InitCreatureFrames()
 			fr[f].Set( fr[f].GetSpriteID(), fr[f].GetCX(), fr[f].GetCY(),40 );
 		}
 	}
-	
+
 	std::ofstream packFile(FILE_CFRAME_CREATURE, ios::binary);
 	std::ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, ios::binary);
 	m_CreatureFPK.SaveToFile(packFile, indexFile);	
@@ -3473,7 +3466,7 @@ MTopView::InitCreatureFrames()
 
 	//m_CreatureFPK.InfoToFile("creature.txt");
 
-	
+
 	// Á¤Áö 4frameÀ» 6frameÀ¸·Î ¹Ù²ã¼­ ´Ù½Ã 18frameÀ¸·Î..
 	/*
 	DIRECTION_FRAME_ARRAY& stand = m_CreatureFPK[1][ACTION_STAND];
@@ -3510,7 +3503,7 @@ MTopView::InitCreatureFrames()
 	for (d=0; d<8; d++)
 	{
 		move[d].Init( moveTemp[d].GetSize()*3 );
-		
+
 		int ff = 0;
 		for (int f=0; f<moveTemp[d].GetSize(); f++)
 		{
@@ -3539,7 +3532,7 @@ MTopView::InitCreatureFrames()
 	fileShadow.close();
 	DrawTitleLoading();
 	//m_CreatureShadowFPK.InfoToFile("log\\CreatureShadowFPK.txt");
-	
+
 	//------------------------------------------------------------
 	//
 	//  addonÀÇ Frame Á¤º¸¸¦ »ý¼ºÇÑ´Ù.
@@ -3548,7 +3541,7 @@ MTopView::InitCreatureFrames()
 	//
 	/*
 	m_AddonFPK.Init(MAX_CREATURE_ADDON);
-	
+
 
 	//--------------
 	// Ã¹¹øÂ° ¿Ê
@@ -3576,7 +3569,7 @@ MTopView::InitCreatureFrames()
 		m_AddonFPK[1][0][i].Init(8);
 		m_AddonFPK[2][0][i].Init(8);
 		m_AddonFPK[3][0][i].Init(8);
-		
+
 		// 8°³ÀÇ Frame¿¡ ´ëÇÑ Á¤º¸¸¦ SetÇÑ´Ù.
 		for (int j=0; j<8; j++)
 		{
@@ -3604,7 +3597,7 @@ MTopView::InitCreatureFrames()
 	*/
 
 	///*
-	
+
 	std::ifstream AdvancementOustersFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_OUSTERS").c_str(), AdvancementOustersFile))
 		return false;
@@ -3691,7 +3684,7 @@ MTopView::InitCreatureFrames()
 		return false;
 	m_AdvancementVampireFPK.LoadFromFile(AdvancementVampireFile);
 	AdvancementVampireFile.close();
-	
+
 	std::ifstream AdvancementSlayerShadowFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER_SHADOW").c_str(), AdvancementSlayerFile))
 		return false;
@@ -3728,13 +3721,13 @@ MTopView::InitCreatureFrames()
 		return false;
 	m_AddonShadowFPK.LoadFromFile(AddonShadowFile2);
 	AddonShadowFile2.close();
-	
+
 	std::ifstream OustersShadowFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_OUSTERS_SHADOW").c_str(), OustersShadowFile2))
 		return false;
 	m_OustersShadowFPK.LoadFromFile(OustersShadowFile2);
 	OustersShadowFile2.close();
-	
+
 
 	DrawTitleLoading();
 
@@ -3753,7 +3746,7 @@ MTopView::InitCreatureFrames()
 				m_AddonMaleFPK[add][ACTION_SLAYER_GUN_SMG][i] = m_AddonMaleFPK[add][ACTION_SLAYER_GUN_TR][i];
 		}
 	}
-	
+
 	for (add=0; add<MAX_ADDONID_FEMALE; add++)
 	{
 		for (int i=0; i<8; i++)
@@ -3788,7 +3781,7 @@ MTopView::InitCreatureFrames()
 						FRAME_ARRAY& FA = DFA[d];
 						FRAME_ARRAY newFA;
 						newFA.Init( 18 );
-					
+
 						newFA[0] = FA[0];
 						newFA[1] = FA[1];
 						newFA[2] = FA[2];
@@ -3809,7 +3802,7 @@ MTopView::InitCreatureFrames()
 					{
 						FRAME_ARRAY& FA = DFA[d];
 						FA.Init( 18 );
-					
+
 						FA[0] = AFA[1][d][0];
 						FA[1] = AFA[1][d][1];
 						FA[2] = AFA[1][d][2];
@@ -3831,7 +3824,7 @@ MTopView::InitCreatureFrames()
 				for (d=0; d<DFA.GetSize(); d++)
 				{
 					FRAME_ARRAY& FA = DFA[d];
-					
+
 					// motorµ¿ÀÛÀ» 3 --> 4 frameÀ¸·Î ¹Ù²Û´Ù.
 					if (a==ACTION_SLAYER_MOTOR_MOVE)
 					{
@@ -3843,7 +3836,7 @@ MTopView::InitCreatureFrames()
 							for (f=0; f<FA.GetSize(); f++)
 							{
 								CFrame& frame = FA[f];
-								
+
 								newFA[f] = FA[f];
 							}
 
@@ -3852,7 +3845,7 @@ MTopView::InitCreatureFrames()
 							FA = newFA;
 						}
 					}
-					
+
 				}
 			}
 		}
@@ -3912,7 +3905,7 @@ MTopView::InitCreatureFrames()
 			}
 		}
 	}
-	
+
 	// [¿©ÀÚ] Ä®µ¿ÀÛÀº 6 frameÀ¸·Î ¹Ù²Ù±â...
 	for (add=0; add<m_AddonFemaleFPK.GetSize(); add++)
 	{	
@@ -3975,7 +3968,7 @@ MTopView::InitCreatureFrames()
 
 	*/
 
-	
+
 	// ¿©ÀÚ ÃÑ µ¿ÀÛ ¹Ù²Ù±â
 	/*
 	m_AddonFemaleFPK[ADDONID_GUN_TR_FEMALE][14] = m_AddonFemaleFPK[ADDONID_GUN_TR_FEMALE][7];
@@ -4016,7 +4009,7 @@ MTopView::InitImageFrames()
 	//------------------------------------------------------------
 	/*
 	m_ItemTileFPK.Init( 28 );
-	
+
 	// Item 0	
 	for (int i=0; i<28; i++)
 		m_ItemTileFPK[i].Set(i, 10, 10);
@@ -4065,7 +4058,7 @@ MTopView::InitAnimationFrames()
 	//  SpriteSet¿¡¼­ÀÇ SpriteID¸¦ ÀúÀåÇÏ°í ÀÖ¾î¾ß ÇÑ´Ù.
 	//
 	//------------------------------------------------------------
-	
+
 	std::ifstream file2;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_AFRAME_ANIMATIONOBJECT").c_str(), file2))
 		return false;
@@ -4145,7 +4138,7 @@ MTopView::InitAnimationFrames()
 
 			m_ItemDropFPK[i][f].Set( sid, cx, cy );
 		}
-		
+
 		spriteID += 4;
 	}
 
@@ -4457,7 +4450,7 @@ MTopView::InitAnimationFrames()
 		{ 87,	62, 18 },				// ¸ñ°ÉÀÌ1
 		{ 87,	16, 22 },				// ¸ñ°ÉÀÌ2
 		{ 87,	16, 22 },				// ¸ñ°ÉÀÌ3
-		
+
 		{ 81,	26, 63 },				// Á¤·É¼®1		
 		{ 81,	58, 63 },				// Á¤·É¼®2
 		{ 81,	26, 71 },				// Á¤·É¼®3
@@ -4484,10 +4477,10 @@ MTopView::InitAnimationFrames()
 		{ 82,	58, 71 },				// Á¤·É¼® 4 
 		{ 94,	61, 33 },				// ¸®½ºÆ²¸´
 	};		
-	
+
 
 	int j;	
-		
+
 	m_ItemBrokenFPK[0].Init( maxSlayerItemBroken );
 	m_ItemBrokenFPK[1].Init( maxSlayerItemBroken );
 	m_ItemBrokenFPK[2].Init( maxVampireItemBroken );
@@ -4513,12 +4506,12 @@ MTopView::InitAnimationFrames()
 	{		
 		m_ItemBrokenFPK[3][j].Set(vampireFemale[j][0], vampireFemale[j][1]-30, vampireFemale[j][2]-10);			
 	}
-	
+
 	for (j=0; j<maxOustersItemBroken; j++)
 	{
 		m_ItemBrokenFPK[4][j].Set(Ousters[j][0], Ousters[j%(maxOustersItemBroken/3)][1]-30, Ousters[j%(maxOustersItemBroken/3)][2]-10);
 	}
-	
+
 	std::ofstream packFile(g_pFileDef->getProperty("FILE_AFRAME_ITEMBROKEN").c_str(), ios::binary);
 	std::ofstream indexFile(g_pFileDef->getProperty("FILE_AFRAMEINDEX_ITEMBROKEN").c_str(), ios::binary);
 
@@ -4733,7 +4726,7 @@ MTopView::InitEffectFrames()
 		//m_EffectAlphaFPK[2][d][5].Set(17, 0, -58);
 		//m_EffectAlphaFPK[2][d][6].Set(16, 0, -50);
 		//m_EffectAlphaFPK[2][d][7].Set(17, 0, -48);
-		
+
 		// Darkness
 		m_EffectAlphaFPK[3][d].Init(2);
 		m_EffectAlphaFPK[3][d][0].Set(18, 0, -48, 0);
@@ -4835,19 +4828,19 @@ MTopView::InitEffectFrames()
 	for (int e=0; e<m_EffectAlphaFPK.GetSize(); e++)
 	{
 		DIRECTION_EFFECTFRAME_ARRAY& DEA = m_EffectAlphaFPK[e];
-		
+
 		file << "[" << e << "] " << (int)DEA[0].GetSize() << endl;
 	}
 	file.close();
 	*/
-	
+
 
 	//---------------------------------------------------------------
 	// ºû Á¶ÀýÇÏ±â
 	//---------------------------------------------------------------
 	/*
 	int light;
-	
+
 	// effect Á¾·ù
 	for (int e=0; e<m_EffectAlphaFPK.GetSize(); e++)
 	{
@@ -4857,7 +4850,7 @@ MTopView::InitEffectFrames()
 		for (int d=0; d<8; d++)
 		{
 			EFFECTFRAME_ARRAY& EA = effect[d];
-			
+
 			// frameº°
 			for (int f=0; f<EA.GetSize(); f++)
 			{
@@ -4877,7 +4870,7 @@ MTopView::InitEffectFrames()
 					default : 
 						light = 3;
 				}
-				
+
 				frame.Set( frame.GetSpriteID(), frame.GetCX(), frame.GetCY(), light);
 			}	
 		}
@@ -4911,7 +4904,7 @@ MTopView::InitEffectFrames()
 		{
 			newEA[i] = EA[EA.GetSize()-1];
 		}
-		
+
 		// µÎframe¾¿, Á¤Áö frame °è¼Ó, ÇÑ frame°Å²Ù·Î
 		for (i=0; i<EA.GetSize(); i++)
 		{
@@ -4931,7 +4924,7 @@ MTopView::InitEffectFrames()
 	indexAlphaFile.close();
 	*/
 
-	
+
 //	#ifdef OUTPUT_DEBUG
 //
 //		m_EffectShadowFPK.Init( 1 );
@@ -5005,7 +4998,7 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 		// zoneX = spX * zoneHeight / spHeight
 		CSpriteSurface::s_Value1 = 16;
 		CSpriteSurface::s_Value2 = 16;
-		WORD green = CDirectDraw::Color(0, 20, 0);
+		WORD green = CSDLGraphics::Color(0, 20, 0);
 
 		//----------------------------------------------------------------
 		// SpriteÀÚÃ¼¸¦ ¹Ù²ã¹ö¸°´Ù. - -;
@@ -5018,7 +5011,7 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 			pPixel = m_pMinimapSPR->GetPixelLine( spY );
 
 			count = *pPixel++;		// ¹Ýº¹ È¸¼ö
-			
+
 			//----------------------------------------------------------------
 			// ÇÑ ÁÙ¿¡ ´ëÇÑ Ã¼Å©..
 			//----------------------------------------------------------------
@@ -5032,7 +5025,7 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 				for (j=0; j<colorCount; j++)
 				{
 					zoneX = spX * zoneWidth / spWidth;
-					
+
 					//---------------------------------------------------------
 					// ¾ÈÀüÁö´ëÀÌ¸é ³ì»öÀ¸·Î ¹ÝÅõ¸í..
 					//---------------------------------------------------------
@@ -5206,7 +5199,7 @@ MTopView::UseHalfFrame(bool bUse)
 	if (true)
 	{
 		m_pCreatureShadowManager->Release();
-		
+
 		m_pCreatureShadowManager->Init( FILE_SSPRITE_CREATURE,
 							FILE_SSPRITEINDEX_CREATURE,  
 							g_pClientConfig->MAX_TEXTUREPART_CREATURESHADOW);
@@ -5221,7 +5214,7 @@ MTopView::UseHalfFrame(bool bUse)
 	{
 		(*g_pCreatureSpriteTable)[i].bLoad = false;
 	}
-	
+
 	if (bUse)
 	{
 		// ÀÌ¹Ì LoadingµÈ °Íµé Á¦°Å		
@@ -5250,7 +5243,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 	if (spriteType<0 || spriteType >= (*g_pCreatureSpriteTable).GetSize())
 	{
 		DEBUG_ADD_FORMAT("[Error] Wrong SpriteType=%d", spriteType);
-		
+
 		return;
 	}
 
@@ -5273,7 +5266,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 	{
 		if(g_pUserOption->IsPreLoadMonster)
 		{
-			
+
 			// ÇöÀç Zone¿¡¼­ ÇÊ¿äÇÑ SpriteµéÀ» LoadÇÏ¸é µÈ´Ù.
 //			std::ifstream	creatureFile;//(FILE_ISPRITE_CREATURE, ios::binary);
 //			std::ifstream	creatureShadowFile;
@@ -5283,7 +5276,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //			//------------------------------------------------------------
 //			if (!FileOpenBinary(FILE_ISPRITE_CREATURE, creatureFile))
 //				return;	
-			
+
 
 			//------------------------------------------------------------
 			// Half FrameÀ» »ç¿ëÇÒ¶§
@@ -5308,7 +5301,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 					for (int d=DFA.GetSize()-1; d>=0; d--)
 					{
 						FRAME_ARRAY& EA = DFA[d];
-						
+
 						for (int f=FA.GetSize()-1; f>=0; f--)
 						{
 							CFrame& Frame = FA[f];
@@ -5322,17 +5315,17 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 
 				COrderedList<int>::DATA_LIST::const_iterator iID = intList.GetIterator();
 				int numID = intList.GetSize();
-				
+
 				CSpriteFilePositionArray SFPA;	
 				SFPA.Init( numID );
 
 				std::ifstream CreaturePackIndexFile(FILE_ISPRITEINDEX_CREATURE, ios::binary);			
-				
+
 				long fp;
 				for (int i=0; i<numID; i++)
 				{
 					int id = *iID
-					
+
 					CreaturePackIndexFile.seekg( 2 + (id<<2));	// 2 + id*4
 					CreaturePackIndexFile.read((char*)&fp, 4);
 
@@ -5351,7 +5344,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 			//------------------------------------------------------------
 			else
 			{
-				
+
 				TYPE_SPRITEID first = (*g_pCreatureSpriteTable)[spriteType].FirstSpriteID;
 				TYPE_SPRITEID last	= (*g_pCreatureSpriteTable)[spriteType].LastSpriteID;
 				long			fp	= (*g_pCreatureSpriteTable)[spriteType].SpriteFilePosition;
@@ -5363,7 +5356,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //												first, 
 //												last
 //												);
-				
+
 			}
 
 // 			creatureFile.close();
@@ -5374,7 +5367,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 //			if (!FileOpenBinary(FILE_SSPRITE_CREATURE, creatureShadowFile))
 //				return;	
 
-		
+
 //			if (!true)
 			{
 				//------------------------------------------------------------
@@ -5425,7 +5418,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 			}
 		}
 
-		
+
 		/*
 		//------------------------------------------------------------
 		// ±×¸²ÀÚ Pack»ý¼º
@@ -5684,17 +5677,17 @@ MTopView::ReleaseCreatureSPK(int n)
 
 	//int spriteType = (*g_pCreatureTable)[n].SpriteTypes[0];
 	int spriteTypeCount = (*g_pCreatureTable)[n].SpriteTypes.GetSize();
-	
+
 	for(int FrameIndex = 0;FrameIndex < spriteTypeCount; FrameIndex++ )
 	{
-		
+
 		int spriteType = (*g_pCreatureTable)[n].SpriteTypes[FrameIndex];
 		// Player±×¸²ÀÏ°æ¿ì´Â Á¦°ÅÇÏÁö ¾Ê´Â´Ù.
 		if ((*g_pCreatureSpriteTable)[spriteType].IsPlayerSprite())
 		{
 			return;
 		}
-		
+
 		//----------------------------------------------------------------------
 		// LoadµÇ¾ú´ÂÁö Ã¼Å©ÇØº»´Ù.
 		//----------------------------------------------------------------------
@@ -5705,25 +5698,25 @@ MTopView::ReleaseCreatureSPK(int n)
 		// n¹øÂ° creatureÀÇ sprite¸¦ ¸Þ¸ð¸® ÇØÁ¦
 		m_CreatureSPK.ReleasePart((*g_pCreatureSpriteTable)[spriteType].FirstSpriteID,
 		(*g_pCreatureSpriteTable)[spriteType].LastSpriteID);
-		
+
 		  m_CreatureSSPK.ReleasePart((*g_pCreatureSpriteTable)[spriteType].FirstSpriteID,
 		  (*g_pCreatureSpriteTable)[spriteType].LastSpriteID);
-		  
+
 			*/
 			//		int frameID = (*g_pCreatureSpriteTable)[spriteType].FrameID;
 			//
 			TYPE_SPRITEID first = (*g_pCreatureSpriteTable)[spriteType].FirstSpriteID;
 			TYPE_SPRITEID last	= (*g_pCreatureSpriteTable)[spriteType].LastSpriteID;
 			long			fp	= (*g_pCreatureSpriteTable)[spriteType].SpriteFilePosition;
-			
+
 			m_CreatureSPK.ReleasePart(first, last);
 			// 		}
-			
+
 			// loadÇÏÁö ¾Ê¾Ò´Ù°í Ç¥½ÃÇÑ´Ù.
 			(*g_pCreatureSpriteTable)[spriteType].bLoad = FALSE;
-			
+
 			m_listLoadedCreatureSprite.Remove( spriteType );
-			
+
 			if ((*g_pCreatureSpriteTable)[spriteType].IsMonsterSprite())
 			{
 				m_listLoadedMonsterSprite.Remove( spriteType );
@@ -5733,7 +5726,7 @@ MTopView::ReleaseCreatureSPK(int n)
 		{
 			// LoadµÇÁö ¾ÊÀº °æ¿ì
 		}
-		
+
 
 
 
@@ -5787,7 +5780,7 @@ MTopView::ReleaseUselessCreatureSPKExcept(const INT_ORDERED_LIST& listUse)
 	for (int i=0; i<m_listLoadedCreatureSprite.GetSize(); i++)
 	{
 		int spriteType = *iSpriteType;
-		
+
 		//--------------------------------------------------------
 		// Player±×¸²ÀÏ°æ¿ì´Â Á¦°ÅÇÏÁö ¾Ê´Â´Ù.
 		//--------------------------------------------------------
@@ -5802,13 +5795,13 @@ MTopView::ReleaseUselessCreatureSPKExcept(const INT_ORDERED_LIST& listUse)
 		if ((*g_pCreatureSpriteTable)[spriteType].IsPlayerSprite())
 		{
 			DEBUG_ADD_FORMAT("[ReleaseUselessCreatureSPK] Skip spriteType=%d", spriteType);
-			
+
 			iSpriteType++;
 			continue;
 		}
 
 		DEBUG_ADD_FORMAT("[ReleaseUselessCreatureSPK] Release spriteType=%d", spriteType);
-		
+
 
 		if ((*g_pCreatureSpriteTable)[spriteType].bLoad)
 		{
@@ -5833,7 +5826,7 @@ MTopView::ReleaseUselessCreatureSPKExcept(const INT_ORDERED_LIST& listUse)
 			//--------------------------------------------------------
 			first = (*g_pCreatureSpriteTable)[spriteType].FirstSpriteID;
 			last = (*g_pCreatureSpriteTable)[spriteType].LastSpriteID;
-			
+
 			if (last > first && first!=SPRITEID_NULL && last!=SPRITEID_NULL)
 			{			
 				m_CreatureSSPK.ReleasePart( first, last );
@@ -5897,7 +5890,7 @@ MTopView::LoadFromFileTileAndImageObjectSet(const CSpriteSetManager &TileSSM, co
 //		return false;
 //
 	bool bLoad = m_TileSPK.LoadFromFilePart(TileSSM);
-	
+
 	//--------------------------------------------------------
 	//
 	// ImageObject ÀÏºÎ Load
@@ -5922,7 +5915,7 @@ MTopView::LoadFromFileTileSPKLargeZone(std::ifstream & file)
 	CSpriteFilePositionArray* pOldTileSFPA = m_pTileSFPArrayLargeZone;
 
 	m_pTileSFPArrayLargeZone = new CSpriteFilePositionArray;
-	
+
 	m_pTileSFPArrayLargeZone->LoadFromFile( file );
 
 	//------------------------------------------------------------
@@ -5931,14 +5924,14 @@ MTopView::LoadFromFileTileSPKLargeZone(std::ifstream & file)
 	if (pOldTileSFPA!=NULL)
 	{
 		DEBUG_ADD( "Remove Old-Tile SFPArray LargeZone");
-		
+
 		COrderedList<TYPE_SPRITEID>	oldTileID;
 		COrderedList<TYPE_SPRITEID>	newTileID;
 
 		register int i;
 
 		DEBUG_ADD( "Sort Part1");
-		
+
 		// Sort
 		for (i=pOldTileSFPA->GetSize()-1; i>=0; i--)
 		{
@@ -5946,7 +5939,7 @@ MTopView::LoadFromFileTileSPKLargeZone(std::ifstream & file)
 		}
 
 		DEBUG_ADD( "Sort Part2");
-		
+
 		// Sort
 		for (i=m_pTileSFPArrayLargeZone->GetSize()-1; i>=0; i--)
 		{
@@ -5954,23 +5947,23 @@ MTopView::LoadFromFileTileSPKLargeZone(std::ifstream & file)
 		}
 
 		DEBUG_ADD( "Subtract");
-		
+
 		// oldTileID¿¡¼­ newTileID Á¦°ÅÇÑ´Ù.
 		oldTileID -= newTileID;
-		
+
 		DEBUG_ADD( "Release Part");
-		
+
 		// ¿¹ÀüÀÇ zone¿¡¸¸ Á¸ÀçÇÏ´Â TileIDµéÀ» Á¦°ÅÇÑ´Ù.
 		m_TileSPK.ReleasePart( oldTileID );
 
 		DEBUG_ADD( "Delete pOldTilSFPA");
-		
+
 		delete pOldTileSFPA;
 		pOldTileSFPA = NULL;
 	}
-	
+
 	DEBUG_ADD_FORMAT( "Load Tile SFPArray LargeZone : size=%d", m_pTileSFPArrayLargeZone->GetSize() );
-	
+
 	//------------------------------------------------------------
 	//  Load Tile SpriteSet
 	//------------------------------------------------------------
@@ -5978,7 +5971,7 @@ MTopView::LoadFromFileTileSPKLargeZone(std::ifstream & file)
 	std::ifstream	TilePackFile;//(FILE_SPRITE_TILE, ios::binary);	
 	if (!FileOpenBinary(FILE_SPRITE_TILE, TilePackFile))
 		return false;
-	
+
 	bool bLoad = m_TileSPK.LoadFromFilePart(TilePackFile, m_pTileSFPArrayLargeZone);
 
 	TilePackFile.close();
@@ -6000,7 +5993,7 @@ MTopView::LoadFromFileTileSPKLargeZone(std::ifstream & file)
 											(int)g_pLoadingThread->IsWorking(),
 											(int)g_pLoadingThread->IsFinishCurrentWork(),
 											(int)g_pLoadingThread->IsStopWork());
-	
+
 	g_pLoadingThread->AddLast( pNode );
 
 	DEBUG_ADD("[Thread] Add Last OK");
@@ -6023,7 +6016,7 @@ MTopView::LoadFromFileImageObjectSPKLargeZone(std::ifstream & file)
 	CSpriteFilePositionArray* pOldImageObjectSFPA = m_pImageObjectSFPArrayLargeZone;
 
 	m_pImageObjectSFPArrayLargeZone = new CSpriteFilePositionArray;
-	
+
 	m_pImageObjectSFPArrayLargeZone->LoadFromFile( file );
 
 	//------------------------------------------------------------
@@ -6032,7 +6025,7 @@ MTopView::LoadFromFileImageObjectSPKLargeZone(std::ifstream & file)
 	if (pOldImageObjectSFPA!=NULL)
 	{
 		DEBUG_ADD( "Remove Old-ImageObject SFPArray LargeZone");
-		
+
 		COrderedList<TYPE_SPRITEID>	oldImageObjectID;
 		COrderedList<TYPE_SPRITEID>	newImageObjectID;
 
@@ -6052,12 +6045,12 @@ MTopView::LoadFromFileImageObjectSPKLargeZone(std::ifstream & file)
 			newImageObjectID.Add( (*m_pImageObjectSFPArrayLargeZone)[i].SpriteID );
 
 			//	DEBUG_ADD_FORMAT( "New: %d", (*m_pImageObjectSFPArrayLargeZone)[i].SpriteID );
-			
+
 		}
 
 		// oldImageObjectID¿¡¼­ newImageObjectID Á¦°ÅÇÑ´Ù.
 		oldImageObjectID -= newImageObjectID;
-		
+
 		/*
 		#ifdef OUTPUT_DEBUG
 			COrderedList<TYPE_SPRITEID>::DATA_LIST::const_iterator iData = oldImageObjectID.GetIterator();
@@ -6081,7 +6074,7 @@ MTopView::LoadFromFileImageObjectSPKLargeZone(std::ifstream & file)
 	}
 
 	DEBUG_ADD_FORMAT( "Load ImageObject SFPArray LargeZone : size=%d", m_pImageObjectSFPArrayLargeZone->GetSize() );
-	
+
 	//------------------------------------------------------------
 	//  Load ImageObject SpriteSet
 	//------------------------------------------------------------
@@ -6089,7 +6082,7 @@ MTopView::LoadFromFileImageObjectSPKLargeZone(std::ifstream & file)
 	std::ifstream	ImageObjectPackFile;//(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
 	if (!FileOpenBinary(FILE_SPRITE_IMAGEOBJECT, ImageObjectPackFile))
 		return false;
-	
+
 	bool bLoadOK = m_ImageObjectSPK.LoadFromFilePart(ImageObjectPackFile, m_pImageObjectSFPArrayLargeZone);
 
 	ImageObjectPackFile.close();
@@ -6112,7 +6105,7 @@ MTopView::LoadFromFileImageObjectSPKLargeZone(std::ifstream & file)
 											(int)g_pLoadingThread->IsWorking(),
 											(int)g_pLoadingThread->IsFinishCurrentWork(),
 											(int)g_pLoadingThread->IsStopWork());
-	
+
 	g_pLoadingThread->AddLast( pNode );
 
 	DEBUG_ADD("[Thread] Add Last OK");
@@ -6134,7 +6127,7 @@ MTopView::LoadFromFileTileSPKSmallZone(std::ifstream & file)
 	CSpriteFilePositionArray* pOldTileSFPA = m_pTileSFPArraySmallZone;
 
 	m_pTileSFPArraySmallZone = new CSpriteFilePositionArray;
-	
+
 	m_pTileSFPArraySmallZone->LoadFromFile( file );
 
 	//------------------------------------------------------------
@@ -6143,14 +6136,14 @@ MTopView::LoadFromFileTileSPKSmallZone(std::ifstream & file)
 	if (pOldTileSFPA!=NULL)
 	{
 		DEBUG_ADD( "Remove Old-Tile SFPArray SmallZone");
-		
+
 		COrderedList<TYPE_SPRITEID>	oldTileID;
 		COrderedList<TYPE_SPRITEID>	newTileID;
 
 		register int i;
 
 		DEBUG_ADD( "Sort Part1");
-		
+
 		// Sort
 		for (i=pOldTileSFPA->GetSize()-1; i>=0; i--)
 		{
@@ -6158,7 +6151,7 @@ MTopView::LoadFromFileTileSPKSmallZone(std::ifstream & file)
 		}
 
 		DEBUG_ADD( "Sort Part2");
-		
+
 		// Sort
 		for (i=m_pTileSFPArraySmallZone->GetSize()-1; i>=0; i--)
 		{
@@ -6166,24 +6159,24 @@ MTopView::LoadFromFileTileSPKSmallZone(std::ifstream & file)
 		}
 
 		DEBUG_ADD( "Subtract");
-		
+
 		// oldTileID¿¡¼­ newTileID Á¦°ÅÇÑ´Ù.
 		oldTileID -= newTileID;
-		
+
 		DEBUG_ADD( "Release");
-		
+
 		// ¿¹ÀüÀÇ zone¿¡¸¸ Á¸ÀçÇÏ´Â TileIDµéÀ» Á¦°ÅÇÑ´Ù.
 		m_TileSPK.ReleasePart( oldTileID );
 
 		DEBUG_ADD( "Delete pOldTilSFPA");
-		
+
 		delete pOldTileSFPA;
 		pOldTileSFPA = NULL;
 	}
-		
+
 
 	DEBUG_ADD_FORMAT( "Load Tile SFPArray SmallZone : size=%d", m_pTileSFPArraySmallZone->GetSize() );
-	
+
 	//------------------------------------------------------------
 	//  Load Tile SpriteSet
 	//------------------------------------------------------------
@@ -6207,13 +6200,13 @@ MTopView::LoadFromFileTileSPKSmallZone(std::ifstream & file)
 	MLoadingSPKWorkNode2* pNode = new MLoadingSPKWorkNode2( pSFPA );
 	pNode->SetSPK( &m_TileSPK, FILE_SPRITE_TILE );
 	pNode->SetType( 1 );	// zone ID
-	
+
 	DEBUG_ADD_FORMAT("[Thread]Before AddLast: size=%d, working=%d, finish=%d, stop=%d", 
 											g_pLoadingThread->GetSize(),
 											(int)g_pLoadingThread->IsWorking(),
 											(int)g_pLoadingThread->IsFinishCurrentWork(),
 											(int)g_pLoadingThread->IsStopWork());
-	
+
 	g_pLoadingThread->AddLast( pNode );
 
 	DEBUG_ADD("[Thread] Add Last OK");
@@ -6236,7 +6229,7 @@ MTopView::LoadFromFileImageObjectSPKSmallZone(std::ifstream & file)
 	CSpriteFilePositionArray* pOldImageObjectSFPA = m_pImageObjectSFPArraySmallZone;
 
 	m_pImageObjectSFPArraySmallZone = new CSpriteFilePositionArray;
-	
+
 	m_pImageObjectSFPArraySmallZone->LoadFromFile( file );
 
 	//------------------------------------------------------------
@@ -6245,7 +6238,7 @@ MTopView::LoadFromFileImageObjectSPKSmallZone(std::ifstream & file)
 	if (pOldImageObjectSFPA!=NULL)
 	{
 		DEBUG_ADD( "Remove Old-ImageObject SFPArray SmallZone");
-		
+
 		COrderedList<TYPE_SPRITEID>	oldImageObjectID;
 		COrderedList<TYPE_SPRITEID>	newImageObjectID;
 
@@ -6265,17 +6258,17 @@ MTopView::LoadFromFileImageObjectSPKSmallZone(std::ifstream & file)
 
 		// oldImageObjectID¿¡¼­ newImageObjectID Á¦°ÅÇÑ´Ù.
 		oldImageObjectID -= newImageObjectID;
-		
+
 		// ¿¹ÀüÀÇ zone¿¡¸¸ Á¸ÀçÇÏ´Â ImageObjectIDµéÀ» Á¦°ÅÇÑ´Ù.
 		m_ImageObjectSPK.ReleasePart( oldImageObjectID );
 
 		delete pOldImageObjectSFPA;
 		pOldImageObjectSFPA = NULL;
 	}
-	
+
 
 	DEBUG_ADD_FORMAT( "Load ImageObject SFPArray SmallZone : size=%d", m_pImageObjectSFPArraySmallZone->GetSize() );
-	
+
 	//------------------------------------------------------------
 	//  Load ImageObject SpriteSet
 	//------------------------------------------------------------
@@ -6283,11 +6276,11 @@ MTopView::LoadFromFileImageObjectSPKSmallZone(std::ifstream & file)
 	std::ifstream	ImageObjectPackFile;//(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
 	if (!FileOpenBinary(FILE_SPRITE_IMAGEOBJECT, ImageObjectPackFile))
 		return false;
-	
+
 	bool bLoadOK = m_ImageObjectSPK.LoadFromFilePart(ImageObjectPackFile, m_pImageObjectSFPArraySmallZone);
 
 	ImageObjectPackFile.close();
-	
+
 	return bLoadOK;
 	*/
 	/*
@@ -6313,11 +6306,11 @@ MTopView::ReleaseTileSPKLargeZone()
 	if (m_pTileSFPArrayLargeZone!=NULL)
 	{		
 		DEBUG_ADD_FORMAT( "Release TileSPK LargeZone : size=%d", m_pTileSFPArrayLargeZone->GetSize() );
-		
+
 		m_TileSPK.ReleasePart( m_pTileSFPArrayLargeZone );	
 
 		DEBUG_ADD( "ReleasePart OK" );
-		
+
 		delete m_pTileSFPArrayLargeZone;		
 
 		m_pTileSFPArrayLargeZone = NULL;
@@ -6336,11 +6329,11 @@ MTopView::ReleaseImageObjectSPKLargeZone()
 	if (m_pImageObjectSFPArrayLargeZone!=NULL)
 	{
 		DEBUG_ADD_FORMAT( "ReleaseImageObjectSPKLargeZone size=%d", m_pImageObjectSFPArrayLargeZone->GetSize() );
-		
+
 		m_ImageObjectSPK.ReleasePart( m_pImageObjectSFPArrayLargeZone );
 
 		DEBUG_ADD( "ReleasePart OK" );
-		
+
 		delete m_pImageObjectSFPArrayLargeZone;
 
 		m_pImageObjectSFPArrayLargeZone = NULL;
@@ -6359,7 +6352,7 @@ MTopView::ReleaseTileSPKSmallZone()
 {
 	/*
 	DEBUG_ADD( "ReleaseTileSPKSmallZone" );
-	
+
 	// m_pTileSFPArraySmallZone¿Í m_pTileSFPArrayLargeZone¸¦ sortÇÏ°í
 	// SmallZone - LargeZoneÇØ¼­ ³²Àº °ÍÀ» Á¦°ÅÇÑ´Ù.
 	COrderedList<TYPE_SPRITEID>	SmallZoneTileID;
@@ -6381,7 +6374,7 @@ MTopView::ReleaseTileSPKSmallZone()
 
 	// SmallZoneTileID¿¡¼­ LargeZoneTileID¸¦ Á¦°ÅÇÑ´Ù.
 	SmallZoneTileID -= LargeZoneTileID;
-	
+
 	// SmallZone¿¡¸¸ Á¸ÀçÇÏ´Â TileIDµéÀ» Á¦°ÅÇÑ´Ù.
 	m_TileSPK.ReleasePart( SmallZoneTileID );
 
@@ -6400,7 +6393,7 @@ MTopView::ReleaseImageObjectSPKSmallZone()
 {
 	/*
 	DEBUG_ADD( "ReleaseImageObjectSPKSmallZone" );
-	
+
 	// m_pImageObjectSFPArraySmallZone¿Í m_pImageObjectSFPArrayLargeZone¸¦ sortÇÏ°í
 	// SmallZone - LargeZoneÇØ¼­ ³²Àº °ÍÀ» Á¦°ÅÇÑ´Ù.
 	COrderedList<TYPE_SPRITEID>	SmallZoneImageObjectID;
@@ -6422,7 +6415,7 @@ MTopView::ReleaseImageObjectSPKSmallZone()
 
 	// SmallZoneImageObjectID¿¡¼­ LargeZoneImageObjectID¸¦ Á¦°ÅÇÑ´Ù.
 	SmallZoneImageObjectID -= LargeZoneImageObjectID;
-	
+
 	// SmallZone¿¡¸¸ Á¸ÀçÇÏ´Â ImageObjectIDµéÀ» Á¦°ÅÇÑ´Ù.
 	m_ImageObjectSPK.ReleasePart( SmallZoneImageObjectID );
 
@@ -6438,10 +6431,10 @@ void
 MTopView::SetZone(MZone* pZone)
 {
 	m_pZone		= pZone;
-	
+
 	// ¸ðµÎ ´Ù½Ã ±×·ÁÁØ´Ù.
 	m_bFirstTileDraw = true;
-	
+
 	ClearOutputCreature();
 
 	ClearItemNameList();
@@ -6477,7 +6470,7 @@ MTopView::ScreenToPixel(int x, int y)
 	// È­¸éÀÇ Ã¹ Sector°¡ ³ªÅ¸³»´Â Map¿¡¼­ÀÇ PixelÁÂÇ¥¸¦ ±¸ÇÏ°í
 	// È­¸éÁÂÇ¥ (x,y)¸¦ ´õÇØÁÖ¸é 
 	// È­¸é »óÀÇ ÁÂÇ¥°¡ ³ªÅ¸³»´Â Map¿¡¼­ÀÇ PixelÁÂÇ¥¸¦ ±¸ÇÏ´Â °ÍÀÌ´Ù
-	
+
 
 	zonePixel.x = m_FirstZonePixel.x + x;
 	zonePixel.y = m_FirstZonePixel.y + y;
@@ -6584,7 +6577,7 @@ MTopView::GetDirectionToPosition(int originX, int originY, int destX, int destY)
 
 	// 0ÀÏ ¶§ check
 	float	k	= (stepX==0)? 0 : (float)(stepY) / stepX;	// ±â¿ï±â
-									
+
 
 	//--------------------------------------------------
 	// ¹æÇâÀ» Á¤ÇØ¾ß ÇÑ´Ù.	
@@ -6688,7 +6681,7 @@ MTopView::SetFadeStart(char start, char end, char step, BYTE r, BYTE g, BYTE b, 
 	else
 #endif
 	{
-		m_FadeColor	= CDirectDraw::Color(r,g,b);
+		m_FadeColor	= CSDLGraphics::Color(r,g,b);
 	}
 }
 
@@ -6749,7 +6742,7 @@ MTopView::DrawFade()
 			{
 #ifdef PLATFORM_WINDOWS
 				// 2D 5:6:5
-				if (CDirectDraw::Is565())
+				if (CSDLGraphics::Is565())
 				{
 					//m_pSurface->GammaBox565(&rect, m_FadeValue);
 				}
@@ -6861,14 +6854,14 @@ MTopView::GetSelectedObject(int x, int y)
 	// °¢ Sector¿¡ ´ëÇØ¼­ checkÇØºÁ¾ß ÇÏ´Â °Í
 	//--------------------------------------------------------------
 	/*
-	 
+
 	   while ( ExistNextSector )
 	   {			
 			if ( IsExistObject )
 			{
 				if ( IsObjectCreature && ClickPoint In TheCreatureRect)
 					Select Creature
-	    
+
 				else if ( IsObjectItem && ClickPoint In TheItemRect )
 					Select Item
 			}			
@@ -6951,8 +6944,8 @@ MTopView::GetSelectedObject(int x, int y)
 			#endif
 
 			int numPortal = sector.GetPortalSize();
-			
-			
+
+
 			/*				
 			for (int i=0; i<numPortal; i++)
 			{
@@ -6963,7 +6956,7 @@ MTopView::GetSelectedObject(int x, int y)
 				// ÀÓ½Ã Ãâ·Â
 				//-------------------------------------------------------
 				DEBUG_ADD_FORMAT( "[Portal] Type=%d, ZoneID=%d", portalInfo.Type, portalInfo.ZoneID );
-			
+
 				iPortal++;
 			}
 			*/
@@ -6973,7 +6966,7 @@ MTopView::GetSelectedObject(int x, int y)
 				PORTAL_LIST::const_iterator	iPortal = sector.GetPortalBegin();
 
 				PORTAL_INFO portalInfo = *iPortal;
-				
+
 				bool canMove = false;
 				bool bSiegePotal = false;
 				//-------------------------------------------------------
@@ -6998,11 +6991,11 @@ MTopView::GetSelectedObject(int x, int y)
 					case MPortal::TYPE_OUSTERS_ONLY :
 						canMove = g_pPlayer->IsOusters();
 						break;
-						
+
 					case MPortal::TYPE_MULTI_PORTAL :
 						canMove = g_pPlayer->IsSlayer();
 					break;
-					
+
 					case MPortal::TYPE_GUILD_PORTAL:
 						canMove = (g_pUserInformation->GuildName.GetLength()>0);
 					break;
@@ -7046,7 +7039,7 @@ MTopView::GetSelectedObject(int x, int y)
 								//strcpy(pZoneName, "¿¤¸®º£ÀÌÅÍ");
 							}
 
-							
+
 							if(// (!g_pUserInformation->IsNetmarble || g_mapPremiumZone.find(zoneID) == g_mapPremiumZone.end())
 								/*&&*/ g_pSystemAvailableManager->ZoneFiltering( zoneID ))
 								gpC_mouse_pointer->SetCursorPortal( zoneID );
@@ -7055,7 +7048,7 @@ MTopView::GetSelectedObject(int x, int y)
 				}
 				else
 				{
-					
+
 					if (!g_bMouseInPortal)
 					{
 					}
@@ -7073,14 +7066,14 @@ MTopView::GetSelectedObject(int x, int y)
 			DEBUG_ADD("ptK2");
 		#endif
 	}
-	
-	
+
+
 	//--------------------------------------------------------------
 	//
 	// check
 	//
 	//--------------------------------------------------------------
-	
+
 	MObject*	pObject = NULL;	
 	MCreature*	pCreature = NULL;
 	MItem*		pItem	= NULL;
@@ -7158,7 +7151,7 @@ MTopView::GetSelectedObject(int x, int y)
 			// ¾î¶² Object°¡ ÀÖÀ» °æ¿ì
 			if (sector.IsExistObject() )			
 			{		
-				
+
 				//file << "Exist Object!" << endl;
 
 				// ObjectÀÇ Á¾·ù¿¡ µû¶ó¼­ ´Þ¸® checkÇÑ´Ù.
@@ -7186,7 +7179,7 @@ MTopView::GetSelectedObject(int x, int y)
 							break;
 
 						pCreature = (MCreature*)iCreature->second;
-				
+
 						// PlayerÀÌ¸é ¼±ÅÃÇÏÁö ¾Ê´Â´Ù.
 						if (pCreature->GetID()!=pid)	
 						{
@@ -7199,14 +7192,14 @@ MTopView::GetSelectedObject(int x, int y)
 							objectPixelPoint = MapToPixel(pCreature->GetX(), pCreature->GetY());
 							objectPixelPoint.x += m_PlusPoint.x + pCreature->GetSX();
 							objectPixelPoint.y += m_PlusPoint.y + pCreature->GetSY();
-								
+
 							// ZoneÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
 							objectPixelPoint.x -= firstZonePixel.x;
 							objectPixelPoint.y -= firstZonePixel.y;
 
 							// Creature°¡ È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.	
 							frame = m_CreatureFPK[(*g_pCreatureTable)[pCreature->GetCreatureType()].FrameID][pCreature->GetAction()][pCreature->GetDirection()][pCreature->GetFrame()];
-							
+
 							// ÇöÀç Sprite°¡ È­¸é¿¡ Ãâ·ÂµÇ´Â À§Ä¡
 							objectPixelPoint.x += frame.GetCX();
 							objectPixelPoint.y += frame.GetCY() - FLYINGCREATURE_HEIGHT;
@@ -7326,7 +7319,7 @@ MTopView::GetSelectedObject(int x, int y)
 			// ¾î¶² Object°¡ ÀÖÀ» °æ¿ì
 			if (sector.IsExistObject() )			
 			{		
-				
+
 				//file << "Exist Object!" << endl;
 
 				// ObjectÀÇ Á¾·ù¿¡ µû¶ó¼­ ´Þ¸® checkÇÑ´Ù.
@@ -7367,14 +7360,14 @@ MTopView::GetSelectedObject(int x, int y)
 							objectPixelPoint = MapToPixel(pCreature->GetX(), pCreature->GetY());
 							objectPixelPoint.x += m_PlusPoint.x + pCreature->GetSX();
 							objectPixelPoint.y += m_PlusPoint.y + pCreature->GetSY();
-								
+
 							// ZoneÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
 							objectPixelPoint.x -= firstZonePixel.x;
 							objectPixelPoint.y -= firstZonePixel.y;
 
 							// Creature°¡ È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.	
 							frame = m_CreatureFPK[(*g_pCreatureTable)[pCreature->GetCreatureType()].FrameID][pCreature->GetAction()][pCreature->GetDirection()][pCreature->GetFrame()];
-							
+
 							// ÇöÀç Sprite°¡ È­¸é¿¡ Ãâ·ÂµÇ´Â À§Ä¡
 							objectPixelPoint.x += frame.GetCX();
 							objectPixelPoint.y += frame.GetCY() - FLYINGCREATURE_HEIGHT;
@@ -7387,7 +7380,7 @@ MTopView::GetSelectedObject(int x, int y)
 							rect.right	= rect.left + m_CreatureSPK[ frame.GetSpriteID() ].GetWidth();
 							rect.bottom	= rect.top + m_CreatureSPK[ frame.GetSpriteID() ].GetHeight();
 							*/
-							
+
 							// ¼±ÅÃÇÑ À§Ä¡°¡ CreatureÀÇ ¿µ¿ª¿¡ ¼ÓÇÏ¸é
 							if ((
 								g_pPlayer->IsVampire()&&g_pZone->GetID() != 3001|| 
@@ -7414,7 +7407,7 @@ MTopView::GetSelectedObject(int x, int y)
 						}
 					}
 				}				
-				
+
 				//------------------------------------------------
 				//
 				// Creature°¡ ÀÖ´Â °æ¿ì
@@ -7450,14 +7443,14 @@ MTopView::GetSelectedObject(int x, int y)
 							objectPixelPoint = MapToPixel(pCreature->GetX(), pCreature->GetY());
 							objectPixelPoint.x += m_PlusPoint.x + pCreature->GetSX();
 							objectPixelPoint.y += m_PlusPoint.y + pCreature->GetSY();
-								
+
 							// ZoneÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
 							objectPixelPoint.x -= firstZonePixel.x;
 							objectPixelPoint.y -= firstZonePixel.y;
 
 							// Creature°¡ È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.	
 							frame = m_CreatureFPK[(*g_pCreatureTable)[pCreature->GetCreatureType()].FrameID][pCreature->GetAction()][pCreature->GetDirection()][pCreature->GetFrame()];
-							
+
 							// ÇöÀç Sprite°¡ È­¸é¿¡ Ãâ·ÂµÇ´Â À§Ä¡
 							objectPixelPoint.x += frame.GetCX();
 							objectPixelPoint.y += frame.GetCY();
@@ -7578,7 +7571,7 @@ MTopView::GetSelectedObject(int x, int y)
 						}
 					}
 				}
-						
+
 				//------------------------------------------------
 				//
 				// ItemÀÌ ÀÖ´Â °æ¿ì
@@ -7606,7 +7599,7 @@ MTopView::GetSelectedObject(int x, int y)
 					objectPixelPoint = MapToPixel(pItem->GetX(), pItem->GetY());
 					objectPixelPoint.x += m_PlusPoint.x;// + pItem->GetSX();
 					objectPixelPoint.y += m_PlusPoint.y;// + pItem->GetSY();
-						
+
 					// ZoneÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
 					objectPixelPoint.x -= firstZonePixel.x;
 					objectPixelPoint.y -= firstZonePixel.y;
@@ -7846,14 +7839,14 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 	// °¢ Sector¿¡ ´ëÇØ¼­ checkÇØºÁ¾ß ÇÏ´Â °Í
 	//--------------------------------------------------------------
 	/*
-	 
+
 	   while ( ExistNextSector )
 	   {			
 			if ( IsExistObject )
 			{
 				if ( IsObjectCreature && ClickPoint In TheCreatureRect)
 					Select Creature
-	    
+
 				else if ( IsObjectItem && ClickPoint In TheItemRect )
 					Select Item
 			}			
@@ -7888,13 +7881,13 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 	// (x,y)ÀÇ Zone¿¡¼­ÀÇ sectorÁÂÇ¥¸¦ ±¸ÇÑ´Ù.
 	//--------------------------------------------------------------						
 	sectorPoint = PixelToMap(pixelPoint.x, pixelPoint.y);
-	
+
 	//--------------------------------------------------------------
 	//
 	// check
 	//
 	//--------------------------------------------------------------
-	
+
 	MObject*	pObject = NULL;	
 	MCreature*	pCreature = NULL;
 	MItem*		pItem	= NULL;
@@ -7965,7 +7958,7 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 			// ¾î¶² Object°¡ ÀÖÀ» °æ¿ì
 			if (sector.IsExistObject() )			
 			{		
-				
+
 				//file << "Exist Object!" << endl;
 
 				// ObjectÀÇ Á¾·ù¿¡ µû¶ó¼­ ´Þ¸® checkÇÑ´Ù.
@@ -8001,14 +7994,14 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 							objectPixelPoint = MapToPixel(pCreature->GetX(), pCreature->GetY());
 							objectPixelPoint.x += m_PlusPoint.x + pCreature->GetSX();
 							objectPixelPoint.y += m_PlusPoint.y + pCreature->GetSY();
-								
+
 							// ZoneÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
 							objectPixelPoint.x -= firstZonePixel.x;
 							objectPixelPoint.y -= firstZonePixel.y;
 
 							// Creature°¡ È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.	
 							frame = m_CreatureFPK[pCreature->GetCreatureFrameID(0)][pCreature->GetAction()][pCreature->GetDirection()][pCreature->GetFrame()];
-							
+
 							// ÇöÀç Sprite°¡ È­¸é¿¡ Ãâ·ÂµÇ´Â À§Ä¡
 							objectPixelPoint.x += frame.GetCX();
 							objectPixelPoint.y += frame.GetCY() - pCreature->GetZ();//FLYINGCREATURE_HEIGHT;
@@ -8089,7 +8082,7 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 			// ¾î¶² Object°¡ ÀÖÀ» °æ¿ì
 			if (sector.IsExistObject() )			
 			{		
-				
+
 				//file << "Exist Object!" << endl;
 
 				// ObjectÀÇ Á¾·ù¿¡ µû¶ó¼­ ´Þ¸® checkÇÑ´Ù.
@@ -8126,14 +8119,14 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 							objectPixelPoint = MapToPixel(pCreature->GetX(), pCreature->GetY());
 							objectPixelPoint.x += m_PlusPoint.x + pCreature->GetSX();
 							objectPixelPoint.y += m_PlusPoint.y + pCreature->GetSY();
-								
+
 							// ZoneÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
 							objectPixelPoint.x -= firstZonePixel.x;
 							objectPixelPoint.y -= firstZonePixel.y;
 
 							// Creature°¡ È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.	
 							frame = m_CreatureFPK[pCreature->GetCreatureFrameID(0)][pCreature->GetAction()][pCreature->GetDirection()][pCreature->GetFrame()];
-							
+
 							// ÇöÀç Sprite°¡ È­¸é¿¡ Ãâ·ÂµÇ´Â À§Ä¡
 							objectPixelPoint.x += frame.GetCX();
 							objectPixelPoint.y += frame.GetCY() - pCreature->GetZ();//FLYINGCREATURE_HEIGHT;
@@ -8152,7 +8145,7 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 						}
 					}
 				}				
-				
+
 				//------------------------------------------------
 				//
 				// Creature°¡ ÀÖ´Â °æ¿ì
@@ -8184,14 +8177,14 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 							objectPixelPoint = MapToPixel(pCreature->GetX(), pCreature->GetY());
 							objectPixelPoint.x += m_PlusPoint.x + pCreature->GetSX();
 							objectPixelPoint.y += m_PlusPoint.y + pCreature->GetSY();
-								
+
 							// ZoneÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
 							objectPixelPoint.x -= firstZonePixel.x;
 							objectPixelPoint.y -= firstZonePixel.y;
 
 							// Creature°¡ È­¸é¿¡ Á¸ÀçÇÏ´Â ¿µ¿ªÀ» °è»êÇØ³½´Ù.	
 							frame = m_CreatureFPK[pCreature->GetCreatureFrameID(0)][pCreature->GetAction()][pCreature->GetDirection()][pCreature->GetFrame()];
-							
+
 							// ÇöÀç Sprite°¡ È­¸é¿¡ Ãâ·ÂµÇ´Â À§Ä¡
 							objectPixelPoint.x += frame.GetCX();
 							objectPixelPoint.y += frame.GetCY();
@@ -8240,12 +8233,12 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 							objectPixelPoint = MapToPixel(pCreature->GetX(), pCreature->GetY());
 							objectPixelPoint.x += m_PlusPoint.x + pCreature->GetSX();
 							objectPixelPoint.y += m_PlusPoint.y + pCreature->GetSY();
-								
+
 							// ZoneÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
 							objectPixelPoint.x -= firstZonePixel.x;
 							objectPixelPoint.y -= firstZonePixel.y;
 
-							
+
 
 							// mouseÁÂÇ¥°¡ Sprite¿¡ ¼ÓÇÏ´ÂÁö ¾Ë¾Æº¸±â
 							// Sprite¿¡¼­ÀÇ ÁÂÇ¥°¡ »ö±òÀÌ ÀÖ´Â °æ¿ìÀÏ¶§
@@ -8259,7 +8252,7 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 						}
 					}
 				}
-						
+
 				//------------------------------------------------
 				//
 				// ItemÀÌ ÀÖ´Â °æ¿ì
@@ -8281,7 +8274,7 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 					objectPixelPoint = MapToPixel(pItem->GetX(), pItem->GetY());
 					objectPixelPoint.x += m_PlusPoint.x;// + pItem->GetSX();
 					objectPixelPoint.y += m_PlusPoint.y;// + pItem->GetSY();
-						
+
 					// ZoneÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²Û´Ù.
 					objectPixelPoint.x -= firstZonePixel.x;
 					objectPixelPoint.y -= firstZonePixel.y;
@@ -8365,7 +8358,7 @@ MTopView::ClearItemNameList()
 
 		// ¸Þ¸ð¸®¿¡¼­ nodeÁ¦°Å
 		delete pNode;
-		
+
 		iItemName ++;
 	}
 
@@ -8411,7 +8404,7 @@ MTopView::AddItemName(DRAWITEMNAME_NODE* pNode)
 
 			break;
 		}
-		
+
 		iItemName ++;
 	}
 
@@ -8420,7 +8413,7 @@ MTopView::AddItemName(DRAWITEMNAME_NODE* pNode)
 		// ¸Ç ³¡¿¡ Ãß°¡
 		m_listDrawItemName.push_back( pNode );
 	}
-	
+
 	//-------------------------------------------------------
 	// MAX¸¦ ³Ñ¾î°£ °æ¿ì
 	//-------------------------------------------------------
@@ -8446,7 +8439,7 @@ MTopView::DrawItemNameList()
 	#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 		DEBUG_ADD( "Start DrawItemNameList" );
 	#endif
-	
+
 
 	DRAWITEMNAME_LIST::iterator iItemName = m_listDrawItemName.begin();
 
@@ -8478,9 +8471,9 @@ MTopView::DrawItemNameList()
 		if (pItem->IsSpecialColorItem())
 		{
 			WORD temp_color;
-			
+
 			temp_color = CIndexSprite::ColorSet[pItem->GetSpecialColorItemColorset()][16];
-			nameColor = RGB(CDirectDraw::Red(temp_color)<<3, CDirectDraw::Green(temp_color)<<3, CDirectDraw::Blue(temp_color)<<3);
+			nameColor = RGB(CSDLGraphics::Red(temp_color)<<3, CSDLGraphics::Green(temp_color)<<3, CSDLGraphics::Blue(temp_color)<<3);
 		}
 		else
 		if (pItem->IsEmptyItemOptionList())
@@ -8507,7 +8500,7 @@ MTopView::DrawItemNameList()
 			// È­¸é ¾È¿¡ ±ÛÀÚ°¡ µé¾î¿Àµµ·Ï..
 			x = g_GameRect.right - g_GetStringWidth( pItemName, g_ClientPrintInfo[FONTID_ITEM]->hfont );
 			x2 = g_GameRect.right;
-			
+
 			y2 = y + g_pClientConfig->FONT_ITEM_HEIGHT;
 
 			// °ËÀº»ö ¹Ú½º ¿µ¿ª
@@ -8530,7 +8523,7 @@ MTopView::DrawItemNameList()
 				);
 
 				AddText( pTextNodeBK );
-		
+
 				DRAWTEXT_NODE* pTextNode = new DRAWTEXT_NODE(
 										x+1,
 										y+1+1,
@@ -8568,7 +8561,7 @@ MTopView::DrawItemNameList()
 	#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 		DEBUG_ADD( "End DrawItemNameList" );
 	#endif	
-	
+
 }
 
 //----------------------------------------------------------------------
@@ -8596,7 +8589,7 @@ MTopView::SelectItemName(int x, int y)
 			// zone¿¡¼­ ÀÐ¾î¿Í¾ß ÇÑ´Ù.
 			return m_pZone->GetItem( pNode->GetID() );		
 		}
-	
+
 		// ´ÙÀ½ item name
 		iItemName ++;
 	}
@@ -8618,7 +8611,7 @@ MTopView::ClearTextList()
 
 		// ¸Þ¸ð¸®¿¡¼­ nodeÁ¦°Å
 		delete pNode;
-		
+
 		m_pqDrawText.pop();
 	}
 }
@@ -8670,7 +8663,7 @@ MTopView::DrawTextList()
 	#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 		DEBUG_ADD( "Start DrawTextList" );
 	#endif
-	
+
 	//DRAWTEXT_PQ::iterator iText = m_pqDrawText.begin();
 
 	//--------------------------------------------------------
@@ -8696,7 +8689,7 @@ MTopView::DrawTextList()
 			//--------------------------------------------------------
 			RECT rect = { pNode->GetX(), pNode->GetY(), 
 						pNode->GetXPlusWidth(), pNode->GetY(),15 };
-			
+
 			// °ËÀº ¹Ú½º Ãâ·Â..
 			DrawBox3D(&rect, 0x7000);			
 
@@ -8704,7 +8697,7 @@ MTopView::DrawTextList()
 		}
 
 		m_pSurface->Lock();	
-		
+
 		// ´Ù½Ã Ã³À½À¸·Î..
 		iText = m_pqDrawText.begin();
 	}
@@ -8729,7 +8722,7 @@ MTopView::DrawTextList()
 			// ±ÛÀÚÃâ·ÂµÇ´Â ºÎºÐ¿¡ °ËÀº»ö »óÀÚ Ãâ·Â
 			//--------------------------------------------------------
 			RECT rect = pNode->GetBox();
-			
+
 			//--------------------------------------------------------
 			// Åõ¸íÇÑ ¹Ú½ºÀÎ °æ¿ì
 			//--------------------------------------------------------
@@ -8761,7 +8754,7 @@ MTopView::DrawTextList()
 //
 				{	
 					WORD boxColor = pNode->GetBoxColor();
-						
+
 					if (pNode->IsExistBoxOutline())
 					{
 						WORD color = pNode->GetBoxOutlineColor();
@@ -8778,7 +8771,7 @@ MTopView::DrawTextList()
 						// ¹Ù´Ú ±×¸®±â
 						rect2 = rect;
 						DRAW_ALPHA_BOX_2D( rect2, boxColor );
-						
+
 						// °ËÁ¤»öÀÎ °æ¿ì
 						if (boxColor==0)
 						{
@@ -8790,11 +8783,11 @@ MTopView::DrawTextList()
 							// ..XX..
 
 							// 2D 5:6:5
-							if (CDirectDraw::Is565())
+							if (CSDLGraphics::Is565())
 							{
 								rect2 = rect;
 								//m_pSurface->GammaBox565(&rect2, 15);
-								
+
 								rect2.left	= rect.left + CHAT_BOX_TAIL_X;
 								rect2.top	= rect.bottom;
 								rect2.right = rect.left + CHAT_BOX_TAIL_X + 6;
@@ -8818,7 +8811,7 @@ MTopView::DrawTextList()
 							{
 								rect2 = rect;
 								//m_pSurface->GammaBox555(&rect2, 15);
-								
+
 								rect2.left	= rect.left + CHAT_BOX_TAIL_X;
 								rect2.top	= rect.bottom;
 								rect2.right = rect.left + CHAT_BOX_TAIL_X + 6;
@@ -8838,7 +8831,7 @@ MTopView::DrawTextList()
 								//m_pSurface->GammaBox555(&rect2, 15);
 							}					
 
-							
+
 						}
 						// ´Ù¸¥ »öÀÎ °æ¿ì
 						else
@@ -8856,7 +8849,7 @@ MTopView::DrawTextList()
 						m_pSurface->Lock();
 
 						DRAW_ALPHA_BOX_2D( rect, boxColor );
-						
+
 						m_pSurface->Unlock();
 					}					
 				}
@@ -8895,7 +8888,7 @@ MTopView::DrawTextList()
 			{
 				// ¿ª»ó color¼³Á¤
 				pPrintInfo->text_color = (~pNode->GetColor()) & 0x00FFFFFF;
-					
+
 				// Ãâ·Â
 				g_Print(x-1, y-1, pString, pPrintInfo);
 				g_Print(x+1, y+1, pString, pPrintInfo);
@@ -8903,7 +8896,7 @@ MTopView::DrawTextList()
 
 			// text color¼³Á¤
 			pPrintInfo->text_color = pNode->GetColor();
-				
+
 			//--------------------------------------------------------
 			// string Ãâ·Â
 			//--------------------------------------------------------
@@ -8912,7 +8905,7 @@ MTopView::DrawTextList()
 
 		// ¸Þ¸ð¸®¿¡¼­ Á¦°ÅÇÑ´Ù.
 		delete pNode;
-		
+
 		// ´ÙÀ½..
 		m_pqDrawText.pop();
 	}
@@ -8960,14 +8953,14 @@ MTopView::ClearLightBufferFilter3D()
 
 		//DarkColor = m_DarkBits;
 		int darkBits = m_DarkBits;
-		
+
 		if (g_pPlayer->IsInDarkness() && (!g_pPlayer->HasEffectStatus( EFFECTSTATUS_LIGHTNESS )||g_pZone->GetID() == 3001 ))
 		{
 			darkBits = 15;
 		}
 
 		DarkColor = max(0, darkBits - (g_pPlayer->GetLightSight() - g_pPlayer->GetTimeLightSight()));
-	
+
 		//--------------------------------------------------
 		// ÃÊ±âÈ­ - È­¸é ÀüÃ¼¸¦ Ã¤¿ï ºû..
 		//--------------------------------------------------
@@ -9012,12 +9005,12 @@ MTopView::ClearLightBufferFilter2D()
 		}
 		*/
 		int darkBits = m_DarkBits;
-		
+
 		if (g_pPlayer->IsInDarkness() && (!g_pPlayer->HasEffectStatus( EFFECTSTATUS_LIGHTNESS) ||g_pZone->GetID() == 3001))
 		{
 			darkBits = 15;
 		}
-	
+
 		DarkColor = 31 - (darkBits<<1);
 
 		DarkColor = max(0, DarkColor - ((g_pPlayer->GetLightSight() - g_pPlayer->GetTimeLightSight())<<1));
@@ -9093,7 +9086,7 @@ MTopView::AddLightFilter2D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 		{
 			// mapPixel --> screen
 			POINT screenPoint = PixelToScreen(x,y);	
-			
+
 			// screen -> filter
 			fx = (float)screenPoint.x / s_LightWidth;
 			fy = (float)screenPoint.y / s_LightHeight;
@@ -9108,7 +9101,7 @@ MTopView::AddLightFilter2D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 		// filter Áß½É ¸ÂÃß±â
 		fx = fx - (m_LightFTP[filterID].GetWidth() >> 1);
 		fy = fy - (m_LightFTP[filterID].GetHeight() >> 1);
-			
+
 		//-----------------------------------------------------
 		// BufferFilter¿¡ Light filter¸¦ Ãß°¡ÇÑ´Ù.
 		//-----------------------------------------------------
@@ -9134,7 +9127,7 @@ MTopView::AddLightFilter3D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 	{
 		range = min( max(g_pPlayer->GetSight()-3, 0), range );
 	}
-		
+
 	if (//true && 
 		!g_pPlayer->IsInDarkness()
 		&& range!=0
@@ -9166,7 +9159,7 @@ MTopView::AddLightFilter3D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 		{
 			// mapPixel --> screen
 			POINT screenPoint = PixelToScreen(x,y);	
-			
+
 			// screen -> filter
 			fx = (float)screenPoint.x / s_LightWidth;
 			fy = (float)screenPoint.y / s_LightHeight;
@@ -9181,7 +9174,7 @@ MTopView::AddLightFilter3D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 		// filter Áß½É ¸ÂÃß±â
 		fx = fx - (m_LightFTP[filterID].GetWidth() >> 1);
 		fy = fy - (m_LightFTP[filterID].GetHeight() >> 1);
-			
+
 		//-----------------------------------------------------
 		// BufferFilter¿¡ Light filter¸¦ Ãß°¡ÇÑ´Ù.
 		//-----------------------------------------------------
@@ -9243,7 +9236,7 @@ MTopView::AddOutputCreatureAll()
 	{
 		m_bTileSearchForCreature = false;
 	}
-	
+
 	//---------------------------------------------------------
 	// TileÀ» °Ë»öÇØ¼­ Ãâ·ÂÇÏ´Â °æ¿ì°¡ ¾Æ´Ï¸é..
 	// ¸ðµç Creature¸¦ OutputMap¿¡ Ãß°¡ÇØ¾ß ÇÑ´Ù.
@@ -9263,7 +9256,7 @@ MTopView::AddOutputCreatureAll()
 			m_mapCreature.insert(
 				CREATURE_OUTPUT_MAP::value_type( key, pCreature )
 			);
-		
+
 			// ´ÙÀ½ Creature
 			iCreature++;
 		}
@@ -9274,7 +9267,7 @@ MTopView::AddOutputCreatureAll()
 	//---------------------------------------------------------
 	iCreature = m_pZone->GetFakeCreatureBegin();
 	num = m_pZone->GetFakeCreatureNumber();
-	
+
 	//---------------------------------------------------------
 	// ¸ðµç Creature¸¦ OutputMap¿¡ Ãß°¡ÇØ¾ß ÇÑ´Ù.
 	//---------------------------------------------------------
@@ -9289,7 +9282,7 @@ MTopView::AddOutputCreatureAll()
 		m_mapCreature.insert(
 			CREATURE_OUTPUT_MAP::value_type( key, pCreature )
 		);
-	
+
 		// ´ÙÀ½ Creature
 		iCreature++;
 	}
@@ -9431,8 +9424,8 @@ MTopView::DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 		{
 			m_pSurface->Unlock();
 		}
-		
-		color = CDirectDraw::Color(r,g,b);
+
+		color = CSDLGraphics::Color(r,g,b);
 
 		m_pSurface->FillRect(pRect, color);
 
@@ -9500,7 +9493,7 @@ MTopView::DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 				m_pSurface->Lock();
 			}
 
-			color = CDirectDraw::Color(r,g,b);
+			color = CSDLGraphics::Color(r,g,b);
 
 			//-------------------------------------------------
 			// °ËÁ¤»öÀÌ¸é.. ½±°Ô µÈ´Ù~
@@ -9508,7 +9501,7 @@ MTopView::DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 			if (color==0)
 			{
 				// 2D 5:6:5
-				if (CDirectDraw::Is565())
+				if (CSDLGraphics::Is565())
 				{
 					//m_pSurface->GammaBox565(pRect, alpha);
 				}
@@ -9560,7 +9553,7 @@ MTopView::DrawInformation()
 	// Font ¼±ÅÃ
 	//-----------------------------------------------------------------
 	PrintInfo* pPrintInfo = g_ClientPrintInfo[FONTID_INFO];	
-	
+
 	int y;//2;
 
 	if (g_pPlayer->IsSlayer())
@@ -9593,19 +9586,19 @@ MTopView::DrawInformation()
 							g_pZoneTable->Get( g_nZoneSmall )->Name.GetString(),
 							g_pPlayer->GetX(), g_pPlayer->GetY());
 		}
-		const COLORREF color	= RGB(18<<3, 14<<3, 30<<3);	//CDirectDraw::Color(18,14,30);
-		const COLORREF bkcolor = RGB(0, 0, 0);				//CDirectDraw::Color(0,0,0);
+		const COLORREF color	= RGB(18<<3, 14<<3, 30<<3);
+		const COLORREF bkcolor = RGB(0, 0, 0);
 
 		pPrintInfo->text_color	= bkcolor;
 		g_Print(6, y+1, str, pPrintInfo);
-		
+
 		pPrintInfo->text_color	= color;
 		g_Print(5, y, str, pPrintInfo);
 
 		y += 18;
 	}
 	*/
-	
+
 
 	//-----------------------------------------------------------------
 	// °ÔÀÓ ½Ã°£ Ãâ·Â
@@ -9615,12 +9608,11 @@ MTopView::DrawInformation()
 
 	if (g_pUserOption->DrawGameTime)
 	{
-		//static WORD dayColor = CDirectDraw::Color(5,2,24);
-		const COLORREF timeColor	= RGB(12<<3, 8<<3, 25<<3);	//CDirectDraw::Color(12,8,25);
-		const COLORREF timeBkColor = RGB(0, 0, 0);				//CDirectDraw::Color(0,0,0);
+		const COLORREF timeColor	= RGB(12<<3, 8<<3, 25<<3);
+		const COLORREF timeBkColor = RGB(0, 0, 0);
 
 		g_pGameTime->SetCurrentTime( g_CurrentTime );
-	
+
 
 		sprintf(str, (*g_pGameStringTable)[STRING_DRAW_GAME_TIME].GetString(),
 						g_pGameTime->GetHour(),
@@ -9630,7 +9622,7 @@ MTopView::DrawInformation()
 
 		pPrintInfo->text_color = timeBkColor;
 		g_Print(6, y+1, str, pPrintInfo);
-		
+
 		pPrintInfo->text_color = timeColor;
 		g_Print(5, y, str, pPrintInfo);
 
@@ -9682,10 +9674,10 @@ MTopView::DrawInformation()
 	{
 		if ((*g_pSystemMessage)[c][0] != NULL)
 		{
-			const COLORREF color = RGB(29<<3, 8<<3, 12<<3);	//CDirectDraw::Color(29,8,12);
+			const COLORREF color = RGB(29<<3, 8<<3, 12<<3);
 
 			pPrintInfo->text_color = 0;
-			
+
 			g_Print(11, strY+1, (*g_pSystemMessage)[c], pPrintInfo);
 
 			pPrintInfo->text_color = color;
@@ -9694,7 +9686,7 @@ MTopView::DrawInformation()
 			strY+=20;
 		}		
 	}
-	
+
 	//-----------------------------------------------------------------
 	//
 	// Player Message
@@ -9731,7 +9723,7 @@ MTopView::DrawInformation()
 				color = RGB_YELLOW;
 				break;
 			}
-			
+
 			pPrintInfo->text_color = 0;
 			g_Print(x+1, strY+1, message, pPrintInfo);
 
@@ -9743,8 +9735,8 @@ MTopView::DrawInformation()
 	}
 
 	PrintInfo* pNoticeInfo = g_ClientPrintInfo[FONTID_LARGE_CHAT];	
-	
-	
+
+
 	for( c = 0; c< g_pNoticeMessage->GetSize(); c++ )
 	{
 		if( (*g_pNoticeMessage)[c][0] != NULL )
@@ -9836,7 +9828,7 @@ MTopView::DrawInformation()
 	{
 		if ((*g_pGameMessage)[c][0] != NULL)
 		{
-			const COLORREF color = RGB(8<<3, 28<<3, 8<<3);	//CDirectDraw::Color(29,8,12);
+			const COLORREF color = RGB(8<<3, 28<<3, 8<<3);
 
 			pPrintInfo->text_color = 0;
 			g_Print(strX+1, strY+1, (*g_pGameMessage)[c], pPrintInfo);
@@ -9887,8 +9879,8 @@ MTopView::DrawInformation()
 	// Ä³¸¯ÅÍ »óÅÂ Ãâ·Â
 	//-----------------------------------------------------------------
 	#ifdef OUTPUT_DEBUG
-		if (g_pDXInput->KeyDown(DIK_P) && 
-			(g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL)))
+		if (g_pSDLInput->KeyDown(DIK_P) && 
+			(g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL)))
 		{
 			const int statusNum = 3;
 			char statusName[statusNum][5] =
@@ -9904,7 +9896,7 @@ MTopView::DrawInformation()
 			statusValue[1] = g_pPlayer->GetDEX();
 			statusValue[2] = g_pPlayer->GetINT();
 
-			const COLORREF color = RGB(8<<3, 28<<3, 8<<3);	//CDirectDraw::Color(29,8,12);
+			const COLORREF color = RGB(8<<3, 28<<3, 8<<3);
 
 
 			strY = 50;
@@ -9935,24 +9927,24 @@ MTopView::DrawInformation()
 	extern int g_SurfaceCount;
 	extern int g_EffectCount;
 #endif
-	
+
 void
 MTopView::DrawEventString(int& strX, int& strY)
 {
 	char str[256] = {0,};
 	char str2[256] = {0,};
-	
+
 	// Delay String
 	PrintInfo* pPrintInfo = g_ClientPrintInfo[FONTID_INFO];	
 
 	const MEvent *event = g_pEventManager->GetEventByFlag(EVENTFLAG_SHOW_DELAY_STRING, 0);
-	
+
 	if(event != NULL)
 	{
 		for(int eventMessageCount = 0; eventMessageCount < (event->m_StringsID.empty()?1:event->m_StringsID.size()); eventMessageCount++)
 		{
 			str[0] = NULL;
-			
+
 			switch(event->eventFlag & EVENTFLAG_SHOW_DELAY_STRING)
 			{
 			case EVENTFLAG_SHOW_STRING:
@@ -9962,11 +9954,11 @@ MTopView::DrawEventString(int& strX, int& strY)
 						strcpy(str, (*g_pGameStringTable)[event->m_StringsID[eventMessageCount]].GetString());
 				}
 				break;
-				
+
 			case EVENTFLAG_SHOW_DELAY:
 				sprintf(str, "%d", (event->eventDelay - (GetTickCount() - event->eventStartTickCount)+999)/1000);
 				break;
-				
+
 			case EVENTFLAG_SHOW_DELAY_STRING:
 				if(!event->m_StringsID.empty())
 				{
@@ -9977,15 +9969,15 @@ MTopView::DrawEventString(int& strX, int& strY)
 			}			
 			if (str[0] != NULL)
 			{
-				const COLORREF color = RGB(29<<3, 29<<3, 12<<3);	//CDirectDraw::Color(29,8,12);
-				
+				const COLORREF color = RGB(29<<3, 29<<3, 12<<3);
+
 				const int strWidth = g_GetStringWidth(str, pPrintInfo->hfont)/2;
 				pPrintInfo->text_color = 0;
 				g_Print(strX-strWidth+1, strY+1, str, pPrintInfo);
-				
+
 				pPrintInfo->text_color = color;
 				g_Print(strX-strWidth, strY, str, pPrintInfo);
-				
+
 				strY+=20;
 			}		
 		}
@@ -9993,19 +9985,19 @@ MTopView::DrawEventString(int& strX, int& strY)
 
 	ZeroMemory( str, 256 );
 	ZeroMemory( str2, 256 );
-	
+
 
 	// Äù½ºÆ® ºÎºÐÀº Äù½ºÆ® ÀÎÅÍÆäÀÌ½º·Î »«´Ù. ¾Æ·¡ºÎºÐÀº »ç¿ëµÇÁö ¾ÊÀ»µí..
 	const MEvent *QuestEvent = g_pEventManager->GetEventByFlag(EVENTFLAG_QUEST_INFO, 0);
-	
+
 	if(QuestEvent != NULL)
 	{
 		COLORREF color = RGB(116,243,73);
 		COLORREF color2 = RGB(80,150,40);
-		
+
 		str[0] = NULL;
 		str2[0] = NULL;
-		
+
 		bool bColor;
 		if(QuestEvent->parameter1 > timeGetTime())
 		{
@@ -10018,11 +10010,11 @@ MTopView::DrawEventString(int& strX, int& strY)
 		{	
 			bColor = false;
 		}
-		
+
 		//if( QuestEvent->parameter1 == 0 )
 		{
 			QUEST_INFO* mkq = g_pQuestInfoManager->GetInfo( QuestEvent->parameter2 );
-			
+
 			if( NULL != mkq)
 			{
 				switch(mkq->GetType() )
@@ -10076,18 +10068,18 @@ MTopView::DrawEventString(int& strX, int& strY)
 							color = RGB(142,200,200);
 							color2 = RGB(180,220,220);
 						}
-						
+
 						else
 						{				
 							sprintf(str, "%s %d/%d ", mkq->GetName(), QuestEvent->parameter3, mkq->GetGoal() );
 							DWORD time = QuestEvent->parameter4 - (timeGetTime() / 1000);
-							
-							
+
+
 							DWORD sec = time % 60;
 							DWORD minute = (time / 60) % 60;
 							DWORD hour = (time / 60 / 60);
 							bool bContinue = false;
-							
+
 							if(hour > 0 || bContinue)
 							{
 								bContinue = true;
@@ -10119,17 +10111,17 @@ MTopView::DrawEventString(int& strX, int& strY)
 				}
 			}
 		}
-		
+
 		if (str[0] != NULL)
 		{
-			
+
 			const int strWidth = g_GetStringWidth(str, pPrintInfo->hfont)/2;
 			pPrintInfo->text_color = 0;
 			g_Print(strX-strWidth+1, strY+1, str, pPrintInfo);
-			
+
 			pPrintInfo->text_color = bColor ? color2 : color;
 			g_Print(strX-strWidth, strY, str, pPrintInfo);
-			
+
 			strY+=20;
 		}		
 		if (str2[0] != NULL )
@@ -10137,10 +10129,10 @@ MTopView::DrawEventString(int& strX, int& strY)
 			const int strWidth = g_GetStringWidth(str2, pPrintInfo->hfont)/2;
 			pPrintInfo->text_color = 0;
 			g_Print(strX-strWidth+1, strY+1, str2, pPrintInfo);
-			
+
 			pPrintInfo->text_color = bColor ? color2 : color;
 			g_Print(strX-strWidth, strY, str2, pPrintInfo);
-			
+
 			strY+=20;		
 		}
 	}
@@ -10187,7 +10179,7 @@ void MTopView::DrawDebugInfo(void* pSurface)
 		}
 
 		sprintf(attackMode, "gtx(%d. %d %d)", gtx_op, gtx_src, gtx_dest);
-		
+
 		int zoneID = (g_bZonePlayerInLarge)? g_nZoneLarge : g_nZoneSmall;
 
 		sprintf(str, "ID = %d / %d¸í [Weapon=%s] [align=%d]", g_pPlayer->GetID(), m_pZone->GetCreatureNumber(), attackMode, g_pPlayer->GetAlignment());	
@@ -10218,7 +10210,7 @@ void MTopView::DrawDebugInfo(void* pSurface)
 			sprintf(str, "%s = %d / %d = %7.3f", g_ProfileInfoName.GetString(), totalTime, times, avgTime);
 			pSurfaceCast->GDI_Text(10,136, str, RGB(220,220,220));		
 		}		
-		
+
 
 //
 //
@@ -10233,13 +10225,13 @@ void MTopView::DrawDebugInfo(void* pSurface)
 		}
 
 
-		
+
 
 		//sprintf(str, "FirstPoint : X = %d, Y = %d", firstPointX, firstPointY);
 		//pSurface->GDI_Text(9,109, str, RGB(220,220,220));
 		//*/	
 
-		
+
 
 
 		//sprintf(str, "ImageObject=%d°³", m_mapImageObject.size());
@@ -10255,8 +10247,8 @@ void MTopView::DrawDebugInfo(void* pSurface)
 		};
 
 		sprintf(str, "%s, %s, InputFocus=%s, SCShot=%s",
-						infoStr[0][CDirectDraw::Is565()],
-						infoStr[1][g_DXMusic.IsSoftwareSynth()],
+						infoStr[0][CSDLGraphics::Is565()],
+						infoStr[1][g_SDLMusic.IsSoftwareSynth()],
 						infoStr[2][g_bUIInput],
 						infoStr[3][g_bSlideScreenShot]
 				);
@@ -10269,12 +10261,12 @@ void MTopView::DrawDebugInfo(void* pSurface)
 		DWORD dwFree;
 		ZeroMemory(&ddsCaps2, sizeof(ddsCaps2)); 
 		ddsCaps2.dwCaps = DDSCAPS_TEXTURE; 
-		HRESULT hr = CDirectDraw::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
+		HRESULT hr = CSDLGraphics::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
 
 		sprintf(str, "Texture = %ld/%ld", dwFree, dwTotal);
 		pSurfaceCast->GDI_Text(500,580, str, 0xFFFFFF);		
 
-	
+
 	#endif
 }
 
@@ -10293,8 +10285,8 @@ MTopView::DrawTestHelp()
 		// F1À» ´©¸¥ »óÅÂ --> µµ¿ò¸» Ãâ·Â
 		//
 		//--------------------------------------------------------------------	
-		if (g_pDXInput->KeyDown(DIK_F11)
-			&& (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL)))
+		if (g_pSDLInput->KeyDown(DIK_F11)
+			&& (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL)))
 		{
 			RECT rect = { 250, 25, 530, 410 };
 
@@ -10306,8 +10298,8 @@ MTopView::DrawTestHelp()
 			else
 			{
 				m_pSurface->Lock();
-					
-				if (CDirectDraw::Is565())
+
+				if (CSDLGraphics::Is565())
 				{
 					//m_pSurface->GammaBox565(&rect, 15);
 				}
@@ -10375,7 +10367,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 	}
 
 	#ifdef OUTPUT_DEBUG
-/*		if (g_pDXInput->KeyDown(DIK_RCONTROL) && g_pDXInput->KeyDown(DIK_RSHIFT))
+/*		if (g_pSDLInput->KeyDown(DIK_RCONTROL) && g_pSDLInput->KeyDown(DIK_RSHIFT))
 		{
 			if (g_WipeValue==0 || g_WipeValue==64)
 			{
@@ -10398,7 +10390,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 		}
 */
 		// Å¸ÀÏ¿¡ Æ÷Å» Á¤º¸ Ãâ·ÂÇÏ±â
-		if (g_pDXInput->KeyDown(DIK_T) && g_pDXInput->KeyDown(DIK_LCONTROL))
+		if (g_pSDLInput->KeyDown(DIK_T) && g_pSDLInput->KeyDown(DIK_LCONTROL))
 		{
 			SetFirstDraw();
 		}
@@ -10443,17 +10435,17 @@ MTopView::Draw(int firstPointX,int firstPointY)
 	if (m_bFirstTileDraw)
 	{
 		DEBUG_ADD("Draw m_bFirstTileDraw: Restore");
-		
-		CDirectDraw::RestoreAllSurfaces();
+
+		CSDLGraphics::RestoreAllSurfaces();
 // CDirect3D::Restore() removed (SDL2)
 
 		DEBUG_ADD("Draw m_bFirstTileDraw: Clear");
-		
+
 		m_mapImageObject.clear();
 		m_mapCreature.clear();
-		
+
 		DEBUG_ADD("Draw m_bFirstTileDraw: DrawTileSurface");
-		
+
 		__BEGIN_PROFILE("DrawTileSurface")
 
 		DrawTileSurface();
@@ -10461,19 +10453,19 @@ MTopView::Draw(int firstPointX,int firstPointY)
 		__END_PROFILE("DrawTileSurface")
 
 		DEBUG_ADD("Draw m_bFirstTileDraw: DetermineImageObject");
-		
+
 		DetermineImageObject();
 		m_bFirstTileDraw = false;
 
 		DEBUG_ADD("Draw m_bFirstTileDraw: OK");
-		
+
 		/*
 		// CDirect3D::GetDevice()->LightEnable() removed (SDL2)
 
 		// CDirect3D::GetDevice()->SetRenderState() removed (SDL2)
 
-		
-	
+
+
 		D3DLIGHT7 light;
 	    D3DUtil_InitLight( light, D3DLIGHT_POINT, 0.0f, 0.0f, -10.0f );
 
@@ -10492,9 +10484,9 @@ MTopView::Draw(int firstPointX,int firstPointY)
 		light.dvPhi =         0.8f; //¿ø»ÔÀÇ ¿Ü°û Å©±â
 		light.dvAttenuation0 = 1.0f;
 		light.dvFalloff		= 1.0f;
-		
+
 		// CDirect3D::GetDevice()->SetLight() removed (SDL2)
-	
+
 		*/
 		//*/
 	}
@@ -10530,7 +10522,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			/*
 			if (false)  // CDirect3D::GetDevice()->BeginScene() removed (SDL2)
 			{
-				CDirectDraw::RestoreAllSurfaces();
+				CSDLGraphics::RestoreAllSurfaces();
 // CDirect3D::Restore() removed (SDL2)
 
 				RestoreSurface();
@@ -10539,7 +10531,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 				return;
 			}			
 			*/
-			
+
 
 			///*
 			///*
@@ -10560,15 +10552,15 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			// // CDirect3D::GetDevice()->Clear() removed (SDL2)
 
 			//*/
-			
+
 
 			//DrawZone(firstPointX, firstPointY);
 
 			//*/
-	
+
 
 			/*
-			if (g_pDXInput->KeyDown(DIK_Z))
+			if (g_pSDLInput->KeyDown(DIK_Z))
 			{
 				D3DLIGHT7 light;
 				// CDirect3D::GetDevice()->GetLight() removed (SDL2)
@@ -10576,12 +10568,12 @@ MTopView::Draw(int firstPointX,int firstPointY)
 
 				light.dvTheta -=       0.01f; //¿ø»ÔÀÇ Áß¾Ó Å©±â
 				light.dvPhi -=         0.01f; //¿ø»ÔÀÇ ¿Ü°û Å©±â
-				
+
 				// CDirect3D::GetDevice()->SetLight() removed (SDL2)
 
 			}
 
-			if (g_pDXInput->KeyDown(DIK_A))
+			if (g_pSDLInput->KeyDown(DIK_A))
 			{
 				D3DLIGHT7 light;
 				// CDirect3D::GetDevice()->GetLight() removed (SDL2)
@@ -10589,12 +10581,12 @@ MTopView::Draw(int firstPointX,int firstPointY)
 
 				light.dvTheta +=       0.01f; //¿ø»ÔÀÇ Áß¾Ó Å©±â
 				light.dvPhi +=         0.01f; //¿ø»ÔÀÇ ¿Ü°û Å©±â
-				
+
 				// CDirect3D::GetDevice()->SetLight() removed (SDL2)
 
 			}
 			*/
-			
+
 			///*
 			//test.Rotate( 0.1f, 0.1f, 0 );
 
@@ -10610,7 +10602,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			ClearLightBufferFilter3D();
 
 			__END_PROFILE("ClearLBF3D")
-			
+
 			//------------------------------------------------
 			// Draw Zone
 			//------------------------------------------------
@@ -10655,12 +10647,12 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			//------------------------------------------------
 			// test¿ë µµ¿ò¸»
 			//------------------------------------------------
-			if (g_pDXInput->KeyDown(DIK_F11))
+			if (g_pSDLInput->KeyDown(DIK_F11))
 			{
 				DrawTestHelp();
 			}
 
-		
+
 			//------------------------------------------------
 			// EndScene
 			//------------------------------------------------
@@ -10677,7 +10669,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 
 			__BEGIN_PROFILE("ClearTexture")
 
-			
+
 			__END_PROFILE("ClearTexture")
 		}
 		else
@@ -10690,12 +10682,12 @@ MTopView::Draw(int firstPointX,int firstPointY)
 			#endif
 
 			__BEGIN_PROFILE("ClearLBF2D")
-			
+
 			ClearLightBufferFilter2D();
 
 			__END_PROFILE("ClearLBF2D")
-			
-			
+
+
 			//------------------------------------------------
 			// Draw Zone
 			//------------------------------------------------
@@ -10752,7 +10744,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 	//#ifdef OUTPUT_DEBUG
 		//	DEBUG_ADD("[TempDebug] After Draw");
 	//#endif	
-	
+
 
 
 	//------------------------------------------------------------
@@ -10828,7 +10820,7 @@ MTopView::DrawLightBuffer3D()
 		DEBUG_ADD( "End DrawLightBuffer3D" );
 	#endif
 
-	
+
 }
 
 //----------------------------------------------------------------------
@@ -10868,15 +10860,15 @@ MTopView::DrawLightBuffer2D()
 		//--------------------------------------------
 		// 5:6:5
 		//--------------------------------------------
-		if (CDirectDraw::Is565())
+		if (CSDLGraphics::Is565())
 		{
 			int*	pPH = m_p2DLightPixelHeight;
 			for (int y=0; y<m_LightBufferFilter.GetHeight(); y++)
 			{			
 				BYTE*	pFilter = m_LightBufferFilter.GetFilter(y);
 				int*	pPW	= m_p2DLightPixelWidth;			
-				
-				
+
+
 				//--------------------------------------------
 				// 9ÁÙ¾¿ Ãâ·ÂÇÒ¶§...
 				//--------------------------------------------
@@ -10904,13 +10896,13 @@ MTopView::DrawLightBuffer2D()
 					}
 					//end by sonic
 					// ´ÙÀ½..
-					
+
 
 					for (int x=0; x<m_LightBufferFilter.GetWidth(); x++)
 					{				
 						int light	= *pFilter;
 						int	len		= *pPW;
-						
+
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp1, len, light);
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp2, len, light);
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp3, len, light);
@@ -10928,7 +10920,7 @@ MTopView::DrawLightBuffer2D()
 							}
 							// end by sonic
 						//}
-						
+
 
 						// ´ÙÀ½ filter°ª
 						pFilter++;
@@ -10988,7 +10980,7 @@ MTopView::DrawLightBuffer2D()
 					{				
 						int light	= *pFilter;
 						int	len		= *pPW;
-						
+
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp1, len, light);
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp2, len, light);
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp3, len, light);
@@ -11007,7 +10999,7 @@ MTopView::DrawLightBuffer2D()
 							}
 							// edn by sonic
 						//}
-						
+
 
 						// ´ÙÀ½ filter°ª
 						pFilter++;
@@ -11033,7 +11025,7 @@ MTopView::DrawLightBuffer2D()
 						// end by sonic
 					}	
 				}
-				
+
 				pPH++;
 			}
 		}
@@ -11047,8 +11039,8 @@ MTopView::DrawLightBuffer2D()
 			{			
 				BYTE*	pFilter = m_LightBufferFilter.GetFilter(y);
 				int*	pPW	= m_p2DLightPixelWidth;			
-				
-				
+
+
 				//--------------------------------------------
 				// 9ÁÙ¾¿ Ãâ·ÂÇÒ¶§...
 				//--------------------------------------------
@@ -11076,13 +11068,13 @@ MTopView::DrawLightBuffer2D()
 					}
 					// end by sonic
 					// ´ÙÀ½..
-					
+
 
 					for (int x=0; x<m_LightBufferFilter.GetWidth(); x++)
 					{				
 						int light	= *pFilter;
 						int	len		= *pPW;
-						
+
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp1, len, light);
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp2, len, light);
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp3, len, light);
@@ -11100,7 +11092,7 @@ MTopView::DrawLightBuffer2D()
 							}
 							// end by sonic
 						//}
-						
+
 
 						// ´ÙÀ½ filter°ª
 						pFilter++;
@@ -11158,7 +11150,7 @@ MTopView::DrawLightBuffer2D()
 					{				
 						int light	= *pFilter;
 						int	len		= *pPW;
-						
+
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp1, len, light);
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp2, len, light);
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp3, len, light);
@@ -11177,7 +11169,7 @@ MTopView::DrawLightBuffer2D()
 							}
 							// end by sonic
 						//}
-						
+
 
 						// ´ÙÀ½ filter°ª
 						pFilter++;
@@ -11203,7 +11195,7 @@ MTopView::DrawLightBuffer2D()
 						// end by sonic
 					}	
 				}
-				
+
 				pPH++;
 			}
 		}
@@ -11268,7 +11260,7 @@ MTopView::DetermineImageObject()
 	int sY1 = firstSector.y + SECTOR_SKIP_UP;
 	int sX2 = firstSector.x + g_SECTOR_WIDTH+1;
 	int sY2 = firstSector.y + g_SECTOR_HEIGHT+1;
-	
+
 	//------------------------------------------------------
 	// ZoneÀÇ ¿µ¿ªÀÌ ¾Æ´Ñ °æ¿ì¿¡ Skip...
 	//------------------------------------------------------
@@ -11293,7 +11285,7 @@ MTopView::DetermineImageObject()
 	{
 		sY2 = m_pZone->GetHeight()-1;
 	}
-		
+
 	//------------------------------------------------------
 	// ÀÌÀü¿¡ ÀÖ´ø ImageObject¸¦ ¸ðµÎ Áö¿î´Ù.
 	//------------------------------------------------------
@@ -11348,7 +11340,7 @@ MTopView::DetermineImageObject()
 							);
 						}
 					}
-					
+
 					iImageObject++;
 				}
 			}
@@ -11395,7 +11387,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 				eraseY1, eraseY2,		// Áö¿ö¾ßµÉ °ÍµéÀÌ ÀÖ´Â ÁÙ
 				lastY,					// È­¸éÀÇ ¸¶Áö¸· ÁÙ(Áö¿ì¸é ¾ÈµÇ´Â °Íµé)
 				newY1, newY2;			// »õ·Î ³ªÅ¸³ª´Â °ÍµéÀÌ ÀÖ´Â ÁÙ
-		
+
 		// Ã¼Å©ÇÒ ÇÊ¿ä°¡ ÀÖ´Â°¡?
 		bool bCheckLast		= true;
 		bool bCheckErase	= true;
@@ -11429,7 +11421,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 		//-----------------------------------
 		if (newFirstSector.y - m_FirstSector.y < 0)
 		{
-			
+
 			// ´Ù½Ã »ì¸± °Í
 			lastY	= newFirstSector.y + g_SECTOR_HEIGHT+1;	// ÇöÀç È­¸éÀÇ ¸¶Áö¸· ÁÙ
 
@@ -11472,7 +11464,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 			{				
 				newY1 = 0;	
 			}
-			
+
 		}
 		//-----------------------------------
 		// ¾Æ·¡ÂÊÀ¸·Î ÀÌµ¿ÇÑ °æ¿ì
@@ -11498,7 +11490,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 				//lastY = 0;	
 				bCheckLast = false;
 			}
-			
+
 			if (eraseY2 < 0) 
 			{				
 				//eraseY2 = 0;	
@@ -11520,7 +11512,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 			}		
 
 		}
-		
+
 
 		//----------------------------------------------
 		// erase1 ~ erase2±îÁö´Â Áö¿ï¸¸ÇÑ(?) °Íµé.
@@ -11545,7 +11537,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 						for (int i=0; i<sector.GetImageObjectSize(); i++)
 						{
 							MImageObject* const pImageObject = (MImageObject* const)((*iImageObject).second);
-							
+
 							//----------------------------------------
 							// Key°ª = (Viewpoint << 32) | ID
 							//----------------------------------------
@@ -11555,7 +11547,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 							{			
 								m_mapImageObject.erase( iDelete );
 							}
-								
+
 							iImageObject++;
 						}
 					}
@@ -11602,7 +11594,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 								);
 							}
 						}
-							
+
 						iImageObject++;
 					}
 				}
@@ -11629,7 +11621,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 						for (i=0; i<sector.GetImageObjectSize(); i++)
 						{
 							MImageObject* const pImageObject = (MImageObject* const)((*iImageObject).second);
-							
+
 							{						
 								// ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎÇØº¸°í ¾øÀ¸¸é Ãß°¡.
 								QWORD key = GetOutputImageObjectID( pImageObject );
@@ -11650,14 +11642,14 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 									);
 								}
 							}
-								
+
 							iImageObject++;
 						}
 					}
 				}
 			}
 		}
-		
+
 	}
 
 	//---------------------------------------------------------------
@@ -11706,7 +11698,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 		//-----------------------------------
 		if (newFirstSector.x - m_FirstSector.x < 0)
 		{
-			
+
 			// ´Ù½Ã »ì¸± °Í
 			lastX	= newFirstSector.x + g_SECTOR_WIDTH+1;	// ÇöÀç È­¸éÀÇ ¸¶Áö¸· ÁÙ
 
@@ -11746,7 +11738,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 			{				
 				newX1 = 0;	
 			}				
-			
+
 		}
 		//-----------------------------------
 		// ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿ÇÑ °æ¿ì
@@ -11774,7 +11766,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 				//lastX = 0;
 				bCheckLast = false;
 			}
-			
+
 			if (eraseX2 < 0) 
 			{				
 				//eraseX2 = 0;
@@ -11784,7 +11776,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 			{				
 				eraseX1 = 0;	
 			}
-			
+
 			if (newX1 >= m_pZone->GetWidth())
 			{
 				//newX1 = m_pZone->GetWidth()-1;
@@ -11795,7 +11787,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 				newX2 = m_pZone->GetWidth()-1;
 			}	
 		}
-		
+
 
 		//----------------------------------------------
 		// erase1 ~ erase2±îÁö´Â Áö¿ï¸¸ÇÑ(?) °Íµé.
@@ -11820,7 +11812,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 						for (i=0; i<sector.GetImageObjectSize(); i++)
 						{
 							MImageObject* const pImageObject = (MImageObject* const)((*iImageObject).second);
-							
+
 							//----------------------------------------
 							// Key°ª = (Viewpoint << 32) | ID
 							//----------------------------------------
@@ -11830,7 +11822,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 							{			
 								m_mapImageObject.erase( iDelete );
 							}
-								
+
 							iImageObject++;
 						}
 					}
@@ -11856,7 +11848,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 					for (i=0; i<sector.GetImageObjectSize(); i++)
 					{
 						MImageObject* const pImageObject = (MImageObject* const)((*iImageObject).second);
-						
+
 						{						
 							// ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎÇØº¸°í ¾øÀ¸¸é Ãß°¡.
 							QWORD key = GetOutputImageObjectID( pImageObject );
@@ -11878,7 +11870,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 								);
 							}
 						}
-							
+
 						iImageObject++;
 					}
 				}
@@ -11905,7 +11897,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 						for (i=0; i<sector.GetImageObjectSize(); i++)
 						{
 							MImageObject* const pImageObject = (MImageObject* const)((*iImageObject).second);
-						
+
 							{								
 								// ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎÇØº¸°í ¾øÀ¸¸é Ãß°¡.
 								QWORD key = GetOutputImageObjectID( pImageObject );
@@ -11927,7 +11919,7 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 									);
 								}
 							}
-								
+
 							iImageObject++;
 						}
 					}
@@ -11991,7 +11983,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	//-------------------------------------------------
 	// Player¸¦ °¡¸®´Â ImageObjectµé¿¡ ´ëÇÑ Á¤º¸
 	//-------------------------------------------------
-	
+
 
 	//-------------------------------------------------
 	// Ã¹ Sector°¡ Ãâ·ÂµÉ ÁÂÇ¥ º¸Á¤(smooth scrollÀ» À§ÇØ¼­)
@@ -12107,7 +12099,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 	__END_PROFILE("UpdateImageObject")
 
-	
+
 	//---------------------------------------------------------------
 	// ¿ÜºÎ¿¡¼­ ÇÊ¿äÇÑ Á¤º¸¸¦ »ý¼º..
 	// È­¸é »óÀÇ Ã¹ À§Ä¡¿¡ Ãâ·ÂµÇ´Â SectorÀÇ ÁÂÇ¥
@@ -12135,7 +12127,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			}
 		}
 	#endif
-	
+
 
 	//---------------------------------------------------------------
 	// Player¸¦ °¡¸®´Â ImageObjectµéÀ» Ã³¸®ÇÒ FilterÀÇ Ãâ·Â ÁÂÇ¥
@@ -12247,7 +12239,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	//--------------------------------------------------
 	// ºÎÁ·ÇÑ ºÎºÐ Ç¥½Ã	
 	BYTE bLack = 0;
-	 
+
 	int leftGap = rectScreen.left - rectTileSurface.left;
 	int rightGap = rectScreen.right - rectTileSurface.right;
 	int topGap = rectScreen.top - rectTileSurface.top;
@@ -12287,10 +12279,10 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			)
 	{
 		DEBUG_ADD("[DrawZone] Too Far Move");
-		
+
 		m_mapImageObject.clear();
 		m_mapCreature.clear();
-		
+
 		// TileÀüÃ¼¸¦ ´Ù½Ã ±×·ÁÁØ´Ù.
 		DrawTileSurface();
 
@@ -12362,7 +12354,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY1[0] = m_TileSurfaceFirstSectorY - TILESURFACE_SECTOR_EDGE;
 				sX2[0] = sX1[0]	+ TILESURFACE_SECTOR_EDGE;
 				sY2[0] = sY1[0] + g_TILESURFACE_SECTOR_HEIGHT;
-					
+
 				//--------------------------------------------------
 				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
 				//--------------------------------------------------
@@ -12378,7 +12370,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY1[1] = m_TileSurfaceFirstSectorY - TILESURFACE_SECTOR_EDGE;
 				sX2[1] = sX1[1]	+ g_TILESURFACE_SECTOR_WIDTH;
 				sY2[1] = sY1[1] + TILESURFACE_SECTOR_EDGE;
-					
+
 				//--------------------------------------------------
 				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
 				//--------------------------------------------------
@@ -12437,7 +12429,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY1[0] = m_TileSurfaceFirstSectorY + TILESURFACE_SECTOR_EDGE;
 				sX2[0] = sX1[0]	+ TILESURFACE_SECTOR_EDGE;
 				sY2[0] = sY1[0] + g_TILESURFACE_SECTOR_HEIGHT;
-					
+
 				//--------------------------------------------------
 				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
 				//--------------------------------------------------
@@ -12453,7 +12445,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY1[1] = m_TileSurfaceFirstSectorY + g_TILESURFACE_SECTOR_HEIGHT;
 				sX2[1] = sX1[1]	+ g_TILESURFACE_SECTOR_WIDTH;
 				sY2[1] = sY1[1] + TILESURFACE_SECTOR_EDGE;
-					
+
 				//--------------------------------------------------
 				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
 				//--------------------------------------------------
@@ -12509,7 +12501,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY1[0] = m_TileSurfaceFirstSectorY;
 				sX2[0] = sX1[0]	+ TILESURFACE_SECTOR_EDGE;
 				sY2[0] = sY1[0] + g_TILESURFACE_SECTOR_HEIGHT;
-					
+
 				//--------------------------------------------------
 				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
 				//--------------------------------------------------
@@ -12569,7 +12561,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY1[0] = m_TileSurfaceFirstSectorY - TILESURFACE_SECTOR_OUTLINE_UP;
 				sX2[0] = sX1[0]	+ TILESURFACE_SECTOR_EDGE;
 				sY2[0] = sY1[0] + g_TILESURFACE_SECTOR_HEIGHT;
-					
+
 				//--------------------------------------------------
 				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
 				//--------------------------------------------------
@@ -12585,7 +12577,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY1[1] = m_TileSurfaceFirstSectorY - TILESURFACE_SECTOR_EDGE;
 				sX2[1] = sX1[1]	+ g_TILESURFACE_SECTOR_WIDTH;
 				sY2[1] = sY1[1] + TILESURFACE_SECTOR_EDGE;
-					
+
 				//--------------------------------------------------
 				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
 				//--------------------------------------------------
@@ -12643,7 +12635,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY1[0] = m_TileSurfaceFirstSectorY + TILESURFACE_SECTOR_OUTLINE_UP;
 				sX2[0] = sX1[0]	+ TILESURFACE_SECTOR_EDGE;
 				sY2[0] = sY1[0] + g_TILESURFACE_SECTOR_HEIGHT;
-					
+
 				//--------------------------------------------------
 				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
 				//--------------------------------------------------
@@ -12659,7 +12651,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY1[1] = m_TileSurfaceFirstSectorY + g_TILESURFACE_SECTOR_HEIGHT;
 				sX2[1] = sX1[1]	+ g_TILESURFACE_SECTOR_WIDTH;
 				sY2[1] = sY1[1] + TILESURFACE_SECTOR_EDGE;
-					
+
 				//--------------------------------------------------
 				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
 				//--------------------------------------------------
@@ -12715,7 +12707,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sY1[0] = m_TileSurfaceFirstSectorY;
 				sX2[0] = sX1[0]	+ TILESURFACE_SECTOR_EDGE;
 				sY2[0] = sY1[0] + g_TILESURFACE_SECTOR_HEIGHT;
-					
+
 				//--------------------------------------------------
 				// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
 				//--------------------------------------------------
@@ -12768,7 +12760,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			sY1[0] = m_TileSurfaceFirstSectorY - TILESURFACE_SECTOR_EDGE;
 			sX2[0] = sX1[0]	+ g_TILESURFACE_SECTOR_WIDTH;
 			sY2[0] = sY1[0] + TILESURFACE_SECTOR_EDGE;
-				
+
 			//--------------------------------------------------
 			// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
 			//--------------------------------------------------
@@ -12820,7 +12812,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			sY1[0] = m_TileSurfaceFirstSectorY + g_TILESURFACE_SECTOR_HEIGHT;
 			sX2[0] = sX1[0]	+ g_TILESURFACE_SECTOR_WIDTH;
 			sY2[0] = sY1[0] + TILESURFACE_SECTOR_EDGE;
-				
+
 			//--------------------------------------------------
 			// Ã¹¹øÂ° Ãâ·Â ÁÂÇ¥
 			//--------------------------------------------------
@@ -12859,14 +12851,14 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				// Zone¿Ü°û ºÎºÐÀº °ËÀº»öÀ¸·Î Ä¥ÇÑ´Ù.
 				rect.left = firstTilePoint[n].x;
 				rect.top = 0;	
-				
+
 				firstTilePoint[n].x += -sX1[n] * TILE_X;
 
 				rect.right = firstTilePoint[n].x;
 				rect.bottom = g_TILESURFACE_HEIGHT;				 
 
 				m_pTileSurface->FillRect(&rect, 0);
-				
+
 				sX1[n] = 0;	
 			}
 
@@ -12888,13 +12880,13 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				// Zone¿Ü°û ºÎºÐÀº °ËÀº»öÀ¸·Î Ä¥ÇÑ´Ù.
 				rect.left = firstTilePoint[n].x;
 				rect.top = firstTilePoint[n].y;	
-				
+
 				firstTilePoint[n].y += -sY1[n] * TILE_Y;
 
 				rect.right = firstTilePoint[n].x + (sX2[n]-sX1[n])*TILE_X;
 				rect.bottom = firstTilePoint[n].y;
 				m_pTileSurface->FillRect(&rect, 0);
-				
+
 				sY1[n] = 0;	
 			}
 
@@ -12909,7 +12901,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 				sY2[n] = m_pZone->GetHeight();//-1;
 			}
-					
+
 			// Ã¹¹øÂ° ÁÙ			
 			tilePointTemp.y = firstTilePoint[n].y;
 
@@ -12958,9 +12950,9 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	point.x = 0;
 	point.y = 0;
 
-	
+
 	////m_pSurface->BltDarkness(&point, m_pTileSurface, &rectReuse, DARK_VALUE);
-	
+
 	//----------------------------------------------------------------	
 	//
 	// [ TEST CODE ]  Perspective
@@ -12969,7 +12961,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 
 	bool bDrawBackGround = DrawEvent();
-	
+
 	__BEGIN_PROFILE("ReuseBltTileSurface")
 	// 2004, 9, 3, sobeit add start - Å¸ÀÏ µÞÂÊ¿¡ ±¸¸§-_-;
 //	event = g_pEventManager->GetEventByFlag(EVENTFLAG_CLOUD_BACKGROUND);
@@ -13017,7 +13009,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	{
 		m_pSurface->BltNoColorkey(&point, m_pTileSurface, &rectReuse);
 	}
-	
+
 
 	__END_PROFILE("ReuseBltTileSurface")
 
@@ -13062,8 +13054,8 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	{
 		sY2 = m_pZone->GetHeight()-1;
 	}
-					
-				
+
+
 
 	//------------------------------------------------------
 	//
@@ -13096,7 +13088,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 
 	CREATURE_OUTPUT_MAP::const_iterator iCreatureOutput = m_mapCreature.begin();
-		
+
 	//------------------------------------------------------
 	// Creature - ghost draw.
 	//------------------------------------------------------
@@ -13110,13 +13102,13 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
 			point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 			point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
-									
+
 			// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
 			//int DarkBits = (m_pZone->GetSector(pCreature->GetX(),pCreature->GetY()).GetLight()==0)?m_DarkBits:0;
-			
+
 			DrawCreature(&point, pCreature);//, DarkBits);
 		}
-	
+
 		iCreatureOutput ++;
 	}
 // 2004, 03, 24, sobeit end
@@ -13127,9 +13119,9 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			static int s_id = 0;
 			static DWORD lastFrame = g_CurrentFrame;
 
-			if (g_pDXInput->KeyDown(DIK_N) && g_CurrentFrame-lastFrame>2)
+			if (g_pSDLInput->KeyDown(DIK_N) && g_CurrentFrame-lastFrame>2)
 			{
-				if (g_pDXInput->KeyDown(DIK_LSHIFT))
+				if (g_pSDLInput->KeyDown(DIK_LSHIFT))
 				{
 					s_id -= 9;
 				}
@@ -13142,9 +13134,9 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				lastFrame = g_CurrentFrame;
 			}
 
-			if (g_pDXInput->KeyDown(DIK_M) && g_CurrentFrame-lastFrame>2)
+			if (g_pSDLInput->KeyDown(DIK_M) && g_CurrentFrame-lastFrame>2)
 			{
-				if (g_pDXInput->KeyDown(DIK_LSHIFT))
+				if (g_pSDLInput->KeyDown(DIK_LSHIFT))
 				{
 					s_id += 9;
 				}
@@ -13160,7 +13152,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			CIndexSprite::SetUsingColorSet( 10, 10 );
 			char str[80];
 			sprintf(str, "id = %d", s_id);
-			
+
 			m_pSurface->BltIndexSprite(&pointS, &m_CreatureSPK[s_id]);
 m_pSurface->Unlock();
 			m_pSurface->GDI_Text(400, 2, str, 0xFFFFFF);
@@ -13180,7 +13172,7 @@ if (!m_pSurface->Lock()) return;
 	// Ãâ·Â´ë»óÀÌ µÇ´Â ImageObject Iterator
 	//------------------------------------------------------
 	IMAGEOBJECT_OUTPUT_MAP::const_iterator iImageObjectOutput0 = m_mapImageObject.begin();
-	
+
 	//------------------------------------------------------
 	// Ãâ·Â ½ÃÁ¡ÀÌ 0 Áï ¹Ù´Ú ¿ÀºêÁ§Æ®ÀÎ
 	// ImageObjectµéÀ» Ãâ·ÂÇÑ´Ù.
@@ -13196,7 +13188,7 @@ if (!m_pSurface->Lock()) return;
 			// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
 			point.x = pImageObject->GetPixelX() - m_FirstZonePixel.x;
 			point.y = pImageObject->GetPixelY() - m_FirstZonePixel.y;
-									
+
 			DrawImageObject(&point, pImageObject);
 		}
 
@@ -13212,7 +13204,7 @@ if (!m_pSurface->Lock()) return;
 	// player°¡ °ü¼Ó¿¡ ÀÖ´Â °æ¿ì [»õ±â¼ú3]
 	//------------------------------------------------------
 	bool bPlayerInCasket = g_pPlayer->IsInCasket();
-		
+
 	if (bPlayerInCasket)
 	{
 		// [»õ±â¼ú3]
@@ -13262,29 +13254,29 @@ if (!m_pSurface->Lock()) return;
 			{
 				4, 4, 5, 5, 6, 6
 			};
-			
+
 			static int clickFrame = 0;
-			
+
 			if(g_pEventManager->GetEventByFlag(EVENTFLAG_NOT_DRAW_CREATURE) == NULL)
 			{
 				// Áß½É ÁÂÇ¥ º¸Á¤
 				CSprite* pSprite = &m_EtcSPK[ frameID[clickFrame] ];
-				
+
 				selectedPoint.x += 24 - (pSprite->GetWidth()>>1);
 				selectedPoint.y += 24 - (pSprite->GetHeight()>>1);
-				
-				
+
+
 				m_pSurface->BltSprite(&selectedPoint, pSprite);
 			}
-			
+
 			static DWORD lastTime = g_CurrentTime;
 			if (g_CurrentTime - lastTime >= g_UpdateDelay)
 			{
 				if (++clickFrame==MaxClickFrame) clickFrame = 0;
 				lastTime = g_CurrentTime;
 			}
-			
-			
+
+
 			// Player°¡ ¼±ÅÃµÈ À§Ä¡¿¡ ¿ÔÀ¸¸é..
 			if (g_pPlayer->GetX()==m_SelectSector.x && g_pPlayer->GetY()==m_SelectSector.y)
 			{
@@ -13313,11 +13305,11 @@ if (!m_pSurface->Lock()) return;
 	while (bDrawBackGround && iImageObjectShadowOutput != m_mapImageObject.end())
 	{
 		MImageObject* const pImageObject = (MImageObject* const)((*iImageObjectShadowOutput).second);
-		
+
 		// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
 		point.x = pImageObject->GetPixelX() - m_FirstZonePixel.x;
 		point.y = pImageObject->GetPixelY() - m_FirstZonePixel.y;
-											
+
 		if (pImageObject->GetSpriteID()==SPRITEID_NULL)
 		{
 			/*
@@ -13353,7 +13345,7 @@ if (!m_pSurface->Lock()) return;
 	// Ãâ·Â´ë»óÀÌ µÇ´Â ImageObject Iterator
 	//------------------------------------------------------
 	IMAGEOBJECT_OUTPUT_MAP::const_iterator iImageObjectOutput = m_mapImageObject.begin();
-	
+
 	//------------------------------------------------------
 	// Ãâ·Â ½ÃÁ¡ÀÌ sY1º¸´Ù ÀûÀº °æ¿ìÀÇ 
 	// ImageObjectµéÀ» Ãâ·ÂÇÑ´Ù.
@@ -13371,7 +13363,7 @@ if (!m_pSurface->Lock()) return;
 				// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
 				point.x = pImageObject->GetPixelX() - m_FirstZonePixel.x;
 				point.y = pImageObject->GetPixelY() - m_FirstZonePixel.y;
-										
+
 				DrawImageObject(&point, pImageObject);
 			}
 		}
@@ -13439,7 +13431,7 @@ if (!m_pSurface->Lock()) return;
 			for (x=sX1; x<=sX2; x++)
 			{	
 				int darknessCount = g_pPlayer->GetDarknessCount();
-				
+
 				// darkness¶û °ü°è¾øÀÌ º¸ÀÌ´Â °æ¿ì. effect´Â +2
 				if (darknessCount < 0
 					|| max(abs(g_pPlayer->GetX()-x), abs(g_pPlayer->GetY()-y)) <= darknessCount+2)
@@ -13466,7 +13458,7 @@ if (!m_pSurface->Lock()) return;
 								// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
 								point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 								point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
-														
+
 								DrawCreatureShadow(&point, pCreature);//, DarkBits);
 							}
 						}
@@ -13503,7 +13495,7 @@ if (!m_pSurface->Lock()) return;
 										// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
 										point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 										point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
-																
+
 										DrawCreatureShadow(&point, pCreature);//, DarkBits);
 									}
 								}							
@@ -13516,9 +13508,9 @@ if (!m_pSurface->Lock()) return;
 		if( m_pZone->GetFakeCreatureNumber() > 0 )
 		{
 			int numFakeCreature = m_pZone->GetFakeCreatureNumber();
-			
+
 			MZone::CREATURE_MAP::const_iterator itr = m_pZone->GetFakeCreatureBegin();
-			
+
 			for(int i = 0; i < numFakeCreature; i++,itr++)
 			{
 				if( itr->first < MSector::POSITION_GROUNDCREATURE ||
@@ -13526,10 +13518,10 @@ if (!m_pSurface->Lock()) return;
 					continue;
 
 				MCreature *pCreature = itr->second;
-				
+
 				point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 				point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
-				
+
 				DrawCreatureShadow(&point, pCreature);
 			}
 		}
@@ -13537,7 +13529,7 @@ if (!m_pSurface->Lock()) return;
 		// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
 		point.x = g_pPlayer->GetPixelX() - m_FirstZonePixel.x;
 		point.y = g_pPlayer->GetPixelY() - m_FirstZonePixel.y;
-								
+
 		DrawCreatureShadow(&point, g_pPlayer);//, DarkBits);		
 	}
 	//------------------------------------------------------
@@ -13556,13 +13548,13 @@ if (!m_pSurface->Lock()) return;
 				// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
 				point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 				point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
-										
+
 				// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
 				//int DarkBits = (m_pZone->GetSector(pCreature->GetX(),pCreature->GetY()).GetLight()==0)?m_DarkBits:0;
-				
+
 				DrawCreatureShadow(&point, pCreature);//, DarkBits);
 			}
-		
+
 			iCreatureOutput ++;
 		}
 	}
@@ -13596,7 +13588,7 @@ if (!m_pSurface->Lock()) return;
 		{				
 			// ÇÑ ÁÙÀÇ Ã¹¹øÂ° Sector					
 			tilePointTemp.x = tilePoint.x;			
-			
+
 			for (x=sX1; x<=sX2; x++)
 			{	
 				const MSector& sector = m_pZone->GetSector(x,y);			
@@ -13606,10 +13598,10 @@ if (!m_pSurface->Lock()) return;
 				//              Object Ãâ·Â
 				//
 				//------------------------------------------------
-					
+
 				if (sector.IsExistObject())
 				{				
-			
+
 					//----------------------------------------
 					// ItemÀÏ °æ¿ì
 					//----------------------------------------					
@@ -13637,7 +13629,7 @@ if (!m_pSurface->Lock()) return;
 
 							// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
 							//DarkBits = (sector.GetLight()==0)?m_DarkBits:0;
-							
+
 							// ³ªÁß¿¡ FrameÁ¤º¸¿¡¼­ cx,cy¸¦ ±³Á¤ÇØ¾ß ÇÑ´Ù.									
 							DrawItemShadow(&point, pItem);//, DarkBits);
 						}
@@ -13650,8 +13642,8 @@ if (!m_pSurface->Lock()) return;
 				//------------------------------------
 				tilePointTemp.x += TILE_X;
 			}
-			
-					
+
+
 			// ´ÙÀ½ ÁÙ
 			tilePointTemp.y += TILE_Y;					
 		}		
@@ -13672,18 +13664,18 @@ if (!m_pSurface->Lock()) return;
 			{			
 				// ÇÑ ÁÙÀÇ Ã¹¹øÂ° Sector					
 				tilePointTemp.x = tilePoint.x;			
-				
+
 				for (x=sX1; x<=sX2; x++)
 				{	
 					const MSector& sector = m_pZone->GetSector(x,y);
-					
+
 					//------------------------------------------------
 					//
 					//              Object Ãâ·Â
 					//
 					//------------------------------------------------
 					//MItem* pCorpseItem = NULL;
-						
+
 					if (sector.IsExistObject())
 					{				
 						//----------------------------------------
@@ -13723,7 +13715,7 @@ if (!m_pSurface->Lock()) return;
 					tilePointTemp.x += TILE_X;
 				}
 			}	// bPlayerInCasket
-					
+
 			// ´ÙÀ½ ÁÙ
 			tilePointTemp.y += TILE_Y;
 		}
@@ -13767,7 +13759,7 @@ if (!m_pSurface->Lock()) return;
 				// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
 				point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 				point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
-										
+
 				// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
 				//int DarkBits = (m_pZone->GetSector(pCreature->GetX(),pCreature->GetY()).GetLight()==0)?m_DarkBits:0;
 
@@ -13801,7 +13793,7 @@ if (!m_pSurface->Lock()) return;
 		{				
 			// ÇÑ ÁÙÀÇ Ã¹¹øÂ° Sector					
 			tilePointTemp.x = tilePoint.x;			
-			
+
 			for (x=sX1; x<=sX2; x++)
 			{	
 				const MSector& sector = m_pZone->GetSector(x,y);			
@@ -13810,13 +13802,13 @@ if (!m_pSurface->Lock()) return;
 				// ¼­¹ö blockÁÂÇ¥¿¡ »ç°¢Çü
 				//------------------------------------------------------
 				#ifdef OUTPUT_DEBUG
-					if (g_pDXInput->KeyDown(DIK_LCONTROL) && g_pDXInput->KeyDown(DIK_V))
+					if (g_pSDLInput->KeyDown(DIK_LCONTROL) && g_pSDLInput->KeyDown(DIK_V))
 					{		
 						if (sector.IsBlockServerGround())
 						{
 							m_pSurface->Unlock();
 							RECT rect2 = { tilePointTemp.x, tilePointTemp.y, tilePointTemp.x + TILE_X, tilePointTemp.y + TILE_Y };
-							m_pSurface->DrawRect(&rect2, CDirectDraw::Color(31,20,20));
+							m_pSurface->DrawRect(&rect2, CSDLGraphics::Color(31,20,20));
 							m_pSurface->Lock();
 						}
 
@@ -13824,18 +13816,18 @@ if (!m_pSurface->Lock()) return;
 						{
 							m_pSurface->Unlock();
 							RECT rect2 = { tilePointTemp.x+2, tilePointTemp.y+2, tilePointTemp.x + TILE_X - 2, tilePointTemp.y + TILE_Y - 2 };
-							m_pSurface->DrawRect(&rect2, CDirectDraw::Color(20,20,31));
+							m_pSurface->DrawRect(&rect2, CSDLGraphics::Color(20,20,31));
 							m_pSurface->Lock();
 						}
 					}
 				#endif
-				
+
 				//------------------------------------------------------
 				// Æ¯Á¤ÇÑ ImageObjectÀÇ ViewSector?¿¡ "X"Ç¥ÇÏ±â
 				//------------------------------------------------------
 				#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
-					if (g_pDXInput->KeyDown(DIK_A) && 
-						(g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL)))
+					if (g_pSDLInput->KeyDown(DIK_A) && 
+						(g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL)))
 					{
 						if (sector.IsExistImageObject())
 						{
@@ -13856,7 +13848,7 @@ if (!m_pSurface->Lock()) return;
 														0xFFFFFF);	
 									m_pSurface->Lock();
 								}
-								
+
 								iImageObject++;
 							}
 						}
@@ -13873,7 +13865,7 @@ if (!m_pSurface->Lock()) return;
 				//
 				//------------------------------------------------
 				//MItem* pCorpseItem = NULL;
-					
+
 				if (sector.IsExistObject())
 				{				
 					//----------------------------------------
@@ -13881,7 +13873,7 @@ if (!m_pSurface->Lock()) return;
 					//----------------------------------------
 					//
 					//----------------------------------------
-			
+
 					//----------------------------------------
 					// ItemÀÏ °æ¿ì
 					//----------------------------------------					
@@ -13926,7 +13918,7 @@ if (!m_pSurface->Lock()) return;
 
 							// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
 							//DarkBits = (sector.GetLight()==0)?m_DarkBits:0;
-							
+
 							// ³ªÁß¿¡ FrameÁ¤º¸¿¡¼­ cx,cy¸¦ ±³Á¤ÇØ¾ß ÇÑ´Ù.									
 							DrawItem(&point, pItem);//, DarkBits);
 						}
@@ -13955,7 +13947,7 @@ if (!m_pSurface->Lock()) return;
 
 					// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
 					//DarkBits = (sector.GetLight()==0)?m_DarkBits:0;
-					
+
 					// ³ªÁß¿¡ FrameÁ¤º¸¿¡¼­ cx,cy¸¦ ±³Á¤ÇØ¾ß ÇÑ´Ù.									
 					DrawItem(&point, pItem);//, DarkBits);
 				}
@@ -13966,7 +13958,7 @@ if (!m_pSurface->Lock()) return;
 				//------------------------------------
 				tilePointTemp.x += TILE_X;
 			}
-			
+
 			//-----------------------------------------------------
 			// ÇÑ ÁÙÀÌ ³¡³¯¶§¸¶´Ù 
 			// Ãâ·ÂÇØ¾ßÇÒ ±× ÁÙÀÇ ImageObjectµéÀ» Ãâ·ÂÇÑ´Ù.
@@ -14023,7 +14015,7 @@ if (!m_pSurface->Lock()) return;
 						// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
 						point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 						point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
-												
+
 						// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
 						//int DarkBits = (m_pZone->GetSector(pCreature->GetX(),pCreature->GetY()).GetLight()==0)?m_DarkBits:0;
 
@@ -14053,7 +14045,7 @@ if (!m_pSurface->Lock()) return;
 				// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
 				point.x = g_pPlayer->GetPixelX() - m_FirstZonePixel.x;
 				point.y = g_pPlayer->GetPixelY() - m_FirstZonePixel.y;
-										
+
 				// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
 				//int DarkBits = (m_pZone->GetSector(pCreature->GetX(),pCreature->GetY()).GetLight()==0)?m_DarkBits:0;
 
@@ -14064,7 +14056,7 @@ if (!m_pSurface->Lock()) return;
 			for (x=sX1; x<=sX2; x++)
 			{	
 				int darknessCount = g_pPlayer->GetDarknessCount();
-				
+
 				// darkness¶û °ü°è¾øÀÌ º¸ÀÌ´Â °æ¿ì. effect´Â +2
 				if (darknessCount < 0
 					|| max(abs(g_pPlayer->GetX()-x), abs(g_pPlayer->GetY()-y)) <= darknessCount+2)
@@ -14092,7 +14084,7 @@ if (!m_pSurface->Lock()) return;
 									break;
 
 								MCreature* pCreature = (MCreature*)iCreature->second;
-						
+
 								// 2004, 04, 24 sobeit add start -ghost ÀÏ¶§ 
 								if(pCreature->GetCreatureType() == CREATURETYPE_GHOST)
 									continue;
@@ -14105,7 +14097,7 @@ if (!m_pSurface->Lock()) return;
 									// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
 									point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 									point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
-															
+
 									DrawCreature(&point, pCreature);//, DarkBits);
 								}
 							}
@@ -14130,7 +14122,7 @@ if (!m_pSurface->Lock()) return;
 				//------------------------------------
 				tilePointTemp.x += TILE_X;
 			}
-					
+
 			// ´ÙÀ½ ÁÙ
 			tilePointTemp.y += TILE_Y;					
 		}		
@@ -14151,33 +14143,33 @@ if (!m_pSurface->Lock()) return;
 			{			
 				// ÇÑ ÁÙÀÇ Ã¹¹øÂ° Sector					
 				tilePointTemp.x = tilePoint.x;			
-				
+
 				for (x=sX1; x<=sX2; x++)
 				{	
 					const MSector& sector = m_pZone->GetSector(x,y);
-					
+
 					//------------------------------------------------------
 					// ¼­¹ö blockÁÂÇ¥¿¡ »ç°¢Çü
 					//------------------------------------------------------
 					#ifdef OUTPUT_DEBUG
-						if (g_pDXInput->KeyDown(DIK_LCONTROL) && g_pDXInput->KeyDown(DIK_V))
+						if (g_pSDLInput->KeyDown(DIK_LCONTROL) && g_pSDLInput->KeyDown(DIK_V))
 						{		
 							if (sector.IsBlockServerGround())
 							{
 								m_pSurface->Unlock();
 								RECT rect2 = { tilePointTemp.x, tilePointTemp.y, tilePointTemp.x + TILE_X, tilePointTemp.y + TILE_Y };
-								m_pSurface->DrawRect(&rect2, CDirectDraw::Color(31,20,20));
+								m_pSurface->DrawRect(&rect2, CSDLGraphics::Color(31,20,20));
 								m_pSurface->Lock();
 							}
 						}
 					#endif
-					
+
 					//------------------------------------------------------
 					// Æ¯Á¤ÇÑ ImageObjectÀÇ ViewSector?¿¡ "X"Ç¥ÇÏ±â
 					//------------------------------------------------------
 					#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
-						if (g_pDXInput->KeyDown(DIK_A) && 
-							(g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL)))
+						if (g_pSDLInput->KeyDown(DIK_A) && 
+							(g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL)))
 						{
 							if (sector.IsExistImageObject())
 							{
@@ -14198,7 +14190,7 @@ if (!m_pSurface->Lock()) return;
 															0xFFFFFF);	
 										m_pSurface->Lock();
 									}
-									
+
 									iImageObject++;
 								}
 							}
@@ -14215,7 +14207,7 @@ if (!m_pSurface->Lock()) return;
 					//
 					//------------------------------------------------
 					//MItem* pCorpseItem = NULL;
-						
+
 					if (sector.IsExistObject())
 					{				
 						//----------------------------------------
@@ -14223,7 +14215,7 @@ if (!m_pSurface->Lock()) return;
 						//----------------------------------------
 						//
 						//----------------------------------------
-				
+
 						//----------------------------------------
 						// ItemÀÏ °æ¿ì
 						//----------------------------------------					
@@ -14268,7 +14260,7 @@ if (!m_pSurface->Lock()) return;
 
 								// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
 								//DarkBits = (sector.GetLight()==0)?m_DarkBits:0;
-								
+
 								// ³ªÁß¿¡ FrameÁ¤º¸¿¡¼­ cx,cy¸¦ ±³Á¤ÇØ¾ß ÇÑ´Ù.									
 								DrawItem(&point, pItem);//, DarkBits);
 							}
@@ -14297,7 +14289,7 @@ if (!m_pSurface->Lock()) return;
 
 						// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
 						//DarkBits = (sector.GetLight()==0)?m_DarkBits:0;
-						
+
 						// ³ªÁß¿¡ FrameÁ¤º¸¿¡¼­ cx,cy¸¦ ±³Á¤ÇØ¾ß ÇÑ´Ù.									
 						DrawItem(&point, pItem);//, DarkBits);
 					}
@@ -14309,7 +14301,7 @@ if (!m_pSurface->Lock()) return;
 					tilePointTemp.x += TILE_X;
 				}
 			}	// bPlayerInCasket
-			
+
 			//-----------------------------------------------------
 			// ÇÑ ÁÙÀÌ ³¡³¯¶§¸¶´Ù 
 			// Ãâ·ÂÇØ¾ßÇÒ ±× ÁÙÀÇ ImageObjectµéÀ» Ãâ·ÂÇÑ´Ù.
@@ -14366,7 +14358,7 @@ if (!m_pSurface->Lock()) return;
 						// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
 						point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 						point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
-												
+
 						// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
 						//int DarkBits = (m_pZone->GetSector(pCreature->GetX(),pCreature->GetY()).GetLight()==0)?m_DarkBits:0;
 
@@ -14393,7 +14385,7 @@ if (!m_pSurface->Lock()) return;
 				for (x=sX1; x<=sX2; x++)
 				{	
 					int darknessCount = g_pPlayer->GetDarknessCount();
-					
+
 					// darkness¶û °ü°è¾øÀÌ º¸ÀÌ´Â °æ¿ì. effect´Â +2
 					if (darknessCount < 0
 						|| max(abs(g_pPlayer->GetX()-x), abs(g_pPlayer->GetY()-y)) <= darknessCount+2)
@@ -14420,13 +14412,13 @@ if (!m_pSurface->Lock()) return;
 					tilePointTemp.x += TILE_X;
 				}
 			}
-					
+
 			// ´ÙÀ½ ÁÙ
 			tilePointTemp.y += TILE_Y;
 		}
 	}
 
-	
+
 	//------------------------------------------------------
 	// Ãâ·Â ½ÃÁ¡ÀÌ sY2º¸´Ù Å« °æ¿ìÀÇ 
 	// CreatureµéÀ» Ãâ·ÂÇÑ´Ù.
@@ -14451,7 +14443,7 @@ if (!m_pSurface->Lock()) return;
 			// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
 			point.x = pCreature->GetPixelX() - m_FirstZonePixel.x;
 			point.y = pCreature->GetPixelY() - m_FirstZonePixel.y;
-									
+
 			// ¹à±â¸¦ °áÁ¤ÇÑ´Ù.
 			//int DarkBits = (m_pZone->GetSector(pCreature->GetX(),pCreature->GetY()).GetLight()==0)?m_DarkBits:0;
 
@@ -14474,9 +14466,9 @@ if (!m_pSurface->Lock()) return;
 		// ±×¸²ÀÇ ÁÂÇ¥¸¦ ÇöÀç È­¸éÀÇ ÁÂÇ¥¿¡ ¸ÂÃß±â								
 		point.x = pImageObject->GetPixelX() - m_FirstZonePixel.x;
 		point.y = pImageObject->GetPixelY() - m_FirstZonePixel.y;
-									
+
 		DrawImageObject(&point, pImageObject);
-		
+
 		iImageObjectOutput ++;
 	}
 
@@ -14493,7 +14485,7 @@ if (!m_pSurface->Lock()) return;
 		// Á¦°Å
 		m_SOM.Clear();
 	}
-	
+
 	//----------------------------------------------------------------
 	// player°¡ °ü ¼Ó¿¡ ÀÖ´Â °æ¿ì°¡ ¾Æ´Ï¸é.. [»õ±â¼ú3]
 	//----------------------------------------------------------------
@@ -14504,7 +14496,7 @@ if (!m_pSurface->Lock()) return;
 		//          Weather - ³¯¾¾ È¿°ú Ãâ·Â
 		//
 		//----------------------------------------------------------------
-		
+
 		#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 			DEBUG_ADD( "Start DrawWeather" );
 		#endif
@@ -14577,7 +14569,7 @@ if (!m_pSurface->Lock()) return;
 			//
 			//----------------------------------------------------------------
 			__BEGIN_PROFILE("DrawLightFilter")
-				
+
 				//----------------------------------------------------------------
 				// playerÀÇ light ÁÂÇ¥ ¼³Á¤
 				//----------------------------------------------------------------
@@ -14597,7 +14589,7 @@ if (!m_pSurface->Lock()) return;
 			//----------------------------------------------------------------
 			g_pPlayer->CalculateLightSight();
 			int playerLight = g_pPlayer->GetLightSight();// + g_pPlayer->GetItemLightSight() + addLight);
-			
+
 			if (g_pPlayer->IsInDarkness())
 			{
 				playerLight = min(playerLight, g_pPlayer->GetDarknessCount());
@@ -14613,15 +14605,15 @@ if (!m_pSurface->Lock()) return;
 					playerLight, 
 					false,	// screenPixelÁÂÇ¥			
 					true);	// ¹«Á¶°Ç Ãâ·ÂÇØ¾ßÇÏ´Â ºû		
-				
+
 				// ¿ÀÅä¹ÙÀÌ ºÒºû
 				ADD_MOTORCYCLE_LIGHT_XY_3D( g_pPlayer, pX, pY, true );		
-				
+
 				//---------------------------------------
 				// UNLOCK
 				//---------------------------------------
 				m_pSurface->Unlock();
-				
+
 				//---------------------------------------
 				// 3D ½Ã¾ßÃ³¸® Ãâ·Â
 				//---------------------------------------
@@ -14640,7 +14632,7 @@ if (!m_pSurface->Lock()) return;
 //				g_pLast->FillSurface(0x001F);
 
 //				DrawLightBuffer3D();
-				
+
 				// SurfaceÀÇ Á¤º¸¸¦ ÀúÀåÇØµÐ´Ù.
 				//SetSurfaceInfo(&m_SurfaceInfo, m_pSurface->GetDDSD());
 			}
@@ -14655,18 +14647,18 @@ if (!m_pSurface->Lock()) return;
 					playerLight,  
 					false,	// screenPixelÁÂÇ¥			
 					true);	// ¹«Á¶°Ç Ãâ·ÂÇØ¾ßÇÏ´Â ºû
-				
+
 				// ¿ÀÅä¹ÙÀÌ ºÒºû
 				ADD_MOTORCYCLE_LIGHT_XY_2D( g_pPlayer, pX, pY, true );	
-				
+
 				DrawLightBuffer2D();
-				
+
 				//---------------------------------------
 				// UNLOCK
 				//---------------------------------------
 				m_pSurface->Unlock();
 			}
-			
+
 			__END_PROFILE("DrawLightFilter")
 #ifdef __METROTECH_TEST__
 		}
@@ -14777,7 +14769,7 @@ if (!m_pSurface->Lock()) return;
 	//----------------------------------------------------------------
 	// Light Ãâ·Â
 	//----------------------------------------------------------------
-	
+
 	/*
 	point.x = 210;
 	point.y = 200;
@@ -14787,7 +14779,7 @@ if (!m_pSurface->Lock()) return;
 	rect.bottom = 200;
 	m_pSurface->CopyTransAlpha(&point, m_pBuffer, &rect, 8);
 	*/
-	
+
 
 	//----------------------------------------------------------------
 	// Object Ãâ·Â	
@@ -14798,7 +14790,7 @@ if (!m_pSurface->Lock()) return;
 	// ±×·±µ¥! list¿¡ Ãß°¡µÉ¶§ ¼ø¼­°¡ ÀÖÀ¸´Ï±î... °ü°è°¡ ¾øÀ» °Å °°´Ù!
 	//----------------------------------------------------------------
 
-	
+
 
 
 	//----------------------------------------------------------------
@@ -14813,7 +14805,7 @@ if (!m_pSurface->Lock()) return;
 	point.x = 380;
 	point.y = 260;;
 	m_pSurface->BltAlphaSprite(&point, &m_EffectAlphaSPK[ m_EffectAlphaFPK[swordFrameID][swordD][swordFrame].GetSpriteID() ]);
-		
+
 	if (++swordFrame == 12) swordFrame = 0;
 
 	// Aura
@@ -14854,7 +14846,7 @@ if (!m_pSurface->Lock()) return;
 
 	/*
 	// ±×¸²ÀÚ Test		
-	if (g_pDXInput->KeyDown(DIK_SPACE))
+	if (g_pSDLInput->KeyDown(DIK_SPACE))
 	{
 		point.x = g_x;
 		point.y = g_y;
@@ -14870,7 +14862,7 @@ if (!m_pSurface->Lock()) return;
 			CSpriteSurface* pSurface = m_pImageObjectShadowManager->GetTexture(sprite);		
 			// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
 
-			
+
 			// ÁÂÇ¥ ¼³Á¤
 			m_SpriteVertices[0].sx = point.x;	
 			m_SpriteVertices[0].sy = point.y;
@@ -14882,7 +14874,7 @@ if (!m_pSurface->Lock()) return;
 			m_SpriteVertices[2].sy = point.y + m_pImageObjectShadowManager->GetHeight(sprite);
 			m_SpriteVertices[3].sx = m_SpriteVertices[1].sx;
 			m_SpriteVertices[3].sy = m_SpriteVertices[2].sy;		
-			
+
 			// Ãâ·Â
 			// CDirect3D::GetDevice()->DrawPrimitive() removed (SDL2)
 
@@ -14970,7 +14962,7 @@ MTopView::DrawTileSurface()
 	// sprite point
 	POINT	tilePoint, point;
 	RECT	rect;
-	
+
 	//---------------------------------------------------------------
 	// Player¸¦ Áß½É¿¡ µÎ±â À§ÇÑ Ã¹¹øÂ° SectorÁÂÇ¥¸¦ ±¸ÇÑ´Ù.
 	// È­¸éÀÇ (0,0)ÀÌ ³ªÅ¸³»´Â ZoneÀÇ PixelÁÂÇ¥
@@ -14994,7 +14986,7 @@ MTopView::DrawTileSurface()
 			}		
 		}
 	#endif
-	
+
 	//---------------------------------------------------------------	
 	// È­¸éÀÇ (0,0)¿¡ Ãâ·ÂµÇ´Â Sector
 	//---------------------------------------------------------------		
@@ -15013,11 +15005,11 @@ MTopView::DrawTileSurface()
 	//---------------------------------------------------------------
 	m_TileSurfaceFirstSectorX		= firstSector.x;
 	m_TileSurfaceFirstSectorY		= firstSector.y;
-	
+
 	point = MapToPixel(m_TileSurfaceFirstSectorX, m_TileSurfaceFirstSectorY);
 	m_TileSurfaceFirstZonePixelX	= point.x;
 	m_TileSurfaceFirstZonePixelY	= point.y;
-	
+
 
 	//----------------------------------------------------------------------
 	//
@@ -15035,7 +15027,7 @@ MTopView::DrawTileSurface()
 	// Ãâ·ÂÇÒ Surface»óÀÇ À§Ä¡	
 	tilePoint.x = 0;
 	tilePoint.y = 0;
-		
+
 	//------------------------------------------------------
 	// ZoneÀÇ ¿µ¿ªÀÌ ¾Æ´Ñ °æ¿ì¿¡ Skip...
 	//------------------------------------------------------					
@@ -15044,14 +15036,14 @@ MTopView::DrawTileSurface()
 		// Zone¿Ü°û ºÎºÐÀº °ËÀº»öÀ¸·Î Ä¥ÇÑ´Ù.
 		rect.left = tilePoint.x;
 		rect.top = 0;	
-		
+
 		tilePoint.x += -sX1 * TILE_X;
 
 		rect.right = tilePoint.x;
 		rect.bottom = g_TILESURFACE_HEIGHT;				 
 
 		m_pTileSurface->FillRect(&rect, 0);
-		
+
 		// CRITICAL FIX: Sync m_TileSurfaceFirstSectorX with adjusted sX1
 		m_TileSurfaceFirstSectorX += (-sX1);
 		sX1 = 0;	
@@ -15075,13 +15067,13 @@ MTopView::DrawTileSurface()
 		// Zone¿Ü°û ºÎºÐÀº °ËÀº»öÀ¸·Î Ä¥ÇÑ´Ù.
 		rect.left = tilePoint.x;
 		rect.top = tilePoint.y;	
-		
+
 		tilePoint.y += -sY1 * TILE_Y;
 
 		rect.right = tilePoint.x + (sX2-sX1)*TILE_X;
 		rect.bottom = tilePoint.y;
 		m_pTileSurface->FillRect(&rect, 0);
-		
+
 		// CRITICAL FIX: Sync m_TileSurfaceFirstSectorY with adjusted sY1
 		m_TileSurfaceFirstSectorY += (-sY1);
 		sY1 = 0;	
@@ -15098,7 +15090,7 @@ MTopView::DrawTileSurface()
 
 		sY2 = m_pZone->GetHeight();//-1;
 	}			
-			
+
 	//------------------------------------------------------
 	// ÀÏ´Ü °ËÀº»öÀ¸·Î ÀüÃ¼¸¦ Ä¥ÇÑ´Ù.
 	//------------------------------------------------------
@@ -15251,7 +15243,7 @@ MTopView::DrawInventoryEffect(POINT* pPoint)
 		}
 
 		MScreenEffect::SetScreenBasis( pPoint->x, pPoint->y );
-		
+
 		g_pTopView->DrawEffect(pPoint, g_pInventoryEffectManager->GetEffects(), g_pInventoryEffectManager->GetSize());
 
 		//------------------------------------------------
@@ -15310,7 +15302,7 @@ MTopView::DrawBloodBibleEffect_InGear(POINT* pPoint)
 int
 	MTopView::DrawChatString(POINT* pPoint, MCreature* pCreature, COLORREF color, BYTE flag)
 {
-	
+
 	int y2 = pPoint->y;
 	// ¾à°£ ¿ÞÂÊ¿¡¼­ Ãâ·Â...
 	//pPoint->x -= 50;
@@ -15408,7 +15400,7 @@ int
 	if (m_SelectCreatureID == pCreature->GetID())
 	{
 		const int FontHeight = ChatFontHeight;
-			
+
 		if (pCreature->HasLevelName())
 		{
 			const int FontHeight2 = FontHeight<<1;
@@ -15434,14 +15426,14 @@ int
 		if (y<0)
 		{
 			firstY = 0;
-			
+
 			y2 = numString * ChatFontHeight;		
 			y=0;
 		}
 	}
 
 	int x2 = x + maxWidth;//gC_font.GetStringmaxWidth( str ),
-	
+
 	if (x2 >= g_GameRect.right)
 	{
 		x -= x2-g_GameRect.right;
@@ -15449,7 +15441,7 @@ int
 	}
 
 	QWORD timeBase;
-	
+
 	if (pCreature==m_pSelectedCreature)
 	{
 		timeBase = ((QWORD)(g_CurrentFrame+160) << 41);
@@ -15470,7 +15462,7 @@ int
 	for (int i=start; i<g_pClientConfig->MAX_CHATSTRING; i++)
 	{
 		const char *str = pCreature->GetChatString(i);
-		
+
 		// ¹º°¡ ÀÖÀ¸¸é.. Ãâ·ÂÇØ¾ßÇÑ´Ù.
 		//if (str[0] != NULL)
 		{
@@ -15494,7 +15486,7 @@ int
 			//---------------------------------------------------------
 			QWORD time = timeBase + m_pqDrawText.size();
 			pNode->SetTextTime( time );
-			
+
 			//---------------------------------------------------------
 			// °ËÀº»ö ¹Ú½º (黑色背景框 - 聊天气泡)
 			//---------------------------------------------------------
@@ -15523,10 +15515,10 @@ int
 					r = min(24, b+4);
 					//g = b;
 					if(pCreature->CurPernalShop()==1)
-						pNode->SetBoxOutline( CDirectDraw::Color(255, 0, 200) );
+						pNode->SetBoxOutline( CSDLGraphics::Color(255, 0, 200) );
 					else
-						pNode->SetBoxOutline( CDirectDraw::Color(r, b, b) );
-						//CDirectDraw::Color(24, 20, 20) );
+						pNode->SetBoxOutline( CSDLGraphics::Color(r, b, b) );
+
 				}
 			}
 
@@ -15582,7 +15574,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 
 		return;
 	}
-	
+
 	//---------------------------------------------------------
 	// ½ÃÃ¼ÀÎ °æ¿ì´Â Creature¸¦ Ãâ·ÂÇÑ´Ù.
 	//---------------------------------------------------------
@@ -15735,7 +15727,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 
 		if(pItem->IsSpecialColorItem() )
 			colorSet = pItem->GetSpecialColorItemColorset();
-		
+
 		CIndexSprite::SetUsingColorSet( colorSet, colorSet );
 
 		m_pSurface->BltIndexSprite(&pointTemp, pSprite);							
@@ -15758,7 +15750,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 		//#endif
 
 		CFrame &Frame = m_ItemTileFPK[ tileFrameID ];
-		 
+
 		/*
 		DEBUG_ADD_FORMAT("class=%d, type=%d, frame=%d, id=%d", pItem->GetItemClass(),
 			pItem->GetItemType(),
@@ -15783,7 +15775,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 
 		int colorSet = pItem->GetItemOptionColorSet();
 
-		
+
 		if(pItem->IsSpecialColorItem() )
 			colorSet = pItem->GetSpecialColorItemColorset();
 
@@ -15811,7 +15803,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 			m_SOMOutlineColor = m_ColorOutlineItem;
 
 			m_SOM.Add( pointTemp.x, pointTemp.y, pSprite );
-			
+
 			m_SOM.Generate();
 
 			//if (true || DarkBits==0)
@@ -15883,7 +15875,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 				AddText( pNode );
 			}	
 			*/
-			
+
 		}
 		else
 		{	
@@ -15902,7 +15894,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 			{
 				//if (true || DarkBits==0)
 				//{			
-					
+
 				//-------------------------------------------------------
 				// ¼³Ä¡µÈ Áö·ÚÀÌ¸é..
 				//-------------------------------------------------------
@@ -15921,7 +15913,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 				}
 			}
 		}	
-		
+
 		// [ TEST CODE ]
 		//-------------------------------------
 		// mouse°¡ °¡¸®Å°´Â ItemÀÇ Á¤º¸ Ç¥½Ã
@@ -15948,7 +15940,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 
 		AddItemName( new DRAWITEMNAME_NODE(distance, pItem) );
 	}
-	
+
 	//#ifdef OUTPUT_DEBUG
 		//	DEBUG_ADD("[TempDebug] After Draw Item");
 	//#endif	
@@ -15959,7 +15951,7 @@ MTopView::DrawItem(POINT* pPoint, MItem* pItem)
 		DEBUG_ADD( "End DrawItem" );
 	#endif
 
-	
+
 }
 
 
@@ -15989,7 +15981,7 @@ MTopView::DrawItemShadow(POINT* pPoint, MItem* pItem)
 
 		return;
 	}
-	
+
 	//---------------------------------------------------------
 	// ½ÃÃ¼ÀÎ °æ¿ì´Â Creature¸¦ Ãâ·ÂÇÑ´Ù.
 	//---------------------------------------------------------
@@ -16078,7 +16070,7 @@ MTopView::DrawItemShadow(POINT* pPoint, MItem* pItem)
 			DEBUG_ADD( "End DrawItemShadow" );
 		#endif
 
-	
+
 
 		return;
 	}
@@ -16090,7 +16082,7 @@ MTopView::DrawItemShadow(POINT* pPoint, MItem* pItem)
 		DEBUG_ADD( "End DrawItemShadow" );
 	#endif
 
-	
+
 }
 
 //----------------------------------------------------------------------
@@ -16108,16 +16100,16 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 	__BEGIN_PROFILE("DrawImageObject")
 
 	#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
-		if (g_pDXInput->KeyDown(DIK_T) && g_pDXInput->KeyDown(DIK_LCONTROL))
+		if (g_pSDLInput->KeyDown(DIK_T) && g_pSDLInput->KeyDown(DIK_LCONTROL))
 		{
 			return;
 		}
 	#endif
-	
+
 
 	// m_SpritePack¿¡¼­ ÀûÀýÇÑ sprite¸¦ °ñ¶ó¼­ Ãâ·ÂÇØÁØ´Ù.
 	// Player¸¦ °¡¸®´Â ±×¸²ÀÏ °æ¿ì ¹ÝÅõ¸í Ã³¸®
-	
+
 	//if (pImageObject->GetImageObjectID() == m_BehindImageObjectID)
 
 
@@ -16131,14 +16123,14 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 	bool bTrans;
 
 
-	
+
 	//------------------------------------------------------
 	// ÀüÃ¼ÀûÀ¸·Î ¾îµÎ¿î °ªÀ» ÁöÁ¤ÇÑ´Ù.
 	// ´Ü, ImageObjectÀÇ ÁÂÇ¥(Zone¿¡¼­ÀÇ SectorÁÂÇ¥)°¡ 
 	// ¹àÀº TileÀÌ¸é(Light°¡ 0ÀÌ ¾Æ´Ñ °æ¿ì) DarkBits=0À¸·Î ÇÑ´Ù.
 	//------------------------------------------------------
 	//BYTE DarkBits;
-	
+
 	//------------------------------------------------------
 	// [ TEST CODE ]
 	//------------------------------------------------------
@@ -16155,7 +16147,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 	{
 		DarkBits = m_DarkBits;
 	}
-	
+
 	// 3D °¡¼ÓÀÌ µÇ´Â °æ¿ì.. ¹«Á¶°Ç ¿ø·¡ »ö±òÀ» ±×´ë·Î Ãâ·ÂÇÑ´Ù.
 	if (true)
 	{
@@ -16167,7 +16159,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 	// °Ç¹°Àº ¹«Á¶°Ç ¹ÝÅõ¸í
 	//----------------------------------------------------				
 	BOOL bBlendingShadow = 1;//g_pUserOption->BlendingShadow;
-	
+
 	//------------------------------------------------------
 	//
 	//  ShadowObject Ãâ·Â
@@ -16197,15 +16189,15 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 				}
 
 				#ifdef OUTPUT_DEBUG
-					if (g_pDXInput->KeyDown(DIK_S) && 
-						(g_pDXInput->KeyDown(DIK_RCONTROL)))
+					if (g_pSDLInput->KeyDown(DIK_S) && 
+						(g_pSDLInput->KeyDown(DIK_RCONTROL)))
 					{
 						m_pSurface->Unlock();
-				
+
 						char str[128];
 						sprintf(str, "iid=%d, view=%d", (int)pImageObject->GetImageObjectID(), (int)pImageObject->GetViewpoint());
 						m_pSurface->GDI_Text(pPoint->x, pPoint->y, str, 0xFFFF);
-						
+
 						m_pSurface->Lock();
 					}
 				#endif
@@ -16335,8 +16327,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						// 2001.9.5 Ãß°¡
 						&& pImageObject->IsWallTransPosition(g_pPlayer->GetX(), g_pPlayer->GetY());
 
-						
-		
+
+
 			//--------------------------------
 			// Åõ¸í Ã³¸®
 			//--------------------------------
@@ -16344,7 +16336,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 			{	
 				///*
 				//m_pSurface->BltSpriteHalf(pPoint, &m_ImageObjectSPK[ spriteID ]);
-			
+
 
 				// ±×¸²¿¡ ¸ÂÃá filter ÁÂÇ¥ º¸Á¤
 				CSprite::SetFilter(m_FilterPosition.x - pPoint->x,
@@ -16398,8 +16390,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					}					
 #else
 					#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
-						if (g_pDXInput->KeyDown(DIK_A) && 
-							(g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL)))
+						if (g_pSDLInput->KeyDown(DIK_A) && 
+							(g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL)))
 						{
 							// CTRL+A´©¸£¸é ¾Ï°Åµµ ¾È Âï´Â´Ù.
 						}
@@ -16421,7 +16413,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						CSpriteSurface* pSurface = m_pImageObjectTextureManager->GetTexture(spriteID);
 						// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
 
-				
+
 						// ÁÂÇ¥ ¼³Á¤
 						m_SpriteVertices[0].sx = pPoint->x;
 						m_SpriteVertices[0].sy = pPoint->y;
@@ -16431,7 +16423,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						m_SpriteVertices[2].sy = pPoint->y,m_pImageObjectTextureManager->GetHeight(spriteID);
 						m_SpriteVertices[3].sx = m_SpriteVertices[1].sx;
 						m_SpriteVertices[3].sy = m_SpriteVertices[2].sy;		
-						
+
 						// Ãâ·Â
 						// CDirect3D::GetDevice()->DrawPrimitive() removed (SDL2)
 
@@ -16506,11 +16498,11 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					//int sX = 410-(pX>>1) - pPoint->x;
 					//int sY = 270-(pY>>1) - pPoint->y;			
 
-						
+
 					//{
 #if defined(OUTPUT_DEBUG) && defined(_DEBUG)
-					if (g_pDXInput->KeyDown(DIK_A) && 
-						(g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL)))
+					if (g_pSDLInput->KeyDown(DIK_A) && 
+						(g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL)))
 					{
 						// CTRL+A´©¸£¸é ¾Ï°Åµµ ¾È Âï´Â´Ù.
 					}
@@ -16528,7 +16520,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						CSpriteSurface::s_Value1 = gray;
 
 						CSpriteSurface::SetEffect( CSpriteSurface::EFFECT_GRAY_SCALE_VARIOUS );
-					
+
 						m_pSurface->BltSpriteEffect(pPoint, &m_ImageObjectSPK[ spriteID ]);
 
 						static DWORD lastFrame = g_CurrentFrame;
@@ -16549,11 +16541,11 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 
 /*
 #ifdef OUTPUT_DEBUG
-	if (g_pDXInput->KeyDown(DIK_RCONTROL))
+	if (g_pSDLInput->KeyDown(DIK_RCONTROL))
 	{
 		static int value = 0;
 		static int step = 0;
-		
+
 		if (value==0)
 		{
 			m_pSurface->BltSprite(pPoint, &m_ImageObjectSPK[ spriteID ]);
@@ -16569,11 +16561,11 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 			CSpriteSurface::s_Value1 = value;
 
 			CSpriteSurface::SetEffect( CSpriteSurface::EFFECT_WIPE_OUT );
-		
+
 			m_pSurface->BltSpriteEffect(pPoint, &m_ImageObjectSPK[ spriteID ]);
 		}
 
-		if (g_pDXInput->KeyDown(DIK_RSHIFT))
+		if (g_pSDLInput->KeyDown(DIK_RSHIFT))
 		{
 			if (value==0 || value==64)
 			{
@@ -16606,8 +16598,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 			}
 
 			#ifdef OUTPUT_DEBUG
-				if (g_pDXInput->KeyDown(DIK_I) && 
-					(g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL)))
+				if (g_pSDLInput->KeyDown(DIK_I) && 
+					(g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL)))
 				{
 					char str[128];
 					sprintf(str, "iid=%d, sid=%d, vp=%d", (int)pImageObject->GetImageObjectID(), (int)spriteID, (int)pImageObject->GetViewpoint());
@@ -16664,7 +16656,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 				case BLT_NORMAL :
 				{
 					int currentFrame = g_CurrentFrame % m_ImageObjectFPK[ pAnimationObject->GetFrameID() ].GetSize();
-					
+
 					CFrame &Frame = m_ImageObjectFPK[ pAnimationObject->GetFrameID() ][ currentFrame ];
 					sprite = Frame.GetSpriteID();
 					if(sprite >= m_ImageObjectSPK.GetSize())
@@ -16715,7 +16707,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 
 							m_pSurface->BltSpriteAlphaFilter(pPoint, 
 															&m_ImageObjectSPK[ sprite ]);
-						
+
 					}
 					//--------------------------------
 					// ±×³É Ãâ·Â
@@ -16749,13 +16741,13 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						CEffectFrame &Frame = m_EffectAlphaFPK[ fid ][ 0 ][ pAnimationObject->GetFrame() ];
 
 						sprite = Frame.GetSpriteID();
-						
+
 						// ÁÂÇ¥ º¸Á¤
 						pPoint->x += Frame.GetCX();
 						pPoint->y += Frame.GetCY();
-						
+
 						DRAW_ALPHASPRITEPAL(pPoint, sprite, m_EffectAlphaSPK, m_EffectAlphaPPK[fid])//, m_EffectAlphaSPKI, m_EffectAlphaSPKFile)					
-								
+
 						//-------------------------------------------------------
 						// H/W °¡¼ÓÀÌ µÇ´Â °æ¿ìÀÌ¸é...
 						//-------------------------------------------------------
@@ -16765,8 +16757,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //							DRAW_TEXTURE_SPRITEPAL_LOCKED(pPoint->x, pPoint->y, 
 //								sprite, m_pAlphaEffectTextureManager, fid )//m_EffectAlphaPPK[fid])
 //								
-							
-							
+
+
 							//------------------------------------------------
 							// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
 							//------------------------------------------------
@@ -16774,7 +16766,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 								pPoint->y + 24, 
 								Frame.GetLight(),			// ºûÀÇ ¹à±â
 								false);		// false = screenÁÂÇ¥
-							
+
 						}
 						//-------------------------------------------------------
 						// 2D Ãâ·Â
@@ -16782,7 +16774,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						else
 						{
 //							DRAW_ALPHASPRITEPAL(pPoint, sprite, m_EffectAlphaSPK, m_EffectAlphaPPK[fid])//, m_EffectAlphaSPKI, m_EffectAlphaSPKFile)					
-								
+
 								AddLightFilter2D( pPoint->x + 24, 
 								pPoint->y + 24, 
 								Frame.GetLight(),			// ºûÀÇ ¹à±â
@@ -16807,13 +16799,13 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					{
 						CEffectFrame &Frame = m_EffectScreenFPK[fid][0][pAnimationObject->GetFrame()];					
 						sprite = Frame.GetSpriteID();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetSpriteID();
-						
+
 						if (sprite!=SPRITEID_NULL)
 						{
 							// Frame ÁÂÇ¥ º¸Á¤
 							pPoint->x += Frame.GetCX();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetCX();
 							pPoint->y += Frame.GetCY();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetCY();
-							
+
 							DRAW_NORMALSPRITEPAL_EFFECT(pPoint, 
 								sprite, 
 								m_EffectScreenSPK, 
@@ -16831,7 +16823,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //								DRAW_TEXTURE_SPRITEPAL_LOCKED(pPoint->x, pPoint->y, 
 //									sprite, m_pScreenEffectTextureManager, fid ) //m_EffectScreenPPK[fid])
 //									
-								
+
 								//------------------------------------------------
 								// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
 								//------------------------------------------------
@@ -16839,7 +16831,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 									pPoint->y + 24, 
 									Frame.GetLight(),			// ºûÀÇ ¹à±â
 									false);		// false = screenÁÂÇ¥
-								
+
 							}
 							//-------------------------------------------------------
 							// H/W °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ìÀÌ¸é...
@@ -16853,7 +16845,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 ////									m_EffectScreenSPKFile,
 //									m_EffectScreenPPK[fid],
 //									CSpriteSurface::EFFECT_SCREEN)
-									
+
 									AddLightFilter2D( pPoint->x + 24, 
 									pPoint->y + 24, 
 									Frame.GetLight(),			// ºûÀÇ ¹à±â
@@ -16865,7 +16857,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 							pAnimationObject->NextFrame();
 						}
 					}
-					
+
 
 				}
 				break;
@@ -16899,7 +16891,7 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 		DEBUG_ADD( "End DrawImageObject" );
 	#endif
 
-	
+
 }
 
 //----------------------------------------------------------------
@@ -16952,7 +16944,7 @@ MTopView::SurfaceLock()
 	{
 		m_pSurface->Lock();
 	}
-	
+
 	return bLock;
 }
 */
@@ -16998,7 +16990,7 @@ MTopView::DrawEffect(POINT* pPoint, EFFECT_LIST::const_iterator iEffect, BYTE si
 		DEBUG_ADD( "Start DrawEffect" );
 	#endif
 
-	
+
 	POINT point;
 
  	for (int i=0; i<size; i++)
@@ -17034,7 +17026,7 @@ MTopView::DrawEffect(POINT* pPoint, EFFECT_LIST::const_iterator iEffect, BYTE si
 		else
 		{
 			//MMovingEffect* pMovingEffect = (MMovingEffect* const)pEffect;
-			
+
 			// Pixel ´ÜÀ§ÀÇ ÁÂÇ¥¸¦ È­¸éÀÇ ÁÂÇ¥·Î ¹Ù²ãÁØ´Ù.
 			point.x = pEffect->GetPixelX() - m_FirstZonePixel.x;
 			point.y = pEffect->GetPixelY() - pEffect->GetPixelZ() - m_FirstZonePixel.y;
@@ -17048,12 +17040,12 @@ MTopView::DrawEffect(POINT* pPoint, EFFECT_LIST::const_iterator iEffect, BYTE si
 		// ´ÙÀ½ Effect
 		iEffect++;
 	}	
-	
+
 	#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 		DEBUG_ADD( "End DrawEffect" );
 	#endif
 
-	
+
 }
 
 
@@ -17068,7 +17060,7 @@ MTopView::DrawGroundEffect()
 	#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 		DEBUG_ADD( "Start DrawGroundEffect" );
 	#endif
-	
+
 	POINT point;
 	POINT pointTemp;
 
@@ -17078,7 +17070,7 @@ MTopView::DrawGroundEffect()
 	for (int i=0; i<size; i++)
 	{
 		MEffect* pEffect = iEffect->second;
-		
+
 		if(pEffect->IsSkipDraw())
 		{
 			iEffect++;
@@ -17088,14 +17080,14 @@ MTopView::DrawGroundEffect()
 		// Áß½ÉÁ¡
 		point.x = pEffect->GetPixelX() - m_FirstZonePixel.x;
 		point.y = pEffect->GetPixelY() - pEffect->GetPixelZ() - m_FirstZonePixel.y;			
-		
+
 		pointTemp = point;
 
 		//------------------------------------------------------------------
 		// Ãâ·Â
 		//------------------------------------------------------------------
 		DrawEffect( &pointTemp, pEffect, pEffect->IsSelectable());
-		
+
 		//------------------------------------------------------------------
 		// ¼±ÅÃµÇ´Â EffectÀÎ °æ¿ì
 		//------------------------------------------------------------------
@@ -17137,7 +17129,7 @@ MTopView::DrawGroundEffect()
 		DEBUG_ADD( "End DrawGroundEffect" );
 	#endif
 
-	
+
 }
 
 //----------------------------------------------------------------
@@ -17167,15 +17159,15 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 	for (int i=0; i<size; i++)	
 	{
 		MEffect* pEffect = *iEffect;
-		
+
 		//----------------------------------------------------------------
 		// Sprite·Î Ç¥ÇöÇÏ´Â EffectÀÎ °æ¿ì¸¸ Ãâ·ÂÇÑ´Ù.
 		// Attach°¡ ¾Æ´Ï°Å³ª.. AttachÀÌ´õ¶óµµ Sprite·Î Ãâ·ÂÇÏ´Â °æ¿ì
 		//----------------------------------------------------------------		
 		if (pEffect->GetEffectType()!=MEffect::EFFECT_ATTACH ||
 			pEffect->GetEffectType()==MEffect::EFFECT_ATTACH && ((MAttachEffect*)pEffect)->IsEffectSprite()
-			
-		
+
+
 			)
 		{
 			int direction = pEffect->GetDirection();
@@ -17298,7 +17290,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 						}
 
 						int actionFrameID = GET_ACTION_EFFECTSPRITETYPE_FRAMEID( aest, action );
-						
+
 						direction = pCreature->GetDirection();
 
 						if (actionFrameID!=FRAMEID_NULL
@@ -17315,10 +17307,10 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 					// Áö±ÝÀº ÇÏµåÄÚµù µÇ¾î ÀÖÁö¸¸, µû·Î ÀÌÆåÆ® ½ºÇÁ¶óÀÌÆ®Å¸ÀÔ°ú µ¿ÀÛ ÇÁ·¹ÀÓ°£ÀÇ ÇÁ·¹ÀÓ µ¿±âÈ­
 					// °ü·Ã ±â´ÉÀÌ Ãß°¡µÇ¸é, ÇÏµåÄÚµùÀ» ¸·À» ¼ö ÀÖÀ» °ÍÀÌ´Ù. 
 					// µ¿±âÈ­ ±â´ÉÀÌ Ãß°¡µÈ´Ù¸é, Ä³¸¯ÅÍ¿¡ ÇØ´ç ÀÌÆåÆ®°¡ ºÙ´Â µ¿ÀÛÀ» ¼¼ÆÃÇÒ ¼ö ÀÖ¾î¾ß °ÚÁö..
-					
+
 					bool		bLarSlash = est >= EFFECTSPRITETYPE_LAR_SLASH_MALE_FAST && est <= EFFECTSPRITETYPE_LAR_SLASH_FEMALE_SLOW;
 					bool		bRediance = est >= EFFECTSPRITETYPE_REDIANCE_MALE_FAST && est <= EFFECTSPRITETYPE_REDIANCE_FEMALE_NORMAL_ATTACK_SLOW;
-					
+
 					if( bRediance || bLarSlash )
 					{						
 						if( bRediance && (pCreature->GetAction() == ACTION_SLAYER_SWORD ||  pCreature->GetAction() == ACTION_SLAYER_SWORD_FAST || pCreature->GetAction() == ACTION_SLAYER_SWORD_SLOW) ||
@@ -17333,9 +17325,9 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 							continue;
 						}
 					}
-					
+
 					EFFECTFRAME_ARRAY &EFA = m_EffectAlphaFPK[frameID][direction];
-					
+
 					frame = min( frame, EFA.GetSize()-1 );
 
 					CEffectFrame &Frame = EFA[frame];
@@ -17354,7 +17346,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 						{
 							int pairFrameID = *iID;	//(*g_pEffectSpriteTypeTable)[sest].PairFrameID;
 							EFFECTFRAME_ARRAY& EA = m_EffectAlphaFPK[pairFrameID][direction];
-							
+
 							int tempFrame = frame % EA.GetSize();
 
 							CEffectFrame &Frame = EA[tempFrame];
@@ -17393,7 +17385,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //										DRAW_TEXTURE_SPRITEPAL_LOCKED(pointTemp.x, pointTemp.y, 
 //																	sprite, m_pAlphaEffectTextureManager, pairFrameID ) //m_EffectAlphaPPK[pairFrameID])
 //
-							
+
 
 										//------------------------------------------------
 										// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
@@ -17402,7 +17394,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 														pPoint->y + 24, 
 														Frame.GetLight(),			// ºûÀÇ ¹à±â
 														false);		// false = screenÁÂÇ¥
-									
+
 									}
 									//-------------------------------------------------------
 									// H/W °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ìÀÌ¸é...
@@ -17459,7 +17451,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //								DRAW_TEXTURE_SPRITEPAL_LOCKED(pointTemp.x, pointTemp.y, 
 //															sprite, m_pAlphaEffectTextureManager, frameID ) //m_EffectAlphaPPK[frameID])
 //
-					
+
 
 								//------------------------------------------------
 								// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
@@ -17468,7 +17460,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 												pPoint->y + 24, 
 												Frame.GetLight(),			// ºûÀÇ ¹à±â
 												false);		// false = screenÁÂÇ¥
-							
+
 							}
 							//-------------------------------------------------------
 							// H/W °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ìÀÌ¸é...
@@ -17505,7 +17497,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 						{
 							int pairFrameID = *iID;	//(*g_pEffectSpriteTypeTable)[sest].PairFrameID;
 							EFFECTFRAME_ARRAY& EA = m_EffectAlphaFPK[pairFrameID][direction];
-							
+
 							int tempFrame = frame % EA.GetSize();
 
 							CEffectFrame &Frame = EA[tempFrame];
@@ -17544,7 +17536,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //										DRAW_TEXTURE_SPRITEPAL_LOCKED(pointTemp.x, pointTemp.y, 
 //																	sprite, m_pAlphaEffectTextureManager, pairFrameID ) //m_EffectAlphaPPK[pairFrameID])
 //
-							
+
 
 										//------------------------------------------------
 										// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
@@ -17553,7 +17545,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 														pPoint->y + 24, 
 														Frame.GetLight(),			// ºûÀÇ ¹à±â
 														false);		// false = screenÁÂÇ¥
-									
+
 									}
 									//-------------------------------------------------------
 									// H/W °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ìÀÌ¸é...
@@ -17620,14 +17612,14 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 							action = ACTION_MAGIC;
 
 						int actionFrameID = GET_ACTION_EFFECTSPRITETYPE_FRAMEID( aest, action );
-						
+
 						direction = pCreature->GetDirection();
-						
+
 						if (actionFrameID!=FRAMEID_NULL
 							&& actionFrameID!=frameID)
 						{
 							frameID = actionFrameID;
-							
+
 							int actionCount = ((action==ACTION_MOVE || action==ACTION_SLAYER_MOTOR_MOVE)? pCreature->GetMoveCount() : pCreature->GetActionCount());
 							frame = max( 0, min( actionCount, pEffect->GetMaxFrame()-1 ) );
 						}
@@ -17654,7 +17646,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 							pointTemp = *pPoint;
 							pointTemp.x += Frame.GetCX();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetCX();
 							pointTemp.y += Frame.GetCY();	//m_EffectAlphaFPK[(*iEffect)->GetFrameID()][direction][(*iEffect)->GetFrame()].GetCY();
-							
+
 							AFFECT_ORBIT_EFFECT_POSITION( pEffect, pointTemp )							
 
 							DRAW_NORMALSPRITEPAL_EFFECT(&pointTemp, 
@@ -17674,7 +17666,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //								DRAW_TEXTURE_SPRITEPAL_LOCKED(pointTemp.x, pointTemp.y, 
 //															sprite, m_pScreenEffectTextureManager, frameID ) // m_EffectScreenPPK[frameID])
 //
-					
+
 								//------------------------------------------------
 								// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
 								//------------------------------------------------
@@ -17682,7 +17674,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 												pPoint->y + 24, 
 												Frame.GetLight(),			// ºûÀÇ ¹à±â
 												false);		// false = screenÁÂÇ¥
-							
+
 							}
 							//-------------------------------------------------------
 							// H/W °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ìÀÌ¸é...
@@ -17718,9 +17710,9 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 						while (iID != idList.end())
 						{
 							int pairFrameID = *iID;//(*g_pEffectSpriteTypeTable)[*iID].PairFrameID;
-							
+
 							EFFECTFRAME_ARRAY& EA = m_EffectScreenFPK[pairFrameID][direction];
-							
+
 							int tempFrame = frame % EA.GetSize();
 
 							CEffectFrame &Frame = EA[tempFrame];
@@ -17761,7 +17753,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //										DRAW_TEXTURE_SPRITEPAL_LOCKED(pointTemp.x, pointTemp.y, 
 //																	sprite, m_pScreenEffectTextureManager, pairFrameID )//m_EffectScreenPPK[pairFrameID])
 //
-							
+
 										//------------------------------------------------
 										// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
 										//------------------------------------------------
@@ -17769,7 +17761,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 														pPoint->y + 24, 
 														Frame.GetLight(),			// ºûÀÇ ¹à±â
 														false);		// false = screenÁÂÇ¥
-									
+
 									}
 									//-------------------------------------------------------
 									// H/W °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ìÀÌ¸é...
@@ -17808,7 +17800,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 		DEBUG_ADD( "End DrawAttachEffect" );
 	#endif
 
-	
+
 }
 
 //----------------------------------------------------------------
@@ -17819,7 +17811,7 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 void
 MTopView::DrawMinimap(int x, int y, BYTE scale)
 {
-	
+
 	//------------------------------------------------
 	// vampireÀÎ °æ¿ì´Â Ãâ·Â¾ÈÇÑ´Ù.
 	//------------------------------------------------
@@ -17836,7 +17828,7 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 //			m_TextureEffect.DrawEffect2D( &rect );		
 //			
 //			// CDirect3D::GetDevice()->EndScene() removed (SDL2)
-		
+
 //
 //			// CDirect3D::GetDevice()->SetTexture() removed (SDL2)
 
@@ -17892,7 +17884,7 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 ////			*pSurfaceTemp++ = 0xFFFF;
 ////			*pSurfaceTemp = 0xFFFF;
 ////
-	
+
 
 	/*
 	// ±×¸² Ãâ·Â
@@ -17928,7 +17920,7 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 	/*
 	WORD	*lpSurface, 
 			*lpSurfaceTemp;
-		
+
 	WORD	pitch;
 
 	WORD	color = 0;
@@ -17937,7 +17929,7 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 
 	lpSurface = (WORD*)((BYTE*)lpSurface + y*pitch + (x<<1));
 	//lpSurface += (m_pZone->GetHeight()-1)<<scale;
-	
+
 	TYPE_SECTORPOSITION		pX = g_pPlayer->GetX(),
 							pY = g_pPlayer->GetY();
 
@@ -17958,10 +17950,10 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 			else
 			{				
 				// tile»ö±òº°·Î..
-				
-				
+
+
 				 const MSector &sector = m_pZone->GetSector(j,i);
-			
+
 				// ±×¸²
 				if (sector.IsExistImageObject() && sector.IsBlockAny())
 				{
@@ -17984,9 +17976,9 @@ MTopView::DrawMinimap(int x, int y, BYTE scale)
 					//continue;
 				}
 			}
-			
+
 			*lpSurfaceTemp = color;
-			
+
 			// ´ÙÀ½ Á¡
 			lpSurfaceTemp = (WORD*)((BYTE*)lpSurfaceTemp + scale*4);
 		}
@@ -18015,7 +18007,7 @@ MTopView::DrawItemBroken(int x, int y)
 	int frameType;
 	int toSomewhatBroken;
 	int toAlmostBroken;
-	
+
 	//----------------------------------------------------------------
 	// Slayer
 	//----------------------------------------------------------------
@@ -18087,7 +18079,7 @@ MTopView::DrawItemBroken(int x, int y)
 		POINT point = { pointBasis.x, pointBasis.y };
 
 		m_pSurface->BltSprite( &point, &m_ItemBrokenSPK[spriteID] );
-		
+
 
 		int size = pGear->GetSize();
 
@@ -18097,7 +18089,7 @@ MTopView::DrawItemBroken(int x, int y)
 		for (int i=0; i<size-4-6; i++)
 		{			
 			const MItem* pItem = pGear->GetItem( (BYTE)i );	
-			
+
 			//---------------------------------------------
 			// ¹º°¡ Âø¿ëÇÏ°í ÀÖÀ»¶§¸¸ Ãâ·ÂÇÑ´Ù.
 			//---------------------------------------------
@@ -18179,7 +18171,7 @@ MTopView::DrawItemBroken(int x, int y)
 					pItem->GetItemClass() == ITEM_CLASS_VAMPIRE_COUPLE_RING)
 				{
 					CFrame& frame = m_ItemBrokenFPK[frameType][frameID];
-				
+
 					spriteID = frame.GetSpriteID();
 
 					if (spriteID!=SPRITEID_NULL)
@@ -18198,7 +18190,7 @@ MTopView::DrawItemBroken(int x, int y)
 					int plusFrameID = ((itemStatus==MPlayerGear::ITEM_STATUS_SOMEWHAT_BROKEN)? toSomewhatBroken : toAlmostBroken);
 
 					CFrame& frame = m_ItemBrokenFPK[frameType][frameID + plusFrameID];
-				
+
 					spriteID = frame.GetSpriteID();
 
 					if (spriteID!=SPRITEID_NULL)
@@ -18316,7 +18308,7 @@ MTopView::GetEffectSpriteType(BLT_TYPE bltType, TYPE_FRAMEID frameID) const
 
 		case BLT_EFFECT :
 			return frameID;
-		
+
 		case BLT_NORMAL :
 			return frameID + MAX_EFFECTSPRITETYPE_SCREENEFFECT;
 
@@ -18477,7 +18469,7 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 //					
 //					DRAW_TEXTURE_SPRITEPAL_LOCKED(point.x, point.y, spriteID, m_pAlphaEffectTextureManager, pEffect->GetFrameID() ) //m_EffectAlphaPPK[pEffect->GetFrameID()])
 //
-					
+
 					//---------------------------------------- 		
 					// ÀÌÆåÆ® ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
 					//---------------------------------------- 	
@@ -18492,7 +18484,7 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 									pPoint->y + 24, 
 									Frame.GetLight(),			// ºûÀÇ ¹à±â
 									false);	// false = screenÁÂÇ¥					
-				
+
 				}
 				//-------------------------------------------------------
 				// H/W °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ìÀÌ¸é...
@@ -18596,7 +18588,7 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 //					
 //					DRAW_TEXTURE_SPRITEPAL_LOCKED(point.x, point.y, spriteID, m_pScreenEffectTextureManager, pEffect->GetFrameID() ) //m_EffectScreenPPK[pEffect->GetFrameID()])
 //
-					
+
 					//---------------------------------------- 		
 					// ÀÌÆåÆ® ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
 					//---------------------------------------- 	
@@ -18611,7 +18603,7 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 									pPoint->y + 24, 
 									Frame.GetLight(),			// ºûÀÇ ¹à±â
 									false);	// false = screenÁÂÇ¥					
-				
+
 				}
 				//-------------------------------------------------------
 				// H/W °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ìÀÌ¸é...
@@ -18640,7 +18632,7 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 			}
 		}
 		break;
-		
+
 		//------------------------------------------------------------------
 		//
 		//						Shadow Effect
@@ -18697,7 +18689,7 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 									pPoint->y + 24, 
 									Frame.GetLight(),			// ºûÀÇ ¹à±â
 									false);	// false = screenÁÂÇ¥					
-				
+
 				}
 				//-------------------------------------------------------
 				// H/W °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ìÀÌ¸é...
@@ -18756,7 +18748,7 @@ void
 MTopView::DrawCreatureHPModify(POINT *point, MCreature* pCreature)
 {	
 //	return;
-	
+
 	if(!g_pPlayer->HasEffectStatus( EFFECTSTATUS_VIEW_HP ) || pCreature->IsEmptyHPModifyList())
 		return;
 
@@ -18772,7 +18764,7 @@ MTopView::DrawCreatureHPModify(POINT *point, MCreature* pCreature)
 	{
 		char str[128];
 		COLORREF color;
-		
+
 		const int modifyValue = itr->modify;
 		if(itr->modify < 0 )
 		{
@@ -18784,7 +18776,7 @@ MTopView::DrawCreatureHPModify(POINT *point, MCreature* pCreature)
 			sprintf(str, "+%d", modifyValue);
 			RGB(150, 255, 150);
 		}
-		
+
 		g_PrintColorStrOut(point->x + 24 - g_GetStringWidth(str, gpC_base->m_chatting_pi.hfont)/2, py, str, gpC_base->m_chatting_pi, color, RGB_BLACK);
 
 		py += 15;
@@ -18830,20 +18822,20 @@ MTopView::DrawGuildMarkInSiegeWar(MCreature* pCreature, int YPos)
 		// Guild°¡ ÀÖ´Â °æ¿ì - Guild Mark Ãâ·Â
 		//-----------------------------------------------------
 		int guildID = pCreature->GetGuildNumber();
-			
+
 		if (guildID > 0)
 		{
 			//-------------------------------------------------
 			// loadµÇ¾î ÀÖ´ÂÁö º»´Ù.
 			//-------------------------------------------------
 			CSprite* pSprite = g_pGuildMarkManager->GetGuildMarkSmall(guildID);
-			
+
 			if (pSprite!=NULL)
 			{							
 				POINT pointTemp = { pCreature->GetPixelX() - m_FirstZonePixel.x  + 15, YPos - 23};
-				
+
 				m_pSurface->BltSprite(&pointTemp, pSprite);				
-				
+
 			}
 			else
 			{
@@ -18853,12 +18845,12 @@ MTopView::DrawGuildMarkInSiegeWar(MCreature* pCreature, int YPos)
 					// file¿¡ ÀÖ´ÂÁö º»´Ù.
 					//-------------------------------------------------
 					g_pGuildMarkManager->LoadGuildMark(guildID);
-					
+
 					//-------------------------------------------------
 					// file¿¡¼­ loadµÇ¾ú´ÂÁö ´Ù½Ã Ã¼Å©
 					//-------------------------------------------------
 					pSprite = g_pGuildMarkManager->GetGuildMark(guildID);
-					
+
 					//-------------------------------------------------
 					// file¿¡µµ ¾ø´Â °æ¿ì..
 					// guildMark°ü¸®¼­¹ö?¿¡¼­ ¹Þ¾Æ¿Â´Ù.
@@ -18923,7 +18915,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 	POINT point = m_pointChatString;
 	int yPoint = DrawChatString(&point, 
 								pCreature, 
-								RGB_WHITE,	//CDirectDraw::Color(31,31,31),
+								RGB_WHITE,
 								FLAG_DRAWTEXT_OUTLINE);
 	point.y = yPoint;
 	DrawCreatureHPModify(&point, pCreature);
@@ -18968,7 +18960,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		{
 			POINT pointTemp;
 			TYPE_SPRITEID	RequestSpriteID;
-				
+
 			//---------------------------------------------------------------
 			// trade ½ÅÃ»ÇÏ´Â ¾ÆÀÌÄÜ
 			//---------------------------------------------------------------
@@ -19025,7 +19017,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		}			
 	}
 
-		
+
 	//------------------------------------------------
 	// Ä³¸¯ÅÍ ÀÌ¸§ Ãâ·Â
 	//------------------------------------------------
@@ -19097,7 +19089,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 	//-----------------------------------------------------
 	else if (pCreature->GetCompetence()==0)
 	{
-		color = CDirectDraw::Color( 31, 23, 3 );	// ±Ý»ö?
+		color = CSDLGraphics::Color( 31, 23, 3 );	// ±Ý»ö?
 		font	= FONTID_NPC_NAME;
 	}
 	//-----------------------------------------------------
@@ -19150,7 +19142,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		else
 		{
 			int alignment = pCreature->GetAlignment();
-			
+
 			color = m_ColorNameAlignment[alignment];
 			font	= FONTID_VAMPIRE_NAME;				
 		}
@@ -19203,15 +19195,15 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 
 			AddText( pLevelNameNode );
 		}
-		
+
 		int yPoint_20 = yPoint - 23;	// g_pClientConfig->FONT_HEIGHT
-		
+
 		//int MAX_HP_BAR = pCreature->GetHPBarWidth(); //g_pClientConfig->MAX_HP_BAR_PIXEL;
 		int POSITION_HP_BAR = g_pClientConfig->POSITION_HP_BAR;
 
 		int namePixel = g_GetStringWidth(pName, g_ClientPrintInfo[font]->hfont);
 		int MAX_HP_BAR = max(100, namePixel + 20);
-		
+
 		int guildID = 0;
 		//-----------------------------------------------------
 		// ÀÌ¸§ ¹Ø¿¡ ±ò¸± ÀüÃ¼(ÀÌ¸§) Å©±âÀÇ ¹Ú½º
@@ -19240,13 +19232,13 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 				g_pZoneTable->Get( g_pZone->GetID() )->ChatMaskByRace == true
 				)
 				guildID = 0;
-			
+
 			// gradeÃâ·Â
 			int gradeID = pCreature->GetGrade()-1;	// 1~50 À¸·Î µÇÀÖÀ¸¹Ç·Î -1ÇØ¼­ 0~49·Î ¸ÂÃá´Ù
 			// ÇÃ·¹ÀÌ¾î¸¸ °è±Þ Ãâ·Â, ¹ÚÁã³ª ´Á´ë´Â ¾ÈÇÔ
 			if(!pCreature->IsPlayerOnly())
 				gradeID = -1;
-			
+
 				/*
 				if (guildID>=0)
 				{
@@ -19254,11 +19246,11 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 				if (guildID < m_GuildSPK.GetSize())
 				{
 				m_pSurface->Lock();
-				
+
 				  POINT pointTemp = { rectLeft-20, yPoint_20 };
-				  
+
 					m_pSurface->BltSprite( &pointTemp, &m_GuildSPK[guildID] );
-					
+
 					  m_pSurface->Unlock();
 					  }
 					  }
@@ -19269,15 +19261,15 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 				// loadµÇ¾î ÀÖ´ÂÁö º»´Ù.
 				//-------------------------------------------------
 				CSprite* pSprite = g_pGuildMarkManager->GetGuildMarkSmall(guildID);
-				
+
 				if (pSprite!=NULL)
 				{			
 					m_pSurface->Lock();
-					
+
 					POINT pointTemp = { rectLeft-20, yPoint_20 };
-					
+
 					m_pSurface->BltSprite(&pointTemp, pSprite);				
-					
+
 					m_pSurface->Unlock();
 				}
 				else
@@ -19288,12 +19280,12 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 						// file¿¡ ÀÖ´ÂÁö º»´Ù.
 						//-------------------------------------------------
 						g_pGuildMarkManager->LoadGuildMark(guildID);
-						
+
 						//-------------------------------------------------
 						// file¿¡¼­ loadµÇ¾ú´ÂÁö ´Ù½Ã Ã¼Å©
 						//-------------------------------------------------
 						pSprite = g_pGuildMarkManager->GetGuildMark(guildID);
-						
+
 						//-------------------------------------------------
 						// file¿¡µµ ¾ø´Â °æ¿ì..
 						// guildMark°ü¸®¼­¹ö?¿¡¼­ ¹Þ¾Æ¿Â´Ù.
@@ -19302,24 +19294,24 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 					}				
 				}
 			}
-			
+
 			// °è±ÞÀÌ ÀÖ´Â°æ¿ì °è±Þ¸¶Å© Ãâ·Â
 			if(gradeID > -1 && gradeID <= GRADE_MARK_MAX)
 			{
 				CSprite* pSprite = g_pGuildMarkManager->GetGradeMarkSmall(gradeID, pCreature->GetRace());
-				
+
 				if (pSprite!=NULL)
 				{			
 					m_pSurface->Lock();
-					
+
 					POINT pointTemp = { rectRight, yPoint_20 };
-					
+
 					m_pSurface->BltSprite(&pointTemp, pSprite);				
-					
+
 					m_pSurface->Unlock();
 				}
 			}
-			
+
 		}
 		// ÆêÀÎ°æ¿ì ·¹º§ ¸¶Å© Ãâ·Â
 		if(pCreature->GetClassType() == MCreature::CLASS_FAKE)
@@ -19329,22 +19321,22 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 			if(pFakeCreature->GetOwnerID() != OBJECTID_NULL)
 			{
 				MPetItem *pPetItem = pFakeCreature->GetPetItem();
-				
+
 				if(pPetItem != NULL)
 				{
 					int petLevel = pPetItem->GetNumber();
 					if(petLevel > -1 && petLevel <= 50)
 					{
 						CSprite* pSprite = g_pGuildMarkManager->GetLevelMarkSmall(petLevel);
-						
+
 						if (pSprite!=NULL)
 						{			
 							m_pSurface->Lock();
-							
+
 							POINT pointTemp = { rectLeft-20, yPoint_20 };
-							
+
 							m_pSurface->BltSprite(&pointTemp, pSprite);				
-							
+
 							m_pSurface->Unlock();
 						}
 					}
@@ -19359,8 +19351,8 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		int maxHP			= pCreature->GetMAX_HP();
 
 		#ifdef OUTPUT_DEBUG
-			if (g_pDXInput->KeyDown(DIK_H) &&
-				(g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL)))
+			if (g_pSDLInput->KeyDown(DIK_H) &&
+				(g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL)))
 			{
 				char str[128];
 				sprintf(str, "HP=%d/%d", currentHP, maxHP);
@@ -19400,7 +19392,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 		int nameX = //rectLeft+(MAX_HP_BAR>>1) - (namePixel>>1);
 					rectLeft + ((MAX_HP_BAR - namePixel)>>1);
 
-		
+
 		//-----------------------------------------------------
 		// HP°¡ ²Ë Â÷°Ô Ç¥½ÃµÇ´Â °æ¿ì
 		//-----------------------------------------------------
@@ -19512,17 +19504,17 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 
 				namePixel = g_GetStringWidth(szNickName, g_ClientPrintInfo[font]->hfont);
 				WORD bgColor = 0;
-				
+
 				switch(bType)
 				{
 				case NicknameInfo::NICK_BUILT_IN:
 					color = RGB_YELLOW;
-					bgColor = CDirectDraw::Color(255,0,0);
+					bgColor = CSDLGraphics::Color(255,0,0);
 
 					break;
 				case NicknameInfo::NICK_QUEST:
 					color = RGB(150,150,150);
-					bgColor = CDirectDraw::Color(0,0,255);
+					bgColor = CSDLGraphics::Color(0,0,255);
 					break;
 				case NicknameInfo::NICK_FORCED:
 				case NicknameInfo::NICK_CUSTOM_FORCED:
@@ -19530,7 +19522,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 					break;
 				case NicknameInfo::NICK_CUSTOM:
 					color = RGB(50,170,230);
-				//	bgColor = CDirectDraw::Color(255,0,0);
+				//	bgColor = CSDLGraphics::Color(255,0,0);
 					break;
 				default:
 					color = RGB_YELLOW;
@@ -19599,7 +19591,7 @@ MTopView::DrawUndergroundCreature(POINT *pPoint, MCreature *pCreature)
 	RECT rect;
 
 	CSprite* pSprite = &m_EtcSPK[ SPRITEID_CREATURE_BURROW ];	
-	
+
 	//----------------------------------------
 	// ÁÂÇ¥ º¸Á¤
 	//----------------------------------------
@@ -19607,7 +19599,7 @@ MTopView::DrawUndergroundCreature(POINT *pPoint, MCreature *pCreature)
 	int cy = 4;
 	pointTemp.x = pPoint->x + cx;
 	pointTemp.y = pPoint->y + cy;
-	
+
 	//---------------------------------------- 		
 	// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
 	//---------------------------------------- 	
@@ -19616,14 +19608,14 @@ MTopView::DrawUndergroundCreature(POINT *pPoint, MCreature *pCreature)
 	rect.right	= rect.left + pSprite->GetWidth();
 	rect.bottom = rect.top + pSprite->GetHeight();
 	pCreature->SetScreenRect( &rect );				
-	
+
 	//---------------------------------------- 	
 	// ¼±ÅÃµÈ °æ¿ì
 	//---------------------------------------- 	
 	if (m_SelectCreatureID == pCreature->GetID() )
 	{
 		// SpriteOutlineManager¿¡ Ãß°¡
-		
+
 		// ¶¥¼Ó¿¡ ÀÖ´Â ¾ÖµéÀº ¹«Á¶°Ç vampireÀÌ´Ù.
 		if (g_pObjectSelector->CanAttack(pCreature))
 		{
@@ -19633,28 +19625,28 @@ MTopView::DrawUndergroundCreature(POINT *pPoint, MCreature *pCreature)
 		{
 			m_SOMOutlineColor = m_ColorOutlineAttackImpossible;
 		}			
-		
+
 		m_SOM.Add( pointTemp.x, pointTemp.y, pSprite );
 		m_SOM.Generate();
-		
+
 		m_pSurface->BltSpriteOutline( &m_SOM,  m_SOMOutlineColor );
-		
+
 		//---------------------------------------- 	
 		// ÀÌ¸§ Ãâ·ÂÇÒ ÁÂÇ¥ ÁöÁ¤
 		//---------------------------------------- 	
 		const int FontHeight = g_pClientConfig->FONT_HEIGHT;
 		const int FontHeight2 = FontHeight << 1;
-		
+
 		pointTemp.x = pPoint->x;			
 		if (pointTemp.x<0) pointTemp.x=0;
-		
+
 		//---------------------------------------- 	
 		// Level Name ÂïÀ» À§Ä¡µµ °è»ê
 		//---------------------------------------- 	
 		if (pCreature->HasLevelName())
 		{
 			pointTemp.y = pPoint->y - FontHeight2;
-			
+
 			if (pointTemp.y < FontHeight2)
 			{
 				pointTemp.y = FontHeight2;
@@ -19666,13 +19658,13 @@ MTopView::DrawUndergroundCreature(POINT *pPoint, MCreature *pCreature)
 		else
 		{
 			pointTemp.y = pPoint->y - FontHeight;
-			
+
 			if (pointTemp.y < FontHeight) 
 			{
 				pointTemp.y = FontHeight;
 			}
 		}
-		
+
 		m_pointChatString	= pointTemp;
 		m_pSelectedCreature = pCreature;
 	}
@@ -19683,7 +19675,7 @@ MTopView::DrawUndergroundCreature(POINT *pPoint, MCreature *pCreature)
 	{
 		m_pSurface->BltSprite(&pointTemp, pSprite);
 	}
-	
+
 	//----------------------------------------
 	// ¸ö¿¡ ºÙÀº Effect Ãâ·Â
 	//----------------------------------------
@@ -19693,7 +19685,7 @@ MTopView::DrawUndergroundCreature(POINT *pPoint, MCreature *pCreature)
 	pointTemp = *pPoint;
 	//pointTemp.x += pCreature->GetSX();
 	//pointTemp.y += pCreature->GetSY();
-	
+
 	  DrawAttachEffect(&pointTemp, pCreature->GetAttachEffectIterator(), pCreature->GetAttachEffectSize());
 	  }
 	*/	
@@ -19718,7 +19710,7 @@ MTopView::DrawCreatureMyName()
 
 		color = m_ColorNameAlignment[alignment];
 		POINT TempPoint = {g_pPlayer->GetPixelX() - m_FirstZonePixel.x , g_pPlayer->GetPixelY() - g_pPlayer->GetHeight() - m_FirstZonePixel.y};
-		const int firstY = DrawChatString(&TempPoint, g_pPlayer, g_pPlayer->GetChatColor());//CDirectDraw::Color(26,26,26));		
+		const int firstY = DrawChatString(&TempPoint, g_pPlayer, g_pPlayer->GetChatColor());
 
 		int yPoint = firstY/*g_pPlayer->GetPixelY() - g_pPlayer->GetHeight() - m_FirstZonePixel.y*/;
 		int rectLeft, rectRight, rectTop, rectBottom;
@@ -19726,10 +19718,10 @@ MTopView::DrawCreatureMyName()
 		int guildID = 0;
 
 		int yPoint_20 = yPoint - 23;	// g_pClientConfig->FONT_HEIGHT
-		
+
 		int namePixel = g_GetStringWidth(pCreatureName, g_ClientPrintInfo[font]->hfont);
 		int MAX_HP_BAR = max(100, namePixel + 20);
-		
+
 
 		//-----------------------------------------------------
 		// ÀÌ¸§ ¹Ø¿¡ ±ò¸± ÀüÃ¼(ÀÌ¸§) Å©±âÀÇ ¹Ú½º
@@ -19753,22 +19745,22 @@ MTopView::DrawCreatureMyName()
 			gradeID = g_pPlayer->GetGrade()-1;	// 1~50 À¸·Î µÇÀÖÀ¸¹Ç·Î -1ÇØ¼­ 0~49·Î ¸ÂÃá´Ù
 			if(!g_pPlayer->IsPlayerOnly())
 				gradeID = -1;
-			
+
 			if (guildID > 0)
 			{
 				//-------------------------------------------------
 				// loadµÇ¾î ÀÖ´ÂÁö º»´Ù.
 				//-------------------------------------------------
 				CSprite* pSprite = g_pGuildMarkManager->GetGuildMarkSmall(guildID);
-				
+
 				if (pSprite!=NULL)
 				{			
 					m_pSurface->Lock();
-					
+
 					POINT pointTemp = { rectLeft-20, yPoint_20 };
-					
+
 					m_pSurface->BltSprite(&pointTemp, pSprite);				
-					
+
 					m_pSurface->Unlock();
 				}
 				else
@@ -19777,28 +19769,28 @@ MTopView::DrawCreatureMyName()
 					{
 						g_pGuildMarkManager->LoadGuildMark(guildID);
 						pSprite = g_pGuildMarkManager->GetGuildMark(guildID);
-						
+
 					}				
 				}
 			}
-			
+
 			// °è±ÞÀÌ ÀÖ´Â°æ¿ì °è±Þ¸¶Å© Ãâ·Â
 			if(gradeID > -1 && gradeID <= GRADE_MARK_MAX)
 			{
 				CSprite* pSprite = g_pGuildMarkManager->GetGradeMarkSmall(gradeID, g_pPlayer->GetRace());
-				
+
 				if (pSprite!=NULL)
 				{			
 					m_pSurface->Lock();
-					
+
 					POINT pointTemp = { rectRight, yPoint_20 };
-					
+
 					m_pSurface->BltSprite(&pointTemp, pSprite);				
-					
+
 					m_pSurface->Unlock();
 				}
 			}
-			
+
 		}
 		//-----------------------------------------------------
 		// HP°è»ê
@@ -19807,8 +19799,8 @@ MTopView::DrawCreatureMyName()
 		int maxHP			= g_pPlayer->GetMAX_HP();
 
 		#ifdef OUTPUT_DEBUG
-			if (g_pDXInput->KeyDown(DIK_H) && 
-				(g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL)))
+			if (g_pSDLInput->KeyDown(DIK_H) && 
+				(g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL)))
 			{
 				char str[128];
 				sprintf(str, "HP=%d/%d", currentHP, maxHP);
@@ -19830,7 +19822,7 @@ MTopView::DrawCreatureMyName()
 		int nameX = //rectLeft+(MAX_HP_BAR>>1) - (namePixel>>1);
 					rectLeft + ((MAX_HP_BAR - namePixel)>>1);
 
-		
+
 		//-----------------------------------------------------
 		// HP°¡ ²Ë Â÷°Ô Ç¥½ÃµÇ´Â °æ¿ì
 		//-----------------------------------------------------
@@ -19938,17 +19930,17 @@ MTopView::DrawCreatureMyName()
 			{
 				namePixel = g_GetStringWidth(szNickName, g_ClientPrintInfo[font]->hfont);
 				WORD bgColor = 0;
-				
+
 				switch(bType)
 				{
 				case NicknameInfo::NICK_BUILT_IN:
 					color = RGB_YELLOW;
-					bgColor = CDirectDraw::Color(255,0,0);
+					bgColor = CSDLGraphics::Color(255,0,0);
 
 					break;
 				case NicknameInfo::NICK_QUEST:
 					color = RGB(150,150,150);
-					bgColor = CDirectDraw::Color(0,0,255);
+					bgColor = CSDLGraphics::Color(0,0,255);
 					break;
 				case NicknameInfo::NICK_FORCED:
 				case NicknameInfo::NICK_CUSTOM_FORCED:
@@ -19956,7 +19948,7 @@ MTopView::DrawCreatureMyName()
 					break;
 				case NicknameInfo::NICK_CUSTOM:
 					color = RGB(50,170,230);
-				//	bgColor = CDirectDraw::Color(255,0,0);
+				//	bgColor = CSDLGraphics::Color(255,0,0);
 					break;
 				default:
 					color = RGB_YELLOW;
@@ -19987,7 +19979,7 @@ MTopView::DrawCreatureMyName()
 		}
 		// 2004, 6, 17, sobeit add end - about nick name
 	}
-	
+
 }
 bool
 MTopView::DrawEvent()
@@ -20000,7 +19992,7 @@ MTopView::DrawEvent()
 	}
 	else
 		bDrawBackGround = ExcuteOustersFinEvent();
-	
+
 	// 2005, 2, 18, sobeit add start - WebBrowser°¡ ¶°ÀÖÀ» ¶§ Ã³¸®
 	if(UI_IsRunning_WebBrowser())
 	{
@@ -20018,7 +20010,7 @@ MTopView::DrawEvent()
 //		if(UI_IsMouseIn_WebBrowser())
 //		{
 //			
-			
+
 	// 2005, 2, 18, sobeit add end	
 	}
 	return bDrawBackGround;
@@ -20048,7 +20040,7 @@ MTopView::ExcuteAdvancementQuestEnding(void *pVoid)
 		static int fadeSpeed = 10;
 		static int fadeDirect = 0;
 		POINT pointZero = { 0, 0 };
-		
+
 		if(AdvancementQuestEndingEvent->parameter1 == 0)
 		{
 			fadeColor[0] = 255;
@@ -20056,7 +20048,7 @@ MTopView::ExcuteAdvancementQuestEnding(void *pVoid)
 			fadeColor[2] = 255;
 			fadeSpeed = 10;
 			fadeDirect = 0;
-			
+
 			//AdvancementQuestEndingEvent->parameter1 = g_pPlayer->IsSlayer()?1000:2000;
 			AdvancementQuestEndingEvent->parameter1 = 9998;
 			AdvancementQuestEndingEvent->parameter2 = 0;
@@ -20067,21 +20059,21 @@ MTopView::ExcuteAdvancementQuestEnding(void *pVoid)
 //				g_pMP3->Open( "Data\\Music\\blood.wav" );
 
 
-			if( g_DXSound.IsInit() )
+			if( g_SDLAudio.IsInit() )
 			{
 				if( g_pOGG != NULL )
 					g_pOGG->streamClose();
-				
+
 				if( g_pSoundBufferForOGG == NULL )
 					g_pSoundBufferForOGG = NULL; // SDL backend: CDirectSoundBuffer not implemented
-				
+
 				if( g_pOGG == NULL )
 #ifdef _MT
 					g_pOGG = new COGGSTREAM(g_hWnd, g_pSoundBufferForOGG, 44100, 11025, 8800);
 #else
 					g_pOGG = new COGGSTREAM(g_hWnd, g_pSoundBufferForOGG, 44100, 11025, 8800,1);
 #endif
-				
+
 				if( g_oggfile != NULL)
 					fclose(g_oggfile );
 				g_oggfile = fopen("data\\music\\Silence_of_Battlefield.ogg","rb");
@@ -20093,7 +20085,7 @@ MTopView::ExcuteAdvancementQuestEnding(void *pVoid)
 			PlaySoundForce(soundID);
 			AdvancementQuestEndingEvent->eventStartTickCount = GetTickCount();
 
-			
+
 		}
 //
 		m_pSurface->Lock();
@@ -20119,34 +20111,34 @@ MTopView::ExcuteAdvancementQuestEnding(void *pVoid)
 			if(m_pSurface->Lock())
 			{
 				int scroll_progress = -500+(GetTickCount()-AdvancementQuestEndingEvent->eventStartTickCount)/66;
-				
+
 				const int scroll_x = g_GameRect.right/2-m_AdvacementQuestEnding[0].GetWidth()/2, scroll_y = 50;
-				
+
 				int scroll = ( (scroll_progress < 0)? 0 : scroll_progress );
 				int scroll2 = ( (scroll_progress < 0)? scroll_progress : scroll_progress );
 				int scroll3 = ( (scroll_progress < 0)? 500+scroll_progress : 500 );
-				
+
 				Rect rect(0, scroll, m_AdvacementQuestEnding[0].GetWidth(), min(scroll3, m_AdvacementQuestEnding[0].GetHeight() - scroll));
 				S_SURFACEINFO surface_info;
 				SetSurfaceInfo(&surface_info, gpC_base->m_p_DDSurface_back->GetDDSD());
-				
+
 				int x = scroll_x, y = scroll_y-scroll2;
 				RECT rt;
 				rt.left = max(-x, rect.x);
 				rt.top = max(-y, rect.y);
 				rt.right = min(rect.x+rect.w, g_GameRect.right-x);
 				rt.bottom = min(rect.y+rect.h, g_GameRect.bottom-y);
-				
+
 				if(rt.bottom < rt.top)
 				{
 					AdvancementQuestEndingEvent->parameter1 = 9999;
 				}
-				
+
 				if(rt.left < rt.right && rt.top < rt.bottom)
 				{
 					WORD * p_dest = (WORD *)surface_info.p_surface+x+rt.left;
 					p_dest = (WORD *)((BYTE *)p_dest+(y+rt.top)*surface_info.pitch);
-					
+
 					//void BltClip(WORD *pDest, WORD pitch, RECT* pRect); // in CSprite.h
 					m_AdvacementQuestEnding[0].BltClipWidth(p_dest, surface_info.pitch, &rt);
 				}
@@ -20158,13 +20150,13 @@ MTopView::ExcuteAdvancementQuestEnding(void *pVoid)
 			bFinEnd = true;
 			break;
 		}
-		
+
 		RECT	rect;
 		rect.left = 0;
 		rect.right = g_GameRect.right;
 		rect.top = 0;
 		rect.bottom = g_GameRect.bottom;
-		
+
 		DrawAlphaBox(&rect, fadeColor[0], fadeColor[1], fadeColor[2], min(31, (GetTickCount() - AdvancementQuestEndingEvent->eventStartTickCount) /fadeSpeed)^fadeDirect);	
 
 		if(bFinEnd)
@@ -20191,7 +20183,7 @@ MTopView::ExcuteOustersFinEvent()
 		else if(event->parameter4 < EVENTBACKGROUNDID_MAX)
 		{
 //			AssertEventBackground(event->parameter4);
-			
+
 			POINT p = { 0, 0 };
 			RECT r = {0, 0, g_GameRect.left, g_GameRect.top };
 //			if(!m_pSurface->Lock()) return;
@@ -20205,7 +20197,7 @@ MTopView::ExcuteOustersFinEvent()
 			CSpriteSurface* pSpriteSurface = reinterpret_cast<CSpriteSurface*>(pSurface);
 			m_pSurface->BltNoColorkey(&p, pSpriteSurface, &r);
 #endif
-				
+
 //			m_pSurface->BltSprite(&p, g_pEventManager->GetEventBackground(event->parameter4));
 
 //			m_pSurface->Unlock();
@@ -20235,7 +20227,7 @@ MTopView::ExcuteOustersFinEvent()
 		static BYTE fadeColor[3] = {255, 255, 255};
 		static int fadeSpeed = 10;
 		static int fadeDirect = 0;
-		
+
 		if(OustersFinEvent->parameter1 == 0)
 		{
 			fadeColor[0] = 255;
@@ -20243,7 +20235,7 @@ MTopView::ExcuteOustersFinEvent()
 			fadeColor[2] = 255;
 			fadeSpeed = 10;
 			fadeDirect = 0;
-			
+
 			//OustersFinEvent->parameter1 = g_pPlayer->IsSlayer()?1000:2000;
 			OustersFinEvent->parameter1 = 9998;
 			OustersFinEvent->parameter2 = 0;
@@ -20253,21 +20245,21 @@ MTopView::ExcuteOustersFinEvent()
 //				g_pMP3->Open( "Data\\Music\\blood.wav" );
 
 
-			if( g_DXSound.IsInit() )
+			if( g_SDLAudio.IsInit() )
 			{
 				if( g_pOGG != NULL )
 					g_pOGG->streamClose();
-				
+
 				if( g_pSoundBufferForOGG == NULL )
 					g_pSoundBufferForOGG = NULL; // SDL backend: CDirectSoundBuffer not implemented
-				
+
 				if( g_pOGG == NULL )
 #ifdef _MT
 					g_pOGG = new COGGSTREAM(g_hWnd, g_pSoundBufferForOGG, 44100, 11025, 8800);
 #else
 					g_pOGG = new COGGSTREAM(g_hWnd, g_pSoundBufferForOGG, 44100, 11025, 8800,1);
 #endif
-				
+
 				if( g_oggfile != NULL)
 					fclose(g_oggfile );
 				g_oggfile = fopen("data\\music\\chaos.ogg","rb");
@@ -20300,7 +20292,7 @@ MTopView::ExcuteOustersFinEvent()
 							fadeColor[1] = 0;
 							fadeColor[2] = 0;
 						}
-						
+
 						if(OustersFinEvent->parameter2 > 9)
 						{
 							fadeColor[0] = 0;
@@ -20330,7 +20322,7 @@ MTopView::ExcuteOustersFinEvent()
 				if(m_pSurface->Lock())
 				{
 					const int char_plus_x = 10, char_plus_y = 24;
-					
+
 					POINT p[8] = 
 					{
 						{ 400 - m_OustersFinSPK[3].GetWidth()/2+char_plus_x, 160-m_OustersFinSPK[3].GetHeight()+char_plus_y},
@@ -20342,13 +20334,13 @@ MTopView::ExcuteOustersFinEvent()
 						{ 560 - m_OustersFinSPK[9].GetWidth()/2+char_plus_x, 300-m_OustersFinSPK[9].GetHeight()+char_plus_y},
 						{ 500 - m_OustersFinSPK[10].GetWidth()/2+char_plus_x, 210-m_OustersFinSPK[10].GetHeight()+char_plus_y},
 					};
-					
+
 					m_pSurface->BltSprite(&p[0], &m_OustersFinSPK[3]);
 					POINT strPoint = p[0];
 					strPoint.x -= 15;
 					strPoint.y -= 15;
 					DrawChatString(&strPoint, g_pPlayer, RGB(255, 255, 255));
-					
+
 					if(OustersFinEvent->parameter2 > 0)
 					{
 						for(int i = 0; i < 7; i++)
@@ -20356,16 +20348,16 @@ MTopView::ExcuteOustersFinEvent()
 							m_pSurface->BltSprite(&p[i+1], &m_OustersFinSPK[4+i]);
 						}
 					}
-					
+
 					MCreature *pCreature = g_pPlayer;
-					
+
 					int action = pCreature->GetAction(), direction = 6, frame = pCreature->GetFrame();
-					
+
 					MCreatureWear*	pCreatureWear = (MCreatureWear*)pCreature;
-					
+
 					// CreatureÀÇ Action¿¡ ¸Â´Â add-onÀ» Ãâ·ÂÇÑ´Ù.
 					//action = pCreature->GetAction();
-					
+
 					WORD clothes;
 					BYTE clothesType;
 
@@ -20374,16 +20366,16 @@ MTopView::ExcuteOustersFinEvent()
 						// CreatureÀÇ ÇöÀç ¹æÇâ¿¡ µû¶ó¼­...
 						// ¿ÊÀ» Ãâ·ÂÇØÁÖ´Â ¼ø¼­°¡ ´Ù¸¦ ¼ö ÀÖ´Ù.
 						clothesType = MCreatureWear::s_AddonOrder[direction][i];
-						
+
 						// i¹øÂ° Á¾·ùÀÇ ¿ÊÀ» ÀÔ°í ÀÖ´Ù¸é Ãâ·ÂÇØ ÁØ´Ù.
 						const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(clothesType);
-						
+
 						if (addonInfo.bAddon)
 						{
 							clothes = addonInfo.FrameID;
-							
+
 							FRAME_ARRAY &FA = m_AddonFPK[clothes][action][direction];
-							
+
 							// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
 							if (FA.GetSize() > frame)
 							{
@@ -20391,30 +20383,30 @@ MTopView::ExcuteOustersFinEvent()
 								int sprite	= Frame.GetSpriteID();	//m_AddonFPK[clothes][action][direction][frame].GetSpriteID();
 								int cx		= Frame.GetCX();	//m_AddonFPK[clothes][action][direction][frame].GetCX();
 								int cy		= Frame.GetCY();	//m_AddonFPK[clothes][action][direction][frame].GetCY();
-								
-								
+
+
 								CIndexSprite* pSprite = &m_AddonSPK[ sprite ];					
-								
-								
-								
+
+
+
 								POINT pointTemp;
-								
+
 								// ÁÂÇ¥ º¸Á¤
 								pointTemp.x = 384+cx;
 								pointTemp.y = 312+cy;
-								
+
 								{
 									int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
 									if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
 									{
-										
+
 										colorSet2 = MItem::GetSpecialColorItemColorset( colorSet2 );
 										if(addonInfo.ItemClass != ITEM_CLASS_COAT && addonInfo.ItemClass != ITEM_CLASS_TROUSER)
 											colorSet1 = colorSet2;
 									}
-									
+
 									CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
-									
+
 									// ¾îµÓ°Ô Âï±â
 									if (pCreature->IsFade())
 									{
@@ -20425,18 +20417,18 @@ MTopView::ExcuteOustersFinEvent()
 										m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 									}
 								}						
-								
-								
+
+
 							}
 						}
-						
+
 					}
-					
+
 					m_pSurface->Unlock();
 				}
 			}
 			break;
-			
+
 		case 2000:
 			{
 				if((GetTickCount() - OustersFinEvent->eventStartTickCount)/4000 > 0)
@@ -20463,7 +20455,7 @@ MTopView::ExcuteOustersFinEvent()
 							fadeColor[1] = 0;
 							fadeColor[2] = 0;
 							fadeDirect = 31;
-							
+
 							if(OustersFinEvent->parameter2 > 10)
 							{
 								OustersFinEvent->eventStartTickCount = GetTickCount();
@@ -20515,7 +20507,7 @@ MTopView::ExcuteOustersFinEvent()
 					}
 
 					int body, action, direction, frame, creature_type;
-				
+
 					MCreature *pCreature = g_pPlayer;
 
 
@@ -20527,27 +20519,27 @@ MTopView::ExcuteOustersFinEvent()
 
 					// vampire
 					FRAME_ARRAY& FA = m_CreatureFPK[body][action][direction];
-					
+
 					if (FA.GetSize() > frame)
 					{
 						CFrame& Frame =	FA[frame];
 						int sprite = Frame.GetSpriteID(),	//m_CreatureFPK[body][action][direction][frame].GetSpriteID(),
 							cx		= Frame.GetCX(),	//m_CreatureFPK[body][action][direction][frame].GetCX(),
 							cy		= Frame.GetCY();	//m_CreatureFPK[body][action][direction][frame].GetCY();
-						
+
 						CIndexSprite* pSprite = &m_CreatureSPK[ sprite ];
-						
+
 
 						int colorSet1 = pCreature->GetBodyColor1();
 						int colorSet2 = pCreature->GetBodyColor2();
 						if( colorSet1 == QUEST_ITEM_COLOR || colorSet1 == UNIQUE_ITEM_COLOR )
 							colorSet1 = MItem::GetSpecialColorItemColorset( colorSet1 );
-						
+
 						if( colorSet2 == QUEST_ITEM_COLOR || colorSet2 == UNIQUE_ITEM_COLOR )
 							colorSet2 = MItem::GetSpecialColorItemColorset( colorSet2 );
 
 						POINT pointTemp;
-						
+
 						// ÁÂÇ¥ º¸Á¤
 						pointTemp.x = 384+cx;
 						pointTemp.y = 312+cy;
@@ -20565,57 +20557,57 @@ MTopView::ExcuteOustersFinEvent()
 			if(m_pSurface->Lock())
 			{
 				int scroll_progress = -500+(GetTickCount()-OustersFinEvent->eventStartTickCount)/66;
-				
+
 				const int spriteID = 0;
 				const int scroll_x = g_GameRect.right/2-m_OustersFinSPK[spriteID].GetWidth()/2, scroll_y = 50;
-				
+
 				int scroll = ( (scroll_progress < 0)? 0 : scroll_progress );
 				int scroll2 = ( (scroll_progress < 0)? scroll_progress : scroll_progress );
 				int scroll3 = ( (scroll_progress < 0)? 500+scroll_progress : 500 );
-				
+
 				Rect rect(0, scroll, m_OustersFinSPK[spriteID].GetWidth(), min(scroll3, m_OustersFinSPK[spriteID].GetHeight() - scroll));
 				S_SURFACEINFO surface_info;
 				SetSurfaceInfo(&surface_info, gpC_base->m_p_DDSurface_back->GetDDSD());
-				
+
 				int x = scroll_x, y = scroll_y-scroll2;
 				RECT rt;
 				rt.left = max(-x, rect.x);
 				rt.top = max(-y, rect.y);
 				rt.right = min(rect.x+rect.w, g_GameRect.right-x);
 				rt.bottom = min(rect.y+rect.h, g_GameRect.bottom-y);
-				
+
 				if(rt.bottom < rt.top)
 				{
 					OustersFinEvent->parameter1 = 9999;
 				}
-				
+
 				if(rt.left < rt.right && rt.top < rt.bottom)
 				{
 					WORD * p_dest = (WORD *)surface_info.p_surface+x+rt.left;
 					p_dest = (WORD *)((BYTE *)p_dest+(y+rt.top)*surface_info.pitch);
-					
+
 					//void BltClip(WORD *pDest, WORD pitch, RECT* pRect); // in CSprite.h
 					m_OustersFinSPK[spriteID].BltClipWidth(p_dest, surface_info.pitch, &rt);
 				}
-				
+
 				Rect rect2(0, 0, m_OustersFinSPK[1].GetWidth(), min(scroll3 - (m_OustersFinSPK[spriteID].GetHeight() - scroll) -50, m_OustersFinSPK[1].GetHeight()));
-				
+
 				x = scroll_x +m_OustersFinSPK[spriteID].GetWidth()/2-m_OustersFinSPK[1].GetWidth()/2;
 				y = scroll_y + max(200, (m_OustersFinSPK[spriteID].GetHeight() - scroll + 50) );
 				rt.left = max(-x, rect2.x);
 				rt.top = max(-y, rect2.y);
 				rt.right = min(rect2.x+rect2.w, g_GameRect.right-x);
 				rt.bottom = min(rect2.y+rect2.h, g_GameRect.bottom-y);
-				
+
 				if(rt.left < rt.right && rt.top < rt.bottom)
 				{
 					WORD *p_dest = (WORD *)surface_info.p_surface+x+rt.left;
 					p_dest = (WORD *)((BYTE *)p_dest+(y+rt.top)*surface_info.pitch);
-					
+
 					//void BltClip(WORD *pDest, WORD pitch, rect2* prect2); // in CSprite.h
 					m_OustersFinSPK[1].BltClipWidth(p_dest, surface_info.pitch, &rt);
 				}
-				
+
 				m_pSurface->Unlock();
 			}
 			break;
@@ -20630,7 +20622,7 @@ MTopView::ExcuteOustersFinEvent()
 		rect.right = g_GameRect.right;
 		rect.top = 0;
 		rect.bottom = g_GameRect.bottom;
-		
+
 		DrawAlphaBox(&rect, fadeColor[0], fadeColor[1], fadeColor[2], min(31, (GetTickCount() - OustersFinEvent->eventStartTickCount) /fadeSpeed)^fadeDirect);	
 
 		if(bFinEnd)

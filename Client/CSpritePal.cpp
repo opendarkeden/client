@@ -1,7 +1,5 @@
 #include "CSpritePal.h"
 
-#include "CDirectDraw.h"
-
 #include <vector>
 #include <fstream>
 

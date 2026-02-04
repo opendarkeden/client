@@ -34,28 +34,12 @@
 #include "MObjectSelector.h"
 #include "ClientFunction.h"
 #include "MMusic.h"
-#include "CDirectInput.h"  // For DIK_* key code definitions
+#include "InputService.h"  // For DIK_* key code definitions
+#include "DXLib/CDirectInput.h"
 #include "MZoneSoundManager.h"
 #include "TempInformation.h"
 #include "MFakeCreature.h"
 #include "MParty.h"
-
-/* Ensure DIK_* constants are defined (in case CDirectInput.h has issues) */
-#ifndef DIK_RCONTROL
-#define DIK_RCONTROL        0x9D
-#endif
-#ifndef DIK_F
-#define DIK_F               0x21
-#endif
-#ifndef DIK_LMENU
-#define DIK_LMENU           0x38
-#endif
-#ifndef DIK_RMENU
-#define DIK_RMENU           0xB8
-#endif
-#ifndef DIK_CAPITAL
-#define DIK_CAPITAL         0x3A
-#endif
 #include "Profiler.h"
 #include "MTestDef.h"
 #include "MEventManager.h"
@@ -204,10 +188,10 @@ CGameUpdate::Init()
 	g_bPreviousMove = false;
 
 	// mouse event 처리
-	g_pDXInput->SetMouseEventReceiver( DXMouseEvent );
+	g_pSDLInput->SetMouseEventReceiver( DXMouseEvent );
 
 	// keyboard event 처리
-	g_pDXInput->SetKeyboardEventReceiver( DXKeyboardEvent );
+	g_pSDLInput->SetKeyboardEventReceiver( DXKeyboardEvent );
 
 	// text input 처리 (SDL2 only)
 	dxlib_input_set_textinput_callback(SDLTextInputEvent);
@@ -218,7 +202,7 @@ CGameUpdate::Init()
 // DXMouseEvent
 //-----------------------------------------------------------------------------
 void		
-CGameUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z)
+CGameUpdate::DXMouseEvent(CSDLInput::E_MOUSE_EVENT event, int x, int y, int z)
 {
 	POINT point;
 
@@ -233,7 +217,7 @@ CGameUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z
 	
 	switch (event)
 	{
-			case CDirectInput::LEFTDOWN :
+			case CSDLInput::LEFTDOWN :
 //				if ((DWORD)abs(GetTickCount() - last_click_time) <= g_double_click_time)
 //				{
 //					if (g_x>= double_click_x-1 && g_x <= double_click_x+1 &&
@@ -245,8 +229,8 @@ CGameUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z
 //						
 //						gC_vs_ui.MouseControl(M_LB_DOUBLECLICK, g_x, g_y);
 //						
-//						g_pDXInput->m_lb_down = false;
-//						g_pDXInput->m_lb_up = false;
+//						g_pSDLInput->m_lb_down = false;
+//						g_pSDLInput->m_lb_up = false;
 //						
 //						#ifdef OUTPUT_DEBUG_UPDATE_LOOP
 //						DEBUG_ADD("MLD2");
@@ -263,7 +247,7 @@ CGameUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z
 				double_click_y = g_y;
 				
 				#ifdef OUTPUT_DEBUG			
-				if (g_pDXInput->KeyDown(DIK_LSHIFT) && g_bSlideScreenShot)
+				if (g_pSDLInput->KeyDown(DIK_LSHIFT) && g_bSlideScreenShot)
 				{
 					g_rectScreenShot.left = g_x;
 					g_rectScreenShot.right = g_x;
@@ -275,7 +259,7 @@ CGameUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z
 				// Minimap¿¡ Å¬¸¯ÇÏ¸é ±×ÂÊÀ¸·Î ÀÌµ¿ÇÑ´Ù.
 				//---------------------------------------------------------
 				/* // 2001.7.14 ÁÖ¼®Ã³¸®
-				if (g_pDXInput->KeyDown(DIK_RCONTROL) && g_pUserOption->DrawMinimap)
+				if (g_pSDLInput->KeyDown(DIK_RCONTROL) && g_pUserOption->DrawMinimap)
 				{
 					int x = g_x - (800 - 256) * g_pZone->GetWidth() / 256;
 					int y = g_y * g_pZone->GetWidth() / 128;
@@ -309,14 +293,14 @@ CGameUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z
 				#endif
 			break;
 
-			case CDirectInput::RIGHTUP :
+			case CSDLInput::RIGHTUP :
 				// Áö·Ú ¸¸µå´Â °Å ÁßÁö
 				gC_vs_ui.EndInstallMineProgress();
 				//gC_vs_ui.EndCreateMineProgress();
 				//gC_vs_ui.EndCreateBombProgress();
 			break;
 
-			//case CDirectInput::RIGHTDOWN :
+			//case CSDLInput::RIGHTDOWN :
 				//---------------------------------------------------------
 				// ChattingÃ¢¿¡ extra input
 				//---------------------------------------------------------
@@ -325,12 +309,12 @@ CGameUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z
 			//break;
 
 
-		case CDirectInput::WHEELDOWN:
+		case CSDLInput::WHEELDOWN:
 			gC_vs_ui.MouseControl(M_WHEEL_DOWN, g_x, g_y);
 			///gC_vs_ui.ChatMouseControlExtra( M_WHEEL_DOWN, g_x, g_y );
 			break;
 
-		case CDirectInput::WHEELUP:
+		case CSDLInput::WHEELUP:
 			gC_vs_ui.MouseControl(M_WHEEL_UP, g_x, g_y);
 //			gC_vs_ui.ChatMouseControlExtra( M_WHEEL_UP, g_x, g_y );
 			break;
@@ -343,14 +327,14 @@ CGameUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z
 // DXKeyboardEvent
 //-----------------------------------------------------------------------------
 void	
-CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
+CGameUpdate::DXKeyboardEvent(CSDLInput::E_KEYBOARD_EVENT event, DWORD key)
 {
 	if(g_pEventManager->GetEventByFlag(EVENTFLAG_DENY_INPUT_KEYBOARD))
 	{
 		return;
 	}
 
-	if (event==CDirectInput::KEYDOWN)
+	if (event==CSDLInput::KEYDOWN)
 	{
 		if(key == 0xcc) return;		// ÀÌ°Ç ¸ÓÁö-_-?;;
 
@@ -408,7 +392,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //			break;
 
 			case DIK_SPACE :
-				if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL) )
+				if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL) )
 				{
 				//	gC_vs_ui.HotKey_SummonPet(); 
 //					gC_vs_ui.HotKey_WindowToggle();
@@ -419,7 +403,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 			// L-CONTROL + S
 			//------------------------------------
 			//case DIK_S :				
-			//	if (g_pDXInput->KeyDown(DIK_LCONTROL))
+			//	if (g_pSDLInput->KeyDown(DIK_LCONTROL))
 			//	{	
 					/*
 					switch (rand()%3)
@@ -508,7 +492,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 			// FPS Toggle
 			//------------------------------------
 			case DIK_F : 
-				if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+				if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 				{
 					if(g_pEventManager->IsEvent(EVENTID_OUSTERS_FIN))
 					{
@@ -530,7 +514,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				}
 
 				#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
-					else if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+					else if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 					{
 						if (g_pPlayer->HasEffectStatus( EFFECTSTATUS_FADE_OUT ))
 						{
@@ -550,7 +534,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 			//------------------------------------
 			/*
 			case DIK_M : 
-				if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+				if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 				{
 					(*g_pUserOption).DrawMinimap = !(*g_pUserOption).DrawMinimap;
 				}
@@ -560,7 +544,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 			// DrawZoneName Toggle
 			//------------------------------------
 			case DIK_Z :
-				if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+				if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 				{
 					(*g_pUserOption).DrawZoneName = !(*g_pUserOption).DrawZoneName;
 				}
@@ -570,7 +554,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 			// DrawGameTime Toggle
 			//------------------------------------
 			case DIK_T :
-				if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+				if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 				{
 					(*g_pUserOption).DrawGameTime = !(*g_pUserOption).DrawGameTime;
 				}
@@ -582,7 +566,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 			//------------------------------------
 			/*
 			case DIK_V : 
-				if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+				if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 				{
 					(*g_pUserOption).BlendingShadow = !(*g_pUserOption).BlendingShadow;
 					if (g_pTopView!=NULL)
@@ -598,7 +582,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 			//------------------------------------
 			/*
 			case DIK_E : 
-				if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+				if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 				{
 					//------------------------------------
 					// ¿¬ÁÖÁßÀÌ¸é.. Áß´Ü..
@@ -618,7 +602,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				//---------------------------------------------------------
 				// Watch Mode
 				//---------------------------------------------------------
-				else if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+				else if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 				{
 					SetWatchMode( !g_bWatchMode );
 				}
@@ -634,7 +618,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 					//------------------------------------
 					// ¹ÚÁã º¯½Å test
 					//------------------------------------
-					if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+					if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 					{
 						MActionResult* pResult = new MActionResult;
 
@@ -673,15 +657,15 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 					}
 					
 				#endif
-				if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+				if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 				{
-					//if (g_DXMusic.IsPlay())
+					//if (g_SDLMusic.IsPlay())
 					//{
-					//	g_DXMusic.Pause();
+					//	g_SDLMusic.Pause();
 					//}
 					//else
 					//{						
-					//	g_DXMusic.Resume();
+					//	g_SDLMusic.Resume();
 					//}
 					
 					//------------------------------------
@@ -693,9 +677,9 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 						{
 							g_pUserOption->PlayMusic = FALSE;
 
-							if (g_pDXSoundStream->IsPlay())
+							if (g_pSDLStream->IsPlay())
 							{
-								g_pDXSoundStream->Stop();
+								g_pSDLStream->Stop();
 							}
 						}
 						//------------------------------------
@@ -745,7 +729,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 			//------------------------------------
 			/*
 			case DIK_H :
-				if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+				if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 				{
 					//(*g_pUserOption).DrawInterface = !(*g_pUserOption).DrawInterface;
 
@@ -768,7 +752,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				break;
 
 				case DIK_S :
-					if (g_pDXInput->KeyDown(DIK_LMENU))
+					if (g_pSDLInput->KeyDown(DIK_LMENU))
 					{
 						g_bSlideScreenShot = !g_bSlideScreenShot;
 						g_bSlideRectSelect = false;
@@ -776,7 +760,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				break;
 
 				case DIK_P :
-					if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU) )
+					if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU) )
 					{
 						bool en = true;
 						if(g_abHolyLandBonusSkills[0] == true)
@@ -802,8 +786,8 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 					case DIK_F1 :
 					{
 						// info ´Ù½Ã ÀÐ±â 
-						if (g_pDXInput->KeyDown(DIK_LMENU) 
-							|| g_pDXInput->KeyDown(DIK_RMENU))
+						if (g_pSDLInput->KeyDown(DIK_LMENU) 
+							|| g_pSDLInput->KeyDown(DIK_RMENU))
 						{
 							InitInfomation();
 							InitSound();
@@ -818,7 +802,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 					//------------------------------------------------------------
 					case DIK_L : 
 					{
-						if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+						if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 						{
 							MZone::CREATURE_MAP::const_iterator iCreature = g_pZone->GetCreatureBegin();					
 
@@ -944,7 +928,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 					break;
 
 					case DIK_1 :
-//						if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+//						if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 //						{
 //							if( g_pSoundBufferForOGG == NULL )
 //								g_pSoundBufferForOGG = new CDirectSoundBuffer(g_hWnd, SOUND_STEREO, SOUND_44K, SOUND_16BIT);
@@ -966,7 +950,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 ////							g_pSystemMessage->Add("Blood.mp3 ¸¦ ¿¬ÁÖÇÕ´Ï´Ù");							
 //						}
 //						// ALT + 1  --> °ø°Ý ¼Óµµ Slow
-						if(g_pDXInput->KeyDown(DIK_LCONTROL))
+						if(g_pSDLInput->KeyDown(DIK_LCONTROL))
 						{ 
 							
 							//g_pPlayer->SetSpecialActionInfo(TEMP_SKILL_INFINITY_THUNDERBLOT);
@@ -1291,7 +1275,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //						}
 //							g_pPlayer->AddEffectStatus(EFFECTSTATUS_HAS_PET, 0);
 						}
-						if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+						if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 						{
 							//g_pPlayer->SetWeaponSpeed( MCreature::WEAPON_SPEED_SLOW );
 
@@ -1309,7 +1293,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 					break;
 
 					case DIK_2 :
-						if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+						if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 						{  
 //							extern void SetDragonTorando(int Type, DWORD ObjectID, int TileX, int TileY);
 //							SetDragonTorando(EFFECTSTATUS_DRAGON_TORNADO, 11000, g_pPlayer->GetX()+3, g_pPlayer->GetY());
@@ -1453,7 +1437,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //							g_pEventManager->AddEvent(event);		
 						}
 						// ALT + 2  --> °ø°Ý ¼Óµµ normal
-						if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+						if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 						{
 							//g_pPlayer->SetWeaponSpeed( MCreature::WEAPON_SPEED_NORMAL);
 
@@ -1471,7 +1455,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 					break;
 
 					case DIK_3 :
-						if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+						if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 						{
 //							g_pZone->RemoveTileEffect( g_pPlayer->GetX()+3, g_pPlayer->GetY(), EFFECTSTATUS_DRAGON_TORNADO, 11000 );
 
@@ -1556,7 +1540,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //							g_bTestMusic = false;
 						}
 						// ALT + 3  --> °ø°Ý ¼Óµµ Fast
-						if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+						if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 						{
 							//g_pPlayer->SetWeaponSpeed( MCreature::WEAPON_SPEED_FAST );
 
@@ -1574,7 +1558,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 					break;
 
 					case DIK_4 :
-						if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+						if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 						{
 							int TempCount = ShowCursor(FALSE);
 //							g_pUserInformation->IsNonPK = !g_pUserInformation->IsNonPK;
@@ -1591,17 +1575,17 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //							g_bTestMusic = false;
 						}
 #ifdef __METROTECH_TEST__
-						if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+						if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 							g_bLight = !g_bLight;
 //							g_bHolyWater = !g_bHolyWater;
 #endif
 						break;
 					case DIK_5 :
 #ifdef __METROTECH_TEST__
-						if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+						if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 						UI_RunHorn(g_pZone->GetID());
 #endif
-//						if (g_pDXInput->KeyDown(DIK_RCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+//						if (g_pSDLInput->KeyDown(DIK_RCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 //						{
 //							g_pMP3->Stop();
 //							g_pMP3->Open("data\\music\\rest.mp3");
@@ -1627,7 +1611,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 					case DIK_6 :
 //						{
-//							if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+//							if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 //							{
 //								g_pMP3->Stop();
 //								g_pMP3->Open("data\\music\\ruin.mp3");
@@ -1643,14 +1627,14 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //							}				
 //						}
 #ifdef __METROTECH_TEST__
-						if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+						if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 						UI_RunMinigame(0);
 #endif
 						break;
 						
 					case DIK_7 :
 //						{
-//							if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+//							if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 //							{
 //								g_pMP3->Stop();
 //								g_pMP3->Open("data\\music\\silence of battlefield.mp3");
@@ -1663,14 +1647,14 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 					case DIK_8 :
 #ifdef __METROTECH_TEST__
-						if (g_pDXInput->KeyDown(DIK_RCONTROL) && g_pDXInput->KeyDown(DIK_RSHIFT))// &&
-							//							g_pDXInput->KeyDown(DIK_LCONTROL) && g_pDXInput->KeyDown(DIK_RCONTROL))
+						if (g_pSDLInput->KeyDown(DIK_RCONTROL) && g_pSDLInput->KeyDown(DIK_RSHIFT))// &&
+							//							g_pSDLInput->KeyDown(DIK_LCONTROL) && g_pSDLInput->KeyDown(DIK_RCONTROL))
 						{
 							g_iSpeed *= -1;
 						}
 #endif
-//						if (g_pDXInput->KeyDown(DIK_RCONTROL) || g_pDXInput->KeyDown(DIK_LCONTROL))// &&
-//							//							g_pDXInput->KeyDown(DIK_LCONTROL) && g_pDXInput->KeyDown(DIK_RCONTROL))
+//						if (g_pSDLInput->KeyDown(DIK_RCONTROL) || g_pSDLInput->KeyDown(DIK_LCONTROL))// &&
+//							//							g_pSDLInput->KeyDown(DIK_LCONTROL) && g_pSDLInput->KeyDown(DIK_RCONTROL))
 //						{
 ////							g_iSpeed *= -1;
 //							g_pMP3->Stop();
@@ -1682,7 +1666,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 						break;
 						
 					case DIK_9 :
-//						if( g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+//						if( g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 //						{
 //							g_bTestMusic = !g_bTestMusic;
 //
@@ -1699,8 +1683,8 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //						}
 
 #ifdef __METROTECH_TEST__
-						if (g_pDXInput->KeyDown(DIK_RCONTROL) && g_pDXInput->KeyDown(DIK_RSHIFT))// &&
-//							g_pDXInput->KeyDown(DIK_LCONTROL) && g_pDXInput->KeyDown(DIK_RCONTROL))
+						if (g_pSDLInput->KeyDown(DIK_RCONTROL) && g_pSDLInput->KeyDown(DIK_RSHIFT))// &&
+//							g_pSDLInput->KeyDown(DIK_LCONTROL) && g_pSDLInput->KeyDown(DIK_RCONTROL))
 						{
 							int mi = 1;
 							if(g_iSpeed < 0)
@@ -1715,7 +1699,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 						break;
 					case DIK_0 :
 						{
-							if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+							if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 							{
 								if( g_bTestMusic )
 								{
@@ -1725,9 +1709,9 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 						}
 
 					case DIK_Z :
-						if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+						if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 						{
-							CDirectDraw::RestoreAllSurfaces();
+							CSDLGraphics::RestoreAllSurfaces();
 // CDirect3D::Restore() removed (SDL2)
 
 							if (g_pTopView!=NULL)
@@ -1739,7 +1723,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 					
 					case DIK_N :
 						{
-							if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+							if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 							{
 								g_pUserInformation->IsNetmarble = !g_pUserInformation->IsNetmarble;
 								if(g_pUserInformation->IsNetmarble)
@@ -1748,7 +1732,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 									g_pSystemMessage->Add("Netmarble Unset");
 							}
 							else
-								if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+								if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 								{
 									g_pPCTalkBox->Release();
 									
@@ -1787,7 +1771,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 						break;
 						
 					case DIK_M :
-						if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+						if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 						{
 							if(g_pEventManager->IsEvent(EVENTID_METEOR))
 							{
@@ -1807,7 +1791,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 						break;
 
 					case DIK_G:
-						if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+						if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 						{
 //							MFakeCreature* pFakeCreature = NewFakeCreature( g_pPlayer, g_pPlayer->GetX(), g_pPlayer->GetY() );
 //							
@@ -1827,7 +1811,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 					case DIK_H :
 					{
-						if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+						if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 						{
 							if (g_pPlayer->HasEffectStatus(EFFECTSTATUS_HALLUCINATION))
 							{
@@ -1848,7 +1832,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 			#if defined(OUTPUT_DEBUG) && defined(_DEBUG)	//!defined(CONNECT_SERVER)
 				/*
 				case DIK_L :
-					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+					if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 					{
 						if (g_pPlayer->IsVampire())
 						{
@@ -1904,7 +1888,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				//------------------------------------------------------------				
 				case DIK_SUBTRACT :
 				{
-					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+					if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 					{
 						int volume = g_Music.GetVolume();
 
@@ -1928,7 +1912,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				
 				case DIK_ADD :
 				{
-					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+					if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 					{
 						int volume = g_Music.GetVolume();
 
@@ -1957,7 +1941,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				//------------------------------------------------------------
 				/*
 				case DIK_E : 
-					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+					if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 					{
 						if (g_HISTORY_LINE > 4)//HISTORY_LINE) ¤»¤»
 						{
@@ -1971,7 +1955,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 					//---------------------------------------------------------
 					// Wolf º¯½Å test
 					//---------------------------------------------------------
-					else if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+					else if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 					{
 						MActionResult* pResult = new MActionResult;
 
@@ -2018,7 +2002,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				case DIK_H :
 				{
 					// helicopter Å×½ºÆ®
-					if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+					if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 					{
 						TYPE_OBJECTID creatureID = g_pPlayer->GetID();
 
@@ -2040,7 +2024,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				//------------------------------------------------------------
 				case DIK_W :
 				{
-					if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+					if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 					{
 						int x, y;
 
@@ -2072,7 +2056,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 					//------------------------------------------------------------
 					// ¿ÞÂÊ ´©¸£¸é µé¾î°¡±â
 					//------------------------------------------------------------
-					if (g_pDXInput->KeyDown(DIK_LMENU))
+					if (g_pSDLInput->KeyDown(DIK_LMENU))
 					{
 						MZone::CREATURE_MAP::const_iterator iCreature = g_pZone->GetCreatureBegin();
 
@@ -2113,7 +2097,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 					//------------------------------------------------------------
 					// ¿À¸¥ÂÊ ´©¸£¸é ³ª¿À±â
 					//------------------------------------------------------------
-					else if (g_pDXInput->KeyDown(DIK_RMENU))
+					else if (g_pSDLInput->KeyDown(DIK_RMENU))
 					{
 						MCreature* pCreature = AddClientCreature();
 
@@ -2148,7 +2132,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				//------------------------------------------------------------
 				case DIK_V : 
 				{
-					if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+					if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 					{
 						MZone::CREATURE_MAP::const_iterator iCreature = g_pZone->GetCreatureBegin();
 
@@ -2181,7 +2165,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 				case DIK_C : 
 				{
-					if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+					if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 					{
 						if (g_pPlayer->IsInCasket())
 						{
@@ -2240,7 +2224,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				//
 				//------------------------------------------------------------
 				case DIK_D : 
-					if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+					if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 					{
 						UI_RunComputer();
 					}					
@@ -2253,7 +2237,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				//------------------------------------------------------------
 				case DIK_K : 
 				{
-					if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+					if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 					{
 						int objectID = MFakeCreature::GetFakeID();
 						char name[80];
@@ -2416,7 +2400,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				// HP È¸º¹ test
 				//------------------------------------
 				case DIK_R : 
-					if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
+					if (g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU))
 					{
 						g_pPlayer->SetStatus( MODIFY_CURRENT_HP, 0 );
 						g_pPlayer->SetStatus( MODIFY_MAX_HP, 100 );
@@ -2432,7 +2416,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				//------------------------------------------------------------
 				case DIK_LBRACKET : case DIK_RBRACKET :
 					/*
-					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+					if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 					{
 						char str[80];
 
@@ -2462,7 +2446,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 				/*
 				case DIK_GRAVE :
-					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+					if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 					{
 						(*g_pUIDialog).PopupDirectionSelectDlg(0, 0);
 					}					
@@ -2473,7 +2457,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 //				case DIK_5 :
 //				{	
-//					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+//					if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 //					{
 //						g_pPlayer->SetMoveDevice( MCreature::MOVE_DEVICE_WALK );
 //						g_pPlayer->SetBasicActionInfo( SKILL_ATTACK_MELEE );
@@ -2502,7 +2486,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //							}
 //						}
 //						/*
-//						if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+//						if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 //							for (int i=0; i<8; i++)
 //							{
 //								const MItem* pItem = g_Inventory.GetItem(i, 0);
@@ -2524,7 +2508,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 //				case DIK_8 :
 //				{
-//					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+//					if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 //					{
 //						if (g_pPlayer->HasEffectStatus(EFFECTSTATUS_SNIPPING_MODE))
 //						{
@@ -2541,7 +2525,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 //				case DIK_9 :
 //				{
-//					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+//					if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 //					{
 //						if (g_pPlayer->HasEffectStatus(EFFECTSTATUS_CAUSE_CRITICAL_WOUNDS))
 //						{
@@ -2567,7 +2551,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 				/*
 				case DIK_1 :
-					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+					if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 					{
 						MItem*	pBlade = new MBlade;	pBlade->SetItemType( 0 ); pBlade->SetItemOption( 0 );
 						g_pPlayer->RemoveAddon( ADDON_RIGHTHAND );
@@ -2576,7 +2560,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				break;
 
 				case DIK_2 :
-					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+					if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 					{
 						MItem*	pSword = new MSword;	pSword->SetItemType( 0 );	pSword->SetItemOption( 0 );
 						g_pPlayer->RemoveAddon( ADDON_RIGHTHAND );
@@ -2587,7 +2571,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				case DIK_7 :
 				case DIK_8 :
 				case DIK_9 :
-					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+					if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 					{
 						static int itemType[] = { 0, 1, 5 };
 						MItem*	pShield = new MShield;	pShield->SetItemType( itemType[key-DIK_7] ); pShield->SetItemOption( 0 );
@@ -2601,7 +2585,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				case DIK_5 :			
 				case DIK_6 :
 				{
-					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+					if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 					{
 						MGunItem* pGunItem;
 
@@ -2700,7 +2684,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				*/
 
 				case DIK_A :
-					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+					if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 					{
 						//------------------------------------------------------
 						// »ç¿ëÀÚ
@@ -2743,7 +2727,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 				/*		
 				case DIK_Q :								
-					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+					if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 					{
 						if (g_pPlayer->IsDead())
 						{						
@@ -2762,7 +2746,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				break;
 
 				case DIK_W :								
-					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+					if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 					{
 						for (int i=0; i<g_MaxNPC; i++)
 						{
@@ -2786,7 +2770,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 			#endif			
 		}
 	}
-	else // if (event==CDirectInput::KEYUP)
+	else // if (event==CSDLInput::KEYUP)
 	{
 	}
 }
@@ -3172,7 +3156,7 @@ CGameUpdate::ProcessInput()
 	//-----------------------------------------------
 	///*
 	#ifdef OUTPUT_DEBUG
-		if (g_pDXInput->KeyDown(DIK_LMENU) && g_pDXInput->KeyDown(DIK_X))
+		if (g_pSDLInput->KeyDown(DIK_LMENU) && g_pSDLInput->KeyDown(DIK_X))
 		{	
 			//TerminateThread(g_hFileThread, 0);
 			SetMode( MODE_QUIT );
@@ -3187,8 +3171,8 @@ CGameUpdate::ProcessInput()
 	// packet ÀÌµ¿ Å×½ºÆ®
 	//-----------------------------------------------
 	#ifdef OUTPUT_DEBUG
-		if (g_pDXInput->KeyDown(DIK_M) 
-			&& g_pDXInput->KeyDown(DIK_LMENU))
+		if (g_pSDLInput->KeyDown(DIK_M) 
+			&& g_pSDLInput->KeyDown(DIK_LMENU))
 		{			
 			PacketTest();
 		}
@@ -3196,18 +3180,18 @@ CGameUpdate::ProcessInput()
 	
 	/*
 	// [ TEST CODE ] DEBUG MESSAGE
-	if (g_pDXInput->m_lb_down || g_pDXInput->m_lb_up)
+	if (g_pSDLInput->m_lb_down || g_pSDLInput->m_lb_up)
 			DEBUG_ADD("----------");
 
-	if (g_pDXInput->m_lb_down && g_pDXInput->m_lb_up)
+	if (g_pSDLInput->m_lb_down && g_pSDLInput->m_lb_up)
 	{
 			DEBUG_ADD("LButtonDown & Up");
 	}
-	else if (g_pDXInput->m_lb_down)
+	else if (g_pSDLInput->m_lb_down)
 	{
 			DEBUG_ADD("LButtonDown");
 	}
-	else if (g_pDXInput->m_lb_up)
+	else if (g_pSDLInput->m_lb_up)
 	{
 			DEBUG_ADD("LButtonUp");
 	}
@@ -3222,7 +3206,7 @@ CGameUpdate::ProcessInput()
 	//---------------------------------------------------	
 	if (g_bLButtonDown
 		// LÀÌ UpÀÌ°Å³ª.. RÀÌ DownÀÎ °æ¿ì
-		&& (g_pDXInput->m_lb_up	|| g_pDXInput->m_rb_down)
+		&& (g_pSDLInput->m_lb_up	|| g_pSDLInput->m_rb_down)
 #ifdef __METROTECH_TEST__
 		&& !g_bCButtonDown
 #endif
@@ -3280,7 +3264,7 @@ CGameUpdate::ProcessInput()
 	//---------------------------------------------------	
 	if (g_bRButtonDown
 		// RÀÌ UpÀÌ°Å³ª. LÀÌ DownÀÎ °æ¿ì
-		&& (g_pDXInput->m_rb_up || g_pDXInput->m_lb_down)
+		&& (g_pSDLInput->m_rb_up || g_pSDLInput->m_lb_down)
 #ifdef __METROTECH_TEST__
 		&& !g_bCButtonDown
 #endif
@@ -3311,7 +3295,7 @@ CGameUpdate::ProcessInput()
 		}
 	}
 
-	if(g_bCButtonDown && g_pDXInput->m_cb_up)
+	if(g_bCButtonDown && g_pSDLInput->m_cb_up)
 	{
 		g_bCButtonDown = FALSE;
 	}
@@ -3345,10 +3329,10 @@ CGameUpdate::ProcessInput()
 	
 	bool bRunningParty = UI_IsRunningParty();
 
-	if (g_pDXInput->m_lb_down)
+	if (g_pSDLInput->m_lb_down)
 	{
 		#ifdef OUTPUT_DEBUG
-			if (g_pDXInput->KeyDown(DIK_LSHIFT) && g_bSlideScreenShot)
+			if (g_pSDLInput->KeyDown(DIK_LSHIFT) && g_bSlideScreenShot)
 			{
 				g_bSlideRectSelect = true;
 			}
@@ -3364,7 +3348,7 @@ CGameUpdate::ProcessInput()
 		}
 	}
 
-	if (g_pDXInput->m_lb_up)
+	if (g_pSDLInput->m_lb_up)
 	{
 		#ifdef OUTPUT_DEBUG
 			g_bSlideRectSelect = false;			
@@ -3379,7 +3363,7 @@ CGameUpdate::ProcessInput()
 			return;
 		}
 	}
-	if (g_pDXInput->m_rb_down)
+	if (g_pSDLInput->m_rb_down)
 	{
 		if (gC_vs_ui.MouseControl(M_RIGHTBUTTON_DOWN, g_x, g_y)
 			&& !bRunningParty)
@@ -3392,7 +3376,7 @@ CGameUpdate::ProcessInput()
 		}
 	}
 
-	if (g_pDXInput->m_rb_up)
+	if (g_pSDLInput->m_rb_up)
 	{
 		if (gC_vs_ui.MouseControl(M_RIGHTBUTTON_UP, g_x, g_y)
 			&& !bRunningParty)
@@ -3405,7 +3389,7 @@ CGameUpdate::ProcessInput()
 		}
 	}	
 
-	if( g_pDXInput->m_cb_up)
+	if( g_pSDLInput->m_cb_up)
 	{
 		if( gC_vs_ui.MouseControl(M_CENTERBUTTON_UP, g_x,g_y)
 			&& !bRunningParty)
@@ -3414,7 +3398,7 @@ CGameUpdate::ProcessInput()
 		}
 	}
 
-	if( g_pDXInput->m_cb_down)
+	if( g_pSDLInput->m_cb_down)
 	{
 		if( gC_vs_ui.MouseControl( M_CENTERBUTTON_DOWN, g_x,g_y)
 			&& !bRunningParty)
@@ -3432,17 +3416,17 @@ CGameUpdate::ProcessInput()
 	// 2000.7.8. KJTINC
 	/*
 	static bool bl_ctrl;
-	if (g_pDXInput->KeyDown(DIK_LCONTROL) ||
-		g_pDXInput->KeyDown(DIK_RCONTROL))
+	if (g_pSDLInput->KeyDown(DIK_LCONTROL) ||
+		g_pSDLInput->KeyDown(DIK_RCONTROL))
 	{
 		bl_ctrl = true;
 	}
-	//if (g_pDXInput->KeyUp(DIK_LCONTROL) &&
-	//	 g_pDXInput->KeyUp(DIK_RCONTROL))
+	//if (g_pSDLInput->KeyUp(DIK_LCONTROL) &&
+	//	 g_pSDLInput->KeyUp(DIK_RCONTROL))
 	//{
 	//	bl_ctrl = false;
 	//}
-	if (g_pDXInput->KeyDown(DIK_SPACE) && bl_ctrl == true)
+	if (g_pSDLInput->KeyDown(DIK_SPACE) && bl_ctrl == true)
 	{
 		gC_vs_ui.PressCtrlSpace();
 	}*/
@@ -3455,12 +3439,12 @@ CGameUpdate::ProcessInput()
 	//---------------------------------------------------	
 	// ItemName List Ãâ·Â?
 	//---------------------------------------------------	
-	if ((g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU) || g_pDXInput->KeyDown(DIK_RCONTROL)
-#ifdef __FRIEND_SYSTEM_VIVA__	// add by viva  g_pDXInput->KeyDown(DIK_LCONTROL
-		|| g_pDXInput->KeyDown(DIK_LCONTROL)
+	if ((g_pSDLInput->KeyDown(DIK_LMENU) || g_pSDLInput->KeyDown(DIK_RMENU) || g_pSDLInput->KeyDown(DIK_RCONTROL)
+#ifdef __FRIEND_SYSTEM_VIVA__	// add by viva  g_pSDLInput->KeyDown(DIK_LCONTROL
+		|| g_pSDLInput->KeyDown(DIK_LCONTROL)
 #endif
 		)  
-		&& !g_pDXInput->KeyDown(DIK_LSHIFT)
+		&& !g_pSDLInput->KeyDown(DIK_LSHIFT)
 		&& g_pTradeManager==NULL && g_pPlayer->GetWaitVerify()!=MPlayer::WAIT_VERIFY_TRADE)
 	{
 		#ifdef OUTPUT_DEBUG_PROCESS_INPUT
@@ -3482,11 +3466,11 @@ CGameUpdate::ProcessInput()
 
 			if (g_pTempInformation->GetMode() == TempInformation::MODE_NULL)
 			{					
-				if (g_pDXInput->KeyDown(DIK_LMENU))
+				if (g_pSDLInput->KeyDown(DIK_LMENU))
 				{
 					g_pTopView->SetRequestMode( MTopView::REQUEST_TRADE );
 				}
-				else if (g_pDXInput->KeyDown(DIK_RMENU))
+				else if (g_pSDLInput->KeyDown(DIK_RMENU))
 				{
 					if (!gC_vs_ui.IsRunningRequestParty()
 						&& g_pSystemAvailableManager->IsAvailablePartySystem() )
@@ -3494,13 +3478,13 @@ CGameUpdate::ProcessInput()
 						g_pTopView->SetRequestMode( MTopView::REQUEST_PARTY );
 					}
 				}
-				else if (g_pDXInput->KeyDown(DIK_RCONTROL))
+				else if (g_pSDLInput->KeyDown(DIK_RCONTROL))
 				{
 					g_pTopView->SetRequestMode( MTopView::REQUEST_INFO );
 				}
 #ifdef __FRIEND_SYSTEM_VIVA__
 				///add by viva
-				else if(g_pDXInput->KeyDown(DIK_LCONTROL))
+				else if(g_pSDLInput->KeyDown(DIK_LCONTROL))
 				{
 					gpC_mouse_pointer->SetCursorAddFriend();
 				//	g_pPlayer->SetRepeatAction();
@@ -3632,7 +3616,7 @@ CGameUpdate::ProcessInput()
 		// delay½Ã°£ÀÌ Áö³ª°í ³ª¼­
 		// ¹º°¡¸¦ ´©¸£¸é ´Ù½Ã »ì¾Æ³ª¾ß ÇÑ´Ù.
 		//---------------------------------------------------	
-		//if (g_pPlayer->IsNotDeadDelay() && g_pDXInput->KeyDown( DIK_SPACE ))
+		//if (g_pPlayer->IsNotDeadDelay() && g_pSDLInput->KeyDown( DIK_SPACE ))
 		//{
 		//	g_pPlayer->SetAlive();
 		//	g_pTopView->SetFadeEnd();
@@ -3666,7 +3650,7 @@ CGameUpdate::ProcessInput()
 	
 
 	// °­Á¦ °ø°ÝÀÌ ¼³Á¤µÇ´Â °æ¿ì
-	bool bForceAttack = (g_pDXInput->KeyDown(DIK_LSHIFT) 
+	bool bForceAttack = (g_pSDLInput->KeyDown(DIK_LSHIFT) 
 						|| g_pPlayer->HasEffectStatus(EFFECTSTATUS_HALLUCINATION));
 						
 						
@@ -3688,7 +3672,7 @@ CGameUpdate::ProcessInput()
 	//---------------------------------------------------	
 	// L-Control´©¸£¸é ¿ì¸®Æí¸¸ ¼±ÅÃ
 	//---------------------------------------------------	
-	else if (g_pDXInput->KeyDown(DIK_LCONTROL)
+	else if (g_pSDLInput->KeyDown(DIK_LCONTROL)
 		|| g_pTopView->IsRequestMode())
 	{
 		g_pObjectSelector->SelectFriend();		
@@ -3905,7 +3889,7 @@ CGameUpdate::ProcessInput()
 	//---------------------------------------------------	
 	// Lock Mode Ã¼Å©
 	//---------------------------------------------------	
-	if (g_pDXInput->KeyDown(DIK_CAPITAL) 
+	if (g_pSDLInput->KeyDown(DIK_CAPITAL) 
 		&& !g_pPlayer->IsInCasket()
 		&& !g_pPlayer->IsUndergroundCreature())
 	{
@@ -3914,15 +3898,15 @@ CGameUpdate::ProcessInput()
 		// ¹«Á¶°Ç °ø°Ý Ä¿¼­·Î ¹Ù²ï´Ù.
 		gpC_mouse_pointer->SetCursorAttack();
 
-		if (g_pDXInput->m_lb_down)
+		if (g_pSDLInput->m_lb_down)
 		{		
 			g_bLButtonDown = TRUE;			
 		}
-		else if (g_pDXInput->m_rb_down)
+		else if (g_pSDLInput->m_rb_down)
 		{
 			g_bRButtonDown = TRUE;
 		}
-		else if (g_pDXInput->m_cb_down)
+		else if (g_pSDLInput->m_cb_down)
 		{
 			g_bCButtonDown = TRUE;
 		}
@@ -3971,7 +3955,7 @@ CGameUpdate::ProcessInput()
 			//---------------------------------------------------	
 			//if (!g_bMouseInPortal)
 			{
-				if (g_pPlayer->OnAttacking() || g_pDXInput->KeyDown(DIK_LSHIFT))
+				if (g_pPlayer->OnAttacking() || g_pSDLInput->KeyDown(DIK_LSHIFT))
 				{
 					gpC_mouse_pointer->SetCursorAttack();
 				}
@@ -4073,7 +4057,7 @@ CGameUpdate::ProcessInput()
 					}
 				}
 #ifdef __FRIEND_SYSTEM_VIVA__//add by viva
-				if(g_pDXInput->KeyDown(DIK_LCONTROL) && g_pDXInput->m_lb_down)	
+				if(g_pSDLInput->KeyDown(DIK_LCONTROL) && g_pSDLInput->m_lb_down)	
 				{
 					gpC_base->SendMessage(UI_FRIEND_CHATTING_ADD_FRIEND, 0, 0, (void*)pCreature->GetName());
 				}
@@ -4112,7 +4096,7 @@ CGameUpdate::ProcessInput()
 						if (pItem->IsSpecialColorItem() )
 						{
 							WORD temp_color = CIndexSprite::ColorSet[pItem->GetSpecialColorItemColorset()][16];
-							color = RGB(CDirectDraw::Red(temp_color)<<3, CDirectDraw::Green(temp_color)<<3, CDirectDraw::Blue(temp_color)<<3);
+							color = RGB(CSDLGraphics::Red(temp_color)<<3, CSDLGraphics::Green(temp_color)<<3, CSDLGraphics::Blue(temp_color)<<3);
 						}
 						else
 						if (pItem->IsEmptyItemOptionList())
@@ -4189,7 +4173,7 @@ CGameUpdate::ProcessInput()
 			//-----------------------------------------------
 			// Shift + L/R ButtonDown : °­Á¦ Tile °ø°Ý
 			//-----------------------------------------------
-			if (g_pDXInput->KeyDown(DIK_LSHIFT))
+			if (g_pSDLInput->KeyDown(DIK_LSHIFT))
 			{
 				#ifdef OUTPUT_DEBUG_PROCESS_INPUT
 					DEBUG_ADD("shiAt");
@@ -4197,7 +4181,7 @@ CGameUpdate::ProcessInput()
 				//-----------------------------------------------
 				// Shift + LButtonDown : °­Á¦ °ø°Ý
 				//-----------------------------------------------
-				if (g_pDXInput->m_lb_down
+				if (g_pSDLInput->m_lb_down
 					// ¼û¾î ÀÖ´Â °æ¿ì°¡ ¾Æ´Ò¶§
 					&& !g_pPlayer->IsInCasket()
 					&& !g_pPlayer->IsUndergroundCreature()
@@ -4250,7 +4234,7 @@ CGameUpdate::ProcessInput()
 				//-----------------------------------------------
 				// Shift + RButtonDown : °­Á¦ Tile ±â¼ú °ø°Ý
 				//-----------------------------------------------
-				else if (g_pDXInput->m_rb_down)
+				else if (g_pSDLInput->m_rb_down)
 				{
 					g_pPlayer->UnSetRequestMode();
 
@@ -4294,7 +4278,7 @@ CGameUpdate::ProcessInput()
 				//				LButtonDown
 				//
 				//---------------------------------------------------------------
-				if (g_pDXInput->m_lb_down 
+				if (g_pSDLInput->m_lb_down 
 					// burrow »óÅÂ°¡ ¾Æ´Ï¾î¾ß ÇÑ´Ù.
 					&& !g_pPlayer->IsInCasket()
 					&& !g_pPlayer->IsUndergroundCreature()
@@ -4369,8 +4353,8 @@ CGameUpdate::ProcessInput()
 					else if (pObject == NULL)
 					{		
 						// l-shift³ª l-controlÀÌ ´­·ÁÀÖÁö ¾ÊÀº »óÅÂ¿¡¼­¸¸ ÀÌµ¿.
-						if (//!g_pDXInput->KeyDown(DIK_LSHIFT) &&
-							!g_pDXInput->KeyDown(DIK_LCONTROL))
+						if (//!g_pSDLInput->KeyDown(DIK_LSHIFT) &&
+							!g_pSDLInput->KeyDown(DIK_LCONTROL))
 						{		
 							if (g_pPlayer->IsNotDelay() && !g_pPlayer->HasEffectStatus(EFFECTSTATUS_ETERNITY_PAUSE ) 
 								// 2004, 9, 14, sobeit add start - ÃÑ½½ 130 skill °ü·Ã
@@ -4484,7 +4468,7 @@ CGameUpdate::ProcessInput()
 				//		 RButtonDown
 				//
 				//---------------------------------------------------------------
-				else if (g_pDXInput->m_rb_down)
+				else if (g_pSDLInput->m_rb_down)
 				{
 					#ifdef OUTPUT_DEBUG_PROCESS_INPUT
 						DEBUG_ADD("Ro");
@@ -4507,7 +4491,7 @@ CGameUpdate::ProcessInput()
 				// But(!), L-Shift°¡ ´­·¯ÁöÁö ¾Ê¾Æ¾ß ÇÑ´Ù.
 				//---------------------------------------------------------------
 				else if (g_bLButtonDown 				
-						&& !g_pDXInput->KeyDown(DIK_LSHIFT)
+						&& !g_pSDLInput->KeyDown(DIK_LSHIFT)
 #ifdef __METROTECH_TEST__
 						&& !g_bCButtonDown
 #endif
@@ -4548,7 +4532,7 @@ CGameUpdate::ProcessInput()
 	//---------------------------------------------------	
 	// LButton Up
 	//---------------------------------------------------	
-	if (g_pDXInput->m_lb_up && g_bLButtonDown
+	if (g_pSDLInput->m_lb_up && g_bLButtonDown
 #ifdef __METROTECH_TEST__
 		&& !g_bCButtonDown
 #endif
@@ -4598,7 +4582,7 @@ CGameUpdate::ProcessInput()
 	//---------------------------------------------------	
 	// RButton Up
 	//---------------------------------------------------	
-	if (g_pDXInput->m_rb_up && g_bRButtonDown
+	if (g_pSDLInput->m_rb_up && g_bRButtonDown
 #ifdef __METROTECH_TEST__
 		&& !g_bCButtonDown
 #endif
@@ -4618,7 +4602,7 @@ CGameUpdate::ProcessInput()
 		}
 	}
 
-	if(g_pDXInput->m_cb_up && g_bCButtonDown)
+	if(g_pSDLInput->m_cb_up && g_bCButtonDown)
 	{
 		g_bCButtonDown = FALSE;
 	}
@@ -4641,19 +4625,19 @@ CGameUpdate::ProcessInput()
 	//---------------------------------------------------
 	/*
 	// Missile Á¾·ù ¹Ù²Ù±â
-	if (g_pDXInput->KeyDown(DIK_1))
+	if (g_pSDLInput->KeyDown(DIK_1))
 		g_pPlayer->SetActionInfo( ACTIONINFO_BOMB_TO_CREATURE );
 
-	else if (g_pDXInput->KeyDown(DIK_2))
+	else if (g_pSDLInput->KeyDown(DIK_2))
 			g_pPlayer->SetActionInfo( ACTIONINFO_FIRE_TO_CREATURE );
 
-	else if (g_pDXInput->KeyDown(DIK_3))
+	else if (g_pSDLInput->KeyDown(DIK_3))
 			g_pPlayer->SetActionInfo( ACTIONINFO_LIGHTNING_TO_CREATURE );
 
-	else if (g_pDXInput->KeyDown(DIK_4))
+	else if (g_pSDLInput->KeyDown(DIK_4))
 			g_pPlayer->SetActionInfo( ACTIONINFO_ATTACH_FIRE_TO_CREATURE );
 
-	else if (g_pDXInput->KeyDown(DIK_5))
+	else if (g_pSDLInput->KeyDown(DIK_5))
 			g_pPlayer->SetActionInfo( ACTIONINFO_ATTACH_AURA_TO_SELF );
 	*/
 
@@ -4661,7 +4645,7 @@ CGameUpdate::ProcessInput()
 		//---------------------------------------------------
 		// ºñ~~
 		//---------------------------------------------------
-		if (g_pDXInput->KeyDown(DIK_8))
+		if (g_pSDLInput->KeyDown(DIK_8))
 		{
 			SetWeather( WEATHER_RAINY, rand()%10+10);
 		}
@@ -4669,7 +4653,7 @@ CGameUpdate::ProcessInput()
 		//---------------------------------------------------
 		// ´«~~
 		//---------------------------------------------------
-		if (g_pDXInput->KeyDown(DIK_9))
+		if (g_pSDLInput->KeyDown(DIK_9))
 		{
 			SetWeather( WEATHER_SNOWY, rand()%10+10);
 		}
@@ -4677,7 +4661,7 @@ CGameUpdate::ProcessInput()
 		//---------------------------------------------------
 		// ³¯¾¾ ¸ØÃã
 		//---------------------------------------------------
-		if (g_pDXInput->KeyDown(DIK_0))
+		if (g_pSDLInput->KeyDown(DIK_0))
 		{
 			SetWeather( WEATHER_CLEAR, 0 );
 		}
@@ -4688,7 +4672,7 @@ CGameUpdate::ProcessInput()
 		// ½Ã¾ß  + / -
 		//---------------------------------------------------
 
-		if (g_pDXInput->KeyDown(DIK_SUBTRACT) 
+		if (g_pSDLInput->KeyDown(DIK_SUBTRACT) 
 			)//&& g_pPlayer->GetLightSight()!=0)
 		{
 //			g_pPlayer->SetLightSight( g_pPlayer->GetLightSight() - 1 );		
@@ -4698,7 +4682,7 @@ CGameUpdate::ProcessInput()
 						g_pClientConfig->QuestItemColorSet = 495-15;
 		}
 		
-		if (g_pDXInput->KeyDown(DIK_ADD) )// && g_pPlayer->GetLightSight()!=13)
+		if (g_pSDLInput->KeyDown(DIK_ADD) )// && g_pPlayer->GetLightSight()!=13)
 		{
 //			g_pPlayer->SetLightSight( g_pPlayer->GetLightSight() + 1 );		
 			
@@ -4708,7 +4692,7 @@ CGameUpdate::ProcessInput()
 		//-----------------------------------------------
 		// play Sound
 		//-----------------------------------------------
-		if (g_pDXInput->KeyDown(DIK_F4))
+		if (g_pSDLInput->KeyDown(DIK_F4))
 		{
 			//g_sb2 = g_Sound.LoadWav((*g_pSoundTable)[rand()%g_pSoundTable->GetSize()].Filename);
 			//g_sb2 = g_Sound.LoadWav("Data\\Sound\\Sound1.wav");
@@ -4746,7 +4730,7 @@ CGameUpdate::ProcessInput()
 		//---------------------------------------------------
 		// ¹à±â °¨¼Ò
 		//---------------------------------------------------
-		if (g_pDXInput->KeyDown(DIK_F9))
+		if (g_pSDLInput->KeyDown(DIK_F9))
 		{
 			BYTE DarkBits = g_pTopView->GetDarkBits()-1;
 			g_pTopView->SetDarkBits(DarkBits);
@@ -4755,7 +4739,7 @@ CGameUpdate::ProcessInput()
 		//---------------------------------------------------
 		// ¹à±â Áõ°¡
 		//---------------------------------------------------
-		if (g_pDXInput->KeyDown(DIK_F10))
+		if (g_pSDLInput->KeyDown(DIK_F10))
 		{
 			BYTE DarkBits = g_pTopView->GetDarkBits()+1;
 			g_pTopView->SetDarkBits(DarkBits);
@@ -4764,17 +4748,17 @@ CGameUpdate::ProcessInput()
 		// Gamma Test
 		/*
 		static BYTE gammaStep = 255;
-		if (CDirectDraw::IsSupportGammaControl())
+		if (CSDLGraphics::IsSupportGammaControl())
 		{
-			if (g_pDXInput->KeyDown(DIK_LBRACKET))
+			if (g_pSDLInput->KeyDown(DIK_LBRACKET))
 			{
 				gammaStep -= 10;
-				CDirectDraw::SetGammaRamp( gammaStep );
+				CSDLGraphics::SetGammaRamp( gammaStep );
 			}
-			if (g_pDXInput->KeyDown(DIK_RBRACKET))
+			if (g_pSDLInput->KeyDown(DIK_RBRACKET))
 			{		
 				gammaStep += 10;		
-				CDirectDraw::SetGammaRamp( gammaStep );
+				CSDLGraphics::SetGammaRamp( gammaStep );
 			}
 		}
 		*/
@@ -4784,7 +4768,7 @@ CGameUpdate::ProcessInput()
 	// File Loading Test with Thread
 	//-----------------------------------------------		
 	/*
-	if (g_pDXInput->KeyDown(DIK_Z))
+	if (g_pSDLInput->KeyDown(DIK_Z))
 	{	
 		// test for state of event nonsignaled?
 		if (WaitForSingleObject(g_hFileEvent, 0) != WAIT_OBJECT_0)
@@ -4794,7 +4778,7 @@ CGameUpdate::ProcessInput()
 		}		
 	} 
 
-	if (g_pDXInput->KeyDown(DIK_X) && WaitForSingleObject(g_hFileEvent, 0) != WAIT_OBJECT_0)
+	if (g_pSDLInput->KeyDown(DIK_X) && WaitForSingleObject(g_hFileEvent, 0) != WAIT_OBJECT_0)
 	{	
 		g_pTopView->ReleaseCreatureSPK( 0 );
 		g_pTopView->ReleaseCreatureSPK( 1 );
@@ -4805,13 +4789,13 @@ CGameUpdate::ProcessInput()
 	// Thread Priority Test
 	//-----------------------------------------------	
 	/*
-	if (g_pDXInput->KeyDown(DIK_9))
+	if (g_pSDLInput->KeyDown(DIK_9))
 	{
 		SetThreadPriority(g_hFileThread, 
 							THREAD_PRIORITY_BELOW_NORMAL);
 	}
 
-	if (g_pDXInput->KeyDown(DIK_0))
+	if (g_pSDLInput->KeyDown(DIK_0))
 	{
 		SetThreadPriority(g_hFileThread, 
 							THREAD_PRIORITY_HIGHEST);
@@ -4821,19 +4805,19 @@ CGameUpdate::ProcessInput()
 	#ifdef OUTPUT_DEBUG
 		// ZoneÀÌµ¿ test
 		/*
-		if (g_pDXInput->KeyDown(DIK_1))
+		if (g_pSDLInput->KeyDown(DIK_1))
 		{	
 			MoveZone( 1 );				
 		}
-		else if (g_pDXInput->KeyDown(DIK_2))
+		else if (g_pSDLInput->KeyDown(DIK_2))
 		{				
 			MoveZone( 2 );				
 		}	
-		else if (g_pDXInput->KeyDown(DIK_3))
+		else if (g_pSDLInput->KeyDown(DIK_3))
 		{							
 			MoveZone( 3 );			
 		}
-		else if (g_pDXInput->KeyDown(DIK_4))
+		else if (g_pSDLInput->KeyDown(DIK_4))
 		{			
 			MoveZone( 4 );				
 		}
@@ -4852,7 +4836,7 @@ CGameUpdate::ProcessInput()
 
 			if (current-start > 10)
 			{
-				if (g_pDXInput->KeyDown(DIK_LCONTROL) && g_pDXInput->KeyDown(DIK_RCONTROL))
+				if (g_pSDLInput->KeyDown(DIK_LCONTROL) && g_pSDLInput->KeyDown(DIK_RCONTROL))
 				{					
 					
 					POINT playerPoint = MTopView::MapToPixel(g_pPlayer->GetX(), g_pPlayer->GetY());
@@ -4879,10 +4863,10 @@ CGameUpdate::ProcessInput()
 
 							BYTE effectSpriteType = rand()%(*g_pEffectSpriteTypeTable).GetSize();
 			
-							//if (g_pDXInput->KeyDown(DIK_1))	effectSpriteType = 0;
-							//else if (g_pDXInput->KeyDown(DIK_2))	effectSpriteType = 1;
-							//else if (g_pDXInput->KeyDown(DIK_3))	effectSpriteType = 2;
-							//else if (g_pDXInput->KeyDown(DIK_4))	effectSpriteType = 3;
+							//if (g_pSDLInput->KeyDown(DIK_1))	effectSpriteType = 0;
+							//else if (g_pSDLInput->KeyDown(DIK_2))	effectSpriteType = 1;
+							//else if (g_pSDLInput->KeyDown(DIK_3))	effectSpriteType = 2;
+							//else if (g_pSDLInput->KeyDown(DIK_4))	effectSpriteType = 3;
 
 							
 							TYPE_FRAMEID	frameID	= (*g_pEffectSpriteTypeTable)[effectSpriteType].FrameID;
@@ -4982,7 +4966,6 @@ CGameUpdate::UpdateDraw()
 
 	// buffer : InitSurface¿¡¼­ SYSTEMMEMORY·Î ÇØÁÖ°í ½á¾ßµÈ´Ù.
 	//
-	//g_pLast->FillSurface(CDirectDraw::Color(20,20,20));
 	
 	// È­¸é ¹Ø¿¡ InterfaceºÎºÐ Áö¿öÁÖ±â...
 	// [ TEST CODE ]
@@ -4991,7 +4974,7 @@ CGameUpdate::UpdateDraw()
 	rect.right = CLIPSURFACE_WIDTH;
 	rect.top = CLIPSURFACE_HEIGHT;
 	rect.bottom = SURFACE_HEIGHT;
-	g_pBack->FillRect(&rect, CDirectDraw::Color(5,7,7));
+	g_pBack->FillRect(&rect, CSDLGraphics::Color(5,7,7));
 	*/
 
 	//-----------------------------------------------------------------		
@@ -5088,7 +5071,7 @@ CGameUpdate::UpdateDraw()
 		__BEGIN_PROFILE("GameDraw2D")
 
 //		#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
-//			if (g_pDXInput->KeyDown(DIK_SPACE))
+//			if (g_pSDLInput->KeyDown(DIK_SPACE))
 			const MEvent *event = g_pEventManager->GetEventByFlag(EVENTFLAG_SHAKE_SCREEN);
 			if(event != NULL && event->IsShowTime() == true)
 			{		
@@ -5341,7 +5324,7 @@ CGameUpdate::UpdateDraw()
 	// 	
 	if (g_pUserOption->UseSmoothCursor)
 	{
-		if (CDirectDraw::IsFullscreen() && g_FrameRate > LIMIT_FPS_FOR_CURSOR)
+		if (CSDLGraphics::IsFullscreen() && g_FrameRate > LIMIT_FPS_FOR_CURSOR)
 		{
 			GetCursorPos(&point);
 			
@@ -5405,10 +5388,10 @@ CGameUpdate::UpdateDraw()
 
 			RECT rect = g_rectScreenShot;
 
-			g_pBack->DrawRect( &rect, CDirectDraw::Color(3, 30, 10) );
+			g_pBack->DrawRect( &rect, CSDLGraphics::Color(3, 30, 10) );
 		}
 		
-		if (g_pDXInput->KeyDown(DIK_LSHIFT) && g_pDXInput->KeyDown(DIK_RSHIFT) 
+		if (g_pSDLInput->KeyDown(DIK_LSHIFT) && g_pSDLInput->KeyDown(DIK_RSHIFT) 
 			&& g_CurrentFrame-lastCount > 7)
 		{
 			outputInfo = !outputInfo;
@@ -5434,11 +5417,11 @@ CGameUpdate::UpdateDraw()
 					};
 
 					if(g_iAutoHealPotion == 1)
-						g_pBack->FillRect(&rect, CDirectDraw::Color(30, 10, 10));
+						g_pBack->FillRect(&rect, CSDLGraphics::Color(30, 10, 10));
 					else if(g_iAutoHealPotion == 2)
-						g_pBack->FillRect(&rect, CDirectDraw::Color(30, 20, 10));
+						g_pBack->FillRect(&rect, CSDLGraphics::Color(30, 20, 10));
 					else if(g_iAutoHealPotion == 3)
-						g_pBack->FillRect(&rect, CDirectDraw::Color(30, 10, 20));
+						g_pBack->FillRect(&rect, CSDLGraphics::Color(30, 10, 20));
 				}
 
 				if (g_bAutoManaPotion && !g_pPlayer->IsVampire())
@@ -5451,7 +5434,7 @@ CGameUpdate::UpdateDraw()
 						455
 					};
 
-					g_pBack->FillRect(&rect, CDirectDraw::Color(10, 10, 30));
+					g_pBack->FillRect(&rect, CSDLGraphics::Color(10, 10, 30));
 				}
 
 				if (g_iAutoReload && g_pPlayer->IsSlayer())
@@ -5468,7 +5451,7 @@ CGameUpdate::UpdateDraw()
 						455
 					};
 
-					g_pBack->FillRect(&rect, CDirectDraw::Color(10, 30, 10));
+					g_pBack->FillRect(&rect, CSDLGraphics::Color(10, 30, 10));
 
 					rect.left++;
 					rect.right--;
@@ -5478,7 +5461,7 @@ CGameUpdate::UpdateDraw()
 					{
 						rect.bottom -= 2;
 						rect.top = rect.bottom -1;
-						g_pBack->FillRect(&rect, CDirectDraw::Color(0, 0, 0));
+						g_pBack->FillRect(&rect, CSDLGraphics::Color(0, 0, 0));
 					}
 				}
 
@@ -5492,7 +5475,7 @@ CGameUpdate::UpdateDraw()
 						455
 					};
 					
-					g_pBack->FillRect(&rect, CDirectDraw::Color(10, 30, 30));
+					g_pBack->FillRect(&rect, CSDLGraphics::Color(10, 30, 30));
 				}
 
 				if (g_iSpeed)
@@ -5506,9 +5489,9 @@ CGameUpdate::UpdateDraw()
 					};
 
 					if(g_iSpeed < 0)
-						g_pBack->FillRect(&rect, CDirectDraw::Color(30, 0, 0));
+						g_pBack->FillRect(&rect, CSDLGraphics::Color(30, 0, 0));
 					else
-						g_pBack->FillRect(&rect, CDirectDraw::Color(30, 30, 30));
+						g_pBack->FillRect(&rect, CSDLGraphics::Color(30, 30, 30));
 					
 					rect.left++;
 					rect.right--;
@@ -5518,7 +5501,7 @@ CGameUpdate::UpdateDraw()
 					{
 						rect.bottom -= 2;
 						rect.top = rect.bottom -1;
-						g_pBack->FillRect(&rect, CDirectDraw::Color(0, 0, 0));
+						g_pBack->FillRect(&rect, CSDLGraphics::Color(0, 0, 0));
 					}
 				}
 			}
@@ -5537,11 +5520,11 @@ CGameUpdate::UpdateDraw()
 
 				WORD color[numValue] =
 				{
-					CDirectDraw::Color(10, 20, 20),
-					CDirectDraw::Color(20, 20, 20),
-					CDirectDraw::Color(30, 20, 20),
-					CDirectDraw::Color(20, 30, 20),
-					CDirectDraw::Color(20, 20, 30)
+					CSDLGraphics::Color(10, 20, 20),
+					CSDLGraphics::Color(20, 20, 20),
+					CSDLGraphics::Color(30, 20, 20),
+					CSDLGraphics::Color(20, 30, 20),
+					CSDLGraphics::Color(20, 20, 30)
 				};
 
 				for (int v=0; v<numValue; v++)
@@ -5583,7 +5566,7 @@ CGameUpdate::UpdateDraw()
 		#endif
 
 
-		if (outputInfo)//!g_pDXInput->KeyDown(DIK_RSHIFT))
+		if (outputInfo)//!g_pSDLInput->KeyDown(DIK_RSHIFT))
 		{
 			g_pTopView->DrawDebugInfo( g_pBack );
 
@@ -5592,16 +5575,6 @@ CGameUpdate::UpdateDraw()
 				g_SetFL2Surface( g_pBack );
 			}
 
-			///*
-			//-----------------------------------------------------------------
-			//							Lock
-			//-----------------------------------------------------------------
-			//if (!g_pBack->Lock()) return;
-
-			// SurfaceÀÇ Á¤º¸¸¦ ÀúÀåÇØµÐ´Ù.
-			//S_SURFACEINFO		SurfaceInfo;
-			//SetSurfaceInfo(&SurfaceInfo, g_pBack->GetDDSD());
-		
 			if (g_bPutMessage && g_pDebugMessage!=NULL)
 			{
 				int strY = 565;
@@ -5611,7 +5584,6 @@ CGameUpdate::UpdateDraw()
 					if ((*g_pDebugMessage)[c][0] != NULL)
 					{
 						//g_pBack->GDI_Text(10,strY, g_DebugMessage[c], RGB(230,230,230));
-						//gC_font.PrintStringNoConvert(&SurfaceInfo, (*g_pDebugMessage)[c], 10,strY, CDirectDraw::Color(28,28,28));
 
 						const COLORREF debugColor = RGB(28<<3, 28<<3, 28<<3);				
 						pPrintInfo->text_color	= debugColor;
@@ -5625,7 +5597,6 @@ CGameUpdate::UpdateDraw()
 				if (g_pDebugMessage->GetFilename()!=NULL)
 				{
 					sprintf(str, "LogFile : %s", g_pDebugMessage->GetFilename());
-					//gC_font.PrintStringNoConvert(&SurfaceInfo, str, 10,580, CDirectDraw::Color(31,11,11));
 
 					const COLORREF txColor = RGB(31<<3, 11<<3, 11<<3);										
 					pPrintInfo->text_color	= txColor;
@@ -5639,7 +5610,6 @@ CGameUpdate::UpdateDraw()
 			{		
 				sprintf(str, "<<< Loading >>>");
 				//g_pBack->GDI_Text(700,580, str, 0xFFFFFF);
-				//gC_font.PrintStringNoConvert(&SurfaceInfo, str, 300,5, CDirectDraw::Color(31,31,31));
 				const COLORREF txColor = RGB(31<<3, 31<<3, 31<<3);				
 
 				pPrintInfo->text_color	= txColor;
@@ -5655,8 +5625,6 @@ CGameUpdate::UpdateDraw()
 				
 				//g_pBack->GDI_Text(550,10, str, RGB(20,20,20));
 				//g_pBack->GDI_Text(551,11, str, RGB(120,255,120));
-				//gC_font.PrintStringNoConvert(&SurfaceInfo, str, 500,10, CDirectDraw::Color(2,2,2));
-				//gC_font.PrintStringNoConvert(&SurfaceInfo, str, 501,11, CDirectDraw::Color(16,31,16));
 
 
 				const COLORREF bkColor = RGB(0, 0, 0);
@@ -5675,8 +5643,6 @@ CGameUpdate::UpdateDraw()
 			
 			//g_pBack->GDI_Text(550,10, str, RGB(20,20,20));
 			//g_pBack->GDI_Text(551,11, str, RGB(120,255,120));
-			//gC_font.PrintStringNoConvert(&SurfaceInfo, str, 500,10, CDirectDraw::Color(2,2,2));
-			//gC_font.PrintStringNoConvert(&SurfaceInfo, str, 501,11, CDirectDraw::Color(16,31,16));
 			
 			const COLORREF bkMoneyColor = RGB(0, 0, 0);
 			const COLORREF txMoneyColor = RGB(16<<3, 31<<3, 16<<3);				
@@ -5690,12 +5656,6 @@ CGameUpdate::UpdateDraw()
 			sprintf(str, "QuestColorset = %d", g_pClientConfig->QuestItemColorSet);
 			pPrintInfo->text_color	= txMoneyColor;
 			g_Print(501, 51, str, pPrintInfo);
-
-			//-----------------------------------------------------------------
-			//							UnLock
-			//-----------------------------------------------------------------
-			//g_pBack->Unlock();
-		
 
 			/*
 			// ÀÓ½Ã·Î item °³¼ö º¸¿©ÁÖ±â
@@ -5805,7 +5765,6 @@ CGameUpdate::UpdateDraw()
 	//*/
 
 	// Ä¿¼­ Ãâ·Â
-	//WORD color = 0xFFFF;//(rand()%2)?CDirectDraw::Color(20,20,20):CDirectDraw::Color(230,230,230);
 	//g_pBack->HLine(point.x-7, point.y, 7, color);
 	//g_pBack->HLine(point.x+1, point.y, 7, color);
 	//g_pBack->VLine(point.x, point.y-7, 7, color);
@@ -5816,7 +5775,7 @@ CGameUpdate::UpdateDraw()
 	//-----------------------------------------------------------------
 	// flip
 	//-----------------------------------------------------------------
-	CDirectDraw::Flip();
+	CSDLGraphics::Flip();
 }
 
 //-----------------------------------------------------------------------------
@@ -5834,7 +5793,7 @@ CGameUpdate::UpdateDrawHelp()
 	{
 		if ((*g_pHelpMessage)[c][0] != NULL)
 		{
-			const COLORREF color = RGB(28<<3, 28<<3, 8<<3);	//CDirectDraw::Color(29,8,12);
+			const COLORREF color = RGB(28<<3, 28<<3, 8<<3);
 
 			pPrintInfo->text_color = 0;
 			g_Print(strX+1, strY+1, (*g_pHelpMessage)[c], pPrintInfo);
@@ -5996,13 +5955,13 @@ CGameUpdate::Update(void)
 	//------------------------------------------
 	// Sound Stream
 	//------------------------------------------
-//	if (g_pDXSoundStream!=NULL)
+//	if (g_pSDLStream!=NULL)
 //	{
 //		#ifdef OUTPUT_DEBUG_UPDATE_LOOP
 //			DEBUG_ADD("DSU");
 //		#endif
 //
-//		g_pDXSoundStream->Update();
+//		g_pSDLStream->Update();
 //
 //		#ifdef OUTPUT_DEBUG_UPDATE_LOOP
 //			DEBUG_ADD("DSUk");
@@ -6018,7 +5977,7 @@ CGameUpdate::Update(void)
 		//DEBUG_ADD("DXRTDB");
 	#endif
 
-	g_DXSound.ReleaseTerminatedDuplicateBuffer();
+	g_SDLAudio.ReleaseTerminatedDuplicateBuffer();
 
 	#ifdef OUTPUT_DEBUG_UPDATE_LOOP
 		//DEBUG_ADD("DXRTDBk");
@@ -6657,7 +6616,6 @@ CGameUpdate::Update(void)
 //					// ±â¾ïÇß´ø Ä¿¼­ ºÎºÐÀ» Áö¿öÁØ´Ù. --> (0)
 //					//g_pCursorSurface->Restore(0, g_pBack);
 //					//g_FrameCount++;
-//					CDirectDraw::Flip();
 //
 //					g_pBack->BltPrimarySurface(&point, &rect);
 //
@@ -6753,7 +6711,7 @@ CGameUpdate::Update(void)
 
 			// Flip		
 			//g_FrameCount++;
-			CDirectDraw::Flip();
+			CSDLGraphics::Flip();
 		}
 	}
 //#ifdef OUTPUT_DEBUG

@@ -198,7 +198,7 @@ extern CMessageArray*		g_pGameMessage;
 extern CMessageArray*		g_pHelpMessage;
 extern CMessageArray*		g_pNoticeMessage;
 
-extern CDirectSoundStream*	g_pDXSoundStream;
+extern CSDLStream*	g_pSDLStream;
 
 // Thread
 extern MWorkThread*			g_pLoadingThread;

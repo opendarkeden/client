@@ -274,15 +274,15 @@ void C_VS_UI_VAMPIRE::DrawMinimap()
 			}
 
 			BYTE r = 31, g = 63, b = 31;
-			WORD portal_color = CDirectDraw::Color(r, g, b);
+			WORD portal_color = CSDLGraphics::Color(r, g, b);
 
 			int i, _x, _y;
 			WORD _color, _color2;
 
 			r = color, g = color-10, b = color;
-			_color = CDirectDraw::Color(r, g, b);
+			_color = CSDLGraphics::Color(r, g, b);
 			r = color*2/3, g = (color-10)*2/3, b = color*2/3;
-			_color2 = CDirectDraw::Color(r, g, b);
+			_color2 = CSDLGraphics::Color(r, g, b);
 			for(i = 0; i < m_portal.size(); i++)
 			{
 				_x = m_map_start_point.x + (m_portal[i].left+m_portal[i].right)/2*map_w/m_map_w + (200 - map_w)/2;
@@ -299,7 +299,7 @@ void C_VS_UI_VAMPIRE::DrawMinimap()
 			}
 
 			r = color-10, g = color, b = color-10;
-			_color = CDirectDraw::Color(r, g, b);
+			_color = CSDLGraphics::Color(r, g, b);
 			for(i = 0; i < m_npc.size(); i++)
 			{
 				_x = m_map_start_point.x + m_npc[i].x*map_w/m_map_w + (200 - map_w)/2;
@@ -424,7 +424,7 @@ void C_VS_UI_VAMPIRE::SetSafetyZone(RECT rect)
 	{
 		for(int x = rect.left*map_w/m_map_w + (200 - map_w)/2; x <= rect.right*map_w/m_map_w + (200 - map_w)/2; x++)
 		{
-			mem[y*pitch/2+x] = mem[y*pitch/2+x] & CDirectDraw::Get_G_Bitmask();
+			mem[y*pitch/2+x] = mem[y*pitch/2+x] & CSDLGraphics::Get_G_Bitmask();
 		}
 	}
 

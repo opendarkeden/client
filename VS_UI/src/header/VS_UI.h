@@ -236,7 +236,7 @@ public:
 	void	GetCurrentMousePointerInfo(MOUSEPOINTER_INFO &info);
 	bool	MouseControl(UINT message, int x, int y);
 	void	KeyboardControl(UINT message, UINT key, long extra);
-	void	DIKeyboardControl(CDirectInput::E_KEYBOARD_EVENT event, DWORD scan_code);
+	void	DIKeyboardControl(CSDLInput::E_KEYBOARD_EVENT event, DWORD scan_code);
 
 	void	StartTitle();
 	void	StartGame();

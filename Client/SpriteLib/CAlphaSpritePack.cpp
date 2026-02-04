@@ -198,7 +198,7 @@ CAlphaSpritePack::LoadFromFile(ifstream& file)
 	file.read((char*)&m_nSprites, SIZE_SPRITEID);
 
 	// memory잡는다.
-	Init(m_nSprites, CDirectDraw::Is565());
+	Init(m_nSprites, ColorDraw::Is565());
 
 	// file에 있는 Sprite들을 Load	
 	for (TYPE_SPRITEID i=0; i<m_nSprites; i++)

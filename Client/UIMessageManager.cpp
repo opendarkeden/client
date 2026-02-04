@@ -257,12 +257,12 @@ ExecuteLogout()
 			//--------------------------------------------------
 			if (g_pUserOption->PlayWaveMusic)
 			{
-//				g_pDXSoundStream->Stop();
+//				g_pSDLStream->Stop();
 				DEBUG_ADD("MP3 STOP7");
 #ifdef __USE_MP3__
 				g_pMP3->Stop();
 #else
-				if( g_DXSound.IsInit() )
+				if( g_SDLAudio.IsInit() )
 					g_pOGG->streamClose();
 #endif
 				DEBUG_ADD("MP3 STOP7 OK");
@@ -319,10 +319,10 @@ ExecuteLogout()
 				g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_MESSAGE_WAIT_FOR_CHARACTER_SELECT_MODE].GetString(), -1, -1, 0 );			
 				
 				g_pCGameUpdate->UpdateDraw();				
-				CDirectDraw::Flip();
+				CSDLGraphics::Flip();
 
 				g_pCGameUpdate->UpdateDraw();				
-				CDirectDraw::Flip();
+				CSDLGraphics::Flip();
 			}
 			*/
 
@@ -382,12 +382,12 @@ ExecuteLogout()
 			//------------------------------------------------------
 			if (g_pUserOption->PlayWaveMusic)
 			{
-//				g_pDXSoundStream->Stop();			
+//				g_pSDLStream->Stop();			
 				DEBUG_ADD("MP3 STOP8");
 #ifdef __USE_MP3__
 				g_pMP3->Stop();
 #else
-				if( g_DXSound.IsInit() )
+				if( g_SDLAudio.IsInit() )
 					g_pOGG->streamClose();
 #endif
 				DEBUG_ADD("MP3 STOP8 OK");
@@ -399,8 +399,8 @@ ExecuteLogout()
 					if (musicID!=MUSICID_NULL)
 					{
 #ifdef __USE_MP3__					
-//						g_pDXSoundStream->Load( (*g_pMusicTable)[ musicID ].FilenameWav );
-//						g_pDXSoundStream->Play( FALSE );
+//						g_pSDLStream->Load( (*g_pMusicTable)[ musicID ].FilenameWav );
+//						g_pSDLStream->Play( FALSE );
 						DEBUG_ADD("MP3 OPEN2");
 						g_pMP3->Open( (*g_pMusicTable)[ musicID ].FilenameWav );
 						DEBUG_ADD("MP3 OPEN2 OK");
@@ -413,7 +413,7 @@ ExecuteLogout()
 						
 						g_oggfile = NULL;
 
-						if( g_DXSound.IsInit() )
+						if( g_SDLAudio.IsInit() )
 						{
 							g_oggfile = fopen( (*g_pMusicTable)[ musicID ].FilenameWav ,"rb");
 							if( g_oggfile != NULL )
@@ -475,7 +475,7 @@ PlayTitleMusic()
 			{
 #ifdef __USE_MP3__
 				LONG volume = g_pUserOption->VolumeMusic*16*257;//*SOUND_DEGREE + SOUND_MIN;
-//				g_pDXSoundStream->SetVolumeLimit( volume );
+//				g_pSDLStream->SetVolumeLimit( volume );
 				DEBUG_ADD("MP3 SetVolume2");
 				g_pMP3->SetVolume( volume );
 				DEBUG_ADD("MP3 SetVolume2 OK");
@@ -486,15 +486,15 @@ PlayTitleMusic()
 				DEBUG_ADD("MP3 PLAY5");
 				g_pMP3->Play( false );				
 				DEBUG_ADD("MP3 PLAY5 OK");
-//				g_pDXSoundStream->Load( (*g_pMusicTable)[ musicID ].FilenameWav );
-//				g_pDXSoundStream->Play( FALSE );				
+//				g_pSDLStream->Load( (*g_pMusicTable)[ musicID ].FilenameWav );
+//				g_pSDLStream->Play( FALSE );				
 #else
 				if( g_oggfile != NULL )
 					fclose(g_oggfile);
 
 				g_oggfile = NULL;
 
-				if( g_DXSound.IsInit() )
+				if( g_SDLAudio.IsInit() )
 				{
 					g_oggfile = fopen( (*g_pMusicTable)[ musicID ].FilenameWav, "rb") ;
 					if( g_oggfile != NULL )
@@ -511,12 +511,12 @@ PlayTitleMusic()
 		}
 		else
 		{
-//			g_pDXSoundStream->Stop();
+//			g_pSDLStream->Stop();
 			DEBUG_ADD("MP3 STOP9");
 #ifdef __USE_MP3__
 			g_pMP3->Stop();
 #else
-			if( g_DXSound.IsInit() )
+			if( g_SDLAudio.IsInit() )
 				g_pOGG->streamClose();
 #endif
 			DEBUG_ADD("MP3 STOP9 OK");
@@ -527,12 +527,12 @@ PlayTitleMusic()
 	//----------------------------------------------------------------
 	else
 	{
-//		g_pDXSoundStream->Stop();
+//		g_pSDLStream->Stop();
 		DEBUG_ADD("MP3 STOP10");
 #ifdef __USE_MP3__
 		g_pMP3->Stop();
 #else
-		if( g_DXSound.IsInit() )
+		if( g_SDLAudio.IsInit() )
 			g_pOGG->streamClose();
 #endif
 		DEBUG_ADD("MP3 STOP10 OK");
@@ -598,12 +598,12 @@ PlayGameMusic()
 		{
 #ifdef __USE_MP3__
 			LONG volume = g_pUserOption->VolumeMusic*16*257;//*SOUND_DEGREE + SOUND_MIN;
-//			g_pDXSoundStream->SetVolumeLimit( volume );
+//			g_pSDLStream->SetVolumeLimit( volume );
 			DEBUG_ADD("MP3 SetVolume3");
 			g_pMP3->SetVolume( volume );
 			DEBUG_ADD("MP3 SetVolume3 OK");
 #else
-			if( g_DXSound.IsInit() )
+			if( g_SDLAudio.IsInit() )
 			{
 				int volume = (g_pUserOption->VolumeMusic - 15) * 250;
 
@@ -615,12 +615,12 @@ PlayGameMusic()
 		}
 		else
 		{					
-//			g_pDXSoundStream->Stop();				
+//			g_pSDLStream->Stop();				
 			DEBUG_ADD("MP3 STOP11");
 #ifdef __USE_MP3__
 			g_pMP3->Stop();
 #else
-			if( g_DXSound.IsInit() )
+			if( g_SDLAudio.IsInit() )
 				g_pOGG->streamClose();
 #endif
 			DEBUG_ADD("MP3 STOP11 OK");
@@ -631,12 +631,12 @@ PlayGameMusic()
 	//----------------------------------------------------------------
 	else
 	{
-//		g_pDXSoundStream->Stop();
+//		g_pSDLStream->Stop();
 		DEBUG_ADD("MP3 STOP12");
 #ifdef __USE_MP3__
 		g_pMP3->Stop();
 #else
-		if( g_DXSound.IsInit() )
+		if( g_SDLAudio.IsInit() )
 			g_pOGG->streamClose();
 #endif
 		
@@ -1291,7 +1291,7 @@ UIMessageManager::Execute_UI_RUN_NEWUSER_REGISTRATION(int left, int right, void*
 
 			sprintf(str, "%s\\Explorer.exe", str);
 
-			CDirectDraw::GetDD()->RestoreDisplayMode();
+			CSDLGraphics::GetDD()->RestoreDisplayMode();
 #ifdef __YHDK2__
 			_spawnl(_P_NOWAIT, str, "Explorer.exe", "http://www.yhdk2.cn", NULL);
 #else
@@ -2124,9 +2124,9 @@ UIMessageManager::Execute_UI_CONNECT(int left, int right, void* void_ptr)
 	{
 		if (g_pUserOption->PlayWaveMusic)
 		{
-//			if (g_pDXSoundStream!=NULL)
+//			if (g_pSDLStream!=NULL)
 //			{
-//				g_pDXSoundStream->Stop();
+//				g_pSDLStream->Stop();
 //			}
 #ifdef __USE_MP3__
 			if (g_pMP3 != NULL)
@@ -2139,7 +2139,7 @@ UIMessageManager::Execute_UI_CONNECT(int left, int right, void* void_ptr)
 			if (g_pOGG != NULL)
 			{
 				DEBUG_ADD("MP3 STOP13");
-				if( g_DXSound.IsInit() )
+				if( g_SDLAudio.IsInit() )
 					g_pOGG->streamClose();
 				DEBUG_ADD("MP3 STOP13 OK");
 			}
@@ -2183,7 +2183,7 @@ UIMessageManager::Execute_UI_CONNECT(int left, int right, void* void_ptr)
 			RECT rect = { 0, 0, g_GameRect.right, g_GameRect.bottom };
 			g_pBack->BltNoColorkey( &point, g_pLast, &rect );	
 		}
-		CDirectDraw::Flip();
+		CSDLGraphics::Flip();
 
 		// È­¸é¿¡ ±×·ÁÁÖ°í Áö¿ì¸é µÈ´ç.. ¤»¤»
 		DEBUG_ADD("close msg dlg");
@@ -2979,11 +2979,11 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 
 										if (value==999)
 										{
-											CDirectDraw::RestoreGammaRamp();
+											CSDLGraphics::RestoreGammaRamp();
 										}
 										else
 										{
-											CDirectDraw::SetGammaRamp( value );
+											CSDLGraphics::SetGammaRamp( value );
 										}
 									}
 									
@@ -7569,7 +7569,7 @@ UIMessageManager::Execute_UI_CHANGE_GAME_OPTION(int left, int right, void* void_
 
 			if (g_pUserOption->PlaySound)
 			{
-				g_DXSound.UnSetMute();
+				g_SDLAudio.UnSetMute();
 			}
 			else
 			{
@@ -7578,7 +7578,7 @@ UIMessageManager::Execute_UI_CHANGE_GAME_OPTION(int left, int right, void* void_
 					g_pSoundManager->Stop();
 				}
 				
-				g_DXSound.SetMute();
+				g_SDLAudio.SetMute();
 			}
 		break;
 
@@ -7601,7 +7601,7 @@ UIMessageManager::Execute_UI_CHANGE_GAME_OPTION(int left, int right, void* void_
 
 				LONG volume = value*SOUND_DEGREE + SOUND_MIN;
 
-				g_DXSound.SetVolumeLimit( volume );			
+				g_SDLAudio.SetVolumeLimit( volume );			
 			}
 		break;
 
@@ -7620,14 +7620,14 @@ UIMessageManager::Execute_UI_CHANGE_GAME_OPTION(int left, int right, void* void_
 
 					DEBUG_ADD_FORMAT("Change VOLUME_MUSIC = %ld", volume);
 					
-					//LONG maxVolume = g_DXSound.GetVolumeLimit();
+					//LONG maxVolume = g_SDLAudio.GetVolumeLimit();
 
-					//g_DXSound.SetVolumeLimit( volume );
-					//g_DXSound.AddVolume( g_pDXSoundStream->GetBuffer(), 0 );
-					g_pDXSoundStream->SetVolumeLimit( volume );
+					//g_SDLAudio.SetVolumeLimit( volume );
+					//g_SDLAudio.AddVolume( g_pSDLStream->GetBuffer(), 0 );
+					g_pSDLStream->SetVolumeLimit( volume );
 
 					// ¿ø·¡ÀÇ max volumeÀ¸·Î µ¹¸°´Ù.
-					//g_DXSound.SetVolumeLimit( maxVolume );
+					//g_SDLAudio.SetVolumeLimit( maxVolume );
 				}
 				else
 				{
@@ -7769,7 +7769,7 @@ UIMessageManager::Execute_UI_CHANGE_OPTION(int left, int right, void* void_ptr)
 
 			if (g_pUserOption->PlaySound)
 			{
-				g_DXSound.UnSetMute();
+				g_SDLAudio.UnSetMute();
 			}
 			else
 			{
@@ -7778,7 +7778,7 @@ UIMessageManager::Execute_UI_CHANGE_OPTION(int left, int right, void* void_ptr)
 					g_pSoundManager->Stop();
 				}
 				
-				g_DXSound.SetMute();
+				g_SDLAudio.SetMute();
 			}
 		break;
 
@@ -7801,7 +7801,7 @@ UIMessageManager::Execute_UI_CHANGE_OPTION(int left, int right, void* void_ptr)
 
 				LONG volume = value*SOUND_DEGREE + SOUND_MIN;
 
-				g_DXSound.SetVolumeLimit( volume );	
+				g_SDLAudio.SetVolumeLimit( volume );	
 				
 				PlaySound(SOUND_SLAYER_BUTTON);
 			}
@@ -7821,24 +7821,24 @@ UIMessageManager::Execute_UI_CHANGE_OPTION(int left, int right, void* void_ptr)
 					/*
 					LONG volume = value*SOUND_DEGREE + SOUND_MIN;
 
-					LONG maxVolume = g_DXSound.GetVolumeLimit();
+					LONG maxVolume = g_SDLAudio.GetVolumeLimit();
 
-					g_DXSound.SetVolumeLimit( volume );
-					g_DXSound.AddVolume( g_pDXSoundStream->GetBuffer(), 0 );
+					g_SDLAudio.SetVolumeLimit( volume );
+					g_SDLAudio.AddVolume( g_pSDLStream->GetBuffer(), 0 );
 
 					// ¿ø·¡ÀÇ max volumeÀ¸·Î µ¹¸°´Ù.
-					g_DXSound.SetVolumeLimit( maxVolume );
+					g_SDLAudio.SetVolumeLimit( maxVolume );
 					*/
 //					LONG volume = value*16*257;//*SOUND_DEGREE + SOUND_MIN;
 
 //					DEBUG_ADD_FORMAT("Change VOLUME_MUSIC = %ld", volume);
 					
-//					g_pDXSoundStream->SetVolumeLimit( volume );
+//					g_pSDLStream->SetVolumeLimit( volume );
 					DEBUG_ADD("MP3 SetVolume4");
 #ifdef __USE_MP3__
 					g_pMP3->SetVolume( volume );
 #else
-					if( g_DXSound.IsInit() && g_pOGG != NULL )
+					if( g_SDLAudio.IsInit() && g_pOGG != NULL )
 					{
 						//int step = (DSBVOLUME_MIN) / 16;
 						int volume = (value - 15) * 250;
@@ -9822,7 +9822,7 @@ UIMessageManager::Execute_GO_BILING_PAGE(int left, int right, void* void_ptr)
 
 		sprintf(str, "%s\\Explorer.exe", str);
 
-		CDirectDraw::GetDD()->RestoreDisplayMode();
+		CSDLGraphics::GetDD()->RestoreDisplayMode();
 
 	//	_spawnl(_P_NOWAIT, str, "Explorer.exe", g_pClientConfig->URL_HOMEPAGE_BILING.GetString(), NULL);
 #endif

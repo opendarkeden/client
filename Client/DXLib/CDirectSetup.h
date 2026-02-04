@@ -5,12 +5,8 @@
 #ifndef	__CDIRECTSETUP_H__
 #define	__CDIRECTSETUP_H__
 
-#ifdef PLATFORM_WINDOWS
-#include <Windows.h>
-#else
+/* Platform-independent includes (SDL2 backend on all platforms) */
 #include "../../basic/Platform.h"
-#endif
-
 
 //-----------------------------------------------------------------------------
 // Defines, constants, and global variables
@@ -24,58 +20,24 @@
 #define SHOW_NONE		4
 
 //-----------------------------------------------------------------------------
-// DirectX Version
+// SDL2 Version (replaces DirectX Version)
 //-----------------------------------------------------------------------------
-// Platform
-#define	DXVER_PLATFORM_WINDOWS		VER_PLATFORM_WIN32_WINDOWS
-#define	DXVER_PLATFORM_NT			VER_PLATFORM_WIN32_NT
-        
-// DirectX
-#define	DXVER_DX_NO					0x000
-#define	DXVER_DX_1					0x100
-#define	DXVER_DX_2					0x200
-#define	DXVER_DX_3					0x300
-#define	DXVER_DX_5					0x500
-#define	DXVER_DX_6					0x600
-#define	DXVER_DX_6_1				0x601
-#define	DXVER_DX_7					0x700
 
+// Using SDL2 on all platforms - no DirectX version needed
+#define	SDL2_MAJOR_VERSION	2
+#define	SDL2_MINOR_VERSION	0
+#define	SDL2_PATCHLEVEL		0
 
 
 class CDirectSetup {
 	public :
 		CDirectSetup();
 		~CDirectSetup();
-		
-		// DirectX를 설치한다.
-		//static BOOL			DirectXInstall(HWND hWnd, HINSTANCE hInstance, const char* subDir, bool bInstall=true);
 
-		// version을 얻어온다.
-		static void			GetVersion( DWORD* pdwDXVersion, DWORD* pdwDXPlatform );		
-
-		// 재부팅 한다면, 그 때 실행할 프로그램
-		//static void			SetRestartProgram(const char* filename);
+		// Get SDL2 version (replaces DirectX version detection)
+		static void			GetVersion( DWORD* pdwMajor, DWORD* pdwMinor, DWORD* pdwPatch );
 
 	protected :
-		/*
-		static int			GetReply(DWORD dwMsgType);
-		static void			ShowButton(HWND hDlg, int Id, int strid);
-		static void			SetButtons(HWND hDlg, DWORD wMsgType);
-		static DLGPROC		DlgProc(HWND hDlg, WORD message, WPARAM wParam, LPARAM lParam);
-		static DWORD WINAPI	DirectXSetupCallbackFunction(DWORD dwReason, DWORD dwMsgType, LPSTR szMessage, LPSTR szName, void *pInfo);
-		static void			RegisterRestartProgram();
-
-
-	protected :
-		static DWORD			s_fStatus;
-		static HWND				s_hDlg;          // window handle to dialog proc
-		static HINSTANCE		s_hInstance;
-		static char				s_szAppTitle[256];      // application title
-
-		static int				s_wReply;          // global value for dialog return		
-
-		static char				s_FilenameRunOnce[256];
-		*/
 };
 
 

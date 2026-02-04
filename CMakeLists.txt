@@ -134,7 +134,6 @@ endif()
 
 if(BUILD_ENGINE)
 	add_subdirectory(tools/engine/sprite)
-	add_subdirectory(tools/engine/ui)
 endif()
 
 # ============================================================
@@ -327,31 +326,6 @@ set_target_properties(sprite_viewer PROPERTIES
 	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
 
-# Tile Renderer Test - test TileRenderer class with hardcoded tile data
-add_executable(tile_renderer_test
-	tools/viewers/tile_renderer_test/main.cpp
-	Client/TileRenderer.cpp
-)
-
-target_include_directories(tile_renderer_test PRIVATE
-	${CMAKE_CURRENT_SOURCE_DIR}
-	${CMAKE_CURRENT_SOURCE_DIR}/Client
-	${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
-	${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
-	${CMAKE_CURRENT_SOURCE_DIR}/basic
-)
-
-target_link_libraries(tile_renderer_test PRIVATE
-	SpriteLib
-	dxlib
-	basic
-	SDL2::SDL2
-	SDL2_image::SDL2_image
-)
-
-set_target_properties(tile_renderer_test PROPERTIES
-	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-)
 
 # Zone Parser - parse and dump .map zone files (standalone C++ version)
 add_executable(zone_parser

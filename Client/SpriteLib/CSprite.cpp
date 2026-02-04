@@ -2,7 +2,6 @@
 // CSprite.cpp
 //----------------------------------------------------------------------
 #include "client_PCH.h"
-#include "CDirectDraw.h"
 #include "CFilter.h"
 #include "CSprite.h"
 
@@ -1449,8 +1448,8 @@ CSprite::memcpyDarkerFilter(WORD* pDest, WORD* pSource, BYTE* pFilter, WORD pixe
 			//continue;
 		
 		*pDest = 
-			(((((*pSource >> CDirectDraw::s_bSHIFT_R) & 0x1F) * darker) >> 5) << CDirectDraw::s_bSHIFT_R)
-			| (((((*pSource >> CDirectDraw::s_bSHIFT_G) & 0x1F) * darker) >> 5) << CDirectDraw::s_bSHIFT_G)
+			(((((*pSource >> ColorDraw::s_bSHIFT_R) & 0x1F) * darker) >> 5) << ColorDraw::s_bSHIFT_R)
+			| (((((*pSource >> ColorDraw::s_bSHIFT_G) & 0x1F) * darker) >> 5) << ColorDraw::s_bSHIFT_G)
 			| (((*pSource & 0x1F) * darker) >> 5);
 			
 		pDest++;
@@ -6988,17 +6987,17 @@ CSprite::memcpyAlphaFilter(WORD* pDest, WORD* pSource, BYTE* pFilter, WORD pixel
 		sTemp = *pSource;
 		dTemp = *pDest;
 
-		sr = CDirectDraw::Red(sTemp);
-		sg = CDirectDraw::Green(sTemp);
-		sb = CDirectDraw::Blue(sTemp);
+		sr = ColorDraw::Red(sTemp);
+		sg = ColorDraw::Green(sTemp);
+		sb = ColorDraw::Blue(sTemp);
 
-		dr = CDirectDraw::Red(dTemp);
-		dg = CDirectDraw::Green(dTemp);
-		db = CDirectDraw::Blue(dTemp);		
+		dr = ColorDraw::Red(dTemp);
+		dg = ColorDraw::Green(dTemp);
+		db = ColorDraw::Blue(dTemp);		
 	
 		*pDest = ((alpha * (sb - db) >> 5) + db |
-					((alpha * (sg - dg) >> 5) + dg) << CDirectDraw::s_bSHIFT_G |
-					((alpha * (sr - dr) >> 5) + dr) << CDirectDraw::s_bSHIFT_R);
+					((alpha * (sg - dg) >> 5) + dg) << ColorDraw::s_bSHIFT_G |
+					((alpha * (sr - dr) >> 5) + dr) << ColorDraw::s_bSHIFT_R);
 		*/
 
 		///*
@@ -7012,8 +7011,8 @@ CSprite::memcpyAlphaFilter(WORD* pDest, WORD* pSource, BYTE* pFilter, WORD pixel
 		else
 		{
 			*pDest = 
-				((*pDest >> 1) & CDirectDraw::s_wMASK_SHIFT[1]) +
-				((*pSource >> 1) & CDirectDraw::s_wMASK_SHIFT[1]);
+				((*pDest >> 1) & ColorDraw::s_wMASK_SHIFT[1]) +
+				((*pSource >> 1) & ColorDraw::s_wMASK_SHIFT[1]);
 		}
 		//*/
 		
@@ -8713,25 +8712,25 @@ CSprite::memcpyAlphaFilterDarkness(WORD* pDest, WORD* pSource, BYTE* pFilter, WO
 		sTemp = *pSource;
 		dTemp = *pDest;
 
-		sr = CDirectDraw::Red(sTemp);
-		sg = CDirectDraw::Green(sTemp);
-		sb = CDirectDraw::Blue(sTemp);
+		sr = ColorDraw::Red(sTemp);
+		sg = ColorDraw::Green(sTemp);
+		sb = ColorDraw::Blue(sTemp);
 
-		dr = CDirectDraw::Red(dTemp);
-		dg = CDirectDraw::Green(dTemp);
-		db = CDirectDraw::Blue(dTemp);		
+		dr = ColorDraw::Red(dTemp);
+		dg = ColorDraw::Green(dTemp);
+		db = ColorDraw::Blue(dTemp);		
 		
 		*pDest = ((alpha * (sb - db) >> 5) + db |
-					((alpha * (sg - dg) >> 5) + dg) << CDirectDraw::s_bSHIFT_G |
-					((alpha * (sr - dr) >> 5) + dr) << CDirectDraw::s_bSHIFT_R);
+					((alpha * (sg - dg) >> 5) + dg) << ColorDraw::s_bSHIFT_G |
+					((alpha * (sr - dr) >> 5) + dr) << ColorDraw::s_bSHIFT_R);
 
-		*pDest = (*pDest >> s_Value1) & CDirectDraw::s_wMASK_SHIFT[s_Value1];
+		*pDest = (*pDest >> s_Value1) & ColorDraw::s_wMASK_SHIFT[s_Value1];
 		//*/
 
 		//if (alpha > 26) 
 		{
 			//*pDest = *pSource; 
-		//	*pDest = (*pSource >> s_Value1) & CDirectDraw::s_wMASK_SHIFT[s_Value1];
+		//	*pDest = (*pSource >> s_Value1) & ColorDraw::s_wMASK_SHIFT[s_Value1];
 		}
 
 
@@ -9379,9 +9378,9 @@ CSprite::memcpyAlpha4444(WORD* pDest, WORD* pSource, WORD pixels)
 		// ���� ���
 		sTemp = *pSource;
 	
-		sr = (sTemp >> CDirectDraw::s_bSHIFT4_R);// & 0x0F;
-		sg = (sTemp >> CDirectDraw::s_bSHIFT4_G) & 0x0F;
-		sb = (sTemp >> CDirectDraw::s_bSHIFT4_B) & 0x0F;
+		sr = (sTemp >> ColorDraw::s_bSHIFT4_R);// & 0x0F;
+		sg = (sTemp >> ColorDraw::s_bSHIFT4_G) & 0x0F;
+		sb = (sTemp >> ColorDraw::s_bSHIFT4_B) & 0x0F;
 		
 		*pDest =	(s_Value1 << 12) |
 					(sr << 8) |
@@ -9502,9 +9501,9 @@ CSprite::memcpyAlpha4444Small(WORD* pDest, WORD* pSource, WORD pixels)
 		// ���� ���
 		sTemp = *pSource;
 	
-		sr = (sTemp >> CDirectDraw::s_bSHIFT4_R);// & 0x0F;
-		sg = (sTemp >> CDirectDraw::s_bSHIFT4_G) & 0x0F;
-		sb = (sTemp >> CDirectDraw::s_bSHIFT4_B) & 0x0F;
+		sr = (sTemp >> ColorDraw::s_bSHIFT4_R);// & 0x0F;
+		sg = (sTemp >> ColorDraw::s_bSHIFT4_G) & 0x0F;
+		sb = (sTemp >> ColorDraw::s_bSHIFT4_B) & 0x0F;
 		
 		*pDest =	(s_Value1 << 12) |
 					(sr << 8) |
@@ -9606,9 +9605,9 @@ CSprite::memcpy1555(WORD* pDest, WORD* pSource, WORD pixels)
 		// ���� ���
 		sTemp = *pSource;
 	
-		sr = (sTemp >> CDirectDraw::s_bSHIFT_R);// & 0x0F;
-		sg = (sTemp >> CDirectDraw::s_bSHIFT_G) & 0x0000001F;
-		sb = (sTemp >> CDirectDraw::s_bSHIFT_B) & 0x0000001F;
+		sr = (sTemp >> ColorDraw::s_bSHIFT_R);// & 0x0F;
+		sg = (sTemp >> ColorDraw::s_bSHIFT_G) & 0x0000001F;
+		sb = (sTemp >> ColorDraw::s_bSHIFT_B) & 0x0000001F;
 		
 		*pDest =	0x8000 |
 					(sr << 10) |
@@ -9727,9 +9726,9 @@ CSprite::memcpy1555Small(WORD* pDest, WORD* pSource, WORD pixels)
 		// ���� ���
 		sTemp = *pSource;
 	
-		sr = (sTemp >> CDirectDraw::s_bSHIFT_R);// & 0x0F;
-		sg = (sTemp >> CDirectDraw::s_bSHIFT_G) & 0x0000001F;
-		sb = (sTemp >> CDirectDraw::s_bSHIFT_B) & 0x0000001F;
+		sr = (sTemp >> ColorDraw::s_bSHIFT_R);// & 0x0F;
+		sg = (sTemp >> ColorDraw::s_bSHIFT_G) & 0x0000001F;
+		sb = (sTemp >> ColorDraw::s_bSHIFT_B) & 0x0000001F;
 		
 		*pDest =	0x8000 | //(s_Value1 << 15) |
 					(sr << 10) |

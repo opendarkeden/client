@@ -1669,27 +1669,27 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 				{
 					destColor = *lpTargetTemp;
 				
-					first   =   qwColor & CDirectDraw::s_qwMASK_ALPHA0;
+					first   =   qwColor & ColorDraw::s_qwMASK_ALPHA0;
 					first   >>= 5;
 					first   *=  alpha;
-					first   &=  CDirectDraw::s_qwMASK_ALPHA0;
+					first   &=  ColorDraw::s_qwMASK_ALPHA0;
 					
-					second  =   qwColor & CDirectDraw::s_qwMASK_ALPHA1;
+					second  =   qwColor & ColorDraw::s_qwMASK_ALPHA1;
 					second  *=  alpha;
 					second  >>= 5;
-					second  &=  CDirectDraw::s_qwMASK_ALPHA1;
+					second  &=  ColorDraw::s_qwMASK_ALPHA1;
 					
 					srcColor =  first | second;
 
-					first   =   destColor & CDirectDraw::s_qwMASK_ALPHA0;
+					first   =   destColor & ColorDraw::s_qwMASK_ALPHA0;
 					first   >>= 5;
 					first   *=  alpha2;
-					first   &=  CDirectDraw::s_qwMASK_ALPHA0;
+					first   &=  ColorDraw::s_qwMASK_ALPHA0;
 
-					second  =   destColor & CDirectDraw::s_qwMASK_ALPHA1;
+					second  =   destColor & ColorDraw::s_qwMASK_ALPHA1;
 					second  *=  alpha2;
 					second  >>= 5;
-					second  &=  CDirectDraw::s_qwMASK_ALPHA1;
+					second  &=  ColorDraw::s_qwMASK_ALPHA1;
 
 					destColor=  first | second;
 					
@@ -1716,27 +1716,27 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 				//-----------------------------------
 				destColor2 = *(WORD*)lpTargetTemp;
 
-				first2   =   color & CDirectDraw::s_wMASK_ALPHA1;
+				first2   =   color & ColorDraw::s_wMASK_ALPHA1;
 				first2   >>= 5;
 				first2   *=  alpha;
-				first2   &=  CDirectDraw::s_wMASK_ALPHA1;
+				first2   &=  ColorDraw::s_wMASK_ALPHA1;
 
-				second2  =   color & CDirectDraw::s_wMASK_ALPHA0;
+				second2  =   color & ColorDraw::s_wMASK_ALPHA0;
 				second2  *=  alpha;
 				second2  >>= 5;
-				second2  &=  CDirectDraw::s_wMASK_ALPHA0;
+				second2  &=  ColorDraw::s_wMASK_ALPHA0;
 
 				srcColor2 =  first2 | second2;
 
-				first2   =   destColor2 & CDirectDraw::s_wMASK_ALPHA1;
+				first2   =   destColor2 & ColorDraw::s_wMASK_ALPHA1;
 				first2   >>= 5;
 				first2   *=  alpha2;
-				first2   &=  CDirectDraw::s_wMASK_ALPHA1;
+				first2   &=  ColorDraw::s_wMASK_ALPHA1;
 
-				second2  =   destColor2 & CDirectDraw::s_wMASK_ALPHA0;
+				second2  =   destColor2 & ColorDraw::s_wMASK_ALPHA0;
 				second2  *=  alpha2;
 				second2  >>= 5;
-				second2  &=  CDirectDraw::s_wMASK_ALPHA0;
+				second2  &=  ColorDraw::s_wMASK_ALPHA0;
 
 				destColor2=  first2 | second2;
 
@@ -1754,27 +1754,27 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 				{
 					destColor = *lpTargetTemp;
 				
-					first   =   qwColor & CDirectDraw::s_qwMASK_ALPHA0;
+					first   =   qwColor & ColorDraw::s_qwMASK_ALPHA0;
 					first   >>= 5;
 					first   *=  alpha;
-					first   &=  CDirectDraw::s_qwMASK_ALPHA0;
+					first   &=  ColorDraw::s_qwMASK_ALPHA0;
 					
-					second  =   qwColor & CDirectDraw::s_qwMASK_ALPHA1;
+					second  =   qwColor & ColorDraw::s_qwMASK_ALPHA1;
 					second  *=  alpha;
 					second  >>= 5;
-					second  &=  CDirectDraw::s_qwMASK_ALPHA1;
+					second  &=  ColorDraw::s_qwMASK_ALPHA1;
 					
 					srcColor =  first | second;
 
-					first   =   destColor & CDirectDraw::s_qwMASK_ALPHA0;
+					first   =   destColor & ColorDraw::s_qwMASK_ALPHA0;
 					first   >>= 5;
 					first   *=  alpha2;
-					first   &=  CDirectDraw::s_qwMASK_ALPHA0;
+					first   &=  ColorDraw::s_qwMASK_ALPHA0;
 
-					second  =   destColor & CDirectDraw::s_qwMASK_ALPHA1;
+					second  =   destColor & ColorDraw::s_qwMASK_ALPHA1;
 					second  *=  alpha2;
 					second  >>= 5;
-					second  &=  CDirectDraw::s_qwMASK_ALPHA1;
+					second  &=  ColorDraw::s_qwMASK_ALPHA1;
 
 					destColor=  first | second;
 					
@@ -1801,27 +1801,27 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 				//-----------------------------------
 				destColor2 = *(DWORD*)lpTargetTemp;
 
-				first2   =   dwColor & CDirectDraw::s_dwMASK_ALPHA0;
+				first2   =   dwColor & ColorDraw::s_dwMASK_ALPHA0;
 				first2   >>= 5;
 				first2   *=  alpha;
-				first2   &=  CDirectDraw::s_dwMASK_ALPHA0;
+				first2   &=  ColorDraw::s_dwMASK_ALPHA0;
 
-				second2  =   dwColor & CDirectDraw::s_dwMASK_ALPHA1;
+				second2  =   dwColor & ColorDraw::s_dwMASK_ALPHA1;
 				second2  *=  alpha;
 				second2  >>= 5;
-				second2  &=  CDirectDraw::s_dwMASK_ALPHA1;
+				second2  &=  ColorDraw::s_dwMASK_ALPHA1;
 
 				srcColor2 =  first2 | second2;
 
-				first2   =   destColor2 & CDirectDraw::s_dwMASK_ALPHA0;
+				first2   =   destColor2 & ColorDraw::s_dwMASK_ALPHA0;
 				first2   >>= 5;
 				first2   *=  alpha2;
-				first2   &=  CDirectDraw::s_dwMASK_ALPHA0;
+				first2   &=  ColorDraw::s_dwMASK_ALPHA0;
 
-				second2  =   destColor2 & CDirectDraw::s_dwMASK_ALPHA1;
+				second2  =   destColor2 & ColorDraw::s_dwMASK_ALPHA1;
 				second2  *=  alpha2;
 				second2  >>= 5;
-				second2  &=  CDirectDraw::s_dwMASK_ALPHA1;
+				second2  &=  ColorDraw::s_dwMASK_ALPHA1;
 
 				destColor2=  first2 | second2;
 
@@ -1839,27 +1839,27 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 				{
 					destColor = *lpTargetTemp;
 				
-					first   =   qwColor & CDirectDraw::s_qwMASK_ALPHA0;
+					first   =   qwColor & ColorDraw::s_qwMASK_ALPHA0;
 					first   >>= 5;
 					first   *=  alpha;
-					first   &=  CDirectDraw::s_qwMASK_ALPHA0;
+					first   &=  ColorDraw::s_qwMASK_ALPHA0;
 					
-					second  =   qwColor & CDirectDraw::s_qwMASK_ALPHA1;
+					second  =   qwColor & ColorDraw::s_qwMASK_ALPHA1;
 					second  *=  alpha;
 					second  >>= 5;
-					second  &=  CDirectDraw::s_qwMASK_ALPHA1;
+					second  &=  ColorDraw::s_qwMASK_ALPHA1;
 					
 					srcColor =  first | second;
 
-					first   =   destColor & CDirectDraw::s_qwMASK_ALPHA0;
+					first   =   destColor & ColorDraw::s_qwMASK_ALPHA0;
 					first   >>= 5;
 					first   *=  alpha2;
-					first   &=  CDirectDraw::s_qwMASK_ALPHA0;
+					first   &=  ColorDraw::s_qwMASK_ALPHA0;
 
-					second  =   destColor & CDirectDraw::s_qwMASK_ALPHA1;
+					second  =   destColor & ColorDraw::s_qwMASK_ALPHA1;
 					second  *=  alpha2;
 					second  >>= 5;
-					second  &=  CDirectDraw::s_qwMASK_ALPHA1;
+					second  &=  ColorDraw::s_qwMASK_ALPHA1;
 
 					destColor=  first | second;
 					
@@ -1886,27 +1886,27 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 				//-----------------------------------
 				destColor2 = *(WORD*)lpTargetTemp;
 
-				first2   =   color & CDirectDraw::s_wMASK_ALPHA1;
+				first2   =   color & ColorDraw::s_wMASK_ALPHA1;
 				first2   >>= 5;
 				first2   *=  alpha;
-				first2   &=  CDirectDraw::s_wMASK_ALPHA1;
+				first2   &=  ColorDraw::s_wMASK_ALPHA1;
 
-				second2  =   color & CDirectDraw::s_wMASK_ALPHA0;
+				second2  =   color & ColorDraw::s_wMASK_ALPHA0;
 				second2  *=  alpha;
 				second2  >>= 5;
-				second2  &=  CDirectDraw::s_wMASK_ALPHA0;
+				second2  &=  ColorDraw::s_wMASK_ALPHA0;
 
 				srcColor2 =  first2 | second2;
 
-				first2   =   destColor2 & CDirectDraw::s_wMASK_ALPHA1;
+				first2   =   destColor2 & ColorDraw::s_wMASK_ALPHA1;
 				first2   >>= 5;
 				first2   *=  alpha2;
-				first2   &=  CDirectDraw::s_wMASK_ALPHA1;
+				first2   &=  ColorDraw::s_wMASK_ALPHA1;
 
-				second2  =   destColor2 & CDirectDraw::s_wMASK_ALPHA0;
+				second2  =   destColor2 & ColorDraw::s_wMASK_ALPHA0;
 				second2  *=  alpha2;
 				second2  >>= 5;
-				second2  &=  CDirectDraw::s_wMASK_ALPHA0;
+				second2  &=  ColorDraw::s_wMASK_ALPHA0;
 
 				destColor2=  first2 | second2;
 
@@ -1919,27 +1919,27 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 				//-----------------------------------
 				destColor2 = *(DWORD*)lpTargetTemp;
 
-				first2   =   dwColor & CDirectDraw::s_dwMASK_ALPHA0;
+				first2   =   dwColor & ColorDraw::s_dwMASK_ALPHA0;
 				first2   >>= 5;
 				first2   *=  alpha;
-				first2   &=  CDirectDraw::s_dwMASK_ALPHA0;
+				first2   &=  ColorDraw::s_dwMASK_ALPHA0;
 
-				second2  =   dwColor & CDirectDraw::s_dwMASK_ALPHA1;
+				second2  =   dwColor & ColorDraw::s_dwMASK_ALPHA1;
 				second2  *=  alpha;
 				second2  >>= 5;
-				second2  &=  CDirectDraw::s_dwMASK_ALPHA1;
+				second2  &=  ColorDraw::s_dwMASK_ALPHA1;
 
 				srcColor2 =  first2 | second2;
 
-				first2   =   destColor2 & CDirectDraw::s_dwMASK_ALPHA0;
+				first2   =   destColor2 & ColorDraw::s_dwMASK_ALPHA0;
 				first2   >>= 5;
 				first2   *=  alpha2;
-				first2   &=  CDirectDraw::s_dwMASK_ALPHA0;
+				first2   &=  ColorDraw::s_dwMASK_ALPHA0;
 
-				second2  =   destColor2 & CDirectDraw::s_dwMASK_ALPHA1;
+				second2  =   destColor2 & ColorDraw::s_dwMASK_ALPHA1;
 				second2  *=  alpha2;
 				second2  >>= 5;
-				second2  &=  CDirectDraw::s_dwMASK_ALPHA1;
+				second2  &=  ColorDraw::s_dwMASK_ALPHA1;
 
 				destColor2=  first2 | second2;
 
@@ -1957,27 +1957,27 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 				{
 					destColor = *lpTargetTemp;
 				
-					first   =   qwColor & CDirectDraw::s_qwMASK_ALPHA0;
+					first   =   qwColor & ColorDraw::s_qwMASK_ALPHA0;
 					first   >>= 5;
 					first   *=  alpha;
-					first   &=  CDirectDraw::s_qwMASK_ALPHA0;
+					first   &=  ColorDraw::s_qwMASK_ALPHA0;
 					
-					second  =   qwColor & CDirectDraw::s_qwMASK_ALPHA1;
+					second  =   qwColor & ColorDraw::s_qwMASK_ALPHA1;
 					second  *=  alpha;
 					second  >>= 5;
-					second  &=  CDirectDraw::s_qwMASK_ALPHA1;
+					second  &=  ColorDraw::s_qwMASK_ALPHA1;
 					
 					srcColor =  first | second;
 
-					first   =   destColor & CDirectDraw::s_qwMASK_ALPHA0;
+					first   =   destColor & ColorDraw::s_qwMASK_ALPHA0;
 					first   >>= 5;
 					first   *=  alpha2;
-					first   &=  CDirectDraw::s_qwMASK_ALPHA0;
+					first   &=  ColorDraw::s_qwMASK_ALPHA0;
 
-					second  =   destColor & CDirectDraw::s_qwMASK_ALPHA1;
+					second  =   destColor & ColorDraw::s_qwMASK_ALPHA1;
 					second  *=  alpha2;
 					second  >>= 5;
-					second  &=  CDirectDraw::s_qwMASK_ALPHA1;
+					second  &=  ColorDraw::s_qwMASK_ALPHA1;
 
 					destColor=  first | second;
 					
@@ -11587,8 +11587,8 @@ CSpriteSurface::memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels)
 			while (qTimes--)
 			{
 				*qpDest = 
-					((*qpDest >> 1) & CDirectDraw::s_qwMASK_SHIFT[1]) +
-					((*qpSource >> 1) & CDirectDraw::s_qwMASK_SHIFT[1]);
+					((*qpDest >> 1) & ColorDraw::s_qwMASK_SHIFT[1]) +
+					((*qpSource >> 1) & ColorDraw::s_qwMASK_SHIFT[1]);
 				
 
 				*qpDest++;
@@ -11602,8 +11602,8 @@ CSpriteSurface::memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels)
 		case 1 :
 			// ���� ���
 			*(WORD*)qpDest = 
-					((*(WORD*)qpDest >> 1) & CDirectDraw::s_wMASK_SHIFT[1]) +
-					((*(WORD*)qpSource >> 1) & CDirectDraw::s_wMASK_SHIFT[1]);
+					((*(WORD*)qpDest >> 1) & ColorDraw::s_wMASK_SHIFT[1]) +
+					((*(WORD*)qpSource >> 1) & ColorDraw::s_wMASK_SHIFT[1]);
 				
 			qpDest = (QWORD*)((WORD*)qpDest + 1);
 			qpSource = (QWORD*)((WORD*)qpSource + 1);
@@ -11612,8 +11612,8 @@ CSpriteSurface::memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels)
 			while (qTimes--)
 			{
 				*qpDest = 
-					((*qpDest >> 1) & CDirectDraw::s_qwMASK_SHIFT[1]) +
-					((*qpSource >> 1) & CDirectDraw::s_qwMASK_SHIFT[1]);
+					((*qpDest >> 1) & ColorDraw::s_qwMASK_SHIFT[1]) +
+					((*qpSource >> 1) & ColorDraw::s_qwMASK_SHIFT[1]);
 
 				*qpDest++;
 				*qpSource++;
@@ -11627,8 +11627,8 @@ CSpriteSurface::memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels)
 		case 2 :
 			// ���� ���
 			*(DWORD*)qpDest = 
-					((*(DWORD*)qpDest >> 1) & CDirectDraw::s_dwMASK_SHIFT[1]) +
-					((*(DWORD*)qpSource >> 1) & CDirectDraw::s_dwMASK_SHIFT[1]);
+					((*(DWORD*)qpDest >> 1) & ColorDraw::s_dwMASK_SHIFT[1]) +
+					((*(DWORD*)qpSource >> 1) & ColorDraw::s_dwMASK_SHIFT[1]);
 				
 			qpDest = (QWORD*)((DWORD*)qpDest + 1);
 			qpSource = (QWORD*)((DWORD*)qpSource + 1);
@@ -11638,8 +11638,8 @@ CSpriteSurface::memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels)
 			while (qTimes--)
 			{
 				*qpDest = 
-					((*qpDest >> 1) & CDirectDraw::s_qwMASK_SHIFT[1]) +
-					((*qpSource >> 1) & CDirectDraw::s_qwMASK_SHIFT[1]);
+					((*qpDest >> 1) & ColorDraw::s_qwMASK_SHIFT[1]) +
+					((*qpSource >> 1) & ColorDraw::s_qwMASK_SHIFT[1]);
 
 				*qpDest++;
 				*qpSource++;
@@ -11652,8 +11652,8 @@ CSpriteSurface::memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels)
 		case 3 :
 			// ���� ���
 			*(WORD*)qpDest = 
-					((*(WORD*)qpDest >> 1) & CDirectDraw::s_wMASK_SHIFT[1]) +
-					((*(WORD*)qpSource >> 1) & CDirectDraw::s_wMASK_SHIFT[1]);
+					((*(WORD*)qpDest >> 1) & ColorDraw::s_wMASK_SHIFT[1]) +
+					((*(WORD*)qpSource >> 1) & ColorDraw::s_wMASK_SHIFT[1]);
 				
 			qpDest = (QWORD*)((WORD*)qpDest + 1);
 			qpSource = (QWORD*)((WORD*)qpSource + 1);
@@ -11661,8 +11661,8 @@ CSpriteSurface::memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels)
 
 			// ���� ���
 			*(DWORD*)qpDest = 
-					((*(DWORD*)qpDest >> 1) & CDirectDraw::s_dwMASK_SHIFT[1]) +
-					((*(DWORD*)qpSource >> 1) & CDirectDraw::s_dwMASK_SHIFT[1]);
+					((*(DWORD*)qpDest >> 1) & ColorDraw::s_dwMASK_SHIFT[1]) +
+					((*(DWORD*)qpSource >> 1) & ColorDraw::s_dwMASK_SHIFT[1]);
 				
 			qpDest = (QWORD*)((DWORD*)qpDest + 1);
 			qpSource = (QWORD*)((DWORD*)qpSource + 1);
@@ -11671,8 +11671,8 @@ CSpriteSurface::memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels)
 			while (qTimes--)
 			{
 				*qpDest = 
-					((*qpDest >> 1) & CDirectDraw::s_qwMASK_SHIFT[1]) +
-					((*qpSource >> 1) & CDirectDraw::s_qwMASK_SHIFT[1]);
+					((*qpDest >> 1) & ColorDraw::s_qwMASK_SHIFT[1]) +
+					((*qpSource >> 1) & ColorDraw::s_qwMASK_SHIFT[1]);
 
 				*qpDest++;
 				*qpSource++;
@@ -11697,17 +11697,17 @@ CSpriteSurface::memcpyAlpha1Pixel(WORD pDest, WORD pSource)
 	WORD sr,sg,sb, dr,dg,db;
 
 	// ���� ���
-	sr = CDirectDraw::Red(pSource);
-	sg = CDirectDraw::Green(pSource);
-	sb = CDirectDraw::Blue(pSource);
+	sr = ColorDraw::Red(pSource);
+	sg = ColorDraw::Green(pSource);
+	sb = ColorDraw::Blue(pSource);
 
-	dr = CDirectDraw::Red(pDest);
-	dg = CDirectDraw::Green(pDest);
-	db = CDirectDraw::Blue(pDest);		
+	dr = ColorDraw::Red(pDest);
+	dg = ColorDraw::Green(pDest);
+	db = ColorDraw::Blue(pDest);		
 	
 	return ((s_Value1 * (sb - db) >> 5) + db |
-				((s_Value1 * (sg - dg) >> 5) + dg) << CDirectDraw::s_bSHIFT_G |
-				((s_Value1 * (sr - dr) >> 5) + dr) << CDirectDraw::s_bSHIFT_R);
+				((s_Value1 * (sg - dg) >> 5) + dg) << ColorDraw::s_bSHIFT_G |
+				((s_Value1 * (sr - dr) >> 5) + dr) << ColorDraw::s_bSHIFT_R);
 }
 */
 
@@ -11727,17 +11727,17 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 //	while(pixels--)
 //	{
 //	// ���� ���
-//	sr = CDirectDraw::Red(*pSource);
-//	sg = CDirectDraw::Green(*pSource);
-//	sb = CDirectDraw::Blue(*pSource);
+//	sr = ColorDraw::Red(*pSource);
+//	sg = ColorDraw::Green(*pSource);
+//	sb = ColorDraw::Blue(*pSource);
 //	
-//	dr = CDirectDraw::Red(*pDest);
-//	dg = CDirectDraw::Green(*pDest);
-//	db = CDirectDraw::Blue(*pDest);		
+//	dr = ColorDraw::Red(*pDest);
+//	dg = ColorDraw::Green(*pDest);
+//	db = ColorDraw::Blue(*pDest);		
 //	
 //	*pDest = ((s_Value1 * (sb - db) >> 5) + db |
-//		((s_Value1 * (sg - dg) >> 5) + dg) << CDirectDraw::s_bSHIFT_G |
-//		((s_Value1 * (sr - dr) >> 5) + dr) << CDirectDraw::s_bSHIFT_R);
+//		((s_Value1 * (sg - dg) >> 5) + dg) << ColorDraw::s_bSHIFT_G |
+//		((s_Value1 * (sr - dr) >> 5) + dr) << ColorDraw::s_bSHIFT_R);
 //	
 //	pDest++;
 //	pSource++;
@@ -11772,13 +11772,13 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 				srcColor  = *qpSource;
 				destColor = *qpDest;
 			
-				first   =   (((srcColor & CDirectDraw::s_qwMASK_ALPHA0) >> 5) * s_Value1) &  CDirectDraw::s_qwMASK_ALPHA0;				
-				second  =   (((srcColor & CDirectDraw::s_qwMASK_ALPHA1) * s_Value1) >> 5) & CDirectDraw::s_qwMASK_ALPHA1;
+				first   =   (((srcColor & ColorDraw::s_qwMASK_ALPHA0) >> 5) * s_Value1) &  ColorDraw::s_qwMASK_ALPHA0;				
+				second  =   (((srcColor & ColorDraw::s_qwMASK_ALPHA1) * s_Value1) >> 5) & ColorDraw::s_qwMASK_ALPHA1;
 				
 				srcColor =  first | second;
 
-				first   =   (((destColor & CDirectDraw::s_qwMASK_ALPHA0) >> 5) * s_Value2) & CDirectDraw::s_qwMASK_ALPHA0;				
-				second  =   (((destColor & CDirectDraw::s_qwMASK_ALPHA1) * s_Value2) >> 5) & CDirectDraw::s_qwMASK_ALPHA1;				
+				first   =   (((destColor & ColorDraw::s_qwMASK_ALPHA0) >> 5) * s_Value2) & ColorDraw::s_qwMASK_ALPHA0;				
+				second  =   (((destColor & ColorDraw::s_qwMASK_ALPHA1) * s_Value2) >> 5) & ColorDraw::s_qwMASK_ALPHA1;				
 
 				destColor=  first | second;
 				
@@ -11796,27 +11796,27 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 					srcColor  = *qpSource;
 					destColor = *qpDest;
 				
-					first   =   srcColor & CDirectDraw::s_qwMASK_ALPHA0;
+					first   =   srcColor & ColorDraw::s_qwMASK_ALPHA0;
 					first   >>= 5;
 					first   *=  s_Value1;
-					first   &=  CDirectDraw::s_qwMASK_ALPHA0;
+					first   &=  ColorDraw::s_qwMASK_ALPHA0;
 					
-					second  =   srcColor & CDirectDraw::s_qwMASK_ALPHA1;
+					second  =   srcColor & ColorDraw::s_qwMASK_ALPHA1;
 					second  *=  s_Value1;
 					second  >>= 5;
-					second  &=  CDirectDraw::s_qwMASK_ALPHA1;
+					second  &=  ColorDraw::s_qwMASK_ALPHA1;
 					
 					srcColor =  first | second;
 
-					first   =   destColor & CDirectDraw::s_qwMASK_ALPHA0;
+					first   =   destColor & ColorDraw::s_qwMASK_ALPHA0;
 					first   >>= 5;
 					first   *=  s_Value2;
-					first   &=  CDirectDraw::s_qwMASK_ALPHA0;
+					first   &=  ColorDraw::s_qwMASK_ALPHA0;
 
-					second  =   destColor & CDirectDraw::s_qwMASK_ALPHA1;
+					second  =   destColor & ColorDraw::s_qwMASK_ALPHA1;
 					second  *=  s_Value2;
 					second  >>= 5;
-					second  &=  CDirectDraw::s_qwMASK_ALPHA1;
+					second  &=  ColorDraw::s_qwMASK_ALPHA1;
 
 					destColor=  first | second;
 					
@@ -11839,27 +11839,27 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 
 			if(srcColor2 != destColor2)
 			{
-				first2   =   srcColor2 & CDirectDraw::s_wMASK_ALPHA1;
+				first2   =   srcColor2 & ColorDraw::s_wMASK_ALPHA1;
 				first2   >>= 5;
 				first2   *=  s_Value1;
-				first2   &=  CDirectDraw::s_wMASK_ALPHA1;
+				first2   &=  ColorDraw::s_wMASK_ALPHA1;
 
-				second2  =   srcColor2 & CDirectDraw::s_wMASK_ALPHA0;
+				second2  =   srcColor2 & ColorDraw::s_wMASK_ALPHA0;
 				second2  *=  s_Value1;
 				second2  >>= 5;
-				second2  &=  CDirectDraw::s_wMASK_ALPHA0;
+				second2  &=  ColorDraw::s_wMASK_ALPHA0;
 
 				srcColor2 =  first2 | second2;
 
-				first2   =   destColor2 & CDirectDraw::s_wMASK_ALPHA1;
+				first2   =   destColor2 & ColorDraw::s_wMASK_ALPHA1;
 				first2   >>= 5;
 				first2   *=  s_Value2;
-				first2   &=  CDirectDraw::s_wMASK_ALPHA1;
+				first2   &=  ColorDraw::s_wMASK_ALPHA1;
 
-				second2  =   destColor2 & CDirectDraw::s_wMASK_ALPHA0;
+				second2  =   destColor2 & ColorDraw::s_wMASK_ALPHA0;
 				second2  *=  s_Value2;
 				second2  >>= 5;
-				second2  &=  CDirectDraw::s_wMASK_ALPHA0;
+				second2  &=  ColorDraw::s_wMASK_ALPHA0;
 
 				destColor2=  first2 | second2;
 
@@ -11878,27 +11878,27 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 					srcColor  = *qpSource;
 					destColor = *qpDest;
 
-					first   =   srcColor & CDirectDraw::s_qwMASK_ALPHA0;
+					first   =   srcColor & ColorDraw::s_qwMASK_ALPHA0;
 					first   >>= 5;
 					first   *=  s_Value1;
-					first   &=  CDirectDraw::s_qwMASK_ALPHA0;
+					first   &=  ColorDraw::s_qwMASK_ALPHA0;
 
-					second  =   srcColor & CDirectDraw::s_qwMASK_ALPHA1;
+					second  =   srcColor & ColorDraw::s_qwMASK_ALPHA1;
 					second  *=  s_Value1;
 					second  >>= 5;
-					second  &=  CDirectDraw::s_qwMASK_ALPHA1;
+					second  &=  ColorDraw::s_qwMASK_ALPHA1;
 
 					srcColor =  first | second;
 
-					first   =   destColor & CDirectDraw::s_qwMASK_ALPHA0;
+					first   =   destColor & ColorDraw::s_qwMASK_ALPHA0;
 					first   >>= 5;
 					first   *=  s_Value2;
-					first   &=  CDirectDraw::s_qwMASK_ALPHA0;
+					first   &=  ColorDraw::s_qwMASK_ALPHA0;
 
-					second  =   destColor & CDirectDraw::s_qwMASK_ALPHA1;
+					second  =   destColor & ColorDraw::s_qwMASK_ALPHA1;
 					second  *=  s_Value2;
 					second  >>= 5;
-					second  &=  CDirectDraw::s_qwMASK_ALPHA1;
+					second  &=  ColorDraw::s_qwMASK_ALPHA1;
 
 					destColor=  first | second;
 
@@ -11921,27 +11921,27 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 
 			if(srcColor2 != destColor2)
 			{
-				first2   =   srcColor2 & CDirectDraw::s_dwMASK_ALPHA0;
+				first2   =   srcColor2 & ColorDraw::s_dwMASK_ALPHA0;
 				first2   >>= 5;
 				first2   *=  s_Value1;
-				first2   &=  CDirectDraw::s_dwMASK_ALPHA0;
+				first2   &=  ColorDraw::s_dwMASK_ALPHA0;
 
-				second2  =   srcColor2 & CDirectDraw::s_dwMASK_ALPHA1;
+				second2  =   srcColor2 & ColorDraw::s_dwMASK_ALPHA1;
 				second2  *=  s_Value1;
 				second2  >>= 5;
-				second2  &=  CDirectDraw::s_dwMASK_ALPHA1;
+				second2  &=  ColorDraw::s_dwMASK_ALPHA1;
 
 				srcColor2 =  first2 | second2;
 
-				first2   =   destColor2 & CDirectDraw::s_dwMASK_ALPHA0;
+				first2   =   destColor2 & ColorDraw::s_dwMASK_ALPHA0;
 				first2   >>= 5;
 				first2   *=  s_Value2;
-				first2   &=  CDirectDraw::s_dwMASK_ALPHA0;
+				first2   &=  ColorDraw::s_dwMASK_ALPHA0;
 
-				second2  =   destColor2 & CDirectDraw::s_dwMASK_ALPHA1;
+				second2  =   destColor2 & ColorDraw::s_dwMASK_ALPHA1;
 				second2  *=  s_Value2;
 				second2  >>= 5;
-				second2  &=  CDirectDraw::s_dwMASK_ALPHA1;
+				second2  &=  ColorDraw::s_dwMASK_ALPHA1;
 
 				destColor2=  first2 | second2;
 
@@ -11960,27 +11960,27 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 					srcColor  = *qpSource;
 					destColor = *qpDest;
 
-					first   =   srcColor & CDirectDraw::s_qwMASK_ALPHA0;
+					first   =   srcColor & ColorDraw::s_qwMASK_ALPHA0;
 					first   >>= 5;
 					first   *=  s_Value1;
-					first   &=  CDirectDraw::s_qwMASK_ALPHA0;
+					first   &=  ColorDraw::s_qwMASK_ALPHA0;
 
-					second  =   srcColor & CDirectDraw::s_qwMASK_ALPHA1;
+					second  =   srcColor & ColorDraw::s_qwMASK_ALPHA1;
 					second  *=  s_Value1;
 					second  >>= 5;
-					second  &=  CDirectDraw::s_qwMASK_ALPHA1;
+					second  &=  ColorDraw::s_qwMASK_ALPHA1;
 
 					srcColor =  first | second;
 
-					first   =   destColor & CDirectDraw::s_qwMASK_ALPHA0;
+					first   =   destColor & ColorDraw::s_qwMASK_ALPHA0;
 					first   >>= 5;
 					first   *=  s_Value2;
-					first   &=  CDirectDraw::s_qwMASK_ALPHA0;
+					first   &=  ColorDraw::s_qwMASK_ALPHA0;
 
-					second  =   destColor & CDirectDraw::s_qwMASK_ALPHA1;
+					second  =   destColor & ColorDraw::s_qwMASK_ALPHA1;
 					second  *=  s_Value2;
 					second  >>= 5;
-					second  &=  CDirectDraw::s_qwMASK_ALPHA1;
+					second  &=  ColorDraw::s_qwMASK_ALPHA1;
 
 					destColor=  first | second;
 
@@ -12022,27 +12022,27 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 
 			if(srcColor2 != destColor2)
 			{
-				first2   =   srcColor2 & CDirectDraw::s_wMASK_ALPHA1;
+				first2   =   srcColor2 & ColorDraw::s_wMASK_ALPHA1;
 				first2   >>= 5;
 				first2   *=  s_Value1;
-				first2   &=  CDirectDraw::s_wMASK_ALPHA1;
+				first2   &=  ColorDraw::s_wMASK_ALPHA1;
 
-				second2  =   srcColor2 & CDirectDraw::s_wMASK_ALPHA0;
+				second2  =   srcColor2 & ColorDraw::s_wMASK_ALPHA0;
 				second2  *=  s_Value1;
 				second2  >>= 5;
-				second2  &=  CDirectDraw::s_wMASK_ALPHA0;
+				second2  &=  ColorDraw::s_wMASK_ALPHA0;
 
 				srcColor2 =  first2 | second2;
 
-				first2   =   destColor2 & CDirectDraw::s_wMASK_ALPHA1;
+				first2   =   destColor2 & ColorDraw::s_wMASK_ALPHA1;
 				first2   >>= 5;
 				first2   *=  s_Value2;
-				first2   &=  CDirectDraw::s_wMASK_ALPHA1;
+				first2   &=  ColorDraw::s_wMASK_ALPHA1;
 
-				second2  =   destColor2 & CDirectDraw::s_wMASK_ALPHA0;
+				second2  =   destColor2 & ColorDraw::s_wMASK_ALPHA0;
 				second2  *=  s_Value2;
 				second2  >>= 5;
-				second2  &=  CDirectDraw::s_wMASK_ALPHA0;
+				second2  &=  ColorDraw::s_wMASK_ALPHA0;
 
 				destColor2=  first2 | second2;
 
@@ -12061,27 +12061,27 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 			{
 				// 1111 1000 0001 1111 
 				// 0000 0111 1110 0000
-				first2   =   srcColor2 & CDirectDraw::s_dwMASK_ALPHA0;
+				first2   =   srcColor2 & ColorDraw::s_dwMASK_ALPHA0;
 				first2   >>= 5;
 				first2   *=  s_Value1;
-				first2   &=  CDirectDraw::s_dwMASK_ALPHA0;
+				first2   &=  ColorDraw::s_dwMASK_ALPHA0;
 
-				second2  =   srcColor2 & CDirectDraw::s_dwMASK_ALPHA1;
+				second2  =   srcColor2 & ColorDraw::s_dwMASK_ALPHA1;
 				second2  *=  s_Value1;
 				second2  >>= 5;
-				second2  &=  CDirectDraw::s_dwMASK_ALPHA1;
+				second2  &=  ColorDraw::s_dwMASK_ALPHA1;
 
 				srcColor2 =  first2 | second2;
 
-				first2   =   destColor2 & CDirectDraw::s_dwMASK_ALPHA0;
+				first2   =   destColor2 & ColorDraw::s_dwMASK_ALPHA0;
 				first2   >>= 5;
 				first2   *=  s_Value2;
-				first2   &=  CDirectDraw::s_dwMASK_ALPHA0;
+				first2   &=  ColorDraw::s_dwMASK_ALPHA0;
 
-				second2  =   destColor2 & CDirectDraw::s_dwMASK_ALPHA1;
+				second2  =   destColor2 & ColorDraw::s_dwMASK_ALPHA1;
 				second2  *=  s_Value2;
 				second2  >>= 5;
-				second2  &=  CDirectDraw::s_dwMASK_ALPHA1;
+				second2  &=  ColorDraw::s_dwMASK_ALPHA1;
 
 				destColor2=  first2 | second2;
 
@@ -12099,27 +12099,27 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 					srcColor  = *qpSource;
 					destColor = *qpDest;
 
-					first   =   srcColor & CDirectDraw::s_qwMASK_ALPHA0;
+					first   =   srcColor & ColorDraw::s_qwMASK_ALPHA0;
 					first   >>= 5;
 					first   *=  s_Value1;
-					first   &=  CDirectDraw::s_qwMASK_ALPHA0;
+					first   &=  ColorDraw::s_qwMASK_ALPHA0;
 
-					second  =   srcColor & CDirectDraw::s_qwMASK_ALPHA1;
+					second  =   srcColor & ColorDraw::s_qwMASK_ALPHA1;
 					second  *=  s_Value1;
 					second  >>= 5;
-					second  &=  CDirectDraw::s_qwMASK_ALPHA1;
+					second  &=  ColorDraw::s_qwMASK_ALPHA1;
 
 					srcColor =  first | second;
 
-					first   =   destColor & CDirectDraw::s_qwMASK_ALPHA0;
+					first   =   destColor & ColorDraw::s_qwMASK_ALPHA0;
 					first   >>= 5;
 					first   *=  s_Value2;
-					first   &=  CDirectDraw::s_qwMASK_ALPHA0;
+					first   &=  ColorDraw::s_qwMASK_ALPHA0;
 
-					second  =   destColor & CDirectDraw::s_qwMASK_ALPHA1;
+					second  =   destColor & ColorDraw::s_qwMASK_ALPHA1;
 					second  *=  s_Value2;
 					second  >>= 5;
-					second  &=  CDirectDraw::s_qwMASK_ALPHA1;
+					second  &=  ColorDraw::s_qwMASK_ALPHA1;
 
 					destColor=  first | second;
 
@@ -12158,7 +12158,7 @@ CSpriteSurface::memcpyColor(WORD* pDest, WORD* pSource, WORD pixels)
 			// ������ ���
 			while (qTimes--)
 			{
-				*qpDest = (*qpSource & CDirectDraw::s_qwMASK_RGB[s_Value1]);
+				*qpDest = (*qpSource & ColorDraw::s_qwMASK_RGB[s_Value1]);
 
 				*qpDest++;
 				*qpSource++;
@@ -12170,7 +12170,7 @@ CSpriteSurface::memcpyColor(WORD* pDest, WORD* pSource, WORD pixels)
 		//------------------
 		case 1 :
 			// ���� ���
-			*(WORD*)qpDest = *(WORD*)qpSource & CDirectDraw::s_wMASK_RGB[s_Value1];
+			*(WORD*)qpDest = *(WORD*)qpSource & ColorDraw::s_wMASK_RGB[s_Value1];
 				
 			qpDest = (QWORD*)((WORD*)qpDest + 1);
 			qpSource = (QWORD*)((WORD*)qpSource + 1);
@@ -12178,7 +12178,7 @@ CSpriteSurface::memcpyColor(WORD* pDest, WORD* pSource, WORD pixels)
 			// ������ ���
 			while (qTimes--)
 			{
-				*qpDest = (*qpSource & CDirectDraw::s_qwMASK_RGB[s_Value1]);
+				*qpDest = (*qpSource & ColorDraw::s_qwMASK_RGB[s_Value1]);
 
 				*qpDest++;
 				*qpSource++;
@@ -12191,7 +12191,7 @@ CSpriteSurface::memcpyColor(WORD* pDest, WORD* pSource, WORD pixels)
 		//------------------
 		case 2 :
 			// ���� ���
-			*(DWORD*)qpDest = *(DWORD*)qpSource & CDirectDraw::s_dwMASK_RGB[s_Value1];
+			*(DWORD*)qpDest = *(DWORD*)qpSource & ColorDraw::s_dwMASK_RGB[s_Value1];
 				
 			qpDest = (QWORD*)((WORD*)qpDest + 1);
 			qpSource = (QWORD*)((WORD*)qpSource + 1);
@@ -12199,7 +12199,7 @@ CSpriteSurface::memcpyColor(WORD* pDest, WORD* pSource, WORD pixels)
 			// ������ ���
 			while (qTimes--)
 			{
-				*qpDest = (*qpSource & CDirectDraw::s_qwMASK_RGB[s_Value1]);
+				*qpDest = (*qpSource & ColorDraw::s_qwMASK_RGB[s_Value1]);
 
 				*qpDest++;
 				*qpSource++;
@@ -12211,13 +12211,13 @@ CSpriteSurface::memcpyColor(WORD* pDest, WORD* pSource, WORD pixels)
 		//------------------
 		case 3 :
 			// ���� ���
-			*(WORD*)qpDest = *(WORD*)qpSource & CDirectDraw::s_wMASK_RGB[s_Value1];
+			*(WORD*)qpDest = *(WORD*)qpSource & ColorDraw::s_wMASK_RGB[s_Value1];
 				
 			qpDest = (QWORD*)((WORD*)qpDest + 1);
 			qpSource = (QWORD*)((WORD*)qpSource + 1);
 
 			// ���� ���
-			*(DWORD*)qpDest = *(DWORD*)qpSource & CDirectDraw::s_dwMASK_RGB[s_Value1];
+			*(DWORD*)qpDest = *(DWORD*)qpSource & ColorDraw::s_dwMASK_RGB[s_Value1];
 
 			qpDest = (QWORD*)((WORD*)qpDest + 1);
 			qpSource = (QWORD*)((WORD*)qpSource + 1);
@@ -12225,7 +12225,7 @@ CSpriteSurface::memcpyColor(WORD* pDest, WORD* pSource, WORD pixels)
 			// ������ ���
 			while (qTimes--)
 			{
-				*qpDest = (*qpSource & CDirectDraw::s_qwMASK_RGB[s_Value1]);
+				*qpDest = (*qpSource & ColorDraw::s_qwMASK_RGB[s_Value1]);
 
 				*qpDest++;
 				*qpSource++;
@@ -12300,7 +12300,7 @@ CSpriteSurface::memcpyDarkness(WORD* pDest, WORD* pSource, WORD pixels)
 			// ������ ���
 			while (qTimes--)
 			{					
-				*qpDest = (*qpSource >> s_Value1) & CDirectDraw::s_qwMASK_SHIFT[s_Value1];
+				*qpDest = (*qpSource >> s_Value1) & ColorDraw::s_qwMASK_SHIFT[s_Value1];
 
 				*qpDest++;
 				*qpSource++;
@@ -12312,7 +12312,7 @@ CSpriteSurface::memcpyDarkness(WORD* pDest, WORD* pSource, WORD pixels)
 		//------------------
 		case 1 :
 			// ���� ���
-			*(WORD*)qpDest = (*(WORD*)qpSource >> s_Value1) & CDirectDraw::s_wMASK_SHIFT[s_Value1];
+			*(WORD*)qpDest = (*(WORD*)qpSource >> s_Value1) & ColorDraw::s_wMASK_SHIFT[s_Value1];
 				
 			qpDest = (QWORD*)((WORD*)qpDest + 1);
 			qpSource = (QWORD*)((WORD*)qpSource + 1);
@@ -12320,7 +12320,7 @@ CSpriteSurface::memcpyDarkness(WORD* pDest, WORD* pSource, WORD pixels)
 			// ������ ���
 			while (qTimes--)
 			{
-				*qpDest = (*qpSource >> s_Value1) & CDirectDraw::s_qwMASK_SHIFT[s_Value1];
+				*qpDest = (*qpSource >> s_Value1) & ColorDraw::s_qwMASK_SHIFT[s_Value1];
 
 				*qpDest++;
 				*qpSource++;
@@ -12333,7 +12333,7 @@ CSpriteSurface::memcpyDarkness(WORD* pDest, WORD* pSource, WORD pixels)
 		//------------------
 		case 2 :
 			// ���� ���
-			*(DWORD*)qpDest = (*(DWORD*)qpSource >> s_Value1) & CDirectDraw::s_dwMASK_SHIFT[s_Value1];
+			*(DWORD*)qpDest = (*(DWORD*)qpSource >> s_Value1) & ColorDraw::s_dwMASK_SHIFT[s_Value1];
 				
 			qpDest = (QWORD*)((DWORD*)qpDest + 1);
 			qpSource = (QWORD*)((DWORD*)qpSource + 1);
@@ -12341,7 +12341,7 @@ CSpriteSurface::memcpyDarkness(WORD* pDest, WORD* pSource, WORD pixels)
 			// ������ ���
 			while (qTimes--)
 			{
-				*qpDest = (*qpSource >> s_Value1) & CDirectDraw::s_qwMASK_SHIFT[s_Value1];
+				*qpDest = (*qpSource >> s_Value1) & ColorDraw::s_qwMASK_SHIFT[s_Value1];
 
 				*qpDest++;
 				*qpSource++;
@@ -12353,13 +12353,13 @@ CSpriteSurface::memcpyDarkness(WORD* pDest, WORD* pSource, WORD pixels)
 		//------------------
 		case 3 :
 			// ���� ���
-			*(WORD*)qpDest = (*(WORD*)qpSource >> s_Value1) & CDirectDraw::s_wMASK_SHIFT[s_Value1];
+			*(WORD*)qpDest = (*(WORD*)qpSource >> s_Value1) & ColorDraw::s_wMASK_SHIFT[s_Value1];
 				
 			qpDest = (QWORD*)((WORD*)qpDest + 1);
 			qpSource = (QWORD*)((WORD*)qpSource + 1);
 
 			// ���� ���
-			*(DWORD*)qpDest = (*(DWORD*)qpSource >> s_Value1) & CDirectDraw::s_dwMASK_SHIFT[s_Value1];
+			*(DWORD*)qpDest = (*(DWORD*)qpSource >> s_Value1) & ColorDraw::s_dwMASK_SHIFT[s_Value1];
 
 			qpDest = (QWORD*)((DWORD*)qpDest + 1);
 			qpSource = (QWORD*)((DWORD*)qpSource + 1);
@@ -12367,7 +12367,7 @@ CSpriteSurface::memcpyDarkness(WORD* pDest, WORD* pSource, WORD pixels)
 			// ������ ���
 			while (qTimes--)
 			{
-				*qpDest = (*qpSource >> s_Value1) & CDirectDraw::s_qwMASK_SHIFT[s_Value1];
+				*qpDest = (*qpSource >> s_Value1) & ColorDraw::s_qwMASK_SHIFT[s_Value1];
 
 				*qpDest++;
 				*qpSource++;
@@ -12391,9 +12391,9 @@ CSpriteSurface::memcpyBrightness(WORD* pDest, WORD* pSource, WORD pixels)
 
 	while (i--)
 	{
-		R = ((CDirectDraw::Red(*pSource) + s_Value1) & 0x001F) << CDirectDraw::s_bSHIFT_R;
-		G = ((CDirectDraw::Green(*pSource) + s_Value1) & 0x001F) << CDirectDraw::s_bSHIFT_G;
-		B = (CDirectDraw::Blue(*pSource) + s_Value1) & 0x001F;
+		R = ((ColorDraw::Red(*pSource) + s_Value1) & 0x001F) << ColorDraw::s_bSHIFT_R;
+		G = ((ColorDraw::Green(*pSource) + s_Value1) & 0x001F) << ColorDraw::s_bSHIFT_G;
+		B = (ColorDraw::Blue(*pSource) + s_Value1) & 0x001F;
 		
 		*pDest = R | G | B;			
 			
@@ -12401,8 +12401,8 @@ CSpriteSurface::memcpyBrightness(WORD* pDest, WORD* pSource, WORD pixels)
 		pSource++;
 	}
 
-	//*pDest = (R << CDirectDraw::s_bSHIFT_R) 
-				//| (G << CDirectDraw::s_bSHIFT_G) 
+	//*pDest = (R << ColorDraw::s_bSHIFT_R) 
+				//| (G << ColorDraw::s_bSHIFT_G) 
 				//| B;
 	
 }
@@ -12648,17 +12648,17 @@ CSpriteSurface::memcpyEffectScreenAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 		
 		// 
 		// ���� ���
-		sr = CDirectDraw::Red(temp);
-		sg = CDirectDraw::Green(temp);
-		sb = CDirectDraw::Blue(temp);
+		sr = ColorDraw::Red(temp);
+		sg = ColorDraw::Green(temp);
+		sb = ColorDraw::Blue(temp);
 		
-		dr = CDirectDraw::Red(*pDest);
-		dg = CDirectDraw::Green(*pDest);
-		db = CDirectDraw::Blue(*pDest);		
+		dr = ColorDraw::Red(*pDest);
+		dg = ColorDraw::Green(*pDest);
+		db = ColorDraw::Blue(*pDest);		
 		
 		*pDest = ((s_Value1 * (sb - db) >> 5) + db |
-			((s_Value1 * (sg - dg) >> 5) + dg) << CDirectDraw::s_bSHIFT_G |
-			((s_Value1 * (sr - dr) >> 5) + dr) << CDirectDraw::s_bSHIFT_R);
+			((s_Value1 * (sg - dg) >> 5) + dg) << ColorDraw::s_bSHIFT_G |
+			((s_Value1 * (sr - dr) >> 5) + dr) << ColorDraw::s_bSHIFT_R);
 		
 		pDest++;
 		pSource++;

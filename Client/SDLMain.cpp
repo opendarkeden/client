@@ -499,7 +499,7 @@ int main(int argc, char* argv[])
 					}
 				}
 
-				SDL_RenderPresent(g_pSDLRenderer);  // Replaces CDirectDraw::Flip()
+				SDL_RenderPresent(g_pSDLRenderer);  // Replaces CSDLGraphics::Flip()
 				g_FrameCount++;
 			}
 			else

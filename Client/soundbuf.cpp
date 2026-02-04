@@ -128,7 +128,7 @@ Fill :
 		if ( lpsb->bPlaying == FALSE )
 		{
 #ifdef PLATFORM_WINDOWS
-			g_DXSound.Play(lpsb->dsPlayBuf, TRUE) ;
+			g_SDLAudio.Play(lpsb->dsPlayBuf, TRUE) ;
 #endif
 			lpsb->bPlaying = TRUE ;
 		}

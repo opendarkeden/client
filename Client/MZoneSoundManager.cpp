@@ -88,7 +88,7 @@ ZONESOUND_NODE::Play(int x, int y, bool bLoop)
 	//-----------------------------------------------------------
 	// 소리 출력해도 되는지 체크..
 	//-----------------------------------------------------------
-	if (!g_DXSound.IsInit() 
+	if (!g_SDLAudio.IsInit() 
 		|| m_SoundID >= g_pSoundTable->GetSize()
 		|| !g_pUserOption->PlaySound)
 	{
@@ -156,7 +156,7 @@ ZONESOUND_NODE::Play(int x, int y, bool bLoop)
 				DEBUG_ADD("[ZONESOUND_NODE] Load Wave");
 
 				// 다시 load						
- 				LPDIRECTSOUNDBUFFER pBuffer = g_DXSound.LoadWav( (*g_pSoundTable)[m_SoundID].Filename );
+ 				LPDIRECTSOUNDBUFFER pBuffer = g_SDLAudio.LoadWav( (*g_pSoundTable)[m_SoundID].Filename );
 
 				//-----------------------------------------------------------
 				// Loading 실패
@@ -185,7 +185,7 @@ ZONESOUND_NODE::Play(int x, int y, bool bLoop)
 					// Duplicate해서 가지고 있는다.
 					//-----------------------------------------------------------
 					// autoRelease 하면 안된다.
-					m_pBuffer = g_DXSound.DuplicateSoundBuffer(pBuffer, false);
+					m_pBuffer = g_SDLAudio.DuplicateSoundBuffer(pBuffer, false);
 				}
 			}
 			//-----------------------------------------------------------
@@ -202,7 +202,7 @@ ZONESOUND_NODE::Play(int x, int y, bool bLoop)
 					// Duplicate해서 가지고 있는다.
 					//-----------------------------------------------------------
 					// autoRelease 하면 안된다.
-					m_pBuffer = g_DXSound.DuplicateSoundBuffer(pBuffer, false);
+					m_pBuffer = g_SDLAudio.DuplicateSoundBuffer(pBuffer, false);
 				}
 			}
 		}
@@ -219,15 +219,15 @@ ZONESOUND_NODE::Play(int x, int y, bool bLoop)
 			//-----------------------------------------------------------
 			if (gapX > 3)
 			{
-				g_DXSound.CenterToRightPan( m_pBuffer, (gapX-3) << 7 );
+				g_SDLAudio.CenterToRightPan( m_pBuffer, (gapX-3) << 7 );
 			}
 			else if (gapX < -3)
 			{
-				g_DXSound.CenterToLeftPan( m_pBuffer, (abs(gapX+3)) << 7 );
+				g_SDLAudio.CenterToLeftPan( m_pBuffer, (abs(gapX+3)) << 7 );
 			}
 			else
 			{
-				g_DXSound.CenterPan( m_pBuffer );
+				g_SDLAudio.CenterPan( m_pBuffer );
 			}
 
 			//-----------------------------------------------------------
@@ -235,7 +235,7 @@ ZONESOUND_NODE::Play(int x, int y, bool bLoop)
 			//-----------------------------------------------------------
 			int sub = (dist << 2) * g_pUserOption->VolumeSound;
 			
-			g_DXSound.SubVolumeFromMax(m_pBuffer, sub);
+			g_SDLAudio.SubVolumeFromMax(m_pBuffer, sub);
 
 			//-----------------------------------------------------------
 			// 이미 연주중이면 다시 Play하지 않는다.
@@ -243,9 +243,9 @@ ZONESOUND_NODE::Play(int x, int y, bool bLoop)
 			//-----------------------------------------------------------
 			DEBUG_ADD("[ZONESOUND_NODE] Play Buffer");
 	
-			if (!g_DXSound.IsPlay( m_pBuffer ))
+			if (!g_SDLAudio.IsPlay( m_pBuffer ))
 			{
-				g_DXSound.Play( m_pBuffer, m_bLoop );
+				g_SDLAudio.Play( m_pBuffer, m_bLoop );
 			}
 		}
 	}
@@ -263,9 +263,9 @@ ZONESOUND_NODE::Stop()
 	//-----------------------------------------------------------
 	if (m_pBuffer!=NULL)
 	{
-		if (g_DXSound.IsPlay( m_pBuffer ))
+		if (g_SDLAudio.IsPlay( m_pBuffer ))
 		{
-			g_DXSound.Stop( m_pBuffer );
+			g_SDLAudio.Stop( m_pBuffer );
 		}
 	}
 
@@ -283,7 +283,7 @@ ZONESOUND_NODE::StopLoop()
 	//-----------------------------------------------------------
 	if (m_pBuffer!=NULL)
 	{
-		if (g_DXSound.IsPlay( m_pBuffer ))
+		if (g_SDLAudio.IsPlay( m_pBuffer ))
 		{
 #ifdef PLATFORM_WINDOWS
 			m_pBuffer->Play(0, 0, 0);	// loop를 멈춘다.

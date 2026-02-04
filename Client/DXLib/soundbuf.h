@@ -1,12 +1,9 @@
 #ifndef _SOUNDBUF_H_
 #define _SOUNDBUF_H_
 
-#ifdef PLATFORM_WINDOWS
-#include <wtypes.h>
-#include <dsound.h>
-#else
+/* Platform-independent includes (SDL2 backend on all platforms) */
 #include "../../basic/Platform.h"
-#endif
+#include "../../basic/AudioTypes.h"
 #include "mp3.h"
 //#include "dslib.h"
 

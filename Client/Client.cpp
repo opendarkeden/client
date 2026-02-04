@@ -847,7 +847,7 @@ long FAR PASCAL WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
 					{
 						if (g_pUserOption->PlayWaveMusic)
 						{
-							g_pDXSoundStream->Play( FALSE );
+							g_pSDLStream->Play( FALSE );
 						}
 						else
 						{
@@ -890,7 +890,7 @@ long FAR PASCAL WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
                 case SC_SIZE:
                 case SC_MAXIMIZE:
                 case SC_MONITORPOWER:
-                    if( CDirectDraw::IsFullscreen() )
+                    if( CSDLGraphics::IsFullscreen() )
                         return 1;
                     break;
             }
@@ -928,13 +928,13 @@ long FAR PASCAL WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
 		
 			BOOL bActive = (wParam == WA_ACTIVE) || (wParam == WA_CLICKACTIVE);        
 			
-			if (g_pDXInput!=NULL)
+			if (g_pSDLInput!=NULL)
 			{
 				// acquire
-				g_pDXInput->SetAcquire(bActive);
+				g_pSDLInput->SetAcquire(bActive);
 				
 				// ÀÔ·ÂÀ» ÃÊ±âÈ­ÇÑ´Ù.
-				g_pDXInput->Clear();
+				g_pSDLInput->Clear();
 			}
 		}
 		break;//return 0L;
@@ -1046,7 +1046,7 @@ long FAR PASCAL WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
 		/*
 		case WM_PAINT:
 			if (g_bActiveApp)
-				CDirectDraw::OnPaint();
+				CSDLGraphics::OnPaint();
 			return 0L;
 		*/
 	
@@ -1056,8 +1056,8 @@ long FAR PASCAL WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
 		//
 		//---------------------------------------------------------------
 		case WM_MOVE :			
-			if (g_bActiveApp && !CDirectDraw::IsFullscreen())
-				CDirectDraw::OnMove();
+			if (g_bActiveApp && !CSDLGraphics::IsFullscreen())
+				CSDLGraphics::OnMove();
 		break;
 
 		/*
@@ -1122,15 +1122,15 @@ long FAR PASCAL WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
 				/*
 				case VK_F3 :
 					//if (g_Music.IsPlay())
-					if (g_DXMusic.IsPlay())
+					if (g_SDLMusic.IsPlay())
 					{
 						//g_Music.Pause();
-						g_DXMusic.Pause();
+						g_SDLMusic.Pause();
 					}
 					else
 					{						
 						//g_Music.Resume();
-						g_DXMusic.Resume();
+						g_SDLMusic.Resume();
 					}										
 				return 0L;
 				*/
@@ -1154,7 +1154,7 @@ long FAR PASCAL WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
 	
 				case VK_F6 :		
 					{
-						//g_DXMusic.AddVolume( 0xF000 );
+						//g_SDLMusic.AddVolume( 0xF000 );
 						g_pMasterVolume->SetCurrentVolume(
 								g_pMasterVolume->GetCurrentVolume() + 0x1000
 							);
@@ -1296,7 +1296,7 @@ color
 					case VK_F8 :
 					{
 						//{
-							////g_DXMusic.AddVolume( 0xF000 );
+							////g_SDLMusic.AddVolume( 0xF000 );
 							//pWaveVolume->SetCurrentVolume(
 									//pWaveVolume->GetCurrentVolume() + 0x1000
 								//);
@@ -1325,7 +1325,7 @@ color
 					//-----------------------------------------------
 					case VK_F11 : 
 						#if defined(_DEBUG)
-							if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+							if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 							{
 								//eidt by sonic 2006.7.27   ÐÞ¸Ä¼ÓËÙµØÖ·
 								//g_UpdateDelay = (g_UpdateDelay==1)? DELAY_UPDATE_GAME : 1;
@@ -1369,7 +1369,7 @@ color
 			//for (loop = 0; loop < STREAM_MAX; ++loop)
 //					if (g_pOGG[loop] ) 
 #ifndef __USE_MP3__
-			if( g_DXSound.IsInit() && g_pOGG != NULL )
+			if( g_SDLAudio.IsInit() && g_pOGG != NULL )
 				g_pOGG->streamUpdate (g_pOGG);
 #endif
 			break;
@@ -1430,7 +1430,7 @@ color
 							}
 						}
 						*/
-						if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL) )
+						if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL) )
 						{
 							if (g_pPlayer->IsDead())
 							{						
@@ -1577,7 +1577,6 @@ color
 		/*
         case WM_SETCURSOR:
             // Turn off the cursor since this is a full-screen app
-            //if (CDirectDraw::IsActive() )//&& CDirectDraw::IsFullscreen())
 			{
 				//SetCursor(LoadCursor(NULL, IDC_ARROW));
 				//SetCursor(LoadCursorFromFile("Cursor2.cur"));
@@ -2345,7 +2344,7 @@ ConvertScreenEffect()
 	int cy = GetSystemMetrics(SM_CYSCREEN);	
 	
 	ShowWindow(g_hWndProgress, SW_HIDE);
-	CDirectDraw::Init(g_hWndProgress, cx, cy, CDirectDraw::FULLSCREEN);	
+	CSDLGraphics::Init(g_hWndProgress, cx, cy, CSDLGraphics::FULLSCREEN);	
 	
 	MoveWindow(g_hWndProgress, 
 				(cx-progressBarWidth)/2, 
@@ -2354,17 +2353,11 @@ ConvertScreenEffect()
 				progressBarHeight, 
 				TRUE);
 	ShowWindow(g_hWndProgress, SW_SHOW);
-	
 
-	// 16 bit ¸ðµå·Î ¹Ù²ã¾ß ÇÑ´Ù.
-	//DDSURFACEDESC2 ddsd;
-	//CDirectDraw::GetDD()->GetDisplayMode( &ddsd );
-	//CDirectDraw::GetDD()->SetDisplayMode(800, 600, 16, 0, 0);
-	
-	
-	//------------------------------------------------------------	
+
+	//------------------------------------------------------------
 	// ÇÊ¿äÇÑ Frame »Ì±â
-	//------------------------------------------------------------	
+	//------------------------------------------------------------
 	COrderedList<int> intList;
 
 	std::ifstream efpkFile(FILE_EFRAME_ALPHAEFFECT, ios::binary);
@@ -2423,7 +2416,7 @@ ConvertScreenEffect()
 	int spriteNum = intList.GetSize();
 
 	CSpritePack* pSPK = new CSpritePack;
-	pSPK->Init( spriteNum, CDirectDraw::Is565() );
+	pSPK->Init( spriteNum, CSDLGraphics::Is565() );
 
 	aspkFile.read((char*)&totalNum, 2);
 
@@ -2494,12 +2487,9 @@ ConvertScreenEffect()
 	aspkiFile.close();
 	aspkFile.close();
 
-	// ¿ø·¡´ë·Î
-	//CDirectDraw::GetDD()->RestoreDisplayMode();
-
-	//------------------------------------------------------------	
+	//------------------------------------------------------------
 	// SpriteID¸¦ ¼öÁ¤ÇÑ´Ù.
-	//------------------------------------------------------------	
+	//------------------------------------------------------------
 	int numFPK = NewEFPK.GetSize();
 	for (e=0; e<numFPK; e++)
 	{
@@ -2546,7 +2536,7 @@ ConvertScreenEffect()
 	delete pSPK;
 
 	ShowWindow(g_hWndProgress, SW_HIDE);
-	CDirectDraw::ReleaseAll();
+	CSDLGraphics::ReleaseAll();
 	
 	MoveWindow(g_hWndProgress, 
 				(cx-progressBarWidth)/2, 
@@ -2915,7 +2905,7 @@ ApplyPatch()
 //            }
 //        }
 //// Control + ESCµµ ¸·Àð
-//		else if(((GetAsyncKeyState( VK_CONTROL ) & 0x8000) || g_pDXInput != NULL && (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))) && kbhook->vkCode == VK_ESCAPE)
+//		else if(((GetAsyncKeyState( VK_CONTROL ) & 0x8000) || g_pSDLInput != NULL && (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))) && kbhook->vkCode == VK_ESCAPE)
 //		{
 //			SHORT control = GetAsyncKeyState( VK_CONTROL );
 //			bSysKeyDown = TRUE;
@@ -4081,13 +4071,13 @@ _APICheck.init();
 		DWORD dwFree;
 		ZeroMemory(&ddsCaps2, sizeof(ddsCaps2));
 		ddsCaps2.dwCaps = DDSCAPS_VIDEOMEMORY;//DDSCAPS_TEXTURE;
-		HRESULT hr = CDirectDraw::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
+		HRESULT hr = CSDLGraphics::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
 
 		DDCAPS	driverCaps;
 		ZeroMemory( &driverCaps, sizeof(driverCaps) );
 		driverCaps.dwSize = sizeof(driverCaps);
 
-		hr = CDirectDraw::GetDD()->GetCaps( &driverCaps, NULL );
+		hr = CSDLGraphics::GetDD()->GetCaps( &driverCaps, NULL );
 
 		g_dwVideoMemory = driverCaps.dwVidMemTotal;
 //		g_dwVideoMemory = driverCaps.dwVidMemFree;
@@ -4194,8 +4184,6 @@ _APICheck.init();
 
 					//if (g_CurrentTime - lastTime > g_UpdateDelay)
 					{
-						// CDirectDraw가 작동중이지 않을 경우에는 return
-						//if (g_bActiveApp)// && CDirectDraw::IsActive())
 #ifdef PLATFORM_WINDOWS
 						if (g_pUpdate!=NULL)
 						{
@@ -4324,12 +4312,12 @@ _APICheck.init();
 					g_pBack->BltNoColorkey( &point, g_pLast, &rect );	
 				}
 				
-				CDirectDraw::Flip();
+				CSDLGraphics::Flip();
 
-				if (g_pDXInput->KeyDown(DIK_ESCAPE)
-					|| g_pDXInput->KeyDown(DIK_NUMPADENTER)
-					|| g_pDXInput->KeyDown(DIK_RETURN)
-					|| g_pDXInput->KeyDown(DIK_SPACE))
+				if (g_pSDLInput->KeyDown(DIK_ESCAPE)
+					|| g_pSDLInput->KeyDown(DIK_NUMPADENTER)
+					|| g_pSDLInput->KeyDown(DIK_RETURN)
+					|| g_pSDLInput->KeyDown(DIK_SPACE))
 				{
 					break;
 				}

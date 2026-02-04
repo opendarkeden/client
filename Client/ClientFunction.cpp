@@ -62,7 +62,7 @@ InitSound()
 	//------------------------------------------------
 	// DXSound & SoundManager 초기화
 	//------------------------------------------------
-	if (g_DXSound.Init(g_hWnd))
+	if (g_SDLAudio.Init(g_hWnd))
 	{
 		g_pSoundManager = new CSoundPartManager;
 		g_pSoundManager->Init( g_pSoundTable->GetSize(), 50 );	// 50개의 wav만 loading한다는 의미
@@ -80,7 +80,7 @@ UnInitSound()
 	//-------------------------------------
 	g_pSoundManager->Release();	
 
-	g_DXSound.Release();
+	g_SDLAudio.Release();
 }
 
 	//---------------------------------------------------------------------------
@@ -94,7 +94,7 @@ UnInitSound()
 		//-----------------------------------------------------------
 		// 정의되지 않는 sound ID일 경우..
 		//-----------------------------------------------------------
-		if (!g_DXSound.IsInit() || soundID >= g_pSoundTable->GetSize())
+		if (!g_SDLAudio.IsInit() || soundID >= g_pSoundTable->GetSize())
 			return;
 
 		//-----------------------------------------------------------
@@ -104,7 +104,7 @@ UnInitSound()
 		{
 			// 다시 load						
 			const char* filename = (*g_pSoundTable)[soundID].Filename.GetString();
- 			LPDIRECTSOUNDBUFFER pBuffer = g_DXSound.LoadWav( (char*)filename );
+ 			LPDIRECTSOUNDBUFFER pBuffer = g_SDLAudio.LoadWav( (char*)filename );
 
 			//-----------------------------------------------------------
 			// Loading 실패
@@ -130,7 +130,7 @@ UnInitSound()
 #endif
 
 				// Play
-				g_DXSound.Play( pBuffer, false );				
+				g_SDLAudio.Play( pBuffer, false );				
 			}
 		}
 		//-----------------------------------------------------------
@@ -141,7 +141,7 @@ UnInitSound()
 			LPDIRECTSOUNDBUFFER pBuffer;
 			if (g_pSoundManager->GetData(soundID, pBuffer))
 			{			
-				g_DXSound.Play( pBuffer, false );
+				g_SDLAudio.Play( pBuffer, false );
 			}
 		}
 	}
@@ -439,7 +439,7 @@ DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 			gpC_base->m_p_DDSurface_back->Lock();
 		}
 
-		color = CDirectDraw::Color(r,g,b);
+		color = CSDLGraphics::Color(r,g,b);
 
 		//-------------------------------------------------
 		// 검정색이면.. 쉽게 된다~
@@ -447,7 +447,7 @@ DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 		if (color==0)
 		{
 			// 2D 5:6:5
-			if (CDirectDraw::Is565())
+			if (CSDLGraphics::Is565())
 			{
 				gpC_base->m_p_DDSurface_back->GammaBox565(pRect, reverseAlpha);
 			}
@@ -489,7 +489,7 @@ DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 		}
 
 		// Check if color is black (0,0,0) -> use gamma correction like Windows version
-		WORD color = CDirectDraw::Color(r, g, b);
+		WORD color = CSDLGraphics::Color(r, g, b);
 
 		// Calculate clipping
 		int startX = (pRect->left > 0) ? pRect->left : 0;

@@ -57,7 +57,7 @@ CAlphaSprite555::SaveToFile(ofstream& file)
 			index++;
 			for (k=0; k<colorCount; k++)								
 			{
-				m_Pixels[i][index] = CDirectDraw::Convert555to565(m_Pixels[i][index]);
+				m_Pixels[i][index] = ColorDraw::Convert555to565(m_Pixels[i][index]);
 
 				// Alpha,Color, Alpha,Color, .... 순이기 때문에
 				// Color다음에 Color를 바꾸기 위해서..
@@ -88,7 +88,7 @@ CAlphaSprite555::SaveToFile(ofstream& file)
 			index++;
 			for (k=0; k<colorCount; k++)								
 			{					
-				m_Pixels[i][index] = CDirectDraw::Convert565to555(m_Pixels[i][index]);
+				m_Pixels[i][index] = ColorDraw::Convert565to555(m_Pixels[i][index]);
 				index+=2;
 			}
 			index--;
@@ -163,7 +163,7 @@ CAlphaSprite555::LoadFromFile(ifstream& file)
 			index++;	// Alpha값 skip
 			for (int j=0; j<colorCount; j++)								
 			{					
-				m_Pixels[i][index] = CDirectDraw::Convert565to555(m_Pixels[i][index]);
+				m_Pixels[i][index] = ColorDraw::Convert565to555(m_Pixels[i][index]);
 				index+=2;
 			}
 			index--;

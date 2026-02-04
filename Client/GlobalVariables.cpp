@@ -160,7 +160,7 @@ bool				g_bNetStatusGood = true;
 //-----------------------------------------------------------------------------
 // Other globals
 //-----------------------------------------------------------------------------
-CDirectSoundStream*	g_pDXSoundStream = NULL;
+CSDLStream*	g_pSDLStream = NULL;
 MWorkThread*		g_pLoadingThread = NULL;
 bool				g_bFullScreen = false;
 int					g_MaxNPC = 100;
@@ -196,7 +196,7 @@ CMP3*					g_pMP3 = NULL;
 // Video & Music
 //-----------------------------------------------------------------------------
 CAVI*					g_pAvi = NULL;
-bool					g_DXSound = false;
+bool					g_SDLAudio = false;
 bool					g_Music = true;
 
 //-----------------------------------------------------------------------------

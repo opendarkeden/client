@@ -210,7 +210,7 @@ CSpriteSurface*			g_pBack		= NULL;
 CSpriteSurface*			g_pLast		= NULL;
 int						g_ScreenShotNumber = 0;
 
-CDirectSoundStream*		g_pDXSoundStream = NULL;
+CSDLStream*		g_pSDLStream = NULL;
 CMP3*					g_pMP3 = NULL;
 int						g_SoundPerSecond = 0;
 
@@ -660,16 +660,16 @@ SetMode(enum CLIENT_MODE mode)
 	g_Mode = mode;
 
 	// ÀÔ·ÂÀ» ÃÊ±âÈ­ÇÑ´Ù.
-	if (g_pDXInput!=NULL)
+	if (g_pSDLInput!=NULL)
 	{
-		g_pDXInput->UpdateInput();
-		g_pDXInput->Clear();
+		g_pSDLInput->UpdateInput();
+		g_pSDLInput->Clear();
 	
 		// acquire
-		g_pDXInput->SetAcquire(true);			
+		g_pSDLInput->SetAcquire(true);			
 		
 		// ÀÔ·ÂÀ» ÃÊ±âÈ­ÇÑ´Ù.
-		g_pDXInput->Clear();
+		g_pSDLInput->Clear();
 	}
 
 	g_bLButtonDown = FALSE;
@@ -722,9 +722,9 @@ SetMode(enum CLIENT_MODE mode)
 					DEBUG_ADD("MP3 STOP1");
 					g_pMP3->Stop();
 					DEBUG_ADD("MP3 STOP1 OK");
-//					g_pDXSoundStream->Stop();
+//					g_pSDLStream->Stop();
 #else
-					if( g_DXSound.IsInit() )
+					if( g_SDLAudio.IsInit() )
 						g_pOGG->streamClose();
 #endif
 				}
@@ -741,8 +741,8 @@ SetMode(enum CLIENT_MODE mode)
 				}
 #endif // PLATFORM_WINDOWS
 
-				CDirectDraw::RestoreGammaRamp();
-				CDirectDraw::ReleaseAll();
+				CSDLGraphics::RestoreGammaRamp();
+				CSDLGraphics::ReleaseAll();
 
 				InitDraw();
 				InitSurface();
@@ -769,7 +769,7 @@ SetMode(enum CLIENT_MODE mode)
 					g_pBack->BltNoColorkey( &point, g_pLast, &rect );
 				}
 
-				CDirectDraw::Flip();
+				CSDLGraphics::Flip();
 
 				//-----------------------------------------------------------------
 				// g_pTopView : 2D <--> 3D ¹Ù²ð¶§..
@@ -796,7 +796,7 @@ SetMode(enum CLIENT_MODE mode)
 			DEBUG_ADD("[ SetMode ]  MAINMENU");
 			
 			// acquire
-			g_pDXInput->SetAcquire(g_bActiveGame==TRUE);
+			g_pSDLInput->SetAcquire(g_bActiveGame==TRUE);
 
 
 			//------------------------------------------------------
@@ -861,13 +861,13 @@ SetMode(enum CLIENT_MODE mode)
 			//------------------------------------------------------
 			if (g_pUserOption->PlayWaveMusic)
 			{
-//				g_pDXSoundStream->Stop();
+//				g_pSDLStream->Stop();
 				DEBUG_ADD("MP3 STOP2");
 #ifdef __USE_MP3__
 				g_pMP3->Stop();
 #else
 #ifdef PLATFORM_WINDOWS
-				if( g_DXSound.IsInit() )
+				if( g_SDLAudio.IsInit() )
 				{
 					if( g_pSoundBufferForOGG == NULL )
 						g_pSoundBufferForOGG = new CDirectSoundBuffer(g_hWnd, SOUND_STEREO, SOUND_44K, SOUND_16BIT);
@@ -883,7 +883,7 @@ SetMode(enum CLIENT_MODE mode)
 				}
 #else
 				// DirectSound is Windows-specific - needs alternative implementation for macOS/Linux
-				if( g_DXSound.IsInit() )
+				if( g_SDLAudio.IsInit() )
 				{
 					g_pOGG->streamClose();
 				}
@@ -904,8 +904,8 @@ SetMode(enum CLIENT_MODE mode)
 						DEBUG_ADD("MP3 PLAY1");
 						g_pMP3->Play( false );
 						DEBUG_ADD("MP3 PLAY1 OK");
-//						g_pDXSoundStream->Load( (*g_pMusicTable)[ musicID ].FilenameWav );
-//						g_pDXSoundStream->Play( FALSE );
+//						g_pSDLStream->Load( (*g_pMusicTable)[ musicID ].FilenameWav );
+//						g_pSDLStream->Play( FALSE );
 #else
 #ifdef PLATFORM_WINDOWS
 						if( g_oggfile != NULL )
@@ -913,7 +913,7 @@ SetMode(enum CLIENT_MODE mode)
 
 						g_oggfile = NULL;
 
-						if( g_DXSound.IsInit() )
+						if( g_SDLAudio.IsInit() )
 						{
 							g_oggfile = fopen( (*g_pMusicTable)[ musicID ].FilenameWav ,"rb");
 							g_pOGG->streamLoad( g_oggfile, NULL );
@@ -943,13 +943,13 @@ SetMode(enum CLIENT_MODE mode)
 				}
 			}
 
-			//g_pDXSoundStream->Load( "music.wav" );//(*g_pMusicTable)[ g_pClientConfig->MUSIC_THEME ].Filename );
-			//g_pDXSoundStream->Play(TRUE);
+			//g_pSDLStream->Load( "music.wav" );//(*g_pMusicTable)[ g_pClientConfig->MUSIC_THEME ].Filename );
+			//g_pSDLStream->Play(TRUE);
 
-			//g_DXMusic.SetOriginalTempo();
-			//g_DXMusic.Stop();			
+			//g_SDLMusic.SetOriginalTempo();
+			//g_SDLMusic.Stop();			
 
-			//g_DXMusic.Play( (*g_pMusicTable)[ g_pClientConfig->MUSIC_THEME ].Filename );
+			//g_SDLMusic.Play( (*g_pMusicTable)[ g_pClientConfig->MUSIC_THEME ].Filename );
 		
 			//----------------------------------------------
 			// update ÇÔ¼ö ¼³Á¤
@@ -1098,14 +1098,14 @@ SetMode(enum CLIENT_MODE mode)
 			g_pBack->GDI_Text(101,221, "[ESC]¸¦ ´©¸£¼¼¿ä.", RGB(0,0,0));
 			g_pBack->GDI_Text(100,220, "[ESC]¸¦ ´©¸£¼¼¿ä.", RGB(220,220,220));
 
-			CDirectDraw::Flip();
+			CSDLGraphics::Flip();
 
 			// returnÀ» ´©¸¦ ¶§±îÁö...
 			while (1)
 			{
 				UpdateInput();
 				
-				if (g_pDXInput->KeyDown(DIK_ESCAPE))
+				if (g_pSDLInput->KeyDown(DIK_ESCAPE))
 				{
 					break;
 				}
@@ -1378,7 +1378,7 @@ SetMode(enum CLIENT_MODE mode)
 			g_pPlayer->SetAction( ACTION_STAND );
 
 			// Å° ÀÔ·Â Á¦°Å
-			g_pDXInput->Clear();
+			g_pSDLInput->Clear();
 
 			g_bLButtonDown = FALSE;
 			g_bRButtonDown = FALSE;
@@ -1442,8 +1442,8 @@ SetMode(enum CLIENT_MODE mode)
 		case MODE_GAME :
 			DEBUG_ADD("---------- Start Game ---------- ");
 
-			DEBUG_ADD("CDirectDraw::RestoreAllSurfaces()");
-			CDirectDraw::RestoreAllSurfaces();
+			DEBUG_ADD("CSDLGraphics::RestoreAllSurfaces()");
+			CSDLGraphics::RestoreAllSurfaces();
 
 #ifdef PLATFORM_WINDOWS
 			DEBUG_ADD("CDirect3D::Restore()");
@@ -1591,7 +1591,7 @@ SetMode(enum CLIENT_MODE mode)
 	}
 
 	// ÀÔ·ÂÀ» ÃÊ±âÈ­ÇÑ´Ù.
-	g_pDXInput->Clear();
+	g_pSDLInput->Clear();
 }
 
 //-----------------------------------------------------------------------------
@@ -1633,13 +1633,13 @@ CheckActivate(BOOL bActiveGame)
 		}
 	#endif
 
-	if (g_pDXInput!=NULL)
+	if (g_pSDLInput!=NULL)
 	{
 		// acquire
-		g_pDXInput->SetAcquire(bActiveGame==TRUE);			
+		g_pSDLInput->SetAcquire(bActiveGame==TRUE);			
 		
 		// ÀÔ·ÂÀ» ÃÊ±âÈ­ÇÑ´Ù.
-		g_pDXInput->Clear();
+		g_pSDLInput->Clear();
 	}
 	
 	//----------------------------------------------------
@@ -1654,13 +1654,11 @@ CheckActivate(BOOL bActiveGame)
 #endif
 		)
 	{
-		//CDirectDraw::RestoreAllSurfaces();
-		
-		CDirectDraw::RestoreGammaRamp();
+		CSDLGraphics::RestoreGammaRamp();
 
 		if (bActiveGame)
 		{
-			CDirectDraw::RestoreAllSurfaces();
+			CSDLGraphics::RestoreAllSurfaces();
 
 			DEBUG_ADD("WM_ACTIVATEAPP : Restore Surfaces");
 
@@ -1691,11 +1689,11 @@ CheckActivate(BOOL bActiveGame)
 				DEBUG_ADD("FullScreen : Before DD::SetDisplayMode()");
 				if(g_MyFull)
 				{
-					CDirectDraw::GetDD()->SetDisplayMode(1024, 768, 16, 0, 0);
+					CSDLGraphics::GetDD()->SetDisplayMode(1024, 768, 16, 0, 0);
 				}
 				else
 				{
-					CDirectDraw::GetDD()->SetDisplayMode(800, 600, 16, 0, 0);
+					CSDLGraphics::GetDD()->SetDisplayMode(800, 600, 16, 0, 0);
 				}
 				// end
 			}
@@ -1706,7 +1704,7 @@ CheckActivate(BOOL bActiveGame)
 
 			DEBUG_ADD("Before Restore All Surfaces");
 
-			CDirectDraw::RestoreAllSurfaces();
+			CSDLGraphics::RestoreAllSurfaces();
 
 			DEBUG_ADD("Before Restore");
 
@@ -1739,7 +1737,7 @@ CheckActivate(BOOL bActiveGame)
 				if (g_pUserOption->UseGammaControl
 					&& g_pUserOption->GammaValue!=100)
 				{
-					CDirectDraw::SetGammaRamp( g_pUserOption->GammaValue );
+					CSDLGraphics::SetGammaRamp( g_pUserOption->GammaValue );
 				}
 				
 				//------------------------------------
@@ -1763,7 +1761,7 @@ CheckActivate(BOOL bActiveGame)
 #else
 								&& g_pOGG != NULL)
 #endif
-//								&& g_pDXSoundStream!=NULL)
+//								&& g_pSDLStream!=NULL)
 							{
 #ifdef __USE_MP3__
 								DEBUG_ADD("MP3 OPEM");
@@ -1772,11 +1770,11 @@ CheckActivate(BOOL bActiveGame)
 								DEBUG_ADD("MP3 PLAY2");
 								g_pMP3->Play( false );
 								DEBUG_ADD("MP3 PLAY2 OK");
-//								g_pDXSoundStream->Load( (*g_pMusicTable)[ musicID ].FilenameWav );
-//								g_pDXSoundStream->Play( FALSE );
+//								g_pSDLStream->Load( (*g_pMusicTable)[ musicID ].FilenameWav );
+//								g_pSDLStream->Play( FALSE );
 #else
 #ifdef PLATFORM_WINDOWS
-								if( g_DXSound.IsInit() )
+								if( g_SDLAudio.IsInit() )
 								{
 									g_pOGG->streamClose();
 									if( g_oggfile != NULL )
@@ -1792,7 +1790,7 @@ CheckActivate(BOOL bActiveGame)
 								}
 #else
 								// DirectSound is Windows-specific
-								if( g_DXSound.IsInit() )
+								if( g_SDLAudio.IsInit() )
 								{
 									g_pOGG->streamClose();
 								}
@@ -1834,7 +1832,7 @@ CheckActivate(BOOL bActiveGame)
 
 			if (g_Mode!=MODE_WAIT_UPDATEINFO)
 			{
-				g_DXSound.UnSetMute();
+				g_SDLAudio.UnSetMute();
 			}
 
 			//--------------------------------
@@ -1865,20 +1863,17 @@ CheckActivate(BOOL bActiveGame)
 #ifdef PLATFORM_WINDOWS
 			if (g_bFullScreen)
 			{
-				//CDirectDraw::RestoreGammaRamp();
-				CDirectDraw::GetDD()->RestoreDisplayMode();
-				//CDirectDraw::RestoreGammaRamp();
+				CSDLGraphics::GetDD()->RestoreDisplayMode();
 			}
 #else
-			// DirectDraw fullscreen restoration is Windows-specific
-			// On macOS/Linux, SDL handles display mode changes
+			// SDL handles display mode changes on macOS/Linux
 #endif // PLATFORM_WINDOWS
 
 			#ifdef OUTPUT_DEBUG
 				if (g_pDebugMessage != NULL)
 					DEBUG_ADD("WM_ACTIVATEAPP : Stop Music");
 			#endif
-			//g_DXMusic.Pause();
+			//g_SDLMusic.Pause();
 			//musicPause = g_Music.IsPause();
 
 			if (g_pUserOption->PlayWaveMusic)
@@ -1890,14 +1885,14 @@ CheckActivate(BOOL bActiveGame)
 					g_pMP3->Stop();
 					DEBUG_ADD("MP3 STOP3 OK");
 				}
-//				if (g_pDXSoundStream!=NULL)
+//				if (g_pSDLStream!=NULL)
 //				{
-//					g_pDXSoundStream->Stop();
+//					g_pSDLStream->Stop();
 //				}
 #else
 				if( g_pOGG != NULL )
 				{
-					if( g_DXSound.IsInit() )
+					if( g_SDLAudio.IsInit() )
 						g_pOGG->streamClose();
 				}
 #endif
@@ -1909,7 +1904,7 @@ CheckActivate(BOOL bActiveGame)
 			
 			if (g_Mode!=MODE_WAIT_UPDATEINFO)
 			{
-				g_DXSound.SetMute();			
+				g_SDLAudio.SetMute();			
 			}
 			
 			// ¹Ýº¹ µ¿ÀÛ ÁßÁö
@@ -2334,7 +2329,7 @@ LoadZone(int n)
 		g_pSoundManager->Stop();		
 		g_bPlayPropeller = FALSE;
 	}
-	g_DXSound.ReleaseDuplicateBuffer();
+	g_SDLAudio.ReleaseDuplicateBuffer();
 
 
 	// Debug Message
@@ -2343,8 +2338,8 @@ LoadZone(int n)
 	//------------------------------------------------
 	// Music Á¤Áö...
 	//------------------------------------------------
-	//BOOL bMusicPause = g_DXMusic.IsPause();
-	//g_DXMusic.Stop();
+	//BOOL bMusicPause = g_SDLMusic.IsPause();
+	//g_SDLMusic.Stop();
 
 	//BOOL bMusicPause = g_Music.IsPause();
 
@@ -2360,15 +2355,15 @@ LoadZone(int n)
 #else
 		if( g_pOGG != NULL )
 		{
-			if( g_DXSound.IsInit() )
+			if( g_SDLAudio.IsInit() )
 				g_pOGG->streamClose();
 		}
 #endif
-//		if (g_pDXSoundStream!=NULL)
+//		if (g_pSDLStream!=NULL)
 //		{
-//			g_pDXSoundStream->Stop();
+//			g_pSDLStream->Stop();
 //		}
-//		g_pDXSoundStream->Update();
+//		g_pSDLStream->Update();
 	}
 	else
 	{
@@ -2626,16 +2621,16 @@ LoadZone(int n)
 				newMusicID = pZoneInfo->MusicIDVampire;
 			}
 
-			//g_DXMusic.SetOriginalTempo();
-			//g_DXMusic.Play( (*g_pMusicTable)[ newMusicID ].Filename );			
+			//g_SDLMusic.SetOriginalTempo();
+			//g_SDLMusic.Play( (*g_pMusicTable)[ newMusicID ].Filename );			
 			int musicID = newMusicID;
 
 			if (musicID!=MUSICID_NULL)
 			{
 				if (g_pUserOption->PlayWaveMusic)
 				{
-					g_pDXSoundStream->Load( (*g_pMusicTable)[ musicID ].FilenameWav );
-					g_pDXSoundStream->Play( TRUE );
+					g_pSDLStream->Load( (*g_pMusicTable)[ musicID ].FilenameWav );
+					g_pSDLStream->Play( TRUE );
 				}
 				else
 				{
@@ -2844,8 +2839,8 @@ LoadZone(int n)
 				newMusicID = pZoneInfo->MusicIDVampire;
 			}
 
-			//g_DXMusic.SetOriginalTempo();
-			//g_DXMusic.Play( (*g_pMusicTable)[ newMusicID ].Filename );			
+			//g_SDLMusic.SetOriginalTempo();
+			//g_SDLMusic.Play( (*g_pMusicTable)[ newMusicID ].Filename );			
 
 			int musicID = newMusicID;
 
@@ -2853,8 +2848,8 @@ LoadZone(int n)
 			{
 				if (g_pUserOption->PlayWaveMusic)
 				{
-					g_pDXSoundStream->Load( (*g_pMusicTable)[ musicID ].FilenameWav );
-					g_pDXSoundStream->Play( TRUE );
+					g_pSDLStream->Load( (*g_pMusicTable)[ musicID ].FilenameWav );
+					g_pSDLStream->Play( TRUE );
 				}
 				else
 				{
@@ -3801,7 +3796,7 @@ PlaySound(TYPE_SOUNDID soundID, bool repeat, int x, int y)
 	//-----------------------------------------------------------
 	// Á¤ÀÇµÇÁö ¾Ê´Â sound IDÀÏ °æ¿ì..
 	//-----------------------------------------------------------
-	if (!g_DXSound.IsInit() || soundID >= (*g_pSoundTable).GetSize()
+	if (!g_SDLAudio.IsInit() || soundID >= (*g_pSoundTable).GetSize()
 		|| !g_pUserOption->PlaySound)
 	{
 		__END_PROFILE("PlaySound1")
@@ -3843,7 +3838,7 @@ PlaySound(TYPE_SOUNDID soundID, bool repeat, int x, int y)
 			char strFilename[256];
 			strcpy(strFilename, pFilename);
  			
-			LPDIRECTSOUNDBUFFER pBuffer = g_DXSound.LoadWav( strFilename );
+			LPDIRECTSOUNDBUFFER pBuffer = g_SDLAudio.LoadWav( strFilename );
 			//LPDIRECTSOUNDBUFFER	pBuffer = g_pWavePackFileManager->LoadFromFileData(soundID);
 
 			//-----------------------------------------------------------
@@ -3884,15 +3879,15 @@ PlaySound(TYPE_SOUNDID soundID, bool repeat, int x, int y)
 			
 				if (gapX > 3)
 				{
-					g_DXSound.CenterToRightPan( pBuffer, (gapX-3) << 7 );
+					g_SDLAudio.CenterToRightPan( pBuffer, (gapX-3) << 7 );
 				}
 				else if (gapX < -3)
 				{
-					g_DXSound.CenterToLeftPan( pBuffer, (abs(gapX+3)) << 7 );
+					g_SDLAudio.CenterToLeftPan( pBuffer, (abs(gapX+3)) << 7 );
 				}
 				else
 				{
-					g_DXSound.CenterPan( pBuffer );
+					g_SDLAudio.CenterPan( pBuffer );
 				}			
 
 				
@@ -3907,10 +3902,10 @@ PlaySound(TYPE_SOUNDID soundID, bool repeat, int x, int y)
 				int sub = (dist << 2) * g_pUserOption->VolumeSound;
 				//int sub = dist * g_pUserOption->VolumeSound;
 
-				g_DXSound.SubVolumeFromMax(pBuffer, sub);			
+				g_SDLAudio.SubVolumeFromMax(pBuffer, sub);			
 
 				// Play
-				g_DXSound.Play( pBuffer, repeat, g_bGoodFPS);
+				g_SDLAudio.Play( pBuffer, repeat, g_bGoodFPS);
 				g_SoundPerSecond++;
 
 				// Force Feel
@@ -3934,15 +3929,15 @@ PlaySound(TYPE_SOUNDID soundID, bool repeat, int x, int y)
 				
 				if (gapX > 3)
 				{
-					g_DXSound.CenterToRightPan( pBuffer, (gapX-3) << 7 );
+					g_SDLAudio.CenterToRightPan( pBuffer, (gapX-3) << 7 );
 				}
 				else if (gapX < -3)
 				{
-					g_DXSound.CenterToLeftPan( pBuffer, (abs(gapX+3)) << 7 );
+					g_SDLAudio.CenterToLeftPan( pBuffer, (abs(gapX+3)) << 7 );
 				}
 				else
 				{
-					g_DXSound.CenterPan( pBuffer );
+					g_SDLAudio.CenterPan( pBuffer );
 				}
 
 				// ¿ÀÅä¹ÙÀÌ ¼Ò¸® Á» ÁÙÀÌ±â ÇÏµåÄÚµù. - -;
@@ -3955,9 +3950,9 @@ PlaySound(TYPE_SOUNDID soundID, bool repeat, int x, int y)
 				int sub = (dist << 2) * g_pUserOption->VolumeSound;
 				//int sub = dist * g_pUserOption->VolumeSound;
 				
-				g_DXSound.SubVolumeFromMax(pBuffer, sub);
+				g_SDLAudio.SubVolumeFromMax(pBuffer, sub);
 
-				g_DXSound.Play( pBuffer, repeat, g_bGoodFPS );
+				g_SDLAudio.Play( pBuffer, repeat, g_bGoodFPS );
 				g_SoundPerSecond++;
 
 				// Force Feel
@@ -4006,7 +4001,7 @@ PlaySound(TYPE_SOUNDID soundID)
 	//-----------------------------------------------------------
 	// Á¤ÀÇµÇÁö ¾Ê´Â sound IDÀÏ °æ¿ì..
 	//-----------------------------------------------------------
-	if (!g_DXSound.IsInit() || soundID >= (*g_pSoundTable).GetSize()
+	if (!g_SDLAudio.IsInit() || soundID >= (*g_pSoundTable).GetSize()
 		|| !g_pUserOption->PlaySound)
 	{
 		__END_PROFILE("PlaySound2")
@@ -4038,7 +4033,7 @@ PlaySound(TYPE_SOUNDID soundID)
 
 		char strFilename[256];
 		strcpy(strFilename, pFilename);
- 		LPDIRECTSOUNDBUFFER pBuffer = g_DXSound.LoadWav( strFilename );
+ 		LPDIRECTSOUNDBUFFER pBuffer = g_SDLAudio.LoadWav( strFilename );
 		//LPDIRECTSOUNDBUFFER	pBuffer = g_pWavePackFileManager->LoadFromFileData(soundID);
 
 		//-----------------------------------------------------------
@@ -4072,12 +4067,12 @@ PlaySound(TYPE_SOUNDID soundID)
 			(*g_pSoundManager).SetData(soundID, pBuffer, pOld);
 #endif // PLATFORM_WINDOWS
 
-			g_DXSound.CenterPan( pBuffer );						
+			g_SDLAudio.CenterPan( pBuffer );						
 		
-			g_DXSound.SetMaxVolume(pBuffer);
+			g_SDLAudio.SetMaxVolume(pBuffer);
 
 			// Play
-			g_DXSound.Play( pBuffer, false, g_bGoodFPS );	
+			g_SDLAudio.Play( pBuffer, false, g_bGoodFPS );	
 			
 			g_SoundPerSecond++;
 
@@ -4100,11 +4095,11 @@ PlaySound(TYPE_SOUNDID soundID)
 		LPDIRECTSOUNDBUFFER pBuffer;
 		if ((*g_pSoundManager).GetData(soundID, pBuffer))
 		{			
-			g_DXSound.CenterPan( pBuffer );
+			g_SDLAudio.CenterPan( pBuffer );
 		
-			g_DXSound.SetMaxVolume(pBuffer);
+			g_SDLAudio.SetMaxVolume(pBuffer);
 
-			g_DXSound.Play( pBuffer, false, g_bGoodFPS );
+			g_SDLAudio.Play( pBuffer, false, g_bGoodFPS );
 			g_SoundPerSecond++;
 		}
 
@@ -4138,7 +4133,7 @@ void PlaySoundForce(TYPE_SOUNDID soundID)
 	//-----------------------------------------------------------
 	// Á¤ÀÇµÇÁö ¾Ê´Â sound IDÀÏ °æ¿ì..
 	//-----------------------------------------------------------
-	if (!g_DXSound.IsInit() || soundID >= (*g_pSoundTable).GetSize()
+	if (!g_SDLAudio.IsInit() || soundID >= (*g_pSoundTable).GetSize()
 		)
 	{
 		__END_PROFILE("PlaySound2")
@@ -4170,7 +4165,7 @@ void PlaySoundForce(TYPE_SOUNDID soundID)
 
 		char strFilename[256];
 		strcpy(strFilename, pFilename);
- 		LPDIRECTSOUNDBUFFER pBuffer = g_DXSound.LoadWav( strFilename );
+ 		LPDIRECTSOUNDBUFFER pBuffer = g_SDLAudio.LoadWav( strFilename );
 		//LPDIRECTSOUNDBUFFER	pBuffer = g_pWavePackFileManager->LoadFromFileData(soundID);
 
 		//-----------------------------------------------------------
@@ -4204,12 +4199,12 @@ void PlaySoundForce(TYPE_SOUNDID soundID)
 			(*g_pSoundManager).SetData(soundID, pBuffer, pOld);
 #endif // PLATFORM_WINDOWS
 
-			g_DXSound.CenterPan( pBuffer );						
+			g_SDLAudio.CenterPan( pBuffer );						
 		
-			g_DXSound.SetMaxVolume(pBuffer);
+			g_SDLAudio.SetMaxVolume(pBuffer);
 
 			// Play
-			g_DXSound.Play( pBuffer, false, g_bGoodFPS );	
+			g_SDLAudio.Play( pBuffer, false, g_bGoodFPS );	
 			
 			g_SoundPerSecond++;
 
@@ -4232,11 +4227,11 @@ void PlaySoundForce(TYPE_SOUNDID soundID)
 		LPDIRECTSOUNDBUFFER pBuffer;
 		if ((*g_pSoundManager).GetData(soundID, pBuffer))
 		{			
-			g_DXSound.CenterPan( pBuffer );
+			g_SDLAudio.CenterPan( pBuffer );
 		
-			g_DXSound.SetMaxVolume(pBuffer);
+			g_SDLAudio.SetMaxVolume(pBuffer);
 
-			g_DXSound.Play( pBuffer, false, g_bGoodFPS );
+			g_SDLAudio.Play( pBuffer, false, g_bGoodFPS );
 			g_SoundPerSecond++;
 		}
 
@@ -4272,7 +4267,7 @@ StopSound(TYPE_SOUNDID soundID)
 	//-----------------------------------------------------------
 	// Á¤ÀÇµÇÁö ¾Ê´Â sound IDÀÏ °æ¿ì..
 	//-----------------------------------------------------------
-	if (!g_DXSound.IsInit() || soundID == SOUNDID_NULL)
+	if (!g_SDLAudio.IsInit() || soundID == SOUNDID_NULL)
 		return;
 
 	//-----------------------------------------------------------
@@ -4298,7 +4293,7 @@ StopSound(TYPE_SOUNDID soundID)
 			LPDIRECTSOUNDBUFFER pBuffer;
 			if ((*g_pSoundManager).GetData(soundID, pBuffer))
 			{	
-				g_DXSound.Stop( pBuffer );
+				g_SDLAudio.Stop( pBuffer );
 			}	
 		}
 	}
@@ -4465,8 +4460,8 @@ PlayMusicCurrentZone()
 					DEBUG_ADD("MP3 PLAY3");
 					g_pMP3->Play( false );
 					DEBUG_ADD("MP3 PLAY3 OK");
-//					g_pDXSoundStream->Load( (*g_pMusicTable)[ musicID ].FilenameWav );
-//					g_pDXSoundStream->Play( FALSE );
+//					g_pSDLStream->Load( (*g_pMusicTable)[ musicID ].FilenameWav );
+//					g_pSDLStream->Play( FALSE );
 #else
 #ifdef PLATFORM_WINDOWS
 					if( g_oggfile != NULL )
@@ -4474,7 +4469,7 @@ PlayMusicCurrentZone()
 
 					g_oggfile = NULL;
 
-					if( g_DXSound.IsInit() )
+					if( g_SDLAudio.IsInit() )
 					{
 						g_pOGG->streamClose();
 						g_oggfile = fopen( (*g_pMusicTable)[ musicID ].FilenameWav, "rb");
@@ -4494,7 +4489,7 @@ PlayMusicCurrentZone()
 					}
 #else
 					// DirectSound OGG playback is Windows-specific
-					if( g_DXSound.IsInit() )
+					if( g_SDLAudio.IsInit() )
 					{
 						g_pOGG->streamClose();
 					}
@@ -4691,12 +4686,12 @@ void
 UpdateInput()
 {
 	// Input Event
-	//g_pDXInput->PollJoy();
-	//g_pDXInput->PollKey();
-	//g_pDXInput->PollMouse();    
-	if (g_pDXInput!=NULL)
+	//g_pSDLInput->PollJoy();
+	//g_pSDLInput->PollKey();
+	//g_pSDLInput->PollMouse();    
+	if (g_pSDLInput!=NULL)
 	{
-		g_pDXInput->UpdateInput();
+		g_pSDLInput->UpdateInput();
 	}
 
 	//---------------------------------------------------
@@ -4713,14 +4708,14 @@ UpdateInput()
 	int xSignNew = 0;
 	int ySignNew = 0;
 
-	if (g_pDXInput->m_mouse_x)
+	if (g_pSDLInput->m_mouse_x)
 	{
-		xSignNew = (g_pDXInput->m_mouse_xdata > 0)? 1: -1;
+		xSignNew = (g_pSDLInput->m_mouse_xdata > 0)? 1: -1;
 	}
 
-	if (g_pDXInput->m_mouse_y)
+	if (g_pSDLInput->m_mouse_y)
 	{
-		ySignNew = (g_pDXInput->m_mouse_ydata > 0)? 1: -1;
+		ySignNew = (g_pSDLInput->m_mouse_ydata > 0)? 1: -1;
 	}
 
 	//------------------------------------------------------
@@ -4759,19 +4754,19 @@ UpdateInput()
 
 		// Ä¿¼­¸¦ ¿òÁ÷¿© ÁØ´Ù.
 		int step = mouseStep >> 1;
-		if (g_pDXInput->m_mouse_x) g_x += g_pDXInput->m_mouse_xdata * (step? step : 1);
-		if (g_pDXInput->m_mouse_y) g_y += g_pDXInput->m_mouse_ydata * (step? step : 1);
+		if (g_pSDLInput->m_mouse_x) g_x += g_pSDLInput->m_mouse_xdata * (step? step : 1);
+		if (g_pSDLInput->m_mouse_y) g_y += g_pSDLInput->m_mouse_ydata * (step? step : 1);
 	}
 	*/
 
 	
 
-	//sprintf(g_pDebugMessage->GetCurrent(), "(%d, %d)", g_pDXInput->m_mouse_xdata, g_pDXInput->m_mouse_ydata);
+	//sprintf(g_pDebugMessage->GetCurrent(), "(%d, %d)", g_pSDLInput->m_mouse_xdata, g_pSDLInput->m_mouse_ydata);
 	//g_pDebugMessage->Next();
 	
 	
-	//if (g_pDXInput->m_mouse_x) g_x += g_pDXInput->m_mouse_xdata*3;
-	//if (g_pDXInput->m_mouse_y) g_y += g_pDXInput->m_mouse_ydata*3;	
+	//if (g_pSDLInput->m_mouse_x) g_x += g_pSDLInput->m_mouse_xdata*3;
+	//if (g_pSDLInput->m_mouse_y) g_y += g_pSDLInput->m_mouse_ydata*3;	
 
 	// CursorÀÇ positionÀ» ¾ò¾î³½´Ù.
 	/*
@@ -4790,7 +4785,7 @@ UpdateInput()
 	else if (g_y>=SURFACE_HEIGHT) g_y=SURFACE_HEIGHT-1;
 	*/
 	// - -;;
-	//g_pDXInput->SetMousePosition( g_x, g_y );
+	//g_pSDLInput->SetMousePosition( g_x, g_y );
 
 	//-----------------------------------------------
 	// »õ·Î ÀÔ·ÂµÈ °ÍÀ» CInputManager¿¡ ÀúÀå
@@ -4798,10 +4793,10 @@ UpdateInput()
 	/*
 	g_InputManager.SetPosition( g_x, g_y );
 
-	if (g_pDXInput->m_lbutton_down)	g_InputManager.SetLButtonDown();
-	if (g_pDXInput->m_lbutton_up)	g_InputManager.SetLButtonUp();
-	if (g_pDXInput->m_rbutton_down)	g_InputManager.SetRButtonDown();
-	if (g_pDXInput->m_rbutton_up)	g_InputManager.SetRButtonUp();
+	if (g_pSDLInput->m_lbutton_down)	g_InputManager.SetLButtonDown();
+	if (g_pSDLInput->m_lbutton_up)	g_InputManager.SetLButtonUp();
+	if (g_pSDLInput->m_rbutton_down)	g_InputManager.SetRButtonDown();
+	if (g_pSDLInput->m_rbutton_up)	g_InputManager.SetRButtonUp();
 	*/}
 
 //---------------------------------------------------------------------------
@@ -4893,12 +4888,12 @@ UpdateDisconnected()
 	//--------------------------------------------------
 	if (g_pUserOption->PlayWaveMusic)
 	{
-//		g_pDXSoundStream->Stop();
+//		g_pSDLStream->Stop();
 		DEBUG_ADD("MP3 STOP5");
 #ifdef __USE_MP3__
 		g_pMP3->Stop();
 #else
-		if( g_DXSound.IsInit() )
+		if( g_SDLAudio.IsInit() )
 			g_pOGG->streamClose();
 #endif
 		DEBUG_ADD("MP3 STOP5 OK");
@@ -5066,7 +5061,7 @@ UpdateDisconnected()
 		g_pBack->BltNoColorkey( &point, g_pLast, &rect );	
 	}	
 
-	CDirectDraw::Flip();	
+	CSDLGraphics::Flip();	
 
 	DEBUG_ADD("UpdateDisconnected : Draw Disconnected Dialog Once OK");
 	
@@ -5131,13 +5126,13 @@ UpdateDisconnected()
 			rectClose.right = rectClose.left + closeWidth;
 			rectClose.bottom = rectClose.top + closeHeight;
 
-			if (g_pDXInput->KeyDown(DIK_ESCAPE)
-				|| g_pDXInput->KeyDown(DIK_NUMPADENTER)
-				|| g_pDXInput->KeyDown(DIK_RETURN)
-				|| g_pDXInput->KeyDown(DIK_LMENU)
-				|| g_pDXInput->KeyDown(DIK_RMENU)
-				|| g_pDXInput->KeyDown(DIK_TAB)
-				|| g_pDXInput->KeyDown(DIK_SPACE))
+			if (g_pSDLInput->KeyDown(DIK_ESCAPE)
+				|| g_pSDLInput->KeyDown(DIK_NUMPADENTER)
+				|| g_pSDLInput->KeyDown(DIK_RETURN)
+				|| g_pSDLInput->KeyDown(DIK_LMENU)
+				|| g_pSDLInput->KeyDown(DIK_RMENU)
+				|| g_pSDLInput->KeyDown(DIK_TAB)
+				|| g_pSDLInput->KeyDown(DIK_SPACE))
 			{
 				break;
 			}
@@ -5149,7 +5144,7 @@ UpdateDisconnected()
 			}
 			else bClickFocused = FALSE;
 
-			if (g_pDXInput->m_lb_down)
+			if (g_pSDLInput->m_lb_down)
 			{		
 				if (g_x > rectClose.left && g_x < rectClose.right
 					&& g_y > rectClose.top && g_y < rectClose.bottom)
@@ -5158,7 +5153,7 @@ UpdateDisconnected()
 				}
 			}
 
-			if (g_pDXInput->m_lb_up)
+			if (g_pSDLInput->m_lb_up)
 			{
 				if (bClickClose)
 				{
@@ -5277,7 +5272,7 @@ UpdateDisconnected()
 				g_pBack->BltNoColorkey( &point, g_pLast, &rect );	
 			}
 
-			CDirectDraw::Flip();
+			CSDLGraphics::Flip();
 
 			// Yield CPU to prevent 100% usage
 			// On Windows, PeekMessage/GetMessage handle this
@@ -5333,7 +5328,7 @@ UpdateDisconnected()
 			g_pBack->BltNoColorkey( &point, g_pLast, &rect );	
 		}	
 		
-		CDirectDraw::Flip();
+		CSDLGraphics::Flip();
 
 		pSpriteDisconected->Release();
 		pSpriteDisconectedCloseFocused->Release();
@@ -5351,25 +5346,24 @@ UpdateDisconnected()
 	g_pBack->GDI_Text(101,221, "[ESC]¸¦ ´©¸£¼¼¿ä.", RGB(0,0,0));
 	g_pBack->GDI_Text(100,220, "[ESC]¸¦ ´©¸£¼¼¿ä.", RGB(220,220,220));
 
-	CDirectDraw::Flip();
+	CSDLGraphics::Flip();
 
 	// returnÀ» ´©¸¦ ¶§±îÁö...
 	while (1)
 	{
 		UpdateInput();
 		
-		if (g_pDXInput->KeyDown(DIK_ESCAPE))
+		if (g_pSDLInput->KeyDown(DIK_ESCAPE))
 		{
 			break;
 		}
 	}
 
 	// TitleÈ­¸é UI½ÃÀÛ
-	//gC_vs_ui.StartTitle();	
+	//gC_vs_ui.StartTitle();
 
 	//g_pBack->GDI_Text(101,201, "Àá½Ã ±â´Ù·Á ÁÖ¼¼¿ä.", RGB(0,0,0));
 	//g_pBack->GDI_Text(100,200, "Àá½Ã ±â´Ù·Á ÁÖ¼¼¿ä.", RGB(220,220,220));
-	//CDirectDraw::Flip();
 	*/
 }
 

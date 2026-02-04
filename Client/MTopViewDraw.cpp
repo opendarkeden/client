@@ -864,7 +864,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 					}
 				}
 				m_pSurface->Unlock();
-				const int firstY = DrawChatString(&pointTemp, pCreature, pCreature->GetChatColor());//CDirectDraw::Color(26,26,26));		
+				const int firstY = DrawChatString(&pointTemp, pCreature, pCreature->GetChatColor());
 				pointTemp.y = firstY;
 				DrawCreatureHPModify(&pointTemp, pCreature);
 				m_pSurface->Lock();	
@@ -1142,7 +1142,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			
 				if (pCreature->IsInvisible() || pCreature->IsFakeDie()
 	//				#ifdef OUTPUT_DEBUG
-	//					||	g_pDXInput->KeyDown(DIK_RCONTROL)
+	//					||	g_pSDLInput->KeyDown(DIK_RCONTROL)
 	//				#endif
 					)
 				{
@@ -1357,7 +1357,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			#endif
 
 			m_pSurface->Unlock();
-			const int firstY = DrawChatString(&pointTemp, pCreature, pCreature->GetChatColor());//CDirectDraw::Color(26,26,26));		
+			const int firstY = DrawChatString(&pointTemp, pCreature, pCreature->GetChatColor());
 			pointTemp.y = firstY;
 			DrawCreatureHPModify(&pointTemp, pCreature);
 			m_pSurface->Lock();	

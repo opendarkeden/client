@@ -7,6 +7,7 @@
 #include "CSprite555.h"
 #include "CSprite565.h"
 #include "UtilityFunction.h"
+#include "basic/ColorDraw.h"
 
 #if defined(__GAME_CLIENT__) || defined(__GUILD_MANAGER_TOOL__)
 	#include "UtilityFunction.h"
@@ -45,7 +46,7 @@ MGuildMarkManager::MGuildMarkManager(const char* pGuildMarkSPKFilename,
 		m_GuildMarkSpriteMapperFilename = pGuildInfoMapperFilename;		
 	}
 
-//	m_GradeMarks.Init(GRADE_MARK_MAX<<2, CDirectDraw::Is565());
+//	m_GradeMarks.Init(GRADE_MARK_MAX<<2, ColorDraw::Is565());
 	m_GradeMarks[RACE_SLAYER].LoadFromFileRunning(pSlayerGradeMarkSPKFilename);
 	m_GradeMarks[RACE_VAMPIRE].LoadFromFileRunning(pVampireGradeMarkSPKFilename);
 	m_GradeMarks[RACE_OUSTERS].LoadFromFileRunning(pOustersGradeMarkSPKFilename);
@@ -129,7 +130,7 @@ MGuildMarkManager::CreateGuildMark(WORD guildID, const char* pFilename)
 	CSprite* pSprite = NULL;
 	CSprite* pSpriteSmall = NULL;
 
-	if (CDirectDraw::Is565())
+	if (ColorDraw::Is565())
 	{
 		pSprite = new CSprite565;
 		pSpriteSmall = new CSprite565;
@@ -325,7 +326,7 @@ MGuildMarkManager::LoadGuildMark(WORD guildID)
 				CSprite* pSprite = NULL;
 				CSprite* pSpriteSmall = NULL;
 
-				if (CDirectDraw::Is565())
+				if (ColorDraw::Is565())
 				{
 					pSprite = new CSprite565;
 					pSpriteSmall = new CSprite565;
@@ -837,7 +838,7 @@ MGuildMarkManager::CreateGuildMark(const char* pFilename, CSprite *&pSprite, CSp
 	//-----------------------------------------------------
 	// CSprite생성
 	//-----------------------------------------------------
-	if (CDirectDraw::Is565())
+	if (ColorDraw::Is565())
 	{
 		pSprite = new CSprite565;
 		pSpriteSmall = new CSprite565;

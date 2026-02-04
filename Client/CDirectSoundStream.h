@@ -5,19 +5,18 @@
 // DirectX 샘플을 긁어서 급조된 필살 허접 class.. - -;
 //----------------------------------------------------------------------
 
-#ifndef __CDIRECTSOUNDSTREAM_H__
-#define __CDIRECTSOUNDSTREAM_H__
+#ifndef __CSDLSTREAM_H__
+#define __CSDLSTREAM_H__
 
 
 #define NUM_PLAY_NOTIFICATIONS  16
 
-#ifdef PLATFORM_WINDOWS
-#include <Windows.h>
-#include <DSound.h>
-#else
-#include "../../basic/Platform.h"
+/* Platform-independent includes (SDL2 backend on all platforms) */
+#include "basic/Platform.h"
+#include "basic/AudioTypes.h"
 
-/* Forward declarations for DirectSound types */
+/* Forward declarations for DirectSound types (opaque pointers) */
+/* The actual implementation uses SDL_mixer for all platforms */
 struct IDirectSound;
 struct IDirectSoundBuffer;
 struct IDirectSoundNotify;
@@ -27,40 +26,13 @@ struct IDirectSoundNotify;
 typedef struct IDirectSoundBuffer* LPDIRECTSOUNDBUFFER;
 #endif
 typedef struct IDirectSoundNotify* LPDIRECTSOUNDNOTIFY;
-typedef void* HMMIO;
-typedef DWORD FOURCC;
 
-/* Multimedia structures */
-typedef struct {
-    DWORD   dwFlags;
-    DWORD   dwOffset;
-    DWORD   dwCallback;
-} DSBPOSITIONNOTIFY;
-
-typedef struct {
-    FOURCC  ckid;
-    FOURCC  fccType;
-    DWORD   dwDataOffset;
-    DWORD   dwSize;
-} MMCKINFO;
-
-
-/* Multimedia constants */
-#define MMIO_READ      0
-#define MMIO_ALLOCBUF  0x10000
-#define FOURCC(a,b,c,d) (((DWORD)(a)<<0)|((DWORD)(b)<<8)|((DWORD)(c)<<16)|((DWORD)(d)<<24))
-
-/* Volume constants */
-#define DSBVOLUME_MAX     0
-#define DSBVOLUME_MIN    -10000
-#endif
-
-class CDirectSoundStream {
+class CSDLStream {
 	public :
-		CDirectSoundStream();
-		~CDirectSoundStream();
+		CSDLStream();
+		~CSDLStream();
 
-		
+
 		void					Release();
 
 		BOOL					IsLoad() const			{ return m_bLoad; }
@@ -82,7 +54,7 @@ class CDirectSoundStream {
 
 	protected :
 		BOOL					UpdateProgress();
-		BOOL					HandleNotification( BOOL bLooped );		
+		BOOL					HandleNotification( BOOL bLooped );
 		BOOL					FillBuffer( BOOL bLooped );
 		BOOL					ReadStream( BOOL bLooped, VOID* pbBuffer, DWORD dwBufferLength );
 		BOOL					RestoreBuffers( BOOL bLooped );
@@ -94,11 +66,11 @@ class CDirectSoundStream {
 		BOOL					m_bLoad;
 		BOOL					m_bPlay;
 		BOOL					m_bLoop;
-		
+
 		LPDIRECTSOUNDBUFFER		m_pDSBuffer;
 		LPDIRECTSOUNDNOTIFY		m_pDSNotify;
-		
-		DSBPOSITIONNOTIFY		m_aPosNotify[ NUM_PLAY_NOTIFICATIONS + 1 ];  
+
+		DSBPOSITIONNOTIFY		m_aPosNotify[ NUM_PLAY_NOTIFICATIONS + 1 ];
 
 		HANDLE					m_hNotificationEvents[2];
 

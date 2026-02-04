@@ -2955,7 +2955,7 @@ MPlayer::GetActionInfoRange(TYPE_ACTIONINFO nActionInfo)
 bool
 MPlayer::TraceCreatureToBasicAction(TYPE_OBJECTID id, bool bForceAttack, bool bClick)
 {
-//	if(bForceAttack && !g_pDXInput->KeyDown(DIK_LSHIFT))
+//	if(bForceAttack && !g_pSDLInput->KeyDown(DIK_LSHIFT))
 //	{
 //		bForceAttack = false;
 //	}
@@ -3394,7 +3394,7 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 		)
 		return false;
 
-//	if(bForceAttack && !g_pDXInput->KeyDown(DIK_LSHIFT))
+//	if(bForceAttack && !g_pSDLInput->KeyDown(DIK_LSHIFT))
 //	{
 //		bForceAttack = false;
 //	}
@@ -8625,7 +8625,7 @@ MPlayer::SetDead()
 		UnSetLockMode();
 
 		// 음악을 느리게...
-		//g_DXMusic.SetCurrentTempo( g_DXMusic.GetOriginalTempo() * 0.8f );
+		//g_SDLMusic.SetCurrentTempo( g_SDLMusic.GetOriginalTempo() * 0.8f );
 
 		m_Z = 0;
 		// 확인.. 

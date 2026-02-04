@@ -1,17 +1,15 @@
 //----------------------------------------------------------------------
-// CDirectMusic.h
+// CSDLMusic.h
 //----------------------------------------------------------------------
 
-#ifndef __CDIRECTMUSIC_H__
-#define __CDIRECTMUSIC_H__
+#ifndef __CSDLMUSIC_H__
+#define __CSDLMUSIC_H__
 
-#ifdef PLATFORM_WINDOWS
-#include <DMusicI.h>
-#include <DMusicF.h>
-#else
-#include "../basic/Platform.h"
+/* Platform-independent includes (SDL2 backend on all platforms) */
+#include "basic/Platform.h"
 
-/* Forward declarations for DirectMusic types */
+/* Forward declarations for DirectMusic types (opaque pointers) */
+/* The actual implementation uses SDL_mixer for all platforms */
 struct IDirectMusic;
 struct IDirectMusicPerformance;
 struct IDirectMusicPort;
@@ -24,21 +22,28 @@ typedef long long MUSIC_TIME;
 typedef long long REFERENCE_TIME;
 
 /* DirectMusic constants */
+#ifndef DDSCAPS_OFFSCREENPLAIN
 #define DDSCAPS_OFFSCREENPLAIN  0x00000001
+#endif
+
+#ifndef DDSCAPS_TEXTURE
 #define DDSCAPS_TEXTURE         0x00000400
+#endif
+
+#ifndef DD_OK
 #define DD_OK                   0x00000000
 #endif
 
-typedef enum DIRECTMUSIC_TYPE	
+typedef enum DIRECTMUSIC_TYPE
 {
 	DIRECTMUSIC_TYPE_HW,	// hardware midi
 	DIRECTMUSIC_TYPE_SW		// microsoft software synthesizer
 };
 
-class CDirectMusic {
+class CSDLMusic {
 	public :
-		CDirectMusic();
-		~CDirectMusic();
+		CSDLMusic();
+		~CSDLMusic();
 
 		//-----------------------------------------------------------
 		// Init / Release
@@ -46,7 +51,7 @@ class CDirectMusic {
 		bool		Init(HWND hWnd, DIRECTMUSIC_TYPE type=DIRECTMUSIC_TYPE_SW);
 		void		Release();
 
-	
+
 		//-----------------------------------------------------------
 		// Play / Stop		Pause / Resume
 		//-----------------------------------------------------------
@@ -79,7 +84,7 @@ class CDirectMusic {
 
 		// port type
 		bool		IsSoftwareSynth() const	{ return m_bInit && m_bSoftwareSynth; }
-	
+
 	protected :
 		//-----------------------------------------------------------
 		// Protected Functions
@@ -95,7 +100,7 @@ class CDirectMusic {
 		IDirectMusicPort*			m_pDMPort;
 		IDirectMusicLoader*			m_pDMLoader;
 		IDirectMusicSegment*		m_pDMSegment;
-		IDirectMusicSegmentState*	m_pDMSegmentState;	
+		IDirectMusicSegmentState*	m_pDMSegmentState;
 
 		MUSIC_TIME					m_mtStart;
 		MUSIC_TIME                  m_mtOffset;
@@ -107,14 +112,14 @@ class CDirectMusic {
 		bool						m_bInit;	// 초기화 되었는가?
 		bool						m_bLoad;	// 화일이 Load되었는가?
 		bool						m_bPlay;	// 연주 중인가?
-	
+
 		int							m_OriginalTempo;	// original 템포
 		int							m_CurrentTempo;		// 현재 템포
 		//long						m_MasterVolume;
 };
 
 
-extern CDirectMusic		g_DXMusic;
+extern CSDLMusic		g_SDLMusic;
 
 
 #endif

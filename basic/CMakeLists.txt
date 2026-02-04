@@ -38,6 +38,7 @@ set(BASIC_SOURCES
 	BasicData.cpp
 	Timer2.cpp
 	BasicException.cpp
+	ColorDraw.cpp
 )
 
 # Platform-specific sources
@@ -102,5 +103,8 @@ install(FILES
 	BasicException.h
 	DLL.h
 	timer2.h
+	ColorDraw.h
+	InputCodes.h
+	AudioTypes.h
 	DESTINATION include/basic
 )

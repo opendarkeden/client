@@ -11,17 +11,12 @@
 #include "CSpriteSurface.h"
 #include "CIndexSprite.h"
 #include "MPalette.h"
-#include "../DXLib/CDirectDraw.h"
-
-// Local macros for CDirectDraw color functions
-#define Red(c)      CDirectDraw::Red(c)
-#define Green(c)    CDirectDraw::Green(c)
-#define Blue(c)     CDirectDraw::Blue(c)
-
-// Local macros for CDirectDraw bit shift constants
-#define s_bSHIFT_R  CDirectDraw::s_bSHIFT_R
-#define s_bSHIFT_G  CDirectDraw::s_bSHIFT_G
-#define s_bSHIFT_B  CDirectDraw::s_bSHIFT_B
+#define Red(c)      ColorDraw::Red(c)
+#define Green(c)    ColorDraw::Green(c)
+#define Blue(c)     ColorDraw::Blue(c)
+#define s_bSHIFT_R  ColorDraw::s_bSHIFT_R
+#define s_bSHIFT_G  ColorDraw::s_bSHIFT_G
+#define s_bSHIFT_B  ColorDraw::s_bSHIFT_B
 
 //----------------------------------------------------------------------
 // Effect Copy - Darker

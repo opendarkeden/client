@@ -68,7 +68,6 @@ CSpriteTexturePartManager::Init(const char* spkFilename, WORD partSize)
 //	indexFile.close();
 //
 //	// SPK를 초기화 한다. (개수만큼..)
-//	m_SPK.Init( m_SPKIndex.GetSize());//, CDirectDraw::Is565() );
 //
 //	// SPK File을 열어둔다.
 //	m_SPKFile.open(spkFilename, ios::binary);

@@ -869,7 +869,7 @@ bool C_VS_UI_STORAGE::MouseControl(UINT message, int _x, int _y)
 				{
 					gpC_base->SendMessage(UI_SELECT_STORAGE_SLOT, m_pStorage->GetCurrent(), m_focused_slot);
 					// SHIFT������ Ŭ�������� ������ �ڵ� �̵� ó�� -> �κ��丮
-					if(g_pDXInput->KeyDown(DIK_LSHIFT))
+					if(g_pSDLInput->KeyDown(DIK_LSHIFT))
 					{
 						MItem* p_item = (MItem *)m_pStorage->GetItem( m_focused_slot );
 						POINT point;

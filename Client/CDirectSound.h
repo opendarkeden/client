@@ -7,39 +7,35 @@
 
 #pragma warning(disable:4786)
 
-#ifdef PLATFORM_WINDOWS
-#include <Windows.h>
-#include <MMSystem.h>
-#include <DSound.h>
-#include <list>
-#else
-#include "../basic/Platform.h"
+/* Platform-independent includes (SDL2 backend on all platforms) */
+#include "basic/Platform.h"
+#include "basic/AudioTypes.h"
 #include <list>
 #include <cstring>
 
-/* Forward declarations for DirectSound types */
+/* Forward declarations for DirectSound types (opaque pointers) */
+/* The actual implementation uses SDL_mixer for all platforms */
 typedef struct IDirectSound* LPDIRECTSOUND;
+#ifndef LPDIRECTSOUNDBUFFER
 typedef struct IDirectSoundBuffer* LPDIRECTSOUNDBUFFER;
-typedef struct _WAVEFORMATEX* LPWAVEFORMATEX;
 #endif
-
 typedef	std::list<LPDIRECTSOUNDBUFFER>	LPDIRECTSOUNDBUFFER_LIST;
 
-class CDirectSound
+class CSDLAudio
 {
 
 	public:		// 함수
-		CDirectSound();
-		~CDirectSound();
+		CSDLAudio();
+		~CSDLAudio();
 
 		//---------------------------------------------------------
 		// Init / Release
 		//---------------------------------------------------------
-		bool					Init(HWND);									// 초기화 
+		bool					Init(HWND);									// 초기화
 		void					Release();									// 제거
 		void					ReleaseDuplicateBuffer();
 
-		bool					IsInit() const		{ return m_bInit; }
+		bool					IsInit() const;
 
 		//---------------------------------------------------------
 		// Load / Release / Duplicate
@@ -47,7 +43,7 @@ class CDirectSound
 		LPDIRECTSOUNDBUFFER		LoadWav(LPSTR filename);					// 화일 로드(*,wav)
 		LPDIRECTSOUNDBUFFER		CreateBuffer(LPVOID sdat, DWORD size, DWORD caps, LPWAVEFORMATEX wfx);
 		void					Release(LPDIRECTSOUNDBUFFER);				// 사운드 버퍼 제거
-		LPDIRECTSOUNDBUFFER		DuplicateSoundBuffer(LPDIRECTSOUNDBUFFER, bool bAutoRelease=true);	// 사운드 버퍼 복사	
+		LPDIRECTSOUNDBUFFER		DuplicateSoundBuffer(LPDIRECTSOUNDBUFFER, bool bAutoRelease=true);	// 사운드 버퍼 복사
 
 		//---------------------------------------------------------
 		// Play / Stop
@@ -61,25 +57,25 @@ class CDirectSound
 		//---------------------------------------------------------
 		// Mute
 		//---------------------------------------------------------
-		bool					IsMute() const	{ return m_bMute; }
-		void					SetMute()		{ m_bMute = true; }
-		void					UnSetMute()		{ m_bMute = false; }
+		bool					IsMute() const;
+		void					SetMute();
+		void					UnSetMute();
 
 		//---------------------------------------------------------
 		// Frequency
 		//---------------------------------------------------------
-		bool					AddFrequency(LPDIRECTSOUNDBUFFER, int);		// 주파수 올리기				
-		bool					SubFrequency(LPDIRECTSOUNDBUFFER, int);		// 주파수 내리기				
-	
+		bool					AddFrequency(LPDIRECTSOUNDBUFFER, int);		// 주파수 올리기
+		bool					SubFrequency(LPDIRECTSOUNDBUFFER, int);		// 주파수 내리기
+
 		//---------------------------------------------------------
 		// Volume
 		//---------------------------------------------------------
 		bool					SetMaxVolume(LPDIRECTSOUNDBUFFER buffer);
 		bool					AddVolume(LPDIRECTSOUNDBUFFER, int);		// 볼륨 높임
-		bool					SubVolume(LPDIRECTSOUNDBUFFER, int);		// 볼륨 내림				
-		bool					SubVolumeFromMax(LPDIRECTSOUNDBUFFER, int);	// Max부터 볼륨 내림				
+		bool					SubVolume(LPDIRECTSOUNDBUFFER, int);		// 볼륨 내림
+		bool					SubVolumeFromMax(LPDIRECTSOUNDBUFFER, int);	// Max부터 볼륨 내림
 		void					SetVolumeLimit(LONG volume);
-		LONG					GetVolumeLimit() const	{ return m_MaxVolume; }
+		LONG					GetVolumeLimit() const;
 
 		//---------------------------------------------------------
 		// Pan
@@ -88,15 +84,15 @@ class CDirectSound
 		bool					LeftPan(LPDIRECTSOUNDBUFFER, int);			// 왼쪽 팬
 		bool					CenterToRightPan(LPDIRECTSOUNDBUFFER, int);			// center부터 오른쪽 팬
 		bool					CenterToLeftPan(LPDIRECTSOUNDBUFFER, int);			// center부터 왼쪽 팬
-		bool					CenterPan(LPDIRECTSOUNDBUFFER);				// 가운데 팬				
+		bool					CenterPan(LPDIRECTSOUNDBUFFER);				// 가운데 팬
 		bool					ChangePan(LPDIRECTSOUNDBUFFER buffer, int pan);	// -10000 ~ 10000
 
-		LPDIRECTSOUND			GetDS() const		{ return m_pDS;	}
+		LPDIRECTSOUND			GetDS() const;
 
-		
+
 
 	protected:
-		bool					DirectSoundFailed(const char *str);		
+		bool					DirectSoundFailed(const char *str);
 
 
 	protected :
@@ -110,10 +106,10 @@ class CDirectSound
 		LPDIRECTSOUNDBUFFER_LIST	m_listDuplicatedBuffer;
 
 
-	friend class CDirectMusic;
-	friend class CDirectSoundStream;
+friend class CSDLMusic;
+friend class CSDLStream;
 };
 
-extern	CDirectSound		g_DXSound;
+extern	CSDLAudio		g_SDLAudio;
 
 #endif

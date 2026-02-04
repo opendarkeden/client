@@ -1461,7 +1461,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 					temp_color = CIndexSprite::ColorSet[g_pClientConfig->QuestItemColorSet+13][31];
 				else
 					temp_color = CIndexSprite::ColorSet[g_pClientConfig->UniqueItemColorSet+13][31];					
-				title_color = RGB(CDirectDraw::Red(temp_color)<<3, CDirectDraw::Green(temp_color)<<3, CDirectDraw::Blue(temp_color)<<3);
+				title_color = RGB(CSDLGraphics::Red(temp_color)<<3, CSDLGraphics::Green(temp_color)<<3, CSDLGraphics::Blue(temp_color)<<3);
 			} else
 			if(p_item->GetItemOptionListCount() == 2 )			// Rare Item ? 
 			{

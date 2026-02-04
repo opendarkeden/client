@@ -144,14 +144,14 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 				temp_color = CIndexSprite::ColorSet[MItem::GetQuestItemColorset()][15];
 			else
 				temp_color = CIndexSprite::ColorSet[MItem::GetUniqueItemColorset()][15];				
-			name_color = RGB(CDirectDraw::Red(temp_color)<<3, CDirectDraw::Green(temp_color)<<3, CDirectDraw::Blue(temp_color)<<3);
+			name_color = RGB(CSDLGraphics::Red(temp_color)<<3, CSDLGraphics::Green(temp_color)<<3, CSDLGraphics::Blue(temp_color)<<3);
 			ename_color = name_color;
 			
 			if( p_item->IsQuestItem() )
 				temp_color = CIndexSprite::ColorSet[MItem::GetQuestItemColorset()][29];			
 			else
 				temp_color = CIndexSprite::ColorSet[MItem::GetUniqueItemColorset()][29];				
-			shadow_color = RGB(CDirectDraw::Red(temp_color)<<3, CDirectDraw::Green(temp_color)<<3, CDirectDraw::Blue(temp_color)<<3);
+			shadow_color = RGB(CSDLGraphics::Red(temp_color)<<3, CSDLGraphics::Green(temp_color)<<3, CSDLGraphics::Blue(temp_color)<<3);
 		}
 		else if(p_item->GetItemClass() == ITEM_CLASS_PET_ITEM)
 		{

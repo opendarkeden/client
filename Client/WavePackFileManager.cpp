@@ -105,7 +105,7 @@ WavePackFileInfo::LoadFromFileData(std::ifstream& file)
 	bufdesc.dwBufferBytes	= cksize;
 	bufdesc.lpwfxFormat		= &wavefmt;
 
-	if( FAILED(g_DXSound.GetDS()->CreateSoundBuffer(&bufdesc, &buffer, NULL)) )
+	if( FAILED(g_SDLAudio.GetDS()->CreateSoundBuffer(&bufdesc, &buffer, NULL)) )
 	{
 		return NULL;
 	}

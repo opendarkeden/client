@@ -288,9 +288,9 @@ UI_AffectUserOption()
 {
 	if (g_pUserOption!=NULL)
 	{
-//		bool bOldMute = g_DXSound.IsMute();
+//		bool bOldMute = g_SDLAudio.IsMute();
 //
-//		g_DXSound.SetMute();
+//		g_SDLAudio.SetMute();
 
 		//--------------------------------------------------------------
 		// QuickSlot
@@ -318,7 +318,7 @@ UI_AffectUserOption()
 //
 //		if (!bOldMute)		
 //		{
-//			g_DXSound.UnSetMute();
+//			g_SDLAudio.UnSetMute();
 //		}
 //		if(g_pUserOption->UseEnterChat)
 //			g_pKeyAccelerator->SetEnterChat();
@@ -2770,14 +2770,14 @@ UI_StartProgress(int zoneID)
 				g_pMP3->Stop();
 				DEBUG_ADD("MP3 STOP6 OK");
 			}
-//			if (g_pDXSoundStream!=NULL)
+//			if (g_pSDLStream!=NULL)
 //			{
-//				g_pDXSoundStream->Stop();
+//				g_pSDLStream->Stop();
 //			}
 #else
 			if(g_pOGG != NULL )
 			{
-				if( g_DXSound.IsInit() )
+				if( g_SDLAudio.IsInit() )
 					g_pOGG->streamClose();
 			}
 #endif
@@ -2896,7 +2896,7 @@ UI_DrawProgress(int percent)
 	if (g_bDrawProgress)
 	{
 		gC_vs_ui.SetProgress(percent, 100);
-		g_pBack->FillSurface(CDirectDraw::Color(0,0,0));		
+		g_pBack->FillSurface(CSDLGraphics::Color(0,0,0));		
 
 		//if (false)  // CDirect3D::GetDevice()->BeginScene() removed (SDL2)
 		//{
@@ -2934,7 +2934,7 @@ UI_DrawProgress(int percent)
 		//// CDirect3D::GetDevice()->EndScene() removed (SDL2)
 
 
-		CDirectDraw::Flip();
+		CSDLGraphics::Flip();
 	}
 }
 
@@ -3019,20 +3019,20 @@ UI_SetHP(int current, int max)
 		// hp가 30%이하면..
 		if (ratio < 0.3f)
 		{
-			//g_DXMusic.SetCurrentTempo( g_DXMusic.GetOriginalTempo() * (float)(1.3f - ratio) );
-			g_DXMusic.SetCurrentTempo( g_DXMusic.GetOriginalTempo() * 1.3f );
+			//g_SDLMusic.SetCurrentTempo( g_SDLMusic.GetOriginalTempo() * (float)(1.3f - ratio) );
+			g_SDLMusic.SetCurrentTempo( g_SDLMusic.GetOriginalTempo() * 1.3f );
 		}	
 		// 100이 아니면..
-		else if (g_DXMusic.GetCurrentTempo()!=g_DXMusic.GetOriginalTempo())	
+		else if (g_SDLMusic.GetCurrentTempo()!=g_SDLMusic.GetOriginalTempo())	
 		{
-			g_DXMusic.SetOriginalTempo();
+			g_SDLMusic.SetOriginalTempo();
 		}
 	}
 	else
 	{
-		if (g_DXMusic.GetCurrentTempo()!=g_DXMusic.GetOriginalTempo())	
+		if (g_SDLMusic.GetCurrentTempo()!=g_SDLMusic.GetOriginalTempo())	
 		{		
-			g_DXMusic.SetOriginalTempo();
+			g_SDLMusic.SetOriginalTempo();
 		}
 	}
 	*/
@@ -4880,7 +4880,6 @@ UI_Run_WebBrowser(char* szURL)
 	//gC_vs_ui.RunWebBrowser(g_hWnd, szURL, (void*)g_x);
 	if(gC_vs_ui.IsRunningWebBrowser())
 	{
-//		CDirectDraw::CreateClipper();
 	//	SetCursor(LoadCursor(NULL, IDC_ARROW));
 
 //	

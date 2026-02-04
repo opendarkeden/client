@@ -17,7 +17,7 @@
 // Constructor/Destructor
 //-----------------------------------------------------------------------------
 
-CDirectSoundStream::CDirectSoundStream()
+CSDLStream::CSDLStream()
 {
 	m_pDSBuffer = NULL;
 	m_pDSNotify = NULL;
@@ -32,7 +32,7 @@ CDirectSoundStream::CDirectSoundStream()
 	m_MaxVolume = 0;
 }
 
-CDirectSoundStream::~CDirectSoundStream()
+CSDLStream::~CSDLStream()
 {
 	// Stub - SDL mixer is managed elsewhere
 }
@@ -41,36 +41,36 @@ CDirectSoundStream::~CDirectSoundStream()
 // Stream Operations
 //-----------------------------------------------------------------------------
 
-void CDirectSoundStream::Release()
+void CSDLStream::Release()
 {
 	// Not implemented - use Mix_FreeChunk() from SDL_mixer instead
 }
 
-void CDirectSoundStream::Load(LPSTR filename)
+void CSDLStream::Load(LPSTR filename)
 {
 	// Not implemented - use Mix_LoadWAV() from SDL_mixer instead
 	(void)filename;
 }
 
-void CDirectSoundStream::Play(BOOL bLooped)
+void CSDLStream::Play(BOOL bLooped)
 {
 	// Not implemented - use Mix_PlayChannel() from SDL_mixer instead
 	(void)bLooped;
 }
 
-void CDirectSoundStream::Stop()
+void CSDLStream::Stop()
 {
 	// Not implemented - use Mix_HaltChannel() from SDL_mixer instead
 }
 
-BOOL CDirectSoundStream::FillBuffer(BOOL bLooped)
+BOOL CSDLStream::FillBuffer(BOOL bLooped)
 {
 	// Not implemented - SDL_mixer handles buffering automatically
 	(void)bLooped;
 	return FALSE;
 }
 
-BOOL CDirectSoundStream::ReadStream(BOOL bLooped, VOID* pbBuffer, DWORD dwBufferLength)
+BOOL CSDLStream::ReadStream(BOOL bLooped, VOID* pbBuffer, DWORD dwBufferLength)
 {
 	// Not implemented - SDL_mixer handles streaming automatically
 	(void)bLooped;
@@ -79,13 +79,13 @@ BOOL CDirectSoundStream::ReadStream(BOOL bLooped, VOID* pbBuffer, DWORD dwBuffer
 	return FALSE;
 }
 
-BOOL CDirectSoundStream::Reset()
+BOOL CSDLStream::Reset()
 {
 	// Not implemented - SDL_mixer handles position automatically
 	return FALSE;
 }
 
-HRESULT CDirectSoundStream::WaveReadFile(HMMIO hmmioIn, UINT cbRead, BYTE* pbDest,
+HRESULT CSDLStream::WaveReadFile(HMMIO hmmioIn, UINT cbRead, BYTE* pbDest,
 	MMCKINFO* pckIn, UINT* cbActualRead)
 {
 	// Not implemented - Windows multimedia API only
@@ -101,27 +101,27 @@ HRESULT CDirectSoundStream::WaveReadFile(HMMIO hmmioIn, UINT cbRead, BYTE* pbDes
 // Notification and Updates
 //-----------------------------------------------------------------------------
 
-BOOL CDirectSoundStream::HandleNotification(BOOL bLooped)
+BOOL CSDLStream::HandleNotification(BOOL bLooped)
 {
 	// Not implemented - SDL_mixer doesn't use notification events
 	(void)bLooped;
 	return FALSE;
 }
 
-BOOL CDirectSoundStream::UpdateProgress()
+BOOL CSDLStream::UpdateProgress()
 {
 	// Not implemented - SDL_mixer handles position tracking
 	return FALSE;
 }
 
-BOOL CDirectSoundStream::RestoreBuffers(BOOL bLooped)
+BOOL CSDLStream::RestoreBuffers(BOOL bLooped)
 {
 	// Not implemented - SDL_mixer handles buffer restoration
 	(void)bLooped;
 	return FALSE;
 }
 
-void CDirectSoundStream::Update()
+void CSDLStream::Update()
 {
 	// Not implemented - SDL_mixer handles updates automatically
 }
@@ -130,7 +130,7 @@ void CDirectSoundStream::Update()
 // Volume Control
 //-----------------------------------------------------------------------------
 
-void CDirectSoundStream::SetVolumeLimit(LONG volume)
+void CSDLStream::SetVolumeLimit(LONG volume)
 {
 	// Not implemented - use Mix_Volume() from SDL_mixer instead
 	m_MaxVolume = volume;

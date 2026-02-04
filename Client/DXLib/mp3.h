@@ -5,11 +5,10 @@
 #include "common.h"
 //#include "dslib.h"
 #include "bit_res.h"
-#ifdef PLATFORM_WINDOWS
-#include <dsound.h>
-#else
+
+/* Platform-independent includes (SDL2 backend on all platforms) */
 #include "../../basic/Platform.h"
-#endif
+#include "../../basic/AudioTypes.h"
 
 typedef int	OFFSET ;
 

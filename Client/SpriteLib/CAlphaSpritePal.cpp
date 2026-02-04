@@ -268,17 +268,17 @@ CAlphaSpritePal::memcpyAlpha(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &
 		sTemp = pal[*pSource];
 		dTemp = *pDest;
 		
-		sr = CDirectDraw::Red(sTemp);
-		sg = CDirectDraw::Green(sTemp);
-		sb = CDirectDraw::Blue(sTemp);
+		sr = ColorDraw::Red(sTemp);
+		sg = ColorDraw::Green(sTemp);
+		sb = ColorDraw::Blue(sTemp);
 		
-		dr = CDirectDraw::Red(dTemp);
-		dg = CDirectDraw::Green(dTemp);
-		db = CDirectDraw::Blue(dTemp);		
+		dr = ColorDraw::Red(dTemp);
+		dg = ColorDraw::Green(dTemp);
+		db = ColorDraw::Blue(dTemp);		
 
 		*pDest = ((((sb - db)*alpha >> 5) + db) |
-		((((sg - dg)*alpha >> 5) + dg) << CDirectDraw::s_bSHIFT_G) |
-		(((sr - dr)*alpha >> 5) + dr) << CDirectDraw::s_bSHIFT_R);
+		((((sg - dg)*alpha >> 5) + dg) << ColorDraw::s_bSHIFT_G) |
+		(((sr - dr)*alpha >> 5) + dr) << ColorDraw::s_bSHIFT_R);
 		
 		pDest++;
 		pSource++;
@@ -319,9 +319,9 @@ CAlphaSpritePal::memcpyAlpha4444(WORD* pDest, BYTE* pSource, WORD pixels, MPalet
 		// 한점 찍기
 		sTemp = pal[*pSource];
 	
-		sr = (sTemp >> CDirectDraw::s_bSHIFT4_R);// & 0x0F;
-		sg = (sTemp >> CDirectDraw::s_bSHIFT4_G) & 0x0F;
-		sb = (sTemp >> CDirectDraw::s_bSHIFT4_B) & 0x0F;
+		sr = (sTemp >> ColorDraw::s_bSHIFT4_R);// & 0x0F;
+		sg = (sTemp >> ColorDraw::s_bSHIFT4_G) & 0x0F;
+		sb = (sTemp >> ColorDraw::s_bSHIFT4_B) & 0x0F;
 		
 		*pDest =	(alpha << 12) |
 					(sr << 8) |
@@ -2569,17 +2569,17 @@ CAlphaSpritePal::memcpyAlphaValue(WORD* pDest, BYTE* pSource, WORD pixels, MPale
 		sTemp = pal[*pSource];
 		dTemp = *pDest;
 
-		sr = CDirectDraw::Red(sTemp);
-		sg = CDirectDraw::Green(sTemp);
-		sb = CDirectDraw::Blue(sTemp);
+		sr = ColorDraw::Red(sTemp);
+		sg = ColorDraw::Green(sTemp);
+		sb = ColorDraw::Blue(sTemp);
 
-		dr = CDirectDraw::Red(dTemp);
-		dg = CDirectDraw::Green(dTemp);
-		db = CDirectDraw::Blue(dTemp);		
+		dr = ColorDraw::Red(dTemp);
+		dg = ColorDraw::Green(dTemp);
+		db = ColorDraw::Blue(dTemp);		
 		
 		*pDest = ((s_Value1 * (sb - db) >> 5) + db |
-					((s_Value1 * (sg - dg) >> 5) + dg) << CDirectDraw::s_bSHIFT_G |
-					((s_Value1 * (sr - dr) >> 5) + dr) << CDirectDraw::s_bSHIFT_R);
+					((s_Value1 * (sg - dg) >> 5) + dg) << ColorDraw::s_bSHIFT_G |
+					((s_Value1 * (sr - dr) >> 5) + dr) << ColorDraw::s_bSHIFT_R);
 	
 		/*
 		// 잉... 이게 더 느리다.. 왜 그렇지.. - -;;;
@@ -2600,7 +2600,7 @@ CAlphaSpritePal::memcpyAlphaValue(WORD* pDest, BYTE* pSource, WORD pixels, MPale
 		temp2 *= alpha;
 		temp2 >>= 5;
 		temp2 += dr;
-		temp2 <<= CDirectDraw::s_bSHIFT_R;
+		temp2 <<= ColorDraw::s_bSHIFT_R;
 
 		temp |= temp2;
 
@@ -2776,9 +2776,9 @@ CAlphaSpritePal::memcpyAlpha4444Small(WORD* pDest, BYTE* pSource, WORD pixels, M
 		// 한점 찍기
 		sTemp = pal[*pSource];
 	
-		sr = (sTemp >> CDirectDraw::s_bSHIFT4_R);// & 0x0F;
-		sg = (sTemp >> CDirectDraw::s_bSHIFT4_G) & 0x0F;
-		sb = (sTemp >> CDirectDraw::s_bSHIFT4_B) & 0x0F;
+		sr = (sTemp >> ColorDraw::s_bSHIFT4_R);// & 0x0F;
+		sg = (sTemp >> ColorDraw::s_bSHIFT4_G) & 0x0F;
+		sb = (sTemp >> ColorDraw::s_bSHIFT4_B) & 0x0F;
 		
 		*pDest =	(alpha << 12) |
 					(sr << 8) |

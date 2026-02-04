@@ -5,63 +5,34 @@
 // DirectX 샘플을 긁어서 급조된 필살 허접 class.. - -;
 //----------------------------------------------------------------------
 
-#ifndef __CDIRECTSOUNDSTREAM_H__
-#define __CDIRECTSOUNDSTREAM_H__
+#ifndef __CSDLSTREAM_H__
+#define __CSDLSTREAM_H__
 
 
 #define NUM_PLAY_NOTIFICATIONS  16
 
-#ifdef PLATFORM_WINDOWS
-#include <Windows.h>
-#include <DSound.h>
-#else
+/* Platform-independent includes (SDL2 backend on all platforms) */
 #include "../../basic/Platform.h"
+#include "../../basic/AudioTypes.h"
 
-/* Forward declarations for DirectSound types */
+/* Forward declarations for DirectSound types (opaque pointers) */
+/* The actual implementation uses SDL_mixer for all platforms */
+struct IDirectSound;
+struct IDirectSoundBuffer;
+struct IDirectSoundNotify;
+
+/* Type definitions */
+#ifndef LPDIRECTSOUNDBUFFER
 typedef struct IDirectSoundBuffer* LPDIRECTSOUNDBUFFER;
+#endif
 typedef struct IDirectSoundNotify* LPDIRECTSOUNDNOTIFY;
-typedef void* HMMIO;
 
-/* WAVE form type */
-typedef DWORD FOURCC;
-
-/* WAVE file chunk information structure */
-typedef struct _MMCKINFO {
-    FOURCC   ckid;
-    DWORD    cksize;
-    FOURCC   fccType;
-    DWORD    dwDataOffset;
-    DWORD    dwFlags;
-} MMCKINFO, *LPMMCKINFO;
-
-/* WAVE format structure */
-#ifndef _WAVEFORMATEX_
-#define _WAVEFORMATEX_
-typedef struct _WAVEFORMATEX {
-    WORD    wFormatTag;
-    WORD    nChannels;
-    DWORD   nSamplesPerSec;
-    DWORD   nAvgBytesPerSec;
-    WORD    nBlockAlign;
-    WORD    wBitsPerSample;
-    WORD    cbSize;
-} WAVEFORMATEX, *LPWAVEFORMATEX;
-#endif
-
-/* DirectSound buffer position notify structure */
-typedef struct _DSBPOSITIONNOTIFY {
-    DWORD   dwOffset;
-    HANDLE  hEventNotify;
-} DSBPOSITIONNOTIFY;
-
-#endif
-
-class CDirectSoundStream {
+class CSDLStream {
 	public :
-		CDirectSoundStream();
-		~CDirectSoundStream();
+		CSDLStream();
+		~CSDLStream();
 
-		
+
 		void					Release();
 
 		BOOL					IsLoad() const			{ return m_bLoad; }
@@ -83,7 +54,7 @@ class CDirectSoundStream {
 
 	protected :
 		BOOL					UpdateProgress();
-		BOOL					HandleNotification( BOOL bLooped );		
+		BOOL					HandleNotification( BOOL bLooped );
 		BOOL					FillBuffer( BOOL bLooped );
 		BOOL					ReadStream( BOOL bLooped, VOID* pbBuffer, DWORD dwBufferLength );
 		BOOL					RestoreBuffers( BOOL bLooped );
@@ -95,11 +66,11 @@ class CDirectSoundStream {
 		BOOL					m_bLoad;
 		BOOL					m_bPlay;
 		BOOL					m_bLoop;
-		
+
 		LPDIRECTSOUNDBUFFER		m_pDSBuffer;
 		LPDIRECTSOUNDNOTIFY		m_pDSNotify;
-		
-		DSBPOSITIONNOTIFY		m_aPosNotify[ NUM_PLAY_NOTIFICATIONS + 1 ];  
+
+		DSBPOSITIONNOTIFY		m_aPosNotify[ NUM_PLAY_NOTIFICATIONS + 1 ];
 
 		HANDLE					m_hNotificationEvents[2];
 

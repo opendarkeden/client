@@ -158,9 +158,9 @@ CIndexSprite::SetColorSet()
 			else
 			{
 				WORD color = ColorSet[i*MAX_COLORSET_SEED_MODIFY][MAX_COLORGRADATION_HALF-j];
-				int r0 = CDirectDraw::Red( color );
-				int g0 = CDirectDraw::Green( color );
-				int b0 = CDirectDraw::Blue( color );
+				int r0 = ColorDraw::Red( color );
+				int g0 = ColorDraw::Green( color );
+				int b0 = ColorDraw::Blue( color );
 
 				GetIndexColor(ColorSet[set], j, 
 							r0, g0, b0, 
@@ -214,7 +214,7 @@ CIndexSprite::SetColorSet()
 	for (j=0; j<MAX_COLORGRADATION; j++)
 	{
 		color = ColorSet[0][j];
-		GradationValue[j] = CDirectDraw::Red(color) + CDirectDraw::Green(color) + CDirectDraw::Blue(color);
+		GradationValue[j] = ColorDraw::Red(color) + ColorDraw::Green(color) + ColorDraw::Blue(color);
 	}
 
 	//----------------------------------------------------------------------
@@ -225,13 +225,13 @@ CIndexSprite::SetColorSet()
 		for (j=0; j<MAX_COLORGRADATION; j++)
 		{
 			color = ColorSet[i][j];
-			//GradationValue[j] = CDirectDraw::Red(color) + CDirectDraw::Green(color) + CDirectDraw::Blue(color);
+			//GradationValue[j] = ColorDraw::Red(color) + ColorDraw::Green(color) + ColorDraw::Blue(color);
 
 			// Darkness�� ���� ����
 			for (k=0; k<MAX_DARKBIT; k++)
 			{	
-				r = ((color >> CDirectDraw::s_bSHIFT_R) >> k) << CDirectDraw::s_bSHIFT_R;
-				g = (((color >> CDirectDraw::s_bSHIFT_G) & 0x1F) >> k) << CDirectDraw::s_bSHIFT_G;
+				r = ((color >> ColorDraw::s_bSHIFT_R) >> k) << ColorDraw::s_bSHIFT_R;
+				g = (((color >> ColorDraw::s_bSHIFT_G) & 0x1F) >> k) << ColorDraw::s_bSHIFT_G;
 				b = (color & 0x1F) >> k;
 				ColorSetDarkness[k][i][j] = r | g | b;
 			}
@@ -422,7 +422,7 @@ CIndexSprite::GetIndexColor(WORD* pColor, int step,
 		green	= (BYTE)g;
 		blue	= (BYTE)b;
 		
-		*pColor++ = CDirectDraw::Color(red, green, blue);		
+		*pColor++ = ColorDraw::Color(red, green, blue);		
 		
 		r += sr;
 		g += sg;
@@ -566,9 +566,9 @@ CIndexSprite::GetIndexColor(WORD color)
 	//-------------------------------------------------------
 	// Gradition��
 	//-------------------------------------------------------
-	WORD spriteGradation = CDirectDraw::Red(color) 
-						+ CDirectDraw::Green(color) 
-						+ CDirectDraw::Blue(color);
+	WORD spriteGradation = ColorDraw::Red(color) 
+						+ ColorDraw::Green(color) 
+						+ ColorDraw::Blue(color);
 			
 	return GetColorToGradation( spriteGradation );
 }
@@ -4219,9 +4219,9 @@ CIndexSprite::BltWave(WORD *pDest, WORD pitch)
 					for (int l=0; l<colorCount; l++)
 					{
 						WORD color = *pPixels;
-						BYTE r = CDirectDraw::Red( color );
-						BYTE g = CDirectDraw::Green( color );
-						BYTE b = CDirectDraw::Blue( color );
+						BYTE r = ColorDraw::Red( color );
+						BYTE g = ColorDraw::Green( color );
+						BYTE b = ColorDraw::Blue( color );
 						int change = (r+g+b) >> 4;	// 0~96 --> 0~6
 
 						*pDestTemp = *(pDestTemp + change);
@@ -4300,7 +4300,7 @@ CIndexSprite::BltColor(WORD *pDest, WORD pitch, BYTE rgb)
 
 							// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 							*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
-												& CDirectDraw::s_wMASK_RGB[rgb];
+												& ColorDraw::s_wMASK_RGB[rgb];
 							pDestTemp ++;
 						} while (--k);
 					}
@@ -4405,7 +4405,7 @@ CIndexSprite::BltColorClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 
 								// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 								*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
-												& CDirectDraw::s_wMASK_RGB[rgb];
+												& ColorDraw::s_wMASK_RGB[rgb];
 								pDestTemp ++;
 							} while (--k);
 						}
@@ -4444,7 +4444,7 @@ CIndexSprite::BltColorClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 
 								// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 								*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
-												& CDirectDraw::s_wMASK_RGB[rgb];
+												& ColorDraw::s_wMASK_RGB[rgb];
 								pDestTemp ++;
 							} while (--k);
 						}
@@ -4516,7 +4516,7 @@ CIndexSprite::BltColorClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 
 							// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 							*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
-												& CDirectDraw::s_wMASK_RGB[rgb];
+												& ColorDraw::s_wMASK_RGB[rgb];
 							pDestTemp ++;
 						} while (--k);
 					}
@@ -4626,7 +4626,7 @@ CIndexSprite::BltColorClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 
 								// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 								*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
-												& CDirectDraw::s_wMASK_RGB[rgb];
+												& ColorDraw::s_wMASK_RGB[rgb];
 								pDestTemp ++;
 							} while (--k);
 						}						
@@ -4652,7 +4652,7 @@ CIndexSprite::BltColorClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 
 						// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 						*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
-												& CDirectDraw::s_wMASK_RGB[rgb];
+												& ColorDraw::s_wMASK_RGB[rgb];
 						pDestTemp ++;
 					} while (--k);
 				}		
@@ -4775,7 +4775,7 @@ CIndexSprite::BltColorClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 
 								// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 								*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
-												& CDirectDraw::s_wMASK_RGB[rgb];
+												& ColorDraw::s_wMASK_RGB[rgb];
 								pDestTemp ++;
 							} while (--k);
 						}
@@ -4814,7 +4814,7 @@ CIndexSprite::BltColorClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 
 								// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 								*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
-												& CDirectDraw::s_wMASK_RGB[rgb];
+												& ColorDraw::s_wMASK_RGB[rgb];
 								pDestTemp ++;
 							} while (--k);
 						}
@@ -4917,7 +4917,7 @@ CIndexSprite::BltColorClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 
 									// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 									*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
-												& CDirectDraw::s_wMASK_RGB[rgb];
+												& ColorDraw::s_wMASK_RGB[rgb];
 									pDestTemp ++;
 								} while (--k);
 							}						
@@ -4943,7 +4943,7 @@ CIndexSprite::BltColorClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 
 							// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 							*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
-												& CDirectDraw::s_wMASK_RGB[rgb];
+												& ColorDraw::s_wMASK_RGB[rgb];
 							pDestTemp ++;
 						} while (--k);
 					}
@@ -5030,7 +5030,7 @@ CIndexSprite::BltColorClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 
 						// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 						*pDestTemp		= ColorSet[defaultGradationColor][colorGradation]
-												& CDirectDraw::s_wMASK_RGB[rgb];
+												& ColorDraw::s_wMASK_RGB[rgb];
 						pDestTemp ++;
 					} while (--k);
 				}
@@ -5106,7 +5106,7 @@ CIndexSprite::BltColorSet(WORD *pDest, WORD pitch, WORD colorSet)
 
 							// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 							*pDestTemp		= ColorSet[colorSet][colorGradation];
-												//& CDirectDraw::s_wMASK_RGB[colorSet];
+												//& ColorDraw::s_wMASK_RGB[colorSet];
 							pDestTemp ++;
 						} while (--k);
 					}
@@ -5212,7 +5212,7 @@ CIndexSprite::BltColorSetClipLeft(WORD *pDest, WORD pitch, RECT* pRect, WORD col
 
 								// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 								*pDestTemp		= ColorSet[colorSet][colorGradation];
-												//& CDirectDraw::s_wMASK_RGB[colorSet];
+												//& ColorDraw::s_wMASK_RGB[colorSet];
 								pDestTemp ++;
 							} while (--k);
 						}
@@ -5251,7 +5251,7 @@ CIndexSprite::BltColorSetClipLeft(WORD *pDest, WORD pitch, RECT* pRect, WORD col
 
 								// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 								*pDestTemp		= ColorSet[colorSet][colorGradation];
-												//& CDirectDraw::s_wMASK_RGB[colorSet];
+												//& ColorDraw::s_wMASK_RGB[colorSet];
 								pDestTemp ++;
 							} while (--k);
 						}
@@ -5323,7 +5323,7 @@ CIndexSprite::BltColorSetClipLeft(WORD *pDest, WORD pitch, RECT* pRect, WORD col
 
 							// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 							*pDestTemp		= ColorSet[colorSet][colorGradation];
-												//& CDirectDraw::s_wMASK_RGB[colorSet];
+												//& ColorDraw::s_wMASK_RGB[colorSet];
 							pDestTemp ++;
 						} while (--k);
 					}
@@ -5434,7 +5434,7 @@ CIndexSprite::BltColorSetClipRight(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 
 								// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 								*pDestTemp		= ColorSet[colorSet][colorGradation];
-												//& CDirectDraw::s_wMASK_RGB[colorSet];
+												//& ColorDraw::s_wMASK_RGB[colorSet];
 								pDestTemp ++;
 							} while (--k);
 						}						
@@ -5460,7 +5460,7 @@ CIndexSprite::BltColorSetClipRight(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 
 						// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 						*pDestTemp		= ColorSet[colorSet][colorGradation];
-												//& CDirectDraw::s_wMASK_RGB[colorSet];
+												//& ColorDraw::s_wMASK_RGB[colorSet];
 						pDestTemp ++;
 					} while (--k);
 				}		
@@ -5584,7 +5584,7 @@ CIndexSprite::BltColorSetClipWidth(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 
 								// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 								*pDestTemp		= ColorSet[colorSet][colorGradation];
-												//& CDirectDraw::s_wMASK_RGB[colorSet];
+												//& ColorDraw::s_wMASK_RGB[colorSet];
 								pDestTemp ++;
 							} while (--k);
 						}
@@ -5623,7 +5623,7 @@ CIndexSprite::BltColorSetClipWidth(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 
 								// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 								*pDestTemp		= ColorSet[colorSet][colorGradation];
-												//& CDirectDraw::s_wMASK_RGB[colorSet];
+												//& ColorDraw::s_wMASK_RGB[colorSet];
 								pDestTemp ++;
 							} while (--k);
 						}
@@ -5726,7 +5726,7 @@ CIndexSprite::BltColorSetClipWidth(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 
 									// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 									*pDestTemp		= ColorSet[colorSet][colorGradation];
-												//& CDirectDraw::s_wMASK_RGB[colorSet];
+												//& ColorDraw::s_wMASK_RGB[colorSet];
 									pDestTemp ++;
 								} while (--k);
 							}						
@@ -5752,7 +5752,7 @@ CIndexSprite::BltColorSetClipWidth(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 
 							// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 							*pDestTemp		= ColorSet[colorSet][colorGradation];
-												//& CDirectDraw::s_wMASK_RGB[colorSet];
+												//& ColorDraw::s_wMASK_RGB[colorSet];
 							pDestTemp ++;
 						} while (--k);
 					}
@@ -5841,7 +5841,7 @@ CIndexSprite::BltColorSetClipHeight(WORD *pDest, WORD pitch, RECT* pRect, WORD c
 
 						// s_IndexValue�� ���õ� ���� �����ؼ� ����Ѵ�.				
 						*pDestTemp		= ColorSet[colorSet][colorGradation];
-												//& CDirectDraw::s_wMASK_RGB[colorSet];
+												//& ColorDraw::s_wMASK_RGB[colorSet];
 						pDestTemp ++;
 					} while (--k);
 				}
@@ -6876,9 +6876,9 @@ CIndexSprite::memcpyEffectGrayScaleVarious(WORD* pDest, WORD* pSource, WORD pixe
 		
 		color = ColorSet[s_IndexValue[colorSet]][colorGradation];
 
-		r = CDirectDraw::Red(color);
-		g = CDirectDraw::Green(color);
-		b = CDirectDraw::Blue(color);
+		r = ColorDraw::Red(color);
+		g = ColorDraw::Green(color);
+		b = ColorDraw::Blue(color);
 
 		average = ( r + g + b ) / 3;		// 0 ~ 31
 
@@ -6886,8 +6886,8 @@ CIndexSprite::memcpyEffectGrayScaleVarious(WORD* pDest, WORD* pSource, WORD pixe
 		g = average + ((g-average)*CSpriteSurface::s_Value1 >> 5);
 		b = average + ((b-average)*CSpriteSurface::s_Value1 >> 5);
 	
-		*pDest = (r << CDirectDraw::s_bSHIFT_R) 
-				| (g << CDirectDraw::s_bSHIFT_G)
+		*pDest = (r << ColorDraw::s_bSHIFT_R) 
+				| (g << ColorDraw::s_bSHIFT_G)
 				| b;				
 		
 		pDest++;

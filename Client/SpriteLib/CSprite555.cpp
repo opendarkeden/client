@@ -59,7 +59,7 @@ CSprite555::SaveToFile(ofstream& file)
 			// 5:5:5를 5:6:5로 바꿔서 저장하고 다시 5:5:5로 바꿔준다.
 			for (k=0; k<colorCount; k++)								
 			{
-				m_Pixels[i][index] = CDirectDraw::Convert555to565(m_Pixels[i][index]);
+				m_Pixels[i][index] = ColorDraw::Convert555to565(m_Pixels[i][index]);
 				index++;
 			}
 
@@ -85,7 +85,7 @@ CSprite555::SaveToFile(ofstream& file)
 			// 5:5:5를 5:6:5로 바꿔서 저장하고 다시 5:5:5로 바꿔준다.
 			for (k=0; k<colorCount; k++)								
 			{					
-				m_Pixels[i][index] = CDirectDraw::Convert565to555(m_Pixels[i][index]);
+				m_Pixels[i][index] = ColorDraw::Convert565to555(m_Pixels[i][index]);
 				index++;
 			}
 
@@ -196,7 +196,7 @@ CSprite555::LoadFromFile(ifstream& file)
 			// 5:5:5를 5:6:5로 바꿔서 저장하고 다시 5:5:5로 바꿔준다.
 			for (k=0; k<colorCount; k++)								
 			{					
-				m_Pixels[i][index] = CDirectDraw::Convert565to555(m_Pixels[i][index]);
+				m_Pixels[i][index] = ColorDraw::Convert565to555(m_Pixels[i][index]);
 				index++;
 			}
 
@@ -263,7 +263,7 @@ CSprite555::LoadFromFileToBuffer(ifstream& file)
 			// 5:5:5를 5:6:5로 바꿔서 저장하고 다시 5:5:5로 바꿔준다.
 			for (int j=0; j<colorCount; j++)								
 			{					
-				s_Buffer[i][index] = CDirectDraw::Convert565to555(s_Buffer[i][index]);
+				s_Buffer[i][index] = ColorDraw::Convert565to555(s_Buffer[i][index]);
 				index++;
 			}
 

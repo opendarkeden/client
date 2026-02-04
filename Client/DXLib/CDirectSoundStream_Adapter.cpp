@@ -19,7 +19,7 @@
 #ifdef DXLIB_BACKEND_SDL
 
 /* Constructor */
-CDirectSoundStream::CDirectSoundStream()
+CSDLStream::CDirectSoundStream()
 {
 	m_bLoad = false;
 	m_bPlay = false;
@@ -39,13 +39,13 @@ CDirectSoundStream::CDirectSoundStream()
 }
 
 /* Destructor */
-CDirectSoundStream::~CDirectSoundStream()
+CSDLStream::~CDirectSoundStream()
 {
 	Release();
 }
 
 /* Release stream */
-void CDirectSoundStream::Release()
+void CSDLStream::Release()
 {
 	// Stop if playing
 	if (m_bPlay) {
@@ -64,7 +64,7 @@ void CDirectSoundStream::Release()
 }
 
 /* Load audio file for streaming */
-void CDirectSoundStream::Load(LPSTR filename)
+void CSDLStream::Load(LPSTR filename)
 {
 	// Initialize stream backend if needed
 	if (!dxlib_get_backend_name()) {
@@ -81,7 +81,7 @@ void CDirectSoundStream::Load(LPSTR filename)
 }
 
 /* Play stream */
-void CDirectSoundStream::Play(BOOL bLooped)
+void CSDLStream::Play(BOOL bLooped)
 {
 	if (!m_bLoad) return;
 
@@ -93,7 +93,7 @@ void CDirectSoundStream::Play(BOOL bLooped)
 }
 
 /* Stop stream */
-void CDirectSoundStream::Stop()
+void CSDLStream::Stop()
 {
 	if (!m_bLoad) return;
 
@@ -103,7 +103,7 @@ void CDirectSoundStream::Stop()
 }
 
 /* Set volume limit */
-void CDirectSoundStream::SetVolumeLimit(LONG volume)
+void CSDLStream::SetVolumeLimit(LONG volume)
 {
 	m_MaxVolume = volume;
 	if (m_MaxVolume > 100) m_MaxVolume = 100;
@@ -116,7 +116,7 @@ void CDirectSoundStream::SetVolumeLimit(LONG volume)
 }
 
 /* Update stream (call regularly to refill buffers) */
-void CDirectSoundStream::Update()
+void CSDLStream::Update()
 {
 	if (!m_bLoad || !m_bPlay) return;
 
@@ -130,49 +130,49 @@ void CDirectSoundStream::Update()
 }
 
 /* Update progress (stub for SDL backend) */
-BOOL CDirectSoundStream::UpdateProgress()
+BOOL CSDLStream::UpdateProgress()
 {
 	// Not applicable for SDL backend
 	return TRUE;
 }
 
 /* Handle notification (stub for SDL backend) */
-BOOL CDirectSoundStream::HandleNotification(BOOL bLooped)
+BOOL CSDLStream::HandleNotification(BOOL bLooped)
 {
 	// Not applicable for SDL backend
 	return TRUE;
 }
 
 /* Fill buffer (stub for SDL backend) */
-BOOL CDirectSoundStream::FillBuffer(BOOL bLooped)
+BOOL CSDLStream::FillBuffer(BOOL bLooped)
 {
 	// Not applicable for SDL backend
 	return TRUE;
 }
 
 /* Read stream (stub for SDL backend) */
-BOOL CDirectSoundStream::ReadStream(BOOL bLooped, VOID* pbBuffer, DWORD dwBufferLength)
+BOOL CSDLStream::ReadStream(BOOL bLooped, VOID* pbBuffer, DWORD dwBufferLength)
 {
 	// Not applicable for SDL backend
 	return TRUE;
 }
 
 /* Restore buffers (stub for SDL backend) */
-BOOL CDirectSoundStream::RestoreBuffers(BOOL bLooped)
+BOOL CSDLStream::RestoreBuffers(BOOL bLooped)
 {
 	// Not applicable for SDL backend
 	return TRUE;
 }
 
 /* Reset (stub for SDL backend) */
-BOOL CDirectSoundStream::Reset()
+BOOL CSDLStream::Reset()
 {
 	// Not applicable for SDL backend
 	return TRUE;
 }
 
 /* Wave read file (stub for SDL backend) */
-HRESULT CDirectSoundStream::WaveReadFile(HMMIO hmmioIn, UINT cbRead, BYTE* pbDest,
+HRESULT CSDLStream::WaveReadFile(HMMIO hmmioIn, UINT cbRead, BYTE* pbDest,
 	MMCKINFO* pckIn, UINT* cbActualRead)
 {
 	// Not applicable for SDL backend

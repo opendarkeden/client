@@ -121,7 +121,7 @@ Fill :
 
 		if ( lpsb->bPlaying == FALSE )
 		{
-			g_DXSound.Play(lpsb->dsPlayBuf, TRUE) ;
+			g_SDLAudio.Play(lpsb->dsPlayBuf, TRUE) ;
 			lpsb->bPlaying = TRUE ;			
 		}
 

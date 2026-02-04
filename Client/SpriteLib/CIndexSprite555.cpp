@@ -63,7 +63,7 @@ CIndexSprite555::SaveToFile(ofstream& file)
 			// 5:5:5를 5:6:5로 바꿔서 저장하고 다시 5:5:5로 바꿔준다.
 			for (k=0; k<colorCount; k++)								
 			{
-				m_Pixels[i][index] = CDirectDraw::Convert555to565(m_Pixels[i][index]);
+				m_Pixels[i][index] = ColorDraw::Convert555to565(m_Pixels[i][index]);
 				index++;
 			}
 		}
@@ -98,7 +98,7 @@ CIndexSprite555::SaveToFile(ofstream& file)
 			// 5:6:5를 5:5:5로 바꾼다.
 			for (k=0; k<colorCount; k++)								
 			{
-				m_Pixels[i][index] = CDirectDraw::Convert565to555(m_Pixels[i][index]);
+				m_Pixels[i][index] = ColorDraw::Convert565to555(m_Pixels[i][index]);
 				index++;
 			}
 		}
@@ -178,7 +178,7 @@ CIndexSprite555::LoadFromFile(ifstream& file)
 			// 5:6:5를 5:5:5로 바꾼다.
 			for (k=0; k<colorCount; k++)								
 			{
-				m_Pixels[i][index] = CDirectDraw::Convert565to555(m_Pixels[i][index]);
+				m_Pixels[i][index] = ColorDraw::Convert565to555(m_Pixels[i][index]);
 				index++;
 			}
 		}

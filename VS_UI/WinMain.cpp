@@ -72,8 +72,8 @@ void InitSound();
 /*-----------------------------------------------------------------------------
   PROTOTYPE
 -----------------------------------------------------------------------------*/
-void MouseEventReceiver(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z);
-void KeyboardEventReceiver(CDirectInput::E_KEYBOARD_EVENT event, DWORD scan_code);
+void MouseEventReceiver(CSDLInput::E_MOUSE_EVENT event, int x, int y, int z);
+void KeyboardEventReceiver(CSDLInput::E_KEYBOARD_EVENT event, DWORD scan_code);
 void UI_ResultReceiver(DWORD message, int dw_left, int dw_right, void *void_ptr);
 void ProgramLoop();
 
@@ -91,7 +91,7 @@ extern EventButton *g_EventButton;
 bool						gbl_active; // Is application active?
 CDirectDraw				gC_DD;
 CSpriteSurface			gC_DDSurface;
-extern CDirectInput*			g_pDXInput;// = new CDirectInput;
+extern CDirectInput*			g_pSDLInput;// = new CDirectInput;
 
 static DWORD			g_double_click_time;
 int						g_mouse_x, g_mouse_y;
@@ -118,7 +118,7 @@ IWebBrowser2*			g_pWebBrowser = NULL;
 - KeyboardEventReceiver
 -
 -----------------------------------------------------------------------------*/
-void KeyboardEventReceiver(CDirectInput::E_KEYBOARD_EVENT event, DWORD scan_code)
+void KeyboardEventReceiver(CSDLInput::E_KEYBOARD_EVENT event, DWORD scan_code)
 {
 	static hp;
 	static WORD progress;
@@ -130,7 +130,7 @@ void KeyboardEventReceiver(CDirectInput::E_KEYBOARD_EVENT event, DWORD scan_code
 
 	switch (event)
 	{
-		case CDirectInput::KEYDOWN:
+		case CSDLInput::KEYDOWN:
 			gC_vs_ui.DIKeyboardControl(event, scan_code);
 			switch (scan_code)
 			{
@@ -1008,7 +1008,7 @@ void KeyboardEventReceiver(CDirectInput::E_KEYBOARD_EVENT event, DWORD scan_code
 			}
 			break;
 
-		case CDirectInput::KEYUP:
+		case CSDLInput::KEYUP:
 			switch (scan_code)
 			{
 				case DIK_LCONTROL:
@@ -1026,7 +1026,7 @@ BOOL g_bLButtonDown = false;
 - MouseEventReceiver
 -
 -----------------------------------------------------------------------------*/
-void MouseEventReceiver(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z)
+void MouseEventReceiver(CSDLInput::E_MOUSE_EVENT event, int x, int y, int z)
 {
 	static DWORD	last_click_time;
 	static int		double_click_x, double_click_y;
@@ -1057,12 +1057,12 @@ void MouseEventReceiver(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z)
 
 	switch (event)
 	{
-		case CDirectInput::MOVE:
+		case CSDLInput::MOVE:
 			gbl_ui_input_state = gC_vs_ui.MouseControl(M_MOVING, x, y);
 //			gC_vs_ui.MouseControlExtra(M_MOVING, x, y);
 			break;
 
-		case CDirectInput::LEFTDOWN:
+		case CSDLInput::LEFTDOWN:
 			//  double-click interval?
 			if ((DWORD)abs(GetTickCount() - last_click_time) <= g_double_click_time)
 			{
@@ -1085,33 +1085,33 @@ void MouseEventReceiver(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z)
 
 			break;
 
-		case CDirectInput::LEFTUP:
+		case CSDLInput::LEFTUP:
 			gbl_ui_input_state = gC_vs_ui.MouseControl(M_LEFTBUTTON_UP, x, y);
 			g_bLButtonDown = FALSE;
 			break;
 
-		case CDirectInput::RIGHTDOWN:
+		case CSDLInput::RIGHTDOWN:
 			gbl_ui_input_state = gC_vs_ui.MouseControl(M_RIGHTBUTTON_DOWN, x, y);
 			break;
 
-		case CDirectInput::RIGHTUP:
+		case CSDLInput::RIGHTUP:
 			gbl_ui_input_state = gC_vs_ui.MouseControl(M_RIGHTBUTTON_UP, x, y);
 			if(gbl_ui_input_state == false)g_EventButton = NULL;
 			break;
 
-		case CDirectInput::CENTERDOWN:
+		case CSDLInput::CENTERDOWN:
 			gbl_ui_input_state = gC_vs_ui.MouseControl(M_CENTERBUTTON_DOWN, x, y);
 			break;
 
-		case CDirectInput::CENTERUP:
+		case CSDLInput::CENTERUP:
 			gbl_ui_input_state = gC_vs_ui.MouseControl(M_CENTERBUTTON_UP, x, y);
 			break;
 
-		case CDirectInput::WHEELDOWN:
+		case CSDLInput::WHEELDOWN:
 			gbl_ui_input_state = gC_vs_ui.MouseControl(M_WHEEL_DOWN, x, y);
 			break;
 
-		case CDirectInput::WHEELUP:
+		case CSDLInput::WHEELUP:
 			gbl_ui_input_state = gC_vs_ui.MouseControl(M_WHEEL_UP, x, y);
 			break;
 	}
@@ -1154,16 +1154,16 @@ WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break; // ! break!!!!
 
 		 case WM_MOVE:
-			if (gbl_active && !CDirectDraw::IsFullscreen())
-				CDirectDraw::OnMove();
+			if (gbl_active && !CSDLGraphics::IsFullscreen())
+				CSDLGraphics::OnMove();
 			return 0L;
 
         case WM_ACTIVATE:
 		case WM_ACTIVATEAPP:
             // Pause if minimized
             gbl_active = !((BOOL)HIWORD(wParam));
-//				g_pDXInput->SetAcquire(gbl_active);
-				g_pDXInput->SetAcquire(true);
+//				g_pSDLInput->SetAcquire(gbl_active);
+				g_pSDLInput->SetAcquire(true);
 				g_double_click_time = GetDoubleClickTime();
 
             return 0L;
@@ -1431,7 +1431,7 @@ void ProgramLoop()
 	else	gC_DDSurface.FillSurface(15220); // clear the screen buffer 
 
 	// update mouse input state
-	g_pDXInput->UpdateInput();
+	g_pSDLInput->UpdateInput();
 
 	gC_vs_ui.Process(); // at last
 	gC_vs_ui.Show();
@@ -2337,7 +2337,7 @@ void UI_ResultReceiver(DWORD message, int dw_left, int dw_right, void *void_ptr)
 				
 				sprintf(str, "%s\\Explorer.exe", str);
 				
-				CDirectDraw::GetDD()->RestoreDisplayMode();
+				CSDLGraphics::GetDD()->RestoreDisplayMode();
 				
 				_spawnl(_P_NOWAIT, str, "Explorer.exe", "http://", NULL);
 			}
@@ -3047,10 +3047,10 @@ ReleaseAllObject()
 		g_pCreatureTable  = NULL;
 	}
 
-	if (g_pDXInput)
+	if (g_pSDLInput)
 	{
-		delete g_pDXInput;
-		g_pDXInput = NULL;
+		delete g_pSDLInput;
+		g_pSDLInput = NULL;
 	}
 
 	if (g_pInventory!=NULL)
@@ -3274,7 +3274,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpszArgs, int nWi
 	g_pPriceManager = new MPriceManager;
 
 
-	g_pDXInput = new CDirectInput;
+	g_pSDLInput = new CDirectInput;
 
 	g_pParty = new MParty;
 
@@ -3481,33 +3481,33 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpszArgs, int nWi
 	//
 	// Init DirectDraw
 	//
-	if (!gC_DD.Init(hwnd, RESOLUTION_X, RESOLUTION_Y, CDirectDraw::WINDOWMODE, false, true))
+	if (!gC_DD.Init(hwnd, RESOLUTION_X, RESOLUTION_Y, CSDLGraphics::WINDOWMODE, false, true))
 		return 0;
 
-	//gC_DD.Init( hwnd, RESOLUTION_X, RESOLUTION_Y, CDirectDraw::WINDOWMODE);
+	//gC_DD.Init( hwnd, RESOLUTION_X, RESOLUTION_Y, CSDLGraphics::WINDOWMODE);
 #else
-	if (!gC_DD.Init(hwnd, RESOLUTION_X, RESOLUTION_Y, CDirectDraw::FULLSCREEN, false, true))
+	if (!gC_DD.Init(hwnd, RESOLUTION_X, RESOLUTION_Y, CSDLGraphics::FULLSCREEN, false, true))
 		return 0;
 #endif
 
 #if _DEBUGGING
-	g_pDXInput->Init(hwnd, hInst, CDirectInput::NONEXCLUSIVE);
+	g_pSDLInput->Init(hwnd, hInst, CSDLInput::NONEXCLUSIVE);
 #else
-	g_pDXInput->Init(hwnd, hInst, CDirectInput::EXCLUSIVE);
+	g_pSDLInput->Init(hwnd, hInst, CSDLInput::EXCLUSIVE);
 #endif
 
 	//gC_ci = new CI_KOREAN;	
 	gC_ci = new CI_CHINESE;	
 	
 
-	g_pDXInput->SetMouseEventReceiver(MouseEventReceiver);
-	g_pDXInput->SetMouseMoveLimit(RESOLUTION_X-1, RESOLUTION_Y-1);
-	g_pDXInput->SetKeyboardEventReceiver(KeyboardEventReceiver);
+	g_pSDLInput->SetMouseEventReceiver(MouseEventReceiver);
+	g_pSDLInput->SetMouseMoveLimit(RESOLUTION_X-1, RESOLUTION_Y-1);
+	g_pSDLInput->SetKeyboardEventReceiver(KeyboardEventReceiver);
 
-	InitializeGL(CDirectDraw::Get_BPP(), 
-					 CDirectDraw::Get_Count_Rbit(), 
-					 CDirectDraw::Get_Count_Gbit(), 
-					 CDirectDraw::Get_Count_Bbit());
+	InitializeGL(CSDLGraphics::Get_BPP(), 
+					 CSDLGraphics::Get_Count_Rbit(), 
+					 CSDLGraphics::Get_Count_Gbit(), 
+					 CSDLGraphics::Get_Count_Bbit());
 //	gC_font.Initialize();
 
 	gC_DDSurface.InitBacksurface();

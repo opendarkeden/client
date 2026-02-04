@@ -1693,7 +1693,7 @@ bool C_VS_UI_OUSTERS_QUICKITEM::Click()
 																  MAKEDWORD(item_x, item_y), 
 																  (MItem *)p_item);
 			// SHIFT������ Ŭ�������� ������ �ڵ� �̵� ó�� -> �κ��丮
-			if(g_pDXInput->KeyDown(DIK_LSHIFT))
+			if(g_pSDLInput->KeyDown(DIK_LSHIFT))
 			{
 				POINT point;
 				if(p_item != NULL && g_pInventory->GetFitPosition((MItem *)p_item, point))

@@ -14,11 +14,13 @@
 #include "CSpriteSetManager.h"
 #include "COrderedList.h"
 #ifdef PLATFORM_WINDOWS
-	#include "CDirectDraw.h"
+	// CDirectDraw include removed - using ColorDraw instead
 #else
-	#include "../DXLib/CDirectDraw.h"
+	// CDirectDraw include removed - using ColorDraw instead
 #endif
 #include <vector>
+
+#include "../../basic/ColorDraw.h"
 #include <cstdint>
 
 template <class Type>
@@ -526,7 +528,7 @@ void CTypePack2<TypeBase, Type1, Type2>::Init(WORD size)
 	Release();
 	
 	m_Size = size;
-	m_bSecond = CDirectDraw::Is565();
+	m_bSecond = ColorDraw::Is565();
 
 	if( m_bSecond == true )
 		m_pData = new Type2[size];

@@ -443,17 +443,17 @@ CAlphaSprite::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 		sTemp = *pSource;
 		dTemp = *pDest;
 
-		sr = CDirectDraw::Red(sTemp);
-		sg = CDirectDraw::Green(sTemp);
-		sb = CDirectDraw::Blue(sTemp);
+		sr = ColorDraw::Red(sTemp);
+		sg = ColorDraw::Green(sTemp);
+		sb = ColorDraw::Blue(sTemp);
 
-		dr = CDirectDraw::Red(dTemp);
-		dg = CDirectDraw::Green(dTemp);
-		db = CDirectDraw::Blue(dTemp);		
+		dr = ColorDraw::Red(dTemp);
+		dg = ColorDraw::Green(dTemp);
+		db = ColorDraw::Blue(dTemp);		
 		
 		*pDest = ((((sb - db)*alpha >> 5) + db) |
-					((((sg - dg)*alpha >> 5) + dg) << CDirectDraw::s_bSHIFT_G) |
-					(((sr - dr)*alpha >> 5) + dr) << CDirectDraw::s_bSHIFT_R);
+					((((sg - dg)*alpha >> 5) + dg) << ColorDraw::s_bSHIFT_G) |
+					(((sr - dr)*alpha >> 5) + dr) << ColorDraw::s_bSHIFT_R);
 	
 		/*
 		// ��... �̰� �� ������.. �� �׷���.. - -;;;
@@ -474,7 +474,7 @@ CAlphaSprite::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 		temp2 *= alpha;
 		temp2 >>= 5;
 		temp2 += dr;
-		temp2 <<= CDirectDraw::s_bSHIFT_R;
+		temp2 <<= ColorDraw::s_bSHIFT_R;
 
 		temp |= temp2;
 
@@ -520,9 +520,9 @@ CAlphaSprite::memcpyAlpha4444(WORD* pDest, WORD* pSource, WORD pixels)
 		// ���� ���
 		sTemp = *pSource;
 	
-		sr = (sTemp >> CDirectDraw::s_bSHIFT4_R);// & 0x0F;
-		sg = (sTemp >> CDirectDraw::s_bSHIFT4_G) & 0x0F;
-		sb = (sTemp >> CDirectDraw::s_bSHIFT4_B) & 0x0F;
+		sr = (sTemp >> ColorDraw::s_bSHIFT4_R);// & 0x0F;
+		sg = (sTemp >> ColorDraw::s_bSHIFT4_G) & 0x0F;
+		sb = (sTemp >> ColorDraw::s_bSHIFT4_B) & 0x0F;
 		
 		*pDest =	(alpha << 12) |
 					(sr << 8) |
@@ -2770,17 +2770,17 @@ CAlphaSprite::memcpyAlphaValue(WORD* pDest, WORD* pSource, WORD pixels)
 		sTemp = *pSource;
 		dTemp = *pDest;
 
-		sr = CDirectDraw::Red(sTemp);
-		sg = CDirectDraw::Green(sTemp);
-		sb = CDirectDraw::Blue(sTemp);
+		sr = ColorDraw::Red(sTemp);
+		sg = ColorDraw::Green(sTemp);
+		sb = ColorDraw::Blue(sTemp);
 
-		dr = CDirectDraw::Red(dTemp);
-		dg = CDirectDraw::Green(dTemp);
-		db = CDirectDraw::Blue(dTemp);		
+		dr = ColorDraw::Red(dTemp);
+		dg = ColorDraw::Green(dTemp);
+		db = ColorDraw::Blue(dTemp);		
 		
 		*pDest = ((s_Value1 * (sb - db) >> 5) + db |
-					((s_Value1 * (sg - dg) >> 5) + dg) << CDirectDraw::s_bSHIFT_G |
-					((s_Value1 * (sr - dr) >> 5) + dr) << CDirectDraw::s_bSHIFT_R);
+					((s_Value1 * (sg - dg) >> 5) + dg) << ColorDraw::s_bSHIFT_G |
+					((s_Value1 * (sr - dr) >> 5) + dr) << ColorDraw::s_bSHIFT_R);
 	
 		/*
 		// ��... �̰� �� ������.. �� �׷���.. - -;;;
@@ -2801,7 +2801,7 @@ CAlphaSprite::memcpyAlphaValue(WORD* pDest, WORD* pSource, WORD pixels)
 		temp2 *= alpha;
 		temp2 >>= 5;
 		temp2 += dr;
-		temp2 <<= CDirectDraw::s_bSHIFT_R;
+		temp2 <<= ColorDraw::s_bSHIFT_R;
 
 		temp |= temp2;
 
@@ -2977,9 +2977,9 @@ CAlphaSprite::memcpyAlpha4444Small(WORD* pDest, WORD* pSource, WORD pixels)
 		// ���� ���
 		sTemp = *pSource;
 	
-		sr = (sTemp >> CDirectDraw::s_bSHIFT4_R);// & 0x0F;
-		sg = (sTemp >> CDirectDraw::s_bSHIFT4_G) & 0x0F;
-		sb = (sTemp >> CDirectDraw::s_bSHIFT4_B) & 0x0F;
+		sr = (sTemp >> ColorDraw::s_bSHIFT4_R);// & 0x0F;
+		sg = (sTemp >> ColorDraw::s_bSHIFT4_G) & 0x0F;
+		sb = (sTemp >> ColorDraw::s_bSHIFT4_B) & 0x0F;
 		
 		*pDest =	(alpha << 12) |
 					(sr << 8) |

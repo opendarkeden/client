@@ -11,13 +11,13 @@
 //-----------------------------------------------------------------------------
 // Global instance
 //-----------------------------------------------------------------------------
-CDirectSound g_DXSound;
+CSDLAudio g_SDLAudio;
 
 //-----------------------------------------------------------------------------
 // Constructor/Destructor
 //-----------------------------------------------------------------------------
 
-CDirectSound::CDirectSound()
+CSDLAudio::CSDLAudio()
 {
 	m_pDS = NULL;
 	m_bInit = false;
@@ -25,7 +25,7 @@ CDirectSound::CDirectSound()
 	m_MaxVolume = 0;
 }
 
-CDirectSound::~CDirectSound()
+CSDLAudio::~CSDLAudio()
 {
 	// Stub - SDL mixer is managed elsewhere
 }
@@ -34,19 +34,19 @@ CDirectSound::~CDirectSound()
 // Initialization
 //-----------------------------------------------------------------------------
 
-bool CDirectSound::Init(HWND hwnd)
+bool CSDLAudio::Init(HWND hwnd)
 {
 	// Not implemented - use Mix_OpenAudio() from SDL_mixer instead
 	(void)hwnd;
 	return false;
 }
 
-void CDirectSound::Release()
+void CSDLAudio::Release()
 {
 	// Not implemented - use Mix_CloseAudio() from SDL_mixer instead
 }
 
-bool CDirectSound::IsInit() const
+bool CSDLAudio::IsInit() const
 {
 	return m_bInit;
 }
@@ -55,17 +55,17 @@ bool CDirectSound::IsInit() const
 // Mute Control
 //-----------------------------------------------------------------------------
 
-bool CDirectSound::IsMute() const
+bool CSDLAudio::IsMute() const
 {
 	return m_bMute;
 }
 
-void CDirectSound::SetMute()
+void CSDLAudio::SetMute()
 {
 	m_bMute = true;
 }
 
-void CDirectSound::UnSetMute()
+void CSDLAudio::UnSetMute()
 {
 	m_bMute = false;
 }
@@ -74,32 +74,24 @@ void CDirectSound::UnSetMute()
 // Volume Control
 //-----------------------------------------------------------------------------
 
-LONG CDirectSound::GetVolumeLimit() const
+LONG CSDLAudio::GetVolumeLimit() const
 {
 	return m_MaxVolume;
 }
 
-void CDirectSound::SetVolumeLimit(LONG volume)
+void CSDLAudio::SetVolumeLimit(LONG volume)
 {
 	m_MaxVolume = volume;
 }
 
-bool CDirectSound::SetMaxVolume(LPDIRECTSOUNDBUFFER buffer)
+bool CSDLAudio::SetMaxVolume(LPDIRECTSOUNDBUFFER buffer)
 {
 	// Not implemented - use Mix_Volume() from SDL_mixer instead
 	(void)buffer;
 	return false;
 }
 
-bool CDirectSound::AddVolume(LPDIRECTSOUNDBUFFER buffer, int step)
-{
-	// Not implemented - use Mix_Volume() from SDL_mixer instead
-	(void)buffer;
-	(void)step;
-	return false;
-}
-
-bool CDirectSound::SubVolume(LPDIRECTSOUNDBUFFER buffer, int step)
+bool CSDLAudio::AddVolume(LPDIRECTSOUNDBUFFER buffer, int step)
 {
 	// Not implemented - use Mix_Volume() from SDL_mixer instead
 	(void)buffer;
@@ -107,7 +99,15 @@ bool CDirectSound::SubVolume(LPDIRECTSOUNDBUFFER buffer, int step)
 	return false;
 }
 
-bool CDirectSound::SubVolumeFromMax(LPDIRECTSOUNDBUFFER buffer, int step)
+bool CSDLAudio::SubVolume(LPDIRECTSOUNDBUFFER buffer, int step)
+{
+	// Not implemented - use Mix_Volume() from SDL_mixer instead
+	(void)buffer;
+	(void)step;
+	return false;
+}
+
+bool CSDLAudio::SubVolumeFromMax(LPDIRECTSOUNDBUFFER buffer, int step)
 {
 	// Not implemented - use Mix_Volume() from SDL_mixer instead
 	(void)buffer;
@@ -119,7 +119,7 @@ bool CDirectSound::SubVolumeFromMax(LPDIRECTSOUNDBUFFER buffer, int step)
 // Frequency Control
 //-----------------------------------------------------------------------------
 
-bool CDirectSound::AddFrequency(LPDIRECTSOUNDBUFFER buffer, int step)
+bool CSDLAudio::AddFrequency(LPDIRECTSOUNDBUFFER buffer, int step)
 {
 	// Not implemented - SDL_mixer doesn't support real-time frequency changes
 	(void)buffer;
@@ -127,7 +127,7 @@ bool CDirectSound::AddFrequency(LPDIRECTSOUNDBUFFER buffer, int step)
 	return false;
 }
 
-bool CDirectSound::SubFrequency(LPDIRECTSOUNDBUFFER buffer, int step)
+bool CSDLAudio::SubFrequency(LPDIRECTSOUNDBUFFER buffer, int step)
 {
 	// Not implemented - SDL_mixer doesn't support real-time frequency changes
 	(void)buffer;
@@ -139,7 +139,7 @@ bool CDirectSound::SubFrequency(LPDIRECTSOUNDBUFFER buffer, int step)
 // Pan Control
 //-----------------------------------------------------------------------------
 
-bool CDirectSound::RightPan(LPDIRECTSOUNDBUFFER buffer, int step)
+bool CSDLAudio::RightPan(LPDIRECTSOUNDBUFFER buffer, int step)
 {
 	// Not implemented - SDL_mixer doesn't support real-time panning
 	(void)buffer;
@@ -147,7 +147,7 @@ bool CDirectSound::RightPan(LPDIRECTSOUNDBUFFER buffer, int step)
 	return false;
 }
 
-bool CDirectSound::LeftPan(LPDIRECTSOUNDBUFFER buffer, int step)
+bool CSDLAudio::LeftPan(LPDIRECTSOUNDBUFFER buffer, int step)
 {
 	// Not implemented - SDL_mixer doesn't support real-time panning
 	(void)buffer;
@@ -155,7 +155,7 @@ bool CDirectSound::LeftPan(LPDIRECTSOUNDBUFFER buffer, int step)
 	return false;
 }
 
-bool CDirectSound::CenterToRightPan(LPDIRECTSOUNDBUFFER buffer, int step)
+bool CSDLAudio::CenterToRightPan(LPDIRECTSOUNDBUFFER buffer, int step)
 {
 	// Not implemented - SDL_mixer doesn't support real-time panning
 	(void)buffer;
@@ -163,7 +163,7 @@ bool CDirectSound::CenterToRightPan(LPDIRECTSOUNDBUFFER buffer, int step)
 	return false;
 }
 
-bool CDirectSound::CenterToLeftPan(LPDIRECTSOUNDBUFFER buffer, int step)
+bool CSDLAudio::CenterToLeftPan(LPDIRECTSOUNDBUFFER buffer, int step)
 {
 	// Not implemented - SDL_mixer doesn't support real-time panning
 	(void)buffer;
@@ -171,14 +171,14 @@ bool CDirectSound::CenterToLeftPan(LPDIRECTSOUNDBUFFER buffer, int step)
 	return false;
 }
 
-bool CDirectSound::CenterPan(LPDIRECTSOUNDBUFFER buffer)
+bool CSDLAudio::CenterPan(LPDIRECTSOUNDBUFFER buffer)
 {
 	// Not implemented - SDL_mixer doesn't support real-time panning
 	(void)buffer;
 	return false;
 }
 
-bool CDirectSound::ChangePan(LPDIRECTSOUNDBUFFER buffer, int pan)
+bool CSDLAudio::ChangePan(LPDIRECTSOUNDBUFFER buffer, int pan)
 {
 	// Not implemented - SDL_mixer doesn't support real-time panning
 	(void)buffer;
@@ -190,14 +190,14 @@ bool CDirectSound::ChangePan(LPDIRECTSOUNDBUFFER buffer, int pan)
 // Sound Buffer Operations
 //-----------------------------------------------------------------------------
 
-LPDIRECTSOUNDBUFFER CDirectSound::LoadWav(LPSTR filename)
+LPDIRECTSOUNDBUFFER CSDLAudio::LoadWav(LPSTR filename)
 {
 	// Not implemented - use Mix_LoadWAV() from SDL_mixer instead
 	(void)filename;
 	return NULL;
 }
 
-LPDIRECTSOUNDBUFFER CDirectSound::CreateBuffer(LPVOID sdat, DWORD size, DWORD caps, LPWAVEFORMATEX wfx)
+LPDIRECTSOUNDBUFFER CSDLAudio::CreateBuffer(LPVOID sdat, DWORD size, DWORD caps, LPWAVEFORMATEX wfx)
 {
 	// Not implemented - use SDL_mixer sound functions instead
 	(void)sdat;
@@ -207,13 +207,13 @@ LPDIRECTSOUNDBUFFER CDirectSound::CreateBuffer(LPVOID sdat, DWORD size, DWORD ca
 	return NULL;
 }
 
-void CDirectSound::Release(LPDIRECTSOUNDBUFFER buffer)
+void CSDLAudio::Release(LPDIRECTSOUNDBUFFER buffer)
 {
 	// Not implemented - use Mix_FreeChunk() from SDL_mixer instead
 	(void)buffer;
 }
 
-LPDIRECTSOUNDBUFFER CDirectSound::DuplicateSoundBuffer(LPDIRECTSOUNDBUFFER buffer, bool bAutoRelease)
+LPDIRECTSOUNDBUFFER CSDLAudio::DuplicateSoundBuffer(LPDIRECTSOUNDBUFFER buffer, bool bAutoRelease)
 {
 	// Not implemented - SDL_mixer doesn't need buffer duplication
 	(void)buffer;
@@ -221,12 +221,12 @@ LPDIRECTSOUNDBUFFER CDirectSound::DuplicateSoundBuffer(LPDIRECTSOUNDBUFFER buffe
 	return NULL;
 }
 
-void CDirectSound::ReleaseDuplicateBuffer()
+void CSDLAudio::ReleaseDuplicateBuffer()
 {
 	// Not implemented - not needed with SDL_mixer
 }
 
-void CDirectSound::ReleaseTerminatedDuplicateBuffer()
+void CSDLAudio::ReleaseTerminatedDuplicateBuffer()
 {
 	// Not implemented - not needed with SDL_mixer
 }
@@ -235,14 +235,14 @@ void CDirectSound::ReleaseTerminatedDuplicateBuffer()
 // Playback Control
 //-----------------------------------------------------------------------------
 
-bool CDirectSound::IsPlay(LPDIRECTSOUNDBUFFER buffer) const
+bool CSDLAudio::IsPlay(LPDIRECTSOUNDBUFFER buffer) const
 {
 	// Not implemented - use Mix_Playing() from SDL_mixer instead
 	(void)buffer;
 	return false;
 }
 
-bool CDirectSound::NewPlay(LPDIRECTSOUNDBUFFER buffer, bool loop)
+bool CSDLAudio::NewPlay(LPDIRECTSOUNDBUFFER buffer, bool loop)
 {
 	// Not implemented - use Mix_PlayChannel() from SDL_mixer instead
 	(void)buffer;
@@ -250,7 +250,7 @@ bool CDirectSound::NewPlay(LPDIRECTSOUNDBUFFER buffer, bool loop)
 	return false;
 }
 
-bool CDirectSound::Play(LPDIRECTSOUNDBUFFER buffer, bool loop, bool duplicate)
+bool CSDLAudio::Play(LPDIRECTSOUNDBUFFER buffer, bool loop, bool duplicate)
 {
 	// Not implemented - use Mix_PlayChannel() from SDL_mixer instead
 	(void)buffer;
@@ -259,7 +259,7 @@ bool CDirectSound::Play(LPDIRECTSOUNDBUFFER buffer, bool loop, bool duplicate)
 	return false;
 }
 
-bool CDirectSound::Stop(LPDIRECTSOUNDBUFFER buffer)
+bool CSDLAudio::Stop(LPDIRECTSOUNDBUFFER buffer)
 {
 	// Not implemented - use Mix_HaltChannel() from SDL_mixer instead
 	(void)buffer;
@@ -270,7 +270,7 @@ bool CDirectSound::Stop(LPDIRECTSOUNDBUFFER buffer)
 // DirectSound Access
 //-----------------------------------------------------------------------------
 
-LPDIRECTSOUND CDirectSound::GetDS() const
+LPDIRECTSOUND CSDLAudio::GetDS() const
 {
 	return m_pDS;
 }
@@ -279,7 +279,7 @@ LPDIRECTSOUND CDirectSound::GetDS() const
 // Error Handling
 //-----------------------------------------------------------------------------
 
-bool CDirectSound::DirectSoundFailed(const char* str)
+bool CSDLAudio::DirectSoundFailed(const char* str)
 {
 	// Not implemented - log error to console instead
 	(void)str;

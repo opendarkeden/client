@@ -216,7 +216,7 @@ StartTitleLoading()
 //								BYTE g = r;
 //								BYTE b = r;
 //								
-//								*pSurfaceTemp++ = CDirectDraw::Color(r, g, b);
+//								*pSurfaceTemp++ = CSDLGraphics::Color(r, g, b);
 //							}
 //							
 //							pData = pData + pitch;
@@ -239,7 +239,7 @@ StartTitleLoading()
 //								
 //								pDataTemp += bpp;
 //								
-//								*pSurfaceTemp++ = CDirectDraw::Color(r, g, b);
+//								*pSurfaceTemp++ = CSDLGraphics::Color(r, g, b);
 //							}
 //							
 //							pData = pData + pitch;
@@ -256,7 +256,7 @@ StartTitleLoading()
 	
 	if (g_pTitleLoadingSprite==NULL)
 	{
-		if (CDirectDraw::Is565())
+		if (CSDLGraphics::Is565())
 		{
 			g_pTitleLoadingSprite = new CSprite565;
 		}
@@ -307,7 +307,7 @@ DrawTitleLoading()
 //		}
 		// end
 
-//		g_pBack->FillSurface( CDirectDraw::Color(0,0,0) );
+//		g_pBack->FillSurface( CSDLGraphics::Color(0,0,0) );
 		
 //		g_pBack->Lock();
 
@@ -383,7 +383,7 @@ DrawTitleLoading()
 		}
 
 		if(g_TitleSpriteAlpha == 32)
-			CDirectDraw::Flip();
+			CSDLGraphics::Flip();
 
 		
 		// frame 바꿈
@@ -632,28 +632,28 @@ InitInput()
 	// Debug Message
 	DEBUG_ADD("[ InitGame ]  Input");
 
-	if (g_pDXInput==NULL)
+	if (g_pSDLInput==NULL)
 	{
-		g_pDXInput = new CDirectInput;
+		g_pSDLInput = new CSDLInput;
 	}
 
 	//----------------------------
 	// DirectInput
 	//----------------------------
-	//g_pDXInput->Init(g_hInstance);
-	//g_pDXInput->InitKeyDevice(g_hWnd);
-//	g_pDXInput->InitJoyDevice(g_hWnd);
-	//g_pDXInput->InitMouseDevice(g_hWnd);
+	//g_pSDLInput->Init(g_hInstance);
+	//g_pSDLInput->InitKeyDevice(g_hWnd);
+//	g_pSDLInput->InitJoyDevice(g_hWnd);
+	//g_pSDLInput->InitMouseDevice(g_hWnd);
 
-	if (!g_pDXInput->Init( g_hWnd, g_hInstance, CDirectInput::NONEXCLUSIVE ))
+	if (!g_pSDLInput->Init( g_hWnd, g_hInstance, CSDLInput::NONEXCLUSIVE ))
 	{
 		InitFail("DirectInput Error!");
 		return false;
 	}
 
-	//g_pDXInput->SetMouseMoveLimit(SURFACE_WIDTH, SURFACE_HEIGHT);
+	//g_pSDLInput->SetMouseMoveLimit(SURFACE_WIDTH, SURFACE_HEIGHT);
 
-	g_pDXInput->SetAcquire(true);
+	g_pSDLInput->SetAcquire(true);
 
 	return TRUE;
 }
@@ -692,7 +692,7 @@ InitSurface()
 
 
 	g_pBack->SetTransparency( 0 );
-	g_pBack->FillSurface( CDirectDraw::Color(0,0,0) );
+	g_pBack->FillSurface( CSDLGraphics::Color(0,0,0) );
 
 	//--------------------------------------------------------
 	// Buffer로 사용할 Surface
@@ -731,7 +731,7 @@ InitSurface()
 		g_pLast->InitOffsurface(g_GameRect.right, g_GameRect.bottom);
 #endif
 		g_pLast->SetTransparency( 0 );
-		g_pLast->FillSurface( CDirectDraw::Color(30,30,30) );
+		g_pLast->FillSurface( CSDLGraphics::Color(30,30,30) );
 
 		g_pTopView->SetSurface( g_pLast );
 	}
@@ -742,7 +742,7 @@ InitSurface()
 	if (g_pUserOption->UseGammaControl
 		&& g_pUserOption->GammaValue!=100)
 	{
-		CDirectDraw::SetGammaRamp( g_pUserOption->GammaValue );
+		CSDLGraphics::SetGammaRamp( g_pUserOption->GammaValue );
 	}
 
 	//--------------------------------------------------------
@@ -751,10 +751,10 @@ InitSurface()
 	DEBUG_ADD("[ InitGame ]  Surface - InitializeGL");
 
 
-	InitializeGL(CDirectDraw::Get_BPP(), 
-					 CDirectDraw::Get_Count_Rbit(), 
-					 CDirectDraw::Get_Count_Gbit(), 
-					 CDirectDraw::Get_Count_Bbit());
+	InitializeGL(CSDLGraphics::Get_BPP(), 
+					 CSDLGraphics::Get_Count_Rbit(), 
+					 CSDLGraphics::Get_Count_Gbit(), 
+					 CSDLGraphics::Get_Count_Bbit());
 
 	DEBUG_ADD("[ InitGame ]  Surface - Initialize Font");
 	DEBUG_ADD("[ InitGame ]  Surface - UI");
@@ -861,10 +861,10 @@ InitSurface()
 	{
 		UpdateInput();
 
-		if (g_pDXInput->KeyDown(DIK_ESCAPE))
+		if (g_pSDLInput->KeyDown(DIK_ESCAPE))
 			break;
 
-		if (g_pDXInput->KeyDown(DIK_SPACE))
+		if (g_pSDLInput->KeyDown(DIK_SPACE))
 		{
 			a = rand()%MAX_COLORSET;
 			b = rand()%MAX_COLORSET;
@@ -877,7 +877,7 @@ InitSurface()
 		g_pBack->BltIndexSprite( &point, &is );
 		g_pBack->Unlock();
 
-		CDirectDraw::Flip();
+		CSDLGraphics::Flip();
 	}
 
 	return FALSE;
@@ -906,7 +906,7 @@ InitSurface()
 	// Cursor Surface 초기화
 	//--------------------------------------------------------
 	// 2개의 Flip Surface, (32*32)
-	if (CDirectDraw::IsFullscreen())
+	if (CSDLGraphics::IsFullscreen())
 	{
 		if (g_pCursorSurface!=NULL)
 		{
@@ -946,7 +946,7 @@ InitSound()
 	}
 	*/
 
-	if (g_DXSound.IsInit())
+	if (g_SDLAudio.IsInit())
 	{
 		DEBUG_ADD("[ InitGame ]  Already Init");
 
@@ -954,7 +954,7 @@ InitSound()
 	}
 	else
 	{
-		if (g_DXSound.Init(g_hWnd))
+		if (g_SDLAudio.Init(g_hWnd))
 		{	
 			// filename에 따라서.. Wav file을 Load한다.
 			//for (int i=0; i<(*g_pSoundTable).GetSize(); i++)
@@ -965,7 +965,7 @@ InitSound()
 
 			LONG volume = value*SOUND_DEGREE + SOUND_MIN;
 
-			g_DXSound.SetVolumeLimit( volume );	
+			g_SDLAudio.SetVolumeLimit( volume );	
 		}
 		else
 		{
@@ -1010,7 +1010,7 @@ InitSound()
 			if (g_pSoundManager.IsDataNULL(soundID))
 			{
 				// 다시 load						
- 				LPDIRECTSOUNDBUFFER pBuffer = g_DXSound.LoadWav( (*g_pSoundTable)[soundID].Filename );
+ 				LPDIRECTSOUNDBUFFER pBuffer = g_SDLAudio.LoadWav( (*g_pSoundTable)[soundID].Filename );
 
 				// Load에 성공 했으면...
 				if (pBuffer!=NULL)
@@ -1062,11 +1062,11 @@ InitMusic()
 		/*
 	if (g_bMusicSW)
 	{
-		g_DXMusic.Init(g_hWnd, DIRECTMUSIC_TYPE_SW);
+		g_SDLMusic.Init(g_hWnd, DIRECTMUSIC_TYPE_SW);
 	}
 	else
 	{
-		g_DXMusic.Init(g_hWnd, DIRECTMUSIC_TYPE_HW);
+		g_SDLMusic.Init(g_hWnd, DIRECTMUSIC_TYPE_HW);
 	}
 	*/
 	g_Music.Init( g_hWnd );
@@ -1081,15 +1081,15 @@ InitMusic()
 	g_Music.SetVolume( volume );
 
 	
-//	if (g_pDXSoundStream==NULL)
+//	if (g_pSDLStream==NULL)
 //	{
-//		g_pDXSoundStream = new CDirectSoundStream;
+//		g_pSDLStream = new CDirectSoundStream;
 //
 //		int value = g_pUserOption->VolumeMusic;	
 //
 //		LONG volume = value*SOUND_DEGREE + SOUND_MIN;
 //
-//		g_pDXSoundStream->SetVolumeLimit( volume );	
+//		g_pSDLStream->SetVolumeLimit( volume );	
 //	}
 
 	DEBUG_ADD("MP3 new");
@@ -1108,7 +1108,7 @@ InitMusic()
 	DEBUG_ADD("MP3 SetVolume1 OK");
 	}
 #else
-	if( g_DXSound.IsInit() )
+	if( g_SDLAudio.IsInit() )
 	{
 		// SDL backend stub - OGG streaming not implemented
 		if( g_pSoundBufferForOGG == NULL )
@@ -1166,22 +1166,22 @@ InitDraw()
 			// add by Sonic 2006.9.26
 			if(g_MyFull)
 			{
-				CDirectDraw::Init(g_hWnd, 1024, 768, CDirectDraw::FULLSCREEN, true, g_bUseIMEWindow);
+				CSDLGraphics::Init(g_hWnd, 1024, 768, CSDLGraphics::FULLSCREEN, true, g_bUseIMEWindow);
 			}
 			else
 			{
-				CDirectDraw::Init(g_hWnd, 800, 600, CDirectDraw::FULLSCREEN, true, g_bUseIMEWindow);
+				CSDLGraphics::Init(g_hWnd, 800, 600, CSDLGraphics::FULLSCREEN, true, g_bUseIMEWindow);
 			}
 		}
 		else
 		{
 			if(g_MyFull)
 			{
-				CDirectDraw::Init(g_hWnd, 1024, 768, CDirectDraw::WINDOWMODE, true, g_bUseIMEWindow);
+				CSDLGraphics::Init(g_hWnd, 1024, 768, CSDLGraphics::WINDOWMODE, true, g_bUseIMEWindow);
 			}
 			else
 			{
-				CDirectDraw::Init(g_hWnd, 800, 600, CDirectDraw::WINDOWMODE, true, g_bUseIMEWindow);
+				CSDLGraphics::Init(g_hWnd, 800, 600, CSDLGraphics::WINDOWMODE, true, g_bUseIMEWindow);
 			}
 		}
 	}
@@ -1196,7 +1196,7 @@ InitDraw()
 		DWORD dwFree;
 		ZeroMemory(&ddsCaps2, sizeof(ddsCaps2));
 		ddsCaps2.dwCaps = DDSCAPS_VIDEOMEMORY;//DDSCAPS_TEXTURE;
-		HRESULT hr = CDirectDraw::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
+		HRESULT hr = CSDLGraphics::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
 
 		DEBUG_ADD_FORMAT("[VidemoMemory from GetAvailableVidMem()] Before Init Draw = %d/%d", dwFree, dwTotal);
 
@@ -1210,7 +1210,7 @@ InitDraw()
 		ZeroMemory( &driverCaps, sizeof(driverCaps) );
 		driverCaps.dwSize = sizeof(driverCaps);
 
-		hr = CDirectDraw::GetDD()->GetCaps( &driverCaps, NULL );
+		hr = CSDLGraphics::GetDD()->GetCaps( &driverCaps, NULL );
 		if (hr!=DD_OK)
 		{
 			InitFail("[Error] GetCaps to Get VidMem");
@@ -1282,29 +1282,29 @@ InitDraw()
 		{
 			DEBUG_ADD("[ InitGame ]  3D Failed. Release Draw and Re-Init 2D");
 
-			CDirectDraw::ReleaseAll();
+			CSDLGraphics::ReleaseAll();
 
 			if (g_bFullScreen)
 			{
 				// add by Sonic 2006.9.26
 				if(g_MyFull)
 				{
-					CDirectDraw::Init(g_hWnd, 1024, 768, CDirectDraw::FULLSCREEN, false, g_bUseIMEWindow);
+					CSDLGraphics::Init(g_hWnd, 1024, 768, CSDLGraphics::FULLSCREEN, false, g_bUseIMEWindow);
 				}
 				else
 				{
-					CDirectDraw::Init(g_hWnd, 800, 600, CDirectDraw::FULLSCREEN, false, g_bUseIMEWindow);
+					CSDLGraphics::Init(g_hWnd, 800, 600, CSDLGraphics::FULLSCREEN, false, g_bUseIMEWindow);
 				}
 			}
 			else
 			{
 				if(g_MyFull)
 				{
-					CDirectDraw::Init(g_hWnd, 1024, 768, CDirectDraw::WINDOWMODE, true, g_bUseIMEWindow);
+					CSDLGraphics::Init(g_hWnd, 1024, 768, CSDLGraphics::WINDOWMODE, true, g_bUseIMEWindow);
 				}
 				else
 				{
-					CDirectDraw::Init(g_hWnd, 800, 600, CDirectDraw::WINDOWMODE, true, g_bUseIMEWindow);
+					CSDLGraphics::Init(g_hWnd, 800, 600, CSDLGraphics::WINDOWMODE, true, g_bUseIMEWindow);
 				}
 			}
 
@@ -1335,22 +1335,22 @@ InitDraw()
 		{
 			if(g_MyFull)
 			{
-				CDirectDraw::Init(g_hWnd, 1024, 768, CDirectDraw::FULLSCREEN, false, g_bUseIMEWindow);
+				CSDLGraphics::Init(g_hWnd, 1024, 768, CSDLGraphics::FULLSCREEN, false, g_bUseIMEWindow);
 			}
 			else
 			{
-				CDirectDraw::Init(g_hWnd, 800, 600, CDirectDraw::FULLSCREEN, false, g_bUseIMEWindow);
+				CSDLGraphics::Init(g_hWnd, 800, 600, CSDLGraphics::FULLSCREEN, false, g_bUseIMEWindow);
 			}
 		}
 		else
 		{
 			if(g_MyFull)
 			{
-				CDirectDraw::Init(g_hWnd, 1024, 768, CDirectDraw::WINDOWMODE, true, g_bUseIMEWindow);
+				CSDLGraphics::Init(g_hWnd, 1024, 768, CSDLGraphics::WINDOWMODE, true, g_bUseIMEWindow);
 			}
 			else
 			{
-				CDirectDraw::Init(g_hWnd, 800, 600, CDirectDraw::WINDOWMODE, true, g_bUseIMEWindow);
+				CSDLGraphics::Init(g_hWnd, 800, 600, CSDLGraphics::WINDOWMODE, true, g_bUseIMEWindow);
 			}
 		}
 	}
@@ -1861,7 +1861,7 @@ InitGame()
 		// Debug Message
 		#ifdef	OUTPUT_DEBUG			
 			// Fullscreen?
-			if (CDirectDraw::IsFullscreen())	
+			if (CSDLGraphics::IsFullscreen())	
 			{
 				DEBUG_ADD("# Fullscreen.");
 			}
@@ -1871,7 +1871,7 @@ InitGame()
 			}
 
 			// 565?
-			if (CDirectDraw::Is565())	
+			if (CSDLGraphics::Is565())	
 			{
 				DEBUG_ADD("# 5:6:5 mode");
 			}
@@ -2461,23 +2461,23 @@ void ReleaseAllObjects()
 	//----------------------------------------------------------------
 	// Input
 	//----------------------------------------------------------------
-	SAFE_DELETE( g_pDXInput );
+	SAFE_DELETE( g_pSDLInput );
 	//----------------------------------------------------------------
 	// Music
 	//----------------------------------------------------------------
 	DEBUG_ADD("[Release] Music");
 	g_Music.Stop();
 	g_Music.UnInit();
-	//g_DXMusic.Stop();
+	//g_SDLMusic.Stop();
 
 	//----------------------------------------------------------------
 	// Sound
 	//----------------------------------------------------------------
 //	DEBUG_ADD("[Release] SoundStream");
-//	if (g_pDXSoundStream!=NULL)
+//	if (g_pSDLStream!=NULL)
 //	{
-//		delete g_pDXSoundStream;
-//		g_pDXSoundStream = NULL;
+//		delete g_pSDLStream;
+//		g_pSDLStream = NULL;
 //	}
 	DEBUG_ADD("[Release] MP3");
 	SAFE_DELETE( g_pMP3 );	
@@ -2511,9 +2511,9 @@ void ReleaseAllObjects()
 	// UnInit DirectInput
 	//----------------------------------------------------------------
 	//	this->g_di.UnInitJoyDevice();
-	//g_pDXInput->UnInitMouseDevice();
-	//g_pDXInput->UnInitKeyDevice();
-	//g_pDXInput->UnInit();
+	//g_pSDLInput->UnInitMouseDevice();
+	//g_pSDLInput->UnInitKeyDevice();
+	//g_pSDLInput->UnInit();
 
 	//----------------------------------------------------------------
 	// View
@@ -2710,7 +2710,7 @@ void ReleaseAllObjects()
 	DEBUG_ADD("[Release] CDirectDraw");
 
 #ifdef PLATFORM_WINDOWS
-	CDirectDraw::ReleaseAll();
+	CSDLGraphics::ReleaseAll();
 #endif
 
 	//---------------------------------------------------------------------
@@ -2838,7 +2838,7 @@ UnInitSound()
 		g_pSoundManager->Release();	
 	}
 
-	g_DXSound.Release();
+	g_SDLAudio.Release();
 }
 
 //-----------------------------------------------------------------------------

@@ -3,6 +3,7 @@
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
 // DX3D.h and CDirect3D.h removed (SDL2) - Direct3D has been replaced with SDL2
+#include "DXLib/CDirectDraw.h"  // For LPDDPIXELFORMAT
 #include "CFileIndexTable.h"
 #include "CShadowPartManager.h"
 #include "MGameTime.h"

@@ -1,9 +1,9 @@
 /*-----------------------------------------------------------------------------
 
-	CDirectMusic_Adapter.cpp
+	CSDLMusic_Adapter.cpp
 
 	DirectMusic adapter using DXLibBackend.
-	This file provides SDL2 backend support for CDirectMusic class.
+	This file provides SDL2 backend support for CSDLMusic class.
 
 	2025.01.14
 
@@ -13,7 +13,7 @@
 #include "DXLibBackend.h"
 
 /* Global instance */
-CDirectMusic	g_DXMusic;
+CSDLMusic	g_SDLMusic;
 
 /*=============================================================================
  * SDL Backend Implementation
@@ -22,7 +22,7 @@ CDirectMusic	g_DXMusic;
 #ifdef DXLIB_BACKEND_SDL
 
 /* Constructor */
-CDirectMusic::CDirectMusic()
+CSDLMusic::CSDLMusic()
 {
 	m_pDM = NULL;
 	m_pDMPerformance = NULL;
@@ -47,13 +47,13 @@ CDirectMusic::CDirectMusic()
 }
 
 /* Destructor */
-CDirectMusic::~CDirectMusic()
+CSDLMusic::~CSDLMusic()
 {
 	Release();
 }
 
 /* Initialize SDL backend */
-bool CDirectMusic::Init(HWND hWnd, DIRECTMUSIC_TYPE type)
+bool CSDLMusic::Init(HWND hWnd, DIRECTMUSIC_TYPE type)
 {
 	if (dxlib_music_init(hWnd) != 0) {
 		return false;
@@ -76,7 +76,7 @@ bool CDirectMusic::Init(HWND hWnd, DIRECTMUSIC_TYPE type)
 }
 
 /* Release SDL backend */
-void CDirectMusic::Release()
+void CSDLMusic::Release()
 {
 	// Stop if playing
 	if (m_bPlay) {
@@ -104,7 +104,7 @@ void CDirectMusic::Release()
 }
 
 /* Play music file */
-bool CDirectMusic::Play(const char* filename, WORD repeat)
+bool CSDLMusic::Play(const char* filename, WORD repeat)
 {
 	if (!m_bInit) return false;
 
@@ -132,7 +132,7 @@ bool CDirectMusic::Play(const char* filename, WORD repeat)
 }
 
 /* Stop music */
-void CDirectMusic::Stop()
+void CSDLMusic::Stop()
 {
 	if (!m_bInit) return;
 
@@ -146,7 +146,7 @@ void CDirectMusic::Stop()
 }
 
 /* Pause music */
-void CDirectMusic::Pause()
+void CSDLMusic::Pause()
 {
 	if (!m_bInit || !m_bPlay) return;
 
@@ -155,7 +155,7 @@ void CDirectMusic::Pause()
 }
 
 /* Resume music */
-void CDirectMusic::Resume()
+void CSDLMusic::Resume()
 {
 	if (!m_bInit || m_bPlay) return;
 
@@ -164,7 +164,7 @@ void CDirectMusic::Resume()
 }
 
 /* Set current tempo */
-void CDirectMusic::SetCurrentTempo(int t)
+void CSDLMusic::SetCurrentTempo(int t)
 {
 	if (!m_bInit) return;
 
@@ -180,21 +180,21 @@ void CDirectMusic::SetCurrentTempo(int t)
 }
 
 /* Create performance (stub for SDL backend) */
-bool CDirectMusic::CreatePerformance()
+bool CSDLMusic::CreatePerformance()
 {
 	// Not applicable for SDL backend
 	return true;
 }
 
 /* Create port (stub for SDL backend) */
-bool CDirectMusic::CreatePort(DIRECTMUSIC_TYPE type)
+bool CSDLMusic::CreatePort(DIRECTMUSIC_TYPE type)
 {
 	// Not applicable for SDL backend
 	return true;
 }
 
 /* Create loader (stub for SDL backend) */
-bool CDirectMusic::CreateLoader()
+bool CSDLMusic::CreateLoader()
 {
 	// Not applicable for SDL backend
 	return true;

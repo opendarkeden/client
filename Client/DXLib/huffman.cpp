@@ -1,14 +1,7 @@
 
 #include <fstream>
 #include <strstream>
-#ifdef  __WIN32__
-#define STRICT
-#ifdef PLATFORM_WINDOWS
-#include <Windows.h>
-#else
 #include "../../basic/Platform.h"
-#endif
-#endif   // __WIN32__
 
 #include "bit_res.h"
 #include "huffman.h"

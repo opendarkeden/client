@@ -58,10 +58,10 @@ void
 CWaitUIUpdate::Init()
 {
 	// mouse event 처리
-	g_pDXInput->SetMouseEventReceiver( DXMouseEvent );
+	g_pSDLInput->SetMouseEventReceiver( DXMouseEvent );
 
 	// keyboard event 처리
-	g_pDXInput->SetKeyboardEventReceiver( DXKeyboardEvent );
+	g_pSDLInput->SetKeyboardEventReceiver( DXKeyboardEvent );
 
 	// text input 처리 (SDL2 only)
 	dxlib_input_set_textinput_callback(SDLTextInputEvent);
@@ -75,9 +75,9 @@ CWaitUIUpdate::Init()
 // DXKeyboardEvent
 //-----------------------------------------------------------------------------
 void	
-CWaitUIUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
+CWaitUIUpdate::DXKeyboardEvent(CSDLInput::E_KEYBOARD_EVENT event, DWORD key)
 {
-		if (event==CDirectInput::KEYDOWN)
+		if (event==CSDLInput::KEYDOWN)
 		{
 			// Convert DIK scan codes to VK virtual key codes for control keys
 			// These keys need WM_KEYDOWN messages for text editing to work
@@ -125,7 +125,7 @@ CWaitUIUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				// FPS Toggle
 				//------------------------------------
 				case DIK_F : 
-					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+					if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 					{
 						(*g_pUserOption).DrawFPS = !(*g_pUserOption).DrawFPS;
 					}
@@ -210,14 +210,14 @@ void CWaitUIUpdate::SDLTextEditingEvent(const char* text, int start, int length,
 // DXMouseEvent
 //-----------------------------------------------------------------------------
 void		
-CWaitUIUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z)
+CWaitUIUpdate::DXMouseEvent(CSDLInput::E_MOUSE_EVENT event, int x, int y, int z)
 {
 	static DWORD	last_click_time;
 	static int		double_click_x, double_click_y;
 
 	switch (event)
 	{
-		case CDirectInput::LEFTDOWN:
+		case CSDLInput::LEFTDOWN:
 			//  double-click interval?
 			if ((DWORD)labs((long)(GetTickCount() - last_click_time)) <= g_double_click_time)
 			{
@@ -245,11 +245,11 @@ CWaitUIUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int
 			double_click_y = g_y;
 		break;
 
-		case CDirectInput::WHEELDOWN:
+		case CSDLInput::WHEELDOWN:
 			gC_vs_ui.MouseControl(M_WHEEL_DOWN, x, y);
 			break;
 
-		case CDirectInput::WHEELUP:
+		case CSDLInput::WHEELUP:
 			gC_vs_ui.MouseControl(M_WHEEL_UP, x, y);
 			break;
 	}
@@ -285,9 +285,9 @@ CWaitUIUpdate::Update()
 		//------------------------------------------
 		// Sound Stream
 		//------------------------------------------
-//		if (g_pDXSoundStream!=NULL)
+//		if (g_pSDLStream!=NULL)
 //		{
-//			g_pDXSoundStream->Update();
+//			g_pSDLStream->Update();
 //		}
 
 		//------------------------------------------
@@ -456,7 +456,7 @@ CWaitUIUpdate::ProcessInput()
 	// Quit
 	//-----------------------------------------------
 	/*
-	if (g_pDXInput->KeyDown(DIK_ESCAPE))
+	if (g_pSDLInput->KeyDown(DIK_ESCAPE))
 	{	
 		SetMode( MODE_QUIT );
 
@@ -468,7 +468,7 @@ CWaitUIUpdate::ProcessInput()
 	// UI Input
 	//---------------------------------------------------
 	gC_vs_ui.MouseControl(M_MOVING, g_x, g_y);
-	if (g_pDXInput->m_lb_down)
+	if (g_pSDLInput->m_lb_down)
 	{
 		#ifdef OUTPUT_DEBUG_UPDATE_LOOP
 			DEBUG_ADD("LD");
@@ -481,7 +481,7 @@ CWaitUIUpdate::ProcessInput()
 		#endif
 	}
 
-	if (g_pDXInput->m_lb_up)
+	if (g_pSDLInput->m_lb_up)
 	{
 		#ifdef OUTPUT_DEBUG_UPDATE_LOOP
 			DEBUG_ADD("LU");
@@ -493,7 +493,7 @@ CWaitUIUpdate::ProcessInput()
 			DEBUG_ADD("LU1");
 		#endif
 	}
-	if (g_pDXInput->m_rb_down)
+	if (g_pSDLInput->m_rb_down)
 	{
 		#ifdef OUTPUT_DEBUG_UPDATE_LOOP
 			DEBUG_ADD("RD");
@@ -512,7 +512,7 @@ CWaitUIUpdate::ProcessInput()
 			DEBUG_ADD("RD2");
 		#endif
 	}
-	if (g_pDXInput->m_rb_up)
+	if (g_pSDLInput->m_rb_up)
 	{
 		#ifdef OUTPUT_DEBUG_UPDATE_LOOP
 			DEBUG_ADD("RU");
@@ -531,12 +531,12 @@ CWaitUIUpdate::ProcessInput()
 			DEBUG_ADD("RU2");
 		#endif
 	}
-	if (g_pDXInput->m_cb_down)
+	if (g_pSDLInput->m_cb_down)
 	{
 		if (gC_vs_ui.MouseControl(M_CENTERBUTTON_DOWN, g_x, g_y))
 			return;
 	}
-	if (g_pDXInput->m_rb_up)
+	if (g_pSDLInput->m_rb_up)
 	{
 		if (gC_vs_ui.MouseControl(M_CENTERBUTTON_UP, g_x, g_y))
 			return;
@@ -653,7 +653,6 @@ CWaitUIUpdate::UpdateDraw()
 //				case DDERR_OUTOFMEMORY  : a = 345; break;
 //			}
 //			*/
-//			//CDirectDraw::RestoreAllSurfaces();
 //			//CDirect3D::Restore();
 //			//return;
 //		}
@@ -863,7 +862,7 @@ CWaitUIUpdate::UpdateDraw()
 			pWaveSurface = new CSpriteSurface;
 			pWaveSurface ->InitOffsurface(SURFACE_WIDTH, SURFACE_HEIGHT, DDSCAPS_SYSTEMMEMORY);
 			pWaveSurface->SetTransparency( 0 );
-			pWaveSurface->FillSurface( CDirectDraw::Color(0,0,0) );
+			pWaveSurface->FillSurface( CSDLGraphics::Color(0,0,0) );
 			first = false;
 		}
 
@@ -998,7 +997,7 @@ CWaitUIUpdate::UpdateDraw()
 
 	// Mouse Cursor
 	/*
-	WORD color = 0xFFFF;//(rand()%2)?CDirectDraw::Color(20,20,20):CDirectDraw::Color(230,230,230);
+	WORD color = 0xFFFF;
 	g_pBack->HLine(g_x-7, g_y, 7, color);
 	g_pBack->HLine(g_x+1, g_y, 7, color);
 	g_pBack->VLine(g_x, g_y-7, 7, color);
@@ -1006,6 +1005,6 @@ CWaitUIUpdate::UpdateDraw()
 	*/
 
 	// flip
-	CDirectDraw::Flip();
+	CSDLGraphics::Flip();
 }
 

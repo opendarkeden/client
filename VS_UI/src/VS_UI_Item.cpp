@@ -279,7 +279,7 @@ C_VS_UI_ITEM::C_VS_UI_ITEM()
 	
 #endif
 //*/
-	//if (CDirectDraw::Is565())
+	//if (CSDLGraphics::Is565())
 		//m_pC_spk_list = new CSpritePackList565;
 	//else
 	//	m_pC_spk_list = new CSpritePackList555;

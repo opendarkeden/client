@@ -67,7 +67,6 @@ CTexturePartManager::Init(const char* aspkFilename, WORD partSize)
 //	indexFile.close();
 //
 //	// ASPK를 초기화 한다. (개수만큼..)
-//	m_ASPK.Init( m_ASPKIndex.GetSize(), CDirectDraw::Is565() );
 //
 //	// ASPK File을 열어둔다.
 //	m_ASPKFile.open(aspkFilename, ios::binary);

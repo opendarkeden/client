@@ -1600,7 +1600,7 @@ CShadowSprite::memcpyShadowDarkness(WORD* pDest, WORD pixels)
 			// ������ ���
 			for (j=0; j<qTimes; j++)
 			{
-				*qpDest = ((*qpDest >> s_Value1) & CDirectDraw::s_qwMASK_SHIFT[s_Value1]);				
+				*qpDest = ((*qpDest >> s_Value1) & ColorDraw::s_qwMASK_SHIFT[s_Value1]);				
 
 				*qpDest++;				
 			}
@@ -1611,7 +1611,7 @@ CShadowSprite::memcpyShadowDarkness(WORD* pDest, WORD pixels)
 		//------------------
 		case 1 :
 			// ���� ���
-			*(WORD*)qpDest = ((*(WORD*)qpDest >> s_Value1) & CDirectDraw::s_wMASK_SHIFT[s_Value1]);
+			*(WORD*)qpDest = ((*(WORD*)qpDest >> s_Value1) & ColorDraw::s_wMASK_SHIFT[s_Value1]);
 			
 				
 			qpDest = (QWORD*)((WORD*)qpDest + 1);			
@@ -1619,7 +1619,7 @@ CShadowSprite::memcpyShadowDarkness(WORD* pDest, WORD pixels)
 			// ������ ���
 			for (j=0; j<qTimes; j++)
 			{
-				*qpDest = ((*qpDest >> s_Value1) & CDirectDraw::s_qwMASK_SHIFT[s_Value1]);
+				*qpDest = ((*qpDest >> s_Value1) & ColorDraw::s_qwMASK_SHIFT[s_Value1]);
 
 				*qpDest++;				
 			}
@@ -1631,14 +1631,14 @@ CShadowSprite::memcpyShadowDarkness(WORD* pDest, WORD pixels)
 		//------------------
 		case 2 :
 			// ���� ���
-			*(DWORD*)qpDest = ((*(DWORD*)qpDest >> s_Value1) & CDirectDraw::s_dwMASK_SHIFT[s_Value1]);			
+			*(DWORD*)qpDest = ((*(DWORD*)qpDest >> s_Value1) & ColorDraw::s_dwMASK_SHIFT[s_Value1]);			
 				
 			qpDest = (QWORD*)((DWORD*)qpDest + 1);			
 
 			// ������ ���
 			for (j=0; j<qTimes; j++)
 			{
-				*qpDest = ((*qpDest >> s_Value1) & CDirectDraw::s_qwMASK_SHIFT[s_Value1]);
+				*qpDest = ((*qpDest >> s_Value1) & ColorDraw::s_qwMASK_SHIFT[s_Value1]);
 
 				*qpDest++;				
 			}
@@ -1649,17 +1649,17 @@ CShadowSprite::memcpyShadowDarkness(WORD* pDest, WORD pixels)
 		//------------------
 		case 3 :
 			// ���� ���
-			*(WORD*)qpDest = ((*(WORD*)qpDest >> s_Value1) & CDirectDraw::s_wMASK_SHIFT[s_Value1]);	
+			*(WORD*)qpDest = ((*(WORD*)qpDest >> s_Value1) & ColorDraw::s_wMASK_SHIFT[s_Value1]);	
 
 			// ���� ���
-			*(DWORD*)qpDest = ((*(DWORD*)qpDest >> s_Value1) & CDirectDraw::s_dwMASK_SHIFT[s_Value1]);
+			*(DWORD*)qpDest = ((*(DWORD*)qpDest >> s_Value1) & ColorDraw::s_dwMASK_SHIFT[s_Value1]);
 				
 			qpDest = (QWORD*)((DWORD*)qpDest + 1);			
 
 			// ������ ���
 			for (j=0; j<qTimes; j++)
 			{
-				*qpDest = ((*qpDest >> s_Value1) & CDirectDraw::s_qwMASK_SHIFT[s_Value1]);
+				*qpDest = ((*qpDest >> s_Value1) & ColorDraw::s_qwMASK_SHIFT[s_Value1]);
 
 				*qpDest++;				
 			}

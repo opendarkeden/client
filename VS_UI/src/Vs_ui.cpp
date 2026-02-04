@@ -762,7 +762,7 @@ bool C_VS_UI::MouseControl(UINT message, int x, int y)
 	return ret;
 }
 
-void C_VS_UI::DIKeyboardControl(CDirectInput::E_KEYBOARD_EVENT event, DWORD scan_code)
+void C_VS_UI::DIKeyboardControl(CSDLInput::E_KEYBOARD_EVENT event, DWORD scan_code)
 {
 #ifdef OUTPUT_DEBUG
 //	DEBUG_ADD("[C_VS_UI] DIKeyboardControl");
@@ -772,7 +772,7 @@ void C_VS_UI::DIKeyboardControl(CDirectInput::E_KEYBOARD_EVENT event, DWORD scan
 		return;
 #endif
 
-	if( g_pKeyAccelerator == NULL || g_pDXInput == NULL || g_pUserOption == NULL )
+	if( g_pKeyAccelerator == NULL || g_pSDLInput == NULL || g_pUserOption == NULL )
 		return;
 	
 	if(scan_code == DIK_ESCAPE)
@@ -847,7 +847,7 @@ void C_VS_UI::DIKeyboardControl(CDirectInput::E_KEYBOARD_EVENT event, DWORD scan
 
 	WORD pressed_key = scan_code;
 
-	if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+	if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 	{
 		pressed_key = ACCEL_ADD_CONTROL( pressed_key );
 
@@ -861,7 +861,7 @@ void C_VS_UI::DIKeyboardControl(CDirectInput::E_KEYBOARD_EVENT event, DWORD scan
 		}
 	}
 
-	if (g_pDXInput->KeyDown(DIK_LALT) || g_pDXInput->KeyDown(DIK_RALT))
+	if (g_pSDLInput->KeyDown(DIK_LALT) || g_pSDLInput->KeyDown(DIK_RALT))
 	{
 //		pressed_key = ACCEL_ADD_ALT( pressed_key );
 		
@@ -892,13 +892,13 @@ void C_VS_UI::DIKeyboardControl(CDirectInput::E_KEYBOARD_EVENT event, DWORD scan
 		m_bl_hotkey = true;
 	}
 
-	if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
+	if (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL))
 		pressed_key = ACCEL_ADD_CONTROL( pressed_key );
 
-	if (g_pDXInput->KeyDown(DIK_LALT) || g_pDXInput->KeyDown(DIK_RALT))
+	if (g_pSDLInput->KeyDown(DIK_LALT) || g_pSDLInput->KeyDown(DIK_RALT))
 		pressed_key = ACCEL_ADD_ALT( pressed_key );
 
-	if (g_pDXInput->KeyDown(DIK_LSHIFT) || g_pDXInput->KeyDown(DIK_RSHIFT))
+	if (g_pSDLInput->KeyDown(DIK_LSHIFT) || g_pSDLInput->KeyDown(DIK_RSHIFT))
 		pressed_key = ACCEL_ADD_SHIFT( pressed_key );	
 
 	if(!IsAccelMode() && 

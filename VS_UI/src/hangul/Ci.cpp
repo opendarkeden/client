@@ -112,7 +112,7 @@ void CI::FinishImeRunning()
 	m_bl_ime_running = false;
 
 	//SendMessage(g_hWnd, WM_IME_ENDCOMPOSITION, 0, 0);
-	//SendMessage(CDirectDraw::GetHwnd(), WM_KEYDOWN, VK_LEFT, 0);
+	//SendMessage(CSDLGraphics::GetHwnd(), WM_KEYDOWN, VK_LEFT, 0);
 }
 
 //-----------------------------------------------------------------------------
@@ -265,11 +265,11 @@ void CI_CHINESE::IME_MessageProcessor(UINT message, WPARAM wParam, LPARAM lParam
 	case WM_IME_STARTCOMPOSITION:
 		// When focus change, enter garbage value in input buffer.
 		gbl_skip_escape = true;
-		g_pDXInput->SetAcquire(false);
+		g_pSDLInput->SetAcquire(false);
 		ShowWindow( ImehWnd , SW_HIDE );
 		ShowWindow( ImehWnd , SW_SHOWNORMAL );
 		SetFocus(g_hWnd);
-		g_pDXInput->SetAcquire(true);
+		g_pSDLInput->SetAcquire(true);
 		
 		//			SetStartComposition();
 		//			IME_StartComposition();

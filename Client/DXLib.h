@@ -17,7 +17,7 @@
 #include "CDirectDrawSurface.h"
 #include "CDirectSound.h"
 #include "CDirectSoundStream.h"
-#include "CDirectMusic.h"
+#include "CDirectMusic.h"  // Now CSDLMusic
 //#include "CDirectSetup.h"
 #include "CDirectInput.h"
 

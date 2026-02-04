@@ -48,7 +48,7 @@
 /*-----------------------------------------------------------------------------
   Class DirectDraw Surface
 -----------------------------------------------------------------------------*/
-class CDirectDrawSurface : public CDirectDraw 
+class CDirectDrawSurface : public CSDLGraphics 
 {
 public :
 	CDirectDrawSurface();
@@ -71,7 +71,7 @@ public :
 	static void		Gamma4Pixel555(void *pDest, int len, int p);
 	static void		SetGammaFunction()
 	{
-		if (CDirectDraw::Is565())
+		if (CSDLGraphics::Is565())
 			s_GammaFunction = Gamma4Pixel565;
 		else 
 			s_GammaFunction = Gamma4Pixel555;

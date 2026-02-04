@@ -10,55 +10,47 @@
 
 //-----------------------------------------------------------------------------
 // Static member initialization for DirectDraw objects
+// Note: These are opaque pointers/stubs for SDL2 backend
 //-----------------------------------------------------------------------------
-#ifdef PLATFORM_WINDOWS
-// Keep Windows types for compatibility on Windows builds
-LPDIRECTDRAW7					CDirectDraw::m_pDD					= NULL;
-LPDIRECTDRAWSURFACE7			CDirectDraw::m_pDDSPrimary			= NULL;
-LPDIRECTDRAWSURFACE7			CDirectDraw::m_pDDSBack				= NULL;
-LPDIRECTDRAWGAMMACONTROL	CDirectDraw::m_pDDGammaControl		= NULL;
-#else
-// On non-Windows platforms, these are stub types
-LPDIRECTDRAW7					CDirectDraw::m_pDD					= NULL;
-LPDIRECTDRAWSURFACE7			CDirectDraw::m_pDDSPrimary			= NULL;
-LPDIRECTDRAWSURFACE7			CDirectDraw::m_pDDSBack				= NULL;
-LPDIRECTDRAWGAMMACONTROL	CDirectDraw::m_pDDGammaControl		= NULL;
-#endif
+LPDIRECTDRAW7					CSDLGraphics::m_pDD					= NULL;
+LPDIRECTDRAWSURFACE7			CSDLGraphics::m_pDDSPrimary			= NULL;
+LPDIRECTDRAWSURFACE7			CSDLGraphics::m_pDDSBack				= NULL;
+LPDIRECTDRAWGAMMACONTROL	CSDLGraphics::m_pDDGammaControl		= NULL;
 
-HWND								CDirectDraw::m_hWnd					= NULL;
+HWND								CSDLGraphics::m_hWnd					= NULL;
 
-bool								CDirectDraw::m_bFullscreen			= true;
-WORD								CDirectDraw::m_ScreenWidth			= 0;
-WORD								CDirectDraw::m_ScreenHeight			= 0;
-bool								CDirectDraw::m_b565					= true;
-bool								CDirectDraw::m_b3D					= true;
-bool								CDirectDraw::m_bMMX					= false;
-bool								CDirectDraw::m_bGammaControl		= false;
-DDGAMMARAMP						CDirectDraw::m_DDGammaRamp;
-WORD								CDirectDraw::m_GammaStep				= 0;
-WORD								CDirectDraw::m_AddGammaStep[3];
+bool								CSDLGraphics::m_bFullscreen			= true;
+WORD								CSDLGraphics::m_ScreenWidth			= 0;
+WORD								CSDLGraphics::m_ScreenHeight			= 0;
+bool								CSDLGraphics::m_b565					= true;
+bool								CSDLGraphics::m_b3D					= true;
+bool								CSDLGraphics::m_bMMX					= false;
+bool								CSDLGraphics::m_bGammaControl		= false;
+DDGAMMARAMP						CSDLGraphics::m_DDGammaRamp;
+WORD								CSDLGraphics::m_GammaStep				= 0;
+WORD								CSDLGraphics::m_AddGammaStep[3];
 
-RECT								CDirectDraw::m_rcWindow;
-RECT								CDirectDraw::m_rcScreen;
-RECT								CDirectDraw::m_rcViewport;
+RECT								CSDLGraphics::m_rcWindow;
+RECT								CSDLGraphics::m_rcScreen;
+RECT								CSDLGraphics::m_rcViewport;
 
 // Note: Color mask static members are defined in CDirectDraw_StaticMembers.cpp
 
 //-----------------------------------------------------------------------------
 // Constructor/Destructor (stub - not implemented)
 //-----------------------------------------------------------------------------
-CDirectDraw::CDirectDraw()
+CSDLGraphics::CSDLGraphics()
 {
 }
 
-CDirectDraw::~CDirectDraw()
+CSDLGraphics::~CSDLGraphics()
 {
 }
 
 //-----------------------------------------------------------------------------
 // InitMask
 //-----------------------------------------------------------------------------
-void CDirectDraw::InitMask(bool b565)
+void CSDLGraphics::InitMask(bool b565)
 {
 	// 5:6:5 format for SDL2
 	s_wMASK_SHIFT[0] = 11;
@@ -119,43 +111,43 @@ void CDirectDraw::InitMask(bool b565)
 // Bitmask methods for SDL2
 //-----------------------------------------------------------------------------
 
-int CDirectDraw::Get_Count_Rbit()
+int CSDLGraphics::Get_Count_Rbit()
 {
 	// For 5:6:5 format, R uses 5 bits
 	return 5;
 }
 
-int CDirectDraw::Get_Count_Gbit()
+int CSDLGraphics::Get_Count_Gbit()
 {
 	// For 5:6:5 format, G uses 6 bits
 	return 6;
 }
 
-int CDirectDraw::Get_Count_Bbit()
+int CSDLGraphics::Get_Count_Bbit()
 {
 	// For 5:6:5 format, B uses 5 bits
 	return 5;
 }
 
-DWORD CDirectDraw::Get_R_Bitmask()
+DWORD CSDLGraphics::Get_R_Bitmask()
 {
 	// 5:6:5 format: R is at bits 11-15
 	return 0xF800;
 }
 
-DWORD CDirectDraw::Get_G_Bitmask()
+DWORD CSDLGraphics::Get_G_Bitmask()
 {
 	// 5:6:5 format: G is at bits 5-10
 	return 0x07E0;
 }
 
-DWORD CDirectDraw::Get_B_Bitmask()
+DWORD CSDLGraphics::Get_B_Bitmask()
 {
 	// 5:6:5 format: B is at bits 0-4
 	return 0x001F;
 }
 
-DWORD CDirectDraw::Get_BPP()
+DWORD CSDLGraphics::Get_BPP()
 {
 	// SDL2 typically uses 16-bit color
 	return 16;

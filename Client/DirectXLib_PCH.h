@@ -16,11 +16,10 @@
 #include <algorithm>
 #include <iostream>
 #include <fstream>
-#ifdef PLATFORM_WINDOWS
-#include <Windows.h>
-#else
-#include "../../basic/Platform.h"
-#endif
+
+/* Platform-independent includes (SDL2 backend on all platforms) */
+#include "basic/Platform.h"
+
 #pragma warning(pop)
 
 using std::string;

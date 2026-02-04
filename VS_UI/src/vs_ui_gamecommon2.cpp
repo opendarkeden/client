@@ -75,7 +75,7 @@ extern RECT g_GameRect;
 #define LINEWIDTH						20
 
 
-extern CDirectInput*			g_pDXInput;
+extern CSDLInput*			g_pSDLInput;
 extern BOOL g_bActiveGame;
 int			g_CurrentSkillID = 0xFFFFFFFF;
 
@@ -435,13 +435,13 @@ void	C_VS_UI_ITEM_LIST::Show()
 				temp_color = CIndexSprite::ColorSet[MItem::GetQuestItemColorset()][15];
 			else
 				temp_color = CIndexSprite::ColorSet[MItem::GetUniqueItemColorset()][15];				
-			TitleColor = RGB(CDirectDraw::Red(temp_color)<<3, CDirectDraw::Green(temp_color)<<3, CDirectDraw::Blue(temp_color)<<3);
+			TitleColor = RGB(CSDLGraphics::Red(temp_color)<<3, CSDLGraphics::Green(temp_color)<<3, CSDLGraphics::Blue(temp_color)<<3);
 			
 			if( pItem->IsQuestItem())
 				temp_color = CIndexSprite::ColorSet[MItem::GetQuestItemColorset()][29];			
 			else
 				temp_color = CIndexSprite::ColorSet[MItem::GetUniqueItemColorset()][29];				
-			ShadowColor = RGB(CDirectDraw::Red(temp_color)<<3, CDirectDraw::Green(temp_color)<<3, CDirectDraw::Blue(temp_color)<<3);
+			ShadowColor = RGB(CSDLGraphics::Red(temp_color)<<3, CSDLGraphics::Green(temp_color)<<3, CSDLGraphics::Blue(temp_color)<<3);
 		}
 		else
 		if ( pItem->GetItemOptionListCount() ==2)
@@ -506,13 +506,13 @@ void	C_VS_UI_ITEM_LIST::Show()
 				temp_color = CIndexSprite::ColorSet[MItem::GetQuestItemColorset()][15];
 			else
 				temp_color = CIndexSprite::ColorSet[MItem::GetUniqueItemColorset()][15];				
-			TitleColor = RGB(CDirectDraw::Red(temp_color)<<3, CDirectDraw::Green(temp_color)<<3, CDirectDraw::Blue(temp_color)<<3);
+			TitleColor = RGB(CSDLGraphics::Red(temp_color)<<3, CSDLGraphics::Green(temp_color)<<3, CSDLGraphics::Blue(temp_color)<<3);
 			
 			if( pCurrentFocusItem->IsQuestItem())
 				temp_color = CIndexSprite::ColorSet[MItem::GetQuestItemColorset()][29];			
 			else
 				temp_color = CIndexSprite::ColorSet[MItem::GetUniqueItemColorset()][29];				
-			ShadowColor = RGB(CDirectDraw::Red(temp_color)<<3, CDirectDraw::Green(temp_color)<<3, CDirectDraw::Blue(temp_color)<<3);
+			ShadowColor = RGB(CSDLGraphics::Red(temp_color)<<3, CSDLGraphics::Green(temp_color)<<3, CSDLGraphics::Blue(temp_color)<<3);
 		}
 		else
 		if ( pCurrentFocusItem->GetItemOptionListCount() == 2)
@@ -3305,7 +3305,7 @@ void	C_VS_UI_REMOVE_OPTION::Show()
 	if(m_status == STATUS_SELECT_OPTION )
 	{
 		RECT rect = {x+30,y+field_y,x+w-30,y+field_y+23};	
-		WORD	selectColor = CDirectDraw::Color( 3,3,3);
+		WORD	selectColor = CSDLGraphics::Color( 3,3,3);
 		WORD	normalColor = 0;
 		if(m_select_option == 0)
 			gpC_base->m_p_DDSurface_back->FillRect(&rect, selectColor);
@@ -7237,7 +7237,7 @@ void	C_VS_UI_ARROW_TILE::Show()
 	rect.top = y+50;
 	rect.right = rect.left+100;
 	rect.bottom = rect.top + 20;
-	gpC_base->m_p_DDSurface_back->FillRect(&rect, CDirectDraw::Color(3,3,3));
+	gpC_base->m_p_DDSurface_back->FillRect(&rect, CSDLGraphics::Color(3,3,3));
 	gpC_global_resource->DrawOutBox(rect.left-2, rect.top-2, rect.right-rect.left+4, rect.bottom-rect.top+4);
 
 	rect.left = x+400;
@@ -7245,7 +7245,7 @@ void	C_VS_UI_ARROW_TILE::Show()
 	rect.right = rect.left + 85;
 	rect.bottom = rect.top + 20;
 
-//	gpC_base->m_p_DDSurface_back->FillRect(&rect, CDirectDraw::Color(3,3,3));	
+//	gpC_base->m_p_DDSurface_back->FillRect(&rect, CSDLGraphics::Color(3,3,3));	
 //	gpC_global_resource->DrawOutBox(Rect(rect.left-2, rect.top-2, rect.right-rect.left+4, rect.bottom-rect.top+4) );
 	
 
@@ -8144,7 +8144,7 @@ void	C_VS_UI_CRAZY_MINE::Show()
 	rect.top = y+60;
 	rect.right = rect.left+100;
 	rect.bottom = rect.top + 130;
-	gpC_base->m_p_DDSurface_back->FillRect(&rect, CDirectDraw::Color(3,3,3));
+	gpC_base->m_p_DDSurface_back->FillRect(&rect, CSDLGraphics::Color(3,3,3));
 	gpC_global_resource->DrawOutBox(rect.left-2, rect.top-2, rect.right-rect.left+4, rect.bottom-rect.top+4);
 
 	rect.left = x+40;
@@ -8152,7 +8152,7 @@ void	C_VS_UI_CRAZY_MINE::Show()
 	rect.right = rect.left + 70;
 	rect.bottom = rect.top + 20;
 
-	gpC_base->m_p_DDSurface_back->FillRect(&rect, CDirectDraw::Color(3,3,3));
+	gpC_base->m_p_DDSurface_back->FillRect(&rect, CSDLGraphics::Color(3,3,3));
 	gpC_global_resource->DrawOutBox(rect.left-2, rect.top-2, rect.right-rect.left+4, rect.bottom-rect.top+4);
 
 	rect.left = x+200;
@@ -8160,7 +8160,7 @@ void	C_VS_UI_CRAZY_MINE::Show()
 	rect.right = rect.left + 90;
 	rect.bottom = rect.top + 20;
 	
-//	gpC_base->m_p_DDSurface_back->FillRect(&rect, CDirectDraw::Color(3,3,3));	
+//	gpC_base->m_p_DDSurface_back->FillRect(&rect, CSDLGraphics::Color(3,3,3));	
 //	gpC_global_resource->DrawOutBox(Rect(rect.left-2, rect.top-2, rect.right-rect.left+4, rect.bottom-rect.top+4) );
 
 
@@ -10782,7 +10782,7 @@ void C_VS_UI_HELPDESC::LoadHelpJpg(std::string filename)
 								BYTE g = r;
 								BYTE b = r;
 								
-								*pSurfaceTemp++ = CDirectDraw::Color(r, g, b);
+								*pSurfaceTemp++ = CSDLGraphics::Color(r, g, b);
 							}
 							
 							pData = pData + pitch;
@@ -10805,7 +10805,7 @@ void C_VS_UI_HELPDESC::LoadHelpJpg(std::string filename)
 								
 								pDataTemp += bpp;
 								
-								*pSurfaceTemp++ = CDirectDraw::Color(r, g, b);
+								*pSurfaceTemp++ = CSDLGraphics::Color(r, g, b);
 							}
 							
 							pData = pData + pitch;
@@ -10870,7 +10870,7 @@ bool C_VS_UI_HELPDESC::jpgdraw(const  char * filename)
 								BYTE g = r;
 								BYTE b = r;
 								
-								*pSurfaceTemp++ = CDirectDraw::Color(r, g, b);
+								*pSurfaceTemp++ = CSDLGraphics::Color(r, g, b);
 							}
 							
 							pData = pData + pitch;
@@ -10893,7 +10893,7 @@ bool C_VS_UI_HELPDESC::jpgdraw(const  char * filename)
 								
 								pDataTemp += bpp;
 								
-								*pSurfaceTemp++ = CDirectDraw::Color(r, g, b);
+								*pSurfaceTemp++ = CSDLGraphics::Color(r, g, b);
 							}
 							
 							pData = pData + pitch;
@@ -13188,7 +13188,7 @@ void	C_VS_UI_NAMING::Show()
 
 	if(-1 != m_SelectPos && m_SelectPos>=ScrPos && m_SelectPos<= ScrPos+8)
 	{
-		WORD TempColor = CDirectDraw::Color(192,192,192);
+		WORD TempColor = CSDLGraphics::Color(192,192,192);
 		int TempPos = (m_SelectPos-ScrPos)%9;
 		RECT rect3 = { x+23, y+75+(TempPos*17),x+180,y+72+(TempPos*17) +19} ;
 		C_VS_UI_NicknameInfo* TempInfo = (C_VS_UI_NicknameInfo*)m_NameList[m_SelectPos];
@@ -13197,10 +13197,10 @@ void	C_VS_UI_NAMING::Show()
 			switch(TempInfo->getNicknameType())
 			{
 			case C_VS_UI_NicknameInfo::NICK_BUILT_IN:
-				TempColor = CDirectDraw::Color(255,0,0);
+				TempColor = CSDLGraphics::Color(255,0,0);
 				break;
 			case C_VS_UI_NicknameInfo::NICK_QUEST:
-				TempColor = CDirectDraw::Color(150,150,150);
+				TempColor = CSDLGraphics::Color(150,150,150);
 				break;
 			
 			}
@@ -19161,7 +19161,7 @@ bool C_VS_UI_INVENTORY_SUB::Click(int grid_start_x, int grid_start_y)
 					(MItem *)p_item);
 #endif
 
-				if(g_pDXInput->KeyDown(DIK_LSHIFT))
+				if(g_pSDLInput->KeyDown(DIK_LSHIFT))
 				{
 					POINT point;
 					if(p_item != NULL && g_pInventory->GetFitPosition((MItem *)p_item, point))

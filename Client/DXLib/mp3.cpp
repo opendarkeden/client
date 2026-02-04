@@ -171,7 +171,7 @@ LPDIRECTSOUNDBUFFER	MP3_CreateDSBuffer(MP3* mp3)
 	wfx.nAvgBytesPerSec	= wfx.nSamplesPerSec * wfx.nBlockAlign;
 	wfx.cbSize			= 0;
 
-	LPDIRECTSOUNDBUFFER buf = g_DXSound.CreateBuffer ( dataBuff, size, DSBCAPS_GLOBALFOCUS | DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME, &wfx) ;
+	LPDIRECTSOUNDBUFFER buf = g_SDLAudio.CreateBuffer ( dataBuff, size, DSBCAPS_GLOBALFOCUS | DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME, &wfx) ;
 
 	// DS_CreateBuffer() ;
 	//@@@@@@@@@@@@@@@

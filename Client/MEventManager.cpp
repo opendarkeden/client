@@ -67,7 +67,7 @@ void	MEventManager::AddEvent(MEvent &event)
 	{
 		const MEvent *tempEvent = GetEventByFlag(EVENTFLAG_FADE_SCREEN);
 		if(tempEvent != NULL)
-			CDirectDraw::SetAddGammaRamp((tempEvent->parameter2 >> 16) & 0xff, (tempEvent->parameter2 >> 8) & 0xff, tempEvent->parameter2 & 0xff);
+			CSDLGraphics::SetAddGammaRamp((tempEvent->parameter2 >> 16) & 0xff, (tempEvent->parameter2 >> 8) & 0xff, tempEvent->parameter2 & 0xff);
 	}
 }
 
@@ -115,9 +115,9 @@ void	MEventManager::RemoveEvent(EVENT_ID id)
 	{
 		event = GetEventByFlag(EVENTFLAG_FADE_SCREEN);
 		if(event == NULL)
-			CDirectDraw::SetAddGammaRamp();
+			CSDLGraphics::SetAddGammaRamp();
 		else
-			CDirectDraw::SetAddGammaRamp((event->parameter2 >> 16) & 0xff, (event->parameter2 >> 8) & 0xff, event->parameter2 & 0xff);
+			CSDLGraphics::SetAddGammaRamp((event->parameter2 >> 16) & 0xff, (event->parameter2 >> 8) & 0xff, event->parameter2 & 0xff);
 	}
 	DEBUG_ADD("[MEventManager] RemoveEvent OK");
 }
@@ -323,7 +323,7 @@ bool MEventManager::AssertEventBackground(EVENTBACKGROUND_ID id)
 								BYTE g = r;
 								BYTE b = r;
 								
-								*pSurfaceTemp++ = CDirectDraw::Color(r, g, b);
+								*pSurfaceTemp++ = CSDLGraphics::Color(r, g, b);
 							}
 							
 							pData = pData + pitch;
@@ -346,7 +346,7 @@ bool MEventManager::AssertEventBackground(EVENTBACKGROUND_ID id)
 								
 								pDataTemp += bpp;
 								
-								*pSurfaceTemp++ = CDirectDraw::Color(r, g, b);
+								*pSurfaceTemp++ = CSDLGraphics::Color(r, g, b);
 							}
 							
 							pData = pData + pitch;

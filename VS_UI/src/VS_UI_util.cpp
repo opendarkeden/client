@@ -132,7 +132,7 @@ extern	BOOL g_MyFull;
 //		}
 //
 //		CSprite * p_sprite;
-//		if (CDirectDraw::Is565())
+//		if (CSDLGraphics::Is565())
 //			p_sprite = new CSprite565;
 //		else
 //			p_sprite = new CSprite555;
@@ -677,7 +677,7 @@ C_SPRITE_PACK::C_SPRITE_PACK(const char *sz_filename)
 	// �׷��� �� �˻縦 �ܺο��� �ϰ� �ߴٴ±�...
 	
 	// by sigi
-	//if (CDirectDraw::Is565())
+	//if (CSDLGraphics::Is565())
 	//	m_pC_spk_list = new CSpritePackList565;
 	//else
 	//	m_pC_spk_list = new CSpritePackList555;

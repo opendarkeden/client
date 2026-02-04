@@ -15,7 +15,6 @@
 
 #include "MZoneSound.h"
 #include "CTypeMap.h"
-#include "CDirectSound.h"
 #ifdef PLATFORM_WINDOWS
 #include <DSound.h>
 #endif

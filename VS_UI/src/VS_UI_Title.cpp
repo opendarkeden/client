@@ -1179,7 +1179,7 @@ C_VS_UI_NEWCHAR::C_VS_UI_NEWCHAR()
 //
 //	m_slayer_ispk_file.read((char*)&num, SIZE_SPRITEID);
 //	
-//	m_pC_slayer_ispk.Init(num, CDirectDraw::Is565());
+//	m_pC_slayer_ispk.Init(num, CSDLGraphics::Is565());
 //
 //	{
 //		ifstream indexFile( ISPKI_SLAYER, ios::binary);
@@ -1194,7 +1194,7 @@ C_VS_UI_NEWCHAR::C_VS_UI_NEWCHAR()
 //
 //	m_vampire_ispk_file.read((char*)&num, SIZE_SPRITEID);
 //	
-//	m_vampire_ispk.Init(num, CDirectDraw::Is565());
+//	m_vampire_ispk.Init(num, CSDLGraphics::Is565());
 //
 //	{
 //		ifstream indexFile( ISPKI_VAMPIRE, ios::binary);
@@ -5509,7 +5509,7 @@ void C_VS_UI_TITLE::Run(id_t id)
 
 			sprintf(str, "%s\\Explorer.exe", str);
 
-			CDirectDraw::GetDD()->RestoreDisplayMode();
+			CSDLGraphics::GetDD()->RestoreDisplayMode();
 
 			_spawnl(_P_NOWAIT, str, "Explorer.exe", "http://www.ttdk2.com", NULL);
 
@@ -5564,7 +5564,7 @@ C_VS_UI_OPTION::C_VS_UI_OPTION(bool IsTitle)
 	m_check[CHECK_BLOOD_DROP] = g_pUserOption->BloodDrop?CHECK_CHECK:CHECK_NOT;
 	m_check[CHECK_ALPHA_DEPTH] = CHECK_DISABLE;
 	m_check[CHECK_DEFAULT_ALPHA] = g_pUserOption->DefaultAlpha?CHECK_CHECK:CHECK_NOT;
-	if(CDirectDraw::IsSupportGammaControl())
+	if(CSDLGraphics::IsSupportGammaControl())
 	{
 		m_check[CHECK_GAMMA] = g_pUserOption->UseGammaControl?CHECK_CHECK:CHECK_NOT;
 		m_value_gamma = g_pUserOption->GammaValue;
@@ -6275,9 +6275,9 @@ void C_VS_UI_OPTION::Run(id_t id)
 		{
 			m_check[CHECK_GAMMA] = (m_check[CHECK_GAMMA] == CHECK_CHECK)?CHECK_NOT:CHECK_CHECK;
 			g_pUserOption->UseGammaControl = m_check[CHECK_GAMMA] == CHECK_CHECK;
-			if(g_pUserOption->UseGammaControl)CDirectDraw::SetGammaRamp(m_value_gamma);
-			else if(CDirectDraw::IsSupportGammaControl())
-				CDirectDraw::RestoreGammaRamp();
+			if(g_pUserOption->UseGammaControl)CSDLGraphics::SetGammaRamp(m_value_gamma);
+			else if(CSDLGraphics::IsSupportGammaControl())
+				CSDLGraphics::RestoreGammaRamp();
 		}
 		break;
 
@@ -6621,8 +6621,8 @@ bool C_VS_UI_OPTION::MouseControl(UINT message, int _x, int _y)
 					break;
 
 				case RECT_GAMMA:
-					if(CDirectDraw::IsSupportGammaControl() && m_check[CHECK_GAMMA])
-						CDirectDraw::SetGammaRamp(m_value_gamma);
+					if(CSDLGraphics::IsSupportGammaControl() && m_check[CHECK_GAMMA])
+						CSDLGraphics::SetGammaRamp(m_value_gamma);
 					g_pUserOption->GammaValue = m_value_gamma;
 					break;
 

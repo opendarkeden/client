@@ -49,7 +49,7 @@ CSpriteSet::Init(TYPE_SPRITEID count)
 	// 메모리 잡기
 	m_nSprites = count;
 
-	if (CDirectDraw::Is565())
+	if (ColorDraw::Is565())
 	{
 		m_pSprites = new CSprite565 [m_nSprites];
 	}

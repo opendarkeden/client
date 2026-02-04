@@ -5,7 +5,8 @@
 #include "MObjectSelector.h"
 #include "MPlayer.h"
 #include "MJusticeAttackManager.h"
-#include "CDirectInput.h"
+#include "InputService.h"
+#include "DXLib/CDirectInput.h"
 #include "MEventManager.h"
 #include "MWarManager.h"
 #include "MZone.h"
@@ -63,12 +64,12 @@ MObjectSelector::CanSelect(MCreature* pCreature)
 //		int spriteType = (*g_pCreatureTable)[pCreature->GetCreatureType()].SpriteType;
 //		if((*g_pCreatureSpriteTable)[spriteType].IsPlayerOnlySprite() && !pCreature->IsNPC())
 //		{
-//			if( g_pPlayer->GetCreatureTribe() != pCreature->GetCreatureTribe() || g_pDXInput->KeyDown(DIK_LSHIFT))
+//			if( g_pPlayer->GetCreatureTribe() != pCreature->GetCreatureTribe() || g_pSDLInput->KeyDown(DIK_LSHIFT))
 //				IsAvailablePK = false;
 //		}
 //	}
 	// 2004, 9, 15, sobeit add end
-	return	(g_pDXInput->KeyDown(DIK_LSHIFT)
+	return	(g_pSDLInput->KeyDown(DIK_LSHIFT)
 
 			|| g_pPlayer->HasEffectStatus(EFFECTSTATUS_HALLUCINATION)
 
@@ -130,7 +131,7 @@ MObjectSelector::CanAttack(MCreature* pCreature)
 	// 2004, 9, 15, sobeit add end
 	
 	return (
-				g_pDXInput->KeyDown(DIK_LSHIFT)
+				g_pSDLInput->KeyDown(DIK_LSHIFT)
 				|| g_pPlayer->HasEffectStatus(EFFECTSTATUS_HALLUCINATION)
 				|| m_SelectBy==SELECT_BY_RACE 
 						&& g_pPlayer->CanAttackTribe(pCreature)

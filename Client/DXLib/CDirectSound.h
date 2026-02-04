@@ -7,31 +7,26 @@
 
 #pragma warning(disable:4786)
 
-#ifdef PLATFORM_WINDOWS
-#include <Windows.h>
-#include <MMSystem.h>
-#include <DSound.h>
-typedef std::list<LPDIRECTSOUNDBUFFER>	LPDIRECTSOUNDBUFFER_LIST;
-#else
+/* Platform-independent includes (SDL2 backend on all platforms) */
 #include "../../basic/Platform.h"
+#include "../../basic/AudioTypes.h"
 #include <list>
 #include <cstring>
 
-/* Forward declarations for DirectSound types */
+/* Forward declarations for DirectSound types (opaque pointers) */
+/* The actual implementation uses SDL_mixer for all platforms */
 typedef struct IDirectSound* LPDIRECTSOUND;
 #ifndef LPDIRECTSOUNDBUFFER
 typedef struct IDirectSoundBuffer* LPDIRECTSOUNDBUFFER;
 #endif
-typedef struct _WAVEFORMATEX* LPWAVEFORMATEX;
 typedef std::list<LPDIRECTSOUNDBUFFER>	LPDIRECTSOUNDBUFFER_LIST;
-#endif
 
-class CDirectSound
+class CSDLAudio
 {
 
 	public:		// 함수
-		CDirectSound();
-		~CDirectSound();
+		CSDLAudio();
+		~CSDLAudio();
 
 		//---------------------------------------------------------
 		// Init / Release
@@ -40,11 +35,7 @@ class CDirectSound
 		void					Release();									// 제거
 		void					ReleaseDuplicateBuffer();
 
-#ifdef PLATFORM_WINDOWS
-		bool					IsInit() const		{ return m_bInit; }
-#else
-		bool					IsInit() const;
-#endif
+	bool					IsInit() const;
 
 		//---------------------------------------------------------
 		// Load / Release / Duplicate
@@ -66,15 +57,9 @@ class CDirectSound
 		//---------------------------------------------------------
 		// Mute
 		//---------------------------------------------------------
-#ifdef PLATFORM_WINDOWS
-		bool					IsMute() const		{ return m_bMute; }
-		void					SetMute()			{ m_bMute = true; }
-		void					UnSetMute()			{ m_bMute = false; }
-#else
 		bool					IsMute() const;
 		void					SetMute();
 		void					UnSetMute();
-#endif
 
 		//---------------------------------------------------------
 		// Frequency
@@ -90,11 +75,7 @@ class CDirectSound
 		bool					SubVolume(LPDIRECTSOUNDBUFFER, int);		// 볼륨 내림				
 		bool					SubVolumeFromMax(LPDIRECTSOUNDBUFFER, int);	// Max부터 볼륨 내림
 		void					SetVolumeLimit(LONG volume);
-#ifdef PLATFORM_WINDOWS
-		LONG					GetVolumeLimit() const	{ return m_MaxVolume; }
-#else
 		LONG					GetVolumeLimit() const;
-#endif
 
 		//---------------------------------------------------------
 		// Pan
@@ -106,11 +87,7 @@ class CDirectSound
 		bool					CenterPan(LPDIRECTSOUNDBUFFER);				// 가운데 팬
 		bool					ChangePan(LPDIRECTSOUNDBUFFER buffer, int pan);	// -10000 ~ 10000
 
-#ifdef PLATFORM_WINDOWS
-		LPDIRECTSOUND			GetDS() const		{ return m_pDS; }
-#else
 		LPDIRECTSOUND			GetDS() const;
-#endif
 
 		
 
@@ -129,10 +106,10 @@ class CDirectSound
 		LPDIRECTSOUNDBUFFER_LIST	m_listDuplicatedBuffer;
 
 
-	friend class CDirectMusic;
-	friend class CDirectSoundStream;
+	friend class CSDLMusic;
+	friend class CSDLStream;
 };
 
-extern	CDirectSound		g_DXSound;
+extern	CSDLAudio		g_SDLAudio;
 
 #endif

@@ -61,7 +61,7 @@ extern BOOL g_bLButtonDown;
 bool					gbl_mine_progress = false;
 DWORD					gi_mine_progress;
 
-extern CDirectInput*			g_pDXInput;
+extern CSDLInput*			g_pSDLInput;
 extern MStorage*				g_pStorageTemp;
 
 extern BOOL g_bActiveGame;
@@ -3573,7 +3573,7 @@ bool C_VS_UI_GEAR::Click(int window_x, int window_y, Rect * slot_rect)
 					MAKEDWORD(item_x, item_y), 
 					(MItem *)p_item);
 				// SHIFT������ Ŭ�������� ������ �ڵ� �̵� ó�� -> �κ��丮
-				if(g_pDXInput->KeyDown(DIK_LSHIFT))
+				if(g_pSDLInput->KeyDown(DIK_LSHIFT))
 				{
 					POINT point;
 					if(p_item != NULL && g_pInventory->GetFitPosition((MItem *)p_item, point))
@@ -4395,7 +4395,7 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 		RestoreHistoryTemp();
 	}
 
-	if((message == WM_KEYDOWN || message == WM_CHAR || message == WM_KEYUP) && key == VK_SPACE && (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL)))
+	if((message == WM_KEYDOWN || message == WM_CHAR || message == WM_KEYUP) && key == VK_SPACE && (g_pSDLInput->KeyDown(DIK_LCONTROL) || g_pSDLInput->KeyDown(DIK_RCONTROL)))
 		return;
 	
 	int old_cursor = m_lev_chatting.GetCursor();
@@ -4877,7 +4877,7 @@ void C_VS_UI_CHATTING::Show()
 						BYTE b = (color&0xff0000)>>19;
 						BYTE g = (color&0xff00)>>11;
 						BYTE r = (color&0xff)>>3;
-						WORD c = CDirectDraw::Color(r, g, b);
+						WORD c = CSDLGraphics::Color(r, g, b);
 						gpC_base->m_p_DDSurface_back->FillRect(&rect, c);
 					}
 				}
@@ -6124,8 +6124,9 @@ void C_VS_UI_CHATTING::Process()
 		}
 		int num = 0;
 		if(CheckNum > 0) num = rand()%CheckNum;
-		for(int i = 0; i <= num; i++)
+		for(int i = 0; i < m_v_help_check.size(); i++)
 		{
+			if(i > num) break;
 			if(m_v_help_check[i] == true)num++;//break;
 		}
 		//		m_v_help_check[i] = true;
@@ -9066,7 +9067,7 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 			{
 				//#ifdef _LIB
 				// SHIFT������ Ŭ�������� ������ �ڵ� �̵� ó�� -> �������� -> ���â -> ������
-				if(g_pDXInput->KeyDown(DIK_LSHIFT))
+				if(g_pSDLInput->KeyDown(DIK_LSHIFT))
 				{
 					AutoMove( m_focus_grid_x, m_focus_grid_y );
 				}
@@ -11508,7 +11509,7 @@ void	C_VS_UI_PARTY_MANAGER::Start()
 	//
 	//	if(gbl_vampire_interface)
 	//	{
-	//		temp_spk.Init(2, CDirectDraw::Is565());
+	//		temp_spk.Init(2, CSDLGraphics::Is565());
 	//		for(int k = 0; k < 2; k++)
 	//		{
 	//			temp_spk.LoadFromFileData(k, 6+k, SPK_FACE, SPKI_FACE);
@@ -11516,7 +11517,7 @@ void	C_VS_UI_PARTY_MANAGER::Start()
 	//	}
 	//	else
 	//	{
-	//		temp_spk.Init(6, CDirectDraw::Is565());
+	//		temp_spk.Init(6, CSDLGraphics::Is565());
 	//		for(int k = 0; k < 6; k++)
 	//		{
 	//			temp_spk.LoadFromFileData(k, k, SPK_FACE, SPKI_FACE);
@@ -16511,7 +16512,7 @@ void	C_VS_UI_INFO::_Show1()
 								dest.y = p.y+dest.y+iconHalf;
 
 								BYTE r = 20, g = 31, b = 20;
-								WORD c = CDirectDraw::Color(r, g, b);
+								WORD c = CSDLGraphics::Color(r, g, b);
 
 								gpC_base->m_p_DDSurface_back->Line(source.x, source.y, dest.x, dest.y, c);
 
@@ -16618,7 +16619,7 @@ void	C_VS_UI_INFO::_Show1()
 								dest.y = p.y+dest.y+iconHalf;
 
 								BYTE r = 20, g = 31, b = 20;
-								WORD c = CDirectDraw::Color(r, g, b);
+								WORD c = CSDLGraphics::Color(r, g, b);
 
 								gpC_base->m_p_DDSurface_back->Line(source.x, source.y, dest.x, dest.y, c);
 
@@ -22799,16 +22800,16 @@ void C_VS_UI_MINIMAP::Show()
 		}
 		
 		BYTE r = 31, g = 63, b = 31;
-		WORD portal_color = CDirectDraw::Color(r, g, b);
+		WORD portal_color = CSDLGraphics::Color(r, g, b);
 		
 		int i, _x, _y;
 		WORD _color, _color2;
 		
 		// ��Ż ��ġ ǥ�� ��
 		r = color, g = color-10, b = color;
-		_color = CDirectDraw::Color(r, g, b);
+		_color = CSDLGraphics::Color(r, g, b);
 		r = color*2/3, g = (color-10)*2/3, b = color*2/3;
-		_color2 = CDirectDraw::Color(r, g, b);
+		_color2 = CSDLGraphics::Color(r, g, b);
 	for(i = 0; i < m_portal.size(); i++)
 		{
 			_x = x+m_map_start_point.x + (m_portal[i].left+m_portal[i].right)/2*map_w/m_map_w;
@@ -22840,9 +22841,9 @@ void C_VS_UI_MINIMAP::Show()
 
 				// ��Ż ��ġ ǥ�� ��
 		r = color, g = color-10, b = color;
-		_color = CDirectDraw::Color(r, g, b);
+		_color = CSDLGraphics::Color(r, g, b);
 		r = color*2/3, g = (color-10)*2/3, b = color*2/3;
-		_color2 = CDirectDraw::Color(r, g, b);
+		_color2 = CSDLGraphics::Color(r, g, b);
 		for(int i = 0; i < m_Block.size(); i++)
 		{
 			_x = x+m_map_start_point.x + (m_Block[i].x)*map_w/m_map_w;
@@ -22867,7 +22868,7 @@ void C_VS_UI_MINIMAP::Show()
 		
 		// npc��ġ ǥ�� ��
 		r = color-10, g = color, b = color-10;
-		_color = CDirectDraw::Color(r, g, b);
+		_color = CSDLGraphics::Color(r, g, b);
 		for(int i = 0; i < m_npc.size(); i++)
 		{
 			_x = x+m_map_start_point.x + m_npc[i].x*map_w/m_map_w;
@@ -22904,9 +22905,9 @@ void C_VS_UI_MINIMAP::Show()
 
 		// shrine��ġ ǥ�� ��
 		r = color-10, g = color-10, b = color;
-		_color = CDirectDraw::Color(r, g, b);
+		_color = CSDLGraphics::Color(r, g, b);
 		r = (color-10)*2/3, g = (color-10)*2/3, b = color*2/3;
-		_color2 = CDirectDraw::Color(r, g, b);
+		_color2 = CSDLGraphics::Color(r, g, b);
 		for(int i = 0; i < m_shrine.size(); i++)
 		{
 			_x = x+m_map_start_point.x + m_shrine[i].x*map_w/m_map_w;
@@ -22946,7 +22947,7 @@ void C_VS_UI_MINIMAP::Show()
 		if(g_pParty->GetSize())
 		{
 		r = color, g = color-5, b = color-5;
-		_color = CDirectDraw::Color(r, g, b);
+		_color = CSDLGraphics::Color(r, g, b);
 		for(int i = 0; i < g_pParty->GetSize(); i++)
 		{
 		if(g_pParty->GetMemberInfo(i) != NULL && g_pParty->GetMemberInfo(i)->zoneID == m_zone_id)
@@ -23218,7 +23219,7 @@ void	C_VS_UI_MINIMAP::SetFlagArea(POINT pt)
 			for(int x = pt.x*m_surface_w/m_map_w; 
 			x <= (pt.x+9)*m_surface_w/m_map_w; x++)
 			{
-				mem[y*pitch/2+x] = mem[y*pitch/2+x] & CDirectDraw::Get_R_Bitmask();
+				mem[y*pitch/2+x] = mem[y*pitch/2+x] & CSDLGraphics::Get_R_Bitmask();
 			}
 		}
 	}
@@ -23266,9 +23267,9 @@ void C_VS_UI_MINIMAP::SetSafetyZone(RECT rect, bool my_zone)
 			x <= min((remainx+rect.right)*m_surface_w/m_map_w ,m_surface_w-1); x++)
 			{
 				if(my_zone)
-					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CDirectDraw::Get_G_Bitmask();
+					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CSDLGraphics::Get_G_Bitmask();
 				else
-					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CDirectDraw::Get_R_Bitmask();
+					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CSDLGraphics::Get_R_Bitmask();
 			}
 		}
 	}
@@ -23282,9 +23283,9 @@ void C_VS_UI_MINIMAP::SetSafetyZone(RECT rect, bool my_zone)
 			x <= min(remainx+rect.right*map_w/m_map_w + (m_surface_w - map_w)/2,m_surface_w-1); x++)
 			{
 				if(my_zone)
-					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CDirectDraw::Get_G_Bitmask();
+					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CSDLGraphics::Get_G_Bitmask();
 				else
-					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CDirectDraw::Get_R_Bitmask();
+					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CSDLGraphics::Get_R_Bitmask();
 			}
 		}
 	}*/
@@ -30633,11 +30634,11 @@ void	C_VS_UI_XMAS_CARD::Show()
 
 	g_FL2_ReleaseDC();
 
-	gpC_base->m_p_DDSurface_back->HLine(x+57, y+58+13, 115, CDirectDraw::Color(100>>3, 200>>3, 100>>3));
-	gpC_base->m_p_DDSurface_back->HLine(x+80, y+123+13, 115, CDirectDraw::Color(100>>3, 200>>3, 100>>3));
+	gpC_base->m_p_DDSurface_back->HLine(x+57, y+58+13, 115, CSDLGraphics::Color(100>>3, 200>>3, 100>>3));
+	gpC_base->m_p_DDSurface_back->HLine(x+80, y+123+13, 115, CSDLGraphics::Color(100>>3, 200>>3, 100>>3));
 
-	gpC_base->m_p_DDSurface_back->HLine(x+50, y+80+13, 121, CDirectDraw::Color(100>>3, 100>>3, 200>>3));
-	gpC_base->m_p_DDSurface_back->HLine(x+50, y+80+13+18, 121, CDirectDraw::Color(100>>3, 100>>3, 200>>3));
+	gpC_base->m_p_DDSurface_back->HLine(x+50, y+80+13, 121, CSDLGraphics::Color(100>>3, 100>>3, 200>>3));
+	gpC_base->m_p_DDSurface_back->HLine(x+50, y+80+13+18, 121, CSDLGraphics::Color(100>>3, 100>>3, 200>>3));
 
 	m_lev_to.SetPosition(x+85,y+58);
 	m_lev_to.Show();
@@ -31872,7 +31873,7 @@ void	C_VS_UI_BLOOD_BIBLE_STATUS::Show()
 			else if( m_BloodBibleStatus[i].shrine_race == RACE_OUSTERS )
 				g = 255;
 
-			color = CDirectDraw::Color(r, g, b);
+			color = CSDLGraphics::Color(r, g, b);
 
 			RECT rect = {point.x, point.y, point.x +17, point.y +17};
 
@@ -33047,7 +33048,7 @@ void	C_VS_UI_QUEST_STATUS::Show()
 		if(!GetAttributes()->alpha)
 		{
 			if( m_bl_focus )
-				gpC_base->m_p_DDSurface_back->FillRect(&rect, CDirectDraw::Color(3,3,3));	
+				gpC_base->m_p_DDSurface_back->FillRect(&rect, CSDLGraphics::Color(3,3,3));	
 			else
 				gpC_base->m_p_DDSurface_back->FillRect(&rect, 0);	
 		}
@@ -35204,16 +35205,16 @@ void C_VS_UI_WORLDMAP::Show()
 		}
 		
 		BYTE r = 31, g = 63, b = 31;
-		WORD portal_color = CDirectDraw::Color(r, g, b);
+		WORD portal_color = CSDLGraphics::Color(r, g, b);
 		
 		int i, _x, _y;
 		WORD _color, _color2;
 		
 		// ��Ż ��ġ ǥ�� ��
 		r = color, g = color-10, b = color;
-		_color = CDirectDraw::Color(r, g, b);
+		_color = CSDLGraphics::Color(r, g, b);
 		r = color*2/3, g = (color-10)*2/3, b = color*2/3;
-		_color2 = CDirectDraw::Color(r, g, b);
+		_color2 = CSDLGraphics::Color(r, g, b);
 	for(i = 0; i < m_portal.size(); i++)
 		{
 			_x = x+m_map_start_point.x + (m_portal[i].left+m_portal[i].right)/2*map_w/m_map_w;
@@ -35245,9 +35246,9 @@ void C_VS_UI_WORLDMAP::Show()
 
 				// ��Ż ��ġ ǥ�� ��
 		r = color, g = color-10, b = color;
-		_color = CDirectDraw::Color(r, g, b);
+		_color = CSDLGraphics::Color(r, g, b);
 		r = color*2/3, g = (color-10)*2/3, b = color*2/3;
-		_color2 = CDirectDraw::Color(r, g, b);
+		_color2 = CSDLGraphics::Color(r, g, b);
 		for(int i = 0; i < m_Block.size(); i++)
 		{
 			_x = x+m_map_start_point.x + (m_Block[i].x)*map_w/m_map_w;
@@ -35272,7 +35273,7 @@ void C_VS_UI_WORLDMAP::Show()
 		
 		// npc��ġ ǥ�� ��
 		r = color-10, g = color, b = color-10;
-		_color = CDirectDraw::Color(r, g, b);
+		_color = CSDLGraphics::Color(r, g, b);
 		for(int i = 0; i < m_npc.size(); i++)
 		{
 			_x = x+m_map_start_point.x + m_npc[i].x*map_w/m_map_w;
@@ -35309,9 +35310,9 @@ void C_VS_UI_WORLDMAP::Show()
 
 		// shrine��ġ ǥ�� ��
 		r = color-10, g = color-10, b = color;
-		_color = CDirectDraw::Color(r, g, b);
+		_color = CSDLGraphics::Color(r, g, b);
 		r = (color-10)*2/3, g = (color-10)*2/3, b = color*2/3;
-		_color2 = CDirectDraw::Color(r, g, b);
+		_color2 = CSDLGraphics::Color(r, g, b);
 		for(int i = 0; i < m_shrine.size(); i++)
 		{
 			_x = x+m_map_start_point.x + m_shrine[i].x*map_w/m_map_w;
@@ -35351,7 +35352,7 @@ void C_VS_UI_WORLDMAP::Show()
 		if(g_pParty->GetSize())
 		{
 		r = color, g = color-5, b = color-5;
-		_color = CDirectDraw::Color(r, g, b);
+		_color = CSDLGraphics::Color(r, g, b);
 		for(int i = 0; i < g_pParty->GetSize(); i++)
 		{
 		if(g_pParty->GetMemberInfo(i) != NULL && g_pParty->GetMemberInfo(i)->zoneID == m_zone_id)
@@ -35623,7 +35624,7 @@ void	C_VS_UI_WORLDMAP::SetFlagArea(POINT pt)
 			for(int x = pt.x*m_surface_w/m_map_w; 
 			x <= (pt.x+9)*m_surface_w/m_map_w; x++)
 			{
-				mem[y*pitch/2+x] = mem[y*pitch/2+x] & CDirectDraw::Get_R_Bitmask();
+				mem[y*pitch/2+x] = mem[y*pitch/2+x] & CSDLGraphics::Get_R_Bitmask();
 			}
 		}
 	}
@@ -35670,9 +35671,9 @@ void C_VS_UI_WORLDMAP::SetSafetyZone(RECT rect, bool my_zone)
 			x <= min((remainx+rect.right)*m_surface_w/m_map_w ,m_surface_w-1); x++)
 			{
 				if(my_zone)
-					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CDirectDraw::Get_G_Bitmask();
+					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CSDLGraphics::Get_G_Bitmask();
 				else
-					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CDirectDraw::Get_R_Bitmask();
+					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CSDLGraphics::Get_R_Bitmask();
 			}
 		}
 	}
@@ -35686,9 +35687,9 @@ void C_VS_UI_WORLDMAP::SetSafetyZone(RECT rect, bool my_zone)
 			x <= min(remainx+rect.right*map_w/m_map_w + (m_surface_w - map_w)/2,m_surface_w-1); x++)
 			{
 				if(my_zone)
-					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CDirectDraw::Get_G_Bitmask();
+					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CSDLGraphics::Get_G_Bitmask();
 				else
-					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CDirectDraw::Get_R_Bitmask();
+					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CSDLGraphics::Get_R_Bitmask();
 			}
 		}
 	}*/

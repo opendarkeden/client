@@ -116,7 +116,7 @@ bool				g_bNetStatusGood = true;
 //-----------------------------------------------------------------------------
 // Other globals (not in Client.cpp)
 //-----------------------------------------------------------------------------
-CDirectSoundStream*	g_pDXSoundStream = NULL;
+CDirectSoundStream*	g_pSDLStream = NULL;
 MWorkThread*		g_pLoadingThread = NULL;
 bool				g_bFullScreen = false;
 int					g_MaxNPC = 100;

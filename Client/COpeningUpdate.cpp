@@ -24,10 +24,10 @@ void
 COpeningUpdate::Init()
 {
 	// mouse event 처리
-	g_pDXInput->SetMouseEventReceiver( NULL );
+	g_pSDLInput->SetMouseEventReceiver( NULL );
 
 	// keyboard event 처리
-	g_pDXInput->SetKeyboardEventReceiver( NULL );
+	g_pSDLInput->SetKeyboardEventReceiver( NULL );
 }
 
 //---------------------------------------------------------------------------

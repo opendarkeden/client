@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------
-// CDirectMusic.cpp
+// CSDLMusic.cpp
 //
 // SDL2 Implementation (Cross-platform)
 // Windows DirectMusic implementation removed - using SDL2_mixer on all platforms
@@ -12,13 +12,13 @@
 //-----------------------------------------------------------------------------
 // Global instance
 //-----------------------------------------------------------------------------
-CDirectMusic g_DXMusic;
+CSDLMusic g_SDLMusic;
 
 //-----------------------------------------------------------------------------
 // Constructor/Destructor
 //-----------------------------------------------------------------------------
 
-CDirectMusic::CDirectMusic()
+CSDLMusic::CSDLMusic()
 {
 	m_pDM = NULL;
 	m_pDMPerformance = NULL;
@@ -39,7 +39,7 @@ CDirectMusic::CDirectMusic()
 	m_bSoftwareSynth = true;
 }
 
-CDirectMusic::~CDirectMusic()
+CSDLMusic::~CSDLMusic()
 {
 	// Stub - SDL mixer is managed elsewhere
 }
@@ -48,7 +48,7 @@ CDirectMusic::~CDirectMusic()
 // Initialization
 //-----------------------------------------------------------------------------
 
-bool CDirectMusic::Init(HWND hWnd, DIRECTMUSIC_TYPE type)
+bool CSDLMusic::Init(HWND hWnd, DIRECTMUSIC_TYPE type)
 {
 	// Not implemented - use Mix_OpenAudio() from SDL_mixer instead
 	(void)hWnd;
@@ -56,25 +56,25 @@ bool CDirectMusic::Init(HWND hWnd, DIRECTMUSIC_TYPE type)
 	return false;
 }
 
-void CDirectMusic::Release()
+void CSDLMusic::Release()
 {
 	// Not implemented - use Mix_CloseAudio() from SDL_mixer instead
 }
 
-bool CDirectMusic::CreatePerformance()
+bool CSDLMusic::CreatePerformance()
 {
 	// Not implemented - SDL mixer doesn't have separate performance object
 	return false;
 }
 
-bool CDirectMusic::CreatePort(DIRECTMUSIC_TYPE type)
+bool CSDLMusic::CreatePort(DIRECTMUSIC_TYPE type)
 {
 	// Not implemented - SDL mixer uses system audio output
 	(void)type;
 	return false;
 }
 
-bool CDirectMusic::CreateLoader()
+bool CSDLMusic::CreateLoader()
 {
 	// Not implemented - use Mix_LoadMUS() from SDL_mixer instead
 	return false;
@@ -84,7 +84,7 @@ bool CDirectMusic::CreateLoader()
 // Playback Control
 //-----------------------------------------------------------------------------
 
-bool CDirectMusic::Play(const char* filename, WORD repeat)
+bool CSDLMusic::Play(const char* filename, WORD repeat)
 {
 	// Not implemented - use Mix_PlayMusic() from SDL_mixer instead
 	(void)filename;
@@ -92,17 +92,17 @@ bool CDirectMusic::Play(const char* filename, WORD repeat)
 	return false;
 }
 
-void CDirectMusic::Pause()
+void CSDLMusic::Pause()
 {
 	// Not implemented - use Mix_PauseMusic() from SDL_mixer instead
 }
 
-void CDirectMusic::Resume()
+void CSDLMusic::Resume()
 {
 	// Not implemented - use Mix_ResumeMusic() from SDL_mixer instead
 }
 
-void CDirectMusic::Stop()
+void CSDLMusic::Stop()
 {
 	// Not implemented - use Mix_HaltMusic() from SDL_mixer instead
 }
@@ -111,7 +111,7 @@ void CDirectMusic::Stop()
 // Tempo Control
 //-----------------------------------------------------------------------------
 
-void CDirectMusic::SetCurrentTempo(int tempo)
+void CSDLMusic::SetCurrentTempo(int tempo)
 {
 	// Not implemented - SDL_mixer doesn't support tempo changes
 	(void)tempo;
