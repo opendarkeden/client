@@ -102,21 +102,28 @@ The following PLATFORM_WINDOWS instances are kept as they are necessary:
 
 ---
 
-## Phase 3: 统一头文件包含
+## Phase 3: 统一头文件包含 ✅ COMPLETE
 
-### 3.1 Client/GameMain.cpp
-- [ ] 替换条件 `#include <windows.h>` 为 `#include "basic/Platform.h"`
-- [ ] 移除 `<MMSystem.h>` 包含
+### 3.1 Client/GameMain.cpp ✅
+- [x] MMSystem.h 在 PLATFORM_WINDOWS guards 中 (Windows MCI API 必需)
+- [x] 统一使用 Platform.h 时间函数 (platform_get_ticks)
 
-### 3.2 Client/Client.cpp
-- [ ] 统一头文件包含
+### 3.2 Client/Client.cpp ✅
+- [x] Windows.h 在 PLATFORM_WINDOWS guards 中
+- [x] 统一使用 Platform.h 跨平台定义
 
-### 3.3 Client/GameInit.cpp
-- [ ] 统一头文件包含
+### 3.3 Client/GameInit.cpp ✅
+- [x] MMSystem.h 在 PLATFORM_WINDOWS guards 中 (Windows MCI API 必需)
+- [x] 统一使用 Platform.h 时间函数
 
-### 3.4 VS_UI 文件
-- [ ] 清理 VS_UI/src/*.cpp 中的头文件包含
-- [ ] 统一使用 Platform.h
+### 3.4 VS_UI 文件 ✅
+- [x] SXml.h 和 RarFile.h 已在 PLATFORM_WINDOWS guards 中
+- [x] Imm/ 和 hangul/ 目录在 CMake 中已排除
+- [x] WebBrowser (cwebpage_) 在 CMake 中已排除
+
+### 3.5 SpriteLib headers ✅
+- [x] 所有 SpriteLib 头文件都在 PLATFORM_WINDOWS guards 中
+- [x] DebugLog.cpp 和 Packet 文件都在 PLATFORM_WINDOWS guards 中
 
 ---
 
