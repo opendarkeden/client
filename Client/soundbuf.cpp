@@ -1,19 +1,11 @@
 #include "DirectXlib_PCH.h"
-#ifdef PLATFORM_WINDOWS
-#include <wtypes.h>
-#else
 #include "../basic/Platform.h"
-#endif
 #include <memory.h>
 #include "soundbuf.h"
 #include "mp3.h"
 //#include "dslib.h"
 //#include "debug.h"
-#ifdef PLATFORM_WINDOWS
-#include "DXLib\CDirectSound.h"
-#else
 #include "DXLib/CDirectSound.h"
-#endif
 
 const UINT frequencies[3] = { 44100, 48000, 32000 };
 
@@ -66,14 +58,14 @@ int AppendData (int  ch, LPSOUNDBUF lpsb, int value )
 		// fwrite(&lpsb->databuf[lpsb->lp], 1, 2, file1) ;
 		lpsb->lp += lpsb->channels*2 ;
 	}
-	else if ( ch == 1 ) 
+	else if ( ch == 1 )
 	{
 		lpsb->databuf[lpsb->rp]	= (char) (value & 0xff); lpsb->nWritten++ ;
 		lpsb->databuf[lpsb->rp+1]	= (char) (value >> 8); lpsb->nWritten++ ;
 		// fwrite(&lpsb->databuf[lpsb->rp], 1, 2, file2) ;
 		lpsb->rp += lpsb->channels*2 ;
 	}
-	
+
 	return 0 ;
 }
 
@@ -110,7 +102,7 @@ Fill :
 			memcpy ( audioPtr2, lpsb->databuf + audioBytes1, lpsb->bufSize - audioBytes1 ) ;
 		}
 
-		lpsb->dsWriteBuf->Unlock( audioPtr1, audioBytes1, audioBytes2, lpsb->bufSize - audioBytes1) ;
+		lpsb->dsWriteBuf->Unlock( audioPtr1, audioBytes1, audioPtr2, lpsb->bufSize - audioBytes1) ;
 #else
 		// SDL/macOS: DirectSound buffer operations not implemented
 		(void)audioPtr1; (void)audioPtr2;
@@ -149,4 +141,3 @@ int WriteTo ( LPSOUNDBUF lpsb , BYTE* arr)
 	memcpy ( lpsb->databuf, arr, lpsb->nWritten ) ;
 	return 0 ;
 }
-
