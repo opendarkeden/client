@@ -52,9 +52,9 @@ MWorkThread::Init(LPTHREAD_START_ROUTINE FileThreadProc, int priority)
 	//-----------------------------------------------------------
 	// Create Event
 	//-----------------------------------------------------------
-	m_hHasWorkEvent = CreateEvent(NULL, TRUE, FALSE, NULL);	// non-signaled
-	m_hEndWorkEvent = CreateEvent(NULL, TRUE, TRUE, NULL);	// signaled
-	m_hStopWorkEvent = CreateEvent(NULL, TRUE, FALSE, NULL);	// non-signaled
+m_hHasWorkEvent = (HANDLE)platform_event_create(TRUE, FALSE);	// non-signaled
+	m_hEndWorkEvent = (HANDLE)platform_event_create(TRUE, TRUE);	// signaled
+	m_hStopWorkEvent = (HANDLE)platform_event_create(TRUE, FALSE);	// non-signaled
 	//m_hDequeLock = CreateEvent(NULL, TRUE, FALSE, NULL);	// non-signaled
 	//m_hCurrentLock = CreateEvent(NULL, TRUE, FALSE, NULL);	// non-signaled
 
@@ -96,12 +96,12 @@ MWorkThread::Release()
 	//-------------------------------------------------------------
 	while (IsStopWork());
 
+//--------------------------------------------
+	// event cleanup
 	//--------------------------------------------
-	// event 제거
-	//--------------------------------------------
-	CloseHandle(m_hHasWorkEvent);
-	CloseHandle(m_hEndWorkEvent);
-	CloseHandle(m_hStopWorkEvent);
+	platform_event_close((platform_event_t)m_hHasWorkEvent);
+	platform_event_close((platform_event_t)m_hEndWorkEvent);
+	platform_event_close((platform_event_t)m_hStopWorkEvent);
 	//CloseHandle(m_hDequeLock);
 	//CloseHandle(m_hCurrentLock);
 	DeleteCriticalSection(&m_csDeque);

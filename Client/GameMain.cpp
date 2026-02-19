@@ -12,8 +12,6 @@
 #include <process.h>
 #include <io.h>
 #include <direct.h>
-#include "packet/Cpackets/CGVerifyTime.h"
-#include "packet/Cpackets/CGPortCheck.h"
 #else
 #include <unistd.h>
 #include <fcntl.h>

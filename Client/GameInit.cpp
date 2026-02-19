@@ -1654,28 +1654,11 @@ InitGame()
 	DEBUG_ADD("---------------[   InitGame   ]---------------");
 
 	//----------------------------------------------------------------------
-	// WSA Startup (Windows-only network initialization)
+	// Socket initialization (mingw socket on Windows, BSD sockets on Unix)
 	//----------------------------------------------------------------------
-	DEBUG_ADD("[ InitGame ]  Socket - Before WSAStartup");
+	DEBUG_ADD("[ InitGame ]  Socket - Socket initialized");
 
-#ifdef PLATFORM_WINDOWS
-	// Windows needs WSAStartup for WinSock
-	WORD wVersionRequested;
-	WSADATA wsaData;
-
-	wVersionRequested = MAKEWORD( 2, 0 );
-
-	if (WSAStartup( wVersionRequested, &wsaData ) != 0)
-	{
-	    // Tell the user that we couldn't find a useable
-	    // WinSock DLL.
-	    MessageBox( g_hWnd, "couldn't find a useable WinSock DLL.", NULL, MB_OK);
-		return FALSE;
-	}
-#else
-	// Unix-like systems (macOS/Linux) don't need WSAStartup
-	// BSD sockets work directly
-#endif
+	// Note: mingw socket (POSIX-compatible) doesn't need WSAStartup like WinSock
 
 //	#ifdef _DEBUG
 //		bool bMerge = false;
@@ -2538,12 +2521,9 @@ void ReleaseAllObjects()
 	ReleaseSocket();
 
 	//----------------------------------------------------------------
-	// WinSock Cleanup (Windows only)
+	// Socket cleanup (mingw socket doesn't need explicit cleanup)
 	//----------------------------------------------------------------
-#ifdef PLATFORM_WINDOWS
-	WSACleanup();
-#endif
-	// Unix-like systems don't need cleanup for sockets
+	DEBUG_ADD("[Release] Socket cleaned up");
 
 	//----------------------------------------------------------------
 	// Volume

@@ -3425,39 +3425,21 @@ WinMain(HINSTANCE hInstance,
 	*/
 
 	g_pFileDef = new Properties;
-	g_pFileDef->load(FILE_INFO_FILEDEF);			
-	
+	g_pFileDef->load(FILE_INFO_FILEDEF);
+
 	// ³Ý¸¶ºí¿ë
 	bool bNetmarble = false;
 	Properties NetmarbleConfig;
-		
-	NetmarbleConfig.load(g_pFileDef->getProperty("FILE_INFO_NETMARBLE").c_str());			
+
+	NetmarbleConfig.load(g_pFileDef->getProperty("FILE_INFO_NETMARBLE").c_str());
 	bNetmarble = NetmarbleConfig.getPropertyInt("Netmarble") != 0;
 
 	if(bNetmarble)
 	{
-		// -------------------------------------------------
-		// read registry...
-		// -------------------------------------------------
-		HKEY newKey = 0;
-		LONG ret = RegOpenKeyEx( HKEY_LOCAL_MACHINE, "SOFTWARE\\Netmarble\\NetmarbleDarkEden", NULL, KEY_ALL_ACCESS, &newKey);
-		DWORD dwSize = MAX_PATH;
-		char filepath[MAX_PATH];
-		
-		if( ret == ERROR_SUCCESS)
-		{
-			RegQueryValueEx( newKey, "RunFileName", NULL, NULL, (unsigned char*)filepath, &dwSize);
-
-			char *pFilename = const_cast<char*>(strstr(filepath, "DarkEden.exe"));
-			if(pFilename != NULL)
-			{
-				//MessageBox(0,"Error:[pFilename != NULL]","Error",MB_OK);
-				strcpy(pFilename, "Updater.exe");
-				RegSetValueEx( newKey, "RunFileName", NULL, REG_SZ, 
-					(unsigned char*)&filepath, strlen(filepath));
-			}
-		}
-		RegCloseKey( newKey);
+		// Registry access removed - use configuration file instead
+		// Netmarble-specific registry key: HKEY_LOCAL_MACHINE\SOFTWARE\Netmarble\NetmarbleDarkEden
+		// This was used to set "RunFileName" for auto-updater
+		// TODO: Implement config file-based approach if needed
 	}
 //	if( bNetmarble == false )
 //		return -1;
