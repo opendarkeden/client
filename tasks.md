@@ -22,11 +22,13 @@
 - [x] 统一使用 SDL 渲染
 - [x] 测试绘制功能
 - [x] 编译验证通过
+- [x] PLATFORM_WINDOWS: 8 → 0 实例
 
-### 1.3 Client/GameInit.cpp
-- [ ] 移除 DirectDraw/Direct3D 初始化
+### 1.3 Client/GameInit.cpp 🔄 (进行中)
+- [~] 移除 DirectDraw/Direct3D 初始化（保留 stub 调用）
 - [ ] 统一显示模式设置
 - [ ] 测试初始化流程
+- **注意**: `CSDLGraphics::Init()` 是 stub，实际 SDL2 初始化在 SDLMain.cpp
 
 ### 1.4 Client/MinTr.h
 - [ ] 清理追踪系统中的 Windows 特定代码
