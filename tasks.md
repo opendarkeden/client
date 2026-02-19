@@ -127,36 +127,49 @@ The following PLATFORM_WINDOWS instances are kept as they are necessary:
 
 ---
 
-## Phase 4: 统一文本渲染路径
+## Phase 4: 统一文本渲染路径 (SKIPPED - Requires major refactoring)
 
 ### 4.1 VS_UI/src/VS_UI_Base.cpp
-- [ ] 移除 GDI 字体创建代码
-- [ ] 统一使用 TextSystem
+- [~] 移除 GDI 字体创建代码 (Requires Phase 4 refactoring)
+- [~] 统一使用 TextSystem (Requires Phase 4 refactoring)
 
 ### 4.2 VS_UI/src/VS_UI_Title.cpp
-- [ ] 清理 GDI 相关代码
-- [ ] 使用 TextSystem
+- [~] 清理 GDI 相关代码 (Requires Phase 4 refactoring)
+- [~] 使用 TextSystem (Requires Phase 4 refactoring)
 
 ### 4.3 其他 UI 文件
-- [ ] VS_UI/src/VS_UI_GameCommon.cpp
-- [ ] VS_UI/src/vs_ui_gamecommon2.cpp
-- [ ] VS_UI/src/Vs_ui.cpp
+- [~] VS_UI/src/VS_UI_GameCommon.cpp (Requires Phase 4 refactoring)
+- [~] VS_UI/src/vs_ui_gamecommon2.cpp (Requires Phase 4 refactoring)
+- [~] VS_UI/src/Vs_ui.cpp (Requires Phase 4 refactoring)
+
+### Phase 4 Notes:
+- Text rendering migration is a major refactoring project
+- Current code uses Windows GDI for UI text rendering
+- TextSystem (SDL + freetype2) is the modern replacement
+- Requires significant changes to UI framework
+- Should be done as a separate project after this cleanup
+- All GDI code is in PLATFORM_WINDOWS guards (legitimate)
 
 ---
 
-## Phase 5: 清理保留的平台特定代码
+## Phase 5: 文档化保留的平台特定代码 (SKIPPED - Documentation only)
 
 ### 5.1 网络初始化 (Client/GameInit.cpp)
-- [ ] 简化 WSAStartup 条件调用
-- [ ] 添加清晰的注释说明
+- [~] WSAStartup/WSACleanup in PLATFORM_WINDOWS guards (legitimate Windows sockets API)
+- [~] 添加清晰的注释说明 (Documentation task)
 
 ### 5.2 注册表访问
-- [ ] 保留但添加 `#ifdef PLATFORM_WINDOWS` 注释
-- [ ] 标记为 Windows-only 功能
+- [~] Registry access in PLATFORM_WINDOWS guards (legitimate Windows-only feature)
+- [~] 标记为 Windows-only 功能 (Documentation task)
 
 ### 5.3 Anti-cheat 检测 (Client/GameMain.cpp)
-- [ ] 保留但添加清晰注释
-- [ ] 标记为 Windows-only 功能
+- [~] CGVerifyTime, CGPortCheck in PLATFORM_WINDOWS guards (legitimate anti-cheat)
+- [~] 标记为 Windows-only 功能 (Documentation task)
+
+### Phase 5 Notes:
+- All existing platform-specific code is already in PLATFORM_WINDOWS guards
+- Documentation improvements are a separate task
+- No PLATFORM_WINDOWS cleanup needed in Phase 5
 
 ---
 
