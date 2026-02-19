@@ -18,10 +18,6 @@ using namespace std;
 #endif
 #include "DebugInfo.h"
 
-#ifdef PLATFORM_WINDOWS
-#include "DX3D.h"
-#endif
-
 #include "ClientDef.h"
 
 //#include "MInput.h"
