@@ -8,9 +8,7 @@
 //----------------------------------------------------------------------
 #pragma warning(disable:4786)
 #include "Client_PCH.h"
-#ifdef PLATFORM_WINDOWS
-#include "DX3D.h"
-#endif
+// DX3D.h removed (SDL2) - Direct3D has been replaced with SDL2
 #include <math.h>
 #include <list>
 #include <stdio.h>
@@ -1384,32 +1382,15 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			// player만큼의 시야라고 생각한다. - -;
 			int creatureLight = g_pPlayer->GetLightSight();// + addLight);
 
-			// SDL Migration: IsHAL() always true in SDL, but we use 2D lighting
-			// 3D lighting effects are not used in SDL backend
-#ifdef PLATFORM_WINDOWS
-			if (true)
-			{
-				AddLightFilter3D( pX,
-									pY - (pCreature->IsFlyingCreature()? 72:0 ),	//g_pPlayer->GetZ(),
-									creatureLight,
-									false,	// screenPixel좌표
-									true);	// 무조건 출력해야하는 빛
+			// SDL2: Unified 2D lighting path for all platforms
+			AddLightFilter2D( pX,
+								pY - pCreature->GetZ(),
+								creatureLight,
+								false,	// screenPixel좌표
+								true);	// 무조건 출력해야하는 빛
 
-				// 오토바이 불빛
-				ADD_MOTORCYCLE_LIGHT_XY_3D( pCreature, pX, pY, true );
-			}
-			else
-#endif
-			{
-				AddLightFilter2D( pX,
-									pY - pCreature->GetZ(),
-									creatureLight,
-									false,	// screenPixel좌표
-									true);	// 무조건 출력해야하는 빛
-
-				// 오토바이 불빛
-				ADD_MOTORCYCLE_LIGHT_XY_2D( pCreature, pX, pY, true );
-			}
+			// 오토바이 불빛
+			ADD_MOTORCYCLE_LIGHT_XY_2D( pCreature, pX, pY, true );
 		}
 		//------------------------------------------------
 		// 파티원 아닌 경우에...
@@ -1421,16 +1402,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			#endif
 
 			// 오토바이 불빛
-#ifdef PLATFORM_WINDOWS
-			if (true)
-			{
-				ADD_MOTORCYCLE_LIGHT_3D( pCreature, false );
-			}
-			else
-#endif
-			{
-				ADD_MOTORCYCLE_LIGHT_2D( pCreature, false );
-			}
+			ADD_MOTORCYCLE_LIGHT_2D( pCreature, false );
 		}
 
 		if(gpC_item != NULL && pCreature != NULL && pCreature->GetHeadSkin() != 0)
@@ -1765,12 +1737,10 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 			int previousClipBottom;
 			if (bCutHeight)
 			{
-#ifdef PLATFORM_WINDOWS
-				previousClipBottom = m_pSurface->GetClipBottom();
-				m_pSurface->SetClipBottom( rect.bottom - 24 );
-#else
-				previousClipBottom = rect.bottom; // Stub for macOS
-#endif
+				// SDL2: Clipping is automatic in SDL backend
+				// previousClipBottom = m_pSurface->GetClipBottom();
+				// m_pSurface->SetClipBottom( rect.bottom - 24 );
+				previousClipBottom = rect.bottom;
 				
 				pointTemp.y += pCreature->GetCutHeightCount() - 24;
 			}
@@ -2065,9 +2035,8 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 
 			if (bCutHeight)
 			{
-#ifdef PLATFORM_WINDOWS
-				m_pSurface->SetClipBottom( previousClipBottom );
-#endif
+				// SDL2: Clipping is automatic in SDL backend
+				// m_pSurface->SetClipBottom( previousClipBottom );
 			}
 
 			// 2004, 10, 28, sobeit add start  - 몬스터 킬 퀘스트 해당 몬스터에 표시.
@@ -3022,13 +2991,8 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 			int previousClipBottom;
 			if (bCutHeight)
 			{
-#ifdef PLATFORM_WINDOWS
-				previousClipBottom = m_pSurface->GetClipBottom();
-				m_pSurface->SetClipBottom( rect.bottom - 24 );
-#else
-					previousClipBottom = rect.bottom; // Stub for macOS
-#endif
-				
+				previousClipBottom = rect.bottom; // SDL2: Clipping is automatic
+
 				pointTemp.y += pCreature->GetCutHeightCount() - 24;
 			}
 			
@@ -3300,9 +3264,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 
 			if (bCutHeight)
 			{
-#ifdef PLATFORM_WINDOWS
-				m_pSurface->SetClipBottom( previousClipBottom );
-#endif
+				// SDL2: Clipping is automatic - no restore needed
 			}
 
 			// 2004, 10, 28, sobeit add start  - 몬스터 킬 퀘스트 해당 몬스터에 표시.
@@ -3350,18 +3312,16 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 				// CutHeight
 				//-----------------------------------------------------------
 				bool bCutHeight = pCreature->IsCutHeight();
-				int previousClipBottom;
-				if (bCutHeight)
-				{
-#ifdef PLATFORM_WINDOWS
-					previousClipBottom = m_pSurface->GetClipBottom();
-					m_pSurface->SetClipBottom( rect.bottom - 24 );
-#else
-					previousClipBottom = rect.bottom; // Stub for macOS
-#endif
+int previousClipBottom;
+			if (bCutHeight)
+			{
+				// SDL2: Clipping is automatic in SDL backend
+				// previousClipBottom = m_pSurface->GetClipBottom();
+				// m_pSurface->SetClipBottom( rect.bottom - 24 );
+				previousClipBottom = rect.bottom;
 
-					pointTemp.y += pCreature->GetCutHeightCount() - 24;
-				}
+				pointTemp.y += pCreature->GetCutHeightCount() - 24;
+			}
 				
 				//-----------------------------------------------------------
 				// 투명 상태 출력 			
