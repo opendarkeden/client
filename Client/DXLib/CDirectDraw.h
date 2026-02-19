@@ -210,6 +210,8 @@ public:
 	static inline void		SetGammaRamp(WORD step = (WORD)-1) { }
 	static inline void		RestoreGammaRamp() { }
 	static inline void		SetAddGammaRamp(WORD rStep = 0, WORD gStep = 0, WORD bStep = 0) { }
+	static inline void		SetDisplayMode(WORD width, WORD height, WORD bpp, DWORD flags1, DWORD flags2) { }
+	static inline void		RestoreDisplayMode() { }
 
 	// InitMask - implemented in .cpp to initialize static arrays
 	static void		InitMask(bool b565);

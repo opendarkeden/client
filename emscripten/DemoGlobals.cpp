@@ -119,6 +119,6 @@ EffectGeneratorTable* g_pEffectGeneratorTable = nullptr;
 //-----------------------------------------------------------------------------
 // Demo toggles
 //-----------------------------------------------------------------------------
-// Skip loading ImageObjects from map data in the web demo to reduce load time
-// and avoid out-of-range positions that crash in WASM.
-bool g_demoSkipImageObjects = true;
+// Toggle loading ImageObjects from map data in the web demo.
+// When false, ImageObjects will be loaded (with bounds checks to avoid WASM traps).
+bool g_demoSkipImageObjects = false;
