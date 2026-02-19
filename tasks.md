@@ -24,11 +24,14 @@
 - [x] 编译验证通过
 - [x] PLATFORM_WINDOWS: 8 → 0 实例
 
-### 1.3 Client/GameInit.cpp 🔄 (进行中)
-- [~] 移除 DirectDraw/Direct3D 初始化（保留 stub 调用）
-- [ ] 统一显示模式设置
-- [ ] 测试初始化流程
-- **注意**: `CSDLGraphics::Init()` 是 stub，实际 SDL2 初始化在 SDLMain.cpp
+### 1.3 Client/GameInit.cpp ✅
+- [x] 头文件统一
+- [x] Surface 初始化统一 (g_pBack, g_pLast)
+- [x] Sound part count 统一
+- [x] WSAStartup/WSACleanup (Windows only - 保留)
+- [x] DirectDraw/3D Release (stubs - 已移除条件编译)
+- [x] 编译验证通过
+- [ ] InitDraw() 函数中的 DirectDraw 内存查询 (保留 stub 调用)
 
 ### 1.4 Client/MinTr.h
 - [ ] 清理追踪系统中的 Windows 特定代码

@@ -675,12 +675,8 @@ InitSurface()
 		delete g_pBack;
 	}
 	g_pBack = new CSpriteSurface;
-#ifdef PLATFORM_WINDOWS
-	g_pBack->InitBacksurface();
-#else
-	// SDL backend: Initialize surface differently
+	// SDL2: Unified surface initialization
 	g_pBack->Init(800, 600);
-#endif
 
 	//--------------------------------------------------------
 	// 임시로 로딩화면 구성..
@@ -725,11 +721,8 @@ InitSurface()
 			delete g_pLast;
 		}
 		g_pLast = new CSpriteSurface;
-#ifdef PLATFORM_WINDOWS
-		g_pLast->InitOffsurface(g_GameRect.right, g_GameRect.bottom, DDSCAPS_SYSTEMMEMORY);
-#else
+		// SDL2: Unified offscreen surface initialization (always system memory)
 		g_pLast->InitOffsurface(g_GameRect.right, g_GameRect.bottom);
-#endif
 		g_pLast->SetTransparency( 0 );
 		g_pLast->FillSurface( CSDLGraphics::Color(30,30,30) );
 
@@ -977,25 +970,9 @@ InitSound()
 		//-----------------------------------------------------------
 		// RAM 체크해서.. 적당하게 잡아준다.
 		//-----------------------------------------------------------
-#ifdef PLATFORM_WINDOWS
-		MEMORYSTATUS ms;
-		ZeroMemory(&ms, sizeof(MEMORYSTATUS));
-		ms.dwLength = sizeof(MEMORYSTATUS);
-
-		GlobalMemoryStatus( &ms );
-
-		// dwAvailPhys는 왠지 이상하다. -_-;
-		// 100메가 이상인 경우..
-		// 사운드에 10메가를 투자한다.
-		if (ms.dwTotalPhys >= 100*1024*1024)
-		{
-			// 이것도 임시코드지만.. - -;
-			g_pClientConfig->MAX_SOUNDPART = 100;
-		}
-#else
-		// macOS: Use default sound part count
+		// SDL2: Unified - use default sound part count for all platforms
+		// DirectDraw memory status not available in SDL2
 		g_pClientConfig->MAX_SOUNDPART = 100;
-#endif
 
 		// ( 전체 개수, 메모리 허용 개수 )
 		g_pSoundManager->Init( g_pSoundTable->GetSize(), g_pClientConfig->MAX_SOUNDPART );
@@ -1677,11 +1654,12 @@ InitGame()
 	DEBUG_ADD("---------------[   InitGame   ]---------------");
 
 	//----------------------------------------------------------------------
-	// WSA Startup
+	// WSA Startup (Windows-only network initialization)
 	//----------------------------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Socket - Before WSAStartup");
 
 #ifdef PLATFORM_WINDOWS
+	// Windows needs WSAStartup for WinSock
 	WORD wVersionRequested;
 	WSADATA wsaData;
 
@@ -1695,7 +1673,8 @@ InitGame()
 		return FALSE;
 	}
 #else
-	// macOS: BSD sockets don't need WSAStartup
+	// Unix-like systems (macOS/Linux) don't need WSAStartup
+	// BSD sockets work directly
 #endif
 
 //	#ifdef _DEBUG
@@ -2564,6 +2543,7 @@ void ReleaseAllObjects()
 #ifdef PLATFORM_WINDOWS
 	WSACleanup();
 #endif
+	// Unix-like systems don't need cleanup for sockets
 
 	//----------------------------------------------------------------
 	// Volume
