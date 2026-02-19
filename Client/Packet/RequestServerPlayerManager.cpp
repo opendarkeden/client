@@ -58,20 +58,10 @@
 			return (HANDLE)(size_t)thread;
 		}
 		return (HANDLE)0;
-	}
+}
 
-	// Stub CreateThread (Windows API)
-	static inline HANDLE CreateThread(void* security, unsigned stack_size,
-		LPTHREAD_START_ROUTINE start_proc, LPVOID arg,
-		unsigned flags, DWORD* thread_id) {
-		pthread_t thread;
-		if (pthread_create(&thread, NULL, (void*(*)(void*))start_proc, arg) == 0) {
-			if (thread_id) *thread_id = (unsigned long)thread;
-			return (HANDLE)(size_t)thread;
-		}
-		return (HANDLE)0;
-	}
-#endif
+// Note: CreateThread stub removed - use platform_thread_create from Platform.h
+// #ifdef PLATFORM_WINDOWS... (removed)
 
 //#include "Rpackets/RCPositionInfo.h"
 
@@ -435,6 +425,7 @@ RequestServerPlayerManager::Init(int port)
 	// Set running flag before creating thread
 	m_bThreadRunning = true;
 
+#ifdef PLATFORM_WINDOWS
 	DWORD dwChildThreadID;	// 의미 없당 -- ;
 
 	m_hRequestThread = CreateThread(NULL,
@@ -446,6 +437,14 @@ RequestServerPlayerManager::Init(int port)
 
 	// priority는 낮게
 	SetThreadPriority(m_hRequestThread, THREAD_PRIORITY_LOWEST);
+#else
+	// Non-Windows: Use platform_thread_create
+	m_hRequestThread = (HANDLE)platform_thread_create(
+		(platform_thread_func_t)WaitRequestThreadProc,
+		this
+	);
+	(void)dwChildThreadID; // unused on non-Windows
+#endif
 }
 
 //--------------------------------------------------------------------------------
@@ -475,7 +474,11 @@ RequestServerPlayerManager::WaitRequest()
 
 	pSocket->setNonBlocking();
 
+#ifdef PLATFORM_WINDOWS
 	SetThreadPriority(m_hRequestThread, THREAD_PRIORITY_NORMAL);
+#else
+	// Non-Windows: Thread priority not supported via platform_thread_create
+#endif
 
 	if (AddRequestServerPlayer( pRequestServerPlayer ))
 	{
