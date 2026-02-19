@@ -4064,27 +4064,9 @@ _APICheck.init();
 #endif
 	if (InitApp(nCmdShow))
 	{
-
-#ifdef PLATFORM_WINDOWS
-		DDSCAPS2 ddsCaps2;
-		DWORD dwTotal;
-		DWORD dwFree;
-		ZeroMemory(&ddsCaps2, sizeof(ddsCaps2));
-		ddsCaps2.dwCaps = DDSCAPS_VIDEOMEMORY;//DDSCAPS_TEXTURE;
-		HRESULT hr = CSDLGraphics::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
-
-		DDCAPS	driverCaps;
-		ZeroMemory( &driverCaps, sizeof(driverCaps) );
-		driverCaps.dwSize = sizeof(driverCaps);
-
-		hr = CSDLGraphics::GetDD()->GetCaps( &driverCaps, NULL );
-
-		g_dwVideoMemory = driverCaps.dwVidMemTotal;
-//		g_dwVideoMemory = driverCaps.dwVidMemFree;
-#else
-		// On non-Windows platforms, set a default video memory value
+		// SDL2 doesn't provide video memory queries like DirectX
+		// Use a reasonable default value for all platforms
 		g_dwVideoMemory = 256 * 1024 * 1024;  // 256 MB default
-#endif
 
 		// ³Ý¸¶ºí¿ë
 		if(bNetmarble)

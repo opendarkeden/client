@@ -33,9 +33,24 @@
 - [x] 编译验证通过
 - [ ] InitDraw() 函数中的 DirectDraw 内存查询 (保留 stub 调用)
 
-### 1.4 Client/MinTr.h
-- [ ] 清理追踪系统中的 Windows 特定代码
-- [ ] 统一使用跨平台实现
+### 1.4 Client/GameMain.cpp ✅
+- [x] 统一头文件包含 (Windows packets in PLATFORM_WINDOWS)
+- [x] 移除空 if(true) 代码块 (MODE_CHANGE_OPTION)
+- [x] 统一显示模式切换 (SetDisplayMode/RestoreDisplayMode)
+- [x] 添加 CDirectDraw.h stub 方法 (SetDisplayMode, RestoreDisplayMode)
+- [x] DirectSound buffer 初始化封装在 PLATFORM_WINDOWS
+- [x] 修复嵌套预处理器指令不匹配 (#endif // __USE_MP3__)
+- [x] 统一音乐播放代码 (OGG streamPlay 参数)
+- [x] DirectSound 特定代码 (LPDIRECTSOUNDBUFFER) 封装在 guards
+- [x] 编译验证通过
+- [ ] PLATFORM_WINDOWS: 56 → 41 实例 (剩余为合理的平台特定代码)
+
+### 1.5 Client/Client.cpp ✅
+- [x] 移除 DirectDraw 显存查询 (使用默认 256MB)
+- [x] 统一游戏更新循环逻辑
+- [x] 保留必要的平台特定代码
+- [x] 编译验证通过
+- [ ] PLATFORM_WINDOWS: 8 → 4 实例
 
 ---
 
