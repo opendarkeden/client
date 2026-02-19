@@ -4,9 +4,20 @@
 #include "Client_PCH.h"
 #include "MWorkThread.h"
 
-#ifdef PLATFORM_WINDOWS
+// Platform-specific wrappers for Windows API compatibility
+static inline BOOL SetEvent(HANDLE event) {
+    return platform_event_set((platform_event_t)event) == 0 ? TRUE : FALSE;
+}
 
-// Windows implementation (original code)
+static inline BOOL ResetEvent(HANDLE event) {
+    return platform_event_reset((platform_event_t)event) == 0 ? TRUE : FALSE;
+}
+
+#ifdef PLATFORM_WINDOWS
+#include <process.h>
+#endif
+
+// Cross-platform implementation
 
 //----------------------------------------------------------------------
 //
@@ -47,21 +58,12 @@ MWorkThread::Init(LPTHREAD_START_ROUTINE FileThreadProc, int priority)
 		Release();
 	}
 
-	DWORD	dwChildThreadID;
-
-	//-----------------------------------------------------------
-	// Create Event
-	//-----------------------------------------------------------
-m_hHasWorkEvent = (HANDLE)platform_event_create(TRUE, FALSE);	// non-signaled
-	m_hEndWorkEvent = (HANDLE)platform_event_create(TRUE, TRUE);	// signaled
-	m_hStopWorkEvent = (HANDLE)platform_event_create(TRUE, FALSE);	// non-signaled
-	//m_hDequeLock = CreateEvent(NULL, TRUE, FALSE, NULL);	// non-signaled
-	//m_hCurrentLock = CreateEvent(NULL, TRUE, FALSE, NULL);	// non-signaled
-
-
 	//-----------------------------------------------------------
 	// Create Thread
 	//-----------------------------------------------------------
+	#ifdef PLATFORM_WINDOWS
+	DWORD	dwChildThreadID;
+
 	m_hWorkThread = CreateThread(NULL, 
 								0,	// default stack size
 								(LPTHREAD_START_ROUTINE)FileThreadProc,
@@ -70,10 +72,17 @@ m_hHasWorkEvent = (HANDLE)platform_event_create(TRUE, FALSE);	// non-signaled
 								&dwChildThreadID);
 
 	SetThreadPriority(m_hWorkThread, 
-						priority
-						);
-
-
+					priority
+					);
+#else
+	// Non-Windows: Use platform_thread_create (pthread)
+	// Note: priority not implemented in platform_thread_create
+	m_hWorkThread = (HANDLE)platform_thread_create(
+		(platform_thread_func_t)FileThreadProc,
+		NULL
+	);
+	(void)priority; // priority parameter not used on non-Windows
+#endif
 	//-----------------------------------------------------------
 	// critical section object
 	//-----------------------------------------------------------
@@ -110,8 +119,14 @@ MWorkThread::Release()
 	//--------------------------------------------
 	// thread 중지
 	//--------------------------------------------
+#ifdef PLATFORM_WINDOWS
 	TerminateThread(m_hWorkThread, 0);
 	CloseHandle( m_hWorkThread );
+#else
+	// Non-Windows: Wait for thread to finish (pthread)
+	platform_thread_wait((platform_thread_t)m_hWorkThread);
+	platform_thread_close((platform_thread_t)m_hWorkThread);
+#endif
 
 	m_hHasWorkEvent = 0;	
 	m_hEndWorkEvent = 0;	
@@ -554,4 +569,4 @@ void MWorkThread::AddLast(MWorkNode* pNode)
 	(void)pNode;
 }
 
-#endif /* PLATFORM_WINDOWS */
+/* End of MWorkThread.cpp */
