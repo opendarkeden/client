@@ -52,6 +52,23 @@
 - [x] 编译验证通过
 - [ ] PLATFORM_WINDOWS: 8 → 4 实例
 
+### 1.6 DX3D.h includes cleanup ✅
+- [x] 移除 DX3D.h includes from:
+  - DrawCreatureEffect.cpp
+  - DrawCreatureShadow.cpp
+  - DrawCreatureDivineGuidance.cpp
+  - Client.h
+  - MTopView.h
+- [x] All DX3D.h references now only in D3DLib/DX3D.h (stub) or comments
+- [x] 编译验证通过
+- [ ] PLATFORM_WINDOWS: ~90+ instances removed across 10+ files
+
+### Legitimate PLATFORM_WINDOWS Usage (Kept)
+The following PLATFORM_WINDOWS instances are kept as they are necessary:
+- **CDirectDrawSurface.h** (4 instances): Surface pointer access methods differ
+- **MTopViewDraw.inl** (1 instance): DRAW_ALPHA_BOX_2D macro
+- **CSpritePal.h** (1 instance): Windows.h vs Platform.h header selection
+
 ---
 
 ## Phase 2: 清理音频相关条件编译
