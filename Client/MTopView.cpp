@@ -9872,18 +9872,22 @@ void MTopView::DrawDebugInfo(void* pSurface)
 
 		int zoneID = (g_bZonePlayerInLarge)? g_nZoneLarge : g_nZoneSmall;
 
-		sprintf(str, "ID = %d / %d¸í [Weapon=%s] [align=%d]", g_pPlayer->GetID(), m_pZone->GetCreatureNumber(), attackMode, g_pPlayer->GetAlignment());	
-		pSurfaceCast->GDI_Text(10,35, str, RGB(220,220,220));
+sprintf(str, "ID = %d / %d명 [Weapon=%s] [align=%d]", g_pPlayer->GetID(), m_pZone->GetCreatureNumber(), attackMode, g_pPlayer->GetAlignment());	
+		// pSurfaceCast->GDI_Text(10,35, str, RGB(220,220,220));
+		TextSystem::TextService::RenderText(10, 35, str);
 
 		sprintf(str, " [ZoneID=%d] XY=(%d, %d), sXY=(%d, %d), SerXY=(%d, %d)", zoneID, g_pPlayer->GetX(), g_pPlayer->GetY(), g_pPlayer->GetSX(), g_pPlayer->GetSY(), g_pPlayer->GetServerX(), g_pPlayer->GetServerY());	
-		pSurfaceCast->GDI_Text(10,56, str, RGB(220,220,220));
+		// pSurfaceCast->GDI_Text(10,56, str, RGB(220,220,220));
+		TextSystem::TextService::RenderText(10, 56, str);
 
 		sprintf(str, "SX = %d, SY = %d, HP=%d, MP=%d", g_pPlayer->GetSX(), g_pPlayer->GetSY(), g_pPlayer->GetHP(), g_pPlayer->GetMP());
 		//sprintf(str, "[Wait Move = %d]", g_pPlayer->GetSendMove());
-		pSurfaceCast->GDI_Text(10,72, str, RGB(220,220,220));
+		// pSurfaceCast->GDI_Text(10,72, str, RGB(220,220,220));
+		TextSystem::TextService::RenderText(10, 72, str);
 
 		sprintf(str, "ActionCount = [%d] %d/%d", g_pPlayer->GetAction(), g_pPlayer->GetActionCount(), g_pPlayer->GetActionCountMax());
-		pSurfaceCast->GDI_Text(10,88, str, RGB(220,220,220));
+		// pSurfaceCast->GDI_Text(10,88, str, RGB(220,220,220));
+		TextSystem::TextService::RenderText(10, 88, str);
 
 		sprintf(str, "MoveCount = %d/%d", g_pPlayer->GetMoveCount(), g_pPlayer->GetMoveCountMax());
 		pSurfaceCast->GDI_Text(10,104, str, RGB(220,220,220));
