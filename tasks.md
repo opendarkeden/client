@@ -40,9 +40,11 @@ Remove ALL Windows-specific code to support pure mingw + SDL builds on all platf
 - [X] Already fully cross-platform
 - [X] Uses CSDLGraphics for rendering
 
-##### 1.3 GameInit.cpp 🚧 TODO
-- [ ] Check for deprecated code
-- [ ] Update thread creation patterns
+##### 1.3 GameInit.cpp ✅ COMPLETE
+- [X] Analyzed all PLATFORM_WINDOWS blocks (7 blocks)
+- [X] Graphics init (CSDLGraphics::Init) only in Windows blocks
+- [X] SDL2 initialization happens in SDLMain.cpp (cross-platform)
+- [X] All PLATFORM_WINDOWS blocks are necessary (platform-specific features)
 
 #### 4.1 MWorkThread Implementation ✅ COMPLETE
 - [X] Remove `#ifdef PLATFORM_WINDOWS` guards from MWorkThread.cpp
