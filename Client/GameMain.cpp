@@ -19,6 +19,8 @@
 #include <sys/stat.h>
 #endif // PLATFORM_WINDOWS
 
+#include "TextSystem/TextService.h"
+
 #include "Client.h"
 #include "UIFunction.h"
 //#include "MFileDef.h"
@@ -1051,11 +1053,15 @@ SetMode(enum CLIENT_MODE mode)
 			/*
 			//InitFail("Server°¡ ÀÀ´äÇÏÁö ¾Ê½À´Ï´Ù.");
 			//InitFail("Server¿ÍÀÇ Á¢¼ÓÀÌ ²÷¾îÁ³½À´Ï´Ù.");
-			g_pBack->GDI_Text(101,201, "ID³ª Password°¡ Æ²·È½À´Ï´Ù.", RGB(0,0,0));
-			g_pBack->GDI_Text(100,200, "ID³ª Password°¡ Æ²·È½À´Ï´Ù.", RGB(220,220,220));
+			// g_pBack->GDI_Text(101,201, "ID³ª Password°¡ Æ²·È½À´Ï´Ù.", RGB(0,0,0));
+			TextSystem::TextService::RenderText(101, 201, "ID³ª Password°¡ Æ²·È½À´Ï´Ù.");
+			// g_pBack->GDI_Text(100,200, "ID³ª Password°¡ Æ²·È½À´Ï´Ù.", RGB(220,220,220));
+			TextSystem::TextService::RenderText(100, 200, "ID³ª Password°¡ Æ²·È½À´Ï´Ù.");
 
-			g_pBack->GDI_Text(101,221, "[ESC]¸¦ ´©¸£¼¼¿ä.", RGB(0,0,0));
-			g_pBack->GDI_Text(100,220, "[ESC]¸¦ ´©¸£¼¼¿ä.", RGB(220,220,220));
+			// g_pBack->GDI_Text(101,221, "[ESC]¸¦ ´©¸£¼¼¿ä.", RGB(0,0,0));
+			TextSystem::TextService::RenderText(101, 221, "[ESC]¸¦ ´©¸£¼¼¿ä.");
+			// g_pBack->GDI_Text(100,220, "[ESC]¸¦ ´©¸£¼¼¿ä.", RGB(220,220,220));
+			TextSystem::TextService::RenderText(100, 220, "[ESC]¸¦ ´©¸£¼¼¿ä.");
 
 			CSDLGraphics::Flip();
 
@@ -5248,11 +5254,15 @@ UpdateDisconnected()
 	/*
 	//InitFail("Server°¡ ÀÀ´äÇÏÁö ¾Ê½À´Ï´Ù.");
 	//InitFail("Server¿ÍÀÇ Á¢¼ÓÀÌ ²÷¾îÁ³½À´Ï´Ù.");
-	g_pBack->GDI_Text(101,201, "Server°¡ ÀÀ´äÇÏÁö ¾Ê½À´Ï´Ù.", RGB(0,0,0));
-	g_pBack->GDI_Text(100,200, "Server°¡ ÀÀ´äÇÏÁö ¾Ê½À´Ï´Ù.", RGB(220,220,220));
+	// g_pBack->GDI_Text(101,201, "Server°¡ ÀÀ´äÇÏÁö ¾Ê½À´Ï´Ù.", RGB(0,0,0));
+	TextSystem::TextService::RenderText(101, 201, "Server°¡ ÀÀ´äÇÏÁö ¾Ê½À´Ï´Ù.");
+	// g_pBack->GDI_Text(100,200, "Server°¡ ÀÀ´äÇÏÁö ¾Ê½À´Ï´Ù.", RGB(220,220,220));
+	TextSystem::TextService::RenderText(100, 200, "Server°¡ ÀÀ´äÇÏÁö ¾Ê½À´Ï´Ù.");
 
-	g_pBack->GDI_Text(101,221, "[ESC]¸¦ ´©¸£¼¼¿ä.", RGB(0,0,0));
-	g_pBack->GDI_Text(100,220, "[ESC]¸¦ ´©¸£¼¼¿ä.", RGB(220,220,220));
+	// g_pBack->GDI_Text(101,221, "[ESC]¸¦ ´©¸£¼¼¿ä.", RGB(0,0,0));
+	TextSystem::TextService::RenderText(101, 221, "[ESC]¸¦ ´©¸£¼¼¿ä.");
+	// g_pBack->GDI_Text(100,220, "[ESC]¸¦ ´©¸£¼¼¿ä.", RGB(220,220,220));
+	TextSystem::TextService::RenderText(100, 220, "[ESC]¸¦ ´©¸£¼¼¿ä.");
 
 	CSDLGraphics::Flip();
 

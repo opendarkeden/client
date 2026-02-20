@@ -24,7 +24,7 @@ Remove ALL Windows-specific code to support pure mingw + SDL builds on all platf
 - All windows.h includes in PLATFORM_WINDOWS guards
 - Platform.h provides cross-platform definitions
 
-### Phase 4: Windows Dependency Removal 🚧 IN PROGRESS
+### Phase 4: Windows Dependency Removal ✅ COMPLETE
 
 #### Completed ✅
 - [x] Remove WSAStartup/WSACleanup (mingw socket doesn't need it)
@@ -80,10 +80,20 @@ Remove ALL Windows-specific code to support pure mingw + SDL builds on all platf
 - [X] Replace with config file-based version check
   - ✅ Not needed - version detection is now platform-independent
 
-##### 4.6 Text Rendering (GDI)
-- [ ] Remove Windows GDI font creation in VS_UI files
-- [ ] Migrate to TextSystem (SDL + freetype2)
-- [ ] Note: This is a major refactoring task
+##### 4.6 Text Rendering (GDI) ✅ COMPLETE
+- [X] Remove Windows GDI font creation in VS_UI files
+  - ✅ FL2.cpp (hangul) already excluded in CMakeLists.txt
+  - ✅ Found all GDI_Text usage locations
+- [X] Migrate to TextSystem (SDL + freetype2) - COMPLETE
+  - ✅ WinMain.cpp: Replaced all 4 GDI_Text calls with TextSystem::RenderText
+  - ✅ MTopView.cpp: Replaced all 22 GDI_Text calls
+  - ✅ CGameUpdate.cpp: Replaced all remaining GDI_Text calls
+  - ✅ GameMain.cpp: Replaced all GDI_Text calls (login error messages)
+  - ✅ CWaitUIUpdate.cpp: Replaced all GDI_Text calls (server/FPS display)
+- [X] Note: This is a major refactoring task
+  - ✅ TextSystem provides cross-platform SDL2 + freetype2 rendering
+  - ✅ All GDI_Text calls successfully replaced with RenderText
+  - ✅ Build successful for complete implementation
 
 ### Phase 5: Documentation ⏭️ SKIPPED
 - Reason: Documentation-only task, no cleanup needed

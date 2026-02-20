@@ -9890,10 +9890,12 @@ sprintf(str, "ID = %d / %d명 [Weapon=%s] [align=%d]", g_pPlayer->GetID(), m_pZo
 		TextSystem::TextService::RenderText(10, 88, str);
 
 		sprintf(str, "MoveCount = %d/%d", g_pPlayer->GetMoveCount(), g_pPlayer->GetMoveCountMax());
-		pSurfaceCast->GDI_Text(10,104, str, RGB(220,220,220));
+		// pSurfaceCast->GDI_Text(10,104, str, RGB(220,220,220));
+		TextSystem::TextService::RenderText(10, 104, str);
 
 		sprintf(str, "Dark/Light/Sight = %d/%d/%d", m_DarkBits, g_pPlayer->GetLightSight() + g_pPlayer->GetItemLightSight(), g_pPlayer->GetSight());
-		pSurfaceCast->GDI_Text(10,120, str, RGB(220,220,220));
+		// pSurfaceCast->GDI_Text(10,120, str, RGB(220,220,220));
+		TextSystem::TextService::RenderText(10, 120, str);
 
 		if (g_pProfiler!=NULL && g_pProfiler->HasProfileInfo(g_ProfileInfoName.GetString()))
 		{
@@ -9902,7 +9904,8 @@ sprintf(str, "ID = %d / %d명 [Weapon=%s] [align=%d]", g_pPlayer->GetID(), m_pZo
 			float avgTime = g_pProfiler->GetAverageTime(g_ProfileInfoName.GetString());
 
 			sprintf(str, "%s = %d / %d = %7.3f", g_ProfileInfoName.GetString(), totalTime, times, avgTime);
-			pSurfaceCast->GDI_Text(10,136, str, RGB(220,220,220));		
+			// pSurfaceCast->GDI_Text(10,136, str, RGB(220,220,220));		
+			TextSystem::TextService::RenderText(10, 136, str);		
 		}		
 
 
@@ -9915,7 +9918,8 @@ sprintf(str, "ID = %d / %d명 [Weapon=%s] [align=%d]", g_pPlayer->GetID(), m_pZo
 			&& g_pRequestClientPlayerManager!=NULL)
 		{
 			sprintf(str, "Request Other/My = %d/%d", g_pRequestServerPlayerManager->GetSize(), g_pRequestClientPlayerManager->GetSize());
-			pSurfaceCast->GDI_Text(10,225, str, RGB(220,220,220));	
+			// pSurfaceCast->GDI_Text(10,225, str, RGB(220,220,220));	
+			TextSystem::TextService::RenderText(10, 225, str);	
 		}
 
 
@@ -9947,7 +9951,8 @@ sprintf(str, "ID = %d / %d명 [Weapon=%s] [align=%d]", g_pPlayer->GetID(), m_pZo
 						infoStr[3][g_bSlideScreenShot]
 				);
 
-		pSurfaceCast->GDI_Text(150,580, str, 0xFFFFFF);		
+		// pSurfaceCast->GDI_Text(150,580, str, 0xFFFFFF);		
+		TextSystem::TextService::RenderText(150, 580, str);		
 
 		// ³²Àº Texture¸Þ¸ð¸® test
 		DDSCAPS2 ddsCaps2;
@@ -9958,7 +9963,8 @@ sprintf(str, "ID = %d / %d명 [Weapon=%s] [align=%d]", g_pPlayer->GetID(), m_pZo
 		HRESULT hr = CSDLGraphics::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
 
 		sprintf(str, "Texture = %ld/%ld", dwFree, dwTotal);
-		pSurfaceCast->GDI_Text(500,580, str, 0xFFFFFF);		
+		// pSurfaceCast->GDI_Text(500,580, str, 0xFFFFFF);		
+		TextSystem::TextService::RenderText(500, 580, str);		
 
 
 	#endif
@@ -10035,7 +10041,8 @@ MTopView::DrawTestHelp()
 			for (int i=0; i<maxHelp; i++)
 			{
 				//pSurface->GDI_Text(point.x,1, point.y,1, helpStr[i], RGB(0,0,0));
-				m_pSurface->GDI_Text(point.x, point.y, helpStr[i], RGB(220,220,220));
+				// m_pSurface->GDI_Text(point.x, point.y, helpStr[i], RGB(220,220,220));
+				TextSystem::TextService::RenderText(point.x, point.y, helpStr[i]);
 				point.y += 20;
 			}
 		}
@@ -13509,10 +13516,11 @@ if (!m_pSurface->Lock()) return;
 									&& pImageObject->GetImageObjectID()==g_ShowImageObjectID)
 								{
 									m_pSurface->Unlock();
-									m_pSurface->GDI_Text(tilePointTemp.x, 
-														tilePointTemp.y, 
-														"X", 														
-														0xFFFFFF);	
+									// m_pSurface->GDI_Text(tilePointTemp.x, 
+									// 						tilePointTemp.y, 
+									// 						"X", 														
+									// 						0xFFFFFF);	
+									TextSystem::TextService::RenderText(tilePointTemp.x, tilePointTemp.y, "X");
 									m_pSurface->Lock();
 								}
 
@@ -13851,10 +13859,11 @@ if (!m_pSurface->Lock()) return;
 										&& pImageObject->GetImageObjectID()==g_ShowImageObjectID)
 									{
 										m_pSurface->Unlock();
-										m_pSurface->GDI_Text(tilePointTemp.x, 
-															tilePointTemp.y, 
-															"X", 														
-															0xFFFFFF);	
+										// m_pSurface->GDI_Text(tilePointTemp.x, 
+										// 						tilePointTemp.y, 
+										// 						"X", 														
+										// 						0xFFFFFF);	
+										TextSystem::TextService::RenderText(tilePointTemp.x, tilePointTemp.y, "X");
 										m_pSurface->Lock();
 									}
 
@@ -15863,7 +15872,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 
 						char str[128];
 						sprintf(str, "iid=%d, view=%d", (int)pImageObject->GetImageObjectID(), (int)pImageObject->GetViewpoint());
-						m_pSurface->GDI_Text(pPoint->x, pPoint->y, str, 0xFFFF);
+						// m_pSurface->GDI_Text(pPoint->x, pPoint->y, str, 0xFFFF);
+						TextSystem::TextService::RenderText(pPoint->x, pPoint->y, str);
 
 						m_pSurface->Lock();
 					}
@@ -16272,7 +16282,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					sprintf(str, "iid=%d, sid=%d, vp=%d", (int)pImageObject->GetImageObjectID(), (int)spriteID, (int)pImageObject->GetViewpoint());
 
 					m_pSurface->Unlock();
-					m_pSurface->GDI_Text(pPoint->x, pPoint->y, str, 0xFFFF);
+					// m_pSurface->GDI_Text(pPoint->x, pPoint->y, str, 0xFFFF);
+					TextSystem::TextService::RenderText(pPoint->x, pPoint->y, str);
 					m_pSurface->Lock();
 				}
 			#endif
@@ -19023,7 +19034,8 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 			{
 				char str[128];
 				sprintf(str, "HP=%d/%d", currentHP, maxHP);
-				m_pSurface->GDI_Text(rectLeft, rectTop-20, str, 0xFFFF);
+				// m_pSurface->GDI_Text(rectLeft, rectTop-20, str, 0xFFFF);
+				TextSystem::TextService::RenderText(rectLeft, rectTop-20, str);
 			}
 		#endif
 
@@ -19471,7 +19483,8 @@ MTopView::DrawCreatureMyName()
 			{
 				char str[128];
 				sprintf(str, "HP=%d/%d", currentHP, maxHP);
-				m_pSurface->GDI_Text(rectLeft, rectTop-20, str, 0xFFFF);
+				// m_pSurface->GDI_Text(rectLeft, rectTop-20, str, 0xFFFF);
+				TextSystem::TextService::RenderText(rectLeft, rectTop-20, str);
 			}					
 		#endif
 

@@ -18,6 +18,7 @@
 #include "../../basic/Platform.h"
 #endif
 #include <string>
+#include "TextSystem/TextService.h"
 #include "Client.h"
 #include "GameObject.h"
 #include "UserInformation.h"
@@ -5134,8 +5135,10 @@ CGameUpdate::UpdateDraw()
 				//-----------------------------------------------------------------				
 				sprintf(str, "%d FPS", g_FrameRate);	
 				
-				g_pLast->GDI_Text(11,11, str, RGB(20,20,20));
-				g_pLast->GDI_Text(10,10, str, 0xFFFFFF);
+				// g_pLast->GDI_Text(11,11, str, RGB(20,20,20));
+				TextSystem::TextService::RenderText(11, 11, str);
+				// g_pLast->GDI_Text(10,10, str, 0xFFFFFF);
+				TextSystem::TextService::RenderText(10, 10, str);
 			}
 		__END_PROFILE("DrawFPS")
 
@@ -5196,7 +5199,8 @@ CGameUpdate::UpdateDraw()
 	g_pLast->Unlock();
 
 	sprintf(str, "Selected Sector = (%d, %d)", g_SelectSector.x, g_SelectSector.y);
-	g_pLast->GDI_Text(10,200, str, RGB(220,220,220));
+	// g_pLast->GDI_Text(10,200, str, RGB(220,220,220));
+	TextSystem::TextService::RenderText(10, 200, str);
 	*/
 
 
@@ -5219,8 +5223,10 @@ CGameUpdate::UpdateDraw()
 	{
 		DEBUG_ADD("Network Condition is Bad.");
 
-		g_pBack->GDI_Text(351,11, (*g_pGameStringTable)[STRING_NETWORK_CONDITION_BAD].GetString(), RGB(10,10,10));
-		g_pBack->GDI_Text(350,10, (*g_pGameStringTable)[STRING_NETWORK_CONDITION_BAD].GetString(), RGB(230,50,50));		
+		// g_pBack->GDI_Text(351,11, (*g_pGameStringTable)[STRING_NETWORK_CONDITION_BAD].GetString(), RGB(10,10,10));
+		TextSystem::TextService::RenderText(351, 11, (*g_pGameStringTable)[STRING_NETWORK_CONDITION_BAD].GetString());
+		// g_pBack->GDI_Text(350,10, (*g_pGameStringTable)[STRING_NETWORK_CONDITION_BAD].GetString(), RGB(230,50,50));		
+		TextSystem::TextService::RenderText(350, 10, (*g_pGameStringTable)[STRING_NETWORK_CONDITION_BAD].GetString());		
 	}
 	*/
 
@@ -5662,8 +5668,10 @@ CGameUpdate::UpdateDraw()
 			if (gpC_mouse_pointer->GetPickUpItem() != NULL)
 			{
 				sprintf(str, "%d", gpC_mouse_pointer->GetPickUpItem()->GetNumber());
-				g_pBack->GDI_Text(g_x+1,g_y+1, str, RGB(20,20,20));
-				g_pBack->GDI_Text(g_x,g_y, str, 0xFFFFFF);
+				// g_pBack->GDI_Text(g_x+1,g_y+1, str, RGB(20,20,20));
+				TextSystem::TextService::RenderText(g_x+1, g_y+1, str);
+				// g_pBack->GDI_Text(g_x,g_y, str, 0xFFFFFF);
+				TextSystem::TextService::RenderText(g_x, g_y, str);
 			}
 			*/
 
@@ -5688,8 +5696,10 @@ CGameUpdate::UpdateDraw()
 		{
 			sprintf(str, "%d FPS", g_FrameRate);	
 		}
-		g_pBack->GDI_Text(11,11, str, RGB(20,20,20));
-		g_pBack->GDI_Text(10,10, str, 0xFFFFFF);
+		// g_pBack->GDI_Text(11,11, str, RGB(20,20,20));
+		TextSystem::TextService::RenderText(11, 11, str);
+		// g_pBack->GDI_Text(10,10, str, 0xFFFFFF);
+		TextSystem::TextService::RenderText(10, 10, str);
 	}
 	*/
 
@@ -5756,8 +5766,10 @@ CGameUpdate::UpdateDraw()
 		
 		int x = skillInfo.GetX()*2/3 - strlen(skillInfo.GetName())*8 + 100;
 		int y = skillInfo.GetY();
-		g_pBack->GDI_Text(x+1, y+1, skillInfo.GetName(), 0);
-		g_pBack->GDI_Text(x, y, skillInfo.GetName(), color);
+		// g_pBack->GDI_Text(x+1, y+1, skillInfo.GetName(), 0);
+		TextSystem::TextService::RenderText(x+1, y+1, skillInfo.GetName());
+		// g_pBack->GDI_Text(x, y, skillInfo.GetName(), color);
+		TextSystem::TextService::RenderText(x, y, skillInfo.GetName());
 
 		// ´ÙÀ½
 		swordDomain.Next();
