@@ -26,6 +26,24 @@ Remove ALL Windows-specific code to support pure mingw + SDL builds on all platf
 
 ### Phase 4: Windows Dependency Removal 🚧 IN PROGRESS (NOT COMPLETE)
 
+#### Phase 1: Render/Audio Code Cleanup ✅ COMPLETE
+
+##### 1.1 GameMain.cpp Music Code ✅ COMPLETE
+- [X] Remove deprecated DirectSound/OGG music code (lines 836, 1648, 1712)
+- [X] Simplify to SDL_mixer (g_Music) only
+- [X] Reduced ~150 lines → ~40 lines
+- [X] Build successful
+- [X] Commit: d5bf011
+
+##### 1.2 MTopView.cpp ✅ COMPLETE
+- [X] No PLATFORM_WINDOWS blocks found
+- [X] Already fully cross-platform
+- [X] Uses CSDLGraphics for rendering
+
+##### 1.3 GameInit.cpp 🚧 TODO
+- [ ] Check for deprecated code
+- [ ] Update thread creation patterns
+
 #### 4.1 MWorkThread Implementation ✅ COMPLETE
 - [X] Remove `#ifdef PLATFORM_WINDOWS` guards from MWorkThread.cpp
 - [X] Replace `CreateThread` with `platform_thread_create`
