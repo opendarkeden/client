@@ -8,8 +8,11 @@
 	2000.1.5. KJTINC
 
 -----------------------------------------------------------------------------*/
-#include "client_PCH.h"
-#include <assert.h>
+#include "Client_PCH.h"
+#include "VS_UI.h"
+#include "TextSystem/TextService.h"  // Add TextSystem header
+
+// ... rest of includes ...
 #include <windows.h>
 #include "DXLib.h"
 
@@ -1447,16 +1450,20 @@ void ProgramLoop()
 		char buf[20];
 
 		sprintf(buf, "%dx%dx%d", RESOLUTION_X, RESOLUTION_Y, gC_DD.Get_BPP());
-		gC_DDSurface.GDI_Text(90, 0, buf, RGB(255, 255, 255), RGB(128, 0, 128), false);
+		// gC_DDSurface.GDI_Text(90, 0, buf, RGB(255, 255, 255), RGB(128, 0, 128), false);
+		TextSystem::TextService::RenderText(90, 0, buf);
 
 
 		sprintf(buf, "(%d, %d)", g_mouse_x, g_mouse_y);
-		gC_DDSurface.GDI_Text(500, 0, buf, RGB(255, 255, 255), RGB(128, 0, 128), false);
+		// gC_DDSurface.GDI_Text(500, 0, buf, RGB(255, 255, 255), RGB(128, 0, 128), false);
+		TextSystem::TextService::RenderText(500, 0, buf);
 
 		if (gbl_ui_input_state)
-			gC_DDSurface.GDI_Text(190, 0, "UI input mode", RGB(255, 255, 255), RGB(128, 0, 128), false);
+			// gC_DDSurface.GDI_Text(190, 0, "UI input mode", RGB(255, 255, 255), RGB(128, 0, 128), false);
+			TextSystem::TextService::RenderText(190, 0, "UI input mode");
 		else
-			gC_DDSurface.GDI_Text(190, 0, "Background mode", RGB(255, 255, 255), RGB(128, 0, 128), false);
+			// gC_DDSurface.GDI_Text(190, 0, "Background mode", RGB(255, 255, 255), RGB(128, 0, 128), false);
+			TextSystem::TextService::RenderText(190, 0, "Background mode");
 
 	}
 
