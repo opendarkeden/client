@@ -425,9 +425,9 @@ RequestServerPlayerManager::Init(int port)
 	// Set running flag before creating thread
 	m_bThreadRunning = true;
 
-#ifdef PLATFORM_WINDOWS
 	DWORD dwChildThreadID;	// 의미 없당 -- ;
 
+#ifdef PLATFORM_WINDOWS
 	m_hRequestThread = CreateThread(NULL,
 								0,	// default stack size
 								(LPTHREAD_START_ROUTINE)WaitRequestThreadProc,
@@ -510,3 +510,5 @@ WaitRequestThreadProc(LPVOID lpParameter)
 
 	return 0L;
 }
+
+#endif /* PLATFORM_WINDOWS */

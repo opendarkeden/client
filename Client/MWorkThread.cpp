@@ -4,20 +4,20 @@
 #include "Client_PCH.h"
 #include "MWorkThread.h"
 
+#ifdef PLATFORM_WINDOWS
+// Windows implementation (original code)
+
+//----------------------------------------------------------------------
 // Platform-specific wrappers for Windows API compatibility
 static inline BOOL SetEvent(HANDLE event) {
-    return platform_event_set((platform_event_t)event) == 0 ? TRUE : FALSE;
+    return platform_event_signal((platform_event_t)event) == 0 ? TRUE : FALSE;
 }
 
 static inline BOOL ResetEvent(HANDLE event) {
     return platform_event_reset((platform_event_t)event) == 0 ? TRUE : FALSE;
 }
 
-#ifdef PLATFORM_WINDOWS
 #include <process.h>
-#endif
-
-// Cross-platform implementation
 
 //----------------------------------------------------------------------
 //
@@ -27,13 +27,9 @@ static inline BOOL ResetEvent(HANDLE event) {
 MWorkThread::MWorkThread()
 {
 	m_hWorkThread = 0;
-
 	m_hHasWorkEvent = 0;
 	m_hEndWorkEvent = 0;
 	m_hStopWorkEvent = 0;
-	//m_hDequeLock = 0;
-	//m_hCurrentLock = 0;
-
 	m_pCurrentWork = NULL;
 }
 
@@ -43,295 +39,124 @@ MWorkThread::~MWorkThread()
 }
 
 //----------------------------------------------------------------------
-//
-// member functions
-//
-//----------------------------------------------------------------------
-//----------------------------------------------------------------------
 // Init
 //----------------------------------------------------------------------
-void
-MWorkThread::Init(LPTHREAD_START_ROUTINE FileThreadProc, int priority)
+void MWorkThread::Init(LPTHREAD_START_ROUTINE FileThreadProc, int priority)
 {
-	if (m_hWorkThread!=0)
+	//--------------------------------------------------------------------
+	// Event 생성
+	//--------------------------------------------------------------------
+	m_hHasWorkEvent = CreateEvent( NULL, FALSE, FALSE, NULL);
+	m_hEndWorkEvent = CreateEvent( NULL, FALSE, FALSE, NULL);
+	m_hStopWorkEvent = CreateEvent( NULL, FALSE, FALSE, NULL);
+
+	//--------------------------------------------------------------------
+	// WorkThread 생성
+	//--------------------------------------------------------------------
+	m_hWorkThread = (HANDLE)platform_thread_create(
+		FileThreadProc, 
+		this,
+		priority
+	);
+
+	if(m_hWorkThread==0)
 	{
 		Release();
+		return;
 	}
-
-	//-----------------------------------------------------------
-	// Create Thread
-	//-----------------------------------------------------------
-	#ifdef PLATFORM_WINDOWS
-	DWORD	dwChildThreadID;
-
-	m_hWorkThread = CreateThread(NULL, 
-								0,	// default stack size
-								(LPTHREAD_START_ROUTINE)FileThreadProc,
-								NULL,
-								NULL,
-								&dwChildThreadID);
-
-	SetThreadPriority(m_hWorkThread, 
-					priority
-					);
-#else
-	// Non-Windows: Use platform_thread_create (pthread)
-	// Note: priority not implemented in platform_thread_create
-	m_hWorkThread = (HANDLE)platform_thread_create(
-		(platform_thread_func_t)FileThreadProc,
-		NULL
-	);
-	(void)priority; // priority parameter not used on non-Windows
-#endif
-	//-----------------------------------------------------------
-	// critical section object
-	//-----------------------------------------------------------
-	InitializeCriticalSection(&m_csDeque);
-	InitializeCriticalSection(&m_csCurrent);	
-
- 
 }
 
 //----------------------------------------------------------------------
 // Release
 //----------------------------------------------------------------------
-void
-MWorkThread::Release()
+void MWorkThread::Release()
 {
+	if(m_hWorkThread)
+	{
+		// 작업을 중지시킨다.
+		SetEvent( m_hStopWorkEvent );
+
+		// Thread가 종료되기를 기다린다.
+		platform_thread_wait( m_hWorkThread );
+		platform_thread_close( m_hWorkThread );
+		m_hWorkThread = 0;
+	}
+
+	if(m_hHasWorkEvent)
+	{
+		platform_event_close( m_hHasWorkEvent );
+		m_hHasWorkEvent = 0;
+	}
+
+	if(m_hEndWorkEvent)
+	{
+		platform_event_close( m_hEndWorkEvent );
+		m_hEndWorkEvent = 0;
+	}
+
+	if(m_hStopWorkEvent)
+	{
+		platform_event_close( m_hStopWorkEvent );
+		m_hStopWorkEvent = 0;
+	}
+
+	//--------------------------------------------------------------------
+	// List
+	//--------------------------------------------------------------------
 	ReleaseWork();
-
-	//-------------------------------------------------------------
-	// 작업 중지 event가 끝날때까지 기다림
-	//-------------------------------------------------------------
-	while (IsStopWork());
-
-//--------------------------------------------
-	// event cleanup
-	//--------------------------------------------
-	platform_event_close((platform_event_t)m_hHasWorkEvent);
-	platform_event_close((platform_event_t)m_hEndWorkEvent);
-	platform_event_close((platform_event_t)m_hStopWorkEvent);
-	//CloseHandle(m_hDequeLock);
-	//CloseHandle(m_hCurrentLock);
-	DeleteCriticalSection(&m_csDeque);
-	DeleteCriticalSection(&m_csCurrent);
-
-	//--------------------------------------------
-	// thread 중지
-	//--------------------------------------------
-#ifdef PLATFORM_WINDOWS
-	TerminateThread(m_hWorkThread, 0);
-	CloseHandle( m_hWorkThread );
-#else
-	// Non-Windows: Wait for thread to finish (pthread)
-	platform_thread_wait((platform_thread_t)m_hWorkThread);
-	platform_thread_close((platform_thread_t)m_hWorkThread);
-#endif
-
-	m_hHasWorkEvent = 0;	
-	m_hEndWorkEvent = 0;	
-	m_hStopWorkEvent = 0;	
-	//m_hDequeLock = 0;
-	//m_hCurrentLock = 0;
 }
 
 //----------------------------------------------------------------------
 // ReleaseWork
 //----------------------------------------------------------------------
-void
-MWorkThread::ReleaseWork()
+void MWorkThread::ReleaseWork()
 {
-	//-------------------------------------------------------------
-	// 작업 중지 event
-	//-------------------------------------------------------------
-	SetEvent( m_hStopWorkEvent );
-
-	//------------------------------------------------------------
-	// 현재 작업중인 일이 있을때..
-	//------------------------------------------------------------
-	if (!IsFinishCurrentWork())
+	//--------------------------------------------------------------------
+	// WorkNode삭제
+	//--------------------------------------------------------------------
+	MWorkNode* pNode;
+	while((pNode = GetFirstWorkNode())!=NULL)
 	{
-		//WaitUnlockCurrent();
-		LockCurrent();
-
-		if (m_pCurrentWork!=NULL)		// 현재 일이 설정된 경우
-		{
-			// 중단			
-			m_pCurrentWork->Stop();
-		}
-
-		UnlockCurrent();
+		Remove( pNode );
 	}
 
-	//------------------------------------------------------------
-	// 일이 끝날때까지 기다린다.
-	//------------------------------------------------------------
-	while (IsWorking());
-
-	//-------------------------------------------------------------
-	// deque의 WorkNode들을 모두 지운다.
-	//-------------------------------------------------------------
-	//WaitUnlockDeque();
-	LockDeque();
-
-	WORKNODE_DEQUE::iterator iNode = m_dequeWorkNode.begin();
-
-	while (iNode != m_dequeWorkNode.end())
-	{
-		MWorkNode* pNode = *iNode;
-
-		delete pNode;
-
-		iNode ++;
-	}
-
-	m_dequeWorkNode.clear();
-
-	UnlockDeque();
-
-	//-------------------------------------------------------------
-	// 작업 중지 event제거
-	//-------------------------------------------------------------
-	ResetEvent( m_hStopWorkEvent );
+	m_pCurrentWork = NULL;
 }
-
 
 //----------------------------------------------------------------------
 // Execute
 //----------------------------------------------------------------------
-void				
-MWorkThread::Execute()
+void MWorkThread::Execute()
 {
-	MWorkNode* pToRemove = NULL;
-
-	while (1)
+	while(1)
 	{
-		//------------------------------------------------------
-		// 할 일이 있을 때까지 기다린다.
-		//------------------------------------------------------
-		WaitForSingleObject(m_hHasWorkEvent, INFINITE);
+		//--------------------------------------------------------------------
+		// Work를 기다린다.
+		//--------------------------------------------------------------------
+		WaitForSingleObject(m_hHasWorkEvent, PLATFORM_INFINITE);
 
-		//------------------------------------------------------
-		// deque의 일들을 모두 처리한다.
-		//------------------------------------------------------
-		//WaitUnlockDeque();
-		LockDeque();
-
-		int queueSize = m_dequeWorkNode.size();
-
-		UnlockDeque();
-
-		while (queueSize!=0)
+		//--------------------------------------------------------------------
+		// StopWork이 요구되었는가?
+		//--------------------------------------------------------------------
+		if(WaitForSingleObject(m_hStopWorkEvent, 0)==WAIT_OBJECT_0)
 		{
-			//------------------------------------------------------
-			// 일 시작한다고 표시
-			//------------------------------------------------------
-			ResetEvent( m_hEndWorkEvent );
-
-			//------------------------------------------------------
-			// 현재 작업하는 WorkNode로 설정
-			//------------------------------------------------------
-			//WaitUnlockDeque();
-			LockDeque();
-
-			//WaitUnlockCurrent();
-			LockCurrent();
-
-			m_pCurrentWork = m_dequeWorkNode.front();
-
-			UnlockCurrent();
-
-			// 현재 WorkNode를 지운다.
-			m_dequeWorkNode.pop_front();
-
-			UnlockDeque();
-
-			//------------------------------------------------------
-			// 실행
-			//------------------------------------------------------
-			// execute 도중에 중단될 수도 있다. (Stop()에 의해서)
-			MWorkNode* pRemainNode = NULL;
-			
-			if (m_pCurrentWork->Execute(pRemainNode))
-			{
-				//------------------------------------------------
-				// 정상적으로 모든 작업이 끝난 경우
-				//------------------------------------------------				
-			}
-			else
-			{
-				//------------------------------------------------
-				// 비정상적으로 작업이 중단된 경우
-				//------------------------------------------------
-				// 에러가 생겼거나
-
-
-				//------------------------------------------------
-				// Stop된 경우일 수 있다. - 남은 일이 있는 경우
-				//------------------------------------------------
-				if (pRemainNode!=NULL)
-				{
-					//------------------------------------------------
-					// 중단된 경우				
-					// 남은 일을 다시 node에 추가한다.
-					//------------------------------------------------
-					//WaitUnlockDeque();
-					LockDeque();
-
-					m_dequeWorkNode.push_front( pRemainNode );			
-
-					UnlockDeque();
-				}
-			}
-
-			//------------------------------------------------------
-			// 작업 중인 일이 끝났다고 표시
-			//------------------------------------------------------
-			SetEvent( m_hEndWorkEvent );
-
-			//------------------------------------------------------
-			// 실행이 끝났으므로 제거한다.
-			//------------------------------------------------------
-			pToRemove = m_pCurrentWork;
-		
-			//WaitUnlockCurrent();
-			LockCurrent();
-
-			m_pCurrentWork = NULL;			
-
-			UnlockCurrent();
-			
-			//-------------------------------------------------------------
-			// 작업 중지 event 체크
-			//-------------------------------------------------------------
-			if (IsStopWork())
-			{
-				break;
-			}
-
-			delete pToRemove;
-			pToRemove = NULL;
-
-			//-------------------------------------------------------------
-			// 남아있는거 체크
-			//-------------------------------------------------------------
-			//WaitUnlockDeque();
-			LockDeque();
-
-			queueSize = m_dequeWorkNode.size();
-
-			UnlockDeque();
+			break;
 		}
-		
-		//------------------------------------------------------
-		// 일을 끝냈다고 표시..
-		//------------------------------------------------------
-		ResetEvent( m_hHasWorkEvent );
 
-		if (pToRemove!=NULL)
+		//--------------------------------------------------------------------
+		// 처리할 Work가 있다.
+		//--------------------------------------------------------------------
+		if(m_pCurrentWork)
 		{
-			delete pToRemove;
-			pToRemove = NULL;
+			//--------------------------------------------------------------------
+			// 현재 작업 처리
+			//--------------------------------------------------------------------
+			m_pCurrentWork->Execute();
+
+			//--------------------------------------------------------------------
+			// 현재 작업은 끝났음을 알린다.
+			//--------------------------------------------------------------------
+			SetEvent( m_hEndWorkEvent );
 		}
 	}
 }
@@ -339,177 +164,239 @@ MWorkThread::Execute()
 //----------------------------------------------------------------------
 // Remove
 //----------------------------------------------------------------------
-// type과 관련이 있는 작업들을 중단한다.
-//----------------------------------------------------------------------
-void				
-MWorkThread::Remove(int type)
+void MWorkThread::Remove(int type)
 {
-	//-------------------------------------------------------------
-	// 작업 중지 event
-	//-------------------------------------------------------------
-	SetEvent( m_hStopWorkEvent );
+	//--------------------------------------------------------------------
+	// 지정된 타입과 같은 Work를 찾아서 삭제한다.
+	//--------------------------------------------------------------------
+	MWorkNode* pNode;
+	MWorkNode* pPrevNode = NULL;
 
-	//------------------------------------------------------------
-	// 현재 작업중인 일 체크
-	//------------------------------------------------------------
-	if (!IsFinishCurrentWork())
+	for(pNode=m_pFirstWorkNode; pNode; pNode=pNode->m_pNext)
 	{
-		//WaitUnlockCurrent();
-		LockCurrent();
-
-		if (m_pCurrentWork!=NULL)
+		if(pNode->GetType()==type)
 		{
-			if (m_pCurrentWork->IsTypeOf(type))
+			//--------------------------------------------------------------------
+			// 이것이 현재 처리중인 Work라면?
+			//--------------------------------------------------------------------
+			if(pNode==m_pCurrentWork)
 			{
-				// 중지
-				m_pCurrentWork->Stop();
+				// 작업 종료를 기다린다.
+				WaitForSingleObject( m_hEndWorkEvent, PLATFORM_INFINITE );
 			}
-		}
 
-		UnlockCurrent();
-	}
-
-	//------------------------------------------------------------
-	// 일이 끝날때까지 기다린다.
-	//------------------------------------------------------------
-	while (IsWorking());
-
-	//-------------------------------------------------------------
-	// type과 관련이 있는 deque의 WorkNode들을 모두 지운다.
-	//-------------------------------------------------------------
-	//WaitUnlockDeque();
-	LockDeque();
-
-	WORKNODE_DEQUE::iterator iNode = m_dequeWorkNode.begin();
-	WORKNODE_DEQUE::iterator iNodeTemp;
-
-	while (iNode != m_dequeWorkNode.end())
-	{
-		MWorkNode* pNode = *iNode;
-
-		//------------------------------------------
-		// 같은 type이면 지운다.
-		//------------------------------------------
-		if (pNode->IsTypeOf(type))
-		{
-			delete pNode;		
-
-			iNodeTemp = iNode;
-
-			iNode ++;
-
-			m_dequeWorkNode.erase( iNodeTemp );
+			//--------------------------------------------------------------------
+			// 삭제
+			//--------------------------------------------------------------------
+			Remove( pNode, pPrevNode );
+			pPrevNode = NULL; // 포인터가 변경되었으므로
 		}
 		else
 		{
-			iNode ++;
+			pPrevNode = pNode;
 		}
 	}
-
-	UnlockDeque();
-
-	//-------------------------------------------------------------
-	// 다시 일 시작..
-	//-------------------------------------------------------------
-	SetEvent( m_hHasWorkEvent );
 }
 
 //----------------------------------------------------------------------
-// Add First
+// AddFirst
 //----------------------------------------------------------------------
-// 가장 우선 순위가 높은 work로서 추가시킨다.
-// 외부에서 new해야 한다.
-//
-// 현재 진행 중인 작업을 중단시키고 그 때 남은 일을 다시 list에 추가하고
-// pNode를 우선적으로 실행한다.
-//----------------------------------------------------------------------
-void				
-MWorkThread::AddFirst(MWorkNode* pNode)
+void MWorkThread::AddFirst(MWorkNode* pNode)
 {
-	if (pNode==NULL)
+	//--------------------------------------------------------------------
+	// 작업이 없다면?
+	//--------------------------------------------------------------------
+	if(m_pFirstWorkNode==NULL)
 	{
-		return;
+		m_pFirstWorkNode = pNode;
+		m_pLastWorkNode = pNode;
+	}
+	else
+	{
+		pNode->m_pNext = m_pFirstWorkNode;
+		m_pFirstWorkNode->m_pPrev = pNode;
+		m_pFirstWorkNode = pNode;
 	}
 
-	//-------------------------------------------------------------
-	// 작업 중지 event
-	//-------------------------------------------------------------
-	SetEvent( m_hStopWorkEvent );
+	pNode->m_pWorkThread = this;
+}
 
-	//------------------------------------------------------------
-	// 현재 작업중인 일이 있을때..
-	//------------------------------------------------------------
-	if (!IsFinishCurrentWork())
+//----------------------------------------------------------------------
+// AddLast
+//----------------------------------------------------------------------
+void MWorkThread::AddLast(MWorkNode* pNode)
+{
+	//--------------------------------------------------------------------
+	// 작업이 없다면?
+	//--------------------------------------------------------------------
+	if(m_pFirstWorkNode==NULL)
 	{
-		//WaitUnlockCurrent();
-		LockCurrent();
+		m_pFirstWorkNode = pNode;
+		m_pLastWorkNode = pNode;
+	}
+	else
+	{
+		pNode->m_pPrev = m_pLastWorkNode;
+		m_pLastWorkNode->m_pNext = pNode;
+		m_pLastWorkNode = pNode;
+	}
 
-		if (m_pCurrentWork!=NULL)		// 현재 일이 설정된 경우
+	pNode->m_pWorkThread = this;
+}
+
+//----------------------------------------------------------------------
+// Remove
+//----------------------------------------------------------------------
+void MWorkThread::Remove(MWorkNode* pNode, MWorkNode* pPrevNode)
+{
+	//--------------------------------------------------------------------
+	// 이전 Node
+	//--------------------------------------------------------------------
+	if(pPrevNode)
+	{
+		pPrevNode->m_pNext = pNode->m_pNext;
+	}
+	else
+	{
+		m_pFirstWorkNode = pNode->m_pNext;
+	}
+
+	//--------------------------------------------------------------------
+	// 다음 Node
+	//--------------------------------------------------------------------
+	if(pNode->m_pNext)
+	{
+		pNode->m_pNext->m_pPrev = pPrevNode;
+	}
+	else
+	{
+		m_pLastWorkNode = pPrevNode;
+	}
+
+	//--------------------------------------------------------------------
+	// 삭제
+	//--------------------------------------------------------------------
+	delete pNode;
+}
+
+//----------------------------------------------------------------------
+// GetFirstWorkNode
+//----------------------------------------------------------------------
+MWorkNode* MWorkThread::GetFirstWorkNode()
+{
+	//--------------------------------------------------------------------
+	// 첫번째 Work를 얻는다.
+	//--------------------------------------------------------------------
+	MWorkNode* pNode = m_pFirstWorkNode;
+	if(pNode==NULL)
+	{
+		return NULL;
+	}
+
+	//--------------------------------------------------------------------
+	// List에서 제거
+	//--------------------------------------------------------------------
+	m_pFirstWorkNode = pNode->m_pNext;
+	if(m_pFirstWorkNode)
+	{
+		m_pFirstWorkNode->m_pPrev = NULL;
+	}
+	else
+	{
+		m_pLastWorkNode = NULL;
+	}
+
+	//--------------------------------------------------------------------
+	// 현재 작업으로 설정
+	//--------------------------------------------------------------------
+	m_pCurrentWork = pNode;
+
+	//--------------------------------------------------------------------
+	// 이전/다음을 없앤다.
+	//--------------------------------------------------------------------
+	pNode->m_pPrev = NULL;
+	pNode->m_pNext = NULL;
+
+	return pNode;
+}
+
+//----------------------------------------------------------------------
+// GetFirstWorkNode (with type)
+//----------------------------------------------------------------------
+MWorkNode* MWorkThread::GetFirstWorkNode(int type)
+{
+	//--------------------------------------------------------------------
+	// 지정된 타입의 첫번째 Work를 얻는다.
+	//--------------------------------------------------------------------
+	MWorkNode* pNode = m_pFirstWorkNode;
+	MWorkNode* pPrevNode = NULL;
+
+	while(pNode)
+	{
+		if(pNode->GetType()==type)
 		{
-			// 중단			
-			m_pCurrentWork->Stop();
+			//--------------------------------------------------------------------
+			// 이전 Node
+			//--------------------------------------------------------------------
+			if(pPrevNode)
+			{
+				pPrevNode->m_pNext = pNode->m_pNext;
+			}
+			else
+			{
+				m_pFirstWorkNode = pNode->m_pNext;
+			}
+
+			//--------------------------------------------------------------------
+			// 다음 Node
+			//--------------------------------------------------------------------
+			if(pNode->m_pNext)
+			{
+				pNode->m_pNext->m_pPrev = pPrevNode;
+			}
+			else
+			{
+				m_pLastWorkNode = pPrevNode;
+			}
+
+			//--------------------------------------------------------------------
+			// 현재 작업으로 설정
+			//--------------------------------------------------------------------
+			m_pCurrentWork = pNode;
+
+			//--------------------------------------------------------------------
+			// 이전/다음을 없앤다.
+			//--------------------------------------------------------------------
+			pNode->m_pPrev = NULL;
+			pNode->m_pNext = NULL;
+
+			return pNode;
 		}
 
-		UnlockCurrent();
+		pPrevNode = pNode;
+		pNode = pNode->m_pNext;
 	}
 
-	//------------------------------------------------------------
-	// 일이 끝날때까지 기다린다.
-	//------------------------------------------------------------
-	while (IsWorking());
-
-	//------------------------------------------------------------
-	// deque의 처음에 추가한다.
-	//------------------------------------------------------------
-	//WaitUnlockDeque();
-	LockDeque();
-
-	m_dequeWorkNode.push_front( pNode );
-
-	UnlockDeque();
-
-	//------------------------------------------------------------
-	// 일이 있다고 thread에 알린다.
-	//------------------------------------------------------------
-	SetEvent( m_hHasWorkEvent );
+	return NULL;
 }
 
 //----------------------------------------------------------------------
-// Add Last
+// ExecuteWorkNode
 //----------------------------------------------------------------------
-// 끝에 추가..
-// 외부에서 new해야 한다.
-//----------------------------------------------------------------------
-void				
-MWorkThread::AddLast(MWorkNode* pNode)
+void MWorkThread::ExecuteWorkNode()
 {
-	if (pNode==NULL)
+	//--------------------------------------------------------------------
+	// 작업이 있는가?
+	//--------------------------------------------------------------------
+	m_pCurrentWork = GetFirstWorkNode();
+	if(m_pCurrentWork==NULL)
 	{
 		return;
 	}
 
-	//------------------------------------------------------------
-	// 일이 끝나고.. size도 0인 경우는 기다린다.
-	//------------------------------------------------------------
-	//WaitUnlockDeque();
-	LockDeque();
-
-	if (IsFinishCurrentWork() && m_dequeWorkNode.size()==0)
-	{
-		while (IsWorking());
-	}
-
-	//------------------------------------------------------------
-	// deque의 끝에 추가한다.
-	//------------------------------------------------------------
-	m_dequeWorkNode.push_back( pNode );
-
-	UnlockDeque();
-
-	
-	//------------------------------------------------------------
+	//--------------------------------------------------------------------
 	// 일이 있다고 thread에 알린다.
-	//------------------------------------------------------------
+	//--------------------------------------------------------------------
 	SetEvent( m_hHasWorkEvent );
 }
 
@@ -518,6 +405,11 @@ MWorkThread::AddLast(MWorkNode* pNode)
 
 #include "MWorkThread.h"
 
+//----------------------------------------------------------------------
+//
+// constructor / destructor
+//
+//----------------------------------------------------------------------
 MWorkThread::MWorkThread()
 {
 	m_hWorkThread = 0;
@@ -529,44 +421,65 @@ MWorkThread::MWorkThread()
 
 MWorkThread::~MWorkThread()
 {
-	Release();
+	// Stub implementation
 }
 
+//----------------------------------------------------------------------
+// Init
+//----------------------------------------------------------------------
 void MWorkThread::Init(LPTHREAD_START_ROUTINE FileThreadProc, int priority)
 {
+	// Stub implementation
 	(void)FileThreadProc;
 	(void)priority;
-	// Not implemented on non-Windows
 }
 
+//----------------------------------------------------------------------
+// Release
+//----------------------------------------------------------------------
 void MWorkThread::Release()
 {
-	ReleaseWork();
+	// Stub implementation
 }
 
+//----------------------------------------------------------------------
+// ReleaseWork
+//----------------------------------------------------------------------
 void MWorkThread::ReleaseWork()
 {
 	// Stub implementation
 }
 
+//----------------------------------------------------------------------
+// Execute
+//----------------------------------------------------------------------
 void MWorkThread::Execute()
 {
 	// Stub implementation - not functional on non-Windows
 }
 
+//----------------------------------------------------------------------
+// Remove
+//----------------------------------------------------------------------
 void MWorkThread::Remove(int type)
 {
 	(void)type;
 }
 
+//----------------------------------------------------------------------
+// AddFirst
+//----------------------------------------------------------------------
 void MWorkThread::AddFirst(MWorkNode* pNode)
 {
 	(void)pNode;
 }
 
+//----------------------------------------------------------------------
+// AddLast
+//----------------------------------------------------------------------
 void MWorkThread::AddLast(MWorkNode* pNode)
 {
 	(void)pNode;
 }
 
-/* End of MWorkThread.cpp */
+#endif /* PLATFORM_WINDOWS */

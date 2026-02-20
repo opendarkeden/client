@@ -82,6 +82,8 @@
 // Note: CreateThread stub removed - use platform_thread_create from Platform.h
 // #ifdef PLATFORM_WINDOWS... (removed)
 
+#endif /* __APPLE__ || __linux__ || __EMSCRIPTEN__ */
+
 #if defined(_DEBUG) && defined(OUTPUT_DEBUG)
 	extern CMessageArray*		g_pGameMessage;
 #endif
