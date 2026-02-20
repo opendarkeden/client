@@ -827,80 +827,16 @@ SetMode(enum CLIENT_MODE mode)
 			// À½¾Ç ½ÃÀÛ
 			//------------------------------------------------------
 			if (g_pUserOption->PlayWaveMusic)
+			// Music playback - use SDL_mixer (cross-platform)
+			g_Music.Stop();
+
+			if (g_pUserOption->PlayMusic)
 			{
-//				g_pSDLStream->Stop();
-				#ifdef __USE_MP3__
-					DEBUG_ADD("MP3 STOP2");
-					g_pMP3->Stop();
-#else
-#ifdef PLATFORM_WINDOWS
-					if( g_SDLAudio.IsInit() )
-					{
-						if( g_pSoundBufferForOGG == NULL )
-							g_pSoundBufferForOGG = new CDirectSoundBuffer(g_hWnd, SOUND_STEREO, SOUND_44K, SOUND_16BIT);
+				int musicID = g_pClientConfig->MUSIC_THEME;
 
-						if( g_pOGG == NULL )
-						{
-#ifdef _MT
-							g_pOGG = new COGGSTREAM(g_hWnd, g_pSoundBufferForOGG, 44100, 11025, 8800);
-#else
-							g_pOGG = new COGGSTREAM(g_hWnd, g_pSoundBufferForOGG, 44100, 11025, 8800,1);
-#endif
-						}
-
-						g_pOGG->streamClose();
-					}
-#endif // PLATFORM_WINDOWS
-#endif // __USE_MP3__
-					DEBUG_ADD("MP3 STOP2 OK");
-
-				if (g_pUserOption->PlayMusic)
+				if (musicID!=MUSICID_NULL)
 				{
-					int musicID = g_pClientConfig->MUSIC_THEME;
-
-					if (musicID!=MUSICID_NULL)
-					{
-#ifdef __USE_MP3__
-						DEBUG_ADD("MP3 OPEM");
-						g_pMP3->Open( (*g_pMusicTable)[ musicID ].FilenameWav );
-						DEBUG_ADD("MP3 OPEM OK");
-						DEBUG_ADD("MP3 PLAY1");
-						g_pMP3->Play( false );
-						DEBUG_ADD("MP3 PLAY1 OK");
-//						g_pSDLStream->Load( (*g_pMusicTable)[ musicID ].FilenameWav );
-//						g_pSDLStream->Play( FALSE );
-#else
-#ifdef PLATFORM_WINDOWS
-						if( g_oggfile != NULL )
-							fclose(g_oggfile);
-
-						g_oggfile = NULL;
-
-						if( g_SDLAudio.IsInit() )
-						{
-							g_oggfile = fopen( (*g_pMusicTable)[ musicID ].FilenameWav ,"rb");
-							g_pOGG->streamLoad( g_oggfile, NULL );
-							g_pOGG->streamPlay(false);  // Play once (not loop)
-							int volume = (g_pUserOption->VolumeMusic - 15) * 250;
-							g_pOGG->streamVolume( max( -10000, min( -1, volume ) ) );
-						}
-#endif // PLATFORM_WINDOWS
-#endif // __USE_MP3__
-					}
-				}
-			}
-			else
-			{
-				g_Music.Stop();
-
-				if (g_pUserOption->PlayMusic)
-				{
-					int musicID = g_pClientConfig->MUSIC_THEME;
-
-					if (musicID!=MUSICID_NULL)
-					{
-						g_Music.Play( (*g_pMusicTable)[ musicID ].Filename );
-					}
+					g_Music.Play( (*g_pMusicTable)[ musicID ].Filename );
 				}
 			}
 
@@ -1681,73 +1617,25 @@ CheckActivate(BOOL bActiveGame)
 				//------------------------------------
 				// ¿¬ÁÖÁßÀÌ¸é.. Áß´Ü..
 				//------------------------------------
+				// Music playback - use SDL_mixer (cross-platform)
 				if (g_pUserOption->PlayMusic)
 				{
-					if (g_pUserOption->PlayWaveMusic)
+					if (g_Music.IsPlay())
 					{
-						if (g_Mode==MODE_GAME)
-						{													
-							PlayMusicCurrentZone();
-						}
-						else
-						{
-							int musicID = g_pClientConfig->MUSIC_THEME;
-
-							if (musicID!=MUSICID_NULL
-#ifdef __USE_MP3__
-								&& g_pMP3 != NULL)
-#else
-								&& g_pOGG != NULL)
-#endif
-//								&& g_pSDLStream!=NULL)
-							{
-#ifdef __USE_MP3__
-								DEBUG_ADD("MP3 OPEM");
-								g_pMP3->Open( (*g_pMusicTable)[ musicID ].FilenameWav );
-								DEBUG_ADD("MP3 OPEM OK");
-								DEBUG_ADD("MP3 PLAY2");
-								g_pMP3->Play( false );
-								DEBUG_ADD("MP3 PLAY2 OK");
-#else
-#ifdef PLATFORM_WINDOWS
-								if( g_SDLAudio.IsInit() )
-								{
-									g_pOGG->streamClose();
-									if( g_oggfile != NULL )
-										fclose(g_oggfile);
-									g_oggfile = fopen( (*g_pMusicTable)[ musicID ].FilenameWav ,"rb");
-									if( g_oggfile != NULL )
-									{
-										g_pOGG->streamLoad( g_oggfile, NULL );
-										g_pOGG->streamPlay(SOUND_PLAY_ONCE);
-										int volume = (g_pUserOption->VolumeMusic - 15) * 250;
-										g_pOGG->streamVolume( max( -10000, min( -1, volume ) ) );
-									}
-								}
-#endif // PLATFORM_WINDOWS
-#endif
-							}
-						}
+						g_Music.Resume();
+					}
+					else if (g_Mode==MODE_GAME)
+					{													
+						PlayMusicCurrentZone();
 					}
 					else
 					{
-						if (g_Music.IsPlay())
-						{
-							g_Music.Resume();
-						}
-						else if (g_Mode==MODE_GAME)
-						{													
-							PlayMusicCurrentZone();
-						}
-						else
-						{
-							int musicID = g_pClientConfig->MUSIC_THEME;
+						int musicID = g_pClientConfig->MUSIC_THEME;
 
-							if (musicID!=MUSICID_NULL
-								&& g_pMusicTable!=NULL)
-							{
-								g_Music.Play( (*g_pMusicTable)[ musicID ].Filename );
-							}
+						if (musicID!=MUSICID_NULL
+							&& g_pMusicTable!=NULL)
+						{
+							g_Music.Play( (*g_pMusicTable)[ musicID ].Filename );
 						}
 					}
 				}
@@ -1803,31 +1691,8 @@ CheckActivate(BOOL bActiveGame)
 			//g_SDLMusic.Pause();
 			//musicPause = g_Music.IsPause();
 
-			if (g_pUserOption->PlayWaveMusic)
-			{
-#ifdef __USE_MP3__
-				if (g_pMP3 != NULL)
-				{
-					DEBUG_ADD("MP3 STOP3");
-					g_pMP3->Stop();
-					DEBUG_ADD("MP3 STOP3 OK");
-				}
-//				if (g_pSDLStream!=NULL)
-//				{
-//					g_pSDLStream->Stop();
-//				}
-#else
-				if( g_pOGG != NULL )
-				{
-					if( g_SDLAudio.IsInit() )
-						g_pOGG->streamClose();
-				}
-#endif
-			}
-			else
-			{
-				g_Music.Stop();
-			}
+			// Music playback - use SDL_mixer (cross-platform)
+			g_Music.Stop();
 			
 			if (g_Mode!=MODE_WAIT_UPDATEINFO)
 			{
