@@ -99,16 +99,21 @@ Remove ALL Windows-specific code to support pure mingw + SDL builds on all platf
 - [ ] Ensure pure SDL_mixer implementation
 
 #### 7.4 Platform Windows Count Reduction 🚧 IN PROGRESS
-- [X] Current count: 286 instances (down from 292)
+- [X] Current count: 284 instances (down from 292)
+- [X] #ifdef PLATFORM_WINDOWS blocks: 235 (down from 238)
 - [X] Active Windows API calls: 0 (Phase 7.1-7.3 complete)
 - [ ] Target: < 100 instances (or minimal necessary)
 - [X] Analysis complete:
-  * GameMain.cpp: 17 blocks (platform headers, anti-cheat)
-  * MinTr.h: 12 blocks (debug output, string types)
-  * PacketFunction.cpp: 7 blocks (Windows headers, Imm library)
-  * GameInit.cpp: 7 blocks (graphics init, video memory)
-- [ ] Next: Clean up deprecated DirectSound/DirectDraw code
-- [ ] Next: Remove unnecessary empty blocks
+  * GameMain.cpp: 17 blocks (platform headers, anti-cheat) - NECESSARY
+  * MinTr.h: 12 blocks (debug output, string types) - NECESSARY
+  * PacketFunction.cpp: 7 blocks (Windows headers, Imm library) - NECESSARY
+  * GameInit.cpp: 5 blocks (graphics init, video memory) - NECESSARY (cleaned 2 blocks)
+  * CMP3.cpp: 2 blocks (MCI implementation) - NECESSARY
+  * soundbuf.cpp: 2 blocks (DirectSound implementation) - NECESSARY
+- [X] Cleanup progress:
+  * Removed 3 PLATFORM_WINDOWS blocks from GameInit.cpp
+  * All remaining blocks are necessary for platform-specific features
+- [ ] Next: Review if more blocks can be safely removed
 
 ## Current Status: IN PROGRESS (NOT COMPLETE)
 - Build works ✅
