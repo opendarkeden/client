@@ -2661,17 +2661,10 @@ void ReleaseAllObjects()
 	// DirectDraw
 	//----------------------------------------------------------------
 	DEBUG_ADD("[Release] CDirect3D");
-
-#ifdef PLATFORM_WINDOWS
-// CDirect3D::Release() removed (SDL2)
-
-#endif
+	// CDirect3D::Release() removed (SDL2)
 
 	DEBUG_ADD("[Release] CDirectDraw");
-
-#ifdef PLATFORM_WINDOWS
 	CSDLGraphics::ReleaseAll();
-#endif
 
 	//---------------------------------------------------------------------
 	// Profiler
