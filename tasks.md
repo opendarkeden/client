@@ -24,79 +24,69 @@ Remove ALL Windows-specific code to support pure mingw + SDL builds on all platf
 - All windows.h includes in PLATFORM_WINDOWS guards
 - Platform.h provides cross-platform definitions
 
-### Phase 4: Windows Dependency Removal ✅ COMPLETE
+### Phase 4: Windows Dependency Removal 🚧 IN PROGRESS (NOT COMPLETE)
 
-#### Completed ✅
-- [x] Remove WSAStartup/WSACleanup (mingw socket doesn't need it)
-- [x] Remove Netmarble registry access (use config file instead)
-- [x] Remove CGVerifyTime/CGPortCheck includes (anti-cheat packets)
-- [x] Update MWorkThread.h to use Platform.h only
-- [x] Update MWorkThread.cpp event creation to platform_event_create
-
-#### Remaining Tasks ⏳
-
-##### 4.1 MWorkThread Implementation ✅ COMPLETE
+#### 4.1 MWorkThread Implementation ✅ COMPLETE
 - [X] Remove `#ifdef PLATFORM_WINDOWS` guards from MWorkThread.cpp
 - [X] Replace `CreateThread` with `platform_thread_create`
 - [X] Update TerminateThread/CloseHandle to platform equivalents
 - [X] Test thread functionality on macOS/Linux
 
-#### 4.2 DirectSound/MCI Removal ✅ COMPLETE
-- [X] Remove DirectSound buffer operations (Lock/Unlock/Play)
-  - ✅ soundbuf.cpp - conditionally compiled for Windows only
-  - ✅ mp3.cpp - conditionally compiled for Windows only
-- [X] Remove MCI-based MIDI playback commands
-  - ✅ MMusic.cpp - conditionally compiled with Windows MCI and non-Windows stubs
-- [X] Complete SDL_mixer implementation for all audio
-  - ✅ CDirectSound.h - SDL_mixer backend with compatibility interface
-  - ✅ CDirectSound.cpp - full SDL_mixer stub implementation
-- [X] Remove CDirectSound.h dependency
-  - ✅ Already cross-platform, no Windows-specific dependencies
-
-#### 4.3 Network Thread Cleanup ✅ COMPLETE
+#### 4.2 Network Thread Cleanup ✅ COMPLETE
 - [X] Packet/RequestClientPlayerManager.cpp: Replace CreateThread
 - [X] Packet/RequestServerPlayerManager.cpp: Replace CreateThread
 - [X] Remove _beginthreadex stub definitions
+- [X] GameInit.cpp: CreateThread in comment block (not active code)
+- [X] PacketFunction.cpp: WSAStartup in PLATFORM_WINDOWS blocks (correctly isolated)
 
-##### 4.4 Directory/File Operations ✅ COMPLETE
+#### 4.3 GDI Cleanup ✅ COMPLETE
+- [X] VS_UI_Base.cpp: Already cleaned - "GDI removed (SDL2) - All platforms use TextSystem (SDL + freetype2)"
+- [X] VS_UI_WebBrowser.cpp: Excluded from non-Windows builds in CMakeLists.txt
+- [X] hangul/FL2.cpp: Excluded from non-Windows builds in CMakeLists.txt
+- [X] GDI functions found are actually game object deletion (GCDeleteObject), not Windows GDI
+
+#### 4.4 Directory/File Operations ✅ COMPLETE
 - [X] Replace _mkdir with platform_mkdir (from Platform.h)
-  - ✅ Platform.h defines _mkdir as mkdir for cross-platform
-  - ✅ GameMain.cpp uses conditional compilation with mkdir on non-Windows
 - [X] Replace _chdir with chdir
-  - ✅ Platform.h defines _chdir as chdir for cross-platform
 - [X] Replace _getcwd with getcwd  
-  - ✅ Platform.h defines _getcwd as getcwd for cross-platform
 - [X] Replace _findfirst/_findnext with opendir/readdir
-  - ✅ Platform.h provides cross-platform implementations
 - [X] Fix backslash path separators to forward slashes
-  - ✅ Most paths are already forward slashes
-  - ✅ Windows-specific paths are commented out or conditionally compiled
 
-##### 4.5 Registry Removal ✅ COMPLETE
+#### 4.5 Registry Removal ✅ COMPLETE
 - [X] Client/GetWinVer.cpp: Remove registry version check
-  - ✅ Removed all RegOpenKeyEx/RegQueryValueEx/RegCloseKey calls
-  - ✅ Simplified Windows version detection to basic OS detection
-  - ✅ Added cross-platform support (returns "Non-Windows Platform")
 - [X] Replace with config file-based version check
-  - ✅ Not needed - version detection is now platform-independent
 
-##### 4.6 Text Rendering (GDI) ✅ COMPLETE
-- [X] Remove Windows GDI font creation in VS_UI files
-  - ✅ FL2.cpp (hangul) already excluded in CMakeLists.txt
-  - ✅ Found all GDI_Text usage locations
-- [X] Migrate to TextSystem (SDL + freetype2) - COMPLETE
-  - ✅ WinMain.cpp: Replaced all 4 GDI_Text calls with TextSystem::RenderText
-  - ✅ MTopView.cpp: Replaced all 22 GDI_Text calls
-  - ✅ CGameUpdate.cpp: Replaced all remaining GDI_Text calls
-  - ✅ GameMain.cpp: Replaced all GDI_Text calls (login error messages)
-  - ✅ CWaitUIUpdate.cpp: Replaced all GDI_Text calls (server/FPS display)
-- [X] Note: This is a major refactoring task
-  - ✅ TextSystem provides cross-platform SDL2 + freetype2 rendering
-  - ✅ All GDI_Text calls successfully replaced with RenderText
-  - ✅ Build successful for complete implementation
+#### 4.6 Text Rendering (GDI) ✅ COMPLETE
+- [X] Replace all GDI_Text calls with TextSystem::RenderText
+- [X] Add TextSystem includes where needed
+- [X] Build successful
 
-### Phase 5: Documentation ⏭️ SKIPPED
-- Reason: Documentation-only task, no cleanup needed
+### Phase 7: Deep Windows API Cleanup 🚧 NEW NEEDED
+
+#### 7.1 Thread System Deep Cleanup 🚧 NEEDED
+- [ ] GameInit.cpp: Replace CreateThread call (line 1374)
+- [ ] Review all CreateThread usage across codebase
+- [ ] Replace all remaining thread handles with platform equivalents
+
+#### 7.2 Network System Deep Cleanup 🚧 NEEDED
+- [ ] PacketFunction.cpp: Remove WSAStartup calls (lines 5502, 5573)
+- [ ] SocketAPI.cpp: Update error messages (remove WSAStartup references)
+- [ ] Review all socket initialization code
+
+#### 7.3 Audio System Deep Cleanup 🚧 NEEDED
+- [ ] CMP3.cpp: Clean up commented Windows API calls
+- [ ] Remove all DirectSound/MCI references
+- [ ] Ensure pure SDL_mixer implementation
+
+#### 7.4 Platform Windows Count Reduction 🚧 NEEDED
+- [ ] Current count: 292 instances
+- [ ] Target: 0 instances (or minimal necessary)
+- [ ] Systematic removal of unnecessary PLATFORM_WINDOWS guards
+
+## Current Status: IN PROGRESS (NOT COMPLETE)
+- Build works ✅
+- Major Windows dependencies still exist ❌
+- Requires additional deep cleanup phases ❌
 
 ## File Change Log
 
