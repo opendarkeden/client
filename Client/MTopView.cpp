@@ -18,11 +18,8 @@
 #pragma warning(disable:4786)
 
 // DX3D.h removed (SDL2) - Direct3D has been replaced with SDL2
-#ifdef PLATFORM_WINDOWS
-// Windows-specific headers can be added here if needed
-#else
+// Unified: All platforms use TextSystem
 #include "TextSystem/TextService.h"
-#endif
 #include <math.h>
 #include <list>
 #include <stdio.h>
@@ -393,37 +390,12 @@ MTopView::Init()
 	}
 
 	//------------------------------------------
-	// ÀûÀýÇÑ Texture Memory °è»ê
+	// Texture Memory calculation
 	//------------------------------------------
-#ifdef PLATFORM_WINDOWS
-	DDSCAPS2 ddsCaps2;
-	DWORD dwTotal;
-	DWORD dwFree;
-	ZeroMemory(&ddsCaps2, sizeof(ddsCaps2)); 
-	ddsCaps2.dwCaps = DDSCAPS_TEXTURE; 
-	HRESULT hr = CSDLGraphics::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
-
-	DEBUG_ADD_FORMAT("[TextureMemory] Before Init View = %d/%d", dwFree, dwTotal);
-
-	//------------------------------------------
-	// ÀûÀýÇÑ effect texture°³¼ö
-	//------------------------------------------
-	// 1500000Á¤µµ´Â ´Ù¸¥µ¥ »ç¿ëµÈ´Ù°í º»´Ù.
-	// Æò±ÕÀûÀÎ ÇÑ TextureÀÇ memory size = 65536 - -;;
-	//------------------------------------------
-	int freeMemory = dwFree-1500000;
-
-	if (freeMemory < 0) freeMemory = 0;
-
-	int num = freeMemory / 20000 / 12;   	
-
-	num = max(num, 30);	// 30º¸´Ù´Â Ä¿¾ßÇÑ´Ù.
-	num = min(num, 60);	// 60ÀÌ ÃÖ°í´Ù.
-#else
-	// Stub for macOS - use default values
+	// SDL2: Unified path - use default values for all platforms
+	// (DirectDraw video memory query no longer available)
 	int num = 30;  // Default number of effect textures
-	DEBUG_ADD("[TextureMemory] Using default value for macOS");
-#endif
+	DEBUG_ADD("[TextureMemory] Using default value for SDL2");
 
 	//num = 20;
 
@@ -845,11 +817,7 @@ MTopView::SetSurface(CSpriteSurface*& pSurface)
 void
 MTopView::ClearShadowManager()
 {
-#ifdef PLATFORM_WINDOWS
-	if (true)
-	{
-	}
-#endif
+	// SDL2: No DirectDraw cleanup needed
 }
 
 //----------------------------------------------------------------------
@@ -901,23 +869,7 @@ MTopView::RestoreSurface()
 	{
 		CSDLGraphics::RestoreAllSurfaces();
 
-#ifdef PLATFORM_WINDOWS
-		if (true)
-		{
-// CDirect3D::Restore() removed (SDL2)
-
-			/*
-			D3DRECT rect3d;
-			rect3d.x1 = 0;
-			rect3d.y1 = 0;
-			rect3d.x2 = CLIPSURFACE_WIDTH;
-			rect3d.y2 = CLIPSURFACE_HEIGHT;
-
-			// CDirect3D::GetDevice()->Clear() removed (SDL2)
-
-			*/
-		}
-#endif
+	// SDL2: Direct3D restore no longer needed
 
 	//	CSDLGraphics::Flip();
 	}
@@ -932,74 +884,23 @@ MTopView::RestoreSurface()
 		m_pTileSurface->Restore();
 	}
 
-	// ¸ðµÎ ´Ù½Ã ±×·ÁÁØ´Ù.
-	//m_bFirstTileDraw = true;
+	// All textures redrawn
 
 	ClearOutputCreature();
 
 	ClearItemNameList();
 
 	//------------------------------------------------------------
-	// °¡¼ÓÀ» »ç¿ëÇÏ´Â °æ¿ì¿¡´Â
-	// Texture°¡ VideoMemory¿¡ ¿Ã¶ó°¡ ÀÖÀ¸¹Ç·Î RestoreÇØ¾ß ÇÑ´Ù.
-	// ´Ù½Ã Load.. - -;;
+	// When using acceleration, textures need to be restored
+	// because they reside in video memory.
 	//------------------------------------------------------------
-#ifdef PLATFORM_WINDOWS
-	if (true)
-	{
-		//------------------------------------------------------------
-		// Part Manager
-		//------------------------------------------------------------
-		DEBUG_ADD("Restore Surfaces - m_pAlphaEffectTextureManager");
+	// SDL2: InitFilters is called for all platforms
+	DEBUG_ADD("Restore Surfaces - m_pLightBufferTexture");
+	InitFilters();
 
-#ifdef __3D_IMAGE_OBJECT__
-//		if( m_pImageObjectTextureManager != NULL )
-//			m_pImageObjectTextureManager->Clear();
-#endif
-
-//
-
-
-//
-//
-//		
-
-		//------------------------------------------------------------
-		// Light Buffer Texture
-		//------------------------------------------------------------
-		DEBUG_ADD("Restore Surfaces - m_pLightBufferTexture");
-
-		InitFilters();
-			/*
-		if (m_pLightBufferTexture!=NULL)
-		{
-			m_pLightBufferTexture->Restore();
-			//delete m_pLightBufferTexture;
-		}
-		*/
-
-
-//
-//
-
-
-		//------------------------------------------------------------
-		// 3DBox Surface
-		//------------------------------------------------------------
-		DEBUG_ADD("Restore Surfaces - m_p3DBoxSurface");
-
-//
-//
-//		
-//		Set3DBoxColor( m_3DBoxCurrentPixel );
-//
-//		Init3DBoxSurface();
-
-		//------------------------------------------------------------
-		// minimap textureÃÊ±âÈ­
-		//------------------------------------------------------------
-	}
-#endif // PLATFORM_WINDOWS
+	//------------------------------------------------------------
+	// minimap texture initialization
+	//------------------------------------------------------------
 	/*
 	if (true)
 	{
@@ -1076,50 +977,11 @@ MTopView::InitSurfaces()
 //	//
 //	//-----------------------------------------------
 
+	// SDL2: Unified path - always use system memory for tile surface
+	DEBUG_ADD("[ InitGame ]  MTopView::InitSurface() - TileSurface sysmem");
 
-#ifdef PLATFORM_WINDOWS
-	if (true)
-	{
-		{
-			DEBUG_ADD("[ InitGame ]  MTopView::InitSurface() - TileSurface vidmem failed");
-
-			m_pTileSurface->InitOffsurface(g_TILESURFACE_WIDTH,
-											g_TILESURFACE_HEIGHT,
-											DDSCAPS_SYSTEMMEMORY);
-
-			DEBUG_ADD("[ InitGame ]  MTopView::InitSurface() - TileSurface sysmem OK");
-		}
-
-		//-----------------------------------------------
-		// free
-		//-----------------------------------------------
-//		m_p3DBoxSurface = new CSpriteSurface;
-//		m_p3DBoxSurface->InitTextureSurface(1, 1, 0, nullptr);
-//
-//		Set3DBoxColor( m_3DBoxCurrentPixel );
-//
-//
-
-
-	}
-#endif
-	//----------------------------------------------------------------
-	// 2D
-	//----------------------------------------------------------------
-#ifdef PLATFORM_WINDOWS
-	else
-	{
-		m_pTileSurface->InitOffsurface(g_TILESURFACE_WIDTH,
-									g_TILESURFACE_HEIGHT,
-									DDSCAPS_SYSTEMMEMORY);
-	}
-#else
-	{
-		m_pTileSurface->InitOffsurface(g_TILESURFACE_WIDTH,
+	m_pTileSurface->InitOffsurface(g_TILESURFACE_WIDTH,
 									g_TILESURFACE_HEIGHT);
-	}
-#endif
-
 
 	m_pTileSurface->SetTransparency( 0 );
 
@@ -2820,167 +2682,18 @@ MTopView::InitFilters()
 	}
 
 
-#ifdef PLATFORM_WINDOWS
-	if (true)
+// SDL2: Unified 2D rendering path for all platforms
+	// Load Light2D FilterPack
 	{
-		/*
 		//------------------------------------------------------
-		// Light FilterPack ÃÊ±âÈ­
+		// lightBuffer initialization
 		//------------------------------------------------------
-		m_LightFTP.Init( MAX_LIGHT_SETSIZE );
+		m_LightBufferFilter.Init( SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT );
 
-		//------------------------------------------------------
-		// LightFilter »ý¼º
-		//------------------------------------------------------		
-		int maxLight = 14;
-		int maxCenter = 9;
-		int lightRange[MAX_LIGHT_SETSIZE] = { 20, 26, 36, 46, 56, 66, 76, 86, 96, 106, 116, 126};
-		int l,i,j;
-
-		// MAX_LIGHT_SETSIZE¸¸Å­ ¹à±âÀÇ Å©±â Á¾·ù°¡ ÀÖ´Ù.		
-		for (l=0; l<MAX_LIGHT_SETSIZE; l++)
-		{
-			int lightRangeHalf = lightRange[l]>>1;	
-			int maxK = maxCenter,maxLight;
-			float gap = (float)(maxK,1)/(float)lightRangeHalf;	// k°ªÀÌ 0~24±îÁö..
-
-			m_LightFTP[l].Init( lightRange[l], lightRange[l] );
-			BYTE* pLight;
-			for (i=0; i<lightRange[l]; i++)
-			{
-				pLight = m_LightFTP[l].GetFilter( i );
-				for (j=0; j<lightRange[l]; j++)
-				{
-					int k = sqrt( 
-								abs(i-lightRangeHalf)*abs(i-lightRangeHalf) 
-								, abs(j-lightRangeHalf)*abs(j-lightRangeHalf) 
-							);
-
-					k = (float)k * gap;
-
-					if (k <= maxCenter) k = 0;			// maxCenter±îÁö´Â 0
-					else if (k >= maxK) k = maxLight;	// ³ÑÀ¸¸é maxLight
-					else k = k - maxCenter;				// ³ª¸ÓÁö´Â - maxCenter
-
-					// ¹à±âÀÇ SET´Ü°è¸¦ ¸¸µç´Ù.
-					//k >>= shiftValue;
-
-					//*pLight = k;
-					*pLight = maxLight - k;
-					pLight ++;
-				}
-			}
-		}		
-
-		//------------------------------------------------------------	
-		// Save  Light3D FilterPack
 		//------------------------------------------------------------
-		std::ofstream	LightFilter3DFile(FILE_FILTER_LIGHT3D, ios::binary);
-		m_LightFTP.SaveToFile(LightFilter3DFile);
-		LightFilter3DFile.close();	
-
-		*/
-
-		//------------------------------------------------------------	
-		// Load  Light3D FilterPack
-		//------------------------------------------------------------	
-		std::ifstream	LightFilter3DFile2;//(FILE_FILTER_LIGHT3D, ios::binary);
-		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_FILTER_LIGHT3D").c_str(), LightFilter3DFile2))
-			return false;
-		m_LightFTP.LoadFromFile(LightFilter3DFile2);
-		LightFilter3DFile2.close();
-
-		//------------------------------------------------------
-		// lightBuffer ÃÊ±âÈ­
-		//------------------------------------------------------		
-		m_LightBufferFilter.Init( SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT );		
-
-		m_pLightBufferTexture = new CSpriteSurface;
-		m_pLightBufferTexture->InitTextureSurface(SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT, 0, nullptr);	
-
-	}
-#endif
-
-	//------------------------------------------------------------
-	//
-	//  2D Rendering path for non-HAL platforms (SDL, macOS, Linux)
-	//  This is the PRIMARY path for SDL backend!
-	//
-	//------------------------------------------------------------
-#ifndef PLATFORM_WINDOWS
-	// SDL platform always uses 2D rendering path
-	if (true)  // Force execute on SDL platforms
-#else
-	// Windows platform: use 2D path when 3D HAL is not available
-	if (!true)
-#endif
-	{
-		/*
-		//------------------------------------------------------
-		// Light FilterPack ÃÊ±âÈ­
-		//------------------------------------------------------
-		m_LightFTP.Init( MAX_LIGHT_SETSIZE );
-
-		//------------------------------------------------------
-		// LightFilter »ý¼º
-		//------------------------------------------------------		
-		int maxLight = 14;
-		int maxCenter = 9;
-		int lightRange[MAX_LIGHT_SETSIZE] = { 20, 26, 36, 46, 56, 66, 76, 86, 96, 106, 116, 126 };
-		int l,i,j;
-
-		// MAX_LIGHT_SETSIZE¸¸Å­ ¹à±âÀÇ Å©±â Á¾·ù°¡ ÀÖ´Ù.		
-		for (l=0; l<MAX_LIGHT_SETSIZE; l++)
-		{
-			int lightRangeHalf = lightRange[l]>>1;	
-			int maxK = maxCenter,maxLight;
-			float gap = (float)(maxK,1)/(float)lightRangeHalf;	// k°ªÀÌ 0~24±îÁö..
-
-			m_LightFTP[l].Init( lightRange[l], lightRange[l] );
-			BYTE* pLight;
-			for (i=0; i<lightRange[l]; i++)
-			{
-				pLight = m_LightFTP[l].GetFilter( i );
-				for (j=0; j<lightRange[l]; j++)
-				{
-					int k = sqrt( 
-								abs(i-lightRangeHalf)*abs(i-lightRangeHalf) 
-								, abs(j-lightRangeHalf)*abs(j-lightRangeHalf) 
-							);
-
-					k = (float)k * gap;
-
-					if (k <= maxCenter) k = 0;			// maxCenter±îÁö´Â 0
-					else if (k >= maxK) k = maxLight;	// ³ÑÀ¸¸é maxLight
-					else k = k - maxCenter;				// ³ª¸ÓÁö´Â - maxCenter
-
-					// ¹à±âÀÇ SET´Ü°è¸¦ ¸¸µç´Ù.
-					//k >>= shiftValue;
-
-					//*pLight = k;
-					*pLight = (maxLight-k)<<1;//31 - ((maxLight - k)<<1);
-					pLight ++;
-				}
-			}
-		}	
-
-		//------------------------------------------------------------	
-		// Save  Light2D FilterPack
+		// Load Light2D FilterPack
 		//------------------------------------------------------------
-		std::ofstream	LightFilter2DFile(FILE_FILTER_LIGHT2D, ios::binary);
-		m_LightFTP.SaveToFile(LightFilter2DFile);
-		LightFilter2DFile.close();	
-		*/
-
-		//------------------------------------------------------
-		// lightBuffer ÃÊ±âÈ­
-		//------------------------------------------------------		
-		m_LightBufferFilter.Init( SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT );	
-
-		//------------------------------------------------------------	
-		// Load  Light2D FilterPack
-		//------------------------------------------------------------	
-		std::ifstream	LightFilter2DFile2;//(FILE_FILTER_LIGHT2D, ios::binary);
+		std::ifstream LightFilter2DFile2;
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_FILTER_LIGHT2D").c_str(), LightFilter2DFile2))
 			return false;
 		m_LightFTP.LoadFromFile(LightFilter2DFile2);
@@ -6670,19 +6383,8 @@ MTopView::SetFadeStart(char start, char end, char step, BYTE r, BYTE g, BYTE b, 
 	m_FadeInc	= (start<end)? step : -step;
 	m_bFade		= true;
 	m_delayFrame = delay;
-#ifdef PLATFORM_WINDOWS
-	if (true)
-	{
-		// 3D °¡¼ÓÀÎ °æ¿ì¿£ 4:4:4ÀÌ´Ù.
-		m_FadeColor = (((WORD)r>>1) << 8)
-						| (((WORD)g>>1) << 4)
-						| ((WORD)b>>1);
-	}
-	else
-#endif
-	{
-		m_FadeColor	= CSDLGraphics::Color(r,g,b);
-	}
+// SDL2: Unified path - always use SDL color format
+	m_FadeColor = CSDLGraphics::Color(r,g,b);
 }
 
 
@@ -6740,18 +6442,9 @@ MTopView::DrawFade()
 			//-------------------------------------------------
 			if (m_FadeColor==0)
 			{
-#ifdef PLATFORM_WINDOWS
-				// 2D 5:6:5
-				if (CSDLGraphics::Is565())
-				{
-					//m_pSurface->GammaBox565(&rect, m_FadeValue);
-				}
-				// 2D 5:5:5
-				else
-				{
-					//m_pSurface->GammaBox555(&rect, m_FadeValue);
-				}
-#endif
+// SDL2: Gamma functions are handled differently
+			// GammaBox555/GammaBox565 were DirectDraw specific
+			// Fade is now handled via alpha blending
 			}
 			//-------------------------------------------------
 			// ¾Æ´Ï¸é...
@@ -10145,11 +9838,8 @@ MTopView::DrawEventString(int& strX, int& strY)
 //----------------------------------------------------------------------
 void MTopView::DrawDebugInfo(void* pSurface)
 {
-	#ifdef PLATFORM_WINDOWS
-		CDirectDrawSurface* pSurfaceCast = (CDirectDrawSurface*)pSurface;
-	#else
-		CSpriteSurface* pSurfaceCast = (CSpriteSurface*)pSurface;
-	#endif
+	// SDL2: Unified - use CSpriteSurface for all platforms
+	CSpriteSurface* pSurfaceCast = (CSpriteSurface*)pSurface;
 	#ifdef	OUTPUT_DEBUG		
 		//----------------------------------------------------------------
 		// debug¿ë code
@@ -10182,24 +9872,30 @@ void MTopView::DrawDebugInfo(void* pSurface)
 
 		int zoneID = (g_bZonePlayerInLarge)? g_nZoneLarge : g_nZoneSmall;
 
-		sprintf(str, "ID = %d / %d¸í [Weapon=%s] [align=%d]", g_pPlayer->GetID(), m_pZone->GetCreatureNumber(), attackMode, g_pPlayer->GetAlignment());	
-		pSurfaceCast->GDI_Text(10,35, str, RGB(220,220,220));
+sprintf(str, "ID = %d / %d명 [Weapon=%s] [align=%d]", g_pPlayer->GetID(), m_pZone->GetCreatureNumber(), attackMode, g_pPlayer->GetAlignment());	
+		// pSurfaceCast->GDI_Text(10,35, str, RGB(220,220,220));
+		TextSystem::TextService::RenderText(10, 35, str);
 
 		sprintf(str, " [ZoneID=%d] XY=(%d, %d), sXY=(%d, %d), SerXY=(%d, %d)", zoneID, g_pPlayer->GetX(), g_pPlayer->GetY(), g_pPlayer->GetSX(), g_pPlayer->GetSY(), g_pPlayer->GetServerX(), g_pPlayer->GetServerY());	
-		pSurfaceCast->GDI_Text(10,56, str, RGB(220,220,220));
+		// pSurfaceCast->GDI_Text(10,56, str, RGB(220,220,220));
+		TextSystem::TextService::RenderText(10, 56, str);
 
 		sprintf(str, "SX = %d, SY = %d, HP=%d, MP=%d", g_pPlayer->GetSX(), g_pPlayer->GetSY(), g_pPlayer->GetHP(), g_pPlayer->GetMP());
 		//sprintf(str, "[Wait Move = %d]", g_pPlayer->GetSendMove());
-		pSurfaceCast->GDI_Text(10,72, str, RGB(220,220,220));
+		// pSurfaceCast->GDI_Text(10,72, str, RGB(220,220,220));
+		TextSystem::TextService::RenderText(10, 72, str);
 
 		sprintf(str, "ActionCount = [%d] %d/%d", g_pPlayer->GetAction(), g_pPlayer->GetActionCount(), g_pPlayer->GetActionCountMax());
-		pSurfaceCast->GDI_Text(10,88, str, RGB(220,220,220));
+		// pSurfaceCast->GDI_Text(10,88, str, RGB(220,220,220));
+		TextSystem::TextService::RenderText(10, 88, str);
 
 		sprintf(str, "MoveCount = %d/%d", g_pPlayer->GetMoveCount(), g_pPlayer->GetMoveCountMax());
-		pSurfaceCast->GDI_Text(10,104, str, RGB(220,220,220));
+		// pSurfaceCast->GDI_Text(10,104, str, RGB(220,220,220));
+		TextSystem::TextService::RenderText(10, 104, str);
 
 		sprintf(str, "Dark/Light/Sight = %d/%d/%d", m_DarkBits, g_pPlayer->GetLightSight() + g_pPlayer->GetItemLightSight(), g_pPlayer->GetSight());
-		pSurfaceCast->GDI_Text(10,120, str, RGB(220,220,220));
+		// pSurfaceCast->GDI_Text(10,120, str, RGB(220,220,220));
+		TextSystem::TextService::RenderText(10, 120, str);
 
 		if (g_pProfiler!=NULL && g_pProfiler->HasProfileInfo(g_ProfileInfoName.GetString()))
 		{
@@ -10208,7 +9904,8 @@ void MTopView::DrawDebugInfo(void* pSurface)
 			float avgTime = g_pProfiler->GetAverageTime(g_ProfileInfoName.GetString());
 
 			sprintf(str, "%s = %d / %d = %7.3f", g_ProfileInfoName.GetString(), totalTime, times, avgTime);
-			pSurfaceCast->GDI_Text(10,136, str, RGB(220,220,220));		
+			// pSurfaceCast->GDI_Text(10,136, str, RGB(220,220,220));		
+			TextSystem::TextService::RenderText(10, 136, str);		
 		}		
 
 
@@ -10221,7 +9918,8 @@ void MTopView::DrawDebugInfo(void* pSurface)
 			&& g_pRequestClientPlayerManager!=NULL)
 		{
 			sprintf(str, "Request Other/My = %d/%d", g_pRequestServerPlayerManager->GetSize(), g_pRequestClientPlayerManager->GetSize());
-			pSurfaceCast->GDI_Text(10,225, str, RGB(220,220,220));	
+			// pSurfaceCast->GDI_Text(10,225, str, RGB(220,220,220));	
+			TextSystem::TextService::RenderText(10, 225, str);	
 		}
 
 
@@ -10253,7 +9951,8 @@ void MTopView::DrawDebugInfo(void* pSurface)
 						infoStr[3][g_bSlideScreenShot]
 				);
 
-		pSurfaceCast->GDI_Text(150,580, str, 0xFFFFFF);		
+		// pSurfaceCast->GDI_Text(150,580, str, 0xFFFFFF);		
+		TextSystem::TextService::RenderText(150, 580, str);		
 
 		// ³²Àº Texture¸Þ¸ð¸® test
 		DDSCAPS2 ddsCaps2;
@@ -10264,7 +9963,8 @@ void MTopView::DrawDebugInfo(void* pSurface)
 		HRESULT hr = CSDLGraphics::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
 
 		sprintf(str, "Texture = %ld/%ld", dwFree, dwTotal);
-		pSurfaceCast->GDI_Text(500,580, str, 0xFFFFFF);		
+		// pSurfaceCast->GDI_Text(500,580, str, 0xFFFFFF);		
+		TextSystem::TextService::RenderText(500, 580, str);		
 
 
 	#endif
@@ -10341,7 +10041,8 @@ MTopView::DrawTestHelp()
 			for (int i=0; i<maxHelp; i++)
 			{
 				//pSurface->GDI_Text(point.x,1, point.y,1, helpStr[i], RGB(0,0,0));
-				m_pSurface->GDI_Text(point.x, point.y, helpStr[i], RGB(220,220,220));
+				// m_pSurface->GDI_Text(point.x, point.y, helpStr[i], RGB(220,220,220));
+				TextSystem::TextService::RenderText(point.x, point.y, helpStr[i]);
 				point.y += 20;
 			}
 		}
@@ -10748,12 +10449,10 @@ MTopView::Draw(int firstPointX,int firstPointY)
 
 
 	//------------------------------------------------------------
-	// Á¤»óÀûÀÎ Ãâ·Â
+	// Normal output
 	//------------------------------------------------------------
 	//m_pSurface->SetClipNULL();
-#ifdef PLATFORM_WINDOWS
-	m_pSurface->SetClipRightBottom(clipRight, clipBottom);
-#endif
+	// SDL2: Clipping is handled differently - removed Windows-specific call
 
 	#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 		DEBUG_ADD("Draw OK");
@@ -10778,42 +10477,29 @@ MTopView::DrawLightBuffer3D()
 		m_DarkBits || g_pPlayer->IsInDarkness())
 	{
 		//------------------------------------------------
-		// LightBufferFilter --> Texture
+		// LightBufferFilter --> Texture (SDL2 unified path)
 		//------------------------------------------------
-#ifdef PLATFORM_WINDOWS
 		WORD *lpSurface, pitch;
 		m_pLightBufferTexture->Lock();
 		lpSurface = (WORD*)m_pLightBufferTexture->GetSurfacePointer();
 		pitch = m_pLightBufferTexture->GetSurfacePitch();
 
 		m_LightBufferFilter.Blt4444(lpSurface, pitch);
-		//m_LightBufferFilter.Blt4444Color(lpSurface, pitch, 0x0200);
 
 		m_pLightBufferTexture->Unlock();
-		//*/
 
 		//------------------------------------------------
-		// Texture¼³Á¤ÇÏ°í Ãâ·Â
+		// Texture output
 		//------------------------------------------------
 		RECT rect = { 0, 0, g_GameRect.right, g_GameRect.bottom };
 
-		DRAW_TEXTURE_SURFACE( m_pLightBufferTexture, &rect )
-		else
-		{
-			#ifdef OUTPUT_DEBUG_DRAW_PROCESS
-				DEBUG_ADD( "Failed DrawLightBuffer3D" );
-			#endif
-		}
-
+		// SDL2: Use BltNoColorkey for all platforms
+		POINT destPoint = { 0, 0 };
+		m_pLightBufferTexture->BltNoColorkey(&destPoint, m_pSurface, &rect);
 
 		#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 			DEBUG_ADD( "End DrawLightBuffer3D" );
 		#endif
-#else
-		// SDL/macOS: 3D light buffer rendering not implemented
-		(void)m_pLightBufferTexture;
-		(void)m_DarkBits;
-#endif
 	}
 
 	#ifdef OUTPUT_DEBUG_DRAW_PROCESS
@@ -12973,18 +12659,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			int CloudPos = g_CurrentFrame % g_GameRect.right;
 			POINT CloudPoint = {0,0};
 			RECT CloudRect = { CloudPos, 0, g_GameRect.left, g_GameRect.top };
-#ifdef PLATFORM_WINDOWS
-			if(CloudPos != g_GameRect.left)
-				m_pSurface->BltNoColorkey(&CloudPoint, pCloudSurface, &CloudRect);
-			if(CloudPos != 0)
-			{
-				CloudPoint.x	= g_GameRect.left-CloudPos;
-				CloudRect.left	=  0;
-				CloudRect.right	=  CloudPos;
-				m_pSurface->BltNoColorkey(&CloudPoint, pCloudSurface, &CloudRect);
-			}
-#else
-			// SDL backend: Cast CDirectDrawSurface* to CSpriteSurface* for compatibility
+// SDL2: Cast CDirectDrawSurface* to CSpriteSurface* for compatibility (unified path)
 			CSpriteSurface* pCloudSprite = reinterpret_cast<CSpriteSurface*>(pCloudSurface);
 			if(CloudPos != g_GameRect.left)
 				m_pSurface->BltNoColorkey(&CloudPoint, pCloudSprite, &CloudRect);
@@ -12995,7 +12670,6 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				CloudRect.right	=  CloudPos;
 				m_pSurface->BltNoColorkey(&CloudPoint, pCloudSprite, &CloudRect);
 			}
-#endif
 			if(bDrawBackGround)
 				m_pSurface->Blt(&point, m_pTileSurface, &rectReuse);
 		}
@@ -13842,10 +13516,11 @@ if (!m_pSurface->Lock()) return;
 									&& pImageObject->GetImageObjectID()==g_ShowImageObjectID)
 								{
 									m_pSurface->Unlock();
-									m_pSurface->GDI_Text(tilePointTemp.x, 
-														tilePointTemp.y, 
-														"X", 														
-														0xFFFFFF);	
+									// m_pSurface->GDI_Text(tilePointTemp.x, 
+									// 						tilePointTemp.y, 
+									// 						"X", 														
+									// 						0xFFFFFF);	
+									TextSystem::TextService::RenderText(tilePointTemp.x, tilePointTemp.y, "X");
 									m_pSurface->Lock();
 								}
 
@@ -14184,10 +13859,11 @@ if (!m_pSurface->Lock()) return;
 										&& pImageObject->GetImageObjectID()==g_ShowImageObjectID)
 									{
 										m_pSurface->Unlock();
-										m_pSurface->GDI_Text(tilePointTemp.x, 
-															tilePointTemp.y, 
-															"X", 														
-															0xFFFFFF);	
+										// m_pSurface->GDI_Text(tilePointTemp.x, 
+										// 						tilePointTemp.y, 
+										// 						"X", 														
+										// 						0xFFFFFF);	
+										TextSystem::TextService::RenderText(tilePointTemp.x, tilePointTemp.y, "X");
 										m_pSurface->Lock();
 									}
 
@@ -16196,7 +15872,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 
 						char str[128];
 						sprintf(str, "iid=%d, view=%d", (int)pImageObject->GetImageObjectID(), (int)pImageObject->GetViewpoint());
-						m_pSurface->GDI_Text(pPoint->x, pPoint->y, str, 0xFFFF);
+						// m_pSurface->GDI_Text(pPoint->x, pPoint->y, str, 0xFFFF);
+						TextSystem::TextService::RenderText(pPoint->x, pPoint->y, str);
 
 						m_pSurface->Lock();
 					}
@@ -16605,7 +16282,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 					sprintf(str, "iid=%d, sid=%d, vp=%d", (int)pImageObject->GetImageObjectID(), (int)spriteID, (int)pImageObject->GetViewpoint());
 
 					m_pSurface->Unlock();
-					m_pSurface->GDI_Text(pPoint->x, pPoint->y, str, 0xFFFF);
+					// m_pSurface->GDI_Text(pPoint->x, pPoint->y, str, 0xFFFF);
+					TextSystem::TextService::RenderText(pPoint->x, pPoint->y, str);
 					m_pSurface->Lock();
 				}
 			#endif
@@ -19356,7 +19034,8 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 			{
 				char str[128];
 				sprintf(str, "HP=%d/%d", currentHP, maxHP);
-				m_pSurface->GDI_Text(rectLeft, rectTop-20, str, 0xFFFF);
+				// m_pSurface->GDI_Text(rectLeft, rectTop-20, str, 0xFFFF);
+				TextSystem::TextService::RenderText(rectLeft, rectTop-20, str);
 			}
 		#endif
 
@@ -19804,7 +19483,8 @@ MTopView::DrawCreatureMyName()
 			{
 				char str[128];
 				sprintf(str, "HP=%d/%d", currentHP, maxHP);
-				m_pSurface->GDI_Text(rectLeft, rectTop-20, str, 0xFFFF);
+				// m_pSurface->GDI_Text(rectLeft, rectTop-20, str, 0xFFFF);
+				TextSystem::TextService::RenderText(rectLeft, rectTop-20, str);
 			}					
 		#endif
 
@@ -20190,13 +19870,9 @@ MTopView::ExcuteOustersFinEvent()
 
 			CDirectDrawSurface *pSurface = g_pEventManager->GetEventBackground((EVENTBACKGROUND_ID)event->parameter4);
 
-#ifdef PLATFORM_WINDOWS
-			m_pSurface->BltNoColorkey(&p, pSurface, &r);
-#else
-			// SDL backend: Cast CDirectDrawSurface* to CSpriteSurface* for compatibility
-			CSpriteSurface* pSpriteSurface = reinterpret_cast<CSpriteSurface*>(pSurface);
-			m_pSurface->BltNoColorkey(&p, pSpriteSurface, &r);
-#endif
+// SDL2: Cast CDirectDrawSurface* to CSpriteSurface* for compatibility (unified path)
+		CSpriteSurface* pSpriteSurface = reinterpret_cast<CSpriteSurface*>(pSurface);
+		m_pSurface->BltNoColorkey(&p, pSpriteSurface, &r);
 
 //			m_pSurface->BltSprite(&p, g_pEventManager->GetEventBackground(event->parameter4));
 

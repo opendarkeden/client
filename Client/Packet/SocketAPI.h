@@ -31,6 +31,16 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#elif defined(__EMSCRIPTEN__)
+#include <netinet/in.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+// Emscripten doesn't have traditional sockets
+// Use stub types for demo compilation
+typedef int SOCKET;
+static const int INVALID_SOCKET = -1;
+static const int SOCKET_ERROR = -1;
 #endif
 
 

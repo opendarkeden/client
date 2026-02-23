@@ -675,12 +675,8 @@ InitSurface()
 		delete g_pBack;
 	}
 	g_pBack = new CSpriteSurface;
-#ifdef PLATFORM_WINDOWS
-	g_pBack->InitBacksurface();
-#else
-	// SDL backend: Initialize surface differently
+	// SDL2: Unified surface initialization
 	g_pBack->Init(800, 600);
-#endif
 
 	//--------------------------------------------------------
 	// 임시로 로딩화면 구성..
@@ -725,11 +721,8 @@ InitSurface()
 			delete g_pLast;
 		}
 		g_pLast = new CSpriteSurface;
-#ifdef PLATFORM_WINDOWS
-		g_pLast->InitOffsurface(g_GameRect.right, g_GameRect.bottom, DDSCAPS_SYSTEMMEMORY);
-#else
+		// SDL2: Unified offscreen surface initialization (always system memory)
 		g_pLast->InitOffsurface(g_GameRect.right, g_GameRect.bottom);
-#endif
 		g_pLast->SetTransparency( 0 );
 		g_pLast->FillSurface( CSDLGraphics::Color(30,30,30) );
 
@@ -977,25 +970,9 @@ InitSound()
 		//-----------------------------------------------------------
 		// RAM 체크해서.. 적당하게 잡아준다.
 		//-----------------------------------------------------------
-#ifdef PLATFORM_WINDOWS
-		MEMORYSTATUS ms;
-		ZeroMemory(&ms, sizeof(MEMORYSTATUS));
-		ms.dwLength = sizeof(MEMORYSTATUS);
-
-		GlobalMemoryStatus( &ms );
-
-		// dwAvailPhys는 왠지 이상하다. -_-;
-		// 100메가 이상인 경우..
-		// 사운드에 10메가를 투자한다.
-		if (ms.dwTotalPhys >= 100*1024*1024)
-		{
-			// 이것도 임시코드지만.. - -;
-			g_pClientConfig->MAX_SOUNDPART = 100;
-		}
-#else
-		// macOS: Use default sound part count
+		// SDL2: Unified - use default sound part count for all platforms
+		// DirectDraw memory status not available in SDL2
 		g_pClientConfig->MAX_SOUNDPART = 100;
-#endif
 
 		// ( 전체 개수, 메모리 허용 개수 )
 		g_pSoundManager->Init( g_pSoundTable->GetSize(), g_pClientConfig->MAX_SOUNDPART );
@@ -1677,26 +1654,11 @@ InitGame()
 	DEBUG_ADD("---------------[   InitGame   ]---------------");
 
 	//----------------------------------------------------------------------
-	// WSA Startup
+	// Socket initialization (mingw socket on Windows, BSD sockets on Unix)
 	//----------------------------------------------------------------------
-	DEBUG_ADD("[ InitGame ]  Socket - Before WSAStartup");
+	DEBUG_ADD("[ InitGame ]  Socket - Socket initialized");
 
-#ifdef PLATFORM_WINDOWS
-	WORD wVersionRequested;
-	WSADATA wsaData;
-
-	wVersionRequested = MAKEWORD( 2, 0 );
-
-	if (WSAStartup( wVersionRequested, &wsaData ) != 0)
-	{
-	    // Tell the user that we couldn't find a useable
-	    // WinSock DLL.
-	    MessageBox( g_hWnd, "couldn't find a useable WinSock DLL.", NULL, MB_OK);
-		return FALSE;
-	}
-#else
-	// macOS: BSD sockets don't need WSAStartup
-#endif
+	// Note: mingw socket (POSIX-compatible) doesn't need WSAStartup like WinSock
 
 //	#ifdef _DEBUG
 //		bool bMerge = false;
@@ -2559,11 +2521,9 @@ void ReleaseAllObjects()
 	ReleaseSocket();
 
 	//----------------------------------------------------------------
-	// WinSock Cleanup (Windows only)
+	// Socket cleanup (mingw socket doesn't need explicit cleanup)
 	//----------------------------------------------------------------
-#ifdef PLATFORM_WINDOWS
-	WSACleanup();
-#endif
+	DEBUG_ADD("[Release] Socket cleaned up");
 
 	//----------------------------------------------------------------
 	// Volume
@@ -2701,17 +2661,10 @@ void ReleaseAllObjects()
 	// DirectDraw
 	//----------------------------------------------------------------
 	DEBUG_ADD("[Release] CDirect3D");
-
-#ifdef PLATFORM_WINDOWS
-// CDirect3D::Release() removed (SDL2)
-
-#endif
+	// CDirect3D::Release() removed (SDL2)
 
 	DEBUG_ADD("[Release] CDirectDraw");
-
-#ifdef PLATFORM_WINDOWS
 	CSDLGraphics::ReleaseAll();
-#endif
 
 	//---------------------------------------------------------------------
 	// Profiler

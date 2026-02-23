@@ -25,7 +25,7 @@
 #include "CSoundPartManager.h"
 #include "MZone.h"
 #include "CMessageArray.h"
-#include "IVolume.h"
+// #include "IVolume.h"  // VolumeLib not available in SDL build
 #include "MScreenEffectManager.h"
 #include "SpriteLib/CSpriteSurface.h"
 #include "SpriteLib/CStorageSurface.h"

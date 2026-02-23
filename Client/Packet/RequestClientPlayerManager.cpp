@@ -20,7 +20,7 @@
 #ifdef PLATFORM_WINDOWS
 	#include <windows.h>
 	#include <process.h>
-#elif defined(__APPLE__) || defined(__linux__)
+#elif defined(__APPLE__) || defined(__linux__) || defined(__EMSCRIPTEN__)
 	#include <pthread.h>
 	#include <unistd.h>
 #endif
@@ -30,7 +30,7 @@
 #include "Rpackets/CRRequest.h"
 
 // Platform-specific threading macros and stubs
-#if defined(__APPLE__) || defined(__linux__)
+#if defined(__APPLE__) || defined(__linux__) || defined(__EMSCRIPTEN__)
 	// Additional Windows type definitions
 	typedef DWORD* LPDWORD;
 	typedef void* (*LPTHREAD_START_ROUTINE)(void*);
@@ -79,18 +79,10 @@
 		return (HANDLE)0;
 	}
 
-	// Stub CreateThread (Windows API)
-	static inline HANDLE CreateThread(void* security, unsigned stack_size,
-		LPTHREAD_START_ROUTINE start_proc, void* arg,
-		unsigned flags, DWORD* thread_id) {
-		pthread_t thread;
-		if (pthread_create(&thread, NULL, (void*(*)(void*))start_proc, arg) == 0) {
-			if (thread_id) *thread_id = (unsigned long)thread;
-			return (HANDLE)(size_t)thread;
-		}
-		return (HANDLE)0;
-	}
-#endif
+// Note: CreateThread stub removed - use platform_thread_create from Platform.h
+// #ifdef PLATFORM_WINDOWS... (removed)
+
+#endif /* __APPLE__ || __linux__ || __EMSCRIPTEN__ */
 
 #if defined(_DEBUG) && defined(OUTPUT_DEBUG)
 	extern CMessageArray*		g_pGameMessage;
@@ -268,6 +260,8 @@ RequestClientPlayerManager::Connect(const char* pIP, const char* pRequestName, R
 
 	m_mapConnectionInfo[pInfo->name] = pInfo;
 	
+#ifdef PLATFORM_WINDOWS
+	DWORD dwChildThreadID;
 	HANDLE hConnectionThread = CreateThread(NULL, 
 									0,	// default stack size
 									(LPTHREAD_START_ROUTINE)RequestConnectionThreadProc,
@@ -277,6 +271,14 @@ RequestClientPlayerManager::Connect(const char* pIP, const char* pRequestName, R
 
 	// priority는 낮게
 	SetThreadPriority(hConnectionThread, THREAD_PRIORITY_LOWEST);	
+#else
+	// Non-Windows: Use platform_thread_create
+	HANDLE hConnectionThread = (HANDLE)platform_thread_create(
+		(platform_thread_func_t)RequestConnectionThreadProc,
+		pInfo
+	);
+	(void)dwChildThreadID; // unused on non-Windows
+#endif
 
 	// 나중에 지울 수 있게 추가해둔다.
 	m_listConnectionThread.push_back( hConnectionThread );

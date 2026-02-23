@@ -3425,39 +3425,21 @@ WinMain(HINSTANCE hInstance,
 	*/
 
 	g_pFileDef = new Properties;
-	g_pFileDef->load(FILE_INFO_FILEDEF);			
-	
+	g_pFileDef->load(FILE_INFO_FILEDEF);
+
 	// ³Ý¸¶ºí¿ë
 	bool bNetmarble = false;
 	Properties NetmarbleConfig;
-		
-	NetmarbleConfig.load(g_pFileDef->getProperty("FILE_INFO_NETMARBLE").c_str());			
+
+	NetmarbleConfig.load(g_pFileDef->getProperty("FILE_INFO_NETMARBLE").c_str());
 	bNetmarble = NetmarbleConfig.getPropertyInt("Netmarble") != 0;
 
 	if(bNetmarble)
 	{
-		// -------------------------------------------------
-		// read registry...
-		// -------------------------------------------------
-		HKEY newKey = 0;
-		LONG ret = RegOpenKeyEx( HKEY_LOCAL_MACHINE, "SOFTWARE\\Netmarble\\NetmarbleDarkEden", NULL, KEY_ALL_ACCESS, &newKey);
-		DWORD dwSize = MAX_PATH;
-		char filepath[MAX_PATH];
-		
-		if( ret == ERROR_SUCCESS)
-		{
-			RegQueryValueEx( newKey, "RunFileName", NULL, NULL, (unsigned char*)filepath, &dwSize);
-
-			char *pFilename = const_cast<char*>(strstr(filepath, "DarkEden.exe"));
-			if(pFilename != NULL)
-			{
-				//MessageBox(0,"Error:[pFilename != NULL]","Error",MB_OK);
-				strcpy(pFilename, "Updater.exe");
-				RegSetValueEx( newKey, "RunFileName", NULL, REG_SZ, 
-					(unsigned char*)&filepath, strlen(filepath));
-			}
-		}
-		RegCloseKey( newKey);
+		// Registry access removed - use configuration file instead
+		// Netmarble-specific registry key: HKEY_LOCAL_MACHINE\SOFTWARE\Netmarble\NetmarbleDarkEden
+		// This was used to set "RunFileName" for auto-updater
+		// TODO: Implement config file-based approach if needed
 	}
 //	if( bNetmarble == false )
 //		return -1;
@@ -4064,27 +4046,9 @@ _APICheck.init();
 #endif
 	if (InitApp(nCmdShow))
 	{
-
-#ifdef PLATFORM_WINDOWS
-		DDSCAPS2 ddsCaps2;
-		DWORD dwTotal;
-		DWORD dwFree;
-		ZeroMemory(&ddsCaps2, sizeof(ddsCaps2));
-		ddsCaps2.dwCaps = DDSCAPS_VIDEOMEMORY;//DDSCAPS_TEXTURE;
-		HRESULT hr = CSDLGraphics::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
-
-		DDCAPS	driverCaps;
-		ZeroMemory( &driverCaps, sizeof(driverCaps) );
-		driverCaps.dwSize = sizeof(driverCaps);
-
-		hr = CSDLGraphics::GetDD()->GetCaps( &driverCaps, NULL );
-
-		g_dwVideoMemory = driverCaps.dwVidMemTotal;
-//		g_dwVideoMemory = driverCaps.dwVidMemFree;
-#else
-		// On non-Windows platforms, set a default video memory value
+		// SDL2 doesn't provide video memory queries like DirectX
+		// Use a reasonable default value for all platforms
 		g_dwVideoMemory = 256 * 1024 * 1024;  // 256 MB default
-#endif
 
 		// ³Ý¸¶ºí¿ë
 		if(bNetmarble)

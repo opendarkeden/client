@@ -16,6 +16,7 @@
 #include "../../basic/Platform.h"
 #endif
 #include <string>
+#include "TextSystem/TextService.h"
 #include "Client.h"
 #include "GameObject.h"
 #include "ServerInfo.h"
@@ -805,8 +806,10 @@ CWaitUIUpdate::UpdateDraw()
 
 				sprintf(str, "ServerGroup: %s", g_pServerInformation->GetServerGroupName());						
 
-				g_pLast->GDI_Text(101,11, str, RGB(0,0,0));
-				g_pLast->GDI_Text(100,10, str, RGB(240,240,240));
+				// g_pLast->GDI_Text(101,11, str, RGB(0,0,0));
+				TextSystem::TextService::RenderText(101, 11, str);
+				// g_pLast->GDI_Text(100,10, str, RGB(240,240,240));
+				TextSystem::TextService::RenderText(100, 10, str);
 
 				//sprintf(str, "Server: %s", g_pServerInformation->GetServerName());
 
@@ -823,8 +826,10 @@ CWaitUIUpdate::UpdateDraw()
 
 					sprintf(str, "[%d] %s", iGroup->first, pGroup->GetGroupName());
 
-					g_pLast->GDI_Text(101,y+1, str, RGB(0,0,0));
-					g_pLast->GDI_Text(100,y, str, RGB(240,240,240));
+					// g_pLast->GDI_Text(101,y+1, str, RGB(0,0,0));
+					TextSystem::TextService::RenderText(101, y+1, str);
+					// g_pLast->GDI_Text(100,y, str, RGB(240,240,240));
+					TextSystem::TextService::RenderText(100, y, str);
 
 					y += 20;
 
@@ -941,8 +946,10 @@ CWaitUIUpdate::UpdateDraw()
 				
 				sprintf(str, "%d FPS", g_FrameRate);	
 				
-				g_pLast->GDI_Text(11,11, str, RGB(20,20,20));
-				g_pLast->GDI_Text(10,10, str, 0xFFFFFF);
+				// g_pLast->GDI_Text(11,11, str, RGB(20,20,20));
+				TextSystem::TextService::RenderText(11, 11, str);
+				// g_pLast->GDI_Text(10,10, str, 0xFFFFFF);
+				TextSystem::TextService::RenderText(10, 10, str);
 			}
 		#endif
 
@@ -977,8 +984,10 @@ CWaitUIUpdate::UpdateDraw()
 		{
 			sprintf(str, "%d FPS", g_FrameRate);	
 		}
-		g_pBack->GDI_Text(11,11, str, RGB(20,20,20));
-		g_pBack->GDI_Text(10,10, str, 0xFFFFFF);
+		// g_pBack->GDI_Text(11,11, str, RGB(20,20,20));
+		TextSystem::TextService::RenderText(11, 11, str);
+		// g_pBack->GDI_Text(10,10, str, 0xFFFFFF);
+		TextSystem::TextService::RenderText(10, 10, str);
 
 		//RECT rect = { 0, 0, 50, 50 };
 		//g_pBack->DrawRect(&rect, 0xFFFF);

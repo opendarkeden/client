@@ -51,28 +51,21 @@
 #ifndef __MWORKTHREAD_H__
 #define	__MWORKTHREAD_H__
 
-#ifdef PLATFORM_WINDOWS
-#include <Windows.h>
-#else
 #include "../basic/Platform.h"
 
-// Type definitions for thread function pointer
+// Type definitions for thread function pointer (Windows API compatibility)
 typedef DWORD (*LPTHREAD_START_ROUTINE)(void* lpParameter);
 
-// Thread priority constants
+// Thread priority constants (Windows API compatibility)
 #define THREAD_PRIORITY_NORMAL          0
 #define THREAD_PRIORITY_ABOVE_NORMAL    1
 #define THREAD_PRIORITY_BELOW_NORMAL   -1
 #define THREAD_PRIORITY_HIGHEST          2
 #define THREAD_PRIORITY_LOWEST          -2
 
-// Wait constants
+// Wait constants (Windows API compatibility)
 #define WAIT_OBJECT_0                   0
 #define WAIT_TIMEOUT                    258
-
-// Note: CRITICAL_SECTION is already properly defined in Platform.h using pthread_mutex_t
-// Do NOT override with macros - this breaks classes that use CRITICAL_SECTION members
-// The macros below were causing ProfileManager to be allocated with wrong size
 
 // Stub for WaitForSingleObject - maps to event wait
 static inline DWORD WaitForSingleObject(HANDLE event, DWORD timeout) {
@@ -83,13 +76,11 @@ static inline DWORD WaitForSingleObject(HANDLE event, DWORD timeout) {
     return WAIT_TIMEOUT;
 }
 
-// Stub for SetThreadPriority (not implemented on non-Windows)
+// Stub for SetThreadPriority (not implemented on mingw/macOS)
 static inline BOOL SetThreadPriority(HANDLE thread, int priority) {
     (void)thread; (void)priority;
     return TRUE;
 }
-
-#endif
 
 #include <deque>
 #include "MWorkNode.h"

@@ -57,9 +57,9 @@
 #define __MLOADINSPKWORKNODE_H__
 
 #include "MWorkNode.h"
-#include "CSpriteDef.h"
+#include "SpriteLib/CSpriteDef.h"
 //#include "CSpritePack.h"
-#include "CSpritePack.h"
+#include "SpriteLib/CSpritePack.h"
 
 
 #define	MAX_FILENAME		256

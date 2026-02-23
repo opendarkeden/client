@@ -11,6 +11,11 @@
 #include <iconv.h>
 #endif
 
+// Emscripten has iconv in its sysroot
+#ifdef __EMSCRIPTEN__
+#include <iconv.h>
+#endif
+
 // Forward declaration
 static char* ConvertGBKToUTF8(const char* gbkStr, size_t gbkLen, size_t& outLen);
 
